@@ -1,8 +1,8 @@
 /*
  * GValue.java
  * 
- * See LICENCE file for usage and redistribution terms
  * Copyright (c) 2006 Operational Dynamics
+ * See LICENCE file for usage and redistribution terms
  */
 package org.gnome.glib;
 
@@ -15,8 +15,8 @@ final class GValue {
     }
 
     // g_value_init(value, type)
-    static native void init(Value value /*, Type type? */);
-    
+    static native void init(Value value /* , Type type? */);
+
     // g_value_set_boolean(value, v_boolean)
     static native void setBoolean(Value value, boolean b);
 }

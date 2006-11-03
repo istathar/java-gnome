@@ -1,8 +1,8 @@
 /*
  * Gtk.java
  * 
- * See LICENCE file for usage and redistribution terms
  * Copyright (c) 2006 Operational Dynamics
+ * See LICENCE file for usage and redistribution terms
  */
 package org.gnome.gtk;
 

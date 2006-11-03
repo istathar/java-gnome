@@ -1,6 +1,6 @@
 /*
  * Boxed.java
- *
+ * 
  * Copyright (c) 2006 Operational Dynamics
  * See LICENCE file for usage and redistribution terms
  */
