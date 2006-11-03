@@ -81,7 +81,9 @@ tmp/include/%.h: src/jni/%.h
 # We don't use an implict rule for this for the simple reason that we
 # only want to do one invocation, which means using $? (newer than target).
 # It gets more complicated because of the need to give classnames to javah.
-build/headers-generate: $(SOURCES_C)
+
+SOURCES_JNI=$(shell echo $(SOURCES_C) | sed -e 's/\.c/\.c\n/g' | grep org )
+build/headers-generate: $(SOURCES_JNI)
 	@echo "$(JAVAH_CMD) tmp/headers/*.h"
 	$(JAVAH) -jni -d tmp/include -classpath $(JAVAGNOME_JARS):tmp/classes \
 		$(shell echo $? | sed -e 's/src\/jni\///g' -e 's/generated\/jni\///g' -e 's/\.c/\n/g' -e 's/_/\./g' | grep org )
@@ -122,7 +124,7 @@ tmp/libgtkjava-$(APIVERSION).so: tmp/native/gtk.o
 #	@echo "STRIP     $@"
 #	strip --only-keep-debug $@
 
-# Warning.
+# WARNING.
 # This isn't a complete make install for libgtk-java. It just updates the .jar
 # and the .so in an existing installation.
 
