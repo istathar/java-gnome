@@ -41,8 +41,7 @@ public abstract class Proxy {
 
     /**
      * Exists mostly as a convenience. If you try to use this Proxy then you'll
-     * make a big mess.
-     * 
+     * make a big mess. TODO should we remove this?
      */
     protected Proxy() {
         /*

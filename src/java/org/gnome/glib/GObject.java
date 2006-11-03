@@ -6,15 +6,13 @@
  */
 package org.gnome.glib;
 
-import org.freedesktop.bindings.Plumbing;
-
 /*
  * crafted since the setProperty() and connectSignal() functionality is somewhat
  * custom transform not especially connected to either the pulblic API or the
  * underlying G code. Note that this exends the base Plumbing, not the one here
- * in org.gnome.glib.
+ * in org.gnome.glib (as it calls this class!).
  */
-final class GObject extends Plumbing {
+final class GObject extends org.freedesktop.bindings.Plumbing {
 
     // no instantiation
     private GObject() {
@@ -43,7 +41,7 @@ final class GObject extends Plumbing {
     // }
 
     // or
-    
+
     /*
      * Atypically, this is package visible so that org.gnome.glib.Plumbing can
      * see it. That class exposes a method with the name connectSignal() which
