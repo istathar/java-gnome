@@ -23,9 +23,15 @@ final class GObject extends org.freedesktop.bindings.Plumbing {
         g_object_set_property(pointerOf(self), name, pointerOf(value));
     }
 
-    private final static native void g_object_set_property(long self,
+    private static final native void g_object_set_property(long self,
             String name, long value);
 
+    static final Value getProperty(org.gnome.glib.Object self, String name) {
+        return (Value) proxyFor(g_object_get_property(pointerOf(self), name));  
+    }
+    
+    private static final native long g_object_get_property(long self, String name);
+    
     // /*
     // * This is package visible so that org.gnome.glib.Plumbing can see it.
     // That

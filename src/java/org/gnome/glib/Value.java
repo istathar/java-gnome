@@ -29,54 +29,28 @@ import org.freedesktop.bindings.Proxy;
  * @author Andrew Cowie
  */
 /*
- * This is plumbing! It , so need for a Type class? and instances have that
- * identity and a value...
- * 
+ * This is plumbing!
  */
 public abstract class Value extends Proxy {
     /*
-     * This is an opaque representation of a memory address. It's a Java long,
-     * which means it's 64 bits wide which in turn means it can hold an address
-     * on a 64 bit system, but any interpretation that the Java language might
-     * asign to a long (ie, that it's signed) is meaningless and incorrect! This
-     * is package public so that Plumbing can see it, and final so that once
-     * constructed its immutable.
+     * This is an opaque representation of the GType value code used by GLib.
+     * Any interpretation that the Java language might assign to a long (ie,
+     * that it's signed) is meaningless and incorrect! This is package public so
+     * that Plumbing can see it, and final so that once constructed its
+     * immutable.
      */
-    final long type;
-
-    Value() {
-        this(0);
-    }
+    final long type = 0; // FIXME REMOVE?
 
     protected Value(long pointer) {
         super(pointer);
-        type = 0;
     }
+
+    /**
+     * Parent release function. Will be called by the GC when it invokes the
+     * finalizer, so this is the time to release references and free memory on
+     * the C side.
+     */
+    protected abstract void release();
 }
 
-/*
- * TODO Do something to create each of these things with the appropriate
- * GType... can we avoid a JNI round trip?
- */
 
-final class StringValue extends Value {
-
-    StringValue(String str) {
-
-    }
-}
-
-final class IntegerValue extends Value {
-
-    IntegerValue(int i) {
-
-    }
-}
-
-final class BooleanValue extends Value {
-
-    BooleanValue(boolean b) {
-        GValue.init(this /* , type?? */);
-        GValue.setBoolean(this, b);
-    }
-}
