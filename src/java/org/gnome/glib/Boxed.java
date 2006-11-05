@@ -7,41 +7,50 @@
 package org.gnome.glib;
 
 /**
- * Parent class of proxied Boxed structures. JAva side, these behave like normal
- * {@link org.gnome.glib.Object Object}s, but they are not as rich.
+ * Parent class of proxied structures. Java side, these behave like normal
+ * {@link org.gnome.glib.Object Object}s, but they are not as rich - they may
+ * be missing getters or setters (or both!), for example.
+ * 
+ * <p>
+ * In general, Boxed are short lived. They are commonly used to convey
+ * parameters or represent state such as in an Iterator. As such, good
+ * programming practice is to <b>not</b> hold on to these long term. Use them
+ * and let them go out of scope so they can be reclaimed.
  * 
  * <p>
  * <i>In the underlying GLib library, a <code>GBoxed</code> is an opaque
  * wrapper around a C structure allowing it to be used within GLib's Type
  * system. <code>GBoxed</code> generally have custom <code>copy()</code> and
- * <code>free()</code> functions as well. This are tricky, because unlike
- * <code>GObjects</code> they are not memory managed and so the owner of one
- * is responsible to free it. The trick is to figure out whether we are owner of
- * the <code>GBoxed</code> or not.</i>
+ * <code>free()</code> functions. Unlike <code>GObjects</code> they are not
+ * memory managed via the reference counting mechanism, and so the owner of a
+ * <code>GBoxed</code> is responsible to free it. The trick is to figure out
+ * whether we are owner of the <code>GBoxed</code> or not...</i>
  * 
  * @author Andrew Cowie
  */
-/*
- * We rely on the GType being set in the Value object that we are a subclass of
- * in order to be able to call the appropriate free function, as noted at GType
- * registration time.
- */
 public abstract class Boxed extends Value {
-    boolean owner = false;
+    /*
+     * Default true, which is the case for most instances. TODO True? 
+     */
+    boolean owner = true;
 
+    protected Boxed(long pointer) {
+        super(pointer);
+    }
+
+    /**
+     * Check to see if we are the owner of this Boxed. Call the underlying
+     * <code>free()</code> if we are, then carry on to
+     * {@link org.freedesktop.bindings.Proxy#finalize() Proxy's finalize()}.
+     */
     /*
      * This is a placeholder to remind us of the cleanup actions that will be
-     * necessary. When we put the full memory management code in place this will
-     * presumably be a function called release()
+     * necessary, irrespective of the finalizer technique used.
      */
-    /*
-     * Checks to see if we are the owner of this Boxed, calls the underlying
-     * free if we are, then carries on to
-     * {@link org.freedesktop.bindings.Proxy#finalize()}.
-     */
-    public void finalize() {
+    protected void finalize() {
         if (owner) {
-            GBoxed.free(this);
+            release();
+            owner = false;
         }
         super.finalize();
     }

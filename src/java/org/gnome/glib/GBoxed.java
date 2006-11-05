@@ -7,8 +7,7 @@
 package org.gnome.glib;
 
 /*
- * Crafted: this is where we carry out the memory management of our GBoxed
- * proxies.
+ * Crafted:
  */
 final class GBoxed extends Plumbing {
 
@@ -16,9 +15,5 @@ final class GBoxed extends Plumbing {
     private GBoxed() {
     }
 
-    static final void free(Boxed reference) {
-        g_boxed_free(typeOf(reference), pointerOf(reference));
-    }
-
-    private static final native void g_boxed_free(long type, long boxed);
+    // nothing here
 }

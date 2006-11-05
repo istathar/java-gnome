@@ -52,8 +52,7 @@ public abstract class Proxy {
 
     /*
      * This is a placeholder to remind us of the cleanup actions that will be
-     * necessary. When we put the full memory management code in place this will
-     * presumably be a function called release()
+     * necessary, irrespective of the finalizer technique used.
      */
     protected void finalize() {
         Plumbing.unregisterObject(this);
