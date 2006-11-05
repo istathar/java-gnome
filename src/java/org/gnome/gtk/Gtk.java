@@ -11,14 +11,19 @@ package org.gnome.gtk;
  * 
  * @author Andrew Cowie
  */
+/*
+ * Extremely atypically, this class contains native declarations because a)
+ * Theres nothing left if you strip off the Gtk prefix from Gtk, b) no reason to
+ * use a static class GtkMain or whatever as none of these methods need access
+ * to Plumbing.
+ */
 public final class Gtk {
-    
+
     private static final String APIVERSION = "4.0";
-    
+
     static {
-        System.loadLibrary("gtkjni-"+APIVERSION);
+        System.loadLibrary("gtkjni-" + APIVERSION);
     }
-    
 
     /**
      * No instantiation. Static methods only!
@@ -32,6 +37,8 @@ public final class Gtk {
     private static boolean initialized = false;
 
     /**
+     * Initialize the GTK libraries. <b>This must be called before any other
+     * org.gnome.* classes are used.</b>
      * 
      * @param args
      *            The command line arguments array. This is passed to the
@@ -42,13 +49,15 @@ public final class Gtk {
         if (initialized) {
             return;
         }
-//
-//        Glib.init(args);
 
-        GtkMain.init(args);
-        
+        // Glib.init();
+
+        gtk_init(/* args */);
+
         initialized = true;
     }
+
+    private static native final void gtk_init(/* String[] args? */);
 
     /**
      * This method blocks, ie, it does not return until the GTK main loop is
@@ -60,10 +69,14 @@ public final class Gtk {
      * of the application while still accepting events themselves)
      */
     public static void main() {
-        GtkMain.main();
+        gtk_main();
     }
+
+    private static native final void gtk_main();
 
     public static void mainQuit() {
+        gtk_main_quit();
     }
 
+    private static native final void gtk_main_quit();
 }

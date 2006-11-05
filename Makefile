@@ -56,12 +56,12 @@ build/classes: $(SOURCES_JAVA)
 
 
 GTK_CFLAGS=$(shell pkg-config --cflags gthread-2.0) \
-		$(shell pkg-config --cflags gtk+-2.0) \
-		$(shell PKG_CONFIG_PATH=$(JAVAGNOME_HOME)/lib/pkgconfig pkg-config --cflags glib-java)
+		$(shell pkg-config --cflags gtk+-2.0)
+#		$(shell PKG_CONFIG_PATH=$(JAVAGNOME_HOME)/lib/pkgconfig pkg-config --cflags glib-java)
 GTK_LIBS=$(shell pkg-config --libs gthread-2.0) \
 		$(shell pkg-config --libs glib-2.0) \
-		$(shell pkg-config --libs gtk+-2.0) \
-		$(shell PKG_CONFIG_PATH=$(JAVAGNOME_HOME)/lib/pkgconfig pkg-config --variable jnilibs glib-java)
+		$(shell pkg-config --libs gtk+-2.0)
+#		$(shell PKG_CONFIG_PATH=$(JAVAGNOME_HOME)/lib/pkgconfig pkg-config --variable jnilibs glib-java)
 
 
 ifdef V
