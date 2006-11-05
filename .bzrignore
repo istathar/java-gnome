@@ -1,0 +1,5 @@
+.config
+tmp
+build
+tests/exploration
+.settings
