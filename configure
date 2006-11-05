@@ -569,7 +569,7 @@ if ($os eq "gentoo") {
 	my $rt = `java-config -O`;
 	chomp $rt;
 	$rt .="/jre/lib/rt.jar";
-	check_compiler($jikes, "IBM jikes", which("jikes"), "-bootclasspath $rt") if ( -f "$rt");
+	check_compiler($jikes, "IBM jikes", which("jikes"), "-bootclasspath $rt +T=4 +Z0") if ( -f "$rt");
 	
 	# check javac (the one specified by Gentoo's java-config tool)
 	# The $vendor business is just some precision prettiness for the
@@ -632,7 +632,7 @@ if ($os eq "gentoo") {
 	# ideas. (at last report, libgcj's version of the GNU CLASSPATH
 	# libraries won't work here)
 	# Needs -bootclasspath argument in order to actually work!
-	check_compiler($jikes, "IBM jikes", "/usr/bin/jikes", "");
+	check_compiler($jikes, "IBM jikes", "/usr/bin/jikes", "+T=4 +Z0");
 
 	# check for a proper "real" JDK's javac as installed (and maybe
 	# selected in the alternatives system) by the user. In other words,
@@ -666,7 +666,7 @@ if ($os eq "gentoo") {
 
 	# check for jikes. Presumably -bootclasspath will need to be set
 	# like on Gentoo and Debian; to what?
-	check_compiler($jikes, "IBM jikes", "/usr/bin/jikes", "");
+	check_compiler($jikes, "IBM jikes", "/usr/bin/jikes", "+T=4 +Z0");
 
 	my $javac_candidate;
 	if ($jdk_home) {
@@ -1021,7 +1021,7 @@ if ($javah) {
 	bail "failed", "No JNI header generator detected.";
 }
 
-print CONFIG "GCC=ccache gcc\n";
+print CONFIG "GCC=ccache gcc -Wno-int-to-pointer-cast -Wno-pointer-to-int-cast\n";
 print CONFIG "GCC_CMD=GCC      \n";
 
 `rm -f Hello.java Hello.class Hello.o Hello.jar Hello`;
