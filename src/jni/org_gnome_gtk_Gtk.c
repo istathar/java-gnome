@@ -6,6 +6,8 @@
  */
 
 #include <jni.h>
+#include <glib.h>
+#include <gdk/gdk.h>
 #include <gtk/gtk.h>
 
 #include "org_gnome_gtk_Gtk.h"
@@ -22,6 +24,8 @@ JNIEXPORT void JNICALL
 Java_org_gnome_gtk_Gtk_gtk_1init
   (JNIEnv *env, jclass cls)
 {
+	g_thread_init(NULL);
+	gdk_threads_init();
 	// call function
 	gtk_init(0, NULL);
 }
@@ -52,5 +56,7 @@ Java_org_gnome_gtk_Gtk_gtk_1main_1quit
   (JNIEnv *env, jclass cls)
 {
 	// call function
+	gdk_threads_enter();
 	gtk_main_quit();
+	gdk_threads_leave();
 }
