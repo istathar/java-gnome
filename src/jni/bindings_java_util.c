@@ -9,21 +9,24 @@ static JavaVM*	cachedJavaVM;
  * JNIEnv interface pointer whenever necessary.
  */
 /*
- * A symbol by this name is automatically called when the library containing it is loaded
- * by a System.loadLibrary().
+ * A symbol by this name is automatically called when the library containing it
+ * is loaded by a System.loadLibrary().
  */
-
 JNIEXPORT jint JNICALL
-JNI_OnLoad(JavaVM *jvm, void *reserved)
+JNI_OnLoad
+(
+	JavaVM *jvm,
+	void *reserved
+)
 {
  	cachedJavaVM = jvm;
  	return JNI_VERSION_1_4;
 }
 
 /**
- * Since the JNIEnv pointer is specific to each thread, it is necessary to retrieve it
- * from the VM directly when we are dealing with arbitrary events as opposed to local
- * JNI calls. Returns NULL on failure.
+ * Since the JNIEnv pointer is specific to each thread, it is necessary to
+ * retrieve it from the VM directly when we are dealing with arbitrary events
+ * as opposed to local JNI calls. Returns NULL on failure.
  */
 JNIEnv*
 bindings_java_getEnv()
@@ -47,7 +50,11 @@ bindings_java_getEnv()
  */
 void
 bindings_java_throw_by_name
-	(JNIEnv* env, const char* name, const char* msg)
+(
+	JNIEnv* env,
+	const char* name,
+	const char* msg
+)
 {
     /*
      * It turns out different Java implemenations are finicky about the syntax
