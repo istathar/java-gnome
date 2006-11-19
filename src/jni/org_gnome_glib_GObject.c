@@ -71,3 +71,36 @@ Java_org_gnome_glib_GObject_g_1signal_1connect
 	return;
 }
 
+
+
+/*
+ * Implements
+ *   org.gnome.glib.GObject.g_object_unref(long reference)
+ * called from
+ *   org.gnome.glib.GObject.unref(Object reference)
+ * called when
+ *   org.gnome.glib.Object.release()
+ * is invoked by a finalizer.
+ */
+JNIEXPORT void JNICALL 
+Java_org_gnome_glib_GObject_g_1object_1unref
+(
+	JNIEnv* env,
+	jclass cls,
+	jobject _reference
+)
+{
+	GObject* reference;
+	
+	// translate reference
+	reference = (GObject*) _reference;
+	
+	// call function
+	g_object_unref(reference);
+	
+	/*
+	 * Which should, incidentally, dispose of this GObject if we're the
+	 * only one still holding a reference count to it. See discussion at
+	 * the JavaDoc for org.gnome.glib.Object's release() method. 
+	 */
+}

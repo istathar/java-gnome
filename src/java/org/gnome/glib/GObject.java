@@ -12,11 +12,10 @@ package org.gnome.glib;
  * underlying G code. Note that this exends the base Plumbing, not the one here
  * in org.gnome.glib (as it calls this class!).
  */
-final class GObject extends org.freedesktop.bindings.Plumbing {
-
+final class GObject extends org.freedesktop.bindings.Plumbing
+{
     // no instantiation
-    private GObject() {
-    }
+    private GObject() {}
 
     static final void setProperty(org.gnome.glib.Object self, String name,
             org.gnome.glib.Value value) {
@@ -27,11 +26,12 @@ final class GObject extends org.freedesktop.bindings.Plumbing {
             String name, long value);
 
     static final Value getProperty(org.gnome.glib.Object self, String name) {
-        return (Value) proxyFor(g_object_get_property(pointerOf(self), name));  
+        return (Value) proxyFor(g_object_get_property(pointerOf(self), name));
     }
-    
-    private static final native long g_object_get_property(long self, String name);
-    
+
+    private static final native long g_object_get_property(long self,
+            String name);
+
     // /*
     // * This is package visible so that org.gnome.glib.Plumbing can see it.
     // That
@@ -57,4 +57,19 @@ final class GObject extends org.freedesktop.bindings.Plumbing {
      */
     final static native void g_signal_connect(long instance,
             java.lang.Object handler);
+
+    /**
+     * Calls g_object_unref() of the argument passed. You'd really best only do
+     * this once.
+     */
+    static void unref(org.gnome.glib.Object reference) {
+        long pointer = pointerOf(reference);
+        // guard against absurdity.
+        if (pointer == 0) {
+            return;
+        }
+        g_object_unref(pointer);
+    }
+
+    private static native final void g_object_unref(long reference);
 }

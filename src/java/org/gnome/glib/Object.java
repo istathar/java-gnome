@@ -33,7 +33,8 @@ package org.gnome.glib;
  * necessary, as most <code>GObject</code>s provide convenience methods for
  * such things, and should be used in preference wherever available.</i>
  */
-public abstract class Object extends Value {
+public abstract class Object extends Value
+{
 
     protected Object(long pointer) {
         super(pointer);
@@ -53,8 +54,18 @@ public abstract class Object extends Value {
         super.finalize();
     }
 
+    /**
+     * Drop our reference count to the underlying GObject.
+     * 
+     * <p>
+     * <i>This should, incidentally, cause this GObject to be disposed by GLib
+     * of if we're the only one still holding a reference count to it. On the
+     * other hand, if our Proxy just happens to be going out of scope, and the
+     * GtkWidget (say) is [still] packed into some GtkContainer, then it will
+     * continue to exist quite happily.</i>
+     */
     protected final void release() {
-        // TODO imeplement g_object_unref() logic!
+        GObject.unref(this);
     }
 
     /*
