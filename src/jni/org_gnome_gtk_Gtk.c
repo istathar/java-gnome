@@ -22,10 +22,15 @@
  */ 
 JNIEXPORT void JNICALL
 Java_org_gnome_gtk_Gtk_gtk_1init
-  (JNIEnv *env, jclass cls)
+(
+	JNIEnv *env,
+	jclass cls
+)
 {
 	g_thread_init(NULL);
 	gdk_threads_init();
+	
+	g_set_prgname("java-gnome");
 	// call function
 	gtk_init(0, NULL);
 }
@@ -39,7 +44,10 @@ Java_org_gnome_gtk_Gtk_gtk_1init
  */
 JNIEXPORT void JNICALL
 Java_org_gnome_gtk_Gtk_gtk_1main
-  (JNIEnv *env, jclass cls)
+(
+	JNIEnv *env,
+	jclass cls
+)
 {
 	// call function
 	gtk_main();
@@ -53,7 +61,10 @@ Java_org_gnome_gtk_Gtk_gtk_1main
  */
 JNIEXPORT void JNICALL
 Java_org_gnome_gtk_Gtk_gtk_1main_1quit
-  (JNIEnv *env, jclass cls)
+(
+	JNIEnv *env,
+	jclass cls
+)
 {
 	// call function
 	gdk_threads_enter();
