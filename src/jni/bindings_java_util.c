@@ -19,9 +19,13 @@ JNI_OnLoad
 	void *reserved
 )
 {
+	if (jvm == NULL) {
+		g_error("JavaVM pointer was NULL when initializing library");
+	}
  	cachedJavaVM = jvm;
  	return JNI_VERSION_1_4;
 }
+
 
 /**
  * Since the JNIEnv pointer is specific to each thread, it is necessary to
@@ -33,15 +37,23 @@ bindings_java_getEnv()
 {
 	JNIEnv* env;
 	jint result;
-	
-	result = (*cachedJavaVM)->AttachCurrentThread(cachedJavaVM, (void **) &env, NULL);
-	if (result != 0) {
-		/* failed; but deal with the consequence in the caller */
+
+	result = (*cachedJavaVM)->GetEnv(cachedJavaVM, (void **) &env, JNI_VERSION_1_4);
+	if (env == NULL) {
+		switch (result) {
+		case JNI_EDETACHED:
+			g_critical("Tried to get JNIEnv but this thread detached");
+			// and attach?
+			break;
+			
+		case JNI_EVERSION:
+			g_error("Trying to get JNIEnv resulted in version error.");
+			break;
+		}
 		return NULL;
 	}
 	return env;
 }
-
 
 
 /*
@@ -65,21 +77,22 @@ void
 bindings_java_throwByName
 (
 	JNIEnv* env,
-	const char* name,
-	const char* msg
+	const gchar* name,
+	const gchar* msg
 )
 {
 	jclass cls = (*env)->FindClass(env, name);
 
 	if (cls != NULL) {
-	(*env)->ThrowNew(env, cls, msg);
-	/*
-	 * And, since its valid, we need to free the local jclass ref that
-	 * FindClass() gave us...
-	 */
+		(*env)->ThrowNew(env, cls, msg);
+		/*
+		 * And, since its valid, we need to free the local jclass ref that
+		 * FindClass() gave us...
+		 */
 		(*env)->DeleteLocalRef(env, cls);
 	}
 }
+
 
 /**
  * Utility function to just blow a generic RuntimeException in order
@@ -90,30 +103,37 @@ bindings_java_throw
 (
 	JNIEnv* env,
 	const char* fmt,
-	va_list args
+	...
 )
 {
-	const guint WIDTH = 50;
-	char msg[WIDTH];
-	static jclass cls = NULL;
-	const char* name = "java/lang/RuntimeException";
-			// "org/gnome/glib/NativeException" ?
+	va_list args;
 	
-	if (cls == NULL) {
-		cls = (*env)->FindClass(env, name);
+	const guint WIDTH = 200;
+	gchar msg[WIDTH];
+	static jclass cls = NULL;
+	const gchar* name = "java/lang/RuntimeException";
+			// "org/gnome/glib/NativeException" ?
 
+	va_start(args, fmt);
+	g_vsnprintf(msg, WIDTH, fmt, args);
+	va_end(args);
+
+	if (cls == NULL) {
+		if (env == NULL) {
+			g_error("Want to throw a %s but JNIenv is NULL", name);
+		}	
+		
+		cls = (*env)->FindClass(env, name);
 		if (cls == NULL) {
-			g_critical("Tried to throw a %s but calling FindClass() on that name failed.", name); 
+			g_critical("Tried to throw a %s but calling FindClass() on that name failed.", name);
+			return; 
 		}
 	}
-
-	g_vsnprintf(msg, WIDTH, fmt, args);
 	
 	(*env)->ThrowNew(env, cls, msg);
     	
 	(*env)->DeleteLocalRef(env, cls);
 }
-
 
 
 /**
