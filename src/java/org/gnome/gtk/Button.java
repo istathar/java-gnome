@@ -7,16 +7,16 @@
 package org.gnome.gtk;
 
 /**
- * A Widget that creates a signal when clicked on.
- * 
- * Button can hold any just about any other Widget as its child (TODO which
- * means what? What limitations?). The most commonly used child is a Label, and
- * there are convenience methods to help you do just create a button with a
- * given label automatically.
+ * A Widget that creates a signal when clicked on. Button can hold any just
+ * about any other Widget as its child (TODO which means what? What
+ * limitations?). The most commonly used child is a Label, and there are
+ * convenience methods to help you just create a button with a given label
+ * automatically.
  * 
  * @author Andrew Cowie
  */
-public class Button extends Bin {
+public class Button extends Bin
+{
 
     protected Button(long pointer) {
         super(pointer);
@@ -46,14 +46,21 @@ public class Button extends Bin {
         super(GtkButton.createButtonWithLabel(text));
     }
 
-    public void setLabel(String label) {
-        GtkButton.setLabel(this, label);
+    /**
+     * Set the text showing in the Button. (This assumes you've got a Label in
+     * the Button in the first place, ie, you created this with
+     * {@link #Button(String)}).
+     */
+    public void setLabel(String text) {
+        GtkButton.setLabel(this, text);
     }
 
     /**
+     * Get the text showing on the Button.
      * 
-     * @return the text on the Label in the Button, or
-     *         <code>null<code> if the no arg constructor was used.
+     * @return the text of the Label, or <code>null</code> if the no-arg
+     *         constructor was used and you've just got an arbitrary
+     *         Widget-containing-Button, not the more usual Button-with-Label.
      */
     public String getLabel() {
         return GtkButton.getLabel(this);
@@ -71,32 +78,30 @@ public class Button extends Bin {
     /**
      * Event generated when a user presses and releases a button, causing it to
      * activate.
+     * 
+     * <p>
+     * <i>When the mouse is used to click on a Button this signal will be
+     * emitted, but only if the cursor is still in the Button when the mouse
+     * button is released. You're probably used to this behaviour without
+     * realizing it.</i>
      */
-    /*
-     * We can't inherit this from anywhere, nor is there directly a prototype in
-     * the generated code to "call", but you can look at the signature for
-     * handleClicked to find out what the arguments need to be.
-     */
-    public interface CLICKED extends GtkButton.CLICKED {
+    public interface CLICKED extends GtkButton.CLICKED
+    {
         public void onClicked(Button source);
     }
-    
-    public interface DEPRESSED extends GtkButton.DEPRESSED {
-        
-    }
-    
+
     /**
      * Hook up a handler to receive "clicked" events on this Button.
-     * 
-     * @param handler
-     *            the Inteface implenting the callback to be executed when this
-     *            signal is received.
      */
     public void connect(CLICKED handler) {
         GtkButton.connect(this, handler);
     }
-    
-    public void connect(DEPRESSED handler) {
-        GtkButton.connect(this, handler);
-    }
+
+    /*
+     * ACTIVATE: "Applications should never connect to this signal, but use the
+     * 'clicked' signal."
+     */
+    /*
+     * ENTERED, PRESSED, etc: "deprecated"
+     */
 }

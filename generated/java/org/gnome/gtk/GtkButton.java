@@ -11,10 +11,10 @@ import org.gnome.glib.Plumbing;
 import org.gnome.glib.Signal;
 
 // generated
-final class GtkButton extends Plumbing {
-    
-	private GtkButton() {
-    }
+final class GtkButton extends Plumbing
+{
+
+    private GtkButton() {}
 
     static final Button instanceFor(long pointer) {
         Proxy obj = proxyFor(pointer);
@@ -42,47 +42,58 @@ final class GtkButton extends Plumbing {
         gtk_button_set_label(pointerOf(self), label);
     }
 
-    private static final native void gtk_button_set_label(long button,
-            String label);
+    private static final native void gtk_button_set_label(long button, String label);
 
     static final String getLabel(Button self) {
         return gtk_button_get_label(pointerOf(self));
     }
 
     private static final native String gtk_button_get_label(long button);
-    
+
+    interface CLICKED extends Signal
+    {
+        void onClicked(Button source);
+    }
+
     static final void connect(Button self, GtkButton.CLICKED handler) {
-        connectSignal(self, handler);
+        connectSignal(self, handler, GtkButton.class, "clicked");
+    }
+
+    /**
+     * This is a joke and just to experiement with more complex signal
+     * signatures anid is not actually a signal in GtkButton.
+     */
+    interface DEPRESSED extends Signal
+    {
+        boolean onDepressed(Button source, Widget whoIsDepressed);
     }
 
     static final void connect(Button self, GtkButton.DEPRESSED handler) {
-        connectSignal(self, handler);
+        connectSignal(self, handler, GtkButton.class, "depressed");
     }
-    
-    interface CLICKED extends Signal {
-        void onClicked(Button source);
-    }
-    
-    interface DEPRESSED extends Signal {
-        boolean onDepressed(Button source, Widget whoIsDepressed);
-    }
-    
-    interface ENTERED extends Signal {
+
+    interface ENTERED extends Signal
+    {
         void onEntered(Button source);
     }
-    
+
+    static final void connect(Button self, GtkButton.ENTERED handler) {
+        connectSignal(self, handler, GtkButton.class, "entered");
+    }
+
     /*
      * called by native code! Also, with this visibility we can unit test it?!?
      */
-    protected static final void handleClicked(Signal handler, Button source) {
-        ((Button.CLICKED) handler).onClicked(source);
+    protected static final void handleClicked(Signal handler, long source) {
+        ((GtkButton.CLICKED) handler).onClicked(instanceFor(source));
     }
 
-    protected static final boolean handleDepressed(Signal handler, Button source, long whoIsDepressed) {
-        return ((GtkButton.DEPRESSED) handler).onDepressed(source, (Widget) proxyFor(whoIsDepressed));
+    protected static final boolean handleDepressed(Signal handler, long source, long whoIsDepressed) {
+        return ((GtkButton.DEPRESSED) handler).onDepressed(instanceFor(source),
+                instanceFor(whoIsDepressed));
     }
-    
+
     protected static final void handleEntered(Signal handler, long source) {
-        ((GtkButton.ENTERED) handler).onEntered((Button) proxyFor(source)); 
+        ((GtkButton.ENTERED) handler).onEntered(instanceFor(source));
     }
 }
