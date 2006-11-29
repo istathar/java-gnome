@@ -37,8 +37,8 @@ public abstract class Plumbing extends org.freedesktop.bindings.Plumbing
      * In this case we need to go back to GObject in order to be able to make
      * the native call to our g_signal_connect() wrapper.
      */
-    protected static final void connectSignal(Object instance, Signal handler,
-            Class receiver, String name) {
+    protected static final void connectSignal(Object instance, Signal handler, Class receiver,
+            String name) {
 
         GObject.g_signal_connect(pointerOf(instance), handler, receiver, name);
     }

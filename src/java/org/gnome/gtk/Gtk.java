@@ -17,7 +17,8 @@ package org.gnome.gtk;
  * use a static class GtkMain or whatever as none of these methods need access
  * to Plumbing.
  */
-public final class Gtk {
+public final class Gtk
+{
 
     private static final String APIVERSION = "4.0";
 
@@ -28,8 +29,7 @@ public final class Gtk {
     /**
      * No instantiation. Static methods only!
      */
-    private Gtk() {
-    }
+    private Gtk() {}
 
     /**
      * A guard against someone calling init() twice

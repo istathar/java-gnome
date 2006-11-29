@@ -16,8 +16,8 @@ import org.freedesktop.bindings.Enum;
  * 
  * @author Andrew Cowie
  */
-public final class WindowType extends Enum {
-
+public final class WindowType extends Enum
+{
     private WindowType(int sequence) {
         super(sequence);
     }
@@ -27,11 +27,10 @@ public final class WindowType extends Enum {
      * with this type are managed by the window manager and have a frame by
      * default. [The frame is what you might think of the "border", although
      * border is actually a characteristic of Wiget. You can call
-     * {@link org.gnome.gtk.Window#setDecorated(boolean) setDecorated(false)} to turn
-     * the window manager's frame off]
+     * {@link org.gnome.gtk.Window#setDecorated(boolean) setDecorated(false)} to
+     * turn the window manager's frame off]
      */
-    public static final WindowType TOPLEVEL = new WindowType(
-            GtkWindowType.TOPLEVEL);
+    public static final WindowType TOPLEVEL = new WindowType(GtkWindowType.TOPLEVEL);
 
     /**
      * Windows with type POPUP are ignored by the window manager; window manager
@@ -42,8 +41,8 @@ public final class WindowType extends Enum {
      * menus and tooltips - things that you wouldn't think of as Windows and
      * don't program as such. In particular, do not use this to turn off Window
      * borders! That's what
-     * {@link org.gnome.gtk.Window#setDecorated(boolean) setDecorated(false)} is for.
+     * {@link org.gnome.gtk.Window#setDecorated(boolean) setDecorated(false)} is
+     * for.
      */
     public static final WindowType POPUP = new WindowType(GtkWindowType.POPUP);
-
 }

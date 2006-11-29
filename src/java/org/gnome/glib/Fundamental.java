@@ -29,7 +29,8 @@ package org.gnome.glib;
  * Any reason for this to be public? Note that there is no GFundamental, and nor
  * are we fronting a GSlice.
  */
-abstract class Fundamental extends Value {
+abstract class Fundamental extends Value
+{
 
     protected Fundamental(long pointer) {
         super(pointer);
@@ -55,21 +56,24 @@ abstract class Fundamental extends Value {
     }
 }
 
-final class StringValue extends Fundamental {
+final class StringValue extends Fundamental
+{
 
     StringValue(String str) {
         super(GValue.createValue(str));
     }
 }
 
-final class IntegerValue extends Fundamental {
+final class IntegerValue extends Fundamental
+{
 
     IntegerValue(int i) {
         super(GValue.createValue(i));
     }
 }
 
-final class BooleanValue extends Fundamental {
+final class BooleanValue extends Fundamental
+{
 
     BooleanValue(boolean b) {
         super(GValue.createValue(b));

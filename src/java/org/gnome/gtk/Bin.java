@@ -11,7 +11,8 @@ package org.gnome.gtk;
  * 
  * @author Andrew Cowie
  */
-public abstract class Bin extends Container {
+public abstract class Bin extends Container
+{
 
     protected Bin(long pointer) {
         super(pointer);

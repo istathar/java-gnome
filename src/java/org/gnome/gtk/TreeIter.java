@@ -19,7 +19,8 @@ import org.gnome.glib.Boxed;
  * 
  * @author Andrew Cowie
  */
-public class TreeIter extends Boxed {
+public class TreeIter extends Boxed
+{
 
     protected TreeIter(long pointer) {
         super(pointer);

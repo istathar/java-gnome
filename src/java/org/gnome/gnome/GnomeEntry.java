@@ -6,6 +6,7 @@
  */
 package org.gnome.gnome;
 
-final class GnomeEntry {
+final class GnomeEntry
+{
     static native String get_text(Entry self);
 }

@@ -6,8 +6,9 @@
  */
 package org.gnome.gtk;
 
-public abstract class Container extends Widget {
-    
+public abstract class Container extends Widget
+{
+
     protected Container(long pointer) {
         super(pointer);
     }

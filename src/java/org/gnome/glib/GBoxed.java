@@ -9,11 +9,11 @@ package org.gnome.glib;
 /*
  * Crafted:
  */
-final class GBoxed extends Plumbing {
+final class GBoxed extends Plumbing
+{
 
     // no instantiation
-    private GBoxed() {
-    }
+    private GBoxed() {}
 
     // nothing here
 }

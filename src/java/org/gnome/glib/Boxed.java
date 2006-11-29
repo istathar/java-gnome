@@ -28,9 +28,10 @@ package org.gnome.glib;
  * 
  * @author Andrew Cowie
  */
-public abstract class Boxed extends Value {
+public abstract class Boxed extends Value
+{
     /*
-     * Default true, which is the case for most instances. TODO True? 
+     * Default true, which is the case for most instances. TODO True?
      */
     boolean owner = true;
 

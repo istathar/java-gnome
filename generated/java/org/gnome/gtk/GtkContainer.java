@@ -9,15 +9,14 @@ package org.gnome.gtk;
 import org.gnome.glib.Plumbing;
 
 // generated
-final class GtkContainer extends Plumbing {
+final class GtkContainer extends Plumbing
+{
 
-    private GtkContainer() {
-    }
+    private GtkContainer() {}
 
     /**
-     * Wraps
-     * <code><pre>
-     * gtk_container_add(GtkContainer container, GtkWidget child)
+     * Wraps <code><pre>
+     *   gtk_container_add(GtkContainer container, GtkWidget child)
      * </pre></code>
      */
     static final void add(Container self, Widget child) {

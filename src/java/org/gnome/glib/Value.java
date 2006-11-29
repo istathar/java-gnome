@@ -31,7 +31,8 @@ import org.freedesktop.bindings.Proxy;
 /*
  * This is plumbing!
  */
-public abstract class Value extends Proxy {
+public abstract class Value extends Proxy
+{
     /*
      * This is an opaque representation of the GType value code used by GLib.
      * Any interpretation that the Java language might assign to a long (ie,
@@ -52,5 +53,3 @@ public abstract class Value extends Proxy {
      */
     protected abstract void release();
 }
-
-

@@ -9,11 +9,11 @@ package org.gnome.glib;
 /*
  * Crafted: the creation of fundamentals is quite custom.
  */
-final class GValue extends Plumbing {
+final class GValue extends Plumbing
+{
 
     // no instantiation
-    private GValue() {
-    }
+    private GValue() {}
 
     static final long createValue(int i) {
         return g_value_init(i);

@@ -6,7 +6,8 @@
  */
 package org.gnome.gdk;
 
-public class Pixbuf extends org.gnome.glib.Object {
+public class Pixbuf extends org.gnome.glib.Object
+{
     private Pixbuf() {
         // FIXME WRONG!!!
         super(0);

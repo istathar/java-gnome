@@ -7,7 +7,8 @@
 package org.gnome.gtk;
 
 // generated
-final class GtkWindowType {
+final class GtkWindowType
+{
 
     // enumerates from 0
     static final int TOPLEVEL = 0;

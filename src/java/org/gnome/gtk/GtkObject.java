@@ -7,10 +7,11 @@
 package org.gnome.gtk;
 
 /**
- * This is NOT generated 
+ * This is NOT generated
  */
-final class GtkObject {
-    
+final class GtkObject
+{
+
     // no instantiation
-    private GtkObject() { }
+    private GtkObject() {}
 }

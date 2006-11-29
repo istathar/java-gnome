@@ -8,14 +8,15 @@ package org.gnome.gtk;
 
 import org.gnome.glib.Plumbing;
 
-final class GtkTreeIter extends Plumbing {
+final class GtkTreeIter extends Plumbing
+{
     private GtkTreeIter() {
-        // no instatiation
+    // no instatiation
     }
-    
+
     static final void free(TreeIter self) {
         gtk_tree_iter_free(pointerOf(self));
     }
-    
-    private static native final void gtk_tree_iter_free(long self); 
+
+    private static native final void gtk_tree_iter_free(long self);
 }

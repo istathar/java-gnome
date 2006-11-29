@@ -11,7 +11,8 @@ package org.gnome.glib;
  * 
  * @author Andrew Cowie
  */
-public final class Glib {
+public final class Glib
+{
     /**
      * A guard against someone calling init() twice
      */
@@ -20,8 +21,7 @@ public final class Glib {
     /**
      * No instantiation. Static methods only!
      */
-    private Glib() {
-    }
+    private Glib() {}
 
     /**
      * Initialize GLib's internal subsystems. To simplify things, this is called
