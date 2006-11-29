@@ -8,6 +8,7 @@
 #include <glib.h>
 #include <glib-object.h>
 #include <jni.h>
+#include "bindings_java.h"
 #include "org_gnome_glib_GObject.h"
 
 /*
@@ -49,29 +50,67 @@ Java_org_gnome_glib_GObject_g_1object_1set_1property
 	(*env)->ReleaseStringUTFChars(env, _name, name);
 }
 
-
-
 /*
  * Implements
- *   org.gnome.glib.GObject.g_signal_connect(long instance, Object handler)
+ *   org.gnome.glib.GObject.g_signal_connect(long instance, Object handler, String name)
  * called from
- *   org.gnome.glib.Plumbing.connectSignal(Object instance, Signal handler)
+ *   org.gnome.glib.Plumbing.connectSignal(Object instance, Signal handler, String name)
  * called from
- *   <generated package scope classes>.connect(Signal handler)
+ *   <generated package scope classes>.connect(Objet instance, Signal handler)
  *
  * This is where the magic to create a GClosure and hook it up to the GSignal
  * handling mechanisms is taken care of. A reference is created to the passed
  * Java object which is used as the callback when the signal is fired.
  */
-
 JNIEXPORT void JNICALL
 Java_org_gnome_glib_GObject_g_1signal_1connect
-	(JNIEnv *env, jclass cls, jlong _instance, jobject _handler)
+(
+	JNIEnv *env,
+	jclass cls,
+	jlong _instance,
+	jobject _handler,
+	jobject _receiver,
+	jstring _name
+)
 {
-	return;
+	GObject* instance;
+  	gchar* name;
+
+  	guint id;
+  	GQuark detail = 0;
+  	GClosure* closure;
+  	gboolean ok;
+
+	// translate instance  	
+  	instance = (GObject*) _instance;
+
+	// translate the signal name
+	name = (gchar*) (*env)->GetStringUTFChars(env, _name, NULL);	
+	
+	/*
+	 * Lookup the signal information. We use this rather than g_signal_lookup() because
+	 * it allows us to sidestep the issue of detailed signal names.
+	 */
+
+	ok = g_signal_parse_name(name, G_OBJECT_TYPE(instance), &id, &detail, TRUE);
+	
+	if (!ok) {
+		bindings_java_throw(env, "Unknown signal name %s for object %s", name, G_OBJECT_TYPE_NAME(instance));
+    		return;
+  	}
+  	
+  	closure = bindings_java_closure_new(env, instance, _handler, (jclass) _receiver, name, id);
+  	if (closure == NULL) {
+  		// and an exception has already been thrown
+	    	return;
+  	}
+
+	// returns the handler id, but we don't need it.
+	g_signal_connect_closure_by_id(instance, id, detail, closure, FALSE);
+	
+	// cleanup. Not really necessary as will happen automatically in a moment.
+	(*env)->ReleaseStringUTFChars(env, _name, name);
 }
-
-
 
 /*
  * Implements
@@ -87,7 +126,7 @@ Java_org_gnome_glib_GObject_g_1object_1unref
 (
 	JNIEnv* env,
 	jclass cls,
-	jobject _reference
+	jlong _reference
 )
 {
 	GObject* reference;

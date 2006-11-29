@@ -11,11 +11,24 @@
 
 #include <jni.h>
 #include <glib.h>
+#include <glib-object.h>
+
+/*
+ * bindings_java_util.c
+ */
 
 extern JNIEnv* bindings_java_getEnv();
 
 extern void bindings_java_throwByName(JNIEnv*, const char*, const char*);
 extern void bindings_java_throw(JNIEnv*, const char*, ...);
+
 extern const gchar* bindings_java_typeToSignature(GType);
+
+/*
+ *  bindings_java_signal.c
+ */
+
+extern GClosure* bindings_java_closure_new(JNIEnv*, GObject*, jobject, jclass, const gchar*, guint);
+
 
 #endif 

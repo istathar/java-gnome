@@ -15,17 +15,32 @@ package org.gnome.glib;
  * 
  * @author Andrew Cowie
  */
-public abstract class Plumbing extends org.freedesktop.bindings.Plumbing {
-
+public abstract class Plumbing extends org.freedesktop.bindings.Plumbing
+{
     /**
      * Connect a signal handler to a GObject.
+     * 
+     * @param instance
+     *            the Object Proxy you want to connet the singnal to
+     * @param handler
+     *            the object implementing the Signal subinterface we defined in
+     *            one of our public classes.
+     * @param name
+     *            the name of the signal being connected. <i>By design, the
+     *            literal name of the interface being connected is the name of
+     *            the signal in capitals by our naming convention. Nevertheless,
+     *            you have to explicitly name the signal in because
+     *            self-delegation means we never quite know which is being
+     *            hooked up. This should be generated!</i>
      */
     /*
      * In this case we need to go back to GObject in order to be able to make
      * the native call to our g_signal_connect() wrapper.
      */
-    protected static final void connectSignal(Object instance, Signal handler) {
-        GObject.g_signal_connect(pointerOf(instance), handler);
+    protected static final void connectSignal(Object instance, Signal handler,
+            Class receiver, String name) {
+
+        GObject.g_signal_connect(pointerOf(instance), handler, receiver, name);
     }
 
     /**
@@ -33,8 +48,8 @@ public abstract class Plumbing extends org.freedesktop.bindings.Plumbing {
      *         the underlying libraries.
      */
     /*
-     * We place the guard on the assumption that anyone calling this is about to pass
-     * it through to the native side as a GType.
+     * We place the guard on the assumption that anyone calling this is about to
+     * pass it through to the native side as a GType.
      */
     protected static final long typeOf(Value reference) {
         if (reference.type == 0L) {

@@ -14,6 +14,12 @@ package org.gnome.glib;
  * 
  * @author Andrew Cowie
  */
-public abstract interface Signal {
-    //
+/*
+ * This is only here so that the callback design is more straight forward.
+ * Otherwise we'd have to lookup the jclass for each signal on the JNI side, and
+ * that's silly. The downcast in the generated handleName() method will take
+ * care of it.
+ */
+public abstract interface Signal
+{
 }
