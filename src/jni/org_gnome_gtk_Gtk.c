@@ -67,7 +67,7 @@ Java_org_gnome_gtk_Gtk_gtk_1main_1quit
 )
 {
 	// call function
-	gdk_threads_enter();
+//	gdk_threads_enter();
 	gtk_main_quit();
-	gdk_threads_leave();
+//	gdk_threads_leave();
 }

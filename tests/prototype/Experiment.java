@@ -7,6 +7,8 @@
 
 import org.gnome.gtk.Button;
 import org.gnome.gtk.Gtk;
+import org.gnome.gtk.Object;
+import org.gnome.gtk.Widget;
 import org.gnome.gtk.Window;
 
 public final class Experiment
@@ -31,6 +33,13 @@ public final class Experiment
         b.connect(new Button.CLICKED() {
             public void onClicked(Button source) {
                 System.out.println("I got clicked...");
+            }
+        });
+
+        w.connect(new Window.DELETE() {
+            public boolean onDeleteEvent(Widget source, Object event) {
+                Gtk.mainQuit();
+                return false;
             }
         });
 
