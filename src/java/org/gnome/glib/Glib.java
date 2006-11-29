@@ -22,11 +22,12 @@ public final class Glib {
      */
     private Glib() {
     }
-    
+
     /**
      * Initialize GLib's internal subsystems. To simplify things, this is called
-     * automatically by {@link org.gnome.Gtk#init()}, so the occasions to call
-     * this directly should be pretty rare.
+     * automatically by
+     * {@link org.gnome.gtk.Gtk#init(java.lang.String[]) Gtk.init()}, so the
+     * occasions to call this directly should be pretty rare.
      */
     public static void init(String[] args) {
         if (initialized) {
