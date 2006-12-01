@@ -26,8 +26,11 @@ CLASSES_JAVA=$(shell echo $(SOURCES_JAVA) | sed -e's/\.java/\.class/g' -e's/src\
 # These are just the headers which are crafted, not generated
 HEADERS_C=$(shell find src/jni -name '*.h' | sed -e 's/src\/jni/tmp\/include/g' -e 's/\.c/\.h/g')
 
-SOURCES_C=$(shell find src/jni -name '*.c' ) $(shell find mockup/jni -name '*.c' )
-OBJECTS_C=$(shell echo $(SOURCES_C) | sed -e's/\.c/\.o/g' -e's/src\/jni/tmp\/objects/g' -e's/mockup\/jni/tmp\/objects/g')
+SOURCES_C=$(shell find src/java -name '*.c' ) $(shell find mockup/java -name '*.c' )
+OBJECTS_C=$(shell echo $(SOURCES_C) | sed -e's/\.c/\.o/g' -e's/src\/java/tmp\/objects/g' -e's/mockup\/java/tmp\/objects/g' )
+
+SOURCES_GLUE=$(shell find src/jni -name '*.c' )
+OBJECTS_GLUE=$(shell echo $(SOURCES_GLUE) | sed -e's/\.c/\.o/g' -e's/src\/jni/tmp\/objects/g' )
 
 #
 # convenience target: setup pre-reqs
@@ -86,23 +89,31 @@ SOURCES_JNI=$(shell echo $(SOURCES_C) | sed -e 's/\.c/\.c\n/g' | grep org )
 build/headers-generate: $(SOURCES_JNI)
 	@echo "$(JAVAH_CMD) tmp/headers/*.h"
 	$(JAVAH) -jni -d tmp/include -classpath $(JAVAGNOME_JARS):tmp/classes \
-		$(shell echo $? | sed -e 's/src\/jni\///g' -e 's/mockup\/jni\///g' -e 's/\.c/\n/g' -e 's/_/\./g' | grep org )
+		$(shell echo $? | sed -e 's/src\/java\///g' -e 's/mockup\/java\///g' -e 's/\.c/\n/g' -e 's/\//\./g' | grep org )
 	touch $@
 
 tmp/objects/%.o: src/jni/%.c
+	@if [ ! -d $(@D) ] ; then echo "MKDIR     $(@D)" ; mkdir -p $(@D) ; fi
 	echo "$(GCC_CMD) $@"
-	$(GCC) $(GTK_CFLAGS) -Isrc/jni -Itmp/include -Wall -fPIC -o $@ -c $<
+	$(GCC) $(GTK_CFLAGS) -Itmp/include -Wall -fPIC -o $@ -c $<
 
-tmp/objects/%.o: mockup/jni/%.c
-	echo "$(GCC_CMD) $@"
-	$(GCC) $(GTK_CFLAGS) -Isrc/jni -Itmp/include -Wall -fPIC -o $@ -c $<
 
-tmp/libgtkjni-$(APIVERSION).so: build/dirs build/headers $(OBJECTS_C)
+tmp/objects/%.o: src/java/%.c
+	@if [ ! -d $(@D) ] ; then echo "MKDIR     $(@D)" ; mkdir -p $(@D) ; fi
+	@echo "$(GCC_CMD) $@"
+	$(GCC) $(GTK_CFLAGS) -Itmp/include -Wall -fPIC -o $@ -c $<
+
+tmp/objects/%.o: mockup/java/%.c
+	@if [ ! -d $(@D) ] ; then echo "MKDIR     $(@D)" ; mkdir -p $(@D) ; fi
+	@echo "$(GCC_CMD) $@"
+	$(GCC) $(GTK_CFLAGS) -Itmp/include -Wall -fPIC -o $@ -c $<
+
+tmp/libgtkjni-$(APIVERSION).so: build/dirs build/headers $(OBJECTS_GLUE) $(OBJECTS_C)
 	@echo "LINK      $@"
 	$(GCC) -shared -fPIC -fjni \
 		-Wl,-rpath=$(JAVAGNOME_HOME)/lib \
 		 $(GTK_LIBS) \
-		-o $@ $(OBJECTS_C)
+		-o $@ $(OBJECTS_GLUE) $(OBJECTS_C)
 #	@echo "STRIP     $@"
 #	strip --only-keep-debug $@
 
