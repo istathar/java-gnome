@@ -19,15 +19,15 @@ build-native: tmp/libgtkjava-$(APIVERSION).so
 
 .PHONY: doc clean
 
-SOURCES_JAVA=$(shell find src/java -name '*.java') $(shell find generated/java -name '*.java')
+SOURCES_JAVA=$(shell find src/java -name '*.java') $(shell find mockup/java -name '*.java')
 
-CLASSES_JAVA=$(shell echo $(SOURCES_JAVA) | sed -e's/\.java/\.class/g' -e's/src\/java/tmp\/classes/g' -e's/generated\/java/tmp\/classes/g')
+CLASSES_JAVA=$(shell echo $(SOURCES_JAVA) | sed -e's/\.java/\.class/g' -e's/src\/java/tmp\/classes/g' -e's/mockup\/java/tmp\/classes/g')
 
 # These are just the headers which are crafted, not generated
 HEADERS_C=$(shell find src/jni -name '*.h' | sed -e 's/src\/jni/tmp\/include/g' -e 's/\.c/\.h/g')
 
-SOURCES_C=$(shell find src/jni -name '*.c' ) $(shell find generated/jni -name '*.c' )
-OBJECTS_C=$(shell echo $(SOURCES_C) | sed -e's/\.c/\.o/g' -e's/src\/jni/tmp\/objects/g' -e's/generated\/jni/tmp\/objects/g')
+SOURCES_C=$(shell find src/jni -name '*.c' ) $(shell find mockup/jni -name '*.c' )
+OBJECTS_C=$(shell echo $(SOURCES_C) | sed -e's/\.c/\.o/g' -e's/src\/jni/tmp\/objects/g' -e's/mockup\/jni/tmp\/objects/g')
 
 #
 # convenience target: setup pre-reqs
@@ -86,14 +86,14 @@ SOURCES_JNI=$(shell echo $(SOURCES_C) | sed -e 's/\.c/\.c\n/g' | grep org )
 build/headers-generate: $(SOURCES_JNI)
 	@echo "$(JAVAH_CMD) tmp/headers/*.h"
 	$(JAVAH) -jni -d tmp/include -classpath $(JAVAGNOME_JARS):tmp/classes \
-		$(shell echo $? | sed -e 's/src\/jni\///g' -e 's/generated\/jni\///g' -e 's/\.c/\n/g' -e 's/_/\./g' | grep org )
+		$(shell echo $? | sed -e 's/src\/jni\///g' -e 's/mockup\/jni\///g' -e 's/\.c/\n/g' -e 's/_/\./g' | grep org )
 	touch $@
 
 tmp/objects/%.o: src/jni/%.c
 	echo "$(GCC_CMD) $@"
 	$(GCC) $(GTK_CFLAGS) -Isrc/jni -Itmp/include -Wall -fPIC -o $@ -c $<
 
-tmp/objects/%.o: generated/jni/%.c
+tmp/objects/%.o: mockup/jni/%.c
 	echo "$(GCC_CMD) $@"
 	$(GCC) $(GTK_CFLAGS) -Isrc/jni -Itmp/include -Wall -fPIC -o $@ -c $<
 
@@ -119,7 +119,6 @@ tmp/libgtkjava-$(APIVERSION).so: tmp/native/gtk.o
 	$(GCJ) -shared -fPIC -fjni \
 		-Wl,-rpath=$(JAVAGNOME_HOME)/lib \
 		-L$(JAVAGNOME_HOME)/lib \
-		-lglibjava -lcairojava \
 		-o $@ $<
 #	@echo "STRIP     $@"
 #	strip --only-keep-debug $@
