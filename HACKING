@@ -1,4 +1,4 @@
-Contributing to `java-gnome`
+Contributing to java-gnome
 
 We'd love to have you contribute by hacking on the bindings themselves!
 
@@ -14,8 +14,8 @@ GETTING STARTED
 Checkout the source code
 ------------------------
 
-We are using Bazaar-NG as our version control tool. More commonly known
-as `bzr`, it is an advanced third-generation VCS.
+We are using Bazaar-NG as our version control tool. More commonly known as
+`bzr`, it is an advanced third-generation VCS.
 
     bzr branch http://research.operationaldynamics.com/bzr/java-gnome/
     cd java-gnome
@@ -28,18 +28,18 @@ Doing your own thing
 --------------------
 
 The amazing thing about the decentralized VCS tools is that you do not need to
-be online to make commits. But it's more than that - you don't need to be me to
-make commits! You can work away on your own branch(es) and then send your
+be online to make commits. But it's more than that - you don't need to be me
+to make commits! You can work away on your own branch(es) and then send your
 patches _in already committed form_ to me for consideration and merging.
 
 Why `bzr`?
 ----------
 
-We are using `bzr` at the moment for its relative straight forwardness.  Anyone
-used to using the old world tools like CVS or Subversion will be able to make
-sense of it and you can learn from there. That said, Bazaar could be a lot
-perkier in terms of its responsiveness. I look forward to the day when `bzr` has
-`git` as its back end.
+We are using `bzr` at the moment for its relative straight forwardness.
+Anyone used to using the old world tools like CVS or Subversion will be able
+to make sense of it and you can learn from there. That said, Bazaar could be a
+lot perkier in terms of its responsiveness. I look forward to the day when
+`bzr` has `git` as its back end.
 
 
 TECHNICAL DETAILS
@@ -75,18 +75,19 @@ Eclipse in particular has an outstanding code formatter that is highly
 configurable. This encourages people to tinker and have their code be just the
 way they like it.
 
-We ended up adopting what Eclipse termed the "Java conventions [builtin]", with
-four modifications. Notably, this default Java style is set to convert tabs to 4
-spaces. I personally prefer `\t` characters, but it makes a mess when looking at
-diffs or raw files because the terminal expands tabs to 8. So I'll buy this one
-- better that your code looks correct at all times.
+We ended up adopting what Eclipse termed the "Java conventions [builtin]",
+with four modifications. Notably, this default Java style is set to convert
+tabs to 4 spaces. I personally prefer `\t` characters, but it makes a mess
+when looking at diffs or raw files because the terminal expands tabs to 8. So
+I'll buy this one - better that your code looks correct at all times.
 
 The modifications are:
 
  * The opening brace on a Class statement is on its own line, not on the same
-   line as the declaration. This is largely to provide some visual distinctness
-   to the nested interfaces that contain our signal handler callbacks.
-   Otherwise, they look too much like methods and it's very confusing to read.
+   line as the declaration. This is largely to provide some visual
+   distinctness to the nested interfaces that contain our signal handler
+   callbacks. Otherwise, they look too much like methods and it's very
+   confusing to read.
 
  * The code width is 105 characters. The default of 80 causes so much wrapping
    to render it unreadable - especially in things like the Constant Object
@@ -94,12 +95,12 @@ The modifications are:
 
  * Comment with is 78 characters. The default of 80 would be fine, except that
    when you view the changes to a file with the version control tool's diff
-   command, the `+` and `-` character push the line out past the 
-   to the 80 character mark, and that's no good in the standard 80 character
-   wide terminal where you ran the command in the first place.
+   command, the `+` and `-` character push the line out past the to the 80
+   character mark, and that's no good in the standard 80 character wide
+   terminal where you ran the command in the first place.
 
- * empty methods have both braces on the same line. We've got quite a number of
-   private constructors which are empty and just serve to prevent the class
+ * empty methods have both braces on the same line. We've got quite a number
+   of private constructors which are empty and just serve to prevent the class
    showing up as an option when doing `new G`**<COMPLETE>**. An empty method
    with a blank line in it appears to the eye to be unfinished, and so we want
    to avoid that distraction.
@@ -117,10 +118,10 @@ COMMITS
 =======
 
 One problem with standard text editor is that they word wrap at a default of
-the normal terminal width, 80 characters. This is a problem when viewing commit
-messages because VCS tools typically indent the message by a few whitespace
-characters, resulting in insanely ugly wrapping when viewing commit logs in a
-terminal window.
+the normal terminal width, 80 characters. This is a problem when viewing
+commit messages because VCS tools typically indent the message by a few
+whitespace characters, resulting in insanely ugly wrapping when viewing commit
+logs in a terminal window.
 
 Therefore, lines in commit messages should be no longer than 70 characters.
 
@@ -150,19 +151,22 @@ DOCUMENTATION
 Text files
 ----------
 
-Documentation such as design documents and files like this one are almost always
-viewed in terminals using pagers like `less`. It does no one any good if the
-paragraphs run off into the netherworld off the right of the screen somewhere.
+Documentation such as design documents and files like this one are almost
+always viewed in terminals using pagers like `less`. It does no one any good
+if the paragraphs run off into the netherworld off the right of the screen
+somewhere.
 
-Therefore, all textual documentation should be word wrapped at 80 characters. If
-you look at the bottom of this file, you'll see a vim modeline which will takes
-care of it for this file.
+Therefore, all textual documentation should be word wrapped at 78 characters,
+the same as for JavaDoc comments. If you look at the bottom of this file,
+you'll see a vim modeline which will takes care of it for this file.
 
-The exception, of course, is source code fragments. If they run on past the 80
+The exception, of course, is source code fragments. If they run on past the 78
 character mark, then so be it it.
 
 JavaDoc
 -------
+
+FIXME
 
 Spelling
 --------
@@ -170,19 +174,20 @@ Spelling
 And for super bonus points, run a spellchecker over any documentation you
 contribute. Yes, on code too!
 
-We use `LANG=en_CA` around here, but **don't worry if your written English isn't
-very strong** or if you speak American. What matters is that you're contributing
-and a native English speaker like myself will be more than happy to fix it up.
+We use `LANG=en_CA` around here, but **don't worry if your written English
+isn't very strong** or if you speak American. What matters is that you're
+contributing and a native English speaker like myself will be more than happy
+to fix it up.
 
 CONCLUSION
 ==========
 
-The opportunity to work on something you love is the greatest experience you can
-have. If you choose to offer code you write, be it towards helping us on
-this project or on any other endeavour whatsoever, I encourage you to choose to
-let others use your work as Software Libre and in your own turn help people find
-their own passion and excitement. By your actions you lift us all up. I hope
-you'll join us!
+The opportunity to work on something you love is the greatest experience you
+can have. If you choose to offer code you write, be it towards helping us on
+this project or on any other endeavour whatsoever, I encourage you to choose
+to let others use your work as Software Libre and in your own turn help people
+find their own passion and excitement. By your actions you lift us all up. I
+hope you'll join us!
 
 Apotheosis Rising.
 
@@ -193,4 +198,4 @@ Andrew Frederick Cowie
 Managing Director  
 Operational Dynamics, a Change Management consultancy.  
 
-<!-- vim: set textwidth=80 nowrap: -->
+<!-- vim: set textwidth=78 nowrap: -->
