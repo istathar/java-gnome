@@ -1,5 +1,5 @@
 /*
- * GtkWidget.c
+ * GnomeEntry.java
  *
  * Copyright (c) 2006 Operational Dynamics Consulting Pty Ltd and Others
  * 
@@ -15,42 +15,17 @@
  * change the information in the source defs file, or implement an override
  * for this class.
  */
+package org.gnome.gnome;
 
-#include <jni.h>
-#include <gtk/gtk.h>
+import org.gnome.glib.Plumbing;
 
-#include "org_gnome_gtk_GtkWidget.h"
-
-JNIEXPORT void JNICALL
-Java_org_gnome_gtk_GtkWidget_gtk_1widget_1show
-  (JNIEnv *env, jclass cls, jlong _self)
+final class GnomeEntry extends Plumbing
 {
-	GtkWidget* self;
+    private GnomeEntry() {}
 
-	// translate arg self
-	self = (GtkWidget*) _self;
+    static final String getText(Entry self) {
+        return gnome_entry_get_text(pointerOf(self));
+    }
 
-	// call function
-	gtk_widget_show(self);
-
-	// cleanup arg self
+    private static native final String gnome_entry_get_text(long self);
 }
-
-JNIEXPORT void JNICALL
-Java_org_gnome_gtk_GtkWidget_gtk_1widget_1show_1all
-  (JNIEnv *env, jclass cls, jlong _self)
-{
-	GtkWidget* self;
-
-	// translate arg self
-	self = (GtkWidget*) _self;
-
-	// call function
-	gtk_widget_show_all(self);
-
-	// cleanup arg self
-}
-
-
-
-
