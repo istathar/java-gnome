@@ -1,0 +1,14 @@
+Andrew Cowie <andrew@operationaldynamics.com>
+
+--
+
+Although java-gnome 4.0 is a complete from-the-ground-up rewrite, certain
+parts would not have been possible without the example and inspiration
+provided by the generations of authors and maintainers of java-gnome leading
+up to 2006. We owe them an enormous debt of gratitude.
+
+Where significant portions of code is re-used, the copyright and authorship
+noted in a given file reflect it. Otherwise the authors of java-gnome, and the
+copyright they exert as owners of their work, are summarized above and listed
+on a file by file basis.
+
