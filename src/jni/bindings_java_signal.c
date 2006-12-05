@@ -1,12 +1,17 @@
 /*
- * bindings_java_glibc.c
+ * bindings_java_signal.c
  *
  * Copyright (c) 1998-2005 The java-gnome Team
- * Copyright (c) 2006-     Operational Dynamics Consulting Pty Ltd.
- *
- * This file is free software distributed under the terms of the GNU
- * Library General Public License, version 2.
+ * Copyright (c) 2006-     Operational Dynamics Consulting Pty Ltd and Others
  * 
+ * The code in this file, and the library it is a part of, are made available
+ * to you by the authors under the terms of the "GNU General Public Licence,
+ * version 2" plus the "Classpath Exception" (you may link to this code as a
+ * library into other programs provided you don't make a derivation of it).
+ * See the LICENCE file for the terms governing usage and redistribution.
+ */
+
+/*
  * The code for signal marshalling was completely rewritten by Andrew Cowie
  * during the 4.0 re-engineering effort. Working with JNI and with GLib is
  * very idiomatic, however, and the sequence of calls employed here was drawn
