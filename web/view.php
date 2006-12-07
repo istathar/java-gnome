@@ -30,6 +30,9 @@ p {
 	padding-left: 5px;
 	padding-right: 5px;
 }
+.highlight {
+	background-color: yellow;
+}
 </style>
 </head>
 <body>
@@ -38,6 +41,8 @@ p {
 <?
 	include_once "markdown.php";
 	include_once "smartypants.php";
+
+	$text = preg_replace('/(FIXME|TODO)/', '<span class="highlight">${1}</span>', $text);
 
 	echo SmartyPants(Markdown($text));
 ?>
