@@ -73,6 +73,13 @@ p {
 	padding-left: 5px;
 	padding-right: 5px;
 }
+pre {
+	padding-left: 6px;
+}
+blockquote {
+	padding-left: 5px;
+	font-style: italic;
+}
 .highlight {
 	background-color: yellow;
 }
