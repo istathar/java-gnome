@@ -268,4 +268,7 @@ architectures might work.
 
 AfC
 
+_Originally written as an email to java-gnome-hackers by Andrew Cowie on 24
+Aug 06; last modified 4 Dec 06._
+
 <!-- vim: set textwidth=78 nowrap: -->

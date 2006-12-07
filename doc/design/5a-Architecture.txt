@@ -1,7 +1,7 @@
 Re-engineering (5): Architecture
 
-Architecture
-============
+Internal Architecture
+=====================
 
 I have alluded several times to having worked out an architecture that I think
 will do nicely for us given the constraints that I have articulated.
@@ -361,5 +361,8 @@ I'm quite pleased to report that it looks like we've found an
 architecture that will meet these goals.
 
 AfC
+
+_Originally written as an email to java-gnome-hackers by Andrew Cowie on 19
+Sep 06; last modified 5 Dec 06._
 
 <!-- vim: set textwidth=78 nowrap: -->

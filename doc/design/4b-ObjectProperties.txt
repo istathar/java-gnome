@@ -223,4 +223,7 @@ Emailing my friends code commentary in an email. I must be on crack.
 AfC  
 Sydney
 
+_Originally written as an email to java-gnome-hackers by Andrew Cowie on 6 Nov
+06; last modified 4 Dec 06._
+
 <!-- vim: set textwidth=78 nowrap: -->
