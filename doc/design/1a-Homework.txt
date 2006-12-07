@@ -188,6 +188,11 @@ developers actually write unit tests around their tool (imagine), but most
 importantly, it's easier to use -- and given that we are serious about
 inviting new audiences to the GNOME world, I think that's pretty important.
 
+_Andrew Overholt and others commented that IDE integration with the VCS tool
+is important. This is true, but the benefits of going with a modern 3rd
+generation DVCS system outweigh the team tools as currently in Eclipse and the
+others. They will catch up soon enough._
+
 
 Optional reading: GNOME politics
 --------------------------------

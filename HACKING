@@ -22,24 +22,32 @@ We are using Bazaar-NG as our version control tool. More commonly known as
     ./configure
     make
 
-See the instructions in README for how to install from a source tarball.
+See the instructions in README for how to install from a source tarball and
+what options you can supply to Equivalence's `./configure` script.
 
 Doing your own thing
 --------------------
 
 The amazing thing about the decentralized VCS tools is that you do not need to
-be online to make commits. But it's more than that - you don't need to be me
+be online to make commits. But it's more than that -- you don't need to be me
 to make commits! You can work away on your own branch(es) and then send your
 patches _in already committed form_ to me for consideration and merging.
+
+This is a vitally important point: no one can tell you you can't work on
+something. And of you want to share it, go right ahead. That said, if you'd
+like to see your work merged into the mainline and released publicly, then
+we'd encourage you to follow the stylistic guidelines laid out below.
 
 Why `bzr`?
 ----------
 
 We are using `bzr` at the moment for its relative straight forwardness.
 Anyone used to using the old world tools like CVS or Subversion will be able
-to make sense of it and you can learn from there. That said, Bazaar could be a
-lot perkier in terms of its responsiveness. I look forward to the day when
-`bzr` has `git` as its back end.
+to make sense of it and you can learn from there. While Bazaar could be a
+lot perkier in terms of its responsiveness, but it is improving rapidly. The
+fact that it has a vibrant community, is widely portable, and most of all that
+the development team actually have an enormous unit test suite to keep them
+honest biases in their favour.
 
 
 TECHNICAL DETAILS
@@ -54,7 +62,9 @@ API design and overall system architecture
 ------------------------------------------
 
 In the `doc/design/` subdirectory you will find condensed versions of the
-various mailing list discussions that lead to the current design.
+various mailing list discussions that lead to the current design. You are
+encouraged to peruse these files; the document on Architecture is pretty much
+required reading if you want to understand what's going on.
 
 STYLE GUIDE
 ===========
@@ -79,7 +89,7 @@ We ended up adopting what Eclipse termed the "Java conventions [builtin]",
 with four modifications. Notably, this default Java style is set to convert
 tabs to 4 spaces. I personally prefer `\t` characters, but it makes a mess
 when looking at diffs or raw files because the terminal expands tabs to 8. So
-I'll buy this one - better that your code looks correct at all times.
+I'll buy this one -- better that your code looks correct at all times.
 
 The modifications are:
 
@@ -166,7 +176,67 @@ character mark, then so be it it.
 JavaDoc
 -------
 
-FIXME
+Don't bother putting class names in `<code>` spans. You'd never get anything
+done.
+
+There's no reason to `@link` ever single class name either. JavaDoc is
+already full of cross references. Only put a `@link` tag in when you really
+think that someone should follow the link to the doc snippet you're pointing
+at.
+
+Getters and setters are a bit obvious. If the single sentence you write for
+`getLabel()` is "Get the text of the Label on the Button" and the method
+returns String, then there's not much need to put a `@returns` clause in. If
+unusual things happen in parameters or return values (for example `null` is an
+acceptable argument, or a return of `-1` indicates success) then definitely
+explain it in a `@param` or `@return` clause!
+
+Please take the trouble to write out a bit of supplementary text for a link so
+that you positively control what text appears. Otherwise you can end up with
+fully qualified class names and all sorts of other ugliness which distract
+from the flow of the paragraph. For example, if you just do:
+
+		/**
+		 * For more details, see {@link org.gnome.gtk.Button#setLabel(java.lang.String)}.
+		 */
+
+You end up with "For more details, see
+<u>org.gnome.gtk.Button.setLabel(java.gnome.String)</u>." Bleh! So try adding
+a bit of extra text to make it more natural:
+
+		/**
+		 * For more details, see Button's {@link org.gnome.gtk.Button#setLabel(java.lang.String) setLabel()}.
+		 */
+
+This will render as "For more details, see Button's <u>setLabel()</u>." Much
+better.
+
+As a matter of consistency, if you are referring to a static method, say:
+
+		Gtk.init()
+		
+but to talk about an instance method, use the possessive, eg:
+
+		Button's setLabel()
+
+Obviously the whole point of java-gnome is to wrap GTK and the other GNOME
+libraries. Unfortunately, however the doxygen documentation for GLib, GTK and
+friends, while extensive, is _quite_ inappropriate for someone brand-new to
+GTK or {Linux,Solaris}. Therefore, in order to achieve the criterion of
+**Approachability** that we defined as our primary goal, considerable
+massaging and indeed complete rewriting is necessary. Use a friendly, casual,
+and colloquial style... and don't forget an example snippet! Methods like
+Widget's `show()`, the entire Button class, and the signal Window.DELETE are
+all good examples.
+
+Finally, where it is appropriate to discuss how our implementation varies from
+conventional GTK practice, use a paragraph all in _italics_ at the end of the
+class's JavaDoc to explain the divergence or how java-gnome is implemented.
+The comment at the top of org.gnome.glib.Object is a pretty good example of
+this. But other than these rare observations, don't refer to the translation,
+native, JNI layers or the native library [call] itself at all! Whenever
+possible, we want the implementation details of java-gnome to be invisible.
+They're not `public` after all!
 
 Spelling
 --------
@@ -193,9 +263,10 @@ Apotheosis Rising.
 
 AfC
 
---  
+`--`  
 Andrew Frederick Cowie  
 Managing Director  
-Operational Dynamics, a Change Management consultancy.  
+[Operational Dynamics](http://www.operationaldynamics.com/),
+a Change Management consultancy.  
 
 <!-- vim: set textwidth=78 nowrap: -->
