@@ -1,0 +1,85 @@
+README
+
+This directory documents the evolution and design of the re-engineered (4.0)
+java-gnome bindings.
+
+Organization of this directory
+------------------------------
+
+The design documents are loosely organized according to the following scheme:
+
+1. Background material.
+2. Governing assumptions (our objective as a project, who our audience is, and
+   what constraints we impose on ourselves as we go about our business).
+3. Miscellaneous organizational decisions.
+4. Discussion of public APIs.
+5. Internal architecture.
+
+These numbers correspond to those used to organize the original threads on the
+java-gnome-hackers mailing list. All of these documents started life as emails
+written by Andrew Cowie, so they tend to be written in the first person ("I").
+That will no doubt fade over time as these documents evolve into canonical
+references.
+
+
+About the format of our documentation
+-------------------------------------
+
+These documents are all text files! They are, however, _**lightly**_ marked up
+with the syntax of John Gruber's "[Markdown][markdown]" so that they also
+present nicely as web pages. See [MARKUP](MARKUP) for details.
+
+As conventions, we:
+
+* put the title of the document by itself on the first line of the file,
+
+* note, in italics, the last modified date at the bottom of the file, and
+
+* put a `vim` modeline on the last line of the document enforcing the word
+  wrap point.
+
+
+Contribute!
+-----------
+
+This documentation are distributed with java-gnome and are maintained
+alongside (in!) the source code. As such they are living documents and will
+likely evolve over time as new design decisions are taken. If you care to see
+the history behind certain decisions, check the mailing list archives and the
+version history of the files in this directory.
+
+If there is a change you would like to make, check out a copy of the source
+code and send a patch using FIXME.
+
+Remember, if you want to hack on java-gnome itself, extend it or use it for
+new and miraculous things, you're best off doing so alongside the community.
+Certainly join our mailing lists, but most of all hang with us online, at
+`#java-gnome` on `irc.gimp.org`.
+
+
+About this directory's name
+---------------------------
+
+Incidentally, this directory was named at [foss.in][] 2006 by several
+students gathered around after Andrew Cowie gave a talk about the java-gnome
+4.0 prototype; when asked what they thought a directory containing all the
+background, instructions, architecture, and other answers to anything you'd
+want to know should be called, Srichand Pendyala replied:
+
+> "Why don't you call it 42?"
+
+Awesome! Alas, "42" is a bit of an inside joke, and given our goal of
+approachability for newcomers, `doc/42/` wouldn't really be obvious as the
+location of the design documentation.
+
+So `doc/design/` it is, but such enthusiasm is to be rewarded: I promised him
+that his idea would live on in our documentation. Cheers Srichand!
+
+AfC
+
+_Last modified 7 Dec 06_
+
+[markdown]: http://daringfireball.net/projects/markdown/basics
+[foss.in]: http://foos.in/2006/
+
+<!-- vim: set textwidth=78 nowrap: -->
