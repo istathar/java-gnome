@@ -2,31 +2,28 @@ Contributing to java-gnome
 
 We'd love to have you contribute by hacking on the bindings themselves!
 
-This document is divided into three parts:
-
- 1. Getting started
- 2. Technical issues
- 3. Style guide
-
 GETTING STARTED
 ===============
 
-Checkout the source code
-------------------------
+1. Checkout the source code
+---------------------------
 
-We are using Bazaar-NG as our version control tool. More commonly known as
-`bzr`, it is an advanced third-generation VCS.
+We are using Bazaar-NG to manage our source code. More commonly known as
+`bzr`, it is an advanced third-generation Distributed Version [or Revision]
+Control System.
 
-    bzr branch http://research.operationaldynamics.com/bzr/java-gnome/
-    cd java-gnome
-    ./configure
-    make
+To fetch the code, simply do:
+
+        $ bzr branch http://research.operationaldynamics.com/bzr/java-gnome/mainline java-gnome
+        $ cd java-gnome
+        $ ./configure
+        $ make
 
 See the instructions in README for how to install from a source tarball and
 what options you can supply to Equivalence's `./configure` script.
 
-Doing your own thing
---------------------
+2. Do your own thing!
+---------------------
 
 The amazing thing about the decentralized VCS tools is that you do not need to
 be online to make commits. But it's more than that -- you don't need to be me
@@ -34,20 +31,22 @@ to make commits! You can work away on your own branch(es) and then send your
 patches _in already committed form_ to me for consideration and merging.
 
 This is a vitally important point: no one can tell you you can't work on
-something. And of you want to share it, go right ahead. That said, if you'd
-like to see your work merged into the mainline and released publicly, then
-we'd encourage you to follow the stylistic guidelines laid out below.
+something. And of you want to share it, go right ahead.
+
+That said, if you'd like to see your work merged into the mainline and
+available publicly in the official releases, then we'd encourage you to follow
+the stylistic guidelines laid out below.
 
 Why `bzr`?
 ----------
 
 We are using `bzr` at the moment for its relative straight forwardness.
 Anyone used to using the old world tools like CVS or Subversion will be able
-to make sense of it and you can learn from there. While Bazaar could be a
-lot perkier in terms of its responsiveness, but it is improving rapidly. The
-fact that it has a vibrant community, is widely portable, and most of all that
-the development team actually have an enormous unit test suite to keep them
-honest biases in their favour.
+to make sense of it and you can learn from there. While Bazaar could be a lot
+perkier in terms of its responsiveness, it is improving rapidly. The fact that
+it has a vibrant community, is widely portable, and most of all that the
+development team actually have an enormous unit test suite to keep them honest
+biases in their favour.
 
 
 TECHNICAL DETAILS
@@ -71,193 +70,56 @@ STYLE GUIDE
 
 Things like how you format your code, what editor you use, etc are all very
 personal issues, but for a project to function with anything even remotely
-resembling sanity, there need to be some standards and conventions. This
-document outlines the style guidelines you'll need to know if hacking on the
-java-gnome 4.x bindings.
+resembling sanity, there need to be some standards and conventions. Thus we
+have several documents outlining the style guidelines you'll need to know if
+hacking on the java-gnome 4.x bindings.
 
 Code formatting
 ---------------
 
-The code formatting tools available in modern IDEs are nothing short of
-miraculous.
+I've carefully documented the 4 divergences from the otherwise default "Java
+conventions" for Java source code formatting. Please take a moment to read
+`doc/style/CodeFormat`; your patches have a much better chance of being
+accepted if they produce clean diffs, and that's more likely to happen if you
+stick to these rules.
 
-Eclipse in particular has an outstanding code formatter that is highly
-configurable. This encourages people to tinker and have their code be just the
-way they like it.
+Commit Messages
+---------------
 
-We ended up adopting what Eclipse termed the "Java conventions [builtin]",
-with four modifications. Notably, this default Java style is set to convert
-tabs to 4 spaces. I personally prefer `\t` characters, but it makes a mess
-when looking at diffs or raw files because the terminal expands tabs to 8. So
-I'll buy this one -- better that your code looks correct at all times.
+There are just a few minor conventions you should be aware of before
+committing patches. See `doc/style/CommitMessages`.
 
-The modifications are:
+Documentation
+-------------
 
- * The opening brace on a Class statement is on its own line, not on the same
-   line as the declaration. This is largely to provide some visual
-   distinctness to the nested interfaces that contain our signal handler
-   callbacks. Otherwise, they look too much like methods and it's very
-   confusing to read.
+JavaDoc is the heart and soul of our API documentation and good JavaDoc is
+going to be *the* key defining criteria for our bindings being **approachable**
+to new developers. As such we've written out considerable guidance about how
+to best go about documenting our public APIs. 
 
- * The code width is 105 characters. The default of 80 causes so much wrapping
-   to render it unreadable - especially in things like the Constant Object
-   declarations in Enums and Flags.
+Of course, JavaDoc alone isn't sufficient, and we have a number of supporting
+documents describing the design and architecture of java-gnome.  See
+`doc/style/Documentation` for discussion of both JavaDoc and textual
+documentation.
 
- * Comment with is 78 characters. The default of 80 would be fine, except that
-   when you view the changes to a file with the version control tool's diff
-   command, the `+` and `-` character push the line out past the to the 80
-   character mark, and that's no good in the standard 80 character wide
-   terminal where you ran the command in the first place.
+Markup
+------
 
- * empty methods have both braces on the same line. We've got quite a number
-   of private constructors which are empty and just serve to prevent the class
-   showing up as an option when doing `new G`**<COMPLETE>**. An empty method
-   with a blank line in it appears to the eye to be unfinished, and so we want
-   to avoid that distraction.
+We have gone to considerable trouble to ensure our text documentation files are
+readable from a terminal window, but by using a simple yet powerful markup
+syntax called Markdown we can also easily render these files to useful web
+pages. See `doc/design/MARKUP`.
 
-
-Your patches have a much better chance of being accepted if they produce clean
-diffs, and that's more likely to happen if you stick to these rules. If you're
-using Eclipse, you will find "The java-gnome Style" pre-configured in the
-.settings/ directory. Just hitting Format should do the trick.
-
-(Come on Sun boys and girls! Make me believe that NetBeans is better...)
-
-
-COMMITS
-=======
-
-One problem with standard text editor is that they word wrap at a default of
-the normal terminal width, 80 characters. This is a problem when viewing
-commit messages because VCS tools typically indent the message by a few
-whitespace characters, resulting in insanely ugly wrapping when viewing commit
-logs in a terminal window.
-
-Therefore, lines in commit messages should be no longer than 70 characters.
-
-Try putting the following fragment in your `.vimrc`:
-
-	
-	if expand("%:t") =~ "^bzr_log*"
-		set textwidth=70
-		set filetype=none
-		syn match commitComment "^#.*"
-		hi link commitComment Comment
-	endif
-
-
-While you're at it, you might want
-
-	if expand("%:e") == "java"
-		set nowrap
-		set ts=4
-	endif
-
-
-
-DOCUMENTATION
-=============
-
-Text files
-----------
-
-Documentation such as design documents and files like this one are almost
-always viewed in terminals using pagers like `less`. It does no one any good
-if the paragraphs run off into the netherworld off the right of the screen
-somewhere.
-
-Therefore, all textual documentation should be word wrapped at 78 characters,
-the same as for JavaDoc comments. If you look at the bottom of this file,
-you'll see a vim modeline which will takes care of it for this file.
-
-The exception, of course, is source code fragments. If they run on past the 78
-character mark, then so be it it.
-
-JavaDoc
--------
-
-Don't bother putting class names in `<code>` spans. You'd never get anything
-done.
-
-There's no reason to `@link` ever single class name either. JavaDoc is
-already full of cross references. Only put a `@link` tag in when you really
-think that someone should follow the link to the doc snippet you're pointing
-at.
-
-Getters and setters are a bit obvious. If the single sentence you write for
-`getLabel()` is "Get the text of the Label on the Button" and the method
-returns String, then there's not much need to put a `@returns` clause in. If
-unusual things happen in parameters or return values (for example `null` is an
-acceptable argument, or a return of `-1` indicates success) then definitely
-explain it in a `@param` or `@return` clause!
-
-Please take the trouble to write out a bit of supplementary text for a link so
-that you positively control what text appears. Otherwise you can end up with
-fully qualified class names and all sorts of other ugliness which distract
-from the flow of the paragraph. For example, if you just do:
-
-		/**
-		 * For more details, see {@link org.gnome.gtk.Button#setLabel(java.lang.String)}.
-		 */
-
-You end up with "For more details, see
-<u>org.gnome.gtk.Button.setLabel(java.gnome.String)</u>." Bleh! So try adding
-a bit of extra text to make it more natural:
-
-		/**
-		 * For more details, see Button's {@link org.gnome.gtk.Button#setLabel(java.lang.String) setLabel()}.
-		 */
-
-This will render as "For more details, see Button's <u>setLabel()</u>." Much
-better.
-
-As a matter of consistency, if you are referring to a static method, say:
-
-		Gtk.init()
-		
-but to talk about an instance method, use the possessive, eg:
-
-		Button's setLabel()
-
-Obviously the whole point of java-gnome is to wrap GTK and the other GNOME
-libraries. Unfortunately, however the doxygen documentation for GLib, GTK and
-friends, while extensive, is _quite_ inappropriate for someone brand-new to
-GTK or {Linux,Solaris}. Therefore, in order to achieve the criterion of
-**Approachability** that we defined as our primary goal, considerable
-massaging and indeed complete rewriting is necessary. Use a friendly, casual,
-and colloquial style... and don't forget an example snippet! Methods like
-Widget's `show()`, the entire Button class, and the signal Window.DELETE are
-all good examples.
-
-Finally, where it is appropriate to discuss how our implementation varies from
-conventional GTK practice, use a paragraph all in _italics_ at the end of the
-class's JavaDoc to explain the divergence or how java-gnome is implemented.
-The comment at the top of org.gnome.glib.Object is a pretty good example of
-this. But other than these rare observations, don't refer to the translation,
-native, JNI layers or the native library [call] itself at all! Whenever
-possible, we want the implementation details of java-gnome to be invisible.
-They're not `public` after all!
-
-Spelling
---------
-
-And for super bonus points, run a spellchecker over any documentation you
-contribute. Yes, on code too!
-
-We use `LANG=en_CA` around here, but **don't worry if your written English
-isn't very strong** or if you speak American. What matters is that you're
-contributing and a native English speaker like myself will be more than happy
-to fix it up.
 
 CONCLUSION
 ==========
 
 The opportunity to work on something you love is the greatest experience you
-can have. If you choose to offer code you write, be it towards helping us on
-this project or on any other endeavour whatsoever, I encourage you to choose
-to let others use your work as Software Libre and in your own turn help people
-find their own passion and excitement. By your actions you lift us all up. I
-hope you'll join us!
+can have. If you or your company chooses to offer code you write, be it
+towards helping us on this project or on any other endeavour whatsoever, I
+encourage you to choose to let others use your work as Software Libre and in
+your own turn help people find their own passion and excitement. By your
+actions you lift us all up. I hope you'll join us!
 
 Apotheosis Rising.
 
@@ -265,8 +127,13 @@ AfC
 
 `--`  
 Andrew Frederick Cowie  
-Managing Director  
-[Operational Dynamics](http://www.operationaldynamics.com/),
-a Change Management consultancy.  
+Managing Director,  
+[Operational Dynamics](http://www.operationaldynamics.com/),  
+a Change Management consultancy...
 
+Maintainer,  
+[java-gnome](http://java-gnome.sourceforge.net/),  
+opening GTK and GNOME to Java programmers!
+
+_Last modified 9 Dec 06_
 <!-- vim: set textwidth=78 nowrap: -->

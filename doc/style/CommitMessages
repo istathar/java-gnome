@@ -1,0 +1,89 @@
+Style guide: Commit Messages
+
+<!--
+
+  Copyright (c) 2006 Operational Dynamics Consulting Pty Ltd 
+
+  This file forms an integral part of the source code of the library it
+  accompanies, and thus is made available to you by the authors under the
+  terms of the "GNU General Public Licence, version 2". See the LICENCE file
+  for the terms governing usage, copying and redistribution.
+
+-->
+
+It might seem a bit anal to ask people to follow certain conventions when
+writing their commit messages, but reading code history is a big part of
+debugging, and its a lot easier when things are consistent. So, please keep
+the following in mind:
+
+Complete ideas preferred over one-liners
+----------------------------------------
+
+I'd prefer patches that are complete and comprehensive; one liner bug fixes
+are fine when necessary (ie, if that's all it is) but if, say, you're adding
+support for a new distro to the top level configure script, commit it as one
+complete patch rather than 5 small ones.
+
+Of course at slightly larger levels of aggregation, series of patches chain
+together, and that's what branches are for. I'm not worried in the slightest
+what the branch tree ends up looking like, but I would request that if you do
+a specific piece of work try and do it an a little local branch, at least
+initially, so that the work groups together nicely when it comes time to
+merge it into your main branch en route to being sent to me for merging into
+mainline. 
+
+Summary line and revision text
+------------------------------
+
+Bazaar, like all other modern VCS tools, uses the first line of the commit
+message as the summary which appears in email Subject: lines, the `--line`
+output to `bzr log`, etc. So a descriptive yet concise first line is
+important.
+
+For really trivial fixes, that single line as patch name is sufficient; but
+for more comprehensive patches please add a long comment (ie the subject line
+_plus_ some prose describing what you're up to. It doesn't have to be perfect.
+
+Remember that years from now someone will do `bzr log filename` and all the
+revisions which affected that one file will show. So if you can, try to keep
+commits on-topic; you don't have to mention every last little change but try
+your best to summarize the impact on major files if they're somewhat
+tangential to the main thrust of the rest of the commit.
+
+Max message width 70 characters!
+--------------------------------
+
+One problem with standard text editor is that they word wrap at a default of
+the normal terminal width, 80 characters. This is a problem when viewing
+commit messages because VCS tools typically indent the message by a few
+whitespace characters, resulting in insanely ugly wrapping when viewing commit
+logs in a terminal window.
+
+Therefore, **lines in commit messages must be no longer than 70 characters**.
+
+I forgot once and it looks stupid: see `bzr log --short -r 14`. Too late now.
+But to prevent this from happening again, try and ensure your editor knows
+about the width limit. Vim users can put the following fragment in their
+`.vimrc`:
+
+	if expand("%:t") =~ "^bzr_log*"
+		set textwidth=70
+		set filetype=none
+		syn match commitComment "^#.*"
+		hi link commitComment Comment
+	endif
+
+While you're at it, you might want
+
+	if expand("%:e") == "java"
+		set nowrap
+		set ts=4
+	endif
+
+to make sure a casual edit of a Java source file doesn't mess it up.
+
+AfC
+
+_Originally written by Andrew Cowie 2 Dec 06. Last modified 9 Dec 06._
+
+<!-- vim: set textwidth=78 nowrap: -->
