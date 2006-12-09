@@ -66,7 +66,7 @@ h1.title {
 	font-family: "Arial", sans-serif;
 	font-size: 40px;
 }
-h2 {
+h2, h3 {
 	padding-left: 5px;
 }
 p {
