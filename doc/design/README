@@ -17,8 +17,8 @@ The design documents are loosely organized according to the following scheme:
 
 These numbers correspond to those used to organize the original threads on the
 java-gnome-hackers mailing list. All of these documents started life as emails
-written by Andrew Cowie, so they tend to be written in the first person ("I").
-That will no doubt fade over time as these documents evolve into canonical
+written by Andrew Cowie, so they tend to be written in the first person. That
+will no doubt fade over time as these documents evolve into canonical
 references.
 
 
@@ -27,7 +27,7 @@ About the format of our documentation
 
 These documents are all text files! They are, however, _**lightly**_ marked up
 with the syntax of John Gruber's "[Markdown][markdown]" so that they also
-present nicely as web pages. See [MARKUP](MARKUP) for details.
+present nicely as web pages. See [`MARKUP`](../style/MARKUP) for details.
 
 As conventions, we:
 
@@ -82,4 +82,15 @@ _Last modified 7 Dec 06_
 [markdown]: http://daringfireball.net/projects/markdown/basics
 [foss.in]: http://foos.in/2006/
 
-<!-- vim: set textwidth=78 nowrap: -->
+<!--
+
+  Copyright (c) 2006 Operational Dynamics Consulting Pty Ltd 
+
+  As project documentation, this file forms an integral part of the source
+  code of the library it accompanies, and thus is made available to you by the
+  authors under the terms of the "GNU General Public Licence, version 2". See
+  the LICENCE file for the terms governing usage, copying and redistribution.
+
+  vim: set textwidth=78 nowrap:
+
+-->

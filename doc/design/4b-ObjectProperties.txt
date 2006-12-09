@@ -1,7 +1,4 @@
-Re-engineering (4): Object property handling API
-
-Properties
-==========
+Re-engineering (4): GObject property handling API
 
 I was chatting with davyd last night about how I'd achieved a generalized
 setProperty() capability for GObjects in the new bindings. I wrote Davyd an
@@ -226,4 +223,15 @@ Sydney
 _Originally written as an email to java-gnome-hackers by Andrew Cowie on 6 Nov
 06; last modified 4 Dec 06._
 
-<!-- vim: set textwidth=78 nowrap: -->
+<!--
+
+  Copyright (c) 2006 Operational Dynamics Consulting Pty Ltd 
+
+  As project documentation, this file forms an integral part of the source
+  code of the library it accompanies, and thus is made available to you by the
+  authors under the terms of the "GNU General Public Licence, version 2". See
+  the LICENCE file for the terms governing usage, copying and redistribution.
+
+  vim: set textwidth=78 nowrap:
+
+-->

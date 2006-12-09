@@ -22,6 +22,18 @@ To fetch the code, simply do:
 See the instructions in README for how to install from a source tarball and
 what options you can supply to Equivalence's `./configure` script.
 
+### Why `bzr`?
+
+We have chosen `bzr` for its relative straight forwardness and because of our
+faith in the ethos of its developers. Anyone used to using the old world 1st
+generation centralized VCS tools like CVS or Subversion will be able to make
+sense of it and you can learn from there. While Bazaar could be a lot perkier
+in terms of its responsiveness, and it still has a number of rough edges, it
+is improving rapidly. The fact that it has a vibrant community, is widely
+portable, and most of all that the development team actually have an enormous
+unit test suite to keep them honest biases in their favour.
+
+
 2. Do your own thing!
 ---------------------
 
@@ -37,17 +49,6 @@ That said, if you'd like to see your work merged into the mainline and
 available publicly in the official releases, then we'd encourage you to follow
 the stylistic guidelines laid out below.
 
-Why `bzr`?
-----------
-
-We are using `bzr` at the moment for its relative straight forwardness.
-Anyone used to using the old world tools like CVS or Subversion will be able
-to make sense of it and you can learn from there. While Bazaar could be a lot
-perkier in terms of its responsiveness, it is improving rapidly. The fact that
-it has a vibrant community, is widely portable, and most of all that the
-development team actually have an enormous unit test suite to keep them honest
-biases in their favour.
-
 
 TECHNICAL DETAILS
 =================
@@ -60,10 +61,13 @@ able to understand the mechanisms involved behind the scene.
 API design and overall system architecture 
 ------------------------------------------
 
-In the `doc/design/` subdirectory you will find condensed versions of the
-various mailing list discussions that lead to the current design. You are
-encouraged to peruse these files; the document on Architecture is pretty much
-required reading if you want to understand what's going on.
+In the `doc/design/` subdirectory you will find extensive documentation of the
+current re-engineering process that lead to the design and architecture of the
+new java-gnome 4.0 bindings. Try starting with
+[`doc/design/README`](doc/design/README).
+
+You really are encouraged to peruse these files; the one on Architecture is
+pretty much required reading if you want to understand what's going on.
 
 STYLE GUIDE
 ===========
@@ -87,7 +91,8 @@ Commit Messages
 ---------------
 
 There are just a few minor conventions you should be aware of before
-committing patches. See `doc/style/CommitMessages`.
+committing patches. See
+[`doc/style/CommitMessages`](doc/style/CommitMessages.txt).
 
 Documentation
 -------------
@@ -99,7 +104,8 @@ to best go about documenting our public APIs.
 
 Of course, JavaDoc alone isn't sufficient, and we have a number of supporting
 documents describing the design and architecture of java-gnome.  See
-`doc/style/Documentation` for discussion of both JavaDoc and textual
+[`doc/style/Documentation`](doc/style/Documentation.txt) for discussion of
+appropriate style for both in-code JavaDoc and supporting textual Design
 documentation.
 
 Markup
@@ -108,7 +114,7 @@ Markup
 We have gone to considerable trouble to ensure our text documentation files are
 readable from a terminal window, but by using a simple yet powerful markup
 syntax called Markdown we can also easily render these files to useful web
-pages. See `doc/design/MARKUP`.
+pages. See [`doc/style/MARKUP`](doc/style/MARKUP).
 
 
 CONCLUSION
@@ -136,4 +142,16 @@ Maintainer,
 opening GTK and GNOME to Java programmers!
 
 _Last modified 9 Dec 06_
-<!-- vim: set textwidth=78 nowrap: -->
+
+<!--
+
+  Copyright (c) 2006 Operational Dynamics Consulting Pty Ltd 
+
+  As project documentation, this file forms an integral part of the source
+  code of the library it accompanies, and thus is made available to you by the
+  authors under the terms of the "GNU General Public Licence, version 2". See
+  the LICENCE file for the terms governing usage, copying and redistribution.
+
+  vim: set textwidth=78 nowrap:
+
+-->

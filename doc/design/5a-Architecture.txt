@@ -1,7 +1,4 @@
-Re-engineering (5): Architecture
-
-Internal Architecture
-=====================
+Re-engineering (5): Internal Architecture
 
 I have alluded several times to having worked out an architecture that I think
 will do nicely for us given the constraints that I have articulated.
@@ -17,7 +14,7 @@ missed something. Damn. It was, nevertheless, a rather elegant solution, and
 so I'll describe it:
 
 Interfaces
-----------
+==========
 
 The defining constraint is approachability, defined as a) being able to hand
 write documentation and b) ensuring and algorithmic mapping. [Refer to the
@@ -123,7 +120,7 @@ for the generated side. Suffice it to say that those parts all worked quite
 nicely.
 
 Concrete wrappers
------------------
+=================
 
 So if that nice class inheritance diagram is important, then the public API
 needs to be in concrete classes. {shrug} ok.
@@ -365,4 +362,15 @@ AfC
 _Originally written as an email to java-gnome-hackers by Andrew Cowie on 19
 Sep 06; last modified 5 Dec 06._
 
-<!-- vim: set textwidth=78 nowrap: -->
+<!--
+
+  Copyright (c) 2006 Operational Dynamics Consulting Pty Ltd 
+
+  As project documentation, this file forms an integral part of the source
+  code of the library it accompanies, and thus is made available to you by the
+  authors under the terms of the "GNU General Public Licence, version 2". See
+  the LICENCE file for the terms governing usage, copying and redistribution.
+
+  vim: set textwidth=78 nowrap:
+
+-->
