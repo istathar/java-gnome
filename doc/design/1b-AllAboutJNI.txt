@@ -1,12 +1,10 @@
-Re-engineering (1): JNI information
-
-The Java Native Interface 
-=========================
+Re-engineering (1): The Java Native Interface 
 
 There's one other vitally important area of background information necessary
 to grok; I should have included this in the Homework email. It's hard to
 contemplate a Java binding of a C library without understanding the API used
-to cross the boundary between Java code and C code.
+to cross the boundary between Java code and C code: the Java Native Interface,
+or JNI.
 
 The JNI Book
 ------------
@@ -64,8 +62,8 @@ Someone in `#classpath` pointed out the following link:
 
 Reading any selected paragraph of the above reference or the JNI book would
 quickly give you the idea that most of JNI is the kiss of death for
-performance. Well, it turns out that java-gnome in its present form already
-*does* things the worst case way:
+performance. Well, it turns out that java-gnome in its present 2.x form
+already *does* things the worst case way:
 
 * multiple crossings of the boundary per call to pass data
 * passing objects for Handles
@@ -92,4 +90,15 @@ AfC
 _Originally written as an email to java-gnome-hackers by Andrew Cowie on 18
 Aug 06; last modified 4 Dec 06._
 
-<!-- vim: set textwidth=78 nowrap: -->
+<!--
+
+  Copyright (c) 2006 Operational Dynamics Consulting Pty Ltd 
+
+  As project documentation, this file forms an integral part of the source
+  code of the library it accompanies, and thus is made available to you by the
+  authors under the terms of the "GNU General Public Licence, version 2". See
+  the LICENCE file for the terms governing usage, copying and redistribution.
+
+  vim: set textwidth=78 nowrap:
+
+-->
