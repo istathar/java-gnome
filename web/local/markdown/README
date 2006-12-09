@@ -1,0 +1,107 @@
+Rendering documentation to HTML with Markdown
+
+This directory contains [`view.php`][view-source], a simple PHP script which
+uses Markdown to render text documentation as an HTML page and serve it up. If
+you'd like to use this yourself, by all means. You'll need to do a little
+tweaking of paths and your apache server config, though.
+
+What's Markdown? See [`doc/style/MARKUP`](../../../doc/style/MARKUP).
+
+Run this script in a local virtual host
+=======================================
+
+1. Grab Markdown and SmartyPants
+------------------------------------
+
+You'll need the PHP version of Markdown and SmartyPants. We ship a copy with
+the java-gnome source at `lib/utilities/markdown/`. Or you can download newer
+versions (if available) from here:
+
+<http://www.michelf.com/projects/php-markdown/>  
+<http://www.michelf.com/projects/php-smartypants/>
+
+
+2. Setup an Apache virtual host
+-------------------------------
+
+I'm assuming you're using Apache locally as your webserver and that you've
+got PHP installed.
+
+You'll need to add a file to `/etc/apache2/vhosts/` (or however your distro
+does things) with the necessary `<VirtualHost>` block in it.
+
+There's an example file in this directory called
+[`markdown.conf`][conf-source] that should be pretty close to what you need.
+You'll still need to edit this file to point at where ever your document root
+is going to be. On my system, it's `~/Sites/local/markdown/`. You can put it
+where ever. Even point it at this directory, if you like, but not to the root
+of a checkout.
+
+
+3. Add a hostname
+-----------------
+
+You need a hostname to route the request, of course. I recommend adding
+`markdown` to the tail end of the 127.0.0.1 line in your `/etc/hosts` file.
+That's like ghetto low tech, but it works. You may have a more elaborate way
+of of doing virtualhost and hostname configuration on your distro. Or you
+could be using a fancy local DNS server. Or...
+
+
+4. Edit paths in PHP script
+---------------------------
+
+Finally, the `view.php` script needs to be edited a bit. You have to tell 
+it where your documents are, and how to resolve the paths its given. 
+
+I have mine set up to switch the URL as follows:
+
+		http://markdown/$repository/$branch/path/to/file
+
+This way I can ask for 
+
+		http://markdown/java-gnome/mainline/web/local/markdown/README
+
+and get this file rendered as an HTML page to see how it looks when marked up.
+
+
+5. Restart webserver, try loading a page
+----------------------------------------
+
+After restarting Apache to get the new configuration to take, fire up a
+browser and give it a try!
+
+
+For the future
+==============
+
+This is a quick, but useful and functional, hack. Having to do all that
+editing sucks, though, so hopefully those steps will go away for people in the
+future.
+
+A better approach would be to change the URLs to be .html instead of .txt.
+Then the script can be a more intelligent 404 handler and create the .html as
+necessary. Of course, that means the webserver needs to be able to write to a
+cache directory somewhere. That's a pain to configure too.
+
+I'm sure someone can suggest a _much_ better way to do all this.
+
+AfC
+
+_Originally written by Andrew Cowie 9 Dec 06._
+
+[view-source]: http://research.operationaldynamics.com/bzr/mainline/web/local/markdown/view.php
+[conf-source]: http://research.operationaldynamics.com/bzr/mainline/web/local/markdown/markdown.conf
+
+<!--
+
+  Copyright (c) 2006 Operational Dynamics Consulting Pty Ltd 
+
+  As project documentation, this file forms an integral part of the source
+  code of the library it accompanies, and thus is made available to you by the
+  authors under the terms of the "GNU General Public Licence, version 2". See
+  the LICENCE file for the terms governing usage, copying and redistribution.
+
+  vim: set textwidth=78 nowrap:
+
+-->

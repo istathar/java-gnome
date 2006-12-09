@@ -1,0 +1,30 @@
+The lib/ hierarchy contains third party libraries used by java-gnome.
+
+Where these libraries are Java code, their source code is shipped in exploded
+form (ie as individual files, organized in the standard Java hierarchical
+namespace, not as binary .jar files) to facilitate optimal compilation for your
+platform. Individual licence terms are as follows:
+
+utilities/markdown
+------------------
+
+Markdown is a text to HTML rendering engine, originally by John Gruber. We use
+its lightweight syntax for our documentation. SmartyPants, is an supplementary
+processor which typesets quotes, ellipses, and dashes in a more visually
+appealing manner.
+
+Syntax design and original (Perl) versions by John Gruber,
+
+http://daringfireball.net/projects/markdown/
+http://daringfireball.net/projects/smartypants/
+
+We use the PHP ports by Michel Fortin in to render an HTML version of our
+documentation suitable for use on our website.
+
+http://www.michelf.com/projects/php-markdown/
+http://www.michelf.com/projects/php-smartypants/
+
+Markdown and SmartyPants (and ports) are available under a BSD Style licence.
+See lib/utilities/markdown/LICENCE
+
+
