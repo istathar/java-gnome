@@ -19,8 +19,9 @@ To fetch the code, simply do:
         $ ./configure
         $ make
 
-See the instructions in README for how to install from a source tarball and
-what options you can supply to Equivalence's `./configure` script.
+See the instructions in the top level [`README`](README) for how to install
+from a source tarball and what options you can supply to Equivalence's
+`./configure` script.
 
 ### Why `bzr`?
 
@@ -42,8 +43,8 @@ be online to make commits. But it's more than that -- you don't need to be me
 to make commits! You can work away on your own branch(es) and then send your
 patches _in already committed form_ to me for consideration and merging.
 
-This is a vitally important point: no one can tell you you can't work on
-something. And of you want to share it, go right ahead.
+There is a vitally important point, however: no one can tell you you can't
+work on something. And of you want to share it, go right ahead.
 
 That said, if you'd like to see your work merged into the mainline and
 available publicly in the official releases, then we'd encourage you to follow
@@ -66,8 +67,9 @@ current re-engineering process that lead to the design and architecture of the
 new java-gnome 4.0 bindings. Try starting with
 [`doc/design/README`](doc/design/README).
 
-You really are encouraged to peruse these files; the one on Architecture is
-pretty much required reading if you want to understand what's going on.
+You really are encouraged to peruse these files; the one on Architecture in
+particular is pretty much required reading if you want to understand what's
+going on.
 
 STYLE GUIDE
 ===========
@@ -76,23 +78,22 @@ Things like how you format your code, what editor you use, etc are all very
 personal issues, but for a project to function with anything even remotely
 resembling sanity, there need to be some standards and conventions. Thus we
 have several documents outlining the style guidelines you'll need to know if
-hacking on the java-gnome 4.x bindings.
+hacking on the java-gnome 4.x bindings. They're in the `doc/style/` directory.
 
 Code formatting
 ---------------
 
 I've carefully documented the 4 divergences from the otherwise default "Java
 conventions" for Java source code formatting. Please take a moment to read
-`doc/style/CodeFormat`; your patches have a much better chance of being
-accepted if they produce clean diffs, and that's more likely to happen if you
-stick to these rules.
+[`doc/style/CodeFormat`](doc/style/CodeFormat.txt); your patches have a much
+better chance of being accepted if they produce clean diffs, and that's more
+likely to happen if you stick to these rules.
 
 Commit Messages
 ---------------
 
-There are just a few minor conventions you should be aware of before
-committing patches. See
-[`doc/style/CommitMessages`](doc/style/CommitMessages.txt).
+There are just a few minor conventions you should be aware of when committing
+patches. See [`doc/style/CommitMessages`](doc/style/CommitMessages.txt).
 
 Documentation
 -------------
