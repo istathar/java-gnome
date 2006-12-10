@@ -1428,22 +1428,20 @@ print CONFIG <<HERE ;
 HERE
 
 if ($cc =~ /gcc/) {
-	my $jni_include = "";
+	use File::Basename;
 
-	if (-f "/usr/include/jni.h") {
+	my $jni_include = "";
+	my $java_home = dirname($java);
+	$java_home =~ s/\/bin//;
+
+	if (-f "$java_home"."/include/jni.h") {
+		$jni_include = "-I$java_home/include -I$java_home/include/linux";
+	} elsif (-f "/usr/include/jni.h") {
 		# good, but that's default search path - no -I required.
 	} else {
-		use File::Basename;
-		my $java_home = dirname($java);
-		$java_home =~ s/\/bin//;
-		if (-f "$java_home"."/include/jni.h") {
-			$jni_include = "-I$java_home"."/include";
-		} elsif (-f "$java_home"."/include/linux/jni.h") {
-			$jni_include = "-I$java_home"."/include/linux";
-		} else {
-			bail "failed", "Can't locate the JNI header file";
-		}
+		bail "failed", "Can't locate the JNI header file";
 	}
+
 	my $ccache = which("ccache");
 	if ( -x $ccache) {
 		print CONFIG "CCACHE=$ccache\n";
