@@ -22,7 +22,7 @@ else
 all: build-java
 endif
 
-build-java: tmp/gtk$(APIVERSION).jar tmp/libgtkjni-$(APIVERSION).so
+build-java: tmp/gtk-$(APIVERSION).jar tmp/libgtkjni-$(APIVERSION).so
 
 build-native: tmp/libgtkjava-$(APIVERSION).so
 
@@ -68,7 +68,7 @@ build/dirs:
 # Source compilation
 # --------------------------------------------------------------------
 
-tmp/gtk$(APIVERSION).jar: build/dirs build/classes
+tmp/gtk-$(APIVERSION).jar: build/dirs build/classes
 	@echo "$(JAR_CMD) $@"
 	cd tmp/classes ; find . -name '*.class' | xargs $(JAR) cf ../../$@ 
 
@@ -114,23 +114,23 @@ build/headers-generate: $(SOURCES_JNI)
 
 tmp/objects/%.o: src/jni/%.c
 	@if [ ! -d $(@D) ] ; then echo "MKDIR     $(@D)" ; mkdir -p $(@D) ; fi
-	echo "$(GCC_CMD) $@"
-	$(GCC) $(GTK_CFLAGS) -Itmp/include -Wall -fPIC -o $@ -c $<
+	echo "$(CC_CMD) $@"
+	$(CCACHE) $(CC) $(GTK_CFLAGS) -Itmp/include -o $@ -c $<
 
 
 tmp/objects/%.o: src/java/%.c
 	@if [ ! -d $(@D) ] ; then echo "MKDIR     $(@D)" ; mkdir -p $(@D) ; fi
-	@echo "$(GCC_CMD) $@"
-	$(GCC) $(GTK_CFLAGS) -Itmp/include -Wall -fPIC -o $@ -c $<
+	@echo "$(CC_CMD) $@"
+	$(CCACHE) $(CC) $(GTK_CFLAGS) -Itmp/include -o $@ -c $<
 
 tmp/objects/%.o: mockup/java/%.c
 	@if [ ! -d $(@D) ] ; then echo "MKDIR     $(@D)" ; mkdir -p $(@D) ; fi
-	@echo "$(GCC_CMD) $@"
-	$(GCC) $(GTK_CFLAGS) -Itmp/include -Wall -fPIC -o $@ -c $<
+	@echo "$(CC_CMD) $@"
+	$(CCACHE) $(CC) $(GTK_CFLAGS) -Itmp/include -o $@ -c $<
 
 tmp/libgtkjni-$(APIVERSION).so: build/dirs build/headers $(OBJECTS_GLUE) $(OBJECTS_C)
-	@echo "LINK      $@"
-	$(GCC) -shared -fPIC -fjni \
+	@echo "$(LINK_CMD) $@"
+	$(LINK) -shared -fPIC -fjni \
 		-Wl,-rpath=$(JAVAGNOME_HOME)/lib \
 		 $(GTK_LIBS) \
 		-o $@ $(OBJECTS_GLUE) $(OBJECTS_C)
@@ -139,14 +139,14 @@ tmp/libgtkjni-$(APIVERSION).so: build/dirs build/headers $(OBJECTS_GLUE) $(OBJEC
 
 .SECONDARY: tmp/native/gtk.o
 
-tmp/native/gtk.o: tmp/gtk$(APIVERSION).jar
+tmp/native/gtk.o: tmp/gtk-$(APIVERSION).jar
 	@echo "$(GCJ_CMD) $@"
 	$(GCJ) -fPIC -fjni \
 		-classpath $(JAVAGNOME_JARS):src/java:tmp/classes \
 		-o $@ -c $<
 
 tmp/libgtkjava-$(APIVERSION).so: tmp/native/gtk.o
-	@echo "LINK      $@"
+	@echo "$(GCJ_LINK_CMD) $@"
 	$(GCJ) -shared -fPIC -fjni \
 		-Wl,-rpath=$(JAVAGNOME_HOME)/lib \
 		-L$(JAVAGNOME_HOME)/lib \
@@ -165,13 +165,13 @@ else
 endif
 
 install-java: build-java \
-	$(JAVAGNOME_HOME)/share/java/gtk$(APIVERSION).jar \
+	$(JAVAGNOME_HOME)/share/java/gtk-$(APIVERSION).jar \
 	$(JAVAGNOME_HOME)/lib/libgtkjni-$(APIVERSION).so
 
 install-native: build-native install-java \
 	$(JAVAGNOME_HOME)/lib/libgtkjava-$(APIVERSION).so
 
-$(JAVAGNOME_HOME)/share/java/gtk$(APIVERSION).jar: tmp/gtk$(APIVERSION).jar
+$(JAVAGNOME_HOME)/share/java/gtk-$(APIVERSION).jar: tmp/gtk-$(APIVERSION).jar
 	@echo "CP        $< -> $(@D)"
 	cp $< $@
 	
@@ -188,14 +188,13 @@ clean:
 	rm -rf build/* tmp/classes/* tmp/objects/* tmp/include/*
 	rm -f hs_err_*
 	@echo "RM        built .jar and .so"
-	rm -f tmp/gtk$(APIVERSION).jar \
+	rm -f tmp/gtk-$(APIVERSION).jar \
 		tmp/libgtkjni-$(APIVERSION).so \
 		tmp/libgtkjava-$(APIVERSION).so
 
 ifdef V
-JAVADOC=javadoc
 else
-JAVADOC=javadoc -quiet
+JAVADOC=$(JAVADOC) -quiet
 REDIRECT=>/dev/null
 endif
 
