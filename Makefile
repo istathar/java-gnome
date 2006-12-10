@@ -185,12 +185,18 @@ $(JAVAGNOME_HOME)/lib/libgtkjava-$(APIVERSION).so: tmp/libgtkjava-$(APIVERSION).
 
 clean:
 	@echo "RM        temporary files"
-	rm -rf build/* tmp/classes/* tmp/objects/* tmp/include/*
+	rm -rf build/* tmp/classes/* tmp/include/* tmp/native/* tmp/objects/*
 	rm -f hs_err_*
 	@echo "RM        built .jar and .so"
 	rm -f tmp/gtk-$(APIVERSION).jar \
 		tmp/libgtkjni-$(APIVERSION).so \
 		tmp/libgtkjava-$(APIVERSION).so
+
+distclean: clean
+	@echo "RM        build configuration information"
+	-rm -f .config .config.tmp
+	@echo "RM        generated documentation"
+	-rm -f doc/api/*
 
 ifdef V
 else
