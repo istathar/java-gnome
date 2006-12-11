@@ -34,6 +34,33 @@ is improving rapidly. The fact that it has a vibrant community, is widely
 portable, and most of all that the development team actually have an enormous
 unit test suite to keep them honest biases in their favour.
 
+### Don't use checkout
+
+You want to create an independent branch that YOU can hack on. A Bazaar
+checkout is "bound" to a parent branch in such a way that enforces centralized
+development and prohibits you from committing if you're not up to date. Not so
+great if you're on a laptop, or intermittent network connection, so you
+probably don't want to use `bzr checkout` to get a local working copy.
+
+### Local repository
+
+You can reduce the amount of disk space that Bazaar consumes if you plan on
+having lots of local java-gnome branches by using a local repository. Instead
+of the above commands, try these:
+
+        $ mkdir java-gnome
+        $ cd java-gnome
+        $ bzr init-repo --trees .
+        $ bzr branch http://research.operationaldynamics.com/bzr/java-gnome/mainline
+        $ bzr branch mainline working
+        $ cd working
+        $ ./configure
+        $ make
+
+This will create two branches, `java-gnome/mainline/` and a
+`java-gnome/working/`. The second one is your playground. Granted that's a bit
+more elaborate, but you _may_ find it easier to maintain your own branch(es)
+if you do it that way. Or you may not. Feedback welcome.
 
 2. Do your own thing!
 ---------------------
@@ -48,7 +75,24 @@ work on something. And of you want to share it, go right ahead.
 
 That said, if you'd like to see your work merged into the mainline and
 available publicly in the official releases, then we'd encourage you to follow
-the stylistic guidelines laid out below.
+the stylistic guidelines discussed out below.
+
+### To send a patch
+
+If you've done some work on a local branch and you'd like to contribute it,
+try the following:
+
+        $ bzr bundle http://research.operationaldynamics.com/bzr/java-gnome/mainline > patch-name.bundle
+
+This will output the patch diffs, along with a whole spew of Bazaar metadata,
+into the file you specify. If you have a local branch that's a recent pull of
+mainline, then you can just do:
+
+        $ bzr bundle ../mainline > patch-name.bundle
+
+(or where ever your copy of mainline is), which might be a bit faster. Either
+way, you can just attach that file to an email and it will be able to be
+merged by others.
 
 
 TECHNICAL DETAILS
