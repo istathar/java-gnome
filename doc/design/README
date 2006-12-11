@@ -10,28 +10,28 @@ The design documents are loosely organized according to the following scheme:
 
 1. Background material:
 
-	* [The Great Owen Thread and other necessary homework](1a-Homework.txt)
-	* [Java Native Interface](1b-AllAboutJNI.txt)
+	* [The Great Owen Thread and other necessary homework](1a-Homework.html)
+	* [Java Native Interface](1b-AllAboutJNI.html)
 
 2. Governing assumptions (our objective as a project, who our audience is, and
    what constraints we impose on ourselves as we go about our business):
 
-   	* [Objective and Audience](2a-ObjectiveAndAudience.txt)
-	* [Design Constraints](2b-DesignConstraints.txt)
+   	* [Objective and Audience](2a-ObjectiveAndAudience.html)
+	* [Design Constraints](2b-DesignConstraints.html)
 
 3. Miscellaneous organizational decisions:
 
-	* [Package Names](3a-PackageNames.txt)
-	* [Version Numbering](3b-VersionNumbers.txt)
+	* [Package Names](3a-PackageNames.html)
+	* [Version Numbering](3b-VersionNumbers.html)
 
 4. Discussion of public APIs:
 
-	* [TreeView, TreeModel](4a-TreeViewAndTreeModel.txt)
-	* [GObject properties](4b-ObjectProperties.txt)
+	* [TreeView, TreeModel](4a-TreeViewAndTreeModel.html)
+	* [GObject properties](4b-ObjectProperties.html)
 
 5. Architecture:
 
-	* [Internal Architecture](5a-Architecture.txt)
+	* [Internal Architecture](5a-Architecture.html)
 
 These numbers correspond to those used to organize the original threads on the
 java-gnome-hackers mailing list. All of these documents started life as emails
@@ -45,8 +45,8 @@ About the format of our documentation
 
 These documents are all text files! They are, however, _**lightly**_ marked up
 with the syntax of John Gruber's "[Markdown][markdown]" so that they also
-present nicely as web pages. See [`doc/style/MARKUP`](../style/MARKUP) for
-details.
+present nicely as web pages. See [`doc/style/MARKUP`](../style/MARKUP.html)
+for details.
 
 As conventions, we:
 

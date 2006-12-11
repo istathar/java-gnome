@@ -5,7 +5,7 @@ uses Markdown to render text documentation as an HTML page and serve it up. If
 you'd like to use this yourself, by all means. You'll need to do a little
 tweaking of paths and your apache server config, though.
 
-What's Markdown? See [`doc/style/MARKUP`](../../../doc/style/MARKUP).
+What's Markdown? See [`doc/style/MARKUP`](../../../doc/style/MARKUP.html).
 
 Run this script in a local virtual host
 =======================================
