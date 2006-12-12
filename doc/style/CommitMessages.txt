@@ -14,12 +14,13 @@ support for a new distro to the top level configure script, commit it as one
 complete patch rather than 5 small ones.
 
 Of course at slightly larger levels of aggregation, series of patches chain
-together, and that's what branches are for. I'm not worried in the slightest
-what the branch tree ends up looking like, but I would request that if you do
-a specific piece of work try and do it an a little local branch, at least
-initially, so that the work groups together nicely when it comes time to
-merge it into your main branch en route to being sent to me for merging into
-mainline. 
+together, and that's what branches are for. It's tempting to try and ensure
+that the eventual `bzr viz` graph looks pretty, but don't worry about it.
+Branches are ultimately just a mechanism for shipping code around between
+developers and we end up doing merges several times a day. I'm not really that
+concerned about what the eventual branch tree ends up looking like, so just
+concentrate on doing your work and we'll let Bazaar take care of things
+from there.
 
 Summary line and revision text
 ------------------------------
@@ -32,6 +33,9 @@ important.
 For really trivial fixes, that single line as patch name is sufficient; but
 for more comprehensive patches please add a long comment (ie the subject line
 _plus_ some prose describing what you're up to. It doesn't have to be perfect.
+
+Put a single blank line between your summary line and the paragraphs you write
+as the main descriptive text of the revision comment.
 
 Remember that years from now someone will do `bzr log filename` and all the
 revisions which affected that one file will show. So if you can, try to keep

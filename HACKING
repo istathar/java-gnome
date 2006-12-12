@@ -8,20 +8,28 @@ GETTING STARTED
 1. Checkout the source code
 ---------------------------
 
-We are using Bazaar-NG to manage our source code. More commonly known as
-`bzr`, it is an advanced third-generation Distributed Version [or Revision]
-Control System.
+We are using Bazaar to manage our source code. More commonly known as `bzr`,
+it is an advanced third-generation Distributed Version [or Revision] Control
+System.
 
-To fetch the code, simply do:
+If you're going to hack on the bindings, we recommend that you do the
+following:
 
-        $ bzr branch http://research.operationaldynamics.com/bzr/java-gnome/mainline java-gnome
+        $ bzr init-repo --trees java-gnome
         $ cd java-gnome
+        $ bzr checkout http://research.operationaldynamics.com/bzr/java-gnome/mainline
+        $ bzr branch mainline working
+        $ cd working
         $ ./configure
         $ make
 
-See the instructions in the top level [`README`](README) for how to install
-from a source tarball and what options you can supply to Equivalence's
-`./configure` script.
+This will create two branches, a `java-gnome/mainline/`, which is a checkout
+that you can use to track upstream, and a `java-gnome/working/`, which is a
+full power branch. This second one is your playground. `:)`
+
+If you haven't already read them, see the instructions in the top level
+[`README`](README) for how to install from a source tarball and what options
+you can supply to the `./configure` script.
 
 ### Why `bzr`?
 
@@ -33,34 +41,6 @@ in terms of its responsiveness, and it still has a number of rough edges, it
 is improving rapidly. The fact that it has a vibrant community, is widely
 portable, and most of all that the development team actually have an enormous
 unit test suite to keep them honest biases in their favour.
-
-### Don't use checkout
-
-You want to create an independent branch that YOU can hack on. A Bazaar
-checkout is "bound" to a parent branch in such a way that enforces centralized
-development and prohibits you from committing if you're not up to date. Not so
-great if you're on a laptop, or intermittent network connection, so you
-probably don't want to use `bzr checkout` to get a local working copy.
-
-### Local repository
-
-You can reduce the amount of disk space that Bazaar consumes if you plan on
-having lots of local java-gnome branches by using a local repository. Instead
-of the above commands, try these:
-
-        $ mkdir java-gnome
-        $ cd java-gnome
-        $ bzr init-repo --trees .
-        $ bzr branch http://research.operationaldynamics.com/bzr/java-gnome/mainline
-        $ bzr branch mainline working
-        $ cd working
-        $ ./configure
-        $ make
-
-This will create two branches, `java-gnome/mainline/` and a
-`java-gnome/working/`. The second one is your playground. Granted that's a bit
-more elaborate, but you _may_ find it easier to maintain your own branch(es)
-if you do it that way. Or you may not. Feedback welcome.
 
 2. Do your own thing!
 ---------------------
@@ -77,28 +57,52 @@ That said, if you'd like to see your work merged into the mainline and
 available publicly in the official releases, then we'd encourage you to follow
 the stylistic guidelines discussed out below.
 
+### "General maintenance"
+
+Meanwhile, you'll want to catch-up with what's been going on upstream. So
+update the checkout you have of mainline with the following:
+
+        $ cd ../mainline
+        $ bzr update
+
+Then you need to merge in the upstream changes into your branch:
+
+        $ cd ../working
+        $ bzr merge
+
+Merging only brings the changes to your working directory; it doesn't _commit_
+them to your working branch. So, assuming you want to accept them, you need to
+do a commit of those changes. So, Look at the changes that were pulled in
+with:
+
+        $ bzr status
+        $ bzr diff
+
+then commit:
+
+	$ bzr commit
+
+but make sure you only commit the stuff you've merged in, not unfinished
+changes you've might have locally! In other words, best to do the merge after
+you've finished anything you might happen to be doing in that branch. 
+
 ### To send a patch
 
-If you've done some work on a local branch and you'd like to contribute it,
-try the following:
+If you've done some work on your local branch and you'd like to contribute it,
+go ahead and commit it locally in your working branch, then try the following:
 
-        $ bzr bundle http://research.operationaldynamics.com/bzr/java-gnome/mainline > patch-name.bundle
+        $ bzr bundle ../mainline > /tmp/patch-name.patch
 
-This will output the patch diffs, along with a whole spew of Bazaar metadata,
-into the file you specify. If you have a local branch that's a recent pull of
-mainline, then you can just do:
-
-        $ bzr bundle ../mainline > patch-name.bundle
-
-(or where ever your copy of mainline is), which might be a bit faster. Either
-way, you can just attach that file to an email and it will be able to be
-merged by others.
+This will output the diffs, along with a whole spew of Bazaar metadata, into
+the file you specify. It's 7 bit safe, so you can just attach that file to an
+email and it will be able to be merged by others. `.patch` is a good suffix
+because most mail clients know to do something useful with such an attachment.
 
 
 TECHNICAL DETAILS
 =================
 
-The java-gnome 4.x bindings are pretty straight forward, so in terms of adding
+The java-gnome 4.0 bindings are pretty straight forward, so in terms of adding
 new coverage you can probably pick things up by example fairly easily. But you
 really should take the time to understand *why* things work, or you won't be
 able to understand the mechanisms involved behind the scene.
