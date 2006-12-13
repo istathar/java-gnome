@@ -131,3 +131,61 @@ Java_org_gnome_gtk_GtkLabel_gtk_1label_1get_1text
 	// return string
 	return (*env)->NewStringUTF(env, label);
 }
+
+
+JNIEXPORT void JNICALL
+Java_org_gnome_gtk_GtkLabel_gtk_1label_1set_1use_1markup
+  (JNIEnv *env, jclass cls, jlong _self, jboolean _setting)
+{
+	GtkLabel* self;
+
+	gboolean setting;
+
+	// translate arg self
+	self = (GtkLabel*) _self;
+	setting = (gboolean) _setting;
+
+	// call function
+	//gtk_label_set_use_markup(self, setting);
+	gtk_label_set_use_markup(self, TRUE);
+
+	// cleanup arg self
+}
+
+
+JNIEXPORT void JNICALL
+Java_org_gnome_gtk_GtkLabel_gtk_1label_1set_1angle
+  (JNIEnv *env, jclass cls, jlong _self, jdouble _angle)
+{
+	GtkLabel* self;
+	gdouble angle;
+
+	// translate arg self
+	self = (GtkLabel*) _self;
+	angle = (gboolean) _angle;
+
+	// call function
+	//gtk_label_set_angle(self, angle);
+	gtk_label_set_angle(self, angle);
+
+	// cleanup arg self
+}
+
+
+JNIEXPORT jint JNICALL
+Java_org_gnome_gtk_GtkLabel_gtk_1label_1get_1angle
+  (JNIEnv *env, jclass cls, jlong _self)
+{
+	GtkLabel* self;
+	gint angle;
+
+	// translate arg self
+	self = (GtkLabel*) _self;
+
+	// call function
+	//gtk_label_set_angle(self, angle);
+	angle = gtk_label_get_angle(self);
+	return angle;
+
+	// cleanup arg self
+}

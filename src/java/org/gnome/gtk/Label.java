@@ -62,4 +62,57 @@ public class Label extends Misc
     public void setLabel(String text) {
         GtkLabel.setLabel(this, text);
     }
+
+    /**
+     * Get the text showing in the Label including the Pango markup. If the
+     * Label has been told to interpret Pango markup with
+     * {@link #setUseMarkup(boolean) setUseMarkup(true)}, then any markup
+     * included in text will be interpreted as such.
+     */
+    public String getLabel() {
+        return GtkLabel.getLabel(this);
+    }
+
+    /**
+     * Get the text showing in the Label without Pango markup.
+     * 
+     */
+    public String getText() {
+        return GtkLabel.getText(this);
+    }
+
+    /**
+     * Parse the text showing in the label for Pango markup and display with
+     * appropriate formatting.
+     * 
+     * @param setting
+     *            If setting is true, then any markup included in the text is
+     *            interpreted as such. If its set to false, markup is ignored.
+     */
+    public void setUseMarkup(boolean setting) {
+        GtkLabel.setUseMarkup(this, setting);
+    }
+
+    /**
+     * Sets the angle of rotation for the label. An angle of 90 reads from
+     * bottom to top, an angle of 270, from top to bottom. The angle setting
+     * for the label is ignored if the label is selectable, wrapped, or
+     * ellipsized.
+     * 
+     * @param angle
+     *            Specifies the angle of rotation.
+     * 
+     */
+    public void setAngle(double angle) {
+        GtkLabel.setAngle(this, angle);
+    }
+
+    /**
+     * Get the current angle of the label. An angle of 90 reads from bottom to
+     * top, an angle of 270, from top to bottom.
+     * 
+     */
+    public int getAngle() {
+        return GtkLabel.getAngle(this);
+    }
 }

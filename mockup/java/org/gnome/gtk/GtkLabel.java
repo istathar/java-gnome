@@ -98,6 +98,41 @@ final class GtkLabel extends Plumbing
 
     private static final native String gtk_label_get_label(long label);
 
+    /**
+     * gtk_label_set_use_markup()
+     * 
+     * @param label
+     * @param setting
+     */
+    static final void setUseMarkup(Label self, boolean setting) {
+        gtk_label_set_use_markup(pointerOf(self),setting);
+    }
+
+    private static native void gtk_label_set_use_markup(long label, boolean setting);
+
+    
+    /**
+     * gtk_label_set_angle()
+     * 
+     * @param angle
+     */
+    static final void setAngle(Label self, double angle){
+        gtk_label_set_angle(pointerOf(self), angle);
+    }
+    private static final native void gtk_label_set_angle(long label, double angle);
+    
+    /**
+     * gtk_label_get_angle()
+     * 
+     * 
+     */
+    
+    static final int getAngle(Label self){
+        return gtk_label_get_angle(pointerOf(self));
+    }
+    private static final native int gtk_label_get_angle(long label);
+    
+    
     interface COPY_CLIPBOARD extends Signal
     {
         void onCopyClipboard(Label source);
