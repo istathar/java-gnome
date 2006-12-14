@@ -64,3 +64,30 @@ Java_org_gnome_gtk_GtkWindow_gtk_1window_1set_1title
 	// cleanup arg title
 	(*env)->ReleaseStringUTFChars(env, _title, title);
 }
+
+JNIEXPORT void JNICALL
+Java_org_gnome_gtk_GtkWindow_gtk_1window_1set_1default_1size
+  (JNIEnv *env, jclass cls, jlong _self, jint _width, jint _height)
+{
+	GtkWindow* self;
+	gint width; 
+	gint height;
+
+	// translate arg self
+	self = (GtkWindow*) _self;
+
+	// translate arg width
+	width = (gint) _width;
+	
+	// translate arg height
+	height = (gint) _height;
+	
+	// call function
+	gtk_window_set_default_size(self, width, height);
+
+	// cleanup arg self
+	
+	// cleanup arg width
+	
+	// cleanup arg height
+}

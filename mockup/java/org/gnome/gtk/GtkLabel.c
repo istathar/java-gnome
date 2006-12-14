@@ -28,7 +28,7 @@ Java_org_gnome_gtk_GtkLabel_gtk_1label_1new
 	GtkWidget* label;
 	gchar* str;
 	
-	// translate arg label
+	// translate arg str
 	str = (gchar*) (*env)->GetStringUTFChars(env, _str, NULL);
 	if (str == NULL) {
 		return 0; /* OutOfMemoryError already thrown */
@@ -37,7 +37,7 @@ Java_org_gnome_gtk_GtkLabel_gtk_1label_1new
 	// call constructor
 	label = gtk_label_new(str);
 
-	// cleanup arg label
+	// cleanup arg str
 	(*env)->ReleaseStringUTFChars(env, _str, str);
 
 	// return address
@@ -54,7 +54,7 @@ Java_org_gnome_gtk_GtkLabel_gtk_1label_1set_1label
 	// translate arg self
 	self = (GtkLabel*) _self;
 
-	// translate arg label
+	// translate arg str
 	str = (gchar*) (*env)->GetStringUTFChars(env, _str, NULL);
 	if (str == NULL) {
 		return; /* OutOfMemoryError already thrown */
@@ -65,7 +65,7 @@ Java_org_gnome_gtk_GtkLabel_gtk_1label_1set_1label
 
 	// cleanup arg self
 
-	// cleanup arg label
+	// cleanup arg str
 	(*env)->ReleaseStringUTFChars(env, _str, str);
 }
 
@@ -98,7 +98,7 @@ Java_org_gnome_gtk_GtkLabel_gtk_1label_1set_1text
 	// translate arg self
 	self = (GtkLabel*) _self;
 
-	// translate arg label
+	// translate arg str
 	str = (gchar*) (*env)->GetStringUTFChars(env, _str, NULL);
 	if (str == NULL) {
 		return; /* OutOfMemoryError already thrown */
@@ -109,7 +109,7 @@ Java_org_gnome_gtk_GtkLabel_gtk_1label_1set_1text
 
 	// cleanup arg self
 
-	// cleanup arg label
+	// cleanup arg str
 	(*env)->ReleaseStringUTFChars(env, _str, str);
 }
 
@@ -130,4 +130,66 @@ Java_org_gnome_gtk_GtkLabel_gtk_1label_1get_1text
 
 	// return string
 	return (*env)->NewStringUTF(env, label);
+}
+
+
+JNIEXPORT void JNICALL
+Java_org_gnome_gtk_GtkLabel_gtk_1label_1set_1use_1markup
+  (JNIEnv *env, jclass cls, jlong _self, jboolean _setting)
+{
+	GtkLabel* self;
+	gboolean setting;
+
+	// translate arg self
+	self = (GtkLabel*) _self;
+	
+	// translate arg setting
+	setting = (gboolean) _setting;
+
+	// call function
+	gtk_label_set_use_markup(self, setting);
+
+	// cleanup arg self
+	
+	// cleanup arg setting
+}
+
+
+JNIEXPORT void JNICALL
+Java_org_gnome_gtk_GtkLabel_gtk_1label_1set_1angle
+  (JNIEnv *env, jclass cls, jlong _self, jdouble _angle)
+{
+	GtkLabel* self;
+	gdouble angle;
+
+	// translate arg self
+	self = (GtkLabel*) _self;
+	
+	// translate arg angle
+	angle = (gdouble) _angle;
+
+	// call function
+	gtk_label_set_angle(self, angle);
+
+	// cleanup arg self
+}
+
+
+JNIEXPORT jdouble JNICALL
+Java_org_gnome_gtk_GtkLabel_gtk_1label_1get_1angle
+  (JNIEnv *env, jclass cls, jlong _self)
+{
+	GtkLabel* self;
+	gdouble angle;
+
+	// translate arg self
+	self = (GtkLabel*) _self;
+
+	// call function
+	angle = gtk_label_get_angle(self);
+	
+	// cleanup arg self
+	
+	// return double
+	return (jdouble) angle;
 }

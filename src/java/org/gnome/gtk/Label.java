@@ -29,6 +29,7 @@ package org.gnome.gtk;
  * point you might want to investigate the {@link TextView TextView} Widget.
  * 
  * @author Andrew Cowie
+ * @author Srichand Pendyala
  */
 public class Label extends Misc
 {
@@ -61,5 +62,68 @@ public class Label extends Misc
      */
     public void setLabel(String text) {
         GtkLabel.setLabel(this, text);
+    }
+
+    /**
+     * Get the text showing in the Label, including any characters which
+     * indicate Pango markup syntax and embedded mnemonic underline characters
+     * that may be present. Contrast with {@link #getText() getText()} which
+     * returns the text unadorned.
+     */
+    public String getLabel() {
+        return GtkLabel.getLabel(this);
+    }
+
+    /**
+     * Get the text showing in the Label, but with any Pango markup stripped
+     * away. This is useful if you've applied some fancy formatting but just
+     * want to find out the actual words that appear to the user. It also
+     * strips away any embedded underlines indicating mnemonics. If you need
+     * the raw text including markup, then you want
+     * {@link #getLabel() getLabel()}.
+     */
+    public String getText() {
+        return GtkLabel.getText(this);
+    }
+
+    /**
+     * Set whether the text showing in the Label is to be parsed as containing
+     * markup in Pango's text markup language. Using this allows Labels to be
+     * created with expressive formatting considerably more advanced than a
+     * simple line of text.
+     * 
+     * @param setting
+     *            If setting is true, then any markup included in the text is
+     *            interpreted as such. If its set to false, markup is ignored
+     *            and included as-is.
+     */
+    public void setUseMarkup(boolean setting) {
+        GtkLabel.setUseMarkup(this, setting);
+    }
+
+    /**
+     * Sets the angle of rotation for the Label. The angle is measured in
+     * degrees from the horizontal, going counter-clockwise. An angle of
+     * 90&#176; reads from bottom to top, an angle of 270&#176; from top to
+     * bottom. The angle setting for the Label will be ignored if the Label is
+     * selectable, wrapped, or ellipsized.
+     * 
+     * @param angle
+     *            The angle that the baseline of the Label's text makes with
+     *            the horizontal. The valid range (as you'd expect) is from
+     *            0&#176; through 360&#176;.
+     */
+    public void setAngle(double angle) {
+        GtkLabel.setAngle(this, angle);
+    }
+
+    /**
+     * Get the current angle of the Label. An angle of 90&#176; means the text
+     * reads in an upwards direction (ie from bottom to top), whereas an angle
+     * of 270&#176; means the text reads in a downwards direction (ie from top
+     * to bottom).
+     */
+    public double getAngle() {
+        return GtkLabel.getAngle(this);
     }
 }

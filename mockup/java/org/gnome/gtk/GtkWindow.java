@@ -41,4 +41,10 @@ final class GtkWindow extends Plumbing
     }
 
     private static native final void gtk_window_set_decorated(long window, boolean decorated);
+
+    static final void setDefaultSize(Window self, int width, int height) {
+        gtk_window_set_default_size(pointerOf(self), width, height);
+    }
+
+    private static native final void gtk_window_set_default_size(long window, int width, int height);
 }
