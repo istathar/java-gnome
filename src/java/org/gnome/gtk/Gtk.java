@@ -27,6 +27,8 @@ public final class Gtk
 
     private static final String APIVERSION = "4.0";
 
+    static final String VERSION = "4.0.1";
+
     static {
         System.loadLibrary("gtkjni-" + APIVERSION);
     }
