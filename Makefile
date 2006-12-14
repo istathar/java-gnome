@@ -200,12 +200,12 @@ distclean: clean
 
 ifdef V
 else
-JAVADOC=$(JAVADOC) -quiet
+JAVADOC:=$(JAVADOC) -quiet
 REDIRECT=>/dev/null
 endif
 
-doc:
-	@echo "JAVADOC   src/java/*.java"
+doc: build/classes
+	@echo "$(JAVADOC_CMD) doc/api/*.html"
 	$(JAVADOC) \
 		-d doc/api \
 		-classpath src/java \

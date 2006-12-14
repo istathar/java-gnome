@@ -1332,8 +1332,8 @@ if ($jar) {
 	bail "failed", "No Java archive tool detected.";
 }
 if ($javadoc) {
-	print CONFIG "JAVADOC=$jar\n";
-	print CONFIG "JAVADOCC_CMD=JAVADOC  \n";
+	print CONFIG "JAVADOC=$javadoc\n";
+	print CONFIG "JAVADOC_CMD=JAVADOC  \n";
 } else {
 	bail "failed", "No JavaDoc tool detected.";
 }
