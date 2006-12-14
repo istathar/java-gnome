@@ -1467,28 +1467,36 @@ if ($cc =~ /gcc/) {
 # --------------------------------------------------------------------
 
 my $apiversion;
+my $version;
 
 open SOURCE, "src/java/org/gnome/gtk/Gtk.java";
 while (<SOURCE>) {
 	chomp;
-	if (/.*APIVERSION = \"([\d\.]+)\";/) {
+	if (/.* APIVERSION = \"([\d\.]+)\";/) {
 		$apiversion = $1;
+	}
+	if (/.* VERSION = \"([\d\.]+)\";/) {
+		$version = $1;
 	}
 }
 close SOURCE;
 
 if (!$apiversion) {
-	bail("version not found","Couldn't find the API version");
+	bail("","Couldn't find the API version");
+}
+if (!$version) {
+	bail("","Couldn't find the release version");
 }
 
 print CONFIG <<HERE ;
 
-# finally, we extract a version string from the source code, 
+# finally, we extract the version strings from the source code, 
 # for use in naming the target library files.
 
 HERE
 
 print CONFIG "APIVERSION=$apiversion\n";
+print CONFIG "VERSION=$version\n";
 
 # --------------------------------------------------------------------
 # Done! Create .config file

@@ -39,6 +39,11 @@ build-native: tmp/libgtkjava-$(APIVERSION).so
 	echo
 	exit 1
 
+build/config: .config build/dirs
+	@echo "CHECK     build system configuration"
+	( if [ ! "$(JAVA_CMD)" ] ; then echo "Sanity check failed. Run ./configure" ; exit 1 ; fi )
+	touch $@
+
 SOURCES_JAVA=$(shell find src/java -name '*.java') $(shell find mockup/java -name '*.java')
 
 CLASSES_JAVA=$(shell echo $(SOURCES_JAVA) | sed -e's/\.java/\.class/g' -e's/src\/java/tmp\/classes/g' -e's/mockup\/java/tmp\/classes/g')
@@ -55,8 +60,8 @@ OBJECTS_GLUE=$(shell echo $(SOURCES_GLUE) | sed -e's/\.c/\.o/g' -e's/src\/jni/tm
 #
 # convenience target: setup pre-reqs
 #
-build/dirs:
-	@echo "MKDIR     preping temporary files and build directories"
+build/dirs: .config
+	@echo "MKDIR     temporary build directories"
 	-test -d build || mkdir build
 	-test -d tmp/classes || mkdir -p tmp/classes
 	-test -d tmp/native || mkdir -p tmp/native
@@ -64,11 +69,12 @@ build/dirs:
 	-test -d tmp/include || mkdir -p tmp/include
 	touch $@
 
+
 # --------------------------------------------------------------------
 # Source compilation
 # --------------------------------------------------------------------
 
-tmp/gtk-$(APIVERSION).jar: build/dirs build/classes
+tmp/gtk-$(APIVERSION).jar: build/config build/classes
 	@echo "$(JAR_CMD) $@"
 	cd tmp/classes ; find . -name '*.class' | xargs $(JAR) cf ../../$@ 
 
@@ -101,9 +107,9 @@ tmp/include/%.h: src/jni/%.h
 	@echo "CP        $< -> $(@D)"
 	cp -p $< $@
 
-# We don't use an implict rule for this for the simple reason that we
-# only want to do one invocation, which means using $? (newer than target).
-# It gets more complicated because of the need to give classnames to javah.
+# We don't use an implict rule for this for the simple reason that we only
+# want to do one invocation, which means using $? (newer than target). It gets
+# more complicated because of the need to give classnames to javah.
 
 SOURCES_JNI=$(shell echo $(SOURCES_C) | sed -e 's/\.c/\.c\n/g' | grep org )
 build/headers-generate: $(SOURCES_JNI)
@@ -128,7 +134,7 @@ tmp/objects/%.o: mockup/java/%.c
 	@echo "$(CC_CMD) $@"
 	$(CCACHE) $(CC) $(GTK_CFLAGS) -Itmp/include -o $@ -c $<
 
-tmp/libgtkjni-$(APIVERSION).so: build/dirs build/headers $(OBJECTS_GLUE) $(OBJECTS_C)
+tmp/libgtkjni-$(APIVERSION).so: build/config build/headers $(OBJECTS_GLUE) $(OBJECTS_C)
 	@echo "$(LINK_CMD) $@"
 	$(LINK) -shared -fPIC -fjni \
 		-Wl,-rpath=$(JAVAGNOME_HOME)/lib \
@@ -196,7 +202,10 @@ distclean: clean
 	@echo "RM        build configuration information"
 	-rm -f .config .config.tmp
 	@echo "RM        generated documentation"
-	-rm -f doc/api/*
+	-rm -rf doc/api/*
+	-rm -f java-gnome-*.tar.bz2
+	@echo "RM        temporary directories"
+	-rm -rf tmp build
 
 ifdef V
 else
@@ -218,4 +227,17 @@ doc:
 		-author \
 		$(SOURCES_JAVA) $(REDIRECT)
 
-# vim: set filetype=make:
+
+#
+# Remember that if you bump the version number you need to commit the change
+# and re-./configure before being able to run this! On the other hand, we
+# don't have to distclean before calling this.
+#
+dist: all
+	@echo "CHECK     fully committed state"
+	bzr diff > /dev/null || ( echo -e "\nYou need to commit all changes before running make dist\n" ; exit 4 )
+	@echo "EXPORT    java-gnome-$(VERSION).tar.bz2"
+	bzr export java-gnome-$(VERSION).tar.bz2
+
+
+# vim: set filetype=make textwidth=78 nowrap:
