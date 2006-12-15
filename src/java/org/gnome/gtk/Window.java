@@ -16,12 +16,13 @@ package org.gnome.gtk;
  * application windows, dialog boxes, and popup menus.
  * 
  * @author Andrew Cowie
+ * @author Srichand Pendyala
  */
 public class Window extends Bin
 {
 
     /**
-     * Create a new Window
+     * Create a new Window.
      */
     public Window() {
         super(GtkWindow.createWindow(WindowType.TOPLEVEL));
@@ -29,9 +30,10 @@ public class Window extends Bin
 
     /**
      * Create a new Window of the specified type. In general you don't need to
-     * use this; see the comments in {@link org.gnome.gtk.WindowType WindowType};
-     * in particular, {@link org.gnome.gtk.WindowType#POPUP POPUP} is <b>not</b>
-     * for dialog windows!
+     * use this; see the comments in
+     * {@link org.gnome.gtk.WindowType WindowType}; in particular,
+     * {@link org.gnome.gtk.WindowType#POPUP POPUP} is <b>not</b> for dialog
+     * windows!
      */
     public Window(WindowType type) {
         super(GtkWindow.createWindow(type));
@@ -43,7 +45,8 @@ public class Window extends Bin
      * The title of a Window is an important usability factor. It should help
      * the user distinguish this Window from others they may have open - and
      * that gets tough when many, many applications are running. The key is to
-     * get the most relevant information is first. Examples of good titles are:
+     * get the most relevant information is first. Examples of good titles
+     * are:
      * <ul>
      * <li><b>Invoice.odt</b>
      * <li><b>Invoice.odt - OpenOffice</b>
@@ -52,11 +55,11 @@ public class Window extends Bin
      * </ul>
      * 
      * <p>
-     * This is important because the list of Windows titles the user is looking
-     * at may have been truncated with the result that you can't tell the
-     * difference between different Windows of the same application. For
-     * example, these are no good if you can only see the first 20 characters of
-     * the title:
+     * This is important because the list of Windows titles the user is
+     * looking at may have been truncated with the result that you can't tell
+     * the difference between different Windows of the same application. For
+     * example, these are no good if you can only see the first 20 characters
+     * of the title:
      * 
      * <ul>
      * <li><b>OpenOffice 2.0.4 brought to yo</b>u by the letter B! -
@@ -71,10 +74,9 @@ public class Window extends Bin
      * leaving more room for the details that help identify this Window
      * uniquely.
      * 
-     * <p>
-     * See the <a
-     * href="http://developer.gnome.org/projects/gup/hig/2.0/windows-primary.html#primary-window-titles">GNOME
-     * Human Interface Guidelines</A> for more details.
+     * @see <a
+     *      href="http://developer.gnome.org/projects/gup/hig/2.0/windows-primary.html#primary-window-titles">GNOME
+     *      Human Interface Guidelines</a>
      */
     public void setTitle(String title) {
         GtkWindow.setTitle(this, title);
@@ -105,13 +107,42 @@ public class Window extends Bin
     }
 
     /**
-     * This signal arises when a user tries to close a top level window. As you
-     * would expect, the default handler for this signal destroys the Window.
+     * Sets the default size of a Window. If the Window's "natural" size (the
+     * size request resulting from the aggregate requests of all the Widgets
+     * contained in this Window) is larger than the default, the default will
+     * be ignored. The default size of a Window only affects the first time a
+     * Window is shown; if a Window is hidden and re-shown, it will remember
+     * the size it had prior to hiding, rather than using the default size.
+     * 
+     * <p>
+     * Depending on your needs, {@link #resize() resize()} could be more
+     * appropriate, especially if the Window is already realized . resize()
+     * changes the current size of the Window, rather than the size to be used
+     * on initial display which is what this method is for.
+     * 
+     * <p>
+     * Incidentally, Windows can't be 0x0; the minimum size is 1x1.
+     * 
+     * @param width
+     *            The default minimum width you'd like to set. A value of 0
+     *            will be silently bumped to 1. A value of -1 will unset any
+     *            previous default width setting.
+     * @param height
+     *            Same.
+     */
+    public void setDefaultSize(int width, int height) {
+        GtkWindow.setDefaultSize(this, width, height);
+    }
+
+    /**
+     * This signal arises when a user tries to close a top level window. As
+     * you would expect, the default handler for this signal destroys the
+     * Window.
      * 
      * <p>
      * If you want to prevent a Window from being closed, connect this signal,
-     * and return <code>true</code>. Often the reason to do this is to pop up
-     * a notification Dialog, for example asking you if you want to save an
+     * and return <code>true</code>. Often the reason to do this is to pop
+     * up a notification Dialog, for example asking you if you want to save an
      * unsaved document. Another technique is reusing a Window: rather than
      * going to all the trouble to create this Window again, you can just
      * temporarily hide it by calling {@link Widget#hide() Widget's hide()}.
@@ -119,8 +150,8 @@ public class Window extends Bin
      * <p>
      * <i> This signal is actually "delete-event" which lives on GtkWidget.
      * That, however, is for implementation reasons in GTK because all the
-     * GdkEvents go to GtkWidget even though this particular signal only has to
-     * do with Windows. So, we expose it here. </i>
+     * GdkEvents go to GtkWidget even though this particular signal only has
+     * to do with Windows. So, we expose it here. </i>
      * 
      * @author Andrew Cowie
      * @author Devdas Bhagat
