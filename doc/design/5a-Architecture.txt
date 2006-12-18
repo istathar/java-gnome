@@ -43,7 +43,7 @@ But there's a con:
 The biggest objection was to come up with a way to factory create these
 instances. In java-gnome 2.x, you do:
 
-        Button b = new Button("Press Me");
+    Button b = new Button("Press Me");
 
 Since Button would now be an Interface, I pondered long and hard about what we
 might replace that with. Putting a static "`create`" factory method on Button
@@ -51,11 +51,11 @@ doesn't work when Interfaces are involved because of course there's no code in
 an Interface file. Creating a separate factory class in parallel naming seemed
 silly:
 
-        Button b = ButtonFactory.createWithLabel("Press Me");
+    Button b = ButtonFactory.createWithLabel("Press Me");
 
 and NOT exposing the underlying generated code is the whole point, so:
 
-        Button b = InternalButtonImplementation.createWithLabel("Press Me");
+    Button b = InternalButtonImplementation.createWithLabel("Press Me");
 
 sucks because it's got nothing to do with the Button we're trying to create.
 
@@ -66,11 +66,11 @@ Then one night I struck upon this idea instead: why not put the constructors
 on the static classes we have, roughly one per module, that are named with
 that module name?
 
-        Button b = Gtk.createButton("PressMe");
+    Button b = Gtk.createButton("PressMe");
 
 Which I then shortened about 5 minutes later to:
 
-        Button b = Gtk.Button("PressMe");
+    Button b = Gtk.Button("PressMe");
 
 Which I was really pleased with. [So pleased in fact that I picked up the
 phone, called Ismael in England, and babbled on for 30 minutes about how cool
@@ -158,24 +158,24 @@ this is what I ended up with:
 
 Usage wise, we're back to a familiar idiom:
 
-        Button b = new Button("Press Me");
+    Button b = new Button("Press Me");
 
 Button is a hand written concrete class. That is not as ideal as the
 "Interfaces" design because instead of typing:
 
-        /**
-         * Some documentation
-         */
-        public String getLabel();
+    /**
+     * Some documentation
+     */
+    public String getLabel();
 
 we of course have to have to type:
 
-        /**
-         * Some documentation
-         */
-        public String getLabel() {
-                // call to the generated code, however that's to be done...
-        }
+    /**
+     * Some documentation
+     */
+    public String getLabel() {
+        // call to the generated code, however that's to be done...
+    }
 
 which means that we have to hand write the signature of the generated method
 we're calling, and loose the rigour of matching our method names to the
@@ -187,16 +187,16 @@ explain why it's not a problem, consider the situation in the 2.x bindings:
 At the moment, we have a hand written method signature and the native
 declaration embedded in the same class. Someone typed:
 
-        /**
-         * Some documentation; note that newLabel is not what the GTK
-         * docs called it, and in Java land new is a terrible prefix for
-         * a variable. But whatever.
-         */
-        public void setLabel(String newLabel) {
-                gtk_button_set_label(getHandle(), newLabel);
-        }
+    /**
+     * Some documentation; note that newLabel is not what the GTK
+     * docs called it, and in Java land new is a terrible prefix for
+     * a variable. But whatever.
+     */
+    public void setLabel(String newLabel) {
+        gtk_button_set_label(getHandle(), newLabel);
+    }
 
-        protected native void gtk_button_set_label(Handle handle, String label);
+    protected native void gtk_button_set_label(Handle handle, String label);
 
 This is what allowed us to get all wonky with our names as Owen pointed out to
 us... there was nothing obviously reminding us to name our method `getLabel()`
@@ -206,12 +206,12 @@ By ensuring the generated code has the algorithmic name that under 98% of
 circumstances matches what we are supposed to present as public API, there's
 less guess work involved:
 
-        /**
-         * Some documentation
-         */
-        public String getLabel() {
-                return getLabel();       // FIXME!
-        }
+    /**
+     * Some documentation
+     */
+    public String getLabel() {
+        return getLabel();       // FIXME!
+    }
 
 So, duh, if you're wrapping something that the generator spewed out as
 getLabel() you just call your method "`getLabel`" . And, (bonus points) we can
@@ -251,12 +251,12 @@ wrapper class have to do?"_
 
 How's this:
 
-        /**
-         * Some documentation
-         */
-        public void setLabel(String label) {
-                GtkButton.setLabel(this, label);
-        }
+    /**
+     * Some documentation
+     */
+    public void setLabel(String label) {
+        GtkButton.setLabel(this, label);
+    }
 
 Details:
 
@@ -290,14 +290,14 @@ java-gnome hackers are kept away from this implementation goo.
 
 Here's a skeleton of what generated code for setLabel looks like:
 
-        final class GtkButton extends Plumbing {
+    final class GtkButton extends Plumbing {
 
-                static final void setLabel(Button self, String label) {
-                        gtk_button_set_label(pointerOf(self), label);
-                }
- 
-                private static native final void gtk_button_set_label(long self, String label);
+        static final void setLabel(Button self, String label) {
+            gtk_button_set_label(pointerOf(self), label);
         }
+
+        private static native final void gtk_button_set_label(long self, String label);
+    }
 
 
 Of course, running `javah` over that results in a header file which allows
@@ -305,12 +305,12 @@ us to double check that the generated C code matches up.
 
 The JNI function on the C side implementing this is:
 
-        JNIEXPORT void JNICALL
-        Java_org_gnome_gtk_GtkButton_gtk_1button_1set_1label
-                (JNIEnv *env, jclass cls, jlong _self, jstring _label)
-        {
-                ...
-        }
+    JNIEXPORT void JNICALL
+    Java_org_gnome_gtk_GtkButton_gtk_1button_1set_1label
+            (JNIEnv *env, jclass cls, jlong _self, jstring _label)
+    {
+            ...
+    }
 
 
 This generated C code is very straight forward as well: take the JNI

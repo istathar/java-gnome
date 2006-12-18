@@ -120,15 +120,14 @@ What's the difference?)
 
 And not just
 
-        "Set the rabbit property." (gee, thanks for nothing)
+    "Set the rabbit property." (gee, thanks for nothing)
 
 but
 
-        "Set the rabbit property to one of fast, lean, fat, or dead. You
-        probably want to choose a fast rabbit if you're betting on the
-        races, whereas selecting dead is appropriate if you're hungry.
-        On the other hand, fat rabbits are cute and cuddly and make
-        great companions."
+    "Set the rabbit property to one of fast, lean, fat, or dead. You probably
+    want to choose a fast rabbit if you're betting on the races, whereas
+    selecting dead is appropriate if you're hungry.  On the other hand, fat
+    rabbits are cute and cuddly and make great companions."
 
 Finally, we will include code snippets in our JavaDoc. Yes, code snippets.
 Phil and I were talking the other night and recalling how amazing the original

@@ -23,9 +23,9 @@ juju]
 Therefore, our next release set will be (plus or minus whatever naming scheme
 we use):
 
-		glib-java   4.0.x
-		cairo-java  4.0.x
-		gtk-java    4.0.x
+    glib-java   4.0.x
+    cairo-java  4.0.x
+    gtk-java    4.0.x
 etc.
 
 Which as a whole will be called "`java-gnome 4.0`". The pieces that are part
