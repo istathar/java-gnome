@@ -70,33 +70,6 @@
 body {
 	font-family: "Times New Roman", serif;
 }
-h1 {
-	background-color: #CCCCCC;
-	border-bottom: 1px solid black;
-	padding-left: 5px;
-}
-h1.title {
-	color: green;
-	font-family: "Arial", sans-serif;
-	font-size: 40px;
-}
-h2, h3 {
-	padding-left: 5px;
-}
-p {
-	padding-left: 5px;
-	padding-right: 5px;
-}
-pre {
-	padding-left: 6px;
-}
-blockquote {
-	padding-left: 5px;
-	font-style: italic;
-}
-.highlight {
-	background-color: yellow;
-}
 </style>
 </head>
 <body>
