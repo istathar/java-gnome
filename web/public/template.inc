@@ -66,10 +66,8 @@ function template_header() {
  * This prints out the table structure and contents of the 
  * page template.
  * 
- * This function ends with the HTML having been initialized into a 
- * blank table cell which can be treated by the calling document as the
- * full document itself.
- *
+ * This function ends with the HTML having been initialized into a blank DIV
+ * which can be treated by the calling document as the full document itself.
  */
 
 function template_begin() {
@@ -77,6 +75,11 @@ function template_begin() {
 
 <div class="topbanner">
 	<a href="/4.0/"><img id="logo" src="/images/java-gnome_Logo_Image.png" width="85" height="92" border="0" alt=""></a>
+<!--
+	<div align="right" style="padding:10px; padding-top:12px">
+	Latest release: 4.0.1
+	</div>
+-->
 </div>
 
 <!-- Global (top) nav -->
@@ -133,17 +136,18 @@ function template_end() {
 <!-- copyright text -->
 
 <div class="bottompanel">
-Contents copyright &copy; 2006 Operational Dynamics Consulting Pty Ltd and
-Others.<br/>
-<?
+Contents Copyright &copy; 2006 Operational Dynamics Consulting Pty Ltd and
+Others. See AUTHORS file and source code history for the various files
+comprising this site for more details<?
 	if ($valid) {
-?>
-<a class="nav-black-current" href="http://validator.w3.org/check?uri=referer">Optimized</a> for standards.<?
+?>.
+<a class="nav-black-current" href="http://validator.w3.org/check?uri=referer">Optimized</a> for standards<?
 	// tag above so that no trailing whitespace is there
 	}
 
 	if ($bottom_message) {
-		print "<br/>$bottom_message";
+		print ". ";
+		print "$bottom_message";
 	}
 ?>
 </div>

@@ -1,7 +1,12 @@
+<?php
+	require "template.inc";
+?>
 <html>
 <head>
+<?
+	template_header();
+?>
 <title>java-gnome 2.x</title>
-<link rel="stylesheet" href="/web.css" type="text/css">
 <style>
 div.box {
 	background-color: #DDDDDD;
@@ -9,11 +14,15 @@ div.box {
 	border: dashed 3px orange;
 	margin-left: 100px;
 	margin-right: 100px;
+	margin-top: 20px;
 	font-size: x-large;
 }
 </style>
 </head>
 <body>
+<?
+	template_begin();
+?>
 <h1 class="title">java-gnome 2.<span class="x" style="padding-left:4px;">x</span></h1>
 
 
@@ -109,6 +118,14 @@ Operational Dynamics has considerable expertise in doing such migrations and
 would be pleased to talk to you on a commercial basis about porting your
 existing code to java-gnome 4.0.</p>
 
+<?
+	$bottom_message = "The original 2.<span class=\"x\">x</span> bindings
+	code, leading up the last 2.16 release, is Copyright &copy; 1998-2006
+	&#8220;The java-gnome Team&#8221 in trust for 
+	the defacto group of individual contributors";
+
+	template_end();
+?>
 </body>
 </html>
 
