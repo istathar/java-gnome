@@ -11,13 +11,6 @@ div.box {
 	margin-right: 100px;
 	font-size: x-large;
 }
-.mono {
-	font-family: "Bitstream Vera Sans Mono", "Monospaced", "Courier New", mono;
-}
-.x {
-	font-style: italic;
-	font-family: "Times New Roman", Serif;
-}
 </style>
 </head>
 <body>

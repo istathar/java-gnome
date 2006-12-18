@@ -1,9 +1,59 @@
+/*
+ * web.css
+ *
+ * Copyright (c) 2006 Operational Dynamics Consulting Pty Ltd
+ * 
+ * This file comprises part of the infrastructure and content of the
+ * java-gnome project website. As such, it is conveyed alongside the source
+ * code and is made available to you by its authors under the terms of the
+ * "GNU General Public Licence, version 2". See the LICENCE file for the terms
+ * governing usage, copying and redistribution.
+ */
+
+
+
 body {
 	font-family: Arial, sans-serif;
 	background-color: #FFFFFF;
-	margin: 5px;
+	margin: 0px;
 	padding: 0px;
 }
+
+.topbanner {
+	position: absolute;
+	z-index: 5;
+
+	top: 0px;
+	left: 0px;
+	right: 0px;
+	width: 100%;
+	height: 48px;
+
+	text-align: left;
+
+	background: url("/images/java-gnome_HeaderBackground_Image.png") no-repeat;
+        background-color: #ecd6a5;
+	border-bottom: 1px solid #666666;
+}
+
+#logo {
+	position: absolute;
+	z-index: 10;
+
+	top: 0px;
+	left: 10px;
+	border: 0px;
+}
+
+.topnavpanel {
+	color: #000000;
+	margin-top: 56px;
+	margin-bottom: 0px;
+	padding-bottom: 0px;
+	margin-left: 110px;
+	font-size: normal;
+}
+
 
 h1, h2, h3 {
 	color: #333366;
@@ -15,9 +65,13 @@ h1 {
 	padding-left: 5px;
 }
 h1.title {
+	background-color: #FFFFFF;
 	color: green;
 	font-family: "Arial", sans-serif;
 	font-size: 40px;
+	margin: 0px;
+	margin-top: 12px;
+	padding: 0px;
 }
 h2, h3 {
 	padding-left: 5px;
@@ -27,13 +81,12 @@ p {
 	padding-right: 5px;
 }
 pre {
-	padding-left: 6px;
+	padding-left: 40px;
 }
 blockquote {
 	padding-left: 5px;
 	font-style: italic;
 }
-
 
 .highlight {
 	background-color: yellow;
@@ -46,10 +99,14 @@ blockquote {
 	font-family: "Times New Roman", Serif;
 }
 
-a:link				{ text-decoration: underline; color: #333366; }
-a:visited			{ text-decoration: underline; color: #333366; } 
-a:hover				{ text-decoration: underline; color: purple; }
-
+.subtitle {
+	font-family: Arial, sans-serif;
+	font-weight: bold;
+	font-size: 24;
+	text-align: right;
+	margin: 0px;
+	padding: 0px;
+}
 
 .rightnavpanel {
 	float: right;
@@ -77,28 +134,31 @@ a:hover				{ text-decoration: underline; color: purple; }
 	font-style: italic;
 }
 
+a:link				{ text-decoration: underline; color: #333366; }
+a:visited			{ text-decoration: underline; color: #333366; } 
+a:hover				{ text-decoration: underline; color: purple; }
 
-a.nav-blue:link		{ text-decoration: none; color: #FFFFFF; border-bottom: 0px; background-color: transparent; font-size: medium; }
-a.nav-blue:hover	{ text-decoration: none; color: #FFFFFF; border-bottom: 0px; background-color: transparent; font-size: medium; }
-a.nav-blue:visited	{ text-decoration: none; color: #FFFFFF; border-bottom: 0px; background-color: transparent; font-size: medium; }
-a.nav-blue:active	{ text-decoration: none; color: #FFFFFF; border-bottom: 0px; background-color: transparent; font-size: medium; }
+a.nav-black:link	{ text-decoration: none; color: #000000; border-bottom: 0px; background-color: transparent; font-size: medium; }
+a.nav-black:hover	{ text-decoration: none; color: #000000; border-bottom: 0px; background-color: transparent; font-size: medium; }
+a.nav-black:visited	{ text-decoration: none; color: #000000; border-bottom: 0px; background-color: transparent; font-size: medium; }
+a.nav-black:active	{ text-decoration: none; color: #000000; border-bottom: 0px; background-color: transparent; font-size: medium; }
 
 a.black:link		{ text-decoration: none; color: gray; border-bottom: 0px; background-color: transparent; }
 a.black:visited		{ text-decoration: none; color: gray; border-bottom: 0px; background-color: transparent; }
 
 .subject		{ color: #444444; font-size: 30px; }
-A.subject:link		{ text-decoration: none; color: #444444; font-size: 30px; }
-A.subject:hover		{ text-decoration: none; color: #444444; font-size: 30px; }
-A.subject:visited	{ text-decoration: none; color: #444444; font-size: 30px; }
+a.subject:link		{ text-decoration: none; color: #444444; font-size: 30px; }
+a.subject:hover		{ text-decoration: none; color: #444444; font-size: 30px; }
+a.subject:visited	{ text-decoration: none; color: #444444; font-size: 30px; }
 
 .subheading		{ color: #666666; font-style: italic; }
-A.subheading:link	{ text-decoration: none; color: #666666; font-style: italic; }
-A.subheading:hover	{ text-decoration: none; color: #666666; font-style: italic; }
-A.subheading:visited	{ text-decoration: none; color: #666666; font-style: italic; }
+a.subheading:link	{ text-decoration: none; color: #666666; font-style: italic; }
+a.subheading:hover	{ text-decoration: none; color: #666666; font-style: italic; }
+a.subheading:visited	{ text-decoration: none; color: #666666; font-style: italic; }
 
-A.download		{ font-family: Courier; font-size: small; text-decoration: none; }
+a.download		{ font-family: Courier; font-size: small; text-decoration: none; }
 
-HR {
+hr {
 	margin-bottom: 0px;
 	padding-bottom: 0px;
 }
