@@ -61,11 +61,18 @@
 	$title = substr($text, 0, $first_line_end);
 	$text = substr($text, $first_line_end);
 
+#
+# and with that done, proceed with the site template
+#
+
+	require "template.inc";
 ?>
 <html>
 <head>
+<?
+	template_header();
+?>
 <title><?=$title?></title>
-<link rel="stylesheet" href="/web.css" type="text/css">
 <style>
 body {
 	font-family: "Times New Roman", serif;
@@ -73,6 +80,9 @@ body {
 </style>
 </head>
 <body>
+<?
+	template_begin();
+?>
 <h1 class="title"><?=$title?></h1>
 
 <?
@@ -82,6 +92,8 @@ body {
 	$text = preg_replace('/(FIXME|TODO)/', '<span class="highlight">${1}</span>', $text);
 
 	echo SmartyPants(Markdown($text));
+
+	template_end();
 ?>
 </body>
 </html>

@@ -51,6 +51,8 @@ body {
 	margin-bottom: 0px;
 	padding-bottom: 0px;
 	margin-left: 110px;
+
+	font-family: "Arial", sans-serif;
 	font-size: normal;
 }
 
@@ -125,7 +127,6 @@ blockquote {
 .maincontent {
 	background-color: #FFFFFF;
 	color: #000000;
-	font-size: 16px;
 	padding:5px;
 }
 
