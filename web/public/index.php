@@ -56,21 +56,22 @@ re-engineering of the bindings and accordingly a re-write has begun. That work
 is the focus of the project going forward:
 
 <p style="padding-left: 50px;">
-<a class="subject" href="/4.0/"><img align="texttop" src="/images/next1.jpg" style="padding-right: 10px;" border="0"></a>
+<a class="subject" href="/4.0/"><img align="texttop" src="/images/openoffice_ImpressNextSlide_Image.jpg" style="padding-right: 10px;" border="0"></a>
 <a class="subject" href="/4.0/">java-gnome 4.0</a>
 </p>
 
 <p>The original bindings are still available:
 
 <p style="padding-left: 50px;">
-<a class="subject" href="/2.x/"><img align="texttop" src="/images/next1.jpg" style="padding-right: 10px;" border="0"></a>
+<a class="subject" href="/2.x/"><img align="texttop" src="/images/openoffice_ImpressNextSlide_Image.jpg" style="padding-right: 10px;" border="0"></a>
 <a class="subject" href="/2.x/">java-gnome 2.<span class="x" style="padding-left: 3px;">x</span></a>
 </p>
 
 <?
-	$bottom_message = "The amazing java-gnome logo copyright &copy; 2004 by
-	Joao Victor, used with permission. This website is hosted at
-	SourceForge. Java is a trademark of Sun Microsystems, Inc";
+	$bottom_message = "The amazing java-gnome logo copyright &copy; 2004
+	by Joao Victor, used with permission. Java is a trademark of Sun
+	Microsystems, Inc. The java-gnome project website is hosted at
+	SourceForge";
 
 	template_end();
 ?>

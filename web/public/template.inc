@@ -74,7 +74,7 @@ function template_begin() {
 ?>
 
 <div class="topbanner">
-	<a href="/4.0/"><img id="logo" src="/images/java-gnome_Logo_Image.png" width="85" height="92" border="0" alt=""></a>
+	<a href="/"><img id="logo" src="/images/java-gnome_Logo_Image.png" width="85" height="92" border="0" alt=""></a>
 <!--
 	<div align="right" style="padding:10px; padding-top:12px">
 	Latest release: 4.0.1
@@ -149,7 +149,13 @@ comprising this site for more details<?
 		print ". ";
 		print "$bottom_message";
 	}
+
 ?>
+<br>
+<br>
+<div style="padding-bottom:10px;">
+<a href="http://sourceforge.net/"><img src="/images/sourceforge_Logo_Image.png" border="0"></a>
+</div>
 </div>
 <?
 }
