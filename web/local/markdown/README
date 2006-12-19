@@ -3,7 +3,7 @@ Rendering documentation to HTML with Markdown
 This directory contains [`view.php`][view-source], a simple PHP script which
 uses Markdown to render text documentation as an HTML page and serve it up. If
 you'd like to use this yourself, by all means. You'll need to do a little
-tweaking of paths and your apache server config, though.
+tweaking of paths and your Apache server config, though.
 
 What's Markdown? See [`doc/style/MARKUP`](../../../doc/style/MARKUP.html).
 

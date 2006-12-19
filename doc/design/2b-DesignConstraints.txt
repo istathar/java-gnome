@@ -198,7 +198,7 @@ This is an important point.
 We have a free hand at this point how the more complex APIs are presented. I
 referred you to the long discussions about how to handle events. Our
 opportunity for improvement is to come up with something in these cases that
-makes sense, that is consistent, and that is easily learned. In other words,
+makes sense, that is consistent, and that is easily learnt. In other words,
 approachable.
 
 

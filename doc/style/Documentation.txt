@@ -72,7 +72,7 @@ Widget's `show()`, the entire Button class, and the signal Window.DELETE are
 all good examples.
 
 Finally, where it is appropriate to discuss how our implementation varies from
-conventional GTK practice, use a paragraph all in _italics_ at the end of the
+conventional GTK practise, use a paragraph all in _italics_ at the end of the
 class's JavaDoc to explain the divergence or how java-gnome is implemented.
 The comment at the top of org.gnome.glib.Object is a pretty good example of
 this. But other than these rare observations, don't refer to the translation,
@@ -91,7 +91,15 @@ isn't very strong** or if you speak American. What matters is that you're
 contributing and a native English speaker like myself will be more than happy
 to fix it up.
 
-_Originally written by Andrew Cowie 2 Dec 06. Last modified 9 Dec 06._
+An aspell word list is included at the top of a checkout in the file
+`.aspell.en.pws` containing all the custom usages from both documentation
+_and_ Java source code. To use it to spell check `Button.java`, for example,
+try:
+
+    $ cd src/java/org/gnome/gtk
+    $ aspell -x -p `bzr root`/.aspell.en.pws -c Button.java
+
+_Originally written by Andrew Cowie 2 Dec 06. Last modified 19 Dec 06._
 
 <!--
 

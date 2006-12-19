@@ -3,7 +3,7 @@ MARKUP
 About the format of these documents
 -----------------------------------
 
-As a matter of sound practice, all our documentation is done in text files so
+As a matter of sound practise, all our documentation is done in text files so
 that a developer can easily read them while browsing the code or working on
 their own projects. When writing our documents, however, we _**lightly**_ mark
 them up with the syntax of John Gruber's "[Markdown][syntax]" so that they

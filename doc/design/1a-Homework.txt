@@ -34,7 +34,7 @@ interested in what the overall structure and architecture and "feel" of the
 new java-gnome might be like, then read this thread. If you want to know why
 its necessary to break API, read this thread.
 
-The proposals there are not gospel, and, in fact, we've learned a lot since
+The proposals there are not gospel, and, in fact, we've learnt a lot since
 then as you will be seeing in the subsequent emails about architecture. But
 it's good background: it contains a lot of wisdom from the very bright people
 who preceded us as maintainers of java-gnome, and it behoves us to learn from
@@ -133,7 +133,7 @@ are
 
 * Bazaar[-NG] (`bzr`) an evolution from Bazaar (`baz`) evolving from
   (`tla`) which evolved from (`arch`). Current work being done by the likes of
-  Martin Pool, Robert Collins, Aaron Bently and other really smart people I
+  Martin Pool, Robert Collins, Aaron Bentley and other really smart people I
   respect. Written in Python
 
 * Git (`git`), the version control system written by Linux Torvalds
