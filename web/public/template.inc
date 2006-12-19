@@ -55,7 +55,7 @@ function template_header() {
 	}
 ?>
 <link rel="stylesheet" href="/web.css" type="text/css">
-<link rel="icon" href="/favicon.ico" type="image/x-icon">
+<link rel="icon" href="/favicon.png" type="image/png">
 <?
 
 }
