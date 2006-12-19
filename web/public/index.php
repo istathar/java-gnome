@@ -37,15 +37,7 @@
 ?>
 <h1 class="title">The java-gnome langugage bindings project</h1>
 
-<div class="sans" style="font-size: 50px; padding: 10px; padding-top: 30px;">
-<center>
-	<span class="italics">...opening</span>
-	GTK
-	<span class="italics">and</span>
-	GNOME
-	<span class="italics">to Java programmers...</span>
-</center>
-</div>
+<div style="float:right; width: 40%; padding-right: 50px;">
 
 <p>Since 1998, the java-gnome project has been offering Java bindings for the
 outstanding GTK widget toolkit and the for the rich family of libraries making
@@ -56,20 +48,37 @@ re-engineering of the bindings and accordingly a re-write has begun. That work
 is the focus of the project going forward:
 
 <p style="padding-left: 50px;">
-<a class="subject" href="/4.0/"><img align="texttop" src="/images/openoffice_ImpressNextSlide_Image.jpg" style="padding-right: 10px;" border="0"></a>
+<a class="subject" href="/4.0/"><img align="texttop" src="/images/openoffice_ImpressNextSlide.jpg" style="padding-right: 10px;" border="0"></a>
 <a class="subject" href="/4.0/">java-gnome 4.0</a>
 </p>
 
 <p>The original bindings are still available:
 
 <p style="padding-left: 50px;">
-<a class="subject" href="/2.x/"><img align="texttop" src="/images/openoffice_ImpressNextSlide_Image.jpg" style="padding-right: 10px;" border="0"></a>
+<a class="subject" href="/2.x/"><img align="texttop" src="/images/openoffice_ImpressNextSlide.jpg" style="padding-right: 10px;" border="0"></a>
 <a class="subject" href="/2.x/">java-gnome 2.<span class="x" style="padding-left: 3px;">x</span></a>
 </p>
 
+</div>
+
+<div class="italics" style="font-size: 30px; padding-left: 10px;
+padding-top: 30px; padding-right: 50px;">
+<center>
+	Write outstanding<br>
+	<img src="/images/gtk_RGBLogo.png"><br>
+	and<br>
+	<!--<img src="/images/gnome_FootLogo.png"><br>-->
+	<img style="padding:5px;" src="/images/gnome_FootLogo.png"><br>
+	programs ... from <br>
+	<img src="/images/java_CupLogo.png">
+</center>
+</div>
+
+
 <?
-	$bottom_message = "The amazing java-gnome logo copyright &copy; 2004
-	by Joao Victor, used with permission. Java is a trademark of Sun
+	$bottom_message = "The amazing java-gnome logo is copyright &copy;
+	2004 by Joao Victor, used with permission. GNOME and the foot logo are
+	trademarks of the GNOME Foundation. Java is a trademark of Sun
 	Microsystems, Inc. The java-gnome project website is hosted at
 	SourceForge";
 

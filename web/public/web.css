@@ -31,7 +31,7 @@ body {
 
 	text-align: left;
 
-	background: url("/images/java-gnome_HeaderBackground_Image.png") no-repeat;
+	background: url("/images/java-gnome_HeaderBackground.png") no-repeat;
         background-color: #ecd6a5;
 	border-bottom: 1px solid #666666;
 }
@@ -174,8 +174,9 @@ hr {
 	font-family: Arial, Helvetica, sans-serif;
 	font-size: x-small;
 	padding-top: 0px;
-	margin-top: 0px;
+	margin-top: 20px;
 	margin-right: 10px;
 	width: 60%;
+	clear: both;
 	float: right;
 }
