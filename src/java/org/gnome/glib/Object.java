@@ -116,12 +116,12 @@ public abstract class Object extends Value
     }
 
     /**
-     * Set a property that takes a Value [subclass] such as an Object or Boxed
+     * Get a property that takes a Value [subclass] such as an Object or Boxed
      * as its value. This isn't type safe at all, so if you call it and want to
      * downcast the result, you'd probably be careful about it.
      * 
      * @param name
-     *            the property you want to set.
+     *            the property whose value you want to get.
      * @return the {@link org.gnome.glib.Value Value} of the property, or null
      *         if not set (?). FIXME what about no such property?
      */
