@@ -50,7 +50,7 @@ supported by anyone.</p> </div>
 <p>The original java-gnome project was written by <b>five</b> successive teams
 of hackers from 1998-2006. That's <b>nine</b> years! java-gnome  2.<span
 class="x">x</span> is reasonably stable and, for what coverage there is, quite
-mature. A number of application use it.</p>
+mature. A number of applications use it.</p>
 
 <p>Unfortunately, there has been almost zero new coverage activity over the
 past several years and the code that is there is full of cruft, inefficiency,
@@ -111,12 +111,12 @@ discouraged from trying to use them:</p>
 
 <p>There is a complete API break between java-gnome 2.<span class="x">x</span>
 and the new java-gnome 4.0 bindings. While the style of coding will be
-familiar, packages, classes, method names, and arguments are at times very
-different. This was necessary in order to ensure an algorithmic mapping of the 
+familiar, package space, classes, method names, and arguments are at times very
+different. This was necessary in order to ensure an algorithmic mapping of the
 underlying libraries, something sadly lacking in 2.<span class="x">x</span>.
 There are also some wholesale API redesigns, with signal handling in particular
-being completely new. Finally, internals that were previously exposed are
-no longer publicly visible and not part of the public API.
+being completely new. Finally, internals that were previously exposed are no
+longer publicly visible and not part of the public API.
 
 <p>Also, you might note that unlike the above list of libraries with
 inconsistent names, java-gnome 4.0 is shipping at present in <!-- FIXME --> a
@@ -133,8 +133,8 @@ existing code to java-gnome 4.0.</p>
 <?
 	$bottom_message = "The original 2.<span class=\"x\">x</span> bindings
 	code, leading up the last 2.16 release, is copyright &copy; 1998-2006
-	&#8220;The java-gnome Team&#8221 in trust for 
-	the defacto group of individual contributors";
+	&#8220;The java-gnome Team&#8221 in defacto trust for the group of
+	individual contributors";
 
 	template_end();
 ?>
