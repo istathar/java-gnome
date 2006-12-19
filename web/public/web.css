@@ -157,7 +157,11 @@ a.subheading:link	{ text-decoration: none; color: #666666; font-style: italic; }
 a.subheading:hover	{ text-decoration: none; color: #666666; font-style: italic; }
 a.subheading:visited	{ text-decoration: none; color: #666666; font-style: italic; }
 
-a.download		{ font-family: Courier; font-size: small; text-decoration: none; }
+a.download {
+	font-family: "Bitstream Vera Sans Mono", "Monospaced", "Courier New", mono;
+	font-size: small;
+	text-decoration: none;
+}
 
 hr {
 	margin-bottom: 0px;
