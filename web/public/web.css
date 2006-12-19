@@ -147,10 +147,10 @@ a.nav-black:active	{ text-decoration: none; color: #000000; border-bottom: 0px; 
 a.black:link		{ text-decoration: none; color: gray; border-bottom: 0px; background-color: transparent; }
 a.black:visited		{ text-decoration: none; color: gray; border-bottom: 0px; background-color: transparent; }
 
-.subject		{ color: #444444; font-size: 30px; }
-a.subject:link		{ text-decoration: none; color: #444444; font-size: 30px; }
-a.subject:hover		{ text-decoration: none; color: #444444; font-size: 30px; }
-a.subject:visited	{ text-decoration: none; color: #444444; font-size: 30px; }
+.subject		{ color: #333366; font-size: 30px; }
+a.subject:link		{ text-decoration: none; color: #333366; font-size: 30px; }
+a.subject:hover		{ text-decoration: underline; color: #333366; font-size: 30px; }
+a.subject:visited	{ text-decoration: none; color: #333366; font-size: 30px; }
 
 .subheading		{ color: #666666; font-style: italic; }
 a.subheading:link	{ text-decoration: none; color: #666666; font-style: italic; }
