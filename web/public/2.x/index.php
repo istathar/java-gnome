@@ -1,4 +1,16 @@
 <?php
+/*
+ * template.inc
+ *
+ * Copyright (c) 2006 Operational Dynamics Consulting Pty Ltd
+ * 
+ * This file comprises part of the infrastructure and content of the
+ * java-gnome project website. As such, it is conveyed alongside the source
+ * code and is made available to you by its authors under the terms of the
+ * "GNU General Public Licence, version 2". See the LICENCE file for the terms
+ * governing usage, copying and redistribution.
+ */
+
 	require "template.inc";
 ?>
 <html>
@@ -120,7 +132,7 @@ existing code to java-gnome 4.0.</p>
 
 <?
 	$bottom_message = "The original 2.<span class=\"x\">x</span> bindings
-	code, leading up the last 2.16 release, is Copyright &copy; 1998-2006
+	code, leading up the last 2.16 release, is copyright &copy; 1998-2006
 	&#8220;The java-gnome Team&#8221 in trust for 
 	the defacto group of individual contributors";
 

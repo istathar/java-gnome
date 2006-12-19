@@ -136,7 +136,7 @@ function template_end() {
 <!-- copyright text -->
 
 <div class="bottompanel">
-Contents Copyright &copy; 2006 Operational Dynamics Consulting Pty Ltd and
+Contents copyright &copy; 2006 Operational Dynamics Consulting Pty Ltd and
 Others. See AUTHORS file and source code history for the various files
 comprising this site for more details<?
 	if ($valid) {
