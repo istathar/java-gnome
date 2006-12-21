@@ -1,6 +1,6 @@
 <?php
 /*
- * template.inc
+ * index.php
  *
  * Copyright (c) 2006 Operational Dynamics Consulting Pty Ltd
  * 

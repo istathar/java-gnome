@@ -1,6 +1,6 @@
 <?php
 /*
- * template.inc
+ * index.php
  *
  * Copyright (c) 2006 Operational Dynamics Consulting Pty Ltd
  * 
@@ -40,8 +40,8 @@
 <div style="float:right; width: 40%; padding-right: 50px;">
 
 <p>Since 1998, the java-gnome project has been offering Java bindings for the
-outstanding GTK widget toolkit and the for the rich family of libraries making
-up the GNOME desktop.</p>
+GTK widget toolkit and the for the rich family of libraries making up the
+GNOME desktop.</p>
 
 <p>In 2006, Andrew Cowie and the staff of Operational Dynamics did a complete
 re-engineering of the bindings and accordingly a re-write has begun. That work
