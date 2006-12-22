@@ -3,22 +3,34 @@ README
 Building the java-gnome bindings
 ================================
 
-1. Get the source code
----------------------------
-
-### From a release tarball
-
-Once you've downloaded a released copy of the sources,
+For the impatient:
 
     $ tar xjf java-gnome-4.0.7.tzr.bz2
     $ cd java-gnome-4.0.7
     $ ./configure
     $ make
 
-See step 2 for details about options you can pass to the configuration
-command.
+But there's a bunch of stuff you probably want to know, so read on!
 
-### Checkout the source
+
+1. Get the source code
+----------------------
+
+### From a release tarball ###
+
+You can download a java-gnome release from the GNOME FTP server at:  
+[`http://ftp.gnome.org/pub/gnome/sources/java-gnome/4.0/`][mirror]
+
+Once you've downloaded the latest source tarball:
+
+    $ tar xjf java-gnome-4.0.7.tzr.bz2
+    $ cd java-gnome-4.0.7
+
+And go on to step 2 for details about options you can pass to the
+configuration command.
+
+
+### Or checkout the source ###
 
 If you want a newer version of the code than the tarball you might have, you
 can always check it out over the net. We use Bazaar (`bzr`), an advanced
@@ -29,8 +41,6 @@ Getting a checkout is easy:
 
     $ bzr checkout http://research.operationaldynamics.com/bzr/java-gnome/mainline java-gnome
     $ cd java-gnome
-    $ ./configure
-    $ make
 
 
 2. Run `./configure`
@@ -43,7 +53,11 @@ compiler and Java Virtual Machine runtime environment. The configuration
 output is a Makefile fragment which is written to `.config` and subsequently
 included by the top level `Makefile`.
 
-### Background
+So run it already:
+
+    $ ./configure
+
+### Background ###
 
 The steps necessary to configure and build a Java project are quite different
 than those needed to construct a program written in a more traditional
@@ -69,19 +83,25 @@ nightmare that don't address with the Java specific challenges at all)_.
 At the moment, we use Andrew Cowie's "Equivalence" build system, which is
 composed of a straight-forward (if somewhat overweight) Perl program along
 with a simple Makefile which together carry out the task of configuring and
-building the library.
+building the library. Right now, Gentoo Linux, Debian Linux, Fedora Core
+Linux, and Solaris Unix should be detected properly and result in working
+configurations. If you are running a different operating system or
+distribution, please contact us and we'll add it -- it's just a matter of
+identifying the location of a few things. Better yet, look in the `configure`
+Perl script -- the places where OS is switched are obvious, and just add what
+you need to add, and send us a patch.
 
-Right now, Gentoo Linux, Debian Linux, Fedora Core Linux, and Solaris Unix
-should be detected properly and result in working configurations. If you are
-running a different operating system or distribution, please contact us and
-we'll add it -- it's just a matter of identifying the location of a few
-things. Better yet, look in the `configure` Perl script -- the places where OS
-is switched are obvious, and just add what you need to add, and send us a
-patch.
+Hopefully in the not to distant future we will be able to switch to Robert
+Collins's new "Buildtool". His approach to configuration and building will
+revolutionize the Free and Open Source Software universe, and we look forward
+to participating in the development of his work.
 
-### Customizing build options
+Meanwhile...
 
-You can override the choices configure makes by listing parameters on the
+
+### Customizing build options ###
+
+You can override the choices `configure` makes by listing parameters on the
 command line, like this:
 
     $ ./configure compiler=jikes runtime=jamvm
@@ -89,25 +109,26 @@ command line, like this:
 This facilitates easily switching between runtimes and compilers for testing.
 At the moment, the available selections are:
 
-* `compiler` ->	javac, jikes, gcj
+* `compiler` --> javac, jikes, gcj
 
-* `runtime`  ->	java, cacao, jamvm, cacao, gij, kaffe
+* `runtime`  --> java, cacao, jamvm, cacao, gij, kaffe
 
-* `quiet`	(don't output anything)
+oh, and there's:
 
-The whole point of the Equivalence's configure script is to figure things out for
-you, but if it can't quite figure out where Java is, you can override it by
-specifying an alternate location to find a JDK and/or GCJ, using either of the
-following:
+* `quiet` -- (don't output anything)
 
-* `jdk`			(where to find a traditional Java Development Kit,
-			 ie `JAVA_HOME`)
+The whole point of the Equivalence's `configure` script is to figure things
+out for you, but if it can't quite figure out where Java is, you can override
+it by specifying an alternate location to find a JDK and/or GCJ, using either
+of the following:
 
-* `gcj`			(prefix of an alternate GCJ install)
+* `jdk` -- where to find a traditional Java Development Kit, ie `JAVA_HOME`
 
-* `jamvm`		(path to the JamVM executable)
+* `gcj` -- prefix of an alternate GCJ install
 
-* `cacao`		(path to the CACAO executable)
+* `jamvm` -- path to the JamVM executable
+
+* `cacao` -- path to the CACAO executable
 
 Examples:
 
@@ -117,15 +138,8 @@ Examples:
 
 Your configuration is persistent across builds in that checkout, ie, `make
 clean` won't force you to reconfigure (though `make distclean` will). The
-configure script runs very quickly, so it's no big deal if you have to re-run
-it.
-
-### The future
-
-Hopefully in the not to distant future we will be able to switch to Robert
-Collins's new "Buildtool". His approach to configuration and building will
-revolutionize the Free and Open Source Software universe, and we look forward
-to participating in the development of his work.
+`configure` script runs very quickly, so it's no big deal if you have to
+re-run it.
 
 
 3. Build
@@ -160,6 +174,7 @@ and if you are building for GCJ, you'll also end up with:
 
     tmp/libgtkjava-4.0.jar
 
+
 Using the bindings
 ==================
 
@@ -178,6 +193,7 @@ built in `tmp/`. Note the necessity to tell the VM where to find
 `libgtkjni-4.0.so`. If you get an `UnsatisfiedLinkError` you've stuffed this
 part up.
 
+
 Status
 ======
 
@@ -186,6 +202,7 @@ will be following as we implement the new Java bindings for GTK and GNOME. I
 am quite pleased with the reception that it has received as it has been
 presented around the world, and we are hopeful that we will raise the funds
 necessary to see this work developed into a full-coverage library.
+
 
 Get Involved
 ------------
@@ -209,7 +226,9 @@ Maintainer,
 [java-gnome](http://java-gnome.sourceforge.net/),  
 opening GTK and GNOME to Java programmers!
 
-_Last modified 21 Dec 06_
+_Last modified 22 Dec 06_
+
+[mirror]: http://ftp.gnome.org/pub/gnome/sources/java-gnome/4.0/
 
 <!--
 
