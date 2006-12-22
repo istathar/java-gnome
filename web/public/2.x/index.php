@@ -63,9 +63,9 @@ class="x">x</span>, and as a result it has largely been abandoned.</p>
 <p>Addressing these issues are ultimately the major motivating factors for
 having undertaken the re-engineering effort which led to java-gnome 4.0.  This
 page is for historical reference and to honour the hard work of the fine team
-of contributors, hackers, and maintainers who wrote the first generations of
-the Java bindings for GTK and GNOME. We owe them a debt of gratitude for their
-hard work.</p>
+of <a class="nav-black" href="AUTHORS">contributors, hackers, and
+maintainers</a> who wrote the first generations of the Java bindings for GTK
+and GNOME. We owe them a debt of gratitude for their hard work.</p>
 
 <h2>Latest Releases</h2>
 
