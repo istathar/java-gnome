@@ -79,7 +79,7 @@ packagers downstream who make the software available in their distributions,
 and of course you, the developers using the library to write your
 applications.  who send in bug reports and feedback.</p>
 
-<h2><a class="directory" href="../HACKING.html/">HACKING</a></h2>
+<h2><a class="directory" href="../HACKING.html">HACKING</a></h2>
 
 <p>Providing complete coverage of the underlying GTK and GNOME libraries is a
 mammoth task and you are welcome to get involved!</p>
@@ -97,7 +97,7 @@ on how to go about learning the internals of the bindings, and links to the
 style guide.</p>
 
 
-<h2><a class="directory" href="design/">doc/design/</a></h2>
+<h2><a class="directory" href="design/README.html">doc/design/</a></h2>
 
 <p>The source code contains considerable reference material about the
 background of the project, the design constraints which governed the
