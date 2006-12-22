@@ -1,4 +1,4 @@
-personal_ws-1.1 en 254 
+personal_ws-1.1 en 255 
 Pty
 textwidth
 APIs
@@ -66,8 +66,8 @@ esque
 getSticker
 setRelief
 DesignConstraints
-jamvm
 JamVM
+jamvm
 Libre
 DVCS
 createValue
@@ -77,8 +77,8 @@ Makefile
 doxygen
 href
 Enum
-distros
 distro's
+distros
 PackageNames
 JNIEXPORT
 commitComment
@@ -172,8 +172,8 @@ denaturation
 formatter
 backticks
 GTKish
-ok
 QA
+ok
 getType
 ButtonFactory
 TreeView's
@@ -195,6 +195,7 @@ tm
 ui
 MVC
 builtin
+sourceforge
 SourceForge
 getHandle
 un
@@ -211,8 +212,8 @@ setAlignmentX
 getPropertyString
 setPropertyLabel
 createButton
-javadoc
 JavaDoc
+javadoc
 php
 Ubuntu
 jlong
