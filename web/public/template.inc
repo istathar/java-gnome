@@ -145,7 +145,7 @@ function template_end() {
 </div>
 
 <!-- bottom spacer -->
-<div class="bluepanel" style="background: url(/images/logo/twirl-bottom.jpg); height: 22px; margin-top: 5px;">
+<div class="bluepanel" style="background: url(http://www.operationaldynamics.com/images/logo/twirl-bottom.jpg); height: 12px; margin-top: 5px;">
 </div>
 
 <!-- copyright text -->

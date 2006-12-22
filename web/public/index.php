@@ -74,6 +74,8 @@ padding-top: 30px; padding-right: 50px;">
 </center>
 </div>
 
+<div style="padding-top:50px;"></div>
+
 
 <?
 	$bottom_message = "The amazing java-gnome logo is copyright &copy;

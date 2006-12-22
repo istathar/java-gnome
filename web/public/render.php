@@ -91,7 +91,17 @@ body {
 
 	$text = preg_replace('/(FIXME|TODO)/', '<span class="highlight">${1}</span>', $text);
 
+#
+# And at last call Markdown, and post-process that result with SmartyPants
+#
+
 	echo SmartyPants(Markdown($text));
+
+
+	$bottom_message = "This page was generated from a text document! We use
+	John Gruber's Markdown syntax as ported to PHP by Michel Fortin. See <a
+	class=\"black\" href=\"/4.0/doc/style/MARKUP.html\">MARKUP</a> for
+	details";
 
 	template_end();
 ?>

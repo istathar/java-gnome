@@ -28,7 +28,8 @@
 <h1 class="title">Get java-gnome!</h1>
 
 <p><i>As java-gnome 4.0 is presently in the prototype stage, some of this
-discussion is necessarily in the future tense.</i></p>
+discussion is necessarily in the future tense. In particular, java-gnome 4.0
+hasn't actually been packaged yet!</i></p>
 
 <h1>Download binaries</h1>
 
