@@ -83,15 +83,30 @@ function template_begin() {
 </div>
 
 <!-- Global (top) nav -->
-<div class="topnavpanel">
-	<a class="nav-black" href="/4.0/">About</a>
-	&nbsp; | &nbsp;
-	<a class="nav-black" href="/4.0/doc/">Documentation</a>
-	&nbsp; | &nbsp;
-	<a class="nav-black" href="/4.0/doc/">Download</a>
-	&nbsp; | &nbsp;
-	<a class="nav-black" href="/4.0/lists/">Mailing Lists</a>
-</div>
+<table class="topnavpanel" cellpadding="0" cellspacing="0">
+<tr>
+	<td class="block">
+	<a class="nav-black" href="/4.0/">About<br>
+	<span class="tiny">Overview</span></a>
+	</td>
+
+	<td class="block">
+	<a class="nav-black" href="/4.0/doc/">Documentation<br>
+	<span class="tiny">Tutorials, API, and Hacking</span></a>
+	</td>
+
+	<td class="block">
+	<a class="nav-black" href="/4.0/get/">Download<br>
+	<span class="tiny">Binaries and Source</span></a>
+	</td>
+
+	<td class="block" style="border:none">
+	<a class="nav-black" href="/4.0/lists/">Interact<br>
+	<span class="tiny">Mailing Lists and IRC</span></a>
+	</td>
+</tr>
+</table>
+
 
 <!-- Local (right) nav -->
 
