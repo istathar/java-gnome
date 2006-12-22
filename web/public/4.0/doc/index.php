@@ -33,6 +33,11 @@ a.directory {
 ?>
 <h1 class="title">Documentation</h1>
 
+<p><i>As java-gnome 4.0 is presently in the prototype stage, the documentation
+section of this website is by no means complete. In particular, tutorials to
+get people started and on how to use the more complex APIs are yet to
+come.</i></p>
+
 <h1>Getting Started</h1>
 
 <h2><a class="directory" href="../README.html">README</a></h2>

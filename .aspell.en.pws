@@ -66,8 +66,8 @@ esque
 getSticker
 setRelief
 DesignConstraints
-JamVM
 jamvm
+JamVM
 Libre
 DVCS
 createValue
@@ -77,8 +77,8 @@ Makefile
 doxygen
 href
 Enum
-distro's
 distros
+distro's
 PackageNames
 JNIEXPORT
 commitComment
@@ -172,8 +172,8 @@ denaturation
 formatter
 backticks
 GTKish
-QA
 ok
+QA
 getType
 ButtonFactory
 TreeView's
@@ -211,8 +211,8 @@ setAlignmentX
 getPropertyString
 setPropertyLabel
 createButton
-JavaDoc
 javadoc
+JavaDoc
 php
 Ubuntu
 jlong
