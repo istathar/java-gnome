@@ -1,10 +1,11 @@
-personal_ws-1.1 en 248 
+personal_ws-1.1 en 254 
 Pty
 textwidth
 APIs
 preformatted
 Srichand
 libglade
+dev
 GtkBuilder
 setPropertyFoo
 cls
@@ -12,6 +13,7 @@ vimrc
 AWT
 UnsatisfiedLinkError
 Buildtool
+buildable
 Gruber
 GtkWidget
 tla
@@ -64,8 +66,8 @@ esque
 getSticker
 setRelief
 DesignConstraints
-jamvm
 JamVM
+jamvm
 Libre
 DVCS
 createValue
@@ -75,8 +77,8 @@ Makefile
 doxygen
 href
 Enum
-distros
 distro's
+distros
 PackageNames
 JNIEXPORT
 commitComment
@@ -99,6 +101,7 @@ setImage
 runtime
 gtk
 Debian
+JDS
 setLabel
 filetype
 TreeIter
@@ -109,6 +112,7 @@ init
 wikis
 GBoxeds
 ifdef
+IRC
 Fortin
 glibj
 CommitMessages
@@ -168,8 +172,8 @@ denaturation
 formatter
 backticks
 GTKish
-ok
 QA
+ok
 getType
 ButtonFactory
 TreeView's
@@ -197,6 +201,7 @@ un
 GObjects
 webserver
 VM
+bugfixes
 AfC
 JNICALL
 libgnomeui
@@ -206,9 +211,10 @@ setAlignmentX
 getPropertyString
 setPropertyLabel
 createButton
-javadoc
 JavaDoc
+javadoc
 php
+Ubuntu
 jlong
 Enums
 CodeFormat
@@ -222,6 +228,7 @@ ListStore
 TreeView
 vhosts
 filename
+RHEL
 hostname
 gtkmm's
 GValue
@@ -233,7 +240,6 @@ ijuma
 Madeley's
 symlinks
 api
-API
 AllAboutJNI
 finalizers
 TreeStore
