@@ -20,6 +20,7 @@
 ?>
 <title>Opening GTK and GNOME to Java Programmers</title>
 <meta name="author" content="Andrew Cowie">
+<meta name="author" content="Katrina Ross">
 <style>
 .italics {
 	font-family: "Times New Roman", serif;
@@ -35,17 +36,16 @@
 <?
 	template_begin();
 ?>
-<h1 class="title">The java-gnome langugage bindings project</h1>
+<h1 class="title">The java-gnome language bindings project</h1>
 
 <div style="float:right; width: 40%; padding-right: 50px;">
 
 <p>Since 1998, the java-gnome project has been offering Java bindings for the
-GTK widget toolkit and the for the rich family of libraries making up the
-GNOME desktop.</p>
+GTK widget toolkit and for the rich family of libraries making up the GNOME
+desktop.</p>
 
-<p>In 2006, a complete re-engineering of the bindings was initiated and
-accordingly a re-write of java-gnome is in progress. That work is the focus of
-the project going forward:
+<p>In 2006, a complete re-engineering of the bindings was initiated. That
+work is now the major focus of the project going forward:
 
 <p style="padding-left: 50px;">
 <a class="subject" href="/4.0/"><img align="texttop" src="/images/openoffice_ImpressNextSlide.jpg" style="padding-right: 10px;" border="0"></a>
