@@ -1,7 +1,24 @@
 README
 
-Building the java-gnome bindings
-================================
+This is the java-gnome language bindings project. We endeavour to
+provide a high quality library you can use to write GTK and GNOME programs.
+The underlying APIs are elegantly transformed into Java and carefully
+documented so that anyone new to Linux or Open Source can rapidly be on their
+way to creating fabulous applications.
+
+If you didn't know, the project website is:
+
+    http://java-gnome.sourceforge.net
+
+where we host the API documentation, web versions of all the design files, and
+tutorials to help get people started. Contact information, release notes and
+and project news will also be found there.
+
+This README file is devoted to helping you get started building the
+bindings themselves. 
+
+Building java-gnome
+===================
 
 For the impatient:
 
