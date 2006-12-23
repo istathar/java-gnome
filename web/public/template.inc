@@ -151,8 +151,10 @@ function template_end() {
 <!-- copyright text -->
 
 <div class="bottompanel">
-Contents copyright &copy; 2006 Operational Dynamics Consulting Pty Ltd and
-Others. See AUTHORS file and source code history for the various files
+
+Contents copyright &copy; 2006
+<a class="black" href="http://www.operationaldynamics.com/">Operational Dynamics</a> Consulting Pty Ltd and
+Others. See <a class="black" href="AUTHORS">AUTHORS</a> file and source code history for the various files
 comprising this site for more details<?
 	if ($valid) {
 ?>.
@@ -169,6 +171,8 @@ comprising this site for more details<?
 <br>
 <br>
 <div style="padding-bottom:10px;">
+<a href="http://www.operationaldynamics.com/" style="padding-right:12px; vertical-align: middle;"><img src="http://www.local/images/logo/logo-22x28.jpg" border="0"></a>
+<a href="http://www.gnome.org/" style="padding-right:5px; vertical-align: bottom;"><img src="/images/gnome_FootLogo.png" border="0"></a>
 <a href="http://sourceforge.net/"><img src="/images/sourceforge_Logo.png" border="0"></a>
 </div>
 </div>
