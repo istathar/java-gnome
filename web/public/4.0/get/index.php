@@ -68,8 +68,8 @@ do so.
 
 <p>Like most GNOME projects, official releases of java-gnome in tarball form
 are hosted on the <code>ftp.gnome.org</code> servers. You can download the
-latest release from <a class="download"
-href="http://ftp.gnome.org/pub/gnome/sources/java-gnome/4.0/"><code>http://ftp.gnome.org/pub/gnome/sources/java-gnome/4.0/</code></a>
+latest release from <a class="nav-black"
+href="http://ftp.gnome.org/pub/gnome/sources/java-gnome/4.0/"><pre>http://ftp.gnome.org/pub/gnome/sources/java-gnome/4.0/</pre></a>
 
 <h2>Or check out the sources from the repository...</h2>
 
@@ -77,6 +77,12 @@ href="http://ftp.gnome.org/pub/gnome/sources/java-gnome/4.0/"><code>http://ftp.g
 code from our version control repository. You'll need to install Bazaar,
 available in most Linux and Unix distributions (or you can likewise build it
 from source; it is written in Python and installs most anywhere).</p>
+
+<p>You can checkout the source code as follows:
+
+<pre>
+$ bzr checkout http://research.operationaldynamics.com/bzr/java-gnome/mainline/
+</pre>
 
 <p>We try our best to keep <code>mainline</code> in a buildable state, and
 certainly the latest bugfixes and improvements will be present there, but we
@@ -92,6 +98,22 @@ not just architecture independent Java bytecode), building it is a wee touch
 more involved than just compiling <code>.java</code> files. See <a
 href="../README.html"><code>README</code></a> for more details of how to
 configure and compile the bindings.</p>
+
+<h1>Browse source</h1>
+
+<p>One of the interesting things about Bazaar (and many of the other modern
+Distributed Version Control Systems) is that when a repository is put online,
+you can usually have the source code directly available via <code>HTTP</code>.
+This means that if you want to quickly point someone at a particular file,
+it's as easy as directly linking to it at the URL you checked out from + the
+path to the file.</p>
+
+If you would like to browse the source code, here is the top of the
+mainline (aka <code>HEAD</code>) branch:
+
+<a class="download" href="http://research.operationaldynamics.com/bzr/java-gnome/mainline/">
+<code>http://research.operationaldynamics.com/bzr/java-gnome/mainline/</code>
+</a>
 
 <?
 	template_end();
