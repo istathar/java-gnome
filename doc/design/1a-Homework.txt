@@ -23,27 +23,23 @@ Taylor, I've named it _The Great Owen Thread_. :)
 You could read it online at SourceForge
 <http://sourceforge.net/mailarchive/message.php?msg_id=11579420>
 but don't do that: you can't make out half of it because it's so deeply
-nested. 
+nested. Instead, I cleaned up a copy of the thread so it would be suitable for
+printing and included it here:
 
-Instead, open the HTML attachment to this email (which is a cleaned up copy of
-that thread to make it suitable for printing, 70k unzipped) and _print it out_
-with your _printer_ so you can _read it_ carefully and thoroughly. **THIS IS
-REQUIRED READING**. I'm not kidding. If you want to comment on what we might
-do to redesign the signal handling APIs, then read this thread. If you're
-interested in what the overall structure and architecture and "feel" of the
-new java-gnome might be like, then read this thread. If you want to know why
-its necessary to break API, read this thread.
+[`TheGreatOwenThread.html`](TheGreatOwenThread.html)
+
+Follow the link and _print it out_ with your _printer_ so you can _read it_
+carefully and thoroughly. **THIS IS REQUIRED READING**. I'm not kidding. If
+you want to comment on what we might do to redesign the signal handling APIs,
+then read this thread. If you're interested in what the overall structure and
+architecture and "feel" of the new java-gnome might be like, then read this
+thread. If you want to know why its necessary to break API, read this thread.
 
 The proposals there are not gospel, and, in fact, we've learnt a lot since
 then as you will be seeing in the subsequent emails about architecture. But
 it's good background: it contains a lot of wisdom from the very bright people
 who preceded us as maintainers of java-gnome, and it behoves us to learn from
 them. 
-
-In case you can't get to your email where a printer is, I've also temporarily
-posted a copy at
-<http://research.operationaldynamics.com/linux/java-gnome/files/TheGreatOwenThread.html>
-
 
 
 Aside: Memory Management
