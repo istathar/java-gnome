@@ -19,6 +19,7 @@
 	template_header();
 ?>
 <title>Page not found</title>
+<meta name="author" content="Andrew Cowie">
 </head>
 <body>
 <?

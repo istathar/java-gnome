@@ -102,7 +102,7 @@ on how to go about learning the internals of the bindings, and links to the
 style guide.</p>
 
 
-<h2><a class="directory" href="design/README.html">doc/design/</a></h2>
+<h2><a class="directory" href="design/">doc/design/</a></h2>
 
 <p>The source code contains considerable reference material about the
 background of the project, the design constraints which governed the

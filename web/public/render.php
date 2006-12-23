@@ -42,13 +42,15 @@
 			debug($filepath);
 
 			if (!file_exists($filepath)) {
-				echo "<H1>404 Tried looking for your file, but no joy<H1>";
+				header("HTTP/1.1 404 Not Found");
+				echo "<h1>404 Tried looking for your file, but no joy<h1>";
 				exit;
 			}
 		}
 		debug("Will render");
 	} else {
-		echo "<H1>404 for real</H1>";
+		header("HTTP/1.1 404 Not Found");
+		echo "<h1>404 for real</h1>";
 		exit;
 	}
 
@@ -75,6 +77,7 @@
 	template_header();
 ?>
 <title><?=$title?></title>
+<meta name="author" content="Andrew Cowie">
 <style>
 body {
 	font-family: "Times New Roman", serif;
