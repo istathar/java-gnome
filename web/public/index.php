@@ -68,7 +68,7 @@ padding-top: 30px; padding-right: 50px;">
 	<img src="/images/gtk_RGBLogo.png"><br>
 	and<br>
 	<!--<img src="/images/gnome_FootLogo.png"><br>-->
-	<img style="padding:5px;" src="/images/gnome_FootLogo.png"><br>
+	<img style="padding:5px;" src="/images/gnome_ButtonLogo.png"><br>
 	programs ... from <br>
 	<img src="/images/java_CupLogo.png">
 </center>
