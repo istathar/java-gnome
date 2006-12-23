@@ -93,7 +93,8 @@ targets are as follows
 ?>
 
 <p>Fixes or contributions to the java-gnome website proper can be accomplished
-by checking out the source code and sending a patch. See HACKING.</p>
+by checking out the source code and sending a patch. See <a class="download"
+href="/4.0/HACKING.html">HACKING</a>.</p>
 
 <?
 
