@@ -20,10 +20,12 @@
 	}
 
 #
-# parse the inbound URI.
+# parse the inbound URI. We have to go to some effort to get the translated
+# path that we're working from.
 #
 
-	$filepath = $_SERVER["DOCUMENT_ROOT"] . $_SERVER["REQUEST_URI"];
+	$filepath = substr($_SERVER["SCRIPT_FILENAME"], 0, -11);
+	$filepath .= $_SERVER["REQUEST_URI"];
 
 	debug($filepath);
 
