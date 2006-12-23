@@ -113,7 +113,7 @@ API design and overall system architecture
 In the `doc/design/` subdirectory you will find extensive documentation of the
 current re-engineering process that lead to the design and architecture of the
 new java-gnome 4.0 bindings. Try starting with
-[`doc/design/README`](doc/design/README).
+[`doc/design/README`](doc/design/README.html).
 
 You really are encouraged to peruse these files; the one on Architecture in
 particular is pretty much required reading if you want to understand what's
@@ -133,7 +133,7 @@ Code formatting
 
 I've carefully documented the 4 divergences from the otherwise default "Java
 conventions" for Java source code formatting. Please take a moment to read
-[`doc/style/CodeFormat`](doc/style/CodeFormat.txt); your patches have a much
+[`doc/style/CodeFormat`](doc/style/CodeFormat.html); your patches have a much
 better chance of being accepted if they produce clean diffs, and that's more
 likely to happen if you stick to these rules.
 
@@ -141,7 +141,7 @@ Commit Messages
 ---------------
 
 There are just a few minor conventions you should be aware of when committing
-patches. See [`doc/style/CommitMessages`](doc/style/CommitMessages.txt).
+patches. See [`doc/style/CommitMessages`](doc/style/CommitMessages.html).
 
 Documentation
 -------------
@@ -153,7 +153,7 @@ to best go about documenting our public APIs.
 
 Of course, JavaDoc alone isn't sufficient, and we have a number of supporting
 documents describing the design and architecture of java-gnome.  See
-[`doc/style/Documentation`](doc/style/Documentation.txt) for discussion of
+[`doc/style/Documentation`](doc/style/Documentation.html) for discussion of
 appropriate style for both in-code JavaDoc and supporting textual Design
 documentation.
 
@@ -163,7 +163,7 @@ Markup
 We have gone to considerable trouble to ensure our text documentation files are
 readable from a terminal window, but by using a simple yet powerful markup
 syntax called Markdown we can also easily render these files to useful web
-pages. See [`doc/style/MARKUP`](doc/style/MARKUP).
+pages. See [`doc/style/MARKUP`](doc/style/MARKUP.html).
 
 
 CONCLUSION
@@ -187,10 +187,10 @@ Managing Director,
 a Change Management consultancy...
 
 Maintainer,  
-[java-gnome](http://java-gnome.sourceforge.net/),  
+[java-gnome](http://java-gnome.sourceforge.net/4.0/),  
 opening GTK and GNOME to Java programmers!
 
-_Last modified 9 Dec 06_
+_Last modified 11 Dec 06_
 
 <!--
 

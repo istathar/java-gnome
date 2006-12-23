@@ -1,0 +1,188 @@
+/*
+ * web.css
+ *
+ * Copyright (c) 2006 Operational Dynamics Consulting Pty Ltd
+ * 
+ * This file comprises part of the infrastructure and content of the
+ * java-gnome project website. As such, it is conveyed alongside the source
+ * code and is made available to you by its authors under the terms of the
+ * "GNU General Public Licence, version 2". See the LICENCE file for the terms
+ * governing usage, copying and redistribution.
+ */
+
+
+
+body {
+	font-family: Arial, sans-serif;
+	background-color: #FFFFFF;
+	margin: 0px;
+	padding: 0px;
+}
+
+.topbanner {
+	position: absolute;
+	z-index: 5;
+
+	top: 0px;
+	left: 0px;
+	right: 0px;
+	width: 100%;
+	height: 48px;
+
+	text-align: left;
+
+	background: url("/images/java-gnome_HeaderBackground.png") no-repeat;
+        background-color: #ecd6a5;
+	border-bottom: 1px solid #666666;
+}
+
+#logo {
+	position: absolute;
+	z-index: 10;
+
+	top: 0px;
+	left: 10px;
+	border: 0px;
+}
+
+.topnavpanel {
+	color: #000000;
+	margin-top: 56px;
+	margin-bottom: 0px;
+	padding-bottom: 0px;
+	margin-left: 110px;
+
+	font-family: "Arial", sans-serif;
+	font-size: normal;
+}
+
+.block {
+	padding-right: 10px;
+	padding-left: 10px;
+	border-right: solid 1px black;
+}
+.tiny {
+	font-size: xx-small;
+}
+
+
+h1, h2, h3 {
+	color: #333366;
+	font-family: "Times New Roman", Arial, sans-serif;
+}
+h1 {
+	background-color: #DDDDDD;
+	border-bottom: 1px solid black;
+	padding-left: 5px;
+}
+h1.title {
+	background-color: #FFFFFF;
+	color: green;
+	font-family: "Arial", sans-serif;
+	font-size: 40px;
+	margin: 0px;
+	margin-top: 5px;
+	padding: 0px;
+}
+h2, h3 {
+	padding-left: 5px;
+}
+p {
+	padding-left: 5px;
+	padding-right: 5px;
+}
+pre {
+	padding-left: 40px;
+}
+blockquote {
+	padding-left: 5px;
+	font-style: italic;
+}
+
+.highlight {
+	background-color: yellow;
+}
+.mono {
+	font-family: "Bitstream Vera Sans Mono", "Monospaced", "Courier New", mono;
+}
+.x {
+	font-style: italic;
+	font-family: "Times New Roman", Serif;
+}
+
+.subtitle {
+	font-family: Arial, sans-serif;
+	font-weight: bold;
+	font-size: 24;
+	text-align: right;
+	margin: 0px;
+	padding: 0px;
+}
+
+.rightnavpanel {
+	float: right;
+	background-color: #c1ba99;
+	color: #000000;
+	font-family: Arial, sans-serif;
+	font-size: small;
+	margin-top: 5px;
+	margin-left: 8px;
+	margin-right: 5px;
+	margin-bottom: 3px;
+	padding: 5px;
+	border: solid black 1px;
+}
+
+.maincontent {
+	background-color: #FFFFFF;
+	color: #000000;
+	padding:5px;
+}
+
+.note {
+	font-family: "Times New Roman", Arial, sans-serif;
+	font-style: italic;
+	font-size: small;
+	margin-top: 50px;
+}
+
+a:link				{ text-decoration: underline; color: #333366; }
+a:visited			{ text-decoration: underline; color: #333366; } 
+a:hover				{ text-decoration: underline; color: purple; }
+
+a.nav-black:link	{ text-decoration: none; color: #000000; border-bottom: 0px; background-color: transparent; font-size: medium; }
+a.nav-black:hover	{ text-decoration: none; color: #000000; border-bottom: 0px; background-color: transparent; font-size: medium; }
+a.nav-black:visited	{ text-decoration: none; color: #000000; border-bottom: 0px; background-color: transparent; font-size: medium; }
+a.nav-black:active	{ text-decoration: none; color: #000000; border-bottom: 0px; background-color: transparent; font-size: medium; }
+
+a.black:link		{ text-decoration: none; color: gray; border-bottom: 0px; background-color: transparent; }
+a.black:visited		{ text-decoration: none; color: gray; border-bottom: 0px; background-color: transparent; }
+
+.subject		{ color: #333366; font-size: 30px; }
+a.subject:link		{ text-decoration: none; color: #333366; font-size: 30px; }
+a.subject:hover		{ text-decoration: underline; color: #333366; font-size: 30px; }
+a.subject:visited	{ text-decoration: none; color: #333366; font-size: 30px; }
+
+a.download {
+	font-family: "Bitstream Vera Sans Mono", "Monospaced", "Courier New", mono;
+	font-size: small;
+	text-decoration: none;
+}
+
+hr {
+	margin-bottom: 0px;
+	padding-bottom: 0px;
+}
+
+.bottompanel {
+	text-align: right;
+	color: gray;
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: x-small;
+	padding-top: 0px;
+	margin-top: 20px;
+	margin-right: 10px;
+	width: 60%;
+	clear: both;
+	float: right;
+}

@@ -56,7 +56,7 @@ using Eclipse, you will find "**The java-gnome Style**" pre-configured in the
 Coding standards
 ================
 
-TODO: coding practices. Not really too much to talk about here.
+TODO: coding practises. Not really too much to talk about here.
 
 AfC
 

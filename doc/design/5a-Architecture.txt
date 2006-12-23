@@ -77,7 +77,7 @@ phone, called Ismael in England, and babbled on for 30 minutes about how cool
 I thought it was. Poor ijuma. :)]
 
 It has a lot to recommend it: it quietly groups things by which GNOME module
-things are from without being offensive about it. The underlying instance that
+things are from without being offencive about it. The underlying instance that
 is returned is some generated class which implements our Button interface. All
 good. And other than constructors being separated from the declaring
 interfaces, not so bad.
@@ -181,7 +181,7 @@ which means that we have to hand write the signature of the generated method
 we're calling, and loose the rigour of matching our method names to the
 underlying native API we're wrapping as a check of algorithmic mapping.
 
-That's the theoretical risk; in practice it evaporates quite nicely. To
+That's the theoretical risk; in practise it evaporates quite nicely. To
 explain why it's not a problem, consider the situation in the 2.x bindings:
 
 At the moment, we have a hand written method signature and the native

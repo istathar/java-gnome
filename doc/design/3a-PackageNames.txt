@@ -49,7 +49,7 @@ easily switch to:
 * `java-glade`  
 * `java-vte`  
 
-etc. I'm really undecided about it. Using a suffix matches current practice
+etc. I'm really undecided about it. Using a suffix matches current practise
 and the GTK# '-sharp' naming pattern to boot, whereas the prefix keeps all the
 libs nicely together in a directory listing (and one in the middle,
 `java-gnome`, matches our current branding).

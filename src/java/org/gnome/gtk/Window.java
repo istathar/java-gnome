@@ -74,10 +74,9 @@ public class Window extends Bin
      * leaving more room for the details that help identify this Window
      * uniquely.
      * 
-     * <p>
-     * See the <a
-     * href="http://developer.gnome.org/projects/gup/hig/2.0/windows-primary.html#primary-window-titles">GNOME
-     * Human Interface Guidelines</A> for more details.
+     * @see <a
+     *      href="http://developer.gnome.org/projects/gup/hig/2.0/windows-primary.html#primary-window-titles">GNOME
+     *      Human Interface Guidelines</a>
      */
     public void setTitle(String title) {
         GtkWindow.setTitle(this, title);

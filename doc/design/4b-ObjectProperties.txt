@@ -1,6 +1,6 @@
 Re-engineering (4): GObject property handling API
 
-I was chatting with davyd last night about how I'd achieved a generalized
+I was chatting with Davyd last night about how I'd achieved a generalized
 setProperty() capability for GObjects in the new bindings. I wrote Davyd an
 email about one of the details, included below, but along the way I've arrived
 at a design decision that I'd like to make sure everyone is ok with.
