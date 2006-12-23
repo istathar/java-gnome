@@ -47,7 +47,7 @@ The spec itself is somewhat obscurely written. As far as I can tell,
 everything you need is in the above book. I'd still recommend downloading a
 copy of the spec for reference. Doing:
 
-        $ wget -x -nc -r -I/j2se/1.4.2/docs/guide/jni/spec/ http://java.sun.com/j2se/1.4.2/docs/guide/jni/spec/jniTOC.html
+    $ wget -x -nc -r -I/j2se/1.4.2/docs/guide/jni/spec/ http://java.sun.com/j2se/1.4.2/docs/guide/jni/spec/jniTOC.html
 
 will get you a copy which you can then move somewhere convenient.
 

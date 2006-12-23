@@ -38,28 +38,28 @@ that you positively control what text appears. Otherwise you can end up with
 fully qualified class names and all sorts of other ugliness which distract
 from the flow of the paragraph. For example, if you just do:
 
-		/**
-		 * For more details, see {@link org.gnome.gtk.Button#setLabel(java.lang.String)}.
-		 */
+    /**
+     * For more details, see {@link org.gnome.gtk.Button#setLabel(java.lang.String)}.
+     */
 
 You end up with "For more details, see
 <u>org.gnome.gtk.Button.setLabel(java.gnome.String)</u>." Bleh! So try adding
 a bit of extra text to make it more natural:
 
-		/**
-		 * For more details, see Button's {@link org.gnome.gtk.Button#setLabel(java.lang.String) setLabel()}.
-		 */
+    /**
+     * For more details, see Button's {@link org.gnome.gtk.Button#setLabel(java.lang.String) setLabel()}.
+     */
 
 This will render as "For more details, see Button's <u>setLabel()</u>." Much
 better.
 
 As a matter of consistency, if you are referring to a static method, say:
 
-		Gtk.init()
-		
+    Gtk.init()
+    
 but to talk about an instance method, use the possessive, eg:
 
-		Button's setLabel()
+    Button's setLabel()
 
 Obviously the whole point of java-gnome is to wrap GTK and the other GNOME
 libraries. Unfortunately, however the doxygen documentation for GLib, GTK and

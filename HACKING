@@ -15,13 +15,13 @@ System.
 If you're going to hack on the bindings, we recommend that you do the
 following:
 
-        $ bzr init-repo --trees java-gnome
-        $ cd java-gnome
-        $ bzr checkout http://research.operationaldynamics.com/bzr/java-gnome/mainline
-        $ bzr branch mainline working
-        $ cd working
-        $ ./configure
-        $ make
+    $ bzr init-repo --trees java-gnome
+    $ cd java-gnome
+    $ bzr checkout http://research.operationaldynamics.com/bzr/java-gnome/mainline
+    $ bzr branch mainline working
+    $ cd working
+    $ ./configure
+    $ make
 
 This will create two branches, a `java-gnome/mainline/`, which is a checkout
 that you can use to track upstream, and a `java-gnome/working/`, which is a
@@ -62,25 +62,25 @@ the stylistic guidelines discussed out below.
 Meanwhile, you'll want to catch-up with what's been going on upstream. So
 update the checkout you have of mainline with the following:
 
-        $ cd ../mainline
-        $ bzr update
+    $ cd ../mainline
+    $ bzr update
 
 Then you need to merge in the upstream changes into your branch:
 
-        $ cd ../working
-        $ bzr merge
+    $ cd ../working
+    $ bzr merge
 
 Merging only brings the changes to your working directory; it doesn't _commit_
 them to your working branch. So, assuming you want to accept them, you need to
 do a commit of those changes. So, Look at the changes that were pulled in
 with:
 
-        $ bzr status
-        $ bzr diff
+    $ bzr status
+    $ bzr diff
 
 then commit:
 
-	$ bzr commit
+    $ bzr commit
 
 but make sure you only commit the stuff you've merged in, not unfinished
 changes you've might have locally! In other words, best to do the merge after
@@ -91,7 +91,7 @@ you've finished anything you might happen to be doing in that branch.
 If you've done some work on your local branch and you'd like to contribute it,
 go ahead and commit it locally in your working branch, then try the following:
 
-        $ bzr bundle ../mainline > /tmp/patch-name.patch
+    $ bzr bundle ../mainline > /tmp/patch-name.patch
 
 This will output the diffs, along with a whole spew of Bazaar metadata, into
 the file you specify. It's 7 bit safe, so you can just attach that file to an

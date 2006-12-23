@@ -22,7 +22,7 @@ Unix command line aren't up to it. So from the early days of Usenet (and long,
 long before wikis), people developed the habit of using extra punctuation
 characters to express themselves: 
 
-		I have a compulsive need to use _italics_ and **bold** in my writing
+    I have a compulsive need to use _italics_ and **bold** in my writing
 
 results in "I have a compulsive need to use _italics_ and **bold** in my
 writing".
@@ -30,28 +30,28 @@ writing".
 To mark program names, file names, variables, etc in a constant width font you
 simply use backticks:
 
-		`filename`
+    `filename`
 
 which puts the `filename` in a `<code>` span.
 
 If you write
 
-		Heading
-		-------
+    Heading
+    -------
 
 you get an `<H2>` heading. Using `===` (which is visually a bit stronger)
 creates an `<H1>` heading, which makes sense and looks awesome in text.
 
 To do code snippets we use:
 
-		<TAB>Mark a section as being a preformatted
-		<TAB>code block, ignoring any _markup_ present.
-		<TAB>
+    <TAB>Mark a section as being a preformatted
+    <TAB>code block, ignoring any _markup_ present.
+    <TAB>
 
 As you would expect, the result is a preformatted block like this:
 
-	Mark a section as being a preformatted
-	code block, ignoring any _markup_ present.
+    Mark a section as being a preformatted
+    code block, ignoring any _markup_ present.
 
 This works with either a `<TAB>` or `4 spaces` as the indent character.  We
 usually use **two** tabs to create the appearance of indent from the left
@@ -80,10 +80,10 @@ One way you can quickly look at the result of your markup is to create a
 simple script in a virtual host on your local web server and have it call markdown on the file
 you're working on. In PHP it is as simple as:
 
-		include_once "markdown.php";
+        include_once "markdown.php";
 
-		$text = file_get_contents("README");
-		echo Markdown($text);
+        $text = file_get_contents("README");
+        echo Markdown($text);
 
 An example is included in the source code as [`view.php`][view].
 

@@ -59,19 +59,19 @@ But to prevent this from happening again, try and ensure your editor knows
 about the width limit. Vim users can put the following fragment in their
 `.vimrc`:
 
-	if expand("%:t") =~ "^bzr_log*"
-		set textwidth=70
-		set filetype=none
-		syn match commitComment "^#.*"
-		hi link commitComment Comment
-	endif
+    if expand("%:t") =~ "^bzr_log*"
+        set textwidth=70
+        set filetype=none
+        syn match commitComment "^#.*"
+        hi link commitComment Comment
+    endif
 
 While you're at it, you might want
 
-	if expand("%:e") == "java"
-		set nowrap
-		set ts=4
-	endif
+    if expand("%:e") == "java"
+         set nowrap
+         set ts=4
+    endif
 
 to make sure a casual edit of a Java source file doesn't mess it up.
 
