@@ -172,9 +172,10 @@ full details<?
 <br>
 <br>
 <div style="padding-bottom:10px;">
-<a href="http://www.operationaldynamics.com/" style="padding-right:12px; vertical-align: middle;"><img src="http://www.local/images/logo/logo-22x28.jpg" border="0"></a>
-<a href="http://www.gnome.org/" style="padding-right:5px; vertical-align: bottom;"><img src="/images/gnome_FootLogo.png" border="0"></a>
-<a href="http://sourceforge.net/"><img src="/images/sourceforge_Logo.png" border="0"></a>
+<a href="http://www.operationaldynamics.com/" style="padding-right:12px;
+vertical-align: middle;"><img src="http://www.local/images/logo/logo-22x28.jpg" width="22" height="28" border="0"></a>
+<a href="http://www.gnome.org/" style="padding-right:5px; vertical-align: bottom;"><img src="/images/gnome_FootLogo.png" width="27" height="33" border="0"></a>
+<a href="http://sourceforge.net/"><img src="/images/sourceforge_Logo.png" width="86" heigh="29" border="0"></a>
 </div>
 </div>
 <?
