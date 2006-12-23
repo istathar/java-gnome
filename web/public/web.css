@@ -142,6 +142,8 @@ blockquote {
 .note {
 	font-family: "Times New Roman", Arial, sans-serif;
 	font-style: italic;
+	font-size: small;
+	margin-top: 50px;
 }
 
 a:link				{ text-decoration: underline; color: #333366; }
@@ -160,11 +162,6 @@ a.black:visited		{ text-decoration: none; color: gray; border-bottom: 0px; backg
 a.subject:link		{ text-decoration: none; color: #333366; font-size: 30px; }
 a.subject:hover		{ text-decoration: underline; color: #333366; font-size: 30px; }
 a.subject:visited	{ text-decoration: none; color: #333366; font-size: 30px; }
-
-.subheading		{ color: #666666; font-style: italic; }
-a.subheading:link	{ text-decoration: none; color: #666666; font-style: italic; }
-a.subheading:hover	{ text-decoration: none; color: #666666; font-style: italic; }
-a.subheading:visited	{ text-decoration: none; color: #666666; font-style: italic; }
 
 a.download {
 	font-family: "Bitstream Vera Sans Mono", "Monospaced", "Courier New", mono;

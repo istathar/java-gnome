@@ -46,17 +46,19 @@ the new Java bindings for GTK and GNOME a reality.</p>
 
 </div>
 
+<p>Making GTK and GNOME approachable from Java. That's what we do. See the <a
+href="objectives.php">objectives</a> page.
+
 <p>java-gnome 4.0 is an initiative of <a
 href="http://www.operationaldynamics.com/">Operational Dynamics</a>, a Change
-Management consultancy active in the Mission Critical IT Operations space. We
+Management consultancy active in the mission critical IT operations space. We
 believe that while the web is ideal for offering services, only carefully
 tailored desktop applications can provide a truly rich user experience that is
-both responsive and usable. Our choice of the GNOME Desktop is due to 
-our belief that it provides a great choice for long term growth. With a
-vibrant and cosmopolitan user and developer community, GNOME is a broad
-platform that has already proved itself suitable to widely diverse requiements
-ranging from corporate destkops to embedded devices across its international
-audience.</p>
+both responsive and usable. Our choice of the GNOME Desktop is due to our
+belief that it provides a great choice for long term growth. With a vibrant
+and cosmopolitan user and developer community, GNOME is a broad platform that
+has already proved itself suitable to widely diverse requirements ranging from
+corporate desktops to embedded devices across its international audience.</p>
 
 <?
 	template_end();
