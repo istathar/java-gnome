@@ -34,7 +34,7 @@ build-native: tmp/libgtkjava-$(APIVERSION).so
 .config: src/java/org/gnome/gtk/Gtk.java
 	echo
 	echo "You need to run ./configure to check prerequisites"
-	echo "and setup preferences before you can build accounts."
+	echo "and setup preferences before you can build java-gnome."
 	( if [ ! -x configure ] ; then chmod +x configure ; echo "I just made it executable for you." ; fi )
 	echo
 	exit 1
@@ -217,15 +217,25 @@ doc: build/classes
 	@echo "$(JAVADOC_CMD) doc/api/*.html"
 	$(JAVADOC) \
 		-d doc/api \
-		-classpath src/java \
+		-classpath tmp/classes \
 		-public \
+		-nodeprecated \
 		-source 1.4 \
 		-notree \
 		-noindex \
 		-nohelp \
 		-version \
 		-author \
-		$(SOURCES_JAVA) $(REDIRECT)
+		-windowtitle "java-gnome $(APIVERSION) API Documentation" \
+		-doctitle "<h1>java-gnome $(APIVERSION) API Documentation</h1>" \
+		-header "java-gnome version $(VERSION)" \
+		-footer "<img src=\"http://java-gnome.sourceforge.net/images/java-gnome_JavaDocLogo.png\" style=\"padding-right:25px;\"><br> <span style=\"font-family: Arial; font-style: normal; font-size: large;\">java-gnome</span>" \
+		-breakiterator \
+		-sourcepath src/java \
+		-subpackages org \
+		-exclude "org.freedesktop.bindings" \
+		-noqualifier 'java.*' \
+		$(REDIRECT)
 
 
 #
