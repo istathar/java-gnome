@@ -39,9 +39,10 @@ div.box {
 <h1 class="title">java-gnome 4.0</h1>
 
 <div class="box">
-<p>The re-engineering and design of java-gnome 4.0 is complete. We are now
-looking to secure the revenue necessary to fund the work to make
-the new Java bindings of GTK and GNOME a reality.</p>
+<p>The engineering design of java-gnome 4.0 is complete, and a working
+prototype which will be the foundation of the new bindings has been released.
+We are now looking to secure the revenue necessary to fund the work to make
+the new Java bindings for GTK and GNOME a reality.</p>
 
 </div>
 
