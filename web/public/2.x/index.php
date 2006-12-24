@@ -105,6 +105,7 @@ discouraged from trying to use them:</p>
 	<a style="text-decoration: none;" href="null://">libgtkhtml-java</a>
 	<a style="text-decoration: none;" href="null://">libgtkmozembed-java</a>
 	<a style="text-decoration: none;" href="null://">libgnomevfs-java</a>
+	<a style="text-decoration: none;" href="null://">libgst-java</a>
 </pre>
 
 <h2>Migrating existing applications</h2>
