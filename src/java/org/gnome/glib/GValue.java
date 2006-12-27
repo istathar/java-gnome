@@ -62,13 +62,13 @@ final class GValue extends Plumbing
     static native final long g_value_type(long value);
 
     static final void free(Fundamental reference) {
-        g_slice_free(pointerOf(reference));
+        g_value_free(pointerOf(reference));
     }
 
     /*
-     * This could live in GSlice.java, I suppose, but no real reason. We're
-     * below the level of clean abstraction here, and it just needs to go
-     * somewhere.
+     * This was originally called g_slice_free, but since it's specifically to
+     * release the GValue copies we make for Standard Types, give it a more
+     * appropriate name instead.
      */
-    private static native final long g_slice_free(long value);
+    private static native final long g_value_free(long value);
 }

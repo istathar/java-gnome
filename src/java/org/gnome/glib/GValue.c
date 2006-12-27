@@ -37,7 +37,7 @@ Java_org_gnome_glib_GBoxed_g_1value_1type
 
 /*
  * Implements
- *   org.gnome.glib.GValue.g_slice_free(long value)
+ *   org.gnome.glib.GValue.g_value_free(long value)
  * called from
  *   org.gnome.glib.GValue.free(Fundamental reference)
  * called from
@@ -47,7 +47,7 @@ Java_org_gnome_glib_GBoxed_g_1value_1type
  */
 
 JNIEXPORT void JNICALL
-Java_org_gnome_glib_GBoxed_g_1slice_1free
+Java_org_gnome_glib_GBoxed_g_1value_1free
 	(JNIEnv *env, jclass cls, jlong _value)
 {
 	GValue* value;
