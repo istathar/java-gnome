@@ -33,10 +33,10 @@ final class GValue extends Plumbing
     }
 
     /*
-     * These ones does not match the exact prototype of g_value_init() [which is
-     * (GValue*, GType)]; we do the type system magic on the other side (where
-     * its all mostly macros in any case) and carry out allocation using GSlice.
-     * A rare occasion when we overload the native call.
+     * These ones does not match the exact prototype of g_value_init() [which
+     * is (GValue*, GType)]; we do the type system magic on the other side
+     * (where its all mostly macros in any case) and carry out allocation
+     * using GSlice. A rare occasion when we overload the native call.
      */
 
     private static native final long g_value_init(int i);
@@ -44,6 +44,22 @@ final class GValue extends Plumbing
     private static native final long g_value_init(boolean b);
 
     private static native final long g_value_init(String str);
+
+    /**
+     * <i>This is an opaque representation of the GType value code used by
+     * GLib. Any interpretation that the Java language might assign to a long
+     * (ie, that it's signed) is meaningless and incorrect! This is package
+     * public so that Plumbing can see it, and final so that once constructed
+     * its immutable. GTypes are gulong.</i>
+     * 
+     * @return an opaque value which can be passed as a <code>GType</code>
+     *         to the underlying libraries.
+     */
+    /*
+     * Atypically, this is package visible so that org.gnome.glib.Plumbing can
+     * see it.
+     */
+    static native final long g_value_type(long value);
 
     static final void free(Fundamental reference) {
         g_slice_free(pointerOf(reference));

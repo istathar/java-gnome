@@ -15,6 +15,26 @@
 #include <jni.h>
 #include "org_gnome_glib_GValue.h"
 
+
+/*
+ * Implements
+ *   org.gnome.glib.GValue.g_value_type(long reference)
+ * called from
+ *   org.gnome.glib.Plumbing.instanceFor(long poiner)
+ */
+
+JNIEXPORT long JNICALL
+Java_org_gnome_glib_GBoxed_g_1value_1type
+	(JNIEnv *env, jclass cls, jlong _reference)
+{
+	GValue* value;
+
+	// translate reference and verify
+	value =	(GValue*) _reference;
+	
+	return (jlong) G_VALUE_TYPE(value);
+}
+
 /*
  * Implements
  *   org.gnome.glib.GValue.g_slice_free(long value)
