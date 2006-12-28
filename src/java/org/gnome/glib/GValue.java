@@ -45,6 +45,12 @@ final class GValue extends Plumbing
 
     private static native final long g_value_init(String str);
 
+    static final String getString(Value value) {
+        return g_value_get_string(pointerOf(value));
+    }
+
+    private static native final String g_value_get_string(long value);
+
     /**
      * <i>This is an opaque representation of the GType value code used by
      * GLib. Any interpretation that the Java language might assign to a long
@@ -70,5 +76,5 @@ final class GValue extends Plumbing
      * release the GValue copies we make for Standard Types, give it a more
      * appropriate name instead.
      */
-    private static native final long g_value_free(long value);
+    private static native final void g_value_free(long value);
 }
