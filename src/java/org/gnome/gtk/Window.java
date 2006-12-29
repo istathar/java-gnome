@@ -20,6 +20,9 @@ package org.gnome.gtk;
  */
 public class Window extends Bin
 {
+    protected Window(long pointer) {
+        super(pointer);
+    }
 
     /**
      * Create a new Window.
