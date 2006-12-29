@@ -14,30 +14,39 @@
 #include <glib-object.h>
 #include <jni.h>
 #include "org_gnome_glib_GValue.h"
-
+#include "bindings_java.h"
 
 /*
  * Implements
- *   org.gnome.glib.GValue.g_value_type(long reference)
+ *   org.gnome.glib.GValue.g_type_name(long value)
  * called from
- *   org.gnome.glib.Plumbing.instanceFor(long poiner)
+ *   org.gnome.glib.Plumbing.instanceFor(long pointer)
+ * and also made available via
+ *   org.gnome.glib.GValue.name(Value value)
  */
-
-JNIEXPORT jlong JNICALL
-Java_org_gnome_glib_GValue_g_1value_1type
-	(JNIEnv *env, jclass cls, jlong _reference)
+JNIEXPORT jstring JNICALL
+Java_org_gnome_glib_GValue_g_1type_1name
+(
+	JNIEnv *env,
+	jclass cls,
+	jlong _value
+)
 {
 	GValue* value;
+	const gchar* name;
 
-	// translate reference and verify
-	value =	(GValue*) _reference;
-	
+	// translate value and verify
+	value =	(GValue*) _value;
 	if (!G_IS_VALUE(value)) {
-		g_critical("Not a GValue?!?");
+		bindings_java_throw(env, "You're trying to look up the GType name of something that is not a GValue?!?");
+		return NULL;
 	}
+		
+	name = g_type_name(G_VALUE_TYPE(value));
 	
-	return (jlong) G_VALUE_TYPE(value);
+	return (*env)->NewStringUTF(env, name);
 }
+
 
 /*
  * Implements
@@ -50,10 +59,13 @@ Java_org_gnome_glib_GValue_g_1value_1type
  * This is where we free the chunk of memory containing the GValue pointer
  * (that we know we allocated with GSlice).
  */
-
 JNIEXPORT void JNICALL
 Java_org_gnome_glib_GValue_g_1value_1free
-	(JNIEnv *env, jclass cls, jlong _value)
+(
+	JNIEnv *env,
+	jclass cls,
+	jlong _value
+)
 {
 	GValue* value;
 		
@@ -188,7 +200,6 @@ Java_org_gnome_glib_GValue_g_1value_1init__Ljava_lang_String_2
  * bindings call; we are not following the wrapping conventions but rather
  * extracting and returning the primative value.
  */
-
 JNIEXPORT jstring JNICALL
 Java_org_gnome_glib_GValue_g_1value_1get_1string
 (
@@ -203,7 +214,8 @@ Java_org_gnome_glib_GValue_g_1value_1get_1string
 	// translate value
 	value =	(GValue*) _value;
 	if (!G_VALUE_HOLDS_STRING(value)) {
-		g_critical("Not a G_TYPE_STRING?!?");
+		bindings_java_throw(env, "You've asked for the string value of a GValue, but it's not a G_TYPE_STRING!");
+		return NULL;
 	}
 	
 	// call function

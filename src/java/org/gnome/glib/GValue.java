@@ -52,20 +52,36 @@ final class GValue extends Plumbing
     private static native final String g_value_get_string(long value);
 
     /**
-     * <i>This is an opaque representation of the GType value code used by
-     * GLib. Any interpretation that the Java language might assign to a long
-     * (ie, that it's signed) is meaningless and incorrect! This is package
-     * public so that Plumbing can see it, and final so that once constructed
-     * its immutable. GTypes are gulong.</i>
+     * Lookup the name for a given type. <i>When a GType such as a primative
+     * (fundamental) type or a class is registered in GObject, it is given a
+     * name.
      * 
-     * @return an opaque value which can be passed as a <code>GType</code>
-     *         to the underlying libraries.
+     * <p>
+     * <i>We do not use or even provide a mechanism to retreive the GType
+     * itself. This value would be opaque and in any case changes from run to
+     * run.</i>
+     * 
+     * @param the
+     *            pointer address of
+     * 
+     * @return an the name which is used to identify the <code>GType</code>
+     *         in the underlying libraries.
      */
     /*
-     * Atypically, this is package visible so that org.gnome.glib.Plumbing can
-     * see it.
+     * We don't really need this, but we'll leave it here for bindings hackers
+     * to use if debugging.
      */
-    static native final long g_value_type(long value);
+    static final String type(Value value) {
+        return g_type_name(pointerOf(value));
+    }
+
+    /*
+     * Atypically, this native method is package visible so that the crucial
+     * instanceFor() in org.gnome.glib.Plumbing can see it. That method needs
+     * to call this _before_ it can (and in order to) construct a Value. Yes,
+     * this could well be in a GType class. Whatever.
+     */
+    static native final String g_type_name(long value);
 
     static final void free(Fundamental reference) {
         g_value_free(pointerOf(reference));
