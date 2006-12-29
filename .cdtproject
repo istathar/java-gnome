@@ -49,7 +49,7 @@
 </item>
 <item id="org.eclipse.cdt.core.pathentry">
 <pathentry kind="src" path="src/jni"/>
-<pathentry kind="src" path="generated/jni"/>
+<pathentry kind="src" path="mockup/jni"/>
 <pathentry kind="out" path=""/>
 <pathentry kind="con" path="org.eclipse.cdt.make.core.DISCOVERED_SCANNER_INFO"/>
 </item>

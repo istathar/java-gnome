@@ -25,7 +25,7 @@ public final class Experiment
 {
 
     public static void main(String[] args) {
-        Window w;
+        final Window w;
         final Button b;
 
         Gtk.init(args);
@@ -42,7 +42,7 @@ public final class Experiment
 
         b.connect(new Button.CLICKED() {
             public void onClicked(Button source) {
-                System.out.println("I was clicked...");
+                System.out.println("I was clicked... " + b.getLabel());
             }
         });
 

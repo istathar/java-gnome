@@ -14,15 +14,15 @@ package org.gnome.glib;
 /**
  * Helper class to map back and forth from Java primatives to GLib fundamental
  * types. As it happens, there are Fundamentals subclasses for each of Java
- * fundamental types. This is used internally when properties need to be set on
- * {@link Object}s; these various subclasses are hidden from public view as
- * there is no need to work in other than Java primatives.
+ * fundamental types. This is used internally when properties need to be set
+ * on {@link Object}s; these various subclasses are hidden from public view
+ * as there is no need to work in other than Java primatives.
  * <p>
  * <i>These are wrappers around allocated <code>GValue</code>s with
- * funamental types, which we need in the case we want to use them as parameters
- * to property setting functions. As we create them (and allocate them with
- * <code>GSlice</code> JNI side, we own them are are responsible for
- * <code>free()</code>ing them.</i>
+ * funamental types, which we need in the case we want to use them as
+ * parameters to property setting functions. As we create them (and allocate
+ * them with <code>GSlice</code> JNI side, we own them are are responsible
+ * for <code>free()</code>ing them.</i>
  * <p>
  * <i>This is not used for regular parameter passing. Outside of the property
  * setting mechanism, arguments are passed by Java primative or by pointer.
@@ -31,12 +31,11 @@ package org.gnome.glib;
  * @author Andrew Cowie
  */
 /*
- * Any reason for this to be public? Note that there is no GFundamental, and nor
- * are we fronting a GSlice.
+ * Any reason for this to be public? Note that there is no GFundamental, and
+ * nor are we fronting a GSlice.
  */
 abstract class Fundamental extends Value
 {
-
     protected Fundamental(long pointer) {
         super(pointer);
     }
@@ -63,6 +62,9 @@ abstract class Fundamental extends Value
 
 final class StringValue extends Fundamental
 {
+    protected StringValue(long pointer) {
+        super(pointer);
+    }
 
     StringValue(String str) {
         super(GValue.createValue(str));
@@ -71,6 +73,9 @@ final class StringValue extends Fundamental
 
 final class IntegerValue extends Fundamental
 {
+    protected IntegerValue(long pointer) {
+        super(pointer);
+    }
 
     IntegerValue(int i) {
         super(GValue.createValue(i));
@@ -79,6 +84,9 @@ final class IntegerValue extends Fundamental
 
 final class BooleanValue extends Fundamental
 {
+    protected BooleanValue(long pointer) {
+        super(pointer);
+    }
 
     BooleanValue(boolean b) {
         super(GValue.createValue(b));

@@ -38,15 +38,6 @@ import org.freedesktop.bindings.Proxy;
  */
 public abstract class Value extends Proxy
 {
-    /*
-     * This is an opaque representation of the GType value code used by GLib.
-     * Any interpretation that the Java language might assign to a long (ie,
-     * that it's signed) is meaningless and incorrect! This is package public so
-     * that Plumbing can see it, and final so that once constructed its
-     * immutable.
-     */
-    final long type = 0; // FIXME REMOVE?
-
     protected Value(long pointer) {
         super(pointer);
     }

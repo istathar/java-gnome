@@ -17,23 +17,16 @@
  */
 package org.gnome.gtk;
 
-import org.freedesktop.bindings.Proxy;
 import org.gnome.glib.Plumbing;
 import org.gnome.glib.Signal;
 
 final class GtkButton extends Plumbing
 {
-    private GtkButton() {}
-
-    static final Button instanceFor(long pointer) {
-        Proxy obj = proxyFor(pointer);
-
-        if (obj == null) {
-            return new Button(pointer);
-        } else {
-            return (Button) obj;
-        }
+    static {
+        registerType("GtkButton", "org.gnome.gtk.Button");
     }
+
+    private GtkButton() {}
 
     static final long createButton() {
         return gtk_button_new();
@@ -94,15 +87,15 @@ final class GtkButton extends Plumbing
      * called by native code! Also, with this visibility we can unit test it?!?
      */
     protected static final void handleClicked(Signal handler, long source) {
-        ((GtkButton.CLICKED) handler).onClicked(instanceFor(source));
+        ((GtkButton.CLICKED) handler).onClicked((Button) instanceFor(source));
     }
 
     protected static final boolean handleDepressed(Signal handler, long source, long whoIsDepressed) {
-        return ((GtkButton.DEPRESSED) handler).onDepressed(instanceFor(source),
+        return ((GtkButton.DEPRESSED) handler).onDepressed((Button) instanceFor(source), (Widget)
                 instanceFor(whoIsDepressed));
     }
 
     protected static final void handleEntered(Signal handler, long source) {
-        ((GtkButton.ENTERED) handler).onEntered(instanceFor(source));
+        ((GtkButton.ENTERED) handler).onEntered((Button) instanceFor(source));
     }
 }

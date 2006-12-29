@@ -68,7 +68,8 @@ public class Button extends Bin
      *         Widget-containing-Button, not the more usual Button-with-Label.
      */
     public String getLabel() {
-        return GtkButton.getLabel(this);
+        // return GtkButton.getLabel(this);
+        return super.getPropertyString("label");
     }
 
     public float getAlignmentX() {
@@ -81,8 +82,8 @@ public class Button extends Bin
     }
 
     /**
-     * Event generated when a user presses and releases a button, causing it to
-     * activate.
+     * Event generated when a user presses and releases a button, causing it
+     * to activate.
      * 
      * <p>
      * <i>When the mouse is used to click on a Button this signal will be
@@ -103,8 +104,8 @@ public class Button extends Bin
     }
 
     /*
-     * ACTIVATE: "Applications should never connect to this signal, but use the
-     * 'clicked' signal."
+     * ACTIVATE: "Applications should never connect to this signal, but use
+     * the 'clicked' signal."
      */
     /*
      * ENTERED, PRESSED, etc: "deprecated"

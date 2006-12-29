@@ -14,21 +14,58 @@
 #include <glib-object.h>
 #include <jni.h>
 #include "org_gnome_glib_GValue.h"
+#include "bindings_java.h"
 
 /*
  * Implements
- *   org.gnome.glib.GValue.g_slice_free(long value)
+ *   org.gnome.glib.GValue.g_type_name(long value)
+ * called from
+ *   org.gnome.glib.Plumbing.instanceFor(long pointer)
+ * and also made available via
+ *   org.gnome.glib.GValue.name(Value value)
+ */
+JNIEXPORT jstring JNICALL
+Java_org_gnome_glib_GValue_g_1type_1name
+(
+	JNIEnv *env,
+	jclass cls,
+	jlong _value
+)
+{
+	GValue* value;
+	const gchar* name;
+
+	// translate value and verify
+	value =	(GValue*) _value;
+	if (!G_IS_VALUE(value)) {
+		bindings_java_throw(env, "You're trying to look up the GType name of something that is not a GValue?!?");
+		return NULL;
+	}
+		
+	name = g_type_name(G_VALUE_TYPE(value));
+	
+	return (*env)->NewStringUTF(env, name);
+}
+
+
+/*
+ * Implements
+ *   org.gnome.glib.GValue.g_value_free(long value)
  * called from
  *   org.gnome.glib.GValue.free(Fundamental reference)
  * called from
  *   org.gnome.glib.Fundamental.release()
  *
- * This is where we free an chunk of memory that we know we allocated with GSlice.
+ * This is where we free the chunk of memory containing the GValue pointer
+ * (that we know we allocated with GSlice).
  */
-
 JNIEXPORT void JNICALL
-Java_org_gnome_glib_GBoxed_g_1slice_1free
-	(JNIEnv *env, jclass cls, jlong _value)
+Java_org_gnome_glib_GValue_g_1value_1free
+(
+	JNIEnv *env,
+	jclass cls,
+	jlong _value
+)
 {
 	GValue* value;
 		
@@ -45,10 +82,11 @@ Java_org_gnome_glib_GBoxed_g_1slice_1free
  * called from
  *   org.gnome.glib.IntegerValue.<init>(int i);
  *
- * Allocate a GValue for a boolean with GSlice, then initialize it and return the pointer.
+ * Allocate a GValue for a boolean with GSlice, then initialize it and return
+ * the pointer.
  */
 JNIEXPORT jlong JNICALL
-Java_org_gnome_glib_GBoxed_g_1value_1init__I
+Java_org_gnome_glib_GValue_g_1value_1init__I
 (
 	JNIEnv *env,
 	jclass cls,
@@ -81,10 +119,11 @@ Java_org_gnome_glib_GBoxed_g_1value_1init__I
  * called from
  *   org.gnome.glib.BooleanValue.<init>(boolean b);
  *
- * Allocate a GValue for a boolean with GSlice, then initialize it and return the pointer.
+ * Allocate a GValue for a boolean with GSlice, then initialize it and return
+ * the pointer.
  */
 JNIEXPORT jlong JNICALL
-Java_org_gnome_glib_GBoxed_g_1value_1init__Z
+Java_org_gnome_glib_GValue_g_1value_1init__Z
 (
 	JNIEnv *env,
 	jclass cls,
@@ -115,7 +154,8 @@ Java_org_gnome_glib_GBoxed_g_1value_1init__Z
  * called from
  *   org.gnome.glib.StringValue.<init>(String str);
  *
- * Allocate a GValue for a char* with GSlice, then initialize it and return the pointer.
+ * Allocate a GValue for a char* with GSlice, then initialize it and return
+ * the pointer.
  */
 JNIEXPORT jlong JNICALL
 Java_org_gnome_glib_GValue_g_1value_1init__Ljava_lang_String_2
@@ -146,4 +186,41 @@ Java_org_gnome_glib_GValue_g_1value_1init__Ljava_lang_String_2
 
 	// return address
 	return (jlong) value;
+}
+
+/*
+ * Implements
+ *   org.gnome.glib.GValue.g_value_get_string(long value)
+ * called from
+ *   org.gnome.glib.GValue.getString(Value value)
+ * called from
+ *   TODO
+ *
+ * Extract the string value from a G_VALUE_STRING. This is not a standard
+ * bindings call; we are not following the wrapping conventions but rather
+ * extracting and returning the primative value.
+ */
+JNIEXPORT jstring JNICALL
+Java_org_gnome_glib_GValue_g_1value_1get_1string
+(
+	JNIEnv* env,
+	jclass cls,
+	jlong _value
+)
+{
+	GValue* value;
+	const gchar* str; 
+
+	// translate value
+	value =	(GValue*) _value;
+	if (!G_VALUE_HOLDS_STRING(value)) {
+		bindings_java_throw(env, "You've asked for the string value of a GValue, but it's not a G_TYPE_STRING!");
+		return NULL;
+	}
+	
+	// call function
+	str = g_value_get_string(value); 
+
+	// and return	
+	return (*env)->NewStringUTF(env, str);
 }

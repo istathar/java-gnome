@@ -17,24 +17,12 @@
  */
 package org.gnome.gtk;
 
-import org.freedesktop.bindings.Proxy;
 import org.gnome.glib.Plumbing;
 import org.gnome.glib.Signal;
 
 final class GtkWidget extends Plumbing
 {
     private GtkWidget() {}
-
-    static final Widget instanceFor(long pointer) {
-        Proxy obj = proxyFor(pointer);
-
-        if (obj == null) {
-            // FIXME can't instantiate Widget, so now what?
-            return null;
-        } else {
-            return (Widget) obj;
-        }
-    }
 
     static final void show(Widget self) {
         gtk_widget_show(pointerOf(self));
@@ -58,7 +46,7 @@ final class GtkWidget extends Plumbing
     }
 
     static final boolean handleDeleteEvent(Signal handler, long source, long event) {
-        return ((GtkWidget.DELETE_EVENT) handler).onDeleteEvent(instanceFor(source), null); // FIXME
+        return ((GtkWidget.DELETE_EVENT) handler).onDeleteEvent((Widget) instanceFor(source), null); // FIXME
     }
 
 }

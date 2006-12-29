@@ -33,10 +33,10 @@ final class GValue extends Plumbing
     }
 
     /*
-     * These ones does not match the exact prototype of g_value_init() [which is
-     * (GValue*, GType)]; we do the type system magic on the other side (where
-     * its all mostly macros in any case) and carry out allocation using GSlice.
-     * A rare occasion when we overload the native call.
+     * These ones does not match the exact prototype of g_value_init() [which
+     * is (GValue*, GType)]; we do the type system magic on the other side
+     * (where its all mostly macros in any case) and carry out allocation
+     * using GSlice. A rare occasion when we overload the native call.
      */
 
     private static native final long g_value_init(int i);
@@ -45,14 +45,52 @@ final class GValue extends Plumbing
 
     private static native final long g_value_init(String str);
 
-    static final void free(Fundamental reference) {
-        g_slice_free(pointerOf(reference));
+    static final String getString(Value value) {
+        return g_value_get_string(pointerOf(value));
+    }
+
+    private static native final String g_value_get_string(long value);
+
+    /**
+     * Lookup the name for a given type. <i>When a GType such as a primative
+     * (fundamental) type or a class is registered in GObject, it is given a
+     * name.
+     * 
+     * <p>
+     * <i>We do not use or even provide a mechanism to retreive the GType
+     * itself. This value would be opaque and in any case changes from run to
+     * run.</i>
+     * 
+     * @param the
+     *            pointer address of
+     * 
+     * @return an the name which is used to identify the <code>GType</code>
+     *         in the underlying libraries.
+     */
+    /*
+     * We don't really need this, but we'll leave it here for bindings hackers
+     * to use if debugging.
+     */
+    static final String type(Value value) {
+        return g_type_name(pointerOf(value));
     }
 
     /*
-     * This could live in GSlice.java, I suppose, but no real reason. We're
-     * below the level of clean abstraction here, and it just needs to go
-     * somewhere.
+     * Atypically, this native method is package visible so that the crucial
+     * instanceFor() in org.gnome.glib.Plumbing can see it. That method needs
+     * to call this _before_ it can (and in order to) construct a Value. Yes,
+     * this could well be in a GType class. Whatever.
      */
-    private static native final long g_slice_free(long value);
+    static native final String g_type_name(long value);
+
+    static final void free(Fundamental reference) {
+        g_value_free(pointerOf(reference));
+    }
+
+    /*
+     * This was originally called g_slice_free, but since it's specifically to
+     * release the GValue copies we make for Standard Types, give it a more
+     * appropriate name instead.
+     */
+    private static native final void g_value_free(long value);
 }

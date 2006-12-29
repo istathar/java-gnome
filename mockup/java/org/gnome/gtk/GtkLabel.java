@@ -17,23 +17,12 @@
  */
 package org.gnome.gtk;
 
-import org.freedesktop.bindings.Proxy;
 import org.gnome.glib.Plumbing;
 import org.gnome.glib.Signal;
 
 final class GtkLabel extends Plumbing
 {
     private GtkLabel() {}
-
-    static final Label instanceFor(long pointer) {
-        Proxy obj = proxyFor(pointer);
-
-        if (obj == null) {
-            return new Label(pointer);
-        } else {
-            return (Label) obj;
-        }
-    }
 
     /**
      * gtk_label_new()
@@ -150,6 +139,6 @@ final class GtkLabel extends Plumbing
      * called by native code!
      */
     protected static final void handleCopyClipboard(Signal handler, long source) {
-        ((GtkLabel.COPY_CLIPBOARD) handler).onCopyClipboard(instanceFor(source));
+        ((GtkLabel.COPY_CLIPBOARD) handler).onCopyClipboard((Label) instanceFor(source));
     }
 }
