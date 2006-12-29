@@ -28,8 +28,8 @@ that you can use to track upstream, and a `java-gnome/working/`, which is a
 full power branch. This second one is your playground. `:)`
 
 If you haven't already read them, see the instructions in the top level
-[`README`](README) for how to install from a source tarball and what options
-you can supply to the `./configure` script.
+[`README`](README.html) for how to install from a source tarball and what
+options you can supply to the `./configure` script.
 
 ### Why `bzr`?
 

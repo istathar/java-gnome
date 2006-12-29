@@ -229,12 +229,11 @@ doc: build/classes
 		-windowtitle "java-gnome $(APIVERSION) API Documentation" \
 		-doctitle "<h1>java-gnome $(APIVERSION) API Documentation</h1>" \
 		-header "java-gnome version $(VERSION)" \
-		-footer "<img src=\"http://java-gnome.sourceforge.net/images/java-gnome_JavaDocLogo.png\" style=\"padding-right:25px;\"><br> <span style=\"font-family: Arial; font-style: normal; font-size: large;\">java-gnome</span>" \
+		-footer "<img src=\"/images/java-gnome_JavaDocLogo.png\" style=\"padding-right:25px;\"><br> <span style=\"font-family: Arial; font-style: normal; font-size: large;\">java-gnome</span>" \
 		-breakiterator \
 		-sourcepath src/java \
 		-subpackages org \
 		-exclude "org.freedesktop.bindings" \
-		-noqualifier 'java.*' \
 		$(REDIRECT)
 
 
