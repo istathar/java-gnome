@@ -57,6 +57,64 @@ Java_org_gnome_glib_GObject_g_1object_1set_1property
 
 /*
  * Implements
+ *   org.gnome.glib.GObject.g_object_get_property(long instance, String name)
+ * called from
+ *   org.gnome.glib.GObject.getProperty(Object instance, String name)
+ * 
+ * The idea of using g_object_class_find_property() to get at an appropriate
+ * GType for the empty GValue we need to pass as an out parameter to
+ * g_object_get_property() is borrowed from java-gnome 2.x's implementation.  
+ */
+JNIEXPORT jlong JNICALL Java_org_gnome_glib_GObject_g_1object_1get_1property
+(
+	JNIEnv* env,
+	jclass cls,
+	jlong _instance,
+	jstring _name
+)
+{
+	GObject* instance;
+	gchar* name;
+	GValue* value;
+	GParamSpec* spec;
+	
+	// translate instance
+	instance = (GObject*) _instance;
+	
+	// translate name
+	name = (gchar*) (*env)->GetStringUTFChars(env, _name, NULL);
+	if (name == NULL) {
+		return 0L; /* OutOfMemoryError already thrown */
+	}
+
+	// initialize value
+	spec = g_object_class_find_property(G_OBJECT_GET_CLASS(instance), name);
+	if (spec == NULL) {
+		bindings_java_throw(env, "GParamSpec for %s was NULL", name);
+		return 0L;
+	}
+
+	value =	g_slice_new0(GValue);
+	g_value_init(value, spec->value_type);
+
+	// call	method
+	g_object_get_property(instance, name, value);
+
+	// clean up name
+	(*env)->ReleaseStringUTFChars(env, _name, name);
+	
+	/*
+	 * we do not need to clean up value; it will evenually be underneath a
+	 * Fundamental extends Value extends Proxy which will ultimately call
+	 * g_value_free() when it is ready to be disposed.
+	 */
+	 	
+	return (jlong) value;
+}
+
+
+/*
+ * Implements
  *   org.gnome.glib.GObject.g_signal_connect(long instance, Object handler, String name)
  * called from
  *   org.gnome.glib.Plumbing.connectSignal(Object instance, Signal handler, String name)

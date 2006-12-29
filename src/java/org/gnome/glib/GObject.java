@@ -14,10 +14,9 @@ package org.gnome.glib;
 /*
  * crafted since the setProperty() and connectSignal() functionality is somewhat
  * custom transform not especially connected to either the pulblic API or the
- * underlying G code. Note that this exends the base Plumbing, not the one here
- * in org.gnome.glib (as it calls this class!).
+ * underlying G code.
  */
-final class GObject extends org.freedesktop.bindings.Plumbing
+final class GObject extends Plumbing
 {
     private GObject() {}
 
@@ -28,7 +27,7 @@ final class GObject extends org.freedesktop.bindings.Plumbing
     private static final native void g_object_set_property(long self, String name, long value);
 
     static final Value getProperty(org.gnome.glib.Object self, String name) {
-        return (Value) proxyFor(g_object_get_property(pointerOf(self), name));
+        return (Value) instanceFor(g_object_get_property(pointerOf(self), name));
     }
 
     private static final native long g_object_get_property(long self, String name);

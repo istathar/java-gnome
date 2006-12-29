@@ -115,6 +115,11 @@ public abstract class Object extends Value
         GObject.setProperty(this, name, value);
     }
 
+    protected String getPropertyString(String name) {
+        Value value = GObject.getProperty(this, name);
+        return GValue.getString(value);
+    }
+    
     /**
      * Get a property that takes a Value [subclass] such as an Object or Boxed
      * as its value. This isn't type safe at all, so if you call it and want to

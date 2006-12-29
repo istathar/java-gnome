@@ -63,7 +63,10 @@ abstract class Fundamental extends Value
 
 final class StringValue extends Fundamental
 {
-
+    protected StringValue(long pointer) {
+        super(pointer);
+    }
+    
     StringValue(String str) {
         super(GValue.createValue(str));
     }
