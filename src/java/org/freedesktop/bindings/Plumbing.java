@@ -24,6 +24,7 @@ import java.util.WeakHashMap;
  */
 public abstract class Plumbing
 {
+    protected Plumbing() {}
 
     /**
      * Every Proxy that gets created gets added to this Set so that if a call

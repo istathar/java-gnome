@@ -22,6 +22,10 @@ import org.gnome.glib.Signal;
 
 final class GtkButton extends Plumbing
 {
+    static {
+        registerType("GtkButton", "org.gnome.gtk.Button");
+    }
+
     private GtkButton() {}
 
     static final long createButton() {
