@@ -21,6 +21,10 @@ import org.gnome.glib.Plumbing;
 
 final class GnomeEntry extends Plumbing
 {
+    static {
+        registerType("GnomeEntry", "org.gnome.gnome.Entry");
+    }
+
     private GnomeEntry() {}
 
     static final String getText(Entry self) {

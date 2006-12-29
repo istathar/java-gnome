@@ -21,6 +21,10 @@ import org.gnome.glib.Plumbing;
 
 final class GtkWindow extends Plumbing
 {
+    static {
+        registerType("GtkWindow", "org.gnome.gtk.Window");
+    }
+
     private GtkWindow() {}
 
     static final long createWindow(WindowType type) {

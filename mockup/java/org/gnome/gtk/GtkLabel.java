@@ -22,6 +22,10 @@ import org.gnome.glib.Signal;
 
 final class GtkLabel extends Plumbing
 {
+    static {
+        registerType("GtkLabel", "org.gnome.gtk.Label");
+    }
+
     private GtkLabel() {}
 
     /**
