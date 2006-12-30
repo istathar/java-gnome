@@ -34,15 +34,22 @@ public final class ReliefStyle extends Constant
     public static final ReliefStyle NORMAL = new ReliefStyle(GtkReliefStyle.NORMAL, "NORMAL");
 
     /**
-     * Only draw relief around the Button "half" the time. This is terrific
-     * when you do not want a Button to attract attention, but want to make it
-     * obvious that it <i>is</i> a Button by suddenly having it appear as a
-     * decorated Button when the user's mouse hovers over it.
+     * Only draw relief around the Button "half" the time.
+     */
+    /*
+     * TODO this means what, exactly? To be honest, I thought that
+     * GTK_RELIEF_HALF would exhibit the behaviour described for NONE below.
+     * 
      */
     public static final ReliefStyle HALF = new ReliefStyle(GtkReliefStyle.HALF, "HALF");
 
     /**
-     * Draw no relief around the Button at all.
+     * Draw no relief around the Button at all. This is actually a misnomer:
+     * no relief is drawn except when the mouse hovers over it, at which point
+     * it suddenly decorates up like the Button it really is. This is terrific
+     * when you do not want a Button to attract attention, but want to give a
+     * hint that it actually <i>is</i> a Button when the user's mouse hovers
+     * over it and when the Button is activated.
      */
     public static final ReliefStyle NONE = new ReliefStyle(GtkReliefStyle.NONE, "NONE");
 }
