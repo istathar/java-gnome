@@ -100,3 +100,25 @@ Java_org_gnome_gtk_GtkButton_gtk_1button_1get_1label
 	// return string
 	return (*env)->NewStringUTF(env, label);
 }
+
+
+JNIEXPORT void JNICALL
+Java_org_gnome_gtk_GtkButton_gtk_1button_1set_1relief
+  (JNIEnv *env, jclass cls, jlong _self, jint _newstyle)
+{
+	GtkButton* self;
+	GtkReliefStyle newstyle;
+
+	// translate arg self
+	self = (GtkButton*) _self;
+
+	// translate arg newstyle
+	newstyle = (GtkReliefStyle) _newstyle;
+
+	// call function
+	gtk_button_set_relief(self, newstyle);
+
+	// cleanup arg self
+
+	// cleanup arg newstyle
+}

@@ -51,6 +51,12 @@ final class GtkButton extends Plumbing
     }
 
     private static final native String gtk_button_get_label(long button);
+    
+    static final void setRelief(Button self, ReliefStyle newstyle) {
+        gtk_button_set_relief(pointerOf(self), numOf(newstyle));
+    }
+    
+    private static native final void gtk_button_set_relief(long button, int newstyle);
 
     interface CLICKED extends Signal
     {
