@@ -11,6 +11,8 @@
  */
 package org.gnome.glib;
 
+import org.freedesktop.bindings.Constant;
+
 /**
  * Helper class to map back and forth from Java primatives to GLib fundamental
  * types. As it happens, there are Fundamentals subclasses for each of Java
@@ -90,5 +92,32 @@ final class BooleanValue extends Fundamental
 
     BooleanValue(boolean b) {
         super(GValue.createValue(b));
+    }
+}
+
+/**
+ * <i>This is just a representation of the fact that Enums too can be wrapped
+ * in <code>GValues</code>. We only need this when passing or retrieving a
+ * property that happens to be an enum on the C side. For everything else we
+ * use the top level {@link org.freedesktop.bindings.Constant Constant}
+ * representation.</i>
+ * 
+ * @author Andrew Cowie
+ */
+final class EnumValue extends Fundamental
+{
+    /**
+     * Used by GValue.getEnum() to extract the Constant object that
+     * corresponds to the enum contained in this EnumValue.
+     */
+    final Class type;
+
+    protected EnumValue(long pointer, Class type) {
+        super(pointer);
+
+        assert (type != null);
+        assert (Constant.class.isAssignableFrom(type));
+
+        this.type = type;
     }
 }

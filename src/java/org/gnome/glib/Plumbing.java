@@ -15,14 +15,15 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.util.IdentityHashMap;
 
+import org.freedesktop.bindings.Constant;
 import org.freedesktop.bindings.Proxy;
 
 /**
  * Translation layer class which adds the ability to connect signals to
  * GObjects. See {@link org.freedesktop.bindings.Plumbing Plumbing} for
- * utiltiy methods which work with Proxy and Enum. <b>No one using developing
- * applications which happen to use bindings based on this package should ever
- * need to see, or subclass, this.</b>
+ * utiltiy methods which work with Proxy and Constant. <b>No one using
+ * developing applications which happen to use bindings based on this package
+ * should ever need to see, or subclass, this.</b>
  * 
  * @author Andrew Cowie
  */
@@ -30,10 +31,13 @@ public abstract class Plumbing extends org.freedesktop.bindings.Plumbing
 {
     protected Plumbing() {}
 
-    private static IdentityHashMap knownClasses;
+    private static final IdentityHashMap typeMapping;
+
+    private static final IdentityHashMap enumMapping;
 
     static {
-        knownClasses = new IdentityHashMap(100);
+        typeMapping = new IdentityHashMap(100);
+        enumMapping = new IdentityHashMap(100);
 
         registerType("gchararray", StringValue.class);
         registerType("gboolean", BooleanValue.class);
@@ -41,6 +45,9 @@ public abstract class Plumbing extends org.freedesktop.bindings.Plumbing
         registerType("guint", IntegerValue.class);
         registerType("gint32", IntegerValue.class);
         registerType("guint32", IntegerValue.class);
+
+        // FIXME remove to externalized file.
+        registerType("GtkReliefStyle", "org.gnome.gtk.ReliefStyle");
     }
 
     /**
@@ -83,23 +90,37 @@ public abstract class Plumbing extends org.freedesktop.bindings.Plumbing
         assert ((nativeName != null) && (!nativeName.equals(""))) : "GType name being registered cannot be null or empty";
         assert (javaClass != null) : "Java class being registered cannot be null";
 
-        try {
-            c = javaClass.getDeclaredConstructor(new Class[] { long.class });
-        } catch (NoSuchMethodException nsme) {
-            throw new IllegalArgumentException("Lookup of pointer Constructor failed", nsme);
-        }
-        knownClasses.put(nativeName, c);
-    }
+        /*
+         * If the thing is an Constant (aka our Enum), then we have to treat
+         * it differently. We deliberately set the constructor to null, using
+         * it as a marker in instanceOf(). Rememeber - we only call
+         * instanceFor() on an enum when we know it was wrapped in a GValue -
+         * ie, the getProperty() case. When handling signal callbacks, we
+         * reverse translate the int directly using constantFor()
+         */
 
-    private static Constructor lookupType(String nativeName) {
-        return (Constructor) knownClasses.get(nativeName);
+        if (Constant.class.isAssignableFrom(javaClass)) {
+            enumMapping.put(nativeName, javaClass);
+            c = null;
+        } else {
+            try {
+                c = javaClass.getDeclaredConstructor(new Class[] { long.class });
+            } catch (NoSuchMethodException nsme) {
+                throw new IllegalArgumentException("Lookup of pointer Constructor failed", nsme);
+            }
+        }
+
+        typeMapping.put(nativeName, c);
     }
 
     /**
      * Retrieve an appropriate Java Proxy for this pointer. This will return
-     * the Proxy instance already created by a real constructor if one was
+     * the Proxy instance already created using a real constructor if one was
      * created Java side; where no Proxy exists it looks up the underlying
      * <code>GType</code> and does its best to create it.
+     * 
+     * @throw UnsupportedOperationException if no class has been registered
+     *        for this <code>GType</code>.
      * 
      * @see org.freedesktop.bindings.Plumbing#instanceFor(long)
      */
@@ -120,6 +141,7 @@ public abstract class Plumbing extends org.freedesktop.bindings.Plumbing
              */
             final String name;
             final Constructor c;
+            final Class type;
 
             /*
              * Somewhat crucually, we intern the returned GType name string to
@@ -127,7 +149,15 @@ public abstract class Plumbing extends org.freedesktop.bindings.Plumbing
              */
             name = GValue.g_type_name(pointer).intern();
 
-            if ((c = lookupType(name)) != null) {
+            /*
+             * First we handle the usual case of getting the instance for a
+             * Proxy subclass. That is the case when the Constructor in the
+             * Map is not null.
+             */
+
+            c = (Constructor) typeMapping.get(name);
+
+            if (c != null) {
                 try {
                     obj = (Proxy) c.newInstance(new java.lang.Object[] { new Long(pointer) });
                     return obj;
@@ -145,10 +175,32 @@ public abstract class Plumbing extends org.freedesktop.bindings.Plumbing
                     // constructor threw an exception
                     throw new IllegalStateException(e);
                 }
-            } else {
-                throw new UnsupportedOperationException("No mapping for " + name);
             }
 
+            /*
+             * If the constructor _was_ null, then we might be in the special
+             * case where actually the native type is an enum, and we're only
+             * calling this method because we're trying to unwrap a property
+             * returned as a GValue - ie, the enum is wrapped in a GValue. In
+             * this case we have a Fundamental subclass called EnumValue with
+             * a special constructor, which we can call by name (no need to
+             * use reflection here).
+             */
+
+            type = (Class) enumMapping.get(name);
+
+            if (type != null) {
+                obj = new EnumValue(pointer, type);
+                return obj;
+
+            }
+
+            /*
+             * But failing that, the constructor being null indicates that we
+             * don't have any information about this native type and how to
+             * map it to Java. So,
+             */
+            throw new UnsupportedOperationException("No binding for " + name + " (yet)");
         }
     }
 
@@ -166,7 +218,9 @@ public abstract class Plumbing extends org.freedesktop.bindings.Plumbing
      *            the signal in capitals by our naming convention.
      *            Nevertheless, you have to explicitly name the signal in
      *            because self-delegation means we never quite know which is
-     *            being hooked up. This should be generated!</i>
+     *            being hooked up. Because all the calls to connectSignal()
+     *            will be in generated code, the singal name is sourced from
+     *            .defs data and should always be correct!</i>
      */
     /*
      * In this case we need to go back to GObject in order to be able to make
