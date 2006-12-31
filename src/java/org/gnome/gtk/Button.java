@@ -116,7 +116,30 @@ public class Button extends Bin
     }
 
     /**
-     * Hook up a handler to receive "clicked" events on this Button.
+     * Hook up a handler to receive "clicked" events on this Button. A typical
+     * example of how this is used is as follows:
+     * 
+     * <pre>
+     * Button b;
+     * 
+     * b.connect(new Button.CLICKED() {
+     *     public void onClicked(Button source) {
+     *         // do something!
+     *     }
+     * }
+     * </pre>
+     * 
+     * <p>
+     * You can of course create a subclass of Button.CLICKED and then use
+     * instances of it if you highly complicated algorithms to implement.
+     * <p>
+     * If you implement Button.CLICKED in the class you're currently working
+     * on, then you use a technique called "self-delegation" which can
+     * sometimes work well;
+     * 
+     * <pre>
+     * b.connect(this);
+     * </pre>
      */
     public void connect(CLICKED handler) {
         GtkButton.connect(this, handler);
