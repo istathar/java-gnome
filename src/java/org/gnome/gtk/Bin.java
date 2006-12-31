@@ -15,6 +15,7 @@ package org.gnome.gtk;
  * A Container with only one child Widget.
  * 
  * @author Andrew Cowie
+ * @since 4.0.0
  */
 public abstract class Bin extends Container
 {

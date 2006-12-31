@@ -15,12 +15,13 @@ package org.gnome.gtk;
  * The GTK widget toolkit initialization and main loop entry point.
  * 
  * @author Andrew Cowie
+ * @since 4.0.0
  */
 /*
  * Extremely atypically, this class contains native declarations because a)
- * Theres nothing left if you strip off the Gtk prefix from Gtk, b) no reason to
- * use a static class GtkMain or whatever as none of these methods need access
- * to Plumbing.
+ * Theres nothing left if you strip off the Gtk prefix from Gtk, b) no reason
+ * to use a static class GtkMain or whatever as none of these methods need
+ * access to Plumbing.
  */
 public final class Gtk
 {
@@ -51,6 +52,7 @@ public final class Gtk
      *            The command line arguments array. This is passed to the
      *            underlying library to allowing user (or window manager) to
      *            alter GTK's behaviour.
+     * @since 4.0.0
      */
     public static void init(String[] args) {
         if (initialized) {
@@ -71,9 +73,11 @@ public final class Gtk
      * terminated. If you wish to
      * <p>
      * You can nest calls to Gtk.main()! If you do, then calling
-     * {@link #mainQuit() mainQuit()} will make the innermost invocation of the
-     * main loop return. (This is how modal Dialog boxes run and block the rest
-     * of the application while still accepting events themselves)
+     * {@link #mainQuit() mainQuit()} will make the innermost invocation of
+     * the main loop return. (This is how modal Dialog boxes run and block the
+     * rest of the application while still accepting events themselves)
+     * 
+     * @since 4.0.0
      */
     public static void main() {
         gtk_main();

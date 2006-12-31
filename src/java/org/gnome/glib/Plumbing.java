@@ -26,6 +26,7 @@ import org.freedesktop.bindings.Proxy;
  * should ever need to see, or subclass, this.</b>
  * 
  * @author Andrew Cowie
+ * @since 4.0.0
  */
 public abstract class Plumbing extends org.freedesktop.bindings.Plumbing
 {

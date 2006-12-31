@@ -17,6 +17,7 @@ package org.gnome.gtk;
  * 
  * @author Andrew Cowie
  * @author Srichand Pendyala
+ * @since 4.0.0
  */
 public class Window extends Bin
 {
@@ -37,6 +38,8 @@ public class Window extends Bin
      * {@link org.gnome.gtk.WindowType WindowType}; in particular,
      * {@link org.gnome.gtk.WindowType#POPUP POPUP} is <b>not</b> for dialog
      * windows!
+     * 
+     * @since 4.0.0
      */
     public Window(WindowType type) {
         super(GtkWindow.createWindow(type));
@@ -80,6 +83,7 @@ public class Window extends Bin
      * @see <a
      *      href="http://developer.gnome.org/projects/gup/hig/2.0/windows-primary.html#primary-window-titles">GNOME
      *      Human Interface Guidelines</a>
+     * @since 4.0.0
      */
     public void setTitle(String title) {
         GtkWindow.setTitle(this, title);
@@ -104,6 +108,8 @@ public class Window extends Bin
      * <code>setDecorated(false)</code>, call it before invoking
      * {@link Widget#show() show()} on the Window.
      * </ul>
+     * 
+     * @since 4.0.0
      */
     public void setDecorated(boolean decorated) {
         GtkWindow.setDecorated(this, decorated);
@@ -132,6 +138,7 @@ public class Window extends Bin
      *            previous default width setting.
      * @param height
      *            Same.
+     * @since 4.0.1
      */
     public void setDefaultSize(int width, int height) {
         GtkWindow.setDefaultSize(this, width, height);
@@ -158,6 +165,7 @@ public class Window extends Bin
      * 
      * @author Andrew Cowie
      * @author Devdas Bhagat
+     * @since 4.0.0
      */
     public interface DELETE extends GtkWidget.DELETE_EVENT
     {

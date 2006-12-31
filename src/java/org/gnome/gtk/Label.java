@@ -30,6 +30,7 @@ package org.gnome.gtk;
  * 
  * @author Andrew Cowie
  * @author Srichand Pendyala
+ * @since 4.0.1
  */
 public class Label extends Misc
 {
@@ -47,6 +48,7 @@ public class Label extends Misc
      * 
      * @param text
      *            the text you wish on the Label.
+     * @since 4.0.1
      */
     public Label(String text) {
         super(GtkLabel.createLabel(text));
@@ -59,6 +61,7 @@ public class Label extends Misc
      *            If the Label has been told to interpret Pango markup with
      *            {@link #setUseMarkup(boolean) setUseMarkup(true)}, then any
      *            markup included in text will be interpreted as such.
+     * @since 4.0.1
      */
     public void setLabel(String text) {
         GtkLabel.setLabel(this, text);
@@ -69,6 +72,8 @@ public class Label extends Misc
      * indicate Pango markup syntax and embedded mnemonic underline characters
      * that may be present. Contrast with {@link #getText() getText()} which
      * returns the text unadorned.
+     * 
+     * @since 4.0.1
      */
     public String getLabel() {
         return GtkLabel.getLabel(this);
@@ -81,6 +86,8 @@ public class Label extends Misc
      * strips away any embedded underlines indicating mnemonics. If you need
      * the raw text including markup, then you want
      * {@link #getLabel() getLabel()}.
+     * 
+     * @since 4.0.1
      */
     public String getText() {
         return GtkLabel.getText(this);
@@ -96,6 +103,7 @@ public class Label extends Misc
      *            If setting is true, then any markup included in the text is
      *            interpreted as such. If its set to false, markup is ignored
      *            and included as-is.
+     * @since 4.0.1
      */
     public void setUseMarkup(boolean setting) {
         GtkLabel.setUseMarkup(this, setting);
@@ -112,6 +120,8 @@ public class Label extends Misc
      *            The angle that the baseline of the Label's text makes with
      *            the horizontal. The valid range (as you'd expect) is from
      *            0&#176; through 360&#176;.
+     * 
+     * @since 4.0.1
      */
     public void setAngle(double angle) {
         GtkLabel.setAngle(this, angle);
@@ -122,6 +132,8 @@ public class Label extends Misc
      * reads in an upwards direction (ie from bottom to top), whereas an angle
      * of 270&#176; means the text reads in a downwards direction (ie from top
      * to bottom).
+     * 
+     * @since 4.0.1
      */
     public double getAngle() {
         return GtkLabel.getAngle(this);

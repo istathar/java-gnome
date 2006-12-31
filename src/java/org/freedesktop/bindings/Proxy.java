@@ -17,6 +17,9 @@ package org.freedesktop.bindings;
  * 
  * <p>
  * <i><b>This is implementation, and you will never need to use it directly</b></i>
+ * 
+ * @author Andrew Cowie
+ * @since 4.0.0
  */
 /*
  * And so the magic happens. This is where the pointer that this class proxies

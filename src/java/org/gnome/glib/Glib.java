@@ -15,6 +15,7 @@ package org.gnome.glib;
  * Static methods to initialize the Java bindings around GLib
  * 
  * @author Andrew Cowie
+ * @since 4.0.0
  */
 public final class Glib
 {
@@ -29,8 +30,8 @@ public final class Glib
     private Glib() {}
 
     /**
-     * Initialize GLib's internal subsystems. To simplify things, this is called
-     * automatically by
+     * Initialize GLib's internal subsystems. To simplify things, this is
+     * called automatically by
      * {@link org.gnome.gtk.Gtk#init(java.lang.String[]) Gtk.init()}, so the
      * occasions to call this directly should be pretty rare.
      */
@@ -39,5 +40,7 @@ public final class Glib
             return;
         }
         initialized = true;
+
+        throw new UnsupportedOperationException();
     }
 }

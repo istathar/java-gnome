@@ -29,6 +29,7 @@ import java.util.HashMap;
  * appropriate to the type systems in use within those libraries.</i>
  * 
  * @author Andrew Cowie
+ * @since 4.0.0
  */
 public abstract class Plumbing
 {

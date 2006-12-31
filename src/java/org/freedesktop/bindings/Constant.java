@@ -22,6 +22,7 @@ package org.freedesktop.bindings;
  * introduced in Java 1.5.
  * 
  * @author Andrew Cowie
+ * @since 4.0.0
  */
 /*
  * Note for GLib based libraries: these are our representation of integer
@@ -69,6 +70,16 @@ public abstract class Constant
         Plumbing.registerConstant(this);
     }
 
+    /**
+     * Return the name of the Constant class and the name of the constant
+     * itself. For example,
+     * 
+     * <pre>
+     * WindowType.POPUP
+     * </pre>
+     * 
+     * @since 4.0.1
+     */
     public String toString() {
         return this.getClass().getName() + "." + nickname;
     }

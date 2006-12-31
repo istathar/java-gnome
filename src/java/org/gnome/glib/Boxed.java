@@ -25,13 +25,14 @@ package org.gnome.glib;
  * <p>
  * <i>In the underlying GLib library, a <code>GBoxed</code> is an opaque
  * wrapper around a C structure allowing it to be used within GLib's Type
- * system. <code>GBoxed</code> generally have custom <code>copy()</code> and
- * <code>free()</code> functions. Unlike <code>GObjects</code> they are not
- * memory managed via the reference counting mechanism, and so the owner of a
- * <code>GBoxed</code> is responsible to free it. The trick is to figure out
- * whether we are owner of the <code>GBoxed</code> or not...</i>
+ * system. <code>GBoxed</code> generally have custom <code>copy()</code>
+ * and <code>free()</code> functions. Unlike <code>GObjects</code> they
+ * are not memory managed via the reference counting mechanism, and so the
+ * owner of a <code>GBoxed</code> is responsible to free it. The trick is to
+ * figure out whether we are owner of the <code>GBoxed</code> or not...</i>
  * 
  * @author Andrew Cowie
+ * @since 4.0.0
  */
 public abstract class Boxed extends Value
 {

@@ -15,6 +15,9 @@ import org.gnome.gdk.Pixbuf;
 
 /**
  * <i><b>This is the wrapper around <code>GtkObject</code>!</b></i>
+ * 
+ * @author Andrew Cowie
+ * @since 4.0.0
  */
 public abstract class Object extends org.gnome.glib.Object
 {
@@ -22,6 +25,11 @@ public abstract class Object extends org.gnome.glib.Object
         super(pointer);
     }
 
+    /**
+     * Set a property that takes a Pixbuf for its value.
+     * 
+     * @since 4.0.0
+     */
     protected void setPropertyPixbuf(String name, Pixbuf pixbuf) {
         setProperty(name, pixbuf);
     }

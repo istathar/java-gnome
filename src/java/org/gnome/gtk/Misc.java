@@ -15,6 +15,7 @@ package org.gnome.gtk;
  * Base class for Widgets that have notions of alignment and padding.
  * 
  * @author Andrew Cowie
+ * @since 4.0.0
  */
 public abstract class Misc extends Widget
 {

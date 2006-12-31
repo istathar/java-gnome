@@ -13,15 +13,16 @@ package org.gnome.gnome;
 
 import org.gnome.gtk.Widget;
 
-/*
+/**
  * This is the beginings of showing what a class in another package would look
- * like. Not finished!
+ * like. Not implemented!
+ * 
+ * @author Andrew Cowie
  */
 public class Entry extends Widget
 {
-    private Entry() {
-        // FIXME WRONG!!!
-        super(0);
+    protected Entry(long pointer) {
+        super(pointer);
     }
 
     public String getText() {

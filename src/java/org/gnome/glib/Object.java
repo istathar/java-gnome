@@ -14,8 +14,8 @@ package org.gnome.glib;
 import org.freedesktop.bindings.Constant;
 
 /**
- * Base class of the object system used by GLib and libraries based on it, such
- * as GTK.
+ * Base class of the object system used by GLib and libraries based on it,
+ * such as GTK.
  * 
  * <p>
  * <i><b>This is the wrapper around <code>GObject</code>!</b></i>
@@ -23,12 +23,12 @@ import org.freedesktop.bindings.Constant;
  * <p>
  * <i>Methods here provide the mechanism to get and set "properties" on the
  * underlying <code>GObject</code>s. As a deliberate design decision to
- * ensure type safety, however, these are not exposed for public use. To offer a
- * getter or setter for a property, a java-gnome subclass must expose an
+ * ensure type safety, however, these are not exposed for public use. To offer
+ * a getter or setter for a property, a java-gnome subclass must expose an
  * explicitly named method. For example, to set the</i> "<code>righteous</code>"
- * <i>property, (assuming that the <code>GObject</code> in question has such a
- * property, that it is writable, and that it takes a string), create a method
- * like this:</i>
+ * <i>property, (assuming that the <code>GObject</code> in question has such
+ * a property, that it is writable, and that it takes a string), create a
+ * method like this:</i>
  * 
  * <pre>
  * public void setRighteous(String value) {
@@ -39,6 +39,9 @@ import org.freedesktop.bindings.Constant;
  * <i>This is of course insanely type-unsafe. In general, luckily, this is not
  * necessary, as most <code>GObject</code>s provide convenience methods for
  * such things, and should be used in preference wherever available.</i>
+ * 
+ * @author Andrew Cowie
+ * @since 4.0.0
  */
 public abstract class Object extends Value
 {
@@ -75,6 +78,11 @@ public abstract class Object extends Value
         GObject.unref(this);
     }
 
+    /**
+     * Set a property that takes a <code>String</code> for its value.
+     * 
+     * @since 4.0.0
+     */
     /*
      * Obviously a convenience method, but the developer doesn't need to know
      * that.
@@ -83,6 +91,11 @@ public abstract class Object extends Value
         GObject.setProperty(this, name, new StringValue(value));
     }
 
+    /**
+     * Set a property that takes an <code>int</code> for its value.
+     * 
+     * @since 4.0.0
+     */
     /*
      * Obviously a convenience method, but the developer doesn't need to know
      * that.
@@ -92,7 +105,9 @@ public abstract class Object extends Value
     }
 
     /**
-     * Set a property that takes a boolean for its value.
+     * Set a property that takes a <code>boolean</code> for its value.
+     * 
+     * @since 4.0.0
      */
     /*
      * Obviously a convenience method, but the developer doesn't need to know
@@ -109,9 +124,11 @@ public abstract class Object extends Value
      * @param name
      *            the property you want to set.
      * @param value
-     *            a Value subclass such as {@link org.gnome.glib.Object Object},
+     *            a Value subclass such as
+     *            {@link org.gnome.glib.Object Object},
      *            {@link org.gnome.glib.Boxed Boxed}, or Fundamental which is
      *            the value you wish to set.
+     * @since 4.0.0
      */
     protected void setProperty(String name, Value value) {
         GObject.setProperty(this, name, value);
@@ -127,16 +144,16 @@ public abstract class Object extends Value
         return GValue.getEnum(value);
     }
 
-    
     /**
      * Get a property that takes a Value [subclass] such as an Object or Boxed
-     * as its value. This isn't type safe at all, so if you call it and want to
-     * downcast the result, you'd probably be careful about it.
+     * as its value. This isn't type safe at all, so if you call it and want
+     * to downcast the result, you'd probably be careful about it.
      * 
      * @param name
      *            the property whose value you want to get.
      * @return the {@link org.gnome.glib.Value Value} of the property, or null
      *         if not set (?). FIXME what about no such property?
+     * @since 4.0.1
      */
     protected Value getProperty(String name) {
         return GObject.getProperty(this, name);

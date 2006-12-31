@@ -51,6 +51,7 @@ package org.gnome.gtk;
  * 
  * @author Srichand Pendyala
  * @author Andrew Cowie
+ * @since 4.0.1
  */
 public class Fixed extends Container
 {
@@ -59,7 +60,9 @@ public class Fixed extends Container
     }
 
     /**
-     * Create a new Fixed widget.
+     * Create a new Fixed Widget.
+     * 
+     * @since 4.0.1
      */
     public Fixed() {
         super(GtkFixed.createFixed());
@@ -83,6 +86,7 @@ public class Fixed extends Container
      *            horizontal position for the Widget being added
      * @param y
      *            vertical position for the Widget being added
+     * @since 4.0.1
      */
     public void putWidget(Widget widget, int x, int y) {
         GtkFixed.putWidget(this, widget, x, y);
@@ -108,9 +112,9 @@ public class Fixed extends Container
      *            the horizontal position to move <code>widget</code> to.
      * @param y
      *            the vertical position to move <code>widget</code> to.
+     * @since 4.0.1
      */
     public void moveWidget(Widget widget, int x, int y) {
         GtkFixed.moveWidget(this, widget, x, y);
     }
-
 }

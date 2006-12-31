@@ -19,19 +19,20 @@ import org.freedesktop.bindings.Proxy;
  * built on it.
  * 
  * <p>
- * <i>Above the object oriented system supplied by the GLib library is a set of
- * foundation elements, <code>GType</code> and <code>GValue</code>, the
- * latter being defined as "a polymorphic type that can hold values of any other
- * type", which isn't much help, really.</i>
+ * <i>Above the object oriented system supplied by the GLib library is a set
+ * of foundation elements, <code>GType</code> and <code>GValue</code>,
+ * the latter being defined as "a polymorphic type that can hold values of any
+ * other type", which isn't much help, really.</i>
  * 
  * <p>
- * <i>Since instances of Java classes are their own identity, we do not need to
- * directly represent <code>GType</code> and <code>GValue</code> as separate
- * classes. We implement <code>GType</code> as a characteristic that any</i>
- * <code>Value</code> <i>has. <b>This class is NOT a one-to-one wrapper of the
- * underlying <code>GValue</code> system.</i>
+ * <i>Since instances of Java classes are their own identity, we do not need
+ * to directly represent <code>GType</code> and <code>GValue</code> as
+ * separate classes. We implement <code>GType</code> as a characteristic
+ * that any</i> <code>Value</code> <i>has. <b>This class is NOT a
+ * one-to-one wrapper of the underlying <code>GValue</code> system.</i>
  * 
  * @author Andrew Cowie
+ * @since 4.0.0
  */
 /*
  * This is plumbing!

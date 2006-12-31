@@ -25,7 +25,7 @@ final class GtkBin extends Plumbing
 
     static final Widget getChild(Bin self) {
         return null;
-        // return objectFrom(gtk_bin_get_child(pointerOf(self)));
+        // return instanceFor(gtk_bin_get_child(pointerOf(self)));
     }
 
     // private static native final long gtk_bin_get_child(long self);

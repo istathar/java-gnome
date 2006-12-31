@@ -52,7 +52,7 @@ final class GValue extends Plumbing
     }
 
     private static native final String g_value_get_string(long value);
-    
+
     static final Constant getEnum(EnumValue value) {
         int ordinal = g_value_get_enum(pointerOf(value));
         return constantFor(value.type, ordinal);

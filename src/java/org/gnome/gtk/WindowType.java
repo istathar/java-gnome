@@ -20,6 +20,7 @@ import org.freedesktop.bindings.Constant;
  * automatically.
  * 
  * @author Andrew Cowie
+ * @since 4.0.0
  */
 public final class WindowType extends Constant
 {

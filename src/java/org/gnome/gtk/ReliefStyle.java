@@ -20,6 +20,7 @@ import org.freedesktop.bindings.Constant;
  * can, however, change this behaviour with this class.
  * 
  * @author Andrew Cowie
+ * @since 4.0.1
  */
 public final class ReliefStyle extends Constant
 {

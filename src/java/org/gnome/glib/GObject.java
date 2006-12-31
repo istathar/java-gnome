@@ -12,9 +12,9 @@
 package org.gnome.glib;
 
 /*
- * crafted since the setProperty() and connectSignal() functionality is somewhat
- * custom transform not especially connected to either the pulblic API or the
- * underlying G code.
+ * crafted since the setProperty() and connectSignal() functionality is
+ * somewhat custom transform not especially connected to either the pulblic
+ * API or the underlying G code.
  */
 final class GObject extends Plumbing
 {
@@ -43,8 +43,8 @@ final class GObject extends Plumbing
             String name);
 
     /**
-     * Calls g_object_unref() of the argument passed. You'd really best only do
-     * this once.
+     * Calls g_object_unref() of the argument passed. You'd really best only
+     * do this once.
      */
     static void unref(org.gnome.glib.Object reference) {
         long pointer = pointerOf(reference);

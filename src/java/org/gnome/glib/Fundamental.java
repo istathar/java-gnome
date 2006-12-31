@@ -31,6 +31,7 @@ import org.freedesktop.bindings.Constant;
  * Indeed, this is such a generalized mechanism that we should rarely need it.</i>
  * 
  * @author Andrew Cowie
+ * @since 4.0.0
  */
 /*
  * Any reason for this to be public? Note that there is no GFundamental, and
@@ -62,6 +63,10 @@ abstract class Fundamental extends Value
     }
 }
 
+/**
+ * @author Andrew Cowie
+ * @since 4.0.0
+ */
 final class StringValue extends Fundamental
 {
     protected StringValue(long pointer) {
@@ -73,6 +78,10 @@ final class StringValue extends Fundamental
     }
 }
 
+/**
+ * @author Andrew Cowie
+ * @since 4.0.0
+ */
 final class IntegerValue extends Fundamental
 {
     protected IntegerValue(long pointer) {
@@ -84,6 +93,10 @@ final class IntegerValue extends Fundamental
     }
 }
 
+/**
+ * @author Andrew Cowie
+ * @since 4.0.0
+ */
 final class BooleanValue extends Fundamental
 {
     protected BooleanValue(long pointer) {
@@ -103,6 +116,7 @@ final class BooleanValue extends Fundamental
  * representation.</i>
  * 
  * @author Andrew Cowie
+ * @since 4.0.1
  */
 final class EnumValue extends Fundamental
 {

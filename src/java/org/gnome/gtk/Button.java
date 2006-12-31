@@ -19,6 +19,7 @@ package org.gnome.gtk;
  * automatically.
  * 
  * @author Andrew Cowie
+ * @since 4.0.0
  */
 public class Button extends Bin
 {
@@ -31,6 +32,8 @@ public class Button extends Bin
      * Create an "empty" button to use as a Container. You'll need to
      * {@link org.gnome.gtk.Container#add(Widget) add()} the Widget which will
      * be the Button's child.
+     * 
+     * @since 4.0.0
      */
     public Button() {
         super(GtkButton.createButton());
@@ -46,6 +49,7 @@ public class Button extends Bin
      * @param text
      *            the text you wish on the Label that will be created in the
      *            Button.
+     * @since 4.0.0
      */
     public Button(String text) {
         super(GtkButton.createButtonWithLabel(text));
@@ -55,6 +59,8 @@ public class Button extends Bin
      * Set the text showing in the Button. (This assumes you've got a Label in
      * the Button in the first place, ie, you created this with
      * {@link #Button(String)}).
+     * 
+     * @since 4.0.0
      */
     public void setLabel(String text) {
         GtkButton.setLabel(this, text);
@@ -66,6 +72,7 @@ public class Button extends Bin
      * @return the text of the Label, or <code>null</code> if the no-arg
      *         constructor was used and you've just got an arbitrary
      *         Widget-containing-Button, not the more usual Button-with-Label.
+     * @since 4.0.0
      */
     public String getLabel() {
         // return GtkButton.getLabel(this);
@@ -87,13 +94,17 @@ public class Button extends Bin
      * which results in a Button just as you would expect, screaming out to be
      * pressed! There are two other variations, see {@link ReliefStyle} for
      * details.
+     * 
+     * @since 4.0.1
      */
     public void setRelief(ReliefStyle style) {
         GtkButton.setRelief(this, style);
     }
 
     /**
-     * Get the relief style in used around this Button.
+     * Get the relief style in use around this Button.
+     * 
+     * @since 4.0.1
      */
     public ReliefStyle getRelief() {
         // GtkButton.getRelief(this);
@@ -121,7 +132,7 @@ public class Button extends Bin
      * 
      * <pre>
      * Button b;
-     * 
+     *  
      * b.connect(new Button.CLICKED() {
      *     public void onClicked(Button source) {
      *         // do something!
