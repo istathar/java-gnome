@@ -189,24 +189,6 @@ $(JAVAGNOME_HOME)/lib/libgtkjava-$(APIVERSION).so: tmp/libgtkjava-$(APIVERSION).
 	@echo "CP        $< -> $(@D)"
 	cp $< $@
 
-clean:
-	@echo "RM        temporary files"
-	rm -rf build/* tmp/classes/* tmp/include/* tmp/native/* tmp/objects/*
-	rm -f hs_err_*
-	@echo "RM        built .jar and .so"
-	rm -f tmp/gtk-$(APIVERSION).jar \
-		tmp/libgtkjni-$(APIVERSION).so \
-		tmp/libgtkjava-$(APIVERSION).so
-
-distclean: clean
-	@echo "RM        build configuration information"
-	-rm -f .config .config.tmp
-	@echo "RM        generated documentation"
-	-rm -rf doc/api/*
-	-rm -f java-gnome-*.tar.bz2
-	@echo "RM        temporary directories"
-	-rm -rf tmp build
-
 ifdef V
 else
 JAVADOC:=$(JAVADOC) -quiet
@@ -248,5 +230,23 @@ dist: all
 	@echo "EXPORT    java-gnome-$(VERSION).tar.bz2"
 	bzr export java-gnome-$(VERSION).tar.bz2
 
+
+clean:
+	@echo "RM        temporary files"
+	rm -rf build/* tmp/classes/* tmp/include/* tmp/native/* tmp/objects/*
+	rm -f hs_err_*
+	@echo "RM        built .jar and .so"
+	rm -f tmp/gtk-*.jar \
+		tmp/libgtkjni-*.so \
+		tmp/libgtkjava-*.so
+
+distclean: clean
+	@echo "RM        build configuration information"
+	-rm -f .config .config.tmp
+	@echo "RM        generated documentation"
+	-rm -rf doc/api/*
+	-rm -f java-gnome-*.tar.bz2
+	@echo "RM        temporary directories"
+	-rm -rf tmp build
 
 # vim: set filetype=make textwidth=78 nowrap:
