@@ -82,6 +82,25 @@ public class Button extends Bin
     }
 
     /**
+     * Set the "relief" style used to determine how the edges of this Button
+     * will be decorated. The default is {@link ReliefStyle#NORMAL NORMAL}
+     * which results in a Button just as you would expect, screaming out to be
+     * pressed! There are two other variations, see {@link ReliefStyle} for
+     * details.
+     */
+    public void setRelief(ReliefStyle style) {
+        GtkButton.setRelief(this, style);
+    }
+
+    /**
+     * Get the relief style in used around this Button.
+     */
+    public ReliefStyle getRelief() {
+        // GtkButton.getRelief(this);
+        return (ReliefStyle) getPropertyEnum("relief");
+    }
+
+    /**
      * Event generated when a user presses and releases a button, causing it
      * to activate.
      * 

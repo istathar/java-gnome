@@ -1,5 +1,5 @@
 /*
- * GnomeEntry.java
+ * GtkReliefStyle.java
  *
  * Copyright (c) 2006 Operational Dynamics Consulting Pty Ltd and Others
  * 
@@ -15,21 +15,18 @@
  * change the information in the source defs file, or implement an override
  * for this class.
  */
-package org.gnome.gnome;
+package org.gnome.gtk;
 
 import org.gnome.glib.Plumbing;
 
-final class GnomeEntry extends Plumbing
+final class GtkReliefStyle extends Plumbing
 {
-    static {
-        registerType("GnomeEntry", "org.gnome.gnome.Entry");
-    }
+    private GtkReliefStyle() {}
 
-    private GnomeEntry() {}
+    // enumerates from 0
+    static final int NORMAL = 0;
 
-    static final String getText(Entry self) {
-        return gnome_entry_get_text(pointerOf(self));
-    }
+    static final int HALF = 1;
 
-    private static native final String gnome_entry_get_text(long self);
+    static final int NONE = 2;
 }

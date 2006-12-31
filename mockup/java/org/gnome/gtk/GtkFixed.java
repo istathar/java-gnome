@@ -22,6 +22,10 @@ import org.gnome.glib.Plumbing;
 
 final class GtkFixed extends Plumbing
 {
+    static {
+        registerType("GtkFixed", "org.gnome.gtk.Fixed");
+    }
+
     private GtkFixed() {}
 
     static final long createFixed() {

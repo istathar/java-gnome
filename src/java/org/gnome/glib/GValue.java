@@ -11,6 +11,8 @@
  */
 package org.gnome.glib;
 
+import org.freedesktop.bindings.Constant;
+
 /*
  * Crafted: the creation of fundamentals is quite custom.
  */
@@ -45,11 +47,18 @@ final class GValue extends Plumbing
 
     private static native final long g_value_init(String str);
 
-    static final String getString(Value value) {
+    static final String getString(StringValue value) {
         return g_value_get_string(pointerOf(value));
     }
 
     private static native final String g_value_get_string(long value);
+    
+    static final Constant getEnum(EnumValue value) {
+        int ordinal = g_value_get_enum(pointerOf(value));
+        return constantFor(value.type, ordinal);
+    }
+
+    private static native final int g_value_get_enum(long value);
 
     /**
      * Lookup the name for a given type. <i>When a GType such as a primative

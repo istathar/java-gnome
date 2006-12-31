@@ -192,13 +192,12 @@ Java_org_gnome_glib_GValue_g_1value_1init__Ljava_lang_String_2
  * Implements
  *   org.gnome.glib.GValue.g_value_get_string(long value)
  * called from
- *   org.gnome.glib.GValue.getString(Value value)
+ *   org.gnome.glib.GValue.getString(StringValue value)
  * called from
- *   TODO
+ *   org.gnome.glib.Object.getPropertyString(String name)
  *
- * Extract the string value from a G_VALUE_STRING. This is not a standard
- * bindings call; we are not following the wrapping conventions but rather
- * extracting and returning the primative value.
+ * Extract the string value from a GValue of G_TYPE_STRING, returning the
+ * primative (well, String) to be used as such.
  */
 JNIEXPORT jstring JNICALL
 Java_org_gnome_glib_GValue_g_1value_1get_1string
@@ -223,4 +222,39 @@ Java_org_gnome_glib_GValue_g_1value_1get_1string
 
 	// and return	
 	return (*env)->NewStringUTF(env, str);
+}
+
+/*
+ * Implements
+ *   org.gnome.glib.GValue.g_value_get_enum(long value)
+ * called from
+ *   org.gnome.glib.GValue.getEnum(EnumValue value)
+ * called from
+ *   org.gnome.glib.Object.getPropertyEnum(String name)
+ *
+ * Extract the ordinal of an enum stored in a GValue of type G_TYPE_ENUM.
+ */
+JNIEXPORT jint JNICALL
+Java_org_gnome_glib_GValue_g_1value_1get_1enum
+(
+	JNIEnv* env,
+	jclass cls,
+	jlong _value
+)
+{
+	GValue* value;
+	gint num; 
+
+	// translate value
+	value =	(GValue*) _value;
+	if (!G_VALUE_HOLDS_ENUM(value)) {
+		bindings_java_throw(env, "You've asked for the ordinal value of a GValue, but it's not a G_TYPE_ENUM!");
+		return 0;
+	}
+	
+	// call function
+	num = g_value_get_enum(value); 
+
+	// and return	
+	return (jint) num;
 }

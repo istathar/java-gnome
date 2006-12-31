@@ -11,6 +11,8 @@
  */
 package org.gnome.glib;
 
+import org.freedesktop.bindings.Constant;
+
 /**
  * Base class of the object system used by GLib and libraries based on it, such
  * as GTK.
@@ -116,9 +118,15 @@ public abstract class Object extends Value
     }
 
     protected String getPropertyString(String name) {
-        Value value = GObject.getProperty(this, name);
+        StringValue value = (StringValue) GObject.getProperty(this, name);
         return GValue.getString(value);
     }
+
+    protected Constant getPropertyEnum(String name) {
+        EnumValue value = (EnumValue) GObject.getProperty(this, name);
+        return GValue.getEnum(value);
+    }
+
     
     /**
      * Get a property that takes a Value [subclass] such as an Object or Boxed
