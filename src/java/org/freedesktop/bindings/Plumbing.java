@@ -11,14 +11,22 @@
  */
 package org.freedesktop.bindings;
 
-import java.util.WeakHashMap;
+import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
- * Parent class of the translation layer. This exists so that generated code
- * can access the native values held in Proxy, Enum, etc (which are limited to
- * package visibility). <b>No one using developing applications which happen
- * to use bindings based on this package should ever need to see, or subclass,
- * this.</b>
+ * Parent of all classes in the translation layer of a bindings library. This
+ * class provides the infrastructure (or, "plumbing") that the generated code
+ * can access the native values held within Proxy, Constant, etc.
+ * 
+ * <p>
+ * <i><b>No one using developing applications which happen to use bindings
+ * based on this package should ever need to see, use, or subclass, this.</b>
+ * People hacking on the bindings themselves will end up call generated or
+ * crafted methods in the translation layer, but they too will never have to
+ * use these mechanisms directly. Note that individual library families will
+ * likely subclass this to extend its instance lookup behaviour in a manner
+ * appropriate to the type systems in use within those libraries.</i>
  * 
  * @author Andrew Cowie
  */
@@ -27,17 +35,43 @@ public abstract class Plumbing
     protected Plumbing() {}
 
     /**
-     * Every Proxy that gets created gets added to this Set so that if a call
+     * Every Proxy that gets created gets added to this Map so that if a call
      * down to the native layer returns an object that has already been
      * created Java side that instance is returned rather than creating a new
      * one.
      */
-    static WeakHashMap knownObjects;
+    static final HashMap knownProxies;
+
+    /**
+     * When Enums get created, we add them to this Map so we can find an
+     * appropriate instance for a given ordinal. The table is two tier:
+     * 
+     * Class => ArrayList[Constant+]
+     */
+    /*
+     * Neither keys nor values are to be weak references here; we are not
+     * unloading Constant classes so the Class keys will stay strongly
+     * reachable; the Constant instances themselves will always be present by
+     * virtue of their being in this two tier table.
+     */
+    static final HashMap knownConstants;
 
     static {
-        // any particular reason to pick a starting array size?
-        knownObjects = new WeakHashMap();
+        /*
+         * TODO: any particular reason to pick a starting array size?
+         * 
+         * FIXME! Early on we used WeakHashMap, but that is weak on _keys_
+         * only, and in fact we definitely do _not_ want that. We need to
+         * switch to weak _values_; we're going to need to wrap and unwrap
+         * WeakReference around the Proxies we put as values to achieve that.
+         */
+        knownProxies = new HashMap();
+        knownConstants = new HashMap();
     }
+
+    /*
+     * Proxy handling ------------------------------------
+     */
 
     /**
      * When a Proxy is created, it must call this method so that other methods
@@ -45,16 +79,16 @@ public abstract class Plumbing
      * native side, only know the pointer address) can do so by doing a
      * lookup.
      */
-    static void registerObject(Proxy obj) {
-        knownObjects.put(new Long(obj.pointer), obj);
+    static final void registerProxy(Proxy obj) {
+        knownProxies.put(new Long(obj.pointer), obj);
     }
 
     /**
      * Called by the release() function of a Proxy object, this method cleans
      * up any entries of the Proxy in the Plumbings internals.
      */
-    static void unregisterObject(Proxy obj) {
-        knownObjects.remove(new Long(obj.pointer));
+    static final void unregisterProxy(Proxy obj) {
+        knownProxies.remove(new Long(obj.pointer));
     }
 
     /**
@@ -69,16 +103,12 @@ public abstract class Plumbing
      * We go to considerable effort to keep this method out of the visibility
      * of plublic users which is why translation layer code subclass this
      * org.freedesktop.bindings.Pluming which has package visibility of Proxy
-     * and Enum.Even more, there's nothing we can do about this being
+     * and Constant. Even more, there's nothing we can do about this being
      * protected, so we choose a method name other than getPointer() to keep
      * it totally of out of view from get<COMPLETE>.
      */
     protected static final long pointerOf(Proxy reference) {
         return reference.pointer;
-    }
-
-    protected static final int numOf(Enum reference) {
-        return reference.num;
     }
 
     /**
@@ -121,6 +151,87 @@ public abstract class Plumbing
      * looked up.
      */
     protected static Proxy instanceFor(long pointer) {
-        return (Proxy) knownObjects.get(new Long(pointer));
+        return (Proxy) knownProxies.get(new Long(pointer));
+    }
+
+    /*
+     * Constant handling ----------------------------------
+     */
+
+    /**
+     * When a Constant (ie, our Enum wrapper) is created, this must be called
+     * to ensure the appropriate constant object can be retrieved on request
+     * when all that is known is type and ordinal.
+     * 
+     * <p>
+     * Note that there is no need for an <code>unregisterConstant()</code>;
+     * once loaded Constant objects are expected to be around for the lifetime
+     * of the VM.
+     */
+    /*
+     * TODO It would be cool if we had a way of sizing the array perfectly on
+     * allocation. Better yet, if we knew the correct number of instances, we
+     * could use an Java array [object] instead of an ArrayList.
+     */
+    static final void registerConstant(Constant obj) {
+        final Class type;
+        ArrayList list;
+
+        type = obj.getClass();
+
+        list = (ArrayList) knownConstants.get(type);
+
+        if (list == null) {
+            list = new ArrayList(4);
+            knownConstants.put(type, list);
+        }
+
+        // for some reason I don't understand, set() doesn't work
+        list.add(obj.ordinal, obj);
+    }
+
+    /**
+     * Get the ordinal number corresponding to the enum that a given Constant
+     * represents. That value is deliberately obscured on the Java side
+     * because by itself it doesn't mean anything without an enclosing
+     * Constant class and the machinery to handle it. This method is for use
+     * by the translation layer only as it marshalls objects through to the
+     * native layer.
+     * 
+     * @return opaque data to be passed to native methods only
+     */
+    /*
+     * Like pointerOf(), this is carefully shielded from hackers writing the
+     * public API layer of the bindings.
+     */
+    protected static final int numOf(Constant reference) {
+        return reference.ordinal;
+    }
+
+    /**
+     * Given a Class and an ordinal number, lookup the Constant object that
+     * corresponds to that native enum.
+     * 
+     * @throws IllegalArgumentException
+     *             if it can't find a Constant object corresponding to the
+     *             Class, ordinal combination you've requested.
+     */
+    protected static Constant constantFor(Class type, int ordinal) {
+        final ArrayList list;
+        final Constant obj;
+
+        list = (ArrayList) knownConstants.get(type);
+        if (list == null) {
+            throw new IllegalArgumentException("No Constants of type " + type.getName()
+                    + " are registered");
+        }
+
+        obj = (Constant) list.get(ordinal);
+        if (obj == null) {
+            throw new IllegalArgumentException("You asked for ordinal " + ordinal
+                    + " which is not known for the requested Constant type " + type.getName());
+        }
+
+        return obj;
     }
 }

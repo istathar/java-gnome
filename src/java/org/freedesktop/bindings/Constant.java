@@ -65,9 +65,11 @@ public abstract class Constant
     protected Constant(int ordinal, String nickname) {
         this.ordinal = ordinal;
         this.nickname = nickname;
+
+        Plumbing.registerConstant(this);
     }
 
     public String toString() {
-        return this.getClass().getSimpleName() + "." + nickname;
+        return this.getClass().getName() + "." + nickname;
     }
 }
