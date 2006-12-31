@@ -225,7 +225,7 @@ _Originally written as an email to java-gnome-hackers by Andrew Cowie on 6 Nov
 
 <!--
 
-  Copyright (c) 2006 Operational Dynamics Consulting Pty Ltd 
+  Copyright (c) 2006 Operational Dynamics Consulting Pty Ltd and Others
 
   As project documentation, this file forms an integral part of the source
   code of the library it accompanies, and thus is made available to you by the

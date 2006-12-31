@@ -1,5 +1,5 @@
 /*
- * Window.java
+ * Fixed.java
  *
  * Copyright (c) 2006 Srichand Pendyala
  * Copyright (c) 2006 Operational Dynamics Consulting Pty Ltd

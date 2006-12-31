@@ -10,6 +10,16 @@
  * See the LICENCE file for the terms governing usage and redistribution.
  */
 
+/*
+ * The code for signal marshalling was completely rewritten by Andrew Cowie
+ * during the 4.0 re-engineering effort. Working with JNI and with GLib is
+ * very idiomatic, however, and the sequence of calls employed here was drawn
+ * directly from the example set by the java-gnome 2.x project in their
+ * glib-java/src/jni/org_gnu_glib_GObject.c. We are certainly indebted to the
+ * previous hackers for having worked out these techniques, an echo of which
+ * appears here in our implementation of g_signal_connect()
+ */
+
 #include <glib.h>
 #include <glib-object.h>
 #include <jni.h>
