@@ -83,11 +83,10 @@ public class Button extends Bin
 
     /**
      * Set the "relief" style used to determine how the edges of this Button
-     * will be decorated. The default is {@link ReliefStyle.NORMAL NORMAL}
+     * will be decorated. The default is {@link ReliefStyle#NORMAL NORMAL}
      * which results in a Button just as you would expect, screaming out to be
-     * pressed! There are two other variations, which turn off the decoration
-     * either some or all of the time. See {@link ReliefStyle} for details.
-     * 
+     * pressed! There are two other variations, see {@link ReliefStyle} for
+     * details.
      */
     public void setRelief(ReliefStyle style) {
         GtkButton.setRelief(this, style);
@@ -97,7 +96,8 @@ public class Button extends Bin
      * Get the relief style in used around this Button.
      */
     public ReliefStyle getRelief() {
-        return null;
+        // GtkButton.getRelief(this);
+        return (ReliefStyle) getPropertyEnum("relief");
     }
 
     /**
