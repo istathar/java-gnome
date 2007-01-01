@@ -74,14 +74,22 @@ build/dirs: .config
 # Source compilation
 # --------------------------------------------------------------------
 
-tmp/gtk-$(APIVERSION).jar: build/config build/classes
+tmp/gtk-$(APIVERSION).jar: build/config build/classes build/properties
 	@echo "$(JAR_CMD) $@"
-	cd tmp/classes ; find . -name '*.class' | xargs $(JAR) cf ../../$@ 
+	cd tmp/classes ; find . -name '*.class' -o -name '*.properties' | xargs $(JAR) cf ../../$@ 
 
 build/classes: $(SOURCES_JAVA)
 	@echo "$(JAVAC_CMD) tmp/classes/*.class"
 	$(JAVAC) -d tmp/classes -classpath $(JAVAGNOME_JARS):src/java:tmp/classes $?
 	touch $@
+
+
+build/properties: tmp/classes/typeMapping.properties
+	touch $@
+
+tmp/classes/%.properties: mockup/java/%.properties
+	@echo "CP        $< -> $(@D)"
+	cp -p $< $@
 
 
 GTK_CFLAGS=$(shell pkg-config --cflags gthread-2.0) \
