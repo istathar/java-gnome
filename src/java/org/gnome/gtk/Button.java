@@ -132,7 +132,7 @@ public class Button extends Bin
      * 
      * <pre>
      * Button b;
-     *  
+     *   
      * b.connect(new Button.CLICKED() {
      *     public void onClicked(Button source) {
      *         // do something!
@@ -143,6 +143,7 @@ public class Button extends Bin
      * <p>
      * You can of course create a subclass of Button.CLICKED and then use
      * instances of it if you highly complicated algorithms to implement.
+     * 
      * <p>
      * If you implement Button.CLICKED in the class you're currently working
      * on, then you use a technique called "self-delegation" which can

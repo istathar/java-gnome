@@ -40,7 +40,7 @@ public abstract class Constant
     final int ordinal;
 
     /**
-     * A text version of the name of the constant represnting this enum. This
+     * A text version of the name of the constant representing this enum. This
      * is mostly registered so that if the developer has need to output
      * <i>which</i> particular constant they are using while debugging, they
      * can do so.

@@ -11,7 +11,7 @@
  */
 
 /*
- * The code for signal marshalling was completely rewritten by Andrew Cowie
+ * The code for signal marshaling was completely rewritten by Andrew Cowie
  * during the 4.0 re-engineering effort. Working with JNI and with GLib is
  * very idiomatic, however, and the sequence of calls employed here was drawn
  * directly from the example set by the java-gnome 2.x project in their
@@ -114,7 +114,7 @@ JNIEXPORT jlong JNICALL Java_org_gnome_glib_GObject_g_1object_1get_1property
 	(*env)->ReleaseStringUTFChars(env, _name, name);
 	
 	/*
-	 * we do not need to clean up value; it will evenually be underneath a
+	 * we do not need to clean up value; it will eventually be underneath a
 	 * Fundamental extends Value extends Proxy which will ultimately call
 	 * g_value_free() when it is ready to be disposed.
 	 */
@@ -129,7 +129,7 @@ JNIEXPORT jlong JNICALL Java_org_gnome_glib_GObject_g_1object_1get_1property
  * called from
  *   org.gnome.glib.Plumbing.connectSignal(Object instance, Signal handler, String name)
  * called from
- *   <generated package scope classes>.connect(Objet instance, Signal handler)
+ *   <generated package scope classes>.connect(Object instance, Signal handler)
  *
  * This is where the magic to create a GClosure and hook it up to the GSignal
  * handling mechanisms is taken care of. A reference is created to the passed

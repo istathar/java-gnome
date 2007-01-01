@@ -12,7 +12,7 @@
  */
 
 /*
- * The code for signal marshalling was completely rewritten by Andrew Cowie
+ * The code for signal marshaling was completely rewritten by Andrew Cowie
  * during the 4.0 re-engineering effort. Working with JNI and with GLib is
  * very idiomatic, however, and the sequence of calls employed here was drawn
  * directly from the example set by the java-gnome 2.x project in their
@@ -35,7 +35,7 @@ typedef struct  {
 
 	/**
 	 * We use Java's single letter codes to choose which kind of
-	 * invokation we will use
+	 * invocation we will use
 	 */	 
 	jchar		returnType;
  	
@@ -67,13 +67,14 @@ typedef struct  {
 
  
 /**
- * This method actually recieves all callbacks in the system.  It 
- * recieves a CallbackData struct as its' data.  It then determines
- * what Java method to call and invokes it passing the correct parameters
+ * This method actually receives all callbacks in the system. It receives a
+ * GClosure struct as its data, which turns out to be our BindingsJavaClosure.
+ * It then determines what Java method to call and invokes it passing the
+ * correct parameters
  */
 /*
  * Signature the prototype of (*GClosureMarshall), meeting the requirements
- * to be the second argument to g_closure_set_marshall()
+ * to be the second argument to g_closure_set_marshal()
  */
 static void
 bindings_java_marshaller
@@ -111,7 +112,7 @@ bindings_java_marshaller
 
 	env = bindings_java_getEnv();
 	if (env == NULL) {
-		g_critical("Couldn't get JNIEnv interface, aborting marshall");
+		g_critical("Couldn't get JNIEnv interface, aborting marshal");
 		return;
 	}
 		
@@ -207,7 +208,7 @@ bindings_java_marshaller
 			/*
 			 * Unrecognized. Probably means we need to add a clause above.
 			 */
-			g_warning("Don't know how to marshall a %s", g_type_name(type));
+			g_warning("Don't know how to marshal a %s", g_type_name(type));
 			jargs[i+2].l = 0;
 			break;
 		}
@@ -274,13 +275,13 @@ bindings_java_marshaller
 		/*
 		 * If it's not void, boolean or gchar*, then what kind of signal is it?
 		 */
-		g_critical("Invokation for return type %c not implemented", bjc->returnType);
+		g_critical("Invocation for return type %c not implemented", bjc->returnType);
 		break;
 	}
 
 	/*
-	 * Now, check if an exception occured in the callback and print the
-	 * stack trace in case it did. Otherwise, the stack trace gets swollowed
+	 * Now, check if an exception occurred in the callback and print the
+	 * stack trace in case it did. Otherwise, the stack trace gets swallowed
 	 * (ie, we're now back at GTK which is where the code path originated.
 	 * There's nowhere else for the signal to go, is there? Well, we could
 	 * call gtk_main_quit(), but that would probably be considered rude.
@@ -409,7 +410,7 @@ bindings_java_closure_new
 
 	/*
 	 * the name of the methods we invoke is algorithmic: "handleName",
-	 * where Name is a PascalCase version of the singal name we were
+	 * where Name is a PascalCase version of the signal name we were
 	 * passed in.
 	 */
 	 
@@ -462,7 +463,7 @@ bindings_java_closure_new
 	
 //	jclass CANDIDATE = (*env)->FindClass(env, "org/gnome/gtk/GtkWidget");
 //	if ((*env)->IsSameObject(env, CANDIDATE, receiver)) {
-//		g_debug("Reveived a GtkWidget");
+//		g_debug("Received a GtkWidget");
 //	}
 
 	bjc->receiver = receiver;

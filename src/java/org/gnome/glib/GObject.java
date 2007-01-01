@@ -13,8 +13,8 @@ package org.gnome.glib;
 
 /*
  * crafted since the setProperty() and connectSignal() functionality is
- * somewhat custom transform not especially connected to either the pulblic
- * API or the underlying G code.
+ * somewhat custom transform not especially connected to either the public API
+ * or the underlying G code.
  */
 final class GObject extends Plumbing
 {

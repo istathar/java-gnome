@@ -13,7 +13,7 @@ package org.gnome.gtk;
 
 /**
  * The base class of all GTK Widgets. Graphical user interface toolkits have
- * long been built up from individual controls and presentation mechansims
+ * long been built up from individual controls and presentation mechanisms
  * that are nested together. These elements are collectively called Widgets.
  * Quite a lot of Widgets contain other Widgets; those are called
  * {@link Container Container}s.
@@ -62,16 +62,16 @@ public abstract class Widget extends org.gnome.gtk.Object
      * finished all the work necessary to set it up.
      * <p>
      * Quite frequently you also want to cause a Window to appear on the
-     * screen as well (ie, not be burried under a whole bunch of other
+     * screen as well (ie, not be buried under a whole bunch of other
      * applications' Windows), so calling Window's
-     * {@link Window#present() present()} is usally next.
+     * {@link Window#present() present()} is usually next.
      * 
      * <p>
      * <i>Don't be surprised if this takes a few hundred milliseconds.
      * Realizing and mapping all the zillion elements that ultimately make up
-     * a Window is one of the most resource intesive operations that GTK, GDK,
-     * Pango, your X server, and your kernel have to churn through. Sometimes,
-     * you just gotta wait.</i>
+     * a Window is one of the most resource intensive operations that GTK,
+     * GDK, Pango, your X server, and your kernel have to churn through.
+     * Sometimes, you just gotta wait.</i>
      * 
      * @since 4.0.0
      */

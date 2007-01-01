@@ -24,7 +24,7 @@ import org.freedesktop.bindings.Proxy;
 /**
  * Translation layer class which adds the ability to connect signals to
  * GObjects. See {@link org.freedesktop.bindings.Plumbing Plumbing} for
- * utiltiy methods which work with Proxy and Constant. <b>No one using
+ * utility methods which work with Proxy and Constant. <b>No one using
  * developing applications which happen to use bindings based on this package
  * should ever need to see, or subclass, this.</b>
  * 
@@ -78,7 +78,7 @@ public abstract class Plumbing extends org.freedesktop.bindings.Plumbing
 
     /**
      * Register a GType name as corresponding to the given Proxy subclass.
-     * This form, where a classname is specified by a string, is used by the
+     * This form, where a class name is specified by a string, is used by the
      * generated translation layer classes to get around the case where a hand
      * written wrapper class presenting a public API has not been (or will not
      * be) written.
@@ -119,7 +119,7 @@ public abstract class Plumbing extends org.freedesktop.bindings.Plumbing
         /*
          * If the thing is an Constant (aka our Enum), then we have to treat
          * it differently. We deliberately set the constructor to null, using
-         * it as a marker in instanceOf(). Rememeber - we only call
+         * it as a marker in instanceFor(). Remember - we only call
          * instanceFor() on an enum when we know it was wrapped in a GValue -
          * ie, the getProperty() case. When handling signal callbacks, we
          * reverse translate the int directly using constantFor()
@@ -170,7 +170,7 @@ public abstract class Plumbing extends org.freedesktop.bindings.Plumbing
             final Class type;
 
             /*
-             * Somewhat crucually, we intern the returned GType name string to
+             * Somewhat crucially, we intern the returned GType name string to
              * reduce memory pressure and to permit lookup by identity.
              */
             name = GValue.g_type_name(pointer).intern();
@@ -189,7 +189,7 @@ public abstract class Plumbing extends org.freedesktop.bindings.Plumbing
                     return obj;
 
                 } catch (IllegalArgumentException e) {
-                    // the number, type, or marshalling of arguments was wrong
+                    // the number, type, or marshaling of arguments was wrong
                     throw new IllegalStateException(e);
                 } catch (InstantiationException e) {
                     // the class was abstract.
@@ -233,7 +233,7 @@ public abstract class Plumbing extends org.freedesktop.bindings.Plumbing
      * Connect a signal handler to a GObject.
      * 
      * @param instance
-     *            the Object Proxy you want to connet the singnal to
+     *            the Object Proxy you want to connect the signal to
      * @param handler
      *            the object implementing the Signal subinterface we defined
      *            in one of our public classes.
@@ -244,7 +244,7 @@ public abstract class Plumbing extends org.freedesktop.bindings.Plumbing
      *            Nevertheless, you have to explicitly name the signal in
      *            because self-delegation means we never quite know which is
      *            being hooked up. Because all the calls to connectSignal()
-     *            will be in generated code, the singal name is sourced from
+     *            will be in generated code, the signal name is sourced from
      *            .defs data and should always be correct!</i>
      */
     /*

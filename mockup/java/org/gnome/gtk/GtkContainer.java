@@ -25,7 +25,7 @@ final class GtkContainer extends Plumbing
 
     /**
      * Wraps <code><pre>
-     *   gtk_container_add(GtkContainer container, GtkWidget child)
+     *     gtk_container_add(GtkContainer container, GtkWidget child)
      * </pre></code>
      */
     static final void add(Container self, Widget child) {

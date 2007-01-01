@@ -19,7 +19,7 @@ package org.gnome.glib;
  * <p>
  * In general, Boxed are short lived. They are commonly used to convey
  * parameters or represent state such as in an Iterator. As such, good
- * programming practice is to <b>not</b> hold on to these long term. Use them
+ * programming practise is to <b>not</b> hold on to these long term. Use them
  * and let them go out of scope so they can be reclaimed.
  * 
  * <p>

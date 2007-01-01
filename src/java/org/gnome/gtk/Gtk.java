@@ -21,7 +21,7 @@ import org.gnome.glib.Glib;
  */
 /*
  * Extremely atypically, this class contains native declarations because a)
- * Theres nothing left if you strip off the Gtk prefix from Gtk, b) no reason
+ * There's nothing left if you strip off the Gtk prefix from Gtk, b) no reason
  * to use a static class GtkMain or whatever as none of these methods need
  * access to Plumbing.
  */

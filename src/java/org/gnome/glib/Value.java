@@ -15,7 +15,7 @@ import org.freedesktop.bindings.Proxy;
 
 /**
  * A generic value that can be passed as a parameter to or returned from a
- * method or function on an underlying entitiy in the GLib library and those
+ * method or function on an underlying entity in the GLib library and those
  * built on it.
  * 
  * <p>

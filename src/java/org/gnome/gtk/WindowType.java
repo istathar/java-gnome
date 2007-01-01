@@ -32,7 +32,7 @@ public final class WindowType extends Constant
      * Most things you'd consider a "window" should have type TOPLEVEL;
      * windows with this type are managed by the window manager and have a
      * frame by default. [The frame is what you might think of the "border",
-     * although border is actually a characteristic of Wiget. You can call
+     * although border is actually a characteristic of Widget. You can call
      * {@link org.gnome.gtk.Window#setDecorated(boolean) setDecorated(false)}
      * to turn the window manager's frame off]
      */

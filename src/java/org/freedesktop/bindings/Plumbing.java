@@ -96,13 +96,13 @@ public abstract class Plumbing
      * Get the memory address which is the location of the Object or Structure
      * that a given Proxy represents. That doesn't mean anything on the Java
      * side so don't try to interpret it - it's for use by the translation
-     * layer as they marshall objects through to the native layer.
+     * layer as they marshal objects through to the native layer.
      * 
      * @return opaque data to be passed to native methods only.
      */
     /*
      * We go to considerable effort to keep this method out of the visibility
-     * of plublic users which is why translation layer code subclass this
+     * of public users which is why translation layer code subclass this
      * org.freedesktop.bindings.Pluming which has package visibility of Proxy
      * and Constant. Even more, there's nothing we can do about this being
      * protected, so we choose a method name other than getPointer() to keep
@@ -118,7 +118,7 @@ public abstract class Plumbing
      * <p>
      * This will return the Proxy instance already created by a concrete
      * constructor if one was created Java side. This is sufficient if you are
-     * only using this for Proxys that were created as a result of objects
+     * only using this for Proxies that were created as a result of objects
      * being constructed in Java. If, on the other hand, you are calling this
      * from a native to Java code path, then you need to account for the fact
      * that it is likely that a returned pointer will not yet have a Proxy
@@ -140,12 +140,12 @@ public abstract class Plumbing
      * 
      * @param pointer
      *            opaque memory reference as passed from the C side.
-     * @return the instance corresponding to a given poiner, or null if that
+     * @return the instance corresponding to a given pointer, or null if that
      *         pointer isn't registered.
      */
     /*
      * This is a skeleton implementation with the necessary functionality of
-     * looking up existing Proxys but nevertheless this is, in effect, an
+     * looking up existing Proxies but nevertheless this is, in effect, an
      * "abstract" method; if you are using java-gnome to wrap a non GLib based
      * library, you will need to implement an instanceFor() that knows how to
      * create appropriate Proxy instances based on something that can be
@@ -196,7 +196,7 @@ public abstract class Plumbing
      * represents. That value is deliberately obscured on the Java side
      * because by itself it doesn't mean anything without an enclosing
      * Constant class and the machinery to handle it. This method is for use
-     * by the translation layer only as it marshalls objects through to the
+     * by the translation layer only as it marshals objects through to the
      * native layer.
      * 
      * @return opaque data to be passed to native methods only

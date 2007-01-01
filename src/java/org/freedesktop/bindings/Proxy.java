@@ -35,7 +35,7 @@ public abstract class Proxy
      * This is an opaque representation of a memory address. It's a Java long,
      * which means it's 64 bits wide which in turn means it can hold an
      * address on a 64 bit system, but any interpretation that the Java
-     * language might asign to a long (ie, that it's signed) is meaningless
+     * language might assign to a long (ie, that it's signed) is meaningless
      * and incorrect! This is package public so that Plumbing can see it, and
      * final so that once constructed its immutable.
      */

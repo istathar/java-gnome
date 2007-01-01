@@ -197,7 +197,7 @@ Java_org_gnome_glib_GValue_g_1value_1init__Ljava_lang_String_2
  *   org.gnome.glib.Object.getPropertyString(String name)
  *
  * Extract the string value from a GValue of G_TYPE_STRING, returning the
- * primative (well, String) to be used as such.
+ * primitive (well, String) to be used as such.
  */
 JNIEXPORT jstring JNICALL
 Java_org_gnome_glib_GValue_g_1value_1get_1string

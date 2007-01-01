@@ -14,8 +14,8 @@ package org.gnome.gnome;
 import org.gnome.gtk.Widget;
 
 /**
- * This is the beginings of showing what a class in another package would look
- * like. Not implemented!
+ * This is the beginnings of showing what a class in another package would
+ * look like. Not implemented!
  * 
  * @author Andrew Cowie
  */

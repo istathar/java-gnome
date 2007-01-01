@@ -23,7 +23,7 @@ package org.gnome.glib;
  * the subclasses of this interface provided by individual Widgets. See
  * Button's
  * {@link org.gnome.gtk.Button#connect(org.gnome.gtk.Button.CLICKED) connect()}
- * for a thorough example of how signals are used in practice.
+ * for a thorough example of how signals are used in practise.
  * 
  * @author Andrew Cowie
  * @since 4.0.0

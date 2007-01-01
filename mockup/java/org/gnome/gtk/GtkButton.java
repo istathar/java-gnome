@@ -47,11 +47,11 @@ final class GtkButton extends Plumbing
     }
 
     private static final native String gtk_button_get_label(long button);
-    
+
     static final void setRelief(Button self, ReliefStyle newstyle) {
         gtk_button_set_relief(pointerOf(self), numOf(newstyle));
     }
-    
+
     private static native final void gtk_button_set_relief(long button, int newstyle);
 
     interface CLICKED extends Signal
@@ -86,15 +86,16 @@ final class GtkButton extends Plumbing
     }
 
     /*
-     * called by native code! Also, with this visibility we can unit test it?!?
+     * called by native code! Also, with this visibility we can unit test
+     * it?!?
      */
     protected static final void handleClicked(Signal handler, long source) {
         ((GtkButton.CLICKED) handler).onClicked((Button) instanceFor(source));
     }
 
     protected static final boolean handleDepressed(Signal handler, long source, long whoIsDepressed) {
-        return ((GtkButton.DEPRESSED) handler).onDepressed((Button) instanceFor(source), (Widget)
-                instanceFor(whoIsDepressed));
+        return ((GtkButton.DEPRESSED) handler).onDepressed((Button) instanceFor(source),
+                (Widget) instanceFor(whoIsDepressed));
     }
 
     protected static final void handleEntered(Signal handler, long source) {

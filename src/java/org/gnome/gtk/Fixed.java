@@ -26,7 +26,7 @@ package org.gnome.gtk;
  * engines can radically change the size and appearance of Widgets to suit
  * varying accessibility and usability requirements; different fonts available
  * to your users will cause Labels to be sized differently than you'd expect,
- * and of course translation completely thows predictability right out the
+ * and of course translation completely throws predictability right out the
  * window. Since the Fixed Container does <i>not</i> adapt to the size
  * requests of the Widgets with in it, the frequent result is truncated text,
  * overlapping Widgets, and other visual bugs.

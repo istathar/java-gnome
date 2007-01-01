@@ -56,13 +56,13 @@ public final class Experiment
         });
 
         // attempt to set a non-zero enum, and make sure we get it back, by
-        // identity; Button's getReleif() is temporarily implemented with
+        // identity; Button's getRelief() is temporarily implemented with
         // getPropertyEnum(). TODO move this to a unit test.
         ReliefStyle rs = ReliefStyle.NONE;
         b.setRelief(rs);
         assert (b.getRelief() == rs);
 
-        // I actaully prefer normal relief on buttons today :)
+        // I actually prefer normal relief on buttons today :)
         b.setRelief(ReliefStyle.NORMAL);
 
         Gtk.main();

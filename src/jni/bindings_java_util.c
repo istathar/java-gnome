@@ -73,7 +73,7 @@ bindings_java_getEnv()
  * Modified in java-gnome 2.x by Andrew Cowie to fix a potential crasher.
  * And then improved for use here.
  * 
- * It turns out different Java implemenations are finicky about the syntax
+ * It turns out different Java implementations are finicky about the syntax
  * of the string used to lookup a class. "Ljava/lang/Blah;" makes GCJ
  * unhappy; "java.lang.Blah" makes Sun Java barf. The JNI standard actually
  * specifies "java/lang/Blah" only.
@@ -108,7 +108,7 @@ bindings_java_throwByName
 
 /**
  * Utility function to just blow a generic RuntimeException in order
- * to propegate a failure back to the caller.
+ * to propagate a failure back to the caller.
  */
 void
 bindings_java_throw
@@ -132,7 +132,7 @@ bindings_java_throw
 
 	if (cls == NULL) {
 		if (env == NULL) {
-			g_error("Want to throw a %s but JNIenv is NULL", name);
+			g_error("Want to throw a %s but JNIEnv is NULL", name);
 		}	
 		
 		cls = (*env)->FindClass(env, name);

@@ -61,12 +61,12 @@ final class GValue extends Plumbing
     private static native final int g_value_get_enum(long value);
 
     /**
-     * Lookup the name for a given type. <i>When a GType such as a primative
+     * Lookup the name for a given type. <i>When a GType such as a primitive
      * (fundamental) type or a class is registered in GObject, it is given a
      * name.
      * 
      * <p>
-     * <i>We do not use or even provide a mechanism to retreive the GType
+     * <i>We do not use or even provide a mechanism to retrieve the GType
      * itself. This value would be opaque and in any case changes from run to
      * run.</i>
      * 

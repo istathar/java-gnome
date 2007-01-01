@@ -61,9 +61,10 @@ public class Glib
 
     /**
      * Notify org.gnome.glib.Glib that it will be initialized care of a sub
-     * library's initialiation. <i>This is so Gtk or Gnome can just carry on
+     * library's initialization. <i>This is so Gtk or Gnome can just carry on
      * calling gtk_init() or gnome_program_init(), both of which initialize
      * <code>GLib</code>, <code>GType</code>, etc</i>
+     * 
      * @since 4.0.1
      */
     protected static void skipInit() {
