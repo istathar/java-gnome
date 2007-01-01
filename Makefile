@@ -26,7 +26,7 @@ build-java: tmp/gtk-$(APIVERSION).jar tmp/libgtkjni-$(APIVERSION).so
 
 build-native: tmp/libgtkjava-$(APIVERSION).so
 
-.PHONY: doc clean
+.PHONY: doc clean distlcean
 
 # [this  will be called by the above include if .config is missing.
 # We don't call ./configure automatically to allow scope for
@@ -44,18 +44,14 @@ build/config: .config build/dirs
 	( if [ ! "$(JAVA_CMD)" ] ; then echo "Sanity check failed. Run ./configure" ; exit 1 ; fi )
 	touch $@
 
-SOURCES_JAVA=$(shell find src/java -name '*.java') $(shell find mockup/java -name '*.java')
-
-CLASSES_JAVA=$(shell echo $(SOURCES_JAVA) | sed -e's/\.java/\.class/g' -e's/src\/java/tmp\/classes/g' -e's/mockup\/java/tmp\/classes/g')
+SOURCES_DIST=$(shell find src/java -name '*.java') $(shell find mockup/java -name '*.java' )
+CLASSES_DIST=$(shell echo $(SOURCES_DIST) | sed -e's/\.java/\.class/g' -e's/src\/java/tmp\/classes/g' -e's/mockup\/java/tmp\/classes/g')
 
 # These are just the headers which are crafted, not generated
 HEADERS_C=$(shell find src/jni -name '*.h' | sed -e 's/src\/jni/tmp\/include/g' -e 's/\.c/\.h/g')
 
-SOURCES_C=$(shell find src/java -name '*.c' ) $(shell find mockup/java -name '*.c' )
-OBJECTS_C=$(shell echo $(SOURCES_C) | sed -e's/\.c/\.o/g' -e's/src\/java/tmp\/objects/g' -e's/mockup\/java/tmp\/objects/g' )
-
-SOURCES_GLUE=$(shell find src/jni -name '*.c' )
-OBJECTS_GLUE=$(shell echo $(SOURCES_GLUE) | sed -e's/\.c/\.o/g' -e's/src\/jni/tmp\/objects/g' )
+SOURCES_C=$(shell find src/java -name '*.c' ) $(shell find mockup/java -name '*.c' ) $(shell find src/jni -name '*.c' )
+OBJECTS_C=$(shell echo $(SOURCES_C) | sed -e's/\.c/\.o/g' -e's/src\/java/tmp\/objects/g' -e's/mockup\/java/tmp\/objects/g' -e's/src\/jni/tmp\/objects/g' )
 
 #
 # convenience target: setup pre-reqs
@@ -67,6 +63,7 @@ build/dirs: .config
 	-test -d tmp/native || mkdir -p tmp/native
 	-test -d tmp/objects || mkdir -p tmp/objects
 	-test -d tmp/include || mkdir -p tmp/include
+	-test -d tmp/tests || mkdir -p tmp/tests
 	touch $@
 
 
@@ -74,17 +71,17 @@ build/dirs: .config
 # Source compilation
 # --------------------------------------------------------------------
 
-tmp/gtk-$(APIVERSION).jar: build/config build/classes build/properties
+tmp/gtk-$(APIVERSION).jar: build/config build/classes-dist build/properties-dist
 	@echo "$(JAR_CMD) $@"
 	cd tmp/classes ; find . -name '*.class' -o -name '*.properties' | xargs $(JAR) cf ../../$@ 
 
-build/classes: $(SOURCES_JAVA)
+build/classes-dist: $(SOURCES_DIST)
 	@echo "$(JAVAC_CMD) tmp/classes/*.class"
 	$(JAVAC) -d tmp/classes -classpath $(JAVAGNOME_JARS):src/java:tmp/classes $?
 	touch $@
 
 
-build/properties: tmp/classes/typeMapping.properties
+build/properties-dist: tmp/classes/typeMapping.properties
 	touch $@
 
 tmp/classes/%.properties: mockup/java/%.properties
@@ -142,12 +139,12 @@ tmp/objects/%.o: mockup/java/%.c
 	@echo "$(CC_CMD) $@"
 	$(CCACHE) $(CC) $(GTK_CFLAGS) -Itmp/include -o $@ -c $<
 
-tmp/libgtkjni-$(APIVERSION).so: build/config build/headers $(OBJECTS_GLUE) $(OBJECTS_C)
+tmp/libgtkjni-$(APIVERSION).so: build/config build/headers $(OBJECTS_C)
 	@echo "$(LINK_CMD) $@"
 	$(LINK) -shared -fPIC -fjni \
 		-Wl,-rpath=$(JAVAGNOME_HOME)/lib \
 		 $(GTK_LIBS) \
-		-o $@ $(OBJECTS_GLUE) $(OBJECTS_C)
+		-o $@ $(OBJECTS_C)
 #	@echo "STRIP     $@"
 #	strip --only-keep-debug $@
 
@@ -203,7 +200,7 @@ JAVADOC:=$(JAVADOC) -quiet
 REDIRECT=>/dev/null
 endif
 
-doc: build/classes
+doc: build/classes-dist
 	@echo "$(JAVADOC_CMD) doc/api/*.html"
 	$(JAVADOC) \
 		-d doc/api \
