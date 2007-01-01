@@ -26,7 +26,7 @@ build-java: tmp/gtk-$(APIVERSION).jar tmp/libgtkjni-$(APIVERSION).so
 
 build-native: tmp/libgtkjava-$(APIVERSION).so
 
-.PHONY: doc clean distlcean
+.PHONY: test demo doc clean distlcean
 
 # [this  will be called by the above include if .config is missing.
 # We don't call ./configure automatically to allow scope for
@@ -45,7 +45,8 @@ build/config: .config build/dirs
 	touch $@
 
 SOURCES_DIST=$(shell find src/java -name '*.java') $(shell find mockup/java -name '*.java' )
-CLASSES_DIST=$(shell echo $(SOURCES_DIST) | sed -e's/\.java/\.class/g' -e's/src\/java/tmp\/classes/g' -e's/mockup\/java/tmp\/classes/g')
+
+SOURCES_TEST=$(shell find tests/prototype -name '*.java' )
 
 # These are just the headers which are crafted, not generated
 HEADERS_C=$(shell find src/jni -name '*.h' | sed -e 's/src\/jni/tmp\/include/g' -e 's/\.c/\.h/g')
@@ -193,6 +194,31 @@ $(JAVAGNOME_HOME)/lib/libgtkjni-$(APIVERSION).so: tmp/libgtkjni-$(APIVERSION).so
 $(JAVAGNOME_HOME)/lib/libgtkjava-$(APIVERSION).so: tmp/libgtkjava-$(APIVERSION).so
 	@echo "CP        $< -> $(@D)"
 	cp $< $@
+
+
+# --------------------------------------------------------------------
+# Tests
+# --------------------------------------------------------------------
+
+build/classes-test: $(SOURCES_TEST)
+	@echo "$(JAVAC_CMD) tmp/tests/*.class"
+	$(JAVAC) -d tmp/tests -classpath tmp/gtk-$(APIVERSION).jar $?
+	touch $@
+
+test: build-java build/classes-test
+	@echo -e "\n\`make test\` not yet implemented. Try \`make demo\` instead.\n" && exit 1
+
+demo: build-java build/classes-test
+	@echo "$(JAVA_CMD) Experiment"
+	$(JAVA) \
+		-classpath tmp/gtk-$(APIVERSION).jar:tmp/tests \
+		-Djava.library.path=tmp \
+		-ea \
+		Experiment
+
+# --------------------------------------------------------------------
+# Documentation generation
+# --------------------------------------------------------------------
 
 ifdef V
 else
