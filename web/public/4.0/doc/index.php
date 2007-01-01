@@ -2,7 +2,7 @@
 /*
  * index.php
  *
- * Copyright (c) 2006 Operational Dynamics Consulting Pty Ltd
+ * Copyright (c) 2006-2007 Operational Dynamics Consulting Pty Ltd
  * 
  * This file comprises part of the infrastructure and content of the
  * java-gnome project website. As such, it is conveyed alongside the source
@@ -42,10 +42,10 @@ come.</i></p>
 
 <h2><a class="directory" href="../README.html">README</a></h2>
 
-<p>The <code>README</code> file in the top level directory of the source code
-contains everything you need to get started: how to get the code in the first
-place, how to configure and build it, and how to use java-gnome as a library
-in your projects.</p>
+<p>The <a href="../README.html"><code>README</code></a> file in the top level
+directory of the source code contains everything you need to get started: how
+to get the code in the first place, how to configure and build it, and how to
+use java-gnome as a library in your projects.</p>
 
 <!--
 <h2>Tutorials</h2>

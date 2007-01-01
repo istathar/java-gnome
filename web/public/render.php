@@ -4,7 +4,7 @@
 # Render a text document marked up with Markdown syntax as an HTML page. Based
 # on view.php from web/local/markdown/
 #
-# Copyright (c) 2004-2006 Operational Dynamics Consulting Pty Ltd 
+# Copyright (c) 2004-2007 Operational Dynamics Consulting Pty Ltd 
 # 
 # The code in this file, and the library it is a part of, are made available to
 # you by the authors under the terms of the "GNU General Public Licence,
@@ -78,11 +78,6 @@
 ?>
 <title><?=$title?></title>
 <meta name="author" content="Andrew Cowie">
-<style>
-body {
-	font-family: "Times New Roman", serif;
-}
-</style>
 </head>
 <body>
 <?

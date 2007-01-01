@@ -6,13 +6,15 @@ The underlying APIs are elegantly transformed into Java and carefully
 documented so that anyone new to Linux or Open Source can rapidly be on their
 way to creating fabulous applications.
 
-If you didn't know, the project website is:
+<!--
+If you didn't know, the project website is:  
 
-    http://java-gnome.sourceforge.net
+	http://java-gnome.sourceforge.net
 
 where we host the API documentation, web versions of all the design files, and
 tutorials to help get people started. Contact information, release notes and
 and project news will also be found there.
+-->
 
 This README file is devoted to helping you get started building the
 bindings themselves. 
@@ -243,13 +245,13 @@ Maintainer,
 [java-gnome](http://java-gnome.sourceforge.net/),  
 opening GTK and GNOME to Java programmers!
 
-_Last modified 22 Dec 06_
+_Last modified 1 Jan 07_
 
 [mirror]: http://ftp.gnome.org/pub/gnome/sources/java-gnome/4.0/
 
 <!--
 
-  Copyright (c) 2006 Operational Dynamics Consulting Pty Ltd 
+  Copyright (c) 2006-2007 Operational Dynamics Consulting Pty Ltd 
 
   As project documentation, this file forms an integral part of the source
   code of the library it accompanies, and thus is made available to you by the
