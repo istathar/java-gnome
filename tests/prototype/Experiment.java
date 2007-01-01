@@ -1,7 +1,7 @@
 /*
  * Experiment.java
  *
- * Copyright (c) 2006 Operational Dynamics Consulting Pty Ltd
+ * Copyright (c) 2006-2007 Operational Dynamics Consulting Pty Ltd
  * 
  * The code in this file, and the library it is a part of, are made available
  * to you by the authors under the terms of the "GNU General Public Licence,
@@ -12,6 +12,7 @@
 import org.gnome.gtk.Button;
 import org.gnome.gtk.Gtk;
 import org.gnome.gtk.Object;
+import org.gnome.gtk.ReliefStyle;
 import org.gnome.gtk.Widget;
 import org.gnome.gtk.Window;
 
@@ -53,6 +54,16 @@ public final class Experiment
                 return false;
             }
         });
+
+        // attempt to set a non-zero enum, and make sure we get it back, by
+        // identity; Button's getReleif() is temporarily implemented with
+        // getPropertyEnum(). TODO move this to a unit test.
+        ReliefStyle rs = ReliefStyle.NONE;
+        b.setRelief(rs);
+        assert (b.getRelief() == rs);
+
+        // I actaully prefer normal relief on buttons today :)
+        b.setRelief(ReliefStyle.NORMAL);
 
         Gtk.main();
 
