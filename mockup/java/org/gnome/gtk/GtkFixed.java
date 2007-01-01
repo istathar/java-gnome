@@ -1,8 +1,8 @@
 /*
  * GtkWindow.java
  *
- * Copyright (c) 2006 Srichand Pendyala
- * Copyright (c) 2006 Operational Dynamics Consulting Pty Ltd
+ * Copyright (c) 2006      Srichand Pendyala
+ * Copyright (c) 2006-2007 Operational Dynamics Consulting Pty Ltd
  * 
  * The code in this file, and the library it is a part of, are made available
  * to you by the authors under the terms of the "GNU General Public Licence,
@@ -22,10 +22,6 @@ import org.gnome.glib.Plumbing;
 
 final class GtkFixed extends Plumbing
 {
-    static {
-        registerType("GtkFixed", "org.gnome.gtk.Fixed");
-    }
-
     private GtkFixed() {}
 
     static final long createFixed() {

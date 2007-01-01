@@ -1,7 +1,7 @@
 /*
  * Plumbing.java
  *
- * Copyright (c) 2006 Operational Dynamics Consulting Pty Ltd
+ * Copyright (c) 2006-2007 Operational Dynamics Consulting Pty Ltd
  * 
  * The code in this file, and the library it is a part of, are made available
  * to you by the authors under the terms of the "GNU General Public Licence,
@@ -11,9 +11,12 @@
  */
 package org.gnome.glib;
 
+import java.io.InputStream;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.util.IdentityHashMap;
+import java.util.Iterator;
+import java.util.Properties;
 
 import org.freedesktop.bindings.Constant;
 import org.freedesktop.bindings.Proxy;
@@ -36,6 +39,8 @@ public abstract class Plumbing extends org.freedesktop.bindings.Plumbing
 
     private static final IdentityHashMap enumMapping;
 
+    private static final String TYPE_MAPPING = "typeMapping.properties";
+
     static {
         typeMapping = new IdentityHashMap(100);
         enumMapping = new IdentityHashMap(100);
@@ -47,8 +52,28 @@ public abstract class Plumbing extends org.freedesktop.bindings.Plumbing
         registerType("gint32", IntegerValue.class);
         registerType("guint32", IntegerValue.class);
 
-        // FIXME remove to externalized file.
-        registerType("GtkReliefStyle", "org.gnome.gtk.ReliefStyle");
+        Properties p = new Properties();
+
+        try {
+            ClassLoader cl = Plumbing.class.getClassLoader();
+            InputStream is = cl.getResourceAsStream(TYPE_MAPPING);
+            if (is == null) {
+                throw new NullPointerException("InputStream for " + TYPE_MAPPING + " is null");
+            }
+            p.load(is);
+            is.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.err.println("\nUnable to load GType to Java class mapping file " + TYPE_MAPPING);
+
+            System.exit(2);
+        }
+
+        for (Iterator iter = p.keySet().iterator(); iter.hasNext();) {
+            String gType = (String) iter.next();
+            String javaClass = (String) p.get(gType);
+            registerType(gType, javaClass);
+        }
     }
 
     /**
@@ -101,7 +126,7 @@ public abstract class Plumbing extends org.freedesktop.bindings.Plumbing
          */
 
         if (Constant.class.isAssignableFrom(javaClass)) {
-            enumMapping.put(nativeName, javaClass);
+            enumMapping.put(nativeName.intern(), javaClass);
             c = null;
         } else {
             try {
@@ -111,7 +136,7 @@ public abstract class Plumbing extends org.freedesktop.bindings.Plumbing
             }
         }
 
-        typeMapping.put(nativeName, c);
+        typeMapping.put(nativeName.intern(), c);
     }
 
     /**
@@ -193,7 +218,6 @@ public abstract class Plumbing extends org.freedesktop.bindings.Plumbing
             if (type != null) {
                 obj = new EnumValue(pointer, type);
                 return obj;
-
             }
 
             /*
