@@ -1,7 +1,7 @@
 /*
  * Glib.java
  *
- * Copyright (c) 2006 Operational Dynamics Consulting Pty Ltd
+ * Copyright (c) 2006-2007 Operational Dynamics Consulting Pty Ltd
  * 
  * The code in this file, and the library it is a part of, are made available
  * to you by the authors under the terms of the "GNU General Public Licence,
@@ -17,30 +17,59 @@ package org.gnome.glib;
  * @author Andrew Cowie
  * @since 4.0.0
  */
-public final class Glib
+public class Glib
 {
     /**
      * A guard against someone calling init() twice
      */
     private static boolean initialized = false;
 
+    static {
+
+    }
+
     /**
      * No instantiation. Static methods only!
      */
-    private Glib() {}
+    protected Glib() {}
 
     /**
      * Initialize GLib's internal subsystems. To simplify things, this is
      * called automatically by
      * {@link org.gnome.gtk.Gtk#init(java.lang.String[]) Gtk.init()}, so the
      * occasions to call this directly should be pretty rare.
+     * 
+     * @throws IllegalStateException
+     *             if GLib has already been initialized, ie you either called
+     *             this twice by accident, or you already initialized GLib by
+     *             calling Gtk.init() or Program.init().
+     * @since 4.0.0
      */
     public static void init(String[] args) {
         if (initialized) {
-            return;
+            throw new IllegalStateException("Glib already initialized");
         }
-        initialized = true;
 
-        throw new UnsupportedOperationException();
+        // FIXME: call g_type_init()
+        // TODO: other initializations?
+
+        /*
+         * Prevent subsequent manual initialization.
+         */
+        initialized = true;
+    }
+
+    /**
+     * Notify org.gnome.glib.Glib that it will be initialized care of a sub
+     * library's initialiation. <i>This is so Gtk or Gnome can just carry on
+     * calling gtk_init() or gnome_program_init(), both of which initialize
+     * <code>GLib</code>, <code>GType</code>, etc</i>
+     * @since 4.0.1
+     */
+    protected static void skipInit() {
+        /*
+         * Prevent subsequent manual initialization.
+         */
+        initialized = true;
     }
 }

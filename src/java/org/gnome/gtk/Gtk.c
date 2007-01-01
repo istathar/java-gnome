@@ -1,7 +1,7 @@
 /*
  * Gtk.c
  *
- * Copyright (c) 2006 Operational Dynamics Consulting Pty Ltd
+ * Copyright (c) 2006-2007 Operational Dynamics Consulting Pty Ltd
  * 
  * The code in this file, and the library it is a part of, are made available
  * to you by the authors under the terms of the "GNU General Public Licence,
@@ -19,9 +19,9 @@
 
 /*
  * Implements
- *   org.gnome.gtk.Gtk.gtk_init()
+ *   org.gnome.gtk.Gtk.gtk_init(String[] args)
  * called from
- *   org.gnome.gtk.Gtk.init()
+ *   org.gnome.gtk.Gtk.init(String[] args)
  *
  * FIXME we still have to handle passing the args array through.
  */ 
@@ -29,7 +29,8 @@ JNIEXPORT void JNICALL
 Java_org_gnome_gtk_Gtk_gtk_1init
 (
 	JNIEnv *env,
-	jclass cls
+	jclass cls,
+	jobjectArray _args
 )
 {
 	g_thread_init(NULL);

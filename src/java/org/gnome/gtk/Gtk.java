@@ -1,7 +1,7 @@
 /*
  * Gtk.java
  *
- * Copyright (c) 2006 Operational Dynamics Consulting Pty Ltd
+ * Copyright (c) 2006-2007 Operational Dynamics Consulting Pty Ltd
  * 
  * The code in this file, and the library it is a part of, are made available
  * to you by the authors under the terms of the "GNU General Public Licence,
@@ -10,6 +10,8 @@
  * See the LICENCE file for the terms governing usage and redistribution.
  */
 package org.gnome.gtk;
+
+import org.gnome.glib.Glib;
 
 /**
  * The GTK widget toolkit initialization and main loop entry point.
@@ -23,7 +25,7 @@ package org.gnome.gtk;
  * to use a static class GtkMain or whatever as none of these methods need
  * access to Plumbing.
  */
-public final class Gtk
+public final class Gtk extends Glib
 {
 
     private static final String APIVERSION = "4.0";
@@ -56,21 +58,27 @@ public final class Gtk
      */
     public static void init(String[] args) {
         if (initialized) {
-            return;
+            throw new IllegalStateException("Gtk already initialized");
         }
 
-        // Glib.init();
+        /*
+         * Notify org.gnome.glib.Glib that we don't need it to do anything
+         */
+        Glib.skipInit();
 
-        gtk_init(/* args */);
+        /*
+         * Initialize GTK and along with it GLib, GObject, etc.
+         */
+        gtk_init(args);
 
         initialized = true;
     }
 
-    private static native final void gtk_init(/* String[] args? */);
+    private static native final void gtk_init(String[] args);
 
     /**
      * This method blocks, ie, it does not return until the GTK main loop is
-     * terminated. If you wish to
+     * terminated.
      * <p>
      * You can nest calls to Gtk.main()! If you do, then calling
      * {@link #mainQuit() mainQuit()} will make the innermost invocation of
