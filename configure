@@ -295,7 +295,8 @@ sub check_runtime (\$$$$) {
 
 	my $output = `$program -version 2>&1`;
 	if (!(($output =~ /^java version \"1\.4\.2/i) ||
-	     ($output =~ /^java version \"1\.5\./i))) {
+	      ($output =~ /^java version \"1\.5\./i)  ||
+	      ($output =~ /^java version \"1\.6\./i))) {
 		output "not >= 1.4.2\n";
 		$$scalarref = "";
 		return
@@ -1250,9 +1251,12 @@ output "\n";
 
 # if gij isn't sufficient version, then knock out gcj
 if (!$gij) {
+	if ($gcj) {
+		output "Can't use GCJ, insufficiently recent version\n\n";
+	}
 	undef $gcjC;
 	undef $gcj;
-	output "Can't use GCJ, insufficiently recent version\n\n";
+	undef $gij;
 }
 
 print CONFIG <<HERE ;
