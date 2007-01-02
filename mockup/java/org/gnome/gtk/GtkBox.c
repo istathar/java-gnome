@@ -25,14 +25,14 @@ JNIEXPORT void JNICALL
 Java_org_gnome_gtk_GtkBox_gtk_1box_1pack_1start
   (JNIEnv *env, jclass cls, jlong _self, jlong _widget, jboolean _expand, jboolean _fill, jint _padding)
 {
-	GtkFixed* self;
+	GtkBox* self;
 	GtkWidget* widget;
 	gboolean expand;
 	gboolean fill;
 	guint padding;
 
 	// translate arg self
-	self = (GtkFixed*) _self;
+	self = (GtkBox*) _self;
 	
 	// translate arg widget
 	widget = (GtkWidget*) _widget;
