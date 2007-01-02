@@ -91,12 +91,12 @@ tmp/classes/%.properties: mockup/java/%.properties
 
 
 GTK_CFLAGS=$(shell pkg-config --cflags gthread-2.0) \
+		$(shell pkg-config --cflags glib-2.0) \
 		$(shell pkg-config --cflags gtk+-2.0)
-#		$(shell PKG_CONFIG_PATH=$(JAVAGNOME_HOME)/lib/pkgconfig pkg-config --cflags glib-java)
+
 GTK_LIBS=$(shell pkg-config --libs gthread-2.0) \
 		$(shell pkg-config --libs glib-2.0) \
 		$(shell pkg-config --libs gtk+-2.0)
-#		$(shell PKG_CONFIG_PATH=$(JAVAGNOME_HOME)/lib/pkgconfig pkg-config --variable jnilibs glib-java)
 
 
 ifdef V
@@ -117,11 +117,11 @@ tmp/include/%.h: src/jni/%.h
 # want to do one invocation, which means using $? (newer than target). It gets
 # more complicated because of the need to give classnames to javah.
 
-SOURCES_JNI=$(shell echo $(SOURCES_C) | sed -e 's/\.c/\.c\n/g' | grep org )
+SOURCES_JNI=$(shell find src/java -name '*.c') $(shell find mockup/java -name '*.c')
 build/headers-generate: $(SOURCES_JNI)
 	@echo "$(JAVAH_CMD) tmp/headers/*.h"
 	$(JAVAH) -jni -d tmp/include -classpath $(JAVAGNOME_JARS):tmp/classes \
-		$(shell echo $? | sed -e 's/src\/java\///g' -e 's/mockup\/java\///g' -e 's/\.c/\n/g' -e 's/\//\./g' | grep org )
+		$(shell echo $? | sed -e 's/src\/java\///g' -e 's/mockup\/java\///g' -e 's/\.c//g' -e 's/\//\./g' )
 	touch $@
 
 tmp/objects/%.o: src/jni/%.c
@@ -142,8 +142,7 @@ tmp/objects/%.o: mockup/java/%.c
 
 tmp/libgtkjni-$(APIVERSION).so: build/config build/headers $(OBJECTS_C)
 	@echo "$(LINK_CMD) $@"
-	$(LINK) -shared -fPIC -fjni \
-		-Wl,-rpath=$(JAVAGNOME_HOME)/lib \
+	$(LINK) -shared \
 		 $(GTK_LIBS) \
 		-o $@ $(OBJECTS_C)
 #	@echo "STRIP     $@"
