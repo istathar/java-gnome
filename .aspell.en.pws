@@ -1,4 +1,4 @@
-personal_ws-1.1 en 478 
+personal_ws-1.1 en 483 
 nativeName
 apache
 bjc
@@ -60,6 +60,7 @@ bzr
 ThrowNew
 gcj
 CVS
+createVBox
 gdk
 gchararray
 GtkTreeModel
@@ -144,11 +145,13 @@ args
 TextView
 blog
 jni
+GtkBox
 UINT
 typeMapping
 joe
 ListStore
 PressMe
+packStart
 TreeView's
 getPropertyFloat
 buildable
@@ -190,6 +193,7 @@ odt
 keybindings
 GClosureMarshall
 vsnprintf
+GtkVBox
 EDETACHED
 namespace
 VirtualHost
@@ -407,6 +411,7 @@ dialog
 nc
 GObject
 backticks
+packEnd
 NG
 center
 distclean
