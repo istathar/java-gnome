@@ -11,8 +11,10 @@
 
 import org.gnome.gtk.Button;
 import org.gnome.gtk.Gtk;
+import org.gnome.gtk.Label;
 import org.gnome.gtk.Object;
 import org.gnome.gtk.ReliefStyle;
+import org.gnome.gtk.VBox;
 import org.gnome.gtk.Widget;
 import org.gnome.gtk.Window;
 
@@ -27,16 +29,24 @@ public final class Experiment
 
     public static void main(String[] args) {
         final Window w;
+        final VBox x;
+        final Label l;
         final Button b;
 
         Gtk.init(args);
 
         w = new Window();
 
+        x = new VBox(false, 3);
+
+        l = new Label("These Buttons\n" + "are made for\n" + "clicking.");
+        x.packStart(l);
+
         b = new Button("Change Me?");
         b.setLabel("Press Me!");
+        x.packStart(b);
 
-        w.add(b);
+        w.add(x);
 
         w.setTitle("Exp");
         w.showAll();

@@ -211,7 +211,7 @@ test: build-java build/classes-test
 demo: build-java build/classes-test
 	@echo "$(JAVA_CMD) Experiment"
 	$(JAVA) \
-		-classpath tmp/gtk-$(APIVERSION).jar:tmp/tests \
+		-classpath tmp/tests:tmp/gtk-$(APIVERSION).jar \
 		-Djava.library.path=tmp \
 		-ea \
 		Experiment
