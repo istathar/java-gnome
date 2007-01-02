@@ -19,6 +19,19 @@ package org.gnome.gtk;
  * in common, being the height of a row, or the width of a column,
  * respectively.
  * 
+ * <p>
+ * Nested combinations of VBoxes and HBoxes are the cornerstone layout
+ * technique used in GTK. A top level VBox to organize a Window is followed by
+ * a sequence Widgets, many of which will end up being HBoxes, and each of
+ * those in turn might contain further Containers. This sort of thing gives
+ * you great flexibility when laying out your user interface.
+ * 
+ * <p>
+ * Boxes are also used to enable grouping of Widgets at very small scales as
+ * well. For example, the ok Button you see in every GNOME dialog is actually
+ * an Image holding the icon and a Label with the text "OK" packed into an
+ * HBox; the HBox is what was actually added to the Button!
+ * 
  * @author Andrew Cowie
  * @since 4.0.1
  */

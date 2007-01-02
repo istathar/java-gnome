@@ -1,4 +1,4 @@
-personal_ws-1.1 en 483 
+personal_ws-1.1 en 488 
 nativeName
 apache
 bjc
@@ -8,6 +8,7 @@ guint
 api
 denaturation
 gint
+HBoxes
 arg
 TreeView
 endif
@@ -59,9 +60,10 @@ IllegalArgumentException
 bzr
 ThrowNew
 gcj
-CVS
 createVBox
+CVS
 gdk
+GtkHBox
 gchararray
 GtkTreeModel
 IllegalStateException
@@ -168,8 +170,8 @@ GTK's
 gType
 registerConstant
 textwidth
-JamVM
 jamvm
+JamVM
 perl
 methodSignature
 GObjects
@@ -192,8 +194,8 @@ getName
 odt
 keybindings
 GClosureMarshall
-vsnprintf
 GtkVBox
+vsnprintf
 EDETACHED
 namespace
 VirtualHost
@@ -383,6 +385,7 @@ committer
 createButtonWithLabel
 onEvent
 eg
+StatusBar
 Solaris
 Davyd
 GC
@@ -415,6 +418,7 @@ packEnd
 NG
 center
 distclean
+createHBox
 QA
 ok
 InstantiationException
@@ -445,6 +449,7 @@ Libre
 un
 ArrayList
 VM
+VBoxes
 setRelief
 GtkBuilder
 Madeley
@@ -454,8 +459,8 @@ accessors
 loadLibrary
 IllegalAccessException
 DesignConstraints
-pygtk
 pyGTK
+pygtk
 strfreev
 libglade
 TreeStore
