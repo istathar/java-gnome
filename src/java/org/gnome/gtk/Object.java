@@ -14,7 +14,20 @@ package org.gnome.gtk;
 import org.gnome.gdk.Pixbuf;
 
 /**
+ * Base class for Widgets and various other elements in GTK.
+ * 
+ * <p>
  * <i><b>This is the wrapper around <code>GtkObject</code>!</b></i>
+ * 
+ * <p>
+ * <i>Since the GObject type system was abstracted out from GTK some time
+ * after GTK was first written, <code>GtkObject</code> predates
+ * <code>GObject</code>; almost all of the functionality originally
+ * resident in <code>GtkObject</code> was moved to <code>GObject</code>
+ * long ago. Its presence in the type hierarchy is largely for backwards
+ * compatibility, although it does add a few additional property accessors
+ * that are specific to GTK. Only people hacking on java-gnome itself will
+ * have any need to interact with this class, and then only rarely.</i>
  * 
  * @author Andrew Cowie
  * @since 4.0.0

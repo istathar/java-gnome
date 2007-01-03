@@ -53,7 +53,7 @@ use java-gnome as a library in your projects.</p>
 
 <h1>API Documentation</h1>
 
-<h2><a class="directory" href="api/">doc/api/</a></h2>
+<h2><a class="directory" href="api/overview-summary.html">doc/api/</a></h2>
 
 <p>We have put considerable effort into ensuring the java-gnome bindings are
 easily usable for people using IDEs like Eclipse, and a big part of that is
