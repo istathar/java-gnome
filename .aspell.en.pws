@@ -172,8 +172,8 @@ GTK's
 gType
 registerConstant
 textwidth
-jamvm
 JamVM
+jamvm
 perl
 methodSignature
 GObjects
@@ -465,8 +465,8 @@ accessors
 loadLibrary
 IllegalAccessException
 DesignConstraints
-pyGTK
 pygtk
+pyGTK
 strfreev
 libglade
 TreeStore
