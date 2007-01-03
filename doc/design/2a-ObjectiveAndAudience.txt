@@ -153,8 +153,8 @@ So we don't have to try and be all things to all people, which frees us up
 nicely to concentrate on doing a good job of being a Java binding to GTK,
 Cairo, and the GNOME libraries.
 
-Which leads us to the question of how we can best do that. Design constraints
-will be the subject of the next document.
+Which leads us to the question of how we can best do that. [Design
+constraints](2b-DesignConstraints.html) are the subject of the next document.
 
 AfC   
 
