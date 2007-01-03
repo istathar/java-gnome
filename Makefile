@@ -243,6 +243,7 @@ doc: build/classes-dist
 		-header "java-gnome version $(VERSION)" \
 		-footer "<img src=\"/images/java-gnome_JavaDocLogo.png\" style=\"padding-right:25px;\"><br> <span style=\"font-family: Arial; font-style: normal; font-size: large;\">java-gnome</span>" \
 		-breakiterator \
+		-overview src/java/overview.html \
 		-sourcepath src/java \
 		-subpackages org \
 		-exclude "org.freedesktop.bindings" \
