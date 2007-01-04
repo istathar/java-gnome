@@ -75,9 +75,14 @@ sub output {
 
 sub which {
 	my $program = shift;
-	my $ret = `which $program 2>/dev/null`;
-	chomp $ret;
-	return $ret;
+	my $path = $ENV{'PATH'};
+	my @path_dirs = split /:+/, $path;
+	foreach my $dir (@path_dirs) {
+		if (-f "$dir/$program") {
+			return "$dir/$program";
+		}
+	}
+	return $program;
 }
 
 sub bail {
@@ -293,7 +298,7 @@ sub check_runtime (\$$$$) {
 		return;
 	}
 
-	my $output = `$program -version 2>&1`;
+	my $output = `$program -version 2>&1 | grep '^java version'`;
 	if (!(($output =~ /^java version \"1\.4\.2/i) ||
 	      ($output =~ /^java version \"1\.5\./i)  ||
 	      ($output =~ /^java version \"1\.6\./i))) {
