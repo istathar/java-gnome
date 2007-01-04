@@ -1,0 +1,204 @@
+NEWS
+
+java-gnome 4.0.1 (05 Jan 2007)
+==============================
+
+It's not really a prototype anymore! the design works, and so the code that is
+here is forming the foundation of the new Java bindings for GTK and GNOME.
+While there are some significant pieces of engineering that are yet to be
+done, and of course a universe of coverage yet to write, we're pleased to mark
+the milestone of the prototype having proved itself to be stable and the
+strong foundation that we need. In this release:
+
+Project documentation
+---------------------
+
+Import project documentation, initially consisting of the re-engineering
+emails written by Andrew Cowie to the java-gnome-hackers mailing list, and
+expanded to include top level [`README`](README.html) and
+[`HACKING`](HACKING.html) files, and a style guide for contributors to follow.
+All documentation [re]formatted in Markdown syntax so as to be renderable to
+web pages. See [`doc/design/`](doc/design/README.html) and
+[`doc/style/`](doc/style/).
+
+Project website
+---------------
+
+Create an entirely new website for <http://java-gnome.sourceforge.net/>,
+introducing sections "[About](/4.0/)", "[Documentation](/4.0/doc/)",
+"[Download](/4.0/get/)" and "[Interact](/4.0/lists/)" to discuss the the
+project as a whole, to be a home for the documentation, to provide
+instructions on how to get java-gnome, and information about the mailing lists
+and IRC channel, respectively. Also include a page thanking the previous
+generations of maintainers for their hard work and noting that the
+[2.x](/2.x/) bindings have been unmaintained for some time now and are
+formally deprecated.
+
+The website is no longer a wiki but is entirely within the source code of
+java-gnome itself. See the `web/public/` directory; improvements welcome.
+
+Major engineering
+-----------------
+
+Quite significantly, the infrastructure to get a Proxy or Constant instance
+for any arbitrary C side pointer or enum is complete, involving _significant_
+work to:
+
+ * `org.freedestkop.bindings.Plumbing`
+ * **`org.freedestkop.bindings.Proxy`**
+ * **`org.freedestkop.bindings.Constant`**
+ * `org.gnome.glib.Plumbing`
+ * **`org.gnome.glib.Value`**
+ * `org.gnome.glib.GValue`
+ * `org.gnome.glib.Fundamental`
+ * **`org.gnome.glib.Object`**
+
+Along with the corresponding C side code, especially in `GValue.c`
+
+This was a necessary building block in order to complete the generalized
+`getProperty()` mechanism that, while hidden from public view, is nevertheless
+a major aspect of the GObject tool chest and is usable by bindings hackers
+when necessary. The generalized instance mechanism was the last major
+engineering hurdle that needed to be achieved to prove the new bindings
+design.
+
+New coverage
+------------
+
+* **`org.gnome.gtk.Label`**
+* **`org.gnome.gtk.Fixed`**
+* **`org.gnome.gtk.Box`**
+* **`org.gnome.gtk.VBox`**
+* **`org.gnome.gtk.HBox`**
+
+Along with
+
+* _`org.gnome.gtk.GtkLabel`_
+* _`org.gnome.gtk.GtkFixed`_
+* _`org.gnome.gtk.GtkBox`_
+* _`org.gnome.gtk.GtkVBox`_
+* _`org.gnome.gtk.GtkHBox`_
+
+And corresponding [working] mockup native code.
+
+Compliments to Srichand Pendyala from Bangalore, India for being the first
+external hacker to have a patch accepted to mainline! He contributed methods
+to Label and initiated the implementation of the Fixed class. In so doing, he
+also helped work the bugs out of the `bzr bundle` submission process. Awesome.
+
+Build improvements
+------------------
+
+java-gnome now builds on Ubuntu and OpenSolaris in addition to its home turf
+of Gentoo. Thanks to John Rice of Sun Microsystems who provided the guidance
+allowing us to port Equivalence to Solaris some months ago, and Laszlo Peter,
+also of Sun Ireland, for several fixes to allow configure to recognize a wider
+range of environments.
+
+The example program that has been there all along is now built by the build
+system if you so request so you can see what I'm seeing; try `make demo`.
+
+API documentation
+-----------------
+
+Extensive attention has been paid to the JavaDoc for the few methods that are
+presented so as to clearly set the standard required. The canonical JavaDoc
+for the project is available at the website and can be linked to.
+
+All source code [comments, ie JavaDoc] have been spell checked! Initial top
+level `overview.html` and `package.html` files have also been written to help
+round out the JavaDoc.
+
+AfC
+
+
+java-gnome 4.0.0 (26 Nov 2006)
+==============================
+ 
+Initial release of the java-gnome 4.0 prototype, corresponding to the first
+public demonstration of the new bindings done at
+[foss.in/2006](http://foss.in/2006/) at Bangalore, India.
+
+The prototype is fully functional and is intended to prove the design and
+architecture we have arrived at as a result of the re-engineering process. It
+includes both real wrapper layer classes that are the seed from which our
+public API will grow, along with the infrastructure that the wrapper layer
+depends on.
+
+Initial coverage
+----------------
+
+Wrapper layer presenting the public API to developers (publicly visible
+classes in bold):
+
+* **`org.freedesktop.bindings.Proxy`**
+* **`org.gnome.glib.Value`**
+* **`org.gnome.glib.Object`**
+* **`org.gnome.gtk.Object`**
+* **`org.gnome.gtk.Widget`**
+* **`org.gnome.gtk.Container`**
+* **`org.gnome.gtk.Bin`**
+* **`org.gnome.gtk.Button`**
+* **`org.gnome.gtk.Window`**
+
+Along with complete translation layer implementations for each:
+
+* `org.freedesktop.bindings.Plumbing`
+* `org.gnome.glib.Plumbing`
+* `org.gnome.glib.GValue`
+* `org.gnome.glib.GObject`
+* `org.gnome.gtk.GtkObject`
+* _`org.gnome.gtk.GtkWidget`_
+* _`org.gnome.gtk.GtkContainer`_
+* _`org.gnome.gtk.GtkBin`_
+* _`org.gnome.gtk.GtkButton`_
+* _`org.gnome.gtk.GtkWindow`_
+
+At present the bindings mock up the code that will be generated with
+temporarily hand written substitutes (ie, those in italics above) for both
+translation (Java) and native (C) layers. These will do until we receive the
+funding to make the code generator a reality; we certainly don't want to be
+writing much more translation layer Java and C code by hand. Yuk.
+
+
+Signal API
+----------
+
+The defining aspect of GUI programming is, of course, that it is event driven.
+In addition to the "forward" direction of making calls to the native library
+and having return values bubble back up, there is the "reverse" direction of
+connecting callback handlers to the various signals that different Widgets
+offer, and having those signal events result in those handlers being invoked.
+
+java-gnome 4.0 has an entirely new and redesigned signal connection and
+callback API. This functionality was demonstrated, and coverage of
+**`Button.CLICKED`** and **`Window.DELETE`** is now present and functional!
+The APIs used by GNOME language bindings to achieve this are some of the most
+voodoo I have ever seen. But it's hooked up, and it works. It's like black
+magic :)
+
+Build
+-----
+
+java-gnome is configured and built using Andrew Cowie's Equivalence build
+scripts. It builds on Gentoo and should build on a Debian or Fedora derived
+system as well. See [`README`](README.html) for further details.
+
+At the moment, java-gnome is a single source package.
+
+The source code is available via `bzr`. Again, see `README`.
+
+AfC
+
+<!--
+
+  Copyright (c) 2007 Operational Dynamics Consulting Pty Ltd 
+
+  As project documentation, this file forms an integral part of the source
+  code of the library it accompanies, and thus is made available to you by the
+  authors under the terms of the "GNU General Public Licence, version 2". See
+  the LICENCE file for the terms governing usage, copying and redistribution.
+
+  vim: set textwidth=78 nowrap:
+
+-->
