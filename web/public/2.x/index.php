@@ -73,7 +73,7 @@ java-gnome <code>2.16.1</code> is the most recent, and likely last, release of
 the <code>2.</code><span class="x">x</span> series. It consists of the
 following libraries:
 
-<pre>
+<pre style="background-color: white;">
 	<a style="text-decoration: none;" href="http://ftp.gnome.org/pub/gnome/sources/glib-java/0.4/glib-java-0.4.1.tar.bz2">glib-java     0.4.1</a>
 	<a style="text-decoration: none;" href="http://ftp.gnome.org/pub/gnome/sources/cairo-java/1.0/cairo-java-1.0.6.tar.bz2">cairo-java    1.0.6</a>
 	<a style="text-decoration: none;" href="http://ftp.gnome.org/pub/gnome/sources/libgtk-java/2.10/libgtk-java-2.10.1.tar.bz2">libgtk-java   2.10.1</a>
@@ -99,7 +99,7 @@ family; none of them achieved release quality, were abandoned as early as
 java-gnome 2.8, and probably don't build anyway. As such you are strongly
 discouraged from trying to use them:</p>
 
-<pre>
+<pre style="background-color: white;">
 	<a style="text-decoration: none;" href="http://ftp.gnome.org/pub/gnome/sources/libeds-java/0.5/libeds-java-0.5.1.tar.bz2">libeds-java   0.5.1</a>
 	<a style="text-decoration: none;" href="null://">libbonobo-java</a>
 	<a style="text-decoration: none;" href="null://">libgtkhtml-java</a>
