@@ -87,7 +87,7 @@ you're working on. In PHP it is as simple as:
 
 An example is included in the source code as [`view.php`][view].
 
-[view]: http://research.operationaldynamics.com/bzr/mainline/web/view.php
+[view]: http://research.operationaldynamics.com/bzr/java-gnome/mainline/web/local/view.php
 
 
 _Last modified 7 Dec 06_
