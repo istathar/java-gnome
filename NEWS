@@ -1,10 +1,13 @@
 NEWS
 
+<a name="4.0.1" id="1167969613" title="Prototype becomes foundation"></a>
+
 java-gnome 4.0.1 (05 Jan 2007)
 ==============================
 
-It's not really a prototype anymore! the design works, and so the code that is
-here is forming the foundation of the new Java bindings for GTK and GNOME.
+_It's not really a prototype anymore! the design works, and so the code that
+is here is forming the foundation of the new Java bindings for GTK and GNOME._
+
 While there are some significant pieces of engineering that are yet to be
 done, and of course a universe of coverage yet to write, we're pleased to mark
 the milestone of the prototype having proved itself to be stable and the
@@ -59,8 +62,8 @@ This was a necessary building block in order to complete the generalized
 `getProperty()` mechanism that, while hidden from public view, is nevertheless
 a major aspect of the GObject tool chest and is usable by bindings hackers
 when necessary. The generalized instance mechanism was the last major
-engineering hurdle that needed to be achieved to prove the new bindings
-design.
+engineering hurdle that needed to be achieved in order to prove the new
+bindings design.
 
 New coverage
 ------------
@@ -93,17 +96,19 @@ java-gnome now builds on Ubuntu and OpenSolaris in addition to its home turf
 of Gentoo. Thanks to John Rice of Sun Microsystems who provided the guidance
 allowing us to port Equivalence to Solaris some months ago, and Laszlo Peter,
 also of Sun Ireland, for several fixes to allow configure to recognize a wider
-range of environments.
+range of Solaris environments.
 
-The example program that has been there all along is now built by the build
-system if you so request so you can see what I'm seeing; try `make demo`.
+The tiny example program that we have been using to validate the code,
+`Experiment` is now compiled by the build system if you so request. Try `make
+demo`.
 
 API documentation
 -----------------
 
 Extensive attention has been paid to the JavaDoc for the few methods that are
 presented so as to clearly set the standard required. The canonical JavaDoc
-for the project is available at the website and can be linked to.
+for the project is available at the website with a stable URL and can be
+linked to.
 
 All source code [comments, ie JavaDoc] have been spell checked! Initial top
 level `overview.html` and `package.html` files have also been written to help
@@ -112,12 +117,14 @@ round out the JavaDoc.
 AfC
 
 
+<a name="4.0.0" id="1164533400" title="First public demonstration"></a>
+
 java-gnome 4.0.0 (26 Nov 2006)
 ==============================
  
-Initial release of the java-gnome 4.0 prototype, corresponding to the first
+_Initial release of the java-gnome 4.0 prototype, corresponding to the first
 public demonstration of the new bindings done at
-[foss.in/2006](http://foss.in/2006/) at Bangalore, India.
+[foss.in/2006](http://foss.in/2006/) at Bangalore, India._
 
 The prototype is fully functional and is intended to prove the design and
 architecture we have arrived at as a result of the re-engineering process. It
