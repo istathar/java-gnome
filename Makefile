@@ -258,9 +258,15 @@ doc: build/classes-dist
 dist: all
 	@echo "CHECK     fully committed state"
 	bzr diff > /dev/null || ( echo -e "\nYou need to commit all changes before running make dist\n" ; exit 4 )
-	@echo "EXPORT    java-gnome-$(VERSION).tar.bz2"
-	bzr export java-gnome-$(VERSION).tar.bz2
-
+	@echo "EXPORT    tmp/java-gnome-$(VERSION)"
+	-rm -rf tmp/java-gnome-$(VERSION)
+	bzr export --format=dir tmp/java-gnome-$(VERSION)
+	@echo "RM        non essential files"
+	rm -r tmp/java-gnome-$(VERSION)/web
+	rm    tmp/java-gnome-$(VERSION)/.aspell.en.pws
+	@echo "TAR       java-gnome-$(VERSION).tar.bz2"
+	tar cjf java-gnome-$(VERSION).tar.bz2 -C tmp java-gnome-$(VERSION)
+	rm -r tmp/java-gnome-$(VERSION)
 
 clean:
 	@echo "RM        temporary files"
