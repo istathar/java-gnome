@@ -30,7 +30,7 @@ public final class Gtk extends Glib
 
     private static final String APIVERSION = "4.0";
 
-    static final String VERSION = "4.0.1";
+    static final String VERSION = "4.0.2";
 
     static {
         System.loadLibrary("gtkjni-" + APIVERSION);
