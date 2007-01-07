@@ -501,6 +501,23 @@ foreach my $arg (@ARGV) {
 
 	if ($key eq "quiet") {
 		$quiet = 1;
+	} elsif (($key =~ /^-\?$/) ||
+		 ($key =~ /^-h$/) ||
+		 ($key =~ /^--help$/) ||
+		 ($key =~ /^-help$/) ||
+		 ($key =~ /^help$/)) {
+		print <<HERE ;
+
+This is Equivalence, a simple build system suited to the
+unique needs of configuring and compiling Java programs on
+Linux and Unix.
+
+Look at the README file in this directory for information
+about this project and instructions on how to adjust the
+./configure script's behaviour.
+
+HERE
+		exit 4;
 	} elsif ($key =~ /^runtime/) {
 		$runtime="$value";
 	} elsif ($key =~ /^compiler/) {
