@@ -142,8 +142,7 @@ public class Button extends Bin
      * 
      * <p>
      * You can of course create a subclass of Button.CLICKED and then use
-     * instances of it if you have highly complicated algorithms to
-     * implement.
+     * instances of it if you have highly complicated algorithms to implement.
      * 
      * <p>
      * If you implement Button.CLICKED in the class you're currently working
