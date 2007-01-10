@@ -69,18 +69,18 @@ and GNOME. We owe them a debt of gratitude.</p>
 
 <h2>Latest Releases</h2>
 
-java-gnome <code>2.16.1</code> is the most recent, and likely last, release of
+java-gnome <code>2.16.2</code> is the most recent, and likely last, release of
 the <code>2.</code><span class="x">x</span> series. It consists of the
 following libraries:
 
-<pre>
-	<a style="text-decoration: none;" href="http://ftp.gnome.org/pub/gnome/sources/glib-java/0.4/glib-java-0.4.1.tar.bz2">glib-java     0.4.1</a>
-	<a style="text-decoration: none;" href="http://ftp.gnome.org/pub/gnome/sources/cairo-java/1.0/cairo-java-1.0.6.tar.bz2">cairo-java    1.0.6</a>
-	<a style="text-decoration: none;" href="http://ftp.gnome.org/pub/gnome/sources/libgtk-java/2.10/libgtk-java-2.10.1.tar.bz2">libgtk-java   2.10.1</a>
-	<a style="text-decoration: none;" href="http://ftp.gnome.org/pub/gnome/sources/libglade-java/2.12/libglade-java-2.12.7.tar.bz2">libglade-java 2.12.7</a>
-	<a style="text-decoration: none;" href="http://ftp.gnome.org/pub/gnome/sources/libgnome-java/2.12/libgnome-java-2.12.6.tar.bz2">libgnome-java 2.12.6</a>
-	<a style="text-decoration: none;" href="http://ftp.gnome.org/pub/gnome/sources/libgconf-java/2.12/libgconf-java-2.12.5.tar.bz2">libgconf-java 2.12.5</a>
-	<a style="text-decoration: none;" href="http://ftp.gnome.org/pub/gnome/sources/libvte-java/0.12/libvte-java-0.12.2.tar.bz2">libvte-java   0.12.2</a>
+<pre style="background-color: white;">
+	<a style="text-decoration: none;" href="http://ftp.gnome.org/pub/gnome/sources/glib-java/0.4/glib-java-0.4.2.tar.bz2">glib-java     0.4.2</a>
+	<a style="text-decoration: none;" href="http://ftp.gnome.org/pub/gnome/sources/cairo-java/1.0/cairo-java-1.0.7.tar.bz2">cairo-java    1.0.7</a>
+	<a style="text-decoration: none;" href="http://ftp.gnome.org/pub/gnome/sources/libgtk-java/2.10/libgtk-java-2.10.2.tar.bz2">libgtk-java   2.10.2</a>
+	<a style="text-decoration: none;" href="http://ftp.gnome.org/pub/gnome/sources/libgnome-java/2.12/libgnome-java-2.12.7.tar.bz2">libgnome-java 2.12.7</a>
+	<a style="text-decoration: none;" href="http://ftp.gnome.org/pub/gnome/sources/libglade-java/2.12/libglade-java-2.12.8.tar.bz2">libglade-java 2.12.8</a>
+	<a style="text-decoration: none;" href="http://ftp.gnome.org/pub/gnome/sources/libgconf-java/2.12/libgconf-java-2.12.6.tar.bz2">libgconf-java 2.12.6</a>
+	<a style="text-decoration: none;" href="http://ftp.gnome.org/pub/gnome/sources/libvte-java/0.12/libvte-java-0.12.3.tar.bz2">libvte-java   0.12.3</a>
 </pre>
 
 <p>There is little reason to start a new project in java-gnome 2.<span
@@ -89,7 +89,7 @@ bindings, the you are advised to upgrade to the latest versions of these
 libraries available, as they contain bug fixes of considerable importance.
 
 <p>From this point forward, however, each of the packages making up java-gnome
-<code>2.16.1</code> have been declared end-of-life and the APIs used have been
+<code>2.16.2</code> have been declared end-of-life and the APIs used have been
 formally deprecated. It is no longer being actively maintained by anyone from
 the previous or present java-gnome teams. Contributed patches will only be
 applied if they address a serious security vulnerability.</p>
@@ -99,7 +99,7 @@ family; none of them achieved release quality, were abandoned as early as
 java-gnome 2.8, and probably don't build anyway. As such you are strongly
 discouraged from trying to use them:</p>
 
-<pre>
+<pre style="background-color: white;">
 	<a style="text-decoration: none;" href="http://ftp.gnome.org/pub/gnome/sources/libeds-java/0.5/libeds-java-0.5.1.tar.bz2">libeds-java   0.5.1</a>
 	<a style="text-decoration: none;" href="null://">libbonobo-java</a>
 	<a style="text-decoration: none;" href="null://">libgtkhtml-java</a>
