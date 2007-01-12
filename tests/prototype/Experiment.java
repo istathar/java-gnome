@@ -10,6 +10,7 @@
  */
 
 import org.gnome.gtk.Button;
+import org.gnome.gtk.FileChooser;
 import org.gnome.gtk.FileChooserAction;
 import org.gnome.gtk.FileChooserButton;
 import org.gnome.gtk.Gtk;
@@ -51,7 +52,7 @@ public final class Experiment
 
         fcb = new FileChooserButton("Good to get, a file is", FileChooserAction.OPEN);
         x.packStart(fcb, false, false, 0);
-        
+
         w.add(x);
 
         w.setTitle("Exp");
@@ -68,6 +69,12 @@ public final class Experiment
                 System.out.println("I was deleted!");
                 Gtk.mainQuit();
                 return false;
+            }
+        });
+
+        fcb.connect(new FileChooser.SELECTION_CHANGED() {
+            public void onSelectionChanged(FileChooser source) {
+                System.out.println("Seems like you've selected " + source.getFilename());
             }
         });
 

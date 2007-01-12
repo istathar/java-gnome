@@ -31,7 +31,7 @@ package org.gnome.gtk;
  * @see FileChooserWidget
  * @see FileChooserDialog
  */
-public class FileChooserButton extends HBox
+public class FileChooserButton extends HBox implements FileChooser
 {
     protected FileChooserButton(long pointer) {
         super(pointer);
@@ -53,5 +53,13 @@ public class FileChooserButton extends HBox
      */
     public FileChooserButton(String title, FileChooserAction action) {
         super(GtkFileChooserButton.createFileChooserButon(title, action));
+    }
+
+    public String getFilename() {
+        return GtkFileChooser.getFilename(this);
+    }
+    
+    public void connect(SELECTION_CHANGED handler) {
+        GtkFileChooser.connect(this, handler);
     }
 }
