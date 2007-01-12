@@ -11,16 +11,14 @@
  */
 package org.gnome.glade;
 
-import java.io.FileNotFoundException;
-
 import org.gnome.glib.Object;
+import org.gnome.gtk.Widget;
 
 /**
  * This class proxies the internal representation used by
  * <code>libglade</code> to represent the processed <code>.glade</code>
- * XML data as transformed into live Widgets in . Ideally we wouldn't expose
- * such a thing, but it turns out that the library's power is accessed care of
- * methods on this Object.
+ * XML data. Ideally we wouldn't expose such a thing, but it turns out that
+ * the library's power is accessed care of methods on this Object.
  * 
  * <p>
  * <i>There comes a point when the underlying mapping becomes a bit
@@ -39,9 +37,17 @@ public class Xml extends Object
     }
 
     /**
-     * Creates a new Glade widget tree.
+     * Creates a new Glade widget tree. This is internal as we provide the
+     * {@link org.gnome.glade.Glade} convenience class to wrap this.
      */
-    public Xml(String filename, String root) throws FileNotFoundException {
+    Xml(String filename, String root) {
         super(GladeXml.createGladeXml(filename, root));
+    }
+    
+    /**
+     * Get the Widget corresponding to the given name.
+     */
+    public Widget getWidget(String name) {
+        return GladeXml.getWidget(this, name);
     }
 }
