@@ -92,11 +92,13 @@ tmp/classes/%.properties: mockup/java/%.properties
 
 GTK_CFLAGS=$(shell pkg-config --cflags gthread-2.0) \
 		$(shell pkg-config --cflags glib-2.0) \
-		$(shell pkg-config --cflags gtk+-2.0)
+		$(shell pkg-config --cflags gtk+-2.0) \
+		$(shell pkg-config --cflags libglade-2.0)
 
 GTK_LIBS=$(shell pkg-config --libs gthread-2.0) \
 		$(shell pkg-config --libs glib-2.0) \
-		$(shell pkg-config --libs gtk+-2.0)
+		$(shell pkg-config --libs gtk+-2.0) \
+		$(shell pkg-config --libs libglade-2.0)
 
 
 ifdef V
