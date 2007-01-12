@@ -10,6 +10,8 @@
  */
 
 import org.gnome.gtk.Button;
+import org.gnome.gtk.FileChooserAction;
+import org.gnome.gtk.FileChooserButton;
 import org.gnome.gtk.Gtk;
 import org.gnome.gtk.Label;
 import org.gnome.gtk.Object;
@@ -32,6 +34,7 @@ public final class Experiment
         final VBox x;
         final Label l;
         final Button b;
+        final FileChooserButton fcb;
 
         Gtk.init(args);
 
@@ -46,6 +49,9 @@ public final class Experiment
         b.setLabel("Press Me!");
         x.packStart(b);
 
+        fcb = new FileChooserButton("Good to get, a file is", FileChooserAction.OPEN);
+        x.packStart(fcb, false, false, 0);
+        
         w.add(x);
 
         w.setTitle("Exp");
