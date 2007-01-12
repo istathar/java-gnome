@@ -31,6 +31,12 @@ final class GtkFileChooser extends Plumbing
 
     private static native final String gtk_file_chooser_get_filename(long chooser);
 
+    static final String getUri(FileChooser self) {
+        return gtk_file_chooser_get_uri(pointerOf((Proxy) self));
+    }
+
+    private static native final String gtk_file_chooser_get_uri(long chooser);
+
     interface FILE_ACTIVATED extends Signal
     {
         void onFileActivated(FileChooser source);

@@ -39,3 +39,22 @@ Java_org_gnome_gtk_GtkFileChooser_gtk_1file_1chooser_1get_1filename
 	// return result
 	return (jstring) (*env)->NewStringUTF(env, result);
 }
+
+JNIEXPORT jstring JNICALL
+Java_org_gnome_gtk_GtkFileChooser_gtk_1file_1chooser_1get_1uri
+  (JNIEnv *env, jclass cls, jlong _chooser)
+{
+	GtkFileChooser* chooser;
+	const gchar* result;
+	
+	// translate arg chooser
+	chooser = (GtkFileChooser*) _chooser;
+	
+	// call constructor
+	result = gtk_file_chooser_get_uri(chooser);
+
+	// cleanup arg chooser
+	
+	// return result
+	return (jstring) (*env)->NewStringUTF(env, result);
+}

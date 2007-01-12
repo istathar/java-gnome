@@ -11,6 +11,8 @@
  */
 package org.gnome.gtk;
 
+import java.net.URI;
+
 /**
  * Displays a filename and a Button which, if pressed, opens a
  * FileChooserDialog allowing the user to select the file.
@@ -58,7 +60,20 @@ public class FileChooserButton extends HBox implements FileChooser
     public String getFilename() {
         return GtkFileChooser.getFilename(this);
     }
-    
+
+    /*
+     * Changes to this implementation need to be dittoed in FileChooserDialog
+     * and FileChooserWidget!
+     */
+    public URI getURI() {
+        String uri = GtkFileChooser.getUri(this);
+        if (uri != null) {
+            return URI.create(uri);
+        } else {
+            return null;
+        }
+    }
+
     public void connect(SELECTION_CHANGED handler) {
         GtkFileChooser.connect(this, handler);
     }
