@@ -1,7 +1,7 @@
 /*
  * GValue.c
  *
- * Copyright (c) 2006 Operational Dynamics Consulting Pty Ltd
+ * Copyright (c) 2006-2007 Operational Dynamics Consulting Pty Ltd
  * 
  * The code in this file, and the library it is a part of, are made available
  * to you by the authors under the terms of the "GNU General Public Licence,
@@ -33,18 +33,34 @@ Java_org_gnome_glib_GValue_g_1type_1name
 )
 {
 	GValue* value;
+	GObject* object;
+	void* thing;
 	const gchar* name;
 
 	// translate value and verify
-	value =	(GValue*) _value;
-	if (!G_IS_VALUE(value)) {
-		bindings_java_throw(env, "You're trying to look up the GType name of something that is not a GValue?!?");
-		return NULL;
-	}
-		
-	name = g_type_name(G_VALUE_TYPE(value));
 	
-	return (*env)->NewStringUTF(env, name);
+	object = (GObject*) _value;
+	value = (GValue*) _value;
+	thing = (void*) _value;		
+	
+	if (G_IS_OBJECT(object)) {
+		name = g_type_name(G_TYPE_FROM_INSTANCE(object));
+//		g_debug("GObject g_type_name(%ld): %s", (long) G_OBJECT_TYPE(object), name);
+	} else if (G_IS_VALUE(value)) {
+		name = g_type_name(G_VALUE_TYPE(value));
+//		g_debug("GValue  g_type_name(%ld): %s", (long) G_VALUE_TYPE(value), name);
+	} else {
+		g_warning("Reached a G pointer that we don't explicity know how to get the name of.");
+		thing = (void*) _value;
+		name = g_type_name(G_TYPE_FROM_INSTANCE(thing));
+//		g_debug("Unknown g_type_name( unknown ): %s", name);
+	}
+
+	if (name == NULL) {
+		return (*env)->NewStringUTF(env, "\0");
+	} else {
+		return (*env)->NewStringUTF(env, name);
+	}
 }
 
 

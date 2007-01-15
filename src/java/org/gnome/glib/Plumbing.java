@@ -175,6 +175,10 @@ public abstract class Plumbing extends org.freedesktop.bindings.Plumbing
              */
             name = GValue.g_type_name(pointer).intern();
 
+            if (name.equals("")) {
+                throw new IllegalStateException("\nGType name lookup failed");
+            }
+
             /*
              * First we handle the usual case of getting the instance for a
              * Proxy subclass. That is the case when the Constructor in the
@@ -225,7 +229,7 @@ public abstract class Plumbing extends org.freedesktop.bindings.Plumbing
              * don't have any information about this native type and how to
              * map it to Java. So,
              */
-            throw new UnsupportedOperationException("No binding for " + name + " (yet)");
+            throw new UnsupportedOperationException("\nNo binding for " + name + " (yet)");
         }
     }
 
