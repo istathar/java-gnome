@@ -18,6 +18,7 @@
 package org.gnome.glade;
 
 import org.gnome.glib.Plumbing;
+import org.gnome.gtk.Widget;
 
 final class GladeXml extends Plumbing
 {
@@ -28,4 +29,10 @@ final class GladeXml extends Plumbing
     }
 
     private static native final long glade_xml_new(String filename, String root);
+
+    static final Widget getWidget(Xml self, String name) {
+        return (Widget) instanceFor(glade_xml_get_widget(pointerOf(self), name));
+    }
+
+    private static native final long glade_xml_get_widget(long xml, String name);
 }

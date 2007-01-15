@@ -17,6 +17,7 @@
  */
 
 #include <jni.h>
+#include <gtk/gtk.h>
 #include <glade/glade.h>
 
 #include "org_gnome_glade_GladeXml.h"
@@ -57,4 +58,36 @@ Java_org_gnome_glade_GladeXml_glade_1xml_1new
 
 	// return pointer
 	return (jlong) xml;
+}
+
+JNIEXPORT jlong JNICALL
+Java_org_gnome_glade_GladeXml_glade_1xml_1get_1widget
+(
+	JNIEnv *env,
+	jclass cls,
+	jlong _self,
+	jstring _name
+)
+{
+	GladeXML* self;
+	const gchar* name;
+	GtkWidget* result;
+
+	// translate arg self
+	self = (GladeXML*) _self;
+	
+	// translate arg name
+	name = (const gchar*) (*env)->GetStringUTFChars(env, _name, NULL);
+	if (name == NULL) {
+		return 0; /* OutOfMemoryError already thrown */
+	}
+	
+	// call function
+	result = glade_xml_get_widget(self, name);
+
+	// cleanup arg name
+	(*env)->ReleaseStringUTFChars(env, _name, name);
+
+	// return pointer
+	return (jlong) result;
 }
