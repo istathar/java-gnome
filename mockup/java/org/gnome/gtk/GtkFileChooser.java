@@ -37,6 +37,18 @@ final class GtkFileChooser extends Plumbing
 
     private static native final String gtk_file_chooser_get_uri(long chooser);
 
+    static final boolean setCurrentFolder(FileChooser self, String filename) {
+        return gtk_file_chooser_set_current_folder(pointerOf((Proxy) self), filename);
+    }
+    
+    private static native final boolean gtk_file_chooser_set_current_folder(long chooser, String filename);
+    
+    static final String getCurrentFolder(FileChooser self) {
+        return gtk_file_chooser_get_current_folder(pointerOf((Proxy) self));
+    }
+    
+    private static native final String gtk_file_chooser_get_current_folder(long chooser);
+    
     interface FILE_ACTIVATED extends Signal
     {
         void onFileActivated(FileChooser source);

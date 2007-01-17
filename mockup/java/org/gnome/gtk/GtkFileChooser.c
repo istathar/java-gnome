@@ -58,3 +58,32 @@ Java_org_gnome_gtk_GtkFileChooser_gtk_1file_1chooser_1get_1uri
 	// return result
 	return (jstring) (*env)->NewStringUTF(env, result);
 }
+
+JNIEXPORT jboolean JNICALL
+Java_org_gnome_gtk_GtkFileChooser_gtk_1file_1chooser_1set_1current_1folder
+  (JNIEnv *env, jclass cls, jlong _chooser, jstring _filename)
+{
+	GtkFileChooser* chooser;
+	gchar* filename;
+	gboolean result;
+	
+	// translate arg chooser
+	chooser = (GtkFileChooser*) _chooser;
+
+	// translate arg filename
+	filename = (gchar*) (*env)->GetStringUTFChars(env, _filename, NULL);
+	if (filename == NULL) {
+		return 0; /* OutOfMemoryError already thrown */
+	}
+
+	// call function
+	result = gtk_file_chooser_set_current_folder(chooser, filename);
+
+	// cleanup arg chooser
+	
+	// cleanup arg filename
+	(*env)->ReleaseStringUTFChars(env, _filename, filename);
+
+	// return result
+	return (jboolean) result;
+}
