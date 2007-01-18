@@ -34,6 +34,11 @@ final class GValue extends Plumbing
         return g_value_init(str);
     }
 
+    static final long createValue(Object obj) {
+        return g_value_init(pointerOf(obj));
+    }
+
+    
     /*
      * These ones does not match the exact prototype of g_value_init() [which
      * is (GValue*, GType)]; we do the type system magic on the other side
@@ -46,6 +51,8 @@ final class GValue extends Plumbing
     private static native final long g_value_init(boolean b);
 
     private static native final long g_value_init(String str);
+    
+    private static native final long g_value_init(long obj);
 
     static final String getString(StringValue value) {
         return g_value_get_string(pointerOf(value));
@@ -60,21 +67,29 @@ final class GValue extends Plumbing
 
     private static native final int g_value_get_enum(long value);
 
+    static final Object getObject(ObjectValue value) {
+        return (Object) instanceFor(g_value_get_object(pointerOf(value)));
+    }
+
+    private static native final long g_value_get_object(long value);
+
+    
     /**
-     * Lookup the name for a given type. <i>When a GType such as a primitive
-     * (fundamental) type or a class is registered in GObject, it is given a
-     * name.
+     * Lookup the type name for a given Value. <i>When a GType such as a
+     * primitive (fundamental) type or a class is registered in GObject, it is
+     * given a name.
      * 
      * <p>
      * <i>We do not use or even provide a mechanism to retrieve the GType
      * itself. This value would be opaque and in any case changes from run to
      * run.</i>
      * 
-     * @param the
-     *            pointer address of
+     * @param value
+     *            the pointer address of the <code>GValue</code> you are
+     *            looking at
      * 
-     * @return an the name which is used to identify the <code>GType</code>
-     *         in the underlying libraries.
+     * @return the name which is used to identify the <code>GType</code> in
+     *         the underlying libraries.
      */
     /*
      * We don't really need this, but we'll leave it here for bindings hackers

@@ -1,7 +1,7 @@
 /*
  * Object.java
  *
- * Copyright (c) 2006 Operational Dynamics Consulting Pty Ltd
+ * Copyright (c) 2006-2007 Operational Dynamics Consulting Pty Ltd
  * 
  * The code in this file, and the library it is a part of, are made available
  * to you by the authors under the terms of the "GNU General Public Licence,
@@ -12,6 +12,7 @@
 package org.gnome.glib;
 
 import org.freedesktop.bindings.Constant;
+import org.freedesktop.bindings.Proxy;
 
 /**
  * Base class of the object system used by GLib and libraries based on it,
@@ -43,7 +44,7 @@ import org.freedesktop.bindings.Constant;
  * @author Andrew Cowie
  * @since 4.0.0
  */
-public abstract class Object extends Value
+public abstract class Object extends Proxy
 {
 
     protected Object(long pointer) {
@@ -118,19 +119,30 @@ public abstract class Object extends Value
     }
 
     /**
+     * Set a property that takes an Object subclass for its value.
+     * 
+     * @since 4.0.2
+     */
+    protected void setPropertyObject(String name, Object value) {
+        GObject.setProperty(this, name, new ObjectValue(value));
+    }
+
+    
+    /**
      * Set a property that takes a Value [subclass] such as an Object or Boxed
      * as its value.
      * 
      * @param name
      *            the property you want to set.
      * @param value
-     *            a Value subclass such as
+     *            a Value subclass such as FIXME wrong
      *            {@link org.gnome.glib.Object Object},
      *            {@link org.gnome.glib.Boxed Boxed}, or Fundamental which is
      *            the value you wish to set.
      * @since 4.0.0
+     * @deprecated
      */
-    protected void setProperty(String name, Value value) {
+    void setProperty(String name, Value value) {
         GObject.setProperty(this, name, value);
     }
 
@@ -155,7 +167,8 @@ public abstract class Object extends Value
      *         if not set (?). FIXME what about no such property?
      * @since 4.0.1
      */
-    protected Value getProperty(String name) {
-        return GObject.getProperty(this, name);
+    protected Object getPropertyObject(String name) {
+        ObjectValue value = (ObjectValue) GObject.getProperty(this, name);
+        return GValue.getObject(value);
     }
 }

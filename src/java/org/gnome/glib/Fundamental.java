@@ -1,7 +1,7 @@
 /*
  * Fundamental.java
  *
- * Copyright (c) 2006 Operational Dynamics Consulting Pty Ltd
+ * Copyright (c) 2006-2007 Operational Dynamics Consulting Pty Ltd
  * 
  * The code in this file, and the library it is a part of, are made available
  * to you by the authors under the terms of the "GNU General Public Licence,
@@ -133,5 +133,27 @@ final class EnumValue extends Fundamental
         assert (Constant.class.isAssignableFrom(type));
 
         this.type = type;
+    }
+}
+
+/**
+ * <i>This is just a representation of the fact that <code>GObject</code>s
+ * too can be wrapped in <code>GValues</code>. We only need this when
+ * passing or retrieving a property that is a <code>GObject</code> on the C
+ * side. For everything else we use the top level
+ * {@link org.gnome.glib.Object Object} representation.</i>
+ * 
+ * @author Andrew Cowie
+ * @since 4.0.2
+ */
+final class ObjectValue extends Fundamental
+{
+
+    protected ObjectValue(long pointer) {
+        super(pointer);
+    }
+
+    ObjectValue(Object obj) {
+        super(GValue.createValue(obj));
     }
 }

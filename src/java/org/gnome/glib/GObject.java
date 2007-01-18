@@ -27,7 +27,7 @@ final class GObject extends Plumbing
     private static final native void g_object_set_property(long self, String name, long value);
 
     static final Value getProperty(org.gnome.glib.Object self, String name) {
-        return (Value) instanceFor(g_object_get_property(pointerOf(self), name));
+        return valueFor(g_object_get_property(pointerOf(self), name));
     }
 
     private static final native long g_object_get_property(long self, String name);
@@ -54,6 +54,43 @@ final class GObject extends Plumbing
         }
         g_object_unref(pointer);
     }
+
+    /**
+     * Get the name registered for a the GType corresponding to this
+     */
+
+    /**
+     * Lookup the type name for a given Value. <i>When a GType such as a
+     * primitive (fundamental) type or a class is registered in GObject, it is
+     * given a name.
+     * 
+     * <p>
+     * <i>We do not use or even provide a mechanism to retrieve the GType
+     * itself. This value would be opaque and in any case changes from run to
+     * run.</i>
+     * 
+     * @param value
+     *            the pointer address of the <code>GValue</code> you are
+     *            looking at
+     * 
+     * @return the name which is used to identify the <code>GType</code> in
+     *         the underlying libraries.
+     */
+    /*
+     * We don't really need this, but we'll leave it here for bindings hackers
+     * to use if debugging.
+     */
+    static final String type(Object object) {
+        return g_type_name(pointerOf(object));
+    }
+
+    /*
+     * Atypically, this native method is package visible so that the crucial
+     * instanceForObject() method in org.gnome.glib.Plumbing can see it. That
+     * method needs to call this _before_ it can (and in order to) construct a
+     * Proxy.
+     */
+    static native final String g_type_name(long object);
 
     private static native final void g_object_unref(long reference);
 }
