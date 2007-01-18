@@ -43,9 +43,11 @@ public class Xml extends Object
     Xml(String filename, String root) {
         super(GladeXml.createGladeXml(filename, root));
     }
-    
+
     /**
      * Get the Widget corresponding to the given name.
+     * 
+     * @since 4.0.2
      */
     public Widget getWidget(String name) {
         return GladeXml.getWidget(this, name);
