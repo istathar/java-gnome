@@ -78,4 +78,8 @@ public abstract class Widget extends org.gnome.gtk.Object
     public void showAll() {
         GtkWidget.showAll(this);
     }
+    
+    public Container getParent() {
+        return (Container) getPropertyObject("parent");
+    }
 }

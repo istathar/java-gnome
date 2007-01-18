@@ -78,6 +78,8 @@ public final class Experiment
             }
         });
 
+        assert (w.getChild() == x);
+
         // attempt to set a non-zero enum, and make sure we get it back, by
         // identity; Button's getRelief() is temporarily implemented with
         // getPropertyEnum(). TODO move this to a unit test.
