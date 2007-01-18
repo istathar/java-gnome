@@ -1,7 +1,7 @@
 /*
  * Proxy.java
  *
- * Copyright (c) 2006 Operational Dynamics Consulting Pty Ltd
+ * Copyright (c) 2006-2007 Operational Dynamics Consulting Pty Ltd
  * 
  * The code in this file, and the library it is a part of, are made available
  * to you by the authors under the terms of the "GNU General Public Licence,
@@ -50,6 +50,13 @@ public abstract class Proxy
 
         Plumbing.registerProxy(this);
     }
+
+    /**
+     * Parent release function. Will be called by the GC when it invokes the
+     * finalizer, so this is the time to release references and free memory on
+     * the C side.
+     */
+    protected abstract void release();
 
     /*
      * This is a placeholder to remind us of the cleanup actions that will be
