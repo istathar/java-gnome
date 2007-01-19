@@ -74,12 +74,13 @@ sub output {
 }
 
 sub which {
+	use Cwd 'abs_path';
 	my $program = shift;
 	my $path = $ENV{'PATH'};
 	my @path_dirs = split /:+/, $path;
 	foreach my $dir (@path_dirs) {
 		if (-f "$dir/$program") {
-			return "$dir/$program";
+			return abs_path("$dir/$program");
 		}
 	}
 	return $program;
@@ -1459,6 +1460,10 @@ if ($cc =~ /gcc/) {
 	my $jni_include = "";
 	my $java_home = dirname($java);
 	$java_home =~ s/\/bin//;
+
+	if (!-d "$java_home"."/include") {
+		$java_home =~ s/\/jre//;
+	}
 
 	if (-f "$java_home"."/include/jni.h") {
 		$jni_include = "-I$java_home/include -I$java_home/include/linux";
