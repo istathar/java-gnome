@@ -26,7 +26,7 @@ build-java: tmp/gtk-$(APIVERSION).jar tmp/libgtkjni-$(APIVERSION).so
 
 build-native: tmp/libgtkjava-$(APIVERSION).so
 
-.PHONY: test demo doc clean distlcean
+.PHONY: test demo doc clean distlcean sleep
 
 # [this  will be called by the above include if .config is missing.
 # We don't call ./configure automatically to allow scope for
@@ -217,6 +217,9 @@ demo: build-java build/classes-test
 		-ea \
 		Experiment
 
+sleep:
+	sleep 3
+
 # --------------------------------------------------------------------
 # Documentation generation
 # --------------------------------------------------------------------
@@ -287,5 +290,7 @@ distclean: clean
 	-rm -f java-gnome-*.tar.bz2
 	@echo "RM        temporary directories"
 	-rm -rf tmp build
+	@echo "RM        glade cruft"
+	find . -name '*.glade.bak' -o -name '*.gladep*' -type f | xargs rm -f
 
 # vim: set filetype=make textwidth=78 nowrap:
