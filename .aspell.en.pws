@@ -1,4 +1,4 @@
-personal_ws-1.1 en 499 
+personal_ws-1.1 en 500 
 nativeName
 apache
 bjc
@@ -173,8 +173,8 @@ GTK's
 gType
 registerConstant
 textwidth
-jamvm
 JamVM
+jamvm
 perl
 methodSignature
 GObjects
@@ -470,8 +470,8 @@ accessors
 loadLibrary
 IllegalAccessException
 DesignConstraints
-pyGTK
 pygtk
+pyGTK
 strfreev
 libglade
 TreeStore
@@ -494,6 +494,7 @@ jboolean
 const
 createLabel
 CommitMessages
+ComeOnBabyLightMyFire
 GSignalQuery
 extern
 getPropertyEnum

@@ -14,7 +14,24 @@ package org.gnome.gtk;
 import org.gnome.glib.Glib;
 
 /**
- * The GTK widget toolkit initialization and main loop entry point.
+ * The GTK widget toolkit initialization and main loop entry point. A typical
+ * program written with java-gnome will boil down to this:
+ * 
+ * <pre>
+ * public class ComeOnBabyLightMyFire
+ * 
+ *     public static void main(String[] args) {
+ *         Gtk.init(args);
+ *         
+ *         // build user interface
+ *         
+ *         Gtk.main();
+ *     }
+ * }
+ * </pre>
+ * 
+ * There. Now you know everything you need to know. <code>:)</code> In due
+ * course we will write some tutorials to help you along.
  * 
  * @author Andrew Cowie
  * @since 4.0.0
@@ -80,10 +97,11 @@ public final class Gtk extends Glib
      * This method blocks, ie, it does not return until the GTK main loop is
      * terminated.
      * <p>
-     * You can nest calls to Gtk.main()! If you do, then calling
-     * {@link #mainQuit() mainQuit()} will make the innermost invocation of
-     * the main loop return. (This is how modal Dialog boxes run and block the
-     * rest of the application while still accepting events themselves)
+     * You can nest calls to <code>Gtk.main()</code>! If you do, then
+     * calling {@link #mainQuit() mainQuit()} will make the innermost
+     * invocation of the main loop return. (This is how modal Dialog boxes run
+     * and block the rest of the application while still accepting events
+     * themselves)
      * 
      * @since 4.0.0
      */
@@ -93,6 +111,16 @@ public final class Gtk extends Glib
 
     private static native final void gtk_main();
 
+    /**
+     * Exit the main loop. Since main loops can be nested, this does not
+     * necessarily imply application termination, but if you have a typical
+     * GTK program with a single call to <code>Gtk.main()</code> at the end
+     * of your Java <code>main()</code> function, then calling
+     * <code>Gtk.mainQuit()</code> in a signal handler somewhere will return
+     * the program flow to <code>main()</code> on your way exiting.
+     * 
+     * @since 4.0.0
+     */
     public static void mainQuit() {
         gtk_main_quit();
     }
