@@ -22,7 +22,7 @@ import org.gnome.gtk.Widget;
  * 
  * <p>
  * <i>There comes a point when the underlying mapping becomes a bit
- * rediculous, but the underlying structure is <code>GladeXML</code>, so
+ * ridiculous, but the underlying structure is <code>GladeXML</code>, so
  * according to our mapping algorithm, Xml it is. Parser or ParsedTree or some
  * such would have been better, but oh well.</i>
  * 
@@ -50,6 +50,9 @@ public class Xml extends Object
      * @since 4.0.2
      */
     public Widget getWidget(String name) {
+        if (name == null) {
+            throw new IllegalArgumentException();
+        }
         return GladeXml.getWidget(this, name);
     }
 }

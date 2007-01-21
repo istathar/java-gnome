@@ -41,10 +41,14 @@ Java_org_gnome_glade_GladeXml_glade_1xml_1new
 		return 0; /* OutOfMemoryError already thrown */
 	}
 	
-	// translate arg root
-	root = (const gchar*) (*env)->GetStringUTFChars(env, _root, NULL);
-	if (root == NULL) {
-		return 0; /* OutOfMemoryError already thrown */
+	// translate arg root; null ok.
+	if (_root == NULL) {
+		root = NULL;
+	} else {
+		root = (const gchar*) (*env)->GetStringUTFChars(env, _root, NULL);
+		if (root == NULL) {
+			return 0; /* OutOfMemoryError already thrown */
+		}
 	}
 	
 	// call function
