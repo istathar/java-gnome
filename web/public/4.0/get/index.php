@@ -2,7 +2,7 @@
 /*
  * index.php
  *
- * Copyright (c) 2006 Operational Dynamics Consulting Pty Ltd
+ * Copyright (c) 2006-2007 Operational Dynamics Consulting Pty Ltd
  * 
  * This file comprises part of the infrastructure and content of the
  * java-gnome project website. As such, it is conveyed alongside the source
@@ -26,6 +26,10 @@
 	template_begin();
 ?>
 <h1 class="title">Get java-gnome!</h1>
+<div class="bluepanel">
+	<a class="nav-white" href="#source">Source will always be better than
+	binary</a>
+</div>
 
 <p><i>As java-gnome 4.0 is presently in the prototype stage, some of this
 discussion is necessarily in the future tense. In particular, java-gnome 4.0
@@ -58,6 +62,7 @@ quite high. Those on other platforms will necessarily meet with a less
 enthusiastic response, but Open Source is about choice, so try java-gnome
 where ever you like.</i></p>
 
+<a name="source" title="Source will always be better than binary"></a>
 <h1>Download source</h1>
 
 <p>Installing binary packages provided by your distribution is certainly
@@ -108,12 +113,13 @@ This means that if you want to quickly point someone at a particular file,
 it's as easy as directly linking to it at the URL you checked out from + the
 path to the file.</p>
 
-If you would like to browse the source code, here is the top of the
+<p>If you would like to browse the source code, here is the top of the
 mainline (aka <code>HEAD</code>) branch:
 
 <a class="download" href="http://research.operationaldynamics.com/bzr/java-gnome/mainline/">
 <code>http://research.operationaldynamics.com/bzr/java-gnome/mainline/</code>
 </a>
+</p>
 
 <?
 	template_end();

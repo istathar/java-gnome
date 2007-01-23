@@ -84,6 +84,7 @@
 	template_begin();
 ?>
 <h1 class="title"><?=$title?></h1>
+<div class="bluepanel"></div>
 
 <?
 	include_once "markdown.php";

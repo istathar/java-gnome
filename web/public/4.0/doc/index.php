@@ -33,6 +33,17 @@ a.directory {
 ?>
 <h1 class="title">Documentation</h1>
 
+<div class="bluepanel">
+	The <a class="nav-white" href="/4.0/README.html"><code>README</code></a>,
+	<a class="nav-white" href="/4.0/HACKING.html"><code>HACKING</code></a>, and
+	<a class="nav-white" href="/4.0/NEWS.html"><code>NEWS</code></a> files;
+	<a class="nav-white" href="/4.0/doc/api/overview-summary.html">API
+	documentation</a>;
+	<a class="nav-white" href="/4.0/doc/design/README.html">Design and
+	architecture</a>
+</div>
+
+
 <p><i>As java-gnome 4.0 is presently in the prototype stage, the documentation
 part of this website is by no means complete. In particular, tutorials to get
 people started and guides about how to use the more complex APIs are yet to

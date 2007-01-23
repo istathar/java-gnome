@@ -2,7 +2,7 @@
 /*
  * 404.php
  *
- * Copyright (c) 2006 Operational Dynamics Consulting Pty Ltd
+ * Copyright (c) 2006-2007 Operational Dynamics Consulting Pty Ltd
  * 
  * This file comprises part of the infrastructure and content of the
  * java-gnome project website. As such, it is conveyed alongside the source
@@ -26,6 +26,7 @@
 	template_begin();
 ?>
 <h1 class="title">Doh!</h1>
+<div class="bluepanel"></div>
 <h2 style="font-family: Arial, sans;">404 Not Found</h1>
 
 <p>Sorry, but the page you're looking for isn't here.</p>
