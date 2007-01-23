@@ -1,7 +1,7 @@
 /*
  * GtkWidget.java
  *
- * Copyright (c) 2006 Operational Dynamics Consulting Pty Ltd
+ * Copyright (c) 2006-2007 Operational Dynamics Consulting Pty Ltd and Others
  * 
  * The code in this file, and the library it is a part of, are made available
  * to you by the authors under the terms of the "GNU General Public Licence,
@@ -45,8 +45,35 @@ final class GtkWidget extends Plumbing
         connectSignal(self, handler, GtkWidget.class, "delete-event");
     }
 
-    static final boolean handleDeleteEvent(Signal handler, long source, long event) {
+    protected static final boolean handleDeleteEvent(Signal handler, long source, long event) {
         return ((GtkWidget.DELETE_EVENT) handler).onDeleteEvent((Widget) instanceFor(source), null); // FIXME
+    }
+
+    interface ENTER_NOTIFY_EVENT extends Signal
+    {
+        boolean onEnterNotifyEvent(Widget source, Object event);
+    }
+
+    static final void connect(Widget self, GtkWidget.ENTER_NOTIFY_EVENT handler) {
+        connectSignal(self, handler, GtkWidget.class, "enter-notify-event");
+    }
+
+    protected static final boolean handleEnterNotifyEvent(Signal handler, long source, long event) {
+        return ((GtkWidget.ENTER_NOTIFY_EVENT) handler).onEnterNotifyEvent((Widget) instanceFor(source),
+                null); // FIXME
+    }
+
+    interface FOCUS_OUT_EVENT extends Signal
+    {
+        boolean onFocusOutEvent(Widget source, Object event);
+    }
+
+    static final void connect(Widget self, GtkWidget.FOCUS_OUT_EVENT handler) {
+        connectSignal(self, handler, GtkWidget.class, "focus-out-event");
+    }
+
+    protected static final boolean handleFocusOutEvent(Signal handler, long source, long event) {
+        return ((GtkWidget.FOCUS_OUT_EVENT) handler).onFocusOutEvent((Widget) instanceFor(source), null); // FIXME
     }
 
 }

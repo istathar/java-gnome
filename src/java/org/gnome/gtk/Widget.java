@@ -1,7 +1,7 @@
 /*
  * Widget.java
  *
- * Copyright (c) 2006 Operational Dynamics Consulting Pty Ltd
+ * Copyright (c) 2006-2007 Operational Dynamics Consulting Pty Ltd and Others
  * 
  * The code in this file, and the library it is a part of, are made available
  * to you by the authors under the terms of the "GNU General Public Licence,
@@ -79,6 +79,54 @@ public abstract class Widget extends org.gnome.gtk.Object
         GtkWidget.showAll(this);
     }
     
+    /**
+     * Signal emitted when the mouse enters the Widget
+     * 
+     * @author Andrew Cowie
+     * @author Davyd Madeley
+     * @since 4.0.2
+     */
+    public interface ENTER_NOTIFY_EVENT extends GtkWidget.ENTER_NOTIFY_EVENT
+    {
+        public boolean onEnterNotifyEvent(Widget source, Object event);
+    }
+
+    /**
+     * Hook up a handler to receive "enter-notify-event" events on this
+     * Widget.
+     * 
+     * @since 4.0.2
+     */
+    public void connect(ENTER_NOTIFY_EVENT handler) {
+        GtkWidget.connect(this, handler);
+    }
+
+    /**
+     * Signal emitted when the focus leaves this Widget. Focus is a concept
+     * that is shared evenly between the widget toolkit and the window manager -
+     * which can become apparent if you're wondering <i>why</i> you have lost
+     * focus or regained it.
+     * 
+     * @author Andrew Cowie
+     * @since 4.0.2
+     */
+    public interface FOCUS_OUT_EVENT extends GtkWidget.FOCUS_OUT_EVENT
+    {
+        public boolean onFocusOutEvent(Widget source, Object event);
+    }
+
+    /**
+     * Hook up a handler to receive "focus-out-event" events on this Widget
+     * 
+     * @since 4.0.2
+     */
+    public void connect(FOCUS_OUT_EVENT handler) {
+        GtkWidget.connect(this, handler);
+    }
+
+	 /*
+	  * Temporary: testing full downcasting.
+	  */
     public Container getParent() {
         return (Container) getPropertyObject("parent");
     }
