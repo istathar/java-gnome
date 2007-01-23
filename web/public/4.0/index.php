@@ -2,7 +2,7 @@
 /*
  * index.php
  *
- * Copyright (c) 2006 Operational Dynamics Consulting Pty Ltd
+ * Copyright (c) 2006-2007 Operational Dynamics Consulting Pty Ltd
  * 
  * This file comprises part of the infrastructure and content of the
  * java-gnome project website. As such, it is conveyed alongside the source
@@ -38,9 +38,16 @@ div.box {
 ?>
 <h1 class="title">java-gnome 4.0</h1>
 
+<div class="bluepanel">
+	<a class="nav-white" href="objectives.php">Project Objectives</a>;
+	<a class="nav-white" href="NEWS.html">Release notes (in
+	<code>NEWS</code> file)</a>
+</div>
+
+
 <div class="box">
-<p>The engineering design of java-gnome 4.0 is complete, and a working
-prototype which will be the foundation of the new bindings has been released.
+<p>The engineering design of java-gnome 4.0 is complete, and the working
+prototype has become the foundation of the new bindings and has been released.
 We are now looking to secure the revenue necessary to fund the work to make
 the new Java bindings for GTK and GNOME a reality.</p>
 

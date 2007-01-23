@@ -56,6 +56,20 @@ body {
 	font-size: normal;
 }
 
+.bluepanel {
+	background: url(http://www.operationaldynamics.com/images/logo/twirl-bluepanel.jpg);
+	background-color: #333366;
+	color: #FFFFFF;
+	clear: both;
+	margin: 0px;
+	margin-top: 2px;
+	margin-left: -5px;
+	padding-top: 3px;
+	padding-left: 10px;
+	padding-bottom: 3px;
+	height: 22px;
+}
+
 .block {
 	padding-right: 10px;
 	padding-left: 10px;
@@ -77,6 +91,7 @@ h1 {
 }
 h1.title {
 	background-color: #FFFFFF;
+	border-bottom: 0px none;
 	color: green;
 	font-family: "Arial", sans-serif;
 	font-size: 40px;
@@ -87,6 +102,8 @@ h1.title {
 h2, h3 {
 	padding-left: 5px;
 }
+
+
 p {
 	padding-left: 5px;
 	padding-right: 5px;
@@ -112,15 +129,6 @@ blockquote {
 .x {
 	font-style: italic;
 	font-family: "Times New Roman", Serif;
-}
-
-.subtitle {
-	font-family: Arial, sans-serif;
-	font-weight: bold;
-	font-size: 24;
-	text-align: right;
-	margin: 0px;
-	padding: 0px;
 }
 
 .rightnavpanel {
@@ -158,6 +166,10 @@ a.nav-black:link	{ text-decoration: none; color: #000000; border-bottom: 0px; ba
 a.nav-black:hover	{ text-decoration: none; color: #000000; border-bottom: 0px; background-color: transparent; font-size: medium; }
 a.nav-black:visited	{ text-decoration: none; color: #000000; border-bottom: 0px; background-color: transparent; font-size: medium; }
 a.nav-black:active	{ text-decoration: none; color: #000000; border-bottom: 0px; background-color: transparent; font-size: medium; }
+a.nav-white:link	{ text-decoration: none; color: #FFFFFF; border-bottom: 0px; background-color: transparent; font-size: medium; }
+a.nav-white:hover	{ text-decoration: none; color: #FFFFFF; border-bottom: 0px; background-color: transparent; font-size: medium; }
+a.nav-white:visited	{ text-decoration: none; color: #FFFFFF; border-bottom: 0px; background-color: transparent; font-size: medium; }
+a.nav-white:active	{ text-decoration: none; color: #FFFFFF; border-bottom: 0px; background-color: transparent; font-size: medium; }
 
 a.black:link		{ text-decoration: none; color: gray; border-bottom: 0px; background-color: transparent; }
 a.black:visited		{ text-decoration: none; color: gray; border-bottom: 0px; background-color: transparent; }

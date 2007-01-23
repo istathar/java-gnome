@@ -2,7 +2,7 @@
 /*
  * objectives.php
  *
- * Copyright (c) 2006 Operational Dynamics Consulting Pty Ltd
+ * Copyright (c) 2006-2007 Operational Dynamics Consulting Pty Ltd
  * 
  * This file comprises part of the infrastructure and content of the
  * java-gnome project website. As such, it is conveyed alongside the source
@@ -33,6 +33,7 @@ h2.goal {
 	template_begin();
 ?>
 <h1 class="title">What We Do</h1>
+<div class="bluepanel"></div>
 
 <p>We have two objectives in the java-gnome project. First and foremost, we
 seek to achieve:

@@ -2,7 +2,7 @@
 /*
  * listing.php
  *
- * Copyright (c) 2006 Operational Dynamics Consulting Pty Ltd
+ * Copyright (c) 2006-2007 Operational Dynamics Consulting Pty Ltd
  * 
  * This file comprises part of the infrastructure and content of the
  * java-gnome project website. As such, it is conveyed alongside the source
@@ -28,6 +28,8 @@
 	template_begin();
 ?>
 <h1 class="title">Documentation files</h1>
+<div class="bluepanel"></div>
+
 <h2 class="mono"><?=substr($dirpath, 5)?></h2>
 
 <p>The text files that you can view here are:</p>
