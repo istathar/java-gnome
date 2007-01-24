@@ -78,7 +78,7 @@ public abstract class Widget extends org.gnome.gtk.Object
     public void showAll() {
         GtkWidget.showAll(this);
     }
-    
+
     /**
      * Signal emitted when the mouse enters the Widget
      * 
@@ -124,9 +124,9 @@ public abstract class Widget extends org.gnome.gtk.Object
         GtkWidget.connect(this, handler);
     }
 
-	 /*
-	  * Temporary: testing full downcasting.
-	  */
+    /*
+     * Temporary: testing full downcasting.
+     */
     public Container getParent() {
         return (Container) getPropertyObject("parent");
     }

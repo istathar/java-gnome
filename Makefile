@@ -218,7 +218,7 @@ demo: build-java build/classes-test
 		Experiment
 
 sleep:
-	sleep 3
+	sleep 1
 
 # --------------------------------------------------------------------
 # Documentation generation

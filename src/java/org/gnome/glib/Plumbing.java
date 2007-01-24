@@ -136,12 +136,20 @@ public abstract class Plumbing extends org.freedesktop.bindings.Plumbing
      * created Java side; where no Proxy exists it looks up the underlying
      * <code>GType</code> and does its best to create it.
      * 
+     * @return null if the <code>pointer</code> argument is <code>0x0</code>,
+     *         <i>which can happen after looking up a valid GValue which turns
+     *         out to contains a <code>NULL</code> pointer value for a
+     *         GObject it is carrying.</i>
      * @throw UnsupportedOperationException if no Java class has been
      *        registered for this <code>GType</code>.
      * 
      * @see org.freedesktop.bindings.Plumbing#instanceFor(long)
      */
     protected static Proxy instanceFor(long pointer) {
+        if (pointer == 0L) {
+            return null;
+        }
+
         Proxy obj = org.freedesktop.bindings.Plumbing.instanceFor(pointer);
 
         if (obj != null) {

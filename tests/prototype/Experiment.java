@@ -79,6 +79,8 @@ public final class Experiment
         });
 
         assert (w.getChild() == x);
+        assert (b.getParent() == x);
+        assert (w.getParent() == null);
 
         // attempt to set a non-zero enum, and make sure we get it back, by
         // identity; Button's getRelief() is temporarily implemented with
