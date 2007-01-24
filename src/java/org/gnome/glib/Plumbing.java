@@ -136,8 +136,8 @@ public abstract class Plumbing extends org.freedesktop.bindings.Plumbing
      * created Java side; where no Proxy exists it looks up the underlying
      * <code>GType</code> and does its best to create it.
      * 
-     * @throw UnsupportedOperationException if no class has been registered
-     *        for this <code>GType</code>.
+     * @throw UnsupportedOperationException if no Java class has been
+     *        registered for this <code>GType</code>.
      * 
      * @see org.freedesktop.bindings.Plumbing#instanceFor(long)
      */
@@ -170,9 +170,9 @@ public abstract class Plumbing extends org.freedesktop.bindings.Plumbing
             }
 
             /*
-             * First we handle the usual case of getting the instance for a
-             * Proxy subclass. That is the case when the Constructor in the
-             * Map is not null.
+             * Now we handle the usual case of getting the instance for a
+             * Proxy subclass. That is the case when the Class in the Map is
+             * not null.
              */
 
             type = (Class) typeMapping.get(name);
@@ -188,7 +188,7 @@ public abstract class Plumbing extends org.freedesktop.bindings.Plumbing
              * map it to Java. So,
              */
             throw new UnsupportedOperationException("\nNo binding for " + name
-                    + " (yet!), Object code path");
+                    + " (yet!), GObject code path");
         }
     }
 
@@ -221,8 +221,8 @@ public abstract class Plumbing extends org.freedesktop.bindings.Plumbing
             Class type;
 
             /*
-             * Somewhat crucially, we intern the returned GType name string to
-             * reduce memory pressure and to permit lookup by identity.
+             * As with instanceFor(), we intern the returned GType name string
+             * to reduce memory pressure and to permit lookup by identity.
              */
             name = GValue.g_type_name(pointer).intern();
 
@@ -231,9 +231,26 @@ public abstract class Plumbing extends org.freedesktop.bindings.Plumbing
             }
 
             /*
-             * First we handle the usual case of getting the instance for a
-             * Proxy subclass. That is the case when the Class in the type Map
-             * is not null.
+             * GObjects give a false positive. For example, a GtkWindow in a
+             * GValue looked up in a property that is registered as a
+             * GtkContainer will come back as "GtkContainer" which is really
+             * no help - that is an abstract class and in any case what we
+             * want is to know there is a GObject in there. So
+             * GValue.g_type_name() is hacked to return a marker string. If
+             * there's no binding for that GObject subclass yet, we'll catch
+             * it later (ie, in instanceFor()); the GValue itself is valid and
+             * we can bind it.
+             */
+
+            if (name.equals("<GObject>")) {
+                obj = new ObjectValue(pointer);
+                return obj;
+            }
+
+            /*
+             * Otherwise, we handle the usual case of getting the instance for
+             * a Proxy subclass. That is the case when the Class in the type
+             * Map is not null. This is the case for all the primative types.
              */
 
             type = (Class) typeMapping.get(name);
@@ -244,13 +261,11 @@ public abstract class Plumbing extends org.freedesktop.bindings.Plumbing
             }
 
             /*
-             * If the Class _was_ null, then we might be in the special case
-             * where actually the native type is an enum, and we're only
-             * calling this method because we're trying to unwrap a property
-             * returned as a GValue - ie, the enum is wrapped in a GValue. In
-             * this case we have a Fundamental subclass called EnumValue with
-             * a special constructor, which we can call by name (no need to
-             * use reflection here).
+             * There is one other special case: if the Class _was_ null, then
+             * we might be in the situation where actually the native type is
+             * an enum. In this case we have a Fundamental subclass called
+             * EnumValue with a special constructor, which we can call by name
+             * (no need to use reflection here).
              */
 
             type = (Class) enumMapping.get(name);
@@ -261,12 +276,12 @@ public abstract class Plumbing extends org.freedesktop.bindings.Plumbing
             }
 
             /*
-             * But failing that, the constructor being null indicates that we
-             * don't have any information about this native type and how to
-             * map it to Java. So,
+             * But failing that, the class being null indicates that we don't
+             * have any information about this native type and how to map it
+             * to Java. So,
              */
             throw new UnsupportedOperationException("\nNo binding for " + name
-                    + " (yet?), Value code path");
+                    + " (yet?), GValue code path");
         }
 
     }

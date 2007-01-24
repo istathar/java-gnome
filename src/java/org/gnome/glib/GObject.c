@@ -51,7 +51,7 @@ Java_org_gnome_glib_GObject_g_1type_1name
 	
 	// call function & macro	
 	name = g_type_name(G_TYPE_FROM_INSTANCE(object));
-	//g_print("GObject (%ld): %s", (long) G_OBJECT_TYPE(object), name);
+	//g_print("GObject (%ld): %s\n", (long) G_OBJECT_TYPE(object), name);
 	
 	// return name. Guard against NullPointerException by returning an
 	// empty string instead of null
