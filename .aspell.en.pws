@@ -1,4 +1,4 @@
-personal_ws-1.1 en 500 
+personal_ws-1.1 en 521 
 nativeName
 apache
 bjc
@@ -47,6 +47,8 @@ CallStaticVoidMethodA
 setPropertyFloat
 ULONG
 NullPointerException
+GladeXml
+GladeXML
 createFixed
 throwByName
 toplevel
@@ -102,11 +104,13 @@ JNICALL
 GtkReliefStyle
 README
 connectSignal
+confirmButton
 GString
 setDecorated
 GPL
 Laszlo
 Gruber
+ParsedTree
 Bleh
 jdk
 popups
@@ -150,6 +154,7 @@ args
 TextView
 blog
 jni
+processedTree
 GtkBox
 UINT
 typeMapping
@@ -173,8 +178,9 @@ GTK's
 gType
 registerConstant
 textwidth
-JamVM
+Dialogs
 jamvm
+JamVM
 perl
 methodSignature
 GObjects
@@ -196,8 +202,10 @@ libgnomeui
 jchar
 renderable
 getName
+nis
 odt
 keybindings
+getAbsolutePath
 GClosureMarshall
 GtkVBox
 vsnprintf
@@ -215,17 +223,20 @@ ReliefStyle
 CallStaticBooleanMethodA
 jargs
 knownConstants
+nresulted
 moveWidget
 onClicked
 distro's
 distros
 codegen
 subinterface
+ClassCastException
 GQuark
 IsSameObject
 glibj
 GUADEC
 methodName
+nThe
 nsme
 ExceptionOccurred
 DataColumn
@@ -261,6 +272,7 @@ GtkWindowType
 pre
 hostname
 javac
+nCan't
 newLabel
 jnibook
 InvocationTargetException
@@ -286,9 +298,11 @@ toString
 conf
 Pty
 filetype
+ClassLoader's
 lang
 getters
 commitComment
+getWidget
 Srichand
 newInstance
 javaClassName
@@ -304,6 +318,7 @@ getText
 tla
 Ubuntu
 pointerOf
+getResource
 setDefaultSize
 OutOfMemoryError
 src
@@ -352,6 +367,8 @@ nJava
 Microsystems
 subdirectory
 LoveLetter
+canRead
+nParsing
 txt
 rawing
 getPointer
@@ -374,6 +391,7 @@ GtkTreeIter
 setFocusOnClick
 unformatted
 PascalCase
+Xml
 handlerInstance
 finalizers
 CallStaticObjectMethodA
@@ -411,6 +429,7 @@ UnsatisfiedLinkError
 returnType
 numOf
 showAll
+FileNotFoundException
 TreeModel
 jclass
 handlerBlah
@@ -425,7 +444,9 @@ nc
 GObject
 backticks
 packEnd
+refactor
 NG
+HelpWindow
 center
 distclean
 createHBox
@@ -470,14 +491,15 @@ accessors
 loadLibrary
 IllegalAccessException
 DesignConstraints
-pygtk
 pyGTK
+pygtk
 strfreev
 libglade
 TreeStore
 GBoxed
 AfC
 WindowType
+createGladeXml
 symlinks
 APIVERSION
 ifdef
@@ -494,7 +516,6 @@ jboolean
 const
 createLabel
 CommitMessages
-ComeOnBabyLightMyFire
 GSignalQuery
 extern
 getPropertyEnum

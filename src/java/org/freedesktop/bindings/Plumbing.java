@@ -155,6 +155,15 @@ public abstract class Plumbing
         return (Proxy) knownProxies.get(new Long(pointer));
     }
 
+    /**
+     * By design, the protected <init>(long) constructors in the various Proxy
+     * subclasses are not publicly visible. Unfortunately, that means that
+     * Plumbing subclasses in other packages cannot see them. So, we use the
+     * trick of calling JNI (where visibility rules are ignored) to create
+     * Proxy instances.
+     */
+    protected static native Proxy createInstance(Class type, long pointer);
+
     /*
      * Constant handling ----------------------------------
      */

@@ -26,7 +26,7 @@ build-java: tmp/gtk-$(APIVERSION).jar tmp/libgtkjni-$(APIVERSION).so
 
 build-native: tmp/libgtkjava-$(APIVERSION).so
 
-.PHONY: test demo doc clean distlcean
+.PHONY: test demo doc clean distlcean sleep
 
 # [this  will be called by the above include if .config is missing.
 # We don't call ./configure automatically to allow scope for
@@ -92,11 +92,13 @@ tmp/classes/%.properties: mockup/java/%.properties
 
 GTK_CFLAGS=$(shell pkg-config --cflags gthread-2.0) \
 		$(shell pkg-config --cflags glib-2.0) \
-		$(shell pkg-config --cflags gtk+-2.0)
+		$(shell pkg-config --cflags gtk+-2.0) \
+		$(shell pkg-config --cflags libglade-2.0)
 
 GTK_LIBS=$(shell pkg-config --libs gthread-2.0) \
 		$(shell pkg-config --libs glib-2.0) \
-		$(shell pkg-config --libs gtk+-2.0)
+		$(shell pkg-config --libs gtk+-2.0) \
+		$(shell pkg-config --libs libglade-2.0)
 
 
 ifdef V
@@ -215,6 +217,9 @@ demo: build-java build/classes-test
 		-ea \
 		Experiment
 
+sleep:
+	sleep 1
+
 # --------------------------------------------------------------------
 # Documentation generation
 # --------------------------------------------------------------------
@@ -285,5 +290,7 @@ distclean: clean
 	-rm -f java-gnome-*.tar.bz2
 	@echo "RM        temporary directories"
 	-rm -rf tmp build
+	@echo "RM        glade cruft"
+	find . -name '*.glade.bak' -o -name '*.gladep*' -type f | xargs rm -f
 
 # vim: set filetype=make textwidth=78 nowrap:

@@ -1,7 +1,7 @@
 /*
- * GtkBin.java
+ * GtkBin.c
  *
- * Copyright (c) 2006-2007 Operational Dynamics Consulting Pty Ltd
+ * Copyright (c) 2007 Operational Dynamics Consulting Pty Ltd
  * 
  * The code in this file, and the library it is a part of, are made available
  * to you by the authors under the terms of the "GNU General Public Licence,
@@ -15,17 +15,28 @@
  * change the information in the source defs file, or implement an override
  * for this class.
  */
-package org.gnome.gtk;
 
-import org.gnome.glib.Plumbing;
+#include <jni.h>
+#include <gtk/gtk.h>
 
-final class GtkBin extends Plumbing
+#include "org_gnome_gtk_GtkBin.h"
+
+JNIEXPORT jlong JNICALL
+Java_org_gnome_gtk_GtkBin_gtk_1bin_1get_1child
+  (JNIEnv *env, jclass cls, jlong _self)
 {
-    private GtkBin() {}
+	GtkBin* self;
+	GtkWidget* child;
 
-    static final Widget getChild(Bin self) {
-        return (Widget) instanceFor(gtk_bin_get_child(pointerOf(self)));
-    }
 
-    private static native final long gtk_bin_get_child(long self);
+	// translate arg self
+	self = (GtkBin*) _self;
+
+	// call function
+	child = gtk_bin_get_child(self);
+
+	// cleanup arg self
+
+	// return pointer
+	return (jlong) child;
 }

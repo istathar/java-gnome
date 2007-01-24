@@ -25,7 +25,7 @@ public class Glib
     private static boolean initialized = false;
 
     static {
-
+        // FIXME: call g_type_init()
     }
 
     /**
@@ -45,12 +45,11 @@ public class Glib
      *             calling Gtk.init() or Program.init().
      * @since 4.0.0
      */
-    public static void init(String[] args) {
+    protected static void init(String[] args) {
         if (initialized) {
             throw new IllegalStateException("Glib already initialized");
         }
 
-        // FIXME: call g_type_init()
         // TODO: other initializations?
 
         /*

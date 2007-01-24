@@ -1,7 +1,7 @@
 /*
  * Button.java
  *
- * Copyright (c) 2006 Operational Dynamics Consulting Pty Ltd
+ * Copyright (c) 2006-2007 Operational Dynamics Consulting Pty Ltd
  * 
  * The code in this file, and the library it is a part of, are made available
  * to you by the authors under the terms of the "GNU General Public Licence,
@@ -107,7 +107,8 @@ public class Button extends Bin
      * @since 4.0.1
      */
     public ReliefStyle getRelief() {
-        // GtkButton.getRelief(this);
+        // return GtkButton.getRelief(this);
+        // TODO use real translation layer method
         return (ReliefStyle) getPropertyEnum("relief");
     }
 

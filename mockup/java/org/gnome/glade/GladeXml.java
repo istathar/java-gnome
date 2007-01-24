@@ -1,7 +1,7 @@
 /*
- * GtkBin.java
+ * GladeXml.java
  *
- * Copyright (c) 2006-2007 Operational Dynamics Consulting Pty Ltd
+ * Copyright (c) 2007 Operational Dynamics Consulting Pty Ltd
  * 
  * The code in this file, and the library it is a part of, are made available
  * to you by the authors under the terms of the "GNU General Public Licence,
@@ -15,17 +15,24 @@
  * change the information in the source defs file, or implement an override
  * for this class.
  */
-package org.gnome.gtk;
+package org.gnome.glade;
 
 import org.gnome.glib.Plumbing;
+import org.gnome.gtk.Widget;
 
-final class GtkBin extends Plumbing
+final class GladeXml extends Plumbing
 {
-    private GtkBin() {}
+    private GladeXml() {}
 
-    static final Widget getChild(Bin self) {
-        return (Widget) instanceFor(gtk_bin_get_child(pointerOf(self)));
+    static final long createGladeXml(String filename, String root) {
+        return glade_xml_new(filename, root);
     }
 
-    private static native final long gtk_bin_get_child(long self);
+    private static native final long glade_xml_new(String filename, String root);
+
+    static final Widget getWidget(Xml self, String name) {
+        return (Widget) instanceFor(glade_xml_get_widget(pointerOf(self), name));
+    }
+
+    private static native final long glade_xml_get_widget(long xml, String name);
 }

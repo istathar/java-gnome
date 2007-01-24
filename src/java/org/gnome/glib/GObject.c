@@ -1,7 +1,7 @@
 /*
  * GObject.c
  *
- * Copyright (c) 2006 Operational Dynamics Consulting Pty Ltd and Others
+ * Copyright (c) 2006-2007 Operational Dynamics Consulting Pty Ltd and Others
  * 
  * The code in this file, and the library it is a part of, are made available
  * to you by the authors under the terms of the "GNU General Public Licence,
@@ -25,6 +25,39 @@
 #include <jni.h>
 #include "bindings_java.h"
 #include "org_gnome_glib_GObject.h"
+
+
+/*
+ * Implements
+ *   org.gnome.glib.GObject.g_type_name(long object)
+ * called from
+ *   org.gnome.glib.Plumbing.instanceForObject(long pointer)
+ * also made available via
+ *   org.gnome.glib.GObject.type(Object object);
+ */
+JNIEXPORT jstring JNICALL
+Java_org_gnome_glib_GObject_g_1type_1name
+(
+	JNIEnv *env,
+	jclass cls,
+	jlong _object
+)
+{
+	GObject* object;
+	const gchar* name;
+
+	// translate value
+	object = (GObject*) _object;
+	
+	// call function & macro	
+	name = g_type_name(G_TYPE_FROM_INSTANCE(object));
+	//g_print("GObject (%ld): %s\n", (long) G_OBJECT_TYPE(object), name);
+	
+	// return name. Guard against NullPointerException by returning an
+	// empty string instead of null
+	return (*env)->NewStringUTF(env, (name != NULL ? name : "\0"));
+}
+
 
 /*
  * Implements

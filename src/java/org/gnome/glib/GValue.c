@@ -1,7 +1,7 @@
 /*
  * GValue.c
  *
- * Copyright (c) 2006 Operational Dynamics Consulting Pty Ltd
+ * Copyright (c) 2006-2007 Operational Dynamics Consulting Pty Ltd
  * 
  * The code in this file, and the library it is a part of, are made available
  * to you by the authors under the terms of the "GNU General Public Licence,
@@ -35,18 +35,22 @@ Java_org_gnome_glib_GValue_g_1type_1name
 	GValue* value;
 	const gchar* name;
 
-	// translate value and verify
-	value =	(GValue*) _value;
-	if (!G_IS_VALUE(value)) {
-		bindings_java_throw(env, "You're trying to look up the GType name of something that is not a GValue?!?");
-		return NULL;
-	}
-		
-	name = g_type_name(G_VALUE_TYPE(value));
-	
-	return (*env)->NewStringUTF(env, name);
-}
+	// translate value
+	value = (GValue*) _value;
 
+	// Special case. See org.gnome.glib.Plumbing.valueFor() for details
+	if (G_VALUE_HOLDS_OBJECT(value)) {
+		return (*env)->NewStringUTF(env, "<GObject>\0");
+	}
+
+	// call function & macro
+	name = g_type_name(G_VALUE_TYPE(value));
+	//g_print("GValue  g_type_name(%ld): %s\n", (long) G_VALUE_TYPE(value), name);
+
+	// return name. Guard against NullPointerException by returning an
+	// empty string instead of null
+	return (*env)->NewStringUTF(env, (name != NULL ? name : "\0"));
+}
 
 /*
  * Implements
@@ -188,6 +192,45 @@ Java_org_gnome_glib_GValue_g_1value_1init__Ljava_lang_String_2
 	return (jlong) value;
 }
 
+
+/*
+ * Implements
+ *   org.gnome.glib.GValue.g_value_init(long obj)
+ * called from
+ *   org.gnome.glib.GValue.createValue(Object obj)
+ * called from
+ *   org.gnome.glib.ObjectValue.<init>(Object obj);
+ *
+ * Allocate a GValue for a GObject with GSlice, then initialize it and return
+ * the pointer.
+ */
+JNIEXPORT jlong JNICALL
+Java_org_gnome_glib_GValue_g_1value_1init__Lorg_gnome_glib_GObject_2
+(
+	JNIEnv *env,
+	jclass cls,
+	jlong _obj
+)
+{
+	GObject* obj;
+	GValue* value;
+	
+	// translate obj
+	obj = (GObject*) _obj;
+	
+	// allocate and set to zeros, per what g_value_init requires
+	value =	g_slice_new0(GValue);
+	g_value_init(value, G_TYPE_OBJECT);
+
+	// set the value	
+	g_value_set_object(value, obj); 
+
+	// clean up obj
+
+	// return address
+	return (jlong) value;
+}
+
 /*
  * Implements
  *   org.gnome.glib.GValue.g_value_get_string(long value)
@@ -257,4 +300,39 @@ Java_org_gnome_glib_GValue_g_1value_1get_1enum
 
 	// and return	
 	return (jint) num;
+}
+
+/*
+ * Implements
+ *   org.gnome.glib.GValue.g_value_get_enum(long value)
+ * called from
+ *   org.gnome.glib.GValue.getEnum(EnumValue value)
+ * called from
+ *   org.gnome.glib.Object.getPropertyEnum(String name)
+ *
+ * Extract the ordinal of an enum stored in a GValue of type G_TYPE_OBJECT
+ */
+JNIEXPORT jlong JNICALL
+Java_org_gnome_glib_GValue_g_1value_1get_1object
+(
+	JNIEnv* env,
+	jclass cls,
+	jlong _value
+)
+{
+	GValue* value;
+	GObject* object; 
+
+	// translate value
+	value =	(GValue*) _value;
+	if (!G_VALUE_HOLDS_OBJECT(value)) {
+		bindings_java_throw(env, "You've asked for the GObject within a GValue, but it's not a G_TYPE_OBJECT!");
+		return 0L;
+	}
+	
+	// call function
+	object = g_value_get_object(value); 
+
+	// and return	
+	return (jlong) object;
 }
