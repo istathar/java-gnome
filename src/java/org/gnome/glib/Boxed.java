@@ -1,7 +1,7 @@
 /*
  * Boxed.java
  *
- * Copyright (c) 2006 Operational Dynamics Consulting Pty Ltd
+ * Copyright (c) 2006-2007 Operational Dynamics Consulting Pty Ltd
  * 
  * The code in this file, and the library it is a part of, are made available
  * to you by the authors under the terms of the "GNU General Public Licence,
@@ -10,6 +10,8 @@
  * See the LICENCE file for the terms governing usage and redistribution.
  */
 package org.gnome.glib;
+
+import org.freedesktop.bindings.Proxy;
 
 /**
  * Parent class of proxied structures. Java side, these behave like normal
@@ -34,7 +36,10 @@ package org.gnome.glib;
  * @author Andrew Cowie
  * @since 4.0.0
  */
-public abstract class Boxed extends Value
+/*
+ * WARNING This is not fully implemented.
+ */
+public abstract class Boxed extends Proxy
 {
     /*
      * Default true, which is the case for most instances. TODO True?
