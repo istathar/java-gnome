@@ -1,8 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
-	<classpathentry kind="src" path="src/java"/>
+	<classpathentry kind="src" path="src/java">
+		<attributes>
+			<attribute name="org.eclipse.jdt.launching.CLASSPATH_ATTR_LIBRARY_PATH_ENTRY" value="BindingsPrototype/tmp"/>
+		</attributes>
+	</classpathentry>
 	<classpathentry kind="src" path="mockup/java"/>
-	<classpathentry kind="src" path="tests/prototype"/>
+	<classpathentry kind="src" output="tmp/tests" path="tests/prototype"/>
+	<classpathentry kind="src" output="tmp/tests" path="tests/java"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/3.8.1"/>
 	<classpathentry kind="output" path="tmp/classes"/>
 </classpath>

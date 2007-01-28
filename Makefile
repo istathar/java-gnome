@@ -46,13 +46,14 @@ build/config: .config build/dirs
 
 SOURCES_DIST=$(shell find src/java -name '*.java') $(shell find mockup/java -name '*.java' )
 
-SOURCES_TEST=$(shell find tests/prototype -name '*.java' )
+SOURCES_TEST=$(shell find tests/prototype -name '*.java' ) $(shell find tests/java -name '*.java' )
 
 # These are just the headers which are crafted, not generated
 HEADERS_C=$(shell find src/jni -name '*.h' | sed -e 's/src\/jni/tmp\/include/g' -e 's/\.c/\.h/g')
 
 SOURCES_C=$(shell find src/java -name '*.c' ) $(shell find mockup/java -name '*.c' ) $(shell find src/jni -name '*.c' )
 OBJECTS_C=$(shell echo $(SOURCES_C) | sed -e's/\.c/\.o/g' -e's/src\/java/tmp\/objects/g' -e's/mockup\/java/tmp\/objects/g' -e's/src\/jni/tmp\/objects/g' )
+
 
 #
 # convenience target: setup pre-reqs
@@ -203,11 +204,17 @@ $(JAVAGNOME_HOME)/lib/libgtkjava-$(APIVERSION).so: tmp/libgtkjava-$(APIVERSION).
 
 build/classes-test: $(SOURCES_TEST)
 	@echo "$(JAVAC_CMD) tmp/tests/*.class"
-	$(JAVAC) -d tmp/tests -classpath tmp/gtk-$(APIVERSION).jar $?
+	$(JAVAC) -d tmp/tests -classpath tmp/tests:tmp/classes:$(JUNIT_JARS) $?
 	touch $@
 
 test: build-java build/classes-test
-	@echo -e "\n\`make test\` not yet implemented. Try \`make demo\` instead.\n" && exit 1
+	@echo "$(JAVA_CMD) UnitTests"
+	$(JAVA) \
+		-classpath tmp/tests:tmp/gtk-$(APIVERSION).jar:$(JUNIT_JARS) \
+		-Djava.library.path=tmp \
+		-DCOLUMNS=`resize | perl -n -e'print if (s/COLUMNS=(\d*);/\1/)'` \
+		-ea \
+		UnitTests
 
 demo: build-java build/classes-test
 	@echo "$(JAVA_CMD) Experiment"
