@@ -1,5 +1,7 @@
 NEWS
 
+_The End of the Beginning_
+
 Major engineering
 -----------------
 
@@ -37,13 +39,14 @@ Manish Singh, James Henstridge, and Malcolm Tredinnick for having analyzed the
 root cause issue and having clarified that two code paths would indeed be
 necessary.
 
-Loading Glade files
--------------------
+Loading `.glade` files
+----------------------
 
 User interface designers are nothing new, but one of the really cool things
 about GTK has long been the existence of `libglade`. It's a library which
 takes the output of a one of the GNOME user interface designers (such as such
-as **Glade 3**) and dynamically, at runtime, generates live Widgets!
+as **Glade 3**) and dynamically, at runtime, generates live Windows full of
+Widgets!
 
 With the arbitrary Proxy retrieval sorted out, the beginnings of a binding of
 `libglade` was possible. None of the fancy stuff is there yet, but a `.glade`
@@ -71,12 +74,12 @@ Along with mocked up code for:
 * _`org.gnome.gtk.GtkFileChooserAction`_
 * _`org.gnome.gtk.GtkFileChooserButton`_
 
-This is significant because GtkFileChooser is an _interface_ in GTK,
-and GtkFileChooserButton implements it. For a while now we'd been putting off
-the question of dealing with GInterface (would it work or be a major problem?
-When the time came we were delighted to find that the design
-implied by the re-engineered bindings handled it cleanly, elegantly, and
-without any fuss. Another nice validation of our new architecture.
+This is significant because GtkFileChooser is an _interface_ in GTK, and
+GtkFileChooserButton implements it. We'd been putting off the question of
+dealing with GInterface (would it work or be a major problem?) for a while
+now. We were delighted to find that the design implied by the re-engineered
+bindings handled it cleanly, elegantly, and without any fuss. Another nice
+validation of our new architecture.
 
 Finally, a number of new signals were exposed on: 
 
@@ -84,16 +87,17 @@ Finally, a number of new signals were exposed on:
 
 though this was mostly for demonstration purposes.
 
-
 Looking ahead
 -------------
 
 The feature additions described above were done to bring java-gnome up to
-speed for the GTK tutorial given at linux.conf.au; with that done, we're not
-going to do any more manual mockups of code in what will be the generated
-layer. Focus now turns to designing and implementing the code generator that
-parses `.defs` files. This will take several months to complete, assuming the
-work is funded.
+speed for the GTK & GNOME tutorial given at [linux.conf.au][LCA]; with that
+done, we're not going to do any more manual mockups of code in what will be
+the generated layer. Focus now turns to designing and implementing the code
+generator that parses `.defs` files. This will take several months to
+complete, assuming the work is funded.
+
+[LCA]: http://lca2007.linux.org.au/
 
 AfC
 
