@@ -1,4 +1,4 @@
-personal_ws-1.1 en 532 
+personal_ws-1.1 en 536 
 nativeName
 apache
 bjc
@@ -47,8 +47,8 @@ forName
 CallStaticVoidMethodA
 setPropertyFloat
 ULONG
-GladeXml
 GladeXML
+GladeXml
 NullPointerException
 createFixed
 throwByName
@@ -147,6 +147,7 @@ setPropertyPixbuf
 Gruber's
 IntegerValue
 doxygen
+LCA
 IRC
 runtime
 setLabel
@@ -165,6 +166,7 @@ ListStore
 PressMe
 packStart
 TreeView's
+bloggins
 getPropertyFloat
 buildable
 GValues
@@ -175,6 +177,7 @@ GtkStockItem
 UCHAR
 GtkFileChooserButton
 esque
+ebuild
 defs
 dictat
 jvm
@@ -183,8 +186,8 @@ gType
 registerConstant
 textwidth
 Dialogs
-jamvm
 JamVM
+jamvm
 perl
 methodSignature
 GObjects
@@ -241,8 +244,8 @@ IsSameObject
 glibj
 GUADEC
 methodName
-nThe
 nsme
+nThe
 ExceptionOccurred
 DataColumn
 php
@@ -390,8 +393,8 @@ getClass
 GParamSpec
 vte
 xjf
-javadoc
 JavaDoc
+javadoc
 vhosts
 struct
 putWidget
@@ -443,6 +446,7 @@ jclass
 handlerBlah
 jvalue
 getAlignment
+LD
 JavaVM
 methodID
 Fortin
@@ -501,8 +505,8 @@ accessors
 loadLibrary
 IllegalAccessException
 DesignConstraints
-pyGTK
 pygtk
+pyGTK
 strfreev
 libglade
 TreeStore

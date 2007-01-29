@@ -1,12 +1,12 @@
 NEWS
 
-_The End of the Beginning_
+_The End of the Beginning!_
 
 Major engineering
 -----------------
 
 Further bindings development exposed a major flaw in the guts of the Plumbing
-system. In particular, the mechanism for getting a new Proxy object was
+system. Specifically, the mechanism for getting a new Proxy object was
 significantly borked when trying to use it to get a GObject from a property.
 Solving it required major work on:
 
@@ -87,19 +87,67 @@ Finally, a number of new signals were exposed on:
 
 though this was mostly for demonstration purposes.
 
+
+Installation and Packaging
+--------------------------
+
+java-gnome 4.0 now has the standard `make install` command, and the equally
+standard `--prefix` option to `./configure`.
+
+The `install` target understands the `DESTDIR` variable used by packagers to
+install to a specified prefix _within_ a temporary directory. Someone writing
+an `.ebuild` to create a package for java-gnome on a Gentoo system would
+probably end up with the following commands being run by Portage:
+
+	./configure --prefix=/usr
+	make DESTDIR=/var/tmp/portage/java-gnome-4.0.2-r2/image install
+
+To the relief of people doing packaging everywhere, `/usr` is the default
+installation prefix, so you don't even need to worry it. On the other hand, if
+you have distro policy issues to deal with, then move things around once
+they've landed in `DESTDIR`.
+
+On the other hand, someone installing it locally (in your home directory, say)
+might do:
+
+	./configure --prefix=/home/bloggins
+	make install
+
+and you would end up with:
+
+	~/share/java/gtk-4.0.jar
+	~/share/java/gtk.jar
+	~/lib/libgtkjni-4.0.so
+
+Of course, if you do that (or install anywhere else off the system shared
+library search path), you'll need to use the `LD_LIBRARY_PATH` environment
+variable or the `java.library.path` Java system property in order to tell your
+Virtual Machine where the library is. For instance:
+
+    java                                             \
+        -classpath /home/bloggins/share/java/gtk.jar \
+        -Djava.library.path=/home/bloggins/lib       \
+        -ea                                          \
+        com.example.ComeOnBabyLightMyFire
+
+Oh, the joys of running Java programs by hand. If you're running programs in
+Eclipse, you can specify a native library location in when you add a `.jar`
+file under "Project`->`Properties`->`Java Build Path". Super handy!
+
 Looking ahead
 -------------
 
 The feature additions described above were done to bring java-gnome up to
-speed for the GTK & GNOME tutorial given at [linux.conf.au][LCA]; with that
-done, we're not going to do any more manual mockups of code in what will be
+speed for the GTK & GNOME tutorial given at [linux.conf.au][LCA]. With that
+past, we're not going to do any more manual mockups of code in what will be
 the generated layer. Focus now turns to designing and implementing the code
-generator that parses `.defs` files. This will take several months to
-complete, assuming the work is funded.
-
-[LCA]: http://lca2007.linux.org.au/
+generator that parses `.defs` files. Once we secure funding for the project,
+the code generator will be our top priority and shouldn't take more than a
+couple months to complete.
 
 AfC
+
+[LCA]: http://lca2007.linux.org.au/
 
 
 <a name="4.0.1" id="1167969613" title="Prototype becomes foundation"></a>
