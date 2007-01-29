@@ -26,7 +26,7 @@ build-java: tmp/gtk-$(APIVERSION).jar tmp/libgtkjni-$(APIVERSION).so
 
 build-native: tmp/libgtkjava-$(APIVERSION).so
 
-.PHONY: test demo doc clean distlcean sleep
+.PHONY: test demo doc clean distlcean sleep install
 
 # [this  will be called by the above include if .config is missing.
 # We don't call ./configure automatically to allow scope for
@@ -180,11 +180,12 @@ endif
 
 install-dirs: $(DESTDIR)$(PREFIX)/.java-gnome-install-dirs
 $(DESTDIR)$(PREFIX)/.java-gnome-install-dirs:
-	@echo "MKDIR     installation directories"
-	mkdir -p $(DESTDIR)$(PREFIX)
+	@test -d $(DESTDIR)$(PREFIX)/share/java || echo "MKDIR     installation directories"
+	-mkdir -p $(DESTDIR)$(PREFIX)
+	-touch $@ 2>/dev/null
+	test -w $@ || ( echo -e "\nYou don't seem to have write permissions to $(DESDIR)$(PREFIX)\nPerhaps you need to be root?\n" && exit 7 )
 	mkdir -p $(DESTDIR)$(PREFIX)/share/java
 	mkdir -p $(DESTDIR)$(PREFIX)/lib
-	touch $@
 
 install-java: build-java \
 	$(DESTDIR)$(PREFIX)/share/java/gtk-$(APIVERSION).jar \
