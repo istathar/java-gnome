@@ -1,5 +1,103 @@
 NEWS
 
+Major engineering
+-----------------
+
+Further bindings development exposed a major flaw in the guts of the Plumbing
+system. In particular, the mechanism for getting a new Proxy object was
+significantly borked when trying to use it to get a GObject from a property.
+Solving it required major work on:
+
+ * `org.gnome.glib.Plumbing`
+ * **`org.gnome.glib.Value`**
+ * `org.gnome.glib.GValue`
+ * **`org.gnome.glib.Object`**
+ * `org.gnome.glib.GObject`
+
+All of these changes were confined to the internals of the binding machinery
+and, with one exception, are not user visible.
+
+The heart of the problem was that calling `g_type_name()` on a GValue
+_containing_ a GObject returned the name of the type that was listed in the
+property specification rather than stating it is a GValue. This led to all
+kinds of nastiness since this was used by the `instanceFor()` mechanism to
+figure out (Java side) what kind of Proxy subclass to create.
+
+The solution basically boiled down to having two separate code paths: the
+existing (and now much simplified) `instanceFor()` to extract normal Proxy
+objects (`Buttons` and `Labels` and whatnot) and a new code path available via
+`valueFor()` to specifically return our GValue proxy for the cases where we
+know we're getting a GValue back. That essentially occurs only when we're
+getting properties, and those cases are clearly identified and contained. For
+the remainder, the originally conceived `instanceFor()` mechanism continues to
+work.
+
+Thanks to Davyd Madeley for extensive debugging assistance, and credit to
+Manish Singh, James Henstridge, and Malcolm Tredinnick for having analyzed the
+root cause issue and having clarified that two code paths would indeed be
+necessary.
+
+Loading Glade files
+-------------------
+
+User interface designers are nothing new, but one of the really cool things
+about GTK has long been the existence of `libglade`. It's a library which
+takes the output of a one of the GNOME user interface designers (such as such
+as **Glade 3**) and dynamically, at runtime, generates live Widgets!
+
+With the arbitrary Proxy retrieval sorted out, the beginnings of a binding of
+`libglade` was possible. None of the fancy stuff is there yet, but a `.glade`
+file can be loaded, and Widgets retrieved from the instantiated tree.
+
+* **`org.gnome.glade.Glade`**
+* **`org.gnome.glade.Xml`**
+* `org.gnome.glade.GladeXml`
+
+The JavaDoc for these classes clearly indicates that this is preliminary and
+subject to change.
+
+Further coverage
+----------------
+
+This release sees the addition of:
+
+* **`org.gnome.gtk.FileChooser`**
+* **`org.gnome.gtk.FileChooserAction`**
+* **`org.gnome.gtk.FileChooserButton`**
+
+Along with mocked up code for:
+
+* _`org.gnome.gtk.GtkFileChooser`_
+* _`org.gnome.gtk.GtkFileChooserAction`_
+* _`org.gnome.gtk.GtkFileChooserButton`_
+
+This is significant because GtkFileChooser is an _interface_ in GTK,
+and GtkFileChooserButton implements it. For a while now we'd been putting off
+the question of dealing with GInterface (would it work or be a major problem?
+When the time came we were delighted to find that the design
+implied by the re-engineered bindings handled it cleanly, elegantly, and
+without any fuss. Another nice validation of our new architecture.
+
+Finally, a number of new signals were exposed on: 
+
+* **`org.gnome.gtk.Widget`**
+
+though this was mostly for demonstration purposes.
+
+
+Looking ahead
+-------------
+
+The feature additions described above were done to bring java-gnome up to
+speed for the GTK tutorial given at linux.conf.au; with that done, we're not
+going to do any more manual mockups of code in what will be the generated
+layer. Focus now turns to designing and implementing the code generator that
+parses `.defs` files. This will take several months to complete, assuming the
+work is funded.
+
+AfC
+
+
 <a name="4.0.1" id="1167969613" title="Prototype becomes foundation"></a>
 
 java-gnome 4.0.1 (05 Jan 2007)

@@ -1,10 +1,11 @@
-personal_ws-1.1 en 521 
+personal_ws-1.1 en 532 
 nativeName
 apache
 bjc
 HashMap
 GetStringUTFChars
 guint
+GInterface
 api
 denaturation
 gint
@@ -46,9 +47,9 @@ forName
 CallStaticVoidMethodA
 setPropertyFloat
 ULONG
-NullPointerException
 GladeXml
 GladeXML
+NullPointerException
 createFixed
 throwByName
 toplevel
@@ -110,6 +111,7 @@ setDecorated
 GPL
 Laszlo
 Gruber
+Henstridge
 ParsedTree
 Bleh
 jdk
@@ -166,10 +168,12 @@ TreeView's
 getPropertyFloat
 buildable
 GValues
+mockups
 GtkB
 getRelief
 GtkStockItem
 UCHAR
+GtkFileChooserButton
 esque
 defs
 dictat
@@ -228,6 +232,7 @@ moveWidget
 onClicked
 distro's
 distros
+valueFor
 codegen
 subinterface
 ClassCastException
@@ -296,6 +301,7 @@ PyThis
 bitkeeper
 toString
 conf
+Tredinnick
 Pty
 filetype
 ClassLoader's
@@ -367,8 +373,10 @@ nJava
 Microsystems
 subdirectory
 LoveLetter
+DESTDIR
 canRead
 nParsing
+usr
 txt
 rawing
 getPointer
@@ -382,8 +390,8 @@ getClass
 GParamSpec
 vte
 xjf
-JavaDoc
 javadoc
+JavaDoc
 vhosts
 struct
 putWidget
@@ -457,6 +465,7 @@ GBoxeds
 WeakHashMap
 GtkMain
 proxied
+GtkFileChooser
 Overholt
 Buildtool
 juju
@@ -480,6 +489,7 @@ Libre
 un
 ArrayList
 VM
+Singh
 VBoxes
 setRelief
 GtkBuilder
@@ -503,6 +513,7 @@ createGladeXml
 symlinks
 APIVERSION
 ifdef
+Manish
 enumMapping
 gchar
 HBox
