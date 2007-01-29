@@ -172,9 +172,9 @@ tmp/libgtkjava-$(APIVERSION).so: tmp/native/gtk.o
 # --------------------------------------------------------------------
 
 ifdef GCJ
-install: install-dirs install-java install-native
+install: build-java install-dirs install-java install-native
 else
-install: install-dirs install-java
+install: build-native install-dirs install-java
 endif
 	rm $(DESTDIR)$(PREFIX)/.java-gnome-install-dirs
 
@@ -195,15 +195,17 @@ install-native: build-native install-java \
 	$(DESTDIR)$(PREFIX)/lib/libgtkjava-$(APIVERSION).so
 
 $(DESTDIR)$(PREFIX)/share/java/gtk-$(APIVERSION).jar: tmp/gtk-$(APIVERSION).jar
-	@echo "INSTALL   $< -> $(@D)"
+	@echo "INSTALL   $@"
 	cp -f $< $@
+	@echo "SYMLINK   $(@D)/gtk.jar -> gtk-$(APIVERSION).jar"
+	cd $(@D) && rm -f gtk.jar && ln -s gtk-$(APIVERSION).jar gtk.jar
 	
 $(DESTDIR)$(PREFIX)/lib/libgtkjni-$(APIVERSION).so: tmp/libgtkjni-$(APIVERSION).so
-	@echo "INSTALL   $< -> $(@D)"
+	@echo "INSTALL   $@"
 	cp -f $< $@
 
 $(DESTDIR)$(PREFIX)/lib/libgtkjava-$(APIVERSION).so: tmp/libgtkjava-$(APIVERSION).so
-	@echo "INSTALL   $< -> $(@D)"
+	@echo "INSTALL   $@"
 	cp -f $< $@
 
 
