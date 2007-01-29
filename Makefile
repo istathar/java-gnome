@@ -167,34 +167,43 @@ tmp/libgtkjava-$(APIVERSION).so: tmp/native/gtk.o
 #	@echo "STRIP     $@"
 #	strip --only-keep-debug $@
 
-# WARNING.
-# This isn't a complete make install for libgtk-java. It just updates the .jar
-# and the .so in an existing installation.
+# --------------------------------------------------------------------
+# Install (run as root, or specify DESTDIR on Make command line)
+# --------------------------------------------------------------------
 
 ifdef GCJ
-#install: install-java install-native
+install: install-dirs install-java install-native
 else
-#install: install-java
+install: install-dirs install-java
 endif
+	rm $(DESTDIR)$(PREFIX)/.java-gnome-install-dirs
+
+install-dirs: $(DESTDIR)$(PREFIX)/.java-gnome-install-dirs
+$(DESTDIR)$(PREFIX)/.java-gnome-install-dirs:
+	@echo "MKDIR     installation directories"
+	mkdir -p $(DESTDIR)$(PREFIX)
+	mkdir -p $(DESTDIR)$(PREFIX)/share/java
+	mkdir -p $(DESTDIR)$(PREFIX)/lib
+	touch $@
 
 install-java: build-java \
-	$(JAVAGNOME_HOME)/share/java/gtk-$(APIVERSION).jar \
-	$(JAVAGNOME_HOME)/lib/libgtkjni-$(APIVERSION).so
+	$(DESTDIR)$(PREFIX)/share/java/gtk-$(APIVERSION).jar \
+	$(DESTDIR)$(PREFIX)/lib/libgtkjni-$(APIVERSION).so
 
 install-native: build-native install-java \
-	$(JAVAGNOME_HOME)/lib/libgtkjava-$(APIVERSION).so
+	$(DESTDIR)$(PREFIX)/lib/libgtkjava-$(APIVERSION).so
 
-$(JAVAGNOME_HOME)/share/java/gtk-$(APIVERSION).jar: tmp/gtk-$(APIVERSION).jar
-	@echo "CP        $< -> $(@D)"
-	cp $< $@
+$(DESTDIR)$(PREFIX)/share/java/gtk-$(APIVERSION).jar: tmp/gtk-$(APIVERSION).jar
+	@echo "INSTALL   $< -> $(@D)"
+	cp -f $< $@
 	
-$(JAVAGNOME_HOME)/lib/libgtkjni-$(APIVERSION).so: tmp/libgtkjni-$(APIVERSION).so
-	@echo "CP        $< -> $(@D)"
-	cp $< $@
+$(DESTDIR)$(PREFIX)/lib/libgtkjni-$(APIVERSION).so: tmp/libgtkjni-$(APIVERSION).so
+	@echo "INSTALL   $< -> $(@D)"
+	cp -f $< $@
 
-$(JAVAGNOME_HOME)/lib/libgtkjava-$(APIVERSION).so: tmp/libgtkjava-$(APIVERSION).so
-	@echo "CP        $< -> $(@D)"
-	cp $< $@
+$(DESTDIR)$(PREFIX)/lib/libgtkjava-$(APIVERSION).so: tmp/libgtkjava-$(APIVERSION).so
+	@echo "INSTALL   $< -> $(@D)"
+	cp -f $< $@
 
 
 # --------------------------------------------------------------------
