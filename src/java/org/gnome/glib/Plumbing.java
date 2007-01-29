@@ -33,15 +33,15 @@ public abstract class Plumbing extends org.freedesktop.bindings.Plumbing
 {
     protected Plumbing() {}
 
-    private static final IdentityHashMap typeMapping;
+    private static final IdentityHashMap<String, Class> typeMapping;
 
-    private static final IdentityHashMap enumMapping;
+    private static final IdentityHashMap<String, Class> enumMapping;
 
     private static final String TYPE_MAPPING = "typeMapping.properties";
 
     static {
-        typeMapping = new IdentityHashMap(100);
-        enumMapping = new IdentityHashMap(100);
+        typeMapping = new IdentityHashMap<String, Class>(100);
+        enumMapping = new IdentityHashMap<String, Class>(100);
 
         registerType("gchararray", StringValue.class);
         registerType("gboolean", BooleanValue.class);
@@ -183,7 +183,7 @@ public abstract class Plumbing extends org.freedesktop.bindings.Plumbing
              * not null.
              */
 
-            type = (Class) typeMapping.get(name);
+            type = typeMapping.get(name);
 
             if (type != null) {
                 obj = createInstance(type, pointer);
@@ -261,7 +261,7 @@ public abstract class Plumbing extends org.freedesktop.bindings.Plumbing
              * Map is not null. This is the case for all the primative types.
              */
 
-            type = (Class) typeMapping.get(name);
+            type = typeMapping.get(name);
 
             if (type != null) {
                 obj = (Value) createInstance(type, pointer);
@@ -276,7 +276,7 @@ public abstract class Plumbing extends org.freedesktop.bindings.Plumbing
              * (no need to use reflection here).
              */
 
-            type = (Class) enumMapping.get(name);
+            type = enumMapping.get(name);
 
             if (type != null) {
                 obj = new EnumValue(pointer, type);

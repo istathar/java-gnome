@@ -41,7 +41,7 @@ public abstract class Plumbing
      * created Java side that instance is returned rather than creating a new
      * one.
      */
-    static final HashMap knownProxies;
+    static final HashMap<Long, Proxy> knownProxies;
 
     /**
      * When Enums get created, we add them to this Map so we can find an
@@ -55,7 +55,7 @@ public abstract class Plumbing
      * reachable; the Constant instances themselves will always be present by
      * virtue of their being in this two tier table.
      */
-    static final HashMap knownConstants;
+    static final HashMap<Class<? extends Constant>, ArrayList<Constant>> knownConstants;
 
     static {
         /*
@@ -66,8 +66,8 @@ public abstract class Plumbing
          * switch to weak _values_; we're going to need to wrap and unwrap
          * WeakReference around the Proxies we put as values to achieve that.
          */
-        knownProxies = new HashMap();
-        knownConstants = new HashMap();
+        knownProxies = new HashMap<Long, Proxy>();
+        knownConstants = new HashMap<Class<? extends Constant>, ArrayList<Constant>>();
     }
 
     /*
@@ -152,7 +152,7 @@ public abstract class Plumbing
      * looked up.
      */
     protected static Proxy instanceFor(long pointer) {
-        return (Proxy) knownProxies.get(new Long(pointer));
+        return knownProxies.get(new Long(pointer));
     }
 
     /**
@@ -184,15 +184,15 @@ public abstract class Plumbing
      * could use an Java array [object] instead of an ArrayList.
      */
     static final void registerConstant(Constant obj) {
-        final Class type;
-        ArrayList list;
+        final Class<? extends Constant> type;
+        ArrayList<Constant> list;
 
         type = obj.getClass();
 
-        list = (ArrayList) knownConstants.get(type);
+        list = knownConstants.get(type);
 
         if (list == null) {
-            list = new ArrayList(4);
+            list = new ArrayList<Constant>(4);
             knownConstants.put(type, list);
         }
 
@@ -230,7 +230,7 @@ public abstract class Plumbing
         final ArrayList list;
         final Constant obj;
 
-        list = (ArrayList) knownConstants.get(type);
+        list = knownConstants.get(type);
         if (list == null) {
             throw new IllegalArgumentException("No Constants of type " + type.getName()
                     + " are registered");
