@@ -1327,10 +1327,10 @@ HERE
 
 } else {
 	# otherwise, pick a compiler.
-	if ($ecj) {
-		$compiler = "ecj";
-	} elsif ($jikes) {
+	if ($jikes) {
 		$compiler = "jikes";
+	} elsif ($ecj) {
+		$compiler = "ecj";
 	} elsif ($javac) {
 		$compiler = "javac";
 	} elsif ($gcjC) {
