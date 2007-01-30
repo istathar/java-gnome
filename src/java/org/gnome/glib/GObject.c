@@ -220,6 +220,37 @@ Java_org_gnome_glib_GObject_g_1signal_1connect
 
 /*
  * Implements
+ *   org.gnome.glib.GObject.g_object_ref(long reference)
+ * called from
+ *   org.gnome.glib.GObject.ref(Object reference)
+ * called from
+ *   org.gnome.glib.Plumbing.createObject(long pointer)
+ * called from
+ *   org.gnome.glib.Plumbing.objectFor(long pointer)
+ * 
+ * When we make a Proxy to a GObject on our own, we need to tell the
+ * reference system about it.
+ */
+ 
+JNIEXPORT void JNICALL 
+Java_org_gnome_glib_GObject_g_1object_1ref
+(
+	JNIEnv* env,
+	jclass cls,
+	jlong _reference
+)
+{
+	GObject* reference;
+	
+	// translate reference
+	reference = (GObject*) _reference;
+	
+	// call function
+	g_object_ref(reference);
+}
+
+/*
+ * Implements
  *   org.gnome.glib.GObject.g_object_unref(long reference)
  * called from
  *   org.gnome.glib.GObject.unref(Object reference)
