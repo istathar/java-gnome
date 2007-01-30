@@ -17,7 +17,6 @@ import java.util.Iterator;
 import java.util.Properties;
 
 import org.freedesktop.bindings.Constant;
-import org.freedesktop.bindings.Proxy;
 
 /**
  * Translation layer class which adds the ability to connect signals to
@@ -145,12 +144,14 @@ public abstract class Plumbing extends org.freedesktop.bindings.Plumbing
      * 
      * @see org.freedesktop.bindings.Plumbing#instanceFor(long)
      */
-    protected static Proxy instanceFor(long pointer) {
+    protected static Object objectFor(long pointer) {
+        Object obj;
+        
         if (pointer == 0L) {
             return null;
         }
 
-        Proxy obj = org.freedesktop.bindings.Plumbing.instanceFor(pointer);
+        obj = (Object) instanceFor(pointer);
 
         if (obj != null) {
             /*
@@ -165,28 +166,28 @@ public abstract class Plumbing extends org.freedesktop.bindings.Plumbing
              * exception.
              */
             final String name;
-            Class type;
+            final Class type;
 
             /*
-             * Somewhat crucially, we intern the returned GType name string to
-             * reduce memory pressure and to permit lookup by identity.
+             * We intern the returned GType name string to reduce memory
+             * pressure and to permit lookup by identity.
              */
-            name = GObject.g_type_name(pointer).intern();
+            
+            name = GObject.typeName(pointer).intern();
 
             if (name.equals("")) {
                 throw new IllegalStateException("\nGType name lookup failed");
             }
 
             /*
-             * Now we handle the usual case of getting the instance for a
-             * Proxy subclass. That is the case when the Class in the Map is
-             * not null.
+             * Now we handle the expected case of being able to get the
+             * instance for the Proxy subclass.
              */
-
+            
             type = (Class) typeMapping.get(name);
 
             if (type != null) {
-                obj = createInstance(type, pointer);
+                obj = createObject(type, pointer);
                 return obj;
             }
 
@@ -195,9 +196,18 @@ public abstract class Plumbing extends org.freedesktop.bindings.Plumbing
              * don't have any information about this native type and how to
              * map it to Java. So,
              */
+            
             throw new UnsupportedOperationException("\nNo binding for " + name
                     + " (yet!), GObject code path");
         }
+    }
+
+    private static Object createObject(Class type, long pointer) {
+        final Object obj;
+        // FIXME use per-package Factory instead?
+        obj = (Object) createInstance(type, pointer);
+        GObject.ref(obj);
+        return obj;
     }
 
     /**
@@ -232,7 +242,7 @@ public abstract class Plumbing extends org.freedesktop.bindings.Plumbing
              * As with instanceFor(), we intern the returned GType name string
              * to reduce memory pressure and to permit lookup by identity.
              */
-            name = GValue.g_type_name(pointer).intern();
+            name = GValue.typeName(pointer).intern();
 
             if (name.equals("")) {
                 throw new IllegalStateException("\nGType name lookup failed");

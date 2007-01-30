@@ -67,7 +67,7 @@ final class GValue extends Plumbing
     private static native final int g_value_get_enum(long value);
 
     static final Object getObject(ObjectValue value) {
-        return (Object) instanceFor(g_value_get_object(pointerOf(value)));
+        return objectFor(g_value_get_object(pointerOf(value)));
     }
 
     private static native final long g_value_get_object(long value);
