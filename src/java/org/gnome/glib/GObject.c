@@ -33,7 +33,7 @@
  * called from
  *   org.gnome.glib.Plumbing.instanceForObject(long pointer)
  * also made available via
- *   org.gnome.glib.GObject.type(Object object);
+ *   org.gnome.glib.GObject.typeName(Object object);
  */
 JNIEXPORT jstring JNICALL
 Java_org_gnome_glib_GObject_g_1type_1name

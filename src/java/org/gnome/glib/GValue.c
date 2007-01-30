@@ -20,9 +20,11 @@
  * Implements
  *   org.gnome.glib.GValue.g_type_name(long value)
  * called from
+ *   org.gnome.glib.GValue.typeName(long value)
+ * called from
  *   org.gnome.glib.Plumbing.instanceFor(long pointer)
  * and also made available via
- *   org.gnome.glib.GValue.name(Value value)
+ *   org.gnome.glib.GValue.typeName(Value value)
  */
 JNIEXPORT jstring JNICALL
 Java_org_gnome_glib_GValue_g_1type_1name

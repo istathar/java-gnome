@@ -73,10 +73,6 @@ final class GObject extends Plumbing
     }
 
     /**
-     * Get the name registered for a the GType corresponding to this
-     */
-
-    /**
      * Lookup the type name for a given Value. <i>When a GType such as a
      * primitive (fundamental) type or a class is registered in GObject, it is
      * given a name.
@@ -97,7 +93,7 @@ final class GObject extends Plumbing
      * We don't really need this, but we'll leave it here for bindings hackers
      * to use if debugging.
      */
-    static final String type(Object object) {
+    static final String typeName(Object object) {
         return g_type_name(pointerOf(object));
     }
 
@@ -107,7 +103,11 @@ final class GObject extends Plumbing
      * method needs to call this _before_ it can (and in order to) construct a
      * Proxy.
      */
-    static native final String g_type_name(long object);
+    static final String typeName(long object) {
+        return g_type_name(object);
+    }
+    
+    private static native final String g_type_name(long object);
 
     private static native final void g_object_unref(long reference);
 
