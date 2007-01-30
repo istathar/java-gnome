@@ -146,7 +146,7 @@ public abstract class Plumbing extends org.freedesktop.bindings.Plumbing
      */
     protected static Object objectFor(long pointer) {
         Object obj;
-        
+
         if (pointer == 0L) {
             return null;
         }
@@ -172,7 +172,7 @@ public abstract class Plumbing extends org.freedesktop.bindings.Plumbing
              * We intern the returned GType name string to reduce memory
              * pressure and to permit lookup by identity.
              */
-            
+
             name = GObject.typeName(pointer).intern();
 
             if (name.equals("")) {
@@ -183,7 +183,7 @@ public abstract class Plumbing extends org.freedesktop.bindings.Plumbing
              * Now we handle the expected case of being able to get the
              * instance for the Proxy subclass.
              */
-            
+
             type = (Class) typeMapping.get(name);
 
             if (type != null) {
@@ -196,7 +196,7 @@ public abstract class Plumbing extends org.freedesktop.bindings.Plumbing
              * don't have any information about this native type and how to
              * map it to Java. So,
              */
-            
+
             throw new UnsupportedOperationException("\nNo binding for " + name
                     + " (yet!), GObject code path");
         }
@@ -274,7 +274,7 @@ public abstract class Plumbing extends org.freedesktop.bindings.Plumbing
             type = (Class) typeMapping.get(name);
 
             if (type != null) {
-                obj = (Value) createInstance(type, pointer);
+                obj = createValue(type, pointer);
                 return obj;
             }
 
@@ -302,6 +302,13 @@ public abstract class Plumbing extends org.freedesktop.bindings.Plumbing
                     + " (yet?), GValue code path");
         }
 
+    }
+
+    private static Value createValue(Class type, long pointer) {
+        // FIXME replace with Java side reflection code? They're all in
+        // org.gnome.glib, after all.
+        Value obj = (Value) createInstance(type, pointer);
+        return obj;
     }
 
     /**
