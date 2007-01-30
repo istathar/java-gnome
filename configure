@@ -767,6 +767,7 @@ output "Check Java compilers:\n";
 # compilers we will check for:
 my $javac;
 my $jikes;
+my $ecj;
 my $gcjC;	# The moniker $gcjC referes to `gcj -C`
 my $kaffec;
 
@@ -793,7 +794,12 @@ if ($os eq "gentoo") {
 	# told about where to find the Java system classes. (java.lang, etc)
 	# we make an educated guess until java-config can tell us properly.
 	my $rt = "$java_home"."/jre/lib/rt.jar";
-	check_compiler($jikes, "IBM jikes", which("jikes"), "-bootclasspath $rt -nowarn -source 1.4 -target 1.4 +T=4 +Z0") if ( -f "$rt");
+	check_compiler($jikes, "IBM jikes", "/usr/bin/jikes", "-g -bootclasspath $rt -nowarn -source 1.4 -target 1.4 +T=4 +Z0") if ( -f "$rt");
+		
+	# check ecj, the standalone Eclipse compiler. It's slower than Jikes,
+	# but significantly more modern and maintained whereas Jikes is
+	# largely abandoned as a project.
+	check_compiler($ecj, "Eclipse ecj", "/usr/bin/ecj-3.2", "-g -preserveAllLocals -nowarn -source 1.4 -target 1.4");
 	
 	# check javac (the one specified by Gentoo's java-config tool)
 	# The $vendor business is just some precision prettiness for the
@@ -831,7 +837,7 @@ if ($os eq "gentoo") {
 	} elsif ($javac_candidate =~ /ibm/i) {
 		$vendor = "IBM";
 	}
-	check_compiler($javac, "$vendor javac", $javac_candidate, "-source 1.4 -target 1.4");
+	check_compiler($javac, "$vendor javac", $javac_candidate, "-g -source 1.4 -target 1.4");
 
 	# check gcj. -C means generate .class files, not .o files (which are
 	# for linking into native executables.
@@ -857,7 +863,10 @@ if ($os eq "gentoo") {
 
 	# check jikes. Since Jikes isn't a JRE of its own, it needs to be told
 	# about where to find the Java system classes. (java.lang, etc).
-	check_compiler($jikes, "IBM jikes", "/usr/bin/jikes", "-bootclasspath /usr/share/classpath/glibj.zip -source 1.4 -target 1.4 +T=4 +Z0");
+	check_compiler($jikes, "IBM jikes", "/usr/bin/jikes", "-g -bootclasspath /usr/share/classpath/glibj.zip -source 1.4 -target 1.4 +T=4 +Z0");
+
+	# check ecj, the standalone Eclipse compiler.
+	check_compiler($ecj, "Eclipse ecj", which("ecj"), "-g -preserveAllLocals -nowarn -source 1.4 -target 1.4");
 
 	# check for a proper "real" JDK's javac as installed (and maybe
 	# selected in the alternatives system) by the user. In other words,
@@ -888,7 +897,7 @@ if ($os eq "gentoo") {
 	} elsif ($javac_candidate =~ /ibm/i) {
 		$vendor = "IBM";
 	}
-	check_compiler($javac, "$vendor javac", $javac_candidate, "-source 1.4 -target 1.4");
+	check_compiler($javac, "$vendor javac", $javac_candidate, "-g -source 1.4 -target 1.4");
 
 	# check gcj. The moniker $gcjC referes to `gcj -C`. See HACKING.
 	my $gcj_candidate;
@@ -921,7 +930,10 @@ if ($os eq "gentoo") {
 
 	# check for jikes. Presumably -bootclasspath will need to be set
 	# like on Gentoo and Debian; to what?
-	check_compiler($jikes, "IBM jikes", "/usr/bin/jikes", "-source 1.4 -target 1.4 +T=4 +Z0");
+	check_compiler($jikes, "IBM jikes", "/usr/bin/jikes", "-g -source 1.4 -target 1.4 +T=4 +Z0");
+
+	# check ecj, the standalone Eclipse compiler.
+	check_compiler($ecj, "Eclipse ecj", which("ecj"), "-g -preserveAllLocals -nowarn -source 1.4 -target 1.4");
 
 	my $javac_candidate;
 	my $javah_candidate;
@@ -941,7 +953,7 @@ if ($os eq "gentoo") {
 		$javadoc_candidate = "/usr/lib/jvm/java-ibm/bin/javadoc";
 		$vendor = "IBM";
 	}
-	check_compiler($javac, "$vendor javac", $javac_candidate, "-source 1.4 -target 1.4");
+	check_compiler($javac, "$vendor javac", $javac_candidate, "-g -source 1.4 -target 1.4");
 
 	# check for gcj
 	my $gcj_candidate;
@@ -960,7 +972,9 @@ if ($os eq "gentoo") {
 	check_javadoc($javadoc, "$vendor javadoc", $javadoc_candidate, "");
 
 } elsif ($os eq "solaris") {
-	check_compiler($jikes, "IBM jikes", "/usr/bin/jikes", "-bootclasspath /usr/java/jre/lib/rt.jar -source 1.4 -target 1.4 +T=4 +Z0");
+	check_compiler($jikes, "IBM jikes", "/usr/bin/jikes", "-g -bootclasspath /usr/java/jre/lib/rt.jar -source 1.4 -target 1.4 +T=4 +Z0");
+
+	check_compiler($ecj, "Eclipse ecj", which("ecj"), "-g -preserveAllLocals -nowarn -source 1.4 -target 1.4");
 
 	my $javac_candidate;
 	my $javah_candidate;
@@ -980,7 +994,7 @@ if ($os eq "gentoo") {
 		$javadoc_candidate = "/usr/java/bin/javadoc";
 		$vendor = "Sun";
 	}
-	check_compiler($javac, "$vendor javac", $javac_candidate, "-source 1.4 -target 1.4");
+	check_compiler($javac, "$vendor javac", $javac_candidate, "-g -source 1.4 -target 1.4");
 
 	# check for gcj
 	my $gcj_candidate;
@@ -1297,6 +1311,8 @@ if ($compiler) {
 	# if overridden, check override...
 	if ($compiler eq "javac") {
 		bail "bad override", "javac specified but not detected as a workable compiler." unless $javac;
+	} elsif ($compiler eq "ecj") {
+		bail "bad override", "ecj specified but not detected as a workable compiler." unless $ecj;
 	} elsif ($compiler eq "jikes") {
 		bail "bad override", "jikes specified but not detected as a workable compiler." unless $jikes;
 	} elsif ($compiler eq "gcj") {
@@ -1313,6 +1329,8 @@ HERE
 	# otherwise, pick a compiler.
 	if ($jikes) {
 		$compiler = "jikes";
+	} elsif ($ecj) {
+		$compiler = "ecj";
 	} elsif ($javac) {
 		$compiler = "javac";
 	} elsif ($gcjC) {
@@ -1325,6 +1343,9 @@ HERE
 if ($compiler eq "javac") {
 	print CONFIG "JAVAC=$javac\n";
 	print CONFIG "JAVAC_CMD=JAVAC    \n";
+} elsif ($compiler eq "ecj") {
+	print CONFIG "JAVAC=$ecj\n";
+	print CONFIG "JAVAC_CMD=ECLIPSE  \n";
 } elsif ($compiler eq "jikes") {
 	print CONFIG "JAVAC=$jikes\n";
 	print CONFIG "JAVAC_CMD=JIKES    \n";

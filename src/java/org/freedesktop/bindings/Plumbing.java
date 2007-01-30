@@ -122,10 +122,11 @@ public abstract class Plumbing
      * being constructed in Java. If, on the other hand, you are calling this
      * from a native to Java code path, then you need to account for the fact
      * that it is likely that a returned pointer will not yet have a Proxy
-     * here. Override this method with your own <code>instanceFor()</code>
-     * implementation; call this method to find out if there is a Proxy
-     * already; then if not take appropriate action to create (and in so
-     * doing, register) a new Proxy object.
+     * here. You don't need to override this method with your own
+     * <code>instanceFor()</code> implementation so much as implemet custom
+     * variants: call this method to find out if there is a Proxy already;
+     * then if not take appropriate action to create (and in so doing,
+     * register) a new Proxy object.
      * 
      * <p>
      * Note that under this architecture, denaturation should <b>not</b>

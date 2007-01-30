@@ -43,8 +43,25 @@ final class GObject extends Plumbing
             String name);
 
     /**
-     * Calls g_object_unref() of the argument passed. You'd really best only
-     * do this once.
+     * Call g_object_ref() on the argument passed. This should only called
+     * when we're creating a Proxy for a GObject on our own hook as opposed to
+     * having obtained it from a g*_*_new() constructor function.
+     */
+    static void ref(org.gnome.glib.Object reference) {
+        long pointer = pointerOf(reference);
+        /*
+         * if are transmitting NULL from the G side to null on the Java sde,
+         * we don't need to do anything.
+         */
+        if (pointer == 0) {
+            return;
+        }
+        g_object_ref(pointerOf(reference));
+    }
+
+    /**
+     * Call g_object_unref() on the argument passed. You'd really best only do
+     * this once.
      */
     static void unref(org.gnome.glib.Object reference) {
         long pointer = pointerOf(reference);
@@ -54,10 +71,6 @@ final class GObject extends Plumbing
         }
         g_object_unref(pointer);
     }
-
-    /**
-     * Get the name registered for a the GType corresponding to this
-     */
 
     /**
      * Lookup the type name for a given Value. <i>When a GType such as a
@@ -80,7 +93,7 @@ final class GObject extends Plumbing
      * We don't really need this, but we'll leave it here for bindings hackers
      * to use if debugging.
      */
-    static final String type(Object object) {
+    static final String typeName(Object object) {
         return g_type_name(pointerOf(object));
     }
 
@@ -90,7 +103,13 @@ final class GObject extends Plumbing
      * method needs to call this _before_ it can (and in order to) construct a
      * Proxy.
      */
-    static native final String g_type_name(long object);
+    static final String typeName(long object) {
+        return g_type_name(object);
+    }
+    
+    private static native final String g_type_name(long object);
 
     private static native final void g_object_unref(long reference);
+
+    private static native final void g_object_ref(long reference);
 }

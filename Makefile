@@ -78,7 +78,7 @@ tmp/gtk-$(APIVERSION).jar: build/config build/classes-dist build/properties-dist
 
 build/classes-dist: $(SOURCES_DIST)
 	@echo "$(JAVAC_CMD) tmp/classes/*.class"
-	$(JAVAC) -d tmp/classes -classpath $(JAVAGNOME_JARS):src/java:tmp/classes $?
+	$(JAVAC) -d tmp/classes -classpath tmp/classes $?
 	touch $@
 
 
