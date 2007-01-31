@@ -16,8 +16,6 @@ import java.util.IdentityHashMap;
 import java.util.Iterator;
 import java.util.Properties;
 
-import org.freedesktop.bindings.Constant;
-
 /**
  * Translation layer class which adds the ability to connect signals to
  * GObjects. See {@link org.freedesktop.bindings.Plumbing Plumbing} for
@@ -34,13 +32,10 @@ public abstract class Plumbing extends org.freedesktop.bindings.Plumbing
 
     private static final IdentityHashMap typeMapping;
 
-    private static final IdentityHashMap enumMapping;
-
     private static final String TYPE_MAPPING = "typeMapping.properties";
 
     static {
         typeMapping = new IdentityHashMap(100);
-        enumMapping = new IdentityHashMap(100);
 
         // FUTURE do we still need this?
         registerType("gchararray", Primitive.class);
@@ -113,21 +108,7 @@ public abstract class Plumbing extends org.freedesktop.bindings.Plumbing
         assert ((nativeName != null) && (!nativeName.equals(""))) : "GType name being registered cannot be null or empty";
         assert (javaClass != null) : "Java class being registered cannot be null";
 
-        /*
-         * If the thing is an Constant (aka our Enum), then we have to treat
-         * it differently. We deliberately set the constructor to null, using
-         * it as a marker in valueFor(). Remember - we only call valueFor() on
-         * an enum when we know it was wrapped in a GValue - ie, the
-         * getProperty() case. When handling signal callbacks, we reverse
-         * translate the int directly using constantFor()
-         */
-
-        if (Constant.class.isAssignableFrom(javaClass)) {
-            typeMapping.put(nativeName.intern(), null);
-            enumMapping.put(nativeName.intern(), javaClass);
-        } else {
-            typeMapping.put(nativeName.intern(), javaClass);
-        }
+        typeMapping.put(nativeName.intern(), javaClass);
     }
 
     /**
@@ -249,12 +230,7 @@ public abstract class Plumbing extends org.freedesktop.bindings.Plumbing
      * Get the Class object that this supplied name maps to.
      */
     protected final static Class lookupType(String name) {
-        Class k = (Class) typeMapping.get(name);
-        if (k != null) {
-            return k;
-        } else {
-            return (Class) enumMapping.get(name);
-        }
+        return (Class) typeMapping.get(name);
     }
 
     /**
