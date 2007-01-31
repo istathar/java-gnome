@@ -42,12 +42,13 @@ public abstract class Plumbing extends org.freedesktop.bindings.Plumbing
         typeMapping = new IdentityHashMap(100);
         enumMapping = new IdentityHashMap(100);
 
-        registerType("gchararray", Value.class);
-        registerType("gboolean", Value.class);
-        registerType("gint", Value.class);
-        registerType("guint", Value.class);
-        registerType("gint32", Value.class);
-        registerType("guint32", Value.class);
+        // FUTURE do we still need this?
+        registerType("gchararray", Primitive.class);
+        registerType("gboolean", Primitive.class);
+        registerType("gint", Primitive.class);
+        registerType("guint", Primitive.class);
+        registerType("gint32", Primitive.class);
+        registerType("guint32", Primitive.class);
 
         Properties p = new Properties();
 
