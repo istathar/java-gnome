@@ -127,24 +127,6 @@ public abstract class Object extends Proxy
         GObject.setProperty(this, name, new Value(GValue.createValue(value)));
     }
 
-    /**
-     * Set a property that takes a Value [subclass] such as an Object or Boxed
-     * as its value.
-     * 
-     * @param name
-     *            the property you want to set.
-     * @param value
-     *            a Value subclass such as FIXME wrong
-     *            {@link org.gnome.glib.Object Object},
-     *            {@link org.gnome.glib.Boxed Boxed}, or Fundamental which is
-     *            the value you wish to set.
-     * @since 4.0.0
-     * @deprecated
-     */
-    void setProperty(String name, Value value) {
-        GObject.setProperty(this, name, value);
-    }
-
     protected String getPropertyString(String name) {
         Value value = GObject.getProperty(this, name);
         return GValue.getString(value);
