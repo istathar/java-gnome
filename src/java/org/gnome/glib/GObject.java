@@ -106,7 +106,7 @@ final class GObject extends Plumbing
     static final String typeName(long object) {
         return g_type_name(object);
     }
-    
+
     private static native final String g_type_name(long object);
 
     private static native final void g_object_unref(long reference);

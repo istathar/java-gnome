@@ -42,12 +42,12 @@ public abstract class Plumbing extends org.freedesktop.bindings.Plumbing
         typeMapping = new IdentityHashMap(100);
         enumMapping = new IdentityHashMap(100);
 
-        registerType("gchararray", StringValue.class);
-        registerType("gboolean", BooleanValue.class);
-        registerType("gint", IntegerValue.class);
-        registerType("guint", IntegerValue.class);
-        registerType("gint32", IntegerValue.class);
-        registerType("guint32", IntegerValue.class);
+        registerType("gchararray", Value.class);
+        registerType("gboolean", Value.class);
+        registerType("gint", Value.class);
+        registerType("guint", Value.class);
+        registerType("gint32", Value.class);
+        registerType("guint32", Value.class);
 
         Properties p = new Properties();
 
@@ -211,8 +211,8 @@ public abstract class Plumbing extends org.freedesktop.bindings.Plumbing
     }
 
     /**
-     * Retrieve the Proxy object corresponding to a <code>GValue</code>.
-     * This should only be needed by the property getter function.
+     * Retrieve a Proxy object corresponding to a <code>GValue</code>. This
+     * should only be needed by the property getter functions.
      * 
      * <p>
      * <i><code>GValues</code> are special... and a pain in the ass.
@@ -239,82 +239,21 @@ public abstract class Plumbing extends org.freedesktop.bindings.Plumbing
              */
             return obj;
         } else {
-            final String name;
-            Class type;
-
-            /*
-             * As with objectFor(), we intern the returned GType name string
-             * to reduce memory pressure and to permit lookup by identity.
-             */
-            name = GValue.typeName(pointer).intern();
-
-            if (name.equals("")) {
-                throw new IllegalStateException("\nGType name lookup failed");
-            }
-
-            /*
-             * GObjects give a false positive. For example, a GtkWindow in a
-             * GValue looked up in a property that is registered as a
-             * GtkContainer will come back as "GtkContainer" which is really
-             * no help - that is an abstract class and in any case what we
-             * want is to know there is a GObject in there. So
-             * GValue.g_type_name() is hacked to return a marker string. If
-             * there's no binding for that GObject subclass yet, we'll catch
-             * it later (ie, in objectFor()); the GValue itself is valid and
-             * we can bind it.
-             */
-
-            if (name.equals("<GObject>")) {
-                obj = new ObjectValue(pointer);
-                return obj;
-            }
-
-            /*
-             * Otherwise, we handle the usual case of getting the instance for
-             * a known Value subclass. That is the case when the Class in the
-             * type Map is not null. This is the case for all the primative
-             * types.
-             */
-
-            type = (Class) typeMapping.get(name);
-
-            if (type != null) {
-                obj = createValue(type, pointer);
-                return obj;
-            }
-
-            /*
-             * There is one other special case: we might be in the situation
-             * where actually the native type held in the GValue is an enum
-             * (we mark this by putting null in the typeMapping). In this case
-             * we have a Fundamental subclass called EnumValue with a special
-             * constructor, which we can call directly (no need to use
-             * reflection here).
-             */
-
-            type = (Class) enumMapping.get(name);
-
-            if (type != null) {
-                obj = new EnumValue(pointer, type);
-                return obj;
-            }
-
-            /*
-             * But failing that, the class being null indicates that we don't
-             * have any information about this native type and how to map it
-             * to Java. So,
-             */
-            throw new UnsupportedOperationException("\nNo binding for " + name
-                    + " (yet?), GValue code path");
+            obj = new Value(pointer);
+            return obj;
         }
-
     }
 
-    private static Value createValue(Class type, long pointer) {
-        // FIXME replace with Java side reflection code? They're all in
-        // org.gnome.glib, after all.
-        Value obj = (Value) createInstance(type, pointer);
-        return obj;
+    /**
+     * Get the Class object that this supplied name maps to.
+     */
+    protected final static Class lookupType(String name) {
+        Class k = (Class) typeMapping.get(name);
+        if (k != null) {
+            return k;
+        } else {
+            return (Class) enumMapping.get(name);
+        }
     }
 
     /**

@@ -53,20 +53,30 @@ final class GValue extends Plumbing
 
     private static native final long g_value_init(long obj);
 
-    static final String getString(StringValue value) {
+    static final String getString(Value value) {
         return g_value_get_string(pointerOf(value));
     }
 
     private static native final String g_value_get_string(long value);
 
-    static final Constant getEnum(EnumValue value) {
-        int ordinal = g_value_get_enum(pointerOf(value));
-        return constantFor(value.type, ordinal);
+    static final Constant getEnum(Value value) {
+        final long pointer;
+        final int ordinal;
+        final String name;
+        final Class k;
+
+        pointer = pointerOf(value);
+
+        ordinal = g_value_get_enum(pointer);
+
+        name = typeName(pointer);
+        k = lookupType(name);
+        return constantFor(k, ordinal);
     }
 
     private static native final int g_value_get_enum(long value);
 
-    static final Object getObject(ObjectValue value) {
+    static final Object getObject(Value value) {
         return objectFor(g_value_get_object(pointerOf(value)));
     }
 
@@ -94,22 +104,16 @@ final class GValue extends Plumbing
      * to use if debugging.
      */
     static final String typeName(Value value) {
-        return g_type_name(pointerOf(value));
+        return g_type_name(pointerOf(value)).intern();
     }
 
-    /*
-     * This is package visible so that the crucial valueFor() in
-     * org.gnome.glib.Plumbing can see it. That method needs to call this
-     * _before_ it can (and in order to) construct a Value, which is why there
-     * is a variant that takes long instead of Value.
-     */
-    static final String typeName(long value) {
-        return g_type_name(value);
+    private static final String typeName(long value) {
+        return g_type_name(value).intern();
     }
 
     private static native final String g_type_name(long value);
 
-    static final void free(Fundamental reference) {
+    static final void free(Value reference) {
         g_value_free(pointerOf(reference));
     }
 

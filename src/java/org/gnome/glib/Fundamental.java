@@ -11,8 +11,6 @@
  */
 package org.gnome.glib;
 
-import org.freedesktop.bindings.Constant;
-
 /**
  * Helper class to map back and forth from Java primitives to GLib fundamental
  * types. As it happens, there are Fundamentals subclasses for each of Java
@@ -32,128 +30,12 @@ import org.freedesktop.bindings.Constant;
  * 
  * @author Andrew Cowie
  * @since 4.0.0
+ * @deprecated
  */
 /*
  * Any reason for this to be public? Note that there is no GFundamental, and
  * nor are we fronting a GSlice.
  */
-abstract class Fundamental extends Value
+abstract class Fundamental
 {
-    protected Fundamental(long pointer) {
-        super(pointer);
-    }
-
-    /**
-     * By design, we are the owner of all Fundamentals. Call
-     * <code>g_slice_free()</code> on our pointer, then carry on to
-     * {@link org.freedesktop.bindings.Proxy#finalize() Proxy's finalize()}.
-     */
-    /*
-     * This is a placeholder to remind us of the cleanup actions that will be
-     * necessary, irrespective of the finalizer technique used.
-     */
-    protected void finalize() {
-        System.out.println("Fundamental.finalize() called");
-        release();
-        super.finalize();
-    }
-
-    protected void release() {
-        GValue.free(this);
-    }
-}
-
-/**
- * @author Andrew Cowie
- * @since 4.0.0
- */
-final class StringValue extends Fundamental
-{
-    protected StringValue(long pointer) {
-        super(pointer);
-    }
-
-    StringValue(String str) {
-        super(GValue.createValue(str));
-    }
-}
-
-/**
- * @author Andrew Cowie
- * @since 4.0.0
- */
-final class IntegerValue extends Fundamental
-{
-    protected IntegerValue(long pointer) {
-        super(pointer);
-    }
-
-    IntegerValue(int i) {
-        super(GValue.createValue(i));
-    }
-}
-
-/**
- * @author Andrew Cowie
- * @since 4.0.0
- */
-final class BooleanValue extends Fundamental
-{
-    protected BooleanValue(long pointer) {
-        super(pointer);
-    }
-
-    BooleanValue(boolean b) {
-        super(GValue.createValue(b));
-    }
-}
-
-/**
- * <i>This is just a representation of the fact that Enums too can be wrapped
- * in <code>GValues</code>. We only need this when passing or retrieving a
- * property that happens to be an enum on the C side. For everything else we
- * use the top level {@link org.freedesktop.bindings.Constant Constant}
- * representation.</i>
- * 
- * @author Andrew Cowie
- * @since 4.0.1
- */
-final class EnumValue extends Fundamental
-{
-    /**
-     * Used by GValue.getEnum() to extract the Constant object that
-     * corresponds to the enum contained in this EnumValue.
-     */
-    final Class type;
-
-    protected EnumValue(long pointer, Class type) {
-        super(pointer);
-
-        assert (type != null);
-        assert (Constant.class.isAssignableFrom(type));
-
-        this.type = type;
-    }
-}
-
-/**
- * <i>This is just a representation of the fact that <code>GObject</code>s
- * too can be wrapped in <code>GValues</code>. We only need this when
- * passing or retrieving a property that is a <code>GObject</code> on the C
- * side. For everything else we use the top level
- * {@link org.gnome.glib.Object Object} representation.</i>
- * 
- * @author Andrew Cowie
- * @since 4.0.2
- */
-final class ObjectValue extends Fundamental
-{
-
-    protected ObjectValue(long pointer) {
-        super(pointer);
-    }
-
-    ObjectValue(Object obj) {
-        super(GValue.createValue(obj));
-    }
 }

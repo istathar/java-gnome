@@ -40,11 +40,6 @@ Java_org_gnome_glib_GValue_g_1type_1name
 	// translate value
 	value = (GValue*) _value;
 
-	// Special case. See org.gnome.glib.Plumbing.valueFor() for details
-	if (G_VALUE_HOLDS_OBJECT(value)) {
-		return (*env)->NewStringUTF(env, "<GObject>\0");
-	}
-
 	// call function & macro
 	name = g_type_name(G_VALUE_TYPE(value));
 	//g_print("GValue  g_type_name(%ld): %s\n", (long) G_VALUE_TYPE(value), name);

@@ -231,6 +231,8 @@ public abstract class Plumbing
         final ArrayList list;
         final Constant obj;
 
+        assert (type != null);
+
         list = (ArrayList) knownConstants.get(type);
         if (list == null) {
             throw new IllegalArgumentException("No Constants of type " + type.getName()

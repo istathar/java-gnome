@@ -89,7 +89,7 @@ public abstract class Object extends Proxy
      * that.
      */
     protected void setPropertyString(String name, String value) {
-        GObject.setProperty(this, name, new StringValue(value));
+        GObject.setProperty(this, name, new Value(GValue.createValue(value)));
     }
 
     /**
@@ -102,7 +102,7 @@ public abstract class Object extends Proxy
      * that.
      */
     protected void setPropertyInteger(String name, int value) {
-        GObject.setProperty(this, name, new IntegerValue(value));
+        GObject.setProperty(this, name, new Value(GValue.createValue(value)));
     }
 
     /**
@@ -115,7 +115,7 @@ public abstract class Object extends Proxy
      * that.
      */
     protected void setPropertyBoolean(String name, boolean value) {
-        GObject.setProperty(this, name, new BooleanValue(value));
+        GObject.setProperty(this, name, new Value(GValue.createValue(value)));
     }
 
     /**
@@ -124,10 +124,9 @@ public abstract class Object extends Proxy
      * @since 4.0.2
      */
     protected void setPropertyObject(String name, Object value) {
-        GObject.setProperty(this, name, new ObjectValue(value));
+        GObject.setProperty(this, name, new Value(GValue.createValue(value)));
     }
 
-    
     /**
      * Set a property that takes a Value [subclass] such as an Object or Boxed
      * as its value.
@@ -147,12 +146,12 @@ public abstract class Object extends Proxy
     }
 
     protected String getPropertyString(String name) {
-        StringValue value = (StringValue) GObject.getProperty(this, name);
+        Value value = GObject.getProperty(this, name);
         return GValue.getString(value);
     }
 
     protected Constant getPropertyEnum(String name) {
-        EnumValue value = (EnumValue) GObject.getProperty(this, name);
+        Value value = GObject.getProperty(this, name);
         return GValue.getEnum(value);
     }
 
@@ -168,7 +167,7 @@ public abstract class Object extends Proxy
      * @since 4.0.1
      */
     protected Object getPropertyObject(String name) {
-        ObjectValue value = (ObjectValue) GObject.getProperty(this, name);
+        Value value = GObject.getProperty(this, name);
         return GValue.getObject(value);
     }
 }
