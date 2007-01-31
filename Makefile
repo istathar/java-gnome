@@ -79,7 +79,7 @@ tmp/gtk-$(APIVERSION).jar: build/config build/classes-dist build/properties-dist
 
 build/classes-dist: $(SOURCES_DIST)
 	@echo "$(JAVAC_CMD) tmp/classes/*.class"
-	$(JAVAC) -d tmp/classes -classpath $(JAVAGNOME_JARS):src/java:tmp/classes $?
+	$(JAVAC) -d tmp/classes -classpath tmp/classes -sourcepath src/java:mockup/java $?
 	touch $@
 
 
@@ -204,7 +204,7 @@ $(JAVAGNOME_HOME)/lib/libgtkjava-$(APIVERSION).so: tmp/libgtkjava-$(APIVERSION).
 
 build/classes-test: $(SOURCES_TEST)
 	@echo "$(JAVAC_CMD) tmp/tests/*.class"
-	$(JAVAC) -d tmp/tests -classpath tmp/tests:tmp/classes:$(JUNIT_JARS) $?
+	$(JAVAC) -d tmp/tests -classpath tmp/tests:tmp/gtk-$(APIVERSION).jar:$(JUNIT_JARS) -sourcepath tests/prototype:tests/java $?
 	touch $@
 
 test: build-java build/classes-test

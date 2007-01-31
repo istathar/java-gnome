@@ -38,7 +38,6 @@ final class GValue extends Plumbing
         return g_value_init(pointerOf(obj));
     }
 
-    
     /*
      * These ones does not match the exact prototype of g_value_init() [which
      * is (GValue*, GType)]; we do the type system magic on the other side
@@ -51,29 +50,38 @@ final class GValue extends Plumbing
     private static native final long g_value_init(boolean b);
 
     private static native final long g_value_init(String str);
-    
+
     private static native final long g_value_init(long obj);
 
-    static final String getString(StringValue value) {
+    static final String getString(Value value) {
         return g_value_get_string(pointerOf(value));
     }
 
     private static native final String g_value_get_string(long value);
 
-    static final Constant getEnum(EnumValue value) {
-        int ordinal = g_value_get_enum(pointerOf(value));
-        return constantFor(value.type, ordinal);
+    static final Constant getEnum(Value value) {
+        final long pointer;
+        final int ordinal;
+        final String name;
+        final Class k;
+
+        pointer = pointerOf(value);
+
+        ordinal = g_value_get_enum(pointer);
+
+        name = typeName(pointer);
+        k = lookupType(name);
+        return constantFor(k, ordinal);
     }
 
     private static native final int g_value_get_enum(long value);
 
-    static final Object getObject(ObjectValue value) {
-        return (Object) instanceFor(g_value_get_object(pointerOf(value)));
+    static final Object getObject(Value value) {
+        return objectFor(g_value_get_object(pointerOf(value)));
     }
 
     private static native final long g_value_get_object(long value);
 
-    
     /**
      * Lookup the type name for a given Value. <i>When a GType such as a
      * primitive (fundamental) type or a class is registered in GObject, it is
@@ -95,19 +103,17 @@ final class GValue extends Plumbing
      * We don't really need this, but we'll leave it here for bindings hackers
      * to use if debugging.
      */
-    static final String type(Value value) {
-        return g_type_name(pointerOf(value));
+    static final String typeName(Value value) {
+        return g_type_name(pointerOf(value)).intern();
     }
 
-    /*
-     * Atypically, this native method is package visible so that the crucial
-     * instanceFor() in org.gnome.glib.Plumbing can see it. That method needs
-     * to call this _before_ it can (and in order to) construct a Value. Yes,
-     * this could well be in a GType class. Whatever.
-     */
-    static native final String g_type_name(long value);
+    private static final String typeName(long value) {
+        return g_type_name(value).intern();
+    }
 
-    static final void free(Fundamental reference) {
+    private static native final String g_type_name(long value);
+
+    static final void free(Value reference) {
         g_value_free(pointerOf(reference));
     }
 

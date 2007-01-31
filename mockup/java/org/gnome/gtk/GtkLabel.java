@@ -140,6 +140,6 @@ final class GtkLabel extends Plumbing
      * called by native code!
      */
     protected static final void handleCopyClipboard(Signal handler, long source) {
-        ((GtkLabel.COPY_CLIPBOARD) handler).onCopyClipboard((Label) instanceFor(source));
+        ((GtkLabel.COPY_CLIPBOARD) handler).onCopyClipboard((Label) objectFor(source));
     }
 }

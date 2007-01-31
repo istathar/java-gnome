@@ -16,7 +16,8 @@ import org.freedesktop.bindings.Proxy;
 /**
  * A generic value that can be passed as a parameter to or returned from a
  * method or function on an underlying entity in the GLib library and those
- * built on it.
+ * built on it. So far, Value is only used in setting or getting Object
+ * properties.
  * 
  * <p>
  * <i>Complementing the object oriented system supplied by the GLib library is
@@ -28,17 +29,38 @@ import org.freedesktop.bindings.Proxy;
  * <i>Since instances of Java classes are their own identity, we do not need
  * to directly represent <code>GType</code> and <code>GValue</code> as
  * separate classes. We implement <code>GType</code> as a characteristic
- * that any</i> <code>Value</code> or <code>Object</code> <i>has. 
+ * that any</i> <code>Value</code> or <code>Object</code> <i>has.
  * 
  * @author Andrew Cowie
  * @since 4.0.0
  */
-/*
- * This is plumbing!
- */
-public abstract class Value extends Proxy
+public final class Value extends Proxy
 {
     protected Value(long pointer) {
         super(pointer);
+    }
+
+    /**
+     * Call the release() method to free the GValue, then carry on to
+     * {@link org.freedesktop.bindings.Proxy#finalize() Proxy's finalize()}.
+     */
+    /*
+     * This is a placeholder to remind us of the cleanup actions that will be
+     * necessary, irrespective of the finalizer technique used.
+     */
+    protected void finalize() {
+        System.out.println("Value.finalize() called");
+        release();
+        super.finalize();
+    }
+
+    /**
+     * By design, we are the owner of all the GValues because we allocate the
+     * memory for them in (for example) the native implementation of
+     * {@link GValue#createValue(int)}. So, call <code>g_slice_free()</code>
+     * on our pointer to free that memory.
+     */
+    protected void release() {
+        GValue.free(this);
     }
 }

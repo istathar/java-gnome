@@ -59,7 +59,7 @@ final class GtkFileChooser extends Plumbing
     }
 
     protected static final void handleFileActivated(Signal handler, long source) {
-        ((GtkFileChooser.FILE_ACTIVATED) handler).onFileActivated((FileChooser) instanceFor(source));
+        ((GtkFileChooser.FILE_ACTIVATED) handler).onFileActivated((FileChooser) objectFor(source));
     }
 
     interface SELECTION_CHANGED extends Signal
@@ -73,7 +73,7 @@ final class GtkFileChooser extends Plumbing
 
     protected static final void handleSelectionChanged(Signal handler, long source) {
         ((GtkFileChooser.SELECTION_CHANGED) handler)
-                .onSelectionChanged((FileChooser) instanceFor(source));
+                .onSelectionChanged((FileChooser) objectFor(source));
     }
 
 }

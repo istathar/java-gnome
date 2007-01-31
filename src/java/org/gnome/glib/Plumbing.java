@@ -16,9 +16,6 @@ import java.util.IdentityHashMap;
 import java.util.Iterator;
 import java.util.Properties;
 
-import org.freedesktop.bindings.Constant;
-import org.freedesktop.bindings.Proxy;
-
 /**
  * Translation layer class which adds the ability to connect signals to
  * GObjects. See {@link org.freedesktop.bindings.Plumbing Plumbing} for
@@ -35,20 +32,18 @@ public abstract class Plumbing extends org.freedesktop.bindings.Plumbing
 
     private static final IdentityHashMap typeMapping;
 
-    private static final IdentityHashMap enumMapping;
-
     private static final String TYPE_MAPPING = "typeMapping.properties";
 
     static {
         typeMapping = new IdentityHashMap(100);
-        enumMapping = new IdentityHashMap(100);
 
-        registerType("gchararray", StringValue.class);
-        registerType("gboolean", BooleanValue.class);
-        registerType("gint", IntegerValue.class);
-        registerType("guint", IntegerValue.class);
-        registerType("gint32", IntegerValue.class);
-        registerType("guint32", IntegerValue.class);
+        // FUTURE do we still need this?
+        registerType("gchararray", Primitive.class);
+        registerType("gboolean", Primitive.class);
+        registerType("gint", Primitive.class);
+        registerType("guint", Primitive.class);
+        registerType("gint32", Primitive.class);
+        registerType("guint32", Primitive.class);
 
         Properties p = new Properties();
 
@@ -93,8 +88,8 @@ public abstract class Plumbing extends org.freedesktop.bindings.Plumbing
              * By design we ignore this and return. There is a logic hole
              * here, though - if someone mistypes a class that does exist,
              * then it won't be registered. The bug will be exposed by an
-             * UnsupportedOperationException being thrown by instanceFor()
-             * when it can't look up what it rightly should be able to.
+             * UnsupportedOperationException being thrown by objectFor() when
+             * it can't look up what it rightly should be able to.
              */
             return;
         }
@@ -113,21 +108,7 @@ public abstract class Plumbing extends org.freedesktop.bindings.Plumbing
         assert ((nativeName != null) && (!nativeName.equals(""))) : "GType name being registered cannot be null or empty";
         assert (javaClass != null) : "Java class being registered cannot be null";
 
-        /*
-         * If the thing is an Constant (aka our Enum), then we have to treat
-         * it differently. We deliberately set the constructor to null, using
-         * it as a marker in instanceFor(). Remember - we only call
-         * instanceFor() on an enum when we know it was wrapped in a GValue -
-         * ie, the getProperty() case. When handling signal callbacks, we
-         * reverse translate the int directly using constantFor()
-         */
-
-        if (Constant.class.isAssignableFrom(javaClass)) {
-            typeMapping.put(nativeName.intern(), null);
-            enumMapping.put(nativeName.intern(), javaClass);
-        } else {
-            typeMapping.put(nativeName.intern(), javaClass);
-        }
+        typeMapping.put(nativeName.intern(), javaClass);
     }
 
     /**
@@ -145,12 +126,14 @@ public abstract class Plumbing extends org.freedesktop.bindings.Plumbing
      * 
      * @see org.freedesktop.bindings.Plumbing#instanceFor(long)
      */
-    protected static Proxy instanceFor(long pointer) {
+    protected static Object objectFor(long pointer) {
+        Object obj;
+
         if (pointer == 0L) {
             return null;
         }
 
-        Proxy obj = org.freedesktop.bindings.Plumbing.instanceFor(pointer);
+        obj = (Object) instanceFor(pointer);
 
         if (obj != null) {
             /*
@@ -165,28 +148,28 @@ public abstract class Plumbing extends org.freedesktop.bindings.Plumbing
              * exception.
              */
             final String name;
-            Class type;
+            final Class type;
 
             /*
-             * Somewhat crucially, we intern the returned GType name string to
-             * reduce memory pressure and to permit lookup by identity.
+             * We intern the returned GType name string to reduce memory
+             * pressure and to permit lookup by identity.
              */
-            name = GObject.g_type_name(pointer).intern();
+
+            name = GObject.typeName(pointer).intern();
 
             if (name.equals("")) {
                 throw new IllegalStateException("\nGType name lookup failed");
             }
 
             /*
-             * Now we handle the usual case of getting the instance for a
-             * Proxy subclass. That is the case when the Class in the Map is
-             * not null.
+             * Now we handle the expected case of being able to get the
+             * instance for the Proxy subclass.
              */
 
             type = (Class) typeMapping.get(name);
 
             if (type != null) {
-                obj = createInstance(type, pointer);
+                obj = createObject(type, pointer);
                 return obj;
             }
 
@@ -195,14 +178,23 @@ public abstract class Plumbing extends org.freedesktop.bindings.Plumbing
              * don't have any information about this native type and how to
              * map it to Java. So,
              */
+
             throw new UnsupportedOperationException("\nNo binding for " + name
                     + " (yet!), GObject code path");
         }
     }
 
+    private static Object createObject(Class type, long pointer) {
+        final Object obj;
+        // FIXME use per-package Factory instead?
+        obj = (Object) createInstance(type, pointer);
+        GObject.ref(obj);
+        return obj;
+    }
+
     /**
-     * Retrieve the Proxy object corresponding to a <code>GValue</code>.
-     * This should only be needed by the property getter function.
+     * Retrieve a Proxy object corresponding to a <code>GValue</code>. This
+     * should only be needed by the property getter functions.
      * 
      * <p>
      * <i><code>GValues</code> are special... and a pain in the ass.
@@ -211,10 +203,14 @@ public abstract class Plumbing extends org.freedesktop.bindings.Plumbing
      * because <code>GObject</code> has a <b>pointer</b> to a
      * <code>GTypeInstance</code> which contains the <code>GType</code>
      * first. This means that we cannot use the same code path to figure out
-     * what the type name of a pointer is that we do in instanceFor() above.</i>
+     * what the type name of a pointer is that we do in objectFor() above.</i>
      */
     protected static Value valueFor(long pointer) {
         Value obj;
+
+        if (pointer == 0L) {
+            return null;
+        }
 
         obj = (Value) org.freedesktop.bindings.Plumbing.instanceFor(pointer);
 
@@ -225,73 +221,16 @@ public abstract class Plumbing extends org.freedesktop.bindings.Plumbing
              */
             return obj;
         } else {
-            final String name;
-            Class type;
-
-            /*
-             * As with instanceFor(), we intern the returned GType name string
-             * to reduce memory pressure and to permit lookup by identity.
-             */
-            name = GValue.g_type_name(pointer).intern();
-
-            if (name.equals("")) {
-                throw new IllegalStateException("\nGType name lookup failed");
-            }
-
-            /*
-             * GObjects give a false positive. For example, a GtkWindow in a
-             * GValue looked up in a property that is registered as a
-             * GtkContainer will come back as "GtkContainer" which is really
-             * no help - that is an abstract class and in any case what we
-             * want is to know there is a GObject in there. So
-             * GValue.g_type_name() is hacked to return a marker string. If
-             * there's no binding for that GObject subclass yet, we'll catch
-             * it later (ie, in instanceFor()); the GValue itself is valid and
-             * we can bind it.
-             */
-
-            if (name.equals("<GObject>")) {
-                obj = new ObjectValue(pointer);
-                return obj;
-            }
-
-            /*
-             * Otherwise, we handle the usual case of getting the instance for
-             * a Proxy subclass. That is the case when the Class in the type
-             * Map is not null. This is the case for all the primative types.
-             */
-
-            type = (Class) typeMapping.get(name);
-
-            if (type != null) {
-                obj = (Value) createInstance(type, pointer);
-                return obj;
-            }
-
-            /*
-             * There is one other special case: if the Class _was_ null, then
-             * we might be in the situation where actually the native type is
-             * an enum. In this case we have a Fundamental subclass called
-             * EnumValue with a special constructor, which we can call by name
-             * (no need to use reflection here).
-             */
-
-            type = (Class) enumMapping.get(name);
-
-            if (type != null) {
-                obj = new EnumValue(pointer, type);
-                return obj;
-            }
-
-            /*
-             * But failing that, the class being null indicates that we don't
-             * have any information about this native type and how to map it
-             * to Java. So,
-             */
-            throw new UnsupportedOperationException("\nNo binding for " + name
-                    + " (yet?), GValue code path");
+            obj = new Value(pointer);
+            return obj;
         }
+    }
 
+    /**
+     * Get the Class object that this supplied name maps to.
+     */
+    protected final static Class lookupType(String name) {
+        return (Class) typeMapping.get(name);
     }
 
     /**

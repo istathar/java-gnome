@@ -90,15 +90,15 @@ final class GtkButton extends Plumbing
      * it?!?
      */
     protected static final void handleClicked(Signal handler, long source) {
-        ((GtkButton.CLICKED) handler).onClicked((Button) instanceFor(source));
+        ((GtkButton.CLICKED) handler).onClicked((Button) objectFor(source));
     }
 
     protected static final boolean handleDepressed(Signal handler, long source, long whoIsDepressed) {
-        return ((GtkButton.DEPRESSED) handler).onDepressed((Button) instanceFor(source),
-                (Widget) instanceFor(whoIsDepressed));
+        return ((GtkButton.DEPRESSED) handler).onDepressed((Button) objectFor(source),
+                (Widget) objectFor(whoIsDepressed));
     }
 
     protected static final void handleEntered(Signal handler, long source) {
-        ((GtkButton.ENTERED) handler).onEntered((Button) instanceFor(source));
+        ((GtkButton.ENTERED) handler).onEntered((Button) objectFor(source));
     }
 }

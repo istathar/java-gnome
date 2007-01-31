@@ -26,9 +26,9 @@ package org.freedesktop.bindings;
  */
 /*
  * Note for GLib based libraries: these are our representation of integer
- * constants and are not org.gnome.glib.Values subclasses. So for the case of
- * a GValue containing an G_TYPE_ENUM, we have a wrapper: see
- * org.gnome.glib.EnumValue in Fundamental.java
+ * constants and are not org.gnome.glib.Values instances. So for the case of a
+ * GValue containing an G_TYPE_ENUM, we have extract it from the Value; see
+ * getEnum() in org.gnome.glib.GValue
  */
 public abstract class Constant
 {

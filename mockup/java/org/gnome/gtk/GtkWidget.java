@@ -46,7 +46,7 @@ final class GtkWidget extends Plumbing
     }
 
     protected static final boolean handleDeleteEvent(Signal handler, long source, long event) {
-        return ((GtkWidget.DELETE_EVENT) handler).onDeleteEvent((Widget) instanceFor(source), null); // FIXME
+        return ((GtkWidget.DELETE_EVENT) handler).onDeleteEvent((Widget) objectFor(source), null); // FIXME
     }
 
     interface ENTER_NOTIFY_EVENT extends Signal
@@ -59,7 +59,7 @@ final class GtkWidget extends Plumbing
     }
 
     protected static final boolean handleEnterNotifyEvent(Signal handler, long source, long event) {
-        return ((GtkWidget.ENTER_NOTIFY_EVENT) handler).onEnterNotifyEvent((Widget) instanceFor(source),
+        return ((GtkWidget.ENTER_NOTIFY_EVENT) handler).onEnterNotifyEvent((Widget) objectFor(source),
                 null); // FIXME
     }
 
@@ -73,7 +73,7 @@ final class GtkWidget extends Plumbing
     }
 
     protected static final boolean handleFocusOutEvent(Signal handler, long source, long event) {
-        return ((GtkWidget.FOCUS_OUT_EVENT) handler).onFocusOutEvent((Widget) instanceFor(source), null); // FIXME
+        return ((GtkWidget.FOCUS_OUT_EVENT) handler).onFocusOutEvent((Widget) objectFor(source), null); // FIXME
     }
 
 }

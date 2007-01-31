@@ -20,9 +20,11 @@
  * Implements
  *   org.gnome.glib.GValue.g_type_name(long value)
  * called from
+ *   org.gnome.glib.GValue.typeName(long value)
+ * called from
  *   org.gnome.glib.Plumbing.instanceFor(long pointer)
  * and also made available via
- *   org.gnome.glib.GValue.name(Value value)
+ *   org.gnome.glib.GValue.typeName(Value value)
  */
 JNIEXPORT jstring JNICALL
 Java_org_gnome_glib_GValue_g_1type_1name
@@ -37,11 +39,6 @@ Java_org_gnome_glib_GValue_g_1type_1name
 
 	// translate value
 	value = (GValue*) _value;
-
-	// Special case. See org.gnome.glib.Plumbing.valueFor() for details
-	if (G_VALUE_HOLDS_OBJECT(value)) {
-		return (*env)->NewStringUTF(env, "<GObject>\0");
-	}
 
 	// call function & macro
 	name = g_type_name(G_VALUE_TYPE(value));
