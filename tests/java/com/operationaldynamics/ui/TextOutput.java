@@ -16,7 +16,8 @@ package com.operationaldynamics.ui;
 import java.io.PrintStream;
 import java.io.PrintWriter;
 
-import com.operationaldynamics.util.Environment;
+import org.freedesktop.bindings.Environment;
+
 
 /**
  * Base class for routines that output text to terminal. It takes care of
@@ -56,7 +57,7 @@ public abstract class TextOutput extends Text
     protected static final Align RIGHT = Align.RIGHT;
 
     static {
-        String env = Environment.getenv("COLUMNS");
+        String env = Environment.getEnv("COLUMNS");
         if (env == null) {
             COLUMNS = COLUMNS_DEFAULT;
         } else {

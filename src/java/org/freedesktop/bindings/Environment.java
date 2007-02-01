@@ -11,35 +11,32 @@
  * This class imported from ObjectiveAccounts accounting package where it was
  * originally deployed as GPL code in generic.util.Environment
  */
-package com.operationaldynamics.util;
+package org.freedesktop.bindings;
 
 /**
- * Pull values from environment. This is a seperate class largely so the
- * deprecation warning will be isolated from mainline code. The getenv call
- * could be replaced with some JNI that does the same thing.
+ * Retrieve values from environment.
  * 
  * @author Andrew Cowie
  */
 public class Environment
 {
     /**
-     * Get an environment variable from the inherited (Linux) environment.
-     * Thiw would wrap the [deprecated] System.getenv() call, but that throws
-     * Error in modern JDKs. So, instead, grab property columns. Grr. Really
-     * need to reimplement something with JNI.
+     * Get an environment variable from the inherited (Linux or Unix)
+     * environment. This would wrap the deprecated {@link System#getenv()}
+     * call, but that throws Error in modern JDKs [so much for ABI stability,
+     * the bastards]. So we reimplement the same thing with our own JNI call.
      * 
      * @param variableName
-     *            the name of the variable whose value you want.
-     * @return the value of the environment variable, normalized to null if
-     *         empty or not found.
+     *            the name of the environment variable you want to look up
+     * @return the value of the environment variable, or <code>null</code>
+     *         if empty or not found.
      */
-    public static String getenv(final String variableName) {
+    public static String getEnv(final String variableName) {
         if ((variableName == null) || (variableName.equals(""))) {
             throw new IllegalArgumentException("Can't get an empty or null environment variable");
         }
 
-        // String candidate = System.getenv(variableName);
-        String candidate = System.getProperty(variableName);
+        String candidate = getenv(variableName);
 
         if ((candidate == null) || (candidate.equals(""))) {
             return null;
@@ -47,4 +44,6 @@ public class Environment
             return candidate;
         }
     }
+
+    private static native final String getenv(String variableName);
 }
