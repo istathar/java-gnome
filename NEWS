@@ -1,5 +1,16 @@
 NEWS
 
+Testing framework
+-----------------
+
+Introduce the beginnings of a unit test framework. At the moment, this just
+evaluates various getters and setters without exercising anything that
+requires the main loop.
+
+You can run the suite from Eclipse, by specifying a JUnit 3 launcher on class
+UnitTests in the default package in tests/java, or by running `make test` on
+the command line.
+
 <a name="4.0.1" id="1167969613" title="Prototype becomes foundation"></a>
 
 java-gnome 4.0.1 (05 Jan 2007)
