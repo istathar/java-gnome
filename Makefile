@@ -26,7 +26,7 @@ build-java: tmp/gtk-$(APIVERSION).jar tmp/libgtkjni-$(APIVERSION).so
 
 build-native: tmp/libgtkjava-$(APIVERSION).so
 
-.PHONY: test demo doc clean distlcean sleep
+.PHONY: test demo doc clean distlcean sleep install
 
 # [this  will be called by the above include if .config is missing.
 # We don't call ./configure automatically to allow scope for
@@ -167,34 +167,46 @@ tmp/libgtkjava-$(APIVERSION).so: tmp/native/gtk.o
 #	@echo "STRIP     $@"
 #	strip --only-keep-debug $@
 
-# WARNING.
-# This isn't a complete make install for libgtk-java. It just updates the .jar
-# and the .so in an existing installation.
+# --------------------------------------------------------------------
+# Install (run as root, or specify DESTDIR on Make command line)
+# --------------------------------------------------------------------
 
 ifdef GCJ
-#install: install-java install-native
+install: build-java install-dirs install-java install-native
 else
-#install: install-java
+install: build-native install-dirs install-java
 endif
+	rm $(DESTDIR)$(PREFIX)/.java-gnome-install-dirs
+
+install-dirs: $(DESTDIR)$(PREFIX)/.java-gnome-install-dirs
+$(DESTDIR)$(PREFIX)/.java-gnome-install-dirs:
+	@test -d $(DESTDIR)$(PREFIX)/share/java || echo "MKDIR     installation directories"
+	-mkdir -p $(DESTDIR)$(PREFIX)
+	-touch $@ 2>/dev/null
+	test -w $@ || ( echo -e "\nYou don't seem to have write permissions to $(DESDIR)$(PREFIX)\nPerhaps you need to be root?\n" && exit 7 )
+	mkdir -p $(DESTDIR)$(PREFIX)/share/java
+	mkdir -p $(DESTDIR)$(PREFIX)/lib
 
 install-java: build-java \
-	$(JAVAGNOME_HOME)/share/java/gtk-$(APIVERSION).jar \
-	$(JAVAGNOME_HOME)/lib/libgtkjni-$(APIVERSION).so
+	$(DESTDIR)$(PREFIX)/share/java/gtk-$(APIVERSION).jar \
+	$(DESTDIR)$(PREFIX)/lib/libgtkjni-$(APIVERSION).so
 
 install-native: build-native install-java \
-	$(JAVAGNOME_HOME)/lib/libgtkjava-$(APIVERSION).so
+	$(DESTDIR)$(PREFIX)/lib/libgtkjava-$(APIVERSION).so
 
-$(JAVAGNOME_HOME)/share/java/gtk-$(APIVERSION).jar: tmp/gtk-$(APIVERSION).jar
-	@echo "CP        $< -> $(@D)"
-	cp $< $@
+$(DESTDIR)$(PREFIX)/share/java/gtk-$(APIVERSION).jar: tmp/gtk-$(APIVERSION).jar
+	@echo "INSTALL   $@"
+	cp -f $< $@
+	@echo "SYMLINK   $(@D)/gtk.jar -> gtk-$(APIVERSION).jar"
+	cd $(@D) && rm -f gtk.jar && ln -s gtk-$(APIVERSION).jar gtk.jar
 	
-$(JAVAGNOME_HOME)/lib/libgtkjni-$(APIVERSION).so: tmp/libgtkjni-$(APIVERSION).so
-	@echo "CP        $< -> $(@D)"
-	cp $< $@
+$(DESTDIR)$(PREFIX)/lib/libgtkjni-$(APIVERSION).so: tmp/libgtkjni-$(APIVERSION).so
+	@echo "INSTALL   $@"
+	cp -f $< $@
 
-$(JAVAGNOME_HOME)/lib/libgtkjava-$(APIVERSION).so: tmp/libgtkjava-$(APIVERSION).so
-	@echo "CP        $< -> $(@D)"
-	cp $< $@
+$(DESTDIR)$(PREFIX)/lib/libgtkjava-$(APIVERSION).so: tmp/libgtkjava-$(APIVERSION).so
+	@echo "INSTALL   $@"
+	cp -f $< $@
 
 
 # --------------------------------------------------------------------
