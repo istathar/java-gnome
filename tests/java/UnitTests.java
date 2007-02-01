@@ -54,6 +54,8 @@ public class UnitTests
      * superclass of all GUI test cases.
      */
     private static Test suite(String[] args) {
+        ClassLoader.getSystemClassLoader().setDefaultAssertionStatus(true);
+        
         Gtk.init(args);
 
         TestSuite suite = new TestSuite("All Unit Tests for java-gnome 4.0");

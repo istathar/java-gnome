@@ -207,12 +207,16 @@ build/classes-test: $(SOURCES_TEST)
 	$(JAVAC) -d tmp/tests -classpath tmp/tests:tmp/gtk-$(APIVERSION).jar:$(JUNIT_JARS) -sourcepath tests/prototype:tests/java $?
 	touch $@
 
+# This is a bit of ugliness necessary to ensure that COLUMNS is in the
+# envionment Make passes to the test command. If anyone can suggest a better
+# way to do this, by all means please do so.
+export COLUMNS:=$(shell stty size 2>/dev/null | sed -e 's/[0-9]* \([0-9]*\)/\1/' )
+
 test: build-java build/classes-test
 	@echo "$(JAVA_CMD) UnitTests"
 	$(JAVA) \
 		-classpath tmp/tests:tmp/gtk-$(APIVERSION).jar:$(JUNIT_JARS) \
 		-Djava.library.path=tmp \
-		-DCOLUMNS=`resize | perl -n -e'print if (s/COLUMNS=(\d*);/\1/)'` \
 		-ea \
 		UnitTests
 
@@ -223,9 +227,6 @@ demo: build-java build/classes-test
 		-Djava.library.path=tmp \
 		-ea \
 		Experiment
-
-sleep:
-	sleep 1
 
 # --------------------------------------------------------------------
 # Documentation generation

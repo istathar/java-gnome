@@ -21,12 +21,20 @@ public class EnvironmentTest extends TestCase
 {
     public final void testGetEnvironmentVariable() {
         final String home;
+        String username;
 
         home = Environment.getEnv("HOME");
 
         assertNotNull(home);
 
-        // TODO: test something whose value will be predictable no matter
-        // what. What would that be?
+        username = Environment.getEnv("LOGNAME");
+        if (username == null) {
+            username = Environment.getEnv("USER");
+        }
+
+        if (username != null) {
+            assertTrue("How come your user name is not in your home directory location?", (home
+                    .indexOf(username) != -1));
+        }
     }
 }

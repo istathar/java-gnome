@@ -45,3 +45,19 @@ Java_org_freedesktop_bindings_Environment_getenv
 	// and return	
 	return (*env)->NewStringUTF(env, value);
 }
+
+
+/*
+ * Will implement
+ *   org.freedesktop.bindings.Environment.getWidth()
+ */
+JNIEXPORT jint JNICALL
+Java_org_freedesktop_bindings_Environment_getWidth
+(
+	JNIEnv *env,
+	jclass cls
+)
+{
+	// TODO how can we do this?
+	return (jint) 0;
+}
