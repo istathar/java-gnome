@@ -2,42 +2,64 @@ NEWS
 
 _The End of the Beginning!_
 
-Major engineering
------------------
+Major bugfixes and refactorings
+-------------------------------
 
-Further bindings development exposed a major flaw in the guts of the Plumbing
-system. Specifically, the mechanism for getting a new Proxy object was
-significantly borked when trying to use it to get a GObject from a property.
-Solving it required major work on:
+Setting and getting properties on GObjects requires some tricky manoeuvring.
+We implemented the code to do this early on, and it looked like our general
+mechanism for getting Proxy instances for arbitrary pointers was working  fine
+for properties. It turns out, however, that when you call `g_type_name()` on a
+GValue _containing_ a GObject, it returns the name of the type that was listed
+when the property specification was registered, rather than saying it is a
+GValue (as you might expect) or what the object actually is (that you might
+_also_ reasonably expect).
 
- * `org.gnome.glib.Plumbing`
+This led to all kinds of nastiness since the type name was what we were using
+in our `instanceFor()` mechanism to discriminate (on the Java side) what kind
+of Proxy subclass to create. The example we tripped over was asking for the
+parent property of a Button packed into a VBox. What `g_type_name()` told us
+was "GtkContainer", not "GtkVBox"! And that was a big problem, because
+Container is abstract, and besides, we want to instantiate a concrete VBox
+Proxy, not a Container!
+
+Solving the problem involved major changes to:
+
  * **`org.gnome.glib.Value`**
- * `org.gnome.glib.GValue`
  * **`org.gnome.glib.Object`**
+ * `org.gnome.glib.Plumbing`
+ * `org.gnome.glib.GValue`
  * `org.gnome.glib.GObject`
 
-All of these changes were confined to the internals of the binding machinery
-and, with one exception, are not user visible.
-
-The heart of the problem was that calling `g_type_name()` on a GValue
-_containing_ a GObject returned the name of the type that was listed in the
-property specification rather than stating it is a GValue. This led to all
-kinds of nastiness since this was used by the `instanceFor()` mechanism to
-figure out (Java side) what kind of Proxy subclass to create.
-
-The solution basically boiled down to having two separate code paths: the
-existing (and now much simplified) `instanceFor()` to extract normal Proxy
-objects (`Buttons` and `Labels` and whatnot) and a new code path available via
-`valueFor()` to specifically return our GValue proxy for the cases where we
-know we're getting a GValue back. That essentially occurs only when we're
-getting properties, and those cases are clearly identified and contained. For
-the remainder, the originally conceived `instanceFor()` mechanism continues to
-work.
+The solution basically boiled down to having two separate code paths: one
+named `objectFor()` [a greatly simplified version of the previous
+`instanceFor()`] which returns normal Proxy objects for GObject subclasses
+(Buttons and Labels and whatnot), and a new code path available via
+`valueFor()` to specifically return our GValue Proxy for the cases where we
+know we're getting a GValue back. Since that occurs in limited and known
+circumstances only (ie, when we're getting properties) it's no problem to know
+which to use when.
 
 Thanks to Davyd Madeley for extensive debugging assistance, and credit to
 Manish Singh, James Henstridge, and Malcolm Tredinnick for having analyzed the
 root cause issue and having clarified that two code paths would indeed be
-necessary.
+necessary. All of these changes were confined to the internals of the binding
+machinery and were not user visible.
+
+As often happens when you kick a stone loose, we were able to do a number of
+refactorings to clean things up. This eventually led to the realization (ok,
+epiphany) that our treatment of the GValue mechanism was needlessly complex.
+We no longer have individual Value subclasses for each different fundamental
+type, but rather just leave them as opaque references.
+
+ * <span style="text-decoration: line-through;">
+   `org.gnome.glib.Fundamental`
+   </span>
+ * **`org.gnome.glib.Value`**
+ * `org.gnome.glib.Plumbing`
+
+This allowed a further simplification of the `valueFor()` mechanism and a
+dramatic reduction of the complexity in Plumbing as well. Net result was a
+_reduction_ by several hundred lines of code. Yeay!
 
 Loading `.glade` files
 ----------------------
@@ -57,12 +79,13 @@ file can be loaded, and Widgets retrieved from the instantiated tree.
 * `org.gnome.glade.GladeXml`
 
 The JavaDoc for these classes clearly indicates that this is preliminary and
-subject to change.
+subject to change. It may well all be blown away when GtkBuilder lands. We'll
+see.
 
 Further coverage
 ----------------
 
-This release sees the addition of:
+This release also sees the addition of:
 
 * **`org.gnome.gtk.FileChooser`**
 * **`org.gnome.gtk.FileChooserAction`**
@@ -86,7 +109,6 @@ Finally, a number of new signals were exposed on:
 * **`org.gnome.gtk.Widget`**
 
 though this was mostly for demonstration purposes.
-
 
 Installation and Packaging
 --------------------------
@@ -147,7 +169,7 @@ couple months to complete.
 
 AfC
 
-[LCA]: http://lca2007.linux.org.au/
+[LCA]: http://lca2007.linux.org.au/talk/258
 
 
 <a name="4.0.1" id="1167969613" title="Prototype becomes foundation"></a>
