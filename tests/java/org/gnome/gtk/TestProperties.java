@@ -1,5 +1,5 @@
 /*
- * PropertiesTest.java
+ * TestProperties.java
  *
  * Copyright (c) 2007 Operational Dynamics Consulting Pty Ltd
  * 
@@ -18,7 +18,7 @@ import junit.framework.TestCase;
  * 
  * @author Andrew Cowie
  */
-public class PropertiesTest extends TestCase
+public class TestProperties extends TestCase
 {
     /**
      * Test changing the label of a Button and getting the label back.

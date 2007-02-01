@@ -1,5 +1,5 @@
 /*
- * PackingTest.java
+ * TestPacking.java
  *
  * Copyright (c) 2007 Operational Dynamics Consulting Pty Ltd
  * 
@@ -17,7 +17,7 @@ import junit.framework.TestCase;
  * 
  * @author Andrew Cowie
  */
-public class PackingTest extends TestCase
+public class TestPacking extends TestCase
 {
 
     /**

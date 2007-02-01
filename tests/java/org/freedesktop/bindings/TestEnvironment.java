@@ -1,5 +1,5 @@
 /*
- * EnvironmentTest.java
+ * TestEnvironment.java
  *
  * Copyright (c) 2007 Operational Dynamics Consulting Pty Ltd
  * 
@@ -17,7 +17,7 @@ import junit.framework.TestCase;
  * 
  * @author Andrew Cowie
  */
-public class EnvironmentTest extends TestCase
+public class TestEnvironment extends TestCase
 {
     public final void testGetEnvironmentVariable() {
         final String home;

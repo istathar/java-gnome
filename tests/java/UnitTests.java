@@ -12,10 +12,10 @@
 import junit.framework.Test;
 import junit.framework.TestSuite;
 
-import org.freedesktop.bindings.EnvironmentTest;
-import org.gnome.gtk.PropertiesTest;
+import org.freedesktop.bindings.TestEnvironment;
+import org.gnome.gtk.TestProperties;
 import org.gnome.gtk.Gtk;
-import org.gnome.gtk.PackingTest;
+import org.gnome.gtk.TestPacking;
 
 import com.operationaldynamics.junit.VerboseTestRunner;
 
@@ -60,9 +60,9 @@ public class UnitTests
 
         TestSuite suite = new TestSuite("All Unit Tests for java-gnome 4.0");
 
-        suite.addTestSuite(EnvironmentTest.class);
-        suite.addTestSuite(PropertiesTest.class);
-        suite.addTestSuite(PackingTest.class);
+        suite.addTestSuite(TestEnvironment.class);
+        suite.addTestSuite(TestProperties.class);
+        suite.addTestSuite(TestPacking.class);
 
         return suite;
     }
