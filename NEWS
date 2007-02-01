@@ -49,16 +49,26 @@ As often happens when you kick a stone loose, we were able to do a number of
 refactorings to clean things up. This eventually led to the realization (ok,
 epiphany) that our treatment of the GValue mechanism was needlessly complex.
 We no longer have individual Value subclasses for each different fundamental
-type, but rather just leave them as opaque references.
+type, but rather just leave them as opaque references:
 
  * <span style="text-decoration: line-through;">
    `org.gnome.glib.Fundamental`
+ * <span style="text-decoration: line-through;">
+   `org.gnome.glib.StringValue`  
+ * <span style="text-decoration: line-through;">
+   `org.gnome.glib.BooleanValue`
+ * <span style="text-decoration: line-through;">
+   `org.gnome.glib.IntegerValue`
+ * <span style="text-decoration: line-through;">
+   `org.gnome.glib.EnumValue`
+ * <span style="text-decoration: line-through;">
+   `org.gnome.glib.ObjectValue`
    </span>
  * **`org.gnome.glib.Value`**
  * `org.gnome.glib.Plumbing`
 
-This allowed a further simplification of the `valueFor()` mechanism and a
-dramatic reduction of the complexity in Plumbing as well. Net result was a
+This allowed a further simplification of the `valueFor()` mechanism and even
+more smashing about with a chainsaw in Plumbing as well. Net result was a
 _reduction_ by several hundred lines of code. Yeay!
 
 Loading `.glade` files
@@ -67,8 +77,8 @@ Loading `.glade` files
 User interface designers are nothing new, but one of the really cool things
 about GTK has long been the existence of `libglade`. It's a library which
 takes the output of a one of the GNOME user interface designers (such as such
-as **Glade 3**) and dynamically, at runtime, generates live Windows full of
-Widgets!
+as **Glade 3** or **Gazpacho**) and dynamically, at runtime, generates live
+Windows full of Widgets!
 
 With the arbitrary Proxy retrieval sorted out, the beginnings of a binding of
 `libglade` was possible. None of the fancy stuff is there yet, but a `.glade`
@@ -76,7 +86,7 @@ file can be loaded, and Widgets retrieved from the instantiated tree.
 
 * **`org.gnome.glade.Glade`**
 * **`org.gnome.glade.Xml`**
-* `org.gnome.glade.GladeXml`
+* _`org.gnome.glade.GladeXml`_
 
 The JavaDoc for these classes clearly indicates that this is preliminary and
 subject to change. It may well all be blown away when GtkBuilder lands. We'll
@@ -86,11 +96,17 @@ Testing framework
 -----------------
 
 We've introduced the beginnings of a unit test framework. At the moment, this
-just evaluates various getters and setters without exercising anything that
-requires the main loop.
+just evaluates various getters and setters without doing anything that
+requires the main loop. Despite this, the unit tests end up exercising the
+entire Proxy system discussed above; validating that the properties set and
+get and that the correct Proxy object is returned through a round trip is no
+mean feat.
 
 You can run the suite from Eclipse, by specifying a JUnit 3 launcher on class
-UnitTests in the default package in tests/java, or by running `make test` on
+UnitTests in the default package in `tests/java`, or by running 
+
+	$ make test
+
 the command line.
 
 Further coverage
@@ -132,8 +148,8 @@ install to a specified prefix _within_ a temporary directory. Someone writing
 an `.ebuild` to create a package for java-gnome on a Gentoo system would
 probably end up with the following commands being run by Portage:
 
-	./configure --prefix=/usr
-	make DESTDIR=/var/tmp/portage/java-gnome-4.0.2-r2/image install
+	# ./configure --prefix=/usr
+	# make DESTDIR=/var/tmp/portage/java-gnome-4.0.2-r2/image install
 
 To the relief of people doing packaging everywhere, `/usr` is the default
 installation prefix, so you don't even need to worry it. On the other hand, if
@@ -143,21 +159,21 @@ they've landed in `DESTDIR`.
 On the other hand, someone installing it locally (in your home directory, say)
 might do:
 
-	./configure --prefix=/home/bloggins
-	make install
+	$ ./configure --prefix=/home/bloggins
+	$ make install
 
 and you would end up with:
 
-	~/share/java/gtk-4.0.jar
-	~/share/java/gtk.jar
-	~/lib/libgtkjni-4.0.so
+`~/share/java/gtk-4.0.jar`  
+`~/share/java/gtk.jar`  
+`~/lib/libgtkjni-4.0.so`
 
 Of course, if you do that (or install anywhere else off the system shared
 library search path), you'll need to use the `LD_LIBRARY_PATH` environment
 variable or the `java.library.path` Java system property in order to tell your
 Virtual Machine where the library is. For instance:
 
-    java                                             \
+    $ java                                           \
         -classpath /home/bloggins/share/java/gtk.jar \
         -Djava.library.path=/home/bloggins/lib       \
         -ea                                          \
@@ -165,7 +181,11 @@ Virtual Machine where the library is. For instance:
 
 Oh, the joys of running Java programs by hand. If you're running programs in
 Eclipse, you can specify a native library location in when you add a `.jar`
-file under "Project`->`Properties`->`Java Build Path". Super handy!
+file under  
+
+> Project `->` Properties `->` Java Build Path
+
+which can simplify your life a great deal.
 
 Looking ahead
 -------------
