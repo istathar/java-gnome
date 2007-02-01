@@ -631,6 +631,7 @@ output "\n";
 
 my @javagnome_jars;
 my $javagnome_lib_path;
+my @junit_jars;
 my $jni_path;
 
 output "Check for required jar files:\n";
@@ -654,6 +655,11 @@ if ($os eq "gentoo") {
 # NEW		"$javagnome_home/share/java/gtk-4.0.jar",
 # NEW		"/usr/share/gtk-java-4.0/lib/gtk-4.0.jar");
 
+	check_prereq(@junit_jars,
+		"JUnit test framework",
+		"junit",
+		"/usr/share/junit/lib/junit.jar");
+
 
 	if (-f $javagnome_home) {
 		$javagnome_lib_path = "$javagnome_home/lib";
@@ -675,6 +681,11 @@ if ($os eq "gentoo") {
 # NEW		"libgtk-java",
 # NEW		"$javagnome_home/share/java/gtk-4.0.jar",
 # NEW		"/usr/share/java/gtk-4.0.jar");
+
+	check_prereq(@junit_jars,
+		"JUnit test framework",
+		"junit",
+		"/usr/share/java/junit.jar");
 
 
 	if (-f $javagnome_home) {
@@ -698,6 +709,11 @@ if ($os eq "gentoo") {
 # NEW		"$javagnome_home/share/java/gtk-4.0.jar",
 # NEW		"/usr/share/java/gtk-4.0.jar");
 
+	check_prereq(@junit_jars,
+		"JUnit test framework",
+		"junit",
+		"/usr/share/java/junit.jar");
+
 
 	if ( -f $javagnome_home) {
 		$javagnome_lib_path = "$javagnome_home/lib";
@@ -719,6 +735,11 @@ if ($os eq "gentoo") {
 # NEW		"SUNWlibgtk-java",
 # NEW		"$javagnome_home/share/java/gtk-4.0.jar",
 # NEW		"/usr/share/lib/java/gtk-4.0.jar");
+
+	check_prereq(@junit_jars,
+		"JUnit test framework",
+		"junit",
+		"/usr/share/lib/java/junit.jar");
 
 
 	if ( -f $javagnome_home) {
@@ -753,6 +774,7 @@ if ($javagnome_home eq "{java-gnome_home}") {
 print CONFIG "JAVAGNOME_HOME=$javagnome_home\n";
 print CONFIG "JAVAGNOME_JARS=".join(":",@javagnome_jars)."\n";
 print CONFIG "JAVAGNOME_LIB_PATH=$javagnome_lib_path\n";
+print CONFIG "JUNIT_JARS=".join(":",@junit_jars)."\n";
 
 print CONFIG <<HERE ;
 

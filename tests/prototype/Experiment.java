@@ -48,6 +48,7 @@ public final class Experiment
 
         b = new Button("Change Me?");
         b.setLabel("Press Me!");
+        b.setRelief(ReliefStyle.NORMAL);
         x.packStart(b);
 
         fcb = new FileChooserButton("Good to get, a file is", FileChooserAction.OPEN);
@@ -77,20 +78,6 @@ public final class Experiment
                 System.out.println("File selected... " + source.getURI());
             }
         });
-
-        assert (w.getChild() == x);
-        assert (b.getParent() == x);
-        assert (w.getParent() == null);
-
-        // attempt to set a non-zero enum, and make sure we get it back, by
-        // identity; Button's getRelief() is temporarily implemented with
-        // getPropertyEnum(). TODO move this to a unit test.
-        ReliefStyle rs = ReliefStyle.NONE;
-        b.setRelief(rs);
-        assert (b.getRelief() == rs);
-
-        // I actually prefer normal relief on buttons today :)
-        b.setRelief(ReliefStyle.NORMAL);
 
         Gtk.main();
 

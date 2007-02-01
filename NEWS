@@ -82,6 +82,17 @@ The JavaDoc for these classes clearly indicates that this is preliminary and
 subject to change. It may well all be blown away when GtkBuilder lands. We'll
 see.
 
+Testing framework
+-----------------
+
+We've introduced the beginnings of a unit test framework. At the moment, this
+just evaluates various getters and setters without exercising anything that
+requires the main loop.
+
+You can run the suite from Eclipse, by specifying a JUnit 3 launcher on class
+UnitTests in the default package in tests/java, or by running `make test` on
+the command line.
+
 Further coverage
 ----------------
 
