@@ -28,7 +28,6 @@ Java_org_gnome_gtk_GtkContainer_gtk_1container_1add
 	GtkContainer* self;
 	GtkWidget* child;
 
-
 	// translate arg self
 	self = (GtkContainer*) _self;
 
@@ -37,6 +36,27 @@ Java_org_gnome_gtk_GtkContainer_gtk_1container_1add
 
 	// call function
 	gtk_container_add(self, child);
+
+	// cleanup arg child
+
+	// cleanup arg self
+}
+
+JNIEXPORT void JNICALL
+Java_org_gnome_gtk_GtkContainer_gtk_1container_1remove
+  (JNIEnv *env, jclass cls, jlong _self, jlong _child)
+{
+	GtkContainer* self;
+	GtkWidget* child;
+
+	// translate arg self
+	self = (GtkContainer*) _self;
+
+	// translate arg child
+	child = (GtkWidget*) _child;
+
+	// call function
+	gtk_container_remove(self, child);
 
 	// cleanup arg child
 
