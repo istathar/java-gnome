@@ -10,7 +10,6 @@
  */
 package org.gnome.gtk;
 
-import junit.framework.TestCase;
 
 /**
  * Test characteristic getters and setters to ensure correct values are
@@ -18,7 +17,7 @@ import junit.framework.TestCase;
  * 
  * @author Andrew Cowie
  */
-public class TestProperties extends TestCase
+public class TestProperties extends TestCaseGtk
 {
     /**
      * Test changing the label of a Button and getting the label back.

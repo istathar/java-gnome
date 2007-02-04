@@ -10,14 +10,13 @@
  */
 package org.gnome.gtk;
 
-import junit.framework.TestCase;
 
 /**
  * Evaluate the box packing model that underlies GTK layouts
  * 
  * @author Andrew Cowie
  */
-public class TestPacking extends TestCase
+public class TestPacking extends TestCaseGtk
 {
 
     /**

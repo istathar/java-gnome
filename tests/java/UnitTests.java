@@ -13,9 +13,10 @@ import junit.framework.Test;
 import junit.framework.TestSuite;
 
 import org.freedesktop.bindings.TestEnvironment;
-import org.gnome.gtk.TestProperties;
-import org.gnome.gtk.Gtk;
+import org.gnome.glib.TestReferenceCounting;
+import org.gnome.gtk.TestCaseGtk;
 import org.gnome.gtk.TestPacking;
+import org.gnome.gtk.TestProperties;
 
 import com.operationaldynamics.junit.VerboseTestRunner;
 
@@ -49,18 +50,19 @@ public class UnitTests
     /*
      * It is necessary to initialize GTK (and load the native library while
      * we're at it) regardless of whether we're called via main() or via
-     * Eclipse's TestRunner. TODO: what happens if you want to run an
-     * individual test case? Answer: move the Gtk.init() to a static {} in a
-     * superclass of all GUI test cases.
+     * Eclipse's TestRunner. Note that all our TestCases actually extend
+     * TestCaseGtk which allows them to be used standalone and still have Gtk
+     * available.
      */
     private static Test suite(String[] args) {
         ClassLoader.getSystemClassLoader().setDefaultAssertionStatus(true);
-        
-        Gtk.init(args);
+
+        TestCaseGtk.init(args);
 
         TestSuite suite = new TestSuite("All Unit Tests for java-gnome 4.0");
 
         suite.addTestSuite(TestEnvironment.class);
+        suite.addTestSuite(TestReferenceCounting.class);
         suite.addTestSuite(TestProperties.class);
         suite.addTestSuite(TestPacking.class);
 
