@@ -58,6 +58,25 @@ Java_org_gnome_gtk_GtkFileChooser_gtk_1file_1chooser_1get_1uri
 	// return result
 	return (jstring) (*env)->NewStringUTF(env, result);
 }
+ 
+JNIEXPORT jstring JNICALL
+Java_org_gnome_gtk_GtkFileChooser_gtk_1file_1chooser_1get_1current_1folder
+  (JNIEnv *env, jclass cls, jlong _chooser)
+{
+	GtkFileChooser* chooser;
+	const gchar* result;
+	
+	// translate arg chooser
+	chooser = (GtkFileChooser*) _chooser;
+	
+	// call getter
+	result = gtk_file_chooser_get_current_folder(chooser);
+
+	// cleanup arg chooser
+	
+	// return result
+	return (jstring) (*env)->NewStringUTF(env, result);
+}
 
 JNIEXPORT jboolean JNICALL
 Java_org_gnome_gtk_GtkFileChooser_gtk_1file_1chooser_1set_1current_1folder

@@ -60,6 +60,14 @@ public class FileChooserButton extends HBox implements FileChooser
     public String getFilename() {
         return GtkFileChooser.getFilename(this);
     }
+    
+    public String getCurrentFolder() {
+        return GtkFileChooser.getCurrentFolder(this);
+    }
+
+    public boolean setCurrentFolder(String filename) {
+        return GtkFileChooser.setCurrentFolder(this, filename);
+    }
 
     /*
      * Changes to this implementation need to be dittoed in FileChooserDialog

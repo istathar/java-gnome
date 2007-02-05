@@ -76,8 +76,11 @@ public final class Experiment
         fcb.connect(new FileChooser.SELECTION_CHANGED() {
             public void onSelectionChanged(FileChooser source) {
                 System.out.println("File selected... " + source.getURI());
+                System.out.println("Current folder... " + source.getCurrentFolder());
             }
         });
+        
+        fcb.setCurrentFolder("/tmp");
 
         Gtk.main();
 
