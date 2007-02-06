@@ -1,7 +1,7 @@
 /*
  * GtkFileChooser.java
  *
- * Copyright (c) 2007 Operational Dynamics Consulting Pty Ltd
+ * Copyright (c) 2007 Operational Dynamics Consulting Pty Ltd and Others
  * 
  * The code in this file, and the library it is a part of, are made available
  * to you by the authors under the terms of the "GNU General Public Licence,
@@ -40,15 +40,15 @@ final class GtkFileChooser extends Plumbing
     static final boolean setCurrentFolder(FileChooser self, String filename) {
         return gtk_file_chooser_set_current_folder(pointerOf((Proxy) self), filename);
     }
-    
+
     private static native final boolean gtk_file_chooser_set_current_folder(long chooser, String filename);
-    
+
     static final String getCurrentFolder(FileChooser self) {
         return gtk_file_chooser_get_current_folder(pointerOf((Proxy) self));
     }
-    
+
     private static native final String gtk_file_chooser_get_current_folder(long chooser);
-    
+
     interface FILE_ACTIVATED extends Signal
     {
         void onFileActivated(FileChooser source);
@@ -72,8 +72,7 @@ final class GtkFileChooser extends Plumbing
     }
 
     protected static final void handleSelectionChanged(Signal handler, long source) {
-        ((GtkFileChooser.SELECTION_CHANGED) handler)
-                .onSelectionChanged((FileChooser) objectFor(source));
+        ((GtkFileChooser.SELECTION_CHANGED) handler).onSelectionChanged((FileChooser) objectFor(source));
     }
 
 }

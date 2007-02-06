@@ -27,7 +27,36 @@ public interface FileChooser
     public String getFilename();
 
     /**
-     * Get the URI represnting the file or directory currently selected by
+     * Get the current folder being displayed in this FileChooser. Note that
+     * this is not the same as the currently-selected folder if the
+     * FileChooser is in {@link FileChooserAction#SELECT_FOLDER SELECT_FOLDER}
+     * mode. To get the currently-selected folder in that mode, you can use
+     * {@link #getURI()} instead.
+     * 
+     * @return The current folder, or <code>null</code> if if the
+     *         FileChooser was unable to load the last folder that was
+     *         requested of it (as would happen if calling
+     *         {@link #setCurrentFolder(String)} on a nonexistent directory).
+     * @see #getFilename()
+     * @since 4.0.2
+     */
+    public String getCurrentFolder();
+
+    /**
+     * Set the current directory for this FileChooser. The user will be shown
+     * the full contents of that folder, plus user interface elements for
+     * navigating to other folders.
+     * 
+     * @param directory
+     *            the full path of the new current folder
+     * @return <code>true</code> if the folder could be changed
+     *         successfully, <code>false</code> otherwise.
+     * @since 4.0.2
+     */
+    public boolean setCurrentFolder(String directory);
+
+    /**
+     * Get the URI representing the file or directory currently selected by
      * this FileChooser.
      * 
      * @return The selected file's URI, or if no file is selected then this
@@ -45,7 +74,7 @@ public interface FileChooser
     public URI getURI();
 
     /*
-     * We do not expose FILE_ACTIVATED, as there it is an internal signal (and
+     * We do not expose FILE_ACTIVATED, as it is an internal signal (and
      * besides, testing it didn't seem to result in the signal being fired in
      * a visible way).
      */

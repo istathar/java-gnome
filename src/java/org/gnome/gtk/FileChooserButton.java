@@ -1,7 +1,7 @@
 /*
  * FileChooserButton.java
  *
- * Copyright (c) 2007 Operational Dynamics Consulting Pty Ltd
+ * Copyright (c) 2007 Operational Dynamics Consulting Pty Ltd and Others
  * 
  * The code in this file, and the library it is a part of, are made available
  * to you by the authors under the terms of the "GNU General Public Licence,
@@ -59,6 +59,14 @@ public class FileChooserButton extends HBox implements FileChooser
 
     public String getFilename() {
         return GtkFileChooser.getFilename(this);
+    }
+
+    public String getCurrentFolder() {
+        return GtkFileChooser.getCurrentFolder(this);
+    }
+
+    public boolean setCurrentFolder(String directory) {
+        return GtkFileChooser.setCurrentFolder(this, directory);
     }
 
     /*

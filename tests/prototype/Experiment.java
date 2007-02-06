@@ -52,6 +52,7 @@ public final class Experiment
         x.packStart(b);
 
         fcb = new FileChooserButton("Good to get, a file is", FileChooserAction.OPEN);
+        fcb.setCurrentFolder("/tmp");
         x.packStart(fcb, false, false, 0);
 
         w.add(x);
@@ -75,7 +76,8 @@ public final class Experiment
 
         fcb.connect(new FileChooser.SELECTION_CHANGED() {
             public void onSelectionChanged(FileChooser source) {
-                System.out.println("File selected... " + source.getURI());
+                System.out.println("File selected...  " + source.getURI());
+                System.out.println("Current folder... " + source.getCurrentFolder());
             }
         });
 
