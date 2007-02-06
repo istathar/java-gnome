@@ -145,7 +145,7 @@ tmp/objects/%.o: mockup/java/%.c
 
 tmp/libgtkjni-$(APIVERSION).so: build/config build/headers $(OBJECTS_C)
 	@echo "$(LINK_CMD) $@"
-	$(LINK) -shared \
+	$(LINK) \
 		 $(GTK_LIBS) \
 		-o $@ $(OBJECTS_C)
 #	@echo "STRIP     $@"
@@ -155,13 +155,13 @@ tmp/libgtkjni-$(APIVERSION).so: build/config build/headers $(OBJECTS_C)
 
 tmp/native/gtk.o: tmp/gtk-$(APIVERSION).jar
 	@echo "$(GCJ_CMD) $@"
-	$(GCJ) -fPIC -fjni \
+	$(GCJ) \
 		-classpath $(JAVAGNOME_JARS):src/java:tmp/classes \
 		-o $@ -c $<
 
 tmp/libgtkjava-$(APIVERSION).so: tmp/native/gtk.o
 	@echo "$(GCJ_LINK_CMD) $@"
-	$(GCJ) -shared -fPIC -fjni \
+	$(GCJ_LINK) \
 		-Wl,-rpath=$(JAVAGNOME_HOME)/lib \
 		-L$(JAVAGNOME_HOME)/lib \
 		-o $@ $<

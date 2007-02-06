@@ -1493,8 +1493,9 @@ print CONFIG <<HERE ;
 HERE
 
 if ($gcj) {
-	print CONFIG "GCJ=$gcj -g -fPIC\n";
+	print CONFIG "GCJ=$gcj -g -fPIC -fjni\n";
 	print CONFIG "GCJ_CMD=GCJ      \n";
+	print CONFIG "GCJ_LINK=$gcj -g -shared -fPIC -fjni\n";
 	print CONFIG "GCJ_LINK_CMD=LINK     \n";
 	print CONFIG "GCJ_LIB_PATH=$gcj_lib_path\n";
 }
@@ -1531,7 +1532,7 @@ if ($cc =~ /gcc/) {
 	
 	print CONFIG "CC=$cc -g -Wall -fPIC $jni_include -Wno-int-to-pointer-cast -Wno-pointer-to-int-cast\n";
 	print CONFIG "CC_CMD=GCC      \n";
-	print CONFIG "LINK=$cc -g -Wall -fPIC\n";
+	print CONFIG "LINK=$cc -g -shared -Wall -fPIC\n";
 	print CONFIG "LINK_CMD=LINK     \n";
 } elsif (($cc) && ($os eq "solaris")) {
 	print CONFIG "CC=$cc -Kpic -I/usr/java/include -I/usr/java/include/solaris\n";
