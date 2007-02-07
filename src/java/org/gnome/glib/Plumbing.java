@@ -188,7 +188,6 @@ public abstract class Plumbing extends org.freedesktop.bindings.Plumbing
         final Object obj;
         // FIXME use per-package Factory instead?
         obj = (Object) createInstance(type, pointer);
-        GObject.ref(obj);
         return obj;
     }
 

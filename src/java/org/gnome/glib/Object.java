@@ -12,6 +12,7 @@
 package org.gnome.glib;
 
 import org.freedesktop.bindings.Constant;
+import org.freedesktop.bindings.Debug;
 import org.freedesktop.bindings.Proxy;
 
 /**
@@ -49,6 +50,7 @@ public abstract class Object extends Proxy
 
     protected Object(long pointer) {
         super(pointer);
+        GObject.ref(this);
     }
 
     /**
@@ -76,6 +78,9 @@ public abstract class Object extends Proxy
      * continue to exist quite happily.</i>
      */
     protected final void release() {
+        if (Debug.MEMORY_MANAGMENT) {
+            System.err.println("Object.release() called on " + this.toString());
+        }
         GObject.unref(this);
     }
 
