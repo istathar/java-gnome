@@ -1,5 +1,5 @@
 /*
- * TestReferenceCounting.java
+ * ValidateReferenceCounting.java
  *
  * Copyright (c) 2007 Operational Dynamics Consulting Pty Ltd
  * 
@@ -22,7 +22,7 @@ import org.gnome.gtk.VBox;
  * debugging this test I uncovered a MASSIVE bug in the GObject code path, so
  * it was worth something :)
  */
-public class TestReferenceCounting extends TestCaseGtk
+public class ValidateReferenceCounting extends TestCaseGtk
 {
     public final void testManuallyTwistingRefCount() {
         Button b;

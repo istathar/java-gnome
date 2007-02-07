@@ -1,5 +1,5 @@
 /*
- * TestEnvironment.java
+ * ValidateEnvironment.java
  *
  * Copyright (c) 2007 Operational Dynamics Consulting Pty Ltd
  * 
@@ -17,7 +17,7 @@ import org.gnome.gtk.TestCaseGtk;
  * 
  * @author Andrew Cowie
  */
-public class TestEnvironment extends TestCaseGtk
+public class ValidateEnvironment extends TestCaseGtk
 {
     public final void testGetEnvironmentVariable() {
         final String home;

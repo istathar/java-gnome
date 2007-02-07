@@ -92,7 +92,9 @@ public class VerboseResultPrinter extends TextOutput implements TestListener
     }
 
     public void addError(Test test, Throwable t) {
-        out.println(pad("error", 10, LEFT));
+        if (!Debug.MEMORY_MANAGMENT) {
+            out.println(pad("error", 10, LEFT));
+        }
         out.println();
         out.println("Encoutered an error at " + filterTrace(t));
         out.println("The following exception was thrown:\n");
@@ -108,11 +110,18 @@ public class VerboseResultPrinter extends TextOutput implements TestListener
     }
 
     public void addFailure(Test test, AssertionFailedError t) {
-        out.println(pad("failed", 10, LEFT));
+        if (!Debug.MEMORY_MANAGMENT) {
+            out.println(pad("failed", 10, LEFT));
+        }
         out.println();
         out.println("Unit test failed at " + filterTrace(t) + ",");
-        out.println(t.getMessage());
-        out.println();
+        String msg = t.getMessage();
+        if (msg == null) {
+            out.print("[no reason given by test case]");
+        } else {
+            out.print("\"" + msg + "\"");
+        }
+        out.println("\n");
         if (haltOnBug) {
             System.exit(VerboseTestRunner.FAILURE_EXIT);
         }

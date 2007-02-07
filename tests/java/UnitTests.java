@@ -13,11 +13,11 @@ import junit.framework.Test;
 import junit.framework.TestSuite;
 
 import org.freedesktop.bindings.Debug;
-import org.freedesktop.bindings.TestEnvironment;
-import org.gnome.glib.TestReferenceCounting;
+import org.freedesktop.bindings.ValidateEnvironment;
+import org.gnome.glib.ValidateReferenceCounting;
 import org.gnome.gtk.TestCaseGtk;
-import org.gnome.gtk.TestPacking;
-import org.gnome.gtk.TestProperties;
+import org.gnome.gtk.ValidatePacking;
+import org.gnome.gtk.ValidateProperties;
 
 import com.operationaldynamics.junit.VerboseTestRunner;
 
@@ -67,10 +67,10 @@ public class UnitTests
 
         TestSuite suite = new TestSuite("All Unit Tests for java-gnome 4.0");
 
-        suite.addTestSuite(TestEnvironment.class);
-        suite.addTestSuite(TestReferenceCounting.class);
-        suite.addTestSuite(TestProperties.class);
-        suite.addTestSuite(TestPacking.class);
+        suite.addTestSuite(ValidateEnvironment.class);
+        suite.addTestSuite(ValidateReferenceCounting.class);
+        suite.addTestSuite(ValidateProperties.class);
+        suite.addTestSuite(ValidatePacking.class);
 
         return suite;
     }

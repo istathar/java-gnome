@@ -1,5 +1,5 @@
 /*
- * TestProperties.java
+ * ValidateProperties.java
  *
  * Copyright (c) 2007 Operational Dynamics Consulting Pty Ltd
  * 
@@ -17,7 +17,7 @@ package org.gnome.gtk;
  * 
  * @author Andrew Cowie
  */
-public class TestProperties extends TestCaseGtk
+public class ValidateProperties extends TestCaseGtk
 {
     /**
      * Test changing the label of a Button and getting the label back.
@@ -26,7 +26,7 @@ public class TestProperties extends TestCaseGtk
         final Button b;
         final String originalLabel = "Hello wonderful World";
         final String endingLabel = "Goodbye cruel World";
-
+        
         b = new Button(originalLabel);
         assertEquals(
                 "The text retrieved by getLabel() was not that set by the Button <init>() constructor!",
