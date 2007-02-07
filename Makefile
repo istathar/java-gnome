@@ -31,7 +31,7 @@ build-native: tmp/libgtkjava-$(APIVERSION).so
 # [this  will be called by the above include if .config is missing.
 # We don't call ./configure automatically to allow scope for
 # manual configuration and overrides]
-.config: src/java/org/gnome/gtk/Gtk.java
+.config: src/java/org/gnome/gtk/Version.java
 	echo
 	echo "You need to run ./configure to check prerequisites"
 	echo "and setup preferences before you can build java-gnome."

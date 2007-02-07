@@ -1567,7 +1567,7 @@ if ($prefix) {
 my $apiversion;
 my $version;
 
-open SOURCE, "src/java/org/gnome/gtk/Gtk.java";
+open SOURCE, "src/java/org/gnome/gtk/Version.java";
 while (<SOURCE>) {
 	chomp;
 	if (/.* APIVERSION = \"([\d\.]+)\";/) {
