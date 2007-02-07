@@ -1,5 +1,5 @@
 /*
- * TestProperties.java
+ * ValidateProperties.java
  *
  * Copyright (c) 2007 Operational Dynamics Consulting Pty Ltd
  * 
@@ -10,7 +10,6 @@
  */
 package org.gnome.gtk;
 
-import junit.framework.TestCase;
 
 /**
  * Test characteristic getters and setters to ensure correct values are
@@ -18,7 +17,7 @@ import junit.framework.TestCase;
  * 
  * @author Andrew Cowie
  */
-public class TestProperties extends TestCase
+public class ValidateProperties extends TestCaseGtk
 {
     /**
      * Test changing the label of a Button and getting the label back.
@@ -27,7 +26,7 @@ public class TestProperties extends TestCase
         final Button b;
         final String originalLabel = "Hello wonderful World";
         final String endingLabel = "Goodbye cruel World";
-
+        
         b = new Button(originalLabel);
         assertEquals(
                 "The text retrieved by getLabel() was not that set by the Button <init>() constructor!",

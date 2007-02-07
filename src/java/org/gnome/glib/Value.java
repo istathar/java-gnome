@@ -11,6 +11,7 @@
  */
 package org.gnome.glib;
 
+import org.freedesktop.bindings.Debug;
 import org.freedesktop.bindings.Proxy;
 
 /**
@@ -49,7 +50,6 @@ public final class Value extends Proxy
      * necessary, irrespective of the finalizer technique used.
      */
     protected void finalize() {
-        System.out.println("Value.finalize() called");
         release();
         super.finalize();
     }
@@ -61,6 +61,9 @@ public final class Value extends Proxy
      * on our pointer to free that memory.
      */
     protected void release() {
+        if (Debug.MEMORY_MANAGMENT) {
+            System.err.println("Value.release()  called on the " + this.toString());
+        }
         GValue.free(this);
     }
 }

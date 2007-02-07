@@ -28,13 +28,10 @@ import org.gnome.gtk.Window;
  */
 public final class Designer
 {
-
-    public static void main(String[] args) throws FileNotFoundException {
+    private Designer() throws FileNotFoundException {
         final Xml glade;
         final Window w;
         final Label l;
-
-        Gtk.init(args);
 
         glade = Glade.parse("tests/prototype/simple.glade", "simple");
 
@@ -49,9 +46,16 @@ public final class Designer
                 return false;
             }
         });
+    }
+
+    public static void main(String[] args) throws FileNotFoundException {
+        Gtk.init(args);
+
+        new Designer();
 
         Gtk.main();
 
+        System.gc();
         System.out.println("Bye now.");
     }
 }

@@ -1,5 +1,5 @@
 /*
- * TestEnvironment.java
+ * ValidateEnvironment.java
  *
  * Copyright (c) 2007 Operational Dynamics Consulting Pty Ltd
  * 
@@ -10,14 +10,14 @@
  */
 package org.freedesktop.bindings;
 
-import junit.framework.TestCase;
+import org.gnome.gtk.TestCaseGtk;
 
 /**
  * Make sure our reimplementaiton of fetching environment variables works.
  * 
  * @author Andrew Cowie
  */
-public class TestEnvironment extends TestCase
+public class ValidateEnvironment extends TestCaseGtk
 {
     public final void testGetEnvironmentVariable() {
         final String home;

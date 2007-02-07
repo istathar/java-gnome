@@ -1,5 +1,5 @@
 /*
- * TestPacking.java
+ * ValidatePacking.java
  *
  * Copyright (c) 2007 Operational Dynamics Consulting Pty Ltd
  * 
@@ -10,14 +10,12 @@
  */
 package org.gnome.gtk;
 
-import junit.framework.TestCase;
-
 /**
  * Evaluate the box packing model that underlies GTK layouts
  * 
  * @author Andrew Cowie
  */
-public class TestPacking extends TestCase
+public class ValidatePacking extends TestCaseGtk
 {
 
     /**

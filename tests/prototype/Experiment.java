@@ -29,15 +29,21 @@ import org.gnome.gtk.Window;
  */
 public final class Experiment
 {
-
-    public static void main(String[] args) {
+    /*
+     * It is not, strictly speaking, "necessary" to put the UI building code
+     * into a constructor; there's nothing wrong in a tiny program with doing
+     * it all in static code in main().
+     * 
+     * What we gain, however, is that the references to all the objects
+     * created become unreachable as soon as it runs, and that allowed us to
+     * evaluate that the memory management is working correctly.
+     */
+    private Experiment() {
         final Window w;
         final VBox x;
         final Label l;
         final Button b;
         final FileChooserButton fcb;
-
-        Gtk.init(args);
 
         w = new Window();
 
@@ -76,12 +82,24 @@ public final class Experiment
 
         fcb.connect(new FileChooser.SELECTION_CHANGED() {
             public void onSelectionChanged(FileChooser source) {
-                System.out.println("File selected...  " + source.getURI());
-                System.out.println("Current folder... " + source.getCurrentFolder());
+                System.out.println("In directory:    " + source.getCurrentFolder());
+                System.out.println("File selected:   " + source.getURI());
+                System.gc();
             }
         });
 
+    }
+
+    public static void main(String[] args) {
+        Gtk.init(args);
+
+        new Experiment();
+
         Gtk.main();
+
+        // Observe release() being done on the various Proxies created. As
+        // ever, though, calling gc() is not imperative.
+        System.gc();
 
         // verify we make it out of the main loop without crashing
         System.out.println("Bye now.");
