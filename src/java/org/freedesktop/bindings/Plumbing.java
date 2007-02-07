@@ -11,6 +11,7 @@
  */
 package org.freedesktop.bindings;
 
+import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -81,7 +82,7 @@ public abstract class Plumbing
      * lookup.
      */
     static final void registerProxy(Proxy obj) {
-        knownProxies.put(new Long(obj.pointer), obj);
+        knownProxies.put(new Long(obj.pointer), new WeakReference(obj));
     }
 
     /**
@@ -153,7 +154,13 @@ public abstract class Plumbing
      * looked up.
      */
     protected static Proxy instanceFor(long pointer) {
-        return (Proxy) knownProxies.get(new Long(pointer));
+        WeakReference ref = (WeakReference) knownProxies.get(new Long(pointer));
+
+        if (ref == null) {
+            return null;
+        } else {
+            return (Proxy) ref.get();
+        }
     }
 
     /**
