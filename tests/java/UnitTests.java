@@ -12,6 +12,7 @@
 import junit.framework.Test;
 import junit.framework.TestSuite;
 
+import org.freedesktop.bindings.Debug;
 import org.freedesktop.bindings.TestEnvironment;
 import org.gnome.glib.TestReferenceCounting;
 import org.gnome.gtk.TestCaseGtk;
@@ -38,6 +39,11 @@ public class UnitTests
      */
     public static void main(String[] args) {
         VerboseTestRunner.run(suite(args));
+
+        if (Debug.MEMORY_MANAGMENT) {
+            System.out.println("Done.");
+            System.out.flush();
+        }
     }
 
     /**

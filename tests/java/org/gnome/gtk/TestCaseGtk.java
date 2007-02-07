@@ -12,6 +12,7 @@ package org.gnome.gtk;
 
 import junit.framework.TestCase;
 
+import org.freedesktop.bindings.Debug;
 import org.gnome.gtk.Gtk;
 
 /**
@@ -44,6 +45,13 @@ public class TestCaseGtk extends TestCase
     public void setUp() {
         if (!initialized) {
             init(null);
+        }
+    }
+
+    public void tearDown() {
+        if (Debug.MEMORY_MANAGMENT) {
+            System.gc();
+            System.err.flush();
         }
     }
 }
