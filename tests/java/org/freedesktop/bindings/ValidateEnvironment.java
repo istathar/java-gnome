@@ -33,8 +33,8 @@ public class ValidateEnvironment extends TestCaseGtk
         }
 
         if (username != null) {
-            assertTrue("How come your user name is not in your home directory location?", (home
-                    .indexOf(username) != -1));
+            assertTrue("How come your user name is not in your home directory location?",
+                    (home.indexOf(username) != -1));
         }
     }
 }

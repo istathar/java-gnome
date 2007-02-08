@@ -46,8 +46,8 @@ public class Environment
     }
 
     private static native final String getenv(String variableName);
-     
+
     public static int getWidth() {
         throw new UnsupportedOperationException("Don't know how to implement this, sorry");
-    }   
+    }
 }

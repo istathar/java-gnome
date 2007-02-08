@@ -10,7 +10,6 @@
  */
 package org.gnome.gtk;
 
-
 /**
  * Test characteristic getters and setters to ensure correct values are
  * retrieved.
@@ -26,7 +25,7 @@ public class ValidateProperties extends TestCaseGtk
         final Button b;
         final String originalLabel = "Hello wonderful World";
         final String endingLabel = "Goodbye cruel World";
-        
+
         b = new Button(originalLabel);
         assertEquals(
                 "The text retrieved by getLabel() was not that set by the Button <init>() constructor!",
@@ -49,8 +48,8 @@ public class ValidateProperties extends TestCaseGtk
 
         // Button's getRelief() is temporarily implemented with
         // getPropertyEnum().
-        assertSame("Default ReliefStyle is not what was expected, validity of test case is affected.", b
-                .getRelief(), ReliefStyle.NORMAL);
+        assertSame("Default ReliefStyle is not what was expected, validity of test case is affected.",
+                b.getRelief(), ReliefStyle.NORMAL);
 
         // NONE is #3 (ie ordinal 2, not zero)
         ReliefStyle rs = ReliefStyle.NONE;

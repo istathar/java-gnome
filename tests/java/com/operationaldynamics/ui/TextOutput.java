@@ -18,7 +18,6 @@ import java.io.PrintWriter;
 
 import org.freedesktop.bindings.Environment;
 
-
 /**
  * Base class for routines that output text to terminal. It takes care of
  * working out and making available to subclasses an appropriate terminal

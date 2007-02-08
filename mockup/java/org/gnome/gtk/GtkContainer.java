@@ -37,6 +37,6 @@ final class GtkContainer extends Plumbing
     static final void remove(Container self, Widget child) {
         gtk_container_remove(pointerOf(self), pointerOf(child));
     }
-    
+
     private static native final void gtk_container_remove(long self, long child);
 }

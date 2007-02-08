@@ -24,7 +24,7 @@ final class GtkFileChooserButton extends Plumbing
     private GtkFileChooserButton() {}
 
     static final long createFileChooserButon(String title, FileChooserAction action) {
-        return gtk_file_chooser_button_new(title, numOf(action)); 
+        return gtk_file_chooser_button_new(title, numOf(action));
     }
 
     private static native final long gtk_file_chooser_button_new(String title, int action);

@@ -32,8 +32,8 @@ package org.gnome.gtk;
  * </dl>
  * 
  * <p>
- * TODO Add a human understandable discussion about the basics of <i>size requests</i> and
- * <i>size allocations</i>.
+ * TODO Add a human understandable discussion about the basics of <i>size
+ * requests</i> and <i>size allocations</i>.
  * 
  * @author Andrew Cowie
  * @since 4.0.0
