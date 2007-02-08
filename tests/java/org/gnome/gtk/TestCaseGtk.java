@@ -54,4 +54,23 @@ public class TestCaseGtk extends TestCase
             System.err.flush();
         }
     }
+
+    /**
+     * Iterates the main loop through how ever many events are pending, and
+     * then returns. This way, unit tests that need to have the main loop
+     * "run" to evaluate whether or not something worked can cause those
+     * iterations to take place.
+     */
+    protected static void cycleMainLoop() {
+        /*
+         * Lead off with one iteration no matter what. Pending events aren't
+         * the only thing that the main loop does! Then continue by working
+         * off whatever has accumulated.
+         */
+        Gtk.mainIterationDo(false);
+
+        while (Gtk.eventsPending()) {
+            Gtk.mainIterationDo(false);
+        }
+    }
 }

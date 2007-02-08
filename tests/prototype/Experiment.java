@@ -30,7 +30,7 @@ import org.gnome.gtk.Window;
 public final class Experiment
 {
     /*
-     * It is not, strictly speaking, "necessary" to put the UI building code
+     * It is not, strictly speaking, necessary to put the UI building code
      * into a constructor; there's nothing wrong in a tiny program with doing
      * it all in static code in main().
      * 
@@ -58,7 +58,6 @@ public final class Experiment
         x.packStart(b);
 
         fcb = new FileChooserButton("Good to get, a file is", FileChooserAction.OPEN);
-        fcb.setCurrentFolder("/tmp");
         x.packStart(fcb, false, false, 0);
 
         w.add(x);
@@ -82,12 +81,10 @@ public final class Experiment
 
         fcb.connect(new FileChooser.SELECTION_CHANGED() {
             public void onSelectionChanged(FileChooser source) {
-                System.out.println("In directory:    " + source.getCurrentFolder());
                 System.out.println("File selected:   " + source.getURI());
                 System.gc();
             }
         });
-
     }
 
     public static void main(String[] args) {
@@ -101,7 +98,7 @@ public final class Experiment
         // ever, though, calling gc() is not imperative.
         System.gc();
 
-        // verify we make it out of the main loop without crashing
+        // And, hopefully, we make it out of the main loop without crashing
         System.out.println("Bye now.");
     }
 }

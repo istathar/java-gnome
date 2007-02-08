@@ -16,6 +16,7 @@ import org.freedesktop.bindings.Debug;
 import org.freedesktop.bindings.ValidateEnvironment;
 import org.gnome.glib.ValidateReferenceCounting;
 import org.gnome.gtk.TestCaseGtk;
+import org.gnome.gtk.ValidateFileChoosing;
 import org.gnome.gtk.ValidatePacking;
 import org.gnome.gtk.ValidateProperties;
 
@@ -71,6 +72,7 @@ public class UnitTests
         suite.addTestSuite(ValidateReferenceCounting.class);
         suite.addTestSuite(ValidateProperties.class);
         suite.addTestSuite(ValidatePacking.class);
+        suite.addTestSuite(ValidateFileChoosing.class);
 
         return suite;
     }
