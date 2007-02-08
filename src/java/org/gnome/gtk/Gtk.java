@@ -121,4 +121,49 @@ public final class Gtk extends Glib
     }
 
     private static native final void gtk_main_quit();
+
+    /**
+     * Are there any events pending for the main loop to process?
+     * 
+     * <p>
+     * <b>This is not for general use! Do not expose this and do not encourage
+     * anyone to use this to hack into the main loop.</b>
+     * 
+     * <p>
+     * In a test case, this could be used as follows; see
+     * <code>TestCaseGtk.cycleMainLoop()</codde> in the <code>tests/</code> tree for
+     * details:
+     * 
+     * <pre>
+     * while (Gtk.eventsPending()) {
+     *     Gtk.mainIteratoinDo(false);
+     * }
+     * </pre>
+     */
+    static final boolean eventsPending() {
+        return gtk_events_pending();
+    }
+
+    private static native final boolean gtk_events_pending();
+
+    /**
+     * Run a single iteration of the main loop.
+     * 
+     * <p>
+     * Not public! This is for internal use only, notably by test cases.
+     * 
+     * @param block
+     *            Whether to block or not. If <code>true</code>, this
+     *            method will block until an event is processed.
+     * @return Will result in <code>true</code> if
+     *         <code>Gtk.mainQuit()</code> (aka <code>gtk_main_quit()</code>)
+     *         has been called on the innermost active main loop.
+     *         <code>true</code> will also be returned if there <i>is</i>
+     *         no main loop running.
+     */
+    static final boolean mainIterationDo(boolean block) {
+        return gtk_main_iteration_do(block);
+    }
+
+    private static native final boolean gtk_main_iteration_do(boolean blocking);
 }

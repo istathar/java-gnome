@@ -77,3 +77,56 @@ Java_org_gnome_gtk_Gtk_gtk_1main_1quit
 	gtk_main_quit();
 //	gdk_threads_leave();
 }
+
+
+/*
+ * Implements
+ *   org.gnome.gtk.Gtk.gtk_events_pending()
+ * called from
+ *   org.gnome.gtk.Gtk.eventsPending()
+ */
+JNIEXPORT jboolean JNICALL
+Java_org_gnome_gtk_Gtk_gtk_1events_1pending
+(
+	JNIEnv *env,
+	jclass cls
+)
+{
+	gboolean result;
+	
+	// call function
+	result = gtk_events_pending();
+	
+	// return result
+	return (jboolean) result;	
+}
+
+
+/*
+ * Implements
+ *   org.gnome.gtk.Gtk.gtk_main_iteration_do()
+ * called from
+ *   org.gnome.gtk.Gtk.mainIterationDo()
+ */
+JNIEXPORT jboolean JNICALL
+Java_org_gnome_gtk_Gtk_gtk_1main_1iteration_1do
+(
+	JNIEnv *env,
+	jclass cls,
+	jboolean _blocking
+)
+{
+	gboolean blocking;
+	gboolean result;
+	
+	// translate blocking
+	blocking = (gboolean) _blocking;
+	
+	// call function
+	result = gtk_main_iteration_do(blocking);
+	
+	// clean up blocking
+	
+	// return result
+	return (jboolean) result;	
+}
