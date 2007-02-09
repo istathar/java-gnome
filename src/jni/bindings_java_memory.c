@@ -81,6 +81,30 @@ bindings_java_toggle
 	}	
 }
 
+/*
+ * Drop our initial default GObject reference. This is called via a GIdle
+ * call to avoid the ping pong effect which results if the ToggleRef is the
+ * only ref count to a GtkWidget while setters are called prior to the
+ * GtkWidget being added to a GtkContainer. By delaying the ref count
+ * reduction, the inital strong Java reference is left alone.  
+ */
+/*
+ * Signature the prototype of a (*GSourceFunc) callback, meeting the
+ * requirements of the first argument to g_idle_add()
+ */
+static gboolean
+bindings_java_memory_deref
+(
+        gpointer data
+)
+{
+        GObject* object;
+        
+        object = (GObject*) data;
+        g_object_unref(object);
+        return FALSE;
+}       
+
 
 /*
  * Called from
@@ -131,7 +155,7 @@ bindings_java_memory_ref
 	 */
 	 
 	g_object_ref_sink(object);
-	g_object_unref(object);
+	g_idle_add(bindings_java_memory_deref, object);
 }
 	
 /*
