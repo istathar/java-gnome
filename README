@@ -237,7 +237,7 @@ probably end up seeing the following commands being run by Portage:
 	
 	...
 
-To the relief of people doing packaging everywhere, `/usr` is the default
+To the delight of people doing packaging everywhere, `/usr` is the default
 installation prefix, so you don't even need to worry it. And _yes_ `make
 install` builds the library first, so you can skip that too.
 
