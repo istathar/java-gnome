@@ -27,7 +27,7 @@
 #include "org_gnome_glib_GObject.h"
 
 
-/*
+/**
  * Implements
  *   org.gnome.glib.GObject.g_type_name(long object)
  * called from
@@ -59,7 +59,7 @@ Java_org_gnome_glib_GObject_g_1type_1name
 }
 
 
-/*
+/**
  * Implements
  *   org.gnome.glib.GObject.g_object_set_property(long instance, String name, long value)
  * called from
@@ -98,7 +98,7 @@ Java_org_gnome_glib_GObject_g_1object_1set_1property
 	(*env)->ReleaseStringUTFChars(env, _name, name);
 }
 
-/*
+/**
  * Implements
  *   org.gnome.glib.GObject.g_object_get_property(long instance, String name)
  * called from
@@ -156,7 +156,7 @@ JNIEXPORT jlong JNICALL Java_org_gnome_glib_GObject_g_1object_1get_1property
 }
 
 
-/*
+/**
  * Implements
  *   org.gnome.glib.GObject.g_signal_connect(long instance, Object handler, String name)
  * called from
@@ -218,26 +218,25 @@ Java_org_gnome_glib_GObject_g_1signal_1connect
 	(*env)->ReleaseStringUTFChars(env, _name, name);
 }
 
-/*
+/**
  * Implements
- *   org.gnome.glib.GObject.g_object_ref(long reference)
+ *   org.gnome.glib.GObject.g_object_add_toggle_ref(long reference, Object target)
  * called from
- *   org.gnome.glib.GObject.ref(Object reference)
+ *   org.gnome.glib.GObject.addToggleRef(Object reference)
  * called from
- *   org.gnome.glib.Plumbing.createObject(long pointer)
- * called from
- *   org.gnome.glib.Plumbing.objectFor(long pointer)
+ *   org.gnome.glib.Object.<init>(long pointer)
  * 
- * When we make a Proxy to a GObject on our own, we need to tell the
+ * When we make a Proxy to a GObject, we need to tell the
  * reference system about it.
  */
  
 JNIEXPORT void JNICALL 
-Java_org_gnome_glib_GObject_g_1object_1ref
+Java_org_gnome_glib_GObject_g_1object_1add_1toggle_1ref
 (
 	JNIEnv* env,
 	jclass cls,
-	jlong _reference
+	jlong _reference,
+	jobject _target
 )
 {
 	GObject* reference;
@@ -246,20 +245,21 @@ Java_org_gnome_glib_GObject_g_1object_1ref
 	reference = (GObject*) _reference;
 	
 	// call function
-	g_object_ref(reference);
+	bindings_java_memory_ref(env, reference, _target);
 }
 
-/*
+
+/**
  * Implements
- *   org.gnome.glib.GObject.g_object_unref(long reference)
+ *   org.gnome.glib.GObject.g_object_remove_toggle_ref(long reference)
  * called from
- *   org.gnome.glib.GObject.unref(Object reference)
+ *   org.gnome.glib.GObject.removeToggleRef(Object reference)
  * called when
  *   org.gnome.glib.Object.release()
  * is invoked by a finalizer.
  */
 JNIEXPORT void JNICALL 
-Java_org_gnome_glib_GObject_g_1object_1unref
+Java_org_gnome_glib_GObject_g_1object_1remove_1toggle_1ref
 (
 	JNIEnv* env,
 	jclass cls,
@@ -272,7 +272,7 @@ Java_org_gnome_glib_GObject_g_1object_1unref
 	reference = (GObject*) _reference;
 	
 	// call function
-	g_object_unref(reference);
+	bindings_java_memory_unref(reference);
 	
 	/*
 	 * Which should, incidentally, dispose of this GObject if we're the

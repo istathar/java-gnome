@@ -39,6 +39,9 @@ public final class Value extends Proxy
 {
     protected Value(long pointer) {
         super(pointer);
+        if (Debug.MEMORY_MANAGMENT) {
+            System.err.println("Value.<init>(long)\t\t" + this.toString());
+        }
     }
 
     /**
@@ -62,7 +65,7 @@ public final class Value extends Proxy
      */
     protected void release() {
         if (Debug.MEMORY_MANAGMENT) {
-            System.err.println("Value.release()  called on the " + this.toString());
+            System.err.println("Value.release()\t\t\t" + this.toString());
         }
         GValue.free(this);
     }

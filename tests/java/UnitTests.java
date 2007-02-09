@@ -44,6 +44,12 @@ public class UnitTests
         if (Debug.MEMORY_MANAGMENT) {
             System.out.println("Done.");
             System.out.flush();
+            System.gc();
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                // ignore
+            }
         }
     }
 

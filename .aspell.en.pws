@@ -1,4 +1,4 @@
-personal_ws-1.1 en 544 
+personal_ws-1.1 en 553 
 nativeName
 apache
 bjc
@@ -138,6 +138,7 @@ IJLjava
 ing
 xalign
 handleName
+RefToJavaProxy
 Collins's
 knownProxies
 Makefile
@@ -177,6 +178,7 @@ GValues
 mockups
 GtkB
 getRelief
+mem
 GtkStockItem
 UCHAR
 GtkFileChooserButton
@@ -309,6 +311,7 @@ PyThis
 bitkeeper
 toString
 conf
+DeleteWeakGlobalRef
 Tredinnick
 Pty
 filetype
@@ -329,6 +332,7 @@ NewGlobalRef
 wiki
 GtkWidget
 FreeDesktop
+GtkObjects
 getText
 tla
 Ubuntu
@@ -438,12 +442,14 @@ GC
 DrawingArea
 unregisterProxy
 jobject
+NewWeakGlobalRef
 hg
 libglib
 DataColumnInt
 GClosureNotify
 ie
 UnsatisfiedLinkError
+ToggleRef
 returnType
 numOf
 showAll
@@ -453,6 +459,7 @@ jclass
 handlerBlah
 jvalue
 getAlignment
+ld
 LD
 JavaVM
 methodID
@@ -477,6 +484,7 @@ WeakHashMap
 GtkMain
 proxied
 GtkFileChooser
+Juma
 Overholt
 Buildtool
 juju
@@ -486,6 +494,7 @@ NetBeans
 InternalButtonImplementation
 DVCS
 py
+GToggleNotify
 alloca
 ExceptionClear
 cachedJavaVM

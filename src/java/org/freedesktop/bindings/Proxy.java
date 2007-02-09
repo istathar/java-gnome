@@ -65,4 +65,8 @@ public abstract class Proxy
     protected void finalize() {
         Plumbing.unregisterProxy(this);
     }
+
+    public String toString() {
+        return this.pointer + "*" + this.getClass().getName();
+    }
 }

@@ -37,13 +37,13 @@ public class ValidateReferenceCounting extends TestCaseGtk
 
         // artificially remove java-gnome's reference to b. GObject should NOT
         // finalize the object, because it's packed into a Container.
-        GObject.unref(b);
+        GObject.removeToggleRef(b);
 
         System.gc();
         // should not result in object being finalized, of course since we
         // have a Java reference to it.
 
-        GObject.ref(b);
+        GObject.addToggleRef(b);
         x.remove(b);
         b = null;
 

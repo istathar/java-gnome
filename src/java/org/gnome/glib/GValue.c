@@ -16,7 +16,7 @@
 #include "org_gnome_glib_GValue.h"
 #include "bindings_java.h"
 
-/*
+/**
  * Implements
  *   org.gnome.glib.GValue.g_type_name(long value)
  * called from
@@ -49,7 +49,7 @@ Java_org_gnome_glib_GValue_g_1type_1name
 	return (*env)->NewStringUTF(env, (name != NULL ? name : "\0"));
 }
 
-/*
+/**
  * Implements
  *   org.gnome.glib.GValue.g_value_free(long value)
  * called from
@@ -69,13 +69,26 @@ Java_org_gnome_glib_GValue_g_1value_1free
 )
 {
 	GValue* value;
+	GObject* object;
 		
 	value =	(GValue*) _value;
+	
+	/*
+	 * Not 100% sure that this is the correct place to do this, but
+	 * it seems that when you get a property with a GObject in it,
+	 * there is a ref count to that object from the GValue. 
+	 */
+	if (G_VALUE_HOLDS_OBJECT(value)) {
+		object = g_value_get_object(value);
+		if (G_IS_OBJECT(object)) {
+			g_object_unref(object);
+		}
+	}	
 	
 	g_slice_free(GValue, value);
 }
 
-/*
+/**
  * Implements
  *   org.gnome.glib.GValue.g_value_init(int i)
  * called from
@@ -112,7 +125,7 @@ Java_org_gnome_glib_GValue_g_1value_1init__I
 }
 
 
-/*
+/**
  * Implements
  *   org.gnome.glib.GValue.g_value_init(boolean b)
  * called from
@@ -147,7 +160,7 @@ Java_org_gnome_glib_GValue_g_1value_1init__Z
 	return (jlong) value;
 }
 
-/*
+/**
  * Implements
  *   org.gnome.glib.GValue.g_value_init(String str)
  * called from
@@ -190,7 +203,7 @@ Java_org_gnome_glib_GValue_g_1value_1init__Ljava_lang_String_2
 }
 
 
-/*
+/**
  * Implements
  *   org.gnome.glib.GValue.g_value_init(long obj)
  * called from
@@ -220,7 +233,7 @@ Java_org_gnome_glib_GValue_g_1value_1init__Lorg_gnome_glib_GObject_2
 	g_value_init(value, G_TYPE_OBJECT);
 
 	// set the value	
-	g_value_set_object(value, obj); 
+	g_value_set_object(value, obj);
 
 	// clean up obj
 
@@ -228,7 +241,7 @@ Java_org_gnome_glib_GValue_g_1value_1init__Lorg_gnome_glib_GObject_2
 	return (jlong) value;
 }
 
-/*
+/**
  * Implements
  *   org.gnome.glib.GValue.g_value_get_string(long value)
  * called from
@@ -264,7 +277,7 @@ Java_org_gnome_glib_GValue_g_1value_1get_1string
 	return (*env)->NewStringUTF(env, str);
 }
 
-/*
+/**
  * Implements
  *   org.gnome.glib.GValue.g_value_get_enum(long value)
  * called from
@@ -299,7 +312,7 @@ Java_org_gnome_glib_GValue_g_1value_1get_1enum
 	return (jint) num;
 }
 
-/*
+/**
  * Implements
  *   org.gnome.glib.GValue.g_value_get_enum(long value)
  * called from

@@ -339,7 +339,7 @@ bindings_java_closure_destroy
 	}
 }
 
-/*
+/**
  * Create one of our custom GClosure subclasses. To save us having to export
  * it, however, we just return the GClosure* that it extends.
  */
