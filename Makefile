@@ -233,12 +233,12 @@ test: build-java build/classes-test
 		UnitTests
 
 demo: build-java build/classes-test
-	@echo "$(JAVA_CMD) Experiment"
+	@echo "$(JAVA_CMD) Toggling"
 	$(JAVA) \
 		-classpath tmp/tests:tmp/gtk-$(APIVERSION).jar \
 		-Djava.library.path=tmp \
 		-ea \
-		Experiment
+		Toggling
 
 # --------------------------------------------------------------------
 # Documentation generation
