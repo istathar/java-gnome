@@ -80,7 +80,9 @@ Java_org_gnome_glib_GValue_g_1value_1free
 	 */
 	if (G_VALUE_HOLDS_OBJECT(value)) {
 		object = g_value_get_object(value);
-		g_object_unref(object);
+		if (G_IS_OBJECT(object)) {
+			g_object_unref(object);
+		}
 	}	
 	
 	g_slice_free(GValue, value);
