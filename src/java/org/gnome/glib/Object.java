@@ -50,7 +50,10 @@ public abstract class Object extends Proxy
 
     protected Object(long pointer) {
         super(pointer);
-        GObject.ref(this);
+        if (Debug.MEMORY_MANAGMENT) {
+            System.err.println("Object.<init>(long)\t\t" + this.toString());
+        }
+        GObject.addToggleRef(this);
     }
 
     /**
@@ -79,9 +82,9 @@ public abstract class Object extends Proxy
      */
     protected final void release() {
         if (Debug.MEMORY_MANAGMENT) {
-            System.err.println("Object.release() called on " + this.toString());
+            System.err.println("Object.release()\t\t" + this.toString());
         }
-        GObject.unref(this);
+        GObject.removeToggleRef(this);
     }
 
     /**

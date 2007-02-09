@@ -43,11 +43,10 @@ final class GObject extends Plumbing
             String name);
 
     /**
-     * Call g_object_ref() on the argument passed. This should only called
-     * when we're creating a Proxy for a GObject on our own hook as opposed to
-     * having obtained it from a g*_*_new() constructor function.
+     * Call g_object_add_toggle_ref() on the argument passed. This should only
+     * called when we're creating a Proxy for a GObject.
      */
-    static void ref(org.gnome.glib.Object reference) {
+    static void addToggleRef(org.gnome.glib.Object reference) {
         long pointer = pointerOf(reference);
         /*
          * if are transmitting NULL from the G side to null on the Java sde,
@@ -56,20 +55,21 @@ final class GObject extends Plumbing
         if (pointer == 0) {
             return;
         }
-        g_object_ref(pointerOf(reference));
+        g_object_add_toggle_ref(pointer, reference);
     }
 
     /**
-     * Call g_object_unref() on the argument passed. You'd really best only do
-     * this once.
+     * Call g_object_remove_toggle_ref() on the argument passed. You'd really
+     * best only do this once, since removing this ref will undoubtedly cause
+     * the destruction of the underlying GObject.
      */
-    static void unref(org.gnome.glib.Object reference) {
+    static void removeToggleRef(org.gnome.glib.Object reference) {
         long pointer = pointerOf(reference);
         // guard against absurdity.
         if (pointer == 0) {
             return;
         }
-        g_object_unref(pointer);
+        g_object_remove_toggle_ref(pointer);
     }
 
     /**
@@ -109,7 +109,7 @@ final class GObject extends Plumbing
 
     private static native final String g_type_name(long object);
 
-    private static native final void g_object_unref(long reference);
+    private static native final void g_object_add_toggle_ref(long reference, Object target);
 
-    private static native final void g_object_ref(long reference);
+    private static native final void g_object_remove_toggle_ref(long reference);
 }
