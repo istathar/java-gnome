@@ -69,8 +69,19 @@ Java_org_gnome_glib_GValue_g_1value_1free
 )
 {
 	GValue* value;
+	GObject* object;
 		
 	value =	(GValue*) _value;
+	
+	/*
+	 * Not 100% sure that this is the correct place to do this, but
+	 * it seems that when you get a property with a GObject in it,
+	 * there is a ref count to that object from the GValue. 
+	 */
+	if (G_VALUE_HOLDS_OBJECT(value)) {
+		object = g_value_get_object(value);
+		g_object_unref(object);
+	}	
 	
 	g_slice_free(GValue, value);
 }
