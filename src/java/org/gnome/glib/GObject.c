@@ -27,7 +27,7 @@
 #include "org_gnome_glib_GObject.h"
 
 
-/*
+/**
  * Implements
  *   org.gnome.glib.GObject.g_type_name(long object)
  * called from
@@ -59,7 +59,7 @@ Java_org_gnome_glib_GObject_g_1type_1name
 }
 
 
-/*
+/**
  * Implements
  *   org.gnome.glib.GObject.g_object_set_property(long instance, String name, long value)
  * called from
@@ -98,7 +98,7 @@ Java_org_gnome_glib_GObject_g_1object_1set_1property
 	(*env)->ReleaseStringUTFChars(env, _name, name);
 }
 
-/*
+/**
  * Implements
  *   org.gnome.glib.GObject.g_object_get_property(long instance, String name)
  * called from
@@ -156,7 +156,7 @@ JNIEXPORT jlong JNICALL Java_org_gnome_glib_GObject_g_1object_1get_1property
 }
 
 
-/*
+/**
  * Implements
  *   org.gnome.glib.GObject.g_signal_connect(long instance, Object handler, String name)
  * called from
@@ -218,7 +218,7 @@ Java_org_gnome_glib_GObject_g_1signal_1connect
 	(*env)->ReleaseStringUTFChars(env, _name, name);
 }
 
-/*
+/**
  * Implements
  *   org.gnome.glib.GObject.g_object_add_toggle_ref(long reference, Object target)
  * called from
@@ -249,7 +249,7 @@ Java_org_gnome_glib_GObject_g_1object_1add_1toggle_1ref
 }
 
 
-/*
+/**
  * Implements
  *   org.gnome.glib.GObject.g_object_remove_toggle_ref(long reference)
  * called from

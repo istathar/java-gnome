@@ -81,7 +81,7 @@ bindings_java_toggle
 	}	
 }
 
-/*
+/**
  * Drop our initial default GObject reference. This is called via a GIdle
  * call to avoid the ping pong effect which results if the ToggleRef is the
  * only ref count to a GtkWidget while setters are called prior to the
@@ -106,7 +106,7 @@ bindings_java_memory_deref
 }       
 
 
-/*
+/**
  * Called from
  *   Java_org_gnome_glib_GObject_g_1object_1add_1toggle_1ref()
  * called from
@@ -115,7 +115,7 @@ bindings_java_memory_deref
  *   org.gnome.glib.GObject.addToggleRef(Object reference)
  * called from
  *   org.gnome.glib.Object.<init>(long pointer)
- * 
+ *
  * Here we go through the various motions necessary to appropriately
  * increment the ref count on the GObject for which we are creating a Proxy
  * to.
@@ -158,7 +158,7 @@ bindings_java_memory_ref
 	g_idle_add(bindings_java_memory_deref, object);
 }
 	
-/*
+/**
  * Called from
  *   Java_org_gnome_glib_GObject_g_1object_1remove_1toggle_1ref()
  * called from
