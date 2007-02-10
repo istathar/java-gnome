@@ -1,7 +1,7 @@
 /*
  * TestCaseGtk.java
  *
- * Copyright (c) 2007 Operational Dynamics Consulting Pty Ltd
+ * Copyright (c) 2007 Operational Dynamics Consulting Pty Ltd and Others
  * 
  * The code in this file, and the library it is a part of, are made available
  * to you by the authors under the terms of the "GNU General Public Licence,
@@ -71,6 +71,24 @@ public class TestCaseGtk extends TestCase
 
         while (Gtk.eventsPending()) {
             Gtk.mainIterationDo(false);
+        }
+    }
+
+    /**
+     * Iterate the garbage collector. Of course, some platforms ignore this,
+     * which is going to make the unit tests which depend on it running
+     * somewhat difficult to pass. Too bad.
+     */
+    protected static void cycleGarbageCollector() {
+        System.gc();
+        try {
+            /*
+             * this is needed because GC runs asynchronously on some
+             * platforms. So we make sure it has an opportunity to run.
+             */
+            Thread.sleep(100);
+        } catch (InterruptedException e) {
+            // ignore
         }
     }
 }
