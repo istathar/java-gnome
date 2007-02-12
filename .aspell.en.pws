@@ -1,4 +1,4 @@
-personal_ws-1.1 en 634 
+personal_ws-1.1 en 635 
 nativeName
 apache
 bjc
@@ -61,8 +61,8 @@ GTypeInstance
 FileChooser
 setPropertyFloat
 ULONG
-GladeXML
 GladeXml
+GladeXML
 NullPointerException
 createFixed
 throwByName
@@ -112,8 +112,8 @@ Pango
 lookupType
 Cowie
 GtkWindow
-getURI
 getUri
+getURI
 deref
 setPropertyBoolean
 IDE
@@ -294,8 +294,8 @@ IsSameObject
 glibj
 GUADEC
 methodName
-nThe
 nsme
+nThe
 ExceptionOccurred
 DataColumn
 php
@@ -464,11 +464,12 @@ UnsupportedOperationException
 setTitle
 getClass
 GParamSpec
+Kedzierski
 vte
 testObjectNeverUsedIsRemoved
 xjf
-javadoc
 JavaDoc
+javadoc
 vhosts
 struct
 putWidget
@@ -602,8 +603,8 @@ accessors
 loadLibrary
 IllegalAccessException
 DesignConstraints
-pyGTK
 pygtk
+pyGTK
 strfreev
 libglade
 TreeStore
