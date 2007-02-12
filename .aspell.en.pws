@@ -1,4 +1,4 @@
-personal_ws-1.1 en 553 
+personal_ws-1.1 en 555 
 nativeName
 apache
 bjc
@@ -48,8 +48,8 @@ forName
 CallStaticVoidMethodA
 setPropertyFloat
 ULONG
-GladeXML
 GladeXml
+GladeXML
 NullPointerException
 createFixed
 throwByName
@@ -137,8 +137,8 @@ getChild
 IJLjava
 ing
 xalign
-handleName
 RefToJavaProxy
+handleName
 Collins's
 knownProxies
 Makefile
@@ -232,6 +232,7 @@ strsplit
 ClassNotFoundException
 PackageNames
 MVC
+Formoso
 ReliefStyle
 CallStaticBooleanMethodA
 jargs
@@ -250,8 +251,8 @@ IsSameObject
 glibj
 GUADEC
 methodName
-nsme
 nThe
+nsme
 ExceptionOccurred
 DataColumn
 php
@@ -401,10 +402,11 @@ UnsupportedOperationException
 setTitle
 getClass
 GParamSpec
+Kedzierski
 vte
 xjf
-JavaDoc
 javadoc
+JavaDoc
 vhosts
 struct
 putWidget
@@ -460,7 +462,6 @@ handlerBlah
 jvalue
 getAlignment
 ld
-LD
 JavaVM
 methodID
 Fortin
@@ -517,13 +518,14 @@ ccessibility
 Madeley
 objectFor
 ABI
+Vreixo
 x's
 accessors
 loadLibrary
 IllegalAccessException
 DesignConstraints
-pygtk
 pyGTK
+pygtk
 strfreev
 libglade
 TreeStore

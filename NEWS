@@ -1,5 +1,10 @@
 NEWS
 
+<a name="4.0.2" id="1171266217" title="End of the beginning"></a>
+
+java-gnome 4.0.2 (12 Feb 2007)
+==============================
+
 _The End of the Beginning!_
 
 Major bugfixes and refactorings
@@ -139,6 +144,46 @@ Finally, a number of new signals were exposed on:
 though these were mostly the result of doing live demonstrations at
 conferences of how easy extending the coverage of the new bindings is.
 
+Memory management
+-----------------
+
+We have successfully implemented full GObject memory management in java-gnome
+4.0 using GLib's ToggleRef mechanism.
+
+A strongly referenced Java Proxy will not allow its GObject to be destroyed
+out from underneath it; meanwhile, as long as the GObject is still referenced
+by something other than java-gnome, an otherwise only weakly reachable Java
+object that Proxies it will not be finalized. When the situation _does_ occur
+whereby the GObject is only referenced from java-gnome, and the Java object is
+no longer strongly referenced by any other Java objects, then the Java object
+can be garbage collected and the GObject will be unref()'d and destroyed.
+
+You can watch the reference system in action if you set
+`Debug.MEMORY_MANAGEMENT` to `true`.
+
+Huge thanks go to Vreixo Formoso Lopes who collaborated on the design,
+reviewed the implementation, and contributed test case code.
+
+Build system improvements
+-------------------------
+
+A better detection of jni.h is done on Ubuntu, thanks to Michael Kedzierski.
+This makes java-gnome more likely to build out of the box on Debian-derived
+systems.
+
+On the eve of release, Srichand Pendyala noticed that if you are running such
+a system, a package named `libglade-dev` needs to be installed. Of course, on
+more modern systems all the necessary dependencies are present merely by
+having GNOME installed in the first place. We'll add a check for this Debian
+specific behaviour in 4.0.3.
+
+The `VERSION` and `APIVERSION` constants were moved to
+
+* `org.gnome.gtk.Version`
+
+so that anyone working on the Gtk main class isn't forced to do a
+re-configuration every time they save.
+
 Installation and Packaging
 --------------------------
 
@@ -160,10 +205,11 @@ Looking ahead
 The feature additions described above were done to bring java-gnome up to
 speed for the GTK & GNOME tutorial given at [linux.conf.au][LCA]. With that
 past, we're not going to do any more manual mockups of code in what will be
-the generated layer. Focus now turns to designing and implementing the code
-generator that parses `.defs` files. Once we secure funding for the project,
-the code generator will be our top priority and shouldn't take more than a
-couple months to complete.
+the generated layers. Focus now turns to designing and implementing the tool
+that will parse `.defs` files and output the translation code.
+
+Once we secure funding for the project, the code generator will be our top
+priority and shouldn't take more than a couple months to complete.
 
 AfC
 
