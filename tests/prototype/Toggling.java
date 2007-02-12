@@ -19,7 +19,7 @@ import org.gnome.gtk.Widget;
 import org.gnome.gtk.Window;
 
 /**
- * Fork of Experiment to spcifically test memory management under limited and
+ * Fork of Experiment to specifically test memory management under limited and
  * almost controllable conditions.
  * 
  * @author Andrew Cowie
@@ -42,7 +42,7 @@ public final class Toggling
         final Button gc;
         final Label zombie;
 
-        if (!Debug.MEMORY_MANAGMENT) {
+        if (!Debug.MEMORY_MANAGEMENT) {
             System.err.println("Debug.MEMORY_MANAGEMENT must be enabled to run this class");
             System.exit(1);
         }

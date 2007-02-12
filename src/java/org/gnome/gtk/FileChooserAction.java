@@ -32,7 +32,7 @@ public final class FileChooserAction extends Constant
     public static final FileChooserAction OPEN = new FileChooserAction(GtkFileChooserAction.OPEN, "OPEN");
 
     /**
-     * Save mode: the FileChooser will come up in a form suited to savign
+     * Save mode: the FileChooser will come up in a form suited to saving
      * files. It will let the user pick an existing file [TODO: which will
      * lead to an overwrite yes/no question, right?], or type in a new
      * filename.

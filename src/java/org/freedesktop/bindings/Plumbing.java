@@ -124,7 +124,7 @@ public abstract class Plumbing
      * from a native to Java code path, then you need to account for the fact
      * that it is likely that a returned pointer will not yet have a Proxy
      * here. You don't need to override this method with your own
-     * <code>instanceFor()</code> implementation so much as implemet custom
+     * <code>instanceFor()</code> implementation so much as implement custom
      * variants: call this method to find out if there is a Proxy already;
      * then if not take appropriate action to create (and in so doing,
      * register) a new Proxy object.

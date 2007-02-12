@@ -86,7 +86,7 @@ bindings_java_toggle
  * call to avoid the ping pong effect which results if the ToggleRef is the
  * only ref count to a GtkWidget while setters are called prior to the
  * GtkWidget being added to a GtkContainer. By delaying the ref count
- * reduction, the inital strong Java reference is left alone.  
+ * reduction, the initial strong Java reference is left alone.  
  */
 /*
  * Signature the prototype of a (*GSourceFunc) callback, meeting the

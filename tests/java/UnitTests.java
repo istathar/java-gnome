@@ -14,6 +14,7 @@ import junit.framework.TestSuite;
 
 import org.freedesktop.bindings.Debug;
 import org.freedesktop.bindings.ValidateEnvironment;
+import org.gnome.glib.ValidateMemoryManagement;
 import org.gnome.glib.ValidateReferenceCounting;
 import org.gnome.gtk.TestCaseGtk;
 import org.gnome.gtk.ValidateFileChoosing;
@@ -41,15 +42,25 @@ public class UnitTests
     public static void main(String[] args) {
         VerboseTestRunner.run(suite(args));
 
-        if (Debug.MEMORY_MANAGMENT) {
-            System.out.println("Done.");
+        if (Debug.MEMORY_MANAGEMENT) {
+            System.out.println("Done!");
             System.out.flush();
-            System.gc();
-            try {
-                Thread.sleep(1000);
-            } catch (InterruptedException e) {
-                // ignore
-            }
+        }
+
+        try {
+            Thread.sleep(100);
+        } catch (InterruptedException e) {
+            // ignore
+        }
+        System.gc();
+        try {
+            Thread.sleep(100);
+        } catch (InterruptedException e) {
+            // ignore
+        }
+
+        if (Debug.MEMORY_MANAGEMENT) {
+            System.out.println("Exiting.");
         }
     }
 
@@ -76,6 +87,7 @@ public class UnitTests
 
         suite.addTestSuite(ValidateEnvironment.class);
         suite.addTestSuite(ValidateReferenceCounting.class);
+        suite.addTestSuite(ValidateMemoryManagement.class);
         suite.addTestSuite(ValidateProperties.class);
         suite.addTestSuite(ValidatePacking.class);
         suite.addTestSuite(ValidateFileChoosing.class);

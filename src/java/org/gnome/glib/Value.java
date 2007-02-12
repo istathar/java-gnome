@@ -39,8 +39,9 @@ public final class Value extends Proxy
 {
     protected Value(long pointer) {
         super(pointer);
-        if (Debug.MEMORY_MANAGMENT) {
+        if (Debug.MEMORY_MANAGEMENT) {
             System.err.println("Value.<init>(long)\t\t" + this.toString());
+            System.err.flush();
         }
     }
 
@@ -64,7 +65,7 @@ public final class Value extends Proxy
      * on our pointer to free that memory.
      */
     protected void release() {
-        if (Debug.MEMORY_MANAGMENT) {
+        if (Debug.MEMORY_MANAGEMENT) {
             System.err.println("Value.release()\t\t\t" + this.toString());
         }
         GValue.free(this);

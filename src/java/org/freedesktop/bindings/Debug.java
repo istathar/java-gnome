@@ -40,5 +40,5 @@ public final class Debug
     /**
      * Do you want debug output every time a Proxy object is finalized?
      */
-    public static final boolean MEMORY_MANAGMENT = true;
+    public static final boolean MEMORY_MANAGEMENT = true;
 }

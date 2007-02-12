@@ -92,7 +92,7 @@ public class VerboseResultPrinter extends TextOutput implements TestListener
     }
 
     public void addError(Test test, Throwable t) {
-        if (!Debug.MEMORY_MANAGMENT) {
+        if (!Debug.MEMORY_MANAGEMENT) {
             out.println(pad("error", 10, LEFT));
         }
         out.println();
@@ -110,7 +110,7 @@ public class VerboseResultPrinter extends TextOutput implements TestListener
     }
 
     public void addFailure(Test test, AssertionFailedError t) {
-        if (!Debug.MEMORY_MANAGMENT) {
+        if (!Debug.MEMORY_MANAGEMENT) {
             out.println(pad("failed", 10, LEFT));
         }
         out.println();
@@ -133,7 +133,7 @@ public class VerboseResultPrinter extends TextOutput implements TestListener
             return;
 
         }
-        if (Debug.MEMORY_MANAGMENT) {
+        if (Debug.MEMORY_MANAGEMENT) {
             return;
         }
         out.println(pad("ok", 10, LEFT));
@@ -164,7 +164,7 @@ public class VerboseResultPrinter extends TextOutput implements TestListener
          */
         Matcher m = regex.matcher(test.toString());
         String testCaseName = chomp(" - " + m.replaceFirst("()"), COLUMNS - 10);
-        if (Debug.MEMORY_MANAGMENT) {
+        if (Debug.MEMORY_MANAGEMENT) {
             out.println(testCaseName);
         } else {
             out.print(pad(testCaseName, COLUMNS - 10, LEFT));

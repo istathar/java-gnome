@@ -61,7 +61,7 @@ public class ValidateMemoryManagement extends TestCaseGtk
 
             /*
              * I prefer having this commented, because it helps ensure that we
-             * have a robust design against bad user bad practices. Perhaps
+             * have a robust design against bad user bad practises. Perhaps
              * another test case can validate that once do a more robust
              * design in that regard.
              */
@@ -119,7 +119,7 @@ public class ValidateMemoryManagement extends TestCaseGtk
         cycleGarbageCollector();
 
         /* check that button hasn't been deleted */
-        assertFalse("Object deleted in Java but still alives in GTK",
+        assertFalse("Object deleted in Java but still alive in GTK",
                 MyButton.finalized.contains(new Integer(2)));
     }
 
@@ -157,8 +157,8 @@ public class ValidateMemoryManagement extends TestCaseGtk
 
     /**
      * We have a strong Java reference from the BindingsJavaClosure use by
-     * g_signal_connect() to the Java Signal sublclass passed as the handler
-     * to Plumbing.connectSignal(). If the handler is the Proxy (self
+     * g_signal_connect() to the Java Signal subclass passed as the handler to
+     * Plumbing.connectSignal(). If the handler is the Proxy (self
      * delegation), then we have a cyclic reference. This test creates that
      * situation and tries to see if finalization occurs when the GObject ref
      * count drops to 1 (our ToggleRef)
@@ -192,7 +192,7 @@ public class ValidateMemoryManagement extends TestCaseGtk
         cycleGarbageCollector();
 
         /* check that button has been deleted */
-        assertTrue("Refence from the signal handler to an Object where that Object is a" + "\n"
+        assertTrue("Reference from the signal handler to an Object where that Object is a" + "\n"
                 + "self-delegated signal handler was not cleared! This is, in effect, a cyclic" + "\n"
                 + "reference that is not being detected by our memory management mechanism.",
                 MyButton.finalized.contains(new Integer(4)));
@@ -229,7 +229,7 @@ public class ValidateMemoryManagement extends TestCaseGtk
         assertNotNull("Retrieved null from Window.getChild()", c);
         assertTrue("Proxy retrieved for our MyButton subclass is not an instance of Button!",
                 c instanceof Button);
-        assertTrue("Proxy retrieved is a Button, not a MyButton instance. Denaturation occured!",
+        assertTrue("Proxy retrieved is a Button, not a MyButton instance. Denaturation occurred!",
                 c instanceof MyButton);
 
         /* and finally we check object retrieved is the _same_ */
@@ -244,7 +244,7 @@ public class ValidateMemoryManagement extends TestCaseGtk
         /* get button again and check */
         c = w.getChild();
         assertTrue("Proxy retrieved after a reference collection cycle is not our" + "\n"
-                + "MyButton instance. Denaturation occured?", c instanceof MyButton);
+                + "MyButton instance. Denaturation occurred?", c instanceof MyButton);
 
     }
 

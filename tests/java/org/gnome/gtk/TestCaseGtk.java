@@ -46,13 +46,15 @@ public class TestCaseGtk extends TestCase
         if (!initialized) {
             init(null);
         }
+        System.out.flush();
     }
 
     public void tearDown() {
-        if (Debug.MEMORY_MANAGMENT) {
+        if (Debug.MEMORY_MANAGEMENT) {
             System.gc();
             System.err.flush();
         }
+        System.out.flush();
     }
 
     /**
