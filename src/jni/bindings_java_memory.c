@@ -64,7 +64,9 @@ bindings_java_toggle
 		 * Create weak Java reference, replace association stored in
 		 * GObject, and remove strong Java reference
 		 */
-		g_print("mem: toggle Java ref to WEAK\t%ld\n", (long) object);
+		if (DEBUG_MEMORY_MANAGEMENT) {
+			g_print("mem: toggle Java ref to WEAK\t%ld\n", (long) object);
+		}
 		weak = (*env)->NewWeakGlobalRef(env, ref);
 		g_object_set_data(object, REFERENCE, weak);
  		(*env)->DeleteGlobalRef(env, ref);
@@ -74,7 +76,9 @@ bindings_java_toggle
 		 * GObject, and remove weak Java reference now that we've
 		 * replaced it with a strong one. 
 		 */
-		g_print("mem: toggle Java ref to STRONG\t%ld\n", (long) object);
+		if (DEBUG_MEMORY_MANAGEMENT) {
+			g_print("mem: toggle Java ref to STRONG\t%ld\n", (long) object);
+		}
 		strong = (*env)->NewGlobalRef(env, ref);
 		g_object_set_data(object, REFERENCE, strong);
 		(*env)->DeleteWeakGlobalRef(env, ref);
@@ -135,7 +139,9 @@ bindings_java_memory_ref
 	 * and stash it in the GObject. 
 	 */
  
- 	g_print("mem: add STRONG Java ref\t%ld\n", (long) object);
+ 	if (DEBUG_MEMORY_MANAGEMENT) {
+ 		g_print("mem: add STRONG Java ref\t%ld\n", (long) object);
+ 	}
 	strong = (*env)->NewGlobalRef(env, target);
 	g_object_set_data(object, REFERENCE, strong);
 
@@ -180,6 +186,8 @@ bindings_java_memory_unref
 	GObject* object
 )
 {
-	g_print("mem: remove toggle ref for\t%ld\n", (long) object);
+	if (DEBUG_MEMORY_MANAGEMENT) {
+		g_print("mem: remove toggle ref for\t%ld\n", (long) object);
+	}
 	g_object_remove_toggle_ref(object, bindings_java_toggle, NULL);
 }

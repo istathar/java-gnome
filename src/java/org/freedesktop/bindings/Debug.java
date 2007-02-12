@@ -40,5 +40,10 @@ public final class Debug
     /**
      * Do you want debug output every time a Proxy object is finalized?
      */
-    public static final boolean MEMORY_MANAGEMENT = true;
+    /*
+     * FIXME for the moment, this has no effect on the JNI side. It would be
+     * much better if we could turn this into a compile time constant in a
+     * header file. For now, the twin of this is in bindings_java.h
+     */
+    public static final boolean MEMORY_MANAGEMENT = false;
 }

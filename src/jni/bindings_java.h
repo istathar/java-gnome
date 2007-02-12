@@ -41,4 +41,7 @@ extern GClosure* bindings_java_closure_new(JNIEnv*, GObject*, jobject, jclass, c
 extern void bindings_java_memory_ref(JNIEnv*, GObject*, jobject);
 extern void bindings_java_memory_unref(GObject*);
 
+// TODO derive this at compile time from org.freedesktop.bindings.Debug
+#define DEBUG_MEMORY_MANAGEMENT FALSE
+
 #endif 
