@@ -11,6 +11,8 @@
  */
 package org.gnome.glib;
 
+import java.util.HashSet;
+
 import org.freedesktop.bindings.Constant;
 import org.freedesktop.bindings.Debug;
 import org.freedesktop.bindings.Proxy;
@@ -47,6 +49,14 @@ import org.freedesktop.bindings.Proxy;
  */
 public abstract class Object extends Proxy
 {
+    /**
+     * When signals are collected, we maintain the strong Java reference here,
+     * in the GObject Proxy so that circular (well, dangling) references to
+     * the Signal instance can be detected by the garbage collector. There is
+     * a weak Java reference from the BindingsJavaClosure on the JNI side. See
+     * bindings_java_signal.c in src/jni.
+     */
+    private HashSet handlers;
 
     protected Object(long pointer) {
         super(pointer);
@@ -159,5 +169,17 @@ public abstract class Object extends Proxy
     protected Object getPropertyObject(String name) {
         Value value = GObject.getProperty(this, name);
         return GValue.getObject(value);
+    }
+
+    /**
+     * When a Signal handler is connected, we maintain a strong reference from
+     * here. We don't use it for anything, just memory management. Only called
+     * from {@link Plumbing#connectSignal(Object, Signal, Class, String)}.
+     */
+    void addHandler(Signal handler) {
+        if (handlers == null) {
+            handlers = new HashSet();
+        }
+        handlers.add(handler);
     }
 }

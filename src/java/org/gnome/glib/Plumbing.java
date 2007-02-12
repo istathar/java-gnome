@@ -257,5 +257,6 @@ public abstract class Plumbing extends org.freedesktop.bindings.Plumbing
     protected static final void connectSignal(Object instance, Signal handler, Class receiver,
             String name) {
         GObject.g_signal_connect(pointerOf(instance), handler, receiver, name);
+        instance.addHandler(handler);
     }
 }

@@ -335,7 +335,7 @@ bindings_java_closure_destroy
   
 	if (bjc->handler) {
 		env = bindings_java_getEnv();
-		(*env)->DeleteGlobalRef(env, bjc->handler);
+		(*env)->DeleteWeakGlobalRef(env, bjc->handler);
 	}
 }
 
@@ -486,7 +486,7 @@ bindings_java_closure_new
 	 * Set the reference so that the marshaller can find the Signal instance.
 	 */
 
-	bjc->handler = (*env)->NewGlobalRef(env, handler);
+	bjc->handler = (*env)->NewWeakGlobalRef(env, handler);
 	
 	bjc->source = instance;
 
