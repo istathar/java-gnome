@@ -30,7 +30,7 @@ final class Version
 {
     static final String APIVERSION = "4.0";
 
-    static final String VERSION = "4.0.2";
+    static final String VERSION = "4.0.3";
 
     private Version() {}
 }
