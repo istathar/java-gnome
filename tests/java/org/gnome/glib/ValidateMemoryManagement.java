@@ -40,8 +40,8 @@ public class ValidateMemoryManagement extends TestCaseGtk
     private static class MyButton extends Button implements Button.CLICKED
     {
         /*
-         * we need a static field to check object finalization Of course, this
-         * not works if many instances are created!!
+         * we need a static field to check object finalization. Of course, this
+         * not works if many instances are created with same code!!
          */
         static HashSet finalized = new HashSet();
 
@@ -66,6 +66,33 @@ public class ValidateMemoryManagement extends TestCaseGtk
              * design in that regard.
              */
             super.finalize();
+        }
+
+        // ignore
+        public void onClicked(Button source) {}
+
+    }
+    
+    private static class MyHandler implements Button.CLICKED
+    {
+        /*
+         * we need a static field to check object finalization. Of course, this
+         * not works if many instances are created with same code!!
+         */
+        static HashSet finalized = new HashSet();
+
+        private int code;
+
+        public MyHandler(int code) {
+            this.code = code;
+        }
+
+        public int getCode() {
+            return code;
+        }
+
+        protected void finalize() {
+            finalized.add(new Integer(code));
         }
 
         // ignore
@@ -196,6 +223,56 @@ public class ValidateMemoryManagement extends TestCaseGtk
                 + "self-delegated signal handler was not cleared! This is, in effect, a cyclic" + "\n"
                 + "reference that is not being detected by our memory management mechanism.",
                 MyButton.finalized.contains(new Integer(4)));
+    }
+    
+    /**
+     * When user connects a signal handler, this object must not be deleted
+     * at least while underlying Gtk+ widget still exists. This test check 
+     * that effectively this is the behavior, and also ensures that handler
+     * is deleted when no more needed
+     */
+    public final void testSignalHandlerDeletion() {
+        MyButton b;
+        final VBox x;
+        MyHandler h;
+
+        x = new VBox(false, 3);
+        b = new MyButton("Button to watch for", 7);
+
+        h = new MyHandler(7);
+        
+        /* connect button to handler */
+        b.connect(h);
+
+        /* add button to VBox */
+        x.add(b);
+        
+        /* handler gets out of scope from user point of view */
+        h = null;
+
+        cycleMainLoop();
+        cycleGarbageCollector();
+        
+        /* check that handler has not been deleted */
+        assertFalse("Signal handler deleted while still in use.",
+                MyHandler.finalized.contains(new Integer(7)));
+
+        cycleMainLoop();
+
+        /* out of scope in Gtk+ */
+        x.remove(b);
+
+        cycleMainLoop();
+
+        /* out of scope in Java */
+        b = null;
+
+        cycleMainLoop();
+        cycleGarbageCollector();
+
+        /* check that handler has been deleted */
+        assertTrue("Signal handler not deleted but no more needed.",
+                MyHandler.finalized.contains(new Integer(7)));
     }
 
     /**
