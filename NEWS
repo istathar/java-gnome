@@ -113,7 +113,7 @@ UnitTests in the default package in `tests/java`, or by running
 
 	$ make test
 
-the command line.
+from the command line.
 
 Further coverage
 ----------------
