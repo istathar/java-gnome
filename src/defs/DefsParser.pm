@@ -1,4 +1,8 @@
 #!/usr/bin/perl -w
+#
+# Copyright (c) 2006 Operational Dynamics Consulting Pty Ltd
+# Proprietary - not for release without written authorization
+#
 
 package DefsParser;
 
@@ -267,7 +271,7 @@ HERE
 				($types{$type}{'phylum'} eq "boxed")) {
 				$code .=
 <<HERE ;
-	$name = ($type) bindings_java_ProxyToPointer($name);
+	$name = ($type) _$name;
 HERE
 			}
 
@@ -309,12 +313,12 @@ sub codeForReturn($) {
 		    ($types{$type}{'phylum'} eq "boxed")) {
 			$code .= 
 <<HERE ;
-		return ($java_return_type) objectFromPointer(result);
+		return ($java_return_type) instanceFor(result);
 HERE
 		} elsif ($types{$type}{'phylum'} eq "enum") {
 			$code .= 
 <<HERE ;
-		return ($java_return_type) objectFromNum(result);
+		return ($java_return_type) constantFor($java_return_type.class, result);
 HERE
 		} else {
 			$code .= 
@@ -683,8 +687,8 @@ sub spew_file_header(*$) {
 /*
  * ${filename}
  *
- * Copyright (c) 2006 Operational Dynamics Consulting Pty Ltd and Others
- * See LICENCE file for terms governing usage and redistribution
+ * Copyright (c) 2006-2007 Operational Dynamics Consulting Pty Ltd
+ * Proprietary - not for release without written authorization
  *
  * 			THIS FILE IS GENERATED CODE!
  *
@@ -708,7 +712,7 @@ sub spew_java_class($$) {
 <<HERE ;
 package $package;
 
-import org.freedesktop.bindings.Plumbing;
+import org.gnome.glib.Plumbing;
 
 final class $class extends Plumbing
 {
@@ -876,6 +880,7 @@ sub spew_jni_class($$) {
 	print JNI <<HERE ;
 
 #include <jni.h>
+#include <gtk/gtk.h>
 #include "bindings_java.h"
 #include "$header"
 

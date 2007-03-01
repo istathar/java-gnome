@@ -2,9 +2,9 @@
 #
 # codegen.pl
 #
-# Copyright (c) 2006 Operational Dynamics Consulting Pty Ltd and Others
-# See LICENCE file for terms governing usage and redistribution
-#
+# Copyright (c) 2006 Operational Dynamics Consulting Pty Ltd
+# Proprietary - not for release without written authorization
+
 # Generate java-gnome bindings from defs files!
 #
 # This file is a small execution wrapper around DefsParser. Given a .defs file

@@ -1,4 +1,12 @@
 ;; vim: set filetype=scheme:
+;;
+;; Copyright (c) 2006-2007 Operational Dynamics Consulting Pty Ltd
+;; Proprietary - not for release without written authorization
+;;
+;; This is an extract of .defs metadata as pertains to GtkButton.
+;; Material from pyGTK's gtk/gtk-base-types.defs and gtk/gtk-base.defs
+;; Note that several aspects have been commented out as the parser
+;; does not yet deal with them
 
 (define-object Button
   (in-module "Gtk")
@@ -6,6 +14,10 @@
   (c-name "GtkButton")
   (gtype-id "GTK_TYPE_BUTTON")
 )
+
+;;
+;; Other necessary type data
+;;
 
 (define-enum ReliefStyle
   (in-module "Gtk")
@@ -35,7 +47,10 @@
 )
 
 
-;; From /opt/gtk2/include/gtk-2.0/gtk/gtkbutton.h
+;;
+;; and now the fragment relating to the functions, methods, and virtuals of
+;; GtkButton.
+;;
 
 (define-function gtk_button_get_type
   (c-name "gtk_button_get_type")
