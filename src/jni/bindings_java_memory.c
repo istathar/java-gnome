@@ -154,14 +154,31 @@ bindings_java_memory_ref
 
 	/*
 	 * Many GtkObjects are created with a floating ref, for better API
-	 * convenience when working in C. Sink that reference. Per the docs
-	 * for g_object_ref_sink(), if it _wasn't_a floating reference, then
-	 * this just acts a g_object_ref() - making this a no op,
-	 * collectively.
+	 * convenience when working in C. In some cases (like GtkWindow)
+	 * Gtk already sinks that ref. 
+	 * Other objects not derived from GInitiallyUnowned are created with
+	 * a ref owned by user.
+	 * We must take care about all these situations, because after object
+	 * creation we need to keep only one ref: the toggle ref created
+	 * above, to prevent memory leaks
 	 */
-	 
-	g_object_ref_sink(object);
-	g_idle_add(bindings_java_memory_deref, object);
+	if ( G_IS_INITIALLY_UNOWNED(object) ) {
+		if ( g_object_is_floating(object) ) {
+			
+			/* 
+			 * object has a floating ref, we need to sink and
+			 * drop it
+			 */
+			g_object_ref_sink(object);
+			g_idle_add(bindings_java_memory_deref, object);
+		}
+	} else {
+
+		/*
+		 * Object has an initial ref that we must unref
+		 */
+		g_idle_add(bindings_java_memory_deref, object);
+	}
 }
 	
 /**
