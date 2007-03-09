@@ -160,30 +160,24 @@ bindings_java_memory_ref
 	 * In GTK, most objects are subclasses of GtkObject which are 
 	 * derived from GInitiallyUnowned, marking them to be created with
 	 * a "floating" ref for better API convenience when working in C. That
-	 * reference must be "sunk", then likewise dropped.
+	 * reference must be "sunk" (us taking ownership of the Ref), then
+	 * likewise dropped.
 	 *
-	 * In some very rare cases, however, GTK will have sunk the reference
-	 * already. (The primary example is GtkWindow for which GTK sinks the
-	 * reference and uses it to connect to the X server). 
+	 * In some very rare situations, however, GTK will have sunk the Ref
+	 * already (the primary example is GtkWindow for which GTK sinks the
+	 * reference and uses it to connect to the X server) in which case we
+	 * must NOT drop the Ref we don't own. 
 	 *
 	 * To prevent memory leaks, we must take care about all these
-	 * situations.s
+	 * situations.
 	 */
 	if (G_IS_INITIALLY_UNOWNED(object)) {
-		if (g_object_is_floating(object)) {
-			/* 
-			 * object has a floating ref, we need to sink and
-			 * drop it
-			 */
-			g_object_ref_sink(object);
-			g_idle_add(bindings_java_memory_deref, object);
+		if (!g_object_is_floating(object)) {
+			return;
 		}
-	} else {
-		/*
-		 * Object has an initial ref that we must unref
-		 */
-		g_idle_add(bindings_java_memory_deref, object);
+		g_object_ref_sink(object);
 	}
+	g_idle_add(bindings_java_memory_deref, object);
 }
 	
 /**
