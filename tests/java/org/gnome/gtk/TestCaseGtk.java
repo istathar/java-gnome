@@ -73,6 +73,11 @@ public class TestCaseGtk extends TestCase
 
         while (Gtk.eventsPending()) {
             Gtk.mainIterationDo(false);
+            try {
+                Thread.sleep(10);
+            } catch (InterruptedException e) {
+                // ignore
+            }
         }
     }
 
