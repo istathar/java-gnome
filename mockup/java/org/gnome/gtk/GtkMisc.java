@@ -1,0 +1,37 @@
+/*
+ * GtkMisc.java
+ *
+ * Copyright (c) 2007 Operational Dynamics Consulting Pty Ltd
+ * 
+ * The code in this file, and the library it is a part of, are made available
+ * to you by the authors under the terms of the "GNU General Public Licence,
+ * version 2" plus the "Classpath Exception" (you may link to this code as a
+ * library into other programs provided you don't make a derivation of it).
+ * See the LICENCE file for the terms governing usage and redistribution.
+ *
+ *                      THIS FILE WILL BE GENERATED CODE!
+ *
+ * To modify its contents or behaviour, either update the generation program,
+ * change the information in the source defs file, or implement an override
+ * for this class.
+ */
+package org.gnome.gtk;
+
+import org.gnome.glib.Plumbing;
+
+final class GtkMisc extends Plumbing
+{
+    private GtkMisc() {}
+
+    static final void setAlignment(Misc self, float xalign, float yalign) {
+        gtk_misc_set_alignment(pointerOf(self), xalign, yalign);
+    }
+
+    private static native final void gtk_misc_set_alignment(long self, float xalign, float yalign);
+
+    static final void setPadding(Misc self, int xpad, int ypad) {
+        gtk_misc_set_padding(pointerOf(self), xpad, ypad);
+    }
+
+    private static native final void gtk_misc_set_padding(long self, int xpad, int ypad);
+}
