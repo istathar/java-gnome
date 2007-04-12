@@ -24,6 +24,11 @@ public abstract class Bin extends Container
         super(pointer);
     }
 
+    /**
+     * Get the child widget of Bin. The return value is either a
+     * widget, if a child exists, or null if it doesn't.
+     * 
+     */
     public Widget getChild() {
         return GtkBin.getChild(this);
     }
