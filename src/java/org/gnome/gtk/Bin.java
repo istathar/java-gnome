@@ -1,7 +1,7 @@
 /*
  * Bin.java
  *
- * Copyright (c) 2006 Operational Dynamics Consulting Pty Ltd
+ * Copyright (c) 2006-2007 Operational Dynamics Consulting Pty Ltd and Others
  * 
  * The code in this file, and the library it is a part of, are made available
  * to you by the authors under the terms of the "GNU General Public Licence,
@@ -24,6 +24,10 @@ public abstract class Bin extends Container
         super(pointer);
     }
 
+    /**
+     * Get the child widget of Bin. The return value is either a
+     * Widget, if a child exists, or null if it doesn't.
+     */
     public Widget getChild() {
         return GtkBin.getChild(this);
     }
