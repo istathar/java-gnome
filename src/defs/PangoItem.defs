@@ -1,0 +1,46 @@
+(define-boxed Item
+  (in-module "Pango")
+  (c-name "PangoItem")
+  (gtype-id "PANGO_TYPE_ITEM")
+  (fields
+    '("gint" "offset")
+    '("gint" "length")
+    '("gint" "num_chars")
+    '("PangoEngineShape*" "analysis.shape_engine")
+    '("PangoEngineLang*" "analysis.lang_engine")
+    '("PangoFont*" "analysis.font")
+    '("guint8" "analysis.level")
+    '("PangoLanguage*" "analysis.language")
+    '("GSList*" "analysis.extra_attrs")
+  )
+)
+
+(define-function item_new
+  (is-constructor-of "PangoItem")
+  (c-name "pango_item_new")
+  (caller-owns-return #t)
+  (return-type "PangoItem*")
+)
+
+(define-method copy
+  (of-object "PangoItem")
+  (c-name "pango_item_copy")
+  (return-type "PangoItem*")
+)
+
+(define-method free
+  (of-object "PangoItem")
+  (c-name "pango_item_free")
+  (return-type "none")
+)
+
+(define-method split
+  (of-object "PangoItem")
+  (c-name "pango_item_split")
+  (return-type "PangoItem*")
+  (parameters
+    '("int" "split_index")
+    '("int" "split_offset")
+  )
+)
+

@@ -1,0 +1,11 @@
+(define-enum FilterReturn
+  (in-module "Gdk")
+  (c-name "GdkFilterReturn")
+  (gtype-id "GDK_TYPE_FILTER_RETURN")
+  (values
+    '("continue" "GDK_FILTER_CONTINUE")
+    '("translate" "GDK_FILTER_TRANSLATE")
+    '("remove" "GDK_FILTER_REMOVE")
+  )
+)
+

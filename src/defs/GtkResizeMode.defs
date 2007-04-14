@@ -1,0 +1,11 @@
+(define-enum ResizeMode
+  (in-module "Gtk")
+  (c-name "GtkResizeMode")
+  (gtype-id "GTK_TYPE_RESIZE_MODE")
+  (values
+    '("parent" "GTK_RESIZE_PARENT")
+    '("queue" "GTK_RESIZE_QUEUE")
+    '("immediate" "GTK_RESIZE_IMMEDIATE")
+  )
+)
+

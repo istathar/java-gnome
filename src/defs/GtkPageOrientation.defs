@@ -1,0 +1,12 @@
+(define-enum PageOrientation
+  (in-module "Gtk")
+  (c-name "GtkPageOrientation")
+  (gtype-id "GTK_TYPE_PAGE_ORIENTATION")
+  (values
+    '("portrait" "GTK_PAGE_ORIENTATION_PORTRAIT")
+    '("landscape" "GTK_PAGE_ORIENTATION_LANDSCAPE")
+    '("reverse-portrait" "GTK_PAGE_ORIENTATION_REVERSE_PORTRAIT")
+    '("reverse-landscape" "GTK_PAGE_ORIENTATION_REVERSE_LANDSCAPE")
+  )
+)
+

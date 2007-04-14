@@ -1,0 +1,12 @@
+(define-enum RenderPart
+  (in-module "Pango")
+  (c-name "PangoRenderPart")
+  (gtype-id "PANGO_TYPE_RENDER_PART")
+  (values
+    '("foreground" "PANGO_RENDER_PART_FOREGROUND")
+    '("background" "PANGO_RENDER_PART_BACKGROUND")
+    '("underline" "PANGO_RENDER_PART_UNDERLINE")
+    '("strikethrough" "PANGO_RENDER_PART_STRIKETHROUGH")
+  )
+)
+

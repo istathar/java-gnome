@@ -1,0 +1,13 @@
+(define-enum ButtonBoxStyle
+  (in-module "Gtk")
+  (c-name "GtkButtonBoxStyle")
+  (gtype-id "GTK_TYPE_BUTTON_BOX_STYLE")
+  (values
+    '("default-style" "GTK_BUTTONBOX_DEFAULT_STYLE")
+    '("spread" "GTK_BUTTONBOX_SPREAD")
+    '("edge" "GTK_BUTTONBOX_EDGE")
+    '("start" "GTK_BUTTONBOX_START")
+    '("end" "GTK_BUTTONBOX_END")
+  )
+)
+

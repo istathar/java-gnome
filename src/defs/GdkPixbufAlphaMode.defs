@@ -1,0 +1,10 @@
+(define-enum PixbufAlphaMode
+  (in-module "Gdk")
+  (c-name "GdkPixbufAlphaMode")
+  (gtype-id "GDK_TYPE_PIXBUF_ALPHA_MODE")
+  (values
+    '("bilevel" "GDK_PIXBUF_ALPHA_BILEVEL")
+    '("full" "GDK_PIXBUF_ALPHA_FULL")
+  )
+)
+

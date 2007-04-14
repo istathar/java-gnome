@@ -1,0 +1,29 @@
+(define-object VScale
+  (in-module "Gtk")
+  (parent "GtkScale")
+  (c-name "GtkVScale")
+  (gtype-id "GTK_TYPE_VSCALE")
+)
+
+(define-function gtk_vscale_new
+  (is-constructor-of "GtkVScale")
+  (c-name "gtk_vscale_new")
+  (caller-owns-return #t)
+  (return-type "GtkWidget*")
+  (properties
+    '("adjustment" (optional))
+  )
+)
+
+(define-function gtk_vscale_new_with_range
+  (is-constructor-of "GtkVScale")
+  (c-name "gtk_vscale_new_with_range")
+  (caller-owns-return #t)
+  (return-type "GtkWidget*")
+  (parameters
+    '("gdouble" "min")
+    '("gdouble" "max")
+    '("gdouble" "step")
+  )
+)
+

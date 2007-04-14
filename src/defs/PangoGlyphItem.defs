@@ -1,0 +1,37 @@
+(define-method split
+  (of-object "PangoGlyphItem")
+  (c-name "pango_glyph_item_split")
+  (return-type "PangoGlyphItem*")
+  (parameters
+    '("const-char*" "text")
+    '("int" "split_index")
+  )
+)
+
+(define-method free
+  (of-object "PangoGlyphItem")
+  (c-name "pango_glyph_item_free")
+  (return-type "none")
+)
+
+(define-method apply_attrs
+  (of-object "PangoGlyphItem")
+  (c-name "pango_glyph_item_apply_attrs")
+  (return-type "GSList*")
+  (parameters
+    '("const-char*" "text")
+    '("PangoAttrList*" "list")
+  )
+)
+
+(define-method letter_space
+  (of-object "PangoGlyphItem")
+  (c-name "pango_glyph_item_letter_space")
+  (return-type "none")
+  (parameters
+    '("const-char*" "text")
+    '("PangoLogAttr*" "log_attrs")
+    '("int" "letter_spacing")
+  )
+)
+

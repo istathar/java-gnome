@@ -1,0 +1,15 @@
+(define-enum Direction
+  (in-module "Pango")
+  (c-name "PangoDirection")
+  (gtype-id "PANGO_TYPE_DIRECTION")
+  (values
+    '("ltr" "PANGO_DIRECTION_LTR")
+    '("rtl" "PANGO_DIRECTION_RTL")
+    '("ttb-ltr" "PANGO_DIRECTION_TTB_LTR")
+    '("ttb-rtl" "PANGO_DIRECTION_TTB_RTL")
+    '("weak-ltr" "PANGO_DIRECTION_WEAK_LTR")
+    '("weak-rtl" "PANGO_DIRECTION_WEAK_RTL")
+    '("neutral" "PANGO_DIRECTION_NEUTRAL")
+  )
+)
+

@@ -1,0 +1,15 @@
+(define-flags WindowState
+  (in-module "Gdk")
+  (c-name "GdkWindowState")
+  (gtype-id "GDK_TYPE_WINDOW_STATE")
+  (values
+    '("withdrawn" "GDK_WINDOW_STATE_WITHDRAWN")
+    '("iconified" "GDK_WINDOW_STATE_ICONIFIED")
+    '("maximized" "GDK_WINDOW_STATE_MAXIMIZED")
+    '("sticky" "GDK_WINDOW_STATE_STICKY")
+    '("fullscreen" "GDK_WINDOW_STATE_FULLSCREEN")
+    '("above" "GDK_WINDOW_STATE_ABOVE")
+    '("below" "GDK_WINDOW_STATE_BELOW")
+  )
+)
+

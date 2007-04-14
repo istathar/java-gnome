@@ -1,0 +1,11 @@
+(define-enum KeyEventType
+  (in-module "Atk")
+  (c-name "AtkKeyEventType")
+  (gtype-id "ATK_TYPE_KEY_EVENT_TYPE")
+  (values
+    '("press" "ATK_KEY_EVENT_PRESS")
+    '("release" "ATK_KEY_EVENT_RELEASE")
+    '("last-defined" "ATK_KEY_EVENT_LAST_DEFINED")
+  )
+)
+

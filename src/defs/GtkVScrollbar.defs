@@ -1,0 +1,17 @@
+(define-object VScrollbar
+  (in-module "Gtk")
+  (parent "GtkScrollbar")
+  (c-name "GtkVScrollbar")
+  (gtype-id "GTK_TYPE_VSCROLLBAR")
+)
+
+(define-function gtk_vscrollbar_new
+  (is-constructor-of "GtkVScrollbar")
+  (c-name "gtk_vscrollbar_new")
+  (caller-owns-return #t)
+  (return-type "GtkWidget*")
+  (properties
+    '("adjustment" (optional))
+  )
+)
+

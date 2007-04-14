@@ -1,0 +1,11 @@
+(define-enum ExtensionMode
+  (in-module "Gdk")
+  (c-name "GdkExtensionMode")
+  (gtype-id "GDK_TYPE_EXTENSION_MODE")
+  (values
+    '("none" "GDK_EXTENSION_EVENTS_NONE")
+    '("all" "GDK_EXTENSION_EVENTS_ALL")
+    '("cursor" "GDK_EXTENSION_EVENTS_CURSOR")
+  )
+)
+

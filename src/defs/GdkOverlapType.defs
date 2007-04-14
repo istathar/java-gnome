@@ -1,0 +1,11 @@
+(define-enum OverlapType
+  (in-module "Gdk")
+  (c-name "GdkOverlapType")
+  (gtype-id "GDK_TYPE_OVERLAP_TYPE")
+  (values
+    '("in" "GDK_OVERLAP_RECTANGLE_IN")
+    '("out" "GDK_OVERLAP_RECTANGLE_OUT")
+    '("part" "GDK_OVERLAP_RECTANGLE_PART")
+  )
+)
+

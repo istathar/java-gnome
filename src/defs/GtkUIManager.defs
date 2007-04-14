@@ -1,0 +1,213 @@
+(define-object UIManager
+  (in-module "Gtk")
+  (parent "GObject")
+  (c-name "GtkUIManager")
+  (gtype-id "GTK_TYPE_UI_MANAGER")
+)
+
+(define-function gtk_ui_manager_new
+  (is-constructor-of "GtkUIManager")
+  (c-name "gtk_ui_manager_new")
+  (caller-owns-return #t)
+  (return-type "GtkUIManager*")
+)
+
+(define-method set_add_tearoffs
+  (of-object "GtkUIManager")
+  (c-name "gtk_ui_manager_set_add_tearoffs")
+  (return-type "none")
+  (parameters
+    '("gboolean" "add_tearoffs")
+  )
+)
+
+(define-method get_add_tearoffs
+  (of-object "GtkUIManager")
+  (c-name "gtk_ui_manager_get_add_tearoffs")
+  (return-type "gboolean")
+)
+
+(define-method insert_action_group
+  (of-object "GtkUIManager")
+  (c-name "gtk_ui_manager_insert_action_group")
+  (return-type "none")
+  (parameters
+    '("GtkActionGroup*" "action_group")
+    '("gint" "pos")
+  )
+)
+
+(define-method remove_action_group
+  (of-object "GtkUIManager")
+  (c-name "gtk_ui_manager_remove_action_group")
+  (return-type "none")
+  (parameters
+    '("GtkActionGroup*" "action_group")
+  )
+)
+
+(define-method get_action_groups
+  (of-object "GtkUIManager")
+  (c-name "gtk_ui_manager_get_action_groups")
+  (return-type "GList*")
+)
+
+(define-method get_accel_group
+  (of-object "GtkUIManager")
+  (c-name "gtk_ui_manager_get_accel_group")
+  (return-type "GtkAccelGroup*")
+)
+
+(define-method get_widget
+  (of-object "GtkUIManager")
+  (c-name "gtk_ui_manager_get_widget")
+  (return-type "GtkWidget*")
+  (parameters
+    '("const-gchar*" "path")
+  )
+)
+
+(define-method get_toplevels
+  (of-object "GtkUIManager")
+  (c-name "gtk_ui_manager_get_toplevels")
+  (return-type "GSList*")
+  (parameters
+    '("GtkUIManagerItemType" "types")
+  )
+)
+
+(define-method get_action
+  (of-object "GtkUIManager")
+  (c-name "gtk_ui_manager_get_action")
+  (return-type "GtkAction*")
+  (parameters
+    '("const-gchar*" "path")
+  )
+)
+
+(define-method add_ui_from_string
+  (of-object "GtkUIManager")
+  (c-name "gtk_ui_manager_add_ui_from_string")
+  (return-type "guint")
+  (parameters
+    '("const-gchar*" "buffer")
+    '("gssize" "length")
+    '("GError**" "error")
+  )
+)
+
+(define-method add_ui_from_file
+  (of-object "GtkUIManager")
+  (c-name "gtk_ui_manager_add_ui_from_file")
+  (return-type "guint")
+  (parameters
+    '("const-gchar*" "filename")
+    '("GError**" "error")
+  )
+)
+
+(define-method add_ui
+  (of-object "GtkUIManager")
+  (c-name "gtk_ui_manager_add_ui")
+  (return-type "none")
+  (parameters
+    '("guint" "merge_id")
+    '("const-gchar*" "path")
+    '("const-gchar*" "name")
+    '("const-gchar*" "action" (null-ok))
+    '("GtkUIManagerItemType" "type")
+    '("gboolean" "top")
+  )
+)
+
+(define-method remove_ui
+  (of-object "GtkUIManager")
+  (c-name "gtk_ui_manager_remove_ui")
+  (return-type "none")
+  (parameters
+    '("guint" "merge_id")
+  )
+)
+
+(define-method get_ui
+  (of-object "GtkUIManager")
+  (c-name "gtk_ui_manager_get_ui")
+  (caller-owns-return #t)
+  (return-type "gchar*")
+)
+
+(define-method ensure_update
+  (of-object "GtkUIManager")
+  (c-name "gtk_ui_manager_ensure_update")
+  (return-type "none")
+)
+
+(define-method new_merge_id
+  (of-object "GtkUIManager")
+  (c-name "gtk_ui_manager_new_merge_id")
+  (return-type "guint")
+)
+
+(define-virtual add_widget
+  (of-object "GtkUIManager")
+  (return-type "none")
+  (parameters
+    '("GtkWidget*" "widget")
+  )
+)
+
+(define-virtual actions_changed
+  (of-object "GtkUIManager")
+  (return-type "none")
+)
+
+(define-virtual connect_proxy
+  (of-object "GtkUIManager")
+  (return-type "none")
+  (parameters
+    '("GtkAction*" "action")
+    '("GtkWidget*" "proxy")
+  )
+)
+
+(define-virtual disconnect_proxy
+  (of-object "GtkUIManager")
+  (return-type "none")
+  (parameters
+    '("GtkAction*" "action")
+    '("GtkWidget*" "proxy")
+  )
+)
+
+(define-virtual pre_activate
+  (of-object "GtkUIManager")
+  (return-type "none")
+  (parameters
+    '("GtkAction*" "action")
+  )
+)
+
+(define-virtual post_activate
+  (of-object "GtkUIManager")
+  (return-type "none")
+  (parameters
+    '("GtkAction*" "action")
+  )
+)
+
+(define-virtual get_widget
+  (of-object "GtkUIManager")
+  (return-type "GtkWidget*")
+  (parameters
+    '("const-gchar*" "path")
+  )
+)
+
+(define-virtual get_action
+  (of-object "GtkUIManager")
+  (return-type "GtkAction*")
+  (parameters
+    '("const-gchar*" "path")
+  )
+)
+

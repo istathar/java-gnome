@@ -1,0 +1,206 @@
+(define-object ActionGroup
+  (in-module "Gtk")
+  (parent "GObject")
+  (c-name "GtkActionGroup")
+  (gtype-id "GTK_TYPE_ACTION_GROUP")
+)
+
+(define-function gtk_action_group_new
+  (is-constructor-of "GtkActionGroup")
+  (c-name "gtk_action_group_new")
+  (caller-owns-return #t)
+  (return-type "GtkActionGroup*")
+  (properties
+    '("name")
+  )
+)
+
+(define-method get_name
+  (of-object "GtkActionGroup")
+  (c-name "gtk_action_group_get_name")
+  (return-type "const-gchar*")
+)
+
+(define-method get_sensitive
+  (of-object "GtkActionGroup")
+  (c-name "gtk_action_group_get_sensitive")
+  (return-type "gboolean")
+)
+
+(define-method set_sensitive
+  (of-object "GtkActionGroup")
+  (c-name "gtk_action_group_set_sensitive")
+  (return-type "none")
+  (parameters
+    '("gboolean" "sensitive")
+  )
+)
+
+(define-method get_visible
+  (of-object "GtkActionGroup")
+  (c-name "gtk_action_group_get_visible")
+  (return-type "gboolean")
+)
+
+(define-method set_visible
+  (of-object "GtkActionGroup")
+  (c-name "gtk_action_group_set_visible")
+  (return-type "none")
+  (parameters
+    '("gboolean" "visible")
+  )
+)
+
+(define-method get_action
+  (of-object "GtkActionGroup")
+  (c-name "gtk_action_group_get_action")
+  (return-type "GtkAction*")
+  (parameters
+    '("const-gchar*" "action_name")
+  )
+)
+
+(define-method list_actions
+  (of-object "GtkActionGroup")
+  (c-name "gtk_action_group_list_actions")
+  (return-type "GList*")
+)
+
+(define-method add_action
+  (of-object "GtkActionGroup")
+  (c-name "gtk_action_group_add_action")
+  (return-type "none")
+  (parameters
+    '("GtkAction*" "action")
+  )
+)
+
+(define-method add_action_with_accel
+  (of-object "GtkActionGroup")
+  (c-name "gtk_action_group_add_action_with_accel")
+  (return-type "none")
+  (parameters
+    '("GtkAction*" "action")
+    '("const-gchar*" "accelerator" (null-ok))
+  )
+)
+
+(define-method remove_action
+  (of-object "GtkActionGroup")
+  (c-name "gtk_action_group_remove_action")
+  (return-type "none")
+  (parameters
+    '("GtkAction*" "action")
+  )
+)
+
+(define-method add_actions
+  (of-object "GtkActionGroup")
+  (c-name "gtk_action_group_add_actions")
+  (return-type "none")
+  (parameters
+    '("GtkActionEntry*" "entries")
+    '("guint" "n_entries")
+    '("gpointer" "user_data")
+  )
+)
+
+(define-method add_toggle_actions
+  (of-object "GtkActionGroup")
+  (c-name "gtk_action_group_add_toggle_actions")
+  (return-type "none")
+  (parameters
+    '("GtkToggleActionEntry*" "entries")
+    '("guint" "n_entries")
+    '("gpointer" "user_data")
+  )
+)
+
+(define-method add_radio_actions
+  (of-object "GtkActionGroup")
+  (c-name "gtk_action_group_add_radio_actions")
+  (return-type "none")
+  (parameters
+    '("GtkRadioActionEntry*" "entries")
+    '("guint" "n_entries")
+    '("gint" "value")
+    '("GCallback" "on_change")
+    '("gpointer" "user_data")
+  )
+)
+
+(define-method add_actions_full
+  (of-object "GtkActionGroup")
+  (c-name "gtk_action_group_add_actions_full")
+  (return-type "none")
+  (parameters
+    '("GtkActionEntry*" "entries")
+    '("guint" "n_entries")
+    '("gpointer" "user_data")
+    '("GDestroyNotify" "destroy")
+  )
+)
+
+(define-method add_toggle_actions_full
+  (of-object "GtkActionGroup")
+  (c-name "gtk_action_group_add_toggle_actions_full")
+  (return-type "none")
+  (parameters
+    '("GtkToggleActionEntry*" "entries")
+    '("guint" "n_entries")
+    '("gpointer" "user_data")
+    '("GDestroyNotify" "destroy")
+  )
+)
+
+(define-method add_radio_actions_full
+  (of-object "GtkActionGroup")
+  (c-name "gtk_action_group_add_radio_actions_full")
+  (return-type "none")
+  (parameters
+    '("GtkRadioActionEntry*" "entries")
+    '("guint" "n_entries")
+    '("gint" "value")
+    '("GCallback" "on_change")
+    '("gpointer" "user_data")
+    '("GDestroyNotify" "destroy")
+  )
+)
+
+(define-method set_translate_func
+  (of-object "GtkActionGroup")
+  (c-name "gtk_action_group_set_translate_func")
+  (return-type "none")
+  (parameters
+    '("GtkTranslateFunc" "func")
+    '("gpointer" "data")
+    '("GtkDestroyNotify" "notify")
+  )
+)
+
+(define-method set_translation_domain
+  (of-object "GtkActionGroup")
+  (c-name "gtk_action_group_set_translation_domain")
+  (return-type "none")
+  (parameters
+    '("const-gchar*" "domain")
+  )
+)
+
+(define-method translate_string
+  (of-object "GtkActionGroup")
+  (c-name "gtk_action_group_translate_string")
+  (return-type "const-gchar*")
+  (parameters
+    '("const-gchar*" "string")
+  )
+)
+
+(define-virtual get_action
+  (of-object "GtkActionGroup")
+  (return-type "GtkAction*")
+  (parameters
+    '("const-gchar*" "action_name")
+  )
+)
+

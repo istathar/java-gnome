@@ -1,0 +1,413 @@
+(define-method get_flags
+  (of-object "GtkTreeModel")
+  (c-name "gtk_tree_model_get_flags")
+  (return-type "GtkTreeModelFlags")
+)
+
+(define-method get_n_columns
+  (of-object "GtkTreeModel")
+  (c-name "gtk_tree_model_get_n_columns")
+  (return-type "gint")
+)
+
+(define-method get_column_type
+  (of-object "GtkTreeModel")
+  (c-name "gtk_tree_model_get_column_type")
+  (return-type "GType")
+  (parameters
+    '("gint" "index")
+  )
+)
+
+(define-method get_iter
+  (of-object "GtkTreeModel")
+  (c-name "gtk_tree_model_get_iter")
+  (return-type "gboolean")
+  (parameters
+    '("GtkTreeIter*" "iter")
+    '("GtkTreePath*" "path")
+  )
+)
+
+(define-method get_iter_from_string
+  (of-object "GtkTreeModel")
+  (c-name "gtk_tree_model_get_iter_from_string")
+  (return-type "gboolean")
+  (parameters
+    '("GtkTreeIter*" "iter")
+    '("const-gchar*" "path_string")
+  )
+)
+
+(define-method get_string_from_iter
+  (of-object "GtkTreeModel")
+  (c-name "gtk_tree_model_get_string_from_iter")
+  (caller-owns-return #t)
+  (return-type "gchar*")
+  (parameters
+    '("GtkTreeIter*" "iter")
+  )
+)
+
+(define-method get_iter_root
+  (of-object "GtkTreeModel")
+  (c-name "gtk_tree_model_get_iter_first")
+  (return-type "gboolean")
+  (parameters
+    '("GtkTreeIter*" "iter")
+  )
+)
+
+(define-method get_iter_first
+  (of-object "GtkTreeModel")
+  (c-name "gtk_tree_model_get_iter_first")
+  (return-type "gboolean")
+  (parameters
+    '("GtkTreeIter*" "iter")
+  )
+)
+
+(define-method get_path
+  (of-object "GtkTreeModel")
+  (c-name "gtk_tree_model_get_path")
+  (caller-owns-return #t)
+  (return-type "GtkTreePath*")
+  (parameters
+    '("GtkTreeIter*" "iter")
+  )
+)
+
+(define-method get_value
+  (of-object "GtkTreeModel")
+  (c-name "gtk_tree_model_get_value")
+  (return-type "none")
+  (parameters
+    '("GtkTreeIter*" "iter")
+    '("gint" "column")
+    '("GValue*" "value")
+  )
+)
+
+(define-method iter_next
+  (of-object "GtkTreeModel")
+  (c-name "gtk_tree_model_iter_next")
+  (return-type "gboolean")
+  (parameters
+    '("GtkTreeIter*" "iter")
+  )
+)
+
+(define-method iter_children
+  (of-object "GtkTreeModel")
+  (c-name "gtk_tree_model_iter_children")
+  (return-type "gboolean")
+  (parameters
+    '("GtkTreeIter*" "iter")
+    '("GtkTreeIter*" "parent" (null-ok))
+  )
+)
+
+(define-method iter_has_child
+  (of-object "GtkTreeModel")
+  (c-name "gtk_tree_model_iter_has_child")
+  (return-type "gboolean")
+  (parameters
+    '("GtkTreeIter*" "iter")
+  )
+)
+
+(define-method iter_n_children
+  (of-object "GtkTreeModel")
+  (c-name "gtk_tree_model_iter_n_children")
+  (return-type "gint")
+  (parameters
+    '("GtkTreeIter*" "iter" (null-ok))
+  )
+)
+
+(define-method iter_nth_child
+  (of-object "GtkTreeModel")
+  (c-name "gtk_tree_model_iter_nth_child")
+  (return-type "gboolean")
+  (parameters
+    '("GtkTreeIter*" "iter")
+    '("GtkTreeIter*" "parent" (null-ok))
+    '("gint" "n")
+  )
+)
+
+(define-method iter_parent
+  (of-object "GtkTreeModel")
+  (c-name "gtk_tree_model_iter_parent")
+  (return-type "gboolean")
+  (parameters
+    '("GtkTreeIter*" "iter")
+    '("GtkTreeIter*" "child")
+  )
+)
+
+(define-method ref_node
+  (of-object "GtkTreeModel")
+  (c-name "gtk_tree_model_ref_node")
+  (return-type "none")
+  (parameters
+    '("GtkTreeIter*" "iter")
+  )
+)
+
+(define-method unref_node
+  (of-object "GtkTreeModel")
+  (c-name "gtk_tree_model_unref_node")
+  (return-type "none")
+  (parameters
+    '("GtkTreeIter*" "iter")
+  )
+)
+
+(define-method get
+  (of-object "GtkTreeModel")
+  (c-name "gtk_tree_model_get")
+  (return-type "none")
+  (parameters
+    '("GtkTreeIter*" "iter")
+  )
+  (varargs #t)
+)
+
+(define-method get_valist
+  (of-object "GtkTreeModel")
+  (c-name "gtk_tree_model_get_valist")
+  (return-type "none")
+  (parameters
+    '("GtkTreeIter*" "iter")
+    '("va_list" "var_args")
+  )
+)
+
+(define-method foreach
+  (of-object "GtkTreeModel")
+  (c-name "gtk_tree_model_foreach")
+  (return-type "none")
+  (parameters
+    '("GtkTreeModelForeachFunc" "func")
+    '("gpointer" "user_data")
+  )
+)
+
+(define-method row_changed
+  (of-object "GtkTreeModel")
+  (c-name "gtk_tree_model_row_changed")
+  (return-type "none")
+  (parameters
+    '("GtkTreePath*" "path")
+    '("GtkTreeIter*" "iter")
+  )
+)
+
+(define-method row_inserted
+  (of-object "GtkTreeModel")
+  (c-name "gtk_tree_model_row_inserted")
+  (return-type "none")
+  (parameters
+    '("GtkTreePath*" "path")
+    '("GtkTreeIter*" "iter")
+  )
+)
+
+(define-method row_has_child_toggled
+  (of-object "GtkTreeModel")
+  (c-name "gtk_tree_model_row_has_child_toggled")
+  (return-type "none")
+  (parameters
+    '("GtkTreePath*" "path")
+    '("GtkTreeIter*" "iter")
+  )
+)
+
+(define-method row_deleted
+  (of-object "GtkTreeModel")
+  (c-name "gtk_tree_model_row_deleted")
+  (return-type "none")
+  (parameters
+    '("GtkTreePath*" "path")
+  )
+)
+
+(define-method rows_reordered
+  (of-object "GtkTreeModel")
+  (c-name "gtk_tree_model_rows_reordered")
+  (return-type "none")
+  (parameters
+    '("GtkTreePath*" "path")
+    '("GtkTreeIter*" "iter")
+    '("gint*" "new_order")
+  )
+)
+
+(define-method filter_new
+  (of-object "GtkTreeModel")
+  (c-name "gtk_tree_model_filter_new")
+  (return-type "GtkTreeModel*")
+  (parameters
+    '("GtkTreePath*" "root" (default "NULL") (null-ok))
+  )
+)
+
+(define-virtual row_changed
+  (of-object "GtkTreeModel")
+  (return-type "none")
+  (parameters
+    '("GtkTreePath*" "path")
+    '("GtkTreeIter*" "iter")
+  )
+)
+
+(define-virtual row_inserted
+  (of-object "GtkTreeModel")
+  (return-type "none")
+  (parameters
+    '("GtkTreePath*" "path")
+    '("GtkTreeIter*" "iter")
+  )
+)
+
+(define-virtual row_has_child_toggled
+  (of-object "GtkTreeModel")
+  (return-type "none")
+  (parameters
+    '("GtkTreePath*" "path")
+    '("GtkTreeIter*" "iter")
+  )
+)
+
+(define-virtual row_deleted
+  (of-object "GtkTreeModel")
+  (return-type "none")
+  (parameters
+    '("GtkTreePath*" "path")
+  )
+)
+
+(define-virtual rows_reordered
+  (of-object "GtkTreeModel")
+  (return-type "none")
+  (parameters
+    '("GtkTreePath*" "path")
+    '("GtkTreeIter*" "iter")
+    '("gint*" "new_order")
+  )
+)
+
+(define-virtual get_flags
+  (of-object "GtkTreeModel")
+  (return-type "GtkTreeModelFlags")
+)
+
+(define-virtual get_n_columns
+  (of-object "GtkTreeModel")
+  (return-type "gint")
+)
+
+(define-virtual get_column_type
+  (of-object "GtkTreeModel")
+  (return-type "GType")
+  (parameters
+    '("gint" "index_")
+  )
+)
+
+(define-virtual get_iter
+  (of-object "GtkTreeModel")
+  (return-type "gboolean")
+  (parameters
+    '("GtkTreeIter*" "iter")
+    '("GtkTreePath*" "path")
+  )
+)
+
+(define-virtual get_path
+  (of-object "GtkTreeModel")
+  (return-type "GtkTreePath*")
+  (parameters
+    '("GtkTreeIter*" "iter")
+  )
+)
+
+(define-virtual get_value
+  (of-object "GtkTreeModel")
+  (return-type "none")
+  (parameters
+    '("GtkTreeIter*" "iter")
+    '("gint" "column")
+    '("GValue*" "value")
+  )
+)
+
+(define-virtual iter_next
+  (of-object "GtkTreeModel")
+  (return-type "gboolean")
+  (parameters
+    '("GtkTreeIter*" "iter")
+  )
+)
+
+(define-virtual iter_children
+  (of-object "GtkTreeModel")
+  (return-type "gboolean")
+  (parameters
+    '("GtkTreeIter*" "iter")
+    '("GtkTreeIter*" "parent")
+  )
+)
+
+(define-virtual iter_has_child
+  (of-object "GtkTreeModel")
+  (return-type "gboolean")
+  (parameters
+    '("GtkTreeIter*" "iter")
+  )
+)
+
+(define-virtual iter_n_children
+  (of-object "GtkTreeModel")
+  (return-type "gint")
+  (parameters
+    '("GtkTreeIter*" "iter")
+  )
+)
+
+(define-virtual iter_nth_child
+  (of-object "GtkTreeModel")
+  (return-type "gboolean")
+  (parameters
+    '("GtkTreeIter*" "iter")
+    '("GtkTreeIter*" "parent")
+    '("gint" "n")
+  )
+)
+
+(define-virtual iter_parent
+  (of-object "GtkTreeModel")
+  (return-type "gboolean")
+  (parameters
+    '("GtkTreeIter*" "iter")
+    '("GtkTreeIter*" "child")
+  )
+)
+
+(define-virtual ref_node
+  (of-object "GtkTreeModel")
+  (return-type "none")
+  (parameters
+    '("GtkTreeIter*" "iter")
+  )
+)
+
+(define-virtual unref_node
+  (of-object "GtkTreeModel")
+  (return-type "none")
+  (parameters
+    '("GtkTreeIter*" "iter")
+  )
+)
+

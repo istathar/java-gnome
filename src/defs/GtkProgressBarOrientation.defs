@@ -1,0 +1,12 @@
+(define-enum ProgressBarOrientation
+  (in-module "Gtk")
+  (c-name "GtkProgressBarOrientation")
+  (gtype-id "GTK_TYPE_PROGRESS_BAR_ORIENTATION")
+  (values
+    '("left-to-right" "GTK_PROGRESS_LEFT_TO_RIGHT")
+    '("right-to-left" "GTK_PROGRESS_RIGHT_TO_LEFT")
+    '("bottom-to-top" "GTK_PROGRESS_BOTTOM_TO_TOP")
+    '("top-to-bottom" "GTK_PROGRESS_TOP_TO_BOTTOM")
+  )
+)
+

@@ -1,0 +1,68 @@
+(define-boxed FontMetrics
+  (in-module "Pango")
+  (c-name "PangoFontMetrics")
+  (gtype-id "PANGO_TYPE_FONT_METRICS")
+  (copy-func "pango_font_metrics_ref")
+  (release-func "pango_font_metrics_unref")
+)
+
+(define-method ref
+  (of-object "PangoFontMetrics")
+  (c-name "pango_font_metrics_ref")
+  (return-type "PangoFontMetrics*")
+)
+
+(define-method unref
+  (of-object "PangoFontMetrics")
+  (c-name "pango_font_metrics_unref")
+  (return-type "none")
+)
+
+(define-method get_ascent
+  (of-object "PangoFontMetrics")
+  (c-name "pango_font_metrics_get_ascent")
+  (return-type "int")
+)
+
+(define-method get_descent
+  (of-object "PangoFontMetrics")
+  (c-name "pango_font_metrics_get_descent")
+  (return-type "int")
+)
+
+(define-method get_approximate_char_width
+  (of-object "PangoFontMetrics")
+  (c-name "pango_font_metrics_get_approximate_char_width")
+  (return-type "int")
+)
+
+(define-method get_approximate_digit_width
+  (of-object "PangoFontMetrics")
+  (c-name "pango_font_metrics_get_approximate_digit_width")
+  (return-type "int")
+)
+
+(define-method get_underline_position
+  (of-object "PangoFontMetrics")
+  (c-name "pango_font_metrics_get_underline_position")
+  (return-type "int")
+)
+
+(define-method get_underline_thickness
+  (of-object "PangoFontMetrics")
+  (c-name "pango_font_metrics_get_underline_thickness")
+  (return-type "int")
+)
+
+(define-method get_strikethrough_position
+  (of-object "PangoFontMetrics")
+  (c-name "pango_font_metrics_get_strikethrough_position")
+  (return-type "int")
+)
+
+(define-method get_strikethrough_thickness
+  (of-object "PangoFontMetrics")
+  (c-name "pango_font_metrics_get_strikethrough_thickness")
+  (return-type "int")
+)
+

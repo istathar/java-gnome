@@ -1,0 +1,109 @@
+(define-object FontButton
+  (in-module "Gtk")
+  (parent "GtkButton")
+  (c-name "GtkFontButton")
+  (gtype-id "GTK_TYPE_FONT_BUTTON")
+)
+
+(define-function gtk_font_button_new
+  (is-constructor-of "GtkFontButton")
+  (c-name "gtk_font_button_new")
+  (caller-owns-return #t)
+  (return-type "GtkWidget*")
+)
+
+(define-method get_title
+  (of-object "GtkFontButton")
+  (c-name "gtk_font_button_get_title")
+  (return-type "const-gchar*")
+)
+
+(define-method set_title
+  (of-object "GtkFontButton")
+  (c-name "gtk_font_button_set_title")
+  (return-type "none")
+  (parameters
+    '("const-gchar*" "title")
+  )
+)
+
+(define-method get_use_font
+  (of-object "GtkFontButton")
+  (c-name "gtk_font_button_get_use_font")
+  (return-type "gboolean")
+)
+
+(define-method set_use_font
+  (of-object "GtkFontButton")
+  (c-name "gtk_font_button_set_use_font")
+  (return-type "none")
+  (parameters
+    '("gboolean" "use_font")
+  )
+)
+
+(define-method get_use_size
+  (of-object "GtkFontButton")
+  (c-name "gtk_font_button_get_use_size")
+  (return-type "gboolean")
+)
+
+(define-method set_use_size
+  (of-object "GtkFontButton")
+  (c-name "gtk_font_button_set_use_size")
+  (return-type "none")
+  (parameters
+    '("gboolean" "use_size")
+  )
+)
+
+(define-method get_font_name
+  (of-object "GtkFontButton")
+  (c-name "gtk_font_button_get_font_name")
+  (return-type "const-gchar*")
+)
+
+(define-method set_font_name
+  (of-object "GtkFontButton")
+  (c-name "gtk_font_button_set_font_name")
+  (return-type "gboolean")
+  (parameters
+    '("const-gchar*" "fontname")
+  )
+)
+
+(define-method get_show_style
+  (of-object "GtkFontButton")
+  (c-name "gtk_font_button_get_show_style")
+  (return-type "gboolean")
+)
+
+(define-method set_show_style
+  (of-object "GtkFontButton")
+  (c-name "gtk_font_button_set_show_style")
+  (return-type "none")
+  (parameters
+    '("gboolean" "show_style")
+  )
+)
+
+(define-method get_show_size
+  (of-object "GtkFontButton")
+  (c-name "gtk_font_button_get_show_size")
+  (return-type "gboolean")
+)
+
+(define-method set_show_size
+  (of-object "GtkFontButton")
+  (c-name "gtk_font_button_set_show_size")
+  (return-type "none")
+  (parameters
+    '("gboolean" "show_size")
+  )
+)
+
+(define-virtual font_set
+  (of-object "GtkFontButton")
+  (return-type "none")
+)
+

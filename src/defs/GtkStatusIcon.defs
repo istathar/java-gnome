@@ -1,0 +1,158 @@
+(define-object StatusIcon
+  (in-module "Gtk")
+  (parent "GObject")
+  (c-name "GtkStatusIcon")
+  (gtype-id "GTK_TYPE_STATUS_ICON")
+)
+
+(define-function status_icon_new
+  (is-constructor-of "GtkStatusIcon")
+  (c-name "gtk_status_icon_new")
+  (caller-owns-return #t)
+  (return-type "GtkStatusIcon*")
+)
+
+(define-method set_from_pixbuf
+  (of-object "GtkStatusIcon")
+  (c-name "gtk_status_icon_set_from_pixbuf")
+  (return-type "none")
+  (parameters
+    '("GdkPixbuf*" "pixbuf" (null-ok))
+  )
+)
+
+(define-method set_from_file
+  (of-object "GtkStatusIcon")
+  (c-name "gtk_status_icon_set_from_file")
+  (return-type "none")
+  (parameters
+    '("const-gchar*" "filename")
+  )
+)
+
+(define-method set_from_stock
+  (of-object "GtkStatusIcon")
+  (c-name "gtk_status_icon_set_from_stock")
+  (return-type "none")
+  (parameters
+    '("const-gchar*" "stock_id")
+  )
+)
+
+(define-method set_from_icon_name
+  (of-object "GtkStatusIcon")
+  (c-name "gtk_status_icon_set_from_icon_name")
+  (return-type "none")
+  (parameters
+    '("const-gchar*" "icon_name")
+  )
+)
+
+(define-method get_storage_type
+  (of-object "GtkStatusIcon")
+  (c-name "gtk_status_icon_get_storage_type")
+  (return-type "GtkImageType")
+)
+
+(define-method get_pixbuf
+  (of-object "GtkStatusIcon")
+  (c-name "gtk_status_icon_get_pixbuf")
+  (return-type "GdkPixbuf*")
+)
+
+(define-method get_stock
+  (of-object "GtkStatusIcon")
+  (c-name "gtk_status_icon_get_stock")
+  (return-type "const-gchar*")
+)
+
+(define-method get_icon_name
+  (of-object "GtkStatusIcon")
+  (c-name "gtk_status_icon_get_icon_name")
+  (return-type "const-gchar*")
+)
+
+(define-method get_size
+  (of-object "GtkStatusIcon")
+  (c-name "gtk_status_icon_get_size")
+  (return-type "gint")
+)
+
+(define-method set_tooltip
+  (of-object "GtkStatusIcon")
+  (c-name "gtk_status_icon_set_tooltip")
+  (return-type "none")
+  (parameters
+    '("const-gchar*" "tooltip_text" (null-ok))
+  )
+)
+
+(define-method set_visible
+  (of-object "GtkStatusIcon")
+  (c-name "gtk_status_icon_set_visible")
+  (return-type "none")
+  (parameters
+    '("gboolean" "visible")
+  )
+)
+
+(define-method get_visible
+  (of-object "GtkStatusIcon")
+  (c-name "gtk_status_icon_get_visible")
+  (return-type "gboolean")
+)
+
+(define-method set_blinking
+  (of-object "GtkStatusIcon")
+  (c-name "gtk_status_icon_set_blinking")
+  (return-type "none")
+  (parameters
+    '("gboolean" "blinking")
+  )
+)
+
+(define-method get_blinking
+  (of-object "GtkStatusIcon")
+  (c-name "gtk_status_icon_get_blinking")
+  (return-type "gboolean")
+)
+
+(define-method is_embedded
+  (of-object "GtkStatusIcon")
+  (c-name "gtk_status_icon_is_embedded")
+  (return-type "gboolean")
+)
+
+(define-method get_geometry
+  (of-object "GtkStatusIcon")
+  (c-name "gtk_status_icon_get_geometry")
+  (return-type "gboolean")
+  (parameters
+    '("GdkScreen**" "screen")
+    '("GdkRectangle*" "area")
+    '("GtkOrientation*" "orientation")
+  )
+)
+
+(define-virtual activate
+  (of-object "GtkStatusIcon")
+  (return-type "none")
+)
+
+(define-virtual popup_menu
+  (of-object "GtkStatusIcon")
+  (return-type "none")
+  (parameters
+    '("guint" "button")
+    '("guint32" "activate_time")
+  )
+)
+
+(define-virtual size_changed
+  (of-object "GtkStatusIcon")
+  (return-type "gboolean")
+  (parameters
+    '("gint" "size")
+  )
+)
+

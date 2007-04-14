@@ -1,0 +1,87 @@
+(define-object TreeModelSort
+  (in-module "Gtk")
+  (parent "GObject")
+  (implements "GtkTreeModel")
+  (implements "GtkTreeDragSource")
+  (implements "GtkTreeSortable")
+  (c-name "GtkTreeModelSort")
+  (gtype-id "GTK_TYPE_TREE_MODEL_SORT")
+)
+
+(define-function gtk_tree_model_sort_new_with_model
+  (is-constructor-of "GtkTreeModelSort")
+  (c-name "gtk_tree_model_sort_new_with_model")
+  (caller-owns-return #t)
+  (return-type "GtkTreeModel*")
+  (properties
+    '("model")
+  )
+)
+
+(define-method get_model
+  (of-object "GtkTreeModelSort")
+  (c-name "gtk_tree_model_sort_get_model")
+  (return-type "GtkTreeModel*")
+)
+
+(define-method convert_child_path_to_path
+  (of-object "GtkTreeModelSort")
+  (c-name "gtk_tree_model_sort_convert_child_path_to_path")
+  (caller-owns-return #t)
+  (return-type "GtkTreePath*")
+  (parameters
+    '("GtkTreePath*" "child_path")
+  )
+)
+
+(define-method convert_child_iter_to_iter
+  (of-object "GtkTreeModelSort")
+  (c-name "gtk_tree_model_sort_convert_child_iter_to_iter")
+  (return-type "none")
+  (parameters
+    '("GtkTreeIter*" "sort_iter" (null-ok))
+    '("GtkTreeIter*" "child_iter")
+  )
+)
+
+(define-method convert_path_to_child_path
+  (of-object "GtkTreeModelSort")
+  (c-name "gtk_tree_model_sort_convert_path_to_child_path")
+  (caller-owns-return #t)
+  (return-type "GtkTreePath*")
+  (parameters
+    '("GtkTreePath*" "sorted_path")
+  )
+)
+
+(define-method convert_iter_to_child_iter
+  (of-object "GtkTreeModelSort")
+  (c-name "gtk_tree_model_sort_convert_iter_to_child_iter")
+  (return-type "none")
+  (parameters
+    '("GtkTreeIter*" "child_iter" (null-ok))
+    '("GtkTreeIter*" "sorted_iter")
+  )
+)
+
+(define-method reset_default_sort_func
+  (of-object "GtkTreeModelSort")
+  (c-name "gtk_tree_model_sort_reset_default_sort_func")
+  (return-type "none")
+)
+
+(define-method clear_cache
+  (of-object "GtkTreeModelSort")
+  (c-name "gtk_tree_model_sort_clear_cache")
+  (return-type "none")
+)
+
+(define-method iter_is_valid
+  (of-object "GtkTreeModelSort")
+  (c-name "gtk_tree_model_sort_iter_is_valid")
+  (return-type "gboolean")
+  (parameters
+    '("GtkTreeIter*" "iter")
+  )
+)
+

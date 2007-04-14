@@ -1,0 +1,13 @@
+(define-enum SelectionMode
+  (in-module "Gtk")
+  (c-name "GtkSelectionMode")
+  (gtype-id "GTK_TYPE_SELECTION_MODE")
+  (values
+    '("none" "GTK_SELECTION_NONE")
+    '("single" "GTK_SELECTION_SINGLE")
+    '("browse" "GTK_SELECTION_BROWSE")
+    '("multiple" "GTK_SELECTION_MULTIPLE")
+    '("extended" "GTK_SELECTION_EXTENDED")
+  )
+)
+

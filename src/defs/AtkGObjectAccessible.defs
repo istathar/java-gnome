@@ -1,0 +1,13 @@
+(define-object GObjectAccessible
+  (in-module "Atk")
+  (parent "AtkObject")
+  (c-name "AtkGObjectAccessible")
+  (gtype-id "ATK_TYPE_GOBJECT_ACCESSIBLE")
+)
+
+(define-method get_object
+  (of-object "AtkGObjectAccessible")
+  (c-name "atk_gobject_accessible_get_object")
+  (return-type "GObject*")
+)
+

@@ -1,0 +1,14 @@
+(define-flags FontMask
+  (in-module "Pango")
+  (c-name "PangoFontMask")
+  (gtype-id "PANGO_TYPE_FONT_MASK")
+  (values
+    '("family" "PANGO_FONT_MASK_FAMILY")
+    '("style" "PANGO_FONT_MASK_STYLE")
+    '("variant" "PANGO_FONT_MASK_VARIANT")
+    '("weight" "PANGO_FONT_MASK_WEIGHT")
+    '("stretch" "PANGO_FONT_MASK_STRETCH")
+    '("size" "PANGO_FONT_MASK_SIZE")
+  )
+)
+

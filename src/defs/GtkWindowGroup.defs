@@ -1,0 +1,32 @@
+(define-object WindowGroup
+  (in-module "Gtk")
+  (parent "GObject")
+  (c-name "GtkWindowGroup")
+  (gtype-id "GTK_TYPE_WINDOW_GROUP")
+)
+
+(define-function window_group_new
+  (is-constructor-of "GtkWindowGroup")
+  (c-name "gtk_window_group_new")
+  (caller-owns-return #t)
+  (return-type "GtkWindowGroup*")
+)
+
+(define-method add_window
+  (of-object "GtkWindowGroup")
+  (c-name "gtk_window_group_add_window")
+  (return-type "none")
+  (parameters
+    '("GtkWindow*" "window")
+  )
+)
+
+(define-method remove_window
+  (of-object "GtkWindowGroup")
+  (c-name "gtk_window_group_remove_window")
+  (return-type "none")
+  (parameters
+    '("GtkWindow*" "window")
+  )
+)
+

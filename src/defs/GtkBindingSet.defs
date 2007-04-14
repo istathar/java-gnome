@@ -1,0 +1,42 @@
+(define-function binding_set_new
+  (is-constructor-of "GtkBindingSet")
+  (c-name "gtk_binding_set_new")
+  (caller-owns-return #t)
+  (return-type "GtkBindingSet*")
+  (parameters
+    '("const-gchar*" "set_name")
+  )
+)
+
+(define-function binding_set_find
+  (is-constructor-of "GtkBindingSet")
+  (c-name "gtk_binding_set_find")
+  (caller-owns-return #t)
+  (return-type "GtkBindingSet*")
+  (parameters
+    '("const-gchar*" "set_name")
+  )
+)
+
+(define-method activate
+  (of-object "GtkBindingSet")
+  (c-name "gtk_binding_set_activate")
+  (return-type "gboolean")
+  (parameters
+    '("guint" "keyval")
+    '("GdkModifierType" "modifiers")
+    '("GtkObject*" "object")
+  )
+)
+
+(define-method add_path
+  (of-object "GtkBindingSet")
+  (c-name "gtk_binding_set_add_path")
+  (return-type "none")
+  (parameters
+    '("GtkPathType" "path_type")
+    '("const-gchar*" "path_pattern")
+    '("GtkPathPriorityType" "priority")
+  )
+)
+

@@ -1,0 +1,91 @@
+(define-object Device
+  (in-module "Gdk")
+  (parent "GObject")
+  (c-name "GdkDevice")
+  (gtype-id "GDK_TYPE_DEVICE")
+  (fields
+    '("gchar*" "name")
+    '("GdkInputSource" "source")
+    '("GdkInputMode" "mode")
+    '("gboolean" "has_cursor")
+    '("gint" "num_axes")
+    '("GdkDeviceAxis*" "axes")
+    '("gint" "num_keys")
+    '("GdkDeviceKey*" "keys")
+  )
+)
+
+(define-method set_source
+  (of-object "GdkDevice")
+  (c-name "gdk_device_set_source")
+  (return-type "none")
+  (parameters
+    '("GdkInputSource" "source")
+  )
+)
+
+(define-method set_mode
+  (of-object "GdkDevice")
+  (c-name "gdk_device_set_mode")
+  (return-type "gboolean")
+  (parameters
+    '("GdkInputMode" "mode")
+  )
+)
+
+(define-method set_key
+  (of-object "GdkDevice")
+  (c-name "gdk_device_set_key")
+  (return-type "none")
+  (parameters
+    '("guint" "index")
+    '("guint" "keyval")
+    '("GdkModifierType" "modifiers")
+  )
+)
+
+(define-method set_axis_use
+  (of-object "GdkDevice")
+  (c-name "gdk_device_set_axis_use")
+  (return-type "none")
+  (parameters
+    '("guint" "index")
+    '("GdkAxisUse" "use")
+  )
+)
+
+(define-method get_state
+  (of-object "GdkDevice")
+  (c-name "gdk_device_get_state")
+  (return-type "none")
+  (parameters
+    '("GdkWindow*" "window")
+    '("gdouble*" "axes")
+    '("GdkModifierType*" "mask")
+  )
+)
+
+(define-method get_history
+  (of-object "GdkDevice")
+  (c-name "gdk_device_get_history")
+  (return-type "gboolean")
+  (parameters
+    '("GdkWindow*" "window")
+    '("guint32" "start")
+    '("guint32" "stop")
+    '("GdkTimeCoord***" "events")
+    '("gint*" "n_events")
+  )
+)
+
+(define-method get_axis
+  (of-object "GdkDevice")
+  (c-name "gdk_device_get_axis")
+  (return-type "gboolean")
+  (parameters
+    '("gdouble*" "axes")
+    '("GdkAxisUse" "use")
+    '("gdouble*" "value")
+  )
+)
+

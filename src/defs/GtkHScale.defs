@@ -1,0 +1,29 @@
+(define-object HScale
+  (in-module "Gtk")
+  (parent "GtkScale")
+  (c-name "GtkHScale")
+  (gtype-id "GTK_TYPE_HSCALE")
+)
+
+(define-function gtk_hscale_new
+  (is-constructor-of "GtkHScale")
+  (c-name "gtk_hscale_new")
+  (caller-owns-return #t)
+  (return-type "GtkWidget*")
+  (properties
+    '("adjustment" (optional))
+  )
+)
+
+(define-function gtk_hscale_new_with_range
+  (is-constructor-of "GtkHScale")
+  (c-name "gtk_hscale_new_with_range")
+  (caller-owns-return #t)
+  (return-type "GtkWidget*")
+  (parameters
+    '("gdouble" "min")
+    '("gdouble" "max")
+    '("gdouble" "step")
+  )
+)
+

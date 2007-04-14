@@ -1,0 +1,34 @@
+(define-object ToggleToolButton
+  (in-module "Gtk")
+  (parent "GtkToolButton")
+  (c-name "GtkToggleToolButton")
+  (gtype-id "GTK_TYPE_TOGGLE_TOOL_BUTTON")
+)
+
+(define-function gtk_toggle_tool_button_new
+  (is-constructor-of "GtkToggleToolButton")
+  (c-name "gtk_toggle_tool_button_new")
+  (caller-owns-return #t)
+  (return-type "GtkToolItem*")
+)
+
+(define-method set_active
+  (of-object "GtkToggleToolButton")
+  (c-name "gtk_toggle_tool_button_set_active")
+  (return-type "none")
+  (parameters
+    '("gboolean" "is_active")
+  )
+)
+
+(define-method get_active
+  (of-object "GtkToggleToolButton")
+  (c-name "gtk_toggle_tool_button_get_active")
+  (return-type "gboolean")
+)
+
+(define-virtual toggled
+  (of-object "GtkToggleToolButton")
+  (return-type "none")
+)
+

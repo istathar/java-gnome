@@ -1,0 +1,13 @@
+(define-method copy
+  (of-object "GtkStockItem")
+  (c-name "gtk_stock_item_copy")
+  (caller-owns-return #t)
+  (return-type "GtkStockItem*")
+)
+
+(define-method free
+  (of-object "GtkStockItem")
+  (c-name "gtk_stock_item_free")
+  (return-type "none")
+)
+

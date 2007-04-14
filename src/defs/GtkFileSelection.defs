@@ -1,0 +1,94 @@
+(define-object FileSelection
+  (in-module "Gtk")
+  (parent "GtkDialog")
+  (c-name "GtkFileSelection")
+  (gtype-id "GTK_TYPE_FILE_SELECTION")
+  (fields
+    '("GtkWidget*" "dir_list")
+    '("GtkWidget*" "file_list")
+    '("GtkWidget*" "selection_entry")
+    '("GtkWidget*" "selection_text")
+    '("GtkWidget*" "main_vbox")
+    '("GtkWidget*" "ok_button")
+    '("GtkWidget*" "cancel_button")
+    '("GtkWidget*" "help_button")
+    '("GtkWidget*" "history_pulldown")
+    '("GtkWidget*" "history_menu")
+    '("GtkWidget*" "fileop_dialog")
+    '("GtkWidget*" "fileop_entry")
+    '("gchar*" "fileop_file")
+    '("GtkWidget*" "fileop_c_dir")
+    '("GtkWidget*" "fileop_del_file")
+    '("GtkWidget*" "fileop_ren_file")
+    '("GtkWidget*" "button_area")
+    '("GtkWidget*" "action_area")
+  )
+)
+
+(define-function gtk_file_selection_new
+  (is-constructor-of "GtkFileSelection")
+  (c-name "gtk_file_selection_new")
+  (caller-owns-return #t)
+  (return-type "GtkWidget*")
+  (properties
+    '("title" (optional))
+  )
+)
+
+(define-method set_filename
+  (of-object "GtkFileSelection")
+  (c-name "gtk_file_selection_set_filename")
+  (return-type "none")
+  (parameters
+    '("const-gchar*" "filename")
+  )
+)
+
+(define-method get_filename
+  (of-object "GtkFileSelection")
+  (c-name "gtk_file_selection_get_filename")
+  (return-type "const-gchar*")
+)
+
+(define-method complete
+  (of-object "GtkFileSelection")
+  (c-name "gtk_file_selection_complete")
+  (return-type "none")
+  (parameters
+    '("const-gchar*" "pattern")
+  )
+)
+
+(define-method show_fileop_buttons
+  (of-object "GtkFileSelection")
+  (c-name "gtk_file_selection_show_fileop_buttons")
+  (return-type "none")
+)
+
+(define-method hide_fileop_buttons
+  (of-object "GtkFileSelection")
+  (c-name "gtk_file_selection_hide_fileop_buttons")
+  (return-type "none")
+)
+
+(define-method get_selections
+  (of-object "GtkFileSelection")
+  (c-name "gtk_file_selection_get_selections")
+  (return-type "gchar**")
+)
+
+(define-method set_select_multiple
+  (of-object "GtkFileSelection")
+  (c-name "gtk_file_selection_set_select_multiple")
+  (return-type "none")
+  (parameters
+    '("gboolean" "select_multiple")
+  )
+)
+
+(define-method get_select_multiple
+  (of-object "GtkFileSelection")
+  (c-name "gtk_file_selection_get_select_multiple")
+  (return-type "gboolean")
+)
+

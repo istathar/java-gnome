@@ -1,0 +1,12 @@
+(define-enum RecentSortType
+  (in-module "Gtk")
+  (c-name "GtkRecentSortType")
+  (gtype-id "GTK_TYPE_RECENT_SORT_TYPE")
+  (values
+    '("none" "GTK_RECENT_SORT_NONE")
+    '("mru" "GTK_RECENT_SORT_MRU")
+    '("lru" "GTK_RECENT_SORT_LRU")
+    '("custom" "GTK_RECENT_SORT_CUSTOM")
+  )
+)
+

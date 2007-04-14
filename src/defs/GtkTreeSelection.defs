@@ -1,0 +1,171 @@
+(define-object TreeSelection
+  (in-module "Gtk")
+  (parent "GObject")
+  (c-name "GtkTreeSelection")
+  (gtype-id "GTK_TYPE_TREE_SELECTION")
+)
+
+(define-method set_mode
+  (of-object "GtkTreeSelection")
+  (c-name "gtk_tree_selection_set_mode")
+  (return-type "none")
+  (parameters
+    '("GtkSelectionMode" "type")
+  )
+)
+
+(define-method get_mode
+  (of-object "GtkTreeSelection")
+  (c-name "gtk_tree_selection_get_mode")
+  (return-type "GtkSelectionMode")
+)
+
+(define-method set_select_function
+  (of-object "GtkTreeSelection")
+  (c-name "gtk_tree_selection_set_select_function")
+  (return-type "none")
+  (parameters
+    '("GtkTreeSelectionFunc" "func")
+    '("gpointer" "data")
+    '("GtkDestroyNotify" "destroy")
+  )
+)
+
+(define-method get_user_data
+  (of-object "GtkTreeSelection")
+  (c-name "gtk_tree_selection_get_user_data")
+  (return-type "gpointer")
+)
+
+(define-method get_tree_view
+  (of-object "GtkTreeSelection")
+  (c-name "gtk_tree_selection_get_tree_view")
+  (return-type "GtkTreeView*")
+)
+
+(define-method get_selected
+  (of-object "GtkTreeSelection")
+  (c-name "gtk_tree_selection_get_selected")
+  (return-type "gboolean")
+  (parameters
+    '("GtkTreeModel**" "model")
+    '("GtkTreeIter*" "iter")
+  )
+)
+
+(define-method get_selected_rows
+  (of-object "GtkTreeSelection")
+  (c-name "gtk_tree_selection_get_selected_rows")
+  (return-type "GList*")
+  (parameters
+    '("GtkTreeModel**" "model")
+  )
+)
+
+(define-method count_selected_rows
+  (of-object "GtkTreeSelection")
+  (c-name "gtk_tree_selection_count_selected_rows")
+  (return-type "gint")
+)
+
+(define-method selected_foreach
+  (of-object "GtkTreeSelection")
+  (c-name "gtk_tree_selection_selected_foreach")
+  (return-type "none")
+  (parameters
+    '("GtkTreeSelectionForeachFunc" "func")
+    '("gpointer" "data")
+  )
+)
+
+(define-method select_path
+  (of-object "GtkTreeSelection")
+  (c-name "gtk_tree_selection_select_path")
+  (return-type "none")
+  (parameters
+    '("GtkTreePath*" "path")
+  )
+)
+
+(define-method unselect_path
+  (of-object "GtkTreeSelection")
+  (c-name "gtk_tree_selection_unselect_path")
+  (return-type "none")
+  (parameters
+    '("GtkTreePath*" "path")
+  )
+)
+
+(define-method select_iter
+  (of-object "GtkTreeSelection")
+  (c-name "gtk_tree_selection_select_iter")
+  (return-type "none")
+  (parameters
+    '("GtkTreeIter*" "iter")
+  )
+)
+
+(define-method unselect_iter
+  (of-object "GtkTreeSelection")
+  (c-name "gtk_tree_selection_unselect_iter")
+  (return-type "none")
+  (parameters
+    '("GtkTreeIter*" "iter")
+  )
+)
+
+(define-method path_is_selected
+  (of-object "GtkTreeSelection")
+  (c-name "gtk_tree_selection_path_is_selected")
+  (return-type "gboolean")
+  (parameters
+    '("GtkTreePath*" "path")
+  )
+)
+
+(define-method iter_is_selected
+  (of-object "GtkTreeSelection")
+  (c-name "gtk_tree_selection_iter_is_selected")
+  (return-type "gboolean")
+  (parameters
+    '("GtkTreeIter*" "iter")
+  )
+)
+
+(define-method select_all
+  (of-object "GtkTreeSelection")
+  (c-name "gtk_tree_selection_select_all")
+  (return-type "none")
+)
+
+(define-method unselect_all
+  (of-object "GtkTreeSelection")
+  (c-name "gtk_tree_selection_unselect_all")
+  (return-type "none")
+)
+
+(define-method select_range
+  (of-object "GtkTreeSelection")
+  (c-name "gtk_tree_selection_select_range")
+  (return-type "none")
+  (parameters
+    '("GtkTreePath*" "start_path")
+    '("GtkTreePath*" "end_path")
+  )
+)
+
+(define-method unselect_range
+  (of-object "GtkTreeSelection")
+  (c-name "gtk_tree_selection_unselect_range")
+  (return-type "none")
+  (parameters
+    '("GtkTreePath*" "start_path")
+    '("GtkTreePath*" "end_path")
+  )
+)
+
+(define-virtual changed
+  (of-object "GtkTreeSelection")
+  (return-type "none")
+)
+

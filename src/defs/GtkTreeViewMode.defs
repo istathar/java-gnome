@@ -1,0 +1,10 @@
+(define-enum TreeViewMode
+  (in-module "Gtk")
+  (c-name "GtkTreeViewMode")
+  (gtype-id "GTK_TYPE_TREE_VIEW_MODE")
+  (values
+    '("line" "GTK_TREE_VIEW_LINE")
+    '("item" "GTK_TREE_VIEW_ITEM")
+  )
+)
+

@@ -1,0 +1,10 @@
+(define-enum FillRule
+  (in-module "Gdk")
+  (c-name "GdkFillRule")
+  (gtype-id "GDK_TYPE_FILL_RULE")
+  (values
+    '("even-odd-rule" "GDK_EVEN_ODD_RULE")
+    '("winding-rule" "GDK_WINDING_RULE")
+  )
+)
+

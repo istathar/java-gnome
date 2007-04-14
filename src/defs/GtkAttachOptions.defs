@@ -1,0 +1,11 @@
+(define-flags AttachOptions
+  (in-module "Gtk")
+  (c-name "GtkAttachOptions")
+  (gtype-id "GTK_TYPE_ATTACH_OPTIONS")
+  (values
+    '("expand" "GTK_EXPAND")
+    '("shrink" "GTK_SHRINK")
+    '("fill" "GTK_FILL")
+  )
+)
+

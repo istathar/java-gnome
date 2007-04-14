@@ -1,0 +1,7 @@
+(define-object PixmapObject
+  (in-module "Gdk")
+  (parent "GdkDrawable")
+  (c-name "GdkPixmapObject")
+  (gtype-id "GDK_TYPE_PIXMAP_OBJECT")
+)
+

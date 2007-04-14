@@ -1,0 +1,11 @@
+(define-enum PrintDuplex
+  (in-module "Gtk")
+  (c-name "GtkPrintDuplex")
+  (gtype-id "GTK_TYPE_PRINT_DUPLEX")
+  (values
+    '("simplex" "GTK_PRINT_DUPLEX_SIMPLEX")
+    '("horizontal" "GTK_PRINT_DUPLEX_HORIZONTAL")
+    '("vertical" "GTK_PRINT_DUPLEX_VERTICAL")
+  )
+)
+

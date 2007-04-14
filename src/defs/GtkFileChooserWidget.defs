@@ -1,0 +1,18 @@
+(define-object FileChooserWidget
+  (in-module "Gtk")
+  (parent "GtkVBox")
+  (implements "GtkFileChooser")
+  (c-name "GtkFileChooserWidget")
+  (gtype-id "GTK_TYPE_FILE_CHOOSER_WIDGET")
+)
+
+(define-function gtk_file_chooser_widget_new
+  (is-constructor-of "GtkFileChooserWidget")
+  (c-name "gtk_file_chooser_widget_new")
+  (caller-owns-return #t)
+  (return-type "GtkWidget*")
+  (parameters
+    '("GtkFileChooserAction" "action")
+  )
+)
+

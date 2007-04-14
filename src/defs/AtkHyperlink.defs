@@ -1,0 +1,114 @@
+(define-object Hyperlink
+  (in-module "Atk")
+  (parent "GObject")
+  (c-name "AtkHyperlink")
+  (gtype-id "ATK_TYPE_HYPERLINK")
+)
+
+(define-method get_uri
+  (of-object "AtkHyperlink")
+  (c-name "atk_hyperlink_get_uri")
+  (caller-owns-return #t)
+  (return-type "gchar*")
+  (parameters
+    '("gint" "i")
+  )
+)
+
+(define-method get_object
+  (of-object "AtkHyperlink")
+  (c-name "atk_hyperlink_get_object")
+  (return-type "AtkObject*")
+  (parameters
+    '("gint" "i")
+  )
+)
+
+(define-method get_end_index
+  (of-object "AtkHyperlink")
+  (c-name "atk_hyperlink_get_end_index")
+  (return-type "gint")
+)
+
+(define-method get_start_index
+  (of-object "AtkHyperlink")
+  (c-name "atk_hyperlink_get_start_index")
+  (return-type "gint")
+)
+
+(define-method is_valid
+  (of-object "AtkHyperlink")
+  (c-name "atk_hyperlink_is_valid")
+  (return-type "gboolean")
+)
+
+(define-method get_n_anchors
+  (of-object "AtkHyperlink")
+  (c-name "atk_hyperlink_get_n_anchors")
+  (return-type "gint")
+)
+
+(define-method is_inline
+  (of-object "AtkHyperlink")
+  (c-name "atk_hyperlink_is_inline")
+  (return-type "gboolean")
+)
+
+(define-method is_selected_link
+  (of-object "AtkHyperlink")
+  (c-name "atk_hyperlink_is_selected_link")
+  (return-type "gboolean")
+)
+
+(define-virtual get_uri
+  (of-object "AtkHyperlink")
+  (caller-owns-return #t)
+  (return-type "gchar*")
+  (parameters
+    '("gint" "i")
+  )
+)
+
+(define-virtual get_object
+  (of-object "AtkHyperlink")
+  (return-type "AtkObject*")
+  (parameters
+    '("gint" "i")
+  )
+)
+
+(define-virtual get_end_index
+  (of-object "AtkHyperlink")
+  (return-type "gint")
+)
+
+(define-virtual get_start_index
+  (of-object "AtkHyperlink")
+  (return-type "gint")
+)
+
+(define-virtual is_valid
+  (of-object "AtkHyperlink")
+  (return-type "gboolean")
+)
+
+(define-virtual get_n_anchors
+  (of-object "AtkHyperlink")
+  (return-type "gint")
+)
+
+(define-virtual link_state
+  (of-object "AtkHyperlink")
+  (return-type "guint")
+)
+
+(define-virtual is_selected_link
+  (of-object "AtkHyperlink")
+  (return-type "gboolean")
+)
+
+(define-virtual link_activated
+  (of-object "AtkHyperlink")
+  (return-type "none")
+)
+

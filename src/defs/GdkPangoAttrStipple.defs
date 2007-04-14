@@ -1,0 +1,10 @@
+(define-function pango_attr_stipple_new
+  (is-constructor-of "GdkPangoAttrStipple")
+  (c-name "gdk_pango_attr_stipple_new")
+  (caller-owns-return #t)
+  (return-type "PangoAttribute*")
+  (parameters
+    '("GdkBitmap*" "stipple")
+  )
+)
+

@@ -1,0 +1,48 @@
+(define-object FontFace
+  (in-module "Pango")
+  (parent "GObject")
+  (c-name "PangoFontFace")
+  (gtype-id "PANGO_TYPE_FONT_FACE")
+)
+
+(define-method describe
+  (of-object "PangoFontFace")
+  (c-name "pango_font_face_describe")
+  (return-type "PangoFontDescription*")
+)
+
+(define-method get_face_name
+  (of-object "PangoFontFace")
+  (c-name "pango_font_face_get_face_name")
+  (return-type "const-char*")
+)
+
+(define-method list_sizes
+  (of-object "PangoFontFace")
+  (c-name "pango_font_face_list_sizes")
+  (return-type "none")
+  (parameters
+    '("int**" "sizes")
+    '("int*" "n_sizes")
+  )
+)
+
+(define-virtual get_face_name
+  (of-object "PangoFontFace")
+  (return-type "const-char*")
+)
+
+(define-virtual describe
+  (of-object "PangoFontFace")
+  (return-type "PangoFontDescription*")
+)
+
+(define-virtual list_sizes
+  (of-object "PangoFontFace")
+  (return-type "none")
+  (parameters
+    '("int**" "sizes")
+    '("int*" "n_sizes")
+  )
+)
+

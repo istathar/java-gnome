@@ -1,0 +1,171 @@
+(define-boxed RecentInfo
+  (in-module "Gtk")
+  (c-name "GtkRecentInfo")
+  (gtype-id "GTK_TYPE_RECENT_INFO")
+)
+
+(define-method ref
+  (of-object "GtkRecentInfo")
+  (c-name "gtk_recent_info_ref")
+  (return-type "GtkRecentInfo*")
+)
+
+(define-method unref
+  (of-object "GtkRecentInfo")
+  (c-name "gtk_recent_info_unref")
+  (return-type "none")
+)
+
+(define-method get_uri
+  (of-object "GtkRecentInfo")
+  (c-name "gtk_recent_info_get_uri")
+  (return-type "const-gchar*")
+)
+
+(define-method get_display_name
+  (of-object "GtkRecentInfo")
+  (c-name "gtk_recent_info_get_display_name")
+  (return-type "const-gchar*")
+)
+
+(define-method get_description
+  (of-object "GtkRecentInfo")
+  (c-name "gtk_recent_info_get_description")
+  (return-type "const-gchar*")
+)
+
+(define-method get_mime_type
+  (of-object "GtkRecentInfo")
+  (c-name "gtk_recent_info_get_mime_type")
+  (return-type "const-gchar*")
+)
+
+(define-method get_added
+  (of-object "GtkRecentInfo")
+  (c-name "gtk_recent_info_get_added")
+  (return-type "time_t")
+)
+
+(define-method get_modified
+  (of-object "GtkRecentInfo")
+  (c-name "gtk_recent_info_get_modified")
+  (return-type "time_t")
+)
+
+(define-method get_visited
+  (of-object "GtkRecentInfo")
+  (c-name "gtk_recent_info_get_visited")
+  (return-type "time_t")
+)
+
+(define-method get_private_hint
+  (of-object "GtkRecentInfo")
+  (c-name "gtk_recent_info_get_private_hint")
+  (return-type "gboolean")
+)
+
+(define-method get_application_info
+  (of-object "GtkRecentInfo")
+  (c-name "gtk_recent_info_get_application_info")
+  (return-type "gboolean")
+  (parameters
+    '("const-gchar*" "app_name")
+    '("gchar**" "app_exec")
+    '("guint*" "count")
+    '("time_t*" "time_")
+  )
+)
+
+(define-method get_applications
+  (of-object "GtkRecentInfo")
+  (c-name "gtk_recent_info_get_applications")
+  (return-type "gchar**")
+  (parameters
+    '("gsize*" "length")
+  )
+)
+
+(define-method last_application
+  (of-object "GtkRecentInfo")
+  (c-name "gtk_recent_info_last_application")
+  (caller-owns-return #t)
+  (return-type "gchar*")
+)
+
+(define-method has_application
+  (of-object "GtkRecentInfo")
+  (c-name "gtk_recent_info_has_application")
+  (return-type "gboolean")
+  (parameters
+    '("const-gchar*" "app_name")
+  )
+)
+
+(define-method get_groups
+  (of-object "GtkRecentInfo")
+  (c-name "gtk_recent_info_get_groups")
+  (return-type "gchar**")
+  (parameters
+    '("gsize*" "length")
+  )
+)
+
+(define-method has_group
+  (of-object "GtkRecentInfo")
+  (c-name "gtk_recent_info_has_group")
+  (return-type "gboolean")
+  (parameters
+    '("const-gchar*" "group_name")
+  )
+)
+
+(define-method get_icon
+  (of-object "GtkRecentInfo")
+  (c-name "gtk_recent_info_get_icon")
+  (return-type "GdkPixbuf*")
+  (parameters
+    '("gint" "size")
+  )
+)
+
+(define-method get_short_name
+  (of-object "GtkRecentInfo")
+  (c-name "gtk_recent_info_get_short_name")
+  (caller-owns-return #t)
+  (return-type "gchar*")
+)
+
+(define-method get_uri_display
+  (of-object "GtkRecentInfo")
+  (c-name "gtk_recent_info_get_uri_display")
+  (caller-owns-return #t)
+  (return-type "gchar*")
+)
+
+(define-method get_age
+  (of-object "GtkRecentInfo")
+  (c-name "gtk_recent_info_get_age")
+  (return-type "gint")
+)
+
+(define-method is_local
+  (of-object "GtkRecentInfo")
+  (c-name "gtk_recent_info_is_local")
+  (return-type "gboolean")
+)
+
+(define-method exists
+  (of-object "GtkRecentInfo")
+  (c-name "gtk_recent_info_exists")
+  (return-type "gboolean")
+)
+
+(define-method match
+  (of-object "GtkRecentInfo")
+  (c-name "gtk_recent_info_match")
+  (return-type "gboolean")
+  (parameters
+    '("GtkRecentInfo*" "info_b")
+  )
+)
+

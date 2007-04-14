@@ -1,0 +1,64 @@
+(define-object CellView
+  (in-module "Gtk")
+  (parent "GtkWidget")
+  (implements "GtkCellLayout")
+  (c-name "GtkCellView")
+  (gtype-id "GTK_TYPE_CELL_VIEW")
+)
+
+(define-function gtk_cell_view_new
+  (is-constructor-of "GtkCellView")
+  (c-name "gtk_cell_view_new")
+  (caller-owns-return #t)
+  (return-type "GtkWidget*")
+)
+
+(define-method set_model
+  (of-object "GtkCellView")
+  (c-name "gtk_cell_view_set_model")
+  (return-type "none")
+  (parameters
+    '("GtkTreeModel*" "model" (null-ok))
+  )
+)
+
+(define-method set_displayed_row
+  (of-object "GtkCellView")
+  (c-name "gtk_cell_view_set_displayed_row")
+  (return-type "none")
+  (parameters
+    '("GtkTreePath*" "path" (null-ok))
+  )
+)
+
+(define-method get_displayed_row
+  (of-object "GtkCellView")
+  (c-name "gtk_cell_view_get_displayed_row")
+  (return-type "GtkTreePath*")
+)
+
+(define-method get_size_of_row
+  (of-object "GtkCellView")
+  (c-name "gtk_cell_view_get_size_of_row")
+  (return-type "gboolean")
+  (parameters
+    '("GtkTreePath*" "path")
+    '("GtkRequisition*" "requisition")
+  )
+)
+
+(define-method set_background_color
+  (of-object "GtkCellView")
+  (c-name "gtk_cell_view_set_background_color")
+  (return-type "none")
+  (parameters
+    '("const-GdkColor*" "color")
+  )
+)
+
+(define-method get_cell_renderers
+  (of-object "GtkCellView")
+  (c-name "gtk_cell_view_get_cell_renderers")
+  (return-type "GList*")
+)
+

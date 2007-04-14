@@ -1,0 +1,6 @@
+(define-method ref_accessible
+  (of-object "AtkImplementorIface")
+  (c-name "atk_implementor_ref_accessible")
+  (return-type "AtkObject*")
+)
+

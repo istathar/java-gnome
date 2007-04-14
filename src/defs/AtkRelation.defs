@@ -1,0 +1,31 @@
+(define-object Relation
+  (in-module "Atk")
+  (parent "GObject")
+  (c-name "AtkRelation")
+  (gtype-id "ATK_TYPE_RELATION")
+)
+
+(define-function relation_new
+  (is-constructor-of "AtkRelation")
+  (c-name "atk_relation_new")
+  (caller-owns-return #t)
+  (return-type "AtkRelation*")
+  (parameters
+    '("AtkObject**" "targets")
+    '("gint" "n_targets")
+    '("AtkRelationType" "relationship")
+  )
+)
+
+(define-method get_relation_type
+  (of-object "AtkRelation")
+  (c-name "atk_relation_get_relation_type")
+  (return-type "AtkRelationType")
+)
+
+(define-method get_target
+  (of-object "AtkRelation")
+  (c-name "atk_relation_get_target")
+  (return-type "GPtrArray*")
+)
+

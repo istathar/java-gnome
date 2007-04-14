@@ -1,0 +1,10 @@
+(define-enum Variant
+  (in-module "Pango")
+  (c-name "PangoVariant")
+  (gtype-id "PANGO_TYPE_VARIANT")
+  (values
+    '("normal" "PANGO_VARIANT_NORMAL")
+    '("small-caps" "PANGO_VARIANT_SMALL_CAPS")
+  )
+)
+

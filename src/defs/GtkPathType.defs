@@ -1,0 +1,11 @@
+(define-enum PathType
+  (in-module "Gtk")
+  (c-name "GtkPathType")
+  (gtype-id "GTK_TYPE_PATH_TYPE")
+  (values
+    '("widget" "GTK_PATH_WIDGET")
+    '("widget-class" "GTK_PATH_WIDGET_CLASS")
+    '("class" "GTK_PATH_CLASS")
+  )
+)
+

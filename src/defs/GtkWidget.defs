@@ -1,0 +1,1805 @@
+(define-object Widget
+  (in-module "Gtk")
+  (parent "GtkObject")
+  (c-name "GtkWidget")
+  (gtype-id "GTK_TYPE_WIDGET")
+  (fields
+    '("guint8" "state")
+    '("guint8" "saved_state")
+    '("gchar*" "name")
+    '("GtkStyle*" "style")
+    '("GdkRectangle" "allocation")
+    '("GdkWindow*" "window")
+    '("GtkWidget*" "parent")
+  )
+)
+
+(define-method get_allocation
+  (of-object "GtkWidget")
+  (c-name "gtk_widget_get_allocation")
+  (return-type "GtkAllocation")
+)
+
+(define-method drag_check_threshold
+  (of-object "GtkWidget")
+  (c-name "gtk_drag_check_threshold")
+  (return-type "gboolean")
+  (parameters
+    '("gint" "start_x")
+    '("gint" "start_y")
+    '("gint" "current_x")
+    '("gint" "current_y")
+  )
+)
+
+(define-method drag_get_data
+  (of-object "GtkWidget")
+  (c-name "gtk_drag_get_data")
+  (return-type "none")
+  (parameters
+    '("GdkDragContext*" "context")
+    '("GdkAtom" "target")
+    '("guint32" "time" (default "GDK_CURRENT_TIME"))
+  )
+)
+
+(define-method drag_highlight
+  (of-object "GtkWidget")
+  (c-name "gtk_drag_highlight")
+  (return-type "none")
+)
+
+(define-method drag_unhighlight
+  (of-object "GtkWidget")
+  (c-name "gtk_drag_unhighlight")
+  (return-type "none")
+)
+
+(define-method drag_dest_set
+  (of-object "GtkWidget")
+  (c-name "gtk_drag_dest_set")
+  (return-type "none")
+  (parameters
+    '("GtkDestDefaults" "flags")
+    '("const-GtkTargetEntry*" "targets")
+    '("gint" "n_targets")
+    '("GdkDragAction" "actions")
+  )
+)
+
+(define-method drag_dest_set_proxy
+  (of-object "GtkWidget")
+  (c-name "gtk_drag_dest_set_proxy")
+  (return-type "none")
+  (parameters
+    '("GdkWindow*" "proxy_window")
+    '("GdkDragProtocol" "protocol")
+    '("gboolean" "use_coordinates")
+  )
+)
+
+(define-method drag_dest_unset
+  (of-object "GtkWidget")
+  (c-name "gtk_drag_dest_unset")
+  (return-type "none")
+)
+
+(define-method drag_dest_find_target
+  (of-object "GtkWidget")
+  (c-name "gtk_drag_dest_find_target")
+  (return-type "GdkAtom")
+  (parameters
+    '("GdkDragContext*" "context")
+    '("GtkTargetList*" "target_list")
+  )
+)
+
+(define-method drag_dest_get_target_list
+  (of-object "GtkWidget")
+  (c-name "gtk_drag_dest_get_target_list")
+  (return-type "GtkTargetList*")
+)
+
+(define-method drag_dest_set_target_list
+  (of-object "GtkWidget")
+  (c-name "gtk_drag_dest_set_target_list")
+  (return-type "none")
+  (parameters
+    '("GtkTargetList*" "target_list")
+  )
+)
+
+(define-method drag_source_set
+  (of-object "GtkWidget")
+  (c-name "gtk_drag_source_set")
+  (return-type "none")
+  (parameters
+    '("GdkModifierType" "start_button_mask")
+    '("const-GtkTargetEntry*" "targets")
+    '("gint" "n_targets")
+    '("GdkDragAction" "actions")
+  )
+)
+
+(define-method drag_source_unset
+  (of-object "GtkWidget")
+  (c-name "gtk_drag_source_unset")
+  (return-type "none")
+)
+
+(define-method drag_source_set_icon
+  (of-object "GtkWidget")
+  (c-name "gtk_drag_source_set_icon")
+  (return-type "none")
+  (parameters
+    '("GdkColormap*" "colormap")
+    '("GdkPixmap*" "pixmap")
+    '("GdkBitmap*" "mask" (default "NULL") (null-ok))
+  )
+)
+
+(define-method drag_source_set_icon_pixbuf
+  (of-object "GtkWidget")
+  (c-name "gtk_drag_source_set_icon_pixbuf")
+  (return-type "none")
+  (parameters
+    '("GdkPixbuf*" "pixbuf")
+  )
+)
+
+(define-method drag_source_set_icon_stock
+  (of-object "GtkWidget")
+  (c-name "gtk_drag_source_set_icon_stock")
+  (return-type "none")
+  (parameters
+    '("const-gchar*" "stock_id")
+  )
+)
+
+(define-method drag_source_set_icon_name
+  (of-object "GtkWidget")
+  (c-name "gtk_drag_source_set_icon_name")
+  (return-type "none")
+  (parameters
+    '("const-gchar*" "icon_name")
+  )
+)
+
+(define-method drag_source_get_target_list
+  (of-object "GtkWidget")
+  (c-name "gtk_drag_source_get_target_list")
+  (return-type "GtkTargetList*")
+)
+
+(define-method drag_source_set_target_list
+  (of-object "GtkWidget")
+  (c-name "gtk_drag_source_set_target_list")
+  (return-type "none")
+  (parameters
+    '("GtkTargetList*" "target_list")
+  )
+)
+
+(define-method drag_begin
+  (of-object "GtkWidget")
+  (c-name "gtk_drag_begin")
+  (return-type "GdkDragContext*")
+  (parameters
+    '("GtkTargetList*" "targets")
+    '("GdkDragAction" "actions")
+    '("gint" "button")
+    '("GdkEvent*" "event")
+  )
+)
+
+(define-method drag_dest_add_text_targets
+  (of-object "GtkWidget")
+  (c-name "gtk_drag_dest_add_text_targets")
+  (return-type "none")
+)
+
+(define-method drag_dest_add_image_targets
+  (of-object "GtkWidget")
+  (c-name "gtk_drag_dest_add_image_targets")
+  (return-type "none")
+)
+
+(define-method drag_dest_add_uri_targets
+  (of-object "GtkWidget")
+  (c-name "gtk_drag_dest_add_uri_targets")
+  (return-type "none")
+)
+
+(define-method drag_source_add_text_targets
+  (of-object "GtkWidget")
+  (c-name "gtk_drag_source_add_text_targets")
+  (return-type "none")
+)
+
+(define-method drag_source_add_image_targets
+  (of-object "GtkWidget")
+  (c-name "gtk_drag_source_add_image_targets")
+  (return-type "none")
+)
+
+(define-method drag_source_add_uri_targets
+  (of-object "GtkWidget")
+  (c-name "gtk_drag_source_add_uri_targets")
+  (return-type "none")
+)
+
+(define-method grab_add
+  (of-object "GtkWidget")
+  (c-name "gtk_grab_add")
+  (return-type "none")
+)
+
+(define-method grab_remove
+  (of-object "GtkWidget")
+  (c-name "gtk_grab_remove")
+  (return-type "none")
+)
+
+(define-method propagate_event
+  (of-object "GtkWidget")
+  (c-name "gtk_propagate_event")
+  (return-type "none")
+  (parameters
+    '("GdkEvent*" "event")
+  )
+)
+
+(define-method menu_get_for_attach_widget
+  (of-object "GtkWidget")
+  (c-name "gtk_menu_get_for_attach_widget")
+  (return-type "GList*")
+)
+
+(define-method rc_get_style
+  (of-object "GtkWidget")
+  (c-name "gtk_rc_get_style")
+  (return-type "GtkStyle*")
+)
+
+(define-method selection_owner_set
+  (of-object "GtkWidget")
+  (c-name "gtk_selection_owner_set")
+  (return-type "gboolean")
+  (parameters
+    '("GdkAtom" "selection")
+    '("guint32" "time" (default "GDK_CURRENT_TIME"))
+  )
+)
+
+(define-method selection_add_target
+  (of-object "GtkWidget")
+  (c-name "gtk_selection_add_target")
+  (return-type "none")
+  (parameters
+    '("GdkAtom" "selection")
+    '("GdkAtom" "target")
+    '("guint" "info")
+  )
+)
+
+(define-method selection_add_targets
+  (of-object "GtkWidget")
+  (c-name "gtk_selection_add_targets")
+  (return-type "none")
+  (parameters
+    '("GdkAtom" "selection")
+    '("const-GtkTargetEntry*" "targets")
+    '("guint" "ntargets")
+  )
+)
+
+(define-method selection_clear_targets
+  (of-object "GtkWidget")
+  (c-name "gtk_selection_clear_targets")
+  (return-type "none")
+  (parameters
+    '("GdkAtom" "selection")
+  )
+)
+
+(define-method selection_convert
+  (of-object "GtkWidget")
+  (c-name "gtk_selection_convert")
+  (return-type "gboolean")
+  (parameters
+    '("GdkAtom" "selection")
+    '("GdkAtom" "target")
+    '("guint32" "time" (default "GDK_CURRENT_TIME"))
+  )
+)
+
+(define-method selection_remove_all
+  (of-object "GtkWidget")
+  (c-name "gtk_selection_remove_all")
+  (return-type "none")
+)
+
+(define-method selection_clear
+  (of-object "GtkWidget")
+  (c-name "gtk_selection_clear")
+  (return-type "gboolean")
+  (parameters
+    '("GdkEventSelection*" "event")
+  )
+)
+
+(define-function gtk_widget_new
+  (is-constructor-of "GtkWidget")
+  (c-name "gtk_widget_new")
+  (caller-owns-return #t)
+  (return-type "GtkWidget*")
+  (parameters
+    '("GType" "type")
+    '("const-gchar*" "first_property_name")
+  )
+  (varargs #t)
+)
+
+(define-method ref
+  (of-object "GtkWidget")
+  (c-name "gtk_widget_ref")
+  (return-type "GtkWidget*")
+)
+
+(define-method unref
+  (of-object "GtkWidget")
+  (c-name "gtk_widget_unref")
+  (return-type "none")
+)
+
+(define-method destroy
+  (of-object "GtkWidget")
+  (c-name "gtk_widget_destroy")
+  (return-type "none")
+)
+
+(define-method destroyed
+  (of-object "GtkWidget")
+  (c-name "gtk_widget_destroyed")
+  (return-type "none")
+  (parameters
+    '("GtkWidget**" "widget_pointer")
+  )
+)
+
+(define-method set
+  (of-object "GtkWidget")
+  (c-name "gtk_widget_set")
+  (return-type "none")
+  (parameters
+    '("const-gchar*" "first_property_name")
+  )
+  (varargs #t)
+)
+
+(define-method unparent
+  (of-object "GtkWidget")
+  (c-name "gtk_widget_unparent")
+  (return-type "none")
+)
+
+(define-method show
+  (of-object "GtkWidget")
+  (c-name "gtk_widget_show")
+  (return-type "none")
+)
+
+(define-method show_now
+  (of-object "GtkWidget")
+  (c-name "gtk_widget_show_now")
+  (return-type "none")
+)
+
+(define-method hide
+  (of-object "GtkWidget")
+  (c-name "gtk_widget_hide")
+  (return-type "none")
+)
+
+(define-method show_all
+  (of-object "GtkWidget")
+  (c-name "gtk_widget_show_all")
+  (return-type "none")
+)
+
+(define-method hide_all
+  (of-object "GtkWidget")
+  (c-name "gtk_widget_hide_all")
+  (return-type "none")
+)
+
+(define-method set_no_show_all
+  (of-object "GtkWidget")
+  (c-name "gtk_widget_set_no_show_all")
+  (return-type "none")
+  (parameters
+    '("gboolean" "no_show_all")
+  )
+)
+
+(define-method get_no_show_all
+  (of-object "GtkWidget")
+  (c-name "gtk_widget_get_no_show_all")
+  (return-type "gboolean")
+)
+
+(define-method map
+  (of-object "GtkWidget")
+  (c-name "gtk_widget_map")
+  (return-type "none")
+)
+
+(define-method unmap
+  (of-object "GtkWidget")
+  (c-name "gtk_widget_unmap")
+  (return-type "none")
+)
+
+(define-method realize
+  (of-object "GtkWidget")
+  (c-name "gtk_widget_realize")
+  (return-type "none")
+)
+
+(define-method unrealize
+  (of-object "GtkWidget")
+  (c-name "gtk_widget_unrealize")
+  (return-type "none")
+)
+
+(define-method queue_draw
+  (of-object "GtkWidget")
+  (c-name "gtk_widget_queue_draw")
+  (return-type "none")
+)
+
+(define-method queue_draw_area
+  (of-object "GtkWidget")
+  (c-name "gtk_widget_queue_draw_area")
+  (return-type "none")
+  (parameters
+    '("gint" "x")
+    '("gint" "y")
+    '("gint" "width")
+    '("gint" "height")
+  )
+)
+
+(define-method queue_clear
+  (of-object "GtkWidget")
+  (c-name "gtk_widget_queue_clear")
+  (return-type "none")
+  (deprecated "use GtkWidget.queue_draw")
+)
+
+(define-method queue_clear_area
+  (of-object "GtkWidget")
+  (c-name "gtk_widget_queue_clear_area")
+  (return-type "none")
+  (deprecated "use GtkWidget.queue_draw_area")
+  (parameters
+    '("gint" "x")
+    '("gint" "y")
+    '("gint" "width")
+    '("gint" "height")
+  )
+)
+
+(define-method queue_resize
+  (of-object "GtkWidget")
+  (c-name "gtk_widget_queue_resize")
+  (return-type "none")
+)
+
+(define-method queue_resize_no_redraw
+  (of-object "GtkWidget")
+  (c-name "gtk_widget_queue_resize_no_redraw")
+  (return-type "none")
+)
+
+(define-method draw
+  (of-object "GtkWidget")
+  (c-name "gtk_widget_draw")
+  (return-type "none")
+  (deprecated "use GtkWidget.queue_draw_area")
+  (parameters
+    '("GdkRectangle*" "area")
+  )
+)
+
+(define-method size_request
+  (of-object "GtkWidget")
+  (c-name "gtk_widget_size_request")
+  (return-type "none")
+  (parameters
+    '("GtkRequisition*" "requisition")
+  )
+)
+
+(define-method size_allocate
+  (of-object "GtkWidget")
+  (c-name "gtk_widget_size_allocate")
+  (return-type "none")
+  (parameters
+    '("GtkAllocation*" "allocation")
+  )
+)
+
+(define-method get_child_requisition
+  (of-object "GtkWidget")
+  (c-name "gtk_widget_get_child_requisition")
+  (return-type "none")
+  (parameters
+    '("GtkRequisition*" "requisition")
+  )
+)
+
+(define-method add_accelerator
+  (of-object "GtkWidget")
+  (c-name "gtk_widget_add_accelerator")
+  (return-type "none")
+  (parameters
+    '("const-gchar*" "accel_signal")
+    '("GtkAccelGroup*" "accel_group")
+    '("guint" "accel_key")
+    '("GdkModifierType" "accel_mods")
+    '("GtkAccelFlags" "accel_flags")
+  )
+)
+
+(define-method remove_accelerator
+  (of-object "GtkWidget")
+  (c-name "gtk_widget_remove_accelerator")
+  (return-type "gboolean")
+  (parameters
+    '("GtkAccelGroup*" "accel_group")
+    '("guint" "accel_key")
+    '("GdkModifierType" "accel_mods")
+  )
+)
+
+(define-method set_accel_path
+  (of-object "GtkWidget")
+  (c-name "gtk_widget_set_accel_path")
+  (return-type "none")
+  (parameters
+    '("const-gchar*" "accel_path")
+    '("GtkAccelGroup*" "accel_group")
+  )
+)
+
+(define-method list_accel_closures
+  (of-object "GtkWidget")
+  (c-name "gtk_widget_list_accel_closures")
+  (return-type "GList*")
+)
+
+(define-method can_activate_accel
+  (of-object "GtkWidget")
+  (c-name "gtk_widget_can_activate_accel")
+  (return-type "gboolean")
+  (parameters
+    '("guint" "signal_id")
+  )
+)
+
+(define-method mnemonic_activate
+  (of-object "GtkWidget")
+  (c-name "gtk_widget_mnemonic_activate")
+  (return-type "gboolean")
+  (parameters
+    '("gboolean" "group_cycling")
+  )
+)
+
+(define-method event
+  (of-object "GtkWidget")
+  (c-name "gtk_widget_event")
+  (return-type "gboolean")
+  (parameters
+    '("GdkEvent*" "event")
+  )
+)
+
+(define-method send_expose
+  (of-object "GtkWidget")
+  (c-name "gtk_widget_send_expose")
+  (return-type "gint")
+  (parameters
+    '("GdkEvent*" "event")
+  )
+)
+
+(define-method activate
+  (of-object "GtkWidget")
+  (c-name "gtk_widget_activate")
+  (return-type "gboolean")
+)
+
+(define-method set_scroll_adjustments
+  (of-object "GtkWidget")
+  (c-name "gtk_widget_set_scroll_adjustments")
+  (return-type "gboolean")
+  (parameters
+    '("GtkAdjustment*" "hadjustment" (null-ok))
+    '("GtkAdjustment*" "vadjustment" (null-ok))
+  )
+)
+
+(define-method reparent
+  (of-object "GtkWidget")
+  (c-name "gtk_widget_reparent")
+  (return-type "none")
+  (parameters
+    '("GtkWidget*" "new_parent")
+  )
+)
+
+(define-method intersect
+  (of-object "GtkWidget")
+  (c-name "gtk_widget_intersect")
+  (return-type "gboolean")
+  (parameters
+    '("GdkRectangle*" "area")
+    '("GdkRectangle*" "intersection")
+  )
+)
+
+(define-method region_intersect
+  (of-object "GtkWidget")
+  (c-name "gtk_widget_region_intersect")
+  (caller-owns-return #t)
+  (return-type "GdkRegion*")
+  (parameters
+    '("GdkRegion*" "region")
+  )
+)
+
+(define-method freeze_child_notify
+  (of-object "GtkWidget")
+  (c-name "gtk_widget_freeze_child_notify")
+  (return-type "none")
+)
+
+(define-method child_notify
+  (of-object "GtkWidget")
+  (c-name "gtk_widget_child_notify")
+  (return-type "none")
+  (parameters
+    '("const-gchar*" "child_property")
+  )
+)
+
+(define-method thaw_child_notify
+  (of-object "GtkWidget")
+  (c-name "gtk_widget_thaw_child_notify")
+  (return-type "none")
+)
+
+(define-method is_focus
+  (of-object "GtkWidget")
+  (c-name "gtk_widget_is_focus")
+  (return-type "gboolean")
+)
+
+(define-method grab_focus
+  (of-object "GtkWidget")
+  (c-name "gtk_widget_grab_focus")
+  (return-type "none")
+)
+
+(define-method grab_default
+  (of-object "GtkWidget")
+  (c-name "gtk_widget_grab_default")
+  (return-type "none")
+)
+
+(define-method set_name
+  (of-object "GtkWidget")
+  (c-name "gtk_widget_set_name")
+  (return-type "none")
+  (parameters
+    '("const-gchar*" "name")
+  )
+)
+
+(define-method get_name
+  (of-object "GtkWidget")
+  (c-name "gtk_widget_get_name")
+  (return-type "const-gchar*")
+)
+
+(define-method set_state
+  (of-object "GtkWidget")
+  (c-name "gtk_widget_set_state")
+  (return-type "none")
+  (parameters
+    '("GtkStateType" "state")
+  )
+)
+
+(define-method set_sensitive
+  (of-object "GtkWidget")
+  (c-name "gtk_widget_set_sensitive")
+  (return-type "none")
+  (parameters
+    '("gboolean" "sensitive")
+  )
+)
+
+(define-method set_app_paintable
+  (of-object "GtkWidget")
+  (c-name "gtk_widget_set_app_paintable")
+  (return-type "none")
+  (parameters
+    '("gboolean" "app_paintable")
+  )
+)
+
+(define-method set_double_buffered
+  (of-object "GtkWidget")
+  (c-name "gtk_widget_set_double_buffered")
+  (return-type "none")
+  (parameters
+    '("gboolean" "double_buffered")
+  )
+)
+
+(define-method set_redraw_on_allocate
+  (of-object "GtkWidget")
+  (c-name "gtk_widget_set_redraw_on_allocate")
+  (return-type "none")
+  (parameters
+    '("gboolean" "redraw_on_allocate")
+  )
+)
+
+(define-method set_parent
+  (of-object "GtkWidget")
+  (c-name "gtk_widget_set_parent")
+  (return-type "none")
+  (parameters
+    '("GtkWidget*" "parent")
+  )
+)
+
+(define-method set_parent_window
+  (of-object "GtkWidget")
+  (c-name "gtk_widget_set_parent_window")
+  (return-type "none")
+  (parameters
+    '("GdkWindow*" "parent_window")
+  )
+)
+
+(define-method set_child_visible
+  (of-object "GtkWidget")
+  (c-name "gtk_widget_set_child_visible")
+  (return-type "none")
+  (parameters
+    '("gboolean" "is_visible")
+  )
+)
+
+(define-method get_child_visible
+  (of-object "GtkWidget")
+  (c-name "gtk_widget_get_child_visible")
+  (return-type "gboolean")
+)
+
+(define-method get_parent
+  (of-object "GtkWidget")
+  (c-name "gtk_widget_get_parent")
+  (return-type "GtkWidget*")
+)
+
+(define-method get_parent_window
+  (of-object "GtkWidget")
+  (c-name "gtk_widget_get_parent_window")
+  (return-type "GdkWindow*")
+)
+
+(define-method child_focus
+  (of-object "GtkWidget")
+  (c-name "gtk_widget_child_focus")
+  (return-type "gboolean")
+  (parameters
+    '("GtkDirectionType" "direction")
+  )
+)
+
+(define-method set_size_request
+  (of-object "GtkWidget")
+  (c-name "gtk_widget_set_size_request")
+  (return-type "none")
+  (parameters
+    '("gint" "width")
+    '("gint" "height")
+  )
+)
+
+(define-method get_size_request
+  (of-object "GtkWidget")
+  (c-name "gtk_widget_get_size_request")
+  (return-type "none")
+  (parameters
+    '("gint*" "width")
+    '("gint*" "height")
+  )
+)
+
+(define-method set_uposition
+  (of-object "GtkWidget")
+  (c-name "gtk_widget_set_uposition")
+  (return-type "none")
+  (parameters
+    '("gint" "x")
+    '("gint" "y")
+  )
+)
+
+(define-method set_usize
+  (of-object "GtkWidget")
+  (c-name "gtk_widget_set_usize")
+  (return-type "none")
+  (deprecated "use GtkWidget.set_size_request")
+  (parameters
+    '("gint" "width")
+    '("gint" "height")
+  )
+)
+
+(define-method set_events
+  (of-object "GtkWidget")
+  (c-name "gtk_widget_set_events")
+  (return-type "none")
+  (parameters
+    '("gint" "events")
+  )
+)
+
+(define-method add_events
+  (of-object "GtkWidget")
+  (c-name "gtk_widget_add_events")
+  (return-type "none")
+  (parameters
+    '("gint" "events")
+  )
+)
+
+(define-method set_extension_events
+  (of-object "GtkWidget")
+  (c-name "gtk_widget_set_extension_events")
+  (return-type "none")
+  (parameters
+    '("GdkExtensionMode" "mode")
+  )
+)
+
+(define-method get_extension_events
+  (of-object "GtkWidget")
+  (c-name "gtk_widget_get_extension_events")
+  (return-type "GdkExtensionMode")
+)
+
+(define-method get_toplevel
+  (of-object "GtkWidget")
+  (c-name "gtk_widget_get_toplevel")
+  (return-type "GtkWidget*")
+)
+
+(define-method get_ancestor
+  (of-object "GtkWidget")
+  (c-name "gtk_widget_get_ancestor")
+  (return-type "GtkWidget*")
+  (parameters
+    '("GType" "widget_type")
+  )
+)
+
+(define-method get_colormap
+  (of-object "GtkWidget")
+  (c-name "gtk_widget_get_colormap")
+  (return-type "GdkColormap*")
+)
+
+(define-method get_visual
+  (of-object "GtkWidget")
+  (c-name "gtk_widget_get_visual")
+  (return-type "GdkVisual*")
+)
+
+(define-method get_screen
+  (of-object "GtkWidget")
+  (c-name "gtk_widget_get_screen")
+  (return-type "GdkScreen*")
+)
+
+(define-method has_screen
+  (of-object "GtkWidget")
+  (c-name "gtk_widget_has_screen")
+  (return-type "gboolean")
+)
+
+(define-method get_display
+  (of-object "GtkWidget")
+  (c-name "gtk_widget_get_display")
+  (return-type "GdkDisplay*")
+)
+
+(define-method get_root_window
+  (of-object "GtkWidget")
+  (c-name "gtk_widget_get_root_window")
+  (return-type "GdkWindow*")
+)
+
+(define-method get_settings
+  (of-object "GtkWidget")
+  (c-name "gtk_widget_get_settings")
+  (return-type "GtkSettings*")
+)
+
+(define-method get_clipboard
+  (of-object "GtkWidget")
+  (c-name "gtk_widget_get_clipboard")
+  (return-type "GtkClipboard*")
+  (parameters
+    '("GdkAtom" "selection")
+  )
+)
+
+(define-method get_accessible
+  (of-object "GtkWidget")
+  (c-name "gtk_widget_get_accessible")
+  (return-type "AtkObject*")
+)
+
+(define-method set_colormap
+  (of-object "GtkWidget")
+  (c-name "gtk_widget_set_colormap")
+  (return-type "none")
+  (parameters
+    '("GdkColormap*" "colormap")
+  )
+)
+
+(define-method get_events
+  (of-object "GtkWidget")
+  (c-name "gtk_widget_get_events")
+  (return-type "gint")
+)
+
+(define-method get_pointer
+  (of-object "GtkWidget")
+  (c-name "gtk_widget_get_pointer")
+  (return-type "none")
+  (parameters
+    '("gint*" "x")
+    '("gint*" "y")
+  )
+)
+
+(define-method is_ancestor
+  (of-object "GtkWidget")
+  (c-name "gtk_widget_is_ancestor")
+  (return-type "gboolean")
+  (parameters
+    '("GtkWidget*" "ancestor")
+  )
+)
+
+(define-method translate_coordinates
+  (of-object "GtkWidget")
+  (c-name "gtk_widget_translate_coordinates")
+  (return-type "gboolean")
+  (parameters
+    '("GtkWidget*" "dest_widget")
+    '("gint" "src_x")
+    '("gint" "src_y")
+    '("gint*" "dest_x")
+    '("gint*" "dest_y")
+  )
+)
+
+(define-method hide_on_delete
+  (of-object "GtkWidget")
+  (c-name "gtk_widget_hide_on_delete")
+  (return-type "gboolean")
+)
+
+(define-method set_style
+  (of-object "GtkWidget")
+  (c-name "gtk_widget_set_style")
+  (return-type "none")
+  (parameters
+    '("GtkStyle*" "style" (null-ok))
+  )
+)
+
+(define-method ensure_style
+  (of-object "GtkWidget")
+  (c-name "gtk_widget_ensure_style")
+  (return-type "none")
+)
+
+(define-method get_style
+  (of-object "GtkWidget")
+  (c-name "gtk_widget_get_style")
+  (return-type "GtkStyle*")
+)
+
+(define-method modify_style
+  (of-object "GtkWidget")
+  (c-name "gtk_widget_modify_style")
+  (return-type "none")
+  (parameters
+    '("GtkRcStyle*" "style")
+  )
+)
+
+(define-method get_modifier_style
+  (of-object "GtkWidget")
+  (c-name "gtk_widget_get_modifier_style")
+  (return-type "GtkRcStyle*")
+)
+
+(define-method modify_fg
+  (of-object "GtkWidget")
+  (c-name "gtk_widget_modify_fg")
+  (return-type "none")
+  (parameters
+    '("GtkStateType" "state")
+    '("GdkColor*" "color" (null-ok))
+  )
+)
+
+(define-method modify_bg
+  (of-object "GtkWidget")
+  (c-name "gtk_widget_modify_bg")
+  (return-type "none")
+  (parameters
+    '("GtkStateType" "state")
+    '("GdkColor*" "color" (null-ok))
+  )
+)
+
+(define-method modify_text
+  (of-object "GtkWidget")
+  (c-name "gtk_widget_modify_text")
+  (return-type "none")
+  (parameters
+    '("GtkStateType" "state")
+    '("GdkColor*" "color" (null-ok))
+  )
+)
+
+(define-method modify_base
+  (of-object "GtkWidget")
+  (c-name "gtk_widget_modify_base")
+  (return-type "none")
+  (parameters
+    '("GtkStateType" "state")
+    '("GdkColor*" "color" (null-ok))
+  )
+)
+
+(define-method modify_font
+  (of-object "GtkWidget")
+  (c-name "gtk_widget_modify_font")
+  (return-type "none")
+  (parameters
+    '("PangoFontDescription*" "font_desc" (null-ok))
+  )
+)
+
+(define-method create_pango_context
+  (of-object "GtkWidget")
+  (c-name "gtk_widget_create_pango_context")
+  (caller-owns-return #t)
+  (return-type "PangoContext*")
+)
+
+(define-method get_pango_context
+  (of-object "GtkWidget")
+  (c-name "gtk_widget_get_pango_context")
+  (return-type "PangoContext*")
+)
+
+(define-method create_pango_layout
+  (of-object "GtkWidget")
+  (c-name "gtk_widget_create_pango_layout")
+  (caller-owns-return #t)
+  (return-type "PangoLayout*")
+  (parameters
+    '("const-gchar*" "text")
+  )
+)
+
+(define-method render_icon
+  (of-object "GtkWidget")
+  (c-name "gtk_widget_render_icon")
+  (caller-owns-return #t)
+  (return-type "GdkPixbuf*")
+  (parameters
+    '("const-gchar*" "stock_id")
+    '("GtkIconSize" "size")
+    '("const-gchar*" "detail" (default "NULL") (null-ok))
+  )
+)
+
+(define-method set_composite_name
+  (of-object "GtkWidget")
+  (c-name "gtk_widget_set_composite_name")
+  (return-type "none")
+  (parameters
+    '("const-gchar*" "name")
+  )
+)
+
+(define-method get_composite_name
+  (of-object "GtkWidget")
+  (c-name "gtk_widget_get_composite_name")
+  (caller-owns-return #t)
+  (return-type "gchar*")
+)
+
+(define-method reset_rc_styles
+  (of-object "GtkWidget")
+  (c-name "gtk_widget_reset_rc_styles")
+  (return-type "none")
+)
+
+(define-method style_get_property
+  (of-object "GtkWidget")
+  (c-name "gtk_widget_style_get_property")
+  (return-type "none")
+  (parameters
+    '("const-gchar*" "property_name")
+    '("GValue*" "value")
+  )
+)
+
+(define-method style_get_valist
+  (of-object "GtkWidget")
+  (c-name "gtk_widget_style_get_valist")
+  (return-type "none")
+  (parameters
+    '("const-gchar*" "first_property_name")
+    '("va_list" "var_args")
+  )
+)
+
+(define-method style_get
+  (of-object "GtkWidget")
+  (c-name "gtk_widget_style_get")
+  (return-type "none")
+  (parameters
+    '("const-gchar*" "first_property_name")
+  )
+  (varargs #t)
+)
+
+(define-method set_direction
+  (of-object "GtkWidget")
+  (c-name "gtk_widget_set_direction")
+  (return-type "none")
+  (parameters
+    '("GtkTextDirection" "dir")
+  )
+)
+
+(define-method get_direction
+  (of-object "GtkWidget")
+  (c-name "gtk_widget_get_direction")
+  (return-type "GtkTextDirection")
+)
+
+(define-method shape_combine_mask
+  (of-object "GtkWidget")
+  (c-name "gtk_widget_shape_combine_mask")
+  (return-type "none")
+  (parameters
+    '("GdkBitmap*" "shape_mask")
+    '("gint" "offset_x")
+    '("gint" "offset_y")
+  )
+)
+
+(define-method reset_shapes
+  (of-object "GtkWidget")
+  (c-name "gtk_widget_reset_shapes")
+  (return-type "none")
+)
+
+(define-method path
+  (of-object "GtkWidget")
+  (c-name "gtk_widget_path")
+  (return-type "none")
+  (parameters
+    '("guint*" "path_length")
+    '("gchar**" "path")
+    '("gchar**" "path_reversed")
+  )
+)
+
+(define-method class_path
+  (of-object "GtkWidget")
+  (c-name "gtk_widget_class_path")
+  (return-type "none")
+  (parameters
+    '("guint*" "path_length")
+    '("gchar**" "path")
+    '("gchar**" "path_reversed")
+  )
+)
+
+(define-method list_mnemonic_labels
+  (of-object "GtkWidget")
+  (c-name "gtk_widget_list_mnemonic_labels")
+  (return-type "GList*")
+)
+
+(define-method add_mnemonic_label
+  (of-object "GtkWidget")
+  (c-name "gtk_widget_add_mnemonic_label")
+  (return-type "none")
+  (parameters
+    '("GtkWidget*" "label")
+  )
+)
+
+(define-method remove_mnemonic_label
+  (of-object "GtkWidget")
+  (c-name "gtk_widget_remove_mnemonic_label")
+  (return-type "none")
+  (parameters
+    '("GtkWidget*" "label")
+  )
+)
+
+(define-virtual dispatch_child_properties_changed
+  (of-object "GtkWidget")
+  (return-type "none")
+  (parameters
+    '("guint" "n_pspecs")
+    '("GParamSpec**" "pspecs")
+  )
+)
+
+(define-virtual show
+  (of-object "GtkWidget")
+  (return-type "none")
+)
+
+(define-virtual show_all
+  (of-object "GtkWidget")
+  (return-type "none")
+)
+
+(define-virtual hide
+  (of-object "GtkWidget")
+  (return-type "none")
+)
+
+(define-virtual hide_all
+  (of-object "GtkWidget")
+  (return-type "none")
+)
+
+(define-virtual map
+  (of-object "GtkWidget")
+  (return-type "none")
+)
+
+(define-virtual unmap
+  (of-object "GtkWidget")
+  (return-type "none")
+)
+
+(define-virtual realize
+  (of-object "GtkWidget")
+  (return-type "none")
+)
+
+(define-virtual unrealize
+  (of-object "GtkWidget")
+  (return-type "none")
+)
+
+(define-virtual size_request
+  (of-object "GtkWidget")
+  (return-type "none")
+  (parameters
+    '("GtkRequisition*" "requisition")
+  )
+)
+
+(define-virtual size_allocate
+  (of-object "GtkWidget")
+  (return-type "none")
+  (parameters
+    '("GtkAllocation*" "allocation")
+  )
+)
+
+(define-virtual state_changed
+  (of-object "GtkWidget")
+  (return-type "none")
+  (parameters
+    '("GtkStateType" "previous_state")
+  )
+)
+
+(define-virtual parent_set
+  (of-object "GtkWidget")
+  (return-type "none")
+  (parameters
+    '("GtkWidget*" "previous_parent")
+  )
+)
+
+(define-virtual hierarchy_changed
+  (of-object "GtkWidget")
+  (return-type "none")
+  (parameters
+    '("GtkWidget*" "previous_toplevel")
+  )
+)
+
+(define-virtual style_set
+  (of-object "GtkWidget")
+  (return-type "none")
+  (parameters
+    '("GtkStyle*" "previous_style")
+  )
+)
+
+(define-virtual direction_changed
+  (of-object "GtkWidget")
+  (return-type "none")
+  (parameters
+    '("GtkTextDirection" "previous_direction")
+  )
+)
+
+(define-virtual grab_notify
+  (of-object "GtkWidget")
+  (return-type "none")
+  (parameters
+    '("gboolean" "was_grabbed")
+  )
+)
+
+(define-virtual child_notify
+  (of-object "GtkWidget")
+  (return-type "none")
+  (parameters
+    '("GParamSpec*" "pspec")
+  )
+)
+
+(define-virtual mnemonic_activate
+  (of-object "GtkWidget")
+  (return-type "gboolean")
+  (parameters
+    '("gboolean" "group_cycling")
+  )
+)
+
+(define-virtual grab_focus
+  (of-object "GtkWidget")
+  (return-type "none")
+)
+
+(define-virtual focus
+  (of-object "GtkWidget")
+  (return-type "gboolean")
+  (parameters
+    '("GtkDirectionType" "direction")
+  )
+)
+
+(define-virtual event
+  (of-object "GtkWidget")
+  (return-type "gboolean")
+  (parameters
+    '("GdkEvent*" "event")
+  )
+)
+
+(define-virtual button_press_event
+  (of-object "GtkWidget")
+  (return-type "gboolean")
+  (parameters
+    '("GdkEventButton*" "event")
+  )
+)
+
+(define-virtual button_release_event
+  (of-object "GtkWidget")
+  (return-type "gboolean")
+  (parameters
+    '("GdkEventButton*" "event")
+  )
+)
+
+(define-virtual scroll_event
+  (of-object "GtkWidget")
+  (return-type "gboolean")
+  (parameters
+    '("GdkEventScroll*" "event")
+  )
+)
+
+(define-virtual motion_notify_event
+  (of-object "GtkWidget")
+  (return-type "gboolean")
+  (parameters
+    '("GdkEventMotion*" "event")
+  )
+)
+
+(define-virtual delete_event
+  (of-object "GtkWidget")
+  (return-type "gboolean")
+  (parameters
+    '("GdkEventAny*" "event")
+  )
+)
+
+(define-virtual destroy_event
+  (of-object "GtkWidget")
+  (return-type "gboolean")
+  (parameters
+    '("GdkEventAny*" "event")
+  )
+)
+
+(define-virtual expose_event
+  (of-object "GtkWidget")
+  (return-type "gboolean")
+  (parameters
+    '("GdkEventExpose*" "event")
+  )
+)
+
+(define-virtual key_press_event
+  (of-object "GtkWidget")
+  (return-type "gboolean")
+  (parameters
+    '("GdkEventKey*" "event")
+  )
+)
+
+(define-virtual key_release_event
+  (of-object "GtkWidget")
+  (return-type "gboolean")
+  (parameters
+    '("GdkEventKey*" "event")
+  )
+)
+
+(define-virtual enter_notify_event
+  (of-object "GtkWidget")
+  (return-type "gboolean")
+  (parameters
+    '("GdkEventCrossing*" "event")
+  )
+)
+
+(define-virtual leave_notify_event
+  (of-object "GtkWidget")
+  (return-type "gboolean")
+  (parameters
+    '("GdkEventCrossing*" "event")
+  )
+)
+
+(define-virtual configure_event
+  (of-object "GtkWidget")
+  (return-type "gboolean")
+  (parameters
+    '("GdkEventConfigure*" "event")
+  )
+)
+
+(define-virtual focus_in_event
+  (of-object "GtkWidget")
+  (return-type "gboolean")
+  (parameters
+    '("GdkEventFocus*" "event")
+  )
+)
+
+(define-virtual focus_out_event
+  (of-object "GtkWidget")
+  (return-type "gboolean")
+  (parameters
+    '("GdkEventFocus*" "event")
+  )
+)
+
+(define-virtual map_event
+  (of-object "GtkWidget")
+  (return-type "gboolean")
+  (parameters
+    '("GdkEventAny*" "event")
+  )
+)
+
+(define-virtual unmap_event
+  (of-object "GtkWidget")
+  (return-type "gboolean")
+  (parameters
+    '("GdkEventAny*" "event")
+  )
+)
+
+(define-virtual property_notify_event
+  (of-object "GtkWidget")
+  (return-type "gboolean")
+  (parameters
+    '("GdkEventProperty*" "event")
+  )
+)
+
+(define-virtual selection_clear_event
+  (of-object "GtkWidget")
+  (return-type "gboolean")
+  (parameters
+    '("GdkEventSelection*" "event")
+  )
+)
+
+(define-virtual selection_request_event
+  (of-object "GtkWidget")
+  (return-type "gboolean")
+  (parameters
+    '("GdkEventSelection*" "event")
+  )
+)
+
+(define-virtual selection_notify_event
+  (of-object "GtkWidget")
+  (return-type "gboolean")
+  (parameters
+    '("GdkEventSelection*" "event")
+  )
+)
+
+(define-virtual proximity_in_event
+  (of-object "GtkWidget")
+  (return-type "gboolean")
+  (parameters
+    '("GdkEventProximity*" "event")
+  )
+)
+
+(define-virtual proximity_out_event
+  (of-object "GtkWidget")
+  (return-type "gboolean")
+  (parameters
+    '("GdkEventProximity*" "event")
+  )
+)
+
+(define-virtual visibility_notify_event
+  (of-object "GtkWidget")
+  (return-type "gboolean")
+  (parameters
+    '("GdkEventVisibility*" "event")
+  )
+)
+
+(define-virtual client_event
+  (of-object "GtkWidget")
+  (return-type "gboolean")
+  (parameters
+    '("GdkEventClient*" "event")
+  )
+)
+
+(define-virtual no_expose_event
+  (of-object "GtkWidget")
+  (return-type "gboolean")
+  (parameters
+    '("GdkEventAny*" "event")
+  )
+)
+
+(define-virtual window_state_event
+  (of-object "GtkWidget")
+  (return-type "gboolean")
+  (parameters
+    '("GdkEventWindowState*" "event")
+  )
+)
+
+(define-virtual selection_get
+  (of-object "GtkWidget")
+  (return-type "none")
+  (parameters
+    '("GtkSelectionData*" "selection_data")
+    '("guint" "info")
+    '("guint" "time_")
+  )
+)
+
+(define-virtual selection_received
+  (of-object "GtkWidget")
+  (return-type "none")
+  (parameters
+    '("GtkSelectionData*" "selection_data")
+    '("guint" "time_")
+  )
+)
+
+(define-virtual drag_begin
+  (of-object "GtkWidget")
+  (return-type "none")
+  (parameters
+    '("GdkDragContext*" "context")
+  )
+)
+
+(define-virtual drag_end
+  (of-object "GtkWidget")
+  (return-type "none")
+  (parameters
+    '("GdkDragContext*" "context")
+  )
+)
+
+(define-virtual drag_data_get
+  (of-object "GtkWidget")
+  (return-type "none")
+  (parameters
+    '("GdkDragContext*" "context")
+    '("GtkSelectionData*" "selection_data")
+    '("guint" "info")
+    '("guint" "time_")
+  )
+)
+
+(define-virtual drag_data_delete
+  (of-object "GtkWidget")
+  (return-type "none")
+  (parameters
+    '("GdkDragContext*" "context")
+  )
+)
+
+(define-virtual drag_leave
+  (of-object "GtkWidget")
+  (return-type "none")
+  (parameters
+    '("GdkDragContext*" "context")
+    '("guint" "time_")
+  )
+)
+
+(define-virtual drag_motion
+  (of-object "GtkWidget")
+  (return-type "gboolean")
+  (parameters
+    '("GdkDragContext*" "context")
+    '("gint" "x")
+    '("gint" "y")
+    '("guint" "time_")
+  )
+)
+
+(define-virtual drag_drop
+  (of-object "GtkWidget")
+  (return-type "gboolean")
+  (parameters
+    '("GdkDragContext*" "context")
+    '("gint" "x")
+    '("gint" "y")
+    '("guint" "time_")
+  )
+)
+
+(define-virtual drag_data_received
+  (of-object "GtkWidget")
+  (return-type "none")
+  (parameters
+    '("GdkDragContext*" "context")
+    '("gint" "x")
+    '("gint" "y")
+    '("GtkSelectionData*" "selection_data")
+    '("guint" "info")
+    '("guint" "time_")
+  )
+)
+
+(define-virtual popup_menu
+  (of-object "GtkWidget")
+  (return-type "gboolean")
+)
+
+(define-virtual show_help
+  (of-object "GtkWidget")
+  (return-type "gboolean")
+  (parameters
+    '("GtkWidgetHelpType" "help_type")
+  )
+)
+
+(define-virtual get_accessible
+  (of-object "GtkWidget")
+  (return-type "AtkObject*")
+)
+
+(define-virtual screen_changed
+  (of-object "GtkWidget")
+  (return-type "none")
+  (parameters
+    '("GdkScreen*" "previous_screen")
+  )
+)
+
+(define-virtual can_activate_accel
+  (of-object "GtkWidget")
+  (return-type "gboolean")
+  (parameters
+    '("guint" "signal_id")
+  )
+)
+
+(define-virtual grab_broken_event
+  (of-object "GtkWidget")
+  (return-type "gboolean")
+  (parameters
+    '("GdkEventGrabBroken*" "event")
+  )
+)
+
+(define-method get_action
+  (of-object "GtkWidget")
+  (c-name "gtk_widget_get_action")
+  (return-type "GtkAction*")
+)
+
+(define-method drag_dest_set_track_motion
+  (of-object "GtkWidget")
+  (c-name "gtk_drag_dest_set_track_motion")
+  (return-type "none")
+  (parameters
+    '("gboolean" "track_motion")
+  )
+)
+
+(define-method drag_dest_get_track_motion
+  (of-object "GtkWidget")
+  (c-name "gtk_drag_dest_get_track_motion")
+  (return-type "gboolean")
+)
+
+(define-method is_composited
+  (of-object "GtkWidget")
+  (c-name "gtk_widget_is_composited")
+  (return-type "gboolean")
+)
+
+(define-method input_shape_combine_mask
+  (of-object "GtkWidget")
+  (c-name "gtk_widget_input_shape_combine_mask")
+  (return-type "none")
+  (parameters
+    '("GdkBitmap*" "shape_mask" (null-ok))
+    '("gint" "offset_x")
+    '("gint" "offset_y")
+  )
+)
+
+(define-virtual composited_changed
+  (of-object "GtkWidget")
+  (return-type "none")
+)
+

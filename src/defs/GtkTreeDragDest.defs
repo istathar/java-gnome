@@ -1,0 +1,38 @@
+(define-method drag_data_received
+  (of-object "GtkTreeDragDest")
+  (c-name "gtk_tree_drag_dest_drag_data_received")
+  (return-type "gboolean")
+  (parameters
+    '("GtkTreePath*" "dest")
+    '("GtkSelectionData*" "selection_data")
+  )
+)
+
+(define-method row_drop_possible
+  (of-object "GtkTreeDragDest")
+  (c-name "gtk_tree_drag_dest_row_drop_possible")
+  (return-type "gboolean")
+  (parameters
+    '("GtkTreePath*" "dest_path")
+    '("GtkSelectionData*" "selection_data")
+  )
+)
+
+(define-virtual drag_data_received
+  (of-object "GtkTreeDragDest")
+  (return-type "gboolean")
+  (parameters
+    '("GtkTreePath*" "dest")
+    '("GtkSelectionData*" "selection_data")
+  )
+)
+
+(define-virtual row_drop_possible
+  (of-object "GtkTreeDragDest")
+  (return-type "gboolean")
+  (parameters
+    '("GtkTreePath*" "dest_path")
+    '("GtkSelectionData*" "selection_data")
+  )
+)
+

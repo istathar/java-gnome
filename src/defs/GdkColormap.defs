@@ -1,0 +1,125 @@
+(define-object Colormap
+  (in-module "Gdk")
+  (parent "GObject")
+  (c-name "GdkColormap")
+  (gtype-id "GDK_TYPE_COLORMAP")
+)
+
+(define-method ref
+  (of-object "GdkColormap")
+  (c-name "gdk_colormap_ref")
+  (return-type "GdkColormap*")
+)
+
+(define-method unref
+  (of-object "GdkColormap")
+  (c-name "gdk_colormap_unref")
+  (return-type "none")
+)
+
+(define-method change
+  (of-object "GdkColormap")
+  (c-name "gdk_colormap_change")
+  (return-type "none")
+  (deprecated "deprecated")
+  (parameters
+    '("gint" "ncolors")
+  )
+)
+
+(define-method alloc_colors
+  (of-object "GdkColormap")
+  (c-name "gdk_colormap_alloc_colors")
+  (return-type "gint")
+  (parameters
+    '("GdkColor*" "colors")
+    '("gint" "ncolors")
+    '("gboolean" "writeable")
+    '("gboolean" "best_match")
+    '("gboolean*" "success")
+  )
+)
+
+(define-method free_colors
+  (of-object "GdkColormap")
+  (c-name "gdk_colormap_free_colors")
+  (return-type "none")
+  (parameters
+    '("GdkColor*" "colors")
+    '("gint" "ncolors")
+  )
+)
+
+(define-function colormap_new
+  (is-constructor-of "GdkColormap")
+  (c-name "gdk_colormap_new")
+  (caller-owns-return #t)
+  (return-type "GdkColormap*")
+  (parameters
+    '("GdkVisual*" "visual")
+    '("gboolean" "allocate")
+  )
+)
+
+(define-method alloc_color
+  (of-object "GdkColormap")
+  (c-name "gdk_colormap_alloc_color")
+  (return-type "gboolean")
+  (parameters
+    '("GdkColor*" "color")
+    '("gboolean" "writeable")
+    '("gboolean" "best_match")
+  )
+)
+
+(define-method query_color
+  (of-object "GdkColormap")
+  (c-name "gdk_colormap_query_color")
+  (parameters
+    '("gulong" "pixel")
+    '("GdkColor*" "color")
+  )
+)
+
+(define-method get_visual
+  (of-object "GdkColormap")
+  (c-name "gdk_colormap_get_visual")
+  (return-type "GdkVisual*")
+)
+
+(define-method get_screen
+  (of-object "GdkColormap")
+  (c-name "gdk_colormap_get_screen")
+  (return-type "GdkScreen*")
+)
+
+(define-method white
+  (of-object "GdkColormap")
+  (c-name "gdk_color_white")
+  (return-type "gint")
+  (deprecated "deprecated")
+  (parameters
+    '("GdkColor*" "color")
+  )
+)
+
+(define-method black
+  (of-object "GdkColormap")
+  (c-name "gdk_color_black")
+  (return-type "gint")
+  (deprecated "deprecated")
+  (parameters
+    '("GdkColor*" "color")
+  )
+)
+
+(define-method alloc
+  (of-object "GdkColormap")
+  (c-name "gdk_color_alloc")
+  (return-type "gint")
+  (deprecated "deprecated")
+  (parameters
+    '("GdkColor*" "color")
+  )
+)
+

@@ -1,0 +1,15 @@
+(define-enum Weight
+  (in-module "Pango")
+  (c-name "PangoWeight")
+  (gtype-id "PANGO_TYPE_WEIGHT")
+  (values
+    '("ultralight" "PANGO_WEIGHT_ULTRALIGHT")
+    '("light" "PANGO_WEIGHT_LIGHT")
+    '("normal" "PANGO_WEIGHT_NORMAL")
+    '("semibold" "PANGO_WEIGHT_SEMIBOLD")
+    '("bold" "PANGO_WEIGHT_BOLD")
+    '("ultrabold" "PANGO_WEIGHT_ULTRABOLD")
+    '("heavy" "PANGO_WEIGHT_HEAVY")
+  )
+)
+

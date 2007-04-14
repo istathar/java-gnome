@@ -1,0 +1,56 @@
+(define-boxed Matrix
+  (in-module "Pango")
+  (c-name "PangoMatrix")
+  (gtype-id "PANGO_TYPE_MATRIX")
+)
+
+(define-method copy
+  (of-object "PangoMatrix")
+  (c-name "pango_matrix_copy")
+  (return-type "PangoMatrix*")
+)
+
+(define-method free
+  (of-object "PangoMatrix")
+  (c-name "pango_matrix_free")
+  (return-type "none")
+)
+
+(define-method translate
+  (of-object "PangoMatrix")
+  (c-name "pango_matrix_translate")
+  (return-type "none")
+  (parameters
+    '("double" "tx")
+    '("double" "ty")
+  )
+)
+
+(define-method scale
+  (of-object "PangoMatrix")
+  (c-name "pango_matrix_scale")
+  (return-type "none")
+  (parameters
+    '("double" "scale_x")
+    '("double" "scale_y")
+  )
+)
+
+(define-method rotate
+  (of-object "PangoMatrix")
+  (c-name "pango_matrix_rotate")
+  (return-type "none")
+  (parameters
+    '("double" "degrees")
+  )
+)
+
+(define-method concat
+  (of-object "PangoMatrix")
+  (c-name "pango_matrix_concat")
+  (return-type "none")
+  (parameters
+    '("const-PangoMatrix*" "new_matrix")
+  )
+)
+

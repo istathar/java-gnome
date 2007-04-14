@@ -1,0 +1,46 @@
+(define-object TextMark
+  (in-module "Gtk")
+  (parent "GObject")
+  (c-name "GtkTextMark")
+  (gtype-id "GTK_TYPE_TEXT_MARK")
+)
+
+(define-method set_visible
+  (of-object "GtkTextMark")
+  (c-name "gtk_text_mark_set_visible")
+  (return-type "none")
+  (parameters
+    '("gboolean" "setting")
+  )
+)
+
+(define-method get_visible
+  (of-object "GtkTextMark")
+  (c-name "gtk_text_mark_get_visible")
+  (return-type "gboolean")
+)
+
+(define-method get_name
+  (of-object "GtkTextMark")
+  (c-name "gtk_text_mark_get_name")
+  (return-type "const-gchar*")
+)
+
+(define-method get_deleted
+  (of-object "GtkTextMark")
+  (c-name "gtk_text_mark_get_deleted")
+  (return-type "gboolean")
+)
+
+(define-method get_buffer
+  (of-object "GtkTextMark")
+  (c-name "gtk_text_mark_get_buffer")
+  (return-type "GtkTextBuffer*")
+)
+
+(define-method get_left_gravity
+  (of-object "GtkTextMark")
+  (c-name "gtk_text_mark_get_left_gravity")
+  (return-type "gboolean")
+)
+

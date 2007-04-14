@@ -1,0 +1,14 @@
+(define-enum NotifyType
+  (in-module "Gdk")
+  (c-name "GdkNotifyType")
+  (gtype-id "GDK_TYPE_NOTIFY_TYPE")
+  (values
+    '("ancestor" "GDK_NOTIFY_ANCESTOR")
+    '("virtual" "GDK_NOTIFY_VIRTUAL")
+    '("inferior" "GDK_NOTIFY_INFERIOR")
+    '("nonlinear" "GDK_NOTIFY_NONLINEAR")
+    '("nonlinear-virtual" "GDK_NOTIFY_NONLINEAR_VIRTUAL")
+    '("unknown" "GDK_NOTIFY_UNKNOWN")
+  )
+)
+

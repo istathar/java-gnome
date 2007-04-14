@@ -1,0 +1,18 @@
+(define-object RecentChooserWidget
+  (in-module "Gtk")
+  (parent "GtkVBox")
+  (implements "GtkRecentChooser")
+  (c-name "GtkRecentChooserWidget")
+  (gtype-id "GTK_TYPE_RECENT_CHOOSER_WIDGET")
+)
+
+(define-function recent_chooser_widget_new_for_manager
+  (is-constructor-of "GtkRecentChooserWidget")
+  (c-name "gtk_recent_chooser_widget_new_for_manager")
+  (caller-owns-return #t)
+  (return-type "GtkWidget*")
+  (properties
+    '("recent-manager" (optional))
+  )
+)
+

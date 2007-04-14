@@ -1,0 +1,40 @@
+(define-object Visual
+  (in-module "Gdk")
+  (parent "GObject")
+  (c-name "GdkVisual")
+  (gtype-id "GDK_TYPE_VISUAL")
+  (fields
+    '("GdkVisualType" "type")
+    '("gint" "depth")
+    '("GdkByteOrder" "byte_order")
+    '("gint" "colormap_size")
+    '("gint" "bits_per_rgb")
+    '("guint32" "red_mask")
+    '("gint" "red_shift")
+    '("gint" "red_prec")
+    '("guint32" "green_mask")
+    '("gint" "green_shift")
+    '("gint" "green_prec")
+    '("guint32" "blue_mask")
+    '("gint" "blue_shift")
+    '("gint" "blue_prec")
+  )
+)
+
+(define-function visual_get_best_with_both
+  (is-constructor-of "GdkVisual")
+  (c-name "gdk_visual_get_best_with_both")
+  (caller-owns-return #t)
+  (return-type "GdkVisual*")
+  (parameters
+    '("gint" "depth")
+    '("GdkVisualType" "visual_type")
+  )
+)
+
+(define-method get_screen
+  (of-object "GdkVisual")
+  (c-name "gdk_visual_get_screen")
+  (return-type "GdkScreen*")
+)
+

@@ -1,0 +1,30 @@
+(define-object InputDialog
+  (in-module "Gtk")
+  (parent "GtkDialog")
+  (c-name "GtkInputDialog")
+  (gtype-id "GTK_TYPE_INPUT_DIALOG")
+)
+
+(define-function gtk_input_dialog_new
+  (is-constructor-of "GtkInputDialog")
+  (c-name "gtk_input_dialog_new")
+  (caller-owns-return #t)
+  (return-type "GtkWidget*")
+)
+
+(define-virtual enable_device
+  (of-object "GtkInputDialog")
+  (return-type "none")
+  (parameters
+    '("GdkDevice*" "device")
+  )
+)
+
+(define-virtual disable_device
+  (of-object "GtkInputDialog")
+  (return-type "none")
+  (parameters
+    '("GdkDevice*" "device")
+  )
+)
+

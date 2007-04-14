@@ -1,0 +1,507 @@
+(define-object PrintSettings
+  (in-module "Gtk")
+  (parent "GObject")
+  (c-name "GtkPrintSettings")
+  (gtype-id "GTK_TYPE_PRINT_SETTINGS")
+)
+
+(define-function print_settings_new
+  (is-constructor-of "GtkPrintSettings")
+  (c-name "gtk_print_settings_new")
+  (caller-owns-return #t)
+  (return-type "GtkPrintSettings*")
+)
+
+(define-method copy
+  (of-object "GtkPrintSettings")
+  (c-name "gtk_print_settings_copy")
+  (return-type "GtkPrintSettings*")
+)
+
+(define-method has_key
+  (of-object "GtkPrintSettings")
+  (c-name "gtk_print_settings_has_key")
+  (return-type "gboolean")
+  (parameters
+    '("const-gchar*" "key")
+  )
+)
+
+(define-method get
+  (of-object "GtkPrintSettings")
+  (c-name "gtk_print_settings_get")
+  (return-type "const-gchar*")
+  (parameters
+    '("const-gchar*" "key")
+  )
+)
+
+(define-method set
+  (of-object "GtkPrintSettings")
+  (c-name "gtk_print_settings_set")
+  (return-type "none")
+  (parameters
+    '("const-gchar*" "key")
+    '("const-gchar*" "value" (null-ok))
+  )
+)
+
+(define-method unset
+  (of-object "GtkPrintSettings")
+  (c-name "gtk_print_settings_unset")
+  (return-type "none")
+  (parameters
+    '("const-gchar*" "key")
+  )
+)
+
+(define-method foreach
+  (of-object "GtkPrintSettings")
+  (c-name "gtk_print_settings_foreach")
+  (return-type "none")
+  (parameters
+    '("GtkPrintSettingsFunc" "func")
+    '("gpointer" "user_data" (default "NULL") (null-ok))
+  )
+)
+
+(define-method get_bool
+  (of-object "GtkPrintSettings")
+  (c-name "gtk_print_settings_get_bool")
+  (return-type "gboolean")
+  (parameters
+    '("const-gchar*" "key")
+  )
+)
+
+(define-method set_bool
+  (of-object "GtkPrintSettings")
+  (c-name "gtk_print_settings_set_bool")
+  (return-type "none")
+  (parameters
+    '("const-gchar*" "key")
+    '("gboolean" "value")
+  )
+)
+
+(define-method get_double
+  (of-object "GtkPrintSettings")
+  (c-name "gtk_print_settings_get_double")
+  (return-type "gdouble")
+  (parameters
+    '("const-gchar*" "key")
+  )
+)
+
+(define-method get_double_with_default
+  (of-object "GtkPrintSettings")
+  (c-name "gtk_print_settings_get_double_with_default")
+  (return-type "gdouble")
+  (parameters
+    '("const-gchar*" "key")
+    '("gdouble" "def")
+  )
+)
+
+(define-method set_double
+  (of-object "GtkPrintSettings")
+  (c-name "gtk_print_settings_set_double")
+  (return-type "none")
+  (parameters
+    '("const-gchar*" "key")
+    '("gdouble" "value")
+  )
+)
+
+(define-method get_length
+  (of-object "GtkPrintSettings")
+  (c-name "gtk_print_settings_get_length")
+  (return-type "gdouble")
+  (parameters
+    '("const-gchar*" "key")
+    '("GtkUnit" "unit")
+  )
+)
+
+(define-method set_length
+  (of-object "GtkPrintSettings")
+  (c-name "gtk_print_settings_set_length")
+  (return-type "none")
+  (parameters
+    '("const-gchar*" "key")
+    '("gdouble" "value")
+    '("GtkUnit" "unit")
+  )
+)
+
+(define-method get_int
+  (of-object "GtkPrintSettings")
+  (c-name "gtk_print_settings_get_int")
+  (return-type "gint")
+  (parameters
+    '("const-gchar*" "key")
+  )
+)
+
+(define-method get_int_with_default
+  (of-object "GtkPrintSettings")
+  (c-name "gtk_print_settings_get_int_with_default")
+  (return-type "gint")
+  (parameters
+    '("const-gchar*" "key")
+    '("gint" "def")
+  )
+)
+
+(define-method set_int
+  (of-object "GtkPrintSettings")
+  (c-name "gtk_print_settings_set_int")
+  (return-type "none")
+  (parameters
+    '("const-gchar*" "key")
+    '("gint" "value")
+  )
+)
+
+(define-method get_printer
+  (of-object "GtkPrintSettings")
+  (c-name "gtk_print_settings_get_printer")
+  (return-type "const-gchar*")
+)
+
+(define-method set_printer
+  (of-object "GtkPrintSettings")
+  (c-name "gtk_print_settings_set_printer")
+  (return-type "none")
+  (parameters
+    '("const-gchar*" "printer")
+  )
+)
+
+(define-method get_orientation
+  (of-object "GtkPrintSettings")
+  (c-name "gtk_print_settings_get_orientation")
+  (return-type "GtkPageOrientation")
+)
+
+(define-method set_orientation
+  (of-object "GtkPrintSettings")
+  (c-name "gtk_print_settings_set_orientation")
+  (return-type "none")
+  (parameters
+    '("GtkPageOrientation" "orientation")
+  )
+)
+
+(define-method get_paper_size
+  (of-object "GtkPrintSettings")
+  (c-name "gtk_print_settings_get_paper_size")
+  (return-type "GtkPaperSize*")
+)
+
+(define-method set_paper_size
+  (of-object "GtkPrintSettings")
+  (c-name "gtk_print_settings_set_paper_size")
+  (return-type "none")
+  (parameters
+    '("GtkPaperSize*" "paper_size")
+  )
+)
+
+(define-method get_paper_width
+  (of-object "GtkPrintSettings")
+  (c-name "gtk_print_settings_get_paper_width")
+  (return-type "gdouble")
+  (parameters
+    '("GtkUnit" "unit")
+  )
+)
+
+(define-method set_paper_width
+  (of-object "GtkPrintSettings")
+  (c-name "gtk_print_settings_set_paper_width")
+  (return-type "none")
+  (parameters
+    '("gdouble" "width")
+    '("GtkUnit" "unit")
+  )
+)
+
+(define-method get_paper_height
+  (of-object "GtkPrintSettings")
+  (c-name "gtk_print_settings_get_paper_height")
+  (return-type "gdouble")
+  (parameters
+    '("GtkUnit" "unit")
+  )
+)
+
+(define-method set_paper_height
+  (of-object "GtkPrintSettings")
+  (c-name "gtk_print_settings_set_paper_height")
+  (return-type "none")
+  (parameters
+    '("gdouble" "height")
+    '("GtkUnit" "unit")
+  )
+)
+
+(define-method get_use_color
+  (of-object "GtkPrintSettings")
+  (c-name "gtk_print_settings_get_use_color")
+  (return-type "gboolean")
+)
+
+(define-method set_use_color
+  (of-object "GtkPrintSettings")
+  (c-name "gtk_print_settings_set_use_color")
+  (return-type "none")
+  (parameters
+    '("gboolean" "use_color")
+  )
+)
+
+(define-method get_collate
+  (of-object "GtkPrintSettings")
+  (c-name "gtk_print_settings_get_collate")
+  (return-type "gboolean")
+)
+
+(define-method set_collate
+  (of-object "GtkPrintSettings")
+  (c-name "gtk_print_settings_set_collate")
+  (return-type "none")
+  (parameters
+    '("gboolean" "collate")
+  )
+)
+
+(define-method get_reverse
+  (of-object "GtkPrintSettings")
+  (c-name "gtk_print_settings_get_reverse")
+  (return-type "gboolean")
+)
+
+(define-method set_reverse
+  (of-object "GtkPrintSettings")
+  (c-name "gtk_print_settings_set_reverse")
+  (return-type "none")
+  (parameters
+    '("gboolean" "reverse")
+  )
+)
+
+(define-method get_duplex
+  (of-object "GtkPrintSettings")
+  (c-name "gtk_print_settings_get_duplex")
+  (return-type "GtkPrintDuplex")
+)
+
+(define-method set_duplex
+  (of-object "GtkPrintSettings")
+  (c-name "gtk_print_settings_set_duplex")
+  (return-type "none")
+  (parameters
+    '("GtkPrintDuplex" "duplex")
+  )
+)
+
+(define-method get_quality
+  (of-object "GtkPrintSettings")
+  (c-name "gtk_print_settings_get_quality")
+  (return-type "GtkPrintQuality")
+)
+
+(define-method set_quality
+  (of-object "GtkPrintSettings")
+  (c-name "gtk_print_settings_set_quality")
+  (return-type "none")
+  (parameters
+    '("GtkPrintQuality" "quality")
+  )
+)
+
+(define-method get_n_copies
+  (of-object "GtkPrintSettings")
+  (c-name "gtk_print_settings_get_n_copies")
+  (return-type "gint")
+)
+
+(define-method set_n_copies
+  (of-object "GtkPrintSettings")
+  (c-name "gtk_print_settings_set_n_copies")
+  (return-type "none")
+  (parameters
+    '("gint" "num_copies")
+  )
+)
+
+(define-method get_number_up
+  (of-object "GtkPrintSettings")
+  (c-name "gtk_print_settings_get_number_up")
+  (return-type "gint")
+)
+
+(define-method set_number_up
+  (of-object "GtkPrintSettings")
+  (c-name "gtk_print_settings_set_number_up")
+  (return-type "none")
+  (parameters
+    '("gint" "number_up")
+  )
+)
+
+(define-method get_resolution
+  (of-object "GtkPrintSettings")
+  (c-name "gtk_print_settings_get_resolution")
+  (return-type "gint")
+)
+
+(define-method set_resolution
+  (of-object "GtkPrintSettings")
+  (c-name "gtk_print_settings_set_resolution")
+  (return-type "none")
+  (parameters
+    '("gint" "resolution")
+  )
+)
+
+(define-method get_scale
+  (of-object "GtkPrintSettings")
+  (c-name "gtk_print_settings_get_scale")
+  (return-type "gdouble")
+)
+
+(define-method set_scale
+  (of-object "GtkPrintSettings")
+  (c-name "gtk_print_settings_set_scale")
+  (return-type "none")
+  (parameters
+    '("gdouble" "scale")
+  )
+)
+
+(define-method get_print_pages
+  (of-object "GtkPrintSettings")
+  (c-name "gtk_print_settings_get_print_pages")
+  (return-type "GtkPrintPages")
+)
+
+(define-method set_print_pages
+  (of-object "GtkPrintSettings")
+  (c-name "gtk_print_settings_set_print_pages")
+  (return-type "none")
+  (parameters
+    '("GtkPrintPages" "pages")
+  )
+)
+
+(define-method get_page_ranges
+  (of-object "GtkPrintSettings")
+  (c-name "gtk_print_settings_get_page_ranges")
+  (return-type "GtkPageRange*")
+  (parameters
+    '("gint*" "num_ranges")
+  )
+)
+
+(define-method set_page_ranges
+  (of-object "GtkPrintSettings")
+  (c-name "gtk_print_settings_set_page_ranges")
+  (return-type "none")
+  (parameters
+    '("GtkPageRange*" "page_ranges")
+    '("gint" "num_ranges")
+  )
+)
+
+(define-method get_page_set
+  (of-object "GtkPrintSettings")
+  (c-name "gtk_print_settings_get_page_set")
+  (return-type "GtkPageSet")
+)
+
+(define-method set_page_set
+  (of-object "GtkPrintSettings")
+  (c-name "gtk_print_settings_set_page_set")
+  (return-type "none")
+  (parameters
+    '("GtkPageSet" "page_set")
+  )
+)
+
+(define-method get_default_source
+  (of-object "GtkPrintSettings")
+  (c-name "gtk_print_settings_get_default_source")
+  (return-type "const-gchar*")
+)
+
+(define-method set_default_source
+  (of-object "GtkPrintSettings")
+  (c-name "gtk_print_settings_set_default_source")
+  (return-type "none")
+  (parameters
+    '("const-gchar*" "default_source")
+  )
+)
+
+(define-method get_media_type
+  (of-object "GtkPrintSettings")
+  (c-name "gtk_print_settings_get_media_type")
+  (return-type "const-gchar*")
+)
+
+(define-method set_media_type
+  (of-object "GtkPrintSettings")
+  (c-name "gtk_print_settings_set_media_type")
+  (return-type "none")
+  (parameters
+    '("const-gchar*" "media_type")
+  )
+)
+
+(define-method get_dither
+  (of-object "GtkPrintSettings")
+  (c-name "gtk_print_settings_get_dither")
+  (return-type "const-gchar*")
+)
+
+(define-method set_dither
+  (of-object "GtkPrintSettings")
+  (c-name "gtk_print_settings_set_dither")
+  (return-type "none")
+  (parameters
+    '("const-gchar*" "dither")
+  )
+)
+
+(define-method get_finishings
+  (of-object "GtkPrintSettings")
+  (c-name "gtk_print_settings_get_finishings")
+  (return-type "const-gchar*")
+)
+
+(define-method set_finishings
+  (of-object "GtkPrintSettings")
+  (c-name "gtk_print_settings_set_finishings")
+  (return-type "none")
+  (parameters
+    '("const-gchar*" "finishings")
+  )
+)
+
+(define-method get_output_bin
+  (of-object "GtkPrintSettings")
+  (c-name "gtk_print_settings_get_output_bin")
+  (return-type "const-gchar*")
+)
+
+(define-method set_output_bin
+  (of-object "GtkPrintSettings")
+  (c-name "gtk_print_settings_set_output_bin")
+  (return-type "none")
+  (parameters
+    '("const-gchar*" "output_bin")
+  )
+)
+

@@ -1,0 +1,15 @@
+(define-flags DebugFlag
+  (in-module "Gtk")
+  (c-name "GtkDebugFlag")
+  (gtype-id "GTK_TYPE_DEBUG_FLAG")
+  (values
+    '("misc" "GTK_DEBUG_MISC")
+    '("plugsocket" "GTK_DEBUG_PLUGSOCKET")
+    '("text" "GTK_DEBUG_TEXT")
+    '("tree" "GTK_DEBUG_TREE")
+    '("updates" "GTK_DEBUG_UPDATES")
+    '("keybindings" "GTK_DEBUG_KEYBINDINGS")
+    '("multihead" "GTK_DEBUG_MULTIHEAD")
+  )
+)
+

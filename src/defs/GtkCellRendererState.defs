@@ -1,0 +1,13 @@
+(define-flags CellRendererState
+  (in-module "Gtk")
+  (c-name "GtkCellRendererState")
+  (gtype-id "GTK_TYPE_CELL_RENDERER_STATE")
+  (values
+    '("selected" "GTK_CELL_RENDERER_SELECTED")
+    '("prelit" "GTK_CELL_RENDERER_PRELIT")
+    '("insensitive" "GTK_CELL_RENDERER_INSENSITIVE")
+    '("sorted" "GTK_CELL_RENDERER_SORTED")
+    '("focused" "GTK_CELL_RENDERER_FOCUSED")
+  )
+)
+

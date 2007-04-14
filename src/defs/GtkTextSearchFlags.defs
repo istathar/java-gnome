@@ -1,0 +1,10 @@
+(define-flags TextSearchFlags
+  (in-module "Gtk")
+  (c-name "GtkTextSearchFlags")
+  (gtype-id "GTK_TYPE_TEXT_SEARCH_FLAGS")
+  (values
+    '("visible-only" "GTK_TEXT_SEARCH_VISIBLE_ONLY")
+    '("text-only" "GTK_TEXT_SEARCH_TEXT_ONLY")
+  )
+)
+

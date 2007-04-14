@@ -1,0 +1,34 @@
+(define-function script_iter_new
+  (is-constructor-of "PangoScriptIter")
+  (c-name "pango_script_iter_new")
+  (caller-owns-return #t)
+  (return-type "PangoScriptIter*")
+  (parameters
+    '("const-char*" "text")
+    '("int" "length")
+  )
+)
+
+(define-method get_range
+  (of-object "PangoScriptIter")
+  (c-name "pango_script_iter_get_range")
+  (return-type "none")
+  (parameters
+    '("const-char**" "start")
+    '("const-char**" "end")
+    '("PangoScript*" "script")
+  )
+)
+
+(define-method next
+  (of-object "PangoScriptIter")
+  (c-name "pango_script_iter_next")
+  (return-type "gboolean")
+)
+
+(define-method free
+  (of-object "PangoScriptIter")
+  (c-name "pango_script_iter_free")
+  (return-type "none")
+)
+

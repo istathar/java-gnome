@@ -1,0 +1,21 @@
+(define-object GammaCurve
+  (in-module "Gtk")
+  (parent "GtkVBox")
+  (c-name "GtkGammaCurve")
+  (gtype-id "GTK_TYPE_GAMMA_CURVE")
+  (fields
+    '("GtkWidget*" "table")
+    '("GtkWidget*" "curve")
+    '("gfloat" "gamma")
+    '("GtkWidget*" "gamma_dialog")
+    '("GtkWidget*" "gamma_text")
+  )
+)
+
+(define-function gtk_gamma_curve_new
+  (is-constructor-of "GtkGammaCurve")
+  (c-name "gtk_gamma_curve_new")
+  (caller-owns-return #t)
+  (return-type "GtkWidget*")
+)
+

@@ -1,0 +1,216 @@
+(define-object IMContext
+  (in-module "Gtk")
+  (parent "GtkObject")
+  (c-name "GtkIMContext")
+  (gtype-id "GTK_TYPE_IM_CONTEXT")
+)
+
+(define-method set_client_window
+  (of-object "GtkIMContext")
+  (c-name "gtk_im_context_set_client_window")
+  (return-type "none")
+  (parameters
+    '("GdkWindow*" "window")
+  )
+)
+
+(define-method get_preedit_string
+  (of-object "GtkIMContext")
+  (c-name "gtk_im_context_get_preedit_string")
+  (return-type "none")
+  (parameters
+    '("gchar**" "str")
+    '("PangoAttrList**" "attrs")
+    '("gint*" "cursor_pos")
+  )
+)
+
+(define-method filter_keypress
+  (of-object "GtkIMContext")
+  (c-name "gtk_im_context_filter_keypress")
+  (return-type "gboolean")
+  (parameters
+    '("GdkEventKey*" "event")
+  )
+)
+
+(define-method focus_in
+  (of-object "GtkIMContext")
+  (c-name "gtk_im_context_focus_in")
+  (return-type "none")
+)
+
+(define-method focus_out
+  (of-object "GtkIMContext")
+  (c-name "gtk_im_context_focus_out")
+  (return-type "none")
+)
+
+(define-method reset
+  (of-object "GtkIMContext")
+  (c-name "gtk_im_context_reset")
+  (return-type "none")
+)
+
+(define-method set_cursor_location
+  (of-object "GtkIMContext")
+  (c-name "gtk_im_context_set_cursor_location")
+  (return-type "none")
+  (parameters
+    '("GdkRectangle*" "area")
+  )
+)
+
+(define-method set_use_preedit
+  (of-object "GtkIMContext")
+  (c-name "gtk_im_context_set_use_preedit")
+  (return-type "none")
+  (parameters
+    '("gboolean" "use_preedit")
+  )
+)
+
+(define-method set_surrounding
+  (of-object "GtkIMContext")
+  (c-name "gtk_im_context_set_surrounding")
+  (return-type "none")
+  (parameters
+    '("const-gchar*" "text")
+    '("gint" "len")
+    '("gint" "cursor_index")
+  )
+)
+
+(define-method get_surrounding
+  (of-object "GtkIMContext")
+  (c-name "gtk_im_context_get_surrounding")
+  (return-type "gboolean")
+  (parameters
+    '("gchar**" "text")
+    '("gint*" "cursor_index")
+  )
+)
+
+(define-method delete_surrounding
+  (of-object "GtkIMContext")
+  (c-name "gtk_im_context_delete_surrounding")
+  (return-type "gboolean")
+  (parameters
+    '("gint" "offset")
+    '("gint" "n_chars")
+  )
+)
+
+(define-virtual preedit_start
+  (of-object "GtkIMContext")
+  (return-type "none")
+)
+
+(define-virtual preedit_end
+  (of-object "GtkIMContext")
+  (return-type "none")
+)
+
+(define-virtual preedit_changed
+  (of-object "GtkIMContext")
+  (return-type "none")
+)
+
+(define-virtual commit
+  (of-object "GtkIMContext")
+  (return-type "none")
+  (parameters
+    '("const-gchar*" "str")
+  )
+)
+
+(define-virtual retrieve_surrounding
+  (of-object "GtkIMContext")
+  (return-type "gboolean")
+)
+
+(define-virtual delete_surrounding
+  (of-object "GtkIMContext")
+  (return-type "gboolean")
+  (parameters
+    '("gint" "offset")
+    '("gint" "n_chars")
+  )
+)
+
+(define-virtual set_client_window
+  (of-object "GtkIMContext")
+  (return-type "none")
+  (parameters
+    '("GdkWindow*" "window")
+  )
+)
+
+(define-virtual get_preedit_string
+  (of-object "GtkIMContext")
+  (return-type "none")
+  (parameters
+    '("gchar**" "str")
+    '("PangoAttrList**" "attrs")
+    '("gint*" "cursor_pos")
+  )
+)
+
+(define-virtual filter_keypress
+  (of-object "GtkIMContext")
+  (return-type "gboolean")
+  (parameters
+    '("GdkEventKey*" "event")
+  )
+)
+
+(define-virtual focus_in
+  (of-object "GtkIMContext")
+  (return-type "none")
+)
+
+(define-virtual focus_out
+  (of-object "GtkIMContext")
+  (return-type "none")
+)
+
+(define-virtual reset
+  (of-object "GtkIMContext")
+  (return-type "none")
+)
+
+(define-virtual set_cursor_location
+  (of-object "GtkIMContext")
+  (return-type "none")
+  (parameters
+    '("GdkRectangle*" "area")
+  )
+)
+
+(define-virtual set_use_preedit
+  (of-object "GtkIMContext")
+  (return-type "none")
+  (parameters
+    '("gboolean" "use_preedit")
+  )
+)
+
+(define-virtual set_surrounding
+  (of-object "GtkIMContext")
+  (return-type "none")
+  (parameters
+    '("const-gchar*" "text")
+    '("gint" "len")
+    '("gint" "cursor_index")
+  )
+)
+
+(define-virtual get_surrounding
+  (of-object "GtkIMContext")
+  (return-type "gboolean")
+  (parameters
+    '("gchar**" "text")
+    '("gint*" "cursor_index")
+  )
+)
+

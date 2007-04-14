@@ -1,0 +1,105 @@
+(define-boxed GlyphString
+  (in-module "Pango")
+  (c-name "PangoGlyphString")
+  (gtype-id "PANGO_TYPE_GLYPH_STRING")
+  (copy-func "pango_glyph_string_copy")
+  (release-func "pango_glyph_string_free")
+  (fields
+    '("gint" "num_glyphs")
+    '("PangoGlyphInfo*" "glyphs")
+    '("gint*" "log_clusters")
+  )
+)
+
+(define-function pango_glyph_string_new
+  (is-constructor-of "PangoGlyphString")
+  (c-name "pango_glyph_string_new")
+  (caller-owns-return #t)
+  (return-type "PangoGlyphString*")
+)
+
+(define-method set_size
+  (of-object "PangoGlyphString")
+  (c-name "pango_glyph_string_set_size")
+  (return-type "none")
+  (parameters
+    '("gint" "new_len")
+  )
+)
+
+(define-method copy
+  (of-object "PangoGlyphString")
+  (c-name "pango_glyph_string_copy")
+  (return-type "PangoGlyphString*")
+)
+
+(define-method free
+  (of-object "PangoGlyphString")
+  (c-name "pango_glyph_string_free")
+  (return-type "none")
+)
+
+(define-method extents
+  (of-object "PangoGlyphString")
+  (c-name "pango_glyph_string_extents")
+  (return-type "none")
+  (parameters
+    '("PangoFont*" "font")
+    '("PangoRectangle*" "ink_rect")
+    '("PangoRectangle*" "logical_rect")
+  )
+)
+
+(define-method extents_range
+  (of-object "PangoGlyphString")
+  (c-name "pango_glyph_string_extents_range")
+  (return-type "none")
+  (parameters
+    '("int" "start")
+    '("int" "end")
+    '("PangoFont*" "font")
+    '("PangoRectangle*" "ink_rect")
+    '("PangoRectangle*" "logical_rect")
+  )
+)
+
+(define-method get_logical_widths
+  (of-object "PangoGlyphString")
+  (c-name "pango_glyph_string_get_logical_widths")
+  (return-type "none")
+  (parameters
+    '("const-char*" "text")
+    '("int" "length")
+    '("int" "embedding_level")
+    '("int*" "logical_widths")
+  )
+)
+
+(define-method index_to_x
+  (of-object "PangoGlyphString")
+  (c-name "pango_glyph_string_index_to_x")
+  (return-type "none")
+  (parameters
+    '("char*" "text")
+    '("int" "length")
+    '("PangoAnalysis*" "analysis")
+    '("int" "index")
+    '("gboolean" "trailing")
+    '("int*" "x_pos")
+  )
+)
+
+(define-method x_to_index
+  (of-object "PangoGlyphString")
+  (c-name "pango_glyph_string_x_to_index")
+  (return-type "none")
+  (parameters
+    '("char*" "text")
+    '("int" "length")
+    '("PangoAnalysis*" "analysis")
+    '("int" "x_pos")
+    '("int*" "index")
+    '("int*" "trailing")
+  )
+)
+

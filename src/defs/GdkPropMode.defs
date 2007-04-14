@@ -1,0 +1,11 @@
+(define-enum PropMode
+  (in-module "Gdk")
+  (c-name "GdkPropMode")
+  (gtype-id "GDK_TYPE_PROP_MODE")
+  (values
+    '("replace" "GDK_PROP_MODE_REPLACE")
+    '("prepend" "GDK_PROP_MODE_PREPEND")
+    '("append" "GDK_PROP_MODE_APPEND")
+  )
+)
+

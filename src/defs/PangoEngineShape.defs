@@ -1,0 +1,7 @@
+(define-object EngineShape
+  (in-module "Pango")
+  (parent "PangoEngine")
+  (c-name "PangoEngineShape")
+  (gtype-id "PANGO_TYPE_ENGINE_SHAPE")
+)
+

@@ -1,0 +1,219 @@
+(define-object DragContext
+  (in-module "Gdk")
+  (parent "GObject")
+  (c-name "GdkDragContext")
+  (gtype-id "GDK_TYPE_DRAG_CONTEXT")
+  (fields
+    '("GdkDragProtocol" "protocol")
+    '("gboolean" "is_source")
+    '("GdkWindow*" "source_window")
+    '("GdkWindow*" "dest_window")
+    '("GList*" "targets")
+    '("GdkDragAction" "actions")
+    '("GdkDragAction" "suggested_action")
+    '("GdkDragAction" "action")
+    '("guint32" "start_time")
+  )
+)
+
+(define-function drag_context_new
+  (is-constructor-of "GdkDragContext")
+  (c-name "gdk_drag_context_new")
+  (caller-owns-return #t)
+  (return-type "GdkDragContext*")
+)
+
+(define-method ref
+  (of-object "GdkDragContext")
+  (c-name "gdk_drag_context_ref")
+  (return-type "none")
+)
+
+(define-method unref
+  (of-object "GdkDragContext")
+  (c-name "gdk_drag_context_unref")
+  (return-type "none")
+)
+
+(define-method drag_status
+  (of-object "GdkDragContext")
+  (c-name "gdk_drag_status")
+  (return-type "none")
+  (parameters
+    '("GdkDragAction" "action")
+    '("guint32" "time" (default "GDK_CURRENT_TIME") (null-ok))
+  )
+)
+
+(define-method drop_reply
+  (of-object "GdkDragContext")
+  (c-name "gdk_drop_reply")
+  (return-type "none")
+  (parameters
+    '("gboolean" "ok")
+    '("guint32" "time" (default "GDK_CURRENT_TIME") (null-ok))
+  )
+)
+
+(define-method drop_finish
+  (of-object "GdkDragContext")
+  (c-name "gdk_drop_finish")
+  (return-type "none")
+  (parameters
+    '("gboolean" "success")
+    '("guint32" "time" (default "GDK_CURRENT_TIME") (null-ok))
+  )
+)
+
+(define-method drag_get_selection
+  (of-object "GdkDragContext")
+  (c-name "gdk_drag_get_selection")
+  (return-type "GdkAtom")
+)
+
+(define-method drag_find_window
+  (of-object "GdkDragContext")
+  (c-name "gdk_drag_find_window")
+  (return-type "none")
+  (parameters
+    '("GdkWindow*" "drag_window")
+    '("gint" "x_root")
+    '("gint" "y_root")
+    '("GdkWindow**" "dest_window")
+    '("GdkDragProtocol*" "protocol")
+  )
+)
+
+(define-method drag_find_window_for_screen
+  (of-object "GdkDragContext")
+  (c-name "gdk_drag_find_window_for_screen")
+  (return-type "none")
+  (parameters
+    '("GdkWindow*" "drag_window")
+    '("GdkScreen*" "screen")
+    '("gint" "x_root")
+    '("gint" "y_root")
+    '("GdkWindow**" "dest_window")
+    '("GdkDragProtocol*" "protocol")
+  )
+)
+
+(define-method drag_motion
+  (of-object "GdkDragContext")
+  (c-name "gdk_drag_motion")
+  (return-type "gboolean")
+  (parameters
+    '("GdkWindow*" "dest_window")
+    '("GdkDragProtocol" "protocol")
+    '("gint" "x_root")
+    '("gint" "y_root")
+    '("GdkDragAction" "suggested_action")
+    '("GdkDragAction" "possible_actions")
+    '("guint32" "time")
+  )
+)
+
+(define-method drag_drop
+  (of-object "GdkDragContext")
+  (c-name "gdk_drag_drop")
+  (return-type "none")
+  (parameters
+    '("guint32" "time")
+  )
+)
+
+(define-method drag_abort
+  (of-object "GdkDragContext")
+  (c-name "gdk_drag_abort")
+  (return-type "none")
+  (parameters
+    '("guint32" "time")
+  )
+)
+
+(define-method drag_drop_succeeded
+  (of-object "GdkDragContext")
+  (c-name "gdk_drag_drop_succeeded")
+  (return-type "gboolean")
+)
+
+(define-method finish
+  (of-object "GdkDragContext")
+  (c-name "gtk_drag_finish")
+  (return-type "none")
+  (parameters
+    '("gboolean" "success")
+    '("gboolean" "del")
+    '("guint32" "time" (default "GDK_CURRENT_TIME"))
+  )
+)
+
+(define-method get_source_widget
+  (of-object "GdkDragContext")
+  (c-name "gtk_drag_get_source_widget")
+  (return-type "GtkWidget*")
+)
+
+(define-method set_icon_widget
+  (of-object "GdkDragContext")
+  (c-name "gtk_drag_set_icon_widget")
+  (return-type "none")
+  (parameters
+    '("GtkWidget*" "widget")
+    '("gint" "hot_x")
+    '("gint" "hot_y")
+  )
+)
+
+(define-method set_icon_pixmap
+  (of-object "GdkDragContext")
+  (c-name "gtk_drag_set_icon_pixmap")
+  (return-type "none")
+  (parameters
+    '("GdkColormap*" "colormap")
+    '("GdkPixmap*" "pixmap")
+    '("GdkBitmap*" "mask")
+    '("gint" "hot_x")
+    '("gint" "hot_y")
+  )
+)
+
+(define-method set_icon_pixbuf
+  (of-object "GdkDragContext")
+  (c-name "gtk_drag_set_icon_pixbuf")
+  (return-type "none")
+  (parameters
+    '("GdkPixbuf*" "pixbuf")
+    '("gint" "hot_x")
+    '("gint" "hot_y")
+  )
+)
+
+(define-method set_icon_stock
+  (of-object "GdkDragContext")
+  (c-name "gtk_drag_set_icon_stock")
+  (return-type "none")
+  (parameters
+    '("const-gchar*" "stock_id")
+    '("gint" "hot_x")
+    '("gint" "hot_y")
+  )
+)
+
+(define-method set_icon_default
+  (of-object "GdkDragContext")
+  (c-name "gtk_drag_set_icon_default")
+  (return-type "none")
+)
+
+(define-method set_icon_name
+  (of-object "GdkDragContext")
+  (c-name "gtk_drag_set_icon_name")
+  (return-type "none")
+  (parameters
+    '("const-gchar*" "icon_name")
+    '("gint" "hot_x")
+    '("gint" "hot_y")
+  )
+)
+

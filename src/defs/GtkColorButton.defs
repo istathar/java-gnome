@@ -1,0 +1,92 @@
+(define-object ColorButton
+  (in-module "Gtk")
+  (parent "GtkButton")
+  (c-name "GtkColorButton")
+  (gtype-id "GTK_TYPE_COLOR_BUTTON")
+)
+
+(define-function color_button_new
+  (is-constructor-of "GtkColorButton")
+  (c-name "gtk_color_button_new")
+  (caller-owns-return #t)
+  (return-type "GtkWidget*")
+)
+
+(define-function color_button_new_with_color
+  (is-constructor-of "GtkColorButton")
+  (c-name "gtk_color_button_new_with_color")
+  (caller-owns-return #t)
+  (return-type "GtkWidget*")
+  (parameters
+    '("const-GdkColor*" "color")
+  )
+)
+
+(define-method set_color
+  (of-object "GtkColorButton")
+  (c-name "gtk_color_button_set_color")
+  (return-type "none")
+  (parameters
+    '("const-GdkColor*" "color")
+  )
+)
+
+(define-method set_alpha
+  (of-object "GtkColorButton")
+  (c-name "gtk_color_button_set_alpha")
+  (return-type "none")
+  (parameters
+    '("guint16" "alpha")
+  )
+)
+
+(define-method get_color
+  (of-object "GtkColorButton")
+  (c-name "gtk_color_button_get_color")
+  (return-type "none")
+  (parameters
+    '("GdkColor*" "color")
+  )
+)
+
+(define-method get_alpha
+  (of-object "GtkColorButton")
+  (c-name "gtk_color_button_get_alpha")
+  (return-type "guint16")
+)
+
+(define-method set_use_alpha
+  (of-object "GtkColorButton")
+  (c-name "gtk_color_button_set_use_alpha")
+  (return-type "none")
+  (parameters
+    '("gboolean" "use_alpha")
+  )
+)
+
+(define-method get_use_alpha
+  (of-object "GtkColorButton")
+  (c-name "gtk_color_button_get_use_alpha")
+  (return-type "gboolean")
+)
+
+(define-method set_title
+  (of-object "GtkColorButton")
+  (c-name "gtk_color_button_set_title")
+  (return-type "none")
+  (parameters
+    '("const-gchar*" "title")
+  )
+)
+
+(define-method get_title
+  (of-object "GtkColorButton")
+  (c-name "gtk_color_button_get_title")
+  (return-type "const-gchar*")
+)
+
+(define-virtual color_set
+  (of-object "GtkColorButton")
+  (return-type "none")
+)
+

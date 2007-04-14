@@ -1,0 +1,9 @@
+(define-enum CursorType
+  (in-module "Gdk")
+  (c-name "GdkCursorType")
+  (gtype-id "GDK_TYPE_CURSOR_TYPE")
+  (values
+    '("gdk-cursor-is-pixmap" "GDK_CURSOR_IS_PIXMAP")
+  )
+)
+

@@ -1,0 +1,11 @@
+(define-enum Alignment
+  (in-module "Pango")
+  (c-name "PangoAlignment")
+  (gtype-id "PANGO_TYPE_ALIGNMENT")
+  (values
+    '("left" "PANGO_ALIGN_LEFT")
+    '("center" "PANGO_ALIGN_CENTER")
+    '("right" "PANGO_ALIGN_RIGHT")
+  )
+)
+

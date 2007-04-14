@@ -1,0 +1,63 @@
+(define-boxed TreeRowReference
+  (in-module "Gtk")
+  (c-name "GtkTreeRowReference")
+  (gtype-id "GTK_TYPE_TREE_ROW_REFERENCE")
+  (copy-func "gtk_tree_row_reference_copy")
+  (release-func "gtk_tree_row_reference_free")
+)
+
+(define-function gtk_tree_row_reference_new
+  (is-constructor-of "GtkTreeRowReference")
+  (c-name "gtk_tree_row_reference_new")
+  (caller-owns-return #t)
+  (return-type "GtkTreeRowReference*")
+  (parameters
+    '("GtkTreeModel*" "model")
+    '("GtkTreePath*" "path")
+  )
+)
+
+(define-function gtk_tree_row_reference_new_proxy
+  (is-constructor-of "GtkTreeRowReference")
+  (c-name "gtk_tree_row_reference_new_proxy")
+  (caller-owns-return #t)
+  (return-type "GtkTreeRowReference*")
+  (parameters
+    '("GObject*" "proxy")
+    '("GtkTreeModel*" "model")
+    '("GtkTreePath*" "path")
+  )
+)
+
+(define-method get_path
+  (of-object "GtkTreeRowReference")
+  (c-name "gtk_tree_row_reference_get_path")
+  (caller-owns-return #t)
+  (return-type "GtkTreePath*")
+)
+
+(define-method get_model
+  (of-object "GtkTreeRowReference")
+  (c-name "gtk_tree_row_reference_get_model")
+  (return-type "GtkTreeModel*")
+)
+
+(define-method valid
+  (of-object "GtkTreeRowReference")
+  (c-name "gtk_tree_row_reference_valid")
+  (return-type "gboolean")
+)
+
+(define-method copy
+  (of-object "GtkTreeRowReference")
+  (c-name "gtk_tree_row_reference_copy")
+  (return-type "GtkTreeRowReference*")
+)
+
+(define-method free
+  (of-object "GtkTreeRowReference")
+  (c-name "gtk_tree_row_reference_free")
+  (return-type "none")
+  (deprecated "don't call this or Bad Things will happen")
+)
+

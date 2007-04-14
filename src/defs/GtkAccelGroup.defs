@@ -1,0 +1,109 @@
+(define-object AccelGroup
+  (in-module "Gtk")
+  (parent "GObject")
+  (c-name "GtkAccelGroup")
+  (gtype-id "GTK_TYPE_ACCEL_GROUP")
+)
+
+(define-function gtk_accel_group_new
+  (is-constructor-of "GtkAccelGroup")
+  (c-name "gtk_accel_group_new")
+  (caller-owns-return #t)
+  (return-type "GtkAccelGroup*")
+)
+
+(define-method lock
+  (of-object "GtkAccelGroup")
+  (c-name "gtk_accel_group_lock")
+  (return-type "none")
+)
+
+(define-method unlock
+  (of-object "GtkAccelGroup")
+  (c-name "gtk_accel_group_unlock")
+  (return-type "none")
+)
+
+(define-method connect
+  (of-object "GtkAccelGroup")
+  (c-name "gtk_accel_group_connect")
+  (return-type "none")
+  (parameters
+    '("guint" "accel_key")
+    '("GdkModifierType" "accel_mods")
+    '("GtkAccelFlags" "accel_flags")
+    '("GClosure*" "closure")
+  )
+)
+
+(define-method connect_by_path
+  (of-object "GtkAccelGroup")
+  (c-name "gtk_accel_group_connect_by_path")
+  (return-type "none")
+  (parameters
+    '("const-gchar*" "accel_path")
+    '("GClosure*" "closure")
+  )
+)
+
+(define-method disconnect
+  (of-object "GtkAccelGroup")
+  (c-name "gtk_accel_group_disconnect")
+  (return-type "gboolean")
+  (parameters
+    '("GClosure*" "closure")
+  )
+)
+
+(define-method disconnect_key
+  (of-object "GtkAccelGroup")
+  (c-name "gtk_accel_group_disconnect_key")
+  (return-type "gboolean")
+  (parameters
+    '("guint" "accel_key")
+    '("GdkModifierType" "accel_mods")
+  )
+)
+
+(define-method activate
+  (of-object "GtkAccelGroup")
+  (c-name "gtk_accel_group_activate")
+  (return-type "gboolean")
+  (parameters
+    '("GQuark" "accel_quark")
+    '("GObject*" "acceleratable")
+    '("guint" "accel_key")
+    '("GdkModifierType" "accel_mods")
+  )
+)
+
+(define-method find
+  (of-object "GtkAccelGroup")
+  (c-name "gtk_accel_group_find")
+  (return-type "GtkAccelKey*")
+  (parameters
+    '("gboolean" "(*find_func")
+  )
+)
+
+(define-method query
+  (of-object "GtkAccelGroup")
+  (c-name "gtk_accel_group_query")
+  (return-type "GtkAccelGroupEntry*")
+  (parameters
+    '("guint" "accel_key")
+    '("GdkModifierType" "accel_mods")
+    '("guint*" "n_entries")
+  )
+)
+
+(define-virtual accel_changed
+  (of-object "GtkAccelGroup")
+  (return-type "none")
+  (parameters
+    '("guint" "keyval")
+    '("GdkModifierType" "modifier")
+    '("GClosure*" "accel_closure")
+  )
+)
+

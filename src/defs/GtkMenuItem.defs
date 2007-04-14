@@ -1,0 +1,148 @@
+(define-object MenuItem
+  (in-module "Gtk")
+  (parent "GtkItem")
+  (c-name "GtkMenuItem")
+  (gtype-id "GTK_TYPE_MENU_ITEM")
+)
+
+(define-function gtk_menu_item_new
+  (is-constructor-of "GtkMenuItem")
+  (c-name "gtk_menu_item_new")
+  (caller-owns-return #t)
+  (return-type "GtkWidget*")
+)
+
+(define-function gtk_menu_item_new_with_label
+  (is-constructor-of "GtkMenuItem")
+  (c-name "gtk_menu_item_new_with_label")
+  (caller-owns-return #t)
+  (return-type "GtkWidget*")
+  (parameters
+    '("const-gchar*" "label")
+  )
+)
+
+(define-function gtk_menu_item_new_with_mnemonic
+  (is-constructor-of "GtkMenuItem")
+  (c-name "gtk_menu_item_new_with_mnemonic")
+  (caller-owns-return #t)
+  (return-type "GtkWidget*")
+  (parameters
+    '("const-gchar*" "label")
+  )
+)
+
+(define-method set_submenu
+  (of-object "GtkMenuItem")
+  (c-name "gtk_menu_item_set_submenu")
+  (return-type "none")
+  (parameters
+    '("GtkWidget*" "submenu")
+  )
+)
+
+(define-method get_submenu
+  (of-object "GtkMenuItem")
+  (c-name "gtk_menu_item_get_submenu")
+  (return-type "GtkWidget*")
+)
+
+(define-method remove_submenu
+  (of-object "GtkMenuItem")
+  (c-name "gtk_menu_item_remove_submenu")
+  (return-type "none")
+)
+
+(define-method select
+  (of-object "GtkMenuItem")
+  (c-name "gtk_menu_item_select")
+  (return-type "none")
+)
+
+(define-method deselect
+  (of-object "GtkMenuItem")
+  (c-name "gtk_menu_item_deselect")
+  (return-type "none")
+)
+
+(define-method activate
+  (of-object "GtkMenuItem")
+  (c-name "gtk_menu_item_activate")
+  (return-type "none")
+)
+
+(define-method toggle_size_request
+  (of-object "GtkMenuItem")
+  (c-name "gtk_menu_item_toggle_size_request")
+  (return-type "none")
+  (parameters
+    '("gint*" "requisition")
+  )
+)
+
+(define-method toggle_size_allocate
+  (of-object "GtkMenuItem")
+  (c-name "gtk_menu_item_toggle_size_allocate")
+  (return-type "none")
+  (parameters
+    '("gint" "allocation")
+  )
+)
+
+(define-method set_right_justified
+  (of-object "GtkMenuItem")
+  (c-name "gtk_menu_item_set_right_justified")
+  (return-type "none")
+  (parameters
+    '("gboolean" "right_justified")
+  )
+)
+
+(define-method get_right_justified
+  (of-object "GtkMenuItem")
+  (c-name "gtk_menu_item_get_right_justified")
+  (return-type "gboolean")
+)
+
+(define-method set_accel_path
+  (of-object "GtkMenuItem")
+  (c-name "gtk_menu_item_set_accel_path")
+  (return-type "none")
+  (parameters
+    '("const-gchar*" "accel_path")
+  )
+)
+
+(define-method right_justify
+  (of-object "GtkMenuItem")
+  (c-name "gtk_menu_item_right_justify")
+  (return-type "none")
+  (deprecated "use GtkMenuItem.set_right_justified")
+)
+
+(define-virtual activate
+  (of-object "GtkMenuItem")
+  (return-type "none")
+)
+
+(define-virtual activate_item
+  (of-object "GtkMenuItem")
+  (return-type "none")
+)
+
+(define-virtual toggle_size_request
+  (of-object "GtkMenuItem")
+  (return-type "none")
+  (parameters
+    '("gint*" "requisition")
+  )
+)
+
+(define-virtual toggle_size_allocate
+  (of-object "GtkMenuItem")
+  (return-type "none")
+  (parameters
+    '("gint" "allocation")
+  )
+)
+

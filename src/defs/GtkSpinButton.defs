@@ -1,0 +1,242 @@
+(define-object SpinButton
+  (in-module "Gtk")
+  (parent "GtkEntry")
+  (implements "GtkEditable")
+  (implements "GtkCellEditable")
+  (c-name "GtkSpinButton")
+  (gtype-id "GTK_TYPE_SPIN_BUTTON")
+)
+
+(define-method configure
+  (of-object "GtkSpinButton")
+  (c-name "gtk_spin_button_configure")
+  (return-type "none")
+  (parameters
+    '("GtkAdjustment*" "adjustment" (null-ok))
+    '("gdouble" "climb_rate")
+    '("guint" "digits")
+  )
+)
+
+(define-function gtk_spin_button_new
+  (is-constructor-of "GtkSpinButton")
+  (c-name "gtk_spin_button_new")
+  (caller-owns-return #t)
+  (return-type "GtkWidget*")
+  (properties
+    '("adjustment" (optional))
+    '("climb_rate" (optional))
+    '("digits" (optional))
+  )
+)
+
+(define-function gtk_spin_button_new_with_range
+  (is-constructor-of "GtkSpinButton")
+  (c-name "gtk_spin_button_new_with_range")
+  (caller-owns-return #t)
+  (return-type "GtkWidget*")
+  (parameters
+    '("gdouble" "min")
+    '("gdouble" "max")
+    '("gdouble" "step")
+  )
+)
+
+(define-method set_adjustment
+  (of-object "GtkSpinButton")
+  (c-name "gtk_spin_button_set_adjustment")
+  (return-type "none")
+  (parameters
+    '("GtkAdjustment*" "adjustment")
+  )
+)
+
+(define-method get_adjustment
+  (of-object "GtkSpinButton")
+  (c-name "gtk_spin_button_get_adjustment")
+  (return-type "GtkAdjustment*")
+)
+
+(define-method set_digits
+  (of-object "GtkSpinButton")
+  (c-name "gtk_spin_button_set_digits")
+  (return-type "none")
+  (parameters
+    '("guint" "digits")
+  )
+)
+
+(define-method get_digits
+  (of-object "GtkSpinButton")
+  (c-name "gtk_spin_button_get_digits")
+  (return-type "guint")
+)
+
+(define-method set_increments
+  (of-object "GtkSpinButton")
+  (c-name "gtk_spin_button_set_increments")
+  (return-type "none")
+  (parameters
+    '("gdouble" "step")
+    '("gdouble" "page")
+  )
+)
+
+(define-method get_increments
+  (of-object "GtkSpinButton")
+  (c-name "gtk_spin_button_get_increments")
+  (return-type "none")
+  (parameters
+    '("gdouble*" "step")
+    '("gdouble*" "page")
+  )
+)
+
+(define-method set_range
+  (of-object "GtkSpinButton")
+  (c-name "gtk_spin_button_set_range")
+  (return-type "none")
+  (parameters
+    '("gdouble" "min")
+    '("gdouble" "max")
+  )
+)
+
+(define-method get_range
+  (of-object "GtkSpinButton")
+  (c-name "gtk_spin_button_get_range")
+  (return-type "none")
+  (parameters
+    '("gdouble*" "min")
+    '("gdouble*" "max")
+  )
+)
+
+(define-method get_value
+  (of-object "GtkSpinButton")
+  (c-name "gtk_spin_button_get_value")
+  (return-type "gdouble")
+)
+
+(define-method get_value_as_int
+  (of-object "GtkSpinButton")
+  (c-name "gtk_spin_button_get_value_as_int")
+  (return-type "gint")
+)
+
+(define-method set_value
+  (of-object "GtkSpinButton")
+  (c-name "gtk_spin_button_set_value")
+  (return-type "none")
+  (parameters
+    '("gdouble" "value")
+  )
+)
+
+(define-method set_update_policy
+  (of-object "GtkSpinButton")
+  (c-name "gtk_spin_button_set_update_policy")
+  (return-type "none")
+  (parameters
+    '("GtkSpinButtonUpdatePolicy" "policy")
+  )
+)
+
+(define-method get_update_policy
+  (of-object "GtkSpinButton")
+  (c-name "gtk_spin_button_get_update_policy")
+  (return-type "guint")
+)
+
+(define-method set_numeric
+  (of-object "GtkSpinButton")
+  (c-name "gtk_spin_button_set_numeric")
+  (return-type "none")
+  (parameters
+    '("gboolean" "numeric")
+  )
+)
+
+(define-method get_numeric
+  (of-object "GtkSpinButton")
+  (c-name "gtk_spin_button_get_numeric")
+  (return-type "gboolean")
+)
+
+(define-method spin
+  (of-object "GtkSpinButton")
+  (c-name "gtk_spin_button_spin")
+  (return-type "none")
+  (parameters
+    '("GtkSpinType" "direction")
+    '("gdouble" "increment" (default "1"))
+  )
+)
+
+(define-method set_wrap
+  (of-object "GtkSpinButton")
+  (c-name "gtk_spin_button_set_wrap")
+  (return-type "none")
+  (parameters
+    '("gboolean" "wrap")
+  )
+)
+
+(define-method get_wrap
+  (of-object "GtkSpinButton")
+  (c-name "gtk_spin_button_get_wrap")
+  (return-type "gboolean")
+)
+
+(define-method set_snap_to_ticks
+  (of-object "GtkSpinButton")
+  (c-name "gtk_spin_button_set_snap_to_ticks")
+  (return-type "none")
+  (parameters
+    '("gboolean" "snap_to_ticks")
+  )
+)
+
+(define-method get_snap_to_ticks
+  (of-object "GtkSpinButton")
+  (c-name "gtk_spin_button_get_snap_to_ticks")
+  (return-type "gboolean")
+)
+
+(define-method update
+  (of-object "GtkSpinButton")
+  (c-name "gtk_spin_button_update")
+  (return-type "none")
+)
+
+(define-virtual input
+  (of-object "GtkSpinButton")
+  (return-type "gint")
+  (parameters
+    '("gdouble*" "new_value")
+  )
+)
+
+(define-virtual output
+  (of-object "GtkSpinButton")
+  (return-type "gint")
+)
+
+(define-virtual value_changed
+  (of-object "GtkSpinButton")
+  (return-type "none")
+)
+
+(define-virtual change_value
+  (of-object "GtkSpinButton")
+  (return-type "none")
+  (parameters
+    '("GtkScrollType" "scroll")
+  )
+)
+
+(define-virtual wrapped
+  (of-object "GtkSpinButton")
+  (return-type "none")
+)
+

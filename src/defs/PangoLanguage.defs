@@ -1,0 +1,40 @@
+(define-boxed Language
+  (in-module "Pango")
+  (c-name "PangoLanguage")
+  (gtype-id "PANGO_TYPE_LANGUAGE")
+)
+
+(define-method includes_script
+  (of-object "PangoLanguage")
+  (c-name "pango_language_includes_script")
+  (return-type "gboolean")
+  (parameters
+    '("PangoScript" "script")
+  )
+)
+
+(define-function pango_language_from_string
+  (is-constructor-of "PangoLanguage")
+  (c-name "pango_language_from_string")
+  (caller-owns-return #t)
+  (return-type "PangoLanguage*")
+  (parameters
+    '("const-char*" "language")
+  )
+)
+
+(define-method matches
+  (of-object "PangoLanguage")
+  (c-name "pango_language_matches")
+  (return-type "gboolean")
+  (parameters
+    '("const-char*" "range_list")
+  )
+)
+
+(define-method to_string
+  (of-object "PangoLanguage")
+  (c-name "pango_language_to_string")
+  (return-type "const-char*")
+)
+

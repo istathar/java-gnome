@@ -1,0 +1,35 @@
+(define-boxed Color
+  (in-module "Pango")
+  (c-name "PangoColor")
+  (gtype-id "PANGO_TYPE_COLOR")
+  (copy-func "pango_color_copy")
+  (release-func "pango_color_free")
+  (fields
+    '("guint16" "red")
+    '("guint16" "green")
+    '("guint16" "blue")
+  )
+)
+
+(define-method copy
+  (of-object "PangoColor")
+  (c-name "pango_color_copy")
+  (return-type "PangoColor*")
+)
+
+(define-method free
+  (of-object "PangoColor")
+  (c-name "pango_color_free")
+  (return-type "none")
+)
+
+(define-function color_parse
+  (is-constructor-of "PangoColor")
+  (c-name "pango_color_parse")
+  (caller-owns-return #t)
+  (return-type "gboolean")
+  (parameters
+    '("const-char*" "spec")
+  )
+)
+

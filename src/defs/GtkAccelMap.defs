@@ -1,0 +1,7 @@
+(define-object AccelMap
+  (in-module "Gtk")
+  (parent "GObject")
+  (c-name "GtkAccelMap")
+  (gtype-id "GTK_TYPE_ACCEL_MAP")
+)
+

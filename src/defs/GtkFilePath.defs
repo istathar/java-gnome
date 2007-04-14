@@ -1,0 +1,6 @@
+(define-boxed FilePath
+  (in-module "Gtk")
+  (c-name "GtkFilePath")
+  (gtype-id "GTK_TYPE_FILE_PATH")
+)
+

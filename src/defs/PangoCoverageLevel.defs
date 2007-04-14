@@ -1,0 +1,12 @@
+(define-enum CoverageLevel
+  (in-module "Pango")
+  (c-name "PangoCoverageLevel")
+  (gtype-id "PANGO_TYPE_COVERAGE_LEVEL")
+  (values
+    '("none" "PANGO_COVERAGE_NONE")
+    '("fallback" "PANGO_COVERAGE_FALLBACK")
+    '("approximate" "PANGO_COVERAGE_APPROXIMATE")
+    '("exact" "PANGO_COVERAGE_EXACT")
+  )
+)
+

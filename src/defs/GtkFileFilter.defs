@@ -1,0 +1,80 @@
+(define-object FileFilter
+  (in-module "Gtk")
+  (parent "GtkObject")
+  (c-name "GtkFileFilter")
+  (gtype-id "GTK_TYPE_FILE_FILTER")
+)
+
+(define-function gtk_file_filter_new
+  (is-constructor-of "GtkFileFilter")
+  (c-name "gtk_file_filter_new")
+  (caller-owns-return #t)
+  (return-type "GtkFileFilter*")
+)
+
+(define-method set_name
+  (of-object "GtkFileFilter")
+  (c-name "gtk_file_filter_set_name")
+  (return-type "none")
+  (parameters
+    '("const-gchar*" "name")
+  )
+)
+
+(define-method get_name
+  (of-object "GtkFileFilter")
+  (c-name "gtk_file_filter_get_name")
+  (return-type "const-gchar*")
+)
+
+(define-method add_mime_type
+  (of-object "GtkFileFilter")
+  (c-name "gtk_file_filter_add_mime_type")
+  (return-type "none")
+  (parameters
+    '("const-gchar*" "mime_type")
+  )
+)
+
+(define-method add_pattern
+  (of-object "GtkFileFilter")
+  (c-name "gtk_file_filter_add_pattern")
+  (return-type "none")
+  (parameters
+    '("const-gchar*" "pattern")
+  )
+)
+
+(define-method add_pixbuf_formats
+  (of-object "GtkFileFilter")
+  (c-name "gtk_file_filter_add_pixbuf_formats")
+  (return-type "none")
+)
+
+(define-method add_custom
+  (of-object "GtkFileFilter")
+  (c-name "gtk_file_filter_add_custom")
+  (return-type "none")
+  (parameters
+    '("GtkFileFilterFlags" "needed")
+    '("GtkFileFilterFunc" "func")
+    '("gpointer" "data")
+    '("GDestroyNotify" "notify")
+  )
+)
+
+(define-method get_needed
+  (of-object "GtkFileFilter")
+  (c-name "gtk_file_filter_get_needed")
+  (return-type "GtkFileFilterFlags")
+)
+
+(define-method filter
+  (of-object "GtkFileFilter")
+  (c-name "gtk_file_filter_filter")
+  (return-type "gboolean")
+  (parameters
+    '("const-GtkFileFilterInfo*" "filter_info")
+  )
+)
+

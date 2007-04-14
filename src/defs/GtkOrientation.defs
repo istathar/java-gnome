@@ -1,0 +1,10 @@
+(define-enum Orientation
+  (in-module "Gtk")
+  (c-name "GtkOrientation")
+  (gtype-id "GTK_TYPE_ORIENTATION")
+  (values
+    '("horizontal" "GTK_ORIENTATION_HORIZONTAL")
+    '("vertical" "GTK_ORIENTATION_VERTICAL")
+  )
+)
+

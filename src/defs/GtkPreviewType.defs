@@ -1,0 +1,10 @@
+(define-enum PreviewType
+  (in-module "Gtk")
+  (c-name "GtkPreviewType")
+  (gtype-id "GTK_TYPE_PREVIEW_TYPE")
+  (values
+    '("color" "GTK_PREVIEW_COLOR")
+    '("grayscale" "GTK_PREVIEW_GRAYSCALE")
+  )
+)
+

@@ -1,0 +1,126 @@
+(define-boxed PaperSize
+  (in-module "Gtk")
+  (c-name "GtkPaperSize")
+  (gtype-id "GTK_TYPE_PAPER_SIZE")
+)
+
+(define-function paper_size_new
+  (is-constructor-of "GtkPaperSize")
+  (c-name "gtk_paper_size_new")
+  (caller-owns-return #t)
+  (return-type "GtkPaperSize*")
+  (parameters
+    '("const-gchar*" "name" (default "NULL") (null-ok))
+  )
+)
+
+(define-method copy
+  (of-object "GtkPaperSize")
+  (c-name "gtk_paper_size_copy")
+  (return-type "GtkPaperSize*")
+)
+
+(define-method free
+  (of-object "GtkPaperSize")
+  (c-name "gtk_paper_size_free")
+  (return-type "none")
+)
+
+(define-method is_equal
+  (of-object "GtkPaperSize")
+  (c-name "gtk_paper_size_is_equal")
+  (return-type "gboolean")
+  (parameters
+    '("GtkPaperSize*" "size2")
+  )
+)
+
+(define-method get_name
+  (of-object "GtkPaperSize")
+  (c-name "gtk_paper_size_get_name")
+  (return-type "const-gchar*")
+)
+
+(define-method get_display_name
+  (of-object "GtkPaperSize")
+  (c-name "gtk_paper_size_get_display_name")
+  (return-type "const-gchar*")
+)
+
+(define-method get_ppd_name
+  (of-object "GtkPaperSize")
+  (c-name "gtk_paper_size_get_ppd_name")
+  (return-type "const-gchar*")
+)
+
+(define-method get_width
+  (of-object "GtkPaperSize")
+  (c-name "gtk_paper_size_get_width")
+  (return-type "gdouble")
+  (parameters
+    '("GtkUnit" "unit")
+  )
+)
+
+(define-method get_height
+  (of-object "GtkPaperSize")
+  (c-name "gtk_paper_size_get_height")
+  (return-type "gdouble")
+  (parameters
+    '("GtkUnit" "unit")
+  )
+)
+
+(define-method is_custom
+  (of-object "GtkPaperSize")
+  (c-name "gtk_paper_size_is_custom")
+  (return-type "gboolean")
+)
+
+(define-method set_size
+  (of-object "GtkPaperSize")
+  (c-name "gtk_paper_size_set_size")
+  (return-type "none")
+  (parameters
+    '("gdouble" "width")
+    '("gdouble" "height")
+    '("GtkUnit" "unit")
+  )
+)
+
+(define-method get_default_top_margin
+  (of-object "GtkPaperSize")
+  (c-name "gtk_paper_size_get_default_top_margin")
+  (return-type "gdouble")
+  (parameters
+    '("GtkUnit" "unit")
+  )
+)
+
+(define-method get_default_bottom_margin
+  (of-object "GtkPaperSize")
+  (c-name "gtk_paper_size_get_default_bottom_margin")
+  (return-type "gdouble")
+  (parameters
+    '("GtkUnit" "unit")
+  )
+)
+
+(define-method get_default_left_margin
+  (of-object "GtkPaperSize")
+  (c-name "gtk_paper_size_get_default_left_margin")
+  (return-type "gdouble")
+  (parameters
+    '("GtkUnit" "unit")
+  )
+)
+
+(define-method get_default_right_margin
+  (of-object "GtkPaperSize")
+  (c-name "gtk_paper_size_get_default_right_margin")
+  (return-type "gdouble")
+  (parameters
+    '("GtkUnit" "unit")
+  )
+)
+

@@ -1,0 +1,72 @@
+(define-object PrintContext
+  (in-module "Gtk")
+  (parent "GObject")
+  (c-name "GtkPrintContext")
+  (gtype-id "GTK_TYPE_PRINT_CONTEXT")
+)
+
+(define-method get_cairo_context
+  (of-object "GtkPrintContext")
+  (c-name "gtk_print_context_get_cairo_context")
+  (return-type "cairo_t*")
+)
+
+(define-method get_page_setup
+  (of-object "GtkPrintContext")
+  (c-name "gtk_print_context_get_page_setup")
+  (return-type "GtkPageSetup*")
+)
+
+(define-method get_width
+  (of-object "GtkPrintContext")
+  (c-name "gtk_print_context_get_width")
+  (return-type "gdouble")
+)
+
+(define-method get_height
+  (of-object "GtkPrintContext")
+  (c-name "gtk_print_context_get_height")
+  (return-type "gdouble")
+)
+
+(define-method get_dpi_x
+  (of-object "GtkPrintContext")
+  (c-name "gtk_print_context_get_dpi_x")
+  (return-type "gdouble")
+)
+
+(define-method get_dpi_y
+  (of-object "GtkPrintContext")
+  (c-name "gtk_print_context_get_dpi_y")
+  (return-type "gdouble")
+)
+
+(define-method get_pango_fontmap
+  (of-object "GtkPrintContext")
+  (c-name "gtk_print_context_get_pango_fontmap")
+  (return-type "PangoFontMap*")
+)
+
+(define-method create_pango_context
+  (of-object "GtkPrintContext")
+  (c-name "gtk_print_context_create_pango_context")
+  (return-type "PangoContext*")
+)
+
+(define-method create_pango_layout
+  (of-object "GtkPrintContext")
+  (c-name "gtk_print_context_create_pango_layout")
+  (return-type "PangoLayout*")
+)
+
+(define-method set_cairo_context
+  (of-object "GtkPrintContext")
+  (c-name "gtk_print_context_set_cairo_context")
+  (return-type "none")
+  (parameters
+    '("cairo_t*" "cr")
+    '("double" "dpi_x")
+    '("double" "dpi_y")
+  )
+)
+

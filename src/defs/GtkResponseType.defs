@@ -1,0 +1,19 @@
+(define-enum ResponseType
+  (in-module "Gtk")
+  (c-name "GtkResponseType")
+  (gtype-id "GTK_TYPE_RESPONSE_TYPE")
+  (values
+    '("none" "GTK_RESPONSE_NONE")
+    '("reject" "GTK_RESPONSE_REJECT")
+    '("accept" "GTK_RESPONSE_ACCEPT")
+    '("delete-event" "GTK_RESPONSE_DELETE_EVENT")
+    '("ok" "GTK_RESPONSE_OK")
+    '("cancel" "GTK_RESPONSE_CANCEL")
+    '("close" "GTK_RESPONSE_CLOSE")
+    '("yes" "GTK_RESPONSE_YES")
+    '("no" "GTK_RESPONSE_NO")
+    '("apply" "GTK_RESPONSE_APPLY")
+    '("help" "GTK_RESPONSE_HELP")
+  )
+)
+

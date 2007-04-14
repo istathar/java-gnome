@@ -1,0 +1,40 @@
+(define-method serialize
+  (of-object "GdkPixdata")
+  (c-name "gdk_pixdata_serialize")
+  (return-type "guint8*")
+  (parameters
+    '("guint*" "stream_length_p")
+  )
+)
+
+(define-method deserialize
+  (of-object "GdkPixdata")
+  (c-name "gdk_pixdata_deserialize")
+  (return-type "gboolean")
+  (parameters
+    '("guint" "stream_length")
+    '("const-guint8*" "stream")
+    '("GError**" "error")
+  )
+)
+
+(define-method from_pixbuf
+  (of-object "GdkPixdata")
+  (c-name "gdk_pixdata_from_pixbuf")
+  (return-type "gpointer")
+  (parameters
+    '("const-GdkPixbuf*" "pixbuf")
+    '("gboolean" "use_rle")
+  )
+)
+
+(define-method to_csource
+  (of-object "GdkPixdata")
+  (c-name "gdk_pixdata_to_csource")
+  (return-type "GString*")
+  (parameters
+    '("const-gchar*" "name")
+    '("GdkPixdataDumpType" "dump_type")
+  )
+)
+

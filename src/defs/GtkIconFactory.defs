@@ -1,0 +1,45 @@
+(define-object IconFactory
+  (in-module "Gtk")
+  (parent "GObject")
+  (c-name "GtkIconFactory")
+  (gtype-id "GTK_TYPE_ICON_FACTORY")
+)
+
+(define-function gtk_icon_factory_new
+  (is-constructor-of "GtkIconFactory")
+  (c-name "gtk_icon_factory_new")
+  (caller-owns-return #t)
+  (return-type "GtkIconFactory*")
+)
+
+(define-method add
+  (of-object "GtkIconFactory")
+  (c-name "gtk_icon_factory_add")
+  (return-type "none")
+  (parameters
+    '("const-gchar*" "stock_id")
+    '("GtkIconSet*" "icon_set")
+  )
+)
+
+(define-method lookup
+  (of-object "GtkIconFactory")
+  (c-name "gtk_icon_factory_lookup")
+  (return-type "GtkIconSet*")
+  (parameters
+    '("const-gchar*" "stock_id")
+  )
+)
+
+(define-method add_default
+  (of-object "GtkIconFactory")
+  (c-name "gtk_icon_factory_add_default")
+  (return-type "none")
+)
+
+(define-method remove_default
+  (of-object "GtkIconFactory")
+  (c-name "gtk_icon_factory_remove_default")
+  (return-type "none")
+)
+

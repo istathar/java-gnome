@@ -1,0 +1,15 @@
+(define-enum IconSize
+  (in-module "Gtk")
+  (c-name "GtkIconSize")
+  (gtype-id "GTK_TYPE_ICON_SIZE")
+  (values
+    '("invalid" "GTK_ICON_SIZE_INVALID")
+    '("menu" "GTK_ICON_SIZE_MENU")
+    '("small-toolbar" "GTK_ICON_SIZE_SMALL_TOOLBAR")
+    '("large-toolbar" "GTK_ICON_SIZE_LARGE_TOOLBAR")
+    '("button" "GTK_ICON_SIZE_BUTTON")
+    '("dnd" "GTK_ICON_SIZE_DND")
+    '("dialog" "GTK_ICON_SIZE_DIALOG")
+  )
+)
+

@@ -1,0 +1,83 @@
+(define-method list_children
+  (of-object "GtkFileFolder")
+  (c-name "gtk_file_folder_list_children")
+  (return-type "gboolean")
+  (parameters
+    '("GSList**" "children")
+    '("GError**" "error")
+  )
+)
+
+(define-method get_info
+  (of-object "GtkFileFolder")
+  (c-name "gtk_file_folder_get_info")
+  (return-type "GtkFileInfo*")
+  (parameters
+    '("const-GtkFilePath*" "path")
+    '("GError**" "error")
+  )
+)
+
+(define-method is_finished_loading
+  (of-object "GtkFileFolder")
+  (c-name "gtk_file_folder_is_finished_loading")
+  (return-type "gboolean")
+)
+
+(define-virtual get_info
+  (of-object "GtkFileFolder")
+  (return-type "GtkFileInfo*")
+  (parameters
+    '("const-GtkFilePath*" "path")
+    '("GError**" "error")
+  )
+)
+
+(define-virtual list_children
+  (of-object "GtkFileFolder")
+  (return-type "gboolean")
+  (parameters
+    '("GSList**" "children")
+    '("GError**" "error")
+  )
+)
+
+(define-virtual deleted
+  (of-object "GtkFileFolder")
+  (return-type "none")
+)
+
+(define-virtual files_added
+  (of-object "GtkFileFolder")
+  (return-type "none")
+  (parameters
+    '("GSList*" "paths")
+  )
+)
+
+(define-virtual files_changed
+  (of-object "GtkFileFolder")
+  (return-type "none")
+  (parameters
+    '("GSList*" "paths")
+  )
+)
+
+(define-virtual files_removed
+  (of-object "GtkFileFolder")
+  (return-type "none")
+  (parameters
+    '("GSList*" "paths")
+  )
+)
+
+(define-virtual is_finished_loading
+  (of-object "GtkFileFolder")
+  (return-type "gboolean")
+)
+
+(define-virtual finished_loading
+  (of-object "GtkFileFolder")
+  (return-type "none")
+)
+

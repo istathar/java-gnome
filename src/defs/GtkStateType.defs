@@ -1,0 +1,13 @@
+(define-enum StateType
+  (in-module "Gtk")
+  (c-name "GtkStateType")
+  (gtype-id "GTK_TYPE_STATE_TYPE")
+  (values
+    '("normal" "GTK_STATE_NORMAL")
+    '("active" "GTK_STATE_ACTIVE")
+    '("prelight" "GTK_STATE_PRELIGHT")
+    '("selected" "GTK_STATE_SELECTED")
+    '("insensitive" "GTK_STATE_INSENSITIVE")
+  )
+)
+

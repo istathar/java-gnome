@@ -1,0 +1,48 @@
+(define-object PageSetupUnixDialog
+  (in-module "Unixprint")
+  (parent "GtkDialog")
+  (c-name "GtkPageSetupUnixDialog")
+  (gtype-id "GTK_TYPE_PAGE_SETUP_UNIX_DIALOG")
+)
+
+(define-function gtk_page_setup_unix_dialog_new
+  (is-constructor-of "GtkPageSetupUnixDialog")
+  (c-name "gtk_page_setup_unix_dialog_new")
+  (caller-owns-return #t)
+  (return-type "GtkWidget*")
+  (parameters
+    '("const-gchar*" "title" (default "NULL") (null-ok))
+    '("GtkWindow*" "parent" (default "NULL") (null-ok))
+  )
+)
+
+(define-method set_page_setup
+  (of-object "GtkPageSetupUnixDialog")
+  (c-name "gtk_page_setup_unix_dialog_set_page_setup")
+  (return-type "none")
+  (parameters
+    '("GtkPageSetup*" "page_setup")
+  )
+)
+
+(define-method get_page_setup
+  (of-object "GtkPageSetupUnixDialog")
+  (c-name "gtk_page_setup_unix_dialog_get_page_setup")
+  (return-type "GtkPageSetup*")
+)
+
+(define-method set_print_settings
+  (of-object "GtkPageSetupUnixDialog")
+  (c-name "gtk_page_setup_unix_dialog_set_print_settings")
+  (return-type "none")
+  (parameters
+    '("GtkPrintSettings*" "print_settings")
+  )
+)
+
+(define-method get_print_settings
+  (of-object "GtkPageSetupUnixDialog")
+  (c-name "gtk_page_setup_unix_dialog_get_print_settings")
+  (return-type "GtkPrintSettings*")
+)
+

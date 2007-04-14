@@ -1,0 +1,7 @@
+(define-function gtk_rc_style_new
+  (is-constructor-of "GtkRCStyle")
+  (c-name "gtk_rc_style_new")
+  (caller-owns-return #t)
+  (return-type "GtkRcStyle*")
+)
+

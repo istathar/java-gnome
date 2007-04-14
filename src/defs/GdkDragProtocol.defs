@@ -1,0 +1,15 @@
+(define-enum DragProtocol
+  (in-module "Gdk")
+  (c-name "GdkDragProtocol")
+  (gtype-id "GDK_TYPE_DRAG_PROTOCOL")
+  (values
+    '("motif" "GDK_DRAG_PROTO_MOTIF")
+    '("xdnd" "GDK_DRAG_PROTO_XDND")
+    '("rootwin" "GDK_DRAG_PROTO_ROOTWIN")
+    '("none" "GDK_DRAG_PROTO_NONE")
+    '("win32-dropfiles" "GDK_DRAG_PROTO_WIN32_DROPFILES")
+    '("ole2" "GDK_DRAG_PROTO_OLE2")
+    '("local" "GDK_DRAG_PROTO_LOCAL")
+  )
+)
+

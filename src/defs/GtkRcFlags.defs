@@ -1,0 +1,12 @@
+(define-flags RcFlags
+  (in-module "Gtk")
+  (c-name "GtkRcFlags")
+  (gtype-id "GTK_TYPE_RC_FLAGS")
+  (values
+    '("fg" "GTK_RC_FG")
+    '("bg" "GTK_RC_BG")
+    '("text" "GTK_RC_TEXT")
+    '("base" "GTK_RC_BASE")
+  )
+)
+

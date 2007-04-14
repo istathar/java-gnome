@@ -1,0 +1,23 @@
+(define-object ColorSelectionDialog
+  (in-module "Gtk")
+  (parent "GtkDialog")
+  (c-name "GtkColorSelectionDialog")
+  (gtype-id "GTK_TYPE_COLOR_SELECTION_DIALOG")
+  (fields
+    '("GtkWidget*" "colorsel")
+    '("GtkWidget*" "ok_button")
+    '("GtkWidget*" "cancel_button")
+    '("GtkWidget*" "help_button")
+  )
+)
+
+(define-function gtk_color_selection_dialog_new
+  (is-constructor-of "GtkColorSelectionDialog")
+  (c-name "gtk_color_selection_dialog_new")
+  (caller-owns-return #t)
+  (return-type "GtkWidget*")
+  (properties
+    '("title")
+  )
+)
+

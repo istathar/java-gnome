@@ -1,0 +1,330 @@
+(define-object Object
+  (in-module "Atk")
+  (parent "GObject")
+  (c-name "AtkObject")
+  (gtype-id "ATK_TYPE_OBJECT")
+)
+
+(define-method get_name
+  (of-object "AtkObject")
+  (c-name "atk_object_get_name")
+  (return-type "const-gchar*")
+)
+
+(define-method get_description
+  (of-object "AtkObject")
+  (c-name "atk_object_get_description")
+  (return-type "const-gchar*")
+)
+
+(define-method get_parent
+  (of-object "AtkObject")
+  (c-name "atk_object_get_parent")
+  (return-type "AtkObject*")
+)
+
+(define-method get_n_accessible_children
+  (of-object "AtkObject")
+  (c-name "atk_object_get_n_accessible_children")
+  (return-type "gint")
+)
+
+(define-method ref_accessible_child
+  (of-object "AtkObject")
+  (c-name "atk_object_ref_accessible_child")
+  (return-type "AtkObject*")
+  (parameters
+    '("gint" "i")
+  )
+)
+
+(define-method ref_relation_set
+  (of-object "AtkObject")
+  (c-name "atk_object_ref_relation_set")
+  (return-type "AtkRelationSet*")
+)
+
+(define-method get_role
+  (of-object "AtkObject")
+  (c-name "atk_object_get_role")
+  (return-type "AtkRole")
+)
+
+(define-method get_layer
+  (of-object "AtkObject")
+  (c-name "atk_object_get_layer")
+  (return-type "AtkLayer")
+)
+
+(define-method get_mdi_zorder
+  (of-object "AtkObject")
+  (c-name "atk_object_get_mdi_zorder")
+  (return-type "gint")
+)
+
+(define-method ref_state_set
+  (of-object "AtkObject")
+  (c-name "atk_object_ref_state_set")
+  (return-type "AtkStateSet*")
+)
+
+(define-method get_index_in_parent
+  (of-object "AtkObject")
+  (c-name "atk_object_get_index_in_parent")
+  (return-type "gint")
+)
+
+(define-method set_name
+  (of-object "AtkObject")
+  (c-name "atk_object_set_name")
+  (return-type "none")
+  (parameters
+    '("const-gchar*" "name")
+  )
+)
+
+(define-method set_description
+  (of-object "AtkObject")
+  (c-name "atk_object_set_description")
+  (return-type "none")
+  (parameters
+    '("const-gchar*" "description")
+  )
+)
+
+(define-method set_parent
+  (of-object "AtkObject")
+  (c-name "atk_object_set_parent")
+  (return-type "none")
+  (parameters
+    '("AtkObject*" "parent")
+  )
+)
+
+(define-method set_role
+  (of-object "AtkObject")
+  (c-name "atk_object_set_role")
+  (return-type "none")
+  (parameters
+    '("AtkRole" "role")
+  )
+)
+
+(define-method connect_property_change_handler
+  (of-object "AtkObject")
+  (c-name "atk_object_connect_property_change_handler")
+  (return-type "guint")
+  (parameters
+    '("AtkPropertyChangeHandler*" "handler")
+  )
+)
+
+(define-method remove_property_change_handler
+  (of-object "AtkObject")
+  (c-name "atk_object_remove_property_change_handler")
+  (return-type "none")
+  (parameters
+    '("guint" "handler_id")
+  )
+)
+
+(define-method notify_state_change
+  (of-object "AtkObject")
+  (c-name "atk_object_notify_state_change")
+  (return-type "none")
+  (parameters
+    '("AtkState" "state")
+    '("gboolean" "value")
+  )
+)
+
+(define-method initialize
+  (of-object "AtkObject")
+  (c-name "atk_object_initialize")
+  (return-type "none")
+  (parameters
+    '("gpointer" "data")
+  )
+)
+
+(define-method add_relationship
+  (of-object "AtkObject")
+  (c-name "atk_object_add_relationship")
+  (return-type "gboolean")
+  (parameters
+    '("AtkRelationType" "relationship")
+    '("AtkObject*" "target")
+  )
+)
+
+(define-method remove_relationship
+  (of-object "AtkObject")
+  (c-name "atk_object_remove_relationship")
+  (return-type "gboolean")
+  (parameters
+    '("AtkRelationType" "relationship")
+    '("AtkObject*" "target")
+  )
+)
+
+(define-virtual get_name
+  (of-object "AtkObject")
+  (return-type "const-gchar*")
+)
+
+(define-virtual get_description
+  (of-object "AtkObject")
+  (return-type "const-gchar*")
+)
+
+(define-virtual get_parent
+  (of-object "AtkObject")
+  (return-type "AtkObject*")
+)
+
+(define-virtual get_n_children
+  (of-object "AtkObject")
+  (return-type "gint")
+)
+
+(define-virtual ref_child
+  (of-object "AtkObject")
+  (return-type "AtkObject*")
+  (parameters
+    '("gint" "i")
+  )
+)
+
+(define-virtual get_index_in_parent
+  (of-object "AtkObject")
+  (return-type "gint")
+)
+
+(define-virtual ref_relation_set
+  (of-object "AtkObject")
+  (return-type "AtkRelationSet*")
+)
+
+(define-virtual get_role
+  (of-object "AtkObject")
+  (return-type "AtkRole")
+)
+
+(define-virtual get_layer
+  (of-object "AtkObject")
+  (return-type "AtkLayer")
+)
+
+(define-virtual get_mdi_zorder
+  (of-object "AtkObject")
+  (return-type "gint")
+)
+
+(define-virtual ref_state_set
+  (of-object "AtkObject")
+  (return-type "AtkStateSet*")
+)
+
+(define-virtual set_name
+  (of-object "AtkObject")
+  (return-type "none")
+  (parameters
+    '("const-gchar*" "name")
+  )
+)
+
+(define-virtual set_description
+  (of-object "AtkObject")
+  (return-type "none")
+  (parameters
+    '("const-gchar*" "description")
+  )
+)
+
+(define-virtual set_parent
+  (of-object "AtkObject")
+  (return-type "none")
+  (parameters
+    '("AtkObject*" "parent")
+  )
+)
+
+(define-virtual set_role
+  (of-object "AtkObject")
+  (return-type "none")
+  (parameters
+    '("AtkRole" "role")
+  )
+)
+
+(define-virtual connect_property_change_handler
+  (of-object "AtkObject")
+  (return-type "guint")
+  (parameters
+    '("AtkPropertyChangeHandler*" "handler")
+  )
+)
+
+(define-virtual remove_property_change_handler
+  (of-object "AtkObject")
+  (return-type "none")
+  (parameters
+    '("guint" "handler_id")
+  )
+)
+
+(define-virtual initialize
+  (of-object "AtkObject")
+  (return-type "none")
+  (parameters
+    '("gpointer" "data")
+  )
+)
+
+(define-virtual children_changed
+  (of-object "AtkObject")
+  (return-type "none")
+  (parameters
+    '("guint" "change_index")
+    '("gpointer" "changed_child")
+  )
+)
+
+(define-virtual focus_event
+  (of-object "AtkObject")
+  (return-type "none")
+  (parameters
+    '("gboolean" "focus_in")
+  )
+)
+
+(define-virtual property_change
+  (of-object "AtkObject")
+  (return-type "none")
+  (parameters
+    '("AtkPropertyValues*" "values")
+  )
+)
+
+(define-virtual state_change
+  (of-object "AtkObject")
+  (return-type "none")
+  (parameters
+    '("const-gchar*" "name")
+    '("gboolean" "state_set")
+  )
+)
+
+(define-virtual visible_data_changed
+  (of-object "AtkObject")
+  (return-type "none")
+)
+
+(define-virtual active_descendant_changed
+  (of-object "AtkObject")
+  (return-type "none")
+  (parameters
+    '("gpointer*" "child")
+  )
+)
+

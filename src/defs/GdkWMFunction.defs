@@ -1,0 +1,14 @@
+(define-flags WMFunction
+  (in-module "Gdk")
+  (c-name "GdkWMFunction")
+  (gtype-id "GDK_TYPE_WM_FUNCTION")
+  (values
+    '("all" "GDK_FUNC_ALL")
+    '("resize" "GDK_FUNC_RESIZE")
+    '("move" "GDK_FUNC_MOVE")
+    '("minimize" "GDK_FUNC_MINIMIZE")
+    '("maximize" "GDK_FUNC_MAXIMIZE")
+    '("close" "GDK_FUNC_CLOSE")
+  )
+)
+

@@ -1,0 +1,14 @@
+(define-object VButtonBox
+  (in-module "Gtk")
+  (parent "GtkButtonBox")
+  (c-name "GtkVButtonBox")
+  (gtype-id "GTK_TYPE_VBUTTON_BOX")
+)
+
+(define-function gtk_vbutton_box_new
+  (is-constructor-of "GtkVButtonBox")
+  (c-name "gtk_vbutton_box_new")
+  (caller-owns-return #t)
+  (return-type "GtkWidget*")
+)
+

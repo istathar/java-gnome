@@ -1,0 +1,124 @@
+(define-object Paned
+  (in-module "Gtk")
+  (parent "GtkContainer")
+  (c-name "GtkPaned")
+  (gtype-id "GTK_TYPE_PANED")
+)
+
+(define-method add1
+  (of-object "GtkPaned")
+  (c-name "gtk_paned_add1")
+  (return-type "none")
+  (parameters
+    '("GtkWidget*" "child")
+  )
+)
+
+(define-method add2
+  (of-object "GtkPaned")
+  (c-name "gtk_paned_add2")
+  (return-type "none")
+  (parameters
+    '("GtkWidget*" "child")
+  )
+)
+
+(define-method pack1
+  (of-object "GtkPaned")
+  (c-name "gtk_paned_pack1")
+  (return-type "none")
+  (parameters
+    '("GtkWidget*" "child")
+    '("gboolean" "resize" (default "FALSE"))
+    '("gboolean" "shrink" (default "TRUE"))
+  )
+)
+
+(define-method pack2
+  (of-object "GtkPaned")
+  (c-name "gtk_paned_pack2")
+  (return-type "none")
+  (parameters
+    '("GtkWidget*" "child")
+    '("gboolean" "resize" (default "TRUE"))
+    '("gboolean" "shrink" (default "TRUE"))
+  )
+)
+
+(define-method get_position
+  (of-object "GtkPaned")
+  (c-name "gtk_paned_get_position")
+  (return-type "gint")
+)
+
+(define-method set_position
+  (of-object "GtkPaned")
+  (c-name "gtk_paned_set_position")
+  (return-type "none")
+  (parameters
+    '("gint" "position")
+  )
+)
+
+(define-method get_child1
+  (of-object "GtkPaned")
+  (c-name "gtk_paned_get_child1")
+  (return-type "GtkWidget*")
+)
+
+(define-method get_child2
+  (of-object "GtkPaned")
+  (c-name "gtk_paned_get_child2")
+  (return-type "GtkWidget*")
+)
+
+(define-method compute_position
+  (of-object "GtkPaned")
+  (c-name "gtk_paned_compute_position")
+  (return-type "none")
+  (parameters
+    '("gint" "allocation")
+    '("gint" "child1_req")
+    '("gint" "child2_req")
+  )
+)
+
+(define-virtual cycle_child_focus
+  (of-object "GtkPaned")
+  (return-type "gboolean")
+  (parameters
+    '("gboolean" "reverse")
+  )
+)
+
+(define-virtual toggle_handle_focus
+  (of-object "GtkPaned")
+  (return-type "gboolean")
+)
+
+(define-virtual move_handle
+  (of-object "GtkPaned")
+  (return-type "gboolean")
+  (parameters
+    '("GtkScrollType" "scroll")
+  )
+)
+
+(define-virtual cycle_handle_focus
+  (of-object "GtkPaned")
+  (return-type "gboolean")
+  (parameters
+    '("gboolean" "reverse")
+  )
+)
+
+(define-virtual accept_position
+  (of-object "GtkPaned")
+  (return-type "gboolean")
+)
+
+(define-virtual cancel_position
+  (of-object "GtkPaned")
+  (return-type "gboolean")
+)
+

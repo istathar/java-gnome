@@ -1,0 +1,10 @@
+(define-enum FileChooserError
+  (in-module "Gtk")
+  (c-name "GtkFileChooserError")
+  (gtype-id "GTK_TYPE_FILE_CHOOSER_ERROR")
+  (values
+    '("nonexistent" "GTK_FILE_CHOOSER_ERROR_NONEXISTENT")
+    '("bad-filename" "GTK_FILE_CHOOSER_ERROR_BAD_FILENAME")
+  )
+)
+

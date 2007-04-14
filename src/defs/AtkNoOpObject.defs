@@ -1,0 +1,17 @@
+(define-object NoOpObject
+  (in-module "Atk")
+  (parent "AtkObject")
+  (c-name "AtkNoOpObject")
+  (gtype-id "ATK_TYPE_NO_OP_OBJECT")
+)
+
+(define-function atk_no_op_object_new
+  (is-constructor-of "AtkNoOpObject")
+  (c-name "atk_no_op_object_new")
+  (caller-owns-return #t)
+  (return-type "AtkNoOpObject*")
+  (parameters
+    '("GObject*" "obj")
+  )
+)
+

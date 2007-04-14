@@ -1,0 +1,10 @@
+(define-flags TreeModelFlags
+  (in-module "Gtk")
+  (c-name "GtkTreeModelFlags")
+  (gtype-id "GTK_TYPE_TREE_MODEL_FLAGS")
+  (values
+    '("iters-persist" "GTK_TREE_MODEL_ITERS_PERSIST")
+    '("list-only" "GTK_TREE_MODEL_LIST_ONLY")
+  )
+)
+
