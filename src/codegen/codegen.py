@@ -8,7 +8,6 @@
 
 import re
 
-
 RED="\033[31;01m"
 BROWN="\033[31;02m"
 LIGHTGREEN="\033[32;01m"
@@ -26,7 +25,6 @@ GRAY="\033[37;02m"
 BLACKUNDERLINE="\033[38;01m"
 GRAYUNDERLINE="\033[38;02m"
 NORMAL="\033[0m"
-
 
 types = dict()
 
@@ -113,7 +111,6 @@ def spit_types():
 	for typething in  types.values():
 		print typething
 	
-
 def toCamel(var):
 	words = var.split("_")
 	camel = words.pop(0)
@@ -121,7 +118,6 @@ def toCamel(var):
 		word = words.pop(0)
 		camel += word.capitalize()
 	return camel
-	
 	
 def javaEventName(var): 
 	signal = var.upper()
@@ -197,10 +193,12 @@ class block:
 		self.parameters[param] = value
 		
 	def parseMe(self):
+		#print "Looking at " + self.getPhylum()
 		if self.getPhylum() == "object": 
 			self.g_class = self.getCharac("c-name") + "*"
 			self.g_module = "org.gnome." + self.getCharac("in-module").lower()
-			#print self.g_module
+			
+			print self.g_module
 			types[self.g_class] = dict([
 				('phylum', self.getPhylum()),
 				('java', self.getThing()),
@@ -212,6 +210,7 @@ class block:
 			
 		elif self.getPhylum() == "enum":
 			self.g_class = self.getCharac("c-name")
+			print "Found Enum\t" , self.g_class
 			types[self.g_class] = dict([
 				('phylum', self.getPhylum()),
 				('java', self.getThing()),
@@ -221,12 +220,17 @@ class block:
 				('package', "org.gnome." + self.g_module)
 			])
 			
+			print "For the enum its ", types[self.g_class]
+			
 		elif self.getPhylum() == "function":
+			
 			self.g_class = self.getCharac("is-constructor-of")
+			print "Found function\t" , self.g_class
 			if self.g_class:
 				print "Will write constructor!"
 				
 		elif self.getPhylum() == "method":
+			print "Found method:\t", self.g_class
 			if self.getCharac("of-object"):
 				self.g_class = self.getCharac("of-object")
 				self.g_class = self.g_class + "*"
@@ -250,7 +254,7 @@ class codegenerator:
 	
 		self.block = ablock
 		self.j_class = self.block.g_class.rstrip("*")
-		#print "jclass "+ self.j_class + " from gclass " + self.block.g_class
+		print "jclass "+ self.j_class + " from gclass " + self.block.g_class
 		self.j_package = types[self.block.g_class]["package"]
 		#print self.j_class
 		if(self.block.getPhylum() == "method"):
@@ -303,7 +307,7 @@ class defsfile:
 	
 	def printblocks(self):
 		#for myblock in self.blocks:
-		b = block(self.blocks[0])
+		b = block(self.blocks[1])
 		b.parseMe()
 		self.parsedblocks.append(b)	
 			
@@ -314,10 +318,12 @@ class defsfile:
 		pass
 	
 	def generate(self):
-		#for myblock in self.parsedblocks:
-			#c = codegenerator(myblock)
+		for myblock in self.parsedblocks:
+			c = codegenerator(myblock)
 		c = codegenerator(self.parsedblocks[0])
+		#pass
 	
 if __name__ == "__main__":
 	defs = defsfile("../defs/GtkButton.defs")
+	defs.printblocks()
 #spit_types()
