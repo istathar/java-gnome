@@ -122,7 +122,7 @@ class DefsParser(IncludeParser):
                 obj.write_defs(sys.stdout)
                 continue
             
-            fp = open("../defs/"+obj.whichClass()+".defs", "a")
+            fp = open(""+obj.whichClass()+".defs", "a")
             obj.write_defs(fp)
             fp.close()
 
