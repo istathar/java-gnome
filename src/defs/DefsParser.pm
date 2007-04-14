@@ -559,7 +559,7 @@ sub process($) {
 		#
 
 		if (/^\)/) {
-			print "\n$NAVY" . join "\n", @lines;
+			print "\n$BLUE" . join "\n", @lines;
 			print "$NORMAL\n";
 
 			process_block();

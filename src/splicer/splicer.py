@@ -15,20 +15,11 @@
 # a single stream of data into individual files.
 #
 
-import getopt
-import keyword
-import os
-import string
 import sys
-
 import definitions
 import defsparser
 
-usage = 'usage: codegen.py [-o overridesfile] [-p prefix] defsfile'
 def main(argv):
-    prefix = 'pygtk'
-    outfilename = None
-    errorfilename = None
     defines = {}
 
     p = defsparser.DefsParser(argv[1], defines)
