@@ -66,6 +66,10 @@ class Definition:
             self.caller_owns_return = True
         else:
             self.caller_owns_return = False
+    
+    def whichClass(self):
+        self.write_defs()
+        raise RuntimeError, "This method must be overridden"
 
 
 class ObjectDef(Definition):
@@ -120,6 +124,9 @@ class ObjectDef(Definition):
             fp.write('  )\n')
         fp.write(')\n\n')
 
+    def whichClass(self):
+        return self.c_name
+
 class InterfaceDef(Definition):
     def __init__(self, name, *args):
         self.name = name
@@ -151,6 +158,10 @@ class InterfaceDef(Definition):
         if self.typecode:
             fp.write('  (gtype-id "' + self.typecode + '")\n')
         fp.write(')\n\n')
+
+    def whichClass(self):
+        return self.c_name
+
 
 class EnumDef(Definition):
     def __init__(self, name, *args):
@@ -184,11 +195,17 @@ class EnumDef(Definition):
                 fp.write('    \'("' + name + '" "' + val + '")\n')
             fp.write('  )\n')
         fp.write(')\n\n')
+    
+    def whichClass(self):
+        return self.c_name
+
 
 class FlagsDef(EnumDef):
     def __init__(self, *args):
         apply(EnumDef.__init__, (self,) + args)
         self.deftype = 'flags'
+
+
 
 class BoxedDef(Definition):
     def __init__(self, name, *args):
@@ -237,6 +254,10 @@ class BoxedDef(Definition):
             fp.write('  )\n')
         fp.write(')\n\n')
 
+    def whichClass(self):
+        return self.c_name
+
+
 class PointerDef(Definition):
     def __init__(self, name, *args):
         self.name = name
@@ -273,6 +294,9 @@ class PointerDef(Definition):
                 fp.write('    \'("' + ftype + '" "' + fname + '")\n')
             fp.write('  )\n')
         fp.write(')\n\n')
+    
+    def whichClass(self):
+        return None
 
 class MethodDefBase(Definition):
     def __init__(self, name, *args):
@@ -385,10 +409,17 @@ class MethodDef(MethodDefBase):
         fp.write('(define-method ' + self.name + '\n')
         self._write_defs(fp)
 
+    def whichClass(self):
+        return self.of_object
+
 class VirtualDef(MethodDefBase):
     def write_defs(self, fp=sys.stdout):
         fp.write('(define-virtual ' + self.name + '\n')
         self._write_defs(fp)
+        
+    def whichClass(self):
+        return self.of_object
+
 
 class FunctionDef(Definition):
     def __init__(self, name, *args):
@@ -545,3 +576,7 @@ class FunctionDef(Definition):
             fp.write('  (varargs #t)\n')
 
         fp.write(')\n\n')
+        
+    def whichClass(self):
+        return self.is_constructor_of
+

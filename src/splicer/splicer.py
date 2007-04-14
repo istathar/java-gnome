@@ -4,55 +4,9 @@ import os
 import string
 import sys
 
-import argtypes
 import definitions
 import defsparser
-import override
-import reversewrapper
 
-class Coverage(object):
-    def __init__(self, name):
-        self.name = name
-        self.wrapped = 0
-        self.not_wrapped = 0
-
-    def declare_wrapped(self):
-        self.wrapped += 1
-
-    def declare_not_wrapped(self):
-        self.not_wrapped += 1
-
-    def printstats(self):
-        total = self.wrapped + self.not_wrapped
-        fd = sys.stderr
-        if total:
-            fd.write("***INFO*** The coverage of %s is %.2f%% (%i/%i)\n" %
-                     (self.name,
-                      float(self.wrapped*100)/total,
-                      self.wrapped,
-                      total))
-        else:
-            fd.write("***INFO*** There are no declared %s.\n" % self.name)
-
-functions_coverage = Coverage("global functions")
-methods_coverage = Coverage("methods")
-vproxies_coverage = Coverage("virtual proxies")
-vaccessors_coverage = Coverage("virtual accessors")
-iproxies_coverage = Coverage("interface proxies")
-
-def exc_info():
-    #traceback.print_exc()
-    etype, value, tb = sys.exc_info()
-    ret = ""
-    try:
-        sval = str(value)
-        if etype == KeyError:
-            ret = "No ArgType for %s" % (sval,)
-        else:
-            ret = sval
-    finally:
-        del etype, value, tb
-    return ret
 
 def fixname(name):
     if keyword.iskeyword(name):
@@ -1624,60 +1578,16 @@ def register_types(parser):
 
 usage = 'usage: codegen.py [-o overridesfile] [-p prefix] defsfile'
 def main(argv):
-    o = override.Overrides()
     prefix = 'pygtk'
     outfilename = None
     errorfilename = None
-    opts, args = getopt.getopt(argv[1:], "o:p:r:t:D:I:",
-                        ["override=", "prefix=", "register=", "outfilename=",
-                         "load-types=", "errorfilename="])
-    defines = {} # -Dkey[=val] options
-    for opt, arg in opts:
-        if opt in ('-o', '--override'):
-            o = override.Overrides(arg)
-        elif opt in ('-p', '--prefix'):
-            prefix = arg
-        elif opt in ('-r', '--register'):
-            # Warning: user has to make sure all -D options appear before -r
-            p = defsparser.DefsParser(arg, defines)
-            p.startParsing()
-            register_types(p)
-            del p
-        elif opt == '--outfilename':
-            outfilename = arg
-        elif opt == '--errorfilename':
-            errorfilename = arg
-        elif opt in ('-t', '--load-types'):
-            globals = {}
-            execfile(arg, globals)
-        elif opt == '-D':
-            nameval = arg.split('=')
-            try:
-                defines[nameval[0]] = nameval[1]
-            except IndexError:
-                defines[nameval[0]] = None
-        elif opt == '-I':
-            defsparser.include_path.insert(0, arg)
-    if len(args) < 1:
-        print >> sys.stderr, usage
-        return 1
-    if errorfilename:
-        sys.stderr = open(errorfilename, "w")
-    p = defsparser.DefsParser(args[0], defines)
-    if not outfilename:
-        outfilename = os.path.splitext(args[0])[0] + '.c'
+    defines = {}
+
+    p = defsparser.DefsParser(argv[1], defines)
 
     p.startParsing()
 
-    register_types(p)
-    sw = SourceWriter(p, o, prefix, FileOutput(sys.stdout, outfilename))
-    sw.write()
-
-    functions_coverage.printstats()
-    methods_coverage.printstats()
-    vproxies_coverage.printstats()
-    vaccessors_coverage.printstats()
-    iproxies_coverage.printstats()
+    p.write_defs()
 
 if __name__ == '__main__':
     sys.exit(main(sys.argv))

@@ -98,16 +98,18 @@ class DefsParser(IncludeParser):
                 f.write_defs()
 
     def write_defs(self, fp=sys.stdout):
-        for obj in self.objects:
+        all = []
+        all = self.objects + self.enums + self.boxes + self.pointers + self.functions + self.virtuals
+        
+        for obj in all:
+            type = obj.whichClass()
+            if type == None:
+                obj.write_defs(sys.stdout)
+                continue
+            
+            fp = open("out/"+obj.whichClass()+".defs", "a")
             obj.write_defs(fp)
-        for enum in self.enums:
-            enum.write_defs(fp)
-        for boxed in self.boxes:
-            boxed.write_defs(fp)
-        for pointer in self.pointers:
-            pointer.write_defs(fp)
-        for func in self.functions:
-            func.write_defs(fp)
+            fp.close()
 
     def find_object(self, c_name):
         for obj in self.objects:
