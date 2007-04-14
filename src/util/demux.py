@@ -1,6 +1,6 @@
 #! /usr/bin/env python
 #
-# splicer.py
+# demux.py
 #
 # Copyright (c) 1998-2006 James Henstridge, John Finlay, and Others
 # Copyright (c) 2007-     Operational Dynamics Consulting Pty Ltd
@@ -13,6 +13,8 @@
 # This code imported from pygtk, the Python language bindings for GTK and
 # GNOME, then stripped down to the task of round-tripping .defs data from
 # a single stream of data into individual files.
+#
+# @author: Andrew Cowie
 #
 
 import sys
