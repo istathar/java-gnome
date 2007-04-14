@@ -23,11 +23,11 @@
   (in-module "Gtk")
   (c-name "GtkReliefStyle")
   (gtype-id "GTK_TYPE_RELIEF_STYLE")
-;;  (values
-;;    '("normal" "GTK_RELIEF_NORMAL")
-;;    '("half" "GTK_RELIEF_HALF")
-;;    '("none" "GTK_RELIEF_NONE")
-;;  )
+  (values
+    '("normal" "GTK_RELIEF_NORMAL")
+    '("half" "GTK_RELIEF_HALF")
+    '("none" "GTK_RELIEF_NONE")
+  )
 )
 
 (define-object Widget
