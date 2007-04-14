@@ -112,7 +112,7 @@ class DefsParser(IncludeParser):
             if not old.c_name.has_key(f.c_name):
                 f.write_defs()
 
-    def write_defs(self, fp=sys.stdout):
+    def writeDefs(self, fp=sys.stdout):
         all = []
         all = self.objects + self.enums + self.boxes + self.pointers + self.functions + self.virtuals
         
@@ -122,7 +122,7 @@ class DefsParser(IncludeParser):
                 obj.write_defs(sys.stdout)
                 continue
             
-            fp = open("out/"+obj.whichClass()+".defs", "a")
+            fp = open("../defs/"+obj.whichClass()+".defs", "a")
             obj.write_defs(fp)
             fp.close()
 
