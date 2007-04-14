@@ -1,16 +1,24 @@
-# -*- Mode: Python; py-indent-offset: 4 -*-
+#
+# definitions.py
+#
+# Copyright (c) 1998-2006 James Henstridge, John Finlay, and Others
+# Copyright (c) 2007-     Operational Dynamics Consulting Pty Ltd
+# 
+# The code in this file, and the library it is a part of, are made available
+# to you by the authors under the terms of the "GNU General Public Licence,
+# version 2". See the LICENCE file for the terms governing usage and
+# redistribution.
+#
+# This code imported from pygtk, the Python language bindings for GTK and
+# GNOME, then stripped down to the task of round-tripping .defs data from
+# a single stream of data into individual files.
+#
+
 import copy
 import sys
 
 def get_valid_scheme_definitions(defs):
     return [x for x in defs if isinstance(x, tuple) and len(x) >= 2]
-
-def unescape(s):
-    s = s.replace('\r\n', '\\r\\n').replace('\t', '\\t')
-    return s.replace('\r', '\\r').replace('\n', '\\n')
-
-def make_docstring(lines):
-    return "(char *) " + '\n'.join(['"%s"' % unescape(s) for s in lines])
 
 # New Parameter class, wich emulates a tuple for compatibility reasons
 class Parameter(object):

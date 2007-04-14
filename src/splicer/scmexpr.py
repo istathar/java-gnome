@@ -1,5 +1,19 @@
-#!/usr/bin/env python
-# -*- Mode: Python; py-indent-offset: 4 -*-
+#
+# scmexpr.py
+#
+# Copyright (c) 1998-2006 James Henstridge, John Finlay, and Others
+# Copyright (c) 2007-     Operational Dynamics Consulting Pty Ltd
+# 
+# The code in this file, and the library it is a part of, are made available
+# to you by the authors under the terms of the "GNU General Public Licence,
+# version 2". See the LICENCE file for the terms governing usage and
+# redistribution.
+#
+# This code imported from pygtk, the Python language bindings for GTK and
+# GNOME, then stripped down to the task of round-tripping .defs data from
+# a single stream of data into individual files.
+#
+
 from __future__ import generators
 
 import string
@@ -121,23 +135,4 @@ class Parser:
     def unknown(self, tup):
         pass
 
-_testString = """; a scheme file
-(define-func gdk_font_load    ; a comment at end of line
-  GdkFont
-  ((string name)))
 
-(define-boxed GdkEvent
-  gdk_event_copy
-  gdk_event_free
-  "sizeof(GdkEvent)")
-"""
-
-if __name__ == '__main__':
-    import sys
-    if sys.argv[1:]:
-        fp = open(sys.argv[1])
-    else:
-        fp = StringIO(_testString)
-    statements = parse(fp)
-    for s in statements:
-        print `s`
