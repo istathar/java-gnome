@@ -1,8 +1,7 @@
 #
 # blocks.py
 #
-# Copyright (c) 2007 Operational Dynamics Consulting Pty Ltd
-# Copyright (c) 2007 Srichand Pendyala
+# Copyright (c) 2007 Operational Dynamics Consulting Pty Ltd, and Others
 # 
 # The code in this file, and the library it is a part of, are made available
 # to you by the authors under the terms of the "GNU General Public Licence,
@@ -13,7 +12,7 @@
 # @author: Srichand Pendyala
 #
 
-from generators import ObjectGenerator
+from generators import *
 
 class Block:
     def __init__(self):
@@ -52,17 +51,21 @@ class ObjectBlock(TypeBlock):
 # ---------------------------------------------------------
 
 class FunctionBlock(Block):
-    pass
+    def __init__(self, thing, py_function_name, g_return_type, c_function_name, g_parameters):
+        self.thing = thing
+        self.py_function_name = py_function_name
+        self.g_return_type = g_return_type
+        self.c_function_name = c_function_name
+        self.g_parameters = g_parameters
+        
 
 class ConstructorBlock(FunctionBlock):
     pass
 
 class MethodBlock(FunctionBlock):
-    pass
+    def generator(self):
+        return MethodGenerator(self)
 
 class VirtualBlock(FunctionBlock):
     pass
-    
-
-
     

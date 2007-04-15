@@ -2,7 +2,7 @@
 #
 # codegen.py
 # 
-# Copyright (c) 2006-2007 Operational Dynamics Consulting Pty Ltd and Others
+# Copyright (c) 2006-2007 Operational Dynamics Consulting Pty Ltd
 # Copyright (c) 2007      Srichand Pendyala
 # Python rewrite of the Java-GNOME-4.0 code generator
 
@@ -28,13 +28,7 @@ NORMAL="\033[0m"
 
 types = dict()
 
-types['none'] = dict([
-	('phylum', "fundamental"), 	# Phylum
-	('java', "void"),		# Public API Wrapper layer
-	('translation', ""),		# Java Translation Layer
-	('native', "void"),		# Native primitives
-	('jni', "void")		# JNI primitives
-		])
+
 types['gfloat'] = dict([
 	('phylum', "fundamental"),
 	('java', "float"),
@@ -91,13 +85,6 @@ types['gchar*'] = dict([
 	('native', "String"),
 	('jni', "jstring")
 		])
-types['const-gchar*'] = dict([
-	('phylum', "fundamental"),
-	('java', "String"),
-	('translation', ""),
-	('native', "String"),
-	('jni', "jstring")
-		])
 
 
 def warning(*args):
@@ -110,14 +97,6 @@ def spit_types():
 	global types
 	for typething in  types.values():
 		print typething
-	
-def toCamel(var):
-	words = var.split("_")
-	camel = words.pop(0)
-	while ( words ):
-		word = words.pop(0)
-		camel += word.capitalize()
-	return camel
 	
 def javaEventName(var): 
 	signal = var.upper()

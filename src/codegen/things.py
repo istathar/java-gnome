@@ -1,8 +1,7 @@
 #
 # things.py
 #
-# Copyright (c) 2007 Operational Dynamics Consulting Pty Ltd
-# Copyright (c) 2007 Srichand Pendyala
+# Copyright (c) 2007 Operational Dynamics Consulting Pty Ltd, and Others
 # 
 # The code in this file, and the library it is a part of, are made available
 # to you by the authors under the terms of the "GNU General Public Licence,
@@ -15,10 +14,10 @@
 
 class Thing:
 
-    def __init__(self, g_class, j_package, j_class, java, translation, native, jni):
+    def __init__(self, g_type, j_package, j_class, java, translation, native, jni):
         # the name of the native (C side) type as used throughout the defs data
         # for lookup purposes
-        self.g_class = g_class
+        self.g_type = g_type
         
         # which Java package namespace will this Thing be written to?
         self.j_package = j_package
@@ -32,7 +31,10 @@ class Thing:
         self.translation = translation
         self.native = native
         self.jni = jni
-        
+    
+    def valid(self):
+        return True;
+
 
 class ObjectThing(Thing):
     pass
@@ -47,22 +49,43 @@ class BoxedThing(Thing):
     pass
 
 class FundamentalThing(Thing):
-    pass
+    def __init__(self, g_type, java, translation, native, jni):
+        Thing.__init__(self, g_type, '', '', java, translation, native, jni)
 
 #
 # The master type information database. The keys are the C types.
 #
-types = dict()
+
+_things = dict()
 
 def addThing(t):
     if not t.valid():
-        raise Error, "Attempt to add invalid Thing object to types database"
-    types[t.g_class] = t
+        raise RuntimeError, "Attempt to add invalid Thing object to types database"
+    _things[t.g_type] = t
 
 #
 # Get the Things object associated with a given C type.
 #
-def lookupThing(type):
-    return types[type]
+def lookupThing(g_type):
+    try: 
+        return _things[g_type]
+    except KeyError:
+        raise KeyError, "Type " + g_type + " not registered"
+        
 
-    
+# ---------------------------------------------------------
+# Register basic Things corresponding to primative types
+# ---------------------------------------------------------
+
+addThing(FundamentalThing('void',
+                          'void',
+                          '',
+                          'void',
+                          'void'))
+
+addThing(FundamentalThing('const-gchar*',
+                          'String',
+                          '',
+                          'String',
+                          'jstring'))
+
