@@ -29,7 +29,6 @@ class Block:
 class TypeBlock:
     def __init__(self, thing):
         self.thing = thing
-    
 
 
 class EnumBlock(TypeBlock):
@@ -57,7 +56,7 @@ class FunctionBlock(Block):
         self.g_return_type = g_return_type
         self.c_function_name = c_function_name
         self.g_parameters = g_parameters
-        
+
 
 class ConstructorBlock(FunctionBlock):
     pass
@@ -68,4 +67,4 @@ class MethodBlock(FunctionBlock):
 
 class VirtualBlock(FunctionBlock):
     pass
-    
+

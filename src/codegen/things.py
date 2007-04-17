@@ -11,6 +11,10 @@
 # @author: Andrew Cowie
 # @author: Srichand Pendyala
 #
+# There are already existing "Type" objects in Python's internals, resulting
+# in horribly ugly conflict errors. So we use a hierarchy of Things instead.
+# When you read "thing", think "type"
+#
 
 class Thing:
 
@@ -49,8 +53,7 @@ class BoxedThing(Thing):
     pass
 
 class FundamentalThing(Thing):
-    def __init__(self, g_type, java, translation, native, jni):
-        Thing.__init__(self, g_type, '', '', java, translation, native, jni)
+    pass
 
 #
 # The master type information database. The keys are the C types.
@@ -78,14 +81,20 @@ def lookupThing(g_type):
 # ---------------------------------------------------------
 
 addThing(FundamentalThing('void',
+                          '',
+                          '',
                           'void',
                           '',
                           'void',
                           'void'))
 
 addThing(FundamentalThing('const-gchar*',
+                          '',
+                          '',
                           'String',
                           '',
                           'String',
                           'jstring'))
+
+# TODO and all the rest to follow here...
 

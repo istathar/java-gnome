@@ -32,10 +32,10 @@ class Generator(object):
 
 class TypeGenerator(Generator):
     def writeJava(self):
-        print _fileHeader(self.block.thing.j_class + ".java")
-    
+        _output(_fileHeader(self.block.thing.j_class + ".java"))
+
     def writeC(self):
-        print _fileHeader(self.block.thing.j_class + ".c")
+        _output(_fileHeader(self.block.thing.j_class + ".c"))
 
 
 class EnumGenerator(TypeGenerator):
@@ -55,26 +55,29 @@ class ObjectGenerator(TypeGenerator):
     def writeJava(self):
         TypeGenerator.writeJava(self)
 
-        print """
+        _output(\
+"""
 package %(j_package)s;
 
 import org.gnome.glib.Plumbing;
 
 final class %(j_class)s extends Plumbing
 {
-    private %(j_class)s() { }""" % vars(self.block.thing)
+    private %(j_class)s() { }
+""" % vars(self.block.thing))
 
 
     def writeC(self):
         TypeGenerator.writeC(self)
         
-        print """
+        _output(\
+"""
 #include <jni.h>
 #include <gtk/gtk.h>
 #include "bindings_java.h"
 #include "%(header)s.h"
 
-""" % { 'header': _encodeJniClassName(self.block.thing) }
+""" % { 'header': _encodeJniClassName(self.block.thing) })
 
 
 
@@ -91,25 +94,116 @@ class ConstructorGenerator(FunctionGenerator):
 
 class MethodGenerator(FunctionGenerator):
     def writeJava(self):
+        
+        #
+        # First the method declaration
+        #
+        
         java_return = lookupThing(self.block.g_return_type).java
         java_method = _toCamel(self.block.py_function_name)
         java_args = ""
         
-        for arg_pair in self.block.g_parameters:
-            (g_type, name) = arg_pair
-            java_args += lookupThing(g_type).java
-            java_args += " " + name
+        translation_return = ""
+        translation_args = ""
+        
+        native_return = lookupThing(self.block.g_return_type).native
+        native_method = self.block.c_function_name
+        native_args = ""
+        
+        # if a second or subsequent argument add the comma which is the
+        # argument separator at all layers
+        subsequent = False
+        
+        for arg_pair in [ ('GtkButton*', 'self' )] + self.block.g_parameters:
+            (g_type, local_name) = arg_pair
+            t = lookupThing(g_type)
 
-        print """
-    static final %(java_return)s %(java_method)s(%(java_args)s) {""" % vars()
+            if subsequent:
+                java_args += ", "
+                translation_args += ", "
+                native_args += ", "
+            
+            java_args += t.java + " " + local_name
+            
+            if (t.translation == ''):
+                translation_args += local_name
+            else:
+                translation_args += t.translation + "(" + local_name + ")"
+
+            native_args += t.native + " " + local_name
+            
+            subsequent = True
+
+        _output(\
+"""
+
+    static final %(java_return)s %(java_method)s(%(java_args)s) {
+""" % vars())
+
+        #
+        # Declare translation variables as necessary
+        #
+
+        if self.block.g_return_type != 'void':
+            return_type = lookupThing(self.block.g_return_type).native
+            translation_return = "result = "
+            _output(\
+"""
+        %(return_type)s result;
+
+""" % vars())
+
+
+        #
+        # Now the call to the native method
+        #
+
+        native_method = self.block.c_function_name
+
+        _output(\
+"""
+        %(translation_return)s%(native_method)s(%(translation_args)s);
+""" % vars())
+
+        return_arg = ""
+        if self.block.g_return_type != 'void':
+            t = lookupThing(self.block.g_return_type)
+            if (t.translation == ''):
+                return_arg += 'result'
+            else:
+                return_arg += t.translation + "(result)"
+
+            _output(\
+"""
+
+        return %(return_arg)s;
+""" % vars())
+            
+
+        _output(\
+"""
+    }
+
+    private static native final %(native_return)s %(native_method)s(%(native_args)s);
+""" % vars())
+
+
 
 class VirtualGenerator(FunctionGenerator):
     pass
     
 
-
-def output(args, str):
-    print str % args
+#
+# Trim a leading or trailing newline (which come from the way we're using
+# multiline strings as if they were here docs), and output the result. TODO,
+# change to using target File pointer.
+#
+def _output(str):
+    if str[0] == '\n':
+        str = str[1:]
+    if str[-1] == '\n':
+        str = str[:-1]
+    print str
     
 
 #
@@ -117,7 +211,9 @@ def output(args, str):
 # people don't try to edit these files.
 #
 def _fileHeader(filename):
-    return """/*
+    return \
+"""
+/*
  * %(filename)s
  *
  * Copyright (c) 2006-2007 Operational Dynamics Consulting Pty Ltd
