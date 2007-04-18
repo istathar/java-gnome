@@ -28,13 +28,13 @@ if __name__ == '__main__':
                         "set_label",
                         "void",
                         "gtk_button_set_label",
-                        [ ( "const-gchar*", "label" ) ])
+                        [ ('GtkButton*', 'self' ), ( "const-gchar*", "label" ) ])
 
     block3 = MethodBlock(button,
                         "get_label",
-                        "const-gchar*",
+                        "GtkButton*",
                         "gtk_button_get_label",
-                        [ ])
+                        [ ('GtkButton*', 'self' ) ])
 
     gen2 = block2.generator()
     gen2.writeJava()
@@ -42,6 +42,9 @@ if __name__ == '__main__':
     gen3 = block3.generator()
     gen3.writeJava()
 
-    #gen1.writeC()
-    #gen2.writeC()
-    #gen3.writeC()
+    # FIXME
+    print "}\n"
+
+    gen1.writeC()
+    gen2.writeC()
+    gen3.writeC()

@@ -72,6 +72,7 @@ final class %(j_class)s extends Plumbing
         
         _output(\
 """
+
 #include <jni.h>
 #include <gtk/gtk.h>
 #include "bindings_java.h"
@@ -114,7 +115,7 @@ class MethodGenerator(FunctionGenerator):
         # argument separator at all layers
         subsequent = False
         
-        for arg_pair in [ ('GtkButton*', 'self' )] + self.block.g_parameters:
+        for arg_pair in self.block.g_parameters:
             (g_type, local_name) = arg_pair
             t = lookupThing(g_type)
 
@@ -165,13 +166,22 @@ class MethodGenerator(FunctionGenerator):
         %(translation_return)s%(native_method)s(%(translation_args)s);
 """ % vars())
 
+        #
+        # And return the value, translating if necessary. Obviously
+        # This is just a pass through unless it is a
+        # org.bindings.freedesktop.Proxy or Constant, in which case
+        # the appropriate instanceFor() needs to be called, as stored
+        # in Thing.translation for that type.
+        #
+
         return_arg = ""
         if self.block.g_return_type != 'void':
             t = lookupThing(self.block.g_return_type)
             if (t.translation == ''):
                 return_arg += 'result'
             else:
-                return_arg += t.translation + "(result)"
+                # FIXME
+                return_arg += "instanceFor" + "(result)"
 
             _output(\
 """
@@ -179,6 +189,10 @@ class MethodGenerator(FunctionGenerator):
         return %(return_arg)s;
 """ % vars())
             
+        #
+        # finally, close the translation method and declare the native
+        # method stub.
+        #
 
         _output(\
 """
@@ -187,7 +201,200 @@ class MethodGenerator(FunctionGenerator):
     private static native final %(native_return)s %(native_method)s(%(native_args)s);
 """ % vars())
 
+        #
+        # done!
+        #
+    
+    
+    
+#
+# Output the JNI function implementing native method.
+#
+# At the cost of some redundency, we spit out the signature of the public API
+# call and the boundary crossing call to make it easier to locate methods in
+# the generated code (since munged JNI names are a pain in the ass to read).
+#
+    
+    def writeC(self):        
+        #
+        # First the function declaration
+        #
+        
+        jni_return = lookupThing(self.block.g_return_type).jni
+        jni_class = _encodeJniClassName(self.block.thing)
+        jni_method = _encodeJniMethodName(self.block)
+        jni_args = "JNIEnv *env, jclass cls"
 
+        return_error = ""
+
+        conversion_return = ""
+        conversion_declaration = ""
+        conversion_code = ""
+
+        c_return = self.block.g_return_type
+        c_function = self.block.c_function_name
+        c_args = ""
+
+        subsequent = False
+
+        for arg_pair in self.block.g_parameters:
+            (g_type, local_name) = arg_pair
+            t = lookupThing(g_type)
+
+            jni_args += ", "
+            if subsequent:
+                c_args += ", "
+
+            jni_args += t.jni + " _" + local_name
+            c_args += local_name
+
+            subsequent = True
+
+        jni_args = re.sub(", ", ",\n        ", jni_args)
+        _output(\
+"""
+JNIEXPORT %(jni_return)s JNICALL
+Java_%(jni_class)s_%(jni_method)s
+(
+        %(jni_args)s
+)
+{
+""" % vars())
+
+        #
+        # Declare translation variables as necessary
+        #
+        for arg_pair in self.block.g_parameters:
+            (g_type, local_name) = arg_pair
+            c_type = _typeCast(lookupThing(g_type))
+            _output(\
+"""
+        %(c_type)s %(local_name)s;
+""" % vars())
+
+        if self.block.g_return_type != 'void':
+            c_type = _typeCast(lookupThing(self.block.g_return_type))
+            _output(\
+"""
+        %(c_type)s result;
+""" % vars())
+            conversion_return = "result = "
+
+        if jni_return == 'void':
+            pass
+        elif jni_return == 'jboolean':
+            return_error = " JNI_FALSE"        
+        elif jni_return == 'jint':
+            return_error = " 0"
+        elif jni_return == 'jlong':
+            return_error = " 0L"
+        else:
+            return_error = " NULL"
+
+        #
+        # convert (cast, decode, etc) types as necessary
+        #
+
+        for arg_pair in self.block.g_parameters:
+            (g_type, local_name) = arg_pair
+            _output(\
+"""
+
+        // convert argument %(local_name)s
+""" % vars())
+            if g_type == 'gchar*' or g_type == 'const-gchar*':
+                c_type = _typeCast(t)
+
+                _output(\
+"""
+        %(local_name)s = (%(c_type)s) (env*)->GetStringUTFChars(env, _%(local_name)s, NULL);
+        if (%(local_name)s == NULL) {
+                return%(return_error)s; // OutOfMemoryError already thrown
+        }
+""" % vars())
+
+            else:
+                _output(\
+"""
+        %(local_name)s = (%(g_type)s) _%(local_name)s;
+""" % vars())
+
+        _output("\n\n");
+
+
+        #
+        # Now the call to the native method
+        #
+
+        c_method = self.block.c_function_name
+
+        _output(\
+"""
+        // call function
+        %(conversion_return)s%(c_method)s(%(c_args)s);
+""" % vars())
+
+        #
+        # cleanup
+        #
+
+        for arg_pair in self.block.g_parameters:
+            (g_type, local_name) = arg_pair
+            _output(\
+"""
+
+        // cleanup argument %(local_name)s
+""" % vars())
+            if g_type == 'gchar*' or g_type == 'const-gchar*':
+
+                _output(\
+"""
+        (env*)->ReleaseStringUTFChars(env, _%(local_name)s, %(local_name)s);
+""" % vars())
+
+
+
+        #
+        # And return the value, translating as necessary for strings
+        #
+
+        if self.block.g_return_type != 'void':
+            t = lookupThing(self.block.g_return_type)
+            jni_type = t.jni
+            
+            _output(\
+"""
+
+        // return result
+""")
+            c_type = _typeCast(t)
+
+            if t.g_type == 'gchar*' or t.g_type == 'const-gchar*':
+                _output(\
+"""
+        return (jstring) (*env)->NewStringUTF(env, result);
+""" % vars())
+            else:
+                _output(\
+"""
+        return (%(jni_return)s) result;
+""" % vars())
+
+
+        #
+        # finally, close the JNI function
+        #
+
+        _output(\
+"""
+}
+
+""")
+
+        #
+        # done!
+        #
+        
 
 class VirtualGenerator(FunctionGenerator):
     pass
@@ -251,9 +458,13 @@ def _encodeJniClassName(thing):
     return re.sub("\.", "_", fqcn)
 
 
-def _encodeJniMethodName(thing):
-    # TODO
-    pass
+def _encodeJniMethodName(block):
+    return re.sub("_", "_1", block.c_function_name)
+    
 
-if __name__ == '__main__':
-    pass
+def _typeCast(thing):
+    if thing.g_type == 'const-gchar*':
+        return'const gchar*'
+    else:
+        return thing.g_type
+
