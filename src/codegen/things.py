@@ -80,21 +80,31 @@ def lookupThing(g_type):
 # Register basic Things corresponding to primative types
 # ---------------------------------------------------------
 
-addThing(FundamentalThing('void',
-                          '',
-                          '',
-                          'void',
-                          '',
-                          'void',
+addThing(FundamentalThing('void', 
+                          '', 
+                          '', 
+                          'void', 
+                          '', 
+                          'void', 
                           'void'))
 
-addThing(FundamentalThing('const-gchar*',
-                          '',
-                          '',
-                          'String',
-                          '',
-                          'String',
+addThing(FundamentalThing('const-gchar*', 
+                          '', 
+                          '', 
+                          'String', 
+                          '', 
+                          'String', 
                           'jstring'))
+
+
+addThing(FundamentalThing('gpointer', 
+                          '',
+                          '', 
+                          'long', 
+                          '', 
+                          'long', 
+                          'jlong'))
+
 
 # TODO and all the rest to follow here...
 

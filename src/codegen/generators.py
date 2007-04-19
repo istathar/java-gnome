@@ -20,10 +20,10 @@ class Generator(object):
         self.block = block
     
     def writeJava(self):
-        raise RuntimeError, "Java code generation not implemented for this block type"
+        raise RuntimeError, "writeJava() method not implemented for this generator"
 
     def writeC(self):
-        raise RuntimeError, "C code generation not implemented for this block type"
+        raise RuntimeError, "writeC() method not implemented for this generator"
 
 
 # ---------------------------------------------------------
@@ -54,7 +54,6 @@ class BoxedGenerator(TypeGenerator):
 class ObjectGenerator(TypeGenerator):
     def writeJava(self):
         TypeGenerator.writeJava(self)
-
         _output(\
 """
 package %(j_package)s;
@@ -88,28 +87,19 @@ final class %(j_class)s extends Plumbing
 # ---------------------------------------------------------
 
 class FunctionGenerator(Generator):
-    pass
+    def __init__(self, block):
+        Generator.__init__(self, block)
 
-class ConstructorGenerator(FunctionGenerator):
-    pass
-
-class MethodGenerator(FunctionGenerator):
-    def writeJava(self):
+        self.java_return = lookupThing(self.block.g_return_type).java
+        self.java_method = _toCamel(self.block.py_function_name)
+        self.java_args = ""
         
-        #
-        # First the method declaration
-        #
+        self.translation_return = ""
+        self.translation_args = ""
         
-        java_return = lookupThing(self.block.g_return_type).java
-        java_method = _toCamel(self.block.py_function_name)
-        java_args = ""
-        
-        translation_return = ""
-        translation_args = ""
-        
-        native_return = lookupThing(self.block.g_return_type).native
-        native_method = self.block.c_function_name
-        native_args = ""
+        self.native_return = lookupThing(self.block.g_return_type).native
+        self.native_method = self.block.c_function_name
+        self.native_args = ""
         
         # if a second or subsequent argument add the comma which is the
         # argument separator at all layers
@@ -120,93 +110,100 @@ class MethodGenerator(FunctionGenerator):
             t = lookupThing(g_type)
 
             if subsequent:
-                java_args += ", "
-                translation_args += ", "
-                native_args += ", "
+                self.java_args += ", "
+                self.translation_args += ", "
+                self.native_args += ", "
             
-            java_args += t.java + " " + local_name
+            self.java_args += t.java + " " + local_name
             
             if (t.translation == ''):
-                translation_args += local_name
+                self.translation_args += local_name
             else:
-                translation_args += t.translation + "(" + local_name + ")"
+                self.translation_args += t.translation + "(" + local_name + ")"
 
-            native_args += t.native + " " + local_name
+            self.native_args += t.native + " " + local_name
             
             subsequent = True
 
+    #
+    # First the method declaration
+    #
+    def _writeJavaTranslationMethodDeclaration(self):
         _output(\
 """
 
     static final %(java_return)s %(java_method)s(%(java_args)s) {
-""" % vars())
+""" % vars(self))
 
-        #
-        # Declare translation variables as necessary
-        #
-
+    #
+    # Declare translation variables as necessary. TODO At the moment this is
+    # just the return value; out-parameters arrays will need to be added
+    # here.
+    #
+    def _writeJavaTranslationCode(self):
         if self.block.g_return_type != 'void':
-            return_type = lookupThing(self.block.g_return_type).native
-            translation_return = "result = "
+            self.return_type = lookupThing(self.block.g_return_type).native
+            self.translation_return = "result = "
             _output(\
 """
         %(return_type)s result;
 
-""" % vars())
+""" % vars(self))
 
 
-        #
-        # Now the call to the native method
-        #
-
-        native_method = self.block.c_function_name
+    def _writeJavaNativeMethodCall(self):
+        self.native_method = self.block.c_function_name
 
         _output(\
 """
         %(translation_return)s%(native_method)s(%(translation_args)s);
-""" % vars())
+""" % vars(self))
 
-        #
-        # And return the value, translating if necessary. Obviously
-        # This is just a pass through unless it is a
-        # org.bindings.freedesktop.Proxy or Constant, in which case
-        # the appropriate instanceFor() needs to be called, as stored
-        # in Thing.translation for that type.
-        #
 
-        return_arg = ""
+    #
+    # And return the value, translating if necessary. Obviously
+    # This is just a pass through unless it is a
+    # org.bindings.freedesktop.Proxy or Constant, in which case
+    # the appropriate instanceFor() needs to be called, as stored
+    # in Thing.translation for that type.
+    #
+    def _writeJavaTranslationReturnValue(self):
+        self.return_arg = ""
         if self.block.g_return_type != 'void':
             t = lookupThing(self.block.g_return_type)
             if (t.translation == ''):
-                return_arg += 'result'
+                self.return_arg += 'result'
             else:
                 # FIXME
-                return_arg += "instanceFor" + "(result)"
+                self.return_arg += "instanceFor" + "(result)"
 
             _output(\
 """
 
         return %(return_arg)s;
-""" % vars())
+""" % vars(self))
             
-        #
-        # finally, close the translation method and declare the native
-        # method stub.
-        #
-
+    #
+    # finally, declare the native method stub. Close the translation method
+    # along the way.
+    #
+    def _writeJavaNativeMethodDeclaration(self):
         _output(\
 """
     }
 
     private static native final %(native_return)s %(native_method)s(%(native_args)s);
-""" % vars())
+""" % vars(self))
 
-        #
-        # done!
-        #
-    
-    
-    
+    def writeJava(self):
+        self._writeJavaTranslationMethodDeclaration()
+        self._writeJavaTranslationCode()
+        self._writeJavaNativeMethodCall()
+        self._writeJavaTranslationReturnValue()
+        self._writeJavaNativeMethodDeclaration()
+
+
+        
 #
 # Output the JNI function implementing native method.
 #
@@ -220,20 +217,19 @@ class MethodGenerator(FunctionGenerator):
         # First the function declaration
         #
         
-        jni_return = lookupThing(self.block.g_return_type).jni
-        jni_class = _encodeJniClassName(self.block.thing)
-        jni_method = _encodeJniMethodName(self.block)
-        jni_args = "JNIEnv *env, jclass cls"
+        self.jni_return = lookupThing(self.block.g_return_type).jni
+        self.jni_class = _encodeJniClassName(self.block.thing)
+        self.jni_method = _encodeJniMethodName(self.block)
+        self.jni_args = "JNIEnv *env, jclass cls"
 
-        return_error = ""
+        self.return_error = ""
 
-        conversion_return = ""
-        conversion_declaration = ""
-        conversion_code = ""
+        self.conversion_return = ""
+        self.conversion_declaration = ""
 
-        c_return = self.block.g_return_type
-        c_function = self.block.c_function_name
-        c_args = ""
+        self.c_return = self.block.g_return_type
+        self.c_function = self.block.c_function_name
+        self.c_args = ""
 
         subsequent = False
 
@@ -241,16 +237,16 @@ class MethodGenerator(FunctionGenerator):
             (g_type, local_name) = arg_pair
             t = lookupThing(g_type)
 
-            jni_args += ", "
+            self.jni_args += ", "
             if subsequent:
-                c_args += ", "
+                self.c_args += ", "
 
-            jni_args += t.jni + " _" + local_name
-            c_args += local_name
+            self.jni_args += t.jni + " _" + local_name
+            self.c_args += local_name
 
             subsequent = True
 
-        jni_args = re.sub(", ", ",\n        ", jni_args)
+        self.jni_args = re.sub(", ", ",\n        ", self.jni_args)
         _output(\
 """
 JNIEXPORT %(jni_return)s JNICALL
@@ -259,7 +255,7 @@ Java_%(jni_class)s_%(jni_method)s
         %(jni_args)s
 )
 {
-""" % vars())
+""" % vars(self))
 
         #
         # Declare translation variables as necessary
@@ -280,16 +276,16 @@ Java_%(jni_class)s_%(jni_method)s
 """ % vars())
             conversion_return = "result = "
 
-        if jni_return == 'void':
+        if self.jni_return == 'void':
             pass
-        elif jni_return == 'jboolean':
+        elif self.jni_return == 'jboolean':
             return_error = " JNI_FALSE"        
-        elif jni_return == 'jint':
+        elif self.jni_return == 'jint':
             return_error = " 0"
-        elif jni_return == 'jlong':
-            return_error = " 0L"
+        elif self.jni_return == 'jlong':
+            self.return_error = " 0L"
         else:
-            return_error = " NULL"
+            self.return_error = " NULL"
 
         #
         # convert (cast, decode, etc) types as necessary
@@ -304,6 +300,7 @@ Java_%(jni_class)s_%(jni_method)s
 """ % vars())
             if g_type == 'gchar*' or g_type == 'const-gchar*':
                 c_type = _typeCast(t)
+                return_error = self.return_error
 
                 _output(\
 """
@@ -326,13 +323,13 @@ Java_%(jni_class)s_%(jni_method)s
         # Now the call to the native method
         #
 
-        c_method = self.block.c_function_name
+        self.c_method = self.block.c_function_name
 
         _output(\
 """
         // call function
         %(conversion_return)s%(c_method)s(%(c_args)s);
-""" % vars())
+""" % vars(self))
 
         #
         # cleanup
@@ -352,33 +349,29 @@ Java_%(jni_class)s_%(jni_method)s
         (env*)->ReleaseStringUTFChars(env, _%(local_name)s, %(local_name)s);
 """ % vars())
 
-
-
         #
         # And return the value, translating as necessary for strings
         #
 
         if self.block.g_return_type != 'void':
             t = lookupThing(self.block.g_return_type)
-            jni_type = t.jni
             
             _output(\
 """
 
         // return result
 """)
-            c_type = _typeCast(t)
 
             if t.g_type == 'gchar*' or t.g_type == 'const-gchar*':
                 _output(\
 """
         return (jstring) (*env)->NewStringUTF(env, result);
-""" % vars())
+""")
             else:
                 _output(\
 """
         return (%(jni_return)s) result;
-""" % vars())
+""" % vars(self))
 
 
         #
@@ -395,6 +388,25 @@ Java_%(jni_class)s_%(jni_method)s
         # done!
         #
         
+
+
+
+class ConstructorGenerator(FunctionGenerator):
+    def _writeJavaTranslationMethodDeclaration(self):
+        self.java_return = "long"
+        FunctionGenerator._writeJavaTranslationMethodDeclaration(self)
+        
+    def _writeJavaTranslationReturnValue(self):
+        _output(\
+"""
+        return result;
+""")
+    
+    def writeC(self):    
+        FunctionGenerator.writeC(self)
+
+class MethodGenerator(FunctionGenerator):
+    pass
 
 class VirtualGenerator(FunctionGenerator):
     pass
@@ -447,7 +459,7 @@ def _fileHeader(filename):
 def _toCamel(var):
     words = var.split("_")
     camel = words.pop(0)
-    while ( words ):
+    while (words):
         word = words.pop(0)
         camel += word.capitalize()
     return camel

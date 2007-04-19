@@ -19,7 +19,7 @@ class Block:
         self.g_class = None
      
     def generator(self):
-        raise Error, "Code generation not implemented for this block type"
+        raise RuntimeError, "Code generation not implemented for this block type"
 
 
 # ---------------------------------------------------------
@@ -59,7 +59,14 @@ class FunctionBlock(Block):
 
 
 class ConstructorBlock(FunctionBlock):
-    pass
+    def __init__(self, thing, py_function_name, g_return_type, c_function_name, g_parameters):
+        
+        py_constructor_name = re.sub("gtk_button_", "", py_function_name)
+        py_constructor_name = re.sub("new", "create_button", py_constructor_name)
+        FunctionBlock.__init__(self, thing, py_constructor_name, thing.g_type, c_function_name, g_parameters)        
+    
+    def generator(self):
+        return ConstructorGenerator(self)
 
 class MethodBlock(FunctionBlock):
     def generator(self):
