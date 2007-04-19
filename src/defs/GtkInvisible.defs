@@ -1,0 +1,39 @@
+(define-object Invisible
+  (in-module "Gtk")
+  (parent "GtkWidget")
+  (c-name "GtkInvisible")
+  (gtype-id "GTK_TYPE_INVISIBLE")
+)
+
+(define-function gtk_invisible_new
+  (is-constructor-of "GtkInvisible")
+  (c-name "gtk_invisible_new")
+  (caller-owns-return #t)
+  (return-type "GtkWidget*")
+)
+
+(define-function gtk_invisible_new_for_screen
+  (is-constructor-of "GtkInvisible")
+  (c-name "gtk_invisible_new_for_screen")
+  (caller-owns-return #t)
+  (return-type "GtkWidget*")
+  (parameters
+    '("GdkScreen*" "screen")
+  )
+)
+
+(define-method set_screen
+  (of-object "GtkInvisible")
+  (c-name "gtk_invisible_set_screen")
+  (return-type "none")
+  (parameters
+    '("GdkScreen*" "screen")
+  )
+)
+
+(define-method get_screen
+  (of-object "GtkInvisible")
+  (c-name "gtk_invisible_get_screen")
+  (return-type "GdkScreen*")
+)
+

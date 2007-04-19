@@ -1,0 +1,133 @@
+(define-method set_run_attributes
+  (of-object "AtkEditableText")
+  (c-name "atk_editable_text_set_run_attributes")
+  (return-type "gboolean")
+  (parameters
+    '("AtkAttributeSet*" "attrib_set")
+    '("gint" "start_offset")
+    '("gint" "end_offset")
+  )
+)
+
+(define-method set_text_contents
+  (of-object "AtkEditableText")
+  (c-name "atk_editable_text_set_text_contents")
+  (return-type "none")
+  (parameters
+    '("const-gchar*" "string")
+  )
+)
+
+(define-method insert_text
+  (of-object "AtkEditableText")
+  (c-name "atk_editable_text_insert_text")
+  (return-type "none")
+  (parameters
+    '("const-gchar*" "string")
+    '("gint" "length")
+    '("gint*" "position")
+  )
+)
+
+(define-method copy_text
+  (of-object "AtkEditableText")
+  (c-name "atk_editable_text_copy_text")
+  (return-type "none")
+  (parameters
+    '("gint" "start_pos")
+    '("gint" "end_pos")
+  )
+)
+
+(define-method cut_text
+  (of-object "AtkEditableText")
+  (c-name "atk_editable_text_cut_text")
+  (return-type "none")
+  (parameters
+    '("gint" "start_pos")
+    '("gint" "end_pos")
+  )
+)
+
+(define-method delete_text
+  (of-object "AtkEditableText")
+  (c-name "atk_editable_text_delete_text")
+  (return-type "none")
+  (parameters
+    '("gint" "start_pos")
+    '("gint" "end_pos")
+  )
+)
+
+(define-method paste_text
+  (of-object "AtkEditableText")
+  (c-name "atk_editable_text_paste_text")
+  (return-type "none")
+  (parameters
+    '("gint" "position")
+  )
+)
+
+(define-virtual set_run_attributes
+  (of-object "AtkEditableText")
+  (return-type "gboolean")
+  (parameters
+    '("AtkAttributeSet*" "attrib_set")
+    '("gint" "start_offset")
+    '("gint" "end_offset")
+  )
+)
+
+(define-virtual set_text_contents
+  (of-object "AtkEditableText")
+  (return-type "none")
+  (parameters
+    '("const-gchar*" "string")
+  )
+)
+
+(define-virtual insert_text
+  (of-object "AtkEditableText")
+  (return-type "none")
+  (parameters
+    '("const-gchar*" "string")
+    '("gint" "length")
+    '("gint*" "position")
+  )
+)
+
+(define-virtual copy_text
+  (of-object "AtkEditableText")
+  (return-type "none")
+  (parameters
+    '("gint" "start_pos")
+    '("gint" "end_pos")
+  )
+)
+
+(define-virtual cut_text
+  (of-object "AtkEditableText")
+  (return-type "none")
+  (parameters
+    '("gint" "start_pos")
+    '("gint" "end_pos")
+  )
+)
+
+(define-virtual delete_text
+  (of-object "AtkEditableText")
+  (return-type "none")
+  (parameters
+    '("gint" "start_pos")
+    '("gint" "end_pos")
+  )
+)
+
+(define-virtual paste_text
+  (of-object "AtkEditableText")
+  (return-type "none")
+  (parameters
+    '("gint" "position")
+  )
+)
+

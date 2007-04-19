@@ -1,0 +1,11 @@
+(define-enum CellRendererMode
+  (in-module "Gtk")
+  (c-name "GtkCellRendererMode")
+  (gtype-id "GTK_TYPE_CELL_RENDERER_MODE")
+  (values
+    '("inert" "GTK_CELL_RENDERER_MODE_INERT")
+    '("activatable" "GTK_CELL_RENDERER_MODE_ACTIVATABLE")
+    '("editable" "GTK_CELL_RENDERER_MODE_EDITABLE")
+  )
+)
+

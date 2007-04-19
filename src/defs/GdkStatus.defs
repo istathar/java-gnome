@@ -1,0 +1,13 @@
+(define-enum Status
+  (in-module "Gdk")
+  (c-name "GdkStatus")
+  (gtype-id "GDK_TYPE_STATUS")
+  (values
+    '("ok" "GDK_OK")
+    '("error" "GDK_ERROR")
+    '("error-param" "GDK_ERROR_PARAM")
+    '("error-file" "GDK_ERROR_FILE")
+    '("error-mem" "GDK_ERROR_MEM")
+  )
+)
+

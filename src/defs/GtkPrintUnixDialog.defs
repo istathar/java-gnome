@@ -1,0 +1,88 @@
+(define-object PrintUnixDialog
+  (in-module "Unixprint")
+  (parent "GtkDialog")
+  (c-name "GtkPrintUnixDialog")
+  (gtype-id "GTK_TYPE_PRINT_UNIX_DIALOG")
+)
+
+(define-function gtk_print_unix_dialog_new
+  (is-constructor-of "GtkPrintUnixDialog")
+  (c-name "gtk_print_unix_dialog_new")
+  (caller-owns-return #t)
+  (return-type "GtkWidget*")
+  (parameters
+    '("const-gchar*" "title" (default "NULL") (null-ok))
+    '("GtkWindow*" "parent" (default "NULL") (null-ok))
+  )
+)
+
+(define-method set_page_setup
+  (of-object "GtkPrintUnixDialog")
+  (c-name "gtk_print_unix_dialog_set_page_setup")
+  (return-type "none")
+  (parameters
+    '("GtkPageSetup*" "page_setup")
+  )
+)
+
+(define-method get_page_setup
+  (of-object "GtkPrintUnixDialog")
+  (c-name "gtk_print_unix_dialog_get_page_setup")
+  (return-type "GtkPageSetup*")
+)
+
+(define-method set_current_page
+  (of-object "GtkPrintUnixDialog")
+  (c-name "gtk_print_unix_dialog_set_current_page")
+  (return-type "none")
+  (parameters
+    '("gint" "current_page")
+  )
+)
+
+(define-method get_current_page
+  (of-object "GtkPrintUnixDialog")
+  (c-name "gtk_print_unix_dialog_get_current_page")
+  (return-type "gint")
+)
+
+(define-method set_settings
+  (of-object "GtkPrintUnixDialog")
+  (c-name "gtk_print_unix_dialog_set_settings")
+  (return-type "none")
+  (parameters
+    '("GtkPrintSettings*" "settings" (default "NULL") (null-ok))
+  )
+)
+
+(define-method get_settings
+  (of-object "GtkPrintUnixDialog")
+  (c-name "gtk_print_unix_dialog_get_settings")
+  (return-type "GtkPrintSettings*")
+)
+
+(define-method get_selected_printer
+  (of-object "GtkPrintUnixDialog")
+  (c-name "gtk_print_unix_dialog_get_selected_printer")
+  (return-type "GtkPrinter*")
+)
+
+(define-method add_custom_tab
+  (of-object "GtkPrintUnixDialog")
+  (c-name "gtk_print_unix_dialog_add_custom_tab")
+  (return-type "none")
+  (parameters
+    '("GtkWidget*" "child")
+    '("GtkWidget*" "tab_label")
+  )
+)
+
+(define-method set_manual_capabilities
+  (of-object "GtkPrintUnixDialog")
+  (c-name "gtk_print_unix_dialog_set_manual_capabilities")
+  (return-type "none")
+  (parameters
+    '("GtkPrintCapabilities" "capabilities")
+  )
+)
+

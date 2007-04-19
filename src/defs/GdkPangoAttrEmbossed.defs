@@ -1,0 +1,10 @@
+(define-function pango_attr_embossed_new
+  (is-constructor-of "GdkPangoAttrEmbossed")
+  (c-name "gdk_pango_attr_embossed_new")
+  (caller-owns-return #t)
+  (return-type "PangoAttribute*")
+  (parameters
+    '("gboolean" "embossed")
+  )
+)
+

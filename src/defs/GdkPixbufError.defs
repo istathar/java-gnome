@@ -1,0 +1,17 @@
+(define-enum PixbufError
+  (in-module "Gdk")
+  (c-name "GdkPixbufError")
+  (gtype-id "GDK_TYPE_PIXBUF_ERROR")
+  (values
+    '("header-corrupt" "GDK_PIXBUF_ERROR_HEADER_CORRUPT")
+    '("pixel-corrupt" "GDK_PIXBUF_ERROR_PIXEL_CORRUPT")
+    '("unknown-format" "GDK_PIXBUF_ERROR_UNKNOWN_FORMAT")
+    '("corrupt-image" "GDK_PIXBUF_ERROR_CORRUPT_IMAGE")
+    '("insufficient-memory" "GDK_PIXBUF_ERROR_INSUFFICIENT_MEMORY")
+    '("bad-option-value" "GDK_PIXBUF_ERROR_BAD_OPTION_VALUE")
+    '("unknown-type" "GDK_PIXBUF_ERROR_UNKNOWN_TYPE")
+    '("unsupported-operation" "GDK_PIXBUF_ERROR_UNSUPPORTED_OPERATION")
+    '("failed" "GDK_PIXBUF_ERROR_FAILED")
+  )
+)
+

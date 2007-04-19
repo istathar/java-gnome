@@ -1,0 +1,7 @@
+(define-object PixbufSimpleAnimIter
+  (in-module "Gdk")
+  (parent "GdkPixbufAnimationIter")
+  (c-name "GdkPixbufSimpleAnimIter")
+  (gtype-id "GDK_TYPE_PIXBUF_SIMPLE_ANIM_ITER")
+)
+

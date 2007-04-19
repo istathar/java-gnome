@@ -1,0 +1,12 @@
+(define-enum TextClipType
+  (in-module "Atk")
+  (c-name "AtkTextClipType")
+  (gtype-id "ATK_TYPE_TEXT_CLIP_TYPE")
+  (values
+    '("none" "ATK_TEXT_CLIP_NONE")
+    '("min" "ATK_TEXT_CLIP_MIN")
+    '("max" "ATK_TEXT_CLIP_MAX")
+    '("both" "ATK_TEXT_CLIP_BOTH")
+  )
+)
+

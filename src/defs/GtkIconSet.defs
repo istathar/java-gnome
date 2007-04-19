@@ -1,0 +1,68 @@
+(define-boxed IconSet
+  (in-module "Gtk")
+  (c-name "GtkIconSet")
+  (gtype-id "GTK_TYPE_ICON_SET")
+)
+
+(define-function icon_set_new_from_pixbuf
+  (is-constructor-of "GtkIconSet")
+  (c-name "gtk_icon_set_new_from_pixbuf")
+  (caller-owns-return #t)
+  (return-type "GtkIconSet*")
+  (parameters
+    '("GdkPixbuf*" "pixbuf")
+  )
+)
+
+(define-method ref
+  (of-object "GtkIconSet")
+  (c-name "gtk_icon_set_ref")
+  (return-type "GtkIconSet*")
+)
+
+(define-method unref
+  (of-object "GtkIconSet")
+  (c-name "gtk_icon_set_unref")
+  (return-type "none")
+)
+
+(define-method copy
+  (of-object "GtkIconSet")
+  (c-name "gtk_icon_set_copy")
+  (caller-owns-return #t)
+  (return-type "GtkIconSet*")
+)
+
+(define-method render_icon
+  (of-object "GtkIconSet")
+  (c-name "gtk_icon_set_render_icon")
+  (return-type "GdkPixbuf*")
+  (parameters
+    '("GtkStyle*" "style")
+    '("GtkTextDirection" "direction")
+    '("GtkStateType" "state")
+    '("GtkIconSize" "size")
+    '("GtkWidget*" "widget" (default "NULL") (null-ok))
+    '("const-char*" "detail" (default "NULL") (null-ok))
+  )
+)
+
+(define-method add_source
+  (of-object "GtkIconSet")
+  (c-name "gtk_icon_set_add_source")
+  (return-type "none")
+  (parameters
+    '("const-GtkIconSource*" "source")
+  )
+)
+
+(define-method get_sizes
+  (of-object "GtkIconSet")
+  (c-name "gtk_icon_set_get_sizes")
+  (return-type "none")
+  (parameters
+    '("GtkIconSize**" "sizes")
+    '("gint*" "n_sizes")
+  )
+)
+

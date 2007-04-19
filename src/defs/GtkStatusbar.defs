@@ -1,0 +1,85 @@
+(define-object Statusbar
+  (in-module "Gtk")
+  (parent "GtkHBox")
+  (c-name "GtkStatusbar")
+  (gtype-id "GTK_TYPE_STATUSBAR")
+)
+
+(define-function gtk_statusbar_new
+  (is-constructor-of "GtkStatusbar")
+  (c-name "gtk_statusbar_new")
+  (caller-owns-return #t)
+  (return-type "GtkWidget*")
+)
+
+(define-method get_context_id
+  (of-object "GtkStatusbar")
+  (c-name "gtk_statusbar_get_context_id")
+  (return-type "guint")
+  (parameters
+    '("const-gchar*" "context_description")
+  )
+)
+
+(define-method push
+  (of-object "GtkStatusbar")
+  (c-name "gtk_statusbar_push")
+  (return-type "guint")
+  (parameters
+    '("guint" "context_id")
+    '("const-gchar*" "text")
+  )
+)
+
+(define-method pop
+  (of-object "GtkStatusbar")
+  (c-name "gtk_statusbar_pop")
+  (return-type "none")
+  (parameters
+    '("guint" "context_id")
+  )
+)
+
+(define-method remove
+  (of-object "GtkStatusbar")
+  (c-name "gtk_statusbar_remove")
+  (return-type "none")
+  (parameters
+    '("guint" "context_id")
+    '("guint" "message_id")
+  )
+)
+
+(define-method set_has_resize_grip
+  (of-object "GtkStatusbar")
+  (c-name "gtk_statusbar_set_has_resize_grip")
+  (return-type "none")
+  (parameters
+    '("gboolean" "setting")
+  )
+)
+
+(define-method get_has_resize_grip
+  (of-object "GtkStatusbar")
+  (c-name "gtk_statusbar_get_has_resize_grip")
+  (return-type "gboolean")
+)
+
+(define-virtual text_pushed
+  (of-object "GtkStatusbar")
+  (return-type "none")
+  (parameters
+    '("guint" "context_id")
+    '("const-gchar*" "text")
+  )
+)
+
+(define-virtual text_popped
+  (of-object "GtkStatusbar")
+  (return-type "none")
+  (parameters
+    '("guint" "context_id")
+    '("const-gchar*" "text")
+  )
+)
+

@@ -1,0 +1,324 @@
+(define-object Entry
+  (in-module "Gtk")
+  (parent "GtkWidget")
+  (implements "GtkEditable")
+  (implements "GtkCellEditable")
+  (c-name "GtkEntry")
+  (gtype-id "GTK_TYPE_ENTRY")
+)
+
+(define-function gtk_entry_new
+  (is-constructor-of "GtkEntry")
+  (c-name "gtk_entry_new")
+  (caller-owns-return #t)
+  (return-type "GtkWidget*")
+)
+
+(define-function gtk_entry_new_with_max_length
+  (is-constructor-of "GtkEntry")
+  (c-name "gtk_entry_new_with_max_length")
+  (caller-owns-return #t)
+  (return-type "GtkWidget*")
+  (deprecated "use gtk.Entry() instead")
+  (parameters
+    '("guint16" "max" (default "0"))
+  )
+)
+
+(define-method set_visibility
+  (of-object "GtkEntry")
+  (c-name "gtk_entry_set_visibility")
+  (return-type "none")
+  (parameters
+    '("gboolean" "visible")
+  )
+)
+
+(define-method get_visibility
+  (of-object "GtkEntry")
+  (c-name "gtk_entry_get_visibility")
+  (return-type "gboolean")
+)
+
+(define-method set_invisible_char
+  (of-object "GtkEntry")
+  (c-name "gtk_entry_set_invisible_char")
+  (return-type "none")
+  (parameters
+    '("gunichar" "ch")
+  )
+)
+
+(define-method get_invisible_char
+  (of-object "GtkEntry")
+  (c-name "gtk_entry_get_invisible_char")
+  (return-type "gunichar")
+)
+
+(define-method set_has_frame
+  (of-object "GtkEntry")
+  (c-name "gtk_entry_set_has_frame")
+  (return-type "none")
+  (parameters
+    '("gboolean" "setting")
+  )
+)
+
+(define-method get_has_frame
+  (of-object "GtkEntry")
+  (c-name "gtk_entry_get_has_frame")
+  (return-type "gboolean")
+)
+
+(define-method set_max_length
+  (of-object "GtkEntry")
+  (c-name "gtk_entry_set_max_length")
+  (return-type "none")
+  (parameters
+    '("gint" "max")
+  )
+)
+
+(define-method get_max_length
+  (of-object "GtkEntry")
+  (c-name "gtk_entry_get_max_length")
+  (return-type "gint")
+)
+
+(define-method set_activates_default
+  (of-object "GtkEntry")
+  (c-name "gtk_entry_set_activates_default")
+  (return-type "none")
+  (parameters
+    '("gboolean" "setting")
+  )
+)
+
+(define-method get_activates_default
+  (of-object "GtkEntry")
+  (c-name "gtk_entry_get_activates_default")
+  (return-type "gboolean")
+)
+
+(define-method set_width_chars
+  (of-object "GtkEntry")
+  (c-name "gtk_entry_set_width_chars")
+  (return-type "none")
+  (parameters
+    '("gint" "n_chars")
+  )
+)
+
+(define-method get_width_chars
+  (of-object "GtkEntry")
+  (c-name "gtk_entry_get_width_chars")
+  (return-type "gint")
+)
+
+(define-method set_text
+  (of-object "GtkEntry")
+  (c-name "gtk_entry_set_text")
+  (return-type "none")
+  (parameters
+    '("const-gchar*" "text")
+  )
+)
+
+(define-method get_text
+  (of-object "GtkEntry")
+  (c-name "gtk_entry_get_text")
+  (return-type "const-gchar*")
+)
+
+(define-method get_layout
+  (of-object "GtkEntry")
+  (c-name "gtk_entry_get_layout")
+  (return-type "PangoLayout*")
+)
+
+(define-method get_layout_offsets
+  (of-object "GtkEntry")
+  (c-name "gtk_entry_get_layout_offsets")
+  (return-type "none")
+  (parameters
+    '("gint*" "x")
+    '("gint*" "y")
+  )
+)
+
+(define-method set_alignment
+  (of-object "GtkEntry")
+  (c-name "gtk_entry_set_alignment")
+  (return-type "none")
+  (parameters
+    '("gfloat" "xalign")
+  )
+)
+
+(define-method get_alignment
+  (of-object "GtkEntry")
+  (c-name "gtk_entry_get_alignment")
+  (return-type "gfloat")
+)
+
+(define-method set_completion
+  (of-object "GtkEntry")
+  (c-name "gtk_entry_set_completion")
+  (return-type "none")
+  (parameters
+    '("GtkEntryCompletion*" "completion" (null-ok))
+  )
+)
+
+(define-method get_completion
+  (of-object "GtkEntry")
+  (c-name "gtk_entry_get_completion")
+  (return-type "GtkEntryCompletion*")
+)
+
+(define-method append_text
+  (of-object "GtkEntry")
+  (c-name "gtk_entry_append_text")
+  (return-type "none")
+  (deprecated "use GtkEditable.insert_text")
+  (parameters
+    '("const-gchar*" "text")
+  )
+)
+
+(define-method prepend_text
+  (of-object "GtkEntry")
+  (c-name "gtk_entry_prepend_text")
+  (return-type "none")
+  (deprecated "use GtkEditable.insert_text")
+  (parameters
+    '("const-gchar*" "text")
+  )
+)
+
+(define-method set_position
+  (of-object "GtkEntry")
+  (c-name "gtk_entry_set_position")
+  (return-type "none")
+  (parameters
+    '("gint" "position")
+  )
+)
+
+(define-method select_region
+  (of-object "GtkEntry")
+  (c-name "gtk_entry_select_region")
+  (return-type "none")
+  (parameters
+    '("gint" "start")
+    '("gint" "end")
+  )
+)
+
+(define-method set_editable
+  (of-object "GtkEntry")
+  (c-name "gtk_entry_set_editable")
+  (return-type "none")
+  (parameters
+    '("gboolean" "editable")
+  )
+)
+
+(define-method layout_index_to_text_index
+  (of-object "GtkEntry")
+  (c-name "gtk_entry_layout_index_to_text_index")
+  (return-type "gint")
+  (parameters
+    '("gint" "layout_index")
+  )
+)
+
+(define-method text_index_to_layout_index
+  (of-object "GtkEntry")
+  (c-name "gtk_entry_text_index_to_layout_index")
+  (return-type "gint")
+  (parameters
+    '("gint" "text_index")
+  )
+)
+
+(define-virtual populate_popup
+  (of-object "GtkEntry")
+  (return-type "none")
+  (parameters
+    '("GtkMenu*" "menu")
+  )
+)
+
+(define-virtual activate
+  (of-object "GtkEntry")
+  (return-type "none")
+)
+
+(define-virtual move_cursor
+  (of-object "GtkEntry")
+  (return-type "none")
+  (parameters
+    '("GtkMovementStep" "step")
+    '("gint" "count")
+    '("gboolean" "extend_selection")
+  )
+)
+
+(define-virtual insert_at_cursor
+  (of-object "GtkEntry")
+  (return-type "none")
+  (parameters
+    '("const-gchar*" "str")
+  )
+)
+
+(define-virtual delete_from_cursor
+  (of-object "GtkEntry")
+  (return-type "none")
+  (parameters
+    '("GtkDeleteType" "type")
+    '("gint" "count")
+  )
+)
+
+(define-virtual backspace
+  (of-object "GtkEntry")
+  (return-type "none")
+)
+
+(define-virtual cut_clipboard
+  (of-object "GtkEntry")
+  (return-type "none")
+)
+
+(define-virtual copy_clipboard
+  (of-object "GtkEntry")
+  (return-type "none")
+)
+
+(define-virtual paste_clipboard
+  (of-object "GtkEntry")
+  (return-type "none")
+)
+
+(define-virtual toggle_overwrite
+  (of-object "GtkEntry")
+  (return-type "none")
+)
+
+(define-method set_inner_border
+  (of-object "GtkEntry")
+  (c-name "gtk_entry_set_inner_border")
+  (return-type "none")
+  (parameters
+    '("const-GtkBorder*" "border" (null-ok))
+  )
+)
+
+(define-method get_inner_border
+  (of-object "GtkEntry")
+  (c-name "gtk_entry_get_inner_border")
+  (return-type "const-GtkBorder*")
+)
+

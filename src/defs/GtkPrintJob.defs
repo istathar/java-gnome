@@ -1,0 +1,95 @@
+(define-object PrintJob
+  (in-module "Unixprint")
+  (parent "GObject")
+  (c-name "GtkPrintJob")
+  (gtype-id "GTK_TYPE_PRINT_JOB")
+)
+
+(define-function gtk_print_job_new
+  (is-constructor-of "GtkPrintJob")
+  (c-name "gtk_print_job_new")
+  (caller-owns-return #t)
+  (return-type "GtkPrintJob*")
+  (parameters
+    '("const-gchar*" "title")
+    '("GtkPrinter*" "printer")
+    '("GtkPrintSettings*" "settings")
+    '("GtkPageSetup*" "page_setup")
+  )
+)
+
+(define-method get_settings
+  (of-object "GtkPrintJob")
+  (c-name "gtk_print_job_get_settings")
+  (return-type "GtkPrintSettings*")
+)
+
+(define-method get_printer
+  (of-object "GtkPrintJob")
+  (c-name "gtk_print_job_get_printer")
+  (return-type "GtkPrinter*")
+)
+
+(define-method get_title
+  (of-object "GtkPrintJob")
+  (c-name "gtk_print_job_get_title")
+  (return-type "const-gchar*")
+)
+
+(define-method get_status
+  (of-object "GtkPrintJob")
+  (c-name "gtk_print_job_get_status")
+  (return-type "GtkPrintStatus")
+)
+
+(define-method set_source_file
+  (of-object "GtkPrintJob")
+  (c-name "gtk_print_job_set_source_file")
+  (return-type "gboolean")
+  (parameters
+    '("const-gchar*" "filename")
+    '("GError**" "error")
+  )
+)
+
+(define-method get_surface
+  (of-object "GtkPrintJob")
+  (c-name "gtk_print_job_get_surface")
+  (return-type "cairo_surface_t*")
+  (parameters
+    '("GError**" "error")
+  )
+)
+
+(define-method set_track_print_status
+  (of-object "GtkPrintJob")
+  (c-name "gtk_print_job_set_track_print_status")
+  (return-type "none")
+  (parameters
+    '("gboolean" "track_status")
+  )
+)
+
+(define-method get_track_print_status
+  (of-object "GtkPrintJob")
+  (c-name "gtk_print_job_get_track_print_status")
+  (return-type "gboolean")
+)
+
+(define-method send
+  (of-object "GtkPrintJob")
+  (c-name "gtk_print_job_send")
+  (return-type "gboolean")
+  (parameters
+    '("GtkPrintJobCompleteFunc" "callback")
+    '("gpointer" "user_data")
+    '("GDestroyNotify" "dnotify")
+    '("GError**" "error")
+  )
+)
+
+(define-virtual status_changed
+  (of-object "GtkPrintJob")
+  (return-type "none")
+)
+

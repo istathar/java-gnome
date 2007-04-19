@@ -1,0 +1,150 @@
+(define-object ProgressBar
+  (in-module "Gtk")
+  (parent "GtkProgress")
+  (c-name "GtkProgressBar")
+  (gtype-id "GTK_TYPE_PROGRESS_BAR")
+)
+
+(define-function gtk_progress_bar_new
+  (is-constructor-of "GtkProgressBar")
+  (c-name "gtk_progress_bar_new")
+  (caller-owns-return #t)
+  (return-type "GtkWidget*")
+)
+
+(define-method pulse
+  (of-object "GtkProgressBar")
+  (c-name "gtk_progress_bar_pulse")
+  (return-type "none")
+)
+
+(define-method set_text
+  (of-object "GtkProgressBar")
+  (c-name "gtk_progress_bar_set_text")
+  (return-type "none")
+  (parameters
+    '("const-gchar*" "text")
+  )
+)
+
+(define-method set_fraction
+  (of-object "GtkProgressBar")
+  (c-name "gtk_progress_bar_set_fraction")
+  (return-type "none")
+  (parameters
+    '("gdouble" "fraction")
+  )
+)
+
+(define-method set_pulse_step
+  (of-object "GtkProgressBar")
+  (c-name "gtk_progress_bar_set_pulse_step")
+  (return-type "none")
+  (parameters
+    '("gdouble" "fraction")
+  )
+)
+
+(define-method set_orientation
+  (of-object "GtkProgressBar")
+  (c-name "gtk_progress_bar_set_orientation")
+  (return-type "none")
+  (parameters
+    '("GtkProgressBarOrientation" "orientation")
+  )
+)
+
+(define-method get_text
+  (of-object "GtkProgressBar")
+  (c-name "gtk_progress_bar_get_text")
+  (return-type "const-gchar*")
+)
+
+(define-method get_fraction
+  (of-object "GtkProgressBar")
+  (c-name "gtk_progress_bar_get_fraction")
+  (return-type "gdouble")
+)
+
+(define-method get_pulse_step
+  (of-object "GtkProgressBar")
+  (c-name "gtk_progress_bar_get_pulse_step")
+  (return-type "gdouble")
+)
+
+(define-method get_orientation
+  (of-object "GtkProgressBar")
+  (c-name "gtk_progress_bar_get_orientation")
+  (return-type "GtkProgressBarOrientation")
+)
+
+(define-function gtk_progress_bar_new_with_adjustment
+  (is-constructor-of "GtkProgressBar")
+  (c-name "gtk_progress_bar_new_with_adjustment")
+  (caller-owns-return #t)
+  (return-type "GtkWidget*")
+  (parameters
+    '("GtkAdjustment*" "adjustment" (default "NULL") (null-ok))
+  )
+)
+
+(define-method set_bar_style
+  (of-object "GtkProgressBar")
+  (c-name "gtk_progress_bar_set_bar_style")
+  (return-type "none")
+  (parameters
+    '("GtkProgressBarStyle" "style")
+  )
+)
+
+(define-method set_discrete_blocks
+  (of-object "GtkProgressBar")
+  (c-name "gtk_progress_bar_set_discrete_blocks")
+  (return-type "none")
+  (parameters
+    '("guint" "blocks")
+  )
+)
+
+(define-method set_activity_step
+  (of-object "GtkProgressBar")
+  (c-name "gtk_progress_bar_set_activity_step")
+  (return-type "none")
+  (parameters
+    '("guint" "step")
+  )
+)
+
+(define-method set_activity_blocks
+  (of-object "GtkProgressBar")
+  (c-name "gtk_progress_bar_set_activity_blocks")
+  (return-type "none")
+  (parameters
+    '("guint" "blocks")
+  )
+)
+
+(define-method update
+  (of-object "GtkProgressBar")
+  (c-name "gtk_progress_bar_update")
+  (return-type "none")
+  (parameters
+    '("gfloat" "percentage")
+  )
+)
+
+(define-method set_ellipsize
+  (of-object "GtkProgressBar")
+  (c-name "gtk_progress_bar_set_ellipsize")
+  (return-type "none")
+  (parameters
+    '("PangoEllipsizeMode" "mode")
+  )
+)
+
+(define-method get_ellipsize
+  (of-object "GtkProgressBar")
+  (c-name "gtk_progress_bar_get_ellipsize")
+  (return-type "PangoEllipsizeMode")
+)
+

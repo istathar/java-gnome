@@ -1,0 +1,451 @@
+(define-object Pixbuf
+  (in-module "Gdk")
+  (parent "GObject")
+  (c-name "GdkPixbuf")
+  (gtype-id "GDK_TYPE_PIXBUF")
+  (fields
+    '("guchar*" "pixel_array")
+  )
+)
+
+(define-method render_threshold_alpha
+  (of-object "GdkPixbuf")
+  (c-name "gdk_pixbuf_render_threshold_alpha")
+  (return-type "none")
+  (parameters
+    '("GdkBitmap*" "bitmap")
+    '("int" "src_x")
+    '("int" "src_y")
+    '("int" "dest_x")
+    '("int" "dest_y")
+    '("int" "width")
+    '("int" "height")
+    '("int" "alpha_threshold")
+  )
+)
+
+(define-method render_pixmap_and_mask_for_colormap
+  (of-object "GdkPixbuf")
+  (c-name "gdk_pixbuf_render_pixmap_and_mask_for_colormap")
+  (return-type "none")
+  (parameters
+    '("GdkColormap*" "colormap")
+    '("GdkPixmap**" "pixmap_return")
+    '("GdkBitmap**" "mask_return")
+    '("int" "alpha_threshold")
+  )
+)
+
+(define-method render_to_drawable
+  (of-object "GdkPixbuf")
+  (c-name "gdk_pixbuf_render_to_drawable")
+  (return-type "none")
+  (deprecated "use gtk.gdk.Drawable.draw_pixbuf")
+  (parameters
+    '("GdkDrawable*" "drawable")
+    '("GdkGC*" "gc")
+    '("int" "src_x")
+    '("int" "src_y")
+    '("int" "dest_x")
+    '("int" "dest_y")
+    '("int" "width")
+    '("int" "height")
+    '("GdkRgbDither" "dither" (default "GDK_RGB_DITHER_NORMAL"))
+    '("gint" "x_dither" (default "0"))
+    '("gint" "y_dither" (default "0"))
+  )
+)
+
+(define-method render_to_drawable_alpha
+  (of-object "GdkPixbuf")
+  (c-name "gdk_pixbuf_render_to_drawable_alpha")
+  (return-type "none")
+  (deprecated "use gtk.gdk.Drawable.draw_pixbuf")
+  (parameters
+    '("GdkDrawable*" "drawable")
+    '("int" "src_x")
+    '("int" "src_y")
+    '("int" "dest_x")
+    '("int" "dest_y")
+    '("int" "width")
+    '("int" "height")
+    '("GdkPixbufAlphaMode" "alpha_mode")
+    '("int" "alpha_threshold")
+    '("GdkRgbDither" "dither" (default "GDK_RGB_DITHER_NORMAL"))
+    '("gint" "x_dither" (default "0"))
+    '("gint" "y_dither" (default "0"))
+  )
+)
+
+(define-method render_pixmap_and_mask
+  (of-object "GdkPixbuf")
+  (c-name "gdk_pixbuf_render_pixmap_and_mask")
+  (return-type "none")
+  (parameters
+    '("GdkPixmap**" "pixmap_return")
+    '("GdkBitmap**" "mask_return")
+    '("int" "alpha_threshold" (default "127"))
+  )
+)
+
+(define-method get_from_drawable
+  (of-object "GdkPixbuf")
+  (c-name "gdk_pixbuf_get_from_drawable")
+  (return-type "GdkPixbuf*")
+  (parameters
+    '("GdkDrawable*" "src")
+    '("GdkColormap*" "cmap")
+    '("int" "src_x")
+    '("int" "src_y")
+    '("int" "dest_x")
+    '("int" "dest_y")
+    '("int" "width")
+    '("int" "height")
+  )
+)
+
+(define-method get_from_image
+  (of-object "GdkPixbuf")
+  (c-name "gdk_pixbuf_get_from_image")
+  (return-type "GdkPixbuf*")
+  (parameters
+    '("GdkImage*" "src")
+    '("GdkColormap*" "cmap")
+    '("int" "src_x")
+    '("int" "src_y")
+    '("int" "dest_x")
+    '("int" "dest_y")
+    '("int" "width")
+    '("int" "height")
+  )
+)
+
+(define-method rotate_simple
+  (of-object "GdkPixbuf")
+  (c-name "gdk_pixbuf_rotate_simple")
+  (caller-owns-return #t)
+  (return-type "GdkPixbuf*")
+  (parameters
+    '("int" "angle")
+  )
+)
+
+(define-method get_colorspace
+  (of-object "GdkPixbuf")
+  (c-name "gdk_pixbuf_get_colorspace")
+  (return-type "GdkColorspace")
+)
+
+(define-method get_n_channels
+  (of-object "GdkPixbuf")
+  (c-name "gdk_pixbuf_get_n_channels")
+  (return-type "int")
+)
+
+(define-method get_has_alpha
+  (of-object "GdkPixbuf")
+  (c-name "gdk_pixbuf_get_has_alpha")
+  (return-type "gboolean")
+)
+
+(define-method get_bits_per_sample
+  (of-object "GdkPixbuf")
+  (c-name "gdk_pixbuf_get_bits_per_sample")
+  (return-type "int")
+)
+
+(define-method get_pixels
+  (of-object "GdkPixbuf")
+  (c-name "gdk_pixbuf_get_pixels")
+  (return-type "guchar*")
+)
+
+(define-method get_width
+  (of-object "GdkPixbuf")
+  (c-name "gdk_pixbuf_get_width")
+  (return-type "int")
+)
+
+(define-method get_height
+  (of-object "GdkPixbuf")
+  (c-name "gdk_pixbuf_get_height")
+  (return-type "int")
+)
+
+(define-method get_rowstride
+  (of-object "GdkPixbuf")
+  (c-name "gdk_pixbuf_get_rowstride")
+  (return-type "int")
+)
+
+(define-function pixbuf_new
+  (is-constructor-of "GdkPixbuf")
+  (c-name "gdk_pixbuf_new")
+  (caller-owns-return #t)
+  (return-type "GdkPixbuf*")
+  (parameters
+    '("GdkColorspace" "colorspace")
+    '("gboolean" "has_alpha")
+    '("int" "bits_per_sample")
+    '("int" "width")
+    '("int" "height")
+  )
+)
+
+(define-method copy
+  (of-object "GdkPixbuf")
+  (c-name "gdk_pixbuf_copy")
+  (caller-owns-return #t)
+  (return-type "GdkPixbuf*")
+)
+
+(define-method subpixbuf
+  (of-object "GdkPixbuf")
+  (c-name "gdk_pixbuf_new_subpixbuf")
+  (caller-owns-return #t)
+  (return-type "GdkPixbuf*")
+  (parameters
+    '("int" "src_x")
+    '("int" "src_y")
+    '("int" "width")
+    '("int" "height")
+  )
+)
+
+(define-method fill
+  (of-object "GdkPixbuf")
+  (c-name "gdk_pixbuf_fill")
+  (parameters
+    '("guint32" "pixel")
+  )
+)
+
+(define-method save
+  (of-object "GdkPixbuf")
+  (c-name "gdk_pixbuf_save")
+  (return-type "gboolean")
+  (parameters
+    '("const-char*" "filename")
+    '("const-char*" "type")
+    '("GError**" "error")
+  )
+  (varargs #t)
+)
+
+(define-method savev
+  (of-object "GdkPixbuf")
+  (c-name "gdk_pixbuf_savev")
+  (return-type "gboolean")
+  (parameters
+    '("const-char*" "filename")
+    '("const-char*" "type")
+    '("char**" "option_keys")
+    '("char**" "option_values")
+    '("GError**" "error")
+  )
+)
+
+(define-method save_to_callback
+  (of-object "GdkPixbuf")
+  (c-name "gdk_pixbuf_save_to_callback")
+)
+
+(define-method add_alpha
+  (of-object "GdkPixbuf")
+  (c-name "gdk_pixbuf_add_alpha")
+  (caller-owns-return #t)
+  (return-type "GdkPixbuf*")
+  (parameters
+    '("gboolean" "substitute_color")
+    '("guchar" "r")
+    '("guchar" "g")
+    '("guchar" "b")
+  )
+)
+
+(define-method copy_area
+  (of-object "GdkPixbuf")
+  (c-name "gdk_pixbuf_copy_area")
+  (return-type "none")
+  (parameters
+    '("int" "src_x")
+    '("int" "src_y")
+    '("int" "width")
+    '("int" "height")
+    '("GdkPixbuf*" "dest_pixbuf")
+    '("int" "dest_x")
+    '("int" "dest_y")
+  )
+)
+
+(define-method saturate_and_pixelate
+  (of-object "GdkPixbuf")
+  (c-name "gdk_pixbuf_saturate_and_pixelate")
+  (return-type "none")
+  (parameters
+    '("GdkPixbuf*" "dest")
+    '("gfloat" "saturation")
+    '("gboolean" "pixelate")
+  )
+)
+
+(define-method scale
+  (of-object "GdkPixbuf")
+  (c-name "gdk_pixbuf_scale")
+  (return-type "none")
+  (parameters
+    '("GdkPixbuf*" "dest")
+    '("int" "dest_x")
+    '("int" "dest_y")
+    '("int" "dest_width")
+    '("int" "dest_height")
+    '("double" "offset_x")
+    '("double" "offset_y")
+    '("double" "scale_x")
+    '("double" "scale_y")
+    '("GdkInterpType" "interp_type")
+  )
+)
+
+(define-method composite
+  (of-object "GdkPixbuf")
+  (c-name "gdk_pixbuf_composite")
+  (return-type "none")
+  (parameters
+    '("GdkPixbuf*" "dest")
+    '("int" "dest_x")
+    '("int" "dest_y")
+    '("int" "dest_width")
+    '("int" "dest_height")
+    '("double" "offset_x")
+    '("double" "offset_y")
+    '("double" "scale_x")
+    '("double" "scale_y")
+    '("GdkInterpType" "interp_type")
+    '("int" "overall_alpha")
+  )
+)
+
+(define-method composite_color
+  (of-object "GdkPixbuf")
+  (c-name "gdk_pixbuf_composite_color")
+  (return-type "none")
+  (parameters
+    '("GdkPixbuf*" "dest")
+    '("int" "dest_x")
+    '("int" "dest_y")
+    '("int" "dest_width")
+    '("int" "dest_height")
+    '("double" "offset_x")
+    '("double" "offset_y")
+    '("double" "scale_x")
+    '("double" "scale_y")
+    '("GdkInterpType" "interp_type")
+    '("int" "overall_alpha")
+    '("int" "check_x")
+    '("int" "check_y")
+    '("int" "check_size")
+    '("guint32" "color1")
+    '("guint32" "color2")
+  )
+)
+
+(define-method scale_simple
+  (of-object "GdkPixbuf")
+  (c-name "gdk_pixbuf_scale_simple")
+  (caller-owns-return #t)
+  (return-type "GdkPixbuf*")
+  (parameters
+    '("int" "dest_width")
+    '("int" "dest_height")
+    '("GdkInterpType" "interp_type")
+  )
+)
+
+(define-method composite_color_simple
+  (of-object "GdkPixbuf")
+  (c-name "gdk_pixbuf_composite_color_simple")
+  (caller-owns-return #t)
+  (return-type "GdkPixbuf*")
+  (parameters
+    '("int" "dest_width")
+    '("int" "dest_height")
+    '("GdkInterpType" "interp_type")
+    '("int" "overall_alpha")
+    '("int" "check_size")
+    '("guint32" "color1")
+    '("guint32" "color2")
+  )
+)
+
+(define-method ref
+  (of-object "GdkPixbuf")
+  (c-name "gdk_pixbuf_ref")
+  (return-type "GdkPixbuf*")
+)
+
+(define-method unref
+  (of-object "GdkPixbuf")
+  (c-name "gdk_pixbuf_unref")
+  (return-type "none")
+)
+
+(define-method save_to_callbackv
+  (of-object "GdkPixbuf")
+  (c-name "gdk_pixbuf_save_to_callbackv")
+  (return-type "gboolean")
+  (parameters
+    '("GdkPixbufSaveFunc" "save_func")
+    '("gpointer" "user_data")
+    '("const-char*" "type")
+    '("char**" "option_keys")
+    '("char**" "option_values")
+    '("GError**" "error")
+  )
+)
+
+(define-method save_to_buffer
+  (of-object "GdkPixbuf")
+  (c-name "gdk_pixbuf_save_to_buffer")
+  (return-type "gboolean")
+  (parameters
+    '("gchar**" "buffer")
+    '("gsize*" "buffer_size")
+    '("const-char*" "type")
+    '("GError**" "error")
+  )
+  (varargs #t)
+)
+
+(define-method save_to_bufferv
+  (of-object "GdkPixbuf")
+  (c-name "gdk_pixbuf_save_to_bufferv")
+  (return-type "gboolean")
+  (parameters
+    '("gchar**" "buffer")
+    '("gsize*" "buffer_size")
+    '("const-char*" "type")
+    '("char**" "option_keys")
+    '("char**" "option_values")
+    '("GError**" "error")
+  )
+)
+
+(define-method get_option
+  (of-object "GdkPixbuf")
+  (c-name "gdk_pixbuf_get_option")
+  (return-type "const-char*")
+  (parameters
+    '("const-char*" "key")
+  )
+)
+
+(define-method flip
+  (of-object "GdkPixbuf")
+  (c-name "gdk_pixbuf_flip")
+  (return-type "GdkPixbuf*")
+  (parameters
+    '("gboolean" "horizontal")
+  )
+)
+

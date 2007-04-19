@@ -1,0 +1,44 @@
+(define-object MenuBar
+  (in-module "Gtk")
+  (parent "GtkMenuShell")
+  (c-name "GtkMenuBar")
+  (gtype-id "GTK_TYPE_MENU_BAR")
+)
+
+(define-function gtk_menu_bar_new
+  (is-constructor-of "GtkMenuBar")
+  (c-name "gtk_menu_bar_new")
+  (caller-owns-return #t)
+  (return-type "GtkWidget*")
+)
+
+(define-method get_pack_direction
+  (of-object "GtkMenuBar")
+  (c-name "gtk_menu_bar_get_pack_direction")
+  (return-type "GtkPackDirection")
+)
+
+(define-method set_pack_direction
+  (of-object "GtkMenuBar")
+  (c-name "gtk_menu_bar_set_pack_direction")
+  (return-type "none")
+  (parameters
+    '("GtkPackDirection" "pack_dir")
+  )
+)
+
+(define-method get_child_pack_direction
+  (of-object "GtkMenuBar")
+  (c-name "gtk_menu_bar_get_child_pack_direction")
+  (return-type "GtkPackDirection")
+)
+
+(define-method set_child_pack_direction
+  (of-object "GtkMenuBar")
+  (c-name "gtk_menu_bar_set_child_pack_direction")
+  (return-type "none")
+  (parameters
+    '("GtkPackDirection" "child_pack_dir")
+  )
+)
+

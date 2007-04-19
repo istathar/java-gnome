@@ -1,0 +1,153 @@
+(define-object Dialog
+  (in-module "Gtk")
+  (parent "GtkWindow")
+  (c-name "GtkDialog")
+  (gtype-id "GTK_TYPE_DIALOG")
+  (fields
+    '("GtkWidget*" "vbox")
+    '("GtkWidget*" "action_area")
+  )
+)
+
+(define-function gtk_dialog_new
+  (is-constructor-of "GtkDialog")
+  (c-name "gtk_dialog_new")
+  (caller-owns-return #t)
+  (return-type "GtkWidget*")
+)
+
+(define-function gtk_dialog_new_with_buttons
+  (is-constructor-of "GtkDialog")
+  (c-name "gtk_dialog_new_with_buttons")
+  (caller-owns-return #t)
+  (return-type "GtkWidget*")
+  (parameters
+    '("const-gchar*" "title" (default "NULL") (null-ok))
+    '("GtkWindow*" "parent" (default "NULL") (null-ok))
+    '("GtkDialogFlags" "flags" (default "0"))
+    '("const-gchar*" "first_button_text" (default "NULL") (null-ok))
+  )
+  (varargs #t)
+)
+
+(define-method add_action_widget
+  (of-object "GtkDialog")
+  (c-name "gtk_dialog_add_action_widget")
+  (return-type "none")
+  (parameters
+    '("GtkWidget*" "child")
+    '("gint" "response_id")
+  )
+)
+
+(define-method add_button
+  (of-object "GtkDialog")
+  (c-name "gtk_dialog_add_button")
+  (return-type "GtkWidget*")
+  (parameters
+    '("const-gchar*" "button_text")
+    '("gint" "response_id")
+  )
+)
+
+(define-method add_buttons
+  (of-object "GtkDialog")
+  (c-name "gtk_dialog_add_buttons")
+  (return-type "none")
+  (parameters
+    '("const-gchar*" "first_button_text")
+  )
+  (varargs #t)
+)
+
+(define-method set_response_sensitive
+  (of-object "GtkDialog")
+  (c-name "gtk_dialog_set_response_sensitive")
+  (return-type "none")
+  (parameters
+    '("gint" "response_id")
+    '("gboolean" "setting")
+  )
+)
+
+(define-method set_default_response
+  (of-object "GtkDialog")
+  (c-name "gtk_dialog_set_default_response")
+  (return-type "none")
+  (parameters
+    '("gint" "response_id")
+  )
+)
+
+(define-method get_response_for_widget
+  (of-object "GtkDialog")
+  (c-name "gtk_dialog_get_response_for_widget")
+  (return-type "gint")
+  (parameters
+    '("GtkWidget*" "widget")
+  )
+)
+
+(define-method set_has_separator
+  (of-object "GtkDialog")
+  (c-name "gtk_dialog_set_has_separator")
+  (return-type "none")
+  (parameters
+    '("gboolean" "setting")
+  )
+)
+
+(define-method get_has_separator
+  (of-object "GtkDialog")
+  (c-name "gtk_dialog_get_has_separator")
+  (return-type "gboolean")
+)
+
+(define-method response
+  (of-object "GtkDialog")
+  (c-name "gtk_dialog_response")
+  (return-type "none")
+  (parameters
+    '("gint" "response_id")
+  )
+)
+
+(define-method run
+  (of-object "GtkDialog")
+  (c-name "gtk_dialog_run")
+  (return-type "gint")
+)
+
+(define-method set_alternative_button_order
+  (of-object "GtkDialog")
+  (c-name "gtk_dialog_set_alternative_button_order")
+  (return-type "none")
+  (parameters
+    '("gint" "first_response_id")
+  )
+  (varargs #t)
+)
+
+(define-method set_alternative_button_order_from_array
+  (of-object "GtkDialog")
+  (c-name "gtk_dialog_set_alternative_button_order_from_array")
+  (return-type "none")
+  (parameters
+    '("gint" "n_params")
+    '("gint*" "new_order")
+  )
+)
+
+(define-virtual response
+  (of-object "GtkDialog")
+  (return-type "none")
+  (parameters
+    '("gint" "response_id")
+  )
+)
+
+(define-virtual close
+  (of-object "GtkDialog")
+  (return-type "none")
+)
+

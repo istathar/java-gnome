@@ -1,0 +1,11 @@
+(define-enum Visibility
+  (in-module "Gtk")
+  (c-name "GtkVisibility")
+  (gtype-id "GTK_TYPE_VISIBILITY")
+  (values
+    '("none" "GTK_VISIBILITY_NONE")
+    '("partial" "GTK_VISIBILITY_PARTIAL")
+    '("full" "GTK_VISIBILITY_FULL")
+  )
+)
+

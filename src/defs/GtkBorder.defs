@@ -1,0 +1,21 @@
+(define-boxed Border
+  (in-module "Gtk")
+  (c-name "GtkBorder")
+  (gtype-id "GTK_TYPE_BORDER")
+  (copy-func "gtk_border_copy")
+  (release-func "gtk_border_free")
+)
+
+(define-method copy
+  (of-object "GtkBorder")
+  (c-name "gtk_border_copy")
+  (caller-owns-return #t)
+  (return-type "GtkBorder*")
+)
+
+(define-method free
+  (of-object "GtkBorder")
+  (c-name "gtk_border_free")
+  (return-type "none")
+)
+

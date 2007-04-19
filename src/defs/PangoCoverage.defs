@@ -1,0 +1,74 @@
+(define-function coverage_new
+  (is-constructor-of "PangoCoverage")
+  (c-name "pango_coverage_new")
+  (caller-owns-return #t)
+  (return-type "PangoCoverage*")
+)
+
+(define-method ref
+  (of-object "PangoCoverage")
+  (c-name "pango_coverage_ref")
+  (return-type "PangoCoverage*")
+)
+
+(define-method unref
+  (of-object "PangoCoverage")
+  (c-name "pango_coverage_unref")
+  (return-type "none")
+)
+
+(define-method copy
+  (of-object "PangoCoverage")
+  (c-name "pango_coverage_copy")
+  (return-type "PangoCoverage*")
+)
+
+(define-method get
+  (of-object "PangoCoverage")
+  (c-name "pango_coverage_get")
+  (return-type "PangoCoverageLevel")
+  (parameters
+    '("int" "index")
+  )
+)
+
+(define-method set
+  (of-object "PangoCoverage")
+  (c-name "pango_coverage_set")
+  (return-type "none")
+  (parameters
+    '("int" "index")
+    '("PangoCoverageLevel" "level")
+  )
+)
+
+(define-method max
+  (of-object "PangoCoverage")
+  (c-name "pango_coverage_max")
+  (return-type "none")
+  (parameters
+    '("PangoCoverage*" "other")
+  )
+)
+
+(define-method to_bytes
+  (of-object "PangoCoverage")
+  (c-name "pango_coverage_to_bytes")
+  (return-type "none")
+  (parameters
+    '("guchar**" "bytes")
+    '("int*" "n_bytes")
+  )
+)
+
+(define-function coverage_from_bytes
+  (is-constructor-of "PangoCoverage")
+  (c-name "pango_coverage_from_bytes")
+  (caller-owns-return #t)
+  (return-type "PangoCoverage*")
+  (parameters
+    '("guchar*" "bytes")
+    '("int" "n_bytes")
+  )
+)
+

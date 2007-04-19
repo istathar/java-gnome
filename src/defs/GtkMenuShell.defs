@@ -1,0 +1,149 @@
+(define-object MenuShell
+  (in-module "Gtk")
+  (parent "GtkContainer")
+  (c-name "GtkMenuShell")
+  (gtype-id "GTK_TYPE_MENU_SHELL")
+)
+
+(define-method append
+  (of-object "GtkMenuShell")
+  (c-name "gtk_menu_shell_append")
+  (return-type "none")
+  (parameters
+    '("GtkWidget*" "child")
+  )
+)
+
+(define-method prepend
+  (of-object "GtkMenuShell")
+  (c-name "gtk_menu_shell_prepend")
+  (return-type "none")
+  (parameters
+    '("GtkWidget*" "child")
+  )
+)
+
+(define-method insert
+  (of-object "GtkMenuShell")
+  (c-name "gtk_menu_shell_insert")
+  (return-type "none")
+  (parameters
+    '("GtkWidget*" "child")
+    '("gint" "position")
+  )
+)
+
+(define-method deactivate
+  (of-object "GtkMenuShell")
+  (c-name "gtk_menu_shell_deactivate")
+  (return-type "none")
+)
+
+(define-method select_item
+  (of-object "GtkMenuShell")
+  (c-name "gtk_menu_shell_select_item")
+  (return-type "none")
+  (parameters
+    '("GtkWidget*" "menu_item")
+  )
+)
+
+(define-method deselect
+  (of-object "GtkMenuShell")
+  (c-name "gtk_menu_shell_deselect")
+  (return-type "none")
+)
+
+(define-method activate_item
+  (of-object "GtkMenuShell")
+  (c-name "gtk_menu_shell_activate_item")
+  (return-type "none")
+  (parameters
+    '("GtkWidget*" "menu_item")
+    '("gboolean" "force_deactivate")
+  )
+)
+
+(define-method select_first
+  (of-object "GtkMenuShell")
+  (c-name "gtk_menu_shell_select_first")
+  (return-type "none")
+  (parameters
+    '("gboolean" "search_sensitive")
+  )
+)
+
+(define-method cancel
+  (of-object "GtkMenuShell")
+  (c-name "gtk_menu_shell_cancel")
+  (return-type "none")
+)
+
+(define-method get_take_focus
+  (of-object "GtkMenuShell")
+  (c-name "gtk_menu_shell_get_take_focus")
+  (return-type "gboolean")
+)
+
+(define-method set_take_focus
+  (of-object "GtkMenuShell")
+  (c-name "gtk_menu_shell_set_take_focus")
+  (return-type "none")
+  (parameters
+    '("gboolean" "take_focus")
+  )
+)
+
+(define-virtual deactivate
+  (of-object "GtkMenuShell")
+  (return-type "none")
+)
+
+(define-virtual selection_done
+  (of-object "GtkMenuShell")
+  (return-type "none")
+)
+
+(define-virtual move_current
+  (of-object "GtkMenuShell")
+  (return-type "none")
+  (parameters
+    '("GtkMenuDirectionType" "direction")
+  )
+)
+
+(define-virtual activate_current
+  (of-object "GtkMenuShell")
+  (return-type "none")
+  (parameters
+    '("gboolean" "force_hide")
+  )
+)
+
+(define-virtual cancel
+  (of-object "GtkMenuShell")
+  (return-type "none")
+)
+
+(define-virtual select_item
+  (of-object "GtkMenuShell")
+  (return-type "none")
+  (parameters
+    '("GtkWidget*" "menu_item")
+  )
+)
+
+(define-virtual insert
+  (of-object "GtkMenuShell")
+  (return-type "none")
+  (parameters
+    '("GtkWidget*" "child")
+    '("gint" "position")
+  )
+)
+
+(define-virtual get_popup_delay
+  (of-object "GtkMenuShell")
+  (return-type "gint")
+)
+

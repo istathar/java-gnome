@@ -1,0 +1,377 @@
+(define-object Layout
+  (in-module "Pango")
+  (parent "GObject")
+  (c-name "PangoLayout")
+  (gtype-id "PANGO_TYPE_LAYOUT")
+)
+
+(define-function pango_layout_new
+  (is-constructor-of "PangoLayout")
+  (c-name "pango_layout_new")
+  (caller-owns-return #t)
+  (return-type "PangoLayout*")
+  (parameters
+    '("PangoContext*" "context")
+  )
+)
+
+(define-method copy
+  (of-object "PangoLayout")
+  (c-name "pango_layout_copy")
+  (return-type "PangoLayout*")
+)
+
+(define-method get_context
+  (of-object "PangoLayout")
+  (c-name "pango_layout_get_context")
+  (return-type "PangoContext*")
+)
+
+(define-method set_attributes
+  (of-object "PangoLayout")
+  (c-name "pango_layout_set_attributes")
+  (return-type "none")
+  (parameters
+    '("PangoAttrList*" "attrs")
+  )
+)
+
+(define-method get_attributes
+  (of-object "PangoLayout")
+  (c-name "pango_layout_get_attributes")
+  (return-type "PangoAttrList*")
+)
+
+(define-method set_text
+  (of-object "PangoLayout")
+  (c-name "pango_layout_set_text")
+  (return-type "none")
+  (parameters
+    '("const-char*" "text")
+    '("int" "length")
+  )
+)
+
+(define-method get_text
+  (of-object "PangoLayout")
+  (c-name "pango_layout_get_text")
+  (return-type "const-char*")
+)
+
+(define-method set_markup
+  (of-object "PangoLayout")
+  (c-name "pango_layout_set_markup")
+  (return-type "none")
+  (parameters
+    '("const-char*" "markup")
+    '("int" "length")
+  )
+)
+
+(define-method set_markup_with_accel
+  (of-object "PangoLayout")
+  (c-name "pango_layout_set_markup_with_accel")
+  (return-type "none")
+  (parameters
+    '("const-char*" "markup")
+    '("int" "length")
+    '("gunichar" "accel_marker")
+    '("gunichar*" "accel_char")
+  )
+)
+
+(define-method set_font_description
+  (of-object "PangoLayout")
+  (c-name "pango_layout_set_font_description")
+  (return-type "none")
+  (parameters
+    '("const-PangoFontDescription*" "desc" (null-ok))
+  )
+)
+
+(define-method get_font_description
+  (of-object "PangoLayout")
+  (c-name "pango_layout_get_font_description")
+  (return-type "const-PangoFontDescription*")
+)
+
+(define-method set_width
+  (of-object "PangoLayout")
+  (c-name "pango_layout_set_width")
+  (return-type "none")
+  (parameters
+    '("int" "width")
+  )
+)
+
+(define-method get_width
+  (of-object "PangoLayout")
+  (c-name "pango_layout_get_width")
+  (return-type "int")
+)
+
+(define-method set_wrap
+  (of-object "PangoLayout")
+  (c-name "pango_layout_set_wrap")
+  (return-type "none")
+  (parameters
+    '("PangoWrapMode" "wrap")
+  )
+)
+
+(define-method get_wrap
+  (of-object "PangoLayout")
+  (c-name "pango_layout_get_wrap")
+  (return-type "PangoWrapMode")
+)
+
+(define-method set_indent
+  (of-object "PangoLayout")
+  (c-name "pango_layout_set_indent")
+  (return-type "none")
+  (parameters
+    '("int" "indent")
+  )
+)
+
+(define-method get_indent
+  (of-object "PangoLayout")
+  (c-name "pango_layout_get_indent")
+  (return-type "int")
+)
+
+(define-method set_spacing
+  (of-object "PangoLayout")
+  (c-name "pango_layout_set_spacing")
+  (return-type "none")
+  (parameters
+    '("int" "spacing")
+  )
+)
+
+(define-method get_spacing
+  (of-object "PangoLayout")
+  (c-name "pango_layout_get_spacing")
+  (return-type "int")
+)
+
+(define-method set_justify
+  (of-object "PangoLayout")
+  (c-name "pango_layout_set_justify")
+  (return-type "none")
+  (parameters
+    '("gboolean" "justify")
+  )
+)
+
+(define-method get_justify
+  (of-object "PangoLayout")
+  (c-name "pango_layout_get_justify")
+  (return-type "gboolean")
+)
+
+(define-method set_auto_dir
+  (of-object "PangoLayout")
+  (c-name "pango_layout_set_auto_dir")
+  (return-type "none")
+  (parameters
+    '("gboolean" "auto_dir")
+  )
+)
+
+(define-method get_auto_dir
+  (of-object "PangoLayout")
+  (c-name "pango_layout_get_auto_dir")
+  (return-type "gboolean")
+)
+
+(define-method set_alignment
+  (of-object "PangoLayout")
+  (c-name "pango_layout_set_alignment")
+  (return-type "none")
+  (parameters
+    '("PangoAlignment" "alignment")
+  )
+)
+
+(define-method get_alignment
+  (of-object "PangoLayout")
+  (c-name "pango_layout_get_alignment")
+  (return-type "PangoAlignment")
+)
+
+(define-method set_tabs
+  (of-object "PangoLayout")
+  (c-name "pango_layout_set_tabs")
+  (return-type "none")
+  (parameters
+    '("PangoTabArray*" "tabs" (null-ok))
+  )
+)
+
+(define-method get_tabs
+  (of-object "PangoLayout")
+  (c-name "pango_layout_get_tabs")
+  (return-type "PangoTabArray*")
+)
+
+(define-method set_single_paragraph_mode
+  (of-object "PangoLayout")
+  (c-name "pango_layout_set_single_paragraph_mode")
+  (return-type "none")
+  (parameters
+    '("gboolean" "setting")
+  )
+)
+
+(define-method get_single_paragraph_mode
+  (of-object "PangoLayout")
+  (c-name "pango_layout_get_single_paragraph_mode")
+  (return-type "gboolean")
+)
+
+(define-method set_ellipsize
+  (of-object "PangoLayout")
+  (c-name "pango_layout_set_ellipsize")
+  (return-type "none")
+  (parameters
+    '("PangoEllipsizeMode" "ellipsize")
+  )
+)
+
+(define-method get_ellipsize
+  (of-object "PangoLayout")
+  (c-name "pango_layout_get_ellipsize")
+  (return-type "PangoEllipsizeMode")
+)
+
+(define-method context_changed
+  (of-object "PangoLayout")
+  (c-name "pango_layout_context_changed")
+  (return-type "none")
+)
+
+(define-method get_log_attrs
+  (of-object "PangoLayout")
+  (c-name "pango_layout_get_log_attrs")
+  (return-type "none")
+  (parameters
+    '("PangoLogAttr**" "attrs")
+    '("gint*" "n_attrs")
+  )
+)
+
+(define-method index_to_pos
+  (of-object "PangoLayout")
+  (c-name "pango_layout_index_to_pos")
+  (return-type "none")
+  (parameters
+    '("int" "index")
+    '("PangoRectangle*" "pos")
+  )
+)
+
+(define-method get_cursor_pos
+  (of-object "PangoLayout")
+  (c-name "pango_layout_get_cursor_pos")
+  (return-type "none")
+  (parameters
+    '("int" "index")
+    '("PangoRectangle*" "strong_pos")
+    '("PangoRectangle*" "weak_pos")
+  )
+)
+
+(define-method move_cursor_visually
+  (of-object "PangoLayout")
+  (c-name "pango_layout_move_cursor_visually")
+  (return-type "none")
+  (parameters
+    '("gboolean" "strong")
+    '("int" "old_index")
+    '("int" "old_trailing")
+    '("int" "direction")
+    '("int*" "new_index")
+    '("int*" "new_trailing")
+  )
+)
+
+(define-method xy_to_index
+  (of-object "PangoLayout")
+  (c-name "pango_layout_xy_to_index")
+  (return-type "gboolean")
+  (parameters
+    '("int" "x")
+    '("int" "y")
+    '("int*" "index")
+    '("int*" "trailing")
+  )
+)
+
+(define-method get_extents
+  (of-object "PangoLayout")
+  (c-name "pango_layout_get_extents")
+  (return-type "none")
+  (parameters
+    '("PangoRectangle*" "ink_rect")
+    '("PangoRectangle*" "logical_rect")
+  )
+)
+
+(define-method get_pixel_extents
+  (of-object "PangoLayout")
+  (c-name "pango_layout_get_pixel_extents")
+  (return-type "none")
+  (parameters
+    '("PangoRectangle*" "ink_rect")
+    '("PangoRectangle*" "logical_rect")
+  )
+)
+
+(define-method get_size
+  (of-object "PangoLayout")
+  (c-name "pango_layout_get_size")
+  (return-type "none")
+  (parameters
+    '("int*" "width")
+    '("int*" "height")
+  )
+)
+
+(define-method get_pixel_size
+  (of-object "PangoLayout")
+  (c-name "pango_layout_get_pixel_size")
+  (return-type "none")
+  (parameters
+    '("int*" "width")
+    '("int*" "height")
+  )
+)
+
+(define-method get_line_count
+  (of-object "PangoLayout")
+  (c-name "pango_layout_get_line_count")
+  (return-type "int")
+)
+
+(define-method get_line
+  (of-object "PangoLayout")
+  (c-name "pango_layout_get_line")
+  (return-type "PangoLayoutLine*")
+  (parameters
+    '("int" "line")
+  )
+)
+
+(define-method get_lines
+  (of-object "PangoLayout")
+  (c-name "pango_layout_get_lines")
+  (return-type "GSList*")
+)
+
+(define-method get_iter
+  (of-object "PangoLayout")
+  (c-name "pango_layout_get_iter")
+  (return-type "PangoLayoutIter*")
+)
+

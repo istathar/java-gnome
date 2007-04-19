@@ -1,0 +1,12 @@
+(define-enum PrintQuality
+  (in-module "Gtk")
+  (c-name "GtkPrintQuality")
+  (gtype-id "GTK_TYPE_PRINT_QUALITY")
+  (values
+    '("low" "GTK_PRINT_QUALITY_LOW")
+    '("normal" "GTK_PRINT_QUALITY_NORMAL")
+    '("high" "GTK_PRINT_QUALITY_HIGH")
+    '("draft" "GTK_PRINT_QUALITY_DRAFT")
+  )
+)
+

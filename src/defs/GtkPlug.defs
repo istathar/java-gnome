@@ -1,0 +1,47 @@
+(define-object Plug
+  (in-module "Gtk")
+  (parent "GtkWindow")
+  (c-name "GtkPlug")
+  (gtype-id "GTK_TYPE_PLUG")
+)
+
+(define-method construct
+  (of-object "GtkPlug")
+  (c-name "gtk_plug_construct")
+  (return-type "none")
+  (parameters
+    '("GdkNativeWindow" "socket_id")
+  )
+)
+
+(define-function gtk_plug_new
+  (is-constructor-of "GtkPlug")
+  (c-name "gtk_plug_new")
+  (caller-owns-return #t)
+  (return-type "GtkWidget*")
+  (parameters
+    '("GdkNativeWindow" "socket_id")
+  )
+)
+
+(define-method construct_for_display
+  (of-object "GtkPlug")
+  (c-name "gtk_plug_construct_for_display")
+  (return-type "none")
+  (parameters
+    '("GdkDisplay*" "display")
+    '("GdkNativeWindow" "socket_id")
+  )
+)
+
+(define-method get_id
+  (of-object "GtkPlug")
+  (c-name "gtk_plug_get_id")
+  (return-type "GdkNativeWindow")
+)
+
+(define-virtual embedded
+  (of-object "GtkPlug")
+  (return-type "none")
+)
+

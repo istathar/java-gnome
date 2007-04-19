@@ -1,0 +1,14 @@
+(define-object HRuler
+  (in-module "Gtk")
+  (parent "GtkRuler")
+  (c-name "GtkHRuler")
+  (gtype-id "GTK_TYPE_HRULER")
+)
+
+(define-function gtk_hruler_new
+  (is-constructor-of "GtkHRuler")
+  (c-name "gtk_hruler_new")
+  (caller-owns-return #t)
+  (return-type "GtkWidget*")
+)
+

@@ -1,0 +1,47 @@
+(define-object Misc
+  (in-module "Gtk")
+  (parent "GtkWidget")
+  (c-name "GtkMisc")
+  (gtype-id "GTK_TYPE_MISC")
+)
+
+(define-method set_alignment
+  (of-object "GtkMisc")
+  (c-name "gtk_misc_set_alignment")
+  (return-type "none")
+  (parameters
+    '("gfloat" "xalign")
+    '("gfloat" "yalign")
+  )
+)
+
+(define-method get_alignment
+  (of-object "GtkMisc")
+  (c-name "gtk_misc_get_alignment")
+  (return-type "none")
+  (parameters
+    '("gfloat*" "xalign")
+    '("gfloat*" "yalign")
+  )
+)
+
+(define-method set_padding
+  (of-object "GtkMisc")
+  (c-name "gtk_misc_set_padding")
+  (return-type "none")
+  (parameters
+    '("gint" "xpad")
+    '("gint" "ypad")
+  )
+)
+
+(define-method get_padding
+  (of-object "GtkMisc")
+  (c-name "gtk_misc_get_padding")
+  (return-type "none")
+  (parameters
+    '("gint*" "xpad")
+    '("gint*" "ypad")
+  )
+)
+

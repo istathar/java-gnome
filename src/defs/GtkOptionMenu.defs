@@ -1,0 +1,56 @@
+(define-object OptionMenu
+  (in-module "Gtk")
+  (parent "GtkButton")
+  (c-name "GtkOptionMenu")
+  (gtype-id "GTK_TYPE_OPTION_MENU")
+)
+
+(define-function gtk_option_menu_new
+  (is-constructor-of "GtkOptionMenu")
+  (c-name "gtk_option_menu_new")
+  (caller-owns-return #t)
+  (return-type "GtkWidget*")
+  (deprecated "use gtk.ComboBox")
+)
+
+(define-method get_menu
+  (of-object "GtkOptionMenu")
+  (c-name "gtk_option_menu_get_menu")
+  (return-type "GtkWidget*")
+)
+
+(define-method set_menu
+  (of-object "GtkOptionMenu")
+  (c-name "gtk_option_menu_set_menu")
+  (return-type "none")
+  (parameters
+    '("GtkWidget*" "menu")
+  )
+)
+
+(define-method remove_menu
+  (of-object "GtkOptionMenu")
+  (c-name "gtk_option_menu_remove_menu")
+  (return-type "none")
+)
+
+(define-method get_history
+  (of-object "GtkOptionMenu")
+  (c-name "gtk_option_menu_get_history")
+  (return-type "gint")
+)
+
+(define-method set_history
+  (of-object "GtkOptionMenu")
+  (c-name "gtk_option_menu_set_history")
+  (return-type "none")
+  (parameters
+    '("guint" "index")
+  )
+)
+
+(define-virtual changed
+  (of-object "GtkOptionMenu")
+  (return-type "none")
+)
+

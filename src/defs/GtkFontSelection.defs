@@ -1,0 +1,52 @@
+(define-object FontSelection
+  (in-module "Gtk")
+  (parent "GtkVBox")
+  (c-name "GtkFontSelection")
+  (gtype-id "GTK_TYPE_FONT_SELECTION")
+)
+
+(define-function gtk_font_selection_new
+  (is-constructor-of "GtkFontSelection")
+  (c-name "gtk_font_selection_new")
+  (caller-owns-return #t)
+  (return-type "GtkWidget*")
+)
+
+(define-method get_font_name
+  (of-object "GtkFontSelection")
+  (c-name "gtk_font_selection_get_font_name")
+  (caller-owns-return #t)
+  (return-type "gchar*")
+)
+
+(define-method get_font
+  (of-object "GtkFontSelection")
+  (c-name "gtk_font_selection_get_font")
+  (return-type "GdkFont*")
+  (deprecated "use GtkFontSelection.get_font_name")
+)
+
+(define-method set_font_name
+  (of-object "GtkFontSelection")
+  (c-name "gtk_font_selection_set_font_name")
+  (return-type "gboolean")
+  (parameters
+    '("const-gchar*" "fontname")
+  )
+)
+
+(define-method get_preview_text
+  (of-object "GtkFontSelection")
+  (c-name "gtk_font_selection_get_preview_text")
+  (return-type "const-gchar*")
+)
+
+(define-method set_preview_text
+  (of-object "GtkFontSelection")
+  (c-name "gtk_font_selection_set_preview_text")
+  (return-type "none")
+  (parameters
+    '("const-gchar*" "text")
+  )
+)
+

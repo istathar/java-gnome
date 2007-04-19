@@ -1,0 +1,229 @@
+(define-object Object
+  (in-module "Gtk")
+  (parent "GObject")
+  (c-name "GtkObject")
+  (gtype-id "GTK_TYPE_OBJECT")
+)
+
+(define-method flags
+  (of-object "GtkObject")
+  (c-name "GTK_OBJECT_FLAGS")
+  (return-type "GtkWidgetFlags")
+)
+
+(define-method set_flags
+  (of-object "GtkObject")
+  (c-name "GTK_OBJECT_SET_FLAGS")
+  (return-type "none")
+  (parameters
+    '("GtkWidgetFlags" "flags")
+  )
+)
+
+(define-method unset_flags
+  (of-object "GtkObject")
+  (c-name "GTK_OBJECT_UNSET_FLAGS")
+  (return-type "none")
+  (parameters
+    '("GtkWidgetFlags" "flags")
+  )
+)
+
+(define-method sink
+  (of-object "GtkObject")
+  (c-name "gtk_object_sink")
+  (return-type "none")
+)
+
+(define-method destroy
+  (of-object "GtkObject")
+  (c-name "gtk_object_destroy")
+  (return-type "none")
+)
+
+(define-method ref
+  (of-object "GtkObject")
+  (c-name "gtk_object_ref")
+  (return-type "GtkObject*")
+)
+
+(define-method unref
+  (of-object "GtkObject")
+  (c-name "gtk_object_unref")
+  (return-type "none")
+)
+
+(define-method weakref
+  (of-object "GtkObject")
+  (c-name "gtk_object_weakref")
+  (return-type "none")
+  (parameters
+    '("GtkDestroyNotify" "notify")
+    '("gpointer" "data")
+  )
+)
+
+(define-method weakunref
+  (of-object "GtkObject")
+  (c-name "gtk_object_weakunref")
+  (return-type "none")
+  (parameters
+    '("GtkDestroyNotify" "notify")
+    '("gpointer" "data")
+  )
+)
+
+(define-method set_data
+  (of-object "GtkObject")
+  (c-name "gtk_object_set_data")
+  (return-type "none")
+  (parameters
+    '("const-gchar*" "key")
+    '("gpointer" "data")
+  )
+)
+
+(define-method set_data_full
+  (of-object "GtkObject")
+  (c-name "gtk_object_set_data_full")
+  (return-type "none")
+  (parameters
+    '("const-gchar*" "key")
+    '("gpointer" "data")
+    '("GtkDestroyNotify" "destroy")
+  )
+)
+
+(define-method remove_data
+  (of-object "GtkObject")
+  (c-name "gtk_object_remove_data")
+  (return-type "none")
+  (parameters
+    '("const-gchar*" "key")
+  )
+)
+
+(define-method get_data
+  (of-object "GtkObject")
+  (c-name "gtk_object_get_data")
+  (return-type "gpointer")
+  (parameters
+    '("const-gchar*" "key")
+  )
+)
+
+(define-method remove_no_notify
+  (of-object "GtkObject")
+  (c-name "gtk_object_remove_no_notify")
+  (return-type "none")
+  (parameters
+    '("const-gchar*" "key")
+  )
+)
+
+(define-method set_user_data
+  (of-object "GtkObject")
+  (c-name "gtk_object_set_user_data")
+  (return-type "none")
+  (parameters
+    '("gpointer" "data")
+  )
+)
+
+(define-method get_user_data
+  (of-object "GtkObject")
+  (c-name "gtk_object_get_user_data")
+  (return-type "gpointer")
+)
+
+(define-method set_data_by_id
+  (of-object "GtkObject")
+  (c-name "gtk_object_set_data_by_id")
+  (return-type "none")
+  (parameters
+    '("GQuark" "data_id")
+    '("gpointer" "data")
+  )
+)
+
+(define-method set_data_by_id_full
+  (of-object "GtkObject")
+  (c-name "gtk_object_set_data_by_id_full")
+  (return-type "none")
+  (parameters
+    '("GQuark" "data_id")
+    '("gpointer" "data")
+    '("GtkDestroyNotify" "destroy")
+  )
+)
+
+(define-method get_data_by_id
+  (of-object "GtkObject")
+  (c-name "gtk_object_get_data_by_id")
+  (return-type "gpointer")
+  (parameters
+    '("GQuark" "data_id")
+  )
+)
+
+(define-method remove_data_by_id
+  (of-object "GtkObject")
+  (c-name "gtk_object_remove_data_by_id")
+  (return-type "none")
+  (parameters
+    '("GQuark" "data_id")
+  )
+)
+
+(define-method remove_no_notify_by_id
+  (of-object "GtkObject")
+  (c-name "gtk_object_remove_no_notify_by_id")
+  (return-type "none")
+  (parameters
+    '("GQuark" "key_id")
+  )
+)
+
+(define-method get
+  (of-object "GtkObject")
+  (c-name "gtk_object_get")
+  (return-type "none")
+  (parameters
+    '("const-gchar*" "first_property_name")
+  )
+  (varargs #t)
+)
+
+(define-method set
+  (of-object "GtkObject")
+  (c-name "gtk_object_set")
+  (return-type "none")
+  (parameters
+    '("const-gchar*" "first_property_name")
+  )
+  (varargs #t)
+)
+
+(define-virtual set_arg
+  (of-object "GtkObject")
+  (return-type "none")
+  (parameters
+    '("GtkArg*" "arg")
+    '("guint" "arg_id")
+  )
+)
+
+(define-virtual get_arg
+  (of-object "GtkObject")
+  (return-type "none")
+  (parameters
+    '("GtkArg*" "arg")
+    '("guint" "arg_id")
+  )
+)
+
+(define-virtual destroy
+  (of-object "GtkObject")
+  (return-type "none")
+)
+

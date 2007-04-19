@@ -1,0 +1,10 @@
+(define-enum SubwindowMode
+  (in-module "Gdk")
+  (c-name "GdkSubwindowMode")
+  (gtype-id "GDK_TYPE_SUBWINDOW_MODE")
+  (values
+    '("clip-by-children" "GDK_CLIP_BY_CHILDREN")
+    '("include-inferiors" "GDK_INCLUDE_INFERIORS")
+  )
+)
+

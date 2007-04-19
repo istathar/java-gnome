@@ -1,0 +1,10 @@
+(define-enum ByteOrder
+  (in-module "Gdk")
+  (c-name "GdkByteOrder")
+  (gtype-id "GDK_TYPE_BYTE_ORDER")
+  (values
+    '("lsb-first" "GDK_LSB_FIRST")
+    '("msb-first" "GDK_MSB_FIRST")
+  )
+)
+

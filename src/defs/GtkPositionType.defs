@@ -1,0 +1,12 @@
+(define-enum PositionType
+  (in-module "Gtk")
+  (c-name "GtkPositionType")
+  (gtype-id "GTK_TYPE_POSITION_TYPE")
+  (values
+    '("left" "GTK_POS_LEFT")
+    '("right" "GTK_POS_RIGHT")
+    '("top" "GTK_POS_TOP")
+    '("bottom" "GTK_POS_BOTTOM")
+  )
+)
+

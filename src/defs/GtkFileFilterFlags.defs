@@ -1,0 +1,12 @@
+(define-flags FileFilterFlags
+  (in-module "Gtk")
+  (c-name "GtkFileFilterFlags")
+  (gtype-id "GTK_TYPE_FILE_FILTER_FLAGS")
+  (values
+    '("filename" "GTK_FILE_FILTER_FILENAME")
+    '("uri" "GTK_FILE_FILTER_URI")
+    '("display-name" "GTK_FILE_FILTER_DISPLAY_NAME")
+    '("mime-type" "GTK_FILE_FILTER_MIME_TYPE")
+  )
+)
+

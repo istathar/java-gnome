@@ -1,0 +1,60 @@
+(define-method get_name
+  (of-object "GdkPixbufFormat")
+  (c-name "gdk_pixbuf_format_get_name")
+  (caller-owns-return #t)
+  (return-type "gchar*")
+)
+
+(define-method get_description
+  (of-object "GdkPixbufFormat")
+  (c-name "gdk_pixbuf_format_get_description")
+  (caller-owns-return #t)
+  (return-type "gchar*")
+)
+
+(define-method get_mime_types
+  (of-object "GdkPixbufFormat")
+  (c-name "gdk_pixbuf_format_get_mime_types")
+  (return-type "gchar**")
+)
+
+(define-method get_extensions
+  (of-object "GdkPixbufFormat")
+  (c-name "gdk_pixbuf_format_get_extensions")
+  (return-type "gchar**")
+)
+
+(define-method is_writable
+  (of-object "GdkPixbufFormat")
+  (c-name "gdk_pixbuf_format_is_writable")
+  (return-type "gboolean")
+)
+
+(define-method is_scalable
+  (of-object "GdkPixbufFormat")
+  (c-name "gdk_pixbuf_format_is_scalable")
+  (return-type "gboolean")
+)
+
+(define-method is_disabled
+  (of-object "GdkPixbufFormat")
+  (c-name "gdk_pixbuf_format_is_disabled")
+  (return-type "gboolean")
+)
+
+(define-method set_disabled
+  (of-object "GdkPixbufFormat")
+  (c-name "gdk_pixbuf_format_set_disabled")
+  (return-type "none")
+  (parameters
+    '("gboolean" "disabled")
+  )
+)
+
+(define-method get_license
+  (of-object "GdkPixbufFormat")
+  (c-name "gdk_pixbuf_format_get_license")
+  (caller-owns-return #t)
+  (return-type "gchar*")
+)
+

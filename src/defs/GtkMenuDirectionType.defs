@@ -1,0 +1,12 @@
+(define-enum MenuDirectionType
+  (in-module "Gtk")
+  (c-name "GtkMenuDirectionType")
+  (gtype-id "GTK_TYPE_MENU_DIRECTION_TYPE")
+  (values
+    '("parent" "GTK_MENU_DIR_PARENT")
+    '("child" "GTK_MENU_DIR_CHILD")
+    '("next" "GTK_MENU_DIR_NEXT")
+    '("prev" "GTK_MENU_DIR_PREV")
+  )
+)
+

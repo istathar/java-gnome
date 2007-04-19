@@ -1,0 +1,68 @@
+(define-object Image
+  (in-module "Gdk")
+  (parent "GObject")
+  (c-name "GdkImage")
+  (gtype-id "GDK_TYPE_IMAGE")
+)
+
+(define-function image_new
+  (is-constructor-of "GdkImage")
+  (c-name "gdk_image_new")
+  (caller-owns-return #t)
+  (return-type "GdkImage*")
+  (parameters
+    '("GdkImageType" "type")
+    '("GdkVisual*" "visual")
+    '("gint" "width")
+    '("gint" "height")
+  )
+)
+
+(define-method ref
+  (of-object "GdkImage")
+  (c-name "gdk_image_ref")
+  (return-type "GdkImage*")
+)
+
+(define-method unref
+  (of-object "GdkImage")
+  (c-name "gdk_image_unref")
+  (return-type "none")
+)
+
+(define-method put_pixel
+  (of-object "GdkImage")
+  (c-name "gdk_image_put_pixel")
+  (return-type "none")
+  (parameters
+    '("gint" "x")
+    '("gint" "y")
+    '("guint32" "pixel")
+  )
+)
+
+(define-method get_pixel
+  (of-object "GdkImage")
+  (c-name "gdk_image_get_pixel")
+  (return-type "guint32")
+  (parameters
+    '("gint" "x")
+    '("gint" "y")
+  )
+)
+
+(define-method set_colormap
+  (of-object "GdkImage")
+  (c-name "gdk_image_set_colormap")
+  (return-type "none")
+  (parameters
+    '("GdkColormap*" "colormap")
+  )
+)
+
+(define-method get_colormap
+  (of-object "GdkImage")
+  (c-name "gdk_image_get_colormap")
+  (return-type "GdkColormap*")
+)
+

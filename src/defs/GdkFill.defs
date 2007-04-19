@@ -1,0 +1,12 @@
+(define-enum Fill
+  (in-module "Gdk")
+  (c-name "GdkFill")
+  (gtype-id "GDK_TYPE_FILL")
+  (values
+    '("solid" "GDK_SOLID")
+    '("tiled" "GDK_TILED")
+    '("stippled" "GDK_STIPPLED")
+    '("opaque-stippled" "GDK_OPAQUE_STIPPLED")
+  )
+)
+

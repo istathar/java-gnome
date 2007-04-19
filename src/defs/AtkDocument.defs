@@ -1,0 +1,22 @@
+(define-method get_document_type
+  (of-object "AtkDocument")
+  (c-name "atk_document_get_document_type")
+  (return-type "const-gchar*")
+)
+
+(define-method get_document
+  (of-object "AtkDocument")
+  (c-name "atk_document_get_document")
+  (return-type "gpointer")
+)
+
+(define-virtual get_document_type
+  (of-object "AtkDocument")
+  (return-type "const-gchar*")
+)
+
+(define-virtual get_document
+  (of-object "AtkDocument")
+  (return-type "gpointer")
+)
+

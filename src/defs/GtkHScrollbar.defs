@@ -1,0 +1,17 @@
+(define-object HScrollbar
+  (in-module "Gtk")
+  (parent "GtkScrollbar")
+  (c-name "GtkHScrollbar")
+  (gtype-id "GTK_TYPE_HSCROLLBAR")
+)
+
+(define-function gtk_hscrollbar_new
+  (is-constructor-of "GtkHScrollbar")
+  (c-name "gtk_hscrollbar_new")
+  (caller-owns-return #t)
+  (return-type "GtkWidget*")
+  (properties
+    '("adjustment" (optional))
+  )
+)
+

@@ -1,0 +1,76 @@
+(define-object TipsQuery
+  (in-module "Gtk")
+  (parent "GtkLabel")
+  (c-name "GtkTipsQuery")
+  (gtype-id "GTK_TYPE_TIPS_QUERY")
+)
+
+(define-function gtk_tips_query_new
+  (is-constructor-of "GtkTipsQuery")
+  (c-name "gtk_tips_query_new")
+  (caller-owns-return #t)
+  (return-type "GtkWidget*")
+)
+
+(define-method start_query
+  (of-object "GtkTipsQuery")
+  (c-name "gtk_tips_query_start_query")
+  (return-type "none")
+)
+
+(define-method stop_query
+  (of-object "GtkTipsQuery")
+  (c-name "gtk_tips_query_stop_query")
+  (return-type "none")
+)
+
+(define-method set_caller
+  (of-object "GtkTipsQuery")
+  (c-name "gtk_tips_query_set_caller")
+  (return-type "none")
+  (parameters
+    '("GtkWidget*" "caller")
+  )
+)
+
+(define-method set_labels
+  (of-object "GtkTipsQuery")
+  (c-name "gtk_tips_query_set_labels")
+  (return-type "none")
+  (parameters
+    '("const-gchar*" "label_inactive")
+    '("const-gchar*" "label_no_tip")
+  )
+)
+
+(define-virtual start_query
+  (of-object "GtkTipsQuery")
+  (return-type "none")
+)
+
+(define-virtual stop_query
+  (of-object "GtkTipsQuery")
+  (return-type "none")
+)
+
+(define-virtual widget_entered
+  (of-object "GtkTipsQuery")
+  (return-type "none")
+  (parameters
+    '("GtkWidget*" "widget")
+    '("const-gchar*" "tip_text")
+    '("const-gchar*" "tip_private")
+  )
+)
+
+(define-virtual widget_selected
+  (of-object "GtkTipsQuery")
+  (return-type "gint")
+  (parameters
+    '("GtkWidget*" "widget")
+    '("const-gchar*" "tip_text")
+    '("const-gchar*" "tip_private")
+    '("GdkEventButton*" "event")
+  )
+)
+

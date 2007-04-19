@@ -1,0 +1,33 @@
+(define-object LinkButton
+  (in-module "Gtk")
+  (parent "GtkButton")
+  (c-name "GtkLinkButton")
+  (gtype-id "GTK_TYPE_LINK_BUTTON")
+)
+
+(define-function link_button_new_with_label
+  (is-constructor-of "GtkLinkButton")
+  (c-name "gtk_link_button_new_with_label")
+  (caller-owns-return #t)
+  (return-type "GtkWidget*")
+  (parameters
+    '("gchar*" "uri")
+    '("gchar*" "label" (default "NULL") (null-ok))
+  )
+)
+
+(define-method get_uri
+  (of-object "GtkLinkButton")
+  (c-name "gtk_link_button_get_uri")
+  (return-type "const-gchar*")
+)
+
+(define-method set_uri
+  (of-object "GtkLinkButton")
+  (c-name "gtk_link_button_set_uri")
+  (return-type "none")
+  (parameters
+    '("const-gchar*" "uri")
+  )
+)
+

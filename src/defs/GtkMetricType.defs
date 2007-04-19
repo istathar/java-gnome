@@ -1,0 +1,11 @@
+(define-enum MetricType
+  (in-module "Gtk")
+  (c-name "GtkMetricType")
+  (gtype-id "GTK_TYPE_METRIC_TYPE")
+  (values
+    '("pixels" "GTK_PIXELS")
+    '("inches" "GTK_INCHES")
+    '("centimeters" "GTK_CENTIMETERS")
+  )
+)
+

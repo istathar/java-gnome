@@ -1,0 +1,9 @@
+(define-enum TabAlign
+  (in-module "Pango")
+  (c-name "PangoTabAlign")
+  (gtype-id "PANGO_TYPE_TAB_ALIGN")
+  (values
+    '("left" "PANGO_TAB_LEFT")
+  )
+)
+

@@ -1,0 +1,142 @@
+(define-object ScrolledWindow
+  (in-module "Gtk")
+  (parent "GtkBin")
+  (c-name "GtkScrolledWindow")
+  (gtype-id "GTK_TYPE_SCROLLED_WINDOW")
+)
+
+(define-function gtk_scrolled_window_new
+  (is-constructor-of "GtkScrolledWindow")
+  (c-name "gtk_scrolled_window_new")
+  (caller-owns-return #t)
+  (return-type "GtkWidget*")
+  (properties
+    '("hadjustment" (optional))
+    '("vadjustment" (optional))
+  )
+)
+
+(define-method set_hadjustment
+  (of-object "GtkScrolledWindow")
+  (c-name "gtk_scrolled_window_set_hadjustment")
+  (return-type "none")
+  (parameters
+    '("GtkAdjustment*" "hadjustment")
+  )
+)
+
+(define-method set_vadjustment
+  (of-object "GtkScrolledWindow")
+  (c-name "gtk_scrolled_window_set_vadjustment")
+  (return-type "none")
+  (parameters
+    '("GtkAdjustment*" "hadjustment")
+  )
+)
+
+(define-method get_hadjustment
+  (of-object "GtkScrolledWindow")
+  (c-name "gtk_scrolled_window_get_hadjustment")
+  (return-type "GtkAdjustment*")
+)
+
+(define-method get_vadjustment
+  (of-object "GtkScrolledWindow")
+  (c-name "gtk_scrolled_window_get_vadjustment")
+  (return-type "GtkAdjustment*")
+)
+
+(define-method get_hscrollbar
+  (of-object "GtkScrolledWindow")
+  (c-name "gtk_scrolled_window_get_hscrollbar")
+  (return-type "GtkWidget*")
+)
+
+(define-method get_vscrollbar
+  (of-object "GtkScrolledWindow")
+  (c-name "gtk_scrolled_window_get_vscrollbar")
+  (return-type "GtkWidget*")
+)
+
+(define-method set_policy
+  (of-object "GtkScrolledWindow")
+  (c-name "gtk_scrolled_window_set_policy")
+  (return-type "none")
+  (parameters
+    '("GtkPolicyType" "hscrollbar_policy")
+    '("GtkPolicyType" "vscrollbar_policy")
+  )
+)
+
+(define-method get_policy
+  (of-object "GtkScrolledWindow")
+  (c-name "gtk_scrolled_window_get_policy")
+  (return-type "none")
+  (parameters
+    '("GtkPolicyType*" "hscrollbar_policy")
+    '("GtkPolicyType*" "vscrollbar_policy")
+  )
+)
+
+(define-method set_placement
+  (of-object "GtkScrolledWindow")
+  (c-name "gtk_scrolled_window_set_placement")
+  (return-type "none")
+  (parameters
+    '("GtkCornerType" "window_placement")
+  )
+)
+
+(define-method get_placement
+  (of-object "GtkScrolledWindow")
+  (c-name "gtk_scrolled_window_get_placement")
+  (return-type "GtkCornerType")
+)
+
+(define-method set_shadow_type
+  (of-object "GtkScrolledWindow")
+  (c-name "gtk_scrolled_window_set_shadow_type")
+  (return-type "none")
+  (parameters
+    '("GtkShadowType" "type")
+  )
+)
+
+(define-method get_shadow_type
+  (of-object "GtkScrolledWindow")
+  (c-name "gtk_scrolled_window_get_shadow_type")
+  (return-type "GtkShadowType")
+)
+
+(define-method add_with_viewport
+  (of-object "GtkScrolledWindow")
+  (c-name "gtk_scrolled_window_add_with_viewport")
+  (return-type "none")
+  (parameters
+    '("GtkWidget*" "child")
+  )
+)
+
+(define-virtual scroll_child
+  (of-object "GtkScrolledWindow")
+  (return-type "none")
+  (parameters
+    '("GtkScrollType" "scroll")
+    '("gboolean" "horizontal")
+  )
+)
+
+(define-virtual move_focus_out
+  (of-object "GtkScrolledWindow")
+  (return-type "none")
+  (parameters
+    '("GtkDirectionType" "direction")
+  )
+)
+
+(define-method unset_placement
+  (of-object "GtkScrolledWindow")
+  (c-name "gtk_scrolled_window_unset_placement")
+  (return-type "none")
+)
+

@@ -1,0 +1,14 @@
+(define-object NoOpObjectFactory
+  (in-module "Atk")
+  (parent "AtkObjectFactory")
+  (c-name "AtkNoOpObjectFactory")
+  (gtype-id "ATK_TYPE_NO_OP_OBJECT_FACTORY")
+)
+
+(define-function atk_no_op_object_factory_new
+  (is-constructor-of "AtkNoOpObjectFactory")
+  (c-name "atk_no_op_object_factory_new")
+  (caller-owns-return #t)
+  (return-type "AtkObjectFactory*")
+)
+

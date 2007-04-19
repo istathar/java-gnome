@@ -1,0 +1,129 @@
+(define-object Context
+  (in-module "Pango")
+  (parent "GObject")
+  (c-name "PangoContext")
+  (gtype-id "PANGO_TYPE_CONTEXT")
+)
+
+(define-function pango_context_new
+  (is-constructor-of "PangoContext")
+  (c-name "pango_context_new")
+  (caller-owns-return #t)
+  (return-type "PangoContext*")
+)
+
+(define-method add_font_map
+  (of-object "PangoContext")
+  (c-name "pango_context_set_font_map")
+  (return-type "none")
+  (parameters
+    '("PangoFontMap*" "font_map")
+  )
+)
+
+(define-method get_font_map
+  (of-object "PangoContext")
+  (c-name "pango_context_get_font_map")
+  (return-type "PangoFontMap*")
+)
+
+(define-method list_families
+  (of-object "PangoContext")
+  (c-name "pango_context_list_families")
+  (return-type "none")
+  (parameters
+    '("PangoFontFamily***" "families")
+    '("int*" "n_families")
+  )
+)
+
+(define-method load_font
+  (of-object "PangoContext")
+  (c-name "pango_context_load_font")
+  (return-type "PangoFont*")
+  (parameters
+    '("const-PangoFontDescription*" "desc")
+  )
+)
+
+(define-method load_fontset
+  (of-object "PangoContext")
+  (c-name "pango_context_load_fontset")
+  (return-type "PangoFontset*")
+  (parameters
+    '("const-PangoFontDescription*" "desc")
+    '("PangoLanguage*" "language")
+  )
+)
+
+(define-method get_metrics
+  (of-object "PangoContext")
+  (c-name "pango_context_get_metrics")
+  (caller-owns-return #t)
+  (return-type "PangoFontMetrics*")
+  (parameters
+    '("const-PangoFontDescription*" "desc")
+    '("PangoLanguage*" "language" (default "NULL") (null-ok))
+  )
+)
+
+(define-method set_font_description
+  (of-object "PangoContext")
+  (c-name "pango_context_set_font_description")
+  (return-type "none")
+  (parameters
+    '("const-PangoFontDescription*" "desc")
+  )
+)
+
+(define-method get_font_description
+  (of-object "PangoContext")
+  (c-name "pango_context_get_font_description")
+  (return-type "PangoFontDescription*")
+)
+
+(define-method get_language
+  (of-object "PangoContext")
+  (c-name "pango_context_get_language")
+  (return-type "PangoLanguage*")
+)
+
+(define-method set_language
+  (of-object "PangoContext")
+  (c-name "pango_context_set_language")
+  (return-type "none")
+  (parameters
+    '("PangoLanguage*" "language")
+  )
+)
+
+(define-method set_base_dir
+  (of-object "PangoContext")
+  (c-name "pango_context_set_base_dir")
+  (return-type "none")
+  (parameters
+    '("PangoDirection" "direction")
+  )
+)
+
+(define-method get_base_dir
+  (of-object "PangoContext")
+  (c-name "pango_context_get_base_dir")
+  (return-type "PangoDirection")
+)
+
+(define-method set_matrix
+  (of-object "PangoContext")
+  (c-name "pango_context_set_matrix")
+  (return-type "none")
+  (parameters
+    '("const-PangoMatrix*" "matrix")
+  )
+)
+
+(define-method get_matrix
+  (of-object "PangoContext")
+  (c-name "pango_context_get_matrix")
+  (return-type "const-PangoMatrix*")
+)
+

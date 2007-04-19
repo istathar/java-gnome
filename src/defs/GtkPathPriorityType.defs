@@ -1,0 +1,14 @@
+(define-enum PathPriorityType
+  (in-module "Gtk")
+  (c-name "GtkPathPriorityType")
+  (gtype-id "GTK_TYPE_PATH_PRIORITY_TYPE")
+  (values
+    '("lowest" "GTK_PATH_PRIO_LOWEST")
+    '("gtk" "GTK_PATH_PRIO_GTK")
+    '("application" "GTK_PATH_PRIO_APPLICATION")
+    '("theme" "GTK_PATH_PRIO_THEME")
+    '("rc" "GTK_PATH_PRIO_RC")
+    '("highest" "GTK_PATH_PRIO_HIGHEST")
+  )
+)
+

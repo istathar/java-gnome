@@ -1,0 +1,98 @@
+(define-object TreeModelFilter
+  (in-module "Gtk")
+  (parent "GObject")
+  (implements "GtkTreeModel")
+  (implements "GtkTreeDragSource")
+  (c-name "GtkTreeModelFilter")
+  (gtype-id "GTK_TYPE_TREE_MODEL_FILTER")
+)
+
+(define-method set_visible_func
+  (of-object "GtkTreeModelFilter")
+  (c-name "gtk_tree_model_filter_set_visible_func")
+  (return-type "none")
+  (parameters
+    '("GtkTreeModelFilterVisibleFunc" "func")
+    '("gpointer" "data")
+    '("GtkDestroyNotify" "destroy")
+  )
+)
+
+(define-method set_modify_func
+  (of-object "GtkTreeModelFilter")
+  (c-name "gtk_tree_model_filter_set_modify_func")
+  (return-type "none")
+  (parameters
+    '("gint" "n_columns")
+    '("GType*" "types")
+    '("GtkTreeModelFilterModifyFunc" "func")
+    '("gpointer" "data")
+    '("GtkDestroyNotify" "destroy")
+  )
+)
+
+(define-method set_visible_column
+  (of-object "GtkTreeModelFilter")
+  (c-name "gtk_tree_model_filter_set_visible_column")
+  (return-type "none")
+  (parameters
+    '("gint" "column")
+  )
+)
+
+(define-method get_model
+  (of-object "GtkTreeModelFilter")
+  (c-name "gtk_tree_model_filter_get_model")
+  (return-type "GtkTreeModel*")
+)
+
+(define-method convert_child_iter_to_iter
+  (of-object "GtkTreeModelFilter")
+  (c-name "gtk_tree_model_filter_convert_child_iter_to_iter")
+  (return-type "none")
+  (parameters
+    '("GtkTreeIter*" "filter_iter")
+    '("GtkTreeIter*" "child_iter")
+  )
+)
+
+(define-method convert_iter_to_child_iter
+  (of-object "GtkTreeModelFilter")
+  (c-name "gtk_tree_model_filter_convert_iter_to_child_iter")
+  (return-type "none")
+  (parameters
+    '("GtkTreeIter*" "child_iter")
+    '("GtkTreeIter*" "filter_iter")
+  )
+)
+
+(define-method convert_child_path_to_path
+  (of-object "GtkTreeModelFilter")
+  (c-name "gtk_tree_model_filter_convert_child_path_to_path")
+  (return-type "GtkTreePath*")
+  (parameters
+    '("GtkTreePath*" "child_path")
+  )
+)
+
+(define-method convert_path_to_child_path
+  (of-object "GtkTreeModelFilter")
+  (c-name "gtk_tree_model_filter_convert_path_to_child_path")
+  (return-type "GtkTreePath*")
+  (parameters
+    '("GtkTreePath*" "filter_path")
+  )
+)
+
+(define-method refilter
+  (of-object "GtkTreeModelFilter")
+  (c-name "gtk_tree_model_filter_refilter")
+  (return-type "none")
+)
+
+(define-method clear_cache
+  (of-object "GtkTreeModelFilter")
+  (c-name "gtk_tree_model_filter_clear_cache")
+  (return-type "none")
+)
+

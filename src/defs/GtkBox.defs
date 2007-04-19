@@ -1,0 +1,117 @@
+(define-object Box
+  (in-module "Gtk")
+  (parent "GtkContainer")
+  (c-name "GtkBox")
+  (gtype-id "GTK_TYPE_BOX")
+)
+
+(define-method pack_start
+  (of-object "GtkBox")
+  (c-name "gtk_box_pack_start")
+  (return-type "none")
+  (parameters
+    '("GtkWidget*" "child")
+    '("gboolean" "expand" (default "TRUE"))
+    '("gboolean" "fill" (default "TRUE"))
+    '("guint" "padding" (default "0"))
+  )
+)
+
+(define-method pack_end
+  (of-object "GtkBox")
+  (c-name "gtk_box_pack_end")
+  (return-type "none")
+  (parameters
+    '("GtkWidget*" "child")
+    '("gboolean" "expand" (default "TRUE"))
+    '("gboolean" "fill" (default "TRUE"))
+    '("guint" "padding" (default "0"))
+  )
+)
+
+(define-method pack_start_defaults
+  (of-object "GtkBox")
+  (c-name "gtk_box_pack_start_defaults")
+  (return-type "none")
+  (deprecated "use pack_start instead")
+  (parameters
+    '("GtkWidget*" "widget")
+  )
+)
+
+(define-method pack_end_defaults
+  (of-object "GtkBox")
+  (c-name "gtk_box_pack_end_defaults")
+  (return-type "none")
+  (deprecated "use pack_end instead")
+  (parameters
+    '("GtkWidget*" "widget")
+  )
+)
+
+(define-method set_homogeneous
+  (of-object "GtkBox")
+  (c-name "gtk_box_set_homogeneous")
+  (return-type "none")
+  (parameters
+    '("gboolean" "homogeneous")
+  )
+)
+
+(define-method get_homogeneous
+  (of-object "GtkBox")
+  (c-name "gtk_box_get_homogeneous")
+  (return-type "gboolean")
+)
+
+(define-method set_spacing
+  (of-object "GtkBox")
+  (c-name "gtk_box_set_spacing")
+  (return-type "none")
+  (parameters
+    '("gint" "spacing")
+  )
+)
+
+(define-method get_spacing
+  (of-object "GtkBox")
+  (c-name "gtk_box_get_spacing")
+  (return-type "gint")
+)
+
+(define-method reorder_child
+  (of-object "GtkBox")
+  (c-name "gtk_box_reorder_child")
+  (return-type "none")
+  (parameters
+    '("GtkWidget*" "child")
+    '("gint" "position")
+  )
+)
+
+(define-method query_child_packing
+  (of-object "GtkBox")
+  (c-name "gtk_box_query_child_packing")
+  (return-type "none")
+  (parameters
+    '("GtkWidget*" "child")
+    '("gboolean*" "expand")
+    '("gboolean*" "fill")
+    '("guint*" "padding")
+    '("GtkPackType*" "pack_type")
+  )
+)
+
+(define-method set_child_packing
+  (of-object "GtkBox")
+  (c-name "gtk_box_set_child_packing")
+  (return-type "none")
+  (parameters
+    '("GtkWidget*" "child")
+    '("gboolean" "expand")
+    '("gboolean" "fill")
+    '("guint" "padding")
+    '("GtkPackType" "pack_type")
+  )
+)
+

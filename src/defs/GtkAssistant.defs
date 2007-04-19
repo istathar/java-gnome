@@ -1,0 +1,225 @@
+(define-object Assistant
+  (in-module "Gtk")
+  (parent "GtkWindow")
+  (c-name "GtkAssistant")
+  (gtype-id "GTK_TYPE_ASSISTANT")
+)
+
+(define-function assistant_new
+  (is-constructor-of "GtkAssistant")
+  (c-name "gtk_assistant_new")
+  (caller-owns-return #t)
+  (return-type "GtkWidget*")
+)
+
+(define-method get_current_page
+  (of-object "GtkAssistant")
+  (c-name "gtk_assistant_get_current_page")
+  (return-type "gint")
+)
+
+(define-method set_current_page
+  (of-object "GtkAssistant")
+  (c-name "gtk_assistant_set_current_page")
+  (return-type "none")
+  (parameters
+    '("gint" "page_num")
+  )
+)
+
+(define-method get_n_pages
+  (of-object "GtkAssistant")
+  (c-name "gtk_assistant_get_n_pages")
+  (return-type "gint")
+)
+
+(define-method get_nth_page
+  (of-object "GtkAssistant")
+  (c-name "gtk_assistant_get_nth_page")
+  (return-type "GtkWidget*")
+  (parameters
+    '("gint" "page_num")
+  )
+)
+
+(define-method prepend_page
+  (of-object "GtkAssistant")
+  (c-name "gtk_assistant_prepend_page")
+  (return-type "gint")
+  (parameters
+    '("GtkWidget*" "page")
+  )
+)
+
+(define-method append_page
+  (of-object "GtkAssistant")
+  (c-name "gtk_assistant_append_page")
+  (return-type "gint")
+  (parameters
+    '("GtkWidget*" "page")
+  )
+)
+
+(define-method insert_page
+  (of-object "GtkAssistant")
+  (c-name "gtk_assistant_insert_page")
+  (return-type "gint")
+  (parameters
+    '("GtkWidget*" "page")
+    '("gint" "position")
+  )
+)
+
+(define-method set_forward_page_func
+  (of-object "GtkAssistant")
+  (c-name "gtk_assistant_set_forward_page_func")
+  (return-type "none")
+  (parameters
+    '("GtkAssistantPageFunc" "page_func")
+    '("gpointer" "data")
+    '("GDestroyNotify" "destroy")
+  )
+)
+
+(define-method set_page_type
+  (of-object "GtkAssistant")
+  (c-name "gtk_assistant_set_page_type")
+  (return-type "none")
+  (parameters
+    '("GtkWidget*" "page")
+    '("GtkAssistantPageType" "type")
+  )
+)
+
+(define-method get_page_type
+  (of-object "GtkAssistant")
+  (c-name "gtk_assistant_get_page_type")
+  (return-type "GtkAssistantPageType")
+  (parameters
+    '("GtkWidget*" "page")
+  )
+)
+
+(define-method set_page_title
+  (of-object "GtkAssistant")
+  (c-name "gtk_assistant_set_page_title")
+  (return-type "none")
+  (parameters
+    '("GtkWidget*" "page")
+    '("const-gchar*" "title")
+  )
+)
+
+(define-method get_page_title
+  (of-object "GtkAssistant")
+  (c-name "gtk_assistant_get_page_title")
+  (return-type "const-gchar*")
+  (parameters
+    '("GtkWidget*" "page")
+  )
+)
+
+(define-method set_page_header_image
+  (of-object "GtkAssistant")
+  (c-name "gtk_assistant_set_page_header_image")
+  (return-type "none")
+  (parameters
+    '("GtkWidget*" "page")
+    '("GdkPixbuf*" "pixbuf" (default "NULL") (null-ok))
+  )
+)
+
+(define-method get_page_header_image
+  (of-object "GtkAssistant")
+  (c-name "gtk_assistant_get_page_header_image")
+  (return-type "GdkPixbuf*")
+  (parameters
+    '("GtkWidget*" "page")
+  )
+)
+
+(define-method set_page_side_image
+  (of-object "GtkAssistant")
+  (c-name "gtk_assistant_set_page_side_image")
+  (return-type "none")
+  (parameters
+    '("GtkWidget*" "page")
+    '("GdkPixbuf*" "pixbuf" (default "NULL") (null-ok))
+  )
+)
+
+(define-method get_page_side_image
+  (of-object "GtkAssistant")
+  (c-name "gtk_assistant_get_page_side_image")
+  (return-type "GdkPixbuf*")
+  (parameters
+    '("GtkWidget*" "page")
+  )
+)
+
+(define-method set_page_complete
+  (of-object "GtkAssistant")
+  (c-name "gtk_assistant_set_page_complete")
+  (return-type "none")
+  (parameters
+    '("GtkWidget*" "page")
+    '("gboolean" "complete")
+  )
+)
+
+(define-method get_page_complete
+  (of-object "GtkAssistant")
+  (c-name "gtk_assistant_get_page_complete")
+  (return-type "gboolean")
+  (parameters
+    '("GtkWidget*" "page")
+  )
+)
+
+(define-method add_action_widget
+  (of-object "GtkAssistant")
+  (c-name "gtk_assistant_add_action_widget")
+  (return-type "none")
+  (parameters
+    '("GtkWidget*" "child")
+  )
+)
+
+(define-method remove_action_widget
+  (of-object "GtkAssistant")
+  (c-name "gtk_assistant_remove_action_widget")
+  (return-type "none")
+  (parameters
+    '("GtkWidget*" "child")
+  )
+)
+
+(define-method update_buttons_state
+  (of-object "GtkAssistant")
+  (c-name "gtk_assistant_update_buttons_state")
+  (return-type "none")
+)
+
+(define-virtual prepare
+  (of-object "GtkAssistant")
+  (return-type "none")
+  (parameters
+    '("GtkWidget*" "page")
+  )
+)
+
+(define-virtual apply
+  (of-object "GtkAssistant")
+  (return-type "none")
+)
+
+(define-virtual close
+  (of-object "GtkAssistant")
+  (return-type "none")
+)
+
+(define-virtual cancel
+  (of-object "GtkAssistant")
+  (return-type "none")
+)
+

@@ -1,0 +1,18 @@
+(define-object HBox
+  (in-module "Gtk")
+  (parent "GtkBox")
+  (c-name "GtkHBox")
+  (gtype-id "GTK_TYPE_HBOX")
+)
+
+(define-function gtk_hbox_new
+  (is-constructor-of "GtkHBox")
+  (c-name "gtk_hbox_new")
+  (caller-owns-return #t)
+  (return-type "GtkWidget*")
+  (properties
+    '("homogeneous" (optional))
+    '("spacing" (optional))
+  )
+)
+

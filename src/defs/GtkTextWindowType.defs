@@ -1,0 +1,15 @@
+(define-enum TextWindowType
+  (in-module "Gtk")
+  (c-name "GtkTextWindowType")
+  (gtype-id "GTK_TYPE_TEXT_WINDOW_TYPE")
+  (values
+    '("private" "GTK_TEXT_WINDOW_PRIVATE")
+    '("widget" "GTK_TEXT_WINDOW_WIDGET")
+    '("text" "GTK_TEXT_WINDOW_TEXT")
+    '("left" "GTK_TEXT_WINDOW_LEFT")
+    '("right" "GTK_TEXT_WINDOW_RIGHT")
+    '("top" "GTK_TEXT_WINDOW_TOP")
+    '("bottom" "GTK_TEXT_WINDOW_BOTTOM")
+  )
+)
+

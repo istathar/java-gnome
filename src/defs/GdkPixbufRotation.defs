@@ -1,0 +1,12 @@
+(define-enum PixbufRotation
+  (in-module "Gdk")
+  (c-name "GdkPixbufRotation")
+  (gtype-id "GDK_TYPE_PIXBUF_ROTATION")
+  (values
+    '("none" "GDK_PIXBUF_ROTATE_NONE")
+    '("counterclockwise" "GDK_PIXBUF_ROTATE_COUNTERCLOCKWISE")
+    '("upsidedown" "GDK_PIXBUF_ROTATE_UPSIDEDOWN")
+    '("clockwise" "GDK_PIXBUF_ROTATE_CLOCKWISE")
+  )
+)
+

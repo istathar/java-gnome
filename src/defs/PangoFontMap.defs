@@ -1,0 +1,72 @@
+(define-object FontMap
+  (in-module "Pango")
+  (parent "GObject")
+  (c-name "PangoFontMap")
+  (gtype-id "PANGO_TYPE_FONT_MAP")
+)
+
+(define-method load_font
+  (of-object "PangoFontMap")
+  (c-name "pango_font_map_load_font")
+  (return-type "PangoFont*")
+  (parameters
+    '("PangoContext*" "context")
+    '("const-PangoFontDescription*" "desc")
+  )
+)
+
+(define-method load_fontset
+  (of-object "PangoFontMap")
+  (c-name "pango_font_map_load_fontset")
+  (return-type "PangoFontset*")
+  (parameters
+    '("PangoContext*" "context")
+    '("const-PangoFontDescription*" "desc")
+    '("PangoLanguage*" "language")
+  )
+)
+
+(define-method list_families
+  (of-object "PangoFontMap")
+  (c-name "pango_font_map_list_families")
+  (return-type "none")
+  (parameters
+    '("PangoFontFamily***" "families")
+    '("int*" "n_families")
+  )
+)
+
+(define-method get_shape_engine_type
+  (of-object "PangoFontMap")
+  (c-name "pango_font_map_get_shape_engine_type")
+  (return-type "const-char*")
+)
+
+(define-virtual load_font
+  (of-object "PangoFontMap")
+  (return-type "PangoFont*")
+  (parameters
+    '("PangoContext*" "context")
+    '("const-PangoFontDescription*" "desc")
+  )
+)
+
+(define-virtual list_families
+  (of-object "PangoFontMap")
+  (return-type "none")
+  (parameters
+    '("PangoFontFamily***" "families")
+    '("int*" "n_families")
+  )
+)
+
+(define-virtual load_fontset
+  (of-object "PangoFontMap")
+  (return-type "PangoFontset*")
+  (parameters
+    '("PangoContext*" "context")
+    '("const-PangoFontDescription*" "desc")
+    '("PangoLanguage*" "language")
+  )
+)
+

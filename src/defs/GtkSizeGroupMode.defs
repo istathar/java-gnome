@@ -1,0 +1,12 @@
+(define-enum SizeGroupMode
+  (in-module "Gtk")
+  (c-name "GtkSizeGroupMode")
+  (gtype-id "GTK_TYPE_SIZE_GROUP_MODE")
+  (values
+    '("none" "GTK_SIZE_GROUP_NONE")
+    '("horizontal" "GTK_SIZE_GROUP_HORIZONTAL")
+    '("vertical" "GTK_SIZE_GROUP_VERTICAL")
+    '("both" "GTK_SIZE_GROUP_BOTH")
+  )
+)
+

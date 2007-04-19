@@ -1,0 +1,68 @@
+(define-method get_current_value
+  (of-object "AtkValue")
+  (c-name "atk_value_get_current_value")
+  (return-type "none")
+  (parameters
+    '("GValue*" "value")
+  )
+)
+
+(define-method get_maximum_value
+  (of-object "AtkValue")
+  (c-name "atk_value_get_maximum_value")
+  (return-type "none")
+  (parameters
+    '("GValue*" "value")
+  )
+)
+
+(define-method get_minimum_value
+  (of-object "AtkValue")
+  (c-name "atk_value_get_minimum_value")
+  (return-type "none")
+  (parameters
+    '("GValue*" "value")
+  )
+)
+
+(define-method set_current_value
+  (of-object "AtkValue")
+  (c-name "atk_value_set_current_value")
+  (return-type "gboolean")
+  (parameters
+    '("const-GValue*" "value")
+  )
+)
+
+(define-virtual get_current_value
+  (of-object "AtkValue")
+  (return-type "none")
+  (parameters
+    '("GValue*" "value")
+  )
+)
+
+(define-virtual get_maximum_value
+  (of-object "AtkValue")
+  (return-type "none")
+  (parameters
+    '("GValue*" "value")
+  )
+)
+
+(define-virtual get_minimum_value
+  (of-object "AtkValue")
+  (return-type "none")
+  (parameters
+    '("GValue*" "value")
+  )
+)
+
+(define-virtual set_current_value
+  (of-object "AtkValue")
+  (return-type "gboolean")
+  (parameters
+    '("const-GValue*" "value")
+  )
+)
+

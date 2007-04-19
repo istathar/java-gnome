@@ -1,0 +1,247 @@
+(define-method add_focus_handler
+  (of-object "AtkComponent")
+  (c-name "atk_component_add_focus_handler")
+  (return-type "guint")
+  (parameters
+    '("AtkFocusHandler" "handler")
+  )
+)
+
+(define-method contains
+  (of-object "AtkComponent")
+  (c-name "atk_component_contains")
+  (return-type "gboolean")
+  (parameters
+    '("gint" "x")
+    '("gint" "y")
+    '("AtkCoordType" "coord_type")
+  )
+)
+
+(define-method ref_accessible_at_point
+  (of-object "AtkComponent")
+  (c-name "atk_component_ref_accessible_at_point")
+  (return-type "AtkObject*")
+  (parameters
+    '("gint" "x")
+    '("gint" "y")
+    '("AtkCoordType" "coord_type")
+  )
+)
+
+(define-method get_extents
+  (of-object "AtkComponent")
+  (c-name "atk_component_get_extents")
+  (return-type "none")
+  (parameters
+    '("gint*" "x")
+    '("gint*" "y")
+    '("gint*" "width")
+    '("gint*" "height")
+    '("AtkCoordType" "coord_type")
+  )
+)
+
+(define-method get_position
+  (of-object "AtkComponent")
+  (c-name "atk_component_get_position")
+  (return-type "none")
+  (parameters
+    '("gint*" "x")
+    '("gint*" "y")
+    '("AtkCoordType" "coord_type")
+  )
+)
+
+(define-method get_size
+  (of-object "AtkComponent")
+  (c-name "atk_component_get_size")
+  (return-type "none")
+  (parameters
+    '("gint*" "width")
+    '("gint*" "height")
+  )
+)
+
+(define-method grab_focus
+  (of-object "AtkComponent")
+  (c-name "atk_component_grab_focus")
+  (return-type "gboolean")
+)
+
+(define-method remove_focus_handler
+  (of-object "AtkComponent")
+  (c-name "atk_component_remove_focus_handler")
+  (return-type "none")
+  (parameters
+    '("guint" "handler_id")
+  )
+)
+
+(define-method set_extents
+  (of-object "AtkComponent")
+  (c-name "atk_component_set_extents")
+  (return-type "gboolean")
+  (parameters
+    '("gint" "x")
+    '("gint" "y")
+    '("gint" "width")
+    '("gint" "height")
+    '("AtkCoordType" "coord_type")
+  )
+)
+
+(define-method set_position
+  (of-object "AtkComponent")
+  (c-name "atk_component_set_position")
+  (return-type "gboolean")
+  (parameters
+    '("gint" "x")
+    '("gint" "y")
+    '("AtkCoordType" "coord_type")
+  )
+)
+
+(define-method set_size
+  (of-object "AtkComponent")
+  (c-name "atk_component_set_size")
+  (return-type "gboolean")
+  (parameters
+    '("gint" "width")
+    '("gint" "height")
+  )
+)
+
+(define-method get_layer
+  (of-object "AtkComponent")
+  (c-name "atk_component_get_layer")
+  (return-type "AtkLayer")
+)
+
+(define-method get_mdi_zorder
+  (of-object "AtkComponent")
+  (c-name "atk_component_get_mdi_zorder")
+  (return-type "gint")
+)
+
+(define-virtual add_focus_handler
+  (of-object "AtkComponent")
+  (return-type "guint")
+  (parameters
+    '("AtkFocusHandler" "handler")
+  )
+)
+
+(define-virtual contains
+  (of-object "AtkComponent")
+  (return-type "gboolean")
+  (parameters
+    '("gint" "x")
+    '("gint" "y")
+    '("AtkCoordType" "coord_type")
+  )
+)
+
+(define-virtual ref_accessible_at_point
+  (of-object "AtkComponent")
+  (return-type "AtkObject*")
+  (parameters
+    '("gint" "x")
+    '("gint" "y")
+    '("AtkCoordType" "coord_type")
+  )
+)
+
+(define-virtual get_extents
+  (of-object "AtkComponent")
+  (return-type "none")
+  (parameters
+    '("gint*" "x")
+    '("gint*" "y")
+    '("gint*" "width")
+    '("gint*" "height")
+    '("AtkCoordType" "coord_type")
+  )
+)
+
+(define-virtual get_position
+  (of-object "AtkComponent")
+  (return-type "none")
+  (parameters
+    '("gint*" "x")
+    '("gint*" "y")
+    '("AtkCoordType" "coord_type")
+  )
+)
+
+(define-virtual get_size
+  (of-object "AtkComponent")
+  (return-type "none")
+  (parameters
+    '("gint*" "width")
+    '("gint*" "height")
+  )
+)
+
+(define-virtual grab_focus
+  (of-object "AtkComponent")
+  (return-type "gboolean")
+)
+
+(define-virtual remove_focus_handler
+  (of-object "AtkComponent")
+  (return-type "none")
+  (parameters
+    '("guint" "handler_id")
+  )
+)
+
+(define-virtual set_extents
+  (of-object "AtkComponent")
+  (return-type "gboolean")
+  (parameters
+    '("gint" "x")
+    '("gint" "y")
+    '("gint" "width")
+    '("gint" "height")
+    '("AtkCoordType" "coord_type")
+  )
+)
+
+(define-virtual set_position
+  (of-object "AtkComponent")
+  (return-type "gboolean")
+  (parameters
+    '("gint" "x")
+    '("gint" "y")
+    '("AtkCoordType" "coord_type")
+  )
+)
+
+(define-virtual set_size
+  (of-object "AtkComponent")
+  (return-type "gboolean")
+  (parameters
+    '("gint" "width")
+    '("gint" "height")
+  )
+)
+
+(define-virtual get_layer
+  (of-object "AtkComponent")
+  (return-type "AtkLayer")
+)
+
+(define-virtual get_mdi_zorder
+  (of-object "AtkComponent")
+  (return-type "gint")
+)
+
+(define-virtual bounds_changed
+  (of-object "AtkComponent")
+  (return-type "none")
+  (parameters
+    '("AtkRectangle*" "bounds")
+  )
+)
+

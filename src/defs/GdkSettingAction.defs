@@ -1,0 +1,11 @@
+(define-enum SettingAction
+  (in-module "Gdk")
+  (c-name "GdkSettingAction")
+  (gtype-id "GDK_TYPE_SETTING_ACTION")
+  (values
+    '("new" "GDK_SETTING_ACTION_NEW")
+    '("changed" "GDK_SETTING_ACTION_CHANGED")
+    '("deleted" "GDK_SETTING_ACTION_DELETED")
+  )
+)
+

@@ -1,0 +1,12 @@
+(define-enum Justification
+  (in-module "Gtk")
+  (c-name "GtkJustification")
+  (gtype-id "GTK_TYPE_JUSTIFICATION")
+  (values
+    '("left" "GTK_JUSTIFY_LEFT")
+    '("right" "GTK_JUSTIFY_RIGHT")
+    '("center" "GTK_JUSTIFY_CENTER")
+    '("fill" "GTK_JUSTIFY_FILL")
+  )
+)
+

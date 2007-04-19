@@ -1,0 +1,203 @@
+(define-object EntryCompletion
+  (in-module "Gtk")
+  (parent "GObject")
+  (implements "GtkCellLayout")
+  (c-name "GtkEntryCompletion")
+  (gtype-id "GTK_TYPE_ENTRY_COMPLETION")
+)
+
+(define-function gtk_entry_completion_new
+  (is-constructor-of "GtkEntryCompletion")
+  (c-name "gtk_entry_completion_new")
+  (caller-owns-return #t)
+  (return-type "GtkEntryCompletion*")
+)
+
+(define-method get_entry
+  (of-object "GtkEntryCompletion")
+  (c-name "gtk_entry_completion_get_entry")
+  (return-type "GtkWidget*")
+)
+
+(define-method set_model
+  (of-object "GtkEntryCompletion")
+  (c-name "gtk_entry_completion_set_model")
+  (return-type "none")
+  (parameters
+    '("GtkTreeModel*" "model" (default "NULL") (null-ok))
+  )
+)
+
+(define-method get_model
+  (of-object "GtkEntryCompletion")
+  (c-name "gtk_entry_completion_get_model")
+  (return-type "GtkTreeModel*")
+)
+
+(define-method set_match_func
+  (of-object "GtkEntryCompletion")
+  (c-name "gtk_entry_completion_set_match_func")
+  (return-type "none")
+  (parameters
+    '("GtkEntryCompletionMatchFunc" "func")
+    '("gpointer" "func_data")
+    '("GDestroyNotify" "func_notify")
+  )
+)
+
+(define-method set_minimum_key_length
+  (of-object "GtkEntryCompletion")
+  (c-name "gtk_entry_completion_set_minimum_key_length")
+  (return-type "none")
+  (parameters
+    '("gint" "length")
+  )
+)
+
+(define-method get_minimum_key_length
+  (of-object "GtkEntryCompletion")
+  (c-name "gtk_entry_completion_get_minimum_key_length")
+  (return-type "gint")
+)
+
+(define-method complete
+  (of-object "GtkEntryCompletion")
+  (c-name "gtk_entry_completion_complete")
+  (return-type "none")
+)
+
+(define-method insert_action_text
+  (of-object "GtkEntryCompletion")
+  (c-name "gtk_entry_completion_insert_action_text")
+  (return-type "none")
+  (parameters
+    '("gint" "index")
+    '("const-gchar*" "text")
+  )
+)
+
+(define-method insert_action_markup
+  (of-object "GtkEntryCompletion")
+  (c-name "gtk_entry_completion_insert_action_markup")
+  (return-type "none")
+  (parameters
+    '("gint" "index")
+    '("const-gchar*" "markup")
+  )
+)
+
+(define-method delete_action
+  (of-object "GtkEntryCompletion")
+  (c-name "gtk_entry_completion_delete_action")
+  (return-type "none")
+  (parameters
+    '("gint" "index")
+  )
+)
+
+(define-method set_text_column
+  (of-object "GtkEntryCompletion")
+  (c-name "gtk_entry_completion_set_text_column")
+  (return-type "none")
+  (parameters
+    '("gint" "column")
+  )
+)
+
+(define-method get_text_column
+  (of-object "GtkEntryCompletion")
+  (c-name "gtk_entry_completion_get_text_column")
+  (return-type "gint")
+)
+
+(define-method insert_prefix
+  (of-object "GtkEntryCompletion")
+  (c-name "gtk_entry_completion_insert_prefix")
+  (return-type "none")
+)
+
+(define-method set_inline_completion
+  (of-object "GtkEntryCompletion")
+  (c-name "gtk_entry_completion_set_inline_completion")
+  (return-type "none")
+  (parameters
+    '("gboolean" "inline_completion")
+  )
+)
+
+(define-method get_inline_completion
+  (of-object "GtkEntryCompletion")
+  (c-name "gtk_entry_completion_get_inline_completion")
+  (return-type "gboolean")
+)
+
+(define-method set_popup_completion
+  (of-object "GtkEntryCompletion")
+  (c-name "gtk_entry_completion_set_popup_completion")
+  (return-type "none")
+  (parameters
+    '("gboolean" "popup_completion")
+  )
+)
+
+(define-method get_popup_completion
+  (of-object "GtkEntryCompletion")
+  (c-name "gtk_entry_completion_get_popup_completion")
+  (return-type "gboolean")
+)
+
+(define-method set_popup_set_width
+  (of-object "GtkEntryCompletion")
+  (c-name "gtk_entry_completion_set_popup_set_width")
+  (return-type "none")
+  (parameters
+    '("gboolean" "popup_set_width")
+  )
+)
+
+(define-method get_popup_set_width
+  (of-object "GtkEntryCompletion")
+  (c-name "gtk_entry_completion_get_popup_set_width")
+  (return-type "gboolean")
+)
+
+(define-method set_popup_single_match
+  (of-object "GtkEntryCompletion")
+  (c-name "gtk_entry_completion_set_popup_single_match")
+  (return-type "none")
+  (parameters
+    '("gboolean" "popup_single_match")
+  )
+)
+
+(define-method get_popup_single_match
+  (of-object "GtkEntryCompletion")
+  (c-name "gtk_entry_completion_get_popup_single_match")
+  (return-type "gboolean")
+)
+
+(define-virtual match_selected
+  (of-object "GtkEntryCompletion")
+  (return-type "gboolean")
+  (parameters
+    '("GtkTreeModel*" "model")
+    '("GtkTreeIter*" "iter")
+  )
+)
+
+(define-virtual action_activated
+  (of-object "GtkEntryCompletion")
+  (return-type "none")
+  (parameters
+    '("gint" "index_")
+  )
+)
+
+(define-virtual insert_prefix
+  (of-object "GtkEntryCompletion")
+  (return-type "gboolean")
+  (parameters
+    '("const-gchar*" "prefix")
+  )
+)
+

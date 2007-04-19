@@ -1,0 +1,42 @@
+(define-object CheckButton
+  (in-module "Gtk")
+  (parent "GtkToggleButton")
+  (c-name "GtkCheckButton")
+  (gtype-id "GTK_TYPE_CHECK_BUTTON")
+)
+
+(define-function gtk_check_button_new
+  (is-constructor-of "GtkCheckButton")
+  (c-name "gtk_check_button_new")
+  (caller-owns-return #t)
+  (return-type "GtkWidget*")
+)
+
+(define-function gtk_check_button_new_with_label
+  (is-constructor-of "GtkCheckButton")
+  (c-name "gtk_check_button_new_with_label")
+  (caller-owns-return #t)
+  (return-type "GtkWidget*")
+  (parameters
+    '("const-gchar*" "label")
+  )
+)
+
+(define-function gtk_check_button_new_with_mnemonic
+  (is-constructor-of "GtkCheckButton")
+  (c-name "gtk_check_button_new_with_mnemonic")
+  (caller-owns-return #t)
+  (return-type "GtkWidget*")
+  (parameters
+    '("const-gchar*" "label")
+  )
+)
+
+(define-virtual draw_indicator
+  (of-object "GtkCheckButton")
+  (return-type "none")
+  (parameters
+    '("GdkRectangle*" "area")
+  )
+)
+

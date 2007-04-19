@@ -1,0 +1,150 @@
+(define-object ColorSelection
+  (in-module "Gtk")
+  (parent "GtkVBox")
+  (c-name "GtkColorSelection")
+  (gtype-id "GTK_TYPE_COLOR_SELECTION")
+)
+
+(define-function gtk_color_selection_new
+  (is-constructor-of "GtkColorSelection")
+  (c-name "gtk_color_selection_new")
+  (caller-owns-return #t)
+  (return-type "GtkWidget*")
+)
+
+(define-method get_has_opacity_control
+  (of-object "GtkColorSelection")
+  (c-name "gtk_color_selection_get_has_opacity_control")
+  (return-type "gboolean")
+)
+
+(define-method set_has_opacity_control
+  (of-object "GtkColorSelection")
+  (c-name "gtk_color_selection_set_has_opacity_control")
+  (return-type "none")
+  (parameters
+    '("gboolean" "has_opacity")
+  )
+)
+
+(define-method get_has_palette
+  (of-object "GtkColorSelection")
+  (c-name "gtk_color_selection_get_has_palette")
+  (return-type "gboolean")
+)
+
+(define-method set_has_palette
+  (of-object "GtkColorSelection")
+  (c-name "gtk_color_selection_set_has_palette")
+  (return-type "none")
+  (parameters
+    '("gboolean" "has_palette")
+  )
+)
+
+(define-method set_current_color
+  (of-object "GtkColorSelection")
+  (c-name "gtk_color_selection_set_current_color")
+  (return-type "none")
+  (parameters
+    '("GdkColor*" "color")
+  )
+)
+
+(define-method set_current_alpha
+  (of-object "GtkColorSelection")
+  (c-name "gtk_color_selection_set_current_alpha")
+  (return-type "none")
+  (parameters
+    '("guint16" "alpha")
+  )
+)
+
+(define-method get_current_color
+  (of-object "GtkColorSelection")
+  (c-name "gtk_color_selection_get_current_color")
+  (return-type "none")
+  (parameters
+    '("GdkColor*" "color")
+  )
+)
+
+(define-method get_current_alpha
+  (of-object "GtkColorSelection")
+  (c-name "gtk_color_selection_get_current_alpha")
+  (return-type "guint16")
+)
+
+(define-method set_previous_color
+  (of-object "GtkColorSelection")
+  (c-name "gtk_color_selection_set_previous_color")
+  (return-type "none")
+  (parameters
+    '("GdkColor*" "color")
+  )
+)
+
+(define-method set_previous_alpha
+  (of-object "GtkColorSelection")
+  (c-name "gtk_color_selection_set_previous_alpha")
+  (return-type "none")
+  (parameters
+    '("guint16" "alpha")
+  )
+)
+
+(define-method get_previous_color
+  (of-object "GtkColorSelection")
+  (c-name "gtk_color_selection_get_previous_color")
+  (return-type "none")
+  (parameters
+    '("GdkColor*" "color")
+  )
+)
+
+(define-method get_previous_alpha
+  (of-object "GtkColorSelection")
+  (c-name "gtk_color_selection_get_previous_alpha")
+  (return-type "guint16")
+)
+
+(define-method is_adjusting
+  (of-object "GtkColorSelection")
+  (c-name "gtk_color_selection_is_adjusting")
+  (return-type "gboolean")
+)
+
+(define-method set_color
+  (of-object "GtkColorSelection")
+  (c-name "gtk_color_selection_set_color")
+  (return-type "none")
+  (deprecated "use GtkColorSelection.set_current_color")
+  (parameters
+    '("gdouble*" "color")
+  )
+)
+
+(define-method get_color
+  (of-object "GtkColorSelection")
+  (c-name "gtk_color_selection_get_color")
+  (return-type "none")
+  (deprecated "use GtkColorSelection.get_current_color")
+  (parameters
+    '("gdouble*" "color")
+  )
+)
+
+(define-method set_update_policy
+  (of-object "GtkColorSelection")
+  (c-name "gtk_color_selection_set_update_policy")
+  (return-type "none")
+  (parameters
+    '("GtkUpdateType" "policy")
+  )
+)
+
+(define-virtual color_changed
+  (of-object "GtkColorSelection")
+  (return-type "none")
+)
+

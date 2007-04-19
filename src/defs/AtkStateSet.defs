@@ -1,0 +1,100 @@
+(define-object StateSet
+  (in-module "Atk")
+  (parent "GObject")
+  (c-name "AtkStateSet")
+  (gtype-id "ATK_TYPE_STATE_SET")
+)
+
+(define-function atk_state_set_new
+  (is-constructor-of "AtkStateSet")
+  (c-name "atk_state_set_new")
+  (caller-owns-return #t)
+  (return-type "AtkStateSet*")
+)
+
+(define-method is_empty
+  (of-object "AtkStateSet")
+  (c-name "atk_state_set_is_empty")
+  (return-type "gboolean")
+)
+
+(define-method add_state
+  (of-object "AtkStateSet")
+  (c-name "atk_state_set_add_state")
+  (return-type "gboolean")
+  (parameters
+    '("AtkStateType" "type")
+  )
+)
+
+(define-method add_states
+  (of-object "AtkStateSet")
+  (c-name "atk_state_set_add_states")
+  (return-type "none")
+  (parameters
+    '("AtkStateType*" "types")
+    '("gint" "n_types")
+  )
+)
+
+(define-method clear_states
+  (of-object "AtkStateSet")
+  (c-name "atk_state_set_clear_states")
+  (return-type "none")
+)
+
+(define-method contains_state
+  (of-object "AtkStateSet")
+  (c-name "atk_state_set_contains_state")
+  (return-type "gboolean")
+  (parameters
+    '("AtkStateType" "type")
+  )
+)
+
+(define-method contains_states
+  (of-object "AtkStateSet")
+  (c-name "atk_state_set_contains_states")
+  (return-type "gboolean")
+  (parameters
+    '("AtkStateType*" "types")
+    '("gint" "n_types")
+  )
+)
+
+(define-method remove_state
+  (of-object "AtkStateSet")
+  (c-name "atk_state_set_remove_state")
+  (return-type "gboolean")
+  (parameters
+    '("AtkStateType" "type")
+  )
+)
+
+(define-method and_sets
+  (of-object "AtkStateSet")
+  (c-name "atk_state_set_and_sets")
+  (return-type "AtkStateSet*")
+  (parameters
+    '("AtkStateSet*" "compare_set")
+  )
+)
+
+(define-method or_sets
+  (of-object "AtkStateSet")
+  (c-name "atk_state_set_or_sets")
+  (return-type "AtkStateSet*")
+  (parameters
+    '("AtkStateSet*" "compare_set")
+  )
+)
+
+(define-method xor_sets
+  (of-object "AtkStateSet")
+  (c-name "atk_state_set_xor_sets")
+  (return-type "AtkStateSet*")
+  (parameters
+    '("AtkStateSet*" "compare_set")
+  )
+)
+

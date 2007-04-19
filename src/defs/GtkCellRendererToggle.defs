@@ -1,0 +1,52 @@
+(define-object CellRendererToggle
+  (in-module "Gtk")
+  (parent "GtkCellRenderer")
+  (c-name "GtkCellRendererToggle")
+  (gtype-id "GTK_TYPE_CELL_RENDERER_TOGGLE")
+)
+
+(define-function gtk_cell_renderer_toggle_new
+  (is-constructor-of "GtkCellRendererToggle")
+  (c-name "gtk_cell_renderer_toggle_new")
+  (caller-owns-return #t)
+  (return-type "GtkCellRenderer*")
+)
+
+(define-method get_radio
+  (of-object "GtkCellRendererToggle")
+  (c-name "gtk_cell_renderer_toggle_get_radio")
+  (return-type "gboolean")
+)
+
+(define-method set_radio
+  (of-object "GtkCellRendererToggle")
+  (c-name "gtk_cell_renderer_toggle_set_radio")
+  (return-type "none")
+  (parameters
+    '("gboolean" "radio")
+  )
+)
+
+(define-method get_active
+  (of-object "GtkCellRendererToggle")
+  (c-name "gtk_cell_renderer_toggle_get_active")
+  (return-type "gboolean")
+)
+
+(define-method set_active
+  (of-object "GtkCellRendererToggle")
+  (c-name "gtk_cell_renderer_toggle_set_active")
+  (return-type "none")
+  (parameters
+    '("gboolean" "setting")
+  )
+)
+
+(define-virtual toggled
+  (of-object "GtkCellRendererToggle")
+  (return-type "none")
+  (parameters
+    '("const-gchar*" "path")
+  )
+)
+

@@ -1,0 +1,14 @@
+(define-enum ButtonsType
+  (in-module "Gtk")
+  (c-name "GtkButtonsType")
+  (gtype-id "GTK_TYPE_BUTTONS_TYPE")
+  (values
+    '("none" "GTK_BUTTONS_NONE")
+    '("ok" "GTK_BUTTONS_OK")
+    '("close" "GTK_BUTTONS_CLOSE")
+    '("cancel" "GTK_BUTTONS_CANCEL")
+    '("yes-no" "GTK_BUTTONS_YES_NO")
+    '("ok-cancel" "GTK_BUTTONS_OK_CANCEL")
+  )
+)
+

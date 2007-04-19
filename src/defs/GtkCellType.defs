@@ -1,0 +1,13 @@
+(define-enum CellType
+  (in-module "Gtk")
+  (c-name "GtkCellType")
+  (gtype-id "GTK_TYPE_CELL_TYPE")
+  (values
+    '("empty" "GTK_CELL_EMPTY")
+    '("text" "GTK_CELL_TEXT")
+    '("pixmap" "GTK_CELL_PIXMAP")
+    '("pixtext" "GTK_CELL_PIXTEXT")
+    '("widget" "GTK_CELL_WIDGET")
+  )
+)
+

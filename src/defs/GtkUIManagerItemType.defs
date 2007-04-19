@@ -1,0 +1,18 @@
+(define-flags UIManagerItemType
+  (in-module "Gtk")
+  (c-name "GtkUIManagerItemType")
+  (gtype-id "GTK_TYPE_UI_MANAGER_ITEM_TYPE")
+  (values
+    '("auto" "GTK_UI_MANAGER_AUTO")
+    '("menubar" "GTK_UI_MANAGER_MENUBAR")
+    '("menu" "GTK_UI_MANAGER_MENU")
+    '("toolbar" "GTK_UI_MANAGER_TOOLBAR")
+    '("placeholder" "GTK_UI_MANAGER_PLACEHOLDER")
+    '("popup" "GTK_UI_MANAGER_POPUP")
+    '("menuitem" "GTK_UI_MANAGER_MENUITEM")
+    '("toolitem" "GTK_UI_MANAGER_TOOLITEM")
+    '("separator" "GTK_UI_MANAGER_SEPARATOR")
+    '("accelerator" "GTK_UI_MANAGER_ACCELERATOR")
+  )
+)
+

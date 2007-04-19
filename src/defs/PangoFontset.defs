@@ -1,0 +1,59 @@
+(define-object Fontset
+  (in-module "Pango")
+  (parent "GObject")
+  (c-name "PangoFontset")
+  (gtype-id "PANGO_TYPE_FONTSET")
+)
+
+(define-method get_font
+  (of-object "PangoFontset")
+  (c-name "pango_fontset_get_font")
+  (return-type "PangoFont*")
+  (parameters
+    '("guint" "wc")
+  )
+)
+
+(define-method get_metrics
+  (of-object "PangoFontset")
+  (c-name "pango_fontset_get_metrics")
+  (return-type "PangoFontMetrics*")
+)
+
+(define-method foreach
+  (of-object "PangoFontset")
+  (c-name "pango_fontset_foreach")
+  (return-type "none")
+  (parameters
+    '("PangoFontsetForeachFunc" "func")
+    '("gpointer" "data")
+  )
+)
+
+(define-virtual get_font
+  (of-object "PangoFontset")
+  (return-type "PangoFont*")
+  (parameters
+    '("guint" "wc")
+  )
+)
+
+(define-virtual get_metrics
+  (of-object "PangoFontset")
+  (return-type "PangoFontMetrics*")
+)
+
+(define-virtual get_language
+  (of-object "PangoFontset")
+  (return-type "PangoLanguage*")
+)
+
+(define-virtual foreach
+  (of-object "PangoFontset")
+  (return-type "none")
+  (parameters
+    '("PangoFontsetForeachFunc" "func")
+    '("gpointer" "data")
+  )
+)
+

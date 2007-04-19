@@ -1,0 +1,39 @@
+(define-method start_editing
+  (of-object "GtkCellEditable")
+  (c-name "gtk_cell_editable_start_editing")
+  (return-type "none")
+  (parameters
+    '("GdkEvent*" "event")
+  )
+)
+
+(define-method editing_done
+  (of-object "GtkCellEditable")
+  (c-name "gtk_cell_editable_editing_done")
+  (return-type "none")
+)
+
+(define-method remove_widget
+  (of-object "GtkCellEditable")
+  (c-name "gtk_cell_editable_remove_widget")
+  (return-type "none")
+)
+
+(define-virtual editing_done
+  (of-object "GtkCellEditable")
+  (return-type "none")
+)
+
+(define-virtual remove_widget
+  (of-object "GtkCellEditable")
+  (return-type "none")
+)
+
+(define-virtual start_editing
+  (of-object "GtkCellEditable")
+  (return-type "none")
+  (parameters
+    '("GdkEvent*" "event")
+  )
+)
+

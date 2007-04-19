@@ -1,0 +1,14 @@
+(define-object TearoffMenuItem
+  (in-module "Gtk")
+  (parent "GtkMenuItem")
+  (c-name "GtkTearoffMenuItem")
+  (gtype-id "GTK_TYPE_TEAROFF_MENU_ITEM")
+)
+
+(define-function gtk_tearoff_menu_item_new
+  (is-constructor-of "GtkTearoffMenuItem")
+  (c-name "gtk_tearoff_menu_item_new")
+  (caller-owns-return #t)
+  (return-type "GtkWidget*")
+)
+

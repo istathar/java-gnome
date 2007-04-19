@@ -1,0 +1,93 @@
+(define-object RadioMenuItem
+  (in-module "Gtk")
+  (parent "GtkCheckMenuItem")
+  (c-name "GtkRadioMenuItem")
+  (gtype-id "GTK_TYPE_RADIO_MENU_ITEM")
+)
+
+(define-function gtk_radio_menu_item_new
+  (is-constructor-of "GtkRadioMenuItem")
+  (c-name "gtk_radio_menu_item_new")
+  (caller-owns-return #t)
+  (return-type "GtkWidget*")
+  (parameters
+    '("GSList*" "group")
+  )
+)
+
+(define-function gtk_radio_menu_item_new_with_label
+  (is-constructor-of "GtkRadioMenuItem")
+  (c-name "gtk_radio_menu_item_new_with_label")
+  (caller-owns-return #t)
+  (return-type "GtkWidget*")
+  (parameters
+    '("GSList*" "group")
+    '("const-gchar*" "label")
+  )
+)
+
+(define-function gtk_radio_menu_item_new_with_mnemonic
+  (is-constructor-of "GtkRadioMenuItem")
+  (c-name "gtk_radio_menu_item_new_with_mnemonic")
+  (caller-owns-return #t)
+  (return-type "GtkWidget*")
+  (parameters
+    '("GSList*" "group")
+    '("const-gchar*" "label")
+  )
+)
+
+(define-method new_from_widget
+  (of-object "GtkRadioMenuItem")
+  (c-name "gtk_radio_menu_item_new_from_widget")
+  (caller-owns-return #t)
+  (return-type "GtkWidget*")
+)
+
+(define-method new_with_mnemonic_from_widget
+  (of-object "GtkRadioMenuItem")
+  (c-name "gtk_radio_menu_item_new_with_mnemonic_from_widget")
+  (caller-owns-return #t)
+  (return-type "GtkWidget*")
+  (parameters
+    '("const-gchar*" "label")
+  )
+)
+
+(define-method new_with_label_from_widget
+  (of-object "GtkRadioMenuItem")
+  (c-name "gtk_radio_menu_item_new_with_label_from_widget")
+  (caller-owns-return #t)
+  (return-type "GtkWidget*")
+  (parameters
+    '("const-gchar*" "label")
+  )
+)
+
+(define-method get_group
+  (of-object "GtkRadioMenuItem")
+  (c-name "gtk_radio_menu_item_get_group")
+  (return-type "GSList*")
+)
+
+(define-method set_group
+  (of-object "GtkRadioMenuItem")
+  (c-name "gtk_radio_menu_item_set_group")
+  (return-type "none")
+  (parameters
+    '("GSList*" "group")
+  )
+)
+
+(define-method group
+  (of-object "GtkRadioMenuItem")
+  (c-name "gtk_radio_menu_item_group")
+  (return-type "GSList*")
+  (deprecated "use GtkRadioMenuItem.get_group")
+)
+
+(define-virtual group_changed
+  (of-object "GtkRadioMenuItem")
+  (return-type "none")
+)
+

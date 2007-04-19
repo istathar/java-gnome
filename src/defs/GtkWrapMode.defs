@@ -1,0 +1,12 @@
+(define-enum WrapMode
+  (in-module "Gtk")
+  (c-name "GtkWrapMode")
+  (gtype-id "GTK_TYPE_WRAP_MODE")
+  (values
+    '("none" "GTK_WRAP_NONE")
+    '("char" "GTK_WRAP_CHAR")
+    '("word" "GTK_WRAP_WORD")
+    '("word_char" "GTK_WRAP_WORD_CHAR")
+  )
+)
+

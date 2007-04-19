@@ -1,0 +1,7 @@
+(define-method name
+  (of-object "GdkAtom")
+  (c-name "gdk_atom_name")
+  (caller-owns-return #t)
+  (return-type "gchar*")
+)
+

@@ -1,0 +1,117 @@
+(define-object RecentManager
+  (in-module "Gtk")
+  (parent "GObject")
+  (c-name "GtkRecentManager")
+  (gtype-id "GTK_TYPE_RECENT_MANAGER")
+)
+
+(define-function recent_manager_new
+  (is-constructor-of "GtkRecentManager")
+  (c-name "gtk_recent_manager_new")
+  (caller-owns-return #t)
+  (return-type "GtkRecentManager*")
+)
+
+(define-method set_screen
+  (of-object "GtkRecentManager")
+  (c-name "gtk_recent_manager_set_screen")
+  (return-type "none")
+  (parameters
+    '("GdkScreen*" "screen")
+  )
+)
+
+(define-method add_item
+  (of-object "GtkRecentManager")
+  (c-name "gtk_recent_manager_add_item")
+  (return-type "gboolean")
+  (parameters
+    '("const-gchar*" "uri")
+  )
+)
+
+(define-method add_full
+  (of-object "GtkRecentManager")
+  (c-name "gtk_recent_manager_add_full")
+  (return-type "gboolean")
+  (parameters
+    '("const-gchar*" "uri")
+    '("const-GtkRecentData*" "recent_data")
+  )
+)
+
+(define-method remove_item
+  (of-object "GtkRecentManager")
+  (c-name "gtk_recent_manager_remove_item")
+  (return-type "gboolean")
+  (parameters
+    '("const-gchar*" "uri")
+    '("GError**" "error")
+  )
+)
+
+(define-method lookup_item
+  (of-object "GtkRecentManager")
+  (c-name "gtk_recent_manager_lookup_item")
+  (return-type "GtkRecentInfo*")
+  (parameters
+    '("const-gchar*" "uri")
+    '("GError**" "error")
+  )
+)
+
+(define-method has_item
+  (of-object "GtkRecentManager")
+  (c-name "gtk_recent_manager_has_item")
+  (return-type "gboolean")
+  (parameters
+    '("const-gchar*" "uri")
+  )
+)
+
+(define-method move_item
+  (of-object "GtkRecentManager")
+  (c-name "gtk_recent_manager_move_item")
+  (return-type "gboolean")
+  (parameters
+    '("const-gchar*" "uri")
+    '("const-gchar*" "new_uri")
+    '("GError**" "error")
+  )
+)
+
+(define-method set_limit
+  (of-object "GtkRecentManager")
+  (c-name "gtk_recent_manager_set_limit")
+  (return-type "none")
+  (parameters
+    '("gint" "limit")
+  )
+)
+
+(define-method get_limit
+  (of-object "GtkRecentManager")
+  (c-name "gtk_recent_manager_get_limit")
+  (return-type "gint")
+)
+
+(define-method get_items
+  (of-object "GtkRecentManager")
+  (c-name "gtk_recent_manager_get_items")
+  (return-type "GList*")
+)
+
+(define-method purge_items
+  (of-object "GtkRecentManager")
+  (c-name "gtk_recent_manager_purge_items")
+  (return-type "gint")
+  (parameters
+    '("GError**" "error")
+  )
+)
+
+(define-virtual changed
+  (of-object "GtkRecentManager")
+  (return-type "none")
+)
+

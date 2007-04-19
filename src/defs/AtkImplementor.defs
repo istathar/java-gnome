@@ -1,0 +1,5 @@
+(define-virtual ref_accessible
+  (of-object "AtkImplementor")
+  (return-type "AtkObject*")
+)
+

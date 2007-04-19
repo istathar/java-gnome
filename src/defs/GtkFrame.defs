@@ -1,0 +1,90 @@
+(define-object Frame
+  (in-module "Gtk")
+  (parent "GtkBin")
+  (c-name "GtkFrame")
+  (gtype-id "GTK_TYPE_FRAME")
+)
+
+(define-function gtk_frame_new
+  (is-constructor-of "GtkFrame")
+  (c-name "gtk_frame_new")
+  (caller-owns-return #t)
+  (return-type "GtkWidget*")
+  (properties
+    '("label" (optional))
+  )
+)
+
+(define-method set_label
+  (of-object "GtkFrame")
+  (c-name "gtk_frame_set_label")
+  (return-type "none")
+  (parameters
+    '("const-gchar*" "label" (null-ok))
+  )
+)
+
+(define-method get_label
+  (of-object "GtkFrame")
+  (c-name "gtk_frame_get_label")
+  (return-type "const-gchar*")
+)
+
+(define-method set_label_widget
+  (of-object "GtkFrame")
+  (c-name "gtk_frame_set_label_widget")
+  (return-type "none")
+  (parameters
+    '("GtkWidget*" "label_widget")
+  )
+)
+
+(define-method get_label_widget
+  (of-object "GtkFrame")
+  (c-name "gtk_frame_get_label_widget")
+  (return-type "GtkWidget*")
+)
+
+(define-method set_label_align
+  (of-object "GtkFrame")
+  (c-name "gtk_frame_set_label_align")
+  (return-type "none")
+  (parameters
+    '("gfloat" "xalign")
+    '("gfloat" "yalign")
+  )
+)
+
+(define-method get_label_align
+  (of-object "GtkFrame")
+  (c-name "gtk_frame_get_label_align")
+  (return-type "none")
+  (parameters
+    '("gfloat*" "xalign")
+    '("gfloat*" "yalign")
+  )
+)
+
+(define-method set_shadow_type
+  (of-object "GtkFrame")
+  (c-name "gtk_frame_set_shadow_type")
+  (return-type "none")
+  (parameters
+    '("GtkShadowType" "type")
+  )
+)
+
+(define-method get_shadow_type
+  (of-object "GtkFrame")
+  (c-name "gtk_frame_get_shadow_type")
+  (return-type "GtkShadowType")
+)
+
+(define-virtual compute_child_allocation
+  (of-object "GtkFrame")
+  (return-type "none")
+  (parameters
+    '("GtkAllocation*" "allocation")
+  )
+)
+

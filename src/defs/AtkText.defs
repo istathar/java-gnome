@@ -1,0 +1,396 @@
+(define-method get_text
+  (of-object "AtkText")
+  (c-name "atk_text_get_text")
+  (caller-owns-return #t)
+  (return-type "gchar*")
+  (parameters
+    '("gint" "start_offset")
+    '("gint" "end_offset")
+  )
+)
+
+(define-method get_character_at_offset
+  (of-object "AtkText")
+  (c-name "atk_text_get_character_at_offset")
+  (return-type "gunichar")
+  (parameters
+    '("gint" "offset")
+  )
+)
+
+(define-method get_text_after_offset
+  (of-object "AtkText")
+  (c-name "atk_text_get_text_after_offset")
+  (caller-owns-return #t)
+  (return-type "gchar*")
+  (parameters
+    '("gint" "offset")
+    '("AtkTextBoundary" "boundary_type")
+    '("gint*" "start_offset")
+    '("gint*" "end_offset")
+  )
+)
+
+(define-method get_text_at_offset
+  (of-object "AtkText")
+  (c-name "atk_text_get_text_at_offset")
+  (caller-owns-return #t)
+  (return-type "gchar*")
+  (parameters
+    '("gint" "offset")
+    '("AtkTextBoundary" "boundary_type")
+    '("gint*" "start_offset")
+    '("gint*" "end_offset")
+  )
+)
+
+(define-method get_text_before_offset
+  (of-object "AtkText")
+  (c-name "atk_text_get_text_before_offset")
+  (caller-owns-return #t)
+  (return-type "gchar*")
+  (parameters
+    '("gint" "offset")
+    '("AtkTextBoundary" "boundary_type")
+    '("gint*" "start_offset")
+    '("gint*" "end_offset")
+  )
+)
+
+(define-method get_caret_offset
+  (of-object "AtkText")
+  (c-name "atk_text_get_caret_offset")
+  (return-type "gint")
+)
+
+(define-method get_character_extents
+  (of-object "AtkText")
+  (c-name "atk_text_get_character_extents")
+  (return-type "none")
+  (parameters
+    '("gint" "offset")
+    '("gint*" "x")
+    '("gint*" "y")
+    '("gint*" "width")
+    '("gint*" "height")
+    '("AtkCoordType" "coords")
+  )
+)
+
+(define-method get_run_attributes
+  (of-object "AtkText")
+  (c-name "atk_text_get_run_attributes")
+  (return-type "AtkAttributeSet*")
+  (parameters
+    '("gint" "offset")
+    '("gint*" "start_offset")
+    '("gint*" "end_offset")
+  )
+)
+
+(define-method get_default_attributes
+  (of-object "AtkText")
+  (c-name "atk_text_get_default_attributes")
+  (return-type "AtkAttributeSet*")
+)
+
+(define-method get_character_count
+  (of-object "AtkText")
+  (c-name "atk_text_get_character_count")
+  (return-type "gint")
+)
+
+(define-method get_offset_at_point
+  (of-object "AtkText")
+  (c-name "atk_text_get_offset_at_point")
+  (return-type "gint")
+  (parameters
+    '("gint" "x")
+    '("gint" "y")
+    '("AtkCoordType" "coords")
+  )
+)
+
+(define-method get_n_selections
+  (of-object "AtkText")
+  (c-name "atk_text_get_n_selections")
+  (return-type "gint")
+)
+
+(define-method get_selection
+  (of-object "AtkText")
+  (c-name "atk_text_get_selection")
+  (caller-owns-return #t)
+  (return-type "gchar*")
+  (parameters
+    '("gint" "selection_num")
+    '("gint*" "start_offset")
+    '("gint*" "end_offset")
+  )
+)
+
+(define-method add_selection
+  (of-object "AtkText")
+  (c-name "atk_text_add_selection")
+  (return-type "gboolean")
+  (parameters
+    '("gint" "start_offset")
+    '("gint" "end_offset")
+  )
+)
+
+(define-method remove_selection
+  (of-object "AtkText")
+  (c-name "atk_text_remove_selection")
+  (return-type "gboolean")
+  (parameters
+    '("gint" "selection_num")
+  )
+)
+
+(define-method set_selection
+  (of-object "AtkText")
+  (c-name "atk_text_set_selection")
+  (return-type "gboolean")
+  (parameters
+    '("gint" "selection_num")
+    '("gint" "start_offset")
+    '("gint" "end_offset")
+  )
+)
+
+(define-method set_caret_offset
+  (of-object "AtkText")
+  (c-name "atk_text_set_caret_offset")
+  (return-type "gboolean")
+  (parameters
+    '("gint" "offset")
+  )
+)
+
+(define-method get_range_extents
+  (of-object "AtkText")
+  (c-name "atk_text_get_range_extents")
+  (return-type "none")
+  (parameters
+    '("gint" "start_offset")
+    '("gint" "end_offset")
+    '("AtkCoordType" "coord_type")
+    '("AtkTextRectangle*" "rect")
+  )
+)
+
+(define-method get_bounded_ranges
+  (of-object "AtkText")
+  (c-name "atk_text_get_bounded_ranges")
+  (return-type "AtkTextRange**")
+  (parameters
+    '("AtkTextRectangle*" "rect")
+    '("AtkCoordType" "coord_type")
+    '("AtkTextClipType" "x_clip_type")
+    '("AtkTextClipType" "y_clip_type")
+  )
+)
+
+(define-virtual get_text
+  (of-object "AtkText")
+  (caller-owns-return #t)
+  (return-type "gchar*")
+  (parameters
+    '("gint" "start_offset")
+    '("gint" "end_offset")
+  )
+)
+
+(define-virtual get_text_after_offset
+  (of-object "AtkText")
+  (caller-owns-return #t)
+  (return-type "gchar*")
+  (parameters
+    '("gint" "offset")
+    '("AtkTextBoundary" "boundary_type")
+    '("gint*" "start_offset")
+    '("gint*" "end_offset")
+  )
+)
+
+(define-virtual get_text_at_offset
+  (of-object "AtkText")
+  (caller-owns-return #t)
+  (return-type "gchar*")
+  (parameters
+    '("gint" "offset")
+    '("AtkTextBoundary" "boundary_type")
+    '("gint*" "start_offset")
+    '("gint*" "end_offset")
+  )
+)
+
+(define-virtual get_character_at_offset
+  (of-object "AtkText")
+  (return-type "gunichar")
+  (parameters
+    '("gint" "offset")
+  )
+)
+
+(define-virtual get_text_before_offset
+  (of-object "AtkText")
+  (caller-owns-return #t)
+  (return-type "gchar*")
+  (parameters
+    '("gint" "offset")
+    '("AtkTextBoundary" "boundary_type")
+    '("gint*" "start_offset")
+    '("gint*" "end_offset")
+  )
+)
+
+(define-virtual get_caret_offset
+  (of-object "AtkText")
+  (return-type "gint")
+)
+
+(define-virtual get_run_attributes
+  (of-object "AtkText")
+  (return-type "AtkAttributeSet*")
+  (parameters
+    '("gint" "offset")
+    '("gint*" "start_offset")
+    '("gint*" "end_offset")
+  )
+)
+
+(define-virtual get_default_attributes
+  (of-object "AtkText")
+  (return-type "AtkAttributeSet*")
+)
+
+(define-virtual get_character_extents
+  (of-object "AtkText")
+  (return-type "none")
+  (parameters
+    '("gint" "offset")
+    '("gint*" "x")
+    '("gint*" "y")
+    '("gint*" "width")
+    '("gint*" "height")
+    '("AtkCoordType" "coords")
+  )
+)
+
+(define-virtual get_character_count
+  (of-object "AtkText")
+  (return-type "gint")
+)
+
+(define-virtual get_offset_at_point
+  (of-object "AtkText")
+  (return-type "gint")
+  (parameters
+    '("gint" "x")
+    '("gint" "y")
+    '("AtkCoordType" "coords")
+  )
+)
+
+(define-virtual get_n_selections
+  (of-object "AtkText")
+  (return-type "gint")
+)
+
+(define-virtual get_selection
+  (of-object "AtkText")
+  (caller-owns-return #t)
+  (return-type "gchar*")
+  (parameters
+    '("gint" "selection_num")
+    '("gint*" "start_offset")
+    '("gint*" "end_offset")
+  )
+)
+
+(define-virtual add_selection
+  (of-object "AtkText")
+  (return-type "gboolean")
+  (parameters
+    '("gint" "start_offset")
+    '("gint" "end_offset")
+  )
+)
+
+(define-virtual remove_selection
+  (of-object "AtkText")
+  (return-type "gboolean")
+  (parameters
+    '("gint" "selection_num")
+  )
+)
+
+(define-virtual set_selection
+  (of-object "AtkText")
+  (return-type "gboolean")
+  (parameters
+    '("gint" "selection_num")
+    '("gint" "start_offset")
+    '("gint" "end_offset")
+  )
+)
+
+(define-virtual set_caret_offset
+  (of-object "AtkText")
+  (return-type "gboolean")
+  (parameters
+    '("gint" "offset")
+  )
+)
+
+(define-virtual text_changed
+  (of-object "AtkText")
+  (return-type "none")
+  (parameters
+    '("gint" "position")
+    '("gint" "length")
+  )
+)
+
+(define-virtual text_caret_moved
+  (of-object "AtkText")
+  (return-type "none")
+  (parameters
+    '("gint" "location")
+  )
+)
+
+(define-virtual text_selection_changed
+  (of-object "AtkText")
+  (return-type "none")
+)
+
+(define-virtual text_attributes_changed
+  (of-object "AtkText")
+  (return-type "none")
+)
+
+(define-virtual get_range_extents
+  (of-object "AtkText")
+  (return-type "none")
+  (parameters
+    '("gint" "start_offset")
+    '("gint" "end_offset")
+    '("AtkCoordType" "coord_type")
+    '("AtkTextRectangle*" "rect")
+  )
+)
+
+(define-virtual get_bounded_ranges
+  (of-object "AtkText")
+  (return-type "AtkTextRange**")
+  (parameters
+    '("AtkTextRectangle*" "rect")
+    '("AtkCoordType" "coord_type")
+    '("AtkTextClipType" "x_clip_type")
+    '("AtkTextClipType" "y_clip_type")
+  )
+)
+

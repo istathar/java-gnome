@@ -1,0 +1,11 @@
+(define-enum VisibilityState
+  (in-module "Gdk")
+  (c-name "GdkVisibilityState")
+  (gtype-id "GDK_TYPE_VISIBILITY_STATE")
+  (values
+    '("unobscured" "GDK_VISIBILITY_UNOBSCURED")
+    '("partial" "GDK_VISIBILITY_PARTIAL")
+    '("fully-obscured" "GDK_VISIBILITY_FULLY_OBSCURED")
+  )
+)
+

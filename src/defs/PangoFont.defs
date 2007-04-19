@@ -1,0 +1,103 @@
+(define-object Font
+  (in-module "Pango")
+  (parent "GObject")
+  (c-name "PangoFont")
+  (gtype-id "PANGO_TYPE_FONT")
+)
+
+(define-method describe
+  (of-object "PangoFont")
+  (c-name "pango_font_describe")
+  (return-type "PangoFontDescription*")
+)
+
+(define-method get_coverage
+  (of-object "PangoFont")
+  (c-name "pango_font_get_coverage")
+  (return-type "PangoCoverage*")
+  (parameters
+    '("PangoLanguage*" "language")
+  )
+)
+
+(define-method find_shaper
+  (of-object "PangoFont")
+  (c-name "pango_font_find_shaper")
+  (return-type "PangoEngineShape*")
+  (parameters
+    '("PangoLanguage*" "language")
+    '("guint32" "ch")
+  )
+)
+
+(define-method get_metrics
+  (of-object "PangoFont")
+  (c-name "pango_font_get_metrics")
+  (return-type "PangoFontMetrics*")
+  (parameters
+    '("PangoLanguage*" "language" (default "NULL") (null-ok))
+  )
+)
+
+(define-method get_glyph_extents
+  (of-object "PangoFont")
+  (c-name "pango_font_get_glyph_extents")
+  (return-type "none")
+  (parameters
+    '("PangoGlyph" "glyph")
+    '("PangoRectangle*" "ink_rect")
+    '("PangoRectangle*" "logical_rect")
+  )
+)
+
+(define-method get_font_map
+  (of-object "PangoFont")
+  (c-name "pango_font_get_font_map")
+  (return-type "PangoFontMap*")
+)
+
+(define-virtual describe
+  (of-object "PangoFont")
+  (return-type "PangoFontDescription*")
+)
+
+(define-virtual get_coverage
+  (of-object "PangoFont")
+  (return-type "PangoCoverage*")
+  (parameters
+    '("PangoLanguage*" "lang")
+  )
+)
+
+(define-virtual find_shaper
+  (of-object "PangoFont")
+  (return-type "PangoEngineShape*")
+  (parameters
+    '("PangoLanguage*" "lang")
+    '("guint32" "ch")
+  )
+)
+
+(define-virtual get_glyph_extents
+  (of-object "PangoFont")
+  (return-type "none")
+  (parameters
+    '("PangoGlyph" "glyph")
+    '("PangoRectangle*" "ink_rect")
+    '("PangoRectangle*" "logical_rect")
+  )
+)
+
+(define-virtual get_metrics
+  (of-object "PangoFont")
+  (return-type "PangoFontMetrics*")
+  (parameters
+    '("PangoLanguage*" "language")
+  )
+)
+
+(define-virtual get_font_map
+  (of-object "PangoFont")
+  (return-type "PangoFontMap*")
+)
+

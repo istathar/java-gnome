@@ -1,0 +1,126 @@
+(define-boxed LayoutIter
+  (in-module "Pango")
+  (c-name "PangoLayoutIter")
+  (gtype-id "PANGO_TYPE_LAYOUT_ITER")
+  (release-func "pango_layout_iter_free")
+)
+
+(define-method free
+  (of-object "PangoLayoutIter")
+  (c-name "pango_layout_iter_free")
+  (return-type "none")
+)
+
+(define-method get_index
+  (of-object "PangoLayoutIter")
+  (c-name "pango_layout_iter_get_index")
+  (return-type "int")
+)
+
+(define-method get_run
+  (of-object "PangoLayoutIter")
+  (c-name "pango_layout_iter_get_run")
+  (return-type "PangoLayoutRun*")
+)
+
+(define-method get_line
+  (of-object "PangoLayoutIter")
+  (c-name "pango_layout_iter_get_line")
+  (return-type "PangoLayoutLine*")
+)
+
+(define-method at_last_line
+  (of-object "PangoLayoutIter")
+  (c-name "pango_layout_iter_at_last_line")
+  (return-type "gboolean")
+)
+
+(define-method next_char
+  (of-object "PangoLayoutIter")
+  (c-name "pango_layout_iter_next_char")
+  (return-type "gboolean")
+)
+
+(define-method next_cluster
+  (of-object "PangoLayoutIter")
+  (c-name "pango_layout_iter_next_cluster")
+  (return-type "gboolean")
+)
+
+(define-method next_run
+  (of-object "PangoLayoutIter")
+  (c-name "pango_layout_iter_next_run")
+  (return-type "gboolean")
+)
+
+(define-method next_line
+  (of-object "PangoLayoutIter")
+  (c-name "pango_layout_iter_next_line")
+  (return-type "gboolean")
+)
+
+(define-method get_char_extents
+  (of-object "PangoLayoutIter")
+  (c-name "pango_layout_iter_get_char_extents")
+  (return-type "none")
+  (parameters
+    '("PangoRectangle*" "logical_rect")
+  )
+)
+
+(define-method get_cluster_extents
+  (of-object "PangoLayoutIter")
+  (c-name "pango_layout_iter_get_cluster_extents")
+  (return-type "none")
+  (parameters
+    '("PangoRectangle*" "ink_rect")
+    '("PangoRectangle*" "logical_rect")
+  )
+)
+
+(define-method get_run_extents
+  (of-object "PangoLayoutIter")
+  (c-name "pango_layout_iter_get_run_extents")
+  (return-type "none")
+  (parameters
+    '("PangoRectangle*" "ink_rect")
+    '("PangoRectangle*" "logical_rect")
+  )
+)
+
+(define-method get_line_extents
+  (of-object "PangoLayoutIter")
+  (c-name "pango_layout_iter_get_line_extents")
+  (return-type "none")
+  (parameters
+    '("PangoRectangle*" "ink_rect")
+    '("PangoRectangle*" "logical_rect")
+  )
+)
+
+(define-method get_line_yrange
+  (of-object "PangoLayoutIter")
+  (c-name "pango_layout_iter_get_line_yrange")
+  (return-type "none")
+  (parameters
+    '("int*" "y0")
+    '("int*" "y1")
+  )
+)
+
+(define-method get_layout_extents
+  (of-object "PangoLayoutIter")
+  (c-name "pango_layout_iter_get_layout_extents")
+  (return-type "none")
+  (parameters
+    '("PangoRectangle*" "ink_rect")
+    '("PangoRectangle*" "logical_rect")
+  )
+)
+
+(define-method get_baseline
+  (of-object "PangoLayoutIter")
+  (c-name "pango_layout_iter_get_baseline")
+  (return-type "int")
+)
+

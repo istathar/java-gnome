@@ -1,0 +1,12 @@
+(define-enum ExpanderStyle
+  (in-module "Gtk")
+  (c-name "GtkExpanderStyle")
+  (gtype-id "GTK_TYPE_EXPANDER_STYLE")
+  (values
+    '("collapsed" "GTK_EXPANDER_COLLAPSED")
+    '("semi-collapsed" "GTK_EXPANDER_SEMI_COLLAPSED")
+    '("semi-expanded" "GTK_EXPANDER_SEMI_EXPANDED")
+    '("expanded" "GTK_EXPANDER_EXPANDED")
+  )
+)
+

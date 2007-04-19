@@ -1,0 +1,14 @@
+(define-object VPaned
+  (in-module "Gtk")
+  (parent "GtkPaned")
+  (c-name "GtkVPaned")
+  (gtype-id "GTK_TYPE_VPANED")
+)
+
+(define-function gtk_vpaned_new
+  (is-constructor-of "GtkVPaned")
+  (c-name "gtk_vpaned_new")
+  (caller-owns-return #t)
+  (return-type "GtkWidget*")
+)
+

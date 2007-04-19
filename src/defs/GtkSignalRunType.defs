@@ -1,0 +1,14 @@
+(define-enum SignalRunType
+  (in-module "Gtk")
+  (c-name "GtkSignalRunType")
+  (gtype-id "GTK_TYPE_SIGNAL_RUN_TYPE")
+  (values
+    '("first" "GTK_RUN_FIRST")
+    '("last" "GTK_RUN_LAST")
+    '("both" "GTK_RUN_BOTH")
+    '("no-recurse" "GTK_RUN_NO_RECURSE")
+    '("action" "GTK_RUN_ACTION")
+    '("no-hooks" "GTK_RUN_NO_HOOKS")
+  )
+)
+

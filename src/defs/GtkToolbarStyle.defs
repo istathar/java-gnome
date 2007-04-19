@@ -1,0 +1,12 @@
+(define-enum ToolbarStyle
+  (in-module "Gtk")
+  (c-name "GtkToolbarStyle")
+  (gtype-id "GTK_TYPE_TOOLBAR_STYLE")
+  (values
+    '("icons" "GTK_TOOLBAR_ICONS")
+    '("text" "GTK_TOOLBAR_TEXT")
+    '("both" "GTK_TOOLBAR_BOTH")
+    '("both-horiz" "GTK_TOOLBAR_BOTH_HORIZ")
+  )
+)
+

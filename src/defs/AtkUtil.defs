@@ -1,0 +1,33 @@
+(define-object Util
+  (in-module "Atk")
+  (parent "GObject")
+  (c-name "AtkUtil")
+  (gtype-id "ATK_TYPE_UTIL")
+)
+
+(define-virtual add_global_event_listener
+  (of-object "AtkUtil")
+  (return-type "guint")
+  (parameters
+    '("const-gchar*" "event_type")
+  )
+)
+
+(define-virtual remove_global_event_listener
+  (of-object "AtkUtil")
+  (return-type "none")
+)
+
+(define-virtual add_key_event_listener
+  (of-object "AtkUtil")
+  (return-type "guint")
+  (parameters
+    '("gpointer" "data")
+  )
+)
+
+(define-virtual remove_key_event_listener
+  (of-object "AtkUtil")
+  (return-type "none")
+)
+

@@ -1,0 +1,11 @@
+(define-enum JoinStyle
+  (in-module "Gdk")
+  (c-name "GdkJoinStyle")
+  (gtype-id "GDK_TYPE_JOIN_STYLE")
+  (values
+    '("miter" "GDK_JOIN_MITER")
+    '("round" "GDK_JOIN_ROUND")
+    '("bevel" "GDK_JOIN_BEVEL")
+  )
+)
+

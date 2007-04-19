@@ -1,0 +1,11 @@
+(define-flags DialogFlags
+  (in-module "Gtk")
+  (c-name "GtkDialogFlags")
+  (gtype-id "GTK_TYPE_DIALOG_FLAGS")
+  (values
+    '("modal" "GTK_DIALOG_MODAL")
+    '("destroy-with-parent" "GTK_DIALOG_DESTROY_WITH_PARENT")
+    '("no-separator" "GTK_DIALOG_NO_SEPARATOR")
+  )
+)
+

@@ -1,0 +1,79 @@
+(define-object MessageDialog
+  (in-module "Gtk")
+  (parent "GtkDialog")
+  (c-name "GtkMessageDialog")
+  (gtype-id "GTK_TYPE_MESSAGE_DIALOG")
+  (fields
+    '("GtkWidget*" "image")
+    '("GtkWidget*" "label")
+  )
+)
+
+(define-function gtk_message_dialog_new
+  (is-constructor-of "GtkMessageDialog")
+  (c-name "gtk_message_dialog_new")
+  (caller-owns-return #t)
+  (return-type "GtkWidget*")
+  (parameters
+    '("GtkWindow*" "parent" (default "NULL") (null-ok))
+    '("GtkDialogFlags" "flags" (default "0"))
+    '("GtkMessageType" "type" (default "GTK_MESSAGE_INFO"))
+    '("GtkButtonsType" "buttons" (default "GTK_BUTTONS_NONE"))
+    '("const-gchar*" "message_format" (default "NULL") (null-ok))
+  )
+  (varargs #t)
+)
+
+(define-function message_dialog_new_with_markup
+  (is-constructor-of "GtkMessageDialog")
+  (c-name "gtk_message_dialog_new_with_markup")
+  (caller-owns-return #t)
+  (return-type "GtkWidget*")
+  (parameters
+    '("GtkWindow*" "parent")
+    '("GtkDialogFlags" "flags")
+    '("GtkMessageType" "type")
+    '("GtkButtonsType" "buttons")
+    '("const-gchar*" "message_format")
+  )
+  (varargs #t)
+)
+
+(define-method set_markup
+  (of-object "GtkMessageDialog")
+  (c-name "gtk_message_dialog_set_markup")
+  (return-type "none")
+  (parameters
+    '("const-gchar*" "str")
+  )
+)
+
+(define-method format_secondary_text
+  (of-object "GtkMessageDialog")
+  (c-name "gtk_message_dialog_format_secondary_text")
+  (return-type "none")
+  (parameters
+    '("const-gchar*" "message_format")
+  )
+  (varargs #t)
+)
+
+(define-method format_secondary_markup
+  (of-object "GtkMessageDialog")
+  (c-name "gtk_message_dialog_format_secondary_markup")
+  (return-type "none")
+  (parameters
+    '("const-gchar*" "message_format")
+  )
+  (varargs #t)
+)
+
+(define-method set_image
+  (of-object "GtkMessageDialog")
+  (c-name "gtk_message_dialog_set_image")
+  (return-type "none")
+  (parameters
+    '("GtkWidget*" "image")
+  )
+)
+

@@ -1,0 +1,538 @@
+(define-method ref_at
+  (of-object "AtkTable")
+  (c-name "atk_table_ref_at")
+  (return-type "AtkObject*")
+  (parameters
+    '("gint" "row")
+    '("gint" "column")
+  )
+)
+
+(define-method get_index_at
+  (of-object "AtkTable")
+  (c-name "atk_table_get_index_at")
+  (return-type "gint")
+  (parameters
+    '("gint" "row")
+    '("gint" "column")
+  )
+)
+
+(define-method get_column_at_index
+  (of-object "AtkTable")
+  (c-name "atk_table_get_column_at_index")
+  (return-type "gint")
+  (parameters
+    '("gint" "index")
+  )
+)
+
+(define-method get_row_at_index
+  (of-object "AtkTable")
+  (c-name "atk_table_get_row_at_index")
+  (return-type "gint")
+  (parameters
+    '("gint" "index")
+  )
+)
+
+(define-method get_n_columns
+  (of-object "AtkTable")
+  (c-name "atk_table_get_n_columns")
+  (return-type "gint")
+)
+
+(define-method get_n_rows
+  (of-object "AtkTable")
+  (c-name "atk_table_get_n_rows")
+  (return-type "gint")
+)
+
+(define-method get_column_extent_at
+  (of-object "AtkTable")
+  (c-name "atk_table_get_column_extent_at")
+  (return-type "gint")
+  (parameters
+    '("gint" "row")
+    '("gint" "column")
+  )
+)
+
+(define-method get_row_extent_at
+  (of-object "AtkTable")
+  (c-name "atk_table_get_row_extent_at")
+  (return-type "gint")
+  (parameters
+    '("gint" "row")
+    '("gint" "column")
+  )
+)
+
+(define-method get_caption
+  (of-object "AtkTable")
+  (c-name "atk_table_get_caption")
+  (return-type "AtkObject*")
+)
+
+(define-method get_column_description
+  (of-object "AtkTable")
+  (c-name "atk_table_get_column_description")
+  (return-type "const-gchar*")
+  (parameters
+    '("gint" "column")
+  )
+)
+
+(define-method get_column_header
+  (of-object "AtkTable")
+  (c-name "atk_table_get_column_header")
+  (return-type "AtkObject*")
+  (parameters
+    '("gint" "column")
+  )
+)
+
+(define-method get_row_description
+  (of-object "AtkTable")
+  (c-name "atk_table_get_row_description")
+  (return-type "const-gchar*")
+  (parameters
+    '("gint" "row")
+  )
+)
+
+(define-method get_row_header
+  (of-object "AtkTable")
+  (c-name "atk_table_get_row_header")
+  (return-type "AtkObject*")
+  (parameters
+    '("gint" "row")
+  )
+)
+
+(define-method get_summary
+  (of-object "AtkTable")
+  (c-name "atk_table_get_summary")
+  (return-type "AtkObject*")
+)
+
+(define-method set_caption
+  (of-object "AtkTable")
+  (c-name "atk_table_set_caption")
+  (return-type "none")
+  (parameters
+    '("AtkObject*" "caption")
+  )
+)
+
+(define-method set_column_description
+  (of-object "AtkTable")
+  (c-name "atk_table_set_column_description")
+  (return-type "none")
+  (parameters
+    '("gint" "column")
+    '("const-gchar*" "description")
+  )
+)
+
+(define-method set_column_header
+  (of-object "AtkTable")
+  (c-name "atk_table_set_column_header")
+  (return-type "none")
+  (parameters
+    '("gint" "column")
+    '("AtkObject*" "header")
+  )
+)
+
+(define-method set_row_description
+  (of-object "AtkTable")
+  (c-name "atk_table_set_row_description")
+  (return-type "none")
+  (parameters
+    '("gint" "row")
+    '("const-gchar*" "description")
+  )
+)
+
+(define-method set_row_header
+  (of-object "AtkTable")
+  (c-name "atk_table_set_row_header")
+  (return-type "none")
+  (parameters
+    '("gint" "row")
+    '("AtkObject*" "header")
+  )
+)
+
+(define-method set_summary
+  (of-object "AtkTable")
+  (c-name "atk_table_set_summary")
+  (return-type "none")
+  (parameters
+    '("AtkObject*" "accessible")
+  )
+)
+
+(define-method get_selected_columns
+  (of-object "AtkTable")
+  (c-name "atk_table_get_selected_columns")
+  (return-type "gint")
+  (parameters
+    '("gint**" "selected")
+  )
+)
+
+(define-method get_selected_rows
+  (of-object "AtkTable")
+  (c-name "atk_table_get_selected_rows")
+  (return-type "gint")
+  (parameters
+    '("gint**" "selected")
+  )
+)
+
+(define-method is_column_selected
+  (of-object "AtkTable")
+  (c-name "atk_table_is_column_selected")
+  (return-type "gboolean")
+  (parameters
+    '("gint" "column")
+  )
+)
+
+(define-method is_row_selected
+  (of-object "AtkTable")
+  (c-name "atk_table_is_row_selected")
+  (return-type "gboolean")
+  (parameters
+    '("gint" "row")
+  )
+)
+
+(define-method is_selected
+  (of-object "AtkTable")
+  (c-name "atk_table_is_selected")
+  (return-type "gboolean")
+  (parameters
+    '("gint" "row")
+    '("gint" "column")
+  )
+)
+
+(define-method add_row_selection
+  (of-object "AtkTable")
+  (c-name "atk_table_add_row_selection")
+  (return-type "gboolean")
+  (parameters
+    '("gint" "row")
+  )
+)
+
+(define-method remove_row_selection
+  (of-object "AtkTable")
+  (c-name "atk_table_remove_row_selection")
+  (return-type "gboolean")
+  (parameters
+    '("gint" "row")
+  )
+)
+
+(define-method add_column_selection
+  (of-object "AtkTable")
+  (c-name "atk_table_add_column_selection")
+  (return-type "gboolean")
+  (parameters
+    '("gint" "column")
+  )
+)
+
+(define-method remove_column_selection
+  (of-object "AtkTable")
+  (c-name "atk_table_remove_column_selection")
+  (return-type "gboolean")
+  (parameters
+    '("gint" "column")
+  )
+)
+
+(define-virtual ref_at
+  (of-object "AtkTable")
+  (return-type "AtkObject*")
+  (parameters
+    '("gint" "row")
+    '("gint" "column")
+  )
+)
+
+(define-virtual get_index_at
+  (of-object "AtkTable")
+  (return-type "gint")
+  (parameters
+    '("gint" "row")
+    '("gint" "column")
+  )
+)
+
+(define-virtual get_column_at_index
+  (of-object "AtkTable")
+  (return-type "gint")
+  (parameters
+    '("gint" "index")
+  )
+)
+
+(define-virtual get_row_at_index
+  (of-object "AtkTable")
+  (return-type "gint")
+  (parameters
+    '("gint" "index")
+  )
+)
+
+(define-virtual get_n_columns
+  (of-object "AtkTable")
+  (return-type "gint")
+)
+
+(define-virtual get_n_rows
+  (of-object "AtkTable")
+  (return-type "gint")
+)
+
+(define-virtual get_column_extent_at
+  (of-object "AtkTable")
+  (return-type "gint")
+  (parameters
+    '("gint" "row")
+    '("gint" "column")
+  )
+)
+
+(define-virtual get_row_extent_at
+  (of-object "AtkTable")
+  (return-type "gint")
+  (parameters
+    '("gint" "row")
+    '("gint" "column")
+  )
+)
+
+(define-virtual get_caption
+  (of-object "AtkTable")
+  (return-type "AtkObject*")
+)
+
+(define-virtual get_column_description
+  (of-object "AtkTable")
+  (return-type "const-gchar*")
+  (parameters
+    '("gint" "column")
+  )
+)
+
+(define-virtual get_column_header
+  (of-object "AtkTable")
+  (return-type "AtkObject*")
+  (parameters
+    '("gint" "column")
+  )
+)
+
+(define-virtual get_row_description
+  (of-object "AtkTable")
+  (return-type "const-gchar*")
+  (parameters
+    '("gint" "row")
+  )
+)
+
+(define-virtual get_row_header
+  (of-object "AtkTable")
+  (return-type "AtkObject*")
+  (parameters
+    '("gint" "row")
+  )
+)
+
+(define-virtual get_summary
+  (of-object "AtkTable")
+  (return-type "AtkObject*")
+)
+
+(define-virtual set_caption
+  (of-object "AtkTable")
+  (return-type "none")
+  (parameters
+    '("AtkObject*" "caption")
+  )
+)
+
+(define-virtual set_column_description
+  (of-object "AtkTable")
+  (return-type "none")
+  (parameters
+    '("gint" "column")
+    '("const-gchar*" "description")
+  )
+)
+
+(define-virtual set_column_header
+  (of-object "AtkTable")
+  (return-type "none")
+  (parameters
+    '("gint" "column")
+    '("AtkObject*" "header")
+  )
+)
+
+(define-virtual set_row_description
+  (of-object "AtkTable")
+  (return-type "none")
+  (parameters
+    '("gint" "row")
+    '("const-gchar*" "description")
+  )
+)
+
+(define-virtual set_row_header
+  (of-object "AtkTable")
+  (return-type "none")
+  (parameters
+    '("gint" "row")
+    '("AtkObject*" "header")
+  )
+)
+
+(define-virtual set_summary
+  (of-object "AtkTable")
+  (return-type "none")
+  (parameters
+    '("AtkObject*" "accessible")
+  )
+)
+
+(define-virtual get_selected_columns
+  (of-object "AtkTable")
+  (return-type "gint")
+  (parameters
+    '("gint**" "selected")
+  )
+)
+
+(define-virtual get_selected_rows
+  (of-object "AtkTable")
+  (return-type "gint")
+  (parameters
+    '("gint**" "selected")
+  )
+)
+
+(define-virtual is_column_selected
+  (of-object "AtkTable")
+  (return-type "gboolean")
+  (parameters
+    '("gint" "column")
+  )
+)
+
+(define-virtual is_row_selected
+  (of-object "AtkTable")
+  (return-type "gboolean")
+  (parameters
+    '("gint" "row")
+  )
+)
+
+(define-virtual is_selected
+  (of-object "AtkTable")
+  (return-type "gboolean")
+  (parameters
+    '("gint" "row")
+    '("gint" "column")
+  )
+)
+
+(define-virtual add_row_selection
+  (of-object "AtkTable")
+  (return-type "gboolean")
+  (parameters
+    '("gint" "row")
+  )
+)
+
+(define-virtual remove_row_selection
+  (of-object "AtkTable")
+  (return-type "gboolean")
+  (parameters
+    '("gint" "row")
+  )
+)
+
+(define-virtual add_column_selection
+  (of-object "AtkTable")
+  (return-type "gboolean")
+  (parameters
+    '("gint" "column")
+  )
+)
+
+(define-virtual remove_column_selection
+  (of-object "AtkTable")
+  (return-type "gboolean")
+  (parameters
+    '("gint" "column")
+  )
+)
+
+(define-virtual row_inserted
+  (of-object "AtkTable")
+  (return-type "none")
+  (parameters
+    '("gint" "row")
+    '("gint" "num_inserted")
+  )
+)
+
+(define-virtual column_inserted
+  (of-object "AtkTable")
+  (return-type "none")
+  (parameters
+    '("gint" "column")
+    '("gint" "num_inserted")
+  )
+)
+
+(define-virtual row_deleted
+  (of-object "AtkTable")
+  (return-type "none")
+  (parameters
+    '("gint" "row")
+    '("gint" "num_deleted")
+  )
+)
+
+(define-virtual column_deleted
+  (of-object "AtkTable")
+  (return-type "none")
+  (parameters
+    '("gint" "column")
+    '("gint" "num_deleted")
+  )
+)
+
+(define-virtual row_reordered
+  (of-object "AtkTable")
+  (return-type "none")
+)
+
+(define-virtual column_reordered
+  (of-object "AtkTable")
+  (return-type "none")
+)
+
+(define-virtual model_changed
+  (of-object "AtkTable")
+  (return-type "none")
+)
+

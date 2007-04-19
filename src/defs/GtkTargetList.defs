@@ -1,0 +1,69 @@
+(define-function gtk_target_list_new
+  (is-constructor-of "GtkTargetList")
+  (c-name "gtk_target_list_new")
+  (caller-owns-return #t)
+  (return-type "GtkTargetList*")
+  (parameters
+    '("const-GtkTargetEntry*" "targets")
+    '("guint" "ntargets")
+  )
+)
+
+(define-method ref
+  (of-object "GtkTargetList")
+  (c-name "gtk_target_list_ref")
+  (return-type "none")
+)
+
+(define-method unref
+  (of-object "GtkTargetList")
+  (c-name "gtk_target_list_unref")
+  (return-type "none")
+)
+
+(define-method add
+  (of-object "GtkTargetList")
+  (c-name "gtk_target_list_add")
+  (return-type "none")
+  (parameters
+    '("GdkAtom" "target")
+    '("guint" "flags")
+    '("guint" "info")
+  )
+)
+
+(define-method add_table
+  (of-object "GtkTargetList")
+  (c-name "gtk_target_list_add_table")
+  (return-type "none")
+  (parameters
+    '("const-GtkTargetEntry*" "targets")
+    '("guint" "ntargets")
+  )
+)
+
+(define-method remove
+  (of-object "GtkTargetList")
+  (c-name "gtk_target_list_remove")
+  (return-type "none")
+  (parameters
+    '("GdkAtom" "target")
+  )
+)
+
+(define-method find
+  (of-object "GtkTargetList")
+  (c-name "gtk_target_list_find")
+  (return-type "gboolean")
+  (parameters
+    '("GdkAtom" "target")
+    '("guint*" "info")
+  )
+)
+
+(define-boxed TargetList
+  (in-module "Gtk")
+  (c-name "GtkTargetList")
+  (gtype-id "GTK_TYPE_TARGET_LIST")
+)
+

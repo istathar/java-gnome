@@ -1,0 +1,11 @@
+(define-enum TextDirection
+  (in-module "Gtk")
+  (c-name "GtkTextDirection")
+  (gtype-id "GTK_TYPE_TEXT_DIRECTION")
+  (values
+    '("none" "GTK_TEXT_DIR_NONE")
+    '("ltr" "GTK_TEXT_DIR_LTR")
+    '("rtl" "GTK_TEXT_DIR_RTL")
+  )
+)
+

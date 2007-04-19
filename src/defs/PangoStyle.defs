@@ -1,0 +1,11 @@
+(define-enum Style
+  (in-module "Pango")
+  (c-name "PangoStyle")
+  (gtype-id "PANGO_TYPE_STYLE")
+  (values
+    '("normal" "PANGO_STYLE_NORMAL")
+    '("oblique" "PANGO_STYLE_OBLIQUE")
+    '("italic" "PANGO_STYLE_ITALIC")
+  )
+)
+

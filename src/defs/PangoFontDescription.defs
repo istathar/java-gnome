@@ -1,0 +1,231 @@
+(define-boxed FontDescription
+  (in-module "Pango")
+  (c-name "PangoFontDescription")
+  (gtype-id "PANGO_TYPE_FONT_DESCRIPTION")
+  (copy-func "pango_font_description_copy")
+  (release-func "pango_font_description_free")
+)
+
+(define-function pango_font_description_new
+  (is-constructor-of "PangoFontDescription")
+  (c-name "pango_font_description_new")
+  (caller-owns-return #t)
+  (return-type "PangoFontDescription*")
+)
+
+(define-method copy
+  (of-object "PangoFontDescription")
+  (c-name "pango_font_description_copy")
+  (return-type "PangoFontDescription*")
+)
+
+(define-method copy_static
+  (of-object "PangoFontDescription")
+  (c-name "pango_font_description_copy_static")
+  (return-type "PangoFontDescription*")
+)
+
+(define-method hash
+  (of-object "PangoFontDescription")
+  (c-name "pango_font_description_hash")
+  (return-type "guint")
+)
+
+(define-method equal
+  (of-object "PangoFontDescription")
+  (c-name "pango_font_description_equal")
+  (return-type "gboolean")
+  (parameters
+    '("const-PangoFontDescription*" "desc2")
+  )
+)
+
+(define-method free
+  (of-object "PangoFontDescription")
+  (c-name "pango_font_description_free")
+  (return-type "none")
+)
+
+(define-method set_family
+  (of-object "PangoFontDescription")
+  (c-name "pango_font_description_set_family")
+  (return-type "none")
+  (parameters
+    '("const-char*" "family")
+  )
+)
+
+(define-method set_family_static
+  (of-object "PangoFontDescription")
+  (c-name "pango_font_description_set_family_static")
+  (return-type "none")
+  (parameters
+    '("const-char*" "family")
+  )
+)
+
+(define-method get_family
+  (of-object "PangoFontDescription")
+  (c-name "pango_font_description_get_family")
+  (return-type "const-char*")
+)
+
+(define-method set_style
+  (of-object "PangoFontDescription")
+  (c-name "pango_font_description_set_style")
+  (return-type "none")
+  (parameters
+    '("PangoStyle" "style")
+  )
+)
+
+(define-method get_style
+  (of-object "PangoFontDescription")
+  (c-name "pango_font_description_get_style")
+  (return-type "PangoStyle")
+)
+
+(define-method set_variant
+  (of-object "PangoFontDescription")
+  (c-name "pango_font_description_set_variant")
+  (return-type "none")
+  (parameters
+    '("PangoVariant" "variant")
+  )
+)
+
+(define-method get_variant
+  (of-object "PangoFontDescription")
+  (c-name "pango_font_description_get_variant")
+  (return-type "PangoVariant")
+)
+
+(define-method set_weight
+  (of-object "PangoFontDescription")
+  (c-name "pango_font_description_set_weight")
+  (return-type "none")
+  (parameters
+    '("PangoWeight" "weight")
+  )
+)
+
+(define-method get_weight
+  (of-object "PangoFontDescription")
+  (c-name "pango_font_description_get_weight")
+  (return-type "PangoWeight")
+)
+
+(define-method set_stretch
+  (of-object "PangoFontDescription")
+  (c-name "pango_font_description_set_stretch")
+  (return-type "none")
+  (parameters
+    '("PangoStretch" "stretch")
+  )
+)
+
+(define-method get_stretch
+  (of-object "PangoFontDescription")
+  (c-name "pango_font_description_get_stretch")
+  (return-type "PangoStretch")
+)
+
+(define-method set_size
+  (of-object "PangoFontDescription")
+  (c-name "pango_font_description_set_size")
+  (return-type "none")
+  (parameters
+    '("gint" "size")
+  )
+)
+
+(define-method get_size
+  (of-object "PangoFontDescription")
+  (c-name "pango_font_description_get_size")
+  (return-type "gint")
+)
+
+(define-method set_absolute_size
+  (of-object "PangoFontDescription")
+  (c-name "pango_font_description_set_absolute_size")
+  (return-type "none")
+  (parameters
+    '("double" "size")
+  )
+)
+
+(define-method get_size_is_absolute
+  (of-object "PangoFontDescription")
+  (c-name "pango_font_description_get_size_is_absolute")
+  (return-type "gboolean")
+)
+
+(define-method get_set_fields
+  (of-object "PangoFontDescription")
+  (c-name "pango_font_description_get_set_fields")
+  (return-type "PangoFontMask")
+)
+
+(define-method unset_fields
+  (of-object "PangoFontDescription")
+  (c-name "pango_font_description_unset_fields")
+  (return-type "none")
+  (parameters
+    '("PangoFontMask" "to_unset")
+  )
+)
+
+(define-method merge
+  (of-object "PangoFontDescription")
+  (c-name "pango_font_description_merge")
+  (return-type "none")
+  (parameters
+    '("const-PangoFontDescription*" "desc_to_merge")
+    '("gboolean" "replace_existing")
+  )
+)
+
+(define-method merge_static
+  (of-object "PangoFontDescription")
+  (c-name "pango_font_description_merge_static")
+  (return-type "none")
+  (parameters
+    '("const-PangoFontDescription*" "desc_to_merge")
+    '("gboolean" "replace_existing")
+  )
+)
+
+(define-method better_match
+  (of-object "PangoFontDescription")
+  (c-name "pango_font_description_better_match")
+  (return-type "gboolean")
+  (parameters
+    '("const-PangoFontDescription*" "old_match" (default "NULL") (null-ok))
+    '("const-PangoFontDescription*" "new_match")
+  )
+)
+
+(define-function pango_font_description_from_string
+  (is-constructor-of "PangoFontDescription")
+  (c-name "pango_font_description_from_string")
+  (caller-owns-return #t)
+  (return-type "PangoFontDescription*")
+  (parameters
+    '("const-char*" "str")
+  )
+)
+
+(define-method to_string
+  (of-object "PangoFontDescription")
+  (c-name "pango_font_description_to_string")
+  (caller-owns-return #t)
+  (return-type "char*")
+)
+
+(define-method to_filename
+  (of-object "PangoFontDescription")
+  (c-name "pango_font_description_to_filename")
+  (caller-owns-return #t)
+  (return-type "char*")
+)
+

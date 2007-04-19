@@ -1,0 +1,28 @@
+(define-object PixbufSimpleAnim
+  (in-module "Gdk")
+  (parent "GdkPixbufAnimation")
+  (c-name "GdkPixbufSimpleAnim")
+  (gtype-id "GDK_TYPE_PIXBUF_SIMPLE_ANIM")
+)
+
+(define-function pixbuf_simple_anim_new
+  (is-constructor-of "GdkPixbufSimpleAnim")
+  (c-name "gdk_pixbuf_simple_anim_new")
+  (caller-owns-return #t)
+  (return-type "GdkPixbufSimpleAnim*")
+  (parameters
+    '("gint" "width")
+    '("gint" "height")
+    '("gfloat" "rate")
+  )
+)
+
+(define-method add_frame
+  (of-object "GdkPixbufSimpleAnim")
+  (c-name "gdk_pixbuf_simple_anim_add_frame")
+  (return-type "none")
+  (parameters
+    '("GdkPixbuf*" "pixbuf")
+  )
+)
+

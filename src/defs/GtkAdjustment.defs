@@ -1,0 +1,91 @@
+(define-object Adjustment
+  (in-module "Gtk")
+  (parent "GtkObject")
+  (c-name "GtkAdjustment")
+  (gtype-id "GTK_TYPE_ADJUSTMENT")
+  (fields
+    '("gfloat" "value")
+    '("gfloat" "lower")
+    '("gfloat" "upper")
+    '("gfloat" "step_increment")
+    '("gfloat" "page_increment")
+    '("gfloat" "page_size")
+  )
+)
+
+(define-method set_all
+  (of-object "GtkAdjustment")
+  (c-name "gtk_adjustment_set_all")
+  (return-type "none")
+  (parameters
+    '("gfloat" "value")
+    '("gfloat" "lower")
+    '("gfloat" "upper")
+    '("gfloat" "step_increment")
+    '("gfloat" "page_increment")
+    '("gfloat" "page_size")
+  )
+)
+
+(define-function gtk_adjustment_new
+  (is-constructor-of "GtkAdjustment")
+  (c-name "gtk_adjustment_new")
+  (caller-owns-return #t)
+  (return-type "GtkObject*")
+  (properties
+    '("value" (optional))
+    '("lower" (optional))
+    '("upper" (optional))
+    '("step_increment" (optional))
+    '("page_increment" (optional))
+    '("page_size" (optional))
+  )
+)
+
+(define-method changed
+  (of-object "GtkAdjustment")
+  (c-name "gtk_adjustment_changed")
+  (return-type "none")
+)
+
+(define-method value_changed
+  (of-object "GtkAdjustment")
+  (c-name "gtk_adjustment_value_changed")
+  (return-type "none")
+)
+
+(define-method clamp_page
+  (of-object "GtkAdjustment")
+  (c-name "gtk_adjustment_clamp_page")
+  (return-type "none")
+  (parameters
+    '("gdouble" "lower")
+    '("gdouble" "upper")
+  )
+)
+
+(define-method get_value
+  (of-object "GtkAdjustment")
+  (c-name "gtk_adjustment_get_value")
+  (return-type "gdouble")
+)
+
+(define-method set_value
+  (of-object "GtkAdjustment")
+  (c-name "gtk_adjustment_set_value")
+  (return-type "none")
+  (parameters
+    '("gdouble" "value")
+  )
+)
+
+(define-virtual changed
+  (of-object "GtkAdjustment")
+  (return-type "none")
+)
+
+(define-virtual value_changed
+  (of-object "GtkAdjustment")
+  (return-type "none")
+)
+

@@ -1,0 +1,87 @@
+(define-boxed AttrList
+  (in-module "Pango")
+  (c-name "PangoAttrList")
+  (gtype-id "PANGO_TYPE_ATTR_LIST")
+  (copy-func "pango_attr_list_ref")
+  (release-func "pango_attr_list_unref")
+)
+
+(define-function pango_attr_list_new
+  (is-constructor-of "PangoAttrList")
+  (c-name "pango_attr_list_new")
+  (caller-owns-return #t)
+  (return-type "PangoAttrList*")
+)
+
+(define-method ref
+  (of-object "PangoAttrList")
+  (c-name "pango_attr_list_ref")
+  (return-type "none")
+)
+
+(define-method unref
+  (of-object "PangoAttrList")
+  (c-name "pango_attr_list_unref")
+  (return-type "none")
+)
+
+(define-method copy
+  (of-object "PangoAttrList")
+  (c-name "pango_attr_list_copy")
+  (return-type "PangoAttrList*")
+)
+
+(define-method insert
+  (of-object "PangoAttrList")
+  (c-name "pango_attr_list_insert")
+  (return-type "none")
+  (parameters
+    '("PangoAttribute*" "attr")
+  )
+)
+
+(define-method insert_before
+  (of-object "PangoAttrList")
+  (c-name "pango_attr_list_insert_before")
+  (return-type "none")
+  (parameters
+    '("PangoAttribute*" "attr")
+  )
+)
+
+(define-method change
+  (of-object "PangoAttrList")
+  (c-name "pango_attr_list_change")
+  (return-type "none")
+  (parameters
+    '("PangoAttribute*" "attr")
+  )
+)
+
+(define-method splice
+  (of-object "PangoAttrList")
+  (c-name "pango_attr_list_splice")
+  (return-type "none")
+  (parameters
+    '("PangoAttrList*" "other")
+    '("gint" "pos")
+    '("gint" "len")
+  )
+)
+
+(define-method filter
+  (of-object "PangoAttrList")
+  (c-name "pango_attr_list_filter")
+  (return-type "PangoAttrList*")
+  (parameters
+    '("PangoAttrFilterFunc" "func")
+    '("gpointer" "data")
+  )
+)
+
+(define-method get_iterator
+  (of-object "PangoAttrList")
+  (c-name "pango_attr_list_get_iterator")
+  (return-type "PangoAttrIterator*")
+)
+

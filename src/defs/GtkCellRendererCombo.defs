@@ -1,0 +1,14 @@
+(define-object CellRendererCombo
+  (in-module "Gtk")
+  (parent "GtkCellRendererText")
+  (c-name "GtkCellRendererCombo")
+  (gtype-id "GTK_TYPE_CELL_RENDERER_COMBO")
+)
+
+(define-function gtk_cell_renderer_combo_new
+  (is-constructor-of "GtkCellRendererCombo")
+  (c-name "gtk_cell_renderer_combo_new")
+  (caller-owns-return #t)
+  (return-type "GtkCellRenderer*")
+)
+

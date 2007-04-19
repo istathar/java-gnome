@@ -1,0 +1,17 @@
+(define-enum PrintStatus
+  (in-module "Gtk")
+  (c-name "GtkPrintStatus")
+  (gtype-id "GTK_TYPE_PRINT_STATUS")
+  (values
+    '("initial" "GTK_PRINT_STATUS_INITIAL")
+    '("preparing" "GTK_PRINT_STATUS_PREPARING")
+    '("generating-data" "GTK_PRINT_STATUS_GENERATING_DATA")
+    '("sending-data" "GTK_PRINT_STATUS_SENDING_DATA")
+    '("pending" "GTK_PRINT_STATUS_PENDING")
+    '("pending-issue" "GTK_PRINT_STATUS_PENDING_ISSUE")
+    '("printing" "GTK_PRINT_STATUS_PRINTING")
+    '("finished" "GTK_PRINT_STATUS_FINISHED")
+    '("finished-aborted" "GTK_PRINT_STATUS_FINISHED_ABORTED")
+  )
+)
+

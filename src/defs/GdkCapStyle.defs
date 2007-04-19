@@ -1,0 +1,12 @@
+(define-enum CapStyle
+  (in-module "Gdk")
+  (c-name "GdkCapStyle")
+  (gtype-id "GDK_TYPE_CAP_STYLE")
+  (values
+    '("not-last" "GDK_CAP_NOT_LAST")
+    '("butt" "GDK_CAP_BUTT")
+    '("round" "GDK_CAP_ROUND")
+    '("projecting" "GDK_CAP_PROJECTING")
+  )
+)
+

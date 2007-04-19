@@ -1,0 +1,62 @@
+(define-method render_page
+  (of-object "GtkPrintOperationPreview")
+  (c-name "gtk_print_operation_preview_render_page")
+  (return-type "none")
+  (parameters
+    '("gint" "page_nr")
+  )
+)
+
+(define-method end_preview
+  (of-object "GtkPrintOperationPreview")
+  (c-name "gtk_print_operation_preview_end_preview")
+  (return-type "none")
+)
+
+(define-method is_selected
+  (of-object "GtkPrintOperationPreview")
+  (c-name "gtk_print_operation_preview_is_selected")
+  (return-type "gboolean")
+  (parameters
+    '("gint" "page_nr")
+  )
+)
+
+(define-virtual ready
+  (of-object "GtkPrintOperationPreview")
+  (return-type "none")
+  (parameters
+    '("GtkPrintContext*" "context")
+  )
+)
+
+(define-virtual got_page_size
+  (of-object "GtkPrintOperationPreview")
+  (return-type "none")
+  (parameters
+    '("GtkPrintContext*" "context")
+    '("GtkPageSetup*" "page_setup")
+  )
+)
+
+(define-virtual render_page
+  (of-object "GtkPrintOperationPreview")
+  (return-type "none")
+  (parameters
+    '("gint" "page_nr")
+  )
+)
+
+(define-virtual is_selected
+  (of-object "GtkPrintOperationPreview")
+  (return-type "gboolean")
+  (parameters
+    '("gint" "page_nr")
+  )
+)
+
+(define-virtual end_preview
+  (of-object "GtkPrintOperationPreview")
+  (return-type "none")
+)
+

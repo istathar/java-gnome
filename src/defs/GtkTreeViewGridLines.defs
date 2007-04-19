@@ -1,0 +1,12 @@
+(define-enum TreeViewGridLines
+  (in-module "Gtk")
+  (c-name "GtkTreeViewGridLines")
+  (gtype-id "GTK_TYPE_TREE_VIEW_GRID_LINES")
+  (values
+    '("none" "GTK_TREE_VIEW_GRID_LINES_NONE")
+    '("horizontal" "GTK_TREE_VIEW_GRID_LINES_HORIZONTAL")
+    '("vertical" "GTK_TREE_VIEW_GRID_LINES_VERTICAL")
+    '("both" "GTK_TREE_VIEW_GRID_LINES_BOTH")
+  )
+)
+

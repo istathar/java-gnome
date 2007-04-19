@@ -1,0 +1,25 @@
+(define-object IMContextSimple
+  (in-module "Gtk")
+  (parent "GtkIMContext")
+  (c-name "GtkIMContextSimple")
+  (gtype-id "GTK_TYPE_IM_CONTEXT_SIMPLE")
+)
+
+(define-function gtk_im_context_simple_new
+  (is-constructor-of "GtkIMContextSimple")
+  (c-name "gtk_im_context_simple_new")
+  (caller-owns-return #t)
+  (return-type "GtkIMContext*")
+)
+
+(define-method add_table
+  (of-object "GtkIMContextSimple")
+  (c-name "gtk_im_context_simple_add_table")
+  (return-type "none")
+  (parameters
+    '("guint16*" "data")
+    '("gint" "max_seq_len")
+    '("gint" "n_seqs")
+  )
+)
+

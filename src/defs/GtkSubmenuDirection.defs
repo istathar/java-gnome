@@ -1,0 +1,10 @@
+(define-enum SubmenuDirection
+  (in-module "Gtk")
+  (c-name "GtkSubmenuDirection")
+  (gtype-id "GTK_TYPE_SUBMENU_DIRECTION")
+  (values
+    '("left" "GTK_DIRECTION_LEFT")
+    '("right" "GTK_DIRECTION_RIGHT")
+  )
+)
+

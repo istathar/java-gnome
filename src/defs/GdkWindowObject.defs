@@ -1,0 +1,7 @@
+(define-object WindowObject
+  (in-module "Gdk")
+  (parent "GdkDrawable")
+  (c-name "GdkWindowObject")
+  (gtype-id "GDK_TYPE_WINDOW_OBJECT")
+)
+

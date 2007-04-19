@@ -1,0 +1,16 @@
+(define-flags WindowAttributesType
+  (in-module "Gdk")
+  (c-name "GdkWindowAttributesType")
+  (gtype-id "GDK_TYPE_WINDOW_ATTRIBUTES_TYPE")
+  (values
+    '("title" "GDK_WA_TITLE")
+    '("x" "GDK_WA_X")
+    '("y" "GDK_WA_Y")
+    '("cursor" "GDK_WA_CURSOR")
+    '("colormap" "GDK_WA_COLORMAP")
+    '("visual" "GDK_WA_VISUAL")
+    '("wmclass" "GDK_WA_WMCLASS")
+    '("noredir" "GDK_WA_NOREDIR")
+  )
+)
+

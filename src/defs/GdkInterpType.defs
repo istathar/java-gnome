@@ -1,0 +1,12 @@
+(define-enum InterpType
+  (in-module "Gdk")
+  (c-name "GdkInterpType")
+  (gtype-id "GDK_TYPE_INTERP_TYPE")
+  (values
+    '("nearest" "GDK_INTERP_NEAREST")
+    '("tiles" "GDK_INTERP_TILES")
+    '("bilinear" "GDK_INTERP_BILINEAR")
+    '("hyper" "GDK_INTERP_HYPER")
+  )
+)
+
