@@ -1,8 +1,17 @@
-package org.gnome.codegen;
+package com.operationaldynamics.codegen;
 
 import junit.framework.TestCase;
 
-public class UtilityMethodsTest extends TestCase
+/**
+ * While much of the output from the code generator is subjective (ie
+ * formatting and code style), there are numerous helper methods used to
+ * transform the .defs data to that needed by the java-gnome bindings. These
+ * we can test.
+ * 
+ * @author Andrew Cowie
+ * @since 4.0.3
+ */
+public class ValidateUtilityMethods extends TestCase
 {
     public final void testEncodeJavaNamesToJni() {
         assertEquals("org_gnome_gtk_GtkButton", Generator.encodeJavaClassName("org.gnome.gtk",

@@ -8,7 +8,7 @@
  * version 2" See the LICENCE file for the terms governing usage and
  * redistribution.
  */
-package org.gnome.codegen;
+package com.operationaldynamics.codegen;
 
 /**
  * Base class for the Generators which create the files for types we are

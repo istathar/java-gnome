@@ -22,7 +22,7 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="src" output="tmp/generator" path="src/generator"/>
-	<classpathentry kind="src" path="tests/generator"/>
+	<classpathentry kind="src" output="tmp/tests" path="tests/generator"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/3.8.1"/>
 	<classpathentry kind="output" path="tmp/classes"/>
 </classpath>

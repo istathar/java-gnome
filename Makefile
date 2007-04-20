@@ -44,9 +44,11 @@ build/config: .config build/dirs
 	( if [ ! "$(JAVA_CMD)" ] ; then echo "Sanity check failed. Run ./configure" ; exit 1 ; fi )
 	touch $@
 
+SOURCES_CODEGEN=$(shell find src/generator -name '*.java')
+
 SOURCES_DIST=$(shell find src/bindings -name '*.java') $(shell find mockup/bindings -name '*.java' )
 
-SOURCES_TEST=$(shell find tests/prototype -name '*.java' ) $(shell find tests/bindings -name '*.java' )
+SOURCES_TEST=$(shell find tests/prototype -name '*.java' ) $(shell find tests/bindings -name '*.java' )  $(shell find tests/generator -name '*.java' )
 
 # These are just the headers which are crafted, not generated
 HEADERS_C=$(shell find src/jni -name '*.h' | sed -e 's/src\/jni/tmp\/include/g' -e 's/\.c/\.h/g')
@@ -74,9 +76,15 @@ build/dirs: .config
 # Source compilation
 # --------------------------------------------------------------------
 
-tmp/gtk-$(APIVERSION).jar: build/config build/classes-dist build/properties-dist
+tmp/gtk-$(APIVERSION).jar: build/config build/classes-codegen build/classes-dist build/properties-dist
 	@echo "$(JAR_CMD) $@"
 	cd tmp/bindings ; find . -name '*.class' -o -name '*.properties' | xargs $(JAR) cf ../../$@ 
+
+build/classes-codegen: $(SOURCES_CODEGEN)
+	@echo "$(JAVAC_CMD) tmp/generator/*.class"
+	$(JAVAC) -d tmp/generator -classpath tmp/generator -sourcepath src/generator $?
+	@echo "NOOP      CodeGenerator"
+	touch $@
 
 build/classes-dist: $(SOURCES_DIST)
 	@echo "$(JAVAC_CMD) tmp/bindings/*.class"
@@ -217,7 +225,7 @@ $(DESTDIR)$(PREFIX)/lib/libgtkjava-$(APIVERSION).so: tmp/libgtkjava-$(APIVERSION
 
 build/classes-test: $(SOURCES_TEST)
 	@echo "$(JAVAC_CMD) tmp/tests/*.class"
-	$(JAVAC) -d tmp/tests -classpath tmp/bindings:tmp/gtk-$(APIVERSION).jar:$(JUNIT_JARS) -sourcepath tests/prototype:tests/bindings $?
+	$(JAVAC) -d tmp/tests -classpath tmp/tests:tmp/generator:tmp/gtk-$(APIVERSION).jar:$(JUNIT_JARS) -sourcepath tests/prototype:tests/bindings:tmp/generator $?
 	touch $@
 
 # This is a bit of ugliness necessary to ensure that COLUMNS is in the
@@ -228,7 +236,7 @@ export COLUMNS:=$(shell stty size 2>/dev/null | sed -e 's/[0-9]* \([0-9]*\)/\1/'
 test: build-java build/classes-test
 	@echo "$(JAVA_CMD) UnitTests"
 	$(JAVA) \
-		-classpath tmp/tests:tmp/gtk-$(APIVERSION).jar:$(JUNIT_JARS) \
+		-classpath tmp/tests:tmp/generator:tmp/gtk-$(APIVERSION).jar:$(JUNIT_JARS) \
 		-Djava.library.path=tmp \
 		-ea \
 		UnitTests

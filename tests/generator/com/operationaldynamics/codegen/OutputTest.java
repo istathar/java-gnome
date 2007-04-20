@@ -1,4 +1,11 @@
-package org.gnome.codegen;
+package com.operationaldynamics.codegen;
+
+import com.operationaldynamics.codegen.ConstructorGenerator;
+import com.operationaldynamics.codegen.Generator;
+import com.operationaldynamics.codegen.MethodGenerator;
+import com.operationaldynamics.codegen.ObjectGenerator;
+import com.operationaldynamics.codegen.ObjectThing;
+import com.operationaldynamics.codegen.Thing;
 
 public class OutputTest
 {

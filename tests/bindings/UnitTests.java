@@ -21,6 +21,7 @@ import org.gnome.gtk.ValidateFileChoosing;
 import org.gnome.gtk.ValidatePacking;
 import org.gnome.gtk.ValidateProperties;
 
+import com.operationaldynamics.codegen.ValidateUtilityMethods;
 import com.operationaldynamics.junit.VerboseTestRunner;
 
 /**
@@ -85,6 +86,7 @@ public class UnitTests
 
         TestSuite suite = new TestSuite("All Unit Tests for java-gnome 4.0");
 
+        suite.addTestSuite(ValidateUtilityMethods.class);
         suite.addTestSuite(ValidateEnvironment.class);
         suite.addTestSuite(ValidateReferenceCounting.class);
         suite.addTestSuite(ValidateMemoryManagement.class);
