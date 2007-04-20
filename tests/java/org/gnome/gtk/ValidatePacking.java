@@ -25,9 +25,7 @@ public class ValidatePacking extends TestCaseGtk
     public final void testGetChildAndParent() {
         final Window w;
         final VBox x;
-        final Label l;
         final Button b;
-        final FileChooserButton fcb;
 
         w = new Window();
 
