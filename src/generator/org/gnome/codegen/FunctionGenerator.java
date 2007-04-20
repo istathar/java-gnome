@@ -10,39 +10,105 @@
  */
 package org.gnome.codegen;
 
+import java.io.PrintStream;
+
+/**
+ * Generate Java and C code for constructors and methods.
+ * 
+ * <p>
+ * Subclasses can override the individual steps of the generation sequence if
+ * they wish, however adjusting input passing up to this classes's constructor
+ * has been thus far been enough for constructors blocks and methods blocks.
+ * 
+ * @author Andrew Cowie
+ */
+
 abstract class FunctionGenerator extends Generator
 {
-    private FunctionBlock block;
+    protected final ObjectThing ofObject;
 
-    protected String javaReturn;
+    /**
+     * The name of the method that is exposed package visible to bindings
+     * hackers. Expected to be overridden by subclasses such as
+     * ConstuctorGenerator.
+     */
+    protected String translationMethodName;
 
-    protected String javaMethod;
+    protected final Thing returnType;
 
-    FunctionGenerator(FunctionBlock block) {
-        this.block = block;
+    protected final String nativeMethodName;
+
+    /**
+     * These are ordered collections so that sublcasses like MethodGenerator
+     * can insert the reference-to-self as a first argument.
+     */
+    protected final Thing[] parameterTypes;
+
+    protected final String[] parameterNames;
+
+    /**
+     * 
+     * @param ofObject
+     *            the class to which the block we are generating code for
+     *            pertains.
+     * @param blockName
+     *            however the .defs data named this block. Usually it's a
+     *            "short" name such as "set_label".
+     * @param gReturnType
+     *            the return type, as specified in the .defs data
+     * @param cFunctionName
+     *            the C function name, as specified in the .defs data. This
+     *            will be used to name the native method.
+     * @param gParameters
+     *            an array of String[2] arrays, listing the type and name of
+     *            each parameter.
+     */
+    FunctionGenerator(final Thing ofObject, final String blockName, final String gReturnType,
+            final String cFunctionName, final String[][] gParameters) {
+
+        if (ofObject == null) {
+            throw new IllegalArgumentException(
+                    "\nYou need to work out which class this block goes with before calling this constructor.");
+        }
+        this.ofObject = (ObjectThing) ofObject;
+
+        this.translationMethodName = toCamel(blockName);
+
+        this.returnType = Thing.lookup(gReturnType);
+
+        this.nativeMethodName = cFunctionName;
+
+        parameterTypes = new Thing[gParameters.length];
+        parameterNames = new String[gParameters.length];
+
+        for (int i = 0; i < gParameters.length; i++) {
+            parameterTypes[i] = Thing.lookup(gParameters[i][0]);
+            parameterNames[i] = gParameters[i][1];
+        }
     }
 
     protected String translationMethodDeclaration() {
         StringBuffer buf;
-        String args[][];
 
         buf = new StringBuffer();
 
+        buf.append("\n");
         buf.append("    ");
         buf.append("static final ");
-        buf.append(toCamel(block.blockName));
+        buf.append(returnType.javaType);
+        buf.append(" ");
+        buf.append(translationMethodName);
 
         buf.append("(");
 
-        args = block.gParameters;
-        for (int i = 0; i < args.length; i++) {
+        for (int i = 0; i < parameterTypes.length; i++) {
             if (i > 0) {
                 buf.append(", ");
             }
 
-            buf.append(Thing.lookup(args[i][0]).javaType);
+            buf.append(parameterTypes[i].javaType);
             buf.append(" ");
-            buf.append(args[i][1]);
+            buf.append(parameterNames[i]);
         }
 
         buf.append(")");
@@ -60,10 +126,10 @@ abstract class FunctionGenerator extends Generator
          * Declare translation variables as necessary
          */
 
-        if (!block.gReturnType.equals("void")) {
+        if (!returnType.javaType.equals("void")) {
             buf.append("        ");
-            buf.append(Thing.lookup(block.gReturnType).nativeType);
-            buf.append(" result\n\n");
+            buf.append(returnType.nativeType);
+            buf.append(" result;\n\n");
         }
 
         /*
@@ -79,21 +145,24 @@ abstract class FunctionGenerator extends Generator
         buf = new StringBuffer();
 
         buf.append("        ");
-        buf.append(block.cFunctionName);
+        if (!returnType.javaType.equals("void")) {
+            buf.append("result = ");
+        }
+        buf.append(nativeMethodName);
         buf.append("(");
 
-        buf.append("pointerOf(this)");
-        for (int i = 0; i < block.gParameters.length; i++) {
-            buf.append(", ");
+        for (int i = 0; i < parameterTypes.length; i++) {
+            if (i > 0) {
+                buf.append(", ");
+            }
 
-            String translation = Thing.lookup(block.gParameters[i][0]).translationCode;
-            if (translation != null) {
-                buf.append(translation);
+            if (parameterTypes[i].translationCode != null) {
+                buf.append(parameterTypes[i].translationCode);
                 buf.append("(");
-                buf.append(block.gParameters[i][1]);
+                buf.append(parameterNames[i]);
                 buf.append(")");
             } else {
-                buf.append(block.gParameters[i][1]);
+                buf.append(parameterNames[i]);
             }
         }
 
@@ -107,11 +176,13 @@ abstract class FunctionGenerator extends Generator
 
         buf = new StringBuffer();
 
-        if (!block.gReturnType.equals("void")) {
-            // if instanceOf ObjectThing...
+        if (!returnType.javaType.equals("void")) {
+            buf.append("\n");
             buf.append("        return ");
-            buf.append(Thing.lookup(block.gReturnType).nativeType);
-            buf.append(" result\n");
+            // if instanceOf ObjectThing...
+            buf.append("result");
+            // )
+            buf.append(";\n");
         }
 
         buf.append("    }\n");
@@ -125,18 +196,19 @@ abstract class FunctionGenerator extends Generator
 
         buf.append("    ");
         buf.append("private static final ");
-        buf.append(Thing.lookup(block.gReturnType).nativeType);
+        buf.append(returnType.nativeType);
         buf.append(" ");
-        buf.append(block.cFunctionName);
+        buf.append(nativeMethodName);
         buf.append("(");
 
-        buf.append("long self");
-        for (int i = 0; i < block.gParameters.length; i++) {
-            buf.append(", ");
+        for (int i = 0; i < parameterTypes.length; i++) {
+            if (i > 0) {
+                buf.append(", ");
+            }
 
-            buf.append(Thing.lookup(block.gParameters[i][0]).nativeType);
+            buf.append(parameterTypes[i].nativeType);
             buf.append(" ");
-            buf.append(block.gParameters[i][1]);
+            buf.append(parameterNames[i]);
         }
 
         buf.append(");\n");
@@ -178,4 +250,20 @@ abstract class FunctionGenerator extends Generator
     protected void jniFunctionReturnCode() {
 
     }
+
+    void writeJava(PrintStream out) {
+        out.print(translationMethodDeclaration());
+        out.print(translationMethodConversionCode());
+        out.print(translationMethodNativeCall());
+        out.print(translationMethodReturnCode());
+
+        out.println();
+
+        out.print(nativeMethodDeclaration());
+    }
+
+    void writeC(PrintStream out) {
+        out.println("TODO");
+    }
+
 }
