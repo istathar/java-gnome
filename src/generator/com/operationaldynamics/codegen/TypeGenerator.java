@@ -48,5 +48,4 @@ abstract class TypeGenerator extends Generator
         out.print(" * this class.\n");
         out.print(" */\n");
     }
-
 }

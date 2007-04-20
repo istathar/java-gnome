@@ -12,6 +12,12 @@ package com.operationaldynamics.codegen;
 
 import java.io.PrintStream;
 
+/**
+ * Output the file header and include statements necessary to begin the
+ * translation code for a GObject.
+ * 
+ * @author Andrew Cowie
+ */
 class ObjectGenerator extends TypeGenerator
 {
     ObjectThing forObject;
@@ -46,7 +52,6 @@ class ObjectGenerator extends TypeGenerator
         out.print("#include \"");
         out.print(encodeJavaClassName(forObject.bindingsPackage, forObject.bindingsClass));
         out.print(".h\";\n");
-        out.print("\n");
     }
 
     void writeJava(PrintStream out) {

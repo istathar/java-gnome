@@ -22,7 +22,6 @@ import java.io.PrintStream;
  * 
  * @author Andrew Cowie
  */
-
 abstract class FunctionGenerator extends Generator
 {
     protected final ObjectThing ofObject;
@@ -123,10 +122,9 @@ abstract class FunctionGenerator extends Generator
         }
 
         /*
-         * Convert (translate) variables from public Java to JNI boundary
-         * crossing TODO out parameters
+         * TODO convert (translate) variables from public Java to JNI boundary
+         * crossing (ie, out-parameters)
          */
-
     }
 
     protected void translationMethodNativeCall(PrintStream out) {
@@ -340,8 +338,8 @@ abstract class FunctionGenerator extends Generator
         }
 
         /*
-         * return result if applicable. Specific code for
-         * certain types; most others, just a cast.
+         * return result if applicable. Specific code for certain types; most
+         * others, just a cast.
          */
 
         if (!returnType.jniType.equals("void")) {
@@ -349,7 +347,7 @@ abstract class FunctionGenerator extends Generator
             out.print("\t// and finally\n");
 
             out.print("\treturn ");
-            
+
             if (returnType.jniType.equals("jstring")) {
                 out.print("\t(*env)->NewStringUTF(env, result);");
             } else {
@@ -380,5 +378,4 @@ abstract class FunctionGenerator extends Generator
         jniFunctionLibraryCall(out);
         jniFunctionReturnCode(out);
     }
-
 }

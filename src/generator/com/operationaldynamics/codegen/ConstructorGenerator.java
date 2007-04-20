@@ -11,6 +11,7 @@
 package com.operationaldynamics.codegen;
 
 /**
+ * Output the code corresponding to a constructor function on a GObject.
  * 
  * <p>
  * Source .defs data for a constructor is of the following form:

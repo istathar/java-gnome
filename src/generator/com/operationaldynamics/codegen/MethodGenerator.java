@@ -10,9 +10,8 @@
  */
 package com.operationaldynamics.codegen;
 
-import java.io.PrintStream;
-
 /**
+ * Output the code corresponding to a GObject method definition.
  * 
  * <p>
  * Source .defs data for a constructor is of the following form:
@@ -43,8 +42,7 @@ import java.io.PrintStream;
 class MethodGenerator extends FunctionGenerator
 {
 
-    /**
-     * 
+    /** 
      * @param ofObject
      * @param blockName
      * @param gReturnType
@@ -64,7 +62,7 @@ class MethodGenerator extends FunctionGenerator
         String[][] target;
 
         if (parameters == null) {
-            parameters = new String[][] { };
+            parameters = new String[][] {};
         }
         target = new String[parameters.length + 1][2];
         System.arraycopy(parameters, 0, target, 1, parameters.length);
