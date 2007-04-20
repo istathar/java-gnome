@@ -87,191 +87,298 @@ abstract class FunctionGenerator extends Generator
         }
     }
 
-    protected String translationMethodDeclaration() {
-        StringBuffer buf;
+    protected void translationMethodDeclaration(PrintStream out) {
+        out.print("\n");
+        out.print("    ");
+        out.print("static final ");
+        out.print(returnType.javaType);
+        out.print(" ");
+        out.print(translationMethodName);
 
-        buf = new StringBuffer();
-
-        buf.append("\n");
-        buf.append("    ");
-        buf.append("static final ");
-        buf.append(returnType.javaType);
-        buf.append(" ");
-        buf.append(translationMethodName);
-
-        buf.append("(");
+        out.print("(");
 
         for (int i = 0; i < parameterTypes.length; i++) {
             if (i > 0) {
-                buf.append(", ");
+                out.print(", ");
             }
 
-            buf.append(parameterTypes[i].javaType);
-            buf.append(" ");
-            buf.append(parameterNames[i]);
+            out.print(parameterTypes[i].javaType);
+            out.print(" ");
+            out.print(parameterNames[i]);
         }
 
-        buf.append(")");
-        buf.append(" {\n");
-
-        return buf.toString();
+        out.print(")");
+        out.print(" {\n");
     }
 
-    protected String translationMethodConversionCode() {
-        StringBuffer buf;
-
-        buf = new StringBuffer();
-
+    protected void translationMethodConversionCode(PrintStream out) {
         /*
          * Declare translation variables as necessary
          */
 
         if (!returnType.javaType.equals("void")) {
-            buf.append("        ");
-            buf.append(returnType.nativeType);
-            buf.append(" result;\n\n");
+            out.print("        ");
+            out.print(returnType.nativeType);
+            out.print(" result;\n\n");
         }
 
         /*
          * Convert (translate) variables from public Java to JNI boundary
-         * crossing
+         * crossing TODO out parameters
          */
 
-        return buf.toString();
     }
 
-    protected String translationMethodNativeCall() {
-        StringBuffer buf;
-        buf = new StringBuffer();
-
-        buf.append("        ");
+    protected void translationMethodNativeCall(PrintStream out) {
+        out.print("        ");
         if (!returnType.javaType.equals("void")) {
-            buf.append("result = ");
+            out.print("result = ");
         }
-        buf.append(nativeMethodName);
-        buf.append("(");
+        out.print(nativeMethodName);
+        out.print("(");
 
         for (int i = 0; i < parameterTypes.length; i++) {
             if (i > 0) {
-                buf.append(", ");
+                out.print(", ");
             }
 
             if (parameterTypes[i].translationCode != null) {
-                buf.append(parameterTypes[i].translationCode);
-                buf.append("(");
-                buf.append(parameterNames[i]);
-                buf.append(")");
+                out.print(parameterTypes[i].translationCode);
+                out.print("(");
+                out.print(parameterNames[i]);
+                out.print(")");
             } else {
-                buf.append(parameterNames[i]);
+                out.print(parameterNames[i]);
             }
         }
 
-        buf.append(");\n");
-
-        return buf.toString();
+        out.print(");\n");
     }
 
-    protected String translationMethodReturnCode() {
-        StringBuffer buf;
-
-        buf = new StringBuffer();
-
-        if (!returnType.javaType.equals("void")) {
-            buf.append("\n");
-            buf.append("        return ");
+    protected void translationMethodReturnCode(PrintStream out) {
+        if (!returnType.nativeType.equals("void")) {
+            out.print("\n");
+            out.print("        return ");
             if (returnType instanceof ObjectThing) {
-                buf.append("objectFor(result)");
+                out.print("objectFor(result)");
             } else if (returnType instanceof EnumThing) {
-                buf.append("constantFor(");
-                buf.append(returnType.bindingsPackage);
-                buf.append(".");
-                buf.append(returnType.javaType);
-                buf.append(".class, result)");
+                out.print("constantFor(");
+                out.print(returnType.bindingsPackage);
+                out.print(".");
+                out.print(returnType.javaType);
+                out.print(".class, result)");
             } else {
-                buf.append("result");
+                out.print("result");
             }
-            buf.append(";\n");
+            out.print(";\n");
         }
 
-        buf.append("    }\n");
-        return buf.toString();
+        out.print("    }\n");
     }
 
-    protected String nativeMethodDeclaration() {
-        StringBuffer buf;
-
-        buf = new StringBuffer();
-
-        buf.append("    ");
-        buf.append("private static native final ");
-        buf.append(returnType.nativeType);
-        buf.append(" ");
-        buf.append(nativeMethodName);
-        buf.append("(");
+    protected void nativeMethodDeclaration(PrintStream out) {
+        out.print("    ");
+        out.print("private static native final ");
+        out.print(returnType.nativeType);
+        out.print(" ");
+        out.print(nativeMethodName);
+        out.print("(");
 
         for (int i = 0; i < parameterTypes.length; i++) {
             if (i > 0) {
-                buf.append(", ");
+                out.print(", ");
             }
 
-            buf.append(parameterTypes[i].nativeType);
-            buf.append(" ");
-            buf.append(parameterNames[i]);
+            out.print(parameterTypes[i].nativeType);
+            out.print(" ");
+            out.print(parameterNames[i]);
         }
 
-        buf.append(");\n");
-
-        return buf.toString();
+        out.print(");\n");
     }
 
-    protected String jniFunctionDeclaration(String jniReturnType, String javaPackageName,
-            String javaClassName, String javaMethodName) {
-        StringBuffer buf;
+    protected void jniFunctionDeclaration(PrintStream out) {
+        out.print("\n");
+        out.print("JNIEXPORT ");
+        out.print(returnType.jniType);
+        out.print(" JNICALL\n");
 
-        buf = new StringBuffer();
+        out.print("Java_");
+        out.print(encodeJavaClassName(ofObject.bindingsPackage, ofObject.bindingsClass));
+        out.print("_");
+        out.print(encodeJavaMethodName(nativeMethodName));
+        out.print("\n(\n");
+        out.print("\tJNIEnv* env,\n");
+        out.print("\tjclass cls");
 
-        buf.append("JNIEXPORT ");
-        buf.append(jniReturnType);
-        buf.append(" JNICALL\n");
+        for (int i = 0; i < parameterTypes.length; i++) {
+            out.print(",\n\t");
 
-        buf.append("Java_");
-        buf.append(encodeJavaClassName(javaPackageName, javaClassName));
-        buf.append("_");
-        buf.append(javaClassName);
-        buf.append("_");
-        buf.append(encodeJavaMethodName(javaMethodName));
-        buf.append("\n(\n");
-        buf.append("\tJNIEnv* env,\n");
-        buf.append("\tjclass cls");
+            out.print(parameterTypes[i].jniType);
+            out.print(" _");
+            out.print(parameterNames[i]);
+        }
 
-        return buf.toString();
+        out.print("\n)\n{\n");
     }
 
-    protected void jniFunctionConversionCode() {
+    protected void jniFunctionConversionCode(PrintStream out) {
+        for (int i = 0; i < parameterTypes.length; i++) {
+            out.print("\t");
+            out.print(parameterTypes[i].cType);
+            out.print(" ");
+            out.print(parameterNames[i]);
+            out.print(";\n");
+        }
 
+        for (int i = 0; i < parameterTypes.length; i++) {
+            /*
+             * Comment
+             */
+            out.print("\n\t// convert parameter ");
+            out.print(parameterNames[i]);
+            out.print("\n");
+
+            /*
+             * variable equals
+             */
+            out.print("\t");
+            out.print(parameterNames[i]);
+
+            /*
+             * always a cast
+             */
+            out.print(" = (");
+            out.print(parameterTypes[i].cType);
+            out.print(") ");
+
+            /*
+             * and now a type specific decode:
+             */
+            if (parameterTypes[i].jniType.equals("jstring")) {
+                out.print("(*env)->GetStringUTFChars(env, _");
+                out.print(parameterNames[i]);
+                out.print(", NULL);\n");
+
+                out.print("\tif (");
+                out.print(parameterNames[i]);
+                out.print(" == NULL) {\n");
+                out.print("\t\treturn");
+                out.print(errorReturn(returnType));
+                out.print("; // OutOfMemoryError already thrown\n");
+                out.print("\t}\n");
+            } else {
+                out.print(parameterNames[i]);
+                out.print(";\n");
+            }
+            // TODO handle arrays carrying out parameters
+        }
     }
 
-    protected void jniFunctionLibraryCall() {
-
+    /**
+     * Little utility function so that when aborting out of a C function
+     * (because an Exception has been thrown) the correct syntax is used.
+     */
+    private String errorReturn(Thing returnType) {
+        if (returnType.jniType.equals("void")) {
+            return "";
+        } else if (returnType.jniType.equals("jboolean")) {
+            return " JNI_FALSE";
+        } else if (returnType.jniType.equals("jstring")) {
+            return " NULL";
+        } else if (returnType.jniType.equals("jint")) {
+            return " 0";
+        } else if (returnType.jniType.equals("jlong")) {
+            return " 0L";
+        } else {
+            return " FIXME";
+        }
     }
 
-    protected void jniFunctionReturnCode() {
+    protected void jniFunctionLibraryCall(PrintStream out) {
+        out.print("\n");
+        out.print("\t// call function\n");
 
+        out.print("\t");
+        if (!returnType.jniType.equals("void")) {
+            out.print("result = ");
+        }
+        out.print(nativeMethodName);
+        out.print("(");
+
+        for (int i = 0; i < parameterTypes.length; i++) {
+            if (i > 0) {
+                out.print(", ");
+            }
+
+            out.print(parameterNames[i]);
+        }
+        out.print(");\n");
+    }
+
+    /**
+     * Cleanup and return the result if not a void function.
+     */
+    protected void jniFunctionReturnCode(PrintStream out) {
+        /*
+         * type specific cleanup:
+         */
+
+        for (int i = 0; i < parameterTypes.length; i++) {
+            out.print("\n");
+            out.print("\t// cleanup parameter ");
+            out.print(parameterNames[i]);
+            out.print("\n");
+
+            if (parameterTypes[i].jniType.equals("jstring")) {
+                out.print("\t(*env)->RelaseStringUTFChars(env, _");
+                out.print(parameterNames[i]);
+                out.print(", ");
+                out.print(parameterNames[i]);
+                out.print(");\n");
+            }
+        }
+
+        /*
+         * return result if applicable. Specific code for
+         * certain types; most others, just a cast.
+         */
+
+        if (!returnType.jniType.equals("void")) {
+            out.print("\n");
+            out.print("\t// and finally\n");
+
+            out.print("\treturn ");
+            
+            if (returnType.jniType.equals("jstring")) {
+                out.print("\t(*env)->NewStringUTF(env, result);");
+            } else {
+                out.print("(");
+                out.print(returnType.jniType);
+                out.print(") result;");
+            }
+            out.print("\n");
+        }
+
+        out.print("}\n");
     }
 
     void writeJava(PrintStream out) {
-        out.print(translationMethodDeclaration());
-        out.print(translationMethodConversionCode());
-        out.print(translationMethodNativeCall());
-        out.print(translationMethodReturnCode());
+        translationMethodDeclaration(out);
+        translationMethodConversionCode(out);
+        translationMethodNativeCall(out);
+        translationMethodReturnCode(out);
 
         out.println();
 
-        out.print(nativeMethodDeclaration());
+        nativeMethodDeclaration(out);
     }
 
     void writeC(PrintStream out) {
-        out.println("TODO");
+        jniFunctionDeclaration(out);
+        jniFunctionConversionCode(out);
+        jniFunctionLibraryCall(out);
+        jniFunctionReturnCode(out);
     }
 
 }

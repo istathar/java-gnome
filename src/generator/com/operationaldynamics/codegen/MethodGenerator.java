@@ -74,8 +74,4 @@ class MethodGenerator extends FunctionGenerator
 
         return target;
     }
-
-    void writeC(PrintStream out) {
-        out.println("TODO");
-    }
 }

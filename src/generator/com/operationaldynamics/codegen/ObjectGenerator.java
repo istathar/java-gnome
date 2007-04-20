@@ -20,54 +20,42 @@ class ObjectGenerator extends TypeGenerator
         this.forObject = (ObjectThing) forObject;
     }
 
-    void writeJava(PrintStream out) {
-        out.print(commonFileHeader(forObject.bindingsClass + ".java"));
-        
-        out.print(packageStatementAndImports());
+    protected void packageStatementAndImports(PrintStream out) {
+        out.print("package ");
+        out.print(forObject.bindingsPackage);
+        out.print(";\n\n");
+
+        out.print("import org.gnome.glib.Plumbing;\n\n");
+
+        out.print("final class ");
+        out.print(forObject.bindingsClass);
+        out.print(" extends Plumbing\n{\n");
+
+        out.print("    ");
+        out.print("private ");
+        out.print(forObject.bindingsClass);
+        out.print("() {}\n");
     }
 
-    protected String packageStatementAndImports() {
-        StringBuffer buf;
+    protected void includeStatements(PrintStream out) {
+        out.print("\n");
+        out.print("#include <jni.h>\n");
+        out.print("#include <gtk/gtk.h>\n");
+        out.print("#include \"bindings_java.h\"\n");
 
-        buf = new StringBuffer();
+        out.print("#include \"");
+        out.print(encodeJavaClassName(forObject.bindingsPackage, forObject.bindingsClass));
+        out.print(".h\";\n");
+        out.print("\n");
+    }
 
-        buf.append("package ");
-        buf.append(forObject.bindingsPackage);
-        buf.append(";\n\n");
-
-        buf.append("import org.gnome.glib.Plumbing;\n\n");
-
-        buf.append("final class ");
-        buf.append(forObject.bindingsClass);
-        buf.append(" extends Plumbing\n{\n");
-
-        buf.append("    ");
-        buf.append("private ");
-        buf.append(forObject.bindingsClass);
-        buf.append("() { }\n");
-
-        return buf.toString();
+    void writeJava(PrintStream out) {
+        commonFileHeader(out, forObject.bindingsClass + ".java");
+        packageStatementAndImports(out);
     }
 
     void writeC(PrintStream out) {
-        out.println(commonFileHeader(forObject.bindingsClass + ".c"));
-
-        out.println(includeStatements());
+        commonFileHeader(out, forObject.bindingsClass + ".c");
+        includeStatements(out);
     }
-
-    protected String includeStatements() {
-        StringBuffer buf;
-
-        buf = new StringBuffer();
-        buf.append("#include <jni.h>\n");
-        buf.append("#include <gtk/gtk.h>\n");
-        buf.append("#include \"bindings_java.h\"\n");
-
-        buf.append("#include \"");
-        buf.append(encodeJavaClassName(forObject.bindingsPackage, forObject.bindingsClass));
-        buf.append(".h\";\n");
-
-        return buf.toString();
-    }
-
 }

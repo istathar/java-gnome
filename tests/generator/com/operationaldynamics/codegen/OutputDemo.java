@@ -19,8 +19,7 @@ public class OutputDemo
 
         // mockup
         button = new ObjectThing("GtkButton*", "org.gnome.gtk", "GtkButton", "Button");
-        things = new Thing[] {
-                button,
+        things = new Thing[] { button,
                 new ObjectThing("GtkWidget*", "org.gnome.gtk", "GtkWidget", "Widget"),
                 new EnumThing("GtkReliefStyle", "org.gnome.gtk", "GtkReliefStyle", "ReliefStyle") };
 
@@ -48,8 +47,9 @@ public class OutputDemo
 
         System.out.println("}");
 
-        // System.out.println("==========================================================================");
-        // gen1.writeC(System.out);
-        // gen2.writeC(System.out);
+        System.out.println("==========================================================================");
+        for (int i = 0; i < generators.length; i++) {
+            generators[i].writeC(System.out);
+        }
     }
 }
