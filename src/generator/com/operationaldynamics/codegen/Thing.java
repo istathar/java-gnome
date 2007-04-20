@@ -92,8 +92,8 @@ public abstract class Thing
 
         stored = (Thing) things.get(gType);
         if (stored == null) {
-            throw new IllegalStateException("\nYou've asked for the Thing corresponding to " + gType
-                    + " but it isn't registered.");
+            throw new IllegalStateException("\nYou've asked for the Thing corresponding to \"" + gType
+                    + "\" but it isn't registered.");
         }
 
         return stored;

@@ -63,6 +63,9 @@ class MethodGenerator extends FunctionGenerator
     static String[][] prependReferenceToSelf(Thing self, String[][] parameters) {
         String[][] target;
 
+        if (parameters == null) {
+            parameters = new String[][] { };
+        }
         target = new String[parameters.length + 1][2];
         System.arraycopy(parameters, 0, target, 1, parameters.length);
 

@@ -179,9 +179,17 @@ abstract class FunctionGenerator extends Generator
         if (!returnType.javaType.equals("void")) {
             buf.append("\n");
             buf.append("        return ");
-            // if instanceOf ObjectThing...
-            buf.append("result");
-            // )
+            if (returnType instanceof ObjectThing) {
+                buf.append("objectFor(result)");
+            } else if (returnType instanceof EnumThing) {
+                buf.append("constantFor(");
+                buf.append(returnType.bindingsPackage);
+                buf.append(".");
+                buf.append(returnType.javaType);
+                buf.append(".class, result)");
+            } else {
+                buf.append("result");
+            }
             buf.append(";\n");
         }
 
@@ -195,7 +203,7 @@ abstract class FunctionGenerator extends Generator
         buf = new StringBuffer();
 
         buf.append("    ");
-        buf.append("private static final ");
+        buf.append("private static native final ");
         buf.append(returnType.nativeType);
         buf.append(" ");
         buf.append(nativeMethodName);
