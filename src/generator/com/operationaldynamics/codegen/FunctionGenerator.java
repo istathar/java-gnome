@@ -10,7 +10,7 @@
  */
 package com.operationaldynamics.codegen;
 
-import java.io.PrintStream;
+import java.io.PrintWriter;
 
 /**
  * Generate Java and C code for constructors and methods.
@@ -86,7 +86,7 @@ abstract class FunctionGenerator extends Generator
         }
     }
 
-    protected void translationMethodDeclaration(PrintStream out) {
+    protected void translationMethodDeclaration(PrintWriter out) {
         out.print("\n");
         out.print("    ");
         out.print("static final ");
@@ -110,7 +110,7 @@ abstract class FunctionGenerator extends Generator
         out.print(" {\n");
     }
 
-    protected void translationMethodConversionCode(PrintStream out) {
+    protected void translationMethodConversionCode(PrintWriter out) {
         /*
          * Declare translation variables as necessary
          */
@@ -127,7 +127,7 @@ abstract class FunctionGenerator extends Generator
          */
     }
 
-    protected void translationMethodNativeCall(PrintStream out) {
+    protected void translationMethodNativeCall(PrintWriter out) {
         out.print("        ");
         if (!returnType.javaType.equals("void")) {
             out.print("result = ");
@@ -153,7 +153,7 @@ abstract class FunctionGenerator extends Generator
         out.print(");\n");
     }
 
-    protected void translationMethodReturnCode(PrintStream out) {
+    protected void translationMethodReturnCode(PrintWriter out) {
         if (!returnType.nativeType.equals("void")) {
             out.print("\n");
             out.print("        return ");
@@ -174,7 +174,7 @@ abstract class FunctionGenerator extends Generator
         out.print("    }\n");
     }
 
-    protected void nativeMethodDeclaration(PrintStream out) {
+    protected void nativeMethodDeclaration(PrintWriter out) {
         out.print("    ");
         out.print("private static native final ");
         out.print(returnType.nativeType);
@@ -195,7 +195,7 @@ abstract class FunctionGenerator extends Generator
         out.print(");\n");
     }
 
-    protected void jniFunctionDeclaration(PrintStream out) {
+    protected void jniFunctionDeclaration(PrintWriter out) {
         out.print("\n");
         out.print("JNIEXPORT ");
         out.print(returnType.jniType);
@@ -220,7 +220,7 @@ abstract class FunctionGenerator extends Generator
         out.print("\n)\n{\n");
     }
 
-    protected void jniFunctionConversionCode(PrintStream out) {
+    protected void jniFunctionConversionCode(PrintWriter out) {
         for (int i = 0; i < parameterTypes.length; i++) {
             out.print("\t");
             out.print(parameterTypes[i].cType);
@@ -293,7 +293,7 @@ abstract class FunctionGenerator extends Generator
         }
     }
 
-    protected void jniFunctionLibraryCall(PrintStream out) {
+    protected void jniFunctionLibraryCall(PrintWriter out) {
         out.print("\n");
         out.print("\t// call function\n");
 
@@ -317,7 +317,7 @@ abstract class FunctionGenerator extends Generator
     /**
      * Cleanup and return the result if not a void function.
      */
-    protected void jniFunctionReturnCode(PrintStream out) {
+    protected void jniFunctionReturnCode(PrintWriter out) {
         /*
          * type specific cleanup:
          */
@@ -361,7 +361,7 @@ abstract class FunctionGenerator extends Generator
         out.print("}\n");
     }
 
-    void writeJava(PrintStream out) {
+    void writeJava(PrintWriter out) {
         translationMethodDeclaration(out);
         translationMethodConversionCode(out);
         translationMethodNativeCall(out);
@@ -372,7 +372,7 @@ abstract class FunctionGenerator extends Generator
         nativeMethodDeclaration(out);
     }
 
-    void writeC(PrintStream out) {
+    void writeC(PrintWriter out) {
         jniFunctionDeclaration(out);
         jniFunctionConversionCode(out);
         jniFunctionLibraryCall(out);

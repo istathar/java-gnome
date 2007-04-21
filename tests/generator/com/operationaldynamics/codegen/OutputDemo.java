@@ -10,13 +10,20 @@
  */
 package com.operationaldynamics.codegen;
 
+import java.io.BufferedWriter;
+import java.io.OutputStreamWriter;
+import java.io.PrintWriter;
+
 public class OutputDemo
 {
     public static void main(String[] args) {
         final Generator[] generators;
         final Thing[] things;
         final Thing button;
+        final PrintWriter out;
 
+        out = new PrintWriter(new BufferedWriter(new OutputStreamWriter(System.out)), true);
+        
         // mockup
         button = new ObjectThing("GtkButton*", "org.gnome.gtk", "GtkButton", "Button");
         things = new Thing[] { button,
@@ -42,14 +49,18 @@ public class OutputDemo
                         null) };
 
         for (int i = 0; i < generators.length; i++) {
-            generators[i].writeJava(System.out);
+            generators[i].writeJava(out);
+            out.flush();
         }
 
-        System.out.println("}");
+        out.println("}");
 
-        System.out.println("==========================================================================");
+        out.println("==========================================================================");
         for (int i = 0; i < generators.length; i++) {
-            generators[i].writeC(System.out);
+            generators[i].writeC(out);
+            out.flush();
         }
+        
+        out.close();
     }
 }

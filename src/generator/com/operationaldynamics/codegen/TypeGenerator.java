@@ -10,7 +10,7 @@
  */
 package com.operationaldynamics.codegen;
 
-import java.io.PrintStream;
+import java.io.PrintWriter;
 
 /**
  * Base class for the Generators which create the files for types we are
@@ -28,7 +28,7 @@ abstract class TypeGenerator extends Generator
      * of single line strings with \n at the end of each. Oh well, it's done
      * now, and this was really the only long block of text.
      */
-    protected static void commonFileHeader(PrintStream out, String fileName) {
+    protected static void commonFileHeader(PrintWriter out, String fileName) {
         out.print("/*\n");
         out.print(" * ");
         out.print(fileName);

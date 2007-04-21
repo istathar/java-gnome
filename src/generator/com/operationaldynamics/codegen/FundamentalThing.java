@@ -27,7 +27,7 @@ class FundamentalThing extends Thing
             while ((i = buf.indexOf("-")) != -1) {
                 buf.setCharAt(i, ' ');
             }
-            
+
             cType = buf.toString();
         }
     }

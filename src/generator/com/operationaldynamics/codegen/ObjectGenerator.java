@@ -10,7 +10,7 @@
  */
 package com.operationaldynamics.codegen;
 
-import java.io.PrintStream;
+import java.io.PrintWriter;
 
 /**
  * Output the file header and include statements necessary to begin the
@@ -26,7 +26,7 @@ class ObjectGenerator extends TypeGenerator
         this.forObject = (ObjectThing) forObject;
     }
 
-    protected void packageStatementAndImports(PrintStream out) {
+    protected void packageStatementAndImports(PrintWriter out) {
         out.print("package ");
         out.print(forObject.bindingsPackage);
         out.print(";\n\n");
@@ -43,7 +43,7 @@ class ObjectGenerator extends TypeGenerator
         out.print("() {}\n");
     }
 
-    protected void includeStatements(PrintStream out) {
+    protected void includeStatements(PrintWriter out) {
         out.print("\n");
         out.print("#include <jni.h>\n");
         out.print("#include <gtk/gtk.h>\n");
@@ -54,12 +54,12 @@ class ObjectGenerator extends TypeGenerator
         out.print(".h\";\n");
     }
 
-    void writeJava(PrintStream out) {
+    void writeJava(PrintWriter out) {
         commonFileHeader(out, forObject.bindingsClass + ".java");
         packageStatementAndImports(out);
     }
 
-    void writeC(PrintStream out) {
+    void writeC(PrintWriter out) {
         commonFileHeader(out, forObject.bindingsClass + ".c");
         includeStatements(out);
     }

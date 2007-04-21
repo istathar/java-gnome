@@ -42,7 +42,7 @@ package com.operationaldynamics.codegen;
 class MethodGenerator extends FunctionGenerator
 {
 
-    /** 
+    /**
      * @param ofObject
      * @param blockName
      * @param gReturnType

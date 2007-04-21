@@ -10,7 +10,7 @@
  */
 package com.operationaldynamics.codegen;
 
-import java.io.PrintStream;
+import java.io.PrintWriter;
 
 /**
  * Base class of the code generator classes. Also houses numerous utility
@@ -21,11 +21,10 @@ import java.io.PrintStream;
  */
 abstract class Generator
 {
-    abstract void writeJava(PrintStream out);
+    abstract void writeJava(PrintWriter out);
 
-    abstract void writeC(PrintStream out);
+    abstract void writeC(PrintWriter out);
 
-    
     /**
      * Turn "org.gnome.glib", "GtkButton" into "org_gnome_glib_GtkButton"
      */
