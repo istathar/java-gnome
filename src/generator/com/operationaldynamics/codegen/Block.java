@@ -10,6 +10,11 @@
  */
 package com.operationaldynamics.codegen;
 
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+import java.util.Iterator;
+import java.util.List;
+
 /**
  * Base class representing a block s-expression .defs data. The system is
  * predicated around the notion that by the time you are done creating a Block
@@ -49,6 +54,104 @@ abstract class Block
      */
     final void setOfObject(final String ofObject) {
         this.ofObject = ofObject + '*';
+    }
+
+    /**
+     * Reflection engine to populate object members based on key/value pairs
+     * in list
+     */
+    protected void processCharacteristics(List list) {
+        Iterator iter;
+
+        if (list == null) {
+            return;
+        }
+
+        iter = list.iterator();
+        while (iter.hasNext()) {
+            final String[] array;
+            final String name, value;
+            final Class[] signature;
+            Method setter;
+            Class target;
+
+            array = (String[]) iter.next();
+
+            name = nameToMethod(array[0]);
+            value = array[1];
+
+            /*
+             * our setters are always setSomething(String)
+             */
+            signature = new Class[] {
+                String.class
+            };
+
+            /*
+             * Class's getMethod() searches super classes, but only for public
+             * methods. So we have to use getDeclaredMethod() and walk up the
+             * hierarchy. What a bore.
+             */
+
+            target = this.getClass();
+            setter = null;
+
+            while (target != Object.class) {
+                try {
+                    setter = target.getDeclaredMethod(name, signature);
+                    break;
+                } catch (NoSuchMethodException nsme) {
+                    target = target.getSuperclass();
+                }
+            }
+            if (setter == null) {
+                throw new IllegalStateException("setter " + name + " not found");
+            }
+
+            /*
+             * Call setter.
+             */
+
+            try {
+                setter.invoke(this, new Object[] {
+                    value
+                });
+            } catch (IllegalArgumentException e) {
+                // If all screwed up
+                e.printStackTrace();
+            } catch (IllegalAccessException e) {
+                // This shouldn't happen - setters are all protected here or
+                // super classes above us.
+                e.printStackTrace();
+            } catch (InvocationTargetException e) {
+                // the setter itself threw an exception! Crazy.
+                e.printStackTrace();
+            }
+        }
+    }
+
+    /**
+     * .defs files have characteristic names like "c-name" and "return-value".
+     * Convert these to "setCName" and "setReturnValue" for calling setter.
+     */
+    static final String nameToMethod(String key) {
+        StringBuffer buf;
+        int i;
+        char ch;
+
+        buf = new StringBuffer(key);
+        buf.insert(0, '-');
+
+        i = 0;
+        while ((i = buf.indexOf("-", i)) != -1) {
+            buf.deleteCharAt(i);
+            ch = buf.charAt(i);
+            buf.setCharAt(i, Character.toUpperCase(ch));
+        }
+
+        buf.insert(0, "set");
+
+        return buf.toString();
     }
 
     /**

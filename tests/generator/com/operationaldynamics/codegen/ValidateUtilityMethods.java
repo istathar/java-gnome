@@ -11,7 +11,7 @@ import junit.framework.TestCase;
  * @author Andrew Cowie
  * @since 4.0.3
  */
-public class ValidateUtilityMethods extends TestCase
+public final class ValidateUtilityMethods extends TestCase
 {
     public final void testEncodeJavaNamesToJni() {
         assertEquals("org_gnome_gtk_GtkButton", Generator.encodeJavaClassName("org.gnome.gtk",

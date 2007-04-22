@@ -10,20 +10,34 @@
  */
 package com.operationaldynamics.codegen;
 
+import java.util.List;
+
+/**
+ * Block object representing the .defs data defining a GObject.
+ * 
+ * @author Andrew Cowie
+ */
 class ObjectBlock extends TypeBlock
 {
     protected String parent;
 
-    protected String[][] fields;
-
-    ObjectBlock(final String blockName) {
+    ObjectBlock(final String blockName, final List characteristics, final List fields) {
         super(blockName);
-        setOfObject(blockName);
+
+        processCharacteristics(characteristics);
+        processFields(fields);
+
+        setOfObject(cName);
     }
 
-    final void setFields(final String[][] fields) {
-        this.fields = fields;
-    }
+    /**
+     * The "(fields ...)" subcharacteristic lines present in some GObject
+     * definitions are not used by the java-gnome bindings at present.
+     */
+    /*
+     * fields would be String[][]
+     */
+    protected final void processFields(List fields) {}
 
     final void setParent(final String parent) {
         this.parent = parent;

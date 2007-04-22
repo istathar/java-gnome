@@ -10,14 +10,60 @@
  */
 package com.operationaldynamics.codegen;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import junit.framework.TestCase;
 
-public class ValidateBlockUsage extends TestCase
+public final class ValidateBlockUsage extends TestCase
 {
 
-    public final void testBlockOfObjectSetsPointer() {
-        Block block = new ObjectBlock("GnomeBlah");
-        
+    public final void testBlockSetOfObjectAddsPointerSymbol() {
+        Block block = new ObjectBlock("Blah", null, null);
+
+        block.setOfObject("GnomeBlah");
         assertEquals("GnomeBlah*", block.ofObject);
+    }
+
+    public final void testCharacteristicNameToSetterMethod() {
+        assertEquals("setBeeBop", Block.nameToMethod("bee-bop"));
+    }
+
+    /**
+     * Not only tests the reflector in processCharacteristics(), but makes
+     * sure it works for subclasses even through the reflector code is in
+     * Block.
+     */
+    public final void testBlockReflectorKnownCharacteristic() {
+        List l;
+        ObjectBlock b;
+
+        l = new ArrayList();
+        l.add(new String[] {
+                "in-module", "Atk"
+        });
+
+        b = new ObjectBlock("AtkFoo", l, null);
+        assertNotNull(b);
+        assertEquals("Atk", b.inModule);
+    }
+
+    public final void testBlockReflectorBogusCharacteristic() {
+        List l;
+        ObjectBlock b;
+
+        l = new ArrayList();
+        l.add(new String[] {
+                "bee-bop", "is_a_cowboy"
+        });
+
+        b = null;
+        try {
+            b = new ObjectBlock("AnimeFoo", l, null);
+            fail("Should have thrown IllegalStateException because of a characteristic name that is no known");
+        } catch (IllegalStateException ise) {
+            // good
+        }
+        assertNull(b);
     }
 }

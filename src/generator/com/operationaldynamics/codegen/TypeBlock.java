@@ -21,9 +21,6 @@ abstract class TypeBlock extends Block
 
     protected String cName;
 
-    // which we ingore completely, incidentally
-    protected String gtypeId;
-
     protected TypeBlock(final String blockName) {
         super(blockName);
     }
@@ -32,9 +29,12 @@ abstract class TypeBlock extends Block
         this.cName = name;
     }
 
-    final void setGtypeId(final String gtypeId) {
-        this.gtypeId = gtypeId;
-    }
+    /**
+     * We ignore gtype-id completely as it is unnecessary in the java-gnome
+     * context, but this stub allows the reflection to work when it hits a
+     * characteristic so named.
+     */
+    final void setGtypeId(final String gtypeId) {}
 
     final void setInModule(final String inModule) {
         this.inModule = inModule;
