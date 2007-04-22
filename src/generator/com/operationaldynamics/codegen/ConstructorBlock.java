@@ -10,16 +10,17 @@
  */
 package com.operationaldynamics.codegen;
 
-public class ConstructorBlock extends FunctionBlock
+import java.util.List;
+
+class ConstructorBlock extends FunctionBlock
 {
-    String isConstructorOf;
+    protected String isConstructorOf;
     
-    ConstructorBlock(String blockName) {
-        super(blockName);
-        this.ofObject = null;
+    ConstructorBlock(String blockName, final List characteristics, final List parameters) {
+        super(blockName, characteristics, parameters);
     }
     
-    final void setIsConstructorOf(final String isConstructorOf) {
+    protected final void setIsConstructorOf(final String isConstructorOf) {
         this.isConstructorOf = isConstructorOf;
     }
     

@@ -43,8 +43,10 @@ abstract class Block
      */
     final String blockName;
 
-    protected Block(final String blockName) {
+    protected Block(final String blockName, final List characteristics) {
         this.blockName = blockName;
+
+        processCharacteristics(characteristics);
     }
 
     /**
@@ -60,7 +62,7 @@ abstract class Block
      * Reflection engine to populate object members based on key/value pairs
      * in list
      */
-    protected void processCharacteristics(List list) {
+    private void processCharacteristics(List list) {
         Iterator iter;
 
         if (list == null) {
@@ -120,7 +122,7 @@ abstract class Block
                 // If all screwed up
                 e.printStackTrace();
             } catch (IllegalAccessException e) {
-                // This shouldn't happen - setters are all protected here or
+                // This shouldn't happen - setters are all protected here or in
                 // super classes above us.
                 e.printStackTrace();
             } catch (InvocationTargetException e) {

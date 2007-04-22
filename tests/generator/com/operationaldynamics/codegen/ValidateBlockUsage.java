@@ -35,31 +35,31 @@ public final class ValidateBlockUsage extends TestCase
      * Block.
      */
     public final void testBlockReflectorKnownCharacteristic() {
-        List l;
+        List characteristics;
         ObjectBlock b;
 
-        l = new ArrayList();
-        l.add(new String[] {
+        characteristics = new ArrayList();
+        characteristics.add(new String[] {
                 "in-module", "Atk"
         });
 
-        b = new ObjectBlock("AtkFoo", l, null);
+        b = new ObjectBlock("AtkFoo", characteristics, null);
         assertNotNull(b);
         assertEquals("Atk", b.inModule);
     }
 
     public final void testBlockReflectorBogusCharacteristic() {
-        List l;
+        List characteristics;
         ObjectBlock b;
 
-        l = new ArrayList();
-        l.add(new String[] {
+        characteristics = new ArrayList();
+        characteristics.add(new String[] {
                 "bee-bop", "is_a_cowboy"
         });
 
         b = null;
         try {
-            b = new ObjectBlock("AnimeFoo", l, null);
+            b = new ObjectBlock("AnimeFoo", characteristics, null);
             fail("Should have thrown IllegalStateException because of a characteristic name that is no known");
         } catch (IllegalStateException ise) {
             // good

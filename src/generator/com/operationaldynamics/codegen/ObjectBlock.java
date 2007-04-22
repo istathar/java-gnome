@@ -22,11 +22,9 @@ class ObjectBlock extends TypeBlock
     protected String parent;
 
     ObjectBlock(final String blockName, final List characteristics, final List fields) {
-        super(blockName);
+        super(blockName, characteristics);
 
-        processCharacteristics(characteristics);
         processFields(fields);
-
         setOfObject(cName);
     }
 
@@ -39,7 +37,7 @@ class ObjectBlock extends TypeBlock
      */
     protected final void processFields(List fields) {}
 
-    final void setParent(final String parent) {
+    protected final void setParent(final String parent) {
         this.parent = parent;
     }
 

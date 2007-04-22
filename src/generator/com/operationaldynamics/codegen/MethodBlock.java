@@ -10,6 +10,8 @@
  */
 package com.operationaldynamics.codegen;
 
+import java.util.List;
+
 /**
  * A .defs (define-method...) block.
  * 
@@ -24,8 +26,8 @@ class MethodBlock extends FunctionBlock
      * we know what class it goes into.
      */
 
-    MethodBlock(final String blockName) {
-        super(blockName);
+    MethodBlock(final String blockName, final List characteristics, final List parameters) {
+        super(blockName, characteristics, parameters);
     }
 
     Generator generator() {

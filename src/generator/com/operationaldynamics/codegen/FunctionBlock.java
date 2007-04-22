@@ -10,6 +10,8 @@
  */
 package com.operationaldynamics.codegen;
 
+import java.util.List;
+
 /**
  * A .defs (define-function...) block, and the superclass for other entities
  * that are represented in C with functions. As it stands presently, the only
@@ -32,11 +34,17 @@ abstract class FunctionBlock extends Block
 
     protected boolean callerOwnsReturn;
 
-    FunctionBlock(final String blockName) {
-        super(blockName);
+    FunctionBlock(final String blockName, final List characteristics, final List parameters) {
+        super(blockName, characteristics);
+        
+        processParameters(parameters);
     }
 
-    void setCallerOwnsReturn(final String callerOwnsReturn) {
+    private void processParameters(final List parameters) {
+        this.parameters = (String[][]) parameters.toArray(new String[parameters.size()][]);
+    }
+
+    protected final void setCallerOwnsReturn(final String callerOwnsReturn) {
         if (callerOwnsReturn.equals("#t")) {
             this.callerOwnsReturn = true;
         } else {
@@ -44,15 +52,11 @@ abstract class FunctionBlock extends Block
         }
     }
 
-    final void setCName(final String name) {
+    protected final void setCName(final String name) {
         this.cName = name;
     }
 
-    final void setParameters(final String[][] parameters) {
-        this.parameters = parameters;
-    }
-
-    final void setReturnType(final String returnType) {
+    protected final void setReturnType(final String returnType) {
         this.returnType = returnType;
     }
 }

@@ -10,6 +10,8 @@
  */
 package com.operationaldynamics.codegen;
 
+import java.util.List;
+
 /**
  * Base class for blocks that define types.
  * 
@@ -21,8 +23,8 @@ abstract class TypeBlock extends Block
 
     protected String cName;
 
-    protected TypeBlock(final String blockName) {
-        super(blockName);
+    protected TypeBlock(final String blockName, final List characteristics) {
+        super(blockName, characteristics);
     }
 
     final void setCName(final String name) {
@@ -34,9 +36,9 @@ abstract class TypeBlock extends Block
      * context, but this stub allows the reflection to work when it hits a
      * characteristic so named.
      */
-    final void setGtypeId(final String gtypeId) {}
+    protected final void setGtypeId(final String gtypeId) {}
 
-    final void setInModule(final String inModule) {
+    protected final void setInModule(final String inModule) {
         this.inModule = inModule;
     }
 }

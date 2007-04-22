@@ -10,6 +10,8 @@
  */
 package com.operationaldynamics.codegen;
 
+import java.util.List;
+
 /**
  * The block type for virtual methods. In the java-gnome bindings, these are
  * translated as signal handlers.
@@ -20,10 +22,10 @@ package com.operationaldynamics.codegen;
  * There isn't a whole lot that this gains by being a subclass of
  * FunctionBlock, but it seems as good a place as any to slot it in.
  */
-public class VirtualBlock extends FunctionBlock
+class VirtualBlock extends FunctionBlock
 {
-    VirtualBlock(String blockName) {
-        super(blockName);
+    VirtualBlock(String blockName, final List characteristics, final List parameters) {
+        super(blockName, characteristics, parameters);
     }
 
     Generator generator() {
