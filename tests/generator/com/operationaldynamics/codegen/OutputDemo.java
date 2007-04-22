@@ -35,17 +35,17 @@ public class OutputDemo
         }
 
         generators = new Generator[] {
-                new ObjectGenerator(button),
+                new ObjectGenerator("GtkButton*"),
 
-                new ConstructorGenerator(button, "gtk_button_new_with_label",
+                new ConstructorGenerator("GtkButton*", "gtk_button_new_with_label",
                         new String[][] { new String[] { "const-gchar*", "label" } }),
 
-                new MethodGenerator(button, "set_label", "void", "gtk_button_set_label",
+                new MethodGenerator("GtkButton*", "set_label", "void", "gtk_button_set_label",
                         new String[][] { new String[] { "const-gchar*", "label" } }),
 
-                new MethodGenerator(button, "get_image", "GtkWidget*", "gtk_button_get_image", null),
+                new MethodGenerator("GtkButton*", "get_image", "GtkWidget*", "gtk_button_get_image", null),
 
-                new MethodGenerator(button, "get_relief", "GtkReliefStyle", "gtk_button_get_relief",
+                new MethodGenerator("GtkButton*", "get_relief", "GtkReliefStyle", "gtk_button_get_relief",
                         null) };
 
         for (int i = 0; i < generators.length; i++) {

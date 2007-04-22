@@ -22,26 +22,25 @@ public class ValidateUtilityMethods extends TestCase
 
     public final void testConstructorNameMunging() {
         Thing button = new ObjectThing("GtkButton*", "org.gnome.gtk", "GtkButton", "Button");
+        Thing.register(button);
 
-        String munged1 = ConstructorGenerator.mungeConstructorName(button, "gtk_button_new_with_label");
+        String munged1 = ConstructorGenerator.mungeConstructorName("GtkButton*",
+                "gtk_button_new_with_label");
         assertEquals("createButtonWithLabel", munged1);
 
-        String munged2 = ConstructorGenerator.mungeConstructorName(button, "gtk_button_new");
+        String munged2 = ConstructorGenerator.mungeConstructorName("GtkButton*", "gtk_button_new");
         assertEquals("createButton", munged2);
     }
 
     public final void testMethodReferenceToSelfInsertion() {
         String[][] input, output;
-        Thing button;
-
-        button = new ObjectThing("GtkButton*", "org.gnome.gtk", "GtkButton", "Button");
 
         input = new String[][] { new String[] { "const-gchar*", "label" } };
         assertTrue(input.length == 1);
         assertEquals("const-gchar*", input[0][0]);
         assertEquals("label", input[0][1]);
 
-        output = MethodGenerator.prependReferenceToSelf(button, input);
+        output = MethodGenerator.prependReferenceToSelf("GtkButton*", input);
         assertTrue(output.length == 2);
         assertEquals("GtkButton*", output[0][0]);
         assertEquals("self", output[0][1]);
