@@ -52,13 +52,17 @@ class MethodGenerator extends FunctionGenerator
      *            supplied parameter list.
      * 
      */
-    MethodGenerator(final Thing ofObject, final String blockName, final String gReturnType,
+    MethodGenerator(final String ofObject, final String blockName, final String gReturnType,
             final String gFunctionName, final String[][] gParameters) {
         super(ofObject, blockName, gReturnType, gFunctionName, prependReferenceToSelf(ofObject,
                 gParameters));
     }
 
-    static String[][] prependReferenceToSelf(Thing self, String[][] parameters) {
+    /**
+     * Load the reference-to-self that all "method" functions start with onto
+     * the beginning of the parameters array.
+     */
+    static String[][] prependReferenceToSelf(String self, String[][] parameters) {
         String[][] target;
 
         if (parameters == null) {
@@ -67,7 +71,7 @@ class MethodGenerator extends FunctionGenerator
         target = new String[parameters.length + 1][2];
         System.arraycopy(parameters, 0, target, 1, parameters.length);
 
-        target[0][0] = self.gType;
+        target[0][0] = self;
         target[0][1] = "self";
 
         return target;

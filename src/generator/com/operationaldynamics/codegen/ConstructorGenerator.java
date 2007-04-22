@@ -49,7 +49,7 @@ class ConstructorGenerator extends FunctionGenerator
      * @param gFunctionName
      * @param gParameters
      */
-    ConstructorGenerator(final Thing ofObject, final String gFunctionName, final String[][] gParameters) {
+    ConstructorGenerator(final String ofObject, final String gFunctionName, final String[][] gParameters) {
         super(ofObject, "", "glong", gFunctionName, gParameters);
 
         this.translationMethodName = mungeConstructorName(ofObject, gFunctionName);
@@ -60,7 +60,7 @@ class ConstructorGenerator extends FunctionGenerator
      * into "create_Button_with_label" [so that a subsequent toCamel() call
      * will transform it to "createButtonWithLabel"]
      */
-    static String mungeConstructorName(Thing type, String blockName) {
+    static String mungeConstructorName(String gType, String blockName) {
         StringBuffer buf;
         int cut;
 
@@ -68,7 +68,7 @@ class ConstructorGenerator extends FunctionGenerator
 
         cut = buf.indexOf("_new");
         buf.delete(0, cut + 4);
-        buf.insert(0, type.javaType);
+        buf.insert(0, Thing.lookup(gType).javaType);
         buf.insert(0, "create_");
 
         return toCamel(buf.toString());

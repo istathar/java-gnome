@@ -22,8 +22,8 @@ class ObjectGenerator extends TypeGenerator
 {
     ObjectThing forObject;
 
-    ObjectGenerator(Thing forObject) {
-        this.forObject = (ObjectThing) forObject;
+    ObjectGenerator(String forObject) {
+        this.forObject = (ObjectThing) Thing.lookup(forObject);
     }
 
     protected void packageStatementAndImports(PrintWriter out) {

@@ -62,14 +62,14 @@ abstract class FunctionGenerator extends Generator
      *            an array of String[2] arrays, listing the type and name of
      *            each parameter.
      */
-    FunctionGenerator(final Thing ofObject, final String blockName, final String gReturnType,
+    FunctionGenerator(final String ofObject, final String blockName, final String gReturnType,
             final String cFunctionName, final String[][] gParameters) {
 
-        if (ofObject == null) {
+        if ((ofObject == null) || (ofObject.equals(""))) {
             throw new IllegalArgumentException(
                     "\nYou need to work out which class this block goes with before calling this constructor.");
         }
-        this.ofObject = (ObjectThing) ofObject;
+        this.ofObject = (ObjectThing) Thing.lookup(ofObject);
 
         this.translationMethodName = toCamel(blockName);
 
