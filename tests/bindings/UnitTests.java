@@ -22,6 +22,7 @@ import org.gnome.gtk.ValidatePacking;
 import org.gnome.gtk.ValidateProperties;
 
 import com.operationaldynamics.codegen.ValidateBlockUsage;
+import com.operationaldynamics.codegen.ValidateDefsParsing;
 import com.operationaldynamics.codegen.ValidateUtilityMethods;
 import com.operationaldynamics.junit.VerboseTestRunner;
 
@@ -89,6 +90,7 @@ public class UnitTests
 
         suite.addTestSuite(ValidateUtilityMethods.class);
         suite.addTestSuite(ValidateBlockUsage.class);
+        suite.addTestSuite(ValidateDefsParsing.class);
         suite.addTestSuite(ValidateEnvironment.class);
         suite.addTestSuite(ValidateReferenceCounting.class);
         suite.addTestSuite(ValidateMemoryManagement.class);
