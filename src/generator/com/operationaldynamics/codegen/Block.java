@@ -10,6 +10,7 @@
  */
 package com.operationaldynamics.codegen;
 
+import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.Iterator;
@@ -41,7 +42,7 @@ abstract class Block
     /**
      * The short "python" name for this Object/Function/Method/Constructor/etc
      */
-    final String blockName;
+    protected final String blockName;
 
     protected Block(final String blockName, final List characteristics) {
         this.blockName = blockName;
@@ -122,7 +123,8 @@ abstract class Block
                 // If all screwed up
                 e.printStackTrace();
             } catch (IllegalAccessException e) {
-                // This shouldn't happen - setters are all protected here or in
+                // This shouldn't happen - setters are all protected here or
+                // in
                 // super classes above us.
                 e.printStackTrace();
             } catch (InvocationTargetException e) {
@@ -160,4 +162,67 @@ abstract class Block
      * Get the code factory appropriate to this Block type.
      */
     abstract Generator generator();
+
+    public String toString() {
+        final StringBuffer buf;
+        Class target;
+
+        buf = new StringBuffer();
+
+        buf.append(this.getClass().getName());
+        buf.append("\n");
+
+        target = this.getClass();
+        while (target != Object.class) {
+            Field[] fields;
+            int i;
+
+            fields = target.getDeclaredFields();
+            for (i = 0; i < fields.length; i++) {
+                String name;
+                Object value;
+
+                // There's something weird about a few extra Class objects
+                // showing up.
+                if (fields[i].getType() == Class.class) {
+                    continue;
+                }
+
+                buf.append("\t");
+                name = fields[i].getName();
+                buf.append(name);
+                buf.append(": ");
+
+                try {
+                    value = fields[i].get(this);
+                } catch (IllegalArgumentException e) {
+                    // huh?
+                    e.printStackTrace();
+                    continue;
+                } catch (IllegalAccessException e) {
+                    // go figure.
+                    e.printStackTrace();
+                    continue;
+                }
+
+                if (name.equals("parameters")) {
+                    buf.append("\n");
+                    String[][] p = (String[][]) value;
+                    for (int j = 0; j < p.length; j++) {
+                        buf.append("\t\t");
+                        buf.append(p[j][0]);
+                        buf.append(" ");
+                        buf.append(p[j][1]);
+                        buf.append("\n");
+                    }
+                } else {
+                    buf.append(value);
+                    buf.append("\n");
+                }
+            }
+            target = target.getSuperclass();
+        }
+
+        return buf.toString();
+    }
 }

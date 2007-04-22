@@ -32,11 +32,11 @@ abstract class FunctionBlock extends Block
 
     protected String[][] parameters;
 
-    protected boolean callerOwnsReturn;
+    protected String callerOwnsReturn;
 
     FunctionBlock(final String blockName, final List characteristics, final List parameters) {
         super(blockName, characteristics);
-        
+
         processParameters(parameters);
     }
 
@@ -45,11 +45,7 @@ abstract class FunctionBlock extends Block
     }
 
     protected final void setCallerOwnsReturn(final String callerOwnsReturn) {
-        if (callerOwnsReturn.equals("#t")) {
-            this.callerOwnsReturn = true;
-        } else {
-            this.callerOwnsReturn = false;
-        }
+        this.callerOwnsReturn = callerOwnsReturn;
     }
 
     protected final void setCName(final String name) {
