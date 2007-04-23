@@ -31,7 +31,7 @@ class MethodBlock extends FunctionBlock
     }
 
     Generator createGenerator() {
-        return new MethodGenerator(ofObject, blockName, returnType, cName, parameters);
+        return new MethodGenerator(addPointerSymbol(ofObject), blockName, returnType, cName, parameters);
     }
 
 }

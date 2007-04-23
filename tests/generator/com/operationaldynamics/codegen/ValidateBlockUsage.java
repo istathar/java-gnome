@@ -18,11 +18,8 @@ import junit.framework.TestCase;
 public final class ValidateBlockUsage extends TestCase
 {
 
-    public final void testBlockSetOfObjectAddsPointerSymbol() {
-        Block block = new ObjectBlock("Blah", null, null);
-
-        block.setOfObject("GnomeBlah");
-        assertEquals("GnomeBlah*", block.ofObject);
+    public final void testBlockAddPointerSymbol() {
+        assertEquals("GnomeBlah*", Block.addPointerSymbol("GnomeBlah"));
     }
 
     public final void testCharacteristicNameToSetterMethod() {

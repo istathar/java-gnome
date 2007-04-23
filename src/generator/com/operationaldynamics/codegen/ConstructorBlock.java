@@ -12,21 +12,25 @@ package com.operationaldynamics.codegen;
 
 import java.util.List;
 
+/**
+ * A (define-function ...) block containing the description of a GObject's
+ * constructor function.
+ * 
+ * @author Andrew Cowie
+ */
 class ConstructorBlock extends FunctionBlock
 {
     protected String isConstructorOf;
-    
+
     ConstructorBlock(String blockName, final List characteristics, final List parameters) {
         super(blockName, characteristics, parameters);
     }
-    
+
     protected final void setIsConstructorOf(final String isConstructorOf) {
-        this.isConstructorOf = isConstructorOf;
-    }
-    
-    Generator createGenerator() {
-        // TODO
-        return null;
+        this.isConstructorOf = isConstructorOf;        
     }
 
+    Generator createGenerator() {
+        return new ConstructorGenerator(addPointerSymbol(isConstructorOf), cName, parameters);
+    }
 }

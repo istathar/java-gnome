@@ -50,20 +50,28 @@ abstract class Block
         processCharacteristics(characteristics);
     }
 
+    final void setOfObject(final String ofObject) {
+        this.ofObject = ofObject;
+    }
+
     /**
      * Add the '*' pointer character because our indexes are built on the
      * convention that the type that can be looked up is "GObject*", not
-     * "GObject".
+     * "GObject". Used by the createThing() and createGenerator()
+     * implementations.
      */
-    final void setOfObject(final String ofObject) {
-        this.ofObject = ofObject + '*';
+    static final String addPointerSymbol(final String bareGObjectName) {
+        StringBuffer buf;
+        buf = new StringBuffer(bareGObjectName);
+        buf.append('*');
+        return buf.toString().intern();
     }
 
     /**
      * Reflection engine to populate object members based on key/value pairs
      * in list
      */
-    private void processCharacteristics(List list) {
+    private void processCharacteristics(final List list) {
         Iterator iter;
 
         if (list == null) {
@@ -138,7 +146,7 @@ abstract class Block
      * .defs files have characteristic names like "c-name" and "return-value".
      * Convert these to "setCName" and "setReturnValue" for calling setter.
      */
-    static final String nameToMethod(String key) {
+    static final String nameToMethod(final String key) {
         StringBuffer buf;
         int i;
         char ch;
@@ -163,8 +171,12 @@ abstract class Block
      */
     abstract Generator createGenerator();
 
+    /**
+     * Get the type wrapper Thing appropriate to this Block. Actually only
+     * relevant for TypeBlock subclasses.
+     */
     abstract Thing createThing();
-    
+
     public String toString() {
         final StringBuffer buf;
         Class target;

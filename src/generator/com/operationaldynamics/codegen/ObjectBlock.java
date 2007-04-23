@@ -25,7 +25,6 @@ class ObjectBlock extends TypeBlock
         super(blockName, characteristics);
 
         processFields(fields);
-        setOfObject(cName);
     }
 
     /**
@@ -41,11 +40,11 @@ class ObjectBlock extends TypeBlock
         this.parent = parent;
     }
 
-    Generator createGenerator() {
-        return new ObjectGenerator(null); // FIXME
+    Thing createThing() {
+        return new ObjectThing(addPointerSymbol(cName), moduleToJavaPackage(inModule), cName, blockName);
     }
 
-    Thing createThing() {
-        return new ObjectThing(ofObject, moduleToJavaPackage(inModule), cName, blockName);
+    Generator createGenerator() {
+        return new ObjectGenerator(addPointerSymbol(cName));
     }
 }

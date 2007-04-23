@@ -106,7 +106,7 @@ public final class ValidateDefsParsing extends TestCase
         assertEquals("Gtk", o.inModule);
         assertEquals("GtkBin", o.parent);
         assertEquals("GtkButton", o.cName);
-        assertEquals("GtkButton*", o.ofObject);
+        assertNull(o.ofObject);
         assertEquals("Button", o.blockName);
     }
     
