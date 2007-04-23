@@ -62,6 +62,10 @@ abstract class Block
      */
     static final String addPointerSymbol(final String bareGObjectName) {
         StringBuffer buf;
+        
+        if (bareGObjectName == null) {
+            return null;
+        }
         buf = new StringBuffer(bareGObjectName);
         buf.append('*');
         return buf.toString().intern();
