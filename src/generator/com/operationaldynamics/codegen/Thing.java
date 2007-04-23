@@ -68,7 +68,7 @@ public abstract class Thing
     static {
         things = new HashMap(400);
 
-        register(new FundamentalThing("void", "void", "void", "void"));
+        register(new FundamentalThing("none", "void", "void", "void"));
         register(new FundamentalThing("const-gchar*", "String", "String", "jstring"));
         register(new FundamentalThing("gchar*", "String", "String", "jstring"));
         register(new FundamentalThing("glong", "long", "long", "jlong"));
