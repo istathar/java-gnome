@@ -161,8 +161,10 @@ abstract class Block
     /**
      * Get the code factory appropriate to this Block type.
      */
-    abstract Generator generator();
+    abstract Generator createGenerator();
 
+    abstract Thing createThing();
+    
     public String toString() {
         final StringBuffer buf;
         Class target;

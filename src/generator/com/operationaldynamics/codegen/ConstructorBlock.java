@@ -24,7 +24,7 @@ class ConstructorBlock extends FunctionBlock
         this.isConstructorOf = isConstructorOf;
     }
     
-    Generator generator() {
+    Generator createGenerator() {
         // TODO
         return null;
     }

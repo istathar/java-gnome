@@ -41,7 +41,11 @@ class ObjectBlock extends TypeBlock
         this.parent = parent;
     }
 
-    Generator generator() {
+    Generator createGenerator() {
         return new ObjectGenerator(null); // FIXME
+    }
+
+    Thing createThing() {
+        return new ObjectThing(ofObject, moduleToJavaPackage(inModule), cName, blockName);
     }
 }

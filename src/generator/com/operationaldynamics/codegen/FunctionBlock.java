@@ -55,4 +55,12 @@ abstract class FunctionBlock extends Block
     protected final void setReturnType(final String returnType) {
         this.returnType = returnType;
     }
+
+    /**
+     * Only the TypeBlock class hierarchy can create and return Things that
+     * match a given Block.
+     */
+    Thing createThing() {
+        throw new UnsupportedOperationException();
+    }
 }

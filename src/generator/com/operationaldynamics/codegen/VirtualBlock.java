@@ -28,7 +28,7 @@ class VirtualBlock extends FunctionBlock
         super(blockName, characteristics, parameters);
     }
 
-    Generator generator() {
+    Generator createGenerator() {
         // TODO Auto-generated method stub
         return null;
     }

@@ -41,4 +41,25 @@ abstract class TypeBlock extends Block
     protected final void setInModule(final String inModule) {
         this.inModule = inModule;
     }
+
+    /**
+     * Convert the module name to a package suiting the Java namespace and our
+     * mapping into it. At the moment, this simply means "Gtk" ->
+     * "org.gnome.gtk". FUTURE when we wrap things outside of GNOME this will
+     * have to change somewhat radically.
+     */
+    protected static String moduleToJavaPackage(String module) {
+        StringBuffer buf;
+        char ch;
+
+        buf = new StringBuffer(module);
+
+        ch = buf.charAt(0);
+        ch = Character.toLowerCase(ch);
+        buf.setCharAt(0, ch);
+
+        buf.insert(0, "org.gnome.");
+
+        return buf.toString();
+    }
 }

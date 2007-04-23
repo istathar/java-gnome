@@ -109,4 +109,36 @@ public final class ValidateDefsParsing extends TestCase
         assertEquals("GtkButton*", o.ofObject);
         assertEquals("Button", o.blockName);
     }
+    
+    public final void testCreateObjectThing() {
+        Block[] blocks;
+        ObjectThing ot;
+        
+        blocks = parser.parseData();        
+        
+        assertTrue(blocks[0] instanceof ObjectBlock);
+        ot = (ObjectThing) blocks[0].createThing();
+        assertEquals("GtkButton*", ot.gType);
+        assertEquals("GtkButton", ot.bindingsClass);
+        assertEquals("Button", ot.javaType);
+        
+        Thing.register(ot);
+        assertSame(ot, Thing.lookup("GtkButton*"));
+    }
+
+    public final void testCantCreateThingFromNonTypeBlock() {
+        Block[] blocks;
+        Thing t = null;
+        blocks = parser.parseData();        
+        
+        assertFalse(blocks[1] instanceof TypeBlock);
+        try {
+            t = blocks[1].createThing();
+            fail("Should have thrown UnsupportedOperationException");
+        } catch (UnsupportedOperationException uoe) {
+            // good
+        }
+        assertNull(t);
+    }
+
 }

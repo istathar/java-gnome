@@ -299,6 +299,10 @@ public class DefsParser
         return block;
     }
 
+    /**
+     * Run the parser across the input data stream and return an array of
+     * Block objects representing the (define- ...) blocks found there.
+     */
     public Block[] parseData() {
         List blocks;
         Block block;
@@ -334,9 +338,23 @@ public class DefsParser
 
         blocks = parser.parseData();
 
-        // debug
-        for (int i = 0; i < blocks.length; i++) {
-            System.out.println(blocks[i]);
+        registerTypes(blocks);
+        
+        generateCode(blocks);
+    }
+
+    static void registerTypes(Block[] blocks) {
+        for (int i=0; i < blocks.length; i++) {
+            if (blocks[i] instanceof TypeBlock) {
+                
+            }
         }
     }
+    
+    static void generateCode(Block[] blocks) {
+        // TODO Auto-generated method stub
+        
+    }
+
+
 }

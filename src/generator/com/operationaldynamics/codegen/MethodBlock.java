@@ -30,7 +30,7 @@ class MethodBlock extends FunctionBlock
         super(blockName, characteristics, parameters);
     }
 
-    Generator generator() {
+    Generator createGenerator() {
         return new MethodGenerator(ofObject, blockName, returnType, cName, parameters);
     }
 
