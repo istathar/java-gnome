@@ -43,7 +43,7 @@ class MethodGenerator extends FunctionGenerator
 {
 
     /**
-     * @param ofObject
+     * @param gObjectType
      * @param blockName
      * @param gReturnType
      * @param gFunctionName
@@ -52,9 +52,9 @@ class MethodGenerator extends FunctionGenerator
      *            supplied parameter list.
      * 
      */
-    MethodGenerator(final String ofObject, final String blockName, final String gReturnType,
+    MethodGenerator(final String gObjectType, final String blockName, final String gReturnType,
             final String gFunctionName, final String[][] gParameters) {
-        super(ofObject, blockName, gReturnType, gFunctionName, prependReferenceToSelf(ofObject,
+        super(gObjectType, blockName, gReturnType, gFunctionName, prependReferenceToSelf(gObjectType,
                 gParameters));
     }
 

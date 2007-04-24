@@ -24,7 +24,10 @@ import java.io.PrintWriter;
  */
 abstract class FunctionGenerator extends Generator
 {
-    protected final ObjectThing ofObject;
+    /**
+     * The Thing describing the object we are generating code relative to.
+     */
+    protected final ObjectThing objectType;
 
     /**
      * The name of the method that is exposed package visible to bindings
@@ -47,7 +50,7 @@ abstract class FunctionGenerator extends Generator
 
     /**
      * 
-     * @param ofObject
+     * @param gObjectType
      *            the class to which the block we are generating code for
      *            pertains.
      * @param blockName
@@ -62,14 +65,14 @@ abstract class FunctionGenerator extends Generator
      *            an array of String[2] arrays, listing the type and name of
      *            each parameter.
      */
-    FunctionGenerator(final String ofObject, final String blockName, final String gReturnType,
+    FunctionGenerator(final String gObjectType, final String blockName, final String gReturnType,
             final String cFunctionName, final String[][] gParameters) {
 
-        if ((ofObject == null) || (ofObject.equals(""))) {
+        if ((gObjectType == null) || (gObjectType.equals(""))) {
             throw new IllegalArgumentException(
                     "\nYou need to work out which class this block goes with before calling this constructor.");
         }
-        this.ofObject = (ObjectThing) Thing.lookup(ofObject);
+        this.objectType = (ObjectThing) Thing.lookup(gObjectType);
 
         this.translationMethodName = toCamel(blockName);
 
@@ -82,7 +85,7 @@ abstract class FunctionGenerator extends Generator
 
         for (int i = 0; i < gParameters.length; i++) {
             parameterTypes[i] = Thing.lookup(gParameters[i][0]);
-            parameterNames[i] = gParameters[i][1];
+            parameterNames[i] = toCamel(gParameters[i][1]);
         }
     }
 
@@ -140,34 +143,38 @@ abstract class FunctionGenerator extends Generator
                 out.print(", ");
             }
 
-            if (parameterTypes[i].translationCode != null) {
-                out.print(parameterTypes[i].translationCode);
-                out.print("(");
-                out.print(parameterNames[i]);
-                out.print(")");
-            } else {
-                out.print(parameterNames[i]);
-            }
+            out.print(parameterTypes[i].translationToNative(parameterNames[i]));
         }
 
         out.print(");\n");
     }
+    
+    static final String unwrapObjectToNative(Thing type, String name) {
+        StringBuffer buf;
+        
+        buf = new StringBuffer();
+        
+        if (type instanceof ObjectThing) {
+            buf.append("pointerOf(");
+            buf.append(name);
+            buf.append(")");
+        } else if (type instanceof EnumThing) {
+            buf.append("numOf(");
+            buf.append(name);
+            buf.append(")");
+        } else {
+            return name;
+        }
+        
+        return buf.toString();
+    }
+    
 
     protected void translationMethodReturnCode(PrintWriter out) {
         if (!returnType.nativeType.equals("void")) {
             out.print("\n");
             out.print("        return ");
-            if (returnType instanceof ObjectThing) {
-                out.print("objectFor(result)");
-            } else if (returnType instanceof EnumThing) {
-                out.print("constantFor(");
-                out.print(returnType.bindingsPackage);
-                out.print(".");
-                out.print(returnType.javaType);
-                out.print(".class, result)");
-            } else {
-                out.print("result");
-            }
+            out.print(returnType.translationToJava("result"));
             out.print(";\n");
         }
 
@@ -202,7 +209,7 @@ abstract class FunctionGenerator extends Generator
         out.print(" JNICALL\n");
 
         out.print("Java_");
-        out.print(encodeJavaClassName(ofObject.bindingsPackage, ofObject.bindingsClass));
+        out.print(encodeJavaClassName(objectType.bindingsPackage, objectType.bindingsClass));
         out.print("_");
         out.print(encodeJavaMethodName(nativeMethodName));
         out.print("\n(\n");

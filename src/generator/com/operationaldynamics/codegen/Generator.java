@@ -21,8 +21,14 @@ import java.io.PrintWriter;
  */
 abstract class Generator
 {
+    /**
+     * Generate Java code!
+     */
     abstract void writeJava(PrintWriter out);
 
+    /**
+     * Generate C code!
+     */
     abstract void writeC(PrintWriter out);
 
     /**

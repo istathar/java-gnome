@@ -45,14 +45,15 @@ class ConstructorGenerator extends FunctionGenerator
 
     /**
      * 
-     * @param ofObject
+     * @param gObjectType
      * @param gFunctionName
      * @param gParameters
      */
-    ConstructorGenerator(final String ofObject, final String gFunctionName, final String[][] gParameters) {
-        super(ofObject, "", "glong", gFunctionName, gParameters);
+    ConstructorGenerator(final String gObjectType, final String gFunctionName,
+            final String[][] gParameters) {
+        super(gObjectType, "", "glong", gFunctionName, gParameters);
 
-        this.translationMethodName = mungeConstructorName(ofObject, gFunctionName);
+        this.translationMethodName = mungeConstructorName(gObjectType, gFunctionName);
     }
 
     /**
