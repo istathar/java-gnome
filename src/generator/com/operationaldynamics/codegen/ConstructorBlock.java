@@ -30,7 +30,7 @@ class ConstructorBlock extends FunctionBlock
         this.isConstructorOf = isConstructorOf;        
     }
 
-    Generator createGenerator() {
+    public Generator createGenerator() {
         return new ConstructorGenerator(addPointerSymbol(isConstructorOf), cName, parameters);
     }
 }

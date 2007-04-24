@@ -8,7 +8,6 @@
  * version 2" See the LICENCE file for the terms governing usage and
  * redistribution.
  */
-package com.operationaldynamics.codegen;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -18,6 +17,12 @@ import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.io.Writer;
+
+import com.operationaldynamics.codegen.Block;
+import com.operationaldynamics.codegen.DefsParser;
+import com.operationaldynamics.codegen.Generator;
+import com.operationaldynamics.codegen.Thing;
+import com.operationaldynamics.codegen.TypeBlock;
 
 /**
  * The java-gnome code generator

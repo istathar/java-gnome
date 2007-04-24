@@ -17,7 +17,7 @@ import java.util.List;
  * 
  * @author Andrew Cowie
  */
-abstract class TypeBlock extends Block
+public abstract class TypeBlock extends Block
 {
     protected String inModule;
 

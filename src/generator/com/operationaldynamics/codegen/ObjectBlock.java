@@ -40,11 +40,11 @@ class ObjectBlock extends TypeBlock
         this.parent = parent;
     }
 
-    Thing createThing() {
+    public Thing createThing() {
         return new ObjectThing(addPointerSymbol(cName), moduleToJavaPackage(inModule), cName, blockName);
     }
 
-    Generator createGenerator() {
+    public Generator createGenerator() {
         return new ObjectGenerator(addPointerSymbol(cName));
     }
 }

@@ -19,17 +19,17 @@ import java.io.PrintWriter;
  * 
  * @author Andrew Cowie
  */
-abstract class Generator
+public abstract class Generator
 {
     /**
      * Generate Java code!
      */
-    abstract void writeJava(PrintWriter out);
+    public abstract void writeJava(PrintWriter out);
 
     /**
      * Generate C code!
      */
-    abstract void writeC(PrintWriter out);
+    public abstract void writeC(PrintWriter out);
 
     /**
      * Turn "org.gnome.glib", "GtkButton" into "org_gnome_glib_GtkButton"

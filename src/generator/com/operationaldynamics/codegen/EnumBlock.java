@@ -20,11 +20,11 @@ class EnumBlock extends TypeBlock
         // FIXME handle values!
     }
 
-    Generator createGenerator() {
+    public Generator createGenerator() {
         return new EnumGenerator(cName);
     }
 
-    Thing createThing() {
+    public Thing createThing() {
         return new EnumThing(cName, moduleToJavaPackage(inModule), cName, blockName);
     }
 

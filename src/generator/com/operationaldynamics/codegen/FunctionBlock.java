@@ -60,7 +60,7 @@ abstract class FunctionBlock extends Block
      * Only the TypeBlock class hierarchy can create and return Things that
      * match a given Block.
      */
-    Thing createThing() {
+    public Thing createThing() {
         throw new UnsupportedOperationException();
     }
 }

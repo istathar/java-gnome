@@ -54,12 +54,12 @@ class ObjectGenerator extends TypeGenerator
         out.print(".h\";\n");
     }
 
-    void writeJava(PrintWriter out) {
+    public void writeJava(PrintWriter out) {
         commonFileHeader(out, forObject.bindingsClass + ".java");
         packageStatementAndImports(out);
     }
 
-    void writeC(PrintWriter out) {
+    public void writeC(PrintWriter out) {
         commonFileHeader(out, forObject.bindingsClass + ".c");
         includeStatements(out);
     }

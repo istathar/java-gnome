@@ -28,7 +28,7 @@ import java.util.List;
  * 
  * @author Andrew Cowie
  */
-abstract class Block
+public abstract class Block
 {
     /**
      * Strictly speaking, this isn't here, but down in MethodBlock and
@@ -173,13 +173,13 @@ abstract class Block
     /**
      * Get the code factory appropriate to this Block type.
      */
-    abstract Generator createGenerator();
+    public abstract Generator createGenerator();
 
     /**
      * Get the type wrapper Thing appropriate to this Block. Actually only
      * relevant for TypeBlock subclasses.
      */
-    abstract Thing createThing();
+    public abstract Thing createThing();
 
     public String toString() {
         final StringBuffer buf;

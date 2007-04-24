@@ -24,7 +24,7 @@ import java.util.HashMap;
  * 
  * @author Andrew Cowie
  */
-abstract class Thing
+public abstract class Thing
 {
     String gType;
 
@@ -74,7 +74,7 @@ abstract class Thing
 
     }
 
-    static void register(Thing t) {
+    public static void register(Thing t) {
         if (t.gType == null) {
             throw new IllegalStateException();
         }
@@ -86,7 +86,7 @@ abstract class Thing
      * Lookup the Thing object registered as corresponding to
      * <code>gType</code>
      */
-    static Thing lookup(String gType) {
+    public static Thing lookup(String gType) {
         Thing stored;
 
         stored = (Thing) things.get(gType);

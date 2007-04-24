@@ -162,7 +162,7 @@ public class VirtualGenerator extends FunctionGenerator
 
     }
 
-    void writeJava(PrintWriter out) {
+    public void writeJava(PrintWriter out) {
         translationMethodDeclaration(out);
         translationMethodSuperCall(out);
 
@@ -170,7 +170,7 @@ public class VirtualGenerator extends FunctionGenerator
         receiverMethodInvokeInstance(out);
     }
 
-    void writeC(PrintWriter out) {
+    public void writeC(PrintWriter out) {
         // No JNI code necessary.
         return;
     }

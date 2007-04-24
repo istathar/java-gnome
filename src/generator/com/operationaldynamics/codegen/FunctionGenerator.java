@@ -368,7 +368,7 @@ abstract class FunctionGenerator extends Generator
         out.print("}\n");
     }
 
-    void writeJava(PrintWriter out) {
+    public void writeJava(PrintWriter out) {
         translationMethodDeclaration(out);
         translationMethodConversionCode(out);
         translationMethodNativeCall(out);
@@ -379,7 +379,7 @@ abstract class FunctionGenerator extends Generator
         nativeMethodDeclaration(out);
     }
 
-    void writeC(PrintWriter out) {
+    public void writeC(PrintWriter out) {
         jniFunctionDeclaration(out);
         jniFunctionConversionCode(out);
         jniFunctionLibraryCall(out);
