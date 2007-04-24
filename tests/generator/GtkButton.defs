@@ -217,35 +217,10 @@
   (of-object "GtkButton")
   (return-type "none")
 )
-
-;;
-;; Other necessary type data
-;;
-
-(define-enum ReliefStyle
-  (in-module "Gtk")
-  (c-name "GtkReliefStyle")
-  (gtype-id "GTK_TYPE_RELIEF_STYLE")
-  (values
-    '("normal" "GTK_RELIEF_NORMAL")
-    '("half" "GTK_RELIEF_HALF")
-    '("none" "GTK_RELIEF_NONE")
+(define-virtual depressed
+  (of-object "GtkButton")
+  (return-type "gboolean")
+  (parameters
+    '("GtkWidget*" "who_is_depressed")
   )
 )
-
-(define-object Widget
-  (in-module "Gtk")
-  (parent "GtkObject")
-  (c-name "GtkWidget")
-  (gtype-id "GTK_TYPE_WIDGET")
-  (fields
-    '("guint8" "state")
-    '("guint8" "saved_state")
-    '("gchar*" "name")
-    '("GtkStyle*" "style")
-    '("GdkRectangle" "allocation")
-    '("GdkWindow*" "window")
-    '("GtkWidget*" "parent")
-  )
-)
-

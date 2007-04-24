@@ -86,12 +86,35 @@ import java.io.Writer;
 public class BindingsGenerator
 {
     public static void main(String[] args) throws IOException {
+        loadDummyTypes();
+        theRealThing();
+    }
+
+    
+    // FIXME demo
+    private static void loadDummyTypes() throws IOException {
         Block[] blocks;
         DefsParser parser;
+        
+        BufferedReader in = new BufferedReader(new FileReader("tests/generator/DummyTypes.defs"));
 
-        // mockup
-        String defsFile = "tests/generator/GtkButton.defs";
-        BufferedReader in = new BufferedReader(new FileReader(defsFile));
+        parser = new DefsParser(in);
+        blocks = parser.parseData();
+
+        registerTypes(blocks);
+
+        // debug
+        for (int i = 0; i < blocks.length; i++) {
+            System.out.println(blocks[i]);
+        }
+    }
+   
+    // FIXME demo
+    private static void theRealThing() throws IOException {
+        Block[] blocks;
+        DefsParser parser;
+        
+        BufferedReader in = new BufferedReader(new FileReader("tests/generator/GtkButton.defs"));
 
         parser = new DefsParser(in);
         blocks = parser.parseData();
@@ -106,7 +129,7 @@ public class BindingsGenerator
         generateCode(blocks);
     }
 
-    private static void registerTypes(Block[] blocks) {
+    static void registerTypes(Block[] blocks) {
         for (int i = 0; i < blocks.length; i++) {
             Thing t;
 
@@ -117,7 +140,7 @@ public class BindingsGenerator
         }
     }
 
-    private static void generateCode(Block[] blocks) {
+    static void generateCode(Block[] blocks) {
         /*
          * This is still in flux and a work in progress. For now, just send
          * one to stdout.
@@ -142,5 +165,13 @@ public class BindingsGenerator
 
         java.close();
         jni.close();
+        
+        // FIXME remove
+        try {
+            out.close();
+            sink.close();
+        } catch (IOException e) {
+        }
+      
     }
 }
