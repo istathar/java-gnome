@@ -29,7 +29,6 @@ class VirtualBlock extends FunctionBlock
     }
 
     Generator createGenerator() {
-        // TODO Auto-generated method stub
-        return null;
+        return new VirtualGenerator(addPointerSymbol(ofObject), blockName, returnType, parameters);  
     }
 }

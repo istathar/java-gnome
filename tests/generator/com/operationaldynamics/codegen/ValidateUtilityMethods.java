@@ -35,7 +35,11 @@ public final class ValidateUtilityMethods extends TestCase
     public final void testMethodReferenceToSelfInsertion() {
         String[][] input, output;
 
-        input = new String[][] { new String[] { "const-gchar*", "label" } };
+        input = new String[][] {
+            new String[] {
+                    "const-gchar*", "label"
+            }
+        };
         assertTrue(input.length == 1);
         assertEquals("const-gchar*", input[0][0]);
         assertEquals("label", input[0][1]);
@@ -46,6 +50,22 @@ public final class ValidateUtilityMethods extends TestCase
         assertEquals("self", output[0][1]);
         assertEquals("const-gchar*", output[1][0]);
         assertEquals("label", output[1][1]);
+    }
 
+    public final void testThingTranslationCode() {
+        FundamentalThing ft;
+        ObjectThing ot;
+        
+        ft = new FundamentalThing("gboolean", "boolean", "boolean", "jboolean");
+        assertEquals("a", ft.translationToNative("a"));
+        assertEquals("a", ft.translationToJava("a"));
+        
+        ot = new ObjectThing("GtkWidget*", "org.gnome.gtk", "GtkWidget", "Widget");
+        assertEquals("pointerOf(b)", ot.translationToNative("b"));
+        assertEquals("objectFor(b)", ot.translationToJava("b"));
+    }
+    
+    public final void testSignalNameMunging() {
+        assertEquals("DELETE_EVENT", VirtualGenerator.mungeSignalName("delete-event"));
     }
 }

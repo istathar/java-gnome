@@ -1,0 +1,178 @@
+/*
+ * VirtualGenerator.java
+ *
+ * Copyright (c) 2007 Operational Dynamics Consulting Pty Ltd
+ * 
+ * The code in this file, and the library it is a part of, are made available
+ * to you by the authors under the terms of the "GNU General Public Licence,
+ * version 2" See the LICENCE file for the terms governing usage and
+ * redistribution.
+ */
+package com.operationaldynamics.codegen;
+
+import java.io.PrintWriter;
+
+/**
+ * Generate Java and C code for signal callbacks (which are how we map
+ * virtuals).
+ * 
+ * 
+ * @author Andrew Cowie
+ */
+/*
+ * We don't use much of FunctionGenerators output code, but its field
+ * definitions (as translated from its constructor) are useful.
+ */
+public class VirtualGenerator extends FunctionGenerator
+{
+    // TODO use a Thing instead?
+
+    private final String javaSignalType;
+
+    private final String cSignalName;
+
+    private final String receiverMethodName;
+
+    private final String interfaceMethodName;
+
+    /**
+     * 
+     * @param gObjectType
+     * @param blockName
+     *            the block name as given in the define statement. The
+     *            VirtualGenerator will work out how to transform into the
+     *            signal interface name as necessary.
+     * @param gReturnType
+     * @param gParameters
+     *            the parameters array describing the signature of the signal
+     *            handler callback.
+     */
+    /*
+     * We let FunctionGenerator split up the parameters, but they aren't used
+     * for the translationMethod singature, but rather the interface method.
+     */
+    VirtualGenerator(final String gObjectType, final String blockName, final String gReturnType,
+            final String[][] gParameters) {
+        super(gObjectType, "connect", gReturnType, null, gParameters);
+
+        this.javaSignalType = mungeSignalName(blockName);
+        this.cSignalName = blockName;
+        this.receiverMethodName = toCamel("handle_" + blockName);
+        this.interfaceMethodName = toCamel("on_" + blockName);
+    }
+
+    /**
+     * Work out the signal name: "delete-event" -> "DELETE_EVENT"
+     */
+    static final String mungeSignalName(String blockName) {
+        StringBuffer buf;
+        int i;
+
+        buf = new StringBuffer(blockName.toUpperCase());
+        while ((i = buf.indexOf("-")) != -1) {
+            buf.setCharAt(i, '_');
+        }
+
+        return buf.toString();
+    }
+
+    /*
+     * Ripoff override of FunctionGenerator's method by this name.
+     */
+    protected void translationMethodDeclaration(PrintWriter out) {
+        out.print("\n");
+        out.print("    ");
+        out.print("static final void ");
+        out.print(translationMethodName);
+        out.print("(");
+        out.print(objectType.javaType);
+        out.print(" self, ");
+        out.print(objectType.bindingsClass);
+        out.print(".");
+        out.print(javaSignalType);
+        out.print(" handler) {");
+        out.print("\n");
+    }
+
+    protected void translationMethodSuperCall(PrintWriter out) {
+        out.print("        ");
+        out.print("connectSignal(self, handler, ");
+        out.print(objectType.bindingsClass);
+        out.print(".class, \"");
+        out.print(cSignalName);
+        out.print("\");\n");
+
+        out.print("    }\n");
+    }
+
+    protected void receiverMethodDeclaration(PrintWriter out) {
+        out.print("\n");
+        out.print("    ");
+        out.print("protected static final ");
+        out.print(returnType.nativeType);
+        out.print(" ");
+        out.print(receiverMethodName);
+
+        out.print("(Signal handler, long source");
+
+        for (int i = 0; i < parameterTypes.length; i++) {
+            out.print(", ");
+
+            out.print(parameterTypes[i].nativeType);
+            out.print(" ");
+            out.print(parameterNames[i]);
+        }
+
+        out.print(")");
+        out.print(" {\n");
+    }
+
+    /**
+     * This is an ugly, complicated expression, but that's the way it is. Be
+     * happy you aren't writing this by hand a thousand times.
+     */
+    protected void receiverMethodInvokeInstance(PrintWriter out) {
+        out.print("        ");
+
+        if (!returnType.nativeType.equals("void")) {
+            out.print("return ");
+        }
+
+        out.print("((");
+        out.print(objectType.bindingsClass);
+        out.print(".");
+        out.print(javaSignalType);
+        out.print(") handler).");
+        out.print(interfaceMethodName);
+        out.print("((");
+        out.print(objectType.javaType);
+        out.print(") objectFor(source)");
+
+        for (int i = 0; i < parameterTypes.length; i++) {
+            out.print(", (");
+            out.print(parameterTypes[i].javaType);
+            out.print(") ");
+            out.print(parameterTypes[i].translationToJava(parameterNames[i]));
+            out.print(")");
+        }
+
+        out.print(");\n");
+
+        out.print("    }\n");
+
+    }
+
+    void writeJava(PrintWriter out) {
+        translationMethodDeclaration(out);
+        translationMethodSuperCall(out);
+
+        receiverMethodDeclaration(out);
+        receiverMethodInvokeInstance(out);
+    }
+
+    void writeC(PrintWriter out) {
+        // No JNI code necessary.
+        return;
+    }
+
+}

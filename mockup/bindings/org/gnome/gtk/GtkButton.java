@@ -65,7 +65,7 @@ final class GtkButton extends Plumbing
 
     /**
      * This is a joke and just to experiement with more complex signal
-     * signatures anid is not actually a signal in GtkButton.
+     * signatures and is not actually a signal in GtkButton.
      */
     interface DEPRESSED extends Signal
     {
