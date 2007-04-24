@@ -24,7 +24,7 @@ import java.util.HashMap;
  * 
  * @author Andrew Cowie
  */
-public abstract class Thing
+abstract class Thing
 {
     String gType;
 
@@ -33,8 +33,6 @@ public abstract class Thing
     String bindingsClass;
 
     String javaType;
-
-    String translationCode;
 
     String nativeType;
 
@@ -51,13 +49,12 @@ public abstract class Thing
      * All Things, with the excpetion of the FundamentalThings representing
      * primative types, need to know where they slot in.
      */
-    Thing(String gType, String javaPackage, String javaClass, String javaType, String translationCode,
-            String nativeType, String jniType) {
+    Thing(String gType, String javaPackage, String javaClass, String javaType, String nativeType,
+            String jniType) {
         this.gType = gType;
         this.bindingsPackage = javaPackage;
         this.bindingsClass = javaClass;
         this.javaType = javaType;
-        this.translationCode = translationCode;
         this.nativeType = nativeType;
         this.jniType = jniType;
         this.cType = gType;
@@ -101,4 +98,26 @@ public abstract class Thing
         return stored;
     }
 
+    /**
+     * The translation code necessary to convert this type from Java to the
+     * native JNI crossing type.
+     * 
+     * @param name
+     *            the variable name being converted
+     * @return the code for the conversion. Usually a no-op, ie, "name" is
+     *         returned, but for Proxies and Constants, "pointerOf(name)" will
+     *         be the result.
+     */
+    abstract String translationToNative(String name);
+
+    /**
+     * The translation code necessary to convert this type from native JNI
+     * crossing type back to Java.
+     * 
+     * @param name
+     *            the variable name being converted
+     * @return the code for the conversion. For Proxies "objectFor(name)" will
+     *         be the result.
+     */
+    abstract String translationToJava(String name);
 }

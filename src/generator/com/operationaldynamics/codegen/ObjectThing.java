@@ -13,6 +13,14 @@ package com.operationaldynamics.codegen;
 class ObjectThing extends Thing
 {
     ObjectThing(String gType, String bindingsPackage, String bindingsClass, String javaType) {
-        super(gType, bindingsPackage, bindingsClass, javaType, "pointerOf", "long", "jlong");
+        super(gType, bindingsPackage, bindingsClass, javaType, "long", "jlong");
+    }
+
+    String translationToJava(String name) {
+        return "objectFor(" + name + ")";
+    }
+
+    String translationToNative(String name) {
+        return "pointerOf(" + name + ")";
     }
 }

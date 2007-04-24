@@ -13,7 +13,7 @@ package com.operationaldynamics.codegen;
 class FundamentalThing extends Thing
 {
     FundamentalThing(String gType, String javaType, String nativeType, String jniType) {
-        super(gType, null, null, javaType, null, nativeType, jniType);
+        super(gType, null, null, javaType, nativeType, jniType);
 
         /*
          * Account for the encoded "const-gchar*" that represents the C type
@@ -30,5 +30,13 @@ class FundamentalThing extends Thing
 
             cType = buf.toString();
         }
+    }
+
+    String translationToJava(String name) {
+        return name;
+    }
+
+    String translationToNative(String name) {
+        return name;
     }
 }
