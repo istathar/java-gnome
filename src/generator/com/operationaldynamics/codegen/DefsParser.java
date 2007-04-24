@@ -28,13 +28,7 @@ package com.operationaldynamics.codegen;
  */
 
 import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.FileReader;
 import java.io.IOException;
-import java.io.OutputStreamWriter;
-import java.io.PrintWriter;
-import java.io.StringWriter;
-import java.io.Writer;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
@@ -338,66 +332,4 @@ public class DefsParser
         return (Block[]) blocks.toArray(new Block[blocks.size()]);
     }
 
-    /**
-     * FUTURE: Given the length of this class already, I'm not convinced that
-     * this is the right place for the main entry point or the driver loop
-     * that will call this and invoke the generator. But maybe. We'll see.
-     */
-    public static void main(String[] args) throws IOException {
-        Block[] blocks;
-        DefsParser parser;
-
-        String defsFile = "tests/generator/GtkButton.defs";
-        BufferedReader in = new BufferedReader(new FileReader(defsFile));
-
-        parser = new DefsParser(in);
-        blocks = parser.parseData();
-
-        registerTypes(blocks);
-
-        // debug
-        for (int i = 0; i < blocks.length; i++) {
-            System.out.println(blocks[i]);
-        }
-
-        generateCode(blocks);
-    }
-
-    static void registerTypes(Block[] blocks) {
-        for (int i = 0; i < blocks.length; i++) {
-            Thing t;
-
-            if (blocks[i] instanceof TypeBlock) {
-                t = blocks[i].createThing();
-                Thing.register(t);
-            }
-        }
-    }
-
-    static void generateCode(Block[] blocks) {
-        /*
-         * This is still in flux and a work in progress. For tonight, just
-         * send one to stdout.
-         */
-        Writer out = new BufferedWriter(new OutputStreamWriter(System.out));
-        Writer sink = new StringWriter(); // for now
-
-        PrintWriter java = new PrintWriter(out, true);
-        PrintWriter jni = new PrintWriter(sink);
-
-        for (int i = 0; i < blocks.length; i++) {
-            Generator gen;
-
-            gen = blocks[i].createGenerator();
-            gen.writeJava(java);
-            gen.writeC(jni);
-
-            java.flush(); // hm
-        }
-
-        java.println("}");
-
-        java.close();
-        jni.close();
-    }
 }
