@@ -27,13 +27,13 @@ public class VirtualGenerator extends FunctionGenerator
 {
     // TODO use a Thing instead?
 
-    private final String javaSignalType;
+    protected final String javaSignalClass;
 
-    private final String cSignalName;
+    protected final String cSignalName;
 
-    private final String receiverMethodName;
+    protected final String receiverMethodName;
 
-    private final String interfaceMethodName;
+    protected final String interfaceMethodName;
 
     /**
      * 
@@ -55,7 +55,7 @@ public class VirtualGenerator extends FunctionGenerator
             final String[][] gParameters) {
         super(gObjectType, "connect", gReturnType, null, gParameters);
 
-        this.javaSignalType = mungeSignalName(blockName);
+        this.javaSignalClass = mungeSignalName(blockName);
         this.cSignalName = blockName;
         this.receiverMethodName = toCamel("handle_" + blockName);
         this.interfaceMethodName = toCamel("on_" + blockName);
@@ -89,7 +89,7 @@ public class VirtualGenerator extends FunctionGenerator
         out.print(" self, ");
         out.print(objectType.bindingsClass);
         out.print(".");
-        out.print(javaSignalType);
+        out.print(javaSignalClass);
         out.print(" handler) {");
         out.print("\n");
     }
@@ -141,7 +141,7 @@ public class VirtualGenerator extends FunctionGenerator
         out.print("((");
         out.print(objectType.bindingsClass);
         out.print(".");
-        out.print(javaSignalType);
+        out.print(javaSignalClass);
         out.print(") handler).");
         out.print(interfaceMethodName);
         out.print("((");
@@ -153,7 +153,6 @@ public class VirtualGenerator extends FunctionGenerator
             out.print(parameterTypes[i].javaType);
             out.print(") ");
             out.print(parameterTypes[i].translationToJava(parameterNames[i]));
-            out.print(")");
         }
 
         out.print(");\n");
@@ -162,7 +161,53 @@ public class VirtualGenerator extends FunctionGenerator
 
     }
 
+    protected void interfaceClassDeclaration(PrintWriter out) {
+        out.print("\n");
+        out.print("    ");
+        out.print("interface ");
+        out.print(javaSignalClass);
+        out.print(" extends Signal");
+        out.print("\n");
+        out.print("    ");
+        out.print("{");
+        out.print("\n");
+    }
+
+    protected void interfaceMethodDeclaration(PrintWriter out) {
+        out.print("        ");
+        out.print(returnType.javaType);
+        out.print(" ");
+        out.print(interfaceMethodName);
+        out.print("(");
+        out.print(objectType.javaType);
+        out.print(" source");
+
+        for (int i = 0; i < parameterTypes.length; i++) {
+            out.print(", ");
+            out.print(parameterTypes[i].javaType);
+            out.print(" ");
+            out.print(parameterNames[i]);
+        }
+        out.print(");");
+        out.print("\n");
+
+    }
+
+    protected void interfaceClassClose(PrintWriter out) {
+        out.print("    ");
+        out.print("}");
+        out.print("\n");
+    }
+
+    /*
+     * Note that we don't use any of FunctionGenerator's code output methods;
+     * all these calls are here in VirtualGenerator.
+     */
     public void writeJava(PrintWriter out) {
+        interfaceClassDeclaration(out);
+        interfaceMethodDeclaration(out);
+        interfaceClassClose(out);
+
         translationMethodDeclaration(out);
         translationMethodSuperCall(out);
 
@@ -174,5 +219,4 @@ public class VirtualGenerator extends FunctionGenerator
         // No JNI code necessary.
         return;
     }
-
 }
