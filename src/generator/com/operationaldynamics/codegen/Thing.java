@@ -120,4 +120,20 @@ public abstract class Thing
      *         be the result.
      */
     abstract String translationToJava(String name);
+
+    /**
+     * Get the fully qualified name of the public Java type, ie, for
+     * GtkButton, return "org.gnome.gtk.Button". This is used to create import
+     * statements for types that are used.
+     */
+    public String fullyQualifiedJavaClassName() {
+        StringBuffer buf;
+
+        buf = new StringBuffer();
+        buf.append(bindingsPackage);
+        buf.append(".");
+        buf.append(javaType);
+
+        return buf.toString().intern();
+    }
 }

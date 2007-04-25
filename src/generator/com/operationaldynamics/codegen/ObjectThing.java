@@ -10,7 +10,7 @@
  */
 package com.operationaldynamics.codegen;
 
-class ObjectThing extends Thing
+public class ObjectThing extends Thing
 {
     ObjectThing(String gType, String bindingsPackage, String bindingsClass, String javaType) {
         super(gType, bindingsPackage, bindingsClass, javaType, "long", "jlong");

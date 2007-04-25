@@ -16,7 +16,7 @@ package com.operationaldynamics.codegen;
  * 
  * @author Andrew Cowie
  */
-class EnumThing extends Thing
+public class EnumThing extends Thing
 {
     EnumThing(String gType, String javaPackage, String javaClass, String javaType) {
         super(gType, javaPackage, javaClass, javaType, "int", "jint");

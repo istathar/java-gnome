@@ -20,6 +20,11 @@ public final class ValidateUtilityMethods extends TestCase
         assertEquals("setLabelTheRightWay", Generator.toCamel("set_label_the_right_way"));
     }
 
+    public final void testFullyQualifiedJavaName() {
+        Thing button = new ObjectThing("GtkButton*", "org.gnome.gtk", "GtkButton", "Button");
+        assertEquals("org.gnome.gtk.Button", button.fullyQualifiedJavaClassName());
+    }
+
     public final void testConstructorNameMunging() {
         Thing button = new ObjectThing("GtkButton*", "org.gnome.gtk", "GtkButton", "Button");
         Thing.register(button);
@@ -55,16 +60,16 @@ public final class ValidateUtilityMethods extends TestCase
     public final void testThingTranslationCode() {
         FundamentalThing ft;
         ObjectThing ot;
-        
+
         ft = new FundamentalThing("gboolean", "boolean", "boolean", "jboolean");
         assertEquals("a", ft.translationToNative("a"));
         assertEquals("a", ft.translationToJava("a"));
-        
+
         ot = new ObjectThing("GtkWidget*", "org.gnome.gtk", "GtkWidget", "Widget");
         assertEquals("pointerOf(b)", ot.translationToNative("b"));
         assertEquals("objectFor(b)", ot.translationToJava("b"));
     }
-    
+
     public final void testSignalNameMunging() {
         assertEquals("DELETE_EVENT", VirtualGenerator.mungeSignalName("delete-event"));
     }

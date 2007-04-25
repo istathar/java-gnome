@@ -10,7 +10,7 @@
  */
 package com.operationaldynamics.codegen;
 
-class FundamentalThing extends Thing
+public class FundamentalThing extends Thing
 {
     FundamentalThing(String gType, String javaType, String nativeType, String jniType) {
         super(gType, null, null, javaType, nativeType, jniType);
