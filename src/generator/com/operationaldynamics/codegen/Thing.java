@@ -72,6 +72,7 @@ public abstract class Thing
         register(new FundamentalThing("gboolean", "boolean", "boolean", "jboolean"));
         register(new FundamentalThing("gfloat", "float", "float", "jfloat"));
 
+        register(new ObjectThing("Signal", "org.gnome.glib", "", "Signal")); 
     }
 
     public static void register(Thing t) {

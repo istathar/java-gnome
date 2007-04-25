@@ -18,6 +18,7 @@ import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Set;
 
 import com.operationaldynamics.codegen.Block;
@@ -208,26 +209,32 @@ public class BindingsGenerator
      */
     private static void writeImportStatements(final Block[] blocks, final PrintWriter trans) {
         final Set types;
-        final Iterator iter;
+        Iterator iter;
 
         types = new HashSet();
 
         for (int i = 0; i < blocks.length; i++) {
-            Thing[] things;
+            List things;
 
             things = blocks[i].usesTypes();
 
-            for (int j = 0; j < things.length; j++) {
-                if (things[j] instanceof FundamentalThing) {
+            iter = things.iterator();
+            while (iter.hasNext()) {
+                Thing t = (Thing) iter.next();
+                if (t instanceof FundamentalThing) {
                     continue;
                 }
-                /*
-                 * As a Set it won't do duplicates. Ta-da.
-                 */
-                types.add(things[j]);
+                // As a Set it won't do duplicates. Ta-da.
+                types.add(t);
             }
         }
 
+        /*
+         * And now output the actual code for the include statements. TODO
+         * More than anything, this is what shouldn't be here. FUTURE sort the
+         * includes, perhaps with TreeSet, but that will need compareTo() in
+         * Thing.
+         */
         iter = types.iterator();
 
         while (iter.hasNext()) {

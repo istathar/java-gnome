@@ -10,6 +10,7 @@
  */
 package com.operationaldynamics.codegen;
 
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -68,7 +69,7 @@ public abstract class TypeBlock extends Block
      * subcharacteristics in ObjectBlocks, but for now, none of the TypeBlocks
      * import anything over and above themselves.
      */
-    public final Thing[] usesTypes() {
-        return new Thing[0];
+    public final List usesTypes() {
+        return Collections.EMPTY_LIST;
     }
 }

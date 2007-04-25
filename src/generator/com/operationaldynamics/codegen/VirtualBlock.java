@@ -29,6 +29,19 @@ class VirtualBlock extends FunctionBlock
     }
 
     public Generator createGenerator() {
-        return new VirtualGenerator(addPointerSymbol(ofObject), blockName, returnType, parameters);  
+        return new VirtualGenerator(addPointerSymbol(ofObject), blockName, returnType, parameters);
+    }
+
+    /*
+     * Insert org.gnome.glib.Signal ("Signal" is a pseudo gType registered in
+     * Thing.<clinit>(). Yes, this is a bit kludgy.
+     */
+    public List usesTypes() {
+        List things;
+
+        things = super.usesTypes();
+        things.add(Thing.lookup("Signal"));
+
+        return things;
     }
 }

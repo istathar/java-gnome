@@ -248,6 +248,10 @@ public abstract class Block
      * In order to put the import statements that goes at the top of the Java
      * class file, we need to extract a list of all the types used in this
      * Block.
+     * 
+     * @return a List of Things. It would have been an array, but subclasses
+     *         often want to build up the list; this is easier if less type
+     *         safe (in a pre-generics world).
      */
-    public abstract Thing[] usesTypes();
+    public abstract List usesTypes();
 }

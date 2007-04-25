@@ -69,7 +69,7 @@ abstract class FunctionBlock extends Block
      * Special cases will probably be needed for at least VirtualBlock, but
      * this is a good start.
      */
-    public Thing[] usesTypes() {
+    public List usesTypes() {
         List types;
 
         types = new ArrayList(parameters.length + 1);
@@ -80,6 +80,6 @@ abstract class FunctionBlock extends Block
             types.add(Thing.lookup(parameters[i][0]));
         }
 
-        return (Thing[]) types.toArray(new Thing[types.size()]);
+        return types;
     }
 }
