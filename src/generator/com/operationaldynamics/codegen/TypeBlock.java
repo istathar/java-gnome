@@ -62,4 +62,13 @@ public abstract class TypeBlock extends Block
 
         return buf.toString();
     }
+
+    /*
+     * This will have to change if we start using the values
+     * subcharacteristics in ObjectBlocks, but for now, none of the TypeBlocks
+     * import anything over and above themselves.
+     */
+    public final Thing[] usesTypes() {
+        return new Thing[0];
+    }
 }

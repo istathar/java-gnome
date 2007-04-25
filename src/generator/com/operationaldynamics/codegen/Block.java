@@ -62,7 +62,7 @@ public abstract class Block
      */
     static final String addPointerSymbol(final String bareGObjectName) {
         StringBuffer buf;
-        
+
         if (bareGObjectName == null) {
             return null;
         }
@@ -243,4 +243,11 @@ public abstract class Block
 
         return buf.toString();
     }
+
+    /**
+     * In order to put the import statements that goes at the top of the Java
+     * class file, we need to extract a list of all the types used in this
+     * Block.
+     */
+    public abstract Thing[] usesTypes();
 }

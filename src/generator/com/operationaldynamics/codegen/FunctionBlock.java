@@ -10,6 +10,7 @@
  */
 package com.operationaldynamics.codegen;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -62,5 +63,23 @@ abstract class FunctionBlock extends Block
      */
     public Thing createThing() {
         throw new UnsupportedOperationException();
+    }
+
+    /*
+     * Special cases will probably be needed for at least VirtualBlock, but
+     * this is a good start.
+     */
+    public Thing[] usesTypes() {
+        List types;
+
+        types = new ArrayList(parameters.length + 1);
+
+        types.add(Thing.lookup(returnType));
+
+        for (int i = 0; i < parameters.length; i++) {
+            types.add(Thing.lookup(parameters[i][0]));
+        }
+
+        return (Thing[]) types.toArray(new Thing[types.size()]);
     }
 }
