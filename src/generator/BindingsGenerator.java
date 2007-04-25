@@ -16,10 +16,13 @@ import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.io.StringWriter;
-import java.io.Writer;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.Set;
 
 import com.operationaldynamics.codegen.Block;
 import com.operationaldynamics.codegen.DefsParser;
+import com.operationaldynamics.codegen.FundamentalThing;
 import com.operationaldynamics.codegen.Generator;
 import com.operationaldynamics.codegen.Thing;
 import com.operationaldynamics.codegen.TypeBlock;
@@ -92,48 +95,48 @@ public class BindingsGenerator
 {
     public static void main(String[] args) throws IOException {
         loadDummyTypes();
-        theRealThing();
+        demoRunGeneratorForOneFile();
     }
 
-    
     // FIXME demo
     private static void loadDummyTypes() throws IOException {
         Block[] blocks;
         DefsParser parser;
-        
+
         BufferedReader in = new BufferedReader(new FileReader("tests/generator/DummyTypes.defs"));
 
         parser = new DefsParser(in);
         blocks = parser.parseData();
 
         registerTypes(blocks);
-
-        // debug
-        for (int i = 0; i < blocks.length; i++) {
-            System.out.println(blocks[i]);
-        }
     }
-   
+
     // FIXME demo
-    private static void theRealThing() throws IOException {
+    private static void demoRunGeneratorForOneFile() throws IOException {
         Block[] blocks;
         DefsParser parser;
-        
+
         BufferedReader in = new BufferedReader(new FileReader("tests/generator/GtkButton.defs"));
 
         parser = new DefsParser(in);
         blocks = parser.parseData();
 
+        // first pass
         registerTypes(blocks);
 
-        // debug
-        for (int i = 0; i < blocks.length; i++) {
-            System.out.println(blocks[i]);
-        }
-
+        // second pass
         generateCode(blocks);
     }
 
+    /**
+     * Iterate over all the Blocks and register a Thing in the type database
+     * for each one. This needs to be done across the entire universe of types
+     * before generation can begin. Yes, that sounds painful, and yes it is,
+     * but otherwise we don't have the information we need about how to
+     * convert types from one layer to another. <i>Shrug</i> that's why this
+     * is done ahead of time in the BindingsGenerator, and not at an
+     * application's runtime!
+     */
     static void registerTypes(Block[] blocks) {
         for (int i = 0; i < blocks.length; i++) {
             Thing t;
@@ -145,38 +148,111 @@ public class BindingsGenerator
         }
     }
 
-    static void generateCode(Block[] blocks) {
+    /**
+     * Generate the code that goes with a given .defs file, represnting one
+     * type being bound.
+     * 
+     * @param blocks
+     *            the array of Blocks you wish to transform into bindings
+     *            code. The obvious assumption is that the first block in the
+     *            array is a type definition, from which we determine the
+     *            target file names.
+     */
+    /*
+     * This could have been a single call to writeJava() and writeC(), but we
+     * had to split things up to generate the include statements for the Java
+     * files.
+     */
+    static void generateCode(final Block[] blocks) {
+        PrintWriter out, sink, trans, jni;
         /*
          * This is still in flux and a work in progress. For now, just send
          * one to stdout.
          */
-        Writer out = new BufferedWriter(new OutputStreamWriter(System.out));
-        Writer sink = new StringWriter(); // for now
+        out = new PrintWriter(new BufferedWriter(new OutputStreamWriter(System.out)), true);
+        sink = new PrintWriter(new StringWriter());
 
-        PrintWriter java = new PrintWriter(out, true);
-        PrintWriter jni = new PrintWriter(sink);
+        // switch
+        trans = out;
+        jni = sink;
 
+        writeFileHeaders(blocks, trans, jni);
+
+        writeImportStatements(blocks, trans);
+
+        writeBindingsCode(blocks, trans, jni);
+
+        trans.close();
+        jni.close();
+    }
+
+    private static void writeFileHeaders(Block[] blocks, PrintWriter trans, PrintWriter jni) {
+        Generator gen;
+
+        if (!(blocks[0] instanceof TypeBlock)) {
+            throw new IllegalStateException("First (define-...) block must be type information");
+        }
+
+        gen = blocks[0].createGenerator();
+
+        gen.writeJavaHeader(trans);
+        gen.writeCHeader(jni);
+    }
+
+    /*
+     * TODO I hate the fact that this had to be here, but I can't figure out
+     * any way to get it down into the Generator hierarchy because they, by
+     * design, output the code for a single (define-) block at a time, and are
+     * _created_ by each individual Block. Perhaps Block[] needs to be
+     * abstracted into a class.
+     */
+    private static void writeImportStatements(final Block[] blocks, final PrintWriter trans) {
+        final Set types;
+        final Iterator iter;
+
+        types = new HashSet();
+
+        for (int i = 0; i < blocks.length; i++) {
+            Thing[] things;
+
+            things = blocks[i].usesTypes();
+
+            for (int j = 0; j < things.length; j++) {
+                if (things[j] instanceof FundamentalThing) {
+                    continue;
+                }
+                /*
+                 * As a Set it won't do duplicates. Ta-da.
+                 */
+                types.add(things[j]);
+            }
+        }
+
+        iter = types.iterator();
+
+        while (iter.hasNext()) {
+            Thing t = (Thing) iter.next();
+
+            trans.print("import ");
+
+            trans.print(t.fullyQualifiedJavaClassName());
+            trans.print(";\n");
+        }
+    }
+
+    private static void writeBindingsCode(final Block[] blocks, final PrintWriter trans,
+            final PrintWriter jni) {
         for (int i = 0; i < blocks.length; i++) {
             Generator gen;
 
             gen = blocks[i].createGenerator();
-            gen.writeJava(java);
-            gen.writeC(jni);
+            gen.writeJavaBody(trans);
+            gen.writeCBody(jni);
 
-            java.flush(); // hm
+            trans.flush(); // hmm
         }
 
-        java.println("}");
+        trans.println("}");
 
-        java.close();
-        jni.close();
-        
-        // FIXME remove
-        try {
-            out.close();
-            sink.close();
-        } catch (IOException e) {
-        }
-      
     }
 }

@@ -60,7 +60,7 @@ public class OutputDemo
         };
 
         for (int i = 0; i < generators.length; i++) {
-            generators[i].writeJava(out);
+            generators[i].writeJavaBody(out);
             out.flush();
         }
 
@@ -68,7 +68,7 @@ public class OutputDemo
 
         out.println("==========================================================================");
         for (int i = 0; i < generators.length; i++) {
-            generators[i].writeC(out);
+            generators[i].writeCBody(out);
             out.flush();
         }
 
