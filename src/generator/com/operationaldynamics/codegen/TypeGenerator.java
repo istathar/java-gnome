@@ -18,8 +18,11 @@ import java.io.PrintWriter;
  * 
  * @author Andrew Cowie
  */
-abstract class TypeGenerator extends Generator
+public abstract class TypeGenerator extends Generator
 {
+    protected ObjectThing objectType;
+
+    
     /**
      * Compose the copyright header common to all generated sources files.
      */
@@ -48,4 +51,57 @@ abstract class TypeGenerator extends Generator
         out.print(" * this class.\n");
         out.print(" */\n");
     }
+
+    protected void packageStatementAndImports(final PrintWriter out) {
+        out.print("package ");
+        out.print(objectType.bindingsPackage);
+        out.print(";\n\n");
+    
+        out.print("import org.gnome.glib.Plumbing;\n");
+    }
+
+    protected void translationClassDeclaration(final PrintWriter out) {
+        out.print("\n");
+        out.print("final class ");
+        out.print(objectType.bindingsClass);
+        out.print(" extends Plumbing\n{\n");
+    
+        out.print("    ");
+        out.print("private ");
+        out.print(objectType.bindingsClass);
+        out.print("() {}\n");
+    }
+
+    protected void hashIncludeStatements(final PrintWriter out) {
+        out.print("\n");
+        out.print("#include <jni.h>\n");
+        out.print("#include <gtk/gtk.h>\n");
+        out.print("#include \"bindings_java.h\"\n");
+    
+        out.print("#include \"");
+        out.print(encodeJavaClassName(objectType.bindingsPackage, objectType.bindingsClass));
+        out.print(".h\";\n");
+    }
+
+    public void writeJavaHeader(final PrintWriter out) {
+        commonFileHeader(out, objectType.bindingsClass + ".java");
+        packageStatementAndImports(out);
+    }
+
+    public void writeJavaBody(final PrintWriter out) {
+        translationClassDeclaration(out);   
+    }
+
+    public void writeCHeader(final PrintWriter out) {
+        commonFileHeader(out, objectType.bindingsClass + ".c");
+        hashIncludeStatements(out);
+    }
+
+    /*
+     * Nothing needs doing to instantiate a C file once the headers are in.
+     */
+    public void writeCBody(final PrintWriter out) {
+        return;
+    }
+
 }

@@ -25,11 +25,11 @@ class EnumGenerator extends TypeGenerator
     // TODO look at ObjectGenerator, probably push its logic up.
     }
 
-    public void writeC(PrintWriter out) {
+    public void writeCBody(PrintWriter out) {
     // TODO Auto-generated method stub
     }
 
-    public void writeJava(PrintWriter out) {
+    public void writeJavaBody(PrintWriter out) {
     // TODO Auto-generated method stub
     }
 

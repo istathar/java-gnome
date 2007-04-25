@@ -21,15 +21,30 @@ import java.io.PrintWriter;
  */
 public abstract class Generator
 {
+
+    /**
+     * Generate the header for a Java file. The resason for the split between
+     * header and body is so that we can insert include statements into the
+     * output stream. To be called once per Block[] representing each .defs
+     * file.
+     */
+    public abstract void writeJavaHeader(PrintWriter out);
+
     /**
      * Generate Java code!
      */
-    public abstract void writeJava(PrintWriter out);
+    public abstract void writeJavaBody(PrintWriter out);
+
+    /**
+     * Generate the header for a C file. The split between header and body
+     * isn't used at present, but it is exposed here for symmetry.
+     */
+    public abstract void writeCHeader(PrintWriter out);
 
     /**
      * Generate C code!
      */
-    public abstract void writeC(PrintWriter out);
+    public abstract void writeCBody(PrintWriter out);
 
     /**
      * Turn "org.gnome.glib", "GtkButton" into "org_gnome_glib_GtkButton"
