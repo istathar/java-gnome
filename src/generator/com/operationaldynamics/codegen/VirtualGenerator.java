@@ -51,7 +51,7 @@ public class VirtualGenerator extends FunctionGenerator
      * We let FunctionGenerator split up the parameters, but they aren't used
      * for the translationMethod singature, but rather the interface method.
      */
-    VirtualGenerator(final String gObjectType, final String blockName, final String gReturnType,
+    public VirtualGenerator(final String gObjectType, final String blockName, final String gReturnType,
             final String[][] gParameters) {
         super(gObjectType, "connect", gReturnType, null, gParameters);
 

@@ -16,14 +16,14 @@ package com.operationaldynamics.codegen;
  * 
  * @author Andrew Cowie
  */
-class ObjectGenerator extends TypeGenerator
+public class ObjectGenerator extends TypeGenerator
 {
     /**
      * 
      * @param gObjectType
      *            the ObjectThing that you are generating code for.
      */
-    ObjectGenerator(String gObjectType) {
+    public ObjectGenerator(String gObjectType) {
         this.objectType = (ObjectThing) Thing.lookup(gObjectType);
     }
 }

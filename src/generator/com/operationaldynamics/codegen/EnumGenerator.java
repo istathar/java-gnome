@@ -19,9 +19,9 @@ import java.io.PrintWriter;
  * 
  * @author Andrew Cowie
  */
-class EnumGenerator extends TypeGenerator
+public class EnumGenerator extends TypeGenerator
 {
-    EnumGenerator(String forObject) {
+    public EnumGenerator(String forObject) {
     // TODO look at ObjectGenerator, probably push its logic up.
     }
 

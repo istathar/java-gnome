@@ -12,7 +12,7 @@ package com.operationaldynamics.codegen;
 
 public class ObjectThing extends Thing
 {
-    ObjectThing(String gType, String bindingsPackage, String bindingsClass, String javaType) {
+    public ObjectThing(String gType, String bindingsPackage, String bindingsClass, String javaType) {
         super(gType, bindingsPackage, bindingsClass, javaType, "long", "jlong");
     }
 

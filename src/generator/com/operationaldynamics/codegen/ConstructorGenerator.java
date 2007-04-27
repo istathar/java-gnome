@@ -40,7 +40,7 @@ package com.operationaldynamics.codegen;
  * 
  * @author Andrew Cowie
  */
-class ConstructorGenerator extends FunctionGenerator
+public class ConstructorGenerator extends FunctionGenerator
 {
 
     /**
@@ -49,7 +49,7 @@ class ConstructorGenerator extends FunctionGenerator
      * @param gFunctionName
      * @param gParameters
      */
-    ConstructorGenerator(final String gObjectType, final String gFunctionName,
+    public ConstructorGenerator(final String gObjectType, final String gFunctionName,
             final String[][] gParameters) {
         super(gObjectType, "", "glong", gFunctionName, gParameters);
 

@@ -8,7 +8,7 @@
  * version 2" See the LICENCE file for the terms governing usage and
  * redistribution.
  */
-package com.operationaldynamics.codegen;
+package com.operationaldynamics.defsparser;
 
 import java.util.Collections;
 import java.util.List;

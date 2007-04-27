@@ -8,13 +8,16 @@
  * version 2" See the LICENCE file for the terms governing usage and
  * redistribution.
  */
-package com.operationaldynamics.codegen;
+package com.operationaldynamics.defsparser;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.Iterator;
 import java.util.List;
+
+import com.operationaldynamics.codegen.Generator;
+import com.operationaldynamics.codegen.Thing;
 
 /**
  * Base class representing a block s-expression .defs data. The system is

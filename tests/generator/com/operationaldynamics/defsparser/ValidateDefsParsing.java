@@ -8,7 +8,7 @@
  * version 2" See the LICENCE file for the terms governing usage and
  * redistribution.
  */
-package com.operationaldynamics.codegen;
+package com.operationaldynamics.defsparser;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -17,12 +17,14 @@ import java.text.ParseException;
 
 import junit.framework.TestCase;
 
+import com.operationaldynamics.codegen.Thing;
+
 /**
  * Evaluate the internal methods in the DefsParser class.
  * 
  * @author Andrew Cowie
  */
-public final class ValidateDefsParsing extends TestCase
+public class ValidateDefsParsing extends TestCase
 {
     private static final String inputDefsData;
 
@@ -69,7 +71,7 @@ public final class ValidateDefsParsing extends TestCase
         inputDefsData = buf.toString();
     }
 
-    DefsParser parser;
+    protected DefsParser parser;
 
     BufferedReader in;
 
@@ -110,22 +112,6 @@ public final class ValidateDefsParsing extends TestCase
         assertEquals("Button", o.blockName);
     }
     
-    public final void testCreateObjectThing() {
-        Block[] blocks;
-        ObjectThing ot;
-        
-        blocks = parser.parseData();        
-        
-        assertTrue(blocks[0] instanceof ObjectBlock);
-        ot = (ObjectThing) blocks[0].createThing();
-        assertEquals("GtkButton*", ot.gType);
-        assertEquals("GtkButton", ot.bindingsClass);
-        assertEquals("Button", ot.javaType);
-        
-        Thing.register(ot);
-        assertSame(ot, Thing.lookup("GtkButton*"));
-    }
-
     public final void testCantCreateThingFromNonTypeBlock() {
         Block[] blocks;
         Thing t = null;

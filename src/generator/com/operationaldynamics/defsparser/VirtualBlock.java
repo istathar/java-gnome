@@ -8,9 +8,13 @@
  * version 2" See the LICENCE file for the terms governing usage and
  * redistribution.
  */
-package com.operationaldynamics.codegen;
+package com.operationaldynamics.defsparser;
 
 import java.util.List;
+
+import com.operationaldynamics.codegen.Generator;
+import com.operationaldynamics.codegen.Thing;
+import com.operationaldynamics.codegen.VirtualGenerator;
 
 /**
  * The block type for virtual methods. In the java-gnome bindings, these are

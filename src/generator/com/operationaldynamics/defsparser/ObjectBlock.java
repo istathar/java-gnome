@@ -8,20 +8,25 @@
  * version 2" See the LICENCE file for the terms governing usage and
  * redistribution.
  */
-package com.operationaldynamics.codegen;
+package com.operationaldynamics.defsparser;
 
 import java.util.List;
+
+import com.operationaldynamics.codegen.Generator;
+import com.operationaldynamics.codegen.ObjectGenerator;
+import com.operationaldynamics.codegen.ObjectThing;
+import com.operationaldynamics.codegen.Thing;
 
 /**
  * Block object representing the .defs data defining a GObject.
  * 
  * @author Andrew Cowie
  */
-class ObjectBlock extends TypeBlock
+public class ObjectBlock extends TypeBlock
 {
     protected String parent;
 
-    ObjectBlock(final String blockName, final List characteristics, final List fields) {
+    public ObjectBlock(final String blockName, final List characteristics, final List fields) {
         super(blockName, characteristics);
 
         processFields(fields);

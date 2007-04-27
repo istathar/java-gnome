@@ -21,12 +21,12 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
-import com.operationaldynamics.codegen.Block;
-import com.operationaldynamics.codegen.DefsParser;
 import com.operationaldynamics.codegen.FundamentalThing;
 import com.operationaldynamics.codegen.Generator;
 import com.operationaldynamics.codegen.Thing;
-import com.operationaldynamics.codegen.TypeBlock;
+import com.operationaldynamics.defsparser.Block;
+import com.operationaldynamics.defsparser.DefsParser;
+import com.operationaldynamics.defsparser.TypeBlock;
 
 /**
  * The java-gnome code generator

@@ -1,18 +1,16 @@
-/*
- * OutputDemo.java
- *
- * Copyright (c) 2007 Operational Dynamics Consulting Pty Ltd
- * 
- * The code in this file, and the library it is a part of, are made available
- * to you by the authors under the terms of the "GNU General Public Licence,
- * version 2" See the LICENCE file for the terms governing usage and
- * redistribution.
- */
-package com.operationaldynamics.codegen;
+
 
 import java.io.BufferedWriter;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
+
+import com.operationaldynamics.codegen.ConstructorGenerator;
+import com.operationaldynamics.codegen.EnumThing;
+import com.operationaldynamics.codegen.Generator;
+import com.operationaldynamics.codegen.MethodGenerator;
+import com.operationaldynamics.codegen.ObjectGenerator;
+import com.operationaldynamics.codegen.ObjectThing;
+import com.operationaldynamics.codegen.Thing;
 
 public class OutputDemo
 {

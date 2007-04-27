@@ -8,7 +8,7 @@
  * version 2" See the LICENCE file for the terms governing usage and
  * redistribution.
  */
-package com.operationaldynamics.codegen;
+package com.operationaldynamics.defsparser;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -66,42 +66,5 @@ public final class ValidateBlockUsage extends TestCase
 
     public final void testModuleNameToJavaPackageName() {
         assertEquals("org.gnome.gnome", TypeBlock.moduleToJavaPackage("Gnome"));
-    }
-
-    /**
-     * This is a somewhat contrived test; the same code is tested again
-     * {@link com.operationaldynamics.codegen.ValidateDefsParsing#testObjectBlockCreatesObjectThing()}
-     * on "real" defs data.
-     */
-    public final void testObjectBlockCreatesObjectThing() {
-        List characteristics;
-        ObjectBlock b;
-        Thing t;
-        ObjectThing ot;
-
-        characteristics = new ArrayList();
-        characteristics.add(new String[] {
-                "in-module", "Gtk"
-        });
-        characteristics.add(new String[] {
-                "parent", "GtkBin"
-        });
-        characteristics.add(new String[] {
-                "c-name", "GtkButton"
-        });
-
-        b = new ObjectBlock("Button", characteristics, null);
-        assertNotNull(b);
-
-        t = b.createThing();
-        assertNotNull(t);
-        assertTrue(t instanceof ObjectThing);
-        ot = (ObjectThing) t;
-        assertEquals("org.gnome.gtk", ot.bindingsPackage);
-        assertEquals("GtkButton", ot.bindingsClass);
-
-        assertEquals("Button", ot.javaType);
-        assertEquals("long", ot.nativeType);
-        assertEquals("jlong", ot.jniType);
     }
 }

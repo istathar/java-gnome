@@ -18,7 +18,7 @@ import java.io.PrintWriter;
  * 
  * @author Andrew Cowie
  */
-public abstract class TypeGenerator extends Generator
+abstract class TypeGenerator extends Generator
 {
     protected ObjectThing objectType;
 

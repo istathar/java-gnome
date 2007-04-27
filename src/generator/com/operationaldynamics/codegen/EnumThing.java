@@ -18,7 +18,7 @@ package com.operationaldynamics.codegen;
  */
 public class EnumThing extends Thing
 {
-    EnumThing(String gType, String javaPackage, String javaClass, String javaType) {
+    public EnumThing(String gType, String javaPackage, String javaClass, String javaType) {
         super(gType, javaPackage, javaClass, javaType, "int", "jint");
     }
 

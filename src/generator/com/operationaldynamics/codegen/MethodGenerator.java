@@ -39,7 +39,7 @@ package com.operationaldynamics.codegen;
  * 
  * @author Andrew Cowie
  */
-class MethodGenerator extends FunctionGenerator
+public class MethodGenerator extends FunctionGenerator
 {
 
     /**
@@ -52,7 +52,7 @@ class MethodGenerator extends FunctionGenerator
      *            supplied parameter list.
      * 
      */
-    MethodGenerator(final String gObjectType, final String blockName, final String gReturnType,
+    public MethodGenerator(final String gObjectType, final String blockName, final String gReturnType,
             final String gFunctionName, final String[][] gParameters) {
         super(gObjectType, blockName, gReturnType, gFunctionName, prependReferenceToSelf(gObjectType,
                 gParameters));

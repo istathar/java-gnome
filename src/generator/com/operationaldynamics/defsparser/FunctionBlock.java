@@ -8,10 +8,12 @@
  * version 2" See the LICENCE file for the terms governing usage and
  * redistribution.
  */
-package com.operationaldynamics.codegen;
+package com.operationaldynamics.defsparser;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import com.operationaldynamics.codegen.Thing;
 
 /**
  * A .defs (define-function...) block, and the superclass for other entities
@@ -25,7 +27,7 @@ import java.util.List;
  * Change from abstract if we ever figure out something useful to do with
  * other (define-function...) blocks.
  */
-abstract class FunctionBlock extends Block
+public abstract class FunctionBlock extends Block
 {
     protected String returnType;
 
