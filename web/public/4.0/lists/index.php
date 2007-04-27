@@ -40,16 +40,26 @@ moment, both are hosted at SourceForge.</p>
 
 <dl>
 
-<dt class="list">java-gnome-developer&#0064;lists&#0046;sourceforge&#0046;net</dt>
-	<dd><p>This is the place for <i>developers</i>, that is, people using
+<dt class="list">java-gnome-developer&#0064;lists&#0046;sourceforge&#0046;net
+</dt>
+	<dd>
+	<p>This is the place for <i>developers</i>, that is, people using
 	the bindings to create applications, to ask questions and to discuss
-	issues like usability and best practise.</p></dd>
+	issues like usability and best practise.
+	<br/>
+	(<a href="https://lists.sourceforge.net/lists/listinfo/java-gnome-developer">subscribe</a>,
+	<a href="http://news.gmane.org/gmane.comp.gnome.bindings.java">archive</a>)
+	</p></dd>
 
 <dt class="list">java-gnome-hackers&#0064;lists&#0046;sourceforge&#0046;net</dt>
 	<dd><p>This is the mailing list where the people <i>hacking</i> on the
 	bindings themselves discuss design issues, what they're working on,
 	and manage the release process. You're welcome to join the list, but
-	please keep discussions on topic.</p></dd>
+	please keep discussions on topic.
+	<br/>
+	(<a href="https://lists.sourceforge.net/lists/listinfo/java-gnome-hackers">subscribe</a>,
+	<a href="http://news.gmane.org/gmane.comp.gnome.bindings.java.devel">archive</a>)
+	</p></dd>
 
 </dl>
 
