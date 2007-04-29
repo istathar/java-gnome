@@ -10,8 +10,6 @@
  */
 package com.operationaldynamics.codegen;
 
-import java.io.PrintWriter;
-
 /**
  * Output the file header necessary to declare the class containing the
  * constant objects of our representation of C enums via subclasses of
@@ -21,16 +19,7 @@ import java.io.PrintWriter;
  */
 public class EnumGenerator extends TypeGenerator
 {
-    public EnumGenerator(String forObject) {
-    // TODO look at ObjectGenerator, probably push its logic up.
+    public EnumGenerator(String gEnumType) {
+        super(gEnumType);
     }
-
-    public void writeCBody(PrintWriter out) {
-    // TODO Auto-generated method stub
-    }
-
-    public void writeJavaBody(PrintWriter out) {
-    // TODO Auto-generated method stub
-    }
-
 }

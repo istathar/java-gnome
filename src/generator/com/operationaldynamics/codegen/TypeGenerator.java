@@ -20,7 +20,11 @@ import java.io.PrintWriter;
  */
 abstract class TypeGenerator extends Generator
 {
-    protected ObjectThing objectType;
+    protected final Thing objectType;
+
+    public TypeGenerator(String gObjectType) {
+        this.objectType = Thing.lookup(gObjectType);
+    }
 
     
     /**

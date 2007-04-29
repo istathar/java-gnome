@@ -24,6 +24,6 @@ public class ObjectGenerator extends TypeGenerator
      *            the ObjectThing that you are generating code for.
      */
     public ObjectGenerator(String gObjectType) {
-        this.objectType = (ObjectThing) Thing.lookup(gObjectType);
+        super(gObjectType);
     }
 }
