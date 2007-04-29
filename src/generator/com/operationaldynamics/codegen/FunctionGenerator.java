@@ -293,20 +293,23 @@ abstract class FunctionGenerator extends Generator
 
     /**
      * If a JNI access function hits a problem (ie, OutOfMemoryError) it needs
-     * to exit immediately. A Java Exception is already thwown, so we just
-     * need to bail. This is tricky, however, since the return statement must
+     * to exit immediately. A Java Exception is already thown, so we just need
+     * to bail. This is tricky, however, since the return statement must
      * return something of the return type of the function.
      * 
      * @param i
      *            the index into the parameterNames array (you're calling this
      *            from inside a for loop iterating over the parameters).
      */
+    /*
+     * This could become protected if it becomes necessary elsewhere.
+     */
     private void jniReturnIfExceptionThrown(PrintWriter out, int i) {
         out.print("\tif (");
         out.print(parameterNames[i]);
         out.print(" == NULL) {\n");
         out.print("\t\treturn");
-        out.print(errorReturn(returnType));
+        out.print(jniErrorReturnValue(returnType));
         out.print("; // Java Exception already thrown\n");
         out.print("\t}\n");
     }
@@ -314,8 +317,13 @@ abstract class FunctionGenerator extends Generator
     /**
      * Little utility function so that when aborting out of a C function
      * (because an Exception has been thrown) the correct syntax is used.
+     * Stick this after a "return" statement.
+     * 
+     * @return an empty string on void return, or the null/zero value for
+     *         other return types, including a single leadind space character
+     *         padding.
      */
-    private String errorReturn(Thing returnType) {
+    protected String jniErrorReturnValue(Thing returnType) {
         if (returnType.jniType.equals("void")) {
             return "";
         } else if (returnType.jniType.equals("jboolean")) {
