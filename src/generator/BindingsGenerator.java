@@ -173,9 +173,11 @@ public class BindingsGenerator
         out = new PrintWriter(new BufferedWriter(new OutputStreamWriter(System.out)), true);
         sink = new PrintWriter(new StringWriter());
 
-        // switch
+        /* switch */
         trans = out;
         jni = sink;
+        // trans = sink;
+        // jni = out;
 
         writeFileHeaders(blocks, trans, jni);
 

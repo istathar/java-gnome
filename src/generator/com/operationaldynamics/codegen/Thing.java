@@ -62,6 +62,12 @@ public abstract class Thing
 
     private static HashMap things;
 
+    /*
+     * FIXME: it turns out that "const-" appears as a qualifier on more than
+     * just gchar*, so the translation of that particular phrase into "const "
+     * needs to be pushed up somewhere; what impact on type registration? Two
+     * lookups point to same Thing object perhaps?
+     */
     static {
         things = new HashMap(400);
 
@@ -71,8 +77,9 @@ public abstract class Thing
         register(new FundamentalThing("glong", "long", "long", "jlong"));
         register(new FundamentalThing("gboolean", "boolean", "boolean", "jboolean"));
         register(new FundamentalThing("gfloat", "float", "float", "jfloat"));
+        register(new OutParameterFundamentalThing("gfloat*", "float[]", "float[]", "jfloatArray"));
 
-        register(new ObjectThing("Signal", "org.gnome.glib", "", "Signal")); 
+        register(new ObjectThing("Signal", "org.gnome.glib", "", "Signal"));
     }
 
     public static void register(Thing t) {
@@ -93,7 +100,7 @@ public abstract class Thing
         stored = (Thing) things.get(gType);
         if (stored == null) {
             throw new IllegalStateException("\nYou've asked for the Thing corresponding to \"" + gType
-                    + "\" but it isn't registered.");
+                    + "\", but it isn't registered.");
         }
 
         return stored;

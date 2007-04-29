@@ -17,11 +17,6 @@
 ;; GtkButton.
 ;;
 
-;;(define-function gtk_button_get_type
-;;  (c-name "gtk_button_get_type")
-;;  (return-type "GType")
-;;)
-
 (define-function gtk_button_new
   (c-name "gtk_button_new")
   (is-constructor-of "GtkButton")
@@ -36,22 +31,6 @@
     '("const-gchar*" "label")
   )
 )
-
-;;(define-function gtk_button_new_from_stock
-;;  (c-name "gtk_button_new_from_stock")
-;;  (return-type "GtkWidget*")
-;;  (parameters
-;;    '("const-gchar*" "stock_id")
-;;  )
-;;)
-;;
-;;(define-function gtk_button_new_with_mnemonic
-;;  (c-name "gtk_button_new_with_mnemonic")
-;;  (return-type "GtkWidget*")
-;;  (parameters
-;;    '("const-gchar*" "label")
-;;  )
-;;)
 
 (define-method pressed
   (of-object "GtkButton")
@@ -168,15 +147,15 @@
   )
 )
 
-;;(define-method get_alignment
-;;  (of-object "GtkButton")
-;;  (c-name "gtk_button_get_alignment")
-;;  (return-type "none")
-;;  (parameters
-;;    '("gfloat*" "xalign")
-;;    '("gfloat*" "yalign")
-;;  )
-;;)
+(define-method get_alignment
+  (of-object "GtkButton")
+  (c-name "gtk_button_get_alignment")
+  (return-type "none")
+  (parameters
+    '("gfloat*" "xalign")
+    '("gfloat*" "yalign")
+  )
+)
 
 (define-method set_image
   (of-object "GtkButton")

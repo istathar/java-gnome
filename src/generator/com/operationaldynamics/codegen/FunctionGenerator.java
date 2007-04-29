@@ -148,12 +148,12 @@ abstract class FunctionGenerator extends Generator
 
         out.print(");\n");
     }
-    
+
     static final String unwrapObjectToNative(Thing type, String name) {
         StringBuffer buf;
-        
+
         buf = new StringBuffer();
-        
+
         if (type instanceof ObjectThing) {
             buf.append("pointerOf(");
             buf.append(name);
@@ -165,10 +165,9 @@ abstract class FunctionGenerator extends Generator
         } else {
             return name;
         }
-        
+
         return buf.toString();
     }
-    
 
     protected void translationMethodReturnCode(PrintWriter out) {
         if (!returnType.nativeType.equals("void")) {
@@ -227,6 +226,14 @@ abstract class FunctionGenerator extends Generator
         out.print("\n)\n{\n");
     }
 
+    /*
+     * FIXME The case by case code to deal with the out parameters is still
+     * massively incomplete. It needs both testing in terms of not segfaulting
+     * an application program, and better implementation here. The present
+     * type OutParameterFundamentalType is meant as a marker for this
+     * situation, although we don't use it here yet. Perhaps j<type>Array is
+     * enough to match on.
+     */
     protected void jniFunctionConversionCode(PrintWriter out) {
         for (int i = 0; i < parameterTypes.length; i++) {
             out.print("\t");
@@ -258,26 +265,50 @@ abstract class FunctionGenerator extends Generator
             out.print(") ");
 
             /*
-             * and now a type specific decode:
+             * and now a type specific decode: TODO It might be better if this
+             * was reorganized to leverage a type hierarchy, but at present
+             * FundamentalThing isn't enough of a desecriminator.
              */
             if (parameterTypes[i].jniType.equals("jstring")) {
                 out.print("(*env)->GetStringUTFChars(env, _");
                 out.print(parameterNames[i]);
                 out.print(", NULL);\n");
 
-                out.print("\tif (");
+                jniReturnIfExceptionThrown(out, i);
+            } else if (parameterTypes[i].jniType.equals("jfloatArray")) {
+                out.print("(*env)->GetFloatArrayElements(env, _");
                 out.print(parameterNames[i]);
-                out.print(" == NULL) {\n");
-                out.print("\t\treturn");
-                out.print(errorReturn(returnType));
-                out.print("; // OutOfMemoryError already thrown\n");
-                out.print("\t}\n");
+                out.print(", NULL);\n");
+
+                jniReturnIfExceptionThrown(out, i);
+
+                out.print("\t// DANGER this conversion code not tested!\n");
             } else {
                 out.print(parameterNames[i]);
                 out.print(";\n");
             }
             // TODO handle arrays carrying out parameters
         }
+    }
+
+    /**
+     * If a JNI access function hits a problem (ie, OutOfMemoryError) it needs
+     * to exit immediately. A Java Exception is already thwown, so we just
+     * need to bail. This is tricky, however, since the return statement must
+     * return something of the return type of the function.
+     * 
+     * @param i
+     *            the index into the parameterNames array (you're calling this
+     *            from inside a for loop iterating over the parameters).
+     */
+    private void jniReturnIfExceptionThrown(PrintWriter out, int i) {
+        out.print("\tif (");
+        out.print(parameterNames[i]);
+        out.print(" == NULL) {\n");
+        out.print("\t\treturn");
+        out.print(errorReturn(returnType));
+        out.print("; // Java Exception already thrown\n");
+        out.print("\t}\n");
     }
 
     /**
@@ -341,9 +372,14 @@ abstract class FunctionGenerator extends Generator
                 out.print(", ");
                 out.print(parameterNames[i]);
                 out.print(");\n");
+            } else if (parameterTypes[i].jniType.equals("jfloatArray")) {
+                out.print("\t(*env)->ReleaseFloatArrayElements(env, _");
+                out.print(parameterNames[i]);
+                out.print(", ");
+                out.print(parameterNames[i]);
+                out.print(", 0);\n");
             }
         }
-
         /*
          * return result if applicable. Specific code for certain types; most
          * others, just a cast.
@@ -371,7 +407,7 @@ abstract class FunctionGenerator extends Generator
     public void writeJavaHeader(final PrintWriter out) {
         return;
     }
-    
+
     public void writeCHeader(final PrintWriter out) {
         return;
     }

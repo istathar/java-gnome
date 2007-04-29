@@ -324,7 +324,9 @@ public class DefsParser
                 block = parseStanza();
                 blocks.add(block);
             } catch (ParseException pe) {
-                throw new RuntimeException(pe);
+                System.err.println("Failed to parse .defs stanza at:");
+                System.err.println(pe);
+                System.err.println("(continuing)");
             }
         }
 
