@@ -20,7 +20,7 @@ import java.io.PrintWriter;
  */
 abstract class TypeGenerator extends Generator
 {
-    protected ObjectThing objectType;
+    protected Thing objectType;
 
     
     /**
@@ -35,7 +35,7 @@ abstract class TypeGenerator extends Generator
         out.print("/*\n");
         out.print(" * ");
         out.print(fileName);
-        out.print("\n\n");
+        out.print("\n *\n");
         out.print(" * Copyright (c) 2006-2007 Operational Dynamics Consulting Pty Ltd\n");
         out.print(" *\n");
         out.print(" * The code in this file, and the library it is a part of, are made available\n");
