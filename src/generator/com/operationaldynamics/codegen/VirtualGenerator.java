@@ -55,25 +55,10 @@ public class VirtualGenerator extends FunctionGenerator
             final String[][] gParameters) {
         super(gObjectType, "connect", gReturnType, null, gParameters);
 
-        this.javaSignalClass = mungeSignalName(blockName);
+        this.javaSignalClass = toAllCaps(blockName);
         this.cSignalName = blockName;
         this.receiverMethodName = toCamel("handle_" + blockName);
         this.interfaceMethodName = toCamel("on_" + blockName);
-    }
-
-    /**
-     * Work out the signal name: "delete-event" -> "DELETE_EVENT"
-     */
-    static final String mungeSignalName(String blockName) {
-        StringBuffer buf;
-        int i;
-
-        buf = new StringBuffer(blockName.toUpperCase());
-        while ((i = buf.indexOf("-")) != -1) {
-            buf.setCharAt(i, '_');
-        }
-
-        return buf.toString();
     }
 
     /*

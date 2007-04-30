@@ -42,11 +42,10 @@ public class EnumGenerator extends TypeGenerator
             String value = values[i][0];
 
             /*
-             * We need to convert values in the form: select-folder, save to
-             * CREATE_FOLDER, SAVE
+             * We need to convert values in the form: create-folder to
+             * CREATE_FOLDER, etc.
              */
-            this.values[i] = value.toUpperCase().replace('-', '_');
-            // TODO what about put this in a Generator helper function?
+            this.values[i] = toAllCaps(value);
         }
     }
 
