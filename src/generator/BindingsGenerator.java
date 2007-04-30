@@ -11,7 +11,9 @@
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileReader;
+import java.io.FilenameFilter;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
@@ -95,38 +97,65 @@ import com.operationaldynamics.defsparser.TypeBlock;
 public class BindingsGenerator
 {
     public static void main(String[] args) throws IOException {
-        loadDummyTypes();
-        demoRunGeneratorForOneFile();
+        demoRunGeneratorOutputToFiles();
     }
 
-    // FIXME demo
-    private static void loadDummyTypes() throws IOException {
+    /**
+     * This is building towards the main loop that will drive the .defs file
+     * parser and subsequent runs of the bindings code generators, but it is
+     * still an intermediate form.
+     */
+    private static void demoRunGeneratorOutputToFiles() {
         Block[] blocks;
         DefsParser parser;
+        File dir;
+        File[] files;
 
-        BufferedReader in = new BufferedReader(new FileReader("tests/generator/DummyTypes.defs"));
+        dir = new File("tests/generator/");
 
-        parser = new DefsParser(in);
-        blocks = parser.parseData();
-
-        registerTypes(blocks);
-    }
-
-    // FIXME demo
-    private static void demoRunGeneratorForOneFile() throws IOException {
-        Block[] blocks;
-        DefsParser parser;
-
-        BufferedReader in = new BufferedReader(new FileReader("tests/generator/GtkButton.defs"));
-
-        parser = new DefsParser(in);
-        blocks = parser.parseData();
+        files = dir.listFiles(new FilenameFilter() {
+            public boolean accept(File dir, String name) {
+                if (name.endsWith(".defs")) {
+                    return true;
+                } else {
+                    return false;
+                }
+            }
+        });
 
         // first pass
-        registerTypes(blocks);
+        for (int i = 0; i < files.length; i++) {
+            try {
+                BufferedReader in = new BufferedReader(new FileReader(files[i]));
+
+                parser = new DefsParser(in);
+                blocks = parser.parseData();
+
+                in.close();
+            } catch (IOException ioe) {
+                System.err.println("Error trying to parse " + files[i]);
+                continue;
+            }
+
+            registerTypes(blocks);
+        }
 
         // second pass
-        generateCode(blocks);
+        for (int i = 0; i < files.length; i++) {
+            try {
+                BufferedReader in = new BufferedReader(new FileReader(files[i]));
+
+                parser = new DefsParser(in);
+                blocks = parser.parseData();
+
+                in.close();
+            } catch (IOException ioe) {
+                System.err.println("Second pass, I/O Error" + files[i]);
+                continue;
+            }
+
+            generateCode(blocks);
+        }
     }
 
     /**
@@ -185,8 +214,11 @@ public class BindingsGenerator
 
         writeBindingsCode(blocks, trans, jni);
 
-        trans.close();
-        jni.close();
+        /*
+         * Don't close stdout! :)
+         */
+        // trans.close();
+        // jni.close();
     }
 
     private static void writeFileHeaders(Block[] blocks, PrintWriter trans, PrintWriter jni) {
