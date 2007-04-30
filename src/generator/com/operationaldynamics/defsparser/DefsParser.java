@@ -156,7 +156,7 @@ public class DefsParser
                 if (line.equals(")")) {
                     return true;
                 }
-                if (line.substring(0, 2).equals(";;")) {
+                if (line.startsWith(";;")) {
                     continue;
                 }
                 lines.add(line);

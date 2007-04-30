@@ -19,17 +19,7 @@ public class FundamentalThing extends Thing
          * Account for the encoded "const-gchar*" that represents the C type
          * "const gchar*". Are there others? Dunno, but this will handle them.
          */
-        if (gType.indexOf("-") != -1) {
-            StringBuffer buf;
-            int i;
-
-            buf = new StringBuffer(gType);
-            while ((i = buf.indexOf("-")) != -1) {
-                buf.setCharAt(i, ' ');
-            }
-
-            cType = buf.toString();
-        }
+        cType = gType.replace('-', ' ').intern();
     }
 
     String translationToJava(String name) {
