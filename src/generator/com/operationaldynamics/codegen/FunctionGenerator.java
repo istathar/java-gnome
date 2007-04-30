@@ -36,7 +36,11 @@ abstract class FunctionGenerator extends Generator
      */
     protected String translationMethodName;
 
-    protected final Thing returnType;
+    /**
+     * Not final so that we can play with the return type variable in the JNI
+     * conversion code section.
+     */
+    protected Thing returnType;
 
     protected final String nativeMethodName;
 
@@ -235,6 +239,15 @@ abstract class FunctionGenerator extends Generator
      * enough to match on.
      */
     protected void jniFunctionConversionCode(PrintWriter out) {
+        /*
+         * Declare conversion variables as necessary
+         */
+        if (!returnType.javaType.equals("void")) {
+            out.print("\t");
+            out.print(returnType.cType);
+            out.print(" result;\n");
+        }
+
         for (int i = 0; i < parameterTypes.length; i++) {
             out.print("\t");
             out.print(parameterTypes[i].cType);

@@ -1,5 +1,3 @@
-
-
 import java.io.BufferedWriter;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
@@ -37,11 +35,12 @@ public class OutputDemo
         generators = new Generator[] {
                 new ObjectGenerator("GtkButton*"),
 
-                new ConstructorGenerator("GtkButton*", "gtk_button_new_with_label", new String[][] {
-                    new String[] {
-                            "const-gchar*", "label"
-                    }
-                }),
+                new ConstructorGenerator("GtkButton*", "GtkWidet*", "gtk_button_new_with_label",
+                        new String[][] {
+                            new String[] {
+                                    "const-gchar*", "label"
+                            }
+                        }),
 
                 new MethodGenerator("GtkButton*", "set_label", "void", "gtk_button_set_label",
                         new String[][] {

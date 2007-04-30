@@ -10,6 +10,8 @@
  */
 package com.operationaldynamics.codegen;
 
+import java.io.PrintWriter;
+
 /**
  * Output the code corresponding to a constructor function on a GObject.
  * 
@@ -42,18 +44,29 @@ package com.operationaldynamics.codegen;
  */
 public class ConstructorGenerator extends FunctionGenerator
 {
+    private final Thing actualReturnType;
 
     /**
+     * We send glong as a hard coded retrun type to FunctionGenerator because
+     * from an outside perspective, our translations of constructor functions
+     * return naked pointers (long), not Widgets, because the widget hasn't
+     * been instantiated Java side yet!
      * 
      * @param gObjectType
+     * @param gReturnType
+     *            the actual return type of the constructor function; will be
+     *            used internally within the JNI code; external return type is
+     *            hard wired to long.
      * @param gFunctionName
      * @param gParameters
      */
-    public ConstructorGenerator(final String gObjectType, final String gFunctionName,
-            final String[][] gParameters) {
+
+    public ConstructorGenerator(final String gObjectType, final String gReturnType,
+            final String gFunctionName, final String[][] gParameters) {
         super(gObjectType, "", "glong", gFunctionName, gParameters);
 
         this.translationMethodName = mungeConstructorName(gObjectType, gFunctionName);
+        this.actualReturnType = Thing.lookup(gReturnType);
     }
 
     /**
@@ -73,5 +86,28 @@ public class ConstructorGenerator extends FunctionGenerator
         buf.insert(0, "create_");
 
         return toCamel(buf.toString());
+    }
+
+    /**
+     * Unlike normal method calls, the return type from G side constructor
+     * functions is long - the pointer address - and we pass it back up
+     * through the translation layer to the <code>super(long pointer)</code>
+     * constructor in the public API subclass of Proxy.
+     * 
+     * <p>
+     * Twiddling with the returnType field used in FunctionGenerator is a
+     * somewhat kludgy way of making sure that the code <i>inside</i> the JNI
+     * function is correct, but allows us to easily alter the super code's
+     * behaviour and gets the job done.
+     */
+    protected void jniFunctionConversionCode(PrintWriter out) {
+        Thing originalReturnType;
+
+        originalReturnType = returnType;
+        returnType = actualReturnType;
+
+        super.jniFunctionConversionCode(out);
+
+        returnType = originalReturnType;
     }
 }

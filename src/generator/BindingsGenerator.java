@@ -199,14 +199,18 @@ public class BindingsGenerator
          * This is still in flux and a work in progress. For now, just send
          * one to stdout.
          */
+        final boolean OUTPUT_TRANSLATION_TO_STDOUT = false;
+
         out = new PrintWriter(new BufferedWriter(new OutputStreamWriter(System.out)), true);
         sink = new PrintWriter(new StringWriter());
 
-        /* switch */
-        trans = out;
-        jni = sink;
-        // trans = sink;
-        // jni = out;
+        if (OUTPUT_TRANSLATION_TO_STDOUT) {
+            trans = out;
+            jni = sink;
+        } else {
+            trans = sink;
+            jni = out;
+        }
 
         writeFileHeaders(blocks, trans, jni);
 
@@ -290,7 +294,8 @@ public class BindingsGenerator
             gen.writeJavaBody(trans);
             gen.writeCBody(jni);
 
-            trans.flush(); // hmm
+            trans.flush(); // FIXME hmm
+            jni.flush(); // FIXME hmm
         }
 
         trans.println("}");
