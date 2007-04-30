@@ -26,7 +26,6 @@ abstract class TypeGenerator extends Generator
         this.objectType = Thing.lookup(gObjectType);
     }
 
-    
     /**
      * Compose the copyright header common to all generated sources files.
      */
@@ -39,7 +38,7 @@ abstract class TypeGenerator extends Generator
         out.print("/*\n");
         out.print(" * ");
         out.print(fileName);
-        out.print("\n\n");
+        out.print("\n *\n");
         out.print(" * Copyright (c) 2006-2007 Operational Dynamics Consulting Pty Ltd\n");
         out.print(" *\n");
         out.print(" * The code in this file, and the library it is a part of, are made available\n");
@@ -60,7 +59,7 @@ abstract class TypeGenerator extends Generator
         out.print("package ");
         out.print(objectType.bindingsPackage);
         out.print(";\n\n");
-    
+
         out.print("import org.gnome.glib.Plumbing;\n");
     }
 
@@ -69,7 +68,7 @@ abstract class TypeGenerator extends Generator
         out.print("final class ");
         out.print(objectType.bindingsClass);
         out.print(" extends Plumbing\n{\n");
-    
+
         out.print("    ");
         out.print("private ");
         out.print(objectType.bindingsClass);
@@ -81,7 +80,7 @@ abstract class TypeGenerator extends Generator
         out.print("#include <jni.h>\n");
         out.print("#include <gtk/gtk.h>\n");
         out.print("#include \"bindings_java.h\"\n");
-    
+
         out.print("#include \"");
         out.print(encodeJavaClassName(objectType.bindingsPackage, objectType.bindingsClass));
         out.print(".h\";\n");
@@ -93,7 +92,7 @@ abstract class TypeGenerator extends Generator
     }
 
     public void writeJavaBody(final PrintWriter out) {
-        translationClassDeclaration(out);   
+        translationClassDeclaration(out);
     }
 
     public void writeCHeader(final PrintWriter out) {
@@ -107,5 +106,4 @@ abstract class TypeGenerator extends Generator
     public void writeCBody(final PrintWriter out) {
         return;
     }
-
 }
