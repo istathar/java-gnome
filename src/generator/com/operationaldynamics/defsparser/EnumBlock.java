@@ -17,16 +17,29 @@ import com.operationaldynamics.codegen.EnumThing;
 import com.operationaldynamics.codegen.Generator;
 import com.operationaldynamics.codegen.Thing;
 
+/**
+ * Block object representing the .defs data defining a Enum.
+ * 
+ * @author Andrew Cowie
+ * @author Vreixo Formoso
+ */
 class EnumBlock extends TypeBlock
 {
+    
+    protected String[][] values;
+    
     EnumBlock(String blockName, List characteristics, List values) {
         super(blockName, characteristics);
         
-        // FIXME handle values!
+        processValues(values);
     }
 
+    private void processValues(final List values) {
+        this.values = (String[][]) values.toArray(new String[values.size()][]);
+    }
+    
     public Generator createGenerator() {
-        return new EnumGenerator(cName);
+        return new EnumGenerator(cName, values);
     }
 
     public Thing createThing() {
