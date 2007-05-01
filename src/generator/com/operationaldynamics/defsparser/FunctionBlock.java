@@ -29,6 +29,20 @@ import com.operationaldynamics.codegen.Thing;
  */
 public abstract class FunctionBlock extends Block
 {
+    /**
+     * Strictly speaking, this isn't here, but down in MethodBlock and
+     * VirtualBlock. But it needs to be figured out before FunctionGenerator
+     * can be used in a (define-function ...), and it's present for all the
+     * sub block types. As well, by having it here, we can enforce the '*'
+     * business in setOfObject() so that lookups are consistent.
+     */
+    /*
+     * TODO with current Block model, a FunctionBlock always belong to a
+     * TypeBlock, so this can be getted simply adding a pointer from here
+     * to parent, and maybe, only maybe, this can be dropped!!
+     */
+    protected String ofObject;
+    
     protected String returnType;
 
     protected String cName;
@@ -41,6 +55,10 @@ public abstract class FunctionBlock extends Block
         super(blockName, characteristics);
 
         processParameters(parameters);
+    }
+
+    final void setOfObject(final String ofObject) {
+        this.ofObject = ofObject;
     }
 
     private void processParameters(final List parameters) {

@@ -32,14 +32,6 @@ import com.operationaldynamics.codegen.Generator;
  */
 public abstract class Block
 {
-    /**
-     * Strictly speaking, this isn't here, but down in MethodBlock and
-     * VirtualBlock. But it needs to be figured out before FunctionGenerator
-     * can be used in a (define-function ...), and it's present for all the
-     * sub block types. As well, by having it here, we can enforce the '*'
-     * business in setOfObject() so that lookups are consistent.
-     */
-    protected String ofObject;
 
     /**
      * The short "python" name for this Object/Function/Method/Constructor/etc
@@ -50,10 +42,6 @@ public abstract class Block
         this.blockName = blockName;
 
         processCharacteristics(characteristics);
-    }
-
-    final void setOfObject(final String ofObject) {
-        this.ofObject = ofObject;
     }
 
     /**

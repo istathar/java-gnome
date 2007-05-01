@@ -120,8 +120,8 @@ public class BindingsGenerator
         TypeBlock type;
         DefsParser parser;
 
-//        BufferedReader in = new BufferedReader(new FileReader("tests/generator/GtkButton.defs"));
-        BufferedReader in = new BufferedReader(new FileReader("src/defs/GtkFileChooserAction.defs"));
+        BufferedReader in = new BufferedReader(new FileReader("tests/generator/GtkButton.defs"));
+//        BufferedReader in = new BufferedReader(new FileReader("src/defs/GtkFileChooserAction.defs"));
 
         parser = new DefsParser(in);
         type = parser.parseData();
