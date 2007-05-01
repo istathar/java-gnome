@@ -14,6 +14,8 @@ package com.operationaldynamics.codegen;
 import java.io.PrintWriter;
 import java.util.List;
 
+import com.operationaldynamics.defsparser.TypeBlock;
+
 /**
  * Output the file header necessary to declare the class containing the
  * constant objects of our representation of C enums via subclasses of
@@ -33,12 +35,12 @@ public class EnumGenerator extends TypeGenerator
      * @param values
      *      The different values enum could take.
      */
-    public EnumGenerator(String forObject, String[][] values) {
+    public EnumGenerator(String forObject, String[][] values, TypeBlock block) {
         
         /*
          * FIXME are there enums with functions??
          */
-        super( Thing.lookup(forObject), null );
+        super( Thing.lookup(forObject), block );
         
         this.values = new String[values.length];
         for ( int i = 0; i < values.length; ++i ) {

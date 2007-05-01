@@ -39,7 +39,7 @@ class EnumBlock extends TypeBlock
     }
     
     public Generator createGenerator() {
-        return new EnumGenerator(cName, values);
+        return new EnumGenerator(cName, values, this);
     }
 
     public Thing createThing() {

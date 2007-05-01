@@ -12,13 +12,12 @@
 package com.operationaldynamics.codegen;
 
 import java.io.PrintWriter;
-import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Set;
 
 import com.operationaldynamics.defsparser.Block;
 import com.operationaldynamics.defsparser.FunctionBlock;
+import com.operationaldynamics.defsparser.TypeBlock;
 
 /**
  * Base class for the Generators which create the files for types we are
@@ -32,17 +31,26 @@ abstract class TypeGenerator extends Generator
     private Thing objectType;
 
     private List functions;
+    private TypeBlock blockType;
     
-    TypeGenerator(Thing objectType, List functions) {
+    TypeGenerator(Thing objectType, TypeBlock blockType) {
         super();
         this.objectType = objectType;
-        this.functions = functions;
+    
+        /*
+         * FIXME instead of keeping a reference to blockType and its
+         * functions, a better option would be to keep a ref for the Thing's
+         * it depends (list returned from useTypes()) and the generators
+         * created from each of the functions.
+         */
+        this.blockType = blockType;
+        this.functions = blockType.getFunctions();
     }
 
     public boolean writeJavaCode(PrintWriter out) {
         
         writeJavaHeader(out);
-        writeImportStatements(functions, out);
+        writeImportStatements(out);
         writeJavaBody(functions, out);
         
         return true;
@@ -173,46 +181,22 @@ abstract class TypeGenerator extends Generator
         out.print(".h\";\n");
     }
 
-    private static void writeImportStatements(final List blocks, 
-            final PrintWriter out) {
-        final Set types;
-        Iterator blockiter, iter;
-
-        types = new HashSet();
-
-        if ( blocks == null ) {
-            return;
-        }
+    private void writeImportStatements(final PrintWriter out) {
         
-        /*
-         * FIXME: I don't like this loop here. It's much better to have it
-         * in #usesTypes() method of TypeBlock!!
-         */
-        blockiter = blocks.iterator();
-        while ( blockiter.hasNext() ) {
-            List things;
+        final List types;
+        Iterator iter;
 
-            things = ( (Block) blockiter.next() ).usesTypes();
-
-            iter = things.iterator();
-            while (iter.hasNext()) {
-                Thing t = (Thing) iter.next();
-                if (t instanceof FundamentalThing) {
-                    continue;
-                }
-                // As a Set it won't do duplicates. Ta-da.
-                types.add(t);
-            }
-        }
+        types = blockType.usesTypes();
 
         /*
+         * AfC: please check the comment below in current situation.
+         * 
          * And now output the actual code for the include statements. TODO
          * More than anything, this is what shouldn't be here. FUTURE sort the
          * includes, perhaps with TreeSet, but that will need compareTo() in
          * Thing.
          */
         iter = types.iterator();
-
         while (iter.hasNext()) {
             Thing t = (Thing) iter.next();
 

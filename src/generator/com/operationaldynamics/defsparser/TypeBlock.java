@@ -10,9 +10,13 @@
  */
 package com.operationaldynamics.defsparser;
 
+import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 
+import com.operationaldynamics.codegen.FundamentalThing;
 import com.operationaldynamics.codegen.Thing;
 
 /**
@@ -94,13 +98,37 @@ public abstract class TypeBlock extends Block
     /*
      * This will have to change if we start using the values
      * subcharacteristics in ObjectBlocks, but for now, none of the TypeBlocks
-     * import anything over and above themselves.
+     * import anything over and above themselves, but only the types used
+     * by its functions.
      */
     public final List usesTypes() {
         
-        /*
-         * FIXME we should add here the types used from childs!!!
-         */
-        return Collections.EMPTY_LIST;
+        final HashSet types;
+        Iterator blockiter, iter;
+
+        types = new HashSet();
+
+        if ( functions == null ) {
+            return Collections.EMPTY_LIST;
+        }
+        
+        blockiter = functions.iterator();
+        while ( blockiter.hasNext() ) {
+            List things;
+
+            things = ( (Block) blockiter.next() ).usesTypes();
+
+            iter = things.iterator();
+            while (iter.hasNext()) {
+                Thing t = (Thing) iter.next();
+                if (t instanceof FundamentalThing) {
+                    continue;
+                }
+                // As a Set it won't do duplicates. Ta-da.
+                types.add(t);
+            }
+        }
+        
+        return new ArrayList(types);
     }
 }

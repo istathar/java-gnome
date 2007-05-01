@@ -50,6 +50,6 @@ public class ObjectBlock extends TypeBlock
     }
 
     public Generator createGenerator() {
-        return new ObjectGenerator(addPointerSymbol(cName), functions);
+        return new ObjectGenerator(addPointerSymbol(cName), this);
     }
 }

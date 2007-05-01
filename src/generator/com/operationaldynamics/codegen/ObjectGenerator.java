@@ -10,7 +10,7 @@
  */
 package com.operationaldynamics.codegen;
 
-import java.util.List;
+import com.operationaldynamics.defsparser.TypeBlock;
 
 /**
  * Output the file header and include statements necessary to begin the
@@ -29,7 +29,7 @@ public class ObjectGenerator extends TypeGenerator
      *            List of function blocks with the definitions of
      *            constructors, methods and virtuals found in .defs
      */
-    public ObjectGenerator(String gObjectType, List functions) {
-        super(Thing.lookup(gObjectType), functions);
+    public ObjectGenerator(String gObjectType, TypeBlock type) {
+        super(Thing.lookup(gObjectType), type);
     }
 }

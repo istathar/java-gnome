@@ -165,13 +165,6 @@ public abstract class Block
      */
     public abstract Generator createGenerator();
 
-    //TODO not needed here, only in TypeBlock
-//    /**
-//     * Get the type wrapper Thing appropriate to this Block. Actually only
-//     * relevant for TypeBlock subclasses.
-//     */
-//    public abstract Thing createThing();
-
     public String toString() {
         final StringBuffer buf;
         Class target;
