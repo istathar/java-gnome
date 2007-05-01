@@ -112,19 +112,20 @@ public class ValidateDefsParsing extends TestCase
         assertEquals("Button", o.blockName);
     }
     
-    public final void testCantCreateThingFromNonTypeBlock() {
-        Block[] blocks;
-        Thing t = null;
-        blocks = parser.parseData();        
-        
-        assertFalse(blocks[1] instanceof TypeBlock);
-        try {
-            t = blocks[1].createThing();
-            fail("Should have thrown UnsupportedOperationException");
-        } catch (UnsupportedOperationException uoe) {
-            // good
-        }
-        assertNull(t);
-    }
+    //This test is not needed now
+//    public final void testCantCreateThingFromNonTypeBlock() {
+//        Block[] blocks;
+//        Thing t = null;
+//        blocks = parser.parseData();        
+//        
+//        assertFalse(blocks[1] instanceof TypeBlock);
+//        try {
+//            t = blocks[1].createThing();
+//            fail("Should have thrown UnsupportedOperationException");
+//        } catch (UnsupportedOperationException uoe) {
+//            // good
+//        }
+//        assertNull(t);
+//    }
 
 }

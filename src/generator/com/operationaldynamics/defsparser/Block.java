@@ -17,7 +17,6 @@ import java.util.Iterator;
 import java.util.List;
 
 import com.operationaldynamics.codegen.Generator;
-import com.operationaldynamics.codegen.Thing;
 
 /**
  * Base class representing a block s-expression .defs data. The system is
@@ -178,11 +177,12 @@ public abstract class Block
      */
     public abstract Generator createGenerator();
 
-    /**
-     * Get the type wrapper Thing appropriate to this Block. Actually only
-     * relevant for TypeBlock subclasses.
-     */
-    public abstract Thing createThing();
+    //TODO not needed here, only in TypeBlock
+//    /**
+//     * Get the type wrapper Thing appropriate to this Block. Actually only
+//     * relevant for TypeBlock subclasses.
+//     */
+//    public abstract Thing createThing();
 
     public String toString() {
         final StringBuffer buf;

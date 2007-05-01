@@ -2,6 +2,7 @@
  * BindingsGenerator.java
  *
  * Copyright (c) 2007 Operational Dynamics Consulting Pty Ltd
+ * Copyright (c) 2007 Vreixo Formoso
  * 
  * The code in this file, and the library it is a part of, are made available
  * to you by the authors under the terms of the "GNU General Public Licence,
@@ -16,15 +17,9 @@ import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.io.StringWriter;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Set;
 
-import com.operationaldynamics.codegen.FundamentalThing;
 import com.operationaldynamics.codegen.Generator;
 import com.operationaldynamics.codegen.Thing;
-import com.operationaldynamics.defsparser.Block;
 import com.operationaldynamics.defsparser.DefsParser;
 import com.operationaldynamics.defsparser.TypeBlock;
 
@@ -85,6 +80,7 @@ import com.operationaldynamics.defsparser.TypeBlock;
  * point into the code generator.
  * 
  * @author Andrew Cowie
+ * @author Vreixo Formoso
  * @since 4.0.3
  */
 /*
@@ -101,33 +97,40 @@ public class BindingsGenerator
 
     // FIXME demo
     private static void loadDummyTypes() throws IOException {
-        Block[] blocks;
+        TypeBlock type;
         DefsParser parser;
 
-        BufferedReader in = new BufferedReader(new FileReader("tests/generator/DummyTypes.defs"));
-
-        parser = new DefsParser(in);
-        blocks = parser.parseData();
-
-        registerTypes(blocks);
+        String [] dummyTypes = new String[] {"ReliefStyle", "Widget"};
+        
+        TypeBlock[] types = new TypeBlock[dummyTypes.length];
+        
+        for ( int i = 0; i < dummyTypes.length; ++i ) {
+            BufferedReader in = new BufferedReader(
+                    new FileReader("tests/generator/" + dummyTypes[i] + ".defs"));
+    
+            parser = new DefsParser(in);
+            type = parser.parseData();
+            types[i] = type;
+        }
+        registerTypes(types);
     }
 
     // FIXME demo
     private static void demoRunGeneratorForOneFile() throws IOException {
-        Block[] blocks;
+        TypeBlock type;
         DefsParser parser;
 
 //        BufferedReader in = new BufferedReader(new FileReader("tests/generator/GtkButton.defs"));
         BufferedReader in = new BufferedReader(new FileReader("src/defs/GtkFileChooserAction.defs"));
 
         parser = new DefsParser(in);
-        blocks = parser.parseData();
+        type = parser.parseData();
 
         // first pass
-        registerTypes(blocks);
+        registerTypes(new TypeBlock[] {type});
 
         // second pass
-        generateCode(blocks);
+        generateCode(new TypeBlock[] {type});
     }
 
     /**
@@ -139,14 +142,12 @@ public class BindingsGenerator
      * is done ahead of time in the BindingsGenerator, and not at an
      * application's runtime!
      */
-    static void registerTypes(Block[] blocks) {
+    static void registerTypes(TypeBlock[] blocks) {
         for (int i = 0; i < blocks.length; i++) {
             Thing t;
 
-            if (blocks[i] instanceof TypeBlock) {
-                t = blocks[i].createThing();
-                Thing.register(t);
-            }
+            t = blocks[i].createThing();
+            Thing.register(t);
         }
     }
 
@@ -165,102 +166,35 @@ public class BindingsGenerator
      * had to split things up to generate the include statements for the Java
      * files.
      */
-    static void generateCode(final Block[] blocks) {
+    static void generateCode(final TypeBlock[] types) {
         PrintWriter out, sink, trans, jni;
-        /*
-         * This is still in flux and a work in progress. For now, just send
-         * one to stdout.
-         */
-        out = new PrintWriter(new BufferedWriter(new OutputStreamWriter(System.out)), true);
-        sink = new PrintWriter(new StringWriter());
-
-        // switch
-        trans = out;
-        jni = sink;
-
-        writeFileHeaders(blocks, trans, jni);
-
-        writeImportStatements(blocks, trans);
-
-        writeBindingsCode(blocks, trans, jni);
-
-        trans.close();
-        jni.close();
-    }
-
-    private static void writeFileHeaders(Block[] blocks, PrintWriter trans, PrintWriter jni) {
         Generator gen;
 
-        if (!(blocks[0] instanceof TypeBlock)) {
-            throw new IllegalStateException("First (define-...) block must be type information");
-        }
+        for ( int i = 0; i < types.length; ++i) {
 
-        gen = blocks[0].createGenerator();
+            /*
+             * This is still in flux and a work in progress. For now, just send
+             * one to stdout.
+             * 
+             * TODO the final code should create the .java and .c files here
+             */
+            out = new PrintWriter(new BufferedWriter(new OutputStreamWriter(System.out)), true);
+            sink = new PrintWriter(new StringWriter());
 
-        gen.writeJavaHeader(trans);
-        gen.writeCHeader(jni);
-    }
+            // switch
+            trans = out;
+            jni = sink;
+            
+            gen = types[i].createGenerator();
 
-    /*
-     * TODO I hate the fact that this had to be here, but I can't figure out
-     * any way to get it down into the Generator hierarchy because they, by
-     * design, output the code for a single (define-) block at a time, and are
-     * _created_ by each individual Block. Perhaps Block[] needs to be
-     * abstracted into a class.
-     */
-    private static void writeImportStatements(final Block[] blocks, final PrintWriter trans) {
-        final Set types;
-        Iterator iter;
+            gen.writeJavaCode(trans);
+            trans.println("----------- C CODE ------------------");
+            gen.writeCCode(trans); //use jni instead of trans for real code
 
-        types = new HashSet();
-
-        for (int i = 0; i < blocks.length; i++) {
-            List things;
-
-            things = blocks[i].usesTypes();
-
-            iter = things.iterator();
-            while (iter.hasNext()) {
-                Thing t = (Thing) iter.next();
-                if (t instanceof FundamentalThing) {
-                    continue;
-                }
-                // As a Set it won't do duplicates. Ta-da.
-                types.add(t);
-            }
-        }
-
-        /*
-         * And now output the actual code for the include statements. TODO
-         * More than anything, this is what shouldn't be here. FUTURE sort the
-         * includes, perhaps with TreeSet, but that will need compareTo() in
-         * Thing.
-         */
-        iter = types.iterator();
-
-        while (iter.hasNext()) {
-            Thing t = (Thing) iter.next();
-
-            trans.print("import ");
-
-            trans.print(t.fullyQualifiedJavaClassName());
-            trans.print(";\n");
+            trans.close();
+            jni.close();
         }
     }
 
-    private static void writeBindingsCode(final Block[] blocks, final PrintWriter trans,
-            final PrintWriter jni) {
-        for (int i = 0; i < blocks.length; i++) {
-            Generator gen;
-
-            gen = blocks[i].createGenerator();
-            gen.writeJavaBody(trans);
-            gen.writeCBody(jni);
-
-            trans.flush(); // hmm
-        }
-
-        trans.println("}");
-
-    }
+    
 }

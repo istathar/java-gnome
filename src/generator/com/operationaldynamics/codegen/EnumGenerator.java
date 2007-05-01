@@ -12,6 +12,7 @@
 package com.operationaldynamics.codegen;
 
 import java.io.PrintWriter;
+import java.util.List;
 
 /**
  * Output the file header necessary to declare the class containing the
@@ -34,7 +35,10 @@ public class EnumGenerator extends TypeGenerator
      */
     public EnumGenerator(String forObject, String[][] values) {
         
-        this.objectType = Thing.lookup(forObject);
+        /*
+         * FIXME are there enums with functions??
+         */
+        super( Thing.lookup(forObject), null );
         
         this.values = new String[values.length];
         for ( int i = 0; i < values.length; ++i ) {
@@ -52,9 +56,8 @@ public class EnumGenerator extends TypeGenerator
         }
     }
 
-    public void writeJavaBody(PrintWriter out) {
-        
-        //TODO maybe just call super()...
+    protected void writeJavaBody(final List blocks, final PrintWriter out) {
+            
         translationClassDeclaration(out);
         
         /* and write the values */
@@ -68,22 +71,11 @@ public class EnumGenerator extends TypeGenerator
             out.print(i);
             out.print(";\n");
         }
-    }
 
-    
-    /* 
-     * FIXME
-     * Enums don't need a C file. Thus, writeCXXX return without doing 
-     * anything, but this can lead to a problem in posterior stages of 
-     * codegen development, because we also need not to create the C
-     * file!!
-     */
-    
-    public void writeCBody(PrintWriter out) {
-        return;
+        out.println("}");
     }
-
-    public void writeCHeader(PrintWriter out) {
-        return;
+    
+    public boolean writeCCode(PrintWriter out) {
+        return false;
     }
 }

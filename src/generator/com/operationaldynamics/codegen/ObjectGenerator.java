@@ -10,11 +10,14 @@
  */
 package com.operationaldynamics.codegen;
 
+import java.util.List;
+
 /**
  * Output the file header and include statements necessary to begin the
  * translation code for a GObject.
  * 
  * @author Andrew Cowie
+ * @author Vreixo Formoso
  */
 public class ObjectGenerator extends TypeGenerator
 {
@@ -22,8 +25,11 @@ public class ObjectGenerator extends TypeGenerator
      * 
      * @param gObjectType
      *            the ObjectThing that you are generating code for.
+     * @param functions
+     *            List of function blocks with the definitions of
+     *            constructors, methods and virtuals found in .defs
      */
-    public ObjectGenerator(String gObjectType) {
-        this.objectType = Thing.lookup(gObjectType);
+    public ObjectGenerator(String gObjectType, List functions) {
+        super(Thing.lookup(gObjectType), functions);
     }
 }

@@ -23,29 +23,29 @@ public abstract class Generator
 {
 
     /**
-     * Generate the header for a Java file. The resason for the split between
-     * header and body is so that we can insert include statements into the
-     * output stream. To be called once per Block[] representing each .defs
-     * file.
-     */
-    public abstract void writeJavaHeader(PrintWriter out);
-
-    /**
      * Generate Java code!
+     * 
+     * @param out
+     *      Where code is to be written
+     * @return
+     *      <code>true</code> if some code has been written, 
+     *      <code>false</code> otherwise. This can be used to decide wheter
+     *      to create the .java file or not.
      */
-    public abstract void writeJavaBody(PrintWriter out);
-
+    public abstract boolean writeJavaCode(PrintWriter out);
+    
     /**
-     * Generate the header for a C file. The split between header and body
-     * isn't used at present, but it is exposed here for symmetry.
+     * Generate C (JNI) code.
+     * 
+     * @param out
+     *      Where code is to be written
+     * @return
+     *      <code>true</code> if some code has been written, 
+     *      <code>false</code> otherwise. This can be used to decide wheter
+     *      to create the .c file or not.
      */
-    public abstract void writeCHeader(PrintWriter out);
-
-    /**
-     * Generate C code!
-     */
-    public abstract void writeCBody(PrintWriter out);
-
+    public abstract boolean writeCCode(PrintWriter out);
+    
     /**
      * Turn "org.gnome.glib", "GtkButton" into "org_gnome_glib_GtkButton"
      */

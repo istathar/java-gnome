@@ -13,16 +13,22 @@ package com.operationaldynamics.defsparser;
 import java.util.Collections;
 import java.util.List;
 
+import com.operationaldynamics.codegen.Thing;
+
 /**
  * Base class for blocks that define types.
  * 
  * @author Andrew Cowie
+ * @author Vreixo Formoso
  */
 public abstract class TypeBlock extends Block
 {
     protected String inModule;
 
     protected String cName;
+    
+    /** a list of FunctionBlock's with all functions related to this type */
+    protected List functions;
 
     protected TypeBlock(final String blockName, final List characteristics) {
         super(blockName, characteristics);
@@ -31,6 +37,11 @@ public abstract class TypeBlock extends Block
     final void setCName(final String name) {
         this.cName = name;
     }
+    
+    /**
+     * Get the type wrapper Thing appropriate to this Block.
+     */
+    public abstract Thing createThing();
 
     /**
      * We ignore gtype-id completely as it is unnecessary in the java-gnome
@@ -43,6 +54,22 @@ public abstract class TypeBlock extends Block
         this.inModule = inModule;
     }
 
+    /**
+     * Get the blocks for funtions related to this type.
+     * 
+     * Sure AfC prefers an array here :) !!!
+     * 
+     * @return
+     *      a List of {@link FunctionBlock}
+     */
+    public List getFunctions() {
+        return functions;
+    }
+    
+    void setFunctions(List functions) {
+        this.functions = functions;
+    }
+    
     /**
      * Convert the module name to a package suiting the Java namespace and our
      * mapping into it. At the moment, this simply means "Gtk" ->
@@ -70,6 +97,10 @@ public abstract class TypeBlock extends Block
      * import anything over and above themselves.
      */
     public final List usesTypes() {
+        
+        /*
+         * FIXME we should add here the types used from childs!!!
+         */
         return Collections.EMPTY_LIST;
     }
 }

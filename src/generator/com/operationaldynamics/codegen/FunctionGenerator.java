@@ -147,28 +147,7 @@ abstract class FunctionGenerator extends Generator
         }
 
         out.print(");\n");
-    }
-    
-    static final String unwrapObjectToNative(Thing type, String name) {
-        StringBuffer buf;
-        
-        buf = new StringBuffer();
-        
-        if (type instanceof ObjectThing) {
-            buf.append("pointerOf(");
-            buf.append(name);
-            buf.append(")");
-        } else if (type instanceof EnumThing) {
-            buf.append("numOf(");
-            buf.append(name);
-            buf.append(")");
-        } else {
-            return name;
-        }
-        
-        return buf.toString();
-    }
-    
+    }    
 
     protected void translationMethodReturnCode(PrintWriter out) {
         if (!returnType.nativeType.equals("void")) {
@@ -368,15 +347,7 @@ abstract class FunctionGenerator extends Generator
         out.print("}\n");
     }
 
-    public void writeJavaHeader(final PrintWriter out) {
-        return;
-    }
-    
-    public void writeCHeader(final PrintWriter out) {
-        return;
-    }
-
-    public void writeJavaBody(final PrintWriter out) {
+    public boolean writeJavaCode(final PrintWriter out) {
         translationMethodDeclaration(out);
         translationMethodConversionCode(out);
         translationMethodNativeCall(out);
@@ -385,12 +356,16 @@ abstract class FunctionGenerator extends Generator
         out.println();
 
         nativeMethodDeclaration(out);
+        
+        return true;
     }
-
-    public void writeCBody(final PrintWriter out) {
+    
+    public boolean writeCCode(final PrintWriter out) {
         jniFunctionDeclaration(out);
         jniFunctionConversionCode(out);
         jniFunctionLibraryCall(out);
         jniFunctionReturnCode(out);
+        
+        return true;
     }
 }
