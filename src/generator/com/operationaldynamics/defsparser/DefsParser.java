@@ -36,14 +36,15 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
- * A .defs file parser: convert a stream of s-expression defines data into
- * Block objects suitable to be used to instantiate code generators.
+ * A .defs file parser: convert a stream of s-expression defines data into an
+ * array of Block objects suitable to be used to instantiate code generators.
  * 
  * <p>
  * Observations:
  * <ul>
- * <li>We don't have include directives in our defs files. They're all flat,
- * one type per file.
+ * <li>We don't have include directives in our defs files. They're all flat.
+ * <li>At the moment, we have one type per file, but this class does not rely
+ * on that; it's just a .defs parser.
  * </ul>
  * 
  * @author Andrew Cowie
@@ -293,16 +294,11 @@ public class DefsParser
         } else if (phylum.equals("enum")) {
             block = new EnumBlock(name, characteristics, values);
         } else if (phylum.equals("boxed")) {
-            //TODO
+            // TODO
             throw new ParseException("Boxeds not supported yet", 0);
         } else {
             // etc
             throw new ParseException("What kind of block was \"" + phylum + "\"?", 0);
-        }
-
-        //FIXME innecessary code, block is always != null here!!
-        if (block == null) {
-            throw new IllegalStateException("No Block object created");
         }
 
         /*
@@ -313,39 +309,19 @@ public class DefsParser
     }
 
     /**
-     * Run the parser across the input data stream and return the TypeBlock
-     * defined there. This also parses all the (define-...) blocks corresponding
-     * to functions of that type.
-     * 
-     * @throws DefsException
-     *      On a parser error
-     */
-    /*
-     * This assumes that input stream is from a single .def which has info
-     * about a single type.
+     * Run the parser across the input data stream and return an array of
+     * Block objects representing the (define- ...) blocks found there.
      */
     public Block[] parseData() {
-        List functions;
+        List blocks;
         Block block;
-        TypeBlock typeBlock = null;
 
-        functions = new ArrayList();
+        blocks = new ArrayList();
 
         while (readNextStanza()) {
             try {
                 block = parseStanza();
-                
-                if ( block instanceof TypeBlock) {
-                    
-                    if ( typeBlock != null ) {
-                        /* only a type block per .def */
-                        throw new DefsException("Found a second Type Block in def");
-                    }
-                    typeBlock = (TypeBlock) block;
-                } else {
-                    /* has to be a function block */
-                    functions.add(block);
-                }
+                blocks.add(block);
             } catch (ParseException pe) {
                 System.err.println("Failed to parse .defs stanza at:");
                 System.err.println(pe);
@@ -353,14 +329,7 @@ public class DefsParser
             }
         }
 
-        if ( typeBlock == null ) {
-            throw new DefsException("Found a second Type Block in def");
-        }
-        
-        // Change to DefsFile.addFunctionBlock() or whatever.
-        // typeBlock.setFunctions(functions);
-        
-        return null; // FIXME
+        // Wow. Eclipse gave me this as a template. Nice.
+        return (Block[]) blocks.toArray(new Block[blocks.size()]);
     }
-
 }
