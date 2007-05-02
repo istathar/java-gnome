@@ -301,16 +301,16 @@ public class DefsParser
             throw new ParseException("What kind of block was \"" + phylum + "\"?", 0);
         }
 
-        /*
-         * And now reflection to call the setters on the object.
-         */
-
         return block;
     }
 
     /**
      * Run the parser across the input data stream and return an array of
      * Block objects representing the (define- ...) blocks found there.
+     */
+    /*
+     * FIXME the fact that there are two exceptions that come out of this,
+     * both for the same problem needs to be changed.
      */
     public Block[] parseData() {
         List blocks;
@@ -323,9 +323,13 @@ public class DefsParser
                 block = parseStanza();
                 blocks.add(block);
             } catch (ParseException pe) {
-                System.err.println("Failed to parse .defs stanza at:");
-                System.err.println(pe);
-                System.err.println("(continuing)");
+                System.err.println("Failed to parse .defs stanza:");
+                System.err.println(pe.getMessage());
+                System.err.println("[continuing next block]\n");
+            } catch (IllegalStateException ise) {
+                System.err.println("Failed parsing (an internal problem? FIXME!):");
+                System.err.println(ise.getMessage());
+                System.err.println("[continuing next block]\n");
             }
         }
 

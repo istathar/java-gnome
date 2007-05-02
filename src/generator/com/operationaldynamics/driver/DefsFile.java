@@ -56,6 +56,10 @@ public final class DefsFile
     public DefsFile(final Block[] blocks) throws ImproperDefsFileException {
         this.blocks = blocks;
 
+        if (blocks.length == 0) {
+            throw new ImproperDefsFileException("No data was parsed in this defs file");
+        }
+        
         if (!(blocks[0] instanceof TypeBlock)) {
             throw new ImproperDefsFileException("First block in defs file didn't describe a type");
         }

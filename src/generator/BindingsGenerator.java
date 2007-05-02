@@ -143,9 +143,13 @@ public class BindingsGenerator
                 in.close();
             } catch (IOException ioe) {
                 System.err.println("I/O problem when trying to parse " + files[i]);
+                System.err.println(ioe.getMessage());
+                System.err.println("[continuing next file]\n");
                 continue;
             } catch (ImproperDefsFileException idfe) {
-                System.err.println("Couldn't recognize the layout of " + files[i]);
+                System.err.println("Couldn't get sufficient information from " + files[i] + ":");
+                System.err.println(idfe.getMessage());
+                System.err.println("[continuing next file]\n");
                 continue;
             }
         }
@@ -172,7 +176,8 @@ public class BindingsGenerator
             try {
                 data.generateJniLayer(out);
             } catch (UnsupportedOperationException uoe) {
-                // act to remove the file in the even there was nothing printed?
+                // act to remove the file in the event there was nothing
+                // printed?
             }
 
             /*

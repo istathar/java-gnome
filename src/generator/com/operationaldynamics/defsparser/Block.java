@@ -39,10 +39,21 @@ public abstract class Block
      */
     protected final String blockName;
 
+    /**
+     * A block that has a deprecated marker sets this characteristic. TODO if
+     * we find this present, then we need to take action to skip the block, or
+     * even the entire type!
+     */
+    protected String deprecated;
+
     protected Block(final String blockName, final List characteristics) {
         this.blockName = blockName;
 
         processCharacteristics(characteristics);
+    }
+
+    protected final void setDeprecated(final String deprecated) {
+        this.deprecated = deprecated;
     }
 
     /**
@@ -111,7 +122,7 @@ public abstract class Block
                 }
             }
             if (setter == null) {
-                throw new IllegalStateException("setter " + name + " not found");
+                throw new IllegalStateException("Setter " + name + "() not found");
             }
 
             /*
