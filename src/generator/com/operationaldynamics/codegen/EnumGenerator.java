@@ -50,8 +50,6 @@ public class EnumGenerator extends TypeGenerator
     }
 
     public void writeJavaBody(PrintWriter out) {
-
-        // TODO maybe just call super()...
         translationClassDeclaration(out);
 
         /* and write the values */
@@ -79,5 +77,9 @@ public class EnumGenerator extends TypeGenerator
 
     public void writeCHeader(PrintWriter out) {
         return;
+    }
+
+    public boolean writeCCode(PrintWriter out) {
+        return false;
     }
 }

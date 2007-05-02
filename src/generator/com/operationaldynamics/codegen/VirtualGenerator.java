@@ -188,7 +188,7 @@ public class VirtualGenerator extends FunctionGenerator
      * Note that we don't use any of FunctionGenerator's code output methods;
      * all these calls are here in VirtualGenerator.
      */
-    public void writeJavaBody(PrintWriter out) {
+    public boolean writeJavaCode(final PrintWriter out) {
         interfaceClassDeclaration(out);
         interfaceMethodDeclaration(out);
         interfaceClassClose(out);
@@ -198,10 +198,12 @@ public class VirtualGenerator extends FunctionGenerator
 
         receiverMethodDeclaration(out);
         receiverMethodInvokeInstance(out);
+        
+        return true;
     }
 
-    public void writeCBody(PrintWriter out) {
+    public boolean writeCCode(final PrintWriter out) {
         // No JNI code necessary.
-        return;
+        return false;
     }
 }

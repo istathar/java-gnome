@@ -2,6 +2,7 @@
  * TypeGenerator.java
  *
  * Copyright (c) 2007 Operational Dynamics Consulting Pty Ltd
+ * Copyright (c) Vreixo Formoso
  * 
  * The code in this file, and the library it is a part of, are made available
  * to you by the authors under the terms of the "GNU General Public Licence,
@@ -11,12 +12,18 @@
 package com.operationaldynamics.codegen;
 
 import java.io.PrintWriter;
+import java.util.Iterator;
+import java.util.List;
+
+import com.operationaldynamics.defsparser.Block;
+import com.operationaldynamics.defsparser.FunctionBlock;
 
 /**
  * Base class for the Generators which create the files for types we are
  * rendering into Java classes: GObjects, boxeds/structs, enums, etc
  * 
  * @author Andrew Cowie
+ * @author Vreixo Formoso
  */
 abstract class TypeGenerator extends Generator
 {
@@ -24,6 +31,76 @@ abstract class TypeGenerator extends Generator
 
     public TypeGenerator(String gObjectType) {
         this.objectType = Thing.lookup(gObjectType);
+    }
+
+    public boolean writeJavaCode(PrintWriter out) {
+
+        writeJavaHeader(out);
+        writeImportStatements(out);
+        writeJavaBody(null, out);
+
+        return true;
+    }
+
+    public boolean writeCCode(PrintWriter out) {
+        writeCHeader(out);
+        writeCBody(null, out);
+
+        return true;
+    }
+
+    protected void writeJavaHeader(final PrintWriter out) {
+        commonFileHeader(out, objectType.bindingsClass + ".java");
+        packageStatementAndImports(out);
+    }
+
+    protected void writeJavaBody(final List blocks, final PrintWriter out) {
+        Iterator iter;
+
+        translationClassDeclaration(out);
+
+        if (blocks == null) {
+            return;
+        }
+
+        iter = blocks.iterator();
+        while (iter.hasNext()) {
+            Generator gen;
+            Block block;
+
+            block = (Block) iter.next();
+            assert (block instanceof FunctionBlock) : "Ups!! No FunctionBlock as Type functions";
+
+            gen = block.createGenerator();
+            gen.writeJavaCode(out);
+        }
+
+        out.println("}");
+    }
+
+    protected void writeCHeader(final PrintWriter out) {
+        commonFileHeader(out, objectType.bindingsClass + ".c");
+        hashIncludeStatements(out);
+    }
+
+    protected void writeCBody(final List blocks, final PrintWriter out) {
+        Iterator iter;
+
+        if (blocks == null) {
+            return;
+        }
+
+        iter = blocks.iterator();
+        while (iter.hasNext()) {
+            Generator gen;
+            Block block;
+
+            block = (Block) iter.next();
+            assert (block instanceof FunctionBlock) : "Ups!! No FunctionBlock as Type functions";
+
+            gen = block.createGenerator();
+            gen.writeCCode(out);
+        }
     }
 
     /**
@@ -86,24 +163,29 @@ abstract class TypeGenerator extends Generator
         out.print(".h\";\n");
     }
 
-    public void writeJavaHeader(final PrintWriter out) {
-        commonFileHeader(out, objectType.bindingsClass + ".java");
-        packageStatementAndImports(out);
-    }
+    private void writeImportStatements(final PrintWriter out) {
 
-    public void writeJavaBody(final PrintWriter out) {
-        translationClassDeclaration(out);
-    }
+        final List types;
+        Iterator iter;
 
-    public void writeCHeader(final PrintWriter out) {
-        commonFileHeader(out, objectType.bindingsClass + ".c");
-        hashIncludeStatements(out);
-    }
+        types = null; // FIXME; Vreixo had usesTypes();
 
-    /*
-     * Nothing needs doing to instantiate a C file once the headers are in.
-     */
-    public void writeCBody(final PrintWriter out) {
-        return;
+        /*
+         * AfC: please check the comment below in current situation.
+         * 
+         * And now output the actual code for the include statements. TODO
+         * More than anything, this is what shouldn't be here. FUTURE sort the
+         * includes, perhaps with TreeSet, but that will need compareTo() in
+         * Thing.
+         */
+        iter = types.iterator();
+        while (iter.hasNext()) {
+            Thing t = (Thing) iter.next();
+
+            out.print("import ");
+
+            out.print(t.fullyQualifiedJavaClassName());
+            out.print(";\n");
+        }
     }
 }

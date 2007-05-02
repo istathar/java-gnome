@@ -291,13 +291,16 @@ public class DefsParser
         } else if (phylum.equals("virtual")) {
             block = new VirtualBlock(name, characteristics, parameters);
         } else if (phylum.equals("enum")) {
-            // FIXME
             block = new EnumBlock(name, characteristics, values);
+        } else if (phylum.equals("boxed")) {
+            //TODO
+            throw new ParseException("Boxeds not supported yet", 0);
         } else {
             // etc
             throw new ParseException("What kind of block was \"" + phylum + "\"?", 0);
         }
 
+        //FIXME innecessary code, block is always != null here!!
         if (block == null) {
             throw new IllegalStateException("No Block object created");
         }
@@ -310,19 +313,39 @@ public class DefsParser
     }
 
     /**
-     * Run the parser across the input data stream and return an array of
-     * Block objects representing the (define- ...) blocks found there.
+     * Run the parser across the input data stream and return the TypeBlock
+     * defined there. This also parses all the (define-...) blocks corresponding
+     * to functions of that type.
+     * 
+     * @throws DefsException
+     *      On a parser error
+     */
+    /*
+     * This assumes that input stream is from a single .def which has info
+     * about a single type.
      */
     public Block[] parseData() {
-        List blocks;
+        List functions;
         Block block;
+        TypeBlock typeBlock = null;
 
-        blocks = new ArrayList();
+        functions = new ArrayList();
 
         while (readNextStanza()) {
             try {
                 block = parseStanza();
-                blocks.add(block);
+                
+                if ( block instanceof TypeBlock) {
+                    
+                    if ( typeBlock != null ) {
+                        /* only a type block per .def */
+                        throw new DefsException("Found a second Type Block in def");
+                    }
+                    typeBlock = (TypeBlock) block;
+                } else {
+                    /* has to be a function block */
+                    functions.add(block);
+                }
             } catch (ParseException pe) {
                 System.err.println("Failed to parse .defs stanza at:");
                 System.err.println(pe);
@@ -330,8 +353,14 @@ public class DefsParser
             }
         }
 
-        // Wow. Eclipse gave me this as a template. Nice.
-        return (Block[]) blocks.toArray(new Block[blocks.size()]);
+        if ( typeBlock == null ) {
+            throw new DefsException("Found a second Type Block in def");
+        }
+        
+        // Change to DefsFile.addFunctionBlock() or whatever.
+        // typeBlock.setFunctions(functions);
+        
+        return null; // FIXME
     }
 
 }

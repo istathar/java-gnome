@@ -108,15 +108,14 @@ public class ValidateDefsParsing extends TestCase
         assertEquals("Gtk", o.inModule);
         assertEquals("GtkBin", o.parent);
         assertEquals("GtkButton", o.cName);
-        assertNull(o.ofObject);
         assertEquals("Button", o.blockName);
     }
-    
+
     public final void testCantCreateThingFromNonTypeBlock() {
         Block[] blocks;
         Thing t = null;
-        blocks = parser.parseData();        
-        
+        blocks = parser.parseData();
+
         assertFalse(blocks[1] instanceof TypeBlock);
         try {
             t = blocks[1].createThing();
@@ -126,5 +125,4 @@ public class ValidateDefsParsing extends TestCase
         }
         assertNull(t);
     }
-
 }

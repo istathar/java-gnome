@@ -234,8 +234,8 @@ public class BindingsGenerator
 
         gen = blocks[0].createGenerator();
 
-        gen.writeJavaHeader(trans);
-        gen.writeCHeader(jni);
+        gen.writeJavaCode(trans);
+        gen.writeCCode(jni);
     }
 
     /*
@@ -291,8 +291,8 @@ public class BindingsGenerator
             Generator gen;
 
             gen = blocks[i].createGenerator();
-            gen.writeJavaBody(trans);
-            gen.writeCBody(jni);
+            gen.writeJavaCode(trans);
+            gen.writeCCode(jni);
 
             trans.flush(); // FIXME hmm
             jni.flush(); // FIXME hmm
