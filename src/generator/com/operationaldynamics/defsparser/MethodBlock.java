@@ -14,6 +14,7 @@ import java.util.List;
 
 import com.operationaldynamics.codegen.Generator;
 import com.operationaldynamics.codegen.MethodGenerator;
+import com.operationaldynamics.driver.DefsFile;
 
 /**
  * A .defs (define-method...) block.
@@ -33,8 +34,7 @@ class MethodBlock extends FunctionBlock
         super(blockName, characteristics, parameters);
     }
 
-    public Generator createGenerator() {
-        return new MethodGenerator(addPointerSymbol(ofObject), blockName, returnType, cName, parameters);
+    public Generator createGenerator(final DefsFile data) {
+        return new MethodGenerator(data, blockName, returnType, cName, parameters);
     }
-
 }

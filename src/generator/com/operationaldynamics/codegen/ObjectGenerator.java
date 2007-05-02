@@ -10,6 +10,8 @@
  */
 package com.operationaldynamics.codegen;
 
+import com.operationaldynamics.driver.DefsFile;
+
 /**
  * Output the file header and include statements necessary to begin the
  * translation code for a GObject.
@@ -18,12 +20,7 @@ package com.operationaldynamics.codegen;
  */
 public class ObjectGenerator extends TypeGenerator
 {
-    /**
-     * 
-     * @param gObjectType
-     *            the ObjectThing that you are generating code for.
-     */
-    public ObjectGenerator(String gObjectType) {
-        super(gObjectType);
+    public ObjectGenerator(DefsFile data) {
+        super(data);
     }
 }

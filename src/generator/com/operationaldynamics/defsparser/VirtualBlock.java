@@ -15,6 +15,7 @@ import java.util.List;
 import com.operationaldynamics.codegen.Generator;
 import com.operationaldynamics.codegen.Thing;
 import com.operationaldynamics.codegen.VirtualGenerator;
+import com.operationaldynamics.driver.DefsFile;
 
 /**
  * The block type for virtual methods. In the java-gnome bindings, these are
@@ -32,8 +33,8 @@ class VirtualBlock extends FunctionBlock
         super(blockName, characteristics, parameters);
     }
 
-    public Generator createGenerator() {
-        return new VirtualGenerator(addPointerSymbol(ofObject), blockName, returnType, parameters);
+    public Generator createGenerator(final DefsFile data) {
+        return new VirtualGenerator(data, blockName, returnType, parameters);
     }
 
     /*

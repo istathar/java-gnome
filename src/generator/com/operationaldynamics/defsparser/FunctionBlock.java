@@ -37,7 +37,7 @@ public abstract class FunctionBlock extends Block
      * business in setOfObject() so that lookups are consistent.
      */
     protected String ofObject;
-    
+
     protected String returnType;
 
     protected String cName;

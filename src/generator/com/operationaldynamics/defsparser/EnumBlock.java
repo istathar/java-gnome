@@ -16,6 +16,7 @@ import com.operationaldynamics.codegen.EnumGenerator;
 import com.operationaldynamics.codegen.EnumThing;
 import com.operationaldynamics.codegen.Generator;
 import com.operationaldynamics.codegen.Thing;
+import com.operationaldynamics.driver.DefsFile;
 
 /**
  * Block object representing the .defs data defining a Enum.
@@ -25,21 +26,21 @@ import com.operationaldynamics.codegen.Thing;
  */
 class EnumBlock extends TypeBlock
 {
-    
+
     protected String[][] values;
-    
+
     EnumBlock(String blockName, List characteristics, List values) {
         super(blockName, characteristics);
-        
+
         processValues(values);
     }
 
     private void processValues(final List values) {
         this.values = (String[][]) values.toArray(new String[values.size()][]);
     }
-    
-    public Generator createGenerator() {
-        return new EnumGenerator(cName, values);
+
+    public Generator createGenerator(final DefsFile data) {
+        return new EnumGenerator(data, values);
     }
 
     public Thing createThing() {

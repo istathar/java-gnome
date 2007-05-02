@@ -10,6 +10,8 @@
  */
 package com.operationaldynamics.codegen;
 
+import com.operationaldynamics.driver.DefsFile;
+
 /**
  * Output the code corresponding to a GObject method definition.
  * 
@@ -52,9 +54,9 @@ public class MethodGenerator extends FunctionGenerator
      *            supplied parameter list.
      * 
      */
-    public MethodGenerator(final String gObjectType, final String blockName, final String gReturnType,
+    public MethodGenerator(final DefsFile data, final String blockName, final String gReturnType,
             final String gFunctionName, final String[][] gParameters) {
-        super(gObjectType, blockName, gReturnType, gFunctionName, prependReferenceToSelf(gObjectType,
+        super(data, blockName, gReturnType, gFunctionName, prependReferenceToSelf(data.getType().gType,
                 gParameters));
     }
 

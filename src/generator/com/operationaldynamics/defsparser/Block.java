@@ -18,6 +18,7 @@ import java.util.List;
 
 import com.operationaldynamics.codegen.Generator;
 import com.operationaldynamics.codegen.Thing;
+import com.operationaldynamics.driver.DefsFile;
 
 /**
  * Base class representing a block s-expression .defs data. The system is
@@ -161,9 +162,10 @@ public abstract class Block
     }
 
     /**
-     * Get the code factory appropriate to this Block type.
+     * Get the code factory appropriate to this Block type, with the
+     * additional supporting infromation of what class it fits into.
      */
-    public abstract Generator createGenerator();
+    public abstract Generator createGenerator(DefsFile file);
 
     /**
      * Get the type wrapper Thing appropriate to this Block. Actually only

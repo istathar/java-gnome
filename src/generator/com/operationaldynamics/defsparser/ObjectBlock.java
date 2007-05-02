@@ -16,6 +16,7 @@ import com.operationaldynamics.codegen.Generator;
 import com.operationaldynamics.codegen.ObjectGenerator;
 import com.operationaldynamics.codegen.ObjectThing;
 import com.operationaldynamics.codegen.Thing;
+import com.operationaldynamics.driver.DefsFile;
 
 /**
  * Block object representing the .defs data defining a GObject.
@@ -49,7 +50,7 @@ public class ObjectBlock extends TypeBlock
         return new ObjectThing(addPointerSymbol(cName), moduleToJavaPackage(inModule), cName, blockName);
     }
 
-    public Generator createGenerator() {
-        return new ObjectGenerator(addPointerSymbol(cName));
+    public Generator createGenerator(final DefsFile data) {
+        return new ObjectGenerator(data);
     }
 }

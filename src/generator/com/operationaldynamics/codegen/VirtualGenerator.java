@@ -12,6 +12,8 @@ package com.operationaldynamics.codegen;
 
 import java.io.PrintWriter;
 
+import com.operationaldynamics.driver.DefsFile;
+
 /**
  * Generate Java and C code for signal callbacks (which are how we map
  * virtuals).
@@ -51,9 +53,9 @@ public class VirtualGenerator extends FunctionGenerator
      * We let FunctionGenerator split up the parameters, but they aren't used
      * for the translationMethod singature, but rather the interface method.
      */
-    public VirtualGenerator(final String gObjectType, final String blockName, final String gReturnType,
+    public VirtualGenerator(final DefsFile data, final String blockName, final String gReturnType,
             final String[][] gParameters) {
-        super(gObjectType, "connect", gReturnType, null, gParameters);
+        super(data, "connect", gReturnType, null, gParameters);
 
         this.javaSignalClass = toAllCaps(blockName);
         this.cSignalName = blockName;
@@ -188,7 +190,7 @@ public class VirtualGenerator extends FunctionGenerator
      * Note that we don't use any of FunctionGenerator's code output methods;
      * all these calls are here in VirtualGenerator.
      */
-    public boolean writeJavaCode(final PrintWriter out) {
+    public void writeTranslationCode(final PrintWriter out) {
         interfaceClassDeclaration(out);
         interfaceMethodDeclaration(out);
         interfaceClassClose(out);
@@ -198,12 +200,12 @@ public class VirtualGenerator extends FunctionGenerator
 
         receiverMethodDeclaration(out);
         receiverMethodInvokeInstance(out);
-        
-        return true;
     }
 
-    public boolean writeCCode(final PrintWriter out) {
-        // No JNI code necessary.
-        return false;
-    }
+    /*
+     * No JNI code necessary, but nor is it necessary to throw an exception;
+     * we just don't want it to do anything here, that's all. So we override
+     * the implementation from FunctionGenerator with an empty block.
+     */
+    public void writeJniCode(final PrintWriter out) {}
 }

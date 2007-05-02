@@ -13,6 +13,8 @@ package com.operationaldynamics.codegen;
 
 import java.io.PrintWriter;
 
+import com.operationaldynamics.driver.DefsFile;
+
 /**
  * Output the file header necessary to declare the class containing the
  * constant objects of our representation of C enums via subclasses of
@@ -27,14 +29,15 @@ public class EnumGenerator extends TypeGenerator
 
     /**
      * 
-     * @param forObject
-     *            The gTypeName (as found in the defs files) of the enum that
-     *            you are generating bindings code for.
+     * @param data
+     *            a reference back to the DefsFile from which we will pull the
+     *            gTypeName (as found in the defs files) of the enum that you
+     *            are generating bindings code for.
      * @param values
      *            The different values enum could take.
      */
-    public EnumGenerator(String forObject, String[][] values) {
-        super(forObject);
+    public EnumGenerator(DefsFile data, String[][] values) {
+        super(data);
 
         this.values = new String[values.length];
         for (int i = 0; i < values.length; ++i) {
@@ -49,8 +52,8 @@ public class EnumGenerator extends TypeGenerator
         }
     }
 
-    public void writeJavaBody(PrintWriter out) {
-        translationClassDeclaration(out);
+    public void writeTranslationCode(PrintWriter out) {
+        super.writeTranslationCode(out);
 
         /* and write the values */
         for (int i = 0; i < values.length; ++i) {
@@ -66,20 +69,11 @@ public class EnumGenerator extends TypeGenerator
     }
 
     /*
-     * FIXME Enums don't need a C file. Thus, writeCXXX return without doing
-     * anything, but this can lead to a problem in posterior stages of codegen
-     * development, because we also need not to create the C file!!
+     * Enums don't need a C file. Thus, this doesn't do anything, thus we
+     * throw something (which gets caught up in the top level
+     * BindingsGenerator driver).
      */
-
-    public void writeCBody(PrintWriter out) {
-        return;
-    }
-
-    public void writeCHeader(PrintWriter out) {
-        return;
-    }
-
-    public boolean writeCCode(PrintWriter out) {
-        return false;
+    public void writeJniCode(PrintWriter out) {
+        throw new UnsupportedOperationException("No JNI code necessary for enums");
     }
 }

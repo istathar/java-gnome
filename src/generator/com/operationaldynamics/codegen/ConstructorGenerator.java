@@ -12,6 +12,8 @@ package com.operationaldynamics.codegen;
 
 import java.io.PrintWriter;
 
+import com.operationaldynamics.driver.DefsFile;
+
 /**
  * Output the code corresponding to a constructor function on a GObject.
  * 
@@ -52,7 +54,7 @@ public class ConstructorGenerator extends FunctionGenerator
      * return naked pointers (long), not Widgets, because the widget hasn't
      * been instantiated Java side yet!
      * 
-     * @param gObjectType
+     * @param data
      * @param gReturnType
      *            the actual return type of the constructor function; will be
      *            used internally within the JNI code; external return type is
@@ -61,11 +63,11 @@ public class ConstructorGenerator extends FunctionGenerator
      * @param gParameters
      */
 
-    public ConstructorGenerator(final String gObjectType, final String gReturnType,
+    public ConstructorGenerator(final DefsFile data, final String gReturnType,
             final String gFunctionName, final String[][] gParameters) {
-        super(gObjectType, "", "glong", gFunctionName, gParameters);
+        super(data, "", "glong", gFunctionName, gParameters);
 
-        this.translationMethodName = mungeConstructorName(gObjectType, gFunctionName);
+        this.translationMethodName = mungeConstructorName(data.getType().gType, gFunctionName);
         this.actualReturnType = Thing.lookup(gReturnType);
     }
 

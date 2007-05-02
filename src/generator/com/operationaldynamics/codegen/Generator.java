@@ -1,7 +1,7 @@
 /*
  * Generator.java
  *
- * Copyright (c) 2007 Operational Dynamics Consulting Pty Ltd
+ * Copyright (c) 2007 Operational Dynamics Consulting Pty Ltd, and Others
  * 
  * The code in this file, and the library it is a part of, are made available
  * to you by the authors under the terms of the "GNU General Public Licence,
@@ -12,40 +12,43 @@ package com.operationaldynamics.codegen;
 
 import java.io.PrintWriter;
 
+import com.operationaldynamics.driver.DefsFile;
+
 /**
  * Base class of the code generator classes. Also houses numerous utility
  * functions used to convert from the C names used in the .defs data to Java
  * style names according to our requirements.
  * 
+ * <p>
+ * An UnsupportedOperationException will bubbled out of the public writeXXX()
+ * methods if they're not supposed to do anything. You can use that as a
+ * signal not to write a file for that layer.
+ * 
  * @author Andrew Cowie
+ * @author Vreixo Formoso
  */
 public abstract class Generator
 {
+    /**
+     * A reference to the parsed defs data that this particular Block's
+     * Generator came from.
+     */
+    protected final DefsFile data;
+
+    protected Generator(final DefsFile data) {
+        this.data = data;
+    }
 
     /**
      * Generate Java code!
-     * 
-     * @param out
-     *      Where code is to be written
-     * @return
-     *      <code>true</code> if some code has been written, 
-     *      <code>false</code> otherwise. This can be used to decide wheter
-     *      to create the .java file or not.
      */
-    public abstract boolean writeJavaCode(PrintWriter out);
-    
+    public abstract void writeTranslationCode(PrintWriter out);
+
     /**
-     * Generate C (JNI) code.
-     * 
-     * @param out
-     *      Where code is to be written
-     * @return
-     *      <code>true</code> if some code has been written, 
-     *      <code>false</code> otherwise. This can be used to decide wheter
-     *      to create the .c file or not.
+     * Generate C code!
      */
-    public abstract boolean writeCCode(PrintWriter out);
-    
+    public abstract void writeJniCode(PrintWriter out);
+
     /**
      * Turn "org.gnome.glib", "GtkButton" into "org_gnome_glib_GtkButton"
      */

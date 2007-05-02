@@ -13,14 +13,14 @@ package com.operationaldynamics.codegen;
 
 import java.io.PrintWriter;
 import java.util.Iterator;
-import java.util.List;
+import java.util.Set;
 
-import com.operationaldynamics.defsparser.Block;
-import com.operationaldynamics.defsparser.FunctionBlock;
+import com.operationaldynamics.driver.DefsFile;
 
 /**
- * Base class for the Generators which create the files for types we are
- * rendering into Java classes: GObjects, boxeds/structs, enums, etc
+ * Base class for the Generators which process the information declaring a
+ * native type we are rendering into Java classes: GObjects, boxeds/structs,
+ * enums, etc
  * 
  * @author Andrew Cowie
  * @author Vreixo Formoso
@@ -29,82 +29,28 @@ abstract class TypeGenerator extends Generator
 {
     protected final Thing objectType;
 
-    public TypeGenerator(String gObjectType) {
-        this.objectType = Thing.lookup(gObjectType);
+    public TypeGenerator(DefsFile data) {
+        super(data);
+        this.objectType = data.getType();
     }
 
-    public boolean writeJavaCode(PrintWriter out) {
-
-        writeJavaHeader(out);
-        writeImportStatements(out);
-        writeJavaBody(null, out);
-
-        return true;
-    }
-
-    public boolean writeCCode(PrintWriter out) {
-        writeCHeader(out);
-        writeCBody(null, out);
-
-        return true;
-    }
-
-    protected void writeJavaHeader(final PrintWriter out) {
+    public void writeTranslationCode(final PrintWriter out) {
         commonFileHeader(out, objectType.bindingsClass + ".java");
         packageStatementAndImports(out);
-    }
-
-    protected void writeJavaBody(final List blocks, final PrintWriter out) {
-        Iterator iter;
-
         translationClassDeclaration(out);
-
-        if (blocks == null) {
-            return;
-        }
-
-        iter = blocks.iterator();
-        while (iter.hasNext()) {
-            Generator gen;
-            Block block;
-
-            block = (Block) iter.next();
-            assert (block instanceof FunctionBlock) : "Ups!! No FunctionBlock as Type functions";
-
-            gen = block.createGenerator();
-            gen.writeJavaCode(out);
-        }
-
-        out.println("}");
     }
 
-    protected void writeCHeader(final PrintWriter out) {
+    public void writeJniCode(final PrintWriter out) {
         commonFileHeader(out, objectType.bindingsClass + ".c");
         hashIncludeStatements(out);
     }
 
-    protected void writeCBody(final List blocks, final PrintWriter out) {
-        Iterator iter;
-
-        if (blocks == null) {
-            return;
-        }
-
-        iter = blocks.iterator();
-        while (iter.hasNext()) {
-            Generator gen;
-            Block block;
-
-            block = (Block) iter.next();
-            assert (block instanceof FunctionBlock) : "Ups!! No FunctionBlock as Type functions";
-
-            gen = block.createGenerator();
-            gen.writeCCode(out);
-        }
-    }
-
     /**
      * Compose the copyright header common to all generated sources files.
+     * 
+     * @param fileName
+     *            this is just cosmetic, but by convention we put the filename
+     *            at the top of our source files.
      */
     /*
      * I truely cannot believe that I just converted a here doc into a series
@@ -116,7 +62,7 @@ abstract class TypeGenerator extends Generator
         out.print(" * ");
         out.print(fileName);
         out.print("\n *\n");
-        out.print(" * Copyright (c) 2006-2007 Operational Dynamics Consulting Pty Ltd\n");
+        out.print(" * Copyright (c) 2006-2007 Operational Dynamics Consulting Pty Ltd, and Others\n");
         out.print(" *\n");
         out.print(" * The code in this file, and the library it is a part of, are made available\n");
         out.print(" * to you by the authors under the terms of the \"GNU General Public Licence,\n");
@@ -133,11 +79,31 @@ abstract class TypeGenerator extends Generator
     }
 
     protected void packageStatementAndImports(final PrintWriter out) {
+        final Set types;
+        Iterator iter;
+
         out.print("package ");
         out.print(objectType.bindingsPackage);
         out.print(";\n\n");
 
         out.print("import org.gnome.glib.Plumbing;\n");
+
+        types = data.usesTypes();
+
+        /*
+         * FUTURE sort the includes, perhaps with TreeSet, but that will need
+         * compareTo() in Thing.
+         */
+        iter = types.iterator();
+        while (iter.hasNext()) {
+            Thing t = (Thing) iter.next();
+
+            out.print("import ");
+
+            out.print(t.fullyQualifiedJavaClassName());
+            out.print(";\n");
+        }
+
     }
 
     protected void translationClassDeclaration(final PrintWriter out) {
@@ -161,31 +127,5 @@ abstract class TypeGenerator extends Generator
         out.print("#include \"");
         out.print(encodeJavaClassName(objectType.bindingsPackage, objectType.bindingsClass));
         out.print(".h\";\n");
-    }
-
-    private void writeImportStatements(final PrintWriter out) {
-
-        final List types;
-        Iterator iter;
-
-        types = null; // FIXME; Vreixo had usesTypes();
-
-        /*
-         * AfC: please check the comment below in current situation.
-         * 
-         * And now output the actual code for the include statements. TODO
-         * More than anything, this is what shouldn't be here. FUTURE sort the
-         * includes, perhaps with TreeSet, but that will need compareTo() in
-         * Thing.
-         */
-        iter = types.iterator();
-        while (iter.hasNext()) {
-            Thing t = (Thing) iter.next();
-
-            out.print("import ");
-
-            out.print(t.fullyQualifiedJavaClassName());
-            out.print(";\n");
-        }
     }
 }

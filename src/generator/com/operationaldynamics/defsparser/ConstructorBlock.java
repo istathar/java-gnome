@@ -14,6 +14,7 @@ import java.util.List;
 
 import com.operationaldynamics.codegen.ConstructorGenerator;
 import com.operationaldynamics.codegen.Generator;
+import com.operationaldynamics.driver.DefsFile;
 
 /**
  * A (define-function ...) block containing the description of a GObject's
@@ -33,7 +34,7 @@ class ConstructorBlock extends FunctionBlock
         this.isConstructorOf = isConstructorOf;
     }
 
-    public Generator createGenerator() {
-        return new ConstructorGenerator(addPointerSymbol(isConstructorOf), returnType, cName, parameters);
+    public Generator createGenerator(final DefsFile data) {
+        return new ConstructorGenerator(data, returnType, cName, parameters);
     }
 }

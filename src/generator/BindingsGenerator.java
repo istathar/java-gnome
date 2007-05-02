@@ -17,18 +17,14 @@ import java.io.FilenameFilter;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
-import java.io.StringWriter;
-import java.util.HashSet;
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Set;
 
-import com.operationaldynamics.codegen.FundamentalThing;
-import com.operationaldynamics.codegen.Generator;
-import com.operationaldynamics.codegen.Thing;
 import com.operationaldynamics.defsparser.Block;
 import com.operationaldynamics.defsparser.DefsParser;
-import com.operationaldynamics.defsparser.TypeBlock;
+import com.operationaldynamics.driver.DefsFile;
+import com.operationaldynamics.driver.ImproperDefsFileException;
 
 /**
  * The java-gnome code generator
@@ -110,6 +106,10 @@ public class BindingsGenerator
         DefsParser parser;
         File dir;
         File[] files;
+        BufferedReader in;
+        DefsFile data;
+        List all;
+        Iterator iter;
 
         dir = new File("tests/generator/");
 
@@ -123,182 +123,63 @@ public class BindingsGenerator
             }
         });
 
-        // first pass
+        all = new ArrayList(files.length);
+
+        /*
+         * Load the all the .defs files into DefsFile objects, one per type.
+         * Along the way, this registers the type information.
+         */
+
         for (int i = 0; i < files.length; i++) {
             try {
-                BufferedReader in = new BufferedReader(new FileReader(files[i]));
+                in = new BufferedReader(new FileReader(files[i]));
 
                 parser = new DefsParser(in);
                 blocks = parser.parseData();
 
+                data = new DefsFile(blocks);
+                all.add(data);
+
                 in.close();
             } catch (IOException ioe) {
-                System.err.println("Error trying to parse " + files[i]);
+                System.err.println("I/O problem when trying to parse " + files[i]);
+                continue;
+            } catch (ImproperDefsFileException idfe) {
+                System.err.println("Couldn't recognize the layout of " + files[i]);
                 continue;
             }
-
-            registerTypes(blocks);
         }
 
-        // second pass
-        for (int i = 0; i < files.length; i++) {
+        /*
+         * Now, with the meta data completely loaded, we can generate the
+         * bindings code.
+         */
+
+        for (iter = all.iterator(); iter.hasNext();) {
+            PrintWriter out;
+
+            data = (DefsFile) iter.next();
+
+            // TODO use data.getTranslationTargetName(); until then,
+            out = new PrintWriter(new BufferedWriter(new OutputStreamWriter(System.out)), true);
+
             try {
-                BufferedReader in = new BufferedReader(new FileReader(files[i]));
-
-                parser = new DefsParser(in);
-                blocks = parser.parseData();
-
-                in.close();
-            } catch (IOException ioe) {
-                System.err.println("Second pass, I/O Error" + files[i]);
-                continue;
+                data.generateTranslationLayer(out);
+            } catch (UnsupportedOperationException uoe) {
+                // act to remove that file? Or close it off, or...
             }
 
-            generateCode(blocks);
-        }
-    }
-
-    /**
-     * Iterate over all the Blocks and register a Thing in the type database
-     * for each one. This needs to be done across the entire universe of types
-     * before generation can begin. Yes, that sounds painful, and yes it is,
-     * but otherwise we don't have the information we need about how to
-     * convert types from one layer to another. <i>Shrug</i> that's why this
-     * is done ahead of time in the BindingsGenerator, and not at an
-     * application's runtime!
-     */
-    static void registerTypes(Block[] blocks) {
-        for (int i = 0; i < blocks.length; i++) {
-            Thing t;
-
-            if (blocks[i] instanceof TypeBlock) {
-                t = blocks[i].createThing();
-                Thing.register(t);
+            try {
+                data.generateJniLayer(out);
+            } catch (UnsupportedOperationException uoe) {
+                // act to remove the file in the even there was nothing printed?
             }
+
+            /*
+             * Don't close stdout! :)
+             */
+            // out.close();
         }
     }
 
-    /**
-     * Generate the code that goes with a given .defs file, represnting one
-     * type being bound.
-     * 
-     * @param blocks
-     *            the array of Blocks you wish to transform into bindings
-     *            code. The obvious assumption is that the first block in the
-     *            array is a type definition, from which we determine the
-     *            target file names.
-     */
-    /*
-     * This could have been a single call to writeJava() and writeC(), but we
-     * had to split things up to generate the include statements for the Java
-     * files.
-     */
-    static void generateCode(final Block[] blocks) {
-        PrintWriter out, sink, trans, jni;
-        /*
-         * This is still in flux and a work in progress. For now, just send
-         * one to stdout.
-         */
-        final boolean OUTPUT_TRANSLATION_TO_STDOUT = false;
-
-        out = new PrintWriter(new BufferedWriter(new OutputStreamWriter(System.out)), true);
-        sink = new PrintWriter(new StringWriter());
-
-        if (OUTPUT_TRANSLATION_TO_STDOUT) {
-            trans = out;
-            jni = sink;
-        } else {
-            trans = sink;
-            jni = out;
-        }
-
-        writeFileHeaders(blocks, trans, jni);
-
-        writeImportStatements(blocks, trans);
-
-        writeBindingsCode(blocks, trans, jni);
-
-        /*
-         * Don't close stdout! :)
-         */
-        // trans.close();
-        // jni.close();
-    }
-
-    private static void writeFileHeaders(Block[] blocks, PrintWriter trans, PrintWriter jni) {
-        Generator gen;
-
-        if (!(blocks[0] instanceof TypeBlock)) {
-            throw new IllegalStateException("First (define-...) block must be type information");
-        }
-
-        gen = blocks[0].createGenerator();
-
-        gen.writeJavaCode(trans);
-        gen.writeCCode(jni);
-    }
-
-    /*
-     * TODO I hate the fact that this had to be here, but I can't figure out
-     * any way to get it down into the Generator hierarchy because they, by
-     * design, output the code for a single (define-) block at a time, and are
-     * _created_ by each individual Block. Perhaps Block[] needs to be
-     * abstracted into a class.
-     */
-    private static void writeImportStatements(final Block[] blocks, final PrintWriter trans) {
-        final Set types;
-        Iterator iter;
-
-        types = new HashSet();
-
-        for (int i = 0; i < blocks.length; i++) {
-            List things;
-
-            things = blocks[i].usesTypes();
-
-            iter = things.iterator();
-            while (iter.hasNext()) {
-                Thing t = (Thing) iter.next();
-                if (t instanceof FundamentalThing) {
-                    continue;
-                }
-                // As a Set it won't do duplicates. Ta-da.
-                types.add(t);
-            }
-        }
-
-        /*
-         * And now output the actual code for the include statements. TODO
-         * More than anything, this is what shouldn't be here. FUTURE sort the
-         * includes, perhaps with TreeSet, but that will need compareTo() in
-         * Thing.
-         */
-        iter = types.iterator();
-
-        while (iter.hasNext()) {
-            Thing t = (Thing) iter.next();
-
-            trans.print("import ");
-
-            trans.print(t.fullyQualifiedJavaClassName());
-            trans.print(";\n");
-        }
-    }
-
-    private static void writeBindingsCode(final Block[] blocks, final PrintWriter trans,
-            final PrintWriter jni) {
-        for (int i = 0; i < blocks.length; i++) {
-            Generator gen;
-
-            gen = blocks[i].createGenerator();
-            gen.writeJavaCode(trans);
-            gen.writeCCode(jni);
-
-            trans.flush(); // FIXME hmm
-            jni.flush(); // FIXME hmm
-        }
-
-        trans.println("}");
-
-    }
 }

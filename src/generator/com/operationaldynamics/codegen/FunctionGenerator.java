@@ -12,6 +12,8 @@ package com.operationaldynamics.codegen;
 
 import java.io.PrintWriter;
 
+import com.operationaldynamics.driver.DefsFile;
+
 /**
  * Generate Java and C code for constructors and methods.
  * 
@@ -54,9 +56,9 @@ abstract class FunctionGenerator extends Generator
 
     /**
      * 
-     * @param gObjectType
-     *            the class to which the block we are generating code for
-     *            pertains.
+     * @param data
+     *            the information about the class to which the block we are
+     *            generating code for pertains.
      * @param blockName
      *            however the .defs data named this block. Usually it's a
      *            "short" name such as "set_label".
@@ -69,14 +71,11 @@ abstract class FunctionGenerator extends Generator
      *            an array of String[2] arrays, listing the type and name of
      *            each parameter.
      */
-    FunctionGenerator(final String gObjectType, final String blockName, final String gReturnType,
+    FunctionGenerator(final DefsFile data, final String blockName, final String gReturnType,
             final String cFunctionName, final String[][] gParameters) {
+        super(data);
 
-        if ((gObjectType == null) || (gObjectType.equals(""))) {
-            throw new IllegalArgumentException(
-                    "\nYou need to work out which class this block goes with before calling this constructor.");
-        }
-        this.objectType = (ObjectThing) Thing.lookup(gObjectType);
+        this.objectType = (ObjectThing) data.getType();
 
         this.translationMethodName = toCamel(blockName);
 
@@ -405,25 +404,21 @@ abstract class FunctionGenerator extends Generator
         out.print("}\n");
     }
 
-    public boolean writeJavaCode(final PrintWriter out) {
+    public void writeTranslationCode(final PrintWriter out) {
         translationMethodDeclaration(out);
         translationMethodConversionCode(out);
         translationMethodNativeCall(out);
         translationMethodReturnCode(out);
 
-        out.println();
+        out.print("\n");
 
         nativeMethodDeclaration(out);
-        
-        return true;
     }
-    
-    public boolean writeCCode(final PrintWriter out) {
+
+    public void writeJniCode(final PrintWriter out) {
         jniFunctionDeclaration(out);
         jniFunctionConversionCode(out);
         jniFunctionLibraryCall(out);
         jniFunctionReturnCode(out);
-        
-        return true;
     }
 }
