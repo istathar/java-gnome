@@ -14,7 +14,9 @@ import com.operationaldynamics.driver.DefsFile;
 
 /**
  * Output the file header and include statements necessary to begin the
- * translation code for a GObject.
+ * translation code for a GObject. This Generator renders an ObjectBlock into
+ * the compilation unit class declaration, along with necessary file headers
+ * and include statements, care of its parent, {@link TypeGenerator}
  * 
  * @author Andrew Cowie
  */

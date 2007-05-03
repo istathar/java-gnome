@@ -27,7 +27,7 @@ import com.operationaldynamics.driver.DefsFile;
 import com.operationaldynamics.driver.ImproperDefsFileException;
 
 /**
- * The java-gnome code generator
+ * The java-gnome code generator.
  * 
  * <p>
  * The biggest problem architecturally is transforming information from the
@@ -43,14 +43,14 @@ import com.operationaldynamics.driver.ImproperDefsFileException;
  * 
  * <li>Completely independent of the parser is the code generator. A
  * hierarchy of Generator objects exist with the code to output the necessary
- * Java and C code They have constructors which minutely specifiy the
+ * Java and C code They have constructors which minutely specify the
  * information they require (and with variables names that means something to
  * the task of bindings generation, rather than whatever the origin .defs data
  * might have called it). The types information describing the underlying
- * library is stored in a hash table of which uses the underlying type as key,
- * and a Thing object as the value containing all the necessary mappings of
- * that type to the actual Java or C language type used at each layer of the
- * bindings.
+ * library is stored in a hash table of which uses the underlying type (as
+ * found in the source .defs data) as a key, and a Thing object as the value
+ * containing all the necessary mappings of that type to the actual Java or C
+ * language type used at each layer of the bindings.
  * </ul>
  * 
  * <p>
@@ -60,35 +60,43 @@ import com.operationaldynamics.driver.ImproperDefsFileException;
  * generator.
  * 
  * <p>
- * To generate the java-gnome bindings, we therefore do two passes:
+ * To generate the java-gnome bindings, we therefore do several things:
  * 
  * <ol>
- * <li>register all the type information: Given the full array of Blocks of
- * .defs data, we do a first pass over it calling each Block's createThing()
- * and then Thing.register() to store teh the resultant in our lookup table.
- * Obviously this only concerns (define-...) blocks which declare type
- * information.
+ * <li>setup: demultiplex the massive monolithic stream of .defs information
+ * into one .defs file per type. This has been done externally ahead of time
+ * before the BindingsGenerator runs.
  * 
- * <li>with a full database of type information in hand, we can then do a
- * second pass over the Block array to actually generate the code that goes
+ * <li>register all the type information: We load each .defs file and create
+ * arrays of Blocks. We then stash these Blocks in an a class called DefsFile.
+ * Along the way we call each Block's createThing() and then Thing.register()
+ * to store the the resultant in our lookup table [Obviously this only
+ * concerns (define-...) blocks which declare type information (the TypeBlock
+ * subclasses)].
+ * 
+ * <li>with a full database of type information in hand, we can then do an
+ * iteration over the Block arrays to actually generate the code that goes
  * with each stanza. We get the appropriate Generator object by calling each
- * Block's createGenerator() and then run its writeJava() and writeC() methods
- * to finally emit the generated translation and jni code.
+ * Block's createGenerator() method and then run its writeTranslationCode()
+ * and writeJniCode() methods to finally emit the generated translation layer
+ * (Java) and jni layer (C) code.
  * </ol>
+ * 
  * <p>
  * Since the .defs data has already been demuxed into one .defs file per type,
  * we use the TypeBlock heading each file to identify it and to name the
- * appropriate output files. That setup, and the driving of the two passes
- * accordingly, is the task of this class, which is the [only] public entry
- * point into the code generator.
+ * appropriate output files. That setup, and the driving the passes over the
+ * list of DefsFiles holding the Block arrays, is the task of this class,
+ * which is the [only] public entry point into the code generator.
  * 
  * @author Andrew Cowie
  * @since 4.0.3
  */
 /*
- * This classes name implies it is a subclass of Generator, which of course is
- * not the case. It is, however, a good name to have show up when building the
- * library via `make`, so BindingsGenerator it is.
+ * This class's name would seem to imply it is a subclass of Generator, which
+ * of course is not the case. It is, however, a good name to have show up when
+ * building the library via `make`, so "BindingsGenerator" it is. If someone
+ * wants to suggest a better name, go ahead.
  */
 public class BindingsGenerator
 {

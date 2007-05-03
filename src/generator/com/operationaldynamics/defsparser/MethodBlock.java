@@ -17,7 +17,21 @@ import com.operationaldynamics.codegen.MethodGenerator;
 import com.operationaldynamics.driver.DefsFile;
 
 /**
- * A .defs (define-method...) block.
+ * A .defs block that gives the information for a method on a GObject.
+ * 
+ * <p>
+ * Source .defs data is of the following form:
+ * 
+ * <pre>
+ * (define-method set_label
+ *   (of-object &quot;GtkButton&quot;)
+ *   (c-name &quot;gtk_button_set_label&quot;)
+ *   (return-type &quot;none&quot;)
+ *   (parameters
+ *     '(&quot;const-gchar*&quot; &quot;label&quot;)
+ *   )
+ * )
+ * </pre>
  * 
  * @author Andrew Cowie
  */

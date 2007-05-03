@@ -18,7 +18,8 @@ import com.operationaldynamics.driver.DefsFile;
 /**
  * Output the file header necessary to declare the class containing the
  * constant objects of our representation of C enums via subclasses of
- * Constant.
+ * Constant. See {@link EnumBlock} for an example of a (define-enum ...)
+ * stanza.
  * 
  * @author Andrew Cowie
  * @author Vreixo Formoso

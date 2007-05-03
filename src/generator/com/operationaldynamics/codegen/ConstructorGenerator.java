@@ -15,23 +15,11 @@ import java.io.PrintWriter;
 import com.operationaldynamics.driver.DefsFile;
 
 /**
- * Output the code corresponding to a constructor function on a GObject.
+ * Output the code corresponding to a constructor function on a GObject. See
+ * {@link ConstructorBlock} for an example of the source .defs data describing
+ * constructors.
  * 
  * <p>
- * Source .defs data for a constructor is of the following form:
- * 
- * <pre>
- * (define-function gtk_button_new_with_label
- *   (is-constructor-of &quot;GtkButton&quot;)
- *   (c-name &quot;gtk_button_new_with_label&quot;)
- *   (caller-owns-return #t)
- *   (return-type &quot;GtkWidget*&quot;)
- *   (parameters
- *     '(&quot;const-gchar*&quot; &quot;label&quot;)
- *   )
- * )
- * </pre>
- * 
  * In calling FunctionGenerator.<init>(), we igore the blockName and
  * returnType; the gFuncitonName is munged per our naming convetion into the
  * method name, and the return type is long, as it will be used as:

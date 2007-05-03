@@ -14,7 +14,11 @@ import java.util.Collections;
 import java.util.List;
 
 /**
- * Base class for blocks that define types.
+ * Base class for blocks that declare type information. <b>Note that TypeBlock
+ * does not imply total information for what will become an entire Java
+ * compilation unit; it's just the information that allows us to know that the
+ * type exists in the first place.</b> The context that this block lives in
+ * is represented in this program by the {@link DefsFile} class.
  * 
  * @author Andrew Cowie
  */

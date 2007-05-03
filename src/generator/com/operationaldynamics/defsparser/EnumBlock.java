@@ -1,7 +1,7 @@
 /*
  * EnumBlock.java
  *
- * Copyright (c) 2007 Operational Dynamics Consulting Pty Ltd
+ * Copyright (c) 2007 Operational Dynamics Consulting Pty Ltd, and Others
  * 
  * The code in this file, and the library it is a part of, are made available
  * to you by the authors under the terms of the "GNU General Public Licence,
@@ -21,12 +21,30 @@ import com.operationaldynamics.driver.DefsFile;
 /**
  * Block object representing the .defs data defining a Enum.
  * 
+ * Source .defs data for an emum is of the following form:
+ * 
+ * <pre>
+ * (define-enum ReliefStyle
+ *   (in-module &quot;Gtk&quot;)
+ *   (c-name &quot;GtkReliefStyle&quot;)
+ *   (values
+ *     '(&quot;normal&quot; &quot;GTK_RELIEF_NORMAL&quot;)
+ *     '(&quot;half&quot; &quot;GTK_RELIEF_HALF&quot;)
+ *     '(&quot;none&quot; &quot;GTK_RELIEF_NONE&quot;)
+ *   )
+ * )
+ * </pre>
+ * 
+ * Enums are unusual in that all the information needed to define the Java
+ * code that will result for this native type is in a single (define...)
+ * stanza; most other TypeBlocks are accompanied by a series of FunctionBlock
+ * subclasses.
+ * 
  * @author Andrew Cowie
  * @author Vreixo Formoso
  */
 class EnumBlock extends TypeBlock
 {
-
     protected String[][] values;
 
     EnumBlock(String blockName, List characteristics, List values) {
@@ -46,5 +64,4 @@ class EnumBlock extends TypeBlock
     public Thing createThing() {
         return new EnumThing(cName, moduleToJavaPackage(inModule), cName, blockName);
     }
-
 }

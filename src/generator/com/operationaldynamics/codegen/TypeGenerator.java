@@ -20,7 +20,14 @@ import com.operationaldynamics.driver.DefsFile;
 /**
  * Base class for the Generators which process the information declaring a
  * native type we are rendering into Java classes: GObjects, boxeds/structs,
- * enums, etc
+ * enums, etc. Note that these Generators simply output the code necessary for
+ * a Block objects that result from (define- ...) stanzas that declare data
+ * types. <b>This does not imply the Java side type as a whole - just its
+ * declaration.</b> All Blocks are independent and by themselves, no relation
+ * to any other Blocks, and likewise the Generators for them are just about
+ * the necessary file headers and opening statements. Any necessary context is
+ * provided by the {@link DefsFile} argument which is the first parameter to
+ * all Generator constructors.
  * 
  * @author Andrew Cowie
  * @author Vreixo Formoso

@@ -18,7 +18,20 @@ import com.operationaldynamics.driver.DefsFile;
 
 /**
  * A (define-function ...) block containing the description of a GObject's
- * constructor function.
+ * constructor function. Source .defs data for a constructor is of the
+ * following form:
+ * 
+ * <pre>
+ * (define-function gtk_button_new_with_label
+ *   (is-constructor-of &quot;GtkButton&quot;)
+ *   (c-name &quot;gtk_button_new_with_label&quot;)
+ *   (caller-owns-return #t)
+ *   (return-type &quot;GtkWidget*&quot;)
+ *   (parameters
+ *     '(&quot;const-gchar*&quot; &quot;label&quot;)
+ *   )
+ * )
+ * </pre>
  * 
  * @author Andrew Cowie
  */
