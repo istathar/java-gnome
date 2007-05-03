@@ -12,8 +12,10 @@
 package com.operationaldynamics.codegen;
 
 import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Iterator;
-import java.util.Set;
+import java.util.List;
 
 import com.operationaldynamics.driver.DefsFile;
 
@@ -86,7 +88,7 @@ abstract class TypeGenerator extends Generator
     }
 
     protected void packageStatementAndImports(final PrintWriter out) {
-        final Set types;
+        final List types;
         Iterator iter;
 
         out.print("package ");
@@ -95,19 +97,25 @@ abstract class TypeGenerator extends Generator
 
         out.print("import org.gnome.glib.Plumbing;\n");
 
-        types = data.usesTypes();
-
-        /*
-         * FUTURE sort the includes, perhaps with TreeSet, but that will need
-         * compareTo() in Thing.
-         */
+        types = new ArrayList();
+        
+        iter = data.usesTypes().iterator();
+        while ( iter.hasNext() ) {
+            Thing type = (Thing) iter.next();
+            
+            types.add( type.fullyQualifiedJavaClassName() );
+        }
+        
+        /* sort the types */
+        Collections.sort(types);
+        
         iter = types.iterator();
         while (iter.hasNext()) {
-            Thing t = (Thing) iter.next();
+            String t = (String) iter.next();
 
             out.print("import ");
 
-            out.print(t.fullyQualifiedJavaClassName());
+            out.print(t);
             out.print(";\n");
         }
 
