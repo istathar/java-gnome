@@ -159,6 +159,8 @@ public class BindingsGenerator
                 System.err.println(idfe.getMessage());
                 System.err.println("[continuing next file]\n");
                 continue;
+            } finally {
+                System.err.flush();
             }
         }
 
