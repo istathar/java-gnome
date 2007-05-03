@@ -13,7 +13,7 @@ package com.operationaldynamics.defsparser;
 import java.util.List;
 
 import com.operationaldynamics.codegen.EnumGenerator;
-import com.operationaldynamics.codegen.EnumThing;
+import com.operationaldynamics.codegen.ConstantThing;
 import com.operationaldynamics.codegen.Generator;
 import com.operationaldynamics.codegen.Thing;
 import com.operationaldynamics.driver.DefsFile;
@@ -62,6 +62,6 @@ class EnumBlock extends TypeBlock
     }
 
     public Thing createThing() {
-        return new EnumThing(cName, moduleToJavaPackage(inModule), cName, blockName);
+        return new ConstantThing(cName, moduleToJavaPackage(inModule), cName, blockName);
     }
 }

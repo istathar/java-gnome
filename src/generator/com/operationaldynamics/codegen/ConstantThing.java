@@ -1,5 +1,5 @@
 /*
- * EnumThing.java
+ * ConstantThing.java
  *
  * Copyright (c) 2007 Operational Dynamics Consulting Pty Ltd
  * 
@@ -11,14 +11,15 @@
 package com.operationaldynamics.codegen;
 
 /**
- * Types corresponding to objects defined in (define-enum ...) blocks. These
- * map to Constant subclasses in our bindings.
+ * Types corresponding to objects defined in (define-enum ...) and
+ * (define-flags ...) blocks. These map to Constant subclasses in our 
+ * bindings.
  * 
  * @author Andrew Cowie
  */
-public class EnumThing extends Thing
+public class ConstantThing extends Thing
 {
-    public EnumThing(String gType, String javaPackage, String javaClass, String javaType) {
+    public ConstantThing(String gType, String javaPackage, String javaClass, String javaType) {
         super(gType, javaPackage, javaClass, javaType, "int", "jint");
     }
 
