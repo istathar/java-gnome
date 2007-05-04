@@ -12,8 +12,10 @@
 package com.operationaldynamics.codegen;
 
 import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Iterator;
-import java.util.Set;
+import java.util.List;
 
 import com.operationaldynamics.driver.DefsFile;
 
@@ -60,7 +62,7 @@ abstract class TypeGenerator extends Generator
      *            at the top of our source files.
      */
     /*
-     * I truely cannot believe that I just converted a here doc into a series
+     * I truly cannot believe that I just converted a here doc into a series
      * of single line strings with \n at the end of each. Oh well, it's done
      * now, and this was really the only long block of text.
      */
@@ -86,31 +88,35 @@ abstract class TypeGenerator extends Generator
     }
 
     protected void packageStatementAndImports(final PrintWriter out) {
-        final Set types;
+        final List types;
         Iterator iter;
 
         out.print("package ");
         out.print(objectType.bindingsPackage);
         out.print(";\n\n");
 
-        out.print("import org.gnome.glib.Plumbing;\n");
+        types = new ArrayList();
+        types.add("org.gnome.glib.Plumbing");
+        
+        iter = data.usesTypes().iterator();
+        while (iter.hasNext()) {
+            Thing type = (Thing) iter.next();
 
-        types = data.usesTypes();
+            types.add(type.fullyQualifiedJavaClassName());
+        }
 
-        /*
-         * FUTURE sort the includes, perhaps with TreeSet, but that will need
-         * compareTo() in Thing.
-         */
+        /* sort the types */
+        Collections.sort(types);
+
         iter = types.iterator();
         while (iter.hasNext()) {
-            Thing t = (Thing) iter.next();
+            String t = (String) iter.next();
 
             out.print("import ");
 
-            out.print(t.fullyQualifiedJavaClassName());
+            out.print(t);
             out.print(";\n");
         }
-
     }
 
     protected void translationClassDeclaration(final PrintWriter out) {
