@@ -22,7 +22,7 @@
 #include "org_gnome_gtk_GtkDialogFlags.h"
 
 JNIEXPORT jint JNICALL 
-Java_org_gnome_gtk_GtkDialogFlags_get_1flag_1GTK_1DIALOG_1MODAL 
+Java_org_gnome_gtk_GtkDialogFlags_get_1ordinal_1modal
 (
 	JNIEnv *env,
 	jclass cls
@@ -32,7 +32,7 @@ Java_org_gnome_gtk_GtkDialogFlags_get_1flag_1GTK_1DIALOG_1MODAL
 }
 
 JNIEXPORT jint JNICALL 
-Java_org_gnome_gtk_GtkDialogFlags_get_1flag_1GTK_1DIALOG_1DESTROY_1WITH_1PARENT 
+Java_org_gnome_gtk_GtkDialogFlags_get_1ordinal_1destroy_1with_1parent 
 (
 	JNIEnv *env,
 	jclass cls
@@ -42,7 +42,7 @@ Java_org_gnome_gtk_GtkDialogFlags_get_1flag_1GTK_1DIALOG_1DESTROY_1WITH_1PARENT
 }
 
 JNIEXPORT jint JNICALL 
-Java_org_gnome_gtk_GtkDialogFlags_get_1flag_1GTK_1DIALOG_1NO_1SEPARATOR 
+Java_org_gnome_gtk_GtkDialogFlags_get_1ordinal_1no_1separator 
 (
 	JNIEnv *env,
 	jclass cls

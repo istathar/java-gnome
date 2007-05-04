@@ -22,6 +22,7 @@ import com.operationaldynamics.driver.DefsFile;
  * stanza.
  * 
  * @author Vreixo Formoso
+ * @author Andrew Cowie
  */
 public class FlagsGenerator extends TypeGenerator
 {
@@ -41,14 +42,7 @@ public class FlagsGenerator extends TypeGenerator
 
         this.values = new String[values.length][2];
         for (int i = 0; i < values.length; ++i) {
-
-            String value = values[i][0];
-
-            /*
-             * We need to convert values in the form: create-folder to
-             * CREATE_FOLDER, etc.
-             */
-            this.values[i][0] = toAllCaps(value);
+            this.values[i][0] = values[i][0].replace('-', '_');
             this.values[i][1] = values[i][1];
         }
     }
@@ -64,21 +58,20 @@ public class FlagsGenerator extends TypeGenerator
             out.print("    ");
             out.print("static final int ");
             out.print(values[i][0]);
-            out.print(" = get_flag_");
-            out.print(values[i][1]);
+            out.print(" = get_ordinal_");
+            out.print(values[i][0]);
             out.print("();\n");
 
             /* and the native method */
             out.print("\n");
             out.print("    ");
-            out.print("private static native final int get_flag_");
-            out.print(values[i][1]);
+            out.print("private static native final int get_ordinal_");
+            out.print(values[i][0]);
             out.print("();\n");
         }
     }
 
     public void writeJniCode(PrintWriter out) {
-
         /* write file header and includes */
         super.writeJniCode(out);
 
@@ -90,11 +83,11 @@ public class FlagsGenerator extends TypeGenerator
 
             out.print("Java_");
             out.print(encodeJavaClassName(objectType.bindingsPackage, objectType.bindingsClass));
-            out.print("_get_1flag_");
-            out.print(encodeJavaMethodName(values[i][1]));
-            out.print("\n  (JNIEnv* env, jclass cls)\n");
+            out.print("_get_1ordinal_1");
+            out.print(encodeJavaMethodName(values[i][0]));
+            out.print("\n(\n\tJNIEnv* env,\n\tjclass cls\n)\n");
             out.print("{\n");
-            out.print("    return ");
+            out.print("\treturn (jint) ");
             out.print(values[i][1]);
             out.print(";\n");
             out.print("}\n");

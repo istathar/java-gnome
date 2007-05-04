@@ -23,15 +23,15 @@ final class GtkDialogFlags extends Plumbing
 {
     private GtkDialogFlags() {}
 
-    static final int MODAL = get_flag_GTK_DIALOG_MODAL();
+    static final int MODAL = get_ordinal_modal();
 
-    private static native final int get_flag_GTK_DIALOG_MODAL();
+    private static native final int get_ordinal_modal();
 
-    static final int DESTROY_WITH_PARENT = get_flag_GTK_DIALOG_DESTROY_WITH_PARENT();
+    static final int DESTROY_WITH_PARENT = get_ordinal_destroy_with_parent();
 
-    private static native final int get_flag_GTK_DIALOG_DESTROY_WITH_PARENT();
+    private static native final int get_ordinal_destroy_with_parent();
 
-    static final int NO_SEPARATOR = get_flag_GTK_DIALOG_NO_SEPARATOR();
+    static final int NO_SEPARATOR = get_ordinal_no_separator();
 
-    private static native final int get_flag_GTK_DIALOG_NO_SEPARATOR();
+    private static native final int get_ordinal_no_separator();
 }
