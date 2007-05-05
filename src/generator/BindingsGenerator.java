@@ -9,7 +9,6 @@
  * redistribution.
  */
 
-import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileReader;
@@ -22,6 +21,7 @@ import java.util.Iterator;
 import java.util.List;
 
 import com.operationaldynamics.defsparser.Block;
+import com.operationaldynamics.defsparser.DefsLineNumberReader;
 import com.operationaldynamics.defsparser.DefsParser;
 import com.operationaldynamics.driver.DefsFile;
 import com.operationaldynamics.driver.ImproperDefsFileException;
@@ -114,7 +114,7 @@ public class BindingsGenerator
         DefsParser parser;
         File dir;
         File[] files;
-        BufferedReader in;
+        DefsLineNumberReader in;
         DefsFile data;
         List all;
         Iterator iter;
@@ -140,7 +140,7 @@ public class BindingsGenerator
 
         for (int i = 0; i < files.length; i++) {
             try {
-                in = new BufferedReader(new FileReader(files[i]));
+                in = new DefsLineNumberReader(new FileReader(files[i]), files[i]);
 
                 parser = new DefsParser(in);
                 blocks = parser.parseData();

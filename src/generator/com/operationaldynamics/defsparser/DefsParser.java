@@ -27,7 +27,6 @@ package com.operationaldynamics.defsparser;
  * prototyping process.
  */
 
-import java.io.BufferedReader;
 import java.io.IOException;
 import java.text.ParseException;
 import java.util.ArrayList;
@@ -51,19 +50,17 @@ import java.util.regex.Pattern;
  */
 public class DefsParser
 {
-    private BufferedReader source;
+    private final DefsLineNumberReader source;
 
-    /**
-     * The Strings comprising a s-expression define block
+    /*
+     * Parser state
      */
-    private List lines;
 
-    /**
-     * The current input line being parsed, for debugging. TODO replace this
-     * with a custom BufferedReader or PushbackReader which keeps track of the
-     * source file line number.
-     */
-    private String current;
+    private List characteristics, values, fields, parameters;
+
+    private String phylum;
+
+    private String name;
 
     /*
      * Java is a bit annoying about caching constant things, since they [have
@@ -115,7 +112,6 @@ public class DefsParser
 
         // __)
         subEnds = Pattern.compile("^\\s+\\)");
-
     }
 
     /**
@@ -123,8 +119,10 @@ public class DefsParser
      * 
      * @param source
      *            a data stream containing s-expression .defs data.
+     * @param filename
+     *            name of the .defs file being parsed (for debug purposes)
      */
-    public DefsParser(BufferedReader source) throws IOException {
+    public DefsParser(DefsLineNumberReader source) {
         this.source = source;
     }
 
@@ -135,35 +133,114 @@ public class DefsParser
      * @return whether or not a complete ( ) balanced stanza was read. If
      *         there was, there might be another one.
      */
-    boolean readNextStanza() {
+    boolean readNextStanza() throws ParseException {
         String line;
+        Matcher m;
+        List l;
 
         /*
          * Clear the parser state:
          */
 
-        lines = new ArrayList();
+        phylum = null;
+        name = null;
 
-        /*
-         * Read lines out of the .defs stream, adding them to the lines list
-         * until a block-end is encountered:
-         */
+        characteristics = new ArrayList();
+        values = new ArrayList();
+        fields = new ArrayList();
+        parameters = new ArrayList();
 
         try {
+
+            /*
+             * Handle the first line, always of the form "(define-phylum name"
+             */
+
             while ((line = source.readLine()) != null) {
                 if (line.equals("")) {
                     continue;
                 }
+                if (line.startsWith(";;")) {
+                    continue;
+                }
+                break;
+            }
+            if (line == null) {
+                return false;
+            }
+
+            m = defineLine.matcher(line);
+
+            if (!m.matches()) {
+                throw new DefsParseException("Parser failed to find a proper define line", line,
+                        source.getLineNumber());
+            }
+
+            phylum = m.group(1);
+            name = m.group(2).intern();
+
+            /*
+             * Run through subsequent lines, sorting the key/values in the
+             * characteristics list. If we hit a fields or parameters sublist,
+             * change the target list accordingly and carry on.
+             */
+
+            l = characteristics;
+
+            while ((line = source.readLine()) != null) {
+                String key, value;
+
                 if (line.equals(")")) {
                     return true;
                 }
                 if (line.startsWith(";;")) {
                     continue;
                 }
-                lines.add(line);
+
+                if (parametersBegin.matcher(line).matches()) {
+                    l = parameters;
+                    continue;
+                } else if (fieldsBegin.matcher(line).matches()) {
+                    l = fields;
+                    continue;
+                } else if (valuesBegin.matcher(line).matches()) {
+                    l = values;
+                    continue;
+                } else if (subEnds.matcher(line).matches()) {
+                    l = characteristics;
+                    continue;
+                }
+
+                if (l == characteristics) {
+                    m = characteristicLine.matcher(line);
+                } else {
+                    m = subCharacteristicsLine.matcher(line);
+                }
+
+                if (!m.matches()) {
+                    throw new DefsParseException("Couldn't match characteristics line", line,
+                            source.getLineNumber());
+                }
+
+                key = m.group(1).intern();
+                value = m.group(2).intern();
+
+                if ((key == null) || (value == null)) {
+                    throw new DefsParseException("Parsed key or value turned out to be null", line,
+                            source.getLineNumber());
+                }
+
+                /*
+                 * reduce the String pressure by normalizing the Strings to
+                 * intern() before placing them into the arrays used for
+                 * subsequent manipulation.
+                 */
+                l.add(new String[] {
+                        key.intern(), value.intern()
+                });
             }
         } catch (IOException ioe) {
-            // ignore. Either way, it's end of file
+            // ignore? Either way, it's end of file, right?
         }
 
         return false;
@@ -185,85 +262,6 @@ public class DefsParser
      */
     Block parseStanza() throws ParseException {
         Block block = null;
-        Matcher m;
-        final String phylum;
-        final String name;
-        final List characteristics, values, fields, parameters;
-        List l;
-        int i;
-
-        characteristics = new ArrayList();
-        values = new ArrayList();
-        fields = new ArrayList();
-        parameters = new ArrayList();
-
-        /*
-         * Handle the first line, always of the form "(define-phylum name"
-         */
-
-        current = (String) lines.get(0);
-        m = defineLine.matcher(current);
-
-        if (!m.matches()) {
-            throw new ParseException("Parse failed to grok \"" + current + "\"", 0);
-        }
-
-        phylum = m.group(1);
-        name = m.group(2).intern();
-
-        /*
-         * Run through subsequent lines, sorting the key/values in the
-         * characteristics list. If we hit a fields or parameters sublist,
-         * change the target list accordingly and carry on.
-         */
-
-        l = characteristics;
-
-        for (i = 1; i < lines.size(); i++) {
-            String key, value;
-
-            current = (String) lines.get(i);
-
-            if (parametersBegin.matcher(current).matches()) {
-                l = parameters;
-                continue;
-            } else if (fieldsBegin.matcher(current).matches()) {
-                l = fields;
-                continue;
-            } else if (valuesBegin.matcher(current).matches()) {
-                l = values;
-                continue;
-            } else if (subEnds.matcher(current).matches()) {
-                l = characteristics;
-                continue;
-            }
-
-            if (l == characteristics) {
-                m = characteristicLine.matcher(current);
-            } else {
-                m = subCharacteristicsLine.matcher(current);
-            }
-
-            if (!m.matches()) {
-                throw new ParseException("Couldn't match characteristics line \"" + current + "\"", i);
-            }
-
-            key = m.group(1).intern();
-            value = m.group(2).intern();
-
-            if ((key == null) || (value == null)) {
-                throw new ParseException("Parsed key/value null on line \"" + current + "\"", i);
-            }
-
-            /*
-             * reduce the String pressure by normalizing the Strings to
-             * intern() before placing them into the arrays used for
-             * subsequent manipulation.
-             */
-            l.add(new String[] {
-                    key.intern(), value.intern()
-            });
-        }
 
         /*
          * And now, with the stanza's data organized into Lists, instantiate
@@ -318,16 +316,23 @@ public class DefsParser
 
         blocks = new ArrayList();
 
-        while (readNextStanza()) {
+        while (true) {
             try {
+                if (!readNextStanza()) {
+                    break;
+                }
+
                 block = parseStanza();
                 blocks.add(block);
+
             } catch (ParseException pe) {
-                System.err.println("Failed to parse .defs stanza:");
+                System.err.println("Failed to parse");
+                System.err.print(source.getFilename() + ", ");
                 System.err.println(pe.getMessage());
                 System.err.println("[continuing next block]\n");
             } catch (IllegalStateException ise) {
                 System.err.println("Failed parsing (an internal problem? FIXME!):");
+                System.err.print(source.getFilename() + ", ");
                 System.err.println(ise.getMessage());
                 System.err.println("[continuing next block]\n");
             }
