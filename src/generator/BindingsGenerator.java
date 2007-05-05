@@ -140,7 +140,7 @@ public class BindingsGenerator
 
         for (int i = 0; i < files.length; i++) {
             try {
-                in = new DefsLineNumberReader(new FileReader(files[i]), files[i]);
+                in = new DefsLineNumberReader(new FileReader(files[i]), files[i].getName());
 
                 parser = new DefsParser(in);
                 blocks = parser.parseData();

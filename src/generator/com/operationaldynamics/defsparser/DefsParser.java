@@ -291,6 +291,8 @@ public class DefsParser
             block = new VirtualBlock(name, characteristics, parameters);
         } else if (phylum.equals("enum")) {
             block = new EnumBlock(name, characteristics, values);
+        } else if (phylum.equals("flags")) {
+            block = new FlagsBlock(name, characteristics, values);
         } else if (phylum.equals("boxed")) {
             // TODO
             throw new ParseException("Boxeds not supported yet", 0);

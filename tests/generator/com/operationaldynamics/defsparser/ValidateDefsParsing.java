@@ -10,7 +10,6 @@
  */
 package com.operationaldynamics.defsparser;
 
-import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.StringReader;
 import java.text.ParseException;
@@ -73,10 +72,10 @@ public class ValidateDefsParsing extends TestCase
 
     protected DefsParser parser;
 
-    BufferedReader in;
+    DefsLineNumberReader in;
 
     public void setUp() throws IOException {
-        in = new BufferedReader(new StringReader(inputDefsData));
+        in = new DefsLineNumberReader(new StringReader(inputDefsData), "Mock data");
 
         parser = new DefsParser(in);
     }
@@ -85,7 +84,7 @@ public class ValidateDefsParsing extends TestCase
         in.close();
     }
 
-    public final void testInputStreamToStanzas() {
+    public final void testInputStreamToStanzas() throws ParseException {
         int i;
 
         for (i = 0; parser.readNextStanza(); i++)

@@ -10,9 +10,8 @@
  */
 package com.operationaldynamics.defsparser;
 
-import java.io.File;
-import java.io.FileReader;
 import java.io.LineNumberReader;
+import java.io.Reader;
 
 /**
  * A LineNumberReader that knows the name of the file its reading.
@@ -21,14 +20,19 @@ import java.io.LineNumberReader;
  */
 public class DefsLineNumberReader extends LineNumberReader
 {
-    private String filename;
+    private final String filename;
 
-    /*
-     * Not the prettiest constructor ever.
+    /**
+     * 
+     * @param in
+     *            It's pretty much assumed that this will be a FileReader, but
+     *            the type is left abstract to facilitate unit tests.
+     * @param filename
+     *            the name of the file being parsed.
      */
-    public DefsLineNumberReader(FileReader in, File file) {
+    public DefsLineNumberReader(final Reader in, final String filename) {
         super(in);
-        this.filename = file.getName();
+        this.filename = filename;
     }
 
     public String getFilename() {
