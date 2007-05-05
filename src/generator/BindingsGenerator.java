@@ -196,5 +196,4 @@ public class BindingsGenerator
             // out.close();
         }
     }
-
 }

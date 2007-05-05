@@ -74,6 +74,7 @@ public abstract class Thing
         register(new FundamentalThing("none", "void", "void", "void"));
         register(new FundamentalThing("const-gchar*", "String", "String", "jstring"));
         register(new FundamentalThing("gchar*", "String", "String", "jstring"));
+        register(new FundamentalThing("gint", "int", "int", "jint"));
         register(new FundamentalThing("glong", "long", "long", "jlong"));
         register(new FundamentalThing("gboolean", "boolean", "boolean", "jboolean"));
         register(new FundamentalThing("gfloat", "float", "float", "jfloat"));

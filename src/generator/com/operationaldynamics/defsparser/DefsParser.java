@@ -172,8 +172,7 @@ public class DefsParser
             m = defineLine.matcher(line);
 
             if (!m.matches()) {
-                throw new DefsParseException("Parser failed to find a proper define line", line,
-                        source.getLineNumber());
+                throw new DefsParseException("Parser failed to find a proper define line", line, source);
             }
 
             phylum = m.group(1);
@@ -218,8 +217,9 @@ public class DefsParser
                 }
 
                 if (!m.matches()) {
-                    throw new DefsParseException("Couldn't match characteristics line", line,
-                            source.getLineNumber());
+                    System.err.println(new DefsParseException("Couldn't match characteristics line",
+                            line, source).getMessage());
+                    continue;
                 }
 
                 key = m.group(1).intern();
@@ -227,7 +227,7 @@ public class DefsParser
 
                 if ((key == null) || (value == null)) {
                     throw new DefsParseException("Parsed key or value turned out to be null", line,
-                            source.getLineNumber());
+                            source);
                 }
 
                 /*
