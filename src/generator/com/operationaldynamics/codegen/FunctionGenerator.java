@@ -155,7 +155,9 @@ abstract class FunctionGenerator extends Generator
     protected void translationMethodReturnCode(PrintWriter out) {
         if (!returnType.nativeType.equals("void")) {
             out.print("\n");
-            out.print("        return ");
+            out.print("        return (");
+            out.print(returnType.javaType);
+            out.print(") ");
             out.print(returnType.translationToJava("result"));
             out.print(";\n");
         }
