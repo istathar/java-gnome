@@ -29,7 +29,7 @@ abstract class FunctionGenerator extends Generator
     /**
      * The Thing describing the object we are generating code relative to.
      */
-    protected final ObjectThing objectType;
+    protected final ProxiedThing proxyType;
 
     /**
      * The name of the method that is exposed package visible to bindings
@@ -75,7 +75,7 @@ abstract class FunctionGenerator extends Generator
             final String cFunctionName, final String[][] gParameters) {
         super(data);
 
-        this.objectType = (ObjectThing) data.getType();
+        this.proxyType = (ProxiedThing) data.getType();
 
         this.translationMethodName = toCamel(blockName);
 
@@ -193,7 +193,7 @@ abstract class FunctionGenerator extends Generator
         out.print(" JNICALL\n");
 
         out.print("Java_");
-        out.print(encodeJavaClassName(objectType.bindingsPackage, objectType.bindingsClass));
+        out.print(encodeJavaClassName(proxyType.bindingsPackage, proxyType.bindingsClass));
         out.print("_");
         out.print(encodeJavaMethodName(nativeMethodName));
         out.print("\n(\n");

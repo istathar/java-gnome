@@ -1,5 +1,5 @@
 /*
- * ObjectThing.java
+ * ProxiedThing.java
  *
  * Copyright (c) 2007 Operational Dynamics Consulting Pty Ltd
  * 
@@ -10,13 +10,13 @@
  */
 package com.operationaldynamics.codegen;
 
-public class ObjectThing extends ProxiedThing
+public abstract class ProxiedThing extends Thing
 {
-    public ObjectThing(String gType, String bindingsPackage, String bindingsClass, String javaType) {
-        super(gType, bindingsPackage, bindingsClass, javaType);
+    public ProxiedThing(String gType, String bindingsPackage, String bindingsClass, String javaType) {
+        super(gType, bindingsPackage, bindingsClass, javaType, "long", "jlong");
     }
 
-    String translationToJava(String name) {
-        return "objectFor(" + name + ")";
+    String translationToNative(String name) {
+        return "pointerOf(" + name + ")";
     }
 }

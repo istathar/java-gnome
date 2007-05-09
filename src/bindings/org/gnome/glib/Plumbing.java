@@ -16,6 +16,8 @@ import java.util.IdentityHashMap;
 import java.util.Iterator;
 import java.util.Properties;
 
+import org.freedesktop.bindings.Proxy;
+
 /**
  * Translation layer class which adds the ability to connect signals to
  * GObjects. See {@link org.freedesktop.bindings.Plumbing Plumbing} for
@@ -110,7 +112,33 @@ public abstract class Plumbing extends org.freedesktop.bindings.Plumbing
 
         typeMapping.put(nativeName.intern(), javaClass);
     }
-
+    
+    /**
+     * Retrieve an approriate Java Object for this pointer.
+     * 
+     * @see #proxyFor(long)
+     * 
+     * @return 
+     * @throw ClastCastException if the GType pointed by given pointer is 
+     *        not a GObject.
+     */
+    protected static Object objectFor(long pointer) {
+        return (Object) proxyFor(pointer);
+    }
+    
+    /**
+     * Retrieve an approriate Java Boxed for this pointer.
+     * 
+     * @see #proxyFor(long)
+     * 
+     * @return 
+     * @throw ClastCastException if the GType pointed by given pointer is 
+     *        not a GBoxed.
+     */
+    protected static Boxed boxedFor(long pointer) {
+        return (Boxed) proxyFor(pointer);
+    }
+    
     /**
      * Retrieve an appropriate Java Proxy for this pointer. This will return
      * the Proxy instance already created using a real constructor if one was
@@ -126,20 +154,20 @@ public abstract class Plumbing extends org.freedesktop.bindings.Plumbing
      * 
      * @see org.freedesktop.bindings.Plumbing#instanceFor(long)
      */
-    protected static Object objectFor(long pointer) {
-        Object obj;
+    private static Proxy proxyFor(long pointer) {
+        Proxy proxy;
 
         if (pointer == 0L) {
             return null;
         }
 
-        obj = (Object) instanceFor(pointer);
+        proxy = (Proxy) instanceFor(pointer);
 
-        if (obj != null) {
+        if (proxy != null) {
             /*
              * A Proxy exists for this. Great! Simply return it.
              */
-            return obj;
+            return proxy;
         } else {
             /*
              * Oh. A proxy doesn't exist (yet). Okay. Lookup the GType name,
@@ -155,6 +183,7 @@ public abstract class Plumbing extends org.freedesktop.bindings.Plumbing
              * pressure and to permit lookup by identity.
              */
 
+            //TODO I don't like type name in GObject, but
             name = GObject.typeName(pointer).intern();
 
             if (name.equals("")) {
@@ -169,8 +198,8 @@ public abstract class Plumbing extends org.freedesktop.bindings.Plumbing
             type = (Class) typeMapping.get(name);
 
             if (type != null) {
-                obj = createObject(type, pointer);
-                return obj;
+                proxy = createProxy(type, pointer);
+                return proxy;
             }
 
             /*
@@ -184,11 +213,11 @@ public abstract class Plumbing extends org.freedesktop.bindings.Plumbing
         }
     }
 
-    private static Object createObject(Class type, long pointer) {
-        final Object obj;
+    private static Proxy createProxy(Class type, long pointer) {
+        final Proxy proxy;
         // FIXME use per-package Factory instead?
-        obj = (Object) createInstance(type, pointer);
-        return obj;
+        proxy = (Proxy) createInstance(type, pointer);
+        return proxy;
     }
 
     /**

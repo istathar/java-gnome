@@ -294,8 +294,7 @@ public class DefsParser
         } else if (phylum.equals("flags")) {
             block = new FlagsBlock(name, characteristics, values);
         } else if (phylum.equals("boxed")) {
-            // TODO
-            throw new ParseException("Boxeds not supported yet", 0);
+            block = new BoxedBlock(name, characteristics, fields);
         } else {
             // etc
             throw new ParseException("What kind of block was \"" + phylum + "\"?", 0);
