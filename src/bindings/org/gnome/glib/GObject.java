@@ -73,7 +73,7 @@ final class GObject extends Plumbing
     }
 
     /**
-     * Lookup the type name for a given Value. <i>When a GType such as a
+     * Lookup the type name for a given Object. <i>When a GType such as a
      * primitive (fundamental) type or a class is registered in GObject, it is
      * given a name.
      * 
@@ -83,7 +83,7 @@ final class GObject extends Plumbing
      * run.</i>
      * 
      * @param value
-     *            the pointer address of the <code>GValue</code> you are
+     *            the pointer address of the <code>GObject</code> you are
      *            looking at
      * 
      * @return the name which is used to identify the <code>GType</code> in
