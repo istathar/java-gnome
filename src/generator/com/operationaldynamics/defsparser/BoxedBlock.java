@@ -11,6 +11,7 @@
  */
 package com.operationaldynamics.defsparser;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.operationaldynamics.codegen.BoxedGenerator;
@@ -79,6 +80,18 @@ public class BoxedBlock extends TypeBlock
     }
 
     public Generator createGenerator(final DefsFile data) {
-        return new BoxedGenerator(data);
+        return new BoxedGenerator(data, fields);
+    }
+    
+    public List usesTypes() {
+        List types;
+
+        types = new ArrayList(fields.length);
+
+        for (int i = 0; i < fields.length; i++) {
+            types.add(Thing.lookup(fields[i][0]));
+        }
+
+        return types;
     }
 }

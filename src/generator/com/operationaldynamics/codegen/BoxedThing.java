@@ -12,7 +12,9 @@ package com.operationaldynamics.codegen;
 
 public class BoxedThing extends ProxiedThing
 {
-    public BoxedThing(String gType, String bindingsPackage, String bindingsClass, String javaType) {
+    
+    public BoxedThing(String gType, String bindingsPackage, String bindingsClass, 
+            String javaType) {
         super(gType, bindingsPackage, bindingsClass, javaType);
     }
 
