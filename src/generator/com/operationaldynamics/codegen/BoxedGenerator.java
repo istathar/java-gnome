@@ -30,16 +30,6 @@ public class BoxedGenerator extends TypeGenerator
 
     protected final String[] fieldNames;
 
-    /*
-     * TODO We also need to write setters and getters for fields. This has two
-     * problems to be resolved: a) Some fields are a GObject itself, not a
-     * pointer, so, how to manage this? is not as easy as pass the address of
-     * the object like a pointer: we need take care that the boxed is not
-     * deleted until all internal objects are no more used from java. b) Other
-     * are defined as "const-XXXX", where XXXX is a GObject, so we need to
-     * drop the const-.
-     */
-
     public BoxedGenerator(DefsFile data, String[][] fields) {
         super(data);
 
@@ -47,7 +37,7 @@ public class BoxedGenerator extends TypeGenerator
         fieldNames = new String[fields.length];
 
         for (int i = 0; i < fields.length; i++) {
-            fieldTypes[i] = Thing.lookup(fields[i][0]);
+            fieldTypes[i] = Thing.lookup(fields[i][0]); 
             fieldNames[i] = fields[i][1];
         }
     }
@@ -85,7 +75,7 @@ public class BoxedGenerator extends TypeGenerator
         out.print("        ");
         out.print(fieldSetter);
         // TODO call Thing? it's always a pointerOf(self)...
-        out.print("( pointerOf(self), ");
+        out.print("(pointerOf(self), ");
         out.print(fieldTypes[index].translationToNative(fieldName));
         out.print(");\n");
 
@@ -103,7 +93,6 @@ public class BoxedGenerator extends TypeGenerator
     }
 
     private void writeTranslationGetter(PrintWriter out, int index) {
-
         String fieldGetter = "get_" + fieldNames[index];
 
         /* declaration */
@@ -168,7 +157,7 @@ public class BoxedGenerator extends TypeGenerator
         out.print("Java_");
         out.print(encodeJavaClassName(objectType.bindingsPackage, objectType.bindingsClass));
         out.print("_");
-        out.print(encodeJavaMethodName("set_" + fieldNames[index]));
+        out.print(encodeJavaMethodName("set_field_" + fieldNames[index]));
         out.print("\n(\n");
         out.print("\tJNIEnv* env,\n");
         out.print("\tjclass cls,\n");
@@ -235,7 +224,6 @@ public class BoxedGenerator extends TypeGenerator
 
         /* return */
         out.print("}\n");
-
     }
 
     /*
@@ -250,7 +238,7 @@ public class BoxedGenerator extends TypeGenerator
         out.print("Java_");
         out.print(encodeJavaClassName(objectType.bindingsPackage, objectType.bindingsClass));
         out.print("_");
-        out.print(encodeJavaMethodName("get_" + fieldNames[index]));
+        out.print(encodeJavaMethodName("get_field_" + fieldNames[index]));
         out.print("\n(\n");
         out.print("\tJNIEnv* env,\n");
         out.print("\tjclass cls,\n");
@@ -283,6 +271,5 @@ public class BoxedGenerator extends TypeGenerator
             out.print(") result;");
         }
         out.print("\n}\n");
-
     }
 }
