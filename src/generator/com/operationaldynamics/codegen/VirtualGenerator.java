@@ -72,9 +72,9 @@ public class VirtualGenerator extends FunctionGenerator
         out.print("static final void ");
         out.print(translationMethodName);
         out.print("(");
-        out.print(objectType.javaType);
+        out.print(proxyType.javaType);
         out.print(" self, ");
-        out.print(objectType.bindingsClass);
+        out.print(proxyType.bindingsClass);
         out.print(".");
         out.print(javaSignalClass);
         out.print(" handler) {");
@@ -84,7 +84,7 @@ public class VirtualGenerator extends FunctionGenerator
     protected void translationMethodSuperCall(PrintWriter out) {
         out.print("        ");
         out.print("connectSignal(self, handler, ");
-        out.print(objectType.bindingsClass);
+        out.print(proxyType.bindingsClass);
         out.print(".class, \"");
         out.print(cSignalName);
         out.print("\");\n");
@@ -126,13 +126,13 @@ public class VirtualGenerator extends FunctionGenerator
         }
 
         out.print("((");
-        out.print(objectType.bindingsClass);
+        out.print(proxyType.bindingsClass);
         out.print(".");
         out.print(javaSignalClass);
         out.print(") handler).");
         out.print(interfaceMethodName);
         out.print("((");
-        out.print(objectType.javaType);
+        out.print(proxyType.javaType);
         out.print(") objectFor(source)");
 
         for (int i = 0; i < parameterTypes.length; i++) {
@@ -166,7 +166,7 @@ public class VirtualGenerator extends FunctionGenerator
         out.print(" ");
         out.print(interfaceMethodName);
         out.print("(");
-        out.print(objectType.javaType);
+        out.print(proxyType.javaType);
         out.print(" source");
 
         for (int i = 0; i < parameterTypes.length; i++) {

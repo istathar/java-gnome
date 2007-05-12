@@ -4,6 +4,11 @@
   (gtype-id "GTK_TYPE_TREE_ITER")
   (copy-func "gtk_tree_iter_copy")
   (release-func "gtk_tree_iter_free")
+  (fields
+    '("GtkReliefStyle" "style")
+    '("gint" "rise")
+    '("GtkWidget*" "tree")
+  )
 )
 
 (define-method copy

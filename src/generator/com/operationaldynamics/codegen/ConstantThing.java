@@ -12,7 +12,7 @@ package com.operationaldynamics.codegen;
 
 /**
  * Types corresponding to objects defined in (define-enum ...) and
- * (define-flags ...) blocks. These map to Constant subclasses in our 
+ * (define-flags ...) blocks. These map to Constant subclasses in our
  * bindings.
  * 
  * @author Andrew Cowie

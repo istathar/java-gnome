@@ -69,11 +69,11 @@ public abstract class TypeBlock extends Block
     }
 
     /*
-     * This will have to change if we start using the values
-     * subcharacteristics in ObjectBlocks, but for now, none of the TypeBlocks
-     * import anything over and above themselves.
+     * Default bahavior, as most TypeBlock's don't import anything. This will
+     * have to change if we start using the values subcharacteristics in
+     * ObjectBlocks.
      */
-    public final List usesTypes() {
+    public List usesTypes() {
         return Collections.EMPTY_LIST;
     }
 }

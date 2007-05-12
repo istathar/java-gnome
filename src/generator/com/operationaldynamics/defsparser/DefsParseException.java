@@ -31,6 +31,7 @@ public class DefsParseException extends ParseException
      *            the line of the defs file where the problem occured.
      */
     public DefsParseException(String problem, String defsLine, DefsLineNumberReader in) {
-        super("In " + in.getFilename() + ", line " + in.getLineNumber() + ":\n" + defsLine + "\n" + problem, 0);
+        super("In " + in.getFilename() + ", line " + in.getLineNumber() + ":\n" + defsLine + "\n"
+                + problem, 0);
     }
 }

@@ -97,7 +97,7 @@ abstract class TypeGenerator extends Generator
 
         types = new ArrayList();
         types.add("org.gnome.glib.Plumbing");
-        
+
         iter = data.usesTypes().iterator();
         while (iter.hasNext()) {
             Thing type = (Thing) iter.next();
