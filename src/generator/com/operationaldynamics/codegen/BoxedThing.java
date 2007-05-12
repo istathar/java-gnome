@@ -10,12 +10,17 @@
  */
 package com.operationaldynamics.codegen;
 
+/**
+ * @author Vreixo Formoso
+ */
 public class BoxedThing extends ProxiedThing
 {
 
     public BoxedThing(String gType, String bindingsPackage, String bindingsClass, String javaType) {
         super(gType, bindingsPackage, bindingsClass, javaType);
     }
+
+    protected BoxedThing() {}
 
     String translationToJava(String name) {
         return "boxedFor(" + name + ")";

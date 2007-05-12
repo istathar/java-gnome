@@ -261,7 +261,7 @@ abstract class FunctionGenerator extends Generator
             /*
              * and now a type specific decode: TODO It might be better if this
              * was reorganized to leverage a type hierarchy, but at present
-             * FundamentalThing isn't enough of a desecriminator.
+             * FundamentalThing isn't enough of a discriminator.
              */
             if (parameterTypes[i].jniType.equals("jstring")) {
                 out.print("(*env)->GetStringUTFChars(env, _");

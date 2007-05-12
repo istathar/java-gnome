@@ -26,6 +26,11 @@ import java.util.HashMap;
  */
 public abstract class Thing
 {
+    /*
+     * WARNING: if any fields are added here, code to clone them must be added
+     * to the createConstVariant() method as well.
+     */
+
     String gType;
 
     String bindingsPackage;
@@ -49,8 +54,8 @@ public abstract class Thing
      * All Things, with the excpetion of the FundamentalThings representing
      * primative types, need to know where they slot in.
      */
-    Thing(String gType, String javaPackage, String javaClass, String javaType, String nativeType,
-            String jniType) {
+    protected Thing(String gType, String javaPackage, String javaClass, String javaType,
+            String nativeType, String jniType) {
         this.gType = gType;
         this.bindingsPackage = javaPackage;
         this.bindingsClass = javaClass;
@@ -60,19 +65,18 @@ public abstract class Thing
         this.cType = gType;
     }
 
+    /**
+     * All Thing subclasses require a protected visibility no-args constructor
+     * so that clone() can instatiate them.
+     */
+    protected Thing() {}
+
     private static HashMap things;
 
-    /*
-     * FIXME: it turns out that "const-" appears as a qualifier on more than
-     * just gchar*, so the translation of that particular phrase into "const "
-     * needs to be pushed up somewhere; what impact on type registration? Two
-     * lookups point to same Thing object perhaps?
-     */
     static {
         things = new HashMap(400);
 
         register(new FundamentalThing("none", "void", "void", "void"));
-        register(new FundamentalThing("const-gchar*", "String", "String", "jstring"));
         register(new FundamentalThing("gchar*", "String", "String", "jstring"));
         register(new FundamentalThing("gint", "int", "int", "jint"));
         register(new FundamentalThing("glong", "long", "long", "jlong"));
@@ -96,12 +100,41 @@ public abstract class Thing
      * <code>gType</code>
      */
     public static Thing lookup(String gType) {
-        Thing stored;
+        Thing stored, dupe;
+        String bareGType;
+
+        /*
+         * Lookup the type. This will work most of the time...
+         */
 
         stored = (Thing) things.get(gType);
+
+        /*
+         * ...but not if it needs a const Thing variant, and one hasn't been
+         * created yet. So strip off the "const-" prefix, and look up the
+         * type. If we're still stuck, then that is indeed fatal, otherwise
+         * create a new Thing to represent the const case.
+         */
+
         if (stored == null) {
-            throw new IllegalStateException("\nYou've asked for the Thing corresponding to \"" + gType
-                    + "\", but it isn't registered.");
+            if (gType.startsWith("const-")) {
+                bareGType = gType.substring(6);
+                stored = (Thing) things.get(bareGType);
+
+                if (stored == null) {
+                    throw new IllegalStateException("\nYou've asked for the Thing corresponding to \""
+                            + gType + "\"\n, but nothing is registered for \"" + bareGType
+                            + "\" so we're stuck.");
+                }
+
+                dupe = stored.createConstVariant();
+
+                register(dupe);
+                return dupe;
+            } else {
+                throw new IllegalStateException("\nYou've asked for the Thing corresponding to \""
+                        + gType + "\", but it isn't registered.");
+            }
         }
 
         return stored;
@@ -144,5 +177,39 @@ public abstract class Thing
         buf.append(javaType);
 
         return buf.toString().intern();
+    }
+
+    /**
+     * This is where we deal with the "const-" modifier by creating a clone of
+     * the object and then changing the cType field. We use reflection to
+     * create the appropriate fully derived instance.
+     */
+    /*
+     * This is effectively clone(). WARNING this doesn't deal with fields in
+     * subclasses. At the moment there aren't any, and we don't expect any. We
+     * could use reflection over the fields if we really had to. Yuk. In the
+     * mean time, this works.
+     */
+    private Thing createConstVariant() {
+        Thing t;
+
+        try {
+            t = (Thing) this.getClass().newInstance();
+        } catch (InstantiationException ie) {
+            throw new RuntimeException("No nullary constructor available in " + this.getClass() + "?",
+                    ie);
+        } catch (IllegalAccessException iae) {
+            throw new RuntimeException("Constructor " + this.getClass() + "() private?", iae);
+        }
+
+        t.bindingsClass = this.bindingsClass;
+        t.bindingsPackage = this.bindingsPackage;
+        t.gType = ("const-" + this.gType).intern();
+        t.cType = ("const " + this.cType).intern();
+        t.javaType = this.javaType;
+        t.jniType = this.jniType;
+        t.nativeType = this.nativeType;
+
+        return t;
     }
 }

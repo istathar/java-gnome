@@ -10,17 +10,16 @@
  */
 package com.operationaldynamics.codegen;
 
+/**
+ * @author Andrew Cowie
+ */
 public class FundamentalThing extends Thing
 {
-    FundamentalThing(String gType, String javaType, String nativeType, String jniType) {
+    public FundamentalThing(String gType, String javaType, String nativeType, String jniType) {
         super(gType, null, null, javaType, nativeType, jniType);
-
-        /*
-         * Account for the encoded "const-gchar*" that represents the C type
-         * "const gchar*". Are there others? Dunno, but this will handle them.
-         */
-        cType = gType.replace('-', ' ').intern();
     }
+
+    protected FundamentalThing() {}
 
     String translationToJava(String name) {
         return name;

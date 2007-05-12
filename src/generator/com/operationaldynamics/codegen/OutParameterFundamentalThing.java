@@ -23,4 +23,6 @@ public class OutParameterFundamentalThing extends FundamentalThing
     public OutParameterFundamentalThing(String gType, String javaType, String nativeType, String jniType) {
         super(gType, javaType, nativeType, jniType);
     }
+
+    protected OutParameterFundamentalThing() {}
 }

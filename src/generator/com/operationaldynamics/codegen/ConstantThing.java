@@ -22,6 +22,8 @@ public class ConstantThing extends Thing
     public ConstantThing(String gType, String javaPackage, String javaClass, String javaType) {
         super(gType, javaPackage, javaClass, javaType, "int", "jint");
     }
+    
+    protected ConstantThing() {}
 
     String translationToJava(String name) {
         StringBuffer buf;

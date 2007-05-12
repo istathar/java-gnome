@@ -16,6 +16,8 @@ public class ObjectThing extends ProxiedThing
         super(gType, bindingsPackage, bindingsClass, javaType);
     }
 
+    protected ObjectThing() {}
+
     String translationToJava(String name) {
         return "objectFor(" + name + ")";
     }

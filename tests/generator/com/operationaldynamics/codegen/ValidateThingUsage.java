@@ -59,21 +59,44 @@ public final class ValidateThingUsage extends ValidateDefsParsing
         assertEquals("long", ot.nativeType);
         assertEquals("jlong", ot.jniType);
     }
-    
-    
+
     public final void testCreateObjectThing() {
-        Block[] blocks;
-        ObjectThing ot;
-        
-        blocks = parser.parseData();        
-        
+        final Block[] blocks;
+        final ObjectThing ot;
+
+        blocks = parser.parseData();
+
         assertTrue(blocks[0] instanceof ObjectBlock);
         ot = (ObjectThing) blocks[0].createThing();
         assertEquals("GtkButton*", ot.gType);
         assertEquals("GtkButton", ot.bindingsClass);
         assertEquals("Button", ot.javaType);
-        
+
         Thing.register(ot);
         assertSame(ot, Thing.lookup("GtkButton*"));
+    }
+
+    public final void testCreateConstVariant() {
+        final Thing normal, variant, again;
+
+        normal = Thing.lookup("GtkButton*");
+
+        assertEquals("GtkButton*", normal.gType);
+        assertEquals("GtkButton*", normal.cType);
+
+        /*
+         * Ok, let's see it make the constant variant Thing
+         */
+
+        variant = Thing.lookup("const-GtkButton*");
+        assertEquals("const-GtkButton*", variant.gType);
+        assertEquals("const GtkButton*", variant.cType);
+
+        /*
+         * Make sure it doesn't create another one!
+         */
+
+        again = Thing.lookup("const-GtkButton*");
+        assertSame(variant, again);
     }
 }
