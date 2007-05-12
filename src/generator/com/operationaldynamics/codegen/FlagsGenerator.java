@@ -50,19 +50,24 @@ public class FlagsGenerator extends TypeGenerator
     public void writeTranslationCode(PrintWriter out) {
         super.writeTranslationCode(out);
 
-        /* and write the values */
         for (int i = 0; i < values.length; ++i) {
 
-            /* write the static field */
+            /*
+             * Write the static field
+             */
+
             out.print("\n");
             out.print("    ");
             out.print("static final int ");
-            out.print(values[i][0]);
+            out.print(toAllCaps(values[i][0]));
             out.print(" = get_ordinal_");
             out.print(values[i][0]);
             out.print("();\n");
 
-            /* and the native method */
+            /*
+             * And now the native method declaration
+             */
+
             out.print("\n");
             out.print("    ");
             out.print("private static native final int get_ordinal_");
@@ -72,10 +77,17 @@ public class FlagsGenerator extends TypeGenerator
     }
 
     public void writeJniCode(PrintWriter out) {
-        /* write file header and includes */
+        /*
+         * write file header and includes care of the code up in abstract
+         * parent class TypeGenerator
+         */
+
         super.writeJniCode(out);
 
-        /* and now the methods for get the values */
+        /*
+         * and now the methods for get the values
+         */
+
         for (int i = 0; i < values.length; ++i) {
 
             out.print("\n");
