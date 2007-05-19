@@ -1,0 +1,11 @@
+(define-enum PrintPages
+  (in-module "Gtk")
+  (c-name "GtkPrintPages")
+  (gtype-id "GTK_TYPE_PRINT_PAGES")
+  (values
+    '("all" "GTK_PRINT_PAGES_ALL")
+    '("current" "GTK_PRINT_PAGES_CURRENT")
+    '("ranges" "GTK_PRINT_PAGES_RANGES")
+  )
+)
+

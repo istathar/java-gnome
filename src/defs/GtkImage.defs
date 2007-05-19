@@ -1,0 +1,242 @@
+(define-object Image
+  (in-module "Gtk")
+  (parent "GtkMisc")
+  (c-name "GtkImage")
+  (gtype-id "GTK_TYPE_IMAGE")
+)
+
+(define-function gtk_image_new
+  (is-constructor-of "GtkImage")
+  (c-name "gtk_image_new")
+  (caller-owns-return #t)
+  (return-type "GtkWidget*")
+)
+
+(define-function image_new_from_pixmap
+  (is-constructor-of "GtkImage")
+  (c-name "gtk_image_new_from_pixmap")
+  (caller-owns-return #t)
+  (return-type "GtkWidget*")
+  (parameters
+    '("GdkPixmap*" "pixmap")
+    '("GdkBitmap*" "mask")
+  )
+)
+
+(define-function image_new_from_image
+  (is-constructor-of "GtkImage")
+  (c-name "gtk_image_new_from_image")
+  (caller-owns-return #t)
+  (return-type "GtkWidget*")
+  (parameters
+    '("GdkImage*" "image")
+    '("GdkBitmap*" "mask")
+  )
+)
+
+(define-function image_new_from_file
+  (is-constructor-of "GtkImage")
+  (c-name "gtk_image_new_from_file")
+  (caller-owns-return #t)
+  (return-type "GtkWidget*")
+  (parameters
+    '("const-gchar*" "filename")
+  )
+)
+
+(define-function image_new_from_pixbuf
+  (is-constructor-of "GtkImage")
+  (c-name "gtk_image_new_from_pixbuf")
+  (caller-owns-return #t)
+  (return-type "GtkWidget*")
+  (parameters
+    '("GdkPixbuf*" "pixbuf")
+  )
+)
+
+(define-method clear
+  (of-object "GtkImage")
+  (c-name "gtk_image_clear")
+  (return-type "none")
+)
+
+(define-method set_from_pixmap
+  (of-object "GtkImage")
+  (c-name "gtk_image_set_from_pixmap")
+  (return-type "none")
+  (parameters
+    '("GdkPixmap*" "pixmap")
+    '("GdkBitmap*" "mask" (null-ok))
+  )
+)
+
+(define-method set_from_image
+  (of-object "GtkImage")
+  (c-name "gtk_image_set_from_image")
+  (return-type "none")
+  (parameters
+    '("GdkImage*" "gdk_image" (null-ok))
+    '("GdkBitmap*" "mask" (null-ok))
+  )
+)
+
+(define-method set_from_file
+  (of-object "GtkImage")
+  (c-name "gtk_image_set_from_file")
+  (return-type "none")
+  (parameters
+    '("const-gchar*" "filename" (null-ok))
+  )
+)
+
+(define-method set_from_pixbuf
+  (of-object "GtkImage")
+  (c-name "gtk_image_set_from_pixbuf")
+  (return-type "none")
+  (parameters
+    '("GdkPixbuf*" "pixbuf" (null-ok))
+  )
+)
+
+(define-method set_from_stock
+  (of-object "GtkImage")
+  (c-name "gtk_image_set_from_stock")
+  (return-type "none")
+  (parameters
+    '("const-gchar*" "stock_id")
+    '("GtkIconSize" "size")
+  )
+)
+
+(define-method set_from_icon_set
+  (of-object "GtkImage")
+  (c-name "gtk_image_set_from_icon_set")
+  (return-type "none")
+  (parameters
+    '("GtkIconSet*" "icon_set")
+    '("GtkIconSize" "size")
+  )
+)
+
+(define-method set_from_animation
+  (of-object "GtkImage")
+  (c-name "gtk_image_set_from_animation")
+  (return-type "none")
+  (parameters
+    '("GdkPixbufAnimation*" "animation")
+  )
+)
+
+(define-method get_storage_type
+  (of-object "GtkImage")
+  (c-name "gtk_image_get_storage_type")
+  (return-type "GtkImageType")
+)
+
+(define-method get_pixmap
+  (of-object "GtkImage")
+  (c-name "gtk_image_get_pixmap")
+  (return-type "none")
+  (parameters
+    '("GdkPixmap**" "pixmap")
+    '("GdkBitmap**" "mask")
+  )
+)
+
+(define-method get_image
+  (of-object "GtkImage")
+  (c-name "gtk_image_get_image")
+  (return-type "none")
+  (parameters
+    '("GdkImage**" "gdk_image")
+    '("GdkBitmap**" "mask")
+  )
+)
+
+(define-method get_pixbuf
+  (of-object "GtkImage")
+  (c-name "gtk_image_get_pixbuf")
+  (return-type "GdkPixbuf*")
+)
+
+(define-method get_stock
+  (of-object "GtkImage")
+  (c-name "gtk_image_get_stock")
+  (return-type "none")
+  (parameters
+    '("gchar**" "stock_id")
+    '("GtkIconSize*" "size")
+  )
+)
+
+(define-method get_icon_set
+  (of-object "GtkImage")
+  (c-name "gtk_image_get_icon_set")
+  (return-type "none")
+  (parameters
+    '("GtkIconSet**" "icon_set")
+    '("GtkIconSize*" "size")
+  )
+)
+
+(define-method get_animation
+  (of-object "GtkImage")
+  (c-name "gtk_image_get_animation")
+  (return-type "GdkPixbufAnimation*")
+)
+
+(define-method set
+  (of-object "GtkImage")
+  (c-name "gtk_image_set")
+  (return-type "none")
+  (parameters
+    '("GdkImage*" "val")
+    '("GdkBitmap*" "mask")
+  )
+)
+
+(define-method get
+  (of-object "GtkImage")
+  (c-name "gtk_image_get")
+  (return-type "none")
+  (parameters
+    '("GdkImage**" "val")
+    '("GdkBitmap**" "mask")
+  )
+)
+
+(define-method set_from_icon_name
+  (of-object "GtkImage")
+  (c-name "gtk_image_set_from_icon_name")
+  (return-type "none")
+  (parameters
+    '("const-gchar*" "icon_name")
+    '("GtkIconSize" "size")
+  )
+)
+
+(define-method set_pixel_size
+  (of-object "GtkImage")
+  (c-name "gtk_image_set_pixel_size")
+  (return-type "none")
+  (parameters
+    '("gint" "pixel_size")
+  )
+)
+
+(define-method get_icon_name
+  (of-object "GtkImage")
+  (c-name "gtk_image_get_icon_name")
+  (return-type "none")
+  (parameters
+    '("const-gchar**" "icon_name")
+    '("GtkIconSize*" "size")
+  )
+)
+
+(define-method get_pixel_size
+  (of-object "GtkImage")
+  (c-name "gtk_image_get_pixel_size")
+  (return-type "gint")
+)
+

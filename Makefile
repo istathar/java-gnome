@@ -26,12 +26,12 @@ build-java: tmp/gtk-$(APIVERSION).jar tmp/libgtkjni-$(APIVERSION).so
 
 build-native: tmp/libgtkjava-$(APIVERSION).so
 
-.PHONY: test demo doc clean distlcean sleep
+.PHONY: test demo doc clean distlcean sleep install
 
 # [this  will be called by the above include if .config is missing.
 # We don't call ./configure automatically to allow scope for
 # manual configuration and overrides]
-.config: src/java/org/gnome/gtk/Gtk.java
+.config: src/bindings/org/gnome/gtk/Version.java
 	echo
 	echo "You need to run ./configure to check prerequisites"
 	echo "and setup preferences before you can build java-gnome."
@@ -44,15 +44,17 @@ build/config: .config build/dirs
 	( if [ ! "$(JAVA_CMD)" ] ; then echo "Sanity check failed. Run ./configure" ; exit 1 ; fi )
 	touch $@
 
-SOURCES_DIST=$(shell find src/java -name '*.java') $(shell find mockup/java -name '*.java' )
+SOURCES_CODEGEN=$(shell find src/generator -name '*.java')
 
-SOURCES_TEST=$(shell find tests/prototype -name '*.java' ) $(shell find tests/java -name '*.java' )
+SOURCES_DIST=$(shell find src/bindings -name '*.java') $(shell find mockup/bindings -name '*.java' )
+
+SOURCES_TEST=$(shell find tests/prototype -name '*.java' ) $(shell find tests/bindings -name '*.java' )  $(shell find tests/generator -name '*.java' )
 
 # These are just the headers which are crafted, not generated
 HEADERS_C=$(shell find src/jni -name '*.h' | sed -e 's/src\/jni/tmp\/include/g' -e 's/\.c/\.h/g')
 
-SOURCES_C=$(shell find src/java -name '*.c' ) $(shell find mockup/java -name '*.c' ) $(shell find src/jni -name '*.c' )
-OBJECTS_C=$(shell echo $(SOURCES_C) | sed -e's/\.c/\.o/g' -e's/src\/java/tmp\/objects/g' -e's/mockup\/java/tmp\/objects/g' -e's/src\/jni/tmp\/objects/g' )
+SOURCES_C=$(shell find src/bindings -name '*.c' ) $(shell find mockup/bindings -name '*.c' ) $(shell find src/jni -name '*.c' )
+OBJECTS_C=$(shell echo $(SOURCES_C) | sed -e's/\.c/\.o/g' -e's/src\/bindings/tmp\/objects/g' -e's/mockup\/bindings/tmp\/objects/g' -e's/src\/jni/tmp\/objects/g' )
 
 
 #
@@ -61,7 +63,8 @@ OBJECTS_C=$(shell echo $(SOURCES_C) | sed -e's/\.c/\.o/g' -e's/src\/java/tmp\/ob
 build/dirs: .config
 	@echo "MKDIR     temporary build directories"
 	-test -d build || mkdir build
-	-test -d tmp/classes || mkdir -p tmp/classes
+	-test -d tmp/bindings || mkdir -p tmp/bindings
+	-test -d tmp/generator || mkdir -p tmp/generator
 	-test -d tmp/native || mkdir -p tmp/native
 	-test -d tmp/objects || mkdir -p tmp/objects
 	-test -d tmp/include || mkdir -p tmp/include
@@ -73,20 +76,26 @@ build/dirs: .config
 # Source compilation
 # --------------------------------------------------------------------
 
-tmp/gtk-$(APIVERSION).jar: build/config build/classes-dist build/properties-dist
+tmp/gtk-$(APIVERSION).jar: build/config build/classes-codegen build/classes-dist build/properties-dist
 	@echo "$(JAR_CMD) $@"
-	cd tmp/classes ; find . -name '*.class' -o -name '*.properties' | xargs $(JAR) cf ../../$@ 
+	cd tmp/bindings ; find . -name '*.class' -o -name '*.properties' | xargs $(JAR) cf ../../$@ 
+
+build/classes-codegen: $(SOURCES_CODEGEN)
+	@echo "$(JAVAC_CMD) tmp/generator/*.class"
+	$(JAVAC) -d tmp/generator -classpath tmp/generator -sourcepath src/generator $?
+	@echo "NOOP      CodeGenerator"
+	touch $@
 
 build/classes-dist: $(SOURCES_DIST)
-	@echo "$(JAVAC_CMD) tmp/classes/*.class"
-	$(JAVAC) -d tmp/classes -classpath $(JAVAGNOME_JARS):src/java:tmp/classes $?
+	@echo "$(JAVAC_CMD) tmp/bindings/*.class"
+	$(JAVAC) -d tmp/bindings -classpath tmp/bindings -sourcepath src/bindings:mockup/bindings $?
 	touch $@
 
 
-build/properties-dist: tmp/classes/typeMapping.properties
+build/properties-dist: tmp/bindings/typeMapping.properties
 	touch $@
 
-tmp/classes/%.properties: mockup/java/%.properties
+tmp/bindings/%.properties: mockup/bindings/%.properties
 	@echo "CP        $< -> $(@D)"
 	cp -p $< $@
 
@@ -120,11 +129,11 @@ tmp/include/%.h: src/jni/%.h
 # want to do one invocation, which means using $? (newer than target). It gets
 # more complicated because of the need to give classnames to javah.
 
-SOURCES_JNI=$(shell find src/java -name '*.c') $(shell find mockup/java -name '*.c')
+SOURCES_JNI=$(shell find src/bindings -name '*.c') $(shell find mockup/bindings -name '*.c')
 build/headers-generate: $(SOURCES_JNI)
 	@echo "$(JAVAH_CMD) tmp/headers/*.h"
-	$(JAVAH) -jni -d tmp/include -classpath $(JAVAGNOME_JARS):tmp/classes \
-		$(shell echo $? | sed -e 's/src\/java\///g' -e 's/mockup\/java\///g' -e 's/\.c//g' -e 's/\//\./g' )
+	$(JAVAH) -jni -d tmp/include -classpath $(JAVAGNOME_JARS):tmp/bindings \
+		$(shell echo $? | sed -e 's/src\/bindings\///g' -e 's/mockup\/bindings\///g' -e 's/\.c//g' -e 's/\//\./g' )
 	touch $@
 
 tmp/objects/%.o: src/jni/%.c
@@ -133,19 +142,19 @@ tmp/objects/%.o: src/jni/%.c
 	$(CCACHE) $(CC) $(GTK_CFLAGS) -Itmp/include -o $@ -c $<
 
 
-tmp/objects/%.o: src/java/%.c
+tmp/objects/%.o: src/bindings/%.c
 	@if [ ! -d $(@D) ] ; then echo "MKDIR     $(@D)" ; mkdir -p $(@D) ; fi
 	@echo "$(CC_CMD) $@"
 	$(CCACHE) $(CC) $(GTK_CFLAGS) -Itmp/include -o $@ -c $<
 
-tmp/objects/%.o: mockup/java/%.c
+tmp/objects/%.o: mockup/bindings/%.c
 	@if [ ! -d $(@D) ] ; then echo "MKDIR     $(@D)" ; mkdir -p $(@D) ; fi
 	@echo "$(CC_CMD) $@"
 	$(CCACHE) $(CC) $(GTK_CFLAGS) -Itmp/include -o $@ -c $<
 
 tmp/libgtkjni-$(APIVERSION).so: build/config build/headers $(OBJECTS_C)
 	@echo "$(LINK_CMD) $@"
-	$(LINK) -shared \
+	$(LINK) \
 		 $(GTK_LIBS) \
 		-o $@ $(OBJECTS_C)
 #	@echo "STRIP     $@"
@@ -155,47 +164,59 @@ tmp/libgtkjni-$(APIVERSION).so: build/config build/headers $(OBJECTS_C)
 
 tmp/native/gtk.o: tmp/gtk-$(APIVERSION).jar
 	@echo "$(GCJ_CMD) $@"
-	$(GCJ) -fPIC -fjni \
-		-classpath $(JAVAGNOME_JARS):src/java:tmp/classes \
+	$(GCJ) \
+		-classpath $(JAVAGNOME_JARS):src/bindings:tmp/bindings \
 		-o $@ -c $<
 
 tmp/libgtkjava-$(APIVERSION).so: tmp/native/gtk.o
 	@echo "$(GCJ_LINK_CMD) $@"
-	$(GCJ) -shared -fPIC -fjni \
+	$(GCJ_LINK) \
 		-Wl,-rpath=$(JAVAGNOME_HOME)/lib \
 		-L$(JAVAGNOME_HOME)/lib \
 		-o $@ $<
 #	@echo "STRIP     $@"
 #	strip --only-keep-debug $@
 
-# WARNING.
-# This isn't a complete make install for libgtk-java. It just updates the .jar
-# and the .so in an existing installation.
+# --------------------------------------------------------------------
+# Install (run as root, or specify DESTDIR on Make command line)
+# --------------------------------------------------------------------
 
 ifdef GCJ
-#install: install-java install-native
+install: build-java install-dirs install-java install-native
 else
-#install: install-java
+install: build-native install-dirs install-java
 endif
+	rm $(DESTDIR)$(PREFIX)/.java-gnome-install-dirs
+
+install-dirs: $(DESTDIR)$(PREFIX)/.java-gnome-install-dirs
+$(DESTDIR)$(PREFIX)/.java-gnome-install-dirs:
+	@test -d $(DESTDIR)$(PREFIX)/share/java || echo "MKDIR     installation directories"
+	-mkdir -p $(DESTDIR)$(PREFIX)
+	-touch $@ 2>/dev/null
+	test -w $@ || ( echo -e "\nYou don't seem to have write permissions to $(DESDIR)$(PREFIX)\nPerhaps you need to be root?\n" && exit 7 )
+	mkdir -p $(DESTDIR)$(PREFIX)/share/java
+	mkdir -p $(DESTDIR)$(PREFIX)/lib
 
 install-java: build-java \
-	$(JAVAGNOME_HOME)/share/java/gtk-$(APIVERSION).jar \
-	$(JAVAGNOME_HOME)/lib/libgtkjni-$(APIVERSION).so
+	$(DESTDIR)$(PREFIX)/share/bindings/gtk-$(APIVERSION).jar \
+	$(DESTDIR)$(PREFIX)/lib/libgtkjni-$(APIVERSION).so
 
 install-native: build-native install-java \
-	$(JAVAGNOME_HOME)/lib/libgtkjava-$(APIVERSION).so
+	$(DESTDIR)$(PREFIX)/lib/libgtkjava-$(APIVERSION).so
 
-$(JAVAGNOME_HOME)/share/java/gtk-$(APIVERSION).jar: tmp/gtk-$(APIVERSION).jar
-	@echo "CP        $< -> $(@D)"
-	cp $< $@
+$(DESTDIR)$(PREFIX)/share/bindings/gtk-$(APIVERSION).jar: tmp/gtk-$(APIVERSION).jar
+	@echo "INSTALL   $@"
+	cp -f $< $@
+	@echo "SYMLINK   $(@D)/gtk.jar -> gtk-$(APIVERSION).jar"
+	cd $(@D) && rm -f gtk.jar && ln -s gtk-$(APIVERSION).jar gtk.jar
 	
-$(JAVAGNOME_HOME)/lib/libgtkjni-$(APIVERSION).so: tmp/libgtkjni-$(APIVERSION).so
-	@echo "CP        $< -> $(@D)"
-	cp $< $@
+$(DESTDIR)$(PREFIX)/lib/libgtkjni-$(APIVERSION).so: tmp/libgtkjni-$(APIVERSION).so
+	@echo "INSTALL   $@"
+	cp -f $< $@
 
-$(JAVAGNOME_HOME)/lib/libgtkjava-$(APIVERSION).so: tmp/libgtkjava-$(APIVERSION).so
-	@echo "CP        $< -> $(@D)"
-	cp $< $@
+$(DESTDIR)$(PREFIX)/lib/libgtkjava-$(APIVERSION).so: tmp/libgtkjava-$(APIVERSION).so
+	@echo "INSTALL   $@"
+	cp -f $< $@
 
 
 # --------------------------------------------------------------------
@@ -204,15 +225,19 @@ $(JAVAGNOME_HOME)/lib/libgtkjava-$(APIVERSION).so: tmp/libgtkjava-$(APIVERSION).
 
 build/classes-test: $(SOURCES_TEST)
 	@echo "$(JAVAC_CMD) tmp/tests/*.class"
-	$(JAVAC) -d tmp/tests -classpath tmp/tests:tmp/classes:$(JUNIT_JARS) $?
+	$(JAVAC) -d tmp/tests -classpath tmp/tests:tmp/generator:tmp/gtk-$(APIVERSION).jar:$(JUNIT_JARS) -sourcepath tests/prototype:tests/bindings:tmp/generator $?
 	touch $@
+
+# This is a bit of ugliness necessary to ensure that COLUMNS is in the
+# envionment Make passes to the test command. If anyone can suggest a better
+# way to do this, by all means please do so.
+export COLUMNS:=$(shell stty size 2>/dev/null | sed -e 's/[0-9]* \([0-9]*\)/\1/' )
 
 test: build-java build/classes-test
 	@echo "$(JAVA_CMD) UnitTests"
 	$(JAVA) \
-		-classpath tmp/tests:tmp/gtk-$(APIVERSION).jar:$(JUNIT_JARS) \
+		-classpath tmp/tests:tmp/generator:tmp/gtk-$(APIVERSION).jar:$(JUNIT_JARS) \
 		-Djava.library.path=tmp \
-		-DCOLUMNS=`resize | perl -n -e'print if (s/COLUMNS=(\d*);/\1/)'` \
 		-ea \
 		UnitTests
 
@@ -223,9 +248,6 @@ demo: build-java build/classes-test
 		-Djava.library.path=tmp \
 		-ea \
 		Experiment
-
-sleep:
-	sleep 1
 
 # --------------------------------------------------------------------
 # Documentation generation
@@ -241,10 +263,10 @@ doc: build/classes-dist
 	@echo "$(JAVADOC_CMD) doc/api/*.html"
 	$(JAVADOC) \
 		-d doc/api \
-		-classpath tmp/classes \
+		-classpath tmp/bindings \
 		-public \
 		-nodeprecated \
-		-source 1.4 \
+		-source 1.5 \
 		-notree \
 		-noindex \
 		-nohelp \
@@ -255,8 +277,8 @@ doc: build/classes-dist
 		-header "java-gnome version $(VERSION)" \
 		-footer "<img src=\"/images/java-gnome_JavaDocLogo.png\" style=\"padding-right:25px;\"><br> <span style=\"font-family: Arial; font-style: normal; font-size: large;\">java-gnome</span>" \
 		-breakiterator \
-		-overview src/java/overview.html \
-		-sourcepath src/java \
+		-overview src/bindings/overview.html \
+		-sourcepath src/bindings \
 		-subpackages org \
 		-exclude "org.freedesktop.bindings" \
 		$(REDIRECT)
@@ -282,7 +304,7 @@ dist: all
 
 clean:
 	@echo "RM        temporary files"
-	rm -rf build/* tmp/classes/* tmp/include/* tmp/native/* tmp/objects/*
+	rm -rf build/* tmp/bindings/* tmp/include/* tmp/native/* tmp/objects/*
 	rm -f hs_err_*
 	@echo "RM        built .jar and .so"
 	rm -f tmp/gtk-*.jar \

@@ -1,0 +1,12 @@
+(define-enum CornerType
+  (in-module "Gtk")
+  (c-name "GtkCornerType")
+  (gtype-id "GTK_TYPE_CORNER_TYPE")
+  (values
+    '("top-left" "GTK_CORNER_TOP_LEFT")
+    '("bottom-left" "GTK_CORNER_BOTTOM_LEFT")
+    '("top-right" "GTK_CORNER_TOP_RIGHT")
+    '("bottom-right" "GTK_CORNER_BOTTOM_RIGHT")
+  )
+)
+

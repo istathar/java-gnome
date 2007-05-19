@@ -1,0 +1,59 @@
+(define-object RadioAction
+  (in-module "Gtk")
+  (parent "GtkToggleAction")
+  (c-name "GtkRadioAction")
+  (gtype-id "GTK_TYPE_RADIO_ACTION")
+)
+
+(define-function gtk_radio_action_new
+  (is-constructor-of "GtkRadioAction")
+  (c-name "gtk_radio_action_new")
+  (caller-owns-return #t)
+  (return-type "GtkRadioAction*")
+  (properties
+    '("name")
+    '("label")
+    '("tooltip")
+    '("stock_id")
+    '("value")
+  )
+)
+
+(define-method set_group
+  (of-object "GtkRadioAction")
+  (c-name "gtk_radio_action_set_group")
+  (return-type "none")
+  (parameters
+    '("GSList*" "group")
+  )
+)
+
+(define-method get_group
+  (of-object "GtkRadioAction")
+  (c-name "gtk_radio_action_get_group")
+  (return-type "GSList*")
+)
+
+(define-method get_current_value
+  (of-object "GtkRadioAction")
+  (c-name "gtk_radio_action_get_current_value")
+  (return-type "gint")
+)
+
+(define-virtual changed
+  (of-object "GtkRadioAction")
+  (return-type "none")
+  (parameters
+    '("GtkRadioAction*" "current")
+  )
+)
+
+(define-method set_current_value
+  (of-object "GtkRadioAction")
+  (c-name "gtk_radio_action_set_current_value")
+  (return-type "none")
+  (parameters
+    '("gint" "current_value")
+  )
+)
+

@@ -1,0 +1,243 @@
+(define-object Renderer
+  (in-module "Pango")
+  (parent "GObject")
+  (c-name "PangoRenderer")
+  (gtype-id "PANGO_TYPE_RENDERER")
+)
+
+(define-method draw_layout
+  (of-object "PangoRenderer")
+  (c-name "pango_renderer_draw_layout")
+  (return-type "none")
+  (parameters
+    '("PangoLayout*" "layout")
+    '("int" "x")
+    '("int" "y")
+  )
+)
+
+(define-method draw_layout_line
+  (of-object "PangoRenderer")
+  (c-name "pango_renderer_draw_layout_line")
+  (return-type "none")
+  (parameters
+    '("PangoLayoutLine*" "line")
+    '("int" "x")
+    '("int" "y")
+  )
+)
+
+(define-method draw_glyphs
+  (of-object "PangoRenderer")
+  (c-name "pango_renderer_draw_glyphs")
+  (return-type "none")
+  (parameters
+    '("PangoFont*" "font")
+    '("PangoGlyphString*" "glyphs")
+    '("int" "x")
+    '("int" "y")
+  )
+)
+
+(define-method draw_rectangle
+  (of-object "PangoRenderer")
+  (c-name "pango_renderer_draw_rectangle")
+  (return-type "none")
+  (parameters
+    '("PangoRenderPart" "part")
+    '("int" "x")
+    '("int" "y")
+    '("int" "width")
+    '("int" "height")
+  )
+)
+
+(define-method draw_error_underline
+  (of-object "PangoRenderer")
+  (c-name "pango_renderer_draw_error_underline")
+  (return-type "none")
+  (parameters
+    '("int" "x")
+    '("int" "y")
+    '("int" "width")
+    '("int" "height")
+  )
+)
+
+(define-method draw_trapezoid
+  (of-object "PangoRenderer")
+  (c-name "pango_renderer_draw_trapezoid")
+  (return-type "none")
+  (parameters
+    '("PangoRenderPart" "part")
+    '("double" "y1_")
+    '("double" "x11")
+    '("double" "x21")
+    '("double" "y2")
+    '("double" "x12")
+    '("double" "x22")
+  )
+)
+
+(define-method draw_glyph
+  (of-object "PangoRenderer")
+  (c-name "pango_renderer_draw_glyph")
+  (return-type "none")
+  (parameters
+    '("PangoFont*" "font")
+    '("PangoGlyph" "glyph")
+    '("double" "x")
+    '("double" "y")
+  )
+)
+
+(define-method activate
+  (of-object "PangoRenderer")
+  (c-name "pango_renderer_activate")
+  (return-type "none")
+)
+
+(define-method deactivate
+  (of-object "PangoRenderer")
+  (c-name "pango_renderer_deactivate")
+  (return-type "none")
+)
+
+(define-method part_changed
+  (of-object "PangoRenderer")
+  (c-name "pango_renderer_part_changed")
+  (return-type "none")
+  (parameters
+    '("PangoRenderPart" "part")
+  )
+)
+
+(define-method set_color
+  (of-object "PangoRenderer")
+  (c-name "pango_renderer_set_color")
+  (return-type "none")
+  (parameters
+    '("PangoRenderPart" "part")
+    '("const-PangoColor*" "color")
+  )
+)
+
+(define-method get_color
+  (of-object "PangoRenderer")
+  (c-name "pango_renderer_get_color")
+  (return-type "PangoColor*")
+  (parameters
+    '("PangoRenderPart" "part")
+  )
+)
+
+(define-method set_matrix
+  (of-object "PangoRenderer")
+  (c-name "pango_renderer_set_matrix")
+  (return-type "none")
+  (parameters
+    '("const-PangoMatrix*" "matrix")
+  )
+)
+
+(define-method get_matrix
+  (of-object "PangoRenderer")
+  (c-name "pango_renderer_get_matrix")
+  (return-type "const-PangoMatrix*")
+)
+
+(define-virtual draw_glyphs
+  (of-object "PangoRenderer")
+  (return-type "none")
+  (parameters
+    '("PangoFont*" "font")
+    '("PangoGlyphString*" "glyphs")
+    '("int" "x")
+    '("int" "y")
+  )
+)
+
+(define-virtual draw_rectangle
+  (of-object "PangoRenderer")
+  (return-type "none")
+  (parameters
+    '("PangoRenderPart" "part")
+    '("int" "x")
+    '("int" "y")
+    '("int" "width")
+    '("int" "height")
+  )
+)
+
+(define-virtual draw_error_underline
+  (of-object "PangoRenderer")
+  (return-type "none")
+  (parameters
+    '("int" "x")
+    '("int" "y")
+    '("int" "width")
+    '("int" "height")
+  )
+)
+
+(define-virtual draw_shape
+  (of-object "PangoRenderer")
+  (return-type "none")
+  (parameters
+    '("PangoAttrShape*" "attr")
+    '("int" "x")
+    '("int" "y")
+  )
+)
+
+(define-virtual draw_trapezoid
+  (of-object "PangoRenderer")
+  (return-type "none")
+  (parameters
+    '("PangoRenderPart" "part")
+    '("double" "y1_")
+    '("double" "x11")
+    '("double" "x21")
+    '("double" "y2")
+    '("double" "x12")
+    '("double" "x22")
+  )
+)
+
+(define-virtual draw_glyph
+  (of-object "PangoRenderer")
+  (return-type "none")
+  (parameters
+    '("PangoFont*" "font")
+    '("PangoGlyph" "glyph")
+    '("double" "x")
+    '("double" "y")
+  )
+)
+
+(define-virtual part_changed
+  (of-object "PangoRenderer")
+  (return-type "none")
+  (parameters
+    '("PangoRenderPart" "part")
+  )
+)
+
+(define-virtual begin
+  (of-object "PangoRenderer")
+  (return-type "none")
+)
+
+(define-virtual end
+  (of-object "PangoRenderer")
+  (return-type "none")
+)
+
+(define-virtual prepare_run
+  (of-object "PangoRenderer")
+  (return-type "none")
+  (parameters
+    '("PangoLayoutRun*" "run")
+  )
+)
+

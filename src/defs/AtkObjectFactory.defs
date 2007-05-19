@@ -1,0 +1,38 @@
+(define-object ObjectFactory
+  (in-module "Atk")
+  (parent "GObject")
+  (c-name "AtkObjectFactory")
+  (gtype-id "ATK_TYPE_OBJECT_FACTORY")
+)
+
+(define-method create_accessible
+  (of-object "AtkObjectFactory")
+  (c-name "atk_object_factory_create_accessible")
+  (return-type "AtkObject*")
+  (parameters
+    '("GObject*" "obj")
+  )
+)
+
+(define-method invalidate
+  (of-object "AtkObjectFactory")
+  (c-name "atk_object_factory_invalidate")
+  (return-type "none")
+)
+
+(define-method get_accessible_type
+  (of-object "AtkObjectFactory")
+  (c-name "atk_object_factory_get_accessible_type")
+  (return-type "GType")
+)
+
+(define-virtual create_accessible
+  (of-object "AtkObjectFactory")
+  (return-type "AtkObject*")
+)
+
+(define-virtual invalidate
+  (of-object "AtkObjectFactory")
+  (return-type "none")
+)
+

@@ -1,0 +1,478 @@
+(define-method list_volumes
+  (of-object "GtkFileSystem")
+  (c-name "gtk_file_system_list_volumes")
+  (return-type "GSList*")
+)
+
+(define-method get_volume_for_path
+  (of-object "GtkFileSystem")
+  (c-name "gtk_file_system_get_volume_for_path")
+  (return-type "GtkFileSystemVolume*")
+  (parameters
+    '("const-GtkFilePath*" "path")
+  )
+)
+
+(define-method volume_free
+  (of-object "GtkFileSystem")
+  (c-name "gtk_file_system_volume_free")
+  (return-type "none")
+  (parameters
+    '("GtkFileSystemVolume*" "volume")
+  )
+)
+
+(define-method volume_get_base_path
+  (of-object "GtkFileSystem")
+  (c-name "gtk_file_system_volume_get_base_path")
+  (return-type "GtkFilePath*")
+  (parameters
+    '("GtkFileSystemVolume*" "volume")
+  )
+)
+
+(define-method volume_get_is_mounted
+  (of-object "GtkFileSystem")
+  (c-name "gtk_file_system_volume_get_is_mounted")
+  (return-type "gboolean")
+  (parameters
+    '("GtkFileSystemVolume*" "volume")
+  )
+)
+
+(define-method volume_mount
+  (of-object "GtkFileSystem")
+  (c-name "gtk_file_system_volume_mount")
+  (return-type "gboolean")
+  (parameters
+    '("GtkFileSystemVolume*" "volume")
+    '("GError**" "error")
+  )
+)
+
+(define-method volume_get_display_name
+  (of-object "GtkFileSystem")
+  (c-name "gtk_file_system_volume_get_display_name")
+  (caller-owns-return #t)
+  (return-type "char*")
+  (parameters
+    '("GtkFileSystemVolume*" "volume")
+  )
+)
+
+(define-method volume_render_icon
+  (of-object "GtkFileSystem")
+  (c-name "gtk_file_system_volume_render_icon")
+  (return-type "GdkPixbuf*")
+  (parameters
+    '("GtkFileSystemVolume*" "volume")
+    '("GtkWidget*" "widget")
+    '("gint" "pixel_size")
+    '("GError**" "error")
+  )
+)
+
+(define-method get_parent
+  (of-object "GtkFileSystem")
+  (c-name "gtk_file_system_get_parent")
+  (return-type "gboolean")
+  (parameters
+    '("const-GtkFilePath*" "path")
+    '("GtkFilePath**" "parent")
+    '("GError**" "error")
+  )
+)
+
+(define-method get_folder
+  (of-object "GtkFileSystem")
+  (c-name "gtk_file_system_get_folder")
+  (return-type "GtkFileFolder*")
+  (parameters
+    '("const-GtkFilePath*" "path")
+    '("GtkFileInfoType" "types")
+    '("GError**" "error")
+  )
+)
+
+(define-method create_folder
+  (of-object "GtkFileSystem")
+  (c-name "gtk_file_system_create_folder")
+  (return-type "gboolean")
+  (parameters
+    '("const-GtkFilePath*" "path")
+    '("GError**" "error")
+  )
+)
+
+(define-method make_path
+  (of-object "GtkFileSystem")
+  (c-name "gtk_file_system_make_path")
+  (return-type "GtkFilePath*")
+  (parameters
+    '("const-GtkFilePath*" "base_path")
+    '("const-gchar*" "display_name")
+    '("GError**" "error")
+  )
+)
+
+(define-method parse
+  (of-object "GtkFileSystem")
+  (c-name "gtk_file_system_parse")
+  (return-type "gboolean")
+  (parameters
+    '("const-GtkFilePath*" "base_path")
+    '("const-gchar*" "str")
+    '("GtkFilePath**" "folder")
+    '("gchar**" "file_part")
+    '("GError**" "error")
+  )
+)
+
+(define-method path_to_uri
+  (of-object "GtkFileSystem")
+  (c-name "gtk_file_system_path_to_uri")
+  (caller-owns-return #t)
+  (return-type "gchar*")
+  (parameters
+    '("const-GtkFilePath*" "path")
+  )
+)
+
+(define-method path_to_filename
+  (of-object "GtkFileSystem")
+  (c-name "gtk_file_system_path_to_filename")
+  (caller-owns-return #t)
+  (return-type "gchar*")
+  (parameters
+    '("const-GtkFilePath*" "path")
+  )
+)
+
+(define-method uri_to_path
+  (of-object "GtkFileSystem")
+  (c-name "gtk_file_system_uri_to_path")
+  (return-type "GtkFilePath*")
+  (parameters
+    '("const-gchar*" "uri")
+  )
+)
+
+(define-method filename_to_path
+  (of-object "GtkFileSystem")
+  (c-name "gtk_file_system_filename_to_path")
+  (return-type "GtkFilePath*")
+  (parameters
+    '("const-gchar*" "filename")
+  )
+)
+
+(define-method render_icon
+  (of-object "GtkFileSystem")
+  (c-name "gtk_file_system_render_icon")
+  (return-type "GdkPixbuf*")
+  (parameters
+    '("const-GtkFilePath*" "path")
+    '("GtkWidget*" "widget")
+    '("gint" "pixel_size")
+    '("GError**" "error")
+  )
+)
+
+(define-method insert_bookmark
+  (of-object "GtkFileSystem")
+  (c-name "gtk_file_system_insert_bookmark")
+  (return-type "gboolean")
+  (parameters
+    '("const-GtkFilePath*" "path")
+    '("gint" "position")
+    '("GError**" "error")
+  )
+)
+
+(define-method remove_bookmark
+  (of-object "GtkFileSystem")
+  (c-name "gtk_file_system_remove_bookmark")
+  (return-type "gboolean")
+  (parameters
+    '("const-GtkFilePath*" "path")
+    '("GError**" "error")
+  )
+)
+
+(define-method list_bookmarks
+  (of-object "GtkFileSystem")
+  (c-name "gtk_file_system_list_bookmarks")
+  (return-type "GSList*")
+)
+
+(define-method volume_get_icon_name
+  (of-object "GtkFileSystem")
+  (c-name "gtk_file_system_volume_get_icon_name")
+  (caller-owns-return #t)
+  (return-type "gchar*")
+  (parameters
+    '("GtkFileSystemVolume*" "volume")
+    '("GError**" "error")
+  )
+)
+
+(define-method get_info
+  (of-object "GtkFileSystem")
+  (c-name "gtk_file_system_get_info")
+  (return-type "GtkFileSystemHandle*")
+  (parameters
+    '("const-GtkFilePath*" "path")
+    '("GtkFileInfoType" "types")
+    '("GtkFileSystemGetInfoCallback" "callback")
+    '("gpointer" "data")
+  )
+)
+
+(define-method path_is_local
+  (of-object "GtkFileSystem")
+  (c-name "gtk_file_system_path_is_local")
+  (return-type "gboolean")
+  (parameters
+    '("const-GtkFilePath*" "path")
+  )
+)
+
+(define-method get_bookmark_label
+  (of-object "GtkFileSystem")
+  (c-name "gtk_file_system_get_bookmark_label")
+  (caller-owns-return #t)
+  (return-type "gchar*")
+  (parameters
+    '("const-GtkFilePath*" "path")
+  )
+)
+
+(define-method set_bookmark_label
+  (of-object "GtkFileSystem")
+  (c-name "gtk_file_system_set_bookmark_label")
+  (return-type "none")
+  (parameters
+    '("const-GtkFilePath*" "path")
+    '("const-gchar*" "label")
+  )
+)
+
+(define-virtual list_volumes
+  (of-object "GtkFileSystem")
+  (return-type "GSList*")
+)
+
+(define-virtual get_volume_for_path
+  (of-object "GtkFileSystem")
+  (return-type "GtkFileSystemVolume*")
+  (parameters
+    '("const-GtkFilePath*" "path")
+  )
+)
+
+(define-virtual get_folder
+  (of-object "GtkFileSystem")
+  (return-type "GtkFileSystemHandle*")
+  (parameters
+    '("const-GtkFilePath*" "path")
+    '("GtkFileInfoType" "types")
+    '("GtkFileSystemGetFolderCallback" "callback")
+    '("gpointer" "data")
+  )
+)
+
+(define-virtual create_folder
+  (of-object "GtkFileSystem")
+  (return-type "gboolean")
+  (parameters
+    '("const-GtkFilePath*" "path")
+    '("GError**" "error")
+  )
+)
+
+(define-virtual volume_free
+  (of-object "GtkFileSystem")
+  (return-type "none")
+  (parameters
+    '("GtkFileSystemVolume*" "volume")
+  )
+)
+
+(define-virtual volume_get_base_path
+  (of-object "GtkFileSystem")
+  (return-type "GtkFilePath*")
+  (parameters
+    '("GtkFileSystemVolume*" "volume")
+  )
+)
+
+(define-virtual volume_get_is_mounted
+  (of-object "GtkFileSystem")
+  (return-type "gboolean")
+  (parameters
+    '("GtkFileSystemVolume*" "volume")
+  )
+)
+
+(define-virtual volume_mount
+  (of-object "GtkFileSystem")
+  (return-type "gboolean")
+  (parameters
+    '("GtkFileSystemVolume*" "volume")
+    '("GError**" "error")
+  )
+)
+
+(define-virtual volume_get_display_name
+  (of-object "GtkFileSystem")
+  (caller-owns-return #t)
+  (return-type "char*")
+  (parameters
+    '("GtkFileSystemVolume*" "volume")
+  )
+)
+
+(define-virtual volume_get_icon_name
+  (of-object "GtkFileSystem")
+  (caller-owns-return #t)
+  (return-type "gchar*")
+  (parameters
+    '("GtkFileSystemVolume*" "volume")
+    '("GError**" "error")
+  )
+)
+
+(define-virtual get_parent
+  (of-object "GtkFileSystem")
+  (return-type "gboolean")
+  (parameters
+    '("const-GtkFilePath*" "path")
+    '("GtkFilePath**" "parent")
+    '("GError**" "error")
+  )
+)
+
+(define-virtual make_path
+  (of-object "GtkFileSystem")
+  (return-type "GtkFilePath*")
+  (parameters
+    '("const-GtkFilePath*" "base_path")
+    '("const-gchar*" "display_name")
+    '("GError**" "error")
+  )
+)
+
+(define-virtual parse
+  (of-object "GtkFileSystem")
+  (return-type "gboolean")
+  (parameters
+    '("const-GtkFilePath*" "base_path")
+    '("const-gchar*" "str")
+    '("GtkFilePath**" "folder")
+    '("gchar**" "file_part")
+    '("GError**" "error")
+  )
+)
+
+(define-virtual path_to_uri
+  (of-object "GtkFileSystem")
+  (caller-owns-return #t)
+  (return-type "gchar*")
+  (parameters
+    '("const-GtkFilePath*" "path")
+  )
+)
+
+(define-virtual path_to_filename
+  (of-object "GtkFileSystem")
+  (caller-owns-return #t)
+  (return-type "gchar*")
+  (parameters
+    '("const-GtkFilePath*" "path")
+  )
+)
+
+(define-virtual uri_to_path
+  (of-object "GtkFileSystem")
+  (return-type "GtkFilePath*")
+  (parameters
+    '("const-gchar*" "uri")
+  )
+)
+
+(define-virtual filename_to_path
+  (of-object "GtkFileSystem")
+  (return-type "GtkFilePath*")
+  (parameters
+    '("const-gchar*" "path")
+  )
+)
+
+(define-virtual insert_bookmark
+  (of-object "GtkFileSystem")
+  (return-type "gboolean")
+  (parameters
+    '("const-GtkFilePath*" "path")
+    '("gint" "position")
+    '("GError**" "error")
+  )
+)
+
+(define-virtual remove_bookmark
+  (of-object "GtkFileSystem")
+  (return-type "gboolean")
+  (parameters
+    '("const-GtkFilePath*" "path")
+    '("GError**" "error")
+  )
+)
+
+(define-virtual list_bookmarks
+  (of-object "GtkFileSystem")
+  (return-type "GSList*")
+)
+
+(define-virtual volumes_changed
+  (of-object "GtkFileSystem")
+  (return-type "none")
+)
+
+(define-virtual bookmarks_changed
+  (of-object "GtkFileSystem")
+  (return-type "none")
+)
+
+(define-virtual get_bookmark_label
+  (of-object "GtkFileSystem")
+  (caller-owns-return #t)
+  (return-type "gchar*")
+  (parameters
+    '("const-GtkFilePath*" "path")
+  )
+)
+
+(define-virtual set_bookmark_label
+  (of-object "GtkFileSystem")
+  (return-type "none")
+  (parameters
+    '("const-GtkFilePath*" "path")
+    '("const-gchar*" "label")
+  )
+)
+
+(define-virtual get_info
+  (of-object "GtkFileSystem")
+  (return-type "GtkFileSystemHandle*")
+  (parameters
+    '("const-GtkFilePath*" "path")
+    '("GtkFileInfoType" "types")
+    '("GtkFileSystemGetInfoCallback" "callback")
+    '("gpointer" "data")
+  )
+)
+
+(define-virtual cancel_operation
+  (of-object "GtkFileSystem")
+  (return-type "none")
+)
+

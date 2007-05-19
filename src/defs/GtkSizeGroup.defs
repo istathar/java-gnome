@@ -1,0 +1,71 @@
+(define-object SizeGroup
+  (in-module "Gtk")
+  (parent "GObject")
+  (c-name "GtkSizeGroup")
+  (gtype-id "GTK_TYPE_SIZE_GROUP")
+)
+
+(define-function size_group_new
+  (is-constructor-of "GtkSizeGroup")
+  (c-name "gtk_size_group_new")
+  (caller-owns-return #t)
+  (return-type "GtkSizeGroup*")
+  (properties
+    '("mode")
+  )
+)
+
+(define-method set_mode
+  (of-object "GtkSizeGroup")
+  (c-name "gtk_size_group_set_mode")
+  (return-type "none")
+  (parameters
+    '("GtkSizeGroupMode" "mode")
+  )
+)
+
+(define-method get_mode
+  (of-object "GtkSizeGroup")
+  (c-name "gtk_size_group_get_mode")
+  (return-type "GtkSizeGroupMode")
+)
+
+(define-method set_ignore_hidden
+  (of-object "GtkSizeGroup")
+  (c-name "gtk_size_group_set_ignore_hidden")
+  (return-type "none")
+  (parameters
+    '("gboolean" "ignore_hidden")
+  )
+)
+
+(define-method get_ignore_hidden
+  (of-object "GtkSizeGroup")
+  (c-name "gtk_size_group_get_ignore_hidden")
+  (return-type "gboolean")
+)
+
+(define-method add_widget
+  (of-object "GtkSizeGroup")
+  (c-name "gtk_size_group_add_widget")
+  (return-type "none")
+  (parameters
+    '("GtkWidget*" "widget")
+  )
+)
+
+(define-method remove_widget
+  (of-object "GtkSizeGroup")
+  (c-name "gtk_size_group_remove_widget")
+  (return-type "none")
+  (parameters
+    '("GtkWidget*" "widget")
+  )
+)
+
+(define-method get_widgets
+  (of-object "GtkSizeGroup")
+  (c-name "gtk_size_group_get_widgets")
+  (return-type "GSList*")
+)
+

@@ -1,0 +1,12 @@
+(define-enum MessageType
+  (in-module "Gtk")
+  (c-name "GtkMessageType")
+  (gtype-id "GTK_TYPE_MESSAGE_TYPE")
+  (values
+    '("info" "GTK_MESSAGE_INFO")
+    '("warning" "GTK_MESSAGE_WARNING")
+    '("question" "GTK_MESSAGE_QUESTION")
+    '("error" "GTK_MESSAGE_ERROR")
+  )
+)
+

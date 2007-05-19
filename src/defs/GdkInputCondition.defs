@@ -1,0 +1,11 @@
+(define-flags InputCondition
+  (in-module "Gdk")
+  (c-name "GdkInputCondition")
+  (gtype-id "GDK_TYPE_INPUT_CONDITION")
+  (values
+    '("read" "GDK_INPUT_READ")
+    '("write" "GDK_INPUT_WRITE")
+    '("exception" "GDK_INPUT_EXCEPTION")
+  )
+)
+

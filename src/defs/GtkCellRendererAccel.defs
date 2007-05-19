@@ -1,0 +1,33 @@
+(define-object CellRendererAccel
+  (in-module "Gtk")
+  (parent "GtkCellRendererText")
+  (c-name "GtkCellRendererAccel")
+  (gtype-id "GTK_TYPE_CELL_RENDERER_ACCEL")
+)
+
+(define-function cell_renderer_accel_new
+  (is-constructor-of "GtkCellRendererAccel")
+  (c-name "gtk_cell_renderer_accel_new")
+  (caller-owns-return #t)
+  (return-type "GtkCellRenderer*")
+)
+
+(define-virtual accel_edited
+  (of-object "GtkCellRendererAccel")
+  (return-type "none")
+  (parameters
+    '("const-gchar*" "path_string")
+    '("guint" "accel_key")
+    '("GdkModifierType" "accel_mods")
+    '("guint" "hardware_keycode")
+  )
+)
+
+(define-virtual accel_cleared
+  (of-object "GtkCellRendererAccel")
+  (return-type "none")
+  (parameters
+    '("const-gchar*" "path_string")
+  )
+)
+

@@ -1,0 +1,7 @@
+(define-function rc_scanner_new
+  (is-constructor-of "GtkRcScanner")
+  (c-name "gtk_rc_scanner_new")
+  (caller-owns-return #t)
+  (return-type "GScanner*")
+)
+

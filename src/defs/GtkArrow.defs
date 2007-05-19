@@ -1,0 +1,28 @@
+(define-object Arrow
+  (in-module "Gtk")
+  (parent "GtkMisc")
+  (c-name "GtkArrow")
+  (gtype-id "GTK_TYPE_ARROW")
+)
+
+(define-function gtk_arrow_new
+  (is-constructor-of "GtkArrow")
+  (c-name "gtk_arrow_new")
+  (caller-owns-return #t)
+  (return-type "GtkWidget*")
+  (properties
+    '("arrow_type")
+    '("shadow_type")
+  )
+)
+
+(define-method set
+  (of-object "GtkArrow")
+  (c-name "gtk_arrow_set")
+  (return-type "none")
+  (parameters
+    '("GtkArrowType" "arrow_type")
+    '("GtkShadowType" "shadow_type")
+  )
+)
+

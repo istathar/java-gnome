@@ -1,0 +1,209 @@
+(define-object ListStore
+  (in-module "Gtk")
+  (parent "GObject")
+  (implements "GtkTreeModel")
+  (implements "GtkTreeDragSource")
+  (implements "GtkTreeDragDest")
+  (implements "GtkTreeSortable")
+  (c-name "GtkListStore")
+  (gtype-id "GTK_TYPE_LIST_STORE")
+)
+
+(define-function gtk_list_store_new
+  (is-constructor-of "GtkListStore")
+  (c-name "gtk_list_store_new")
+  (caller-owns-return #t)
+  (return-type "GtkListStore*")
+  (parameters
+    '("gint" "n_columns")
+  )
+  (varargs #t)
+)
+
+(define-function gtk_list_store_newv
+  (is-constructor-of "GtkListStore")
+  (c-name "gtk_list_store_newv")
+  (caller-owns-return #t)
+  (return-type "GtkListStore*")
+  (parameters
+    '("gint" "n_columns")
+    '("GType*" "value")
+  )
+)
+
+(define-method set_column_types
+  (of-object "GtkListStore")
+  (c-name "gtk_list_store_set_column_types")
+  (return-type "none")
+  (parameters
+    '("gint" "n_columns")
+    '("GType*" "types")
+  )
+)
+
+(define-method set_value
+  (of-object "GtkListStore")
+  (c-name "gtk_list_store_set_value")
+  (return-type "none")
+  (parameters
+    '("GtkTreeIter*" "iter")
+    '("gint" "column")
+    '("GValue*" "value")
+  )
+)
+
+(define-method set
+  (of-object "GtkListStore")
+  (c-name "gtk_list_store_set")
+  (return-type "none")
+  (parameters
+    '("GtkTreeIter*" "iter")
+  )
+  (varargs #t)
+)
+
+(define-method set_valist
+  (of-object "GtkListStore")
+  (c-name "gtk_list_store_set_valist")
+  (return-type "none")
+  (parameters
+    '("GtkTreeIter*" "iter")
+    '("va_list" "var_args")
+  )
+)
+
+(define-method remove
+  (of-object "GtkListStore")
+  (c-name "gtk_list_store_remove")
+  (return-type "gboolean")
+  (parameters
+    '("GtkTreeIter*" "iter")
+  )
+)
+
+(define-method insert
+  (of-object "GtkListStore")
+  (c-name "gtk_list_store_insert")
+  (return-type "none")
+  (parameters
+    '("GtkTreeIter*" "iter")
+    '("gint" "position")
+  )
+)
+
+(define-method insert_before
+  (of-object "GtkListStore")
+  (c-name "gtk_list_store_insert_before")
+  (return-type "none")
+  (parameters
+    '("GtkTreeIter*" "iter")
+    '("GtkTreeIter*" "sibling")
+  )
+)
+
+(define-method insert_after
+  (of-object "GtkListStore")
+  (c-name "gtk_list_store_insert_after")
+  (return-type "none")
+  (parameters
+    '("GtkTreeIter*" "iter")
+    '("GtkTreeIter*" "sibling")
+  )
+)
+
+(define-method insert_with_values
+  (of-object "GtkListStore")
+  (c-name "gtk_list_store_insert_with_values")
+  (return-type "none")
+  (parameters
+    '("GtkTreeIter*" "iter")
+    '("gint" "position")
+  )
+  (varargs #t)
+)
+
+(define-method insert_with_valuesv
+  (of-object "GtkListStore")
+  (c-name "gtk_list_store_insert_with_valuesv")
+  (return-type "none")
+  (parameters
+    '("GtkTreeIter*" "iter")
+    '("gint" "position")
+    '("gint*" "columns")
+    '("GValue*" "values")
+    '("gint" "n_values")
+  )
+)
+
+(define-method prepend
+  (of-object "GtkListStore")
+  (c-name "gtk_list_store_prepend")
+  (return-type "none")
+  (parameters
+    '("GtkTreeIter*" "iter")
+  )
+)
+
+(define-method append
+  (of-object "GtkListStore")
+  (c-name "gtk_list_store_append")
+  (return-type "none")
+  (parameters
+    '("GtkTreeIter*" "iter")
+  )
+)
+
+(define-method clear
+  (of-object "GtkListStore")
+  (c-name "gtk_list_store_clear")
+  (return-type "none")
+)
+
+(define-method iter_is_valid
+  (of-object "GtkListStore")
+  (c-name "gtk_list_store_iter_is_valid")
+  (return-type "gboolean")
+  (parameters
+    '("GtkTreeIter*" "iter")
+  )
+)
+
+(define-method reorder
+  (of-object "GtkListStore")
+  (c-name "gtk_list_store_reorder")
+  (return-type "none")
+  (parameters
+    '("gint*" "new_order")
+  )
+)
+
+(define-method swap
+  (of-object "GtkListStore")
+  (c-name "gtk_list_store_swap")
+  (return-type "none")
+  (parameters
+    '("GtkTreeIter*" "a")
+    '("GtkTreeIter*" "b")
+  )
+)
+
+(define-method move_after
+  (of-object "GtkListStore")
+  (c-name "gtk_list_store_move_after")
+  (return-type "none")
+  (parameters
+    '("GtkTreeIter*" "iter")
+    '("GtkTreeIter*" "position" (null-ok))
+  )
+)
+
+(define-method move_before
+  (of-object "GtkListStore")
+  (c-name "gtk_list_store_move_before")
+  (return-type "none")
+  (parameters
+    '("GtkTreeIter*" "iter")
+    '("GtkTreeIter*" "position" (null-ok))
+  )
+)
+

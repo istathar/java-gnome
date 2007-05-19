@@ -1,0 +1,54 @@
+(define-method range
+  (of-object "PangoAttrIterator")
+  (c-name "pango_attr_iterator_range")
+  (return-type "none")
+  (parameters
+    '("gint*" "start")
+    '("gint*" "end")
+  )
+)
+
+(define-method next
+  (of-object "PangoAttrIterator")
+  (c-name "pango_attr_iterator_next")
+  (return-type "gboolean")
+)
+
+(define-method copy
+  (of-object "PangoAttrIterator")
+  (c-name "pango_attr_iterator_copy")
+  (return-type "PangoAttrIterator*")
+)
+
+(define-method destroy
+  (of-object "PangoAttrIterator")
+  (c-name "pango_attr_iterator_destroy")
+  (return-type "none")
+)
+
+(define-method get
+  (of-object "PangoAttrIterator")
+  (c-name "pango_attr_iterator_get")
+  (return-type "PangoAttribute*")
+  (parameters
+    '("PangoAttrType" "type")
+  )
+)
+
+(define-method get_font
+  (of-object "PangoAttrIterator")
+  (c-name "pango_attr_iterator_get_font")
+  (return-type "none")
+  (parameters
+    '("PangoFontDescription*" "desc")
+    '("PangoLanguage**" "language")
+    '("GSList**" "extra_attrs")
+  )
+)
+
+(define-method get_attrs
+  (of-object "PangoAttrIterator")
+  (c-name "pango_attr_iterator_get_attrs")
+  (return-type "GSList*")
+)
+

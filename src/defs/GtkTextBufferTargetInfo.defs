@@ -1,0 +1,11 @@
+(define-enum TextBufferTargetInfo
+  (in-module "Gtk")
+  (c-name "GtkTextBufferTargetInfo")
+  (gtype-id "GTK_TYPE_TEXT_BUFFER_TARGET_INFO")
+  (values
+    '("buffer-contents" "GTK_TEXT_BUFFER_TARGET_INFO_BUFFER_CONTENTS")
+    '("rich-text" "GTK_TEXT_BUFFER_TARGET_INFO_RICH_TEXT")
+    '("text" "GTK_TEXT_BUFFER_TARGET_INFO_TEXT")
+  )
+)
+

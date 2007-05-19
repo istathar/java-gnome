@@ -1,0 +1,10 @@
+(define-enum RecentChooserError
+  (in-module "Gtk")
+  (c-name "GtkRecentChooserError")
+  (gtype-id "GTK_TYPE_RECENT_CHOOSER_ERROR")
+  (values
+    '("not-found" "GTK_RECENT_CHOOSER_ERROR_NOT_FOUND")
+    '("invalid-uri" "GTK_RECENT_CHOOSER_ERROR_INVALID_URI")
+  )
+)
+

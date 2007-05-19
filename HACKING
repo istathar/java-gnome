@@ -91,7 +91,7 @@ you've finished anything you might happen to be doing in that branch.
 If you've done some work on your local branch and you'd like to contribute it,
 go ahead and commit it locally in your working branch, then try the following:
 
-    $ bzr bundle ../mainline > /tmp/patch-name.patch
+    $ bzr bundle ../mainline > /tmp/name-that-tune.patch
 
 This will output the diffs, along with a whole spew of Bazaar metadata, into
 the file you specify. It's 7 bit safe, so you can just attach that file to an

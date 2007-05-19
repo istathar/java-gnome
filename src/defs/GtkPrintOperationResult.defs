@@ -1,0 +1,12 @@
+(define-enum PrintOperationResult
+  (in-module "Gtk")
+  (c-name "GtkPrintOperationResult")
+  (gtype-id "GTK_TYPE_PRINT_OPERATION_RESULT")
+  (values
+    '("error" "GTK_PRINT_OPERATION_RESULT_ERROR")
+    '("apply" "GTK_PRINT_OPERATION_RESULT_APPLY")
+    '("cancel" "GTK_PRINT_OPERATION_RESULT_CANCEL")
+    '("in-progress" "GTK_PRINT_OPERATION_RESULT_IN_PROGRESS")
+  )
+)
+

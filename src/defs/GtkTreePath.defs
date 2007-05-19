@@ -1,0 +1,114 @@
+(define-boxed TreePath
+  (in-module "Gtk")
+  (c-name "GtkTreePath")
+  (gtype-id "GTK_TYPE_TREE_PATH")
+)
+
+(define-function gtk_tree_path_new
+  (is-constructor-of "GtkTreePath")
+  (c-name "gtk_tree_path_new")
+  (caller-owns-return #t)
+  (return-type "GtkTreePath*")
+)
+
+(define-method to_string
+  (of-object "GtkTreePath")
+  (c-name "gtk_tree_path_to_string")
+  (caller-owns-return #t)
+  (return-type "gchar*")
+)
+
+(define-method append_index
+  (of-object "GtkTreePath")
+  (c-name "gtk_tree_path_append_index")
+  (return-type "none")
+  (parameters
+    '("gint" "index")
+  )
+)
+
+(define-method prepend_index
+  (of-object "GtkTreePath")
+  (c-name "gtk_tree_path_prepend_index")
+  (return-type "none")
+  (parameters
+    '("gint" "index")
+  )
+)
+
+(define-method get_depth
+  (of-object "GtkTreePath")
+  (c-name "gtk_tree_path_get_depth")
+  (return-type "gint")
+)
+
+(define-method get_indices
+  (of-object "GtkTreePath")
+  (c-name "gtk_tree_path_get_indices")
+  (return-type "gint*")
+)
+
+(define-method free
+  (of-object "GtkTreePath")
+  (c-name "gtk_tree_path_free")
+  (return-type "none")
+)
+
+(define-method copy
+  (of-object "GtkTreePath")
+  (c-name "gtk_tree_path_copy")
+  (caller-owns-return #t)
+  (return-type "GtkTreePath*")
+)
+
+(define-method compare
+  (of-object "GtkTreePath")
+  (c-name "gtk_tree_path_compare")
+  (return-type "gint")
+  (parameters
+    '("const-GtkTreePath*" "b")
+  )
+)
+
+(define-method next
+  (of-object "GtkTreePath")
+  (c-name "gtk_tree_path_next")
+  (return-type "none")
+)
+
+(define-method prev
+  (of-object "GtkTreePath")
+  (c-name "gtk_tree_path_prev")
+  (return-type "gint")
+)
+
+(define-method up
+  (of-object "GtkTreePath")
+  (c-name "gtk_tree_path_up")
+  (return-type "gint")
+)
+
+(define-method down
+  (of-object "GtkTreePath")
+  (c-name "gtk_tree_path_down")
+  (return-type "none")
+)
+
+(define-method is_ancestor
+  (of-object "GtkTreePath")
+  (c-name "gtk_tree_path_is_ancestor")
+  (return-type "gboolean")
+  (parameters
+    '("GtkTreePath*" "descendant")
+  )
+)
+
+(define-method is_descendant
+  (of-object "GtkTreePath")
+  (c-name "gtk_tree_path_is_descendant")
+  (return-type "gboolean")
+  (parameters
+    '("GtkTreePath*" "ancestor")
+  )
+)
+

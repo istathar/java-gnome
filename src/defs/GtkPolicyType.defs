@@ -1,0 +1,11 @@
+(define-enum PolicyType
+  (in-module "Gtk")
+  (c-name "GtkPolicyType")
+  (gtype-id "GTK_TYPE_POLICY_TYPE")
+  (values
+    '("always" "GTK_POLICY_ALWAYS")
+    '("automatic" "GTK_POLICY_AUTOMATIC")
+    '("never" "GTK_POLICY_NEVER")
+  )
+)
+

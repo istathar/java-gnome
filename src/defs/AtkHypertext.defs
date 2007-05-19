@@ -1,0 +1,53 @@
+(define-method get_link
+  (of-object "AtkHypertext")
+  (c-name "atk_hypertext_get_link")
+  (return-type "AtkHyperlink*")
+  (parameters
+    '("gint" "link_index")
+  )
+)
+
+(define-method get_n_links
+  (of-object "AtkHypertext")
+  (c-name "atk_hypertext_get_n_links")
+  (return-type "gint")
+)
+
+(define-method get_link_index
+  (of-object "AtkHypertext")
+  (c-name "atk_hypertext_get_link_index")
+  (return-type "gint")
+  (parameters
+    '("gint" "char_index")
+  )
+)
+
+(define-virtual get_link
+  (of-object "AtkHypertext")
+  (return-type "AtkHyperlink*")
+  (parameters
+    '("gint" "link_index")
+  )
+)
+
+(define-virtual get_n_links
+  (of-object "AtkHypertext")
+  (return-type "gint")
+)
+
+(define-virtual get_link_index
+  (of-object "AtkHypertext")
+  (return-type "gint")
+  (parameters
+    '("gint" "char_index")
+  )
+)
+
+(define-virtual link_selected
+  (of-object "AtkHypertext")
+  (return-type "none")
+  (parameters
+    '("gint" "link_index")
+  )
+)
+

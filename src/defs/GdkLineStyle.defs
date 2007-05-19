@@ -1,0 +1,11 @@
+(define-enum LineStyle
+  (in-module "Gdk")
+  (c-name "GdkLineStyle")
+  (gtype-id "GDK_TYPE_LINE_STYLE")
+  (values
+    '("solid" "GDK_LINE_SOLID")
+    '("on-off-dash" "GDK_LINE_ON_OFF_DASH")
+    '("double-dash" "GDK_LINE_DOUBLE_DASH")
+  )
+)
+

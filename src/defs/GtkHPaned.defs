@@ -1,0 +1,14 @@
+(define-object HPaned
+  (in-module "Gtk")
+  (parent "GtkPaned")
+  (c-name "GtkHPaned")
+  (gtype-id "GTK_TYPE_HPANED")
+)
+
+(define-function gtk_hpaned_new
+  (is-constructor-of "GtkHPaned")
+  (c-name "gtk_hpaned_new")
+  (caller-owns-return #t)
+  (return-type "GtkWidget*")
+)
+

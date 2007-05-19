@@ -1,0 +1,205 @@
+;; vim: set filetype=scheme:
+;;
+;; This is an extract of .defs metadata as pertains to GtkButton.
+;; Material from pyGTK's gtk/gtk-base-types.defs and gtk/gtk-base.defs
+;; Note that several aspects have been commented out as the parser
+;; does not yet deal with them
+
+(define-object Button
+  (in-module "Gtk")
+  (parent "GtkBin")
+  (c-name "GtkButton")
+  (gtype-id "GTK_TYPE_BUTTON")
+)
+
+;;
+;; now the fragment relating to the functions, methods, and virtuals of
+;; GtkButton.
+;;
+
+(define-function gtk_button_new
+  (c-name "gtk_button_new")
+  (is-constructor-of "GtkButton")
+  (return-type "GtkWidget*")
+)
+
+(define-function gtk_button_new_with_label
+  (c-name "gtk_button_new_with_label")
+  (is-constructor-of "GtkButton")
+  (return-type "GtkWidget*")
+  (parameters
+    '("const-gchar*" "label")
+  )
+)
+
+(define-method pressed
+  (of-object "GtkButton")
+  (c-name "gtk_button_pressed")
+  (return-type "none")
+)
+
+(define-method released
+  (of-object "GtkButton")
+  (c-name "gtk_button_released")
+  (return-type "none")
+)
+
+(define-method clicked
+  (of-object "GtkButton")
+  (c-name "gtk_button_clicked")
+  (return-type "none")
+)
+
+(define-method enter
+  (of-object "GtkButton")
+  (c-name "gtk_button_enter")
+  (return-type "none")
+)
+
+(define-method leave
+  (of-object "GtkButton")
+  (c-name "gtk_button_leave")
+  (return-type "none")
+)
+
+(define-method set_relief
+  (of-object "GtkButton")
+  (c-name "gtk_button_set_relief")
+  (return-type "none")
+  (parameters
+    '("GtkReliefStyle" "newstyle")
+  )
+)
+
+(define-method get_relief
+  (of-object "GtkButton")
+  (c-name "gtk_button_get_relief")
+  (return-type "GtkReliefStyle")
+)
+
+(define-method set_label
+  (of-object "GtkButton")
+  (c-name "gtk_button_set_label")
+  (return-type "none")
+  (parameters
+    '("const-gchar*" "label")
+  )
+)
+
+(define-method get_label
+  (of-object "GtkButton")
+  (c-name "gtk_button_get_label")
+  (return-type "const-gchar*")
+)
+
+(define-method set_use_underline
+  (of-object "GtkButton")
+  (c-name "gtk_button_set_use_underline")
+  (return-type "none")
+  (parameters
+    '("gboolean" "use_underline")
+  )
+)
+
+(define-method get_use_underline
+  (of-object "GtkButton")
+  (c-name "gtk_button_get_use_underline")
+  (return-type "gboolean")
+)
+
+(define-method set_use_stock
+  (of-object "GtkButton")
+  (c-name "gtk_button_set_use_stock")
+  (return-type "none")
+  (parameters
+    '("gboolean" "use_stock")
+  )
+)
+
+(define-method get_use_stock
+  (of-object "GtkButton")
+  (c-name "gtk_button_get_use_stock")
+  (return-type "gboolean")
+)
+
+(define-method set_focus_on_click
+  (of-object "GtkButton")
+  (c-name "gtk_button_set_focus_on_click")
+  (return-type "none")
+  (parameters
+    '("gboolean" "focus_on_click")
+  )
+)
+
+(define-method get_focus_on_click
+  (of-object "GtkButton")
+  (c-name "gtk_button_get_focus_on_click")
+  (return-type "gboolean")
+)
+
+(define-method set_alignment
+  (of-object "GtkButton")
+  (c-name "gtk_button_set_alignment")
+  (return-type "none")
+  (parameters
+    '("gfloat" "xalign")
+    '("gfloat" "yalign")
+  )
+)
+
+(define-method get_alignment
+  (of-object "GtkButton")
+  (c-name "gtk_button_get_alignment")
+  (return-type "none")
+  (parameters
+    '("gfloat*" "xalign")
+    '("gfloat*" "yalign")
+  )
+)
+
+(define-method set_image
+  (of-object "GtkButton")
+  (c-name "gtk_button_set_image")
+  (return-type "none")
+  (parameters
+    '("GtkWidget*" "image")
+  )
+)
+
+(define-method get_image
+  (of-object "GtkButton")
+  (c-name "gtk_button_get_image")
+  (return-type "GtkWidget*")
+)
+
+(define-virtual pressed
+  (of-object "GtkButton")
+  (return-type "none")
+)
+(define-virtual released
+  (of-object "GtkButton")
+  (return-type "none")
+)
+(define-virtual clicked
+  (of-object "GtkButton")
+  (return-type "none")
+)
+(define-virtual enter
+  (of-object "GtkButton")
+  (return-type "none")
+)
+(define-virtual leave
+  (of-object "GtkButton")
+  (return-type "none")
+)
+(define-virtual activate
+  (of-object "GtkButton")
+  (return-type "none")
+)
+(define-virtual depressed
+  (of-object "GtkButton")
+  (return-type "gboolean")
+  (parameters
+    '("GtkWidget*" "who_is_depressed")
+  )
+)

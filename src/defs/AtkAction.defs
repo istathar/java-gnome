@@ -1,0 +1,115 @@
+(define-method do_action
+  (of-object "AtkAction")
+  (c-name "atk_action_do_action")
+  (return-type "gboolean")
+  (parameters
+    '("gint" "i")
+  )
+)
+
+(define-method get_n_actions
+  (of-object "AtkAction")
+  (c-name "atk_action_get_n_actions")
+  (return-type "gint")
+)
+
+(define-method get_description
+  (of-object "AtkAction")
+  (c-name "atk_action_get_description")
+  (return-type "const-gchar*")
+  (parameters
+    '("gint" "i")
+  )
+)
+
+(define-method get_name
+  (of-object "AtkAction")
+  (c-name "atk_action_get_name")
+  (return-type "const-gchar*")
+  (parameters
+    '("gint" "i")
+  )
+)
+
+(define-method get_keybinding
+  (of-object "AtkAction")
+  (c-name "atk_action_get_keybinding")
+  (return-type "const-gchar*")
+  (parameters
+    '("gint" "i")
+  )
+)
+
+(define-method set_description
+  (of-object "AtkAction")
+  (c-name "atk_action_set_description")
+  (return-type "gboolean")
+  (parameters
+    '("gint" "i")
+    '("const-gchar*" "desc")
+  )
+)
+
+(define-method get_localized_name
+  (of-object "AtkAction")
+  (c-name "atk_action_get_localized_name")
+  (return-type "const-gchar*")
+  (parameters
+    '("gint" "i")
+  )
+)
+
+(define-virtual do_action
+  (of-object "AtkAction")
+  (return-type "gboolean")
+  (parameters
+    '("gint" "i")
+  )
+)
+
+(define-virtual get_n_actions
+  (of-object "AtkAction")
+  (return-type "gint")
+)
+
+(define-virtual get_description
+  (of-object "AtkAction")
+  (return-type "const-gchar*")
+  (parameters
+    '("gint" "i")
+  )
+)
+
+(define-virtual get_name
+  (of-object "AtkAction")
+  (return-type "const-gchar*")
+  (parameters
+    '("gint" "i")
+  )
+)
+
+(define-virtual get_keybinding
+  (of-object "AtkAction")
+  (return-type "const-gchar*")
+  (parameters
+    '("gint" "i")
+  )
+)
+
+(define-virtual set_description
+  (of-object "AtkAction")
+  (return-type "gboolean")
+  (parameters
+    '("gint" "i")
+    '("const-gchar*" "desc")
+  )
+)
+
+(define-virtual get_localized_name
+  (of-object "AtkAction")
+  (return-type "const-gchar*")
+  (parameters
+    '("gint" "i")
+  )
+)
+

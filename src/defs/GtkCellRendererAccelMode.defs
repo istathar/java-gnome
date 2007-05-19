@@ -1,0 +1,10 @@
+(define-enum CellRendererAccelMode
+  (in-module "Gtk")
+  (c-name "GtkCellRendererAccelMode")
+  (gtype-id "GTK_TYPE_CELL_RENDERER_ACCEL_MODE")
+  (values
+    '("gtk" "GTK_CELL_RENDERER_ACCEL_MODE_GTK")
+    '("other" "GTK_CELL_RENDERER_ACCEL_MODE_OTHER")
+  )
+)
+

@@ -1,0 +1,33 @@
+(define-object AspectFrame
+  (in-module "Gtk")
+  (parent "GtkFrame")
+  (c-name "GtkAspectFrame")
+  (gtype-id "GTK_TYPE_ASPECT_FRAME")
+)
+
+(define-function gtk_aspect_frame_new
+  (is-constructor-of "GtkAspectFrame")
+  (c-name "gtk_aspect_frame_new")
+  (caller-owns-return #t)
+  (return-type "GtkWidget*")
+  (properties
+    '("label" (optional))
+    '("xalign" (optional))
+    '("yalign" (optional))
+    '("ratio" (optional))
+    '("obey_child" (optional))
+  )
+)
+
+(define-method set
+  (of-object "GtkAspectFrame")
+  (c-name "gtk_aspect_frame_set")
+  (return-type "none")
+  (parameters
+    '("gfloat" "xalign" (default "0.0"))
+    '("gfloat" "yalign" (default "0.0"))
+    '("gfloat" "ratio" (default "1.0"))
+    '("gboolean" "obey_child" (default "1"))
+  )
+)
+

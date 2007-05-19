@@ -1,0 +1,254 @@
+(define-object ComboBox
+  (in-module "Gtk")
+  (parent "GtkBin")
+  (implements "GtkCellEditable")
+  (implements "GtkCellLayout")
+  (c-name "GtkComboBox")
+  (gtype-id "GTK_TYPE_COMBO_BOX")
+)
+
+(define-function gtk_combo_box_new
+  (is-constructor-of "GtkComboBox")
+  (c-name "gtk_combo_box_new")
+  (caller-owns-return #t)
+  (return-type "GtkWidget*")
+)
+
+(define-function gtk_combo_box_new_with_model
+  (is-constructor-of "GtkComboBox")
+  (c-name "gtk_combo_box_new_with_model")
+  (caller-owns-return #t)
+  (return-type "GtkWidget*")
+  (parameters
+    '("GtkTreeModel*" "model")
+  )
+)
+
+(define-method set_wrap_width
+  (of-object "GtkComboBox")
+  (c-name "gtk_combo_box_set_wrap_width")
+  (return-type "none")
+  (parameters
+    '("gint" "width")
+  )
+)
+
+(define-method set_row_span_column
+  (of-object "GtkComboBox")
+  (c-name "gtk_combo_box_set_row_span_column")
+  (return-type "none")
+  (parameters
+    '("gint" "row_span")
+  )
+)
+
+(define-method set_column_span_column
+  (of-object "GtkComboBox")
+  (c-name "gtk_combo_box_set_column_span_column")
+  (return-type "none")
+  (parameters
+    '("gint" "column_span")
+  )
+)
+
+(define-method get_active
+  (of-object "GtkComboBox")
+  (c-name "gtk_combo_box_get_active")
+  (return-type "gint")
+)
+
+(define-method set_active
+  (of-object "GtkComboBox")
+  (c-name "gtk_combo_box_set_active")
+  (return-type "none")
+  (parameters
+    '("gint" "index")
+  )
+)
+
+(define-method get_active_iter
+  (of-object "GtkComboBox")
+  (c-name "gtk_combo_box_get_active_iter")
+  (return-type "gboolean")
+  (parameters
+    '("GtkTreeIter*" "iter")
+  )
+)
+
+(define-method set_active_iter
+  (of-object "GtkComboBox")
+  (c-name "gtk_combo_box_set_active_iter")
+  (return-type "none")
+  (parameters
+    '("GtkTreeIter*" "iter")
+  )
+)
+
+(define-method set_model
+  (of-object "GtkComboBox")
+  (c-name "gtk_combo_box_set_model")
+  (return-type "none")
+  (parameters
+    '("GtkTreeModel*" "model" (default "NULL") (null-ok))
+  )
+)
+
+(define-method get_model
+  (of-object "GtkComboBox")
+  (c-name "gtk_combo_box_get_model")
+  (return-type "GtkTreeModel*")
+)
+
+(define-method append_text
+  (of-object "GtkComboBox")
+  (c-name "gtk_combo_box_append_text")
+  (return-type "none")
+  (parameters
+    '("const-gchar*" "text")
+  )
+)
+
+(define-method insert_text
+  (of-object "GtkComboBox")
+  (c-name "gtk_combo_box_insert_text")
+  (return-type "none")
+  (parameters
+    '("gint" "position")
+    '("const-gchar*" "text")
+  )
+)
+
+(define-method prepend_text
+  (of-object "GtkComboBox")
+  (c-name "gtk_combo_box_prepend_text")
+  (return-type "none")
+  (parameters
+    '("const-gchar*" "text")
+  )
+)
+
+(define-method remove_text
+  (of-object "GtkComboBox")
+  (c-name "gtk_combo_box_remove_text")
+  (return-type "none")
+  (parameters
+    '("gint" "position")
+  )
+)
+
+(define-method popup
+  (of-object "GtkComboBox")
+  (c-name "gtk_combo_box_popup")
+  (return-type "none")
+)
+
+(define-method popdown
+  (of-object "GtkComboBox")
+  (c-name "gtk_combo_box_popdown")
+  (return-type "none")
+)
+
+(define-method get_wrap_width
+  (of-object "GtkComboBox")
+  (c-name "gtk_combo_box_get_wrap_width")
+  (return-type "gint")
+)
+
+(define-method get_row_span_column
+  (of-object "GtkComboBox")
+  (c-name "gtk_combo_box_get_row_span_column")
+  (return-type "gint")
+)
+
+(define-method get_column_span_column
+  (of-object "GtkComboBox")
+  (c-name "gtk_combo_box_get_column_span_column")
+  (return-type "gint")
+)
+
+(define-method get_add_tearoffs
+  (of-object "GtkComboBox")
+  (c-name "gtk_combo_box_get_add_tearoffs")
+  (return-type "gboolean")
+)
+
+(define-method set_add_tearoffs
+  (of-object "GtkComboBox")
+  (c-name "gtk_combo_box_set_add_tearoffs")
+  (return-type "none")
+  (parameters
+    '("gboolean" "add_tearoffs")
+  )
+)
+
+(define-method get_focus_on_click
+  (of-object "GtkComboBox")
+  (c-name "gtk_combo_box_get_focus_on_click")
+  (return-type "gboolean")
+)
+
+(define-method set_focus_on_click
+  (of-object "GtkComboBox")
+  (c-name "gtk_combo_box_set_focus_on_click")
+  (return-type "none")
+  (parameters
+    '("gboolean" "focus_on_click")
+  )
+)
+
+(define-method set_row_separator_func
+  (of-object "GtkComboBox")
+  (c-name "gtk_combo_box_set_row_separator_func")
+  (return-type "none")
+  (parameters
+    '("GtkTreeViewRowSeparatorFunc" "func")
+    '("gpointer" "data")
+    '("GtkDestroyNotify" "destroy")
+  )
+)
+
+(define-method get_row_separator_func
+  (of-object "GtkComboBox")
+  (c-name "gtk_combo_box_get_row_separator_func")
+  (return-type "GtkTreeViewRowSeparatorFunc")
+)
+
+(define-method get_active_text
+  (of-object "GtkComboBox")
+  (c-name "gtk_combo_box_get_active_text")
+  (caller-owns-return #t)
+  (return-type "gchar*")
+)
+
+(define-method get_popup_accessible
+  (of-object "GtkComboBox")
+  (c-name "gtk_combo_box_get_popup_accessible")
+  (return-type "AtkObject*")
+)
+
+(define-virtual changed
+  (of-object "GtkComboBox")
+  (return-type "none")
+)
+
+(define-virtual get_active_text
+  (of-object "GtkComboBox")
+  (caller-owns-return #t)
+  (return-type "char*")
+)
+
+(define-method get_title
+  (of-object "GtkComboBox")
+  (c-name "gtk_combo_box_get_title")
+  (return-type "const-gchar*")
+)
+
+(define-method set_title
+  (of-object "GtkComboBox")
+  (c-name "gtk_combo_box_set_title")
+  (return-type "none")
+  (parameters
+    '("const-gchar*" "title")
+  )
+)
+

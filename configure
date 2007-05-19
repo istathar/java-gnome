@@ -27,7 +27,7 @@ use strict;
 use File::Basename;
 
 #
-# Configure prototype for building. We:
+# Configure java-gnome for building. We:
 #
 # - determine the operating system
 #
@@ -124,7 +124,7 @@ sub check_prereq (\@$$@) {
 	}
 
 	if ( ! "$found" ) {
-		$str = "In order to build prototype, you need\n".$tries;
+		$str = "In order to build java-gnome, you need\n".$tries;
 		$str .= "\n\nwhich is part of the $item Java library.\n";
 		$str .= "On a ".ucfirst($os)." system, you should be able to get this requirement by doing:\n\n";
 		$str .= "     # ";
@@ -494,6 +494,7 @@ HERE
 # Process command line arguments for overrides
 # --------------------------------------------------------------------
 
+my $prefix;
 my $compiler;
 my $runtime;
 my $jdk_home;
@@ -524,6 +525,9 @@ about this project and instructions on how to adjust the
 
 HERE
 		exit 4;
+	} elsif (($key =~ /^--prefix$/) ||
+		 ($key =~ /^prefix$/)) {
+		$prefix="$value";
 	} elsif ($key =~ /^runtime/) {
 		$runtime="$value";
 	} elsif ($key =~ /^compiler/) {
@@ -568,12 +572,13 @@ output "\n";
 
 open CONFIG, ">.config.tmp";
 print CONFIG <<HERE ;
-# This is an automatically generated Makefile fragment which is used to
-# configure prototype for building. Do not edit (your changes will be overwritten
-# next time ./configure is run), do not commit to repository. Anyone packaging
-# prototype on any operating system: please do not override this file by patching
-# it! Figure out what the problem is, and let us know so we can improve the
-# ./configure perl script which generates it.
+# This is an automatically generated Makefile fragment which is used
+# to configure java-gnome for building. Do not edit (your changes will
+# be overwritten next time ./configure is run), do not commit to
+# repository. Anyone packaging java-gnome on any operating system:
+# please do not override this file by patching it! Figure out what the
+# problem is, and let us know so we can improve the ./configure perl
+# script which generates it.
 
 HERE
 
@@ -601,22 +606,23 @@ if (( -f "/etc/gentoo-release" ) || ( -f "/etc/make.conf" )) {
 }
 
 if ($os) {
-	print CONFIG "OS=$os\n";
+	print CONFIG "OS=$os\n\n";
 } else {
 	bail "unknown!", <<HERE ;
-What we really need you to do is to look into this configure program, and
-tell us what to add. Based on the examples of what is specified for other
-distributions, you can probably quickly figure out what the appropriate
-settings are for your platform. 
+What we really need you to do is to look into this configure program,
+and tell us what to add. Based on the examples of what is specified
+for other distributions, you can probably quickly figure out what the
+appropriate settings are for your platform. 
 
-Letting us know what changes you had to make here (ie, whatever actions
-resulted in a .config that allows you to build, test, and run prototype) we can
-help others with your operating system take advantage of this program.
+Letting us know what changes you had to make here (ie, whatever
+actions resulted in a .config that allows you to build and test
+java-gnome, and run the java-gnome demo) we can help others with your
+operating system take advantage of this program.
+
 HERE
 }
 
 output "\n";
-
 
 # --------------------------------------------------------------------
 # Specifiy locations of dependencies, by operating system, and 
@@ -772,8 +778,8 @@ print CONFIG "JUNIT_JARS=".join(":",@junit_jars)."\n";
 
 print CONFIG <<HERE ;
 
-# the JNI_PATH is what is passed as LD_LIBRARY_PATH when running
-# java Virtual Machines so that JNI shared libraries are picked up 
+# the JNI_PATH is what is passed as LD_LIBRARY_PATH when running Java
+# Virtual Machines so that JNI shared libraries are picked up 
 
 HERE
 print CONFIG "JNI_PATH=$jni_path\n";
@@ -789,6 +795,7 @@ output "Check Java compilers:\n";
 # compilers we will check for:
 my $javac;
 my $jikes;
+my $ecj;
 my $gcjC;	# The moniker $gcjC referes to `gcj -C`
 my $kaffec;
 
@@ -815,7 +822,12 @@ if ($os eq "gentoo") {
 	# told about where to find the Java system classes. (java.lang, etc)
 	# we make an educated guess until java-config can tell us properly.
 	my $rt = "$java_home"."/jre/lib/rt.jar";
-	check_compiler($jikes, "IBM jikes", which("jikes"), "-bootclasspath $rt -nowarn -source 1.4 -target 1.4 +T=4 +Z0") if ( -f "$rt");
+	check_compiler($jikes, "IBM jikes", "/usr/bin/jikes", "-g -bootclasspath $rt -nowarn -source 1.5 -target 1.5 +T=4 +Z0") if ( -f "$rt");
+		
+	# check ecj, the standalone Eclipse compiler. It's slower than Jikes,
+	# but significantly more modern and maintained whereas Jikes is
+	# largely abandoned as a project.
+	check_compiler($ecj, "Eclipse ecj", "/usr/bin/ecj-3.2", "-g -preserveAllLocals -nowarn -source 1.5 -target 1.5");
 	
 	# check javac (the one specified by Gentoo's java-config tool)
 	# The $vendor business is just some precision prettiness for the
@@ -853,7 +865,7 @@ if ($os eq "gentoo") {
 	} elsif ($javac_candidate =~ /ibm/i) {
 		$vendor = "IBM";
 	}
-	check_compiler($javac, "$vendor javac", $javac_candidate, "-source 1.4 -target 1.4");
+	check_compiler($javac, "$vendor javac", $javac_candidate, "-g -source 1.5 -target 1.5");
 
 	# check gcj. -C means generate .class files, not .o files (which are
 	# for linking into native executables.
@@ -879,7 +891,10 @@ if ($os eq "gentoo") {
 
 	# check jikes. Since Jikes isn't a JRE of its own, it needs to be told
 	# about where to find the Java system classes. (java.lang, etc).
-	check_compiler($jikes, "IBM jikes", "/usr/bin/jikes", "-bootclasspath /usr/share/classpath/glibj.zip -source 1.4 -target 1.4 +T=4 +Z0");
+	check_compiler($jikes, "IBM jikes", "/usr/bin/jikes", "-g -bootclasspath /usr/share/classpath/glibj.zip -source 1.5 -target 1.5 +T=4 +Z0");
+
+	# check ecj, the standalone Eclipse compiler.
+	check_compiler($ecj, "Eclipse ecj", which("ecj"), "-g -preserveAllLocals -nowarn -source 1.5 -target 1.5");
 
 	# check for a proper "real" JDK's javac as installed (and maybe
 	# selected in the alternatives system) by the user. In other words,
@@ -910,7 +925,7 @@ if ($os eq "gentoo") {
 	} elsif ($javac_candidate =~ /ibm/i) {
 		$vendor = "IBM";
 	}
-	check_compiler($javac, "$vendor javac", $javac_candidate, "-source 1.4 -target 1.4");
+	check_compiler($javac, "$vendor javac", $javac_candidate, "-g -source 1.5 -target 1.5");
 
 	# check gcj. The moniker $gcjC referes to `gcj -C`. See HACKING.
 	my $gcj_candidate;
@@ -943,7 +958,10 @@ if ($os eq "gentoo") {
 
 	# check for jikes. Presumably -bootclasspath will need to be set
 	# like on Gentoo and Debian; to what?
-	check_compiler($jikes, "IBM jikes", "/usr/bin/jikes", "-source 1.4 -target 1.4 +T=4 +Z0");
+	check_compiler($jikes, "IBM jikes", "/usr/bin/jikes", "-g -source 1.5 -target 1.5 +T=4 +Z0");
+
+	# check ecj, the standalone Eclipse compiler.
+	check_compiler($ecj, "Eclipse ecj", which("ecj"), "-g -preserveAllLocals -nowarn -source 1.5 -target 1.5");
 
 	my $javac_candidate;
 	my $javah_candidate;
@@ -963,7 +981,7 @@ if ($os eq "gentoo") {
 		$javadoc_candidate = "/usr/lib/jvm/java-ibm/bin/javadoc";
 		$vendor = "IBM";
 	}
-	check_compiler($javac, "$vendor javac", $javac_candidate, "-source 1.4 -target 1.4");
+	check_compiler($javac, "$vendor javac", $javac_candidate, "-g -source 1.5 -target 1.5");
 
 	# check for gcj
 	my $gcj_candidate;
@@ -982,7 +1000,9 @@ if ($os eq "gentoo") {
 	check_javadoc($javadoc, "$vendor javadoc", $javadoc_candidate, "");
 
 } elsif ($os eq "solaris") {
-	check_compiler($jikes, "IBM jikes", "/usr/bin/jikes", "-bootclasspath /usr/java/jre/lib/rt.jar -source 1.4 -target 1.4 +T=4 +Z0");
+	check_compiler($jikes, "IBM jikes", "/usr/bin/jikes", "-g -bootclasspath /usr/java/jre/lib/rt.jar -source 1.5 -target 1.5 +T=4 +Z0");
+
+	check_compiler($ecj, "Eclipse ecj", which("ecj"), "-g -preserveAllLocals -nowarn -source 1.5 -target 1.5");
 
 	my $javac_candidate;
 	my $javah_candidate;
@@ -1002,7 +1022,7 @@ if ($os eq "gentoo") {
 		$javadoc_candidate = "/usr/java/bin/javadoc";
 		$vendor = "Sun";
 	}
-	check_compiler($javac, "$vendor javac", $javac_candidate, "-source 1.4 -target 1.4");
+	check_compiler($javac, "$vendor javac", $javac_candidate, "-g -source 1.5 -target 1.5");
 
 	# check for gcj
 	my $gcj_candidate;
@@ -1306,10 +1326,10 @@ if (!$gij) {
 
 print CONFIG <<HERE ;
 
-# the JAVAC variable contains the path to the java source compiler, the JAVA
-# variable contains the path to the java runtime virtual machine. In both
-# cases, the _CMD variable is for the terse output when make commands are 
-# running.
+# the JAVAC variable contains the path to the java source compiler,
+# the JAVA variable contains the path to the java runtime virtual
+# machine. In both cases, the _CMD variable is for the terse output
+# when make commands are running.
 
 HERE
 
@@ -1319,6 +1339,8 @@ if ($compiler) {
 	# if overridden, check override...
 	if ($compiler eq "javac") {
 		bail "bad override", "javac specified but not detected as a workable compiler." unless $javac;
+	} elsif ($compiler eq "ecj") {
+		bail "bad override", "ecj specified but not detected as a workable compiler." unless $ecj;
 	} elsif ($compiler eq "jikes") {
 		bail "bad override", "jikes specified but not detected as a workable compiler." unless $jikes;
 	} elsif ($compiler eq "gcj") {
@@ -1335,6 +1357,8 @@ HERE
 	# otherwise, pick a compiler.
 	if ($jikes) {
 		$compiler = "jikes";
+	} elsif ($ecj) {
+		$compiler = "ecj";
 	} elsif ($javac) {
 		$compiler = "javac";
 	} elsif ($gcjC) {
@@ -1347,6 +1371,9 @@ HERE
 if ($compiler eq "javac") {
 	print CONFIG "JAVAC=$javac\n";
 	print CONFIG "JAVAC_CMD=JAVAC    \n";
+} elsif ($compiler eq "ecj") {
+	print CONFIG "JAVAC=$ecj\n";
+	print CONFIG "JAVAC_CMD=ECLIPSE  \n";
 } elsif ($compiler eq "jikes") {
 	print CONFIG "JAVAC=$jikes\n";
 	print CONFIG "JAVAC_CMD=JIKES    \n";
@@ -1360,9 +1387,10 @@ if ($compiler eq "javac") {
 
 print CONFIG <<HERE ;
 
-# the JAVAH, JAR, and JAVADOC variables simply contains a usable jar and javah
-# executable, respectively, while the JAVAH_CMD, JAR_CMD, and JAVADOC_CMD
-# variables is for display purposes, matching the pattern above.
+# the JAVAH, JAR, and JAVADOC variables simply contains a usable jar
+# and javah executable, respectively, while the JAVAH_CMD, JAR_CMD,
+# and JAVADOC_CMD variables is for display purposes, matching the
+# pattern above.
 
 HERE
 
@@ -1457,15 +1485,17 @@ output "$runtime\n";
 # --------------------------------------------------------------------
 print CONFIG <<HERE ;
 
-# if present, the GCJ variable contains the path to the GCC native Java
-# builder. GCJ_LIB_PATH contains an argument suitable for use with -Wl,-rpath
-# so that the linker can find the relevent libgcj.so class library.
+# if present, the GCJ variable contains the path to the GCC native
+# Java builder. GCJ_LIB_PATH contains an argument suitable for use
+# with -Wl,-rpath so that the linker can find the relevent libgcj.so
+# class library.
 
 HERE
 
 if ($gcj) {
-	print CONFIG "GCJ=$gcj -g -fPIC\n";
+	print CONFIG "GCJ=$gcj -g -fPIC -fjni\n";
 	print CONFIG "GCJ_CMD=GCJ      \n";
+	print CONFIG "GCJ_LINK=$gcj -g -shared -fPIC -fjni\n";
 	print CONFIG "GCJ_LINK_CMD=LINK     \n";
 	print CONFIG "GCJ_LIB_PATH=$gcj_lib_path\n";
 }
@@ -1502,7 +1532,7 @@ if ($cc =~ /gcc/) {
 	
 	print CONFIG "CC=$cc -g -Wall -fPIC $jni_include -Wno-int-to-pointer-cast -Wno-pointer-to-int-cast\n";
 	print CONFIG "CC_CMD=GCC      \n";
-	print CONFIG "LINK=$cc -g -Wall -fPIC\n";
+	print CONFIG "LINK=$cc -g -shared -Wall -fPIC\n";
 	print CONFIG "LINK_CMD=LINK     \n";
 } elsif (($cc) && ($os eq "solaris")) {
 	print CONFIG "CC=$cc -Kpic -I/usr/java/include -I/usr/java/include/solaris\n";
@@ -1515,6 +1545,21 @@ if ($cc =~ /gcc/) {
 
 `rm -f Hello.java Hello.class Hello.o Hello Hello.c Hello.jar`;
 
+print CONFIG <<HERE ;
+
+# the install prefix. This *only* affects the location that installed
+# files are sent to during the `make install` step. You can, as it
+# happens, override it on the make command line the same way you
+# specify DESTDIR, ie by doing `make PREFIX=/blah install`.
+
+HERE
+
+if ($prefix) {
+	print CONFIG "PREFIX=$prefix\n";
+} else {
+	print CONFIG "PREFIX=/usr\n";
+}
+
 # --------------------------------------------------------------------
 # Get version constant
 # --------------------------------------------------------------------
@@ -1522,7 +1567,7 @@ if ($cc =~ /gcc/) {
 my $apiversion;
 my $version;
 
-open SOURCE, "src/java/org/gnome/gtk/Gtk.java";
+open SOURCE, "src/bindings/org/gnome/gtk/Version.java";
 while (<SOURCE>) {
 	chomp;
 	if (/.* APIVERSION = \"([\d\.]+)\";/) {
@@ -1543,8 +1588,8 @@ if (!$version) {
 
 print CONFIG <<HERE ;
 
-# finally, we extract the version strings from the source code, 
-# for use in naming the target library files.
+# finally, we extract the version strings from the source code, for
+# use in naming the target library files.
 
 HERE
 

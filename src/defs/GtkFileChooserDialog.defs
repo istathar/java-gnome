@@ -1,0 +1,22 @@
+(define-object FileChooserDialog
+  (in-module "Gtk")
+  (parent "GtkDialog")
+  (implements "GtkFileChooser")
+  (c-name "GtkFileChooserDialog")
+  (gtype-id "GTK_TYPE_FILE_CHOOSER_DIALOG")
+)
+
+(define-function gtk_file_chooser_dialog_new
+  (is-constructor-of "GtkFileChooserDialog")
+  (c-name "gtk_file_chooser_dialog_new")
+  (caller-owns-return #t)
+  (return-type "GtkWidget*")
+  (parameters
+    '("const-gchar*" "title")
+    '("GtkWindow*" "parent")
+    '("GtkFileChooserAction" "action")
+    '("const-gchar*" "first_button_text")
+  )
+  (varargs #t)
+)
+

@@ -1,0 +1,60 @@
+(define-object AccelLabel
+  (in-module "Gtk")
+  (parent "GtkLabel")
+  (c-name "GtkAccelLabel")
+  (gtype-id "GTK_TYPE_ACCEL_LABEL")
+)
+
+(define-function gtk_accel_label_new
+  (is-constructor-of "GtkAccelLabel")
+  (c-name "gtk_accel_label_new")
+  (caller-owns-return #t)
+  (return-type "GtkWidget*")
+  (properties
+    '("label")
+  )
+)
+
+(define-method accelerator_width
+  (of-object "GtkAccelLabel")
+  (c-name "gtk_accel_label_accelerator_width")
+  (return-type "guint")
+  (deprecated "use GtkAccelLabel.get_accel_width")
+)
+
+(define-method get_accel_widget
+  (of-object "GtkAccelLabel")
+  (c-name "gtk_accel_label_get_accel_widget")
+  (return-type "GtkWidget*")
+)
+
+(define-method get_accel_width
+  (of-object "GtkAccelLabel")
+  (c-name "gtk_accel_label_get_accel_width")
+  (return-type "guint")
+)
+
+(define-method set_accel_widget
+  (of-object "GtkAccelLabel")
+  (c-name "gtk_accel_label_set_accel_widget")
+  (return-type "none")
+  (parameters
+    '("GtkWidget*" "accel_widget")
+  )
+)
+
+(define-method set_accel_closure
+  (of-object "GtkAccelLabel")
+  (c-name "gtk_accel_label_set_accel_closure")
+  (return-type "none")
+  (parameters
+    '("GClosure*" "accel_closure")
+  )
+)
+
+(define-method refetch
+  (of-object "GtkAccelLabel")
+  (c-name "gtk_accel_label_refetch")
+  (return-type "gboolean")
+)
+

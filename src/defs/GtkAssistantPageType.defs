@@ -1,0 +1,13 @@
+(define-enum AssistantPageType
+  (in-module "Gtk")
+  (c-name "GtkAssistantPageType")
+  (gtype-id "GTK_TYPE_ASSISTANT_PAGE_TYPE")
+  (values
+    '("content" "GTK_ASSISTANT_PAGE_CONTENT")
+    '("intro" "GTK_ASSISTANT_PAGE_INTRO")
+    '("confirm" "GTK_ASSISTANT_PAGE_CONFIRM")
+    '("summary" "GTK_ASSISTANT_PAGE_SUMMARY")
+    '("progress" "GTK_ASSISTANT_PAGE_PROGRESS")
+  )
+)
+

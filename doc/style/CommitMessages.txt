@@ -75,13 +75,56 @@ While you're at it, you might want
 
 to make sure a casual edit of a Java source file doesn't mess it up.
 
+Set your user id!
+-----------------
+
+Keeping the integrity of the author history is important so that you get
+credit for your work. When you make a commit and subsequently send it to us in
+a bundle, we (and the rest of the world) sees who the author of each commit
+was. That's terrific, but we do want to keep it professional for both
+aesthetic and legal reasons. So, one thing that we require is that the name
+and email address of the author be properly set. One of the following will
+take care of it:
+
+### `bzr`'s global configuration file
+
+If you put
+
+    [DEFAULT]
+    email = George Jones <grjones@example.com>
+
+in the `~/.bazaar/bazaar.conf` file, it will be set for all branches and you
+won't have to think about it ever again.
+
+### `bzr whoami`
+
+Or you can run the `bzr whoami` command as follows:
+
+    $ bzr whoami 'George Jones <grjones@example.com>'
+
+Don't forget the single quote to escape those angle brackets!
+
+### Environment variable
+
+Or, you can use the `BZR_EMAIL` environment variable:
+
+    $ export BZR_EMAIL='George Jones <grjones@example.com>'
+
+Whichever you choose, please take the time to do this properly. It will ensure
+that the patch you send is properly attributed and that you will retain the
+full credit you deserve for your contribution. Patches that are not properly
+identified will not be accepted.
+
+And if you try to tell me that your name is George Jones and that you work at
+example.com, I **will** hit you with a large mallet. `:)`
+
 AfC
 
-_Originally written by Andrew Cowie 2 Dec 06. Last modified 9 Dec 06._
+_Originally written by Andrew Cowie 2 Dec 06. Last modified 31 Jan 07._
 
 <!--
 
-  Copyright (c) 2006 Operational Dynamics Consulting Pty Ltd 
+  Copyright (c) 2006-2007 Operational Dynamics Consulting Pty Ltd 
 
   As project documentation, this file forms an integral part of the source
   code of the library it accompanies, and thus is made available to you by the

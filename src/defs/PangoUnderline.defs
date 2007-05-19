@@ -1,0 +1,13 @@
+(define-enum Underline
+  (in-module "Pango")
+  (c-name "PangoUnderline")
+  (gtype-id "PANGO_TYPE_UNDERLINE")
+  (values
+    '("none" "PANGO_UNDERLINE_NONE")
+    '("single" "PANGO_UNDERLINE_SINGLE")
+    '("double" "PANGO_UNDERLINE_DOUBLE")
+    '("low" "PANGO_UNDERLINE_LOW")
+    '("error" "PANGO_UNDERLINE_ERROR")
+  )
+)
+

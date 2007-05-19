@@ -1,0 +1,12 @@
+(define-enum PackDirection
+  (in-module "Gtk")
+  (c-name "GtkPackDirection")
+  (gtype-id "GTK_TYPE_PACK_DIRECTION")
+  (values
+    '("ltr" "GTK_PACK_DIRECTION_LTR")
+    '("rtl" "GTK_PACK_DIRECTION_RTL")
+    '("ttb" "GTK_PACK_DIRECTION_TTB")
+    '("btt" "GTK_PACK_DIRECTION_BTT")
+  )
+)
+

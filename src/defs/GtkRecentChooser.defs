@@ -1,0 +1,347 @@
+(define-method set_show_private
+  (of-object "GtkRecentChooser")
+  (c-name "gtk_recent_chooser_set_show_private")
+  (return-type "none")
+  (parameters
+    '("gboolean" "show_private")
+  )
+)
+
+(define-method get_show_private
+  (of-object "GtkRecentChooser")
+  (c-name "gtk_recent_chooser_get_show_private")
+  (return-type "gboolean")
+)
+
+(define-method set_show_not_found
+  (of-object "GtkRecentChooser")
+  (c-name "gtk_recent_chooser_set_show_not_found")
+  (return-type "none")
+  (parameters
+    '("gboolean" "show_not_found")
+  )
+)
+
+(define-method get_show_not_found
+  (of-object "GtkRecentChooser")
+  (c-name "gtk_recent_chooser_get_show_not_found")
+  (return-type "gboolean")
+)
+
+(define-method set_select_multiple
+  (of-object "GtkRecentChooser")
+  (c-name "gtk_recent_chooser_set_select_multiple")
+  (return-type "none")
+  (parameters
+    '("gboolean" "select_multiple")
+  )
+)
+
+(define-method get_select_multiple
+  (of-object "GtkRecentChooser")
+  (c-name "gtk_recent_chooser_get_select_multiple")
+  (return-type "gboolean")
+)
+
+(define-method set_limit
+  (of-object "GtkRecentChooser")
+  (c-name "gtk_recent_chooser_set_limit")
+  (return-type "none")
+  (parameters
+    '("gint" "limit")
+  )
+)
+
+(define-method get_limit
+  (of-object "GtkRecentChooser")
+  (c-name "gtk_recent_chooser_get_limit")
+  (return-type "gint")
+)
+
+(define-method set_local_only
+  (of-object "GtkRecentChooser")
+  (c-name "gtk_recent_chooser_set_local_only")
+  (return-type "none")
+  (parameters
+    '("gboolean" "local_only")
+  )
+)
+
+(define-method get_local_only
+  (of-object "GtkRecentChooser")
+  (c-name "gtk_recent_chooser_get_local_only")
+  (return-type "gboolean")
+)
+
+(define-method set_show_tips
+  (of-object "GtkRecentChooser")
+  (c-name "gtk_recent_chooser_set_show_tips")
+  (return-type "none")
+  (parameters
+    '("gboolean" "show_tips")
+  )
+)
+
+(define-method get_show_tips
+  (of-object "GtkRecentChooser")
+  (c-name "gtk_recent_chooser_get_show_tips")
+  (return-type "gboolean")
+)
+
+(define-method set_show_numbers
+  (of-object "GtkRecentChooser")
+  (c-name "gtk_recent_chooser_set_show_numbers")
+  (return-type "none")
+  (parameters
+    '("gboolean" "show_numbers")
+  )
+)
+
+(define-method get_show_numbers
+  (of-object "GtkRecentChooser")
+  (c-name "gtk_recent_chooser_get_show_numbers")
+  (return-type "gboolean")
+)
+
+(define-method set_show_icons
+  (of-object "GtkRecentChooser")
+  (c-name "gtk_recent_chooser_set_show_icons")
+  (return-type "none")
+  (parameters
+    '("gboolean" "show_icons")
+  )
+)
+
+(define-method get_show_icons
+  (of-object "GtkRecentChooser")
+  (c-name "gtk_recent_chooser_get_show_icons")
+  (return-type "gboolean")
+)
+
+(define-method set_sort_type
+  (of-object "GtkRecentChooser")
+  (c-name "gtk_recent_chooser_set_sort_type")
+  (return-type "none")
+  (parameters
+    '("GtkRecentSortType" "sort_type")
+  )
+)
+
+(define-method get_sort_type
+  (of-object "GtkRecentChooser")
+  (c-name "gtk_recent_chooser_get_sort_type")
+  (return-type "GtkRecentSortType")
+)
+
+(define-method set_sort_func
+  (of-object "GtkRecentChooser")
+  (c-name "gtk_recent_chooser_set_sort_func")
+  (return-type "none")
+  (parameters
+    '("GtkRecentSortFunc" "sort_func")
+    '("gpointer" "sort_data")
+    '("GDestroyNotify" "data_destroy")
+  )
+)
+
+(define-method set_current_uri
+  (of-object "GtkRecentChooser")
+  (c-name "gtk_recent_chooser_set_current_uri")
+  (return-type "gboolean")
+  (parameters
+    '("const-gchar*" "uri")
+    '("GError**" "error")
+  )
+)
+
+(define-method get_current_uri
+  (of-object "GtkRecentChooser")
+  (c-name "gtk_recent_chooser_get_current_uri")
+  (caller-owns-return #t)
+  (return-type "gchar*")
+)
+
+(define-method get_current_item
+  (of-object "GtkRecentChooser")
+  (c-name "gtk_recent_chooser_get_current_item")
+  (return-type "GtkRecentInfo*")
+)
+
+(define-method select_uri
+  (of-object "GtkRecentChooser")
+  (c-name "gtk_recent_chooser_select_uri")
+  (return-type "gboolean")
+  (parameters
+    '("const-gchar*" "uri")
+    '("GError**" "error")
+  )
+)
+
+(define-method unselect_uri
+  (of-object "GtkRecentChooser")
+  (c-name "gtk_recent_chooser_unselect_uri")
+  (return-type "none")
+  (parameters
+    '("const-gchar*" "uri")
+  )
+)
+
+(define-method select_all
+  (of-object "GtkRecentChooser")
+  (c-name "gtk_recent_chooser_select_all")
+  (return-type "none")
+)
+
+(define-method unselect_all
+  (of-object "GtkRecentChooser")
+  (c-name "gtk_recent_chooser_unselect_all")
+  (return-type "none")
+)
+
+(define-method get_items
+  (of-object "GtkRecentChooser")
+  (c-name "gtk_recent_chooser_get_items")
+  (return-type "GList*")
+)
+
+(define-method get_uris
+  (of-object "GtkRecentChooser")
+  (c-name "gtk_recent_chooser_get_uris")
+  (return-type "gchar**")
+  (parameters
+    '("gsize*" "length")
+  )
+)
+
+(define-method add_filter
+  (of-object "GtkRecentChooser")
+  (c-name "gtk_recent_chooser_add_filter")
+  (return-type "none")
+  (parameters
+    '("GtkRecentFilter*" "filter")
+  )
+)
+
+(define-method remove_filter
+  (of-object "GtkRecentChooser")
+  (c-name "gtk_recent_chooser_remove_filter")
+  (return-type "none")
+  (parameters
+    '("GtkRecentFilter*" "filter")
+  )
+)
+
+(define-method list_filters
+  (of-object "GtkRecentChooser")
+  (c-name "gtk_recent_chooser_list_filters")
+  (return-type "GSList*")
+)
+
+(define-method set_filter
+  (of-object "GtkRecentChooser")
+  (c-name "gtk_recent_chooser_set_filter")
+  (return-type "none")
+  (parameters
+    '("GtkRecentFilter*" "filter")
+  )
+)
+
+(define-method get_filter
+  (of-object "GtkRecentChooser")
+  (c-name "gtk_recent_chooser_get_filter")
+  (return-type "GtkRecentFilter*")
+)
+
+(define-virtual set_current_uri
+  (of-object "GtkRecentChooser")
+  (return-type "gboolean")
+  (parameters
+    '("const-gchar*" "uri")
+    '("GError**" "error")
+  )
+)
+
+(define-virtual get_current_uri
+  (of-object "GtkRecentChooser")
+  (caller-owns-return #t)
+  (return-type "gchar*")
+)
+
+(define-virtual select_uri
+  (of-object "GtkRecentChooser")
+  (return-type "gboolean")
+  (parameters
+    '("const-gchar*" "uri")
+    '("GError**" "error")
+  )
+)
+
+(define-virtual unselect_uri
+  (of-object "GtkRecentChooser")
+  (return-type "none")
+  (parameters
+    '("const-gchar*" "uri")
+  )
+)
+
+(define-virtual select_all
+  (of-object "GtkRecentChooser")
+  (return-type "none")
+)
+
+(define-virtual unselect_all
+  (of-object "GtkRecentChooser")
+  (return-type "none")
+)
+
+(define-virtual get_items
+  (of-object "GtkRecentChooser")
+  (return-type "GList*")
+)
+
+(define-virtual get_recent_manager
+  (of-object "GtkRecentChooser")
+  (return-type "GtkRecentManager*")
+)
+
+(define-virtual add_filter
+  (of-object "GtkRecentChooser")
+  (return-type "none")
+  (parameters
+    '("GtkRecentFilter*" "filter")
+  )
+)
+
+(define-virtual remove_filter
+  (of-object "GtkRecentChooser")
+  (return-type "none")
+  (parameters
+    '("GtkRecentFilter*" "filter")
+  )
+)
+
+(define-virtual list_filters
+  (of-object "GtkRecentChooser")
+  (return-type "GSList*")
+)
+
+(define-virtual set_sort_func
+  (of-object "GtkRecentChooser")
+  (return-type "none")
+  (parameters
+    '("GtkRecentSortFunc" "sort_func")
+    '("gpointer" "data")
+    '("GDestroyNotify" "destroy")
+  )
+)
+
+(define-virtual item_activated
+  (of-object "GtkRecentChooser")
+  (return-type "none")
+)
+
+(define-virtual selection_changed
+  (of-object "GtkRecentChooser")
+  (return-type "none")
+)
+

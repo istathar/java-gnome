@@ -1,0 +1,40 @@
+(define-object Item
+  (in-module "Gtk")
+  (parent "GtkBin")
+  (c-name "GtkItem")
+  (gtype-id "GTK_TYPE_ITEM")
+)
+
+(define-method select
+  (of-object "GtkItem")
+  (c-name "gtk_item_select")
+  (return-type "none")
+)
+
+(define-method deselect
+  (of-object "GtkItem")
+  (c-name "gtk_item_deselect")
+  (return-type "none")
+)
+
+(define-method toggle
+  (of-object "GtkItem")
+  (c-name "gtk_item_toggle")
+  (return-type "none")
+)
+
+(define-virtual select
+  (of-object "GtkItem")
+  (return-type "none")
+)
+
+(define-virtual deselect
+  (of-object "GtkItem")
+  (return-type "none")
+)
+
+(define-virtual toggle
+  (of-object "GtkItem")
+  (return-type "none")
+)
+

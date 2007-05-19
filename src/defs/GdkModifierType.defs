@@ -1,0 +1,23 @@
+(define-flags ModifierType
+  (in-module "Gdk")
+  (c-name "GdkModifierType")
+  (gtype-id "GDK_TYPE_MODIFIER_TYPE")
+  (values
+    '("shift-mask" "GDK_SHIFT_MASK")
+    '("lock-mask" "GDK_LOCK_MASK")
+    '("control-mask" "GDK_CONTROL_MASK")
+    '("mod1-mask" "GDK_MOD1_MASK")
+    '("mod2-mask" "GDK_MOD2_MASK")
+    '("mod3-mask" "GDK_MOD3_MASK")
+    '("mod4-mask" "GDK_MOD4_MASK")
+    '("mod5-mask" "GDK_MOD5_MASK")
+    '("button1-mask" "GDK_BUTTON1_MASK")
+    '("button2-mask" "GDK_BUTTON2_MASK")
+    '("button3-mask" "GDK_BUTTON3_MASK")
+    '("button4-mask" "GDK_BUTTON4_MASK")
+    '("button5-mask" "GDK_BUTTON5_MASK")
+    '("release-mask" "GDK_RELEASE_MASK")
+    '("modifier-mask" "GDK_MODIFIER_MASK")
+  )
+)
+

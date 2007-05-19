@@ -1,0 +1,12 @@
+(define-enum CListDragPos
+  (in-module "Gtk")
+  (c-name "GtkCListDragPos")
+  (gtype-id "GTK_TYPE_CLIST_DRAG_POS")
+  (values
+    '("none" "GTK_CLIST_DRAG_NONE")
+    '("before" "GTK_CLIST_DRAG_BEFORE")
+    '("into" "GTK_CLIST_DRAG_INTO")
+    '("after" "GTK_CLIST_DRAG_AFTER")
+  )
+)
+

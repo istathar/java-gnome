@@ -1,0 +1,190 @@
+(define-object ToolItem
+  (in-module "Gtk")
+  (parent "GtkBin")
+  (c-name "GtkToolItem")
+  (gtype-id "GTK_TYPE_TOOL_ITEM")
+)
+
+(define-function gtk_tool_item_new
+  (is-constructor-of "GtkToolItem")
+  (c-name "gtk_tool_item_new")
+  (caller-owns-return #t)
+  (return-type "GtkToolItem*")
+)
+
+(define-method set_homogeneous
+  (of-object "GtkToolItem")
+  (c-name "gtk_tool_item_set_homogeneous")
+  (return-type "none")
+  (parameters
+    '("gboolean" "homogeneous")
+  )
+)
+
+(define-method get_homogeneous
+  (of-object "GtkToolItem")
+  (c-name "gtk_tool_item_get_homogeneous")
+  (return-type "gboolean")
+)
+
+(define-method set_expand
+  (of-object "GtkToolItem")
+  (c-name "gtk_tool_item_set_expand")
+  (return-type "none")
+  (parameters
+    '("gboolean" "expand")
+  )
+)
+
+(define-method get_expand
+  (of-object "GtkToolItem")
+  (c-name "gtk_tool_item_get_expand")
+  (return-type "gboolean")
+)
+
+(define-method set_tooltip
+  (of-object "GtkToolItem")
+  (c-name "gtk_tool_item_set_tooltip")
+  (return-type "none")
+  (parameters
+    '("GtkTooltips*" "tooltips")
+    '("const-gchar*" "tip_text" (default "NULL") (null-ok))
+    '("const-gchar*" "tip_private" (default "NULL") (null-ok))
+  )
+)
+
+(define-method set_use_drag_window
+  (of-object "GtkToolItem")
+  (c-name "gtk_tool_item_set_use_drag_window")
+  (return-type "none")
+  (parameters
+    '("gboolean" "use_drag_window")
+  )
+)
+
+(define-method get_use_drag_window
+  (of-object "GtkToolItem")
+  (c-name "gtk_tool_item_get_use_drag_window")
+  (return-type "gboolean")
+)
+
+(define-method set_visible_horizontal
+  (of-object "GtkToolItem")
+  (c-name "gtk_tool_item_set_visible_horizontal")
+  (return-type "none")
+  (parameters
+    '("gboolean" "visible_horizontal")
+  )
+)
+
+(define-method get_visible_horizontal
+  (of-object "GtkToolItem")
+  (c-name "gtk_tool_item_get_visible_horizontal")
+  (return-type "gboolean")
+)
+
+(define-method set_visible_vertical
+  (of-object "GtkToolItem")
+  (c-name "gtk_tool_item_set_visible_vertical")
+  (return-type "none")
+  (parameters
+    '("gboolean" "visible_vertical")
+  )
+)
+
+(define-method get_visible_vertical
+  (of-object "GtkToolItem")
+  (c-name "gtk_tool_item_get_visible_vertical")
+  (return-type "gboolean")
+)
+
+(define-method set_is_important
+  (of-object "GtkToolItem")
+  (c-name "gtk_tool_item_set_is_important")
+  (return-type "none")
+  (parameters
+    '("gboolean" "is_important")
+  )
+)
+
+(define-method get_is_important
+  (of-object "GtkToolItem")
+  (c-name "gtk_tool_item_get_is_important")
+  (return-type "gboolean")
+)
+
+(define-method get_icon_size
+  (of-object "GtkToolItem")
+  (c-name "gtk_tool_item_get_icon_size")
+  (return-type "GtkIconSize")
+)
+
+(define-method get_orientation
+  (of-object "GtkToolItem")
+  (c-name "gtk_tool_item_get_orientation")
+  (return-type "GtkOrientation")
+)
+
+(define-method get_toolbar_style
+  (of-object "GtkToolItem")
+  (c-name "gtk_tool_item_get_toolbar_style")
+  (return-type "GtkToolbarStyle")
+)
+
+(define-method get_relief_style
+  (of-object "GtkToolItem")
+  (c-name "gtk_tool_item_get_relief_style")
+  (return-type "GtkReliefStyle")
+)
+
+(define-method retrieve_proxy_menu_item
+  (of-object "GtkToolItem")
+  (c-name "gtk_tool_item_retrieve_proxy_menu_item")
+  (return-type "GtkWidget*")
+)
+
+(define-method set_proxy_menu_item
+  (of-object "GtkToolItem")
+  (c-name "gtk_tool_item_set_proxy_menu_item")
+  (return-type "none")
+  (parameters
+    '("const-gchar*" "menu_item_id")
+    '("GtkWidget*" "menu_item" (null-ok))
+  )
+)
+
+(define-method get_proxy_menu_item
+  (of-object "GtkToolItem")
+  (c-name "gtk_tool_item_get_proxy_menu_item")
+  (return-type "GtkWidget*")
+  (parameters
+    '("const-gchar*" "menu_item_id")
+  )
+)
+
+(define-method rebuild_menu
+  (of-object "GtkToolItem")
+  (c-name "gtk_tool_item_rebuild_menu")
+  (return-type "none")
+)
+
+(define-virtual create_menu_proxy
+  (of-object "GtkToolItem")
+  (return-type "gboolean")
+)
+
+(define-virtual toolbar_reconfigured
+  (of-object "GtkToolItem")
+  (return-type "none")
+)
+
+(define-virtual set_tooltip
+  (of-object "GtkToolItem")
+  (return-type "gboolean")
+  (parameters
+    '("GtkTooltips*" "tooltips")
+    '("const-gchar*" "tip_text")
+    '("const-gchar*" "tip_private")
+  )
+)
+

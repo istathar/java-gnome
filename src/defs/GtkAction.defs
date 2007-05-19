@@ -1,0 +1,210 @@
+(define-object Action
+  (in-module "Gtk")
+  (parent "GObject")
+  (c-name "GtkAction")
+  (gtype-id "GTK_TYPE_ACTION")
+)
+
+(define-function gtk_action_new
+  (is-constructor-of "GtkAction")
+  (c-name "gtk_action_new")
+  (caller-owns-return #t)
+  (return-type "GtkAction*")
+  (properties
+    '("name")
+    '("label")
+    '("tooltip")
+    '("stock_id")
+  )
+)
+
+(define-method get_name
+  (of-object "GtkAction")
+  (c-name "gtk_action_get_name")
+  (return-type "const-gchar*")
+)
+
+(define-method is_sensitive
+  (of-object "GtkAction")
+  (c-name "gtk_action_is_sensitive")
+  (return-type "gboolean")
+)
+
+(define-method get_sensitive
+  (of-object "GtkAction")
+  (c-name "gtk_action_get_sensitive")
+  (return-type "gboolean")
+)
+
+(define-method is_visible
+  (of-object "GtkAction")
+  (c-name "gtk_action_is_visible")
+  (return-type "gboolean")
+)
+
+(define-method get_visible
+  (of-object "GtkAction")
+  (c-name "gtk_action_get_visible")
+  (return-type "gboolean")
+)
+
+(define-method activate
+  (of-object "GtkAction")
+  (c-name "gtk_action_activate")
+  (return-type "none")
+)
+
+(define-method create_icon
+  (of-object "GtkAction")
+  (c-name "gtk_action_create_icon")
+  (return-type "GtkWidget*")
+  (parameters
+    '("GtkIconSize" "icon_size")
+  )
+)
+
+(define-method create_menu_item
+  (of-object "GtkAction")
+  (c-name "gtk_action_create_menu_item")
+  (return-type "GtkWidget*")
+)
+
+(define-method create_tool_item
+  (of-object "GtkAction")
+  (c-name "gtk_action_create_tool_item")
+  (return-type "GtkWidget*")
+)
+
+(define-method connect_proxy
+  (of-object "GtkAction")
+  (c-name "gtk_action_connect_proxy")
+  (return-type "none")
+  (parameters
+    '("GtkWidget*" "proxy")
+  )
+)
+
+(define-method disconnect_proxy
+  (of-object "GtkAction")
+  (c-name "gtk_action_disconnect_proxy")
+  (return-type "none")
+  (parameters
+    '("GtkWidget*" "proxy")
+  )
+)
+
+(define-method get_proxies
+  (of-object "GtkAction")
+  (c-name "gtk_action_get_proxies")
+  (return-type "GSList*")
+)
+
+(define-method connect_accelerator
+  (of-object "GtkAction")
+  (c-name "gtk_action_connect_accelerator")
+  (return-type "none")
+)
+
+(define-method disconnect_accelerator
+  (of-object "GtkAction")
+  (c-name "gtk_action_disconnect_accelerator")
+  (return-type "none")
+)
+
+(define-method get_accel_path
+  (of-object "GtkAction")
+  (c-name "gtk_action_get_accel_path")
+  (return-type "const-gchar*")
+)
+
+(define-method block_activate_from
+  (of-object "GtkAction")
+  (c-name "gtk_action_block_activate_from")
+  (return-type "none")
+  (parameters
+    '("GtkWidget*" "proxy")
+  )
+)
+
+(define-method unblock_activate_from
+  (of-object "GtkAction")
+  (c-name "gtk_action_unblock_activate_from")
+  (return-type "none")
+  (parameters
+    '("GtkWidget*" "proxy")
+  )
+)
+
+(define-method set_accel_path
+  (of-object "GtkAction")
+  (c-name "gtk_action_set_accel_path")
+  (return-type "none")
+  (parameters
+    '("const-gchar*" "accel_path")
+  )
+)
+
+(define-method set_accel_group
+  (of-object "GtkAction")
+  (c-name "gtk_action_set_accel_group")
+  (return-type "none")
+  (parameters
+    '("GtkAccelGroup*" "accel_group")
+  )
+)
+
+(define-method set_sensitive
+  (of-object "GtkAction")
+  (c-name "gtk_action_set_sensitive")
+  (return-type "none")
+  (parameters
+    '("gboolean" "sensitive")
+  )
+)
+
+(define-method set_visible
+  (of-object "GtkAction")
+  (c-name "gtk_action_set_visible")
+  (return-type "none")
+  (parameters
+    '("gboolean" "visible")
+  )
+)
+
+(define-virtual activate
+  (of-object "GtkAction")
+  (return-type "none")
+)
+
+(define-virtual connect_proxy
+  (of-object "GtkAction")
+  (return-type "none")
+  (parameters
+    '("GtkWidget*" "proxy")
+  )
+)
+
+(define-virtual create_menu_item
+  (of-object "GtkAction")
+  (return-type "GtkWidget*")
+)
+
+(define-virtual create_tool_item
+  (of-object "GtkAction")
+  (return-type "GtkWidget*")
+)
+
+(define-virtual disconnect_proxy
+  (of-object "GtkAction")
+  (return-type "none")
+  (parameters
+    '("GtkWidget*" "proxy")
+  )
+)
+
+(define-method get_accel_closure
+  (of-object "GtkAction")
+  (c-name "gtk_action_get_accel_closure")
+  (return-type "GClosure*")
+)
+

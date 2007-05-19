@@ -1,0 +1,11 @@
+(define-enum PageSet
+  (in-module "Gtk")
+  (c-name "GtkPageSet")
+  (gtype-id "GTK_TYPE_PAGE_SET")
+  (values
+    '("all" "GTK_PAGE_SET_ALL")
+    '("even" "GTK_PAGE_SET_EVEN")
+    '("odd" "GTK_PAGE_SET_ODD")
+  )
+)
+

@@ -1,0 +1,15 @@
+(define-enum RecentManagerError
+  (in-module "Gtk")
+  (c-name "GtkRecentManagerError")
+  (gtype-id "GTK_TYPE_RECENT_MANAGER_ERROR")
+  (values
+    '("not-found" "GTK_RECENT_MANAGER_ERROR_NOT_FOUND")
+    '("invalid-uri" "GTK_RECENT_MANAGER_ERROR_INVALID_URI")
+    '("invalid-encoding" "GTK_RECENT_MANAGER_ERROR_INVALID_ENCODING")
+    '("not-registered" "GTK_RECENT_MANAGER_ERROR_NOT_REGISTERED")
+    '("read" "GTK_RECENT_MANAGER_ERROR_READ")
+    '("write" "GTK_RECENT_MANAGER_ERROR_WRITE")
+    '("unknown" "GTK_RECENT_MANAGER_ERROR_UNKNOWN")
+  )
+)
+

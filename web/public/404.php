@@ -51,7 +51,8 @@ contributed content. You are certainly welcome to make any changes you like
 there!</p>
 
 <?
-	} else if (strstr($_SERVER["REQUEST_URI"], "doc/javadoc")) {
+	} else if ((strstr($_SERVER["REQUEST_URI"], "doc/javadoc")) ||
+	           (strstr($_SERVER["REQUEST_URI"], "docs/javadoc"))) {
 ?>
 
 <p>Public JavaDoc has been permanently moved. If you are pointing your own
@@ -60,11 +61,12 @@ correct URL to link to is as follows:
 
 <ul>
 <li><p>
-<code>http://java-gnome.sourceforge.net/4.0/doc/api/</code>
+<a href="http://java-gnome.sourceforge.net/4.0/doc/api/overview-summary.html"><code>http://java-gnome.sourceforge.net/4.0/doc/api/</code></a>
 </p></li>
 </ul>
 
-<p>where <code>4.0</code> is the current API version.</p>
+<p>where <code>4.0</code> is the current API version. The standard
+<code>pacakges-list</code> file is there.</p>
 
 <?
 	} else {
@@ -76,15 +78,15 @@ targets are as follows
 
 <ul>
 <li><p>API documentation root<br>
-<code>http://java-gnome.sourceforge.net/4.0/doc/api/</code>
+<a href="http://java-gnome.sourceforge.net/4.0/doc/api/overview-summary.html"><code>http://java-gnome.sourceforge.net/4.0/doc/api/</code></a>
 </p></li>
 
 <li><p>Source code<br>
-<code>http://research.operationaldynamics.com/bzr/java-gnome/mainline/</code>
+<a href="http://research.operationaldynamics.com/bzr/java-gnome/mainline/"><code>http://research.operationaldynamics.com/bzr/java-gnome/mainline/</code></a>
 </p></li>
 
 <li><p>Download tarballs<br>
-<code>http://ftp.gnome.org/pub/gnome/sources/java-gnome/4.0/</code>
+<a href="http://ftp.gnome.org/pub/gnome/sources/java-gnome/4.0/"><code>http://ftp.gnome.org/pub/gnome/sources/java-gnome/4.0/</code></a>
 </p></li>
 
 </ul>

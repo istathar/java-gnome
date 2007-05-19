@@ -1,0 +1,6 @@
+(define-method free
+  (of-object "AtkAttributeSet")
+  (c-name "atk_attribute_set_free")
+  (return-type "none")
+)
+

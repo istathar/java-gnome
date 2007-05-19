@@ -1,0 +1,11 @@
+(define-enum PrintError
+  (in-module "Gtk")
+  (c-name "GtkPrintError")
+  (gtype-id "GTK_TYPE_PRINT_ERROR")
+  (values
+    '("general" "GTK_PRINT_ERROR_GENERAL")
+    '("internal-error" "GTK_PRINT_ERROR_INTERNAL_ERROR")
+    '("nomem" "GTK_PRINT_ERROR_NOMEM")
+  )
+)
+

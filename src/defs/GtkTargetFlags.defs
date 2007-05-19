@@ -1,0 +1,10 @@
+(define-flags TargetFlags
+  (in-module "Gtk")
+  (c-name "GtkTargetFlags")
+  (gtype-id "GTK_TYPE_TARGET_FLAGS")
+  (values
+    '("app" "GTK_TARGET_SAME_APP")
+    '("widget" "GTK_TARGET_SAME_WIDGET")
+  )
+)
+

@@ -1,0 +1,23 @@
+(define-boxed Requisition
+  (in-module "Gtk")
+  (c-name "GtkRequisition")
+  (gtype-id "GTK_TYPE_REQUISITION")
+  (fields
+    '("gint" "width")
+    '("gint" "height")
+  )
+)
+
+(define-method copy
+  (of-object "GtkRequisition")
+  (c-name "gtk_requisition_copy")
+  (caller-owns-return #t)
+  (return-type "GtkRequisition*")
+)
+
+(define-method free
+  (of-object "GtkRequisition")
+  (c-name "gtk_requisition_free")
+  (return-type "none")
+)
+

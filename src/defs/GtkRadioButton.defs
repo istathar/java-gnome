@@ -1,0 +1,98 @@
+(define-object RadioButton
+  (in-module "Gtk")
+  (parent "GtkCheckButton")
+  (c-name "GtkRadioButton")
+  (gtype-id "GTK_TYPE_RADIO_BUTTON")
+)
+
+(define-function gtk_radio_button_new
+  (is-constructor-of "GtkRadioButton")
+  (c-name "gtk_radio_button_new")
+  (caller-owns-return #t)
+  (return-type "GtkWidget*")
+  (parameters
+    '("GSList*" "group")
+  )
+)
+
+(define-function radio_button_new_from_widget
+  (is-constructor-of "GtkRadioButton")
+  (c-name "gtk_radio_button_new_from_widget")
+  (caller-owns-return #t)
+  (return-type "GtkWidget*")
+  (parameters
+    '("GtkRadioButton*" "group")
+  )
+)
+
+(define-function radio_button_new_with_label
+  (is-constructor-of "GtkRadioButton")
+  (c-name "gtk_radio_button_new_with_label")
+  (caller-owns-return #t)
+  (return-type "GtkWidget*")
+  (parameters
+    '("GSList*" "group")
+    '("const-gchar*" "label")
+  )
+)
+
+(define-function radio_button_new_with_label_from_widget
+  (is-constructor-of "GtkRadioButton")
+  (c-name "gtk_radio_button_new_with_label_from_widget")
+  (caller-owns-return #t)
+  (return-type "GtkWidget*")
+  (parameters
+    '("GtkRadioButton" "*group")
+    '("const-gchar*" "label")
+  )
+)
+
+(define-function radio_button_new_with_mnemonic
+  (is-constructor-of "GtkRadioButton")
+  (c-name "gtk_radio_button_new_with_mnemonic")
+  (caller-owns-return #t)
+  (return-type "GtkWidget*")
+  (parameters
+    '("GSList*" "group")
+    '("const-gchar*" "label")
+  )
+)
+
+(define-function radio_button_new_with_mnemonic_from_widget
+  (is-constructor-of "GtkRadioButton")
+  (c-name "gtk_radio_button_new_with_mnemonic_from_widget")
+  (caller-owns-return #t)
+  (return-type "GtkWidget*")
+  (parameters
+    '("GtkRadioButton" "*group")
+    '("const-gchar*" "label")
+  )
+)
+
+(define-method get_group
+  (of-object "GtkRadioButton")
+  (c-name "gtk_radio_button_get_group")
+  (return-type "GSList*")
+)
+
+(define-method set_group
+  (of-object "GtkRadioButton")
+  (c-name "gtk_radio_button_set_group")
+  (return-type "none")
+  (parameters
+    '("GSList*" "group")
+  )
+)
+
+(define-method group
+  (of-object "GtkRadioButton")
+  (c-name "gtk_radio_button_group")
+  (return-type "GSList*")
+  (deprecated "use GtkRadioButton.get_group")
+)
+
+(define-virtual group_changed
+  (of-object "GtkRadioButton")
+  (return-type "none")
+)
+

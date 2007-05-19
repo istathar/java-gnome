@@ -1,0 +1,106 @@
+(define-method add_selection
+  (of-object "AtkSelection")
+  (c-name "atk_selection_add_selection")
+  (return-type "gboolean")
+  (parameters
+    '("gint" "i")
+  )
+)
+
+(define-method clear_selection
+  (of-object "AtkSelection")
+  (c-name "atk_selection_clear_selection")
+  (return-type "gboolean")
+)
+
+(define-method ref_selection
+  (of-object "AtkSelection")
+  (c-name "atk_selection_ref_selection")
+  (return-type "AtkObject*")
+  (parameters
+    '("gint" "i")
+  )
+)
+
+(define-method get_selection_count
+  (of-object "AtkSelection")
+  (c-name "atk_selection_get_selection_count")
+  (return-type "gint")
+)
+
+(define-method is_child_selected
+  (of-object "AtkSelection")
+  (c-name "atk_selection_is_child_selected")
+  (return-type "gboolean")
+  (parameters
+    '("gint" "i")
+  )
+)
+
+(define-method remove_selection
+  (of-object "AtkSelection")
+  (c-name "atk_selection_remove_selection")
+  (return-type "gboolean")
+  (parameters
+    '("gint" "i")
+  )
+)
+
+(define-method select_all_selection
+  (of-object "AtkSelection")
+  (c-name "atk_selection_select_all_selection")
+  (return-type "gboolean")
+)
+
+(define-virtual add_selection
+  (of-object "AtkSelection")
+  (return-type "gboolean")
+  (parameters
+    '("gint" "i")
+  )
+)
+
+(define-virtual clear_selection
+  (of-object "AtkSelection")
+  (return-type "gboolean")
+)
+
+(define-virtual ref_selection
+  (of-object "AtkSelection")
+  (return-type "AtkObject*")
+  (parameters
+    '("gint" "i")
+  )
+)
+
+(define-virtual get_selection_count
+  (of-object "AtkSelection")
+  (return-type "gint")
+)
+
+(define-virtual is_child_selected
+  (of-object "AtkSelection")
+  (return-type "gboolean")
+  (parameters
+    '("gint" "i")
+  )
+)
+
+(define-virtual remove_selection
+  (of-object "AtkSelection")
+  (return-type "gboolean")
+  (parameters
+    '("gint" "i")
+  )
+)
+
+(define-virtual select_all_selection
+  (of-object "AtkSelection")
+  (return-type "gboolean")
+)
+
+(define-virtual selection_changed
+  (of-object "AtkSelection")
+  (return-type "none")
+)
+

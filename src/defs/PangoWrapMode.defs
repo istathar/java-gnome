@@ -1,0 +1,11 @@
+(define-enum WrapMode
+  (in-module "Pango")
+  (c-name "PangoWrapMode")
+  (gtype-id "PANGO_TYPE_WRAP_MODE")
+  (values
+    '("word" "PANGO_WRAP_WORD")
+    '("char" "PANGO_WRAP_CHAR")
+    '("word-char" "PANGO_WRAP_WORD_CHAR")
+  )
+)
+

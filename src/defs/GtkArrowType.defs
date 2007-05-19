@@ -1,0 +1,12 @@
+(define-enum ArrowType
+  (in-module "Gtk")
+  (c-name "GtkArrowType")
+  (gtype-id "GTK_TYPE_ARROW_TYPE")
+  (values
+    '("up" "GTK_ARROW_UP")
+    '("down" "GTK_ARROW_DOWN")
+    '("left" "GTK_ARROW_LEFT")
+    '("right" "GTK_ARROW_RIGHT")
+  )
+)
+

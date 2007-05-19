@@ -1,0 +1,82 @@
+(define-boxed IconInfo
+  (in-module "Gtk")
+  (c-name "GtkIconInfo")
+  (gtype-id "GTK_TYPE_ICON_INFO")
+  (copy-func "gtk_icon_info_copy")
+  (release-func "gtk_icon_info_free")
+)
+
+(define-method copy
+  (of-object "GtkIconInfo")
+  (c-name "gtk_icon_info_copy")
+  (caller-owns-return #t)
+  (return-type "GtkIconInfo*")
+)
+
+(define-method free
+  (of-object "GtkIconInfo")
+  (c-name "gtk_icon_info_free")
+  (return-type "none")
+)
+
+(define-method get_base_size
+  (of-object "GtkIconInfo")
+  (c-name "gtk_icon_info_get_base_size")
+  (return-type "gint")
+)
+
+(define-method get_filename
+  (of-object "GtkIconInfo")
+  (c-name "gtk_icon_info_get_filename")
+  (return-type "const-gchar*")
+)
+
+(define-method get_builtin_pixbuf
+  (of-object "GtkIconInfo")
+  (c-name "gtk_icon_info_get_builtin_pixbuf")
+  (return-type "GdkPixbuf*")
+)
+
+(define-method load_icon
+  (of-object "GtkIconInfo")
+  (c-name "gtk_icon_info_load_icon")
+  (return-type "GdkPixbuf*")
+  (parameters
+    '("GError**" "error")
+  )
+)
+
+(define-method set_raw_coordinates
+  (of-object "GtkIconInfo")
+  (c-name "gtk_icon_info_set_raw_coordinates")
+  (return-type "none")
+  (parameters
+    '("gboolean" "raw_coordinates")
+  )
+)
+
+(define-method get_embedded_rect
+  (of-object "GtkIconInfo")
+  (c-name "gtk_icon_info_get_embedded_rect")
+  (return-type "gboolean")
+  (parameters
+    '("GdkRectangle*" "rectangle")
+  )
+)
+
+(define-method get_attach_points
+  (of-object "GtkIconInfo")
+  (c-name "gtk_icon_info_get_attach_points")
+  (return-type "gboolean")
+  (parameters
+    '("GdkPoint**" "points")
+    '("gint*" "n_points")
+  )
+)
+
+(define-method get_display_name
+  (of-object "GtkIconInfo")
+  (c-name "gtk_icon_info_get_display_name")
+  (return-type "const-gchar*")
+)
+

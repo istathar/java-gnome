@@ -1,0 +1,63 @@
+(define-object PixbufAnimation
+  (in-module "Gdk")
+  (parent "GObject")
+  (c-name "GdkPixbufAnimation")
+  (gtype-id "GDK_TYPE_PIXBUF_ANIMATION")
+)
+
+(define-function pixbuf_animation_new_from_file
+  (is-constructor-of "GdkPixbufAnimation")
+  (c-name "gdk_pixbuf_animation_new_from_file")
+  (caller-owns-return #t)
+  (return-type "GdkPixbufAnimation*")
+  (parameters
+    '("const-char*" "filename")
+    '("GError**" "error")
+  )
+)
+
+(define-method ref
+  (of-object "GdkPixbufAnimation")
+  (c-name "gdk_pixbuf_animation_ref")
+  (return-type "GdkPixbufAnimation*")
+)
+
+(define-method unref
+  (of-object "GdkPixbufAnimation")
+  (c-name "gdk_pixbuf_animation_unref")
+  (return-type "none")
+)
+
+(define-method get_width
+  (of-object "GdkPixbufAnimation")
+  (c-name "gdk_pixbuf_animation_get_width")
+  (return-type "int")
+)
+
+(define-method get_height
+  (of-object "GdkPixbufAnimation")
+  (c-name "gdk_pixbuf_animation_get_height")
+  (return-type "int")
+)
+
+(define-method is_static_image
+  (of-object "GdkPixbufAnimation")
+  (c-name "gdk_pixbuf_animation_is_static_image")
+  (return-type "gboolean")
+)
+
+(define-method get_static_image
+  (of-object "GdkPixbufAnimation")
+  (c-name "gdk_pixbuf_animation_get_static_image")
+  (return-type "GdkPixbuf*")
+)
+
+(define-method get_iter
+  (of-object "GdkPixbufAnimation")
+  (c-name "gdk_pixbuf_animation_get_iter")
+  (return-type "GdkPixbufAnimationIter*")
+  (parameters
+    '("const-GTimeVal*" "start_time")
+  )
+)
+

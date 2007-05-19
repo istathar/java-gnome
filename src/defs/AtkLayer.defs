@@ -1,0 +1,15 @@
+(define-enum Layer
+  (in-module "Atk")
+  (c-name "AtkLayer")
+  (gtype-id "ATK_TYPE_LAYER")
+  (values
+    '("invalid" "ATK_LAYER_INVALID")
+    '("background" "ATK_LAYER_BACKGROUND")
+    '("canvas" "ATK_LAYER_CANVAS")
+    '("widget" "ATK_LAYER_WIDGET")
+    '("mdi" "ATK_LAYER_MDI")
+    '("popup" "ATK_LAYER_POPUP")
+    '("overlay" "ATK_LAYER_OVERLAY")
+  )
+)
+

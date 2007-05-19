@@ -1,0 +1,49 @@
+(define-object MenuToolButton
+  (in-module "Gtk")
+  (parent "GtkToolButton")
+  (c-name "GtkMenuToolButton")
+  (gtype-id "GTK_TYPE_MENU_TOOL_BUTTON")
+)
+
+(define-function gtk_menu_tool_button_new
+  (is-constructor-of "GtkMenuToolButton")
+  (c-name "gtk_menu_tool_button_new")
+  (caller-owns-return #t)
+  (return-type "GtkToolItem*")
+  (parameters
+    '("GtkWidget*" "icon_widget")
+    '("const-gchar*" "label")
+  )
+)
+
+(define-method set_menu
+  (of-object "GtkMenuToolButton")
+  (c-name "gtk_menu_tool_button_set_menu")
+  (return-type "none")
+  (parameters
+    '("GtkWidget*" "menu")
+  )
+)
+
+(define-method get_menu
+  (of-object "GtkMenuToolButton")
+  (c-name "gtk_menu_tool_button_get_menu")
+  (return-type "GtkWidget*")
+)
+
+(define-method set_arrow_tooltip
+  (of-object "GtkMenuToolButton")
+  (c-name "gtk_menu_tool_button_set_arrow_tooltip")
+  (return-type "none")
+  (parameters
+    '("GtkTooltips*" "tooltips")
+    '("const-gchar*" "tip_text" (null-ok))
+    '("const-gchar*" "tip_private" (default "NULL") (null-ok))
+  )
+)
+
+(define-virtual show_menu
+  (of-object "GtkMenuToolButton")
+  (return-type "none")
+)
+

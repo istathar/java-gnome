@@ -1,0 +1,34 @@
+(define-object PixbufAnimationIter
+  (in-module "Gdk")
+  (parent "GObject")
+  (c-name "GdkPixbufAnimationIter")
+  (gtype-id "GDK_TYPE_PIXBUF_ANIMATION_ITER")
+)
+
+(define-method get_delay_time
+  (of-object "GdkPixbufAnimationIter")
+  (c-name "gdk_pixbuf_animation_iter_get_delay_time")
+  (return-type "int")
+)
+
+(define-method get_pixbuf
+  (of-object "GdkPixbufAnimationIter")
+  (c-name "gdk_pixbuf_animation_iter_get_pixbuf")
+  (return-type "GdkPixbuf*")
+)
+
+(define-method on_currently_loading_frame
+  (of-object "GdkPixbufAnimationIter")
+  (c-name "gdk_pixbuf_animation_iter_on_currently_loading_frame")
+  (return-type "gboolean")
+)
+
+(define-method advance
+  (of-object "GdkPixbufAnimationIter")
+  (c-name "gdk_pixbuf_animation_iter_advance")
+  (return-type "gboolean")
+  (parameters
+    '("const-GTimeVal*" "current_time")
+  )
+)
+

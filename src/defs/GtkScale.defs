@@ -1,0 +1,91 @@
+(define-object Scale
+  (in-module "Gtk")
+  (parent "GtkRange")
+  (c-name "GtkScale")
+  (gtype-id "GTK_TYPE_SCALE")
+)
+
+(define-method set_digits
+  (of-object "GtkScale")
+  (c-name "gtk_scale_set_digits")
+  (return-type "none")
+  (parameters
+    '("gint" "digits")
+  )
+)
+
+(define-method get_digits
+  (of-object "GtkScale")
+  (c-name "gtk_scale_get_digits")
+  (return-type "gint")
+)
+
+(define-method set_draw_value
+  (of-object "GtkScale")
+  (c-name "gtk_scale_set_draw_value")
+  (return-type "none")
+  (parameters
+    '("gboolean" "draw_value")
+  )
+)
+
+(define-method get_draw_value
+  (of-object "GtkScale")
+  (c-name "gtk_scale_get_draw_value")
+  (return-type "gboolean")
+)
+
+(define-method set_value_pos
+  (of-object "GtkScale")
+  (c-name "gtk_scale_set_value_pos")
+  (return-type "none")
+  (parameters
+    '("GtkPositionType" "pos")
+  )
+)
+
+(define-method get_value_pos
+  (of-object "GtkScale")
+  (c-name "gtk_scale_get_value_pos")
+  (return-type "GtkPositionType")
+)
+
+(define-method get_layout
+  (of-object "GtkScale")
+  (c-name "gtk_scale_get_layout")
+  (return-type "PangoLayout*")
+)
+
+(define-method get_layout_offsets
+  (of-object "GtkScale")
+  (c-name "gtk_scale_get_layout_offsets")
+  (return-type "none")
+  (parameters
+    '("gint*" "x")
+    '("gint*" "y")
+  )
+)
+
+(define-virtual format_value
+  (of-object "GtkScale")
+  (caller-owns-return #t)
+  (return-type "gchar*")
+  (parameters
+    '("gdouble" "value")
+  )
+)
+
+(define-virtual draw_value
+  (of-object "GtkScale")
+  (return-type "none")
+)
+
+(define-virtual get_layout_offsets
+  (of-object "GtkScale")
+  (return-type "none")
+  (parameters
+    '("gint*" "x")
+    '("gint*" "y")
+  )
+)
+

@@ -1,0 +1,13 @@
+(define-enum ToolbarChildType
+  (in-module "Gtk")
+  (c-name "GtkToolbarChildType")
+  (gtype-id "GTK_TYPE_TOOLBAR_CHILD_TYPE")
+  (values
+    '("space" "GTK_TOOLBAR_CHILD_SPACE")
+    '("button" "GTK_TOOLBAR_CHILD_BUTTON")
+    '("togglebutton" "GTK_TOOLBAR_CHILD_TOGGLEBUTTON")
+    '("radiobutton" "GTK_TOOLBAR_CHILD_RADIOBUTTON")
+    '("widget" "GTK_TOOLBAR_CHILD_WIDGET")
+  )
+)
+

@@ -1,0 +1,54 @@
+(define-object TextChildAnchor
+  (in-module "Gtk")
+  (parent "GObject")
+  (c-name "GtkTextChildAnchor")
+  (gtype-id "GTK_TYPE_TEXT_CHILD_ANCHOR")
+)
+
+(define-function gtk_text_child_anchor_new
+  (is-constructor-of "GtkTextChildAnchor")
+  (c-name "gtk_text_child_anchor_new")
+  (caller-owns-return #t)
+  (return-type "GtkTextChildAnchor*")
+)
+
+(define-method get_widgets
+  (of-object "GtkTextChildAnchor")
+  (c-name "gtk_text_child_anchor_get_widgets")
+  (return-type "GList*")
+)
+
+(define-method get_deleted
+  (of-object "GtkTextChildAnchor")
+  (c-name "gtk_text_child_anchor_get_deleted")
+  (return-type "gboolean")
+)
+
+(define-method register_child
+  (of-object "GtkTextChildAnchor")
+  (c-name "gtk_text_child_anchor_register_child")
+  (return-type "none")
+  (parameters
+    '("GtkWidget*" "child")
+    '("GtkTextLayout*" "layout")
+  )
+)
+
+(define-method unregister_child
+  (of-object "GtkTextChildAnchor")
+  (c-name "gtk_text_child_anchor_unregister_child")
+  (return-type "none")
+  (parameters
+    '("GtkWidget*" "child")
+  )
+)
+
+(define-method queue_resize
+  (of-object "GtkTextChildAnchor")
+  (c-name "gtk_text_child_anchor_queue_resize")
+  (return-type "none")
+  (parameters
+    '("GtkTextLayout*" "layout")
+  )
+)
+

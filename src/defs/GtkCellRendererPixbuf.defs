@@ -1,0 +1,14 @@
+(define-object CellRendererPixbuf
+  (in-module "Gtk")
+  (parent "GtkCellRenderer")
+  (c-name "GtkCellRendererPixbuf")
+  (gtype-id "GTK_TYPE_CELL_RENDERER_PIXBUF")
+)
+
+(define-function gtk_cell_renderer_pixbuf_new
+  (is-constructor-of "GtkCellRendererPixbuf")
+  (c-name "gtk_cell_renderer_pixbuf_new")
+  (caller-owns-return #t)
+  (return-type "GtkCellRenderer*")
+)
+

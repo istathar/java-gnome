@@ -1,0 +1,13 @@
+(define-enum WindowPosition
+  (in-module "Gtk")
+  (c-name "GtkWindowPosition")
+  (gtype-id "GTK_TYPE_WINDOW_POSITION")
+  (values
+    '("none" "GTK_WIN_POS_NONE")
+    '("center" "GTK_WIN_POS_CENTER")
+    '("mouse" "GTK_WIN_POS_MOUSE")
+    '("center-always" "GTK_WIN_POS_CENTER_ALWAYS")
+    '("center-on-parent" "GTK_WIN_POS_CENTER_ON_PARENT")
+  )
+)
+

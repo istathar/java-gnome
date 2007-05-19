@@ -1,5 +1,221 @@
 NEWS
 
+<a name="4.0.2" id="1171283501" title="End of the beginning"></a>
+
+java-gnome 4.0.2 (12 Feb 2007)
+==============================
+
+_The End of the Beginning!_
+
+Major bugfixes and refactorings
+-------------------------------
+
+Setting and getting properties on GObjects requires some tricky manoeuvring.
+We implemented the code to do this early on, and it looked like our general
+mechanism for getting Proxy instances for arbitrary pointers was working  fine
+for properties. It turns out, however, that when you call `g_type_name()` on a
+GValue _containing_ a GObject, it returns the name of the type that was listed
+when the property specification was registered, rather than saying it is a
+GValue (as you might expect) or what the object actually is (that you might
+_also_ reasonably expect).
+
+This led to all kinds of nastiness since the type name was what we were using
+in our `instanceFor()` mechanism to discriminate (on the Java side) what kind
+of Proxy subclass to create. The example we tripped over was asking for the
+parent property of a Button packed into a VBox. What `g_type_name()` told us
+was "GtkContainer", not "GtkVBox"! And that was a big problem, because
+Container is abstract, and besides, we want to instantiate a concrete VBox
+Proxy, not a Container one!
+
+Solving the problem involved major changes to:
+
+ * **`org.gnome.glib.Value`**
+ * **`org.gnome.glib.Object`**
+ * `org.gnome.glib.Plumbing`
+ * `org.gnome.glib.GValue`
+ * `org.gnome.glib.GObject`
+
+The solution basically boiled down to having two separate code paths: one
+named `objectFor()` [a greatly simplified version of the previous
+`instanceFor()`] which returns normal Proxy objects for GObject subclasses
+(Buttons and Labels and whatnot), and a new code path available via
+`valueFor()` to specifically return our GValue Proxy for the cases where we
+know we're getting a GValue back. Since that occurs in limited and known
+circumstances only (ie, when we're getting properties) it's no problem to know
+which to use when.
+
+Thanks to Davyd Madeley for extensive debugging assistance, and credit to
+Manish Singh, James Henstridge, and Malcolm Tredinnick for having analyzed the
+root cause issue and having clarified that two code paths would indeed be
+necessary.
+
+As often happens when you kick a stone loose, we were able to do a number of
+refactorings to clean things up. This eventually led to the realization (ok,
+epiphany) that our treatment of the GValue mechanism was needlessly complex.
+Toss. We no longer have individual Value subclasses for each different
+fundamental type, but rather just leave them as opaque references:
+
+ * <span style="text-decoration: line-through;">
+   `org.gnome.glib.Fundamental`
+ * <span style="text-decoration: line-through;">
+   `org.gnome.glib.StringValue`  
+ * <span style="text-decoration: line-through;">
+   `org.gnome.glib.BooleanValue`
+ * <span style="text-decoration: line-through;">
+   `org.gnome.glib.IntegerValue`
+ * <span style="text-decoration: line-through;">
+   `org.gnome.glib.EnumValue`
+ * <span style="text-decoration: line-through;">
+   `org.gnome.glib.ObjectValue`
+ * **`org.gnome.glib.Value`**
+ * `org.gnome.glib.Plumbing`
+
+This allowed a further simplification of the `valueFor()` mechanism and even
+more smashing about in Plumbing with a chainsaw. Net result was a _reduction_
+by several hundred lines of code. Yeay!
+
+All of these changes were confined to the internals of the binding machinery
+and are not user visible.
+
+Loading `.glade` files
+----------------------
+
+User interface designers are nothing new, but one of the really cool things
+about GTK has long been the existence of `libglade`. It's a library which
+takes the output of a one of the GNOME user interface designers (such as such
+as **Glade 3** or **Gazpacho**) and dynamically, at runtime, generates live
+Windows full of Widgets!
+
+With the arbitrary Proxy retrieval sorted out, the beginnings of a binding of
+`libglade` was possible. None of the fancy stuff is there yet, but a `.glade`
+file can be loaded, and Widgets retrieved from the instantiated tree.
+
+* **`org.gnome.glade.Glade`**
+* **`org.gnome.glade.Xml`**
+* _`org.gnome.glade.GladeXml`_
+
+The JavaDoc for these classes clearly indicates that this is preliminary and
+subject to change. It may well all be blown away when GtkBuilder lands. We'll
+see.
+
+Testing framework
+-----------------
+
+We've introduced the beginnings of a unit test framework. At the moment, this
+just evaluates various getters and setters without doing anything that
+requires the main loop. Despite this, the unit tests end up exercising the
+entire Proxy system discussed above; validating that the properties set and
+get and that the correct Proxy object is returned through a round trip is no
+mean feat.
+
+You can run the suite from Eclipse, by specifying a JUnit 3 launcher on class
+UnitTests in the default package in `tests/java`, or by running 
+
+	$ make test
+
+from the command line.
+
+Further coverage
+----------------
+
+This release also sees the addition of:
+
+* **`org.gnome.gtk.FileChooser`**
+* **`org.gnome.gtk.FileChooserAction`**
+* **`org.gnome.gtk.FileChooserButton`**
+
+Along with mocked up code for:
+
+* _`org.gnome.gtk.GtkFileChooser`_
+* _`org.gnome.gtk.GtkFileChooserAction`_
+* _`org.gnome.gtk.GtkFileChooserButton`_
+
+This is significant because GtkFileChooser is an _interface_ in GTK, and
+GtkFileChooserButton implements it. We'd been putting off the question of
+dealing with GInterface (would it work or be a major problem?) for a while
+now. We were delighted to find that the design implied by the re-engineered
+bindings handled it cleanly, elegantly, and without any fuss. Another nice
+validation of our new architecture.
+
+Finally, a number of new signals were exposed on: 
+
+* **`org.gnome.gtk.Widget`**
+
+though these were mostly the result of doing live demonstrations at
+conferences of how easy extending the coverage of the new bindings is.
+
+Memory management
+-----------------
+
+We have successfully implemented full GObject memory management in java-gnome
+4.0 using GLib's ToggleRef mechanism.
+
+A strongly referenced Java Proxy will not allow its GObject to be destroyed
+out from underneath it; meanwhile, as long as the GObject is still referenced
+by something other than java-gnome, an otherwise only weakly reachable Java
+object that Proxies it will not be finalized. When the situation _does_ occur
+whereby the GObject is only referenced from java-gnome, and the Java object is
+no longer strongly referenced by any other Java objects, then the Java object
+can be garbage collected and the GObject will be unref()'d and destroyed.
+
+You can watch the reference system in action if you set
+`Debug.MEMORY_MANAGEMENT` to `true`.
+
+Huge thanks go to Vreixo Formoso Lopes who collaborated on the design,
+reviewed the implementation, and contributed test case code.
+
+Build system improvements
+-------------------------
+
+A better detection of jni.h is done on Ubuntu, thanks to Michael Kedzierski.
+This makes java-gnome more likely to build out of the box on Debian-derived
+systems.
+
+On the eve of release, Srichand Pendyala noticed that if you are running such
+a system, a package named `libglade-dev` needs to be installed. Of course, on
+more modern systems all the necessary dependencies are present merely by
+having GNOME installed in the first place. We'll add a check for this Debian
+specific behaviour in 4.0.3.
+
+The `VERSION` and `APIVERSION` constants were moved to
+
+* `org.gnome.gtk.Version`
+
+so that anyone working on the Gtk main class isn't forced to do a
+re-configuration every time they save.
+
+Installation and Packaging
+--------------------------
+
+java-gnome 4.0 now has the standard `make install` command, and the equally
+standard `--prefix` option to `./configure`.
+
+	$ ./configure --prefix=/usr
+	$ make
+	$ sudo make install
+
+The `install` target understands the `DESTDIR` variable used by packagers to
+install to a specified prefix _within_ a temporary directory.
+
+See the [`README`](README.html) file for details.
+
+Looking ahead
+-------------
+
+The feature additions described above were done to bring java-gnome up to
+speed for the GTK & GNOME tutorial given at [linux.conf.au][LCA]. With that
+past, we're not going to do any more manual mockups of code in what will be
+the generated layers. Focus now turns to designing and implementing the tool
+that will parse `.defs` files and output the translation code.
+
+Once we secure funding for the project, the code generator will be our top
+priority and shouldn't take more than a couple months to complete.
+
+AfC
+
+[LCA]: http://lca2007.linux.org.au/talk/258
+
+
 <a name="4.0.1" id="1167969613" title="Prototype becomes foundation"></a>
 
 java-gnome 4.0.1 (05 Jan 2007)

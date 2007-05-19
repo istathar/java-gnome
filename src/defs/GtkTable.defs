@@ -1,0 +1,143 @@
+(define-object Table
+  (in-module "Gtk")
+  (parent "GtkContainer")
+  (c-name "GtkTable")
+  (gtype-id "GTK_TYPE_TABLE")
+)
+
+(define-function gtk_table_new
+  (is-constructor-of "GtkTable")
+  (c-name "gtk_table_new")
+  (caller-owns-return #t)
+  (return-type "GtkWidget*")
+  (properties
+    '("n_rows" (optional))
+    '("n_columns" (optional))
+    '("homogeneous" (optional))
+  )
+)
+
+(define-method resize
+  (of-object "GtkTable")
+  (c-name "gtk_table_resize")
+  (return-type "none")
+  (parameters
+    '("guint" "rows")
+    '("guint" "columns")
+  )
+)
+
+(define-method attach
+  (of-object "GtkTable")
+  (c-name "gtk_table_attach")
+  (return-type "none")
+  (parameters
+    '("GtkWidget*" "child")
+    '("guint" "left_attach")
+    '("guint" "right_attach")
+    '("guint" "top_attach")
+    '("guint" "bottom_attach")
+    '("GtkAttachOptions" "xoptions" (default "GTK_EXPAND|GTK_FILL"))
+    '("GtkAttachOptions" "yoptions" (default "GTK_EXPAND|GTK_FILL"))
+    '("guint" "xpadding" (default "0"))
+    '("guint" "ypadding" (default "0"))
+  )
+)
+
+(define-method attach_defaults
+  (of-object "GtkTable")
+  (c-name "gtk_table_attach_defaults")
+  (return-type "none")
+  (deprecated "use attach instead")
+  (parameters
+    '("GtkWidget*" "widget")
+    '("guint" "left_attach")
+    '("guint" "right_attach")
+    '("guint" "top_attach")
+    '("guint" "bottom_attach")
+  )
+)
+
+(define-method set_row_spacing
+  (of-object "GtkTable")
+  (c-name "gtk_table_set_row_spacing")
+  (return-type "none")
+  (parameters
+    '("guint" "row")
+    '("guint" "spacing")
+  )
+)
+
+(define-method get_row_spacing
+  (of-object "GtkTable")
+  (c-name "gtk_table_get_row_spacing")
+  (return-type "guint")
+  (parameters
+    '("guint" "row")
+  )
+)
+
+(define-method set_col_spacing
+  (of-object "GtkTable")
+  (c-name "gtk_table_set_col_spacing")
+  (return-type "none")
+  (parameters
+    '("guint" "column")
+    '("guint" "spacing")
+  )
+)
+
+(define-method get_col_spacing
+  (of-object "GtkTable")
+  (c-name "gtk_table_get_col_spacing")
+  (return-type "guint")
+  (parameters
+    '("guint" "column")
+  )
+)
+
+(define-method set_row_spacings
+  (of-object "GtkTable")
+  (c-name "gtk_table_set_row_spacings")
+  (return-type "none")
+  (parameters
+    '("guint" "spacing")
+  )
+)
+
+(define-method get_default_row_spacing
+  (of-object "GtkTable")
+  (c-name "gtk_table_get_default_row_spacing")
+  (return-type "guint")
+)
+
+(define-method set_col_spacings
+  (of-object "GtkTable")
+  (c-name "gtk_table_set_col_spacings")
+  (return-type "none")
+  (parameters
+    '("guint" "spacing")
+  )
+)
+
+(define-method get_default_col_spacing
+  (of-object "GtkTable")
+  (c-name "gtk_table_get_default_col_spacing")
+  (return-type "guint")
+)
+
+(define-method set_homogeneous
+  (of-object "GtkTable")
+  (c-name "gtk_table_set_homogeneous")
+  (return-type "none")
+  (parameters
+    '("gboolean" "homogeneous")
+  )
+)
+
+(define-method get_homogeneous
+  (of-object "GtkTable")
+  (c-name "gtk_table_get_homogeneous")
+  (return-type "gboolean")
+)
+

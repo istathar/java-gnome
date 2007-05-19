@@ -1,0 +1,16 @@
+(define-flags PrintCapabilities
+  (in-module "Unixprint")
+  (c-name "GtkPrintCapabilities")
+  (gtype-id "GTK_TYPE_PRINT_CAPABILITIES")
+  (values
+    '("page-set" "GTK_PRINT_CAPABILITY_PAGE_SET")
+    '("copies" "GTK_PRINT_CAPABILITY_COPIES")
+    '("collate" "GTK_PRINT_CAPABILITY_COLLATE")
+    '("reverse" "GTK_PRINT_CAPABILITY_REVERSE")
+    '("scale" "GTK_PRINT_CAPABILITY_SCALE")
+    '("generate-pdf" "GTK_PRINT_CAPABILITY_GENERATE_PDF")
+    '("generate-ps" "GTK_PRINT_CAPABILITY_GENERATE_PS")
+    '("preview" "GTK_PRINT_CAPABILITY_PREVIEW")
+  )
+)
+

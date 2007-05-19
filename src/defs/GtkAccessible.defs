@@ -1,0 +1,18 @@
+(define-object Accessible
+  (in-module "Gtk")
+  (parent "AtkObject")
+  (c-name "GtkAccessible")
+  (gtype-id "GTK_TYPE_ACCESSIBLE")
+)
+
+(define-method connect_widget_destroyed
+  (of-object "GtkAccessible")
+  (c-name "gtk_accessible_connect_widget_destroyed")
+  (return-type "none")
+)
+
+(define-virtual connect_widget_destroyed
+  (of-object "GtkAccessible")
+  (return-type "none")
+)
+

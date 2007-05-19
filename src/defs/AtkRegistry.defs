@@ -1,0 +1,35 @@
+(define-object Registry
+  (in-module "Atk")
+  (parent "GObject")
+  (c-name "AtkRegistry")
+  (gtype-id "ATK_TYPE_REGISTRY")
+)
+
+(define-method set_factory_type
+  (of-object "AtkRegistry")
+  (c-name "atk_registry_set_factory_type")
+  (return-type "none")
+  (parameters
+    '("GType" "type")
+    '("GType" "factory_type")
+  )
+)
+
+(define-method get_factory_type
+  (of-object "AtkRegistry")
+  (c-name "atk_registry_get_factory_type")
+  (return-type "GType")
+  (parameters
+    '("GType" "type")
+  )
+)
+
+(define-method get_factory
+  (of-object "AtkRegistry")
+  (c-name "atk_registry_get_factory")
+  (return-type "AtkObjectFactory*")
+  (parameters
+    '("GType" "type")
+  )
+)
+

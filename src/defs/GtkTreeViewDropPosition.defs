@@ -1,0 +1,12 @@
+(define-enum TreeViewDropPosition
+  (in-module "Gtk")
+  (c-name "GtkTreeViewDropPosition")
+  (gtype-id "GTK_TYPE_TREE_VIEW_DROP_POSITION")
+  (values
+    '("before" "GTK_TREE_VIEW_DROP_BEFORE")
+    '("after" "GTK_TREE_VIEW_DROP_AFTER")
+    '("into-or-before" "GTK_TREE_VIEW_DROP_INTO_OR_BEFORE")
+    '("into-or-after" "GTK_TREE_VIEW_DROP_INTO_OR_AFTER")
+  )
+)
+

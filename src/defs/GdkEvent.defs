@@ -1,0 +1,111 @@
+(define-boxed Event
+  (in-module "Gdk")
+  (c-name "GdkEvent")
+  (gtype-id "GDK_TYPE_EVENT")
+  (copy-func "gdk_event_copy")
+  (release-func "gdk_event_free")
+)
+
+(define-method send_client_message
+  (of-object "GdkEvent")
+  (c-name "gdk_event_send_client_message")
+  (return-type "gboolean")
+  (parameters
+    '("GdkNativeWindow" "winid")
+  )
+)
+
+(define-method send_clientmessage_toall
+  (of-object "GdkEvent")
+  (c-name "gdk_event_send_clientmessage_toall")
+  (return-type "none")
+)
+
+(define-method put
+  (of-object "GdkEvent")
+  (c-name "gdk_event_put")
+  (return-type "none")
+)
+
+(define-function event_new
+  (is-constructor-of "GdkEvent")
+  (c-name "gdk_event_new")
+  (caller-owns-return #t)
+  (return-type "GdkEvent*")
+  (parameters
+    '("GdkEventType" "type")
+  )
+)
+
+(define-method copy
+  (of-object "GdkEvent")
+  (c-name "gdk_event_copy")
+  (return-type "GdkEvent*")
+)
+
+(define-method free
+  (of-object "GdkEvent")
+  (c-name "gdk_event_free")
+  (return-type "none")
+)
+
+(define-method get_time
+  (of-object "GdkEvent")
+  (c-name "gdk_event_get_time")
+  (return-type "guint32")
+)
+
+(define-method get_state
+  (of-object "GdkEvent")
+  (c-name "gdk_event_get_state")
+  (return-type "gboolean")
+  (parameters
+    '("GdkModifierType*" "state")
+  )
+)
+
+(define-method get_coords
+  (of-object "GdkEvent")
+  (c-name "gdk_event_get_coords")
+  (return-type "gboolean")
+  (parameters
+    '("gdouble*" "x_win")
+    '("gdouble*" "y_win")
+  )
+)
+
+(define-method get_root_coords
+  (of-object "GdkEvent")
+  (c-name "gdk_event_get_root_coords")
+  (return-type "gboolean")
+  (parameters
+    '("gdouble*" "x_root")
+    '("gdouble*" "y_root")
+  )
+)
+
+(define-method get_axis
+  (of-object "GdkEvent")
+  (c-name "gdk_event_get_axis")
+  (return-type "gboolean")
+  (parameters
+    '("GdkAxisUse" "axis_use")
+    '("gdouble*" "value")
+  )
+)
+
+(define-method set_screen
+  (of-object "GdkEvent")
+  (c-name "gdk_event_set_screen")
+  (return-type "none")
+  (parameters
+    '("GdkScreen*" "screen")
+  )
+)
+
+(define-method get_screen
+  (of-object "GdkEvent")
+  (c-name "gdk_event_get_screen")
+  (return-type "GdkScreen*")
+)
+

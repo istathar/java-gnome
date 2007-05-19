@@ -1,0 +1,12 @@
+(define-flags DestDefaults
+  (in-module "Gtk")
+  (c-name "GtkDestDefaults")
+  (gtype-id "GTK_TYPE_DEST_DEFAULTS")
+  (values
+    '("motion" "GTK_DEST_DEFAULT_MOTION")
+    '("highlight" "GTK_DEST_DEFAULT_HIGHLIGHT")
+    '("drop" "GTK_DEST_DEFAULT_DROP")
+    '("all" "GTK_DEST_DEFAULT_ALL")
+  )
+)
+

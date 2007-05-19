@@ -1,0 +1,26 @@
+;; vim: set filetype=scheme:
+;;
+;; This is an extract of .defs metadata as pertains to GtkButton.
+;; Material from pyGTK's gtk/gtk-base-types.defs and gtk/gtk-base.defs
+
+;;
+;; Necessary type data to run through the other demo .defs file
+;;
+
+
+(define-object Widget
+  (in-module "Gtk")
+  (parent "GtkObject")
+  (c-name "GtkWidget")
+  (gtype-id "GTK_TYPE_WIDGET")
+  (fields
+    '("guint8" "state")
+    '("guint8" "saved_state")
+    '("gchar*" "name")
+    '("GtkStyle*" "style")
+    '("GdkRectangle" "allocation")
+    '("GdkWindow*" "window")
+    '("GtkWidget*" "parent")
+  )
+)
+

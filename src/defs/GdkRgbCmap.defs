@@ -1,0 +1,6 @@
+(define-method free
+  (of-object "GdkRgbCmap")
+  (c-name "gdk_rgb_cmap_free")
+  (return-type "none")
+)
+

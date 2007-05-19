@@ -1,0 +1,48 @@
+(define-object FontFamily
+  (in-module "Pango")
+  (parent "GObject")
+  (c-name "PangoFontFamily")
+  (gtype-id "PANGO_TYPE_FONT_FAMILY")
+)
+
+(define-method list_faces
+  (of-object "PangoFontFamily")
+  (c-name "pango_font_family_list_faces")
+  (return-type "none")
+  (parameters
+    '("PangoFontFace***" "faces")
+    '("int*" "n_faces")
+  )
+)
+
+(define-method get_name
+  (of-object "PangoFontFamily")
+  (c-name "pango_font_family_get_name")
+  (return-type "const-char*")
+)
+
+(define-method is_monospace
+  (of-object "PangoFontFamily")
+  (c-name "pango_font_family_is_monospace")
+  (return-type "gboolean")
+)
+
+(define-virtual list_faces
+  (of-object "PangoFontFamily")
+  (return-type "none")
+  (parameters
+    '("PangoFontFace***" "faces")
+    '("int*" "n_faces")
+  )
+)
+
+(define-virtual get_name
+  (of-object "PangoFontFamily")
+  (return-type "const-char*")
+)
+
+(define-virtual is_monospace
+  (of-object "PangoFontFamily")
+  (return-type "gboolean")
+)
+

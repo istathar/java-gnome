@@ -1,0 +1,104 @@
+(define-method sort_column_changed
+  (of-object "GtkTreeSortable")
+  (c-name "gtk_tree_sortable_sort_column_changed")
+  (return-type "none")
+)
+
+(define-method get_sort_column_id
+  (of-object "GtkTreeSortable")
+  (c-name "gtk_tree_sortable_get_sort_column_id")
+  (return-type "gboolean")
+  (parameters
+    '("gint*" "sort_column_id")
+    '("GtkSortType*" "order")
+  )
+)
+
+(define-method set_sort_column_id
+  (of-object "GtkTreeSortable")
+  (c-name "gtk_tree_sortable_set_sort_column_id")
+  (return-type "none")
+  (parameters
+    '("gint" "sort_column_id")
+    '("GtkSortType" "order")
+  )
+)
+
+(define-method set_sort_func
+  (of-object "GtkTreeSortable")
+  (c-name "gtk_tree_sortable_set_sort_func")
+  (return-type "none")
+  (parameters
+    '("gint" "sort_column_id")
+    '("GtkTreeIterCompareFunc" "sort_func")
+    '("gpointer" "user_data")
+    '("GtkDestroyNotify" "destroy")
+  )
+)
+
+(define-method set_default_sort_func
+  (of-object "GtkTreeSortable")
+  (c-name "gtk_tree_sortable_set_default_sort_func")
+  (return-type "none")
+  (parameters
+    '("GtkTreeIterCompareFunc" "sort_func")
+    '("gpointer" "user_data")
+    '("GtkDestroyNotify" "destroy")
+  )
+)
+
+(define-method has_default_sort_func
+  (of-object "GtkTreeSortable")
+  (c-name "gtk_tree_sortable_has_default_sort_func")
+  (return-type "gboolean")
+)
+
+(define-virtual sort_column_changed
+  (of-object "GtkTreeSortable")
+  (return-type "none")
+)
+
+(define-virtual get_sort_column_id
+  (of-object "GtkTreeSortable")
+  (return-type "gboolean")
+  (parameters
+    '("gint*" "sort_column_id")
+    '("GtkSortType*" "order")
+  )
+)
+
+(define-virtual set_sort_column_id
+  (of-object "GtkTreeSortable")
+  (return-type "none")
+  (parameters
+    '("gint" "sort_column_id")
+    '("GtkSortType" "order")
+  )
+)
+
+(define-virtual set_sort_func
+  (of-object "GtkTreeSortable")
+  (return-type "none")
+  (parameters
+    '("gint" "sort_column_id")
+    '("GtkTreeIterCompareFunc" "func")
+    '("gpointer" "data")
+    '("GtkDestroyNotify" "destroy")
+  )
+)
+
+(define-virtual set_default_sort_func
+  (of-object "GtkTreeSortable")
+  (return-type "none")
+  (parameters
+    '("GtkTreeIterCompareFunc" "func")
+    '("gpointer" "data")
+    '("GtkDestroyNotify" "destroy")
+  )
+)
+
+(define-virtual has_default_sort_func
+  (of-object "GtkTreeSortable")
+  (return-type "gboolean")
+)
+

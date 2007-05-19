@@ -1,0 +1,18 @@
+(define-enum MovementStep
+  (in-module "Gtk")
+  (c-name "GtkMovementStep")
+  (gtype-id "GTK_TYPE_MOVEMENT_STEP")
+  (values
+    '("logical-positions" "GTK_MOVEMENT_LOGICAL_POSITIONS")
+    '("visual-positions" "GTK_MOVEMENT_VISUAL_POSITIONS")
+    '("words" "GTK_MOVEMENT_WORDS")
+    '("display-lines" "GTK_MOVEMENT_DISPLAY_LINES")
+    '("display-line-ends" "GTK_MOVEMENT_DISPLAY_LINE_ENDS")
+    '("paragraphs" "GTK_MOVEMENT_PARAGRAPHS")
+    '("paragraph-ends" "GTK_MOVEMENT_PARAGRAPH_ENDS")
+    '("pages" "GTK_MOVEMENT_PAGES")
+    '("buffer-ends" "GTK_MOVEMENT_BUFFER_ENDS")
+    '("horizontal-pages" "GTK_MOVEMENT_HORIZONTAL_PAGES")
+  )
+)
+

@@ -1,0 +1,7 @@
+(define-object Separator
+  (in-module "Gtk")
+  (parent "GtkWidget")
+  (c-name "GtkSeparator")
+  (gtype-id "GTK_TYPE_SEPARATOR")
+)
+

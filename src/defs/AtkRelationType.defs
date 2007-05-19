@@ -1,0 +1,16 @@
+(define-enum RelationType
+  (in-module "Atk")
+  (c-name "AtkRelationType")
+  (gtype-id "ATK_TYPE_RELATION_TYPE")
+  (values
+    '("null" "ATK_RELATION_NULL")
+    '("controlled-by" "ATK_RELATION_CONTROLLED_BY")
+    '("controller-for" "ATK_RELATION_CONTROLLER_FOR")
+    '("label-for" "ATK_RELATION_LABEL_FOR")
+    '("labelled-by" "ATK_RELATION_LABELLED_BY")
+    '("member-of" "ATK_RELATION_MEMBER_OF")
+    '("node-child-of" "ATK_RELATION_NODE_CHILD_OF")
+    '("last-defined" "ATK_RELATION_LAST_DEFINED")
+  )
+)
+

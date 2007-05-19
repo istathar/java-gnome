@@ -1,0 +1,96 @@
+(define-object PixbufLoader
+  (in-module "Gdk")
+  (parent "GObject")
+  (c-name "GdkPixbufLoader")
+  (gtype-id "GDK_TYPE_PIXBUF_LOADER")
+)
+
+(define-function pixbuf_loader_new_with_type
+  (is-constructor-of "GdkPixbufLoader")
+  (c-name "gdk_pixbuf_loader_new_with_type")
+  (caller-owns-return #t)
+  (return-type "GdkPixbufLoader*")
+  (parameters
+    '("const-char*" "image_type")
+    '("GError**" "error")
+  )
+)
+
+(define-method write
+  (of-object "GdkPixbufLoader")
+  (c-name "gdk_pixbuf_loader_write")
+  (return-type "gboolean")
+  (parameters
+    '("const-guchar*" "buf")
+    '("gsize" "count")
+    '("GError**" "error")
+  )
+)
+
+(define-method get_pixbuf
+  (of-object "GdkPixbufLoader")
+  (c-name "gdk_pixbuf_loader_get_pixbuf")
+  (return-type "GdkPixbuf*")
+)
+
+(define-method get_animation
+  (of-object "GdkPixbufLoader")
+  (c-name "gdk_pixbuf_loader_get_animation")
+  (return-type "GdkPixbufAnimation*")
+)
+
+(define-method close
+  (of-object "GdkPixbufLoader")
+  (c-name "gdk_pixbuf_loader_close")
+  (return-type "gboolean")
+  (parameters
+    '("GError**" "error")
+  )
+)
+
+(define-method set_size
+  (of-object "GdkPixbufLoader")
+  (c-name "gdk_pixbuf_loader_set_size")
+  (return-type "none")
+  (parameters
+    '("int" "width")
+    '("int" "height")
+  )
+)
+
+(define-method get_format
+  (of-object "GdkPixbufLoader")
+  (c-name "gdk_pixbuf_loader_get_format")
+  (return-type "GdkPixbufFormat*")
+)
+
+(define-virtual size_prepared
+  (of-object "GdkPixbufLoader")
+  (return-type "none")
+  (parameters
+    '("int" "width")
+    '("int" "height")
+  )
+)
+
+(define-virtual area_prepared
+  (of-object "GdkPixbufLoader")
+  (return-type "none")
+)
+
+(define-virtual area_updated
+  (of-object "GdkPixbufLoader")
+  (return-type "none")
+  (parameters
+    '("int" "x")
+    '("int" "y")
+    '("int" "width")
+    '("int" "height")
+  )
+)
+
+(define-virtual closed
+  (of-object "GdkPixbufLoader")
+  (return-type "none")
+)
+

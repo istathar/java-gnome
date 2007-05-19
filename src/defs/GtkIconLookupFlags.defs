@@ -1,0 +1,11 @@
+(define-flags IconLookupFlags
+  (in-module "Gtk")
+  (c-name "GtkIconLookupFlags")
+  (gtype-id "GTK_TYPE_ICON_LOOKUP_FLAGS")
+  (values
+    '("no-svg" "GTK_ICON_LOOKUP_NO_SVG")
+    '("force-svg" "GTK_ICON_LOOKUP_FORCE_SVG")
+    '("use-builtin" "GTK_ICON_LOOKUP_USE_BUILTIN")
+  )
+)
+

@@ -1,0 +1,112 @@
+(define-object Expander
+  (in-module "Gtk")
+  (parent "GtkBin")
+  (c-name "GtkExpander")
+  (gtype-id "GTK_TYPE_EXPANDER")
+)
+
+(define-function gtk_expander_new
+  (is-constructor-of "GtkExpander")
+  (c-name "gtk_expander_new")
+  (caller-owns-return #t)
+  (return-type "GtkWidget*")
+  (properties
+    '("label" (optional))
+  )
+)
+
+(define-method set_expanded
+  (of-object "GtkExpander")
+  (c-name "gtk_expander_set_expanded")
+  (return-type "none")
+  (parameters
+    '("gboolean" "expanded")
+  )
+)
+
+(define-method get_expanded
+  (of-object "GtkExpander")
+  (c-name "gtk_expander_get_expanded")
+  (return-type "gboolean")
+)
+
+(define-method set_spacing
+  (of-object "GtkExpander")
+  (c-name "gtk_expander_set_spacing")
+  (return-type "none")
+  (parameters
+    '("gint" "spacing")
+  )
+)
+
+(define-method get_spacing
+  (of-object "GtkExpander")
+  (c-name "gtk_expander_get_spacing")
+  (return-type "gint")
+)
+
+(define-method set_label
+  (of-object "GtkExpander")
+  (c-name "gtk_expander_set_label")
+  (return-type "none")
+  (parameters
+    '("const-gchar*" "label" (null-ok))
+  )
+)
+
+(define-method get_label
+  (of-object "GtkExpander")
+  (c-name "gtk_expander_get_label")
+  (return-type "const-gchar*")
+)
+
+(define-method set_use_underline
+  (of-object "GtkExpander")
+  (c-name "gtk_expander_set_use_underline")
+  (return-type "none")
+  (parameters
+    '("gboolean" "use_underline")
+  )
+)
+
+(define-method get_use_underline
+  (of-object "GtkExpander")
+  (c-name "gtk_expander_get_use_underline")
+  (return-type "gboolean")
+)
+
+(define-method set_use_markup
+  (of-object "GtkExpander")
+  (c-name "gtk_expander_set_use_markup")
+  (return-type "none")
+  (parameters
+    '("gboolean" "use_markup")
+  )
+)
+
+(define-method get_use_markup
+  (of-object "GtkExpander")
+  (c-name "gtk_expander_get_use_markup")
+  (return-type "gboolean")
+)
+
+(define-method set_label_widget
+  (of-object "GtkExpander")
+  (c-name "gtk_expander_set_label_widget")
+  (return-type "none")
+  (parameters
+    '("GtkWidget*" "label_widget" (null-ok))
+  )
+)
+
+(define-method get_label_widget
+  (of-object "GtkExpander")
+  (c-name "gtk_expander_get_label_widget")
+  (return-type "GtkWidget*")
+)
+
+(define-virtual activate
+  (of-object "GtkExpander")
+  (return-type "none")
+)
+

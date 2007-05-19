@@ -1,0 +1,14 @@
+(define-flags RecentFilterFlags
+  (in-module "Gtk")
+  (c-name "GtkRecentFilterFlags")
+  (gtype-id "GTK_TYPE_RECENT_FILTER_FLAGS")
+  (values
+    '("uri" "GTK_RECENT_FILTER_URI")
+    '("display-name" "GTK_RECENT_FILTER_DISPLAY_NAME")
+    '("mime-type" "GTK_RECENT_FILTER_MIME_TYPE")
+    '("application" "GTK_RECENT_FILTER_APPLICATION")
+    '("group" "GTK_RECENT_FILTER_GROUP")
+    '("age" "GTK_RECENT_FILTER_AGE")
+  )
+)
+

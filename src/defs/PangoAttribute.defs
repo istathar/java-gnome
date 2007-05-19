@@ -1,0 +1,21 @@
+(define-method copy
+  (of-object "PangoAttribute")
+  (c-name "pango_attribute_copy")
+  (return-type "PangoAttribute*")
+)
+
+(define-method destroy
+  (of-object "PangoAttribute")
+  (c-name "pango_attribute_destroy")
+  (return-type "none")
+)
+
+(define-method equal
+  (of-object "PangoAttribute")
+  (c-name "pango_attribute_equal")
+  (return-type "gboolean")
+  (parameters
+    '("const-PangoAttribute*" "attr2")
+  )
+)
+

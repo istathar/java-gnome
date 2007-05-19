@@ -1,0 +1,75 @@
+(define-object HandleBox
+  (in-module "Gtk")
+  (parent "GtkBin")
+  (c-name "GtkHandleBox")
+  (gtype-id "GTK_TYPE_HANDLE_BOX")
+)
+
+(define-function gtk_handle_box_new
+  (is-constructor-of "GtkHandleBox")
+  (c-name "gtk_handle_box_new")
+  (caller-owns-return #t)
+  (return-type "GtkWidget*")
+)
+
+(define-method set_shadow_type
+  (of-object "GtkHandleBox")
+  (c-name "gtk_handle_box_set_shadow_type")
+  (return-type "none")
+  (parameters
+    '("GtkShadowType" "type")
+  )
+)
+
+(define-method get_shadow_type
+  (of-object "GtkHandleBox")
+  (c-name "gtk_handle_box_get_shadow_type")
+  (return-type "GtkShadowType")
+)
+
+(define-method set_handle_position
+  (of-object "GtkHandleBox")
+  (c-name "gtk_handle_box_set_handle_position")
+  (return-type "none")
+  (parameters
+    '("GtkPositionType" "position")
+  )
+)
+
+(define-method get_handle_position
+  (of-object "GtkHandleBox")
+  (c-name "gtk_handle_box_get_handle_position")
+  (return-type "GtkPositionType")
+)
+
+(define-method set_snap_edge
+  (of-object "GtkHandleBox")
+  (c-name "gtk_handle_box_set_snap_edge")
+  (return-type "none")
+  (parameters
+    '("GtkPositionType" "edge")
+  )
+)
+
+(define-method get_snap_edge
+  (of-object "GtkHandleBox")
+  (c-name "gtk_handle_box_get_snap_edge")
+  (return-type "GtkPositionType")
+)
+
+(define-virtual child_attached
+  (of-object "GtkHandleBox")
+  (return-type "none")
+  (parameters
+    '("GtkWidget*" "child")
+  )
+)
+
+(define-virtual child_detached
+  (of-object "GtkHandleBox")
+  (return-type "none")
+  (parameters
+    '("GtkWidget*" "child")
+  )
+)
+

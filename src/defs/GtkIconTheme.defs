@@ -1,0 +1,140 @@
+(define-object IconTheme
+  (in-module "Gtk")
+  (parent "GObject")
+  (c-name "GtkIconTheme")
+  (gtype-id "GTK_TYPE_ICON_THEME")
+)
+
+(define-function gtk_icon_theme_new
+  (is-constructor-of "GtkIconTheme")
+  (c-name "gtk_icon_theme_new")
+  (caller-owns-return #t)
+  (return-type "GtkIconTheme*")
+)
+
+(define-method set_screen
+  (of-object "GtkIconTheme")
+  (c-name "gtk_icon_theme_set_screen")
+  (return-type "none")
+  (parameters
+    '("GdkScreen*" "screen")
+  )
+)
+
+(define-method set_search_path
+  (of-object "GtkIconTheme")
+  (c-name "gtk_icon_theme_set_search_path")
+  (return-type "none")
+  (parameters
+    '("const-gchar*[]" "path")
+    '("gint" "n_elements")
+  )
+)
+
+(define-method get_search_path
+  (of-object "GtkIconTheme")
+  (c-name "gtk_icon_theme_get_search_path")
+  (return-type "none")
+  (parameters
+    '("gchar**[]" "path")
+    '("gint*" "n_elements")
+  )
+)
+
+(define-method append_search_path
+  (of-object "GtkIconTheme")
+  (c-name "gtk_icon_theme_append_search_path")
+  (return-type "none")
+  (parameters
+    '("const-gchar*" "path")
+  )
+)
+
+(define-method prepend_search_path
+  (of-object "GtkIconTheme")
+  (c-name "gtk_icon_theme_prepend_search_path")
+  (return-type "none")
+  (parameters
+    '("const-gchar*" "path")
+  )
+)
+
+(define-method set_custom_theme
+  (of-object "GtkIconTheme")
+  (c-name "gtk_icon_theme_set_custom_theme")
+  (return-type "none")
+  (parameters
+    '("const-gchar*" "theme_name")
+  )
+)
+
+(define-method has_icon
+  (of-object "GtkIconTheme")
+  (c-name "gtk_icon_theme_has_icon")
+  (return-type "gboolean")
+  (parameters
+    '("const-gchar*" "icon_name")
+  )
+)
+
+(define-method lookup_icon
+  (of-object "GtkIconTheme")
+  (c-name "gtk_icon_theme_lookup_icon")
+  (caller-owns-return #t)
+  (return-type "GtkIconInfo*")
+  (parameters
+    '("const-gchar*" "icon_name")
+    '("gint" "size")
+    '("GtkIconLookupFlags" "flags")
+  )
+)
+
+(define-method load_icon
+  (of-object "GtkIconTheme")
+  (c-name "gtk_icon_theme_load_icon")
+  (caller-owns-return #t)
+  (return-type "GdkPixbuf*")
+  (parameters
+    '("const-gchar*" "icon_name")
+    '("gint" "size")
+    '("GtkIconLookupFlags" "flags")
+    '("GError**" "error")
+  )
+)
+
+(define-method list_icons
+  (of-object "GtkIconTheme")
+  (c-name "gtk_icon_theme_list_icons")
+  (return-type "GList*")
+  (parameters
+    '("const-gchar*" "context")
+  )
+)
+
+(define-method get_example_icon_name
+  (of-object "GtkIconTheme")
+  (c-name "gtk_icon_theme_get_example_icon_name")
+  (caller-owns-return #t)
+  (return-type "char*")
+)
+
+(define-method rescan_if_needed
+  (of-object "GtkIconTheme")
+  (c-name "gtk_icon_theme_rescan_if_needed")
+  (return-type "gboolean")
+)
+
+(define-method get_icon_sizes
+  (of-object "GtkIconTheme")
+  (c-name "gtk_icon_theme_get_icon_sizes")
+  (return-type "gint*")
+  (parameters
+    '("const-gchar*" "icon_name")
+  )
+)
+
+(define-virtual changed
+  (of-object "GtkIconTheme")
+  (return-type "none")
+)
+

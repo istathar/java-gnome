@@ -1,0 +1,85 @@
+(define-object ButtonBox
+  (in-module "Gtk")
+  (parent "GtkBox")
+  (c-name "GtkButtonBox")
+  (gtype-id "GTK_TYPE_BUTTON_BOX")
+)
+
+(define-method get_layout
+  (of-object "GtkButtonBox")
+  (c-name "gtk_button_box_get_layout")
+  (return-type "GtkButtonBoxStyle")
+)
+
+(define-method set_layout
+  (of-object "GtkButtonBox")
+  (c-name "gtk_button_box_set_layout")
+  (return-type "none")
+  (parameters
+    '("GtkButtonBoxStyle" "layout_style")
+  )
+)
+
+(define-method get_child_secondary
+  (of-object "GtkButtonBox")
+  (c-name "gtk_button_box_get_child_secondary")
+  (return-type "gboolean")
+  (parameters
+    '("GtkWidget*" "child")
+  )
+)
+
+(define-method set_child_secondary
+  (of-object "GtkButtonBox")
+  (c-name "gtk_button_box_set_child_secondary")
+  (return-type "none")
+  (parameters
+    '("GtkWidget*" "child")
+    '("gboolean" "is_secondary")
+  )
+)
+
+(define-method set_child_size
+  (of-object "GtkButtonBox")
+  (c-name "gtk_button_box_set_child_size")
+  (return-type "none")
+  (deprecated "don't use this")
+  (parameters
+    '("gint" "min_width")
+    '("gint" "min_height")
+  )
+)
+
+(define-method set_child_ipadding
+  (of-object "GtkButtonBox")
+  (c-name "gtk_button_box_set_child_ipadding")
+  (return-type "none")
+  (deprecated "don't use this")
+  (parameters
+    '("gint" "ipad_x")
+    '("gint" "ipad_y")
+  )
+)
+
+(define-method get_child_size
+  (of-object "GtkButtonBox")
+  (c-name "gtk_button_box_get_child_size")
+  (return-type "none")
+  (deprecated "don't use this")
+  (parameters
+    '("gint*" "min_width")
+    '("gint*" "min_height")
+  )
+)
+
+(define-method get_child_ipadding
+  (of-object "GtkButtonBox")
+  (c-name "gtk_button_box_get_child_ipadding")
+  (return-type "none")
+  (deprecated "don't use this")
+  (parameters
+    '("gint*" "ipad_x")
+    '("gint*" "ipad_y")
+  )
+)
+

@@ -1,0 +1,7012 @@
+(define-function notify_startup_complete
+  (c-name "gdk_notify_startup_complete")
+  (return-type "none")
+)
+
+(define-function get_display_arg_name
+  (c-name "gdk_get_display_arg_name")
+  (return-type "const-gchar*")
+)
+
+(define-function get_program_class
+  (c-name "gdk_get_program_class")
+  (return-type "const-gchar*")
+)
+
+(define-function set_program_class
+  (c-name "gdk_set_program_class")
+  (parameters
+    '("const-gchar*" "program_class")
+  )
+)
+
+(define-function get_display
+  (c-name "gdk_get_display")
+  (return-type "const-gchar*")
+)
+
+(define-function pointer_grab
+  (c-name "gdk_pointer_grab")
+  (return-type "GdkGrabStatus")
+  (parameters
+    '("GdkWindow*" "window")
+    '("gboolean" "owner_events" (default "FALSE") (null-ok))
+    '("GdkEventMask" "event_mask" (default "0") (null-ok))
+    '("GdkWindow*" "confine_to" (default "NULL") (null-ok))
+    '("GdkCursor*" "cursor" (default "NULL") (null-ok))
+    '("guint32" "time" (default "GDK_CURRENT_TIME") (null-ok))
+  )
+)
+
+(define-function pointer_ungrab
+  (c-name "gdk_pointer_ungrab")
+  (return-type "none")
+  (parameters
+    '("guint32" "time" (default "GDK_CURRENT_TIME") (null-ok))
+  )
+)
+
+(define-function keyboard_grab
+  (c-name "gdk_keyboard_grab")
+  (return-type "GdkGrabStatus")
+  (parameters
+    '("GdkWindow*" "window")
+    '("gboolean" "owner_events" (default "FALSE") (null-ok))
+    '("guint32" "time" (default "GDK_CURRENT_TIME") (null-ok))
+  )
+)
+
+(define-function keyboard_ungrab
+  (c-name "gdk_keyboard_ungrab")
+  (return-type "none")
+  (parameters
+    '("guint32" "time" (default "GDK_CURRENT_TIME") (null-ok))
+  )
+)
+
+(define-function pointer_is_grabbed
+  (c-name "gdk_pointer_is_grabbed")
+  (return-type "gboolean")
+)
+
+(define-function screen_width
+  (c-name "gdk_screen_width")
+  (return-type "gint")
+)
+
+(define-function screen_height
+  (c-name "gdk_screen_height")
+  (return-type "gint")
+)
+
+(define-function screen_width_mm
+  (c-name "gdk_screen_width_mm")
+  (return-type "gint")
+)
+
+(define-function screen_height_mm
+  (c-name "gdk_screen_height_mm")
+  (return-type "gint")
+)
+
+(define-function flush
+  (c-name "gdk_flush")
+  (return-type "none")
+)
+
+(define-function beep
+  (c-name "gdk_beep")
+  (return-type "none")
+)
+
+(define-function set_double_click_time
+  (c-name "gdk_set_double_click_time")
+  (return-type "none")
+  (parameters
+    '("guint" "msec")
+  )
+)
+
+(define-function threads_enter
+  (c-name "gdk_threads_enter")
+  (return-type "none")
+)
+
+(define-function threads_leave
+  (c-name "gdk_threads_leave")
+  (return-type "none")
+)
+
+(define-function threads_init
+  (c-name "gdk_threads_init")
+  (return-type "none")
+)
+
+(define-function parse_args
+  (c-name "gdk_parse_args")
+  (return-type "none")
+  (parameters
+    '("gint*" "argc")
+    '("gchar***" "argv")
+  )
+)
+
+(define-function init
+  (c-name "gdk_init")
+  (return-type "none")
+  (parameters
+    '("gint*" "argc")
+    '("gchar***" "argv")
+  )
+)
+
+(define-function init_check
+  (c-name "gdk_init_check")
+  (return-type "gboolean")
+  (parameters
+    '("gint*" "argc")
+    '("gchar***" "argv")
+  )
+)
+
+(define-function add_option_entries_libgtk_only
+  (c-name "gdk_add_option_entries_libgtk_only")
+  (return-type "none")
+  (parameters
+    '("GOptionGroup*" "group")
+  )
+)
+
+(define-function pre_parse_libgtk_only
+  (c-name "gdk_pre_parse_libgtk_only")
+  (return-type "none")
+)
+
+(define-function exit
+  (c-name "gdk_exit")
+  (return-type "none")
+  (parameters
+    '("gint" "error_code")
+  )
+)
+
+(define-function set_locale
+  (c-name "gdk_set_locale")
+  (caller-owns-return #t)
+  (return-type "gchar*")
+)
+
+(define-function error_trap_push
+  (c-name "gdk_error_trap_push")
+  (return-type "none")
+)
+
+(define-function error_trap_pop
+  (c-name "gdk_error_trap_pop")
+  (return-type "gint")
+)
+
+(define-function set_use_xshm
+  (c-name "gdk_set_use_xshm")
+  (return-type "none")
+  (parameters
+    '("gboolean" "use_xshm")
+  )
+)
+
+(define-function get_use_xshm
+  (c-name "gdk_get_use_xshm")
+  (return-type "gboolean")
+)
+
+(define-function input_add_full
+  (c-name "gdk_input_add_full")
+  (return-type "gint")
+  (parameters
+    '("gint" "source")
+    '("GdkInputCondition" "condition")
+    '("GdkInputFunction" "function")
+    '("gpointer" "data")
+    '("GdkDestroyNotify" "destroy")
+  )
+)
+
+(define-function input_add
+  (c-name "gdk_input_add")
+  (return-type "gint")
+  (parameters
+    '("gint" "source")
+    '("GdkInputCondition" "condition")
+    '("GdkInputFunction" "function")
+    '("gpointer" "data")
+  )
+)
+
+(define-function input_remove
+  (c-name "gdk_input_remove")
+  (return-type "none")
+  (parameters
+    '("gint" "tag")
+  )
+)
+
+(define-function pointer_grab_info_libgtk_only
+  (c-name "gdk_pointer_grab_info_libgtk_only")
+  (return-type "gboolean")
+  (parameters
+    '("GdkDisplay*" "display")
+    '("GdkWindow**" "grab_window")
+    '("gboolean*" "owner_events")
+  )
+)
+
+(define-function keyboard_grab_info_libgtk_only
+  (c-name "gdk_keyboard_grab_info_libgtk_only")
+  (return-type "gboolean")
+  (parameters
+    '("GdkDisplay*" "display")
+    '("GdkWindow**" "grab_window")
+    '("gboolean*" "owner_events")
+  )
+)
+
+(define-function rectangle_get_type
+  (c-name "gdk_rectangle_get_type")
+  (return-type "GType")
+)
+
+(define-function wcstombs
+  (c-name "gdk_wcstombs")
+  (caller-owns-return #t)
+  (return-type "gchar*")
+  (parameters
+    '("const-GdkWChar*" "src")
+  )
+)
+
+(define-function mbstowcs
+  (c-name "gdk_mbstowcs")
+  (return-type "gint")
+  (parameters
+    '("GdkWChar*" "dest")
+    '("const-gchar*" "src")
+    '("gint" "dest_max")
+  )
+)
+
+(define-function event_send_client_message_for_display
+  (c-name "gdk_event_send_client_message_for_display")
+  (return-type "gboolean")
+  (parameters
+    '("GdkDisplay*" "display")
+    '("GdkEvent*" "event")
+    '("GdkNativeWindow" "winid")
+  )
+)
+
+(define-function threads_set_lock_functions
+  (c-name "gdk_threads_set_lock_functions")
+  (return-type "none")
+  (parameters
+    '("GCallback" "enter_fn")
+    '("GCallback" "leave_fn")
+  )
+)
+
+(define-function color_get_type
+  (c-name "gdk_color_get_type")
+  (return-type "GType")
+)
+
+(define-function colors_store
+  (c-name "gdk_colors_store")
+  (return-type "none")
+  (parameters
+    '("GdkColormap*" "colormap")
+    '("GdkColor*" "colors")
+    '("gint" "ncolors")
+  )
+)
+
+(define-function colors_alloc
+  (c-name "gdk_colors_alloc")
+  (return-type "gint")
+  (parameters
+    '("GdkColormap*" "colormap")
+    '("gboolean" "contiguous")
+    '("gulong*" "planes")
+    '("gint" "nplanes")
+    '("gulong*" "pixels")
+    '("gint" "npixels")
+  )
+)
+
+(define-function colors_free
+  (c-name "gdk_colors_free")
+  (return-type "none")
+  (parameters
+    '("GdkColormap*" "colormap")
+    '("gulong*" "pixels")
+    '("gint" "npixels")
+    '("gulong" "planes")
+  )
+)
+
+(define-function colormap_get_type
+  (c-name "gdk_colormap_get_type")
+  (return-type "GType")
+)
+
+(define-function colormap_get_system
+  (c-name "gdk_colormap_get_system")
+  (return-type "GdkColormap*")
+)
+
+(define-function colormap_get_system_size
+  (c-name "gdk_colormap_get_system_size")
+  (return-type "gint")
+  (deprecated "deprecated")
+)
+
+(define-function color_parse
+  (c-name "gdk_color_parse")
+  (return-type "gint")
+  (parameters
+    '("const-gchar*" "spec")
+    '("GdkColor*" "color")
+  )
+)
+
+(define-function color_change
+  (c-name "gdk_color_change")
+  (return-type "gint")
+  (deprecated "deprecated")
+  (parameters
+    '("GdkColormap*" "colormap")
+    '("GdkColor*" "color")
+  )
+)
+
+(define-function cursor_get_type
+  (c-name "gdk_cursor_get_type")
+  (return-type "GType")
+)
+
+(define-function cursor_new_from_name
+  (c-name "gdk_cursor_new_from_name")
+  (return-type "GdkCursor*")
+  (parameters
+    '("GdkDisplay*" "display")
+    '("const-gchar*" "name")
+  )
+)
+
+(define-function gdk_display_get_type
+  (c-name "gdk_display_get_type")
+  (return-type "GType")
+)
+
+(define-function display_get_default
+  (c-name "gdk_display_get_default")
+  (return-type "GdkDisplay*")
+)
+
+(define-function gdk_display_manager_get_type
+  (c-name "gdk_display_manager_get_type")
+  (return-type "GType")
+)
+
+(define-function display_manager_get
+  (c-name "gdk_display_manager_get")
+  (return-type "GdkDisplayManager*")
+)
+
+(define-function display_open_default_libgtk_only
+  (c-name "gdk_display_open_default_libgtk_only")
+  (return-type "GdkDisplay*")
+)
+
+(define-function drag_context_get_type
+  (c-name "gdk_drag_context_get_type")
+  (return-type "GType")
+)
+
+(define-function drag_get_protocol
+  (c-name "gdk_drag_get_protocol")
+  (return-type "guint32")
+  (parameters
+    '("guint32" "xid")
+    '("GdkDragProtocol*" "protocol")
+  )
+)
+
+(define-function drag_get_protocol_for_display
+  (c-name "gdk_drag_get_protocol_for_display")
+  (return-type "guint32")
+  (parameters
+    '("GdkDisplay*" "display")
+    '("guint32" "xid")
+    '("GdkDragProtocol*" "protocol")
+  )
+)
+
+(define-function gdk_drawable_get_type
+  (c-name "gdk_drawable_get_type")
+  (return-type "GType")
+)
+
+(define-function draw_layout_line_with_colors
+  (c-name "gdk_draw_layout_line_with_colors")
+  (return-type "none")
+  (parameters
+    '("GdkDrawable*" "drawable")
+    '("GdkGC*" "gc")
+    '("gint" "x")
+    '("gint" "y")
+    '("PangoLayoutLine*" "line")
+    '("GdkColor*" "foreground")
+    '("GdkColor*" "background")
+  )
+)
+
+(define-function draw_layout_with_colors
+  (c-name "gdk_draw_layout_with_colors")
+  (return-type "none")
+  (deprecated "use gtk.gdk.Drawable.draw_layout instead")
+  (parameters
+    '("GdkDrawable*" "drawable")
+    '("GdkGC*" "gc")
+    '("gint" "x")
+    '("gint" "y")
+    '("PangoLayout*" "layout")
+    '("GdkColor*" "foreground")
+    '("GdkColor*" "background")
+  )
+)
+
+(define-function draw_glyphs_transformed
+  (c-name "gdk_draw_glyphs_transformed")
+  (return-type "none")
+  (parameters
+    '("GdkDrawable*" "drawable")
+    '("GdkGC*" "gc")
+    '("PangoMatrix*" "matrix")
+    '("PangoFont*" "font")
+    '("gint" "x")
+    '("gint" "y")
+    '("PangoGlyphString*" "glyphs")
+  )
+)
+
+(define-function draw_trapezoids
+  (c-name "gdk_draw_trapezoids")
+  (return-type "none")
+  (parameters
+    '("GdkDrawable*" "drawable")
+    '("GdkGC*" "gc")
+    '("GdkTrapezoid*" "trapezoids")
+    '("gint" "n_trapezoids")
+  )
+)
+
+(define-function gdk_event_get_type
+  (c-name "gdk_event_get_type")
+  (return-type "GType")
+)
+
+(define-function events_pending
+  (c-name "gdk_events_pending")
+  (return-type "gboolean")
+)
+
+(define-function event_get
+  (c-name "gdk_event_get")
+  (return-type "GdkEvent*")
+)
+
+(define-function event_peek
+  (c-name "gdk_event_peek")
+  (return-type "GdkEvent*")
+)
+
+(define-function event_get_graphics_expose
+  (c-name "gdk_event_get_graphics_expose")
+  (return-type "GdkEvent*")
+  (parameters
+    '("GdkWindow*" "window")
+  )
+)
+
+(define-function event_handler_set
+  (c-name "gdk_event_handler_set")
+  (return-type "none")
+  (parameters
+    '("GdkEventFunc" "func")
+    '("gpointer" "data")
+    '("GDestroyNotify" "notify")
+  )
+)
+
+(define-function set_show_events
+  (c-name "gdk_set_show_events")
+  (return-type "none")
+  (parameters
+    '("gboolean" "show_events")
+  )
+)
+
+(define-function get_show_events
+  (c-name "gdk_get_show_events")
+  (return-type "gboolean")
+)
+
+(define-function add_client_message_filter
+  (c-name "gdk_add_client_message_filter")
+  (return-type "none")
+  (parameters
+    '("GdkAtom" "message_type")
+    '("GdkFilterFunc" "func")
+    '("gpointer" "data")
+  )
+)
+
+(define-function setting_get
+  (c-name "gdk_setting_get")
+  (return-type "gboolean")
+  (parameters
+    '("const-gchar*" "name")
+    '("GValue*" "value")
+  )
+)
+
+(define-function font_get_type
+  (c-name "gdk_font_get_type")
+  (return-type "GType")
+)
+
+(define-function font_load_for_display
+  (c-name "gdk_font_load_for_display")
+  (return-type "GdkFont*")
+  (parameters
+    '("GdkDisplay*" "display")
+    '("const-gchar*" "font_name")
+  )
+)
+
+(define-function fontset_load_for_display
+  (c-name "gdk_fontset_load_for_display")
+  (return-type "GdkFont*")
+  (parameters
+    '("GdkDisplay*" "display")
+    '("const-gchar*" "fontset_name")
+  )
+)
+
+(define-function font_from_description_for_display
+  (c-name "gdk_font_from_description_for_display")
+  (return-type "GdkFont*")
+  (parameters
+    '("GdkDisplay*" "display")
+    '("PangoFontDescription*" "font_desc")
+  )
+)
+
+(define-function fontset_load
+  (c-name "gdk_fontset_load")
+  (return-type "GdkFont*")
+  (parameters
+    '("const-gchar*" "fontset_name")
+  )
+)
+
+(define-function font_from_description
+  (c-name "gdk_font_from_description")
+  (return-type "GdkFont*")
+  (parameters
+    '("PangoFontDescription*" "font_desc")
+  )
+)
+
+(define-function gdk_gc_get_type
+  (c-name "gdk_gc_get_type")
+  (return-type "GType")
+)
+
+(define-function gc_new
+  (c-name "gdk_gc_new2")
+  (return-type "GdkGC*")
+  (deprecated "use gdk.GC")
+  (parameters
+    '("GdkDrawable*" "drawable")
+  )
+)
+
+(define-function gdk_image_get_type
+  (c-name "gdk_image_get_type")
+  (return-type "GType")
+)
+
+(define-function image_new_bitmap
+  (c-name "gdk_image_new_bitmap")
+  (return-type "GdkImage*")
+  (parameters
+    '("GdkVisual*" "visual")
+    '("gpointer" "data")
+    '("gint" "width")
+    '("gint" "height")
+  )
+)
+
+(define-function device_get_type
+  (c-name "gdk_device_get_type")
+  (return-type "GType")
+)
+
+(define-function devices_list
+  (c-name "gdk_devices_list")
+  (return-type "GList*")
+)
+
+(define-function device_free_history
+  (c-name "gdk_device_free_history")
+  (return-type "none")
+  (parameters
+    '("GdkTimeCoord**" "events")
+    '("gint" "n_events")
+  )
+)
+
+(define-function device_get_core_pointer
+  (c-name "gdk_device_get_core_pointer")
+  (return-type "GdkDevice*")
+)
+
+(define-function gdk_keymap_get_type
+  (c-name "gdk_keymap_get_type")
+  (return-type "GType")
+)
+
+(define-function keymap_get_default
+  (c-name "gdk_keymap_get_default")
+  (return-type "GdkKeymap*")
+)
+
+(define-function keymap_get_for_display
+  (c-name "gdk_keymap_get_for_display")
+  (return-type "GdkKeymap*")
+  (parameters
+    '("GdkDisplay*" "display")
+  )
+)
+
+(define-function keyval_name
+  (c-name "gdk_keyval_name")
+  (return-type "gchar*")
+  (parameters
+    '("guint" "keyval")
+  )
+)
+
+(define-function keyval_from_name
+  (c-name "gdk_keyval_from_name")
+  (return-type "guint")
+  (parameters
+    '("const-gchar*" "keyval_name")
+  )
+)
+
+(define-function keyval_convert_case
+  (c-name "gdk_keyval_convert_case")
+  (return-type "none")
+  (parameters
+    '("guint" "symbol")
+    '("guint*" "lower")
+    '("guint*" "upper")
+  )
+)
+
+(define-function keyval_to_upper
+  (c-name "gdk_keyval_to_upper")
+  (return-type "guint")
+  (parameters
+    '("guint" "keyval")
+  )
+)
+
+(define-function keyval_to_lower
+  (c-name "gdk_keyval_to_lower")
+  (return-type "guint")
+  (parameters
+    '("guint" "keyval")
+  )
+)
+
+(define-function keyval_is_upper
+  (c-name "gdk_keyval_is_upper")
+  (return-type "gboolean")
+  (parameters
+    '("guint" "keyval")
+  )
+)
+
+(define-function keyval_is_lower
+  (c-name "gdk_keyval_is_lower")
+  (return-type "gboolean")
+  (parameters
+    '("guint" "keyval")
+  )
+)
+
+(define-function keyval_to_unicode
+  (c-name "gdk_keyval_to_unicode")
+  (return-type "guint32")
+  (parameters
+    '("guint" "keyval")
+  )
+)
+
+(define-function unicode_to_keyval
+  (c-name "gdk_unicode_to_keyval")
+  (return-type "guint")
+  (parameters
+    '("guint32" "wc")
+  )
+)
+
+(define-function gdk_pango_renderer_get_type
+  (c-name "gdk_pango_renderer_get_type")
+  (return-type "GType")
+)
+
+(define-function pango_renderer_get_default
+  (c-name "gdk_pango_renderer_get_default")
+  (return-type "PangoRenderer*")
+  (parameters
+    '("GdkScreen*" "screen")
+  )
+)
+
+(define-function pango_context_get_for_screen
+  (c-name "gdk_pango_context_get_for_screen")
+  (return-type "PangoContext*")
+  (parameters
+    '("GdkScreen*" "screen")
+  )
+)
+
+(define-function pango_context_get
+  (c-name "gdk_pango_context_get")
+  (return-type "PangoContext*")
+)
+
+(define-function pango_context_set_colormap
+  (c-name "gdk_pango_context_set_colormap")
+  (return-type "none")
+  (parameters
+    '("PangoContext*" "context")
+    '("GdkColormap*" "colormap")
+  )
+)
+
+(define-function pango_layout_line_get_clip_region
+  (c-name "gdk_pango_layout_line_get_clip_region")
+  (caller-owns-return #t)
+  (return-type "GdkRegion*")
+  (parameters
+    '("PangoLayoutLine*" "line")
+    '("gint" "x_origin")
+    '("gint" "y_origin")
+    '("gint*" "index_ranges")
+    '("gint" "n_ranges")
+  )
+)
+
+(define-function pango_layout_get_clip_region
+  (c-name "gdk_pango_layout_get_clip_region")
+  (caller-owns-return #t)
+  (return-type "GdkRegion*")
+  (parameters
+    '("PangoLayout*" "layout")
+    '("gint" "x_origin")
+    '("gint" "y_origin")
+    '("gint*" "index_ranges")
+    '("gint" "n_ranges")
+  )
+)
+
+(define-function pixbuf_get_from_drawable
+  (c-name "gdk_pixbuf_get_from_drawable2")
+  (return-type "GdkPixbuf*")
+  (parameters
+    '("GdkPixbuf*" "pixbuf" (null-ok))
+    '("GdkDrawable*" "src")
+    '("GdkColormap*" "cmap")
+    '("int" "src_x")
+    '("int" "src_y")
+    '("int" "dest_x")
+    '("int" "dest_y")
+    '("int" "width")
+    '("int" "height")
+  )
+)
+
+(define-function gdk_pixmap_get_type
+  (c-name "gdk_pixmap_get_type")
+  (return-type "GType")
+)
+
+(define-function bitmap_create_from_data
+  (c-name "gdk_bitmap_create_from_data")
+  (return-type "GdkBitmap*")
+  (parameters
+    '("GdkDrawable*" "drawable" (null-ok))
+    '("const-guchar*" "data")
+    '("gint" "width")
+    '("gint" "height")
+  )
+)
+
+(define-function pixmap_create_from_data
+  (c-name "gdk_pixmap_create_from_data")
+  (return-type "GdkPixmap*")
+  (parameters
+    '("GdkDrawable*" "drawable" (null-ok))
+    '("const-guchar*" "data")
+    '("gint" "width")
+    '("gint" "height")
+    '("gint" "depth")
+    '("GdkColor*" "fg")
+    '("GdkColor*" "bg")
+  )
+)
+
+(define-function pixmap_create_from_xpm
+  (c-name "gdk_pixmap_create_from_xpm")
+  (return-type "GdkPixmap*")
+  (parameters
+    '("GdkDrawable*" "drawable")
+    '("GdkBitmap**" "mask")
+    '("GdkColor*" "transparent_color")
+    '("const-gchar*" "filename")
+  )
+)
+
+(define-function pixmap_colormap_create_from_xpm
+  (c-name "gdk_pixmap_colormap_create_from_xpm")
+  (return-type "GdkPixmap*")
+  (parameters
+    '("GdkDrawable*" "drawable")
+    '("GdkColormap*" "colormap")
+    '("GdkBitmap**" "mask")
+    '("GdkColor*" "transparent_color")
+    '("const-gchar*" "filename")
+  )
+)
+
+(define-function pixmap_create_from_xpm_d
+  (c-name "gdk_pixmap_create_from_xpm_d")
+  (return-type "GdkPixmap*")
+  (parameters
+    '("GdkDrawable*" "drawable")
+    '("GdkBitmap**" "mask")
+    '("GdkColor*" "transparent_color")
+    '("gchar**" "data")
+  )
+)
+
+(define-function pixmap_colormap_create_from_xpm_d
+  (c-name "gdk_pixmap_colormap_create_from_xpm_d")
+  (return-type "GdkPixmap*")
+  (parameters
+    '("GdkDrawable*" "drawable")
+    '("GdkColormap*" "colormap")
+    '("GdkBitmap**" "mask")
+    '("GdkColor*" "transparent_color")
+    '("gchar**" "data")
+  )
+)
+
+(define-function pixmap_foreign_new
+  (c-name "gdk_pixmap_foreign_new")
+  (caller-owns-return #t)
+  (return-type "GdkPixmap*")
+  (parameters
+    '("GdkNativeWindow" "anid")
+  )
+)
+
+(define-function pixmap_lookup
+  (c-name "gdk_pixmap_lookup")
+  (return-type "GdkPixmap*")
+  (parameters
+    '("GdkNativeWindow" "anid")
+  )
+)
+
+(define-function pixmap_foreign_new_for_display
+  (c-name "gdk_pixmap_foreign_new_for_display")
+  (caller-owns-return #t)
+  (return-type "GdkPixmap*")
+  (parameters
+    '("GdkDisplay*" "display")
+    '("GdkNativeWindow" "anid")
+  )
+)
+
+(define-function pixmap_lookup_for_display
+  (c-name "gdk_pixmap_lookup_for_display")
+  (return-type "GdkPixmap*")
+  (parameters
+    '("GdkDisplay*" "display")
+    '("GdkNativeWindow" "anid")
+  )
+)
+
+(define-function synthesize_window_state
+  (c-name "gdk_synthesize_window_state")
+  (return-type "none")
+  (parameters
+    '("GdkWindow*" "window")
+    '("GdkWindowState" "unset_flags")
+    '("GdkWindowState" "set_flags")
+  )
+)
+
+(define-function text_property_to_text_list
+  (c-name "gdk_text_property_to_text_list")
+  (return-type "gint")
+  (parameters
+    '("GdkAtom" "encoding")
+    '("gint" "format")
+    '("const-guchar*" "text")
+    '("gint" "length")
+    '("gchar***" "list")
+  )
+)
+
+(define-function text_property_to_utf8_list
+  (c-name "gdk_text_property_to_utf8_list")
+  (return-type "gint")
+  (parameters
+    '("GdkAtom" "encoding")
+    '("gint" "format")
+    '("const-guchar*" "text")
+    '("gint" "length")
+    '("gchar***" "list")
+  )
+)
+
+(define-function utf8_to_compound_text
+  (c-name "gdk_utf8_to_compound_text")
+  (return-type "gboolean")
+  (parameters
+    '("const-gchar*" "str")
+    '("GdkAtom*" "encoding")
+    '("gint*" "format")
+    '("guchar**" "ctext")
+    '("gint*" "length")
+  )
+)
+
+(define-function string_to_compound_text
+  (c-name "gdk_string_to_compound_text")
+  (return-type "gint")
+  (parameters
+    '("const-gchar*" "str")
+    '("GdkAtom*" "encoding")
+    '("gint*" "format")
+    '("guchar**" "ctext")
+    '("gint*" "length")
+  )
+)
+
+(define-function text_property_to_text_list_for_display
+  (c-name "gdk_text_property_to_text_list_for_display")
+  (return-type "gint")
+  (parameters
+    '("GdkDisplay*" "display")
+    '("GdkAtom" "encoding")
+    '("gint" "format")
+    '("const-guchar*" "text")
+    '("gint" "length")
+    '("gchar***" "list")
+  )
+)
+
+(define-function text_property_to_utf8_list_for_display
+  (c-name "gdk_text_property_to_utf8_list_for_display")
+  (return-type "gint")
+  (parameters
+    '("GdkDisplay*" "display")
+    '("GdkAtom" "encoding")
+    '("gint" "format")
+    '("const-guchar*" "text")
+    '("gint" "length")
+    '("gchar***" "list")
+  )
+)
+
+(define-function utf8_to_string_target
+  (c-name "gdk_utf8_to_string_target")
+  (caller-owns-return #t)
+  (return-type "gchar*")
+  (parameters
+    '("const-gchar*" "str")
+  )
+)
+
+(define-function string_to_compound_text_for_display
+  (c-name "gdk_string_to_compound_text_for_display")
+  (return-type "gint")
+  (parameters
+    '("GdkDisplay*" "display")
+    '("const-gchar*" "str")
+    '("GdkAtom*" "encoding")
+    '("gint*" "format")
+    '("guchar**" "ctext")
+    '("gint*" "length")
+  )
+)
+
+(define-function utf8_to_compound_text_for_display
+  (c-name "gdk_utf8_to_compound_text_for_display")
+  (return-type "gboolean")
+  (parameters
+    '("GdkDisplay*" "display")
+    '("const-gchar*" "str")
+    '("GdkAtom*" "encoding")
+    '("gint*" "format")
+    '("guchar**" "ctext")
+    '("gint*" "length")
+  )
+)
+
+(define-function free_text_list
+  (c-name "gdk_free_text_list")
+  (return-type "none")
+  (parameters
+    '("gchar**" "list")
+  )
+)
+
+(define-function free_compound_text
+  (c-name "gdk_free_compound_text")
+  (return-type "none")
+  (parameters
+    '("guchar*" "ctext")
+  )
+)
+
+(define-function atom_intern
+  (c-name "gdk_atom_intern")
+  (return-type "GdkAtom")
+  (parameters
+    '("gchar*" "atom_name")
+    '("gboolean" "only_if_exists" (default "FALSE"))
+  )
+)
+
+(define-function rgb_xpixel_from_rgb
+  (c-name "gdk_rgb_xpixel_from_rgb")
+  (return-type "gulong")
+  (parameters
+    '("guint32" "rgb")
+  )
+)
+
+(define-function rgb_gc_set_foreground
+  (c-name "gdk_rgb_gc_set_foreground")
+  (return-type "none")
+  (parameters
+    '("GdkGC*" "gc")
+    '("guint32" "rgb")
+  )
+)
+
+(define-function rgb_gc_set_background
+  (c-name "gdk_rgb_gc_set_background")
+  (return-type "none")
+  (parameters
+    '("GdkGC*" "gc")
+    '("guint32" "rgb")
+  )
+)
+
+(define-function rgb_cmap_new
+  (c-name "gdk_rgb_cmap_new")
+  (return-type "GdkRgbCmap*")
+  (parameters
+    '("guint32*" "colors")
+    '("gint" "n_colors")
+  )
+)
+
+(define-function rgb_ditherable
+  (c-name "gdk_rgb_ditherable")
+  (return-type "gboolean")
+)
+
+(define-function rgb_set_verbose
+  (c-name "gdk_rgb_set_verbose")
+  (return-type "none")
+  (parameters
+    '("gboolean" "verbose")
+  )
+)
+
+(define-function rgb_set_install
+  (c-name "gdk_rgb_set_install")
+  (return-type "none")
+  (parameters
+    '("gboolean" "install")
+  )
+)
+
+(define-function rgb_set_min_colors
+  (c-name "gdk_rgb_set_min_colors")
+  (return-type "none")
+  (parameters
+    '("gint" "min_colors")
+  )
+)
+
+(define-function rgb_get_colormap
+  (c-name "gdk_rgb_get_colormap")
+  (return-type "GdkColormap*")
+)
+
+(define-function rgb_get_cmap
+  (c-name "gdk_rgb_get_cmap")
+  (return-type "GdkColormap*")
+  (deprecated "use gtk.gdk.rgb_get_colormap instead")
+)
+
+(define-function rgb_get_visual
+  (c-name "gdk_rgb_get_visual")
+  (return-type "GdkVisual*")
+)
+
+(define-function rgb_init
+  (c-name "gdk_rgb_init")
+  (return-type "none")
+)
+
+(define-function rgb_find_color
+  (c-name "gdk_rgb_find_color")
+  (return-type "none")
+  (parameters
+    '("GdkColormap*" "colormap")
+    '("GdkColor*" "color")
+  )
+)
+
+(define-function draw_rgb_32_image_dithalign
+  (c-name "gdk_draw_rgb_32_image_dithalign")
+  (return-type "none")
+  (parameters
+    '("GdkDrawable*" "drawable")
+    '("GdkGC*" "gc")
+    '("gint" "x")
+    '("gint" "y")
+    '("gint" "width")
+    '("gint" "height")
+    '("GdkRgbDither" "dith")
+    '("guchar*" "buf")
+    '("gint" "rowstride")
+    '("gint" "xdith")
+    '("gint" "ydith")
+  )
+)
+
+(define-function rgb_colormap_ditherable
+  (c-name "gdk_rgb_colormap_ditherable")
+  (return-type "gboolean")
+  (parameters
+    '("GdkColormap*" "cmap")
+  )
+)
+
+(define-function gdk_screen_get_type
+  (c-name "gdk_screen_get_type")
+  (return-type "GType")
+)
+
+(define-function screen_get_default
+  (c-name "gdk_screen_get_default")
+  (return-type "GdkScreen*")
+)
+
+(define-function selection_owner_set
+  (c-name "gdk_selection_owner_set")
+  (return-type "gboolean")
+  (parameters
+    '("GdkWindow*" "owner")
+    '("GdkAtom" "selection")
+    '("guint32" "time")
+    '("gboolean" "send_event")
+  )
+)
+
+(define-function selection_owner_get
+  (c-name "gdk_selection_owner_get")
+  (return-type "GdkWindow*")
+  (parameters
+    '("GdkAtom" "selection")
+  )
+)
+
+(define-function selection_owner_set_for_display
+  (c-name "gdk_selection_owner_set_for_display")
+  (return-type "gboolean")
+  (parameters
+    '("GdkDisplay*" "display")
+    '("GdkWindow*" "owner")
+    '("GdkAtom" "selection")
+    '("guint32" "time")
+    '("gboolean" "send_event")
+  )
+)
+
+(define-function selection_owner_get_for_display
+  (c-name "gdk_selection_owner_get_for_display")
+  (return-type "GdkWindow*")
+  (parameters
+    '("GdkDisplay*" "display")
+    '("GdkAtom" "selection")
+  )
+)
+
+(define-function selection_send_notify
+  (c-name "gdk_selection_send_notify")
+  (return-type "none")
+  (parameters
+    '("guint32" "requestor")
+    '("GdkAtom" "selection")
+    '("GdkAtom" "target")
+    '("GdkAtom" "property")
+    '("guint32" "time")
+  )
+)
+
+(define-function selection_send_notify_for_display
+  (c-name "gdk_selection_send_notify_for_display")
+  (return-type "none")
+  (parameters
+    '("GdkDisplay*" "display")
+    '("guint32" "requestor")
+    '("GdkAtom" "selection")
+    '("GdkAtom" "target")
+    '("GdkAtom" "property")
+    '("guint32" "time")
+  )
+)
+
+(define-function spawn_on_screen
+  (c-name "gdk_spawn_on_screen")
+  (return-type "gboolean")
+  (parameters
+    '("GdkScreen*" "screen")
+    '("const-gchar*" "working_directory")
+    '("gchar**" "argv")
+    '("gchar**" "envp")
+    '("GSpawnFlags" "flags")
+    '("GSpawnChildSetupFunc" "child_setup")
+    '("gpointer" "user_data")
+    '("gint*" "child_pid")
+    '("GError**" "error")
+  )
+)
+
+(define-function spawn_on_screen_with_pipes
+  (c-name "gdk_spawn_on_screen_with_pipes")
+  (return-type "gboolean")
+  (parameters
+    '("GdkScreen*" "screen")
+    '("const-gchar*" "working_directory")
+    '("gchar**" "argv")
+    '("gchar**" "envp")
+    '("GSpawnFlags" "flags")
+    '("GSpawnChildSetupFunc" "child_setup")
+    '("gpointer" "user_data")
+    '("gint*" "child_pid")
+    '("gint*" "standard_input")
+    '("gint*" "standard_output")
+    '("gint*" "standard_error")
+    '("GError**" "error")
+  )
+)
+
+(define-function spawn_command_line_on_screen
+  (c-name "gdk_spawn_command_line_on_screen")
+  (return-type "gboolean")
+  (parameters
+    '("GdkScreen*" "screen")
+    '("const-gchar*" "command_line")
+    '("GError**" "error")
+  )
+)
+
+(define-function gdk_visual_get_type
+  (c-name "gdk_visual_get_type")
+  (return-type "GType")
+)
+
+(define-function visual_get_best_depth
+  (c-name "gdk_visual_get_best_depth")
+  (return-type "gint")
+)
+
+(define-function visual_get_best_type
+  (c-name "gdk_visual_get_best_type")
+  (return-type "GdkVisualType")
+)
+
+(define-function visual_get_system
+  (c-name "gdk_visual_get_system")
+  (return-type "GdkVisual*")
+)
+
+(define-function visual_get_best
+  (c-name "gdk_visual_get_best")
+  (return-type "GdkVisual*")
+)
+
+(define-function visual_get_best_with_depth
+  (c-name "gdk_visual_get_best_with_depth")
+  (return-type "GdkVisual*")
+  (parameters
+    '("gint" "depth")
+  )
+)
+
+(define-function visual_get_best_with_type
+  (c-name "gdk_visual_get_best_with_type")
+  (return-type "GdkVisual*")
+  (parameters
+    '("GdkVisualType" "visual_type")
+  )
+)
+
+(define-function query_depths
+  (c-name "gdk_query_depths")
+  (return-type "none")
+  (parameters
+    '("gint**" "depths")
+    '("gint*" "count")
+  )
+)
+
+(define-function query_visual_types
+  (c-name "gdk_query_visual_types")
+  (return-type "none")
+  (parameters
+    '("GdkVisualType**" "visual_types")
+    '("gint*" "count")
+  )
+)
+
+(define-function list_visuals
+  (c-name "gdk_list_visuals")
+  (return-type "GList*")
+)
+
+(define-function gdk_window_object_get_type
+  (c-name "gdk_window_object_get_type")
+  (return-type "GType")
+)
+
+(define-function window_at_pointer
+  (c-name "gdk_window_at_pointer")
+  (return-type "GdkWindow*")
+  (parameters
+    '("gint*" "win_x")
+    '("gint*" "win_y")
+  )
+)
+
+(define-function window_foreign_new
+  (c-name "gdk_window_foreign_new")
+  (caller-owns-return #t)
+  (return-type "GdkWindow*")
+  (parameters
+    '("GdkNativeWindow" "anid")
+  )
+)
+
+(define-function window_lookup
+  (c-name "gdk_window_lookup")
+  (return-type "GdkWindow*")
+  (parameters
+    '("GdkNativeWindow" "anid")
+  )
+)
+
+(define-function window_foreign_new_for_display
+  (c-name "gdk_window_foreign_new_for_display")
+  (caller-owns-return #t)
+  (return-type "GdkWindow*")
+  (parameters
+    '("GdkDisplay*" "display")
+    '("GdkNativeWindow" "anid")
+  )
+)
+
+(define-function window_lookup_for_display
+  (c-name "gdk_window_lookup_for_display")
+  (return-type "GdkWindow*")
+  (parameters
+    '("GdkDisplay*" "display")
+    '("GdkNativeWindow" "anid")
+  )
+)
+
+(define-function set_sm_client_id
+  (c-name "gdk_set_sm_client_id")
+  (return-type "none")
+  (parameters
+    '("const-gchar*" "sm_client_id")
+  )
+)
+
+(define-function window_get_toplevels
+  (c-name "gdk_window_get_toplevels")
+  (return-type "GList*")
+)
+
+(define-function window_process_all_updates
+  (c-name "gdk_window_process_all_updates")
+  (return-type "none")
+)
+
+(define-function window_set_debug_updates
+  (c-name "gdk_window_set_debug_updates")
+  (return-type "none")
+  (parameters
+    '("gboolean" "setting")
+  )
+)
+
+(define-function window_constrain_size
+  (c-name "gdk_window_constrain_size")
+  (return-type "none")
+  (parameters
+    '("GdkGeometry*" "geometry")
+    '("guint" "flags")
+    '("gint" "width")
+    '("gint" "height")
+    '("gint*" "new_width")
+    '("gint*" "new_height")
+  )
+)
+
+(define-function set_pointer_hooks
+  (c-name "gdk_set_pointer_hooks")
+  (return-type "GdkPointerHooks*")
+  (parameters
+    '("const-GdkPointerHooks*" "new_hooks")
+  )
+)
+
+(define-function get_default_root_window
+  (c-name "gdk_get_default_root_window")
+  (return-type "GdkWindow*")
+)
+
+(define-function pixbuf_new_from_file
+  (c-name "gdk_pixbuf_new_from_file")
+  (caller-owns-return #t)
+  (return-type "GdkPixbuf*")
+  (parameters
+    '("const-char*" "filename")
+    '("GError**" "error")
+  )
+)
+
+(define-function pixbuf_new_from_file_at_size
+  (c-name "gdk_pixbuf_new_from_file_at_size")
+  (caller-owns-return #t)
+  (return-type "GdkPixbuf*")
+  (parameters
+    '("const-char*" "filename")
+    '("int" "width")
+    '("int" "height")
+    '("GError**" "error")
+  )
+)
+
+(define-function pixbuf_new_from_data
+  (c-name "gdk_pixbuf_new_from_data")
+  (caller-owns-return #t)
+  (return-type "GdkPixbuf*")
+  (parameters
+    '("const-guchar*" "data")
+    '("GdkColorspace" "colorspace")
+    '("gboolean" "has_alpha")
+    '("int" "bits_per_sample")
+    '("int" "width")
+    '("int" "height")
+    '("int" "rowstride")
+    '("GdkPixbufDestroyNotify" "destroy_fn")
+    '("gpointer" "destroy_fn_data")
+  )
+)
+
+(define-function pixbuf_new_from_array
+  (c-name "gdk_pixbuf_new_from_array")
+  (caller-owns-return #t)
+  (return-type "GdkPixbuf*")
+  (parameters
+    '("PyArrayObject*" "array")
+    '("GdkColorspace" "colorspace")
+    '("int" "bits_per_sample")
+  )
+)
+
+(define-function pixbuf_new_from_xpm_data
+  (c-name "gdk_pixbuf_new_from_xpm_data")
+  (caller-owns-return #t)
+  (return-type "GdkPixbuf*")
+  (parameters
+    '("const-char**" "data")
+  )
+)
+
+(define-function pixbuf_new_from_inline
+  (c-name "gdk_pixbuf_new_from_inline")
+  (caller-owns-return #t)
+  (return-type "GdkPixbuf*")
+  (parameters
+    '("gint" "data_length")
+    '("const-guchar*" "data")
+    '("gboolean" "copy_pixels")
+    '("GError**" "error")
+  )
+)
+
+(define-function pixbuf_animation_get_type
+  (c-name "gdk_pixbuf_animation_get_type")
+  (return-type "GType")
+)
+
+(define-function pixbuf_animation_iter_get_type
+  (c-name "gdk_pixbuf_animation_iter_get_type")
+  (return-type "GType")
+)
+
+(define-function pixbuf_error_quark
+  (c-name "gdk_pixbuf_error_quark")
+  (return-type "GQuark")
+)
+
+(define-function pixbuf_get_type
+  (c-name "gdk_pixbuf_get_type")
+  (return-type "GType")
+)
+
+(define-function pixbuf_new_from_file_at_scale
+  (c-name "gdk_pixbuf_new_from_file_at_scale")
+  (return-type "GdkPixbuf*")
+  (parameters
+    '("const-char*" "filename")
+    '("int" "width")
+    '("int" "height")
+    '("gboolean" "preserve_aspect_ratio")
+    '("GError**" "error")
+  )
+)
+
+(define-function pixbuf_alpha_mode_get_type
+  (c-name "gdk_pixbuf_alpha_mode_get_type")
+  (return-type "GType")
+)
+
+(define-function colorspace_get_type
+  (c-name "gdk_colorspace_get_type")
+  (return-type "GType")
+)
+
+(define-function pixbuf_error_get_type
+  (c-name "gdk_pixbuf_error_get_type")
+  (return-type "GType")
+)
+
+(define-function interp_type_get_type
+  (c-name "gdk_interp_type_get_type")
+  (return-type "GType")
+)
+
+(define-function pixbuf_rotation_get_type
+  (c-name "gdk_pixbuf_rotation_get_type")
+  (return-type "GType")
+)
+
+(define-function pixbuf_get_formats
+  (c-name "gdk_pixbuf_get_formats")
+  (return-type "GSList*")
+)
+
+(define-function pixbuf_get_file_info
+  (c-name "gdk_pixbuf_get_file_info")
+  (return-type "GdkPixbufFormat*")
+  (parameters
+    '("gint*" "width")
+    '("gint*" "height")
+  )
+)
+
+(define-function pixbuf_loader_get_type
+  (c-name "gdk_pixbuf_loader_get_type")
+  (return-type "GType")
+)
+
+(define-function pixbuf_loader_new
+  (c-name "gdk_pixbuf_loader_new")
+  (return-type "GdkPixbufLoader*")
+  (deprecated "use gtk.gdk.PixbufLoader instead")
+)
+
+(define-function pixbuf_loader_new_with_mime_type
+  (c-name "gdk_pixbuf_loader_new_with_mime_type")
+  (caller-owns-return #t)
+  (return-type "GdkPixbufLoader*")
+  (parameters
+    '("const-char*" "mime_type")
+    '("GError**" "error")
+  )
+)
+
+(define-function pixbuf_simple_anim_get_type
+  (c-name "gdk_pixbuf_simple_anim_get_type")
+  (return-type "GType")
+)
+
+(define-function pixbuf_simple_anim_iter_get_type
+  (c-name "gdk_pixbuf_simple_anim_iter_get_type")
+  (return-type "GType")
+)
+
+(define-function pixbuf_from_pixdata
+  (c-name "gdk_pixbuf_from_pixdata")
+  (return-type "GdkPixbuf*")
+  (parameters
+    '("const-GdkPixdata*" "pixdata")
+    '("gboolean" "copy_pixels")
+    '("GError**" "error")
+  )
+)
+
+(define-function cursor_type_get_type
+  (c-name "gdk_cursor_type_get_type")
+  (return-type "GType")
+)
+
+(define-function drag_action_get_type
+  (c-name "gdk_drag_action_get_type")
+  (return-type "GType")
+)
+
+(define-function drag_protocol_get_type
+  (c-name "gdk_drag_protocol_get_type")
+  (return-type "GType")
+)
+
+(define-function filter_return_get_type
+  (c-name "gdk_filter_return_get_type")
+  (return-type "GType")
+)
+
+(define-function event_type_get_type
+  (c-name "gdk_event_type_get_type")
+  (return-type "GType")
+)
+
+(define-function event_mask_get_type
+  (c-name "gdk_event_mask_get_type")
+  (return-type "GType")
+)
+
+(define-function visibility_state_get_type
+  (c-name "gdk_visibility_state_get_type")
+  (return-type "GType")
+)
+
+(define-function scroll_direction_get_type
+  (c-name "gdk_scroll_direction_get_type")
+  (return-type "GType")
+)
+
+(define-function notify_type_get_type
+  (c-name "gdk_notify_type_get_type")
+  (return-type "GType")
+)
+
+(define-function crossing_mode_get_type
+  (c-name "gdk_crossing_mode_get_type")
+  (return-type "GType")
+)
+
+(define-function property_state_get_type
+  (c-name "gdk_property_state_get_type")
+  (return-type "GType")
+)
+
+(define-function window_state_get_type
+  (c-name "gdk_window_state_get_type")
+  (return-type "GType")
+)
+
+(define-function setting_action_get_type
+  (c-name "gdk_setting_action_get_type")
+  (return-type "GType")
+)
+
+(define-function owner_change_get_type
+  (c-name "gdk_owner_change_get_type")
+  (return-type "GType")
+)
+
+(define-function font_type_get_type
+  (c-name "gdk_font_type_get_type")
+  (return-type "GType")
+)
+
+(define-function cap_style_get_type
+  (c-name "gdk_cap_style_get_type")
+  (return-type "GType")
+)
+
+(define-function fill_get_type
+  (c-name "gdk_fill_get_type")
+  (return-type "GType")
+)
+
+(define-function function_get_type
+  (c-name "gdk_function_get_type")
+  (return-type "GType")
+)
+
+(define-function join_style_get_type
+  (c-name "gdk_join_style_get_type")
+  (return-type "GType")
+)
+
+(define-function line_style_get_type
+  (c-name "gdk_line_style_get_type")
+  (return-type "GType")
+)
+
+(define-function subwindow_mode_get_type
+  (c-name "gdk_subwindow_mode_get_type")
+  (return-type "GType")
+)
+
+(define-function gc_values_mask_get_type
+  (c-name "gdk_gc_values_mask_get_type")
+  (return-type "GType")
+)
+
+(define-function image_type_get_type
+  (c-name "gdk_image_type_get_type")
+  (return-type "GType")
+)
+
+(define-function extension_mode_get_type
+  (c-name "gdk_extension_mode_get_type")
+  (return-type "GType")
+)
+
+(define-function input_source_get_type
+  (c-name "gdk_input_source_get_type")
+  (return-type "GType")
+)
+
+(define-function input_mode_get_type
+  (c-name "gdk_input_mode_get_type")
+  (return-type "GType")
+)
+
+(define-function axis_use_get_type
+  (c-name "gdk_axis_use_get_type")
+  (return-type "GType")
+)
+
+(define-function prop_mode_get_type
+  (c-name "gdk_prop_mode_get_type")
+  (return-type "GType")
+)
+
+(define-function fill_rule_get_type
+  (c-name "gdk_fill_rule_get_type")
+  (return-type "GType")
+)
+
+(define-function overlap_type_get_type
+  (c-name "gdk_overlap_type_get_type")
+  (return-type "GType")
+)
+
+(define-function rgb_dither_get_type
+  (c-name "gdk_rgb_dither_get_type")
+  (return-type "GType")
+)
+
+(define-function byte_order_get_type
+  (c-name "gdk_byte_order_get_type")
+  (return-type "GType")
+)
+
+(define-function modifier_type_get_type
+  (c-name "gdk_modifier_type_get_type")
+  (return-type "GType")
+)
+
+(define-function input_condition_get_type
+  (c-name "gdk_input_condition_get_type")
+  (return-type "GType")
+)
+
+(define-function status_get_type
+  (c-name "gdk_status_get_type")
+  (return-type "GType")
+)
+
+(define-function grab_status_get_type
+  (c-name "gdk_grab_status_get_type")
+  (return-type "GType")
+)
+
+(define-function visual_type_get_type
+  (c-name "gdk_visual_type_get_type")
+  (return-type "GType")
+)
+
+(define-function window_class_get_type
+  (c-name "gdk_window_class_get_type")
+  (return-type "GType")
+)
+
+(define-function window_type_get_type
+  (c-name "gdk_window_type_get_type")
+  (return-type "GType")
+)
+
+(define-function window_attributes_type_get_type
+  (c-name "gdk_window_attributes_type_get_type")
+  (return-type "GType")
+)
+
+(define-function window_hints_get_type
+  (c-name "gdk_window_hints_get_type")
+  (return-type "GType")
+)
+
+(define-function window_type_hint_get_type
+  (c-name "gdk_window_type_hint_get_type")
+  (return-type "GType")
+)
+
+(define-function wm_decoration_get_type
+  (c-name "gdk_wm_decoration_get_type")
+  (return-type "GType")
+)
+
+(define-function wm_function_get_type
+  (c-name "gdk_wm_function_get_type")
+  (return-type "GType")
+)
+
+(define-function gravity_get_type
+  (c-name "gdk_gravity_get_type")
+  (return-type "GType")
+)
+
+(define-function window_edge_get_type
+  (c-name "gdk_window_edge_get_type")
+  (return-type "GType")
+)
+
+(define-function region_polygon
+  (c-name "gdk_region_polygon")
+  (return-type "GdkRegion*")
+  (parameters
+    '("GdkPoint*" "points")
+    '("gint" "npoints")
+    '("GdkFillRule" "fill_rule")
+  )
+)
+
+(define-function region_rectangle
+  (c-name "gdk_region_rectangle")
+  (return-type "GdkRegion*")
+  (parameters
+    '("GdkRectangle*" "rectangle")
+  )
+)
+
+(define-function cairo_set_source_color
+  (c-name "gdk_cairo_set_source_color")
+  (return-type "none")
+  (parameters
+    '("cairo_t*" "cr")
+    '("GdkColor*" "color")
+  )
+)
+
+(define-function cairo_set_source_pixbuf
+  (c-name "gdk_cairo_set_source_pixbuf")
+  (return-type "none")
+  (parameters
+    '("cairo_t*" "cr")
+    '("GdkPixbuf*" "pixbuf")
+    '("double" "pixbuf_x")
+    '("double" "pixbuf_y")
+  )
+)
+
+(define-function cairo_rectangle
+  (c-name "gdk_cairo_rectangle")
+  (return-type "none")
+  (parameters
+    '("cairo_t*" "cr")
+    '("GdkRectangle*" "rectangle")
+  )
+)
+
+(define-function cairo_region
+  (c-name "gdk_cairo_region")
+  (return-type "none")
+  (parameters
+    '("cairo_t*" "cr")
+    '("GdkRegion*" "region")
+  )
+)
+
+(define-function cairo_set_source_pixmap
+  (c-name "gdk_cairo_set_source_pixmap")
+  (return-type "none")
+  (parameters
+    '("cairo_t*" "cr")
+    '("GdkPixmap*" "pixmap")
+    '("double" "pixmap_x")
+    '("double" "pixmap_y")
+  )
+)
+
+(define-function pixmap_foreign_new_for_screen
+  (c-name "gdk_pixmap_foreign_new_for_screen")
+  (return-type "GdkPixmap*")
+  (parameters
+    '("GdkScreen*" "screen")
+    '("GdkNativeWindow" "anid")
+    '("gint" "width")
+    '("gint" "height")
+    '("gint" "depth")
+  )
+)
+
+(define-function atom_intern_static_string
+  (c-name "gdk_atom_intern_static_string")
+  (return-type "GdkAtom")
+  (parameters
+    '("const-gchar*" "atom_name")
+  )
+)
+
+(define-pointer CTreeNode
+  (in-module "Gtk")
+  (c-name "GtkCTreeNode")
+  (gtype-id "GTK_TYPE_CTREE_NODE")
+)
+
+(define-function pygtk_generic_tree_model_get_type
+  (c-name "pygtk_generic_tree_model_get_type")
+  (return-type "GType")
+)
+
+(define-function pygtk_generic_cell_renderer_get_type
+  (c-name "pygtk_generic_cell_renderer_get_type")
+  (return-type "GType")
+)
+
+(define-function gtk_about_dialog_get_type
+  (c-name "gtk_about_dialog_get_type")
+  (return-type "GType")
+)
+
+(define-function about_dialog_set_email_hook
+  (c-name "gtk_about_dialog_set_email_hook")
+  (return-type "GtkAboutDialogActivateLinkFunc")
+  (parameters
+    '("GtkAboutDialogActivateLinkFunc" "func")
+    '("gpointer" "data")
+    '("GDestroyNotify" "destroy")
+  )
+)
+
+(define-function about_dialog_set_url_hook
+  (c-name "gtk_about_dialog_set_url_hook")
+  (return-type "GtkAboutDialogActivateLinkFunc")
+  (parameters
+    '("GtkAboutDialogActivateLinkFunc" "func")
+    '("gpointer" "data")
+    '("GDestroyNotify" "destroy")
+  )
+)
+
+(define-function show_about_dialog
+  (c-name "gtk_show_about_dialog")
+  (return-type "none")
+  (parameters
+    '("GtkWindow*" "parent")
+    '("const-gchar*" "first_property_name")
+  )
+  (varargs #t)
+)
+
+(define-function gtk_accel_group_get_type
+  (c-name "gtk_accel_group_get_type")
+  (return-type "GType")
+)
+
+(define-function accel_groups_activate
+  (c-name "gtk_accel_groups_activate")
+  (return-type "gboolean")
+  (parameters
+    '("GObject*" "object")
+    '("guint" "accel_key")
+    '("GdkModifierType" "accel_mods")
+  )
+)
+
+(define-function accel_groups_from_object
+  (c-name "gtk_accel_groups_from_object")
+  (return-type "GSList*")
+  (parameters
+    '("GObject*" "object")
+  )
+)
+
+(define-function accel_group_from_accel_closure
+  (c-name "gtk_accel_group_from_accel_closure")
+  (return-type "GtkAccelGroup*")
+  (parameters
+    '("GClosure*" "closure")
+  )
+)
+
+(define-function accelerator_valid
+  (c-name "gtk_accelerator_valid")
+  (return-type "gboolean")
+  (parameters
+    '("guint" "keyval")
+    '("GdkModifierType" "modifiers")
+  )
+)
+
+(define-function accelerator_parse
+  (c-name "gtk_accelerator_parse")
+  (return-type "none")
+  (parameters
+    '("const-gchar*" "accelerator")
+    '("guint*" "accelerator_key")
+    '("GdkModifierType*" "accelerator_mods")
+  )
+)
+
+(define-function accelerator_name
+  (c-name "gtk_accelerator_name")
+  (caller-owns-return #t)
+  (return-type "gchar*")
+  (parameters
+    '("guint" "accelerator_key")
+    '("GdkModifierType" "accelerator_mods")
+  )
+)
+
+(define-function accelerator_set_default_mod_mask
+  (c-name "gtk_accelerator_set_default_mod_mask")
+  (return-type "none")
+  (parameters
+    '("GdkModifierType" "default_mod_mask")
+  )
+)
+
+(define-function accelerator_get_default_mod_mask
+  (c-name "gtk_accelerator_get_default_mod_mask")
+  (return-type "GdkModifierType")
+)
+
+(define-function accelerator_get_label
+  (c-name "gtk_accelerator_get_label")
+  (caller-owns-return #t)
+  (return-type "gchar*")
+  (parameters
+    '("guint" "accelerator_key")
+    '("GdkModifierType" "accelerator_mods")
+  )
+)
+
+(define-function gtk_accel_label_get_type
+  (c-name "gtk_accel_label_get_type")
+  (return-type "GType")
+)
+
+(define-function accel_map_add_entry
+  (c-name "gtk_accel_map_add_entry")
+  (return-type "none")
+  (parameters
+    '("const-gchar*" "accel_path")
+    '("guint" "accel_key")
+    '("GdkModifierType" "accel_mods")
+  )
+)
+
+(define-function accel_map_lookup_entry
+  (c-name "gtk_accel_map_lookup_entry")
+  (return-type "gboolean")
+  (parameters
+    '("const-gchar*" "accel_path")
+    '("GtkAccelKey*" "key")
+  )
+)
+
+(define-function accel_map_change_entry
+  (c-name "gtk_accel_map_change_entry")
+  (return-type "gboolean")
+  (parameters
+    '("const-gchar*" "accel_path")
+    '("guint" "accel_key")
+    '("GdkModifierType" "accel_mods")
+    '("gboolean" "replace")
+  )
+)
+
+(define-function accel_map_load
+  (c-name "gtk_accel_map_load")
+  (return-type "none")
+  (parameters
+    '("const-gchar*" "file_name")
+  )
+)
+
+(define-function accel_map_save
+  (c-name "gtk_accel_map_save")
+  (return-type "none")
+  (parameters
+    '("const-gchar*" "file_name")
+  )
+)
+
+(define-function accel_map_foreach
+  (c-name "gtk_accel_map_foreach")
+  (return-type "none")
+  (parameters
+    '("gpointer" "data")
+    '("GtkAccelMapForeach" "foreach_func")
+  )
+)
+
+(define-function accel_map_load_fd
+  (c-name "gtk_accel_map_load_fd")
+  (return-type "none")
+  (parameters
+    '("gint" "fd")
+  )
+)
+
+(define-function accel_map_load_scanner
+  (c-name "gtk_accel_map_load_scanner")
+  (return-type "none")
+  (parameters
+    '("GScanner*" "scanner")
+  )
+)
+
+(define-function accel_map_save_fd
+  (c-name "gtk_accel_map_save_fd")
+  (return-type "none")
+  (parameters
+    '("gint" "fd")
+  )
+)
+
+(define-function accel_map_lock_path
+  (c-name "gtk_accel_map_lock_path")
+  (return-type "none")
+  (parameters
+    '("const-gchar*" "accel_path")
+  )
+)
+
+(define-function accel_map_unlock_path
+  (c-name "gtk_accel_map_unlock_path")
+  (return-type "none")
+  (parameters
+    '("const-gchar*" "accel_path")
+  )
+)
+
+(define-function accel_map_add_filter
+  (c-name "gtk_accel_map_add_filter")
+  (return-type "none")
+  (parameters
+    '("const-gchar*" "filter_pattern")
+  )
+)
+
+(define-function accel_map_foreach_unfiltered
+  (c-name "gtk_accel_map_foreach_unfiltered")
+  (return-type "none")
+  (parameters
+    '("gpointer" "data")
+    '("GtkAccelMapForeach" "foreach_func")
+  )
+)
+
+(define-function accel_map_get_type
+  (c-name "gtk_accel_map_get_type")
+  (return-type "GType")
+)
+
+(define-function accel_map_get
+  (c-name "gtk_accel_map_get")
+  (return-type "GtkAccelMap*")
+)
+
+(define-function gtk_accessible_get_type
+  (c-name "gtk_accessible_get_type")
+  (return-type "GType")
+)
+
+(define-function gtk_action_get_type
+  (c-name "gtk_action_get_type")
+  (return-type "GType")
+)
+
+(define-function gtk_action_group_get_type
+  (c-name "gtk_action_group_get_type")
+  (return-type "GType")
+)
+
+(define-function gtk_adjustment_get_type
+  (c-name "gtk_adjustment_get_type")
+  (return-type "GType")
+)
+
+(define-function gtk_alignment_get_type
+  (c-name "gtk_alignment_get_type")
+  (return-type "GType")
+)
+
+(define-function gtk_arrow_get_type
+  (c-name "gtk_arrow_get_type")
+  (return-type "GType")
+)
+
+(define-function gtk_aspect_frame_get_type
+  (c-name "gtk_aspect_frame_get_type")
+  (return-type "GType")
+)
+
+(define-function gtk_button_box_get_type
+  (c-name "gtk_button_box_get_type")
+  (return-type "GType")
+)
+
+(define-function gtk_bin_get_type
+  (c-name "gtk_bin_get_type")
+  (return-type "GType")
+)
+
+(define-function gtk_binding_set_new
+  (c-name "gtk_binding_set_new")
+  (return-type "GtkBindingSet*")
+  (deprecated "use binding_set_new")
+  (parameters
+    '("const-gchar*" "set_name")
+  )
+)
+
+(define-function gtk_binding_set_by_class
+  (c-name "gtk_binding_set_by_class")
+  (return-type "GtkBindingSet*")
+  (deprecated "use binding_set_by_class")
+  (parameters
+    '("gpointer" "object_class")
+  )
+)
+
+(define-function binding_set_by_class
+  (c-name "gtk_binding_set_by_class")
+  (return-type "GtkBindingSet*")
+  (parameters
+    '("gpointer" "object_class")
+  )
+)
+
+(define-function gtk_binding_set_find
+  (c-name "gtk_binding_set_find")
+  (return-type "GtkBindingSet*")
+  (deprecated "use binding_set_find")
+  (parameters
+    '("const-gchar*" "set_name")
+  )
+)
+
+(define-function bindings_activate
+  (c-name "gtk_bindings_activate")
+  (return-type "gboolean")
+  (parameters
+    '("GtkObject*" "object")
+    '("guint" "keyval")
+    '("GdkModifierType" "modifiers")
+  )
+)
+
+(define-function bindings_activate_event
+  (c-name "gtk_bindings_activate_event")
+  (return-type "gboolean")
+  (parameters
+    '("GtkObject*" "object")
+    '("GdkEventKey*" "event")
+  )
+)
+
+(define-function binding_entry_clear
+  (c-name "gtk_binding_entry_clear")
+  (return-type "none")
+  (parameters
+    '("GtkBindingSet*" "binding_set")
+    '("guint" "keyval")
+    '("GdkModifierType" "modifiers")
+  )
+)
+
+(define-function binding_entry_add_signal
+  (c-name "gtk_binding_entry_add_signal")
+  (return-type "none")
+  (parameters
+    '("GtkBindingSet*" "binding_set")
+    '("guint" "keyval")
+    '("GdkModifierType" "modifiers")
+    '("const-gchar*" "signal_name")
+    '("guint" "n_args")
+  )
+  (varargs #t)
+)
+
+(define-function binding_entry_remove
+  (c-name "gtk_binding_entry_remove")
+  (return-type "none")
+  (parameters
+    '("GtkBindingSet*" "binding_set")
+    '("guint" "keyval")
+    '("GdkModifierType" "modifiers")
+  )
+)
+
+(define-function binding_entry_add_signall
+  (c-name "gtk_binding_entry_add_signall")
+  (return-type "none")
+  (parameters
+    '("GtkBindingSet*" "binding_set")
+    '("guint" "keyval")
+    '("GdkModifierType" "modifiers")
+    '("const-gchar*" "signal_name")
+    '("GSList*" "binding_args")
+  )
+)
+
+(define-function binding_parse_binding
+  (c-name "gtk_binding_parse_binding")
+  (return-type "guint")
+  (parameters
+    '("GScanner*" "scanner")
+  )
+)
+
+(define-function gtk_box_get_type
+  (c-name "gtk_box_get_type")
+  (return-type "GType")
+)
+
+(define-function gtk_button_get_type
+  (c-name "gtk_button_get_type")
+  (return-type "GType")
+)
+
+(define-function gtk_button_new_from_stock
+  (c-name "gtk_button_new_from_stock")
+  (return-type "GtkWidget*")
+  (parameters
+    '("const-gchar*" "stock_id")
+  )
+)
+
+(define-function gtk_button_new_with_mnemonic
+  (c-name "gtk_button_new_with_mnemonic")
+  (return-type "GtkWidget*")
+  (parameters
+    '("const-gchar*" "label")
+  )
+)
+
+(define-function gtk_calendar_get_type
+  (c-name "gtk_calendar_get_type")
+  (return-type "GType")
+)
+
+(define-function gtk_cell_editable_get_type
+  (c-name "gtk_cell_editable_get_type")
+  (return-type "GType")
+)
+
+(define-function gtk_cell_layout_get_type
+  (c-name "gtk_cell_layout_get_type")
+  (return-type "GType")
+)
+
+(define-function gtk_cell_renderer_get_type
+  (c-name "gtk_cell_renderer_get_type")
+  (return-type "GType")
+)
+
+(define-function gtk_cell_renderer_combo_get_type
+  (c-name "gtk_cell_renderer_combo_get_type")
+  (return-type "GType")
+)
+
+(define-function gtk_cell_renderer_pixbuf_get_type
+  (c-name "gtk_cell_renderer_pixbuf_get_type")
+  (return-type "GType")
+)
+
+(define-function gtk_cell_renderer_progress_get_type
+  (c-name "gtk_cell_renderer_progress_get_type")
+  (return-type "GType")
+)
+
+(define-function gtk_cell_renderer_text_get_type
+  (c-name "gtk_cell_renderer_text_get_type")
+  (return-type "GType")
+)
+
+(define-function gtk_cell_renderer_toggle_get_type
+  (c-name "gtk_cell_renderer_toggle_get_type")
+  (return-type "GType")
+)
+
+(define-function gtk_cell_view_get_type
+  (c-name "gtk_cell_view_get_type")
+  (return-type "GType")
+)
+
+(define-function cell_view_new_with_text
+  (c-name "gtk_cell_view_new_with_text")
+  (caller-owns-return #t)
+  (return-type "GtkWidget*")
+  (parameters
+    '("const-gchar*" "text")
+  )
+)
+
+(define-function cell_view_new_with_markup
+  (c-name "gtk_cell_view_new_with_markup")
+  (caller-owns-return #t)
+  (return-type "GtkWidget*")
+  (parameters
+    '("const-gchar*" "markup")
+  )
+)
+
+(define-function cell_view_new_with_pixbuf
+  (c-name "gtk_cell_view_new_with_pixbuf")
+  (caller-owns-return #t)
+  (return-type "GtkWidget*")
+  (parameters
+    '("GdkPixbuf*" "pixbuf")
+  )
+)
+
+(define-function gtk_check_button_get_type
+  (c-name "gtk_check_button_get_type")
+  (return-type "GType")
+)
+
+(define-function gtk_check_menu_item_get_type
+  (c-name "gtk_check_menu_item_get_type")
+  (return-type "GType")
+)
+
+(define-function gtk_clipboard_get_type
+  (c-name "gtk_clipboard_get_type")
+  (return-type "GType")
+)
+
+(define-function clipboard_get
+  (c-name "gtk_clipboard_get")
+  (return-type "GtkClipboard*")
+  (parameters
+    '("GdkAtom" "selection" (default "GDK_SELECTION_CLIPBOARD"))
+  )
+)
+
+(define-function gtk_clist_get_type
+  (c-name "gtk_clist_get_type")
+  (return-type "GType")
+)
+
+(define-function gtk_color_button_get_type
+  (c-name "gtk_color_button_get_type")
+  (return-type "GType")
+)
+
+(define-function gtk_color_selection_get_type
+  (c-name "gtk_color_selection_get_type")
+  (return-type "GType")
+)
+
+(define-function color_selection_palette_from_string
+  (c-name "gtk_color_selection_palette_from_string")
+  (return-type "gboolean")
+  (parameters
+    '("const-gchar*" "str")
+    '("GdkColor**" "colors")
+    '("gint*" "n_colors")
+  )
+)
+
+(define-function color_selection_palette_to_string
+  (c-name "gtk_color_selection_palette_to_string")
+  (caller-owns-return #t)
+  (return-type "gchar*")
+  (parameters
+    '("const-GdkColor*" "colors")
+    '("gint" "n_colors")
+  )
+)
+
+(define-function color_selection_set_change_palette_hook
+  (c-name "gtk_color_selection_set_change_palette_hook")
+  (return-type "GtkColorSelectionChangePaletteFunc")
+  (parameters
+    '("GtkColorSelectionChangePaletteFunc" "func")
+  )
+)
+
+(define-function color_selection_set_change_palette_with_screen_hook
+  (c-name "gtk_color_selection_set_change_palette_with_screen_hook")
+  (return-type "GtkColorSelectionChangePaletteWithScreenFunc")
+  (parameters
+    '("GtkColorSelectionChangePaletteWithScreenFunc" "func")
+  )
+)
+
+(define-function gtk_color_selection_dialog_get_type
+  (c-name "gtk_color_selection_dialog_get_type")
+  (return-type "GType")
+)
+
+(define-function gtk_combo_get_type
+  (c-name "gtk_combo_get_type")
+  (return-type "GType")
+)
+
+(define-function gtk_combo_box_get_type
+  (c-name "gtk_combo_box_get_type")
+  (return-type "GType")
+)
+
+(define-function combo_box_new_text
+  (c-name "gtk_combo_box_new_text")
+  (caller-owns-return #t)
+  (return-type "GtkWidget*")
+)
+
+(define-function gtk_combo_box_entry_get_type
+  (c-name "gtk_combo_box_entry_get_type")
+  (return-type "GType")
+)
+
+(define-function combo_box_entry_new_with_model
+  (c-name "gtk_combo_box_entry_new_with_model")
+  (caller-owns-return #t)
+  (return-type "GtkWidget*")
+  (parameters
+    '("GtkTreeModel*" "model")
+    '("gint" "text_column")
+  )
+)
+
+(define-function combo_box_entry_new_text
+  (c-name "gtk_combo_box_entry_new_text")
+  (caller-owns-return #t)
+  (return-type "GtkWidget*")
+)
+
+(define-function gtk_container_get_type
+  (c-name "gtk_container_get_type")
+  (return-type "GType")
+)
+
+(define-function container_class_install_child_property
+  (c-name "gtk_container_class_install_child_property")
+  (return-type "none")
+  (parameters
+    '("GtkContainerClass*" "cclass")
+    '("guint" "property_id")
+    '("GParamSpec*" "pspec")
+  )
+)
+
+(define-function container_class_find_child_property
+  (c-name "gtk_container_class_find_child_property")
+  (return-type "GParamSpec*")
+  (parameters
+    '("GObjectClass*" "cclass")
+    '("const-gchar*" "property_name")
+  )
+)
+
+(define-function container_class_list_child_properties
+  (c-name "gtk_container_class_list_child_properties")
+  (return-type "GParamSpec**")
+  (parameters
+    '("GObjectClass*" "cclass")
+    '("guint*" "n_properties")
+  )
+)
+
+(define-function gtk_ctree_get_type
+  (c-name "gtk_ctree_get_type")
+  (return-type "GType")
+)
+
+(define-function gtk_ctree_node_get_type
+  (c-name "gtk_ctree_node_get_type")
+  (return-type "GType")
+)
+
+(define-function gtk_curve_get_type
+  (c-name "gtk_curve_get_type")
+  (return-type "GType")
+)
+
+(define-function gtk_dialog_get_type
+  (c-name "gtk_dialog_get_type")
+  (return-type "GType")
+)
+
+(define-function alternative_dialog_button_order
+  (c-name "gtk_alternative_dialog_button_order")
+  (return-type "gboolean")
+  (parameters
+    '("GdkScreen*" "screen" (default "NULL") (null-ok))
+  )
+)
+
+(define-function drag_finish
+  (c-name "gtk_drag_finish")
+  (return-type "none")
+  (parameters
+    '("GdkDragContext*" "context")
+    '("gboolean" "success")
+    '("gboolean" "del")
+    '("guint32" "time_")
+  )
+)
+
+(define-function drag_set_icon_widget
+  (c-name "gtk_drag_set_icon_widget")
+  (return-type "none")
+  (parameters
+    '("GdkDragContext*" "context")
+    '("GtkWidget*" "widget")
+    '("gint" "hot_x")
+    '("gint" "hot_y")
+  )
+)
+
+(define-function drag_set_icon_pixmap
+  (c-name "gtk_drag_set_icon_pixmap")
+  (return-type "none")
+  (parameters
+    '("GdkDragContext*" "context")
+    '("GdkColormap*" "colormap")
+    '("GdkPixmap*" "pixmap")
+    '("GdkBitmap*" "mask")
+    '("gint" "hot_x")
+    '("gint" "hot_y")
+  )
+)
+
+(define-function drag_set_icon_pixbuf
+  (c-name "gtk_drag_set_icon_pixbuf")
+  (return-type "none")
+  (parameters
+    '("GdkDragContext*" "context")
+    '("GdkPixbuf*" "pixbuf")
+    '("gint" "hot_x")
+    '("gint" "hot_y")
+  )
+)
+
+(define-function drag_set_icon_stock
+  (c-name "gtk_drag_set_icon_stock")
+  (return-type "none")
+  (parameters
+    '("GdkDragContext*" "context")
+    '("const-gchar*" "stock_id")
+    '("gint" "hot_x")
+    '("gint" "hot_y")
+  )
+)
+
+(define-function drag_set_icon_name
+  (c-name "gtk_drag_set_icon_name")
+  (return-type "none")
+  (parameters
+    '("GdkDragContext*" "context")
+    '("const-gchar*" "icon_name")
+    '("gint" "hot_x")
+    '("gint" "hot_y")
+  )
+)
+
+(define-function drag_set_icon_default
+  (c-name "gtk_drag_set_icon_default")
+  (return-type "none")
+  (parameters
+    '("GdkDragContext*" "context")
+  )
+)
+
+(define-function drag_set_default_icon
+  (c-name "gtk_drag_set_default_icon")
+  (return-type "none")
+  (deprecated "change the stock pixbuf for GTK_STOCK_DND")
+  (parameters
+    '("GdkColormap*" "colormap")
+    '("GdkPixmap*" "pixmap")
+    '("GdkBitmap*" "mask")
+    '("gint" "hot_x")
+    '("gint" "hot_y")
+  )
+)
+
+(define-function target_list_add_text_targets
+  (c-name "gtk_target_list_add_text_targets")
+  (return-type "none")
+  (parameters
+    '("GtkTargetList*" "list")
+    '("guint" "info")
+  )
+)
+
+(define-function target_list_add_image_targets
+  (c-name "gtk_target_list_add_image_targets")
+  (return-type "none")
+  (parameters
+    '("GtkTargetList*" "list")
+    '("guint" "info")
+    '("gboolean" "writable")
+  )
+)
+
+(define-function target_list_add_uri_targets
+  (c-name "gtk_target_list_add_uri_targets")
+  (return-type "none")
+  (parameters
+    '("GtkTargetList*" "list")
+    '("guint" "info")
+  )
+)
+
+(define-function drag_get_source_widget
+  (c-name "gtk_drag_get_source_widget")
+  (return-type "GtkWidget*")
+  (parameters
+    '("GdkDragContext*" "context")
+  )
+)
+
+(define-function drag_source_set_icon_name
+  (c-name "gtk_drag_source_set_icon_name1")
+  (return-type "none")
+  (deprecated "use GtkWidget.drag_source_set_icon_name")
+  (parameters
+    '("GtkWidget*" "widget")
+    '("const-gchar*" "icon_name")
+  )
+)
+
+(define-function gtk_drawing_area_get_type
+  (c-name "gtk_drawing_area_get_type")
+  (return-type "GType")
+)
+
+(define-function gtk_editable_get_type
+  (c-name "gtk_editable_get_type")
+  (return-type "GType")
+)
+
+(define-function gtk_entry_get_type
+  (c-name "gtk_entry_get_type")
+  (return-type "GType")
+)
+
+(define-function gtk_entry_completion_get_type
+  (c-name "gtk_entry_completion_get_type")
+  (return-type "GType")
+)
+
+(define-function gtk_event_box_get_type
+  (c-name "gtk_event_box_get_type")
+  (return-type "GType")
+)
+
+(define-function gtk_expander_get_type
+  (c-name "gtk_expander_get_type")
+  (return-type "GType")
+)
+
+(define-function expander_new_with_mnemonic
+  (c-name "gtk_expander_new_with_mnemonic")
+  (caller-owns-return #t)
+  (return-type "GtkWidget*")
+  (parameters
+    '("const-gchar*" "label" (default "NULL") (null-ok))
+  )
+)
+
+(define-function gtk_file_chooser_get_type
+  (c-name "gtk_file_chooser_get_type")
+  (return-type "GType")
+)
+
+(define-function gtk_file_chooser_error_quark
+  (c-name "gtk_file_chooser_error_quark")
+  (return-type "GQuark")
+)
+
+(define-function gtk_file_chooser_button_get_type
+  (c-name "gtk_file_chooser_button_get_type")
+  (return-type "GType")
+)
+
+(define-function file_chooser_button_new_with_backend
+  (c-name "gtk_file_chooser_button_new_with_backend")
+  (caller-owns-return #t)
+  (return-type "GtkWidget*")
+  (parameters
+    '("const-gchar*" "title")
+    '("const-gchar*" "backend")
+  )
+)
+
+(define-function file_chooser_button_new_with_dialog
+  (c-name "gtk_file_chooser_button_new_with_dialog")
+  (caller-owns-return #t)
+  (return-type "GtkWidget*")
+  (parameters
+    '("GtkWidget*" "dialog")
+  )
+)
+
+(define-function gtk_file_chooser_dialog_get_type
+  (c-name "gtk_file_chooser_dialog_get_type")
+  (return-type "GType")
+)
+
+(define-function file_chooser_dialog_new_with_backend
+  (c-name "gtk_file_chooser_dialog_new_with_backend")
+  (return-type "GtkWidget*")
+  (parameters
+    '("const-gchar*" "title")
+    '("GtkWindow*" "parent")
+    '("GtkFileChooserAction" "action")
+    '("const-gchar*" "backend")
+    '("const-gchar*" "first_button_text")
+  )
+  (varargs #t)
+)
+
+(define-function gtk_file_chooser_widget_get_type
+  (c-name "gtk_file_chooser_widget_get_type")
+  (return-type "GType")
+)
+
+(define-function file_chooser_widget_new_with_backend
+  (c-name "gtk_file_chooser_widget_new_with_backend")
+  (caller-owns-return #t)
+  (return-type "GtkWidget*")
+  (parameters
+    '("GtkFileChooserAction" "action")
+    '("const-gchar*" "backend")
+  )
+)
+
+(define-function gtk_file_filter_get_type
+  (c-name "gtk_file_filter_get_type")
+  (return-type "GType")
+)
+
+(define-function gtk_file_selection_get_type
+  (c-name "gtk_file_selection_get_type")
+  (return-type "GType")
+)
+
+(define-function file_system_error_quark
+  (c-name "gtk_file_system_error_quark")
+  (return-type "GQuark")
+)
+
+(define-function gtk_file_info_get_type
+  (c-name "gtk_file_info_get_type")
+  (return-type "GType")
+)
+
+(define-function gtk_file_system_get_type
+  (c-name "gtk_file_system_get_type")
+  (return-type "GType")
+)
+
+(define-function gtk_file_folder_get_type
+  (c-name "gtk_file_folder_get_type")
+  (return-type "GType")
+)
+
+(define-function file_paths_sort
+  (c-name "gtk_file_paths_sort")
+  (return-type "GSList*")
+  (parameters
+    '("GSList*" "paths")
+  )
+)
+
+(define-function file_paths_copy
+  (c-name "gtk_file_paths_copy")
+  (return-type "GSList*")
+  (parameters
+    '("GSList*" "paths")
+  )
+)
+
+(define-function file_paths_free
+  (c-name "gtk_file_paths_free")
+  (return-type "none")
+  (parameters
+    '("GSList*" "paths")
+  )
+)
+
+(define-function file_system_handle_get_type
+  (c-name "gtk_file_system_handle_get_type")
+  (return-type "GType")
+)
+
+(define-function file_system_cancel_operation
+  (c-name "gtk_file_system_cancel_operation")
+  (return-type "none")
+  (parameters
+    '("GtkFileSystemHandle*" "handle")
+  )
+)
+
+(define-function file_path_get_type
+  (c-name "gtk_file_path_get_type")
+  (return-type "GType")
+)
+
+(define-function gtk_fixed_get_type
+  (c-name "gtk_fixed_get_type")
+  (return-type "GType")
+)
+
+(define-function gtk_font_button_get_type
+  (c-name "gtk_font_button_get_type")
+  (return-type "GType")
+)
+
+(define-function gtk_font_button_new_with_font
+  (c-name "gtk_font_button_new_with_font")
+  (caller-owns-return #t)
+  (return-type "GtkWidget*")
+  (parameters
+    '("const-gchar*" "fontname")
+  )
+)
+
+(define-function gtk_font_selection_get_type
+  (c-name "gtk_font_selection_get_type")
+  (return-type "GType")
+)
+
+(define-function gtk_font_selection_dialog_get_type
+  (c-name "gtk_font_selection_dialog_get_type")
+  (return-type "GType")
+)
+
+(define-function gtk_frame_get_type
+  (c-name "gtk_frame_get_type")
+  (return-type "GType")
+)
+
+(define-function gtk_gamma_curve_get_type
+  (c-name "gtk_gamma_curve_get_type")
+  (return-type "GType")
+)
+
+(define-function gc_get
+  (c-name "gtk_gc_get")
+  (return-type "GdkGC*")
+  (parameters
+    '("gint" "depth")
+    '("GdkColormap*" "colormap")
+    '("GdkGCValues*" "values")
+    '("GdkGCValuesMask" "values_mask")
+  )
+)
+
+(define-function gc_release
+  (c-name "gtk_gc_release")
+  (return-type "none")
+  (parameters
+    '("GdkGC*" "gc")
+  )
+)
+
+(define-function gtk_handle_box_get_type
+  (c-name "gtk_handle_box_get_type")
+  (return-type "GType")
+)
+
+(define-function gtk_hbutton_box_get_type
+  (c-name "gtk_hbutton_box_get_type")
+  (return-type "GType")
+)
+
+(define-function hbutton_box_get_spacing_default
+  (c-name "gtk_hbutton_box_get_spacing_default")
+  (return-type "gint")
+)
+
+(define-function hbutton_box_get_layout_default
+  (c-name "gtk_hbutton_box_get_layout_default")
+  (return-type "GtkButtonBoxStyle")
+)
+
+(define-function hbutton_box_set_spacing_default
+  (c-name "gtk_hbutton_box_set_spacing_default")
+  (return-type "none")
+  (parameters
+    '("gint" "spacing")
+  )
+)
+
+(define-function hbutton_box_set_layout_default
+  (c-name "gtk_hbutton_box_set_layout_default")
+  (return-type "none")
+  (parameters
+    '("GtkButtonBoxStyle" "layout")
+  )
+)
+
+(define-function gtk_hbox_get_type
+  (c-name "gtk_hbox_get_type")
+  (return-type "GType")
+)
+
+(define-function gtk_hpaned_get_type
+  (c-name "gtk_hpaned_get_type")
+  (return-type "GType")
+)
+
+(define-function gtk_hruler_get_type
+  (c-name "gtk_hruler_get_type")
+  (return-type "GType")
+)
+
+(define-function gtk_hscale_get_type
+  (c-name "gtk_hscale_get_type")
+  (return-type "GType")
+)
+
+(define-function gtk_hscrollbar_get_type
+  (c-name "gtk_hscrollbar_get_type")
+  (return-type "GType")
+)
+
+(define-function gtk_hseparator_get_type
+  (c-name "gtk_hseparator_get_type")
+  (return-type "GType")
+)
+
+(define-function gtk_icon_factory_get_type
+  (c-name "gtk_icon_factory_get_type")
+  (return-type "GType")
+)
+
+(define-function icon_factory_lookup_default
+  (c-name "gtk_icon_factory_lookup_default")
+  (return-type "GtkIconSet*")
+  (parameters
+    '("const-gchar*" "stock_id")
+  )
+)
+
+(define-function icon_size_lookup
+  (c-name "gtk_icon_size_lookup")
+  (return-type "gboolean")
+  (parameters
+    '("GtkIconSize" "size")
+    '("gint*" "width")
+    '("gint*" "height")
+  )
+)
+
+(define-function icon_size_lookup_for_settings
+  (c-name "gtk_icon_size_lookup_for_settings")
+  (return-type "gboolean")
+  (parameters
+    '("GtkSettings*" "settings")
+    '("GtkIconSize" "size")
+    '("gint*" "width")
+    '("gint*" "height")
+  )
+)
+
+(define-function icon_size_register
+  (c-name "gtk_icon_size_register")
+  (return-type "GtkIconSize")
+  (parameters
+    '("const-gchar*" "name")
+    '("gint" "width")
+    '("gint" "height")
+  )
+)
+
+(define-function icon_size_register_alias
+  (c-name "gtk_icon_size_register_alias")
+  (return-type "none")
+  (parameters
+    '("const-gchar*" "alias")
+    '("GtkIconSize" "target")
+  )
+)
+
+(define-function icon_size_from_name
+  (c-name "gtk_icon_size_from_name")
+  (return-type "GtkIconSize")
+  (parameters
+    '("const-gchar*" "name")
+  )
+)
+
+(define-function icon_size_get_name
+  (c-name "gtk_icon_size_get_name")
+  (return-type "const-gchar*")
+  (parameters
+    '("GtkIconSize" "size")
+  )
+)
+
+(define-function icon_set_get_type
+  (c-name "gtk_icon_set_get_type")
+  (return-type "GType")
+)
+
+(define-function icon_set_new
+  (c-name "gtk_icon_set_new")
+  (caller-owns-return #t)
+  (return-type "GtkIconSet*")
+)
+
+(define-function gtk_icon_source_get_type
+  (c-name "gtk_icon_source_get_type")
+  (return-type "GType")
+)
+
+(define-function icon_theme_error_quark
+  (c-name "gtk_icon_theme_error_quark")
+  (return-type "GQuark")
+)
+
+(define-function gtk_icon_theme_get_type
+  (c-name "gtk_icon_theme_get_type")
+  (return-type "GType")
+)
+
+(define-function icon_theme_get_default
+  (c-name "gtk_icon_theme_get_default")
+  (return-type "GtkIconTheme*")
+)
+
+(define-function icon_theme_get_for_screen
+  (c-name "gtk_icon_theme_get_for_screen")
+  (return-type "GtkIconTheme*")
+  (parameters
+    '("GdkScreen*" "screen")
+  )
+)
+
+(define-function icon_theme_add_builtin_icon
+  (c-name "gtk_icon_theme_add_builtin_icon")
+  (return-type "none")
+  (parameters
+    '("const-gchar*" "icon_name")
+    '("gint" "size")
+    '("GdkPixbuf*" "pixbuf")
+  )
+)
+
+(define-function gtk_icon_info_get_type
+  (c-name "gtk_icon_info_get_type")
+  (return-type "GType")
+)
+
+(define-function gtk_icon_view_get_type
+  (c-name "gtk_icon_view_get_type")
+  (return-type "GType")
+)
+
+(define-function gtk_icon_view_new_with_model
+  (c-name "gtk_icon_view_new_with_model")
+  (caller-owns-return #t)
+  (return-type "GtkWidget*")
+  (parameters
+    '("GtkTreeModel*" "model")
+  )
+)
+
+(define-function gtk_image_get_type
+  (c-name "gtk_image_get_type")
+  (return-type "GType")
+)
+
+(define-function image_new_from_stock
+  (c-name "gtk_image_new_from_stock")
+  (caller-owns-return #t)
+  (return-type "GtkWidget*")
+  (parameters
+    '("const-gchar*" "stock_id")
+    '("GtkIconSize" "size")
+  )
+)
+
+(define-function image_new_from_icon_set
+  (c-name "gtk_image_new_from_icon_set")
+  (caller-owns-return #t)
+  (return-type "GtkWidget*")
+  (parameters
+    '("GtkIconSet*" "icon_set")
+    '("GtkIconSize" "size")
+  )
+)
+
+(define-function image_new_from_animation
+  (c-name "gtk_image_new_from_animation")
+  (caller-owns-return #t)
+  (return-type "GtkWidget*")
+  (parameters
+    '("GdkPixbufAnimation*" "animation")
+  )
+)
+
+(define-function image_new_from_icon_name
+  (c-name "gtk_image_new_from_icon_name")
+  (caller-owns-return #t)
+  (return-type "GtkWidget*")
+  (parameters
+    '("const-gchar*" "icon_name")
+    '("GtkIconSize" "size")
+  )
+)
+
+(define-function gtk_image_menu_item_get_type
+  (c-name "gtk_image_menu_item_get_type")
+  (return-type "GType")
+)
+
+(define-function gtk_im_context_get_type
+  (c-name "gtk_im_context_get_type")
+  (return-type "GType")
+)
+
+(define-function gtk_im_context_simple_get_type
+  (c-name "gtk_im_context_simple_get_type")
+  (return-type "GType")
+)
+
+(define-function gtk_im_multicontext_get_type
+  (c-name "gtk_im_multicontext_get_type")
+  (return-type "GType")
+)
+
+(define-function gtk_input_dialog_get_type
+  (c-name "gtk_input_dialog_get_type")
+  (return-type "GType")
+)
+
+(define-function gtk_invisible_get_type
+  (c-name "gtk_invisible_get_type")
+  (return-type "GType")
+)
+
+(define-function gtk_item_get_type
+  (c-name "gtk_item_get_type")
+  (return-type "GType")
+)
+
+(define-function gtk_item_factory_get_type
+  (c-name "gtk_item_factory_get_type")
+  (return-type "GType")
+)
+
+(define-function item_factory_add_foreign
+  (c-name "gtk_item_factory_add_foreign")
+  (return-type "none")
+  (parameters
+    '("GtkWidget*" "accel_widget")
+    '("const-gchar*" "full_path")
+    '("GtkAccelGroup*" "accel_group")
+    '("guint" "keyval")
+    '("GdkModifierType" "modifiers")
+  )
+)
+
+(define-function item_factory_from_widget
+  (c-name "gtk_item_factory_from_widget")
+  (return-type "GtkItemFactory*")
+  (parameters
+    '("GtkWidget*" "widget")
+  )
+)
+
+(define-function item_factory_path_from_widget
+  (c-name "gtk_item_factory_path_from_widget")
+  (return-type "const-gchar*")
+  (parameters
+    '("GtkWidget*" "widget")
+  )
+)
+
+(define-function item_factory_popup_data_from_widget
+  (c-name "gtk_item_factory_popup_data_from_widget")
+  (return-type "gpointer")
+  (parameters
+    '("GtkWidget*" "widget")
+  )
+)
+
+(define-function item_factory_from_path
+  (c-name "gtk_item_factory_from_path")
+  (return-type "GtkItemFactory*")
+  (parameters
+    '("const-gchar*" "path")
+  )
+)
+
+(define-function item_factory_create_menu_entries
+  (c-name "gtk_item_factory_create_menu_entries")
+  (return-type "none")
+  (parameters
+    '("guint" "n_entries")
+    '("GtkMenuEntry*" "entries")
+  )
+)
+
+(define-function item_factories_path_delete
+  (c-name "gtk_item_factories_path_delete")
+  (return-type "none")
+  (parameters
+    '("const-gchar*" "ifactory_path")
+    '("const-gchar*" "path")
+  )
+)
+
+(define-function gtk_label_get_type
+  (c-name "gtk_label_get_type")
+  (return-type "GType")
+)
+
+(define-function gtk_layout_get_type
+  (c-name "gtk_layout_get_type")
+  (return-type "GType")
+)
+
+(define-function gtk_list_get_type
+  (c-name "gtk_list_get_type")
+  (return-type "GType")
+  (deprecated "use GtkListStore/GtkTreeView")
+)
+
+(define-function gtk_list_item_get_type
+  (c-name "gtk_list_item_get_type")
+  (return-type "GType")
+)
+
+(define-function gtk_list_store_get_type
+  (c-name "gtk_list_store_get_type")
+  (return-type "GType")
+)
+
+(define-function check_version
+  (c-name "gtk_check_version")
+  (return-type "gchar*")
+  (parameters
+    '("guint" "required_major")
+    '("guint" "required_minor")
+    '("guint" "required_micro")
+  )
+)
+
+(define-function init
+  (c-name "gtk_init")
+  (return-type "none")
+  (parameters
+    '("int*" "argc")
+    '("char***" "argv")
+  )
+)
+
+(define-function init_check
+  (c-name "gtk_init_check")
+  (return-type "gboolean")
+  (parameters
+    '("int*" "argc")
+    '("char***" "argv")
+  )
+)
+
+(define-function init_abi_check
+  (c-name "gtk_init_abi_check")
+  (return-type "none")
+  (parameters
+    '("int*" "argc")
+    '("char***" "argv")
+    '("int" "num_checks")
+    '("size_t" "sizeof_GtkWindow")
+  )
+)
+
+(define-function init_check_abi_check
+  (c-name "gtk_init_check_abi_check")
+  (return-type "gboolean")
+  (parameters
+    '("int*" "argc")
+    '("char***" "argv")
+    '("int" "num_checks")
+    '("size_t" "sizeof_GtkWindow")
+  )
+)
+
+(define-function exit
+  (c-name "gtk_exit")
+  (return-type "none")
+  (parameters
+    '("gint" "error_code")
+  )
+)
+
+(define-function disable_setlocale
+  (c-name "gtk_disable_setlocale")
+  (return-type "none")
+)
+
+(define-function set_locale
+  (c-name "gtk_set_locale")
+  (caller-owns-return #t)
+  (return-type "gchar*")
+)
+
+(define-function get_default_language
+  (c-name "gtk_get_default_language")
+  (return-type "PangoLanguage*")
+)
+
+(define-function events_pending
+  (c-name "gtk_events_pending")
+  (return-type "gint")
+)
+
+(define-function main_do_event
+  (c-name "gtk_main_do_event")
+  (return-type "none")
+  (parameters
+    '("GdkEvent*" "event")
+  )
+)
+
+(define-function main
+  (c-name "gtk_main")
+  (return-type "none")
+)
+
+(define-function main_level
+  (c-name "gtk_main_level")
+  (return-type "guint")
+)
+
+(define-function main_quit
+  (c-name "gtk_main_quit")
+  (return-type "none")
+)
+
+(define-function main_iteration
+  (c-name "gtk_main_iteration")
+  (return-type "gboolean")
+)
+
+(define-function main_iteration_do
+  (c-name "gtk_main_iteration_do")
+  (return-type "gboolean")
+  (parameters
+    '("gboolean" "blocking" (default "TRUE"))
+  )
+)
+
+(define-function true
+  (c-name "gtk_true")
+  (return-type "gboolean")
+)
+
+(define-function false
+  (c-name "gtk_false")
+  (return-type "gboolean")
+)
+
+(define-function grab_get_current
+  (c-name "gtk_grab_get_current")
+  (return-type "GtkWidget*")
+)
+
+(define-function init_add
+  (c-name "gtk_init_add")
+  (return-type "none")
+  (parameters
+    '("GtkFunction" "function")
+    '("gpointer" "data")
+  )
+)
+
+(define-function quit_add_destroy
+  (c-name "gtk_quit_add_destroy")
+  (return-type "none")
+  (parameters
+    '("guint" "main_level")
+    '("GtkObject*" "object")
+  )
+)
+
+(define-function quit_add
+  (c-name "gtk_quit_add")
+  (return-type "guint")
+  (parameters
+    '("guint" "main_level")
+    '("GtkFunction" "function")
+    '("gpointer" "data")
+  )
+)
+
+(define-function quit_add_full
+  (c-name "gtk_quit_add_full")
+  (return-type "guint")
+  (parameters
+    '("guint" "main_level")
+    '("GtkFunction" "function")
+    '("GtkCallbackMarshal" "marshal")
+    '("gpointer" "data")
+    '("GtkDestroyNotify" "destroy")
+  )
+)
+
+(define-function quit_remove
+  (c-name "gtk_quit_remove")
+  (return-type "none")
+  (parameters
+    '("guint" "quit_handler_id")
+  )
+)
+
+(define-function quit_remove_by_data
+  (c-name "gtk_quit_remove_by_data")
+  (return-type "none")
+  (parameters
+    '("gpointer" "data")
+  )
+)
+
+(define-function timeout_add
+  (c-name "gtk_timeout_add")
+  (return-type "guint")
+  (parameters
+    '("guint32" "interval")
+    '("GtkFunction" "function")
+    '("gpointer" "data")
+  )
+)
+
+(define-function timeout_add_full
+  (c-name "gtk_timeout_add_full")
+  (return-type "guint")
+  (parameters
+    '("guint32" "interval")
+    '("GtkFunction" "function")
+    '("GtkCallbackMarshal" "marshal")
+    '("gpointer" "data")
+    '("GtkDestroyNotify" "destroy")
+  )
+)
+
+(define-function timeout_remove
+  (c-name "gtk_timeout_remove")
+  (return-type "none")
+  (parameters
+    '("guint" "timeout_handler_id")
+  )
+)
+
+(define-function idle_add
+  (c-name "gtk_idle_add")
+  (return-type "guint")
+  (parameters
+    '("GtkFunction" "function")
+    '("gpointer" "data")
+  )
+)
+
+(define-function idle_add_priority
+  (c-name "gtk_idle_add_priority")
+  (return-type "guint")
+  (parameters
+    '("gint" "priority")
+    '("GtkFunction" "function")
+    '("gpointer" "data")
+  )
+)
+
+(define-function idle_add_full
+  (c-name "gtk_idle_add_full")
+  (return-type "guint")
+  (parameters
+    '("gint" "priority")
+    '("GtkFunction" "function")
+    '("GtkCallbackMarshal" "marshal")
+    '("gpointer" "data")
+    '("GtkDestroyNotify" "destroy")
+  )
+)
+
+(define-function idle_remove
+  (c-name "gtk_idle_remove")
+  (return-type "none")
+  (parameters
+    '("guint" "idle_handler_id")
+  )
+)
+
+(define-function idle_remove_by_data
+  (c-name "gtk_idle_remove_by_data")
+  (return-type "none")
+  (parameters
+    '("gpointer" "data")
+  )
+)
+
+(define-function input_add_full
+  (c-name "gtk_input_add_full")
+  (return-type "guint")
+  (parameters
+    '("gint" "source")
+    '("GdkInputCondition" "condition")
+    '("GdkInputFunction" "function")
+    '("GtkCallbackMarshal" "marshal")
+    '("gpointer" "data")
+    '("GtkDestroyNotify" "destroy")
+  )
+)
+
+(define-function input_remove
+  (c-name "gtk_input_remove")
+  (return-type "none")
+  (parameters
+    '("guint" "input_handler_id")
+  )
+)
+
+(define-function key_snooper_install
+  (c-name "gtk_key_snooper_install")
+  (return-type "guint")
+  (parameters
+    '("GtkKeySnoopFunc" "snooper")
+    '("gpointer" "func_data")
+  )
+)
+
+(define-function key_snooper_remove
+  (c-name "gtk_key_snooper_remove")
+  (return-type "none")
+  (parameters
+    '("guint" "snooper_handler_id")
+  )
+)
+
+(define-function get_current_event
+  (c-name "gtk_get_current_event")
+  (caller-owns-return #t)
+  (return-type "GdkEvent*")
+)
+
+(define-function get_current_event_time
+  (c-name "gtk_get_current_event_time")
+  (return-type "guint32")
+)
+
+(define-function get_current_event_state
+  (c-name "gtk_get_current_event_state")
+  (return-type "gboolean")
+  (parameters
+    '("GdkModifierType*" "state")
+  )
+)
+
+(define-function get_event_widget
+  (c-name "gtk_get_event_widget")
+  (return-type "GtkWidget*")
+  (parameters
+    '("GdkEvent*" "event")
+  )
+)
+
+(define-function parse_args
+  (c-name "gtk_parse_args")
+  (return-type "gboolean")
+  (parameters
+    '("int*" "argc")
+    '("char***" "argv")
+  )
+)
+
+(define-function init_with_args
+  (c-name "gtk_init_with_args")
+  (return-type "gboolean")
+  (parameters
+    '("int*" "argc")
+    '("char***" "argv")
+    '("char*" "parameter_string")
+    '("GOptionEntry*" "entries")
+    '("char*" "translation_domain")
+    '("GError**" "error")
+  )
+)
+
+(define-function get_option_group
+  (c-name "gtk_get_option_group")
+  (return-type "GOptionGroup*")
+  (parameters
+    '("gboolean" "open_default_display")
+  )
+)
+
+(define-function gtk_menu_get_type
+  (c-name "gtk_menu_get_type")
+  (return-type "GType")
+)
+
+(define-function gtk_menu_bar_get_type
+  (c-name "gtk_menu_bar_get_type")
+  (return-type "GType")
+)
+
+(define-function gtk_menu_item_get_type
+  (c-name "gtk_menu_item_get_type")
+  (return-type "GType")
+)
+
+(define-function gtk_menu_shell_get_type
+  (c-name "gtk_menu_shell_get_type")
+  (return-type "GType")
+)
+
+(define-function gtk_menu_tool_button_get_type
+  (c-name "gtk_menu_tool_button_get_type")
+  (return-type "GType")
+)
+
+(define-function gtk_menu_tool_button_new_from_stock
+  (c-name "gtk_menu_tool_button_new_from_stock")
+  (caller-owns-return #t)
+  (return-type "GtkToolItem*")
+  (parameters
+    '("const-gchar*" "stock_id")
+  )
+)
+
+(define-function gtk_message_dialog_get_type
+  (c-name "gtk_message_dialog_get_type")
+  (return-type "GType")
+)
+
+(define-function gtk_misc_get_type
+  (c-name "gtk_misc_get_type")
+  (return-type "GType")
+)
+
+(define-function gtk_notebook_get_type
+  (c-name "gtk_notebook_get_type")
+  (return-type "GType")
+)
+
+(define-function gtk_object_get_type
+  (c-name "gtk_object_get_type")
+  (return-type "GType")
+)
+
+(define-function object_new
+  (c-name "gtk_object_new")
+  (return-type "GtkObject*")
+  (parameters
+    '("GType" "type")
+    '("const-gchar*" "first_property_name")
+  )
+  (varargs #t)
+)
+
+(define-function object_add_arg_type
+  (c-name "gtk_object_add_arg_type")
+  (return-type "none")
+  (parameters
+    '("const-gchar*" "arg_name")
+    '("GtkType" "arg_type")
+    '("guint" "arg_flags")
+    '("guint" "arg_id")
+  )
+)
+
+(define-function gtk_old_editable_get_type
+  (c-name "gtk_old_editable_get_type")
+  (return-type "GType")
+)
+
+(define-function gtk_option_menu_get_type
+  (c-name "gtk_option_menu_get_type")
+  (return-type "GType")
+)
+
+(define-function gtk_paned_get_type
+  (c-name "gtk_paned_get_type")
+  (return-type "GType")
+)
+
+(define-function gtk_pixmap_get_type
+  (c-name "gtk_pixmap_get_type")
+  (return-type "GType")
+)
+
+(define-function gtk_plug_get_type
+  (c-name "gtk_plug_get_type")
+  (return-type "GType")
+)
+
+(define-function plug_new_for_display
+  (c-name "gtk_plug_new_for_display")
+  (return-type "GtkWidget*")
+  (deprecated "use gtk.Plug(socket_id, display)")
+  (parameters
+    '("GdkDisplay*" "display")
+    '("GdkNativeWindow" "socket_id")
+  )
+)
+
+(define-function gtk_preview_get_type
+  (c-name "gtk_preview_get_type")
+  (return-type "GType")
+)
+
+(define-function preview_uninit
+  (c-name "gtk_preview_uninit")
+  (return-type "none")
+  (deprecated "use GtkPixbuf")
+)
+
+(define-function preview_set_gamma
+  (c-name "gtk_preview_set_gamma")
+  (return-type "none")
+  (deprecated "use GtkPixbuf")
+  (parameters
+    '("double" "gamma")
+  )
+)
+
+(define-function preview_set_color_cube
+  (c-name "gtk_preview_set_color_cube")
+  (return-type "none")
+  (deprecated "use GtkPixbuf")
+  (parameters
+    '("guint" "nred_shades")
+    '("guint" "ngreen_shades")
+    '("guint" "nblue_shades")
+    '("guint" "ngray_shades")
+  )
+)
+
+(define-function preview_set_install_cmap
+  (c-name "gtk_preview_set_install_cmap")
+  (return-type "none")
+  (deprecated "use GtkPixbuf")
+  (parameters
+    '("gint" "install_cmap")
+  )
+)
+
+(define-function preview_set_reserved
+  (c-name "gtk_preview_set_reserved")
+  (return-type "none")
+  (deprecated "use GtkPixbuf")
+  (parameters
+    '("gint" "nreserved")
+  )
+)
+
+(define-function preview_get_visual
+  (c-name "gtk_preview_get_visual")
+  (return-type "GdkVisual*")
+  (deprecated "use GtkPixbuf")
+)
+
+(define-function preview_get_cmap
+  (c-name "gtk_preview_get_cmap")
+  (return-type "GdkColormap*")
+  (deprecated "use GtkPixbuf")
+)
+
+(define-function preview_get_info
+  (c-name "gtk_preview_get_info")
+  (return-type "GtkPreviewInfo*")
+  (deprecated "use GtkPixbuf")
+)
+
+(define-function preview_reset
+  (c-name "gtk_preview_reset")
+  (return-type "none")
+  (deprecated "use GtkPixbuf")
+)
+
+(define-function gtk_progress_get_type
+  (c-name "gtk_progress_get_type")
+  (return-type "GType")
+)
+
+(define-function gtk_progress_bar_get_type
+  (c-name "gtk_progress_bar_get_type")
+  (return-type "GType")
+)
+
+(define-function gtk_radio_action_get_type
+  (c-name "gtk_radio_action_get_type")
+  (return-type "GType")
+)
+
+(define-function gtk_radio_button_get_type
+  (c-name "gtk_radio_button_get_type")
+  (return-type "GType")
+)
+
+(define-function gtk_radio_menu_item_get_type
+  (c-name "gtk_radio_menu_item_get_type")
+  (return-type "GType")
+)
+
+(define-function gtk_radio_tool_button_get_type
+  (c-name "gtk_radio_tool_button_get_type")
+  (return-type "GType")
+)
+
+(define-function gtk_range_get_type
+  (c-name "gtk_range_get_type")
+  (return-type "GType")
+)
+
+(define-function rc_add_default_file
+  (c-name "gtk_rc_add_default_file")
+  (return-type "none")
+  (parameters
+    '("const-gchar*" "filename")
+  )
+)
+
+(define-function rc_set_default_files
+  (c-name "gtk_rc_set_default_files")
+  (return-type "none")
+  (parameters
+    '("gchar**" "filenames")
+  )
+)
+
+(define-function rc_get_default_files
+  (c-name "gtk_rc_get_default_files")
+  (return-type "gchar**")
+)
+
+(define-function rc_get_style_by_paths
+  (c-name "gtk_rc_get_style_by_paths")
+  (return-type "GtkStyle*")
+  (parameters
+    '("GtkSettings*" "settings")
+    '("const-char*" "widget_path")
+    '("const-char*" "class_path")
+    '("GType" "type")
+  )
+)
+
+(define-function rc_reparse_all_for_settings
+  (c-name "gtk_rc_reparse_all_for_settings")
+  (return-type "gboolean")
+  (parameters
+    '("GtkSettings*" "settings")
+    '("gboolean" "force_load")
+  )
+)
+
+(define-function rc_reset_styles
+  (c-name "gtk_rc_reset_styles")
+  (return-type "none")
+  (parameters
+    '("GtkSettings*" "settings")
+  )
+)
+
+(define-function rc_find_pixmap_in_path
+  (c-name "gtk_rc_find_pixmap_in_path")
+  (caller-owns-return #t)
+  (return-type "gchar*")
+  (parameters
+    '("GtkSettings*" "settings")
+    '("GScanner*" "scanner")
+    '("const-gchar*" "pixmap_file")
+  )
+)
+
+(define-function rc_parse
+  (c-name "gtk_rc_parse")
+  (return-type "none")
+  (parameters
+    '("const-gchar*" "filename")
+  )
+)
+
+(define-function rc_parse_string
+  (c-name "gtk_rc_parse_string")
+  (return-type "none")
+  (parameters
+    '("const-gchar*" "rc_string")
+  )
+)
+
+(define-function rc_reparse_all
+  (c-name "gtk_rc_reparse_all")
+  (return-type "gboolean")
+)
+
+(define-function gtk_rc_style_get_type
+  (c-name "gtk_rc_style_get_type")
+  (return-type "GType")
+)
+
+(define-function rc_find_module_in_path
+  (c-name "gtk_rc_find_module_in_path")
+  (caller-owns-return #t)
+  (return-type "gchar*")
+  (parameters
+    '("const-gchar*" "module_file")
+  )
+)
+
+(define-function rc_get_theme_dir
+  (c-name "gtk_rc_get_theme_dir")
+  (caller-owns-return #t)
+  (return-type "gchar*")
+)
+
+(define-function rc_get_module_dir
+  (c-name "gtk_rc_get_module_dir")
+  (caller-owns-return #t)
+  (return-type "gchar*")
+)
+
+(define-function rc_get_im_module_path
+  (c-name "gtk_rc_get_im_module_path")
+  (caller-owns-return #t)
+  (return-type "gchar*")
+)
+
+(define-function rc_get_im_module_file
+  (c-name "gtk_rc_get_im_module_file")
+  (caller-owns-return #t)
+  (return-type "gchar*")
+)
+
+(define-function rc_parse_color
+  (c-name "gtk_rc_parse_color")
+  (return-type "guint")
+  (parameters
+    '("GScanner*" "scanner")
+    '("GdkColor*" "color")
+  )
+)
+
+(define-function rc_parse_state
+  (c-name "gtk_rc_parse_state")
+  (return-type "guint")
+  (parameters
+    '("GScanner*" "scanner")
+    '("GtkStateType*" "state")
+  )
+)
+
+(define-function rc_parse_priority
+  (c-name "gtk_rc_parse_priority")
+  (return-type "guint")
+  (parameters
+    '("GScanner*" "scanner")
+    '("GtkPathPriorityType*" "priority")
+  )
+)
+
+(define-function gtk_ruler_get_type
+  (c-name "gtk_ruler_get_type")
+  (return-type "GType")
+)
+
+(define-function gtk_scale_get_type
+  (c-name "gtk_scale_get_type")
+  (return-type "GType")
+)
+
+(define-function gtk_scrollbar_get_type
+  (c-name "gtk_scrollbar_get_type")
+  (return-type "GType")
+)
+
+(define-function gtk_scrolled_window_get_type
+  (c-name "gtk_scrolled_window_get_type")
+  (return-type "GType")
+)
+
+(define-function selection_owner_set_for_display
+  (c-name "gtk_selection_owner_set_for_display")
+  (return-type "gboolean")
+  (parameters
+    '("GdkDisplay*" "display")
+    '("GtkWidget*" "widget" (null-ok))
+    '("GdkAtom" "selection")
+    '("guint32" "time" (default "GDK_CURRENT_TIME"))
+  )
+)
+
+(define-function gtk_selection_data_get_type
+  (c-name "gtk_selection_data_get_type")
+  (return-type "GType")
+)
+
+(define-function gtk_separator_get_type
+  (c-name "gtk_separator_get_type")
+  (return-type "GType")
+)
+
+(define-function gtk_separator_menu_item_get_type
+  (c-name "gtk_separator_menu_item_get_type")
+  (return-type "GType")
+)
+
+(define-function gtk_separator_tool_item_get_type
+  (c-name "gtk_separator_tool_item_get_type")
+  (return-type "GType")
+)
+
+(define-function gtk_settings_get_type
+  (c-name "gtk_settings_get_type")
+  (return-type "GType")
+)
+
+(define-function settings_get_default
+  (c-name "gtk_settings_get_default")
+  (return-type "GtkSettings*")
+)
+
+(define-function settings_get_for_screen
+  (c-name "gtk_settings_get_for_screen")
+  (return-type "GtkSettings*")
+  (parameters
+    '("GdkScreen*" "screen")
+  )
+)
+
+(define-function settings_install_property
+  (c-name "gtk_settings_install_property")
+  (return-type "none")
+  (parameters
+    '("GParamSpec*" "pspec")
+  )
+)
+
+(define-function settings_install_property_parser
+  (c-name "gtk_settings_install_property_parser")
+  (return-type "none")
+  (parameters
+    '("GParamSpec*" "pspec")
+    '("GtkRcPropertyParser" "parser")
+  )
+)
+
+(define-function rc_property_parse_color
+  (c-name "gtk_rc_property_parse_color")
+  (return-type "gboolean")
+  (parameters
+    '("const-GParamSpec*" "pspec")
+    '("const-GString*" "gstring")
+    '("GValue*" "property_value")
+  )
+)
+
+(define-function rc_property_parse_enum
+  (c-name "gtk_rc_property_parse_enum")
+  (return-type "gboolean")
+  (parameters
+    '("const-GParamSpec*" "pspec")
+    '("const-GString*" "gstring")
+    '("GValue*" "property_value")
+  )
+)
+
+(define-function rc_property_parse_flags
+  (c-name "gtk_rc_property_parse_flags")
+  (return-type "gboolean")
+  (parameters
+    '("const-GParamSpec*" "pspec")
+    '("const-GString*" "gstring")
+    '("GValue*" "property_value")
+  )
+)
+
+(define-function rc_property_parse_requisition
+  (c-name "gtk_rc_property_parse_requisition")
+  (return-type "gboolean")
+  (parameters
+    '("const-GParamSpec*" "pspec")
+    '("const-GString*" "gstring")
+    '("GValue*" "property_value")
+  )
+)
+
+(define-function rc_property_parse_border
+  (c-name "gtk_rc_property_parse_border")
+  (return-type "gboolean")
+  (parameters
+    '("const-GParamSpec*" "pspec")
+    '("const-GString*" "gstring")
+    '("GValue*" "property_value")
+  )
+)
+
+(define-function signal_newv
+  (c-name "gtk_signal_newv")
+  (return-type "guint")
+  (parameters
+    '("const-gchar*" "name")
+    '("GtkSignalRunType" "signal_flags")
+    '("GtkType" "object_type")
+    '("guint" "function_offset")
+    '("GtkSignalMarshaller" "marshaller")
+    '("GtkType" "return_val")
+    '("guint" "n_args")
+    '("GtkType*" "args")
+  )
+)
+
+(define-function signal_new
+  (c-name "gtk_signal_new")
+  (return-type "guint")
+  (parameters
+    '("const-gchar*" "name")
+    '("GtkSignalRunType" "signal_flags")
+    '("GtkType" "object_type")
+    '("guint" "function_offset")
+    '("GtkSignalMarshaller" "marshaller")
+    '("GtkType" "return_val")
+    '("guint" "n_args")
+  )
+  (varargs #t)
+)
+
+(define-function signal_emit_stop_by_name
+  (c-name "gtk_signal_emit_stop_by_name")
+  (return-type "none")
+  (parameters
+    '("GtkObject*" "object")
+    '("const-gchar*" "name")
+  )
+)
+
+(define-function signal_connect_object_while_alive
+  (c-name "gtk_signal_connect_object_while_alive")
+  (return-type "none")
+  (parameters
+    '("GtkObject*" "object")
+    '("const-gchar*" "name")
+    '("GtkSignalFunc" "func")
+    '("GtkObject*" "alive_object")
+  )
+)
+
+(define-function signal_connect_while_alive
+  (c-name "gtk_signal_connect_while_alive")
+  (return-type "none")
+  (parameters
+    '("GtkObject*" "object")
+    '("const-gchar*" "name")
+    '("GtkSignalFunc" "func")
+    '("gpointer" "func_data")
+    '("GtkObject*" "alive_object")
+  )
+)
+
+(define-function signal_connect_full
+  (c-name "gtk_signal_connect_full")
+  (return-type "gulong")
+  (parameters
+    '("GtkObject*" "object")
+    '("const-gchar*" "name")
+    '("GtkSignalFunc" "func")
+    '("GtkCallbackMarshal" "unsupported")
+    '("gpointer" "data")
+    '("GtkDestroyNotify" "destroy_func")
+    '("gint" "object_signal")
+    '("gint" "after")
+  )
+)
+
+(define-function signal_emitv
+  (c-name "gtk_signal_emitv")
+  (return-type "none")
+  (parameters
+    '("GtkObject*" "object")
+    '("guint" "signal_id")
+    '("GtkArg*" "args")
+  )
+)
+
+(define-function signal_emit
+  (c-name "gtk_signal_emit")
+  (return-type "none")
+  (parameters
+    '("GtkObject*" "object")
+    '("guint" "signal_id")
+  )
+  (varargs #t)
+)
+
+(define-function signal_emit_by_name
+  (c-name "gtk_signal_emit_by_name")
+  (return-type "none")
+  (parameters
+    '("GtkObject*" "object")
+    '("const-gchar*" "name")
+  )
+  (varargs #t)
+)
+
+(define-function signal_emitv_by_name
+  (c-name "gtk_signal_emitv_by_name")
+  (return-type "none")
+  (parameters
+    '("GtkObject*" "object")
+    '("const-gchar*" "name")
+    '("GtkArg*" "args")
+  )
+)
+
+(define-function signal_compat_matched
+  (c-name "gtk_signal_compat_matched")
+  (return-type "none")
+  (parameters
+    '("GtkObject*" "object")
+    '("GtkSignalFunc" "func")
+    '("gpointer" "data")
+    '("GSignalMatchType" "match")
+    '("guint" "action")
+  )
+)
+
+(define-function gtk_size_group_get_type
+  (c-name "gtk_size_group_get_type")
+  (return-type "GType")
+)
+
+(define-function gtk_socket_get_type
+  (c-name "gtk_socket_get_type")
+  (return-type "GType")
+)
+
+(define-function gtk_spin_button_get_type
+  (c-name "gtk_spin_button_get_type")
+  (return-type "GType")
+)
+
+(define-function gtk_statusbar_get_type
+  (c-name "gtk_statusbar_get_type")
+  (return-type "GType")
+)
+
+(define-function stock_add
+  (c-name "gtk_stock_add")
+  (return-type "none")
+  (parameters
+    '("const-GtkStockItem*" "items")
+    '("guint" "n_items")
+  )
+)
+
+(define-function stock_add_static
+  (c-name "gtk_stock_add_static")
+  (return-type "none")
+  (parameters
+    '("const-GtkStockItem*" "items")
+    '("guint" "n_items")
+  )
+)
+
+(define-function stock_lookup
+  (c-name "gtk_stock_lookup")
+  (return-type "gboolean")
+  (parameters
+    '("const-gchar*" "stock_id")
+    '("GtkStockItem*" "item")
+  )
+)
+
+(define-function stock_list_ids
+  (c-name "gtk_stock_list_ids")
+  (return-type "GSList*")
+)
+
+(define-function stock_set_translate_func
+  (c-name "gtk_stock_set_translate_func")
+  (return-type "none")
+  (parameters
+    '("const-gchar*" "domain")
+    '("GtkTranslateFunc" "func")
+    '("gpointer" "data")
+    '("GtkDestroyNotify" "notify")
+  )
+)
+
+(define-function gtk_style_get_type
+  (c-name "gtk_style_get_type")
+  (return-type "GType")
+)
+
+(define-function gtk_border_get_type
+  (c-name "gtk_border_get_type")
+  (return-type "GType")
+)
+
+(define-function draw_insertion_cursor
+  (c-name "gtk_draw_insertion_cursor")
+  (return-type "none")
+  (parameters
+    '("GtkWidget*" "widget")
+    '("GdkDrawable*" "drawable")
+    '("GdkRectangle*" "area" (null-ok))
+    '("GdkRectangle*" "location")
+    '("gboolean" "is_primary")
+    '("GtkTextDirection" "direction")
+    '("gboolean" "draw_arrow")
+  )
+)
+
+(define-function gtk_table_get_type
+  (c-name "gtk_table_get_type")
+  (return-type "GType")
+)
+
+(define-function gtk_tearoff_menu_item_get_type
+  (c-name "gtk_tearoff_menu_item_get_type")
+  (return-type "GType")
+)
+
+(define-function text_get_type
+  (c-name "gtk_text_get_type")
+  (return-type "GtkType")
+)
+
+(define-function gtk_text_buffer_get_type
+  (c-name "gtk_text_buffer_get_type")
+  (return-type "GType")
+)
+
+(define-function gtk_text_child_anchor_get_type
+  (c-name "gtk_text_child_anchor_get_type")
+  (return-type "GType")
+)
+
+(define-function gtk_text_iter_get_type
+  (c-name "gtk_text_iter_get_type")
+  (return-type "GType")
+)
+
+(define-function gtk_text_layout_get_type
+  (c-name "gtk_text_layout_get_type")
+  (return-type "GType")
+)
+
+(define-function gtk_text_anchored_child_set_layout
+  (c-name "gtk_text_anchored_child_set_layout")
+  (return-type "none")
+  (parameters
+    '("GtkWidget*" "child")
+    '("GtkTextLayout*" "layout")
+  )
+)
+
+(define-function gtk_text_mark_get_type
+  (c-name "gtk_text_mark_get_type")
+  (return-type "GType")
+)
+
+(define-function gtk_text_tag_get_type
+  (c-name "gtk_text_tag_get_type")
+  (return-type "GType")
+)
+
+(define-function gtk_text_attributes_get_type
+  (c-name "gtk_text_attributes_get_type")
+  (return-type "GType")
+)
+
+(define-function gtk_text_tag_table_get_type
+  (c-name "gtk_text_tag_table_get_type")
+  (return-type "GType")
+)
+
+(define-function gtk_text_view_get_type
+  (c-name "gtk_text_view_get_type")
+  (return-type "GType")
+)
+
+(define-function gtk_tips_query_get_type
+  (c-name "gtk_tips_query_get_type")
+  (return-type "GType")
+)
+
+(define-function gtk_toggle_action_get_type
+  (c-name "gtk_toggle_action_get_type")
+  (return-type "GType")
+)
+
+(define-function gtk_toggle_button_get_type
+  (c-name "gtk_toggle_button_get_type")
+  (return-type "GType")
+)
+
+(define-function gtk_toggle_tool_button_get_type
+  (c-name "gtk_toggle_tool_button_get_type")
+  (return-type "GType")
+)
+
+(define-function toggle_tool_button_new_from_stock
+  (c-name "gtk_toggle_tool_button_new_from_stock")
+  (caller-owns-return #t)
+  (return-type "GtkToolItem*")
+  (parameters
+    '("const-gchar*" "stock_id")
+  )
+)
+
+(define-function gtk_toolbar_get_type
+  (c-name "gtk_toolbar_get_type")
+  (return-type "GType")
+)
+
+(define-function gtk_tool_button_get_type
+  (c-name "gtk_tool_button_get_type")
+  (return-type "GType")
+)
+
+(define-function tool_button_new_from_stock
+  (c-name "gtk_tool_button_new_from_stock")
+  (caller-owns-return #t)
+  (return-type "GtkToolItem*")
+  (parameters
+    '("const-gchar*" "stock_id")
+  )
+)
+
+(define-function gtk_tool_item_get_type
+  (c-name "gtk_tool_item_get_type")
+  (return-type "GType")
+)
+
+(define-function gtk_tooltips_get_type
+  (c-name "gtk_tooltips_get_type")
+  (return-type "GType")
+)
+
+(define-function tooltips_data_get
+  (c-name "gtk_tooltips_data_get")
+  (return-type "GtkTooltipsData*")
+  (parameters
+    '("GtkWidget*" "widget")
+  )
+)
+
+(define-function gtk_tooltips_data_get
+  (c-name "gtk_tooltips_data_get1")
+  (return-type "GtkTooltipsData*")
+  (deprecated "use tooltips_data_get")
+  (parameters
+    '("GtkWidget*" "widget")
+  )
+)
+
+(define-function gtk_tree_drag_source_get_type
+  (c-name "gtk_tree_drag_source_get_type")
+  (return-type "GType")
+)
+
+(define-function gtk_tree_drag_dest_get_type
+  (c-name "gtk_tree_drag_dest_get_type")
+  (return-type "GType")
+)
+
+(define-function gtk_tree_get_type
+  (c-name "gtk_tree_get_type")
+  (return-type "GtkType")
+)
+
+(define-function gtk_tree_item_get_type
+  (c-name "gtk_tree_item_get_type")
+  (return-type "GtkType")
+)
+
+(define-function gtk_tree_item_new_with_label
+  (c-name "gtk_tree_item_new_with_label")
+  (return-type "GtkWidget*")
+  (parameters
+    '("const-gchar*" "label")
+  )
+)
+
+(define-function tree_path_get_type
+  (c-name "gtk_tree_path_get_type")
+  (return-type "GType")
+)
+
+(define-function tree_path_new_from_string
+  (c-name "gtk_tree_path_new_from_string")
+  (return-type "GtkTreePath*")
+  (parameters
+    '("gchar*" "path")
+  )
+)
+
+(define-function tree_path_new_from_indices
+  (c-name "gtk_tree_path_new_from_indices")
+  (return-type "GtkTreePath*")
+  (parameters
+    '("gint" "first_index")
+  )
+  (varargs #t)
+)
+
+(define-function tree_path_new_first
+  (c-name "gtk_tree_path_new_first")
+  (return-type "GtkTreePath*")
+)
+
+(define-function gtk_tree_row_reference_get_type
+  (c-name "gtk_tree_row_reference_get_type")
+  (return-type "GType")
+)
+
+(define-function tree_row_reference_inserted
+  (c-name "gtk_tree_row_reference_inserted")
+  (return-type "none")
+  (parameters
+    '("GObject*" "proxy")
+    '("GtkTreePath*" "path")
+  )
+)
+
+(define-function tree_row_reference_deleted
+  (c-name "gtk_tree_row_reference_deleted")
+  (return-type "none")
+  (parameters
+    '("GObject*" "proxy")
+    '("GtkTreePath*" "path")
+  )
+)
+
+(define-function tree_row_reference_reordered
+  (c-name "gtk_tree_row_reference_reordered")
+  (return-type "none")
+  (parameters
+    '("GObject*" "proxy")
+    '("GtkTreePath*" "path")
+    '("GtkTreeIter*" "iter")
+    '("gint*" "new_order")
+  )
+)
+
+(define-function gtk_tree_iter_get_type
+  (c-name "gtk_tree_iter_get_type")
+  (return-type "GType")
+)
+
+(define-function gtk_tree_model_get_type
+  (c-name "gtk_tree_model_get_type")
+  (return-type "GType")
+)
+
+(define-function gtk_tree_model_filter_get_type
+  (c-name "gtk_tree_model_filter_get_type")
+  (return-type "GType")
+)
+
+(define-function gtk_tree_model_sort_get_type
+  (c-name "gtk_tree_model_sort_get_type")
+  (return-type "GType")
+)
+
+(define-function gtk_tree_selection_get_type
+  (c-name "gtk_tree_selection_get_type")
+  (return-type "GType")
+)
+
+(define-function gtk_tree_sortable_get_type
+  (c-name "gtk_tree_sortable_get_type")
+  (return-type "GType")
+)
+
+(define-function gtk_tree_store_get_type
+  (c-name "gtk_tree_store_get_type")
+  (return-type "GType")
+)
+
+(define-function gtk_tree_view_get_type
+  (c-name "gtk_tree_view_get_type")
+  (return-type "GType")
+)
+
+(define-function gtk_tree_view_column_get_type
+  (c-name "gtk_tree_view_column_get_type")
+  (return-type "GType")
+)
+
+(define-function gtk_accel_flags_get_type
+  (c-name "gtk_accel_flags_get_type")
+  (return-type "GType")
+)
+
+(define-function gtk_calendar_display_options_get_type
+  (c-name "gtk_calendar_display_options_get_type")
+  (return-type "GType")
+)
+
+(define-function gtk_cell_renderer_state_get_type
+  (c-name "gtk_cell_renderer_state_get_type")
+  (return-type "GType")
+)
+
+(define-function gtk_cell_renderer_mode_get_type
+  (c-name "gtk_cell_renderer_mode_get_type")
+  (return-type "GType")
+)
+
+(define-function gtk_cell_type_get_type
+  (c-name "gtk_cell_type_get_type")
+  (return-type "GType")
+)
+
+(define-function gtk_clist_drag_pos_get_type
+  (c-name "gtk_clist_drag_pos_get_type")
+  (return-type "GType")
+)
+
+(define-function gtk_button_action_get_type
+  (c-name "gtk_button_action_get_type")
+  (return-type "GType")
+)
+
+(define-function gtk_ctree_pos_get_type
+  (c-name "gtk_ctree_pos_get_type")
+  (return-type "GType")
+)
+
+(define-function gtk_ctree_line_style_get_type
+  (c-name "gtk_ctree_line_style_get_type")
+  (return-type "GType")
+)
+
+(define-function gtk_ctree_expander_style_get_type
+  (c-name "gtk_ctree_expander_style_get_type")
+  (return-type "GType")
+)
+
+(define-function gtk_ctree_expansion_type_get_type
+  (c-name "gtk_ctree_expansion_type_get_type")
+  (return-type "GType")
+)
+
+(define-function gtk_debug_flag_get_type
+  (c-name "gtk_debug_flag_get_type")
+  (return-type "GType")
+)
+
+(define-function gtk_dialog_flags_get_type
+  (c-name "gtk_dialog_flags_get_type")
+  (return-type "GType")
+)
+
+(define-function gtk_response_type_get_type
+  (c-name "gtk_response_type_get_type")
+  (return-type "GType")
+)
+
+(define-function gtk_dest_defaults_get_type
+  (c-name "gtk_dest_defaults_get_type")
+  (return-type "GType")
+)
+
+(define-function gtk_target_flags_get_type
+  (c-name "gtk_target_flags_get_type")
+  (return-type "GType")
+)
+
+(define-function gtk_anchor_type_get_type
+  (c-name "gtk_anchor_type_get_type")
+  (return-type "GType")
+)
+
+(define-function gtk_arrow_type_get_type
+  (c-name "gtk_arrow_type_get_type")
+  (return-type "GType")
+)
+
+(define-function gtk_attach_options_get_type
+  (c-name "gtk_attach_options_get_type")
+  (return-type "GType")
+)
+
+(define-function gtk_button_box_style_get_type
+  (c-name "gtk_button_box_style_get_type")
+  (return-type "GType")
+)
+
+(define-function gtk_curve_type_get_type
+  (c-name "gtk_curve_type_get_type")
+  (return-type "GType")
+)
+
+(define-function gtk_delete_type_get_type
+  (c-name "gtk_delete_type_get_type")
+  (return-type "GType")
+)
+
+(define-function gtk_direction_type_get_type
+  (c-name "gtk_direction_type_get_type")
+  (return-type "GType")
+)
+
+(define-function gtk_expander_style_get_type
+  (c-name "gtk_expander_style_get_type")
+  (return-type "GType")
+)
+
+(define-function gtk_icon_size_get_type
+  (c-name "gtk_icon_size_get_type")
+  (return-type "GType")
+)
+
+(define-function gtk_side_type_get_type
+  (c-name "gtk_side_type_get_type")
+  (return-type "GType")
+)
+
+(define-function gtk_text_direction_get_type
+  (c-name "gtk_text_direction_get_type")
+  (return-type "GType")
+)
+
+(define-function gtk_justification_get_type
+  (c-name "gtk_justification_get_type")
+  (return-type "GType")
+)
+
+(define-function gtk_match_type_get_type
+  (c-name "gtk_match_type_get_type")
+  (return-type "GType")
+)
+
+(define-function gtk_menu_direction_type_get_type
+  (c-name "gtk_menu_direction_type_get_type")
+  (return-type "GType")
+)
+
+(define-function gtk_metric_type_get_type
+  (c-name "gtk_metric_type_get_type")
+  (return-type "GType")
+)
+
+(define-function gtk_movement_step_get_type
+  (c-name "gtk_movement_step_get_type")
+  (return-type "GType")
+)
+
+(define-function gtk_scroll_step_get_type
+  (c-name "gtk_scroll_step_get_type")
+  (return-type "GType")
+)
+
+(define-function gtk_orientation_get_type
+  (c-name "gtk_orientation_get_type")
+  (return-type "GType")
+)
+
+(define-function gtk_corner_type_get_type
+  (c-name "gtk_corner_type_get_type")
+  (return-type "GType")
+)
+
+(define-function gtk_pack_type_get_type
+  (c-name "gtk_pack_type_get_type")
+  (return-type "GType")
+)
+
+(define-function gtk_path_priority_type_get_type
+  (c-name "gtk_path_priority_type_get_type")
+  (return-type "GType")
+)
+
+(define-function gtk_path_type_get_type
+  (c-name "gtk_path_type_get_type")
+  (return-type "GType")
+)
+
+(define-function gtk_policy_type_get_type
+  (c-name "gtk_policy_type_get_type")
+  (return-type "GType")
+)
+
+(define-function gtk_position_type_get_type
+  (c-name "gtk_position_type_get_type")
+  (return-type "GType")
+)
+
+(define-function gtk_preview_type_get_type
+  (c-name "gtk_preview_type_get_type")
+  (return-type "GType")
+)
+
+(define-function gtk_relief_style_get_type
+  (c-name "gtk_relief_style_get_type")
+  (return-type "GType")
+)
+
+(define-function gtk_resize_mode_get_type
+  (c-name "gtk_resize_mode_get_type")
+  (return-type "GType")
+)
+
+(define-function gtk_signal_run_type_get_type
+  (c-name "gtk_signal_run_type_get_type")
+  (return-type "GType")
+)
+
+(define-function gtk_scroll_type_get_type
+  (c-name "gtk_scroll_type_get_type")
+  (return-type "GType")
+)
+
+(define-function gtk_selection_mode_get_type
+  (c-name "gtk_selection_mode_get_type")
+  (return-type "GType")
+)
+
+(define-function gtk_shadow_type_get_type
+  (c-name "gtk_shadow_type_get_type")
+  (return-type "GType")
+)
+
+(define-function gtk_state_type_get_type
+  (c-name "gtk_state_type_get_type")
+  (return-type "GType")
+)
+
+(define-function gtk_submenu_direction_get_type
+  (c-name "gtk_submenu_direction_get_type")
+  (return-type "GType")
+)
+
+(define-function gtk_submenu_placement_get_type
+  (c-name "gtk_submenu_placement_get_type")
+  (return-type "GType")
+)
+
+(define-function gtk_toolbar_style_get_type
+  (c-name "gtk_toolbar_style_get_type")
+  (return-type "GType")
+)
+
+(define-function gtk_update_type_get_type
+  (c-name "gtk_update_type_get_type")
+  (return-type "GType")
+)
+
+(define-function gtk_visibility_get_type
+  (c-name "gtk_visibility_get_type")
+  (return-type "GType")
+)
+
+(define-function gtk_window_position_get_type
+  (c-name "gtk_window_position_get_type")
+  (return-type "GType")
+)
+
+(define-function gtk_window_type_get_type
+  (c-name "gtk_window_type_get_type")
+  (return-type "GType")
+)
+
+(define-function gtk_wrap_mode_get_type
+  (c-name "gtk_wrap_mode_get_type")
+  (return-type "GType")
+)
+
+(define-function gtk_sort_type_get_type
+  (c-name "gtk_sort_type_get_type")
+  (return-type "GType")
+)
+
+(define-function gtk_im_preedit_style_get_type
+  (c-name "gtk_im_preedit_style_get_type")
+  (return-type "GType")
+)
+
+(define-function gtk_im_status_style_get_type
+  (c-name "gtk_im_status_style_get_type")
+  (return-type "GType")
+)
+
+(define-function gtk_pack_direction_get_type
+  (c-name "gtk_pack_direction_get_type")
+  (return-type "GType")
+)
+
+(define-function gtk_file_chooser_action_get_type
+  (c-name "gtk_file_chooser_action_get_type")
+  (return-type "GType")
+)
+
+(define-function gtk_file_chooser_confirmation_get_type
+  (c-name "gtk_file_chooser_confirmation_get_type")
+  (return-type "GType")
+)
+
+(define-function gtk_file_chooser_error_get_type
+  (c-name "gtk_file_chooser_error_get_type")
+  (return-type "GType")
+)
+
+(define-function gtk_file_filter_flags_get_type
+  (c-name "gtk_file_filter_flags_get_type")
+  (return-type "GType")
+)
+
+(define-function gtk_icon_lookup_flags_get_type
+  (c-name "gtk_icon_lookup_flags_get_type")
+  (return-type "GType")
+)
+
+(define-function gtk_icon_theme_error_get_type
+  (c-name "gtk_icon_theme_error_get_type")
+  (return-type "GType")
+)
+
+(define-function gtk_icon_view_drop_position_get_type
+  (c-name "gtk_icon_view_drop_position_get_type")
+  (return-type "GType")
+)
+
+(define-function gtk_image_type_get_type
+  (c-name "gtk_image_type_get_type")
+  (return-type "GType")
+)
+
+(define-function gtk_message_type_get_type
+  (c-name "gtk_message_type_get_type")
+  (return-type "GType")
+)
+
+(define-function gtk_buttons_type_get_type
+  (c-name "gtk_buttons_type_get_type")
+  (return-type "GType")
+)
+
+(define-function gtk_notebook_tab_get_type
+  (c-name "gtk_notebook_tab_get_type")
+  (return-type "GType")
+)
+
+(define-function gtk_object_flags_get_type
+  (c-name "gtk_object_flags_get_type")
+  (return-type "GType")
+)
+
+(define-function gtk_arg_flags_get_type
+  (c-name "gtk_arg_flags_get_type")
+  (return-type "GType")
+)
+
+(define-function gtk_print_status_get_type
+  (c-name "gtk_print_status_get_type")
+  (return-type "GType")
+)
+
+(define-function gtk_print_operation_result_get_type
+  (c-name "gtk_print_operation_result_get_type")
+  (return-type "GType")
+)
+
+(define-function gtk_print_error_get_type
+  (c-name "gtk_print_error_get_type")
+  (return-type "GType")
+)
+
+(define-function gtk_private_flags_get_type
+  (c-name "gtk_private_flags_get_type")
+  (return-type "GType")
+)
+
+(define-function gtk_progress_bar_style_get_type
+  (c-name "gtk_progress_bar_style_get_type")
+  (return-type "GType")
+)
+
+(define-function gtk_progress_bar_orientation_get_type
+  (c-name "gtk_progress_bar_orientation_get_type")
+  (return-type "GType")
+)
+
+(define-function gtk_rc_flags_get_type
+  (c-name "gtk_rc_flags_get_type")
+  (return-type "GType")
+)
+
+(define-function gtk_rc_token_type_get_type
+  (c-name "gtk_rc_token_type_get_type")
+  (return-type "GType")
+)
+
+(define-function gtk_size_group_mode_get_type
+  (c-name "gtk_size_group_mode_get_type")
+  (return-type "GType")
+)
+
+(define-function gtk_spin_button_update_policy_get_type
+  (c-name "gtk_spin_button_update_policy_get_type")
+  (return-type "GType")
+)
+
+(define-function gtk_spin_type_get_type
+  (c-name "gtk_spin_type_get_type")
+  (return-type "GType")
+)
+
+(define-function gtk_text_search_flags_get_type
+  (c-name "gtk_text_search_flags_get_type")
+  (return-type "GType")
+)
+
+(define-function gtk_text_window_type_get_type
+  (c-name "gtk_text_window_type_get_type")
+  (return-type "GType")
+)
+
+(define-function gtk_toolbar_child_type_get_type
+  (c-name "gtk_toolbar_child_type_get_type")
+  (return-type "GType")
+)
+
+(define-function gtk_toolbar_space_style_get_type
+  (c-name "gtk_toolbar_space_style_get_type")
+  (return-type "GType")
+)
+
+(define-function gtk_tree_view_mode_get_type
+  (c-name "gtk_tree_view_mode_get_type")
+  (return-type "GType")
+)
+
+(define-function gtk_tree_model_flags_get_type
+  (c-name "gtk_tree_model_flags_get_type")
+  (return-type "GType")
+)
+
+(define-function gtk_tree_view_drop_position_get_type
+  (c-name "gtk_tree_view_drop_position_get_type")
+  (return-type "GType")
+)
+
+(define-function gtk_tree_view_column_sizing_get_type
+  (c-name "gtk_tree_view_column_sizing_get_type")
+  (return-type "GType")
+)
+
+(define-function gtk_ui_manager_item_type_get_type
+  (c-name "gtk_ui_manager_item_type_get_type")
+  (return-type "GType")
+)
+
+(define-function gtk_widget_flags_get_type
+  (c-name "gtk_widget_flags_get_type")
+  (return-type "GType")
+)
+
+(define-function gtk_widget_help_type_get_type
+  (c-name "gtk_widget_help_type_get_type")
+  (return-type "GType")
+)
+
+(define-function identifier_get_type
+  (c-name "gtk_identifier_get_type")
+  (return-type "GType")
+)
+
+(define-function gtk_type_init
+  (c-name "gtk_type_init")
+  (return-type "none")
+  (parameters
+    '("GTypeDebugFlags" "debug_flags")
+  )
+)
+
+(define-function gtk_ui_manager_get_type
+  (c-name "gtk_ui_manager_get_type")
+  (return-type "GType")
+)
+
+(define-function gtk_vbutton_box_get_type
+  (c-name "gtk_vbutton_box_get_type")
+  (return-type "GType")
+)
+
+(define-function vbutton_box_get_spacing_default
+  (c-name "gtk_vbutton_box_get_spacing_default")
+  (return-type "gint")
+)
+
+(define-function vbutton_box_set_spacing_default
+  (c-name "gtk_vbutton_box_set_spacing_default")
+  (return-type "none")
+  (parameters
+    '("gint" "spacing")
+  )
+)
+
+(define-function vbutton_box_get_layout_default
+  (c-name "gtk_vbutton_box_get_layout_default")
+  (return-type "GtkButtonBoxStyle")
+)
+
+(define-function vbutton_box_set_layout_default
+  (c-name "gtk_vbutton_box_set_layout_default")
+  (return-type "none")
+  (parameters
+    '("GtkButtonBoxStyle" "layout")
+  )
+)
+
+(define-function gtk_vbox_get_type
+  (c-name "gtk_vbox_get_type")
+  (return-type "GType")
+)
+
+(define-function gtk_viewport_get_type
+  (c-name "gtk_viewport_get_type")
+  (return-type "GType")
+)
+
+(define-function gtk_vpaned_get_type
+  (c-name "gtk_vpaned_get_type")
+  (return-type "GType")
+)
+
+(define-function gtk_vruler_get_type
+  (c-name "gtk_vruler_get_type")
+  (return-type "GType")
+)
+
+(define-function gtk_vscale_get_type
+  (c-name "gtk_vscale_get_type")
+  (return-type "GType")
+)
+
+(define-function gtk_vscrollbar_get_type
+  (c-name "gtk_vscrollbar_get_type")
+  (return-type "GType")
+)
+
+(define-function gtk_vseparator_get_type
+  (c-name "gtk_vseparator_get_type")
+  (return-type "GType")
+)
+
+(define-function gtk_widget_get_type
+  (c-name "gtk_widget_get_type")
+  (return-type "GType")
+)
+
+(define-function widget_push_colormap
+  (c-name "gtk_widget_push_colormap")
+  (return-type "none")
+  (parameters
+    '("GdkColormap*" "cmap")
+  )
+)
+
+(define-function widget_push_composite_child
+  (c-name "gtk_widget_push_composite_child")
+  (return-type "none")
+)
+
+(define-function widget_pop_composite_child
+  (c-name "gtk_widget_pop_composite_child")
+  (return-type "none")
+)
+
+(define-function widget_pop_colormap
+  (c-name "gtk_widget_pop_colormap")
+  (return-type "none")
+)
+
+(define-function widget_class_install_style_property
+  (c-name "gtk_widget_class_install_style_property")
+  (return-type "none")
+  (parameters
+    '("GtkWidgetClass*" "klass")
+    '("GParamSpec*" "pspec")
+  )
+)
+
+(define-function widget_class_install_style_property_parser
+  (c-name "gtk_widget_class_install_style_property_parser")
+  (return-type "none")
+  (parameters
+    '("GtkWidgetClass*" "klass")
+    '("GParamSpec*" "pspec")
+    '("GtkRcPropertyParser" "parser")
+  )
+)
+
+(define-function widget_class_find_style_property
+  (c-name "gtk_widget_class_find_style_property")
+  (return-type "GParamSpec*")
+  (parameters
+    '("GtkWidgetClass*" "klass")
+    '("const-gchar*" "property_name")
+  )
+)
+
+(define-function widget_class_list_style_properties
+  (c-name "gtk_widget_class_list_style_properties")
+  (return-type "GParamSpec**")
+  (parameters
+    '("guint*" "n_properties")
+  )
+)
+
+(define-function widget_get_default_style
+  (c-name "gtk_widget_get_default_style")
+  (return-type "GtkStyle*")
+)
+
+(define-function widget_set_default_colormap
+  (c-name "gtk_widget_set_default_colormap")
+  (return-type "none")
+  (parameters
+    '("GdkColormap*" "colormap")
+  )
+)
+
+(define-function widget_get_default_colormap
+  (c-name "gtk_widget_get_default_colormap")
+  (return-type "GdkColormap*")
+)
+
+(define-function widget_get_default_visual
+  (c-name "gtk_widget_get_default_visual")
+  (return-type "GdkVisual*")
+)
+
+(define-function widget_set_default_direction
+  (c-name "gtk_widget_set_default_direction")
+  (return-type "none")
+  (parameters
+    '("GtkTextDirection" "dir")
+  )
+)
+
+(define-function widget_get_default_direction
+  (c-name "gtk_widget_get_default_direction")
+  (return-type "GtkTextDirection")
+)
+
+(define-function gtk_requisition_get_type
+  (c-name "gtk_requisition_get_type")
+  (return-type "GType")
+)
+
+(define-function gtk_window_get_type
+  (c-name "gtk_window_get_type")
+  (return-type "GType")
+)
+
+(define-function window_set_default_icon_list
+  (c-name "gtk_window_set_default_icon_list")
+  (return-type "none")
+  (parameters
+    '("GList*" "list")
+  )
+)
+
+(define-function window_get_default_icon_list
+  (c-name "gtk_window_get_default_icon_list")
+  (return-type "GList*")
+)
+
+(define-function window_set_default_icon
+  (c-name "gtk_window_set_default_icon")
+  (return-type "none")
+  (parameters
+    '("GdkPixbuf*" "icon")
+  )
+)
+
+(define-function window_set_default_icon_from_file
+  (c-name "gtk_window_set_default_icon_from_file")
+  (return-type "none")
+  (parameters
+    '("const-gchar*" "filename")
+    '("GError**" "error")
+  )
+)
+
+(define-function window_set_auto_startup_notification
+  (c-name "gtk_window_set_auto_startup_notification")
+  (return-type "none")
+  (parameters
+    '("gboolean" "setting")
+  )
+)
+
+(define-function window_list_toplevels
+  (c-name "gtk_window_list_toplevels")
+  (return-type "GList*")
+)
+
+(define-function gtk_window_group_get_type
+  (c-name "gtk_window_group_get_type")
+  (return-type "GType")
+)
+
+(define-function window_set_default_icon_name
+  (c-name "gtk_window_set_default_icon_name")
+  (return-type "none")
+  (parameters
+    '("const-gchar*" "name")
+  )
+)
+
+(define-function assistant_get_type
+  (c-name "gtk_assistant_get_type")
+  (return-type "GType")
+)
+
+(define-function cell_renderer_accel_get_type
+  (c-name "gtk_cell_renderer_accel_get_type")
+  (return-type "GType")
+)
+
+(define-function cell_renderer_spin_get_type
+  (c-name "gtk_cell_renderer_spin_get_type")
+  (return-type "GType")
+)
+
+(define-function link_button_get_type
+  (c-name "gtk_link_button_get_type")
+  (return-type "GType")
+)
+
+(define-function link_button_new
+  (c-name "gtk_link_button_new")
+  (return-type "GtkWidget*")
+  (parameters
+    '("const-gchar*" "uri")
+  )
+)
+
+(define-function link_button_set_uri_hook
+  (c-name "gtk_link_button_set_uri_hook")
+  (return-type "GtkLinkButtonUriFunc")
+  (parameters
+    '("GtkLinkButtonUriFunc" "func")
+    '("gpointer" "data")
+    '("GDestroyNotify" "destroy")
+  )
+)
+
+(define-function notebook_set_window_creation_hook
+  (c-name "gtk_notebook_set_window_creation_hook")
+  (return-type "none")
+  (parameters
+    '("GtkNotebookWindowCreationFunc" "func")
+    '("gpointer" "data")
+    '("GDestroyNotify" "destroy")
+  )
+)
+
+(define-function page_setup_get_type
+  (c-name "gtk_page_setup_get_type")
+  (return-type "GType")
+)
+
+(define-function paper_size_get_type
+  (c-name "gtk_paper_size_get_type")
+  (return-type "GType")
+)
+
+(define-function paper_size_new_from_ppd
+  (c-name "gtk_paper_size_new_from_ppd")
+  (return-type "GtkPaperSize*")
+  (parameters
+    '("const-gchar*" "ppd_name")
+    '("const-gchar*" "ppd_display_name")
+    '("gdouble" "width")
+    '("gdouble" "height")
+  )
+)
+
+(define-function paper_size_new_custom
+  (c-name "gtk_paper_size_new_custom")
+  (return-type "GtkPaperSize*")
+  (parameters
+    '("const-gchar*" "name")
+    '("const-gchar*" "display_name")
+    '("gdouble" "width")
+    '("gdouble" "height")
+    '("GtkUnit" "unit")
+  )
+)
+
+(define-function paper_size_get_default
+  (c-name "gtk_paper_size_get_default")
+  (return-type "const-gchar*")
+)
+
+(define-function print_context_get_type
+  (c-name "gtk_print_context_get_type")
+  (return-type "GType")
+)
+
+(define-function print_error_quark
+  (c-name "gtk_print_error_quark")
+  (return-type "GQuark")
+)
+
+(define-function print_operation_get_type
+  (c-name "gtk_print_operation_get_type")
+  (return-type "GType")
+)
+
+(define-function print_run_page_setup_dialog
+  (c-name "gtk_print_run_page_setup_dialog")
+  (return-type "GtkPageSetup*")
+  (parameters
+    '("GtkWindow*" "parent" (null-ok))
+    '("GtkPageSetup*" "page_setup" (null-ok))
+    '("GtkPrintSettings*" "settings")
+  )
+)
+
+(define-function print_run_page_setup_dialog_async
+  (c-name "gtk_print_run_page_setup_dialog_async")
+  (return-type "none")
+  (parameters
+    '("GtkWindow*" "parent")
+    '("GtkPageSetup*" "page_setup")
+    '("GtkPrintSettings*" "settings")
+    '("GtkPageSetupDoneFunc" "done_cb")
+    '("gpointer" "data")
+  )
+)
+
+(define-function print_operation_preview_get_type
+  (c-name "gtk_print_operation_preview_get_type")
+  (return-type "GType")
+)
+
+(define-function print_settings_get_type
+  (c-name "gtk_print_settings_get_type")
+  (return-type "GType")
+)
+
+(define-function recent_chooser_dialog_get_type
+  (c-name "gtk_recent_chooser_dialog_get_type")
+  (return-type "GType")
+)
+
+(define-function recent_chooser_dialog_new_for_manager
+  (c-name "gtk_recent_chooser_dialog_new_for_manager")
+  (return-type "GtkWidget*")
+  (parameters
+    '("const-gchar*" "title")
+    '("GtkWindow*" "parent")
+    '("GtkRecentManager*" "manager")
+    '("const-gchar*" "first_button_text")
+  )
+  (varargs #t)
+)
+
+(define-function recent_chooser_error_quark
+  (c-name "gtk_recent_chooser_error_quark")
+  (return-type "GQuark")
+)
+
+(define-function recent_chooser_get_type
+  (c-name "gtk_recent_chooser_get_type")
+  (return-type "GType")
+)
+
+(define-function recent_chooser_menu_get_type
+  (c-name "gtk_recent_chooser_menu_get_type")
+  (return-type "GType")
+)
+
+(define-function recent_chooser_menu_new
+  (c-name "gtk_recent_chooser_menu_new")
+  (return-type "GtkWidget*")
+)
+
+(define-function recent_chooser_widget_get_type
+  (c-name "gtk_recent_chooser_widget_get_type")
+  (return-type "GType")
+)
+
+(define-function recent_chooser_widget_new
+  (c-name "gtk_recent_chooser_widget_new")
+  (return-type "GtkWidget*")
+)
+
+(define-function recent_filter_get_type
+  (c-name "gtk_recent_filter_get_type")
+  (return-type "GType")
+)
+
+(define-function recent_manager_error_quark
+  (c-name "gtk_recent_manager_error_quark")
+  (return-type "GQuark")
+)
+
+(define-function recent_manager_get_type
+  (c-name "gtk_recent_manager_get_type")
+  (return-type "GType")
+)
+
+(define-function recent_manager_get_default
+  (c-name "gtk_recent_manager_get_default")
+  (return-type "GtkRecentManager*")
+)
+
+(define-function recent_manager_get_for_screen
+  (c-name "gtk_recent_manager_get_for_screen")
+  (return-type "GtkRecentManager*")
+  (parameters
+    '("GdkScreen*" "screen")
+  )
+)
+
+(define-function recent_info_get_type
+  (c-name "gtk_recent_info_get_type")
+  (return-type "GType")
+)
+
+(define-function target_list_add_rich_text_targets
+  (c-name "gtk_target_list_add_rich_text_targets")
+  (return-type "none")
+  (parameters
+    '("guint" "info")
+    '("gboolean" "deserializable")
+    '("GtkTextBuffer*" "buffer")
+  )
+)
+
+(define-function target_table_new_from_list
+  (c-name "gtk_target_table_new_from_list")
+  (return-type "GtkTargetEntry*")
+  (parameters
+    '("GtkTargetList*" "list")
+    '("gint*" "n_targets")
+  )
+)
+
+(define-function target_table_free
+  (c-name "gtk_target_table_free")
+  (return-type "none")
+  (parameters
+    '("GtkTargetEntry*" "targets")
+    '("gint" "n_targets")
+  )
+)
+
+(define-function targets_include_text
+  (c-name "gtk_targets_include_text")
+  (return-type "gboolean")
+  (parameters
+    '("GdkAtom*" "targets")
+    '("gint" "n_targets")
+  )
+)
+
+(define-function targets_include_rich_text
+  (c-name "gtk_targets_include_rich_text")
+  (return-type "gboolean")
+  (parameters
+    '("GdkAtom*" "targets")
+    '("gint" "n_targets")
+    '("GtkTextBuffer*" "buffer")
+  )
+)
+
+(define-function targets_include_image
+  (c-name "gtk_targets_include_image")
+  (return-type "gboolean")
+  (parameters
+    '("GdkAtom*" "targets")
+    '("gint" "n_targets")
+    '("gboolean" "writable")
+  )
+)
+
+(define-function targets_include_uri
+  (c-name "gtk_targets_include_uri")
+  (return-type "gboolean")
+  (parameters
+    '("GdkAtom*" "targets")
+    '("gint" "n_targets")
+  )
+)
+
+(define-function target_list_get_type
+  (c-name "gtk_target_list_get_type")
+  (return-type "GType")
+)
+
+(define-function status_icon_get_type
+  (c-name "gtk_status_icon_get_type")
+  (return-type "GType")
+)
+
+(define-function status_icon_new_from_pixbuf
+  (c-name "gtk_status_icon_new_from_pixbuf")
+  (return-type "GtkStatusIcon*")
+  (parameters
+    '("GdkPixbuf*" "pixbuf")
+  )
+)
+
+(define-function status_icon_new_from_file
+  (c-name "gtk_status_icon_new_from_file")
+  (return-type "GtkStatusIcon*")
+  (parameters
+    '("const-gchar*" "filename")
+  )
+)
+
+(define-function status_icon_new_from_stock
+  (c-name "gtk_status_icon_new_from_stock")
+  (return-type "GtkStatusIcon*")
+  (parameters
+    '("const-gchar*" "stock_id")
+  )
+)
+
+(define-function status_icon_new_from_icon_name
+  (c-name "gtk_status_icon_new_from_icon_name")
+  (return-type "GtkStatusIcon*")
+  (parameters
+    '("const-gchar*" "icon_name")
+  )
+)
+
+(define-function status_icon_position_menu
+  (c-name "gtk_status_icon_position_menu")
+  (return-type "none")
+  (parameters
+    '("GtkMenu*" "menu")
+    '("gint*" "x")
+    '("gint*" "y")
+    '("gboolean*" "push_in")
+    '("gpointer" "user_data")
+  )
+)
+
+(define-function assistant_page_type_get_type
+  (c-name "gtk_assistant_page_type_get_type")
+  (return-type "GType")
+)
+
+(define-function cell_renderer_accel_mode_get_type
+  (c-name "gtk_cell_renderer_accel_mode_get_type")
+  (return-type "GType")
+)
+
+(define-function sensitivity_type_get_type
+  (c-name "gtk_sensitivity_type_get_type")
+  (return-type "GType")
+)
+
+(define-function print_pages_get_type
+  (c-name "gtk_print_pages_get_type")
+  (return-type "GType")
+)
+
+(define-function page_set_get_type
+  (c-name "gtk_page_set_get_type")
+  (return-type "GType")
+)
+
+(define-function page_orientation_get_type
+  (c-name "gtk_page_orientation_get_type")
+  (return-type "GType")
+)
+
+(define-function print_quality_get_type
+  (c-name "gtk_print_quality_get_type")
+  (return-type "GType")
+)
+
+(define-function print_duplex_get_type
+  (c-name "gtk_print_duplex_get_type")
+  (return-type "GType")
+)
+
+(define-function unit_get_type
+  (c-name "gtk_unit_get_type")
+  (return-type "GType")
+)
+
+(define-function tree_view_grid_lines_get_type
+  (c-name "gtk_tree_view_grid_lines_get_type")
+  (return-type "GType")
+)
+
+(define-function print_operation_action_get_type
+  (c-name "gtk_print_operation_action_get_type")
+  (return-type "GType")
+)
+
+(define-function recent_sort_type_get_type
+  (c-name "gtk_recent_sort_type_get_type")
+  (return-type "GType")
+)
+
+(define-function recent_chooser_error_get_type
+  (c-name "gtk_recent_chooser_error_get_type")
+  (return-type "GType")
+)
+
+(define-function recent_filter_flags_get_type
+  (c-name "gtk_recent_filter_flags_get_type")
+  (return-type "GType")
+)
+
+(define-function recent_manager_error_get_type
+  (c-name "gtk_recent_manager_error_get_type")
+  (return-type "GType")
+)
+
+(define-function text_buffer_target_info_get_type
+  (c-name "gtk_text_buffer_target_info_get_type")
+  (return-type "GType")
+)
+
+(define-function require
+  (c-name "glade_require")
+  (return-type "none")
+  (parameters
+    '("const-gchar*" "library")
+  )
+)
+
+(define-function provide
+  (c-name "glade_provide")
+  (return-type "none")
+  (parameters
+    '("const-gchar*" "library")
+  )
+)
+
+(define-function glade_xml_get_type
+  (c-name "glade_xml_get_type")
+  (return-type "GType")
+)
+
+(define-function xml_new_from_buffer
+  (c-name "glade_xml_new_from_buffer")
+  (return-type "GladeXML*")
+  (parameters
+    '("const-char*" "buffer")
+    '("int" "size")
+    '("const-char*" "root" (default "NULL") (null-ok))
+    '("const-char*" "domain" (default "NULL") (null-ok))
+  )
+)
+
+(define-function get_widget_name
+  (c-name "glade_get_widget_name")
+  (return-type "const-char*")
+  (parameters
+    '("GtkWidget*" "widget")
+  )
+)
+
+(define-function get_widget_tree
+  (c-name "glade_get_widget_tree")
+  (return-type "GladeXML*")
+  (parameters
+    '("GtkWidget*" "widget")
+  )
+)
+
+(define-function set_custom_handler
+  (c-name "glade_set_custom_handler")
+  (return-type "none")
+  (parameters
+    '("GladeXMLCustomWidgetHandler" "handler")
+    '("gpointer" "user_data")
+  )
+)
+
+(define-function bindtextdomain
+  (c-name "glade_bindtextdomain")
+  (caller-owns-return #t)
+  (return-type "char*")
+  (parameters
+    '("const-char*" "domainname")
+    '("const-char*" "dirname" (default "NULL") (null-ok))
+  )
+)
+
+(define-function textdomain
+  (c-name "glade_textdomain")
+  (caller-owns-return #t)
+  (return-type "char*")
+  (parameters
+    '("const-char*" "domainname")
+  )
+)
+
+(define-function set_custom_widget_callbacks
+  (c-name "glade_set_custom_widget_callbacks")
+  (return-type "none")
+)
+
+(define-function gtk_page_setup_unix_dialog_get_type
+  (c-name "gtk_page_setup_unix_dialog_get_type")
+  (return-type "GType")
+)
+
+(define-function gtk_printer_get_type
+  (c-name "gtk_printer_get_type")
+  (return-type "GType")
+)
+
+(define-function enumerate_printers
+  (c-name "gtk_enumerate_printers")
+  (return-type "none")
+  (parameters
+    '("GtkPrinterFunc" "func")
+    '("gpointer" "data")
+    '("GDestroyNotify" "destroy")
+    '("gboolean" "wait")
+  )
+)
+
+(define-function gtk_print_job_get_type
+  (c-name "gtk_print_job_get_type")
+  (return-type "GType")
+)
+
+(define-function print_capabilities_get_type
+  (c-name "gtk_print_capabilities_get_type")
+  (return-type "GType")
+)
+
+(define-function gtk_print_unix_dialog_get_type
+  (c-name "gtk_print_unix_dialog_get_type")
+  (return-type "GType")
+)
+
+(define-function pango_color_get_type
+  (c-name "pango_color_get_type")
+  (return-type "GType")
+)
+
+(define-function pango_attr_type_register
+  (c-name "pango_attr_type_register")
+  (return-type "PangoAttrType")
+  (parameters
+    '("const-gchar*" "name")
+  )
+)
+
+(define-function AttrLanguage
+  (c-name "pango_attr_language_new")
+  (return-type "PangoAttribute*")
+  (parameters
+    '("PangoLanguage*" "language")
+  )
+)
+
+(define-function AttrFamily
+  (c-name "pango_attr_family_new")
+  (return-type "PangoAttribute*")
+  (parameters
+    '("const-char*" "family")
+  )
+)
+
+(define-function AttrForeground
+  (c-name "pango_attr_foreground_new")
+  (return-type "PangoAttribute*")
+  (parameters
+    '("guint16" "red")
+    '("guint16" "green")
+    '("guint16" "blue")
+  )
+)
+
+(define-function AttrBackground
+  (c-name "pango_attr_background_new")
+  (return-type "PangoAttribute*")
+  (parameters
+    '("guint16" "red")
+    '("guint16" "green")
+    '("guint16" "blue")
+  )
+)
+
+(define-function AttrSize
+  (c-name "pango_attr_size_new")
+  (return-type "PangoAttribute*")
+  (parameters
+    '("int" "size")
+  )
+)
+
+(define-function AttrSizeAbsolute
+  (c-name "pango_attr_size_new_absolute")
+  (return-type "PangoAttribute*")
+  (parameters
+    '("int" "size")
+  )
+)
+
+(define-function AttrStyle
+  (c-name "pango_attr_style_new")
+  (return-type "PangoAttribute*")
+  (parameters
+    '("PangoStyle" "style")
+  )
+)
+
+(define-function AttrWeight
+  (c-name "pango_attr_weight_new")
+  (return-type "PangoAttribute*")
+  (parameters
+    '("PangoWeight" "weight")
+  )
+)
+
+(define-function AttrVariant
+  (c-name "pango_attr_variant_new")
+  (return-type "PangoAttribute*")
+  (parameters
+    '("PangoVariant" "variant")
+  )
+)
+
+(define-function AttrStretch
+  (c-name "pango_attr_stretch_new")
+  (return-type "PangoAttribute*")
+  (parameters
+    '("PangoStretch" "stretch")
+  )
+)
+
+(define-function AttrFontDesc
+  (c-name "pango_attr_font_desc_new")
+  (return-type "PangoAttribute*")
+  (parameters
+    '("const-PangoFontDescription*" "desc")
+  )
+)
+
+(define-function AttrUnderline
+  (c-name "pango_attr_underline_new")
+  (return-type "PangoAttribute*")
+  (parameters
+    '("PangoUnderline" "underline")
+  )
+)
+
+(define-function AttrUnderlineColor
+  (c-name "pango_attr_underline_color_new")
+  (return-type "PangoAttribute*")
+  (parameters
+    '("guint16" "red")
+    '("guint16" "green")
+    '("guint16" "blue")
+  )
+)
+
+(define-function AttrStrikethrough
+  (c-name "pango_attr_strikethrough_new")
+  (return-type "PangoAttribute*")
+  (parameters
+    '("gboolean" "strikethrough")
+  )
+)
+
+(define-function AttrStrikethroughColor
+  (c-name "pango_attr_strikethrough_color_new")
+  (return-type "PangoAttribute*")
+  (parameters
+    '("guint16" "red")
+    '("guint16" "green")
+    '("guint16" "blue")
+  )
+)
+
+(define-function AttrRise
+  (c-name "pango_attr_rise_new")
+  (return-type "PangoAttribute*")
+  (parameters
+    '("int" "rise")
+  )
+)
+
+(define-function AttrScale
+  (c-name "pango_attr_scale_new")
+  (return-type "PangoAttribute*")
+  (parameters
+    '("double" "scale_factor")
+  )
+)
+
+(define-function AttrFallback
+  (c-name "pango_attr_fallback_new")
+  (return-type "PangoAttribute*")
+  (parameters
+    '("gboolean" "fallback")
+  )
+)
+
+(define-function AttrLetterSpacing
+  (c-name "pango_attr_letter_spacing_new")
+  (return-type "PangoAttribute*")
+  (parameters
+    '("int" "letter_spacing")
+  )
+)
+
+(define-function AttrShape
+  (c-name "pango_attr_shape_new")
+  (return-type "PangoAttribute*")
+  (parameters
+    '("const-PangoRectangle*" "ink_rect")
+    '("const-PangoRectangle*" "logical_rect")
+  )
+)
+
+(define-function attr_shape_new_with_data
+  (c-name "pango_attr_shape_new_with_data")
+  (return-type "PangoAttribute*")
+  (parameters
+    '("const-PangoRectangle*" "ink_rect")
+    '("const-PangoRectangle*" "logical_rect")
+    '("gpointer" "data")
+    '("PangoAttrDataCopyFunc" "copy_func")
+    '("GDestroyNotify" "destroy_func")
+  )
+)
+
+(define-function pango_attr_list_get_type
+  (c-name "pango_attr_list_get_type")
+  (return-type "GType")
+)
+
+(define-function parse_markup
+  (c-name "pango_parse_markup")
+  (return-type "gboolean")
+  (parameters
+    '("const-char*" "markup_text")
+    '("int" "length")
+    '("gunichar" "accel_marker")
+    '("PangoAttrList**" "attr_list")
+    '("char**" "text")
+    '("gunichar*" "accel_char")
+    '("GError**" "error")
+  )
+)
+
+(define-function break
+  (c-name "pango_break")
+  (return-type "none")
+  (parameters
+    '("const-gchar*" "text")
+    '("gint" "length")
+    '("PangoAnalysis*" "analysis")
+    '("PangoLogAttr*" "attrs")
+  )
+)
+
+(define-function find_paragraph_boundary
+  (c-name "pango_find_paragraph_boundary")
+  (return-type "none")
+  (parameters
+    '("const-gchar*" "text")
+    '("gint" "length")
+    '("gint*" "paragraph_delimiter_index")
+    '("gint*" "next_paragraph_start")
+  )
+)
+
+(define-function get_log_attrs
+  (c-name "pango_get_log_attrs")
+  (return-type "none")
+  (parameters
+    '("const-char*" "text")
+    '("int" "length")
+    '("int" "level")
+    '("PangoLanguage*" "language")
+    '("PangoLogAttr*" "log_attrs")
+  )
+)
+
+(define-function default_break
+  (c-name "pango_default_break")
+  (return-type "none")
+  (parameters
+    '("const-gchar*" "text")
+    '("int" "length")
+    '("PangoAnalysis*" "analysis")
+    '("PangoLogAttr*" "attrs")
+    '("int" "attrs_len")
+  )
+)
+
+(define-function context_get_type
+  (c-name "pango_context_get_type")
+  (return-type "GType")
+)
+
+(define-function itemize
+  (c-name "pango_itemize")
+  (return-type "GList*")
+  (parameters
+    '("PangoContext*" "context")
+    '("const-char*" "text")
+    '("int" "start_index")
+    '("int" "length")
+    '("PangoAttrList*" "attrs")
+    '("PangoAttrIterator*" "cached_iter" (default "NULL") (null-ok))
+  )
+)
+
+(define-function itemize_with_base_dir
+  (c-name "pango_itemize_with_base_dir")
+  (return-type "GList*")
+  (parameters
+    '("PangoContext*" "context")
+    '("PangoDirection" "base_dir")
+    '("const-char*" "text")
+    '("int" "start_index")
+    '("int" "length")
+    '("PangoAttrList*" "attrs")
+    '("PangoAttrIterator*" "cached_iter")
+  )
+)
+
+(define-function attr_type_get_type
+  (c-name "pango_attr_type_get_type")
+  (return-type "GType")
+)
+
+(define-function underline_get_type
+  (c-name "pango_underline_get_type")
+  (return-type "GType")
+)
+
+(define-function coverage_level_get_type
+  (c-name "pango_coverage_level_get_type")
+  (return-type "GType")
+)
+
+(define-function style_get_type
+  (c-name "pango_style_get_type")
+  (return-type "GType")
+)
+
+(define-function variant_get_type
+  (c-name "pango_variant_get_type")
+  (return-type "GType")
+)
+
+(define-function weight_get_type
+  (c-name "pango_weight_get_type")
+  (return-type "GType")
+)
+
+(define-function stretch_get_type
+  (c-name "pango_stretch_get_type")
+  (return-type "GType")
+)
+
+(define-function font_mask_get_type
+  (c-name "pango_font_mask_get_type")
+  (return-type "GType")
+)
+
+(define-function alignment_get_type
+  (c-name "pango_alignment_get_type")
+  (return-type "GType")
+)
+
+(define-function wrap_mode_get_type
+  (c-name "pango_wrap_mode_get_type")
+  (return-type "GType")
+)
+
+(define-function ellipsize_mode_get_type
+  (c-name "pango_ellipsize_mode_get_type")
+  (return-type "GType")
+)
+
+(define-function render_part_get_type
+  (c-name "pango_render_part_get_type")
+  (return-type "GType")
+)
+
+(define-function script_get_type
+  (c-name "pango_script_get_type")
+  (return-type "GType")
+)
+
+(define-function tab_align_get_type
+  (c-name "pango_tab_align_get_type")
+  (return-type "GType")
+)
+
+(define-function direction_get_type
+  (c-name "pango_direction_get_type")
+  (return-type "GType")
+)
+
+(define-function font_description_get_type
+  (c-name "pango_font_description_get_type")
+  (return-type "GType")
+)
+
+(define-function pango_font_descriptions_free
+  (c-name "pango_font_descriptions_free")
+  (return-type "none")
+  (parameters
+    '("PangoFontDescription**" "descs")
+    '("int" "n_descs")
+  )
+)
+
+(define-function pango_font_metrics_get_type
+  (c-name "pango_font_metrics_get_type")
+  (return-type "GType")
+)
+
+(define-function pango_font_family_get_type
+  (c-name "pango_font_family_get_type")
+  (return-type "GType")
+)
+
+(define-function pango_font_face_get_type
+  (c-name "pango_font_face_get_type")
+  (return-type "GType")
+)
+
+(define-function pango_font_get_type
+  (c-name "pango_font_get_type")
+  (return-type "GType")
+)
+
+(define-function font_map_get_type
+  (c-name "pango_font_map_get_type")
+  (return-type "GType")
+)
+
+(define-function fontset_get_type
+  (c-name "pango_fontset_get_type")
+  (return-type "GType")
+)
+
+(define-function fontset_simple_get_type
+  (c-name "pango_fontset_simple_get_type")
+  (return-type "GType")
+)
+
+(define-function pango_glyph_string_get_type
+  (c-name "pango_glyph_string_get_type")
+  (return-type "GType")
+)
+
+(define-function shape
+  (c-name "pango_shape")
+  (return-type "none")
+  (parameters
+    '("const-gchar*" "text")
+    '("gint" "length")
+    '("PangoAnalysis*" "analysis")
+    '("PangoGlyphString*" "glyphs")
+  )
+)
+
+(define-function reorder_items
+  (c-name "pango_reorder_items")
+  (return-type "GList*")
+  (parameters
+    '("GList*" "logical_items")
+  )
+)
+
+(define-function item_get_type
+  (c-name "pango_item_get_type")
+  (return-type "GType")
+)
+
+(define-function pango_layout_get_type
+  (c-name "pango_layout_get_type")
+  (return-type "GType")
+)
+
+(define-function layout_line_get_type
+  (c-name "pango_layout_line_get_type")
+  (return-type "GType")
+)
+
+(define-function pango_layout_iter_get_type
+  (c-name "pango_layout_iter_get_type")
+  (return-type "GType")
+)
+
+(define-function pango_renderer_get_type
+  (c-name "pango_renderer_get_type")
+  (return-type "GType")
+)
+
+(define-function script_for_unichar
+  (c-name "pango_script_for_unichar")
+  (return-type "PangoScript")
+  (parameters
+    '("gunichar" "ch")
+  )
+)
+
+(define-function get_sample_language
+  (c-name "pango_script_get_sample_language")
+  (return-type "PangoLanguage*")
+  (parameters
+    '("PangoScript" "script")
+  )
+)
+
+(define-function pango_tab_array_get_type
+  (c-name "pango_tab_array_get_type")
+  (return-type "GType")
+)
+
+(define-function matrix_get_type
+  (c-name "pango_matrix_get_type")
+  (return-type "GType")
+)
+
+(define-function language_get_type
+  (c-name "pango_language_get_type")
+  (return-type "GType")
+)
+
+(define-function pango_language_from_string
+  (c-name "pango_language_from_string1")
+  (return-type "PangoLanguage*")
+  (deprecated "use pango.Language instead")
+  (parameters
+    '("const-char*" "language")
+  )
+)
+
+(define-function pango_language_matches
+  (c-name "pango_language_matches1")
+  (return-type "gboolean")
+  (deprecated "use pango.Language.matches instead")
+  (parameters
+    '("PangoLanguage*" "language" (null-ok))
+    '("const-char*" "range_list")
+  )
+)
+
+(define-function get_mirror_char
+  (c-name "pango_get_mirror_char")
+  (return-type "gboolean")
+  (deprecated "deprecated")
+  (parameters
+    '("gunichar" "ch")
+    '("gunichar*" "mirrored_ch")
+  )
+)
+
+(define-function unichar_direction
+  (c-name "pango_unichar_direction")
+  (return-type "PangoDirection")
+  (parameters
+    '("gunichar" "ch")
+  )
+)
+
+(define-function find_base_dir
+  (c-name "pango_find_base_dir")
+  (return-type "PangoDirection")
+  (parameters
+    '("const-gchar*" "text")
+    '("gint" "length")
+  )
+)
+
+(define-function PIXELS
+  (c-name "PANGO_PIXELS")
+  (return-type "gint")
+  (parameters
+    '("gint" "size")
+  )
+)
+
+(define-function ASCENT
+  (c-name "PANGO_ASCENT")
+  (return-type "gint")
+  (parameters
+    '("PangoRectangle" "rect")
+  )
+)
+
+(define-function DESCENT
+  (c-name "PANGO_DESCENT")
+  (return-type "gint")
+  (parameters
+    '("PangoRectangle" "rect")
+  )
+)
+
+(define-function LBEARING
+  (c-name "PANGO_LBEARING")
+  (return-type "gint")
+  (parameters
+    '("PangoRectangle" "rect")
+  )
+)
+
+(define-function RBEARING
+  (c-name "PANGO_RBEARING")
+  (return-type "gint")
+  (parameters
+    '("PangoRectangle" "rect")
+  )
+)
+
+(define-function hyperlink_state_flags_get_type
+  (c-name "atk_hyperlink_state_flags_get_type")
+  (return-type "GType")
+)
+
+(define-function role_get_type
+  (c-name "atk_role_get_type")
+  (return-type "GType")
+)
+
+(define-function layer_get_type
+  (c-name "atk_layer_get_type")
+  (return-type "GType")
+)
+
+(define-function relation_type_get_type
+  (c-name "atk_relation_type_get_type")
+  (return-type "GType")
+)
+
+(define-function state_type_get_type
+  (c-name "atk_state_type_get_type")
+  (return-type "GType")
+)
+
+(define-function text_attribute_get_type
+  (c-name "atk_text_attribute_get_type")
+  (return-type "GType")
+)
+
+(define-function text_boundary_get_type
+  (c-name "atk_text_boundary_get_type")
+  (return-type "GType")
+)
+
+(define-function text_clip_type_get_type
+  (c-name "atk_text_clip_type_get_type")
+  (return-type "GType")
+)
+
+(define-function key_event_type_get_type
+  (c-name "atk_key_event_type_get_type")
+  (return-type "GType")
+)
+
+(define-function coord_type_get_type
+  (c-name "atk_coord_type_get_type")
+  (return-type "GType")
+)
+
+(define-function atk_action_get_type
+  (c-name "atk_action_get_type")
+  (return-type "GType")
+)
+
+(define-function atk_component_get_type
+  (c-name "atk_component_get_type")
+  (return-type "GType")
+)
+
+(define-function rectangle_get_type
+  (c-name "atk_rectangle_get_type")
+  (return-type "GType")
+)
+
+(define-function atk_document_get_type
+  (c-name "atk_document_get_type")
+  (return-type "GType")
+)
+
+(define-function atk_editable_text_get_type
+  (c-name "atk_editable_text_get_type")
+  (return-type "GType")
+)
+
+(define-function gobject_accessible_get_type
+  (c-name "atk_gobject_accessible_get_type")
+  (return-type "GType")
+)
+
+(define-function gobject_accessible_for_object
+  (c-name "atk_gobject_accessible_for_object")
+  (return-type "AtkObject*")
+  (parameters
+    '("GObject*" "obj")
+  )
+)
+
+(define-function atk_hyperlink_get_type
+  (c-name "atk_hyperlink_get_type")
+  (return-type "GType")
+)
+
+(define-function atk_hypertext_get_type
+  (c-name "atk_hypertext_get_type")
+  (return-type "GType")
+)
+
+(define-function atk_image_get_type
+  (c-name "atk_image_get_type")
+  (return-type "GType")
+)
+
+(define-function atk_no_op_object_factory_get_type
+  (c-name "atk_no_op_object_factory_get_type")
+  (return-type "GType")
+)
+
+(define-function atk_no_op_object_get_type
+  (c-name "atk_no_op_object_get_type")
+  (return-type "GType")
+)
+
+(define-function atk_object_factory_get_type
+  (c-name "atk_object_factory_get_type")
+  (return-type "GType")
+)
+
+(define-function atk_object_get_type
+  (c-name "atk_object_get_type")
+  (return-type "GType")
+)
+
+(define-function atk_implementor_get_type
+  (c-name "atk_implementor_get_type")
+  (return-type "GType")
+)
+
+(define-function role_register
+  (c-name "atk_role_register")
+  (return-type "AtkRole")
+  (parameters
+    '("const-gchar*" "name")
+  )
+)
+
+(define-function role_get_localized_name
+  (c-name "atk_role_get_localized_name")
+  (return-type "const-gchar*")
+  (parameters
+    '("AtkRole" "role")
+  )
+)
+
+(define-function atk_registry_get_type
+  (c-name "atk_registry_get_type")
+  (return-type "GType")
+)
+
+(define-function get_default_registry
+  (c-name "atk_get_default_registry")
+  (return-type "AtkRegistry*")
+)
+
+(define-function atk_relation_get_type
+  (c-name "atk_relation_get_type")
+  (return-type "GType")
+)
+
+(define-function relation_type_register
+  (c-name "atk_relation_type_register")
+  (return-type "AtkRelationType")
+  (parameters
+    '("const-gchar*" "name")
+  )
+)
+
+(define-function relation_type_get_name
+  (c-name "atk_relation_type_get_name")
+  (return-type "const-gchar*")
+  (parameters
+    '("AtkRelationType" "relationship")
+  )
+)
+
+(define-function relation_type_for_name
+  (c-name "atk_relation_type_for_name")
+  (return-type "AtkRelationType")
+  (parameters
+    '("const-gchar*" "name")
+  )
+)
+
+(define-function atk_relation_set_get_type
+  (c-name "atk_relation_set_get_type")
+  (return-type "GType")
+)
+
+(define-function atk_selection_get_type
+  (c-name "atk_selection_get_type")
+  (return-type "GType")
+)
+
+(define-function state_type_register
+  (c-name "atk_state_type_register")
+  (return-type "AtkStateType")
+  (parameters
+    '("const-gchar*" "name")
+  )
+)
+
+(define-function state_type_get_name
+  (c-name "atk_state_type_get_name")
+  (return-type "const-gchar*")
+  (parameters
+    '("AtkStateType" "type")
+  )
+)
+
+(define-function state_type_for_name
+  (c-name "atk_state_type_for_name")
+  (return-type "AtkStateType")
+  (parameters
+    '("const-gchar*" "name")
+  )
+)
+
+(define-function atk_state_set_get_type
+  (c-name "atk_state_set_get_type")
+  (return-type "GType")
+)
+
+(define-function atk_streamable_content_get_type
+  (c-name "atk_streamable_content_get_type")
+  (return-type "GType")
+)
+
+(define-function atk_table_get_type
+  (c-name "atk_table_get_type")
+  (return-type "GType")
+)
+
+(define-function atk_text_get_type
+  (c-name "atk_text_get_type")
+  (return-type "GType")
+)
+
+(define-function text_free_ranges
+  (c-name "atk_text_free_ranges")
+  (return-type "none")
+  (parameters
+    '("AtkTextRange**" "ranges")
+  )
+)
+
+(define-function text_attribute_get_name
+  (c-name "atk_text_attribute_get_name")
+  (return-type "const-gchar*")
+  (parameters
+    '("AtkTextAttribute" "attr")
+  )
+)
+
+(define-function text_attribute_get_value
+  (c-name "atk_text_attribute_get_value")
+  (return-type "const-gchar*")
+  (parameters
+    '("AtkTextAttribute" "attr")
+    '("gint" "index")
+  )
+)
+
+(define-function text_attribute_register
+  (c-name "atk_text_attribute_register")
+  (return-type "AtkTextAttribute")
+  (parameters
+    '("const-gchar*" "name")
+  )
+)
+
+(define-function text_attribute_for_name
+  (c-name "atk_text_attribute_for_name")
+  (return-type "AtkTextAttribute")
+  (parameters
+    '("const-gchar*" "name")
+  )
+)
+
+(define-function atk_util_get_type
+  (c-name "atk_util_get_type")
+  (return-type "GType")
+)
+
+(define-function add_focus_tracker
+  (c-name "atk_add_focus_tracker")
+  (return-type "guint")
+  (parameters
+    '("AtkEventListener" "focus_tracker")
+  )
+)
+
+(define-function remove_focus_tracker
+  (c-name "atk_remove_focus_tracker")
+  (return-type "none")
+  (parameters
+    '("guint" "tracker_id")
+  )
+)
+
+(define-function focus_tracker_init
+  (c-name "atk_focus_tracker_init")
+  (return-type "none")
+  (parameters
+    '("AtkEventListenerInit" "add_function")
+  )
+)
+
+(define-function focus_tracker_notify
+  (c-name "atk_focus_tracker_notify")
+  (return-type "none")
+  (parameters
+    '("AtkObject*" "object")
+  )
+)
+
+(define-function add_global_event_listener
+  (c-name "atk_add_global_event_listener")
+  (return-type "guint")
+  (parameters
+    '("GSignalEmissionHook" "listener")
+    '("const-gchar*" "event_type")
+  )
+)
+
+(define-function remove_global_event_listener
+  (c-name "atk_remove_global_event_listener")
+  (return-type "none")
+  (parameters
+    '("guint" "listener_id")
+  )
+)
+
+(define-function add_key_event_listener
+  (c-name "atk_add_key_event_listener")
+  (return-type "guint")
+  (parameters
+    '("AtkKeySnoopFunc" "listener")
+    '("gpointer" "data")
+  )
+)
+
+(define-function remove_key_event_listener
+  (c-name "atk_remove_key_event_listener")
+  (return-type "none")
+  (parameters
+    '("guint" "listener_id")
+  )
+)
+
+(define-function get_root
+  (c-name "atk_get_root")
+  (return-type "AtkObject*")
+)
+
+(define-function get_toolkit_name
+  (c-name "atk_get_toolkit_name")
+  (return-type "const-gchar*")
+)
+
+(define-function get_toolkit_version
+  (c-name "atk_get_toolkit_version")
+  (return-type "const-gchar*")
+)
+
+(define-function get_focus_object
+  (c-name "atk_get_focus_object")
+  (return-type "AtkObject*")
+)
+
+(define-function atk_value_get_type
+  (c-name "atk_value_get_type")
+  (return-type "GType")
+)
+
+(define-function role_get_name
+  (c-name "atk_role_get_name")
+  (return-type "const-gchar*")
+  (parameters
+    '("AtkRole" "role")
+  )
+)
+
+(define-function role_for_name
+  (c-name "atk_role_for_name")
+  (return-type "AtkRole")
+  (parameters
+    '("const-gchar*" "name")
+  )
+)
+

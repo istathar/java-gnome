@@ -1,0 +1,17 @@
+(define-enum Stretch
+  (in-module "Pango")
+  (c-name "PangoStretch")
+  (gtype-id "PANGO_TYPE_STRETCH")
+  (values
+    '("ultra-condensed" "PANGO_STRETCH_ULTRA_CONDENSED")
+    '("extra-condensed" "PANGO_STRETCH_EXTRA_CONDENSED")
+    '("condensed" "PANGO_STRETCH_CONDENSED")
+    '("semi-condensed" "PANGO_STRETCH_SEMI_CONDENSED")
+    '("normal" "PANGO_STRETCH_NORMAL")
+    '("semi-expanded" "PANGO_STRETCH_SEMI_EXPANDED")
+    '("expanded" "PANGO_STRETCH_EXPANDED")
+    '("extra-expanded" "PANGO_STRETCH_EXTRA_EXPANDED")
+    '("ultra-expanded" "PANGO_STRETCH_ULTRA_EXPANDED")
+  )
+)
+

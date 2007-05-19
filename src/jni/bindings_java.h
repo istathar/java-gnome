@@ -34,5 +34,14 @@ extern const gchar* bindings_java_typeToSignature(GType);
 
 extern GClosure* bindings_java_closure_new(JNIEnv*, GObject*, jobject, jclass, const gchar*, guint);
 
+/*
+ * bindings_java_memory.c
+ */
+
+extern void bindings_java_memory_ref(JNIEnv*, GObject*, jobject);
+extern void bindings_java_memory_unref(GObject*);
+
+// TODO derive this at compile time from org.freedesktop.bindings.Debug
+#define DEBUG_MEMORY_MANAGEMENT FALSE
 
 #endif 

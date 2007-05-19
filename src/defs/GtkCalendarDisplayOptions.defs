@@ -1,0 +1,13 @@
+(define-flags CalendarDisplayOptions
+  (in-module "Gtk")
+  (c-name "GtkCalendarDisplayOptions")
+  (gtype-id "GTK_TYPE_CALENDAR_DISPLAY_OPTIONS")
+  (values
+    '("show-heading" "GTK_CALENDAR_SHOW_HEADING")
+    '("show-day-names" "GTK_CALENDAR_SHOW_DAY_NAMES")
+    '("no-month-change" "GTK_CALENDAR_NO_MONTH_CHANGE")
+    '("show-week-numbers" "GTK_CALENDAR_SHOW_WEEK_NUMBERS")
+    '("week-start-monday" "GTK_CALENDAR_WEEK_START_MONDAY")
+  )
+)
+

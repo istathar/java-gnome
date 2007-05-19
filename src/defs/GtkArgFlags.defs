@@ -1,0 +1,13 @@
+(define-flags ArgFlags
+  (in-module "Gtk")
+  (c-name "GtkArgFlags")
+  (gtype-id "GTK_TYPE_ARG_FLAGS")
+  (values
+    '("readable" "GTK_ARG_READABLE")
+    '("writable" "GTK_ARG_WRITABLE")
+    '("construct" "GTK_ARG_CONSTRUCT")
+    '("construct-only" "GTK_ARG_CONSTRUCT_ONLY")
+    '("child-arg" "GTK_ARG_CHILD_ARG")
+  )
+)
+

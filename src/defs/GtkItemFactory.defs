@@ -1,0 +1,172 @@
+(define-object ItemFactory
+  (in-module "Gtk")
+  (parent "GtkObject")
+  (c-name "GtkItemFactory")
+  (gtype-id "GTK_TYPE_ITEM_FACTORY")
+)
+
+(define-function gtk_item_factory_new
+  (is-constructor-of "GtkItemFactory")
+  (c-name "gtk_item_factory_new")
+  (caller-owns-return #t)
+  (return-type "GtkItemFactory*")
+  (deprecated "use gtk.UIManager")
+  (parameters
+    '("GType" "container_type")
+    '("const-gchar*" "path")
+    '("GtkAccelGroup*" "accel_group" (default "NULL") (null-ok))
+  )
+)
+
+(define-method construct
+  (of-object "GtkItemFactory")
+  (c-name "gtk_item_factory_construct")
+  (return-type "none")
+  (parameters
+    '("GType" "container_type")
+    '("const-gchar*" "path")
+    '("GtkAccelGroup*" "accel_group")
+  )
+)
+
+(define-method get_item
+  (of-object "GtkItemFactory")
+  (c-name "gtk_item_factory_get_item")
+  (return-type "GtkWidget*")
+  (parameters
+    '("const-gchar*" "path")
+  )
+)
+
+(define-method get_widget
+  (of-object "GtkItemFactory")
+  (c-name "gtk_item_factory_get_widget")
+  (return-type "GtkWidget*")
+  (parameters
+    '("const-gchar*" "path")
+  )
+)
+
+(define-method get_widget_by_action
+  (of-object "GtkItemFactory")
+  (c-name "gtk_item_factory_get_widget_by_action")
+  (return-type "GtkWidget*")
+  (parameters
+    '("guint" "action")
+  )
+)
+
+(define-method get_item_by_action
+  (of-object "GtkItemFactory")
+  (c-name "gtk_item_factory_get_item_by_action")
+  (return-type "GtkWidget*")
+  (parameters
+    '("guint" "action")
+  )
+)
+
+(define-method create_item
+  (of-object "GtkItemFactory")
+  (c-name "gtk_item_factory_create_item")
+  (return-type "none")
+  (parameters
+    '("GtkItemFactoryEntry*" "entry")
+    '("gpointer" "callback_data")
+    '("guint" "callback_type")
+  )
+)
+
+(define-method create_items
+  (of-object "GtkItemFactory")
+  (c-name "gtk_item_factory_create_items")
+  (return-type "none")
+  (parameters
+    '("guint" "n_entries")
+    '("GtkItemFactoryEntry*" "entries")
+    '("gpointer" "callback_data")
+  )
+)
+
+(define-method delete_item
+  (of-object "GtkItemFactory")
+  (c-name "gtk_item_factory_delete_item")
+  (return-type "none")
+  (parameters
+    '("const-gchar*" "path")
+  )
+)
+
+(define-method delete_entry
+  (of-object "GtkItemFactory")
+  (c-name "gtk_item_factory_delete_entry")
+  (return-type "none")
+  (parameters
+    '("GtkItemFactoryEntry*" "entry")
+  )
+)
+
+(define-method delete_entries
+  (of-object "GtkItemFactory")
+  (c-name "gtk_item_factory_delete_entries")
+  (return-type "none")
+  (parameters
+    '("guint" "n_entries")
+    '("GtkItemFactoryEntry*" "entries")
+  )
+)
+
+(define-method popup
+  (of-object "GtkItemFactory")
+  (c-name "gtk_item_factory_popup")
+  (return-type "none")
+  (parameters
+    '("guint" "x")
+    '("guint" "y")
+    '("guint" "mouse_button")
+    '("guint32" "time" (default "GDK_CURRENT_TIME"))
+  )
+)
+
+(define-method popup_with_data
+  (of-object "GtkItemFactory")
+  (c-name "gtk_item_factory_popup_with_data")
+  (return-type "none")
+  (parameters
+    '("gpointer" "popup_data")
+    '("GtkDestroyNotify" "destroy")
+    '("guint" "x")
+    '("guint" "y")
+    '("guint" "mouse_button")
+    '("guint32" "time" (default "GDK_CURRENT_TIME"))
+  )
+)
+
+(define-method popup_data
+  (of-object "GtkItemFactory")
+  (c-name "gtk_item_factory_popup_data")
+  (return-type "gpointer")
+)
+
+(define-method set_translate_func
+  (of-object "GtkItemFactory")
+  (c-name "gtk_item_factory_set_translate_func")
+  (return-type "none")
+  (parameters
+    '("GtkTranslateFunc" "func")
+    '("gpointer" "data")
+    '("GtkDestroyNotify" "notify")
+  )
+)
+
+(define-method create_items_ac
+  (of-object "GtkItemFactory")
+  (c-name "gtk_item_factory_create_items_ac")
+  (return-type "none")
+  (parameters
+    '("guint" "n_entries")
+    '("GtkItemFactoryEntry*" "entries")
+    '("gpointer" "callback_data")
+    '("guint" "callback_type")
+  )
+)
+

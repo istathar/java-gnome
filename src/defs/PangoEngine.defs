@@ -1,0 +1,7 @@
+(define-object Engine
+  (in-module "Pango")
+  (parent "GObject")
+  (c-name "PangoEngine")
+  (gtype-id "PANGO_TYPE_ENGINE")
+)
+

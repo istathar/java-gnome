@@ -1,0 +1,11 @@
+(define-enum RgbDither
+  (in-module "Gdk")
+  (c-name "GdkRgbDither")
+  (gtype-id "GDK_TYPE_RGB_DITHER")
+  (values
+    '("none" "GDK_RGB_DITHER_NONE")
+    '("normal" "GDK_RGB_DITHER_NORMAL")
+    '("max" "GDK_RGB_DITHER_MAX")
+  )
+)
+

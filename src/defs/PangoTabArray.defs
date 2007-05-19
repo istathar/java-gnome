@@ -1,0 +1,98 @@
+(define-boxed TabArray
+  (in-module "Pango")
+  (c-name "PangoTabArray")
+  (gtype-id "PANGO_TYPE_TAB_ARRAY")
+  (copy-func "pango_tab_array_copy")
+  (release-func "pango_tab_array_free")
+)
+
+(define-function pango_tab_array_new
+  (is-constructor-of "PangoTabArray")
+  (c-name "pango_tab_array_new")
+  (caller-owns-return #t)
+  (return-type "PangoTabArray*")
+  (parameters
+    '("gint" "initial_size")
+    '("gboolean" "positions_in_pixels")
+  )
+)
+
+(define-function pango_tab_array_new_with_positions
+  (is-constructor-of "PangoTabArray")
+  (c-name "pango_tab_array_new_with_positions")
+  (caller-owns-return #t)
+  (return-type "PangoTabArray*")
+  (parameters
+    '("gint" "size")
+    '("gboolean" "positions_in_pixels")
+    '("PangoTabAlign" "first_alignment")
+    '("gint" "first_position")
+  )
+  (varargs #t)
+)
+
+(define-method copy
+  (of-object "PangoTabArray")
+  (c-name "pango_tab_array_copy")
+  (return-type "PangoTabArray*")
+)
+
+(define-method free
+  (of-object "PangoTabArray")
+  (c-name "pango_tab_array_free")
+  (return-type "none")
+)
+
+(define-method get_size
+  (of-object "PangoTabArray")
+  (c-name "pango_tab_array_get_size")
+  (return-type "gint")
+)
+
+(define-method resize
+  (of-object "PangoTabArray")
+  (c-name "pango_tab_array_resize")
+  (return-type "none")
+  (parameters
+    '("gint" "new_size")
+  )
+)
+
+(define-method set_tab
+  (of-object "PangoTabArray")
+  (c-name "pango_tab_array_set_tab")
+  (return-type "none")
+  (parameters
+    '("gint" "tab_index")
+    '("PangoTabAlign" "alignment")
+    '("gint" "location")
+  )
+)
+
+(define-method get_tab
+  (of-object "PangoTabArray")
+  (c-name "pango_tab_array_get_tab")
+  (return-type "none")
+  (parameters
+    '("gint" "tab_index")
+    '("PangoTabAlign*" "alignment")
+    '("gint*" "location")
+  )
+)
+
+(define-method get_tabs
+  (of-object "PangoTabArray")
+  (c-name "pango_tab_array_get_tabs")
+  (return-type "none")
+  (parameters
+    '("PangoTabAlign**" "alignments")
+    '("gint**" "locations")
+  )
+)
+
+(define-method get_positions_in_pixels
+  (of-object "PangoTabArray")
+  (c-name "pango_tab_array_get_positions_in_pixels")
+  (return-type "gboolean")
+)
+

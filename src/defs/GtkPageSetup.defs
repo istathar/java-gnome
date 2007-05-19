@@ -1,0 +1,171 @@
+(define-object PageSetup
+  (in-module "Gtk")
+  (parent "GObject")
+  (c-name "GtkPageSetup")
+  (gtype-id "GTK_TYPE_PAGE_SETUP")
+)
+
+(define-function page_setup_new
+  (is-constructor-of "GtkPageSetup")
+  (c-name "gtk_page_setup_new")
+  (caller-owns-return #t)
+  (return-type "GtkPageSetup*")
+)
+
+(define-method copy
+  (of-object "GtkPageSetup")
+  (c-name "gtk_page_setup_copy")
+  (return-type "GtkPageSetup*")
+)
+
+(define-method get_orientation
+  (of-object "GtkPageSetup")
+  (c-name "gtk_page_setup_get_orientation")
+  (return-type "GtkPageOrientation")
+)
+
+(define-method set_orientation
+  (of-object "GtkPageSetup")
+  (c-name "gtk_page_setup_set_orientation")
+  (return-type "none")
+  (parameters
+    '("GtkPageOrientation" "orientation")
+  )
+)
+
+(define-method get_paper_size
+  (of-object "GtkPageSetup")
+  (c-name "gtk_page_setup_get_paper_size")
+  (return-type "GtkPaperSize*")
+)
+
+(define-method set_paper_size
+  (of-object "GtkPageSetup")
+  (c-name "gtk_page_setup_set_paper_size")
+  (return-type "none")
+  (parameters
+    '("GtkPaperSize*" "size")
+  )
+)
+
+(define-method get_top_margin
+  (of-object "GtkPageSetup")
+  (c-name "gtk_page_setup_get_top_margin")
+  (return-type "gdouble")
+  (parameters
+    '("GtkUnit" "unit")
+  )
+)
+
+(define-method set_top_margin
+  (of-object "GtkPageSetup")
+  (c-name "gtk_page_setup_set_top_margin")
+  (return-type "none")
+  (parameters
+    '("gdouble" "margin")
+    '("GtkUnit" "unit")
+  )
+)
+
+(define-method get_bottom_margin
+  (of-object "GtkPageSetup")
+  (c-name "gtk_page_setup_get_bottom_margin")
+  (return-type "gdouble")
+  (parameters
+    '("GtkUnit" "unit")
+  )
+)
+
+(define-method set_bottom_margin
+  (of-object "GtkPageSetup")
+  (c-name "gtk_page_setup_set_bottom_margin")
+  (return-type "none")
+  (parameters
+    '("gdouble" "margin")
+    '("GtkUnit" "unit")
+  )
+)
+
+(define-method get_left_margin
+  (of-object "GtkPageSetup")
+  (c-name "gtk_page_setup_get_left_margin")
+  (return-type "gdouble")
+  (parameters
+    '("GtkUnit" "unit")
+  )
+)
+
+(define-method set_left_margin
+  (of-object "GtkPageSetup")
+  (c-name "gtk_page_setup_set_left_margin")
+  (return-type "none")
+  (parameters
+    '("gdouble" "margin")
+    '("GtkUnit" "unit")
+  )
+)
+
+(define-method get_right_margin
+  (of-object "GtkPageSetup")
+  (c-name "gtk_page_setup_get_right_margin")
+  (return-type "gdouble")
+  (parameters
+    '("GtkUnit" "unit")
+  )
+)
+
+(define-method set_right_margin
+  (of-object "GtkPageSetup")
+  (c-name "gtk_page_setup_set_right_margin")
+  (return-type "none")
+  (parameters
+    '("gdouble" "margin")
+    '("GtkUnit" "unit")
+  )
+)
+
+(define-method set_paper_size_and_default_margins
+  (of-object "GtkPageSetup")
+  (c-name "gtk_page_setup_set_paper_size_and_default_margins")
+  (return-type "none")
+  (parameters
+    '("GtkPaperSize*" "size")
+  )
+)
+
+(define-method get_paper_width
+  (of-object "GtkPageSetup")
+  (c-name "gtk_page_setup_get_paper_width")
+  (return-type "gdouble")
+  (parameters
+    '("GtkUnit" "unit")
+  )
+)
+
+(define-method get_paper_height
+  (of-object "GtkPageSetup")
+  (c-name "gtk_page_setup_get_paper_height")
+  (return-type "gdouble")
+  (parameters
+    '("GtkUnit" "unit")
+  )
+)
+
+(define-method get_page_width
+  (of-object "GtkPageSetup")
+  (c-name "gtk_page_setup_get_page_width")
+  (return-type "gdouble")
+  (parameters
+    '("GtkUnit" "unit")
+  )
+)
+
+(define-method get_page_height
+  (of-object "GtkPageSetup")
+  (c-name "gtk_page_setup_get_page_height")
+  (return-type "gdouble")
+  (parameters
+    '("GtkUnit" "unit")
+  )
+)
+

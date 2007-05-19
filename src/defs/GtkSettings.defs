@@ -1,0 +1,50 @@
+(define-object Settings
+  (in-module "Gtk")
+  (parent "GObject")
+  (c-name "GtkSettings")
+  (gtype-id "GTK_TYPE_SETTINGS")
+)
+
+(define-method set_property_value
+  (of-object "GtkSettings")
+  (c-name "gtk_settings_set_property_value")
+  (return-type "none")
+  (parameters
+    '("const-gchar*" "name")
+    '("const-GtkSettingsValue*" "svalue")
+  )
+)
+
+(define-method set_string_property
+  (of-object "GtkSettings")
+  (c-name "gtk_settings_set_string_property")
+  (return-type "none")
+  (parameters
+    '("const-gchar*" "name")
+    '("const-gchar*" "v_string")
+    '("const-gchar*" "origin")
+  )
+)
+
+(define-method set_long_property
+  (of-object "GtkSettings")
+  (c-name "gtk_settings_set_long_property")
+  (return-type "none")
+  (parameters
+    '("const-gchar*" "name")
+    '("glong" "v_long")
+    '("const-gchar*" "origin")
+  )
+)
+
+(define-method set_double_property
+  (of-object "GtkSettings")
+  (c-name "gtk_settings_set_double_property")
+  (return-type "none")
+  (parameters
+    '("const-gchar*" "name")
+    '("gdouble" "v_double")
+    '("const-gchar*" "origin")
+  )
+)
+

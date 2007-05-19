@@ -1,0 +1,14 @@
+(define-enum VisualType
+  (in-module "Gdk")
+  (c-name "GdkVisualType")
+  (gtype-id "GDK_TYPE_VISUAL_TYPE")
+  (values
+    '("static-gray" "GDK_VISUAL_STATIC_GRAY")
+    '("grayscale" "GDK_VISUAL_GRAYSCALE")
+    '("static-color" "GDK_VISUAL_STATIC_COLOR")
+    '("pseudo-color" "GDK_VISUAL_PSEUDO_COLOR")
+    '("true-color" "GDK_VISUAL_TRUE_COLOR")
+    '("direct-color" "GDK_VISUAL_DIRECT_COLOR")
+  )
+)
+

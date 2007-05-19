@@ -1,0 +1,7 @@
+(define-object EngineLang
+  (in-module "Pango")
+  (parent "PangoEngine")
+  (c-name "PangoEngineLang")
+  (gtype-id "PANGO_TYPE_ENGINE_LANG")
+)
+

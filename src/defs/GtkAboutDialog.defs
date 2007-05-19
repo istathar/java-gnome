@@ -1,0 +1,224 @@
+(define-object AboutDialog
+  (in-module "Gtk")
+  (parent "GtkDialog")
+  (c-name "GtkAboutDialog")
+  (gtype-id "GTK_TYPE_ABOUT_DIALOG")
+)
+
+(define-function gtk_about_dialog_new
+  (is-constructor-of "GtkAboutDialog")
+  (c-name "gtk_about_dialog_new")
+  (caller-owns-return #t)
+  (return-type "GtkWidget*")
+)
+
+(define-method get_name
+  (of-object "GtkAboutDialog")
+  (c-name "gtk_about_dialog_get_name")
+  (return-type "const-gchar*")
+)
+
+(define-method set_name
+  (of-object "GtkAboutDialog")
+  (c-name "gtk_about_dialog_set_name")
+  (return-type "none")
+  (parameters
+    '("const-gchar*" "name" (null-ok))
+  )
+)
+
+(define-method get_version
+  (of-object "GtkAboutDialog")
+  (c-name "gtk_about_dialog_get_version")
+  (return-type "const-gchar*")
+)
+
+(define-method set_version
+  (of-object "GtkAboutDialog")
+  (c-name "gtk_about_dialog_set_version")
+  (return-type "none")
+  (parameters
+    '("const-gchar*" "version" (null-ok))
+  )
+)
+
+(define-method get_copyright
+  (of-object "GtkAboutDialog")
+  (c-name "gtk_about_dialog_get_copyright")
+  (return-type "const-gchar*")
+)
+
+(define-method set_copyright
+  (of-object "GtkAboutDialog")
+  (c-name "gtk_about_dialog_set_copyright")
+  (return-type "none")
+  (parameters
+    '("const-gchar*" "copyright" (null-ok))
+  )
+)
+
+(define-method get_comments
+  (of-object "GtkAboutDialog")
+  (c-name "gtk_about_dialog_get_comments")
+  (return-type "const-gchar*")
+)
+
+(define-method set_comments
+  (of-object "GtkAboutDialog")
+  (c-name "gtk_about_dialog_set_comments")
+  (return-type "none")
+  (parameters
+    '("const-gchar*" "comments" (null-ok))
+  )
+)
+
+(define-method get_license
+  (of-object "GtkAboutDialog")
+  (c-name "gtk_about_dialog_get_license")
+  (return-type "const-gchar*")
+)
+
+(define-method set_license
+  (of-object "GtkAboutDialog")
+  (c-name "gtk_about_dialog_set_license")
+  (return-type "none")
+  (parameters
+    '("const-gchar*" "license" (null-ok))
+  )
+)
+
+(define-method get_wrap_license
+  (of-object "GtkAboutDialog")
+  (c-name "gtk_about_dialog_get_wrap_license")
+  (return-type "gboolean")
+)
+
+(define-method set_wrap_license
+  (of-object "GtkAboutDialog")
+  (c-name "gtk_about_dialog_set_wrap_license")
+  (return-type "none")
+  (parameters
+    '("gboolean" "wrap_license")
+  )
+)
+
+(define-method get_website
+  (of-object "GtkAboutDialog")
+  (c-name "gtk_about_dialog_get_website")
+  (return-type "const-gchar*")
+)
+
+(define-method set_website
+  (of-object "GtkAboutDialog")
+  (c-name "gtk_about_dialog_set_website")
+  (return-type "none")
+  (parameters
+    '("const-gchar*" "website" (null-ok))
+  )
+)
+
+(define-method get_website_label
+  (of-object "GtkAboutDialog")
+  (c-name "gtk_about_dialog_get_website_label")
+  (return-type "const-gchar*")
+)
+
+(define-method set_website_label
+  (of-object "GtkAboutDialog")
+  (c-name "gtk_about_dialog_set_website_label")
+  (return-type "none")
+  (parameters
+    '("const-gchar*" "website_label" (null-ok))
+  )
+)
+
+(define-method get_authors
+  (of-object "GtkAboutDialog")
+  (c-name "gtk_about_dialog_get_authors")
+  (return-type "gchar**")
+)
+
+(define-method set_authors
+  (of-object "GtkAboutDialog")
+  (c-name "gtk_about_dialog_set_authors")
+  (return-type "none")
+  (parameters
+    '("gchar**" "authors")
+  )
+)
+
+(define-method get_documenters
+  (of-object "GtkAboutDialog")
+  (c-name "gtk_about_dialog_get_documenters")
+  (return-type "gchar**")
+)
+
+(define-method set_documenters
+  (of-object "GtkAboutDialog")
+  (c-name "gtk_about_dialog_set_documenters")
+  (return-type "none")
+  (parameters
+    '("gchar**" "documenters")
+  )
+)
+
+(define-method get_artists
+  (of-object "GtkAboutDialog")
+  (c-name "gtk_about_dialog_get_artists")
+  (return-type "gchar**")
+)
+
+(define-method set_artists
+  (of-object "GtkAboutDialog")
+  (c-name "gtk_about_dialog_set_artists")
+  (return-type "none")
+  (parameters
+    '("gchar**" "artists")
+  )
+)
+
+(define-method get_translator_credits
+  (of-object "GtkAboutDialog")
+  (c-name "gtk_about_dialog_get_translator_credits")
+  (return-type "const-gchar*")
+)
+
+(define-method set_translator_credits
+  (of-object "GtkAboutDialog")
+  (c-name "gtk_about_dialog_set_translator_credits")
+  (return-type "none")
+  (parameters
+    '("const-gchar*" "translator_credits" (null-ok))
+  )
+)
+
+(define-method get_logo
+  (of-object "GtkAboutDialog")
+  (c-name "gtk_about_dialog_get_logo")
+  (return-type "GdkPixbuf*")
+)
+
+(define-method set_logo
+  (of-object "GtkAboutDialog")
+  (c-name "gtk_about_dialog_set_logo")
+  (return-type "none")
+  (parameters
+    '("GdkPixbuf*" "logo" (null-ok))
+  )
+)
+
+(define-method get_logo_icon_name
+  (of-object "GtkAboutDialog")
+  (c-name "gtk_about_dialog_get_logo_icon_name")
+  (return-type "const-gchar*")
+)
+
+(define-method set_logo_icon_name
+  (of-object "GtkAboutDialog")
+  (c-name "gtk_about_dialog_set_logo_icon_name")
+  (return-type "none")
+  (parameters
+    '("const-gchar*" "icon_name" (null-ok))
+  )
+)
+
