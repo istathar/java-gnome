@@ -24,7 +24,9 @@ final class GnomeEntry extends Plumbing
     private GnomeEntry() {}
 
     static final String getText(Entry self) {
-        return gnome_entry_get_text(pointerOf(self));
+        synchronized (lock) {
+            return gnome_entry_get_text(pointerOf(self));
+        }
     }
 
     private static native final String gnome_entry_get_text(long self);

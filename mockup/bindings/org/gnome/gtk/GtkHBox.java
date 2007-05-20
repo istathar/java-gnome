@@ -24,7 +24,9 @@ final class GtkHBox extends Plumbing
     private GtkHBox() {}
 
     static final long createHBox(boolean homogeneous, int spacing) {
-        return gtk_hbox_new(homogeneous, spacing);
+        synchronized (lock) {
+            return gtk_hbox_new(homogeneous, spacing);
+        }
     }
 
     private static native final long gtk_hbox_new(boolean homogeneous, int spacing);

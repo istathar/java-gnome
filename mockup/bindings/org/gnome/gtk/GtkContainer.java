@@ -29,13 +29,17 @@ final class GtkContainer extends Plumbing
      * </pre></code>
      */
     static final void add(Container self, Widget child) {
-        gtk_container_add(pointerOf(self), pointerOf(child));
+        synchronized (lock) {
+            gtk_container_add(pointerOf(self), pointerOf(child));
+        }
     }
 
     private static native final void gtk_container_add(long self, long child);
 
     static final void remove(Container self, Widget child) {
-        gtk_container_remove(pointerOf(self), pointerOf(child));
+        synchronized (lock) {
+            gtk_container_remove(pointerOf(self), pointerOf(child));
+        }
     }
 
     private static native final void gtk_container_remove(long self, long child);

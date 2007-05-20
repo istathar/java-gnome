@@ -220,7 +220,7 @@ public abstract class Plumbing extends org.freedesktop.bindings.Plumbing
     private static Proxy createProxy(Class type, long pointer) {
         final Proxy proxy;
         // FIXME use per-package Factory instead?
-        proxy = (Proxy) createInstance(type, pointer);
+        proxy = createInstance(type, pointer);
         return proxy;
     }
 

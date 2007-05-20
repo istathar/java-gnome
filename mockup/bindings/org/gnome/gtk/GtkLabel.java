@@ -24,52 +24,30 @@ final class GtkLabel extends Plumbing
 {
     private GtkLabel() {}
 
-    /**
-     * gtk_label_new()
-     * 
-     * @param str
-     */
-    /*
-     * These JavaDoc are almost completely unnecessary, but provide some
-     * visual distinction when viewing these files and do provide the
-     * slightest nudge reminder about what you're wrapping. I'm not sure
-     * whether or not I'll have the code generator actually turn them out.
-     */
     static final long createLabel(String str) {
-        return gtk_label_new(str);
+        synchronized (lock) {
+            return gtk_label_new(str);
+        }
     }
 
     private static native final long gtk_label_new(String str);
 
-    /**
-     * gtk_label_set_text()
-     * 
-     * @param label
-     * @param str
-     */
     static final void setText(Label self, String str) {
-        gtk_label_set_text(pointerOf(self), str);
+        synchronized (lock) {
+            gtk_label_set_text(pointerOf(self), str);
+        }
     }
 
     private static final native void gtk_label_set_text(long label, String str);
 
-    /**
-     * gtk_label_get_text()
-     * 
-     * @param label
-     */
     static final String getText(Label self) {
-        return gtk_label_get_text(pointerOf(self));
+        synchronized (lock) {
+            return gtk_label_get_text(pointerOf(self));
+        }
     }
 
     private static final native String gtk_label_get_text(long label);
 
-    /**
-     * gtk_label_set_label()
-     * 
-     * @param label
-     * @param str
-     */
     static final void setLabel(Label self, String str) {
         synchronized (lock) {
             gtk_label_set_label(pointerOf(self), str);
@@ -78,47 +56,34 @@ final class GtkLabel extends Plumbing
 
     private static final native void gtk_label_set_label(long label, String str);
 
-    /**
-     * gtk_label_get_label()
-     * 
-     * @param label
-     */
     static final String getLabel(Label self) {
-        return gtk_label_get_label(pointerOf(self));
+        synchronized (lock) {
+            return gtk_label_get_label(pointerOf(self));
+        }
     }
 
     private static final native String gtk_label_get_label(long label);
 
-    /**
-     * gtk_label_set_use_markup()
-     * 
-     * @param label
-     * @param setting
-     */
     static final void setUseMarkup(Label self, boolean setting) {
-        gtk_label_set_use_markup(pointerOf(self), setting);
+        synchronized (lock) {
+            gtk_label_set_use_markup(pointerOf(self), setting);
+        }
     }
 
     private static native void gtk_label_set_use_markup(long label, boolean setting);
 
-    /**
-     * gtk_label_set_angle()
-     * 
-     * @param angle
-     */
     static final void setAngle(Label self, double angle) {
-        gtk_label_set_angle(pointerOf(self), angle);
+        synchronized (lock) {
+            gtk_label_set_angle(pointerOf(self), angle);
+        }
     }
 
     private static final native void gtk_label_set_angle(long label, double angle);
 
-    /**
-     * gtk_label_get_angle()
-     * 
-     * @param label
-     */
     static final double getAngle(Label self) {
-        return gtk_label_get_angle(pointerOf(self));
+        synchronized (lock) {
+            return gtk_label_get_angle(pointerOf(self));
+        }
     }
 
     private static final native double gtk_label_get_angle(long label);

@@ -25,13 +25,17 @@ final class GladeXml extends Plumbing
     private GladeXml() {}
 
     static final long createGladeXml(String filename, String root) {
-        return glade_xml_new(filename, root);
+        synchronized (lock) {
+            return glade_xml_new(filename, root);
+        }
     }
 
     private static native final long glade_xml_new(String filename, String root);
 
     static final Widget getWidget(Xml self, String name) {
-        return (Widget) objectFor(glade_xml_get_widget(pointerOf(self), name));
+        synchronized (lock) {
+            return (Widget) objectFor(glade_xml_get_widget(pointerOf(self), name));
+        }
     }
 
     private static native final long glade_xml_get_widget(long xml, String name);

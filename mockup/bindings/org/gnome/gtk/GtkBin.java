@@ -24,7 +24,9 @@ final class GtkBin extends Plumbing
     private GtkBin() {}
 
     static final Widget getChild(Bin self) {
-        return (Widget) objectFor(gtk_bin_get_child(pointerOf(self)));
+        synchronized (lock) {
+            return (Widget) objectFor(gtk_bin_get_child(pointerOf(self)));            
+        }
     }
 
     private static native final long gtk_bin_get_child(long self);

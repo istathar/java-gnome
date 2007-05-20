@@ -24,7 +24,9 @@ final class GtkWindow extends Plumbing
     private GtkWindow() {}
 
     static final long createWindow(WindowType type) {
-        return gtk_window_new(numOf(type));
+        synchronized (lock) {
+            return gtk_window_new(numOf(type));
+        }
     }
 
     private static native final long gtk_window_new(int type);
@@ -38,14 +40,17 @@ final class GtkWindow extends Plumbing
     private static native final void gtk_window_set_title(long window, String title);
 
     static final void setDecorated(Window self, boolean decorated) {
-        gtk_window_set_decorated(pointerOf(self), decorated);
-
+        synchronized (lock) {
+            gtk_window_set_decorated(pointerOf(self), decorated);
+        }
     }
 
     private static native final void gtk_window_set_decorated(long window, boolean decorated);
 
     static final void setDefaultSize(Window self, int width, int height) {
-        gtk_window_set_default_size(pointerOf(self), width, height);
+        synchronized (lock) {
+            gtk_window_set_default_size(pointerOf(self), width, height);
+        }
     }
 
     private static native final void gtk_window_set_default_size(long window, int width, int height);

@@ -24,7 +24,10 @@ final class GtkTreeIter extends Plumbing
     private GtkTreeIter() {}
 
     static final void free(TreeIter self) {
-        gtk_tree_iter_free(pointerOf(self));
+        // now THIS one I wonder about...
+        synchronized (lock) {
+            gtk_tree_iter_free(pointerOf(self));
+        }
     }
 
     private static native final void gtk_tree_iter_free(long self);

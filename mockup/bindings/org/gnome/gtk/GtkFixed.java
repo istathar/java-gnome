@@ -31,13 +31,17 @@ final class GtkFixed extends Plumbing
     private static native final long gtk_fixed_new();
 
     static final void putWidget(Fixed self, Widget widget, int x, int y) {
-        gtk_fixed_put(pointerOf(self), pointerOf(widget), x, y);
+        synchronized (lock) {
+            gtk_fixed_put(pointerOf(self), pointerOf(widget), x, y);
+        }
     }
 
     private static native final void gtk_fixed_put(long fixed, long widget, int x, int y);
 
     static final void moveWidget(Fixed self, Widget widget, int x, int y) {
-        gtk_fixed_move(pointerOf(self), pointerOf(widget), x, y);
+        synchronized (lock) {
+            gtk_fixed_move(pointerOf(self), pointerOf(widget), x, y);
+        }
     }
 
     private static native final void gtk_fixed_move(long fixed, long widget, int x, int y);

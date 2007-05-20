@@ -51,6 +51,11 @@ Java_org_gnome_gtk_Gtk_gtk_1init
  *   org.gnome.gtk.Gtk.gtk_main()
  * called from
  *   org.gnome.gtk.Gtk.main()
+ * 
+ * Note that the main loop implicitly uses the gdk_threads_enter/leave()
+ * mechanism while spinning. This means that although the Gdk$Lock monitor is
+ * held upon making this call (which blocks), the lock is released briefly
+ * each time the main loop iterates.
  */
 JNIEXPORT void JNICALL
 Java_org_gnome_gtk_Gtk_gtk_1main
