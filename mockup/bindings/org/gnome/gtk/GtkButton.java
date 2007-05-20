@@ -37,13 +37,17 @@ final class GtkButton extends Plumbing
     private static native final long gtk_button_new_with_label(String label);
 
     static final void setLabel(Button self, String label) {
-        gtk_button_set_label(pointerOf(self), label);
+        synchronized (lock) {
+            gtk_button_set_label(pointerOf(self), label);    
+        }
     }
 
     private static final native void gtk_button_set_label(long button, String label);
 
     static final String getLabel(Button self) {
-        return gtk_button_get_label(pointerOf(self));
+        synchronized (lock) {
+            return gtk_button_get_label(pointerOf(self));
+        }
     }
 
     private static final native String gtk_button_get_label(long button);

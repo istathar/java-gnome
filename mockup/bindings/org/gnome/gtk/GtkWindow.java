@@ -30,7 +30,9 @@ final class GtkWindow extends Plumbing
     private static native final long gtk_window_new(int type);
 
     static final void setTitle(Window self, String title) {
-        gtk_window_set_title(pointerOf(self), title);
+        synchronized (lock) {
+            gtk_window_set_title(pointerOf(self), title);
+        }
     }
 
     private static native final void gtk_window_set_title(long window, String title);

@@ -15,6 +15,7 @@
 #include <gdk/gdk.h>
 #include <gtk/gtk.h>
 
+#include "bindings_java.h"
 #include "org_gnome_gtk_Gtk.h"
 
 /*
@@ -30,9 +31,12 @@ Java_org_gnome_gtk_Gtk_gtk_1init
 (
 	JNIEnv *env,
 	jclass cls,
+	jobject _lock,
 	jobjectArray _args
 )
 {
+	bindings_java_threads_init(env, _lock);
+	
 	g_thread_init(NULL);
 	gdk_threads_init();
 	
@@ -73,9 +77,7 @@ Java_org_gnome_gtk_Gtk_gtk_1main_1quit
 )
 {
 	// call function
-//	gdk_threads_enter();
 	gtk_main_quit();
-//	gdk_threads_leave();
 }
 
 

@@ -213,12 +213,25 @@ bindings_java_marshaller
 			break;
 		}
 	}
+
+	/*
+	 * Release the global lock object held in Gdk. This is absolutely
+	 * heroic idea, as it breaks the symmetry of the synchronized block
+	 * on the Java side surrounding the main loop, and a radical notion
+	 * in that it breaks the convention that callbacks are _in the GDK
+	 * lock. Credit to the GNU Classpath hackers who wrote the GTK peer
+	 * for their AWT implementation for coming up with this insane
+	 * algorithm. 
+	 */
+
+	bindings_java_threads_unlock();
+
 	
 	/*
 	 * And now we invoke the callback on the Java side Signal handler; we have to 
 	 * select the correct function based on what return type is necessary.
 	 */
-	
+
 	switch(bjc->returnType) {
 	case 'V':
 		/*
@@ -237,7 +250,7 @@ bindings_java_marshaller
 		} else if (_b == JNI_FALSE) {
 			b = FALSE;
 		} else {
-			g_warning("How did you manage to return a boolean that's neither TRUE nor FALSE?");
+			g_critical("How did you manage to return a boolean that's neither TRUE nor FALSE?");
 			return;
 		}
 		
@@ -255,7 +268,7 @@ bindings_java_marshaller
 		_str = (*env)->CallStaticObjectMethodA(env, bjc->receiver, bjc->method, jargs);
 		if (str == NULL) {
 			g_warning("Invoking string handler returned null. That's probably bad");
-			return;
+			break;
 		}
 		
 		str = (gchar*) (*env)->GetStringUTFChars(env, _str, NULL);
@@ -278,6 +291,16 @@ bindings_java_marshaller
 		g_critical("Invocation for return type %c not implemented", bjc->returnType);
 		break;
 	}
+
+	/*
+	 * Re-establish the global GDK lock. The main loop is blocked until
+	 * this succeeds, so we really need to be right that this is a legal
+	 * solution to the multi-threading question! Note that switching to
+	 * using a Java 1.5 java.util.concurrent.locks.Lock would make this
+	 * totally workable, if less elegent. 
+	 */
+
+	bindings_java_threads_lock();
 
 	/*
 	 * Now, check if an exception occurred in the callback and print the

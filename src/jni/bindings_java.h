@@ -44,4 +44,12 @@ extern void bindings_java_memory_unref(GObject*);
 // TODO derive this at compile time from org.freedesktop.bindings.Debug
 #define DEBUG_MEMORY_MANAGEMENT FALSE
 
+/*
+ * bindigns_java_threads.c
+ */
+
+extern void bindings_java_threads_init(JNIEnv*, jobject);
+extern void bindings_java_threads_lock();
+extern void bindings_java_threads_unlock();
+
 #endif 

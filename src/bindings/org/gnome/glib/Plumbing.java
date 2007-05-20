@@ -17,6 +17,7 @@ import java.util.Iterator;
 import java.util.Properties;
 
 import org.freedesktop.bindings.Proxy;
+import org.gnome.gdk.Gdk;
 
 /**
  * Translation layer class which adds the ability to connect signals to
@@ -30,6 +31,8 @@ import org.freedesktop.bindings.Proxy;
  */
 public abstract class Plumbing extends org.freedesktop.bindings.Plumbing
 {
+    protected static final java.lang.Object lock;
+
     protected Plumbing() {}
 
     private static final IdentityHashMap typeMapping;
@@ -37,6 +40,8 @@ public abstract class Plumbing extends org.freedesktop.bindings.Plumbing
     private static final String TYPE_MAPPING = "typeMapping.properties";
 
     static {
+        lock = Gdk.lock;
+        
         typeMapping = new IdentityHashMap(100);
 
         // FUTURE do we still need this?
@@ -161,7 +166,7 @@ public abstract class Plumbing extends org.freedesktop.bindings.Plumbing
             return null;
         }
 
-        proxy = (Proxy) instanceFor(pointer);
+        proxy = instanceFor(pointer);
 
         if (proxy != null) {
             /*
@@ -183,7 +188,6 @@ public abstract class Plumbing extends org.freedesktop.bindings.Plumbing
              * pressure and to permit lookup by identity.
              */
 
-            //TODO I don't like type name in GObject, but
             name = GObject.typeName(pointer).intern();
 
             if (name.equals("")) {

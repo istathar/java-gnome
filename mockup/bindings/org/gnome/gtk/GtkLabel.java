@@ -71,7 +71,9 @@ final class GtkLabel extends Plumbing
      * @param str
      */
     static final void setLabel(Label self, String str) {
-        gtk_label_set_label(pointerOf(self), str);
+        synchronized (lock) {
+            gtk_label_set_label(pointerOf(self), str);
+        }
     }
 
     private static final native void gtk_label_set_label(long label, String str);

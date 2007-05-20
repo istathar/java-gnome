@@ -11,6 +11,7 @@
  */
 package org.gnome.gtk;
 
+import org.gnome.gdk.Gdk;
 import org.gnome.glib.Glib;
 
 /**
@@ -81,12 +82,18 @@ public final class Gtk extends Glib
         /*
          * Initialize GTK and along with it GLib, GObject, etc.
          */
-        gtk_init(args);
+        gtk_init(Gdk.lock, args);
 
         initialized = true;
     }
 
-    private static native final void gtk_init(String[] args);
+    /*
+     * This is one of the rarer cases where the arguments we pass to the JNI
+     * side have little relation to the signature of the actual target
+     * function. In this case, the first argument is a reference to the GDK
+     * lock used to permit multithreaded access to the GTK library.
+     */
+    private static native final void gtk_init(java.lang.Object lock, String[] args);
 
     /**
      * This method blocks, ie, it does not return until the GTK main loop is
@@ -101,7 +108,9 @@ public final class Gtk extends Glib
      * @since 4.0.0
      */
     public static void main() {
-        gtk_main();
+        synchronized (Gdk.lock) {
+            gtk_main();
+        }
     }
 
     private static native final void gtk_main();
