@@ -7,7 +7,7 @@
   (fields
     '("GtkReliefStyle" "style")
     '("gint" "rise")
-    '("GtkWidget*" "tree")
+    '("GtkWidget*" "target")
     '("gchar*" "wagga_momma")
   )
 )

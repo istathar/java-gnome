@@ -30,6 +30,7 @@ package com.operationaldynamics.defsparser;
 import java.io.IOException;
 import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -65,7 +66,7 @@ public class DefsParser
     /*
      * Java is a bit annoying about caching constant things, since they [have
      * to] end up as class members, but to do the regex compile only once, its
-     * best done elsewhere.
+     * best done this way.
      */
     private static final Pattern defineLine;
 
@@ -250,9 +251,6 @@ public class DefsParser
      * Given a stanza of .defs data containing a single (define- ...) stored
      * in the parser state variable lines, and do the magic to instantiate a
      * Block object and set its member fields.
-     * 
-     * @param data
-     *            a List containing Strings comprising a stanza of .defs data.
      */
     /*
      * We don't necessarily have sufficient information to figure out what
@@ -262,43 +260,6 @@ public class DefsParser
      */
     Block parseStanza() throws ParseException {
         Block block = null;
-
-        /*
-         * And now, with the stanza's data organized into Lists, instantiate
-         * the appropriate Block object to represent the data. Block's
-         * processCharacteristics() and FunctionBlock's processParameters()
-         * complete the parsing by allocating key/value pairs to fields in the
-         * Block objects.
-         */
-
-        if (phylum.equals("object")) {
-            block = new ObjectBlock(name, characteristics, fields);
-        } else if (phylum.equals("method")) {
-            block = new MethodBlock(name, characteristics, parameters);
-        } else if (phylum.equals("function")) {
-            /*
-             * FUTURE what about other function types? Part of the reason
-             * things were laid out in the sequence they are here was so that
-             * we could get all the information needed before deciding the
-             * type. As things stand now, however, we don't have things in a
-             * usable form until after Block.processCharacteristics() has run
-             * care of Block's constructor. As the only (define-function ...)
-             * type we deal with are GObject constructors, so it's not a
-             * problem at the moment.
-             */
-            block = new ConstructorBlock(name, characteristics, parameters);
-        } else if (phylum.equals("virtual")) {
-            block = new VirtualBlock(name, characteristics, parameters);
-        } else if (phylum.equals("enum")) {
-            block = new EnumBlock(name, characteristics, values);
-        } else if (phylum.equals("flags")) {
-            block = new FlagsBlock(name, characteristics, values);
-        } else if (phylum.equals("boxed")) {
-            block = new BoxedBlock(name, characteristics, fields);
-        } else {
-            // etc
-            throw new ParseException("What kind of block was \"" + phylum + "\"?", 0);
-        }
 
         return block;
     }
@@ -314,6 +275,8 @@ public class DefsParser
     public Block[] parseData() {
         List blocks;
         Block block;
+        Iterator iter;
+        String[] field;
 
         blocks = new ArrayList();
 
@@ -323,8 +286,67 @@ public class DefsParser
                     break;
                 }
 
-                block = parseStanza();
-                blocks.add(block);
+                /*
+                 * And now, with the stanza's data organized into Lists,
+                 * instantiate the appropriate Block object to represent the
+                 * data. Block's processCharacteristics() and FunctionBlock's
+                 * processParameters() complete the parsing by allocating
+                 * key/value pairs to fields in the Block objects.
+                 */
+
+                if (phylum.equals("object")) {
+                    block = new ObjectBlock(name, characteristics, fields);
+                    blocks.add(block);
+                } else if (phylum.equals("method")) {
+                    block = new MethodBlock(name, characteristics, parameters);
+                    blocks.add(block);
+                } else if (phylum.equals("function")) {
+                    /*
+                     * FUTURE what about other function types? Part of the
+                     * reason things were laid out in the sequence they are
+                     * here was so that we could get all the information
+                     * needed before deciding the type. As things stand now,
+                     * however, we don't have things in a usable form until
+                     * after Block.processCharacteristics() has run care of
+                     * Block's constructor. As the only (define-function ...)
+                     * type we deal with are GObject constructors, so it's not
+                     * a problem at the moment.
+                     */
+                    block = new ConstructorBlock(name, characteristics, parameters);
+                    blocks.add(block);
+                } else if (phylum.equals("virtual")) {
+                    block = new VirtualBlock(name, characteristics, parameters);
+                    blocks.add(block);
+                } else if (phylum.equals("enum")) {
+                    block = new EnumBlock(name, characteristics, values);
+                    blocks.add(block);
+                } else if (phylum.equals("flags")) {
+                    block = new FlagsBlock(name, characteristics, values);
+                    blocks.add(block);
+                } else if (phylum.equals("boxed")) {
+                    block = new BoxedBlock(name, characteristics);
+                    blocks.add(block);
+
+                    iter = fields.iterator();
+                    while (iter.hasNext()) {
+                        field = (String[]) iter.next();
+
+                        block = new GetterBlock(field[0], field[1]);
+                        blocks.add(block);
+
+                        /*
+                         * FIXME this is just for testing! Most GTK fields are
+                         * read only! Field setters must ONLY be generated if
+                         * it is known safe to do so and so annotated in the
+                         * fields line in the defs data.
+                         */
+                        block = new SetterBlock(field[0], field[1]);
+                        blocks.add(block);
+                    }
+                } else {
+                    // etc
+                    throw new ParseException("What kind of block was \"" + phylum + "\"?", 0);
+                }
 
             } catch (ParseException pe) {
                 System.err.println("Failed to parse");

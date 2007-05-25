@@ -44,5 +44,12 @@ int main(int argc, char **argv) {
 	printf("%d\n", GTK_SCROLL_START);
 	printf("%d\n", GTK_SCROLL_END);
 
+
+	printf("\n");
+	printf("%d\n", 1 << 0);
+	printf("%d\n", 1 << 1);
+	printf("%d\n", 1 << 2);
+	printf("%d\n", 1 << 3);
+
 	return 0;
 }

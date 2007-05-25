@@ -11,7 +11,6 @@
  */
 package com.operationaldynamics.defsparser;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import com.operationaldynamics.codegen.BoxedGenerator;
@@ -37,33 +36,22 @@ import com.operationaldynamics.driver.DefsFile;
  * )
  * </pre>
  * 
+ * The "(fields ...)" subcharacteristic lines present in some GBoxed
+ * definitions define the fields of the underlying C struct wrapped by the
+ * boxed. These are represented by GetterBlock and SetterBlock instances that
+ * are manually created when DefsParser encounters a (define-boxed ...)
+ * 
  * @author Vreixo Formoso
+ * @author Andrew Cowie
  */
 public class BoxedBlock extends TypeBlock
 {
-    /*
-     * TODO any reason to make these protected?
-     */
     protected String copyFunc;
 
     protected String releaseFunc;
 
-    protected String[][] fields;
-
-    public BoxedBlock(final String blockName, final List characteristics, final List fields) {
+    public BoxedBlock(final String blockName, final List characteristics) {
         super(blockName, characteristics);
-
-        processFields(fields);
-    }
-
-    /**
-     * The "(fields ...)" subcharacteristic lines present in some GBoxed
-     * definitions define the fields of the underlying C struct wrapped by the
-     * boxed. The idea is that we need setXXX and getXXX for each of them to
-     * allow java developers access them.
-     */
-    protected final void processFields(List fields) {
-        this.fields = (String[][]) fields.toArray(new String[fields.size()][]);
     }
 
     protected final void setCopyFunc(final String copyFunc) {
@@ -79,18 +67,6 @@ public class BoxedBlock extends TypeBlock
     }
 
     public Generator createGenerator(final DefsFile data) {
-        return new BoxedGenerator(data, fields);
-    }
-
-    public List usesTypes() {
-        List types;
-
-        types = new ArrayList(fields.length);
-
-        for (int i = 0; i < fields.length; i++) {
-            types.add(Thing.lookup(fields[i][0]));
-        }
-
-        return types;
+        return new BoxedGenerator(data);
     }
 }

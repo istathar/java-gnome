@@ -73,4 +73,8 @@ public final class ValidateUtilityMethods extends TestCase
     public final void testSignalNameMunging() {
         assertEquals("DELETE_EVENT", Generator.toAllCaps("delete-event"));
     }
+
+    public final void testPascalCaseBackToUnderscores() {
+        assertEquals("gtk_tree_iter", AccessorGenerator.toUnderscores("GtkTreeIter"));
+    }
 }
