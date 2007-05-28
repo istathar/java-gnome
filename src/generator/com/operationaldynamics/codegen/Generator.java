@@ -91,11 +91,13 @@ public abstract class Generator
 
         buf = new StringBuffer(shortName);
         i = 0;
-
+        
         while ((i = buf.indexOf("_", i)) != -1) {
             buf.deleteCharAt(i);
-            ch = buf.charAt(i);
-            buf.setCharAt(i, Character.toUpperCase(ch));
+            if (buf.length() > i) {
+                ch = buf.charAt(i);
+                buf.setCharAt(i, Character.toUpperCase(ch));
+            }
         }
 
         return buf.toString();
