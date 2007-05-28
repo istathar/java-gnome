@@ -131,10 +131,22 @@ abstract class FunctionGenerator extends Generator
          * TODO convert (translate) variables from public Java to JNI boundary
          * crossing (ie, out-parameters)
          */
+
+        /*
+         * And now enter the GDK lock prior to making the native calls. FUTURE
+         * this might have to be conditional if we ever have an environment
+         * where there is strictly zero possibility of a library depending on
+         * GTK. At the moment we're not allowing that as a strict KISS
+         * measure, and besides, most of the GNOME libraries need to be thread
+         * safe via the global GDK lock regardless.
+         */
+
+        out.print("        ");
+        out.print("synchronized (lock) {\n");
     }
 
     protected void translationMethodNativeCall(PrintWriter out) {
-        out.print("        ");
+        out.print("            ");
         if (!returnType.javaType.equals("void")) {
             out.print("result = ");
         }
@@ -155,13 +167,14 @@ abstract class FunctionGenerator extends Generator
     protected void translationMethodReturnCode(PrintWriter out) {
         if (!returnType.nativeType.equals("void")) {
             out.print("\n");
-            out.print("        return (");
+            out.print("            ");
+            out.print("return (");
             out.print(returnType.javaType);
             out.print(") ");
             out.print(returnType.translationToJava("result"));
             out.print(";\n");
         }
-
+        out.print("        }\n");
         out.print("    }\n");
     }
 

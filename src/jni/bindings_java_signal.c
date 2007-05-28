@@ -215,7 +215,7 @@ bindings_java_marshaller
 	}
 
 	/*
-	 * Release the global lock object held in Gdk. This is absolutely
+	 * Release the global lock object held in GDK. This is an absolutely
 	 * heroic idea, as it breaks the symmetry of the synchronized block
 	 * on the Java side surrounding the main loop, and a radical notion
 	 * in that it breaks the convention that callbacks are _in the GDK
@@ -295,9 +295,7 @@ bindings_java_marshaller
 	/*
 	 * Re-establish the global GDK lock. The main loop is blocked until
 	 * this succeeds, so we really need to be right that this is a legal
-	 * solution to the multi-threading question! Note that switching to
-	 * using a Java 1.5 java.util.concurrent.locks.Lock would make this
-	 * totally workable, if less elegent. 
+	 * solution to the multi-threading question! So far, so good.
 	 */
 
 	bindings_java_threads_lock();
