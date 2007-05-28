@@ -139,6 +139,6 @@ abstract class TypeGenerator extends Generator
 
         out.print("#include \"");
         out.print(encodeJavaClassName(objectType.bindingsPackage, objectType.bindingsClass));
-        out.print(".h\";\n");
+        out.print(".h\"\n");
     }
 }

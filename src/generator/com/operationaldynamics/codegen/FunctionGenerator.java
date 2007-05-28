@@ -279,6 +279,7 @@ abstract class FunctionGenerator extends Generator
 
                 out.print("\t// DANGER this conversion code not tested!\n");
             } else {
+                out.print("_");
                 out.print(parameterNames[i]);
                 out.print(";\n");
             }
@@ -370,7 +371,7 @@ abstract class FunctionGenerator extends Generator
             out.print("\n");
 
             if (parameterTypes[i].jniType.equals("jstring")) {
-                out.print("\t(*env)->RelaseStringUTFChars(env, _");
+                out.print("\t(*env)->ReleaseStringUTFChars(env, _");
                 out.print(parameterNames[i]);
                 out.print(", ");
                 out.print(parameterNames[i]);
