@@ -215,13 +215,11 @@ bindings_java_marshaller
 	}
 
 	/*
-	 * Release the global lock object held in GDK. This is an absolutely
-	 * heroic idea, as it breaks the symmetry of the synchronized block
-	 * on the Java side surrounding the main loop, and a radical notion
-	 * in that it breaks the convention that callbacks are _in the GDK
-	 * lock. Credit to the GNU Classpath hackers who wrote the GTK peer
-	 * for their AWT implementation for coming up with this insane
-	 * algorithm. 
+	 * Release the global lock object held in GDK. This is somewhat
+	 * heroic (ie bold, ie risky) idea, as it breaks the symmetry of the
+	 * synchronized block on the Java side surrounding the main loop, and
+	 * is a radical notion in that it breaks the convention that
+	 * callbacks are _in the GDK lock.
 	 */
 
 	bindings_java_threads_unlock();

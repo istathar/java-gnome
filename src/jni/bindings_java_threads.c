@@ -17,21 +17,9 @@
 /*
  * Permit multi threaded use of GTK by synchronizing access via "the GTK
  * main lock". We do this almost entirely on the Java side, except that a
- * mutex is a mutex, ultimately, so by overriding the default
- * implementations in gtk+'s gdk/gdk.c we can properly interoperate with the
- * rest of the GTK library.
- */
- 
-/* 
- * The technique of manually _releasing_ the GDK lock via gdk_threads_leave()
- * before conducting an invokation on the Java side (which we've used in 
- * bindings_java_signal.c) was encountered in Classpath's AWT peer. See
- * classpath/native/jni/gtk-peer/gnu_java_awt_peer_gtk_GtkToolkit.c; this is
- * a rather radical idea as conventional wisdom in the GTK world is that
- * signal callbacks happen within the main loop and that "all GTK calls have
- * to be done from the main thread", which turns out not to be true; likewise
- * there is nothing actually requiring that callback functions run within the
- * main lock.
+ * mutex is a mutex, ultimately, so by overriding the default implementations
+ * in gtk+'s gdk/gdk.c we can properly interoperate with the rest of the GTK
+ * library.
  */
 
 static jobject lock;
@@ -76,11 +64,10 @@ bindings_java_threads_lock
 }
 
 /**
- * Release the monitor (lock) held on our Java side GDK lock object. Note
- * that for some reason, the Sun Java VM implementation doesn't show this
- * thread as having released this lock if you signal it to do a thread dump
- * via Ctrl+\. It is, nevertheless, quite unlocked as considerable testing
- * has established.
+ * Release the monitor (lock) held on our Java side GDK lock object. Note the
+ * Sun Java VM implementation will still show this thread as having entered
+ * the lock, but if you look at a thread dump closely you'll see it waiting
+ * on monitor, which is correct.
  */
 /*
  * Signature the prototype of the generic (*GCallback) prototype, meeting the
