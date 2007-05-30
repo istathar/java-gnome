@@ -1,3 +1,9 @@
+(define-interface Action
+  (in-module "Atk")
+  (c-name "AtkAction")
+  (gtype-id "ATK_TYPE_ACTION")
+)
+
 (define-method do_action
   (of-object "AtkAction")
   (c-name "atk_action_do_action")

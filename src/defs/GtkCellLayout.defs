@@ -1,3 +1,9 @@
+(define-interface CellLayout
+  (in-module "Gtk")
+  (c-name "GtkCellLayout")
+  (gtype-id "GTK_TYPE_CELL_LAYOUT")
+)
+
 (define-method pack_start
   (of-object "GtkCellLayout")
   (c-name "gtk_cell_layout_pack_start")

@@ -1,3 +1,9 @@
+(define-interface TreeSortable
+  (in-module "Gtk")
+  (c-name "GtkTreeSortable")
+  (gtype-id "GTK_TYPE_TREE_SORTABLE")
+)
+
 (define-method sort_column_changed
   (of-object "GtkTreeSortable")
   (c-name "gtk_tree_sortable_sort_column_changed")

@@ -1,3 +1,9 @@
+(define-interface Document
+  (in-module "Atk")
+  (c-name "AtkDocument")
+  (gtype-id "ATK_TYPE_DOCUMENT")
+)
+
 (define-method get_document_type
   (of-object "AtkDocument")
   (c-name "atk_document_get_document_type")

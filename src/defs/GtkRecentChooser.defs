@@ -1,3 +1,9 @@
+(define-interface RecentChooser
+  (in-module "Gtk")
+  (c-name "GtkRecentChooser")
+  (gtype-id "GTK_TYPE_RECENT_CHOOSER")
+)
+
 (define-method set_show_private
   (of-object "GtkRecentChooser")
   (c-name "gtk_recent_chooser_set_show_private")

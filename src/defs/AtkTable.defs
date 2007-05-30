@@ -1,3 +1,9 @@
+(define-interface Table
+  (in-module "Atk")
+  (c-name "AtkTable")
+  (gtype-id "ATK_TYPE_TABLE")
+)
+
 (define-method ref_at
   (of-object "AtkTable")
   (c-name "atk_table_ref_at")

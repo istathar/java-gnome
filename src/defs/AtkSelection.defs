@@ -1,3 +1,9 @@
+(define-interface Selection
+  (in-module "Atk")
+  (c-name "AtkSelection")
+  (gtype-id "ATK_TYPE_SELECTION")
+)
+
 (define-method add_selection
   (of-object "AtkSelection")
   (c-name "atk_selection_add_selection")

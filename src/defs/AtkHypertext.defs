@@ -1,3 +1,9 @@
+(define-interface Hypertext
+  (in-module "Atk")
+  (c-name "AtkHypertext")
+  (gtype-id "ATK_TYPE_HYPERTEXT")
+)
+
 (define-method get_link
   (of-object "AtkHypertext")
   (c-name "atk_hypertext_get_link")

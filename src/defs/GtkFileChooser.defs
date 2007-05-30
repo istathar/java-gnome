@@ -1,3 +1,9 @@
+(define-interface FileChooser
+  (in-module "Gtk")
+  (c-name "GtkFileChooser")
+  (gtype-id "GTK_TYPE_FILE_CHOOSER")
+)
+
 (define-method set_action
   (of-object "GtkFileChooser")
   (c-name "gtk_file_chooser_set_action")

@@ -1,3 +1,9 @@
+(define-interface StreamableContent
+  (in-module "Atk")
+  (c-name "AtkStreamableContent")
+  (gtype-id "ATK_TYPE_STREAMABLE_CONTENT")
+)
+
 (define-method get_n_mime_types
   (of-object "AtkStreamableContent")
   (c-name "atk_streamable_content_get_n_mime_types")

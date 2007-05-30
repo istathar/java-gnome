@@ -1,3 +1,9 @@
+(define-interface Component
+  (in-module "Atk")
+  (c-name "AtkComponent")
+  (gtype-id "ATK_TYPE_COMPONENT")
+)
+
 (define-method add_focus_handler
   (of-object "AtkComponent")
   (c-name "atk_component_add_focus_handler")

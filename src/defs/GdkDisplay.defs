@@ -11,7 +11,7 @@
   (caller-owns-return #t)
   (return-type "GdkDisplay*")
   (parameters
-    '("const-gchar*" "display_name")
+    '("const-gchar*" "display_name" (null-ok))
   )
 )
 

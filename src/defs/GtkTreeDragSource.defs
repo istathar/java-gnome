@@ -1,3 +1,9 @@
+(define-interface TreeDragSource
+  (in-module "Gtk")
+  (c-name "GtkTreeDragSource")
+  (gtype-id "GTK_TYPE_TREE_DRAG_SOURCE")
+)
+
 (define-method row_draggable
   (of-object "GtkTreeDragSource")
   (c-name "gtk_tree_drag_source_row_draggable")

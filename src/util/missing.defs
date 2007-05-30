@@ -4034,8 +4034,8 @@
   (return-type "GtkStyle*")
   (parameters
     '("GtkSettings*" "settings")
-    '("const-char*" "widget_path")
-    '("const-char*" "class_path")
+    '("const-char*" "widget_path" (default "NULL") (null-ok))
+    '("const-char*" "class_path" (default "NULL") (null-ok))
     '("GType" "type")
   )
 )

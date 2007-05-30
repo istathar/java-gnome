@@ -1,3 +1,9 @@
+(define-interface Value
+  (in-module "Atk")
+  (c-name "AtkValue")
+  (gtype-id "ATK_TYPE_VALUE")
+)
+
 (define-method get_current_value
   (of-object "AtkValue")
   (c-name "atk_value_get_current_value")

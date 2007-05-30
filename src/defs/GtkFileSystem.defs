@@ -1,3 +1,9 @@
+(define-interface FileSystem
+  (in-module "Gtk")
+  (c-name "GtkFileSystem")
+  (gtype-id "GTK_TYPE_FILE_SYSTEM")
+)
+
 (define-method list_volumes
   (of-object "GtkFileSystem")
   (c-name "gtk_file_system_list_volumes")

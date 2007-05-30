@@ -1,3 +1,9 @@
+(define-interface Text
+  (in-module "Atk")
+  (c-name "AtkText")
+  (gtype-id "ATK_TYPE_TEXT")
+)
+
 (define-method get_text
   (of-object "AtkText")
   (c-name "atk_text_get_text")

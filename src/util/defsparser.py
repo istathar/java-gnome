@@ -114,7 +114,7 @@ class DefsParser(IncludeParser):
 
     def writeDefs(self, fp=sys.stdout):
         all = []
-        all = self.objects + self.enums + self.boxes + self.pointers + self.functions + self.virtuals
+        all = self.objects + self.interfaces + self.enums + self.boxes + self.pointers + self.functions + self.virtuals
         
         for obj in all:
             type = obj.whichClass()

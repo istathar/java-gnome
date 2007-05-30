@@ -1,3 +1,9 @@
+(define-interface Editable
+  (in-module "Gtk")
+  (c-name "GtkEditable")
+  (gtype-id "GTK_TYPE_EDITABLE")
+)
+
 (define-method select_region
   (of-object "GtkEditable")
   (c-name "gtk_editable_select_region")

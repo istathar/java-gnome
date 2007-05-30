@@ -1,3 +1,9 @@
+(define-interface FileFolder
+  (in-module "Gtk")
+  (c-name "GtkFileFolder")
+  (gtype-id "GTK_TYPE_FILE_FOLDER")
+)
+
 (define-method list_children
   (of-object "GtkFileFolder")
   (c-name "gtk_file_folder_list_children")

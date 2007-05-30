@@ -1,3 +1,9 @@
+(define-interface Image
+  (in-module "Atk")
+  (c-name "AtkImage")
+  (gtype-id "ATK_TYPE_IMAGE")
+)
+
 (define-method get_image_description
   (of-object "AtkImage")
   (c-name "atk_image_get_image_description")

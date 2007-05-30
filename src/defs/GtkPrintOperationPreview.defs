@@ -1,3 +1,9 @@
+(define-interface PrintOperationPreview
+  (in-module "Gtk")
+  (c-name "GtkPrintOperationPreview")
+  (gtype-id "GTK_TYPE_PRINT_OPERATION_PREVIEW")
+)
+
 (define-method render_page
   (of-object "GtkPrintOperationPreview")
   (c-name "gtk_print_operation_preview_render_page")

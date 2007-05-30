@@ -1,3 +1,9 @@
+(define-interface CellEditable
+  (in-module "Gtk")
+  (c-name "GtkCellEditable")
+  (gtype-id "GTK_TYPE_CELL_EDITABLE")
+)
+
 (define-method start_editing
   (of-object "GtkCellEditable")
   (c-name "gtk_cell_editable_start_editing")

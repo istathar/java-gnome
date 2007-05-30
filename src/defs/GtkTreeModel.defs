@@ -1,3 +1,9 @@
+(define-interface TreeModel
+  (in-module "Gtk")
+  (c-name "GtkTreeModel")
+  (gtype-id "GTK_TYPE_TREE_MODEL")
+)
+
 (define-method get_flags
   (of-object "GtkTreeModel")
   (c-name "gtk_tree_model_get_flags")

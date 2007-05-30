@@ -1,3 +1,9 @@
+(define-interface EditableText
+  (in-module "Atk")
+  (c-name "AtkEditableText")
+  (gtype-id "ATK_TYPE_EDITABLE_TEXT")
+)
+
 (define-method set_run_attributes
   (of-object "AtkEditableText")
   (c-name "atk_editable_text_set_run_attributes")

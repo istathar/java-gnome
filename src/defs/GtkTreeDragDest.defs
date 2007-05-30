@@ -1,3 +1,9 @@
+(define-interface TreeDragDest
+  (in-module "Gtk")
+  (c-name "GtkTreeDragDest")
+  (gtype-id "GTK_TYPE_TREE_DRAG_DEST")
+)
+
 (define-method drag_data_received
   (of-object "GtkTreeDragDest")
   (c-name "gtk_tree_drag_dest_drag_data_received")
