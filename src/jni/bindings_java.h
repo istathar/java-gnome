@@ -44,6 +44,9 @@ extern void bindings_java_memory_unref(GObject*);
 // TODO derive this at compile time from org.freedesktop.bindings.Debug
 #define DEBUG_MEMORY_MANAGEMENT FALSE
 
+// Should we release the GDK lock before making a callbacks?
+#define EXPERIMENTAL_UNLOCK_DURING_CALLBACKS TRUE
+
 /*
  * bindigns_java_threads.c
  */
