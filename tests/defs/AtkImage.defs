@@ -1,0 +1,74 @@
+(define-interface Image
+  (in-module "Atk")
+  (c-name "AtkImage")
+  (gtype-id "ATK_TYPE_IMAGE")
+)
+
+(define-method get_image_description
+  (of-object "AtkImage")
+  (c-name "atk_image_get_image_description")
+  (return-type "const-gchar*")
+)
+
+(define-method get_image_size
+  (of-object "AtkImage")
+  (c-name "atk_image_get_image_size")
+  (return-type "none")
+  (parameters
+    '("gint*" "width")
+    '("gint*" "height")
+  )
+)
+
+(define-method set_image_description
+  (of-object "AtkImage")
+  (c-name "atk_image_set_image_description")
+  (return-type "gboolean")
+  (parameters
+    '("const-gchar*" "description")
+  )
+)
+
+(define-method get_image_position
+  (of-object "AtkImage")
+  (c-name "atk_image_get_image_position")
+  (return-type "none")
+  (parameters
+    '("gint*" "x")
+    '("gint*" "y")
+    '("AtkCoordType" "coord_type")
+  )
+)
+
+(define-virtual get_image_position
+  (of-object "AtkImage")
+  (return-type "none")
+  (parameters
+    '("gint*" "x")
+    '("gint*" "y")
+    '("AtkCoordType" "coord_type")
+  )
+)
+
+(define-virtual get_image_description
+  (of-object "AtkImage")
+  (return-type "const-gchar*")
+)
+
+(define-virtual get_image_size
+  (of-object "AtkImage")
+  (return-type "none")
+  (parameters
+    '("gint*" "width")
+    '("gint*" "height")
+  )
+)
+
+(define-virtual set_image_description
+  (of-object "AtkImage")
+  (return-type "gboolean")
+  (parameters
+    '("const-gchar*" "description")
+  )
+)
+

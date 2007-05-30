@@ -297,6 +297,13 @@ public class DefsParser
                 if (phylum.equals("object")) {
                     block = new ObjectBlock(name, characteristics, fields);
                     blocks.add(block);
+                } else if (phylum.equals("interface")) {
+                    /*
+                     * FUTURE just use ObjectBlock for now. Do we need
+                     * IntefaceBlock? Probably not.
+                     */
+                    block = new ObjectBlock(name, characteristics, fields);
+                    blocks.add(block);
                 } else if (phylum.equals("method")) {
                     block = new MethodBlock(name, characteristics, parameters);
                     blocks.add(block);

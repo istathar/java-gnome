@@ -79,9 +79,11 @@ public abstract class Thing
         register(new FundamentalThing("none", "void", "void", "void"));
         register(new FundamentalThing("gchar*", "String", "String", "jstring"));
         register(new FundamentalThing("gint", "int", "int", "jint"));
+        register(new FundamentalThing("guint", "int", "int", "jint"));
         register(new FundamentalThing("glong", "long", "long", "jlong"));
         register(new FundamentalThing("gboolean", "boolean", "boolean", "jboolean"));
         register(new FundamentalThing("gfloat", "float", "float", "jfloat"));
+        register(new OutParameterFundamentalThing("gint*", "int[]", "int[]", "jintArray"));
         register(new OutParameterFundamentalThing("gfloat*", "float[]", "float[]", "jfloatArray"));
 
         register(new ObjectThing("Signal", "org.gnome.glib", "", "Signal"));

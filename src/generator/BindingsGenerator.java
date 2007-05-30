@@ -119,7 +119,7 @@ public class BindingsGenerator
         List all;
         Iterator iter;
 
-        dir = new File("tests/generator/");
+        dir = new File("tests/defs/");
 
         files = dir.listFiles(new FilenameFilter() {
             public boolean accept(File dir, String name) {
