@@ -89,7 +89,7 @@ public class DefsParser
         // __(c-name "gtk_button_new_with_label")
         // __(return-type "GtkWidget*")
         // __(return-type "const-gchar")
-        characteristicLine = Pattern.compile("^\\s+\\((\\S+)\\s+\"?([\\w#\\-\\*]+)\"?\\)");
+        characteristicLine = Pattern.compile("^\\s+\\((\\S+)\\s+\"?([\\w# \\.\\-\\*]+)\"?\\)");
 
         /*
          * TODO: it's not entirely clear that we actually need to support
@@ -360,6 +360,8 @@ public class DefsParser
                 System.err.print(source.getFilename() + ", ");
                 System.err.println(pe.getMessage());
                 System.err.println("[continuing next block]\n");
+            } catch (DeprecatedException de) {
+                // TODO skip to next file?
             } catch (IllegalStateException ise) {
                 System.err.println("Failed parsing (an internal problem? FIXME!):");
                 System.err.print(source.getFilename() + ", ");

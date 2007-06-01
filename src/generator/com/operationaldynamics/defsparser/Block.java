@@ -39,21 +39,19 @@ public abstract class Block
      */
     protected final String blockName;
 
-    /**
-     * A block that has a deprecated marker sets this characteristic. TODO if
-     * we find this present, then we need to take action to skip the block, or
-     * even the entire type!
-     */
-    protected String deprecated;
-
     protected Block(final String blockName, final List characteristics) {
         this.blockName = blockName;
 
         processCharacteristics(characteristics);
     }
 
+    /**
+     * When encountered by the constructor as it calls the reflexive machinery
+     * in processCharacteristics(), this will throw DeprecatedException to
+     * signal DefsParser to skip this Block object and move on to the next.
+     */
     protected final void setDeprecated(final String deprecated) {
-        this.deprecated = deprecated;
+        throw new DeprecatedException(deprecated);
     }
 
     /**
@@ -142,6 +140,9 @@ public abstract class Block
                 // super classes above us.
                 e.printStackTrace();
             } catch (InvocationTargetException e) {
+                if (e.getCause() instanceof DeprecatedException) {
+                    throw (DeprecatedException) e.getCause();
+                }
                 // the setter itself threw an exception! Crazy.
                 e.printStackTrace();
             }
