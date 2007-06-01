@@ -213,20 +213,6 @@ bindings_java_marshaller
 			break;
 		}
 	}
-
-#ifdef EXPERIMENTAL_UNLOCK_DURING_CALLBACKS
-
-	/*
-	 * Release the global lock object held in GDK. This is somewhat
-	 * heroic (ie bold, ie risky) idea, as it breaks the symmetry of the
-	 * synchronized block on the Java side surrounding the main loop, and
-	 * is a radical notion in that it breaks the convention that
-	 * callbacks are _in the GDK lock.
-	 */
-
-	bindings_java_threads_unlock();
-
-#endif
 	
 	/*
 	 * And now we invoke the callback on the Java side Signal handler; we have to 
@@ -292,19 +278,6 @@ bindings_java_marshaller
 		g_critical("Invocation for return type %c not implemented", bjc->returnType);
 		break;
 	}
-
-
-#ifdef EXPERIMENTAL_UNLOCK_DURING_CALLBACKS
-
-	/*
-	 * Re-establish the global GDK lock. The main loop is blocked until
-	 * this succeeds, so we really need to be right that this is a legal
-	 * solution to the multi-threading question! So far, so good.
-	 */
-
-	bindings_java_threads_lock();
-
-#endif
 
 	/*
 	 * Now, check if an exception occurred in the callback and print the
