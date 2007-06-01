@@ -110,6 +110,12 @@ public final class WorkerTiming implements Runnable
 
         for (int i = 1; i <= 50000; i++) {
             l.setLabel(name + "->" + i);
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
             /*
              * Interestingly, this loop is tight enough, and the contention
              * sufficient if you fire up multiple threads that you actually
