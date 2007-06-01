@@ -1,0 +1,10 @@
+(define-boxed KeymapKey
+  (in-module "Gdk")
+  (c-name "GdkKeymapKey")
+  (fields
+    '("guint" "keycode")
+    '("gint" "group")
+    '("gint" "level")
+  )
+)
+

@@ -1,0 +1,10 @@
+(define-boxed TextRange
+  (in-module "Atk")
+  (c-name "AtkTextRange")
+  (fields
+    '("gint" "start_offset")
+    '("gint" "end_offset")
+    '("gchar*" "content")
+  )
+)
+

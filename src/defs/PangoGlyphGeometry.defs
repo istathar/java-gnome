@@ -1,0 +1,5 @@
+(define-boxed GlyphGeometry
+  (in-module "Pango")
+  (c-name "PangoGlyphGeometry")
+)
+

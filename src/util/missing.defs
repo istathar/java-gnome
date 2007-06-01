@@ -3856,6 +3856,7 @@
 (define-function object_add_arg_type
   (c-name "gtk_object_add_arg_type")
   (return-type "none")
+  (deprecated "use GObject")
   (parameters
     '("const-gchar*" "arg_name")
     '("GtkType" "arg_type")

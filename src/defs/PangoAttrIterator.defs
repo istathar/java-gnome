@@ -1,3 +1,10 @@
+(define-boxed AttrIterator
+  (in-module "Pango")
+  (c-name "PangoAttrIterator")
+  (copy-func "pango_attr_iterator_copy")
+  (release-func "pango_attr_iterator_destroy")
+)
+
 (define-method range
   (of-object "PangoAttrIterator")
   (c-name "pango_attr_iterator_range")

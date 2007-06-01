@@ -1,0 +1,10 @@
+(define-boxed AccelKey
+  (in-module "Gtk")
+  (c-name "GtkAccelKey")
+  (fields
+    '("guint" "accel_key")
+    '("GdkModifierType" "accel_mods")
+    '("guint" "accel_flags")
+  )
+)
+

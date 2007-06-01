@@ -1,0 +1,18 @@
+(define-boxed EventKey
+  (in-module "Gdk")
+  (c-name "GdkEventKey")
+  (fields
+    '("GdkEventType" "type")
+    '("GdkWindow*" "window")
+    '("gint8" "send_event")
+    '("guint32" "time")
+    '("guint" "state")
+    '("guint" "keyval")
+    '("gint" "length")
+    '("gchar*" "string")
+    '("guint16" "hardware_keycode")
+    '("guint8" "group")
+    '("gboolean" "is_modifier")
+  )
+)
+

@@ -1,3 +1,10 @@
+(define-boxed Attribute
+  (in-module "Pango")
+  (c-name "PangoAttribute")
+  (copy-func "pango_attribute_copy")
+  (release-func "pango_attribute_destroy")
+)
+
 (define-method copy
   (of-object "PangoAttribute")
   (c-name "pango_attribute_copy")

@@ -2,6 +2,12 @@
   (in-module "Pango")
   (parent "GObject")
   (c-name "PangoFontset")
+)
+
+(define-object Fontset
+  (in-module "Pango")
+  (parent "GObject")
+  (c-name "PangoFontset")
   (gtype-id "PANGO_TYPE_FONTSET")
 )
 

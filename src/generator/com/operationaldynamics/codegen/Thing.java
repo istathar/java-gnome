@@ -77,16 +77,162 @@ public abstract class Thing
         things = new HashMap(400);
 
         register(new FundamentalThing("none", "void", "void", "void"));
+        register(new FundamentalThing("gunichar", "char", "char", "jchar"));
         register(new FundamentalThing("gchar*", "String", "String", "jstring"));
+
+        /*
+         * A certain class of bugs arse from discarding the most significant
+         * bit in the unsigned integers but in practice it never seems to be a
+         * problem. Nevertheless, this is where to fix it if a problem crops
+         * up.
+         */
+
         register(new FundamentalThing("gint", "int", "int", "jint"));
         register(new FundamentalThing("guint", "int", "int", "jint"));
+        register(new FundamentalThing("gint8", "byte", "byte", "jbyte"));
+        register(new FundamentalThing("guint8", "byte", "byte", "jbyte"));
+        register(new FundamentalThing("gint16", "short", "short", "jshort"));
+        register(new FundamentalThing("guint16", "char", "char", "jchar"));
+        register(new FundamentalThing("gint32", "int", "int", "jint"));
+        register(new FundamentalThing("guint32", "int", "int", "jint"));
         register(new FundamentalThing("glong", "long", "long", "jlong"));
+        register(new FundamentalThing("gulong", "long", "long", "jlong"));
         register(new FundamentalThing("gboolean", "boolean", "boolean", "jboolean"));
         register(new FundamentalThing("gfloat", "float", "float", "jfloat"));
-        register(new OutParameterFundamentalThing("gint*", "int[]", "int[]", "jintArray"));
-        register(new OutParameterFundamentalThing("gfloat*", "float[]", "float[]", "jfloatArray"));
+        register(new FundamentalThing("gdouble", "double", "double", "jdouble"));
 
+        register(new OutParameterFundamentalThing("gint*", "int[]", "int[]", "jintArray"));
+        register(new OutParameterFundamentalThing("guint*", "int[]", "int[]", "jintArray"));
+        register(new OutParameterFundamentalThing("gfloat*", "float[]", "float[]", "jfloatArray"));
+        register(new OutParameterFundamentalThing("gdouble*", "double[]", "double[]", "jdoubleArray"));
+        register(new OutParameterFundamentalThing("gboolean*", "boolean[]", "boolean[]", "jbooleanArray"));
+
+        // FIXME String[] is a common return type, so out parameter is
+        // probably not the way to deal with it.
+        register(new OutParameterFundamentalThing("gchar**", "String[]", "String[]", "jobjectArray"));
+
+        /*
+         * The kludge of repeating certain basic types is here because Owen
+         * couldn't be bothered to follow the conventions that are used
+         * everywhere else in the GNOME stack when he worked on Pango. See
+         * http://bugzilla.gnome.org/show_bug.cgi?id=442823
+         */
+        register(new FundamentalThing("int", "int", "int", "jint"));
+        register(new FundamentalThing("double", "double", "double", "jdouble"));
+        register(new FundamentalThing("char*", "String", "String", "jstring"));
+        register(new OutParameterFundamentalThing("int*", "int[]", "int[]", "jintArray"));
+
+        // because there is (by design) no .defs data for GObject
+        register(new ObjectThing("GObject*", "org.gnome.glib", "GObject", "Object"));
+        register(new ObjectThing("GValue*", "org.gnome.glib", "GValue", "Value"));
+
+        // for cosmetic purposes (sorting includes)
         register(new ObjectThing("Signal", "org.gnome.glib", "", "Signal"));
+
+        /*
+         * FIXME! Weirdo cases we haven't figured out what to do with yet.
+         * Should these be a new (define...) type intead of here?
+         */
+        register(new TypedefFundamentalThing("GQuark", "int", "int", "jint"));
+        register(new TypedefFundamentalThing("GdkNativeWindow", "long", "long", "jlong"));
+        register(new TypedefFundamentalThing("GdkWChar*", "String", "String", "jstring"));
+        register(new FixmeThing("gpointer"));
+        register(new FixmeThing("gpointer*"));
+        register(new BoxedThing("GdkBitmap*", "org.gnome.gdk", "GdkBitmap", "Bitmap"));
+        register(new FixmeThing("GdkAtom"));
+        register(new FixmeThing("GdkAtom*"));
+
+        /*
+         * Function pointers, which strangely don't have * symbols. FUTURE
+         * these really are blacklisted for now.
+         */
+
+        register(new BlacklistedThing("AtkFocusHandler"));
+        register(new BlacklistedThing("PangoAttrFilterFunc"));
+        register(new BlacklistedThing("PangoAttrDataCopyFunc"));
+        register(new BlacklistedThing("GDestroyNotify"));
+        register(new BlacklistedThing("GtkDestroyNotify"));
+        register(new BlacklistedThing("PangoFontsetForeachFunc"));
+        register(new BlacklistedThing("GtkMenuPositionFunc"));
+        register(new BlacklistedThing("GtkMenuDetachFunc"));
+        register(new BlacklistedThing("GdkFilterFunc"));
+        register(new BlacklistedThing("GtkCellLayoutDataFunc"));
+
+        register(new BlacklistedThing("GClosure*"));
+        
+        /*
+         * These seem to be motif-isms.
+         */
+        register(new BlacklistedThing("GdkWMDecoration*"));
+        register(new BlacklistedThing("GdkWMFunction"));
+
+        /*
+         * Out-parameter Proxies? Oh, joy
+         */
+        register(new FixmeThing("GtkTooltips**"));
+        register(new FixmeThing("GtkWidget**"));
+        register(new FixmeThing("GError**"));
+        register(new FixmeThing("PangoFontFamily***"));
+
+        register(new FixmeThing("GdkKeymapKey**"));
+        register(new FixmeThing("GdkPoint**"));
+        register(new FixmeThing("GdkDrawable**"));
+
+        /*
+         * Out-parameter enums and flags? Grr
+         */
+        register(new FixmeThing("GdkModifierType*"));
+        register(new FixmeThing("GtkPackType*"));
+        register(new FixmeThing("PangoTabAlign*"));
+        
+
+        /*
+         * An array of outparameters? Make it stop!
+         */
+        register(new BlacklistedThing("gint**"));
+        register(new BlacklistedThing("guint**"));
+        register(new FixmeThing("PangoTabAlign**"));
+
+        /*
+         * From gdk_draw_rgb_image(): "The pixel data, represented as packed
+         * 24-bit data." No idea how we could possibly handle that properly.
+         */
+        register(new BlacklistedThing("guchar*"));
+        /*
+         * From gdk_property_get(), which is marked "don't use"
+         */
+        register(new BlacklistedThing("guchar**"));
+        
+        /*
+         * GList/GSList and related typedefs... FIXME change this when we
+         * properly map the list and array returns.
+         */
+        register(new FixmeThing("GList*"));
+        register(new FixmeThing("GSList*"));
+        register(new FixmeThing("AtkAttributeSet*"));
+
+        /*
+         * FIXME And what on earth do we do with things that really ARE array
+         * returns? Probably whatever solution we cook up for generally
+         * handling GList and friends will apply to arrays as well.
+         */
+        register(new FixmeThing("AtkTextRange**"));
+        register(new FixmeThing("GtkAccelGroupEntry*"));
+
+        /*
+         * FUTURE no Cairo bindings, yet
+         */
+        register(new BlacklistedThing("cairo_t*"));
+        register(new BlacklistedThing("cairo_surface_t*"));
+        register(new BlacklistedThing("cairo_font_options_t*"));
+        
+        /*
+         * And what are...
+         */
+        register(new BlacklistedThing("GtkFileSystemVolume*"));
+        register(new BlacklistedThing("GtkFilePath**"));
+        register(new BlacklistedThing("GtkFileSystemGetInfoCallback"));
+        register(new BlacklistedThing("GtkFileSystemGetFolderCallback"));
     }
 
     public static void register(Thing t) {

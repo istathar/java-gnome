@@ -1,0 +1,11 @@
+(define-boxed Rectangle
+  (in-module "Pango")
+  (c-name "PangoRectangle")
+  (fields
+    '("int" "x")
+    '("int" "y")
+    '("int" "width")
+    '("int" "height")
+  )
+)
+

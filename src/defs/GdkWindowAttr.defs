@@ -1,0 +1,5 @@
+(define-boxed WindowAttr
+  (in-module "Gdk")
+  (c-name "GdkWindowAttr")
+)
+

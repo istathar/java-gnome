@@ -107,6 +107,7 @@
 (define-method set_keep_above
   (of-object "GdkWindow")
   (c-name "gdk_window_set_keep_above")
+  (return-type "none")
   (parameters
     '("gboolean" "setting")
   )
@@ -115,6 +116,7 @@
 (define-method set_keep_below
   (of-object "GdkWindow")
   (c-name "gdk_window_set_keep_below")
+  (return-type "none")
   (parameters
     '("gboolean" "setting")
   )

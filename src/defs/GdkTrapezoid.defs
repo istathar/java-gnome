@@ -1,0 +1,13 @@
+(define-boxed Trapezoid
+  (in-module "Gdk")
+  (c-name "GdkTrapezoid")
+  (fields
+    '("double" "y1")
+    '("double" "x11")
+    '("double" "x21")
+    '("double" "y2")
+    '("double" "x12")
+    '("double" "x22")
+  )
+)
+

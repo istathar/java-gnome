@@ -1,0 +1,9 @@
+(define-boxed Point
+  (in-module "Gdk")
+  (c-name "GdkPoint")
+  (fields
+    '("gint" "x")
+    '("gint" "y")
+  )
+)
+

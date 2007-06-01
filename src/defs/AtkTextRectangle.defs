@@ -1,0 +1,11 @@
+(define-boxed TextRectangle
+  (in-module "Atk")
+  (c-name "AtkTextRectangle")
+  (fields
+    '("gint" "x")
+    '("gint" "y")
+    '("gint" "width")
+    '("gint" "height")
+  )
+)
+

@@ -1,0 +1,5 @@
+(define-boxed GlyphInfo
+  (in-module "Pango")
+  (c-name "PangoGlyphInfo")
+)
+

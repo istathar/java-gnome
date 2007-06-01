@@ -1,0 +1,221 @@
+(define-boxed Attribute
+  (in-module "Pango")
+  (c-name "PangoAttribute")
+  (copy-func "pango_attribute_copy")
+  (release-func "pango_attribute_destroy")
+)
+
+(define-boxed AttrIterator
+  (in-module "Pango")
+  (c-name "PangoAttrIterator")
+  (copy-func "pango_attr_iterator_copy")
+  (release-func "pango_attr_iterator_destroy")
+)
+
+(define-boxed TextRectangle
+  (in-module "Atk")
+  (c-name "AtkTextRectangle")
+  (fields
+    '("gint" "x")
+    '("gint" "y")
+    '("gint" "width")
+    '("gint" "height")
+  )
+)
+
+(define-boxed TextRange
+  (in-module "Atk")
+  (c-name "AtkTextRange")
+  (fields
+    '("gint" "start_offset")
+    '("gint" "end_offset")
+    '("gchar*" "content")
+  )
+)
+
+(define-boxed AccelKey
+  (in-module "Gtk")
+  (c-name "GtkAccelKey")
+  (fields
+    '("guint" "accel_key")
+    '("GdkModifierType" "accel_mods")
+    '("guint" "accel_flags")
+  )
+)
+
+(define-boxed Geometry
+  (in-module "Gdk")
+  (c-name "GdkGeometry")
+  (fields
+    '("gint" "min_width")
+    '("gint" "min_height")
+    '("gint" "max_width")
+    '("gint" "max_height")
+    '("gint" "base_width")
+    '("gint" "base_height")
+    '("gint" "width_inc")
+    '("gint" "height_inc")
+    '("gdouble" "min_aspect")
+    '("gdouble" "max_aspect")
+    '("GdkGravity" "win_gravity")
+  )
+)
+
+(define-boxed EventKey
+  (in-module "Gdk")
+  (c-name "GdkEventKey")
+  (fields
+    '("GdkEventType" "type")
+    '("GdkWindow*" "window")
+    '("gint8" "send_event")
+    '("guint32" "time")
+    '("guint" "state")
+    '("guint" "keyval")
+    '("gint" "length")
+    '("gchar*" "string")
+    '("guint16" "hardware_keycode")
+    '("guint8" "group")
+    '("gboolean" "is_modifier")
+  )
+)
+
+(define-boxed GlyphInfo
+  (in-module "Pango")
+  (c-name "PangoGlyphInfo")
+)
+
+(define-boxed GlyphString
+  (in-module "Pango")
+  (c-name "PangoGlyphString")
+)
+
+(define-boxed GlyphGeometry
+  (in-module "Pango")
+  (c-name "PangoGlyphGeometry")
+)
+
+(define-boxed GlyphUnit
+  (in-module "Pango")
+  (c-name "PangoGlyphUnit")
+)
+
+(define-boxed Rectangle
+  (in-module "Pango")
+  (c-name "PangoRectangle")
+  (fields
+    '("int" "x")
+    '("int" "y")
+    '("int" "width")
+    '("int" "height")
+  )
+)
+
+(define-boxed Analysis
+  (in-module "Pango")
+  (c-name "PangoAnalysis")
+)
+
+(define-boxed KeymapKey
+  (in-module "Gdk")
+  (c-name "GdkKeymapKey")
+  (fields
+    '("guint" "keycode")
+    '("gint" "group")
+    '("gint" "level")
+  )
+)
+
+(define-flag ModifierType
+  (in-module "Gdk")
+  (c-name "GdkModifierType")
+  (values
+    '("shift_mask" "GDK_SHIFT_MASK")
+    '("lock_mask" "GDK_LOCK_MASK")
+    '("control_mask" "GDK_CONTROL_MASK")
+    '("mod1_mask" "GDK_MOD1_MASK")
+    '("mod2_mask" "GDK_MOD2_MASK")
+    '("mod3_mask" "GDK_MOD3_MASK")
+    '("mod4_mask" "GDK_MOD4_MASK")
+    '("mod5_mask" "GDK_MOD5_MASK")
+    '("button1_mask" "GDK_BUTTON1_MASK")
+    '("button2_mask" "GDK_BUTTON2_MASK")
+    '("button3_mask" "GDK_BUTTON3_MASK")
+    '("button4_mask" "GDK_BUTTON4_MASK")
+    '("button5_mask" "GDK_BUTTON5_MASK")
+    '("super_mask" "GDK_SUPER_MASK")
+    '("hyper_mask" "GDK_HYPER_MASK")
+    '("meta_mask" "GDK_META_MASK")
+    '("release_mask" "GDK_RELEASE_MASK")
+    '("modifier_mask" "GDK_MODIFIER_MASK")
+  )
+)
+
+(define-boxed Point
+  (in-module "Gdk")
+  (c-name "GdkPoint")
+  (fields
+    '("gint" "x")
+    '("gint" "y")
+  )
+)
+
+(define-boxed Segment
+  (in-module "Gdk")
+  (c-name "GdkSegment")
+  (fields
+    '("gint" "x1")
+    '("gint" "y1")
+    '("gint" "x2")
+    '("gint" "y2")
+  )
+)
+
+(define-boxed Trapezoid
+  (in-module "Gdk")
+  (c-name "GdkTrapezoid")
+  (fields
+    '("double" "y1")
+    '("double" "x11")
+    '("double" "x21")
+    '("double" "y2")
+    '("double" "x12")
+    '("double" "x22")
+  )
+)
+
+;; This is a monster struct with what looks like writeable fields. FIXME
+
+(define-boxed GCValues
+  (in-module "Gdk")
+  (c-name "GdkGCValues")
+)
+
+(define-boxed RgbCmap
+  (in-module "Gdk")
+  (c-name "GdkRgbCmap")
+)
+
+(define-object FontFamily
+  (in-module "Pango")
+  (parent "GObject")
+  (c-name "PangoFontFamily")
+)
+
+(define-object FontFace
+  (in-module "Pango")
+  (parent "GObject")
+  (c-name "PangoFontFace")
+)
+
+(define-object Fontset
+  (in-module "Pango")
+  (parent "GObject")
+  (c-name "PangoFontset")
+)
+
+;; FIXME many fields!
+(define-boxed WindowAttr
+  (in-module "Gdk")
+  (c-name "GdkWindowAttr")
+)
+

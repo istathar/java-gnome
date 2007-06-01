@@ -75,6 +75,7 @@
 (define-method query_color
   (of-object "GdkColormap")
   (c-name "gdk_colormap_query_color")
+  (return-type "none")
   (parameters
     '("gulong" "pixel")
     '("GdkColor*" "color")

@@ -8,6 +8,8 @@ demux:
 	rm -f *.defs
 	rm -f $(MISSING)
 
+	./demux.py java-gnome.fixes >> $(MISSING)
+
 	./demux.py $(PYGTK)/gtk/gdk-base.defs >> $(MISSING)
 	./demux.py $(PYGTK)/gtk/gdk-2.10.defs >> $(MISSING)
 
@@ -33,6 +35,7 @@ blacklist:
 	rm -f GtkText.defs
 	rm -f GtkCombo.defs
 	rm -f GtkOldEditable.defs
+	rm -f GtkArgs.defs
 
 install:
 	mv *.defs $(DEFSDIR)
