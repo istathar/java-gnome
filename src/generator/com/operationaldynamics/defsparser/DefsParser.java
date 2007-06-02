@@ -248,23 +248,6 @@ public class DefsParser
     }
 
     /**
-     * Given a stanza of .defs data containing a single (define- ...) stored
-     * in the parser state variable lines, and do the magic to instantiate a
-     * Block object and set its member fields.
-     */
-    /*
-     * We don't necessarily have sufficient information to figure out what
-     * sort of Block this data stanza is until we've parsed in all the lines.
-     * So we do that (to local variables), and then go through the logic to
-     * figure out what it should be.
-     */
-    Block parseStanza() throws ParseException {
-        Block block = null;
-
-        return block;
-    }
-
-    /**
      * Run the parser across the input data stream and return an array of
      * Block objects representing the (define- ...) blocks found there.
      */

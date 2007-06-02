@@ -94,15 +94,14 @@ public class ValidateDefsParsing extends TestCase
     }
 
     public final void testObjectBlockCreated() throws ParseException {
-        Block result;
+        Block[] results;
         ObjectBlock o;
 
-        parser.readNextStanza();
-        result = parser.parseStanza();
+        results = parser.parseData();
 
-        assertTrue(result instanceof ObjectBlock);
+        assertTrue(results[0] instanceof ObjectBlock);
 
-        o = (ObjectBlock) result;
+        o = (ObjectBlock) results[0];
 
         assertEquals("Gtk", o.inModule);
         assertEquals("GtkBin", o.parent);
