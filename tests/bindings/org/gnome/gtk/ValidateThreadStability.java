@@ -9,6 +9,7 @@
  * version 2" See the LICENCE file for the terms governing usage and
  * redistribution.
  */
+package org.gnome.gtk;
 
 import org.gnome.gtk.Button;
 import org.gnome.gtk.Gtk;
