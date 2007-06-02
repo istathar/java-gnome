@@ -218,7 +218,7 @@ bindings_java_marshaller
 	 * And now we invoke the callback on the Java side Signal handler; we have to 
 	 * select the correct function based on what return type is necessary.
 	 */
-	
+
 	switch(bjc->returnType) {
 	case 'V':
 		/*
@@ -237,7 +237,7 @@ bindings_java_marshaller
 		} else if (_b == JNI_FALSE) {
 			b = FALSE;
 		} else {
-			g_warning("How did you manage to return a boolean that's neither TRUE nor FALSE?");
+			g_critical("How did you manage to return a boolean that's neither TRUE nor FALSE?");
 			return;
 		}
 		
@@ -255,7 +255,7 @@ bindings_java_marshaller
 		_str = (*env)->CallStaticObjectMethodA(env, bjc->receiver, bjc->method, jargs);
 		if (str == NULL) {
 			g_warning("Invoking string handler returned null. That's probably bad");
-			return;
+			break;
 		}
 		
 		str = (gchar*) (*env)->GetStringUTFChars(env, _str, NULL);

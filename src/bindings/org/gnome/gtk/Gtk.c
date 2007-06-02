@@ -15,6 +15,7 @@
 #include <gdk/gdk.h>
 #include <gtk/gtk.h>
 
+#include "bindings_java.h"
 #include "org_gnome_gtk_Gtk.h"
 
 /*
@@ -30,9 +31,12 @@ Java_org_gnome_gtk_Gtk_gtk_1init
 (
 	JNIEnv *env,
 	jclass cls,
+	jobject _lock,
 	jobjectArray _args
 )
 {
+	bindings_java_threads_init(env, _lock);
+	
 	g_thread_init(NULL);
 	gdk_threads_init();
 	
@@ -47,6 +51,11 @@ Java_org_gnome_gtk_Gtk_gtk_1init
  *   org.gnome.gtk.Gtk.gtk_main()
  * called from
  *   org.gnome.gtk.Gtk.main()
+ * 
+ * Note that the main loop implicitly uses the gdk_threads_enter/leave()
+ * mechanism while spinning. This means that although the Gdk$Lock monitor is
+ * held upon making this call (which blocks), the lock is released briefly
+ * each time the main loop iterates.
  */
 JNIEXPORT void JNICALL
 Java_org_gnome_gtk_Gtk_gtk_1main
@@ -73,9 +82,7 @@ Java_org_gnome_gtk_Gtk_gtk_1main_1quit
 )
 {
 	// call function
-//	gdk_threads_enter();
 	gtk_main_quit();
-//	gdk_threads_leave();
 }
 
 

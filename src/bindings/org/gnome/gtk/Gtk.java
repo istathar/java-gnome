@@ -11,6 +11,7 @@
  */
 package org.gnome.gtk;
 
+import org.gnome.gdk.Gdk;
 import org.gnome.glib.Glib;
 
 /**
@@ -81,12 +82,18 @@ public final class Gtk extends Glib
         /*
          * Initialize GTK and along with it GLib, GObject, etc.
          */
-        gtk_init(args);
+        gtk_init(Gdk.lock, args);
 
         initialized = true;
     }
 
-    private static native final void gtk_init(String[] args);
+    /*
+     * This is one of the rarer cases where the arguments we pass to the JNI
+     * side have little relation to the signature of the actual target
+     * function. In this case, the first argument is a reference to the GDK
+     * lock used to permit multithreaded access to the GTK library.
+     */
+    private static native final void gtk_init(java.lang.Object lock, String[] args);
 
     /**
      * This method blocks, ie, it does not return until the GTK main loop is
@@ -100,8 +107,22 @@ public final class Gtk extends Glib
      * 
      * @since 4.0.0
      */
+    /*
+     * Note that although this code is marked as being within the Gdk$Lock,
+     * there is, in effect, a wait() within this call: as the GTK main loop
+     * cycles it releases the lock [via gdk_threads_leave()?] and then
+     * reestablishes [via gdk_threads_enter()? No matter - the custom lock
+     * functions get hit]. The effect is that the monitor on Gdk.lock is
+     * frequently relinquished, which is the behaviour that is expected if a
+     * piece of Java code object executes wait() within a monitor block. Which
+     * is exactly what we need! The only tiny hiccup is that the thread dump
+     * [via Ctrl+\] and debugger don't seem to quite realize that this thread
+     * no longer owns the lock.
+     */
     public static void main() {
-        gtk_main();
+        synchronized (Gdk.lock) {
+            gtk_main();
+        }
     }
 
     private static native final void gtk_main();
@@ -141,7 +162,9 @@ public final class Gtk extends Glib
      * </pre>
      */
     static final boolean eventsPending() {
-        return gtk_events_pending();
+        synchronized (Gdk.lock) {
+            return gtk_events_pending();
+        }
     }
 
     private static native final boolean gtk_events_pending();
@@ -162,7 +185,9 @@ public final class Gtk extends Glib
      *         no main loop running.
      */
     static final boolean mainIterationDo(boolean block) {
-        return gtk_main_iteration_do(block);
+        synchronized (Gdk.lock) {
+            return gtk_main_iteration_do(block);
+        }
     }
 
     private static native final boolean gtk_main_iteration_do(boolean blocking);

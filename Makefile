@@ -136,13 +136,13 @@ build/headers-generate: $(SOURCES_JNI)
 		$(shell echo $? | sed -e 's/src\/bindings\///g' -e 's/mockup\/bindings\///g' -e 's/\.c//g' -e 's/\//\./g' )
 	touch $@
 
-tmp/objects/%.o: src/jni/%.c
+tmp/objects/%.o: src/jni/%.c src/jni/bindings_java.h
 	@if [ ! -d $(@D) ] ; then echo "MKDIR     $(@D)" ; mkdir -p $(@D) ; fi
 	echo "$(CC_CMD) $@"
 	$(CCACHE) $(CC) $(GTK_CFLAGS) -Itmp/include -o $@ -c $<
 
 
-tmp/objects/%.o: src/bindings/%.c
+tmp/objects/%.o: src/bindings/%.c src/jni/bindings_java.h
 	@if [ ! -d $(@D) ] ; then echo "MKDIR     $(@D)" ; mkdir -p $(@D) ; fi
 	@echo "$(CC_CMD) $@"
 	$(CCACHE) $(CC) $(GTK_CFLAGS) -Itmp/include -o $@ -c $<

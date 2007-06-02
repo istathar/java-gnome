@@ -26,25 +26,33 @@ final class GtkFileChooser extends Plumbing
     private GtkFileChooser() {}
 
     static final String getFilename(FileChooser self) {
-        return gtk_file_chooser_get_filename(pointerOf((Proxy) self));
+        synchronized (lock) {
+            return gtk_file_chooser_get_filename(pointerOf((Proxy) self));
+        }
     }
 
     private static native final String gtk_file_chooser_get_filename(long chooser);
 
     static final String getUri(FileChooser self) {
-        return gtk_file_chooser_get_uri(pointerOf((Proxy) self));
+        synchronized (lock) {
+            return gtk_file_chooser_get_uri(pointerOf((Proxy) self));
+        }
     }
 
     private static native final String gtk_file_chooser_get_uri(long chooser);
 
     static final boolean setCurrentFolder(FileChooser self, String filename) {
-        return gtk_file_chooser_set_current_folder(pointerOf((Proxy) self), filename);
+        synchronized (lock) {
+            return gtk_file_chooser_set_current_folder(pointerOf((Proxy) self), filename);
+        }
     }
 
     private static native final boolean gtk_file_chooser_set_current_folder(long chooser, String filename);
 
     static final String getCurrentFolder(FileChooser self) {
-        return gtk_file_chooser_get_current_folder(pointerOf((Proxy) self));
+        synchronized (lock) {
+            return gtk_file_chooser_get_current_folder(pointerOf((Proxy) self));
+        }
     }
 
     private static native final String gtk_file_chooser_get_current_folder(long chooser);

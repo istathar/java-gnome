@@ -24,7 +24,9 @@ final class GtkVBox extends Plumbing
     private GtkVBox() {}
 
     static final long createVBox(boolean homogeneous, int spacing) {
-        return gtk_vbox_new(homogeneous, spacing);
+        synchronized (lock) {
+            return gtk_vbox_new(homogeneous, spacing);    
+        }
     }
 
     private static native final long gtk_vbox_new(boolean homogeneous, int spacing);

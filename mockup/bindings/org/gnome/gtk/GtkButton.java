@@ -25,31 +25,41 @@ final class GtkButton extends Plumbing
     private GtkButton() {}
 
     static final long createButton() {
-        return gtk_button_new();
+        synchronized (lock) {
+            return gtk_button_new();
+        }
     }
 
     private static native final long gtk_button_new();
 
     static final long createButtonWithLabel(String label) {
-        return gtk_button_new_with_label(label);
+        synchronized (lock) {
+            return gtk_button_new_with_label(label);
+        }
     }
 
     private static native final long gtk_button_new_with_label(String label);
 
     static final void setLabel(Button self, String label) {
-        gtk_button_set_label(pointerOf(self), label);
+        synchronized (lock) {
+            gtk_button_set_label(pointerOf(self), label);
+        }
     }
 
     private static final native void gtk_button_set_label(long button, String label);
 
     static final String getLabel(Button self) {
-        return gtk_button_get_label(pointerOf(self));
+        synchronized (lock) {
+            return gtk_button_get_label(pointerOf(self));
+        }
     }
 
     private static final native String gtk_button_get_label(long button);
 
     static final void setRelief(Button self, ReliefStyle newstyle) {
-        gtk_button_set_relief(pointerOf(self), numOf(newstyle));
+        synchronized (lock) {
+            gtk_button_set_relief(pointerOf(self), numOf(newstyle));
+        }
     }
 
     private static native final void gtk_button_set_relief(long button, int newstyle);

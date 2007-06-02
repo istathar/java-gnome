@@ -124,6 +124,20 @@ public abstract class Widget extends org.gnome.gtk.Object
         GtkWidget.connect(this, handler);
     }
 
+    public interface EXPOSE_EVENT extends GtkWidget.EXPOSE_EVENT
+    {
+        public boolean onExposeEvent(Widget source, Object event);
+    }
+
+    /**
+     * Hook up a handler to receive "expose-event" events on this Widget
+     * 
+     * @since 4.0.2
+     */
+    public void connect(EXPOSE_EVENT handler) {
+        GtkWidget.connect(this, handler);
+    }
+
     /*
      * Temporary: testing full downcasting.
      */

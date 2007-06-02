@@ -24,19 +24,25 @@ final class GtkProgressBar extends Plumbing
     private GtkProgressBar() {}
 
     static final long createProgressBar() {
-        return gtk_progress_bar_new();
+        synchronized (lock) {
+            return gtk_progress_bar_new();
+        }
     }
 
     private static native final long gtk_progress_bar_new();
 
     static final void setText(ProgressBar self, String text) {
-        gtk_progress_bar_set_text(pointerOf(self), text);
+        synchronized (lock) {
+            gtk_progress_bar_set_text(pointerOf(self), text);
+        }
     }
 
     private static final native void gtk_progress_bar_set_text(long label, String text);
 
     static void setFraction(ProgressBar self, double fraction) {
-        gtk_progress_bar_set_fraction(pointerOf(self), fraction);
+        synchronized (lock) {
+            gtk_progress_bar_set_fraction(pointerOf(self), fraction);
+        }
     }
 
     private static native void gtk_progress_bar_set_fraction(long self, double fraction);

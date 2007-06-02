@@ -25,13 +25,17 @@ final class GtkWidget extends Plumbing
     private GtkWidget() {}
 
     static final void show(Widget self) {
-        gtk_widget_show(pointerOf(self));
+        synchronized (lock) {
+            gtk_widget_show(pointerOf(self));
+        }
     }
 
     private static native final void gtk_widget_show(long self);
 
     static final void showAll(Widget self) {
-        gtk_widget_show_all(pointerOf(self));
+        synchronized (lock) {
+            gtk_widget_show_all(pointerOf(self));
+        }
     }
 
     private static native final void gtk_widget_show_all(long self);
@@ -76,4 +80,16 @@ final class GtkWidget extends Plumbing
         return ((GtkWidget.FOCUS_OUT_EVENT) handler).onFocusOutEvent((Widget) objectFor(source), null); // FIXME
     }
 
+    interface EXPOSE_EVENT extends Signal
+    {
+        boolean onExposeEvent(Widget source, Object event);
+    }
+
+    static final void connect(Widget self, GtkWidget.EXPOSE_EVENT handler) {
+        connectSignal(self, handler, GtkWidget.class, "expose-event");
+    }
+
+    protected static final boolean handleExposeEvent(Signal handler, long source, long event) {
+        return ((GtkWidget.EXPOSE_EVENT) handler).onExposeEvent((Widget) objectFor(source), null); // FIXME
+    }
 }
