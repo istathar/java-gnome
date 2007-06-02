@@ -1,5 +1,5 @@
 /*
- * WorkerThreading.java
+ * WorkerThreads.java
  *
  * Copyright (c) 2006-2007 Operational Dynamics Consulting Pty Ltd
  * 
@@ -22,7 +22,7 @@ import org.gnome.gtk.Window;
  * Experiment class. If you run this in a terminal, say with
  * 
  * <pre>
- * java -classpath tmp/tests:tmp/gtk-4.0.jar -Djava.library.path=tmp/ -ea WorkerTiming
+ * java -classpath tmp/tests:tmp/gtk-4.0.jar -Djava.library.path=tmp/ -ea WorkerThreads
  * </pre>
  * 
  * you can press Ctrl+\ to get the thread dump to study the lock contention
@@ -31,13 +31,13 @@ import org.gnome.gtk.Window;
  * 
  * @author Andrew Cowie
  */
-public final class WorkerTiming implements Runnable
+public final class WorkerThreads implements Runnable
 {
     /**
      * Simple reference to the created class that can be used when this is
      * blocked.
      */
-    private static WorkerTiming self;
+    private static WorkerThreads self;
 
     private final Label l;
 
@@ -45,7 +45,7 @@ public final class WorkerTiming implements Runnable
 
     private int j;
 
-    private WorkerTiming() {
+    private WorkerThreads() {
         final Window w;
         final VBox x;
 
@@ -87,7 +87,7 @@ public final class WorkerTiming implements Runnable
     public static void main(String[] args) {
         Gtk.init(args);
 
-        new WorkerTiming();
+        new WorkerThreads();
 
         Gtk.main();
 
