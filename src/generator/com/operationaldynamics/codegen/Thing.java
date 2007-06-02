@@ -51,6 +51,12 @@ public abstract class Thing
     String cType;
 
     /**
+     * Whether or not this Thing is actually a fake or is otherwise a
+     * prohibited type.
+     */
+    boolean blacklisted;
+
+    /**
      * All Things, with the excpetion of the FundamentalThings representing
      * primative types, need to know where they slot in.
      */
@@ -63,6 +69,7 @@ public abstract class Thing
         this.nativeType = nativeType;
         this.jniType = jniType;
         this.cType = gType;
+        this.blacklisted = false;
     }
 
     /**
@@ -70,6 +77,10 @@ public abstract class Thing
      * so that clone() can instatiate them.
      */
     protected Thing() {}
+
+    public boolean isBlacklisted() {
+        return blacklisted;
+    }
 
     private static HashMap things;
 
@@ -100,6 +111,11 @@ public abstract class Thing
         register(new FundamentalThing("gboolean", "boolean", "boolean", "jboolean"));
         register(new FundamentalThing("gfloat", "float", "float", "jfloat"));
         register(new FundamentalThing("gdouble", "double", "double", "jdouble"));
+        
+        /*
+         * We have no need for GType in java-gnome 4.0
+         */
+        register(new BlacklistedThing("GType"));
 
         register(new OutParameterFundamentalThing("gint*", "int[]", "int[]", "jintArray"));
         register(new OutParameterFundamentalThing("guint*", "int[]", "int[]", "jintArray"));
@@ -128,6 +144,8 @@ public abstract class Thing
 
         // for cosmetic purposes (sorting includes)
         register(new ObjectThing("Signal", "org.gnome.glib", "", "Signal"));
+        register(new ObjectThing("Blacklist", "org.freedesktop.bindings", "", "BlacklistedMethodError"));
+        register(new ObjectThing("FIXME", "org.freedesktop.bindings", "", "FIXME"));
 
         /*
          * FIXME! Weirdo cases we haven't figured out what to do with yet.
@@ -157,9 +175,10 @@ public abstract class Thing
         register(new BlacklistedThing("GtkMenuDetachFunc"));
         register(new BlacklistedThing("GdkFilterFunc"));
         register(new BlacklistedThing("GtkCellLayoutDataFunc"));
+        register(new BlacklistedThing("GtkTreeSelectionFunc"));
 
         register(new BlacklistedThing("GClosure*"));
-        
+
         /*
          * These seem to be motif-isms.
          */
@@ -172,7 +191,6 @@ public abstract class Thing
         register(new FixmeThing("GtkTooltips**"));
         register(new FixmeThing("GtkWidget**"));
         register(new FixmeThing("GError**"));
-        register(new FixmeThing("PangoFontFamily***"));
 
         register(new FixmeThing("GdkKeymapKey**"));
         register(new FixmeThing("GdkPoint**"));
@@ -184,7 +202,6 @@ public abstract class Thing
         register(new FixmeThing("GdkModifierType*"));
         register(new FixmeThing("GtkPackType*"));
         register(new FixmeThing("PangoTabAlign*"));
-        
 
         /*
          * An array of outparameters? Make it stop!
@@ -192,6 +209,7 @@ public abstract class Thing
         register(new BlacklistedThing("gint**"));
         register(new BlacklistedThing("guint**"));
         register(new FixmeThing("PangoTabAlign**"));
+        register(new FixmeThing("PangoFontFamily***"));
 
         /*
          * From gdk_draw_rgb_image(): "The pixel data, represented as packed
@@ -202,7 +220,7 @@ public abstract class Thing
          * From gdk_property_get(), which is marked "don't use"
          */
         register(new BlacklistedThing("guchar**"));
-        
+
         /*
          * GList/GSList and related typedefs... FIXME change this when we
          * properly map the list and array returns.
@@ -225,7 +243,7 @@ public abstract class Thing
         register(new BlacklistedThing("cairo_t*"));
         register(new BlacklistedThing("cairo_surface_t*"));
         register(new BlacklistedThing("cairo_font_options_t*"));
-        
+
         /*
          * And what are...
          */
@@ -233,6 +251,13 @@ public abstract class Thing
         register(new BlacklistedThing("GtkFilePath**"));
         register(new BlacklistedThing("GtkFileSystemGetInfoCallback"));
         register(new BlacklistedThing("GtkFileSystemGetFolderCallback"));
+
+        /*
+         * NOTE: I stopped here, and switched to Thing.lookup() createing
+         * BlacklistThings automatically on encountering a missing type. That
+         * probably means almost all of the above can go away. To be
+         * continued!
+         */
     }
 
     public static void register(Thing t) {
@@ -248,7 +273,7 @@ public abstract class Thing
      * <code>gType</code>
      */
     public static Thing lookup(String gType) {
-        Thing stored, dupe;
+        Thing stored, dupe, black;
         String bareGType;
 
         /*
@@ -257,35 +282,47 @@ public abstract class Thing
 
         stored = (Thing) things.get(gType);
 
+        if (stored != null) {
+            return stored;
+        }
+
         /*
          * ...but not if it needs a const Thing variant, and one hasn't been
          * created yet. So strip off the "const-" prefix, and look up the
-         * type. If we're still stuck, then that is indeed fatal, otherwise
-         * create a new Thing to represent the const case.
+         * type.
          */
 
-        if (stored == null) {
-            if (gType.startsWith("const-")) {
-                bareGType = gType.substring(6);
-                stored = (Thing) things.get(bareGType);
+        if (gType.startsWith("const-")) {
+            bareGType = gType.substring(6);
+            stored = (Thing) things.get(bareGType);
 
-                if (stored == null) {
-                    throw new IllegalStateException("\nYou've asked for the Thing corresponding to \""
-                            + gType + "\"\n, but nothing is registered for \"" + bareGType
-                            + "\" so we're stuck.");
-                }
-
+            if (stored != null) {
                 dupe = stored.createConstVariant();
 
                 register(dupe);
                 return dupe;
-            } else {
-                throw new IllegalStateException("\nYou've asked for the Thing corresponding to \""
-                        + gType + "\", but it isn't registered.");
+            }
+        } else if (gType.endsWith("*")) {
+            bareGType = gType.substring(0, gType.length() - 1);
+            stored = (Thing) things.get(bareGType);
+
+            if (stored != null) {
+                dupe = stored.createOutVariant();
+
+                register(dupe);
+                return dupe;
             }
         }
 
-        return stored;
+        /*
+         * If we're still stuck, then that is would be fatal, except that we
+         * create a dummy type as a placeholder so we can proceed with the
+         * bindings generation without total closure.
+         */
+        System.err.println("Warning: no type data for " + gType + ", blacklisting");
+        black = new BlacklistedThing(gType);
+        register(black);
+        return black;
     }
 
     /**
@@ -357,7 +394,41 @@ public abstract class Thing
         t.javaType = this.javaType;
         t.jniType = this.jniType;
         t.nativeType = this.nativeType;
+        t.blacklisted = this.blacklisted;
 
         return t;
     }
+
+    /**
+     * FIXME This is still a work in progress; for now these are marked as
+     * blacklisted.
+     * 
+     * @return
+     */
+    private Thing createOutVariant() {
+        Thing t;
+
+        try {
+            t = (Thing) this.getClass().newInstance();
+        } catch (InstantiationException ie) {
+            throw new RuntimeException("No nullary constructor available in " + this.getClass() + "?",
+                    ie);
+        } catch (IllegalAccessException iae) {
+            throw new RuntimeException("Constructor " + this.getClass() + "() private?", iae);
+        }
+
+        t.bindingsClass = this.bindingsClass;
+        t.bindingsPackage = this.bindingsPackage;
+        t.gType = (this.gType + "*").intern();
+        t.cType = t.gType;
+        t.javaType = this.javaType;
+        t.jniType = this.jniType;
+        t.nativeType = this.nativeType;
+
+        // FIXME REMOVE FIXME REMOVE FIXME REMOVE FIXME
+        t.blacklisted = true;
+
+        return t;
+    }
+
 }

@@ -55,6 +55,11 @@ abstract class FunctionGenerator extends Generator
     protected final String[] parameterNames;
 
     /**
+     * If a blacklistedType type is detected in this block, set it here.
+     */
+    private Thing blacklistedType;
+
+    /**
      * 
      * @param data
      *            the information about the class to which the block we are
@@ -91,6 +96,8 @@ abstract class FunctionGenerator extends Generator
             parameterTypes[i] = Thing.lookup(gParameters[i][0]);
             parameterNames[i] = toCamel(gParameters[i][1]);
         }
+
+        blacklistedType = null;
     }
 
     protected void translationMethodDeclaration(PrintWriter out) {
@@ -114,10 +121,22 @@ abstract class FunctionGenerator extends Generator
         }
 
         out.print(")");
-        out.print(" {\n");
+    }
+
+    protected void translationMethodThrowBlacklisted(PrintWriter out) {
+        out.print(" throws BlacklistedMethodError {\n");
+
+        out.print("        ");
+        out.print("throw new BlacklistedMethodError(\"");
+        out.print(blacklistedType.gType);
+        out.print("\");\n");
+
+        out.print("}\n");
     }
 
     protected void translationMethodConversionCode(PrintWriter out) {
+        out.print(" {\n");
+
         /*
          * Declare translation variables as necessary
          */
@@ -421,8 +440,34 @@ abstract class FunctionGenerator extends Generator
         out.print("}\n");
     }
 
+    /**
+     * Quickly scan the type information to see if there is a blacklistedType
+     * type present. If so, we use that to output a throws declaration instead
+     * of a real method block. As this gets called twice, we could cache this,
+     * but whatever.
+     */
+    private boolean blockContainsBlacklistedThings() {
+        if (returnType.blacklisted) {
+            blacklistedType = returnType;
+            return true;
+        }
+        for (int i = 0; i < parameterTypes.length; i++) {
+            if (parameterTypes[i].blacklisted) {
+                blacklistedType = parameterTypes[i];
+                return true;
+            }
+        }
+        return false;
+    }
+
     public void writeTranslationCode(final PrintWriter out) {
         translationMethodDeclaration(out);
+
+        if (blockContainsBlacklistedThings()) {
+            translationMethodThrowBlacklisted(out);
+            return;
+        }
+
         translationMethodConversionCode(out);
         translationMethodNativeCall(out);
         translationMethodReturnCode(out);
@@ -433,6 +478,10 @@ abstract class FunctionGenerator extends Generator
     }
 
     public void writeJniCode(final PrintWriter out) {
+        if (blockContainsBlacklistedThings()) {
+            return;
+        }
+
         jniFunctionDeclaration(out);
         jniFunctionConversionCode(out);
         jniFunctionLibraryCall(out);

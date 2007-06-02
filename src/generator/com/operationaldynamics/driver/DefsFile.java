@@ -75,7 +75,7 @@ public final class DefsFile
     /**
      * Iterate over all the Blocks in this DefsFile and return a Set with the
      * Thing for each one. Assumes all types already registered. This is used
-     * to come up with the required set of Java import statements.
+     * to come up with the required set of Java import statements, see {@link 
      */
     public Set usesTypes() {
         final Set types;
@@ -94,8 +94,14 @@ public final class DefsFile
                 if (t instanceof FundamentalThing) {
                     continue;
                 }
+
                 // As a Set it won't do duplicates. Ta-da.
-                types.add(t);
+                if (t.isBlacklisted()) {
+                    types.add(Thing.lookup("Blacklist"));
+                    types.add(Thing.lookup("FIXME"));
+                } else {
+                    types.add(t);
+                }
             }
         }
 

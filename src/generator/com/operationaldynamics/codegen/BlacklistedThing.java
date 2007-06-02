@@ -11,17 +11,33 @@
 package com.operationaldynamics.codegen;
 
 /**
- * Types that are blacklisted for either code generator or java-gnome architectural reasons.
- * The example that led to the creation of this Thing category were function pointers, which
- * we don't have a representation for yet.
+ * Types that are blacklisted. This could be hard coded for either code
+ * generator or java-gnome architectural reasons, but in all likelihood it is
+ * because we haven't the faintest idea what this type is yet due to lacking
+ * defs data or lacking Fundamental declarations. Note that this will be
+ * mapped as {@link org.freedesktop.bindings.FIXME} which is about as clear an
+ * indication as you could ask for that it's foobarred.
+ * 
+ * <p>
+ * <i>The example that led to the creation of this Thing category were
+ * function pointers, which we don't have a representation for yet.</i>
  * 
  * @author Andrew Cowie
  */
-public class BlacklistedThing extends FundamentalThing
+public class BlacklistedThing extends Thing
 {
     public BlacklistedThing(String gType) {
-        super(gType, "long", "long", "jlong");
+        super(gType, "org.freedesktop.bindings", "", "FIXME", "java.lang.Object", "");
+        this.blacklisted = true;
     }
 
     protected BlacklistedThing() {}
+
+    String translationToJava(String name) {
+        return name;
+    }
+
+    String translationToNative(String name) {
+        return name;
+    }
 }

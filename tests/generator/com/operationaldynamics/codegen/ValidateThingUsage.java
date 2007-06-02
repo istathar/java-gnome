@@ -99,4 +99,28 @@ public final class ValidateThingUsage extends ValidateDefsParsing
         again = Thing.lookup("const-GtkButton*");
         assertSame(variant, again);
     }
+
+    public final void testCreateOutVariant() {
+        final Thing normal, variant, again;
+
+        normal = Thing.lookup("GtkButton*");
+
+        assertEquals("GtkButton*", normal.gType);
+        assertEquals("GtkButton*", normal.cType);
+
+        /*
+         * Ok, let's see it make the out-parameter variant Thing
+         */
+
+        variant = Thing.lookup("GtkButton**");
+        assertEquals("GtkButton**", variant.gType);
+        assertEquals("GtkButton**", variant.cType);
+
+        /*
+         * Make sure it doesn't create another one!
+         */
+
+        again = Thing.lookup("GtkButton**");
+        assertSame(variant, again);
+    }
 }

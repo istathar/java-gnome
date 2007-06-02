@@ -13,18 +13,15 @@ package com.operationaldynamics.codegen;
 /**
  * FIXME! Types that are legit but that we simply don't know what to do with
  * yet, either in the terms of code generator itself or more likely in the
- * architecture of java-gnome as a whole.
+ * architecture of java-gnome as a whole. <b>These are known cases that WILL
+ * be fixed in due course</b>.
  * 
  * @author Andrew Cowie
  */
-/*
- * FIXME! In general, these are pointers, so pretend for now. Perhaps the real
- * solution will be to create a new final subclass of Proxy.
- */
-public class FixmeThing extends FundamentalThing
+public class FixmeThing extends BlacklistedThing
 {
     public FixmeThing(String gType) {
-        super(gType, "long", "long", "jlong");
+        super(gType);
     }
 
     protected FixmeThing() {}
