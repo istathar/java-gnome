@@ -111,21 +111,17 @@ public abstract class Thing
         register(new FundamentalThing("gboolean", "boolean", "boolean", "jboolean"));
         register(new FundamentalThing("gfloat", "float", "float", "jfloat"));
         register(new FundamentalThing("gdouble", "double", "double", "jdouble"));
-        
-        /*
-         * We have no need for GType in java-gnome 4.0
-         */
-        register(new BlacklistedThing("GType"));
 
+        /*
+         * Out parameters for fundamental types are special cases, probably,
+         * so we will continue to register their information here for now.
+         */
         register(new OutParameterFundamentalThing("gint*", "int[]", "int[]", "jintArray"));
         register(new OutParameterFundamentalThing("guint*", "int[]", "int[]", "jintArray"));
         register(new OutParameterFundamentalThing("gfloat*", "float[]", "float[]", "jfloatArray"));
         register(new OutParameterFundamentalThing("gdouble*", "double[]", "double[]", "jdoubleArray"));
         register(new OutParameterFundamentalThing("gboolean*", "boolean[]", "boolean[]", "jbooleanArray"));
-
-        // FIXME String[] is a common return type, so out parameter is
-        // probably not the way to deal with it.
-        register(new OutParameterFundamentalThing("gchar**", "String[]", "String[]", "jobjectArray"));
+        // and so on
 
         /*
          * The kludge of repeating certain basic types is here because Owen
@@ -138,11 +134,21 @@ public abstract class Thing
         register(new FundamentalThing("char*", "String", "String", "jstring"));
         register(new OutParameterFundamentalThing("int*", "int[]", "int[]", "jintArray"));
 
-        // because there is (by design) no .defs data for GObject
+        /*
+         * Types with are either already defined by the java-gnome
+         * architecture and for which (by design) there is no .defs data, or
+         * those for which we have no need at all (ie GType).
+         */
+
         register(new ObjectThing("GObject*", "org.gnome.glib", "GObject", "Object"));
         register(new ObjectThing("GValue*", "org.gnome.glib", "GValue", "Value"));
+        register(new BlacklistedThing("GClosure*"));
+        register(new BlacklistedThing("GType"));
 
-        // for cosmetic purposes (sorting includes)
+        /*
+         * Types we register purely for the cosmetic purposes of including in
+         * the sorted includes declarations
+         */
         register(new ObjectThing("Signal", "org.gnome.glib", "", "Signal"));
         register(new ObjectThing("Blacklist", "org.freedesktop.bindings", "", "BlacklistedMethodError"));
         register(new ObjectThing("FIXME", "org.freedesktop.bindings", "", "FIXME"));
@@ -161,55 +167,10 @@ public abstract class Thing
         register(new FixmeThing("GdkAtom*"));
 
         /*
-         * Function pointers, which strangely don't have * symbols. FUTURE
-         * these really are blacklisted for now.
-         */
-
-        register(new BlacklistedThing("AtkFocusHandler"));
-        register(new BlacklistedThing("PangoAttrFilterFunc"));
-        register(new BlacklistedThing("PangoAttrDataCopyFunc"));
-        register(new BlacklistedThing("GDestroyNotify"));
-        register(new BlacklistedThing("GtkDestroyNotify"));
-        register(new BlacklistedThing("PangoFontsetForeachFunc"));
-        register(new BlacklistedThing("GtkMenuPositionFunc"));
-        register(new BlacklistedThing("GtkMenuDetachFunc"));
-        register(new BlacklistedThing("GdkFilterFunc"));
-        register(new BlacklistedThing("GtkCellLayoutDataFunc"));
-        register(new BlacklistedThing("GtkTreeSelectionFunc"));
-
-        register(new BlacklistedThing("GClosure*"));
-
-        /*
          * These seem to be motif-isms.
          */
         register(new BlacklistedThing("GdkWMDecoration*"));
         register(new BlacklistedThing("GdkWMFunction"));
-
-        /*
-         * Out-parameter Proxies? Oh, joy
-         */
-        register(new FixmeThing("GtkTooltips**"));
-        register(new FixmeThing("GtkWidget**"));
-        register(new FixmeThing("GError**"));
-
-        register(new FixmeThing("GdkKeymapKey**"));
-        register(new FixmeThing("GdkPoint**"));
-        register(new FixmeThing("GdkDrawable**"));
-
-        /*
-         * Out-parameter enums and flags? Grr
-         */
-        register(new FixmeThing("GdkModifierType*"));
-        register(new FixmeThing("GtkPackType*"));
-        register(new FixmeThing("PangoTabAlign*"));
-
-        /*
-         * An array of outparameters? Make it stop!
-         */
-        register(new BlacklistedThing("gint**"));
-        register(new BlacklistedThing("guint**"));
-        register(new FixmeThing("PangoTabAlign**"));
-        register(new FixmeThing("PangoFontFamily***"));
 
         /*
          * From gdk_draw_rgb_image(): "The pixel data, represented as packed
@@ -230,14 +191,6 @@ public abstract class Thing
         register(new FixmeThing("AtkAttributeSet*"));
 
         /*
-         * FIXME And what on earth do we do with things that really ARE array
-         * returns? Probably whatever solution we cook up for generally
-         * handling GList and friends will apply to arrays as well.
-         */
-        register(new FixmeThing("AtkTextRange**"));
-        register(new FixmeThing("GtkAccelGroupEntry*"));
-
-        /*
          * FUTURE no Cairo bindings, yet
          */
         register(new BlacklistedThing("cairo_t*"));
@@ -245,7 +198,7 @@ public abstract class Thing
         register(new BlacklistedThing("cairo_font_options_t*"));
 
         /*
-         * And what are...
+         * And what on earth are...
          */
         register(new BlacklistedThing("GtkFileSystemVolume*"));
         register(new BlacklistedThing("GtkFilePath**"));
@@ -253,11 +206,26 @@ public abstract class Thing
         register(new BlacklistedThing("GtkFileSystemGetFolderCallback"));
 
         /*
-         * NOTE: I stopped here, and switched to Thing.lookup() createing
-         * BlacklistThings automatically on encountering a missing type. That
-         * probably means almost all of the above can go away. To be
-         * continued!
+         * Dealing with out-parameters is now handled by lookup() and
+         * createOutVariant() in this class, so the manual declarations we had
+         * been accumulating are no longer included. As we were pushing
+         * through the full suite of .defs data, however, numerous comments
+         * were made which are preserved here:
+         * 
+         * FIXME Out-parameter Proxies? Oh, joy
+         * 
+         * FIXME Out-parameter enums and flags? Grr
+         * 
+         * FIXME An array of outparameters? Make it stop!
+         * 
+         * Clearly, there is further work to be done in this regard. Finally,
+         * 
+         * FIXME String[] is a common return type, so out-parameter is
+         * probably not the way to deal with it. But on the other hand, arrays
+         * _are_ how we deal with out-parameters, so perhaps this will turn
+         * out to be close to what we want in the end after all.
          */
+        register(new OutParameterFundamentalThing("gchar**", "String[]", "String[]", "jobjectArray"));
     }
 
     public static void register(Thing t) {

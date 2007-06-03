@@ -16,7 +16,8 @@ package com.operationaldynamics.codegen;
  * @author Andrew Cowie
  */
 /*
- * I can't say I'm thrilled about the name of this class.
+ * This class may be replaced by internal capability (a flag perhaps) in
+ * FundamentalThing or it may be joined by OutParameterObjectThing, etc.
  */
 public class OutParameterFundamentalThing extends FundamentalThing
 {
