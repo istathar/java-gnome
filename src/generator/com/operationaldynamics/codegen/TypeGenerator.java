@@ -167,8 +167,11 @@ abstract class TypeGenerator extends Generator
     protected void publicClassJavadocComment(final PrintWriter out) {
         out.print("/*\n");
         out.print(" * FIXME this is a placeholder stub for what will become the public API for\n");
-        out.print(" * this type. Replace this comment with appropriate javadoc including\n");
-        out.print(" * @author and @since tags.\n");
+        out.print(" * this type. Replace this comment with appropriate javadoc including author\n");
+        out.print(" * and since tags. Note that the class may need to be made abstract, implement\n");
+        out.print(" * interfaces, or even have its parent changed. No API stability guarantees\n");
+        out.print(" * are made about this class until it has been reviewed by a hacker and this\n");                
+        out.print(" * comment has been replaced.\n");
         out.print(" */\n");
     }
 
