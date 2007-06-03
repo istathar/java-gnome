@@ -12,6 +12,7 @@
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.FilenameFilter;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
@@ -101,7 +102,7 @@ import com.operationaldynamics.driver.ImproperDefsFileException;
 public class BindingsGenerator
 {
     public static void main(String[] args) throws IOException {
-        demoRunGeneratorOutputToFiles();
+        runGeneratorOutputToFiles(new File("src/defs/"), new File("generated/bindings/"));
     }
 
     /**
@@ -109,19 +110,16 @@ public class BindingsGenerator
      * parser and subsequent runs of the bindings code generators, but it is
      * still an intermediate form.
      */
-    private static void demoRunGeneratorOutputToFiles() {
+    private static void runGeneratorOutputToFiles(final File sourceDir, final File outputDir) {
         Block[] blocks;
         DefsParser parser;
-        File dir;
         File[] files;
         DefsLineNumberReader in;
         DefsFile data;
         List all;
         Iterator iter;
 
-        dir = new File("src/defs/");
-
-        files = dir.listFiles(new FilenameFilter() {
+        files = sourceDir.listFiles(new FilenameFilter() {
             public boolean accept(File dir, String name) {
                 if (name.endsWith(".defs")) {
                     return true;
@@ -170,30 +168,43 @@ public class BindingsGenerator
          */
 
         for (iter = all.iterator(); iter.hasNext();) {
-            PrintWriter out;
+            String packageAndClassName;
+            File transTarget, jniTarget;
+            PrintWriter trans, jni;
 
             data = (DefsFile) iter.next();
 
-            // TODO use data.getTranslationTargetName(); until then,
-            out = new PrintWriter(new BufferedWriter(new OutputStreamWriter(System.out)), true);
+            packageAndClassName = data.getType().fullyQualifiedTranslationClassName().replace('.', '/');
+            transTarget = new File(outputDir, packageAndClassName + ".java");
+            jniTarget = new File(outputDir, packageAndClassName + ".c");
+
+            if (!transTarget.getParentFile().isDirectory()) {
+                transTarget.getParentFile().mkdirs();
+            }
 
             try {
-                data.generateTranslationLayer(out);
+                trans = new PrintWriter(new BufferedWriter(new FileWriter(transTarget)));
+                jni = new PrintWriter(new BufferedWriter(new FileWriter(jniTarget)));
+            } catch (IOException ioe) {
+                System.err.println("How come we can't a file for writing?\n" + ioe);
+                return;
+            }
+
+            try {
+                data.generateTranslationLayer(trans);
             } catch (UnsupportedOperationException uoe) {
                 // act to remove that file? Or close it off, or...
             }
 
             try {
-                data.generateJniLayer(out);
+                data.generateJniLayer(jni);
             } catch (UnsupportedOperationException uoe) {
                 // act to remove the file in the event there was nothing
                 // printed?
             }
 
-            /*
-             * Don't close stdout! :)
-             */
-            // out.close();
+            trans.close();
+            jni.close();
         }
     }
 }

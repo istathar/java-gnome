@@ -399,4 +399,20 @@ public abstract class Thing
         return t;
     }
 
+    /**
+     * The name of the class that will contain the generated translation layer
+     * code. For example, GdkWindow return "org.gnome.gdk.GdkWindow". This is
+     * used by the BindingsGenerator to figure out where to create the output
+     * code.
+     */
+    public String fullyQualifiedTranslationClassName() {
+        StringBuffer buf;
+
+        buf = new StringBuffer();
+        buf.append(bindingsPackage);
+        buf.append(".");
+        buf.append(bindingsClass);
+
+        return buf.toString().intern();
+    }
 }
