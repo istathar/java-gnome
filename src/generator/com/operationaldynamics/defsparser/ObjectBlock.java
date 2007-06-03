@@ -46,6 +46,10 @@ public class ObjectBlock extends TypeBlock
         this.parent = parent;
     }
 
+    protected final void setImplements(final String impl) {
+    // TODO Sebastian can take care of this.
+    }
+
     public Thing createThing() {
         return new ObjectThing(addPointerSymbol(cName), moduleToJavaPackage(inModule), cName, blockName);
     }

@@ -72,6 +72,11 @@ public abstract class FunctionBlock extends Block
         this.returnType = returnType;
     }
 
+    /*
+     * Not modelled in java-gnome at this time
+     */
+    protected final void setVarargs(final String value) {}
+
     /**
      * Only the TypeBlock class hierarchy can create and return Things that
      * match a given Block.

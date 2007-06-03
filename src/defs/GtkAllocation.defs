@@ -1,0 +1,11 @@
+(define-boxed Allocation
+  (in-module "Gtk")
+  (c-name "GtkAllocation")
+  (fields
+    '("gint" "x")
+    '("gint" "y")
+    '("gint" "width")
+    '("gint" "height")
+  )
+)
+

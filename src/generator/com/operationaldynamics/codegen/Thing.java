@@ -88,11 +88,13 @@ public abstract class Thing
         things = new HashMap(400);
 
         register(new FundamentalThing("none", "void", "void", "void"));
+        register(new FundamentalThing("gchar", "char", "char", "jchar"));
+        register(new FundamentalThing("guchar", "char", "char", "jchar"));
         register(new FundamentalThing("gunichar", "char", "char", "jchar"));
         register(new FundamentalThing("gchar*", "String", "String", "jstring"));
 
         /*
-         * A certain class of bugs arse from discarding the most significant
+         * A certain class of bugs arise from discarding the most significant
          * bit in the unsigned integers but in practice it never seems to be a
          * problem. Nevertheless, this is where to fix it if a problem crops
          * up.
@@ -106,6 +108,7 @@ public abstract class Thing
         register(new FundamentalThing("guint16", "char", "char", "jchar"));
         register(new FundamentalThing("gint32", "int", "int", "jint"));
         register(new FundamentalThing("guint32", "int", "int", "jint"));
+        register(new FundamentalThing("gint64", "long", "long", "jlong"));
         register(new FundamentalThing("glong", "long", "long", "jlong"));
         register(new FundamentalThing("gulong", "long", "long", "jlong"));
         register(new FundamentalThing("gboolean", "boolean", "boolean", "jboolean"));
@@ -134,6 +137,9 @@ public abstract class Thing
         register(new FundamentalThing("char*", "String", "String", "jstring"));
         register(new OutParameterFundamentalThing("int*", "int[]", "int[]", "jintArray"));
 
+        // is this actually correct?
+        register(new FundamentalThing("time_t", "long", "long", "jlong"));
+        
         /*
          * Types with are either already defined by the java-gnome
          * architecture and for which (by design) there is no .defs data, or
