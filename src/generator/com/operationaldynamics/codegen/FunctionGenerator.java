@@ -460,6 +460,16 @@ abstract class FunctionGenerator extends Generator
         return false;
     }
 
+    /**
+     * See {@link DefsFile#generatePublicLayer(PrintWriter)} for a discussion
+     * of why this is not to be touched. I'm serious. Don't even think about
+     * it.
+     */
+    public final void writePublicCode(final PrintWriter out) {
+        System.err.println("Not paying attention, are we? Abort.");
+        System.exit(2);
+    }
+
     public void writeTranslationCode(final PrintWriter out) {
         translationMethodDeclaration(out);
 

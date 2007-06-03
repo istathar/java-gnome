@@ -55,6 +55,6 @@ public class ObjectBlock extends TypeBlock
     }
 
     public Generator createGenerator(final DefsFile data) {
-        return new ObjectGenerator(data);
+        return new ObjectGenerator(data, addPointerSymbol(parent));
     }
 }

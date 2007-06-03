@@ -39,6 +39,8 @@ public abstract class Generator
         this.data = data;
     }
 
+    public abstract void writePublicCode(PrintWriter out);
+
     /**
      * Generate Java code!
      */

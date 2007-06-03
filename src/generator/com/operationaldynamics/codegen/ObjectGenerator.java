@@ -10,6 +10,8 @@
  */
 package com.operationaldynamics.codegen;
 
+import java.io.PrintWriter;
+
 import com.operationaldynamics.driver.DefsFile;
 
 /**
@@ -22,7 +24,45 @@ import com.operationaldynamics.driver.DefsFile;
  */
 public class ObjectGenerator extends TypeGenerator
 {
-    public ObjectGenerator(DefsFile data) {
+    private final Thing parentType;
+
+    public ObjectGenerator(DefsFile data, String parentGType) {
         super(data);
+        if (parentGType == null) {
+            parentType = Thing.lookup("GObject*");
+        } else {
+            parentType = Thing.lookup(parentGType);
+        }
+    }
+
+    protected void publicPackageAndImports(final PrintWriter out) {
+        out.print("package ");
+        out.print(objectType.bindingsPackage);
+        out.print(";\n\n");
+
+        out.print("import ");
+        out.print(parentType.bindingsPackage);
+        out.print(".");
+        out.print(parentType.javaType);
+        out.print(";\n\n");
+    }
+
+    protected void publicClassDeclaration(final PrintWriter out) {
+        out.print("public class ");
+        out.print(objectType.javaType);
+        out.print(" extends ");
+        out.print(parentType.javaType);
+        out.print("\n{\n");
+
+        out.print("    ");
+        out.print("protected ");
+        out.print(objectType.javaType);
+        out.print("(long pointer) {\n");
+        out.print("        ");
+        out.print("super(pointer);\n");
+        out.print("    ");
+        out.print("}\n");
+
+        out.print("}\n");
     }
 }

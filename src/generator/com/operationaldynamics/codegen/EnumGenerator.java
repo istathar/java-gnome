@@ -53,10 +53,13 @@ public class EnumGenerator extends TypeGenerator
         }
     }
 
-    public void writeTranslationCode(PrintWriter out) {
+    public void writeTranslationCode(final PrintWriter out) {
         super.writeTranslationCode(out);
+        writeTranslationValues(out);
+    }
 
-        /* and write the values */
+    // This is overridden by FlagsGenerator...
+    protected void writeTranslationValues(final PrintWriter out) {
         for (int i = 0; i < values.length; ++i) {
 
             out.print("\n");
@@ -76,5 +79,31 @@ public class EnumGenerator extends TypeGenerator
      */
     public void writeJniCode(PrintWriter out) {
         throw new UnsupportedOperationException("No JNI code necessary for enums");
+    }
+
+    protected void publicPackageAndImports(final PrintWriter out) {
+        out.print("package ");
+        out.print(objectType.bindingsPackage);
+        out.print(";\n\n");
+
+        out.print("import org.freedesktop.bindings.Constant;\n\n");
+    }
+
+    protected void publicClassDeclaration(final PrintWriter out) {
+        out.print("public final class ");
+        out.print(objectType.javaType);
+        out.print(" extends Constant");
+        out.print("\n{\n");
+
+        out.print("    ");
+        out.print("private ");
+        out.print(objectType.javaType);
+        out.print("(int ordinal, String nickname) {\n");
+        out.print("        ");
+        out.print("super(ordinal, nickname);\n");
+        out.print("    ");
+        out.print("}\n");
+
+        out.print("}\n");
     }
 }

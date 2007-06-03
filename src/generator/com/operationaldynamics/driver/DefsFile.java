@@ -109,6 +109,45 @@ public final class DefsFile
     }
 
     /**
+     * Generate a stub for the public API class that corresponds to a type
+     * defined in a given .defs file so that the generated translation layer
+     * classes will compile.
+     * 
+     * <p>
+     * <b>WARNING</b>
+     * <p>
+     * This is <b>not</b> for regular use. It is only here for the very rare
+     * occasions when we get a new set of .defs data describing an entirely
+     * new native library which we are adding to java-gnome for the first
+     * time. In such an event, it will be used <b>once and only once</b> to
+     * create the necessary stubs.
+     * 
+     * <p>
+     * <i>The presence of this method and associated hooks in TypeGenerators
+     * are not an invitation to automatically write public API methods. Those
+     * <b>must</b> be written by hand: only a human can make the appropirate
+     * choices about whether to expose a method in the java-gnome's public
+     * API, and with what signature. This is a defining characteristic for
+     * achieving our project's approachability goal; coverage alone is
+     * meaningless (and indeed harmful) if not done with exquisite care.</i>
+     * 
+     * @param out
+     *            the destination for the generated code.
+     */
+    /*
+     * In other words, if you're not the maintainer of java-gnome, don't
+     * touch. I'm really not kidding. Any patches changing the visibility of
+     * this method or adding to its cability will be immediately rejected
+     * without further discussion. Thank you.
+     */
+    public final void generatePublicLayer(final PrintWriter out) {
+        Generator gen;
+
+        gen = blocks[0].createGenerator(this);
+        gen.writePublicCode(out);
+    }
+
+    /**
      * Generate the Java code that goes with a given .defs file. This is the
      * main entry point into the Java side of the code generator classes, and
      * runs through the sequence of iterating across the Blocks and

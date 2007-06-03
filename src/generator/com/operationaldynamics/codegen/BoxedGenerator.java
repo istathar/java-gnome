@@ -17,6 +17,8 @@ package com.operationaldynamics.codegen;
  * with the development of this part of the codegen.
  */
 
+import java.io.PrintWriter;
+
 import com.operationaldynamics.driver.DefsFile;
 
 /**
@@ -26,10 +28,53 @@ import com.operationaldynamics.driver.DefsFile;
  * include statements, care of its parent, {@link TypeGenerator}.
  * 
  * @author Vreixo Formoso
+ * @author Andrew Cowie
  */
 public class BoxedGenerator extends TypeGenerator
 {
     public BoxedGenerator(DefsFile data) {
         super(data);
+    }
+
+    protected void publicPackageAndImports(final PrintWriter out) {
+        out.print("package ");
+        out.print(objectType.bindingsPackage);
+        out.print(";\n\n");
+
+        out.print("import org.gnome.glib.Boxed;\n\n");
+    }
+
+    protected void publicClassDeclaration(final PrintWriter out) {
+        out.print("public final class ");
+        out.print(objectType.javaType);
+        out.print(" extends Boxed");
+        out.print("\n{\n");
+
+        out.print("    ");
+        out.print("protected ");
+        out.print(objectType.javaType);
+        out.print("(long pointer) {\n");
+        out.print("        ");
+        out.print("super(pointer);\n");
+        out.print("    ");
+        out.print("}\n");
+
+        out.print("\n");
+        out.print("    ");
+        out.print("protected void release() {\n");
+        out.print("        ");
+        out.print("/*\n");
+        out.print("        ");
+        out.print(" * FIXME This class's release() method must be implemented to call\n");
+        out.print("        ");
+        out.print(" * the correct free() or unref() function before it can be used.\n");
+        out.print("        ");
+        out.print("*/\n");
+        out.print("        ");
+        out.print("throw new UnsupportedOperationException(\"Not yet implemented\");\n");
+        out.print("    ");
+        out.print("}\n");
+
+        out.print("}\n");
     }
 }

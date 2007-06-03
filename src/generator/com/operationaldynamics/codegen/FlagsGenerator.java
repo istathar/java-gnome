@@ -24,7 +24,7 @@ import com.operationaldynamics.driver.DefsFile;
  * @author Vreixo Formoso
  * @author Andrew Cowie
  */
-public class FlagsGenerator extends TypeGenerator
+public class FlagsGenerator extends EnumGenerator
 {
     private String[][] values;
 
@@ -38,7 +38,7 @@ public class FlagsGenerator extends TypeGenerator
      *            The different values enum could take.
      */
     public FlagsGenerator(DefsFile data, String[][] values) {
-        super(data);
+        super(data, values);
 
         this.values = new String[values.length][2];
         for (int i = 0; i < values.length; ++i) {
@@ -47,9 +47,7 @@ public class FlagsGenerator extends TypeGenerator
         }
     }
 
-    public void writeTranslationCode(PrintWriter out) {
-        super.writeTranslationCode(out);
-
+    protected void writeTranslationValues(PrintWriter out) {
         for (int i = 0; i < values.length; ++i) {
 
             /*

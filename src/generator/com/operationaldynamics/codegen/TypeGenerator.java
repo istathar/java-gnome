@@ -43,14 +43,21 @@ abstract class TypeGenerator extends Generator
         this.objectType = data.getType();
     }
 
+    public void writePublicCode(final PrintWriter out) {
+        commonFileHeader(out, objectType.javaType + ".java", true);
+        publicPackageAndImports(out);
+        publicClassJavadocComment(out);
+        publicClassDeclaration(out);
+    }
+
     public void writeTranslationCode(final PrintWriter out) {
-        commonFileHeader(out, objectType.bindingsClass + ".java");
+        commonFileHeader(out, objectType.bindingsClass + ".java", false);
         packageStatementAndImports(out);
         translationClassDeclaration(out);
     }
 
     public void writeJniCode(final PrintWriter out) {
-        commonFileHeader(out, objectType.bindingsClass + ".c");
+        commonFileHeader(out, objectType.bindingsClass + ".c", false);
         hashIncludeStatements(out);
     }
 
@@ -60,13 +67,16 @@ abstract class TypeGenerator extends Generator
      * @param fileName
      *            this is just cosmetic, but by convention we put the filename
      *            at the top of our source files.
+     * @param stub
+     *            if this is actually a stub of a public API class, rather
+     *            than a "generated" translation or JNI later file.
      */
     /*
      * I truly cannot believe that I just converted a here doc into a series
      * of single line strings with \n at the end of each. Oh well, it's done
      * now, and this was really the only long block of text.
      */
-    protected static void commonFileHeader(PrintWriter out, String fileName) {
+    protected static void commonFileHeader(PrintWriter out, String fileName, boolean stub) {
         out.print("/*\n");
         out.print(" * ");
         out.print(fileName);
@@ -78,6 +88,12 @@ abstract class TypeGenerator extends Generator
         out.print(" * version 2\" plus the \"Classpath Exception\" (you may link to this code as a\n");
         out.print(" * library into other programs provided you don't make a derivation of it).\n");
         out.print(" * See the LICENCE file for the terms governing usage and redistribution.\n");
+
+        if (stub) {
+            out.print(" */\n");
+            return;
+        }
+
         out.print(" *\n");
         out.print(" *                      THIS FILE IS GENERATED CODE!\n");
         out.print(" *\n");
@@ -141,4 +157,20 @@ abstract class TypeGenerator extends Generator
         out.print(encodeJavaClassName(objectType.bindingsPackage, objectType.bindingsClass));
         out.print(".h\"\n");
     }
+
+    /*
+     * Code to output public stubs. DO NOT TOUCH
+     */
+
+    protected abstract void publicPackageAndImports(final PrintWriter out);
+
+    protected void publicClassJavadocComment(final PrintWriter out) {
+        out.print("/*\n");
+        out.print(" * FIXME this is a placeholder stub for what will become the public API for\n");
+        out.print(" * this type. Replace this comment with appropriate javadoc including\n");
+        out.print(" * @author and @since tags.\n");
+        out.print(" */\n");
+    }
+
+    protected abstract void publicClassDeclaration(final PrintWriter out);
 }
