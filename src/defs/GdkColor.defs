@@ -1,17 +1,6 @@
 (define-boxed Color
   (in-module "Gdk")
   (c-name "GdkColor")
-  (fields
-    '("guint32" "pixel")
-    '("guint16" "red")
-    '("guint16" "green")
-    '("guint16" "blue")
-  )
-)
-
-(define-boxed Color
-  (in-module "Gdk")
-  (c-name "GdkColor")
   (gtype-id "GDK_TYPE_COLOR")
   (copy-func "gdk_color_copy")
   (release-func "gdk_color_free")

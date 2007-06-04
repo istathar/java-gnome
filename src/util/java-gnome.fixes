@@ -195,50 +195,11 @@
   (c-name "GdkRgbCmap")
 )
 
-(define-object FontFamily
-  (in-module "Pango")
-  (parent "GObject")
-  (c-name "PangoFontFamily")
-)
-
-(define-object FontFace
-  (in-module "Pango")
-  (parent "GObject")
-  (c-name "PangoFontFace")
-)
-
-(define-object Fontset
-  (in-module "Pango")
-  (parent "GObject")
-  (c-name "PangoFontset")
-)
 
 ;; FIXME many fields!
 (define-boxed WindowAttr
   (in-module "Gdk")
   (c-name "GdkWindowAttr")
-)
-
-(define-boxed Rectangle
-  (in-module "Gdk")
-  (c-name "GdkRectangle")
-  (fields
-    '("gint" "x")
-    '("gint" "y")
-    '("gint" "width")
-    '("gint" "height")
-  )
-)
-
-(define-boxed Color
-  (in-module "Gdk")
-  (c-name "GdkColor")
-  (fields
-    '("guint32" "pixel")
-    '("guint16" "red")
-    '("guint16" "green")
-    '("guint16" "blue")
-  )
 )
 
 (define-boxed Allocation

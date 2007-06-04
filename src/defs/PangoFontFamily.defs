@@ -2,12 +2,6 @@
   (in-module "Pango")
   (parent "GObject")
   (c-name "PangoFontFamily")
-)
-
-(define-object FontFamily
-  (in-module "Pango")
-  (parent "GObject")
-  (c-name "PangoFontFamily")
   (gtype-id "PANGO_TYPE_FONT_FAMILY")
 )
 
