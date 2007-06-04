@@ -88,8 +88,8 @@ public class Fixed extends Container
      *            vertical position for the Widget being added
      * @since 4.0.1
      */
-    public void putWidget(Widget widget, int x, int y) {
-        GtkFixed.putWidget(this, widget, x, y);
+    public void put(Widget widget, int x, int y) {
+        GtkFixed.put(this, widget, x, y);
     }
 
     /**
@@ -97,8 +97,8 @@ public class Fixed extends Container
      * location.
      * 
      * <p>
-     * Calling <code>moveWidget()</code> will cause GTK to inherently redraw
-     * the entire Fixed surface. If you have many Widgets in a Fixed, this can
+     * Calling <code>move()</code> will cause GTK to inherently redraw the
+     * entire Fixed surface. If you have many Widgets in a Fixed, this can
      * lead to flickering. Consider using {@link Layout} or
      * {@link DrawingArea} instead.
      * 
@@ -114,7 +114,7 @@ public class Fixed extends Container
      *            the vertical position to move <code>widget</code> to.
      * @since 4.0.1
      */
-    public void moveWidget(Widget widget, int x, int y) {
-        GtkFixed.moveWidget(this, widget, x, y);
+    public void move(Widget widget, int x, int y) {
+        GtkFixed.move(this, widget, x, y);
     }
 }
