@@ -59,6 +59,7 @@
   (of-object "GtkTreeModel")
   (c-name "gtk_tree_model_get_iter_first")
   (return-type "gboolean")
+  (deprecated "Replaced by gtk_iter_first")
   (parameters
     '("GtkTreeIter*" "iter")
   )
