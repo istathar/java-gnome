@@ -13,6 +13,7 @@ package com.operationaldynamics.defsparser;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.operationaldynamics.codegen.InterfaceThing;
 import com.operationaldynamics.codegen.Thing;
 
 /**
@@ -33,8 +34,7 @@ public abstract class FunctionBlock extends Block
      * Strictly speaking, this isn't here, but down in MethodBlock and
      * VirtualBlock. But it needs to be figured out before FunctionGenerator
      * can be used in a (define-function ...), and it's present for all the
-     * sub block types. As well, by having it here, we can enforce the '*'
-     * business in setOfObject() so that lookups are consistent.
+     * sub block types.
      */
     protected String ofObject;
 
@@ -91,13 +91,19 @@ public abstract class FunctionBlock extends Block
      */
     public List usesTypes() {
         List types;
+        Thing t;
 
         types = new ArrayList(parameters.length + 1);
 
         types.add(Thing.lookup(returnType));
 
         for (int i = 0; i < parameters.length; i++) {
-            types.add(Thing.lookup(parameters[i][0]));
+            t = Thing.lookup(parameters[i][0]);
+            types.add(t);
+
+            if (t instanceof InterfaceThing) {
+                types.add(Thing.lookup("Proxy"));
+            }
         }
 
         return types;

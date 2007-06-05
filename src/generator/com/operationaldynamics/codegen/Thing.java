@@ -156,6 +156,7 @@ public abstract class Thing
          * the sorted includes declarations
          */
         register(new ObjectThing("Signal", "org.gnome.glib", "", "Signal"));
+        register(new ObjectThing("Proxy", "org.freedesktop.bindings", "", "Proxy"));
         register(new ObjectThing("Blacklist", "org.freedesktop.bindings", "", "BlacklistedMethodError"));
         register(new ObjectThing("FIXME", "org.freedesktop.bindings", "", "FIXME"));
 
@@ -293,7 +294,7 @@ public abstract class Thing
          * create a dummy type as a placeholder so we can proceed with the
          * bindings generation without total closure.
          */
-        System.err.println("Warning: no type data for " + gType + ", blacklisting");
+        System.out.println("Warning: no type data for " + gType + ", blacklisting");
         black = new BlacklistedThing(gType);
         register(black);
         return black;
@@ -420,5 +421,9 @@ public abstract class Thing
         buf.append(bindingsClass);
 
         return buf.toString().intern();
+    }
+    
+    public String toString() {
+        return gType;
     }
 }

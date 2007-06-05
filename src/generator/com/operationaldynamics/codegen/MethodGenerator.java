@@ -21,7 +21,7 @@ import com.operationaldynamics.driver.DefsFile;
  * 
  * <pre>
  * public setLabel(String label) {
- *     GtkButton.setLabel(label);
+ *     GtkButton.setLabel(this, label);
  * }
  * </pre>
  * 
@@ -37,32 +37,9 @@ public class MethodGenerator extends FunctionGenerator
      * @param gReturnType
      * @param gFunctionName
      * @param gParameters
-     *            a reference to self will be inserted at the head of the
-     *            supplied parameter list.
-     * 
      */
     public MethodGenerator(final DefsFile data, final String blockName, final String gReturnType,
             final String gFunctionName, final String[][] gParameters) {
-        super(data, blockName, gReturnType, gFunctionName, prependReferenceToSelf(data.getType().gType,
-                gParameters));
-    }
-
-    /**
-     * Load the reference-to-self that all "method" functions start with onto
-     * the beginning of the parameters array.
-     */
-    static String[][] prependReferenceToSelf(String self, String[][] parameters) {
-        String[][] target;
-
-        if (parameters == null) {
-            parameters = new String[][] {};
-        }
-        target = new String[parameters.length + 1][2];
-        System.arraycopy(parameters, 0, target, 1, parameters.length);
-
-        target[0][0] = self;
-        target[0][1] = "self";
-
-        return target;
+        super(data, blockName, gReturnType, gFunctionName, gParameters);
     }
 }

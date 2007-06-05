@@ -33,22 +33,44 @@ import com.operationaldynamics.driver.DefsFile;
  * )
  * </pre>
  * 
+ * In a sense, the definition of a method in G terms is a function whose first
+ * parameter is a pointer to the object that the function will act on. This is
+ * implicit in the .defs data so we prepend a reference to self to the
+ * parameter list as we construct the object to represent this block.
+ * 
  * @author Andrew Cowie
  */
 class MethodBlock extends FunctionBlock
 {
     /*
      * NOTE: ofObject should be here (by the defs file legacy), but its needed
-     * at FunctionGenerator level, and VirtualsBlocks have it too, so push it
-     * all the way to Block - after all, we can't compose even an object until
-     * we know what class it goes into.
+     * at FunctionGenerator level, and VirtualsBlocks have it too.
      */
 
     MethodBlock(final String blockName, final List characteristics, final List parameters) {
         super(blockName, characteristics, parameters);
+
+        prependReferenceToSelf();
     }
 
     public Generator createGenerator(final DefsFile data) {
         return new MethodGenerator(data, blockName, returnType, cName, parameters);
     }
+
+    /**
+     * Load the reference-to-self that all "method" functions start with onto
+     * the beginning of the parameters List.
+     */
+    private void prependReferenceToSelf() {
+        String[][] target;
+
+        target = new String[parameters.length + 1][2];
+        System.arraycopy(parameters, 0, target, 1, parameters.length);
+
+        target[0][0] = addPointerSymbol(ofObject);
+        target[0][1] = "self";
+
+        parameters = target;
+    }
+
 }

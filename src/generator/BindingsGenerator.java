@@ -15,7 +15,6 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.FilenameFilter;
 import java.io.IOException;
-import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -148,17 +147,17 @@ public class BindingsGenerator
 
                 in.close();
             } catch (IOException ioe) {
-                System.err.println("I/O problem when trying to parse " + files[i]);
-                System.err.println(ioe.getMessage());
-                System.err.println("[continuing next file]\n");
+                System.out.println("I/O problem when trying to parse " + files[i]);
+                System.out.println(ioe.getMessage());
+                System.out.println("[continuing next file]\n");
                 continue;
             } catch (ImproperDefsFileException idfe) {
-                System.err.println("Couldn't get sufficient information from " + files[i] + ":");
-                System.err.println(idfe.getMessage());
-                System.err.println("[continuing next file]\n");
+                System.out.println("Couldn't get sufficient information from " + files[i] + ":");
+                System.out.println(idfe.getMessage());
+                System.out.println("[continuing next file]\n");
                 continue;
             } finally {
-                System.err.flush();
+                System.out.flush();
             }
         }
 
