@@ -136,9 +136,7 @@ public class VirtualGenerator extends FunctionGenerator
         out.print(") objectFor(source)");
 
         for (int i = 0; i < parameterTypes.length; i++) {
-            out.print(", (");
-            out.print(parameterTypes[i].javaType);
-            out.print(") ");
+            out.print(", ");
             out.print(parameterTypes[i].translationToJava(parameterNames[i]));
         }
 

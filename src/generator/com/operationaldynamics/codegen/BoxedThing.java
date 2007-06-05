@@ -15,7 +15,6 @@ package com.operationaldynamics.codegen;
  */
 public class BoxedThing extends ProxiedThing
 {
-
     public BoxedThing(String gType, String bindingsPackage, String bindingsClass, String javaType) {
         super(gType, bindingsPackage, bindingsClass, javaType);
     }
@@ -23,6 +22,6 @@ public class BoxedThing extends ProxiedThing
     protected BoxedThing() {}
 
     String translationToJava(String name) {
-        return "boxedFor(" + name + ")";
+        return "(" + javaType + ") boxedFor(" + name + ")";
     }
 }

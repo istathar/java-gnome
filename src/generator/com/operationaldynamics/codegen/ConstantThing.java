@@ -22,20 +22,12 @@ public class ConstantThing extends Thing
     public ConstantThing(String gType, String javaPackage, String javaClass, String javaType) {
         super(gType, javaPackage, javaClass, javaType, "int", "jint");
     }
-    
+
     protected ConstantThing() {}
 
     String translationToJava(String name) {
-        StringBuffer buf;
-        buf = new StringBuffer("constantFor(");
-        buf.append(bindingsPackage);
-        buf.append(".");
-        buf.append(javaType);
-        buf.append(".class, ");
-        buf.append(name);
-        buf.append(")");
-
-        return buf.toString();
+        return "(" + javaType + ") constantFor(" + bindingsPackage + "." + javaType + ".class, " + name
+                + ")";
     }
 
     String translationToNative(String name) {

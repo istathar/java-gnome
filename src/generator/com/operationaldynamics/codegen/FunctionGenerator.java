@@ -188,9 +188,7 @@ abstract class FunctionGenerator extends Generator
         if (!returnType.nativeType.equals("void")) {
             out.print("\n");
             out.print("            ");
-            out.print("return (");
-            out.print(returnType.javaType);
-            out.print(") ");
+            out.print("return ");
             out.print(returnType.translationToJava("result"));
             out.print(";\n");
         }
