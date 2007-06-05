@@ -281,7 +281,7 @@ public class DefsParser
                     block = new ObjectBlock(name, characteristics, fields);
                     blocks.add(block);
                 } else if (phylum.equals("interface")) {
-                    block = new InterfaceBlock(name, characteristics, fields);
+                    block = new InterfaceBlock(name, characteristics);
                     blocks.add(block);
                 } else if (phylum.equals("method")) {
                     block = new MethodBlock(name, characteristics, parameters);

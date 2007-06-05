@@ -10,6 +10,7 @@
  */
 package com.operationaldynamics.defsparser;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.operationaldynamics.codegen.Generator;
@@ -26,6 +27,8 @@ import com.operationaldynamics.driver.DefsFile;
 public class ObjectBlock extends TypeBlock
 {
     protected String parent;
+
+    protected List interfaces;
 
     public ObjectBlock(final String blockName, final List characteristics, final List fields) {
         super(blockName, characteristics);
@@ -47,7 +50,10 @@ public class ObjectBlock extends TypeBlock
     }
 
     protected final void setImplements(final String impl) {
-    // TODO Sebastian can take care of this.
+        if (interfaces == null) {
+            interfaces = new ArrayList(1);
+        }
+        interfaces.add(impl);
     }
 
     public Thing createThing() {
@@ -55,6 +61,22 @@ public class ObjectBlock extends TypeBlock
     }
 
     public Generator createGenerator(final DefsFile data) {
-        return new ObjectGenerator(data, addPointerSymbol(parent));
+        return new ObjectGenerator(data, addPointerSymbol(parent), implementsToArray(interfaces));
+    }
+    
+    protected static String[] implementsToArray(List interfaces) {
+        String[] implemented;
+        int i;
+        
+        if (interfaces == null) {
+            return new String[0];
+        }
+        
+        implemented = new String[interfaces.size()];
+        for (i = 0; i < implemented.length; i++) {
+            implemented[i] = addPointerSymbol((String) interfaces.get(i));
+        }
+        
+        return implemented;
     }
 }

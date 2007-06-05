@@ -19,7 +19,7 @@ package org.gnome.gtk;
  * are made about this class until it has been reviewed by a hacker and this
  * comment has been replaced.
  */
-public class RecentChooserMenu extends Menu
+public class RecentChooserMenu extends Menu implements RecentChooser
 {
     protected RecentChooserMenu(long pointer) {
         super(pointer);

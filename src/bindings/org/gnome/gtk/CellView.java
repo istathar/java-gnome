@@ -19,7 +19,7 @@ package org.gnome.gtk;
  * are made about this class until it has been reviewed by a hacker and this
  * comment has been replaced.
  */
-public class CellView extends Widget
+public class CellView extends Widget implements CellLayout
 {
     protected CellView(long pointer) {
         super(pointer);

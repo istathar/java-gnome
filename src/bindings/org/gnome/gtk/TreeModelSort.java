@@ -21,7 +21,7 @@ import org.gnome.glib.Object;
  * are made about this class until it has been reviewed by a hacker and this
  * comment has been replaced.
  */
-public class TreeModelSort extends Object
+public class TreeModelSort extends Object implements TreeModel, TreeDragSource, TreeSortable
 {
     protected TreeModelSort(long pointer) {
         super(pointer);

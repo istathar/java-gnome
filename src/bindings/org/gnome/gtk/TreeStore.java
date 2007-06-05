@@ -21,7 +21,7 @@ import org.gnome.glib.Object;
  * are made about this class until it has been reviewed by a hacker and this
  * comment has been replaced.
  */
-public class TreeStore extends Object
+public class TreeStore extends Object implements TreeModel, TreeDragSource, TreeDragDest, TreeSortable
 {
     protected TreeStore(long pointer) {
         super(pointer);

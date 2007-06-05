@@ -19,7 +19,7 @@ package org.gnome.gtk;
  * are made about this class until it has been reviewed by a hacker and this
  * comment has been replaced.
  */
-public class FileChooserDialog extends Dialog
+public class FileChooserDialog extends Dialog implements FileChooser
 {
     protected FileChooserDialog(long pointer) {
         super(pointer);

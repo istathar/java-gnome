@@ -21,7 +21,7 @@ import org.gnome.glib.Object;
  * are made about this class until it has been reviewed by a hacker and this
  * comment has been replaced.
  */
-public class EntryCompletion extends Object
+public class EntryCompletion extends Object implements CellLayout
 {
     protected EntryCompletion(long pointer) {
         super(pointer);

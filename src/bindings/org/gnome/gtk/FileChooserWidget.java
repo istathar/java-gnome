@@ -19,7 +19,7 @@ package org.gnome.gtk;
  * are made about this class until it has been reviewed by a hacker and this
  * comment has been replaced.
  */
-public class FileChooserWidget extends VBox
+public class FileChooserWidget extends VBox implements FileChooser
 {
     protected FileChooserWidget(long pointer) {
         super(pointer);

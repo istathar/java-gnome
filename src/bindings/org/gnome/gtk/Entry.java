@@ -19,7 +19,7 @@ package org.gnome.gtk;
  * are made about this class until it has been reviewed by a hacker and this
  * comment has been replaced.
  */
-public class Entry extends Widget
+public class Entry extends Widget implements Editable, CellEditable
 {
     protected Entry(long pointer) {
         super(pointer);

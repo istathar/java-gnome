@@ -36,6 +36,6 @@ public class InterfaceBlock extends ObjectBlock
     }
 
     public Generator createGenerator(final DefsFile data) {
-        return new InterfaceGenerator(data, addPointerSymbol(parent));
+        return new InterfaceGenerator(data, addPointerSymbol(parent), implementsToArray(interfaces));
     }
 }

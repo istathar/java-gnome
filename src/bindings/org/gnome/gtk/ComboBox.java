@@ -19,7 +19,7 @@ package org.gnome.gtk;
  * are made about this class until it has been reviewed by a hacker and this
  * comment has been replaced.
  */
-public class ComboBox extends Bin
+public class ComboBox extends Bin implements CellEditable, CellLayout
 {
     protected ComboBox(long pointer) {
         super(pointer);

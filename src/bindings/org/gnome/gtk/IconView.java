@@ -19,7 +19,7 @@ package org.gnome.gtk;
  * are made about this class until it has been reviewed by a hacker and this
  * comment has been replaced.
  */
-public class IconView extends Container
+public class IconView extends Container implements CellLayout
 {
     protected IconView(long pointer) {
         super(pointer);

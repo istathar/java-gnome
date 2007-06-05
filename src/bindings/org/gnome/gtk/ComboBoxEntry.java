@@ -19,7 +19,7 @@ package org.gnome.gtk;
  * are made about this class until it has been reviewed by a hacker and this
  * comment has been replaced.
  */
-public class ComboBoxEntry extends ComboBox
+public class ComboBoxEntry extends ComboBox implements CellEditable, CellLayout
 {
     protected ComboBoxEntry(long pointer) {
         super(pointer);

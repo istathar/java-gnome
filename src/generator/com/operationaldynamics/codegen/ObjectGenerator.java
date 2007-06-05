@@ -26,13 +26,21 @@ public class ObjectGenerator extends TypeGenerator
 {
     protected Thing parentType;
 
-    public ObjectGenerator(DefsFile data, String parentGType) {
+    protected Thing[] implementedTypes;
+
+    public ObjectGenerator(DefsFile data, String parentGType, String[] implementedGInterfaces) {
         super(data);
         if (parentGType == null) {
             parentType = Thing.lookup("GObject*");
         } else {
             parentType = Thing.lookup(parentGType);
         }
+
+        implementedTypes = new Thing[implementedGInterfaces.length];
+        for (int i = 0; i < implementedGInterfaces.length; i++) {
+            implementedTypes[i] = Thing.lookup(implementedGInterfaces[i]);
+        }
+
     }
 
     protected void publicPackageAndImports(final PrintWriter out) {
@@ -56,6 +64,16 @@ public class ObjectGenerator extends TypeGenerator
         out.print(objectType.javaType);
         out.print(" extends ");
         out.print(parentType.javaType);
+
+        for (int i = 0; i < implementedTypes.length; i++) {
+            if (i == 0) {
+                out.print(" implements ");
+            } else {
+                out.print(", ");
+            }
+            out.print(implementedTypes[i].javaType);
+        }
+
         out.print("\n{\n");
 
         out.print("    ");

@@ -21,7 +21,7 @@ import org.gnome.glib.Object;
  * are made about this class until it has been reviewed by a hacker and this
  * comment has been replaced.
  */
-public class PrintOperation extends Object
+public class PrintOperation extends Object implements PrintOperationPreview
 {
     protected PrintOperation(long pointer) {
         super(pointer);

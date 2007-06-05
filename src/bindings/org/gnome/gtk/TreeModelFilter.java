@@ -21,7 +21,7 @@ import org.gnome.glib.Object;
  * are made about this class until it has been reviewed by a hacker and this
  * comment has been replaced.
  */
-public class TreeModelFilter extends Object
+public class TreeModelFilter extends Object implements TreeModel, TreeDragSource
 {
     protected TreeModelFilter(long pointer) {
         super(pointer);

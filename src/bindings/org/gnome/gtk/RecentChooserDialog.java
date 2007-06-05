@@ -19,7 +19,7 @@ package org.gnome.gtk;
  * are made about this class until it has been reviewed by a hacker and this
  * comment has been replaced.
  */
-public class RecentChooserDialog extends Dialog
+public class RecentChooserDialog extends Dialog implements RecentChooser
 {
     protected RecentChooserDialog(long pointer) {
         super(pointer);

@@ -16,8 +16,8 @@ import com.operationaldynamics.driver.DefsFile;
 
 public class InterfaceGenerator extends ObjectGenerator
 {
-    public InterfaceGenerator(DefsFile data, String parentGType) {
-        super(data, null);
+    public InterfaceGenerator(final DefsFile data, final String parentGType, final String[] implementedGInterfaces) {
+        super(data, null, implementedGInterfaces);
 
         if (parentGType == null) {
             parentType = null;
@@ -31,9 +31,15 @@ public class InterfaceGenerator extends ObjectGenerator
         out.print(objectType.javaType);
 
         if (parentType != null) {
-            out.print(" implements ");
+            out.print(" extends ");
             out.print(parentType.javaType);
         }
+        
+        for (int i = 0; i < implementedTypes.length; i++) {
+            out.print(", ");
+            out.print(implementedTypes[i].javaType);
+        }
+
         out.print("\n{\n}\n");
     }
 }
