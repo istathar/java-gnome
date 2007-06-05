@@ -377,3 +377,28 @@
   (return-type "GSList*")
 )
 
+(define-signal confirm_overwrite
+  (of-object "GtkFileChooser")
+  (return-type "GtkFileChooserConfirmation")
+)
+
+(define-signal current_folder_changed
+  (of-object "GtkFileChooser")
+  (return-type "none")
+)
+
+(define-signal file_activated
+  (of-object "GtkFileChooser")
+  (return-type "none")
+)
+
+(define-signal selection_changed
+  (of-object "GtkFileChooser")
+  (return-type "none")
+)
+
+(define-signal update_preview
+  (of-object "GtkFileChooser")
+  (return-type "none")
+)
+

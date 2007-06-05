@@ -131,6 +131,7 @@ abstract class FunctionGenerator extends Generator
         out.print(blacklistedType.gType);
         out.print("\");\n");
 
+        out.print("    ");
         out.print("}\n");
     }
 

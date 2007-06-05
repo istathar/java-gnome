@@ -300,7 +300,7 @@ public class DefsParser
                      */
                     block = new ConstructorBlock(name, characteristics, parameters);
                     blocks.add(block);
-                } else if (phylum.equals("virtual")) {
+                } else if ((phylum.equals("virtual")) || (phylum.equals("signal"))) {
                     block = new VirtualBlock(name, characteristics, parameters);
                     blocks.add(block);
                 } else if (phylum.equals("enum")) {

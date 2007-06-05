@@ -83,7 +83,11 @@ public class VirtualGenerator extends FunctionGenerator
 
     protected void translationMethodSuperCall(PrintWriter out) {
         out.print("        ");
-        out.print("connectSignal(self, handler, ");
+        out.print("connectSignal(");
+        if (proxyType instanceof InterfaceThing) {
+            out.print("(Object) ");
+        }
+        out.print("self, handler, ");
         out.print(proxyType.bindingsClass);
         out.print(".class, \"");
         out.print(cSignalName);
@@ -113,6 +117,14 @@ public class VirtualGenerator extends FunctionGenerator
         out.print(")");
         out.print(" {\n");
     }
+    
+    protected void receiverMethodConversionCode(PrintWriter out) {
+        if (!returnType.javaType.equals("void")) {
+            out.print("        ");
+            out.print(returnType.javaType);
+            out.print(" result;\n\n");
+        }
+    }
 
     /**
      * This is an ugly, complicated expression, but that's the way it is. Be
@@ -122,7 +134,7 @@ public class VirtualGenerator extends FunctionGenerator
         out.print("        ");
 
         if (!returnType.nativeType.equals("void")) {
-            out.print("return ");
+            out.print("result = ");
         }
 
         out.print("((");
@@ -141,9 +153,18 @@ public class VirtualGenerator extends FunctionGenerator
         }
 
         out.print(");\n");
+    }
+    
+    protected void receiverMethodReturnCode(PrintWriter out) {
+        if (!returnType.nativeType.equals("void")) {
+            out.print("\n");
+            out.print("        ");
+            out.print("return ");
+            out.print(returnType.translationToNative("result"));
+            out.print(";\n");
+        }
 
         out.print("    }\n");
-
     }
 
     protected void interfaceClassDeclaration(PrintWriter out) {
@@ -197,7 +218,9 @@ public class VirtualGenerator extends FunctionGenerator
         translationMethodSuperCall(out);
 
         receiverMethodDeclaration(out);
+        receiverMethodConversionCode(out);
         receiverMethodInvokeInstance(out);
+        receiverMethodReturnCode(out);
     }
 
     /*

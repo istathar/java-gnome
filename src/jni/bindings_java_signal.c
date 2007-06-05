@@ -2,7 +2,7 @@
  * bindings_java_signal.c
  *
  * Copyright (c) 1998-2005 The java-gnome Team
- * Copyright (c) 2006-     Operational Dynamics Consulting Pty Ltd
+ * Copyright (c) 2006-2007 Operational Dynamics Consulting Pty Ltd
  * 
  * The code in this file, and the library it is a part of, are made available
  * to you by the authors under the terms of the "GNU General Public Licence,
@@ -96,6 +96,8 @@ bindings_java_marshaller
 	// Return values, as necessary
 	jboolean _b;
 	gboolean b;
+	
+	jint _e;
 	
 	jstring _str;
 	gchar* str;
@@ -243,6 +245,16 @@ bindings_java_marshaller
 		
 		g_value_set_boolean(return_value, b);
 		break;
+
+	case 'I':
+		/*
+		 * enum return signals
+		 */
+		_e = (*env)->CallStaticIntMethodA(env, bjc->receiver, bjc->method, jargs);		
+		
+		g_value_set_enum(return_value, _e);
+		break;
+		
 		
 	case 'L':
 		/*
@@ -388,6 +400,15 @@ bindings_java_closure_new
 	switch(G_TYPE_FUNDAMENTAL(info.return_type)) {
 	case G_TYPE_BOOLEAN:
 		bjc->returnType = 'Z';
+      		break;
+
+	case G_TYPE_ENUM:
+		/*
+		 * If we run into a signal prototype that really does return
+		 * gint etc or a Flags this will need fixing. Until then, use
+		 * the integer type marker for enums (only).  
+		 */
+		bjc->returnType = 'I';
       		break;
       		
 	case G_TYPE_STRING:
