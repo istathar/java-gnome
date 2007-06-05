@@ -63,6 +63,7 @@ OBJECTS_C=$(shell echo $(SOURCES_C) | sed -e's/\.c/\.o/g' -e's/src\/bindings/tmp
 build/dirs: .config
 	@echo "MKDIR     temporary build directories"
 	-test -d build || mkdir build
+	-test -d generated/bindings || mkdir -p generated/bindings
 	-test -d tmp/bindings || mkdir -p tmp/bindings
 	-test -d tmp/generator || mkdir -p tmp/generator
 	-test -d tmp/native || mkdir -p tmp/native
@@ -303,6 +304,8 @@ dist: all
 	rm -r tmp/java-gnome-$(VERSION)
 
 clean:
+	@echo "RM        generated files"
+	rm -rf generated/bindings/*
 	@echo "RM        temporary files"
 	rm -rf build/* tmp/bindings/* tmp/include/* tmp/native/* tmp/objects/*
 	rm -f hs_err_*
@@ -318,7 +321,7 @@ distclean: clean
 	-rm -rf doc/api/*
 	-rm -f java-gnome-*.tar.bz2
 	@echo "RM        temporary directories"
-	-rm -rf tmp build
+	-rm -rf tmp build generated
 	@echo "RM        glade cruft"
 	find . -name '*.glade.bak' -o -name '*.gladep*' -type f | xargs rm -f
 
