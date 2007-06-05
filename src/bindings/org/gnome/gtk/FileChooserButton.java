@@ -54,7 +54,7 @@ public class FileChooserButton extends HBox implements FileChooser
      *            FileChooserButton.
      */
     public FileChooserButton(String title, FileChooserAction action) {
-        super(GtkFileChooserButton.createFileChooserButon(title, action));
+        super(GtkFileChooserButton.createFileChooserButton(title, action));
     }
 
     public String getFilename() {

@@ -13,6 +13,7 @@
   (return-type "GtkWidget*")
   (parameters
     '("const-gchar*" "title")
+    '("GtkFileChooserAction" "action")
   )
 )
 
