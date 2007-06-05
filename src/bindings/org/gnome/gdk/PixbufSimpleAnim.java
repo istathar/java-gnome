@@ -11,8 +11,6 @@
  */
 package org.gnome.gdk;
 
-import org.gnome.gdk.PixbufAnimation;
-
 /*
  * FIXME this is a placeholder stub for what will become the public API for
  * this type. Replace this comment with appropriate javadoc including author

@@ -11,8 +11,6 @@
  */
 package org.gnome.atk;
 
-import org.gnome.glib.Object;
-
 /*
  * FIXME this is a placeholder stub for what will become the public API for
  * this type. Replace this comment with appropriate javadoc including author
@@ -21,9 +19,6 @@ import org.gnome.glib.Object;
  * are made about this class until it has been reviewed by a hacker and this
  * comment has been replaced.
  */
-public class Component extends Object
+public interface Component
 {
-    protected Component(long pointer) {
-        super(pointer);
-    }
 }

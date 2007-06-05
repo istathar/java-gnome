@@ -11,8 +11,6 @@
  */
 package org.gnome.gtk;
 
-import org.gnome.gtk.ToggleButton;
-
 /*
  * FIXME this is a placeholder stub for what will become the public API for
  * this type. Replace this comment with appropriate javadoc including author

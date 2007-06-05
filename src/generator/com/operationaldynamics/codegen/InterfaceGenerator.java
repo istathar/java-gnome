@@ -1,0 +1,39 @@
+/*
+ * InterfaceGenerator.java
+ *
+ * Copyright (c) 2007 Operational Dynamics Consulting Pty Ltd
+ * 
+ * The code in this file, and the library it is a part of, are made available
+ * to you by the authors under the terms of the "GNU General Public Licence,
+ * version 2" See the LICENCE file for the terms governing usage and
+ * redistribution.
+ */
+package com.operationaldynamics.codegen;
+
+import java.io.PrintWriter;
+
+import com.operationaldynamics.driver.DefsFile;
+
+public class InterfaceGenerator extends ObjectGenerator
+{
+    public InterfaceGenerator(DefsFile data, String parentGType) {
+        super(data, null);
+
+        if (parentGType == null) {
+            parentType = null;
+        } else {
+            parentType = Thing.lookup(parentGType);
+        }
+    }
+
+    protected void publicClassDeclaration(final PrintWriter out) {
+        out.print("public interface ");
+        out.print(objectType.javaType);
+
+        if (parentType != null) {
+            out.print(" implements ");
+            out.print(parentType.javaType);
+        }
+        out.print("\n{\n}\n");
+    }
+}

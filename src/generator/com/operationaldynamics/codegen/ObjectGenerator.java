@@ -24,7 +24,7 @@ import com.operationaldynamics.driver.DefsFile;
  */
 public class ObjectGenerator extends TypeGenerator
 {
-    private final Thing parentType;
+    protected Thing parentType;
 
     public ObjectGenerator(DefsFile data, String parentGType) {
         super(data);
@@ -39,6 +39,10 @@ public class ObjectGenerator extends TypeGenerator
         out.print("package ");
         out.print(objectType.bindingsPackage);
         out.print(";\n\n");
+
+        if ((parentType == null) || (objectType.bindingsPackage.equals(parentType.bindingsPackage))) {
+            return;
+        }
 
         out.print("import ");
         out.print(parentType.bindingsPackage);
