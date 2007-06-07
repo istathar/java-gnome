@@ -11,6 +11,8 @@
  */
 package org.gnome.gtk;
 
+import java.net.URI;
+
 /*
  * FIXME this is a placeholder stub for what will become the public API for
  * this type. Replace this comment with appropriate javadoc including author
@@ -23,5 +25,29 @@ public class FileChooserDialog extends Dialog implements FileChooser
 {
     protected FileChooserDialog(long pointer) {
         super(pointer);
+    }
+
+    public String getCurrentFolder() {
+        // TODO method stub to satisfy interface to permit compilation.
+        return null;
+    }
+
+    public boolean setCurrentFolder(String directory) {
+        // TODO method stub to satisfy interface to permit compilation.
+        return false;
+    }
+
+    public String getFilename() {
+        // TODO method stub to satisfy interface to permit compilation.
+        return null;
+    }
+
+    public URI getURI() {
+        // TODO method stub to satisfy interface to permit compilation.
+        return null;
+    }
+
+    public void connect(FileChooser.SELECTION_CHANGED handler) {
+        // TODO method stub to satisfy interface to permit compilation.
     }
 }

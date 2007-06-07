@@ -129,7 +129,12 @@ public final class DefsFile
      * choices about whether to expose a method in the java-gnome's public
      * API, and with what signature. This is a defining characteristic for
      * achieving our project's approachability goal; coverage alone is
-     * meaningless (and indeed harmful) if not done with exquisite care.</i>
+     * meaningless (and indeed harmful) if not done with exquisite care. See
+     * {@link org.gnome.gtk.Button#setAlignmentX() Button's setAlignmentX()}
+     * (where we changed the method name slightly for good reason) and
+     * {@link org.gnome.gtk.FileChooser#getURI() FileChooser's getURI()} where
+     * we bridge from strings to a more appropriate Java type in the return
+     * value) as examples.</i>
      * 
      * @param out
      *            the destination for the generated code.
