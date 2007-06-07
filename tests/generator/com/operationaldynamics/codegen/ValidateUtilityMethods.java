@@ -37,26 +37,6 @@ public final class ValidateUtilityMethods extends TestCase
         assertEquals("createButton", munged2);
     }
 
-    public final void testMethodReferenceToSelfInsertion() {
-        String[][] input, output;
-
-        input = new String[][] {
-            new String[] {
-                    "const-gchar*", "label"
-            }
-        };
-        assertTrue(input.length == 1);
-        assertEquals("const-gchar*", input[0][0]);
-        assertEquals("label", input[0][1]);
-
-        output = MethodGenerator.prependReferenceToSelf("GtkButton*", input);
-        assertTrue(output.length == 2);
-        assertEquals("GtkButton*", output[0][0]);
-        assertEquals("self", output[0][1]);
-        assertEquals("const-gchar*", output[1][0]);
-        assertEquals("label", output[1][1]);
-    }
-
     public final void testThingTranslationCode() {
         FundamentalThing ft;
         ObjectThing ot;

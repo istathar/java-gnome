@@ -123,4 +123,21 @@ public class ValidateDefsParsing extends TestCase
         }
         assertNull(t);
     }
+    
+    public final void testMethodReferenceToSelfInsertion() {
+        Block[] results;
+        MethodBlock block; 
+
+        results = parser.parseData();
+
+        assertTrue(results[2] instanceof MethodBlock);
+
+        block = (MethodBlock) results[2];
+        
+        assertTrue(block.parameters.length == 2);
+        assertEquals("GtkButton*", block.parameters[0][0]);
+        assertEquals("self", block.parameters[0][1]);
+        assertEquals("const-gchar*", block.parameters[1][0]);
+        assertEquals("label", block.parameters[1][1]);
+    }
 }
