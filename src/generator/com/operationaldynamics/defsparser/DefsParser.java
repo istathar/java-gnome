@@ -89,7 +89,7 @@ public class DefsParser
         // __(c-name "gtk_button_new_with_label")
         // __(return-type "GtkWidget*")
         // __(return-type "const-gchar")
-        characteristicLine = Pattern.compile("^\\s+\\((\\S+)\\s+\"?([\\w# \\(\\)'/\\.\\-\\*]+)\"?\\)");
+        characteristicLine = Pattern.compile("^\\s+\\((\\S+)\\s+\"([\\w# \\(\\)'/\\.\\-\\*]+)\"\\)");
 
         /*
          * TODO: it's not entirely clear that we actually need to support
@@ -108,8 +108,20 @@ public class DefsParser
         // __(values
         valuesBegin = Pattern.compile("^\\s+\\(values");
 
+        /*
+         * FIXME The final .* excludes qualifying information as found in
+         * lines like the second following line; we need to figure out whether
+         * we need to capture and use this information; while defaul values
+         * are meaningless in Java (except in so far as advising that an
+         * overloaded public API method with less parameters and using that
+         * default might make sense), we'll need it for others (ie (null-ok),
+         * which would allow us to put an assert elsewhere, and (read-write)
+         * if we add it to struct fields to indicate that it's ok to create a
+         * setter)
+         */
         // ____'("const-gchar*" "label")
-        subCharacteristicsLine = Pattern.compile("^\\s+'?\\(\"?([\\w\\-\\*]+)\"?\\s+\"?([\\w]+)\"?\\)");
+        // ____'("GtkButtonsType" "buttons" (default "GTK_BUTTONS_NONE"))
+        subCharacteristicsLine = Pattern.compile("^\\s+'\\(\"([\\w\\-\\*]+)\"\\s+\"([\\w]+)\".*\\)");
 
         // __)
         subEnds = Pattern.compile("^\\s+\\)");

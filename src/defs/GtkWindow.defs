@@ -56,8 +56,8 @@
   (c-name "gtk_window_new")
   (caller-owns-return #t)
   (return-type "GtkWidget*")
-  (properties
-    '("type" (optional))
+  (parameters
+    '("GtkWindowType" "type")
   )
 )
 
