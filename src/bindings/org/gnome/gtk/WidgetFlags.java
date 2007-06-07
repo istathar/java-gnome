@@ -11,8 +11,6 @@
  */
 package org.gnome.gtk;
 
-import org.freedesktop.bindings.Constant;
-
 /*
  * FIXME this is a placeholder stub for what will become the public API for
  * this type. Replace this comment with appropriate javadoc including author
@@ -21,7 +19,15 @@ import org.freedesktop.bindings.Constant;
  * are made about this class until it has been reviewed by a hacker and this
  * comment has been replaced.
  */
-public final class WidgetFlags extends Constant
+/*
+ * This is a strange one. The GtkWidgetFlags definition starts at 1 << 4, and
+ * the macros which expose it are #defined to call GTK_OBJECT_FLAGS(), etc.
+ * The .defs data inherited from pygtk has GtkObject.flags() returning
+ * WidgetFlags, not ObjectFlags. Ultimately, that's what we want (no point in
+ * trying to override in Widget and having return type collisions), but we
+ * tweak the modelling somewhat by making this class extend ObjectFlags.
+ */
+public final class WidgetFlags extends ObjectFlags
 {
     private WidgetFlags(int ordinal, String nickname) {
         super(ordinal, nickname);

@@ -13,6 +13,17 @@ package org.gnome.gtk;
 
 import org.freedesktop.bindings.Constant;
 
+/**
+ * Flags in {@link Object}s.
+ * 
+ * <p>
+ * <i>At time of writing, this contained only internals to Gtk, none of which
+ * need exposure.</i>
+ * 
+ * @author Andrew Cowie
+ * @since 4.0.3
+ * @see WidgetFlags
+ */
 /*
  * FIXME this is a placeholder stub for what will become the public API for
  * this type. Replace this comment with appropriate javadoc including author
@@ -21,9 +32,14 @@ import org.freedesktop.bindings.Constant;
  * are made about this class until it has been reviewed by a hacker and this
  * comment has been replaced.
  */
-public final class ObjectFlags extends Constant
+/*
+ * See the comment in WidgetFlags at the class declaration for further
+ * details. This class is not really be necessary, but seems right for
+ * consistency.
+ */
+abstract class ObjectFlags extends Constant
 {
-    private ObjectFlags(int ordinal, String nickname) {
+    protected ObjectFlags(int ordinal, String nickname) {
         super(ordinal, nickname);
     }
 }
