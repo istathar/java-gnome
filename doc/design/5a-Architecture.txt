@@ -214,9 +214,7 @@ less guess work involved:
     }
 
 So, duh, if you're wrapping something that the generator spewed out as
-getLabel() you just call your method "`getLabel`" . And, (bonus points) we can
-**generate** unit tests that call the public API and expect the names to be
-correct. Whoa!
+getLabel() you just call your method "`getLabel`" .
 
 [For an example of places where we will want to diverge from slavish
 naming and be a bit more sensible, consider `getAlignment()` which has two

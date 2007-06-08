@@ -112,8 +112,8 @@ Pango
 lookupType
 Cowie
 GtkWindow
-getUri
 getURI
+getUri
 deref
 setPropertyBoolean
 IDE
@@ -294,8 +294,8 @@ IsSameObject
 glibj
 GUADEC
 methodName
-nsme
 nThe
+nsme
 ExceptionOccurred
 DataColumn
 php
@@ -468,8 +468,8 @@ Kedzierski
 vte
 testObjectNeverUsedIsRemoved
 xjf
-JavaDoc
 javadoc
+JavaDoc
 vhosts
 struct
 putWidget
@@ -603,8 +603,8 @@ accessors
 loadLibrary
 IllegalAccessException
 DesignConstraints
-pygtk
 pyGTK
+pygtk
 strfreev
 libglade
 TreeStore
