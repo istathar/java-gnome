@@ -300,9 +300,11 @@ sub check_runtime (\$$$$) {
 	}
 
 	my $output = `$program -version 2>&1 | grep '^java version'`;
-	if (!(($output =~ /^java version \"1\.4\.2/i) ||
-	      ($output =~ /^java version \"1\.5\./i)  ||
-	      ($output =~ /^java version \"1\.6\./i))) {
+	$output =~ s/java version \"(.*)\"/$1/g;
+	my @version = split(/[\.-]/, $output);
+	if($version[0] < 1 ||
+	   ($version[0] == 1 && ($version[1] < 4 ||
+	                         ($version[1] == 4 && $version[2] < 2)))) {
 		output "not >= 1.4.2\n";
 		$$scalarref = "";
 		return
