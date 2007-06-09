@@ -11,11 +11,11 @@
 
 import java.io.FileNotFoundException;
 
+import org.gnome.gdk.Event;
 import org.gnome.glade.Glade;
 import org.gnome.glade.Xml;
 import org.gnome.gtk.Gtk;
 import org.gnome.gtk.Label;
-import org.gnome.gtk.Object;
 import org.gnome.gtk.Widget;
 import org.gnome.gtk.Window;
 
@@ -40,8 +40,8 @@ public final class Designer
 
         w = (Window) glade.getWidget("simple");
 
-        w.connect(new Window.DELETE() {
-            public boolean onDeleteEvent(Widget source, Object event) {
+        w.connect(new Window.DELETE_EVENT() {
+            public boolean onDeleteEvent(Widget source, Event event) {
                 Gtk.mainQuit();
                 return false;
             }

@@ -11,18 +11,13 @@
  */
 package org.gnome.gtk;
 
-import org.gnome.gtk.Button;
-import org.gnome.gtk.Gtk;
-import org.gnome.gtk.Object;
-import org.gnome.gtk.ReliefStyle;
-import org.gnome.gtk.VBox;
-import org.gnome.gtk.Widget;
-import org.gnome.gtk.Window;
+import org.gnome.gdk.Event;
+import org.gnome.gdk.EventExpose;
 
 /**
- * Verify concurrent behaviour is correct.  We briefly had a tentative
+ * Verify concurrent behaviour is correct. We briefly had a tentative
  * architecture that evaluated what would happen of the GDK lock was released
- * while signal handlers were running.  This simple example that shows the
+ * while signal handlers were running. This simple example that shows the
  * problem cited by Owen Taylor as the reason that we can't do this. TODO this
  * class needs to be refactored as a unit test.
  * 
@@ -31,9 +26,11 @@ import org.gnome.gtk.Window;
 public final class ValidateThreadStability
 {
     VBox x1;
+
     VBox x2;
+
     BadThread thread;
-    
+
     private ValidateThreadStability() {
         final Window w;
 
@@ -42,39 +39,40 @@ public final class ValidateThreadStability
         x1 = new VBox(false, 3);
 
         w.add(x1);
-        
+
         x2 = new VBox(false, 0);
         x1.add(x2);
 
         w.setTitle("Exp");
         w.showAll();
 
-        w.connect(new Window.DELETE() {
-            public boolean onDeleteEvent(Widget source, Object event) {
+        w.connect(new Window.DELETE_EVENT() {
+            public boolean onDeleteEvent(Widget source, Event event) {
                 System.out.println("I was deleted!");
                 Gtk.mainQuit();
                 return false;
             }
         });
-        
-        x2.connect( new Widget.EXPOSE_EVENT() {
-            public boolean onExposeEvent(Widget source, Object event) {
+
+        x2.connect(new Widget.EXPOSE_EVENT() {
+            public boolean onExposeEvent(Widget source, EventExpose event) {
                 System.out.println("Expose event. VBOX");
                 Thread.yield();
                 return false;
             }
         });
-        
+
         w.showAll();
 
         thread = new BadThread();
         thread.setDaemon(true);
         thread.start();
-        
+
     }
 
-    class BadThread extends Thread {
-        
+    class BadThread extends Thread
+    {
+
         public void run() {
             while (true) {
                 Button b = new Button("Hello");
@@ -86,8 +84,7 @@ public final class ValidateThreadStability
             }
         }
     }
-    
-    
+
     public static void main(String[] args) {
         Gtk.init(args);
 

@@ -11,6 +11,8 @@
  */
 package org.gnome.gtk;
 
+import org.gnome.gdk.Event;
+
 /**
  * The top level Widget that contains other Widgets. Typical examples are
  * application windows, dialog boxes, and popup menus.
@@ -167,12 +169,12 @@ public class Window extends Bin
      * @author Devdas Bhagat
      * @since 4.0.0
      */
-    public interface DELETE extends GtkWidget.DELETE_EVENT
+    public interface DELETE_EVENT extends GtkWidget.DELETE_EVENT
     {
-        public boolean onDeleteEvent(Widget source, Object event);
+        public boolean onDeleteEvent(Widget source, Event event);
     }
 
-    public void connect(DELETE handler) {
+    public void connect(DELETE_EVENT handler) {
         GtkWidget.connect(this, handler);
     }
 }

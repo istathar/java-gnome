@@ -9,10 +9,10 @@
  * redistribution.
  */
 
+import org.gnome.gdk.Event;
 import org.gnome.gtk.Button;
 import org.gnome.gtk.Gtk;
 import org.gnome.gtk.Label;
-import org.gnome.gtk.Object;
 import org.gnome.gtk.VBox;
 import org.gnome.gtk.Widget;
 import org.gnome.gtk.Window;
@@ -75,8 +75,8 @@ public final class WorkerThreads implements Runnable
             }
         });
 
-        w.connect(new Window.DELETE() {
-            public boolean onDeleteEvent(Widget source, Object event) {
+        w.connect(new Window.DELETE_EVENT() {
+            public boolean onDeleteEvent(Widget source, Event event) {
                 System.out.println("I was deleted!");
                 Gtk.mainQuit();
                 return false;

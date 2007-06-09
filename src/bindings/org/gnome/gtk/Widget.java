@@ -11,6 +11,8 @@
  */
 package org.gnome.gtk;
 
+import org.gnome.gdk.EventExpose;
+
 /**
  * The base class of all GTK Widgets. Graphical user interface toolkits have
  * long been built up from individual controls and presentation mechanisms
@@ -126,7 +128,7 @@ public abstract class Widget extends org.gnome.gtk.Object
 
     public interface EXPOSE_EVENT extends GtkWidget.EXPOSE_EVENT
     {
-        public boolean onExposeEvent(Widget source, Object event);
+        public boolean onExposeEvent(Widget source, EventExpose event);
     }
 
     /**
