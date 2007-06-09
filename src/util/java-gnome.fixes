@@ -84,11 +84,6 @@
   (c-name "PangoGlyphInfo")
 )
 
-(define-boxed GlyphString
-  (in-module "Pango")
-  (c-name "PangoGlyphString")
-)
-
 (define-boxed GlyphGeometry
   (in-module "Pango")
   (c-name "PangoGlyphGeometry")

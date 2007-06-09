@@ -1,11 +1,6 @@
 (define-boxed GlyphString
   (in-module "Pango")
   (c-name "PangoGlyphString")
-)
-
-(define-boxed GlyphString
-  (in-module "Pango")
-  (c-name "PangoGlyphString")
   (gtype-id "PANGO_TYPE_GLYPH_STRING")
   (copy-func "pango_glyph_string_copy")
   (release-func "pango_glyph_string_free")
