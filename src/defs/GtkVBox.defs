@@ -10,9 +10,9 @@
   (c-name "gtk_vbox_new")
   (caller-owns-return #t)
   (return-type "GtkWidget*")
-  (properties
-    '("homogeneous" (optional))
-    '("spacing" (optional))
+  (parameters
+    '("gboolean" "homogeneous")
+    '("gint" "spacing")
   )
 )
 

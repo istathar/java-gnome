@@ -89,7 +89,7 @@ public class DefsParser
         // __(c-name "gtk_button_new_with_label")
         // __(return-type "GtkWidget*")
         // __(return-type "const-gchar")
-        characteristicLine = Pattern.compile("^\\s+\\((\\S+)\\s+\"([\\w# \\(\\)'/\\.\\-\\*]+)\"\\)");
+        characteristicLine = Pattern.compile("^\\s+\\((\\S+)\\s+\"?([\\w #\\(\\)'/\\.\\-\\*]+)\"?\\)");
 
         /*
          * TODO: it's not entirely clear that we actually need to support
