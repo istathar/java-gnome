@@ -139,7 +139,7 @@ public abstract class Thing
 
         // is this actually correct?
         register(new FundamentalThing("time_t", "long", "long", "jlong"));
-        
+
         /*
          * Types with are either already defined by the java-gnome
          * architecture and for which (by design) there is no .defs data, or
@@ -374,35 +374,12 @@ public abstract class Thing
     }
 
     /**
-     * FIXME This is still a work in progress; for now these are marked as
-     * blacklisted.
-     * 
-     * @return
+     * FIXME Figuring out what to do with out-parameters is still a work in
+     * progress; for now these are marked as blacklisted. The code above in
+     * createConstVariant() will probably be useful.
      */
     private Thing createOutVariant() {
-        Thing t;
-
-        try {
-            t = (Thing) this.getClass().newInstance();
-        } catch (InstantiationException ie) {
-            throw new RuntimeException("No nullary constructor available in " + this.getClass() + "?",
-                    ie);
-        } catch (IllegalAccessException iae) {
-            throw new RuntimeException("Constructor " + this.getClass() + "() private?", iae);
-        }
-
-        t.bindingsClass = this.bindingsClass;
-        t.bindingsPackage = this.bindingsPackage;
-        t.gType = (this.gType + "*").intern();
-        t.cType = t.gType;
-        t.javaType = this.javaType;
-        t.jniType = this.jniType;
-        t.nativeType = this.nativeType;
-
-        // FIXME REMOVE FIXME REMOVE FIXME REMOVE FIXME
-        t.blacklisted = true;
-
-        return t;
+        return new FixmeThing(this.gType + "*");
     }
 
     /**
@@ -421,7 +398,7 @@ public abstract class Thing
 
         return buf.toString().intern();
     }
-    
+
     public String toString() {
         return gType;
     }
