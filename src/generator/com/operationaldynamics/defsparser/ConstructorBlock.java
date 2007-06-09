@@ -50,4 +50,18 @@ class ConstructorBlock extends FunctionBlock
     public Generator createGenerator(final DefsFile data) {
         return new ConstructorGenerator(data, returnType, cName, parameters);
     }
+
+    /**
+     * Special case: constructs return long, not the actual type. So we remove
+     * the first Thing encountered (which was set in FunctionBlock's
+     * useTypes() with the return Thing).
+     */
+    public List usesTypes() {
+        List types;
+
+        types = super.usesTypes();
+        types.remove(0);
+
+        return types;
+    }
 }

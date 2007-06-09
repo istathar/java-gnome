@@ -16,6 +16,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
+import com.operationaldynamics.codegen.FixmeThing;
 import com.operationaldynamics.codegen.FundamentalThing;
 import com.operationaldynamics.codegen.Generator;
 import com.operationaldynamics.codegen.Thing;
@@ -91,14 +92,13 @@ public final class DefsFile
             iter = things.iterator();
             while (iter.hasNext()) {
                 Thing t = (Thing) iter.next();
-                if (t instanceof FundamentalThing) {
-                    continue;
-                }
 
                 // As a Set it won't do duplicates. Ta-da.
                 if (t.isBlacklisted()) {
                     types.add(Thing.lookup("Blacklist"));
                     types.add(Thing.lookup("FIXME"));
+                } else if (t instanceof FundamentalThing) {
+                    continue;
                 } else {
                     types.add(t);
                 }
