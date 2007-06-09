@@ -13,25 +13,45 @@ package org.gnome.gdk;
 
 import org.gnome.glib.Boxed;
 
-/*
- * FIXME this is a placeholder stub for what will become the public API for
- * this type. Replace this comment with appropriate javadoc including author
- * and since tags. Note that the class may need to be made abstract, implement
- * interfaces, or even have its parent changed. No API stability guarantees
- * are made about this class until it has been reviewed by a hacker and this
- * comment has been replaced.
+/**
+ * The events used to communicate data describing the internal details of
+ * activities that occur to or between GDK resources.
+ * 
+ * <p>
+ * <i>C side, <code>GdkEvent</code> is a union of various event structs such
+ * as <code>GdkEventExpose</code> and <code>GdkEventKey</code>. Each
+ * struct in this family starts with the same fields, and these fields are
+ * represented by <code>GdkEventAny</code>. We have exposed those fields
+ * here on Event.</i>
+ * 
+ * @author Andrew Cowie
+ * @since 4.0.3
  */
-public final class Event extends Boxed
+public abstract class Event extends Boxed
 {
     protected Event(long pointer) {
         super(pointer);
     }
 
     protected void release() {
-        /*
-         * FIXME This class's release() method must be implemented to call
-         * the correct free() or unref() function before it can be used.
-        */
-        throw new UnsupportedOperationException("Not yet implemented");
+        GdkEvent.free(this);
+    }
+
+    /**
+     * Get the type of event that occurred.
+     * 
+     * @since 4.0.3
+     */
+    public EventType getType() {
+        return GdkEventAny.getType();
+    }
+
+    /**
+     * Get the underlying [GDK] Window which recieved the event.
+     * 
+     * @since 4.0.3
+     */
+    public Window getWindow() {
+        return GdkEventAny.getWindow();
     }
 }

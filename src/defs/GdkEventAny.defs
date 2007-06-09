@@ -1,0 +1,10 @@
+(define-boxed EventAny
+  (in-module "Gdk")
+  (c-name "GdkEventAny")
+  (fields
+    '("GdkEventType" "type")
+    '("GdkWindow*" "window")
+    '("gint8" "send_event")
+  )
+)
+

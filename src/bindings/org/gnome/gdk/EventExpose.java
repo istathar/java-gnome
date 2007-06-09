@@ -1,5 +1,5 @@
 /*
- * EventKey.java
+ * EventExpose.java
  *
  * Copyright (c) 2007 Operational Dynamics Consulting Pty Ltd
  *
@@ -11,17 +11,16 @@
  */
 package org.gnome.gdk;
 
-/*
- * FIXME this is a placeholder stub for what will become the public API for
- * this type. Replace this comment with appropriate javadoc including author
- * and since tags. Note that the class may need to be made abstract, implement
- * interfaces, or even have its parent changed. No API stability guarantees
- * are made about this class until it has been reviewed by a hacker and this
- * comment has been replaced.
+/**
+ * Event generated when part or all of a [GDK] Window needs to be redrawn.
+ * 
+ * @author Andrew Cowie
+ * @since 4.0.3
+ * @see org.gnome.gtk.Widget.EXPOSE_EVENT
  */
-public final class EventKey extends Event
+public final class EventExpose extends Event
 {
-    protected EventKey(long pointer) {
+    protected EventExpose(long pointer) {
         super(pointer);
     }
 }

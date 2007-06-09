@@ -1448,7 +1448,7 @@
   (of-object "GtkWidget")
   (return-type "gboolean")
   (parameters
-    '("GdkEventAny*" "event")
+    '("GdkEvent*" "event")
   )
 )
 
@@ -1456,7 +1456,7 @@
   (of-object "GtkWidget")
   (return-type "gboolean")
   (parameters
-    '("GdkEventAny*" "event")
+    '("GdkEvent*" "event")
   )
 )
 
@@ -1528,7 +1528,7 @@
   (of-object "GtkWidget")
   (return-type "gboolean")
   (parameters
-    '("GdkEventAny*" "event")
+    '("GdkEvent*" "event")
   )
 )
 
@@ -1536,7 +1536,7 @@
   (of-object "GtkWidget")
   (return-type "gboolean")
   (parameters
-    '("GdkEventAny*" "event")
+    '("GdkEvent*" "event")
   )
 )
 
@@ -1608,7 +1608,7 @@
   (of-object "GtkWidget")
   (return-type "gboolean")
   (parameters
-    '("GdkEventAny*" "event")
+    '("GdkEvent*" "event")
   )
 )
 
