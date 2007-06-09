@@ -10,8 +10,8 @@
   (c-name "gtk_label_new")
   (caller-owns-return #t)
   (return-type "GtkWidget*")
-  (properties
-    '("label" (optional))
+  (parameters
+    '("const-gchar*" "label")
   )
 )
 
@@ -287,14 +287,14 @@
   (c-name "gtk_label_set_angle")
   (return-type "none")
   (parameters
-    '("gint" "angle")
+    '("gdouble" "angle")
   )
 )
 
 (define-method get_angle
   (of-object "GtkLabel")
   (c-name "gtk_label_get_angle")
-  (return-type "gint")
+  (return-type "gdouble")
 )
 
 (define-method set_width_chars
