@@ -36,6 +36,7 @@ blacklist:
 	rm -f GtkCombo.defs
 	rm -f GtkOldEditable.defs
 	rm -f GtkArgs.defs
+	rm -f GtkPixmap.defs
 
 install:
 	mv *.defs $(DEFSDIR)
