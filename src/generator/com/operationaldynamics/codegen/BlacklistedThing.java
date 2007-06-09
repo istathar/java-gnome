@@ -34,7 +34,7 @@ public class BlacklistedThing extends Thing
     protected BlacklistedThing() {}
 
     String translationToJava(String name) {
-        return name;
+        return "(FIXME) " + name;
     }
 
     String translationToNative(String name) {

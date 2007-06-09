@@ -169,7 +169,6 @@ public abstract class Thing
         register(new TypedefFundamentalThing("GdkWChar*", "String", "String", "jstring"));
         register(new FixmeThing("gpointer"));
         register(new FixmeThing("gpointer*"));
-        register(new BoxedThing("GdkBitmap*", "org.gnome.gdk", "GdkBitmap", "Bitmap"));
         register(new FixmeThing("GdkAtom"));
         register(new FixmeThing("GdkAtom*"));
 
