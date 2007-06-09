@@ -77,7 +77,7 @@ public class VirtualGenerator extends FunctionGenerator
         out.print(proxyType.bindingsClass);
         out.print(".");
         out.print(javaSignalClass);
-        out.print(" handler) {");
+        out.print(" handlerInstance) {");
         out.print("\n");
     }
 
@@ -87,7 +87,7 @@ public class VirtualGenerator extends FunctionGenerator
         if (proxyType instanceof InterfaceThing) {
             out.print("(Object) ");
         }
-        out.print("self, handler, ");
+        out.print("self, handlerInstance, ");
         out.print(proxyType.bindingsClass);
         out.print(".class, \"");
         out.print(cSignalName);
@@ -117,7 +117,7 @@ public class VirtualGenerator extends FunctionGenerator
         out.print(")");
         out.print(" {\n");
     }
-    
+
     protected void receiverMethodConversionCode(PrintWriter out) {
         if (!returnType.javaType.equals("void")) {
             out.print("        ");
@@ -154,7 +154,7 @@ public class VirtualGenerator extends FunctionGenerator
 
         out.print(");\n");
     }
-    
+
     protected void receiverMethodReturnCode(PrintWriter out) {
         if (!returnType.nativeType.equals("void")) {
             out.print("\n");
@@ -186,7 +186,7 @@ public class VirtualGenerator extends FunctionGenerator
         out.print(interfaceMethodName);
         out.print("(");
         out.print(proxyType.javaType);
-        out.print(" source");
+        out.print(" sourceObject");
 
         for (int i = 0; i < parameterTypes.length; i++) {
             out.print(", ");
