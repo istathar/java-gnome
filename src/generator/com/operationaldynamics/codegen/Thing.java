@@ -147,7 +147,7 @@ public abstract class Thing
          */
 
         register(new ObjectThing("GObject*", "org.gnome.glib", "GObject", "Object"));
-        register(new ObjectThing("GValue*", "org.gnome.glib", "GValue", "Value"));
+        register(new ValueThing());
         register(new BlacklistedThing("GClosure*"));
         register(new BlacklistedThing("GType"));
 
