@@ -15,7 +15,7 @@ import org.gnome.gtk.Widget;
 
 /**
  * This is the beginnings of showing what a class in another package would
- * look like. Not implemented!
+ * look like. Not implemented! <i>Does this widget even exist anymore?</i>
  * 
  * @author Andrew Cowie
  */
@@ -26,6 +26,7 @@ public class Entry extends Widget
     }
 
     public String getText() {
-        return GnomeEntry.getText(this);
+        // return GnomeEntry.getText(this);
+        throw new UnsupportedOperationException("Not yet implemented");
     }
 }
