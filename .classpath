@@ -6,11 +6,6 @@
 			<attribute name="org.eclipse.jdt.launching.CLASSPATH_ATTR_LIBRARY_PATH_ENTRY" value="java-gnome/tmp"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="src" output="tmp/bindings" path="mockup/bindings">
-		<attributes>
-			<attribute name="org.eclipse.jdt.launching.CLASSPATH_ATTR_LIBRARY_PATH_ENTRY" value="java-gnome/tmp"/>
-		</attributes>
-	</classpathentry>
 	<classpathentry kind="src" output="tmp/tests" path="tests/prototype">
 		<attributes>
 			<attribute name="org.eclipse.jdt.launching.CLASSPATH_ATTR_LIBRARY_PATH_ENTRY" value="java-gnome/tmp"/>
@@ -23,7 +18,7 @@
 	</classpathentry>
 	<classpathentry kind="src" output="tmp/generator" path="src/generator"/>
 	<classpathentry kind="src" output="tmp/tests" path="tests/generator"/>
-	<classpathentry kind="src" path="generated/bindings/"/>
+	<classpathentry kind="src" output="tmp/bindings/" path="generated/bindings"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/3.8.1"/>
 	<classpathentry kind="output" path="tmp/classes"/>
 </classpath>

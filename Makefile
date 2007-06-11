@@ -12,6 +12,7 @@
 ifdef V
 else
 MAKEFLAGS=-s
+REDIRECT=>/dev/null
 endif
 
 -include .config
@@ -45,16 +46,17 @@ build/config: .config build/dirs
 	touch $@
 
 SOURCES_CODEGEN=$(shell find src/generator -name '*.java')
+SOURCES_DEFS=$(shell find src/defs -name '*.defs')
 
-SOURCES_DIST=$(shell find src/bindings -name '*.java') $(shell find mockup/bindings -name '*.java' )
+SOURCES_DIST=$(shell find src/bindings -name '*.java') $(shell find generated/bindings -name '*.java' )
 
 SOURCES_TEST=$(shell find tests/prototype -name '*.java' ) $(shell find tests/bindings -name '*.java' )  $(shell find tests/generator -name '*.java' )
 
 # These are just the headers which are crafted, not generated
 HEADERS_C=$(shell find src/jni -name '*.h' | sed -e 's/src\/jni/tmp\/include/g' -e 's/\.c/\.h/g')
 
-SOURCES_C=$(shell find src/bindings -name '*.c' ) $(shell find mockup/bindings -name '*.c' ) $(shell find src/jni -name '*.c' )
-OBJECTS_C=$(shell echo $(SOURCES_C) | sed -e's/\.c/\.o/g' -e's/src\/bindings/tmp\/objects/g' -e's/mockup\/bindings/tmp\/objects/g' -e's/src\/jni/tmp\/objects/g' )
+SOURCES_C=$(shell find src/bindings -name '*.c' ) $(shell find generated/bindings -name '*.c' ) $(shell find src/jni -name '*.c' )
+OBJECTS_C=$(shell echo $(SOURCES_C) | sed -e's/\.c/\.o/g' -e's/src\/bindings/tmp\/objects/g' -e's/generated\/bindings/tmp\/objects/g' -e's/src\/jni/tmp\/objects/g' )
 
 
 #
@@ -77,19 +79,23 @@ build/dirs: .config
 # Source compilation
 # --------------------------------------------------------------------
 
-tmp/gtk-$(APIVERSION).jar: build/config build/classes-codegen build/classes-dist build/properties-dist
+tmp/gtk-$(APIVERSION).jar: build/config build/classes-codegen build/generate build/classes-dist build/properties-dist
 	@echo "$(JAR_CMD) $@"
 	cd tmp/bindings ; find . -name '*.class' -o -name '*.properties' | xargs $(JAR) cf ../../$@ 
 
 build/classes-codegen: $(SOURCES_CODEGEN)
 	@echo "$(JAVAC_CMD) tmp/generator/*.class"
 	$(JAVAC) -d tmp/generator -classpath tmp/generator -sourcepath src/generator $?
-	@echo "NOOP      CodeGenerator"
+	touch $@
+
+build/generate: build/classes-codegen $(SOURCES_DEFS)
+	@echo "$(JAVA_CMD) BindingsGenerator"
+	$(JAVA) -classpath tmp/generator BindingsGenerator $(REDIRECT)
 	touch $@
 
 build/classes-dist: $(SOURCES_DIST)
 	@echo "$(JAVAC_CMD) tmp/bindings/*.class"
-	$(JAVAC) -d tmp/bindings -classpath tmp/bindings -sourcepath src/bindings:mockup/bindings $?
+	$(JAVAC) -d tmp/bindings -classpath tmp/bindings -sourcepath src/bindings:generated/bindings $?
 	touch $@
 
 
@@ -130,11 +136,11 @@ tmp/include/%.h: src/jni/%.h
 # want to do one invocation, which means using $? (newer than target). It gets
 # more complicated because of the need to give classnames to javah.
 
-SOURCES_JNI=$(shell find src/bindings -name '*.c') $(shell find mockup/bindings -name '*.c')
+SOURCES_JNI=$(shell find src/bindings -name '*.c') $(shell find generated/bindings -name '*.c')
 build/headers-generate: $(SOURCES_JNI)
 	@echo "$(JAVAH_CMD) tmp/headers/*.h"
-	$(JAVAH) -jni -d tmp/include -classpath $(JAVAGNOME_JARS):tmp/bindings \
-		$(shell echo $? | sed -e 's/src\/bindings\///g' -e 's/mockup\/bindings\///g' -e 's/\.c//g' -e 's/\//\./g' )
+	$(JAVAH) -jni -d tmp/include -classpath tmp/bindings \
+		$(shell echo $? | sed -e 's/src\/bindings\///g' -e 's/generated\/bindings\///g' -e 's/\.c//g' -e 's/\//\./g' )
 	touch $@
 
 tmp/objects/%.o: src/jni/%.c src/jni/bindings_java.h
@@ -148,7 +154,7 @@ tmp/objects/%.o: src/bindings/%.c src/jni/bindings_java.h
 	@echo "$(CC_CMD) $@"
 	$(CCACHE) $(CC) $(GTK_CFLAGS) -Itmp/include -o $@ -c $<
 
-tmp/objects/%.o: mockup/bindings/%.c
+tmp/objects/%.o: generated/bindings/%.c
 	@if [ ! -d $(@D) ] ; then echo "MKDIR     $(@D)" ; mkdir -p $(@D) ; fi
 	@echo "$(CC_CMD) $@"
 	$(CCACHE) $(CC) $(GTK_CFLAGS) -Itmp/include -o $@ -c $<
@@ -257,7 +263,6 @@ demo: build-java build/classes-test
 ifdef V
 else
 JAVADOC:=$(JAVADOC) -quiet
-REDIRECT=>/dev/null
 endif
 
 doc: build/classes-dist
@@ -304,10 +309,13 @@ dist: all
 	rm -r tmp/java-gnome-$(VERSION)
 
 clean:
-	@echo "RM        generated files"
+	@echo "RM        generated code"
 	rm -rf generated/bindings/*
+	@echo "RM        compiled output"
+	rm -rf tmp/generator/* tmp/bindings/* tmp/tests/*
+	rm -rf tmp/include/* tmp/native/* tmp/objects/*
 	@echo "RM        temporary files"
-	rm -rf build/* tmp/bindings/* tmp/include/* tmp/native/* tmp/objects/*
+	rm -rf build/*
 	rm -f hs_err_*
 	@echo "RM        built .jar and .so"
 	rm -f tmp/gtk-*.jar \
