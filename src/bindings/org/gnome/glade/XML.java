@@ -2,7 +2,7 @@
  * XML.java
  *
  * Copyright (c) 2007 Operational Dynamics Consulting Pty Ltd
- *
+ * 
  * The code in this file, and the library it is a part of, are made available
  * to you by the authors under the terms of the "GNU General Public Licence,
  * version 2" plus the "Classpath Exception" (you may link to this code as a
@@ -12,18 +12,52 @@
 package org.gnome.glade;
 
 import org.gnome.glib.Object;
+import org.gnome.gtk.Widget;
 
-/*
- * FIXME this is a placeholder stub for what will become the public API for
- * this type. Replace this comment with appropriate javadoc including author
- * and since tags. Note that the class may need to be made abstract, implement
- * interfaces, or even have its parent changed. No API stability guarantees
- * are made about this class until it has been reviewed by a hacker and this
- * comment has been replaced.
+/**
+ * This class proxies the internal representation used by
+ * <code>libglade</code> to represent the processed <code>.glade</code>
+ * XML data. Ideally we wouldn't expose such a thing, but it turns out that
+ * the library's power is accessed care of methods on this Object.
+ * 
+ * <p>
+ * <i>There comes a point when the underlying mapping becomes a bit
+ * ridiculous, but the underlying structure is <code>GladeXML</code>, so
+ * according to our mapping algorithm, XML it is. Parser or ParsedTree or some
+ * such would have been better, but oh well.</i>
+ * 
+ * <p>
+ * <i>Note that this class name changed from Xml to XML in 4.0.3 when we
+ * generated from the actual upstream .defs data for libglade</i>
+ * 
+ * @author Andrew Cowie
+ * @see Glade
+ * @since 4.0.2
  */
 public class XML extends Object
 {
     protected XML(long pointer) {
         super(pointer);
+    }
+
+    /**
+     * Creates a new Glade widget tree. This is internal as we provide the
+     * {@link org.gnome.glade.Glade#parse(String, String)} convenience class
+     * to wrap this.
+     */
+    XML(String filename, String root) {
+        super(GladeXML.createXML(filename, root, null));
+    }
+
+    /**
+     * Get the Widget corresponding to the given name.
+     * 
+     * @since 4.0.2
+     */
+    public Widget getWidget(String name) {
+        if (name == null) {
+            throw new IllegalArgumentException();
+        }
+        return GladeXML.getWidget(this, name);
     }
 }

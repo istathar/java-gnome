@@ -1,8 +1,13 @@
 /*
  * Glade.java
  *
- * Copyright (c) 2006 Operational Dynamics
- * See LICENCE file for usage and redistribution terms
+ * Copyright (c) 2006-2007 Operational Dynamics Consulting Pty Ltd
+ * 
+ * The code in this file, and the library it is a part of, are made available
+ * to you by the authors under the terms of the "GNU General Public Licence,
+ * version 2" plus the "Classpath Exception" (you may link to this code as a
+ * library into other programs provided you don't make a derivation of it).
+ * See the LICENCE file for the terms governing usage and redistribution.
  */
 package org.gnome.glade;
 
@@ -26,10 +31,10 @@ import org.gnome.glib.Glib;
  * Since we're stuck with the somewhat stupid name that the underlying library
  * used for the tree of instantiated widgets, we recommend you use a variable
  * name like <code>glade</code> or <code>processedTree</code> for the
- * {@link Xml Xml} object you get back, perhaps as follows:
+ * {@link XML XML} object you get back, perhaps as follows:
  * 
  * <pre>
- * final Xml glade;
+ * final XML glade;
  * final Window top;
  * final Button confirm;
  * 
@@ -123,9 +128,9 @@ public final class Glade extends Glib
      *             portable at all.
      * @since 4.0.2
      */
-    public static Xml parse(String filename, String root) throws FileNotFoundException {
+    public static XML parse(String filename, String root) throws FileNotFoundException {
         final File target;
-        final Xml glade;
+        final XML glade;
 
         if (filename == null) {
             throw new IllegalArgumentException();
@@ -142,7 +147,7 @@ public final class Glade extends Glib
                     + target.getAbsolutePath() + "\nis not readable");
         }
 
-        glade = new Xml(filename, root);
+        glade = new XML(filename, root);
 
         if (glade == null) {
             // TODO replace with proper log handling.
