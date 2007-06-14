@@ -10,6 +10,8 @@
  */
 package com.operationaldynamics.codegen;
 
+import com.operationaldynamics.driver.DefsFile;
+
 public class ObjectThing extends ProxiedThing
 {
     public ObjectThing(String gType, String bindingsPackage, String bindingsClass, String javaType) {
@@ -18,7 +20,7 @@ public class ObjectThing extends ProxiedThing
 
     protected ObjectThing() {}
 
-    String translationToJava(String name) {
-        return "(" + javaType + ") objectFor(" + name + ")";
+    String translationToJava(String name, DefsFile data) {
+        return "(" + data.typeNameFor(this) + ") objectFor(" + name + ")";
     }
 }

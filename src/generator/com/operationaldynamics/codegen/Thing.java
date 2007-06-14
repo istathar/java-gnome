@@ -12,6 +12,8 @@ package com.operationaldynamics.codegen;
 
 import java.util.HashMap;
 
+import com.operationaldynamics.driver.DefsFile;
+
 /**
  * Things are our wrapper around types, with information about the type at all
  * levels. These are to be created as encountered by the parser, and
@@ -317,10 +319,12 @@ public abstract class Thing
      * 
      * @param name
      *            the variable name being converted
+     * @param data
+     *            Information about the file is thing is to be translated
      * @return the code for the conversion. For Proxies "objectFor(name)" will
      *         be the result.
      */
-    abstract String translationToJava(String name);
+    abstract String translationToJava(String name, DefsFile data);
 
     /**
      * Get the fully qualified name of the public Java type, ie, for
@@ -336,6 +340,13 @@ public abstract class Thing
         buf.append(javaType);
 
         return buf.toString().intern();
+    }
+    
+    /**
+     * Get the java type this Thing represents
+     */
+    public String javaType() {
+        return javaType;
     }
 
     /**

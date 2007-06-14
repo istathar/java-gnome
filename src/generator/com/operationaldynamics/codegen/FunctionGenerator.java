@@ -101,10 +101,11 @@ abstract class FunctionGenerator extends Generator
     }
 
     protected void translationMethodDeclaration(PrintWriter out) {
+        
         out.print("\n");
         out.print("    ");
         out.print("static final ");
-        out.print(returnType.javaType);
+        out.print( data.typeNameFor(returnType) );
         out.print(" ");
         out.print(translationMethodName);
 
@@ -114,8 +115,8 @@ abstract class FunctionGenerator extends Generator
             if (i > 0) {
                 out.print(", ");
             }
-
-            out.print(parameterTypes[i].javaType);
+            
+            out.print(data.typeNameFor(parameterTypes[i]));
             out.print(" ");
             out.print(parameterNames[i]);
         }
@@ -190,7 +191,7 @@ abstract class FunctionGenerator extends Generator
             out.print("\n");
             out.print("            ");
             out.print("return ");
-            out.print(returnType.translationToJava("result"));
+            out.print(returnType.translationToJava("result", data));
             out.print(";\n");
         }
         out.print("        }\n");

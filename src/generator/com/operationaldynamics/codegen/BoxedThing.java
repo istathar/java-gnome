@@ -10,6 +10,8 @@
  */
 package com.operationaldynamics.codegen;
 
+import com.operationaldynamics.driver.DefsFile;
+
 /**
  * @author Vreixo Formoso
  */
@@ -21,7 +23,7 @@ public class BoxedThing extends ProxiedThing
 
     protected BoxedThing() {}
 
-    String translationToJava(String name) {
-        return "(" + javaType + ") boxedFor(" + name + ")";
+    String translationToJava(String name, DefsFile data) {
+        return "(" + data.typeNameFor(this) + ") boxedFor(" + name + ")";
     }
 }
