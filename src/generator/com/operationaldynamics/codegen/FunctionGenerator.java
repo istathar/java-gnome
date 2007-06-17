@@ -352,15 +352,17 @@ abstract class FunctionGenerator extends Generator
      *         padding.
      */
     protected String jniErrorReturnValue(Thing returnType) {
-        if (returnType.jniType.equals("void")) {
+        if ( "void".equals(returnType.jniType)) {
             return "";
-        } else if (returnType.jniType.equals("jboolean")) {
+        } else if ("jboolean".equals(returnType.jniType)) {
             return " JNI_FALSE";
-        } else if (returnType.jniType.equals("jstring")) {
+        } else if ( "jstring".equals(returnType.jniType)
+                 || "jintArray".equals(returnType.jniType) ) {
             return " NULL";
-        } else if (returnType.jniType.equals("jint")) {
+        } else if ("jint".equals(returnType.jniType)) {
             return " 0";
-        } else if (returnType.jniType.equals("jlong")) {
+        } else if ("jlong".equals(returnType.jniType)
+                || "jdouble".equals(returnType.jniType)) {
             return " 0L";
         } else {
             return " FIXME";
