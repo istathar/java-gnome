@@ -13,9 +13,9 @@
   (c-name "gtk_layout_new")
   (caller-owns-return #t)
   (return-type "GtkWidget*")
-  (properties
-    '("hadjustment" (optional))
-    '("vadjustment" (optional))
+  (parameters
+    '("GtkAdjustment*" "hadjustment")
+    '("GtkAdjustment*" "vadjustment")
   )
 )
 

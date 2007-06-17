@@ -10,11 +10,11 @@
   (c-name "gtk_alignment_new")
   (caller-owns-return #t)
   (return-type "GtkWidget*")
-  (properties
-    '("xalign" (optional))
-    '("yalign" (optional))
-    '("xscale" (optional))
-    '("yscale" (optional))
+  (parameters
+    '("gfloat" "xalign")
+    '("gfloat" "yalign")
+    '("gfloat" "xscale")
+    '("gfloat" "yscale")
   )
 )
 

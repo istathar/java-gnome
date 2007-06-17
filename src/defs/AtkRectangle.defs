@@ -10,10 +10,3 @@
   )
 )
 
-(define-function rectangle_new
-  (is-constructor-of "AtkRectangle")
-  (c-name "atk_rectangle_new")
-  (caller-owns-return #t)
-  (return-type "AtkRectangle")
-)
-

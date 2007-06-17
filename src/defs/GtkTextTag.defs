@@ -10,8 +10,8 @@
   (c-name "gtk_text_tag_new")
   (caller-owns-return #t)
   (return-type "GtkTextTag*")
-  (properties
-    '("name" (optional))
+  (parameters
+    '("const-gchar*" "name")
   )
 )
 

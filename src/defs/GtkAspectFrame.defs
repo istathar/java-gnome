@@ -10,12 +10,12 @@
   (c-name "gtk_aspect_frame_new")
   (caller-owns-return #t)
   (return-type "GtkWidget*")
-  (properties
-    '("label" (optional))
-    '("xalign" (optional))
-    '("yalign" (optional))
-    '("ratio" (optional))
-    '("obey_child" (optional))
+  (parameters
+    '("const-gchar*" "label")
+    '("gfloat" "xalign")
+    '("gfloat" "yalign")
+    '("gfloat" "ratio")
+    '("gboolean" "obey_child")
   )
 )
 

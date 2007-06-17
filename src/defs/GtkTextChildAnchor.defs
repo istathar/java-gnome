@@ -24,31 +24,3 @@
   (return-type "gboolean")
 )
 
-(define-method register_child
-  (of-object "GtkTextChildAnchor")
-  (c-name "gtk_text_child_anchor_register_child")
-  (return-type "none")
-  (parameters
-    '("GtkWidget*" "child")
-    '("GtkTextLayout*" "layout")
-  )
-)
-
-(define-method unregister_child
-  (of-object "GtkTextChildAnchor")
-  (c-name "gtk_text_child_anchor_unregister_child")
-  (return-type "none")
-  (parameters
-    '("GtkWidget*" "child")
-  )
-)
-
-(define-method queue_resize
-  (of-object "GtkTextChildAnchor")
-  (c-name "gtk_text_child_anchor_queue_resize")
-  (return-type "none")
-  (parameters
-    '("GtkTextLayout*" "layout")
-  )
-)
-

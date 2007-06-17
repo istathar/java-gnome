@@ -10,12 +10,12 @@
   (c-name "gtk_radio_action_new")
   (caller-owns-return #t)
   (return-type "GtkRadioAction*")
-  (properties
-    '("name")
-    '("label")
-    '("tooltip")
-    '("stock_id")
-    '("value")
+  (parameters
+    '("const-gchar*" "name")
+    '("const-gchar*" "label")
+    '("const-gchar*" "tooltip")
+    '("const-gchar*" "stock_id")
+    '("gint" "value")
   )
 )
 

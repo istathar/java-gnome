@@ -13,8 +13,8 @@
   (c-name "gtk_text_buffer_new")
   (caller-owns-return #t)
   (return-type "GtkTextBuffer*")
-  (properties
-    '("tag_table" (optional))
+  (parameters
+    '("GtkTextTagTable*" "table")
   )
 )
 

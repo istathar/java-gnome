@@ -10,11 +10,11 @@
   (c-name "gtk_toggle_action_new")
   (caller-owns-return #t)
   (return-type "GtkToggleAction*")
-  (properties
-    '("name")
-    '("label")
-    '("tooltip")
-    '("stock_id")
+  (parameters
+    '("const-gchar*" "name")
+    '("const-gchar*" "label")
+    '("const-gchar*" "tooltip")
+    '("const-gchar*" "stock_id")
   )
 )
 

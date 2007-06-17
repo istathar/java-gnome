@@ -1,5 +1,5 @@
 /*
- * TreeItem.java
+ * TextAppearance.java
  *
  * Copyright (c) 2007 Operational Dynamics Consulting Pty Ltd
  *
@@ -11,6 +11,8 @@
  */
 package org.gnome.gtk;
 
+import org.gnome.glib.Boxed;
+
 /*
  * FIXME this is a placeholder stub for what will become the public API for
  * this type. Replace this comment with appropriate javadoc including author
@@ -19,9 +21,17 @@ package org.gnome.gtk;
  * are made about this class until it has been reviewed by a hacker and this
  * comment has been replaced.
  */
-public class TreeItem extends Item
+public final class TextAppearance extends Boxed
 {
-    protected TreeItem(long pointer) {
+    protected TextAppearance(long pointer) {
         super(pointer);
+    }
+
+    protected void release() {
+        /*
+         * FIXME This class's release() method must be implemented to call
+         * the correct free() or unref() function before it can be used.
+        */
+        throw new UnsupportedOperationException("Not yet implemented");
     }
 }

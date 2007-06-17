@@ -15,7 +15,6 @@
   (c-name "gdk_rectangle_intersect")
   (return-type "gboolean")
   (parameters
-    '("GdkRectangle*" "src1")
     '("GdkRectangle*" "src2")
     '("GdkRectangle*" "dest")
   )
@@ -26,16 +25,8 @@
   (c-name "gdk_rectangle_union")
   (return-type "none")
   (parameters
-    '("GdkRectangle*" "src1")
     '("GdkRectangle*" "src2")
     '("GdkRectangle*" "dest")
   )
-)
-
-(define-function rectangle_new
-  (is-constructor-of "GdkRectangle")
-  (c-name "gdk_rectangle_new")
-  (caller-owns-return #t)
-  (return-type "GdkRectangle")
 )
 

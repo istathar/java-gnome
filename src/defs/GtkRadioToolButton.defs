@@ -10,6 +10,9 @@
   (c-name "gtk_radio_tool_button_new")
   (caller-owns-return #t)
   (return-type "GtkToolItem*")
+  (parameters
+    '("GSList*" "group")
+  )
 )
 
 (define-function radio_tool_button_new_from_stock
@@ -18,6 +21,7 @@
   (caller-owns-return #t)
   (return-type "GtkToolItem*")
   (parameters
+    '("GSList*" "group")
     '("const-gchar*" "stock_id")
   )
 )

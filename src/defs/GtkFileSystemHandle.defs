@@ -1,7 +1,0 @@
-(define-object FileSystemHandle
-  (in-module "Gtk")
-  (parent "GObject")
-  (c-name "GtkFileSystemHandle")
-  (gtype-id "GTK_TYPE_FILE_SYSTEM_HANDLE")
-)
-

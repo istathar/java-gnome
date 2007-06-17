@@ -10,8 +10,8 @@
   (c-name "gtk_hscale_new")
   (caller-owns-return #t)
   (return-type "GtkWidget*")
-  (properties
-    '("adjustment" (optional))
+  (parameters
+    '("GtkAdjustment*" "adjustment")
   )
 )
 

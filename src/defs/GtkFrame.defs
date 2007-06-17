@@ -10,8 +10,8 @@
   (c-name "gtk_frame_new")
   (caller-owns-return #t)
   (return-type "GtkWidget*")
-  (properties
-    '("label" (optional))
+  (parameters
+    '("const-gchar*" "label")
   )
 )
 

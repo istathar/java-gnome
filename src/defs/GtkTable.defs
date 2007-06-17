@@ -10,10 +10,10 @@
   (c-name "gtk_table_new")
   (caller-owns-return #t)
   (return-type "GtkWidget*")
-  (properties
-    '("n_rows" (optional))
-    '("n_columns" (optional))
-    '("homogeneous" (optional))
+  (parameters
+    '("guint" "n_rows")
+    '("guint" "n_columns")
+    '("gboolean" "homogeneous")
   )
 )
 

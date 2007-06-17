@@ -10,9 +10,9 @@
   (c-name "gtk_arrow_new")
   (caller-owns-return #t)
   (return-type "GtkWidget*")
-  (properties
-    '("arrow_type")
-    '("shadow_type")
+  (parameters
+    '("GtkArrowType" "arrow_type")
+    '("GtkShadowType" "shadow_type")
   )
 )
 
