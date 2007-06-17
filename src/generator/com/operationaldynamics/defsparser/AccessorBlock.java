@@ -29,8 +29,9 @@ import com.operationaldynamics.codegen.Thing;
  */
 public abstract class AccessorBlock extends FunctionBlock
 {
-    AccessorBlock(final String blockName) {
+    AccessorBlock(final String blockName, final String ofObject) {
         super(blockName, Collections.EMPTY_LIST, Collections.EMPTY_LIST);
+        this.ofObject = ofObject;
     }
 
     /*

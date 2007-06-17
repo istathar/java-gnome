@@ -43,7 +43,7 @@ public abstract class Event extends Boxed
      * @since 4.0.3
      */
     public EventType getType() {
-        return GdkEventAny.getType();
+        return GdkEventAny.getType(this);
     }
 
     /**
@@ -52,6 +52,6 @@ public abstract class Event extends Boxed
      * @since 4.0.3
      */
     public Window getWindow() {
-        return GdkEventAny.getWindow();
+        return GdkEventAny.getWindow(this);
     }
 }

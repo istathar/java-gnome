@@ -23,13 +23,19 @@ import com.operationaldynamics.driver.DefsFile;
  */
 public class SetterBlock extends AccessorBlock
 {
-    SetterBlock(final String gType, final String name) {
-        super(name);
+    SetterBlock(final String gType, final String name, final String ofObject) {
+        super(name, ofObject);
 
         this.returnType = gType;
     }
 
     public Generator createGenerator(final DefsFile data) {
-        return new SetterGenerator(data, returnType, blockName);
+        
+        parameters = new String[][] {
+            new String[] { addPointerSymbol(ofObject), "self" },
+            new String[] { returnType, blockName }
+        };
+        
+        return new SetterGenerator(data, blockName, parameters);
     }
 }
