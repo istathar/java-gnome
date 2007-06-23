@@ -77,14 +77,15 @@
   )
 )
 
-(define-method find
-  (of-object "GtkAccelGroup")
-  (c-name "gtk_accel_group_find")
-  (return-type "GtkAccelKey*")
-  (parameters
-    '("gboolean" "(*find_func")
-  )
-)
+;;FIXME
+;;(define-method find
+;;  (of-object "GtkAccelGroup")
+;;  (c-name "gtk_accel_group_find")
+;;  (return-type "GtkAccelKey*")
+;;  (parameters
+;;    '("gboolean" "(*find_func")
+;;  )
+;;)
 
 (define-method query
   (of-object "GtkAccelGroup")

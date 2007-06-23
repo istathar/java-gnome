@@ -246,11 +246,12 @@
   )
 )
 
-(define-method save_to_callback
-  (of-object "GdkPixbuf")
-  (c-name "gdk_pixbuf_save_to_callback")
-  (return-type "gboolean")
-)
+;;FIXME
+;; (define-method save_to_callback
+;;  (of-object "GdkPixbuf")
+;;  (c-name "gdk_pixbuf_save_to_callback")
+;;  (return-type "gboolean")
+;;)
 
 (define-method add_alpha
   (of-object "GdkPixbuf")

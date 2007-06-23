@@ -1,32 +1,33 @@
-(define-object FontsetSimple
-  (in-module "Pango")
-  (parent "PangoFontset")
-  (c-name "PangoFontsetSimple")
-  (gtype-id "PANGO_TYPE_FONTSET_SIMPLE")
-)
-
-(define-function pango_fontset_simple_new
-  (is-constructor-of "PangoFontsetSimple")
-  (c-name "pango_fontset_simple_new")
-  (caller-owns-return #t)
-  (return-type "PangoFontsetSimple*")
-  (parameters
-    '("PangoLanguage*" "language")
-  )
-)
-
-(define-method append
-  (of-object "PangoFontsetSimple")
-  (c-name "pango_fontset_simple_append")
-  (return-type "none")
-  (parameters
-    '("PangoFont*" "font")
-  )
-)
-
-(define-method size
-  (of-object "PangoFontsetSimple")
-  (c-name "pango_fontset_simple_size")
-  (return-type "int")
-)
+;;FIXME
+;;(define-object FontsetSimple
+;;  (in-module "Pango")
+;;  (parent "PangoFontset")
+;;  (c-name "PangoFontsetSimple")
+;;  (gtype-id "PANGO_TYPE_FONTSET_SIMPLE")
+;;)
+;;
+;;(define-function pango_fontset_simple_new
+;;  (is-constructor-of "PangoFontsetSimple")
+;;  (c-name "pango_fontset_simple_new")
+;;  (caller-owns-return #t)
+;;  (return-type "PangoFontsetSimple*")
+;;  (parameters
+;;    '("PangoLanguage*" "language")
+;;  )
+;;)
+;;
+;;(define-method append
+;;  (of-object "PangoFontsetSimple")
+;;  (c-name "pango_fontset_simple_append")
+;;  (return-type "none")
+;;  (parameters
+;;    '("PangoFont*" "font")
+;;  )
+;;)
+;;
+;;(define-method size
+;;  (of-object "PangoFontsetSimple")
+;;  (c-name "pango_fontset_simple_size")
+;;  (return-type "int")
+;;)
 
