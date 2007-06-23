@@ -27,6 +27,8 @@ public abstract class TypeBlock extends Block
     protected String inModule;
 
     protected String cName;
+    
+    protected String importHeader;
 
     protected TypeBlock(final String blockName, final List characteristics) {
         super(blockName, characteristics);
@@ -45,6 +47,14 @@ public abstract class TypeBlock extends Block
 
     protected final void setInModule(final String inModule) {
         this.inModule = inModule;
+    }
+    
+    /**
+     * Some types need additional import header, other than <gtk/gtk.h>.
+     * This characteristic, introduced by java-gnome, solves that problem.
+     */
+    protected final void setImportHeader(final String importHeader) {
+        this.importHeader = importHeader;
     }
 
     /**
