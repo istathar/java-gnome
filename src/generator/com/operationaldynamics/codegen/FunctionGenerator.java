@@ -264,7 +264,15 @@ abstract class FunctionGenerator extends Generator
 
         for (int i = 0; i < parameterTypes.length; i++) {
             out.print("\t");
-            out.print(parameterTypes[i].cType);
+
+            String cType = parameterTypes[i].cType;
+            /*
+             * Array types can't be declared as type[], but as type*
+             */
+            if ( cType.endsWith("[]") ) {
+                cType = cType.substring(0, cType.length() - 2) + "*";
+            }
+            out.print(cType);
             out.print(" ");
             out.print(parameterNames[i]);
             out.print(";\n");
@@ -285,10 +293,14 @@ abstract class FunctionGenerator extends Generator
             out.print(parameterNames[i]);
 
             /*
-             * always a cast
+             * always a cast, take care about arrays
              */
+            String cType = parameterTypes[i].cType;
+            if ( cType.endsWith("[]") ) {
+                cType = cType.substring(0, cType.length() - 2) + "*";
+            }
             out.print(" = (");
-            out.print(parameterTypes[i].cType);
+            out.print(cType);
             out.print(") ");
 
             /*
@@ -304,6 +316,14 @@ abstract class FunctionGenerator extends Generator
                 jniReturnIfExceptionThrown(out, i);
             } else if (parameterTypes[i].jniType.equals("jfloatArray")) {
                 out.print("(*env)->GetFloatArrayElements(env, _");
+                out.print(parameterNames[i]);
+                out.print(", NULL);\n");
+
+                jniReturnIfExceptionThrown(out, i);
+
+                out.print("\t// DANGER this conversion code not tested!\n");
+            } else if (parameterTypes[i].jniType.equals("jintArray")) {
+                out.print("(*env)->GetIntArrayElements(env, _");
                 out.print(parameterNames[i]);
                 out.print(", NULL);\n");
 
@@ -412,6 +432,12 @@ abstract class FunctionGenerator extends Generator
                 out.print(");\n");
             } else if (parameterTypes[i].jniType.equals("jfloatArray")) {
                 out.print("\t(*env)->ReleaseFloatArrayElements(env, _");
+                out.print(parameterNames[i]);
+                out.print(", ");
+                out.print(parameterNames[i]);
+                out.print(", 0);\n");
+            } else if (parameterTypes[i].jniType.equals("jintArray")) {
+                out.print("\t(*env)->ReleaseIntArrayElements(env, _");
                 out.print(parameterNames[i]);
                 out.print(", ");
                 out.print(parameterNames[i]);
