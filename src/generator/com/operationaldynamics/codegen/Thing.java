@@ -128,6 +128,10 @@ public abstract class Thing
         register(new FundamentalThing("gfloat[]", "float[]", "float[]", "jfloatArray"));
         register(new FundamentalThing("gint8[]", "int[]", "int[]", "jintArray"));
         
+        /* these seem a bit harder */
+        register(new FixmeThing("const-gchar*[]"));
+        register(new FixmeThing("gchar**[]"));
+        
         /*
          * Out parameters for fundamental types are special cases, probably,
          * so we will continue to register their information here for now.
