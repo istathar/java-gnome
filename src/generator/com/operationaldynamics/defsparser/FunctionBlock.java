@@ -108,4 +108,22 @@ public abstract class FunctionBlock extends Block
 
         return types;
     }
+
+    /**
+     * Load the reference-to-self that all "method" functions start with onto
+     * the beginning of the parameters List. Used by MethodBlock and
+     * AccessorBlock, in case you're wondering what this is doing here.
+     */
+    protected void prependReferenceToSelf() {
+        String[][] target;
+
+        target = new String[parameters.length + 1][2];
+        System.arraycopy(parameters, 0, target, 1, parameters.length);
+
+        target[0][0] = addPointerSymbol(ofObject);
+        target[0][1] = "self";
+
+        parameters = target;
+    }
+
 }

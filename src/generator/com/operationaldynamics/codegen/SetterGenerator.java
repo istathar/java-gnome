@@ -26,12 +26,9 @@ public class SetterGenerator extends AccessorGenerator
 {
     protected final String cField;
 
-    public SetterGenerator(DefsFile data, String gFieldType, String gFieldName) {
-        super(data, "set_" + gFieldName, "none", new String[][] {
-            new String[] {
-                    gFieldType, gFieldName
-            }
-        });
+    public SetterGenerator(final DefsFile data, final String gFieldType, final String gFieldName,
+            final String[][] gParameters) {
+        super(data, "set_" + gFieldName, "none", gParameters);
 
         this.cField = gFieldName;
     }

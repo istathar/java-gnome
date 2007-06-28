@@ -56,21 +56,4 @@ class MethodBlock extends FunctionBlock
     public Generator createGenerator(final DefsFile data) {
         return new MethodGenerator(data, blockName, returnType, cName, parameters);
     }
-
-    /**
-     * Load the reference-to-self that all "method" functions start with onto
-     * the beginning of the parameters List.
-     */
-    private void prependReferenceToSelf() {
-        String[][] target;
-
-        target = new String[parameters.length + 1][2];
-        System.arraycopy(parameters, 0, target, 1, parameters.length);
-
-        target[0][0] = addPointerSymbol(ofObject);
-        target[0][1] = "self";
-
-        parameters = target;
-    }
-
 }

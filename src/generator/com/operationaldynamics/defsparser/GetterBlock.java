@@ -10,6 +10,8 @@
  */
 package com.operationaldynamics.defsparser;
 
+import java.util.Collections;
+
 import com.operationaldynamics.codegen.Generator;
 import com.operationaldynamics.codegen.GetterGenerator;
 import com.operationaldynamics.driver.DefsFile;
@@ -36,14 +38,14 @@ public class GetterBlock extends AccessorBlock
      * @param name
      *            the name from the (define-boxed (fields (...))) line.
      */
-    GetterBlock(final String gType, final String name) {
-        super(name);
+    GetterBlock(final BoxedBlock parent, final String gType, final String name) {
+        super(name, parent, Collections.EMPTY_LIST);
 
         this.returnType = gType;
     }
 
     public Generator createGenerator(final DefsFile data) {
-        return new GetterGenerator(data, returnType, blockName);
+        return new GetterGenerator(data, returnType, blockName, parameters);
     }
 
 }
