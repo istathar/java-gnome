@@ -89,7 +89,7 @@
 (define-method get_widget_prefix
   (of-object "GladeXML")
   (c-name "glade_xml_get_widget_prefix")
-  (return-type "GList*")
+  (return-type "GList-GtkWidget*")
   (parameters
     '("const-char*" "name")
   )

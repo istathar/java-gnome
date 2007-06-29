@@ -15,7 +15,7 @@
 (define-method get_widgets
   (of-object "GtkTextChildAnchor")
   (c-name "gtk_text_child_anchor_get_widgets")
-  (return-type "GList*")
+  (return-type "GList-GtkWidget*")
 )
 
 (define-method get_deleted

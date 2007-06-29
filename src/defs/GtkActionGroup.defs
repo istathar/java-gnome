@@ -63,7 +63,7 @@
 (define-method list_actions
   (of-object "GtkActionGroup")
   (c-name "gtk_action_group_list_actions")
-  (return-type "GList*")
+  (return-type "GList-GtkAction*")
 )
 
 (define-method add_action

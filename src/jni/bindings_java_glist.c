@@ -87,3 +87,40 @@ bindings_java_gslist_from_java_array
 	
 	return list;
 }
+
+jlongArray 
+bindings_java_glist_to_java_array
+(
+	JNIEnv* env, 
+	GList* list
+)
+{
+	jlongArray _array;
+	jlong* array;
+	int i, size;
+	
+	if ( list == NULL )
+		return NULL;
+	
+	size = g_list_length(list);
+	
+	_array = (*env)->NewLongArray(env, size);
+	
+	if ( size == 0 ) {
+		return _array;
+	}
+	
+	array = (jlong*) (*env)->GetLongArrayElements(env, _array, NULL);
+	if (array == NULL) {
+		return NULL; // Java Exception already thrown
+	}
+	
+	for ( i = 0; i < size; ++i) {
+		array[i] = (jlong) list->data;
+		list = list->next;
+	}
+	
+	(*env)->ReleaseLongArrayElements(env, _array, array, 0);
+	
+	return _array;
+}

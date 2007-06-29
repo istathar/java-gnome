@@ -265,7 +265,7 @@
 (define-method get_selected_items
   (of-object "GtkIconView")
   (c-name "gtk_icon_view_get_selected_items")
-  (return-type "GList*")
+  (return-type "GList-GtkTreePath*")
 )
 
 (define-method select_all

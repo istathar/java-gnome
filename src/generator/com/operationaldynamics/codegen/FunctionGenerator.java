@@ -389,7 +389,8 @@ abstract class FunctionGenerator extends Generator
         } else if ("jboolean".equals(returnType.jniType)) {
             return " JNI_FALSE";
         } else if ( "jstring".equals(returnType.jniType)
-                 || "jintArray".equals(returnType.jniType) ) {
+                 || "jintArray".equals(returnType.jniType) 
+                 || "jlongArray".equals(returnType.jniType) ) {
             return " NULL";
         } else if ("jint".equals(returnType.jniType)) {
             return " 0";
@@ -477,6 +478,11 @@ abstract class FunctionGenerator extends Generator
 
             if (returnType.jniType.equals("jstring")) {
                 out.print("\t(*env)->NewStringUTF(env, result);");
+            } else if (returnType.gType.equals("GList")) {
+                
+                //FIXME release here the list when needed
+                
+                out.print("\tbindings_java_glist_to_java_array(env, result);");
             } else {
                 out.print("(");
                 out.print(returnType.jniType);

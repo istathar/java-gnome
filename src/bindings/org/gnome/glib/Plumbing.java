@@ -119,7 +119,7 @@ public abstract class Plumbing extends org.freedesktop.bindings.Plumbing
     }
     
     /**
-     * Retrieve an approriate Java Object for this pointer.
+     * Retrieve an appropriate Java Object for this pointer.
      * 
      * @see #proxyFor(long)
      * 
@@ -132,7 +132,26 @@ public abstract class Plumbing extends org.freedesktop.bindings.Plumbing
     }
     
     /**
-     * Retrieve an approriate Java Boxed for this pointer.
+     * Retrieve an array of appropriate Java Object's (Object or Boxed 
+     * subclasses) for these pointers.
+     * 
+     * @param pointers
+     * @return
+     */
+    protected static Proxy[] objectArrayFor(long[] pointers) {
+        if ( pointers == null ) {
+            return null;
+        }
+        
+        Proxy[] proxies = new Proxy[pointers.length];
+        for ( int i = 0; i < pointers.length; ++i) {
+            proxies[i] = proxyFor(pointers[i]);
+        }
+        return proxies;
+    }
+    
+    /**
+     * Retrieve an appropriate Java Boxed for this pointer.
      * 
      * @see #proxyFor(long)
      * 

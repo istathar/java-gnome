@@ -33,11 +33,11 @@ public class ArrayThing extends Thing
     protected ArrayThing() {}
 
     String translationToJava(String name, DefsFile data) {
-        return name;
+        return "(" + data.typeNameFor(this) + ") objectArrayFor(" + name + ")";
     }
 
     String translationToNative(String name) {
-        return "pointersOf(" + name +")";
+        return "pointersOf(" + name + ")";
     }
     
     public Thing arrayType() {

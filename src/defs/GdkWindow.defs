@@ -575,13 +575,13 @@
 (define-method get_children
   (of-object "GdkWindow")
   (c-name "gdk_window_get_children")
-  (return-type "GList*")
+  (return-type "GList-GdkWindow*")
 )
 
 (define-method peek_children
   (of-object "GdkWindow")
   (c-name "gdk_window_peek_children")
-  (return-type "GList*")
+  (return-type "GList-GdkWindow*")
 )
 
 (define-method get_events

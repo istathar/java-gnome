@@ -207,7 +207,7 @@
 (define-method get_items
   (of-object "GtkRecentChooser")
   (c-name "gtk_recent_chooser_get_items")
-  (return-type "GList*")
+  (return-type "GList-GtkRecentInfo*")
 )
 
 (define-method get_uris

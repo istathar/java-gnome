@@ -403,7 +403,7 @@
 (define-method get_icon_list
   (of-object "GtkWindow")
   (c-name "gtk_window_get_icon_list")
-  (return-type "GList*")
+  (return-type "GList-GdkPixbuf*")
 )
 
 (define-method set_icon
