@@ -50,3 +50,40 @@ bindings_java_glist_from_java_array
 	
 	return list;
 }
+
+/*
+ * Allocates and initializes a GSList with the contents of a java
+ * long array.
+ * The returned list must be freed with g_slist_free() when no more needed.
+ */
+GSList* 
+bindings_java_gslist_from_java_array
+(
+	JNIEnv* env, 
+	jlongArray _array
+)
+{
+	GSList* list;
+	jlong* array;
+	int i, size;
+	
+	list = g_slist_alloc();
+	
+	size = (*env)->GetArrayLength(env, _array);
+	if ( size == 0 ) {
+		return list;
+	}
+	
+	array = (jlong*) (*env)->GetLongArrayElements(env, _array, NULL);
+	if (array == NULL) {
+		return NULL; // Java Exception already thrown
+	}
+	
+	for ( i = 0; i < size; ++i) {
+		list = g_slist_append( list, (gpointer) array[i] );
+	}
+	
+	(*env)->ReleaseLongArrayElements(env, _array, array, JNI_ABORT);
+	
+	return list;
+}

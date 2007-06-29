@@ -57,5 +57,6 @@ extern void bindings_java_threads_unlock();
  */
  
 extern GList* bindings_java_glist_from_java_array(JNIEnv*, jlongArray);
+extern GSList* bindings_java_gslist_from_java_array(JNIEnv*, jlongArray);
 
 #endif 

@@ -293,8 +293,8 @@ public abstract class Thing
                 register(dupe);
                 return dupe;
             }
-        } else if (gType.startsWith("GList-")) {
-            bareGType = gType.substring(6);
+        } else if (gType.startsWith("GList-") || gType.startsWith("GSList-")) {
+            bareGType = gType.split("-")[1];
             stored = (Thing) things.get(bareGType);
 
             if (stored != null) {

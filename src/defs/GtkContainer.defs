@@ -117,7 +117,7 @@
   (c-name "gtk_container_set_focus_chain")
   (return-type "none")
   (parameters
-    '("GList*" "focusable_widgets")
+    '("GList-GtkWidget*" "focusable_widgets")
   )
 )
 

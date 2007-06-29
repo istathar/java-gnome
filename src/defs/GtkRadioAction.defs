@@ -24,7 +24,7 @@
   (c-name "gtk_radio_action_set_group")
   (return-type "none")
   (parameters
-    '("GSList*" "group")
+    '("GSList-GtkRadioAction*" "group")
   )
 )
 

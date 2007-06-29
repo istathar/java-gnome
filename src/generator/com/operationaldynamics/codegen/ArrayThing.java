@@ -24,7 +24,7 @@ public class ArrayThing extends Thing
     private Thing type;
     
     public ArrayThing(String gType, Thing type) {
-        super(gType.substring(0, 5), type.bindingsPackage, type.bindingsClass, 
+        super(gType.split("-")[0], type.bindingsPackage, type.bindingsClass, 
               type.javaType + "[]", "long[]", "jlongArray");
         this.type = type; 
         this.cType = this.gType + "*";

@@ -11,7 +11,7 @@
   (caller-owns-return #t)
   (return-type "GtkToolItem*")
   (parameters
-    '("GSList*" "group")
+    '("GSList-GtkRadioToolButton*" "group")
   )
 )
 
@@ -21,7 +21,7 @@
   (caller-owns-return #t)
   (return-type "GtkToolItem*")
   (parameters
-    '("GSList*" "group")
+    '("GSList-GtkRadioToolButton*" "group")
     '("const-gchar*" "stock_id")
   )
 )
@@ -52,7 +52,7 @@
   (c-name "gtk_radio_tool_button_set_group")
   (return-type "none")
   (parameters
-    '("GSList*" "group")
+    '("GSList-GtkRadioToolButton*" "group")
   )
 )
 
