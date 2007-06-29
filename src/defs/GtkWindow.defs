@@ -396,7 +396,7 @@
   (c-name "gtk_window_set_icon_list")
   (return-type "none")
   (parameters
-    '("GList*" "list")
+    '("GList-GdkPixbuf*" "list")
   )
 )
 

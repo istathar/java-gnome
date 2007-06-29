@@ -114,6 +114,20 @@ public abstract class Plumbing
     }
 
     /**
+     * Like {@link #pointerOf(Proxy)}, but acts over an array of references.
+     * 
+     * @return opaque data to be passed to native methods only.
+     */
+    protected static final long[] pointersOf(Proxy[] references) {
+        long[] ptrs = new long[references.length];
+        for ( int i = 0; i < references.length; ++i) {
+            ptrs[i] = references[i].pointer;
+        }
+        return ptrs;
+    }
+    
+    
+    /**
      * Given a pointer, find out if we already have a Proxy for it Java side.
      * 
      * <p>

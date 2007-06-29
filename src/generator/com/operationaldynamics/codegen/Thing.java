@@ -293,6 +293,16 @@ public abstract class Thing
                 register(dupe);
                 return dupe;
             }
+        } else if (gType.startsWith("GList-")) {
+            bareGType = gType.substring(6);
+            stored = (Thing) things.get(bareGType);
+
+            if (stored != null) {
+                dupe = new ArrayThing(gType, stored);
+
+                register(dupe);
+                return dupe;
+            }
         } else if (gType.endsWith("*")) {
             bareGType = gType.substring(0, gType.length() - 1);
             stored = (Thing) things.get(bareGType);
