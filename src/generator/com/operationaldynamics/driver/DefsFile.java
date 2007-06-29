@@ -115,12 +115,12 @@ public final class DefsFile
                 } else {
                     if (types.add(t)) {
                         /* this is the first type the Thing is added */
-                        Thing conflicted = (Thing) usedTypes.get(t.javaType());
+                        Thing conflicted = (Thing) usedTypes.get(t.bareJavaClassName());
                         if (conflicted != null) {
                             conflict.add(conflicted);
                             conflict.add(t);
                         } else {
-                            usedTypes.put(t.javaType(), t);
+                            usedTypes.put(t.bareJavaClassName(), t);
                         }
                     }
                 }
@@ -142,15 +142,6 @@ public final class DefsFile
      */
     public Set typeConflicts() {
         return conflict;
-    }
-
-    /**
-     * Returns the name for the Thing needed in this file context. In most
-     * cases this is just the java type. However, when there are import
-     * conflicts, the fully qualified java class name is used instead.
-     */
-    public String typeNameFor(Thing t) {
-        return conflict.contains(t) ? t.fullyQualifiedJavaClassName() : t.javaType();
     }
 
     /**

@@ -302,6 +302,23 @@ public abstract class Thing
     }
 
     /**
+     * Returns the Java type of this Thing. In most cases this is just the
+     * bare type name. However, when there is an import conflict, the fully
+     * qualified java class name is retuned instead.
+     * 
+     * <p>
+     * Note that <code>javaType</code> is still exposed - use it directly if
+     * you need it.
+     */
+    String javaTypeInContext(DefsFile context) {
+        if (context.typeConflicts().contains(this)) {
+            return fullyQualifiedJavaClassName();
+        } else {
+            return javaType;
+        }
+    }
+
+    /**
      * The translation code necessary to convert this type from Java to the
      * native JNI crossing type.
      * 
@@ -345,7 +362,7 @@ public abstract class Thing
     /**
      * Get the java type this Thing represents
      */
-    public String javaType() {
+    public String bareJavaClassName() {
         return javaType;
     }
 

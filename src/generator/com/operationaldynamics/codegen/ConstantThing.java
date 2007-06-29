@@ -28,8 +28,8 @@ public class ConstantThing extends Thing
     protected ConstantThing() {}
 
     String translationToJava(String name, DefsFile data) {
-        return "(" + data.typeNameFor(this) + ") constantFor(" + bindingsPackage + "." + javaType
-                + ".class, " + name + ")";
+        return "(" + javaTypeInContext(data) + ") constantFor(" + javaTypeInContext(data) + ".class, "
+                + name + ")";
     }
 
     String translationToNative(String name) {

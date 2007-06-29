@@ -21,6 +21,6 @@ public class ObjectThing extends ProxiedThing
     protected ObjectThing() {}
 
     String translationToJava(String name, DefsFile data) {
-        return "(" + data.typeNameFor(this) + ") objectFor(" + name + ")";
+        return "(" + javaTypeInContext(data) + ") objectFor(" + name + ")";
     }
 }

@@ -24,6 +24,6 @@ public class BoxedThing extends ProxiedThing
     protected BoxedThing() {}
 
     String translationToJava(String name, DefsFile data) {
-        return "(" + data.typeNameFor(this) + ") boxedFor(" + name + ")";
+        return "(" + javaTypeInContext(data) + ") boxedFor(" + name + ")";
     }
 }
