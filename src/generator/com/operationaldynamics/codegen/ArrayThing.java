@@ -27,6 +27,7 @@ public class ArrayThing extends Thing
         super(gType.substring(0, 5), type.bindingsPackage, type.bindingsClass, 
               type.javaType + "[]", "long[]", "jlongArray");
         this.type = type; 
+        this.cType = this.gType + "*";
     }
 
     protected ArrayThing() {}

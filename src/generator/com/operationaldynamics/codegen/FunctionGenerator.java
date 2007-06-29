@@ -314,6 +314,12 @@ abstract class FunctionGenerator extends Generator
                 out.print(", NULL);\n");
 
                 jniReturnIfExceptionThrown(out, i);
+            } else if (parameterTypes[i].gType.equals("GList")) {
+                out.print("bindings_java_glist_from_java_array(env, _");
+                out.print(parameterNames[i]);
+                out.print(");\n");
+
+                jniReturnIfExceptionThrown(out, i);
             } else if (parameterTypes[i].jniType.equals("jfloatArray")) {
                 out.print("(*env)->GetFloatArrayElements(env, _");
                 out.print(parameterNames[i]);
@@ -428,6 +434,10 @@ abstract class FunctionGenerator extends Generator
                 out.print("\t(*env)->ReleaseStringUTFChars(env, _");
                 out.print(parameterNames[i]);
                 out.print(", ");
+                out.print(parameterNames[i]);
+                out.print(");\n");
+            } else if (parameterTypes[i].gType.equals("GList")) {
+                out.print("\tg_list_free(");
                 out.print(parameterNames[i]);
                 out.print(");\n");
             } else if (parameterTypes[i].jniType.equals("jfloatArray")) {
