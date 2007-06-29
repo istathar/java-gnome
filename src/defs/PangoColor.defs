@@ -23,10 +23,9 @@
   (return-type "none")
 )
 
-(define-function color_parse
-  (is-constructor-of "PangoColor")
+(define-method color_parse
+  (of-object "PangoColor")
   (c-name "pango_color_parse")
-  (caller-owns-return #t)
   (return-type "gboolean")
   (parameters
     '("const-char*" "spec")

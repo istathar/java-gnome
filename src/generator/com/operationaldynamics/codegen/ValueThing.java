@@ -10,6 +10,8 @@
  */
 package com.operationaldynamics.codegen;
 
+import com.operationaldynamics.driver.DefsFile;
+
 /**
  * Hard coded Thing type for GValues, mostly here so that we can put
  * <code>valueFor()</code> in as the translation code.
@@ -26,7 +28,7 @@ public class ValueThing extends ProxiedThing
         super("GValue*", "org.gnome.glib", "GValue", "Value");
     }
 
-    String translationToJava(String name) {
+    String translationToJava(String name, DefsFile data) {
         return "valueFor(" + name + ")";
     }
 }

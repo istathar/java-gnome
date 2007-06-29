@@ -9,7 +9,7 @@
   (is-constructor-of "AtkNoOpObject")
   (c-name "atk_no_op_object_new")
   (caller-owns-return #t)
-  (return-type "AtkNoOpObject*")
+  (return-type "AtkObject*")
   (parameters
     '("GObject*" "obj")
   )

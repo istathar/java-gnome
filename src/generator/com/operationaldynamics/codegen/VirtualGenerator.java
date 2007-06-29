@@ -72,7 +72,7 @@ public class VirtualGenerator extends FunctionGenerator
         out.print("static final void ");
         out.print(translationMethodName);
         out.print("(");
-        out.print(proxyType.javaType);
+        out.print(data.typeNameFor(proxyType));
         out.print(" self, ");
         out.print(proxyType.bindingsClass);
         out.print(".");
@@ -121,7 +121,7 @@ public class VirtualGenerator extends FunctionGenerator
     protected void receiverMethodConversionCode(PrintWriter out) {
         if (!returnType.javaType.equals("void")) {
             out.print("        ");
-            out.print(returnType.javaType);
+            out.print(data.typeNameFor(returnType));
             out.print(" result;\n\n");
         }
     }
@@ -144,12 +144,12 @@ public class VirtualGenerator extends FunctionGenerator
         out.print(") handlerInstance).");
         out.print(interfaceMethodName);
         out.print("((");
-        out.print(proxyType.javaType);
+        out.print(data.typeNameFor(proxyType));
         out.print(") objectFor(sourceObject)");
 
         for (int i = 0; i < parameterTypes.length; i++) {
             out.print(", ");
-            out.print(parameterTypes[i].translationToJava(parameterNames[i]));
+            out.print(parameterTypes[i].translationToJava(parameterNames[i], data));
         }
 
         out.print(");\n");
@@ -181,16 +181,16 @@ public class VirtualGenerator extends FunctionGenerator
 
     protected void interfaceMethodDeclaration(PrintWriter out) {
         out.print("        ");
-        out.print(returnType.javaType);
+        out.print(data.typeNameFor(returnType));
         out.print(" ");
         out.print(interfaceMethodName);
         out.print("(");
-        out.print(proxyType.javaType);
+        out.print(data.typeNameFor(proxyType));
         out.print(" sourceObject");
 
         for (int i = 0; i < parameterTypes.length; i++) {
             out.print(", ");
-            out.print(parameterTypes[i].javaType);
+            out.print(data.typeNameFor(parameterTypes[i]));
             out.print(" ");
             out.print(parameterNames[i]);
         }

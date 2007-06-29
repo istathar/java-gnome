@@ -23,10 +23,10 @@
   (c-name "gtk_spin_button_new")
   (caller-owns-return #t)
   (return-type "GtkWidget*")
-  (properties
-    '("adjustment" (optional))
-    '("climb_rate" (optional))
-    '("digits" (optional))
+  (parameters
+    '("GtkAdjustment*" "adjustment" (null-ok))
+    '("gdouble" "climb_rate")
+    '("guint" "digits")
   )
 )
 

@@ -10,6 +10,8 @@
  */
 package com.operationaldynamics.codegen;
 
+import com.operationaldynamics.driver.DefsFile;
+
 /**
  * Types that are blacklisted. This could be hard coded for either code
  * generator or java-gnome architectural reasons, but in all likelihood it is
@@ -33,7 +35,7 @@ public class BlacklistedThing extends Thing
 
     protected BlacklistedThing() {}
 
-    String translationToJava(String name) {
+    String translationToJava(String name, DefsFile data) {
         return "(FIXME) " + name;
     }
 

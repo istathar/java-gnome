@@ -101,10 +101,11 @@ abstract class FunctionGenerator extends Generator
     }
 
     protected void translationMethodDeclaration(PrintWriter out) {
+
         out.print("\n");
         out.print("    ");
         out.print("static final ");
-        out.print(returnType.javaType);
+        out.print(data.typeNameFor(returnType));
         out.print(" ");
         out.print(translationMethodName);
 
@@ -115,7 +116,7 @@ abstract class FunctionGenerator extends Generator
                 out.print(", ");
             }
 
-            out.print(parameterTypes[i].javaType);
+            out.print(data.typeNameFor(parameterTypes[i]));
             out.print(" ");
             out.print(parameterNames[i]);
         }
@@ -190,7 +191,7 @@ abstract class FunctionGenerator extends Generator
             out.print("\n");
             out.print("            ");
             out.print("return ");
-            out.print(returnType.translationToJava("result"));
+            out.print(returnType.translationToJava("result", data));
             out.print(";\n");
         }
         out.print("        }\n");
@@ -351,15 +352,15 @@ abstract class FunctionGenerator extends Generator
      *         padding.
      */
     protected String jniErrorReturnValue(Thing returnType) {
-        if (returnType.jniType.equals("void")) {
+        if ("void".equals(returnType.jniType)) {
             return "";
-        } else if (returnType.jniType.equals("jboolean")) {
+        } else if ("jboolean".equals(returnType.jniType)) {
             return " JNI_FALSE";
-        } else if (returnType.jniType.equals("jstring")) {
+        } else if ("jstring".equals(returnType.jniType) || "jintArray".equals(returnType.jniType)) {
             return " NULL";
-        } else if (returnType.jniType.equals("jint")) {
+        } else if ("jint".equals(returnType.jniType)) {
             return " 0";
-        } else if (returnType.jniType.equals("jlong")) {
+        } else if ("jlong".equals(returnType.jniType) || "jdouble".equals(returnType.jniType)) {
             return " 0L";
         } else {
             return " FIXME";

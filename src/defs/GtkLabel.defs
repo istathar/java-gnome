@@ -20,8 +20,8 @@
   (c-name "gtk_label_new_with_mnemonic")
   (caller-owns-return #t)
   (return-type "GtkWidget*")
-  (properties
-    '("label" (optional))
+  (parameters
+    '("const-gchar*" "label")
   )
 )
 

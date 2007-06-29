@@ -1,0 +1,17 @@
+(define-boxed TextAppearance
+  (in-module "Gtk")
+  (c-name "GtkTextAppearance")
+  (fields
+    '("GdkColor" "bg_color")
+    '("GdkColor" "fg_color")
+    '("GdkBitmap*" "bg_stipple")
+    '("GdkBitmap*" "fg_stipple")
+    '("gint" "rise")
+    '("guint" "underline")
+    '("guint" "strikethrough")
+    '("guint" "draw_bg")
+    '("guint" "inside_selection")
+    '("guint" "is_text")
+  )
+)
+

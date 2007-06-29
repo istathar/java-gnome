@@ -32,13 +32,13 @@
   (c-name "gtk_adjustment_new")
   (caller-owns-return #t)
   (return-type "GtkObject*")
-  (properties
-    '("value" (optional))
-    '("lower" (optional))
-    '("upper" (optional))
-    '("step_increment" (optional))
-    '("page_increment" (optional))
-    '("page_size" (optional))
+  (parameters
+    '("gdouble" "value")
+    '("gdouble" "lower")
+    '("gdouble" "upper")
+    '("gdouble" "step_increment")
+    '("gdouble" "page_increment")
+    '("gdouble" "page_size")
   )
 )
 

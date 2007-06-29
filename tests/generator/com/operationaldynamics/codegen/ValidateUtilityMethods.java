@@ -43,11 +43,11 @@ public final class ValidateUtilityMethods extends TestCase
 
         ft = new FundamentalThing("gboolean", "boolean", "boolean", "jboolean");
         assertEquals("a", ft.translationToNative("a"));
-        assertEquals("a", ft.translationToJava("a"));
+        assertEquals("a", ft.translationToJava("a", null));
 
         ot = new ObjectThing("GtkWidget*", "org.gnome.gtk", "GtkWidget", "Widget");
         assertEquals("pointerOf(b)", ot.translationToNative("b"));
-        assertEquals("objectFor(b)", ot.translationToJava("b"));
+        assertEquals("objectFor(b)", ot.translationToJava("b", null));
     }
 
     public final void testSignalNameMunging() {

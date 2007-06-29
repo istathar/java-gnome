@@ -10,8 +10,8 @@
   (c-name "gtk_accel_label_new")
   (caller-owns-return #t)
   (return-type "GtkWidget*")
-  (properties
-    '("label")
+  (parameters
+    '("const-gchar*" "label")
   )
 )
 

@@ -10,8 +10,8 @@
   (c-name "gtk_action_group_new")
   (caller-owns-return #t)
   (return-type "GtkActionGroup*")
-  (properties
-    '("name")
+  (parameters
+    '("const-gchar*" "name")
   )
 )
 

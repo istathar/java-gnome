@@ -24,12 +24,6 @@
   )
 )
 
-(define-method destroy_notify
-  (of-object "GdkWindow")
-  (c-name "gdk_window_destroy_notify")
-  (return-type "none")
-)
-
 (define-method property_get
   (of-object "GdkWindow")
   (c-name "gdk_property_get")

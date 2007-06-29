@@ -10,9 +10,9 @@
   (c-name "gtk_scrolled_window_new")
   (caller-owns-return #t)
   (return-type "GtkWidget*")
-  (properties
-    '("hadjustment" (optional))
-    '("vadjustment" (optional))
+  (parameters
+    '("GtkAdjustment*" "hadjustment")
+    '("GtkAdjustment*" "vadjustment")
   )
 )
 

@@ -325,11 +325,12 @@ public class DefsParser
                     block = new BoxedBlock(name, characteristics);
                     blocks.add(block);
 
+                    String cType = ((BoxedBlock) block).cName;
                     iter = fields.iterator();
                     while (iter.hasNext()) {
                         field = (String[]) iter.next();
 
-                        block = new GetterBlock(field[0], field[1]);
+                        block = new GetterBlock(field[0], field[1], cType);
                         blocks.add(block);
 
                         /*
@@ -338,7 +339,7 @@ public class DefsParser
                          * it is known safe to do so and so annotated in the
                          * fields line in the defs data.
                          */
-                        block = new SetterBlock(field[0], field[1]);
+                        block = new SetterBlock(field[0], field[1], cType);
                         blocks.add(block);
                     }
                 } else {

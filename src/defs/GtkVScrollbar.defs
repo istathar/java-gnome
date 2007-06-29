@@ -10,8 +10,8 @@
   (c-name "gtk_vscrollbar_new")
   (caller-owns-return #t)
   (return-type "GtkWidget*")
-  (properties
-    '("adjustment" (optional))
+  (parameters
+    '("GtkAdjustment*" "adjustment")
   )
 )
 

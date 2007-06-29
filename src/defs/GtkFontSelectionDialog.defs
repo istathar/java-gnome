@@ -18,8 +18,8 @@
   (c-name "gtk_font_selection_dialog_new")
   (caller-owns-return #t)
   (return-type "GtkWidget*")
-  (properties
-    '("title")
+  (parameters
+    '("const-gchar*" "title")
   )
 )
 

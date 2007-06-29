@@ -30,8 +30,8 @@
   (c-name "gtk_file_selection_new")
   (caller-owns-return #t)
   (return-type "GtkWidget*")
-  (properties
-    '("title" (optional))
+  (parameters
+    '("const-gchar*" "title")
   )
 )
 

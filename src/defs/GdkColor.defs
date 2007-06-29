@@ -39,10 +39,3 @@
   )
 )
 
-(define-function color_new
-  (is-constructor-of "GdkColor")
-  (c-name "gdk_color_new")
-  (caller-owns-return #t)
-  (return-type "GdkColor")
-)
-

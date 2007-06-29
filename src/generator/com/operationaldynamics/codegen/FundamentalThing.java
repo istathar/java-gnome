@@ -10,6 +10,8 @@
  */
 package com.operationaldynamics.codegen;
 
+import com.operationaldynamics.driver.DefsFile;
+
 /**
  * @author Andrew Cowie
  */
@@ -21,7 +23,7 @@ public class FundamentalThing extends Thing
 
     protected FundamentalThing() {}
 
-    String translationToJava(String name) {
+    String translationToJava(String name, DefsFile data) {
         return name;
     }
 

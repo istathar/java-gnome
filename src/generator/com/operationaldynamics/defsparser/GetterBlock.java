@@ -35,15 +35,23 @@ public class GetterBlock extends AccessorBlock
      *            the type from the (define-boxed (fields (...))) line.
      * @param name
      *            the name from the (define-boxed (fields (...))) line.
+     * @param ofObject
+     *            the boxed this getter belongs to
      */
-    GetterBlock(final String gType, final String name) {
-        super(name);
+    GetterBlock(final String gType, final String name, final String ofObject) {
+        super(name, ofObject);
 
         this.returnType = gType;
     }
 
     public Generator createGenerator(final DefsFile data) {
-        return new GetterGenerator(data, returnType, blockName);
+
+        parameters = new String[][] {
+            new String[] {
+                    addPointerSymbol(ofObject), "self"
+            }
+        };
+        return new GetterGenerator(data, returnType, blockName, parameters);
     }
 
 }

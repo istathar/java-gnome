@@ -10,8 +10,8 @@
   (c-name "gtk_size_group_new")
   (caller-owns-return #t)
   (return-type "GtkSizeGroup*")
-  (properties
-    '("mode")
+  (parameters
+    '("GtkSizeGroupMode" "mode")
   )
 )
 

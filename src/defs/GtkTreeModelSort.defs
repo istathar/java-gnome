@@ -13,8 +13,8 @@
   (c-name "gtk_tree_model_sort_new_with_model")
   (caller-owns-return #t)
   (return-type "GtkTreeModel*")
-  (properties
-    '("model")
+  (parameters
+    '("GtkTreeModel*" "model")
   )
 )
 
