@@ -56,6 +56,6 @@
 (define-method get_attrs
   (of-object "PangoAttrIterator")
   (c-name "pango_attr_iterator_get_attrs")
-  (return-type "GSList*")
+  (return-type "GSList-PangoAttribute*")
 )
 

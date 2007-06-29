@@ -483,6 +483,11 @@ abstract class FunctionGenerator extends Generator
                 //FIXME release here the list when needed
                 
                 out.print("\tbindings_java_glist_to_java_array(env, result);");
+            } else if (returnType.gType.equals("GSList")) {
+                
+                //FIXME release here the list when needed
+                
+                out.print("\tbindings_java_gslist_to_java_array(env, result);");
             } else {
                 out.print("(");
                 out.print(returnType.jniType);

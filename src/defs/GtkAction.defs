@@ -96,7 +96,7 @@
 (define-method get_proxies
   (of-object "GtkAction")
   (c-name "gtk_action_get_proxies")
-  (return-type "GSList*")
+  (return-type "GSList-GtkWidget*")
 )
 
 (define-method connect_accelerator

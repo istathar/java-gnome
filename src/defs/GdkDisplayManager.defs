@@ -23,7 +23,7 @@
 (define-method list_displays
   (of-object "GdkDisplayManager")
   (c-name "gdk_display_manager_list_displays")
-  (return-type "GSList*")
+  (return-type "GSList-GdkDisplay*")
 )
 
 (define-virtual display_opened

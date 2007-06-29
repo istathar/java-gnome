@@ -116,7 +116,7 @@
 (define-method get_marks
   (of-object "GtkTextIter")
   (c-name "gtk_text_iter_get_marks")
-  (return-type "GSList*")
+  (return-type "GSList-GtkTextMark*")
 )
 
 (define-method get_child_anchor
@@ -128,7 +128,7 @@
 (define-method get_toggled_tags
   (of-object "GtkTextIter")
   (c-name "gtk_text_iter_get_toggled_tags")
-  (return-type "GSList*")
+  (return-type "GSList-GtkTextTag*")
   (parameters
     '("gboolean" "toggled_on")
   )
@@ -173,7 +173,7 @@
 (define-method get_tags
   (of-object "GtkTextIter")
   (c-name "gtk_text_iter_get_tags")
-  (return-type "GSList*")
+  (return-type "GSList-GtkTextTag*")
 )
 
 (define-method editable

@@ -72,7 +72,7 @@
 (define-method get_group
   (of-object "GtkRadioButton")
   (c-name "gtk_radio_button_get_group")
-  (return-type "GSList*")
+  (return-type "GSList-GtkRadioButton*")
 )
 
 (define-method set_group
@@ -82,13 +82,6 @@
   (parameters
     '("GSList-GtkRadioButton*" "group")
   )
-)
-
-(define-method group
-  (of-object "GtkRadioButton")
-  (c-name "gtk_radio_button_group")
-  (return-type "GSList*")
-  (deprecated "use GtkRadioButton.get_group")
 )
 
 (define-virtual group_changed
