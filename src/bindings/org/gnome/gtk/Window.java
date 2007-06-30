@@ -147,6 +147,23 @@ public class Window extends Bin
     }
 
     /**
+     * Set a new constraint for the position that the Window will be rendered
+     * on the screen. Note that this is not always honoured by window
+     * managers, see {@link WindowPosition}.
+     * 
+     * <p>
+     * Somewhat unusually, if the new value for <code>position</code> is
+     * {@link WindowPosition#CENTER_ALWAYS CENTER_ALWAYS}, then this call
+     * will also result in the Window being moved to the new centered
+     * position.
+     * 
+     * @since 4.0.3
+     */
+    public void setPosition(WindowPosition position) {
+        GtkWindow.setPosition(this, position);
+    }
+
+    /**
      * This signal arises when a user tries to close a top level window. As
      * you would expect, the default handler for this signal destroys the
      * Window.

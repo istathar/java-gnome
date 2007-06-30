@@ -13,17 +13,46 @@ package org.gnome.gtk;
 
 import org.freedesktop.bindings.Constant;
 
-/*
- * FIXME this is a placeholder stub for what will become the public API for
- * this type. Replace this comment with appropriate javadoc including author
- * and since tags. Note that the class may need to be made abstract, implement
- * interfaces, or even have its parent changed. No API stability guarantees
- * are made about this class until it has been reviewed by a hacker and this
- * comment has been replaced.
+/**
+ * Request that this Window be placed at a specific location on the screen.
+ * Note that this is only a strong suggestion; as ever with window placement
+ * issues, it is up to the window manager to actually decide where and how to
+ * locate a new Window on the display.
+ * 
+ * @author Andrew Cowie
+ * @since 4.0.3
  */
 public final class WindowPosition extends Constant
 {
     private WindowPosition(int ordinal, String nickname) {
         super(ordinal, nickname);
     }
+
+    /**
+     * No need to request altered placement.
+     */
+    public static final WindowPosition NONE = new WindowPosition(GtkWindowPosition.NONE, "NONE");
+
+    /**
+     * The window should be placed at the center of the screen.
+     */
+    public static final WindowPosition CENTER = new WindowPosition(GtkWindowPosition.CENTER, "CENTER");
+
+    /**
+     * The window should be placed where the mouse pointer is presently.
+     */
+    public static final WindowPosition MOUSE = new WindowPosition(GtkWindowPosition.MOUSE, "MOUSE");
+
+    /**
+     * The window should be kept at the center even as it resizes.
+     */
+    public static final WindowPosition CENTER_ALWAYS = new WindowPosition(
+            GtkWindowPosition.CENTER_ALWAYS, "CENTER_ALWAYS");
+
+    /**
+     * The window should be kept centered on its ({@link Window#setTransientFor(Window, Window)) transient})
+     * parent.
+     */
+    public static final WindowPosition CENTER_ON_PARENT = new WindowPosition(
+            GtkWindowPosition.CENTER_ON_PARENT, "CENTER_ON_PARENT");
 }

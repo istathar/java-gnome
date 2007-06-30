@@ -10,6 +10,8 @@
  */
 package com.operationaldynamics.defsparser;
 
+import java.util.Collections;
+
 import com.operationaldynamics.codegen.Generator;
 import com.operationaldynamics.codegen.SetterGenerator;
 import com.operationaldynamics.driver.DefsFile;
@@ -23,22 +25,15 @@ import com.operationaldynamics.driver.DefsFile;
  */
 public class SetterBlock extends AccessorBlock
 {
-    SetterBlock(final String gType, final String name, final String ofObject) {
-        super(name, ofObject);
+    SetterBlock(final BoxedBlock parent, final String gType, final String name) {
+        super(name, parent, Collections.singletonList(new String[] {
+                gType, name
+        }));
 
         this.returnType = gType;
     }
 
     public Generator createGenerator(final DefsFile data) {
-
-        parameters = new String[][] {
-                new String[] {
-                        addPointerSymbol(ofObject), "self"
-                }, new String[] {
-                        returnType, blockName
-                }
-        };
-
-        return new SetterGenerator(data, blockName, parameters);
+        return new SetterGenerator(data, returnType, blockName, parameters);
     }
 }
