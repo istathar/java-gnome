@@ -46,6 +46,14 @@ public abstract class Thing
     String jniType;
 
     /**
+     * Additional C header files, as necessary.
+     */
+    /*
+     * TODO not super happy with this being here
+     */
+    String importHeader;
+
+    /**
      * This is gType, of course, except for things like "const-gchar*", which
      * need to be decoded to "const gchar*". We store the clean version here
      * to avoid messier code later.
@@ -425,6 +433,18 @@ public abstract class Thing
         buf.append(bindingsClass);
 
         return buf.toString().intern();
+    }
+
+    /**
+     * Setter for importHeader.
+     */
+    /*
+     * Other Thing members are set in the constructor, but this is set in its
+     * own method because only a very few object really need it, so we can use
+     * the setter only in the needed Block.
+     */
+    public void setImportHeader(String importHeader) {
+        this.importHeader = importHeader;
     }
 
     public String toString() {

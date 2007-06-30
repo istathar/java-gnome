@@ -186,16 +186,17 @@
   )
 )
 
-(define-method set_dashes
-  (of-object "GdkGC")
-  (c-name "gdk_gc_set_dashes")
-  (return-type "none")
-  (parameters
-    '("gint" "dash_offset")
-    '("gint8[]" "dash_list")
-    '("gint" "n")
-  )
-)
+;; FIXME
+;;(define-method set_dashes
+;;  (of-object "GdkGC")
+;;  (c-name "gdk_gc_set_dashes")
+;;  (return-type "none")
+;;  (parameters
+;;    '("gint" "dash_offset")
+;;    '("gint8[]" "dash_list")
+;;    '("gint" "n")
+;;  )
+;;)
 
 (define-method offset
   (of-object "GdkGC")

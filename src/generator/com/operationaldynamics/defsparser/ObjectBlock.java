@@ -57,7 +57,10 @@ public class ObjectBlock extends TypeBlock
     }
 
     public Thing createThing() {
-        return new ObjectThing(addPointerSymbol(cName), moduleToJavaPackage(inModule), cName, blockName);
+        ObjectThing t = new ObjectThing(addPointerSymbol(cName), moduleToJavaPackage(inModule), cName,
+                blockName);
+        t.setImportHeader(importHeader);
+        return t;
     }
 
     public Generator createGenerator(final DefsFile data) {

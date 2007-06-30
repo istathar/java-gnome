@@ -151,6 +151,11 @@ abstract class TypeGenerator extends Generator
         out.print("\n");
         out.print("#include <jni.h>\n");
         out.print("#include <gtk/gtk.h>\n");
+
+        if (objectType.importHeader != null) {
+            out.print("#include <" + objectType.importHeader + ">\n");
+        }
+
         out.print("#include \"bindings_java.h\"\n");
 
         out.print("#include \"");

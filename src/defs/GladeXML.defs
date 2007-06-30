@@ -3,6 +3,7 @@
   (parent "GObject")
   (c-name "GladeXML")
   (gtype-id "GLADE_TYPE_XML")
+  (import-header "glade/glade-xml.h")
 )
 
 (define-function glade_xml_new
