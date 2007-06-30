@@ -16,7 +16,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Set;
 
 import com.operationaldynamics.driver.DefsFile;
 
@@ -115,14 +114,11 @@ abstract class TypeGenerator extends Generator
         types = new ArrayList();
         types.add("org.gnome.glib.Plumbing");
 
-        Set conflictTypes = data.typeConflicts();
-        iter = data.usesTypes().iterator();
+        iter = data.getTypesToImport().iterator();
         while (iter.hasNext()) {
             Thing type = (Thing) iter.next();
 
-            if (!conflictTypes.contains(type)) {
-                types.add(type.fullyQualifiedJavaClassName());
-            }
+            types.add(type.fullyQualifiedJavaClassName());
         }
 
         /* sort the types */

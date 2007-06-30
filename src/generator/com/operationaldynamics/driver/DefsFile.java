@@ -11,7 +11,6 @@
 package com.operationaldynamics.driver;
 
 import java.io.PrintWriter;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
@@ -46,19 +45,24 @@ public final class DefsFile
     private final Block[] blocks;
 
     /**
-     * The types being used in this file
+     * The types being used in this file that are safe to import
      */
-    private final Set types;
+    // Sets they don't do duplicates. Ta-da.
+    private final Set typesToImport;
 
     /**
-     * Types with the same class name
+     * The remainder of the types in use in this file, which musy be used
+     * fully qualified.
      */
-    private final Set conflict;
+    private final Set typesThatConflict;
+
+    private final Set bareNamesInUse;
 
     /**
      * Create a new wrapper class representing the parsed .defs file for a
      * single type. Along the way this registers the type in the Thing
-     * database.
+     * database, and generate the list of types used in the file, checking for
+     * import collisions.
      * 
      * @throws ImproperDefsFileException
      *             if the supplised blocks array doesn't match our
@@ -66,9 +70,6 @@ public final class DefsFile
      */
     public DefsFile(final Block[] blocks) throws ImproperDefsFileException {
         this.blocks = blocks;
-
-        types = new HashSet();
-        conflict = new HashSet();
 
         if (blocks.length == 0) {
             throw new ImproperDefsFileException("No data was parsed in this defs file");
@@ -80,6 +81,10 @@ public final class DefsFile
 
         this.forObject = blocks[0].createThing();
         Thing.register(forObject);
+
+        typesToImport = new HashSet();
+        typesThatConflict = new HashSet();
+        bareNamesInUse = new HashSet();
     }
 
     public final Thing getType() {
@@ -87,61 +92,91 @@ public final class DefsFile
     }
 
     /**
-     * Calculates the types being used in this file, needed for imports.
-     * 
-     * This also check if some imports can lead to conflict (same class name)
-     * to deal with that propertly.
+     * Iterate over the Blocks in this DefsFile and work out what types can be
+     * imported, and what types must be fully qualified due to their bare name
+     * conflicting with a previous import.
      */
-    private void calculateUsedTypes() {
+    /*
+     * Note that this is not in the constructor because it must only be called
+     * (and only once) after all Things are registered and full type
+     * information is available.
+     */
+    private void calculateImportsAndConflicts() {
+        List things;
         Iterator iter;
+        Thing t;
 
-        HashMap usedTypes = new HashMap();
+        /*
+         * Quick cosmetic hack: the type of this file should always get
+         * imported first.
+         */
+        addToImports(forObject);
 
         for (int i = 0; i < blocks.length; i++) {
-            List things;
-
             things = blocks[i].usesTypes();
 
             iter = things.iterator();
             while (iter.hasNext()) {
-                Thing t = (Thing) iter.next();
+                t = (Thing) iter.next();
 
-                // As a Set it won't do duplicates. Ta-da.
                 if (t.isBlacklisted()) {
-                    types.add(Thing.lookup("Blacklist"));
-                    types.add(Thing.lookup("FIXME"));
-                } else if (t instanceof FundamentalThing) {
+                    addToImports(Thing.lookup("Blacklist"));
+                    addToImports(Thing.lookup("FIXME"));
                     continue;
+                }
+
+                if (t instanceof FundamentalThing) {
+                    continue;
+                }
+
+                /*
+                 * If this is the first time the bare Java class name is
+                 * added, then we can safely import it. Otherwise, that bare
+                 * name is [will be] imported already, so we're going to have
+                 * to fully qualifiy it.
+                 */
+
+                if (isNameImported(t)) {
+                    addToConflictsIfCollision(t);
                 } else {
-                    if (types.add(t)) {
-                        /* this is the first type the Thing is added */
-                        Thing conflicted = (Thing) usedTypes.get(t.bareJavaClassName());
-                        if (conflicted != null) {
-                            conflict.add(conflicted);
-                            conflict.add(t);
-                        } else {
-                            usedTypes.put(t.bareJavaClassName(), t);
-                        }
-                    }
+                    addToImports(t);
                 }
             }
         }
     }
 
-    /**
-     * Iterate over all the Blocks in this DefsFile and return a Set with the
-     * Thing for each one. Assumes all types already registered. This is used
-     * to come up with the required set of Java import statements, see {@link 
-     */
-    public Set usesTypes() {
-        return types;
+    private void addToImports(Thing t) {
+        typesToImport.add(t);
+        bareNamesInUse.add(t.bareJavaClassName());
+    }
+
+    private void addToConflictsIfCollision(Thing t) {
+        if (typesToImport.contains(t)) {
+            // already know about it, not a conflict
+        } else {
+            typesThatConflict.add(t);
+        }
+    }
+
+    private boolean isNameImported(Thing t) {
+        return bareNamesInUse.contains(t.bareJavaClassName());
     }
 
     /**
-     * Return a Set with the Thing which java types conflict of file.
+     * Having iterated over all the Blocks in this DefsFile's constructor,
+     * return a Set with the Things representing the types that <b>can</b> be
+     * imported. Assumes all types already registered.
      */
-    public Set typeConflicts() {
-        return conflict;
+    public Set getTypesToImport() {
+        return typesToImport;
+    }
+
+    /**
+     * Return a Set of the Things whose Java type names conflict with names
+     * already imported by this file.
+     */
+    public boolean doesTypeConflict(Thing type) {
+        return typesThatConflict.contains(type);
     }
 
     /**
@@ -201,8 +236,7 @@ public final class DefsFile
     public final void generateTranslationLayer(final PrintWriter out) {
         Generator gen;
 
-        /* what types are used? */
-        calculateUsedTypes();
+        calculateImportsAndConflicts();
 
         for (int i = 0; i < blocks.length; i++) {
             gen = blocks[i].createGenerator(this);

@@ -311,7 +311,7 @@ public abstract class Thing
      * you need it.
      */
     String javaTypeInContext(DefsFile context) {
-        if (context.typeConflicts().contains(this)) {
+        if (context.doesTypeConflict(this)) {
             return fullyQualifiedJavaClassName();
         } else {
             return javaType;
