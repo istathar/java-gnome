@@ -57,8 +57,8 @@ public class ObjectBlock extends TypeBlock
     }
 
     public Thing createThing() {
-        ObjectThing t = new ObjectThing(addPointerSymbol(cName), moduleToJavaPackage(inModule), 
-                cName, blockName);
+        ObjectThing t = new ObjectThing(addPointerSymbol(cName), moduleToJavaPackage(inModule), cName,
+                blockName);
         t.setImportHeader(importHeader);
         return t;
     }
@@ -66,20 +66,20 @@ public class ObjectBlock extends TypeBlock
     public Generator createGenerator(final DefsFile data) {
         return new ObjectGenerator(data, addPointerSymbol(parent), implementsToArray(interfaces));
     }
-    
+
     protected static String[] implementsToArray(List interfaces) {
         String[] implemented;
         int i;
-        
+
         if (interfaces == null) {
             return new String[0];
         }
-        
+
         implemented = new String[interfaces.size()];
         for (i = 0; i < implemented.length; i++) {
             implemented[i] = addPointerSymbol((String) interfaces.get(i));
         }
-        
+
         return implemented;
     }
 }

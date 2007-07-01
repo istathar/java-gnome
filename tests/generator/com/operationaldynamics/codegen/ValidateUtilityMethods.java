@@ -1,7 +1,5 @@
 package com.operationaldynamics.codegen;
 
-import java.util.HashSet;
-
 import junit.framework.TestCase;
 
 /**
@@ -45,11 +43,11 @@ public final class ValidateUtilityMethods extends TestCase
 
         ft = new FundamentalThing("gboolean", "boolean", "boolean", "jboolean");
         assertEquals("a", ft.translationToNative("a"));
-//      TODO  assertEquals("a", ft.translationToJava("a", new HashSet()));
+        assertEquals("a", ft.translationToJava("a", null));
 
         ot = new ObjectThing("GtkWidget*", "org.gnome.gtk", "GtkWidget", "Widget");
         assertEquals("pointerOf(b)", ot.translationToNative("b"));
-//      TODO  assertEquals("objectFor(b)", ot.translationToJava("b", new HashSet()));
+        assertEquals("objectFor(b)", ot.translationToJava("b", null));
     }
 
     public final void testSignalNameMunging() {

@@ -26,7 +26,8 @@ public class GetterGenerator extends AccessorGenerator
 {
     protected final String cField;
 
-    public GetterGenerator(DefsFile data, String gFieldType, String gFieldName, String[][] gParameters) {
+    public GetterGenerator(DefsFile data, final String gFieldType, final String gFieldName,
+            final String[][] gParameters) {
         super(data, "get_" + gFieldName, gFieldType, gParameters);
 
         this.cField = gFieldName;

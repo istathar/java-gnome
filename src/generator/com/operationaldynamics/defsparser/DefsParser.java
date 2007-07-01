@@ -271,6 +271,7 @@ public class DefsParser
     public Block[] parseData() {
         List blocks;
         Block block;
+        BoxedBlock parent;
         Iterator iter;
         String[] field;
 
@@ -326,12 +327,13 @@ public class DefsParser
                     block = new BoxedBlock(name, characteristics);
                     blocks.add(block);
 
-                    String cType = ((BoxedBlock)block).cName;
+                    parent = (BoxedBlock) block;
+
                     iter = fields.iterator();
                     while (iter.hasNext()) {
                         field = (String[]) iter.next();
 
-                        block = new GetterBlock(field[0], field[1], cType);
+                        block = new GetterBlock(parent, field[0], field[1]);
                         blocks.add(block);
 
                         /*
@@ -340,7 +342,7 @@ public class DefsParser
                          * it is known safe to do so and so annotated in the
                          * fields line in the defs data.
                          */
-                        block = new SetterBlock(field[0], field[1], cType);
+                        block = new SetterBlock(parent, field[0], field[1]);
                         blocks.add(block);
                     }
                 } else {

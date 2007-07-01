@@ -19,7 +19,7 @@ public abstract class ProxiedThing extends Thing
     public ProxiedThing(String gType, String bindingsPackage, String bindingsClass, String javaType) {
         super(gType, bindingsPackage, bindingsClass, javaType, "long", "jlong");
     }
-    
+
     protected ProxiedThing() {}
 
     String translationToNative(String name) {

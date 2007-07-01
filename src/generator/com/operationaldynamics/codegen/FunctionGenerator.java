@@ -101,11 +101,11 @@ abstract class FunctionGenerator extends Generator
     }
 
     protected void translationMethodDeclaration(PrintWriter out) {
-        
+
         out.print("\n");
         out.print("    ");
         out.print("static final ");
-        out.print( data.typeNameFor(returnType) );
+        out.print(returnType.javaTypeInContext(data));
         out.print(" ");
         out.print(translationMethodName);
 
@@ -115,8 +115,8 @@ abstract class FunctionGenerator extends Generator
             if (i > 0) {
                 out.print(", ");
             }
-            
-            out.print(data.typeNameFor(parameterTypes[i]));
+
+            out.print(parameterTypes[i].javaTypeInContext(data));
             out.print(" ");
             out.print(parameterNames[i]);
         }
@@ -384,7 +384,7 @@ abstract class FunctionGenerator extends Generator
      *         padding.
      */
     protected String jniErrorReturnValue(Thing returnType) {
-        if ( "void".equals(returnType.jniType)) {
+        if ("void".equals(returnType.jniType)) {
             return "";
         } else if ("jboolean".equals(returnType.jniType)) {
             return " JNI_FALSE";
@@ -394,8 +394,7 @@ abstract class FunctionGenerator extends Generator
             return " NULL";
         } else if ("jint".equals(returnType.jniType)) {
             return " 0";
-        } else if ("jlong".equals(returnType.jniType)
-                || "jdouble".equals(returnType.jniType)) {
+        } else if ("jlong".equals(returnType.jniType) || "jdouble".equals(returnType.jniType)) {
             return " 0L";
         } else {
             return " FIXME";

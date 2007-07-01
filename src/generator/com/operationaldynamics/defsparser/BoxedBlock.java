@@ -63,11 +63,11 @@ public class BoxedBlock extends TypeBlock
     }
 
     public Thing createThing() {
-        
+
         /*
          * GdkEventAny is an exception to the usual GBoxeds wrapping, as we
-         * don't need to expose it in our public API. Thus, the java type
-         * that wraps this boxed is a org.gnome.gdk.Event.
+         * don't need to expose it in our public API. Thus, the java type that
+         * wraps this boxed is a org.gnome.gdk.Event.
          */
         String javaType = "EventAny".equals(blockName) ? "Event" : blockName;
         return new BoxedThing(addPointerSymbol(cName), moduleToJavaPackage(inModule), cName, javaType);

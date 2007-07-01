@@ -2,7 +2,7 @@
  * TypeGenerator.java
  *
  * Copyright (c) 2007 Operational Dynamics Consulting Pty Ltd
- * Copyright (c) Vreixo Formoso
+ * Copyright (c) 2007 Vreixo Formoso
  * 
  * The code in this file, and the library it is a part of, are made available
  * to you by the authors under the terms of the "GNU General Public Licence,
@@ -16,7 +16,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Set;
 
 import com.operationaldynamics.driver.DefsFile;
 
@@ -115,14 +114,11 @@ abstract class TypeGenerator extends Generator
         types = new ArrayList();
         types.add("org.gnome.glib.Plumbing");
 
-        Set conflictTypes = data.typeConflicts();
-        iter = data.usesTypes().iterator();
+        iter = data.getTypesToImport().iterator();
         while (iter.hasNext()) {
             Thing type = (Thing) iter.next();
-            
-            if ( !conflictTypes.contains(type) ) {
-                types.add(type.fullyQualifiedJavaClassName());
-            }
+
+            types.add(type.fullyQualifiedJavaClassName());
         }
 
         /* sort the types */
@@ -156,12 +152,12 @@ abstract class TypeGenerator extends Generator
         out.print("#include <jni.h>\n");
         out.print("#include <gtk/gtk.h>\n");
 
-        if ( objectType.importHeader != null ) {
+        if (objectType.importHeader != null) {
             out.print("#include <" + objectType.importHeader + ">\n");
         }
-        
+
         out.print("#include \"bindings_java.h\"\n");
-        
+
         out.print("#include \"");
         out.print(encodeJavaClassName(objectType.bindingsPackage, objectType.bindingsClass));
         out.print(".h\"\n");
@@ -179,7 +175,7 @@ abstract class TypeGenerator extends Generator
         out.print(" * this type. Replace this comment with appropriate javadoc including author\n");
         out.print(" * and since tags. Note that the class may need to be made abstract, implement\n");
         out.print(" * interfaces, or even have its parent changed. No API stability guarantees\n");
-        out.print(" * are made about this class until it has been reviewed by a hacker and this\n");                
+        out.print(" * are made about this class until it has been reviewed by a hacker and this\n");
         out.print(" * comment has been replaced.\n");
         out.print(" */\n");
     }

@@ -33,7 +33,7 @@ public class ArrayThing extends Thing
     protected ArrayThing() {}
 
     String translationToJava(String name, DefsFile data) {
-        return "(" + data.typeNameFor(this) + ") objectArrayFor(" + name + ")";
+        return "(" + javaTypeInContext(data) + ") objectArrayFor(" + name + ")";
     }
 
     String translationToNative(String name) {
