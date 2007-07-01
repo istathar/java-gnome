@@ -48,15 +48,9 @@ build/config: .config build/dirs
 SOURCES_CODEGEN=$(shell find src/generator -name '*.java')
 SOURCES_DEFS=$(shell find src/defs -name '*.defs')
 
-SOURCES_DIST=$(shell find src/bindings -name '*.java') $(shell find generated/bindings -name '*.java' )
-
 SOURCES_TEST=$(shell find tests/prototype -name '*.java' ) $(shell find tests/bindings -name '*.java' )  $(shell find tests/generator -name '*.java' )
 
-# These are just the headers which are crafted, not generated
-HEADERS_C=$(shell find src/jni -name '*.h' | sed -e 's/src\/jni/tmp\/include/g' -e 's/\.c/\.h/g')
 
-SOURCES_C=$(shell find src/bindings -name '*.c' ) $(shell find generated/bindings -name '*.c' ) $(shell find src/jni -name '*.c' )
-OBJECTS_C=$(shell echo $(SOURCES_C) | sed -e's/\.c/\.o/g' -e's/src\/bindings/tmp\/objects/g' -e's/generated\/bindings/tmp\/objects/g' -e's/src\/jni/tmp\/objects/g' )
 
 
 #
@@ -79,10 +73,6 @@ build/dirs: .config
 # Source compilation
 # --------------------------------------------------------------------
 
-tmp/gtk-$(APIVERSION).jar: build/config build/classes-codegen build/generate build/classes-dist build/properties-dist
-	@echo "$(JAR_CMD) $@"
-	cd tmp/bindings ; find . -name '*.class' -o -name '*.properties' | xargs $(JAR) cf ../../$@ 
-
 build/classes-codegen: $(SOURCES_CODEGEN)
 	@echo "$(JAVAC_CMD) tmp/generator/*.class"
 	$(JAVAC) -d tmp/generator -classpath tmp/generator -sourcepath src/generator $?
@@ -93,81 +83,16 @@ build/generate: build/classes-codegen $(SOURCES_DEFS)
 	$(JAVA) -classpath tmp/generator BindingsGenerator $(REDIRECT)
 	touch $@
 
-build/classes-dist: $(SOURCES_DIST)
-	@echo "$(JAVAC_CMD) tmp/bindings/*.class"
-	$(JAVAC) -d tmp/bindings -classpath tmp/bindings -sourcepath src/bindings:generated/bindings $?
-	touch $@
+#
+# Building the generated Java and C code is done in a subprocess in order to
+# force Make to populate the variables _after_ the code is generated.
+#
 
+tmp/gtk-$(APIVERSION).jar: build/config build/classes-codegen build/generate
+	make -f java.make
 
-build/properties-dist: tmp/bindings/typeMapping.properties
-	touch $@
-
-tmp/bindings/%.properties: mockup/bindings/%.properties
-	@echo "CP        $< -> $(@D)"
-	cp -p $< $@
-
-
-GTK_CFLAGS=$(shell pkg-config --cflags gthread-2.0) \
-		$(shell pkg-config --cflags glib-2.0) \
-		$(shell pkg-config --cflags gtk+-2.0) \
-		$(shell pkg-config --cflags gtk+-unix-print-2.0) \
-		$(shell pkg-config --cflags libglade-2.0)
-
-GTK_LIBS=$(shell pkg-config --libs gthread-2.0) \
-		$(shell pkg-config --libs glib-2.0) \
-		$(shell pkg-config --libs gtk+-2.0) \
-		$(shell pkg-config --libs gtk+-unix-print-2.0) \
-		$(shell pkg-config --libs libglade-2.0)
-
-
-ifdef V
-JAVAH:=$(JAVAH) -verbose
-endif
-
-build/headers: build/headers-static build/headers-generate
-	touch $@
-
-build/headers-static: $(HEADERS_C)
-	touch $@
-
-tmp/include/%.h: src/jni/%.h
-	@echo "CP        $< -> $(@D)"
-	cp -p $< $@
-
-# We don't use an implict rule for this for the simple reason that we only
-# want to do one invocation, which means using $? (newer than target). It gets
-# more complicated because of the need to give classnames to javah.
-
-SOURCES_JNI=$(shell find src/bindings -name '*.c') $(shell find generated/bindings -name '*.c')
-build/headers-generate: $(SOURCES_JNI)
-	@echo "$(JAVAH_CMD) tmp/headers/*.h"
-	$(JAVAH) -jni -d tmp/include -classpath tmp/bindings \
-		$(shell echo $? | sed -e 's/src\/bindings\///g' -e 's/generated\/bindings\///g' -e 's/\.c//g' -e 's/\//\./g' )
-	touch $@
-
-tmp/objects/%.o: src/jni/%.c src/jni/bindings_java.h
-	@if [ ! -d $(@D) ] ; then echo "MKDIR     $(@D)" ; mkdir -p $(@D) ; fi
-	echo "$(CC_CMD) $@"
-	$(CCACHE) $(CC) $(GTK_CFLAGS) -Itmp/include -o $@ -c $<
-
-
-tmp/objects/%.o: src/bindings/%.c src/jni/bindings_java.h
-	@if [ ! -d $(@D) ] ; then echo "MKDIR     $(@D)" ; mkdir -p $(@D) ; fi
-	@echo "$(CC_CMD) $@"
-	$(CCACHE) $(CC) $(GTK_CFLAGS) -Itmp/include -o $@ -c $<
-
-tmp/objects/%.o: generated/bindings/%.c
-	@if [ ! -d $(@D) ] ; then echo "MKDIR     $(@D)" ; mkdir -p $(@D) ; fi
-	@echo "$(CC_CMD) $@"
-	$(CCACHE) $(CC) $(GTK_CFLAGS) -Itmp/include -o $@ -c $<
-
-tmp/libgtkjni-$(APIVERSION).so: build/config build/headers $(OBJECTS_C)
-	@echo "$(LINK_CMD) $@"
-	$(LINK) \
-		 $(GTK_LIBS) \
-		-o $@ $(OBJECTS_C)
-#	@echo "STRIP     $@"
-#	strip --only-keep-debug $@
+tmp/libgtkjni-$(APIVERSION).so: build/config
+	make -f jni.make
 
 .SECONDARY: tmp/native/gtk.o
 
