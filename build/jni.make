@@ -14,6 +14,8 @@
 # the top level Makefile so that it occurs *after* code generation, thus
 # allowing the variable setting to find the generated files.
 #
+# This runs relative to the project root
+#
 
 -include .config
 
@@ -38,10 +40,10 @@ ifdef V
 JAVAH:=$(JAVAH) -verbose
 endif
 
-build/headers: build/headers-static build/headers-generate
+tmp/stamp/headers: tmp/stamp/headers-static tmp/stamp/headers-generate
 	touch $@
 
-build/headers-static: $(HEADERS_C)
+tmp/stamp/headers-static: $(HEADERS_C)
 	touch $@
 
 tmp/include/%.h: src/jni/%.h
@@ -52,7 +54,7 @@ tmp/include/%.h: src/jni/%.h
 # want to do one invocation, which means using $? (newer than target). It gets
 # more complicated because of the need to give classnames to javah.
 
-build/headers-generate: $(SOURCES_JNI)
+tmp/stamp/headers-generate: $(SOURCES_JNI)
 	@echo "$(JAVAH_CMD) tmp/headers/*.h"
 	$(JAVAH) -d tmp/include -classpath tmp/bindings \
 		$(shell echo $? | sed -e 's/src\/bindings\///g' -e 's/generated\/bindings\///g' -e 's/\.c//g' -e 's/\//\./g' )
@@ -74,7 +76,7 @@ tmp/objects/%.o: generated/bindings/%.c
 	@echo "$(CC_CMD) $@"
 	$(CCACHE) $(CC) $(GTK_CFLAGS) -Itmp/include -o $@ -c $<
 
-tmp/libgtkjni-$(APIVERSION).so: build/headers $(OBJECTS_C)
+tmp/libgtkjni-$(APIVERSION).so: tmp/stamp/headers $(OBJECTS_C)
 	@echo "$(LINK_CMD) $@"
 	$(LINK) \
 		 $(GTK_LIBS) \

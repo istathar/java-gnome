@@ -14,6 +14,8 @@
 # the top level Makefile so that it occurs *after* code generation, thus
 # allowing the variable setting to find the generated files.
 #
+# This runs relative to the project root
+#
 
 -include .config
 
@@ -26,20 +28,20 @@ SOURCES_DIST=$(shell find src/bindings -name '*.java') $(shell find generated/bi
 # Source compilation
 # --------------------------------------------------------------------
 
-tmp/gtk-$(APIVERSION).jar: build/classes-dist build/properties-dist
+tmp/gtk-$(APIVERSION).jar: tmp/stamp/classes-dist tmp/stamp/properties-dist
 	@echo "$(JAR_CMD) $@"
 	#cd tmp/bindings ; find . -name '*.class' -o -name '*.properties' | xargs echo > list2
 	cd tmp/bindings ; $(JAR) cf ../../$@ `find . -name '*.class' -o -name '*.properties'`
 	#cd tmp/bindings ; find . -name '*.class' -o -name '*.properties' | xargs $(JAR) cf ../../$@ 
 
 
-build/classes-dist: $(SOURCES_DIST)
+tmp/stamp/classes-dist: $(SOURCES_DIST)
 	@echo "$(JAVAC_CMD) tmp/bindings/*.class"
 	$(JAVAC) -d tmp/bindings -classpath tmp/bindings -sourcepath src/bindings:generated/bindings $?
 	touch $@
 
 
-build/properties-dist: tmp/bindings/typeMapping.properties
+tmp/stamp/properties-dist: tmp/bindings/typeMapping.properties
 	touch $@
 
 tmp/bindings/%.properties: mockup/bindings/%.properties

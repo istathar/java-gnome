@@ -40,7 +40,7 @@ build-native: tmp/libgtkjava-$(APIVERSION).so
 	echo
 	exit 1
 
-build/config: .config build/dirs
+tmp/stamp/config: .config tmp/stamp/dirs
 	@echo "CHECK     build system configuration"
 	( if [ ! "$(JAVA_CMD)" ] ; then echo "Sanity check failed. Run ./configure" ; exit 1 ; fi )
 	touch $@
@@ -56,9 +56,9 @@ SOURCES_TEST=$(shell find tests/prototype -name '*.java' ) $(shell find tests/bi
 #
 # convenience target: setup pre-reqs
 #
-build/dirs: .config
+tmp/stamp/dirs: .config
 	@echo "MKDIR     temporary build directories"
-	-test -d build || mkdir build
+	-test -d tmp/stamp || mkdir -p tmp/stamp
 	-test -d generated/bindings || mkdir -p generated/bindings
 	-test -d tmp/bindings || mkdir -p tmp/bindings
 	-test -d tmp/generator || mkdir -p tmp/generator
@@ -73,12 +73,12 @@ build/dirs: .config
 # Source compilation
 # --------------------------------------------------------------------
 
-build/classes-codegen: $(SOURCES_CODEGEN)
+tmp/stamp/classes-codegen: $(SOURCES_CODEGEN)
 	@echo "$(JAVAC_CMD) tmp/generator/*.class"
 	$(JAVAC) -d tmp/generator -classpath tmp/generator -sourcepath src/generator $?
 	touch $@
 
-build/generate: build/classes-codegen $(SOURCES_DEFS)
+tmp/stamp/generate: tmp/stamp/classes-codegen $(SOURCES_DEFS)
 	@echo "$(JAVA_CMD) BindingsGenerator"
 	$(JAVA) -classpath tmp/generator BindingsGenerator $(REDIRECT)
 	touch $@
@@ -88,11 +88,11 @@ build/generate: build/classes-codegen $(SOURCES_DEFS)
 # force Make to populate the variables _after_ the code is generated.
 #
 
-tmp/gtk-$(APIVERSION).jar: build/config build/classes-codegen build/generate
-	make -f java.make
+tmp/gtk-$(APIVERSION).jar: tmp/stamp/config tmp/stamp/classes-codegen tmp/stamp/generate
+	make -f build/java.make
 
-tmp/libgtkjni-$(APIVERSION).so: build/config
-	make -f jni.make
+tmp/libgtkjni-$(APIVERSION).so: tmp/stamp/config
+	make -f build/jni.make
 
 .SECONDARY: tmp/native/gtk.o
 
@@ -157,7 +157,7 @@ $(DESTDIR)$(PREFIX)/lib/libgtkjava-$(APIVERSION).so: tmp/libgtkjava-$(APIVERSION
 # Tests
 # --------------------------------------------------------------------
 
-build/classes-test: $(SOURCES_TEST)
+tmp/stamp/classes-test: $(SOURCES_TEST)
 	@echo "$(JAVAC_CMD) tmp/tests/*.class"
 	$(JAVAC) -d tmp/tests -classpath tmp/tests:tmp/generator:tmp/gtk-$(APIVERSION).jar:$(JUNIT_JARS) -sourcepath tests/prototype:tests/bindings:tmp/generator $?
 	touch $@
@@ -167,7 +167,7 @@ build/classes-test: $(SOURCES_TEST)
 # way to do this, by all means please do so.
 export COLUMNS:=$(shell stty size 2>/dev/null | sed -e 's/[0-9]* \([0-9]*\)/\1/' )
 
-test: build-java build/classes-test
+test: build-java tmp/stamp/classes-test
 	@echo "$(JAVA_CMD) UnitTests"
 	$(JAVA) \
 		-classpath tmp/tests:tmp/generator:tmp/gtk-$(APIVERSION).jar:$(JUNIT_JARS) \
@@ -175,7 +175,7 @@ test: build-java build/classes-test
 		-ea \
 		UnitTests
 
-demo: build-java build/classes-test
+demo: build-java tmp/stamp/classes-test
 	@echo "$(JAVA_CMD) Experiment"
 	$(JAVA) \
 		-classpath tmp/tests:tmp/gtk-$(APIVERSION).jar \
@@ -192,7 +192,7 @@ else
 JAVADOC:=$(JAVADOC) -quiet
 endif
 
-doc: build/classes-dist
+doc: tmp/stamp/classes-dist
 	@echo "$(JAVADOC_CMD) doc/api/*.html"
 	$(JAVADOC) \
 		-d doc/api \
@@ -242,7 +242,7 @@ clean:
 	rm -rf tmp/generator/* tmp/bindings/* tmp/tests/*
 	rm -rf tmp/include/* tmp/native/* tmp/objects/*
 	@echo "RM        temporary files"
-	rm -rf build/*
+	rm -rf tmp/stamp/*
 	rm -f hs_err_*
 	@echo "RM        built .jar and .so"
 	rm -f tmp/gtk-*.jar \
@@ -256,7 +256,7 @@ distclean: clean
 	-rm -rf doc/api/*
 	-rm -f java-gnome-*.tar.bz2
 	@echo "RM        temporary directories"
-	-rm -rf tmp build generated
+	-rm -rf tmp generated
 	@echo "RM        glade cruft"
 	find . -name '*.glade.bak' -o -name '*.gladep*' -type f | xargs rm -f
 
