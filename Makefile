@@ -91,25 +91,11 @@ tmp/stamp/generate: tmp/stamp/classes-codegen $(SOURCES_DEFS)
 tmp/gtk-$(APIVERSION).jar: tmp/stamp/config tmp/stamp/classes-codegen tmp/stamp/generate
 	make -f build/java.make
 
-tmp/libgtkjni-$(APIVERSION).so: tmp/stamp/config
+tmp/libgtkjni-$(APIVERSION).so: tmp/stamp/config tmp/gtk-$(APIVERSION).jar
 	make -f build/jni.make
 
-.SECONDARY: tmp/native/gtk.o
-
-tmp/native/gtk.o: tmp/gtk-$(APIVERSION).jar
-	@echo "$(GCJ_CMD) $@"
-	$(GCJ) \
-		-classpath $(JAVAGNOME_JARS):src/bindings:tmp/bindings \
-		-o $@ -c $<
-
-tmp/libgtkjava-$(APIVERSION).so: tmp/native/gtk.o
-	@echo "$(GCJ_LINK_CMD) $@"
-	$(GCJ_LINK) \
-		-Wl,-rpath=$(JAVAGNOME_HOME)/lib \
-		-L$(JAVAGNOME_HOME)/lib \
-		-o $@ $<
-#	@echo "STRIP     $@"
-#	strip --only-keep-debug $@
+tmp/libgtkjava-$(APIVERSION).so: tmp/stamp/config tmp/gtk-$(APIVERSION).jar
+	make -f build/gcj.make
 
 # --------------------------------------------------------------------
 # Install (run as root, or specify DESTDIR on Make command line)
