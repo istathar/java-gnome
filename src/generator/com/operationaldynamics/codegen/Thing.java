@@ -128,8 +128,8 @@ public abstract class Thing
         /*
          * Types for array parameters
          */
-        register(new FundamentalThing("gfloat[]", "float[]", "float[]", "jfloatArray"));
-        register(new FundamentalThing("gint8[]", "int[]", "int[]", "jintArray"));
+        register(new ArrayThing("gfloat[]", "float[]", "float[]", "jfloatArray"));
+        register(new ArrayThing("gint8[]", "int[]", "int[]", "jintArray"));
 
         /* these seem a bit harder */
         register(new FixmeThing("const-gchar*[]"));
@@ -300,7 +300,7 @@ public abstract class Thing
             stored = (Thing) things.get(bareGType);
 
             if (stored != null) {
-                dupe = new ArrayThing(gType, stored);
+                dupe = new GListThing(gType, stored);
 
                 register(dupe);
                 return dupe;

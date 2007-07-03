@@ -265,14 +265,7 @@ abstract class FunctionGenerator extends Generator
         for (int i = 0; i < parameterTypes.length; i++) {
             out.print("\t");
 
-            String cType = parameterTypes[i].cType;
-            /*
-             * Array types can't be declared as type[], but as type*
-             */
-            if (cType.endsWith("[]")) {
-                cType = cType.substring(0, cType.length() - 2) + "*";
-            }
-            out.print(cType);
+            out.print(parameterTypes[i].cType);
             out.print(" ");
             out.print(parameterNames[i]);
             out.print(";\n");
@@ -293,14 +286,10 @@ abstract class FunctionGenerator extends Generator
             out.print(parameterNames[i]);
 
             /*
-             * always a cast, take care about arrays
+             * always a cast
              */
-            String cType = parameterTypes[i].cType;
-            if (cType.endsWith("[]")) {
-                cType = cType.substring(0, cType.length() - 2) + "*";
-            }
             out.print(" = (");
-            out.print(cType);
+            out.print(parameterTypes[i].cType);
             out.print(") ");
 
             /*

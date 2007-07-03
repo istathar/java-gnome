@@ -13,34 +13,24 @@ package com.operationaldynamics.codegen;
 import com.operationaldynamics.driver.DefsFile;
 
 /**
- * A Thing that represents an array of Java objects. This is the Thing used to
- * deal with GList and GSList types.
+ * A Thing to deal with array of a native type.
  * 
  * @author Vreixo Formoso
  */
-public class ArrayThing extends Thing
+public class ArrayThing extends FundamentalThing
 {
-    /** Type stored in the list */
-    private Thing type;
-
-    public ArrayThing(String gType, Thing type) {
-        super(gType.split("-")[0], type.bindingsPackage, type.bindingsClass, type.javaType + "[]",
-                "long[]", "jlongArray");
-        this.type = type;
-        this.cType = this.gType + "*";
+    public ArrayThing(String gType, String javaType, String nativeType, String jniType) {
+        super(gType, javaType, nativeType, jniType);
+        cType = gType.substring(0, gType.length() - 2) + "*";
     }
 
     protected ArrayThing() {}
 
     String translationToJava(String name, DefsFile data) {
-        return "(" + javaTypeInContext(data) + ") arrayFor(" + name + ")";
+        return name;
     }
 
     String translationToNative(String name) {
-        return "pointersOf(" + name + ")";
-    }
-
-    public Thing arrayType() {
-        return type;
+        return name;
     }
 }
