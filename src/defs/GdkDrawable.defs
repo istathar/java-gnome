@@ -200,21 +200,6 @@
   )
 )
 
-(define-method draw_text_wc
-  (of-object "GdkDrawable")
-  (c-name "gdk_draw_text_wc")
-  (return-type "none")
-  (deprecated "use GdkDrawable.draw_layout")
-  (parameters
-    '("GdkFont*" "font")
-    '("GdkGC*" "gc")
-    '("gint" "x")
-    '("gint" "y")
-    '("const-GdkWChar*" "text")
-    '("gint" "text_length")
-  )
-)
-
 (define-method draw_drawable
   (of-object "GdkDrawable")
   (c-name "gdk_draw_drawable")
@@ -532,19 +517,6 @@
     '("gint" "x")
     '("gint" "y")
     '("const-gchar*" "text")
-    '("gint" "text_length")
-  )
-)
-
-(define-virtual draw_text_wc
-  (of-object "GdkDrawable")
-  (return-type "none")
-  (parameters
-    '("GdkFont*" "font")
-    '("GdkGC*" "gc")
-    '("gint" "x")
-    '("gint" "y")
-    '("const-GdkWChar*" "text")
     '("gint" "text_length")
   )
 )
