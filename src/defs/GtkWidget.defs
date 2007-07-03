@@ -252,7 +252,7 @@
 (define-method menu_get_for_attach_widget
   (of-object "GtkWidget")
   (c-name "gtk_menu_get_for_attach_widget")
-  (return-type "GList*")
+  (return-type "GList-GtkMenu*")
 )
 
 (define-method rc_get_style

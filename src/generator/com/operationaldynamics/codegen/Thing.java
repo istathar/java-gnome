@@ -126,6 +126,16 @@ public abstract class Thing
         register(new FundamentalThing("gdouble", "double", "double", "jdouble"));
 
         /*
+         * Types for array parameters
+         */
+        register(new FundamentalThing("gfloat[]", "float[]", "float[]", "jfloatArray"));
+        register(new FundamentalThing("gint8[]", "int[]", "int[]", "jintArray"));
+
+        /* these seem a bit harder */
+        register(new FixmeThing("const-gchar*[]"));
+        register(new FixmeThing("gchar**[]"));
+
+        /*
          * Out parameters for fundamental types are special cases, probably,
          * so we will continue to register their information here for now.
          */
@@ -282,6 +292,16 @@ public abstract class Thing
 
             if (stored != null) {
                 dupe = stored.createConstVariant();
+
+                register(dupe);
+                return dupe;
+            }
+        } else if (gType.startsWith("GList-") || gType.startsWith("GSList-")) {
+            bareGType = gType.split("-")[1];
+            stored = (Thing) things.get(bareGType);
+
+            if (stored != null) {
+                dupe = new ArrayThing(gType, stored);
 
                 register(dupe);
                 return dupe;

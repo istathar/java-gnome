@@ -45,11 +45,20 @@ extern void bindings_java_memory_unref(GObject*);
 #define DEBUG_MEMORY_MANAGEMENT FALSE
 
 /*
- * bindigns_java_threads.c
+ * bindings_java_threads.c
  */
 
 extern void bindings_java_threads_init(JNIEnv*, jobject);
 extern void bindings_java_threads_lock();
 extern void bindings_java_threads_unlock();
+
+/*
+ * bindings_java_convert.c
+ */
+ 
+extern GList* bindings_java_convert_jarray_to_glist(JNIEnv*, jlongArray);
+extern GSList* bindings_java_convert_jarray_to_gslist(JNIEnv*, jlongArray);
+extern jlongArray bindings_java_convert_glist_to_jarray(JNIEnv*, GList*);
+extern jlongArray bindings_java_convert_gslist_to_jarray(JNIEnv*, GSList*);
 
 #endif 

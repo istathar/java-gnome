@@ -1,6 +1,8 @@
 package com.operationaldynamics.codegen;
 
-import junit.framework.TestCase;
+import com.operationaldynamics.defsparser.ValidateDefsParsing;
+import com.operationaldynamics.driver.DefsFile;
+import com.operationaldynamics.driver.ImproperDefsFileException;
 
 /**
  * While much of the output from the code generator is subjective (ie
@@ -11,7 +13,7 @@ import junit.framework.TestCase;
  * @author Andrew Cowie
  * @since 4.0.3
  */
-public final class ValidateUtilityMethods extends TestCase
+public final class ValidateUtilityMethods extends ValidateDefsParsing
 {
     public final void testEncodeJavaNamesToJni() {
         assertEquals("org_gnome_gtk_GtkButton", Generator.encodeJavaClassName("org.gnome.gtk",
@@ -37,17 +39,20 @@ public final class ValidateUtilityMethods extends TestCase
         assertEquals("createButton", munged2);
     }
 
-    public final void testThingTranslationCode() {
+    public final void testThingTranslationCode() throws ImproperDefsFileException {
         FundamentalThing ft;
         ObjectThing ot;
+        DefsFile context;
+
+        context = new DefsFile(parser.parseData());
 
         ft = new FundamentalThing("gboolean", "boolean", "boolean", "jboolean");
         assertEquals("a", ft.translationToNative("a"));
-        assertEquals("a", ft.translationToJava("a", null));
+        assertEquals("a", ft.translationToJava("a", context));
 
         ot = new ObjectThing("GtkWidget*", "org.gnome.gtk", "GtkWidget", "Widget");
         assertEquals("pointerOf(b)", ot.translationToNative("b"));
-        assertEquals("objectFor(b)", ot.translationToJava("b", null));
+        assertEquals("(Widget) objectFor(b)", ot.translationToJava("b", context));
     }
 
     public final void testSignalNameMunging() {

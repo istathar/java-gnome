@@ -92,14 +92,7 @@
 (define-method get_children
   (of-object "GtkContainer")
   (c-name "gtk_container_get_children")
-  (return-type "GList*")
-)
-
-(define-method children
-  (of-object "GtkContainer")
-  (c-name "gtk_container_children")
-  (return-type "GList*")
-  (deprecated "use GtkContainer.get_children")
+  (return-type "GList-GtkWidget*")
 )
 
 (define-method propagate_expose
@@ -117,7 +110,7 @@
   (c-name "gtk_container_set_focus_chain")
   (return-type "none")
   (parameters
-    '("GList*" "focusable_widgets")
+    '("GList-GtkWidget*" "focusable_widgets")
   )
 )
 

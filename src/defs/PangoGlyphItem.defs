@@ -17,7 +17,7 @@
 (define-method apply_attrs
   (of-object "PangoGlyphItem")
   (c-name "pango_glyph_item_apply_attrs")
-  (return-type "GSList*")
+  (return-type "GSList-PangoGlyphItem*")
   (parameters
     '("const-char*" "text")
     '("PangoAttrList*" "list")

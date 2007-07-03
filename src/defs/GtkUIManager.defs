@@ -49,7 +49,7 @@
 (define-method get_action_groups
   (of-object "GtkUIManager")
   (c-name "gtk_ui_manager_get_action_groups")
-  (return-type "GList*")
+  (return-type "GList-GtkActionGroup*")
 )
 
 (define-method get_accel_group
@@ -70,7 +70,7 @@
 (define-method get_toplevels
   (of-object "GtkUIManager")
   (c-name "gtk_ui_manager_get_toplevels")
-  (return-type "GSList*")
+  (return-type "GSList-GtkWidget*")
   (parameters
     '("GtkUIManagerItemType" "types")
   )

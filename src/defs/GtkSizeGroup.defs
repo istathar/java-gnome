@@ -66,6 +66,6 @@
 (define-method get_widgets
   (of-object "GtkSizeGroup")
   (c-name "gtk_size_group_get_widgets")
-  (return-type "GSList*")
+  (return-type "GSList-GtkWidget*")
 )
 

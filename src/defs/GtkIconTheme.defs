@@ -21,26 +21,25 @@
   )
 )
 
-;;FIXME
-;;(define-method set_search_path
-;;  (of-object "GtkIconTheme")
-;;  (c-name "gtk_icon_theme_set_search_path")
-;;  (return-type "none")
-;;  (parameters
-;;    '("const-gchar*[]" "path")
-;;    '("gint" "n_elements")
-;;  )
-;;)
-;;
-;;(define-method get_search_path
-;;  (of-object "GtkIconTheme")
-;;  (c-name "gtk_icon_theme_get_search_path")
-;;  (return-type "none")
-;;  (parameters
-;;    '("gchar**[]" "path")
-;;    '("gint*" "n_elements")
-;;  )
-;;)
+(define-method set_search_path
+  (of-object "GtkIconTheme")
+  (c-name "gtk_icon_theme_set_search_path")
+  (return-type "none")
+  (parameters
+    '("const-gchar*[]" "path")
+    '("gint" "n_elements")
+  )
+)
+
+(define-method get_search_path
+  (of-object "GtkIconTheme")
+  (c-name "gtk_icon_theme_get_search_path")
+  (return-type "none")
+  (parameters
+    '("gchar**[]" "path")
+    '("gint*" "n_elements")
+  )
+)
 
 (define-method append_search_path
   (of-object "GtkIconTheme")

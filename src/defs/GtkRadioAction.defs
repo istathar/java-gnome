@@ -24,14 +24,14 @@
   (c-name "gtk_radio_action_set_group")
   (return-type "none")
   (parameters
-    '("GSList*" "group")
+    '("GSList-GtkRadioAction*" "group")
   )
 )
 
 (define-method get_group
   (of-object "GtkRadioAction")
   (c-name "gtk_radio_action_get_group")
-  (return-type "GSList*")
+  (return-type "GSList-GtkRadioAction*")
 )
 
 (define-method get_current_value

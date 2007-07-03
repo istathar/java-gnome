@@ -307,7 +307,7 @@
 (define-method list_filters
   (of-object "GtkFileChooser")
   (c-name "gtk_file_chooser_list_filters")
-  (return-type "GSList*")
+  (return-type "GSList-GtkFileFilter*")
 )
 
 (define-method set_filter

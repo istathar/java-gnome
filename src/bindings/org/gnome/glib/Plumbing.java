@@ -41,7 +41,7 @@ public abstract class Plumbing extends org.freedesktop.bindings.Plumbing
 
     static {
         lock = Gdk.lock;
-        
+
         typeMapping = new IdentityHashMap(100);
 
         // FUTURE do we still need this?
@@ -117,33 +117,49 @@ public abstract class Plumbing extends org.freedesktop.bindings.Plumbing
 
         typeMapping.put(nativeName.intern(), javaClass);
     }
-    
+
     /**
-     * Retrieve an approriate Java Object for this pointer.
+     * Retrieve an appropriate Java Object for this pointer.
      * 
      * @see #proxyFor(long)
      * 
-     * @return 
-     * @throw ClastCastException if the GType pointed by given pointer is 
-     *        not a GObject.
+     * @return
+     * @throw ClastCastException if the GType pointed by given pointer is not
+     *        a GObject.
      */
     protected static Object objectFor(long pointer) {
         return (Object) proxyFor(pointer);
     }
-    
+
     /**
-     * Retrieve an approriate Java Boxed for this pointer.
+     * Retrieve an array of appropriate Java Proxies (Object or Boxed
+     * subclasses) for the given array of pointers.
+     */
+    protected static Proxy[] arrayFor(long[] pointers) {
+        if (pointers == null) {
+            return null;
+        }
+
+        Proxy[] proxies = new Proxy[pointers.length];
+        for (int i = 0; i < pointers.length; ++i) {
+            proxies[i] = proxyFor(pointers[i]);
+        }
+        return proxies;
+    }
+
+    /**
+     * Retrieve an appropriate Java Boxed for this pointer.
      * 
      * @see #proxyFor(long)
      * 
-     * @return 
-     * @throw ClastCastException if the GType pointed by given pointer is 
-     *        not a GBoxed.
+     * @return
+     * @throw ClastCastException if the GType pointed by given pointer is not
+     *        a GBoxed.
      */
     protected static Boxed boxedFor(long pointer) {
         return (Boxed) proxyFor(pointer);
     }
-    
+
     /**
      * Retrieve an appropriate Java Proxy for this pointer. This will return
      * the Proxy instance already created using a real constructor if one was

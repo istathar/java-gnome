@@ -264,7 +264,15 @@ abstract class FunctionGenerator extends Generator
 
         for (int i = 0; i < parameterTypes.length; i++) {
             out.print("\t");
-            out.print(parameterTypes[i].cType);
+
+            String cType = parameterTypes[i].cType;
+            /*
+             * Array types can't be declared as type[], but as type*
+             */
+            if (cType.endsWith("[]")) {
+                cType = cType.substring(0, cType.length() - 2) + "*";
+            }
+            out.print(cType);
             out.print(" ");
             out.print(parameterNames[i]);
             out.print(";\n");
@@ -285,10 +293,14 @@ abstract class FunctionGenerator extends Generator
             out.print(parameterNames[i]);
 
             /*
-             * always a cast
+             * always a cast, take care about arrays
              */
+            String cType = parameterTypes[i].cType;
+            if (cType.endsWith("[]")) {
+                cType = cType.substring(0, cType.length() - 2) + "*";
+            }
             out.print(" = (");
-            out.print(parameterTypes[i].cType);
+            out.print(cType);
             out.print(") ");
 
             /*
@@ -302,8 +314,28 @@ abstract class FunctionGenerator extends Generator
                 out.print(", NULL);\n");
 
                 jniReturnIfExceptionThrown(out, i);
+            } else if (parameterTypes[i].gType.equals("GList")) {
+                out.print("bindings_java_convert_jarray_to_glist(env, _");
+                out.print(parameterNames[i]);
+                out.print(");\n");
+
+                jniReturnIfExceptionThrown(out, i);
+            } else if (parameterTypes[i].gType.equals("GSList")) {
+                out.print("bindings_java_convert_jarray_to_gslist(env, _");
+                out.print(parameterNames[i]);
+                out.print(");\n");
+
+                jniReturnIfExceptionThrown(out, i);
             } else if (parameterTypes[i].jniType.equals("jfloatArray")) {
                 out.print("(*env)->GetFloatArrayElements(env, _");
+                out.print(parameterNames[i]);
+                out.print(", NULL);\n");
+
+                jniReturnIfExceptionThrown(out, i);
+
+                out.print("\t// DANGER this conversion code not tested!\n");
+            } else if (parameterTypes[i].jniType.equals("jintArray")) {
+                out.print("(*env)->GetIntArrayElements(env, _");
                 out.print(parameterNames[i]);
                 out.print(", NULL);\n");
 
@@ -356,7 +388,8 @@ abstract class FunctionGenerator extends Generator
             return "";
         } else if ("jboolean".equals(returnType.jniType)) {
             return " JNI_FALSE";
-        } else if ("jstring".equals(returnType.jniType) || "jintArray".equals(returnType.jniType)) {
+        } else if ("jstring".equals(returnType.jniType) || "jintArray".equals(returnType.jniType)
+                || "jlongArray".equals(returnType.jniType)) {
             return " NULL";
         } else if ("jint".equals(returnType.jniType)) {
             return " 0";
@@ -408,8 +441,22 @@ abstract class FunctionGenerator extends Generator
                 out.print(", ");
                 out.print(parameterNames[i]);
                 out.print(");\n");
+            } else if (parameterTypes[i].gType.equals("GList")) {
+                out.print("\tg_list_free(");
+                out.print(parameterNames[i]);
+                out.print(");\n");
+            } else if (parameterTypes[i].gType.equals("GSList")) {
+                out.print("\tg_slist_free(");
+                out.print(parameterNames[i]);
+                out.print(");\n");
             } else if (parameterTypes[i].jniType.equals("jfloatArray")) {
                 out.print("\t(*env)->ReleaseFloatArrayElements(env, _");
+                out.print(parameterNames[i]);
+                out.print(", ");
+                out.print(parameterNames[i]);
+                out.print(", 0);\n");
+            } else if (parameterTypes[i].jniType.equals("jintArray")) {
+                out.print("\t(*env)->ReleaseIntArrayElements(env, _");
                 out.print(parameterNames[i]);
                 out.print(", ");
                 out.print(parameterNames[i]);
@@ -429,6 +476,16 @@ abstract class FunctionGenerator extends Generator
 
             if (returnType.jniType.equals("jstring")) {
                 out.print("\t(*env)->NewStringUTF(env, result);");
+            } else if (returnType.gType.equals("GList")) {
+
+                // FIXME release here the list when needed
+
+                out.print("\tbindings_java_convert_glist_to_jarray(env, result);");
+            } else if (returnType.gType.equals("GSList")) {
+
+                // FIXME release here the list when needed
+
+                out.print("\tbindings_java_convert_jarray_to_gslist(env, result);");
             } else {
                 out.print("(");
                 out.print(returnType.jniType);

@@ -56,7 +56,7 @@
 (define-method get_selected_rows
   (of-object "GtkTreeSelection")
   (c-name "gtk_tree_selection_get_selected_rows")
-  (return-type "GList*")
+  (return-type "GList-GtkTreePath*")
   (parameters
     '("GtkTreeModel**" "model")
   )

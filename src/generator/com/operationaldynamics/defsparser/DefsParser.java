@@ -120,8 +120,9 @@ public class DefsParser
          * setter)
          */
         // ____'("const-gchar*" "label")
+        // ____'("gfloat[]" "vector")
         // ____'("GtkButtonsType" "buttons" (default "GTK_BUTTONS_NONE"))
-        subCharacteristicsLine = Pattern.compile("^\\s+'\\(\"([\\w\\-\\*]+)\"\\s+\"([\\w]+)\".*\\)");
+        subCharacteristicsLine = Pattern.compile("^\\s+'\\(\"([\\w\\-\\*\\[\\]]+)\"\\s+\"([\\w]+)\".*\\)");
 
         // __)
         subEnds = Pattern.compile("^\\s+\\)");

@@ -39,26 +39,25 @@
   )
 )
 
-;;FIXME
-;;(define-method get_vector
-;;  (of-object "GtkCurve")
-;;  (c-name "gtk_curve_get_vector")
-;;  (return-type "none")
-;;  (parameters
-;;    '("int" "veclen")
-;;    '("gfloat[]" "vector")
-;;  )
-;;)
-;;
-;;(define-method set_vector
-;;  (of-object "GtkCurve")
-;;  (c-name "gtk_curve_set_vector")
-;;  (return-type "none")
-;;  (parameters
-;;    '("int" "veclen")
-;;    '("gfloat[]" "vector")
-;;  )
-;;)
+(define-method get_vector
+  (of-object "GtkCurve")
+  (c-name "gtk_curve_get_vector")
+  (return-type "none")
+  (parameters
+    '("int" "veclen")
+    '("gfloat[]" "vector")
+  )
+)
+
+(define-method set_vector
+  (of-object "GtkCurve")
+  (c-name "gtk_curve_set_vector")
+  (return-type "none")
+  (parameters
+    '("int" "veclen")
+    '("gfloat[]" "vector")
+  )
+)
 
 (define-method set_curve_type
   (of-object "GtkCurve")
