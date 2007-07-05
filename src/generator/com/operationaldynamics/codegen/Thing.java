@@ -186,7 +186,6 @@ public abstract class Thing
          */
         register(new TypedefFundamentalThing("GQuark", "int", "int", "jint"));
         register(new TypedefFundamentalThing("GdkNativeWindow", "long", "long", "jlong"));
-        register(new TypedefFundamentalThing("GdkWChar*", "String", "String", "jstring"));
         register(new FixmeThing("gpointer"));
         register(new FixmeThing("gpointer*"));
         register(new FixmeThing("GdkAtom"));
