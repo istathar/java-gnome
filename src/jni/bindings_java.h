@@ -32,7 +32,7 @@ extern const gchar* bindings_java_typeToSignature(GType);
  *  bindings_java_signal.c
  */
 
-extern GClosure* bindings_java_closure_new(JNIEnv*, GObject*, jobject, jclass, const gchar*, guint);
+extern GClosure* bindings_java_closure_new(JNIEnv*, jobject, jclass, const gchar*, guint);
 
 /*
  * bindings_java_memory.c

@@ -205,7 +205,7 @@ Java_org_gnome_glib_GObject_g_1signal_1connect
     		return;
   	}
   	
-  	closure = bindings_java_closure_new(env, instance, _handler, (jclass) _receiver, name, id);
+  	closure = bindings_java_closure_new(env, _handler, (jclass) _receiver, name, id);
   	if (closure == NULL) {
   		// and an exception has already been thrown
 	    	return;

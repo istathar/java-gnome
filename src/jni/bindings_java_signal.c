@@ -58,11 +58,6 @@ typedef struct  {
  	 */
  	jmethodID	method;
  	
- 	/*
- 	 * And finally, the "source" GObject that we will pass to the handler.
- 	 */
- 	GObject*	source;
- 	
 } BindingsJavaClosure;
 
  
@@ -122,96 +117,100 @@ bindings_java_marshaller
 	 * Build the parameters for the callback. The signature of the
 	 * handlers on the Java side for a signal "name" would be:
 	 * 
-	 * 	handlerName(Signal handler, long source, type arg0, type arg1, ...)
-	 * 
+	 * 	handlerName(Signal handler, type arg0, type arg1, ...)
+	 *
+	 * Note that arg0 is universally the source object (in otherwords, a
+	 * method function where the first argument is always a reference to
+	 * self).
+	 *  
 	 * In case you didn't know, JNI's jvalue us a rather complex union
 	 * which holds any of the possible things you can send across the
 	 * boundary. So we allocate an array of them, then for each parameter
 	 * passed to the marshaller, whack them in.
 	 */
 
-	jargs = g_newa(jvalue, n_param_values + 2);
+	jargs = g_newa(jvalue, n_param_values + 1);
 	
 	jargs[0].l = bjc->handler;
-	jargs[1].j = (jlong) bjc->source; 
-
+	
 	for(i = 0; i < n_param_values; i++) {
   		type = G_VALUE_TYPE(&param_values[i]);
     		switch(G_TYPE_FUNDAMENTAL(type)) {
 		case G_TYPE_CHAR:
-			jargs[i+2].c = g_value_get_char(&param_values[i]);
+			jargs[i+1].c = g_value_get_char(&param_values[i]);
       			break;
 
 		case G_TYPE_UCHAR:
-			jargs[i+2].c = g_value_get_uchar(&param_values[i]);
+			jargs[i+1].c = g_value_get_uchar(&param_values[i]);
       			break;
 
 		case G_TYPE_BOOLEAN:
 			b = g_value_get_boolean(&param_values[i]);
-			jargs[i+2].z = (b == TRUE) ? JNI_TRUE : JNI_FALSE;
+			jargs[i+1].z = (b == TRUE) ? JNI_TRUE : JNI_FALSE;
 			break;
 
 		case G_TYPE_INT:
-			jargs[i+2].i = g_value_get_int(&param_values[i]);
+			jargs[i+1].i = g_value_get_int(&param_values[i]);
 			break;
 
 		case G_TYPE_UINT:
-			jargs[i+2].i = g_value_get_uint(&param_values[i]);
+			jargs[i+1].i = g_value_get_uint(&param_values[i]);
 			break;
 
 		case G_TYPE_ENUM:
-			jargs[i+2].i = g_value_get_enum(&param_values[i]);
+			jargs[i+1].i = g_value_get_enum(&param_values[i]);
 			break;
 
 		case G_TYPE_FLAGS:
-			jargs[i+2].i = g_value_get_flags(&param_values[i]);
+			jargs[i+1].i = g_value_get_flags(&param_values[i]);
 			break;
 
 		case G_TYPE_LONG:
-			jargs[i+2].j = g_value_get_long(&param_values[i]);
+			jargs[i+1].j = g_value_get_long(&param_values[i]);
 			break;
 
 		case G_TYPE_ULONG:
-			jargs[i+2].j = g_value_get_ulong(&param_values[i]);
+			jargs[i+1].j = g_value_get_ulong(&param_values[i]);
 			break;
 
 		case G_TYPE_FLOAT:
-			jargs[i+2].f = g_value_get_float(&param_values[i]);
+			jargs[i+1].f = g_value_get_float(&param_values[i]);
 			break;
 
 		case G_TYPE_DOUBLE:
-			jargs[i+2].d = g_value_get_double(&param_values[i]);
+			jargs[i+1].d = g_value_get_double(&param_values[i]);
 			break;
 
 		case G_TYPE_STRING:
-			jargs[i+2].l = (*env)->NewStringUTF(env, g_value_get_string(&param_values[i]));
+			jargs[i+1].l = (*env)->NewStringUTF(env, g_value_get_string(&param_values[i]));
       			break;
 
 		case G_TYPE_OBJECT:
 			/*
-			 * GObjects are just pointers, and so we pass up the address
-			 * across the boundary to be looked up and either an existing Proxy
-			 * returned or a new Proxy created. 
+			 * GObjects are just pointers, and so we pass up the
+			 * address across the boundary to be looked up and
+			 * either an existing Proxy returned or a new Proxy
+			 * created. 
 			 */			
-			jargs[i+2].j = (jlong) g_value_get_object(&param_values[i]); 
+			jargs[i+1].j = (jlong) g_value_get_object(&param_values[i]); 
 			break;
 
 		case G_TYPE_BOXED:
 			/*
 			 * We make a copy of the GBoxed so that we own it and
-			 * thus it can (will) survive the duration of the signal
-			 * in the even that the developer using this code keeps a reference
-			 * to the returned Boxed.
+			 * thus it can (will) survive the duration of the
+			 * signal in the event that the developer using this
+			 * code keeps a reference to the returned Boxed.
 			 */
-			jargs[i+2].j = (jlong) g_boxed_copy(type, g_value_get_boxed(&param_values[i]));
+			jargs[i+1].j = (jlong) g_boxed_copy(type, g_value_get_boxed(&param_values[i]));
 			break;
 			
 		default:
 			/*
-			 * Unrecognized. Probably means we need to add a clause above.
+			 * Unrecogniz2ed. Probably means we need to add a clause above.
 			 */
 			g_warning("Don't know how to marshal a %s", g_type_name(type));
-			jargs[i+2].l = 0;
+			jargs[i+1].l = 0;
 			break;
 		}
 	}
@@ -231,7 +230,7 @@ bindings_java_marshaller
 
 	case 'Z':
 		/*
-		 * boolean return signals
+		 * boolean return signal2s
 		 */
 		_b = (*env)->CallStaticBooleanMethodA(env, bjc->receiver, bjc->method, jargs);		
 		if (_b == JNI_TRUE) {
@@ -312,7 +311,7 @@ bindings_java_marshaller
   		type = G_VALUE_TYPE(&param_values[i]);
 		switch(G_TYPE_FUNDAMENTAL(type)) {
 		case G_TYPE_STRING:
-			(*env)->DeleteLocalRef(env, jargs[i+2].l);
+			(*env)->DeleteLocalRef(env, jargs[i+1].l);
 			break;
 
 		default:
@@ -359,7 +358,6 @@ GClosure*
 bindings_java_closure_new
 (
 	JNIEnv* env, 
-	GObject* instance,
 	jobject handler,
 	jclass receiver,
 	const gchar* name,
@@ -508,8 +506,6 @@ bindings_java_closure_new
 	 */
 
 	bjc->handler = (*env)->NewWeakGlobalRef(env, handler);
-	
-	bjc->source = instance;
 
 	/*
 	 * And we're done!
