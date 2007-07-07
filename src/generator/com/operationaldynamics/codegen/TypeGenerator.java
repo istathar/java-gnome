@@ -112,7 +112,7 @@ abstract class TypeGenerator extends Generator
         out.print(";\n\n");
 
         types = new ArrayList();
-        types.add("org.gnome.glib.Plumbing");
+        types.add(objectType.bindingsPackage + ".Plumbing");
 
         iter = data.getTypesToImport().iterator();
         while (iter.hasNext()) {

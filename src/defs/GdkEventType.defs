@@ -3,7 +3,6 @@
   (c-name "GdkEventType")
   (gtype-id "GDK_TYPE_EVENT_TYPE")
   (values
-    '("nothing" "GDK_NOTHING")
     '("delete" "GDK_DELETE")
     '("destroy" "GDK_DESTROY")
     '("expose" "GDK_EXPOSE")

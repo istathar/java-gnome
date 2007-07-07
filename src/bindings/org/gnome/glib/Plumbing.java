@@ -119,19 +119,6 @@ public abstract class Plumbing extends org.freedesktop.bindings.Plumbing
     }
 
     /**
-     * Retrieve an appropriate Java Object for this pointer.
-     * 
-     * @see #proxyFor(long)
-     * 
-     * @return
-     * @throw ClastCastException if the GType pointed by given pointer is not
-     *        a GObject.
-     */
-    protected static Object objectFor(long pointer) {
-        return (Object) proxyFor(pointer);
-    }
-
-    /**
      * Retrieve an array of appropriate Java Proxies (Object or Boxed
      * subclasses) for the given array of pointers.
      */
@@ -142,7 +129,7 @@ public abstract class Plumbing extends org.freedesktop.bindings.Plumbing
 
         Proxy[] proxies = new Proxy[pointers.length];
         for (int i = 0; i < pointers.length; ++i) {
-            proxies[i] = proxyFor(pointers[i]);
+            proxies[i] = objectFor(pointers[i]);
         }
         return proxies;
     }
@@ -150,32 +137,10 @@ public abstract class Plumbing extends org.freedesktop.bindings.Plumbing
     /**
      * Retrieve an appropriate Java Boxed for this pointer.
      * 
-     * @see #proxyFor(long)
-     * 
-     * @return
      * @throw ClastCastException if the GType pointed by given pointer is not
      *        a GBoxed.
      */
-    protected static Boxed boxedFor(long pointer) {
-        return (Boxed) proxyFor(pointer);
-    }
-
-    /**
-     * Retrieve an appropriate Java Proxy for this pointer. This will return
-     * the Proxy instance already created using a real constructor if one was
-     * created Java side; where no Proxy exists it looks up the underlying
-     * <code>GType</code> and does its best to create it.
-     * 
-     * @return null if the <code>pointer</code> argument is <code>0x0</code>,
-     *         <i>which can happen after looking up a valid GValue which turns
-     *         out to contains a <code>NULL</code> pointer value for a
-     *         GObject it is carrying.</i>
-     * @throw UnsupportedOperationException if no Java class has been
-     *        registered for this <code>GType</code>.
-     * 
-     * @see org.freedesktop.bindings.Plumbing#instanceFor(long)
-     */
-    private static Proxy proxyFor(long pointer) {
+    protected static Boxed boxedFor(Class type, final long pointer) {
         Proxy proxy;
 
         if (pointer == 0L) {
@@ -188,7 +153,42 @@ public abstract class Plumbing extends org.freedesktop.bindings.Plumbing
             /*
              * A Proxy exists for this. Great! Simply return it.
              */
-            return proxy;
+            return (Boxed) proxy;
+        } else {
+            proxy = createProxy(type, pointer);
+            return (Boxed) proxy;
+        }
+    }
+
+    /**
+     * Retrieve an appropriate Java Proxy for a pointer to a GObject. This
+     * will return the Proxy instance already created using a real constructor
+     * if one was created Java side; where no Proxy exists it looks up the
+     * underlying <code>GType</code> and does its best to create it.
+     * 
+     * @return null if the <code>pointer</code> argument is <code>0x0</code>,
+     *         <i>which can happen after looking up a valid GValue which turns
+     *         out to contains a <code>NULL</code> pointer value for a
+     *         GObject it is carrying.</i>
+     * @throw UnsupportedOperationException if no Java class has been
+     *        registered for this <code>GType</code>.
+     * 
+     * @see org.freedesktop.bindings.Plumbing#instanceFor(long)
+     */
+    protected static Object objectFor(long pointer) {
+        Proxy proxy;
+
+        if (pointer == 0L) {
+            return null;
+        }
+
+        proxy = instanceFor(pointer);
+
+        if (proxy != null) {
+            /*
+             * A Proxy exists for this. Great! Simply return it.
+             */
+            return (Object) proxy;
         } else {
             /*
              * Oh. A proxy doesn't exist (yet). Okay. Lookup the GType name,
@@ -219,7 +219,7 @@ public abstract class Plumbing extends org.freedesktop.bindings.Plumbing
 
             if (type != null) {
                 proxy = createProxy(type, pointer);
-                return proxy;
+                return (Object) proxy;
             }
 
             /*
