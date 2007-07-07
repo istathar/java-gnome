@@ -33,7 +33,7 @@ public class GListThing extends Thing
     protected GListThing() {}
 
     String translationToJava(String name, DefsFile data) {
-        return "(" + javaTypeInContext(data) + ") arrayFor(" + name + ")";
+        return "(" + javaTypeInContext(data) + ") objectArrayFor(" + name + ")";
     }
 
     String translationToNative(String name) {

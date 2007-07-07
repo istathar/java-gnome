@@ -122,7 +122,7 @@ public abstract class Plumbing extends org.freedesktop.bindings.Plumbing
      * Retrieve an array of appropriate Java Proxies (Object or Boxed
      * subclasses) for the given array of pointers.
      */
-    protected static Proxy[] arrayFor(long[] pointers) {
+    protected static Proxy[] objectArrayFor(long[] pointers) {
         if (pointers == null) {
             return null;
         }
