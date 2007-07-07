@@ -33,7 +33,12 @@ public class GListThing extends Thing
     protected GListThing() {}
 
     String translationToJava(String name, DefsFile data) {
-        return "(" + javaTypeInContext(data) + ") objectArrayFor(" + name + ")";
+        if (type instanceof ObjectThing) {
+            return "(" + javaTypeInContext(data) + ") objectArrayFor(" + name + ")";
+        } else {
+            return "(" + javaTypeInContext(data) + ") boxedArrayFor(" + javaTypeInContext(data)
+                    + ".class, " + name + ")";
+        }
     }
 
     String translationToNative(String name) {
