@@ -300,7 +300,7 @@ public abstract class Thing
             stored = (Thing) things.get(bareGType);
 
             if (stored != null) {
-                dupe = new GListThing(gType, stored);
+                dupe = stored.createListVariant(gType);
 
                 register(dupe);
                 return dupe;
@@ -435,6 +435,18 @@ public abstract class Thing
      */
     private Thing createOutVariant() {
         return new FixmeThing(this.gType + "*");
+    }
+
+    /**
+     * This is where we deal with both "GList" and "GSList" variants.
+     */
+    private Thing createListVariant(String gType) {
+        if (this instanceof ProxiedThing) {
+            return new GListThing(gType, this);
+        } else {
+            throw new RuntimeException("This codepath cannot create a GList variant unless "
+                    + this.getClass() + " is a ProxiedThing");
+        }
     }
 
     /**

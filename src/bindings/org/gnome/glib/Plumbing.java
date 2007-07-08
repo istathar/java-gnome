@@ -119,19 +119,35 @@ public abstract class Plumbing extends org.freedesktop.bindings.Plumbing
     }
 
     /**
-     * Retrieve an array of appropriate Java Proxies (Object or Boxed
-     * subclasses) for the given array of pointers.
+     * Retrieve an array of appropriate Java Object for the given array of
+     * pointers.
      */
-    protected static Proxy[] objectArrayFor(long[] pointers) {
+    protected static Object[] objectArrayFor(long[] pointers) {
         if (pointers == null) {
             return null;
         }
 
-        Proxy[] proxies = new Proxy[pointers.length];
+        Object[] objects = new Object[pointers.length];
         for (int i = 0; i < pointers.length; ++i) {
-            proxies[i] = objectFor(pointers[i]);
+            objects[i] = objectFor(pointers[i]);
         }
-        return proxies;
+        return objects;
+    }
+
+    /**
+     * Retrieve an array of appropriate Java Boxeds for the given array of
+     * pointers.
+     */
+    protected static Boxed[] boxedArrayFor(final Class type, final long[] pointers) {
+        if (pointers == null) {
+            return null;
+        }
+
+        Boxed[] boxeds = new Boxed[pointers.length];
+        for (int i = 0; i < pointers.length; ++i) {
+            boxeds[i] = boxedFor(type, pointers[i]);
+        }
+        return boxeds;
     }
 
     /**
