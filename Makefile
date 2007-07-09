@@ -48,9 +48,9 @@ tmp/stamp/config: .config tmp/stamp/dirs
 SOURCES_CODEGEN=$(shell find src/generator -name '*.java')
 SOURCES_DEFS=$(shell find src/defs -name '*.defs')
 
-SOURCES_TEST=$(shell find tests/prototype -name '*.java' ) $(shell find tests/bindings -name '*.java' )  $(shell find tests/generator -name '*.java' )
 
 
+SOURCES_TEST=$(shell find tests/prototype -name '*.java' ) $(shell find tests/bindings -name '*.java' )  $(shell find tests/generator -name '*.java' ) $(shell find tests/demo -name '*.java' )
 
 
 #
@@ -129,7 +129,7 @@ $(DESTDIR)$(PREFIX)/share/bindings/gtk-$(APIVERSION).jar: tmp/gtk-$(APIVERSION).
 	cp -f $< $@
 	@echo "SYMLINK   $(@D)/gtk.jar -> gtk-$(APIVERSION).jar"
 	cd $(@D) && rm -f gtk.jar && ln -s gtk-$(APIVERSION).jar gtk.jar
-	
+
 $(DESTDIR)$(PREFIX)/lib/libgtkjni-$(APIVERSION).so: tmp/libgtkjni-$(APIVERSION).so
 	@echo "INSTALL   $@"
 	cp -f $< $@
@@ -145,7 +145,7 @@ $(DESTDIR)$(PREFIX)/lib/libgtkjava-$(APIVERSION).so: tmp/libgtkjava-$(APIVERSION
 
 tmp/stamp/classes-test: $(SOURCES_TEST)
 	@echo "$(JAVAC_CMD) tmp/tests/*.class"
-	$(JAVAC) -d tmp/tests -classpath tmp/tests:tmp/generator:tmp/gtk-$(APIVERSION).jar:$(JUNIT_JARS) -sourcepath tests/prototype:tests/bindings:tmp/generator $?
+	$(JAVAC) -d tmp/tests -classpath tmp/tests:tmp/generator:tmp/gtk-$(APIVERSION).jar:$(JUNIT_JARS) -sourcepath tests/prototype:tests/bindings:tmp/generator:tests/demo $?
 	touch $@
 
 # This is a bit of ugliness necessary to ensure that COLUMNS is in the
