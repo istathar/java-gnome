@@ -110,6 +110,9 @@ public abstract class Plumbing
      * it totally of out of view from get<COMPLETE>.
      */
     protected static final long pointerOf(Proxy reference) {
+        if (reference == null) {
+            return 0l;
+        }         
         return reference.pointer;
     }
 
@@ -217,8 +220,10 @@ public abstract class Plumbing
             knownConstants.put(type, list);
         }
 
-        // for some reason I don't understand, set() doesn't work
-        list.add(obj.ordinal, obj);
+        list.ensureCapacity(obj.ordinal+1);
+        while (list.size() < obj.ordinal+1)
+            list.add(null);
+        list.set(obj.ordinal, obj);
     }
 
     /**
