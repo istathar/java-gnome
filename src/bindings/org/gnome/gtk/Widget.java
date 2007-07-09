@@ -140,6 +140,47 @@ public abstract class Widget extends org.gnome.gtk.Object
         GtkWidget.connect(this, handler);
     }
 
+
+    /**
+     * Handler interface for key press events.
+     *
+     * @since 4.0.3
+     */
+    public interface KEY_PRESS_EVENT extends GtkWidget.KEY_PRESS_EVENT {
+        // TODO: Should we repeat the signature here?
+        // public boolean onKeyPressEvent(Widget source, EventKey event);
+    }
+
+    /**
+     * Hook up a handler to receive "key-press-event" events on this Widget
+     *
+     * @since 4.0.3
+     */
+    public void connect(KEY_PRESS_EVENT handler) {
+        GtkWidget.connect(this, handler);
+    }
+
+
+    /**
+     * Handler interface for key release events.
+     *
+     * @since 4.0.3
+     */
+    public interface KEY_RELEASE_EVENT extends GtkWidget.KEY_RELEASE_EVENT {
+        // TODO: Should we repeat the signature here?
+        // public boolean onKeyReleaseEvent(Widget source, EventKey event);
+    }
+
+    /**
+     * Hook up a handler to receive "key-release-event" events on this Widget
+     *
+     * @since 4.0.3
+     */
+    public void connect(KEY_RELEASE_EVENT handler) {
+        GtkWidget.connect(this, handler);
+    }
+
+
     /*
      * Temporary: testing full downcasting.
      */

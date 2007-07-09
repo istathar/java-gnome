@@ -164,6 +164,32 @@ public class Window extends Bin
     }
 
     /**
+     * Asks to place window in the fullscreen state. Note that you shouldn't
+     * assume the window is definitely full screen afterward, because other entities 
+     * (e.g. the user or window manager) could unfullscreen it again, and not all 
+     *  window managers honor requests to fullscreen windows. But normally the 
+     *  window will end up fullscreen. Just don't write code that crashes if not.
+     *
+     * @since 4.0.3
+     */
+    public void setFullScreen() {
+        GtkWindow.fullscreen(this);
+    }
+    
+    /**
+     * Asks to toggle off the fullscreen state for window. Note that you shouldn't
+     * assume the window is definitely not full screen afterward, because other entities 
+     * (e.g. the user or window manager) could fullscreen it again, and not all 
+     * window managers honor requests to unfullscreen windows. But normally the 
+     * window will end up restored to its normal state. Just don't write code that crashes if not. 
+     *
+     * @since 4.0.3
+     */
+    public void setUnFullScreen() {
+        GtkWindow.unfullscreen(this);
+    }
+
+    /**
      * This signal arises when a user tries to close a top level window. As
      * you would expect, the default handler for this signal destroys the
      * Window.

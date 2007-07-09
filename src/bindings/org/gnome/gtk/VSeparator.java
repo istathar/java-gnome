@@ -11,17 +11,24 @@
  */
 package org.gnome.gtk;
 
-/*
- * FIXME this is a placeholder stub for what will become the public API for
- * this type. Replace this comment with appropriate javadoc including author
- * and since tags. Note that the class may need to be made abstract, implement
- * interfaces, or even have its parent changed. No API stability guarantees
- * are made about this class until it has been reviewed by a hacker and this
- * comment has been replaced.
+/** 
+ * VSeparator is a vertical separator line widget.
+ * 
+ * @see HSeparator
+ * 
+ * @author Sebastian Mancke
+ * @since 4.0.3
  */
 public class VSeparator extends Separator
 {
     protected VSeparator(long pointer) {
         super(pointer);
+    }
+
+    /**
+     * Constructs a new Separator
+     */
+    public VSeparator() {
+        super(GtkVSeparator.createVSeparator());
     }
 }

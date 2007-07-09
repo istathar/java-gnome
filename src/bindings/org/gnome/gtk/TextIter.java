@@ -27,6 +27,14 @@ public final class TextIter extends Boxed
         super(pointer);
     }
 
+    /**
+     * Constructs a TextIter
+     */
+    public TextIter() {
+        this(0l);
+        //TODO: How to create a new iterator instance?
+    }
+
     protected void release() {
         /*
          * FIXME This class's release() method must be implemented to call

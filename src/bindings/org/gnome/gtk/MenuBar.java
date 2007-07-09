@@ -11,17 +11,28 @@
  */
 package org.gnome.gtk;
 
-/*
- * FIXME this is a placeholder stub for what will become the public API for
- * this type. Replace this comment with appropriate javadoc including author
- * and since tags. Note that the class may need to be made abstract, implement
- * interfaces, or even have its parent changed. No API stability guarantees
- * are made about this class until it has been reviewed by a hacker and this
- * comment has been replaced.
+/**
+ * A MenuBar ist the container for menus.
+ *
+ * <p>A MenuBar can be added to container {@link Window} as every other widget.
+ *    To create the Application Menu, you can place the MenuBar in a {@link VBox} for example.
+ * </p>
+ *
+ * <p>For a broader explanation of Menus see {@link MenuShell}.</p>
+ *
+ * @author Sebastian Mancke
+ * @since 4.0.3
  */
 public class MenuBar extends MenuShell
 {
     protected MenuBar(long pointer) {
         super(pointer);
+    }
+
+    /**
+     * Constructs the MenuBar
+     */
+    public MenuBar() {
+        super(GtkMenuBar.createMenuBar());
     }
 }

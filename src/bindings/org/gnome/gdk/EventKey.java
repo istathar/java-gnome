@@ -24,4 +24,16 @@ public final class EventKey extends Event
     protected EventKey(long pointer) {
         super(pointer);
     }
+
+    public int getKeyVal() {
+        return GdkEventKey.getKeyval(this);
+    }
+
+    /**
+     * TODO: obtain the constant of ModifierType
+     */
+    public ModifierType getState() {
+        return null;
+        //    return GdkEventKey.getState(this);        
+    }
 }

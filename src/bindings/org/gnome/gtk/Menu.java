@@ -11,17 +11,25 @@
  */
 package org.gnome.gtk;
 
-/*
- * FIXME this is a placeholder stub for what will become the public API for
- * this type. Replace this comment with appropriate javadoc including author
- * and since tags. Note that the class may need to be made abstract, implement
- * interfaces, or even have its parent changed. No API stability guarantees
- * are made about this class until it has been reviewed by a hacker and this
- * comment has been replaced.
+/**
+ * The Menu is the holder of {@link MenuItem}s. Normaly it
+ * is part of a {@link MenuBar}.
+ * 
+ * <p>For a broader explanation of Menus see {@link MenuShell}.</p>
+ *
+ * @author Sebastian Mancke
+ * @since 4.0.3
  */
 public class Menu extends MenuShell
 {
     protected Menu(long pointer) {
         super(pointer);
+    }
+
+    /**
+     * Contructs a new Menu
+     */
+    public Menu() {
+        super(GtkMenu.createMenu());
     }
 }

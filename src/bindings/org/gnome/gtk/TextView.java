@@ -11,17 +11,49 @@
  */
 package org.gnome.gtk;
 
-/*
- * FIXME this is a placeholder stub for what will become the public API for
- * this type. Replace this comment with appropriate javadoc including author
- * and since tags. Note that the class may need to be made abstract, implement
- * interfaces, or even have its parent changed. No API stability guarantees
- * are made about this class until it has been reviewed by a hacker and this
- * comment has been replaced.
+/** 
+ * A multiline text widget, based on a data model.
+ *
+ * 
+ * {@see TextBuffer}
+ * 
+ * @author Sebastian Mancke
+ * @since 4.0.3
  */
 public class TextView extends Container
 {
     protected TextView(long pointer) {
         super(pointer);
+    }
+
+    /**
+     * Construct a TextView with a default TextBuffer
+     */
+    public TextView() {
+        super(GtkTextView.createTextView());
+    }
+
+    /**
+     * Returns the TextBuffer of this widget
+     */
+    public TextBuffer getBuffer() {
+        return GtkTextView.getBuffer(this);
+    }
+
+    /**
+     * Set the editable state of the TextView
+     *
+     * @param editable <code>true</code> makes this TextView editable, <code>false</code> makes it read only
+     */
+    public void setEditable(boolean editable) {
+        GtkTextView.setEditable(this, editable);
+    }
+
+    /**
+     * Returns the editable state of this widget
+     * @return <code>true</code> if this TextView is editable, <code>false</code> otherwise
+     */
+    public boolean isEditable() {
+        return GtkTextView.getEditable(this);
     }
 }

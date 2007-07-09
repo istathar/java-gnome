@@ -11,17 +11,48 @@
  */
 package org.gnome.gtk;
 
-/*
- * FIXME this is a placeholder stub for what will become the public API for
- * this type. Replace this comment with appropriate javadoc including author
- * and since tags. Note that the class may need to be made abstract, implement
- * interfaces, or even have its parent changed. No API stability guarantees
- * are made about this class until it has been reviewed by a hacker and this
- * comment has been replaced.
+
+/** 
+ * A Bin widget with scrollbars.
+ *
+ * <p>This widget is a simple way of surrounding another widget with scrollbars.</p>
+ * 
+ * @author Sebastian Mancke
+ * @since 4.0.3
  */
 public class ScrolledWindow extends Bin
 {
     protected ScrolledWindow(long pointer) {
         super(pointer);
+    }
+
+    /** 
+     * Constructs a ScrolledWindow with default adjustments
+     */
+    public ScrolledWindow() {
+        // call createScrolledWindow and let it create the adjustments
+        super(GtkScrolledWindow.createScrolledWindow(null, null));
+    }
+
+    /**
+     * Sets the scrollbar policy for the horizontal and vertical scrollbars.
+     *
+     * @param hscrollbarPolicy Policy for the horizontal scrollbar
+     * @param vscrollbarPolicy Policy for the vertical scrollbar
+     */
+    public void setPolicy(PolicyType hscrollbarPolicy, PolicyType vscrollbarPolicy) {
+        GtkScrolledWindow.setPolicy(this, hscrollbarPolicy, vscrollbarPolicy);
+    }
+
+    /**
+     * Adds a widget with a new Viewport.
+     *
+     * <p>Use this method only for those widgets, which do no support scrolling directly,
+     *    use {@link Container#add()} in the other case</p>
+     * 
+     * @param child The child widget
+     */
+    public void addWithViewport(Widget child) {
+        GtkScrolledWindow.addWithViewport(this, child);
     }
 }

@@ -29,6 +29,12 @@ import org.gnome.glib.Boxed;
  */
 public abstract class Event extends Boxed
 {
+    static {
+        // ensure, that the EventType constants are initialized
+        // maybe there is a better way to do this
+        EventType.DELETE.getClass().getName();
+    }
+
     protected Event(long pointer) {
         super(pointer);
     }

@@ -13,16 +13,31 @@ package org.gnome.gtk;
 
 import org.freedesktop.bindings.Constant;
 
-/*
- * FIXME this is a placeholder stub for what will become the public API for
- * this type. Replace this comment with appropriate javadoc including author
- * and since tags. Note that the class may need to be made abstract, implement
- * interfaces, or even have its parent changed. No API stability guarantees
- * are made about this class until it has been reviewed by a hacker and this
- * comment has been replaced.
+/** 
+ * Constants to determines when a scroll bar will be visible.
+ *
+ * @author Sebastian Mancke
+ * @since 4.0.3
  */
 public final class PolicyType extends Constant
 {
+
+    /**
+     * The scrollbar is always visible.
+     */
+    public static final PolicyType ALWAYS = new PolicyType(GtkPolicyType.ALWAYS, "ALWAYS");
+
+    /**
+     * The scrollbar will appear and disappear as necessary.
+     */
+    public static final PolicyType AUTOMATIC = new PolicyType(GtkPolicyType.AUTOMATIC, "ALWAYS");
+
+    /**
+     * The scrollbar will never appear.
+     */
+    public static final PolicyType NEVER = new PolicyType(GtkPolicyType.NEVER, "ALWAYS");
+
+
     private PolicyType(int ordinal, String nickname) {
         super(ordinal, nickname);
     }

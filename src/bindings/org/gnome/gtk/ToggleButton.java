@@ -11,17 +11,65 @@
  */
 package org.gnome.gtk;
 
-/*
- * FIXME this is a placeholder stub for what will become the public API for
- * this type. Replace this comment with appropriate javadoc including author
- * and since tags. Note that the class may need to be made abstract, implement
- * interfaces, or even have its parent changed. No API stability guarantees
- * are made about this class until it has been reviewed by a hacker and this
- * comment has been replaced.
+/** 
+ * A TottleButton is a Button which retains its state.
+ * 
+ * 
+ * @author Sebastian Mancke
+ * @since 4.0.3
  */
 public class ToggleButton extends Button
 {
     protected ToggleButton(long pointer) {
         super(pointer);
+    }
+
+    /**
+     * Constructs a new ToggleButton
+     */
+    public ToggleButton() {
+        super(GtkToggleButton.createToggleButton());
+    }
+
+    /**
+     * Constructs a new ToggleButton with a label.
+     * 
+     * The label may contain underscores (<code>_<code>) to indicate
+     * the mnemonic for the Button.
+     */
+    public ToggleButton(String label) {
+        super(GtkToggleButton.createToggleButtonWithMnemonic(label));
+    }
+
+    /**
+     * Set the state of the ToggleButon.
+     * 
+     * @param active The new state of the ToggleButton
+     */
+    public void setActive(boolean active) {
+        GtkToggleButton.setActive(this, active);
+    }
+
+    /**
+     * Returns the current state of the ToggleButton
+     * @return returns <code>true</code> if the ToggleButton is pressed, <code>false</code> otherwise
+     */
+    public boolean getActive() {
+        return GtkToggleButton.getActive(this);
+    }
+
+    /** 
+     * The handler interface for an toggle event.
+     */
+    public interface TOGGLED extends GtkToggleButton.TOGGLED {
+        // TODO: should we repeat the interface here?
+        // public void onToggled(ToggleButton sourceObject);
+    }
+    
+    /** 
+     * Connect an {@see TOGGLED} handler to the widget.
+     */
+    public void connect(TOGGLED handler) {
+        GtkToggleButton.connect(this, handler);
     }
 }
