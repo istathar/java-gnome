@@ -474,7 +474,7 @@ abstract class FunctionGenerator extends Generator
 
                 // FIXME release here the list when needed
 
-                out.print("\tbindings_java_convert_jarray_to_gslist(env, result);");
+                out.print("\tbindings_java_convert_gslist_to_jarray(env, result);");
             } else {
                 out.print("(");
                 out.print(returnType.jniType);
