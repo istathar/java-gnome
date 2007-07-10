@@ -33,11 +33,13 @@ public class GListThing extends Thing
     protected GListThing() {}
 
     String translationToJava(String name, DefsFile data) {
+        String newArray = "(" + name + " == null ? null : new " + type.javaTypeInContext(data) + "["
+                + name + ".length])";
         if (type instanceof ObjectThing) {
-            return "(" + javaTypeInContext(data) + ") objectArrayFor(" + name + ")";
+            return "(" + javaTypeInContext(data) + ") objectArrayFor(" + name + ", " + newArray + ")";
         } else {
-            return "(" + javaTypeInContext(data) + ") boxedArrayFor(" + javaTypeInContext(data)
-                    + ".class, " + name + ")";
+            return "(" + javaTypeInContext(data) + ") boxedArrayFor(" + type.javaTypeInContext(data)
+                    + ".class, " + name + ", " + newArray + ")";
         }
     }
 
