@@ -86,4 +86,29 @@ public abstract class Container extends Widget
     public void remove(Widget child) {
         GtkContainer.remove(this, child);
     }
+
+    /**
+     * Get the Widgets that are children of this Container, i.e., it retrieves
+     * the Widgets previously added to this Container.
+     * 
+     * @return An array with the Container children, or <code>null</code> if
+     *         the Container hasn't any child. Of course, you can cast the
+     *         returned Widget objects to the appropriate Widget subtype. For
+     *         example:
+     * 
+     * <pre>
+     * box.add(button);
+     * Widget[] children = box.getChildren();
+     * //you know the unique child is a Button
+     * Button b2 = (Button) children[0];
+     * </pre>
+     * 
+     * @since 4.0.3
+     */
+    /*
+     * TODO mmm, maybe an empty array is a better option that returning null
+     */
+    public Widget[] getChildren() {
+        return GtkContainer.getChildren(this);
+    }
 }
