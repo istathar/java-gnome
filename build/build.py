@@ -1,22 +1,42 @@
 #!/usr/bin/env python
 
-import os, md5, subprocess
+import os, md5, subprocess, pickle, sys
 
 hashes = {}
 verbose = False
 
-def runMkdir(dir):
-	pass
+hashFile = ".hashes"
+
+def loadHashes():
+	global hashes
+	if os.path.isfile(hashFile):
+		db = open(hashFile, "rb")
+		hashes = pickle.load(db)
+		db.close()
+
+
+
+def checkpointHashes():
+	db = open(hashFile, "wb")
+	pickle.dump(hashes, db)
+	db.close()
+
+
+def ensureDirectory(dir):
+	if os.path.isdir(dir):
+		return
+	executeCommand("MKDIR", dir, "mkdir -p " + dir)
+	
 
 def prepareDirectories():
-	runMkdir("tmp/stamp")
-	runMkdir("generated/bindings")
-	runMkdir("tmp/bindings")
-	runMkdir("tmp/generator")
-	runMkdir("tmp/native")
-	runMkdir("tmp/objects")
-	runMkdir("tmp/include")
-	runMkdir("tmp/tests")
+	ensureDirectory("tmp/stamp")
+	ensureDirectory("generated/bindings")
+	ensureDirectory("tmp/bindings")
+	ensureDirectory("tmp/generator")
+	ensureDirectory("tmp/native")
+	ensureDirectory("tmp/objects")
+	ensureDirectory("tmp/include")
+	ensureDirectory("tmp/tests")
 
 
 def findJavaSourceFiles(baseDir):
@@ -28,8 +48,15 @@ def findJavaSourceFiles(baseDir):
 	return result
 
 
+#
+# Scan a list of files and compare those files' md5sums against the values we
+# have stored in our hash dictionary. The dictionary is immediately updated but
+# this only has any persistant effect if a checkpoint happens after a command
+# is run successfully.
+#
 def updatedFiles(list):
 	changed = []
+
 	for file in list:
 		f = open(file)
 		m = md5.new(f.read())
@@ -43,6 +70,7 @@ def updatedFiles(list):
 		hashes[file] = hash
 	return changed
 
+
 def executeCommand(short, what, cmd):
 	if verbose:
 		print cmd
@@ -50,9 +78,16 @@ def executeCommand(short, what, cmd):
 		print short + "\t" + what
 	
 	status = subprocess.call(cmd, shell=True)
-	print status
+	if status != 0:
+		sys.exit()
+
+	checkpointHashes()
+
 
 def compileJavaCode(outputDir, classpath, sourcepath, sources):
+	if sources == []:
+		return
+
 	cmd = "/opt/sun-jdk-1.5.0.08/bin/javac"
 	cmd += " -d " + outputDir
 	cmd += " -classpath " + classpath
@@ -81,6 +116,8 @@ def generateBindings():
 if __name__ == '__main__':
 	if os.getenv("V"):
 		verbose = True
+
+	loadHashes()
 
 	prepareDirectories()
 	generateBindings()
