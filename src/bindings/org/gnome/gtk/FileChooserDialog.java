@@ -48,6 +48,6 @@ public class FileChooserDialog extends Dialog implements FileChooser
     }
 
     public void connect(FileChooser.SELECTION_CHANGED handler) {
-        // TODO method stub to satisfy interface to permit compilation.
+    // TODO method stub to satisfy interface to permit compilation.
     }
 }

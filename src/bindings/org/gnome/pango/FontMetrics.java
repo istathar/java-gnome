@@ -29,9 +29,9 @@ public final class FontMetrics extends Boxed
 
     protected void release() {
         /*
-         * FIXME This class's release() method must be implemented to call
-         * the correct free() or unref() function before it can be used.
-        */
+         * FIXME This class's release() method must be implemented to call the
+         * correct free() or unref() function before it can be used.
+         */
         throw new UnsupportedOperationException("Not yet implemented");
     }
 }
