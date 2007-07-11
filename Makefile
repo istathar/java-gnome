@@ -23,9 +23,9 @@ else
 all: build-java
 endif
 
-build-java: tmp/gtk-$(APIVERSION).jar tmp/libgtkjni-$(APIVERSION).so
+build-java: jar tmp/gtk-$(APIVERSION).jar jni tmp/libgtkjni-$(APIVERSION).so
 
-build-native: tmp/libgtkjava-$(APIVERSION).so
+build-native: gcj tmp/libgtkjava-$(APIVERSION).so
 
 .PHONY: test demo doc clean distlcean sleep install
 
@@ -78,7 +78,9 @@ tmp/stamp/classes-codegen: $(SOURCES_CODEGEN)
 	$(JAVAC) -d tmp/generator -classpath tmp/generator -sourcepath src/generator $?
 	touch $@
 
-tmp/stamp/generate: tmp/stamp/classes-codegen $(SOURCES_DEFS)
+tmp/stamp/generate: tmp/stamp/classes-codegen $(SOURCES_DEFS) \
+		src/bindings/org/freedesktop/bindings/Plumbing.java \
+		src/bindings/org/gnome/glib/Plumbing.java
 	@echo "$(JAVA_CMD) BindingsGenerator"
 	$(JAVA) -classpath tmp/generator BindingsGenerator $(REDIRECT)
 	touch $@
@@ -88,13 +90,13 @@ tmp/stamp/generate: tmp/stamp/classes-codegen $(SOURCES_DEFS)
 # force Make to populate the variables _after_ the code is generated.
 #
 
-tmp/gtk-$(APIVERSION).jar: tmp/stamp/config tmp/stamp/classes-codegen tmp/stamp/generate
+jar: tmp/stamp/config tmp/stamp/classes-codegen tmp/stamp/generate
 	make -f build/java.make
 
-tmp/libgtkjni-$(APIVERSION).so: tmp/stamp/config tmp/gtk-$(APIVERSION).jar
+jni:
 	make -f build/jni.make
 
-tmp/libgtkjava-$(APIVERSION).so: tmp/stamp/config tmp/gtk-$(APIVERSION).jar
+gcj: tmp/stamp/config tmp/gtk-$(APIVERSION).jar
 	make -f build/gcj.make
 
 # --------------------------------------------------------------------
