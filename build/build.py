@@ -5,15 +5,17 @@ import os, md5, subprocess, pickle, sys
 hashes = {}
 verbose = False
 
-hashFile = ".hashes"
+hashFile = "tmp/.hashes"
 
 def loadHashes():
 	global hashes
 	if os.path.isfile(hashFile):
-		db = open(hashFile, "rb")
-		hashes = pickle.load(db)
-		db.close()
-
+		try:
+			db = open(hashFile, "rb")
+			hashes = pickle.load(db)
+			db.close()
+		except (EOFError, KeyError, IndexError):
+			hashes = {}
 
 
 def checkpointHashes():
