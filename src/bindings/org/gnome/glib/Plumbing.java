@@ -1,7 +1,7 @@
 /*
  * Plumbing.java
  *
- * Copyright (c) 2006-2007 Operational Dynamics Consulting Pty Ltd
+ * Copyright (c) 2006-2007 Operational Dynamics Consulting Pty Ltd, and Others
  * 
  * The code in this file, and the library it is a part of, are made available
  * to you by the authors under the terms of the "GNU General Public Licence,
@@ -122,12 +122,11 @@ public abstract class Plumbing extends org.freedesktop.bindings.Plumbing
      * Retrieve an array of appropriate Java Object for the given array of
      * pointers.
      */
-    protected static Object[] objectArrayFor(long[] pointers) {
+    protected static Object[] objectArrayFor(long[] pointers, Object[] objects) {
         if (pointers == null) {
             return null;
         }
 
-        Object[] objects = new Object[pointers.length];
         for (int i = 0; i < pointers.length; ++i) {
             objects[i] = objectFor(pointers[i]);
         }
@@ -138,12 +137,11 @@ public abstract class Plumbing extends org.freedesktop.bindings.Plumbing
      * Retrieve an array of appropriate Java Boxeds for the given array of
      * pointers.
      */
-    protected static Boxed[] boxedArrayFor(final Class type, final long[] pointers) {
+    protected static Boxed[] boxedArrayFor(final Class type, final long[] pointers, Boxed[] boxeds) {
         if (pointers == null) {
             return null;
         }
 
-        Boxed[] boxeds = new Boxed[pointers.length];
         for (int i = 0; i < pointers.length; ++i) {
             boxeds[i] = boxedFor(type, pointers[i]);
         }

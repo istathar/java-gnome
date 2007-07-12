@@ -14,6 +14,7 @@ import junit.framework.TestSuite;
 
 import org.freedesktop.bindings.Debug;
 import org.freedesktop.bindings.ValidateEnvironment;
+import org.gnome.glib.ValidateGListMethods;
 import org.gnome.glib.ValidateMemoryManagement;
 import org.gnome.glib.ValidateReferenceCounting;
 import org.gnome.gtk.TestCaseGtk;
@@ -96,6 +97,7 @@ public class UnitTests
         suite.addTestSuite(ValidateEnvironment.class);
         suite.addTestSuite(ValidateReferenceCounting.class);
         suite.addTestSuite(ValidateMemoryManagement.class);
+        suite.addTestSuite(ValidateGListMethods.class);
         suite.addTestSuite(ValidateProperties.class);
         suite.addTestSuite(ValidatePacking.class);
         suite.addTestSuite(ValidateFileChoosing.class);
