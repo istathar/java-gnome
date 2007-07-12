@@ -88,25 +88,33 @@ public abstract class Container extends Widget
     }
 
     /**
-     * Get the Widgets that are children of this Container, i.e., it retrieves
-     * the Widgets previously added to this Container.
-     * 
-     * @return An array with the Container children, or <code>null</code> if
-     *         the Container hasn't any child. Of course, you can cast the
-     *         returned Widget objects to the appropriate Widget subtype. For
-     *         example:
+     * Get the Widgets that are children of this Container, i.e. the Widgets
+     * previously added to the Container. An array of Widgets isn't always
+     * ideal, but you can cast the returned objects to the appropriate Widget
+     * subtype should you need to, for example:
      * 
      * <pre>
+     * Button button, child;
+     * Widget[] children;
+     * 
      * box.add(button);
-     * Widget[] children = box.getChildren();
-     * //you know the unique child is a Button
-     * Button b2 = (Button) children[0];
+     * children = box.getChildren();
+     * 
+     * child = (Button) children[0];
      * </pre>
      * 
+     * In other situations (wondering just what aggregation of Widgets makes
+     * up something that was handed to you by Glade, perhaps),
+     * <code>instanceof</code> is your friend. Indeed sometimes it's the
+     * only way; the box packing compostion of GTK elements means that even
+     * things you might take for granted as elementary (Button) are in fact
+     * more complex (an HBox of an Image and a Label) - and oftehn the only
+     * way to find this out is to walk the Widget hierarchy.
+     * 
+     * @return an array with the Container's child Widgets. The array will be
+     *         empty (zero length) if the Container hasn't got any children.
+     * 
      * @since 4.0.3
-     */
-    /*
-     * TODO mmm, maybe an empty array is a better option that returning null
      */
     public Widget[] getChildren() {
         return GtkContainer.getChildren(this);

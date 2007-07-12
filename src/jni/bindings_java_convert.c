@@ -45,8 +45,8 @@ bindings_java_convert_jarray_to_glist
 		return NULL; // Java Exception already thrown
 	}
 	
-	for ( i = 0; i < size; ++i) {
-		list = g_list_append( list, (gpointer) array[i] );
+	for (i = 0; i < size; ++i) {
+		list = g_list_append(list, (gpointer) array[i]);
 	}
 	
 	(*env)->ReleaseLongArrayElements(env, _array, array, JNI_ABORT);
@@ -81,8 +81,8 @@ bindings_java_convert_jarray_to_gslist
 		return NULL; // Java Exception already thrown
 	}
 	
-	for ( i = 0; i < size; ++i) {
-		list = g_slist_append( list, (gpointer) array[i] );
+	for (i = 0; i < size; ++i) {
+		list = g_slist_append(list, (gpointer) array[i]);
 	}
 	
 	(*env)->ReleaseLongArrayElements(env, _array, array, JNI_ABORT);
@@ -101,14 +101,15 @@ bindings_java_convert_glist_to_jarray
 	jlong* array;
 	int i, size;
 	
-	if ( list == NULL )
-		return NULL;
-	
-	size = g_list_length(list);
+	if (list == NULL) {
+		size = 0;
+	} else {
+		size = g_list_length(list);
+	}
 	
 	_array = (*env)->NewLongArray(env, size);
 	
-	if ( size == 0 ) {
+	if (size == 0) {
 		return _array;
 	}
 	
@@ -117,7 +118,7 @@ bindings_java_convert_glist_to_jarray
 		return NULL; // Java Exception already thrown
 	}
 	
-	for ( i = 0; i < size; ++i) {
+	for (i = 0; i < size; ++i) {
 		array[i] = (jlong) list->data;
 		list = list->next;
 	}
@@ -138,14 +139,15 @@ bindings_java_convert_gslist_to_jarray
 	jlong* array;
 	int i, size;
 	
-	if ( list == NULL )
-		return NULL;
-	
-	size = g_slist_length(list);
+	if (list == NULL) {
+		size = 0;
+	} else {
+		size = g_slist_length(list);
+	}
 	
 	_array = (*env)->NewLongArray(env, size);
 	
-	if ( size == 0 ) {
+	if (size == 0) {
 		return _array;
 	}
 	
@@ -154,7 +156,7 @@ bindings_java_convert_gslist_to_jarray
 		return NULL; // Java Exception already thrown
 	}
 	
-	for ( i = 0; i < size; ++i) {
+	for (i = 0; i < size; ++i) {
 		array[i] = (jlong) list->data;
 		list = list->next;
 	}

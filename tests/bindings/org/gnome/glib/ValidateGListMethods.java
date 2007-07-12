@@ -16,9 +16,9 @@ import org.gnome.gtk.VBox;
 import org.gnome.gtk.Widget;
 
 /**
- * Validate the behavior of methods that return a GList*. I.e., validates the
- * system used by java-gnome for converting that native GList* to a java
- * array.
+ * Validate the behavior of methods that return a GList*, verifying the
+ * behaviour of the system used by java-gnome for converting that native
+ * GList*s into Java arrays.
  * 
  * @author Vreixo Formoso
  */
@@ -50,7 +50,8 @@ public class ValidateGListMethods extends TestCaseGtk
 
         children = x.getChildren();
 
-        assertNull(children);
+        assertNotNull(children);
+        assertEquals(0, children.length);
     }
 
     public final void testMultipleGObjectChildren() {
@@ -78,7 +79,16 @@ public class ValidateGListMethods extends TestCaseGtk
 
         assertEquals(2, children.length);
 
-        /* can we make any assumptions about the order? */
-        assertTrue((children[0] == b1 && children[1] == b2) || (children[1] == b1 && children[0] == b2));
+        /*
+         * Vreixo asks if we can we make any assumptions about the order? Hard
+         * to say, really. Depends on what the actual internal storage type
+         * inside GtkContainer is for the children, and whether it preserves
+         * order. It appears to be a linked list, so the following test seems
+         * valid. Vreixo's original idea to test both possibilities is always
+         * something we can revert to if we have to.
+         */
+        // assertTrue((children[0] == b1 && children[1] == b2) || (children[1]
+        // == b1 && children[0] == b2));
+        assertTrue(children[0] == b1 && children[1] == b2);
     }
 }

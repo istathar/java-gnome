@@ -33,8 +33,7 @@ public class GListThing extends Thing
     protected GListThing() {}
 
     String translationToJava(String name, DefsFile data) {
-        String newArray = "(" + name + " == null ? null : new " + type.javaTypeInContext(data) + "["
-                + name + ".length])";
+        String newArray = "new " + type.javaTypeInContext(data) + "[" + name + ".length]";
         if (type instanceof ObjectThing) {
             return "(" + javaTypeInContext(data) + ") objectArrayFor(" + name + ", " + newArray + ")";
         } else {
