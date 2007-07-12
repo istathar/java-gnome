@@ -1,15 +1,20 @@
 #!/usr/bin/env python
 
 import os, md5, subprocess, pickle, sys
+from os.path import *
+from shutil import move
 
 hashes = {}
 verbose = False
 
 hashFile = "tmp/.hashes"
 
+GTK_MODULES = "gthread-2.0 glib-2.0 gtk+-2.0 gtk+-unix-print-2.0 libglade-2.0"
+
+
 def loadHashes():
 	global hashes
-	if os.path.isfile(hashFile):
+	if isfile(hashFile):
 		try:
 			db = open(hashFile, "rb")
 			hashes = pickle.load(db)
@@ -19,13 +24,15 @@ def loadHashes():
 
 
 def checkpointHashes():
-	db = open(hashFile, "wb")
+	db = open(hashFile + ".tmp", "wb")
 	pickle.dump(hashes, db)
 	db.close()
 
+	move(hashFile + ".tmp", hashFile)
+
 
 def ensureDirectory(dir):
-	if os.path.isdir(dir):
+	if isdir(dir):
 		return
 	executeCommand("MKDIR", dir, "mkdir -p " + dir)
 	
@@ -45,7 +52,7 @@ def findFiles(baseDir, ext):
 	for (root, dirs, files) in os.walk(baseDir):
 		for file in files:
 			if file.endswith(ext):
-				result.append(os.path.join(root, file))
+				result.append(join(root, file))
 	return result
 
 
@@ -78,47 +85,53 @@ def sourceChanged(file, hash):
 def updateHash(file, hash):
 	hashes[file] = hash
 
+
 def debug(args):
 	if False:
 		print args
 
+
 def filesNeedBuilding(list):
 	changed = []
-
 	for (source, target) in list:
-		if not os.path.isfile(source):
-			print source + " missing, abort"
-			sys.exit()
+		if fileNeedsBuilding(source, target):
+			changed.append(source)
+	return changed
 
-		f = open(source)
-		m = md5.new(f.read())
-		f.close()
-		hash = m.hexdigest()
 
-		debug("CHECK\t"+str(target)+" from "+source)
+def fileNeedsBuilding(source, target):
+	if not isfile(source):
+		print source + " missing, abort"
+		sys.exit()
 
-		if target:
-			debug("TARGET",)
-			if not os.path.isfile(target):
-				debug("MISSING",)
-			elif os.path.getmtime(target) < os.path.getmtime(source):
-				debug("OLDER,")
-				if not sourceChanged(source, hash):
-					debug("SOURCE UNCHANGED")
-					continue
-			else:
-				debug("NEWER, SKIP")
-				continue
-		else:
+	f = open(source)
+	m = md5.new(f.read())
+	f.close()
+	hash = m.hexdigest()
+
+	debug("CHECK\t"+str(target)+" from "+source)
+
+	if target:
+		debug("TARGET",)
+		if not isfile(target):
+			debug("MISSING",)
+		elif getmtime(target) < getmtime(source):
+			debug("OLDER,")
 			if not sourceChanged(source, hash):
 				debug("SOURCE UNCHANGED")
-				continue
+				return False
+		else:
+			debug("NEWER, SKIP")
+			return False
+	else:
+		if not sourceChanged(source, hash):
+			debug("SOURCE UNCHANGED")
+			return False
 
-		debug("BUILD")
-		updateHash(source, hash)
-		changed.append(source)
+	debug("BUILD")
+	updateHash(source, hash)
 
-	return changed
+	return True
 
 #
 # common use case that source files transform predictably 1:1 into target
@@ -171,10 +184,9 @@ def executeCommand(short, what, cmd):
 	executeCommandInDir(short, what, None, cmd)
 
 def executeCommandInDir(short, what, inDir, cmd):
+	print short + "\t" + what
 	if verbose:
 		print cmd
-	else:
-		print short + "\t" + what
 	
 	status = subprocess.call(cmd, shell=True, cwd=inDir)
 	if status != 0:
@@ -250,10 +262,8 @@ def compileBindingsClasses():
 def copyMappingFile():
 	source = "mockup/bindings/typeMapping.properties"
 	target = "tmp/bindings/typeMapping.properties"
-	pairs = [(source, target)]
 
-	changed = filesNeedBuilding(pairs)
-	if not changed:
+	if not fileNeedsBuilding(source, target):
 		return
 
 	cmd = "cp " + source + " " + target
@@ -273,13 +283,99 @@ def makeJarFile():
 
 	files = [] 
 	for file in list:
-		files.append(file.replace("tmp/bindings/", ""))
+		file = file.replace("tmp/bindings/", "")
+		file = file.replace("$", "\$")
+		files.append(file)
 
 	cmd = "/opt/sun-jdk-1.5.0.08/bin/jar cf "
 	cmd += "../../" + jar + " "
 	cmd += " ".join(files)
 
 	executeCommandInDir("JAR", jar, "tmp/bindings/", cmd)
+
+
+def generateHeaderFiles():
+	list = findFiles("tmp/bindings/", ".class")
+	map = {}
+	pairs = []
+	classes = []
+
+	for file in list:
+		if file.find("$") != -1:
+			continue
+		t = file.replace("tmp/bindings/", "")
+		t = t.replace(".class", "")
+		c = t.replace("/", ".")
+
+		t = t.replace("/", "_")
+		t = t.replace("$", "_")
+		t = t + ".h"
+		t = "tmp/include/" + t
+
+		pairs.append((file, t))
+		map[file] = c
+
+	changed = filesNeedBuilding(pairs)
+	if not changed:
+		return
+
+	for file in changed:
+		classes.append(map[file])
+	
+	cmd = "/opt/sun-jdk-1.5.0.08/bin/javah -jni "
+	if verbose:
+		cmd += "-verbose "
+	cmd += "-d tmp/include/ "
+	cmd += "-classpath tmp/bindings/ "
+	cmd += " ".join(classes)
+	if not verbose:
+		cmd += " >/dev/null"
+
+	executeCommand("JAVAH", "tmp/include/*.h", cmd)
+
+
+def compileCSourceToObject(source, target):
+
+	ensureDirectory(dirname(target))
+
+	cmd = "/usr/bin/gcc -g -Wall -fPIC "
+	cmd += "-I/opt/sun-jdk-1.5.0.08/include -I/opt/sun-jdk-1.5.0.08/include/linux "
+	cmd += "-Isrc/jni -Itmp/include "
+	cmd += "-Wno-int-to-pointer-cast -Wno-pointer-to-int-cast "
+	cmd += "`pkg-config --cflags " + GTK_MODULES + "` "
+	cmd += "-o " + target + " -c " + source
+
+	executeCommand("GCC", target, cmd)
+
+
+def compileBindingsObjects():
+	pairs = dependsMapSourceFilesToTargetFiles("src/bindings/", ".c", "tmp/objects/", ".o")
+	pairs += dependsMapSourceFilesToTargetFiles("generated/bindings/", ".c", "tmp/objects/", ".o")
+	pairs += dependsMapSourceFilesToTargetFiles("src/jni/", ".c", "tmp/objects/", ".o")
+	
+	for (source, target) in pairs:
+		if fileNeedsBuilding(source, target):
+			compileCSourceToObject(source, target)
+
+	
+def linkSharedLibrary():
+	so = "tmp/libgtkjni-4.0.so"
+
+	list = findFiles("tmp/objects/", ".o")
+	pairs = dependsListToSingleTarget(list, so)
+
+	changed = filesNeedBuilding(pairs)
+	if not changed:
+		return
+
+	cmd = "/usr/bin/gcc -g -Wall -fPIC "
+	cmd += "-shared "
+	cmd += "`pkg-config --libs " + GTK_MODULES + "` "
+	cmd += "-o " + so + " "
+	cmd += " ".join(list)
+
+	executeCommand("LINK", so, cmd)
+
 
 #
 # main build sequence, with elaborately named methods Carl Rosenberger style
@@ -295,6 +391,11 @@ def generateBindings():
 	copyMappingFile()
 
 	makeJarFile()
+
+	generateHeaderFiles()
+	compileBindingsObjects()
+	linkSharedLibrary()
+	
 
 
 
