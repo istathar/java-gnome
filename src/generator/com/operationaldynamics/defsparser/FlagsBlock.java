@@ -48,7 +48,9 @@ public class FlagsBlock extends EnumBlock
     }
 
     public Thing createThing() {
-        return new FlagsThing(cName, moduleToJavaPackage(inModule), cName, blockName);
+        FlagsThing t = new FlagsThing(cName, moduleToJavaPackage(inModule), cName, blockName);
+        t.setImportHeader(importHeader);
+        return t;
     }
 
     public Generator createGenerator(final DefsFile data) {

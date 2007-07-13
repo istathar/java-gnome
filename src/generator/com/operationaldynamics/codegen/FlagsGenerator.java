@@ -79,8 +79,8 @@ public class FlagsGenerator extends EnumGenerator
          * write file header and includes care of the code up in abstract
          * parent class TypeGenerator
          */
-
-        super.writeJniCode(out);
+        commonFileHeader(out, objectType.bindingsClass + ".c", false);
+        hashIncludeStatements(out);
 
         /*
          * and now the methods for get the values
