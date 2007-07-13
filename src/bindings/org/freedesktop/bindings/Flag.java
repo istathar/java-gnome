@@ -25,16 +25,29 @@ public abstract class Flag extends Constant
     protected Flag(int ordinal, String nickname) {
         super(ordinal, nickname);
     }
-    
+
     /**
-     * Helper method to simplify the implementation of or() in
-     * subclasses.
+     * Helper method to simplify the implementation of or() in subclasses.
      */
     protected final static Flag orTwoFlags(Flag a, Flag b) {
-        
-        assert( a.getClass().equals(b.getClass()) );
-        
+
+        assert (a.getClass().equals(b.getClass()));
+
         return Plumbing.flagFor(a.getClass(), a.ordinal | b.ordinal);
+    }
+
+    /**
+     * Helper method to simplify the implementation of contains() in
+     * subclasses.
+     * 
+     * @return <code>true</code> if the bit-wise AND between two flags is
+     *         not 0.
+     */
+    protected final static boolean andTwoFlags(Flag a, Flag b) {
+
+        assert (a.getClass().equals(b.getClass()));
+
+        return (a.ordinal & b.ordinal) != 0;
     }
 
 }
