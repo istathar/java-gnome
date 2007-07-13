@@ -37,14 +37,20 @@ def ensureDirectory(dir):
 	executeCommand("MKDIR", dir, "mkdir -p " + dir)
 	
 
+def touchFile(file):
+	f = open(file, "w")
+	f.close()
+
+
 def prepareDirectories():
-	ensureDirectory("generated/bindings")
-	ensureDirectory("tmp/bindings")
-	ensureDirectory("tmp/generator")
-	ensureDirectory("tmp/native")
-	ensureDirectory("tmp/objects")
-	ensureDirectory("tmp/include")
-	ensureDirectory("tmp/tests")
+	ensureDirectory("tmp/stamp/")
+	ensureDirectory("generated/bindings/")
+	ensureDirectory("tmp/bindings/")
+	ensureDirectory("tmp/generator/")
+	ensureDirectory("tmp/native/")
+	ensureDirectory("tmp/objects/")
+	ensureDirectory("tmp/include/")
+	ensureDirectory("tmp/tests/")
 
 
 def findFiles(baseDir, ext):
@@ -111,22 +117,17 @@ def fileNeedsBuilding(source, target):
 
 	debug("CHECK\t"+str(target)+" from "+source)
 
-	if target:
-		debug("TARGET",)
-		if not isfile(target):
-			debug("MISSING",)
-		elif getmtime(target) < getmtime(source):
-			debug("OLDER,")
-			if not sourceChanged(source, hash):
-				debug("SOURCE UNCHANGED")
-				return False
-		else:
-			debug("NEWER, SKIP")
-			return False
-	else:
+	debug("TARGET",)
+	if not isfile(target):
+		debug("MISSING",)
+	elif getmtime(target) < getmtime(source):
+		debug("OLDER,")
 		if not sourceChanged(source, hash):
 			debug("SOURCE UNCHANGED")
 			return False
+	else:
+		debug("NEWER, SKIP")
+		return False
 
 	debug("BUILD")
 	updateHash(source, hash)
@@ -152,7 +153,8 @@ def dependsMapSourceFilesToTargetFiles(sourceDir, sourceExt, targetDir, targetEx
 	return result
 
 #
-# single target depnds on many files
+# single target depends on many files. Use this with a stamp if all you really
+# want to do is check to see if a series of sources have changed
 #
 
 def dependsListToSingleTarget(list, target):
@@ -163,21 +165,6 @@ def dependsListToSingleTarget(list, target):
 		result.append(pair)
 
 	return result
-
-#
-# no target, just check origin files for changes; any change will be used to
-# trigger action
-#
-
-def dependsChangedSourcesOnly(list):
-	result = []
-
-	for source in list:
-		pair = (source, None)
-		result.append(pair)
-	
-	return result
-
 
 
 def executeCommand(short, what, cmd):
@@ -193,8 +180,6 @@ def executeCommandInDir(short, what, inDir, cmd):
 		sys.exit()
 
 	checkpointHashes()
-
-	
 
 
 def compileJavaCode(outputDir, classpath, sourcepath, sources):
@@ -213,6 +198,7 @@ def compileJavaCode(outputDir, classpath, sourcepath, sources):
 		blurb += path + "*.java"
 
 	executeCommand("JAVAC", blurb, cmd)
+
 
 def runJavaClass(classname, classpath):
 	cmd = "/opt/sun-jdk-1.5.0.08/bin/java"
@@ -235,13 +221,16 @@ def compileGeneratorClasses():
 def generateTranslationAndJniLayers():
 	list = findFiles("tmp/generator", ".class")
 	list += findFiles("src/defs", ".defs")
-	pairs = dependsChangedSourcesOnly(list)
+	stamp = "tmp/stamp/generator"
+
+	pairs = dependsListToSingleTarget(list, stamp)
 
 	changed = filesNeedBuilding(pairs)
 	if not changed:
 		return
 
 	runJavaClass("BindingsGenerator", "tmp/generator/")
+	touchFile(stamp)
 
 
 def compileBindingsClasses():
@@ -338,14 +327,14 @@ def compileCSourceToObject(source, target):
 
 	ensureDirectory(dirname(target))
 
-	cmd = "/usr/bin/gcc -g -Wall -fPIC "
+	cmd = "/usr/bin/ccache /usr/bin/gcc -g -Wall -fPIC "
 	cmd += "-I/opt/sun-jdk-1.5.0.08/include -I/opt/sun-jdk-1.5.0.08/include/linux "
 	cmd += "-Isrc/jni -Itmp/include "
 	cmd += "-Wno-int-to-pointer-cast -Wno-pointer-to-int-cast "
 	cmd += "`pkg-config --cflags " + GTK_MODULES + "` "
 	cmd += "-o " + target + " -c " + source
 
-	executeCommand("GCC", target, cmd)
+	executeCommand("GCC", source, cmd)
 
 
 def compileBindingsObjects():
