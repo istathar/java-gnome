@@ -117,6 +117,7 @@ public class BindingsGenerator
         DefsFile data;
         List all;
         Iterator iter;
+        PrintWriter typeMapping;
 
         files = sourceDir.listFiles(new FilenameFilter() {
             public boolean accept(File dir, String name) {
@@ -165,6 +166,13 @@ public class BindingsGenerator
          * Now, with the meta data completely loaded, we can generate the
          * bindings code.
          */
+        try {
+            typeMapping = new PrintWriter(new BufferedWriter(new FileWriter(
+                    "generated/bindings/typeMapping.properties")));
+        } catch (IOException ie) {
+            System.err.println("Can't open typeMapping file for writing!\n" + ie);
+            return;
+        }
 
         for (iter = all.iterator(); iter.hasNext();) {
             String packageAndClassName;
@@ -185,7 +193,7 @@ public class BindingsGenerator
                 trans = new PrintWriter(new BufferedWriter(new FileWriter(transTarget)));
                 jni = new PrintWriter(new BufferedWriter(new FileWriter(jniTarget)));
             } catch (IOException ioe) {
-                System.err.println("How come we can't a file for writing?\n" + ioe);
+                System.err.println("How come we can't open a file for writing?\n" + ioe);
                 return;
             }
 
@@ -202,8 +210,12 @@ public class BindingsGenerator
                 // printed?
             }
 
+            typeMapping.println(data.getType().bareJavaClassName() + "="
+                    + data.getType().fullyQualifiedJavaClassName());
+
             trans.close();
             jni.close();
         }
+        typeMapping.close();
     }
 }
