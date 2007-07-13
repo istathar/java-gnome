@@ -165,10 +165,16 @@ public class BindingsGenerator
          * Now, with the meta data completely loaded, we can generate the
          * bindings code.
          */
-
+        PrintWriter typemapping = null;
+        try {
+            typemapping = new PrintWriter(new BufferedWriter(new FileWriter("generated/bindings/typeMapping.properties")));
+        } catch (IOException e) {
+            System.err.println("I can't write to typeMapping.properties!");
+        }
+        
         for (iter = all.iterator(); iter.hasNext();) {
             String packageAndClassName;
-            File transTarget, jniTarget;
+            File transTarget, jniTarget;    
             PrintWriter trans, jni;
 
             data = (DefsFile) iter.next();
@@ -176,6 +182,7 @@ public class BindingsGenerator
             packageAndClassName = data.getType().fullyQualifiedTranslationClassName().replace('.', '/');
             transTarget = new File(outputDir, packageAndClassName + ".java");
             jniTarget = new File(outputDir, packageAndClassName + ".c");
+            typemapping.println(data.getType().bareJavaClassName() + "=" + data.getType().fullyQualifiedJavaClassName());
 
             if (!transTarget.getParentFile().isDirectory()) {
                 transTarget.getParentFile().mkdirs();
@@ -205,5 +212,6 @@ public class BindingsGenerator
             trans.close();
             jni.close();
         }
+        typemapping.close();
     }
 }
