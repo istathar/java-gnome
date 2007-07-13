@@ -56,6 +56,25 @@ public interface FileChooser
     public boolean setCurrentFolder(String directory);
 
     /**
+     * Sets the type of operation that the chooser is performing; the user
+     * interface is adapted to suit the selected action. For example, an
+     * option to create a new folder might be shown if the action is
+     * {@link FileChooserAction#SAVE SAVE} but not if the action is
+     * {@link FileChooserAction#OPEN OPEN}.
+     * 
+     * @since 4.0.3
+     */
+    public void setAction(FileChooserAction action);
+    
+    /**
+     * Gets the type of operation that the file chooser is performing.
+     * 
+     * @see #setAction(FileChooserAction)
+     * @since 4.0.3
+     */
+    public FileChooserAction getAction();
+
+    /**
      * Get the URI representing the file or directory currently selected by
      * this FileChooser.
      * 

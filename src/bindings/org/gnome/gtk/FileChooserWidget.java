@@ -42,6 +42,15 @@ public class FileChooserWidget extends VBox implements FileChooser
         return null;
     }
 
+    public void setAction(FileChooserAction action) {
+        // TODO method stub to satisfy interface to permit compilation.
+    }
+
+    public FileChooserAction getAction() {
+        // TODO method stub to satisfy interface to permit compilation.
+        return null;
+    }
+
     public URI getURI() {
         // TODO method stub to satisfy interface to permit compilation.
         return null;
