@@ -245,7 +245,7 @@ public abstract class Plumbing
      *             if it can't find a Constant object corresponding to the
      *             Class, ordinal combination you've requested.
      */
-    protected static Constant constantFor(Class type, int ordinal) {
+    protected static Constant enumFor(Class type, int ordinal) {
         Constant obj;
 
         obj = getRegisteredConstant(type, ordinal);
