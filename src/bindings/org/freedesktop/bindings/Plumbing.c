@@ -17,7 +17,7 @@
 /*
  * Implements
  *   org.freedesktop.bindings.Plumbing.createInstance(Class type, long pointer)
-  */
+ */
 JNIEXPORT jobject JNICALL
 Java_org_freedesktop_bindings_Plumbing_createInstance
 (
@@ -38,4 +38,31 @@ Java_org_freedesktop_bindings_Plumbing_createInstance
 	
 	proxy = (*env)->NewObject(env, type, constructor, pointer);
 	return proxy;
+}
+
+/*
+ * Implements
+ *   org.freedesktop.bindings.Plumbing.addFlag(Class type, int ordinal, String nickname)
+ */
+JNIEXPORT jobject JNICALL
+Java_org_freedesktop_bindings_Plumbing_addFlag
+(
+	JNIEnv *env,
+	jclass cls,
+	jclass type,
+	jint ordinal, 
+	jstring nickname
+)
+{
+	jmethodID constructor;
+	jobject flag;
+	
+	constructor = (*env)->GetMethodID(env, type, "<init>", "(ILjava/lang/String;)V");
+	if (constructor == NULL) {
+		g_error("Constructor methodID not found");
+		return NULL;
+	}
+	
+	flag = (*env)->NewObject(env, type, constructor, ordinal, nickname);
+	return flag;
 }
