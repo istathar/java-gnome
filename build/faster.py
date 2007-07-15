@@ -1,5 +1,41 @@
 #!/usr/bin/env python
 
+#
+# faster.py, an abreviated build script for java-gnome
+# Must be invoked from the project top level directory as ./build/faster.py
+#
+# Copyright (c) 2007 Operational Dynamics Consulting Pty Ltd 
+# 
+# The code in this file, and the library it is a part of, are made available
+# to you by the authors under the terms of the "GNU General Public Licence,
+# version 2". See the LICENCE file for the terms governing usage and
+# redistribution.
+#
+
+#
+# This is a total hack, but a good one :) Make has two critical weakness, which
+# this script, being programmatic, tries to address:
+#
+# 1) variables are only populated once, so the variables containing the lists
+# of files to be built resulting from output of the code generator are
+# inaccurate (or in a clean build, empty)
+#
+# 2) it doesn't look at actual file contents, only looking to see if the target
+# is older than the source file(s). This is a real problem for people hacking
+# on the bindings; everytime you save a source file in the generator, it runs,
+# and even though most (even all) of output files are unchanged [ie, were
+# refilled with exactly the same content], they are newer, and so make charges
+# ahead with a full rebuild, costing over 5 minutes of CPU time.
+#
+# So this program takes an md5sum of each source file at each step, only
+# invoking the extermal program for that target if 
+#
+# No, this is not some grand replacement for all the worlds problems. It's a
+# quick hack. I said so already. And it's entirely custom for building
+# java-gnome. But it encapsulates some of the capabilites that buildtool will
+# bring to the process when it lands, so it is a step in the right direction.
+#
+
 import os, md5, subprocess, pickle, sys
 from os.path import *
 from shutil import move
@@ -20,6 +56,7 @@ def loadHashes():
 			hashes = pickle.load(db)
 			db.close()
 		except (EOFError, KeyError, IndexError):
+			print "build checksum cache corrupt; full rebuild forced"
 			hashes = {}
 
 
@@ -42,16 +79,18 @@ def touchFile(file):
 	f.close()
 
 
-def prepareDirectories():
+def prepareBindingsDirectories():
+	ensureDirectory("tmp/native/")
 	ensureDirectory("tmp/stamp/")
 	ensureDirectory("generated/bindings/")
 	ensureDirectory("tmp/bindings/")
 	ensureDirectory("tmp/generator/")
-	ensureDirectory("tmp/native/")
 	ensureDirectory("tmp/objects/")
 	ensureDirectory("tmp/include/")
 	ensureDirectory("tmp/tests/")
 
+def prepareTestDirectories():
+	ensureDirectory("tmp/tests/")
 
 def findFiles(baseDir, ext):
 	result = []
@@ -107,8 +146,7 @@ def filesNeedBuilding(list):
 
 def fileNeedsBuilding(source, target):
 	if not isfile(source):
-		print source + " missing, abort"
-		sys.exit()
+		sys.exit(source + " missing, abort")
 
 	f = open(source)
 	m = md5.new(f.read())
@@ -167,17 +205,14 @@ def dependsListToSingleTarget(list, target):
 	return result
 
 
-def executeCommand(short, what, cmd):
-	executeCommandInDir(short, what, None, cmd)
-
-def executeCommandInDir(short, what, inDir, cmd):
+def executeCommand(short, what, cmd, inDir=None):
 	print short + "\t" + what
 	if verbose:
 		print cmd
 	
 	status = subprocess.call(cmd, shell=True, cwd=inDir)
 	if status != 0:
-		sys.exit()
+		sys.exit(1)
 
 	checkpointHashes()
 
@@ -200,11 +235,14 @@ def compileJavaCode(outputDir, classpath, sourcepath, sources):
 	executeCommand("JAVAC", blurb, cmd)
 
 
-def runJavaClass(classname, classpath):
-	cmd = "/opt/sun-jdk-1.5.0.08/bin/java"
-	cmd += " -classpath " + classpath
-	cmd += " -ea " + classname
-	if not verbose:
+def runJavaClass(classname, classpath, librarypath=""):
+	cmd = "/opt/sun-jdk-1.5.0.08/bin/java "
+	cmd += "-classpath " + classpath + " "
+	cmd += "-ea "
+	if librarypath:
+		cmd += "-Djava.library.path=" + librarypath + " "
+	cmd += classname
+	if not librarypath and not verbose:
 		cmd += " >/dev/null"
 
 	executeCommand("JAVA", classname, cmd)
@@ -229,7 +267,7 @@ def generateTranslationAndJniLayers():
 	if not changed:
 		return
 
-	runJavaClass("BindingsGenerator", "tmp/generator/")
+	runJavaClass("BindingsGenerator", "tmp/generator/", "")
 	touchFile(stamp)
 
 
@@ -280,7 +318,7 @@ def makeJarFile():
 	cmd += "../../" + jar + " "
 	cmd += " ".join(files)
 
-	executeCommandInDir("JAR", jar, "tmp/bindings/", cmd)
+	executeCommand("JAR", jar, cmd, "tmp/bindings/")
 
 
 def generateHeaderFiles():
@@ -366,12 +404,25 @@ def linkSharedLibrary():
 	executeCommand("LINK", so, cmd)
 
 
+def compileTestClasses():
+	pairs = dependsMapSourceFilesToTargetFiles("tests/generator/", ".java", "tmp/tests/", ".class")
+	pairs += dependsMapSourceFilesToTargetFiles("tests/bindings/", ".java", "tmp/tests/", ".class")
+	pairs += dependsMapSourceFilesToTargetFiles("tests/prototype/", ".java", "tmp/tests/", ".class")
+
+	changed = filesNeedBuilding(pairs)
+	if not changed:
+		return
+
+	compileJavaCode("tmp/tests/", "tmp/generator:tmp/bindings/:/usr/share/junit/lib/junit.jar", "tests/generator/:tests/bindings/:tests/prototype/", changed)
+
+
+
 #
 # main build sequence, with elaborately named methods Carl Rosenberger style
 #
 
 def generateBindings():
-	prepareDirectories()
+	prepareBindingsDirectories()
 
 	compileGeneratorClasses()
 	generateTranslationAndJniLayers()
@@ -384,14 +435,26 @@ def generateBindings():
 	generateHeaderFiles()
 	compileBindingsObjects()
 	linkSharedLibrary()
-	
 
 
+def generateTests():
+	prepareTestDirectories()
+	compileTestClasses()
+
+
+def runTests():
+	runJavaClass("UnitTests", "tmp/gtk-4.0.jar:tmp/generator/:tmp/tests/:/usr/share/junit/lib/junit.jar", "tmp/")
+
+def runDemo():
+	runJavaClass("Experiment", "tmp/gtk-4.0.jar:tmp/tests/", "tmp/")
 
 
 #
 # prelininary setup
 #
+
+from sys import argv
+
 if __name__ == '__main__':
 	if os.getenv("V"):
 		verbose = True
@@ -399,4 +462,15 @@ if __name__ == '__main__':
 	loadHashes()
 
 	generateBindings()
+
+	if len(argv) > 1 and sys.argv[1] == "test":
+		generateTests()
+		runTests()
+
+	if len(argv) > 1 and sys.argv[1] == "demo":
+		generateTests()
+		runDemo()
+
+	if len(argv) > 1 and sys.argv[1] == "eclipse":
+		generateTests()
 
