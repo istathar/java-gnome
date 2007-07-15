@@ -12,7 +12,6 @@
 package org.freedesktop.bindings;
 
 import java.lang.ref.WeakReference;
-import java.util.ArrayList;
 import java.util.HashMap;
 
 /**
@@ -200,25 +199,24 @@ public abstract class Plumbing
      * of the VM.
      */
     /*
-     * TODO It would be cool if we had a way of sizing the array perfectly on
-     * allocation. Better yet, if we knew the correct number of instances, we
-     * could use an Java array [object] instead of an ArrayList.
+     * TODO It would be cool if we had a way of sizing the map perfectly on
+     * allocation.
      */
     static final void registerConstant(Constant obj) {
         final Class type;
-        ArrayList list;
+        HashMap map;
 
         type = obj.getClass();
 
-        list = (ArrayList) knownConstants.get(type);
+        map = (HashMap) knownConstants.get(type);
 
-        if (list == null) {
-            list = new ArrayList(4);
-            knownConstants.put(type, list);
+        if (map == null) {
+            // TODO is 8 a good initial capacity?
+            map = new HashMap(8);
+            knownConstants.put(type, map);
         }
 
-        // for some reason I don't understand, set() doesn't work
-        list.add(obj.ordinal, obj);
+        map.put(new Integer(obj.ordinal), obj);
     }
 
     /**
@@ -247,19 +245,10 @@ public abstract class Plumbing
      *             if it can't find a Constant object corresponding to the
      *             Class, ordinal combination you've requested.
      */
-    protected static Constant constantFor(Class type, int ordinal) {
-        final ArrayList list;
-        final Constant obj;
+    protected static Constant enumFor(Class type, int ordinal) {
+        Constant obj;
 
-        assert (type != null);
-
-        list = (ArrayList) knownConstants.get(type);
-        if (list == null) {
-            throw new IllegalArgumentException("No Constants of type " + type.getName()
-                    + " are registered");
-        }
-
-        obj = (Constant) list.get(ordinal);
+        obj = getRegisteredConstant(type, ordinal);
         if (obj == null) {
             throw new IllegalArgumentException("You asked for ordinal " + ordinal
                     + " which is not known for the requested Constant type " + type.getName());
@@ -267,4 +256,50 @@ public abstract class Plumbing
 
         return obj;
     }
+
+    protected static Flag flagFor(Class type, int ordinal) {
+        Flag obj;
+
+        obj = (Flag) getRegisteredConstant(type, ordinal);
+        if (obj == null) {
+            /*
+             * TODO why about generating the nickname as "FLAG1 | FLAG2"? it's
+             * better for debugging, but more inefficient as we need to loop
+             * over ordinal, something like.
+             * 
+             * String name = ""; for ( int i = 1; i != 0; i <<= 1 ) { if (
+             * (ordinal & i) != 0) { Constant c = constantFor(type, i); name =
+             * name + c + " | "; } }
+             */
+            obj = addFlag(type, ordinal, "OR'ed");
+        }
+
+        return obj;
+    }
+
+    private static Constant getRegisteredConstant(Class type, int ordinal) {
+        final HashMap map;
+        Constant obj;
+
+        assert (type != null);
+
+        map = (HashMap) knownConstants.get(type);
+        if (map == null) {
+            throw new IllegalArgumentException("No Constants of type " + type.getName()
+                    + " are registered");
+        }
+
+        obj = (Constant) map.get(new Integer(ordinal));
+        return obj;
+    }
+
+    /**
+     * The Constants (both enums and flags), are instantiated and registered
+     * at class load time. However, the flags can be combined (OR'ed)
+     * together, thus creating new flags at runtime. This method add a new
+     * flag, invocating the protected constructor on the given flag class. To
+     * prevent visibility problems, we use the trick of calling JNI (where
+     * visibility rules are ignored) to create Proxy instances.
+     */
+    private static native Flag addFlag(Class type, int ordinal, String nickname);
 }

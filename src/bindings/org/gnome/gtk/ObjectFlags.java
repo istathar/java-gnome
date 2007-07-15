@@ -11,7 +11,7 @@
  */
 package org.gnome.gtk;
 
-import org.freedesktop.bindings.Constant;
+import org.freedesktop.bindings.Flag;
 
 /**
  * Flags in {@link Object}s.
@@ -37,7 +37,7 @@ import org.freedesktop.bindings.Constant;
  * details. This class is not really be necessary, but seems right for
  * consistency.
  */
-abstract class ObjectFlags extends Constant
+abstract class ObjectFlags extends Flag
 {
     protected ObjectFlags(int ordinal, String nickname) {
         super(ordinal, nickname);

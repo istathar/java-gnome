@@ -11,7 +11,7 @@
  */
 package org.gnome.gdk;
 
-import org.freedesktop.bindings.Constant;
+import org.freedesktop.bindings.Flag;
 
 /*
  * FIXME this is a placeholder stub for what will become the public API for
@@ -21,9 +21,40 @@ import org.freedesktop.bindings.Constant;
  * are made about this class until it has been reviewed by a hacker and this
  * comment has been replaced.
  */
-public final class WindowState extends Constant
+public final class WindowState extends Flag
 {
     private WindowState(int ordinal, String nickname) {
         super(ordinal, nickname);
     }
+
+    public static final WindowState WITHDRAWN = new WindowState(GdkWindowState.WITHDRAWN, "WITHDRAWN");
+
+    public static final WindowState ICONIFIED = new WindowState(GdkWindowState.ICONIFIED, "ICONIFIED");
+
+    public static final WindowState MAXIMIZED = new WindowState(GdkWindowState.MAXIMIZED, "MAXIMIZED");
+
+    public static final WindowState STICKY = new WindowState(GdkWindowState.STICKY, "STICKY");
+
+    public static final WindowState FULLSCREEN = new WindowState(GdkWindowState.FULLSCREEN, "FULLSCREEN");
+
+    public static final WindowState ABOVE = new WindowState(GdkWindowState.ABOVE, "ABOVE");
+
+    public static final WindowState BELOW = new WindowState(GdkWindowState.BELOW, "BELOW");
+
+    /**
+     * Creates a new WindowState flag as the OR'ing or combination of two
+     * WindowState flags.
+     */
+    public static WindowState or(WindowState ws1, WindowState ws2) {
+        return (WindowState) Flag.orTwoFlags(ws1, ws2);
+    }
+
+    /**
+     * Check if current this WindowState flag contains some of the flags in
+     * ws.
+     */
+    public boolean contains(WindowState ws) {
+        return andTwoFlags(this, ws);
+    }
+
 }
