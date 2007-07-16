@@ -55,7 +55,7 @@ public abstract class Constant
      * with <code>g_enum_register_static()</code>. This, however, is not
      * done consistently, and cannot be relied upon.
      */
-    private final String nickname;
+    final String nickname;
 
     /**
      * The order is ordinal, nickname so that the code completion comes first
