@@ -50,6 +50,11 @@ public class ValidateConstants extends TestCaseGtk
 
         /* the same flag must not be created twice */
         assertSame(flag1, flag2);
+        
+        /*
+         * TODO I would like this to change to ABOVE|ICONIFIED
+         */
+        assertEquals("org.gnome.gdk.WindowState.ICONIFIED|ABOVE", flag1.toString());
 
         /* check correct ORing */
         assertTrue(flag1.contains(WindowState.ABOVE));

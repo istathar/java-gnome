@@ -257,26 +257,36 @@ public abstract class Plumbing
         return obj;
     }
 
+    /**
+     * Given a Class and an ordinal number, try to lookup the Constant object
+     * that corresponds to that flag. If there's no registered constant that
+     * matches the given ordinal, then it corresponds to a OR'ed flag, so a
+     * new Constant object is created and registered.
+     */
+    /*
+     * TODO the result of toString should match the ordered
+     */
     protected static Flag flagFor(Class type, int ordinal) {
         Flag obj;
 
         obj = (Flag) getRegisteredConstant(type, ordinal);
         if (obj == null) {
-            /*
-             * TODO why about generating the nickname as "FLAG1 | FLAG2"? it's
-             * better for debugging, but more inefficient as we need to loop
-             * over ordinal, something like.
-             * 
-             * String name = ""; for ( int i = 1; i != 0; i <<= 1 ) { if (
-             * (ordinal & i) != 0) { Constant c = constantFor(type, i); name =
-             * name + c + " | "; } }
-             */
-            obj = addFlag(type, ordinal, "OR'ed");
+            String name = null;
+            for (int i = 1; i != 0; i <<= 1) {
+                if ((ordinal & i) != 0) {
+                    Constant c = enumFor(type, i);
+                    name = (name == null ? "" : name + "|") + c.nickname;
+                }
+            }
+            obj = addFlag(type, ordinal, name);
         }
 
         return obj;
     }
 
+    /**
+     * Lookup a Constant that corresponds to the given type and ordinal.
+     */
     private static Constant getRegisteredConstant(Class type, int ordinal) {
         final HashMap map;
         Constant obj;
