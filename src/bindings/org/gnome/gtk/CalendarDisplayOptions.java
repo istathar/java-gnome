@@ -26,4 +26,28 @@ public final class CalendarDisplayOptions extends Flag
     private CalendarDisplayOptions(int ordinal, String nickname) {
         super(ordinal, nickname);
     }
+
+    public final static CalendarDisplayOptions SHOW_HEADING = new CalendarDisplayOptions(
+            GtkCalendarDisplayOptions.SHOW_HEADING, "SHOW_HEADING");
+
+    public final static CalendarDisplayOptions SHOW_DAY_NAMES = new CalendarDisplayOptions(
+            GtkCalendarDisplayOptions.SHOW_DAY_NAMES, "SHOW_DAY_NAMES");
+
+    public final static CalendarDisplayOptions NO_MONTH_CHANGE = new CalendarDisplayOptions(
+            GtkCalendarDisplayOptions.NO_MONTH_CHANGE, "NO_MONTH_CHANGE");
+
+    public final static CalendarDisplayOptions SHOW_WEEK_NUMBERS = new CalendarDisplayOptions(
+            GtkCalendarDisplayOptions.SHOW_WEEK_NUMBERS, "SHOW_WEEK_NUMBERS");
+
+    public final static CalendarDisplayOptions WEEK_START_MONDAY = new CalendarDisplayOptions(
+            GtkCalendarDisplayOptions.WEEK_START_MONDAY, "WEEK_START_MONDAY");
+
+    public static CalendarDisplayOptions or(CalendarDisplayOptions ws1, CalendarDisplayOptions ws2) {
+        return (CalendarDisplayOptions) Flag.orTwoFlags(ws1, ws2);
+    }
+
+    public boolean contains(CalendarDisplayOptions ws) {
+        return andTwoFlags(this, ws);
+    }
+
 }
