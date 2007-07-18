@@ -182,8 +182,7 @@ public class BindingsGenerator
             packageAndClassName = data.getType().fullyQualifiedTranslationClassName().replace('.', '/');
             transTarget = new File(outputDir, packageAndClassName + ".java");
             jniTarget = new File(outputDir, packageAndClassName + ".c");
-            typemapping.println(data.getType().bareJavaClassName() + "=" + data.getType().fullyQualifiedJavaClassName());
-
+            typemapping.println(data.getType().getBindingsClass() + "=" + data.getType().fullyQualifiedJavaClassName());
             if (!transTarget.getParentFile().isDirectory()) {
                 transTarget.getParentFile().mkdirs();
             }

@@ -385,6 +385,16 @@ public abstract class Thing
 
         return buf.toString().intern();
     }
+    
+    /** 
+     * Get the name of the type for Class name for the bindings, ie, for a fully
+     * qualified name of "org.gnome.gtk.Button", return "GtkButton". This is used
+     * to g_type_name equivalent for typeMapping.properties. 
+     */
+    
+    public String getBindingsClass(){
+        return bindingsClass;
+    }
 
     /**
      * Get the java type this Thing represents
