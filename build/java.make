@@ -42,7 +42,7 @@ tmp/stamp/classes-dist: $(SOURCES_DIST)
 tmp/stamp/properties-dist: tmp/bindings/typeMapping.properties
 	touch $@
 
-tmp/bindings/%.properties: mockup/bindings/%.properties
+tmp/bindings/%.properties: generated/bindings/%.properties
 	@echo "CP        $< -> $(@D)"
 	cp -p $< $@
 

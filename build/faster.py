@@ -287,7 +287,7 @@ def compileBindingsClasses():
 #
 
 def copyMappingFile():
-	source = "mockup/bindings/typeMapping.properties"
+	source = "generated/bindings/typeMapping.properties"
 	target = "tmp/bindings/typeMapping.properties"
 
 	if not fileNeedsBuilding(source, target):

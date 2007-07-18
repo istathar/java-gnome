@@ -210,7 +210,7 @@ public class BindingsGenerator
                 // printed?
             }
 
-            typeMapping.println(data.getType().bareJavaClassName() + "="
+            typeMapping.println(data.getType().bareTranslationClassName() + "="
                     + data.getType().fullyQualifiedJavaClassName());
 
             trans.close();
@@ -219,4 +219,3 @@ public class BindingsGenerator
         typeMapping.close();
     }
 }
-

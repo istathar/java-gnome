@@ -387,6 +387,18 @@ public abstract class Thing
     }
 
     /**
+     * Get the name of the type for Class name used for the translation layer
+     * of the bindings, ie, for Thing "GtkButton*" which is exposed publicly
+     * as "org.gnome.gtk.Button", return "GtkButton". We use this to generate
+     * typeMapping.properties which needs to match the result of
+     * <code>g_type_name()</code>.
+     */
+
+    public String bareTranslationClassName() {
+        return bindingsClass;
+    }
+
+    /**
      * Get the java type this Thing represents
      */
     public String bareJavaClassName() {
