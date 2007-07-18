@@ -21,7 +21,7 @@
 			<arguments>
 				<dictionary>
 					<key>org.eclipse.cdt.make.core.build.arguments</key>
-					<value>-n 2 build/faster.py</value>
+					<value>-n 2 build/faster</value>
 				</dictionary>
 				<dictionary>
 					<key>org.eclipse.cdt.core.errorOutputParser</key>
