@@ -11,6 +11,8 @@
 
 import org.gnome.gdk.Event;
 import org.gnome.gtk.Button;
+import org.gnome.gtk.Calendar;
+import org.gnome.gtk.CalendarDisplayOptions;
 import org.gnome.gtk.FileChooser;
 import org.gnome.gtk.FileChooserAction;
 import org.gnome.gtk.FileChooserButton;
@@ -44,6 +46,7 @@ public final class Experiment
         final Label l;
         final Button b;
         final FileChooserButton fcb;
+        final Calendar cal;
 
         w = new Window();
 
@@ -59,6 +62,11 @@ public final class Experiment
 
         fcb = new FileChooserButton("Good to get, a file is", FileChooserAction.OPEN);
         x.packStart(fcb, false, false, 0);
+
+        cal = new Calendar();
+        cal.setDisplayOptions(CalendarDisplayOptions.SHOW_HEADING.or(
+                CalendarDisplayOptions.SHOW_WEEK_NUMBERS).or(CalendarDisplayOptions.SHOW_DAY_NAMES));
+        x.packStart(cal);
 
         w.add(x);
 

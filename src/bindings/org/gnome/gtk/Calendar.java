@@ -18,15 +18,7 @@ package org.gnome.gtk;
  * @since 4.0.3
  */
 /*
- * FIXME this is a placeholder stub for what will become the public API for
- * this type. Replace this comment with appropriate javadoc including author
- * and since tags. Note that the class may need to be made abstract, implement
- * interfaces, or even have its parent changed. No API stability guarantees
- * are made about this class until it has been reviewed by a hacker and this
- * comment has been replaced.
- * 
- * TODO The methods implemented here are only to test flags management. Docs
- * need to be improved.
+ * TODO there are several methods still not implemented
  */
 public class Calendar extends Widget
 {
@@ -34,13 +26,18 @@ public class Calendar extends Widget
         super(pointer);
     }
 
+    /**
+     * Creates a new Calendar instance.
+     */
     public Calendar() {
         super(GtkCalendar.createCalendar());
     }
 
     /**
      * Sets display options (whether to display the heading and the month
-     * headings).
+     * headings, for example).
+     * 
+     * @see CalendarDisplayOptions
      */
     public void setDisplayOptions(CalendarDisplayOptions flags) {
         GtkCalendar.setDisplayOptions(this, flags);
