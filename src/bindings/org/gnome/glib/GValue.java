@@ -12,6 +12,7 @@
 package org.gnome.glib;
 
 import org.freedesktop.bindings.Constant;
+import org.freedesktop.bindings.Flag;
 
 /*
  * Crafted: the creation of fundamentals is quite custom.
@@ -75,6 +76,23 @@ final class GValue extends Plumbing
     }
 
     private static native final int g_value_get_enum(long value);
+
+    static final Flag getFlags(Value value) {
+        final long pointer;
+        final int ordinal;
+        final String name;
+        final Class k;
+
+        pointer = pointerOf(value);
+
+        ordinal = g_value_get_flags(pointer);
+
+        name = typeName(pointer);
+        k = lookupType(name);
+        return flagFor(k, ordinal);
+    }
+
+    private static native final int g_value_get_flags(long value);
 
     static final Object getObject(Value value) {
         return objectFor(g_value_get_object(pointerOf(value)));

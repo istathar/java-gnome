@@ -314,6 +314,41 @@ Java_org_gnome_glib_GValue_g_1value_1get_1enum
 
 /**
  * Implements
+ *   org.gnome.glib.GValue.g_value_get_flags(long value)
+ * called from
+ *   org.gnome.glib.GValue.getFlags(EnumValue value)
+ * called from
+ *   org.gnome.glib.Object.getPropertyFlags(String name)
+ *
+ * Extract the ordinal of an flag stored in a GValue of type G_TYPE_FLAGS.
+ */
+JNIEXPORT jint JNICALL
+Java_org_gnome_glib_GValue_g_1value_1get_1flags
+(
+	JNIEnv* env,
+	jclass cls,
+	jlong _value
+)
+{
+	GValue* value;
+	guint num; 
+
+	// translate value
+	value =	(GValue*) _value;
+	if (!G_VALUE_HOLDS_FLAGS(value)) {
+		bindings_java_throw(env, "You've asked for the flags ordinal value of a GValue, but it's not a G_TYPE_FLAGS!");
+		return 0;
+	}
+	
+	// call function
+	num = g_value_get_flags(value); 
+
+	// and return	
+	return (jint) num;
+}
+
+/**
+ * Implements
  *   org.gnome.glib.GValue.g_value_get_enum(long value)
  * called from
  *   org.gnome.glib.GValue.getEnum(EnumValue value)

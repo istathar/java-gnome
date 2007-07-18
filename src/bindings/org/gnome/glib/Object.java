@@ -15,6 +15,7 @@ import java.util.HashSet;
 
 import org.freedesktop.bindings.Constant;
 import org.freedesktop.bindings.Debug;
+import org.freedesktop.bindings.Flag;
 import org.freedesktop.bindings.Proxy;
 
 /**
@@ -154,6 +155,11 @@ public abstract class Object extends Proxy
     protected Constant getPropertyEnum(String name) {
         Value value = GObject.getProperty(this, name);
         return GValue.getEnum(value);
+    }
+
+    protected Flag getPropertyFlags(String name) {
+        Value value = GObject.getProperty(this, name);
+        return GValue.getFlags(value);
     }
 
     /**
