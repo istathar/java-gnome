@@ -1,7 +1,7 @@
 /*
  * CalendarDisplayOptions.java
  *
- * Copyright (c) 2007 Operational Dynamics Consulting Pty Ltd
+ * Copyright (c) 2007 Operational Dynamics Consulting Pty Ltd, and Others
  *
  * The code in this file, and the library it is a part of, are made available
  * to you by the authors under the terms of the "GNU General Public Licence,
@@ -11,8 +11,14 @@
  */
 package org.gnome.gtk;
 
-import org.freedesktop.bindings.Constant;
+import org.freedesktop.bindings.Flag;
 
+/**
+ * FIXME FIXME FIXME!
+ * 
+ * @author Vreixo Formoso
+ * @since 4.0.3
+ */
 /*
  * FIXME this is a placeholder stub for what will become the public API for
  * this type. Replace this comment with appropriate javadoc including author
@@ -21,9 +27,33 @@ import org.freedesktop.bindings.Constant;
  * are made about this class until it has been reviewed by a hacker and this
  * comment has been replaced.
  */
-public final class CalendarDisplayOptions extends Constant
+public final class CalendarDisplayOptions extends Flag
 {
     private CalendarDisplayOptions(int ordinal, String nickname) {
         super(ordinal, nickname);
     }
+
+    public final static CalendarDisplayOptions SHOW_HEADING = new CalendarDisplayOptions(
+            GtkCalendarDisplayOptions.SHOW_HEADING, "SHOW_HEADING");
+
+    public final static CalendarDisplayOptions SHOW_DAY_NAMES = new CalendarDisplayOptions(
+            GtkCalendarDisplayOptions.SHOW_DAY_NAMES, "SHOW_DAY_NAMES");
+
+    public final static CalendarDisplayOptions NO_MONTH_CHANGE = new CalendarDisplayOptions(
+            GtkCalendarDisplayOptions.NO_MONTH_CHANGE, "NO_MONTH_CHANGE");
+
+    public final static CalendarDisplayOptions SHOW_WEEK_NUMBERS = new CalendarDisplayOptions(
+            GtkCalendarDisplayOptions.SHOW_WEEK_NUMBERS, "SHOW_WEEK_NUMBERS");
+
+    public final static CalendarDisplayOptions WEEK_START_MONDAY = new CalendarDisplayOptions(
+            GtkCalendarDisplayOptions.WEEK_START_MONDAY, "WEEK_START_MONDAY");
+
+    public static CalendarDisplayOptions or(CalendarDisplayOptions ws1, CalendarDisplayOptions ws2) {
+        return (CalendarDisplayOptions) Flag.orTwoFlags(ws1, ws2);
+    }
+
+    public boolean contains(CalendarDisplayOptions ws) {
+        return andTwoFlags(this, ws);
+    }
+
 }

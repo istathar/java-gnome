@@ -69,6 +69,14 @@ public class FileChooserButton extends HBox implements FileChooser
         return GtkFileChooser.setCurrentFolder(this, directory);
     }
 
+    public void setAction(FileChooserAction action) {
+        GtkFileChooser.setAction(this, action);
+    }
+
+    public FileChooserAction getAction() {
+        return GtkFileChooser.getAction(this);
+    }
+
     /*
      * Changes to this implementation need to be dittoed in FileChooserDialog
      * and FileChooserWidget!

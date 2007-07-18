@@ -13,7 +13,9 @@ package com.operationaldynamics.defsparser;
 import java.util.List;
 
 import com.operationaldynamics.codegen.FlagsGenerator;
+import com.operationaldynamics.codegen.FlagsThing;
 import com.operationaldynamics.codegen.Generator;
+import com.operationaldynamics.codegen.Thing;
 import com.operationaldynamics.driver.DefsFile;
 
 /**
@@ -43,6 +45,12 @@ public class FlagsBlock extends EnumBlock
 {
     FlagsBlock(String blockName, List characteristics, List values) {
         super(blockName, characteristics, values);
+    }
+
+    public Thing createThing() {
+        FlagsThing t = new FlagsThing(cName, moduleToJavaPackage(inModule), cName, blockName);
+        t.setImportHeader(importHeader);
+        return t;
     }
 
     public Generator createGenerator(final DefsFile data) {

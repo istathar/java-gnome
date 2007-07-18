@@ -2,6 +2,7 @@
   (in-module "Unixprint")
   (c-name "GtkPrintCapabilities")
   (gtype-id "GTK_TYPE_PRINT_CAPABILITIES")
+  (import-header "gtk/gtkprintunixdialog.h")
   (values
     '("page-set" "GTK_PRINT_CAPABILITY_PAGE_SET")
     '("copies" "GTK_PRINT_CAPABILITY_COPIES")

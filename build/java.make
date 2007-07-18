@@ -30,9 +30,7 @@ SOURCES_DIST=$(shell find src/bindings -name '*.java') $(shell find generated/bi
 
 tmp/gtk-$(APIVERSION).jar: tmp/stamp/classes-dist tmp/stamp/properties-dist
 	@echo "$(JAR_CMD) $@"
-	#cd tmp/bindings ; find . -name '*.class' -o -name '*.properties' | xargs echo > list2
 	cd tmp/bindings ; $(JAR) cf ../../$@ `find . -name '*.class' -o -name '*.properties'`
-	#cd tmp/bindings ; find . -name '*.class' -o -name '*.properties' | xargs $(JAR) cf ../../$@ 
 
 
 tmp/stamp/classes-dist: $(SOURCES_DIST)

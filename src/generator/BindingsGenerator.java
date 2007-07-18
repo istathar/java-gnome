@@ -219,3 +219,4 @@ public class BindingsGenerator
         typeMapping.close();
     }
 }
+

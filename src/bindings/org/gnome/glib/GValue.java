@@ -71,7 +71,7 @@ final class GValue extends Plumbing
 
         name = typeName(pointer);
         k = lookupType(name);
-        return constantFor(k, ordinal);
+        return enumFor(k, ordinal);
     }
 
     private static native final int g_value_get_enum(long value);

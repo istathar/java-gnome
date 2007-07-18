@@ -11,7 +11,7 @@
  */
 package org.gnome.gtk;
 
-import org.freedesktop.bindings.Constant;
+import org.freedesktop.bindings.Flag;
 
 /*
  * FIXME this is a placeholder stub for what will become the public API for
@@ -21,7 +21,7 @@ import org.freedesktop.bindings.Constant;
  * are made about this class until it has been reviewed by a hacker and this
  * comment has been replaced.
  */
-public final class RecentFilterFlags extends Constant
+public final class RecentFilterFlags extends Flag
 {
     private RecentFilterFlags(int ordinal, String nickname) {
         super(ordinal, nickname);
