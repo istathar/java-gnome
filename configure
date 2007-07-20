@@ -1154,7 +1154,7 @@ if ($os eq "gentoo") {
 	if ($gcj_home) {
 		$gij_candidate = "$gcj_home/bin/gij";
 	} else {
-		$gij_candidate = which("gij-4.0");
+		$gij_candidate = which("gij");
 	}
 	check_runtime($gij, "GNU gij", $gij_candidate, "");
 
