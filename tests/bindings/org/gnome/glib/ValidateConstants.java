@@ -69,24 +69,22 @@ public class ValidateConstants extends TestCaseGtk
         assertTrue(flags1.contains(CalendarDisplayOptions.SHOW_DAY_NAMES));
         assertFalse(flags1.contains(CalendarDisplayOptions.SHOW_HEADING));
         assertFalse(flags1.contains(CalendarDisplayOptions.SHOW_WEEK_NUMBERS));
-        assertFalse(flags1.contains(CalendarDisplayOptions.WEEK_START_MONDAY));
 
         /* tree flags ORing */
-        flags2 = CalendarDisplayOptions.or(flags1, CalendarDisplayOptions.WEEK_START_MONDAY);
+        flags2 = CalendarDisplayOptions.or(flags1, CalendarDisplayOptions.SHOW_HEADING);
         assertNotSame(flags1, flags2);
 
         cal.setDisplayOptions(flags2);
-        
+
         flags1 = cal.getDisplayOptions();
         assertSame(flags2, flags1);
         assertSame(CalendarDisplayOptions.or(CalendarDisplayOptions.or(
                 CalendarDisplayOptions.NO_MONTH_CHANGE, CalendarDisplayOptions.SHOW_DAY_NAMES),
-                CalendarDisplayOptions.WEEK_START_MONDAY), flags1);
+                CalendarDisplayOptions.SHOW_HEADING), flags1);
         assertTrue(flags1.contains(CalendarDisplayOptions.NO_MONTH_CHANGE));
         assertTrue(flags1.contains(CalendarDisplayOptions.SHOW_DAY_NAMES));
-        assertFalse(flags1.contains(CalendarDisplayOptions.SHOW_HEADING));
+        assertTrue(flags1.contains(CalendarDisplayOptions.SHOW_HEADING));
         assertFalse(flags1.contains(CalendarDisplayOptions.SHOW_WEEK_NUMBERS));
-        assertTrue(flags1.contains(CalendarDisplayOptions.WEEK_START_MONDAY));
     }
 
     public final void testFlagsORing() {
@@ -97,7 +95,7 @@ public class ValidateConstants extends TestCaseGtk
 
         /* the same flag must not be created twice */
         assertSame(flag1, flag2);
-        
+
         /*
          * TODO I would like this to change to ABOVE|ICONIFIED
          */

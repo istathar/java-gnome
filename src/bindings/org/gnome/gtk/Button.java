@@ -132,13 +132,13 @@ public class Button extends Bin
      * example of how this is used is as follows:
      * 
      * <pre>
-     * Button b;
-     *   
-     * b.connect(new Button.CLICKED() {
-     *     public void onClicked(Button source) {
-     *         // do something!
-     *     }
-     * }
+     *  Button b;
+     *    
+     *  b.connect(new Button.CLICKED() {
+     *      public void onClicked(Button source) {
+     *          // do something!
+     *      }
+     *  }
      * </pre>
      * 
      * <p>

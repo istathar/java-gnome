@@ -19,16 +19,16 @@ import org.gnome.glib.Glib;
  * program written with java-gnome will boil down to this:
  * 
  * <pre>
- * public class ComeOnBabyLightMyFire
- * 
- *     public static void main(String[] args) {
- *         Gtk.init(args);
- *         
- *         // build user interface
- *         
- *         Gtk.main();
- *     }
- * }
+ *  public class ComeOnBabyLightMyFire
+ *  
+ *      public static void main(String[] args) {
+ *          Gtk.init(args);
+ *          
+ *          // build user interface
+ *          
+ *          Gtk.main();
+ *      }
+ *  }
  * </pre>
  * 
  * There. Now you know everything you need to know. <code>:)</code> In due
