@@ -1149,7 +1149,7 @@ if ($os eq "gentoo") {
 	check_runtime($java, "$vendor java VM", $java_candidate, "-client");
 
 	# check gij (the bytecode interpreter from the GCJ project). In Debian
-	# it is in package gij-3.4 and so named in /usr/bin.
+	# and Ubuntu the default version is provided by package gij.
 	my $gij_candidate;
 	if ($gcj_home) {
 		$gij_candidate = "$gcj_home/bin/gij";
