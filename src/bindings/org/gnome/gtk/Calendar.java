@@ -17,6 +17,10 @@ package org.gnome.gtk;
  * @author Vreixo Formoso
  * @since 4.0.3
  */
+/*
+ * This was initially bound to expose and test Flags behaviour. It still lacks
+ * many necessary methods before it will become useable.
+ */
 public class Calendar extends Widget
 {
     protected Calendar(long pointer) {
@@ -32,7 +36,8 @@ public class Calendar extends Widget
 
     /**
      * Sets the various options which control the details of how this Calendar
-     * is to be displayed. See {@link CalendarDisplayOptions} for details.
+     * is to be displayed. See the various constants in
+     * {@link CalendarDisplayOptions} for details.
      */
     public void setDisplayOptions(CalendarDisplayOptions flags) {
         GtkCalendar.setDisplayOptions(this, flags);
