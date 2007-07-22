@@ -15,7 +15,7 @@ import org.freedesktop.bindings.Flag;
 
 /**
  * These options are used to modify the display and behavior of a
- * {@link Calendar}.
+ * {@link Calendar} Widget.
  * 
  * <p>
  * You can specify one or several of these using the method
@@ -64,33 +64,11 @@ public final class CalendarDisplayOptions extends Flag
             GtkCalendarDisplayOptions.SHOW_WEEK_NUMBERS, "SHOW_WEEK_NUMBERS");
 
     /**
-     * Creates a new flag object that contains all options especified at least
-     * in one of the two given flags. It can be thought as the logical OR
-     * between the two flags.
+     * Creates a new Flag object that contains all options specified by the
+     * two given arguments. It can be thought as the logical OR between the
+     * two Flags.
      */
-    public static CalendarDisplayOptions or(CalendarDisplayOptions ws1, CalendarDisplayOptions ws2) {
-        return (CalendarDisplayOptions) Flag.orTwoFlags(ws1, ws2);
-    }
-
-    /**
-     * Check if this flag contains at least one of the options specified in
-     * the given flag.
-     */
-    public boolean contains(CalendarDisplayOptions ws) {
-        return andTwoFlags(this, ws);
-    }
-
-    /**
-     * Creates a new flag object that contains all options especified in this
-     * flag or in the given flag. This method can be used to or together
-     * several flags in a elegant way:
-     * 
-     * <pre>
-     * cal.setDisplayOptions(CalendarDisplayOptions.SHOW_HEADING.or(CalendarDisplayOptions.SHOW_WEEK_NUMBERS)
-     *         .or(CalendarDisplayOptions.SHOW_DAY_NAMES));
-     * 
-     */
-    public CalendarDisplayOptions or(CalendarDisplayOptions ws) {
-        return or(this, ws);
+    public static CalendarDisplayOptions or(CalendarDisplayOptions one, CalendarDisplayOptions two) {
+        return (CalendarDisplayOptions) Flag.orTwoFlags(one, two);
     }
 }

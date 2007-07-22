@@ -13,11 +13,19 @@
 package org.freedesktop.bindings;
 
 /**
- * Representation of flags. A flag is a Constant that can be OR'ed with
- * another flag of the same type
+ * Representation of an enum that is used to bit-pack option flags. A flag is
+ * a Constant that can be bitwise OR'd with another flag of the same type
  * 
  * @author Vreixo Formoso
+ * @author Andrew Cowie
  * @since 4.0.3
+ */
+/*
+ * The presence of bitwise operations here is of some concern; given the
+ * contract we have established to treat binary data from the native side as
+ * opaque, I am not convinced that these instructions are safe. Vreixo has
+ * contributed unit tests establishing some confidence, so we will keep it for
+ * now. Move to JNI calls if any byte order problems are encountered.
  */
 public abstract class Flag extends Constant
 {
@@ -27,27 +35,37 @@ public abstract class Flag extends Constant
     }
 
     /**
-     * Helper method to simplify the implementation of or() in subclasses.
+     * Helper method to enable the implementation of or() in subclasses.
      */
     protected final static Flag orTwoFlags(Flag a, Flag b) {
-
-        assert (a.getClass().equals(b.getClass()));
+        if (a.getClass() != b.getClass()) {
+            throw new IllegalArgumentException("Both arguments need to be an instances of the same concrete Flags class");
+        }
 
         return Plumbing.flagFor(a.getClass(), a.ordinal | b.ordinal);
     }
 
     /**
-     * Helper method to simplify the implementation of contains() in
-     * subclasses.
+     * Utility function to determine whether a Flags instance has the bit
+     * embodied by <code>setting</code> set. An example of this in action
+     * is:
      * 
-     * @return <code>true</code> if the bit-wise AND between two flags is
-     *         not 0.
+     * <pre>
+     *    WindowState s;
+     *    ...
+     *    
+     *    if (s.contains(WindowState.STICKY)) {
+     *        // get a cloth to clean up the mess
+     *    }
+     * </pre>
+     * 
+     * You can only use this on instances of the same class!
      */
-    protected final static boolean andTwoFlags(Flag a, Flag b) {
+    public final boolean contains(Flag setting) {
+        if (this.getClass() != setting.getClass()) {
+            throw new IllegalArgumentException("Argument needs to be an instance of " + this.getClass());
+        }
 
-        assert (a.getClass().equals(b.getClass()));
-
-        return (a.ordinal & b.ordinal) != 0;
+        return (this.ordinal & setting.ordinal) != 0;
     }
-
 }

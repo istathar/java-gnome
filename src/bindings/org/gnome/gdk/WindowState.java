@@ -48,13 +48,4 @@ public final class WindowState extends Flag
     public static WindowState or(WindowState ws1, WindowState ws2) {
         return (WindowState) Flag.orTwoFlags(ws1, ws2);
     }
-
-    /**
-     * Check if current this WindowState flag contains some of the flags in
-     * ws.
-     */
-    public boolean contains(WindowState ws) {
-        return andTwoFlags(this, ws);
-    }
-
 }

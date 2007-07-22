@@ -247,13 +247,6 @@ public abstract class Plumbing extends org.freedesktop.bindings.Plumbing
         }
     }
 
-    private static Proxy createProxy(Class type, long pointer) {
-        final Proxy proxy;
-        // FIXME use per-package Factory instead?
-        proxy = createInstance(type, pointer);
-        return proxy;
-    }
-
     /**
      * Retrieve a Proxy object corresponding to a <code>GValue</code>. This
      * should only be needed by the property getter functions.

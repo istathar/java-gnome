@@ -17,9 +17,6 @@ package org.gnome.gtk;
  * @author Vreixo Formoso
  * @since 4.0.3
  */
-/*
- * TODO there are several methods still not implemented
- */
 public class Calendar extends Widget
 {
     protected Calendar(long pointer) {
@@ -34,17 +31,16 @@ public class Calendar extends Widget
     }
 
     /**
-     * Sets display options (whether to display the heading and the month
-     * headings, for example).
-     * 
-     * @see CalendarDisplayOptions
+     * Sets the various options which control the details of how this Calendar
+     * is to be displayed. See {@link CalendarDisplayOptions} for details.
      */
     public void setDisplayOptions(CalendarDisplayOptions flags) {
         GtkCalendar.setDisplayOptions(this, flags);
     }
 
     /**
-     * Returns the current display options.
+     * Returns the Flags object describing the current options enabled in this
+     * Calendar.
      */
     public CalendarDisplayOptions getDisplayOptions() {
         return GtkCalendar.getDisplayOptions(this);

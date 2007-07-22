@@ -182,7 +182,7 @@ public abstract class Plumbing
      * trick of calling JNI (where visibility rules are ignored) to create
      * Proxy instances.
      */
-    protected static native Proxy createInstance(Class type, long pointer);
+    protected static native Proxy createProxy(Class type, long pointer);
 
     /*
      * Constant handling ----------------------------------
@@ -260,7 +260,7 @@ public abstract class Plumbing
     /**
      * Given a Class and an ordinal number, try to lookup the Constant object
      * that corresponds to that flag. If there's no registered constant that
-     * matches the given ordinal, then it corresponds to a OR'ed flag, so a
+     * matches the given ordinal, then it corresponds to a OR'd flag, so a
      * new Constant object is created and registered.
      */
     /*
@@ -278,7 +278,7 @@ public abstract class Plumbing
                     name = (name == null ? "" : name + "|") + c.nickname;
                 }
             }
-            obj = addFlag(type, ordinal, name);
+            obj = createFlag(type, ordinal, name);
         }
 
         return obj;
@@ -311,5 +311,5 @@ public abstract class Plumbing
      * prevent visibility problems, we use the trick of calling JNI (where
      * visibility rules are ignored) to create Proxy instances.
      */
-    private static native Flag addFlag(Class type, int ordinal, String nickname);
+    private static native Flag createFlag(Class type, int ordinal, String nickname);
 }
