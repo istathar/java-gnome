@@ -1,7 +1,7 @@
 /*
  * Window.java
  *
- * Copyright (c) 2006 Operational Dynamics Consulting Pty Ltd and Others
+ * Copyright (c) 2006-2007 Operational Dynamics Consulting Pty Ltd, and Others
  * 
  * The code in this file, and the library it is a part of, are made available
  * to you by the authors under the terms of the "GNU General Public Licence,
@@ -19,6 +19,7 @@ import org.gnome.gdk.Event;
  * 
  * @author Andrew Cowie
  * @author Srichand Pendyala
+ * @author Sebastian Mancke
  * @since 4.0.0
  */
 public class Window extends Bin
@@ -161,6 +162,37 @@ public class Window extends Bin
      */
     public void setPosition(WindowPosition position) {
         GtkWindow.setPosition(this, position);
+    }
+
+    /**
+     * Ask the window manager to place the Window in the fullscreen state.
+     * Note that you shouldn't assume the Window is definitely fullscreen
+     * afterward, because other entities (e.g. the user or window manager)
+     * could unfullscreen it again, and not all window managers honor requests
+     * to fullscreen windows. Be prepared for these eventualities.
+     * 
+     * @since 4.0.3
+     */
+    /*
+     * Remap this as setFullscreen(boolen)? At the moment the answer is no: a)
+     * for algorithmic mapping reasons, and b) to correspond to other "take
+     * action" methods like clicked() in Button.
+     */
+    public void fullscreen() {
+        GtkWindow.fullscreen(this);
+    }
+
+    /**
+     * Asks to toggle off the fullscreen state for the Window. Note that you
+     * should not assume the Window is definitely not fullscreen afterward,
+     * because other entities (e.g. the user or window manager) could
+     * fullscreen it again, and not all window managers honor requests to
+     * deactivate fullscreen mode.
+     * 
+     * @since 4.0.3
+     */
+    public void unfullscreen() {
+        GtkWindow.unfullscreen(this);
     }
 
     /**

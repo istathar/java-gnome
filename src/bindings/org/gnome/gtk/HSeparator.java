@@ -1,7 +1,7 @@
 /*
  * HSeparator.java
  *
- * Copyright (c) 2007 Operational Dynamics Consulting Pty Ltd
+ * Copyright (c) 2007 Operational Dynamics Consulting Pty Ltd, and Others
  *
  * The code in this file, and the library it is a part of, are made available
  * to you by the authors under the terms of the "GNU General Public Licence,
@@ -11,17 +11,25 @@
  */
 package org.gnome.gtk;
 
-/*
- * FIXME this is a placeholder stub for what will become the public API for
- * this type. Replace this comment with appropriate javadoc including author
- * and since tags. Note that the class may need to be made abstract, implement
- * interfaces, or even have its parent changed. No API stability guarantees
- * are made about this class until it has been reviewed by a hacker and this
- * comment has been replaced.
+/**
+ * A horizontal line used to create visual distinction between Widgets being
+ * laid out vertically.
+ * 
+ * @see VSeparator
+ * 
+ * @author Sebastian Mancke
+ * @since 4.0.3
  */
 public class HSeparator extends Separator
 {
     protected HSeparator(long pointer) {
         super(pointer);
+    }
+
+    /**
+     * Construct a new HSeparator
+     */
+    public HSeparator() {
+        super(GtkHSeparator.createHSeparator());
     }
 }

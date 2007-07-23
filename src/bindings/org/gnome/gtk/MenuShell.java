@@ -1,7 +1,7 @@
 /*
  * MenuShell.java
  *
- * Copyright (c) 2007 Operational Dynamics Consulting Pty Ltd
+ * Copyright (c) 2007 Operational Dynamics Consulting Pty Ltd, and Others
  *
  * The code in this file, and the library it is a part of, are made available
  * to you by the authors under the terms of the "GNU General Public Licence,
@@ -11,17 +11,73 @@
  */
 package org.gnome.gtk;
 
-/*
- * FIXME this is a placeholder stub for what will become the public API for
- * this type. Replace this comment with appropriate javadoc including author
- * and since tags. Note that the class may need to be made abstract, implement
- * interfaces, or even have its parent changed. No API stability guarantees
- * are made about this class until it has been reviewed by a hacker and this
- * comment has been replaced.
+/**
+ * The MenuShell is the abstract super class of {@link Menu} and
+ * {@link MenuBar}. It provides the common methods for adding and organizing
+ * {@link MenuItems}.
+ * 
+ * <p>
+ * The following example creates one simple menu with a submenu and adds it to
+ * a menu bar:
+ * 
+ * <pre>
+ * Menu subMenu = new Menu();
+ * subMenu.append(new MenuItem(&quot;Sub Item _1&quot;));
+ * subMenu.append(new MenuItem(&quot;Sub Item _2&quot;));
+ * MenuItem subMenuItem = new MenuItem(&quot;Sub menu ..&quot;);
+ * subMenuItem.setSubmenu(subMenu);
+ * 
+ * Menu aMenu = new Menu();
+ * aMenu.append(new MenuItem(&quot;Item _1&quot;));
+ * aMenu.append(new MenuItem(&quot;Item _2&quot;));
+ * aMenu.append(subMenuItem);
+ * MenuItem aMenuItem = new MenuItem(&quot;_Other menu ..&quot;);
+ * aMenuItem.setSubmenu(aMenu);
+ * 
+ * MenuBar menuBar = new MenuBar();
+ * menuBar.append(aMenuItem);
+ * // e.g. add the menuBar to the Window's VBox
+ * </pre>
+ * 
+ * </p>
+ * 
+ * @author Sebastian Mancke
+ * @author Andrew Cowie
+ * @since 4.0.3
  */
-public class MenuShell extends Container
+public abstract class MenuShell extends Container
 {
     protected MenuShell(long pointer) {
         super(pointer);
+    }
+
+    /**
+     * Append one Widget to the MenuShell.
+     */
+    public void append(Widget child) {
+        GtkMenuShell.append(this, child);
+    }
+
+    /**
+     * Prepend one Widget to the MenuShell
+     */
+    public void prepend(Widget child) {
+        GtkMenuShell.prepend(this, child);
+    }
+
+    /**
+     * Insert one Widget to the MenuShell at the specified position.
+     */
+    public void insert(Widget child, int position) {
+        GtkMenuShell.insert(this, child, position);
+    }
+
+    /**
+     * Deactivate the MenuShell. <i>According to the GTK API documentation,
+     * this "typically" results in the Menu being erased from the screen. TODO
+     * what other effect could it have?</i>
+     */
+    public void deactivate() {
+        GtkMenuShell.deactivate(this);
     }
 }

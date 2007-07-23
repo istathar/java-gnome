@@ -38,7 +38,9 @@ public abstract class Event extends Boxed
     }
 
     /**
-     * Get the type of event that occurred.
+     * Get the type of event that occurred. There are fairly tight
+     * relationships between these type constants and the concrete Event
+     * subclasses, see {@link EventType EventType} for an example.
      * 
      * @since 4.0.3
      */

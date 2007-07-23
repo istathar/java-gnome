@@ -1,7 +1,7 @@
 /*
  * MenuBar.java
  *
- * Copyright (c) 2007 Operational Dynamics Consulting Pty Ltd
+ * Copyright (c) 2007 Operational Dynamics Consulting Pty Ltd, and Others
  *
  * The code in this file, and the library it is a part of, are made available
  * to you by the authors under the terms of the "GNU General Public Licence,
@@ -11,17 +11,35 @@
  */
 package org.gnome.gtk;
 
-/*
- * FIXME this is a placeholder stub for what will become the public API for
- * this type. Replace this comment with appropriate javadoc including author
- * and since tags. Note that the class may need to be made abstract, implement
- * interfaces, or even have its parent changed. No API stability guarantees
- * are made about this class until it has been reviewed by a hacker and this
- * comment has been replaced.
+/**
+ * A MenuBar is the container for menus.
+ * 
+ * <p>
+ * A MenuBar can be added to container {@link Window} just like any other
+ * Widget; in almost every situation you should be adding the menu to the top
+ * of the Window by making it the first Widget packed into a VBox in that
+ * Window.
+ * </p>
+ * 
+ * <p>
+ * For a broader explanation of how to use the Menus APIs, see
+ * {@link MenuShell}.
+ * </p>
+ * 
+ * @author Sebastian Mancke
+ * @author Andrew Cowie
+ * @since 4.0.3
  */
 public class MenuBar extends MenuShell
 {
     protected MenuBar(long pointer) {
         super(pointer);
+    }
+
+    /**
+     * Constructs a MenuBar
+     */
+    public MenuBar() {
+        super(GtkMenuBar.createMenuBar());
     }
 }

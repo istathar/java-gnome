@@ -1,7 +1,7 @@
 /*
  * MenuItem.java
  *
- * Copyright (c) 2007 Operational Dynamics Consulting Pty Ltd
+ * Copyright (c) 2007 Operational Dynamics Consulting Pty Ltd, and Others
  *
  * The code in this file, and the library it is a part of, are made available
  * to you by the authors under the terms of the "GNU General Public Licence,
@@ -11,17 +11,77 @@
  */
 package org.gnome.gtk;
 
-/*
- * FIXME this is a placeholder stub for what will become the public API for
- * this type. Replace this comment with appropriate javadoc including author
- * and since tags. Note that the class may need to be made abstract, implement
- * interfaces, or even have its parent changed. No API stability guarantees
- * are made about this class until it has been reviewed by a hacker and this
- * comment has been replaced.
+/**
+ * A MenuItem is the basic item in a menu. It behaves like a Button and serves
+ * as superclass for specialized MenuItems.
+ * 
+ * <p>
+ * For a broader explanation of Menus see {@link MenuShell}.
+ * 
+ * <p>
+ * While in theory a MenuItem, being a Bin, could hold any Widget as its
+ * contained child, in practice only specialized MenuItem subclasses will work
+ * properly as they are what support highlighting, alignment, submenus, etc.
+ * 
+ * @author Sebastian Mancke
+ * @author Andrew Cowie
+ * @since 4.0.3
  */
 public class MenuItem extends Item
 {
     protected MenuItem(long pointer) {
         super(pointer);
+    }
+
+    /**
+     * Construct a MenuItem
+     */
+    public MenuItem() {
+        super(GtkMenuItem.createMenuItem());
+    }
+
+    /**
+     * Construct a MenuItem with a given text label. The label may contain
+     * underscores (<code>_<code>) which, if present, will indicate
+     * the mnemonic which will activate that MenuItem directly if that key is pressed.
+     */
+    public MenuItem(String mnemonicLabel) {
+        super(GtkMenuItem.createMenuItemWithMnemonic(mnemonicLabel));
+    }
+
+    /**
+     * Sets or replaces the MenuItem's submenu, or removes it if a
+     * <code>null</code> Menu is passed.
+     */
+    public void setSubmenu(Menu child) {
+        GtkMenuItem.setSubmenu(this, child);
+    }
+
+    /**
+     * Returns the submenu underneath this menu item, if any
+     * 
+     * @return submenu for this menu item, or <code>null</code> if none.
+     */
+    public Widget getSubmenu() {
+        return GtkMenuItem.getSubmenu(this);
+    }
+
+    /**
+     * The handler interface for an activation. An activation is triggered
+     * either when the user clicks the MenuItem, or activates it with the
+     * keyboard either by typing that MenuItem's menomic character (if it has
+     * one) or selecting the MenuItem via the arrow keys and then pressing
+     * <code>&lt;ENTER&gt;</code>.
+     */
+    public interface ACTIVATE extends GtkMenuItem.ACTIVATE
+    {
+        public void onActivate(MenuItem sourceObject);
+    }
+
+    /**
+     * Connect an {@see ACTIVATE} handler to the widget.
+     */
+    public void connect(ACTIVATE handler) {
+        GtkMenuItem.connect(this, handler);
     }
 }

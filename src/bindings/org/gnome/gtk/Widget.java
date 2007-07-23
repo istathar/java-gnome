@@ -1,7 +1,7 @@
 /*
  * Widget.java
  *
- * Copyright (c) 2006-2007 Operational Dynamics Consulting Pty Ltd and Others
+ * Copyright (c) 2006-2007 Operational Dynamics Consulting Pty Ltd, and Others
  * 
  * The code in this file, and the library it is a part of, are made available
  * to you by the authors under the terms of the "GNU General Public Licence,
@@ -12,6 +12,7 @@
 package org.gnome.gtk;
 
 import org.gnome.gdk.EventExpose;
+import org.gnome.gdk.EventKey;
 
 /**
  * The base class of all GTK Widgets. Graphical user interface toolkits have
@@ -137,6 +138,52 @@ public abstract class Widget extends org.gnome.gtk.Object
      * @since 4.0.2
      */
     public void connect(EXPOSE_EVENT handler) {
+        GtkWidget.connect(this, handler);
+    }
+
+    /**
+     * Handler interface for key press events. The user <i>pressing</i> a key
+     * is generally less interesting than them <i>releasing</i> a key as
+     * that, by the conventions of modern graphical user interfaces, is when a
+     * program should take action; note for example that if they press a key
+     * but then move the mouse out the release won't cause that Button to
+     * activate.
+     * 
+     * @since 4.0.3
+     * @see Widget.KEY_RELEASE_EVENT
+     */
+    public interface KEY_PRESS_EVENT extends GtkWidget.KEY_PRESS_EVENT
+    {
+        public boolean onKeyPressEvent(Widget source, EventKey event);
+    }
+
+    /**
+     * Hook up a handler to receive <code>key-press-event</code> signals on
+     * this Widget. In general you <b>don't</b> want this.
+     * 
+     * @since 4.0.3
+     */
+    public void connect(KEY_PRESS_EVENT handler) {
+        GtkWidget.connect(this, handler);
+    }
+
+    /**
+     * Handler interface for key release events.
+     * 
+     * @since 4.0.3
+     */
+    public interface KEY_RELEASE_EVENT extends GtkWidget.KEY_RELEASE_EVENT
+    {
+        public boolean onKeyReleaseEvent(Widget source, EventKey event);
+    }
+
+    /**
+     * Hook up a handler to receive <code>key-release-event</code> signals
+     * on this Widget
+     * 
+     * @since 4.0.3
+     */
+    public void connect(KEY_RELEASE_EVENT handler) {
         GtkWidget.connect(this, handler);
     }
 

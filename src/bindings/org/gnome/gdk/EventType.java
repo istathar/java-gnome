@@ -25,8 +25,10 @@ import org.freedesktop.bindings.Constant;
  * 
  * <p>
  * TODO Most of these descriptions are terribly sparse and copied from the
- * underlying documentation; ordinarily we wouldn't do that, but with any luck
- * you'll not need to be using these classes directly.
+ * underlying documentation. Ordinarily we wouldn't do that, but with any luck
+ * you'll not need to be using these classes directly. If anyone has further
+ * information on the detailed significance of these constants, <i>please</i>
+ * contribute improvements to this class.
  * 
  * <p>
  * <i>This is principally used to descriminate what kind of concrete Event
@@ -36,6 +38,10 @@ import org.freedesktop.bindings.Constant;
  * 
  * @author Andrew Cowie
  * @since 4.0.3
+ */
+/*
+ * If you need to see the precise mappings of EventTypes to Event subclasses,
+ * see boxedFor() in org.gnome.gdk.Plumbing.
  */
 public final class EventType extends Constant
 {
@@ -74,7 +80,8 @@ public final class EventType extends Constant
             "MOTION_NOTIFY");
 
     /**
-     * A mouse button has been pressed.
+     * A mouse button has been pressed. As you would expect, an Event having
+     * this EventType will be a {@link EventButton}.
      */
     public static final EventType BUTTON_PRESS = new EventType(GdkEventType.BUTTON_PRESS, "BUTTON_PRESS");
 
@@ -89,13 +96,15 @@ public final class EventType extends Constant
     /**
      * A mouse button has been clicked three times in a brief period. Each
      * click should also have generated a
-     * {@link EventType#BUTTON_PRESS BUTTON_PRESS} event.
+     * {@link EventType#BUTTON_PRESS BUTTON_PRESS} event. TODO Has anyone ever
+     * actually seen this?
      */
     public static final EventType BUTTON_PRESS_TRIPLE = new EventType(GdkEventType.BUTTON_PRESS_TRIPLE,
             "BUTTON_PRESS_TRIPLE");
 
     /**
-     * A previously pressed mouse button has been released.
+     * A previously pressed mouse button has been released. This EventType
+     * will be found in a {@link EventButton} Event.
      */
     public static final EventType BUTTON_RELEASE = new EventType(GdkEventType.BUTTON_RELEASE,
             "BUTTON_RELEASE");
@@ -111,12 +120,14 @@ public final class EventType extends Constant
     public static final EventType KEY_RELEASE = new EventType(GdkEventType.KEY_RELEASE, "KEY_RELEASE");
 
     /**
-     * The pointer has entered a Window.
+     * The pointer has entered a Window. This corresponds to
+     * {@link EventCrossing}.
      */
     public static final EventType ENTER_NOTIFY = new EventType(GdkEventType.ENTER_NOTIFY, "ENTER_NOTIFY");
 
     /**
-     * The pointer has left a Window.
+     * The pointer has left a Window. This corresponds to
+     * {@link EventCrossing}.
      */
     public static final EventType LEAVE_NOTIFY = new EventType(GdkEventType.LEAVE_NOTIFY, "LEAVE_NOTIFY");
 
@@ -244,7 +255,7 @@ public final class EventType extends Constant
     public static final EventType WINDOW_STATE = new EventType(GdkEventType.WINDOW_STATE, "WINDOW_STATE");
 
     /**
-     * A setting (TODO what kind of setting?) has been mdified.
+     * A setting (TODO what kind of setting?) has been modified.
      */
     public static final EventType SETTING = new EventType(GdkEventType.SETTING, "SETTING");
 

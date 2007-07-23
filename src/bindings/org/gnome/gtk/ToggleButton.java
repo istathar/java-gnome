@@ -1,7 +1,7 @@
 /*
  * ToggleButton.java
  *
- * Copyright (c) 2007 Operational Dynamics Consulting Pty Ltd
+ * Copyright (c) 2007 Operational Dynamics Consulting Pty Ltd, and Others
  *
  * The code in this file, and the library it is a part of, are made available
  * to you by the authors under the terms of the "GNU General Public Licence,
@@ -11,17 +11,65 @@
  */
 package org.gnome.gtk;
 
-/*
- * FIXME this is a placeholder stub for what will become the public API for
- * this type. Replace this comment with appropriate javadoc including author
- * and since tags. Note that the class may need to be made abstract, implement
- * interfaces, or even have its parent changed. No API stability guarantees
- * are made about this class until it has been reviewed by a hacker and this
- * comment has been replaced.
+/**
+ * A ToggleButton is a Button which retains its state.
+ * 
+ * @author Sebastian Mancke
+ * @author Andrew Cowie
+ * @since 4.0.3
  */
 public class ToggleButton extends Button
 {
     protected ToggleButton(long pointer) {
         super(pointer);
+    }
+
+    /**
+     * Constructs a new ToggleButton
+     */
+    public ToggleButton() {
+        super(GtkToggleButton.createToggleButton());
+    }
+
+    /**
+     * Constructs a new ToggleButton with a label.
+     * 
+     * The label may contain underscores (<code>_<code>) to indicate
+     * the mnemonic for the Button.
+     */
+    public ToggleButton(String label) {
+        super(GtkToggleButton.createToggleButtonWithMnemonic(label));
+    }
+
+    /**
+     * Set the state of the ToggleButon.
+     * 
+     * @param active
+     *            The new state of the ToggleButton
+     */
+    public void setActive(boolean active) {
+        GtkToggleButton.setActive(this, active);
+    }
+
+    /**
+     * Returns the current state of the ToggleButton
+     * 
+     * @return returns <code>true</code> if the ToggleButton is pressed,
+     *         <code>false</code> otherwise
+     */
+    public boolean getActive() {
+        return GtkToggleButton.getActive(this);
+    }
+
+    /**
+     * Signal indicating the Button has changed state.
+     */
+    public interface TOGGLED extends GtkToggleButton.TOGGLED
+    {
+        public void onToggled(ToggleButton source);
+    }
+
+    public void connect(TOGGLED handler) {
+        GtkToggleButton.connect(this, handler);
     }
 }
