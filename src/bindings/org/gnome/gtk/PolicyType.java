@@ -1,7 +1,7 @@
 /*
  * PolicyType.java
  *
- * Copyright (c) 2007 Operational Dynamics Consulting Pty Ltd
+ * Copyright (c) 2007 Operational Dynamics Consulting Pty Ltd, and Others
  *
  * The code in this file, and the library it is a part of, are made available
  * to you by the authors under the terms of the "GNU General Public Licence,
@@ -13,17 +13,35 @@ package org.gnome.gtk;
 
 import org.freedesktop.bindings.Constant;
 
-/*
- * FIXME this is a placeholder stub for what will become the public API for
- * this type. Replace this comment with appropriate javadoc including author
- * and since tags. Note that the class may need to be made abstract, implement
- * interfaces, or even have its parent changed. No API stability guarantees
- * are made about this class until it has been reviewed by a hacker and this
- * comment has been replaced.
+/**
+ * Constants to determines when a scrollbar will be visible.
+ * 
+ * @author Sebastian Mancke
+ * @author Andrew Cowie
+ * @since 4.0.3
  */
 public final class PolicyType extends Constant
 {
     private PolicyType(int ordinal, String nickname) {
         super(ordinal, nickname);
     }
+
+    /**
+     * Force the scrollbar to be always visible.
+     */
+    public static final PolicyType ALWAYS = new PolicyType(GtkPolicyType.ALWAYS, "ALWAYS");
+
+    /**
+     * The scrollbar will appear when necessary and disappear when the child
+     * widget is smaller than the allocated region.
+     */
+    public static final PolicyType AUTOMATIC = new PolicyType(GtkPolicyType.AUTOMATIC, "AUTOMATIC");
+
+    /**
+     * Prevent the scrollbar from ever appearing. You probably want to be
+     * fairly careful about choosing this as the user will have no way to get
+     * to the information that will likely be obscured as a result of turning
+     * off paning.
+     */
+    public static final PolicyType NEVER = new PolicyType(GtkPolicyType.NEVER, "NEVER");
 }

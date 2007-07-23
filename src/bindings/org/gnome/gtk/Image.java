@@ -1,7 +1,7 @@
 /*
  * Image.java
  *
- * Copyright (c) 2007 Operational Dynamics Consulting Pty Ltd
+ * Copyright (c) 2007 Operational Dynamics Consulting Pty Ltd, and Others
  *
  * The code in this file, and the library it is a part of, are made available
  * to you by the authors under the terms of the "GNU General Public Licence,
@@ -11,17 +11,30 @@
  */
 package org.gnome.gtk;
 
-/*
- * FIXME this is a placeholder stub for what will become the public API for
- * this type. Replace this comment with appropriate javadoc including author
- * and since tags. Note that the class may need to be made abstract, implement
- * interfaces, or even have its parent changed. No API stability guarantees
- * are made about this class until it has been reviewed by a hacker and this
- * comment has been replaced.
+/**
+ * A Widget that displays an image.
+ * 
+ * @author Sebastian Mancke
+ * @author Andrew Cowie
+ * @since 4.0.3
  */
 public class Image extends Misc
 {
     protected Image(long pointer) {
         super(pointer);
+    }
+
+    /**
+     * Construct a new Image Widget from the image located at the specified
+     * path. This always results in a new Image; if the file is not found the
+     * Image will be populated with the "broken image" icon.
+     */
+    /*
+     * I'm not entirely convinced about this - I am inclined instead to have
+     * this throw FileNotFoundException; FUTURE revisit this question when we
+     * bind GtkPixbuf.createPixbufFromFile().
+     */
+    public Image(String filename) {
+        super(GtkImage.createImageFromFile(filename));
     }
 }
