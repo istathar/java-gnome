@@ -12,19 +12,26 @@
 package org.gnome.gtk;
 
 /**
- * A MenuItem is the basic item in a menu. It behaves like a Button and serves
- * as superclass for specialized MenuItems.
+ * A MenuItem is the basic item in a Menu.
  * 
  * <p>
- * For a broader explanation of Menus see {@link MenuShell}.
+ * MenuItems are basic elements, that form a Menu. MenuItems are Containers 
+ * and are thus capable of containing other Widgets. Notably, other Menu widgets,
+ * allowing a Menu hirearchy. Most other Widgets however, are not very useful
+ * when placed in a MenuItem.
+ * Only MenuItem widgets and widgets derived from MenuItem widgets are valid
+ * children for Menus. This is important, as only they can handle highlighting,
+ * alignment and submenus.
  * 
  * <p>
- * While in theory a MenuItem, being a Bin, could hold any Widget as its
- * contained child, in practice only specialized MenuItem subclasses will work
- * properly as they are what support highlighting, alignment, submenus, etc.
+ * MenuItems can be either left justified or right justified. Right justification
+ * was initially designed to be used for "Help" Menus, but this is now considered
+ * a bad idea. In right to left languages such as Arabic, right justified MenuItems
+ * appear on the left instead of the right. 
  * 
  * @author Sebastian Mancke
  * @author Andrew Cowie
+ * @author Srichand Pendyala
  * @since 4.0.3
  */
 public class MenuItem extends Item
@@ -79,7 +86,7 @@ public class MenuItem extends Item
     }
 
     /**
-     * Connect an {@see ACTIVATE} handler to the widget.
+     * Connect an {@link ACTIVATE} handler to the widget.
      */
     public void connect(ACTIVATE handler) {
         GtkMenuItem.connect(this, handler);

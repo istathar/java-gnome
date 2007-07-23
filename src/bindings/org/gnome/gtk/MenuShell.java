@@ -14,7 +14,7 @@ package org.gnome.gtk;
 /**
  * The MenuShell is the abstract super class of {@link Menu} and
  * {@link MenuBar}. It provides the common methods for adding and organizing
- * {@link MenuItems}.
+ * {@link MenuItem}s.
  * 
  * <p>
  * The following example creates one simple menu with a submenu and adds it to
@@ -38,8 +38,6 @@ package org.gnome.gtk;
  * menuBar.append(aMenuItem);
  * // e.g. add the menuBar to the Window's VBox
  * </pre>
- * 
- * </p>
  * 
  * @author Sebastian Mancke
  * @author Andrew Cowie

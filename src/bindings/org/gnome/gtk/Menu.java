@@ -11,13 +11,23 @@
  */
 package org.gnome.gtk;
 
-/**
- * The Menu is the holder of {@link MenuItem}s. Normaly it
- * is part of a {@link MenuBar}.
+/**<p>
+ * The Menu is a drop-down menu that consists of other {@link MenuItem}s. Menus are
+ * either placed inside a {@link MenuBar} or another MenuItem as a sub menu. Thus an
+ * entire hirearchy of Menu structures can be created, by appropriately placing Menus
+ * inside MenuBars or MenuItems.
+ * Context Menus can also be made to pop up, for instance, in response to a right-click
+ * (or left-click as the case may be). This is achieved via the popup() method.
  * 
- * <p>For a broader explanation of Menus see {@link MenuShell}.</p>
+ * <p>
+ * Menus can also be torn off from the parent Container. A torn off Menu's title is made
+ * visible. In addition, it is also possible to tear off (detach) a Menu from one widget
+ * and attach it to another.
+ * 
+ * <p>For a broader explanation of the Menu API see {@link MenuShell}.
  *
  * @author Sebastian Mancke
+ * @author Srichand Pendyala
  * @since 4.0.3
  */
 public class Menu extends MenuShell
@@ -27,9 +37,10 @@ public class Menu extends MenuShell
     }
 
     /**
-     * Contructs a new Menu
+     * Contructs a new Menu.
      */
     public Menu() {
         super(GtkMenu.createMenu());
     }
+    
 }

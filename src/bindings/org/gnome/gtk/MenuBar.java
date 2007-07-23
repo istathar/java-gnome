@@ -12,13 +12,13 @@
 package org.gnome.gtk;
 
 /**
- * A MenuBar is the container for menus.
+ * A MenuBar is a Container widget for {@link Menu}s.
  * 
  * <p>
- * A MenuBar can be added to container {@link Window} just like any other
- * Widget; in almost every situation you should be adding the menu to the top
- * of the Window by making it the first Widget packed into a VBox in that
- * Window.
+ * A MenuBar is added to a Container {@link Window} just like any other Widget.
+ * The MenuBar holds only Menu subitems. It is generally a convention to have
+ * a MenuBar at the top of the Window. Hence it must be the first Widget you
+ * should add to the top of the VBox in a Window.
  * </p>
  * 
  * <p>
@@ -28,6 +28,7 @@ package org.gnome.gtk;
  * 
  * @author Sebastian Mancke
  * @author Andrew Cowie
+ * @author Srichand Pendyala
  * @since 4.0.3
  */
 public class MenuBar extends MenuShell
