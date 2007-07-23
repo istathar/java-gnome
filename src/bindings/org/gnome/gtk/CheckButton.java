@@ -12,14 +12,29 @@
 package org.gnome.gtk;
 
 /**
- * A small box with a checkmark that can be toggled on or off.
+ * A toggle button widget that consists of a Check box and a Text box.
  * 
  * <p>
- * See in particular the {@link ToggleButton.TOGGLED TOGGLED} Signal inherited
- * from ToggleButton to detect changes in state to the checkbox.
+ * CheckButtons are similar to ToggleButtons, but look very different. Contrary
+ * to ToggleButtons, which are Buttons with text inside them, they are small check
+ * squares, with descriptive text beside them. As with ToggleButtons, they can be
+ * used to toggle options on or off.
  * 
+ * <p>
+ * CheckButtons derive from ToggleButtons and hence behave somewhat similarly. 
+ * See in particular the {@link ToggleButton.TOGGLED TOGGLED} Signal inherited
+ * from ToggleButton to detect changes in state to the CheckButton.
+ * 
+ * <p>
+ * The choice between a CheckButton and a {@link ToggleButton} is left to the developer's
+ * discretion. A CheckButton can take considerably lesser space than a ToggleButton.
+ * A CheckButton is more useful when you have a list of related options that need to
+ * be set or unset. A ToggleButton could be used when a single option needs to be
+ * toggled.
+ *  
  * @author Sebastian Mancke
  * @author Andrew Cowie
+ * @author Srichand Pendyala
  * @since 4.0.3
  */
 public class CheckButton extends ToggleButton

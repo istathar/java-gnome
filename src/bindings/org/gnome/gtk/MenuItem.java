@@ -12,19 +12,25 @@
 package org.gnome.gtk;
 
 /**
- * A MenuItem is the basic item in a menu. It behaves like a Button and serves
- * as superclass for specialized MenuItems.
+ * MenuItems are the basic elements that form a Menu.
  * 
- * <p>
- * For a broader explanation of Menus see {@link MenuShell}.
- * 
- * <p>
- * While in theory a MenuItem, being a Bin, could hold any Widget as its
- * contained child, in practice only specialized MenuItem subclasses will work
+ * While MenuItems are Containers and are thus capable of containing other
+ * Widgets; in practice only the specialized MenuItem classes will work
  * properly as they are what support highlighting, alignment, submenus, etc.
+ * 
+ * <p>
+ * MenuItems can be either left justified or right justified, but in general
+ * you should just leave this alone and it will do the right thing for your
+ * locale (left aligned for western languages, right aligned for right-to-left
+ * languages like Arabic).
+ * 
+ * <p>
+ * <i>Right justification was initially designed to be used for "Help" Menus,
+ * but this is now considered a bad idea and is no longer used in GNOME.</i>
  * 
  * @author Sebastian Mancke
  * @author Andrew Cowie
+ * @author Srichand Pendyala
  * @since 4.0.3
  */
 public class MenuItem extends Item
@@ -42,8 +48,9 @@ public class MenuItem extends Item
 
     /**
      * Construct a MenuItem with a given text label. The label may contain
-     * underscores (<code>_<code>) which, if present, will indicate
-     * the mnemonic which will activate that MenuItem directly if that key is pressed.
+     * underscores (<code>_<code>) which, if present, will indicate the
+     * mnemonic which will activate that MenuItem directly if that key is
+     * pressed.
      */
     public MenuItem(String mnemonicLabel) {
         super(GtkMenuItem.createMenuItemWithMnemonic(mnemonicLabel));
@@ -79,7 +86,7 @@ public class MenuItem extends Item
     }
 
     /**
-     * Connect an {@see ACTIVATE} handler to the widget.
+     * Connect an {@link ACTIVATE} handler to the widget.
      */
     public void connect(ACTIVATE handler) {
         GtkMenuItem.connect(this, handler);

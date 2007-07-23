@@ -19,7 +19,7 @@ package org.gnome.gtk;
  * are made about this class until it has been reviewed by a hacker and this
  * comment has been replaced.
  */
-public class Item extends Bin
+public abstract class Item extends Bin
 {
     protected Item(long pointer) {
         super(pointer);
