@@ -79,13 +79,48 @@ public class Button extends Bin
         return super.getPropertyString("label");
     }
 
+    /**
+     * Get the horizontal alignment of the child Widget within this Button.
+     * The return will range from 0.0 (full left) to 1.0 (full right).
+     */
     public float getAlignmentX() {
         float[] x = new float[1];
         float[] y = new float[1];
 
-        // GtkButton.getAlignment(this, x, y);
+        GtkButton.getAlignment(this, x, y);
 
         return x[0];
+    }
+
+    /**
+     * Get the vertical alignment of the child Widget within this Button. The
+     * return will range from 0.0 (top) to 1.0 (bottom).
+     * 
+     * @return
+     */
+    public float getAlignmentY() {
+        float[] x = new float[1];
+        float[] y = new float[1];
+
+        GtkButton.getAlignment(this, x, y);
+
+        return y[0];
+    }
+
+    /**
+     * Set the alignment of the child Widget within the Button. This has no
+     * impact unless the child of the Button is a Misc (which of course the
+     * default child, a Label, is).
+     * 
+     * @param xalign
+     *            from 0.0f representing fully left-aligned through 1.0f
+     *            representing fully right-aligned.
+     * @param yalign
+     *            from 0.0f for fully top-aligned through 1.0f for fully
+     *            bottom-aligned
+     */
+    public void setAlignment(float xalign, float yalign) {
+        GtkButton.setAlignment(this, xalign, yalign);
     }
 
     /**
@@ -115,7 +150,6 @@ public class Button extends Bin
     /**
      * Event generated when a user presses and releases a button, causing it
      * to activate.
-     * 
      * <p>
      * <i>When the mouse is used to click on a Button this signal will be
      * emitted, but only if the cursor is still in the Button when the mouse
@@ -132,19 +166,18 @@ public class Button extends Bin
      * example of how this is used is as follows:
      * 
      * <pre>
-     *  Button b;
-     *    
-     *  b.connect(new Button.CLICKED() {
-     *      public void onClicked(Button source) {
-     *          // do something!
-     *      }
-     *  }
+     *           Button b;
+     *             
+     *           b.connect(new Button.CLICKED() {
+     *               public void onClicked(Button source) {
+     *                   // do something!
+     *               }
+     *           }
      * </pre>
      * 
      * <p>
      * You can of course create a subclass of Button.CLICKED and then use
      * instances of it if you have highly complicated algorithms to implement.
-     * 
      * <p>
      * If you implement Button.CLICKED in the class you're currently working
      * on, then you use a technique called "self-delegation" which can
