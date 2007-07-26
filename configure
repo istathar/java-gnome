@@ -99,6 +99,48 @@ sub bail {
 	exit(1);
 }
 
+
+# Added 4.0.3
+# Check for all the required gnome development libraries. Distributions such as 
+# Ubuntu/Debian and Fedora don't always install the gnome development libs
+# (for whatever reason). If they aren't installed, we bomb here in configure
+# instead of dying unceremoniously while make'ing.
+
+sub check_gnomelibs (\@$$@) {
+	my ($gnomedevref, $item, $package, @files) = @_;
+
+	output " - ".$item;
+	
+	my $found = "";
+	my $str = "";
+	my $tries = "";
+	foreach my $file (@files) {
+		if ( -f "$file" ) {
+			$found = $file;
+			last;
+		}
+		$tries .= ($tries ? ", or" : "" ) . "\n\t".  basename($file) . "\t(looked in ".dirname($file).")";
+	}
+
+
+# The following is hokey and doesn't exactly concur with the rest of Equivalence.
+# Ideally, we should be able to tell the user what package he needs to install. 
+# So a FIXME.
+
+	if (! "$found" ){
+	$str = "In order to build java-gnome, you will need\n".$tries;
+	$str .= "\n\nwhich is included in the gnome development\n";
+	$str .= "libraries. You should check with your distribution\n";
+	$str .= "vendor to see which packages you will need.";	
+
+	bail "\tnot found!", $str;
+
+	}
+	print "found\n";
+	
+	push(@$gnomedevref, $found);
+
+}
 # The files (jars) to check for should be listed in order of preference, as the
 # first one found will be the one selected.  For example, if you want version 3
 # but version 2 will do, list them in that order.  Typically, this means that
@@ -682,6 +724,10 @@ if ($os eq "gentoo") {
 # NEW		"$javagnome_home/share/java/gtk-4.0.jar",
 # NEW		"/usr/share/java/gtk-4.0.jar");
 
+# 	check_gnomelibs(@gnomedev_libs,
+# 		"GNOME development libraries",
+# 		"/usr/include/gtk-2.0/gtk/gtk.h");
+
 	check_prereq(@junit_jars,
 		"JUnit test framework",
 		"junit",
@@ -752,6 +798,58 @@ if ($os eq "gentoo") {
 	
 } else {
 	bail "failed!", "This OS not configured with defaults!\nTHIS IS AN INTERNAL ERROR, PLEASE FILE A BUG.";
+}
+
+
+# This section checks for all the GNOME pre requisites
+my @gnomedev_libs;
+
+output "\nCheck for required gnome libs:\n";
+
+
+if ($os eq "debian") {
+	check_gnomelibs(@gnomedev_libs,
+			"GTK+ development libs",
+			"gtk-devel",
+			("/usr/include/gtk-2.0/gtk/gtk.h",
+			"/usr/lib/libgtk-x11-2.0.so"));
+	
+	check_gnomelibs(@gnomedev_libs,
+			"Pango development libs",
+			"pango-devel",
+			("/usr/include/pango-1.0/pango/pango.h",
+			 "/usr/lib/libpango-1.0.so"));
+	
+	check_gnomelibs(@gnomedev_libs,
+			"ATK development libs",
+			"atk-devel",
+			("/usr/include/atk-1.0/atk/atk.h",
+			 "/usr/lib/libatk-1.0.so"));
+
+	check_gnomelibs(@gnomedev_libs,
+			"GDK development libs",
+			"gdk-devel",
+			("/usr/include/gtk-2.0/gdk/gdk.h",
+			 "/usr/lib/libgtk-x11-2.0.so"));
+
+	check_gnomelibs(@gnomedev_libs,
+			"Glade development libs",
+			"glade-devel",
+			("/usr/include/libglade-2.0/glade/glade.h",
+			 "/usr/lib/libglade-2.0.so"));
+
+# Where is the appropriate library for the new Gtk+ printing API?
+# Is presently in libgtik-x11-2.0.so. Could change?
+# For now, we just check to make sure the header is intact.
+	check_gnomelibs(@gnomedev_libs,
+			"GNOME UNIX print dev libs",
+			"unixprint-devel",
+			"/usr/include/gtk-unix-print-2.0/gtk/gtkprinter.h");
+
+	check_gnomelibs(@gnomedev_libs,
+			"GNOME development libs",
+			"gnome-devel",
+			"/usr/lib/libgnome-2.so.0");
 }
 
 
