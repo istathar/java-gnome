@@ -49,4 +49,38 @@ public class GListThing extends Thing
     public Thing arrayType() {
         return type;
     }
+
+    String jniConversionDecode(String name) {
+        if (gType.equals("GList")) {
+            return "bindings_java_convert_jarray_to_glist(env, _" + name + ")";
+        } else if (gType.equals("GSList")) {
+            return "bindings_java_convert_jarray_to_gslist(env, _" + name + ")";
+        } else {
+            throw new Error();
+        }
+    }
+
+    String jniConversionCleanup(String name) {
+        if (gType.equals("GList")) {
+            return "g_list_free(" + name + ")";
+        } else if (gType.equals("GSList")) {
+            return "g_slist_free(" + name + ")";
+        } else {
+            throw new Error();
+        }
+    }
+
+    String jniReturnEncode(String name) {
+        if (gType.equals("GList")) {
+            return "bindings_java_convert_glist_to_jarray(env, " + name + ")";
+        } else if (gType.equals("GSList")) {
+            return "bindings_java_convert_gslist_to_jarray(env, " + name + ")";
+        } else {
+            throw new Error();
+        }
+    }
+
+    String jniReturnErrorValue() {
+        return "NULL";
+    }
 }

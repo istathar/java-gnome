@@ -18,7 +18,6 @@ import com.operationaldynamics.driver.DefsFile;
  * Things are our wrapper around types, with information about the type at all
  * levels. These are to be created as encountered by the parser, and
  * registered.
- * 
  * <p>
  * Things corresponding to primative types (int, String, etc) for which there
  * are of course no (define- ...) blocks are registered internally by this
@@ -49,7 +48,9 @@ public abstract class Thing
      * Additional C header files, as necessary.
      */
     /*
-     * TODO not super happy with this being here
+     * TODO not super happy with this being here (because it is fed by a
+     * custom variation we have made to the .defs files; hopefully there is
+     * another way we can derive this information without needing to do that).
      */
     String importHeader;
 
@@ -101,7 +102,7 @@ public abstract class Thing
         register(new FundamentalThing("gchar", "char", "char", "jchar"));
         register(new FundamentalThing("guchar", "char", "char", "jchar"));
         register(new FundamentalThing("gunichar", "char", "char", "jchar"));
-        register(new FundamentalThing("gchar*", "String", "String", "jstring"));
+        register(new StringFundamentalThing("gchar*"));
 
         /*
          * A certain class of bugs arise from discarding the most significant
@@ -139,11 +140,11 @@ public abstract class Thing
          * Out parameters for fundamental types are special cases, probably,
          * so we will continue to register their information here for now.
          */
-        register(new OutParameterFundamentalThing("gint*", "int[]", "int[]", "jintArray"));
-        register(new OutParameterFundamentalThing("guint*", "int[]", "int[]", "jintArray"));
-        register(new OutParameterFundamentalThing("gfloat*", "float[]", "float[]", "jfloatArray"));
-        register(new OutParameterFundamentalThing("gdouble*", "double[]", "double[]", "jdoubleArray"));
-        register(new OutParameterFundamentalThing("gboolean*", "boolean[]", "boolean[]", "jbooleanArray"));
+        register(new ArrayFundamentalThing("gint*", "int[]", "int[]", "jintArray"));
+        register(new ArrayFundamentalThing("guint*", "int[]", "int[]", "jintArray"));
+        register(new ArrayFundamentalThing("gfloat*", "float[]", "float[]", "jfloatArray"));
+        register(new ArrayFundamentalThing("gdouble*", "double[]", "double[]", "jdoubleArray"));
+        register(new ArrayFundamentalThing("gboolean*", "boolean[]", "boolean[]", "jbooleanArray"));
         // and so on
 
         /*
@@ -154,8 +155,8 @@ public abstract class Thing
          */
         register(new FundamentalThing("int", "int", "int", "jint"));
         register(new FundamentalThing("double", "double", "double", "jdouble"));
-        register(new FundamentalThing("char*", "String", "String", "jstring"));
-        register(new OutParameterFundamentalThing("int*", "int[]", "int[]", "jintArray"));
+        register(new StringFundamentalThing("char*"));
+        register(new ArrayFundamentalThing("int*", "int[]", "int[]", "jintArray"));
 
         // is this actually correct?
         register(new FundamentalThing("time_t", "long", "long", "jlong"));
@@ -235,22 +236,17 @@ public abstract class Thing
          * createOutVariant() in this class, so the manual declarations we had
          * been accumulating are no longer included. As we were pushing
          * through the full suite of .defs data, however, numerous comments
-         * were made which are preserved here:
-         * 
-         * FIXME Out-parameter Proxies? Oh, joy
-         * 
-         * FIXME Out-parameter enums and flags? Grr
-         * 
-         * FIXME An array of outparameters? Make it stop!
-         * 
-         * Clearly, there is further work to be done in this regard. Finally,
-         * 
-         * FIXME String[] is a common return type, so out-parameter is
-         * probably not the way to deal with it. But on the other hand, arrays
-         * _are_ how we deal with out-parameters, so perhaps this will turn
-         * out to be close to what we want in the end after all.
+         * were made which are preserved here: FIXME Out-parameter Proxies?
+         * Oh, joy FIXME Out-parameter enums and flags? Grr FIXME An array of
+         * outparameters? Make it stop! Clearly, there is further work to be
+         * done in this regard. Finally, FIXME String[] is a common return
+         * type, so out-parameter is probably not the way to deal with it. But
+         * on the other hand, arrays _are_ how we deal with out-parameters, so
+         * perhaps this will turn out to be close to what we want in the end
+         * after all.
          */
-        register(new OutParameterFundamentalThing("gchar**", "String[]", "String[]", "jobjectArray"));
+        // register(new OutParameterFundamentalThing("gchar**", "String[]",
+        // "String[]", "jobjectArray"));
     }
 
     public static void register(Thing t) {
@@ -332,7 +328,6 @@ public abstract class Thing
      * Returns the Java type of this Thing. In most cases this is just the
      * bare type name. However, when there is an import conflict, the fully
      * qualified java class name is retuned instead.
-     * 
      * <p>
      * Note that <code>javaType</code> is still exposed - use it directly if
      * you need it.
@@ -369,6 +364,28 @@ public abstract class Thing
      *         be the result.
      */
     abstract String translationToJava(String name, DefsFile data);
+
+    String jniConversionDecode(String name) {
+        return "_" + name;
+    }
+
+    /**
+     * @return null signiying no cleanup code is necessary
+     */
+    String jniConversionCleanup(String name) {
+        return null;
+    }
+
+    String jniReturnEncode(String name) {
+        return name;
+    }
+
+    /**
+     * Little utility function so that when aborting out of a C function
+     * (because an Exception has been thrown) the correct "emtpy" value is
+     * used. Stick this after a "return" statement.
+     */
+    abstract String jniReturnErrorValue();
 
     /**
      * Get the fully qualified name of the public Java type, ie, for

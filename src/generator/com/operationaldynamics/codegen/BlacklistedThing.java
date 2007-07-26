@@ -42,4 +42,8 @@ public class BlacklistedThing extends Thing
     String translationToNative(String name) {
         return name;
     }
+
+    String jniReturnErrorValue() {
+        return "";
+    }
 }

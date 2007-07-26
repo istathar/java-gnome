@@ -16,7 +16,6 @@ import com.operationaldynamics.driver.DefsFile;
 
 /**
  * Generate Java and C code for constructors and methods.
- * 
  * <p>
  * Subclasses can override the individual steps of the generation sequence if
  * they wish, however adjusting input passing up to this classes's constructor
@@ -60,7 +59,6 @@ abstract class FunctionGenerator extends Generator
     private Thing blacklistedType;
 
     /**
-     * 
      * @param data
      *            the information about the class to which the block we are
      *            generating code for pertains.
@@ -244,14 +242,6 @@ abstract class FunctionGenerator extends Generator
         out.print("\n)\n{\n");
     }
 
-    /*
-     * FIXME The case by case code to deal with the out parameters is still
-     * massively incomplete. It needs both testing in terms of not segfaulting
-     * an application program, and better implementation here. The present
-     * type OutParameterFundamentalType is meant as a marker for this
-     * situation, although we don't use it here yet. Perhaps j<type>Array is
-     * enough to match on.
-     */
     protected void jniFunctionConversionCode(PrintWriter out) {
         /*
          * Declare conversion variables as necessary
@@ -293,50 +283,13 @@ abstract class FunctionGenerator extends Generator
             out.print(") ");
 
             /*
-             * and now a type specific decode: TODO It might be better if this
-             * was reorganized to leverage a type hierarchy, but at present
-             * FundamentalThing isn't enough of a discriminator.
+             * and now a type specific decode. For many types, the cast is
+             * enough, so it's just the plain name.
              */
-            if (parameterTypes[i].jniType.equals("jstring")) {
-                out.print("(*env)->GetStringUTFChars(env, _");
-                out.print(parameterNames[i]);
-                out.print(", NULL);\n");
 
-                jniReturnIfExceptionThrown(out, i);
-            } else if (parameterTypes[i].gType.equals("GList")) {
-                out.print("bindings_java_convert_jarray_to_glist(env, _");
-                out.print(parameterNames[i]);
-                out.print(");\n");
-
-                jniReturnIfExceptionThrown(out, i);
-            } else if (parameterTypes[i].gType.equals("GSList")) {
-                out.print("bindings_java_convert_jarray_to_gslist(env, _");
-                out.print(parameterNames[i]);
-                out.print(");\n");
-
-                jniReturnIfExceptionThrown(out, i);
-            } else if (parameterTypes[i].jniType.equals("jfloatArray")) {
-                out.print("(*env)->GetFloatArrayElements(env, _");
-                out.print(parameterNames[i]);
-                out.print(", NULL);\n");
-
-                jniReturnIfExceptionThrown(out, i);
-
-                out.print("\t// DANGER this conversion code not tested!\n");
-            } else if (parameterTypes[i].jniType.equals("jintArray")) {
-                out.print("(*env)->GetIntArrayElements(env, _");
-                out.print(parameterNames[i]);
-                out.print(", NULL);\n");
-
-                jniReturnIfExceptionThrown(out, i);
-
-                out.print("\t// DANGER this conversion code not tested!\n");
-            } else {
-                out.print("_");
-                out.print(parameterNames[i]);
-                out.print(";\n");
-            }
-            // TODO handle arrays carrying out parameters
+            out.print(parameterTypes[i].jniConversionDecode(parameterNames[i]));
+            out.print(";\n");
+            jniReturnIfExceptionThrown(out, i);
         }
     }
 
@@ -350,42 +303,21 @@ abstract class FunctionGenerator extends Generator
      *            the index into the parameterNames array (you're calling this
      *            from inside a for loop iterating over the parameters).
      */
-    /*
-     * This could become protected if it becomes necessary elsewhere.
-     */
     private void jniReturnIfExceptionThrown(PrintWriter out, int i) {
-        out.print("\tif (");
-        out.print(parameterNames[i]);
-        out.print(" == NULL) {\n");
-        out.print("\t\treturn");
-        out.print(jniErrorReturnValue(returnType));
-        out.print("; // Java Exception already thrown\n");
-        out.print("\t}\n");
-    }
+        if ((parameterTypes[i] instanceof StringFundamentalThing)
+                || (parameterTypes[i] instanceof ArrayFundamentalThing)) {
+            out.print("\tif (");
+            out.print(parameterNames[i]);
+            out.print(" == NULL) {\n");
+            out.print("\t\treturn");
 
-    /**
-     * Little utility function so that when aborting out of a C function
-     * (because an Exception has been thrown) the correct syntax is used.
-     * Stick this after a "return" statement.
-     * 
-     * @return an empty string on void return, or the null/zero value for
-     *         other return types, including a single leadind space character
-     *         padding.
-     */
-    protected String jniErrorReturnValue(Thing returnType) {
-        if ("void".equals(returnType.jniType)) {
-            return "";
-        } else if ("jboolean".equals(returnType.jniType)) {
-            return " JNI_FALSE";
-        } else if ("jstring".equals(returnType.jniType) || "jintArray".equals(returnType.jniType)
-                || "jlongArray".equals(returnType.jniType)) {
-            return " NULL";
-        } else if ("jint".equals(returnType.jniType)) {
-            return " 0";
-        } else if ("jlong".equals(returnType.jniType) || "jdouble".equals(returnType.jniType)) {
-            return " 0L";
-        } else {
-            return " FIXME";
+            if (!("void".equals(returnType.jniType))) {
+                out.print(" ");
+                out.print(returnType.jniReturnErrorValue());
+            }
+
+            out.print("; // Java Exception already thrown\n");
+            out.print("\t}\n");
         }
     }
 
@@ -414,6 +346,8 @@ abstract class FunctionGenerator extends Generator
      * Cleanup and return the result if not a void function.
      */
     protected void jniFunctionReturnCode(PrintWriter out) {
+        String cleanup;
+
         /*
          * type specific cleanup:
          */
@@ -424,34 +358,17 @@ abstract class FunctionGenerator extends Generator
             out.print(parameterNames[i]);
             out.print("\n");
 
-            if (parameterTypes[i].jniType.equals("jstring")) {
-                out.print("\t(*env)->ReleaseStringUTFChars(env, _");
-                out.print(parameterNames[i]);
-                out.print(", ");
-                out.print(parameterNames[i]);
-                out.print(");\n");
-            } else if (parameterTypes[i].gType.equals("GList")) {
-                out.print("\tg_list_free(");
-                out.print(parameterNames[i]);
-                out.print(");\n");
-            } else if (parameterTypes[i].gType.equals("GSList")) {
-                out.print("\tg_slist_free(");
-                out.print(parameterNames[i]);
-                out.print(");\n");
-            } else if (parameterTypes[i].jniType.equals("jfloatArray")) {
-                out.print("\t(*env)->ReleaseFloatArrayElements(env, _");
-                out.print(parameterNames[i]);
-                out.print(", ");
-                out.print(parameterNames[i]);
-                out.print(", 0);\n");
-            } else if (parameterTypes[i].jniType.equals("jintArray")) {
-                out.print("\t(*env)->ReleaseIntArrayElements(env, _");
-                out.print(parameterNames[i]);
-                out.print(", ");
-                out.print(parameterNames[i]);
-                out.print(", 0);\n");
+            cleanup = parameterTypes[i].jniConversionCleanup(parameterNames[i]);
+
+            if (cleanup == null) {
+                continue;
             }
+
+            out.print("\t");
+            out.print(cleanup);
+            out.print(";\n");
         }
+
         /*
          * return result if applicable. Specific code for certain types; most
          * others, just a cast.
@@ -463,26 +380,12 @@ abstract class FunctionGenerator extends Generator
 
             out.print("\treturn ");
 
-            if (returnType.jniType.equals("jstring")) {
-                out.print("\t(*env)->NewStringUTF(env, result);");
-            } else if (returnType.gType.equals("GList")) {
-
-                // FIXME release here the list when needed
-
-                out.print("\tbindings_java_convert_glist_to_jarray(env, result);");
-            } else if (returnType.gType.equals("GSList")) {
-
-                // FIXME release here the list when needed
-
-                out.print("\tbindings_java_convert_gslist_to_jarray(env, result);");
-            } else {
-                out.print("(");
-                out.print(returnType.jniType);
-                out.print(") result;");
-            }
-            out.print("\n");
+            out.print("(");
+            out.print(returnType.jniType);
+            out.print(") ");
+            out.print(returnType.jniReturnEncode("result"));
+            out.print(";\n");
         }
-
         out.print("}\n");
     }
 

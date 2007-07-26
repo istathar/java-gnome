@@ -10,7 +10,6 @@
  */
 package com.operationaldynamics.codegen;
 
-import com.operationaldynamics.driver.DefsFile;
 
 /**
  * A Thing to deal with array of a native type. By definition, the gtype is a
@@ -27,12 +26,8 @@ public class ArrayThing extends FundamentalThing
     }
 
     protected ArrayThing() {}
-
-    String translationToJava(String name, DefsFile data) {
-        return name;
-    }
-
-    String translationToNative(String name) {
-        return name;
+    
+    String jniReturnErrorValue() {
+        return "NULL";
     }
 }

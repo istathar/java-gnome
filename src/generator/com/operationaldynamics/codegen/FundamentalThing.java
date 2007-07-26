@@ -30,4 +30,16 @@ public class FundamentalThing extends Thing
     String translationToNative(String name) {
         return name;
     }
+
+    String jniReturnErrorValue() {
+        if ("jboolean".equals(jniType)) {
+            return " JNI_FALSE";
+        } else if ("jint".equals(jniType)) {
+            return " 0";
+        } else if ("jlong".equals(jniType) || "jdouble".equals(jniType)) {
+            return " 0L";
+        } else {
+            return " FIXME";
+        }
+    }
 }
