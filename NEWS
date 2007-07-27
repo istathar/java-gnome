@@ -1,5 +1,28 @@
 NEWS
 
+_The code generator cometh!_
+
+Work has been underway for several months to develop the next stage of the new
+java-gnome: the [code generator][codegen] that will output the tedious
+translation and native layers that allow us to glue our public API to the
+native GNOME libraries.  We're getting closer to the point of being able to
+merge the work to mainline, which is awesome!
+
+We have also worked out a comprehensive [thread safety][thread] strategy. This
+will make java-gnome 4.0 the first and only thread safe graphical user
+interface widget toolkit for Java!
+
+[codegen]: http://research.operationaldynamics.com/blogs/andrew/software/java-gnome/#code-generator-cometh
+[thread]: http://research.operationaldynamics.com/blogs/andrew/software/java-gnome/#thread-safety-for-java
+
+These innovations represent the culmination of an immense amount of work
+towards realizing java-gnome as a viable platform for GTK and GNOME
+development. We're getting there! If you want to learn more, the links above
+take you to a pair of blog posts on these topics. Hopefully we will be able to
+make a release with this work sometime before GUADEC. Stay tuned!
+
+AfC
+
 <a name="4.0.2" id="1171283501" title="End of the beginning"></a>
 
 java-gnome 4.0.2 (12 Feb 2007)

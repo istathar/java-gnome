@@ -46,10 +46,10 @@ div.box {
 
 
 <div class="box">
-<p>The engineering design of java-gnome 4.0 is complete, and the working
-prototype has become the foundation of the new bindings and has been released.
-We are now looking to secure the revenue necessary to fund the work to make
-the new Java bindings for GTK and GNOME a reality.</p>
+<p>The engineering design of java-gnome 4.0 is solid, and and the machinery to
+generate the complete internals of the bindings has been finished. A release
+with this code is imminent! New Java bindings for GTK and GNOME are a
+reality.</p>
 
 </div>
 

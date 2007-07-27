@@ -33,14 +33,19 @@ options you can supply to the `./configure` script.
 
 ### Why `bzr`?
 
-We have chosen `bzr` for its relative straight forwardness and because of our
-faith in the ethos of its developers. Anyone used to using the old world 1st
-generation centralized VCS tools like CVS or Subversion will be able to make
-sense of it and you can learn from there. While Bazaar could be a lot perkier
-in terms of its responsiveness, and it still has a number of rough edges, it
-is improving rapidly. The fact that it has a vibrant community, is widely
-portable, and most of all that the development team actually have an enormous
-unit test suite to keep them honest biases in their favour.
+We chose Bazaar (Bazaar-NG, as it was briefly known) as the VCS for the new
+Java bindings for GNOME because of its relative straight-forwardness and
+because of our faith in the ethos and extreme competence of its developers.
+Anyone experienced with the old world 1st generation centralized VCS tools like
+CVS or Subversion will be able to make sense of it and you can learn from
+there. Bazaar is constantly improving in performance terms, has a vibrant
+developer community, is widely portable. Most of all, the fact that they
+actually follow test-driven-development practices (their unit test suite has
+over 7266 tests) keeps them honest and conclusively biases in their favour.
+
+In production use for the last year, we have found Bazaar to be reliable,
+amazingly easy for newcomers to the Open Source world to learn, and a
+significant element in our effort to reduce barriers to entry.
 
 2. Do your own thing!
 ---------------------
@@ -190,11 +195,11 @@ Maintainer,
 [java-gnome](http://java-gnome.sourceforge.net/4.0/),  
 opening GTK and GNOME to Java programmers!
 
-_Last modified 11 Dec 06_
+_Last modified 27 Jul 07_
 
 <!--
 
-  Copyright (c) 2006 Operational Dynamics Consulting Pty Ltd 
+  Copyright (c) 2006-2007 Operational Dynamics Consulting Pty Ltd 
 
   As project documentation, this file forms an integral part of the source
   code of the library it accompanies, and thus is made available to you by the
