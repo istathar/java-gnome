@@ -64,6 +64,7 @@ public final class Toggling
         });
 
         zombie = new Label("Will not be used");
+        zombie.getClass(); // supress warning
 
         w.add(x);
 

@@ -105,10 +105,10 @@ public class ValidateMemoryManagement extends TestCaseGtk
      * but never used and then goes out of scope.
      */
     public final void testObjectNeverUsedIsRemoved() {
-
         MyButton b;
 
         b = new MyButton("Live free, die young!! Like me", 1);
+        b.getClass(); // supress warning
 
         cycleMainLoop();
 

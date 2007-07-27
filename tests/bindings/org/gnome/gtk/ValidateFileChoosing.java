@@ -28,9 +28,7 @@ public class ValidateFileChoosing extends TestCaseGtk
         cycleMainLoop();
 
         dir = fcb.getCurrentFolder();
-
-        assertEquals("Directory retrieved does not match that set programatically.", "/tmp",
-                fcb.getCurrentFolder());
+        assertEquals("Directory retrieved does not match that set programatically.", "/tmp", dir);
         /*
          * A failure here could be because the main loop did not iterate
          * sufficiently, or perhaps the target doesn't exist, or...

@@ -50,7 +50,7 @@ public final class Experiment
         x = new VBox(false, 3);
 
         l = new Label("These Buttons\n" + "are made for\n" + "clicking.");
-        x.packStart(l);
+        x.packStart(l, true, true, 0);
 
         b = new Button("Change Me?");
         b.setLabel("Press Me!");

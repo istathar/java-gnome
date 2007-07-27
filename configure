@@ -299,10 +299,23 @@ sub check_runtime (\$$$$) {
 		return;
 	}
 
-	my $output = `$program -version 2>&1 | grep '^java version'`;
-	if (!(($output =~ /^java version \"1\.4\.2/i) ||
-	      ($output =~ /^java version \"1\.5\./i)  ||
-	      ($output =~ /^java version \"1\.6\./i))) {
+	my $output = `$program -version 2>&1 | grep 'version "'`;
+	$output =~ s/.*version \"(.*)\".*/$1/g;
+	my @version = split(/[\.\-\_]/, $output);
+	for (my $i = 0; $i < 3; $i++) {
+		chomp $version[$i];
+
+		if (!($version[$i] =~ /^\d+$/)) {
+			output "can't parse version\n";
+			$$scalarref = "";
+			return
+		}
+	}
+	if (
+		($version[0] < 1) ||
+	   	($version[0] == 1 && ($version[1] < 4 ||
+				     ($version[1] == 4 && $version[2] < 2)))
+	) {
 		output "not >= 1.4.2\n";
 		$$scalarref = "";
 		return
@@ -1136,12 +1149,12 @@ if ($os eq "gentoo") {
 	check_runtime($java, "$vendor java VM", $java_candidate, "-client");
 
 	# check gij (the bytecode interpreter from the GCJ project). In Debian
-	# it is in package gij-3.4 and so named in /usr/bin.
+	# and Ubuntu the default version is provided by package gij.
 	my $gij_candidate;
 	if ($gcj_home) {
 		$gij_candidate = "$gcj_home/bin/gij";
 	} else {
-		$gij_candidate = which("gij-4.0");
+		$gij_candidate = which("gij");
 	}
 	check_runtime($gij, "GNU gij", $gij_candidate, "");
 
