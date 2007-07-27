@@ -108,12 +108,11 @@ public abstract class Container extends Widget
      * <code>instanceof</code> is your friend. Indeed sometimes it's the
      * only way; the box packing compostion of GTK elements means that even
      * things you might take for granted as elementary (Button) are in fact
-     * more complex (an HBox of an Image and a Label) - and oftehn the only
-     * way to find this out is to walk the Widget hierarchy.
+     * more complex (an HBox of an Image and a Label) - and often the only way
+     * to find this out is to walk the Widget hierarchy.
      * 
      * @return an array with the Container's child Widgets. The array will be
      *         empty (zero length) if the Container hasn't got any children.
-     * 
      * @since 4.0.3
      */
     public Widget[] getChildren() {

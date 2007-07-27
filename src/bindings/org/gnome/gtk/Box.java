@@ -73,8 +73,8 @@ public abstract class Box extends Container
      *            Whether space given to <code>child</code> by the
      *            <code>expand</code> option is actually allocated to child.
      *            If you specify <code>false</code> here, then any extra
-     *            space will padding the Widget, rather than causing it to
-     *            grow larger.
+     *            space will pad the Widget, rather than causing it to grow
+     *            larger.
      * @param padding
      *            extra space (in pixels) to put between this child and its
      *            neighbours. This is over and above the global amount of
@@ -83,7 +83,6 @@ public abstract class Box extends Container
      *            <code>child</code> is the Widget at one of the start of
      *            the Box, then <code>padding</code> pixels are also put
      *            between the Widget and the leading edge.
-     * 
      */
     public void packStart(Widget child, boolean expand, boolean fill, int padding) {
         GtkBox.packStart(this, child, expand, fill, padding);

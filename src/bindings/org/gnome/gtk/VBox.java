@@ -19,14 +19,13 @@ package org.gnome.gtk;
  * <p>
  * A VBox is almost always the first thing (and only thing, of course) added
  * to a new Window; doing so gives you a natural mechanism to layout the
- * contents of a Window in logical sequence from heading through to Buttons
- * and StatusBar.
+ * contents of a Window in logical sequence from Menu through to Buttons and
+ * StatusBar.
  * 
  * <p>
  * All the methods you need add widgets to VBoxes and to manipulate their
  * characteristics are on parent class Box. See its
  * {@link Box#packStart(Widget) packStart()} as a good first step.
- * 
  * 
  * @author Andrew Cowie
  * @see HBox

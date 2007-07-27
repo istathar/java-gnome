@@ -180,7 +180,7 @@ else
 JAVADOC:=$(JAVADOC) -quiet
 endif
 
-doc: tmp/stamp/classes-dist
+doc:
 	@echo "$(JAVADOC_CMD) doc/api/*.html"
 	$(JAVADOC) \
 		-d doc/api \

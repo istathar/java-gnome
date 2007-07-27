@@ -23,7 +23,10 @@ public class TypedefFundamentalThing extends FundamentalThing
     }
 
     protected TypedefFundamentalThing() {}
-    
+
+    /*
+     * This must be wrong!?!
+     */
     String jniReturnErrorValue() {
         return "NULL";
     }

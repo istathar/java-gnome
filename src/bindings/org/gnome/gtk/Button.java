@@ -150,6 +150,7 @@ public class Button extends Bin
     /**
      * Event generated when a user presses and releases a button, causing it
      * to activate.
+     * 
      * <p>
      * <i>When the mouse is used to click on a Button this signal will be
      * emitted, but only if the cursor is still in the Button when the mouse
@@ -166,18 +167,19 @@ public class Button extends Bin
      * example of how this is used is as follows:
      * 
      * <pre>
-     *           Button b;
-     *             
-     *           b.connect(new Button.CLICKED() {
-     *               public void onClicked(Button source) {
-     *                   // do something!
-     *               }
-     *           }
+     *            Button b;
+     *              
+     *            b.connect(new Button.CLICKED() {
+     *                public void onClicked(Button source) {
+     *                    // do something!
+     *                }
+     *            }
      * </pre>
      * 
      * <p>
      * You can of course create a subclass of Button.CLICKED and then use
      * instances of it if you have highly complicated algorithms to implement.
+     * 
      * <p>
      * If you implement Button.CLICKED in the class you're currently working
      * on, then you use a technique called "self-delegation" which can
