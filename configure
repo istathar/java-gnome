@@ -99,6 +99,49 @@ sub bail {
 	exit(1);
 }
 
+# Added 4.0.3
+# Check for all the required gnome development libraries. Distributions such as 
+# Ubuntu/Debian and Fedora don't always install the gnome development libs
+# (for whatever reason). If they aren't installed, we bomb here in configure
+# instead of dying unceremoniously while make'ing.
+
+sub check_system_library (\@$$@) {
+	my ($gnomedevref, $item, $package, $prefix, @files) = @_;
+	output " - ".$item;
+	
+	my $found = "";
+	my $str = "";
+	my $tries = "";
+	foreach my $file (@files) {
+		if ( (-f "/usr/$file") or -f ("$prefix/$file") ) {
+			$found = $file;
+			last;
+		}
+		$tries .= ($tries ? ", or" : "" ) . "\n\t".  basename($file) . "\t(looked in ".dirname($file).")";
+	}
+
+# The following is hokey and doesn't exactly concur with the rest of Equivalence.
+# Ideally, we should be able to tell the user what package he needs to install. 
+# So a FIXME.
+
+	if (! "$found" ){
+	$str = "In order to build java-gnome, you will need\n".$tries;
+	$str .= "\n\nwhich is included in the GNOME development\n";
+	$str .= "libraries.\n";
+	$str .= <<EOSTR;
+On Ubuntu 7.04, you can install the gnome-devel
+package
+\$ sudo apt-get install gnome-devel
+EOSTR
+
+	bail "\tnot found!", $str;
+
+	}
+	print "found\n";
+	
+	push(@$gnomedevref, $found);
+
+}
 # The files (jars) to check for should be listed in order of preference, as the
 # first one found will be the one selected.  For example, if you want version 3
 # but version 2 will do, list them in that order.  Typically, this means that
@@ -765,6 +808,73 @@ if ($os eq "gentoo") {
 	
 } else {
 	bail "failed!", "This OS not configured with defaults!\nTHIS IS AN INTERNAL ERROR, PLEASE FILE A BUG.";
+}
+
+
+# This section checks for all the GNOME pre requisites.
+# Paths mentioned here, are relative to the prefix.
+
+my @gnomedev_libs;
+
+output "\nCheck for required system libraries:\n";
+
+if ($os eq "gentoo") {
+	check_system_library(@gnomedev_libs,
+			"GNOME",
+			"gnome", $prefix,
+			("/include/gnome-desktop-2.0/libgnome/gnome-desktop-item.h",
+			""));
+
+} elsif ($os eq "debian") {
+	check_system_library(@gnomedev_libs,
+			"GTK+",
+			"gtk-devel", $prefix,
+			("/include/gtk-2.0/gtk/gtk.h",
+			"/lib/libgtk-x11-2.0.so"));
+	
+	check_system_library(@gnomedev_libs, 
+			"Pango",
+			"pango-devel",$prefix,
+			("/include/pango-1.0/pango/pango.h",
+			 "/lib/libpango-1.0.so"));
+	
+	check_system_library(@gnomedev_libs, 
+			"ATK",
+			"atk-devel",$prefix,
+			("/include/atk-1.0/atk/atk.h",
+			 "/lib/libatk-1.0.so"));
+
+	check_system_library(@gnomedev_libs, 
+			"GDK",
+			"gdk-devel",$prefix,
+			("/include/gtk-2.0/gdk/gdk.h",
+			 "/lib/libgtk-x11-2.0.so"));
+
+	check_system_library(@gnomedev_libs, 
+			"LibGlade",
+			"glade-devel",$prefix,
+			("/include/libglade-2.0/glade/glade.h",
+			 "/lib/libglade-2.0.so"));
+
+# Where is the appropriate library for the new Gtk+ printing API?
+# Is presently in libgtik-x11-2.0.so. Could change?
+# For now, we just check to make sure the header is intact.
+
+	check_system_library(@gnomedev_libs, 
+			"GNOME printing (Unix backend)",
+			"unixprint-devel",$prefix,
+			"/include/gtk-unix-print-2.0/gtk/gtkprinter.h");
+
+
+# There is something to be said for putting this first, rather than having the
+# builder trip over each individual missing dependency above In fact, I'd go
+# one further: if this is installed, do you even need to check any of the
+# others?
+
+	check_system_library(@gnomedev_libs,
+			"GNOME development platform",
+			"gnome-devel",$prefix,
+			"/lib/libgnome-2.so.0");
 }
 
 
