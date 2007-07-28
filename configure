@@ -99,21 +99,6 @@ sub bail {
 	exit(1);
 }
 
-# 
-# # Added 4.0.3
-# # Insert some known prefix paths into file names
-# 
-# sub insert_prefixes(\@$$@) {
-# 	my ($filename, @prefixes) = @_;
-# 	
-# 	my @paths;
-# 	my $i = 0;
-# 	foreach my $prefix (@prefixes) {
-# 		@paths[i] = $prefix."/".$filename;
-# 
-# 	return @paths;
-# }
-
 # Added 4.0.3
 # Check for all the required gnome development libraries. Distributions such as 
 # Ubuntu/Debian and Fedora don't always install the gnome development libs
