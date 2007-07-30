@@ -44,23 +44,47 @@ config = {}
 hashes = {}
 verbose = False
 
-configFile = "dot-config"
+configFile = ".config"
 hashFile = "tmp/.hashes"
 
-GTK_MODULES = "gthread-2.0 glib-2.0 gtk+-2.0 gtk+-unix-print-2.0 libglade-2.0"
+GNOME_MODULES = "gthread-2.0 glib-2.0 gtk+-2.0 gtk+-unix-print-2.0 libglade-2.0"
 
+
+#
+# Read the configuration data from .config
+#
+# The ./configure script produces a make fragment full of variables suitable to
+# be include'd in our top level Makefile. So long as that Makefile exists we'll
+# leave it alone, meaning we need to enclose the variable declarations with "
+# characters before sourcing it into this Python program.
+#
+# We could be smart and verify that the requisite data is there, but I imagine
+# a KeyError will be raised later on if it isn't.
+#
 
 def loadConfig():
 	global config
-	if isfile(configFile):
-		try:
-			execfile(configFile, config)
-		except (EOFError):
-			print "Error while trying to read .config"
-			sys.exit(9)
-	else:
+	if not isfile(configFile):
+		print
 		print "You must run ./configure before trying to build java-gnome"
+		print
 		sys.exit(1)
+	try:
+		cfg = open(configFile, "r")
+		for line in cfg: 
+			if line.find("=") != -1:
+				escaped = line.replace("=", "=\"", 1)
+				escaped = escaped.strip()
+				escaped += "\""
+				exec(escaped, config)
+		cfg.close()
+
+	except (EOFError):
+		print "Error while trying to read .config"
+		sys.exit(9)
+
+	config['GNOME_CCFLAGS'] = os.popen("pkg-config --cflags " + GNOME_MODULES).read().rstrip()
+	config['GNOME_LDFLAGS'] = os.popen("pkg-config --libs " + GNOME_MODULES).read().rstrip()
 
 
 def loadHashes():
@@ -74,6 +98,12 @@ def loadHashes():
 			print "build checksum cache corrupt; full rebuild forced"
 			hashes = {}
 
+
+#
+# TODO writing the whole pickle each time must be trememdously inefficient, but
+# so long as the build is nice and fast, we can leave it be. If someone wants
+# to try replacing this with bdb or dbm, please give it a try.
+#
 
 def checkpointHashes():
 	db = open(hashFile + ".tmp", "wb")
@@ -220,8 +250,16 @@ def dependsListToSingleTarget(list, target):
 	return result
 
 
+
+#
+# FIXME One fairly glaring weakness of this script is that it doesn't do Nth
+# order build concurrency in the sense of make -jN. I imagine that given the
+# sort of semantics that wait() provides we could probabl fork off multiple
+# children. Feel welcome to fix this.
+#
+
 def executeCommand(short, what, cmd, inDir=None):
-	print short.rstrip() + "\t" + what
+	print short + "\t" + what
 	if verbose:
 		print cmd
 	
@@ -383,7 +421,7 @@ def compileCSourceToObject(source, target):
 	cmd = config['CCACHE'] + " "
 	cmd += config['CC'] + " "
 	cmd += "-Isrc/jni -Itmp/include "
-	cmd += "`pkg-config --cflags " + GTK_MODULES + "` "
+	cmd += config['GNOME_CCFLAGS'] + " "
 	cmd += "-o " + target + " -c " + source
 
 	executeCommand(config['CC_CMD'], source, cmd)
@@ -411,7 +449,7 @@ def linkSharedLibrary():
 
 	cmd = config['LINK'] + " "
 	cmd += "-shared "
-	cmd += "`pkg-config --libs " + GTK_MODULES + "` "
+	cmd += config['GNOME_LDFLAGS'] + " "
 	cmd += "-o " + so + " "
 	cmd += " ".join(list)
 
