@@ -1,25 +1,72 @@
 NEWS
 
-_The code generator cometh!_
+<a name="4.0.3" id="1185798412" title="A generated reality"></a>
+
+java-gnome 4.0.3 (31 Jul 2007)
+==============================
+
+_The code generator has landed!_
+
 
 Work has been underway for several months to develop the next stage of the new
-java-gnome: the [code generator][codegen] that will output the tedious
-translation and native layers that allow us to glue our public API to the
-native GNOME libraries.  We're getting closer to the point of being able to
-merge the work to mainline, which is awesome!
+java-gnome: the code generator that will output the tedious translation and
+native layers that allow us to glue our public API to the native GNOME
+libraries. With this release we're pleased to announce that the code generator
+is a reality!
+
+Generated translation and JNI layers
+------------------------------------
+
+TODO
+
+New coverage
+------------
+
+Although our focus has evidently been on getting the generator into working
+order, there have nevertheless been a few minor coverage additions along the
+way:
+
+* **`org.gnome.gtk.Entry`**
+* **`org.gnome.gtk.Separator`**
+* **`org.gnome.gtk.HSeparator`**
+* **`org.gnome.gtk.VSeparator`**
+* **`org.gnome.gtk.Frame`**
+* **`org.gnome.gtk.Calendar`**
+* **`org.gnome.gtk.Notebook`**
+* **`org.gnome.gtk.Menu`**
+* **`org.gnome.gtk.MenuBar`**
+* **`org.gnome.gtk.MenuItem`**
+* **`org.gnome.gtk.ToggleButton`**
+* **`org.gnome.gtk.CheckButton`**
+
+Most of these are just the beginnings, but MORE TODO
+
+People upgrading from 4.0.2 will actually notice that there are stubs for _all_
+of the public API classes; this was necessary to make the generated code
+compile, but most of these are empty for now.
+
+Flags
+-----
+
+We've also worked out handling of native types that, while type defined as
+enums are actually bit fields:
+
+* **`org.gnome.gtk.CalendarDisplayOptions`**
+* **`org.gnome.gtk.WindowState`**
+
+Thread safety
+-------------
 
 We have also worked out a comprehensive [thread safety][thread] strategy. This
-will make java-gnome 4.0 the first and only thread safe graphical user
-interface widget toolkit for Java!
+makes java-gnome 4.0 the first and only thread safe graphical user interface
+widget toolkit for Java!
 
 [codegen]: http://research.operationaldynamics.com/blogs/andrew/software/java-gnome/#code-generator-cometh
 [thread]: http://research.operationaldynamics.com/blogs/andrew/software/java-gnome/#thread-safety-for-java
 
 These innovations represent the culmination of an immense amount of work
 towards realizing java-gnome as a viable platform for GTK and GNOME
-development. We're getting there! If you want to learn more, the links above
-take you to a pair of blog posts on these topics. Hopefully we will be able to
-make a release with this work sometime before GUADEC. Stay tuned!
+development.
 
 AfC
 

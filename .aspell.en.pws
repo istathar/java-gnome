@@ -1,4 +1,4 @@
-personal_ws-1.1 en 987 
+personal_ws-1.1 en 978 
 EnumValue
 getActive
 refactor
@@ -27,7 +27,6 @@ VBoxes
 multithreaded
 getFirstIter
 atk
-ATK
 setPropertyInteger
 InstantiationException
 ToggleButon
@@ -67,8 +66,8 @@ GtkMenuShell
 borderless
 makeJarFile
 ComboBox
-hexdigest
 nTHIS
+hexdigest
 getText
 setRighteous
 gcc
@@ -192,7 +191,6 @@ PascalCase
 ToolBar
 JNIEXPORT
 jre
-JRE
 loadConfig
 objectFor
 GtkCheckButton
@@ -229,7 +227,6 @@ setProperty
 DESTDIR
 yalign
 solaris
-Solaris
 targetExt
 msg
 Cowie's
@@ -364,8 +361,8 @@ sys
 WeakReference
 TestCaseGtk
 guint
-getPointerFromHandle
 nCheck
+getPointerFromHandle
 uri
 checksum
 GdkEventExpose
@@ -373,8 +370,8 @@ GValues
 elif
 MenuBar
 Ctrl
-PyThis
 VMs
+PyThis
 bootclasspath
 flagFor
 nwith
@@ -431,8 +428,8 @@ filenames
 eg
 dl
 nowarn
-toplevel
 preserveAllLocals
+toplevel
 gc
 setPropertyString
 dt
@@ -442,22 +439,21 @@ eq
 dependsMapSourceFilesToTargetFiles
 hg
 createImageFromFile
-ucfirst
 fjni
+ucfirst
 ie
-IsSameObject
 javagnome
+IsSameObject
 CellEditable
+refactored
 DVCS
 getWindow
-refactored
 prepareTestDirectories
 pango
-Pango
 enum
+lc
 vhosts
 tooltips
-lc
 jN
 ld
 lookups
@@ -467,9 +463,9 @@ struct
 nc
 LibGlade
 libglade
+ne
 ToggleRef
 getChild
-ne
 NG
 DefsParser
 compileTestClasses
@@ -478,8 +474,8 @@ lt
 javaClass
 GtkFileChooserAction
 resizes
-Cowie
 fastjar
+Cowie
 touchFile
 constantFor
 WindowPosition
@@ -487,9 +483,9 @@ QA
 ok
 libgnomeui
 Overholt
+mv
 addToggleRef
 ijuma
-mv
 packEnd
 rb
 LoveLetter
@@ -519,24 +515,22 @@ GValue
 VM
 keybindings
 writeJniCode
-UNMAP
 Wl
+UNMAP
 setPolicy
 param
 getName
 sourceDir
 x's
 debian
-Debian
 createHBox
 GtkWindowType
 ccache
-CCACHE
 EventButton
 FileNotFoundException
 BooleanValue
-inDir
 pkgadd
+inDir
 gint
 setAlignmentX
 bugfixes
@@ -665,14 +659,13 @@ createFrame
 getWidget
 segfaulted
 whitespace
-jmethodID
 tnot
+jmethodID
 isfile
 endswith
 endsWith
 nowrap
 apiversion
-APIVERSION
 connectSignal
 tabLabel
 moveWidget
@@ -681,8 +674,8 @@ ExceptionOccurred
 GBoxed
 CalendarDisplayOptions
 distclean
-generateTests
 JDK's
+generateTests
 cycleMainLoop
 compileJavaCode
 endingLabel
@@ -696,8 +689,8 @@ createComboBoxText
 FileChooser
 bitkeeper
 GTK's
-assertTrue
 scalarref
+assertTrue
 WeakHashMap
 methodName
 getClass
@@ -765,7 +758,6 @@ Laszlo
 refactorings
 sourceObject
 gentoo
-Gentoo
 printf
 GtkHBox
 pageNum
@@ -897,7 +889,6 @@ Juma
 jararrayref
 juju
 basename
-Basename
 jboolean
 CallStaticObjectMethodA
 Viewport
