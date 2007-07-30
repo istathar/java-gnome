@@ -2,7 +2,7 @@
 
 #
 # faster.py, an abreviated build script for java-gnome
-# Must be invoked from the project top level directory as ./build/faster.py
+# Must be invoked from the project top level directory as [./]build/faster
 #
 # Copyright (c) 2007 Operational Dynamics Consulting Pty Ltd 
 # 
@@ -40,12 +40,27 @@ import os, md5, subprocess, pickle, sys
 from os.path import *
 from shutil import move
 
+config = {}
 hashes = {}
 verbose = False
 
+configFile = "dot-config"
 hashFile = "tmp/.hashes"
 
 GTK_MODULES = "gthread-2.0 glib-2.0 gtk+-2.0 gtk+-unix-print-2.0 libglade-2.0"
+
+
+def loadConfig():
+	global config
+	if isfile(configFile):
+		try:
+			execfile(configFile, config)
+		except (EOFError):
+			print "Error while trying to read .config"
+			sys.exit(9)
+	else:
+		print "You must run ./configure before trying to build java-gnome"
+		sys.exit(1)
 
 
 def loadHashes():
@@ -206,7 +221,7 @@ def dependsListToSingleTarget(list, target):
 
 
 def executeCommand(short, what, cmd, inDir=None):
-	print short + "\t" + what
+	print short.rstrip() + "\t" + what
 	if verbose:
 		print cmd
 	
@@ -218,8 +233,8 @@ def executeCommand(short, what, cmd, inDir=None):
 
 
 def compileJavaCode(outputDir, classpath, sourcepath, sources):
-	cmd = "/opt/sun-jdk-1.5.0.12/bin/javac -source 1.4 -target 1.4"
-	cmd += " -d " + outputDir
+	cmd = config['JAVAC'] + " "
+	cmd += "-d " + outputDir
 	if classpath:
 		   cmd += " -classpath " + classpath
 	if sourcepath:
@@ -232,11 +247,11 @@ def compileJavaCode(outputDir, classpath, sourcepath, sources):
 			blurb += ", "
 		blurb += path + "*.java"
 
-	executeCommand("JAVAC", blurb, cmd)
+	executeCommand(config['JAVAC_CMD'], blurb, cmd)
 
 
 def runJavaClass(classname, classpath, librarypath=""):
-	cmd = "/opt/sun-jdk-1.5.0.12/bin/java "
+	cmd = config['JAVA'] + " "
 	cmd += "-classpath " + classpath + " "
 	cmd += "-ea "
 	if librarypath:
@@ -245,7 +260,7 @@ def runJavaClass(classname, classpath, librarypath=""):
 	if not librarypath and not verbose:
 		cmd += " >/dev/null"
 
-	executeCommand("JAVA", classname, cmd)
+	executeCommand(config['JAVA_CMD'], classname, cmd)
 
 
 def compileGeneratorClasses():
@@ -314,11 +329,11 @@ def makeJarFile():
 		file = file.replace("$", "\$")
 		files.append(file)
 
-	cmd = "/opt/sun-jdk-1.5.0.12/bin/jar cf "
+	cmd = config['JAR'] + " cf "
 	cmd += "../../" + jar + " "
 	cmd += " ".join(files)
 
-	executeCommand("JAR", jar, cmd, "tmp/bindings/")
+	executeCommand(config['JAR_CMD'], jar, cmd, "tmp/bindings/")
 
 
 def generateHeaderFiles():
@@ -349,7 +364,7 @@ def generateHeaderFiles():
 	for file in changed:
 		classes.append(map[file])
 	
-	cmd = "/opt/sun-jdk-1.5.0.12/bin/javah -jni "
+	cmd = config['JAVAH'] + " "
 	if verbose:
 		cmd += "-verbose "
 	cmd += "-d tmp/include/ "
@@ -358,21 +373,20 @@ def generateHeaderFiles():
 	if not verbose:
 		cmd += " >/dev/null"
 
-	executeCommand("JAVAH", "tmp/include/*.h", cmd)
+	executeCommand(config['JAVAH_CMD'], "tmp/include/*.h", cmd)
 
 
 def compileCSourceToObject(source, target):
 
 	ensureDirectory(dirname(target))
 
-	cmd = "/usr/bin/ccache /usr/bin/gcc -g -Wall -fPIC "
-	cmd += "-I/opt/sun-jdk-1.5.0.12/include -I/opt/sun-jdk-1.5.0.12/include/linux "
+	cmd = config['CCACHE'] + " "
+	cmd += config['CC'] + " "
 	cmd += "-Isrc/jni -Itmp/include "
-	cmd += "-Wno-int-to-pointer-cast -Wno-pointer-to-int-cast "
 	cmd += "`pkg-config --cflags " + GTK_MODULES + "` "
 	cmd += "-o " + target + " -c " + source
 
-	executeCommand("GCC", source, cmd)
+	executeCommand(config['CC_CMD'], source, cmd)
 
 
 def compileBindingsObjects():
@@ -395,13 +409,13 @@ def linkSharedLibrary():
 	if not changed:
 		return
 
-	cmd = "/usr/bin/gcc -g -Wall -fPIC "
+	cmd = config['LINK'] + " "
 	cmd += "-shared "
 	cmd += "`pkg-config --libs " + GTK_MODULES + "` "
 	cmd += "-o " + so + " "
 	cmd += " ".join(list)
 
-	executeCommand("LINK", so, cmd)
+	executeCommand(config['LINK_CMD'], so, cmd)
 
 
 def compileTestClasses():
@@ -459,6 +473,7 @@ if __name__ == '__main__':
 	if os.getenv("V"):
 		verbose = True
 
+	loadConfig()
 	loadHashes()
 
 	generateBindings()
