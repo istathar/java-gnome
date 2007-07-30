@@ -417,8 +417,11 @@ def generateHeaderFiles():
 def compileCSourceToObject(source, target):
 
 	ensureDirectory(dirname(target))
-
-	cmd = config['CCACHE'] + " "
+	
+	if config.has_key('CCACHE'):
+		cmd = config['CCACHE'] + " "
+	else:
+		cmd = ""
 	cmd += config['CC'] + " "
 	cmd += "-Isrc/jni -Itmp/include "
 	cmd += config['GNOME_CCFLAGS'] + " "
