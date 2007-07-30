@@ -23,10 +23,6 @@ else
 all: build-java
 endif
 
-build-java: jar tmp/gtk-$(APIVERSION).jar jni tmp/libgtkjni-$(APIVERSION).so
-
-build-native: gcj tmp/libgtkjava-$(APIVERSION).so
-
 .PHONY: test demo doc clean distlcean sleep install
 
 # [this  will be called by the above include if .config is missing.
@@ -40,63 +36,15 @@ build-native: gcj tmp/libgtkjava-$(APIVERSION).so
 	echo
 	exit 1
 
-tmp/stamp/config: .config tmp/stamp/dirs
-	@echo "CHECK     build system configuration"
-	( if [ ! "$(JAVA_CMD)" ] ; then echo "Sanity check failed. Run ./configure" ; exit 1 ; fi )
-	touch $@
-
-SOURCES_CODEGEN=$(shell find src/generator -name '*.java')
-SOURCES_DEFS=$(shell find src/defs -name '*.defs')
-
-SOURCES_TEST=$(shell find tests/prototype -name '*.java' ) $(shell find tests/bindings -name '*.java' )  $(shell find tests/generator -name '*.java' )
-
-
-
-
-#
-# convenience target: setup pre-reqs
-#
-tmp/stamp/dirs: .config
-	@echo "MKDIR     temporary build directories"
-	-test -d tmp/stamp || mkdir -p tmp/stamp
-	-test -d generated/bindings || mkdir -p generated/bindings
-	-test -d tmp/bindings || mkdir -p tmp/bindings
-	-test -d tmp/generator || mkdir -p tmp/generator
-	-test -d tmp/native || mkdir -p tmp/native
-	-test -d tmp/objects || mkdir -p tmp/objects
-	-test -d tmp/include || mkdir -p tmp/include
-	-test -d tmp/tests || mkdir -p tmp/tests
-	touch $@
-
 
 # --------------------------------------------------------------------
 # Source compilation
 # --------------------------------------------------------------------
 
-tmp/stamp/classes-codegen: $(SOURCES_CODEGEN)
-	@echo "$(JAVAC_CMD) tmp/generator/*.class"
-	$(JAVAC) -d tmp/generator -classpath tmp/generator -sourcepath src/generator $?
-	touch $@
+build-java:
+	build/faster
 
-tmp/stamp/generate: tmp/stamp/classes-codegen $(SOURCES_DEFS) \
-		src/bindings/org/freedesktop/bindings/Plumbing.java \
-		src/bindings/org/gnome/glib/Plumbing.java
-	@echo "$(JAVA_CMD) BindingsGenerator"
-	$(JAVA) -classpath tmp/generator BindingsGenerator $(REDIRECT)
-	touch $@
-
-#
-# Building the generated Java and C code is done in a subprocess in order to
-# force Make to populate the variables _after_ the code is generated.
-#
-
-jar: tmp/stamp/config tmp/stamp/classes-codegen tmp/stamp/generate
-	make -f build/java.make
-
-jni:
-	make -f build/jni.make
-
-gcj: tmp/stamp/config tmp/gtk-$(APIVERSION).jar
+build-native: .config tmp/gtk-$(APIVERSION).jar
 	make -f build/gcj.make
 
 # --------------------------------------------------------------------
@@ -104,15 +52,15 @@ gcj: tmp/stamp/config tmp/gtk-$(APIVERSION).jar
 # --------------------------------------------------------------------
 
 ifdef GCJ
-install: build-java install-dirs install-java install-native
+install: build-java build-native install-dirs install-java install-native
 else
-install: build-native install-dirs install-java
+install: build-java install-dirs install-java
 endif
 	rm $(DESTDIR)$(PREFIX)/.java-gnome-install-dirs
 
 install-dirs: $(DESTDIR)$(PREFIX)/.java-gnome-install-dirs
 $(DESTDIR)$(PREFIX)/.java-gnome-install-dirs:
-	@test -d $(DESTDIR)$(PREFIX)/share/java || echo "MKDIR     installation directories"
+	@test -d $(DESTDIR)$(PREFIX)/share/java || echo -e "MKDIR\tinstallation directories"
 	-mkdir -p $(DESTDIR)$(PREFIX)
 	-touch $@ 2>/dev/null
 	test -w $@ || ( echo -e "\nYou don't seem to have write permissions to $(DESDIR)$(PREFIX)\nPerhaps you need to be root?\n" && exit 7 )
@@ -120,24 +68,24 @@ $(DESTDIR)$(PREFIX)/.java-gnome-install-dirs:
 	mkdir -p $(DESTDIR)$(PREFIX)/lib
 
 install-java: build-java \
-	$(DESTDIR)$(PREFIX)/share/bindings/gtk-$(APIVERSION).jar \
+	$(DESTDIR)$(PREFIX)/share/java/gtk-$(APIVERSION).jar \
 	$(DESTDIR)$(PREFIX)/lib/libgtkjni-$(APIVERSION).so
 
 install-native: build-native install-java \
 	$(DESTDIR)$(PREFIX)/lib/libgtkjava-$(APIVERSION).so
 
-$(DESTDIR)$(PREFIX)/share/bindings/gtk-$(APIVERSION).jar: tmp/gtk-$(APIVERSION).jar
-	@echo "INSTALL   $@"
+$(DESTDIR)$(PREFIX)/share/java/gtk-$(APIVERSION).jar: tmp/gtk-$(APIVERSION).jar
+	@echo -e "INSTALL\t$@"
 	cp -f $< $@
-	@echo "SYMLINK   $(@D)/gtk.jar -> gtk-$(APIVERSION).jar"
+	@echo -e "SYMLINK\t$(@D)/gtk.jar -> gtk-$(APIVERSION).jar"
 	cd $(@D) && rm -f gtk.jar && ln -s gtk-$(APIVERSION).jar gtk.jar
 	
 $(DESTDIR)$(PREFIX)/lib/libgtkjni-$(APIVERSION).so: tmp/libgtkjni-$(APIVERSION).so
-	@echo "INSTALL   $@"
+	@echo -e "INSTALL\t$@"
 	cp -f $< $@
 
 $(DESTDIR)$(PREFIX)/lib/libgtkjava-$(APIVERSION).so: tmp/libgtkjava-$(APIVERSION).so
-	@echo "INSTALL   $@"
+	@echo -e "INSTALL\t$@"
 	cp -f $< $@
 
 
@@ -145,31 +93,11 @@ $(DESTDIR)$(PREFIX)/lib/libgtkjava-$(APIVERSION).so: tmp/libgtkjava-$(APIVERSION
 # Tests
 # --------------------------------------------------------------------
 
-tmp/stamp/classes-test: $(SOURCES_TEST)
-	@echo "$(JAVAC_CMD) tmp/tests/*.class"
-	$(JAVAC) -d tmp/tests -classpath tmp/tests:tmp/generator:tmp/gtk-$(APIVERSION).jar:$(JUNIT_JARS) -sourcepath tests/prototype:tests/bindings:tmp/generator $?
-	touch $@
+test:
+	build/faster test
 
-# This is a bit of ugliness necessary to ensure that COLUMNS is in the
-# envionment Make passes to the test command. If anyone can suggest a better
-# way to do this, by all means please do so.
-export COLUMNS:=$(shell stty size 2>/dev/null | sed -e 's/[0-9]* \([0-9]*\)/\1/' )
-
-test: build-java tmp/stamp/classes-test
-	@echo "$(JAVA_CMD) UnitTests"
-	$(JAVA) \
-		-classpath tmp/tests:tmp/generator:tmp/gtk-$(APIVERSION).jar:$(JUNIT_JARS) \
-		-Djava.library.path=tmp \
-		-ea \
-		UnitTests
-
-demo: build-java tmp/stamp/classes-test
-	@echo "$(JAVA_CMD) Experiment"
-	$(JAVA) \
-		-classpath tmp/tests:tmp/gtk-$(APIVERSION).jar \
-		-Djava.library.path=tmp \
-		-ea \
-		Experiment
+demo:
+	build/faster demo
 
 # --------------------------------------------------------------------
 # Documentation generation
@@ -211,41 +139,41 @@ doc:
 # don't have to distclean before calling this.
 #
 dist: all
-	@echo "CHECK     fully committed state"
+	@echo -e "CHECK\tfully committed state"
 	bzr diff > /dev/null || ( echo -e "\nYou need to commit all changes before running make dist\n" ; exit 4 )
-	@echo "EXPORT    tmp/java-gnome-$(VERSION)"
+	@echo -e "EXPORT\ttmp/java-gnome-$(VERSION)"
 	-rm -rf tmp/java-gnome-$(VERSION)
 	bzr export --format=dir tmp/java-gnome-$(VERSION)
-	@echo "RM        non essential files"
+	@echo -e "RM\tnon essential files"
 	rm -r tmp/java-gnome-$(VERSION)/web
 	rm    tmp/java-gnome-$(VERSION)/.aspell.en.pws
-	@echo "TAR       java-gnome-$(VERSION).tar.bz2"
+	@echo -e "TAR\tjava-gnome-$(VERSION).tar.bz2"
 	tar cjf java-gnome-$(VERSION).tar.bz2 -C tmp java-gnome-$(VERSION)
 	rm -r tmp/java-gnome-$(VERSION)
 
 clean:
-	@echo "RM        generated code"
+	@echo -e "RM\tgenerated code"
 	rm -rf generated/bindings/*
-	@echo "RM        compiled output"
+	@echo -e "RM\tcompiled output"
 	rm -rf tmp/generator/* tmp/bindings/* tmp/tests/*
 	rm -rf tmp/include/* tmp/native/* tmp/objects/*
-	@echo "RM        temporary files"
+	@echo -e "RM\ttemporary files"
 	rm -rf tmp/stamp/*
 	rm -f hs_err_*
-	@echo "RM        built .jar and .so"
+	@echo -e "RM\tbuilt .jar and .so"
 	rm -f tmp/gtk-*.jar \
 		tmp/libgtkjni-*.so \
 		tmp/libgtkjava-*.so
 
 distclean: clean
-	@echo "RM        build configuration information"
+	@echo "RM\tbuild configuration information"
 	-rm -f .config .config.tmp
-	@echo "RM        generated documentation"
+	@echo -e "RM\tgenerated documentation"
 	-rm -rf doc/api/*
 	-rm -f java-gnome-*.tar.bz2
-	@echo "RM        temporary directories"
+	@echo -e "RM\ttemporary directories"
 	-rm -rf tmp generated
-	@echo "RM        glade cruft"
+	@echo -e "RM\tglade cruft"
 	find . -name '*.glade.bak' -o -name '*.gladep*' -type f | xargs rm -f
 
 # vim: set filetype=make textwidth=78 nowrap:
