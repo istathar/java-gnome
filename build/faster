@@ -468,7 +468,7 @@ def compileTestClasses():
 	if not changed:
 		return
 
-	compileJavaCode("tmp/tests/", "tmp/generator:tmp/bindings/:/usr/share/junit/lib/junit.jar", "tests/generator/:tests/bindings/:tests/prototype/", changed)
+	compileJavaCode("tmp/tests/", "tmp/generator:tmp/bindings/:"+config['JUNIT_JARS'], "tests/generator/:tests/bindings/:tests/prototype/", changed)
 
 
 
@@ -498,7 +498,7 @@ def generateTests():
 
 
 def runTests():
-	runJavaClass("UnitTests", "tmp/gtk-4.0.jar:tmp/generator/:tmp/tests/:/usr/share/junit/lib/junit.jar", "tmp/")
+	runJavaClass("UnitTests", "tmp/gtk-4.0.jar:tmp/generator/:tmp/tests/:"+config['JUNIT_JARS'], "tmp/")
 
 def runDemo():
 	runJavaClass("Experiment", "tmp/gtk-4.0.jar:tmp/tests/", "tmp/")
