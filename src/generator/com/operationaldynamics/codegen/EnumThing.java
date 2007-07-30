@@ -34,7 +34,7 @@ public class EnumThing extends Thing
     String translationToNative(String name) {
         return "numOf(" + name + ")";
     }
-    
+
     String jniReturnErrorValue() {
         return "0";
     }

@@ -25,7 +25,7 @@ public abstract class ProxiedThing extends Thing
     String translationToNative(String name) {
         return "pointerOf(" + name + ")";
     }
-    
+
     String jniReturnErrorValue() {
         return "0L";
     }

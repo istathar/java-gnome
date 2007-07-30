@@ -25,7 +25,7 @@ import org.freedesktop.bindings.Environment;
  * setting the COLUMNS property:
  * 
  * <pre>
- * java -DCOLUMNS=70 ...
+ *  java -DCOLUMNS=70 ...
  * </pre>
  * 
  * @author Andrew Cowie

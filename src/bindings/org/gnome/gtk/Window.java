@@ -168,14 +168,14 @@ public class Window extends Bin
      * Ask the window manager to place the Window in the fullscreen state.
      * Note that you shouldn't assume the Window is definitely fullscreen
      * afterwards, because other entities (e.g. the user or window manager)
-     * could unfullscreen it again, and not all window managers honour requests
-     * to fullscreen windows. Be prepared for these eventualities.
+     * could unfullscreen it again, and not all window managers honour
+     * requests to fullscreen windows. Be prepared for these eventualities.
      * 
      * @since 4.0.3
      */
     /*
-     * Remap this as setFullscreen(boolean)? At the moment the answer is no: a)
-     * for algorithmic mapping reasons, and b) to correspond to other "take
+     * Remap this as setFullscreen(boolean)? At the moment the answer is no:
+     * a) for algorithmic mapping reasons, and b) to correspond to other "take
      * action" methods like clicked() in Button.
      */
     public void fullscreen() {

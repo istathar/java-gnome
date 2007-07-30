@@ -24,16 +24,16 @@ import com.operationaldynamics.driver.DefsFile;
  * data for a boxed is of the following form:
  * 
  * <pre>
- * (define-boxed Cursor
- *   (in-module &quot;Gdk&quot;)
- *   (c-name &quot;GdkCursor&quot;)
- *   (gtype-id &quot;GDK_TYPE_CURSOR&quot;)
- *   (copy-func &quot;gdk_cursor_ref&quot;)
- *   (release-func &quot;gdk_cursor_unref&quot;)
- *   (fields
- *     '(&quot;GdkCursorType&quot; &quot;type&quot;)
- *   )
- * )
+ *  (define-boxed Cursor
+ *    (in-module &quot;Gdk&quot;)
+ *    (c-name &quot;GdkCursor&quot;)
+ *    (gtype-id &quot;GDK_TYPE_CURSOR&quot;)
+ *    (copy-func &quot;gdk_cursor_ref&quot;)
+ *    (release-func &quot;gdk_cursor_unref&quot;)
+ *    (fields
+ *      '(&quot;GdkCursorType&quot; &quot;type&quot;)
+ *    )
+ *  )
  * </pre>
  * 
  * The "(fields ...)" subcharacteristic lines present in some GBoxed

@@ -14,8 +14,8 @@ package org.gnome.gtk;
 /**
  * Add scrollbars to a Widget. There are times when you have a Widget which is
  * larger than the area you wish to constrain it to, and the usual way to deal
- * with this is to enhance the Widget with scrollbars. ScrolledWindow is a
- * Bin which enables you to control the scrollbars added in such cases.
+ * with this is to enhance the Widget with scrollbars. ScrolledWindow is a Bin
+ * which enables you to control the scrollbars added in such cases.
  * 
  * <p>
  * Some Widgets have built in support for scrolling; in such cases you add

@@ -24,15 +24,15 @@ import com.operationaldynamics.driver.DefsFile;
  * Source .defs data for an emum is of the following form:
  * 
  * <pre>
- * (define-enum ReliefStyle
- *   (in-module &quot;Gtk&quot;)
- *   (c-name &quot;GtkReliefStyle&quot;)
- *   (values
- *     '(&quot;normal&quot; &quot;GTK_RELIEF_NORMAL&quot;)
- *     '(&quot;half&quot; &quot;GTK_RELIEF_HALF&quot;)
- *     '(&quot;none&quot; &quot;GTK_RELIEF_NONE&quot;)
- *   )
- * )
+ *  (define-enum ReliefStyle
+ *    (in-module &quot;Gtk&quot;)
+ *    (c-name &quot;GtkReliefStyle&quot;)
+ *    (values
+ *      '(&quot;normal&quot; &quot;GTK_RELIEF_NORMAL&quot;)
+ *      '(&quot;half&quot; &quot;GTK_RELIEF_HALF&quot;)
+ *      '(&quot;none&quot; &quot;GTK_RELIEF_NONE&quot;)
+ *    )
+ *  )
  * </pre>
  * 
  * Enums are unusual in that all the information needed to define the Java

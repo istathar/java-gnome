@@ -22,15 +22,15 @@ import com.operationaldynamics.driver.DefsFile;
  * following form:
  * 
  * <pre>
- * (define-function gtk_button_new_with_label
- *   (is-constructor-of &quot;GtkButton&quot;)
- *   (c-name &quot;gtk_button_new_with_label&quot;)
- *   (caller-owns-return #t)
- *   (return-type &quot;GtkWidget*&quot;)
- *   (parameters
- *     '(&quot;const-gchar*&quot; &quot;label&quot;)
- *   )
- * )
+ *  (define-function gtk_button_new_with_label
+ *    (is-constructor-of &quot;GtkButton&quot;)
+ *    (c-name &quot;gtk_button_new_with_label&quot;)
+ *    (caller-owns-return #t)
+ *    (return-type &quot;GtkWidget*&quot;)
+ *    (parameters
+ *      '(&quot;const-gchar*&quot; &quot;label&quot;)
+ *    )
+ *  )
  * </pre>
  * 
  * @author Andrew Cowie

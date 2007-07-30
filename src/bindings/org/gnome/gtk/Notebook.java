@@ -110,7 +110,8 @@ public class Notebook extends Container
     public interface CHANGE_CURRENT_PAGE extends GtkNotebook.CHANGE_CURRENT_PAGE
     {
         /**
-         * @param offset the tab which is now the current page.
+         * @param offset
+         *            the tab which is now the current page.
          */
         public void onChangeCurrentPage(Notebook sourceObject, int offset);
     }

@@ -23,14 +23,14 @@ import com.operationaldynamics.driver.DefsFile;
  * Source .defs data is of the following form:
  * 
  * <pre>
- * (define-method set_label
- *   (of-object &quot;GtkButton&quot;)
- *   (c-name &quot;gtk_button_set_label&quot;)
- *   (return-type &quot;none&quot;)
- *   (parameters
- *     '(&quot;const-gchar*&quot; &quot;label&quot;)
- *   )
- * )
+ *  (define-method set_label
+ *    (of-object &quot;GtkButton&quot;)
+ *    (c-name &quot;gtk_button_set_label&quot;)
+ *    (return-type &quot;none&quot;)
+ *    (parameters
+ *      '(&quot;const-gchar*&quot; &quot;label&quot;)
+ *    )
+ *  )
  * </pre>
  * 
  * In a sense, the definition of a method in G terms is a function whose first

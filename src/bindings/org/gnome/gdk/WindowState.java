@@ -45,7 +45,7 @@ public final class WindowState extends Flag
      * Creates a new WindowState flag as the OR'ing or combination of two
      * WindowState flags.
      */
-    public static WindowState or(WindowState ws1, WindowState ws2) {
-        return (WindowState) Flag.orTwoFlags(ws1, ws2);
+    public static WindowState or(WindowState one, WindowState two) {
+        return (WindowState) Flag.orTwoFlags(one, two);
     }
 }

@@ -25,9 +25,9 @@ import com.operationaldynamics.driver.DefsFile;
  * method name, and the return type is long, as it will be used as:
  * 
  * <pre>
- * public Button(String label) {
- *     super(GtkButton.createButtonWithLabel(label);
- * }
+ *  public Button(String label) {
+ *      super(GtkButton.createButtonWithLabel(label);
+ *  }
  * </pre>
  * 
  * @author Andrew Cowie
