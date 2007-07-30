@@ -55,7 +55,8 @@ public class Frame extends Bin
     }
 
     /**
-     * Returns the text label from the frame's edge.
+     * Returns the text from the frame's edge (assuming it's a Label Widget as
+     * is usual practise).
      */
     public String getLabel() {
         return GtkFrame.getLabel(this);
@@ -64,7 +65,7 @@ public class Frame extends Bin
     /**
      * Set a Widget to be the "label" for the Frame.
      */
-    public void setLabel(Widget label) {
+    public void setLabelWidget(Widget label) {
         GtkFrame.setLabelWidget(this, label);
     }
 

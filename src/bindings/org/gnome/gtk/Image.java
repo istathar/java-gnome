@@ -32,7 +32,7 @@ public class Image extends Misc
     /*
      * I'm not entirely convinced about this - I am inclined instead to have
      * this throw FileNotFoundException; FUTURE revisit this question when we
-     * bind GtkPixbuf.createPixbufFromFile().
+     * bind GdkPixbuf.createPixbufFromFile().
      */
     public Image(String filename) {
         super(GtkImage.createImageFromFile(filename));

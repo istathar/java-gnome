@@ -19,7 +19,7 @@ package org.gnome.gtk;
  */
 /*
  * This was initially bound to expose and test Flags behaviour. It still lacks
- * many necessary methods before it will become useable.
+ * many necessary methods before it will become usable.
  */
 public class Calendar extends Widget
 {

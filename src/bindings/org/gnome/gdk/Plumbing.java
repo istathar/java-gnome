@@ -24,10 +24,10 @@ public abstract class Plumbing extends org.gnome.glib.Plumbing
     protected Plumbing() {}
 
     /**
-     * GdkEvent is a union, which would ordinarily present an unsurmountable
+     * GdkEvent is a union, which would ordinarily present an insurmountable
      * problem, but since the GdkEvent structures all begin with a
      * GdkEventType we write a very hacky override which uses that as a
-     * descriminator.
+     * discriminator.
      */
     protected static Boxed boxedFor(Class type, long pointer) {
         Proxy proxy;

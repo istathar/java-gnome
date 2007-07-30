@@ -27,7 +27,7 @@ package org.gnome.gtk;
  * 
  * <p>
  * <i>The underlying <code>GtkComboBox</code> is actually presents two APIs
- * which, while not mutually exclsive, don't tend to go together very well. We
+ * which, while not mutually exclusive, don't tend to go together very well. We
  * may well split this into two public classes.</i>
  * 
  * @author Sebastian Mancke

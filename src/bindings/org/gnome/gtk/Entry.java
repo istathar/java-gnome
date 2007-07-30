@@ -32,7 +32,7 @@ public class Entry extends Widget implements Editable, CellEditable
     }
 
     /**
-     * Construct a new Entry, initialited with the specified text
+     * Construct a new Entry, initialized with the specified text
      */
     public Entry(String text) {
         this(GtkEntry.createEntry());
@@ -81,10 +81,11 @@ public class Entry extends Widget implements Editable, CellEditable
      * typically used for password fields.
      * 
      * When set to be not visible, characters entered are shown with a
-     * <code>*<code> instead. This default can be changed with {@link @setIn}
+     * <code>*</code> instead. This default can be changed with
+     * {@link #setInvisibleChar(char) setInvisibleChar()}.
      * 
-     * @param visibleChars,
-     *            true for showing the chars, false for hiding chars
+     * @param visible,
+     *            true for showing, false for hiding
      */
     public void setVisibleChars(boolean visible) {
         GtkEntry.setVisibility(this, visible);
@@ -106,9 +107,9 @@ public class Entry extends Widget implements Editable, CellEditable
      * {@link #setVisibleChars(boolean) setVisibleChars()} is false.
      * 
      * @param replacement
-     *            The new character to be used to obscure text. A value of '<code>0</code>'
-     *            will cause no feedback to displayed at all when the user is
-     *            typing in the Entry
+     *            The new character to be used to obscure text. A value of
+     *            <code>0</code> will cause no feedback to displayed at all
+     *            when the user is typing in the Entry.
      */
     public void setInvisibleChar(char replacement) {
         GtkEntry.setInvisibleChar(this, replacement);

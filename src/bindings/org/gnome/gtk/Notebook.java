@@ -15,7 +15,7 @@ package org.gnome.gtk;
  * A tabbed notebook container. These are common sights in web browsers and
  * text editors and are the recommended way to create user interfaces that
  * must manage multiple documents if creating a completely independent window
- * per document (the prefered GNOME approach) is inappropriate.
+ * per document (the preferred GNOME approach) is inappropriate.
  * 
  * <p>
  * Note that Notebooks are a poor way to organize pages of application
@@ -77,7 +77,7 @@ public class Notebook extends Container
      * @param tabLabel
      *            The Label Widget to use on the tab itself.
      * @param position
-     *            The possition at which to insert the page.
+     *            The position at which to insert the page.
      * @return the position in the Notebook of the inserted tab.
      */
     public int insertPage(Widget child, Widget tabLabel, int position) {

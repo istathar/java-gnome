@@ -15,7 +15,7 @@ package org.gnome.gtk;
  * MenuItems are the basic elements that form a Menu.
  * 
  * While MenuItems are Containers and are thus capable of containing other
- * Widgets; in practice only the specialized MenuItem classes will work
+ * Widgets; in practise only the specialized MenuItem classes will work
  * properly as they are what support highlighting, alignment, submenus, etc.
  * 
  * <p>
@@ -76,7 +76,7 @@ public class MenuItem extends Item
     /**
      * The handler interface for an activation. An activation is triggered
      * either when the user clicks the MenuItem, or activates it with the
-     * keyboard either by typing that MenuItem's menomic character (if it has
+     * keyboard either by typing that MenuItem's mnemonic character (if it has
      * one) or selecting the MenuItem via the arrow keys and then pressing
      * <code>&lt;ENTER&gt;</code>.
      */

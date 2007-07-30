@@ -106,7 +106,7 @@ public abstract class Container extends Widget
      * In other situations (wondering just what aggregation of Widgets makes
      * up something that was handed to you by Glade, perhaps),
      * <code>instanceof</code> is your friend. Indeed sometimes it's the
-     * only way; the box packing compostion of GTK elements means that even
+     * only way; the box packing composition of GTK elements means that even
      * things you might take for granted as elementary (Button) are in fact
      * more complex (an HBox of an Image and a Label) - and often the only way
      * to find this out is to walk the Widget hierarchy.

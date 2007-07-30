@@ -14,7 +14,7 @@ package org.gnome.gtk;
 import org.freedesktop.bindings.Flag;
 
 /**
- * These options are used to modify the display and behavior of a
+ * These options are used to modify the display and behaviour of a
  * {@link Calendar} Widget.
  * 
  * <p>

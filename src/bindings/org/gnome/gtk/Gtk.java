@@ -157,7 +157,7 @@ public final class Gtk extends Glib
      * 
      * <pre>
      * while (Gtk.eventsPending()) {
-     *     Gtk.mainIteratoinDo(false);
+     *     Gtk.mainIterationDo(false);
      * }
      * </pre>
      */

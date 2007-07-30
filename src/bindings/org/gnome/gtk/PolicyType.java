@@ -41,7 +41,7 @@ public final class PolicyType extends Constant
      * Prevent the scrollbar from ever appearing. You probably want to be
      * fairly careful about choosing this as the user will have no way to get
      * to the information that will likely be obscured as a result of turning
-     * off paning.
+     * off panning.
      */
     public static final PolicyType NEVER = new PolicyType(GtkPolicyType.NEVER, "NEVER");
 }
