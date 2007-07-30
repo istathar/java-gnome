@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
 #
-# faster.py, an abreviated build script for java-gnome
+# faster.py, an abbreviated build script for java-gnome
 # Must be invoked from the project top level directory as [./]build/faster
 #
 # Copyright (c) 2007 Operational Dynamics Consulting Pty Ltd 
@@ -22,17 +22,17 @@
 #
 # 2) it doesn't look at actual file contents, only looking to see if the target
 # is older than the source file(s). This is a real problem for people hacking
-# on the bindings; everytime you save a source file in the generator, it runs,
+# on the bindings; every time you save a source file in the generator, it runs,
 # and even though most (even all) of output files are unchanged [ie, were
 # refilled with exactly the same content], they are newer, and so make charges
 # ahead with a full rebuild, costing over 5 minutes of CPU time.
 #
 # So this program takes an md5sum of each source file at each step, only
-# invoking the extermal program for that target if 
+# invoking the external program for that target if 
 #
 # No, this is not some grand replacement for all the worlds problems. It's a
 # quick hack. I said so already. And it's entirely custom for building
-# java-gnome. But it encapsulates some of the capabilites that buildtool will
+# java-gnome. But it encapsulates some of the capabilities that buildtool will
 # bring to the process when it lands, so it is a step in the right direction.
 #
 
@@ -54,7 +54,7 @@ GNOME_MODULES = "gthread-2.0 glib-2.0 gtk+-2.0 gtk+-unix-print-2.0 libglade-2.0"
 # Read the configuration data from .config
 #
 # The ./configure script produces a make fragment full of variables suitable to
-# be include'd in our top level Makefile. So long as that Makefile exists we'll
+# be included in our top level Makefile. So long as that Makefile exists we'll
 # leave it alone, meaning we need to enclose the variable declarations with "
 # characters before sourcing it into this Python program.
 #
@@ -100,7 +100,7 @@ def loadHashes():
 
 
 #
-# TODO writing the whole pickle each time must be trememdously inefficient, but
+# TODO writing the whole pickle each time must be tremendously inefficient, but
 # so long as the build is nice and fast, we can leave it be. If someone wants
 # to try replacing this with bdb or dbm, please give it a try.
 #
@@ -159,7 +159,7 @@ def findFiles(baseDir, ext):
 #
 # We compare source files' md5sums against the values we have stored in our
 # hash dictionary. The dictionary is immediately updated but this only has any
-# persistant effect if a checkpoint happens after a command is run
+# persistent effect if a checkpoint happens after a command is run
 # successfully. FIXME verify!
 #
 # Takes a list of touples mapping candidate source files to target filenames
@@ -254,7 +254,7 @@ def dependsListToSingleTarget(list, target):
 #
 # FIXME One fairly glaring weakness of this script is that it doesn't do Nth
 # order build concurrency in the sense of make -jN. I imagine that given the
-# sort of semantics that wait() provides we could probabl fork off multiple
+# sort of semantics that wait() provides we could probably fork off multiple
 # children. Feel welcome to fix this.
 #
 
@@ -502,7 +502,7 @@ def runDemo():
 
 
 #
-# prelininary setup
+# preliminary setup
 #
 
 from sys import argv
