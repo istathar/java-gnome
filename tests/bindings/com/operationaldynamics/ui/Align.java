@@ -17,7 +17,7 @@ package com.operationaldynamics.ui;
  * Alignment constants, for convenience. Use object indentity, ie
  * 
  * <pre>
- *          if (justify == Align.LEFT) { ... }
+ *           if (justify == Align.LEFT) { ... }
  * </pre>
  * 
  * or just grab a reference to use locally or statically in your class.

@@ -25,15 +25,15 @@ import com.operationaldynamics.driver.DefsFile;
  * Source .defs data for an emum is of the following form:
  * 
  * <pre>
- * (define-flags WindowState
- *   (in-module &quot;Gdk&quot;)
- *   (c-name &quot;GdkWindowState&quot;)
- *   (gtype-id &quot;GDK_TYPE_WINDOW_STATE&quot;)
- *   (values
- *     '(&quot;withdrawn&quot; &quot;GDK_WINDOW_STATE_WITHDRAWN&quot;)
- *     '(&quot;iconified&quot; &quot;GDK_WINDOW_STATE_ICONIFIED&quot;)
- *   )
- * )
+ *  (define-flags WindowState
+ *    (in-module &quot;Gdk&quot;)
+ *    (c-name &quot;GdkWindowState&quot;)
+ *    (gtype-id &quot;GDK_TYPE_WINDOW_STATE&quot;)
+ *    (values
+ *      '(&quot;withdrawn&quot; &quot;GDK_WINDOW_STATE_WITHDRAWN&quot;)
+ *      '(&quot;iconified&quot; &quot;GDK_WINDOW_STATE_ICONIFIED&quot;)
+ *    )
+ *  )
  * </pre>
  * 
  * Like Enums, all the information needed to define the Java code that will

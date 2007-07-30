@@ -151,7 +151,7 @@ public abstract class Plumbing extends org.freedesktop.bindings.Plumbing
     /**
      * Retrieve an appropriate Java Boxed for this pointer.
      * 
-     * @throw ClastCastException if the GType pointed by given pointer is not
+     * @throw ClassCastException if the GType pointed by given pointer is not
      *        a GBoxed.
      */
     protected static Boxed boxedFor(Class type, final long pointer) {

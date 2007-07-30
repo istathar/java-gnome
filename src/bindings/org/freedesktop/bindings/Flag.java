@@ -39,7 +39,8 @@ public abstract class Flag extends Constant
      */
     protected final static Flag orTwoFlags(Flag a, Flag b) {
         if (a.getClass() != b.getClass()) {
-            throw new IllegalArgumentException("Both arguments need to be an instances of the same concrete Flags class");
+            throw new IllegalArgumentException(
+                    "Both arguments need to be an instances of the same concrete Flags class");
         }
 
         return Plumbing.flagFor(a.getClass(), a.ordinal | b.ordinal);
@@ -51,12 +52,12 @@ public abstract class Flag extends Constant
      * is:
      * 
      * <pre>
-     *    WindowState s;
-     *    ...
-     *    
-     *    if (s.contains(WindowState.STICKY)) {
-     *        // get a cloth to clean up the mess
-     *    }
+     *     WindowState s;
+     *     ...
+     *     
+     *     if (s.contains(WindowState.STICKY)) {
+     *         // get a cloth to clean up the mess
+     *     }
      * </pre>
      * 
      * You can only use this on instances of the same class!

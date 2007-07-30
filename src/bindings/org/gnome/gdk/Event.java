@@ -49,7 +49,7 @@ public abstract class Event extends Boxed
     }
 
     /**
-     * Get the underlying [GDK] Window which recieved the event.
+     * Get the underlying [GDK] Window which received the event.
      * 
      * @since 4.0.3
      */

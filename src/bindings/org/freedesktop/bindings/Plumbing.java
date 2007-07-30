@@ -260,8 +260,8 @@ public abstract class Plumbing
     /**
      * Given a Class and an ordinal number, try to lookup the Constant object
      * that corresponds to that flag. If there's no registered constant that
-     * matches the given ordinal, then it corresponds to a OR'd flag, so a
-     * new Constant object is created and registered.
+     * matches the given ordinal, then it corresponds to a OR'd flag, so a new
+     * Constant object is created and registered.
      */
     /*
      * TODO the result of toString should match the ordered

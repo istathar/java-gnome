@@ -31,10 +31,10 @@ import org.freedesktop.bindings.Constant;
  * contribute improvements to this class.
  * 
  * <p>
- * <i>This is principally used to descriminate what kind of concrete Event
+ * <i>This is principally used to discriminate what kind of concrete Event
  * subclass to create. Note that we are in GDK here; These events refer to the
  * low level constructs delivered to the <code>GdkWindow</code>s that
- * underly Widgets.</i>
+ * underlie Widgets.</i>
  * 
  * @author Andrew Cowie
  * @since 4.0.3

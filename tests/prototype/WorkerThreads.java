@@ -22,7 +22,7 @@ import org.gnome.gtk.Window;
  * Experiment class. If you run this in a terminal, say with
  * 
  * <pre>
- * java -classpath tmp/tests:tmp/gtk-4.0.jar -Djava.library.path=tmp/ -ea WorkerThreads
+ *  java -classpath tmp/tests:tmp/gtk-4.0.jar -Djava.library.path=tmp/ -ea WorkerThreads
  * </pre>
  * 
  * you can press Ctrl+\ to get the thread dump to study the lock contention

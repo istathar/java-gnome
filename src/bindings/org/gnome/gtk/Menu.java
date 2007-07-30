@@ -14,7 +14,7 @@ package org.gnome.gtk;
 /**
  * A drop-down set of Widgets creating a menu. Menus consist of other
  * {@link MenuItem}s. Menus are either placed inside a {@link MenuBar} or
- * another MenuItem, thereby forming a sub-menu. An entire hirearchy of Menu
+ * another MenuItem, thereby forming a sub-menu. An entire hierarchy of Menu
  * structures can thus be created by appropriately placing Menus inside
  * MenuBars or MenuItems.
  * 
@@ -45,7 +45,7 @@ public class Menu extends MenuShell
     }
 
     /**
-     * Contruct a new Menu.
+     * Construct a new Menu.
      */
     public Menu() {
         super(GtkMenu.createMenu());
