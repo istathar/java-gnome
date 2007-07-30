@@ -2,7 +2,7 @@
 
 #
 # faster.py, an abreviated build script for java-gnome
-# Must be invoked from the project top level directory as ./build/faster.py
+# Must be invoked from the project top level directory as [./]build/faster
 #
 # Copyright (c) 2007 Operational Dynamics Consulting Pty Ltd 
 # 
@@ -40,12 +40,51 @@ import os, md5, subprocess, pickle, sys
 from os.path import *
 from shutil import move
 
+config = {}
 hashes = {}
 verbose = False
 
+configFile = ".config"
 hashFile = "tmp/.hashes"
 
-GTK_MODULES = "gthread-2.0 glib-2.0 gtk+-2.0 gtk+-unix-print-2.0 libglade-2.0"
+GNOME_MODULES = "gthread-2.0 glib-2.0 gtk+-2.0 gtk+-unix-print-2.0 libglade-2.0"
+
+
+#
+# Read the configuration data from .config
+#
+# The ./configure script produces a make fragment full of variables suitable to
+# be include'd in our top level Makefile. So long as that Makefile exists we'll
+# leave it alone, meaning we need to enclose the variable declarations with "
+# characters before sourcing it into this Python program.
+#
+# We could be smart and verify that the requisite data is there, but I imagine
+# a KeyError will be raised later on if it isn't.
+#
+
+def loadConfig():
+	global config
+	if not isfile(configFile):
+		print
+		print "You must run ./configure before trying to build java-gnome"
+		print
+		sys.exit(1)
+	try:
+		cfg = open(configFile, "r")
+		for line in cfg: 
+			if line.find("=") != -1:
+				escaped = line.replace("=", "=\"", 1)
+				escaped = escaped.strip()
+				escaped += "\""
+				exec(escaped, config)
+		cfg.close()
+
+	except (EOFError):
+		print "Error while trying to read .config"
+		sys.exit(9)
+
+	config['GNOME_CCFLAGS'] = os.popen("pkg-config --cflags " + GNOME_MODULES).read().rstrip()
+	config['GNOME_LDFLAGS'] = os.popen("pkg-config --libs " + GNOME_MODULES).read().rstrip()
 
 
 def loadHashes():
@@ -59,6 +98,12 @@ def loadHashes():
 			print "build checksum cache corrupt; full rebuild forced"
 			hashes = {}
 
+
+#
+# TODO writing the whole pickle each time must be trememdously inefficient, but
+# so long as the build is nice and fast, we can leave it be. If someone wants
+# to try replacing this with bdb or dbm, please give it a try.
+#
 
 def checkpointHashes():
 	db = open(hashFile + ".tmp", "wb")
@@ -205,6 +250,14 @@ def dependsListToSingleTarget(list, target):
 	return result
 
 
+
+#
+# FIXME One fairly glaring weakness of this script is that it doesn't do Nth
+# order build concurrency in the sense of make -jN. I imagine that given the
+# sort of semantics that wait() provides we could probabl fork off multiple
+# children. Feel welcome to fix this.
+#
+
 def executeCommand(short, what, cmd, inDir=None):
 	print short + "\t" + what
 	if verbose:
@@ -218,8 +271,8 @@ def executeCommand(short, what, cmd, inDir=None):
 
 
 def compileJavaCode(outputDir, classpath, sourcepath, sources):
-	cmd = "/opt/sun-jdk-1.5.0.12/bin/javac -source 1.4 -target 1.4"
-	cmd += " -d " + outputDir
+	cmd = config['JAVAC'] + " "
+	cmd += "-d " + outputDir
 	if classpath:
 		   cmd += " -classpath " + classpath
 	if sourcepath:
@@ -232,11 +285,11 @@ def compileJavaCode(outputDir, classpath, sourcepath, sources):
 			blurb += ", "
 		blurb += path + "*.java"
 
-	executeCommand("JAVAC", blurb, cmd)
+	executeCommand(config['JAVAC_CMD'], blurb, cmd)
 
 
 def runJavaClass(classname, classpath, librarypath=""):
-	cmd = "/opt/sun-jdk-1.5.0.12/bin/java "
+	cmd = config['JAVA'] + " "
 	cmd += "-classpath " + classpath + " "
 	cmd += "-ea "
 	if librarypath:
@@ -245,7 +298,7 @@ def runJavaClass(classname, classpath, librarypath=""):
 	if not librarypath and not verbose:
 		cmd += " >/dev/null"
 
-	executeCommand("JAVA", classname, cmd)
+	executeCommand(config['JAVA_CMD'], classname, cmd)
 
 
 def compileGeneratorClasses():
@@ -314,11 +367,11 @@ def makeJarFile():
 		file = file.replace("$", "\$")
 		files.append(file)
 
-	cmd = "/opt/sun-jdk-1.5.0.12/bin/jar cf "
+	cmd = config['JAR'] + " cf "
 	cmd += "../../" + jar + " "
 	cmd += " ".join(files)
 
-	executeCommand("JAR", jar, cmd, "tmp/bindings/")
+	executeCommand(config['JAR_CMD'], jar, cmd, "tmp/bindings/")
 
 
 def generateHeaderFiles():
@@ -349,7 +402,7 @@ def generateHeaderFiles():
 	for file in changed:
 		classes.append(map[file])
 	
-	cmd = "/opt/sun-jdk-1.5.0.12/bin/javah -jni "
+	cmd = config['JAVAH'] + " "
 	if verbose:
 		cmd += "-verbose "
 	cmd += "-d tmp/include/ "
@@ -358,21 +411,20 @@ def generateHeaderFiles():
 	if not verbose:
 		cmd += " >/dev/null"
 
-	executeCommand("JAVAH", "tmp/include/*.h", cmd)
+	executeCommand(config['JAVAH_CMD'], "tmp/include/*.h", cmd)
 
 
 def compileCSourceToObject(source, target):
 
 	ensureDirectory(dirname(target))
 
-	cmd = "/usr/bin/ccache /usr/bin/gcc -g -Wall -fPIC "
-	cmd += "-I/opt/sun-jdk-1.5.0.12/include -I/opt/sun-jdk-1.5.0.12/include/linux "
+	cmd = config['CCACHE'] + " "
+	cmd += config['CC'] + " "
 	cmd += "-Isrc/jni -Itmp/include "
-	cmd += "-Wno-int-to-pointer-cast -Wno-pointer-to-int-cast "
-	cmd += "`pkg-config --cflags " + GTK_MODULES + "` "
+	cmd += config['GNOME_CCFLAGS'] + " "
 	cmd += "-o " + target + " -c " + source
 
-	executeCommand("GCC", source, cmd)
+	executeCommand(config['CC_CMD'], source, cmd)
 
 
 def compileBindingsObjects():
@@ -395,13 +447,13 @@ def linkSharedLibrary():
 	if not changed:
 		return
 
-	cmd = "/usr/bin/gcc -g -Wall -fPIC "
+	cmd = config['LINK'] + " "
 	cmd += "-shared "
-	cmd += "`pkg-config --libs " + GTK_MODULES + "` "
+	cmd += config['GNOME_LDFLAGS'] + " "
 	cmd += "-o " + so + " "
 	cmd += " ".join(list)
 
-	executeCommand("LINK", so, cmd)
+	executeCommand(config['LINK_CMD'], so, cmd)
 
 
 def compileTestClasses():
@@ -459,6 +511,7 @@ if __name__ == '__main__':
 	if os.getenv("V"):
 		verbose = True
 
+	loadConfig()
 	loadHashes()
 
 	generateBindings()
