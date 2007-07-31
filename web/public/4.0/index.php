@@ -18,7 +18,7 @@
 <?
 	template_header();
 ?>
-<title>Re-engineering the java-gnome bindings</title>
+<title>The new java-gnome bindings</title>
 <meta name="author" content="Andrew Cowie">
 <style>
 div.box {
@@ -46,26 +46,64 @@ div.box {
 
 
 <div class="box">
-<p>The engineering design of java-gnome 4.0 is solid, and and the machinery to
-generate the complete internals of the bindings has been finished. A release
-with this code is imminent! New Java bindings for GTK and GNOME are a
-reality.</p>
+<span class="mono" style="font-size: xx-large; font-weight: bold;">
+@since 4.0.3 
+</span>
+<p>The new Java bindings for GTK and GNOME are a reality! With a robust
+engineering design and the machinery to generate the complete internals of the
+bindings, we are able to start working on expanding our coverage of the
+underlying libraries.</p>
 
 </div>
 
-<p>Making GTK and GNOME approachable from Java. That's what we do. See the <a
-href="objectives.php">objectives</a> page.
+<h2>Overview</h2>
 
-<p>java-gnome 4.0 is an initiative of <a
-href="http://www.operationaldynamics.com/">Operational Dynamics</a>, a Change
-Management consultancy active in the mission critical IT operations space. We
-believe that while the web is ideal for offering services, only carefully
+<p>Making GTK and GNOME approachable from Java. That's what we do! Still
+confused? <code>:)</code> No problem; the <a
+href="objectives.php">objectives</a> page explains in greater detail.
+
+<p>If you're new to java-gnome, then you want to jump straight to the <a
+href="/4.0/doc/">documentation</a> section for everything you need to get
+started.</p>
+
+<p>The latest release notes are always available in the <code><a
+href="/4.0/NEWS.html">NEWS</a></code> file; if you're already developing
+applications that use java-gnome 4.0, that's where you want to look to catch up
+on the latest changes. Other top level meta files include
+
+<code><a href="/4.0/README.html">README</a></code>,
+<code><a href="/4.0/HACKING.html">HACKING</a></code>,
+<code><a href="/4.0/AUTHORS">AUTHORS</a></code>, and
+<code><a href="http://research.operationaldynamics.com/bzr/java-gnome/mainline/LICENCE">LICENCE</a></code>
+
+
+<h2>Rationale</h2>
+
+<p>We believe that while the web is ideal for offering services, only carefully
 tailored desktop applications can provide a truly rich user experience that is
 both responsive and usable. Our choice of the GNOME Desktop is due to our
-belief that it provides a great choice for long term growth. With a vibrant
-and cosmopolitan user and developer community, GNOME is a broad platform that
-has already proved itself suitable to widely diverse requirements ranging from
+belief that it provides a great choice for long term growth. With a vibrant and
+cosmopolitan user and developer community, GNOME is a broad platform that has
+already proved itself suitable to widely diverse requirements ranging from
 corporate desktops to embedded devices across its international audience.</p>
+
+<p>java-gnome 4.0 was originally an initiative of <a
+href="http://www.operationaldynamics.com/">Operational Dynamics</a>, a Change
+Management consultancy active in the IT operations space. Although we started
+using java-gnome in order to write tools to enable our clients to define and
+work through procedures to successfully execute massive changes and upgrades,
+we now find ourselves using java-gnome to write quality GNOME programs for many
+aspects of our business and personal lives.
+
+<p>We're pleased to have been joined by dozens of developers from around the
+world who are likewise excited about the opportunity to write rich GNOME
+applications using modern tools in a powerful language unencumbered by patents
+held by companies who want to destroy the Free and Open Source Software
+movement.
+
+<p>java-gnome 4.0 is now a truly global effort with contributors from around
+the world. There is still much work to be done, of course, so please feel
+welcome to join in and contribute!
 
 <?
 	template_end();
