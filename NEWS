@@ -1,6 +1,6 @@
 NEWS
 
-<a name="4.0.3" id="1185798412" title="A generated reality"></a>
+<a name="4.0.3" id="1185883828" title="Code generator landed"></a>
 
 java-gnome 4.0.3 (31 Jul 2007)
 ==============================
@@ -17,7 +17,41 @@ is a reality!
 Generated translation and JNI layers
 ------------------------------------
 
-TODO
+The primary goal of the java-gnome 4.0 re-engineering effort has been to switch
+to an architecture whereby we could _generate_ the bulk of the machinery
+necessary to take make native calls into the GNOME libraries from Java.
+
+Extensive prototyping was done to establish the detailed design and to validate
+the architecture we had developed. Releases 4.0.0 through 4.0.2 contained this
+work along with mockups of the "translation" layer (the Java code that
+downshifts from our Proxy objects to primitives suitable to pass over the JNI
+boundary, along with the `native` declarations necessary in order to call
+methods actually written in C) and of the "JNI layer" (the C code that
+implements the methods declared in the translation layer which in turn coverts
+parameters into GLib terms and then makes the actual function call into the
+appropriate GNOME library).
+
+With a solid foundation proving that our design was sound, we subsequently
+began the long effort to implement a code generator which would output these
+Java and C layers, allowing us to replace the `mockup/` directory and at last
+leave behind the shackles of entirely hand written bindings. Over the past five
+months, the java-gnome hackers have been steadily working on the 'codegen'
+branch. The nature of the challenge meant that we had to have most of the code
+in place before any of it would be useful -- never an enviable task to be
+working on. Thanks to the hard work of Andrew Cowie, Vreixo Formoso Lopes, and
+Srichand Pendyala, we reached the point  where the output Java code compiled in
+May, and the output C code successfully compiled in by the end of June.
+Tremendous.
+
+We've been bug hunting and refining since then, pushing towards the point where
+we could merge back to 'mainline', at last replacing the hand written mockup
+code. We are today pleased to announce the culmination of that work with the
+release of java-gnome 4.0.3.
+
+_This post on the [development of the java-gnome code generator][codegen]
+contains further details should you be interested; the file
+[5a-Architecture.txt][architecture] in the `doc/design/` directory of the
+source code explains the rationale and origin of the engineering design._
 
 New coverage
 ------------
@@ -33,42 +67,158 @@ way:
 * **`org.gnome.gtk.Frame`**
 * **`org.gnome.gtk.Calendar`**
 * **`org.gnome.gtk.Notebook`**
+* **`org.gnome.gtk.Image`**
 * **`org.gnome.gtk.Menu`**
 * **`org.gnome.gtk.MenuBar`**
 * **`org.gnome.gtk.MenuItem`**
 * **`org.gnome.gtk.ToggleButton`**
 * **`org.gnome.gtk.CheckButton`**
 
-Most of these are just the beginnings, but MORE TODO
+which are largely to the credit of Sebastian Mancke for having submitted them
+and Srichand Pendyala for having fixed up their JavaDoc. There have also been
+steady improvements to a number of other classes; notably further signals and
+utility methods exposed in:
 
-People upgrading from 4.0.2 will actually notice that there are stubs for _all_
-of the public API classes; this was necessary to make the generated code
-compile, but most of these are empty for now.
+* **`org.gnome.gtk.Widget`**
+* **`org.gnome.gtk.Container`**
+
+along with some preliminary coverage of the lower level GDK event machinery:
+
+* **`org.gnome.gdk.Event`**
+* **`org.gnome.gdk.EventType`**
+
+As is reasonable given our focus on writing the actual translation and JNI
+layer generators, most of these present only one or two methods from the
+underlying native class. Coverage will steadily improve as people contribute
+their knowledge and experience in documentation form.
+
+_People upgrading from 4.0.2 will actually notice that there are stubs for
+**all** of the public API classes; this was necessary to make the generated
+code compile. Most of these are empty as yet._
+
+GList and friends
+-----------------
+
+`GList` and `GSList` are the native GLib data structures used to represent
+lists and are the return type from quite a few methods across GTK. Vreixo
+Formoso Lopes worked out how to handle and working our wrap/unwrap functions
+for us to use in the JNI layer made a significant contribution to reducing our
+blacklisted method count.
 
 Flags
 -----
 
 We've also worked out handling of native types that, while type defined as
-enums are actually bit fields:
+enums, are actually bit fields. These are used occasionally in GTK to express
+options; two examples now exposed are:
 
 * **`org.gnome.gtk.CalendarDisplayOptions`**
-* **`org.gnome.gtk.WindowState`**
+* **`org.gnome.gdk.WindowState`**
+
+Flags subclasses present an `or()` function allowing you to combine individual
+Flags constants into a new composite Flags object. Yes it's a lot of machinery
+to do a logical `|`, but being strongly typed is a hallmark of java-gnome.
+
+Build improvements
+------------------
+
+No release would be complete without mentioning that the code builds on more
+systems than it did before! Thanks to Maciej Piechotka and Srichand Pendyala
+for fixing problems resulting from Debian and Ubuntu strangeness.
+
+The build internally now uses an optimized script that takes into account that
+even though the code generator may have run the translation and jni files may
+not actually be different. This was causing problems as Make only looks at file
+modification time. Instead, `build/faster` (great name, huh?) will only rebuild
+a target when source contents have changed. This was necessary for bindings
+hackers working in Eclipse; every time a file was saved Eclipse would merrily
+spawn off an auto-build which sooner or later would block the IDE UI. Yuk.
+Addressing this has also resulted in a faster build for everyone; all good.
+
+The internal build script _should_ be transparent; you still run `./configure`
+and `make` as before. If you experience problems let us know.
 
 Thread safety
 -------------
 
-We have also worked out a comprehensive [thread safety][thread] strategy. This
-makes java-gnome 4.0 the first and only thread safe graphical user interface
-widget toolkit for Java!
+In addition to the code generator, java-gnome 4.0.3 incorporates a
+comprehensive thread safety strategy. 
 
-[codegen]: http://research.operationaldynamics.com/blogs/andrew/software/java-gnome/#code-generator-cometh
-[thread]: http://research.operationaldynamics.com/blogs/andrew/software/java-gnome/#thread-safety-for-java
+None of the major Java graphical toolkits out there let you make GUI calls from
+threads other than the "main" one; they're all single threaded. Even if all you
+want to do is a quick worker thread to carry out some input validation in the
+background after the user presses "OK", you have to jump through horrific
+contortions to do so safely, resulting in cumbersome, clunky code.
 
-These innovations represent the culmination of an immense amount of work
-towards realizing java-gnome as a viable platform for GTK and GNOME
-development.
+By contrast, the new Java bindings of GTK presented in java-gnome are
+**transparently thread safe**, the first and only graphical user interface
+widget toolkit for Java to be so! We integrate properly with the underlying GDK
+thread lock and as a result you can safely make calls to various GTK methods
+from worker threads! This has been a long sought after goal and we hope a
+significant contribution to helping developers write elegant code.
+
+Every call made to the native libraries is protected by entering the "GDK lock"
+[that's `gdk_threads_enter/leave()` for those familiar with the C side of
+things]. The lock used is actually a Java side `synchronized` monitor and
+therefore reentrant; nested calls all behave properly. When in a signal handler
+callback the GDK lock is already held (you're "in" the main loop when a
+callback happens), but since it just works transparently you don't need to
+worry about it. If you do find a need to take the lock into account explicitly
+in your own code, see `Gdk.lock` in `org.gnome.gdk`.
+
+_It is worth noting that we have been warned that there are certain to be
+places in the underlying libraries that do not yet live up to the requirements
+of the GDK threads model -- thus we will likely end up tripping over such
+things as we slowly add API coverage. We regard such inevitable instances as an
+opportunity to help contribute to improving the stability of the underlying
+libraries and will actively work with their maintainers to identify and resolve
+such issues. Nevertheless, in testing thus far our multi-threaded use of GTK
+has been rock solid. See these posts on [GTK thread
+"awareness"][gtk-thread-awareness] and [java-gnome's thread
+strategy][java-gnome-thread] if you wish further details on our approach to the
+thread safety question._
+
+Thanks in particular to Owen Taylor for having helped us navigate these waters!
+
+Looking ahead
+-------------
+
+Taken together, these innovations represent the culmination of an immense
+amount of work towards realizing java-gnome as a viable platform for GTK and
+GNOME development.
+
+Obviously with the generated translation layer in place the opportunity at last
+exists to start dramatically improving our coverage level, and we welcome
+contributions to this end. Prospective hackers are cautioned, however, that
+simply wrapping generated methods is insufficient -- public API will only be
+added when it is clearly documented and meets the [approachability][objectives]
+criterion.
+
+There are still areas where the code generator needs to be improved; we need to
+improve our handling for arrays, lists, and out-parameters -- there are
+numerous permutations with all sorts of ugly corner cases.
+
+Now that Free Java with support for generics is becoming widely available,
+4.0.3 will be the last release holding the language level to Java 1.4; starting
+the next cycle 1.5 will be the minimum language requirement and we will be
+leveraging generics and other 1.5 features from here on.
+
+Most importantly, the primary focus of the next few months will be developing a
+quality binding for the backbone of many applications: the `TreeView` Widget
+and the underlying `TreeModel` which powers it. The APIs in the native library
+is hideously complicated and has long been the source of confusion and pain for
+developers in C; it has long been a major goal amongst the java-gnome hackers
+to present a public API with as friendly and usable an interface as possible.
+It'll be a good challenge.
 
 AfC
+
+[architecture]: /4.0/doc/design/5a-Architecture.html
+[codegen]: http://research.operationaldynamics.com/blogs/andrew/software/java-gnome/code-generator-cometh.html
+[objectives]: /4.0/objectives.php
+[gtk-thread-awareness]: http://research.operationaldynamics.com/blogs/andrew/software/gnome-desktop/gtk-thread-awareness.html
+[java-gnome-thread]: http://research.operationaldynamics.com/blogs/andrew/software/java-gnome/thread-safety-for-java.html
+
 
 <a name="4.0.2" id="1171283501" title="End of the beginning"></a>
 

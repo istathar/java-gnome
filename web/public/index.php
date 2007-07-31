@@ -45,15 +45,16 @@
 GTK widget toolkit and for the rich family of libraries making up the GNOME
 desktop.</p>
 
-<p>In 2006, a complete re-engineering of the bindings was initiated. That
-work is now the major focus of the project going forward:
+<p>In 2006, a complete re-engineering of the bindings was initiated, and
+that work has resulted in the new:
 
 <p style="padding-left: 50px;">
 <a class="subject" href="/4.0/"><img align="texttop" src="/images/openoffice_ImpressNextSlide.jpg" style="padding-right: 10px;" border="0"></a>
 <a class="subject" href="/4.0/">java-gnome 4.0</a>
 </p>
 
-<p>The original bindings are still available, though no longer maintained:
+<p>The original bindings are available only, though only for historical
+interest:
 
 <p style="padding-left: 50px;">
 <a class="subject" href="/2.x/"><img align="texttop" src="/images/openoffice_ImpressNextSlide.jpg" style="padding-right: 10px;" border="0"></a>

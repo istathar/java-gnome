@@ -18,7 +18,7 @@
 <?
 	template_header();
 ?>
-<title>java-gnome 2.x</title>
+<title>java-gnome 2.x - DO NOT USE</title>
 <style>
 div.box {
 	background-color: #DDDDDD;
@@ -48,30 +48,26 @@ stable, but have reached end-of-life and are no longer being developed or
 supported by anyone.</p> </div>
 
 <p>The original java-gnome project was written by <b>five</b> successive teams
-of hackers from 1998-2006. That's <b>nine</b> years! java-gnome  2.<span
-class="x">x</span> is reasonably stable and, for what coverage there is, quite
-mature. A number of applications use it.</p>
+of hackers from 1998-2006. That's <b>nine</b> years!</p>
 
 <p>Unfortunately, there has been almost zero new coverage activity over the
 past several years and the code that is there is full of cruft, inefficiency,
-bugs, and serious memory leaks. The codebase, spread across <b>seven</b>-plus
-libraries, was virtually impossible to maintain. The website was hideously out
-of date and the quality of examples poor. Worst of all, it was exceedingly
-difficult for new people to learn how to contribute to java-gnome 2.<span
-class="x">x</span>, and as a result it has largely been abandoned.</p>
+bugs, and serious memory leaks. Its codebase was spread across
+<b>seven</b>-plus libraries, and it was virtually impossible to maintain. Its
+website was hideously out of date and the quality of examples poor. Worst of
+all, it was exceedingly difficult for new people to learn how to contribute to
+java-gnome 2.<span class="x">x</span>, and as a result was abandoned in October
+2006.</p>
 
-<p>Addressing these issues are ultimately the major motivating factors for
-having undertaken the re-engineering effort which led to java-gnome 4.0.  This
-page is for historical reference and to honour the hard work of the fine team
-of <a class="nav-black" href="AUTHORS">contributors, hackers, and
+<p>This page is for historical reference and to honour the hard work of the
+fine team of <a class="nav-black" href="AUTHORS">contributors, hackers, and
 maintainers</a> who wrote the first generations of the Java bindings for GTK
 and GNOME. We owe them a debt of gratitude.</p>
 
-<h2>Latest Releases</h2>
+<h2>Last Releases</h2>
 
-java-gnome <code>2.16.2</code> is the most recent, and likely last, release of
-the <code>2.</code><span class="x">x</span> series. It consists of the
-following libraries:
+java-gnome <code>2.16.2</code> was the last release of the <code>2.</code><span
+class="x">x</span> series. It consisted of the following libraries:
 
 <pre style="background-color: white;">
 	<a style="text-decoration: none;" href="http://ftp.gnome.org/pub/gnome/sources/glib-java/0.4/glib-java-0.4.2.tar.bz2">glib-java     0.4.2</a>
@@ -83,21 +79,25 @@ following libraries:
 	<a style="text-decoration: none;" href="http://ftp.gnome.org/pub/gnome/sources/libvte-java/0.12/libvte-java-0.12.3.tar.bz2">libvte-java   0.12.3</a>
 </pre>
 
-<p>There is little reason to start a new project in java-gnome 2.<span
-class="x">x</span>, but if you have an existing application that uses the old
+<p>There is no reason whatsoever to start a new project in java-gnome 2.<span
+class="x">x</span>. Despite the version numbers above, coverage never made it 
+past GTK 2.6</p>
+
+<p>If you have an existing application that uses the old
 bindings, the you are advised to upgrade to the latest versions of these
-libraries available, as they contain bug fixes of considerable importance.
+libraries available, as they contain bug fixes of considerable importance. Even
+then it'll probably crash.
 
 <p>From this point forward, however, each of the packages making up java-gnome
-<code>2.16.2</code> have been declared end-of-life and the APIs used have been
-formally deprecated. It is no longer being actively maintained by anyone from
-the previous or present java-gnome teams. Contributed patches will only be
-applied if they address a serious security vulnerability.</p>
+<code>2.16.2</code> have been <b>declared end-of-life</b> and the APIs used
+have been formally deprecated. It is no longer being maintained by anyone from
+the previous or present java-gnome teams. As these bindings have been
+abandoned, contributed patches will not be accepted.</p>
 
 <p>Please note that several other libraries are available in the old java-gnome
 family; none of them achieved release quality, were abandoned as early as
-java-gnome 2.8, and probably don't build anyway. As such you are strongly
-discouraged from trying to use them:</p>
+java-gnome 2.8, and probably don't build anyway. Don't even think about trying
+to use them:</p>
 
 <pre style="background-color: white;">
 	<a style="text-decoration: none;" href="http://ftp.gnome.org/pub/gnome/sources/libeds-java/0.5/libeds-java-0.5.1.tar.bz2">libeds-java   0.5.1</a>

@@ -44,9 +44,9 @@ a.directory {
 </div>
 
 
-<p><i>As java-gnome 4.0 is presently in the prototype stage, the documentation
-part of this website is by no means complete. In particular, tutorials to get
-people started and guides about how to use the more complex APIs are yet to
+<p><i>As java-gnome 4.0 is still a young project, the documentation part of
+this website is by no means complete. In particular, tutorials to get people
+started and guides about how to use the more complex APIs are yet to
 come.</i></p>
 
 <h1>Getting Started</h1>
@@ -133,7 +133,7 @@ friction. If you'd like to ensure that code or documentation you might choose
 to send in will be accepted, please read the documents in the
 <code>doc/style/</code> directory carefully. They are in essence an extension
 of the <code>HACKING</code> file and together with the design documentation
-tell you everything you need to know to hack on java-gnome.
+tell you everything you need to know to be able to contribute to java-gnome.
 
 <?
 	template_end();
