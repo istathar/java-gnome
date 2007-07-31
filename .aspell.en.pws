@@ -1,4 +1,4 @@
-personal_ws-1.1 en 978 
+personal_ws-1.1 en 984 
 EnumValue
 getActive
 refactor
@@ -100,6 +100,7 @@ fmt
 Kedzierski
 touples
 inline
+GSList
 runDemo
 NetBeans
 boxedFor
@@ -199,6 +200,7 @@ demuxed
 putWidget
 setSubmenu
 nJava
+Maciej
 mem
 symlinks
 jvm
@@ -666,6 +668,7 @@ endswith
 endsWith
 nowrap
 apiversion
+GList
 connectSignal
 tabLabel
 moveWidget
@@ -778,6 +781,7 @@ WindowState
 GObjects
 setCurrentPage
 getCode
+reentrant
 MenuBars
 configFile
 gpointer
@@ -818,6 +822,7 @@ removePage
 GtkButton
 unregisterProxy
 getMaxLength
+multi
 getFlags
 ensureDirectory
 testRemovingAfterNoLongerReachableInBothSides
@@ -869,6 +874,7 @@ IOException
 ComeOnBabyLightMyFire
 onToggled
 setVisibility
+Piechotka
 isdir
 subdirectory
 ExceptionDescribe

@@ -105,6 +105,10 @@ movement.
 the world. There is still much work to be done, of course, so please feel
 welcome to join in and contribute!
 
+<h2>Warning</h2>
+
+<p><i>Please note that we will not be declaring API stable (which, under the GNOME release definitions inevitably means "frozen forever") until java-gnome 4.2.0; method signatures are subject to change. This gives us an opportunity to learn from mistakes and to ensure the bindings reach the extreme quality and usability standards we aspire to.</i>
+
 <?
 	template_end();
 ?>
