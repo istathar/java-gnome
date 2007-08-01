@@ -193,4 +193,41 @@ public abstract class Widget extends org.gnome.gtk.Object
     public Container getParent() {
         return (Container) getPropertyObject("parent");
     }
+
+    /**
+     * Set whether the Widget is greyed out or not. Being insensitive is the
+     * term GTK uses for a Widget that is still in its parent layout and still
+     * visible on the screen, but no longer responding to user input and
+     * de-emphasized on the screen.
+     * 
+     * <p>
+     * This is frequently used on Buttons and MenuItems to show that a given
+     * course of action is not currently available, but <i>would</i> be if
+     * the user did something different to the application. This can be a
+     * terrific hint to assist with discovery, but can be overdone; having
+     * everything insensitive and leaving the user no idea what to do next
+     * doesn't really help much.
+     * 
+     * <p>
+     * Beware that setting the sensitive property cascades down through the
+     * hierarchy of any children packed into this Widget in the same way that
+     * {@link #showAll() showAll()} is recursive. While this is usually great
+     * for <i>de</i>sensitizing an entire Window, the catch is that if you
+     * <i>re</i>sensitize that same Window <b>every</b> Widget within it
+     * will return to being sensitive; there's no "memory" of which might have
+     * been insensitive before. Thus if you heavily use a mix of sensitive and
+     * insensitive states in a Window and desensitize the whole thing while
+     * carrying out input validation in a worker thread, you will be left with
+     * the task of manually restoring the sensitive state of the various sub
+     * components of your UI should you need to return back to that Window to
+     * have the user re-enter something.
+     * 
+     * @param sensitive
+     *            <code>true</code> to have the Widget respond as normal,
+     *            and <code>false</code> to de-activate the Widget and have
+     *            it "grey out".
+     */
+    public void setSensitive(boolean sensitive) {
+        GtkWidget.setSensitive(this, sensitive);
+    }
 }
