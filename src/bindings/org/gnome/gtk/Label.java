@@ -110,6 +110,15 @@ public class Label extends Misc
     }
 
     /**
+     * Get the current setting indicating whether the the label text is to be
+     * interpreted as marked up with Pango's text markup language. When enabled,
+     * the label can show formatted text instead of just a simple line of text.
+     */
+    public boolean getUseMarkup() {
+        return GtkLabel.getUseMarkup(this);
+    }
+
+    /**
      * Sets the angle of rotation for the Label. The angle is measured in
      * degrees from the horizontal, going counter-clockwise. An angle of
      * 90&#176; reads from bottom to top, an angle of 270&#176; from top to
