@@ -2,7 +2,7 @@
 /*
  * solaris.php
  *
- * Copyright (c) 2006 Operational Dynamics Consulting Pty Ltd
+ * Copyright (c) 2006-2007 Operational Dynamics Consulting Pty Ltd
  * 
  * This file comprises part of the infrastructure and content of the
  * java-gnome project website. As such, it is conveyed alongside the source
@@ -45,7 +45,7 @@ bindings library:
 <p>As java-gnome 4.0 is a completely new from-the-ground-up implementation, it
 depends on a very modern version of GLib, GTK, and the other libraries in the
 GNOME stack. An installation of JDS <code class="highlight">x.y</code> (which
-is GNOME 2.16.<span class="x">x</span>) or newer will certainly have all the
+is GNOME 2.18.<span class="x">x</span>) or newer will certainly have all the
 necessary prerequisites present.</p>
 
 <?

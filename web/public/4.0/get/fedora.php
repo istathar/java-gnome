@@ -2,7 +2,7 @@
 /*
  * fedora.php
  *
- * Copyright (c) 2006 Operational Dynamics Consulting Pty Ltd
+ * Copyright (c) 2006-2007 Operational Dynamics Consulting Pty Ltd
  * 
  * This file comprises part of the infrastructure and content of the
  * java-gnome project website. As such, it is conveyed alongside the source
@@ -33,8 +33,8 @@ such should be present in any recent Red Hat Linux system.</p>
 <p>The following command will install the latest released version of the
 bindings library:
 
-<p><span class="highlight">FIXME</span> (do we need to point people at
-a special package repository?</p>
+<p><span class="highlight">FIXME</span> <i>do we need to point people at
+a special package repository?</i></p>
 
 <pre>
 # yum install java-gnome
@@ -43,9 +43,9 @@ a special package repository?</p>
 <p>As java-gnome 4.0 is a completely new from-the-ground-up implementation, it
 depends on a very modern version of GLib, GTK, and the other libraries in the
 GNOME stack. While Fedora Core typically ships only a few months off the GNOME
-release cycle, Red Hat Enterprise Linux is at times years behind, so you may
-find you have to take extra steps to ensure the necessary prerequisites are
-present. A Red Hat system with GNOME 2.16.<span class="x">x</span> installed
+release cycle, Red Hat Enterprise Linux is at times <i>years</i> behind, so you
+may find you have to take extra steps to ensure the necessary prerequisites are
+present. A Red Hat system with GNOME 2.18.<span class="x">x</span> installed
 should be more than sufficient.</p>
 
 <?
