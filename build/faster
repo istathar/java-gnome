@@ -28,7 +28,8 @@
 # ahead with a full rebuild, costing over 5 minutes of CPU time.
 #
 # So this program takes an md5sum of each source file at each step, only
-# invoking the external program for that target if 
+# invoking the external program for that target if the files have actually
+# changed since the last run.
 #
 # No, this is not some grand replacement for all the worlds problems. It's a
 # quick hack. I said so already. And it's entirely custom for building
@@ -283,7 +284,7 @@ def compileJavaCode(outputDir, classpath, sourcepath, sources):
 	cmd = config['JAVAC'] + " "
 	cmd += "-d " + outputDir
 	if classpath:
-		   cmd += " -classpath " + classpath
+		cmd += " -classpath " + classpath
 	if sourcepath:
 		cmd += " -sourcepath " + sourcepath
 	cmd += " " + " ".join(sources)
