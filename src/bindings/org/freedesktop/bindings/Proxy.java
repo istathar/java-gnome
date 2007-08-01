@@ -30,7 +30,6 @@ package org.freedesktop.bindings;
  */
 public abstract class Proxy
 {
-
     /*
      * This is an opaque representation of a memory address. It's a Java long,
      * which means it's 64 bits wide which in turn means it can hold an
@@ -46,15 +45,18 @@ public abstract class Proxy
      * This it the top of the constructor chain.
      */
     protected Proxy(long pointer) {
+        if (pointer == 0L) {
+            throw new RuntimeException("Cannot make a Java proxy for the NULL pointer!");
+        }
         this.pointer = pointer;
 
         Plumbing.registerProxy(this);
     }
 
     /**
-     * Parent release function. Will be called by the GC when it invokes the
-     * finalizer, so this is the time to release references and free memory on
-     * the C side.
+     * Parent release function. Will be called by the Java garbage collector
+     * when it invokes the finalizer, so this is the time to release
+     * references and free memory on the C side.
      */
     protected abstract void release();
 
