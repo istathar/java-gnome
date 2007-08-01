@@ -45,6 +45,7 @@ hashes = {}
 verbose = False
 
 configFile = ".config"
+versionFile = "src/bindings/org/gnome/gtk/Version.java"
 hashFile = "tmp/.hashes"
 
 GNOME_MODULES = "gthread-2.0 glib-2.0 gtk+-2.0 gtk+-unix-print-2.0 libglade-2.0"
@@ -64,10 +65,18 @@ GNOME_MODULES = "gthread-2.0 glib-2.0 gtk+-2.0 gtk+-unix-print-2.0 libglade-2.0"
 
 def loadConfig():
 	global config
-	if not isfile(configFile):
+	if ((not isfile(configFile)) or (getmtime(configFile) < getmtime(versionFile))):
 		print
-		print "You must run ./configure before trying to build java-gnome"
-		print
+		print "You need to run ./configure to check prerequisites"
+		print "and setup preferences before you can build java-gnome."
+
+		if not os.access("configure", os.X_OK):
+			print "I'll make it executable for you."
+			print
+			executeCommand("CHMOD", "configure", "chmod +x configure")
+		else:
+			print
+
 		sys.exit(1)
 	try:
 		cfg = open(configFile, "r")

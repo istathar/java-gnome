@@ -23,18 +23,7 @@ else
 all: build-java
 endif
 
-.PHONY: test demo doc clean distlcean sleep install
-
-# [this  will be called by the above include if .config is missing.
-# We don't call ./configure automatically to allow scope for
-# manual configuration and overrides]
-.config: src/bindings/org/gnome/gtk/Version.java
-	echo
-	echo "You need to run ./configure to check prerequisites"
-	echo "and setup preferences before you can build java-gnome."
-	( if [ ! -x configure ] ; then chmod +x configure ; echo "I just made it executable for you." ; fi )
-	echo
-	exit 1
+.PHONY: test demo doc clean distlcean install
 
 
 # --------------------------------------------------------------------
