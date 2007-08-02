@@ -30,6 +30,7 @@ package org.gnome.gtk;
  * 
  * @author Andrew Cowie
  * @author Srichand Pendyala
+ * @author Wouter Bolsterlee
  * @since 4.0.1
  */
 public class Label extends Misc
@@ -107,6 +108,18 @@ public class Label extends Misc
      */
     public void setUseMarkup(boolean setting) {
         GtkLabel.setUseMarkup(this, setting);
+    }
+
+    /**
+     * Get the current setting indicating whether the the label text is to be
+     * interpreted as marked up with Pango's text markup language. When
+     * enabled, the label can show formatted text instead of just a simple
+     * line of text.
+     * 
+     * @since 4.0.4
+     */
+    public boolean getUseMarkup() {
+        return GtkLabel.getUseMarkup(this);
     }
 
     /**

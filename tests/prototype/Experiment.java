@@ -2,7 +2,7 @@
  * Experiment.java
  *
  * Copyright (c) 2006-2007 Operational Dynamics Consulting Pty Ltd
- * 
+ *
  * The code in this file, and the library it is a part of, are made available
  * to you by the authors under the terms of the "GNU General Public Licence,
  * version 2" See the LICENCE file for the terms governing usage and
@@ -49,7 +49,8 @@ public final class Experiment
 
         x = new VBox(false, 3);
 
-        l = new Label("These Buttons\n" + "are made for\n" + "clicking.");
+        l = new Label("These Buttons\nare <b>made</b> for\nclicking.");
+        l.setUseMarkup(true);
         x.packStart(l, true, true, 0);
 
         b = new Button("Change Me?");
@@ -102,3 +103,4 @@ public final class Experiment
         System.out.println("Bye now.");
     }
 }
+
