@@ -103,8 +103,13 @@ bindings_java_memory_deref
 )
 {
         GObject* object;
-        
+
         object = (GObject*) data;
+        
+                
+	if (DEBUG_MEMORY_MANAGEMENT) {
+		g_print("mem: drop GObject ref\t\t%ld\n", (long) object);
+	}
         g_object_unref(object);
         return FALSE;
 }       
@@ -174,6 +179,10 @@ bindings_java_memory_ref
 	if (G_IS_INITIALLY_UNOWNED(object)) {
 		if (!g_object_is_floating(object)) {
 			return;
+		}
+		        
+		if (DEBUG_MEMORY_MANAGEMENT) {
+			g_print("mem: sink GObject ref\t\t%ld\n", (long) object);
 		}
 		g_object_ref_sink(object);
 	}

@@ -226,6 +226,7 @@ public abstract class Widget extends org.gnome.gtk.Object
      *            <code>true</code> to have the Widget respond as normal,
      *            and <code>false</code> to de-activate the Widget and have
      *            it "grey out".
+     * @since 4.0.4
      */
     public void setSensitive(boolean sensitive) {
         GtkWidget.setSensitive(this, sensitive);

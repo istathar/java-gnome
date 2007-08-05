@@ -13,17 +13,57 @@ package org.gnome.gdk;
 
 import org.gnome.glib.Object;
 
-/*
- * FIXME this is a placeholder stub for what will become the public API for
- * this type. Replace this comment with appropriate javadoc including author
- * and since tags. Note that the class may need to be made abstract, implement
- * interfaces, or even have its parent changed. No API stability guarantees
- * are made about this class until it has been reviewed by a hacker and this
- * comment has been replaced.
+/**
+ * Representation of a physical monitor screen. You can get the Screen object
+ * for one of your application's Windows by calling Window's
+ * {@link org.gnome.gtk.Window#getScreen() getScreen()} method; it you want
+ * the width and height of the screen your Window is on, you're in the right
+ * place.
+ * 
+ * <p>
+ * A Screen is typically one monitor, but could actually be more; it depends
+ * on how your X server is configured. A Display, in turn, is made up of one
+ * or more Screens; again it depends.
+ * 
+ * <p>
+ * <i>With the advent of the</i> <code>XINERAMA</code> <i>extension in the</i>
+ * XFree <i>and later</i> X.org <i>X Windows servers, you tend to find that
+ * what would have been multiple Screens have been (transparently) merged and
+ * stretched to run over an entire multi-headed Display. This works out better
+ * (single mouse and keyboard works over the entire desktop, as does cut and
+ * paste, dragging, etc) and since the window manager is aware of the
+ * situation, it can maximize Windows properly to be only on one physical
+ * screen as you'd expect and desire.</i>
+ * 
+ * <p>
+ * <i>As a result, the distinction between Screen and Display is nowadays
+ * somewhat blurred. In practise you can treat them synonymously especially
+ * since their methods don't overlap. Frankly, this is all another classic
+ * case of "don't second guess the window manager"; just let it do it's job
+ * and leave the Window placement alone.</i>
+ * 
+ * @author Andrew Cowie
+ * @since 4.0.4
+ * @see Display
+ * @see <span>The <code>X</code>(7) man page on your system</span>
  */
 public class Screen extends Object
 {
     protected Screen(long pointer) {
         super(pointer);
+    }
+
+    /**
+     * Get the horizontal width of this Screen, in pixels.
+     */
+    public int getWidth() {
+        return GdkScreen.getWidth(this);
+    }
+
+    /**
+     * Get the vertical height of this Screen, in pixels.
+     */
+    public int getHeight() {
+        return GdkScreen.getHeight(this);
     }
 }

@@ -43,6 +43,17 @@ Java_org_gnome_gtk_Gtk_gtk_1init
 	g_set_prgname("java-gnome");
 	// call function
 	gtk_init(0, NULL);
+	
+	/*
+	 * Work around for what may be bug #85715. It appears that the root
+	 * window is not given an initial Ref by GDK; if you call Window's
+	 * getScreen() the resultant org.gnome.gdk.Screen's ToogleRef is the
+	 * only ref count, and when we go through a garbage collection cycle
+	 * the ref count drops to zero, resulting in an attempt to "destroy
+	 * the root window" which, needless to say, GDK objects to somewhat
+	 * vehemently.
+	 */
+	g_object_ref(gdk_screen_get_default());
 }
 
 

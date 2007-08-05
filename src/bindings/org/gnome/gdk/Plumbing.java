@@ -23,6 +23,18 @@ public abstract class Plumbing extends org.gnome.glib.Plumbing
 {
     protected Plumbing() {}
 
+    static {
+        /*
+         * When you call getScreen(), the object returned appears to be a
+         * sublcass of GdkScreen, in this case GdkScreenX11. It doesn't seem
+         * to be public, thus making GdkScreen the "concrete interface" to it
+         * anyway. This actually reflects the fact that we don't have an
+         * architectural treatment for dealing with getting GObject instances
+         * back that are subtypes we don't know about.
+         */
+        registerType("GdkScreenX11", org.gnome.gdk.Screen.class);
+    }
+
     /**
      * GdkEvent is a union, which would ordinarily present an insurmountable
      * problem, but since the GdkEvent structures all begin with a

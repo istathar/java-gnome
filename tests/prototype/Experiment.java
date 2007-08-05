@@ -10,6 +10,7 @@
  */
 
 import org.gnome.gdk.Event;
+import org.gnome.gdk.Screen;
 import org.gnome.gtk.Button;
 import org.gnome.gtk.FileChooser;
 import org.gnome.gtk.FileChooserAction;
@@ -44,6 +45,7 @@ public final class Experiment
         final Label l;
         final Button b;
         final FileChooserButton fcb;
+        final Screen s;
 
         w = new Window();
 
@@ -65,6 +67,9 @@ public final class Experiment
 
         w.setTitle("Exp");
         w.showAll();
+
+        s = w.getScreen();
+        w.move(s.getWidth() - 200, s.getHeight() - 200);
 
         b.connect(new Button.CLICKED() {
             public void onClicked(Button source) {
@@ -103,4 +108,3 @@ public final class Experiment
         System.out.println("Bye now.");
     }
 }
-

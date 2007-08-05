@@ -318,4 +318,11 @@ public class Window extends Bin
 
         return y[0];
     }
+
+    /**
+     * Get the Screen that this Window is on.
+     */
+    public Screen getScreen() {
+        return GtkWindow.getScreen(this);
+    }
 }
