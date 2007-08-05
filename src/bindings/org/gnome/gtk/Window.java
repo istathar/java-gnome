@@ -12,6 +12,8 @@
 package org.gnome.gtk;
 
 import org.gnome.gdk.Event;
+import org.gnome.gdk.Gravity;
+import org.gnome.gdk.Screen;
 
 /**
  * The top level Widget that contains other Widgets. Typical examples are
@@ -150,7 +152,7 @@ public class Window extends Bin
     /**
      * Set a new constraint for the position that the Window will be rendered
      * on the screen. Note that this is not always honoured by window
-     * managers, see {@link WindowPosition}.
+     * managers, but it's a good start.
      * 
      * <p>
      * Somewhat unusually, if the new value for <code>position</code> is
@@ -159,6 +161,7 @@ public class Window extends Bin
      * position.
      * 
      * @since 4.0.3
+     * @see WindowPosition
      */
     public void setPosition(WindowPosition position) {
         GtkWindow.setPosition(this, position);
@@ -225,5 +228,94 @@ public class Window extends Bin
 
     public void connect(DELETE_EVENT handler) {
         GtkWidget.connect(this, handler);
+    }
+
+    /**
+     * Request that the Window be moved to the specified co-ordinates. As with
+     * other Window operations, the window manager running on the display may
+     * or may not service the request; in particular sometimes find that
+     * initial placement is overridden by the window manager.
+     * 
+     * <p>
+     * <code>x</code> and <code>y</code> are in pixels.
+     * 
+     * <p>
+     * Chances are
+     * {@link org.gnome.gtk.Window#setPosition(org.gnome.gtk.WindowPosition) setPosition()}
+     * will do what you want more easily than manually moving the Window.
+     * 
+     * <p>
+     * <i>The co-ordinates <code>x</code>, <code>y</code> are with
+     * respect to the reference point specified by the "gravity" in effect for
+     * this Window; since the default is</i>
+     * {@link Gravity#NORTH_WEST NORTH_WEST}<i>, x and y mean what you want
+     * them to: horizontal and vertical distance of the top-left corner of the
+     * Window from the top-left corner, respectively.</i>
+     * 
+     * @since 4.0.4
+     */
+    public void move(int x, int y) {
+        GtkWindow.move(this, x, y);
+    }
+
+    /**
+     * Set the interpretation of co-ordinates passed to
+     * {@link #move(int, int)} and returned by
+     * {@link #getPositionX() getPosition()}.
+     * 
+     * <p>
+     * <i>The window manager specification has long been notorious for not
+     * actually being a spec; it's more a collection of guesses, assumptions,
+     * and outright lies. Unsurprisingly, then, even a window manager that
+     * wants to do the right thing can't get it right because there isn't
+     * actually a correct answer. Gravity is a case in point, apparently. You
+     * might as well consider that things are broken and stick with the
+     * default, NORTH_WEST. If you insist on using this anyway, keep in mind
+     * that users may experience widely varying results.</i>
+     * 
+     * @since 4.0.4
+     */
+    public void setGravity(Gravity gravity) {
+        GtkWindow.setGravity(this, gravity);
+    }
+
+    /**
+     * Get the position of the Window frame (x co-ordinate). This is relative
+     * to the Window's gravity setting; since the default is
+     * {@link Gravity#NORTH_WEST} this usually means horizontal distance from
+     * the top-left corner, which is the normal usage on X displays.
+     * 
+     * <p>
+     * <i>Apparently this is not entirely reliable; X itself does not provide
+     * an authoritative means to determine the dimensions of any decorations
+     * the window manager might have applied around a Window, and so GTK does
+     * its best to guess the necessary adjustments that "should work with sane
+     * window managers". We leave it as an exercise to the reader to define
+     * sanity.</i>
+     * 
+     * @since 4.0.4
+     */
+    public int getPositionX() {
+        int[] x = new int[1];
+        int[] y = new int[1];
+
+        GtkWindow.getPosition(this, x, y);
+
+        return x[0];
+    }
+
+    /**
+     * Get the position of the Window frame (y co-ordinate). See
+     * {@link #getPositionX()} for details.
+     * 
+     * @since 4.0.4
+     */
+    public int getPositionY() {
+        int[] x = new int[1];
+        int[] y = new int[1];
+
+        GtkWindow.getPosition(this, x, y);
+
+        return y[0];
     }
 }

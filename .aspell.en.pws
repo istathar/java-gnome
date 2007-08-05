@@ -1,4 +1,4 @@
-personal_ws-1.1 en 986 
+personal_ws-1.1 en 993 
 EnumValue
 getActive
 refactor
@@ -208,6 +208,7 @@ VSeparator
 compileBindingsObjects
 structs
 originalLabel
+getScreen
 xalign
 textwidth
 assertNull
@@ -251,8 +252,10 @@ accessors
 numOf
 UnsatisfiedLinkError
 IllegalArgumentException
+getPositionX
 ool
 onKeyPressEvent
+getPositionY
 createFixed
 GSourceFunc
 nto
@@ -333,6 +336,7 @@ IJLjava
 GetStaticMethodID
 RuntimeException
 kaffec
+getPosition
 DeleteGlobalRef
 tmp
 setFraction
@@ -398,6 +402,7 @@ EventScroll
 getAlignment
 gcjC
 Wno
+setFullscreen
 gcjh
 packStart
 EventExpose
@@ -614,6 +619,7 @@ BindingsGenerator
 testObjectNeverUsedIsRemoved
 GLib's
 getLabelWidget
+GdkGravity
 enumMapping
 createButton
 testButtonPropertyLabel
@@ -965,6 +971,7 @@ DrawingArea
 commitComment
 bdb
 executables
+setGravity
 registerProxy
 getEnv
 getenv
