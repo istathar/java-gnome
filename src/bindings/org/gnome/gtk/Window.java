@@ -325,4 +325,70 @@ public class Window extends Bin
     public Screen getScreen() {
         return GtkWindow.getScreen(this);
     }
+
+    /**
+     * Request that this Window be kept on top of all other windows.
+     * 
+     * <p>
+     * Note that the request to apply the "keep above" state may be overridden
+     * or ignored by the window manager. Likewise, the user may toggle this
+     * state between the program requesting it and the program subsequently
+     * proceeding on the expectation that it is set. As a result you should
+     * not write code that assumes this request has been successful.
+     * 
+     * <p>
+     * The window manager specifications are fairly explicit that these
+     * settings are a user preference. In particular, "keep above" should not
+     * be used as a gimmick to attempt to draw attention to a Window.
+     * 
+     * <p>
+     * Usability note: while it always seems like such a good idea to put your
+     * favourite window on top of everything else, in practise this can pale.
+     * You will find that your current "favourite" changes frequently, and not
+     * being able to rely on the normal window management behaviour to bring
+     * whatever you are <i>now</i> working on over top of the Window you have
+     * kept above will quickly result in you being annoyed that you can't get
+     * rid if it. All the usual arguments against modal windows also apply.
+     * 
+     * <p>
+     * Since a proper window manager like <code>Metacity</code> gives you
+     * quick and immediate access to the "keep on top" mode via a right click
+     * on the Window's title bar decoration, you really only should need this
+     * on the rare occasions when you have turned off decorations. So yes,
+     * there are are legitimate uses for this, but they are few and far
+     * between.
+     * 
+     * @param setting
+     *            <code>true</code> to request keep above be on,
+     *            <code>false</code> to request normal behaviour.
+     * @since 4.0.4
+     */
+    public void setKeepAbove(boolean setting) {
+        GtkWindow.setKeepAbove(this, setting);
+    }
+
+    /**
+     * Request that this Window be behind all other windows showing on the
+     * desktop.
+     * 
+     * <p>
+     * You can call this before <code>show()</code>ing a Window, in which
+     * case the initial presentation will be behind other windows.
+     * 
+     * <p>
+     * The caveats and notes discussed in
+     * {@link #setKeepAbove(boolean) setKeepAbove()} apply here. Once again,
+     * while there are legitimate uses for this method, please think about the
+     * impact on user's overall desktop experience before employing it.
+     * 
+     * 
+     * @param setting
+     *            <code>true</code> to request this Window be kept behind
+     *            all other windows on the desktop, <code>false</code> for
+     *            normal behaviour.
+     * @since 4.0.4
+     */
+    public void setKeepBelow(boolean setting) {
+        GtkWindow.setKeepBelow(this, setting);
+    }
 }
