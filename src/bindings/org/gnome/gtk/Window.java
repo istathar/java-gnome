@@ -168,34 +168,44 @@ public class Window extends Bin
     }
 
     /**
-     * Ask the window manager to place the Window in the fullscreen state.
-     * Note that you shouldn't assume the Window is definitely fullscreen
-     * afterwards, because other entities (e.g. the user or window manager)
-     * could unfullscreen it again, and not all window managers honour
-     * requests to fullscreen windows. Be prepared for these eventualities.
-     * 
      * @since 4.0.3
-     */
-    /*
-     * Remap this as setFullscreen(boolean)? At the moment the answer is no:
-     * a) for algorithmic mapping reasons, and b) to correspond to other "take
-     * action" methods like clicked() in Button.
+     * @deprecated
      */
     public void fullscreen() {
         GtkWindow.fullscreen(this);
     }
 
     /**
-     * Asks to toggle off the fullscreen state for the Window. Note that you
-     * should not assume the Window is definitely not fullscreen afterwards,
-     * because other entities (e.g. the user or window manager) could
-     * fullscreen it again, and not all window managers honour requests to
-     * deactivate fullscreen mode.
-     * 
      * @since 4.0.3
+     * @deprecated
      */
     public void unfullscreen() {
         GtkWindow.unfullscreen(this);
+    }
+
+    /**
+     * Request that the window manager to place the Window in the fullscreen
+     * state or return it to normal state.
+     * 
+     * <p>
+     * Note that you shouldn't assume the Window is definitely fullscreen (or
+     * restored) afterwards because other entities (e.g. the user or window
+     * manager itself) could toggle it again. Further, not all window managers
+     * honour requests to fullscreen windows. Be prepared for these
+     * eventualities.
+     * 
+     * @param setting
+     *            <code>true</code> to request fullscreen mode,
+     *            <code>false</code> to request that the window be returned
+     *            to normal management.
+     * @since 4.0.4
+     */
+    public void setFullscreen(boolean setting) {
+        if (setting) {
+            GtkWindow.fullscreen(this);
+        } else {
+            GtkWindow.unfullscreen(this);
+        }
     }
 
     /**
