@@ -1,4 +1,4 @@
-personal_ws-1.1 en 1001 
+personal_ws-1.1 en 1004 
 EnumValue
 getActive
 refactor
@@ -49,8 +49,8 @@ getters
 insertText
 dir
 fcb
-GtkLabel
 Metacity
+GtkLabel
 ScrolledWindow
 vscrollbarPolicy
 finalizers
@@ -290,6 +290,7 @@ GdkPixbuf
 CheckButton
 generateHeaderFiles
 pre
+workspaces
 GetMethodID
 registerConstant
 GtkBin
@@ -468,9 +469,9 @@ enum
 lc
 vhosts
 tooltips
+setKeepAbove
 jN
 ld
-setKeepAbove
 lookups
 md
 li
@@ -503,6 +504,7 @@ addToggleRef
 ijuma
 packEnd
 rb
+setStick
 LoveLetter
 os
 config
@@ -702,6 +704,7 @@ IdentityHashMap
 extern
 GtkB
 baseDir
+unstick
 GdkWindow
 onEnterNotifyEvent
 createComboBoxText

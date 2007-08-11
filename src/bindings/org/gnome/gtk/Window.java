@@ -391,4 +391,40 @@ public class Window extends Bin
     public void setKeepBelow(boolean setting) {
         GtkWindow.setKeepBelow(this, setting);
     }
+
+    /**
+     * Request that the Window be visible on all user workspaces.
+     * 
+     * <p>
+     * Many window managers provide the concept of "workspaces" or "virtual
+     * desktops" whereby the user can switch from one to another and use this
+     * as a means of organizing their work. Ordinarily, an application's
+     * Windows will only show in the workspace they appeared in (or to which
+     * they were moved by the user). By calling <code>setStick(true)</code>,
+     * the Window will always be visible, regardless of which workspace is
+     * switched to. While not all window managers have this capability, in
+     * general this will work.
+     * 
+     * <p>
+     * Note that the request to stick may not succeed, or may subsequently be
+     * reversed by the user.
+     * 
+     * <p>
+     * <i>Some desktops show a thumbnail of each workspace and when a window
+     * is stuck, it will "appear" in each workspace thumbnail. This does not
+     * mean there are suddenly four copies of your application running or
+     * anything silly like that.</i>
+     * 
+     * @param <code>true</code> to request the Window be stuck,
+     *            <code>false</code> to request a return to the normal
+     *            default state.
+     * @since 4.0.4
+     */
+    public void setStick(boolean setting) {
+        if (setting) {
+            GtkWindow.stick(this);
+        } else {
+            GtkWindow.unstick(this);
+        }
+    }
 }
