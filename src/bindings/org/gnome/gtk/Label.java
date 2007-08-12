@@ -151,4 +151,18 @@ public class Label extends Misc
     public double getAngle() {
         return GtkLabel.getAngle(this);
     }
+    
+    /**
+     * Gets the justification of the text within the label.
+     */
+    public Justification getJustify() {
+        return GtkLabel.getJustify(this);
+    }
+    
+    /**
+     * Sets the justification of the text within the label.
+     */
+    public void setJustify(Justification justification) {
+        GtkLabel.setJustify(this, justification);
+    }
 }
