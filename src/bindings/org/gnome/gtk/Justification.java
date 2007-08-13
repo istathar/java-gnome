@@ -1,7 +1,7 @@
 /*
  * Justification.java
  *
- * Copyright (c) 2007 Operational Dynamics Consulting Pty Ltd
+ * Copyright (c) 2007 Operational Dynamics Consulting Pty Ltd, and Others
  *
  * The code in this file, and the library it is a part of, are made available
  * to you by the authors under the terms of the "GNU General Public Licence,
@@ -13,16 +13,46 @@ package org.gnome.gtk;
 
 import org.freedesktop.bindings.Constant;
 
+/**
+ * Constants that represent the justification of text. Most notably, this is
+ * used by Label; see its {@link Label#setJustify(Justification) setJustify()}.
+ * 
+ * @author Nat Pryce
+ * @author Andrew Cowie
+ * @since 4.0.4
+ */
 /*
- * FIXME this is a placeholder stub for what will become the public API for
- * this type. Replace this comment with appropriate javadoc including author
- * and since tags. Note that the class may need to be made abstract, implement
- * interfaces, or even have its parent changed. No API stability guarantees
- * are made about this class until it has been reviewed by a hacker and this
- * comment has been replaced.
+ * TODO turns up in TextView too; perhaps add mention if significant.
  */
 public final class Justification extends Constant
 {
+    /**
+     * Indicate text should justify to the left edge of the Label. This is the
+     * default with newly created Labels.
+     */
+    public static final Justification LEFT = new Justification(GtkJustification.LEFT, "LEFT");
+
+    /**
+     * Indicate text should be justified to the right edge of the Label.
+     */
+    public static final Justification RIGHT = new Justification(GtkJustification.RIGHT, "RIGHT");
+
+    /**
+     * Indicate text should be justified to the center of the Label.
+     */
+    public static final Justification CENTER = new Justification(GtkJustification.CENTER, "CENTER");
+
+    /**
+     * Indicate text should be distributed evenly across the width of Label.
+     * This is sometimes known as "proper" or "even" justification.
+     */
+    /*
+     * TODO couldn't duplicate this behaviour, even with setLineWrap(true).
+     * That would seem to indicate we're missing some aspect or prerequisite
+     * necessary for this justification mode.
+     */
+    public static final Justification FILL = new Justification(GtkJustification.FILL, "FILL");
+
     private Justification(int ordinal, String nickname) {
         super(ordinal, nickname);
     }

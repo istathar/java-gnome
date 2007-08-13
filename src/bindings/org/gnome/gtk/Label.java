@@ -1,7 +1,7 @@
 /*
  * Label.java
  *
- * Copyright (c) 2006 Operational Dynamics Consulting Pty Ltd and Others
+ * Copyright (c) 2006 Operational Dynamics Consulting Pty Ltd, and Others
  * 
  * The code in this file, and the library it is a part of, are made available
  * to you by the authors under the terms of the "GNU General Public Licence,
@@ -150,5 +150,33 @@ public class Label extends Misc
      */
     public double getAngle() {
         return GtkLabel.getAngle(this);
+    }
+
+    /**
+     * Gets the justification of the text within the Label.
+     * 
+     * @since 4.0.4
+     */
+    public Justification getJustify() {
+        return GtkLabel.getJustify(this);
+    }
+
+    /**
+     * Sets the justification of the text within the Label. The default is
+     * {@link Justification#LEFT LEFT}. Note that this has no effect on
+     * Labels only containing a single line of text.
+     * 
+     * <p>
+     * If you're trying to control the positioning of the Label within its
+     * parent, see Misc's
+     * {@link Misc#setAlignment(float,float) setAlignment()}.
+     * 
+     * @since 4.0.4
+     */
+    /*
+     * TODO Advise developer to setLineWrap(true)?
+     */
+    public void setJustify(Justification justification) {
+        GtkLabel.setJustify(this, justification);
     }
 }
