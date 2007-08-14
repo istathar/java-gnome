@@ -53,9 +53,10 @@ As you would expect, the result is a preformatted block like this:
     Mark a section as being a preformatted
     code block, ignoring any _markup_ present.
 
-This works with either a `<TAB>` or `4 spaces` as the indent character.  We
-usually use **two** tabs to create the appearance of indent from the left
-margin which looks better when doing code snippets.
+This works with either a `<TAB>` or `4 spaces` as the indent character. We used
+to use two tabs to create the appearance of indent from the left margin so it
+would look better when doing code snippets, but now we just use CSS to put some
+`margin` and `padding` around `PRE` blocks.
 
 Note that Markdown is actually quite a bit richer than this. It has all kinds
 of conveniences such as an easy and natural link (href) syntax, bullet lists
@@ -76,9 +77,9 @@ as checked into the mainline branch of the source code.
 Convenient rendering
 --------------------
 
-One way you can quickly look at the result of your markup is to create a
-simple script in a virtual host on your local web server and have it call markdown on the file
-you're working on. In PHP it is as simple as:
+One way you can quickly look at the result of your markup is to create a simple
+script in a virtual host on your local web server and have it call markdown on
+the file you're working on. In PHP it is as simple as:
 
         include_once "markdown.php";
 
@@ -90,7 +91,7 @@ An example is included in the source code as [`view.php`][view].
 [view]: http://research.operationaldynamics.com/bzr/java-gnome/mainline/web/local/view.php
 
 
-_Last modified 7 Dec 06_
+_Last modified 14 Aug 07_
 
 [syntax]: http://daringfireball.net/projects/markdown/basics
 [website]: http://java-gnome.sourceforge.net/docs/design/
