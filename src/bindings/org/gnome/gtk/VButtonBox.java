@@ -11,16 +11,32 @@
  */
 package org.gnome.gtk;
 
-/*
- * FIXME this is a placeholder stub for what will become the public API for
- * this type. Replace this comment with appropriate javadoc including author
- * and since tags. Note that the class may need to be made abstract, implement
- * interfaces, or even have its parent changed. No API stability guarantees
- * are made about this class until it has been reviewed by a hacker and this
- * comment has been replaced.
+/**
+ * A button box should be used to provide a consistent layout of buttons
+ * throughout your application. Use an {@link HButtonBox} to lay buttons out
+ * horizontally or an {@link VButtonBox} to lay buttons out vertically.
+ * 
+ * The layout/spacing can be altered by the programmer, or if desired, by the
+ * user to alter the 'feel' of a program to a small degree.
+ * 
+ * Buttons are packed into a button box the same way widgets are added to any
+ * other container, using {@link Container#add(Widget)}. You can also use
+ * {@link Box#packStart(Widget)} or {@link Box#packEnd(Widget)}, but for
+ * button boxes both these functions work just like
+ * {@link Container#add(Widget)}, ie., they pack the button in a way that
+ * depends on the current layout style and on whether the button has had
+ * {@link ButtonBox#setChildSecondary(Widget, boolean)} called for it.
+ * 
+ * The spacing between buttons can be set with {@link Box#setSpacing(int)}.
+ * The arrangement and layout of the buttons can be changed with
+ * {@link #setLayout(ButtonBoxStyle)}.
  */
 public class VButtonBox extends ButtonBox
 {
+    public VButtonBox() {
+        this(GtkVButtonBox.createVButtonBox());
+    }
+
     protected VButtonBox(long pointer) {
         super(pointer);
     }

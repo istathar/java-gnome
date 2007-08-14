@@ -13,16 +13,42 @@ package org.gnome.gtk;
 
 import org.freedesktop.bindings.Constant;
 
-/*
- * FIXME this is a placeholder stub for what will become the public API for
- * this type. Replace this comment with appropriate javadoc including author
- * and since tags. Note that the class may need to be made abstract, implement
- * interfaces, or even have its parent changed. No API stability guarantees
- * are made about this class until it has been reviewed by a hacker and this
- * comment has been replaced.
+/**
+ * The style used to layout buttons in a {@link ButtonBox}.
+ * 
+ * @see HButtonBox
+ * @see VButtonBox
  */
-public final class ButtonBoxStyle extends Constant
+public class ButtonBoxStyle extends Constant
 {
+    /**
+     * Default packing
+     */
+    public static final ButtonBoxStyle DEFAULT_STYLE = new ButtonBoxStyle(
+            GtkButtonBoxStyle.DEFAULT_STYLE, "DEFAULT_STYLE");
+
+    /**
+     * Buttons are evenly spread across the box.
+     */
+    public static final ButtonBoxStyle SPREAD = new ButtonBoxStyle(GtkButtonBoxStyle.SPREAD, "SPREAD");
+
+    /**
+     * Buttons are placed at the edges of the box.
+     */
+    public static final ButtonBoxStyle EDGE = new ButtonBoxStyle(GtkButtonBoxStyle.EDGE, "EDGE");
+
+    /**
+     * Buttons are grouped towards the start of the box, (on the left for a
+     * HBox, or the top for a VBox).
+     */
+    public static final ButtonBoxStyle START = new ButtonBoxStyle(GtkButtonBoxStyle.START, "START");
+
+    /**
+     * Buttons are grouped towards the end of the box, (on the right for a
+     * HBox, or the bottom for a VBox).
+     */
+    public static final ButtonBoxStyle END = new ButtonBoxStyle(GtkButtonBoxStyle.END, "END");
+
     private ButtonBoxStyle(int ordinal, String nickname) {
         super(ordinal, nickname);
     }
