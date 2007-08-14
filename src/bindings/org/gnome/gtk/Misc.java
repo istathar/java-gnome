@@ -15,11 +15,42 @@ package org.gnome.gtk;
  * Base class for Widgets that have notions of alignment and padding.
  * 
  * @author Andrew Cowie
+ * @author Nat Pryce
  * @since 4.0.0
  */
 public abstract class Misc extends Widget
 {
     protected Misc(long pointer) {
         super(pointer);
+    }
+    
+    public void setAlignment(float xalign, float yalign) {
+        GtkMisc.setAlignment(this, xalign, yalign);
+    }
+    
+    public void getAlignment(float[] xalign, float[] yalign) {
+        GtkMisc.getAlignment(this, xalign, yalign);
+    }
+    
+    public float getAlignmentX() {
+        float[] xalign = new float[1];
+        float[] yalign = new float[1];
+        getAlignment(xalign, yalign);
+        return xalign[0];
+    }
+    
+    public float getAlignmentY() {
+        float[] xalign = new float[1];
+        float[] yalign = new float[1];
+        getAlignment(xalign, yalign);
+        return yalign[0];
+    }
+    
+    public void setPadding(int xpad, int ypad) {
+        GtkMisc.setPadding(this, xpad, ypad);
+    }
+
+    public void getPadding(int[] xpad, int[] ypad) {
+        GtkMisc.getPadding(this, xpad, ypad);
     }
 }
