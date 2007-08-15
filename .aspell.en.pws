@@ -1,4 +1,4 @@
-personal_ws-1.1 en 1029 
+personal_ws-1.1 en 1036 
 EnumValue
 getActive
 refactor
@@ -61,8 +61,8 @@ appendPage
 tearDown
 KeyListener
 copyMappingFile
-MenuItem's
 MenuItems
+MenuItem's
 jargs
 GClosureNotify
 testGetChildAndParent
@@ -151,8 +151,8 @@ GtkComboBox
 args
 gtk
 InternalButtonImplementation
-argv
 blog
+argv
 OutOfMemoryError
 JDS
 pixbuf
@@ -195,8 +195,8 @@ gnomedev
 perl
 ReliefStyle
 setTitle
-SourceForge
 sourceforge
+SourceForge
 PascalCase
 ToolBar
 JNIEXPORT
@@ -278,12 +278,12 @@ typeName
 online
 hiccup
 setDisplayOptions
-GladeXml
 GladeXML
+GladeXml
 conf
 ListStore
-getUri
 getURI
+getUri
 TreeView's
 EventAny
 prependPage
@@ -301,6 +301,7 @@ registerConstant
 GtkBin
 VerboseTestRunner
 libgcj
+GtkMisc
 GnomeEntry
 versa
 runtimes
@@ -328,8 +329,8 @@ nUnable
 typedef
 GTypeInstance
 setPropertyBar
-pygtk
 pyGTK
+pygtk
 GtkBox
 returnType
 ClassLoader's
@@ -344,7 +345,9 @@ src
 executeCommand
 getPropertyFloat
 IJLjava
+getPaddingX
 GetStaticMethodID
+getPaddingY
 RuntimeException
 kaffec
 getPosition
@@ -447,8 +450,8 @@ ClassNotFoundException
 FilenameFilter
 cp
 filenames
-eg
 dl
+eg
 nowarn
 preserveAllLocals
 toplevel
@@ -472,17 +475,18 @@ DVCS
 getWindow
 prepareTestDirectories
 GdkScreen
+setPadding
 pango
 enum
 lc
 vhosts
 tooltips
 setKeepAbove
-jN
 ld
+jN
 lookups
-md
 li
+md
 struct
 nc
 LibGlade
@@ -503,8 +507,8 @@ Cowie
 touchFile
 constantFor
 WindowPosition
-QA
 ok
+QA
 libgnomeui
 Overholt
 mv
@@ -530,8 +534,8 @@ va
 tm
 ui
 getmtime
-wb
 ul
+wb
 testButtonReliefStyle
 HBox
 setRelief
@@ -871,6 +875,7 @@ ValidateMemoryManagement
 ebuild
 createWithLabel
 UnitTests
+getPadding
 linkSharedLibrary
 handlerName
 orTwoFlags
@@ -947,6 +952,7 @@ createMenu
 setActive
 skipInit
 builtin
+xpad
 getResource
 ClassLoader
 Misc's
@@ -1009,8 +1015,8 @@ GtkButtonBox
 setGravity
 getLayout
 registerProxy
-getEnv
 getenv
+getEnv
 baz
 TestSuite
 EventType
@@ -1027,4 +1033,5 @@ throwByName
 testObjectNotRemovedWhenStillGtkAlive
 bjc
 newa
+ypad
 devel
