@@ -1,7 +1,7 @@
 /*
  * HButtonBox.java
  *
- * Copyright (c) 2007 Operational Dynamics Consulting Pty Ltd
+ * Copyright (c) 2007 Operational Dynamics Consulting Pty Ltd, and Others
  *
  * The code in this file, and the library it is a part of, are made available
  * to you by the authors under the terms of the "GNU General Public Licence,
@@ -11,16 +11,25 @@
  */
 package org.gnome.gtk;
 
-/*
- * FIXME this is a placeholder stub for what will become the public API for
- * this type. Replace this comment with appropriate javadoc including author
- * and since tags. Note that the class may need to be made abstract, implement
- * interfaces, or even have its parent changed. No API stability guarantees
- * are made about this class until it has been reviewed by a hacker and this
- * comment has been replaced.
+/**
+ * Lay Buttons out horizontally with consistent spacing properties. This is
+ * one of the principal mechanisms used to create (and indeed enforce) the
+ * common look and feel between to Dialogs and other data entry Windows across
+ * the GNOME desktop.
+ * 
+ * <p>
+ * See {@link ButtonBox} for the methods giving you control over presentation.
+ * 
+ * @author Nat Pryce
+ * @author Andrew Cowie
+ * @since 4.0.4
  */
 public class HButtonBox extends ButtonBox
 {
+    public HButtonBox() {
+        this(GtkHButtonBox.createHButtonBox());
+    }
+
     protected HButtonBox(long pointer) {
         super(pointer);
     }

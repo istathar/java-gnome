@@ -1,7 +1,7 @@
 /*
  * ButtonBoxStyle.java
  *
- * Copyright (c) 2007 Operational Dynamics Consulting Pty Ltd
+ * Copyright (c) 2007 Operational Dynamics Consulting Pty Ltd, and Others
  *
  * The code in this file, and the library it is a part of, are made available
  * to you by the authors under the terms of the "GNU General Public Licence,
@@ -13,16 +13,47 @@ package org.gnome.gtk;
 
 import org.freedesktop.bindings.Constant;
 
-/*
- * FIXME this is a placeholder stub for what will become the public API for
- * this type. Replace this comment with appropriate javadoc including author
- * and since tags. Note that the class may need to be made abstract, implement
- * interfaces, or even have its parent changed. No API stability guarantees
- * are made about this class until it has been reviewed by a hacker and this
- * comment has been replaced.
+/**
+ * Control layout of Buttons in a {@link ButtonBox}. In general you shouldn't
+ * need to use this too much; in GNOME we leave presentation style decisions
+ * up to the the theme engine currently selected by the user.
+ * 
+ * @author Nat Pryce
+ * @see HButtonBox
+ * @see VButtonBox
+ * @since 4.0.4
  */
 public final class ButtonBoxStyle extends Constant
 {
+    /**
+     * Default packing, allowing the theme engine to control the presentation
+     * of ButtonBoxes.
+     */
+    public static final ButtonBoxStyle DEFAULT_STYLE = new ButtonBoxStyle(
+            GtkButtonBoxStyle.DEFAULT_STYLE, "DEFAULT_STYLE");
+
+    /**
+     * Buttons are to be evenly spread across the Box.
+     */
+    public static final ButtonBoxStyle SPREAD = new ButtonBoxStyle(GtkButtonBoxStyle.SPREAD, "SPREAD");
+
+    /**
+     * Buttons are to be placed at the edges of the Box.
+     */
+    public static final ButtonBoxStyle EDGE = new ButtonBoxStyle(GtkButtonBoxStyle.EDGE, "EDGE");
+
+    /**
+     * Buttons are to be grouped towards the start of the box (on the left for
+     * a HButtonBox, or the top for a VButtonBox).
+     */
+    public static final ButtonBoxStyle START = new ButtonBoxStyle(GtkButtonBoxStyle.START, "START");
+
+    /**
+     * Buttons are to be grouped towards the end of the box (on the right for
+     * a HButtonBox, or the bottom for a VButtonBox).
+     */
+    public static final ButtonBoxStyle END = new ButtonBoxStyle(GtkButtonBoxStyle.END, "END");
+
     private ButtonBoxStyle(int ordinal, String nickname) {
         super(ordinal, nickname);
     }

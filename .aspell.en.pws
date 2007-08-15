@@ -1,4 +1,4 @@
-personal_ws-1.1 en 1011 
+personal_ws-1.1 en 1029 
 EnumValue
 getActive
 refactor
@@ -48,6 +48,7 @@ createVSeparator
 getters
 insertText
 dir
+GtkVButtonBox
 fcb
 Metacity
 GtkLabel
@@ -55,12 +56,13 @@ ScrolledWindow
 vscrollbarPolicy
 finalizers
 loadHashes
+ButtonBox
 appendPage
 tearDown
 KeyListener
 copyMappingFile
-MenuItems
 MenuItem's
+MenuItems
 jargs
 GClosureNotify
 testGetChildAndParent
@@ -140,6 +142,7 @@ argc
 createCalendar
 TreeModel's
 getCurrentFolder
+VButtonBox
 XFree
 createObject
 jdk
@@ -148,8 +151,8 @@ GtkComboBox
 args
 gtk
 InternalButtonImplementation
-blog
 argv
+blog
 OutOfMemoryError
 JDS
 pixbuf
@@ -167,6 +170,7 @@ isVisibleChars
 Makefile
 fullscreen
 setPosition
+getChildSecondary
 LCA
 IRC
 Pango's
@@ -191,8 +195,8 @@ gnomedev
 perl
 ReliefStyle
 setTitle
-sourceforge
 SourceForge
+sourceforge
 PascalCase
 ToolBar
 JNIEXPORT
@@ -205,6 +209,7 @@ demuxed
 putWidget
 setSubmenu
 nJava
+TextDirection
 Maciej
 mem
 symlinks
@@ -273,12 +278,12 @@ typeName
 online
 hiccup
 setDisplayOptions
-GladeXML
 GladeXml
+GladeXML
 conf
 ListStore
-getURI
 getUri
+getURI
 TreeView's
 EventAny
 prependPage
@@ -323,8 +328,8 @@ nUnable
 typedef
 GTypeInstance
 setPropertyBar
-pyGTK
 pygtk
+pyGTK
 GtkBox
 returnType
 ClassLoader's
@@ -359,8 +364,10 @@ svn
 RHEL
 InterruptedException
 prepended
+GtkButtonBoxStyle
 OR'ing
 const
+isSecondary
 SWT
 createMenuItem
 handlerInstance
@@ -395,6 +402,7 @@ EventFocus
 EventWindowState
 testAvoidCyclicReferenceFromSignalHookup
 ExceptionClear
+setDirection
 onEvent
 assertEquals
 dictat
@@ -439,8 +447,8 @@ ClassNotFoundException
 FilenameFilter
 cp
 filenames
-dl
 eg
+dl
 nowarn
 preserveAllLocals
 toplevel
@@ -470,11 +478,11 @@ lc
 vhosts
 tooltips
 setKeepAbove
-ld
 jN
+ld
 lookups
-li
 md
+li
 struct
 nc
 LibGlade
@@ -495,8 +503,8 @@ Cowie
 touchFile
 constantFor
 WindowPosition
-ok
 QA
+ok
 libgnomeui
 Overholt
 mv
@@ -522,8 +530,8 @@ va
 tm
 ui
 getmtime
-ul
 wb
+ul
 testButtonReliefStyle
 HBox
 setRelief
@@ -571,6 +579,7 @@ setPropertyFloat
 vimrc
 esque
 Vreixo
+ButtonBoxes
 O'Reilly
 setSensitive
 gType
@@ -815,6 +824,7 @@ namespace
 fileNeedsBuilding
 forName
 GtkImage
+setChildSecondary
 Bitstream
 createComboBox
 JNI's
@@ -835,6 +845,7 @@ getFilename
 createPixbufFromFile
 Isrc
 ifdef
+createHButtonBox
 mainQuit
 JNIEnv
 proxied
@@ -895,6 +906,7 @@ createHSeparator
 jnibook
 GtkVBox
 IOException
+GtkHButtonBox
 ComeOnBabyLightMyFire
 onToggled
 setVisibility
@@ -904,6 +916,8 @@ subdirectory
 ExceptionDescribe
 Kpic
 GtkObjects
+setLayout
+ButtonBoxStyle
 getRowstride
 ProgressBar
 ToggleButton
@@ -962,6 +976,7 @@ createProxy
 GtkHSeparator
 outputDir
 Formoso
+HButtonBox
 scrollbars
 onChangeCurrentPage
 getJustify
@@ -979,6 +994,7 @@ GdkEvent
 GSignal
 AfC
 createGladeXml
+createVButtonBox
 getEnum
 codebase
 ValidateProperties
@@ -989,10 +1005,12 @@ DrawingArea
 commitComment
 bdb
 executables
+GtkButtonBox
 setGravity
+getLayout
 registerProxy
-getenv
 getEnv
+getenv
 baz
 TestSuite
 EventType
