@@ -1,4 +1,4 @@
-personal_ws-1.1 en 1029 
+personal_ws-1.1 en 1040 
 EnumValue
 getActive
 refactor
@@ -14,6 +14,7 @@ gboolean
 arg
 dbm
 ParsedTree
+createCheckMenuItem
 XINERAMA
 HSeparator
 GClosureMarshall
@@ -61,8 +62,8 @@ appendPage
 tearDown
 KeyListener
 copyMappingFile
-MenuItem's
 MenuItems
+MenuItem's
 jargs
 GClosureNotify
 testGetChildAndParent
@@ -110,6 +111,7 @@ GSList
 runDemo
 NetBeans
 boxedFor
+getInconsistent
 Bleh
 runTests
 javac
@@ -151,8 +153,8 @@ GtkComboBox
 args
 gtk
 InternalButtonImplementation
-argv
 blog
+argv
 OutOfMemoryError
 JDS
 pixbuf
@@ -195,8 +197,8 @@ gnomedev
 perl
 ReliefStyle
 setTitle
-SourceForge
 sourceforge
+SourceForge
 PascalCase
 ToolBar
 JNIEXPORT
@@ -237,6 +239,7 @@ odt
 unixprint
 popups
 setProperty
+createSeparatorMenuItem
 DESTDIR
 yalign
 solaris
@@ -278,12 +281,12 @@ typeName
 online
 hiccup
 setDisplayOptions
-GladeXml
 GladeXML
+GladeXml
 conf
 ListStore
-getUri
 getURI
+getUri
 TreeView's
 EventAny
 prependPage
@@ -328,8 +331,8 @@ nUnable
 typedef
 GTypeInstance
 setPropertyBar
-pygtk
 pyGTK
+pygtk
 GtkBox
 returnType
 ClassLoader's
@@ -447,8 +450,8 @@ ClassNotFoundException
 FilenameFilter
 cp
 filenames
-eg
 dl
+eg
 nowarn
 preserveAllLocals
 toplevel
@@ -478,11 +481,11 @@ lc
 vhosts
 tooltips
 setKeepAbove
-jN
 ld
+jN
 lookups
-md
 li
+md
 struct
 nc
 LibGlade
@@ -503,8 +506,8 @@ Cowie
 touchFile
 constantFor
 WindowPosition
-QA
 ok
+QA
 libgnomeui
 Overholt
 mv
@@ -530,8 +533,9 @@ va
 tm
 ui
 getmtime
-wb
 ul
+wb
+GtkSeparatorMenuItem
 testButtonReliefStyle
 HBox
 setRelief
@@ -553,6 +557,7 @@ createHBox
 GtkWindowType
 ccache
 EventButton
+SeparatorMenuItem
 FileNotFoundException
 BooleanValue
 pkgadd
@@ -763,6 +768,7 @@ compileGeneratorClasses
 generateTranslationAndJniLayers
 setImage
 distro
+ToggleToolButton
 toolkits
 prependText
 cachedJavaVM
@@ -779,6 +785,7 @@ GtkPolicyType
 JNICALL
 jint
 processedTree
+createCheckMenuItemWithMnemonic
 html
 Wouter
 nParsing
@@ -801,6 +808,7 @@ subinterface
 setDefaultSize
 TextView
 GtkWindow
+GtkCheckMenuItem
 HashMap
 showAll
 setFocusOnClick
@@ -897,6 +905,7 @@ GQuark
 GetStringUTFChars
 dependsListToSingleTarget
 GUADEC
+CheckMenuItem
 onExposeEvent
 HashSet
 lookup
@@ -962,6 +971,7 @@ SignalHandler
 createFileChooserButon
 boolean
 SmartyPants
+setInconsistent
 JVMs
 GFundamental
 deref
@@ -1009,8 +1019,9 @@ GtkButtonBox
 setGravity
 getLayout
 registerProxy
-getEnv
+isActive
 getenv
+getEnv
 baz
 TestSuite
 EventType

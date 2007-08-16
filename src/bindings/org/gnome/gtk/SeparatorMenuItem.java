@@ -11,17 +11,31 @@
  */
 package org.gnome.gtk;
 
-/*
- * FIXME this is a placeholder stub for what will become the public API for
- * this type. Replace this comment with appropriate javadoc including author
- * and since tags. Note that the class may need to be made abstract, implement
- * interfaces, or even have its parent changed. No API stability guarantees
- * are made about this class until it has been reviewed by a hacker and this
- * comment has been replaced.
+/**
+ * A separator between groups of related MenuItem's.
+ * 
+ * <p>
+ * A SeparatorMenuItem is a special type of MenuItem, that is shown to the
+ * user as a horizontal line. Its main (and unique) usage is to visually group
+ * together related MenuItem's in a Menu.
+ * 
+ * <p>
+ * This is added to a Menu in the same way as any other MenuItem. You usually
+ * will want to add it between two different sets of related MenuItem's.
+ * 
+ * @author Vreixo Formoso
+ * @since 4.0.4
  */
 public class SeparatorMenuItem extends MenuItem
 {
     protected SeparatorMenuItem(long pointer) {
         super(pointer);
+    }
+
+    /**
+     * Create a new SeparatorMenuItem.
+     */
+    public SeparatorMenuItem() {
+        super(GtkSeparatorMenuItem.createSeparatorMenuItem());
     }
 }

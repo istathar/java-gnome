@@ -55,6 +55,24 @@ public class MenuItem extends Item
     public MenuItem(String mnemonicLabel) {
         super(GtkMenuItem.createMenuItemWithMnemonic(mnemonicLabel));
     }
+    
+    /**
+     * Construct a MenuItem with a given text label, and additionally connect
+     * a handler to its ACTIVATE signal.
+     * 
+     * <p>
+     * This is equivalent to:
+     * <pre>
+     * MenuItem item = new MenuItem(&quot;_My menu item&quot;);
+     * item.connect(handler);
+     * </pre>
+     * 
+     * @since 4.0.4
+     */
+    public MenuItem(String mnemonicLabel, ACTIVATE handler) {
+        super(GtkMenuItem.createMenuItemWithMnemonic(mnemonicLabel));
+        connect(handler);
+    }
 
     /**
      * Sets or replaces the MenuItem's submenu, or removes it if a
