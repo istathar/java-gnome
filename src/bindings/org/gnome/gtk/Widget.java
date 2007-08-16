@@ -22,6 +22,7 @@ import org.gnome.gdk.EventKey;
  * {@link Container Container}s.
  * 
  * @author Andrew Cowie
+ * @author Vreixo Formoso
  * @since 4.0.0
  */
 public abstract class Widget extends org.gnome.gtk.Object
@@ -80,6 +81,19 @@ public abstract class Widget extends org.gnome.gtk.Object
      */
     public void showAll() {
         GtkWidget.showAll(this);
+    }
+    
+    /**
+     * Hide a widget, i.e., make it invisible for the user.
+     *
+     * <p>
+     * After hidding a Widget, you can call {@link #show()} again to make it
+     * visible.
+     * 
+     * @since 4.0.4
+     */
+    public void hide() {
+        GtkWidget.hide(this);
     }
 
     /**
