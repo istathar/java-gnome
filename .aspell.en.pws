@@ -1,7 +1,8 @@
-personal_ws-1.1 en 1040 
+personal_ws-1.1 en 1042 
 EnumValue
 getActive
 refactor
+StockIds
 cfg
 denaturation
 api
@@ -663,6 +664,7 @@ nCan't
 insertPage
 checkpointHashes
 VBox
+stockId
 TODO
 getSubmenu
 finalizer

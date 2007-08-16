@@ -22,6 +22,26 @@
   )
 )
 
+(define-function gtk_button_new_with_mnemonic
+  (is-constructor-of "GtkButton")
+  (c-name "gtk_button_new_with_mnemonic")
+  (caller-owns-return #t)
+  (return-type "GtkWidget*")
+  (parameters
+    '("const-gchar*" "label")
+  )
+)
+
+(define-function gtk_button_new_from_stock
+  (is-constructor-of "GtkButton")
+  (c-name "gtk_button_new_from_stock")
+  (caller-owns-return #t)
+  (return-type "GtkWidget*")
+  (parameters
+    '("const-gchar*" "stock_id")
+  )
+)
+
 (define-method pressed
   (of-object "GtkButton")
   (c-name "gtk_button_pressed")

@@ -16,6 +16,16 @@
   )
 )
 
+(define-function gtk_tool_button_new_from_stock
+  (is-constructor-of "GtkToolButton")
+  (c-name "gtk_tool_button_new_from_stock")
+  (caller-owns-return #t)
+  (return-type "GtkToolItem*")
+  (parameters
+    '("const-gchar*" "stock_id")
+  )
+)
+
 (define-method set_label
   (of-object "GtkToolButton")
   (c-name "gtk_tool_button_set_label")
