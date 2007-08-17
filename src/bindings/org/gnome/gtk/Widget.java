@@ -22,6 +22,7 @@ import org.gnome.gdk.EventKey;
  * {@link Container Container}s.
  * 
  * @author Andrew Cowie
+ * @author Vreixo Formoso
  * @since 4.0.0
  */
 public abstract class Widget extends org.gnome.gtk.Object
@@ -80,6 +81,22 @@ public abstract class Widget extends org.gnome.gtk.Object
      */
     public void showAll() {
         GtkWidget.showAll(this);
+    }
+
+    /**
+     * Hide the Widget, making it invisible to the user. This can be used to
+     * "deactivate" sections of your UI, pending some activity or action that
+     * will cause it to be returned to the Window. Note that hiding does not
+     * remove it from its parent Container - it just makes the Widget
+     * invisible for the time being.
+     * 
+     * <p>
+     * You can call {@link #show()} to make a hidden Widget visible [again].
+     * 
+     * @since 4.0.4
+     */
+    public void hide() {
+        GtkWidget.hide(this);
     }
 
     /**

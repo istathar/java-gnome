@@ -19,6 +19,24 @@ import org.gnome.gdk.Screen;
  * The top level Widget that contains other Widgets. Typical examples are
  * application windows, dialog boxes, and popup menus.
  * 
+ *      * <p>
+     * <code>hide()</code> is frequently used on top level Windows
+     * immediately after instantiating them, as in
+     * 
+     * <pre>
+     * w = new Window();
+     * w.hide();
+     * ...
+     * // construct Widgets to create user interface and add to w 
+     * ...
+     * w.showAll();
+     * </pre>
+     * 
+     * this prevents the Window from being drawn as a small empty square and
+     * then resizing one or more times as its component Widgets are added to
+     * create the desired user interface.
+     * 
+ * 
  * @author Andrew Cowie
  * @author Srichand Pendyala
  * @author Sebastian Mancke

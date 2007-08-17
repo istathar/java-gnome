@@ -1,4 +1,4 @@
-personal_ws-1.1 en 1036 
+personal_ws-1.1 en 1042 
 EnumValue
 getActive
 refactor
@@ -14,6 +14,7 @@ gboolean
 arg
 dbm
 ParsedTree
+createCheckMenuItem
 XINERAMA
 HSeparator
 GClosureMarshall
@@ -110,6 +111,7 @@ GSList
 runDemo
 NetBeans
 boxedFor
+getInconsistent
 Bleh
 runTests
 javac
@@ -237,6 +239,7 @@ odt
 unixprint
 popups
 setProperty
+createSeparatorMenuItem
 DESTDIR
 yalign
 solaris
@@ -301,7 +304,6 @@ registerConstant
 GtkBin
 VerboseTestRunner
 libgcj
-GtkMisc
 GnomeEntry
 versa
 runtimes
@@ -345,9 +347,7 @@ src
 executeCommand
 getPropertyFloat
 IJLjava
-getPaddingX
 GetStaticMethodID
-getPaddingY
 RuntimeException
 kaffec
 getPosition
@@ -475,7 +475,6 @@ DVCS
 getWindow
 prepareTestDirectories
 GdkScreen
-setPadding
 pango
 enum
 lc
@@ -536,6 +535,7 @@ ui
 getmtime
 ul
 wb
+GtkSeparatorMenuItem
 testButtonReliefStyle
 HBox
 setRelief
@@ -557,6 +557,7 @@ createHBox
 GtkWindowType
 ccache
 EventButton
+SeparatorMenuItem
 FileNotFoundException
 BooleanValue
 pkgadd
@@ -767,6 +768,7 @@ compileGeneratorClasses
 generateTranslationAndJniLayers
 setImage
 distro
+ToggleToolButton
 toolkits
 prependText
 cachedJavaVM
@@ -783,6 +785,7 @@ GtkPolicyType
 JNICALL
 jint
 processedTree
+createCheckMenuItemWithMnemonic
 html
 Wouter
 nParsing
@@ -805,6 +808,7 @@ subinterface
 setDefaultSize
 TextView
 GtkWindow
+GtkCheckMenuItem
 HashMap
 showAll
 setFocusOnClick
@@ -844,6 +848,7 @@ GtkProgressBar
 getAbsolutePath
 strfreev
 borked
+screenshot
 shutil
 getFilename
 createPixbufFromFile
@@ -875,7 +880,6 @@ ValidateMemoryManagement
 ebuild
 createWithLabel
 UnitTests
-getPadding
 linkSharedLibrary
 handlerName
 orTwoFlags
@@ -902,6 +906,7 @@ GQuark
 GetStringUTFChars
 dependsListToSingleTarget
 GUADEC
+CheckMenuItem
 onExposeEvent
 HashSet
 lookup
@@ -952,7 +957,6 @@ createMenu
 setActive
 skipInit
 builtin
-xpad
 getResource
 ClassLoader
 Misc's
@@ -968,6 +972,7 @@ SignalHandler
 createFileChooserButon
 boolean
 SmartyPants
+setInconsistent
 JVMs
 GFundamental
 deref
@@ -1015,6 +1020,7 @@ GtkButtonBox
 setGravity
 getLayout
 registerProxy
+isActive
 getenv
 getEnv
 baz
@@ -1033,5 +1039,5 @@ throwByName
 testObjectNotRemovedWhenStillGtkAlive
 bjc
 newa
-ypad
 devel
+editMenu

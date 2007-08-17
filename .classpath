@@ -6,6 +6,11 @@
 			<attribute name="org.eclipse.jdt.launching.CLASSPATH_ATTR_LIBRARY_PATH_ENTRY" value="java-gnome/tmp"/>
 		</attributes>
 	</classpathentry>
+	<classpathentry kind="src" output="tmp/tests" path="doc/examples">
+		<attributes>
+			<attribute name="org.eclipse.jdt.launching.CLASSPATH_ATTR_LIBRARY_PATH_ENTRY" value="java-gnome/tmp"/>
+		</attributes>
+	</classpathentry>
 	<classpathentry kind="src" output="tmp/tests" path="tests/prototype">
 		<attributes>
 			<attribute name="org.eclipse.jdt.launching.CLASSPATH_ATTR_LIBRARY_PATH_ENTRY" value="java-gnome/tmp"/>

@@ -1,7 +1,7 @@
 /*
  * CheckMenuItem.java
  *
- * Copyright (c) 2007 Operational Dynamics Consulting Pty Ltd
+ * Copyright (c) 2007 Operational Dynamics Consulting Pty Ltd, and Others
  *
  * The code in this file, and the library it is a part of, are made available
  * to you by the authors under the terms of the "GNU General Public Licence,
@@ -11,17 +11,147 @@
  */
 package org.gnome.gtk;
 
+/**
+ * A MenuItem that maintains a binary state.
+ * 
+ * <p>
+ * A CheckMenuItem is just like a MenuItem, but additionally it displays a
+ * "check box" alongside the normal Label, indicating the state of the boolean
+ * value it holds. When that value is set to <code>true</code>, the item is
+ * <i>active</i> and the box shows the check mark.
+ * 
+ * <p>
+ * You can use a CheckMenuItem as a way to allow users of your application
+ * enable or disable a feature in an application. This is often used within to
+ * toggle options, for example to let the user hide an optional Widget of your
+ * user interface.
+ * 
+ * <p>
+ * The active state is switched automatically when the user activates the
+ * MenuItem. You can access the current state with the
+ * {@link #getActive() getActive()} method. And while you can still connect to
+ * the <code>ACTIVATE</code> signal, CheckMenuItem provides the
+ * {@link #TOGGLED TOGGLED} signal, emitted when the active state changes.
+ * 
+ * <p>
+ * See the {@link MenuItem parent} class for further details general to all
+ * MenuItems.
+ * 
+ * @author Vreixo Formoso
+ * @since 4.0.4
+ */
 /*
- * FIXME this is a placeholder stub for what will become the public API for
- * this type. Replace this comment with appropriate javadoc including author
- * and since tags. Note that the class may need to be made abstract, implement
- * interfaces, or even have its parent changed. No API stability guarantees
- * are made about this class until it has been reviewed by a hacker and this
- * comment has been replaced.
+ * TODO need screenshot.
  */
 public class CheckMenuItem extends MenuItem
 {
     protected CheckMenuItem(long pointer) {
         super(pointer);
     }
+
+    /**
+     * Construct a CheckMenuItem
+     */
+    public CheckMenuItem() {
+        super(GtkCheckMenuItem.createCheckMenuItem());
+    }
+
+    /**
+     * Construct a CheckMenuItem with a given text Label. The text may contain
+     * underscores (<code>_<code>) which, if present, will indicate the
+     * mnemonic which will activate that CheckMenuItem directly if that key is
+     * pressed while viewing the Menu.
+     */
+    public CheckMenuItem(String mnemonicLabel) {
+        super(GtkCheckMenuItem.createCheckMenuItemWithMnemonic(mnemonicLabel));
+    }
+
+    /**
+     * Construct a CheckMenuItem with a given text label, and additionally
+     * connect a handler to its TOGGLED signal. This affords you the
+     * convenience of being able to add a MenuItem fairly compactly:
+     * 
+     * <pre>
+     * editMenu.append(new MenuItem(&quot;_Paste&quot;, new ACTIVATE() {
+     *     public void onActivate(MenuItem sourceObject) {
+     *         ...
+     *     }
+     * }));
+     * </pre>
+     */
+    public CheckMenuItem(String mnemonicLabel, TOGGLED handler) {
+        super(GtkCheckMenuItem.createCheckMenuItemWithMnemonic(mnemonicLabel));
+        connect(handler);
+    }
+
+    /**
+     * Set the active state of the Item. This is switched automatically when
+     * the user activates (clicks) the menu item, but in some situations you
+     * will want to change it manually.
+     */
+    public void setActive(boolean isActive) {
+        GtkCheckMenuItem.setActive(this, isActive);
+    }
+
+    /**
+     * Retrieve the active state of the item.
+     */
+    public boolean getActive() {
+        return GtkCheckMenuItem.getActive(this);
+    }
+
+    /**
+     * Set the inconsistent state. This refers to an additional third state
+     * meaning that currently it cannot be decided what is the active state of
+     * the item.
+     * 
+     * <p>
+     * Think, for example, in a text editor application, in which a
+     * CheckMenuItem is used to choose between a bold or a normal font. If the
+     * user selects a range of text where both normal and bold fonts are being
+     * used, the state is inconsistent, and we want to mark it in a different
+     * way.
+     * 
+     * <p>
+     * However, note that, while such property can be really useful in a
+     * {@link ToggleToolButton}, its utility in a CheckMenuItem is really
+     * unclear.
+     * 
+     * <p>
+     * Notice also that this property only affects visual appearance, it
+     * doesn't affect the semantics of the Widget.
+     */
+    public void setInconsistent(boolean setting) {
+        GtkCheckMenuItem.setInconsistent(this, setting);
+    }
+
+    /**
+     * Get the inconsistent state.
+     * 
+     * @see #setInconsistent(boolean)
+     */
+    public boolean getInconsistent() {
+        return GtkCheckMenuItem.getInconsistent(this);
+    }
+
+    /**
+     * The handler interface for a change in the active state. This is
+     * triggered when the active state changes, either when the user activates
+     * the MenuItem, or when it is changed with
+     * {@link CheckMenuItem#setActive(boolean) setActive()}.
+     * 
+     * @see MenuItem.ACTIVATE
+     */
+    public interface TOGGLED extends GtkCheckMenuItem.TOGGLED
+    {
+        void onToggled(CheckMenuItem sourceObject);
+    }
+
+    /**
+     * Connect a <code>TOGGLED</code> handler to the widget.
+     */
+    public void connect(TOGGLED handler) {
+        GtkCheckMenuItem.connect(this, handler);
+    }
+
 }

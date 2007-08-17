@@ -31,6 +31,7 @@ package org.gnome.gtk;
  * @author Sebastian Mancke
  * @author Andrew Cowie
  * @author Srichand Pendyala
+ * @author Vreixo Formoso
  * @since 4.0.3
  */
 public class MenuItem extends Item
@@ -48,12 +49,44 @@ public class MenuItem extends Item
 
     /**
      * Construct a MenuItem with a given text label. The label may contain
-     * underscores (<code>_<code>) which, if present, will indicate the
-     * mnemonic which will activate that MenuItem directly if that key is
-     * pressed.
+     * underscores (the <code>_</code> character) which, if present, will
+     * indicate the mnemonic which will activate that MenuItem directly if
+     * that key is pressed (whilst the Menu is showing, obviously).
      */
     public MenuItem(String mnemonicLabel) {
         super(GtkMenuItem.createMenuItemWithMnemonic(mnemonicLabel));
+    }
+
+    /**
+     * Construct a MenuItem with a given text label, and additionally connect
+     * a handler to its <code>ACTIVATE</code> signal.
+     * 
+     * <p>
+     * This is equivalent to:
+     * 
+     * <pre>
+     * item = new MenuItem(&quot;_My menu item&quot;);
+     * item.connect(handler);
+     * </pre>
+     * 
+     * and affords you the convenience of being able to add a MenuItem fairly
+     * compactly:
+     * 
+     * <pre>
+     * Menu editMenu;
+     *    
+     * editMenu.append(new MenuItem(&quot;_Paste&quot;, new ACTIVATE() {
+     *     public void onActivate(MenuItem sourceObject) {
+     *         ...
+     *     }
+     * }));
+     * </pre>
+     * 
+     * @since 4.0.4
+     */
+    public MenuItem(String mnemonicLabel, ACTIVATE handler) {
+        super(GtkMenuItem.createMenuItemWithMnemonic(mnemonicLabel));
+        connect(handler);
     }
 
     /**
@@ -86,7 +119,7 @@ public class MenuItem extends Item
     }
 
     /**
-     * Connect an {@link ACTIVATE} handler to the widget.
+     * Connect an <code>ACTIVATE</code> handler to the widget.
      */
     public void connect(ACTIVATE handler) {
         GtkMenuItem.connect(this, handler);
