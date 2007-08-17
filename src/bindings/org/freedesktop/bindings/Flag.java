@@ -52,12 +52,12 @@ public abstract class Flag extends Constant
      * is:
      * 
      * <pre>
-     *     WindowState s;
-     *     ...
+     * WindowState s;
+     * ...
      *     
-     *     if (s.contains(WindowState.STICKY)) {
-     *         // get a cloth to clean up the mess
-     *     }
+     * if (s.contains(WindowState.STICKY)) {
+     *     // get a cloth to clean up the mess
+     * }
      * </pre>
      * 
      * You can only use this on instances of the same class!

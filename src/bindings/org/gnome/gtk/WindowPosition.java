@@ -50,7 +50,7 @@ public final class WindowPosition extends Constant
             GtkWindowPosition.CENTER_ALWAYS, "CENTER_ALWAYS");
 
     /**
-     * The window should be kept centered on its ({@link Window#setTransientFor(Window, Window)) transient})
+     * The window should be kept centered on its ({@link Window#setTransientFor(Window, Window) transient})
      * parent.
      */
     public static final WindowPosition CENTER_ON_PARENT = new WindowPosition(
