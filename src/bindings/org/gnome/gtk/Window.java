@@ -19,23 +19,26 @@ import org.gnome.gdk.Screen;
  * The top level Widget that contains other Widgets. Typical examples are
  * application windows, dialog boxes, and popup menus.
  * 
- *      * <p>
-     * <code>hide()</code> is frequently used on top level Windows
-     * immediately after instantiating them, as in
-     * 
-     * <pre>
-     * w = new Window();
-     * w.hide();
-     * ...
-     * // construct Widgets to create user interface and add to w 
-     * ...
-     * w.showAll();
-     * </pre>
-     * 
-     * this prevents the Window from being drawn as a small empty square and
-     * then resizing one or more times as its component Widgets are added to
-     * create the desired user interface.
-     * 
+ * <p>
+ * It is common to invoke {@link Widget#hide() hide()} on a new top level
+ * Window immediately after instantiating it, as in:
+ * 
+ * <pre>
+ * w = new Window();
+ * w.hide();
+ * ...
+ * // construct Widgets to create user interface and add to w 
+ * ...
+ * w.showAll();
+ * </pre>
+ * 
+ * this prevents the Window from being drawn as a small empty square and then
+ * resizing one or more times as its component Widgets are added to create the
+ * desired user interface during the initial cycles of the main loop.
+ * 
+ * <p>
+ * <code>hide()</code> is also important when Windows are being closed; see
+ * the comments in the description of {@link Window.DELETE_EVENT DELETE_EVENT}.
  * 
  * @author Andrew Cowie
  * @author Srichand Pendyala
@@ -237,13 +240,23 @@ public class Window extends Bin
      * up a notification Dialog, for example asking you if you want to save an
      * unsaved document. Another technique is reusing a Window: rather than
      * going to all the trouble to create this Window again, you can just
-     * temporarily hide it by calling {@link Widget#hide() Widget's hide()}.
+     * temporarily hide it by calling Widget's {@link Widget#hide() hide()}.
      * 
      * <p>
-     * <i> This signal is actually "delete-event" which lives on GtkWidget.
+     * Likewise, if you are going to take a long time to tear down the
+     * resources used by the Window or application as a whole (often the case
+     * when the user clicks on the <code>[X]</code> button in the window
+     * decorations), it is a good idea to call <code>hide()</code>
+     * immediately. Many window managers will popup a warning dialog asking
+     * you if you want to force-terminate the application if a window is
+     * perceived to be "unresponsive" to a close request. You can avoid this by
+     * simply hiding the Window while you clean up.
+     * 
+     * <p>
+     * <i>This signal is actually "delete-event" which lives on GtkWidget.
      * That, however, is for implementation reasons in GTK because all the
      * GdkEvents go to GtkWidget even though this particular signal only has
-     * to do with Windows. So, we expose it here. </i>
+     * to do with Windows. So, we expose it here.</i>
      * 
      * @author Andrew Cowie
      * @author Devdas Bhagat
