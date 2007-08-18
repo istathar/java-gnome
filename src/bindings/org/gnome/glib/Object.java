@@ -139,6 +139,20 @@ public abstract class Object extends Proxy
     }
 
     /**
+     * Set a property that takes a <code>float</code> for its value.
+     * 
+     * @since 4.0.4
+     */
+    protected void setPropertyFloat(String name, float value) {
+        GObject.setProperty(this, name, new Value(GValue.createValue(value)));
+    }
+
+    protected float getPropertyFloat(String name) {
+        Value value = GObject.getProperty(this, name);
+        return GValue.getFloat(value);
+    }
+
+    /**
      * Set a property that takes an Object subclass for its value.
      * 
      * @since 4.0.2

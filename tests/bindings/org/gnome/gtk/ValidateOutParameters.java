@@ -28,4 +28,20 @@ public class ValidateOutParameters extends TestCaseGtk
                 "Stored alignment not retreived; assumptions underlying out-parameter handling may be in error",
                 0.3f, b.getAlignmentY(), 0.00001);
     }
+
+    /*
+     * See also ValidateProperties.testAlignmentAlignmentAndScale(), a test
+     * carried out earlier in the UnitTests sequence.
+     */
+    public final void testAlignmentPadding() {
+        final Alignment a;
+
+        a = new Alignment(0.1f, 0.2f, 0.8f, 0.9f);
+        a.setPadding(2, 3, 6, 12);
+
+        assertEquals(2, a.getPaddingTop());
+        assertEquals(3, a.getPaddingBottom());
+        assertEquals(6, a.getPaddingLeft());
+        assertEquals(12, a.getPaddingRight());
+    }
 }

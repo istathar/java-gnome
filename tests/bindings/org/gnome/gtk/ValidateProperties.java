@@ -59,4 +59,47 @@ public class ValidateProperties extends TestCaseGtk
         assertSame("Set ReliefStyle constant is not the object that was retrieved when calling getter!",
                 b.getRelief(), rs);
     }
+
+    public final void testAlignmentConstructorProperties() {
+        final Alignment a;
+
+        a = new Alignment(0.1f, 0.2f, 0.8f, 0.9f);
+        assertEquals(0.1f, a.getAlignmentX(), 0.001);
+        assertEquals(0.2f, a.getAlignmentY(), 0.001);
+        assertEquals(0.8f, a.getScaleX(), 0.001);
+        assertEquals(0.9f, a.getScaleY(), 0.001);
+    }
+
+    public final void testAlignmentParameterChecks() {
+        Alignment a;
+
+        try {
+            a = new Alignment(-0.1f, 0.2f, 0.8f, 0.9f);
+            fail("Should have thrown exception due to negative paramater");
+        } catch (IllegalArgumentException iae) {
+            //
+        }
+        try {
+            a = new Alignment(1.1f, 0.2f, 0.8f, 0.9f);
+            fail("Should have thrown exception due to paramater out of bounds");
+        } catch (IllegalArgumentException iae) {
+            //
+        }
+
+        a = new Alignment(0.1f, 0.2f, 0.8f, 0.9f);
+        a.setAlignment(0.3f, 0.4f, 0.5f, 0.6f);
+
+        assertEquals(0.3f, a.getAlignmentX(), 0.001);
+        assertEquals(0.4f, a.getAlignmentY(), 0.001);
+        assertEquals(0.5f, a.getScaleX(), 0.001);
+        assertEquals(0.6f, a.getScaleY(), 0.001);
+
+        try {
+            a.setAlignment(0.3f, 0.4f, 0.5f, -0.6f);
+            fail("Should have thrown exception due to paramater out of bounds");
+        } catch (IllegalArgumentException iae) {
+            //
+        }
+        assertEquals(0.6f, a.getScaleY(), 0.001);
+    }
 }

@@ -39,6 +39,10 @@ final class GValue extends Plumbing
         return g_value_init(pointerOf(obj));
     }
 
+    static final long createValue(float f) {
+        return g_value_init(f);
+    }
+
     /*
      * These ones does not match the exact prototype of g_value_init() [which
      * is (GValue*, GType)]; we do the type system magic on the other side
@@ -50,9 +54,17 @@ final class GValue extends Plumbing
 
     private static native final long g_value_init(boolean b);
 
+    private static native final long g_value_init(float f);
+
     private static native final long g_value_init(String str);
 
     private static native final long g_value_init(long obj);
+
+    static final float getFloat(Value value) {
+        return g_value_get_float(pointerOf(value));
+    }
+
+    private static native final float g_value_get_float(long value);
 
     static final String getString(Value value) {
         return g_value_get_string(pointerOf(value));

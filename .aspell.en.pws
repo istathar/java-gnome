@@ -1,4 +1,4 @@
-personal_ws-1.1 en 1042 
+personal_ws-1.1 en 1058 
 EnumValue
 getActive
 refactor
@@ -62,8 +62,8 @@ appendPage
 tearDown
 KeyListener
 copyMappingFile
-MenuItems
 MenuItem's
+MenuItems
 jargs
 GClosureNotify
 testGetChildAndParent
@@ -153,8 +153,8 @@ GtkComboBox
 args
 gtk
 InternalButtonImplementation
-blog
 argv
+blog
 OutOfMemoryError
 JDS
 pixbuf
@@ -197,8 +197,8 @@ gnomedev
 perl
 ReliefStyle
 setTitle
-sourceforge
 SourceForge
+sourceforge
 PascalCase
 ToolBar
 JNIEXPORT
@@ -281,12 +281,12 @@ typeName
 online
 hiccup
 setDisplayOptions
-GladeXML
 GladeXml
+GladeXML
 conf
 ListStore
-getURI
 getUri
+getURI
 TreeView's
 EventAny
 prependPage
@@ -331,8 +331,8 @@ nUnable
 typedef
 GTypeInstance
 setPropertyBar
-pyGTK
 pygtk
+pyGTK
 GtkBox
 returnType
 ClassLoader's
@@ -345,6 +345,7 @@ setInvisibleChar
 selectFilename
 src
 executeCommand
+paddingBottom
 getPropertyFloat
 IJLjava
 GetStaticMethodID
@@ -353,6 +354,7 @@ kaffec
 getPosition
 DeleteGlobalRef
 tmp
+getPaddingTop
 setFraction
 VCS
 Gruber's
@@ -450,11 +452,12 @@ ClassNotFoundException
 FilenameFilter
 cp
 filenames
-dl
 eg
+dl
 nowarn
 preserveAllLocals
 toplevel
+getPaddingLeft
 gc
 setPropertyString
 dt
@@ -462,6 +465,7 @@ GTKish
 gtkjni
 eq
 dependsMapSourceFilesToTargetFiles
+getPaddingBottom
 hg
 createImageFromFile
 fjni
@@ -475,18 +479,20 @@ DVCS
 getWindow
 prepareTestDirectories
 GdkScreen
+setPadding
 pango
 enum
 lc
 vhosts
 tooltips
 setKeepAbove
-ld
 jN
+ld
 lookups
-li
 md
+li
 struct
+paddingLeft
 nc
 LibGlade
 libglade
@@ -506,8 +512,8 @@ Cowie
 touchFile
 constantFor
 WindowPosition
-ok
 QA
+ok
 libgnomeui
 Overholt
 mv
@@ -523,6 +529,7 @@ GtkCalendar
 prereq
 runtime
 EventSelection
+paddingTop
 hscrollbarPolicy
 py
 ToggleButtons
@@ -533,8 +540,8 @@ va
 tm
 ui
 getmtime
-ul
 wb
+ul
 GtkSeparatorMenuItem
 testButtonReliefStyle
 HBox
@@ -620,6 +627,7 @@ Dialogs
 hostname
 WindowType
 unformatted
+paddingRight
 webserver
 unref
 jobjectArray
@@ -704,6 +712,7 @@ nowrap
 apiversion
 GList
 connectSignal
+xscale
 tabLabel
 moveWidget
 popup
@@ -731,6 +740,7 @@ scalarref
 assertTrue
 WeakHashMap
 methodName
+yscale
 getClass
 setAngle
 jstring
@@ -757,11 +767,13 @@ onSelectionChanged
 classname
 unix
 Henstridge
+createAlignment
 mockups
 apache
 GdkEventKey
 buildtool
 PackageNames
+getPaddingRight
 README
 createGenerator
 compileGeneratorClasses
@@ -880,6 +892,7 @@ ValidateMemoryManagement
 ebuild
 createWithLabel
 UnitTests
+getPadding
 linkSharedLibrary
 handlerName
 orTwoFlags
@@ -967,7 +980,9 @@ createValue
 GtkFileChooserButton
 buildable
 mockup
+getScaleX
 subitems
+getScaleY
 SignalHandler
 createFileChooserButon
 boolean
@@ -1004,6 +1019,7 @@ setMaxLength
 GdkEvent
 GSignal
 AfC
+GtkAlignment
 createGladeXml
 createVButtonBox
 getEnum
@@ -1021,8 +1037,8 @@ setGravity
 getLayout
 registerProxy
 isActive
-getenv
 getEnv
+getenv
 baz
 TestSuite
 EventType

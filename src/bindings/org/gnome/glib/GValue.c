@@ -93,10 +93,8 @@ Java_org_gnome_glib_GValue_g_1value_1free
  *   org.gnome.glib.GValue.g_value_init(int i)
  * called from
  *   org.gnome.glib.GValue.createValue(int i)
- * called from
- *   org.gnome.glib.IntegerValue.<init>(int i);
  *
- * Allocate a GValue for a boolean with GSlice, then initialize it and return
+ * Allocate a GValue for a gint32 with GSlice, then initialize it and return
  * the pointer.
  */
 JNIEXPORT jlong JNICALL
@@ -130,10 +128,8 @@ Java_org_gnome_glib_GValue_g_1value_1init__I
  *   org.gnome.glib.GValue.g_value_init(boolean b)
  * called from
  *   org.gnome.glib.GValue.createValue(boolean b)
- * called from
- *   org.gnome.glib.BooleanValue.<init>(boolean b);
  *
- * Allocate a GValue for a boolean with GSlice, then initialize it and return
+ * Allocate a GValue for a gboolean with GSlice, then initialize it and return
  * the pointer.
  */
 JNIEXPORT jlong JNICALL
@@ -162,11 +158,42 @@ Java_org_gnome_glib_GValue_g_1value_1init__Z
 
 /**
  * Implements
+ *   org.gnome.glib.GValue.g_value_init(float f)
+ * called from
+ *   org.gnome.glib.GValue.createValue(float f)
+ *
+ * Allocate a GValue for a gfloat with GSlice, then initialize it and return
+ * the pointer.
+ */
+JNIEXPORT jlong JNICALL
+Java_org_gnome_glib_GValue_g_1value_1init__F
+(
+	JNIEnv *env,
+	jclass cls,
+	jfloat _f
+)
+{
+	gfloat f;
+	GValue* value;
+	
+	f = (gfloat) _f;
+		
+	// allocate it and set to zeros, per what g_value_init requires
+	value =	g_slice_new0(GValue);
+	g_value_init(value, G_TYPE_FLOAT);
+	
+	// set the value
+	g_value_set_boolean(value, f); 
+
+	// return address
+	return (jlong) value;
+}
+
+/**
+ * Implements
  *   org.gnome.glib.GValue.g_value_init(String str)
  * called from
  *   org.gnome.glib.GValue.createValue(String str)
- * called from
- *   org.gnome.glib.StringValue.<init>(String str);
  *
  * Allocate a GValue for a char* with GSlice, then initialize it and return
  * the pointer.
@@ -208,8 +235,6 @@ Java_org_gnome_glib_GValue_g_1value_1init__Ljava_lang_String_2
  *   org.gnome.glib.GValue.g_value_init(long obj)
  * called from
  *   org.gnome.glib.GValue.createValue(Object obj)
- * called from
- *   org.gnome.glib.ObjectValue.<init>(Object obj);
  *
  * Allocate a GValue for a GObject with GSlice, then initialize it and return
  * the pointer.
@@ -243,9 +268,46 @@ Java_org_gnome_glib_GValue_g_1value_1init__Lorg_gnome_glib_GObject_2
 
 /**
  * Implements
+ *   org.gnome.glib.GValue.g_value_get_float(long value)
+ * called from
+ *   org.gnome.glib.GValue.getFloat(Value value)
+ * called from
+ *   org.gnome.glib.Object.getPropertyFloat(String name)
+ *
+ * Extract the gfloat value from a GValue of G_TYPE_FLOAT, returning the
+ * primitive.
+ */
+JNIEXPORT jfloat JNICALL
+Java_org_gnome_glib_GValue_g_1value_1get_1float
+(
+	JNIEnv* env,
+	jclass cls,
+	jlong _value
+)
+{
+	GValue* value;
+	gfloat result;
+
+	// translate value
+	value =	(GValue*) _value;
+	if (!G_VALUE_HOLDS_FLOAT(value)) {
+		bindings_java_throw(env, "You've asked for the float value of a GValue, but it's not a G_TYPE_FLOAT!");
+		return 0.0f;
+	}
+	
+	// call function
+	result = g_value_get_float(value);
+	
+	// and return
+	return (jfloat) result; 
+}
+
+
+/**
+ * Implements
  *   org.gnome.glib.GValue.g_value_get_string(long value)
  * called from
- *   org.gnome.glib.GValue.getString(StringValue value)
+ *   org.gnome.glib.GValue.getString(Value value)
  * called from
  *   org.gnome.glib.Object.getPropertyString(String name)
  *
@@ -281,7 +343,7 @@ Java_org_gnome_glib_GValue_g_1value_1get_1string
  * Implements
  *   org.gnome.glib.GValue.g_value_get_enum(long value)
  * called from
- *   org.gnome.glib.GValue.getEnum(EnumValue value)
+ *   org.gnome.glib.GValue.getEnum(Value value)
  * called from
  *   org.gnome.glib.Object.getPropertyEnum(String name)
  *
@@ -316,7 +378,7 @@ Java_org_gnome_glib_GValue_g_1value_1get_1enum
  * Implements
  *   org.gnome.glib.GValue.g_value_get_flags(long value)
  * called from
- *   org.gnome.glib.GValue.getFlags(EnumValue value)
+ *   org.gnome.glib.GValue.getFlags(Value value)
  * called from
  *   org.gnome.glib.Object.getPropertyFlags(String name)
  *
@@ -351,7 +413,7 @@ Java_org_gnome_glib_GValue_g_1value_1get_1flags
  * Implements
  *   org.gnome.glib.GValue.g_value_get_enum(long value)
  * called from
- *   org.gnome.glib.GValue.getEnum(EnumValue value)
+ *   org.gnome.glib.GValue.getEnum(Value value)
  * called from
  *   org.gnome.glib.Object.getPropertyEnum(String name)
  *

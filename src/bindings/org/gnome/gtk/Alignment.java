@@ -14,22 +14,23 @@ package org.gnome.gtk;
 /**
  * Control the alignment and size of a child Widget. It has four settings:
  * <var>xscale</var>, <var>yscale</var>, <var>xalign</var>, and <var>yalign</var>.
+ * You can also specify padding around the child.
+ * 
+ * <p>
+ * The alignment settings are used to place the child within the available
+ * area. The values range from <code>0.0f</code> (top or left) to
+ * <code>1.0f</code> (bottom or right).
  * 
  * <p>
  * The scale settings are used to specify how much the child should expand to
  * fill the space allocated to the Alignment. The values can range from
  * <code>0.0f</code> (meaning the child doesn't expand at all) to
  * <code>1.0f</code> (meaning the child will expand to fill all of the
- * allocated space).
- * 
- * <p>
- * The alignment settings are used to place the child within the available
- * area. The values range from <code>0.0f</code> (top or left) to
- * <code>1.0f</code> (bottom or right). If both scale settings are set to
- * <code>1.0f</code>, the Alignment will have no effect on the child
- * Widget.
+ * allocated space). If both scale settings are set to <code>1.0f</code>,
+ * the two alignment values will have no effect on the child Widget.
  * 
  * @author Nat Pryce
+ * @author Andrew Cowie
  * @since 4.0.4
  */
 public class Alignment extends Bin
@@ -38,90 +39,125 @@ public class Alignment extends Bin
         super(pointer);
     }
 
+    private static final float check(final float param) {
+        if ((param < 0.0) || (param > 1.0)) {
+            throw new IllegalArgumentException("Parameters must be between 0.0 and 1.0");
+        }
+        return param;
+    }
+
     /**
      * Creates an empty Alignment. The child Widget can later be added by
      * calling the {@link Container#add(Widget) add()} method.
      */
     public Alignment(float xalign, float yalign, float xscale, float yscale) {
-        this(GtkAlignment.createAlignment(xalign, yalign, xscale, yscale));
+        this(GtkAlignment.createAlignment(check(xalign), check(yalign), check(xscale), check(yscale)));
     }
 
     /**
-     * Creates an an Alignment for an existing child Widget.
+     * Creates an Alignment wrapping an existing Widget.
      */
     public Alignment(float xalign, float yalign, float xscale, float yscale, Widget child) {
-        this(GtkAlignment.createAlignment(xalign, yalign, xscale, yscale));
+        this(GtkAlignment.createAlignment(check(xalign), check(yalign), check(xscale), check(yscale)));
         add(child);
     }
 
     /**
-     * Sets the padding on the different sides of the widget. The padding adds
-     * blank space to the sides of the widget. For instance, this can be used
-     * to indent the child widget towards the right by adding padding on the
-     * left.
+     * Set the padding on the different sides of the Widget. The padding adds
+     * blank space to the sides of the Widget. For instance, this can be used
+     * to indent the child towards the right by adding padding on the left.
      */
     public void setPadding(int paddingTop, int paddingBottom, int paddingLeft, int paddingRight) {
         GtkAlignment.setPadding(this, paddingTop, paddingBottom, paddingLeft, paddingRight);
     }
 
     /**
-     * Returns the padding to the top of the child widget
+     * Returns the padding being added to the top of the child.
      */
     public int getPaddingTop() {
-        int[] paddingTop = new int[0];
-        int[] paddingBottom = new int[0];
-        int[] paddingLeft = new int[0];
-        int[] paddingRight = new int[0];
+        int[] paddingTop = new int[1];
+        int[] paddingBottom = new int[1];
+        int[] paddingLeft = new int[1];
+        int[] paddingRight = new int[1];
 
         GtkAlignment.getPadding(this, paddingTop, paddingBottom, paddingLeft, paddingRight);
         return paddingTop[0];
     }
 
     /**
-     * Returns the padding to the bottom of the child widget
+     * Returns the padding being added below the bottom of the child.
      */
     public int getPaddingBottom() {
-        int[] paddingTop = new int[0];
-        int[] paddingBottom = new int[0];
-        int[] paddingLeft = new int[0];
-        int[] paddingRight = new int[0];
+        int[] paddingTop = new int[1];
+        int[] paddingBottom = new int[1];
+        int[] paddingLeft = new int[1];
+        int[] paddingRight = new int[1];
 
         GtkAlignment.getPadding(this, paddingTop, paddingBottom, paddingLeft, paddingRight);
         return paddingBottom[0];
     }
 
     /**
-     * Returns the padding to the left of the child Widget
+     * Returns the padding being added to the left of the child.
      */
     public int getPaddingLeft() {
-        int[] paddingTop = new int[0];
-        int[] paddingBottom = new int[0];
-        int[] paddingLeft = new int[0];
-        int[] paddingRight = new int[0];
+        int[] paddingTop = new int[1];
+        int[] paddingBottom = new int[1];
+        int[] paddingLeft = new int[1];
+        int[] paddingRight = new int[1];
 
         GtkAlignment.getPadding(this, paddingTop, paddingBottom, paddingLeft, paddingRight);
         return paddingLeft[0];
     }
 
     /**
-     * Returns the padding to the right of the child Widget
+     * Returns the padding being added to the right of the child.
      */
     public int getPaddingRight() {
-        int[] paddingTop = new int[0];
-        int[] paddingBottom = new int[0];
-        int[] paddingLeft = new int[0];
-        int[] paddingRight = new int[0];
+        int[] paddingTop = new int[1];
+        int[] paddingBottom = new int[1];
+        int[] paddingLeft = new int[1];
+        int[] paddingRight = new int[1];
 
         GtkAlignment.getPadding(this, paddingTop, paddingBottom, paddingLeft, paddingRight);
         return paddingRight[0];
     }
 
     /**
-     * Sets the Alignment values. See the discussion at {@link Alignment top}
-     * for the interpretation of the values. All parameters must be within the
-     * range of <code>0.0f</code> to <code>1.0f</code>.
+     * Set the alignment and scale values. See the discussion at
+     * {@link Alignment top} for the interpretation of the values. All
+     * parameters must be within the range of <code>0.0f</code> to
+     * <code>1.0f</code>.
      */
-    public void set(float xalign, float yalign, float xscale, float yscale) {
-        GtkAlignment.set(this, xalign, yalign, xscale, yscale);
+    public void setAlignment(float xalign, float yalign, float xscale, float yscale) {
+        GtkAlignment.set(this, check(xalign), check(yalign), check(xscale), check(yscale));
+    }
+
+    /**
+     * Get the <var>xalign</var> value.
+     */
+    public float getAlignmentX() {
+        return getPropertyFloat("xalign");
+    }
+
+    /**
+     * Get the <var>yalign</var> value.
+     */
+    public float getAlignmentY() {
+        return getPropertyFloat("yalign");
+    }
+
+    /**
+     * Get the <var>xscale</var> value.
+     */
+    public float getScaleX() {
+        return getPropertyFloat("xscale");
+    }
+
+    /**
+     * Get the <var>yscale</var> value.
+     */
+    public float getScaleY() {
+        return getPropertyFloat("yscale");
     }
 }

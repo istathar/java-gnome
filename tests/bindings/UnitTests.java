@@ -44,8 +44,6 @@ public class UnitTests
     /**
      * Entry point from the command line, of course. Uses VerboseTestRunner to
      * do a more pretty printing of the test output.
-     * 
-     * @param args
      */
     public static void main(String[] args) {
         VerboseTestRunner.run(suite(args));
