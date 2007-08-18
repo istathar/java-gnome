@@ -94,8 +94,6 @@ public class Button extends Bin
     /**
      * Get the vertical alignment of the child Widget within this Button. The
      * return will range from 0.0 (top) to 1.0 (bottom).
-     * 
-     * @return
      */
     public float getAlignmentY() {
         float[] x = new float[1];

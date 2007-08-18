@@ -31,7 +31,8 @@ package org.gnome.gtk;
  * MenuItem. You can access the current state with the
  * {@link #getActive() getActive()} method. And while you can still connect to
  * the <code>ACTIVATE</code> signal, CheckMenuItem provides the
- * {@link #TOGGLED TOGGLED} signal, emitted when the active state changes.
+ * {@link CheckMenuItem.TOGGLED TOGGLED} signal, emitted when the active state
+ * changes.
  * 
  * <p>
  * See the {@link MenuItem parent} class for further details general to all
@@ -68,8 +69,8 @@ public class CheckMenuItem extends MenuItem
 
     /**
      * Construct a CheckMenuItem with a given text label, and additionally
-     * connect a handler to its TOGGLED signal. This affords you the
-     * convenience of being able to add a MenuItem fairly compactly:
+     * connect a handler to its <code>TOGGLED</code> signal. This affords
+     * you the convenience of being able to add a MenuItem fairly compactly:
      * 
      * <pre>
      * editMenu.append(new MenuItem(&quot;_Paste&quot;, new ACTIVATE() {

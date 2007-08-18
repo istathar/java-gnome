@@ -249,8 +249,8 @@ public class Window extends Bin
      * decorations), it is a good idea to call <code>hide()</code>
      * immediately. Many window managers will popup a warning dialog asking
      * you if you want to force-terminate the application if a window is
-     * perceived to be "unresponsive" to a close request. You can avoid this by
-     * simply hiding the Window while you clean up.
+     * perceived to be "unresponsive" to a close request. You can avoid this
+     * by simply hiding the Window while you clean up.
      * 
      * <p>
      * <i>This signal is actually "delete-event" which lives on GtkWidget.
@@ -456,7 +456,8 @@ public class Window extends Bin
      * mean there are suddenly four copies of your application running or
      * anything silly like that.</i>
      * 
-     * @param <code>true</code> to request the Window be stuck,
+     * @param setting
+     *            <code>true</code> to request the Window be stuck,
      *            <code>false</code> to request a return to the normal
      *            default state.
      * @since 4.0.4

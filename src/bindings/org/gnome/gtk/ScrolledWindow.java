@@ -44,12 +44,7 @@ public class ScrolledWindow extends Bin
     }
 
     /**
-     * Sets the scrollbar policy for the horizontal and vertical scrollbars.
-     * 
-     * @param hscrollbarPolicy
-     *            Policy for the horizontal scrollbar
-     * @param vscrollbarPolicy
-     *            Policy for the vertical scrollbar
+     * Set the scrollbar policy for the horizontal and vertical scrollbars.
      */
     public void setPolicy(PolicyType hscrollbarPolicy, PolicyType vscrollbarPolicy) {
         GtkScrolledWindow.setPolicy(this, hscrollbarPolicy, vscrollbarPolicy);
@@ -60,8 +55,8 @@ public class ScrolledWindow extends Bin
      * it to the ScrolledWindow. This is a convenience function; you could
      * always create the Viewport yourself if you really wanted. Note that
      * this method is only for Widgets which do not support scrolling directly
-     * themselves; use {@link Container#add()} directly for those Widgets that
-     * do.
+     * themselves; use {@link Container#add(Widget) add()} directly for those
+     * Widgets that do.
      */
     public void addWithViewport(Widget child) {
         GtkScrolledWindow.addWithViewport(this, child);

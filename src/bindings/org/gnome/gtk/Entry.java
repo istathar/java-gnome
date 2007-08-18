@@ -84,7 +84,7 @@ public class Entry extends Widget implements Editable, CellEditable
      * <code>*</code> instead. This default can be changed with
      * {@link #setInvisibleChar(char) setInvisibleChar()}.
      * 
-     * @param visible,
+     * @param visible
      *            true for showing, false for hiding
      */
     public void setVisibleChars(boolean visible) {
