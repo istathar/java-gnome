@@ -1422,10 +1422,16 @@ if ($os eq "solaris") {
 } elsif ($os) {
 	my $gcc_candidate;
 
-	if ($gcj_home) {
+	if (($gcj_home) && ($gcj)) {
 		$gcc_candidate = "$gcj_home/bin/gcc";
 	} else {
 		$gcc_candidate = which("gcc");
+
+		# Workaround ccache needing to be symlinked as gcc 
+		# to perform _as_ gcc. Gentoo bug #180353
+		if (basename($gcc_candidate) eq "ccache") {
+			$gcc_candidate = `which gcc`;
+		}
 	}
 
 	check_CC($cc, "GNU gcc", $gcc_candidate, "");
