@@ -76,7 +76,7 @@ public class MenuItem extends Item
      * Menu editMenu;
      *    
      * editMenu.append(new MenuItem(&quot;_Paste&quot;, new ACTIVATE() {
-     *     public void onActivate(MenuItem sourceObject) {
+     *     public void onActivate(MenuItem source) {
      *         ...
      *     }
      * }));
@@ -115,7 +115,7 @@ public class MenuItem extends Item
      */
     public interface ACTIVATE extends GtkMenuItem.ACTIVATE
     {
-        public void onActivate(MenuItem sourceObject);
+        public void onActivate(MenuItem source);
     }
 
     /**

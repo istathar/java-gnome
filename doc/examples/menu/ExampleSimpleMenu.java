@@ -73,7 +73,7 @@ public class ExampleSimpleMenu
          * <ENTER>.
          */
         fileNew.connect(new ACTIVATE() {
-            public void onActivate(MenuItem sourceObject) {
+            public void onActivate(MenuItem source) {
                 l.setLabel("You have selected File->New menu.");
             }
         });
@@ -83,7 +83,7 @@ public class ExampleSimpleMenu
          * MenuItem's, a convenience constructor is provided:
          */
         fileMenu.append(new MenuItem("_Save", new ACTIVATE() {
-            public void onActivate(MenuItem sourceObject) {
+            public void onActivate(MenuItem source) {
                 l.setLabel("You have selected File->Save menu.");
             }
         }));
@@ -95,7 +95,7 @@ public class ExampleSimpleMenu
         fileMenu.append(new SeparatorMenuItem());
 
         fileMenu.append(new MenuItem("_Quit", new ACTIVATE() {
-            public void onActivate(MenuItem sourceObject) {
+            public void onActivate(MenuItem source) {
                 Gtk.mainQuit();
             }
         }));
@@ -104,12 +104,12 @@ public class ExampleSimpleMenu
          * And now add the items making up the "edit" Menu.
          */
         editMenu.append(new MenuItem("_Copy", new ACTIVATE() {
-            public void onActivate(MenuItem sourceObject) {
+            public void onActivate(MenuItem source) {
                 l.setLabel("You have selected Edit->Copy menu.");
             }
         }));
         editMenu.append(new MenuItem("_Paste", new ACTIVATE() {
-            public void onActivate(MenuItem sourceObject) {
+            public void onActivate(MenuItem source) {
                 l.setLabel("You have selected Edit->Paste menu.");
             }
         }));
@@ -120,8 +120,8 @@ public class ExampleSimpleMenu
          * the "view" Menu:
          */
         viewMenu.append(new CheckMenuItem("Hide _text", new TOGGLED() {
-            public void onToggled(CheckMenuItem sourceObject) {
-                if (sourceObject.getActive()) {
+            public void onToggled(CheckMenuItem source) {
+                if (source.getActive()) {
                     l.hide();
                 } else {
                     l.show();

@@ -261,7 +261,7 @@
   (of-object "AtkObject")
   (return-type "guint")
   (parameters
-    '("AtkPropertyChangeHandler*" "handler")
+    '("AtkPropertyChangeHandler*" "handler_function")
   )
 )
 

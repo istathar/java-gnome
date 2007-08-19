@@ -9,7 +9,7 @@
   (c-name "atk_component_add_focus_handler")
   (return-type "guint")
   (parameters
-    '("AtkFocusHandler" "handler")
+    '("AtkFocusHandler" "handler_function")
   )
 )
 
@@ -134,7 +134,7 @@
   (of-object "AtkComponent")
   (return-type "guint")
   (parameters
-    '("AtkFocusHandler" "handler")
+    '("AtkFocusHandler" "handler_function")
   )
 )
 

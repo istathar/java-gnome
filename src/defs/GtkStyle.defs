@@ -888,7 +888,7 @@
   (of-object "GtkStyle")
   (return-type "GdkPixbuf*")
   (parameters
-    '("const-GtkIconSource*" "source")
+    '("const-GtkIconSource*" "icon_source")
     '("GtkTextDirection" "direction")
     '("GtkStateType" "state")
     '("GtkIconSize" "size")

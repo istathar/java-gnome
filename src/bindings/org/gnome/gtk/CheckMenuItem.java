@@ -74,7 +74,7 @@ public class CheckMenuItem extends MenuItem
      * 
      * <pre>
      * editMenu.append(new MenuItem(&quot;_Paste&quot;, new ACTIVATE() {
-     *     public void onActivate(MenuItem sourceObject) {
+     *     public void onActivate(MenuItem source) {
      *         ...
      *     }
      * }));
@@ -145,7 +145,7 @@ public class CheckMenuItem extends MenuItem
      */
     public interface TOGGLED extends GtkCheckMenuItem.TOGGLED
     {
-        void onToggled(CheckMenuItem sourceObject);
+        void onToggled(CheckMenuItem source);
     }
 
     /**

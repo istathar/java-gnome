@@ -104,7 +104,7 @@ public class VirtualGenerator extends FunctionGenerator
         out.print(" ");
         out.print(receiverMethodName);
 
-        out.print("(Signal handlerInstance, long sourceObject");
+        out.print("(Signal handler, long source");
 
         for (int i = 0; i < parameterTypes.length; i++) {
             out.print(", ");
@@ -141,11 +141,11 @@ public class VirtualGenerator extends FunctionGenerator
         out.print(proxyType.bindingsClass);
         out.print(".");
         out.print(javaSignalClass);
-        out.print(") handlerInstance).");
+        out.print(") handler).");
         out.print(interfaceMethodName);
         out.print("((");
         out.print(proxyType.javaTypeInContext(data));
-        out.print(") objectFor(sourceObject)");
+        out.print(") objectFor(source)");
 
         for (int i = 0; i < parameterTypes.length; i++) {
             out.print(", ");
@@ -186,7 +186,7 @@ public class VirtualGenerator extends FunctionGenerator
         out.print(interfaceMethodName);
         out.print("(");
         out.print(proxyType.javaTypeInContext(data));
-        out.print(" sourceObject");
+        out.print(" source");
 
         for (int i = 0; i < parameterTypes.length; i++) {
             out.print(", ");
