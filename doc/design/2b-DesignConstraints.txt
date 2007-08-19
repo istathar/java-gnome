@@ -69,6 +69,7 @@ Java language idioms more cleanly.
 This particular topic will be continued in another thread; lots of room for
 creativity and ideas here. See FIXME
 
+<a name="comfort"></a>
 
 The bindings will be comfortable to Java developers
 ===================================================
@@ -84,6 +85,8 @@ connect along with popup JavaDoc describing what each one does makes for a
 vastly superior development experience.
 
 And that means:
+
+<a name="hand-written"></a>
 
 Extensive JavaDoc that is hand written, not generated
 -----------------------------------------------------
@@ -134,10 +137,10 @@ Phil and I were talking the other night and recalling how amazing the original
 Turbo C|Pascal documentation was -- every single function call in the standard
 library had a small bit of code to show how you might use the thing. Now
 that's not necessary for every last method, but certainly at class level it's
-a great idea. See the JavaDoc for [KeyListener][example] in the 2.x bindings.
+a great idea. See the JavaDoc for Button's [connect()][example]
 for an idea of what I'm getting at.
 
-[example]: http://java-gnome.sourceforge.net/docs/javadoc/org/gnu/gtk/event/KeyListener.html
+[example]: http://java-gnome.sourceforge.net/4.0/doc/api/org/gnome/gtk/Button.html#connect(org.gnome.gtk.Button.CLICKED)
 
 Implementation details hidden
 -----------------------------
