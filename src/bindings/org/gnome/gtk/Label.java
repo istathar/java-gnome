@@ -179,4 +179,60 @@ public class Label extends Misc
     public void setJustify(Justification justification) {
         GtkLabel.setJustify(this, justification);
     }
+
+    /**
+     * Explicitly set the width of the Label, in characters.
+     * 
+     * <p>
+     * This sets the <var>width-chars</var> property. Note that if set, this
+     * will take precedence over the <var>max-width-chars</var> property as
+     * set by {@link #setMaxWidthChars(int) setMaxWidthChars()}.
+     * 
+     * <p>
+     * This is not precisely reliable as a way to enforce sizing across
+     * different Labels, since the character sizes could be different owing to
+     * differing languages or fonts that may be in use. Still, this is
+     * superior to trying to manually control Widget size by specifying the
+     * horizontal dimension in pixels. If you need a series of Widgets (be
+     * they Labels or otherwise) to have the same size, apply a
+     * {@link SizeGroup SizeGroup}.
+     * 
+     * @param width
+     *            The width to base the size of the Label on, in characters. A
+     *            value of <code>-1</code> will turn off the override, and
+     *            return the Label to automatically sizing based on the
+     *            content within and the <var>max-width</var> property, if
+     *            activated.
+     * @since 4.0.4
+     */
+    public void setWidthChars(int width) {
+        GtkLabel.setWidthChars(this, width);
+    }
+
+    /**
+     * Set a maximum width for the Label, in characters. This will allow the
+     * Label to dynamically size up to a maximum of <code>width</code> but
+     * not to expand beyond that point. This is useful in conjunction with
+     * turning
+     * {@link Label#setEllipsize(org.gnome.pango.EllipsizeMode) setEllipsize()}
+     * on.
+     * 
+     * <p>
+     * This sets the <var>max-width-chars</var> property.
+     * 
+     * <p>
+     * <b>Warning</b>: If a value greater than <code>-1</code> has been
+     * explicitly set as the width using
+     * {@link #setWidthChars(int) setWidthChars()}, setting this property
+     * will have no effect.
+     * 
+     * @param width
+     *            The width you wish to truncate the Label at, in characters.
+     *            A value of <code>-1</code> to remove the override and
+     *            return the Label to automatic sizing.
+     * @since 4.0.4
+     */
+    public void setMaxWidthChars(int width) {
+        GtkLabel.setMaxWidthChars(this, width);
+    }
 }

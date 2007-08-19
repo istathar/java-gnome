@@ -50,6 +50,8 @@ public class ExampleSimpleMenu
         w.add(x);
 
         l = new Label("Select an action in a menu");
+        l.setWidthChars(30);
+        l.setAlignment(0.0f, 0.5f);
 
         /*
          * Most applications will use several Menus in a MenuBar:

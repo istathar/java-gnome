@@ -1,4 +1,4 @@
-personal_ws-1.1 en 1067 
+personal_ws-1.1 en 1069 
 EnumValue
 getActive
 refactor
@@ -62,8 +62,8 @@ appendPage
 tearDown
 KeyListener
 copyMappingFile
-MenuItems
 MenuItem's
+MenuItems
 jargs
 GClosureNotify
 testGetChildAndParent
@@ -153,8 +153,8 @@ GtkComboBox
 args
 gtk
 InternalButtonImplementation
-blog
 argv
+blog
 OutOfMemoryError
 JDS
 pixbuf
@@ -164,9 +164,9 @@ vsnprintf
 testNoDenaturation
 MenuShell
 onClicked
+ExampleSimpleMenu
 ing
 getAlignmentX
-ExampleSimpleMenu
 getAlignmentY
 alloca
 isVisibleChars
@@ -198,8 +198,8 @@ gnomedev
 perl
 ReliefStyle
 setTitle
-sourceforge
 SourceForge
+sourceforge
 PascalCase
 ToolBar
 JNIEXPORT
@@ -282,12 +282,12 @@ typeName
 online
 hiccup
 setDisplayOptions
-GladeXML
 GladeXml
+GladeXML
 conf
 ListStore
-getURI
 getUri
+getURI
 TreeView's
 EventAny
 prependPage
@@ -333,8 +333,8 @@ nUnable
 typedef
 GTypeInstance
 setPropertyBar
-pyGTK
 pygtk
+pyGTK
 GtkBox
 returnType
 ClassLoader's
@@ -395,7 +395,6 @@ GdkEventExpose
 GValues
 elif
 menuBar
-MenuBar
 Ctrl
 VMs
 PyThis
@@ -455,8 +454,8 @@ ClassNotFoundException
 FilenameFilter
 cp
 filenames
-dl
 eg
+dl
 nowarn
 preserveAllLocals
 toplevel
@@ -470,8 +469,8 @@ eq
 dependsMapSourceFilesToTargetFiles
 getPaddingBottom
 hg
-createImageFromFile
 CheckMenuItems
+createImageFromFile
 fjni
 ucfirst
 ie
@@ -490,11 +489,11 @@ lc
 vhosts
 tooltips
 setKeepAbove
-ld
 jN
+ld
 lookups
-li
 md
+li
 struct
 paddingLeft
 nc
@@ -516,8 +515,8 @@ Cowie
 touchFile
 constantFor
 WindowPosition
-ok
 QA
+ok
 libgnomeui
 Overholt
 mv
@@ -544,8 +543,8 @@ va
 tm
 ui
 getmtime
-ul
 wb
+ul
 GtkSeparatorMenuItem
 testButtonReliefStyle
 HBox
@@ -756,8 +755,8 @@ blogs
 setPropertyBoolean
 GToggleNotify
 instanceof
-GtkMenuItem
 fileMenuItem
+GtkMenuItem
 nresulted
 getSticker
 fileNew
@@ -900,6 +899,7 @@ MenuToolButton
 ValidateMemoryManagement
 ebuild
 createWithLabel
+setWidthChars
 UnitTests
 getPadding
 linkSharedLibrary
@@ -945,6 +945,7 @@ setVisibility
 Piechotka
 isdir
 subdirectory
+setMaxWidthChars
 ExceptionDescribe
 Kpic
 GtkObjects
@@ -1022,6 +1023,7 @@ CheckButtons
 TreeIter
 getDisplayOptions
 ABI
+setEllipsize
 CellRenderer
 GInterface
 setMaxLength
@@ -1046,8 +1048,8 @@ setGravity
 getLayout
 registerProxy
 isActive
-getenv
 getEnv
+getenv
 baz
 TestSuite
 EventType
