@@ -2,15 +2,16 @@
  * ExampleSimpleMenu.java
  *
  * Copyright (c) 2007 Vreixo Formoso
+ * Copyright (c) 2007 Operational Dynamics Consulting Pty Ltd
  *
  * The code in this file, and the library it is a part of, are made available
  * to you by the authors under the terms of the "GNU General Public Licence,
- * version 2" plus the "Classpath Exception" (you may link to this code as a
- * library into other programs provided you don't make a derivation of it).
- * See the LICENCE file for the terms governing usage and redistribution.
+ * version 2" See the LICENCE file for the terms governing usage and
+ * redistribution.
  */
 package menu;
 
+import org.gnome.gdk.Event;
 import org.gnome.gtk.CheckMenuItem;
 import org.gnome.gtk.Gtk;
 import org.gnome.gtk.Label;
@@ -19,39 +20,55 @@ import org.gnome.gtk.MenuBar;
 import org.gnome.gtk.MenuItem;
 import org.gnome.gtk.SeparatorMenuItem;
 import org.gnome.gtk.VBox;
+import org.gnome.gtk.Widget;
 import org.gnome.gtk.Window;
 import org.gnome.gtk.CheckMenuItem.TOGGLED;
 import org.gnome.gtk.MenuItem.ACTIVATE;
 
 /**
- * Little example of how to use {@link Menu} and related Widgets.
+ * How to use {@link Menu} and related Widgets.
  * 
  * @author Vreixo Formoso
+ * @author Andrew Cowie
  */
-public class ExampleSimpleMenu extends Window
+public class ExampleSimpleMenu
 {
-
     public ExampleSimpleMenu() {
+        final Window w;
         final VBox x;
         final Label l;
+        final Menu fileMenu, editMenu, viewMenu;
+        final MenuItem fileNew, fileMenuItem, editMenuItem, viewMenuItem;
+        final MenuBar menuBar;
 
+        /*
+         * Begin with the standard VBox in a Window setup:
+         */
+
+        w = new Window();
         x = new VBox(false, 3);
-        add(x);
+        w.add(x);
 
         l = new Label("Select an action in a menu");
 
-        /* most applications will use several menus */
-        Menu fileMenu = new Menu();
-        Menu editMenu = new Menu();
-        Menu viewMenu = new Menu();
+        /*
+         * Most applications will use several Menus in a MenuBar:
+         */
+        fileMenu = new Menu();
+        editMenu = new Menu();
+        viewMenu = new Menu();
 
-        /* now you can add MenuItems to the file Menu */
-        MenuItem fileNew = new MenuItem("_New");
+        /*
+         * Now you can add MenuItems to the "file" Menu.
+         */
+        fileNew = new MenuItem("_New");
         fileMenu.append(fileNew);
 
         /*
-         * usually you will want to connect to ACTIVATE signal, that is thrown
-         * when the user "activates" the menu, for example by clicking it
+         * Usually you will want to connect to ACTIVATE signal, that is
+         * emitted when the user "activates" the menu by either clicking it
+         * with the mouse or navigating to it with the keyboard and pressing
+         * <ENTER>.
          */
         fileNew.connect(new ACTIVATE() {
             public void onActivate(MenuItem sourceObject) {
@@ -60,28 +77,30 @@ public class ExampleSimpleMenu extends Window
         });
 
         /*
-         * given that in most cases you will connect to the ACTIVATE signal on
-         * MenuItem's, a suitable constructor is provided:
+         * Given that in most cases you will connect to the ACTIVATE signal on
+         * MenuItem's, a convenience constructor is provided:
          */
         fileMenu.append(new MenuItem("_Save", new ACTIVATE() {
             public void onActivate(MenuItem sourceObject) {
                 l.setLabel("You have selected File->Save menu.");
             }
         }));
-        
+
         /*
-         * a SeparatorMenuItem can be used to differentiate between unrelated
-         * menu options
+         * A SeparatorMenuItem can be used to differentiate between unrelated
+         * menu options; in practise, though, only use sparingly.
          */
         fileMenu.append(new SeparatorMenuItem());
-        
-        fileMenu.append(new MenuItem("_Exit", new ACTIVATE() {
+
+        fileMenu.append(new MenuItem("_Quit", new ACTIVATE() {
             public void onActivate(MenuItem sourceObject) {
                 Gtk.mainQuit();
             }
         }));
 
-        /* and now add the items to the edit Menu */
+        /*
+         * And now add the items making up the "edit" Menu.
+         */
         editMenu.append(new MenuItem("_Copy", new ACTIVATE() {
             public void onActivate(MenuItem sourceObject) {
                 l.setLabel("You have selected Edit->Copy menu.");
@@ -92,12 +111,13 @@ public class ExampleSimpleMenu extends Window
                 l.setLabel("You have selected Edit->Paste menu.");
             }
         }));
-        
-        /* 
-         * a CheckMenuItem holds a boolean state. It can be used, for
-         * example, to allow users to hide some parts of the GUI.
+
+        /*
+         * CheckMenuItems hold a boolean state. One use is to allow users to
+         * hide some parts of the GUI, as in this example which we put into
+         * the "view" Menu:
          */
-        viewMenu.append(new CheckMenuItem("_Hide Label", new TOGGLED() {
+        viewMenu.append(new CheckMenuItem("Hide _text", new TOGGLED() {
             public void onToggled(CheckMenuItem sourceObject) {
                 if (sourceObject.getActive()) {
                     l.hide();
@@ -106,40 +126,66 @@ public class ExampleSimpleMenu extends Window
                 }
             }
         }));
-        
+
         /*
-         * A MenuItem can have a sub-menu, that will be expanded when
-         * the user puts the mouse pointer over it. This is usually used
-         * in top level MenuItems, but you can use it anywhere.
+         * A MenuItem can have a "sub-menu", that will be expanded when the
+         * user puts the mouse pointer over it. This is also used in creating
+         * the elements for the top level MenuBar, but you can use it within
+         * normal Menus as well. That said, submenus of Menus are considered
+         * less "discoverable" because the user has to navigate through the
+         * hierarchy to find out what options are available to them, rather
+         * than seeing them at first glance.
          */
-        MenuItem fileMenuItem = new MenuItem("_File...");
+        fileMenuItem = new MenuItem("_File");
         fileMenuItem.setSubmenu(fileMenu);
-        MenuItem editMenuItem = new MenuItem("_Edit...");
+        editMenuItem = new MenuItem("_Edit");
         editMenuItem.setSubmenu(editMenu);
-        MenuItem viewMenuItem = new MenuItem("_View...");
+        viewMenuItem = new MenuItem("_View");
         viewMenuItem.setSubmenu(viewMenu);
 
         /*
-         * Finally, most application make use of a MenuBar, that is located
-         * at the top of the application Window.
+         * Finally, most applications make use of a MenuBar that is by
+         * convention located at the top of the application Window. It
+         * contains the top-level MenuItems.
          */
-        MenuBar menuBar = new MenuBar();
-        x.packStart(menuBar, false, false, 0);
-        
-        /* The MenuBar contains the top-level MenuItems */
+        menuBar = new MenuBar();
         menuBar.append(fileMenuItem);
         menuBar.append(editMenuItem);
         menuBar.append(viewMenuItem);
-        
-        x.add(l);
 
-        showAll();
+        /*
+         * Finally, pack the Widgets into the VBox, and present:
+         */
+        x.packStart(menuBar);
+        x.packStart(l);
+
+        w.showAll();
+
+        /*
+         * And that's it! One last piece of house keeping, though: it is
+         * always necessary to deal with the user closing (what is in this
+         * case) the last Window in the application; otherwise the Java VM
+         * will keep running even after the (sole) Window is closed - because
+         * the main loop never returned.
+         */
+        w.connect(new Window.DELETE_EVENT() {
+            public boolean onDeleteEvent(Widget source, Event event) {
+                Gtk.mainQuit();
+                return false;
+            }
+        });
     }
 
     public static void main(String[] args) {
         Gtk.init(args);
 
         new ExampleSimpleMenu();
+
+        /*
+         * Yes, you could have written all the Window creation code here in
+         * main() but it is generally good practise to put that setup into a
+         * constructor, as we have here.
+         */
 
         Gtk.main();
     }

@@ -1,4 +1,4 @@
-personal_ws-1.1 en 1058 
+personal_ws-1.1 en 1067 
 EnumValue
 getActive
 refactor
@@ -62,8 +62,8 @@ appendPage
 tearDown
 KeyListener
 copyMappingFile
-MenuItem's
 MenuItems
+MenuItem's
 jargs
 GClosureNotify
 testGetChildAndParent
@@ -153,8 +153,8 @@ GtkComboBox
 args
 gtk
 InternalButtonImplementation
-argv
 blog
+argv
 OutOfMemoryError
 JDS
 pixbuf
@@ -166,6 +166,7 @@ MenuShell
 onClicked
 ing
 getAlignmentX
+ExampleSimpleMenu
 getAlignmentY
 alloca
 isVisibleChars
@@ -197,8 +198,8 @@ gnomedev
 perl
 ReliefStyle
 setTitle
-SourceForge
 sourceforge
+SourceForge
 PascalCase
 ToolBar
 JNIEXPORT
@@ -281,12 +282,12 @@ typeName
 online
 hiccup
 setDisplayOptions
-GladeXml
 GladeXML
+GladeXml
 conf
 ListStore
-getUri
 getURI
+getUri
 TreeView's
 EventAny
 prependPage
@@ -306,6 +307,7 @@ VerboseTestRunner
 libgcj
 GnomeEntry
 versa
+fileMenu
 runtimes
 setPropertyPixbuf
 GIdle
@@ -331,8 +333,8 @@ nUnable
 typedef
 GTypeInstance
 setPropertyBar
-pygtk
 pyGTK
+pygtk
 GtkBox
 returnType
 ClassLoader's
@@ -392,6 +394,7 @@ checksum
 GdkEventExpose
 GValues
 elif
+menuBar
 MenuBar
 Ctrl
 VMs
@@ -452,8 +455,8 @@ ClassNotFoundException
 FilenameFilter
 cp
 filenames
-eg
 dl
+eg
 nowarn
 preserveAllLocals
 toplevel
@@ -468,6 +471,7 @@ dependsMapSourceFilesToTargetFiles
 getPaddingBottom
 hg
 createImageFromFile
+CheckMenuItems
 fjni
 ucfirst
 ie
@@ -486,11 +490,11 @@ lc
 vhosts
 tooltips
 setKeepAbove
-jN
 ld
+jN
 lookups
-md
 li
+md
 struct
 paddingLeft
 nc
@@ -512,8 +516,8 @@ Cowie
 touchFile
 constantFor
 WindowPosition
-QA
 ok
+QA
 libgnomeui
 Overholt
 mv
@@ -527,9 +531,9 @@ os
 config
 GtkCalendar
 prereq
+paddingTop
 runtime
 EventSelection
-paddingTop
 hscrollbarPolicy
 py
 ToggleButtons
@@ -540,8 +544,8 @@ va
 tm
 ui
 getmtime
-wb
 ul
+wb
 GtkSeparatorMenuItem
 testButtonReliefStyle
 HBox
@@ -574,6 +578,7 @@ setAlignmentX
 bugfixes
 fPIC
 UCHAR
+viewMenu
 pointerOf
 linux
 DefsFile
@@ -626,8 +631,8 @@ writeTranslationCode
 Dialogs
 hostname
 WindowType
-unformatted
 paddingRight
+unformatted
 webserver
 unref
 jobjectArray
@@ -752,8 +757,10 @@ setPropertyBoolean
 GToggleNotify
 instanceof
 GtkMenuItem
+fileMenuItem
 nresulted
 getSticker
+fileNew
 NoSuchMethodException
 createLabel
 committer
@@ -857,6 +864,7 @@ PolicyType
 setVisibleChars
 Collins's
 GtkProgressBar
+editMenuItem
 getAbsolutePath
 strfreev
 borked
@@ -865,6 +873,7 @@ shutil
 getFilename
 createPixbufFromFile
 Isrc
+viewMenuItem
 ifdef
 createHButtonBox
 mainQuit
@@ -1037,8 +1046,8 @@ setGravity
 getLayout
 registerProxy
 isActive
-getEnv
 getenv
+getEnv
 baz
 TestSuite
 EventType
