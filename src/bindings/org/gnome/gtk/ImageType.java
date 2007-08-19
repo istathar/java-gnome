@@ -1,7 +1,7 @@
 /*
  * ImageType.java
  *
- * Copyright (c) 2007 Operational Dynamics Consulting Pty Ltd
+ * Copyright (c) 2007 Operational Dynamics Consulting Pty Ltd, and Others
  *
  * The code in this file, and the library it is a part of, are made available
  * to you by the authors under the terms of the "GNU General Public Licence,
@@ -12,17 +12,51 @@
 package org.gnome.gtk;
 
 import org.freedesktop.bindings.Constant;
+import org.gnome.gdk.PixbufAnimation;
 
-/*
- * FIXME this is a placeholder stub for what will become the public API for
- * this type. Replace this comment with appropriate javadoc including author
- * and since tags. Note that the class may need to be made abstract, implement
- * interfaces, or even have its parent changed. No API stability guarantees
- * are made about this class until it has been reviewed by a hacker and this
- * comment has been replaced.
+/**
+ * The type of image in a {@link Image} or a {@link StatusIcon}.
+ * 
+ * @author Nat Pryce
+ * @since 4.0.4
  */
 public final class ImageType extends Constant
 {
+    /**
+     * There is no image displayed by the widget.
+     */
+    public static final ImageType EMPTY = new ImageType(GtkImageType.EMPTY, "EMPTY");
+
+    /**
+     * The widget contains a {@link org.gnome.gdk.Pixmap}.
+     */
+    public static final ImageType PIXMAP = new ImageType(GtkImageType.PIXMAP, "PIXMAP");
+
+    /**
+     * The widget contains a  {@link org.gnome.gdk.Image}.
+     */
+    public static final ImageType IMAGE = new ImageType(GtkImageType.IMAGE, "IMAGE");
+
+    /**
+     * The widget contains a {@link org.gnome.gdk.Pixbuf}.
+     */
+    public static final ImageType PIXBUF = new ImageType(GtkImageType.PIXBUF, "PIXBUF");
+
+    /**
+     * The widget contains a stock icon name.
+     */
+    public static final ImageType STOCK = new ImageType(GtkImageType.STOCK, "STOCK");
+
+    /**
+     * The widget contains a {@link IconSet}.
+     */
+    public static final ImageType ICON_SET = new ImageType(GtkImageType.ICON_SET, "ICON_SET");
+
+    /**
+     * The widget contains a {@link PixbufAnimation}.
+     */
+    public static final ImageType ANIMATION = new ImageType(GtkImageType.ANIMATION, "ANIMATION");
+
     private ImageType(int ordinal, String nickname) {
         super(ordinal, nickname);
     }
