@@ -1,4 +1,4 @@
-personal_ws-1.1 en 1069 
+personal_ws-1.1 en 1097 
 EnumValue
 getActive
 refactor
@@ -56,6 +56,7 @@ GtkLabel
 ScrolledWindow
 vscrollbarPolicy
 finalizers
+setExpand
 loadHashes
 ButtonBox
 appendPage
@@ -168,6 +169,7 @@ ExampleSimpleMenu
 ing
 getAlignmentX
 getAlignmentY
+getExpand
 alloca
 isVisibleChars
 Makefile
@@ -189,8 +191,8 @@ Make's
 assertFalse
 NewStringUTF
 enums
-virtualhost
 VirtualHost
+virtualhost
 ObjectiveAndAudience
 filetype
 len
@@ -231,6 +233,7 @@ hasNext
 GtkMenu
 createCheckButton
 getPointer
+createMenuToolButton
 nThe
 nsme
 nin
@@ -281,6 +284,7 @@ Microsystems
 typeName
 online
 hiccup
+iconWidget
 setDisplayOptions
 GladeXml
 GladeXML
@@ -317,6 +321,7 @@ filename
 rpath
 TestRunner
 setPropertyObject
+createSeparatorToolItem
 bytecode
 ArrayList
 typeMapping
@@ -324,6 +329,7 @@ Pty
 ButtonFactory
 DataColumn
 GString
+GtkMenuToolButton
 DataColumnInt
 resize
 Singh
@@ -340,6 +346,7 @@ returnType
 ClassLoader's
 nGType
 OnLoad
+SeparatorToolItems
 tla
 TypeBlock
 compileCSourceToObject
@@ -430,18 +437,21 @@ EventExpose
 ValidatePacking
 ULONG
 GtkObject
+GtkToolbar
 Ubuntu
 Xml
 addWithViewport
 getLabel
 dirname
 getProperty
+createToolbar
 NewWeakGlobalRef
 EDETACHED
 EventKey
 sourceChanged
 DeleteWeakGlobalRef
 sizeof
+ToolItems
 cd
 hashFile
 setPropertyFoo
@@ -449,7 +459,9 @@ createScrolledWindow
 de
 filesNeedBuilding
 backends
+createToolItem
 br
+createToolButton
 ClassNotFoundException
 FilenameFilter
 cp
@@ -483,7 +495,9 @@ getWindow
 prepareTestDirectories
 GdkScreen
 setPadding
+GtkOrientation
 pango
+setDraw
 enum
 lc
 vhosts
@@ -555,17 +569,20 @@ GValue
 VM
 keybindings
 writeJniCode
+getMenu
 Wl
 UNMAP
 setPolicy
 param
 getName
+GtkToolButton
 sourceDir
 x's
 debian
 createHBox
 GtkWindowType
 ccache
+tooltip
 EventButton
 SeparatorMenuItem
 FileNotFoundException
@@ -608,6 +625,7 @@ OpenSolaris
 StockItems
 nativeName
 setJustify
+GtkSeparatorToolItem
 IllegalAccessException
 jobject
 proxying
@@ -625,6 +643,7 @@ ToolButton
 ellipsized
 formatter
 OpenOffice
+SeparatorToolItem
 getRelief
 writeTranslationCode
 Dialogs
@@ -675,6 +694,8 @@ nCan't
 insertPage
 checkpointHashes
 VBox
+stockId
+labelWidget
 TODO
 getSubmenu
 finalizer
@@ -728,6 +749,7 @@ JDK's
 generateTests
 cycleMainLoop
 compileJavaCode
+setOrientation
 endingLabel
 IdentityHashMap
 extern
@@ -764,6 +786,7 @@ NoSuchMethodException
 createLabel
 committer
 TreeViewAndTreeModel
+ToolItem
 NewGlobalRef
 HBoxes
 backend
@@ -803,6 +826,8 @@ GtkPolicyType
 JNICALL
 jint
 processedTree
+GtkToolItem
+ToolButtons
 createCheckMenuItemWithMnemonic
 html
 Wouter
@@ -850,6 +875,7 @@ namespace
 fileNeedsBuilding
 forName
 GtkImage
+setTooltips
 setChildSecondary
 Bitstream
 createComboBox
@@ -958,6 +984,7 @@ getResourceAsStream
 ifndef
 createCheckButtonWithMnemonic
 ReleaseStringUTFChars
+getDraw
 setAction
 GdkEvents
 createInstance
@@ -1035,6 +1062,7 @@ createGladeXml
 createVButtonBox
 getEnum
 codebase
+setMenu
 ValidateProperties
 ObjectProperties
 Mancke

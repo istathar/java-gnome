@@ -11,17 +11,47 @@
  */
 package org.gnome.gtk;
 
-/*
- * FIXME this is a placeholder stub for what will become the public API for
- * this type. Replace this comment with appropriate javadoc including author
- * and since tags. Note that the class may need to be made abstract, implement
- * interfaces, or even have its parent changed. No API stability guarantees
- * are made about this class until it has been reviewed by a hacker and this
- * comment has been replaced.
+/**
+ * A separator between groups of related ToolItems in a Toolbar.
+ * 
+ * <p>
+ * A SeparatorToolItem usually appears as a vertical line, and is used to
+ * separate between logically related items in a Toolbar.
+ * 
+ * <p>
+ * SeparatorToolItems can also be used to align other ToolItems at the right
+ * of the Toolbar, by setting <i>draw</i> property to <code>false</code>
+ * and <i>expand</i> to <code>true</code>.
+ * 
+ * @author Vreixo Formoso
+ * @since 4.0.4
  */
 public class SeparatorToolItem extends ToolItem
 {
     protected SeparatorToolItem(long pointer) {
         super(pointer);
     }
+
+    /**
+     * Creates a new SeparatorToolItem.
+     */
+    public SeparatorToolItem() {
+        super(GtkSeparatorToolItem.createSeparatorToolItem());
+    }
+
+    /**
+     * Set whether the separator will display a vertical line.
+     */
+    public void setDraw(boolean draw) {
+        GtkSeparatorToolItem.setDraw(this, draw);
+    }
+
+    /**
+     * Get if the separator will be displayed as a vertical line, or just
+     * blank.
+     */
+    public boolean getDraw() {
+        return GtkSeparatorToolItem.getDraw(this);
+    }
+
 }
