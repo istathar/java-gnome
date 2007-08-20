@@ -19,6 +19,7 @@ package org.gnome.gtk;
  * automatically.
  * 
  * @author Andrew Cowie
+ * @author Vreixo Formoso
  * @since 4.0.0
  */
 public class Button extends Bin
@@ -51,7 +52,24 @@ public class Button extends Bin
      * @since 4.0.0
      */
     public Button(String text) {
+        // TODO replace with GtkButton.createButtonWithMnemonic(text) ?
         super(GtkButton.createButtonWithLabel(text));
+    }
+
+    /**
+     * Create a new Button with a Label and Image from a StockItem. By using a
+     * system StockItem, the newly created Button with use the same Label and
+     * Image as other GNOME applications. To ensure consistent look-n-feel
+     * between applications, it is highly recommend that you use provided
+     * StockItems whenever possible.
+     * 
+     * @param stock
+     *            The stock item that will determine the text and icon of the
+     *            Button.
+     * @since 4.0.4
+     */
+    public Button(Stock stock) {
+        super(GtkButton.createButtonFromStock(stock.getStockId()));
     }
 
     /**

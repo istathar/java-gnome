@@ -87,176 +87,6 @@
   (return-type "GtkReliefStyle")
 )
 
-(define-method append_item
-  (of-object "GtkToolbar")
-  (c-name "gtk_toolbar_append_item")
-  (return-type "GtkWidget*")
-  (parameters
-    '("const-char*" "text")
-    '("const-char*" "tooltip_text")
-    '("const-char*" "tooltip_private_text")
-    '("GtkWidget*" "icon")
-    '("GtkSignalFunc" "callback")
-    '("gpointer" "user_data" (default "NULL") (null-ok))
-  )
-)
-
-(define-method prepend_item
-  (of-object "GtkToolbar")
-  (c-name "gtk_toolbar_prepend_item")
-  (return-type "GtkWidget*")
-  (parameters
-    '("const-char*" "text")
-    '("const-char*" "tooltip_text")
-    '("const-char*" "tooltip_private_text")
-    '("GtkWidget*" "icon")
-    '("GtkSignalFunc" "callback")
-    '("gpointer" "user_data")
-  )
-)
-
-(define-method insert_item
-  (of-object "GtkToolbar")
-  (c-name "gtk_toolbar_insert_item")
-  (return-type "GtkWidget*")
-  (parameters
-    '("const-char*" "text")
-    '("const-char*" "tooltip_text")
-    '("const-char*" "tooltip_private_text")
-    '("GtkWidget*" "icon")
-    '("GtkSignalFunc" "callback")
-    '("gpointer" "user_data")
-    '("gint" "position")
-  )
-)
-
-(define-method insert_stock
-  (of-object "GtkToolbar")
-  (c-name "gtk_toolbar_insert_stock")
-  (return-type "GtkWidget*")
-  (parameters
-    '("const-gchar*" "stock_id")
-    '("const-char*" "tooltip_text")
-    '("const-char*" "tooltip_private_text")
-    '("GtkSignalFunc" "callback")
-    '("gpointer" "user_data")
-    '("gint" "position")
-  )
-)
-
-(define-method append_space
-  (of-object "GtkToolbar")
-  (c-name "gtk_toolbar_append_space")
-  (return-type "none")
-)
-
-(define-method prepend_space
-  (of-object "GtkToolbar")
-  (c-name "gtk_toolbar_prepend_space")
-  (return-type "none")
-)
-
-(define-method insert_space
-  (of-object "GtkToolbar")
-  (c-name "gtk_toolbar_insert_space")
-  (return-type "none")
-  (parameters
-    '("gint" "position")
-  )
-)
-
-(define-method remove_space
-  (of-object "GtkToolbar")
-  (c-name "gtk_toolbar_remove_space")
-  (return-type "none")
-  (parameters
-    '("gint" "position")
-  )
-)
-
-(define-method append_element
-  (of-object "GtkToolbar")
-  (c-name "gtk_toolbar_append_element")
-  (return-type "GtkWidget*")
-  (parameters
-    '("GtkToolbarChildType" "type")
-    '("GtkWidget*" "widget")
-    '("const-char*" "text")
-    '("const-char*" "tooltip_text")
-    '("const-char*" "tooltip_private_text")
-    '("GtkWidget*" "icon")
-    '("GtkSignalFunc" "callback")
-    '("gpointer" "user_data")
-  )
-)
-
-(define-method prepend_element
-  (of-object "GtkToolbar")
-  (c-name "gtk_toolbar_prepend_element")
-  (return-type "GtkWidget*")
-  (parameters
-    '("GtkToolbarChildType" "type")
-    '("GtkWidget*" "widget")
-    '("const-char*" "text")
-    '("const-char*" "tooltip_text")
-    '("const-char*" "tooltip_private_text")
-    '("GtkWidget*" "icon")
-    '("GtkSignalFunc" "callback")
-    '("gpointer" "user_data")
-  )
-)
-
-(define-method insert_element
-  (of-object "GtkToolbar")
-  (c-name "gtk_toolbar_insert_element")
-  (return-type "GtkWidget*")
-  (parameters
-    '("GtkToolbarChildType" "type")
-    '("GtkWidget*" "widget")
-    '("const-char*" "text")
-    '("const-char*" "tooltip_text")
-    '("const-char*" "tooltip_private_text")
-    '("GtkWidget*" "icon")
-    '("GtkSignalFunc" "callback")
-    '("gpointer" "user_data")
-    '("gint" "position")
-  )
-)
-
-(define-method append_widget
-  (of-object "GtkToolbar")
-  (c-name "gtk_toolbar_append_widget")
-  (return-type "none")
-  (parameters
-    '("GtkWidget*" "widget")
-    '("const-char*" "tooltip_text" (null-ok))
-    '("const-char*" "tooltip_private_text" (null-ok))
-  )
-)
-
-(define-method prepend_widget
-  (of-object "GtkToolbar")
-  (c-name "gtk_toolbar_prepend_widget")
-  (return-type "none")
-  (parameters
-    '("GtkWidget*" "widget")
-    '("const-char*" "tooltip_text" (null-ok))
-    '("const-char*" "tooltip_private_text" (null-ok))
-  )
-)
-
-(define-method insert_widget
-  (of-object "GtkToolbar")
-  (c-name "gtk_toolbar_insert_widget")
-  (return-type "none")
-  (parameters
-    '("GtkWidget*" "widget")
-    '("const-char*" "tooltip_text" (null-ok))
-    '("const-char*" "tooltip_private_text" (null-ok))
-    '("gint" "position")
-  )
-)
-
 (define-method set_orientation
   (of-object "GtkToolbar")
   (c-name "gtk_toolbar_set_orientation")
@@ -275,15 +105,6 @@
   )
 )
 
-(define-method set_icon_size
-  (of-object "GtkToolbar")
-  (c-name "gtk_toolbar_set_icon_size")
-  (return-type "none")
-  (parameters
-    '("GtkIconSize" "icon_size")
-  )
-)
-
 (define-method set_tooltips
   (of-object "GtkToolbar")
   (c-name "gtk_toolbar_set_tooltips")
@@ -296,12 +117,6 @@
 (define-method unset_style
   (of-object "GtkToolbar")
   (c-name "gtk_toolbar_unset_style")
-  (return-type "none")
-)
-
-(define-method unset_icon_size
-  (of-object "GtkToolbar")
-  (c-name "gtk_toolbar_unset_icon_size")
   (return-type "none")
 )
 
