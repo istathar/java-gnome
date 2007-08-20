@@ -1,4 +1,4 @@
-personal_ws-1.1 en 1113 
+personal_ws-1.1 en 1143 
 EnumValue
 getActive
 refactor
@@ -31,6 +31,7 @@ multithreaded
 getFirstIter
 atk
 setPropertyInteger
+getPixbuf
 InstantiationException
 ToggleButon
 GSlice
@@ -48,6 +49,7 @@ buf
 createVSeparator
 getters
 insertText
+getSize
 dir
 GtkVButtonBox
 fcb
@@ -92,11 +94,14 @@ CCFLAGS
 gcj
 EventConfigure
 librarypath
+createStatusIcon
 knownConstants
 CVS
 autotools
 gdk
 Fortin
+StatusIcon's
+StatusIcons
 getAngle
 createButtonWithLabel
 env
@@ -132,6 +137,7 @@ setUp
 createToggleButtonWithMnemonic
 FreeDesktop
 boxedArrayFor
+getStorageType
 getPropertyEnum
 undelete
 Manish
@@ -146,6 +152,7 @@ confirmButton
 GtkMain
 argc
 createCalendar
+GtkImageType
 TreeModel's
 getCurrentFolder
 VButtonBox
@@ -155,6 +162,7 @@ jdk
 ThrowNew
 GtkComboBox
 args
+getBlinking
 gtk
 InternalButtonImplementation
 argv
@@ -165,6 +173,7 @@ pixbuf
 getPropertyString
 setTransientFor
 vsnprintf
+StorageType
 testNoDenaturation
 MenuShell
 img
@@ -173,10 +182,12 @@ ExampleSimpleMenu
 ing
 getAlignmentX
 getAlignmentY
+GtkStatusIcon
 getExpand
 alloca
 isVisibleChars
 Makefile
+isEmbedded
 fullscreen
 setPosition
 getChildSecondary
@@ -196,6 +207,7 @@ assertFalse
 NewStringUTF
 enums
 ToogleToolButtons
+timestamp
 VirtualHost
 virtualhost
 ObjectiveAndAudience
@@ -222,11 +234,13 @@ nJava
 TextDirection
 Maciej
 mem
+getVisible
 symlinks
 jvm
 VSeparator
 compileBindingsObjects
 structs
+ImageType
 originalLabel
 getScreen
 xalign
@@ -246,6 +260,7 @@ boxeds
 nis
 odt
 unixprint
+StatusIcon
 popups
 setProperty
 createSeparatorMenuItem
@@ -290,6 +305,7 @@ Microsystems
 typeName
 online
 hiccup
+PIXMAP
 iconWidget
 setDisplayOptions
 GladeXml
@@ -454,6 +470,7 @@ getLabel
 dirname
 createToolbar
 getProperty
+PixbufAnimation
 NewWeakGlobalRef
 EDETACHED
 EventKey
@@ -514,6 +531,7 @@ tooltips
 setKeepAbove
 jN
 ld
+resized
 lookups
 md
 li
@@ -596,6 +614,7 @@ EventButton
 SeparatorMenuItem
 FileNotFoundException
 BooleanValue
+onPopupMenu
 pkgadd
 inDir
 gint
@@ -662,6 +681,7 @@ hostname
 WindowType
 paddingRight
 unformatted
+setTooltip
 webserver
 unref
 jobjectArray
@@ -684,6 +704,7 @@ glibj
 zdefs
 lookupType
 BindingsGenerator
+setFromFile
 testObjectNeverUsedIsRemoved
 GLib's
 getLabelWidget
@@ -824,14 +845,17 @@ generateTranslationAndJniLayers
 setImage
 distro
 ToggleToolButton
+activateTime
 toolkits
 prependText
 cachedJavaVM
 init
 StringValue
 FileChooserWidget
+setFromIconName
 IMP's
 wget
+setFromStock
 setLabelWidget
 renderable
 ComboBoxes
@@ -848,6 +872,7 @@ Wouter
 nParsing
 testManuallyTwistingRefCount
 IntegerValue
+setVisible
 GdkWindowState
 IllegalStateException
 Davyd
@@ -857,6 +882,7 @@ refactorings
 sourceObject
 gentoo
 printf
+setFromPixbuf
 GtkHBox
 pageNum
 MyButton
@@ -875,6 +901,7 @@ mnemonicLabel
 wiki
 WindowState
 GObjects
+onSizeChanged
 setCurrentPage
 getCode
 reentrant
@@ -1014,6 +1041,7 @@ onDeleteEvent
 jlong
 FindClass
 BindingsJavaClosure
+IconSet
 HelpWindow
 EVERSION
 BufferedReader
@@ -1053,9 +1081,11 @@ createProxy
 GtkHSeparator
 discoverability
 outputDir
+setBlinking
 Formoso
 GtkToggleToolButton
 HButtonBox
+getStock
 scrollbars
 onChangeCurrentPage
 getJustify
