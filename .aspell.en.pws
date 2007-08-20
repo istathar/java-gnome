@@ -1,4 +1,4 @@
-personal_ws-1.1 en 1102 
+personal_ws-1.1 en 1113 
 EnumValue
 getActive
 refactor
@@ -58,6 +58,7 @@ vscrollbarPolicy
 finalizers
 setExpand
 loadHashes
+dnd
 ButtonBox
 appendPage
 tearDown
@@ -126,11 +127,13 @@ FileChooserDialog
 IDE
 GtkCalendarDisplayOptions
 dialog
+getStockId
 setUp
 createToggleButtonWithMnemonic
 FreeDesktop
 boxedArrayFor
 getPropertyEnum
+undelete
 Manish
 GtkVSeparator
 removeToggleRef
@@ -164,6 +167,7 @@ setTransientFor
 vsnprintf
 testNoDenaturation
 MenuShell
+img
 onClicked
 ExampleSimpleMenu
 ing
@@ -254,6 +258,7 @@ Cowie's
 sourcepath
 valueFor
 nNo
+unindent
 GBoxeds
 MVC
 modeline
@@ -337,6 +342,7 @@ resize
 Singh
 createNotebook
 Libre
+color
 nUnable
 typedef
 GTypeInstance
@@ -347,6 +353,7 @@ GtkBox
 returnType
 ClassLoader's
 nGType
+StockItem
 OnLoad
 SeparatorToolItems
 tla
@@ -592,6 +599,7 @@ BooleanValue
 pkgadd
 inDir
 gint
+cdrom
 setAlignmentX
 bugfixes
 fPIC
@@ -631,6 +639,7 @@ GtkSeparatorToolItem
 IllegalAccessException
 jobject
 proxying
+strikethrough
 Bhagat
 getVisibility
 cycleGarbageCollector
@@ -698,6 +707,7 @@ checkpointHashes
 VBox
 stockId
 labelWidget
+goto
 TODO
 getSubmenu
 finalizer
@@ -713,6 +723,7 @@ GSignalQuery
 downcasting
 GtkNotebook
 center
+harddisk
 GEnumValues
 GtkFixed
 onChanged

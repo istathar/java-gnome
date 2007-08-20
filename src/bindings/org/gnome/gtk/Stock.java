@@ -24,20 +24,20 @@ package org.gnome.gtk;
  * GTK comes with a fairly large pre-built set of stock items. You should use
  * them in your programs whenever possible thus ensuring your application will
  * have a look and feel consistent with other GNOME applications. This also
- * aids in discoverablility by helping the user identify what a Button does or
+ * aids in discoverability by helping the user identify what a Button does or
  * how to execute a common operation in your application.
  * 
  * <p>
  * Each stock item is identified by a Stock constant that you can pass to
  * constructors of different widgets, such as Buttons. When your application
- * does a common task represented by one of the StockIds in this class, you
+ * does a common task represented by one of the constants in this class, you
  * should use it to identify that task in your Menus and Buttons.
  * 
  * <p>
  * Please note that this is <i>not</i> a place to get creative. Well known
  * stock icons have a defined behaviour which users can rightfully expect to
  * be consistent. Using these images in non-standard ways will result in a
- * severe usability impact and will cause people to riddicule your program.
+ * severe usability impact and will cause people to ridicule your program.
  * 
  * <p>
  * <i>In GTK, stock-ids are just plain <code>gchar*</code> strings. We
@@ -48,6 +48,7 @@ package org.gnome.gtk;
  * <dt><b>WARNING</b>
  * <dd>TODO This class may have to be refactored when [if] we introduce
  * coverage of StockItem. </dd>
+ * </dl>
  * 
  * @author Vreixo Formoso
  * @author Andrew Cowie
@@ -69,9 +70,9 @@ public class Stock
     /**
      * Construct a new Stock constant from a given string. This is provided so
      * that if we missed an ID that you desperately need, you can subclass and
-     * create it. Ideally, thought, we'd appreacitate it if you'd point out
-     * what it is about that stock-id that you needed, and if approrpriate
-     * submit a patch adding it to this class instead.
+     * create it. Ideally, though, we'd appreciate it if you'd point out what
+     * it is about that stock-id that you needed, and if appropriate submit a
+     * patch adding it to this class instead.
      */
     protected Stock(String stockId) {
         this.stockId = stockId;
@@ -82,7 +83,7 @@ public class Stock
      */
     /*
      * Interesting design question. For the moment, keep this with restricted
-     * visiblity on the basis of "we don'te expose internals!". If we find
+     * visibility on the basis of "we don't expose internals!". If we find
      * ourselves with problems out-of-package, then we can reconsider.
      */
     protected String getStockId() {
@@ -116,9 +117,9 @@ public class Stock
     public static final Stock CLEAR = new Stock("gtk-clear");
 
     /**
-     * Close the current Window or the current documement. While meaning of
-     * this does vary a bit between applications depending on their purpose,
-     * the one thing close does <b>not</b> mean is to <i>quit</i> the
+     * Close the current Window or the current document. While meaning of this
+     * does vary a bit between applications depending on their purpose, the
+     * one thing close does <b>not</b> mean is to <i>quit</i> the
      * application (unless the program's behaviour is to terminate when the
      * last document is closed - that's ok). For outright exiting a program,
      * see {@link #QUIT QUIT}.

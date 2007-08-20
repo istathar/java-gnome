@@ -1,7 +1,7 @@
 /*
  * MenuToolButton.java
  *
- * Copyright (c) 2007 Operational Dynamics Consulting Pty Ltd
+ * Copyright (c) 2007 Operational Dynamics Consulting Pty Ltd, and Others
  *
  * The code in this file, and the library it is a part of, are made available
  * to you by the authors under the terms of the "GNU General Public Licence,
@@ -13,12 +13,12 @@ package org.gnome.gtk;
 
 /**
  * A MenuToolButton is an special kind of ToolButton that has an additional
- * dropdown Menu.
+ * drop-down Menu.
  * 
  * <p>
  * Next to the ToolButton itself, a MenuToolButton shows another little Button
- * with an arrow. When the user clicks this additional Button, a dropdown Menu
- * pops up.
+ * with an arrow. When the user clicks this additional Button, a drop-down
+ * Menu pops up.
  * 
  * <p>
  * The main usage of a MenuToolButton is to provide access to several related
