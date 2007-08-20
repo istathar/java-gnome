@@ -14,18 +14,20 @@ package org.gnome.gtk;
 import org.gnome.gdk.Pixbuf;
 
 /**
- * An icon that is displayed in the system tray or notification area.
+ * An icon that is displayed in the notification area.
  * 
  * <p>
- * A StatusIcon is an element that can be added to a system tray (in Windows)
- * or a notification area. It can be used to display information about user
- * events that may occur. These user events are not to be confused with GTK
- * events. User events may be a new email notification, or an incoming instant
+ * A StatusIcon is an element that can be added to a notification area. It can
+ * be used to display information about user events that may occur (events in
+ * the sense of "something interesting", not as in GTK event signal). Examples
+ * of user events may be a new email notification, or an incoming instant
  * message, or a completed file transfer. StatusIcons can be used to display
  * information of an activity that is occurring in the background, such as a
- * print job or a file copy activity. A third way of using the StatusIcon, can
- * be to monitor an existing resource, such as a laptop battery charge state,
- * or the state of a wireless network.
+ * print job or a file copy activity. A third way of using the StatusIcon
+ * capability is to monitor an existing resource; two existing examples are
+ * laptop battery charge state from <code>gnome-power-manager</code> and the
+ * state of a wireless network connection from NetworkManager's
+ * <code>nm-applet</code> program.
  * 
  * <p>
  * Using a StatusIcon in the notification area is generally less annoying than
@@ -41,16 +43,23 @@ import org.gnome.gdk.Pixbuf;
  * <p>
  * <b>Do not use as a substitute for writing an applet!</b>. StatusIcons are
  * frequently abused and/or over used. Only add one to your application if it
- * conveys critical status information to the user; if it has a more
- * utilitarian and full-time purpose, it should really be in an applet.
+ * conveys critical status information to the user. If it has a more
+ * utilitarian and full-time purpose, it should really be in an applet. In
+ * fact, the power and network examples above are both borderline. The battery
+ * state in particular should probably be an applet and may well move back to
+ * being one; the major argument to make it an applet is to give the user
+ * control over where the battery status is positioned on the panel; the
+ * counter argument is that in the new power management program, the battery
+ * charge state display is transitory and (by default) not shown when not
+ * charging. As you can see, it's a complex issue.
  * 
  * <p>
- * It also is essential to remember that the Notification Area is itself
- * actually a panel applet; if one is not running the image displayed by the
- * StatusIcon may not visible to the user. This is another reason to consider
- * writing an applet... or just go all the way and write a proper daemon
- * program. See the GNOME Human Interface Guidelines for more detailed
- * information and policies.
+ * It's essential to keep in mind that the Notification Area is itself a panel
+ * applet; if one isn't running the image displayed by the StatusIcon may not
+ * visible to the user. This is another reason to consider writing an
+ * applet... or just go all the way and write a proper daemon program. See the
+ * GNOME Human Interface Guidelines for more detailed information and
+ * policies.
  * 
  * <p>
  * <i>As it happens, StatusIcon does not derive from Widget for historical
@@ -170,7 +179,7 @@ public class StatusIcon extends org.gnome.glib.Object
     }
 
     /**
-     * Shows or hides the StatusIcon. This is equivalent to the
+     * Shows or hides the StatusIcon. This is equivalent to the more familiar
      * {@link Widget#hide() hide()} functionality you'll be used to with
      * Widgets.
      * 
@@ -228,8 +237,9 @@ public class StatusIcon extends org.gnome.glib.Object
      * 
      * <p>
      * <i>Sometimes users forget to do that, or remove their Notification Area
-     * applet by accident and don't know how to get it back. On the panel,</i>
-     * <b>Right Click &gt; Add to Panel...</b><i>, of course.</i>
+     * applet by accident and don't know how to get it back. On the panel,
+     * just</i> <b>Right Click &gt; Add to Panel...</b><i> and select</i>
+     * <b>Notification Area</b>.
      */
     public boolean isEmbedded() {
         return GtkStatusIcon.isEmbedded(this);
