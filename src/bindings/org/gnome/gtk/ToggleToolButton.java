@@ -11,17 +11,82 @@
  */
 package org.gnome.gtk;
 
-/*
- * FIXME this is a placeholder stub for what will become the public API for
- * this type. Replace this comment with appropriate javadoc including author
- * and since tags. Note that the class may need to be made abstract, implement
- * interfaces, or even have its parent changed. No API stability guarantees
- * are made about this class until it has been reviewed by a hacker and this
- * comment has been replaced.
+/**
+ * A ToggleToolButton is a ToolButton that retains its state.
+ * 
+ * <p>
+ * The usual usage of such kind of ToolButtons is to let users enable or
+ * disable an application feature.
+ * 
+ * <p>
+ * You can check the current state of the ToggleToolButton using the
+ * {@link #getActive()} method. Additionally you can connect to the
+ * {@link ToggleToolButton.TOGGLED TOGGLED} signal to respond to changes in
+ * the <var>active</var> state.
+ * 
+ * <p>
+ * Beware that ToogleToolButtons have sometimes fared poorly in usability
+ * tests. The problem is that they are an exception: most ToolItems are
+ * ToolButtons, and most of them you just press and something immediately
+ * happens. Since there is no visual distinction between a ToolButton and an
+ * inactive ToggleToolButton, users don't expect that this particular ToolItem
+ * is going to behave differently and maintain its state. It's not a huge
+ * problem (ie, if the user is paying attention they'll soon find out that the
+ * button is a toggle), but it's something that usually takes a few iterations
+ * before the user learns. Something to keep in mind.
+ * 
+ * @author Vreixo Formoso
+ * @author Andrew Cowie
+ * @since 4.0.4
  */
 public class ToggleToolButton extends ToolButton
 {
     protected ToggleToolButton(long pointer) {
         super(pointer);
+    }
+
+    /**
+     * Create a new ToggleToolButton.
+     */
+    public ToggleToolButton() {
+        super(GtkToggleToolButton.createToggleToolButton());
+    }
+
+    /**
+     * Create a new ToggleToolButton based on one of the stock items.
+     */
+    public ToggleToolButton(Stock stock) {
+        super(GtkToggleToolButton.createToggleToolButtonFromStock(stock.getStockId()));
+    }
+
+    /**
+     * Set whether this ToggleToolButton is active, that is, whether it
+     * appears pressed or not. Calling this will emit a <code>TOGGLED</code>
+     * signal.
+     */
+    public void setActive(boolean isActive) {
+        GtkToggleToolButton.setActive(this, isActive);
+    }
+
+    /**
+     * Is the ToggleToolButton currently activated on?
+     */
+    public boolean getActive() {
+        return GtkToggleToolButton.getActive(this);
+    }
+
+    /**
+     * Signal indicating the ToggleToolButton state has changed.
+     */
+    public interface TOGGLED extends GtkToggleToolButton.TOGGLED
+    {
+        public void onToggled(ToggleToolButton source);
+    }
+
+    /**
+     * Connect a handler to the <code>TOGGLED</code> signal.
+     */
+    public void connect(TOGGLED handler) {
+        GtkToggleToolButton.connect(this, handler);
     }
 }

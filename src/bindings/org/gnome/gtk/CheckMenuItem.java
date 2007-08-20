@@ -115,7 +115,7 @@ public class CheckMenuItem extends MenuItem
      * 
      * <p>
      * However, note that, while such property can be really useful in a
-     * {@link ToggleToolButton}, its utility in a CheckMenuItem is really
+     * {@link ToggleButton}, its utility in a CheckMenuItem is really
      * unclear.
      * 
      * <p>
@@ -149,7 +149,7 @@ public class CheckMenuItem extends MenuItem
     }
 
     /**
-     * Connect a <code>TOGGLED</code> handler to the widget.
+     * Connect a <code>TOGGLED</code> handler to the Widget.
      */
     public void connect(TOGGLED handler) {
         GtkCheckMenuItem.connect(this, handler);
