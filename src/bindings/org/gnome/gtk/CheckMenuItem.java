@@ -115,7 +115,7 @@ public class CheckMenuItem extends MenuItem
      * 
      * <p>
      * However, note that, while such property can be really useful in a
-     * {@link ToggleToolButton}, its utility in a CheckMenuItem is really
+     * {@link ToggleButton}, its utility in a CheckMenuItem is really
      * unclear.
      * 
      * <p>

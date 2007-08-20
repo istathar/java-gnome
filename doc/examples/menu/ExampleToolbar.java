@@ -20,12 +20,14 @@ import org.gnome.gtk.MenuItem;
 import org.gnome.gtk.MenuToolButton;
 import org.gnome.gtk.SeparatorToolItem;
 import org.gnome.gtk.StockId;
+import org.gnome.gtk.ToggleToolButton;
 import org.gnome.gtk.ToolButton;
 import org.gnome.gtk.ToolItem;
 import org.gnome.gtk.Toolbar;
 import org.gnome.gtk.VBox;
 import org.gnome.gtk.Widget;
 import org.gnome.gtk.Window;
+import org.gnome.gtk.ToggleToolButton.TOGGLED;
 import org.gnome.gtk.ToolButton.CLICKED;
 import org.gnome.gtk.Window.DELETE_EVENT;
 
@@ -34,7 +36,7 @@ import org.gnome.gtk.Window.DELETE_EVENT;
  * 
  * @author Vreixo Formoso
  */
-public class ExampleToolbar 
+public class ExampleToolbar
 {
 
     public ExampleToolbar() {
@@ -46,34 +48,35 @@ public class ExampleToolbar
         final MenuToolButton mtb;
         final Menu openMenu;
         final ToolItem item;
-        
+        final ToggleToolButton boldButton, italicButton;
+
         w = new Window();
 
         x = new VBox(false, 3);
         w.add(x);
 
         /*
-         * Create a Toolbar, and add it at the beginning of the Window.
-         * Note that usually you also want a MenuBar, that is located at the
-         * top of the Window, with the Toolbar just under it. 
+         * Create a Toolbar, and add it at the beginning of the Window. Note
+         * that usually you also want a MenuBar, that is located at the top of
+         * the Window, with the Toolbar just under it.
          */
         toolbar = new Toolbar();
         x.packStart(toolbar, false, false, 0);
 
         l = new Label("Select an action in a menu");
         x.add(l);
-        
+
         /*
          * Usually you will want to add several ToolButtons to your Toolbar.
-         * You could create ToolButtons from a Stock id. That way, both 
-         * Icon and Label are automatically set.
+         * You could create ToolButtons from a Stock id. That way, both Icon
+         * and Label are automatically set.
          */
         buttonNew = new ToolButton(StockId.NEW);
         toolbar.add(buttonNew);
-        
+
         /*
-         * You can respond to user clicks in the ToolButton connecting
-         * to the CLICKED signal.
+         * You can respond to user clicks in the ToolButton connecting to the
+         * CLICKED signal.
          */
         buttonNew.connect(new CLICKED() {
             public void onClicked(ToolButton sourceObject) {
@@ -82,13 +85,13 @@ public class ExampleToolbar
         });
 
         /*
-         * Sometimes you need a ToolButton that also has a dropdown Menu,
-         * to allow the user select alternative actions. You can do that
-         * with a MenuToolButton. 
+         * Sometimes you need a ToolButton that also has a dropdown Menu, to
+         * allow the user select alternative actions. You can do that with a
+         * MenuToolButton.
          */
         mtb = new MenuToolButton(StockId.OPEN);
         toolbar.add(mtb);
-        
+
         /*
          * You can add your Menu to this kind of ToolButtons
          */
@@ -105,7 +108,7 @@ public class ExampleToolbar
         }));
         openMenu.showAll();
         mtb.setMenu(openMenu);
-        
+
         /*
          * You also can respond to user clicks in the MenuToolButton itself
          */
@@ -114,24 +117,52 @@ public class ExampleToolbar
                 l.setLabel("You have click the Open MenuToolButton");
             }
         });
-        
+
         /*
          * To group together related items, you put a SeparatorToolItem
          * between then
          */
-        toolbar.add( new SeparatorToolItem() );
-        
-        //TODO ToggleToolButtons when implemented
-        
+        toolbar.add(new SeparatorToolItem());
+
         /*
-         * Finally, you can add another kind of Widgets to your Toolbar,
-         * after adding them to a ToolItem
+         * ToggleToolButtons can be used to let users enable/disable some
+         * options.
+         */
+        boldButton = new ToggleToolButton(StockId.BOLD);
+        italicButton = new ToggleToolButton(StockId.ITALIC);
+        
+        toolbar.add(boldButton);
+        toolbar.add(italicButton);
+        
+        /* In some cases you want the Button in a active state */
+        boldButton.setActive(true);
+        
+        /* 
+         * the changes in the active state can be tracked by connecting
+         * to the TOGGLED signal. 
+         */
+        boldButton.connect(new TOGGLED() {
+            public void onToggled(ToggleToolButton source) {
+                /* You can get the state with the getActive() method */
+                if (source.getActive()) {
+                    l.setLabel("Bold has been enabled");
+                } else {
+                    l.setLabel("Bold has been disabled");
+                }
+            }
+        });
+
+        toolbar.add(new SeparatorToolItem());
+
+        /*
+         * Finally, you can add another kind of Widgets to your Toolbar, after
+         * adding them to a ToolItem
          */
         item = new ToolItem();
-        
-        //TODO replace the Label with a more useful Widget
+
+        // TODO replace the Label with a more useful Widget
         item.add(new Label("This is a label"));
-        toolbar.add(item);        
+        toolbar.add(item);
 
         w.connect(new DELETE_EVENT() {
             public boolean onDeleteEvent(Widget source, Event event) {

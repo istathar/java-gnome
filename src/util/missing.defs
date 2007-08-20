@@ -4571,15 +4571,6 @@
   (return-type "GType")
 )
 
-(define-function toggle_tool_button_new_from_stock
-  (c-name "gtk_toggle_tool_button_new_from_stock")
-  (caller-owns-return #t)
-  (return-type "GtkToolItem*")
-  (parameters
-    '("const-gchar*" "stock_id")
-  )
-)
-
 (define-function gtk_toolbar_get_type
   (c-name "gtk_toolbar_get_type")
   (return-type "GType")

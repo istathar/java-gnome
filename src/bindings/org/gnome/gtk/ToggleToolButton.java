@@ -11,17 +11,67 @@
  */
 package org.gnome.gtk;
 
-/*
- * FIXME this is a placeholder stub for what will become the public API for
- * this type. Replace this comment with appropriate javadoc including author
- * and since tags. Note that the class may need to be made abstract, implement
- * interfaces, or even have its parent changed. No API stability guarantees
- * are made about this class until it has been reviewed by a hacker and this
- * comment has been replaced.
+/**
+ * A ToggleToolButton is a ToolButton that retain its state.
+ * 
+ * <p>
+ * The usual usage of such kind of ToolButtons is to let users enable or
+ * disable an application feature.
+ * 
+ * <p>
+ * You can check the current state of the ToggleToolButton using the
+ * {@link #getActive()} method. Additionally you can connect to the
+ * {@link TOGGLED} signal to respond to changes in the <i>active</i> state.
+ * 
+ * @author Vreixo Formoso
+ * @since 4.0.4
  */
 public class ToggleToolButton extends ToolButton
 {
     protected ToggleToolButton(long pointer) {
         super(pointer);
+    }
+
+    /**
+     * Create a new ToggleToolButton.
+     */
+    public ToggleToolButton() {
+        super(GtkToggleToolButton.createToggleToolButton());
+    }
+
+    /**
+     * Create a new ToggleToolButton from a stock item.
+     */
+    public ToggleToolButton(StockId stockId) {
+        super(GtkToggleToolButton.createToggleToolButtonFromStock(stockId.getStockId()));
+    }
+
+    /**
+     * Sets the <i>active</i> state of the ToggleToolButton.
+     */
+    public void setActive(boolean isActive) {
+        GtkToggleToolButton.setActive(this, isActive);
+    }
+
+    /**
+     * Get the <i>active</i> state of the ToggleToolButton.
+     */
+    public boolean getActive() {
+        return GtkToggleToolButton.getActive(this);
+    }
+
+    /**
+     * Signal indicating the ToggleToolButton state has changed.
+     */
+    public interface TOGGLED extends GtkToggleToolButton.TOGGLED
+    {
+        public void onToggled(ToggleToolButton source);
+    }
+
+    /**
+     * Connect a handler to the <code>TOGGLED</code> signal.
+     */
+    public void connect(TOGGLED handler) {
+        GtkToggleToolButton.connect(this, handler);
     }
 }
