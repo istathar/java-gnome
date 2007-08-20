@@ -1,7 +1,7 @@
 /*
  * Plumbing.java
  *
- * Copyright (c) 2006 Operational Dynamics Consulting Pty Ltd
+ * Copyright (c) 2006-2007 Operational Dynamics Consulting Pty Ltd
  * 
  * The code in this file, and the library it is a part of, are made available
  * to you by the authors under the terms of the "GNU General Public Licence,
@@ -41,7 +41,7 @@ public abstract class Plumbing
      * created Java side that instance is returned rather than creating a new
      * one.
      */
-    static final HashMap knownProxies;
+    static final HashMap<Long, WeakReference<Proxy>> knownProxies;
 
     /**
      * When Enums get created, we add them to this Map so we can find an
@@ -55,19 +55,19 @@ public abstract class Plumbing
      * reachable; the Constant instances themselves will always be present by
      * virtue of their being in this two tier table.
      */
-    static final HashMap knownConstants;
+    static final HashMap<Class<? extends Constant>, HashMap<Integer, Constant>> knownConstants;
 
     static {
         /*
          * TODO: any particular reason to pick a starting array size?
          * 
-         * FIXME! Early on we used WeakHashMap, but that is weak on _keys_
-         * only, and in fact we definitely do _not_ want that. We need to
-         * switch to weak _values_; we're going to need to wrap and unwrap
-         * WeakReference around the Proxies we put as values to achieve that.
+         * Early on we used WeakHashMap, but that is weak on _keys_ only, and
+         * in fact we definitely do _not_ want that. We need to switch to weak
+         * _values_; we're going to need to wrap and unwrap WeakReference
+         * around the Proxies we put as values to achieve that.
          */
-        knownProxies = new HashMap();
-        knownConstants = new HashMap();
+        knownProxies = new HashMap<Long, WeakReference<Proxy>>();
+        knownConstants = new HashMap<Class<? extends Constant>, HashMap<Integer, Constant>>();
     }
 
     /*
@@ -81,7 +81,7 @@ public abstract class Plumbing
      * lookup.
      */
     static final void registerProxy(Proxy obj) {
-        knownProxies.put(new Long(obj.pointer), new WeakReference(obj));
+        knownProxies.put(new Long(obj.pointer), new WeakReference<Proxy>(obj));
     }
 
     /**
@@ -166,7 +166,7 @@ public abstract class Plumbing
      * looked up.
      */
     protected static Proxy instanceFor(long pointer) {
-        WeakReference ref = (WeakReference) knownProxies.get(new Long(pointer));
+        WeakReference ref = knownProxies.get(new Long(pointer));
 
         if (ref == null) {
             return null;
@@ -203,16 +203,16 @@ public abstract class Plumbing
      * allocation.
      */
     static final void registerConstant(Constant obj) {
-        final Class type;
-        HashMap map;
+        final Class<? extends Constant> type;
+        HashMap<Integer, Constant> map;
 
         type = obj.getClass();
 
-        map = (HashMap) knownConstants.get(type);
+        map = knownConstants.get(type);
 
         if (map == null) {
             // TODO is 8 a good initial capacity?
-            map = new HashMap(8);
+            map = new HashMap<Integer, Constant>(8);
             knownConstants.put(type, map);
         }
 
@@ -293,7 +293,7 @@ public abstract class Plumbing
 
         assert (type != null);
 
-        map = (HashMap) knownConstants.get(type);
+        map = knownConstants.get(type);
         if (map == null) {
             throw new IllegalArgumentException("No Constants of type " + type.getName()
                     + " are registered");

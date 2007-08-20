@@ -35,14 +35,14 @@ public abstract class Plumbing extends org.freedesktop.bindings.Plumbing
 
     protected Plumbing() {}
 
-    private static final IdentityHashMap typeMapping;
+    private static final IdentityHashMap<String, Class> typeMapping;
 
     private static final String TYPE_MAPPING = "typeMapping.properties";
 
     static {
         lock = Gdk.lock;
 
-        typeMapping = new IdentityHashMap(100);
+        typeMapping = new IdentityHashMap<String,Class>(470);
 
         // FUTURE do we still need this?
         registerType("gchararray", Primitive.class);
@@ -229,7 +229,7 @@ public abstract class Plumbing extends org.freedesktop.bindings.Plumbing
              * instance for the Proxy subclass.
              */
 
-            type = (Class) typeMapping.get(name);
+            type = typeMapping.get(name);
 
             if (type != null) {
                 proxy = createProxy(type, pointer);
@@ -285,7 +285,7 @@ public abstract class Plumbing extends org.freedesktop.bindings.Plumbing
      * Get the Class object that this supplied name maps to.
      */
     protected final static Class lookupType(String name) {
-        return (Class) typeMapping.get(name);
+        return typeMapping.get(name);
     }
 
     /**

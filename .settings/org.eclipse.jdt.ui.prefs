@@ -1,6 +1,6 @@
-#Thu Feb 08 17:40:48 EST 2007
+#Mon Aug 20 14:12:00 EST 2007
 eclipse.preferences.version=1
 formatter_profile=_The java-gnome Style
 formatter_settings_version=10
-internal.default.compliance=user
+internal.default.compliance=default
 org.eclipse.jdt.ui.text.custom_code_templates=<?xml version\="1.0" encoding\="UTF-8"?><templates/>

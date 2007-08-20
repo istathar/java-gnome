@@ -104,7 +104,7 @@ doc:
 		-classpath tmp/bindings \
 		-public \
 		-nodeprecated \
-		-source 1.4 \
+		-source 1.5 \
 		-notree \
 		-noindex \
 		-nohelp \
