@@ -1,4 +1,4 @@
-personal_ws-1.1 en 984 
+personal_ws-1.1 en 985 
 EnumValue
 getActive
 refactor
@@ -55,8 +55,8 @@ appendPage
 tearDown
 KeyListener
 copyMappingFile
-MenuItem's
 MenuItems
+MenuItem's
 jargs
 GClosureNotify
 testGetChildAndParent
@@ -143,8 +143,8 @@ GtkComboBox
 args
 gtk
 InternalButtonImplementation
-argv
 blog
+argv
 OutOfMemoryError
 JDS
 pixbuf
@@ -265,12 +265,12 @@ typeName
 online
 hiccup
 setDisplayOptions
-GladeXml
 GladeXML
+GladeXml
 conf
 ListStore
-getUri
 getURI
+getUri
 TreeView's
 EventAny
 prependPage
@@ -314,8 +314,8 @@ nUnable
 typedef
 GTypeInstance
 setPropertyBar
-pygtk
 pyGTK
+pygtk
 GtkBox
 returnType
 ClassLoader's
@@ -427,8 +427,8 @@ ClassNotFoundException
 FilenameFilter
 cp
 filenames
-eg
 dl
+eg
 nowarn
 preserveAllLocals
 toplevel
@@ -456,11 +456,11 @@ enum
 lc
 vhosts
 tooltips
-jN
 ld
+jN
 lookups
-md
 li
+md
 struct
 nc
 LibGlade
@@ -481,8 +481,8 @@ Cowie
 touchFile
 constantFor
 WindowPosition
-QA
 ok
+QA
 libgnomeui
 Overholt
 mv
@@ -506,8 +506,8 @@ va
 tm
 ui
 getmtime
-wb
 ul
+wb
 testButtonReliefStyle
 HBox
 setRelief
@@ -719,6 +719,7 @@ backend
 href
 GtkContainer
 onSelectionChanged
+ClassName
 classname
 unix
 Henstridge
@@ -964,8 +965,8 @@ commitComment
 bdb
 executables
 registerProxy
-getEnv
 getenv
+getEnv
 baz
 TestSuite
 EventType

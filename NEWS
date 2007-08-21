@@ -1,5 +1,25 @@
 NEWS
 
+<a name="gentoo" id="1187677072" title="Packaged in Gentoo Linux"></a>
+
+Gentoo packages
+===============
+
+The java-gnome bindings suite is now available in [Gentoo
+Linux](http://www.gentoo.org/). An `.ebuild` for 4.0.3 has been merged to
+Portage in
+
+ * `dev-java/java-gnome`
+
+If you need help installing it, see the the Gentoo page in the 
+[download](/4.0/get/gentoo.php) section here.
+
+Thanks to the people who pushed this through: Xerces MC for having submitted an
+initial `.ebuild`, Petteri R&#228;ty (Gentoo dev and Java team lead) for having
+fixed it up, and Christoph Brill for testing.
+
+AfC
+
 <a name="4.0.3" id="1185883828" title="Code generator landed"></a>
 
 java-gnome 4.0.3 (31 Jul 2007)
