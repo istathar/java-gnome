@@ -310,7 +310,6 @@ iconWidget
 setDisplayOptions
 NetworkManager's
 GladeXML
-GladeXml
 conf
 ListStore
 getURI
@@ -830,6 +829,7 @@ backend
 href
 GtkContainer
 onSelectionChanged
+ClassName
 classname
 unix
 Henstridge

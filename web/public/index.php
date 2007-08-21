@@ -53,7 +53,7 @@ that work has resulted in the new:
 <a class="subject" href="/4.0/">java-gnome 4.0</a>
 </p>
 
-<p>The original bindings are available only, though only for historical
+<p>The old bindings are available, though only for historical
 interest:
 
 <p style="padding-left: 50px;">

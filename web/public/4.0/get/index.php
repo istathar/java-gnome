@@ -31,9 +31,8 @@
 	binary</a>
 </div>
 
-<p><i>As java-gnome 4.0 is presently in the prototype stage, some of this
-discussion is necessarily in the future tense. In particular, java-gnome 4.0
-hasn't actually been packaged yet!</i></p>
+<p><i>You can help by ensuring java-gnome is properly packaged for your 
+operating system!</i></p>
 
 <h1>Download binaries</h1>
 

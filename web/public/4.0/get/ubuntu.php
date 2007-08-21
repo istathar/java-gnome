@@ -27,6 +27,10 @@
 ?>
 <h1 class="title">Installing java-gnome on Ubuntu</h1>
 
+<p><span class="highlight">
+TODO: This will work once someone actually packages java-gnome 4.0 for Ubuntu
+</span></p>
+
 <p>java-gnome is part of the official GNOME language bindings suite, and as
 such should be present in any recent Ubuntu system.</p>
 
