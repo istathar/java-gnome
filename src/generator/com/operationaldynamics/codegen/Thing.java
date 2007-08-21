@@ -130,8 +130,10 @@ public abstract class Thing
         /*
          * Types for array parameters
          */
-        register(new ArrayThing("gfloat[]", "float[]", "float[]", "jfloatArray"));
-        register(new ArrayThing("gint8[]", "int[]", "int[]", "jintArray"));
+//        register(new ArrayThing("gfloat[]", "float[]", "float[]", "jfloatArray"));
+//        register(new ArrayThing("gint8[]", "int[]", "int[]", "jintArray"));
+        register(new FixmeThing("gfloat[]"));
+        register(new FixmeThing("gint8[]"));
 
         /* these seem a bit harder */
         register(new FixmeThing("const-gchar*[]"));

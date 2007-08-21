@@ -249,9 +249,19 @@ public class DefsParser
                  * intern() before placing them into the arrays used for
                  * subsequent manipulation.
                  */
-                l.add(new String[] {
-                        key.intern(), value.intern()
-                });
+                if (l == parameters) {
+                    // TODO could null-ok be present in other than parameters
+                    l.add(new String[] {
+                            key.intern(),
+                            value.intern(),
+                            /* 3rd value is used to take null-ok under control */
+                            line.indexOf("(null-ok)") != -1 ? "yes".intern() : "no".intern()
+                    });
+                } else {
+                    l.add(new String[] {
+                            key.intern(), value.intern()
+                    });
+                }
             }
         } catch (IOException ioe) {
             // ignore? Either way, it's end of file, right?

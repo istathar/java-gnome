@@ -117,11 +117,12 @@ public abstract class FunctionBlock extends Block
     protected void prependReferenceToSelf() {
         String[][] target;
 
-        target = new String[parameters.length + 1][2];
+        target = new String[parameters.length + 1][3];
         System.arraycopy(parameters, 0, target, 1, parameters.length);
 
         target[0][0] = addPointerSymbol(ofObject);
         target[0][1] = "self";
+        target[0][2] = "no"; /* self can't never be null */
 
         parameters = target;
     }

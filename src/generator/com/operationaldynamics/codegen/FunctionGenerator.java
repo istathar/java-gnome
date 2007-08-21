@@ -54,6 +54,12 @@ abstract class FunctionGenerator extends Generator
     protected final String[] parameterNames;
 
     /**
+     * This is filled with true if the parameter can be null (indicated with a
+     * null-ok in .defs).
+     */
+    protected final boolean[] parameterCanBeNull;
+
+    /**
      * If a blacklistedType type is detected in this block, set it here.
      */
     private Thing blacklistedType;
@@ -89,10 +95,12 @@ abstract class FunctionGenerator extends Generator
 
         parameterTypes = new Thing[gParameters.length];
         parameterNames = new String[gParameters.length];
+        parameterCanBeNull = new boolean[gParameters.length];
 
         for (int i = 0; i < gParameters.length; i++) {
             parameterTypes[i] = Thing.lookup(gParameters[i][0]);
             parameterNames[i] = toCamel(gParameters[i][1]);
+            parameterCanBeNull[i] = "yes".equals(gParameters[i][2]);
         }
 
         blacklistedType = null;
@@ -145,6 +153,20 @@ abstract class FunctionGenerator extends Generator
             out.print("        ");
             out.print(returnType.nativeType);
             out.print(" result;\n\n");
+        }
+
+        /*
+         * Guard against null in parameters that can't be null
+         */
+        for (int i = 0; i < parameterTypes.length; i++) {
+            if (!parameterCanBeNull[i]
+                    && (parameterTypes[i] instanceof ProxiedThing
+                            || parameterTypes[i] instanceof StringFundamentalThing || parameterTypes[i] instanceof EnumThing)) {
+                out.print("        if (" + parameterNames[i] + " == null) {\n");
+                out.print("            throw new NullPointerException(\"Parameter " + parameterNames[i]
+                        + " can't be null\");\n");
+                out.print("        }\n\n");
+            }
         }
 
         /*
@@ -289,7 +311,11 @@ abstract class FunctionGenerator extends Generator
 
             out.print(parameterTypes[i].jniConversionDecode(parameterNames[i]));
             out.print(";\n");
-            jniReturnIfExceptionThrown(out, i);
+            if (!parameterCanBeNull[i]) {
+                jniReturnIfExceptionThrown(out, i);
+            } else {
+                out.print("\t// " + parameterNames[i] + " can be null\n");
+            }
         }
     }
 

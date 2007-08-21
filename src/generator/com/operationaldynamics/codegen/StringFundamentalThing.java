@@ -19,11 +19,11 @@ public class StringFundamentalThing extends FundamentalThing
     protected StringFundamentalThing() {}
 
     String jniConversionDecode(String name) {
-        return "(*env)->GetStringUTFChars(env, _" + name + ", NULL)";
+        return "_" + name + " == NULL ? NULL : (*env)->GetStringUTFChars(env, _" + name + ", NULL)";
     }
 
     String jniConversionCleanup(String name) {
-        return "(*env)->ReleaseStringUTFChars(env, _" + name + ", " + name + ")";
+        return "if (" + name + " != NULL) (*env)->ReleaseStringUTFChars(env, _" + name + ", " + name + ")";
     }
 
     String jniReturnEncode(String name) {

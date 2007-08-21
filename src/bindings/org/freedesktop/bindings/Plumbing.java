@@ -109,7 +109,7 @@ public abstract class Plumbing
      * it totally of out of view from get<COMPLETE>.
      */
     protected static final long pointerOf(Proxy reference) {
-        return reference.pointer;
+        return reference == null ? 0L : reference.pointer;
     }
 
     /**
