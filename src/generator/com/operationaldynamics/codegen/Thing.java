@@ -119,6 +119,7 @@ public abstract class Thing
         register(new FundamentalThing("guint16", "char", "char", "jchar"));
         register(new FundamentalThing("gint32", "int", "int", "jint"));
         register(new FundamentalThing("guint32", "int", "int", "jint"));
+        register(new FundamentalThing("gssize", "int", "int", "jint"));
         register(new FundamentalThing("gint64", "long", "long", "jlong"));
         register(new FundamentalThing("glong", "long", "long", "jlong"));
         register(new FundamentalThing("gulong", "long", "long", "jlong"));
