@@ -1,0 +1,35 @@
+/*
+ * GtkCalendarDisplayOptions.java
+ *
+ * Copyright (c) 2006-2007 Operational Dynamics Consulting Pty Ltd, and Others
+ *
+ * The code in this file, and the library it is a part of, are made available
+ * to you by the authors under the terms of the "GNU General Public Licence,
+ * version 2" plus the "Classpath Exception" (you may link to this code as a
+ * library into other programs provided you don't make a derivation of it).
+ * See the LICENCE file for the terms governing usage and redistribution.
+ *
+ *                      THIS FILE IS GENERATED CODE!
+ *
+ * To modify its contents or behaviour, either update the generation program,
+ * change the information in the source defs file, or implement an override for
+ * this class.
+ */
+package org.gnome.gtk;
+
+import org.gnome.gtk.CalendarDisplayOptions;
+import org.gnome.gtk.Plumbing;
+
+final class GtkCalendarDisplayOptions extends Plumbing
+{
+    private GtkCalendarDisplayOptions() {}
+
+    static final int SHOW_HEADING = get_ordinal_show_heading();
+
+    private static native final int get_ordinal_show_heading();
+
+    static final int SHOW_DAY_NAMES = get_ordinal_show_day_names();
+
+    private static native final int get_ordinal_show_day_names();
+}
+

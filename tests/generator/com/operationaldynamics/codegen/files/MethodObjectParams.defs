@@ -1,0 +1,26 @@
+;; Test for methods that take native parameters
+
+(define-object Button
+  (in-module "Gtk")
+  (parent "GtkBin")
+  (c-name "GtkButton")
+  (gtype-id "GTK_TYPE_BUTTON")
+)
+
+(define-method set_image
+  (of-object "GtkButton")
+  (c-name "gtk_button_set_image")
+  (return-type "none")
+  (parameters
+    '("GtkWidget*" "image")
+  )
+)
+
+(define-method set_image_nullable
+  (of-object "GtkButton")
+  (c-name "gtk_button_set_image_nullable")
+  (return-type "none")
+  (parameters
+    '("GtkWidget*" "image" (null-ok))
+  )
+)

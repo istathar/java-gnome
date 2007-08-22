@@ -1,0 +1,13 @@
+(define-object Button
+  (in-module "Gtk")
+  (parent "GtkBin")
+  (c-name "GtkButton")
+  (gtype-id "GTK_TYPE_BUTTON")
+)
+
+(define-function gtk_button_new
+  (is-constructor-of "GtkButton")
+  (c-name "gtk_button_new")
+  (caller-owns-return #t)
+  (return-type "GtkBin*")
+)
