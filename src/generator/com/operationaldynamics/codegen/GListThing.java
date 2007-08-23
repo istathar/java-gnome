@@ -24,7 +24,7 @@ public class GListThing extends ProxiedArrayThing
 //        super(gType.split("-")[0], type.bindingsPackage, type.bindingsClass, type.javaType + "[]",
 //                "long[]", "jlongArray");
 //        this.type = type;
-//        this.cType = this.gType + "*";
+        this.cType = this.gType + "*";
     }
 
 //    protected GListThing() {}

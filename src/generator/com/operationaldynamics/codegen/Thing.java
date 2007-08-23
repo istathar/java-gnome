@@ -320,7 +320,7 @@ public abstract class Thing
             stored = (Thing) things.get(bareGType);
 
             if (stored != null) {
-                dupe = stored.createOutVariant();
+                dupe = stored.createArrayVariant();
 
                 register(dupe);
                 return dupe;
@@ -534,12 +534,23 @@ public abstract class Thing
     }
 
     /**
-     * FIXME Figuring out what to do with out-parameters is still a work in
-     * progress; for now these are marked as blacklisted. The code above in
-     * createConstVariant() will probably be useful.
+     * Array variants are the way we manage both arrays and output parameters.
      */
-    private Thing createOutVariant() {
-        return new FixmeThing(this.gType + "*");
+    /*
+     * TODO for efficience reasons, in a near future we will want to
+     * deal with output params/arrays and input arrays in a different
+     * way.
+     */
+    private Thing createArrayVariant() {
+        if (this instanceof ProxiedThing) {
+            return new ProxiedArrayThing(gType, this);
+        } else {
+            /* 
+             * only Proxied arrays are supported yet. Note that fundamental
+             * arrays are managed in Thing static block.
+             */
+            return new FixmeThing(this.gType + "*");
+        }
     }
 
     /**

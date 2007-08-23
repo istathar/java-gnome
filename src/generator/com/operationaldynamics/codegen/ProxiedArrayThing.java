@@ -26,7 +26,6 @@ public class ProxiedArrayThing extends ArrayThing
         // type.bindingsClass, type.javaType + "[]",
         // "long[]", "jlongArray");
         // this.type = type;
-        this.cType = this.gType + "*"; //TODO should this be only on GList
     }
 
     // protected ProxiedArrayThing() {}
