@@ -91,6 +91,8 @@ public final class Experiment
                 System.gc();
             }
         });
+
+        b.setTooltipText("Pressing this Button will result in some output");
     }
 
     public static void main(String[] args) {

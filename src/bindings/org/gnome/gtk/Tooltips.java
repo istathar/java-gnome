@@ -17,17 +17,25 @@ package org.gnome.gtk;
  * and Entries to brief the user about that Widget's function.
  * 
  * <p>
- * To add a tooltip to a Widget use the Tooltips
- * {@link Tooltips#setTip(Widget, String) setTip} method.
+ * To add a tooltip to a Widget use the
+ * {@link Widget#setTooltipText(String) setTooltipText()} method available on
+ * Widget.
  * 
  * <p>
  * Note that the class Tooltips represents not only one tooltip; in fact it
  * represents a group of tooltips.
  * 
+ * <p>
+ * <b>WARNING: This class will not have public methods in java-gnome 4.0.4,
+ * and will be removed soon thereafter</b>.
+ * 
+ * <p>
+ * <i>The underlying <code>GtkTooltips</code> class is deprecated in favour
+ * of a new API in <code>GtkTooltip</code>, forthcoming in GTK 2.12.</i>
+ * 
  * @author Thomas Schmitz
- * @since 4.0.4
  */
-public class Tooltips extends Object
+public final class Tooltips extends Object
 {
     protected Tooltips(long pointer) {
         super(pointer);
@@ -35,6 +43,8 @@ public class Tooltips extends Object
 
     /**
      * Create a new Tooltips group.
+     * 
+     * @deprecated
      */
     public Tooltips() {
         super(GtkTooltips.createTooltips());
@@ -47,6 +57,8 @@ public class Tooltips extends Object
      * 
      * <p>
      * By default the tooltips of a new Tooltips group are enabled.
+     * 
+     * @deprecated
      */
     public void enable() {
         GtkTooltips.enable(this);
@@ -57,6 +69,8 @@ public class Tooltips extends Object
      * associated with this Tooltips group will no longer display their tips
      * until they are enabled again with {@link Tooltips#enable() enable()}
      * method.
+     * 
+     * @deprecated
      */
     public void disable() {
         GtkTooltips.disable(this);
@@ -64,15 +78,16 @@ public class Tooltips extends Object
 
     /**
      * Set the time between the user moving the mouse over a Widget and the
-     * Widget's tooltip appearing. In practice you should use a value between
+     * Widget's tooltip appearing. In practise you should use a value between
      * <code>500</code> (the default) and <code>1000</code> as delay. Too
-     * low a value will display the tooltip everytime the mouse moves over the
-     * widget which rapidly gets annoying. If you use a value higher than one
-     * second the user will propably think that there is no tooltip enabled
-     * for this Widget and move on.
+     * low a value will display the tooltip every time the mouse moves over
+     * the widget which rapidly gets annoying. If you use a value higher than
+     * one second the user will probably think that there is no tooltip
+     * enabled for this Widget and move on.
      * 
      * @param delay
      *            an integer value representing milliseconds.
+     * @deprecated
      */
     /*
      * FIXME if there is a Desktop wide default setting, we should add a
@@ -89,6 +104,7 @@ public class Tooltips extends Object
      *            the widget you wish to associate the tip with.
      * @param tipText
      *            a string containing the note.
+     * @deprecated
      */
     /*
      * The GtkTooltips.setTip() method contains a second String parameter,
