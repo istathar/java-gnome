@@ -110,8 +110,8 @@ public class StatusIcon extends org.gnome.glib.Object
     /**
      * Create a StatusIcon that shows as its image a given stock item.
      */
-    public StatusIcon(Stock stockId) {
-        super(GtkStatusIcon.createStatusIconFromStock(stockId.getStockId()));
+    public StatusIcon(Stock stock) {
+        super(GtkStatusIcon.createStatusIconFromStock(stock.getStockId()));
     }
 
     /**
@@ -134,8 +134,8 @@ public class StatusIcon extends org.gnome.glib.Object
     /**
      * Makes this StatusIcon display a stock icon as its image.
      */
-    public void setFromStock(Stock stockId) {
-        GtkStatusIcon.setFromStock(this, stockId.getStockId());
+    public void setFromStock(Stock stock) {
+        GtkStatusIcon.setFromStock(this, stock.getStockId());
     }
 
     /**
@@ -178,11 +178,8 @@ public class StatusIcon extends org.gnome.glib.Object
      *         StatusIcon or <code>null</code> if the StatusIcon is empty.
      */
     public Stock getStock() {
-        // TODO what about using a stock register to prevent multiple
-        // instances
-        // of the same id?
         String stockId = GtkStatusIcon.getStock(this);
-        return stockId == null ? null : new Stock(stockId);
+        return Stock.instanceFor(stockId);
     }
 
     /**

@@ -12,6 +12,8 @@
  */
 package org.gnome.gtk;
 
+import java.util.HashMap;
+
 /**
  * Identifiers for the different standard UI elements used to create
  * consistent user interfaces across GNOME applications. Stock items represent
@@ -67,6 +69,12 @@ public class Stock
      */
     private final String stockId;
 
+    private static final HashMap knownStocks;
+
+    static {
+        knownStocks = new HashMap(100, 0.999999f);
+    }
+    
     /**
      * Construct a new Stock constant from a given string. This is provided so
      * that if we missed an ID that you desperately need, you can subclass and
@@ -76,6 +84,7 @@ public class Stock
      */
     protected Stock(String stockId) {
         this.stockId = stockId;
+        knownStocks.put(stockId, this);
     }
 
     /**
@@ -90,12 +99,12 @@ public class Stock
         return stockId;
     }
 
-    public boolean equals(java.lang.Object obj) {
-        if (obj instanceof Stock) {
-            Stock id = (Stock) obj;
-            return this.stockId.equals(id.stockId);
-        }
-        return false;
+    /**
+     * Look up a Stock object for the supplied String id as used in the
+     * underlying library. Returns <code>null</code> if not found.
+     */
+    static Stock instanceFor(String stockId) {
+        return (Stock) knownStocks.get(stockId);
     }
 
     /**
