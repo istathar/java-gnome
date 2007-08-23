@@ -27,7 +27,6 @@ import org.gnome.gdk.EventKey;
  */
 public abstract class Widget extends org.gnome.gtk.Object
 {
-
     protected Widget(long pointer) {
         super(pointer);
     }
@@ -247,5 +246,29 @@ public abstract class Widget extends org.gnome.gtk.Object
      */
     public void setSensitive(boolean sensitive) {
         GtkWidget.setSensitive(this, sensitive);
+    }
+
+    private static Tooltips globalTooltipsGroup;
+
+    /**
+     * Tooltips are notes that will be displayed if a user hovers the mouse
+     * pointer over a Widget. They are usually used with controls such as
+     * Buttons and Entries to brief the user about that Widget's function.
+     * 
+     * @param text
+     *            The string of plain text (i.e. without any Pango markup) you
+     *            wish to be displayed when if the tooltip is popped up.
+     * @since 4.0.4
+     */
+    /*
+     * This method anticipates one that is in the forthcoming GTK 2.12; at the
+     * moment we are using this to wrap the deprecated GtkTooltips
+     * functionality.</i>
+     */
+    public void setTooltipText(String text) {
+        if (globalTooltipsGroup == null) {
+            globalTooltipsGroup = new Tooltips();
+        }
+        GtkTooltips.setTip(globalTooltipsGroup, this, text, "");
     }
 }
