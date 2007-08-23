@@ -1,7 +1,7 @@
 /*
  * Tooltips.java
  *
- * Copyright (c) 2007 Operational Dynamics Consulting Pty Ltd
+ * Copyright (c) 2007 Operational Dynamics Consulting Pty Ltd, and Others
  *
  * The code in this file, and the library it is a part of, are made available
  * to you by the authors under the terms of the "GNU General Public Licence,
@@ -12,16 +12,16 @@
 package org.gnome.gtk;
 
 /**
- * Tooltips are notes that will be displayed if a user moves the mouse pointer
- * over a widget. They are usually used to brief the user over the function of
- * the relevant widget.
+ * Tooltips are notes that will be displayed if a user hovers the mouse
+ * pointer over a Widget. They are usually used with controls such as Buttons
+ * and Entries to brief the user about that Widget's function.
  * 
  * <p>
- * To add a tooltip to a widget use the Tooltips
- * {@link Tooltips#setTip(Widget, String) setTip} methode.
+ * To add a tooltip to a Widget use the Tooltips
+ * {@link Tooltips#setTip(Widget, String) setTip} method.
  * 
  * <p>
- * Note that the class Tooltips represents not only one tooltip, in fact it
+ * Note that the class Tooltips represents not only one tooltip; in fact it
  * represents a group of tooltips.
  * 
  * @author Thomas Schmitz
@@ -34,42 +34,49 @@ public class Tooltips extends Object
     }
 
     /**
-     * Creates a new Tooltips instance.
+     * Create a new Tooltips group.
      */
     public Tooltips() {
         super(GtkTooltips.createTooltips());
     }
 
     /**
-     * Causes all tooltips to become active. Any widgets that have tooltips
+     * Cause all tooltips to become active. Any widgets that have tooltips
      * associated with that Tooltips group will display their tips until they
-     * are disabled with the {@link Tooltips#disable() disable} methode. By
-     * default the tooltips of the Tooltips group are enabled.
+     * are disabled with the {@link Tooltips#disable() disable()} method.
+     * 
+     * <p>
+     * By default the tooltips of a new Tooltips group are enabled.
      */
     public void enable() {
         GtkTooltips.enable(this);
     }
 
     /**
-     * Causes all tooltips to become inactive. Any widgets that have tips
-     * associated with that Tooltips group will no longer display their tips
-     * until they are enabled again with {@link Tooltips#enable() enable}
-     * methode.
+     * Cause all tooltips to become inactive. Any Widgets that have tips
+     * associated with this Tooltips group will no longer display their tips
+     * until they are enabled again with {@link Tooltips#enable() enable()}
+     * method.
      */
     public void disable() {
         GtkTooltips.disable(this);
     }
 
     /**
-     * Sets the time between the user moving the mouse over a widget and the
-     * widget's tooltip appearing. Usually you should use a value between 500
-     * and 1000 as delay, because a shorter value will display the tooltip
-     * everytime the mouse moves over the widget. If you use a higher value as
-     * 1000 the user propably think that there is no tooltip enabled at this
-     * widget.
+     * Set the time between the user moving the mouse over a Widget and the
+     * Widget's tooltip appearing. In practice you should use a value between
+     * <code>500</code> (the default) and <code>1000</code> as delay. Too
+     * low a value will display the tooltip everytime the mouse moves over the
+     * widget which rapidly gets annoying. If you use a value higher than one
+     * second the user will propably think that there is no tooltip enabled
+     * for this Widget and move on.
      * 
      * @param delay
      *            an integer value representing milliseconds.
+     */
+    /*
+     * FIXME if there is a Desktop wide default setting, we should add a
+     * mention of it the same way we did for Toolbar.
      */
     public void setDelay(int delay) {
         GtkTooltips.setDelay(this, delay);
@@ -84,10 +91,10 @@ public class Tooltips extends Object
      *            a string containing the note.
      */
     /*
-     * The GtkTooltips.setTip() methode contains a second String parameter,
-     * but it seams not to have a function.
+     * The GtkTooltips.setTip() method contains a second String parameter,
+     * "private", but it seems not to do anything.
      */
     public void setTip(Widget widget, String tipText) {
-        GtkTooltips.setTip(this, widget, tipText, new String());
+        GtkTooltips.setTip(this, widget, tipText, "");
     }
 }
