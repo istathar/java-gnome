@@ -22,8 +22,12 @@ import com.operationaldynamics.driver.DefsFile;
  * Things corresponding to primative types (int, String, etc) for which there
  * are of course no (define- ...) blocks are registered internally by this
  * class.
+ * <p>
+ * Things collaborate with Generators in the generation of code, and are 
+ * responsible for generation of type-dependent code.
  * 
  * @author Andrew Cowie
+ * @author Vreixo Formoso
  */
 public abstract class Thing
 {
@@ -102,7 +106,7 @@ public abstract class Thing
         register(new FundamentalThing("gchar", "char", "char", "jchar"));
         register(new FundamentalThing("guchar", "char", "char", "jchar"));
         register(new FundamentalThing("gunichar", "char", "char", "jchar"));
-        register(new StringFundamentalThing("gchar*"));
+        register(new StringThing("gchar*"));
 
         /*
          * A certain class of bugs arise from discarding the most significant
@@ -132,9 +136,11 @@ public abstract class Thing
          */
 //        register(new ArrayThing("gfloat[]", "float[]", "float[]", "jfloatArray"));
 //        register(new ArrayThing("gint8[]", "int[]", "int[]", "jintArray"));
-        register(new FixmeThing("gfloat[]"));
-        register(new FixmeThing("gint8[]"));
-
+//        register(new FixmeThing("gfloat[]"));
+//        register(new FixmeThing("gint8[]"));
+        register(new FundamentalArrayThing("gfloat[]", "gfloat"));
+        register(new FundamentalArrayThing("gint8[]", "gint8"));
+        
         /* these seem a bit harder */
         register(new FixmeThing("const-gchar*[]"));
         register(new FixmeThing("gchar**[]"));
@@ -143,11 +149,16 @@ public abstract class Thing
          * Out parameters for fundamental types are special cases, probably,
          * so we will continue to register their information here for now.
          */
-        register(new ArrayFundamentalThing("gint*", "int[]", "int[]", "jintArray"));
-        register(new ArrayFundamentalThing("guint*", "int[]", "int[]", "jintArray"));
-        register(new ArrayFundamentalThing("gfloat*", "float[]", "float[]", "jfloatArray"));
-        register(new ArrayFundamentalThing("gdouble*", "double[]", "double[]", "jdoubleArray"));
-        register(new ArrayFundamentalThing("gboolean*", "boolean[]", "boolean[]", "jbooleanArray"));
+//        register(new FundamentalArrayThing("gint*", "int[]", "int[]", "jintArray"));
+//        register(new FundamentalArrayThing("guint*", "int[]", "int[]", "jintArray"));
+//        register(new FundamentalArrayThing("gfloat*", "float[]", "float[]", "jfloatArray"));
+//        register(new FundamentalArrayThing("gdouble*", "double[]", "double[]", "jdoubleArray"));
+//        register(new FundamentalArrayThing("gboolean*", "boolean[]", "boolean[]", "jbooleanArray"));
+        register(new FundamentalArrayThing("gint*", "gint"));
+        register(new FundamentalArrayThing("guint*", "gint"));
+        register(new FundamentalArrayThing("gfloat*", "gfloat"));
+        register(new FundamentalArrayThing("gdouble*", "gdouble"));
+        register(new FundamentalArrayThing("gboolean*", "gboolean"));
         // and so on
 
         /*
@@ -158,8 +169,8 @@ public abstract class Thing
          */
         register(new FundamentalThing("int", "int", "int", "jint"));
         register(new FundamentalThing("double", "double", "double", "jdouble"));
-        register(new StringFundamentalThing("char*"));
-        register(new ArrayFundamentalThing("int*", "int[]", "int[]", "jintArray"));
+        register(new StringThing("char*"));
+        register(new FundamentalArrayThing("int*", "int"));
 
         // is this actually correct?
         register(new FundamentalThing("time_t", "long", "long", "jlong"));
@@ -315,6 +326,12 @@ public abstract class Thing
                 return dupe;
             }
         }
+        
+        /*
+         * TODO
+         * if we finally difference between * and [] we need to add more
+         * code here
+         */
 
         /*
          * If we're still stuck, then that is would be fatal, except that we
@@ -354,6 +371,38 @@ public abstract class Thing
      *         be the result.
      */
     abstract String translationToNative(String name);
+    
+    /**
+     * Check if this type needs an extra translation other that the
+     * simple on-the-fly translationToNative(). If this is <code>true</code>,
+     * the correspondent generator will call extraTranslationToNative()
+     * and extraTranslationToJava() when needed.
+     */
+    // TODO need a default impl that return false/null in all extra-trans
+    // related methods
+    abstract boolean needExtraTranslation();
+    
+    /**
+     * When the translation to native needs some lines of code, or just it can't
+     * be done on-the-fly inside an argument list, this is called before the
+     * native method.
+     * 
+     * <p>
+     * For most Things, the extra translation is not needed. Only composes types
+     * such as some arrays / out parameters need this.
+     */
+    abstract String extraTranslationToNative(String name);
+    
+    /**
+     * Like {@link #translationToJava(String, DefsFile) translationToJava()},
+     * but intented for "clean-up" of parameters.
+     * 
+     * TODO change name!!!
+     */
+    abstract String extraTranslationToJava(String name, DefsFile data);
+    
+    //TODO mmm, seems not needed, all Things except Fundamental need it!!
+    //abstract boolean needGuardAgainstNull();
 
     /**
      * The translation code necessary to convert this type from native JNI
@@ -367,9 +416,22 @@ public abstract class Thing
      *         be the result.
      */
     abstract String translationToJava(String name, DefsFile data);
+    
+    //TODO is this needed?
+    //abstract String translationToJava(PrintWriter out, String name, DefsFile data);
 
     String jniConversionDecode(String name) {
         return "_" + name;
+    }
+    //TODO ? abstract String jniConversionDecode(PrintWriter out, String name);
+    
+    /**
+     * Chek if the JNI conversion done by code generated by 
+     * {@link #jniConversionDecode(String) jniConversionDecode()} can fail.
+     * If so, usually this requires some check code to be generated.
+     */
+    boolean jniConversionCanFail() {
+        return false;
     }
 
     /**
@@ -378,10 +440,12 @@ public abstract class Thing
     String jniConversionCleanup(String name) {
         return null;
     }
+    // TODO ? abstract String jniConversionCleanup(PrintWriter out, String name);
 
     String jniReturnEncode(String name) {
         return name;
     }
+    // TODO ? abstract String jniReturnEncode(PrintWriter out, String name);
 
     /**
      * Little utility function so that when aborting out of a C function
@@ -389,6 +453,15 @@ public abstract class Thing
      * used. Stick this after a "return" statement.
      */
     abstract String jniReturnErrorValue();
+    
+    /**
+     * Get the type that a Java class needs to import. In most cases it will
+     * be <code>this</code>, but arrays, for example, are managed in a different
+     * way.
+     * 
+     * @return The type to import or <code>null</code> meaning no import needed.
+     */
+    public abstract Thing getTypeToImport();
 
     /**
      * Get the fully qualified name of the public Java type, ie, for

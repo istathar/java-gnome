@@ -10,45 +10,42 @@
  */
 package com.operationaldynamics.codegen;
 
-import com.operationaldynamics.driver.DefsFile;
-
 /**
  * A Thing that represents an array of Java objects. This is the Thing used to
  * deal with GList and GSList types.
  * 
  * @author Vreixo Formoso
  */
-public class GListThing extends Thing
+public class GListThing extends ProxiedArrayThing
 {
-    /** Type stored in the list */
-    private Thing type;
 
     public GListThing(String gType, Thing type) {
-        super(gType.split("-")[0], type.bindingsPackage, type.bindingsClass, type.javaType + "[]",
-                "long[]", "jlongArray");
-        this.type = type;
-        this.cType = this.gType + "*";
+        super(gType, type);
+//        super(gType.split("-")[0], type.bindingsPackage, type.bindingsClass, type.javaType + "[]",
+//                "long[]", "jlongArray");
+//        this.type = type;
+//        this.cType = this.gType + "*";
     }
 
-    protected GListThing() {}
+//    protected GListThing() {}
 
-    String translationToJava(String name, DefsFile data) {
-        String newArray = "new " + type.javaTypeInContext(data) + "[" + name + ".length]";
-        if (type instanceof ObjectThing) {
-            return "(" + javaTypeInContext(data) + ") objectArrayFor(" + name + ", " + newArray + ")";
-        } else {
-            return "(" + javaTypeInContext(data) + ") boxedArrayFor(" + type.javaTypeInContext(data)
-                    + ".class, " + name + ", " + newArray + ")";
-        }
-    }
+//    String translationToJava(String name, DefsFile data) {
+//        String newArray = "new " + type.javaTypeInContext(data) + "[" + name + ".length]";
+//        if (type instanceof ObjectThing) {
+//            return "(" + javaTypeInContext(data) + ") objectArrayFor(" + name + ", " + newArray + ")";
+//        } else {
+//            return "(" + javaTypeInContext(data) + ") boxedArrayFor(" + type.javaTypeInContext(data)
+//                    + ".class, " + name + ", " + newArray + ")";
+//        }
+//    }
 
-    String translationToNative(String name) {
-        return "pointersOf(" + name + ")";
-    }
+//    String translationToNative(String name) {
+//        return "pointersOf(" + name + ")";
+//    }
 
-    public Thing arrayType() {
-        return type;
-    }
+//    public Thing arrayType() {
+//        return type;
+//    }
 
     String jniConversionDecode(String name) {
         if (gType.equals("GList")) {
@@ -61,6 +58,10 @@ public class GListThing extends Thing
     }
 
     String jniConversionCleanup(String name) {
+        
+        //FIXME are there GList's as outparams? if so, a g_list_free is
+        //not enought. We need to copy back the results.
+        
         if (gType.equals("GList")) {
             return "g_list_free(" + name + ")";
         } else if (gType.equals("GSList")) {
@@ -80,7 +81,4 @@ public class GListThing extends Thing
         }
     }
 
-    String jniReturnErrorValue() {
-        return "NULL";
-    }
 }

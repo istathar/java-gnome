@@ -1,5 +1,5 @@
 /*
- * OutParameterFundamentalThing.java
+ * FundamentalArrayThing.java
  *
  * Copyright (c) 2007 Operational Dynamics Consulting Pty Ltd
  * 
@@ -10,22 +10,21 @@
  */
 package com.operationaldynamics.codegen;
 
+import com.operationaldynamics.driver.DefsFile;
+
 /**
  * Arrays of fundamental types. This is what we use to handle out parameters.
  * 
  * @author Andrew Cowie
+ * @author Vreixo Formoso
  */
-/*
- * This class may be replaced by internal capability (a flag perhaps) in
- * FundamentalThing or it may be joined by OutParameterObjectThing, etc.
- */
-public class ArrayFundamentalThing extends FundamentalThing
+public class FundamentalArrayThing extends ArrayThing
 {
-    public ArrayFundamentalThing(String gType, String javaType, String nativeType, String jniType) {
-        super(gType, javaType, nativeType, jniType);
+    public FundamentalArrayThing(String gType, String baseType) {
+        super(gType, Thing.lookup(baseType));
     }
 
-    protected ArrayFundamentalThing() {}
+//    protected FundamentalArrayThing() {}
 
     String jniConversionDecode(String name) {
         if (jniType.equals("jfloatArray")) {
@@ -55,8 +54,37 @@ public class ArrayFundamentalThing extends FundamentalThing
             throw new Error();
         }
     }
-
-    String jniReturnErrorValue() {
+    
+    /*
+     * FIXME we would need a way to figure out the size of the native array,
+     * and then create a new java array with NewXXXArray and copy there the
+     * elements.
+     * This is a clear candidate for code override, as it seems to be very
+     * hard to manage in an automatic way.
+     */
+    String jniReturnEncode(String name) {
+        System.err.println("[WARNING] Not supported return of fundamental array.");
         return "NULL";
     }
+
+    String extraTranslationToJava(String name, DefsFile data) {
+        return null;
+    }
+
+    String extraTranslationToNative(String name) {
+        return null;
+    }
+
+    boolean needExtraTranslation() {
+        return false;
+    }
+
+    String translationToJava(String name, DefsFile data) {
+        return name;
+    }
+
+    String translationToNative(String name) {
+        return name;
+    }
+
 }

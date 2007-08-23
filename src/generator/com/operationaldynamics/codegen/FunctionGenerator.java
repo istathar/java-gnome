@@ -161,9 +161,9 @@ abstract class FunctionGenerator extends Generator
         for (int i = 0; i < parameterTypes.length; i++) {
             if (!parameterCanBeNull[i]
                     && (parameterTypes[i] instanceof ProxiedThing
-                            || parameterTypes[i] instanceof StringFundamentalThing || parameterTypes[i] instanceof EnumThing)) {
+                            || parameterTypes[i] instanceof StringThing || parameterTypes[i] instanceof EnumThing)) {
                 out.print("        if (" + parameterNames[i] + " == null) {\n");
-                out.print("            throw new NullPointerException(\"Parameter " + parameterNames[i]
+                out.print("            throw new IllegalArgumentException(\"Parameter " + parameterNames[i]
                         + " can't be null\");\n");
                 out.print("        }\n\n");
             }
@@ -330,8 +330,8 @@ abstract class FunctionGenerator extends Generator
      *            from inside a for loop iterating over the parameters).
      */
     private void jniReturnIfExceptionThrown(PrintWriter out, int i) {
-        if ((parameterTypes[i] instanceof StringFundamentalThing)
-                || (parameterTypes[i] instanceof ArrayFundamentalThing)) {
+        if ((parameterTypes[i] instanceof StringThing)
+                || (parameterTypes[i] instanceof FundamentalArrayThing)) {
             out.print("\tif (");
             out.print(parameterNames[i]);
             out.print(" == NULL) {\n");

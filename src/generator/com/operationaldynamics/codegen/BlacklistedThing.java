@@ -46,4 +46,20 @@ public class BlacklistedThing extends Thing
     String jniReturnErrorValue() {
         return "";
     }
+
+    String extraTranslationToJava(String name, DefsFile data) {
+        return null;
+    }
+
+    String extraTranslationToNative(String name) {
+        return null;
+    }
+
+    public Thing getTypeToImport() {
+        return Thing.lookup("FIXME");
+    }
+
+    boolean needExtraTranslation() {
+        return false;
+    }
 }

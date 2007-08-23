@@ -16,7 +16,6 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
-import com.operationaldynamics.codegen.GListThing;
 import com.operationaldynamics.codegen.FundamentalThing;
 import com.operationaldynamics.codegen.Generator;
 import com.operationaldynamics.codegen.Thing;
@@ -125,17 +124,11 @@ public final class DefsFile
                     addToImports(Thing.lookup("FIXME"));
                     continue;
                 }
+                
+                t = t.getTypeToImport();
 
                 if (t instanceof FundamentalThing) {
                     continue;
-                }
-
-                /*
-                 * If the Thing is a list, we are really using the type of the
-                 * elements stored in the list.
-                 */
-                if (t instanceof GListThing) {
-                    t = ((GListThing) t).arrayType();
                 }
 
                 /*

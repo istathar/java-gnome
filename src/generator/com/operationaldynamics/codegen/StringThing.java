@@ -1,5 +1,5 @@
 /*
- * FundamentalThing.java
+ * StringThing.java
  *
  * Copyright (c) 2007 Operational Dynamics Consulting Pty Ltd
  * 
@@ -12,22 +12,33 @@ package com.operationaldynamics.codegen;
 
 import com.operationaldynamics.driver.DefsFile;
 
-/**
- * A Thing that represent a type that is fundamental in both Java and C.
- * 
- * <p>
- * This types are not Objects and can be used in the same way in both Java
- * and C, passing JNI boundary needs no special conversion.
- * 
- * @author Andrew Cowie
- */
-public class FundamentalThing extends Thing
+public class StringThing extends Thing
 {
-    public FundamentalThing(String gType, String javaType, String nativeType, String jniType) {
-        super(gType, null, null, javaType, nativeType, jniType);
+    StringThing(String gType) {
+        super(gType, null, null, "String", "String", "jstring");
     }
 
-    protected FundamentalThing() {}
+    protected StringThing() {}
+
+    String jniConversionDecode(String name) {
+        return "(*env)->GetStringUTFChars(env, _" + name + ", NULL)";
+    }
+    
+    boolean jniConversionCanFail() {
+        return true;
+    }
+
+    String jniConversionCleanup(String name) {
+        return "(*env)->ReleaseStringUTFChars(env, _" + name + ", " + name + ")";
+    }
+
+    String jniReturnEncode(String name) {
+        return "(*env)->NewStringUTF(env, " + name + ")";
+    }
+
+    String jniReturnErrorValue() {
+        return "NULL";
+    }
 
     String translationToJava(String name, DefsFile data) {
         return name;
@@ -35,18 +46,6 @@ public class FundamentalThing extends Thing
 
     String translationToNative(String name) {
         return name;
-    }
-
-    String jniReturnErrorValue() {
-        if ("jboolean".equals(jniType)) {
-            return " JNI_FALSE";
-        } else if ("jint".equals(jniType)) {
-            return " 0";
-        } else if ("jlong".equals(jniType) || "jdouble".equals(jniType)) {
-            return " 0L";
-        } else {
-            return " FIXME";
-        }
     }
 
     String extraTranslationToJava(String name, DefsFile data) {
