@@ -18,22 +18,27 @@
 package org.gnome.gtk;
 
 import org.gnome.gtk.Button;
+import org.gnome.gtk.Flags;
 import org.gnome.gtk.Plumbing;
 
 final class GtkButton extends Plumbing
 {
     private GtkButton() {}
 
-    static final void pressed(Button self) {
+    static final Flags getFlags(Button self) {
+        int result;
+
         if (self == null) {
             throw new IllegalArgumentException("Parameter self can't be null");
         }
 
         synchronized (lock) {
-            gtk_button_pressed(pointerOf(self));
+            result = gtk_button_get_flags(pointerOf(self));
+
+            return (Flags) flagFor(Flags.class, result);
         }
     }
 
-    private static native final void gtk_button_pressed(long self);
+    private static native final int gtk_button_get_flags(long self);
 }
 

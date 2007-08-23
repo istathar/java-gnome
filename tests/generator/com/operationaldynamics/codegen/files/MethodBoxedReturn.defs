@@ -1,0 +1,14 @@
+;; Test for methods that take enum parameters
+
+(define-object Button
+  (in-module "Gtk")
+  (parent "GtkBin")
+  (c-name "GtkButton")
+  (gtype-id "GTK_TYPE_BUTTON")
+)
+
+(define-method get_boxed
+  (of-object "GtkButton")
+  (c-name "gtk_button_get_boxed")
+  (return-type "GtkBoxed*")
+)

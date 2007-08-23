@@ -19,21 +19,38 @@ package org.gnome.gtk;
 
 import org.gnome.gtk.Button;
 import org.gnome.gtk.Plumbing;
+import org.gnome.gtk.Widget;
 
 final class GtkButton extends Plumbing
 {
     private GtkButton() {}
 
-    static final void pressed(Button self) {
-        if (self == null) {
-            throw new IllegalArgumentException("Parameter self can't be null");
+    static final long createButton(Widget widget) {
+        long result;
+
+        if (widget == null) {
+            throw new IllegalArgumentException("Parameter widget can't be null");
         }
 
         synchronized (lock) {
-            gtk_button_pressed(pointerOf(self));
+            result = gtk_button_new(pointerOf(widget));
+
+            return result;
         }
     }
 
-    private static native final void gtk_button_pressed(long self);
+    private static native final long gtk_button_new(long widget);
+
+    static final long createButtonNullable(Widget widget) {
+        long result;
+
+        synchronized (lock) {
+            result = gtk_button_new_nullable(pointerOf(widget));
+
+            return result;
+        }
+    }
+
+    private static native final long gtk_button_new_nullable(long widget);
 }
 

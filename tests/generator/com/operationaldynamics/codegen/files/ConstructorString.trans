@@ -28,7 +28,7 @@ final class GtkButton extends Plumbing
         long result;
 
         if (label == null) {
-            throw new NullPointerException("Parameter label can't be null");
+            throw new IllegalArgumentException("Parameter label can't be null");
         }
 
         synchronized (lock) {

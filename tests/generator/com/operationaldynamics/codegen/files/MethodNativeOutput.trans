@@ -24,16 +24,16 @@ final class GtkButton extends Plumbing
 {
     private GtkButton() {}
 
-    static final void pressed(Button self) {
+    static final void getAlignment(Button self, float[] xalign, float[] yalign) {
         if (self == null) {
             throw new IllegalArgumentException("Parameter self can't be null");
         }
 
         synchronized (lock) {
-            gtk_button_pressed(pointerOf(self));
+            gtk_button_get_alignment(pointerOf(self), xalign, yalign);
         }
     }
 
-    private static native final void gtk_button_pressed(long self);
+    private static native final void gtk_button_get_alignment(long self, float[] xalign, float[] yalign);
 }
 

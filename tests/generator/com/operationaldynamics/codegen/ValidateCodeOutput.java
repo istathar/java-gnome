@@ -63,6 +63,7 @@ public class ValidateCodeOutput extends TestCase
         Thing.register(new ObjectThing("GtkWidget*", "org.gnome.gtk", "GtkWidget", "Widget"));
         Thing.register(new FlagsThing("GtkFlags", "org.gnome.gtk", "GtkFlags", "Flags"));
         Thing.register(new EnumThing("GtkEnum", "org.gnome.gtk", "GtkEnum", "Enum"));
+        Thing.register(new BoxedThing("GtkBoxed*", "org.gnome.gtk", "GtkBoxed", "Boxed"));
     }
 
     private void doTest(String name, boolean noTrans, boolean noJni) throws Exception {
@@ -145,6 +146,14 @@ public class ValidateCodeOutput extends TestCase
     }
 
     /**
+     * Test correct definition of a Boxed with copy and release methods,
+     * without fields.
+     */
+    public void testBoxed() throws Exception {
+        doTest("Boxed", false, false);
+    }
+
+    /**
      * test with a void constructor
      */
     public void testConstructor() throws Exception {
@@ -166,6 +175,13 @@ public class ValidateCodeOutput extends TestCase
     }
 
     /**
+     * test with a constructor that takes an Object parameter
+     */
+    public void testConstructorObject() throws Exception {
+        doTest("ConstructorObject", false, false);
+    }
+
+    /**
      * Test methods that take void and return void
      */
     public void testMethod() throws Exception {
@@ -184,6 +200,13 @@ public class ValidateCodeOutput extends TestCase
      */
     public void testMethodWithNativeReturn() throws Exception {
         doTest("MethodNativeReturn", false, false);
+    }
+
+    /**
+     * Test methods that take native ouput params and return void
+     */
+    public void testMethodWithNativeOutput() throws Exception {
+        doTest("MethodNativeOutput", false, false);
     }
 
     /**
@@ -215,6 +238,13 @@ public class ValidateCodeOutput extends TestCase
     }
 
     /**
+     * Test methods that take Object ouput params and return void
+     */
+    public void testMethodWithObjectOutput() throws Exception {
+        doTest("MethodObjectOutput", false, false);
+    }
+
+    /**
      * Test methods that take Enum params and return void
      */
     public void testMethodWithEnumParams() throws Exception {
@@ -236,13 +266,83 @@ public class ValidateCodeOutput extends TestCase
     }
 
     /**
+     * Test methods that return an Flag
+     */
+    public void testMethodWithFlagReturn() throws Exception {
+        doTest("MethodFlagReturn", false, false);
+    }
+
+    /**
+     * Test methods that take Boxed params and return void
+     */
+    public void testMethodWithBoxedParams() throws Exception {
+        doTest("MethodBoxedParams", false, false);
+    }
+
+    /**
+     * Test methods that return a Boxed
+     */
+    public void testMethodWithBoxedReturn() throws Exception {
+        doTest("MethodBoxedReturn", false, false);
+    }
+
+    /**
+     * Test methods that return a GList of Objects
+     */
+    public void testMethodWithGListOfObjectReturn() throws Exception {
+        doTest("MethodGListObjectReturn", false, false);
+    }
+
+    /**
+     * Test accessor for boxed native fields
+     */
+    public void testAccessorNative() throws Exception {
+        doTest("AccessorNative", false, false);
+    }
+
+    /**
      * Test correct class definition for virtuals
      */
     public void testVirtual() throws Exception {
         doTest("Virtual", false, false);
     }
 
-    // virtuals non-void
+    /**
+     * Test correct class definition for virtuals that take native parameters
+     */
+    public void testVirtualWithNativeParams() throws Exception {
+        doTest("VirtualNativeParams", false, false);
+    }
+
+    /**
+     * Test correct class definition for virtuals that return native value
+     */
+    public void testVirtualWithNativeReturn() throws Exception {
+        doTest("VirtualNativeReturn", false, false);
+    }
+
+    /**
+     * Test correct class definition for virtuals that take Enum parameters
+     */
+    public void testVirtualWithEnumParams() throws Exception {
+        doTest("VirtualEnumParams", false, false);
+    }
+
+    /**
+     * Test correct class definition for virtuals that take Object parameters
+     */
+    public void testVirtualWithObjectParams() throws Exception {
+        doTest("VirtualObjectParams", false, false);
+    }
+
+    /**
+     * Test correct class definition for virtuals that take String parameters
+     */
+    public void testVirtualWithStringParams() throws Exception {
+        doTest("VirtualStringParams", false, false);
+    }
+
+    // accessors non native
     // name import collision
     
 }

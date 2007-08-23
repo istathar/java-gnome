@@ -29,7 +29,7 @@ final class GtkButton extends Plumbing
         int result;
 
         if (self == null) {
-            throw new NullPointerException("Parameter self can't be null");
+            throw new IllegalArgumentException("Parameter self can't be null");
         }
 
         synchronized (lock) {

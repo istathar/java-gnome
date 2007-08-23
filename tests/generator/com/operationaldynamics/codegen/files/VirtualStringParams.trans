@@ -17,6 +17,7 @@
  */
 package org.gnome.gtk;
 
+import org.gnome.glib.Signal;
 import org.gnome.gtk.Button;
 import org.gnome.gtk.Plumbing;
 
@@ -24,16 +25,17 @@ final class GtkButton extends Plumbing
 {
     private GtkButton() {}
 
-    static final void pressed(Button self) {
-        if (self == null) {
-            throw new IllegalArgumentException("Parameter self can't be null");
-        }
-
-        synchronized (lock) {
-            gtk_button_pressed(pointerOf(self));
-        }
+    interface CLICKED extends Signal
+    {
+        void onClicked(Button source, String str);
     }
 
-    private static native final void gtk_button_pressed(long self);
+    static final void connect(Button self, GtkButton.CLICKED handlerInstance) {
+        connectSignal(self, handlerInstance, GtkButton.class, "clicked");
+    }
+
+    protected static final void handleClicked(Signal handler, long source, String str) {
+        ((GtkButton.CLICKED) handler).onClicked((Button) objectFor(source), str);
+    }
 }
 

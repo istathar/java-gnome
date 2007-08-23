@@ -1,0 +1,120 @@
+/*
+ * GtkAllocation.c
+ *
+ * Copyright (c) 2006-2007 Operational Dynamics Consulting Pty Ltd, and Others
+ *
+ * The code in this file, and the library it is a part of, are made available
+ * to you by the authors under the terms of the "GNU General Public Licence,
+ * version 2" plus the "Classpath Exception" (you may link to this code as a
+ * library into other programs provided you don't make a derivation of it).
+ * See the LICENCE file for the terms governing usage and redistribution.
+ *
+ *                      THIS FILE IS GENERATED CODE!
+ *
+ * To modify its contents or behaviour, either update the generation program,
+ * change the information in the source defs file, or implement an override for
+ * this class.
+ */
+
+#include <jni.h>
+#include <gtk/gtk.h>
+#include "bindings_java.h"
+#include "org_gnome_gtk_GtkAllocation.h"
+
+JNIEXPORT jint JNICALL
+Java_org_gnome_gtk_GtkAllocation_gtk_1allocation_1get_1x
+(
+	JNIEnv* env,
+	jclass cls,
+	jlong _self
+)
+{
+	gint result;
+	GtkAllocation* self;
+
+	// convert parameter self
+	self = (GtkAllocation*) _self;
+
+	// get field value
+	result = self->x;
+
+	// cleanup parameter self
+
+	// and finally
+	return (jint) result;
+}
+
+JNIEXPORT void JNICALL
+Java_org_gnome_gtk_GtkAllocation_gtk_1allocation_1set_1x
+(
+	JNIEnv* env,
+	jclass cls,
+	jlong _self,
+	jint _x
+)
+{
+	GtkAllocation* self;
+	gint x;
+
+	// convert parameter self
+	self = (GtkAllocation*) _self;
+
+	// convert parameter x
+	x = (gint) _x;
+
+	// set field value
+	self->x = x;
+
+	// cleanup parameter self
+
+	// cleanup parameter x
+}
+
+JNIEXPORT jint JNICALL
+Java_org_gnome_gtk_GtkAllocation_gtk_1allocation_1get_1y
+(
+	JNIEnv* env,
+	jclass cls,
+	jlong _self
+)
+{
+	gint result;
+	GtkAllocation* self;
+
+	// convert parameter self
+	self = (GtkAllocation*) _self;
+
+	// get field value
+	result = self->y;
+
+	// cleanup parameter self
+
+	// and finally
+	return (jint) result;
+}
+
+JNIEXPORT void JNICALL
+Java_org_gnome_gtk_GtkAllocation_gtk_1allocation_1set_1y
+(
+	JNIEnv* env,
+	jclass cls,
+	jlong _self,
+	jint _y
+)
+{
+	GtkAllocation* self;
+	gint y;
+
+	// convert parameter self
+	self = (GtkAllocation*) _self;
+
+	// convert parameter y
+	y = (gint) _y;
+
+	// set field value
+	self->y = y;
+
+	// cleanup parameter self
+
+	// cleanup parameter y
+}

@@ -27,11 +27,11 @@ final class GtkButton extends Plumbing
 
     static final void setFlags(Button self, Flags flags) {
         if (self == null) {
-            throw new NullPointerException("Parameter self can't be null");
+            throw new IllegalArgumentException("Parameter self can't be null");
         }
 
         if (flags == null) {
-            throw new NullPointerException("Parameter flags can't be null");
+            throw new IllegalArgumentException("Parameter flags can't be null");
         }
 
         synchronized (lock) {

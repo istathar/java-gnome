@@ -1,5 +1,5 @@
 /*
- * GtkButton.java
+ * GtkButton.c
  *
  * Copyright (c) 2006-2007 Operational Dynamics Consulting Pty Ltd, and Others
  *
@@ -15,25 +15,8 @@
  * change the information in the source defs file, or implement an override for
  * this class.
  */
-package org.gnome.gtk;
 
-import org.gnome.gtk.Button;
-import org.gnome.gtk.Plumbing;
-
-final class GtkButton extends Plumbing
-{
-    private GtkButton() {}
-
-    static final void pressed(Button self) {
-        if (self == null) {
-            throw new IllegalArgumentException("Parameter self can't be null");
-        }
-
-        synchronized (lock) {
-            gtk_button_pressed(pointerOf(self));
-        }
-    }
-
-    private static native final void gtk_button_pressed(long self);
-}
-
+#include <jni.h>
+#include <gtk/gtk.h>
+#include "bindings_java.h"
+#include "org_gnome_gtk_GtkButton.h"

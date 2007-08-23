@@ -17,6 +17,7 @@
  */
 package org.gnome.gtk;
 
+import org.gnome.gtk.Boxed;
 import org.gnome.gtk.Button;
 import org.gnome.gtk.Plumbing;
 
@@ -24,16 +25,20 @@ final class GtkButton extends Plumbing
 {
     private GtkButton() {}
 
-    static final void pressed(Button self) {
+    static final Boxed getBoxed(Button self) {
+        long result;
+
         if (self == null) {
             throw new IllegalArgumentException("Parameter self can't be null");
         }
 
         synchronized (lock) {
-            gtk_button_pressed(pointerOf(self));
+            result = gtk_button_get_boxed(pointerOf(self));
+
+            return (Boxed) boxedFor(Boxed.class, result);
         }
     }
 
-    private static native final void gtk_button_pressed(long self);
+    private static native final long gtk_button_get_boxed(long self);
 }
 

@@ -1,5 +1,5 @@
 /*
- * GtkButton.java
+ * GtkTreeIter.java
  *
  * Copyright (c) 2006-2007 Operational Dynamics Consulting Pty Ltd, and Others
  *
@@ -17,23 +17,39 @@
  */
 package org.gnome.gtk;
 
-import org.gnome.gtk.Button;
 import org.gnome.gtk.Plumbing;
+import org.gnome.gtk.TreeIter;
 
-final class GtkButton extends Plumbing
+final class GtkTreeIter extends Plumbing
 {
-    private GtkButton() {}
+    private GtkTreeIter() {}
 
-    static final void pressed(Button self) {
+    static final TreeIter copy(TreeIter self) {
+        long result;
+
         if (self == null) {
             throw new IllegalArgumentException("Parameter self can't be null");
         }
 
         synchronized (lock) {
-            gtk_button_pressed(pointerOf(self));
+            result = gtk_tree_iter_copy(pointerOf(self));
+
+            return (TreeIter) boxedFor(TreeIter.class, result);
         }
     }
 
-    private static native final void gtk_button_pressed(long self);
+    private static native final long gtk_tree_iter_copy(long self);
+
+    static final void free(TreeIter self) {
+        if (self == null) {
+            throw new IllegalArgumentException("Parameter self can't be null");
+        }
+
+        synchronized (lock) {
+            gtk_tree_iter_free(pointerOf(self));
+        }
+    }
+
+    private static native final void gtk_tree_iter_free(long self);
 }
 
