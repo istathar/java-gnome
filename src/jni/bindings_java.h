@@ -61,6 +61,8 @@ extern GSList* bindings_java_convert_jarray_to_gslist(JNIEnv*, jlongArray);
 extern jlongArray bindings_java_convert_glist_to_jarray(JNIEnv*, GList*);
 extern jlongArray bindings_java_convert_gslist_to_jarray(JNIEnv*, GSList*);
 extern gpointer* bindings_java_convert_jarray_to_gpointer(JNIEnv*, jlongArray);
+
+/* the gpointer array is freed at the end */
 extern void bindings_java_convert_gpointer_to_jarray(JNIEnv*, gpointer*, jlongArray);
 
 #endif 

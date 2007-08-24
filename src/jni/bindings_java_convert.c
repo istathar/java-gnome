@@ -170,10 +170,33 @@ gpointer*
 bindings_java_convert_jarray_to_gpointer
 (
 	JNIEnv* env, 
-	jlongArray array
+	jlongArray _array
 )
 {
-	//FIXME
+	gpointer* ptrs;
+	jlong* array;
+	int i, size;
+	
+	size = (*env)->GetArrayLength(env, _array);
+	if ( size == 0 ) {
+		//FIXME mmm, what if we just what an empty array?
+		return NULL;
+	}
+	
+	ptrs = g_malloc(size * sizeof(gpointer));
+	
+	array = (jlong*) (*env)->GetLongArrayElements(env, _array, NULL);
+	if (array == NULL) {
+		return NULL; // Java Exception already thrown
+	}
+	
+	for (i = 0; i < size; ++i) {
+		ptrs[i] = (gpointer) array[i];
+	}
+	
+	(*env)->ReleaseLongArrayElements(env, _array, array, 0);
+	
+	return ptrs;
 }
 
 void 
@@ -181,9 +204,29 @@ bindings_java_convert_gpointer_to_jarray
 (
 	JNIEnv* env, 
 	gpointer* ptrs, 
-	jlongArray array
+	jlongArray _array
 )
 {
-	//FIXME
+	jlong* array;
+	int i, size;
+	
+	size = (*env)->GetArrayLength(env, _array);
+	if ( size == 0 ) {
+		return;
+	}
+	
+	array = (jlong*) (*env)->GetLongArrayElements(env, _array, NULL);
+	if (array == NULL) {
+		return; // Java Exception already thrown
+	}
+	
+	for (i = 0; i < size; ++i) {
+		array[i] = (jlong) ptrs[i];
+	}
+	
+	(*env)->ReleaseLongArrayElements(env, _array, array, 0);
+	
+	/* and finally free ptrs */
+	g_free(ptrs);
 }
 
