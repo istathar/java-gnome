@@ -49,10 +49,10 @@ final class GtkButton extends Plumbing
         }
 
         synchronized (lock) {
-            gtk_button_set_image(pointerOf(self), i);
+            gtk_button_set_int(pointerOf(self), i);
         }
     }
 
-    private static native final void gtk_button_set_image(long self, int i) throws GlibException;
+    private static native final void gtk_button_set_int(long self, int i) throws GlibException;
 }
 

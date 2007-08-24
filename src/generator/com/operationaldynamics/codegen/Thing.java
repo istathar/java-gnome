@@ -190,6 +190,12 @@ public abstract class Thing
         register(new ObjectThing("FIXME", "org.freedesktop.bindings", "", "FIXME"));
 
         /*
+         * Types needed for GError management
+         */
+        register(new GErrorThing());
+        register(new ObjectThing("GlibException", "org.gnome.glib", "", "GlibException"));
+        
+        /*
          * FIXME! Weirdo cases we haven't figured out what to do with yet.
          * Should these be a new (define...) type intead of here?
          */

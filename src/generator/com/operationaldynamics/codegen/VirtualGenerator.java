@@ -107,6 +107,11 @@ public class VirtualGenerator extends FunctionGenerator
         out.print("(Signal handler, long source");
 
         for (int i = 0; i < parameterTypes.length; i++) {
+
+            if (parameterTypes[i] instanceof GErrorThing) {
+                System.out.println("Warning: unsupported GError usage in a virtual");
+                continue;
+            }
             out.print(", ");
 
             out.print(parameterTypes[i].nativeType);
@@ -154,6 +159,9 @@ public class VirtualGenerator extends FunctionGenerator
         out.print(") objectFor(source)");
 
         for (int i = 0; i < parameterTypes.length; i++) {
+            if (parameterTypes[i] instanceof GErrorThing) {
+                continue;
+            }
             out.print(", ");
             out.print(parameterTypes[i].translationToJava(parameterNames[i], data));
         }
@@ -201,6 +209,9 @@ public class VirtualGenerator extends FunctionGenerator
         out.print(" source");
 
         for (int i = 0; i < parameterTypes.length; i++) {
+            if (parameterTypes[i] instanceof GErrorThing) {
+                continue;
+            }
             out.print(", ");
             out.print(parameterTypes[i].javaTypeInContext(data));
             out.print(" ");
