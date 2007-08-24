@@ -74,15 +74,44 @@ import org.gnome.gdk.Pixbuf;
  */
 public class StatusIcon extends org.gnome.glib.Object
 {
-    /**
-     * Creates an empty StatusIcon.
-     */
-    public StatusIcon() {
-        this(GtkStatusIcon.createStatusIcon());
-    }
-
     protected StatusIcon(long pointer) {
         super(pointer);
+    }
+
+    /**
+     * Create an empty StatusIcon.
+     */
+    public StatusIcon() {
+        super(GtkStatusIcon.createStatusIcon());
+    }
+
+    /**
+     * Create a StatusIcon that shows the specified Pixbuf.
+     */
+    public StatusIcon(Pixbuf pixbuf) {
+        super(GtkStatusIcon.createStatusIconFromPixbuf(pixbuf));
+    }
+
+    /**
+     * Create a StatusIcon that displays an image file.
+     * 
+     * @param filename
+     *            The path of an image file.
+     */
+    /*
+     * TODO Both createStatusIconFromFile() and createStatusIconFromIconName()
+     * take a String as a parameter, so we can't expose both in a constructor.
+     * What can be a better option?
+     */
+    public StatusIcon(String filename) {
+        super(GtkStatusIcon.createStatusIconFromFile(filename));
+    }
+
+    /**
+     * Create a StatusIcon that shows as its image a given stock item.
+     */
+    public StatusIcon(Stock stock) {
+        super(GtkStatusIcon.createStatusIconFromStock(stock.getStockId()));
     }
 
     /**
@@ -105,8 +134,8 @@ public class StatusIcon extends org.gnome.glib.Object
     /**
      * Makes this StatusIcon display a stock icon as its image.
      */
-    public void setFromStock(String stock) {
-        GtkStatusIcon.setFromStock(this, stock);
+    public void setFromStock(Stock stock) {
+        GtkStatusIcon.setFromStock(this, stock.getStockId());
     }
 
     /**
@@ -149,9 +178,8 @@ public class StatusIcon extends org.gnome.glib.Object
      *         StatusIcon or <code>null</code> if the StatusIcon is empty.
      */
     public Stock getStock() {
-        // return GtkStatusIcon.getStock(this);
-        // FIXME!!!
-        throw new UnsupportedOperationException("Not yet implemented");
+        String stockId = GtkStatusIcon.getStock(this);
+        return Stock.instanceFor(stockId);
     }
 
     /**

@@ -24,6 +24,7 @@ import org.gnome.gtk.ValidateFileChoosing;
 import org.gnome.gtk.ValidateOutParameters;
 import org.gnome.gtk.ValidatePacking;
 import org.gnome.gtk.ValidateProperties;
+import org.gnome.gtk.ValidateStockItems;
 
 import com.operationaldynamics.codegen.ValidateThingUsage;
 import com.operationaldynamics.codegen.ValidateUtilityMethods;
@@ -105,6 +106,7 @@ public class UnitTests
         suite.addTestSuite(ValidateOutParameters.class);
         suite.addTestSuite(ValidatePacking.class);
         suite.addTestSuite(ValidateFileChoosing.class);
+        suite.addTestSuite(ValidateStockItems.class);
 
         return suite;
     }

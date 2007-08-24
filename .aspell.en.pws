@@ -1,4 +1,4 @@
-personal_ws-1.1 en 1151 
+personal_ws-1.1 en 1156 
 EnumValue
 getActive
 refactor
@@ -99,6 +99,7 @@ knownConstants
 CVS
 autotools
 gdk
+isVisible
 Fortin
 StatusIcon's
 StatusIcons
@@ -108,6 +109,7 @@ env
 Madeley
 codegen
 setTooltipText
+createAction
 prepend
 gij
 FileChooserAction
@@ -164,6 +166,7 @@ ThrowNew
 GtkComboBox
 args
 getBlinking
+addActionWithAccel
 gtk
 InternalButtonImplementation
 argv
@@ -282,6 +285,7 @@ modeline
 VersionNumbers
 Rahn
 Eeek
+isSensitive
 EOSTR
 GtkStockItem
 createEntry
@@ -312,7 +316,6 @@ iconWidget
 NetworkManager's
 setDisplayOptions
 GladeXml
-GladeXML
 conf
 ListStore
 getUri
@@ -379,6 +382,7 @@ tla
 TypeBlock
 compileCSourceToObject
 setInvisibleChar
+GtkActionGroup
 selectFilename
 src
 executeCommand
@@ -412,6 +416,7 @@ const
 isSecondary
 SWT
 createMenuItem
+GtkAction
 handlerInstance
 gthread
 getParent
@@ -420,6 +425,7 @@ blackdown
 mainIterationDo
 sys
 WeakReference
+createActionGroup
 TestCaseGtk
 guint
 nCheck
@@ -461,6 +467,7 @@ Wno
 setFullscreen
 gcjh
 packStart
+getSensitive
 EventExpose
 ValidatePacking
 ULONG
@@ -476,6 +483,7 @@ createToolbar
 getProperty
 PixbufAnimation
 NewWeakGlobalRef
+addAction
 EDETACHED
 EventKey
 sourceChanged
@@ -489,6 +497,7 @@ createScrolledWindow
 de
 filesNeedBuilding
 backends
+ActionGroup
 createToolItem
 br
 createToolButton
@@ -831,6 +840,7 @@ TreeViewAndTreeModel
 ToolItem
 NewGlobalRef
 HBoxes
+ActionGroups
 backend
 href
 GtkContainer

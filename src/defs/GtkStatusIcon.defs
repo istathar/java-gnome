@@ -12,6 +12,46 @@
   (return-type "GtkStatusIcon*")
 )
 
+(define-function status_icon_new_from_pixbuf
+  (is-constructor-of "GtkStatusIcon")
+  (c-name "gtk_status_icon_new_from_pixbuf")
+  (caller-owns-return #t)
+  (return-type "GtkStatusIcon*")
+  (parameters
+    '("GdkPixbuf*" "pixbuf")
+  )
+)
+
+(define-function status_icon_new_from_file
+  (is-constructor-of "GtkStatusIcon")
+  (c-name "gtk_status_icon_new_from_file")
+  (caller-owns-return #t)
+  (return-type "GtkStatusIcon*")
+  (parameters
+    '("const-gchar*" "filename")
+  )
+)
+
+(define-function status_icon_new_from_stock
+  (is-constructor-of "GtkStatusIcon")
+  (c-name "gtk_status_icon_new_from_stock")
+  (caller-owns-return #t)
+  (return-type "GtkStatusIcon*")
+  (parameters
+    '("const-gchar*" "stock_id")
+  )
+)
+
+(define-function status_icon_new_from_icon_name
+  (is-constructor-of "GtkStatusIcon")
+  (c-name "gtk_status_icon_new_from_icon_name")
+  (caller-owns-return #t)
+  (return-type "GtkStatusIcon*")
+  (parameters
+    '("const-gchar*" "icon_name")
+  )
+)
+
 (define-method set_from_pixbuf
   (of-object "GtkStatusIcon")
   (c-name "gtk_status_icon_set_from_pixbuf")
