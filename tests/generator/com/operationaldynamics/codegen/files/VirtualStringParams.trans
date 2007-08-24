@@ -35,6 +35,7 @@ final class GtkButton extends Plumbing
     }
 
     protected static final void handleClicked(Signal handler, long source, String str) {
+
         ((GtkButton.CLICKED) handler).onClicked((Button) objectFor(source), str);
     }
 }

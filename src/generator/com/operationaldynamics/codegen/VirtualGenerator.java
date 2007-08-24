@@ -122,8 +122,14 @@ public class VirtualGenerator extends FunctionGenerator
         if (!returnType.javaType.equals("void")) {
             out.print("        ");
             out.print(returnType.javaTypeInContext(data));
-            out.print(" result;\n\n");
+            out.print(" result;\n");
         }
+        if (returnType.needExtraTranslation()) {
+            out.print("        ");
+            out.print(returnType.nativeType);
+            out.print(" _result;\n");
+        }
+        out.print("\n");
     }
 
     /**
@@ -153,6 +159,12 @@ public class VirtualGenerator extends FunctionGenerator
         }
 
         out.print(");\n");
+        if (returnType.needExtraTranslation()) {
+            out.print("        ");
+            out.print("_result = ");
+            out.print(returnType.extraTranslationToNative("result"));
+            out.print(";\n");
+        }
     }
 
     protected void receiverMethodReturnCode(PrintWriter out) {
