@@ -23,7 +23,7 @@ import com.operationaldynamics.driver.DefsFile;
  * are of course no (define- ...) blocks are registered internally by this
  * class.
  * <p>
- * Things collaborate with Generators in the generation of code, and are 
+ * Things collaborate with Generators in the generation of code, and are
  * responsible for generation of type-dependent code.
  * 
  * @author Andrew Cowie
@@ -134,13 +134,9 @@ public abstract class Thing
         /*
          * Types for array parameters
          */
-//        register(new ArrayThing("gfloat[]", "float[]", "float[]", "jfloatArray"));
-//        register(new ArrayThing("gint8[]", "int[]", "int[]", "jintArray"));
-//        register(new FixmeThing("gfloat[]"));
-//        register(new FixmeThing("gint8[]"));
         register(new FundamentalArrayThing("gfloat[]", "gfloat"));
         register(new FundamentalArrayThing("gint8[]", "gint8"));
-        
+
         /* these seem a bit harder */
         register(new FixmeThing("const-gchar*[]"));
         register(new FixmeThing("gchar**[]"));
@@ -152,11 +148,6 @@ public abstract class Thing
          * Out parameters for fundamental types are special cases, probably,
          * so we will continue to register their information here for now.
          */
-//        register(new FundamentalArrayThing("gint*", "int[]", "int[]", "jintArray"));
-//        register(new FundamentalArrayThing("guint*", "int[]", "int[]", "jintArray"));
-//        register(new FundamentalArrayThing("gfloat*", "float[]", "float[]", "jfloatArray"));
-//        register(new FundamentalArrayThing("gdouble*", "double[]", "double[]", "jdoubleArray"));
-//        register(new FundamentalArrayThing("gboolean*", "boolean[]", "boolean[]", "jbooleanArray"));
         register(new FundamentalArrayThing("gint*", "gint"));
         register(new FundamentalArrayThing("guint*", "guint"));
         register(new FundamentalArrayThing("gfloat*", "gfloat"));
@@ -320,13 +311,11 @@ public abstract class Thing
             }
         } else if (gType.endsWith("*")) {
             bareGType = gType.substring(0, gType.length() - 1);
-            System.out.println("HEERREE: " + bareGType + " " + gType);
             stored = (Thing) things.get(bareGType);
 
-            /* 
-             * we don't support arrays of arrays yet.
-             * the  !(stored instanceof ArrayThing) is needed to prevent
-             * multiple recursion on *
+            /*
+             * we don't support arrays of arrays yet. the !(stored instanceof
+             * ArrayThing) is needed to prevent multiple recursion on *
              */
             if ((stored != null) && !(stored instanceof ArrayThing)) {
                 dupe = stored.createArrayVariant();
@@ -335,10 +324,9 @@ public abstract class Thing
                 return dupe;
             }
         }
-        
+
         /*
-         * TODO
-         * if we finally difference between * and [] we need to add more
+         * TODO if we finally difference between * and [] we need to add more
          * code here
          */
 
@@ -380,28 +368,28 @@ public abstract class Thing
      *         be the result.
      */
     abstract String translationToNative(String name);
-    
+
     /**
-     * Check if this type needs an extra translation other that the
-     * simple on-the-fly translationToNative(). If this is <code>true</code>,
-     * the correspondent generator will call extraTranslationToNative()
-     * and extraTranslationToJava() when needed.
+     * Check if this type needs an extra translation other that the simple
+     * on-the-fly translationToNative(). If this is <code>true</code>, the
+     * correspondent generator will call extraTranslationToNative() and
+     * extraTranslationToJava() when needed.
      */
     // TODO need a default impl that return false/null in all extra-trans
     // related methods
     abstract boolean needExtraTranslation();
-    
+
     /**
-     * When the translation to native needs some lines of code, or just it can't
-     * be done on-the-fly inside an argument list, this is called before the
-     * native method.
+     * When the translation to native needs some lines of code, or just it
+     * can't be done on-the-fly inside an argument list, this is called before
+     * the native method.
      * 
      * <p>
-     * For most Things, the extra translation is not needed. Only composes types
-     * such as some arrays / out parameters need this.
+     * For most Things, the extra translation is not needed. Only composes
+     * types such as some arrays / out parameters need this.
      */
     abstract String extraTranslationToNative(String name);
-    
+
     /**
      * Like {@link #translationToJava(String, DefsFile) translationToJava()},
      * but intented for "clean-up" of parameters.
@@ -409,11 +397,31 @@ public abstract class Thing
      * TODO change name!!!
      */
     abstract String extraTranslationToJava(String name, DefsFile data);
-    
+
+    /**
+     * Check if the type need to the guard against null values when null-ok is
+     * not present. For example, a fundamental "int" never needs a guard.
+     */
     boolean needGuardAgainstNull() {
         return true;
     }
 
+    /**
+     * Check whether the jni conversion function can safety deal with a NULL
+     * input value, or is better to do a if like:
+     * 
+     * <pre>
+     * if (_x == NULL) {
+     *     x = NULL;
+     * } else {
+     *     ....
+     * }
+     * </pre>
+     * 
+     * to prevent the conversion function to be called with null values. Note
+     * that even if the funcion handles nulls well, using this is a good idea
+     * as it manages null-ok in a better way.
+     */
     boolean jniConversionHandlesNull() {
         return true;
     }
@@ -430,19 +438,15 @@ public abstract class Thing
      *         be the result.
      */
     abstract String translationToJava(String name, DefsFile data);
-    
-    //TODO is this needed?
-    //abstract String translationToJava(PrintWriter out, String name, DefsFile data);
 
     String jniConversionDecode(String name) {
         return "_" + name;
     }
-    //TODO ? abstract String jniConversionDecode(PrintWriter out, String name);
-    
+
     /**
-     * Chek if the JNI conversion done by code generated by 
-     * {@link #jniConversionDecode(String) jniConversionDecode()} can fail.
-     * If so, usually this requires some check code to be generated.
+     * Chek if the JNI conversion done by code generated by
+     * {@link #jniConversionDecode(String) jniConversionDecode()} can fail. If
+     * so, usually this requires some check code to be generated.
      */
     boolean jniConversionCanFail() {
         return false;
@@ -454,12 +458,10 @@ public abstract class Thing
     String jniConversionCleanup(String name) {
         return null;
     }
-    // TODO ? abstract String jniConversionCleanup(PrintWriter out, String name);
 
     String jniReturnEncode(String name) {
         return name;
     }
-    // TODO ? abstract String jniReturnEncode(PrintWriter out, String name);
 
     /**
      * Little utility function so that when aborting out of a C function
@@ -467,13 +469,14 @@ public abstract class Thing
      * used. Stick this after a "return" statement.
      */
     abstract String jniReturnErrorValue();
-    
+
     /**
      * Get the type that a Java class needs to import. In most cases it will
-     * be <code>this</code>, but arrays, for example, are managed in a different
-     * way.
+     * be <code>this</code>, but arrays, for example, are managed in a
+     * different way.
      * 
-     * @return The type to import or <code>null</code> meaning no import needed.
+     * @return The type to import or <code>null</code> meaning no import
+     *         needed.
      */
     public abstract Thing getTypeToImport();
 
@@ -543,13 +546,13 @@ public abstract class Thing
         t.jniType = this.jniType;
         t.nativeType = this.nativeType;
         t.blacklisted = this.blacklisted;
-        
+
         /*
-         * Added to support cloning of ArrayThings, that have a field,
-         * but looks very ugly!
+         * Added to support cloning of ArrayThings, that have a field, but
+         * looks very ugly!
          */
         if (this instanceof ArrayThing) {
-            ((ArrayThing)t).type = ((ArrayThing)this).type;
+            ((ArrayThing) t).type = ((ArrayThing) this).type;
         }
 
         return t;
@@ -559,15 +562,14 @@ public abstract class Thing
      * Array variants are the way we manage both arrays and output parameters.
      */
     /*
-     * TODO for efficience reasons, in a near future we will want to
-     * deal with output params/arrays and input arrays in a different
-     * way.
+     * TODO for efficience reasons, in a near future we will want to deal with
+     * output params/arrays and input arrays in a different way.
      */
     private Thing createArrayVariant() {
         if (this instanceof ProxiedThing) {
             return new ProxiedArrayThing(gType + "*", this);
         } else {
-            /* 
+            /*
              * only Proxied arrays are supported yet. Note that fundamental
              * arrays are managed in Thing static block.
              */
@@ -585,8 +587,6 @@ public abstract class Thing
         } else {
             System.out.println("Warning: Unsupported " + gType);
             return new BlacklistedThing(gType);
-//            throw new RuntimeException("This codepath cannot create a GList variant unless "
-//                    + this.getClass() + " is a ProxiedThing");
         }
     }
 

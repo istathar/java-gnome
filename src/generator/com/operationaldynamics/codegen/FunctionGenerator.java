@@ -156,7 +156,7 @@ abstract class FunctionGenerator extends Generator
             out.print(returnType.nativeType);
             out.print(" result;\n");
         }
-        
+
         /*
          * Types than need extra translation will also need a auxiliar local
          * variable, that we will declare here.
@@ -176,8 +176,8 @@ abstract class FunctionGenerator extends Generator
         for (int i = 0; i < parameterTypes.length; i++) {
             if (!parameterCanBeNull[i] && !(parameterTypes[i] instanceof FundamentalThing)) {
                 out.print("        if (" + parameterNames[i] + " == null) {\n");
-                out.print("            throw new IllegalArgumentException(\"Parameter " + parameterNames[i]
-                        + " can't be null\");\n");
+                out.print("            throw new IllegalArgumentException(\"Parameter "
+                        + parameterNames[i] + " can't be null\");\n");
                 out.print("        }\n\n");
             }
         }
@@ -194,7 +194,7 @@ abstract class FunctionGenerator extends Generator
                 out.print(";\n\n");
             }
         }
-        
+
         /*
          * And now enter the GDK lock prior to making the native calls. FUTURE
          * this might have to be conditional if we ever have an environment
@@ -321,10 +321,10 @@ abstract class FunctionGenerator extends Generator
             out.print("\n\t// convert parameter ");
             out.print(parameterNames[i]);
             out.print("\n");
-            
+
             /*
-             * If a parameter can be null, we need an extra if to avoid
-             * the conversion if it is in fact NULL
+             * If a parameter can be null, we need an extra if to avoid the
+             * conversion if it is in fact NULL
              */
             if (parameterCanBeNull[i] && !parameterTypes[i].jniConversionHandlesNull()) {
                 out.print("\tif (_" + parameterNames[i] + " == NULL) {\n");
@@ -356,7 +356,7 @@ abstract class FunctionGenerator extends Generator
             if (parameterTypes[i].jniConversionCanFail()) {
                 jniReturnIfExceptionThrown(out, i);
             }
-            
+
             if (parameterCanBeNull[i] && !parameterTypes[i].jniConversionHandlesNull()) {
                 /* close the "else" */
                 out.print("\t}\n");
@@ -376,13 +376,13 @@ abstract class FunctionGenerator extends Generator
      */
     private void jniReturnIfExceptionThrown(PrintWriter out, int i) {
         String extraTab;
-        
-        /* 
-         * When the parameter can be null, we need an extra tab
-         * because of the if.
+
+        /*
+         * When the parameter can be null, we need an extra tab because of the
+         * if.
          */
         extraTab = parameterCanBeNull[i] && !parameterTypes[i].jniConversionHandlesNull() ? "\t" : "";
-        
+
         out.print(extraTab + "\tif (");
         out.print(parameterNames[i]);
         out.print(" == NULL) {\n");
@@ -439,7 +439,7 @@ abstract class FunctionGenerator extends Generator
             if (cleanup == null) {
                 continue;
             }
-            
+
             /*
              * clean-up is not needed when the parameter is null
              */

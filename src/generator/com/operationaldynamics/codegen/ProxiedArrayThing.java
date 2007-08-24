@@ -13,7 +13,8 @@ package com.operationaldynamics.codegen;
 import com.operationaldynamics.driver.DefsFile;
 
 /**
- * FIXME
+ * Represent arrays of Proxies, or a Proxy used as an out parameter, that
+ * needs to be wrapped as an array in Java.
  * 
  * @author Vreixo Formoso
  */
@@ -22,10 +23,6 @@ public class ProxiedArrayThing extends ArrayThing
 
     public ProxiedArrayThing(String gType, Thing type) {
         super(gType, type);
-        // super(gType.split("-")[0], type.bindingsPackage,
-        // type.bindingsClass, type.javaType + "[]",
-        // "long[]", "jlongArray");
-        // this.type = type;
     }
 
     protected ProxiedArrayThing() {}
@@ -70,7 +67,8 @@ public class ProxiedArrayThing extends ArrayThing
     String extraTranslationToJava(String name, DefsFile data) {
         if (type instanceof InterfaceThing) {
             return "fillObjectArray((Object[])" + name + ", _" + name + ")";
-        } if (type instanceof ObjectThing) {
+        }
+        if (type instanceof ObjectThing) {
             return "fillObjectArray(" + name + ", _" + name + ")";
         } else {
             return "fillBoxedArray(" + type.javaTypeInContext(data) + ".class, " + name + ", _" + name
