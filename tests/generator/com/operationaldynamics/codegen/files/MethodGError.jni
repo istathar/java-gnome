@@ -21,32 +21,65 @@
 #include "bindings_java.h"
 #include "org_gnome_gtk_GtkButton.h"
 
-JNIEXPORT void JNICALL
-Java_org_gnome_gtk_GtkButton_gtk_1button_1get_1widgets
+JNIEXPORT jlong JNICALL
+Java_org_gnome_gtk_GtkButton_gtk_1button_1get_1image
 (
 	JNIEnv* env,
 	jclass cls,
-	jlong _self,
-	jlongArray _widgets
+	jlong _self
 )
 {
+	GtkWidget* result;
 	GtkButton* self;
-	GtkWidget** widgets;
+	GError* error;
 
 	// convert parameter self
 	self = (GtkButton*) _self;
 
-	// convert parameter widgets
-	widgets = (GtkWidget**) bindings_java_convert_jarray_to_gpointer(env, _widgets);
-	if (widgets == NULL) {
-		return; // Java Exception already thrown
-	}
-
 	// call function
-	gtk_button_get_widgets(self, widgets);
+	result = gtk_button_get_image(self, &error);
 
 	// cleanup parameter self
 
-	// cleanup parameter widgets
-	bindings_java_convert_gpointer_to_jarray(env, (gpointer*)widgets, _widgets);
+	// check for error
+	if (error) {
+		bindings_java_throw_gerror(env, error);
+		return 0L;
+	}
+
+	// and finally
+	return (jlong) result;
+}
+
+JNIEXPORT void JNICALL
+Java_org_gnome_gtk_GtkButton_gtk_1button_1set_1int
+(
+	JNIEnv* env,
+	jclass cls,
+	jlong _self,
+	jint _i
+)
+{
+	GtkButton* self;
+	gint i;
+	GError* error;
+
+	// convert parameter self
+	self = (GtkButton*) _self;
+
+	// convert parameter i
+	i = (gint) _i;
+
+	// call function
+	gtk_button_set_int(self, i, &error);
+
+	// cleanup parameter self
+
+	// cleanup parameter i
+
+	// check for error
+	if (error) {
+		bindings_java_throw_gerror(env, error);
+		return;
+	}
 }

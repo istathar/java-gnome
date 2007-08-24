@@ -294,6 +294,13 @@ public class ValidateCodeOutput extends TestCase
     }
 
     /**
+     * Test methods that take a GError output parameter
+     */
+    public void testMethodWithGError() throws Exception {
+        doTest("MethodGError", false, false);
+    }
+
+    /**
      * Test accessor for boxed native fields
      */
     public void testAccessorNative() throws Exception {
