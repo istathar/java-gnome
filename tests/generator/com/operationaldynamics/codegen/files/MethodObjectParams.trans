@@ -26,6 +26,7 @@ final class GtkButton extends Plumbing
     private GtkButton() {}
 
     static final void setImage(Button self, Widget image) {
+
         if (self == null) {
             throw new IllegalArgumentException("Parameter self can't be null");
         }
@@ -42,6 +43,7 @@ final class GtkButton extends Plumbing
     private static native final void gtk_button_set_image(long self, long image);
 
     static final void setImageNullable(Button self, Widget image) {
+
         if (self == null) {
             throw new IllegalArgumentException("Parameter self can't be null");
         }

@@ -26,6 +26,7 @@ final class GtkButton extends Plumbing
     private GtkButton() {}
 
     static final void setEnum(Button self, Enum enum) {
+
         if (self == null) {
             throw new IllegalArgumentException("Parameter self can't be null");
         }

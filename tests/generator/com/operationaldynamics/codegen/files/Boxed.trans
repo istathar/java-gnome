@@ -41,6 +41,7 @@ final class GtkTreeIter extends Plumbing
     private static native final long gtk_tree_iter_copy(long self);
 
     static final void free(TreeIter self) {
+
         if (self == null) {
             throw new IllegalArgumentException("Parameter self can't be null");
         }

@@ -41,6 +41,7 @@ final class GtkAllocation extends Plumbing
     private static native final int gtk_allocation_get_x(long self);
 
     static final void setX(Allocation self, int x) {
+
         if (self == null) {
             throw new IllegalArgumentException("Parameter self can't be null");
         }
@@ -69,6 +70,7 @@ final class GtkAllocation extends Plumbing
     private static native final int gtk_allocation_get_y(long self);
 
     static final void setY(Allocation self, int y) {
+
         if (self == null) {
             throw new IllegalArgumentException("Parameter self can't be null");
         }

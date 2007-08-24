@@ -26,7 +26,7 @@ public abstract class ArrayThing extends Thing
         this.type = type;
     }
 
-//    protected ArrayThing() {}
+    protected ArrayThing() {}
 
 //    String jniConversionDecode(String name) {
 //        if (jniType.equals("jfloatArray")) {
@@ -67,6 +67,10 @@ public abstract class ArrayThing extends Thing
 
     public Thing getTypeToImport() {
         return type.getTypeToImport();
+    }
+
+    boolean jniConversionHandlesNull() {
+        return false;
     }
 
 //    String translationToJava(String name, DefsFile data) {

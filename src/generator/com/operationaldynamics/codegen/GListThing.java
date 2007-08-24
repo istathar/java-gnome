@@ -20,14 +20,14 @@ public class GListThing extends ProxiedArrayThing
 {
 
     public GListThing(String gType, Thing type) {
-        super(gType, type);
+        super(gType.split("-")[0], type);
 //        super(gType.split("-")[0], type.bindingsPackage, type.bindingsClass, type.javaType + "[]",
 //                "long[]", "jlongArray");
 //        this.type = type;
         this.cType = this.gType + "*";
     }
 
-//    protected GListThing() {}
+    protected GListThing() {}
 
 //    String translationToJava(String name, DefsFile data) {
 //        String newArray = "new " + type.javaTypeInContext(data) + "[" + name + ".length]";
@@ -77,7 +77,7 @@ public class GListThing extends ProxiedArrayThing
         } else if (gType.equals("GSList")) {
             return "bindings_java_convert_gslist_to_jarray(env, " + name + ")";
         } else {
-            throw new Error();
+            throw new Error("Unexpected gtype " + gType);
         }
     }
 

@@ -25,8 +25,17 @@ final class GtkButton extends Plumbing
     private GtkButton() {}
 
     static final void getAlignment(Button self, float[] xalign, float[] yalign) {
+
         if (self == null) {
             throw new IllegalArgumentException("Parameter self can't be null");
+        }
+
+        if (xalign == null) {
+            throw new IllegalArgumentException("Parameter xalign can't be null");
+        }
+
+        if (yalign == null) {
+            throw new IllegalArgumentException("Parameter yalign can't be null");
         }
 
         synchronized (lock) {

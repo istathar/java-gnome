@@ -28,7 +28,7 @@ public class ProxiedArrayThing extends ArrayThing
         // this.type = type;
     }
 
-    // protected ProxiedArrayThing() {}
+    protected ProxiedArrayThing() {}
 
     String translationToJava(String name, DefsFile data) {
         String newArray = "new " + type.javaTypeInContext(data) + "[" + name + ".length]";
@@ -41,7 +41,7 @@ public class ProxiedArrayThing extends ArrayThing
     }
 
     String translationToNative(String name) {
-        return "pointersOf(" + name + ")";
+        return "_" + name;
     }
 
     String jniConversionDecode(String name) {
@@ -51,16 +51,15 @@ public class ProxiedArrayThing extends ArrayThing
     String jniConversionCleanup(String name) {
         return "bindings_java_convert_gpointer_to_jarray(env, " + name + ", _" + name + ")";
     }
-    
+
     /*
-     * FIXME we would need a way to figure out the size of the array,
-     * and then create a new java array with NewXXXArray and copy there the
-     * elements.
+     * FIXME we would need a way to figure out the size of the array, and then
+     * create a new java array with NewXXXArray and copy there the elements.
      * This is a clear candidate for code override, as it seems to be very
      * hard to manage in an automatic way.
      */
     String jniReturnEncode(String name) {
-        System.err.println("[WARNING] Not supported return of GObject/GBoxed array.");
+        System.out.println("Warning: Not supported return of GObject/GBoxed array.");
         return "NULL";
     }
 
@@ -69,11 +68,22 @@ public class ProxiedArrayThing extends ArrayThing
     }
 
     String extraTranslationToJava(String name, DefsFile data) {
-        return "fillObjectArray(" + name + ", _" + name + ")";
+        if (type instanceof InterfaceThing) {
+            return "fillObjectArray((Object[])" + name + ", _" + name + ")";
+        } if (type instanceof ObjectThing) {
+            return "fillObjectArray(" + name + ", _" + name + ")";
+        } else {
+            return "fillBoxedArray(" + type.javaTypeInContext(data) + ".class, " + name + ", _" + name
+                    + ")";
+        }
     }
 
     String extraTranslationToNative(String name) {
-        return "pointersOf(" + name + ")";
+        if (type instanceof InterfaceThing) {
+            return "pointersOf((Object[])" + name + ")";
+        } else {
+            return "pointersOf(" + name + ")";
+        }
     }
 
     boolean needExtraTranslation() {

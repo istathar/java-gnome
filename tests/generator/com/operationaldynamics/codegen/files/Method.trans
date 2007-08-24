@@ -25,6 +25,7 @@ final class GtkButton extends Plumbing
     private GtkButton() {}
 
     static final void pressed(Button self) {
+
         if (self == null) {
             throw new IllegalArgumentException("Parameter self can't be null");
         }

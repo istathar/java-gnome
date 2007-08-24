@@ -165,3 +165,25 @@ bindings_java_convert_gslist_to_jarray
 	
 	return _array;
 }
+
+gpointer* 
+bindings_java_convert_jarray_to_gpointer
+(
+	JNIEnv* env, 
+	jlongArray array
+)
+{
+	//FIXME
+}
+
+void 
+bindings_java_convert_gpointer_to_jarray
+(
+	JNIEnv* env, 
+	gpointer* ptrs, 
+	jlongArray array
+)
+{
+	//FIXME
+}
+

@@ -95,14 +95,21 @@ public abstract class FunctionBlock extends Block
 
         types = new ArrayList(parameters.length + 1);
 
-        types.add(Thing.lookup(returnType));
+        t = Thing.lookup(returnType).getTypeToImport();
+        if (t != null) {
+            types.add(t);
+        }
 
         for (int i = 0; i < parameters.length; i++) {
             t = Thing.lookup(parameters[i][0]);
+            t = t.getTypeToImport();
+            if (t == null) {
+                continue;
+            }
             types.add(t);
 
             if (t instanceof InterfaceThing) {
-                types.add(Thing.lookup("Proxy"));
+                types.add(Thing.lookup("GObject*"));
             }
         }
 

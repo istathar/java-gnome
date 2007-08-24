@@ -25,6 +25,7 @@ final class GtkButton extends Plumbing
     private GtkButton() {}
 
     static final void setUseUnderline(Button self, boolean useUnderline) {
+
         if (self == null) {
             throw new IllegalArgumentException("Parameter self can't be null");
         }
@@ -37,6 +38,7 @@ final class GtkButton extends Plumbing
     private static native final void gtk_button_set_use_underline(long self, boolean useUnderline);
 
     static final void setAlignment(Button self, float xalign, float yalign) {
+
         if (self == null) {
             throw new IllegalArgumentException("Parameter self can't be null");
         }

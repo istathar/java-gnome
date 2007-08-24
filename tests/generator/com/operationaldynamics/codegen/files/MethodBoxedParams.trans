@@ -26,6 +26,7 @@ final class GtkButton extends Plumbing
     private GtkButton() {}
 
     static final void setBoxed(Button self, Boxed boxed) {
+
         if (self == null) {
             throw new IllegalArgumentException("Parameter self can't be null");
         }
@@ -42,6 +43,7 @@ final class GtkButton extends Plumbing
     private static native final void gtk_button_set_boxed(long self, long boxed);
 
     static final void setBoxedNullable(Button self, Boxed boxed) {
+
         if (self == null) {
             throw new IllegalArgumentException("Parameter self can't be null");
         }

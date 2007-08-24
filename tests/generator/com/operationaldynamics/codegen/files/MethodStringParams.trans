@@ -25,6 +25,7 @@ final class GtkButton extends Plumbing
     private GtkButton() {}
 
     static final void setLabel(Button self, String label) {
+
         if (self == null) {
             throw new IllegalArgumentException("Parameter self can't be null");
         }
@@ -41,6 +42,7 @@ final class GtkButton extends Plumbing
     private static native final void gtk_button_set_label(long self, String label);
 
     static final void setLabelNullable(Button self, String label, String optional) {
+
         if (self == null) {
             throw new IllegalArgumentException("Parameter self can't be null");
         }

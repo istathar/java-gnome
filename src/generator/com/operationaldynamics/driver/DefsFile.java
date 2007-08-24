@@ -124,8 +124,6 @@ public final class DefsFile
                     addToImports(Thing.lookup("FIXME"));
                     continue;
                 }
-                
-                t = t.getTypeToImport();
 
                 if (t instanceof FundamentalThing) {
                     continue;

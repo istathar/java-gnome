@@ -27,16 +27,19 @@ final class GtkButton extends Plumbing
 
     static final void getWidgets(Button self, Widget[] widgets) {
         long[] _widgets;
-        
+
         if (self == null) {
             throw new IllegalArgumentException("Parameter self can't be null");
         }
-        
+
+        if (widgets == null) {
+            throw new IllegalArgumentException("Parameter widgets can't be null");
+        }
+
         _widgets = pointersOf(widgets);
 
         synchronized (lock) {
             gtk_button_get_widgets(pointerOf(self), _widgets);
-            
             fillObjectArray(widgets, _widgets);
         }
     }

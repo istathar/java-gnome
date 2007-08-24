@@ -28,6 +28,10 @@ public class StringThing extends Thing
         return true;
     }
 
+    boolean jniConversionHandlesNull() {
+        return false;
+    }
+
     String jniConversionCleanup(String name) {
         return "(*env)->ReleaseStringUTFChars(env, _" + name + ", " + name + ")";
     }

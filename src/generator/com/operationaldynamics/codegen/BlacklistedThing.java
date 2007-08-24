@@ -56,7 +56,7 @@ public class BlacklistedThing extends Thing
     }
 
     public Thing getTypeToImport() {
-        return Thing.lookup("FIXME");
+        return this;
     }
 
     boolean needExtraTranslation() {

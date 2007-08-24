@@ -22,9 +22,12 @@ public class FundamentalArrayThing extends ArrayThing
 {
     public FundamentalArrayThing(String gType, String baseType) {
         super(gType, Thing.lookup(baseType));
+        
+        /* needed to prevent cType to be xxx[] */
+        this.cType = baseType + '*';
     }
 
-//    protected FundamentalArrayThing() {}
+    protected FundamentalArrayThing() {}
 
     String jniConversionDecode(String name) {
         if (jniType.equals("jfloatArray")) {
@@ -35,6 +38,8 @@ public class FundamentalArrayThing extends ArrayThing
             return "(*env)->GetBooleanArrayElements(env, _" + name + ", NULL)";
         } else if (jniType.equals("jintArray")) {
             return "(*env)->GetIntArrayElements(env, _" + name + ", NULL)";
+        } else if (jniType.equals("jbyteArray")) {
+            return "(*env)->GetByteArrayElements(env, _" + name + ", NULL)";
         } else {
             throw new Error(
                     "Code generator asked to deal with an array case for which we do not have logic. Stop.");
@@ -50,6 +55,8 @@ public class FundamentalArrayThing extends ArrayThing
             return "(*env)->ReleaseBooleanArrayElements(env, _" + name + ", " + name + ", 0)";
         } else if (jniType.equals("jintArray")) {
             return "(*env)->ReleaseIntArrayElements(env, _" + name + ", " + name + ", 0)";
+        } else if (jniType.equals("jbyteArray")) {
+            return "(*env)->ReleaseByteArrayElements(env, _" + name + ", " + name + ", 0)";
         } else {
             throw new Error();
         }
@@ -63,7 +70,7 @@ public class FundamentalArrayThing extends ArrayThing
      * hard to manage in an automatic way.
      */
     String jniReturnEncode(String name) {
-        System.err.println("[WARNING] Not supported return of fundamental array.");
+        System.out.println("Warning: Not supported return of fundamental array.");
         return "NULL";
     }
 

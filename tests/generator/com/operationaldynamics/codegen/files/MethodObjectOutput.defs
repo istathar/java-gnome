@@ -7,7 +7,7 @@
   (gtype-id "GTK_TYPE_BUTTON")
 )
 
-(define-method get_widget
+(define-method get_widgets
   (of-object "GtkButton")
   (c-name "gtk_button_get_widgets")
   (return-type "none")

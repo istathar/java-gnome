@@ -52,6 +52,10 @@ public class FundamentalThing extends Thing
     String extraTranslationToJava(String name, DefsFile data) {
         return null;
     }
+    
+    boolean needGuardAgainstNull() {
+        return false;
+    }
 
     String extraTranslationToNative(String name) {
         return null;

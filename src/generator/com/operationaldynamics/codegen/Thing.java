@@ -144,6 +144,9 @@ public abstract class Thing
         /* these seem a bit harder */
         register(new FixmeThing("const-gchar*[]"));
         register(new FixmeThing("gchar**[]"));
+        register(new FixmeThing("gchar**"));
+        register(new FixmeThing("gint**"));
+        register(new FixmeThing("guint**"));
 
         /*
          * Out parameters for fundamental types are special cases, probably,
@@ -155,7 +158,7 @@ public abstract class Thing
 //        register(new FundamentalArrayThing("gdouble*", "double[]", "double[]", "jdoubleArray"));
 //        register(new FundamentalArrayThing("gboolean*", "boolean[]", "boolean[]", "jbooleanArray"));
         register(new FundamentalArrayThing("gint*", "gint"));
-        register(new FundamentalArrayThing("guint*", "gint"));
+        register(new FundamentalArrayThing("guint*", "guint"));
         register(new FundamentalArrayThing("gfloat*", "gfloat"));
         register(new FundamentalArrayThing("gdouble*", "gdouble"));
         register(new FundamentalArrayThing("gboolean*", "gboolean"));
@@ -317,9 +320,15 @@ public abstract class Thing
             }
         } else if (gType.endsWith("*")) {
             bareGType = gType.substring(0, gType.length() - 1);
+            System.out.println("HEERREE: " + bareGType + " " + gType);
             stored = (Thing) things.get(bareGType);
 
-            if (stored != null) {
+            /* 
+             * we don't support arrays of arrays yet.
+             * the  !(stored instanceof ArrayThing) is needed to prevent
+             * multiple recursion on *
+             */
+            if ((stored != null) && !(stored instanceof ArrayThing)) {
                 dupe = stored.createArrayVariant();
 
                 register(dupe);
@@ -401,8 +410,13 @@ public abstract class Thing
      */
     abstract String extraTranslationToJava(String name, DefsFile data);
     
-    //TODO mmm, seems not needed, all Things except Fundamental need it!!
-    //abstract boolean needGuardAgainstNull();
+    boolean needGuardAgainstNull() {
+        return true;
+    }
+
+    boolean jniConversionHandlesNull() {
+        return true;
+    }
 
     /**
      * The translation code necessary to convert this type from native JNI
@@ -529,6 +543,14 @@ public abstract class Thing
         t.jniType = this.jniType;
         t.nativeType = this.nativeType;
         t.blacklisted = this.blacklisted;
+        
+        /*
+         * Added to support cloning of ArrayThings, that have a field,
+         * but looks very ugly!
+         */
+        if (this instanceof ArrayThing) {
+            ((ArrayThing)t).type = ((ArrayThing)this).type;
+        }
 
         return t;
     }
@@ -543,13 +565,14 @@ public abstract class Thing
      */
     private Thing createArrayVariant() {
         if (this instanceof ProxiedThing) {
-            return new ProxiedArrayThing(gType, this);
+            return new ProxiedArrayThing(gType + "*", this);
         } else {
             /* 
              * only Proxied arrays are supported yet. Note that fundamental
              * arrays are managed in Thing static block.
              */
-            return new FixmeThing(this.gType + "*");
+            System.out.println("Warning: Unsupported " + gType);
+            return new BlacklistedThing(this.gType + "*");
         }
     }
 
@@ -560,8 +583,10 @@ public abstract class Thing
         if (this instanceof ProxiedThing) {
             return new GListThing(gType, this);
         } else {
-            throw new RuntimeException("This codepath cannot create a GList variant unless "
-                    + this.getClass() + " is a ProxiedThing");
+            System.out.println("Warning: Unsupported " + gType);
+            return new BlacklistedThing(gType);
+//            throw new RuntimeException("This codepath cannot create a GList variant unless "
+//                    + this.getClass() + " is a ProxiedThing");
         }
     }
 

@@ -175,6 +175,30 @@ public abstract class Plumbing extends org.freedesktop.bindings.Plumbing
     }
 
     /**
+     * Retrieve the Proxies corresponding to several pointers to GObject, and
+     * fill an Object array with them.
+     * 
+     * @see #objectFor(long)
+     */
+    protected static void fillObjectArray(Object[] objects, long[] pointers) {
+        for (int i = 0; i < pointers.length; ++i) {
+            objects[i] = objectFor(pointers[i]);
+        }
+    }
+
+    /**
+     * Retrieve the Proxies corresponding to several pointers to GBoxed, and
+     * fill an Boxed array with them.
+     * 
+     * @see #boxedFor(Class, long)
+     */
+    protected static void fillBoxedArray(Class type, Boxed[] boxeds, long[] pointers) {
+        for (int i = 0; i < pointers.length; ++i) {
+            boxeds[i] = boxedFor(type, pointers[i]);
+        }
+    }
+
+    /**
      * Retrieve an appropriate Java Proxy for a pointer to a GObject. This
      * will return the Proxy instance already created using a real constructor
      * if one was created Java side; where no Proxy exists it looks up the
