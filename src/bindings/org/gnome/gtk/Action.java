@@ -26,7 +26,7 @@ import org.gnome.glib.Object;
  * Namely, they should have the same textual label, the same icon, and
  * certainly the same accelerator key. This way, if the user is accustomed to
  * executing an operation from the Toolbar and then sees the equivalent
- * operation in as a MenuItem with the same icon and lable, she will know that
+ * operation in as a MenuItem with the same icon and label, she will know that
  * both will do the same thing. It thus seems reasonable that both MenuItem
  * and ToolButton share some Object where the common information is stored,
  * and this is indeed the role of the Action class.
@@ -83,7 +83,7 @@ public class Action extends Object
      *            The stock icon to display in proxy Widgets.
      * @param handler
      *            A handler to connect to the <code>ACTIVATE</code> signal.
-     *            Typically this will be used to actally start the operation
+     *            Typically this will be used to actually start the operation
      *            related to this Action.
      */
     /*
@@ -191,10 +191,10 @@ public class Action extends Object
      * likewise disabled, meaning the user can't activate any of them.
      * 
      * <p>
-     * You usually will want to deactivate an Action when its operation has no
-     * sense in current application status. For example, in a text editor you
-     * should probably disable the "Save" Action when there is no document is
-     * open or when current document hasn't been changed.
+     * You usually will want to deactivate an Action when its operation makes
+     * no sense in current application status. For example, in a text editor
+     * you should probably disable the "Save" Action when there is no document
+     * is open or when current document hasn't been changed.
      * 
      * <p>
      * When not sensitive, Action proxies are displayed differently than
@@ -287,8 +287,8 @@ public class Action extends Object
      * Activates the Action.
      * 
      * <p>
-     * Programatically cause this Action to fire its <code>ACTIVATE</code>
-     * signal. Note that thi shas not effect if the Action is not currently
+     * Programmatically cause this Action to fire its <code>ACTIVATE</code>
+     * signal. Note that this has no effect if the Action is not currently
      * sensitive.
      * 
      * <p>
