@@ -184,6 +184,9 @@ bindings_java_convert_jarray_to_gpointer
 	}
 	
 	ptrs = g_malloc(size * sizeof(gpointer));
+	if (ptrs == NULL) {
+		return NULL; // throw MemoryError??
+	}
 	
 	array = (jlong*) (*env)->GetLongArrayElements(env, _array, NULL);
 	if (array == NULL) {
@@ -194,7 +197,7 @@ bindings_java_convert_jarray_to_gpointer
 		ptrs[i] = (gpointer) array[i];
 	}
 	
-	(*env)->ReleaseLongArrayElements(env, _array, array, 0);
+	(*env)->ReleaseLongArrayElements(env, _array, array, JNI_ABORT);
 	
 	return ptrs;
 }
@@ -226,7 +229,7 @@ bindings_java_convert_gpointer_to_jarray
 	
 	(*env)->ReleaseLongArrayElements(env, _array, array, 0);
 	
-	/* and finally free ptrs */
+	// and finally free ptrs
 	g_free(ptrs);
 }
 

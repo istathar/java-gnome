@@ -46,7 +46,7 @@ public class ProxiedArrayThing extends ArrayThing
     }
 
     String jniConversionCleanup(String name) {
-        return "bindings_java_convert_gpointer_to_jarray(env, " + name + ", _" + name + ")";
+        return "bindings_java_convert_gpointer_to_jarray(env, (gpointer*)" + name + ", _" + name + ")";
     }
 
     /*
