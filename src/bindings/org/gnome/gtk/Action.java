@@ -15,44 +15,46 @@ package org.gnome.gtk;
 import org.gnome.glib.Object;
 
 /**
- * Actions represent an operation that the user can perform from one or
+ * Actions represent an operation that the user can perform from one of
  * several GUI places.
  * 
  * <p>
- * Usually, an application provide several ways to let users execute an
- * operation, such as Menus and Toolbars. If an operation can be executed from
- * several GUI places, it seems logical that such different places appear
- * similar to the user. Namely, they should have the same operation name, or
- * the same icon. This way, if the user uses to execute an operation from the
- * Toolbar, when it sees the equivalent MenuItem, it can know that both will
- * do the same thing.
- * 
- * <p>
- * Thus, it seems reasonable that both MenuItem and ToolButton share some
- * Object where the common information is stored. This is the role of the
- * Action class.
+ * Usually, an application provides several ways to let users execute an
+ * operation, for example the "Open File..." shows up in Menus, Toolbars, and
+ * elsewhere. If an operation can be executed from several GUI places, it
+ * seems logical that such different places appear similar to the user.
+ * Namely, they should have the same textual label, the same icon, and
+ * certainly the same accelerator key. This way, if the user is accustomed to
+ * executing an operation from the Toolbar and then sees the equivalent
+ * operation in as a MenuItem with the same icon and lable, she will know that
+ * both will do the same thing. It thus seems reasonable that both MenuItem
+ * and ToolButton share some Object where the common information is stored,
+ * and this is indeed the role of the Action class.
  * 
  * <p>
  * An Action holds information about an operation that could be executed from
- * different places. This information include the label that is shown to the
- * user, the icon, and a tooltip or help message. It also stores state
+ * different places. This information includes the label that is shown to the
+ * user, the icon, and the tooltip (popup help message). It also stores state
  * information, such as whether the action is "visible" or "sensitive". When
- * this information changes, all the Action <i>proxies</i>, i.e. the Widgets
- * such as MenuItems or ToolButtons related to it, are also changed properly.
+ * this information changes, all the Action <i>proxies</i> (i.e. the Widgets
+ * such as MenuItems or ToolButtons related to it) are also all changed
+ * properly.
  * 
  * <p>
- * Additionally, an Action has an {@link ACTIVATE} signal, emitted when any of
- * its proxies is activated. Thus, you can just connect to the Action ACTIVATE
- * signal to start the needed operation, instead of having to connect to the
- * ACTIVATE signal of each of the proxies.
+ * Each Action has an {@link ACTIVATE} signal emitted when any of its proxies
+ * are triggered. Thus you can just connect one signal to start the needed
+ * operation, instead of having to connect to the <code>ACTIVATE</code>
+ * signal of each of various proxies.
  * 
  * <p>
  * Once you have created an Action, you can get proxies for it with the
- * {@link #createMenuItem()} and {@link #createToolItem()} methods.
+ * {@link #createMenuItem() createMenuItem()} and
+ * {@link #createToolItem() createToolItem()} methods.
  * 
  * <p>
- * Finally, note that you can also use Actions even if you only plan to let
- * user execute an operation from a single GUI place.
+ * Incidentally, you can still use Actions even if you only plan to let the
+ * user execute operations from a single place in your application; they're a
+ * useful technique to concentrate the code handling of user activity.
  * 
  * @see ActionGroup
  * 
@@ -66,24 +68,29 @@ public class Action extends Object
     }
 
     /**
-     * Create a new Action, and connect a handler to its ACTIVATE signal.
+     * Create a new Action, and connect a handler to its <code>ACTIVATE</code>
+     * signal.
      * 
      * @param name
      *            A unique name for the Action.
      * @param label
-     *            The label that will be displayed in the proxy Widgets. You
+     *            The text that will be displayed in the proxy Widgets. You
      *            usually will want to localize it to the user language.
      * @param tooltip
-     *            A tooltip or little help message for the Action. Also
+     *            A Tooltip or little help message for the Action. Also
      *            localized.
-     * @param stockId
-     *            The Stock icon to display in proxy widgets.
+     * @param stock
+     *            The stock icon to display in proxy Widgets.
      * @param handler
-     *            A handler to connect to the ACTIVATE signal. Usually will
-     *            will start from here the operation related to the Action.
+     *            A handler to connect to the <code>ACTIVATE</code> signal.
+     *            Typically this will be used to actally start the operation
+     *            related to this Action.
      */
-    public Action(String name, String label, String tooltip, Stock stockId, ACTIVATE handler) {
-        super(GtkAction.createAction(name, label, tooltip, stockId.getStockId()));
+    /*
+     * FIXME describe the implications of different choices for name.
+     */
+    public Action(String name, String label, String tooltip, Stock stock, ACTIVATE handler) {
+        super(GtkAction.createAction(name, label, tooltip, stock.getStockId()));
         connect(handler);
     }
 
@@ -93,16 +100,16 @@ public class Action extends Object
      * @param name
      *            A unique name for the Action.
      * @param label
-     *            The label that will be displayed in the proxy Widgets. You
+     *            The text that will be displayed in the proxy Widgets. You
      *            usually will want to localize it to the user language.
      * @param tooltip
-     *            A tooltip or little help message for the Action. Also
+     *            A Tooltip or little help message for the Action. Also
      *            localized.
-     * @param stockId
-     *            The Stock icon to display in proxy widgets.
+     * @param stock
+     *            The Stock icon to display in proxy Widgets.
      */
-    public Action(String name, String label, String tooltip, Stock stockId) {
-        super(GtkAction.createAction(name, label, tooltip, stockId.getStockId()));
+    public Action(String name, String label, String tooltip, Stock stock) {
+        super(GtkAction.createAction(name, label, tooltip, stock.getStockId()));
     }
 
     /**
@@ -122,7 +129,8 @@ public class Action extends Object
     }
 
     /**
-     * Create a new Action, and connect a handler to its ACTIVATE signal.
+     * Create a new Action, and connect a handler to its <code>ACTIVATE</code>
+     * signal.
      * 
      * @param name
      *            A unique name for the Action.
@@ -130,8 +138,9 @@ public class Action extends Object
      *            The label that will be displayed in the proxy Widgets. You
      *            usually will want to localize it to the user language.
      * @param handler
-     *            A handler to connect to the ACTIVATE signal. Usually will
-     *            will start from here the operation related to the Action.
+     *            A handler to connect to the <code>ACTIVATE</code> signal.
+     *            Usually will will start from here the operation related to
+     *            the Action.
      */
     public Action(String name, String label, ACTIVATE handler) {
         super(GtkAction.createAction(name, label, null, null));
@@ -144,7 +153,7 @@ public class Action extends Object
      * @param name
      *            A unique name for the Action.
      * @param label
-     *            The label that will be displayed in the proxy Widgets. You
+     *            The text that will be displayed in the proxy Widgets. You
      *            usually will want to localize it to the user language.
      */
     public Action(String name, String label) {
@@ -156,10 +165,9 @@ public class Action extends Object
      * 
      * <p>
      * You can add the returned MenuItem to a {@link Menu}. The MenuItem will
-     * have the same Label, icon or accelerator of this Action, and when the
-     * user ACTIVATE's it, this Action will be ACTIVATED too.
-     * 
-     * @see Menu
+     * have the same label, icon or accelerator of this Action, and when the
+     * user activates the MenuItem, this Action will <code>ACTIVATE</code>
+     * too.
      */
     public MenuItem createMenuItem() {
         return (MenuItem) GtkAction.createMenuItem(this);
@@ -171,32 +179,32 @@ public class Action extends Object
      * <p>
      * You can add the returned ToolItem to a {@link Toolbar}. The ToolItem
      * will have the same Label, icon, tooltips or accelerator of this Action,
-     * and when the user clicks it, this Action will be ACTIVATED.
+     * and when the user clicks it, this Action will be <code>ACTIVATE</code>D.
      */
     public ToolItem createToolItem() {
         return (ToolItem) GtkAction.createToolItem(this);
     }
 
     /**
-     * Set if the Action is enabled to be activated by the user. When an
+     * Set if the Action is available to be activated by the user. When an
      * Action is not sensitive, all its ToolItem or MenuItem proxies are
-     * disabled, meaning the user can't activate them.
+     * likewise disabled, meaning the user can't activate any of them.
      * 
      * <p>
      * You usually will want to deactivate an Action when its operation has no
      * sense in current application status. For example, in a text editor you
-     * should disable the "Save" Action when no document is opened, or maybe
-     * when current document hasn't changed.
+     * should probably disable the "Save" Action when there is no document is
+     * open or when current document hasn't been changed.
      * 
      * <p>
      * When not sensitive, Action proxies are displayed differently than
      * enabled proxies (usually in grey color). That way, user knows the
-     * Action has no meaning in the current application status, and (s)he
-     * needs to do some action before the disabled Action becomes sensitive.
+     * Action has no application in the current program state, and she needs
+     * to do something before the disabled Action becomes applicable.
      * 
      * <p>
-     * However, when a full Menu on a MenuBar needs to be disable, generally a
-     * better idea is to {@link #setVisible(boolean) setVisible(false)} it.
+     * However, when a full Menu on a MenuBar needs to be disabled, generally
+     * a better idea is to {@link #setVisible(boolean) setVisible(false)} it.
      * 
      * <p>
      * Finally, note that setting an Action sensitive doesn't always mean it
@@ -208,11 +216,10 @@ public class Action extends Object
     }
 
     /**
-     * Return whether the Action itself is enabled to be activated by the
-     * user. Note that this doesn't necessarily mean effective sensitivity.
-     * 
-     * @see #isSensitive()
-     * @see #setSensitive(boolean)
+     * Return whether this Action itself is enabled to be activated by the
+     * user. Note that this doesn't necessarily mean effective sensitivity due
+     * to the effect of ActionGroups; see {@link #isSensitive() isSensitive()}
+     * for that.
      */
     public boolean getSensitive() {
         return GtkAction.getSensitive(this);
@@ -221,9 +228,6 @@ public class Action extends Object
     /**
      * Returns whether the action is effectively sensitive, i.e., if both the
      * Action and the ActionGroup it belongs to are enabled.
-     * 
-     * @see #setSensitive(boolean)
-     * @see #getSensitive()
      */
     public boolean isSensitive() {
         return GtkAction.isSensitive(this);
@@ -251,7 +255,7 @@ public class Action extends Object
      * <p>
      * Finally, note that setting an Action visible doesn't always mean it
      * will be actually displayed, as you also need to make visible the
-     * ActionGroup the Action belongs to (see {@link #isVisible()}).
+     * ActionGroup the Action belongs to (see {@link #isVisible() isVisible()}).
      */
     public void setVisible(boolean visible) {
         GtkAction.setVisible(this, visible);
@@ -280,14 +284,19 @@ public class Action extends Object
     }
 
     /**
-     * Activates the Action if it's sensitive.
+     * Activates the Action.
      * 
      * <p>
-     * Note that Action is automatically activate when user activates one of
-     * its proxies, maybe selecting the specific MenuItem or clicking the
-     * ToolButton, so in most cases <b>you don't need this.</b> However, in
-     * some cases you want to activate the Action in your application code.
-     * Use this there.
+     * Programatically cause this Action to fire its <code>ACTIVATE</code>
+     * signal. Note that thi shas not effect if the Action is not currently
+     * sensitive.
+     * 
+     * <p>
+     * Since the Action is automatically activated when user activates one of
+     * its proxies (selecting the specific MenuItem or clicking the ToolButton
+     * that goes with this Action), so in most cases <b>you don't need this.</b>
+     * However, in some cases you want to activate the Action in your
+     * application code. Use this there.
      */
     public void activate() {
         GtkAction.activate(this);
@@ -307,10 +316,9 @@ public class Action extends Object
     }
 
     /**
-     * Connect a handler to the ACTIVATE signal.
+     * Connect a handler to the <code>ACTIVATE</code> signal.
      */
     public void connect(ACTIVATE handler) {
         GtkAction.connect(this, handler);
     }
-
 }
