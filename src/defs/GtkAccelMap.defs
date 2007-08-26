@@ -5,3 +5,119 @@
   (gtype-id "GTK_TYPE_ACCEL_MAP")
 )
 
+(define-function add_entry
+  (c-name "gtk_accel_map_add_entry")
+  (return-type "none")
+  (parameters
+    '("const-gchar*" "accel_path")
+    '("guint" "accel_key")
+    '("GdkModifierType" "accel_mods")
+  )
+)
+
+(define-function lookup_entry
+  (c-name "gtk_accel_map_lookup_entry")
+  (return-type "gboolean")
+  (parameters
+    '("const-gchar*" "accel_path")
+    '("GtkAccelKey*" "key")
+  )
+)
+
+(define-function change_entry
+  (c-name "gtk_accel_map_change_entry")
+  (return-type "gboolean")
+  (parameters
+    '("const-gchar*" "accel_path")
+    '("guint" "accel_key")
+    '("GdkModifierType" "accel_mods")
+    '("gboolean" "replace")
+  )
+)
+
+(define-function load
+  (c-name "gtk_accel_map_load")
+  (return-type "none")
+  (parameters
+    '("const-gchar*" "file_name")
+  )
+)
+
+(define-function save
+  (c-name "gtk_accel_map_save")
+  (return-type "none")
+  (parameters
+    '("const-gchar*" "file_name")
+  )
+)
+
+(define-function foreach
+  (c-name "gtk_accel_map_foreach")
+  (return-type "none")
+  (parameters
+    '("gpointer" "data")
+    '("GtkAccelMapForeach" "foreach_func")
+  )
+)
+
+(define-function load_fd
+  (c-name "gtk_accel_map_load_fd")
+  (return-type "none")
+  (parameters
+    '("gint" "fd")
+  )
+)
+
+(define-function load_scanner
+  (c-name "gtk_accel_map_load_scanner")
+  (return-type "none")
+  (parameters
+    '("GScanner*" "scanner")
+  )
+)
+
+(define-function save_fd
+  (c-name "gtk_accel_map_save_fd")
+  (return-type "none")
+  (parameters
+    '("gint" "fd")
+  )
+)
+
+(define-function lock_path
+  (c-name "gtk_accel_map_lock_path")
+  (return-type "none")
+  (parameters
+    '("const-gchar*" "accel_path")
+  )
+)
+
+(define-function unlock_path
+  (c-name "gtk_accel_map_unlock_path")
+  (return-type "none")
+  (parameters
+    '("const-gchar*" "accel_path")
+  )
+)
+
+(define-function add_filter
+  (c-name "gtk_accel_map_add_filter")
+  (return-type "none")
+  (parameters
+    '("const-gchar*" "filter_pattern")
+  )
+)
+
+(define-function foreach_unfiltered
+  (c-name "gtk_accel_map_foreach_unfiltered")
+  (return-type "none")
+  (parameters
+    '("gpointer" "data")
+    '("GtkAccelMapForeach" "foreach_func")
+  )
+)
+
+(define-function get
+  (c-name "gtk_accel_map_get")
+  (return-type "GtkAccelMap*")
+)
