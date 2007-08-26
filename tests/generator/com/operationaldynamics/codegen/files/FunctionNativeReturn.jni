@@ -1,0 +1,38 @@
+/*
+ * GtkButton.c
+ *
+ * Copyright (c) 2006-2007 Operational Dynamics Consulting Pty Ltd, and Others
+ *
+ * The code in this file, and the library it is a part of, are made available
+ * to you by the authors under the terms of the "GNU General Public Licence,
+ * version 2" plus the "Classpath Exception" (you may link to this code as a
+ * library into other programs provided you don't make a derivation of it).
+ * See the LICENCE file for the terms governing usage and redistribution.
+ *
+ *                      THIS FILE IS GENERATED CODE!
+ *
+ * To modify its contents or behaviour, either update the generation program,
+ * change the information in the source defs file, or implement an override for
+ * this class.
+ */
+
+#include <jni.h>
+#include <gtk/gtk.h>
+#include "bindings_java.h"
+#include "org_gnome_gtk_GtkButton.h"
+
+JNIEXPORT jboolean JNICALL
+Java_org_gnome_gtk_GtkButton_gtk_1button_1get_1use_1underline
+(
+	JNIEnv* env,
+	jclass cls
+)
+{
+	gboolean result;
+
+	// call function
+	result = gtk_button_get_use_underline();
+
+	// and finally
+	return (jboolean) result;
+}

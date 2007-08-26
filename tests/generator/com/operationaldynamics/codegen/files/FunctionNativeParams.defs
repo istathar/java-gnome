@@ -1,0 +1,25 @@
+;; Test for methods that take native parameters
+
+(define-object Button
+  (in-module "Gtk")
+  (parent "GtkBin")
+  (c-name "GtkButton")
+  (gtype-id "GTK_TYPE_BUTTON")
+)
+
+(define-function set_use_underline
+  (c-name "gtk_button_set_use_underline")
+  (return-type "none")
+  (parameters
+    '("gboolean" "use_underline")
+  )
+)
+
+(define-function set_alignment
+  (c-name "gtk_button_set_alignment")
+  (return-type "none")
+  (parameters
+    '("gfloat" "xalign")
+    '("gfloat" "yalign")
+  )
+)

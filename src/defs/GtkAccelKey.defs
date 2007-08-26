@@ -8,3 +8,55 @@
   )
 )
 
+(define-function accelerator_valid
+  (c-name "gtk_accelerator_valid")
+  (return-type "gboolean")
+  (parameters
+    '("guint" "keyval")
+    '("GdkModifierType" "modifiers")
+  )
+)
+
+(define-function accelerator_parse
+  (c-name "gtk_accelerator_parse")
+  (return-type "none")
+  (parameters
+    '("const-gchar*" "accelerator")
+    '("guint*" "accelerator_key")
+    '("GdkModifierType*" "accelerator_mods")
+  )
+)
+
+(define-function accelerator_name
+  (c-name "gtk_accelerator_name")
+  (caller-owns-return #t)
+  (return-type "gchar*")
+  (parameters
+    '("guint" "accelerator_key")
+    '("GdkModifierType" "accelerator_mods")
+  )
+)
+
+(define-function accelerator_set_default_mod_mask
+  (c-name "gtk_accelerator_set_default_mod_mask")
+  (return-type "none")
+  (parameters
+    '("GdkModifierType" "default_mod_mask")
+  )
+)
+
+(define-function accelerator_get_default_mod_mask
+  (c-name "gtk_accelerator_get_default_mod_mask")
+  (return-type "GdkModifierType")
+)
+
+(define-function accelerator_get_label
+  (c-name "gtk_accelerator_get_label")
+  (caller-owns-return #t)
+  (return-type "gchar*")
+  (parameters
+    '("guint" "accelerator_key")
+    '("GdkModifierType" "accelerator_mods")
+  )
+)
+

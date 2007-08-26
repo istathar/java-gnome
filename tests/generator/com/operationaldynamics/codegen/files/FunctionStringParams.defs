@@ -1,0 +1,25 @@
+;; Test for methods that take String parameters
+
+(define-object Button
+  (in-module "Gtk")
+  (parent "GtkBin")
+  (c-name "GtkButton")
+  (gtype-id "GTK_TYPE_BUTTON")
+)
+
+(define-function set_label
+  (c-name "gtk_button_set_label")
+  (return-type "none")
+  (parameters
+    '("const-gchar*" "label")
+  )
+)
+
+(define-function set_label_nullable
+  (c-name "gtk_button_set_label_nullable")
+  (return-type "none")
+  (parameters
+    '("const-gchar*" "label")
+    '("const-gchar*" "optional" (null-ok))
+  )
+)

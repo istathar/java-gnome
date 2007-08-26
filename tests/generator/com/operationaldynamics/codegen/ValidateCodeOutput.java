@@ -301,6 +301,41 @@ public class ValidateCodeOutput extends TestCase
     }
 
     /**
+     * Test static functions that take void and return void
+     */
+    public void testFunction() throws Exception {
+        doTest("Function", false, false);
+    }
+
+    /**
+     * Test static functions that take native params and return void
+     */
+    public void testFunctionWithNativeParams() throws Exception {
+        doTest("FunctionNativeParams", false, false);
+    }
+
+    /**
+     * Test static functions that return a native value
+     */
+    public void testFunctionWithNativeReturn() throws Exception {
+        doTest("FunctionNativeReturn", false, false);
+    }
+
+    /**
+     * Test static functions that take boxed params and return void
+     */
+    public void testFunctionWithBoxedParams() throws Exception {
+        doTest("FunctionBoxedParams", false, false);
+    }
+
+    /**
+     * Test static functions that take string params and return void
+     */
+    public void testFunctionWithStringParams() throws Exception {
+        doTest("FunctionStringParams", false, false);
+    }
+
+    /**
      * Test accessor for boxed native fields
      */
     public void testAccessorNative() throws Exception {

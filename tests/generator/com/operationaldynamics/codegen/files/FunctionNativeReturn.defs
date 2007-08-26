@@ -1,0 +1,13 @@
+;; Test for methods that return native value
+
+(define-object Button
+  (in-module "Gtk")
+  (parent "GtkBin")
+  (c-name "GtkButton")
+  (gtype-id "GTK_TYPE_BUTTON")
+)
+
+(define-function get_use_underline
+  (c-name "gtk_button_get_use_underline")
+  (return-type "gboolean")
+)

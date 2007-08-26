@@ -1,0 +1,11 @@
+(define-object Button
+  (in-module "Gtk")
+  (parent "GtkBin")
+  (c-name "GtkButton")
+  (gtype-id "GTK_TYPE_BUTTON")
+)
+
+(define-function pressed
+  (c-name "gtk_button_pressed")
+  (return-type "none")
+)
