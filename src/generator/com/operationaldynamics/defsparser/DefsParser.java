@@ -311,18 +311,7 @@ public class DefsParser
                     block = new MethodBlock(name, characteristics, parameters);
                     blocks.add(block);
                 } else if (phylum.equals("function")) {
-                    /*
-                     * FUTURE what about other function types? Part of the
-                     * reason things were laid out in the sequence they are
-                     * here was so that we could get all the information
-                     * needed before deciding the type. As things stand now,
-                     * however, we don't have things in a usable form until
-                     * after Block.processCharacteristics() has run care of
-                     * Block's constructor. As the only (define-function ...)
-                     * type we deal with are GObject constructors, so it's not
-                     * a problem at the moment.
-                     */
-                    block = new ConstructorBlock(name, characteristics, parameters);
+                    block = new FunctionBlock(name, characteristics, parameters);
                     blocks.add(block);
                 } else if ((phylum.equals("virtual")) || (phylum.equals("signal"))) {
                     block = new VirtualBlock(name, characteristics, parameters);

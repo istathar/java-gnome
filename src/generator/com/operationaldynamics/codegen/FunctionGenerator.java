@@ -16,7 +16,8 @@ import java.io.PrintWriter;
 import com.operationaldynamics.driver.DefsFile;
 
 /**
- * Generate Java and C code for constructors and methods.
+ * Generate Java and C code for constructors, methods and other kind of
+ * functions.
  * <p>
  * Subclasses can override the individual steps of the generation sequence if
  * they wish, however adjusting input passing up to this classes's constructor
@@ -25,7 +26,7 @@ import com.operationaldynamics.driver.DefsFile;
  * @author Andrew Cowie
  * @author Vreixo Formoso
  */
-abstract class FunctionGenerator extends Generator
+public class FunctionGenerator extends Generator
 {
     /**
      * The Thing describing the object we are generating code relative to.
@@ -83,7 +84,7 @@ abstract class FunctionGenerator extends Generator
      *            an array of String[2] arrays, listing the type and name of
      *            each parameter.
      */
-    FunctionGenerator(final DefsFile data, final String blockName, final String gReturnType,
+    public FunctionGenerator(final DefsFile data, final String blockName, final String gReturnType,
             final String cFunctionName, final String[][] gParameters) {
         super(data);
 

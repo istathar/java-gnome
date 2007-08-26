@@ -13,22 +13,22 @@ package com.operationaldynamics.defsparser;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.operationaldynamics.codegen.ConstructorGenerator;
+import com.operationaldynamics.codegen.FunctionGenerator;
+import com.operationaldynamics.codegen.Generator;
 import com.operationaldynamics.codegen.InterfaceThing;
 import com.operationaldynamics.codegen.Thing;
+import com.operationaldynamics.driver.DefsFile;
 
 /**
  * A .defs (define-function...) block, and the superclass for other entities
- * that are represented in C with functions. As it stands presently, the only
- * actual function we know what to do with are constructors, for which we have
- * subclass ConstructorBlock.
+ * that are represented in C with functions. This also includes functions
+ * with the "is-constructor-of" attributes, i.e. constructors.
  * 
  * @author Andrew Cowie
+ * @author Vreixo Formoso
  */
-/*
- * Change from abstract if we ever figure out something useful to do with
- * other (define-function...) blocks.
- */
-public abstract class FunctionBlock extends Block
+public class FunctionBlock extends Block
 {
     /**
      * Strictly speaking, this isn't here, but down in MethodBlock and
@@ -45,6 +45,8 @@ public abstract class FunctionBlock extends Block
     protected String[][] parameters;
 
     protected String callerOwnsReturn;
+    
+    protected String isConstructorOf;
 
     FunctionBlock(final String blockName, final List characteristics, final List parameters) {
         super(blockName, characteristics);
@@ -62,6 +64,10 @@ public abstract class FunctionBlock extends Block
 
     protected final void setCallerOwnsReturn(final String callerOwnsReturn) {
         this.callerOwnsReturn = callerOwnsReturn;
+    }
+
+    protected final void setIsConstructorOf(final String isConstructorOf) {
+        this.isConstructorOf = isConstructorOf;
     }
 
     protected final void setCName(final String name) {
@@ -95,9 +101,15 @@ public abstract class FunctionBlock extends Block
 
         types = new ArrayList(parameters.length + 1);
 
-        t = Thing.lookup(returnType).getTypeToImport();
-        if (t != null) {
-            types.add(t);
+        /*
+         * For constructors, our translation layer method will return long
+         * and not the actual type, so we don't need to import it.
+         */
+        if (isConstructorOf == null) {
+            t = Thing.lookup(returnType).getTypeToImport();
+            if (t != null) {
+                types.add(t);
+            }
         }
 
         for (int i = 0; i < parameters.length; i++) {
@@ -132,6 +144,15 @@ public abstract class FunctionBlock extends Block
         target[0][2] = "no"; /* self can't never be null */
 
         parameters = target;
+    }
+
+    public Generator createGenerator(final DefsFile data) {
+        if (isConstructorOf != null) {
+            return new ConstructorGenerator(data, returnType, cName, parameters);
+        } else {
+            return new FunctionGenerator(data, blockName, returnType,
+                    cName, parameters);
+        }
     }
 
 }
