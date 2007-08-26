@@ -31,7 +31,7 @@ Java_org_gnome_gtk_GtkButton_gtk_1button_1get_1image
 {
 	GtkWidget* result;
 	GtkButton* self;
-	GError* error;
+	GError* error = NULL;
 
 	// convert parameter self
 	self = (GtkButton*) _self;
@@ -62,7 +62,7 @@ Java_org_gnome_gtk_GtkButton_gtk_1button_1set_1int
 {
 	GtkButton* self;
 	gint i;
-	GError* error;
+	GError* error = NULL;
 
 	// convert parameter self
 	self = (GtkButton*) _self;

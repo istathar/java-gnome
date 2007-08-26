@@ -13,7 +13,11 @@ package com.operationaldynamics.codegen;
 import com.operationaldynamics.driver.DefsFile;
 
 /**
- * A Thing that represent GError FIXME
+ * A Thing that represent a GError.
+ * 
+ * <p>
+ * A GError will never wrapped in java. Instead, we throw an exception from
+ * JNI side.
  * 
  * @author Vreixo Formoso
  */

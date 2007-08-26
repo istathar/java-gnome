@@ -137,7 +137,7 @@ abstract class FunctionGenerator extends Generator
 
         out.print(")");
 
-        if (hasGError) {
+        if (hasGError && !blockContainsBlacklistedThings()) {
             out.print(" throws GlibException");
         }
 
@@ -350,6 +350,9 @@ abstract class FunctionGenerator extends Generator
             out.print(parameterTypes[i].cType);
             out.print(" ");
             out.print(parameterNames[i]);
+            if (parameterTypes[i] instanceof GErrorThing) {
+                out.print(" = NULL");
+            }
             out.print(";\n");
         }
 
