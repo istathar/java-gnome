@@ -25,6 +25,7 @@ extern JNIEnv* bindings_java_getEnv();
 
 extern void bindings_java_throwByName(JNIEnv*, const char*, const char*);
 extern void bindings_java_throw(JNIEnv*, const char*, ...);
+extern void bindings_java_throw_gerror(JNIEnv*, GError*);
 
 extern const gchar* bindings_java_typeToSignature(GType);
 

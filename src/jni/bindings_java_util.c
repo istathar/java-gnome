@@ -147,6 +147,27 @@ bindings_java_throw
 	(*env)->DeleteLocalRef(env, cls);
 }
 
+void 
+bindings_java_throw_gerror
+(
+	JNIEnv* env, 
+	GError* error
+)
+{
+	const gchar* name = "org/gnome/glib/GlibException";
+	jclass cls;
+		
+	cls = (*env)->FindClass(env, name);
+	if (cls == NULL) {
+		g_critical("Tried to throw a %s but calling FindClass() on that name failed.", name);
+		return;
+	}
+	
+	(*env)->ThrowNew(env, cls, error->message);
+    	
+	(*env)->DeleteLocalRef(env, cls);
+	g_error_free(error);
+}
 
 /**
  * Convert from a GType to a JNI signature
