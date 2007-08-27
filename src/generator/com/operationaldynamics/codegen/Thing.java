@@ -136,11 +136,16 @@ public abstract class Thing
          */
         register(new FundamentalArrayThing("gfloat[]", "gfloat"));
         register(new FundamentalArrayThing("gint8[]", "gint8"));
+        
+        /*
+         * and for string arrays
+         */
+        register(new StringArrayThing("gchar**"));
+        
 
         /* these seem a bit harder */
         register(new FixmeThing("const-gchar*[]"));
         register(new FixmeThing("gchar**[]"));
-        register(new FixmeThing("gchar**"));
         register(new FixmeThing("gint**"));
         register(new FixmeThing("guint**"));
 

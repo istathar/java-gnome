@@ -26,6 +26,11 @@ public abstract class ArrayThing extends Thing
         this.type = type;
     }
 
+    public ArrayThing(String gType, Thing type, String jniArrayType) {
+        super(gType, null, null, type.javaType + "[]", type.nativeType + "[]", jniArrayType);
+        this.type = type;
+    }
+
     protected ArrayThing() {}
 
     String jniReturnErrorValue() {
