@@ -246,6 +246,10 @@ bindings_java_convert_gchararray_to_jarray
 	
 	size = 0;
 	
+	if (array == NULL) {
+		return NULL;
+	}
+	
 	/*
 	 * In Gtk+, all returning gchar* arrays are NULL-terminated
 	 */
