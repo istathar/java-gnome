@@ -67,8 +67,7 @@ public class ProxiedArrayThing extends ArrayThing
     String extraTranslationToJava(String name, DefsFile data) {
         if (type instanceof InterfaceThing) {
             return "fillObjectArray((Object[])" + name + ", _" + name + ")";
-        }
-        if (type instanceof ObjectThing) {
+        } else if (type instanceof ObjectThing) {
             return "fillObjectArray(" + name + ", _" + name + ")";
         } else {
             return "fillBoxedArray(" + type.javaTypeInContext(data) + ".class, " + name + ", _" + name
