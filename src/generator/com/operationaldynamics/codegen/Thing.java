@@ -136,12 +136,11 @@ public abstract class Thing
          */
         register(new FundamentalArrayThing("gfloat[]", "gfloat"));
         register(new FundamentalArrayThing("gint8[]", "gint8"));
-        
+
         /*
          * and for string arrays
          */
         register(new StringArrayThing("gchar**"));
-        
 
         /* these seem a bit harder */
         register(new FixmeThing("const-gchar*[]"));
@@ -199,7 +198,7 @@ public abstract class Thing
          */
         register(new GErrorThing());
         register(new ObjectThing("GlibException", "org.gnome.glib", "", "GlibException"));
-        
+
         /*
          * FIXME! Weirdo cases we haven't figured out what to do with yet.
          * Should these be a new (define...) type intead of here?
@@ -579,10 +578,12 @@ public abstract class Thing
     private Thing createArrayVariant() {
         if (this instanceof ProxiedThing) {
             return new ProxiedArrayThing(gType + "*", this);
+        } else if (this instanceof EnumThing) {
+            return new ConstantArrayThing(gType + "*", this);
         } else {
             /*
-             * only Proxied arrays are supported yet. Note that fundamental
-             * arrays are managed in Thing static block.
+             * only Proxied/Constant arrays are supported yet. Note that
+             * fundamental arrays are managed in Thing static block.
              */
             System.out.println("Warning: Unsupported " + gType);
             return new BlacklistedThing(this.gType + "*");

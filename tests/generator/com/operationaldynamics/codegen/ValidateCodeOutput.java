@@ -273,6 +273,13 @@ public class ValidateCodeOutput extends TestCase
     }
 
     /**
+     * Test methods that take enum ouput params and return void
+     */
+    public void testMethodWithEnumOutput() throws Exception {
+        doTest("MethodEnumOutput", false, false);
+    }
+
+    /**
      * Test methods that take Flag params and return void
      */
     public void testMethodWithFlagParams() throws Exception {
