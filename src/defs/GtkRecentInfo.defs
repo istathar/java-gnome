@@ -104,6 +104,7 @@
 (define-method get_groups
   (of-object "GtkRecentInfo")
   (c-name "gtk_recent_info_get_groups")
+  (caller-owns-return #t)
   (return-type "gchar**")
   (parameters
     '("gsize*" "length")

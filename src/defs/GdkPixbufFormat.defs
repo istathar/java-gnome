@@ -15,12 +15,14 @@
 (define-method get_mime_types
   (of-object "GdkPixbufFormat")
   (c-name "gdk_pixbuf_format_get_mime_types")
+  (caller-owns-return #t)
   (return-type "gchar**")
 )
 
 (define-method get_extensions
   (of-object "GdkPixbufFormat")
   (c-name "gdk_pixbuf_format_get_extensions")
+  (caller-owns-return #t)
   (return-type "gchar**")
 )
 

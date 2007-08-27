@@ -97,6 +97,7 @@
 (define-method get_uris
   (of-object "GtkSelectionData")
   (c-name "gtk_selection_data_get_uris")
+  (caller-owns-return #t)
   (return-type "gchar**")
 )
 

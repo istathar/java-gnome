@@ -213,6 +213,7 @@
 (define-method get_uris
   (of-object "GtkRecentChooser")
   (c-name "gtk_recent_chooser_get_uris")
+  (caller-owns-return #t)
   (return-type "gchar**")
   (parameters
     '("gsize*" "length")
