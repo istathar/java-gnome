@@ -43,7 +43,7 @@ Java_org_gnome_gtk_GtkButton_gtk_1button_1get_1name
 	}
 
 	// call function
-	gtk_button_get_widgets(self, widgets);
+	gtk_button_get_name(self, name);
 
 	// cleanup parameter self
 

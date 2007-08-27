@@ -66,4 +66,11 @@ extern gpointer* bindings_java_convert_jarray_to_gpointer(JNIEnv*, jlongArray);
 /* the gpointer array is freed at the end */
 extern void bindings_java_convert_gpointer_to_jarray(JNIEnv*, gpointer*, jlongArray);
 
+/* the gchar* arrays is not freed */
+extern jobjectArray bindings_java_convert_gchararray_to_jarray(JNIEnv*, const gchar**);
+extern gchar** bindings_java_convert_strarray_to_gchararray(JNIEnv*, jobjectArray);
+
+/* the gchar* array is freed */
+extern void bindings_java_convert_gchararray_to_strarray(JNIEnv*, gchar**, jobjectArray);
+
 #endif 

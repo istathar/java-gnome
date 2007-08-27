@@ -233,3 +233,104 @@ bindings_java_convert_gpointer_to_jarray
 	g_free(ptrs);
 }
 
+jobjectArray 
+bindings_java_convert_gchararray_to_jarray
+(
+	JNIEnv* env, 
+	const gchar** array
+)
+{
+	jobjectArray _array;
+	jclass strClass;
+	int i, size;
+	
+	size = 0;
+	
+	/*
+	 * In Gtk+, all returning gchar* arrays are NULL-terminated
+	 */
+	while (array[size] != NULL) ++size; 
+	if ( size == 0 ) {
+		// FIXME, maybe a 0 length array is better
+		return NULL;
+	}
+	
+	strClass = (*env)->FindClass(env, "java/lang/String");
+	if (strClass == NULL) {
+		return NULL; // Java Exception already thrown
+	}
+	
+	_array = (*env)->NewObjectArray(env, size, strClass, NULL);
+	if (_array == NULL) {
+		return NULL; // Java Exception already thrown
+	}
+	
+	for (i = 0; i < size; ++i) {
+		jstring str = (*env)->NewStringUTF(env, array[i]);
+		(*env)->SetObjectArrayElement(env, _array, i, (jobject) str);
+		(*env)->DeleteLocalRef(env, str);
+	}
+	
+	(*env)->DeleteLocalRef(env, strClass);
+	return _array;
+}
+
+gchar** 
+bindings_java_convert_strarray_to_gchararray
+(
+	JNIEnv* env, 
+	jobjectArray _array 
+)
+{
+	gchar** array;
+	int i, size;
+	
+	size = (*env)->GetArrayLength(env, _array);
+	if ( size == 0 ) {
+		//FIXME mmm, what if we just pass an empty array?
+		return NULL;
+	}
+	
+	/*
+	 * Most gchar** arrays in Gtk+ are NULL-terminated. But in java it
+	 * has no sense force users to NULL-terminate an array. Thus, we always
+	 * allocate an extra element that we will set to NULL.
+	 */
+	array = g_malloc((size+1) * sizeof(gchar*));
+	if (array == NULL) {
+		return NULL; // throw MemoryError??
+	}
+	
+	for (i = 0; i < size; ++i) {
+		jstring str = (jstring) (*env)->GetObjectArrayElement(env, _array, i);
+		const gchar* cstr = (const gchar*) (*env)->GetStringUTFChars(env, str, NULL);
+		array[i] = g_strdup(cstr);
+		(*env)->ReleaseStringUTFChars(env, str, cstr);
+		(*env)->DeleteLocalRef(env, str);
+	}
+	array[size] = NULL;
+	
+	return array;
+}
+
+void 
+bindings_java_convert_gchararray_to_strarray
+(
+	JNIEnv* env, 
+	gchar** array, 
+	jobjectArray _array
+)
+{
+	/* 
+	 * FIXME
+	 * For now, we don't support string arrays that are filled by Gtk+,
+	 * other than return parameters (managed in above function
+	 * bindings_java_convert_gchararray_to_jarray). 
+	 * Thus, this just free the C array. It's supposed that this is an array
+	 * previously allocated in bindings_java_convert_strarray_to_gchararray.
+	 * Take care that this can lead to failures in methods like
+	 * gtk_image_get_icon_name, where the returning strings are hanled by Gtk+.
+	 */
+	// array needs to be NULL-terminated
+	g_strfreev(array);
+}

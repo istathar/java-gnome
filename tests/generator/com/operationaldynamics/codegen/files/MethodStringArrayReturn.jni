@@ -41,5 +41,5 @@ Java_org_gnome_gtk_GtkButton_gtk_1button_1get_1labels
 	// cleanup parameter self
 
 	// and finally
-	return bindings_java_convert_gchararray_to_jarray(env, result);
+	return (jobjectArray) bindings_java_convert_gchararray_to_jarray(env, result);
 }

@@ -19,7 +19,6 @@ package org.gnome.gtk;
 
 import org.gnome.gtk.Button;
 import org.gnome.gtk.Plumbing;
-import org.gnome.gtk.Widget;
 
 final class GtkButton extends Plumbing
 {

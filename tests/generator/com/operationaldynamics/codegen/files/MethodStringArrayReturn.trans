@@ -32,7 +32,7 @@ final class GtkButton extends Plumbing
         }
 
         synchronized (lock) {
-            result = gtk_button_get_label(pointerOf(self));
+            result = gtk_button_get_labels(pointerOf(self));
 
             return result;
         }
