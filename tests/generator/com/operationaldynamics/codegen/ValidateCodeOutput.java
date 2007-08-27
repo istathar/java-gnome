@@ -217,10 +217,24 @@ public class ValidateCodeOutput extends TestCase
     }
 
     /**
+     * Test methods that take string out params
+     */
+    public void testMethodWithStringOutput() throws Exception {
+        doTest("MethodStringOutput", false, false);
+    }
+
+    /**
      * Test methods that return a string
      */
     public void testMethodWithStringReturn() throws Exception {
         doTest("MethodStringReturn", false, false);
+    }
+
+    /**
+     * Test methods that return an array of strings
+     */
+    public void testMethodWithStringArrayReturn() throws Exception {
+        doTest("MethodStringArrayReturn", false, false);
     }
 
     /**

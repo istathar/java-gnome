@@ -1,0 +1,14 @@
+;; Test for methods that return String value
+
+(define-object Button
+  (in-module "Gtk")
+  (parent "GtkBin")
+  (c-name "GtkButton")
+  (gtype-id "GTK_TYPE_BUTTON")
+)
+
+(define-method get_labels
+  (of-object "GtkButton")
+  (c-name "gtk_button_get_labels")
+  (return-type "gchar**")
+)
