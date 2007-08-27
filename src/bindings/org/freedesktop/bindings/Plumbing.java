@@ -120,7 +120,7 @@ public abstract class Plumbing
     protected static final long[] pointersOf(Proxy[] references) {
         long[] pointers = new long[references.length];
         for (int i = 0; i < references.length; ++i) {
-            pointers[i] = references[i].pointer;
+            pointers[i] = (references[i] == null ? 0L : references[i].pointer);
         }
         return pointers;
     }
@@ -246,7 +246,11 @@ public abstract class Plumbing
     protected static final int[] numsOf(Constant[] references) {
         int[] ordinals = new int[references.length];
         for (int i = 0; i < references.length; ++i) {
-            ordinals[i] = references[i].ordinal;
+            /*
+             * Here we need to check for null, as in output parameters
+             * we don't want to initialize the array!
+             */
+            ordinals[i] = references[i] == null ? 0 : references[i].ordinal;
         }
         return ordinals;
     }
