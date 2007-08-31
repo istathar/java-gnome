@@ -17,13 +17,15 @@ package org.gnome.glib;
  * 
  * <p>
  * For functions that take a <code>GError</code> argument, we throw this
- * kind of exception if the function returns an error.
+ * Exception if the function returns an error.
  * 
  * @author Vreixo Formoso
  * @since 4.0.4
  */
 public class GlibException extends Exception
 {
+
+    private static final long serialVersionUID = 1;
 
     protected GlibException() {
         super();
