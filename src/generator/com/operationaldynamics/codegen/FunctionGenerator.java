@@ -157,6 +157,8 @@ public class FunctionGenerator extends Generator
     }
 
     protected void translationMethodConversionCode(PrintWriter out) {
+        int declarations = 0;
+
         out.print(" {\n");
 
         /*
@@ -167,12 +169,9 @@ public class FunctionGenerator extends Generator
             out.print("        ");
             out.print(returnType.nativeType);
             out.print(" result;\n");
+            declarations++;
         }
 
-        /*
-         * Types than need extra translation will also need a auxiliar local
-         * variable, that we will declare here.
-         */
         for (int i = 0; i < parameterTypes.length; i++) {
             if (parameterTypes[i] instanceof GErrorThing) {
                 continue;
@@ -181,9 +180,13 @@ public class FunctionGenerator extends Generator
                 out.print("        ");
                 out.print(parameterTypes[i].nativeType);
                 out.print(" _" + parameterNames[i] + ";\n");
+                declarations++;
             }
         }
-        out.print("\n");
+
+        if (declarations > 0) {
+            out.print("\n");
+        }
 
         /*
          * Guard against null in parameters that can't be null
@@ -194,8 +197,8 @@ public class FunctionGenerator extends Generator
             }
             if (!parameterCanBeNull[i] && !(parameterTypes[i] instanceof FundamentalThing)) {
                 out.print("        if (" + parameterNames[i] + " == null) {\n");
-                out.print("            throw new IllegalArgumentException(\"Parameter "
-                        + parameterNames[i] + " can't be null\");\n");
+                out.print("            throw new IllegalArgumentException(\"" + parameterNames[i]
+                        + " can't be null\");\n");
                 out.print("        }\n\n");
             }
         }
@@ -204,6 +207,7 @@ public class FunctionGenerator extends Generator
          * convert (translate) variables from public Java to JNI boundary
          * crossing (ie, out-parameters)
          */
+
         for (int i = 0; i < parameterTypes.length; i++) {
             if (parameterTypes[i] instanceof GErrorThing) {
                 continue;
