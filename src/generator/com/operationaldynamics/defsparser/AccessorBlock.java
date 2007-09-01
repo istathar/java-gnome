@@ -41,10 +41,10 @@ public abstract class AccessorBlock extends FunctionBlock
      */
     public List usesTypes() {
         Thing type = Thing.lookup(returnType).getTypeToImport();
-        if (type != null)
+        if (type != null) {
             return Collections.singletonList(type);
-        else
+        } else {
             return Collections.EMPTY_LIST;
+        }
     }
-
 }
