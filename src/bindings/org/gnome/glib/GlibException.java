@@ -16,15 +16,40 @@ package org.gnome.glib;
  * An exception thrown by the underlying library.
  * 
  * <p>
- * For functions that take a <code>GError</code> argument, we throw this
- * Exception if the function returns an error.
+ * <b>It is inappropriate for a public API wrapper method to throw this
+ * Exception. It is to be caught and re-thrown as a new Exception of an
+ * appropriate Java type.</b> For example, if a function uses this mechanism
+ * to report being unable to locate a file on disk, then the wrapper method
+ * should do the following:
+ * 
+ * <pre>
+ * public String getModificationDate(String filename) {
+ *     try {
+ *         NativeLibrary.getModificationDate(this, filename);
+ *     } catch (GlibException ge) {
+ *         throw new FileNotFoundException(ge.getMessage());
+ *     }
+ * }
+ * </pre>
+ * 
+ * <p>
+ * <i> We map native functions that take a <code>GError**</code> argument to
+ * throwing this Exception if the function actually returns an error via that
+ * parameter; the error parameter is masked from the binding hacker's view by
+ * being handled in the C side JNI code.</i>
+ * 
+ * <p>
+ * <i>Note that <code>GError</code>s are meant as Exceptions in the Java
+ * sense of the term; they do not represent crashes nor RuntimeExceptions;
+ * they are conditions that the programmer will need to create appropriate
+ * user interface code for to allow the <i>user</i> to deal with.</i>
  * 
  * @author Vreixo Formoso
+ * @author Andrew Cowie
  * @since 4.0.4
  */
 public class GlibException extends Exception
 {
-
     private static final long serialVersionUID = 1;
 
     protected GlibException() {
