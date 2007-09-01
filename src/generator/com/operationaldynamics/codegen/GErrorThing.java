@@ -29,34 +29,22 @@ public class GErrorThing extends Thing
     }
 
     String translationToJava(String name, DefsFile data) {
-        throw new RuntimeException("This method is undefined for GError");
+        throw new Error("This method is undefined for GError");
     }
 
     String translationToNative(String name) {
-        throw new RuntimeException("This method is undefined for GError");
+        throw new Error("This method is undefined for GError");
     }
 
     String jniReturnErrorValue() {
-        throw new RuntimeException("This method is undefined for GError");
-    }
-
-    String extraTranslationToJava(String name, DefsFile data) {
-        throw new RuntimeException("This method is undefined for GError");
+        throw new Error("This method is undefined for GError");
     }
     
     boolean needGuardAgainstNull() {
-        throw new RuntimeException("This method is undefined for GError");
-    }
-
-    String extraTranslationToNative(String name) {
-        throw new RuntimeException("This method is undefined for GError");
+        throw new Error("This method is undefined for GError");
     }
 
     public Thing getTypeToImport() {
         return Thing.lookup("GlibException");
-    }
-
-    boolean needExtraTranslation() {
-        throw new RuntimeException("This method is undefined for GError");
     }
 }

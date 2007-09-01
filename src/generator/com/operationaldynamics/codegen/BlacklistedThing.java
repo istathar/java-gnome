@@ -46,20 +46,4 @@ public class BlacklistedThing extends Thing
     String jniReturnErrorValue() {
         return "";
     }
-
-    String extraTranslationToJava(String name, DefsFile data) {
-        return null;
-    }
-
-    String extraTranslationToNative(String name) {
-        return null;
-    }
-
-    public Thing getTypeToImport() {
-        return this;
-    }
-
-    boolean needExtraTranslation() {
-        return false;
-    }
 }

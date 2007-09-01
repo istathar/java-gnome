@@ -385,9 +385,9 @@ public abstract class Thing
      * correspondent generator will call extraTranslationToNative() and
      * extraTranslationToJava() when needed.
      */
-    // TODO need a default impl that return false/null in all extra-trans
-    // related methods
-    abstract boolean needExtraTranslation();
+    boolean needExtraTranslation() {
+        return false;
+    }
 
     /**
      * When the translation to native needs some lines of code, or just it
@@ -398,7 +398,9 @@ public abstract class Thing
      * For most Things, the extra translation is not needed. Only composes
      * types such as some arrays / out parameters need this.
      */
-    abstract String extraTranslationToNative(String name);
+   String extraTranslationToNative(String name) {
+        return null;
+    }
 
     /**
      * Like {@link #translationToJava(String, DefsFile) translationToJava()},
@@ -406,7 +408,9 @@ public abstract class Thing
      * 
      * TODO change name!!!
      */
-    abstract String extraTranslationToJava(String name, DefsFile data);
+    String extraTranslationToJava(String name, DefsFile data) {
+        return null;
+    }
 
     /**
      * Check if the type need to the guard against null values when null-ok is
@@ -488,7 +492,9 @@ public abstract class Thing
      * @return The type to import or <code>null</code> meaning no import
      *         needed.
      */
-    public abstract Thing getTypeToImport();
+    public Thing getTypeToImport() {
+        return this;
+    }
 
     /**
      * Get the fully qualified name of the public Java type, ie, for

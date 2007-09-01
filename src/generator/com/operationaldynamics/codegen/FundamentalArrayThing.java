@@ -74,18 +74,6 @@ public class FundamentalArrayThing extends ArrayThing
         return "NULL";
     }
 
-    String extraTranslationToJava(String name, DefsFile data) {
-        return null;
-    }
-
-    String extraTranslationToNative(String name) {
-        return null;
-    }
-
-    boolean needExtraTranslation() {
-        return false;
-    }
-
     String translationToJava(String name, DefsFile data) {
         return name;
     }

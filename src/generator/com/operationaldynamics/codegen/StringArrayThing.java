@@ -38,18 +38,6 @@ public class StringArrayThing extends ArrayThing
         return "bindings_java_convert_gchararray_to_jarray(env, " + name + ")";
     }
 
-    String extraTranslationToJava(String name, DefsFile data) {
-        return null;
-    }
-
-    String extraTranslationToNative(String name) {
-        return null;
-    }
-
-    boolean needExtraTranslation() {
-        return false;
-    }
-
     String translationToJava(String name, DefsFile data) {
         return name;
     }
