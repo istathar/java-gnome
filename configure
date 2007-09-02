@@ -105,37 +105,55 @@ sub bail {
 # (for whatever reason). If they aren't installed, we bomb here in configure
 # instead of dying unceremoniously while make'ing.
 
-sub check_system_library (\@$$@) {
+sub check_system_library(\@$$@) {
 	my ($gnomedevref, $item, $package, $prefix, @files) = @_;
 	output " - ".$item;
 	
 	my $found = "";
 	my $str = "";
 	my $tries = "";
+
+	if (!defined($prefix)) {
+		$prefix = "/usr";
+	}
+
 	foreach my $file (@files) {
-		if ( (-f "/usr/$file") or -f ("$prefix/$file") ) {
+		$file = "$prefix$file";
+		if ( -f ("$file")) {
 			$found = $file;
 			last;
 		}
-		$tries .= ($tries ? ", or" : "" ) . "\n\t".  basename($file) . "\t(looked in ".dirname($file).")";
+		$tries .= ($tries ? ", or" : "" ) . "\n\t".  basename($file) . "\n\t(looked in ".dirname("$file").")";
 	}
 
-# The following is hokey and doesn't exactly concur with the rest of Equivalence.
-# Ideally, we should be able to tell the user what package he needs to install. 
-# So a FIXME.
-
 	if (! "$found" ){
-	$str = "In order to build java-gnome, you will need\n".$tries;
-	$str .= "\n\nwhich is included in the GNOME development\n";
-	$str .= "libraries.\n";
-	$str .= <<EOSTR;
-On Ubuntu 7.04, you can install the gnome-devel
-package
-\$ sudo apt-get install gnome-devel
-EOSTR
 
-	bail "\tnot found!", $str;
+		$str = "In order to build java-gnome, you will need the GNOME\n";
+		$str .= "development libraries. Depending on what you have installed,\n";
+		$str .= "this could be a considerable set of packages, but if you\n";
+		$str .= "want to be a GNOME hacker, that's the way it is]. We probed\n";
+		$str .= "for:\n";
 
+		$str .= "$tries\n\n";
+
+		$str .= "On a ".ucfirst($os)." system, you should be able to satisfy this\n";
+		$str .= "requirement by doing:\n\n";
+		$str .= "     # ";
+
+		if ($os eq "gentoo") {
+			$str .= "emerge";
+		} elsif ($os eq "debian") {
+			$str .= "apt-get install";
+		} elsif ($os eq "fedora") {
+			$str .= "yum install";
+		} elsif ($os eq "solaris") {
+			$str .= "pkgadd";
+		} else {
+			$str .= "[FIXME fetch and install command for this OS]"; 
+		}
+		$str .= " $package";
+
+		bail "not found!", $str;
 	}
 	print "found\n";
 	
@@ -822,8 +840,7 @@ if ($os eq "gentoo") {
 	check_system_library(@gnomedev_libs,
 			"GNOME",
 			"gnome", $prefix,
-			("/include/gnome-desktop-2.0/libgnome/gnome-desktop-item.h",
-			""));
+			("/include/gnome-desktop-2.0/libgnome/gnome-desktop-item.h"));
 
 } elsif ($os eq "debian") {
 	check_system_library(@gnomedev_libs,
