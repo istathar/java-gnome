@@ -271,4 +271,37 @@ public abstract class Widget extends org.gnome.gtk.Object
         }
         GtkTooltips.setTip(globalTooltipsGroup, this, text, "");
     }
+
+    /**
+     * Get the underlying resource being used to power display of, and
+     * interaction with, this Widget.
+     * 
+     * <p>
+     * <b>If you're looking for the top Window in a Widget hierarchy, see</b>
+     * {@link #getTopLevel() getTopLevel()}. This method is to get a
+     * reference to the lower level GDK mechanisms used by this Widget, not to
+     * navigate up a hierarchy of Widgets to find the top-level Window they
+     * are packed into.
+     * 
+     * <p>
+     * If what you need are the event handling facilities that go with Widgets
+     * that have their own native resources, consider creating an
+     * {@link EventBox EventBox} and putting this Widget into it.
+     * 
+     * <p>
+     * <i>If you call this in a class where you're building Windows, then you
+     * will probably end up having to use the fully qualified name</i>
+     * <code>org.gnome.gdk.Window</code> <i>when declaring variables. That's
+     * an unavoidable consequence of the class mapping algorithm we used, but
+     * <code>GdkWindow</code> is the name of the underlying type being
+     * returned, and so Window it is.</i>
+     * 
+     * @return the <code>org.gnome.gdk.Window</code> associated with this
+     *         Widget, or <code>null</code> if this Widget is (as yet)
+     *         without one.
+     * @since 4.0.4
+     */
+    public org.gnome.gdk.Window getWindow() {
+        return GtkWidgetOverride.getWindow(this);
+    }
 }
