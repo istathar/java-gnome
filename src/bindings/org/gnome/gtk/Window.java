@@ -14,6 +14,7 @@ package org.gnome.gtk;
 import org.gnome.gdk.Event;
 import org.gnome.gdk.Gravity;
 import org.gnome.gdk.Screen;
+import org.gnome.gdk.WindowState;
 
 /**
  * The top level Widget that contains other Widgets. Typical examples are
@@ -467,6 +468,84 @@ public class Window extends Bin
             GtkWindow.stick(this);
         } else {
             GtkWindow.unstick(this);
+        }
+    }
+
+    /**
+     * Request the window manager maximize (grow to cover the whole screen) or
+     * restore (return to normal) this Window.
+     * 
+     * <p>
+     * The difference between this and
+     * {@link #setFullscreen(boolean) setFullscreen(true)} is that a maximized
+     * Window still has the title at the top of the screen (along with other
+     * window decorations, depending on the theme), and the panel(s) are still
+     * visible; a fullscreen window is over top of <i>everything</i>. While
+     * there are legitimate uses for both, maximizing is somewhat preferable
+     * since it does not obscure the panels.
+     * 
+     * <p>
+     * The default for new Windows in ordinary circumstances is that they are
+     * not maximized.
+     * 
+     * <p>
+     * Note that maximizing is generally done by the <i>user</i> via the
+     * global <code>Alt+F10</code> accelerator or the <code>[&#9633;]</code>
+     * button in the window title bar. The only reason to call this
+     * programmatically is if restoring the application to the maximized state
+     * in order to maintaining the user's preference from a previous run of
+     * the program. You can accordingly call this method before a Window is
+     * mapped to indicate to the Window manager that you want it to be
+     * maximized when shown.
+     * 
+     * <p>
+     * As with all the other window manager operations, this is a request and
+     * may or may not be honoured by the window manager depending on what
+     * constraints it is operating under.
+     * 
+     * @since 4.0.4
+     */
+    public void setMaximize(boolean setting) {
+        if (setting) {
+            GtkWindow.maximize(this);
+        } else {
+            GtkWindow.unmaximize(this);
+        }
+    }
+
+    /**
+     * Enquire whether or not this Window is maximized.
+     * 
+     * <p>
+     * While this is in the form of a getter, <var>maximize</var> is not a
+     * property, as such. This method only works (ie, reports
+     * <code>true</code>) if the Window is actually on the screen (ie has
+     * been mapped via a <code>show()</code> call), and really <b>is</b>
+     * currently maximized.
+     * 
+     * <p>
+     * In other words, this won't do you any good when initializing your
+     * program. It doesn't refer to a future state that will be realized in
+     * due course - which means, incidentally that it won't tell you if you
+     * already called {@link #setMaximize(boolean) setMaximize(true)} to
+     * register your intent to have the window be maximized on presentation.
+     * 
+     * @since 4.0.4
+     */
+    public boolean getMaximized() {
+        final org.gnome.gdk.Window underlying;
+        final WindowState state;
+
+        underlying = super.getWindow();
+        if (underlying == null) {
+            throw new IllegalStateException("The underlying GdkWindow is null.");
+        }
+        state = underlying.getState();
+
+        if (state.contains(WindowState.MAXIMIZED)) {
+            return true;
+        } else {
+            return false;
         }
     }
 }
