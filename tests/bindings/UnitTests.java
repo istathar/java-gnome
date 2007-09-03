@@ -100,8 +100,8 @@ public class UnitTests
         suite.addTestSuite(ValidateReferenceCounting.class);
         suite.addTestSuite(ValidateMemoryManagement.class);
         suite.addTestSuite(ValidateGListMethods.class);
-        suite.addTestSuite(ValidateProperties.class);
         suite.addTestSuite(ValidateConstants.class);
+        suite.addTestSuite(ValidateProperties.class);
         suite.addTestSuite(ValidateScreensAndDisplays.class);
         suite.addTestSuite(ValidateOutParameters.class);
         suite.addTestSuite(ValidatePacking.class);
