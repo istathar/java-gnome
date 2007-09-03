@@ -268,19 +268,36 @@ public abstract class Plumbing
      */
     protected static Flag flagFor(Class type, int ordinal) {
         Flag obj;
+        String name;
 
         obj = (Flag) getRegisteredConstant(type, ordinal);
-        if (obj == null) {
-            String name = null;
+
+        /*
+         * In many circumstances, Flags are used like enums, and so the
+         * returned value will match one of the cardinal values. Too easy:
+         */
+
+        if (obj != null) {
+            return obj;
+        }
+        
+        /*
+         * Otherwise, we need a new one to represent this bit pattern.
+         */
+
+        if (ordinal == 0) {
+            name = "UNSET";
+        } else {
+            name = null;
             for (int i = 1; i != 0; i <<= 1) {
                 if ((ordinal & i) != 0) {
                     Constant c = enumFor(type, i);
                     name = (name == null ? "" : name + "|") + c.nickname;
                 }
             }
-            obj = createFlag(type, ordinal, name);
         }
 
+        obj = createFlag(type, ordinal, name);
         return obj;
     }
 
