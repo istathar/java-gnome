@@ -60,7 +60,7 @@ public class FunctionGenerator extends Generator
      * This is filled with true if the parameter can be null (indicated with a
      * null-ok in .defs).
      */
-    protected final boolean[] parameterCanBeNull;
+    protected final boolean[] parameterNullOk;
 
     /**
      * If a blacklistedType type is detected in this block, set it here.
@@ -98,12 +98,12 @@ public class FunctionGenerator extends Generator
 
         parameterTypes = new Thing[gParameters.length];
         parameterNames = new String[gParameters.length];
-        parameterCanBeNull = new boolean[gParameters.length];
+        parameterNullOk = new boolean[gParameters.length];
 
         for (int i = 0; i < gParameters.length; i++) {
             parameterTypes[i] = Thing.lookup(gParameters[i][0]);
             parameterNames[i] = toCamel(gParameters[i][1]);
-            parameterCanBeNull[i] = "yes".equals(gParameters[i][2]);
+            parameterNullOk[i] = "yes".equals(gParameters[i][2]);
         }
 
         blacklistedType = null;
@@ -195,7 +195,7 @@ public class FunctionGenerator extends Generator
             if (parameterTypes[i] instanceof GErrorThing) {
                 continue;
             }
-            if (!parameterCanBeNull[i] && !(parameterTypes[i] instanceof FundamentalThing)) {
+            if (!parameterNullOk[i] && !(parameterTypes[i] instanceof FundamentalThing)) {
                 out.print("        if (" + parameterNames[i] + " == null) {\n");
                 out.print("            throw new IllegalArgumentException(\"" + parameterNames[i]
                         + " can't be null\");\n");
@@ -376,7 +376,7 @@ public class FunctionGenerator extends Generator
              * If a parameter can be null, we need an extra if to avoid the
              * conversion if it is in fact NULL
              */
-            if (parameterCanBeNull[i] && !parameterTypes[i].jniConversionHandlesNull()) {
+            if (parameterNullOk[i] && !parameterTypes[i].jniConversionHandlesNull()) {
                 out.print("\tif (_" + parameterNames[i] + " == NULL) {\n");
                 out.print("\t\t" + parameterNames[i] + " = NULL;\n");
                 out.print("\t} else {\n");
@@ -407,7 +407,7 @@ public class FunctionGenerator extends Generator
                 jniReturnIfExceptionThrown(out, i);
             }
 
-            if (parameterCanBeNull[i] && !parameterTypes[i].jniConversionHandlesNull()) {
+            if (parameterNullOk[i] && !parameterTypes[i].jniConversionHandlesNull()) {
                 /* close the "else" */
                 out.print("\t}\n");
             }
@@ -431,7 +431,7 @@ public class FunctionGenerator extends Generator
          * When the parameter can be null, we need an extra tab because of the
          * if.
          */
-        extraTab = parameterCanBeNull[i] && !parameterTypes[i].jniConversionHandlesNull() ? "\t" : "";
+        extraTab = parameterNullOk[i] && !parameterTypes[i].jniConversionHandlesNull() ? "\t" : "";
 
         out.print(extraTab + "\tif (");
         out.print(parameterNames[i]);
@@ -508,14 +508,14 @@ public class FunctionGenerator extends Generator
             /*
              * clean-up is not needed when the parameter is null
              */
-            if (parameterCanBeNull[i] && !parameterTypes[i].jniConversionHandlesNull()) {
+            if (parameterNullOk[i] && !parameterTypes[i].jniConversionHandlesNull()) {
                 out.print("\tif (" + parameterNames[i] + " != NULL) {\n");
                 out.print("\t");
             }
             out.print("\t");
             out.print(cleanup);
             out.print(";\n");
-            if (parameterCanBeNull[i] && !parameterTypes[i].jniConversionHandlesNull()) {
+            if (parameterNullOk[i] && !parameterTypes[i].jniConversionHandlesNull()) {
                 out.print("\t}\n");
             }
         }
