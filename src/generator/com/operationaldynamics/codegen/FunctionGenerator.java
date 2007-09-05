@@ -2,6 +2,7 @@
  * FunctionGenerator.java
  *
  * Copyright (c) 2007 Operational Dynamics Consulting Pty Ltd
+ * Copyright (c) 2007 Vreixo Formoso
  * 
  * The code in this file, and the library it is a part of, are made available
  * to you by the authors under the terms of the "GNU General Public Licence,
@@ -15,15 +16,17 @@ import java.io.PrintWriter;
 import com.operationaldynamics.driver.DefsFile;
 
 /**
- * Generate Java and C code for constructors and methods.
+ * Generate Java and C code for constructors, methods and other kind of
+ * functions.
  * <p>
  * Subclasses can override the individual steps of the generation sequence if
  * they wish, however adjusting input passing up to this classes's constructor
  * has been thus far been enough for constructors blocks and methods blocks.
  * 
  * @author Andrew Cowie
+ * @author Vreixo Formoso
  */
-abstract class FunctionGenerator extends Generator
+public class FunctionGenerator extends Generator
 {
     /**
      * The Thing describing the object we are generating code relative to.
@@ -54,6 +57,12 @@ abstract class FunctionGenerator extends Generator
     protected final String[] parameterNames;
 
     /**
+     * This is filled with true if the parameter can be null (indicated with a
+     * null-ok in .defs).
+     */
+    protected final boolean[] parameterNullOk;
+
+    /**
      * If a blacklistedType type is detected in this block, set it here.
      */
     private Thing blacklistedType;
@@ -75,7 +84,7 @@ abstract class FunctionGenerator extends Generator
      *            an array of String[2] arrays, listing the type and name of
      *            each parameter.
      */
-    FunctionGenerator(final DefsFile data, final String blockName, final String gReturnType,
+    public FunctionGenerator(final DefsFile data, final String blockName, final String gReturnType,
             final String cFunctionName, final String[][] gParameters) {
         super(data);
 
@@ -89,16 +98,19 @@ abstract class FunctionGenerator extends Generator
 
         parameterTypes = new Thing[gParameters.length];
         parameterNames = new String[gParameters.length];
+        parameterNullOk = new boolean[gParameters.length];
 
         for (int i = 0; i < gParameters.length; i++) {
             parameterTypes[i] = Thing.lookup(gParameters[i][0]);
             parameterNames[i] = toCamel(gParameters[i][1]);
+            parameterNullOk[i] = "yes".equals(gParameters[i][2]);
         }
 
         blacklistedType = null;
     }
 
     protected void translationMethodDeclaration(PrintWriter out) {
+        boolean hasGError = false;
 
         out.print("\n");
         out.print("    ");
@@ -110,6 +122,11 @@ abstract class FunctionGenerator extends Generator
         out.print("(");
 
         for (int i = 0; i < parameterTypes.length; i++) {
+            if (parameterTypes[i] instanceof GErrorThing) {
+                hasGError = true;
+                continue;
+            }
+
             if (i > 0) {
                 out.print(", ");
             }
@@ -120,6 +137,11 @@ abstract class FunctionGenerator extends Generator
         }
 
         out.print(")");
+
+        if (hasGError && !blockContainsBlacklistedThings()) {
+            out.print(" throws GlibException");
+        }
+
     }
 
     protected void translationMethodThrowBlacklisted(PrintWriter out) {
@@ -135,6 +157,8 @@ abstract class FunctionGenerator extends Generator
     }
 
     protected void translationMethodConversionCode(PrintWriter out) {
+        int declarations = 0;
+
         out.print(" {\n");
 
         /*
@@ -144,13 +168,57 @@ abstract class FunctionGenerator extends Generator
         if (!returnType.javaType.equals("void")) {
             out.print("        ");
             out.print(returnType.nativeType);
-            out.print(" result;\n\n");
+            out.print(" result;\n");
+            declarations++;
+        }
+
+        for (int i = 0; i < parameterTypes.length; i++) {
+            if (parameterTypes[i] instanceof GErrorThing) {
+                continue;
+            }
+            if (parameterTypes[i].needExtraTranslation()) {
+                out.print("        ");
+                out.print(parameterTypes[i].nativeType);
+                out.print(" _" + parameterNames[i] + ";\n");
+                declarations++;
+            }
+        }
+
+        if (declarations > 0) {
+            out.print("\n");
         }
 
         /*
-         * TODO convert (translate) variables from public Java to JNI boundary
+         * Guard against null in parameters that can't be null
+         */
+        for (int i = 0; i < parameterTypes.length; i++) {
+            if (parameterTypes[i] instanceof GErrorThing) {
+                continue;
+            }
+            if (!parameterNullOk[i] && !(parameterTypes[i] instanceof FundamentalThing)) {
+                out.print("        if (" + parameterNames[i] + " == null) {\n");
+                out.print("            throw new IllegalArgumentException(\"" + parameterNames[i]
+                        + " can't be null\");\n");
+                out.print("        }\n\n");
+            }
+        }
+
+        /*
+         * convert (translate) variables from public Java to JNI boundary
          * crossing (ie, out-parameters)
          */
+
+        for (int i = 0; i < parameterTypes.length; i++) {
+            if (parameterTypes[i] instanceof GErrorThing) {
+                continue;
+            }
+            if (parameterTypes[i].needExtraTranslation()) {
+                out.print("        ");
+                out.print("_" + parameterNames[i] + " = ");
+                out.print(parameterTypes[i].extraTranslationToNative(parameterNames[i]));
+                out.print(";\n\n");
+            }
+        }
 
         /*
          * And now enter the GDK lock prior to making the native calls. FUTURE
@@ -174,6 +242,9 @@ abstract class FunctionGenerator extends Generator
         out.print("(");
 
         for (int i = 0; i < parameterTypes.length; i++) {
+            if (parameterTypes[i] instanceof GErrorThing) {
+                continue;
+            }
             if (i > 0) {
                 out.print(", ");
             }
@@ -182,6 +253,19 @@ abstract class FunctionGenerator extends Generator
         }
 
         out.print(");\n");
+    }
+
+    protected void translationMethodParamConversion(PrintWriter out) {
+        for (int i = 0; i < parameterTypes.length; i++) {
+            if (parameterTypes[i] instanceof GErrorThing) {
+                continue;
+            }
+            if (parameterTypes[i].needExtraTranslation()) {
+                out.print("            ");
+                out.print(parameterTypes[i].extraTranslationToJava(parameterNames[i], data));
+                out.print(";\n");
+            }
+        }
     }
 
     protected void translationMethodReturnCode(PrintWriter out) {
@@ -197,6 +281,8 @@ abstract class FunctionGenerator extends Generator
     }
 
     protected void nativeMethodDeclaration(PrintWriter out) {
+        boolean hasGError = false;
+
         out.print("    ");
         out.print("private static native final ");
         out.print(returnType.nativeType);
@@ -205,6 +291,10 @@ abstract class FunctionGenerator extends Generator
         out.print("(");
 
         for (int i = 0; i < parameterTypes.length; i++) {
+            if (parameterTypes[i] instanceof GErrorThing) {
+                hasGError = true;
+                continue;
+            }
             if (i > 0) {
                 out.print(", ");
             }
@@ -214,7 +304,11 @@ abstract class FunctionGenerator extends Generator
             out.print(parameterNames[i]);
         }
 
-        out.print(");\n");
+        if (hasGError) {
+            out.print(") throws GlibException;\n");
+        } else {
+            out.print(");\n");
+        }
     }
 
     protected void jniFunctionDeclaration(PrintWriter out) {
@@ -232,6 +326,9 @@ abstract class FunctionGenerator extends Generator
         out.print("\tjclass cls");
 
         for (int i = 0; i < parameterTypes.length; i++) {
+            if (parameterTypes[i] instanceof GErrorThing) {
+                continue;
+            }
             out.print(",\n\t");
 
             out.print(parameterTypes[i].jniType);
@@ -258,16 +355,33 @@ abstract class FunctionGenerator extends Generator
             out.print(parameterTypes[i].cType);
             out.print(" ");
             out.print(parameterNames[i]);
+            if (parameterTypes[i] instanceof GErrorThing) {
+                out.print(" = NULL");
+            }
             out.print(";\n");
         }
 
         for (int i = 0; i < parameterTypes.length; i++) {
+            if (parameterTypes[i] instanceof GErrorThing) {
+                continue;
+            }
             /*
              * Comment
              */
             out.print("\n\t// convert parameter ");
             out.print(parameterNames[i]);
             out.print("\n");
+
+            /*
+             * If a parameter can be null, we need an extra if to avoid the
+             * conversion if it is in fact NULL
+             */
+            if (parameterNullOk[i] && !parameterTypes[i].jniConversionHandlesNull()) {
+                out.print("\tif (_" + parameterNames[i] + " == NULL) {\n");
+                out.print("\t\t" + parameterNames[i] + " = NULL;\n");
+                out.print("\t} else {\n");
+                out.print("\t");
+            }
 
             /*
              * variable equals
@@ -289,7 +403,14 @@ abstract class FunctionGenerator extends Generator
 
             out.print(parameterTypes[i].jniConversionDecode(parameterNames[i]));
             out.print(";\n");
-            jniReturnIfExceptionThrown(out, i);
+            if (parameterTypes[i].jniConversionCanFail()) {
+                jniReturnIfExceptionThrown(out, i);
+            }
+
+            if (parameterNullOk[i] && !parameterTypes[i].jniConversionHandlesNull()) {
+                /* close the "else" */
+                out.print("\t}\n");
+            }
         }
     }
 
@@ -304,21 +425,26 @@ abstract class FunctionGenerator extends Generator
      *            from inside a for loop iterating over the parameters).
      */
     private void jniReturnIfExceptionThrown(PrintWriter out, int i) {
-        if ((parameterTypes[i] instanceof StringFundamentalThing)
-                || (parameterTypes[i] instanceof ArrayFundamentalThing)) {
-            out.print("\tif (");
-            out.print(parameterNames[i]);
-            out.print(" == NULL) {\n");
-            out.print("\t\treturn");
+        String extraTab;
 
-            if (!("void".equals(returnType.jniType))) {
-                out.print(" ");
-                out.print(returnType.jniReturnErrorValue());
-            }
+        /*
+         * When the parameter can be null, we need an extra tab because of the
+         * if.
+         */
+        extraTab = parameterNullOk[i] && !parameterTypes[i].jniConversionHandlesNull() ? "\t" : "";
 
-            out.print("; // Java Exception already thrown\n");
-            out.print("\t}\n");
+        out.print(extraTab + "\tif (");
+        out.print(parameterNames[i]);
+        out.print(" == NULL) {\n");
+        out.print(extraTab + "\t\treturn");
+
+        if (!("void".equals(returnType.jniType))) {
+            out.print(" ");
+            out.print(returnType.jniReturnErrorValue());
         }
+
+        out.print("; // Java Exception already thrown\n");
+        out.print(extraTab + "\t}\n");
     }
 
     protected void jniFunctionLibraryCall(PrintWriter out) {
@@ -337,7 +463,15 @@ abstract class FunctionGenerator extends Generator
                 out.print(", ");
             }
 
-            out.print(parameterNames[i]);
+            if (parameterTypes[i] instanceof GErrorThing) {
+                /*
+                 * We pass the GError address
+                 */
+                out.print("&" + parameterNames[i]);
+            } else {
+                out.print(parameterNames[i]);
+            }
+
         }
         out.print(");\n");
     }
@@ -347,12 +481,19 @@ abstract class FunctionGenerator extends Generator
      */
     protected void jniFunctionReturnCode(PrintWriter out) {
         String cleanup;
+        String paramGError = null;
 
         /*
          * type specific cleanup:
          */
 
         for (int i = 0; i < parameterTypes.length; i++) {
+
+            if (parameterTypes[i] instanceof GErrorThing) {
+                paramGError = parameterNames[i];
+                continue;
+            }
+
             out.print("\n");
             out.print("\t// cleanup parameter ");
             out.print(parameterNames[i]);
@@ -364,9 +505,42 @@ abstract class FunctionGenerator extends Generator
                 continue;
             }
 
+            /*
+             * clean-up is not needed when the parameter is null
+             */
+            if (parameterNullOk[i] && !parameterTypes[i].jniConversionHandlesNull()) {
+                out.print("\tif (" + parameterNames[i] + " != NULL) {\n");
+                out.print("\t");
+            }
             out.print("\t");
             out.print(cleanup);
             out.print(";\n");
+            if (parameterNullOk[i] && !parameterTypes[i].jniConversionHandlesNull()) {
+                out.print("\t}\n");
+            }
+        }
+
+        /*
+         * When the function takes a GError** as a parameter, we need to check
+         * if the function has efectivelly thrown an error. After doing the
+         * needed clean-up, we check for that situation and throw an exception
+         * from JNI side.
+         */
+        if (paramGError != null) {
+            out.print("\n");
+            out.print("\t// check for error\n");
+
+            out.print("\tif (" + paramGError + ") {\n");
+
+            out.print("\t\tbindings_java_throw_gerror(env, ");
+            out.print(paramGError);
+            out.print(");\n");
+            out.print("\t\treturn");
+            if (!returnType.jniType.equals("void")) {
+                out.print(" " + returnType.jniReturnErrorValue());
+            }
+            out.print(";\n");
+            out.print("\t}\n");
         }
 
         /*
@@ -429,6 +603,7 @@ abstract class FunctionGenerator extends Generator
 
         translationMethodConversionCode(out);
         translationMethodNativeCall(out);
+        translationMethodParamConversion(out);
         translationMethodReturnCode(out);
 
         out.print("\n");

@@ -22,8 +22,12 @@ import com.operationaldynamics.driver.DefsFile;
  * Things corresponding to primative types (int, String, etc) for which there
  * are of course no (define- ...) blocks are registered internally by this
  * class.
+ * <p>
+ * Things collaborate with Generators in the generation of code, and are
+ * responsible for generation of type-dependent code.
  * 
  * @author Andrew Cowie
+ * @author Vreixo Formoso
  */
 public abstract class Thing
 {
@@ -102,7 +106,7 @@ public abstract class Thing
         register(new FundamentalThing("gchar", "char", "char", "jchar"));
         register(new FundamentalThing("guchar", "char", "char", "jchar"));
         register(new FundamentalThing("gunichar", "char", "char", "jchar"));
-        register(new StringFundamentalThing("gchar*"));
+        register(new StringThing("gchar*"));
 
         /*
          * A certain class of bugs arise from discarding the most significant
@@ -119,6 +123,7 @@ public abstract class Thing
         register(new FundamentalThing("guint16", "char", "char", "jchar"));
         register(new FundamentalThing("gint32", "int", "int", "jint"));
         register(new FundamentalThing("guint32", "int", "int", "jint"));
+        register(new FundamentalThing("gssize", "int", "int", "jint"));
         register(new FundamentalThing("gint64", "long", "long", "jlong"));
         register(new FundamentalThing("glong", "long", "long", "jlong"));
         register(new FundamentalThing("gulong", "long", "long", "jlong"));
@@ -129,22 +134,29 @@ public abstract class Thing
         /*
          * Types for array parameters
          */
-        register(new ArrayThing("gfloat[]", "float[]", "float[]", "jfloatArray"));
-        register(new ArrayThing("gint8[]", "int[]", "int[]", "jintArray"));
+        register(new FundamentalArrayThing("gfloat[]", "gfloat"));
+        register(new FundamentalArrayThing("gint8[]", "gint8"));
+
+        /*
+         * and for string arrays
+         */
+        register(new StringArrayThing("gchar**"));
 
         /* these seem a bit harder */
         register(new FixmeThing("const-gchar*[]"));
         register(new FixmeThing("gchar**[]"));
+        register(new FixmeThing("gint**"));
+        register(new FixmeThing("guint**"));
 
         /*
          * Out parameters for fundamental types are special cases, probably,
          * so we will continue to register their information here for now.
          */
-        register(new ArrayFundamentalThing("gint*", "int[]", "int[]", "jintArray"));
-        register(new ArrayFundamentalThing("guint*", "int[]", "int[]", "jintArray"));
-        register(new ArrayFundamentalThing("gfloat*", "float[]", "float[]", "jfloatArray"));
-        register(new ArrayFundamentalThing("gdouble*", "double[]", "double[]", "jdoubleArray"));
-        register(new ArrayFundamentalThing("gboolean*", "boolean[]", "boolean[]", "jbooleanArray"));
+        register(new FundamentalArrayThing("gint*", "gint"));
+        register(new FundamentalArrayThing("guint*", "guint"));
+        register(new FundamentalArrayThing("gfloat*", "gfloat"));
+        register(new FundamentalArrayThing("gdouble*", "gdouble"));
+        register(new FundamentalArrayThing("gboolean*", "gboolean"));
         // and so on
 
         /*
@@ -155,8 +167,8 @@ public abstract class Thing
          */
         register(new FundamentalThing("int", "int", "int", "jint"));
         register(new FundamentalThing("double", "double", "double", "jdouble"));
-        register(new StringFundamentalThing("char*"));
-        register(new ArrayFundamentalThing("int*", "int[]", "int[]", "jintArray"));
+        register(new StringThing("char*"));
+        register(new FundamentalArrayThing("int*", "int"));
 
         // is this actually correct?
         register(new FundamentalThing("time_t", "long", "long", "jlong"));
@@ -180,6 +192,12 @@ public abstract class Thing
         register(new ObjectThing("Proxy", "org.freedesktop.bindings", "", "Proxy"));
         register(new ObjectThing("Blacklist", "org.freedesktop.bindings", "", "BlacklistedMethodError"));
         register(new ObjectThing("FIXME", "org.freedesktop.bindings", "", "FIXME"));
+
+        /*
+         * Types needed for GError management
+         */
+        register(new GErrorThing());
+        register(new ObjectThing("GlibException", "org.gnome.glib", "", "GlibException"));
 
         /*
          * FIXME! Weirdo cases we haven't figured out what to do with yet.
@@ -305,13 +323,22 @@ public abstract class Thing
             bareGType = gType.substring(0, gType.length() - 1);
             stored = (Thing) things.get(bareGType);
 
-            if (stored != null) {
-                dupe = stored.createOutVariant();
+            /*
+             * we don't support arrays of arrays yet. the !(stored instanceof
+             * ArrayThing) is needed to prevent multiple recursion on *
+             */
+            if ((stored != null) && !(stored instanceof ArrayThing)) {
+                dupe = stored.createArrayVariant();
 
                 register(dupe);
                 return dupe;
             }
         }
+
+        /*
+         * TODO if we finally difference between * and [] we need to add more
+         * code here
+         */
 
         /*
          * If we're still stuck, then that is would be fatal, except that we
@@ -353,6 +380,67 @@ public abstract class Thing
     abstract String translationToNative(String name);
 
     /**
+     * Check if this type needs an extra translation other that the simple
+     * on-the-fly translationToNative(). If this is <code>true</code>, the
+     * correspondent generator will call extraTranslationToNative() and
+     * extraTranslationToJava() when needed.
+     */
+    boolean needExtraTranslation() {
+        return false;
+    }
+
+    /**
+     * When the translation to native needs some lines of code, or just it
+     * can't be done on-the-fly inside an argument list, this is called before
+     * the native method.
+     * 
+     * <p>
+     * For most Things, the extra translation is not needed. Only composes
+     * types such as some arrays / out parameters need this.
+     */
+    String extraTranslationToNative(String name) {
+        return null;
+    }
+
+    /**
+     * Like {@link #translationToJava(String, DefsFile) translationToJava()},
+     * but intented for "clean-up" of parameters.
+     * 
+     * TODO change name!!!
+     */
+    String extraTranslationToJava(String name, DefsFile data) {
+        return null;
+    }
+
+    /**
+     * Check if the type need to the guard against null values when null-ok is
+     * not present. For example, a fundamental "int" never needs a guard.
+     */
+    boolean needGuardAgainstNull() {
+        return true;
+    }
+
+    /**
+     * Check whether the jni conversion function can safety deal with a NULL
+     * input value, or is better to do a if like:
+     * 
+     * <pre>
+     * if (_x == NULL) {
+     *     x = NULL;
+     * } else {
+     *     ....
+     * }
+     * </pre>
+     * 
+     * to prevent the conversion function to be called with null values. Note
+     * that even if the funcion handles nulls well, using this is a good idea
+     * as it manages null-ok in a better way.
+     */
+    boolean jniConversionHandlesNull() {
+        return true;
+    }
+
+    /**
      * The translation code necessary to convert this type from native JNI
      * crossing type back to Java.
      * 
@@ -367,6 +455,15 @@ public abstract class Thing
 
     String jniConversionDecode(String name) {
         return "_" + name;
+    }
+
+    /**
+     * Chek if the JNI conversion done by code generated by
+     * {@link #jniConversionDecode(String) jniConversionDecode()} can fail. If
+     * so, usually this requires some check code to be generated.
+     */
+    boolean jniConversionCanFail() {
+        return false;
     }
 
     /**
@@ -386,6 +483,18 @@ public abstract class Thing
      * used. Stick this after a "return" statement.
      */
     abstract String jniReturnErrorValue();
+
+    /**
+     * Get the type that a Java class needs to import. In most cases it will
+     * be <code>this</code>, but arrays, for example, are managed in a
+     * different way.
+     * 
+     * @return The type to import or <code>null</code> meaning no import
+     *         needed.
+     */
+    public Thing getTypeToImport() {
+        return this;
+    }
 
     /**
      * Get the fully qualified name of the public Java type, ie, for
@@ -454,16 +563,37 @@ public abstract class Thing
         t.nativeType = this.nativeType;
         t.blacklisted = this.blacklisted;
 
+        /*
+         * Added to support cloning of ArrayThings, that have a field, but
+         * looks very ugly!
+         */
+        if (this instanceof ArrayThing) {
+            ((ArrayThing) t).type = ((ArrayThing) this).type;
+        }
+
         return t;
     }
 
     /**
-     * FIXME Figuring out what to do with out-parameters is still a work in
-     * progress; for now these are marked as blacklisted. The code above in
-     * createConstVariant() will probably be useful.
+     * Array variants are the way we manage both arrays and output parameters.
      */
-    private Thing createOutVariant() {
-        return new FixmeThing(this.gType + "*");
+    /*
+     * TODO for efficience reasons, in a near future we will want to deal with
+     * output params/arrays and input arrays in a different way.
+     */
+    private Thing createArrayVariant() {
+        if (this instanceof ProxiedThing) {
+            return new ProxiedArrayThing(gType + "*", this);
+        } else if (this instanceof EnumThing) {
+            return new ConstantArrayThing(gType + "*", this);
+        } else {
+            /*
+             * only Proxied/Constant arrays are supported yet. Note that
+             * fundamental arrays are managed in Thing static block.
+             */
+            System.out.println("Warning: Unsupported " + gType);
+            return new BlacklistedThing(this.gType + "*");
+        }
     }
 
     /**
@@ -473,8 +603,8 @@ public abstract class Thing
         if (this instanceof ProxiedThing) {
             return new GListThing(gType, this);
         } else {
-            throw new RuntimeException("This codepath cannot create a GList variant unless "
-                    + this.getClass() + " is a ProxiedThing");
+            System.out.println("Warning: Unsupported " + gType);
+            return new BlacklistedThing(gType);
         }
     }
 

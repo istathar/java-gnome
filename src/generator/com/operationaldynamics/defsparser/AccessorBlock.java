@@ -40,7 +40,11 @@ public abstract class AccessorBlock extends FunctionBlock
      * Each AccessorBlock is for a single field, so only one type to report.
      */
     public List usesTypes() {
-        return Collections.singletonList(Thing.lookup(returnType));
+        Thing type = Thing.lookup(returnType).getTypeToImport();
+        if (type != null) {
+            return Collections.singletonList(type);
+        } else {
+            return Collections.EMPTY_LIST;
+        }
     }
-
 }

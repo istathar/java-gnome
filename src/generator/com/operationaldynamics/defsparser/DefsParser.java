@@ -249,9 +249,18 @@ public class DefsParser
                  * intern() before placing them into the arrays used for
                  * subsequent manipulation.
                  */
-                l.add(new String[] {
-                        key.intern(), value.intern()
-                });
+                if (l == parameters) {
+                    // TODO could null-ok be present in other than parameters
+                    l.add(new String[] {
+                            key.intern(), value.intern(),
+                            /* 3rd value is used to take null-ok under control */
+                            line.indexOf("(null-ok)") != -1 ? "yes".intern() : "no".intern()
+                    });
+                } else {
+                    l.add(new String[] {
+                            key.intern(), value.intern()
+                    });
+                }
             }
         } catch (IOException ioe) {
             // ignore? Either way, it's end of file, right?
@@ -301,18 +310,7 @@ public class DefsParser
                     block = new MethodBlock(name, characteristics, parameters);
                     blocks.add(block);
                 } else if (phylum.equals("function")) {
-                    /*
-                     * FUTURE what about other function types? Part of the
-                     * reason things were laid out in the sequence they are
-                     * here was so that we could get all the information
-                     * needed before deciding the type. As things stand now,
-                     * however, we don't have things in a usable form until
-                     * after Block.processCharacteristics() has run care of
-                     * Block's constructor. As the only (define-function ...)
-                     * type we deal with are GObject constructors, so it's not
-                     * a problem at the moment.
-                     */
-                    block = new ConstructorBlock(name, characteristics, parameters);
+                    block = new FunctionBlock(name, characteristics, parameters);
                     blocks.add(block);
                 } else if ((phylum.equals("virtual")) || (phylum.equals("signal"))) {
                     block = new VirtualBlock(name, characteristics, parameters);

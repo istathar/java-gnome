@@ -107,6 +107,11 @@ public class VirtualGenerator extends FunctionGenerator
         out.print("(Signal handler, long source");
 
         for (int i = 0; i < parameterTypes.length; i++) {
+
+            if (parameterTypes[i] instanceof GErrorThing) {
+                System.out.println("Warning: unsupported GError usage in a virtual");
+                continue;
+            }
             out.print(", ");
 
             out.print(parameterTypes[i].nativeType);
@@ -119,10 +124,23 @@ public class VirtualGenerator extends FunctionGenerator
     }
 
     protected void receiverMethodConversionCode(PrintWriter out) {
+        int declarations = 0;
+
         if (!returnType.javaType.equals("void")) {
             out.print("        ");
             out.print(returnType.javaTypeInContext(data));
-            out.print(" result;\n\n");
+            out.print(" result;\n");
+            declarations++;
+        }
+        if (returnType.needExtraTranslation()) {
+            out.print("        ");
+            out.print(returnType.nativeType);
+            out.print(" _result;\n");
+            declarations++;
+        }
+
+        if (declarations > 0) {
+            out.print("\n");
         }
     }
 
@@ -148,11 +166,20 @@ public class VirtualGenerator extends FunctionGenerator
         out.print(") objectFor(source)");
 
         for (int i = 0; i < parameterTypes.length; i++) {
+            if (parameterTypes[i] instanceof GErrorThing) {
+                continue;
+            }
             out.print(", ");
             out.print(parameterTypes[i].translationToJava(parameterNames[i], data));
         }
 
         out.print(");\n");
+        if (returnType.needExtraTranslation()) {
+            out.print("        ");
+            out.print("_result = ");
+            out.print(returnType.extraTranslationToNative("result"));
+            out.print(";\n");
+        }
     }
 
     protected void receiverMethodReturnCode(PrintWriter out) {
@@ -189,6 +216,9 @@ public class VirtualGenerator extends FunctionGenerator
         out.print(" source");
 
         for (int i = 0; i < parameterTypes.length; i++) {
+            if (parameterTypes[i] instanceof GErrorThing) {
+                continue;
+            }
             out.print(", ");
             out.print(parameterTypes[i].javaTypeInContext(data));
             out.print(" ");

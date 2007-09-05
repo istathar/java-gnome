@@ -13,6 +13,12 @@ package com.operationaldynamics.codegen;
 import com.operationaldynamics.driver.DefsFile;
 
 /**
+ * A Thing that represent a type that is fundamental in both Java and C.
+ * 
+ * <p>
+ * This types are not Objects and can be used in the same way in both Java and
+ * C, passing JNI boundary needs no special conversion.
+ * 
  * @author Andrew Cowie
  */
 public class FundamentalThing extends Thing
@@ -41,5 +47,25 @@ public class FundamentalThing extends Thing
         } else {
             return " FIXME";
         }
+    }
+
+    String extraTranslationToJava(String name, DefsFile data) {
+        return null;
+    }
+
+    boolean needGuardAgainstNull() {
+        return false;
+    }
+
+    String extraTranslationToNative(String name) {
+        return null;
+    }
+
+    public Thing getTypeToImport() {
+        return null;
+    }
+
+    boolean needExtraTranslation() {
+        return false;
     }
 }

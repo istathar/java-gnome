@@ -25,6 +25,7 @@ extern JNIEnv* bindings_java_getEnv();
 
 extern void bindings_java_throwByName(JNIEnv*, const char*, const char*);
 extern void bindings_java_throw(JNIEnv*, const char*, ...);
+extern void bindings_java_throw_gerror(JNIEnv*, GError*);
 
 extern const gchar* bindings_java_typeToSignature(GType);
 
@@ -60,5 +61,16 @@ extern GList* bindings_java_convert_jarray_to_glist(JNIEnv*, jlongArray);
 extern GSList* bindings_java_convert_jarray_to_gslist(JNIEnv*, jlongArray);
 extern jlongArray bindings_java_convert_glist_to_jarray(JNIEnv*, GList*);
 extern jlongArray bindings_java_convert_gslist_to_jarray(JNIEnv*, GSList*);
+extern gpointer* bindings_java_convert_jarray_to_gpointer(JNIEnv*, jlongArray);
+
+/* the gpointer array is freed at the end */
+extern void bindings_java_convert_gpointer_to_jarray(JNIEnv*, gpointer*, jlongArray);
+
+/* the gchar* arrays is not freed */
+extern jobjectArray bindings_java_convert_gchararray_to_jarray(JNIEnv*, const gchar**);
+extern gchar** bindings_java_convert_strarray_to_gchararray(JNIEnv*, jobjectArray);
+
+/* the gchar* array is freed */
+extern void bindings_java_convert_gchararray_to_strarray(JNIEnv*, gchar**, jobjectArray);
 
 #endif 

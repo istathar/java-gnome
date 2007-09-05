@@ -1,4 +1,4 @@
-personal_ws-1.1 en 1176 
+personal_ws-1.1 en 1184 
 EnumValue
 getActive
 refactor
@@ -44,6 +44,7 @@ getHeight
 DesignConstraints
 cls
 jchar
+GError
 AWT
 buf
 createVSeparator
@@ -324,6 +325,7 @@ ListStore
 getURI
 getUri
 TreeView's
+NativeLibrary
 EventAny
 prependPage
 Srichand
@@ -374,8 +376,8 @@ createStatusIconFromFile
 typedef
 GTypeInstance
 setPropertyBar
-pygtk
 pyGTK
+pygtk
 GtkBox
 returnType
 ClassLoader's
@@ -466,6 +468,7 @@ vte
 onFocusOutEvent
 xjf
 EventScroll
+serialVersionUID
 getAlignment
 gcjC
 Wno
@@ -520,6 +523,7 @@ gc
 setPropertyString
 dt
 GTKish
+ge
 gtkjni
 eq
 dependsMapSourceFilesToTargetFiles
@@ -550,9 +554,10 @@ setKeepAbove
 ld
 jN
 resized
+ld
 lookups
-md
 li
+md
 GtkWidgetOverride
 struct
 paddingLeft
@@ -644,6 +649,7 @@ cdrom
 setAlignmentX
 bugfixes
 fPIC
+RuntimeExceptions
 UCHAR
 viewMenu
 pointerOf
@@ -697,6 +703,7 @@ ToolButton
 ellipsized
 formatter
 OpenOffice
+GlibException
 SeparatorToolItem
 getRelief
 writeTranslationCode
@@ -748,6 +755,7 @@ jikes
 toString
 nCan't
 insertPage
+getModificationDate
 checkpointHashes
 VBox
 stockId
@@ -789,8 +797,8 @@ jmethodID
 tnot
 whitespace
 isfile
-endswith
 endsWith
+endswith
 nowrap
 apiversion
 GList
@@ -855,6 +863,7 @@ GtkContainer
 onSelectionChanged
 ClassName
 classname
+ClassName
 unix
 GtkTooltip
 Henstridge
@@ -877,6 +886,7 @@ toolkits
 prependText
 cachedJavaVM
 init
+getMessage
 StringValue
 FileChooserWidget
 setFromIconName

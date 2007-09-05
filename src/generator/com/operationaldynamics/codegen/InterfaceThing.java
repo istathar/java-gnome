@@ -24,6 +24,6 @@ public class InterfaceThing extends ObjectThing
      * (which are concrete Proxies subclasses, of course)
      */
     String translationToNative(String name) {
-        return "pointerOf((Proxy) " + name + ")";
+        return "pointerOf((Object) " + name + ")";
     }
 }

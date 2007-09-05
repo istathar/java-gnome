@@ -74,6 +74,7 @@
 (define-method get_selections
   (of-object "GtkFileSelection")
   (c-name "gtk_file_selection_get_selections")
+  (caller-owns-return #t)
   (return-type "gchar**")
 )
 

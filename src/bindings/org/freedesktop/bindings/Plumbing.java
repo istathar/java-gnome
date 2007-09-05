@@ -109,7 +109,7 @@ public abstract class Plumbing
      * it totally of out of view from get<COMPLETE>.
      */
     protected static final long pointerOf(Proxy reference) {
-        return reference.pointer;
+        return reference == null ? 0L : reference.pointer;
     }
 
     /**
@@ -120,7 +120,7 @@ public abstract class Plumbing
     protected static final long[] pointersOf(Proxy[] references) {
         long[] pointers = new long[references.length];
         for (int i = 0; i < references.length; ++i) {
-            pointers[i] = references[i].pointer;
+            pointers[i] = (references[i] == null ? 0L : references[i].pointer);
         }
         return pointers;
     }
@@ -238,6 +238,24 @@ public abstract class Plumbing
     }
 
     /**
+     * Like {@link #numOf(Constant) numOf()} but acts over an array of
+     * Constants.
+     * 
+     * @return opaque data to be passed to native methods only.
+     */
+    protected static final int[] numsOf(Constant[] references) {
+        int[] ordinals = new int[references.length];
+        for (int i = 0; i < references.length; ++i) {
+            /*
+             * Here we need to check for null, as in output parameters
+             * we don't want to initialize the array!
+             */
+            ordinals[i] = references[i] == null ? 0 : references[i].ordinal;
+        }
+        return ordinals;
+    }
+
+    /**
      * Given a Class and an ordinal number, lookup the Constant object that
      * corresponds to that native enum.
      * 
@@ -255,6 +273,18 @@ public abstract class Plumbing
         }
 
         return obj;
+    }
+
+    /**
+     * Retrieve the ordinals corresponding to several constants, and fill a
+     * Constant array with them.
+     * 
+     * @see #enumFor(Class, int)
+     */
+    protected static void fillEnumArray(Class type, Constant[] enums, int[] ordinals) {
+        for (int i = 0; i < enums.length; ++i) {
+            enums[i] = enumFor(type, ordinals[i]);
+        }
     }
 
     /**
@@ -299,6 +329,18 @@ public abstract class Plumbing
 
         obj = createFlag(type, ordinal, name);
         return obj;
+    }
+
+    /**
+     * Retrieve the ordinals corresponding to several flags, and fill a Flag
+     * array with them.
+     * 
+     * @see #flagFor(Class, int)
+     */
+    protected static void fillFlagArray(Class type, Flag[] flags, int[] ordinals) {
+        for (int i = 0; i < flags.length; ++i) {
+            flags[i] = flagFor(type, ordinals[i]);
+        }
     }
 
     /**
