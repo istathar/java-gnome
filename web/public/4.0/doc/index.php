@@ -39,7 +39,7 @@ a.directory {
 	<a class="nav-white" href="/4.0/NEWS.html"><code>NEWS</code></a> files;
 	<a class="nav-white" href="/4.0/doc/api/overview-summary.html">API
 	documentation</a>;
-	<a class="nav-white" href="/4.0/doc/design/README.html">Design and
+	<a class="nav-white" href="/4.0/doc/design/START.html">Design and
 	architecture</a>
 </div>
 
@@ -122,7 +122,7 @@ of this documentation is made available here on this website, cunningly
 rendered into HTML form.</p>
 
 <p>A good starting point is the <a
-href="/4.0/doc/design/README.html"><code>doc/design/README</a> file, which
+href="/4.0/doc/design/START.html"><code>doc/design/START</a> file, which
 links to each of the other documents in that directory.
 
 <h2><a class="directory" href="style/">doc/style/</a></h2>

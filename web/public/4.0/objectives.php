@@ -70,12 +70,12 @@ to do.</p>
 might expect! After all is said and done, the primary technical goal of the
 java-gnome project is:</p>
 
-<h2 class="goal">TO PRESENT GTK WELL</h2>
+<h2 class="goal">TO PRESENT GTK AND GNOME WELL</h2>
 
-<p>We do our best to provide an excellent representation of GTK in Java.
+<p>We do our best to provide an excellent representation of the GNOME libraries
+&#8212; especially GTK &#8212; in Java.
 
-<p>Note
-that we're not trying to come up with some idealized watered-down
+<p>Note that we're not trying to come up with some idealized watered-down
 middle-of-the-road please-everyone toolkit that looks like all the other
 toolkits just because that's the way they work.
 

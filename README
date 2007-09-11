@@ -254,6 +254,7 @@ and maybe
 If you have distro policy issues to deal with, then move things around once
 they've landed in `DESTDIR`.
 
+<a name="using"></a>
 
 Using the bindings
 ==================

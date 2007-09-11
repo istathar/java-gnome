@@ -1,7 +1,8 @@
 Re-engineering (3): Package names
 
 This is a minor matter, but while we're breaking everything anyway, several
-people have commented that our package names are messed up.
+people have commented that the old java-gnome 2.x package names were _really_
+messed up.
 
 Library names, prefixes, and suffixes
 -------------------------------------
@@ -98,13 +99,14 @@ reason.
 Personally, anything that lets us not have to zillions of tarballs would
 make me much happier, so:
 
-Right now, **the prototype is just a single `java-gnome` and contains
-everything**. We'll see how long we can keep that up.
+Right now, **the new Java bindings are just a single `java-gnome` and it
+contains everything**. We'll see how long we can keep that up, but someone is
+going to have to pay me a lot of money to change it.
 
 AfC
 
 _Originally written as an email to java-gnome-hackers by Andrew Cowie on 24
-Aug 06; last modified 7 Dec 06._
+Aug 06; last modified 24 Aug 07._
 
 <!--
 

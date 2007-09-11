@@ -69,7 +69,7 @@ padding-top: 30px; padding-right: 50px;">
 <center>
 	Write outstanding<br>
 	<img src="/images/gtk_RGBLogo.png" width="67" height="88"><br>
-	and<br>
+	based<br>
 	<img style="padding:5px;" src="/images/gnome_ButtonLogo.png" width="64" height="64"><br>
 	programs ... from <br>
 	<img src="/images/java_CupLogo.png" width="52" height="88">
