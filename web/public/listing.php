@@ -47,7 +47,7 @@
 	
 		if (substr($file, -4) == ".txt") {
 			$basename = substr($file, 0, -4);
-		} else if (($file == "README") ||
+		} else if (($file == "START") ||
 			($file == "MARKUP")) {
 			$basename = $file;
 		} else {

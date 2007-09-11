@@ -477,7 +477,7 @@ emails written by Andrew Cowie to the java-gnome-hackers mailing list, and
 expanded to include top level [`README`](README.html) and
 [`HACKING`](HACKING.html) files, and a style guide for contributors to follow.
 All documentation [re]formatted in Markdown syntax so as to be renderable to
-web pages. See [`doc/design/`](doc/design/README.html) and
+web pages. See [`doc/design/`](doc/design/START.html) and
 [`doc/style/`](doc/style/).
 
 Project website

@@ -118,7 +118,7 @@ API design and overall system architecture
 In the `doc/design/` subdirectory you will find extensive documentation of the
 current re-engineering process that lead to the design and architecture of the
 new java-gnome 4.0 bindings. Try starting with
-[`doc/design/README`](doc/design/README.html).
+[`doc/design/START`](doc/design/START.html).
 
 You really are encouraged to peruse these files; the one on Architecture in
 particular is pretty much required reading if you want to understand what's
