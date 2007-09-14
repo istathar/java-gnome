@@ -269,15 +269,19 @@ def dependsListToSingleTarget(list, target):
 #
 
 def executeCommand(short, what, cmd, inDir=None):
+	sys.stderr.flush()
 	print short + "\t" + what
 	if verbose:
 		print cmd
+	sys.stdout.flush()
 	
-	status = subprocess.call(cmd, shell=True, cwd=inDir)
+	status = subprocess.call(cmd, shell=True, cwd=inDir, bufsize=1)
 	if status != 0:
 		sys.exit(1)
 
 	checkpointHashes()
+	sys.stderr.flush()
+	sys.stdout.flush()
 
 
 def compileJavaCode(outputDir, classpath, sourcepath, sources):
