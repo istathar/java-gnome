@@ -14,19 +14,27 @@ package org.gnome.gtk;
 import org.gnome.glib.Boxed;
 
 /**
- * FIXME placeholder first concrete Boxed subclass.
+ * A temporary pointer to a row in a TreeModel. TreeIters are used to indicate
+ * a row in a TreeModel, either the "current" row if you are iterating over
+ * the data, or as an indication of which row a given event occurred on.
  * 
  * <p>
  * To obtain a new TreeIter, use one of the following:
  * <ul>
- * <li>{@link org.gnome.gtk.TreeModel#getFirstIter() TreeModel's getFirstIter()}.
+ * <li>TreeModel's
+ * {@link org.gnome.gtk.TreeModel#getIterFirst() getIterFirst()}.
+ * <li>TreeSelection's ...
  * </ul>
+ * 
+ * <p>
+ * Like other iterators in Java, a TreeIter becomes invalid the moment the
+ * underlying model changes. If you need a persistent pointer to a particular
+ * row, create a {@link TreeRowReference} with FIXME a utility method here?
  * 
  * @author Andrew Cowie
  */
 public class TreeIter extends Boxed
 {
-
     protected TreeIter(long pointer) {
         super(pointer);
     }
