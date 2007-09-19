@@ -39,6 +39,17 @@ public class TreeIter extends Boxed
         super(pointer);
     }
 
+    /**
+     * Allocate a blank TreeIter structure. This is done by declaring one
+     * locally, copying it, and returning the pointer to the copy.
+     * 
+     * <p>
+     * <b>For use by bindings hackers only!</b>
+     */
+    TreeIter() {
+        super(GtkTreeIterOverride.createTreeIter());
+    }
+
     protected void release() {
         GtkTreeIter.free(this);
     }
