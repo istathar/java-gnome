@@ -21,4 +21,28 @@ package org.gnome.gtk;
  */
 public interface TreeModel
 {
+    public void setValueString(TreeIter iter, int column, String value);
+
+    public String getValueString(TreeIter iter, int column);
+
+    /**
+     * Initialize a new iterator at the beginning of the model. Since you
+     * presumably want to iterate through the remaining rows, use
+     * {@link TreeIter#iterNext() iterNext()} as in the following:
+     * 
+     * <pre>
+     * TreeIter row;
+     * 
+     * row = model.getIterFirst();
+     * while (row != null) {
+     *     // do something with row
+     *     row = model.iterNext();
+     * }
+     * </pre>
+     * 
+     * FIXME This is not very Java friendly.
+     * 
+     * @return <code>null</code> if the model is empty.
+     */
+    public TreeIter getIterFirst();
 }

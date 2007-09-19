@@ -12,6 +12,7 @@
 package org.gnome.gtk;
 
 import org.gnome.glib.Object;
+import org.gnome.glib.Value;
 
 /*
  * FIXME this is a placeholder stub for what will become the public API for
@@ -21,9 +22,66 @@ import org.gnome.glib.Object;
  * are made about this class until it has been reviewed by a hacker and this
  * comment has been replaced.
  */
+/**
+ * ... is the
+ */
 public class ListStore extends Object implements TreeModel, TreeDragSource, TreeDragDest, TreeSortable
 {
     protected ListStore(long pointer) {
         super(pointer);
+    }
+
+    /**
+     * 
+     */
+    public ListStore(Class[] types) {
+        // FIXME Replace with real constructor!
+        super(GtkTreeModelOverride.createDummyListStore());
+    }
+
+    /**
+     * Add a new row to the ListStore. You'll need to fill in the various
+     * columns with {@link #setValueString(TreeIter, int, String) setValue()}
+     * of course.
+     */
+    public TreeIter append() {
+        final TreeIter iter;
+
+        iter = new TreeIter();
+
+        GtkListStore.append(this, iter);
+        return iter;
+    }
+
+    /**
+     * 
+     */
+    public void setValueString(TreeIter row, int column, String value) {
+        GtkListStore.setValue(this, row, column, new Value(value));
+    }
+
+    /**
+     * 
+     */
+    public String getValueString(TreeIter row, int column) {
+        final Value result;
+
+        result = GtkTreeModelOverride.getValue(this, row, column);
+        return result.getString();
+    }
+
+    /**
+     * 
+     */
+    public TreeIter getIterFirst() {
+        final TreeIter iter;
+
+        iter = new TreeIter();
+
+        if (GtkTreeModel.getIterFirst(this, iter)) {
+            return iter;
+        } else {
+            return null;
+        }
     }
 }
