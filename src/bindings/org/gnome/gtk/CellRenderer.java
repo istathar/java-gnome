@@ -11,6 +11,25 @@
  */
 package org.gnome.gtk;
 
+/**
+ * <p>
+ * Note that there is not one CellRenderer per cell in the table like
+ * presentation of a TreeView! Instead, a CellRenderer is an engine called
+ * upon to draw <i>many</i> cells. The Widget employing them will, by turn,
+ * set various properties (the actual data for the current cell in question
+ * would be what changes, though most of the rest of the properties would
+ * likely remain constant) and then ask the CellRenderer to return the
+ * rendered result.
+ * 
+ * <p>
+ * It's easy to be tempted into thinking that CellRenderers are Widgets,
+ * especially as they get <code>pack()</code>ed into TreeViewColumns on
+ * their way to being used in TreeViews. They are, however, merely utility
+ * elements that are used to facilitate drawing, and <i>not</i> full power
+ * Widgets, as you would see from a closer look at the class hierarchy.
+ * 
+ * @author Andrew Cowie
+ */
 /*
  * FIXME this is a placeholder stub for what will become the public API for
  * this type. Replace this comment with appropriate javadoc including author
@@ -19,7 +38,7 @@ package org.gnome.gtk;
  * are made about this class until it has been reviewed by a hacker and this
  * comment has been replaced.
  */
-public class CellRenderer extends Object
+public abstract class CellRenderer extends Object
 {
     protected CellRenderer(long pointer) {
         super(pointer);
