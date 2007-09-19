@@ -141,7 +141,7 @@ bindings_java_throw
 			return; 
 		}
 	}
-	
+
 	(*env)->ThrowNew(env, cls, msg);
     	
 	(*env)->DeleteLocalRef(env, cls);

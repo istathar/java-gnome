@@ -15,17 +15,58 @@
 #include "bindings_java.h"
 #include "org_gnome_gtk_GtkTreeModelOverride.h"
 
+/**
+ * Called from
+ *   org.gnome.gtk.GtkTreeModeOverride.gtk_list_store_new(String[])
+ * called from
+ *   org.gnome.gtk.GtkTreeModeOverride.createListStore(Class[])
+ * called from
+ *   org.gnome.gtk.ListStore.<init>(???)
+ *
+ * You should already have established Java side that ther array is bigger
+ * that 0 elements before calling this.
+ */
 JNIEXPORT jlong JNICALL
 Java_org_gnome_gtk_GtkTreeModelOverride_gtk_1list_1store_1new
 (
 	JNIEnv* env,
-	jclass cls
+	jclass cls,
+	jobjectArray _columns
 )
 {
 	GtkListStore* result;
+	gint num_columns;
+	GType* columns; // GType[]
+	gint i;
+	jstring _name;
+	const gchar* name;
+	
+	num_columns = (gint) (*env)->GetArrayLength(env, _columns);
+	columns = g_newa(GType, num_columns);
+		
+	for (i = 0; i < num_columns; i++) {
+		_name = (jstring) (*env)->GetObjectArrayElement(env, _columns, i);
+
+		name = (const gchar*) (*env)->GetStringUTFChars(env, _name, NULL);
+		if (name == NULL) {
+			return 0L; // OutOfMemory already thrown
+		}
+
+		columns[i] = bindings_java_type_lookup(name);
+		
+		if (columns[i] == G_TYPE_INVALID) {
+			bindings_java_throw(env, "Don't know how to map %s into a GType", name);
+			return 0L;
+		}
+
+		(*env)->ReleaseStringUTFChars(env, _name, name);
+		(*env)->DeleteLocalRef(env, _name);
+	}
 
 	// call constructor
-	result = gtk_list_store_new(2, G_TYPE_STRING, G_TYPE_INT);
+	result = gtk_list_store_newv(num_columns, columns);
+
+	// clean up of columns is automatic
 
 	// and finally
 	return (jlong) result;

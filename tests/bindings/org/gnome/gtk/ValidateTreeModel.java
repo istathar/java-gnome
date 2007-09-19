@@ -27,7 +27,9 @@ public class ValidateTreeModel extends TestCaseGtk
         TreeIter iter;
 
         // FIXME
-        model = new ListStore(new Class[] {});
+        model = new ListStore(new Class[] {
+            String.class
+        });
 
         iter = model.getIterFirst();
 
