@@ -28,7 +28,13 @@ package org.gnome.gtk;
  * elements that are used to facilitate drawing, and <i>not</i> full power
  * Widgets, as you would see from a closer look at the class hierarchy.
  * 
+ * <p>
+ * Do not try to resuse a CellRenderer between different TreeViewColumns.
+ * 
  * @author Andrew Cowie
+ */
+/*
+ * Injunction about reuse from Kristian Rietveld
  */
 /*
  * FIXME this is a placeholder stub for what will become the public API for
