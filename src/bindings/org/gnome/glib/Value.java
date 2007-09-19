@@ -17,8 +17,21 @@ import org.freedesktop.bindings.Proxy;
 /**
  * A generic value that can be passed as a parameter to or returned from a
  * method or function on an underlying entity in the GLib library and those
- * built on it. So far, Value is only used in setting or getting Object
- * properties.
+ * built on it. Value is only used in setting or getting Object properties,
+ * and in the TreeModel system.
+ * 
+ * <p>
+ * <b>For use by bindings hackers only.</b><br>
+ * As with other classes in <code>org.gnome.glib</code>, this is
+ * implementation machinery and should not be needed by anyone developing
+ * applications with java-gnome.
+ * 
+ * <p>
+ * Ironically, Values are <i>not</i> actually type safe; if you happen to
+ * create one to hold Strings, and then call the getEnum() method on it, your
+ * program will explode (this is somewhat to the contrary of the spirit of
+ * java-gnome). These are therefore only for use from within strongly typed
+ * methods exposing a safe and sane public API. You've been warned.
  * 
  * <p>
  * <i>Complementing the object oriented system supplied by the GLib library is
@@ -69,5 +82,18 @@ public final class Value extends Proxy
             System.err.println("Value.release()\t\t\t" + this.toString());
         }
         GValue.free(this);
+    }
+
+    /*
+     * FIXME I'm not happy about exposing the following, especially the
+     * constructor.
+     */
+
+    public Value(String value) {
+        this(GValue.createValue(value));
+    }
+
+    public String getString() {
+        return GValue.getString(this);
     }
 }
