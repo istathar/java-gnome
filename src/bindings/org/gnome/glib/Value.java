@@ -89,6 +89,16 @@ public final class Value extends Proxy
      * constructor.
      */
 
+    /**
+     * Create an empty Value without initializing it's type. For use in
+     * methods like TreeModel's
+     * {@link org.gnome.gtk.TreeModel#getValueString(org.gnome.gtk.TreeIter, int) getValue()}
+     * family, which use a blank GValue internally.
+     */
+    public Value() {
+        this(GValue.createValue());
+    }
+
     public Value(String value) {
         this(GValue.createValue(value));
     }

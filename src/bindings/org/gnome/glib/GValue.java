@@ -19,10 +19,15 @@ import org.freedesktop.bindings.Flag;
  */
 final class GValue extends Plumbing
 {
-
     // no instantiation
     private GValue() {}
 
+    static final long createValue() {
+        return g_value_new();
+    }
+    
+    private static native final long g_value_new();
+    
     static final long createValue(int i) {
         return g_value_init(i);
     }

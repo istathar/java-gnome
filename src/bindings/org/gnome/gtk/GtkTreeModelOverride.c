@@ -15,50 +15,6 @@
 #include "bindings_java.h"
 #include "org_gnome_gtk_GtkTreeModelOverride.h"
 
-/*
- * Allocates a GValue with GSlice, the same as we do in our GValue binding.
- * The result will be free'd by org.gnome.glib.Value's release() function.
- * This is an encapsulation violation! 
- */
-JNIEXPORT jlong JNICALL
-Java_org_gnome_gtk_GtkTreeModelOverride_gtk_1tree_1model_1get_1value
-(
-	JNIEnv* env,
-	jclass cls,
-	jlong _self,
-	jlong _iter,
-	jint _column
-)
-{
-	GtkTreeModel* self;
-	GtkTreeIter* iter;
-	gint column;
-	GValue* result;
-
-	// convert parameter self
-	self = (GtkTreeModel*) _self;
-
-	// convert parameter self
-	iter = (GtkTreeIter*) _iter;
-
-	// convert parameter column
-	column = (gint) _column;
-
-	// allocate blank GValue
-	result = g_slice_new0(GValue);
-
-	gtk_tree_model_get_value(self, iter, column, result);
-
-	// cleanup parameter self
-	
-	// cleanup parameter iter
-
-	// cleanup parameter column
-
-	// and finally
-	return (jlong) result;
-}
-
 JNIEXPORT jlong JNICALL
 Java_org_gnome_gtk_GtkTreeModelOverride_gtk_1list_1store_1new
 (

@@ -19,9 +19,25 @@ package org.gnome.gtk;
  * are made about this class until it has been reviewed by a hacker and this
  * comment has been replaced.
  */
+/**
+ * Display the data from a TreeModel in a tabular form. You can select and
+ * activate rows, ...
+ * 
+ * This is the view part of the TreeView/TreeModel MVC pattern. TreeView is a
+ * very powerful widget, but with that power comes considerable complexity...
+ * 
+ * @author Andrew Cowie
+ */
 public class TreeView extends Container
 {
     protected TreeView(long pointer) {
         super(pointer);
+    }
+
+    /**
+     * Construct a new TreeView with a pre-existing TreeModel as it's data.
+     */
+    public TreeView(TreeModel store) {
+        super(GtkTreeView.createTreeViewWithModel(store));
     }
 }

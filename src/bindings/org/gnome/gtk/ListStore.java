@@ -14,6 +14,7 @@ package org.gnome.gtk;
 import org.gnome.glib.Object;
 import org.gnome.glib.Value;
 
+
 /*
  * FIXME this is a placeholder stub for what will become the public API for
  * this type. Replace this comment with appropriate javadoc including author
@@ -65,8 +66,10 @@ public class ListStore extends Object implements TreeModel, TreeDragSource, Tree
      */
     public String getValueString(TreeIter row, int column) {
         final Value result;
+        
+        result = new Value();
 
-        result = GtkTreeModelOverride.getValue(this, row, column);
+        GtkTreeModel.getValue(this, row, column, result);
         return result.getString();
     }
 

@@ -88,6 +88,34 @@ Java_org_gnome_glib_GValue_g_1value_1free
 	g_slice_free(GValue, value);
 }
 
+
+/**
+ * Implements
+ *   org.gnome.glib.GValue.g_value_new()
+ * called from
+ *   org.gnome.glib.GValue.createValue()
+ * called from
+ *   org.gnome.glib.Value.<init>()
+ *
+ * Allocate a blank GValue, for use in methods which populate a blank GValue
+ * in order to return information in an out-parameter-esque fashion.
+ */
+JNIEXPORT jlong JNICALL
+Java_org_gnome_glib_GValue_g_1value_1new
+(
+	JNIEnv *env,
+	jclass cls
+)
+{
+	GValue* value;
+		
+	// allocate it and set to zeros, per what g_value_init requires
+	value =	g_slice_new0(GValue);
+
+	// return address
+	return (jlong) value;
+}
+
 /**
  * Implements
  *   org.gnome.glib.GValue.g_value_init(int i)

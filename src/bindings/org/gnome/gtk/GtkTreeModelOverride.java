@@ -11,24 +11,16 @@
  */
 package org.gnome.gtk;
 
-import org.freedesktop.bindings.Proxy;
-import org.gnome.glib.Value;
-
+/**
+ * Manual code relating to TreeModel.
+ * 
+ * @author Andrew Cowie
+ */
 final class GtkTreeModelOverride extends Plumbing
 {
-    static final Value getValue(TreeModel self, TreeIter row, int column) {
-        long result;
-
-        synchronized (lock) {
-            result = gtk_tree_model_get_value(pointerOf((Proxy) self), pointerOf(row), column);
-            return valueFor(result);
-        }
-    }
-
-    private static native final long gtk_tree_model_get_value(long self, long iter, int column);
-
     /*
-     * FIXME REMOVE Work around the fact that we don't have a working ListStore constructor yet 
+     * FIXME REMOVE! Work around the fact that we don't have a working
+     * ListStore constructor yet.
      */
     static final long createDummyListStore() {
         synchronized (lock) {
