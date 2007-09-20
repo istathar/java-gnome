@@ -24,6 +24,9 @@ import org.gnome.glib.Value;
  */
 /**
  * ... is the
+ * 
+ * @author Andrew Cowie
+ * @since 4.0.5
  */
 public class ListStore extends Object implements TreeModel, TreeDragSource, TreeDragDest, TreeSortable
 {
@@ -34,8 +37,26 @@ public class ListStore extends Object implements TreeModel, TreeDragSource, Tree
     /**
      * 
      */
-    public ListStore(Class[] types) {
-        super(GtkTreeModelOverride.createListStore(types));
+    public ListStore(DataColumn[] types) {
+        super(GtkTreeModelOverride.createListStore(typesToClassNames(types)));
+    }
+
+    /**
+     * Convert from public DataColumn entities to the Class array we'll be
+     * passing into the translation layer, carrying out the crucial step of
+     * setting the column number ordinals along the way.
+     */
+    static final Class[] typesToClassNames(DataColumn[] types) {
+        final Class[] names;
+
+        names = new Class[types.length];
+
+        for (int i = 0; i < types.length; i++) {
+            names[i] = types[i].getType();
+            types[i].setOrdinal(i);
+        }
+
+        return names;
     }
 
     /**
@@ -55,19 +76,19 @@ public class ListStore extends Object implements TreeModel, TreeDragSource, Tree
     /**
      * 
      */
-    public void setValueString(TreeIter row, int column, String value) {
-        GtkListStore.setValue(this, row, column, new Value(value));
+    public void setValueString(TreeIter row, DataColumn column, String value) {
+        GtkListStore.setValue(this, row, column.getOrdinal(), new Value(value));
     }
 
     /**
      * 
      */
-    public String getValueString(TreeIter row, int column) {
+    public String getValueString(TreeIter row, DataColumn column) {
         final Value result;
 
         result = new Value();
 
-        GtkTreeModel.getValue(this, row, column, result);
+        GtkTreeModel.getValue(this, row, column.getOrdinal(), result);
         return result.getString();
     }
 
