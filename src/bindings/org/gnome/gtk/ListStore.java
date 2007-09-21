@@ -61,7 +61,7 @@ public class ListStore extends Object implements TreeModel, TreeDragSource, Tree
 
     /**
      * Add a new row to the ListStore. You'll need to fill in the various
-     * columns with {@link #setValueString(TreeIter, int, String) setValue()}
+     * columns with {@link #setValue(TreeIter, DataColumnString, String) setValue()}
      * of course.
      */
     public TreeIter append() {
@@ -76,14 +76,14 @@ public class ListStore extends Object implements TreeModel, TreeDragSource, Tree
     /**
      * 
      */
-    public void setValueString(TreeIter row, DataColumn column, String value) {
+    public void setValue(TreeIter row, DataColumnString column, String value) {
         GtkListStore.setValue(this, row, column.getOrdinal(), new Value(value));
     }
 
     /**
      * 
      */
-    public String getValueString(TreeIter row, DataColumn column) {
+    public String getValue(TreeIter row, DataColumnString column) {
         final Value result;
 
         result = new Value();
@@ -92,6 +92,22 @@ public class ListStore extends Object implements TreeModel, TreeDragSource, Tree
         return result.getString();
     }
 
+    /**
+     * 
+     */
+    public int getValue(TreeIter row, DataColumnInteger column) {
+        return 0;
+    }
+    
+    /**
+     * 
+     */
+    public java.lang.Object getValue(TreeIter row, DataColumnReference column) {
+        return null;
+    }
+
+    
+    
     /**
      * 
      */

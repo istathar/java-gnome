@@ -21,9 +21,17 @@ package org.gnome.gtk;
  */
 public interface TreeModel
 {
-    public void setValueString(TreeIter iter, DataColumn column, String value);
-
-    public String getValueString(TreeIter iter, DataColumn column);
+    public String getValue(TreeIter row, DataColumnString column);
+    
+    /**
+     * 
+     * @param iter
+     * @param column
+     * @return
+     */
+    public java.lang.Object getValue(TreeIter row, DataColumnReference column);
+    
+    
 
     /**
      * Initialize a new iterator at the beginning of the model. Since you
