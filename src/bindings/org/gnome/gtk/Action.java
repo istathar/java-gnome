@@ -113,22 +113,6 @@ public class Action extends Object
     }
 
     /**
-     * Create a new Action.
-     * 
-     * @param name
-     *            A unique name for the Action.
-     * @param label
-     *            The label that will be displayed in the proxy Widgets. You
-     *            usually will want to localize it to the user language.
-     * @param tooltip
-     *            A tooltip or little help message for the Action. Also
-     *            localized.
-     */
-    public Action(String name, String label, String tooltip) {
-        super(GtkAction.createAction(name, label, tooltip, null));
-    }
-
-    /**
      * Create a new Action, and connect a handler to its <code>ACTIVATE</code>
      * signal.
      * 
@@ -300,6 +284,20 @@ public class Action extends Object
      */
     public void activate() {
         GtkAction.activate(this);
+    }
+    
+    /**
+     * Set a Tooltip or little help message for the Action.
+     */
+    public void setTooltip(String tooltip) {
+        setPropertyString("tooltip", tooltip);
+    }
+    
+    /**
+     * Get the tooltip for the Action.
+     */
+    public String getTooltip() {
+        return getPropertyString("tooltip");
     }
 
     /**
