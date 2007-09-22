@@ -188,18 +188,18 @@ def updateHash(file, hash):
 
 def debug(args):
 	if False:
-		print args
+		print args, 
 
 
-def filesNeedBuilding(list):
+def filesNeedBuilding(list, update=True):
 	changed = []
 	for (source, target) in list:
-		if fileNeedsBuilding(source, target):
+		if fileNeedsBuilding(source, target, update):
 			changed.append(source)
 	return changed
 
 
-def fileNeedsBuilding(source, target):
+def fileNeedsBuilding(source, target, update=True):
 	if not isfile(source):
 		sys.exit(source + " missing, abort")
 
@@ -208,7 +208,7 @@ def fileNeedsBuilding(source, target):
 	f.close()
 	hash = m.hexdigest()
 
-	debug("CHECK\t"+str(target)+" from "+source)
+	debug("CHECK\t"+str(target)+" from "+source+"\n")
 
 	debug("TARGET",)
 	if not isfile(target):
@@ -216,14 +216,15 @@ def fileNeedsBuilding(source, target):
 	elif getmtime(target) < getmtime(source):
 		debug("OLDER,")
 		if not sourceChanged(source, hash):
-			debug("SOURCE UNCHANGED")
+			debug("SOURCE UNCHANGED\n")
 			return False
 	else:
-		debug("NEWER, SKIP")
+		debug("NEWER, SKIP\n")
 		return False
 
-	debug("BUILD")
-	updateHash(source, hash)
+	debug("BUILD\n")
+	if update:
+		updateHash(source, hash)
 
 	return True
 
@@ -371,7 +372,7 @@ def makeJarFile():
 	list += findFiles("tmp/bindings/", ".properties")
 	pairs = dependsListToSingleTarget(list, jar)
 
-	changed = filesNeedBuilding(pairs)
+	changed = filesNeedBuilding(pairs, False)
 	if not changed:
 		return
 
