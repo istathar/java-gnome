@@ -11,9 +11,6 @@
  */
 package org.gnome.gtk;
 
-import org.gnome.glib.Object;
-import org.gnome.glib.Value;
-
 /*
  * FIXME this is a placeholder stub for what will become the public API for
  * this type. Replace this comment with appropriate javadoc including author
@@ -28,7 +25,7 @@ import org.gnome.glib.Value;
  * @author Andrew Cowie
  * @since 4.0.5
  */
-public class ListStore extends Object implements TreeModel, TreeDragSource, TreeDragDest, TreeSortable
+public class ListStore extends TreeModel implements TreeDragSource, TreeDragDest, TreeSortable
 {
     protected ListStore(long pointer) {
         super(pointer);
@@ -42,27 +39,10 @@ public class ListStore extends Object implements TreeModel, TreeDragSource, Tree
     }
 
     /**
-     * Convert from public DataColumn entities to the Class array we'll be
-     * passing into the translation layer, carrying out the crucial step of
-     * setting the column number ordinals along the way.
-     */
-    static final Class[] typesToClassNames(DataColumn[] types) {
-        final Class[] names;
-
-        names = new Class[types.length];
-
-        for (int i = 0; i < types.length; i++) {
-            names[i] = types[i].getType();
-            types[i].setOrdinal(i);
-        }
-
-        return names;
-    }
-
-    /**
      * Add a new row to the ListStore. You'll need to fill in the various
-     * columns with {@link #setValue(TreeIter, DataColumnString, String) setValue()}
-     * of course.
+     * columns with
+     * {@link #setValue(TreeIter, DataColumnString, String) setValue()} of
+     * course.
      */
     public TreeIter append() {
         final TreeIter iter;
@@ -70,56 +50,7 @@ public class ListStore extends Object implements TreeModel, TreeDragSource, Tree
         iter = new TreeIter();
 
         GtkListStore.append(this, iter);
+
         return iter;
-    }
-
-    /**
-     * 
-     */
-    public void setValue(TreeIter row, DataColumnString column, String value) {
-        GtkListStore.setValue(this, row, column.getOrdinal(), new Value(value));
-    }
-
-    /**
-     * 
-     */
-    public String getValue(TreeIter row, DataColumnString column) {
-        final Value result;
-
-        result = new Value();
-
-        GtkTreeModel.getValue(this, row, column.getOrdinal(), result);
-        return result.getString();
-    }
-
-    /**
-     * 
-     */
-    public int getValue(TreeIter row, DataColumnInteger column) {
-        return 0;
-    }
-    
-    /**
-     * 
-     */
-    public java.lang.Object getValue(TreeIter row, DataColumnReference column) {
-        return null;
-    }
-
-    
-    
-    /**
-     * 
-     */
-    public TreeIter getIterFirst() {
-        final TreeIter iter;
-
-        iter = new TreeIter();
-
-        if (GtkTreeModel.getIterFirst(this, iter)) {
-            return iter;
-        } else {
-            return null;
-        }
     }
 }

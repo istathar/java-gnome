@@ -25,9 +25,9 @@ final class GValue extends Plumbing
     static final long createValue() {
         return g_value_new();
     }
-    
+
     private static native final long g_value_new();
-    
+
     static final long createValue(int i) {
         return g_value_init(i);
     }
@@ -64,6 +64,18 @@ final class GValue extends Plumbing
     private static native final long g_value_init(String str);
 
     private static native final long g_value_init(long obj);
+
+    static final int getInteger(Value value) {
+        return g_value_get_int(pointerOf(value));
+    }
+
+    private static native final int g_value_get_int(long value);
+
+    static final boolean getBoolean(Value value) {
+        return g_value_get_boolean(pointerOf(value));
+    }
+
+    private static native final boolean g_value_get_boolean(long value);
 
     static final float getFloat(Value value) {
         return g_value_get_float(pointerOf(value));

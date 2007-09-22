@@ -106,4 +106,20 @@ public final class Value extends Proxy
     public String getString() {
         return GValue.getString(this);
     }
+
+    public Value(int value) {
+        this(GValue.createValue(value));
+    }
+
+    public int getInteger() {
+        return GValue.getInteger(this);
+    }
+
+    public Value(boolean value) {
+        this(GValue.createValue(value));
+    }
+
+    public boolean getBoolean() {
+        return GValue.getBoolean(this);
+    }
 }

@@ -330,6 +330,56 @@ Java_org_gnome_glib_GValue_g_1value_1get_1float
 	return (jfloat) result; 
 }
 
+JNIEXPORT jint JNICALL
+Java_org_gnome_glib_GValue_g_1value_1get_1int
+(
+	JNIEnv* env,
+	jclass cls,
+	jlong _value
+)
+{
+	GValue* value;
+	gint result;
+
+	// translate value
+	value =	(GValue*) _value;
+	if (!G_VALUE_HOLDS_INT(value)) {
+		bindings_java_throw(env, "You've asked for the int value of a GValue, but it's not a G_TYPE_INT!");
+		return 0;
+	}
+	
+	// call function
+	result = g_value_get_int(value);
+	
+	// and return
+	return (jint) result;
+}
+
+
+JNIEXPORT jboolean JNICALL
+Java_org_gnome_glib_GValue_g_1value_1get_1boolean
+(
+	JNIEnv* env,
+	jclass cls,
+	jlong _value
+)
+{
+	GValue* value;
+	gboolean result;
+
+	// translate value
+	value =	(GValue*) _value;
+	if (!G_VALUE_HOLDS_BOOLEAN(value)) {
+		bindings_java_throw(env, "You've asked for the boolean value of a GValue, but it's not a G_TYPE_BOOLEAN!");
+		return 0;
+	}
+	
+	// call function
+	result = g_value_get_boolean(value);
+	
+	// and return
+	return (jboolean) result; 
+}
 
 /**
  * Implements
