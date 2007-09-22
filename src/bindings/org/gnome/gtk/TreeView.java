@@ -27,6 +27,7 @@ package org.gnome.gtk;
  * very powerful widget, but with that power comes considerable complexity...
  * 
  * @author Andrew Cowie
+ * @since 4.0.5
  */
 public class TreeView extends Container
 {
@@ -35,9 +36,39 @@ public class TreeView extends Container
     }
 
     /**
-     * Construct a new TreeView with a pre-existing TreeModel as it's data.
+     * Construct a new TreeView with an already established TreeModel as its
+     * data.
      */
     public TreeView(TreeModel store) {
         super(GtkTreeView.createTreeViewWithModel(store));
+    }
+
+    /**
+     * Construct a new TreeView. If you use this constructor, you will need to
+     * call {@link #setModel(TreeModel) setModel()} before any data will be
+     * displayable!
+     */
+    public TreeView() {
+        super(GtkTreeView.createTreeView());
+    }
+
+    /**
+     * Set the TreeModel being used to source data for this TreeView. If a
+     * model has already been set, calling this will replace it.
+     * 
+     * @param store
+     *            a vaue of <code>null</code> will remove the data model
+     *            underlying this TreeView, leaving it unset for the present.
+     */
+    public void setModel(TreeModel store) {
+        GtkTreeView.setModel(this, store);
+    }
+
+    /**
+     * Get the TreeModel currently providing the data powering this TreeView
+     * Widget, or <code>null</code> if not yet set.
+     */
+    public TreeModel getModel() {
+        return GtkTreeView.getModel(this);
     }
 }
