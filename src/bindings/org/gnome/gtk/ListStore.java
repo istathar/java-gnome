@@ -44,7 +44,7 @@ public class ListStore extends TreeModel implements TreeDragSource, TreeDragDest
      * {@link #setValue(TreeIter, DataColumnString, String) setValue()} of
      * course.
      */
-    public TreeIter append() {
+    public TreeIter appendRow() {
         final TreeIter iter;
 
         iter = new TreeIter();

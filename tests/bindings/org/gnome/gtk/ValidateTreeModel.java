@@ -86,7 +86,7 @@ public class ValidateTreeModel extends TestCaseGtk
 
         assertNull(iter);
 
-        iter = model.append();
+        iter = model.appendRow();
         assertNotNull(iter);
 
         iter = model.getIterFirst();
@@ -106,7 +106,7 @@ public class ValidateTreeModel extends TestCaseGtk
             column = new DataColumnString(),
         });
 
-        row = model.append();
+        row = model.appendRow();
         model.setValue(row, column, "Hello");
 
         assertEquals("Hello", model.getValue(row, column));
@@ -121,7 +121,7 @@ public class ValidateTreeModel extends TestCaseGtk
             column = new DataColumnInteger(),
         });
 
-        row = model.append();
+        row = model.appendRow();
         model.setValue(row, column, 42);
 
         assertEquals(42, model.getValue(row, column));
@@ -136,7 +136,7 @@ public class ValidateTreeModel extends TestCaseGtk
             column = new DataColumnBoolean(),
         });
 
-        row = model.append();
+        row = model.appendRow();
         model.setValue(row, column, true);
         assertEquals(true, model.getValue(row, column));
 

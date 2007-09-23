@@ -1,4 +1,4 @@
-personal_ws-1.1 en 1222 
+personal_ws-1.1 en 1241 
 EnumValue
 getActive
 refactor
@@ -16,6 +16,7 @@ dbm
 ParsedTree
 createCheckMenuItem
 XINERAMA
+GtkCellRendererText
 HSeparator
 GClosureMarshall
 findFiles
@@ -67,8 +68,8 @@ appendPage
 tearDown
 KeyListener
 copyMappingFile
-MenuItem's
 MenuItems
+MenuItem's
 jargs
 GClosureNotify
 testGetChildAndParent
@@ -87,6 +88,7 @@ javaClassName
 GtkReliefStyle
 cwd
 handleName
+setVertical
 typeToSignature
 setMaximize
 bzr
@@ -174,8 +176,8 @@ args
 getBlinking
 gtk
 InternalButtonImplementation
-argv
 blog
+argv
 OutOfMemoryError
 JDS
 pixbuf
@@ -183,6 +185,7 @@ getPropertyString
 TreeDragSource
 setTransientFor
 vsnprintf
+addAttribute
 StorageType
 testNoDenaturation
 MenuShell
@@ -219,8 +222,8 @@ NewStringUTF
 enums
 ToogleToolButtons
 timestamp
-VirtualHost
 virtualhost
+VirtualHost
 Schmitz
 ObjectiveAndAudience
 filetype
@@ -229,8 +232,8 @@ gnomedev
 perl
 ReliefStyle
 setTitle
-SourceForge
 sourceforge
+SourceForge
 PascalCase
 CellRenderers
 ToolBar
@@ -259,6 +262,7 @@ GtkListStore
 originalLabel
 getScreen
 xalign
+appendColumn
 textwidth
 assertNull
 FIXME
@@ -329,10 +333,10 @@ setDisplayOptions
 GladeXml
 conf
 ListStore
-getUri
 getURI
-TreeView's
+getUri
 TreeViews
+TreeView's
 NativeLibrary
 EventAny
 prependPage
@@ -383,9 +387,11 @@ gtkmm
 color
 nUnable
 createStatusIconFromFile
+TreeViewColumn's
 TreeViewColumns
 typedef
 GTypeInstance
+setMarkup
 setPropertyBar
 pygtk
 pyGTK
@@ -398,6 +404,7 @@ OnLoad
 SeparatorToolItems
 tla
 TypeBlock
+ListStore's
 compileCSourceToObject
 setInvisibleChar
 GtkActionGroup
@@ -410,6 +417,7 @@ IJLjava
 GetStaticMethodID
 RuntimeException
 kaffec
+createTreeViewWithModel
 getPosition
 DeleteGlobalRef
 tmp
@@ -461,6 +469,7 @@ PyThis
 bootclasspath
 flagFor
 nwith
+createCellRendererText
 AllAboutJNI
 usr
 getType
@@ -506,6 +515,7 @@ PixbufAnimation
 NewWeakGlobalRef
 addAction
 EDETACHED
+setHeadersClickable
 EventKey
 sourceChanged
 DeleteWeakGlobalRef
@@ -527,8 +537,8 @@ ClassNotFoundException
 FilenameFilter
 cp
 filenames
-eg
 dl
+eg
 nowarn
 preserveAllLocals
 toplevel
@@ -536,8 +546,8 @@ CellRendererText
 getPaddingLeft
 gc
 setPropertyString
-ge
 dt
+ge
 GTKish
 gtkjni
 eq
@@ -548,6 +558,7 @@ CheckMenuItems
 createImageFromFile
 fjni
 ucfirst
+setHeadersVisible
 ie
 javagnome
 IsSameObject
@@ -566,12 +577,12 @@ lc
 vhosts
 tooltips
 setKeepAbove
-jN
 ld
+jN
 resized
 lookups
-md
 li
+md
 GtkWidgetOverride
 struct
 paddingLeft
@@ -596,8 +607,8 @@ nm
 touchFile
 constantFor
 WindowPosition
-QA
 ok
+QA
 libgnomeui
 Overholt
 mv
@@ -624,8 +635,8 @@ va
 tm
 ui
 getmtime
-wb
 ul
+wb
 Xlib's
 GtkSeparatorMenuItem
 testButtonReliefStyle
@@ -637,6 +648,7 @@ GValue
 typesToClassNames
 VM
 keybindings
+Rietveld
 writeJniCode
 getMenu
 Wl
@@ -683,8 +695,8 @@ submenus
 objectArrayFor
 setAlignment
 setPropertyFloat
-vimrc
 TreeRowReference
+vimrc
 esque
 Vreixo
 ButtonBoxes
@@ -758,6 +770,7 @@ BindingsGenerator
 setFromFile
 testObjectNeverUsedIsRemoved
 GLib's
+createTreeView
 getLabelWidget
 GdkGravity
 enumMapping
@@ -788,6 +801,7 @@ MenuItem
 createToggleButton
 getOrdinal
 EventProperty
+GtkTreeViewColumn
 GtkEntry
 getDeclaredConstructor
 createVBox
@@ -809,8 +823,8 @@ compileBindingsClasses
 UnsupportedOperationException
 superclass
 UINT
-junit
 JUnit
+junit
 createFrame
 getWidget
 segfaulted
@@ -818,8 +832,8 @@ jmethodID
 tnot
 whitespace
 isfile
-endswith
 endsWith
+endswith
 nowrap
 apiversion
 GList
@@ -887,8 +901,8 @@ href
 DataColumnString
 GtkContainer
 onSelectionChanged
-classname
 ClassName
+classname
 unix
 GtkTooltip
 Henstridge
@@ -898,6 +912,7 @@ apache
 GdkEventKey
 buildtool
 createTreeIter
+CellRendererTexts
 PackageNames
 getPaddingRight
 createGenerator
@@ -1085,6 +1100,8 @@ Piechotka
 setVisibility
 isdir
 subdirectory
+createTreeViewColumn
+appendRow
 setMaxWidthChars
 ExceptionDescribe
 Kpic
@@ -1096,6 +1113,7 @@ getRowstride
 ProgressBar
 ToggleButton
 getResourceAsStream
+GtkTreeView
 ifndef
 createCheckButtonWithMnemonic
 getDraw
@@ -1157,6 +1175,7 @@ GtkTreeModel
 discoverability
 GtkHSeparator
 outputDir
+getModel
 setBlinking
 Formoso
 GtkToggleToolButton
@@ -1200,8 +1219,8 @@ setGravity
 createStatusIconFromPixbuf
 registerProxy
 isActive
-getEnv
 getenv
+getEnv
 baz
 EventType
 TestSuite

@@ -21,16 +21,19 @@ import org.gnome.glib.Boxed;
  * <p>
  * To obtain a new TreeIter, use one of the following:
  * <ul>
- * <li>ListStore's {@link ListStore#append() append()} (to add a new row to the end of the data set in the model);
- * <li>TreeModel's
- * {@link org.gnome.gtk.TreeModel#getIterFirst() getIterFirst()} (to start iterating through the rows in the model); or
- * <li>TreeSelection's ... (allowing you to identify the selected row and subsequently read data from it, usually with {@link TreeModel#getValue(TreeIter, DataColumn)).
+ * <li>ListStore's {@link ListStore#appendRow() append()} (to add a new
+ * record to the end of the data set in the model);
+ * <li>TreeModel's {@link TreeModel#getIterFirst() getIterFirst()} (to start
+ * iterating through the rows in the model); or
+ * <li>TreeSelection's FIXME (allowing you to identify the selected row and
+ * subsequently read data from it, usually with
+ * {@link TreeModel#getValue(TreeIter, DataColumn)}.
  * </ul>
  * 
  * <p>
  * Like other iterators in Java, a TreeIter becomes invalid the moment the
  * underlying model changes. If you need a persistent pointer to a particular
- * row, create a {@link TreeRowReference} with FIXME a utility method here?
+ * row, create a {@link TreeRowReference TreeRowReference} with FIXME.
  * 
  * <p>
  * <i>Note that although one use case for TreeIter is to iterate through all
