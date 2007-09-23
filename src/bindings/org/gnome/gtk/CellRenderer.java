@@ -12,6 +12,8 @@
 package org.gnome.gtk;
 
 /**
+ * 
+ * 
  * <p>
  * Note that there is not one CellRenderer per cell in the table like
  * presentation of a TreeView! Instead, a CellRenderer is an engine called
@@ -22,31 +24,81 @@ package org.gnome.gtk;
  * rendered result.
  * 
  * <p>
+ * You will see two types of setters in CellRenderers. The most important ones
+ * are those that take a DataColumn for an argument, and will adjust that
+ * property of the CellRenderer for each row of the model based on the value
+ * of the specified column.
+ * 
+ * <p>
+ * While the whole point of the CellRenderers is to present the data from a
+ * given column of your data model, CellRenderers also offer a considerable
+ * number of properties that you <i>don't</i> need to vary row by row but want
+ * to set for the TreeViewColumn as a whole. For these you will notice a a
+ * setter which takes a conventional type as its argument; setting this
+ * property will set it for all rows in that column. (Occasionally you will
+ * see the setter for a property overloaded to offer you both a DataColumn
+ * driven mode and a fixed value mode for the rare occasions where both styles
+ * are useful, but in general it's fairly obvious that you use a property one
+ * way or the other).
+ * 
+ * <p>
  * It's easy to be tempted into thinking that CellRenderers are Widgets,
  * especially as they get <code>pack()</code>ed into TreeViewColumns on
  * their way to being used in TreeViews. They are, however, merely utility
  * elements that are used to facilitate drawing, and <i>not</i> full power
- * Widgets, as you would see from a closer look at the class hierarchy.
+ * Widgets.
  * 
  * <p>
- * Do not try to resuse a CellRenderer between different TreeViewColumns.
+ * Do not try to reuse a CellRenderer between different TreeViewColumns.
  * 
  * @author Andrew Cowie
+ * @author 4.0.5
  */
 /*
  * Injunction about reuse from Kristian Rietveld
  */
-/*
- * FIXME this is a placeholder stub for what will become the public API for
- * this type. Replace this comment with appropriate javadoc including author
- * and since tags. Note that the class may need to be made abstract, implement
- * interfaces, or even have its parent changed. No API stability guarantees
- * are made about this class until it has been reviewed by a hacker and this
- * comment has been replaced.
- */
 public abstract class CellRenderer extends Object
 {
-    protected CellRenderer(long pointer) {
+    /*
+     * No <init>(long) only constructor implies that you can't get one of
+     * these via objectFor() if it wasn't instantiated Java side. No problem;
+     * it's not like LibGlade does that for you, although GtkBuilder might
+     * someday (in which case you'd have to add logic to figure out which
+     * TreeViewColumn had had this CellRenderer packed into it).
+     */
+
+    /**
+     * The one (and only) TreeViewColumn this CellRenderer has been packed
+     * into. Used by the set<Attribute>() methods.
+     */
+    protected TreeViewColumn vertical;
+
+    /**
+     * Once you've constructed a CellRenderer and tied it to TreeViewColumn by
+     * doing so (ie the way we have designed it), you can't reuse it, which is
+     * why there's no <code>setVertical()</code>.
+     */
+    protected CellRenderer(long pointer, TreeViewColumn vertical) {
         super(pointer);
+
+        if (vertical == null) {
+            throw new IllegalArgumentException(
+                    "Must pass an instantiated TreeViewColumn to the CellRenderer constructor");
+        }
+
+        GtkTreeViewColumn.packStart(vertical, this, false);
+
+        this.vertical = vertical;
+    }
+
+    /**
+     * Set the alignment of this CellRenderer in the TreeViewColumn.
+     */
+    /*
+     * Both at once matches the signature found in Button and Misc
+     */
+    public void setAlignment(float xalign, float yalign) {
+        setPropertyFloat("xalign", xalign);
+        setPropertyFloat("yalign", yalign);
     }
 }

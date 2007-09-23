@@ -23,8 +23,16 @@ package org.gnome.gtk;
  * Display the data from a TreeModel in a tabular form. You can select and
  * activate rows, ...
  * 
- * This is the view part of the TreeView/TreeModel MVC pattern. TreeView is a
- * very powerful widget, but with that power comes considerable complexity...
+ * This is the view part of GTK's TreeView/TreeModel model-view-controller
+ * pattern based list Widget. TreeView is very powerful, but with that power
+ * comes considerable complexity...
+ * 
+ * <p>
+ * <i>We have departed a fair way from the method call sequence used in the
+ * underlying GTK library, in particular by assuming default behaviour and
+ * combining calls where possible. This is in an effort to make the TreeView
+ * API somewhat easier to learn, more appropriate in a Java context, and
+ * easier to use for the common cases which dominate its usage.</i>
  * 
  * @author Andrew Cowie
  * @since 4.0.5
@@ -57,7 +65,7 @@ public class TreeView extends Container
      * model has already been set, calling this will replace it.
      * 
      * @param store
-     *            a vaue of <code>null</code> will remove the data model
+     *            a value of <code>null</code> will remove the data model
      *            underlying this TreeView, leaving it unset for the present.
      */
     public void setModel(TreeModel store) {
@@ -74,9 +82,32 @@ public class TreeView extends Container
 
     /**
      * Add a TreeViewColumn to right-hand edge of this TreeView.
+     * 
+     * @deprecated
      */
     public void appendColumn(TreeViewColumn vertical) {
         GtkTreeView.appendColumn(this, vertical);
+    }
+
+    /**
+     * Create a new TreeViewColumn and add it to right-hand edge of this
+     * TreeView.
+     */
+    /*
+     * It is quite easy to screw up by creating a TreeViewColumn, configuring
+     * it and its CellRenderer, only to forget to add it to the TreeView. We get
+     * around this by making appendColumn() return a new TreeViewColumn.
+     * Nicely complements appendRow() returning a TreeIter in the TreeModels()
+     * too.
+     */
+    public TreeViewColumn appendColumn() {
+        final TreeViewColumn vertical;
+
+        vertical = new TreeViewColumn();
+
+        GtkTreeView.appendColumn(this, vertical);
+
+        return vertical;
     }
 
     /**

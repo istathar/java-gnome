@@ -11,17 +11,68 @@
  */
 package org.gnome.gtk;
 
-/*
- * FIXME this is a placeholder stub for what will become the public API for
- * this type. Replace this comment with appropriate javadoc including author
- * and since tags. Note that the class may need to be made abstract, implement
- * interfaces, or even have its parent changed. No API stability guarantees
- * are made about this class until it has been reviewed by a hacker and this
- * comment has been replaced.
+/**
+ * Render textual data into a TreeViewColumn. This is the most commonly used
+ * CellRenderer, used to present Strings. The fundamental mapping method is
+ * {@link #setText(DataColumnString) setText()} which you use to indicate the
+ * particular DataColumnString from the underlying TreeModel which will
+ * provide the Strings.
+ * 
+ * <p>
+ * CellRendererTexts are also frequently used to present numerical data when
+ * it is desired to apply formatting to that data (converting it to a String
+ * in the process) before rendering it. If you do that, you'll probably want
+ * to use a second (numerically typed) DataColumn to indicate the appropriate
+ * sorting order to be applied if that TreeViewColumn is clicked and sorting
+ * is turned on; see {@link TreeViewColumn#setSortColumn() FIXME}.
+ * 
+ * @author Andrew Cowie
+ * @since 4.0.5
  */
 public class CellRendererText extends CellRenderer
 {
-    protected CellRendererText(long pointer) {
-        super(pointer);
+    /*
+     * protected <init>(long) constructor removed deliberately.
+     */
+
+    /**
+     * Construct a new CellRendererText. Specify the TreeViewColumn it will
+     * belong to and from whose parent TreeView has the TreeModel where the
+     * columns of data will come from.
+     */
+    public CellRendererText(TreeViewColumn vertical) {
+        super(GtkCellRendererText.createCellRendererText(), vertical);
+    }
+
+    /**
+     * Indicate the DataColumn containing the plain text to render. This will
+     * map the DataColumn that will be used to provide the text to be rendered
+     * in the TreeViewColumn this CellRenderer is packed into. This is by far
+     * and away the most commonly used mapping in the entire TreeView API.
+     * 
+     * <p>
+     * If you want to use Pango markup to format the text being rendered, call
+     * {@link #setMarkup(DataColumnString) setMarkup()} instead.
+     */
+    public void setText(DataColumnString column) {
+        GtkTreeViewColumn.addAttribute(vertical, this, "text", column.getOrdinal());
+    }
+
+    /**
+     * Indicate the DataColumn containing Pango markup to render as text.
+     * 
+     * <p>
+     * The String in the DataColumn being rendered will be interpreted as
+     * containing markup in Pango's text markup language. Using this allows
+     * you to make very expressive presentations within TreeView cells.
+     * 
+     * <p>
+     * Using this (instead of {@link #setText(DataColumnString) setText()})
+     * has the same effect as using a Label with
+     * {@link Label#setUseMarkup(boolean) setUseMarkup(true)} in normal
+     * layouts.
+     */
+    public void setMarkup(DataColumnString column) {
+        GtkTreeViewColumn.addAttribute(vertical, this, "markup", column.getOrdinal());
     }
 }

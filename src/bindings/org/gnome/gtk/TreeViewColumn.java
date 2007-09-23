@@ -18,6 +18,10 @@ package org.gnome.gtk;
  * which attributes of that CellRenderer are powered by what rows from the
  * data TreeModel that will underlie the TreeView.
  * 
+ * <p>
+ * You get a TreeViewColumn by calling TreeView's
+ * {@link TreeView#appendColumn() appendColumn()}.
+ * 
  * @author Andrew Cowie
  * @since 4.0.5
  */
@@ -33,9 +37,11 @@ public class TreeViewColumn extends Object implements CellLayout
     }
 
     /**
-     * Construct a new TreeViewColumn.
+     * Construct a new TreeViewColumn. This doesn't need to be publicly
+     * visible; you create one by appending a column to a TreeView with
+     * appendColumn()
      */
-    public TreeViewColumn() {
+    protected TreeViewColumn() {
         super(GtkTreeViewColumn.createTreeViewColumn());
     }
 
@@ -44,7 +50,7 @@ public class TreeViewColumn extends Object implements CellLayout
      * header row. In addition to being descriptive, the title are what you
      * click to cause this column to be the one that is sorting the TreeView
      * (assuming you've enabled the columns to be sortable with TreeView's
-     * {@link TreeView#setHeadersClickable(boolean) setHeaderClickable(true)}
+     * {@link TreeView#setHeadersClickable(boolean) setHeadersClickable(true)}
      * and FIXME, and that the titles are visible in the first place, ie the
      * header row hasn't been turned off via TreeView's
      * {@link TreeView#setHeadersVisible(boolean) setHeadersVisible(false)}).
