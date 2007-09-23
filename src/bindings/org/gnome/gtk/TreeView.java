@@ -71,4 +71,31 @@ public class TreeView extends Container
     public TreeModel getModel() {
         return GtkTreeView.getModel(this);
     }
+
+    /**
+     * Add a TreeViewColumn to right-hand edge of this TreeView.
+     */
+    public void appendColumn(TreeViewColumn vertical) {
+        GtkTreeView.appendColumn(this, vertical);
+    }
+
+    /**
+     * Set whether this TreeView has a header row at the top of the Widget
+     * showing the titles of each of the TreeViewColumns packed into it. The
+     * default is <code>true</code>, for headers to be visible.
+     */
+    public void setHeadersVisible(boolean visible) {
+        GtkTreeView.setHeadersVisible(this, visible);
+    }
+
+    /**
+     * Set whether the column titles in the header row can be clicked to
+     * activate sorting of the displayed data according to that column. The
+     * default is <code>false</code> since you frequently have the rows
+     * ordered the way they are for a reason and don't want to let the user be
+     * reordering the display and getting lost in the process.
+     */
+    public void setHeadersClickable(boolean clickable) {
+        GtkTreeView.setHeadersClickable(this, clickable);
+    }
 }

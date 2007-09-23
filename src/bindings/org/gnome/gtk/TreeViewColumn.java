@@ -11,17 +11,45 @@
  */
 package org.gnome.gtk;
 
+/**
+ * A vertical visible column as presented in a TreeView Widget. A
+ * TreeViewColumn's primary role is to connect one or more CellRenderers to a
+ * vertical position in the tabular layout of a TreeView and then to assign
+ * which attributes of that CellRenderer are powered by what rows from the
+ * data TreeModel that will underlie the TreeView.
+ * 
+ * @author Andrew Cowie
+ * @since 4.0.5
+ */
 /*
- * FIXME this is a placeholder stub for what will become the public API for
- * this type. Replace this comment with appropriate javadoc including author
- * and since tags. Note that the class may need to be made abstract, implement
- * interfaces, or even have its parent changed. No API stability guarantees
- * are made about this class until it has been reviewed by a hacker and this
- * comment has been replaced.
+ * At considerable odds with the underlying library, we have moved the logic
+ * relating to packing CellRenderers and mapping attributes to TreeModel
+ * columns over to the CellRenderer classes.
  */
 public class TreeViewColumn extends Object implements CellLayout
 {
     protected TreeViewColumn(long pointer) {
         super(pointer);
+    }
+
+    /**
+     * Construct a new TreeViewColumn.
+     */
+    public TreeViewColumn() {
+        super(GtkTreeViewColumn.createTreeViewColumn());
+    }
+
+    /**
+     * Set the title to be used for this TreeViewColumn in the TreeView's
+     * header row. In addition to being descriptive, the title are what you
+     * click to cause this column to be the one that is sorting the TreeView
+     * (assuming you've enabled the columns to be sortable with TreeView's
+     * {@link TreeView#setHeadersClickable(boolean) setHeaderClickable(true)}
+     * and FIXME, and that the titles are visible in the first place, ie the
+     * header row hasn't been turned off via TreeView's
+     * {@link TreeView#setHeadersVisible(boolean) setHeadersVisible(false)}).
+     */
+    public void setTitle(String title) {
+        GtkTreeViewColumn.setTitle(this, title);
     }
 }
