@@ -58,4 +58,48 @@ public class TreeViewColumn extends Object implements CellLayout
     public void setTitle(String title) {
         GtkTreeViewColumn.setTitle(this, title);
     }
+
+    /**
+     * Set whether the column header allows itself to be clicked. The default
+     * is <code>false</code>, not to be clickable, also meaning that header
+     * won't take the keyboard focus either. Since calling
+     * {@link #setSortColumn(DataColumn) setSortColumn()} will set
+     * <var>clickable</var> to <code>true</code>, so you only need this
+     * for the case where you assign a sort order to a column, but don't want
+     * users to be able to change the sorting column or its order.
+     */
+    public void setClickable(boolean setting) {
+        GtkTreeViewColumn.setClickable(this, setting);
+    }
+
+    /**
+     * Set the DataColumn that will be used to sort this TreeViewColumn should
+     * sorting be enabled.
+     * 
+     * <p>
+     * Calling this also makes the TreeViewColumn <var>clickable</var>, but
+     * it does not automatically engage the sorting (maybe you only want
+     * sorting to be optional and only active if the user clicks a header,
+     * certainly if you've set sort information for many columns you will have
+     * to indicate explicitly which one is to be active first, etc). Use
+     * {@link #clicked()} to activate this column as the one doing the
+     * sorting.
+     */
+    public void setSortColumn(DataColumn column) {
+        GtkTreeViewColumn.setSortColumnId(this, column.getOrdinal());
+    }
+
+    /**
+     * Activate this column's sorting by sending a click the TreeViewColumn
+     * header. Causes <code>CLICKED</code> to fire, but more importantly
+     * this causes this vertical to become the active column dictating the
+     * ordering of the TreeView as a whole (assuming the vertical is
+     * {@link #setClickable(boolean) setClickable(true)} and assuming a
+     * DataColumn has been set with
+     * {@link #setSortColumn(DataColumn) setSortColumn()} to indicate the
+     * ordering).
+     */
+    public void clicked() {
+        GtkTreeViewColumn.clicked(this);
+    }
 }
