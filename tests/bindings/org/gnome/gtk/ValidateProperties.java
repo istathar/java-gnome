@@ -10,6 +10,8 @@
  */
 package org.gnome.gtk;
 
+import org.gnome.glib.Value;
+
 /**
  * Test characteristic getters and setters to ensure correct values are
  * retrieved.
@@ -18,6 +20,34 @@ package org.gnome.gtk;
  */
 public class ValidateProperties extends TestCaseGtk
 {
+    public final void testStringValues() {
+        final Value v = new Value("Hello");
+        assertEquals("Hello", v.getString());
+    }
+
+    public final void testIntegerValues() {
+        final Value v = new Value(-42);
+        assertEquals(-42, v.getInteger());
+    }
+
+    public final void testBooleanValues() {
+        final Value v1, v2;
+
+        v1 = new Value(true);
+        assertEquals(true, v1.getBoolean());
+
+        v2 = new Value(false);
+        assertEquals(false, v2.getBoolean());
+    }
+
+    /*
+     * GValue.g_value_init(float) had a cut and paste bug.
+     */
+    public final void testFloatValues() {
+        final Value v = new Value(0.1f);
+        assertEquals(0.1f, v.getFloat(), 0.0001);
+    }
+
     /**
      * Test changing the label of a Button and getting the label back.
      */

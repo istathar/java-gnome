@@ -85,8 +85,10 @@ public final class Value extends Proxy
     }
 
     /*
-     * FIXME I'm not happy about exposing the following, especially the
-     * constructor.
+     * FIXME I'm not happy about the fact that we have exposed the following
+     * constructors and getters; I regard them as internals. The biggest
+     * problem is that they are not-type safe; a developer could easily shoot
+     * themselves in the foot.
      */
 
     /**
@@ -121,5 +123,13 @@ public final class Value extends Proxy
 
     public boolean getBoolean() {
         return GValue.getBoolean(this);
+    }
+
+    public Value(float f) {
+        this(GValue.createValue(f));
+    }
+
+    public float getFloat() {
+        return GValue.getFloat(this);
     }
 }

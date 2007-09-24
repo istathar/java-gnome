@@ -211,7 +211,7 @@ Java_org_gnome_glib_GValue_g_1value_1init__F
 	g_value_init(value, G_TYPE_FLOAT);
 	
 	// set the value
-	g_value_set_boolean(value, f); 
+	g_value_set_float(value, f); 
 
 	// return address
 	return (jlong) value;
