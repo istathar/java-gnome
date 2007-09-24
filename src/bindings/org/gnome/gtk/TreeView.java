@@ -11,14 +11,6 @@
  */
 package org.gnome.gtk;
 
-/*
- * FIXME this is a placeholder stub for what will become the public API for
- * this type. Replace this comment with appropriate javadoc including author
- * and since tags. Note that the class may need to be made abstract, implement
- * interfaces, or even have its parent changed. No API stability guarantees
- * are made about this class until it has been reviewed by a hacker and this
- * comment has been replaced.
- */
 /**
  * Display the data from a TreeModel in a tabular form. You can select and
  * activate rows, ...
@@ -81,15 +73,6 @@ public class TreeView extends Container
     }
 
     /**
-     * Add a TreeViewColumn to right-hand edge of this TreeView.
-     * 
-     * @deprecated
-     */
-    public void appendColumn(TreeViewColumn vertical) {
-        GtkTreeView.appendColumn(this, vertical);
-    }
-
-    /**
      * Create a new TreeViewColumn and add it to right-hand edge of this
      * TreeView.
      */
@@ -115,8 +98,8 @@ public class TreeView extends Container
      * showing the titles of each of the TreeViewColumns packed into it. The
      * default is <code>true</code>, for headers to be visible.
      */
-    public void setHeadersVisible(boolean visible) {
-        GtkTreeView.setHeadersVisible(this, visible);
+    public void setHeadersVisible(boolean setting) {
+        GtkTreeView.setHeadersVisible(this, setting);
     }
 
     /**
@@ -126,7 +109,7 @@ public class TreeView extends Container
      * ordered the way they are for a reason and don't want to let the user be
      * reordering the display and getting lost in the process.
      */
-    public void setHeadersClickable(boolean clickable) {
-        GtkTreeView.setHeadersClickable(this, clickable);
+    public void setHeadersClickable(boolean setting) {
+        GtkTreeView.setHeadersClickable(this, setting);
     }
 }

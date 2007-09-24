@@ -25,11 +25,11 @@ package org.gnome.gtk;
  * 
  * <p>
  * Simply call
- * {@link TreeModel#getValueReference(TreeIter, DataColumn) getValue()} with
- * the TreeIter the selection gave you and the DataColumnReference indicating
- * the column you stashed your object in, and then ta-da you have the Account
- * which was selected, allowing you to carry on with your application logic in
- * your application's domain model's terms.
+ * {@link TreeModel#getValueReference(TreeIter, DataColumnReference) getValue()}
+ * with the TreeIter the selection gave you and the DataColumnReference
+ * indicating the column you stashed your object in, and then ta-da you have
+ * the Account which was selected, allowing you to carry on with your
+ * application logic in your application's domain model's terms.
  * 
  * <p>
  * Beyond this, see {@link DataColumn} for the full discussion of the role of

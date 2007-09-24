@@ -27,7 +27,7 @@ import org.gnome.glib.Boxed;
  * iterating through the rows in the model); or
  * <li>TreeSelection's FIXME (allowing you to identify the selected row and
  * subsequently read data from it, usually with
- * {@link TreeModel#getValue(TreeIter, DataColumn)}.
+ * {@link TreeModel#getValue(TreeIter, DataColumnReference)}.
  * </ul>
  * 
  * <p>
