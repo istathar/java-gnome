@@ -12,11 +12,11 @@
 package org.gnome.gtk;
 
 /**
- * A vertical visible column as presented in a TreeView Widget. A
- * TreeViewColumn's primary role is to connect one or more CellRenderers to a
- * vertical position in the tabular layout of a TreeView and then to assign
- * which attributes of that CellRenderer are powered by what rows from the
- * data TreeModel that will underlie the TreeView.
+ * A vertical visible column as presented in a {@link TreeView TreeView}
+ * Widget. A TreeViewColumn's primary role is to connect one or more
+ * CellRenderers to a vertical position in the tabular layout of a TreeView
+ * and then to assign which attributes of that CellRenderer are powered by
+ * what rows from the data TreeModel that will underlie the TreeView.
  * 
  * <p>
  * You get a TreeViewColumn by calling TreeView's

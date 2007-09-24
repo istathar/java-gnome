@@ -78,8 +78,8 @@ public class TreeView extends Container
      */
     /*
      * It is quite easy to screw up by creating a TreeViewColumn, configuring
-     * it and its CellRenderer, only to forget to add it to the TreeView. We get
-     * around this by making appendColumn() return a new TreeViewColumn.
+     * it and its CellRenderer, only to forget to add it to the TreeView. We
+     * get around this by making appendColumn() return a new TreeViewColumn.
      * Nicely complements appendRow() returning a TreeIter in the TreeModels()
      * too.
      */
@@ -104,10 +104,13 @@ public class TreeView extends Container
 
     /**
      * Set whether the column titles in the header row can be clicked to
-     * activate sorting of the displayed data according to that column. The
-     * default is <code>false</code> since you frequently have the rows
-     * ordered the way they are for a reason and don't want to let the user be
-     * reordering the display and getting lost in the process.
+     * change the sorting of the displayed data. While the default is
+     * <code>false</code> (since you frequently have the rows ordered the
+     * way they are for a reason and don't want to let the user be reordering
+     * the display and getting lost in the process), calling TreeViewColumn's
+     * {@link TreeViewColumn#setSortColumn(DataColumn) setSortColumn()} will
+     * make the headers clickable. Use this method after your column setup to
+     * turn it off [again].
      */
     public void setHeadersClickable(boolean setting) {
         GtkTreeView.setHeadersClickable(this, setting);
