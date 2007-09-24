@@ -70,4 +70,53 @@ public final class Value extends Proxy
         }
         GValue.free(this);
     }
+
+    /*
+     * FIXME I'm not happy about the fact that we have exposed the following
+     * constructors and getters; I regard them as internals. The biggest
+     * problem is that they are not-type safe; a developer could easily shoot
+     * themselves in the foot.
+     */
+
+    /**
+     * Create an empty Value without initializing it's type. For use in
+     * methods like TreeModel's
+     * {@link org.gnome.gtk.TreeModel#getValueString(org.gnome.gtk.TreeIter, int) getValue()}
+     * family, which use a blank GValue internally.
+     */
+    public Value() {
+        this(GValue.createValue());
+    }
+
+    public Value(String value) {
+        this(GValue.createValue(value));
+    }
+
+    public String getString() {
+        return GValue.getString(this);
+    }
+
+    public Value(int value) {
+        this(GValue.createValue(value));
+    }
+
+    public int getInteger() {
+        return GValue.getInteger(this);
+    }
+
+    public Value(boolean value) {
+        this(GValue.createValue(value));
+    }
+
+    public boolean getBoolean() {
+        return GValue.getBoolean(this);
+    }
+
+    public Value(float f) {
+        this(GValue.createValue(f));
+    }
+
+    public float getFloat() {
+        return GValue.getFloat(this);
+    }
 }
