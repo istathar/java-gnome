@@ -32,9 +32,9 @@ package org.gnome.gtk;
  * <p>
  * While the whole point of the CellRenderers is to present the data from a
  * given column of your data model, CellRenderers also offer a considerable
- * number of properties that you <i>don't</i> need to vary row by row but want
- * to set for the TreeViewColumn as a whole. For these you will notice a a
- * setter which takes a conventional type as its argument; setting this
+ * number of properties that you <i>don't</i> need to vary row by row but
+ * want to set for the TreeViewColumn as a whole. For these you will notice a
+ * a setter which takes a conventional type as its argument; setting this
  * property will set it for all rows in that column. (Occasionally you will
  * see the setter for a property overloaded to offer you both a DataColumn
  * driven mode and a fixed value mode for the rare occasions where both styles
@@ -78,6 +78,11 @@ public abstract class CellRenderer extends Object
      * doing so (ie the way we have designed it), you can't reuse it, which is
      * why there's no <code>setVertical()</code>.
      */
+    /*
+     * Pack into the TreeViewColumn with expand true; at the moment we're only
+     * exposing one CellRenderer per column, so might as well give it the
+     * space. Testing showed this to make sense at runtime.
+     */
     protected CellRenderer(long pointer, TreeViewColumn vertical) {
         super(pointer);
 
@@ -86,7 +91,7 @@ public abstract class CellRenderer extends Object
                     "Must pass an instantiated TreeViewColumn to the CellRenderer constructor");
         }
 
-        GtkTreeViewColumn.packStart(vertical, this, false);
+        GtkTreeViewColumn.packStart(vertical, this, true);
 
         this.vertical = vertical;
     }

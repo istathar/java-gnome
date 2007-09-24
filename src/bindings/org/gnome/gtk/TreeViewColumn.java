@@ -102,4 +102,25 @@ public class TreeViewColumn extends Object implements CellLayout
     public void clicked() {
         GtkTreeViewColumn.clicked(this);
     }
+
+    /**
+     * Set whether this TreeViewColumn will share in additional space
+     * available to the parent TreeView. Like Widgets packed into Containers,
+     * ordinarily a TreeViewColumn will be allocated the space it needs but no
+     * more, and the TreeView will be the size of the sum of these requests.
+     * If the TreeView is allocated space over and above this, however, then
+     * this additional space will be given to those TreeViewColumns with this
+     * property set to <code>true</code>.
+     * 
+     * <p>
+     * The default for new TreeViewColumns is <code>false</code>. The last
+     * (right-most) column is treated specially, however. Extra space given to
+     * the TreeView as a whole will automatically go to the last vertical
+     * column (ie, ignoring this being set <code>false</code>) unless one
+     * or more other columns have had <var>expand</var> set to
+     * <code>true</code>.
+     */
+    public void setExpand(boolean setting) {
+        GtkTreeViewColumn.setExpand(this, setting);
+    }
 }

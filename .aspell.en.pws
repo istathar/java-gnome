@@ -2,8 +2,8 @@ personal_ws-1.1 en 1244
 EnumValue
 getActive
 refactor
-cfg
 clickable
+cfg
 denaturation
 api
 TestCases
@@ -69,8 +69,8 @@ appendPage
 tearDown
 KeyListener
 copyMappingFile
-MenuItems
 MenuItem's
+MenuItems
 jargs
 GClosureNotify
 testGetChildAndParent
@@ -177,8 +177,8 @@ args
 getBlinking
 gtk
 InternalButtonImplementation
-blog
 argv
+blog
 OutOfMemoryError
 JDS
 pixbuf
@@ -223,8 +223,8 @@ NewStringUTF
 enums
 ToogleToolButtons
 timestamp
-virtualhost
 VirtualHost
+virtualhost
 Schmitz
 ObjectiveAndAudience
 filetype
@@ -233,8 +233,8 @@ gnomedev
 perl
 ReliefStyle
 setTitle
-sourceforge
 SourceForge
+sourceforge
 PascalCase
 CellRenderers
 ToolBar
@@ -334,10 +334,10 @@ setDisplayOptions
 GladeXml
 conf
 ListStore
-getURI
 getUri
-TreeViews
+getURI
 TreeView's
+TreeViews
 NativeLibrary
 EventAny
 prependPage
@@ -538,8 +538,8 @@ ClassNotFoundException
 FilenameFilter
 cp
 filenames
-dl
 eg
+dl
 nowarn
 preserveAllLocals
 toplevel
@@ -547,8 +547,8 @@ CellRendererText
 getPaddingLeft
 gc
 setPropertyString
-dt
 ge
+dt
 GTKish
 gtkjni
 eq
@@ -578,12 +578,12 @@ lc
 vhosts
 tooltips
 setKeepAbove
-ld
 jN
+ld
 resized
 lookups
-li
 md
+li
 GtkWidgetOverride
 struct
 paddingLeft
@@ -608,8 +608,8 @@ nm
 touchFile
 constantFor
 WindowPosition
-ok
 QA
+ok
 libgnomeui
 Overholt
 mv
@@ -636,8 +636,8 @@ va
 tm
 ui
 getmtime
-ul
 wb
+ul
 Xlib's
 GtkSeparatorMenuItem
 testButtonReliefStyle
@@ -697,8 +697,8 @@ submenus
 objectArrayFor
 setAlignment
 setPropertyFloat
-TreeRowReference
 vimrc
+TreeRowReference
 esque
 Vreixo
 ButtonBoxes
@@ -825,8 +825,8 @@ compileBindingsClasses
 UnsupportedOperationException
 superclass
 UINT
-JUnit
 junit
+JUnit
 createFrame
 getWidget
 segfaulted
@@ -834,8 +834,8 @@ jmethodID
 tnot
 whitespace
 isfile
-endsWith
 endswith
+endsWith
 nowrap
 apiversion
 GList
@@ -903,8 +903,8 @@ href
 DataColumnString
 GtkContainer
 onSelectionChanged
-ClassName
 classname
+ClassName
 unix
 GtkTooltip
 Henstridge
@@ -1222,8 +1222,8 @@ setGravity
 createStatusIconFromPixbuf
 registerProxy
 isActive
-getenv
 getEnv
+getenv
 baz
 EventType
 TestSuite
