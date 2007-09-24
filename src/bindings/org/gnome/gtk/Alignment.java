@@ -39,6 +39,42 @@ public class Alignment extends Bin
         super(pointer);
     }
 
+    /*
+     * These constants are not necessary by any stretch of the imagination,
+     * but really they are the only cases you really use, and with static
+     * imports they can make one's code look a bit more meaningful.
+     */
+
+    /**
+     * Align to the left. A convenience constant for the value
+     * <code>0.0f</code>.
+     */
+    public static final float LEFT = 0.0f;
+
+    /**
+     * Align to the center. A convenience constant for the value
+     * <code>0.5f</code>.
+     */
+    public static final float CENTER = 0.5f;
+
+    /**
+     * Align to the right. A convenience constant for the value
+     * <code>1.0f</code>.
+     */
+    public static final float RIGHT = 1.0f;
+
+    /**
+     * Align to the top. A convenience constant for the value
+     * <code>0.0f</code>.
+     */
+    public static final float TOP = 0.0f;
+
+    /**
+     * Align to the bottom. A convenience constant for the value
+     * <code>1.0f</code>.
+     */
+    public static final float BOTTOM = 1.0f;
+
     private static final float check(final float param) {
         if ((param < 0.0) || (param > 1.0)) {
             throw new IllegalArgumentException("Parameters must be between 0.0 and 1.0");

@@ -102,4 +102,15 @@ public class ValidateProperties extends TestCaseGtk
         }
         assertEquals(0.6f, a.getScaleY(), 0.001);
     }
+
+    /*
+     * Just a quick check deciding to expose some constants.
+     */
+    public final void testAlignmentConstants() {
+        assertEquals(0.0f, Alignment.LEFT, 0.0001f);
+        assertEquals(0.5f, Alignment.CENTER, 0.0001f);
+        assertEquals(1.0f, Alignment.RIGHT, 0.0001f);
+        assertEquals(0.0f, Alignment.TOP, 0.0001f);
+        assertEquals(1.0f, Alignment.BOTTOM, 0.0001f);
+    }
 }
