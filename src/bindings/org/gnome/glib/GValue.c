@@ -88,6 +88,34 @@ Java_org_gnome_glib_GValue_g_1value_1free
 	g_slice_free(GValue, value);
 }
 
+
+/**
+ * Implements
+ *   org.gnome.glib.GValue.g_value_new()
+ * called from
+ *   org.gnome.glib.GValue.createValue()
+ * called from
+ *   org.gnome.glib.Value.<init>()
+ *
+ * Allocate a blank GValue, for use in methods which populate a blank GValue
+ * in order to return information in an out-parameter-esque fashion.
+ */
+JNIEXPORT jlong JNICALL
+Java_org_gnome_glib_GValue_g_1value_1new
+(
+	JNIEnv *env,
+	jclass cls
+)
+{
+	GValue* value;
+		
+	// allocate it and set to zeros, per what g_value_init requires
+	value =	g_slice_new0(GValue);
+
+	// return address
+	return (jlong) value;
+}
+
 /**
  * Implements
  *   org.gnome.glib.GValue.g_value_init(int i)
@@ -302,6 +330,56 @@ Java_org_gnome_glib_GValue_g_1value_1get_1float
 	return (jfloat) result; 
 }
 
+JNIEXPORT jint JNICALL
+Java_org_gnome_glib_GValue_g_1value_1get_1int
+(
+	JNIEnv* env,
+	jclass cls,
+	jlong _value
+)
+{
+	GValue* value;
+	gint result;
+
+	// translate value
+	value =	(GValue*) _value;
+	if (!G_VALUE_HOLDS_INT(value)) {
+		bindings_java_throw(env, "You've asked for the int value of a GValue, but it's not a G_TYPE_INT!");
+		return 0;
+	}
+	
+	// call function
+	result = g_value_get_int(value);
+	
+	// and return
+	return (jint) result;
+}
+
+
+JNIEXPORT jboolean JNICALL
+Java_org_gnome_glib_GValue_g_1value_1get_1boolean
+(
+	JNIEnv* env,
+	jclass cls,
+	jlong _value
+)
+{
+	GValue* value;
+	gboolean result;
+
+	// translate value
+	value =	(GValue*) _value;
+	if (!G_VALUE_HOLDS_BOOLEAN(value)) {
+		bindings_java_throw(env, "You've asked for the boolean value of a GValue, but it's not a G_TYPE_BOOLEAN!");
+		return 0;
+	}
+	
+	// call function
+	result = g_value_get_boolean(value);
+	
+	// and return
+	return (jboolean) result; 
+}
 
 /**
  * Implements
