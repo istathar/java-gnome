@@ -13,6 +13,10 @@
 # This doesn't necessarily have to be separate, but it's cleaner this way
 # This runs relative to the project root
 #
+# Just so you know, the GCJ build is bit rotting a bit. Not to say it's not
+# useful, or important, but no one is actively using it at the moment so it
+# might have some glitches.
+#
 
 -include .config
 
