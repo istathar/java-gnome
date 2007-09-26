@@ -58,7 +58,7 @@ our source code.
 
 Getting a checkout is easy:
 
-    $ bzr checkout http://research.operationaldynamics.com/bzr/java-gnome/mainline java-gnome
+    $ bzr checkout bzr://research.operationaldynamics.com/bzr/java-gnome/mainline java-gnome
     $ cd java-gnome
 
 

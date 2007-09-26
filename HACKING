@@ -17,7 +17,7 @@ following:
 
     $ bzr init-repo --dirstate-tags java-gnome
     $ cd java-gnome
-    $ bzr checkout http://research.operationaldynamics.com/bzr/java-gnome/mainline
+    $ bzr checkout bzr://research.operationaldynamics.com/bzr/java-gnome/mainline
     $ bzr branch mainline working
     $ cd working
     $ ./configure
