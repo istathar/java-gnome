@@ -9,7 +9,7 @@ Most of our focus continues to be on infrastructure and architecture, improving
 the code generator that outputs the translation Java  and JNI C layers which
 allow bindings hackers to reach the underlying native libraries. Nevertheless,
 there have been a number of publicly visible improvements and new contributions
-across the board, so we wanted to push a out a release highlighting this work.
+across the board, so we wanted to push out a release highlighting this work.
 
 Documentation improvements
 --------------------------
@@ -81,8 +81,8 @@ and stock icons:
 Internals
 ---------
 
-Vreixo Formoso carried out a important refactoring to the type database and
-Generator family of classes n the code generator, with the result that more of
+Vreixo Formoso carried out an important refactoring to the type database and
+Generator family of classes in the code generator, with the result that more of
 the array passing and out-parameter cases are now being handled correctly. This
 kind of work is usually thankless and taken for granted, but it's hugely
 appreciated!
