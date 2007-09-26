@@ -188,12 +188,10 @@ At the moment, we have a hand written method signature and the native
 declaration embedded in the same class. Someone typed:
 
     /**
-     * Some documentation; note that newLabel is not what the GTK
-     * docs called it, and in Java land new is a terrible prefix for
-     * a variable. But whatever.
+     * Some documentation
      */
-    public void setLabel(String newLabel) {
-        gtk_button_set_label(getHandle(), newLabel);
+    public void setLabel(String text) {
+        gtk_button_set_label(getHandle(), text);
     }
 
     protected native void gtk_button_set_label(Handle handle, String label);
@@ -358,11 +356,11 @@ architecture that will meet these goals.
 AfC
 
 _Originally written as an email to java-gnome-hackers by Andrew Cowie on 19
-Sep 06; last modified 5 Dec 06._
+Sep 06; last modified 25 Sep 07._
 
 <!--
 
-  Copyright (c) 2006 Operational Dynamics Consulting Pty Ltd 
+  Copyright (c) 2006-2007 Operational Dynamics Consulting Pty Ltd 
 
   As project documentation, this file forms an integral part of the source
   code of the library it accompanies, and thus is made available to you by the

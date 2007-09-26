@@ -24,8 +24,8 @@ Building java-gnome
 
 For the impatient:
 
-    $ tar xjf java-gnome-4.0.3.tzr.bz2
-    $ cd java-gnome-4.0.3
+    $ tar xjf java-gnome-4.0.4.tzr.bz2
+    $ cd java-gnome-4.0.4
     $ ./configure
     $ make
 
@@ -42,8 +42,8 @@ You can download the latest java-gnome release from the GNOME FTP server at:
 
 Once you've downloaded the latest source tarball:
 
-    $ tar xjf java-gnome-4.0.3.tzr.bz2
-    $ cd java-gnome-4.0.3
+    $ tar xjf java-gnome-4.0.4.tzr.bz2
+    $ cd java-gnome-4.0.4
 
 And go on to step 2 for details about options you can pass to the
 configuration command.
@@ -233,7 +233,7 @@ probably end up seeing the following commands being run by Portage:
 	
 	...
 	
-	make DESTDIR=/var/tmp/portage/java-gnome-4.0.3-r2/image install
+	make DESTDIR=/var/tmp/portage/java-gnome-4.0.4-r2/image install
 	
 	...
 
@@ -355,7 +355,7 @@ Maintainer,
 [java-gnome](http://java-gnome.sourceforge.net/),  
 opening GTK and GNOME to Java programmers!
 
-_Last modified 30 Jul 07_
+_Last modified 26 Sep 07_
 
 [mirror]: http://ftp.gnome.org/pub/gnome/sources/java-gnome/4.0/
 
