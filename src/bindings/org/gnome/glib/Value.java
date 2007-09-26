@@ -43,12 +43,12 @@ import org.freedesktop.bindings.Proxy;
  * <i>Since instances of Java classes are their own identity, we do not need
  * to directly represent <code>GType</code> and <code>GValue</code> as
  * separate classes. We implement <code>GType</code> as a characteristic
- * that any</i> <code>Value</code> or <code>Object</code> <i>has.
+ * that any</i> <code>Value</code> <i>or</i> <code>Object</code> <i>has.</i>
  * 
  * @author Andrew Cowie
  * @since 4.0.0
  */
-public final class Value extends Proxy
+public class Value extends Proxy
 {
     protected Value(long pointer) {
         super(pointer);
@@ -96,54 +96,54 @@ public final class Value extends Proxy
      * methods like TreeModel's
      * {@link org.gnome.gtk.TreeModel#getValue(org.gnome.gtk.TreeIter, org.gnome.gtk.DataColumnString) getValue()}
      * family, which use a blank Value internally.
-	  *
-	  * Not public API!
+     * 
+     * Not public API!
      */
-    public Value() {
+    protected Value() {
         this(GValue.createValue());
     }
 
     /**
-	  * Create a Value containing a String. Not public API!
-	  */
-    public Value(String value) {
+     * Create a Value containing a String. Not public API!
+     */
+    protected Value(String value) {
         this(GValue.createValue(value));
     }
 
-    public String getString() {
+    protected String getString() {
         return GValue.getString(this);
     }
 
     /**
-	  * Create a Value containing an <code>int</code>. Not public API!
-	  */
-    public Value(int value) {
+     * Create a Value containing an <code>int</code>. Not public API!
+     */
+    protected Value(int value) {
         this(GValue.createValue(value));
     }
 
-    public int getInteger() {
+    protected int getInteger() {
         return GValue.getInteger(this);
     }
 
     /**
-	  * Create a Value containing a <code>boolean</code>. Not public API!
-	  */
-    public Value(boolean value) {
+     * Create a Value containing a <code>boolean</code>. Not public API!
+     */
+    protected Value(boolean value) {
         this(GValue.createValue(value));
     }
 
-    public boolean getBoolean() {
+    protected boolean getBoolean() {
         return GValue.getBoolean(this);
     }
 
     /**
-	  * Create a Value containing a <code>float</code>. Not public API!
-	  */
-    public Value(float f) {
+     * Create a Value containing a <code>float</code>. Not public API!
+     */
+    protected Value(float f) {
         this(GValue.createValue(f));
     }
 
-    public float getFloat() {
+    protected float getFloat() {
         return GValue.getFloat(this);
     }
 }
