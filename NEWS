@@ -1,15 +1,17 @@
 NEWS
 
+<a name="4.0.4" id="1190798858" title="Coverage increasing"></a>
+
 java-gnome 4.0.4 (26 Sep 2007)
 ==============================
 
-_Coverage increasing_
+_Coverage increasing!_
 
-Most of our focus continues to be on infrastructure and architecture, improving
-the code generator that outputs the translation Java  and JNI C layers which
-allow bindings hackers to reach the underlying native libraries. Nevertheless,
-there have been a number of publicly visible improvements and new contributions
-across the board, so we wanted to push out a release highlighting this work.
+Most of our work continues to be on infrastructure and architecture, improving
+the code generator that outputs the translation Java layer and JNI C layer
+which allow bindings hackers to reach the underlying native libraries.
+Nevertheless, there have been a number of publicly visible improvements across
+the board, so we wanted to push out a release highlighting these contributions!
 
 Documentation improvements
 --------------------------
@@ -17,9 +19,9 @@ Documentation improvements
 Continuing our effort to have extensive developer friendly tutorial style
 documentation, there have been major additions to a number of existing classes.
 Of particular note is the Window class, containing the various utility methods
-used to ask the window manager to do things for you. We've also started
+used to ask the window manager to do things for you (we've also started
 exposing some of the deeper parts of the GTK toolkit, though only a few things
-that were immediately related to window management.
+that were immediately related to window management).
 
 * **`org.gnome.gtk.Window`**
 * **`org.gnome.gtk.Widget`**
@@ -41,7 +43,7 @@ bundles accepted for being merged to `mainline` from new contributors Thomas
 Schmitz, Wouter Bolsterlee, and Nat Pryce.
 
 The infrastructure for a number of areas important to supporting applications
-including menus, toolbars, and actions has been put in place:
+including Menus, Toolbars, and Actions has been put in place:
 
 * **`org.gnome.gtk.Toolbar`**
 * **`org.gnome.gtk.ToolItem`**
@@ -56,7 +58,7 @@ including menus, toolbars, and actions has been put in place:
 * **`org.gnome.gtk.ActionGroup`**
 
 A number of Container related Widgets have been added, though coverage is
-preliminary. There have of course also been a number of minor improvements in
+preliminary. There have, of course, also been a number of minor improvements in
 other existing classes, including:
 
 * **`org.gnome.gtk.Notebook`**
@@ -67,8 +69,12 @@ other existing classes, including:
 * **`org.gnome.gtk.VButtonBox`**
 * **`org.gnome.gtk.Label`**
 
-along with a newly exposed coverage for a variety of miscellaneous constants
-and stock icons:
+and even:
+
+* **`org.gnome.gtk.StatusIcon`**
+
+Along with these goes a variety of miscellaneous constants and wrappers around
+the stock item identifiers:
 
 * **`org.gnome.gtk.Alignment`**
 * **`org.gnome.gtk.ImageType`**
@@ -87,15 +93,24 @@ the array passing and out-parameter cases are now being handled correctly. This
 kind of work is usually thankless and taken for granted, but it's hugely
 appreciated!
 
-This goes along with numerous build system fixes by Srichand Pendyala to make
-for an increasingly robust project. Thanks guys!
+The real gains are in internal quality. A number of serious bugs and
+limitations have been overcome (`Glade` is working again, for example). The
+generated code now guards against improper use (you can't pass a `null` pointer
+unless it's allowed by the underlying library). Related to this is handling of
+"`GError`" -- Java side, bindings hackers will get `GlibException` which they
+can then re-throw as an appropriate Java Exception, say `FileNotFoundException`
+in the case of not being able to open a file.
+
+This all goes along with numerous build system fixes by Srichand Pendyala to
+make for an increasingly robust project. Thanks guys!
 
 Looking ahead
 -------------
 
-As mentioned above, we have been hard at work on a number of other areas. The
-most notable feature of the next release will be coverage of the TreeView and
-TreeModel, GTK's powerful but complex list Widget.
+As mentioned above, we have mostly been focused on areas other than public API,
+but it is expanding steadily. The hard work on infrastructure, however, is
+starting to pay off, and the next release should include coverage of TreeView,
+GTK's powerful but complex list Widget.
 
 AfC
 
