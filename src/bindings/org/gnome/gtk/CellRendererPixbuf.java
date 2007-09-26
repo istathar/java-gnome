@@ -19,9 +19,18 @@ package org.gnome.gtk;
  * are made about this class until it has been reviewed by a hacker and this
  * comment has been replaced.
  */
+/**
+ * FIXME
+ * 
+ * @author Andrew Cowie
+ * @since 4.0.5
+ */
 public class CellRendererPixbuf extends CellRenderer
 {
-    protected CellRendererPixbuf(long pointer) {
-        super(pointer);
+    /**
+     * Construct a new CellRendererPixbuf.
+     */
+    public CellRendererPixbuf(TreeViewColumn vertical) {
+        super(GtkCellRendererPixbuf.createCellRendererPixbuf(), vertical);
     }
 }

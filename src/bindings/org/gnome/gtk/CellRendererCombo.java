@@ -21,7 +21,7 @@ package org.gnome.gtk;
  */
 public class CellRendererCombo extends CellRendererText
 {
-    protected CellRendererCombo(long pointer) {
-        super(pointer);
+    protected CellRendererCombo(TreeViewColumn vertical) {
+        super(GtkCellRendererCombo.createCellRendererCombo(), vertical);
     }
 }

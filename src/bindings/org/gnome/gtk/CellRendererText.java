@@ -33,8 +33,12 @@ package org.gnome.gtk;
 public class CellRendererText extends CellRenderer
 {
     /*
-     * protected <init>(long) constructor removed deliberately.
+     * protected <init>(long) constructor removed deliberately, replaced with
+     * this one.
      */
+    protected CellRendererText(long pointer, TreeViewColumn vertical) {
+        super(pointer, vertical);
+    }
 
     /**
      * Construct a new CellRendererText. Specify the TreeViewColumn it will
