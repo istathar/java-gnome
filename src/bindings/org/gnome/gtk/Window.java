@@ -275,7 +275,7 @@ public class Window extends Bin
     /**
      * Request that the Window be moved to the specified co-ordinates. As with
      * other Window operations, the window manager running on the display may
-     * or may not service the request; in particular sometimes find that
+     * or may not service the request; in particular you sometimes find that
      * initial placement is overridden by the window manager.
      * 
      * <p>
