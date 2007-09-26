@@ -1,5 +1,104 @@
 NEWS
 
+java-gnome 4.0.4 (26 Sep 2007)
+==============================
+
+_Coverage increasing_
+
+Most of our focus continues to be on infrastructure and architecture, improving
+the code generator that outputs the translation Java  and JNI C layers which
+allow bindings hackers to reach the underlying native libraries. Nevertheless,
+there have been a number of publicly visible improvements and new contributions
+across the board, so we wanted to push a out a release highlighting this work.
+
+Documentation improvements
+--------------------------
+
+Continuing our effort to have extensive developer friendly tutorial style
+documentation, there have been major additions to a number of existing classes.
+Of particular note is the Window class, containing the various utility methods
+used to ask the window manager to do things for you. We've also started
+exposing some of the deeper parts of the GTK toolkit, though only a few things
+that were immediately related to window management.
+
+* **`org.gnome.gtk.Window`**
+* **`org.gnome.gtk.Widget`**
+* **`org.gnome.gdk.Screen`**
+* **`org.gnome.gdk.Window`**
+
+While the topic of thread safety was discussed at considerable length in the
+last release, we have added some of the more relevant information to the code
+documentation to reinforce its importance.
+
+* **`org.gnome.gdk.Gdk`**'s `lock`
+
+New coverage
+------------
+
+Numerous people have been hard at work developing new coverage. The standards
+for accepting patches which expose public API are high, so it's awesome to see
+bundles accepted for being merged to `mainline` from new contributors Thomas
+Schmitz, Wouter Bolsterlee, and Nat Pryce.
+
+The infrastructure for a number of areas important to supporting applications
+including menus, toolbars, and actions has been put in place:
+
+* **`org.gnome.gtk.Toolbar`**
+* **`org.gnome.gtk.ToolItem`**
+* **`org.gnome.gtk.ToolButton`**
+* **`org.gnome.gtk.ToggleToolButton`**
+* **`org.gnome.gtk.MenuToolButton`**
+* **`org.gnome.gtk.SeparatorToolItem`**
+* **`org.gnome.gtk.MenuItem`**
+* **`org.gnome.gtk.CheckMenuItem`**
+* **`org.gnome.gtk.SeparatorMenuItem`**
+* **`org.gnome.gtk.Action`**
+* **`org.gnome.gtk.ActionGroup`**
+
+A number of Container related Widgets have been added, though coverage is
+preliminary. There have of course also been a number of minor improvements in
+other existing classes, including:
+
+* **`org.gnome.gtk.Notebook`**
+* **`org.gnome.gtk.ScrolledWindow`**
+* **`org.gnome.gtk.Misc`**
+* **`org.gnome.gtk.ButtonBox`**
+* **`org.gnome.gtk.HButtonBox`**
+* **`org.gnome.gtk.VButtonBox`**
+* **`org.gnome.gtk.Label`**
+
+along with a newly exposed coverage for a variety of miscellaneous constants
+and stock icons:
+
+* **`org.gnome.gtk.Alignment`**
+* **`org.gnome.gtk.ImageType`**
+* **`org.gnome.gtk.ButtonBoxStyle`**
+* **`org.gnome.gtk.Justification`**
+* **`org.gnome.gtk.Orientation`**
+* **`org.gnome.gtk.Stock`**
+* **`org.gnome.gdk.Gravity`**
+
+Internals
+---------
+
+Vreixo Formoso carried out a important refactoring to the type database and
+Generator family of classes n the code generator, with the result that more of
+the array passing and out-parameter cases are now being handled correctly. This
+kind of work is usually thankless and taken for granted, but it's hugely
+appreciated!
+
+This goes along with numerous build system fixes by Srichand Pendyala to make
+for an increasingly robust project. Thanks guys!
+
+Looking ahead
+-------------
+
+As mentioned above, we have been hard at work on a number of other areas. The
+most notable feature of the next release will be coverage of the TreeView and
+TreeModel, GTK's powerful but complex list Widget.
+
+AfC
+
 <a name="gentoo" id="1187677072" title="Packaged in Gentoo Linux"></a>
 
 Gentoo packages

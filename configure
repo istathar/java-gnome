@@ -99,7 +99,6 @@ sub bail {
 	exit(1);
 }
 
-# Added 4.0.3
 # Check for all the required gnome development libraries. Distributions such as 
 # Ubuntu/Debian and Fedora don't always install the gnome development libs
 # (for whatever reason). If they aren't installed, we bomb here in configure
