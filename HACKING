@@ -15,9 +15,9 @@ System.
 If you're going to hack on the bindings, we recommend that you do the
 following:
 
-    $ bzr init-repo --trees java-gnome
+    $ bzr init-repo --dirstate-tags java-gnome
     $ cd java-gnome
-    $ bzr checkout http://research.operationaldynamics.com/bzr/java-gnome/mainline
+    $ bzr checkout bzr://research.operationaldynamics.com/bzr/java-gnome/mainline
     $ bzr branch mainline working
     $ cd working
     $ ./configure

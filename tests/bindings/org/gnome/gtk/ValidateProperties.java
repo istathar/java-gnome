@@ -10,8 +10,6 @@
  */
 package org.gnome.gtk;
 
-import org.gnome.glib.Value;
-
 /**
  * Test characteristic getters and setters to ensure correct values are
  * retrieved.

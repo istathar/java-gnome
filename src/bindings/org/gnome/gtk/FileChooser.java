@@ -105,9 +105,18 @@ public interface FileChooser
      * {@link #selectFilename(java.lang.String) selectFilename()} or
      * {@link #selectURI(java.lang.String) selectURI()} being called.
      * 
+     * <p>
+     * <b>WARNING</b><br>
+     * This signal will be replaced by <code>FILE_SET</code> in java-gnome
+     * 4.0.5. <i>This signal being the only way to get at the selection in a
+     * <code>GtkFileChooserButton</code> a bug in GTK that has been fixed in
+     * 2.12.</i>
      */
     public interface SELECTION_CHANGED extends GtkFileChooser.SELECTION_CHANGED
     {
+        /**
+         * @deprecated
+         */
         public void onSelectionChanged(FileChooser source);
     }
 
