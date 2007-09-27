@@ -190,22 +190,6 @@ public class Window extends Bin
     }
 
     /**
-     * @since 4.0.3
-     * @deprecated
-     */
-    public void fullscreen() {
-        GtkWindow.fullscreen(this);
-    }
-
-    /**
-     * @since 4.0.3
-     * @deprecated
-     */
-    public void unfullscreen() {
-        GtkWindow.unfullscreen(this);
-    }
-
-    /**
      * Request that the window manager to place the Window in the fullscreen
      * state or return it to normal state.
      * 
