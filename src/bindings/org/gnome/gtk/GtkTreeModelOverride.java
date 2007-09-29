@@ -26,14 +26,8 @@ final class GtkTreeModelOverride extends Plumbing
     static final long createListStore(Class[] columns) {
         final String[] names;
 
-        if (columns == null) {
-            throw new IllegalArgumentException("Array passed to ListStore constructor must not be null");
-        }
-
-        if (columns.length == 0) {
-            throw new IllegalArgumentException(
-                    "Must specify at least one column when constructing ListStore");
-        }
+        assert (columns != null) : "Array passed to createListStore() must not be null";
+        assert (columns.length > 0) : "Minimum one column when constructing ListStore";
 
         names = new String[columns.length];
 

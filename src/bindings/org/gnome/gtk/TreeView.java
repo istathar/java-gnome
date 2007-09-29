@@ -115,4 +115,38 @@ public class TreeView extends Container
     public void setHeadersClickable(boolean setting) {
         GtkTreeView.setHeadersClickable(this, setting);
     }
+
+    /**
+     * Emitted when a row in the TreeView has been activated. Activation
+     * occurs when a row in the view is double-clicked, or when
+     * <code>Space</code> or <code>Enter</code> is pressed while a row is
+     * selected.
+     * 
+     * <p>
+     * This is perfectly sufficient for basic situations, but you may need to
+     * see {@link TreeSelection TreeSelection} to for more complicated
+     * selection and activation expressions.
+     * 
+     * @author Andrew Cowie
+     * @since 4.0.5
+     */
+    public interface ROW_ACTIVATED extends GtkTreeView.ROW_ACTIVATED
+    {
+        /**
+         * The useful parameter is usually<code>path</code> which can be
+         * converted into a TreeIter with your TreeModel's
+         * {@link TreeModel#getIter() getIter()} allowing you to then lookup a
+         * particular value from the data model. You rarely need
+         * <code>vertical</code> but it can give you some indication in
+         * which column the click happened.
+         */
+        public void onRowActivated(TreeView source, TreePath path, TreeViewColumn vertical);
+    }
+
+    /**
+     * Hook up a <code>ROW_ACTIVATED</code> handler.
+     */
+    public void connect(ROW_ACTIVATED handler) {
+        GtkTreeView.connect(this, handler);
+    }
 }

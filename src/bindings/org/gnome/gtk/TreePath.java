@@ -21,17 +21,85 @@ import org.gnome.glib.Boxed;
  * are made about this class until it has been reviewed by a hacker and this
  * comment has been replaced.
  */
+
+/**
+ * A logical but abstract representation of a row in a TreeModel. TreePaths
+ * can be expressed as Strings.
+ * 
+ * <p>
+ * Paths in ListStores are quite simple. They are a simple number,
+ * incrementing from zero, indicating the row number. For example,
+ * <code>TreePath("8")</code> is the ninth row in the model.
+ * 
+ * <p>
+ * Paths for TreeStores are more complex. They are of the form
+ * "first:second:third:..." where each of first, second, and third denote the
+ * number of steps in from the first at each level of the hierarchy. For
+ * example, <code>TreePath("2:4:0")</code> represnts the first third level
+ * element in the fifth second level element in the third row.
+ * 
+ * <p>
+ * TreePaths are given to you as a row address in signals like
+ * {@link TreeView.ROW_ACTIVATED ROW_ACTIVATED}. Usually you need the row
+ * expressed as a TreeIter (ie to get a value out of the row);to do that call
+ * the underlying TreeModel's {@link TreeModel#getIter(TreePath) getIter()}
+ * method.
+ * 
+ * @author Andrew Cowie
+ * @since 4.0.5
+ */
 public final class TreePath extends Boxed
 {
     protected TreePath(long pointer) {
         super(pointer);
     }
 
+    /**
+     * Create an empty TreePath object. <b>For use by bindings hackers only!</b>
+     */
+    TreePath() {
+        super(GtkTreePath.createTreePath());
+    }
+
+    /**
+     * Create a TreePath object from the String form. Note that TreePaths are
+     * abstract and independant of a particular model; if you want to look up
+     * a given path in a TreeModel use the resultant object with its
+     * {@link TreeModel#getIter(TreePath) getIter()} method.
+     * 
+     * @throws IllegalArgumentException
+     *             if the <code>path</code> fails to parse as a valid
+     *             TreePath.
+     */
+    public TreePath(String path) {
+        super(GtkTreePath.createTreePathFromString(path));
+    }
+
+    static long validationCheck(final long pointer) {
+        if (pointer == 0L) {
+            throw new IllegalArgumentException(
+                    "The supplied path string failed to parse as a valid TreePath");
+        }
+        return pointer;
+    }
+
     protected void release() {
-        /*
-         * FIXME This class's release() method must be implemented to call the
-         * correct free() or unref() function before it can be used.
-         */
-        throw new UnsupportedOperationException("Not yet implemented");
+        GtkTreePath.free(this);
+    }
+
+    /**
+     * Return <code>true</code> of this TreePath represents the same logical
+     * path as the <code>other</code> does.
+     */
+    public boolean equals(java.lang.Object other) {
+        if (!(other instanceof TreePath)) {
+            return false;
+        }
+        TreePath path = (TreePath) other;
+        if (GtkTreePath.compare(this, path) == 0) {
+            return true;
+        } else {
+            return false;
+        }
     }
 }

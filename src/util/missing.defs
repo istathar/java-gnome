@@ -4472,14 +4472,6 @@
   (return-type "GType")
 )
 
-(define-function tree_path_new_from_string
-  (c-name "gtk_tree_path_new_from_string")
-  (return-type "GtkTreePath*")
-  (parameters
-    '("gchar*" "path")
-  )
-)
-
 (define-function tree_path_new_from_indices
   (c-name "gtk_tree_path_new_from_indices")
   (return-type "GtkTreePath*")

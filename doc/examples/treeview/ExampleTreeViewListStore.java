@@ -19,6 +19,7 @@ import org.gnome.gtk.DataColumnString;
 import org.gnome.gtk.Gtk;
 import org.gnome.gtk.ListStore;
 import org.gnome.gtk.TreeIter;
+import org.gnome.gtk.TreePath;
 import org.gnome.gtk.TreeView;
 import org.gnome.gtk.TreeViewColumn;
 import org.gnome.gtk.Widget;
@@ -169,8 +170,26 @@ public class ExampleTreeViewListStore
          * And that's it! You've now done everything you need to have a
          * working TreeView.
          * 
-         * TODO TreeSelection
-         * 
+         * ... except that if it's for more than information, you probably
+         * want something to happen when someone clicks on a row. So, we hook
+         * up a handler to the ROW_ACTIVATED signal. The TreePath it gives you
+         * is the useful bit.
+         */
+        view.connect(new TreeView.ROW_ACTIVATED() {
+            public void onRowActivated(TreeView source, TreePath path, TreeViewColumn vertical) {
+                final TreeIter row;
+                final String place, height;
+
+                row = model.getIter(path);
+
+                place = model.getValue(row, trailHead);
+                height = model.getValue(row, elevationFormatted);
+
+                System.out.println("You want to go to " + place + " in order to climb to " + height);
+            }
+        });
+
+        /*
          * The rest of this file is the usual minimum wrapper to make this
          * presentable as a Window on the display.
          */

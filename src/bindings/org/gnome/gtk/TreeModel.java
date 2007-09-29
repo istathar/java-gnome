@@ -45,6 +45,15 @@ public abstract class TreeModel extends org.gnome.glib.Object
     protected static final Class[] typesToClassNames(DataColumn[] types) {
         final Class[] names;
 
+        if (types == null) {
+            throw new IllegalArgumentException("Array passed to TreeModel constructor must not be null");
+        }
+
+        if (types.length == 0) {
+            throw new IllegalArgumentException(
+                    "Must specify at least one column when constructing a TreeModel");
+        }
+
         names = new Class[types.length];
 
         for (int i = 0; i < types.length; i++) {
@@ -171,6 +180,25 @@ public abstract class TreeModel extends org.gnome.glib.Object
         iter = new TreeIter();
 
         if (GtkTreeModel.getIterFirst(this, iter)) {
+            return iter;
+        } else {
+            return null;
+        }
+    }
+
+    /**
+     * Convert a TreePath to a TreeIter appropriate for this TreeModel.
+     * 
+     * @param path
+     * @return <code>null</code> if it can't make the conversion.
+     * @since 4.0.5
+     */
+    public TreeIter getIter(TreePath path) {
+        final TreeIter iter;
+
+        iter = new TreeIter();
+
+        if (GtkTreeModel.getIter(this, iter, path)) {
             return iter;
         } else {
             return null;

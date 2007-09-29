@@ -17,6 +17,22 @@ import org.gnome.gtk.TestCaseGtk;
  */
 public class ValidateTreeModel extends TestCaseGtk
 {
+    public final void testListStoreConstructorArguments() {
+        try {
+            new ListStore(null);
+            fail("Underlying library doesn't allow null arguments to ListStore contstructor");
+        } catch (IllegalArgumentException iae) {
+            // good
+        }
+
+        try {
+            new ListStore(new DataColumn[] {});
+            fail("Underlying library doesn't allow zero columns in ListStores");
+        } catch (IllegalArgumentException iae) {
+            // good
+        }
+    }
+
     public final void testDataColumnTreeModelConstructorInteraction() {
         final DataColumnString name;
         final DataColumnInteger age;
@@ -145,5 +161,47 @@ public class ValidateTreeModel extends TestCaseGtk
 
         model.setValue(row, column, true);
         assertEquals(true, model.getValue(row, column));
+    }
+
+    public final void testTreePathParseCheck() {
+        try {
+            // path = new TreePath("-1");
+            TreePath.validationCheck(0L);
+            fail("TreePath constructor should have caught null condition");
+        } catch (IllegalArgumentException iae) {
+            // good
+        }
+    }
+
+    public final void testTreeIterFromTreePath() {
+        final ListStore model;
+        final DataColumnBoolean column;
+        TreeIter row;
+        TreePath path1, path2, path3;
+
+        model = new ListStore(new DataColumn[] {
+            column = new DataColumnBoolean(),
+        });
+
+        row = model.appendRow();
+        model.setValue(row, column, false);
+        row = model.appendRow();
+        model.setValue(row, column, true);
+
+        path1 = new TreePath("0");
+        row = model.getIter(path1);
+        assertEquals(false, model.getValue(row, column));
+
+        path2 = new TreePath("1");
+        row = model.getIter(path2);
+        assertEquals(true, model.getValue(row, column));
+
+        assertNotSame(path1, path2);
+        assertFalse(path1.equals(path2));
+
+        path3 = new TreePath("1");
+        assertNotSame(path2, path3);
+        assertTrue(path2.equals(path3));
+        assertTrue(path3.equals(path2));
     }
 }
