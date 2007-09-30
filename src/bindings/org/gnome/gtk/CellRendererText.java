@@ -80,4 +80,25 @@ public class CellRendererText extends CellRenderer
     public void setMarkup(DataColumnString column) {
         GtkTreeViewColumn.addAttribute(vertical, this, "markup", column.getOrdinal());
     }
+
+    /**
+     * Indicate the DataColumn containing the name of the background colour to
+     * use for text rendered by this CellRendererText.
+     */
+    /*
+     * TODO how does this interact with cell-background on CellRenderer? Can
+     * we amalgamate them or treat this as an override? setCellBackground() is
+     * a terrible name given the existence of this method.
+     */
+    public void setBackground(DataColumnString column) {
+        GtkTreeViewColumn.addAttribute(vertical, this, "background", column.getOrdinal());
+    }
+
+    /**
+     * Indicate the DataColumn containing the name of the foreground colour to
+     * used when rendering text.
+     */
+    public void setForeground(DataColumnString column) {
+        GtkTreeViewColumn.addAttribute(vertical, this, "foreground", column.getOrdinal());
+    }
 }

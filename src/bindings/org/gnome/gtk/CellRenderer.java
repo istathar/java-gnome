@@ -106,4 +106,19 @@ public abstract class CellRenderer extends Object
         setPropertyFloat("xalign", xalign);
         setPropertyFloat("yalign", yalign);
     }
+
+    /**
+     * Indicate the DataColumn containing the name of the colour to use as
+     * background for this CellRederer.
+     */
+    /*
+     * FUTURE The underlying property in GTK is "<code>cell-background</code>"
+     * but I would like to map this as <code>setBackgroundCell()</code> so
+     * that is aligns with the completion domain of the "<code>background</code>"
+     * property on CellRendererText which is for managing the colours used for
+     * the text fonts.
+     */
+    public void setCellBackground(DataColumnString column) {
+        GtkTreeViewColumn.addAttribute(vertical, this, "cell-background", column.getOrdinal());
+    }
 }
