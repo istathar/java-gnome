@@ -149,4 +149,14 @@ public class TreeView extends Container
     public void connect(ROW_ACTIVATED handler) {
         GtkTreeView.connect(this, handler);
     }
+
+    /**
+     * Get the TreeSelection object corresponding to this TreeView. Every
+     * TreeView has a TreeSelection which is a utility instance allowing you
+     * to manipulate the state of the selected row(s) in the TreeView. This
+     * method gives you access to it.
+     */
+    public TreeSelection getSelection() {
+        return GtkTreeView.getSelection(this);
+    }
 }

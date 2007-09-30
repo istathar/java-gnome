@@ -1,4 +1,4 @@
-personal_ws-1.1 en 1257
+personal_ws-1.1 en 1263
 ABI
 APIs
 AWT
@@ -208,6 +208,7 @@ GtkPolicyType
 GtkProgressBar
 GtkReliefStyle
 GtkScrolledWindow
+GtkSelectionMode
 GtkSeparatorMenuItem
 GtkSeparatorToolItem
 GtkStatusIcon
@@ -223,6 +224,7 @@ GtkTreeIter
 GtkTreeIterOverride
 GtkTreeModel
 GtkTreeModelOverride
+GtkTreeSelection
 GtkTreeView
 GtkTreeViewColumn
 GtkVBox
@@ -358,6 +360,7 @@ RuntimeExceptions
 SWT
 Schmitz
 ScrolledWindow
+SelectionMode
 Sep
 SeparatorMenuItem
 SeparatorToolItem
@@ -774,6 +777,8 @@ getRowstride
 getScaleX
 getScaleY
 getScreen
+getSelected
+getSelection
 getSensitive
 getSize
 getState
@@ -1102,6 +1107,7 @@ setMaxLength
 setMaxWidthChars
 setMaximize
 setMenu
+setMode
 setModel
 setOrdinal
 setOrientation

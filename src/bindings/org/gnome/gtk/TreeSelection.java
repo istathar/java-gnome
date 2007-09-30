@@ -13,17 +13,71 @@ package org.gnome.gtk;
 
 import org.gnome.glib.Object;
 
-/*
- * FIXME this is a placeholder stub for what will become the public API for
- * this type. Replace this comment with appropriate javadoc including author
- * and since tags. Note that the class may need to be made abstract, implement
- * interfaces, or even have its parent changed. No API stability guarantees
- * are made about this class until it has been reviewed by a hacker and this
- * comment has been replaced.
+/**
+ * Manipulate the selection state of a TreeView. Every TreeView has an
+ * accompanying TreeSelection object which is used to manage whether or not
+ * rows can be selected, and to return to the programmer the current state of
+ * which rows are selected, if any.
+ * 
+ * <p>
+ * <i>Mostly this is an API helper; the underlying documentation notes that
+ * these could have all been methods on <code>GtkTreeView</code>.</i>
+ * 
+ * @author Andrew Cowie
+ * @since 4.0.5
  */
 public class TreeSelection extends Object
 {
     protected TreeSelection(long pointer) {
         super(pointer);
+    }
+
+    public void setMode(SelectionMode type) {
+        GtkTreeSelection.setMode(this, type);
+    }
+
+    /**
+     * Get the selected row from the TreeView. Note that this only works when
+     * the selection mode is {@link SelectionMode#SINGLE SINGLE} or
+     * {@link SelectionMode#BROWSE BROWSE}.
+     * 
+     * @return <code>null</code> if there is no currently selected row.
+     */
+    /*
+     * Second parameter to native call is an out-parameter that gets filled
+     * with a pointer to the GtkTreeModel. It's only for convenience, and is
+     * unnecessary for us. Looking at the GtkTreeSelection C code it ignores
+     * it if NULL. We'll skip it.
+     */
+    public TreeIter getSelected() {
+        final TreeIter row;
+
+        row = new TreeIter();
+
+        if (GtkTreeSelection.getSelected(this, null, row)) {
+            return row;
+        } else {
+            return null;
+        }
+    }
+
+    /**
+     * Emitted when the selection state of the TreeView changes.
+     * 
+     * <p>
+     * Beware that you sometimes get false positives or false negatives
+     * relative to how you are interpreting "change". You'll be calling
+     * {@link TreeSelection#getSelected() getSelected()} anyway, but it's a
+     * good idea to keep in mind that the state may not have changed in quite
+     * the way you think it might have, so have a look at the return from that
+     * method fairly closely to decide for yourself whether the selection has
+     * "changed" or not.
+     * 
+     * @author Andrew Cowie
+     * @since 4.0.5
+     */
+    public interface CHANGED extends GtkTreeSelection.CHANGED
+    {
+        void onChanged(TreeSelection source);
     }
 }
