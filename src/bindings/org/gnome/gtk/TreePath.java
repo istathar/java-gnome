@@ -35,7 +35,7 @@ import org.gnome.glib.Boxed;
  * Paths for TreeStores are more complex. They are of the form
  * "first:second:third:..." where each of first, second, and third denote the
  * number of steps in from the first at each level of the hierarchy. For
- * example, <code>TreePath("2:4:0")</code> represnts the first third level
+ * example, <code>TreePath("2:4:0")</code> represents the first third level
  * element in the fifth second level element in the third row.
  * 
  * <p>
@@ -63,7 +63,7 @@ public final class TreePath extends Boxed
 
     /**
      * Create a TreePath object from the String form. Note that TreePaths are
-     * abstract and independant of a particular model; if you want to look up
+     * abstract and independent of a particular model; if you want to look up
      * a given path in a TreeModel use the resultant object with its
      * {@link TreeModel#getIter(TreePath) getIter()} method.
      * 

@@ -1,4 +1,4 @@
-personal_ws-1.1 en 1263
+personal_ws-1.1 en 1279
 ABI
 APIs
 AWT
@@ -224,7 +224,9 @@ GtkTreeIter
 GtkTreeIterOverride
 GtkTreeModel
 GtkTreeModelOverride
+GtkTreePath
 GtkTreeSelection
+GtkTreeStore
 GtkTreeView
 GtkTreeViewColumn
 GtkVBox
@@ -291,6 +293,7 @@ LibGlade
 Libre
 ListStore
 ListStore's
+ListStores
 Ljava
 Lorg
 LoveLetter
@@ -408,11 +411,14 @@ TreeModel
 TreeModel's
 TreeModelFlags
 TreeModels
+TreePath
+TreePaths
 TreeRowReference
 TreeSelection
 TreeSelection's
 TreeSortable
 TreeStore
+TreeStores
 TreeView
 TreeView's
 TreeViewAndTreeModel
@@ -605,6 +611,8 @@ createToolButton
 createToolItem
 createToolbar
 createTreeIter
+createTreePath
+createTreePathFromString
 createTreeView
 createTreeViewColumn
 createTreeViewWithModel
@@ -719,6 +727,7 @@ getAlignmentX
 getAlignmentY
 getAngle
 getBlinking
+getBoolean
 getChild
 getChildSecondary
 getChildren
@@ -738,6 +747,8 @@ getFlags
 getHandle
 getHeight
 getInconsistent
+getInteger
+getIter
 getIterFirst
 getJustify
 getLabel
@@ -747,6 +758,7 @@ getMaxLength
 getMaximized
 getMenu
 getMessage
+getMode
 getModel
 getModificationDate
 getName
@@ -859,6 +871,7 @@ isVisibleChars
 isdir
 isfile
 iter
+iterNext
 jN
 jamvm
 jararrayref
@@ -1062,6 +1075,9 @@ scrollbar
 scrollbars
 segfaulted
 selectFilename
+selectIter
+selectPath
+selectRow
 selectURI
 serialVersionUID
 setAction

@@ -28,7 +28,7 @@ package org.gnome.gtk;
  * This is a departure from a strict mapping of the underlying library; in GTK
  * TreeModel is an interface implemented by things like ListStore and
  * TreeStore; by using it as an abstract superclass instead we can avoid
- * duplicating the implemention of quite a lot of code.
+ * duplicating the implementation of quite a lot of code.
  */
 public abstract class TreeModel extends org.gnome.glib.Object
 {
@@ -136,7 +136,8 @@ public abstract class TreeModel extends org.gnome.glib.Object
     }
 
     /**
-     * 
+     * You'll have to cast the return value to whatever type you put in there
+     * in the first place. TODO we could make this use a generic, right?
      */
     public java.lang.Object getValue(TreeIter row, DataColumnReference column) {
         throw new UnsupportedOperationException("Not Yet Implemented");
@@ -167,7 +168,7 @@ public abstract class TreeModel extends org.gnome.glib.Object
      * While this is not exactly Java programmer friendly, the alternatives
      * aren't much good either. a) Could change this to java.util.Iterator
      * style, but there it is the Iterator that has the next() method, not
-     * TreeModel as we have to deal with. Given how primative TreeIters are
+     * TreeModel as we have to deal with. Given how primitive TreeIters are
      * that's probably not the best idea. b) Change to iterFirst(), but that
      * would leave getIter() as iter(). Basically this falls under gratuitous
      * changing of GTK for no real benefit. So we'll leave it alone for now.

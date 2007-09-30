@@ -32,6 +32,20 @@ public class TreeSelection extends Object
         super(pointer);
     }
 
+    /**
+     * Get the mode that is governing selection behaviour on this TreeView.
+     */
+    public SelectionMode getMode() {
+        return GtkTreeSelection.getMode(this);
+    }
+
+    /**
+     * Set what kinds of selections are allowed. The interesting constants
+     * you'll use most often are {@link SelectionMode#NONE NONE} and
+     * {@link SelectionMode#MULTIPLE MULTIPLE} since
+     * {@link SelectionMode#SINGLE SINGLE} is the default. See SelectionMode
+     * for the details of the behaviour implied by each option.
+     */
     public void setMode(SelectionMode type) {
         GtkTreeSelection.setMode(this, type);
     }
@@ -65,11 +79,12 @@ public class TreeSelection extends Object
      * Emitted when the selection state of the TreeView changes.
      * 
      * <p>
-     * Beware that you sometimes get false positives or false negatives
-     * relative to how you are interpreting "change". You'll be calling
+     * Beware that this is considered a hint by GTK, so you sometimes get
+     * false positives or false negatives relative to how you are interpreting
+     * "change". You'll be calling
      * {@link TreeSelection#getSelected() getSelected()} anyway, but it's a
      * good idea to keep in mind that the state may not have changed in quite
-     * the way you think it might have, so have a look at the return from that
+     * the way you think it might have. Have a look at the return from that
      * method fairly closely to decide for yourself whether the selection has
      * "changed" or not.
      * 
@@ -79,5 +94,25 @@ public class TreeSelection extends Object
     public interface CHANGED extends GtkTreeSelection.CHANGED
     {
         void onChanged(TreeSelection source);
+    }
+
+    /**
+     * Select a row in the TreeView. We offer two forms; this one which takes
+     * a TreePath and one which takes a TreeIter; see
+     * {@link #selectRow(TreeIter))} for the other. Use this one if you have
+     * want to express expressing the row you want selected in abstract,
+     * logical form.
+     */
+    public void selectRow(TreePath path) {
+        GtkTreeSelection.selectPath(this, path);
+    }
+
+    /**
+     * Select a row in the TreeView. We offer two forms; this one which takes
+     * a TreeIter corresponding to a row in the underlying model, and another
+     * which takes a TreePath; see {@link #selectRow(TreePath))}.
+     */
+    public void selectRow(TreeIter row) {
+        GtkTreeSelection.selectIter(this, row);
     }
 }

@@ -204,4 +204,77 @@ public class ValidateTreeModel extends TestCaseGtk
         assertTrue(path2.equals(path3));
         assertTrue(path3.equals(path2));
     }
+
+    /*
+     * This could move to a TreeView test case class if we create one.
+     */
+    public final void testTreeIterFromTreeSelection() {
+        final ListStore model;
+        final DataColumnBoolean column;
+        TreeIter row;
+        TreePath path0, path1;
+        final TreeView view;
+        final TreeSelection helper;
+
+        model = new ListStore(new DataColumn[] {
+            column = new DataColumnBoolean(),
+        });
+
+        row = model.appendRow();
+        model.setValue(row, column, false);
+        row = model.appendRow();
+        model.setValue(row, column, true);
+
+        /*
+         * Same setup as previous one. Now create a TreeView and see what
+         * happens if we manually select things.
+         */
+
+        view = new TreeView(model);
+        helper = view.getSelection();
+
+        /*
+         * We have commented that the default is SINGLE. If this fails, change
+         * the documentation of TreeSelection's setMode().
+         */
+        assertSame("GTK default behaviour changed. Adjust documentation", SelectionMode.SINGLE,
+                helper.getMode());
+
+        helper.setMode(SelectionMode.BROWSE);
+        assertSame(SelectionMode.BROWSE, helper.getMode());
+
+        path0 = new TreePath("0");
+        helper.selectRow(path0);
+
+        row = model.getIter(path0);
+        assertEquals(false, model.getValue(row, column));
+
+        row = helper.getSelected();
+        assertEquals(false, model.getValue(row, column));
+
+        path1 = new TreePath("1");
+        helper.selectRow(path0);
+
+        row = model.getIter(path1);
+        assertEquals(true, model.getValue(row, column));
+
+        // haven't moved selection yet
+        row = helper.getSelected();
+        assertEquals(false, model.getValue(row, column));
+
+        // now move it
+        helper.selectRow(path1);
+        row = helper.getSelected();
+        assertEquals(true, model.getValue(row, column));
+
+        /*
+         * And now test TreeIter form of selectRow()
+         */
+
+        row = model.getIter(path0);
+        helper.selectRow(row);
+
+        row = helper.getSelected();
+        assertEquals(false, model.getValue(row, column));
+    }
 }
