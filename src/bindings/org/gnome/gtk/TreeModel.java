@@ -11,6 +11,8 @@
  */
 package org.gnome.gtk;
 
+import org.gnome.gdk.Pixbuf;
+
 /*
  * FIXME this is a placeholder stub for what will become the public API for
  * this type. Replace this comment with appropriate javadoc including author
@@ -146,6 +148,10 @@ public abstract class TreeModel extends org.gnome.glib.Object
     public void setValue(TreeIter row, DataColumnReference column, java.lang.Object value) {
         throw new UnsupportedOperationException("Not Yet Implemented");
     }
+    
+    public void setValue(TreeIter row, DataColumnPixbuf column, Pixbuf value) {
+        setValue(row, column, new Value(value));
+    }
 
     /**
      * Initialize a new iterator at the beginning of the model. Since you
@@ -158,7 +164,7 @@ public abstract class TreeModel extends org.gnome.glib.Object
      * row = model.getIterFirst();
      * while (row != null) {
      *     // do something with row
-     *     row = model.iterNext();
+     *     row = model.iterNext(row);
      * }
      * </pre>
      * 
@@ -182,6 +188,26 @@ public abstract class TreeModel extends org.gnome.glib.Object
 
         if (GtkTreeModel.getIterFirst(this, iter)) {
             return iter;
+        } else {
+            return null;
+        }
+    }
+
+    /**
+     * Return the row following the current one in the TreeModel. In a
+     * ListStore, this is simply the next row in the model, and what you use
+     * in conjunction with {@link #getIterFirst() getIterFirst()} to iterate
+     * through the entire model. In a TreeStore, however, it will return the
+     * next row <i>at this level</i>.
+     * 
+     * @return <code>null</code> if there is not another row.
+     */
+    /*
+     * This is really ugly API
+     */
+    public TreeIter iterNext(TreeIter row) {
+        if (GtkTreeModel.iterNext(this, row)) {
+            return row;
         } else {
             return null;
         }

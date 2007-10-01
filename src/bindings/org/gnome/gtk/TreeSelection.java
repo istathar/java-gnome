@@ -97,6 +97,13 @@ public class TreeSelection extends Object
     }
 
     /**
+     * Hook up a <code>CHANGED</code> singal handler.
+     */
+    public void connect(CHANGED handler) {
+        GtkTreeSelection.connect(this, handler);
+    }
+
+    /**
      * Select a row in the TreeView. We offer two forms; this one which takes
      * a TreePath and one which takes a TreeIter; see
      * {@link #selectRow(TreeIter))} for the other. Use this one if you have
@@ -114,5 +121,14 @@ public class TreeSelection extends Object
      */
     public void selectRow(TreeIter row) {
         GtkTreeSelection.selectIter(this, row);
+    }
+
+    /**
+     * Unselect all the rows in the TreeView. Useful to ensure the initial
+     * state of the TreeView is that no rows are selected, however you may
+     * find you have to wait until after the Window is mapped.
+     */
+    public void unselectAll() {
+        GtkTreeSelection.unselectAll(this);
     }
 }
