@@ -1492,28 +1492,6 @@
   (return-type "GdkWindow*")
 )
 
-(define-function pixbuf_new_from_file
-  (c-name "gdk_pixbuf_new_from_file")
-  (caller-owns-return #t)
-  (return-type "GdkPixbuf*")
-  (parameters
-    '("const-char*" "filename")
-    '("GError**" "error")
-  )
-)
-
-(define-function pixbuf_new_from_file_at_size
-  (c-name "gdk_pixbuf_new_from_file_at_size")
-  (caller-owns-return #t)
-  (return-type "GdkPixbuf*")
-  (parameters
-    '("const-char*" "filename")
-    '("int" "width")
-    '("int" "height")
-    '("GError**" "error")
-  )
-)
-
 (define-function pixbuf_new_from_data
   (c-name "gdk_pixbuf_new_from_data")
   (caller-owns-return #t)
@@ -1581,18 +1559,6 @@
 (define-function pixbuf_get_type
   (c-name "gdk_pixbuf_get_type")
   (return-type "GType")
-)
-
-(define-function pixbuf_new_from_file_at_scale
-  (c-name "gdk_pixbuf_new_from_file_at_scale")
-  (return-type "GdkPixbuf*")
-  (parameters
-    '("const-char*" "filename")
-    '("int" "width")
-    '("int" "height")
-    '("gboolean" "preserve_aspect_ratio")
-    '("GError**" "error")
-  )
 )
 
 (define-function pixbuf_alpha_mode_get_type

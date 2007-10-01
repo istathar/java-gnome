@@ -13,6 +13,7 @@ package org.gnome.gtk;
 
 import org.gnome.gdk.Event;
 import org.gnome.gdk.Gravity;
+import org.gnome.gdk.Pixbuf;
 import org.gnome.gdk.Screen;
 import org.gnome.gdk.WindowState;
 
@@ -547,5 +548,31 @@ public class Window extends Bin
         } else {
             return false;
         }
+    }
+
+    /**
+     * Set the icon image to be used for this Window. The icon will appear in
+     * the window switcher (what appears when you press <code>Alt+Tab</code>),
+     * window list applet and, in most themes, as an identifying image in the
+     * top left corner of the window title bar.
+     * 
+     * <p>
+     * Most often you will simply create an image with
+     * {@link Pixbuf#Pixbuf(String) Pixbuf(filename)} and pass it in.
+     * 
+     * <p>
+     * A 48x48 PNG image is generally the optimal size to work with; you
+     * rarely need icons larger but a lower resolution image will be forced to
+     * scale up with the usual poor quality result.
+     * 
+     * <p>
+     * <i> You should specify the image in its natural form, whatever that is,
+     * as GTK itself will scale the image depending on the various sizes it is
+     * called upon to provide by the theme engine and the window manager.</i>
+     * 
+     * @since 4.0.5
+     */
+    public void setIcon(Pixbuf icon) {
+        GtkWindow.setIcon(this, icon);
     }
 }
