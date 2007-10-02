@@ -575,4 +575,24 @@ public class Window extends Bin
     public void setIcon(Pixbuf icon) {
         GtkWindow.setIcon(this, icon);
     }
+
+    /**
+     * Present the Window to the user. This will raise the window to the top
+     * of the stack, deiconify it, and even bring it to the current virtual
+     * workspace (all depending, as ever, on how co-operative your window
+     * manager is). This is also invokes the equivalent of
+     * {@link #show() show()} to [re]map the Window.
+     * 
+     * <p>
+     * This method is ideal for cases where a Window is already showing
+     * somewhere and you need to [re]present it to the user. It's also what
+     * you should use if you have already called <code>show()</code> to
+     * force the Window to map but then immediately called <code>hide()</code>
+     * while you finished building the Window.
+     * 
+     * @since 4.0.5
+     */
+    public void present() {
+        GtkWindow.present(this);
+    }
 }

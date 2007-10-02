@@ -1,4 +1,4 @@
-personal_ws-1.1 en 1279
+personal_ws-1.1 en 1282
 ABI
 APIs
 AWT
@@ -336,6 +336,7 @@ OpenSolaris
 OutOfMemoryError
 Overholt
 PIXMAP
+PNG
 PackageNames
 Pango's
 ParsedTree
@@ -630,6 +631,7 @@ dbm
 de
 debian
 defs
+deiconify
 demultiplex
 demuxed
 denaturation
@@ -1108,6 +1110,7 @@ setFullscreen
 setGravity
 setHeadersClickable
 setHeadersVisible
+setIcon
 setImage
 setInconsistent
 setInvisibleChar
