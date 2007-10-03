@@ -77,6 +77,7 @@ extern void bindings_java_convert_gchararray_to_strarray(JNIEnv*, gchar**, jobje
  * bindings_java_type.c
  */
 
+extern GType BINDINGS_JAVA_TYPE_REFERENCE;
 extern GType bindings_java_type_lookup(const gchar*);
 
 #endif 

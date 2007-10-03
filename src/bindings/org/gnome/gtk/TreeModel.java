@@ -11,9 +11,6 @@
  */
 package org.gnome.gtk;
 
-import java.util.HashSet;
-import java.util.Set;
-
 import org.gnome.gdk.Pixbuf;
 
 /*
@@ -155,42 +152,22 @@ public abstract class TreeModel extends org.gnome.glib.Object
 
     /**
      * You'll have to cast the return value to whatever type you put in there
-     * in the first place. TODO we could make this use a generic, right?
+     * in the first place. TODO would making this generic help?
      */
     public java.lang.Object getValue(TreeIter row, DataColumnReference column) {
         return GtkTreeModelOverride.getReference(this, row, column.getOrdinal());
     }
 
-    private HashSet references;
-
+    /**
+     * 
+     */
     /*
-     * There are two reasons we call a custom setter in GtkTreeModelOverride.
-     * 
-     * Firstly there is the extra code here which is for memory management. We
-     * hold a reference to the object being stored in a Set here. When the
-     * TreeModel instance is finalized, the Set and thence its references
-     * onwards will be dropped. Trying to do this on the JNI was problematic
-     * as it is difficult to trap the object destruction and to know which
-     * objects to delete references to. Easier to just do the one way
-     * reference here; Java knows its objects much better than we do.
-     * 
-     * The more important reason is to avoid the ambiguiity collision in the
-     * signatures of Value() that otherwise arose.
+     * Calls a custom override as we manually manage a global reference to the
+     * passed object on the JNI side. This also avoids the ambiguiity
+     * collision in the signatures of Value(org.gnome.glib.Object) and
+     * Value(java.lang.Object) that otherwise arose and prevented compilation.
      */
     public void setValue(TreeIter row, DataColumnReference column, java.lang.Object value) {
-        final java.lang.Object current;
-
-        if (references == null) {
-            references = new HashSet();
-        }
-
-        current = getValue(row, column);
-
-        if ((current != null) && (value != current)) {
-            references.remove(current);
-        }
-        references.add(value);
-
         GtkTreeModelOverride.setReference(this, row, column.getOrdinal(), value);
     }
 
