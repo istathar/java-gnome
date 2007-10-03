@@ -41,4 +41,26 @@ final class GtkTreeModelOverride extends Plumbing
     }
 
     private static native final long gtk_list_store_new(String[] columns);
+
+    static final void setReference(TreeModel self, TreeIter row, int column, java.lang.Object reference) {
+        if (self instanceof ListStore) {
+            synchronized (lock) {
+                gtk_list_store_set_reference(pointerOf(self), pointerOf(row), column, reference);
+            }
+        } else {
+            throw new UnsupportedOperationException(
+                    "You need to implement setReference() for your TreeModel subclass");
+        }
+    }
+
+    private static native final void gtk_list_store_set_reference(long self, long row, int column,
+            java.lang.Object reference);
+
+    static final java.lang.Object getReference(TreeModel self, TreeIter row, int column) {
+        synchronized (lock) {
+            return gtk_tree_model_get_reference(pointerOf(self), pointerOf(row), column);
+        }
+    }
+
+    private static final native java.lang.Object gtk_tree_model_get_reference(long self, long row, int column);
 }

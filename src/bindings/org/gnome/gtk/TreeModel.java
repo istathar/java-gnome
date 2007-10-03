@@ -11,6 +11,9 @@
  */
 package org.gnome.gtk;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import org.gnome.gdk.Pixbuf;
 
 /*
@@ -71,15 +74,18 @@ public abstract class TreeModel extends org.gnome.glib.Object
      * typed ListStore or TreeStore , so we concentrate the calls and delegate
      * from here so they can call their specific translation method
      * accordingly.
+     * 
+     * ... and putting it here avoids recursive overload problems in
+     * TreeModel.
      */
-    private void setValue(TreeIter row, DataColumn column, Value value) {
+    private void dispatch(TreeIter row, DataColumn column, Value value) {
         if (this instanceof ListStore) {
             GtkListStore.setValue((ListStore) this, row, column.getOrdinal(), value);
         } else if (this instanceof TreeStore) {
             GtkTreeStore.setValue((TreeStore) this, row, column.getOrdinal(), value);
         } else {
             throw new UnsupportedOperationException(
-                    "You need to implement setValue() in your TreeModel subclass");
+                    "You need to implement setValue() for your TreeModel subclass");
         }
     }
 
@@ -87,7 +93,7 @@ public abstract class TreeModel extends org.gnome.glib.Object
      * 
      */
     public void setValue(TreeIter row, DataColumnString column, String value) {
-        setValue(row, column, new Value(value));
+        dispatch(row, column, new Value(value));
     }
 
     /**
@@ -120,7 +126,7 @@ public abstract class TreeModel extends org.gnome.glib.Object
      * 
      */
     public void setValue(TreeIter row, DataColumnInteger column, int value) {
-        setValue(row, column, new Value(value));
+        dispatch(row, column, new Value(value));
     }
 
     public boolean getValue(TreeIter row, DataColumnBoolean column) {
@@ -134,7 +140,17 @@ public abstract class TreeModel extends org.gnome.glib.Object
     }
 
     public void setValue(TreeIter row, DataColumnBoolean column, boolean value) {
-        setValue(row, column, new Value(value));
+        dispatch(row, column, new Value(value));
+    }
+
+    Pixbuf getValue(TreeIter row, DataColumnPixbuf column) {
+        final Value result;
+
+        result = new Value();
+
+        GtkTreeModel.getValue(this, row, column.getOrdinal(), result);
+
+        return (Pixbuf) result.getObject();
     }
 
     /**
@@ -142,15 +158,44 @@ public abstract class TreeModel extends org.gnome.glib.Object
      * in the first place. TODO we could make this use a generic, right?
      */
     public java.lang.Object getValue(TreeIter row, DataColumnReference column) {
-        throw new UnsupportedOperationException("Not Yet Implemented");
+        return GtkTreeModelOverride.getReference(this, row, column.getOrdinal());
     }
 
+    private HashSet references;
+
+    /*
+     * There are two reasons we call a custom setter in GtkTreeModelOverride.
+     * 
+     * Firstly there is the extra code here which is for memory management. We
+     * hold a reference to the object being stored in a Set here. When the
+     * TreeModel instance is finalized, the Set and thence its references
+     * onwards will be dropped. Trying to do this on the JNI was problematic
+     * as it is difficult to trap the object destruction and to know which
+     * objects to delete references to. Easier to just do the one way
+     * reference here; Java knows its objects much better than we do.
+     * 
+     * The more important reason is to avoid the ambiguiity collision in the
+     * signatures of Value() that otherwise arose.
+     */
     public void setValue(TreeIter row, DataColumnReference column, java.lang.Object value) {
-        throw new UnsupportedOperationException("Not Yet Implemented");
+        final java.lang.Object current;
+
+        if (references == null) {
+            references = new HashSet();
+        }
+
+        current = getValue(row, column);
+
+        if ((current != null) && (value != current)) {
+            references.remove(current);
+        }
+        references.add(value);
+
+        GtkTreeModelOverride.setReference(this, row, column.getOrdinal(), value);
     }
-    
+
     public void setValue(TreeIter row, DataColumnPixbuf column, Pixbuf value) {
-        setValue(row, column, new Value(value));
+        dispatch(row, column, new Value(value));
     }
 
     /**

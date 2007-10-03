@@ -10,6 +10,10 @@
  */
 package org.gnome.gtk;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+
+import org.gnome.gdk.Pixbuf;
 import org.gnome.gtk.TestCaseGtk;
 
 /**
@@ -276,5 +280,41 @@ public class ValidateTreeModel extends TestCaseGtk
 
         row = helper.getSelected();
         assertEquals(false, model.getValue(row, column));
+    }
+
+    public final void testPixbufColumns() throws FileNotFoundException {
+        final ListStore model;
+        final DataColumnPixbuf column;
+        final TreeIter row;
+        final Pixbuf image;
+
+        model = new ListStore(new DataColumn[] {
+            column = new DataColumnPixbuf(),
+        });
+
+        row = model.appendRow();
+        image = new Pixbuf("web/public/images/java-gnome_JavaDocLogo.png");
+
+        model.setValue(row, column, image);
+        
+        assertSame(image, model.getValue(row, column));
+    }
+    
+
+    public final void testSettingValueReferenceColumn() {
+        final ListStore model;
+        final DataColumnReference column;
+        final TreeIter row;
+        final File target;
+
+        model = new ListStore(new DataColumn[] {
+            column = new DataColumnReference(),
+        });
+
+        row = model.appendRow();
+        target = new File("/etc/passwd");
+        model.setValue(row, column, target);
+
+        assertSame(target, model.getValue(row, column));
     }
 }

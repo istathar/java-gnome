@@ -136,6 +136,17 @@ public class Value extends Proxy
         this(GValue.createValue(f));
     }
 
+    protected Value(Object obj) {
+        this(GValue.createValue(obj));
+    }
+    
+    /*
+     * Another one that's only really here for unit tests. 
+     */
+    public Object getObject() {
+        return GValue.getObject(this);
+    }
+
     protected float getFloat() {
         return GValue.getFloat(this);
     }

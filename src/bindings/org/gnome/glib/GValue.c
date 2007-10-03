@@ -76,15 +76,15 @@ Java_org_gnome_glib_GValue_g_1value_1free
 	/*
 	 * Not 100% sure that this is the correct place to do this, but
 	 * it seems that when you get a property with a GObject in it,
-	 * there is a ref count to that object from the GValue. 
+	 * there is a ref count to that object from the GValue.
 	 */
 	if (G_VALUE_HOLDS_OBJECT(value)) {
 		object = g_value_get_object(value);
 		if (G_IS_OBJECT(object)) {
 			g_object_unref(object);
 		}
-	}	
-	
+	}
+
 	g_slice_free(GValue, value);
 }
 
@@ -268,7 +268,7 @@ Java_org_gnome_glib_GValue_g_1value_1init__Ljava_lang_String_2
  * the pointer.
  */
 JNIEXPORT jlong JNICALL
-Java_org_gnome_glib_GValue_g_1value_1init__Lorg_gnome_glib_GObject_2
+Java_org_gnome_glib_GValue_g_1value_1init__J
 (
 	JNIEnv *env,
 	jclass cls,
@@ -487,16 +487,6 @@ Java_org_gnome_glib_GValue_g_1value_1get_1flags
 	return (jint) num;
 }
 
-/**
- * Implements
- *   org.gnome.glib.GValue.g_value_get_enum(long value)
- * called from
- *   org.gnome.glib.GValue.getEnum(Value value)
- * called from
- *   org.gnome.glib.Object.getPropertyEnum(String name)
- *
- * Extract the ordinal of an enum stored in a GValue of type G_TYPE_OBJECT
- */
 JNIEXPORT jlong JNICALL
 Java_org_gnome_glib_GValue_g_1value_1get_1object
 (
@@ -514,7 +504,7 @@ Java_org_gnome_glib_GValue_g_1value_1get_1object
 		bindings_java_throw(env, "You've asked for the GObject within a GValue, but it's not a G_TYPE_OBJECT!");
 		return 0L;
 	}
-	
+
 	// call function
 	object = g_value_get_object(value); 
 
