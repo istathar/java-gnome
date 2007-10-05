@@ -1,0 +1,10 @@
+(define-entity Surface
+  (in-module "Cairo")
+  (c-name "cairo_surface_t")
+)
+
+(define-method destroy
+  (of-object "cairo_surface_t")
+  (c-name "cairo_surface_destroy")
+  (return-type "none")
+)

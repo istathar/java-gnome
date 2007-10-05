@@ -1,0 +1,20 @@
+(define-entity Context
+  (in-module "Cairo")
+  (c-name "cairo_t")
+)
+
+(define-function cairo_create
+  (is-constructor-of "cairo_t")
+  (c-name "cairo_create")
+  (caller-owns-return #t)
+  (return-type "cairo_t*")
+  (parameters
+    '("cairo_surface_t*" "target")
+  )
+)
+
+(define-method destroy
+  (of-object "cairo_t")
+  (c-name "cairo_destroy")
+  (return-type "none")
+)
