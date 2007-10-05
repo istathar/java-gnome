@@ -159,4 +159,39 @@ public class TreeView extends Container
     public TreeSelection getSelection() {
         return GtkTreeView.getSelection(this);
     }
+
+    /**
+     * Set whether or not the built-in quick search capability will be enabled
+     * for this TreeView. If the user focuses the TreeView and starts typing
+     * characters a small popup Entry will appear and the characters entered
+     * will be used to interactively search through the list and will
+     * progressively select the row which is the closest match.
+     * 
+     * <p>
+     * Use {@link #setSearchColumn(DataColumn) setSearchColumn()} to indicate
+     * which data source in your TreeModel is actually what the interactive
+     * text search will seek through.
+     * 
+     * <p>
+     * The default is <code>true</code>, so this method is only called when
+     * you wish to disable type-ahead find.
+     */
+    public void setEnableSearch(boolean setting) {
+        GtkTreeView.setEnableSearch(this, setting);
+    }
+
+    /**
+     * Set the column in your TreeModel which will searched through if the
+     * user starts an interactive search. Ordinarily this can just be the
+     * DataColumnString of whichever column you want as the index, but if you
+     * have applied extensive formatting then you may need to supply an
+     * auxiliary column with the data in cleaner form (the use of
+     * DataColumnIntegers to provide sort order for verticals that are
+     * displaying formatting via
+     * {@link TreeViewColumn#setSortColumn(DataColumn) setSortColumn()} is
+     * analogous).
+     */
+    public void setSearchColumn(DataColumn column) {
+        GtkTreeView.setSearchColumn(this, column.getOrdinal());
+    }
 }

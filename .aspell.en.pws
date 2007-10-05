@@ -1,4 +1,4 @@
-personal_ws-1.1 en 1282
+personal_ws-1.1 en 1286
 ABI
 APIs
 AWT
@@ -57,6 +57,7 @@ DataColumn
 DataColumnBoolean
 DataColumnInt
 DataColumnInteger
+DataColumnIntegers
 DataColumnLong
 DataColumnPixbuf
 DataColumnReference
@@ -999,6 +1000,7 @@ onFocusOutEvent
 onKeyPressEvent
 onKeyReleaseEvent
 onPopupMenu
+onRowActivated
 onSelectionChanged
 onSizeChanged
 onToggled
@@ -1099,6 +1101,7 @@ setDisplayOptions
 setDraw
 setEditable
 setEllipsize
+setEnableSearch
 setExpand
 setFocusOnClick
 setFraction
@@ -1145,6 +1148,7 @@ setPropertyPixbuf
 setPropertyString
 setRelief
 setRighteous
+setSearchColumn
 setSensitive
 setSortColumn
 setSortColumnId
