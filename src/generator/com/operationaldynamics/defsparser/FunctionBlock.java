@@ -148,7 +148,7 @@ public class FunctionBlock extends Block
 
     public Generator createGenerator(final DefsFile data) {
         if (isConstructorOf != null) {
-            return new ConstructorGenerator(data, returnType, cName, parameters);
+            return new ConstructorGenerator(data, blockName, returnType, cName, parameters);
         } else {
             return new FunctionGenerator(data, blockName, returnType, cName, parameters);
         }

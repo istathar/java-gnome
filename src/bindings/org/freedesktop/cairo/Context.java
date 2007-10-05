@@ -30,6 +30,6 @@ public class Context extends Proxy
     }
 
     public Context(Surface target) {
-        super(CairoContext.createContextroCreate(target));
+        super(CairoContext.createContext(target));
     }
 }

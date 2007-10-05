@@ -3,7 +3,12 @@
   (c-name "cairo_t")
 )
 
-(define-function cairo_create
+;; the block name is contrived to match the pattern used in GTK so that
+;; mungeConstructorName() doesn't choke on it when called by
+;; ConstructorGenerator. This could probably be fixed, but whatever. It's the
+;; c-name that matters, and that's correct.
+
+(define-function cairo_context_new
   (is-constructor-of "cairo_t")
   (c-name "cairo_create")
   (caller-owns-return #t)
