@@ -109,16 +109,29 @@ public abstract class CellRenderer extends Object
 
     /**
      * Indicate the DataColumn containing the name of the colour to use as
-     * background for this CellRederer.
+     * background for this CellRenderer. You can set the background
+     * dynamically with TreeModel data via this method, or set it statically
+     * once via the other {@link #setBackground(String) setBackground()}
+     * overload.
      */
     /*
-     * FUTURE The underlying property in GTK is "<code>cell-background</code>"
-     * but I would like to map this as <code>setBackgroundCell()</code> so
-     * that is aligns with the completion domain of the "<code>background</code>"
-     * property on CellRendererText which is for managing the colours used for
-     * the text fonts.
+     * Note that we have exposed the "cell-background" property with the name
+     * setBackground(), thereby eclipsing the use of CellRendererText's
+     * "background" property as setBackground(). After extensive tests and
+     * discussions with the GTK hackers, it would seem there is never an
+     * occasion where you want to set the background of the text renderer but
+     * not the cell as a whole. So combine them for the result of a cleaner
+     * API.
      */
-    public void setCellBackground(DataColumnString column) {
+    public void setBackground(DataColumnString column) {
         GtkTreeViewColumn.addAttribute(vertical, this, "cell-background", column.getOrdinal());
+    }
+
+    /**
+     * Set the background colour to be used by this CellRenderer for all the
+     * rows it draws.
+     */
+    public void setBackground(String colour) {
+        setPropertyString("cell-background", colour);
     }
 }

@@ -1,4 +1,4 @@
-personal_ws-1.1 en 1286
+personal_ws-1.1 en 1289
 ABI
 APIs
 AWT
@@ -30,6 +30,7 @@ CellLayout
 CellRenderer
 CellRendererPixbuf
 CellRendererText
+CellRendererText's
 CellRendererTexts
 CellRenderers
 CheckButton
@@ -1089,6 +1090,7 @@ setActive
 setAlignment
 setAlignmentX
 setAngle
+setBackground
 setBlinking
 setChildSecondary
 setClickable
@@ -1104,6 +1106,7 @@ setEllipsize
 setEnableSearch
 setExpand
 setFocusOnClick
+setForeground
 setFraction
 setFromFile
 setFromIconName
