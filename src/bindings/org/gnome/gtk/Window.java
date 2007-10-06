@@ -595,4 +595,61 @@ public class Window extends Bin
     public void present() {
         GtkWindow.present(this);
     }
+
+    /**
+     * Get the width of the Window.
+     * 
+     * <p>
+     * There are some problems with using this:
+     * 
+     * <ul>
+     * <li>If the Window hasn't been mapped to the screen yet then you will
+     * get GTK's current estimate of what it expects to the geometry of the
+     * Window might be. This is still highly dependent on what the window
+     * manager and the X server actually end up agreeing to allocate.
+     * <li>People frequently call this because they want to manually position
+     * the Window. In GNOME we discourage doing this. It is the window
+     * manager's job to position things, and this reflects among other things
+     * accessibility and user preference. Also, GTK is unable to take into
+     * account the size of any window decorations that may be present. Use
+     * {@link #setPosition(WindowPosition) setPosition()}!
+     * <li>If you need to take a dynamic size dependent action you should
+     * hook up to the {@link Widget.CONFIGURE_EVENT CONFIGURE_EVENT} signal
+     * which has more accurate information and which will allow you to react
+     * appropriately. If you instead use this you will be subject to a race
+     * condition as the size of the Window may change between you calling this
+     * method and taking action based on the returned value.
+     * </ul>
+     * 
+     * In other words, although this method can be useful for debugging, it's
+     * mostly here to tell you what to use instead.
+     * 
+     * @since 4.0.5
+     */
+    public int getWidth() {
+        int[] width = new int[1];
+        int[] height = new int[1];
+
+        GtkWindow.getSize(this, width, height);
+
+        return width[0];
+    }
+
+    /**
+     * Get the height of the Window.
+     * 
+     * <p>
+     * See {@link #getWidth() getWidth()} for a discussion of the problems
+     * that are inherent in using this method.
+     * 
+     * @since 4.0.5
+     */
+    public int getHeight() {
+        int[] width = new int[1];
+        int[] height = new int[1];
+
+        GtkWindow.getSize(this, width, height);
+
+        return height[0];
+    }
 }
