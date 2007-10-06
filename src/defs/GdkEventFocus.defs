@@ -1,0 +1,12 @@
+(define-boxed EventFocus
+  (in-module "Gdk")
+  (c-name "GdkEventFocus")
+  (fields
+    '("GdkEventType" "type")
+    '("GdkWindow*" "window")
+    '("gint8" "send_event")
+    '("guint16" "in")
+  )
+)
+
+;; they use 16 bits for a boolean?!?

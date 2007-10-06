@@ -12,6 +12,7 @@
 package org.gnome.gtk;
 
 import org.gnome.gdk.EventExpose;
+import org.gnome.gdk.EventFocus;
 import org.gnome.gdk.EventKey;
 
 /**
@@ -123,15 +124,15 @@ public abstract class Widget extends org.gnome.gtk.Object
     /**
      * Signal emitted when the focus leaves this Widget. Focus is a concept
      * that is shared evenly between the widget toolkit and the window manager -
-     * which can become apparent if you're wondering <i>why</i> you have lost
-     * focus or regained it.
+     * which often becomes apparent if you're wondering <i>why</i> you have
+     * lost focus or regained it.
      * 
      * @author Andrew Cowie
      * @since 4.0.2
      */
     public interface FOCUS_OUT_EVENT extends GtkWidget.FOCUS_OUT_EVENT
     {
-        public boolean onFocusOutEvent(Widget source, Object event);
+        public boolean onFocusOutEvent(Widget source, EventFocus event);
     }
 
     /**
