@@ -27,6 +27,7 @@ package org.gnome.gtk;
  * easier to use for the common cases which dominate its usage.</i>
  * 
  * @author Andrew Cowie
+ * @author Srichand Pendyala
  * @since 4.0.5
  */
 public class TreeView extends Container
@@ -181,6 +182,21 @@ public class TreeView extends Container
     }
 
     /**
+     * Check if the built-in quick search capability is enabled for this TreeView.
+     * The default is <code>true</code>. 
+     * 
+     * <p>
+     * Use {@link #setEnableSearch(boolean) setEnableSearch()} to disable or enable
+     * the search feature.
+     * @return <code>true</code> if the quick search capability is enabled; <code>false</code>
+     * otherwise.
+     */
+    
+    public boolean getEnableSearch() {
+        return GtkTreeView.getEnableSearch(this);
+    }
+
+    /**
      * Set the column in your TreeModel which will searched through if the
      * user starts an interactive search. Ordinarily this can just be the
      * DataColumnString of whichever column you want as the index, but if you
@@ -194,4 +210,6 @@ public class TreeView extends Container
     public void setSearchColumn(DataColumn column) {
         GtkTreeView.setSearchColumn(this, column.getOrdinal());
     }
+    
+    
 }
