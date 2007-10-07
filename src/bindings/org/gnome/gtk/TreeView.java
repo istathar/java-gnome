@@ -211,5 +211,37 @@ public class TreeView extends Container
         GtkTreeView.setSearchColumn(this, column.getOrdinal());
     }
     
+    /**
+     * Get the current Entry widget being used for the interactive search
+     * feature for this TreeView. If the built-in widget is being used for
+     * search, then a <code>null</code> is returned. Thus, check for a null
+     * value, before attempting to use the object that is returned.
+     * 
+     * @return Entry being used for interactive search; null if built-in widget
+     * is in use.
+     */
+    
+    public Entry getSearchEntry(){
+        return GtkTreeView.getSearchEntry(this);
+    }
+    
+    /**
+     * Set the Entry widget to be used for the interactive search. The default
+     * is a built-in widget that appears when the user starts to type the 
+     * search string. You should use this method if you want to use your own
+     * Entry widget for the search string.
+     * 
+     * If the given Entry is <code>null</code> then no Exception is thrown at this
+     * point. But any attempt to search by the user will result in a
+     * NullPointerException. 
+     * 
+     * @param entry
+     *              The Entry widget to be used for the interactive search.
+     */
+    
+    public void setSearchEntry(Entry entry){
+        GtkTreeView.setSearchEntry(this, entry);
+    }
+    
     
 }
