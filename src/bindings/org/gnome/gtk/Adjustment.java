@@ -95,4 +95,78 @@ public class Adjustment extends Object
         GtkAdjustment.setValue(this, value);
     }
     
+    /**
+     * Update the Adjustment's value, to ensure that the bound, defined
+     * by lower and upper, is in the current page. Thus, it will lie between
+     * value and value + pageSize. If the bound is larger than the page size,
+     * then only the start of it will be in the current page.
+     * 
+     * As always, a <code>CHANGED</code> signal is emitted if the value is changed.
+     *  
+     * @param lower   lower bound for the range of Adjustment's value
+     * @param upper   upper bound for the range of Adjustment's value
+     * 
+     */
+    
+    public void clampPage(double lower, double upper){
+        GtkAdjustment.clampPage(this, lower, upper);
+    }
+    
+    /**
+     * Emits a <code>CHANGED</code> signal from the Adjustment widget. This
+     * method will typically be called by the widget with which the Adjustment 
+     * is associated, when it changes any of Adjustment's properties, other than
+     * <code>value</code>.
+     * 
+     * When <code>value</code> is changed, the {@link #valueChanged() valueChanged()}
+     * method is called instead.
+     *
+     */
+    public void changed(){
+        GtkAdjustment.changed(this);
+    }
+    
+    /**
+     * Emits a <code>VALUE_CHANGED</code> signal from the Adjustment widget. This
+     * method will typically be called by the widget with which the Adjustment 
+     * is associated, when it changes the Adjustment's <code>value</code>.
+     * 
+     * When a property other than code>value</code> is changed, the {@link #changed() changed()}
+     * method is called instead.
+     */
+    
+    public void valueChanged(){
+        GtkAdjustment.valueChanged(this);
+    }
+    
+    /**
+     * This signal is emitted when one or more of Adjustment's fields, other than
+     * the <code>value</code> field have been changed. Typically this signal is
+     * emitted by calling the {@link #changed() changed()} method. This method
+     * is called by the widget, with which the Adjustment is associated.
+     * 
+     * @author Srichand Pendyala
+     *
+     */
+    
+    public interface CHANGED extends GtkAdjustment.CHANGED
+    {
+        public void onChanged(Adjustment source);
+    }
+    
+    /**
+     * This signal is emitted when Adjustment's <code>value</code> field has been
+     * changed. Typically this signal is emitted by calling the {@link #valueChanged() valueChanged()}
+     * method. This method is called by the widget, with which the Adjustment is
+     * associated.
+     * 
+     * @author Srichand Pendyala
+     *
+     */
+    
+    public interface VALUE_CHANGED extends GtkAdjustment.VALUE_CHANGED
+    {
+        public void onValueChanged(Adjustment source);
+    }
+    
 }
