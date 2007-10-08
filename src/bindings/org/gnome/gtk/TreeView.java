@@ -313,4 +313,34 @@ public class TreeView extends Container
         GtkTreeView.setVadjustment(this, adjustment);
     }
     
+    /**
+     * Set the fixed height mode for the TreeView. When set to true,
+     * all displayed rows in the TreeView are displayed with the same
+     * height. This has the effect of speeding up the TreeView.
+     * 
+     * <p>
+     * To fetch the current height mode, see {@link #getFixedHeightMode() getFixedHeightMode()}
+     * 
+     * @param enable true if all rows in the TreeView are to be of the
+     * same height; false otherwise.
+     */
+    
+    public void setFixedHeightMode(boolean enable){
+        GtkTreeView.setFixedHeightMode(this, enable);
+    }
+    
+    /**
+     * Get the current fixed height mode for the TreeView. When set to true,
+     * all displayed rows in the TreeView are displayed with the same
+     * height.
+     * 
+     * <p>
+     * To set the current height mode, see {@link #setFixedHeightMode(boolean) setFixedHeightMode()}
+     * 
+     * @return <code>true</code> if all rows are to be of the same height; <code>false</code> otherwise.
+     */
+    
+    public boolean getFixedHeightMode(){
+        return GtkTreeView.getFixedHeightMode(this);
+    }
 }
