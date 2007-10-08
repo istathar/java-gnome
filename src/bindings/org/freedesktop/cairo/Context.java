@@ -24,12 +24,44 @@ public class Context extends Proxy
     protected Context(long pointer) {
         super(pointer);
     }
-    
+
     protected void release() {
         CairoContext.destroy(this);
     }
 
+    /**
+     * Construct a new "Cairo Context". You supply the Surface that you are
+     * drawing to.
+     */
     public Context(Surface target) {
         super(CairoContext.createContext(target));
+    }
+
+    /**
+     * Set the source pattern within this Context to an opaque colour. The
+     * parameters each take the range <code>0.0</code> to <code>1.0</code>.
+     */
+    public void setSourceRGB(double red, double green, double blue) {
+        CairoContext.setSourceRgb(this, red, green, blue);
+    }
+
+    /**
+     * Add a line from the current location to <code>x</code>,<code>y</code>.
+     * After the call the current point will be <code>x</code>,<code>y</code>.
+     */
+    public void lineTo(double x, double y) {
+        CairoContext.lineTo(this, x, y);
+    }
+
+    /**
+     * Move to a new location without drawing, beginning a new sub-path. After
+     * the call the current point will be <code>x</code>,<code>y</code>.
+     */
+    public void moveTo(double x, double y) {
+        CairoContext.moveTo(this, x, y);
+    }
+    
+    public void stroke() {
+        CairoContext.stroke(this);
     }
 }

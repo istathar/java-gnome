@@ -23,3 +23,40 @@
   (c-name "cairo_destroy")
   (return-type "none")
 )
+
+(define-method stroke
+  (of-object "cairo_t")
+  (c-name "cairo_stroke")
+  (return-type "none")
+)
+
+(define-method set_source_rgb
+  (of-object "cairo_t")
+  (c-name "cairo_set_source_rgb")
+  (return-type "none")
+  (parameters
+    '("double" "red")
+    '("double" "green")
+    '("double" "blue")
+  )
+)
+
+(define-method line_to
+  (of-object "cairo_t")
+  (c-name "cairo_line_to")
+  (return-type "none")
+  (parameters
+    '("double" "x")
+    '("double" "y")
+  )
+)
+
+(define-method move_to
+  (of-object "cairo_t")
+  (c-name "cairo_move_to")
+  (return-type "none")
+  (parameters
+    '("double" "x")
+    '("double" "y")
+  )
+)

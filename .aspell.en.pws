@@ -1,4 +1,4 @@
-personal_ws-1.1 en 1186
+personal_ws-1.1 en 1190
 ABI
 APIs
 AWT
@@ -21,6 +21,7 @@ ButtonBoxes
 ButtonFactory
 CCFLAGS
 CVS
+CairoContext
 CalendarDisplayOptions
 CallStaticBooleanMethodA
 CallStaticObjectMethodA
@@ -35,7 +36,6 @@ CheckMenuItems
 ClassCastException
 ClassLoader
 ClassLoader's
-ClassName
 ClassName
 ClassNotFoundException
 CodeFormat
@@ -523,6 +523,7 @@ createCheckMenuItem
 createCheckMenuItemWithMnemonic
 createComboBox
 createComboBoxText
+createContext
 createEntry
 createFileChooserButon
 createFixed
@@ -837,7 +838,6 @@ labelWidget
 lang
 lc
 ld
-ld
 len
 li
 libgcj
@@ -847,6 +847,7 @@ libgnome
 libgnomeui
 libgtk
 librarypath
+lineTo
 linkSharedLibrary
 linux
 listFiles
@@ -872,6 +873,7 @@ mnemonicLabel
 mockup
 mockups
 modeline
+moveTo
 moveWidget
 msg
 multi
@@ -1058,6 +1060,8 @@ setPropertyString
 setRelief
 setRighteous
 setSensitive
+setSourceRGB
+setSourceRgb
 setStick
 setSubmenu
 setText
