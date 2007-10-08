@@ -293,4 +293,24 @@ public class TreeView extends Container
         GtkTreeView.setHadjustment(this, adjustment);
     }
     
+    /**
+     * Get the Adjustment for the vertical aspect of this TreeView. If
+     * the vertical Adjustment has not been previously set, this value
+     * is null.
+     */
+    
+    public Adjustment getVAdjustment(){
+        return GtkTreeView.getVadjustment(this);
+    }
+    
+    /**
+     * Set the Adjustment for the vertical aspect of this TreeView. To 
+     * fetch the current vertical adjustment aspect of this TreeView,
+     * see {@link #getVAdjustment() getVAdjustment()}
+     */
+    
+    public void setVAdjustment(Adjustment adjustment){
+        GtkTreeView.setVadjustment(this, adjustment);
+    }
+    
 }
