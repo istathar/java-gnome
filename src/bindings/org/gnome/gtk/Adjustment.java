@@ -154,6 +154,15 @@ public class Adjustment extends Object
         public void onChanged(Adjustment source);
     }
     
+
+    /**
+     * Hook up a <code>CHANGED</code> handler.
+     */
+    
+    public void connect(CHANGED handler){
+        GtkAdjustment.connect(this, handler);
+    }
+    
     /**
      * This signal is emitted when Adjustment's <code>value</code> field has been
      * changed. Typically this signal is emitted by calling the {@link #valueChanged() valueChanged()}
@@ -168,5 +177,14 @@ public class Adjustment extends Object
     {
         public void onValueChanged(Adjustment source);
     }
+    
+    /**
+     * Hook up a <code>VALUE_CHANGED</code> handler.
+     */
+    
+    public void connect(VALUE_CHANGED handler){
+        GtkAdjustment.connect(this, handler);
+    }
+    
     
 }
