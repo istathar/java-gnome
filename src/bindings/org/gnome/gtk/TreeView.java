@@ -11,6 +11,8 @@
  */
 package org.gnome.gtk;
 
+import org.freedesktop.bindings.Constant;
+
 /**
  * Display the data from a TreeModel in a tabular form. You can select and
  * activate rows, ...
@@ -243,5 +245,52 @@ public class TreeView extends Container
         GtkTreeView.setSearchEntry(this, entry);
     }
     
+    /**
+     * Set the rubber banding property of the TreeView. If the TreeView's
+     * selection mode is set to <code>GTK_SELECTION_MULTIPLE</code>, then
+     * rubber banding will allow the user to select multiple rows with the
+     * mouse. This property is set to <code>false</code> by default.
+     * 
+     * @param enable
+     *              Set the rubber banding property of the TreeView
+     */
+    
+    public void setRubberBanding(boolean enable){
+        GtkTreeView.setRubberBanding(this, enable);
+    }
+    
+    /**
+     * Get the current status of the rubber banding property of the TreeView.
+     * This property is <code>false</code> by default. To set this property,
+     * use setRubberBanding(). See {@link #setRubberBanding(boolean) setRubberBanding()}.
+     * 
+     * @return <code>true</code> if the rubber banding property is enabled.
+     * <code>false</code> otherwise.
+     */
+    
+    public boolean getRubberBanding(){
+        return GtkTreeView.getRubberBanding(this);
+    }
+    
+    
+    /**
+     * Get the Adjustment currently being used for the horizontal aspect of this
+     * TreeView. If no horizontal adjustment is being used, then a null is returned.
+     * To set this value, see {@link #getHAdjustment() getHAdjustment()}
+     */
+    
+    public Adjustment getHAdjustment(){
+        return GtkTreeView.getHadjustment(this);
+    }
+    
+    /**
+     * Set the Adjustment for the horizontal aspect of this TreeView. To 
+     * fetch the current value of the horizontal adjustment aspect of this
+     * TreeView, see {@link #setHAdjustment(Adjustment) setHAdjustment()}
+     */
+    
+    public void setHAdjustment(Adjustment adjustment){
+        GtkTreeView.setHadjustment(this, adjustment);
+    }
     
 }
