@@ -8,3 +8,18 @@
   (c-name "cairo_surface_destroy")
   (return-type "none")
 )
+
+(define-method finish
+  (of-object "cairo_surface_t")
+  (c-name "cairo_surface_finish")
+  (return-type "none")
+)
+
+(define-method write_to_png
+  (of-object "cairo_surface_t")
+  (c-name "cairo_surface_write_to_png")
+  (return-type "cairo_status_t")
+  (parameters
+    '("const-char*" "filename")
+  )
+)

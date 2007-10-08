@@ -1,0 +1,9 @@
+(define-enum Status
+  (in-module "Cairo")
+  (c-name "cairo_status_t")
+  (values
+    '("success" "CAIRO_STATUS_SUCCESS")
+    '("no_memory" "CAIRO_STATUS_NO_MEMORY")
+  )
+)
+

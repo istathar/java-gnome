@@ -1,8 +1,8 @@
 /*
- * Surface.java
+ * Status.java
  *
  * Copyright (c) 2007 Operational Dynamics Consulting Pty Ltd
- *
+ * 
  * The code in this file, and the library it is a part of, are made available
  * to you by the authors under the terms of the "GNU General Public Licence,
  * version 2" plus the "Classpath Exception" (you may link to this code as a
@@ -11,29 +11,30 @@
  */
 package org.freedesktop.cairo;
 
-import org.freedesktop.bindings.Proxy;
+import org.freedesktop.bindings.Constant;
 
 /**
- * The thing that Cairo will draw on/to. This is the base class for several
- * concrete back ends.
+ * 
  * 
  * @author Andrew Cowie
+ * @since 4.0.5
  */
-public abstract class Surface extends Proxy
+/*
+ * Do we even need to expose these at all?
+ */
+public class Status extends Constant
 {
-    protected Surface(long pointer) {
-        super(pointer);
+    private Status(int ordinal, String nickname) {
+        super(ordinal, nickname);
     }
 
-    protected void release() {
-        CairoSurface.destroy(this);
-    }
-    
-    public void finish() {
-        CairoSurface.finish(this);
-    }
-    
-    public void writeToPNG(String filename) {
-        CairoSurface.writeToPng(this, filename);
-    }
+    /**
+     * It worked!
+     */
+    public static final Status SUCCESS = new Status(CairoStatus.SUCCESS, "SUCCESS");
+
+    /**
+     * Out of memory
+     */
+    public static final Status NO_MEMORY = new Status(CairoStatus.NO_MEMORY, "NO_MEMORY");
 }
