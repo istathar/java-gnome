@@ -27,7 +27,7 @@ package org.gnome.gtk;
  * The actual name "DataColumn" is taken directly from the TreeModel binding
  * used in java-gnome 2.x as originally written by Mark Howard. Reviewing
  * their work confirmed that we had hit on almost exactly the same approach
- * internally. Ours code is simpler, of course.
+ * internally. Our code is simpler, of course.
  * 
  * Thanks to Murray Cummings for having discussed the original use of this
  * pattern in gtkmm and for having encouraged presenting column identifiers in
@@ -82,7 +82,7 @@ package org.gnome.gtk;
  * 
  * <pre>
  *     name = new DataColumnString();
- *     dob = new DataColumnString()l
+ *     dob = new DataColumnString();
  *     dobSort = new DataColumnLong();
  *     useful = new DataColumnBoolean();
  * </pre>
@@ -144,6 +144,7 @@ package org.gnome.gtk;
  * @author Andrew Cowie
  * @author Mark Howard
  * @author Murray Cummings
+ * @author Hanna Wallach
  * @since 4.0.5
  */
 public abstract class DataColumn
