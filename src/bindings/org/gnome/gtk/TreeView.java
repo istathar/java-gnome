@@ -343,4 +343,38 @@ public class TreeView extends Container
     public boolean getFixedHeightMode(){
         return GtkTreeView.getFixedHeightMode(this);
     }
+    
+    /**
+     * This signal is emitted when the user selects all the rows in the TreeView.
+     * This usually occurs, when the user presses the <code>Ctrl-A</code> key
+     * combination.
+     * 
+     * <p>
+     * This signal is particularly useful, when you wish to be able to offer the
+     * user an option to do some manipulation on the data, when all data is selected.
+     * For instance, upon selecting all the rows of the TreeView, in say, an email
+     * client, where each row represents an email, an option to mark all emails as
+     * read can be made to pop up. 
+     * 
+     * <p>
+     * This signal should also be used with much care. The "Principle of Least
+     * Surprise" is rather easy to violate by misusing this signal. 
+     * 
+     * @author Srichand Pendyala
+     *
+     */
+    
+    
+    public interface SELECT_ALL extends GtkTreeView.SELECT_ALL{
+        public boolean onSelectAll(TreeView source);
+    }
+    
+    /**
+     * Hook up a <code>SELECT_ALL</code> signal connector.
+     * @param handler
+     */
+    
+    public void connect(SELECT_ALL handler){
+        GtkTreeView.connect(this, handler);
+    }
 }
