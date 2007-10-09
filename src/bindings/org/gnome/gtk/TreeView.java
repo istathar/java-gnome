@@ -184,16 +184,17 @@ public class TreeView extends Container
     }
 
     /**
-     * Check if the built-in quick search capability is enabled for this TreeView.
-     * The default is <code>true</code>. 
+     * Check if the built-in quick search capability is enabled for this
+     * TreeView. The default is <code>true</code>.
      * 
      * <p>
-     * Use {@link #setEnableSearch(boolean) setEnableSearch()} to disable or enable
-     * the search feature.
-     * @return <code>true</code> if the quick search capability is enabled; <code>false</code>
-     * otherwise.
+     * Use {@link #setEnableSearch(boolean) setEnableSearch()} to disable or
+     * enable the search feature.
+     * 
+     * @return <code>true</code> if the quick search capability is enabled;
+     *         <code>false</code> otherwise.
      */
-    
+
     public boolean getEnableSearch() {
         return GtkTreeView.getEnableSearch(this);
     }
@@ -212,39 +213,39 @@ public class TreeView extends Container
     public void setSearchColumn(DataColumn column) {
         GtkTreeView.setSearchColumn(this, column.getOrdinal());
     }
-    
+
     /**
      * Get the current Entry widget being used for the interactive search
      * feature for this TreeView. If the built-in widget is being used for
      * search, then a <code>null</code> is returned. Thus, check for a null
      * value, before attempting to use the object that is returned.
      * 
-     * @return Entry being used for interactive search; null if built-in widget
-     * is in use.
+     * @return Entry being used for interactive search; null if built-in
+     *         widget is in use.
      */
-    
-    public Entry getSearchEntry(){
+
+    public Entry getSearchEntry() {
         return GtkTreeView.getSearchEntry(this);
     }
-    
+
     /**
      * Set the Entry widget to be used for the interactive search. The default
-     * is a built-in widget that appears when the user starts to type the 
+     * is a built-in widget that appears when the user starts to type the
      * search string. You should use this method if you want to use your own
      * Entry widget for the search string.
      * 
-     * If the given Entry is <code>null</code> then no Exception is thrown at this
-     * point. But any attempt to search by the user will result in a
-     * NullPointerException. 
+     * If the given Entry is <code>null</code> then no Exception is thrown
+     * at this point. But any attempt to search by the user will result in a
+     * NullPointerException.
      * 
      * @param entry
-     *              The Entry widget to be used for the interactive search.
+     *            The Entry widget to be used for the interactive search.
      */
-    
-    public void setSearchEntry(Entry entry){
+
+    public void setSearchEntry(Entry entry) {
         GtkTreeView.setSearchEntry(this, entry);
     }
-    
+
     /**
      * Set the rubber banding property of the TreeView. If the TreeView's
      * selection mode is set to <code>GTK_SELECTION_MULTIPLE</code>, then
@@ -252,129 +253,130 @@ public class TreeView extends Container
      * mouse. This property is set to <code>false</code> by default.
      * 
      * @param enable
-     *              Set the rubber banding property of the TreeView
+     *            Set the rubber banding property of the TreeView
      */
-    
-    public void setRubberBanding(boolean enable){
+
+    public void setRubberBanding(boolean enable) {
         GtkTreeView.setRubberBanding(this, enable);
     }
-    
+
     /**
      * Get the current status of the rubber banding property of the TreeView.
      * This property is <code>false</code> by default. To set this property,
-     * use setRubberBanding(). See {@link #setRubberBanding(boolean) setRubberBanding()}.
+     * use setRubberBanding(). See
+     * {@link #setRubberBanding(boolean) setRubberBanding()}.
      * 
      * @return <code>true</code> if the rubber banding property is enabled.
-     * <code>false</code> otherwise.
+     *         <code>false</code> otherwise.
      */
-    
-    public boolean getRubberBanding(){
+
+    public boolean getRubberBanding() {
         return GtkTreeView.getRubberBanding(this);
     }
-    
-    
+
     /**
-     * Get the Adjustment currently being used for the horizontal aspect of this
-     * TreeView. If no horizontal adjustment is being used, then a null is returned.
-     * To set this value, see {@link #getHAdjustment() getHAdjustment()}
+     * Get the Adjustment currently being used for the horizontal aspect of
+     * this TreeView. If no horizontal adjustment is being used, then a null
+     * is returned. To set this value, see
+     * {@link #getHAdjustment() getHAdjustment()}
      */
-    
-    public Adjustment getHAdjustment(){
+
+    public Adjustment getHAdjustment() {
         return GtkTreeView.getHadjustment(this);
     }
-    
+
     /**
-     * Set the Adjustment for the horizontal aspect of this TreeView. To 
-     * fetch the current value of the horizontal adjustment aspect of this
-     * TreeView, see {@link #setHAdjustment(Adjustment) setHAdjustment()}
+     * Set the Adjustment for the horizontal aspect of this TreeView. To fetch
+     * the current value of the horizontal adjustment aspect of this TreeView,
+     * see {@link #setHAdjustment(Adjustment) setHAdjustment()}
      */
-    
-    public void setHAdjustment(Adjustment adjustment){
+
+    public void setHAdjustment(Adjustment adjustment) {
         GtkTreeView.setHadjustment(this, adjustment);
     }
-    
+
     /**
-     * Get the Adjustment for the vertical aspect of this TreeView. If
-     * the vertical Adjustment has not been previously set, this value
-     * is null.
+     * Get the Adjustment for the vertical aspect of this TreeView. If the
+     * vertical Adjustment has not been previously set, this value is null.
      */
-    
-    public Adjustment getVAdjustment(){
+
+    public Adjustment getVAdjustment() {
         return GtkTreeView.getVadjustment(this);
     }
-    
+
     /**
-     * Set the Adjustment for the vertical aspect of this TreeView. To 
-     * fetch the current vertical adjustment aspect of this TreeView,
-     * see {@link #getVAdjustment() getVAdjustment()}
+     * Set the Adjustment for the vertical aspect of this TreeView. To fetch
+     * the current vertical adjustment aspect of this TreeView, see
+     * {@link #getVAdjustment() getVAdjustment()}
      */
-    
-    public void setVAdjustment(Adjustment adjustment){
+
+    public void setVAdjustment(Adjustment adjustment) {
         GtkTreeView.setVadjustment(this, adjustment);
     }
-    
+
     /**
-     * Set the fixed height mode for the TreeView. When set to true,
-     * all displayed rows in the TreeView are displayed with the same
-     * height. This has the effect of speeding up the TreeView.
+     * Set the fixed height mode for the TreeView. When set to true, all
+     * displayed rows in the TreeView are displayed with the same height. This
+     * has the effect of speeding up the TreeView.
      * 
      * <p>
-     * To fetch the current height mode, see {@link #getFixedHeightMode() getFixedHeightMode()}
+     * To fetch the current height mode, see
+     * {@link #getFixedHeightMode() getFixedHeightMode()}
      * 
-     * @param enable true if all rows in the TreeView are to be of the
-     * same height; false otherwise.
+     * @param enable
+     *            true if all rows in the TreeView are to be of the same
+     *            height; false otherwise.
      */
-    
-    public void setFixedHeightMode(boolean enable){
+
+    public void setFixedHeightMode(boolean enable) {
         GtkTreeView.setFixedHeightMode(this, enable);
     }
-    
+
     /**
      * Get the current fixed height mode for the TreeView. When set to true,
-     * all displayed rows in the TreeView are displayed with the same
-     * height.
+     * all displayed rows in the TreeView are displayed with the same height.
      * 
      * <p>
-     * To set the current height mode, see {@link #setFixedHeightMode(boolean) setFixedHeightMode()}
+     * To set the current height mode, see
+     * {@link #setFixedHeightMode(boolean) setFixedHeightMode()}
      * 
-     * @return <code>true</code> if all rows are to be of the same height; <code>false</code> otherwise.
+     * @return <code>true</code> if all rows are to be of the same height;
+     *         <code>false</code> otherwise.
      */
-    
-    public boolean getFixedHeightMode(){
+    public boolean getFixedHeightMode() {
         return GtkTreeView.getFixedHeightMode(this);
     }
-    
+
     /**
-     * This signal is emitted when the user selects all the rows in the TreeView.
-     * This usually occurs, when the user presses the <code>Ctrl-A</code> key
-     * combination.
+     * This signal is emitted when the user selects all the rows in the
+     * TreeView. This usually occurs, when the user presses the
+     * <code>Ctrl-A</code> key combination.
      * 
      * <p>
-     * This signal is particularly useful, when you wish to be able to offer the
-     * user an option to do some manipulation on the data, when all data is selected.
-     * For instance, upon selecting all the rows of the TreeView, in say, an email
-     * client, where each row represents an email, an option to mark all emails as
-     * read can be made to pop up. 
+     * This signal is particularly useful, when you wish to be able to offer
+     * the user an option to do some manipulation on the data, when all data
+     * is selected. For instance, upon selecting all the rows of the TreeView,
+     * in say, an email client, where each row represents an email, an option
+     * to mark all emails as read can be made to pop up.
      * 
      * <p>
      * This signal should also be used with much care. The "Principle of Least
-     * Surprise" is rather easy to violate by misusing this signal. 
+     * Surprise" is rather easy to violate by misusing this signal.
      * 
      * @author Srichand Pendyala
-     *
+     * 
      */
-    
-    
-    public interface SELECT_ALL extends GtkTreeView.SELECT_ALL{
+    public interface SELECT_ALL extends GtkTreeView.SELECT_ALL
+    {
         public boolean onSelectAll(TreeView source);
     }
-    
+
     /**
      * Hook up a <code>SELECT_ALL</code> signal connector.
+     * 
      * @param handler
      */
-    
-    public void connect(SELECT_ALL handler){
+    public void connect(SELECT_ALL handler) {
         GtkTreeView.connect(this, handler);
     }
 }
