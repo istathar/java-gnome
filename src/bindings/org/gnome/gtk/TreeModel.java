@@ -177,59 +177,28 @@ public abstract class TreeModel extends org.gnome.glib.Object
 
     /**
      * Initialize a new iterator at the beginning of the model. Since you
-     * presumably want to iterate through the remaining rows, use
-     * {@link TreeModel#iterNext() iterNext()} as in the following:
+     * presumably want to iterate through the remaining rows, use the
+     * {@link TreeIter#iterNext() iterNext()} method you'll find on TreeIter
+     * as follows:
      * 
      * <pre>
      * TreeIter row;
      * 
      * row = model.getIterFirst();
-     * while (row != null) {
+     * do {
      *     // do something with row
-     *     row = model.iterNext(row);
-     * }
+     * } while (row.iterNext());
      * </pre>
      * 
      * @return <code>null</code> if the model is presently empty.
      */
-    /*
-     * While this is not exactly Java programmer friendly, the alternatives
-     * aren't much good either. a) Could change this to java.util.Iterator
-     * style, but there it is the Iterator that has the next() method, not
-     * TreeModel as we have to deal with. Given how primitive TreeIters are
-     * that's probably not the best idea. b) Change to iterFirst(), but that
-     * would leave getIter() as iter(). Basically this falls under gratuitous
-     * changing of GTK for no real benefit. So we'll leave it alone for now.
-     * At least we changed it from out parameter to returning something.
-     * Further suggestions welcome.
-     */
     public TreeIter getIterFirst() {
         final TreeIter iter;
 
-        iter = new TreeIter();
+        iter = new TreeIter(this);
 
         if (GtkTreeModel.getIterFirst(this, iter)) {
             return iter;
-        } else {
-            return null;
-        }
-    }
-
-    /**
-     * Return the row following the current one in the TreeModel. In a
-     * ListStore, this is simply the next row in the model, and what you use
-     * in conjunction with {@link #getIterFirst() getIterFirst()} to iterate
-     * through the entire model. In a TreeStore, however, it will return the
-     * next row <i>at this level</i>.
-     * 
-     * @return <code>null</code> if there is not another row.
-     */
-    /*
-     * This is really ugly API
-     */
-    public TreeIter iterNext(TreeIter row) {
-        if (GtkTreeModel.iterNext(this, row)) {
-            return row;
         } else {
             return null;
         }
@@ -245,7 +214,7 @@ public abstract class TreeModel extends org.gnome.glib.Object
     public TreeIter getIter(TreePath path) {
         final TreeIter iter;
 
-        iter = new TreeIter();
+        iter = new TreeIter(this);
 
         if (GtkTreeModel.getIter(this, iter, path)) {
             return iter;

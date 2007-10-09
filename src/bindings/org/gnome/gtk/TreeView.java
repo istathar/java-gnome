@@ -11,8 +11,6 @@
  */
 package org.gnome.gtk;
 
-import org.freedesktop.bindings.Constant;
-
 /**
  * Display the data from a TreeModel in a tabular form. You can select and
  * activate rows, ...

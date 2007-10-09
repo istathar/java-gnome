@@ -64,15 +64,21 @@ public class TreeSelection extends Object
      * it if NULL. We'll skip it.
      */
     public TreeIter getSelected() {
+        final TreeModel model;
         final TreeIter row;
-
-        row = new TreeIter();
+        
+        model = getView().getModel();
+        row = new TreeIter(model);
 
         if (GtkTreeSelection.getSelected(this, null, row)) {
             return row;
         } else {
             return null;
         }
+    }
+    
+    TreeView getView() {
+        return GtkTreeSelection.getTreeView(this);
     }
 
     /**

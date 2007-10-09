@@ -241,6 +241,7 @@ public class ValidateTreeModel extends TestCaseGtk
          * We have commented that the default is SINGLE. If this fails, change
          * the documentation of TreeSelection's setMode().
          */
+
         assertSame("GTK default behaviour changed. Adjust documentation", SelectionMode.SINGLE,
                 helper.getMode());
 
@@ -296,10 +297,9 @@ public class ValidateTreeModel extends TestCaseGtk
         image = new Pixbuf("web/public/images/java-gnome_JavaDocLogo.png");
 
         model.setValue(row, column, image);
-        
+
         assertSame(image, model.getValue(row, column));
     }
-    
 
     public final void testSettingValueReferenceColumn() {
         final ListStore model;
@@ -316,5 +316,34 @@ public class ValidateTreeModel extends TestCaseGtk
         model.setValue(row, column, target);
 
         assertSame(target, model.getValue(row, column));
+    }
+
+    public final void testIterationOverModel() {
+        final ListStore model;
+        final DataColumnString column;
+        TreeIter row;
+
+        model = new ListStore(new DataColumn[] {
+            column = new DataColumnString(),
+        });
+
+        for (int i = 0; i < 10; i++) {
+            row = model.appendRow();
+            model.setValue(row, column, "" + i);
+        }
+
+        /*
+         * now exercise our loop
+         */
+
+        int j = 0;
+
+        row = model.getIterFirst();
+        do {
+            assertEquals("" + j, model.getValue(row, column));
+            j++;
+        } while (row.iterNext());
+
+        assertEquals(10, j);
     }
 }
