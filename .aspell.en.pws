@@ -1,4 +1,4 @@
-personal_ws-1.1 en 1289
+personal_ws-1.1 en 1314
 ABI
 APIs
 AWT
@@ -168,6 +168,7 @@ Gruber
 Gruber's
 GtkAction
 GtkActionGroup
+GtkAdjustment
 GtkAlignment
 GtkB
 GtkBin
@@ -242,6 +243,8 @@ GtkWindowType
 HBox
 HBoxes
 HButtonBox
+HScale
+HScrollbar
 HSeparator
 Harpers
 HashMap
@@ -376,6 +379,7 @@ Singh
 SizeGroup
 SmartyPants
 SourceForge
+SpinButton
 Srichand
 StatusBar
 StatusIcon
@@ -444,6 +448,7 @@ VButtonBox
 VCS
 VM
 VMs
+VScale
 VSeparator
 ValidateMemoryManagement
 ValidatePacking
@@ -538,6 +543,7 @@ cfg
 cflags
 checkpointHashes
 checksum
+clampPage
 classname
 classpath
 clickable
@@ -565,6 +571,7 @@ copyMappingFile
 cp
 createAction
 createActionGroup
+createAdjustment
 createAlignment
 createButton
 createButtonWithLabel
@@ -741,13 +748,17 @@ getCurrentFolder
 getDeclaredConstructor
 getDisplayOptions
 getDraw
+getEnableSearch
 getEnum
 getEnv
 getEventTypeOrdinal
 getExpand
 getFilename
 getFirstIter
+getFixedHeightMode
 getFlags
+getHAdjustment
+getHadjustment
 getHandle
 getHeight
 getInconsistent
@@ -790,9 +801,11 @@ getRelief
 getResource
 getResourceAsStream
 getRowstride
+getRubberBanding
 getScaleX
 getScaleY
 getScreen
+getSearchEntry
 getSelected
 getSelection
 getSensitive
@@ -810,6 +823,8 @@ getType
 getURI
 getUri
 getUseMarkup
+getVAdjustment
+getVadjustment
 getValue
 getValueString
 getVisibility
@@ -1002,9 +1017,11 @@ onKeyPressEvent
 onKeyReleaseEvent
 onPopupMenu
 onRowActivated
+onSelectAll
 onSelectionChanged
 onSizeChanged
 onToggled
+onValueChanged
 online
 ool
 orTwoFlags
@@ -1017,7 +1034,9 @@ paddingBottom
 paddingLeft
 paddingRight
 paddingTop
+pageIncrement
 pageNum
+pageSize
 pango
 param
 perl
@@ -1105,6 +1124,7 @@ setEditable
 setEllipsize
 setEnableSearch
 setExpand
+setFixedHeightMode
 setFocusOnClick
 setForeground
 setFraction
@@ -1114,6 +1134,8 @@ setFromPixbuf
 setFromStock
 setFullscreen
 setGravity
+setHAdjustment
+setHadjustment
 setHeadersClickable
 setHeadersVisible
 setIcon
@@ -1151,7 +1173,9 @@ setPropertyPixbuf
 setPropertyString
 setRelief
 setRighteous
+setRubberBanding
 setSearchColumn
+setSearchEntry
 setSensitive
 setSortColumn
 setSortColumnId
@@ -1166,6 +1190,8 @@ setTooltips
 setTransientFor
 setUp
 setUseMarkup
+setVAdjustment
+setVadjustment
 setValue
 setValueString
 setVertical
@@ -1186,6 +1212,7 @@ sourceObject
 sourceforge
 sourcepath
 src
+stepIncrement
 stockId
 str
 strfreev
@@ -1262,6 +1289,7 @@ uri
 usr
 util
 va
+valueChanged
 valueFor
 versa
 vhosts
