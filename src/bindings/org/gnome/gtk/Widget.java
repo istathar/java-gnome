@@ -11,6 +11,7 @@
  */
 package org.gnome.gtk;
 
+import org.gnome.gdk.Color;
 import org.gnome.gdk.EventExpose;
 import org.gnome.gdk.EventFocus;
 import org.gnome.gdk.EventKey;
@@ -304,5 +305,25 @@ public abstract class Widget extends org.gnome.gtk.Object
      */
     public org.gnome.gdk.Window getWindow() {
         return GtkWidgetOverride.getWindow(this);
+    }
+
+    /**
+     * Adjust the background colour being used when drawing this Widget. This
+     * leaves all other style properties unchanged.
+     * 
+     * <p>
+     * If you need to change the background colour behind the text in an Entry
+     * or TextView, see
+     * {@link #modifyBase(Widget, StateType Color) modifyBase()}.
+     * 
+     * <p>
+     * This is one of a family of "<code>modify</code>" methods; see
+     * {@link #modifyStyle(Widget, RcStyle) modifyStyle()} for further details
+     * about the interaction of the various theming and style mechanisms.
+     * 
+     * @since 4.0.5
+     */
+    public void modifyBackground(StateType state, Color color) {
+        GtkWidget.modifyBg(this, state, color);
     }
 }

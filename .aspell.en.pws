@@ -1,4 +1,4 @@
-personal_ws-1.1 en 1327
+personal_ws-1.1 en 1332
 ABI
 APIs
 AWT
@@ -364,6 +364,7 @@ README
 RGB
 RHEL
 Rahn
+RcStyle
 RefToJavaProxy
 ReleaseStringUTFChars
 ReliefStyle
@@ -975,6 +976,10 @@ mnemonicLabel
 mockup
 mockups
 modeline
+modifyBackground
+modifyBase
+modifyBg
+modifyStyle
 moveWidget
 msg
 multi
