@@ -31,7 +31,7 @@ Java_org_gnome_gtk_GtkTreeIterOverride_gtk_1tree_1iter_1new
 	jclass cls
 )
 {
-	GtkTreeIter blank;
+	GtkTreeIter blank = { 0, };
 	GtkTreeIter* result;
 	
 	// blank is allocated locally on the stack
