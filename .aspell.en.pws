@@ -1,4 +1,4 @@
-personal_ws-1.1 en 1314
+personal_ws-1.1 en 1320
 ABI
 APIs
 AWT
@@ -214,6 +214,7 @@ GtkScrolledWindow
 GtkSelectionMode
 GtkSeparatorMenuItem
 GtkSeparatorToolItem
+GtkStateType
 GtkStatusIcon
 GtkStockItem
 GtkToggleButton
@@ -342,6 +343,7 @@ OutOfMemoryError
 Overholt
 PIXMAP
 PNG
+PRELIGHT
 PackageNames
 Pango's
 ParsedTree
@@ -381,6 +383,7 @@ SmartyPants
 SourceForge
 SpinButton
 Srichand
+StateType
 StatusBar
 StatusIcon
 StatusIcon's
