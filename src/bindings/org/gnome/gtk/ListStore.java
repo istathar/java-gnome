@@ -47,7 +47,7 @@ public class ListStore extends TreeModel implements TreeDragSource, TreeDragDest
     public TreeIter appendRow() {
         final TreeIter iter;
 
-        iter = new TreeIter();
+        iter = new TreeIter(this);
 
         GtkListStore.append(this, iter);
 
