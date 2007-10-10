@@ -1,4 +1,4 @@
-personal_ws-1.1 en 1320
+personal_ws-1.1 en 1327
 ABI
 APIs
 AWT
@@ -146,6 +146,8 @@ GTypeInstance
 GUADEC
 GValue
 GValues
+GdkColor
+GdkColorOverride
 GdkEvent
 GdkEventAny
 GdkEventExpose
@@ -359,6 +361,7 @@ PyThat
 PyThis
 QA
 README
+RGB
 RHEL
 Rahn
 RefToJavaProxy
@@ -584,6 +587,7 @@ createCheckButton
 createCheckButtonWithMnemonic
 createCheckMenuItem
 createCheckMenuItemWithMnemonic
+createColor
 createComboBox
 createComboBoxText
 createEntry
@@ -741,6 +745,7 @@ getAlignmentX
 getAlignmentY
 getAngle
 getBlinking
+getBlue
 getBoolean
 getChild
 getChildSecondary
@@ -760,6 +765,7 @@ getFilename
 getFirstIter
 getFixedHeightMode
 getFlags
+getGreen
 getHAdjustment
 getHadjustment
 getHandle
@@ -800,6 +806,7 @@ getPropertyFlags
 getPropertyFloat
 getPropertyObject
 getPropertyString
+getRed
 getRelief
 getResource
 getResourceAsStream
