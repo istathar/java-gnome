@@ -41,6 +41,18 @@
   )
 )
 
+(define-method set_source_rgba
+  (of-object "cairo_t")
+  (c-name "cairo_set_source_rgba")
+  (return-type "none")
+  (parameters
+    '("double" "red")
+    '("double" "green")
+    '("double" "blue")
+    '("double" "alpha")
+  )
+)
+
 (define-method line_to
   (of-object "cairo_t")
   (c-name "cairo_line_to")

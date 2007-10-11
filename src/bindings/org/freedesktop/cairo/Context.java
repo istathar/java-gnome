@@ -46,6 +46,17 @@ public class Context extends Proxy
     }
 
     /**
+     * Set the source pattern within this Context to a translucent colour. The
+     * parameters each take the range <code>0.0</code> to <code>1.0</code>.
+     * For the <code>alpha</code> parameter, a value of <code>0.0</code>
+     * indicates full transparency, and <code>1.0</code> is full opacity
+     * (ie, normal).
+     */
+    public void setSourceRGBA(double red, double green, double blue, double alpha) {
+        CairoContext.setSourceRgba(this, red, green, blue, alpha);
+    }
+
+    /**
      * Add a line from the current location to <code>x</code>,<code>y</code>.
      * After the call the current point will be <code>x</code>,<code>y</code>.
      */
@@ -60,7 +71,10 @@ public class Context extends Proxy
     public void moveTo(double x, double y) {
         CairoContext.moveTo(this, x, y);
     }
-    
+
+    /**
+     * Draw the current path as a line.
+     */
     public void stroke() {
         CairoContext.stroke(this);
     }
