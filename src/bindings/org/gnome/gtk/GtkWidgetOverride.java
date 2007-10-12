@@ -12,8 +12,7 @@
 package org.gnome.gtk;
 
 /**
- * Hand crafted to get at window field. This is a FIXME until we add
- * properties to the GObject case in the code generator (assuming we ever do).
+ * Hand crafted to get at the window field of Widget.
  * 
  * @author Andrew Cowie
  */
@@ -32,4 +31,17 @@ final class GtkWidgetOverride extends Plumbing
     }
 
     private static native final long gtk_widget_get_window(long self);
+
+    /**
+     * Set the GdkWindow underlying this Widget to receive visibility events!
+     * As a necessary convenience, the Widget will be realized first if
+     * necessary.
+     */
+    static final void setEventsVisibility(Widget self) {
+        synchronized (lock) {
+            gtk_widget_set_events_visibility(pointerOf(self));
+        }
+    }
+
+    private static native final void gtk_widget_set_events_visibility(long self);
 }

@@ -1,4 +1,4 @@
-personal_ws-1.1 en 1332
+personal_ws-1.1 en 1338
 ABI
 APIs
 AWT
@@ -153,10 +153,12 @@ GdkEventAny
 GdkEventExpose
 GdkEventKey
 GdkEventType
+GdkEventVisibility
 GdkEvents
 GdkGravity
 GdkPixbuf
 GdkScreen
+GdkVisibilityState
 GdkWindow
 GdkWindowState
 Gentoo's
@@ -465,6 +467,7 @@ VerboseTestRunner
 VersionNumbers
 Viewport
 VirtualHost
+VisibilityState
 Vreixo
 WeakHashMap
 WeakReference
@@ -1037,6 +1040,7 @@ onSelectionChanged
 onSizeChanged
 onToggled
 onValueChanged
+onVisibilityNotifyEvent
 online
 ool
 orTwoFlags
@@ -1138,6 +1142,7 @@ setDraw
 setEditable
 setEllipsize
 setEnableSearch
+setEventsVisibility
 setExpand
 setFixedHeightMode
 setFocusOnClick
@@ -1295,6 +1300,7 @@ unindent
 unix
 unixprint
 unmaximize
+unobscured
 unref
 unregisterConstant
 unregisterProxy

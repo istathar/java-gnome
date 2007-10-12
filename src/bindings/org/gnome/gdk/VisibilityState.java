@@ -13,17 +13,41 @@ package org.gnome.gdk;
 
 import org.freedesktop.bindings.Constant;
 
+/**
+ * Constants indicating the current visibility of a Widget. See the
+ * {@link org.gnome.gtk.Widget.VISIBILITY_NOTIFY_EVENT VISIBILITY_NOTIFY_EVENT}
+ * signal on Widget for further details; these constants come from the
+ * {@link EventVisibility#getState() getState()} method on an EventVisibility.
+ * 
+ * @author Andrew Cowie
+ * @since 4.0.5
+ */
 /*
- * FIXME this is a placeholder stub for what will become the public API for
- * this type. Replace this comment with appropriate javadoc including author
- * and since tags. Note that the class may need to be made abstract, implement
- * interfaces, or even have its parent changed. No API stability guarantees
- * are made about this class until it has been reviewed by a hacker and this
- * comment has been replaced.
+ * TODO should we normalize these names?
  */
 public final class VisibilityState extends Constant
 {
     private VisibilityState(int ordinal, String nickname) {
         super(ordinal, nickname);
     }
+
+    /**
+     * The Widget is no longer obscured. Will also be fired on initial
+     * presentation of a Window.
+     */
+    public static final VisibilityState UNOBSCURED = new VisibilityState(GdkVisibilityState.UNOBSCURED,
+            "UNOBSCURED");
+
+    /**
+     * The Widget is partially obscured by another Window (be it this
+     * application's or anther's).
+     */
+    public static final VisibilityState PARTIAL = new VisibilityState(GdkVisibilityState.PARTIAL,
+            "PARTIAL");
+
+    /**
+     * The Widget is fully blocked from view.
+     */
+    public static final VisibilityState FULLY_OBSCURED = new VisibilityState(
+            GdkVisibilityState.FULLY_OBSCURED, "FULLY_OBSCURED");
 }
