@@ -1,4 +1,4 @@
-personal_ws-1.1 en 1338
+personal_ws-1.1 en 1341
 ABI
 APIs
 AWT
@@ -205,6 +205,7 @@ GtkMain
 GtkMenu
 GtkMenuBar
 GtkMenuItem
+GtkMenuOverride
 GtkMenuShell
 GtkMenuToolButton
 GtkNotebook
@@ -1066,6 +1067,7 @@ placeName
 pointerOf
 popen
 popup
+popupStatusIcon
 popups
 pos
 pre
@@ -1221,6 +1223,7 @@ setVisibleChars
 setWidthChars
 showAll
 shutil
+si
 sizeof
 skipInit
 solaris
