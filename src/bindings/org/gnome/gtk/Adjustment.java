@@ -107,12 +107,12 @@ public class Adjustment extends Object
 
     /**
      * Emits a <code>CHANGED</code> signal from the Adjustment widget. This
-     * method will typically be called by the widget with which the Adjustment
-     * is associated, when it changes any of Adjustment's properties, other
-     * than <code>value</code>.
+     * method will typically be called by the Widget with which the Adjustment
+     * is associated when it changes any of Adjustment's properties, other
+     * than <var>value</var>.
      * 
      * <p>
-     * When <code>value</code> is changed, the
+     * If you have changed <var>value</var> is changed, the
      * {@link #valueChanged() valueChanged()} method is called instead.
      */
     public void changed() {
@@ -120,14 +120,9 @@ public class Adjustment extends Object
     }
 
     /**
-     * Emits a <code>VALUE_CHANGED</code> signal from the Adjustment widget.
-     * This method will typically be called by the widget with which the
-     * Adjustment is associated, when it changes the Adjustment's
-     * <code>value</code>.
-     * 
-     * <p>
-     * When a property other than <code>value</code> is changed, the
-     * {@link #changed() changed()} method is called instead.
+     * Emits a <code>VALUE_CHANGED</code> signal on the Adjustment. This
+     * method will typically be called by the Widget with which the Adjustment
+     * is associated, when it changes the Adjustment's <var>value</var>.
      */
     public void valueChanged() {
         GtkAdjustment.valueChanged(this);
@@ -135,10 +130,10 @@ public class Adjustment extends Object
 
     /**
      * This signal is emitted when one or more of Adjustment's fields, other
-     * than the <code>value</code> field have been changed. Typically this
-     * signal is emitted by calling the {@link #changed() changed()} method.
-     * This method is called by the widget, with which the Adjustment is
-     * associated.
+     * than the <var>value</var> field have been changed. This will be
+     * emitted if you call the {@link #changed() changed()} method, but in
+     * general it is in response to actions taken by the Widget with which
+     * this Adjustment is associated.
      * 
      * @author Srichand Pendyala
      */
@@ -155,10 +150,11 @@ public class Adjustment extends Object
     }
 
     /**
-     * This signal is emitted when Adjustment's <code>value</code> field has
-     * been changed. Typically this signal is emitted by calling the
-     * {@link #valueChanged() valueChanged()} method. This method is called by
-     * the widget, with which the Adjustment is associated.
+     * This signal is emitted when Adjustment's <var>value</var> field has
+     * been changed. This signal will be emitted if you call the
+     * {@link #valueChanged() valueChanged()} method, although more typically
+     * it is the result of changes by the Widget with which this Adjustment is
+     * associated.
      * 
      * @author Srichand Pendyala
      */

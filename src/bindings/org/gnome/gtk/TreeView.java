@@ -261,7 +261,7 @@ public class TreeView extends Container
      * Get the Adjustment currently being used for the horizontal aspect of
      * this TreeView. If no horizontal adjustment is being used, then a
      * <code>null</code> is returned. To set this value, see
-     * {@link #getHAdjustment() getHAdjustment()}.
+     * {@link #setHAdjustment(Adjustment) setHAdjustment()}.
      */
     public Adjustment getHAdjustment() {
         return GtkTreeView.getHadjustment(this);
@@ -270,7 +270,7 @@ public class TreeView extends Container
     /**
      * Set the Adjustment for the horizontal aspect of this TreeView. To fetch
      * the current value of the horizontal adjustment aspect of this TreeView,
-     * see {@link #setHAdjustment(Adjustment) setHAdjustment()}.
+     * use {@link #getHAdjustment() getHAdjustment()}.
      */
     public void setHAdjustment(Adjustment adjustment) {
         GtkTreeView.setHadjustment(this, adjustment);
