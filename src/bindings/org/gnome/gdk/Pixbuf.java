@@ -1,7 +1,7 @@
 /*
  * Pixbuf.java
  *
- * Copyright (c) 2006 Operational Dynamics Consulting Pty Ltd and Others
+ * Copyright (c) 2006-2007 Operational Dynamics Consulting Pty Ltd and Others
  * 
  * The code in this file, and the library it is a part of, are made available
  * to you by the authors under the terms of the "GNU General Public Licence,
@@ -10,6 +10,11 @@
  * See the LICENCE file for the terms governing usage and redistribution.
  */
 package org.gnome.gdk;
+
+import java.io.File;
+import java.io.FileNotFoundException;
+
+import org.gnome.glib.GlibException;
 
 /**
  * An image in memory.
@@ -32,5 +37,80 @@ public class Pixbuf extends org.gnome.glib.Object
 {
     protected Pixbuf(long pointer) {
         super(pointer);
+    }
+
+    /**
+     * Construct a new Pixbuf object from the image found in
+     * <code>filename</code>.
+     * 
+     * @since 4.0.5
+     */
+    /*
+     * Trapping an exception in a constructor is tricky; you have to use an
+     * auxilliary helper method.
+     */
+    public Pixbuf(String filename) throws FileNotFoundException {
+        super(checkPixbufFromFile(filename));
+    }
+
+    /*
+     * First check the file exists first, allowing us to isolate the GError
+     * representing image format problems. We'll need a more efficient GError
+     */
+    private static long checkPixbufFromFile(String filename) throws FileNotFoundException {
+        final File target;
+
+        target = new File(filename);
+        if (!target.exists()) {
+            throw new FileNotFoundException(target + "not found");
+        }
+        try {
+            return GdkPixbuf.createPixbufFromFile(filename);
+        } catch (GlibException ge) {
+            // FIXME change to something more image related.
+            throw new RuntimeException(ge.getMessage());
+        }
+    }
+
+    /**
+     * Construct a new Pixbuf object by loading an image from a given
+     * filename, but scaling it. The image will be scaled to fit the supplied
+     * width and height, preserving the aspect ratio or not based on the value
+     * of the fourth parameter.
+     * 
+     * <p>
+     * If preserving the asaspect ratio,
+     * <ul>
+     * <li>width of <code>-1</code> will cause the image to be scaled to
+     * the exact given height
+     * <li>height of <code>-1</code> will cause the image to be scaled to
+     * the exact given width.
+     * </ul>
+     * When not preserving aspect ratio,
+     * <ul>
+     * <li>a width or height of <code>-1</code> means to not scale the
+     * image at all in that dimension.
+     * </ul>
+     * 
+     * @since 4.0.5
+     */
+    public Pixbuf(String filename, int width, int height, boolean preserveAspectRatio) throws FileNotFoundException {
+        super(checkPixbufFromFileAtScale(filename, width, height, preserveAspectRatio));
+    }
+
+    private static long checkPixbufFromFileAtScale(String filename, int width, int height,
+            boolean preserveAspectRatio) throws FileNotFoundException {
+        final File target;
+
+        target = new File(filename);
+        if (!target.exists()) {
+            throw new FileNotFoundException(target + "not found");
+        }
+        try {
+            return GdkPixbuf.createPixbufFromFileAtScale(filename, width, height, preserveAspectRatio);
+        } catch (GlibException ge) {
+            // FIXME change to something more image related.
+            throw new RuntimeException(ge.getMessage());
+        }
     }
 }

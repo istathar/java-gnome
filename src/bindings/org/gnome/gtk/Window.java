@@ -13,6 +13,7 @@ package org.gnome.gtk;
 
 import org.gnome.gdk.Event;
 import org.gnome.gdk.Gravity;
+import org.gnome.gdk.Pixbuf;
 import org.gnome.gdk.Screen;
 import org.gnome.gdk.WindowState;
 
@@ -531,5 +532,108 @@ public class Window extends Bin
         } else {
             return false;
         }
+    }
+
+    /**
+     * Set the icon image to be used for this Window. The icon will appear in
+     * the window switcher (what appears when you press <code>Alt+Tab</code>),
+     * window list applet and, in most themes, as an identifying image in the
+     * top left corner of the window title bar.
+     * 
+     * <p>
+     * Most often you will simply create an image with
+     * {@link Pixbuf#Pixbuf(String) Pixbuf(filename)} and pass it in.
+     * 
+     * <p>
+     * A 48x48 PNG image is generally the optimal size to work with; you
+     * rarely need icons larger but a lower resolution image will be forced to
+     * scale up with the usual poor quality result.
+     * 
+     * <p>
+     * <i> You should specify the image in its natural form, whatever that is,
+     * as GTK itself will scale the image depending on the various sizes it is
+     * called upon to provide by the theme engine and the window manager.</i>
+     * 
+     * @since 4.0.5
+     */
+    public void setIcon(Pixbuf icon) {
+        GtkWindow.setIcon(this, icon);
+    }
+
+    /**
+     * Present the Window to the user. This will raise the window to the top
+     * of the stack, deiconify it, and even bring it to the current virtual
+     * workspace (all depending, as ever, on how co-operative your window
+     * manager is). This is also invokes the equivalent of
+     * {@link #show() show()} to [re]map the Window.
+     * 
+     * <p>
+     * This method is ideal for cases where a Window is already showing
+     * somewhere and you need to [re]present it to the user. It's also what
+     * you should use if you have already called <code>show()</code> to
+     * force the Window to map but then immediately called <code>hide()</code>
+     * while you finished building the Window.
+     * 
+     * @since 4.0.5
+     */
+    public void present() {
+        GtkWindow.present(this);
+    }
+
+    /**
+     * Get the width of the Window.
+     * 
+     * <p>
+     * There are some problems with using this:
+     * 
+     * <ul>
+     * <li>If the Window hasn't been mapped to the screen yet then you will
+     * get GTK's current estimate of what it expects to the geometry of the
+     * Window might be. This is still highly dependent on what the window
+     * manager and the X server actually end up agreeing to allocate.
+     * <li>People frequently call this because they want to manually position
+     * the Window. In GNOME we discourage doing this. It is the window
+     * manager's job to position things, and this reflects among other things
+     * accessibility and user preference. Also, GTK is unable to take into
+     * account the size of any window decorations that may be present. Use
+     * {@link #setPosition(WindowPosition) setPosition()}!
+     * <li>If you need to take a dynamic size dependent action you should
+     * hook up to the {@link Widget.CONFIGURE_EVENT CONFIGURE_EVENT} signal
+     * which has more accurate information and which will allow you to react
+     * appropriately. If you instead use this you will be subject to a race
+     * condition as the size of the Window may change between you calling this
+     * method and taking action based on the returned value.
+     * </ul>
+     * 
+     * In other words, although this method can be useful for debugging, it's
+     * mostly here to tell you what to use instead.
+     * 
+     * @since 4.0.5
+     */
+    public int getWidth() {
+        int[] width = new int[1];
+        int[] height = new int[1];
+
+        GtkWindow.getSize(this, width, height);
+
+        return width[0];
+    }
+
+    /**
+     * Get the height of the Window.
+     * 
+     * <p>
+     * See {@link #getWidth() getWidth()} for a discussion of the problems
+     * that are inherent in using this method.
+     * 
+     * @since 4.0.5
+     */
+    public int getHeight() {
+        int[] width = new int[1];
+        int[] height = new int[1];
+
+        GtkWindow.getSize(this, width, height);
+
+        return height[0];
     }
 }
