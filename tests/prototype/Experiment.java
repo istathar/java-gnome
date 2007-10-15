@@ -9,7 +9,10 @@
  * redistribution.
  */
 
+import java.io.FileNotFoundException;
+
 import org.gnome.gdk.Event;
+import org.gnome.gdk.Pixbuf;
 import org.gnome.gdk.Screen;
 import org.gnome.gtk.Button;
 import org.gnome.gtk.FileChooser;
@@ -46,6 +49,7 @@ public final class Experiment
         final Button b;
         final FileChooserButton fcb;
         final Screen s;
+        final Pixbuf logo;
 
         w = new Window();
 
@@ -65,7 +69,7 @@ public final class Experiment
 
         w.add(x);
 
-        w.setTitle("Exp");
+        w.setTitle("Experiments");
         w.showAll();
 
         s = w.getScreen();
@@ -93,6 +97,13 @@ public final class Experiment
         });
 
         b.setTooltipText("Pressing this Button will result in some output");
+
+        try {
+            logo = new Pixbuf("web/public/images/java-gnome_LargeLogo.png");
+            w.setIcon(logo);
+        } catch (FileNotFoundException fnfe) {
+            System.err.println("Where's the logo?");
+        }
     }
 
     public static void main(String[] args) {
