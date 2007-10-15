@@ -13,13 +13,17 @@ package org.gnome.gdk;
 
 import org.gnome.glib.Boxed;
 
-/*
- * FIXME this is a placeholder stub for what will become the public API for
- * this type. Replace this comment with appropriate javadoc including author
- * and since tags. Note that the class may need to be made abstract, implement
- * interfaces, or even have its parent changed. No API stability guarantees
- * are made about this class until it has been reviewed by a hacker and this
- * comment has been replaced.
+/**
+ * Representation of an RGB colour. Used by GDK in drawing Widgets and related
+ * elements.
+ * 
+ * <p>
+ * <i>Regrettably, colour is spelt wrong in the underlying GTK library, so
+ * sticking to our algorithmic API mapping we are forced to present it as
+ * Color here.</i>
+ * 
+ * @author Andrew Cowie
+ * @since 4.0.5
  */
 public final class Color extends Boxed
 {
@@ -27,11 +31,56 @@ public final class Color extends Boxed
         super(pointer);
     }
 
+    /**
+     * Construct a new Color object. The <code>red</code>,
+     * <code>green</code>, and <code>blue</code> parameters take values
+     * <code>0</code> to <code>65535</code>.
+     */
+    public Color(int red, int green, int blue) {
+        super(GdkColorOverride.createColor(red, green, blue));
+    }
+
     protected void release() {
-        /*
-         * FIXME This class's release() method must be implemented to call the
-         * correct free() or unref() function before it can be used.
-         */
-        throw new UnsupportedOperationException("Not yet implemented");
+        GdkColor.free(this);
+    }
+
+    /**
+     * Get the red component of this Color.
+     */
+    public int getRed() {
+        return GdkColor.getRed(this);
+    }
+
+    /**
+     * Get the green component of this Color.
+     */
+    public int getGreen() {
+        return GdkColor.getGreen(this);
+    }
+
+    /**
+     * Get the blue component of this Color.
+     */
+    public int getBlue() {
+        return GdkColor.getBlue(this);
+    }
+
+    public static final Color BLACK = new Color(0, 0, 0);
+
+    public static final Color WHITE = new Color(65535, 65535, 65535);
+
+    public boolean equals(Object obj) {
+        final Color other;
+
+        if (obj == null) {
+            return false;
+        }
+        if (!(obj instanceof Color)) {
+            return false;
+        }
+
+        other = (Color) obj;
+
+        return GdkColor.equal(this, other);
     }
 }
