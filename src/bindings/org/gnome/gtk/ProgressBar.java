@@ -22,6 +22,7 @@ package org.gnome.gtk;
  * made by having the bar "pulse" back and forth.
  * 
  * @author Andrew Cowie
+ * @author Vreixo Formoso
  * @since 4.0.3
  */
 public class ProgressBar extends Widget
@@ -58,10 +59,14 @@ public class ProgressBar extends Widget
      * 
      * @param fraction
      *            a value between 0.0 (not started) and 1.0 (fully complete)
-     * 
+     * @throws IllegalArgumentException
+     *             If fraction is greater than 1.0 or less than 0.0
      * @since 4.0.3
      */
     public void setFraction(double fraction) {
+        if (fraction < 0.0 || fraction > 1.0) {
+            throw new IllegalArgumentException("fraction must be between 0.0 and 1.0, inclusive.");
+        }
         GtkProgressBar.setFraction(this, fraction);
     }
 }
