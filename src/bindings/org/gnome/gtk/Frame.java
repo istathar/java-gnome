@@ -31,6 +31,7 @@ package org.gnome.gtk;
  * 
  * @author Sebastian Mancke
  * @author Andrew Cowie
+ * @author Vreixo Formoso
  * @since 4.0.3
  */
 public class Frame extends Bin
@@ -41,6 +42,10 @@ public class Frame extends Bin
 
     /**
      * Construct a new Frame with a simple text label.
+     * 
+     * @param label
+     *            The desired label, or <code>null</code> if you don't want
+     *            to use any label.
      */
     public Frame(String label) {
         super(GtkFrame.createFrame(label));
@@ -74,5 +79,15 @@ public class Frame extends Bin
      */
     public Widget getLabelWidget() {
         return GtkFrame.getLabelWidget(this);
+    }
+
+    /**
+     * Set the ShadowType of the Frame, that will determine the appearance of
+     * the outline.
+     * 
+     * @since 4.0.5
+     */
+    public void setShadowType(ShadowType type) {
+        GtkFrame.setShadowType(this, type);
     }
 }

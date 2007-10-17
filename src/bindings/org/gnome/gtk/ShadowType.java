@@ -13,17 +13,42 @@ package org.gnome.gtk;
 
 import org.freedesktop.bindings.Constant;
 
-/*
- * FIXME this is a placeholder stub for what will become the public API for
- * this type. Replace this comment with appropriate javadoc including author
- * and since tags. Note that the class may need to be made abstract, implement
- * interfaces, or even have its parent changed. No API stability guarantees
- * are made about this class until it has been reviewed by a hacker and this
- * comment has been replaced.
+/**
+ * Appearance of the outline shown in some Widgets such as {@link Frame Frame}.
+ * 
+ * @author Vreixo Formoso
+ * @since 4.0.5
  */
 public final class ShadowType extends Constant
 {
     private ShadowType(int ordinal, String nickname) {
         super(ordinal, nickname);
     }
+
+    /**
+     * The Widget is shown without outline.
+     */
+    public static final ShadowType NONE = new ShadowType(GtkShadowType.NONE, "NONE");
+
+    /**
+     * The outline is bevelled inwards. That causes the visual effect that the
+     * Widget is sunken on the screen.
+     */
+    public static final ShadowType IN = new ShadowType(GtkShadowType.IN, "IN");
+
+    /**
+     * The outline is bevelled outwards. That causes the visual effect that
+     * the Widget is raised on the screen.
+     */
+    public static final ShadowType OUT = new ShadowType(GtkShadowType.OUT, "OUT");
+
+    /**
+     * The outline has a sunken 3d appearance.
+     */
+    public static final ShadowType ETCHED_IN = new ShadowType(GtkShadowType.ETCHED_IN, "ETCHED_IN");
+
+    /**
+     * The outline has a raised 3d appearance.
+     */
+    public static final ShadowType ETCHED_OUT = new ShadowType(GtkShadowType.ETCHED_OUT, "ETCHED_OUT");
 }
