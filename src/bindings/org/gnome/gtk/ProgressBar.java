@@ -69,4 +69,23 @@ public class ProgressBar extends Widget
         }
         GtkProgressBar.setFraction(this, fraction);
     }
+
+    /**
+     * Causes the ProgressBar to enter &quot;activity mode&quot;, a mode used
+     * to indicate that the application is done some progress, but that can't
+     * be quantized.
+     * 
+     * This is used when the application is executing a long running task
+     * whose progress can't be quantized, i.e., we don't know how much percent
+     * of the task has been done.
+     * 
+     * <p>
+     * Each time this method is invoqued, the a little block inside the bar is
+     * moved a bit. You should call this method at little time intervals to
+     * cause the effect of the block moving back and foreward along the
+     * ProgressBar.
+     */
+    public void pulse() {
+        GtkProgressBar.pulse(this);
+    }
 }
