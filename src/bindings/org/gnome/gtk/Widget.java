@@ -13,7 +13,10 @@ package org.gnome.gtk;
 
 import org.gnome.gdk.Color;
 import org.gnome.gdk.EventExpose;
+import org.gnome.gdk.EventFocus;
 import org.gnome.gdk.EventKey;
+import org.gnome.gdk.EventVisibility;
+import org.gnome.gdk.VisibilityState;
 
 /**
  * The base class of all GTK Widgets. Graphical user interface toolkits have
@@ -124,15 +127,15 @@ public abstract class Widget extends org.gnome.gtk.Object
     /**
      * Signal emitted when the focus leaves this Widget. Focus is a concept
      * that is shared evenly between the widget toolkit and the window manager -
-     * which can become apparent if you're wondering <i>why</i> you have lost
-     * focus or regained it.
+     * which often becomes apparent if you're wondering <i>why</i> you have
+     * lost focus or regained it.
      * 
      * @author Andrew Cowie
      * @since 4.0.2
      */
     public interface FOCUS_OUT_EVENT extends GtkWidget.FOCUS_OUT_EVENT
     {
-        public boolean onFocusOutEvent(Widget source, Object event);
+        public boolean onFocusOutEvent(Widget source, EventFocus event);
     }
 
     /**
@@ -324,5 +327,57 @@ public abstract class Widget extends org.gnome.gtk.Object
      */
     public void modifyBackground(StateType state, Color color) {
         GtkWidget.modifyBg(this, state, color);
+    }
+
+    /**
+     * A signal providing notification that the Widget has been obscured or
+     * unobscured. To use this, go through the supplied <code>event</code>
+     * parameter to get to the VisibilityState as follows:
+     * 
+     * <pre>
+     * w.connect(new Widget.VISIBILITY_NOTIFY_EVENT() {
+     *     public boolean onVisibilityNotifyEvent(Widget source, EventVisibility event) {
+     *         VisibilityState state = event.getState();
+     *         if (state == VisibilityState.FULLY_OBSCURED) {
+     *            ...
+     *         }
+     *     }
+     *     return false;
+     * });
+     * </pre>
+     * 
+     * See {@link VisibilityState VisibilityState} for the constants
+     * describing the possible three possible changes to an underlying
+     * element's visibility.
+     * 
+     * @author Andrew Cowie
+     * @since 4.0.5
+     */
+    public interface VISIBILITY_NOTIFY_EVENT extends GtkWidget.VISIBILITY_NOTIFY_EVENT
+    {
+        /**
+         * Although this is an <var>event-signal</var>, this merely reports
+         * information coming from the underlying X11 windowing system. Since
+         * a window being obscured by another application's window is not
+         * something you can control (short of requesting the Window holding
+         * this Widget always be on-top), it's not entirely clear what good it
+         * would do to block further emission of this signal. Return
+         * <code>false</code>.
+         */
+        public boolean onVisibilityNotifyEvent(Widget source, EventVisibility event);
+    }
+
+    /**
+     * Connect a <code>VISIBILITY_NOTIFY_EVENT</code> handler.
+     */
+    /*
+     * It turns out that two things are necessary for this signal to work: 1)
+     * GDK_VISIBILITY_NOTIFY_MASK must be set, and to do that 2) the GDK
+     * window must have been assigned. by realize. We do these two steps in
+     * the override.
+     */
+    public void connect(VISIBILITY_NOTIFY_EVENT handler) {
+        GtkWidgetOverride.setEventsVisibility(this);
+        GtkWidget.connect(this, handler);
     }
 }
