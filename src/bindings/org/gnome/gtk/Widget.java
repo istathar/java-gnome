@@ -12,6 +12,7 @@
 package org.gnome.gtk;
 
 import org.gnome.gdk.Color;
+import org.gnome.gdk.Event;
 import org.gnome.gdk.EventExpose;
 import org.gnome.gdk.EventFocus;
 import org.gnome.gdk.EventKey;
@@ -348,7 +349,9 @@ public abstract class Widget extends org.gnome.gtk.Object
      * 
      * See {@link VisibilityState VisibilityState} for the constants
      * describing the possible three possible changes to an underlying
-     * element's visibility.
+     * element's visibility. See also {@link UNMAP_EVENT UNMAP_EVENT} for a
+     * discussion of how this can be used to actively toggle the presentation
+     * of a Window to the user.
      * 
      * @author Andrew Cowie
      * @since 4.0.5
@@ -362,7 +365,7 @@ public abstract class Widget extends org.gnome.gtk.Object
          * something you can control (short of requesting the Window holding
          * this Widget always be on-top), it's not entirely clear what good it
          * would do to block further emission of this signal. Return
-         * <code>false</code>.
+         * <code>false</code>!
          */
         public boolean onVisibilityNotifyEvent(Widget source, EventVisibility event);
     }
@@ -378,6 +381,86 @@ public abstract class Widget extends org.gnome.gtk.Object
      */
     public void connect(VISIBILITY_NOTIFY_EVENT handler) {
         GtkWidgetOverride.setEventsVisibility(this);
+        GtkWidget.connect(this, handler);
+    }
+
+    /**
+     * The signal emitted when a Window becomes invisible. This happens in a
+     * variety of scenarios, notably when the Window is minimized, when you
+     * change workspaces, and as a Window is being destroyed.
+     * 
+     * <p>
+     * In combination with
+     * {@link VISIBILITY_NOTIFY_EVENT VISIBILITY_NOTIFY_EVENT}, this can be
+     * used to detect whether a Window is actually currently presented to the
+     * top of the stack and visible to the user:
+     * 
+     * <pre>
+     * private boolean up = false;
+     * ...
+     * final Window w;
+     * final Button b;
+     * ...
+     * w.connect(new Widget.VISIBILITY_NOTIFY_EVENT() {
+     *     public boolean onVisibilityNotifyEvent(Widget source, EventVisibility event) {
+     *         if (event.getState() == VisibilityState.UNOBSCURED) {
+     *             up = true;
+     *         } else {
+     *             up = false;
+     *         }
+     *         return false;
+     *     }
+     * });
+     * 
+     * w.connect(new Widget.UNMAP_EVENT() {
+     *     public boolean onUnmapEvent(Widget source, Event event) {
+     *         up = false;
+     *         return false;
+     *     }
+     * });
+     * </pre>
+     * 
+     * thus allowing you to do something like:
+     * 
+     * <pre>
+     * b.connect(new Button.ACTIVATE() {
+     *     public void onClicked(Button source) {
+     *         if (up) {
+     *             w.hide();
+     *             up = false;
+     *         } else {
+     *             w.present();
+     *             up = true;
+     *         }
+     *     }
+     * }
+     * </pre>
+     * 
+     * to intelligently toggle the visibility of the Window.
+     * 
+     * <p>
+     * Note that you don't need <code>MAP</code> because the the
+     * <code>VISIBILITY_NOTIFY_EVENT</code> will be tripped if you come back
+     * to the workspace the Window is already on.
+     * 
+     * @author Andrew Cowie
+     * @author Ryan Lortie
+     */
+    public interface UNMAP_EVENT extends GtkWidget.UNMAP_EVENT
+    {
+        /**
+         * Although this is an <var>event-signal</var>, this merely reports
+         * information coming from the underlying X11 windowing system. It's
+         * information you can monitor, but don't try to block this signal.
+         * Return <code>false</code>!
+         */
+        boolean onUnmapEvent(Widget source, Event event);
+    }
+
+    /**
+     * Connect a <code>UNMAP_EVENT</code> handler.
+     */
+    public void connect(UNMAP_EVENT handler) {
         GtkWidget.connect(this, handler);
     }
 }
