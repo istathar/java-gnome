@@ -11,17 +11,38 @@
  */
 package org.gnome.gtk;
 
-/*
- * FIXME this is a placeholder stub for what will become the public API for
- * this type. Replace this comment with appropriate javadoc including author
- * and since tags. Note that the class may need to be made abstract, implement
- * interfaces, or even have its parent changed. No API stability guarantees
- * are made about this class until it has been reviewed by a hacker and this
- * comment has been replaced.
+/**
+ * A {@link Paned Paned} that disposes horizontally the two children, one at
+ * the left, the other at the right.
+ * 
+ * @see Paned
+ * @see VPaned
+ * @author Vreixo Formoso
+ * @since 4.0.5
  */
 public class HPaned extends Paned
 {
     protected HPaned(long pointer) {
         super(pointer);
+    }
+
+    /**
+     * Create a new HPaned.
+     */
+    public HPaned() {
+        super(GtkHPaned.createHPaned());
+    }
+    
+    /**
+     * Create a new HPaned and set its children.
+     * 
+     * <p>
+     * Each child will be added with the correspondent <code>add()</code>
+     * function.
+     */
+    public HPaned(Widget child1, Widget child2) {
+        super(GtkHPaned.createHPaned());
+        add1(child1);
+        add2(child2);
     }
 }
