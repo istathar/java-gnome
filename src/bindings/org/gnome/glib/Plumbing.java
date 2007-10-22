@@ -40,6 +40,8 @@ public abstract class Plumbing extends org.freedesktop.bindings.Plumbing
     private static final String TYPE_MAPPING = "typeMapping.properties";
 
     static {
+        Glib.checkInitialized();
+
         lock = Gdk.lock;
 
         typeMapping = new IdentityHashMap(100);

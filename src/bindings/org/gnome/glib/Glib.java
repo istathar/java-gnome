@@ -72,4 +72,21 @@ public class Glib
          */
         initialized = true;
     }
+
+    /**
+     * Check if GLib and GTK have been initialized; abort if not.
+     */
+    /*
+     * TODO make it possible for non GTK libraries to initialize java-gnome.
+     * This will involve moving the System.loadlLibrary() call here, and more
+     * importantly adding a JNI call here to do the GThreads and related
+     * setup. For now, keeping the requirement as Gtk.init() [and hence the
+     * JNI code in src/bindings/org/gnome/gtk/Gtk.c] is fine; running it
+     * doesn't hurt very much.
+     */
+    static void checkInitialized() {
+        if (!initialized) {
+            throw new Error("\n\nYou *must* call Gtk.init() before using anything else in java-gnome!\n");
+        }
+    }
 }
