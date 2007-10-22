@@ -36,6 +36,28 @@ public abstract class Widget extends org.gnome.gtk.Object
     }
 
     /**
+     * Cause this Widget to be activated. What happens if a Widget will be
+     * activated is the same as if the user press the return button while the
+     * Widget is in focus. Calling this method on a {@link ToggleButton} will
+     * toggle the state of it, for example. Furthermore all events which
+     * usually invokes if the user activate this Widget by hand will be
+     * invoked, too, assumed that this Widget is connected to this event.
+     * 
+     * <p>
+     * Note that the activation only appears if this Widget is activatable.
+     * Another condition is that this Widget is already shown. This means you
+     * have to invoke the {@link #show()} method on the Widget before you can
+     * activate it. If this Widget is packed in a container Widget the
+     * container must be shown first, too.
+     * 
+     * @return true if this Widget is activatable, otherwise false
+     * @since 4.0.5
+     */
+    public boolean activate() {
+        return GtkWidget.activate(this);
+    }
+
+    /**
      * Cause this Widget to be mapped to the screen. Flags a widget to be
      * displayed. Any widget that isn't shown will not appear on the screen.
      * 
