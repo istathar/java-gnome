@@ -1,4 +1,4 @@
-personal_ws-1.1 en 1332
+personal_ws-1.1 en 1333
 ABI
 APIs
 AWT
@@ -304,6 +304,7 @@ ListStore's
 ListStores
 Ljava
 Lorg
+Lortie
 LoveLetter
 MVC
 Machame
