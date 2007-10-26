@@ -1,4 +1,4 @@
-personal_ws-1.1 en 1333
+personal_ws-1.1 en 1338
 ABI
 APIs
 AWT
@@ -466,6 +466,7 @@ VerboseTestRunner
 VersionNumbers
 Viewport
 VirtualHost
+VisibilityState
 Vreixo
 WeakHashMap
 WeakReference
@@ -482,6 +483,7 @@ Xml
 Yeay
 accessibleByTrain
 accessors
+activatable
 activateTime
 addAction
 addActionWithAccel
@@ -1038,6 +1040,7 @@ onSelectionChanged
 onSizeChanged
 onToggled
 onValueChanged
+onVisibilityNotifyEvent
 online
 ool
 orTwoFlags
@@ -1139,6 +1142,7 @@ setDraw
 setEditable
 setEllipsize
 setEnableSearch
+setEventsVisibility
 setExpand
 setFixedHeightMode
 setFocusOnClick
@@ -1296,6 +1300,7 @@ unindent
 unix
 unixprint
 unmaximize
+unobscured
 unref
 unregisterConstant
 unregisterProxy
