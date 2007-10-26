@@ -69,6 +69,31 @@ public class Dialog extends Window
         super(GtkDialog.createDialog());
     }
 
+    /**
+     * Create a new Dialog.
+     * 
+     * @param title
+     *            Title of the new Dialog.
+     * @param parent
+     *            Transient parent of the dialog, or <code>null</code>. If
+     *            a parent is provided, the window manager will keep the
+     *            Dialog on top of it. If the Dialog is modal, it is higly
+     *            recommended that you provide a parent Window, otherwise the
+     *            user could be trying to interact with the main Window while
+     *            the Dialog is blocking it, but hidden under other Window. In
+     *            that case, the user experience is really bad, as it is not
+     *            easy to figure out the real case of the blocking.
+     * @param modal
+     *            Whether the dialog is modal. A modal Dialog blocks the
+     *            interaction with other parts of the application. Note that
+     *            you can also get a similar behavior using the
+     *            {@link #run() run()} method.
+     */
+    public Dialog(String title, Window parent, boolean modal) {
+        super(GtkDialog.createDialogWithButtons(title, parent, modal ? DialogFlags.MODAL
+                : DialogFlags.NONE, null));
+    }
+
     /*
      * Because a Dialog contains a Widget already we have to overwrite the add
      * method. Now it adds the given Widget to the Dialog's client area.
