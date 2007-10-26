@@ -52,6 +52,7 @@ package org.gnome.gtk;
  * functionality to select a file.
  * 
  * @author Thomas Schmitz
+ * @author Vreixo Formoso
  * @since 4.0.5
  */
 public class Dialog extends Window
@@ -78,14 +79,26 @@ public class Dialog extends Window
 
     /**
      * Adds an action {@link Button} with the given text as its label to the
-     * end of the Dialog's action area. The given response id will be
-     * contained in the Dialog's response event if the added button is
+     * end of the Dialog's action area. The given response will be contained
+     * in the Dialog's {@link RESPONSE RESPONSE} event if the added button is
      * clicked.
      * 
      * @return the added button
      */
-    public Widget addButton(String buttonText, int responseId) {
-        return GtkDialog.addButton(this, buttonText, responseId);
+    public Button addButton(String buttonText, ResponseType response) {
+        return (Button) GtkDialog.addButton(this, buttonText, response.getValue());
+    }
+
+    /**
+     * Add a Button whose icon and label are taken from a given Stock. It is a
+     * good idea to use an Stock Button for common actions.
+     * 
+     * <p>
+     * The given response will be contained in the Dialog's
+     * {@link RESPONSE RESPONSE} signal if the added button is clicked.
+     */
+    public Button addButton(Stock stock, ResponseType response) {
+        return (Button) GtkDialog.addButton(this, stock.getStockId(), response.getValue());
     }
 
     /**
@@ -97,9 +110,21 @@ public class Dialog extends Window
      * <p>
      * Before you call this method on your dialog think if it is wise to block
      * the others operations within the Gtk main loop.
+     * 
+     * @return the emitted response.
      */
-    public int run() {
-        return GtkDialog.run(this);
+    public ResponseType run() {
+        int value;
+        ResponseType response;
+
+        value = GtkDialog.run(this);
+        response = ResponseType.instanceFor(value);
+
+        if (response == null) {
+            throw new RuntimeException("Unexpected return response " + value);
+        }
+
+        return response;
     }
 
     /**
@@ -107,14 +132,40 @@ public class Dialog extends Window
      * the widgets laying out in the action area.
      * 
      * @author Thomas Schmitz
+     * @author Vreixo Formoso
      * @since 4.0.5
      */
-    public interface RESPONSE extends GtkDialog.RESPONSE
+    public interface RESPONSE
     {
-        public void onResponse(Dialog source, int responseId);
+        void onResponse(Dialog source, ResponseType response);
     }
 
-    public void connect(GtkDialog.RESPONSE handlerInstance) {
-        GtkDialog.connect(this, handlerInstance);
+    public void connect(RESPONSE handler) {
+        GtkDialog.connect(this, new ResponseHandler(handler));
+    }
+
+    /*
+     * Needed for emit the RESPONSE signal with a type-safe ResponseType
+     * instead of an int.
+     */
+    private static class ResponseHandler implements GtkDialog.RESPONSE
+    {
+        private RESPONSE handler;
+
+        public ResponseHandler(RESPONSE handler) {
+            super();
+            this.handler = handler;
+        }
+
+        public void onResponse(Dialog source, int responseId) {
+            ResponseType response;
+            response = ResponseType.instanceFor(responseId);
+
+            if (response == null) {
+                throw new RuntimeException("Unexpected return response " + responseId);
+            } else {
+                handler.onResponse(source, response);
+            }
+        }
     }
 }
