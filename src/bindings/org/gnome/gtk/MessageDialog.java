@@ -200,4 +200,115 @@ public class MessageDialog extends Dialog
         GtkMessageDialog.setImage(this, image);
     }
 
+    /**
+     * Shows an information message to the user. This is a convenience method
+     * that creates an {@link MessageType#INFO INFO} MessageDialog with a
+     * single OK Button and given message. It shows the Dialog and blocks
+     * until the user clicks the OK Button or closes the Dialog.
+     * 
+     * @param parent
+     *            Parent Window.
+     * @param message
+     *            The text of the message.
+     * @param secondary
+     *            The secondary text, or <code>null</code> to not use any
+     *            secondary text.
+     */
+    public static void info(Window parent, String message, String secondary) {
+        MessageDialog dialog;
+
+        dialog = new MessageDialog(parent, MessageType.INFO, ButtonsType.OK, message);
+        if (secondary != null) {
+            dialog.setSecondaryText(secondary);
+        }
+        dialog.run();
+        dialog.hide();
+    }
+
+    /**
+     * Shows an error message to the user. This is a convenience method that
+     * creates an {@link MessageType#ERROR ERROR} MessageDialog with a single
+     * OK Button and given message. It shows the Dialog and blocks until the
+     * user clicks the OK Button or closes the Dialog.
+     * 
+     * @param parent
+     *            Parent Window.
+     * @param message
+     *            The text of the message.
+     * @param secondary
+     *            The secondary text, or <code>null</code> to not use any
+     *            secondary text.
+     */
+    public static void error(Window parent, String message, String secondary) {
+        MessageDialog dialog;
+
+        dialog = new MessageDialog(parent, MessageType.ERROR, ButtonsType.OK, message);
+        if (secondary != null) {
+            dialog.setSecondaryText(secondary);
+        }
+        dialog.run();
+        dialog.hide();
+    }
+
+    /**
+     * Ask a question to the user. This is a convenience method that creates
+     * an {@link MessageType#QUESTION QUESTION} MessageDialog with Yes and No
+     * Buttons and given question. It shows the Dialog and blocks until the
+     * user clicks one of the Buttons or closes the Dialog.
+     * 
+     * @param parent
+     *            Parent Window.
+     * @param question
+     *            The question.
+     * @param secondary
+     *            The secondary text, or <code>null</code> to not use any
+     *            secondary text.
+     * @return <code>true</code> if the user has selected "yes",
+     *         <code>false</code> otherwise, i.e., if the user has chosen
+     *         "no" or has closed the Dialog.
+     */
+    public static boolean question(Window parent, String question, String secondary) {
+        MessageDialog dialog;
+        ResponseType choice;
+
+        dialog = new MessageDialog(parent, MessageType.QUESTION, ButtonsType.YES_NO, question);
+        if (secondary != null) {
+            dialog.setSecondaryText(secondary);
+        }
+        choice = dialog.run();
+        dialog.hide();
+
+        return (choice == ResponseType.YES);
+    }
+
+    /**
+     * Shows a warning message to the user. This is a convenience method that
+     * creates an {@link MessageType#WARNING WARNING} MessageDialog with Ok
+     * and Cancel Buttons and given alert. It shows the Dialog and blocks
+     * until the user clicks one of the Buttons or closes the Dialog.
+     * 
+     * @param parent
+     *            Parent Window.
+     * @param alert
+     *            The alert.
+     * @param secondary
+     *            The secondary text, or <code>null</code> to not use any
+     *            secondary text.
+     * @return <code>true</code> if the user has selected "ok",
+     *         <code>false</code> otherwise, i.e., if the user has chosen
+     *         "cancel" or has closed the Dialog.
+     */
+    public static boolean warning(Window parent, String alert, String secondary) {
+        MessageDialog dialog;
+        ResponseType choice;
+
+        dialog = new MessageDialog(parent, MessageType.WARNING, ButtonsType.OK_CANCEL, alert);
+        if (secondary != null) {
+            dialog.setSecondaryText(secondary);
+        }
+        choice = dialog.run();
+        dialog.hide();
+
+        return (choice == ResponseType.OK);
+    }
 }
