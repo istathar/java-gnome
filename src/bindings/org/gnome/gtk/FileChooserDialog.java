@@ -13,13 +13,56 @@ package org.gnome.gtk;
 
 import java.net.URI;
 
-/*
- * FIXME this is a placeholder stub for what will become the public API for
- * this type. Replace this comment with appropriate javadoc including author
- * and since tags. Note that the class may need to be made abstract, implement
- * interfaces, or even have its parent changed. No API stability guarantees
- * are made about this class until it has been reviewed by a hacker and this
- * comment has been replaced.
+/**
+ * A Dialog suitable for operations that need to select a file, such as "File ->
+ * Open" or "File -> Save" commands.
+ * 
+ * <p>
+ * it implements the FileChooser interface, which has most of the methods
+ * necessary to manipulate the selection in the Dialog.
+ * 
+ * <p>
+ * A FileChooserDialog is just a Dialog with a FileChooserWidget. It has no
+ * Buttons, so you should add suitable Buttons that correspond to the desired
+ * {@link FileChooserAction FileChooserAction}. Try to use standard Stock
+ * icons, such as {@link Stock#OPEN OPEN} or {@link Stock#SAVE SAVE}. You can
+ * add the Buttons with the Dialog's
+ * {@link #addButton(Stock, ResponseType) addButton()} method. Although you
+ * can use a custom ResponseType, it is highly recommended that you use one of
+ * the predefined responses to make the FileChooserDialog work propertly. For
+ * example, when you click the "Open" Button in an "Open File" Dialog, if a
+ * folder is selected it should be openned, instead of terminate the Dialog.
+ * The usage of the predefined {@link ResponseType ResponseTypes} ensures this
+ * correct behavior.
+ * 
+ * <p>
+ * For example, a FileChooserDialog to open a file could be like this:
+ * 
+ * <pre>
+ * FileChooserDialog dialog;
+ * dialog = new FileChooserDialog(&quot;Open File&quot;, window, FileChooserAction.OPEN);
+ * 
+ * // add the Buttons with suitable predefined responses
+ * dialog.addButton(Stock.CANCEL, ResponseType.CANCEL);
+ * dialog.addButton(Stock.OPEN, ResponseType.OK);
+ * 
+ * // run the Dialog
+ * ResponseType response = dialog.run();
+ * dialog.hide();
+ * 
+ * if (response == ResponseType.OK) {
+ *     // open the file
+ *     String filename = dialog.getFilename();
+ *     ....
+ * }
+ * </pre>
+ * 
+ * 
+ * @see FileChooserWidget
+ * @see FileChooserAction
+ * 
+ * @author Vreixo Formoso
+ * @since 4.0.5
  */
 public class FileChooserDialog extends Dialog implements FileChooser
 {
@@ -27,36 +70,54 @@ public class FileChooserDialog extends Dialog implements FileChooser
         super(pointer);
     }
 
+    /**
+     * Create a new FileChooserDialog.
+     * 
+     * @param title
+     *            the title of the Dialog, or <code>null</code>.
+     * @param parent
+     *            the transient parent of the Dialog, or <code>null</code>.
+     *            It is recommended to specify a parent Window.
+     * @param action
+     *            which style of FileChooser you want. You should add to the
+     *            Dialog Buttons that match the selected action. For example,
+     *            if you select the {@link FileChooserAction#OPEN OPEN}
+     *            action, you should add an "Open" Button to the Dialog.
+     */
+    public FileChooserDialog(String title, Window parent, FileChooserAction action) {
+        super(GtkFileChooserDialog.createFileChooserDialog(title, parent, action, null));
+    }
+
     public String getCurrentFolder() {
-        // TODO method stub to satisfy interface to permit compilation.
-        return null;
+        return GtkFileChooser.getCurrentFolder(this);
     }
 
     public boolean setCurrentFolder(String directory) {
-        // TODO method stub to satisfy interface to permit compilation.
-        return false;
+        return GtkFileChooser.setCurrentFolder(this, directory);
     }
 
     public String getFilename() {
-        // TODO method stub to satisfy interface to permit compilation.
-        return null;
+        return GtkFileChooser.getFilename(this);
     }
 
     public void setAction(FileChooserAction action) {
-    // TODO method stub to satisfy interface to permit compilation.
+        GtkFileChooser.setAction(this, action);
     }
 
     public FileChooserAction getAction() {
-        // TODO method stub to satisfy interface to permit compilation.
-        return null;
+        return GtkFileChooser.getAction(this);
     }
 
     public URI getURI() {
-        // TODO method stub to satisfy interface to permit compilation.
-        return null;
+        String uri = GtkFileChooser.getUri(this);
+        if (uri != null) {
+            return URI.create(uri);
+        } else {
+            return null;
+        }
     }
 
     public void connect(FileChooser.SELECTION_CHANGED handler) {
-    // TODO method stub to satisfy interface to permit compilation.
+        GtkFileChooser.connect(this, handler);
     }
 }

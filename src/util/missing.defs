@@ -2713,19 +2713,6 @@
   (return-type "GType")
 )
 
-(define-function file_chooser_dialog_new_with_backend
-  (c-name "gtk_file_chooser_dialog_new_with_backend")
-  (return-type "GtkWidget*")
-  (parameters
-    '("const-gchar*" "title")
-    '("GtkWindow*" "parent")
-    '("GtkFileChooserAction" "action")
-    '("const-gchar*" "backend")
-    '("const-gchar*" "first_button_text")
-  )
-  (varargs #t)
-)
-
 (define-function gtk_file_chooser_widget_get_type
   (c-name "gtk_file_chooser_widget_get_type")
   (return-type "GType")
