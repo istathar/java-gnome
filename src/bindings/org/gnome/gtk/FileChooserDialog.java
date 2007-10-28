@@ -120,4 +120,72 @@ public class FileChooserDialog extends Dialog implements FileChooser
     public void connect(FileChooser.SELECTION_CHANGED handler) {
         GtkFileChooser.connect(this, handler);
     }
+
+    /**
+     * Show an "Open File" Dialog. This is a convenience method to show a
+     * Dialog for open a file. It wait until the user selects a file or
+     * close/cancel the Dialog, and return the selected filename.
+     * 
+     * @param title
+     *            Title for the Dialog
+     * @param parent
+     *            Transient parent
+     * @return The selected file path, or <code>null</code> if the user has
+     *         closed or cancelled the user.
+     */
+    /*
+     * TODO maybe it is better to return the URI, or just add a boolean
+     * parameter to let the user select what it prefers.
+     */
+    public static String openFile(String title, Window parent) {
+        FileChooserDialog dialog;
+        ResponseType response;
+
+        dialog = new FileChooserDialog(title, parent, FileChooserAction.OPEN);
+        dialog.addButton(Stock.CANCEL, ResponseType.CANCEL);
+        dialog.addButton(Stock.OPEN, ResponseType.OK);
+
+        response = dialog.run();
+        dialog.hide();
+        if (response == ResponseType.OK) {
+            return dialog.getFilename();
+        } else {
+            return null;
+        }
+    }
+
+    /**
+     * Show an "Save File" Dialog. This is a convenience method to show a
+     * Dialog for saving a file. It wait until the user select the location
+     * for the file or close/cancel the Dialog, and return the selected
+     * filename.
+     * 
+     * @param title
+     *            Title for the Dialog
+     * @param parent
+     *            Transient parent
+     * @return The selected file path, or <code>null</code> if the user has
+     *         closed or cancelled the user.
+     */
+    /*
+     * TODO maybe it is better to return the URI, or just add a boolean
+     * parameter to let the user select what it prefers.
+     */
+    public static String saveFile(String title, Window parent) {
+        FileChooserDialog dialog;
+        ResponseType response;
+
+        dialog = new FileChooserDialog(title, parent, FileChooserAction.SAVE);
+        dialog.addButton(Stock.CANCEL, ResponseType.CANCEL);
+        dialog.addButton(Stock.SAVE, ResponseType.OK);
+
+        response = dialog.run();
+        dialog.hide();
+        if (response == ResponseType.OK) {
+            return dialog.getFilename();
+        } else {
+            return null;
+        }
+    }
+
 }
