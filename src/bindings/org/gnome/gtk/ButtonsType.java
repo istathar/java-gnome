@@ -1,7 +1,7 @@
 /*
  * ButtonsType.java
  *
- * Copyright (c) 2007 Operational Dynamics Consulting Pty Ltd
+ * Copyright (c) 2007 Operational Dynamics Consulting Pty Ltd, and Others
  *
  * The code in this file, and the library it is a part of, are made available
  * to you by the authors under the terms of the "GNU General Public Licence,
@@ -14,19 +14,17 @@ package org.gnome.gtk;
 import org.freedesktop.bindings.Constant;
 
 /**
- * Prebuilt set of Buttons for a {@link MessageDialog MessageDialog}.
+ * Specify that a predefined set of Buttons should be used for a
+ * {@link MessageDialog MessageDialog}.
  * 
  * <p>
- * MessageDialogs usually make use of one of these predefined sets. If none of
- * these choices are appropriate, simply use {@link #NONE NONE} and then call
- * the {@link MessageDialog#addButton(String, ResponseType) addButton()}
- * methods.
+ * If none of these choices represented by the constants in this class are
+ * appropriate, simply use {@link #NONE NONE} and then call the
+ * {@link MessageDialog#addButton(String, ResponseType) addButton()} methods.
  * 
  * <p>
  * When you use one of these ButtonsType, the Button is automatically
  * associated with the corresponding {@link ResponseType ResponseType}.
- * 
- * @see MessageDialog
  * 
  * @author Vreixo Formoso
  * @version 4.0.5
@@ -39,27 +37,32 @@ public final class ButtonsType extends Constant
 
     /**
      * No Buttons at all. Useful if none of these choices are suitable for
-     * your needs and you want to add your own Buttons.
+     * your needs and you want to add your own Buttons instead.
      */
     public static final ButtonsType NONE = new ButtonsType(GtkButtonsType.NONE, "NONE");
 
     /**
-     * A single OK Button. Use this for MessageDialogs that present a message
-     * that the user can just accept, without having any other choice.
+     * A single OK Button. Use this for MessageDialogs that present an
+     * information message to which that the user can acknowledge but take no
+     * other action.
      */
     public static final ButtonsType OK = new ButtonsType(GtkButtonsType.OK, "OK");
 
     /**
-     * A single CLOSE Button. Note that in most cases the {@link #OK OK}
-     * Button is a better alternative.
+     * A single CLOSE Button. In most cases (ie, information providing
+     * Dialogs) the {@link #OK OK} Button is a better alternative, but CLOSE
+     * is the appropriate choice for preferences Dialogs where the settings
+     * are automatically applied.
      */
     public static final ButtonsType CLOSE = new ButtonsType(GtkButtonsType.CLOSE, "CLOSE");
 
     /**
-     * A single CANCEL Button. If you plan to use a MessageDialog for
-     * notifying the user about a task that is being executed, where the
-     * CANCEL Button can be used to interrupt that task, don't do that! A
-     * Dialog with a {@link ProgressBar ProgressBar} is the correct choice.
+     * A single CANCEL Button.
+     * 
+     * <p>
+     * Don't use a MessageDialog with only a CANCEL button for giving the user
+     * the ability to interrupt a long running task. Be sure to construct a
+     * Dialog with a {@link ProgressBar ProgressBar} showing the status.
      */
     public static final ButtonsType CANCEL = new ButtonsType(GtkButtonsType.CANCEL, "CANCEL");
 
@@ -77,5 +80,4 @@ public final class ButtonsType extends Constant
      * situations that can be cancelled.
      */
     public static final ButtonsType OK_CANCEL = new ButtonsType(GtkButtonsType.OK_CANCEL, "OK_CANCEL");
-
 }
