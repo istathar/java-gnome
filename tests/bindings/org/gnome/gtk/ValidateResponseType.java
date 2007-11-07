@@ -60,4 +60,13 @@ public class ValidateResponseType extends TestCaseGtk
         response = LocalResponseType.ULTRA;
         assertEquals(2, response.getResponseId());
     }
+
+    public final void testUnexpectedReponseId() {
+        try {
+            GtkResponseTypeOverride.enumFor(299);
+            fail("Should have thrown Exception");
+        } catch (IllegalArgumentException ise) {
+            // good
+        }
+    }
 }
