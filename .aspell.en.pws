@@ -1,4 +1,4 @@
-personal_ws-1.1 en 1333
+personal_ws-1.1 en 1340
 ABI
 APIs
 AWT
@@ -212,6 +212,8 @@ GtkOrientation
 GtkPolicyType
 GtkProgressBar
 GtkReliefStyle
+GtkResponseType
+GtkResponseTypeOverride
 GtkScrolledWindow
 GtkSelectionMode
 GtkSeparatorMenuItem
@@ -355,6 +357,7 @@ Pendyala
 Piechotka
 PixbufAnimation
 PolicyType
+PowerResponseType
 PressMe
 ProgressBar
 Pty
@@ -369,6 +372,8 @@ RcStyle
 RefToJavaProxy
 ReleaseStringUTFChars
 ReliefStyle
+ResponseType
+ResponseTypes
 Rietveld
 Rosenberger
 RuntimeException
@@ -812,6 +817,7 @@ getRed
 getRelief
 getResource
 getResourceAsStream
+getResponseId
 getRowstride
 getRubberBanding
 getScaleX
@@ -1066,6 +1072,7 @@ popup
 popups
 pos
 pre
+preconfigured
 preformatted
 prepareBindingsDirectories
 prepareTestDirectories
