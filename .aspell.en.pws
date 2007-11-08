@@ -1,4 +1,4 @@
-personal_ws-1.1 en 1186
+personal_ws-1.1 en 1191
 ABI
 APIs
 AWT
@@ -7,6 +7,7 @@ ActionGroups
 AfC
 AllAboutJNI
 ArrayList
+Behdad
 Bhagat
 BindingsGenerator
 BindingsJavaClosure
@@ -35,7 +36,6 @@ CheckMenuItems
 ClassCastException
 ClassLoader
 ClassLoader's
-ClassName
 ClassName
 ClassNotFoundException
 CodeFormat
@@ -68,6 +68,7 @@ EOSTR
 EVERSION
 Eeek
 EnumValue
+Esfahbod
 EventAny
 EventBox
 EventButton
@@ -314,6 +315,7 @@ Pango's
 ParsedTree
 PascalCase
 Pendyala
+Petteri
 Piechotka
 PixbufAnimation
 PolicyType
@@ -417,6 +419,7 @@ Wno
 Wouter
 XFree
 XINERAMA
+Xerces
 Xlib's
 Xml
 Yeay
@@ -837,7 +840,6 @@ labelWidget
 lang
 lc
 ld
-ld
 len
 li
 libgcj
@@ -975,6 +977,7 @@ rb
 reentrant
 refactor
 refactored
+refactoring
 refactorings
 registerConstant
 registerProxy
@@ -1133,7 +1136,9 @@ tooltips
 toplevel
 touchFile
 touples
+treeview
 txt
+ty
 typeMapping
 typeName
 typeToSignature

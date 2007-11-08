@@ -1,5 +1,36 @@
 NEWS
 
+<a name="treeview" id="1194509646" title="Trees and Branches"></a>
+
+Trees and Branches
+==================
+
+Lots of ongoing work.
+
+The major focus over the last three months has been on the '`treeview`' branch.
+Andrew Cowie, backed by Srichand Pendyala, has made awesome progress in working
+out the engineering necessary to support GTK's powerful but complex
+TreeView/TreeModel system and designing an appropriate public API by which
+java-gnome can present it. This has taken most of September and October but is
+working really well at this point. This branch should be ready for merging to
+'`mainline`' in the next week or two; just need to bring the documentation up
+to release quality and we're set.
+
+Vreixo Formoso and Thomas Schmitz have done some great work to expose the
+Dialog family of classes. This work has exposed a few bugs in our internals,
+but thanks to some expert help from Owen Taylor we should have that sorted out
+soon. Work to fix that is taking place on the '`delete`' branch.
+
+Andrew Cowie, helped by Behdad Esfabod, has begun work on a binding of the
+Cairo library. This work is still experimental at this stage, but we'll merge
+this '`cairo`' branch in so we can to at least set the tone for what will be an
+exciting addition to java-gnome over the coming months.
+
+Once we land these branches we should be able to polish things up for the
+relase of 4.0.5, hopefully by the end of November.
+
+AfC
+
 <a name="4.0.4" id="1190798858" title="Coverage increasing"></a>
 
 java-gnome 4.0.4 (26 Sep 2007)

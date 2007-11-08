@@ -98,10 +98,10 @@ go ahead and commit it locally in your working branch, then try the following:
 
     $ bzr bundle ../mainline > /tmp/name-that-tune.patch
 
-This will output the diffs, along with a whole spew of Bazaar metadata, into
-the file you specify. It's 7 bit safe, so you can just attach that file to an
-email and it will be able to be merged by others. `.patch` is a good suffix
-because most mail clients know to do something useful with such an attachment.
+This will output a human readable diff along with the actual revisions in a
+safely encoded form into the file you specify. Just attach that file to an
+email and send it along. `.patch` is a good suffix because most mail clients
+know to set the MIME type of such an attachment properly.
 
 
 TECHNICAL DETAILS
@@ -195,7 +195,7 @@ Maintainer,
 [java-gnome](http://java-gnome.sourceforge.net/4.0/),  
 opening GTK and GNOME to Java programmers!
 
-_Last modified 27 Jul 07_
+_Last modified 28 Sep 07_
 
 <!--
 
