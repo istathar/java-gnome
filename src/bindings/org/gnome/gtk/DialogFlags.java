@@ -11,19 +11,26 @@
  */
 package org.gnome.gtk;
 
-import org.freedesktop.bindings.Constant;
+import org.freedesktop.bindings.Flag;
 
-/*
- * FIXME this is a placeholder stub for what will become the public API for
- * this type. Replace this comment with appropriate javadoc including author
- * and since tags. Note that the class may need to be made abstract, implement
- * interfaces, or even have its parent changed. No API stability guarantees
- * are made about this class until it has been reviewed by a hacker and this
- * comment has been replaced.
+/**
+ * Flags used to control the Dialog creation.
+ * 
+ * @author Vreixo Formoso
+ * @since 4.0.5
  */
-public final class DialogFlags extends Constant
+/*
+ * Only MODAL flag is really useful, we musn't expose DESTROY_WITH_PARENT and
+ * NO_SEPARATOR seems also not very useful. So, I plan to not expose this class,
+ * and instead of that use a boolean for modal property.
+ */
+final class DialogFlags extends Flag
 {
     private DialogFlags(int ordinal, String nickname) {
         super(ordinal, nickname);
     }
+
+    static final DialogFlags NONE = new DialogFlags(0, "NONE");
+
+    static final DialogFlags MODAL = new DialogFlags(GtkDialogFlags.MODAL, "MODAL");
 }

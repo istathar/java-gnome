@@ -137,6 +137,11 @@ public abstract class Object extends Proxy
     protected void setPropertyBoolean(String name, boolean value) {
         GObject.setProperty(this, name, new Value(GValue.createValue(value)));
     }
+    
+    protected boolean getPropertyBoolean(String name) {
+        Value value = GObject.getProperty(this, name);
+        return GValue.getBoolean(value);
+    }
 
     /**
      * Set a property that takes a <code>float</code> for its value.

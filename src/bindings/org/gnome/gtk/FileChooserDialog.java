@@ -1,7 +1,7 @@
 /*
  * FileChooserDialog.java
  *
- * Copyright (c) 2007 Operational Dynamics Consulting Pty Ltd
+ * Copyright (c) 2007 Operational Dynamics Consulting Pty Ltd, and Others
  *
  * The code in this file, and the library it is a part of, are made available
  * to you by the authors under the terms of the "GNU General Public Licence,
@@ -13,13 +13,40 @@ package org.gnome.gtk;
 
 import java.net.URI;
 
-/*
- * FIXME this is a placeholder stub for what will become the public API for
- * this type. Replace this comment with appropriate javadoc including author
- * and since tags. Note that the class may need to be made abstract, implement
- * interfaces, or even have its parent changed. No API stability guarantees
- * are made about this class until it has been reviewed by a hacker and this
- * comment has been replaced.
+/**
+ * A Dialog suitable for operations that need to select a file, such as "File ->
+ * Open" or "File -> Save" commands.
+ * 
+ * <p>
+ * A FileChooserDialog is just a Dialog with a FileChooserWidget plus
+ * appropriate Buttons that corresponding to the specified
+ * {@link FileChooserAction FileChooserAction}. Otherwise, all the methods
+ * provided by the FileChooser interface are available which gives you the
+ * necessary power to manipulate the selection received from the Dialog.
+ * 
+ * <p>
+ * Using a FileChooserDialog to open a file could go like this:
+ * 
+ * <pre>
+ * FileChooserDialog dialog;
+ * ResponseType response;
+ * 
+ * // instantiate
+ * dialog = new FileChooserDialog(&quot;Open File&quot;, window, FileChooserAction.OPEN);
+ * 
+ * // run the Dialog
+ * response = dialog.run();
+ * dialog.hide();
+ * 
+ * // deal with the result
+ * if (response == ResponseType.OK) {
+ *     open(dialog.getFilename());
+ * }
+ * </pre>
+ * 
+ * @author Vreixo Formoso
+ * @author Andrew Cowie
+ * @since 4.0.5
  */
 public class FileChooserDialog extends Dialog implements FileChooser
 {
@@ -27,36 +54,72 @@ public class FileChooserDialog extends Dialog implements FileChooser
         super(pointer);
     }
 
+    /**
+     * Create a new FileChooserDialog.
+     * 
+     * <p>
+     * Buttons appropriate to each of the different FileChooserActions have
+     * been preconfigured in the <var>action area</var> of the Dialog. In all
+     * cases, the executive to go ahead with the action will be the return of
+     * ResponseType <code>OK</code>.
+     * 
+     * @param title
+     *            the text to use in the title bar of the Dialog Window as
+     *            drawn by the window manager, or <code>null</code> if you
+     *            want a blank title.
+     * @param parent
+     *            the transient parent of the Dialog. While <code>null</code>
+     *            is allowed, things are designed to work properly on the
+     *            assumption that a parent is specified so it is recommended
+     *            that you do so.
+     * @param action
+     *            which style of FileChooser you want.
+     */
+    public FileChooserDialog(String title, Window parent, FileChooserAction action) {
+        super(GtkFileChooserDialog.createFileChooserDialog(title, parent, action, null));
+
+        this.addButton(Stock.CANCEL, ResponseType.CANCEL);
+        if (action == FileChooserAction.SAVE) {
+            this.addButton(Stock.SAVE, ResponseType.OK);
+        } else if (action == FileChooserAction.OPEN) {
+            this.addButton(Stock.OPEN, ResponseType.OK);
+        } else if (action == FileChooserAction.SELECT_FOLDER) {
+            this.addButton(Stock.OK, ResponseType.OK);
+        } else if (action == FileChooserAction.CREATE_FOLDER) {
+            this.addButton(Stock.NEW, ResponseType.OK);
+        }
+    }
+
     public String getCurrentFolder() {
-        // TODO method stub to satisfy interface to permit compilation.
-        return null;
+        return GtkFileChooser.getCurrentFolder(this);
     }
 
     public boolean setCurrentFolder(String directory) {
-        // TODO method stub to satisfy interface to permit compilation.
-        return false;
+        return GtkFileChooser.setCurrentFolder(this, directory);
     }
 
     public String getFilename() {
-        // TODO method stub to satisfy interface to permit compilation.
-        return null;
+        return GtkFileChooser.getFilename(this);
     }
 
     public void setAction(FileChooserAction action) {
-    // TODO method stub to satisfy interface to permit compilation.
+        GtkFileChooser.setAction(this, action);
     }
 
     public FileChooserAction getAction() {
-        // TODO method stub to satisfy interface to permit compilation.
-        return null;
+        return GtkFileChooser.getAction(this);
     }
 
     public URI getURI() {
-        // TODO method stub to satisfy interface to permit compilation.
-        return null;
+        String uri = GtkFileChooser.getUri(this);
+        if (uri != null) {
+            return URI.create(uri);
+        } else {
+            return null;
+        }
     }
 
     public void connect(FileChooser.SELECTION_CHANGED handler) {
-    // TODO method stub to satisfy interface to permit compilation.
+        GtkFileChooser.connect(this, handler);
     }
 }

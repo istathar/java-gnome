@@ -1,4 +1,4 @@
-personal_ws-1.1 en 1338
+personal_ws-1.1 en 1376
 ABI
 APIs
 AWT
@@ -19,6 +19,7 @@ ButtonBox
 ButtonBoxStyle
 ButtonBoxes
 ButtonFactory
+ButtonsType
 CCFLAGS
 CVS
 CalendarDisplayOptions
@@ -72,6 +73,8 @@ DeleteLocalRef
 DeleteWeakGlobalRef
 DesignConstraints
 Devdas
+Dialog's
+DialogFlags
 Dialogs
 DrawingArea
 EDETACHED
@@ -80,6 +83,7 @@ EOSTR
 EVERSION
 Eeek
 EnumValue
+ErrorMessageDialog
 EventAny
 EventBox
 EventButton
@@ -106,9 +110,12 @@ ExceptionOccurred
 FIXME
 FileChooser
 FileChooserAction
+FileChooserActions
 FileChooserButton
 FileChooserDialog
+FileChooserDialogs
 FileChooserWidget
+FileChoosers
 FileNotFoundException
 FilenameFilter
 FindClass
@@ -179,6 +186,7 @@ GtkBuilder
 GtkButton
 GtkButtonBox
 GtkButtonBoxStyle
+GtkButtonsType
 GtkCalendar
 GtkCalendarDisplayOptions
 GtkCellRendererText
@@ -186,10 +194,12 @@ GtkCheckButton
 GtkCheckMenuItem
 GtkComboBox
 GtkContainer
+GtkDialog
 GtkEntry
 GtkFileChooser
 GtkFileChooserAction
 GtkFileChooserButton
+GtkFileChooserDialog
 GtkFixed
 GtkFrame
 GtkHBox
@@ -205,6 +215,8 @@ GtkMenuBar
 GtkMenuItem
 GtkMenuShell
 GtkMenuToolButton
+GtkMessageDialog
+GtkMessageType
 GtkNotebook
 GtkObject
 GtkObjects
@@ -212,6 +224,8 @@ GtkOrientation
 GtkPolicyType
 GtkProgressBar
 GtkReliefStyle
+GtkResponseType
+GtkResponseTypeOverride
 GtkScrolledWindow
 GtkSelectionMode
 GtkSeparatorMenuItem
@@ -268,6 +282,7 @@ IllegalArgumentException
 IllegalStateException
 ImageType
 IndexError
+InfoMessageDialog
 InputStream
 InstantiationException
 IntegerValue
@@ -321,6 +336,10 @@ MenuItem's
 MenuItems
 MenuShell
 MenuToolButton
+MessageDialog
+MessageDialogs
+MessageType
+MessageTypes
 Metacity
 Microsystems
 Misc's
@@ -345,7 +364,6 @@ OpenSolaris
 OutOfMemoryError
 Overholt
 PIXMAP
-PNG
 PRELIGHT
 PackageNames
 Pango's
@@ -355,12 +373,14 @@ Pendyala
 Piechotka
 PixbufAnimation
 PolicyType
+PowerResponseType
 PressMe
 ProgressBar
 Pty
 PyThat
 PyThis
 QA
+QuestionMessageDialog
 README
 RGB
 RHEL
@@ -369,6 +389,9 @@ RcStyle
 RefToJavaProxy
 ReleaseStringUTFChars
 ReliefStyle
+ResponseHandler
+ResponseType
+ResponseTypes
 Rietveld
 Rosenberger
 RuntimeException
@@ -389,10 +412,10 @@ SourceForge
 SpinButton
 Srichand
 StateType
-StatusBar
 StatusIcon
 StatusIcon's
 StatusIcons
+Statusbar
 StockItem
 StockItems
 StorageType
@@ -468,6 +491,7 @@ Viewport
 VirtualHost
 VisibilityState
 Vreixo
+WarningMessageDialog
 WeakHashMap
 WeakReference
 WindowPosition
@@ -488,6 +512,7 @@ activateTime
 addAction
 addActionWithAccel
 addAttribute
+addButton
 addHandler
 addToggleRef
 addWithViewport
@@ -594,8 +619,11 @@ createCheckMenuItemWithMnemonic
 createColor
 createComboBox
 createComboBoxText
+createDialog
+createDialogWithButtons
 createEntry
 createFileChooserButon
+createFileChooserDialog
 createFixed
 createFrame
 createGenerator
@@ -612,6 +640,7 @@ createMenuBar
 createMenuItem
 createMenuItemWithMnemonic
 createMenuToolButton
+createMessageDialog
 createNotebook
 createObject
 createPixbufFromFile
@@ -805,6 +834,7 @@ getPosition
 getPositionX
 getPositionY
 getProperty
+getPropertyBoolean
 getPropertyEnum
 getPropertyFlags
 getPropertyFloat
@@ -814,12 +844,14 @@ getRed
 getRelief
 getResource
 getResourceAsStream
+getResponseId
 getRowstride
 getRubberBanding
 getScaleX
 getScaleY
 getScreen
 getSearchEntry
+getSecondaryUseMarkup
 getSelected
 getSelection
 getSensitive
@@ -1034,6 +1066,7 @@ onFocusOutEvent
 onKeyPressEvent
 onKeyReleaseEvent
 onPopupMenu
+onResponse
 onRowActivated
 onSelectAll
 onSelectionChanged
@@ -1063,12 +1096,14 @@ php
 pixbuf
 pkgadd
 placeName
+png
 pointerOf
 popen
 popup
 popups
 pos
 pre
+preconfigured
 preformatted
 prepareBindingsDirectories
 prepareTestDirectories
@@ -1104,6 +1139,7 @@ renderer
 resize
 resized
 resizes
+responseId
 returnType
 rowstride
 rpath
@@ -1196,6 +1232,8 @@ setRighteous
 setRubberBanding
 setSearchColumn
 setSearchEntry
+setSecondaryText
+setSecondaryUseMarkup
 setSensitive
 setSortColumn
 setSortColumnId

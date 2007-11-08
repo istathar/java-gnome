@@ -7,6 +7,7 @@
     '("warning" "GTK_MESSAGE_WARNING")
     '("question" "GTK_MESSAGE_QUESTION")
     '("error" "GTK_MESSAGE_ERROR")
+    '("other" "GTK_MESSAGE_OTHER")
   )
 )
 
