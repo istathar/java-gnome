@@ -15,9 +15,7 @@ import org.freedesktop.bindings.Constant;
 
 /**
  * The type of the message shown in a {@link MessageDialog MessageDialog}.
- * 
- * <p>
- * This will determine the type of the icon shown.
+ * Mostly this is about determining the type of icon that will be shown.
  * 
  * @author Vreixo Formoso
  * @since 4.0.5
@@ -32,16 +30,15 @@ public final class MessageType extends Constant
      * The Dialog shows an informational message.
      * 
      * <p>
-     * Use this kind of messages for important information the user must know
-     * before continuing to use the application, or for information the user
-     * has requested. For less important information you shouldn't use a
+     * Only use this kind of messages for important information the user must
+     * know before continuing to use the application, or for information the
+     * user has requested. For less important information you shouldn't use a
      * MessageDialog, but other informational Widgets such as a
      * {@link Statusbar Statusbar}.
      * 
      * <p>
      * Consider using a single {@link ButtonsType#OK OK} Button to let the
-     * user close the Dialog. In some situations you may also add a Details
-     * Button.
+     * user close the Dialog.
      */
     public static final MessageType INFO = new MessageType(GtkMessageType.INFO, "INFO");
 
@@ -50,12 +47,12 @@ public final class MessageType extends Constant
      * 
      * <p>
      * Use this type to present Dialogs that ask users to take a non serious
-     * decission. Usually you will provide {@link ButtonsType#YES_NO YES_NO}
+     * decision. Usually you will provide {@link ButtonsType#YES_NO YES_NO}
      * Buttons to let the user express his choice.
      * 
      * <p>
      * If the choice can have a serious impact in the application, such as the
-     * lost of data, a {@link #WARNING WARNIG} message is a better
+     * lost of data, a {@link #WARNING WARNING} message is a better
      * alternative.
      */
     public static final MessageType QUESTION = new MessageType(GtkMessageType.QUESTION, "QUESTION");
@@ -88,7 +85,7 @@ public final class MessageType extends Constant
      * 
      * <p>
      * You should use this kind of MessageDialog when an operation requested
-     * by the user cannot be successfully compkered. However, if the operation
+     * by the user cannot be successfully completed. However, if the operation
      * that has caused the error is a background or periodic operation, you
      * may want to consider displaying the error by other means, such as a
      * {@link Statusbar Statusbar} message, unless the error could result in
@@ -96,9 +93,9 @@ public final class MessageType extends Constant
      * 
      * <p>
      * You should present an {@link ButtonsType#OK OK} Button to let user
-     * close the Dialog. Indeed, if the error can be inmediatelly fixed, you
-     * may add a Button to launch the repair operation. For example, a
-     * Format... button in a "This disk is not formatted" alert.
+     * close the Dialog. Optionally, if the error can be immediately fixed,
+     * you may add a Button to launch the repair operation (a "Format..."
+     * Button in a "This disk is not formatted" alert, for example).
      */
     public static final MessageType ERROR = new MessageType(GtkMessageType.ERROR, "ERROR");
 

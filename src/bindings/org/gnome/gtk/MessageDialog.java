@@ -35,9 +35,9 @@ package org.gnome.gtk;
  * formatted with Pango markup.
  * 
  * <p>
- * In most cases, MessageDialog is a modal Dialog, that you will show with the
- * {@link #run() run()} method, and hide once the user has responded o it,
- * much like in the following example:
+ * In most cases, MessageDialog is a modal Dialog that you will show with the
+ * {@link #run() run()} method, and <code>hide()</code> once the user has
+ * responded to it, much like in the following example:
  * 
  * <pre>
  * // create the Dialog

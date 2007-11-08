@@ -1,4 +1,4 @@
-personal_ws-1.1 en 1365
+personal_ws-1.1 en 1368
 ABI
 APIs
 AWT
@@ -185,6 +185,7 @@ GtkBuilder
 GtkButton
 GtkButtonBox
 GtkButtonBoxStyle
+GtkButtonsType
 GtkCalendar
 GtkCalendarDisplayOptions
 GtkCellRendererText
@@ -213,6 +214,7 @@ GtkMenuItem
 GtkMenuShell
 GtkMenuToolButton
 GtkMessageDialog
+GtkMessageType
 GtkNotebook
 GtkObject
 GtkObjects
@@ -335,6 +337,7 @@ MenuToolButton
 MessageDialog
 MessageDialogs
 MessageType
+MessageTypes
 Metacity
 Microsystems
 Misc's
@@ -407,10 +410,10 @@ SourceForge
 SpinButton
 Srichand
 StateType
-StatusBar
 StatusIcon
 StatusIcon's
 StatusIcons
+Statusbar
 StockItem
 StockItems
 StorageType
