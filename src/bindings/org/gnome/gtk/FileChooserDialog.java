@@ -1,7 +1,7 @@
 /*
  * FileChooserDialog.java
  *
- * Copyright (c) 2007 Operational Dynamics Consulting Pty Ltd
+ * Copyright (c) 2007 Operational Dynamics Consulting Pty Ltd, and Others
  *
  * The code in this file, and the library it is a part of, are made available
  * to you by the authors under the terms of the "GNU General Public Licence,
@@ -18,50 +18,34 @@ import java.net.URI;
  * Open" or "File -> Save" commands.
  * 
  * <p>
- * it implements the FileChooser interface, which has most of the methods
- * necessary to manipulate the selection in the Dialog.
+ * A FileChooserDialog is just a Dialog with a FileChooserWidget plus
+ * appropriate Buttons that corresponding to the specified
+ * {@link FileChooserAction FileChooserAction}. Otherwise, all the methods
+ * provided by the FileChooser interface are available which gives you the
+ * necessary power to manipulate the selection received from the Dialog.
  * 
  * <p>
- * A FileChooserDialog is just a Dialog with a FileChooserWidget. It has no
- * Buttons, so you should add suitable Buttons that correspond to the desired
- * {@link FileChooserAction FileChooserAction}. Try to use standard Stock
- * icons, such as {@link Stock#OPEN OPEN} or {@link Stock#SAVE SAVE}. You can
- * add the Buttons with the Dialog's
- * {@link #addButton(Stock, ResponseType) addButton()} method. Although you
- * can use a custom ResponseType, it is highly recommended that you use one of
- * the predefined responses to make the FileChooserDialog work propertly. For
- * example, when you click the "Open" Button in an "Open File" Dialog, if a
- * folder is selected it should be openned, instead of terminate the Dialog.
- * The usage of the predefined {@link ResponseType ResponseTypes} ensures this
- * correct behavior.
- * 
- * <p>
- * For example, a FileChooserDialog to open a file could be like this:
+ * Using a FileChooserDialog to open a file could go like this:
  * 
  * <pre>
  * FileChooserDialog dialog;
+ * ResponseType response;
+ * 
+ * // instantiate
  * dialog = new FileChooserDialog(&quot;Open File&quot;, window, FileChooserAction.OPEN);
  * 
- * // add the Buttons with suitable predefined responses
- * dialog.addButton(Stock.CANCEL, ResponseType.CANCEL);
- * dialog.addButton(Stock.OPEN, ResponseType.OK);
- * 
  * // run the Dialog
- * ResponseType response = dialog.run();
+ * response = dialog.run();
  * dialog.hide();
  * 
+ * // deal with the result
  * if (response == ResponseType.OK) {
- *     // open the file
- *     String filename = dialog.getFilename();
- *     ....
+ *     open(dialog.getFilename());
  * }
  * </pre>
  * 
- * 
- * @see FileChooserWidget
- * @see FileChooserAction
- * 
  * @author Vreixo Formoso
+ * @author Andrew Cowie
  * @since 4.0.5
  */
 public class FileChooserDialog extends Dialog implements FileChooser
@@ -73,19 +57,37 @@ public class FileChooserDialog extends Dialog implements FileChooser
     /**
      * Create a new FileChooserDialog.
      * 
+     * <p>
+     * Buttons appropriate to each of the different FileChooserActions have
+     * been preconfigured in the <var>action area</var> of the Dialog. In all
+     * cases, the executive to go ahead with the action will be the return of
+     * ResponseType <code>OK</code>.
+     * 
      * @param title
-     *            the title of the Dialog, or <code>null</code>.
+     *            the text to use in the title bar of the Dialog Window as
+     *            drawn by the window manager, or <code>null</code> if you
+     *            want a blank title.
      * @param parent
-     *            the transient parent of the Dialog, or <code>null</code>.
-     *            It is recommended to specify a parent Window.
+     *            the transient parent of the Dialog. While <code>null</code>
+     *            is allowed, things are designed to work properly on the
+     *            assumption that a parent is specified so it is recommended
+     *            that you do so.
      * @param action
-     *            which style of FileChooser you want. You should add to the
-     *            Dialog Buttons that match the selected action. For example,
-     *            if you select the {@link FileChooserAction#OPEN OPEN}
-     *            action, you should add an "Open" Button to the Dialog.
+     *            which style of FileChooser you want.
      */
     public FileChooserDialog(String title, Window parent, FileChooserAction action) {
         super(GtkFileChooserDialog.createFileChooserDialog(title, parent, action, null));
+
+        this.addButton(Stock.CANCEL, ResponseType.CANCEL);
+        if (action == FileChooserAction.SAVE) {
+            this.addButton(Stock.SAVE, ResponseType.OK);
+        } else if (action == FileChooserAction.OPEN) {
+            this.addButton(Stock.OPEN, ResponseType.OK);
+        } else if (action == FileChooserAction.SELECT_FOLDER) {
+            this.addButton(Stock.OK, ResponseType.OK);
+        } else if (action == FileChooserAction.CREATE_FOLDER) {
+            this.addButton(Stock.NEW, ResponseType.OK);
+        }
     }
 
     public String getCurrentFolder() {
@@ -120,72 +122,4 @@ public class FileChooserDialog extends Dialog implements FileChooser
     public void connect(FileChooser.SELECTION_CHANGED handler) {
         GtkFileChooser.connect(this, handler);
     }
-
-    /**
-     * Show an "Open File" Dialog. This is a convenience method to show a
-     * Dialog for open a file. It wait until the user selects a file or
-     * close/cancel the Dialog, and return the selected filename.
-     * 
-     * @param title
-     *            Title for the Dialog
-     * @param parent
-     *            Transient parent
-     * @return The selected file path, or <code>null</code> if the user has
-     *         closed or cancelled the user.
-     */
-    /*
-     * TODO maybe it is better to return the URI, or just add a boolean
-     * parameter to let the user select what it prefers.
-     */
-    public static String openFile(String title, Window parent) {
-        FileChooserDialog dialog;
-        ResponseType response;
-
-        dialog = new FileChooserDialog(title, parent, FileChooserAction.OPEN);
-        dialog.addButton(Stock.CANCEL, ResponseType.CANCEL);
-        dialog.addButton(Stock.OPEN, ResponseType.OK);
-
-        response = dialog.run();
-        dialog.hide();
-        if (response == ResponseType.OK) {
-            return dialog.getFilename();
-        } else {
-            return null;
-        }
-    }
-
-    /**
-     * Show an "Save File" Dialog. This is a convenience method to show a
-     * Dialog for saving a file. It wait until the user select the location
-     * for the file or close/cancel the Dialog, and return the selected
-     * filename.
-     * 
-     * @param title
-     *            Title for the Dialog
-     * @param parent
-     *            Transient parent
-     * @return The selected file path, or <code>null</code> if the user has
-     *         closed or cancelled the user.
-     */
-    /*
-     * TODO maybe it is better to return the URI, or just add a boolean
-     * parameter to let the user select what it prefers.
-     */
-    public static String saveFile(String title, Window parent) {
-        FileChooserDialog dialog;
-        ResponseType response;
-
-        dialog = new FileChooserDialog(title, parent, FileChooserAction.SAVE);
-        dialog.addButton(Stock.CANCEL, ResponseType.CANCEL);
-        dialog.addButton(Stock.SAVE, ResponseType.OK);
-
-        response = dialog.run();
-        dialog.hide();
-        if (response == ResponseType.OK) {
-            return dialog.getFilename();
-        } else {
-            return null;
-        }
-    }
-
 }

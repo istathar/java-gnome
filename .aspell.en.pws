@@ -1,4 +1,4 @@
-personal_ws-1.1 en 1368
+personal_ws-1.1 en 1371
 ABI
 APIs
 AWT
@@ -110,6 +110,7 @@ ExceptionOccurred
 FIXME
 FileChooser
 FileChooserAction
+FileChooserActions
 FileChooserButton
 FileChooserDialog
 FileChooserDialogs
@@ -198,6 +199,7 @@ GtkEntry
 GtkFileChooser
 GtkFileChooserAction
 GtkFileChooserButton
+GtkFileChooserDialog
 GtkFixed
 GtkFrame
 GtkHBox
@@ -619,6 +621,7 @@ createDialog
 createDialogWithButtons
 createEntry
 createFileChooserButon
+createFileChooserDialog
 createFixed
 createFrame
 createGenerator
