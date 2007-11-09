@@ -95,7 +95,29 @@ public class Button extends Bin
         // return GtkButton.getLabel(this);
         return super.getPropertyString("label");
     }
-
+    
+    /**
+     * Set this Button's image. This method lets you to paint an arbitrary
+     * image over this Button. 
+     * 
+     * @since 4.0.5
+     */
+    public void setImage(Image image) {
+        GtkButton.setImage(this, image);
+    }
+    
+    /**
+     * Get the Image associated with this Button.
+     * 
+     * @return the image associated with this Button using the setImage
+     * method, or <code>null</code> if the Button does not contain images.
+     * 
+     * @since 4.0.5
+     */
+    public Image getImage() {
+        return (Image) GtkButton.getImage(this);
+    }
+    
     /**
      * Get the horizontal alignment of the child Widget within this Button.
      * The return will range from 0.0 (full left) to 1.0 (full right).
