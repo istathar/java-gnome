@@ -141,4 +141,19 @@ public class ValidateProperties extends TestCaseGtk
         assertEquals(0.0f, Alignment.TOP, 0.0001f);
         assertEquals(1.0f, Alignment.BOTTOM, 0.0001f);
     }
+
+    public final void testButtonImageMethods() {
+        final Button b;
+        final Image i;
+
+        b = new Button("Hello There!");
+        assertNull(b.getImage());
+
+        // doesn't matter that it'll be the "broken image" icon as a result
+        i = new Image("/dev/null");
+
+        b.setImage(i);
+        assertNotNull(b.getImage());
+        assertEquals(i, b.getImage());
+    }
 }
