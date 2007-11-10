@@ -1,7 +1,7 @@
 /*
  * Button.java
  *
- * Copyright (c) 2006-2007 Operational Dynamics Consulting Pty Ltd
+ * Copyright (c) 2006-2007 Operational Dynamics Consulting Pty Ltd, and Others
  * 
  * The code in this file, and the library it is a part of, are made available
  * to you by the authors under the terms of the "GNU General Public Licence,
@@ -12,14 +12,24 @@
 package org.gnome.gtk;
 
 /**
- * A Widget that creates a signal when clicked on. Button can hold any just
- * about any other Widget as its child (TODO which means what? What
- * limitations?). The most commonly used child is a Label, and there are
- * convenience methods to help you just create a button with a given label
- * automatically.
+ * A Widget that emits a signal when clicked on. Button can hold any just
+ * about any other Widget as its child. The most commonly used child is a
+ * Label, and there are convenience methods to help you just create a button
+ * with the given text automatically, notably the
+ * {@link Button#Button(String) Button(String)} constructor.
+ * 
+ * <p>
+ * Since Button is a Bin it strictly only has one child. Internally, however,
+ * it may have both an icon image and some text (which is the look commonly
+ * seen in the action buttons in Dialog boxes). You can add such an image to a
+ * Button by calling {@link #setImage(Image) setImage()}; this works
+ * alongside and with {@link #setLabel(String) setLabel()}. The machinery
+ * within Button will manage creating the necessary internal structure
+ * (HBoxes, Alignments, etc).
  * 
  * @author Andrew Cowie
  * @author Vreixo Formoso
+ * @author Mario Torre
  * @since 4.0.0
  */
 public class Button extends Bin
@@ -33,6 +43,11 @@ public class Button extends Bin
      * {@link org.gnome.gtk.Container#add(Widget) add()} the Widget which will
      * be the Button's child.
      * 
+     * <p>
+     * For most uses {@link #setImage(Image) setImage()} and
+     * {@link #setLabel(String) setLabel()} will more than take care of
+     * things; they can be used together.
+     * 
      * @since 4.0.0
      */
     public Button() {
@@ -45,6 +60,10 @@ public class Button extends Bin
      * quite a common case - in fact, we're generally more used to thinking of
      * Buttons as being Labels that you can press than as arbitrary Widget
      * Containers.
+     * 
+     * <p>
+     * Note that you <i>can</i> use {@link #setImage(Image) setImage()} on a
+     * Button created this way.
      * 
      * @param text
      *            the text you wish on the Label that will be created in the
@@ -73,9 +92,15 @@ public class Button extends Bin
     }
 
     /**
-     * Set the text showing in the Button. (This assumes you've got a Label in
-     * the Button in the first place, ie, you created this with
-     * {@link #Button(String)}).
+     * Set the text showing in the Button.
+     * 
+     * <p>
+     * If you created an empty Button without a Label using
+     * {@link #Button() Button()}, this will create a Label nested in an
+     * Alignment for you. That <i>won't</i> work if you create an empty
+     * Button then put a custom Widget in place with
+     * {@link Container#add(Widget) add()} instead of employing this method
+     * and/or {@link #setImage(Image) setImage()}).
      * 
      * @since 4.0.0
      */
@@ -95,29 +120,33 @@ public class Button extends Bin
         // return GtkButton.getLabel(this);
         return super.getPropertyString("label");
     }
-    
+
     /**
-     * Set this Button's image. This method lets you to paint an arbitrary
-     * image over this Button. 
+     * Paint an arbitrary Image over this Button. If this is used on an empty
+     * Button then the Button will be the size of the Image and will what is
+     * activatable. On the other hand, you <i>can</i> use this in conjunction
+     * with {@link #setLabel(String) setLabel()} in which case you will get an
+     * icon on the left and the label text on the right.
      * 
      * @since 4.0.5
      */
     public void setImage(Image image) {
         GtkButton.setImage(this, image);
     }
-    
+
     /**
      * Get the Image associated with this Button.
      * 
-     * @return the image associated with this Button using the setImage
-     * method, or <code>null</code> if the Button does not contain images.
+     * @return the Widget associated with this Button using the
+     *         {@link #setImage(Image) setImage()} method, or
+     *         <code>null</code> if the Button doesn't have one set.
      * 
      * @since 4.0.5
      */
     public Image getImage() {
         return (Image) GtkButton.getImage(this);
     }
-    
+
     /**
      * Get the horizontal alignment of the child Widget within this Button.
      * The return will range from 0.0 (full left) to 1.0 (full right).

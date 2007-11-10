@@ -11,6 +11,8 @@
  */
 package org.gnome.gtk;
 
+import org.gnome.gdk.Pixbuf;
+
 /**
  * A Widget that displays an image.
  * 
@@ -36,5 +38,15 @@ public class Image extends Misc
      */
     public Image(String filename) {
         super(GtkImage.createImageFromFile(filename));
+    }
+
+    /**
+     * Construct a new Image Widget from an image already loaded into a
+     * Pixbuf.
+     * 
+     * @since 4.0.5
+     */
+    public Image(Pixbuf pixbuf) {
+        super(GtkImage.createImageFromPixbuf(pixbuf));
     }
 }

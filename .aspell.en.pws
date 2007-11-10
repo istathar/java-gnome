@@ -1,4 +1,4 @@
-personal_ws-1.1 en 1376
+personal_ws-1.1 en 1379
 ABI
 APIs
 AWT
@@ -610,6 +610,7 @@ createAdjustment
 createAlignment
 createButton
 createButtonWithLabel
+createButtonWithMnemonic
 createCalendar
 createCellRendererText
 createCheckButton
@@ -632,6 +633,7 @@ createHBox
 createHButtonBox
 createHSeparator
 createImageFromFile
+createImageFromPixbuf
 createInstance
 createLabel
 createListStore
@@ -803,6 +805,7 @@ getHAdjustment
 getHadjustment
 getHandle
 getHeight
+getImage
 getInconsistent
 getInteger
 getIter
