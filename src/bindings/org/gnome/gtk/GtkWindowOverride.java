@@ -12,21 +12,14 @@
 package org.gnome.gtk;
 
 /**
- * Hand crafted to
+ * Hand crafted to allow us to reconfigure GtkWindow memory management. See
+ * implementing C file for a detailed discussion.
  * 
  * @author Andrew Cowie
  */
 final class GtkWindowOverride extends Plumbing
 {
     private GtkWindowOverride() {}
-
-    static final void overrideDeleteHandler() {
-        synchronized (lock) {
-            g_signal_override_class_closure();
-        }
-    }
-
-    private static native final void g_signal_override_class_closure();
 
     static final void dropUserRef(Window self) {
         synchronized (lock) {
