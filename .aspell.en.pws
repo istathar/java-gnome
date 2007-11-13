@@ -1,7 +1,8 @@
-personal_ws-1.1 en 1341
+personal_ws-1.1 en 0
 ABI
 APIs
 AWT
+AccelGroup
 ActionGroup
 ActionGroups
 AfC
@@ -269,6 +270,8 @@ IdentityHashMap
 IllegalAccessException
 IllegalArgumentException
 IllegalStateException
+ImageMenuItem
+ImageMenuItems
 ImageType
 IndexError
 InputStream
@@ -307,6 +310,7 @@ ListStore's
 ListStores
 Ljava
 Lorg
+Lortie
 LoveLetter
 MVC
 Machame
@@ -1040,6 +1044,7 @@ onSelectAll
 onSelectionChanged
 onSizeChanged
 onToggled
+onUnmapEvent
 onValueChanged
 onVisibilityNotifyEvent
 online

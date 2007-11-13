@@ -14,11 +14,13 @@ package menu;
 import org.gnome.gdk.Event;
 import org.gnome.gtk.CheckMenuItem;
 import org.gnome.gtk.Gtk;
+import org.gnome.gtk.ImageMenuItem;
 import org.gnome.gtk.Label;
 import org.gnome.gtk.Menu;
 import org.gnome.gtk.MenuBar;
 import org.gnome.gtk.MenuItem;
 import org.gnome.gtk.SeparatorMenuItem;
+import org.gnome.gtk.Stock;
 import org.gnome.gtk.VBox;
 import org.gnome.gtk.Widget;
 import org.gnome.gtk.Window;
@@ -84,7 +86,7 @@ public class ExampleSimpleMenu
          */
         fileMenu.append(new MenuItem("_Save", new ACTIVATE() {
             public void onActivate(MenuItem source) {
-                l.setLabel("You have selected File->Save menu.");
+                l.setLabel("You have selected File->Save.");
             }
         }));
 
@@ -94,6 +96,11 @@ public class ExampleSimpleMenu
          */
         fileMenu.append(new SeparatorMenuItem());
 
+        fileMenu.append(new ImageMenuItem(Stock.CLOSE, new ACTIVATE() {
+            public void onActivate(MenuItem source) {
+                l.setLabel("You have selected File->Close.");
+            }
+        }));
         fileMenu.append(new MenuItem("_Quit", new ACTIVATE() {
             public void onActivate(MenuItem source) {
                 Gtk.mainQuit();
@@ -105,12 +112,12 @@ public class ExampleSimpleMenu
          */
         editMenu.append(new MenuItem("_Copy", new ACTIVATE() {
             public void onActivate(MenuItem source) {
-                l.setLabel("You have selected Edit->Copy menu.");
+                l.setLabel("You have selected Edit->Copy.");
             }
         }));
         editMenu.append(new MenuItem("_Paste", new ACTIVATE() {
             public void onActivate(MenuItem source) {
-                l.setLabel("You have selected Edit->Paste menu.");
+                l.setLabel("You have selected Edit->Paste.");
             }
         }));
 
