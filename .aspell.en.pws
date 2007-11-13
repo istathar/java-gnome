@@ -390,6 +390,7 @@ SeparatorToolItems
 SignalHandler
 Singh
 SizeGroup
+SlashTime
 SmartyPants
 SourceForge
 SpinButton
@@ -404,6 +405,7 @@ StockItems
 StorageType
 StringValue
 TODO
+TZ
 TestCase
 TestCaseGtk
 TestCases
@@ -452,6 +454,7 @@ UCHAR
 UINT
 ULONG
 UNMAP
+UTC
 Ubuntu
 UnitTests
 UnsatisfiedLinkError
@@ -648,6 +651,7 @@ createVSeparator
 createValue
 createWindow
 createWithLabel
+currentTimeMillis
 cwd
 cycleGarbageCollector
 cycleMainLoop
@@ -726,6 +730,7 @@ flagFor
 fmt
 forName
 foreach
+formatTime
 formatter
 foss
 fullscreen
@@ -972,6 +977,7 @@ lt
 mainIterationDo
 mainQuit
 makeJarFile
+makeTime
 md
 mem
 menuBar
@@ -980,6 +986,7 @@ methodID
 methodName
 methodSignature
 mkdir
+mktime
 mnemonicLabel
 mockup
 mockups
@@ -1209,6 +1216,7 @@ setSortColumnId
 setStick
 setSubmenu
 setText
+setTimeZone
 setTip
 setTitle
 setTooltip
@@ -1231,6 +1239,7 @@ shutil
 si
 sizeof
 skipInit
+slashtime
 solaris
 someFont
 sourceChanged
@@ -1244,6 +1253,7 @@ stepIncrement
 stockId
 str
 strfreev
+strftime
 strikethrough
 strsplit
 struct
@@ -1296,6 +1306,7 @@ typeName
 typeToSignature
 typedef
 typesToClassNames
+tzset
 ucfirst
 ui
 ul
@@ -1345,3 +1356,4 @@ xscale
 yalign
 yscale
 zdefs
+zoneinfo
