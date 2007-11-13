@@ -67,6 +67,25 @@ window_delete_handler
 }
 
 /*
+ * Signature the prototype of a (*GSourceFunc) callback, meeting the
+ * requirements of the third argument to gdk_threads_add_timeout_full()
+ */
+static gboolean
+window_hide_deref
+(
+	gpointer data
+)
+{
+	GtkWidget* window;
+	
+	window = (GtkWidget*) data;
+	
+	g_object_unref(window);
+	return FALSE;
+}
+
+
+/*
  * On hide, drop a Ref count. This replaces the built in behaviour of GTK but
  * is safe becuase we have told GtkWindow that we are holding the user Ref count
  * to the object.
@@ -85,7 +104,7 @@ window_hide_handler
 	if (DEBUG_MEMORY_MANAGEMENT) {
 		g_print("mem: hide caught for\t\t%ld\n", (long) widget);
 	}
-	g_object_unref(widget);
+	gdk_threads_add_timeout_full(G_PRIORITY_LOW, 100, window_hide_deref, widget, NULL);
 }
 
 
