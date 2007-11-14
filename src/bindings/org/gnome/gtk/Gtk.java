@@ -12,6 +12,7 @@
 package org.gnome.gtk;
 
 import org.gnome.gdk.Gdk;
+import org.gnome.gdk.Pixbuf;
 import org.gnome.glib.Glib;
 
 /**
@@ -191,4 +192,21 @@ public final class Gtk extends Glib
     }
 
     private static native final boolean gtk_main_iteration_do(boolean blocking);
+
+    /**
+     * Set the icon that will be used for all Windows in this application that
+     * do not have an one explicitly set. See the documentation for Window's
+     * {@link #setIcon(Pixbuf) setIcon()} for further details about how to
+     * specify icons.
+     * 
+     * @since 4.0.5
+     */
+    /*
+     * YES this is a function on GtkWindow, but it has such global impact that
+     * this is a better place for it. If we ever get a real GtkApplication
+     * class, we might move it there instead.
+     */
+    public static void setDefaultIcon(Pixbuf icon) {
+        GtkWindow.setDefaultIcon(icon);
+    }
 }

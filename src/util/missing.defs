@@ -5242,14 +5242,6 @@
   (return-type "GList*")
 )
 
-(define-function window_set_default_icon
-  (c-name "gtk_window_set_default_icon")
-  (return-type "none")
-  (parameters
-    '("GdkPixbuf*" "icon")
-  )
-)
-
 (define-function window_set_default_icon_from_file
   (c-name "gtk_window_set_default_icon_from_file")
   (return-type "none")

@@ -550,7 +550,7 @@ public class Window extends Bin
      * scale up with the usual poor quality result.
      * 
      * <p>
-     * <i> You should specify the image in its natural form, whatever that is,
+     * <i>You should specify the image in its natural form, whatever that is,
      * as GTK itself will scale the image depending on the various sizes it is
      * called upon to provide by the theme engine and the window manager.</i>
      * 

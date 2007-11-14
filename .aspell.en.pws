@@ -1,4 +1,4 @@
-personal_ws-1.1 en 1379
+personal_ws-1.1 en 1381
 ABI
 APIs
 AWT
@@ -179,6 +179,7 @@ GtkAction
 GtkActionGroup
 GtkAdjustment
 GtkAlignment
+GtkApplication
 GtkB
 GtkBin
 GtkBox
@@ -1174,6 +1175,7 @@ setClickable
 setCurrentFolder
 setCurrentPage
 setDecorated
+setDefaultIcon
 setDefaultSize
 setDirection
 setDisplayOptions
