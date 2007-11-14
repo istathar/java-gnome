@@ -20,11 +20,11 @@
 
 /*
  * Implements
- *   org.gnome.gtk.Gtk.gtk_init(String[] args)
+ *   org.gnome.gtk.Gtk.gtk_init(Object lock, String[] args)
  * called from
  *   org.gnome.gtk.Gtk.init(String[] args)
  *
- * FIXME we still have to handle passing the args array through.
+ * FIXME we still have to handle returning the trimmed args array.
  */ 
 JNIEXPORT void JNICALL
 Java_org_gnome_gtk_Gtk_gtk_1init
@@ -35,15 +35,40 @@ Java_org_gnome_gtk_Gtk_gtk_1init
 	jobjectArray _args
 )
 {
+	int argc;
+	char** argv;
+	gint i;
+	jstring _arg;
+	gchar* arg;
+
 	bindings_java_threads_init(env, _lock);
 	
 	g_thread_init(NULL);
 	gdk_threads_init();
 	
 	g_set_prgname("java-gnome");
-	// call function
-	gtk_init(0, NULL);
 	
+	// convert args
+	argc = (*env)->GetArrayLength(env, _args);
+	argv = (char**) g_newa(char**, argc+1);
+
+	for (i = 0; i < argc; i++) {
+		_arg = (jstring) (*env)->GetObjectArrayElement(env, _args, i);
+		arg = (gchar*)(*env)->GetStringUTFChars(env, _arg, NULL);
+		argv[i+1] = arg;
+	}
+
+	/*
+	 * In C, the first element in the argv is the program name from the
+	 * command line. Java skips this, so we need to re-introduce a dummy 
+	 * value here. This is also why it was [i+1] above.
+	 */
+	argv[0] = "";
+	argc++;
+
+	// call function
+	gtk_init(&argc, &argv);
+ 
 	/*
 	 * Work around for what may be bug #85715. It appears that the root
 	 * window is not given an initial Ref by GDK; if you call Window's
