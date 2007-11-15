@@ -1,24 +1,21 @@
-/* screenshot-utils.c - common functions for GNOME Screenshot
+/*
+ * gnome_screenshot_utils.c
  *
- * Copyright (C) 2001-2006  Jonathan Blandford <jrb@alum.mit.edu>
- *
- * This program is free software; you can redistribute it and/or
- * modify it under the terms of the GNU General Public
- * License as published by the Free Software Foundation; either
- * version 2 of the License, or (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
- * General Public License for more details.
- *
- * You should have received a copy of the GNU General Public
- * License along with this program; if not, write to the
- * Free Software Foundation, Inc., 59 Temple Place - Suite 330,
+ * Copyright (C) 2001-2006  Jonathan Blandford
+ * Copyright (c) 2007-      Operational Dynamics Consulting Pty Ltd
+
+ * This is ripped almost verbatim from gnome-utils's
+ * gnome-screenshot/screenshot-utils.c, which is relicenced with its authors
+ * permission as follows:
+ * 
+ * The code in this file, and the library it is a part of, are made available
+ * to you by the authors under the terms of the "GNU General Public Licence,
+ * version 2" plus the "Classpath Exception" (you may link to this code as a
+ * library into other programs provided you don't make a derivation of it).
+ * See the LICENCE file for the terms governing usage and redistribution. 
  */
 
-#include "config.h"
-#include "screenshot-utils.h"
+#include "gnome_screenshot.h"
 
 #include <X11/Xatom.h>
 #include <gdk/gdkx.h>
@@ -631,47 +628,4 @@ screenshot_get_window_title (Window w)
     }
 
   return g_strdup (_("Untitled Window"));
-}
-
-void
-screenshot_show_error_dialog (GtkWindow   *parent,
-                              const gchar *message,
-                              const gchar *detail)
-{
-  GtkWidget *dialog;
-  
-  g_return_if_fail ((parent == NULL) || (GTK_IS_WINDOW (parent)));
-  g_return_if_fail (message != NULL);
-  
-  dialog = gtk_message_dialog_new (parent,
-  				   GTK_DIALOG_DESTROY_WITH_PARENT,
-  				   GTK_MESSAGE_ERROR,
-  				   GTK_BUTTONS_OK,
-  				   "%s", message);
-  gtk_window_set_title (GTK_WINDOW (dialog), "");
-  
-  if (detail)
-    gtk_message_dialog_format_secondary_text (GTK_MESSAGE_DIALOG (dialog),
-  					      "%s", detail);
-  
-  if (parent && parent->group)
-    gtk_window_group_add_window (parent->group, GTK_WINDOW (dialog));
-  
-  gtk_dialog_run (GTK_DIALOG (dialog));
-  
-  gtk_widget_destroy (dialog);
-
-}
-
-void
-screenshot_show_gerror_dialog (GtkWindow   *parent,
-                               const gchar *message,
-                               GError      *error)
-{
-  g_return_if_fail (parent == NULL || GTK_IS_WINDOW (parent));
-  g_return_if_fail (message != NULL);
-  g_return_if_fail (error != NULL);
-
-  screenshot_show_error_dialog (parent, message, error->message);
-  g_clear_error (&error);
 }

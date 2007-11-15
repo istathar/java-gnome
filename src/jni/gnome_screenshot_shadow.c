@@ -1,6 +1,6 @@
 /* Shadow code from anders */
 
-#include "screenshot-shadow.h"
+#include "gnome_screenshot.h"
 #include <math.h>
 
 #define BLUR_RADIUS    5

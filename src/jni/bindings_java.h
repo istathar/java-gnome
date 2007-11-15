@@ -16,6 +16,7 @@
 #include <jni.h>
 #include <glib.h>
 #include <glib-object.h>
+#include <gdk-pixbuf/gdk-pixbuf.h>
 
 /*
  * bindings_java_util.c
@@ -63,14 +64,20 @@ extern jlongArray bindings_java_convert_glist_to_jarray(JNIEnv*, GList*);
 extern jlongArray bindings_java_convert_gslist_to_jarray(JNIEnv*, GSList*);
 extern gpointer* bindings_java_convert_jarray_to_gpointer(JNIEnv*, jlongArray);
 
-/* the gpointer array is freed at the end */
+// the gpointer array is freed at the end
 extern void bindings_java_convert_gpointer_to_jarray(JNIEnv*, gpointer*, jlongArray);
 
-/* the gchar* arrays is not freed */
+// the gchar* arrays is not freed
 extern jobjectArray bindings_java_convert_gchararray_to_jarray(JNIEnv*, const gchar**);
 extern gchar** bindings_java_convert_strarray_to_gchararray(JNIEnv*, jobjectArray);
 
-/* the gchar* array is freed */
+// the gchar* array is freed
 extern void bindings_java_convert_gchararray_to_strarray(JNIEnv*, gchar**, jobjectArray);
+
+/*
+ * gnome_screenshot_capture.c
+ */
+
+extern GdkPixbuf* gnome_screenshot_capture(gboolean, gboolean, const gchar*);
 
 #endif 
