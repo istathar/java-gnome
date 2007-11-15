@@ -1,6 +1,6 @@
 PYGTK=~/vcs/gnome2/pygtk
 MISSING=missing.txt
-DEFSDIR=../defs
+DEFSDIR=../../defs
 
 all: demux blacklist install
 
@@ -40,5 +40,5 @@ blacklist:
 
 install:
 	mv *.defs $(DEFSDIR)
-	mv $(MISSING) missing.defs
+	mv $(MISSING) ../missing.defs
 
