@@ -277,8 +277,8 @@
   (parameters
     '("const-char*" "filename")
     '("const-char*" "type")
-    '("char**" "option_keys")
-    '("char**" "option_values")
+    '("char**" "option_keys" (null-ok))
+    '("char**" "option_values" (null-ok))
     '("GError**" "error")
   )
 )

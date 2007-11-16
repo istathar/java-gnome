@@ -1,4 +1,4 @@
-personal_ws-1.1 en 1381
+personal_ws-1.1 en 1386
 ABI
 APIs
 AWT
@@ -577,6 +577,8 @@ center
 centered
 cfg
 cflags
+checkPixbufFromFile
+checkPixbufFromFileAtScale
 checkpointHashes
 checksum
 clampPage
@@ -647,6 +649,7 @@ createMessageDialog
 createNotebook
 createObject
 createPixbufFromFile
+createPixbufFromFileAtScale
 createProgressBar
 createProxy
 createScrolledWindow
@@ -1117,6 +1120,7 @@ prependText
 prepended
 prereq
 preserveAllLocals
+preserveAspectRatio
 printStackTrace
 printf
 processedTree
@@ -1152,6 +1156,7 @@ runJavaClass
 runTests
 runtime
 runtimes
+savev
 scalarref
 screenshot
 scrollbar
