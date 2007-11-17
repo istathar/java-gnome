@@ -10,7 +10,7 @@
  */
 package org.gnome.screenshot;
 
-public class Plumbing extends org.gnome.gtk.Plumbing
+class Plumbing extends org.gnome.gtk.Plumbing
 {
     protected Plumbing() {}
 }

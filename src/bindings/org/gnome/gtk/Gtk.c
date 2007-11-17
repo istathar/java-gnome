@@ -49,7 +49,11 @@ Java_org_gnome_gtk_Gtk_gtk_1init
 	g_set_prgname("java-gnome");
 	
 	// convert args
-	argc = (*env)->GetArrayLength(env, _args);
+	if (_args == NULL) {
+		argc = 0;
+	} else {
+		argc = (*env)->GetArrayLength(env, _args);
+	}
 	argv = (char**) g_newa(char**, argc+1);
 
 	for (i = 0; i < argc; i++) {
