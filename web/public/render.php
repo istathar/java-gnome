@@ -54,6 +54,7 @@
 		exit;
 	}
 
+	header("HTTP/1.1 200 OK");
 #
 # now, with the filename in hand, shlurp its contents and parse out the first
 # line as title.
