@@ -587,6 +587,7 @@ connectSignal
 const
 constantFor
 copyMappingFile
+coronatedYearColumn
 countryNameColumn
 cp
 createAction
@@ -752,6 +753,7 @@ generateHeaderFiles
 generateTests
 generateTranslationAndJniLayers
 gentoo
+george
 getAbsolutePath
 getAction
 getActive
@@ -768,6 +770,7 @@ getChildSecondary
 getChildren
 getClass
 getCode
+getCoronationYear
 getCurrentFolder
 getDeclaredConstructor
 getDisplayOptions
@@ -781,6 +784,7 @@ getFilename
 getFirstIter
 getFixedHeightMode
 getFlags
+getFormalName
 getGreen
 getHAdjustment
 getHadjustment
@@ -813,6 +817,7 @@ getParent
 getPixbuf
 getPointer
 getPointerFromHandle
+getPortrait
 getPosition
 getPositionX
 getPositionY
@@ -823,6 +828,7 @@ getPropertyFloat
 getPropertyObject
 getPropertyString
 getRed
+getReference
 getRelief
 getResource
 getResourceAsStream
@@ -999,6 +1005,8 @@ modifyBackground
 modifyBase
 modifyBg
 modifyStyle
+monarchNameColumn
+monarchObjectColumn
 moveWidget
 msg
 multi
@@ -1085,6 +1093,7 @@ popen
 popup
 popupStatusIcon
 popups
+portraitColumn
 pos
 pre
 preformatted
@@ -1209,6 +1218,7 @@ setPropertyLabel
 setPropertyObject
 setPropertyPixbuf
 setPropertyString
+setReference
 setRelief
 setRighteous
 setRubberBanding
