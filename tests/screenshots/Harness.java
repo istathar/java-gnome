@@ -15,7 +15,9 @@ import java.io.IOException;
 import org.gnome.gdk.Pixbuf;
 import org.gnome.gtk.Gtk;
 import org.gnome.gtk.Snapshot;
+import org.gnome.gtk.SnapshotButton;
 import org.gnome.gtk.SnapshotQuestionMessageDialog;
+import org.gnome.gtk.SnapshotWindow;
 import org.gnome.gtk.Window;
 import org.gnome.screenshot.Screenshot;
 
@@ -81,7 +83,7 @@ public final class Harness
              */
 
             demos = new Snapshot[] {
-                new SnapshotQuestionMessageDialog()
+                    new SnapshotWindow(), new SnapshotButton(), new SnapshotQuestionMessageDialog()
             };
 
             /*

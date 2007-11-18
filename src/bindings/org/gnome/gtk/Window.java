@@ -19,7 +19,8 @@ import org.gnome.gdk.WindowState;
 
 /**
  * The top level Widget that contains other Widgets. Typical examples are
- * application windows, dialog boxes, and popup menus.
+ * application windows, dialog boxes, and popup menus. <img src="Window.png"
+ * class="snapshot">
  * 
  * <p>
  * It is common to invoke {@link Widget#hide() hide()} on a new top level

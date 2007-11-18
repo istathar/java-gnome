@@ -115,6 +115,7 @@ doc:
 		-header "java-gnome version $(VERSION)" \
 		-footer "<img src=\"/images/java-gnome_JavaDocLogo.png\" style=\"padding-right:25px;\"><br> <span style=\"font-family: Arial; font-style: normal; font-size: large;\">java-gnome</span>" \
 		-breakiterator \
+		-stylesheetfile src/bindings/stylesheet.css \
 		-overview src/bindings/overview.html \
 		-sourcepath src/bindings \
 		-subpackages org \

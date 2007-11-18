@@ -85,6 +85,7 @@ public abstract class Snapshot
             System.err.println("Where's the logo?");
         }
 
+        w.showAll();
         w.present();
 
         w.connect(new Window.DELETE_EVENT() {

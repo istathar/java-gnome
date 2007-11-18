@@ -16,7 +16,8 @@ package org.gnome.gtk;
  * about any other Widget as its child. The most commonly used child is a
  * Label, and there are convenience methods to help you just create a button
  * with the given text automatically, notably the
- * {@link Button#Button(String) Button(String)} constructor.
+ * {@link Button#Button(String) Button(String)} constructor. <img
+ * src="Button.png" class="snapshot">
  * 
  * <p>
  * Since Button is a Bin it strictly only has one child. Internally, however,
