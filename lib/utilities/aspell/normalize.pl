@@ -56,8 +56,16 @@ shift @words;
 
 open DICT, ">$dict_file";
 
-$count = $#words + 1;
-print DICT "personal_ws-1.1 en $count\n";
+#
+# We used to go to the trouble of accurately listing the word count but this
+# proved a conflict *every single time* we merged branches with spell checking.
+# So screw it. `aspell` seems to figure it out fine anyway, and the docs say
+# its just a hint.
+#
+#$count = $#words + 1;
+#
+
+print DICT "personal_ws-1.1 en 0\n";
 
 foreach my $word ( @sorted ) {
 	# didn't chomp
