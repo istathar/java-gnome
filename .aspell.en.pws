@@ -458,6 +458,7 @@ UTC
 Ubuntu
 UnitTests
 UnsatisfiedLinkError
+Unselect
 UnsupportedOperationException
 VBox
 VBoxes
@@ -586,6 +587,7 @@ connectSignal
 const
 constantFor
 copyMappingFile
+countryNameColumn
 cp
 createAction
 createActionGroup
@@ -843,6 +845,7 @@ getString
 getSubmenu
 getText
 getTopLevel
+getTreeView
 getType
 getURI
 getUri
@@ -851,6 +854,7 @@ getVAdjustment
 getVadjustment
 getValue
 getValueString
+getView
 getVisibility
 getVisible
 getWidget
@@ -1323,6 +1327,7 @@ unobscured
 unref
 unregisterConstant
 unregisterProxy
+unselectAll
 unstick
 updateHash
 uri

@@ -20,6 +20,40 @@ import org.gnome.glib.Object;
  * which rows are selected, if any.
  * 
  * <p>
+ * TreeSelection can be used to programmatically select rows by either
+ * TreeIter or TreePath; see the <code>selectRow()</code> methods. For
+ * example, to select the first row you could do:
+ * 
+ * <pre>
+ * final TreeSelection selection;
+ * 
+ * selection = view.getSelection();
+ * selection.selectRow(new TreePath(&quot;0&quot;));
+ * </pre>
+ * 
+ * <p>
+ * Using TreeSelection to determine the currently selected row is fairly
+ * straight forward:
+ * 
+ * <pre>
+ * selection.connect(new TreeSelection.CHANGED() {
+ *     public void onChanged(TreeSelection source) {
+ *         final TreeIter row;
+ * 
+ *         row = selection.getSelected();
+ * 
+ *         if (row != null) {
+ *             // do something!
+ *         }
+ *     }
+ * });
+ * </pre>
+ * 
+ * Unfortunately, the <code>CHANGED</code> signal is not entirely
+ * deterministic; it is sometimes emitted more than once or for no change at
+ * all. You'll need to allow for this in your code.
+ * 
+ * <p>
  * <i>Mostly this is an API helper; the underlying documentation notes that
  * these could have all been methods on <code>GtkTreeView</code>.</i>
  * 
@@ -66,7 +100,7 @@ public class TreeSelection extends Object
     public TreeIter getSelected() {
         final TreeModel model;
         final TreeIter row;
-        
+
         model = getView().getModel();
         row = new TreeIter(model);
 
@@ -76,7 +110,7 @@ public class TreeSelection extends Object
             return null;
         }
     }
-    
+
     TreeView getView() {
         return GtkTreeSelection.getTreeView(this);
     }
@@ -94,6 +128,14 @@ public class TreeSelection extends Object
      * method fairly closely to decide for yourself whether the selection has
      * "changed" or not.
      * 
+     * <p>
+     * <i>The nonsense about the <code>CHANGED</code> signal is supposedly
+     * due to the fact that there are multiple actors in the TreeModel
+     * environment, and both internal actions within GTK and events due to
+     * window manager activity can result in the signal being emitted. What a
+     * load of crap; either the selection changed or it didn't. Sorry we can't
+     * do better for you.</i>
+     * 
      * @author Andrew Cowie
      * @since 4.0.5
      */
@@ -103,7 +145,7 @@ public class TreeSelection extends Object
     }
 
     /**
-     * Hook up a <code>CHANGED</code> singal handler.
+     * Hook up a <code>CHANGED</code> signal handler.
      */
     public void connect(CHANGED handler) {
         GtkTreeSelection.connect(this, handler);

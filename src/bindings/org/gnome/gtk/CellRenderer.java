@@ -52,7 +52,7 @@ package org.gnome.gtk;
  * Do not try to reuse a CellRenderer between different TreeViewColumns.
  * 
  * @author Andrew Cowie
- * @author 4.0.5
+ * @since 4.0.5
  */
 /*
  * Injunction about reuse from Kristian Rietveld

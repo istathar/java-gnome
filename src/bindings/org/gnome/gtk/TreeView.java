@@ -1,7 +1,7 @@
 /*
  * TreeView.java
  *
- * Copyright (c) 2007 Operational Dynamics Consulting Pty Ltd
+ * Copyright (c) 2007 Operational Dynamics Consulting Pty Ltd, and Others
  *
  * The code in this file, and the library it is a part of, are made available
  * to you by the authors under the terms of the "GNU General Public Licence,
@@ -12,12 +12,98 @@
 package org.gnome.gtk;
 
 /**
- * Display the data from a TreeModel in a tabular form. You can select and
- * activate rows, ...
+ * Display the data from a TreeModel in a tabular form. TreeViews are
+ * ubiquitous in most applications, being used to both output data in list
+ * form, as well as allowing the user to select one or more items from a list.
+ * TreeView is the view part of GTK's model-view-controller pattern list
+ * Widget, with one of the TreeModel subclasses supplying the underlying data
+ * model.
  * 
- * This is the view part of GTK's TreeView/TreeModel model-view-controller
- * pattern based list Widget. TreeView is very powerful, but with that power
- * comes considerable complexity...
+ * <p>
+ * The TreeView API is very powerful, but with that power comes considerable
+ * complexity. To build a working TreeModel backed TreeView you will need to
+ * follow the instructions presented in the documentation quite carefully. The
+ * remainder of this page discusses the presentation side of the API; see
+ * {@link DataColumn DataColumn} for a detailed overview of the contents side.
+ * 
+ * <p>
+ * A TreeView is composed of one or more vertical columns called
+ * {@link TreeViewColumn TreeViewColumn}s. Into these are packed
+ * {@link CellRenderer CellRenderer}s. A CellRenderer does the job of taking
+ * data from the underlying TreeModel and rendering it in the TreeViewColumn.
+ * There is a family of CellRenderers for different underlying data types, but
+ * you'll use CellRendererText almost exclusively.
+ * 
+ * <p>
+ * Let's assume we have a ListStore with a String DataColumn in it, ie
+ * 
+ * <pre>
+ * final ListStore model;
+ * final DataColumnString countryNameColumn;
+ * final TreeView view;
+ * final TreeSelection selection;
+ * TreeViewColumn vertical;
+ * CellRendererText text;
+ * 
+ * ...
+ * model = new ListStore(new DataColumn[] {
+ *     countryNameColumn,
+ *     ...
+ * }
+ * </pre>
+ * 
+ * Note that there is nothing that requires you to <i>populate</i> your model
+ * before building your TreeView. You can do that later - indeed, that might
+ * be the whole point of your application.
+ * 
+ * <p>
+ * You start creating your view by instantiating a TreeView and then using it
+ * to get TreeViewColumn instances:
+ * 
+ * <pre>
+ * view = new TreeView(model);
+ * vertical = view.appendColumn();
+ * vertical.setTitle(&quot;Country&quot;);
+ * </pre>
+ * 
+ * Now you construct a CellRenderer, specifying what TreeViewColumn it's going
+ * to be a part of, and then the most important part, specifying where its
+ * data is going to come from. This is the step that binds TreeView and
+ * TreeModel.
+ * 
+ * <pre>
+ * text = new CellRendererText(vertical);
+ * text.setText(countryNameColumn);
+ * </pre>
+ * 
+ * along with setting any other properties on the CellRenderer as necessary.
+ * And that's it! You will of course need to do this for each TreeViewColumn
+ * of information you wish to have showing in your TreeView. (We tend to find
+ * it easier if you reuse the TreeViewColumn and CellRenderer variable names;
+ * there is usually no real reason to keep a reference to them individually;
+ * otherwise you've got to come up with unique names for everything and that
+ * tends to make for ugly code).
+ * 
+ * <p>
+ * Dealing with the events generated on the TreeView is either straight
+ * forward or quite complicated, depending on what you are trying to
+ * accomplish. If you just need a callback when the user activates a row in
+ * the display, then the {@link TreeView.ROW_ACTIVATED ROW_ACTIVATED} signal
+ * will do the trick fairly simply; see its documentation for an example. For
+ * anything else, you will need to use the {@link TreeSelection TreeSelection}
+ * helper class (every TreeView automatically has one). It has a
+ * {@link TreeSelection.CHANGED CHANGED} signal which you hook up to which
+ * will tell you what row(s) are currently selected.
+ * 
+ * <pre>
+ * selection = view.getSelection();
+ * </pre>
+ * 
+ * <p>
+ * The design of the TreeView API is such that you can have more than one view
+ * for a given TreeModel, but we tend to only create TreeModels as the place
+ * to push the text that we wish displayed, so in general you'll have one
+ * TreeModel per TreeView.
  * 
  * <p>
  * <i>We have departed a fair way from the method call sequence used in the
@@ -124,9 +210,32 @@ public class TreeView extends Container
      * selected.
      * 
      * <p>
-     * This is perfectly sufficient for basic situations, but you may need to
-     * see {@link TreeSelection TreeSelection} to for more complicated
-     * selection and activation expressions.
+     * In general, you've got the TreeModel and especially its DataColumns
+     * visible, so to use <code>ROW_ACTIVATED</code> you can just:
+     * 
+     * <pre>
+     * final TreeModel model;
+     * final DataColumnString column;
+     * 
+     * view.connect(new TreeView.ROW_ACTIVATED() {
+     *     public void onRowActivated(TreeView source, TreePath path, TreeViewColumn vertical) {
+     *         final TreeIter row;
+     * 
+     *         row = model.getIter(path);
+     * 
+     *         ... = model.getValue(row, column);
+     *     }
+     * });
+     * </pre>
+     * 
+     * Remember that TreeIters and TreePaths are not stable over changes to
+     * the model, so get on with using <code>path</code> right away.
+     * 
+     * <p>
+     * <code>ROW_ACTIVATED</code> is perfectly sufficient for basic
+     * situations, but you may need to see TreeSelection's
+     * {@link TreeSelection.CHANGED CHANGED} to for more complicated selection
+     * and activation expressions. In practise you'll use both.
      * 
      * @author Andrew Cowie
      * @since 4.0.5
@@ -134,7 +243,7 @@ public class TreeView extends Container
     public interface ROW_ACTIVATED extends GtkTreeView.ROW_ACTIVATED
     {
         /**
-         * The useful parameter is usually<code>path</code> which can be
+         * The useful parameter is usually <code>path</code> which can be
          * converted into a TreeIter with your TreeModel's
          * {@link TreeModel#getIter() getIter()} allowing you to then lookup a
          * particular value from the data model. You rarely need

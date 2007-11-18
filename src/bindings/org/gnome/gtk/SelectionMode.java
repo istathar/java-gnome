@@ -19,6 +19,9 @@ import org.freedesktop.bindings.Constant;
  * which in turn you get by calling TreeView's
  * {@link TreeView#getSelection() getSelection()}.
  * 
+ * <p>
+ * The default is {@link #SINGLE SINGLE}.
+ * 
  * @author Andrew Cowie
  * @since 4.0.5
  */
@@ -34,7 +37,8 @@ public final class SelectionMode extends Constant
     public static final SelectionMode NONE = new SelectionMode(GtkSelectionMode.NONE, "NONE");
 
     /**
-     * One element may be selected; zero selected rows is also permitted.
+     * One element may be selected; zero selected rows is also permitted. This
+     * it the default.
      */
     public static final SelectionMode SINGLE = new SelectionMode(GtkSelectionMode.SINGLE, "SINGLE");
 
