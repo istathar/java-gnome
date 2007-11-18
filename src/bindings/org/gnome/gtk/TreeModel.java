@@ -209,14 +209,16 @@ public abstract class TreeModel extends org.gnome.glib.Object
     }
 
     /**
-     * 
+     * Store a String in this TreeModel at the specified <code>row</code>
+     * and <code>column</code>.
      */
     public void setValue(TreeIter row, DataColumnString column, String value) {
         dispatch(row, column, new Value(value));
     }
 
     /**
-     * 
+     * Get the String stored in this TreeModel at the specified
+     * <code>row</code> and <code>column</code>.
      */
     public String getValue(TreeIter row, DataColumnString column) {
         final Value result;
@@ -229,7 +231,8 @@ public abstract class TreeModel extends org.gnome.glib.Object
     }
 
     /**
-     * 
+     * Get the <code>int</code> value stored in this TreeModel at the
+     * specified <code>row</code> and <code>column</code>.
      */
     public int getValue(TreeIter row, DataColumnInteger column) {
         final Value result;
@@ -242,12 +245,17 @@ public abstract class TreeModel extends org.gnome.glib.Object
     }
 
     /**
-     * 
+     * Store an <code>int</code> in this TreeModel at the specified
+     * <code>row</code> and <code>column</code>.
      */
     public void setValue(TreeIter row, DataColumnInteger column, int value) {
         dispatch(row, column, new Value(value));
     }
 
+    /**
+     * Get the <code>boolean</code> value stored in this TreeModel at the
+     * specified <code>row</code> and <code>column</code>.
+     */
     public boolean getValue(TreeIter row, DataColumnBoolean column) {
         final Value result;
 
@@ -258,6 +266,10 @@ public abstract class TreeModel extends org.gnome.glib.Object
         return result.getBoolean();
     }
 
+    /**
+     * Store a <code>boolean</code> in this TreeModel at the specified
+     * <code>row</code> and <code>column</code>.
+     */
     public void setValue(TreeIter row, DataColumnBoolean column, boolean value) {
         dispatch(row, column, new Value(value));
     }
@@ -273,15 +285,23 @@ public abstract class TreeModel extends org.gnome.glib.Object
     }
 
     /**
-     * You'll have to cast the return value to whatever type you put in there
-     * in the first place. TODO would making this generic help?
+     * Get a reference to the Java object stored in this TreeModel at the
+     * specified <code>row</code> and <code>column</code>. You'll have to
+     * cast the return value to whatever type you put in there in the first
+     * place, obviously.
+     */
+    /*
+     * TODO would making this generic help?
      */
     public java.lang.Object getValue(TreeIter row, DataColumnReference column) {
         return GtkTreeModelOverride.getReference(this, row, column.getOrdinal());
     }
 
     /**
-     * 
+     * Store a reference to a Java object in the TreeModel at the specified
+     * <code>row</code> and <code>column</code>. This is used so you can
+     * get <i>back</i> to your Java side domain object model in response to
+     * an event on the TreeView.
      */
     /*
      * Calls a custom override as we manually manage a global reference to the
@@ -293,6 +313,12 @@ public abstract class TreeModel extends org.gnome.glib.Object
         GtkTreeModelOverride.setReference(this, row, column.getOrdinal(), value);
     }
 
+    /**
+     * Store a Pixbuf in this TreeModel at the specified <code>row</code>
+     * and <code>column</code>. This is used to provide the image data
+     * needed by a TreeViewColumn with a
+     * {@link CellRendererPixbuf CellRendererPixbuf} in it.
+     */
     public void setValue(TreeIter row, DataColumnPixbuf column, Pixbuf value) {
         dispatch(row, column, new Value(value));
     }
@@ -334,7 +360,6 @@ public abstract class TreeModel extends org.gnome.glib.Object
      * @return <code>null</code> if it can't figure out how to make the
      *         conversion of the given TreePath into a TreeIter pointing into
      *         this TreeModel.
-     * @since 4.0.5
      */
     public TreeIter getIter(TreePath path) {
         final TreeIter iter;

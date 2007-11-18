@@ -13,7 +13,9 @@ package org.gnome.gtk;
 
 /**
  * A column containing image data in a TreeModel. See {@link DataColumn} for
- * the full discussion of the role of how to employ these.
+ * the full discussion of the role of how to employ these. This column type is
+ * used to drive display of images in TreeViews using
+ * {@link CellRendererPixbuf CellRendererPixbuf}s.
  * 
  * @author Andrew Cowie
  * @since 4.0.5

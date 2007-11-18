@@ -64,6 +64,7 @@ DataColumnLong
 DataColumnPixbuf
 DataColumnReference
 DataColumnString
+DataColumnStrings
 DataColumns
 Davyd
 DefsFile
@@ -184,6 +185,7 @@ GtkButtonBox
 GtkButtonBoxStyle
 GtkCalendar
 GtkCalendarDisplayOptions
+GtkCellRendererPixbuf
 GtkCellRendererText
 GtkCheckButton
 GtkCheckMenuItem
@@ -597,6 +599,7 @@ createAlignment
 createButton
 createButtonWithLabel
 createCalendar
+createCellRendererPixbuf
 createCellRendererText
 createCheckButton
 createCheckButtonWithMnemonic
@@ -1206,6 +1209,7 @@ setModel
 setOrdinal
 setOrientation
 setPadding
+setPixbuf
 setPolicy
 setPosition
 setProperty
