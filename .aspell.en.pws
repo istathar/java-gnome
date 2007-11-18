@@ -1,4 +1,4 @@
-personal_ws-1.1 en 1386
+personal_ws-1.1 en 0
 ABI
 APIs
 AWT
@@ -7,10 +7,12 @@ ActionGroups
 AfC
 AllAboutJNI
 ArrayList
+Bassi
 Bhagat
 BindingsGenerator
 BindingsJavaClosure
 Bitstream
+Blandford
 Bleh
 Bolsterlee
 BooleanValue
@@ -52,6 +54,7 @@ CommitMessages
 Cowie
 Cowie's
 Ctrl
+DDDDDD
 DESTDIR
 DNS
 DVCS
@@ -82,6 +85,7 @@ EOFError
 EOSTR
 EVERSION
 Eeek
+Emmanuele
 EnumValue
 ErrorMessageDialog
 EventAny
@@ -399,6 +403,7 @@ RuntimeException
 RuntimeExceptions
 SWT
 Schmitz
+ScreenshotCapture
 ScrolledWindow
 SelectionMode
 Sep
@@ -566,6 +571,7 @@ builtin
 bytecode
 bzr
 c'est
+c's
 cachedJavaVM
 cairo
 canRead
@@ -1128,6 +1134,7 @@ programmatically
 proxied
 proxying
 putWidget
+px
 py
 pyGTK
 pygtk
@@ -1159,6 +1166,7 @@ runtimes
 savev
 scalarref
 screenshot
+screenshots
 scrollbar
 scrollbars
 segfaulted
@@ -1357,6 +1365,8 @@ updateHash
 uri
 usr
 util
+utils
+utils's
 va
 valueChanged
 valueFor

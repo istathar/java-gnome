@@ -6,35 +6,22 @@
  * The code to capture an X11 Window as a GdkPixbuf is taken from gnome-utils's
  * gnome-screenshot/gnome-screenshot.c,
  *
- * Copyright (C) 2001 Jonathan Blandford <jrb@alum.mit.edu>
- * Copyright (C) 2006 Emmanuele Bassi <ebassi@gnome.org>
+ * Copyright (C) 2001 Jonathan Blandford
+ * Copyright (C) 2006 Emmanuele Bassi
  *
- * and relicenced with their permission for inclusion in java-gnome.
- * Therefore, 
- *
- * The code in this file, and the library it is a part of, are made available
- * to you by the authors under the terms of the "GNU General Public Licence,
- * version 2" plus the "Classpath Exception" (you may link to this code as a
- * library into other programs provided you don't make a derivation of it).
- * See the LICENCE file for the terms governing usage and redistribution.
+ * and licenced under the terms of the "GNU General Public Licence, version
+ * 2" only. This code is presented in java-gnome as wrapped in the class
+ * org.gnome.screeshot.Screenshot; making use of this code path require you
+ * to make your entire application available under a GPL compatible licence.
  */
 
 #include <jni.h>
 #include <gtk/gtk.h>
-
-#include <gdk/gdkx.h>
-#include <sys/types.h>
-#include <sys/wait.h>
-#include <fcntl.h>
-#include <unistd.h>
-#include <stdlib.h>
-#include <X11/Xutil.h>
-
 #include "bindings_java.h"
 #include "gnome_screenshot.h"
 
 /*
- * This basically is a slimmed down and java-gnome adapted verison of the
+ * This basically is a slimmed down and java-gnome adapted version of the
  * code from gnome-utils/gnome-screenshot/gnome-screenshot.c's
  * prepare_screenshot() function.
  */
@@ -91,5 +78,5 @@ gnome_screenshot_capture
 	}
 
 	// and finally
-	return (jlong) result;
+	return result;
 }

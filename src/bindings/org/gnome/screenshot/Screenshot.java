@@ -31,11 +31,13 @@ import org.gnome.glib.Glib;
  * result.save(...);
  * </pre>
  * 
- * <p>
- * <b>LICENCE WARNING</b><br>
- * This native code used to take screenshots is licened under the GNU General
- * Public Licence. As a result, use of this class will mean that your entire
- * application will need to be available under a GPL compatible licence.
+ * <p style="margin: 10px; border: dashed 3px red; padding: 10px;
+ * background-color: #DDDDDD; max-width: 600px;"> <b>LICENCE WARNING</b><br>
+ * This native code used to take screenshots is licenced under the GNU General
+ * Public Licence, version 2. As a result, use of this class in an application
+ * will mean that entire application will need to be available under a GPL v2
+ * compatible licence.
+ * </p>
  * 
  * @author Andrew Cowie
  * @since 4.0.5
