@@ -32,9 +32,9 @@ import org.gnome.gtk.Window;
  * 
  * @author Andrew Cowie
  */
-public class ExampleTreeViewListStore
+public class ExampleTrailHeads
 {
-    public ExampleTreeViewListStore() {
+    public ExampleTrailHeads() {
         final Window w;
         final TreeView view;
         final ListStore model;
@@ -97,18 +97,21 @@ public class ExampleTreeViewListStore
         model.setValue(row, trailHead, "Katoomba, NSW, Australia");
         model.setValue(row, elevationFormatted, "1015 m");
         model.setValue(row, elevationSort, 1005);
+        model.setValue(row, accessibleByTrain, true);
 
         row = model.appendRow();
         model.setValue(row, placeName, "Kilimanjaro\n<small>(Machame route)</small>");
         model.setValue(row, trailHead, "Nairobi, Kenya");
         model.setValue(row, elevationFormatted, "5894 m");
         model.setValue(row, elevationSort, 5894);
+        model.setValue(row, accessibleByTrain, false);
 
         row = model.appendRow();
         model.setValue(row, placeName, "Appalachian Trail\n<small>(roller coaster section)</small>");
         model.setValue(row, trailHead, "Harpers Ferry, West Virginia, USA");
         model.setValue(row, elevationFormatted, "147 m");
         model.setValue(row, elevationSort, 112);
+        model.setValue(row, accessibleByTrain, true);
 
         /*
          * Now onto the view side. First we need the top level TreeView which
@@ -211,7 +214,7 @@ public class ExampleTreeViewListStore
     public static void main(String[] args) {
         Gtk.init(args);
 
-        new ExampleTreeViewListStore();
+        new ExampleTrailHeads();
 
         Gtk.main();
     }
