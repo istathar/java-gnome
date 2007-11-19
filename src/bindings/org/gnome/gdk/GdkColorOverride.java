@@ -11,7 +11,7 @@
  */
 package org.gnome.gdk;
 
-public class GdkColorOverride extends Plumbing
+final class GdkColorOverride extends Plumbing
 {
     /*
      * Create a GdkColor via gdk_color_copy() to support subsequent release

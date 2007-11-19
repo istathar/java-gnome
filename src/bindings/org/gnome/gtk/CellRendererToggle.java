@@ -21,7 +21,7 @@ package org.gnome.gtk;
  */
 public class CellRendererToggle extends CellRenderer
 {
-    protected CellRendererToggle(long pointer) {
-        super(pointer);
+    public CellRendererToggle(TreeViewColumn vertical) {
+        super(GtkCellRendererToggle.createCellRendererToggle(), vertical);
     }
 }

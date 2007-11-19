@@ -27,6 +27,8 @@ import org.gnome.gtk.ValidatePacking;
 import org.gnome.gtk.ValidateProperties;
 import org.gnome.gtk.ValidateResponseType;
 import org.gnome.gtk.ValidateStockItems;
+import org.gnome.gtk.ValidateTreeModel;
+import org.gnome.gtk.ValidateTreeView;
 
 import com.operationaldynamics.codegen.ValidateThingUsage;
 import com.operationaldynamics.codegen.ValidateUtilityMethods;
@@ -111,6 +113,8 @@ public class UnitTests
         suite.addTestSuite(ValidateFileChoosing.class);
         suite.addTestSuite(ValidateStockItems.class);
         suite.addTestSuite(ValidateResponseType.class);
+        suite.addTestSuite(ValidateTreeModel.class);
+        suite.addTestSuite(ValidateTreeView.class);
 
         return suite;
     }

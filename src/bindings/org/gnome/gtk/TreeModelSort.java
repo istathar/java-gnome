@@ -11,8 +11,6 @@
  */
 package org.gnome.gtk;
 
-import org.gnome.glib.Object;
-
 /*
  * FIXME this is a placeholder stub for what will become the public API for
  * this type. Replace this comment with appropriate javadoc including author
@@ -21,7 +19,7 @@ import org.gnome.glib.Object;
  * are made about this class until it has been reviewed by a hacker and this
  * comment has been replaced.
  */
-public class TreeModelSort extends Object implements TreeModel, TreeDragSource, TreeSortable
+public class TreeModelSort extends TreeModel implements TreeDragSource, TreeSortable
 {
     protected TreeModelSort(long pointer) {
         super(pointer);

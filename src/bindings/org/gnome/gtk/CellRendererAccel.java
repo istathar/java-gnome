@@ -19,9 +19,20 @@ package org.gnome.gtk;
  * are made about this class until it has been reviewed by a hacker and this
  * comment has been replaced.
  */
+/**
+ * Renderer a keyboard accelerator in text form in a TreeViewColumn. TODO What
+ * on earth is this for outside of <code>gconf-editor</code>? Sigh.
+ * 
+ * @author Andrew Cowie
+ * @since 4.0.5
+ */
 public class CellRendererAccel extends CellRendererText
 {
-    protected CellRendererAccel(long pointer) {
-        super(pointer);
+    /*
+     * FIXME constructor stub to permit compilation, although this should be
+     * correct.
+     */
+    public CellRendererAccel(TreeViewColumn vertical) {
+        super(GtkCellRendererAccel.createCellRendererAccel(), vertical);
     }
 }

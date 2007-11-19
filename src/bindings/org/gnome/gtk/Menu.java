@@ -1,7 +1,7 @@
 /*
  * Menu.java
  *
- * Copyright (c) 2007 Operational Dynamics Consulting Pty Ltd
+ * Copyright (c) 2007 Operational Dynamics Consulting Pty Ltd, and Others
  *
  * The code in this file, and the library it is a part of, are made available
  * to you by the authors under the terms of the "GNU General Public Licence,
@@ -49,5 +49,47 @@ public class Menu extends MenuShell
      */
     public Menu() {
         super(GtkMenu.createMenu());
+    }
+
+    /**
+     * Popup a context menu. Use this when you create a Menu that will be used
+     * for the popup context menu in response to a right-click somewhere. TODO
+     * add example code showing hooking up a mouse button click handler.
+     * 
+     * <p>
+     * Unlike normal Menus that are part of an application's MenuBar, context
+     * menus are not mapped automatically, so you need to have
+     * {@link Widget#showAll() showAll()} called on them once you're done
+     * building them to allocate their resources (otherwise you end up with a
+     * 1x1 pixel sized menu with nothing in it).
+     */
+    public void popup() {
+        GtkMenuOverride.popup(this);
+    }
+
+    /**
+     * A special case for popping up the context menu associated with a
+     * StatusIcon. Having constructed a Menu to be used as the context menu,
+     * you then call this from the <code>POPUP_MENU</code> signal callback
+     * as follows:
+     * 
+     * <pre>
+     * StatusIcon si;
+     * Menu context;
+     * ...
+     * 
+     * si.connect(new StatusIcon.POPUP_MENU() {
+     *     public void onPopupMenu(StatusIcon source, int button, int activateTime) {
+     *         context.popup(source);
+     *     }
+     * });
+     * </pre>
+     * 
+     * Don't forget to call {@link Widget#showAll() showAll()} on the Menu
+     * when you're done constructing it before trying to use it the first
+     * time.
+     */
+    public void popup(StatusIcon status) {
+        GtkMenuOverride.popupStatusIcon(this, status);
     }
 }

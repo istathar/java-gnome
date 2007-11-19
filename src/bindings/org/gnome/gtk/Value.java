@@ -23,7 +23,7 @@ package org.gnome.gtk;
  * This is cut and paste hell, so be careful. Make sure unit tests in
  * org.gnome.gtk do not import org.gnome.glib.Value.
  */
-final class Value extends org.gnome.glib.Value
+class Value extends org.gnome.glib.Value
 {
     protected Value(long pointer) {
         super(pointer);
@@ -59,6 +59,17 @@ final class Value extends org.gnome.glib.Value
 
     Value(float f) {
         super(f);
+    }
+
+    public Value(org.gnome.glib.Object obj) {
+        super(obj);
+    }
+
+    /*
+     * Used by things like Pixbuf which is a GObject, not a GtkObject!
+     */
+    public org.gnome.glib.Object getObject() {
+        return super.getObject();
     }
 
     protected float getFloat() {

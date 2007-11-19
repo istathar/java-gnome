@@ -303,11 +303,16 @@ public class StatusIcon extends org.gnome.glib.Object
     public interface POPUP_MENU extends GtkStatusIcon.POPUP_MENU
     {
         /**
-         * The signal emitted when the user brings up the context menu of the
-         * StatusIcon.
+         * The signal emitted when the user right-clicks on the StatusIcon.
+         * You're almost certain to want to be bringing up a context menu in
+         * that case, so see Menu's {@link Menu#popup(StatusIcon) popup()} for
+         * details of how to do it.
          * 
-         * @param source
-         *            the object which received the signal.
+         * <p>
+         * The two additional parameters in the handler prototype are
+         * described below, but we disregard them and they may be removed in a
+         * future version of java-gnome.
+         * 
          * @param button
          *            the button that was pressed, or 0 if the signal is not
          *            emitted in response to a button press event.

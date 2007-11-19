@@ -2,6 +2,7 @@ personal_ws-1.1 en 0
 ABI
 APIs
 AWT
+AccelGroup
 ActionGroup
 ActionGroups
 AfC
@@ -64,6 +65,7 @@ DataColumnLong
 DataColumnPixbuf
 DataColumnReference
 DataColumnString
+DataColumnStrings
 DataColumns
 Davyd
 DefsFile
@@ -160,10 +162,12 @@ GdkEventAny
 GdkEventExpose
 GdkEventKey
 GdkEventType
+GdkEventVisibility
 GdkEvents
 GdkGravity
 GdkPixbuf
 GdkScreen
+GdkVisibilityState
 GdkWindow
 GdkWindowState
 Gentoo's
@@ -190,6 +194,7 @@ GtkButtonBoxStyle
 GtkButtonsType
 GtkCalendar
 GtkCalendarDisplayOptions
+GtkCellRendererPixbuf
 GtkCellRendererText
 GtkCheckButton
 GtkCheckMenuItem
@@ -214,6 +219,7 @@ GtkMain
 GtkMenu
 GtkMenuBar
 GtkMenuItem
+GtkMenuOverride
 GtkMenuShell
 GtkMenuToolButton
 GtkMessageDialog
@@ -281,6 +287,8 @@ IdentityHashMap
 IllegalAccessException
 IllegalArgumentException
 IllegalStateException
+ImageMenuItem
+ImageMenuItems
 ImageType
 IndexError
 InfoMessageDialog
@@ -365,6 +373,7 @@ OpenSolaris
 OutOfMemoryError
 Overholt
 PIXMAP
+PNG
 PRELIGHT
 PackageNames
 Pango's
@@ -408,11 +417,13 @@ SeparatorToolItems
 SignalHandler
 Singh
 SizeGroup
+SlashTime
 SmartyPants
 SourceForge
 SpinButton
 Srichand
 StateType
+StatusBar
 StatusIcon
 StatusIcon's
 StatusIcons
@@ -422,6 +433,7 @@ StockItems
 StorageType
 StringValue
 TODO
+TZ
 TestCase
 TestCaseGtk
 TestCases
@@ -470,9 +482,11 @@ UCHAR
 UINT
 ULONG
 UNMAP
+UTC
 Ubuntu
 UnitTests
 UnsatisfiedLinkError
+Unselect
 UnsupportedOperationException
 VBox
 VBoxes
@@ -604,6 +618,9 @@ connectSignal
 const
 constantFor
 copyMappingFile
+coronatedYear
+coronatedYearColumn
+countryNameColumn
 cp
 createAction
 createActionGroup
@@ -613,6 +630,7 @@ createButton
 createButtonWithLabel
 createButtonWithMnemonic
 createCalendar
+createCellRendererPixbuf
 createCellRendererText
 createCheckButton
 createCheckButtonWithMnemonic
@@ -675,6 +693,7 @@ createVSeparator
 createValue
 createWindow
 createWithLabel
+currentTimeMillis
 cwd
 cycleGarbageCollector
 cycleMainLoop
@@ -753,6 +772,7 @@ flagFor
 fmt
 forName
 foreach
+formatTime
 formatter
 foss
 fullscreen
@@ -772,6 +792,7 @@ generateHeaderFiles
 generateTests
 generateTranslationAndJniLayers
 gentoo
+george
 getAbsolutePath
 getAction
 getActive
@@ -788,6 +809,7 @@ getChildSecondary
 getChildren
 getClass
 getCode
+getCoronationYear
 getCurrentFolder
 getDeclaredConstructor
 getDisplayOptions
@@ -801,6 +823,7 @@ getFilename
 getFirstIter
 getFixedHeightMode
 getFlags
+getFormalName
 getGreen
 getHAdjustment
 getHadjustment
@@ -834,6 +857,7 @@ getParent
 getPixbuf
 getPointer
 getPointerFromHandle
+getPortrait
 getPosition
 getPositionX
 getPositionY
@@ -845,6 +869,7 @@ getPropertyFloat
 getPropertyObject
 getPropertyString
 getRed
+getReference
 getRelief
 getResource
 getResourceAsStream
@@ -869,6 +894,7 @@ getString
 getSubmenu
 getText
 getTopLevel
+getTreeView
 getType
 getURI
 getUri
@@ -877,6 +903,7 @@ getVAdjustment
 getVadjustment
 getValue
 getValueString
+getView
 getVisibility
 getVisible
 getWidget
@@ -1003,6 +1030,7 @@ lt
 mainIterationDo
 mainQuit
 makeJarFile
+makeTime
 md
 mem
 menuBar
@@ -1011,6 +1039,7 @@ methodID
 methodName
 methodSignature
 mkdir
+mktime
 mnemonicLabel
 mockup
 mockups
@@ -1019,6 +1048,9 @@ modifyBackground
 modifyBase
 modifyBg
 modifyStyle
+monarchName
+monarchNameColumn
+monarchObjectColumn
 moveWidget
 msg
 multi
@@ -1076,6 +1108,7 @@ onSelectAll
 onSelectionChanged
 onSizeChanged
 onToggled
+onUnmapEvent
 onValueChanged
 onVisibilityNotifyEvent
 online
@@ -1104,7 +1137,9 @@ png
 pointerOf
 popen
 popup
+popupStatusIcon
 popups
+portraitColumn
 pos
 pre
 preconfigured
@@ -1220,6 +1255,7 @@ setModel
 setOrdinal
 setOrientation
 setPadding
+setPixbuf
 setPolicy
 setPosition
 setProperty
@@ -1232,6 +1268,7 @@ setPropertyLabel
 setPropertyObject
 setPropertyPixbuf
 setPropertyString
+setReference
 setRelief
 setRighteous
 setRubberBanding
@@ -1245,6 +1282,7 @@ setSortColumnId
 setStick
 setSubmenu
 setText
+setTimeZone
 setTip
 setTitle
 setTooltip
@@ -1264,8 +1302,10 @@ setVisibleChars
 setWidthChars
 showAll
 shutil
+si
 sizeof
 skipInit
+slashtime
 solaris
 someFont
 sourceChanged
@@ -1279,6 +1319,7 @@ stepIncrement
 stockId
 str
 strfreev
+strftime
 strikethrough
 strsplit
 struct
@@ -1331,6 +1372,7 @@ typeName
 typeToSignature
 typedef
 typesToClassNames
+tzset
 ucfirst
 ui
 ul
@@ -1347,6 +1389,7 @@ unobscured
 unref
 unregisterConstant
 unregisterProxy
+unselectAll
 unstick
 updateHash
 uri
@@ -1380,3 +1423,4 @@ xscale
 yalign
 yscale
 zdefs
+zoneinfo
