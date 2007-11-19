@@ -478,6 +478,7 @@ def compileTestClasses():
 	pairs = dependsMapSourceFilesToTargetFiles("tests/generator/", ".java", "tmp/tests/", ".class")
 	pairs += dependsMapSourceFilesToTargetFiles("tests/bindings/", ".java", "tmp/tests/", ".class")
 	pairs += dependsMapSourceFilesToTargetFiles("tests/prototype/", ".java", "tmp/tests/", ".class")
+	pairs += dependsMapSourceFilesToTargetFiles("tests/screenshots/", ".java", "tmp/tests/", ".class")
 	pairs += dependsMapSourceFilesToTargetFiles("doc/examples/", ".java", "tmp/tests/", ".class")
 
 	changed = filesNeedBuilding(pairs)
