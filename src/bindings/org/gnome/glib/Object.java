@@ -63,6 +63,7 @@ public abstract class Object extends Proxy
         super(pointer);
         if (Debug.MEMORY_MANAGEMENT) {
             System.err.println("Object.<init>(long)\t\t" + this.toString());
+            System.err.flush();
         }
         GObject.addToggleRef(this);
     }

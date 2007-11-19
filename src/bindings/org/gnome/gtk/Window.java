@@ -51,6 +51,7 @@ public class Window extends Bin
 {
     protected Window(long pointer) {
         super(pointer);
+        GtkWindowOverride.dropUserRef(this);
     }
 
     /**
@@ -58,6 +59,7 @@ public class Window extends Bin
      */
     public Window() {
         super(GtkWindow.createWindow(WindowType.TOPLEVEL));
+        GtkWindowOverride.dropUserRef(this);
     }
 
     /**
@@ -71,6 +73,7 @@ public class Window extends Bin
      */
     public Window(WindowType type) {
         super(GtkWindow.createWindow(type));
+        GtkWindowOverride.dropUserRef(this);
     }
 
     /**
@@ -577,7 +580,7 @@ public class Window extends Bin
      * @since 4.0.5
      */
     public void present() {
-        GtkWindow.present(this);
+         GtkWindow.present(this);
     }
 
     /**
