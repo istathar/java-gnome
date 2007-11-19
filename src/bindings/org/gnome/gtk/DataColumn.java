@@ -36,7 +36,7 @@ package org.gnome.gtk;
 
 /**
  * Specify the data type of a column in a TreeModel tabular store and identify
- * its position for later reference. When instantiating a ListStore or
+ * its position for later reference. When instantiating a {@link ListStore} or
  * TreeStore you use an array of DataColumns to indicate the data type that
  * each column of the model is to hold.
  * 
@@ -81,6 +81,7 @@ package org.gnome.gtk;
  * and then instantiate them;
  * 
  * <pre>
+ *     ...
  *     name = new DataColumnString();
  *     dob = new DataColumnString();
  *     dobSort = new DataColumnLong();

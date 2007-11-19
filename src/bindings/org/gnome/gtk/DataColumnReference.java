@@ -21,7 +21,8 @@ package org.gnome.gtk;
  * name or some other text field displayed in the TextView and attempt to use
  * that to look up the Account object back on the Java side, a much better
  * solution is to merely store a reference to the object that was the source
- * of the data in that row in the first place.
+ * of the data in that row in the first place. That's what DataColumnReference
+ * is for.
  * 
  * <p>
  * Simply call

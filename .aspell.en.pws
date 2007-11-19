@@ -589,6 +589,7 @@ connectSignal
 const
 constantFor
 copyMappingFile
+coronatedYear
 coronatedYearColumn
 countryNameColumn
 cp
@@ -1008,6 +1009,7 @@ modifyBackground
 modifyBase
 modifyBg
 modifyStyle
+monarchName
 monarchNameColumn
 monarchObjectColumn
 moveWidget
