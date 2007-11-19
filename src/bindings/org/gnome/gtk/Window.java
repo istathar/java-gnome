@@ -581,7 +581,7 @@ public class Window extends Bin
      * @since 4.0.5
      */
     public void present() {
-         GtkWindow.present(this);
+        GtkWindow.present(this);
     }
 
     /**
@@ -639,5 +639,56 @@ public class Window extends Bin
         GtkWindow.getSize(this, width, height);
 
         return height[0];
+    }
+
+    /**
+     * Set whether the Window is to be modal or not. Modal Windows prevent
+     * interaction with other application Windows.
+     * 
+     * <p>
+     * Non-modal Windows give user more flexibility to perform tasks within
+     * your application in any order (s)he wants. They're thus prefered for
+     * normal Windows. Modal Windows should only be used when the application
+     * really requires user to not interact with other Windows. It's main
+     * usage is in Dialogs.
+     * 
+     * <p>
+     * If you make a Window modal, you should provide a clear way to close the
+     * Window, such as Close or Cancel Button.
+     * 
+     * <p>
+     * Finally, it is convenient to make modal Windows to be transient for the
+     * parent, by calling {@link #setTransientFor(Window) setTransientFor()}.
+     * That way, the modal Window will be always on top, even if the user
+     * tries to interact with the parent, which is a good way to remember him
+     * that (s)he must close the modal Window before going on. Usage of modal
+     * Windows without making them transient could produce an ugly effect,
+     * because if the user tries to interact with the parent Window when the
+     * modal Window is below it, the situation can appear like a blocked
+     * application.
+     * 
+     * @param modal
+     *            <code>true</code> to make the Window modal,
+     *            <code>false</code> otherwise.
+     */
+    public void setModal(boolean modal) {
+        GtkWindow.setModal(this, modal);
+    }
+
+    /**
+     * Make a Window transient to other. This way, the window manager will
+     * keep the Window above the parent, even if the user tries to interact
+     * with the parent.
+     * 
+     * <p>
+     * This is specially useful with modal Windows.
+     * 
+     * @see #setModal(boolean)
+     * 
+     * @param parent
+     *            The Window this will be transient for.
+     */
+    public void setTransientFor(Window parent) {
+        GtkWindow.setTransientFor(this, parent);
     }
 }

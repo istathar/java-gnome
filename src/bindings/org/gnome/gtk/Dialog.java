@@ -88,7 +88,7 @@ public class Dialog extends Window
      * <pre>
      * d = new Dialog();
      * d.setTitle(title);
-     * d.setModel(model);
+     * d.setModal(modal);
      * d.setTransientFor(parent);
      * </pre>
      * 
