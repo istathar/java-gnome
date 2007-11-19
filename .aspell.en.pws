@@ -167,6 +167,7 @@ GdkEventType
 GdkEvents
 GdkGravity
 GdkPixbuf
+GdkPixbufFormat
 GdkScreen
 GdkWindow
 GdkWindowState
@@ -370,6 +371,7 @@ OpenSolaris
 OutOfMemoryError
 Overholt
 PIXMAP
+PNGs
 PRELIGHT
 PackageNames
 Pango's
@@ -379,6 +381,7 @@ Pendyala
 Piechotka
 Pixbuf's
 PixbufAnimation
+PixbufFormat
 PolicyType
 PowerResponseType
 PressMe
@@ -510,6 +513,7 @@ Vreixo
 WarningMessageDialog
 WeakHashMap
 WeakReference
+Wikipedia
 WindowPosition
 WindowState
 WindowType
@@ -566,6 +570,7 @@ blackdown
 blog
 bloggins
 blogs
+bmp
 boolean
 bootclasspath
 borderless
@@ -940,6 +945,7 @@ href
 hscrollbarPolicy
 html
 ibm
+ico
 iconWidget
 iconified
 ie
@@ -991,6 +997,7 @@ jnibook
 jobject
 jobjectArray
 joe
+jpeg
 jre
 jstring
 juju
@@ -1027,6 +1034,8 @@ loadLibrary
 lookup
 lookupType
 lookups
+lossless
+lossy
 lt
 mainIterationDo
 mainQuit

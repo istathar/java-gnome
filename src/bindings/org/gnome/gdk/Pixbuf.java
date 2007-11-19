@@ -119,13 +119,22 @@ public class Pixbuf extends org.gnome.glib.Object
      * Write this Pixbuf to a file.
      * 
      * <p>
-     * <b>WARNING signature to change!</b><br>
-     * FIXME The second argument should be strongly typed. Do we have image
-     * format constants anywhere?
+     * The various file formats that GDK is actually capable of writing to are
+     * specified by the constants on PixbufFormat. For example, you can save a
+     * screenshot as a PNG using:
+     * 
+     * <pre>
+     * Pixbuf p;
+     * ...
+     * 
+     * p.save(&quot;Screenshot.png&quot;, PixbufFormat.PNG);
+     * </pre>
+     * 
+     * @since 4.0.5
      */
-    public void save(String filename, String type) {
+    public void save(String filename, PixbufFormat type) {
         try {
-            GdkPixbuf.savev(this, filename, type, null, null);
+            GdkPixbuf.savev(this, filename, type.getName(), null, null);
         } catch (GlibException e) {
             // FIXME
             e.printStackTrace();

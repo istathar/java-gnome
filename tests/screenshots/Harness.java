@@ -13,6 +13,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 
 import org.gnome.gdk.Pixbuf;
+import org.gnome.gdk.PixbufFormat;
 import org.gnome.gtk.Gtk;
 import org.gnome.gtk.Snapshot;
 import org.gnome.gtk.SnapshotButton;
@@ -124,14 +125,15 @@ public final class Harness
 
                 image = Screenshot.capture();
 
-                image.save(f, "png");
+                image.save(f, PixbufFormat.PNG);
             }
-
+        } finally {
             /*
-             * And now tear down the virtual X server
+             * And now tear down the virtual X server and friends. This is far
+             * from bullet proof. As it is incredibly annoying when processes
+             * get orphaned, improvements to this would be welcome.
              */
 
-        } finally {
             if (xServerVirtual != null) {
                 xServerVirtual.destroy();
                 xServerVirtual.waitFor();
