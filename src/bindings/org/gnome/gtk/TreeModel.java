@@ -14,8 +14,8 @@ package org.gnome.gtk;
 import org.gnome.gdk.Pixbuf;
 
 /**
- * The data use as the model backing a TreeView. TreeModel comes in two
- * flavours which actually store data: ListStore, for a list of rows, and
+ * The data use as the model backing a {@link TreeView}. TreeModel comes in
+ * two flavours which actually store data: ListStore, for a list of rows, and
  * TreeStore, for data which has a hierarchical relationship between the rows.
  * 
  * <p>

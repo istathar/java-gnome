@@ -12,12 +12,12 @@
 package org.gnome.gtk;
 
 /**
- * Display the data from a TreeModel in a tabular form. TreeViews are
+ * Display the data from a {@link TreeModel} in a tabular form. TreeViews are
  * ubiquitous in most applications, being used to both output data in list
  * form, as well as allowing the user to select one or more items from a list.
  * TreeView is the view part of GTK's model-view-controller pattern list
  * Widget, with one of the TreeModel subclasses supplying the underlying data
- * model.
+ * model. <img src="TreeView.png" class="snapshot">
  * 
  * <p>
  * The TreeView API is very powerful, but with that power comes considerable
@@ -245,8 +245,8 @@ public class TreeView extends Container
         /**
          * The useful parameter is usually <code>path</code> which can be
          * converted into a TreeIter with your TreeModel's
-         * {@link TreeModel#getIter() getIter()} allowing you to then lookup a
-         * particular value from the data model. You rarely need
+         * {@link TreeModel#getIter(TreePath) getIter()} allowing you to then
+         * lookup a particular value from the data model. You rarely need
          * <code>vertical</code> but it can give you some indication in
          * which column the click happened.
          */
@@ -467,5 +467,21 @@ public class TreeView extends Container
      */
     public void connect(SELECT_ALL handler) {
         GtkTreeView.connect(this, handler);
+    }
+
+    /**
+     * Request that alternating colours be drawn in the background of the
+     * TreeView. You call this to let the theme engine know that the user
+     * would really be helped in comprehending the data you are presenting if
+     * the rows were drawn with alternating background colours so as to
+     * emphasize the difference between each line. Most themes honour this
+     * request.
+     * 
+     * <p>
+     * The default is <code>false</code>, not drawing alternating row
+     * colours.
+     */
+    public void setRulesHint(boolean setting) {
+        GtkTreeView.setRulesHint(this, setting);
     }
 }

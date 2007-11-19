@@ -15,13 +15,18 @@ package org.gnome.gtk;
  * A column of <code>int</code> values in a TreeModel.
  * 
  * <p>
- * When presenting numeric data in a TreeView it is often easier to convert to
- * a String on the Java side first and to store the data in a
- * DataColumnString. This, however, sometimes disrupts the natural sorting
- * order of the numeric data (and certainly will if arbitrary formatting or
- * markup is applied) and so an additional column of type DataColumnInteger
- * can be added containing the original numeric data as a sort index and
- * applied to the TreeViewColumn presenting that data with its
+ * Note that DataColumnInteger is used for passing information to CellRenderer
+ * property setters which take numeric values, not for rendering the numbers
+ * themselves.
+ * 
+ * <p>
+ * To actually present numeric data in a TreeView, convert it to a String on
+ * the Java side first and to store the data in a DataColumnString. This,
+ * however, sometimes disrupts the natural sorting order of the numeric data
+ * (and certainly will if arbitrary formatting or markup is applied) and so an
+ * additional column of type DataColumnInteger can be added containing the
+ * original numeric data as a sort index and applied to the TreeViewColumn
+ * presenting that data with its
  * {@link TreeViewColumn#setSortColumn(DataColumn) setSortColumn()}.
  * 
  * <p>

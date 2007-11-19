@@ -19,6 +19,7 @@ import org.gnome.gtk.Snapshot;
 import org.gnome.gtk.SnapshotButton;
 import org.gnome.gtk.SnapshotInfoMessageDialog;
 import org.gnome.gtk.SnapshotQuestionMessageDialog;
+import org.gnome.gtk.SnapshotTreeView;
 import org.gnome.gtk.SnapshotWindow;
 import org.gnome.gtk.Window;
 import org.gnome.screenshot.Screenshot;
@@ -101,7 +102,8 @@ public final class Harness
                     new SnapshotWindow(),
                     new SnapshotButton(),
                     new SnapshotInfoMessageDialog(),
-                    new SnapshotQuestionMessageDialog()
+                    new SnapshotQuestionMessageDialog(),
+                    new SnapshotTreeView()
             };
 
             /*
@@ -124,6 +126,8 @@ public final class Harness
                 Snapshot.cycleMainLoop();
 
                 image = Screenshot.capture();
+                
+                w.hide();
 
                 image.save(f, PixbufFormat.PNG);
             }

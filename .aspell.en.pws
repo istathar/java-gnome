@@ -379,7 +379,6 @@ OpenSolaris
 OutOfMemoryError
 Overholt
 PIXMAP
-PNG
 PNGs
 PRELIGHT
 PackageNames
@@ -435,6 +434,7 @@ SnapshotButton
 SnapshotDialog
 SnapshotInfoMessageDialog
 SnapshotQuestionMessageDialog
+SnapshotTreeView
 SnapshotWindow
 SourceForge
 SpinButton
@@ -563,6 +563,7 @@ arg
 argc
 args
 argv
+ascendedYear
 assertEquals
 assertFalse
 assertNotNull
@@ -645,6 +646,7 @@ constantFor
 copyMappingFile
 coronatedYear
 coronatedYearColumn
+countryName
 countryNameColumn
 cp
 createAction
@@ -1317,6 +1319,7 @@ setReference
 setRelief
 setRighteous
 setRubberBanding
+setRulesHint
 setSearchColumn
 setSearchEntry
 setSecondaryText
