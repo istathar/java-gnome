@@ -26,6 +26,7 @@ import org.gnome.gtk.ValidateOutParameters;
 import org.gnome.gtk.ValidatePacking;
 import org.gnome.gtk.ValidateProperties;
 import org.gnome.gtk.ValidateResponseType;
+import org.gnome.gtk.ValidateSnapshotUtilities;
 import org.gnome.gtk.ValidateStockItems;
 import org.gnome.gtk.ValidateTreeModel;
 import org.gnome.gtk.ValidateTreeView;
@@ -115,6 +116,7 @@ public class UnitTests
         suite.addTestSuite(ValidateResponseType.class);
         suite.addTestSuite(ValidateTreeModel.class);
         suite.addTestSuite(ValidateTreeView.class);
+        suite.addTestSuite(ValidateSnapshotUtilities.class);
 
         return suite;
     }

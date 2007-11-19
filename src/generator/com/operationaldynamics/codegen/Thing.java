@@ -141,6 +141,7 @@ public abstract class Thing
          * and for string arrays
          */
         register(new StringArrayThing("gchar**"));
+        register(new StringArrayThing("char**"));
 
         /* these seem a bit harder */
         register(new FixmeThing("const-gchar*[]"));

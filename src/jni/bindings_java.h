@@ -16,6 +16,7 @@
 #include <jni.h>
 #include <glib.h>
 #include <glib-object.h>
+#include <gdk-pixbuf/gdk-pixbuf.h>
 
 /*
  * bindings_java_util.c
@@ -79,5 +80,11 @@ extern void bindings_java_convert_gchararray_to_strarray(JNIEnv*, gchar**, jobje
 
 extern GType BINDINGS_JAVA_TYPE_REFERENCE;
 extern GType bindings_java_type_lookup(const gchar*);
+
+/*
+ * gnome_screenshot_capture.c
+ */
+
+extern GdkPixbuf* gnome_screenshot_capture(gboolean, gboolean, const gchar*);
 
 #endif 

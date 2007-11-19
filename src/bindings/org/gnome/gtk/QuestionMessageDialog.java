@@ -43,7 +43,7 @@ package org.gnome.gtk;
  * which will result in something like:
  * 
  * <p>
- * <img src="doc-files/QuestionMessageDialog.png">
+ * <img src="QuestionMessageDialog.png">
  * 
  * <p>
  * (depending on your theme, icon set, window manager preferences, of course).

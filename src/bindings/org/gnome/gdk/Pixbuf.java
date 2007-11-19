@@ -47,7 +47,7 @@ public class Pixbuf extends org.gnome.glib.Object
      */
     /*
      * Trapping an exception in a constructor is tricky; you have to use an
-     * auxilliary helper method.
+     * auxiliary helper method.
      */
     public Pixbuf(String filename) throws FileNotFoundException {
         super(checkPixbufFromFile(filename));
@@ -79,7 +79,7 @@ public class Pixbuf extends org.gnome.glib.Object
      * of the fourth parameter.
      * 
      * <p>
-     * If preserving the asaspect ratio,
+     * If preserving the aspect ratio,
      * <ul>
      * <li>width of <code>-1</code> will cause the image to be scaled to
      * the exact given height
@@ -94,7 +94,8 @@ public class Pixbuf extends org.gnome.glib.Object
      * 
      * @since 4.0.5
      */
-    public Pixbuf(String filename, int width, int height, boolean preserveAspectRatio) throws FileNotFoundException {
+    public Pixbuf(String filename, int width, int height, boolean preserveAspectRatio)
+            throws FileNotFoundException {
         super(checkPixbufFromFileAtScale(filename, width, height, preserveAspectRatio));
     }
 
@@ -111,6 +112,32 @@ public class Pixbuf extends org.gnome.glib.Object
         } catch (GlibException ge) {
             // FIXME change to something more image related.
             throw new RuntimeException(ge.getMessage());
+        }
+    }
+
+    /**
+     * Write this Pixbuf to a file.
+     * 
+     * <p>
+     * The various file formats that GDK is actually capable of writing to are
+     * specified by the constants on PixbufFormat. For example, you can save a
+     * screenshot as a PNG using:
+     * 
+     * <pre>
+     * Pixbuf p;
+     * ...
+     * 
+     * p.save(&quot;Screenshot.png&quot;, PixbufFormat.PNG);
+     * </pre>
+     * 
+     * @since 4.0.5
+     */
+    public void save(String filename, PixbufFormat type) {
+        try {
+            GdkPixbuf.savev(this, filename, type.getName(), null, null);
+        } catch (GlibException e) {
+            // FIXME
+            e.printStackTrace();
         }
     }
 }
