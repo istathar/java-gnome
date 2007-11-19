@@ -1,5 +1,5 @@
 /*
- * SnapshotWindow.java
+ * ScreenshotInfoMessageDialog.java
  *
  * Copyright (c) 2007 Operational Dynamics Consulting Pty Ltd
  * 
@@ -13,18 +13,17 @@ package org.gnome.gtk;
 /**
  * @author Andrew Cowie
  */
-public class SnapshotWindow extends Snapshot
+public class SnapshotInfoMessageDialog extends SnapshotDialog
 {
-    public SnapshotWindow() {
-        super(Window.class);
+    public SnapshotInfoMessageDialog() {
+        super(InfoMessageDialog.class);
 
-        window = new Window();
-        window.setTitle("Window");
+        window = new InfoMessageDialog(null, "You should feel privileged", "He hardly lands for anyone.");
     }
 
     public static void main(String[] args) {
         Gtk.init(args);
-        runExample(new SnapshotWindow());
+        runExample(new SnapshotInfoMessageDialog());
         Gtk.main();
     }
 }

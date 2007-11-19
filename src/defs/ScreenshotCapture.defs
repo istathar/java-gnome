@@ -1,5 +1,7 @@
 ;; This is entirely custom for our wrapper around the internals of
-;; gnome-screenshot as was imported into java-gnome.
+;; gnome-screenshot as was imported into java-gnome. It's not a Boxed. It's
+;; not anything really. In fact, it's so straight forward that I probably
+;; should have just coded it by hand after all.
 
 (define-boxed Capture
   (in-module "Screenshot")

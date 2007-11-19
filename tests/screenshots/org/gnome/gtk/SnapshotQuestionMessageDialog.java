@@ -13,7 +13,7 @@ package org.gnome.gtk;
 /**
  * @author Andrew Cowie
  */
-public class SnapshotQuestionMessageDialog extends Snapshot
+public class SnapshotQuestionMessageDialog extends SnapshotDialog
 {
     public SnapshotQuestionMessageDialog() {
         super(QuestionMessageDialog.class);

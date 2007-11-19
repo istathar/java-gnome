@@ -1,5 +1,5 @@
 /*
- * ScreenshotGtk.java
+ * Snapshot.java
  *
  * Copyright (c) 2007 Operational Dynamics Consulting Pty Ltd
  * 
@@ -44,7 +44,7 @@ public abstract class Snapshot
     private String target;
 
     /**
-     * Intantiate a new screenshot demo. The class you are doing a demo for
+     * Instantiate a new screenshot demo. The class you are doing a demo for
      * will be used to derive the target filename, ie Button.class ->
      * src/bindings/org/gnome/gtk/doc-files/Button.png
      */
@@ -71,6 +71,10 @@ public abstract class Snapshot
     /**
      * Run a single Screenshot wrapper in interactive mode so you can preview
      * it and check your work.
+     */
+    /*
+     * As noted elsewhere, I'm not super thrilled about this API. If anyone
+     * has an idea for making is sexier, let me know.
      */
     protected static void runExample(final Snapshot example) {
         final Pixbuf logo;

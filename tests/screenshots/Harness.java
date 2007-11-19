@@ -16,6 +16,7 @@ import org.gnome.gdk.Pixbuf;
 import org.gnome.gtk.Gtk;
 import org.gnome.gtk.Snapshot;
 import org.gnome.gtk.SnapshotButton;
+import org.gnome.gtk.SnapshotInfoMessageDialog;
 import org.gnome.gtk.SnapshotQuestionMessageDialog;
 import org.gnome.gtk.SnapshotWindow;
 import org.gnome.gtk.Window;
@@ -26,6 +27,14 @@ import org.gnome.screenshot.Screenshot;
  * capture images of each one for use in the API documentation.
  * 
  * @author Andrew Cowie
+ */
+/*
+ * FIXME This whole system is a bit of a hack with much ugliness.
+ * Instantiating the subordinate processes is messy, the list of the Snapshots
+ * to be run is in a terrible place, being able to cycling the main loop from
+ * here has to be fixed, and Pixbuf's save() has a terrible signature, and
+ * there's no progress reporting. Yuck. None of this is to be considered fixed
+ * API!
  */
 public final class Harness
 {
@@ -49,6 +58,9 @@ public final class Harness
              * draw there)
              * 
              * -wr white background
+             * 
+             * Don't try to force it to 32 bits per pixed in -screen; for some
+             * reason this makes Xvfb unable to start.
              */
 
             xServerVirtual = r.exec("/usr/bin/Xvfb " + DISPLAY + " -ac -dpi 96 -screen 0 640x480x24 -wr");
@@ -79,11 +91,16 @@ public final class Harness
             }
 
             /*
-             * Iterate over the class list
+             * Iterate over the class list. This is a TERRIBLE place to
+             * specify content like this. A Runner API like JUnit has would be
+             * far preferable.
              */
 
             demos = new Snapshot[] {
-                    new SnapshotWindow(), new SnapshotButton(), new SnapshotQuestionMessageDialog()
+                    new SnapshotWindow(),
+                    new SnapshotButton(),
+                    new SnapshotInfoMessageDialog(),
+                    new SnapshotQuestionMessageDialog()
             };
 
             /*

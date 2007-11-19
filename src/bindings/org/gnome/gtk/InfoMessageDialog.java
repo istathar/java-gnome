@@ -37,7 +37,7 @@ package org.gnome.gtk;
  * which will result in:
  * 
  * <p>
- * <img src="doc-files/InfoMessageDialog.png">
+ * <img src="InfoMessageDialog.png">
  * 
  * @author Andrew Cowie
  * @author Vreixo Formoso

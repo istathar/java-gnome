@@ -285,6 +285,7 @@ IdentityHashMap
 IllegalAccessException
 IllegalArgumentException
 IllegalStateException
+IllegalThreadStateException
 ImageType
 IndexError
 InfoMessageDialog
@@ -316,6 +317,7 @@ KeyListener
 Kpic
 LCA
 LDFLAGS
+LargeLogo
 Laszlo
 LibGlade
 Libre
@@ -345,7 +347,6 @@ MessageDialog
 MessageDialogs
 MessageType
 MessageTypes
-Metacity
 Microsystems
 Misc's
 MyButton
@@ -376,6 +377,7 @@ ParsedTree
 PascalCase
 Pendyala
 Piechotka
+Pixbuf's
 PixbufAnimation
 PolicyType
 PowerResponseType
@@ -404,6 +406,8 @@ RuntimeExceptions
 SWT
 Schmitz
 ScreenshotCapture
+ScreenshotInfoMessageDialog
+ScreenshotQuestionMessageDialog
 ScrolledWindow
 SelectionMode
 Sep
@@ -414,6 +418,11 @@ SignalHandler
 Singh
 SizeGroup
 SmartyPants
+SnapshotButton
+SnapshotDialog
+SnapshotInfoMessageDialog
+SnapshotQuestionMessageDialog
+SnapshotWindow
 SourceForge
 SpinButton
 Srichand
@@ -425,6 +434,7 @@ Statusbar
 StockItem
 StockItems
 StorageType
+StringBuffer
 StringValue
 TODO
 TestCase
@@ -510,6 +520,7 @@ XFree
 XINERAMA
 Xlib's
 Xml
+Xvfb
 Yeay
 accessibleByTrain
 accessors
@@ -583,6 +594,7 @@ center
 centered
 cfg
 cflags
+checkAlive
 checkPixbufFromFile
 checkPixbufFromFileAtScale
 checkpointHashes
@@ -716,6 +728,7 @@ dnd
 dobSort
 downcasting
 doxygen
+dpi
 dt
 ebuild
 ecj
@@ -742,6 +755,7 @@ esque
 eventsPending
 executables
 executeCommand
+exitValue
 extern
 fPIC
 fastjar
@@ -760,6 +774,7 @@ findFiles
 fjni
 flagFor
 fmt
+fnfe
 forName
 foreach
 formatter
@@ -860,6 +875,7 @@ getResourceAsStream
 getResponseId
 getRowstride
 getRubberBanding
+getRuntime
 getScaleX
 getScaleY
 getScreen
@@ -932,6 +948,7 @@ ifndef
 ijuma
 img
 inDir
+indexOf
 ing
 init
 inline
@@ -950,6 +967,7 @@ isdir
 isfile
 iter
 iterNext
+itse
 jN
 jamvm
 jararrayref
@@ -992,6 +1010,7 @@ lc
 ld
 len
 li
+libexec
 libgcj
 libglade
 libglib
@@ -1015,6 +1034,7 @@ makeJarFile
 md
 mem
 menuBar
+metacity
 metadata
 methodID
 methodName
@@ -1109,6 +1129,7 @@ php
 pixbuf
 pkgadd
 placeName
+plugin
 png
 pointerOf
 popen
@@ -1159,6 +1180,7 @@ returnType
 rowstride
 rpath
 runDemo
+runExample
 runJavaClass
 runTests
 runtime
@@ -1183,6 +1205,7 @@ setAlignmentX
 setAngle
 setBackground
 setBlinking
+setCharAt
 setChildSecondary
 setClickable
 setCurrentFolder
@@ -1275,6 +1298,7 @@ setVisibility
 setVisible
 setVisibleChars
 setWidthChars
+settingsDaemon
 showAll
 shutil
 sizeof
@@ -1311,6 +1335,7 @@ sys
 tabLabel
 targetDir
 targetExt
+targetFilenameFromClass
 tearDown
 testAvoidCyclicReferenceFromSignalHookup
 testButtonPropertyLabel
@@ -1350,6 +1375,7 @@ ul
 un
 undef
 undelete
+underTest
 unformatted
 unfullscreen
 unindent
@@ -1379,16 +1405,20 @@ virtualhost
 vscrollbarPolicy
 vsnprintf
 vte
+waitFor
 wb
 webserver
 wget
 whitespace
 wiki
 wikis
+windowManager
 workspaces
+wr
 writeJniCode
 writeTranslationCode
 x's
+xServerVirtual
 xalign
 xjf
 xscale
