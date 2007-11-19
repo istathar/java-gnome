@@ -686,7 +686,8 @@ public class Window extends Bin
      * @see #setModal(boolean)
      * 
      * @param parent
-     *            The Window this will be transient for.
+     *            The Window this will be transient for, or <code>null</code>
+     *            to prevent this Window for being transient.
      */
     public void setTransientFor(Window parent) {
         GtkWindow.setTransientFor(this, parent);
