@@ -306,7 +306,6 @@ def compileJavaCode(outputDir, classpath, sourcepath, sources):
 def runJavaClass(classname, classpath, librarypath=""):
 	cmd = config['JAVA'] + " "
 	cmd += "-classpath " + classpath + " "
-	cmd += "-ea "
 	if librarypath:
 		cmd += "-Djava.library.path=" + librarypath + " "
 	cmd += classname

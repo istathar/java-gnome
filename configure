@@ -1124,7 +1124,7 @@ if ($os eq "gentoo") {
 	} else {
 		$vendor = "System";
 	}
-	check_runtime($java, "$vendor java VM", $java_candidate, "-client");
+	check_runtime($java, "$vendor java VM", $java_candidate, "-client -ea");
 
 	# check gij (the bytecode interpreter from the GCJ project)
 	my $gij_candidate;
@@ -1175,7 +1175,7 @@ if ($os eq "gentoo") {
 		$java_candidate = which("java");
 		$vendor = "System";
 	}
-	check_runtime($java, "$vendor java VM", $java_candidate, "-client");
+	check_runtime($java, "$vendor java VM", $java_candidate, "-client -ea");
 
 	# check gij (the bytecode interpreter from the GCJ project). In Debian
 	# and Ubuntu the default version is provided by package gij.
@@ -1226,7 +1226,7 @@ if ($os eq "gentoo") {
 		$java_candidate = "/usr/lib/jvm/jre-ibm/bin/java";
 		$vendor = "IBM";
 	}
-	check_runtime($java, "$vendor java VM", $java_candidate, "-client");
+	check_runtime($java, "$vendor java VM", $java_candidate, "-client -ea");
 
 	# check gij (the bytecode interpreter from the GCJ project)
 	my $gij_candidate;
@@ -1267,7 +1267,7 @@ if ($os eq "gentoo") {
 		$java_candidate = "/usr/java/bin/java";
 	}
 
-	check_runtime($java, "Sun java VM", $java_candidate, "-client");
+	check_runtime($java, "Sun java VM", $java_candidate, "-client -ea");
 
 	# check gij (the bytecode interpreter from the GCJ project)
 	my $gij_candidate;
