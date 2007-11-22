@@ -267,6 +267,7 @@ GtkVSeparator
 GtkWidget
 GtkWidgetOverride
 GtkWindow
+GtkWindowOverride
 GtkWindowPosition
 GtkWindowType
 HBox
@@ -755,6 +756,7 @@ dobSort
 downcasting
 doxygen
 dpi
+dropUserRef
 dt
 ebuild
 ecj
@@ -1297,6 +1299,7 @@ setMaxLength
 setMaxWidthChars
 setMaximize
 setMenu
+setModal
 setMode
 setModel
 setOrdinal
