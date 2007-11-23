@@ -135,6 +135,7 @@ GBoxeds
 GClosure
 GClosureMarshall
 GClosureNotify
+GConf
 GEnumValues
 GError
 GFundamental
@@ -159,6 +160,7 @@ GTKish
 GToggleNotify
 GTypeInstance
 GUADEC
+GUIs
 GValue
 GValues
 GdkColor
@@ -528,6 +530,7 @@ Viewport
 VirtualHost
 VisibilityState
 Vreixo
+Wallach
 WarningMessageDialog
 WeakHashMap
 WeakReference
@@ -1225,6 +1228,7 @@ removePage
 removeToggleRef
 renderable
 renderer
+repo
 resize
 resized
 resizes

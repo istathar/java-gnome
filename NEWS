@@ -1,5 +1,131 @@
 NEWS
 
+<a name="4.0.5" id="1190798858" title="Coverage increasing"></a>
+
+java-gnome 4.0.5 (23 Nov 2007)
+==============================
+
+_TreeView coverage in place!_
+
+It's always a great feeling when you bag a milestone, and with this release we
+have reached a major goal on our way to having outstanding Java bindings for
+the GNOME platform: coverage of GTK's powerful yet complex TreeView & TreeModel
+API.
+
+TreeView
+--------
+
+TreeViews are a central part of almost every application. GUIs use lists for
+all sorts of things, and so a significant goal was to make coding TreeViews and
+their backing TreeModels as straight forward as possible.
+
+The most challenging part was to design the Java side API, which was no small
+matter. As a native library, the GtkTreeView API is complex and very much
+written with programming in the C language in mind, and as such our algorithmic
+mapping of the underlying libraries into Java doesn't entirely fit. Long
+experience with the TreeViews in the previous bindings had made it clear just
+how nasty to use the API could be, and so the hardest part of the work was to
+come up with a mapping and a usage pattern that would be both faithful to GTK
+_and_ be sensible to use.
+
+The other significant challenge was to document the work effectively. Our Java
+side API documentation is a major feature of java-gnome, and merely exposing
+classes and methods is not sufficient; they need to be clearly explained in our
+JavaDoc as well. Introduced in this release, then, are:
+
+* **`org.gnome.gtk.TreeView`**
+* **`org.gnome.gtk.TreeViewColumn`**
+* **`org.gnome.gtk.CellRenderer`**
+* **`org.gnome.gtk.CellRendererText`**
+* **`org.gnome.gtk.CellRendererPixbuf`**
+* **`org.gnome.gtk.TreeSelection`**
+* **`org.gnome.gtk.SelectionMode`**
+* **`org.gnome.gtk.TreeModel`**
+* **`org.gnome.gtk.ListStore`**
+* **`org.gnome.gtk.TreeIter`**
+* **`org.gnome.gtk.TreePath`**
+* **`org.gnome.gtk.Alignment`**
+
+along with numerous test cases in our unit test suite, and several
+comprehensively worked examples.
+
+This was a monster patch, and the culmination of not just three months direct
+effort, but also where we've been heading since we first started the
+re-engineering of Java bindings for GNOME. Although largely written by Andrew
+Cowie, a _significant_ contribution was made by Srichand Pendyala who not only
+exhaustively evaluated the design but also threw in some serious chunks of
+code. The work benefited from comprehensive input from Peter Miller on the
+modelling and design, and the comments of Bryan Clark, Owen Taylor, and Hanna
+Wallach were all really positive and helped us know that we'd gone in the right
+direction. Finally, thanks to Behdad Esfahbod and the GNOME Foundation who made
+it possible for us to meet in Boston at the GNOME Summit and so  accomplish
+much of the final pulling together of this branch.
+
+Continuing Improvement
+----------------------
+
+Meanwhile, steady work continues on to the fundamental base classes, with a
+whack of additional signals and methods on Widget and especially Window, along
+with expansion of coverage in numerous other classes:
+
+* **`org.gnome.gtk.Widget`**
+* **`org.gnome.gtk.Window`**
+* **`org.gnome.gtk.StateType`**
+* **`org.gnome.gdk.Color`**
+* **`org.gnome.gdk.VisibilityState`**
+* **`org.gnome.gdk.EventVisibility`**
+
+What else? We've begun to get the basics of image handling in place,
+
+* **`org.gnome.gdk.Pixbuf`**
+* **`org.gnome.gtk.Image`**
+* **`org.gnome.gtk.ImageMenuItem`**
+
+One nice piece of contributed work came from Vreixo Formoso and Thomas Schmitz
+with coverage of the Dialog Window functionality in GTK. It took a bit of doing
+to map the `int` response codes used by GTK into something suitably
+strongly-typed, but all good:
+
+* **`org.gnome.gtk.Dialog`**
+* **`org.gnome.gtk.ResponseType`**
+* **`org.gnome.gtk.MessageDialog`**
+* **`org.gnome.gtk.MessageType`**
+* **`org.gnome.gtk.ButtonsType`**
+* **`org.gnome.gtk.FileChooserDialog`**
+
+And finally, minor improvements to all sorts of stuff:
+
+* **`org.gnome.gtk.Container`**
+* **`org.gnome.gtk.Button`**
+* **`org.gnome.gtk.Box`**
+* **`org.gnome.gtk.Bin`**
+* **`org.gnome.gtk.Menu`**
+
+notably from new contributor Mario Torre. Awesome!
+
+For further details you can always run
+
+    $ bzr diff -r tag:v4.0.4..tag:v4.0.5
+
+to see the complete code delta.
+
+Coverage
+--------
+
+And we even got rid of 10 class stubs which we realized were deprecated in GTK.
+Hooray. 
+
+Looking ahead
+-------------
+
+This release marks a significant milestone for me, because...
+
+The next release ought to include preliminary coverage of GConf and Cairo.
+Doing each justice will again take a serious amount of work. java-gnome
+continues to grow in a fashion we can be proud of.
+
+AfC
+
 <a name="treeview" id="1194509646" title="Trees and Branches"></a>
 
 Trees and Branches
@@ -21,13 +147,13 @@ Dialog family of classes. This work has exposed a few bugs in our internals,
 but thanks to some expert help from Owen Taylor we should have that sorted out
 soon. Work to fix that is taking place on the '`delete`' branch.
 
-Andrew Cowie, helped by Behdad Esfabod, has begun work on a binding of the
+Andrew Cowie, helped by Behdad Esfahbod, has begun work on a binding of the
 Cairo library. This work is still experimental at this stage, but we'll merge
 this '`cairo`' branch in so we can to at least set the tone for what will be an
 exciting addition to java-gnome over the coming months.
 
 Once we land these branches we should be able to polish things up for the
-relase of 4.0.5, hopefully by the end of November.
+release of 4.0.5, hopefully by the end of November.
 
 AfC
 
