@@ -85,7 +85,7 @@ from source; it is written in Python and installs most anywhere).</p>
 <p>You can checkout the source code as follows:
 
 <pre>
-$ bzr checkout http://research.operationaldynamics.com/bzr/java-gnome/mainline/
+$ bzr checkout bzr://research.operationaldynamics.com/bzr/java-gnome/mainline/
 </pre>
 
 <p>We try our best to keep <code>mainline</code> in a buildable state, and

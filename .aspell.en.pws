@@ -9,6 +9,7 @@ AfC
 AllAboutJNI
 ArrayList
 Bassi
+Behdad
 Bhagat
 BindingsGenerator
 BindingsJavaClosure
@@ -90,6 +91,7 @@ Eeek
 Emmanuele
 EnumValue
 ErrorMessageDialog
+Esfahbod
 EventAny
 EventBox
 EventButton
@@ -387,6 +389,7 @@ Pango's
 ParsedTree
 PascalCase
 Pendyala
+Petteri
 Piechotka
 Pixbuf's
 PixbufAnimation
@@ -537,6 +540,7 @@ Wno
 Wouter
 XFree
 XINERAMA
+Xerces
 Xlib's
 Xml
 Xvfb
@@ -1212,6 +1216,7 @@ rb
 reentrant
 refactor
 refactored
+refactoring
 refactorings
 registerConstant
 registerProxy
@@ -1420,6 +1425,7 @@ touples
 trailHead
 treeview
 txt
+ty
 typeMapping
 typeName
 typeToSignature

@@ -88,7 +88,7 @@ of java-gnome 4.0, please see the pages in the <a
 href="doc/design/">documentation</a> section.
 
 <p class="note">This is an edited version of the Objectives and Audience <a
-href="doc/design/2a-ObjectiveAndAudience.html">proposal</a> proposal
+href="doc/design/2a-ObjectiveAndAudience.html">proposal</a>
 originally made by Andrew Cowie to the java-gnome-hackers mailing lists. These
 ideas have subsequently been presented at numerous events worldwide and have
 received enthusiastic support.</p>
