@@ -102,15 +102,16 @@ public interface FileChooser
      * Event generated when the selection in this FileChooser is changed. The
      * usual cause of this would be the user pressing "OK" in a
      * FileChooserDialog, of course, but it can also happen as a result of
-     * {@link #selectFilename(java.lang.String) selectFilename()} or
-     * {@link #selectURI(java.lang.String) selectURI()} being called.
+     * {@link FileChooser#selectFilename(java.lang.String) selectFilename()}
+     * or {@link FileChooser#selectURI(java.lang.String) selectURI()} being
+     * called.
      * 
      * <p>
      * <b>WARNING</b><br>
      * This signal will be replaced by <code>FILE_SET</code> in java-gnome
      * 4.0.5. <i>This signal being the only way to get at the selection in a
-     * <code>GtkFileChooserButton</code> a bug in GTK that has been fixed in
-     * 2.12.</i>
+     * <code>GtkFileChooserButton</code> is a bug in GTK that has been fixed
+     * in 2.12.</i>
      */
     public interface SELECTION_CHANGED extends GtkFileChooser.SELECTION_CHANGED
     {

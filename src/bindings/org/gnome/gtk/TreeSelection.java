@@ -154,7 +154,7 @@ public class TreeSelection extends Object
     /**
      * Select a row in the TreeView. We offer two forms; this one which takes
      * a TreePath and one which takes a TreeIter; see
-     * {@link #selectRow(TreeIter))} for the other. Use this one if you have
+     * {@link #selectRow(TreeIter)} for the other. Use this one if you have
      * want to express expressing the row you want selected in abstract,
      * logical form.
      */
@@ -165,7 +165,7 @@ public class TreeSelection extends Object
     /**
      * Select a row in the TreeView. We offer two forms; this one which takes
      * a TreeIter corresponding to a row in the underlying model, and another
-     * which takes a TreePath; see {@link #selectRow(TreePath))}.
+     * which takes a TreePath; see {@link #selectRow(TreePath)}.
      */
     public void selectRow(TreeIter row) {
         GtkTreeSelection.selectIter(this, row);

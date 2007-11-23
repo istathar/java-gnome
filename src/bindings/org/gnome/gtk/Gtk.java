@@ -196,8 +196,8 @@ public final class Gtk extends Glib
     /**
      * Set the icon that will be used for all Windows in this application that
      * do not have an one explicitly set. See the documentation for Window's
-     * {@link #setIcon(Pixbuf) setIcon()} for further details about how to
-     * specify icons.
+     * {@link Window#setIcon(Pixbuf) setIcon()} for further details about how
+     * to specify icons.
      * 
      * @since 4.0.5
      */
