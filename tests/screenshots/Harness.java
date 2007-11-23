@@ -17,6 +17,7 @@ import org.gnome.gdk.PixbufFormat;
 import org.gnome.gtk.Gtk;
 import org.gnome.gtk.Snapshot;
 import org.gnome.gtk.SnapshotButton;
+import org.gnome.gtk.SnapshotFileChooserDialog;
 import org.gnome.gtk.SnapshotInfoMessageDialog;
 import org.gnome.gtk.SnapshotQuestionMessageDialog;
 import org.gnome.gtk.SnapshotTreeView;
@@ -103,7 +104,8 @@ public final class Harness
                     new SnapshotButton(),
                     new SnapshotInfoMessageDialog(),
                     new SnapshotQuestionMessageDialog(),
-                    new SnapshotTreeView()
+                    new SnapshotTreeView(),
+                    new SnapshotFileChooserDialog()
             };
 
             /*
@@ -126,7 +128,7 @@ public final class Harness
                 Snapshot.cycleMainLoop();
 
                 image = Screenshot.capture();
-                
+
                 w.hide();
 
                 image.save(f, PixbufFormat.PNG);

@@ -15,7 +15,6 @@ import org.gnome.gdk.Event;
 import org.gnome.gdk.Pixbuf;
 import org.gnome.gdk.Screen;
 import org.gnome.gtk.Button;
-import org.gnome.gtk.FileChooser;
 import org.gnome.gtk.FileChooserAction;
 import org.gnome.gtk.FileChooserButton;
 import org.gnome.gtk.Gtk;
@@ -89,8 +88,8 @@ public final class Experiment
             }
         });
 
-        fcb.connect(new FileChooser.SELECTION_CHANGED() {
-            public void onSelectionChanged(FileChooser source) {
+        fcb.connect(new FileChooserButton.FILE_SET() {
+            public void onFileSet(FileChooserButton source) {
                 System.out.println("File selected:   " + source.getURI());
                 System.gc();
             }

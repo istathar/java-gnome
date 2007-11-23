@@ -12,6 +12,10 @@ img.snapshot {
 	vertical-align: top;
 }
 
+hr {
+	clear: both;
+}
+
 /*
  * The remainder of this file is verbatim from the default JavaDoc stylesheet.
  */

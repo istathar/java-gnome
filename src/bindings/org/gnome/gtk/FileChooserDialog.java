@@ -11,6 +11,7 @@
  */
 package org.gnome.gtk;
 
+import java.io.File;
 import java.net.URI;
 
 /**
@@ -119,7 +120,7 @@ public class FileChooserDialog extends Dialog implements FileChooser
         }
     }
 
-    public void connect(FileChooser.SELECTION_CHANGED handler) {
-        GtkFileChooser.connect(this, handler);
+    public boolean setFilename(File file) {
+        return GtkFileChooser.setFilename(this, file.getAbsolutePath());
     }
 }

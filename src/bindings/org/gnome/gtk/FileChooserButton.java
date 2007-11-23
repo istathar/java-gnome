@@ -11,6 +11,7 @@
  */
 package org.gnome.gtk;
 
+import java.io.File;
 import java.net.URI;
 
 /**
@@ -90,7 +91,30 @@ public class FileChooserButton extends HBox implements FileChooser
         }
     }
 
-    public void connect(SELECTION_CHANGED handler) {
-        GtkFileChooser.connect(this, handler);
+    /**
+     * Signal emitted when the file indicated by this FileChooserButton has
+     * been set by the user.
+     * 
+     * @author Andrew Cowie
+     * @since 4.0.5
+     */
+    public interface FILE_SET extends GtkFileChooserButton.FILE_SET
+    {
+        public void onFileSet(FileChooserButton source);
+    }
+
+    /**
+     * Hook up a callback to handle the <code>FILE_SET</code> signal
+     * generated when the file or directory has been selected by the user
+     * using this FileChooserButton.
+     * 
+     * @since 4.0.5
+     */
+    public void connect(FILE_SET handler) {
+        GtkFileChooserButton.connect(this, handler);
+    }
+
+    public boolean setFilename(File file) {
+        return GtkFileChooser.setFilename(this, file.getAbsolutePath());
     }
 }

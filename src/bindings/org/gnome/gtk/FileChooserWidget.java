@@ -11,6 +11,7 @@
  */
 package org.gnome.gtk;
 
+import java.io.File;
 import java.net.URI;
 
 /*
@@ -56,7 +57,8 @@ public class FileChooserWidget extends VBox implements FileChooser
         return null;
     }
 
-    public void connect(FileChooser.SELECTION_CHANGED handler) {
-    // TODO method stub to satisfy interface to permit compilation.
+    public boolean setFilename(File file) {
+        // TODO method stub to satisfy interface to permit compilation.
+        return false;
     }
 }

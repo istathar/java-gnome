@@ -10,6 +10,8 @@
  */
 package org.gnome.gtk;
 
+import java.io.File;
+
 /**
  * Test the use of interface FileChooser in FileChooserButton.
  * 
@@ -33,5 +35,17 @@ public class ValidateFileChoosing extends TestCaseGtk
          * A failure here could be because the main loop did not iterate
          * sufficiently, or perhaps the target doesn't exist, or...
          */
+    }
+
+    public final void testSelectFiles() {
+        final FileChooserDialog fcd;
+
+        fcd = new FileChooserDialog("", null, FileChooserAction.OPEN);
+        fcd.setCurrentFolder("/");
+
+        cycleMainLoop();
+
+        assertEquals("/", fcd.getCurrentFolder());
+        assertTrue(fcd.setFilename(new File("/etc/passwd")));
     }
 }

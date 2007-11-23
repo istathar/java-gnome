@@ -62,3 +62,7 @@
   )
 )
 
+(define-virtual file_set
+  (of-object "GtkFileChooserButton")
+  (return-type "none")
+)
