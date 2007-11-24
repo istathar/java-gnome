@@ -66,17 +66,20 @@ public final class Harness
              * reason this makes Xvfb unable to start.
              */
 
-            xServerVirtual = r.exec("/usr/bin/Xvfb " + DISPLAY + " -ac -dpi 96 -screen 0 640x480x24 -wr");
+            System.out.println("EXEC\tXvfb");
+            xServerVirtual = r.exec("/usr/bin/Xvfb " + DISPLAY + " -ac -dpi 96 -screen 0 800x600x24 -wr");
             Thread.sleep(1000);
             checkAlive(xServerVirtual, "Xvfb");
 
+            System.out.println("EXEC\tmetacity");
             windowManager = r.exec("/usr/bin/metacity --display=" + DISPLAY);
             Thread.sleep(100);
             checkAlive(windowManager, "metacity");
 
-            windowManager = r.exec("/usr/libexec/gnome-settings-daemon --display=" + DISPLAY);
+            System.out.println("EXEC\tgnome-settings-daemon");
+            settingsDaemon = r.exec("/usr/libexec/gnome-settings-daemon --display=" + DISPLAY);
             Thread.sleep(100);
-            checkAlive(windowManager, "gnome-settings-daemon");
+            checkAlive(settingsDaemon, "gnome-settings-daemon");
 
             Gtk.init(new String[] {
                 "--display=" + DISPLAY
@@ -123,6 +126,7 @@ public final class Harness
                 w = demos[i].getWindow();
                 f = demos[i].getFilename();
 
+                System.out.println("SNAP\t" + f);
                 w.showAll();
                 w.present();
                 Snapshot.cycleMainLoop();
@@ -141,14 +145,17 @@ public final class Harness
              */
 
             if (xServerVirtual != null) {
+                System.out.println("KILL\tXvfb");
                 xServerVirtual.destroy();
                 xServerVirtual.waitFor();
             }
             if (windowManager != null) {
+                System.out.println("KILL\tmetacity");
                 windowManager.destroy();
                 windowManager.waitFor();
             }
             if (settingsDaemon != null) {
+                System.out.println("KILL\tgnome-settings-daemon");
                 settingsDaemon.destroy();
                 settingsDaemon.waitFor();
             }

@@ -156,7 +156,7 @@ clean:
 		tmp/libgtkjava-*.so
 
 distclean: clean
-	@echo "RM\tbuild configuration information"
+	@echo -e "RM\tbuild configuration information"
 	-rm -f .config .config.tmp
 	@echo -e "RM\tgenerated documentation"
 	-rm -rf doc/api/*
