@@ -11,7 +11,6 @@
  */
 package org.gnome.gtk;
 
-import java.io.File;
 import java.net.URI;
 
 /**
@@ -24,6 +23,12 @@ import java.net.URI;
  * when activated).
  * 
  * <p>
+ * Be aware that much of FileChooser's internal behaviour depends on the main
+ * loop cycling; calls to methods like
+ * {@link #setCurrentFolder(String) setCurrentFolder()} and
+ * {@link #setFilename(String) setFilename()} will not actually take effect
+ * until you start the main loop or return from the current signal handler (as
+ * the case may be).
  * 
  * @author Andrew Cowie
  * @since 4.0.2
@@ -114,18 +119,28 @@ public interface FileChooser
      */
 
     /**
-     * Set the file you want selected in the FileChooser. If the folder
-     * currently showing in the FileChooser isn't the directory containing the
-     * filename you specify, then the FileChooser will be changed to that
-     * directory.
+     * Set the file you want selected in the FileChooser.
      * 
+     * <p>
+     * If the folder currently showing in the FileChooser isn't the directory
+     * containing the filename you specify, then the FileChooser will be
+     * changed to that directory.
+     * 
+     * @param filename
+     *            Must be an absolute path.
      * @return <code>true</code> if the the directory was changed (if
      *         necessary) and a file was successfully selected.
      * @since 4.0.5
      */
     /*
-     * Implementations had better call File's getAbsolutePath() because
-     * GtkFileChooser.setFilename() requires an absolute filename.
+     * Calling this method is the equivalent of calling unselectAll() then
+     * selectFilename(filename).
+     * 
+     * I was thus very tempted not to expose this, but it makes a better
+     * complement to getFilename() than selectFilename() and so decided not to
+     * expose the latter after all. If anyone ever implements multiple
+     * selection they can [re]add it, but this is nice and clean at the
+     * moment.
      */
-    public boolean setFilename(File file);
+    public boolean setFilename(String filename);
 }

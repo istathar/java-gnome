@@ -11,6 +11,7 @@
 package org.gnome.gtk;
 
 import java.io.File;
+import java.io.IOException;
 
 /**
  * @author Andrew Cowie
@@ -23,8 +24,17 @@ public class SnapshotFileChooserDialog extends SnapshotDialog
         final FileChooserDialog dialog;
 
         dialog = new FileChooserDialog("Pick a file", null, FileChooserAction.OPEN);
-        dialog.setFilename(new File("/home/andrew/src/andrew/java-gnome/mainline/NEWS"));
-        
+        try {
+            dialog.setFilename(new File("../mainline", "AUTHORS").getCanonicalPath());
+        } catch (IOException ie) {
+            System.err.println("Couldn't extract the canonical path. Go figure");
+            ie.printStackTrace();
+            /*
+             * And carry on. Not great, but if you're not the person
+             * publishing the website, whatever.
+             */
+        }
+
         window = dialog;
     }
 

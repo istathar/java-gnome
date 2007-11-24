@@ -117,6 +117,7 @@ ExceptionDescribe
 ExceptionOccurred
 FIXME
 FileChooser
+FileChooser's
 FileChooserAction
 FileChooserActions
 FileChooserButton
@@ -1278,6 +1279,7 @@ setEllipsize
 setEnableSearch
 setEventsVisibility
 setExpand
+setFilename
 setFixedHeightMode
 setFocusOnClick
 setForeground

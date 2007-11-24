@@ -11,7 +11,6 @@
  */
 package org.gnome.gtk;
 
-import java.io.File;
 import java.net.URI;
 
 /**
@@ -114,7 +113,11 @@ public class FileChooserButton extends HBox implements FileChooser
         GtkFileChooserButton.connect(this, handler);
     }
 
-    public boolean setFilename(File file) {
-        return GtkFileChooser.setFilename(this, file.getAbsolutePath());
+    public boolean setFilename(String filename) {
+        if (filename.charAt(0) == '/') {
+            return GtkFileChooser.setFilename(this, filename);
+        } else {
+            throw new IllegalArgumentException("The filename argument must be an absolute path");
+        }
     }
 }

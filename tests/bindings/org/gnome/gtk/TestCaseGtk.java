@@ -69,16 +69,15 @@ public class TestCaseGtk extends TestCase
          * the only thing that the main loop does! Then continue by working
          * off whatever has accumulated.
          */
-        Gtk.mainIterationDo(false);
-
-        while (Gtk.eventsPending()) {
+        do {
             Gtk.mainIterationDo(false);
             try {
-                Thread.sleep(10);
+                Thread.yield();
+                Thread.sleep(50);
             } catch (InterruptedException e) {
-                // ignore
+                // 
             }
-        }
+        } while (Gtk.eventsPending());
     }
 
     /**
