@@ -131,9 +131,6 @@ Building and requirements
 The library now depends on GTK >= 2.12. Those packaging java-gnome for their
 distributions please take note.
 
-java-gnome now builds on Arch Linux and is packaged there. Thanks to Timm
-Preetz for having done the legwork for this!
-
 Looking ahead
 -------------
 
@@ -149,6 +146,16 @@ continue to grow the fun things you can do with java-gnome.
 AfC
 
 [example-treeview]: http://research.operationaldynamics.com/bzr/java-gnome/mainline/doc/examples/treeview/ExampleTrailHeads.java
+
+<a name="arch" id="1195662600" title="Packaged in Arch Linux"></a>
+
+Arch packages
+=============
+
+java-gnome now builds on [Arch Linux](http://www.archlinux.org/) and is
+packaged there. Thanks to Timm Preetz for having done the legwork for this!
+
+AfC
 
 <a name="treeview" id="1194509646" title="Trees and Branches"></a>
 
