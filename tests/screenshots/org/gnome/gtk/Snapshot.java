@@ -83,7 +83,7 @@ public abstract class Snapshot
         w = example.window;
 
         try {
-            logo = new Pixbuf("web/public/images/java-gnome_LargeLogo.png");
+            logo = new Pixbuf("src/bindings/java-gnome_Icon.png");
             Gtk.setDefaultIcon(logo);
         } catch (FileNotFoundException fnfe) {
             System.err.println("Where's the logo?");

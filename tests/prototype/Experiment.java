@@ -98,7 +98,7 @@ public final class Experiment
         b.setTooltipText("Pressing this Button will result in some output");
 
         try {
-            logo = new Pixbuf("web/public/images/java-gnome_LargeLogo.png");
+            logo = new Pixbuf("src/bindings/java-gnome_Icon.png");
             w.setIcon(logo);
         } catch (FileNotFoundException fnfe) {
             System.err.println("Where's the logo?");

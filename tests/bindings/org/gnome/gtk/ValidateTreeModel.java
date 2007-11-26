@@ -294,7 +294,7 @@ public class ValidateTreeModel extends TestCaseGtk
         });
 
         row = model.appendRow();
-        image = new Pixbuf("web/public/images/java-gnome_JavaDocLogo.png");
+        image = new Pixbuf("src/bindings/java-gnome_Icon.png");
 
         model.setValue(row, column, image);
 

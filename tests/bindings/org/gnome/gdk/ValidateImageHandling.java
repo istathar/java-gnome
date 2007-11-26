@@ -37,9 +37,9 @@ public class ValidateImageHandling extends TestCaseGtk
         }
 
         try {
-            new Pixbuf("web/public/images/java-gnome_JavaDocLogo.png");
+            new Pixbuf("src/bindings/java-gnome_Icon.png");
         } catch (FileNotFoundException fnfe) {
-            fail("Target file should exist. Did someone refactor the website?");
+            fail("Target file should exist. Did someone refactor the logo image?");
         }
     }
 }
