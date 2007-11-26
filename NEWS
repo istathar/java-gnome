@@ -112,18 +112,16 @@ to see the complete code delta.
 Screenshots
 -----------
 
-For fun we built in a capability to create demonstrations to be captured as
-screenshots to illustrate various things. It doesn't get more basic than the
-Window example for the
-[org.gnome.gtk.Window](doc/api/org/gnome/gtk/Window.html) page:
-
-![a snapshot of a Window](doc/api/org/gnome/gtk/Window.png)
-
-but it's a nice touch. `:)` We've screenshots for a number of Dialog classes
-and one for the TreeView page. I imagine we'll build up a nice library of
-images in the next few months (yes, dear contributors, you can add snapshots
-to the list of things we'll be expecting along with well written documentation
-and unit tests when submitting additions to the public API).
+<img src="doc/api/org/gnome/gtk/Window.png" alt="" style="float: right;
+text-align: right; padding-left: 15px;" /> For fun we built in a capability to
+create demonstrations to be captured as screenshots to illustrate various
+things. It doesn't get more basic than the example on the
+[`Window`][api-Window] documentation page, but it's a nice touch. `:)` We've
+screenshots for a number of Dialog classes and one for the TreeView page. I
+imagine we'll build up a nice library of images in the next few months (yes,
+dear contributors, you can add snapshots to the list of things we'll be
+expecting along with well written documentation and unit tests when submitting
+additions to the public API).
 
 Building and requirements
 -------------------------
@@ -146,6 +144,7 @@ continue to grow the fun things you can do with java-gnome.
 AfC
 
 [example-treeview]: http://research.operationaldynamics.com/bzr/java-gnome/mainline/doc/examples/treeview/ExampleTrailHeads.java
+[api-window]: doc/api/org/gnome/gtk/Window.html
 
 <a name="arch" id="1195662600" title="Packaged in Arch Linux"></a>
 
