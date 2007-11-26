@@ -1,37 +1,37 @@
 NEWS
 
-<a name="4.0.5" id="1190798858" title="Coverage increasing"></a>
+<a name="4.0.5" id="1196060444" title="TreeView is here"></a>
 
-java-gnome 4.0.5rc1 (23 Nov 2007)
+java-gnome 4.0.5 (26 Nov 2007)
 =================================
 
-_TreeView coverage in place!_
+_TreeView is here!_
 
 It's always a great feeling when you bag a milestone, and with this release we
 have reached a major goal on our way to having outstanding Java bindings for
-the GNOME platform: coverage of GTK's powerful yet complex TreeView & TreeModel
-API.
+the GNOME platform: coverage of GTK's powerful yet complex TreeView &
+TreeModel API.
 
 TreeView
 --------
 
 TreeViews are a central part of almost every application. GUIs use lists for
-all sorts of things, and so a significant goal was to make coding TreeViews and
-their backing TreeModels as straight forward as possible.
+all sorts of things, and so a significant goal was to make coding TreeViews
+and their backing TreeModels as straight forward as possible.
 
-The most challenging part was to design the Java side API, which was no small
-matter. As a native library, the GtkTreeView API is complex and very much
-written with programming in the C language in mind, and as such our algorithmic
-mapping of the underlying libraries into Java doesn't entirely fit. Long
-experience with the TreeViews in the previous bindings had made it clear just
-how nasty to use the API could be, and so the hardest part of the work was to
-come up with a mapping and a usage pattern that would be both faithful to GTK
-_and_ be sensible to use.
+The most challenging and complex part was to design the Java side API, which
+was no small matter. As a native library, the GtkTreeView API is complex and
+very much written with programming in the C language in mind, and as such our
+algorithmic mapping of the underlying libraries into Java doesn't entirely
+fit. Long experience with the TreeViews in the previous bindings had made it
+clear just how nasty to use the API could be, and so the hardest part of the
+work was to come up with a mapping and a usage pattern that would be both
+faithful to GTK _and_ be sensible to use.
 
 The other significant challenge was to document the work effectively. Our Java
 side API documentation is a major feature of java-gnome, and merely exposing
-classes and methods is not sufficient; they need to be clearly explained in our
-JavaDoc as well. Introduced in this release, then, are:
+classes and methods is not sufficient; they need to be clearly explained in
+our JavaDoc as well. Introduced in this release, then, are:
 
 * **`org.gnome.gtk.TreeView`**
 * **`org.gnome.gtk.TreeViewColumn`**
@@ -47,7 +47,7 @@ JavaDoc as well. Introduced in this release, then, are:
 * **`org.gnome.gtk.Alignment`**
 
 along with numerous test cases in our unit test suite, and several
-comprehensively worked examples.
+comprehensively worked [examples][example-treeview].
 
 This was a monster patch, and the culmination of not just three months direct
 effort, but also where we've been heading since we first started the
@@ -56,10 +56,10 @@ Cowie, a _significant_ contribution was made by Srichand Pendyala who not only
 exhaustively evaluated the design but also threw in some serious chunks of
 code. The work benefited from comprehensive input from Peter Miller on the
 modelling and design, and the comments of Bryan Clark, Owen Taylor, and Hanna
-Wallach were all really positive and helped us know that we'd gone in the right
-direction. Finally, thanks to Behdad Esfahbod and the GNOME Foundation who made
-it possible for us to meet in Boston at the GNOME Summit and so  accomplish
-much of the final pulling together of this branch.
+Wallach were all really positive and helped us know that we'd gone in the
+right direction. Finally, thanks to Behdad Esfahbod and the GNOME Foundation
+who made it possible for us to meet in Boston at the GNOME Summit and so
+accomplish much of the final pulling together of this branch.
 
 Continuing Improvement
 ----------------------
@@ -82,8 +82,8 @@ What else? We've begun to get the basics of image handling in place,
 * **`org.gnome.gtk.ImageMenuItem`**
 
 One nice piece of contributed work came from Vreixo Formoso and Thomas Schmitz
-with coverage of the Dialog Window functionality in GTK. It took a bit of doing
-to map the `int` response codes used by GTK into something suitably
+with coverage of the Dialog Window functionality in GTK. It took a bit of
+doing to map the `int` response codes used by GTK into something suitably
 strongly-typed, but all good:
 
 * **`org.gnome.gtk.Dialog`**
@@ -103,28 +103,52 @@ And finally, minor improvements to all sorts of stuff:
 
 notably from new contributor Mario Torre. Awesome!
 
-For further details you can always run
+For further details you can always grab a copy of the sources and run
 
     $ bzr diff -r tag:v4.0.4..tag:v4.0.5
 
 to see the complete code delta.
 
-Coverage
---------
+Screenshots
+-----------
 
-And we even got rid of 10 class stubs which we realized were deprecated in GTK.
-Hooray. 
+For fun we built in a capability to create demonstrations to be captured as
+screenshots to illustrate various things. It doesn't get more basic than the
+Window example for the
+[org.gnome.gtk.Window](doc/api/org/gnome/gtk/Window.html) page:
+
+![a snapshot of a Window](doc/api/org/gnome/gtk/Window.png)
+
+but it's a nice touch. `:)` We've screenshots for a number of Dialog classes
+and one for the TreeView page. I imagine we'll build up a nice library of
+images in the next few months (yes, dear contributors, you can add snapshots
+to the list of things we'll be expecting along with well written documentation
+and unit tests when submitting additions to the public API).
+
+Building and requirements
+-------------------------
+
+The library now depends on GTK >= 2.12. Those packaging java-gnome for their
+distributions please take note.
+
+java-gnome now builds on Arch Linux and is packaged there. Thanks to Timm
+Preetz for having done the legwork for this!
 
 Looking ahead
 -------------
 
-This release marks a significant milestone for me, because...
+Continuing to expand the coverage levels in the classes already exposed will
+continue to dominate our attention; there's still a long way to go but we're
+pleased with the progress we've made so far; you can definitely build real
+applications with java-gnome now.
 
-The next release ought to include preliminary coverage of GConf and Cairo.
-Doing each justice will again take a serious amount of work. java-gnome
-continues to grow in a fashion we can be proud of.
+The next release also ought to include preliminary coverage of GConf and
+Cairo. Doing each justice will again take a serious amount of work, but will
+continue to grow the fun things you can do with java-gnome.
 
 AfC
+
+[example-treeview]: http://research.operationaldynamics.com/bzr/java-gnome/mainline/doc/examples/treeview/ExampleTrailHeads.java
 
 <a name="treeview" id="1194509646" title="Trees and Branches"></a>
 
