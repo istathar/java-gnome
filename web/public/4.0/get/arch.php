@@ -27,11 +27,60 @@
 ?>
 <h1 class="title">Installing java-gnome on Arch Linux</h1>
 
-<p>Packages now exist to allow you to easily install the java-gnome library
-on an Arch Linux system.</p>
+<p>Package files now exist to allow you to easily install the java-gnome
+library on an Arch Linux system.</p>
 
-<p>The following command should install the latest released version of the
-bindings: <span class="highlight">FIXME</span></p>
+<h1>Installing java-gnome from AUR</h1>
+
+<p>As java-gnome is not yet in [extra] or [community] you will need to fetch
+the PKGBUILD and build the package yourself. But don't worry, this is easily
+done in four steps.</p>
+
+<p>First, create a build directory for java-gnome and change into it</p>
+<pre>
+$ mkdir java-gnome_builddir && cd java-gnome_builddir
+</pre>
+
+<p>Now fetch the PKGBUILD</p>
+<pre>
+$ wget http://aur.archlinux.org/packages/java-gnome/java-gnome/PKGBUILD
+</pre>
+
+<p>Build the package with <i>makepkg</i></p>
+<pre>
+$ makepkg
+</pre>
+
+<p>Finally, login as root (using <i>su</i>) and install the package</p>
+<pre>
+# pacman -U java-gnome-*.pkg.tar.gz
+</pre>
+
+<h1>Installing java-gnome-docs from AUR</h1>
+
+<p>If you would like to read the java-gnome documentation offline, you can also
+get the java-gnome-docs package from AUR.</p>
+
+<p>Again, we create a builddir for java-gnome-docs and switch into it</p>
+<pre>
+$ mkdir java-gnome-docs_builddir && cd java-gnome-docs_builddir
+</pre>
+
+<p>Now we will fetch the build-instructions package which includes the
+PKGBUILD</p>
+<pre>
+$ wget http://aur.archlinux.org/packages/java-gnome-docs/java-gnome-docs.tar.gz
+</pre>
+
+<p>Extract that file and build the package with <i>makepkg</i></p>
+<pre>
+$ tar -xfvz java-gnome-docs.tar.gz && makepkg
+</pre>
+
+<p>Finally, login as root (using <i>su</i>) and install the package</p>
+<pre>
+# pacman -U java-gnome-docs*.pkg.tar.gz
+</pre>
 
 <?
 	template_end();
