@@ -68,12 +68,24 @@ public class TestCaseGtk extends TestCase
          * Lead off with one iteration no matter what. Pending events aren't
          * the only thing that the main loop does! Then continue by working
          * off whatever has accumulated.
+         * 
+         * The business with the yields and sleeps is a bit of a stab in the
+         * dark. I'm not sure why some tests fail without this - and we keep
+         * having to tweak it further. It'd be nice not to have to mess with
+         * this (other than the fact that we shouldn't really have to do this
+         * at all except that we can't fire off a main loop for real).
          */
         do {
+            try {
+                Thread.yield();
+                Thread.sleep(25);
+            } catch (InterruptedException e) {
+                // 
+            }
             Gtk.mainIterationDo(false);
             try {
                 Thread.yield();
-                Thread.sleep(50);
+                Thread.sleep(25);
             } catch (InterruptedException e) {
                 // 
             }
