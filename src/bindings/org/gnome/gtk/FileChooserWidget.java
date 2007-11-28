@@ -11,7 +11,6 @@
  */
 package org.gnome.gtk;
 
-import java.io.File;
 import java.net.URI;
 
 /*

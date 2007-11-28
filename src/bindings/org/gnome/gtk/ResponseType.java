@@ -11,8 +11,6 @@
  */
 package org.gnome.gtk;
 
-import java.util.HashMap;
-
 import org.freedesktop.bindings.Constant;
 
 /**
