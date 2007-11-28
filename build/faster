@@ -484,7 +484,7 @@ def compileTestClasses():
 	if not changed:
 		return
 
-	compileJavaCode("tmp/tests/", "tmp/generator:tmp/bindings/:"+config['JUNIT_JARS'], "tests/generator/:tests/bindings/:tests/prototype/", changed)
+	compileJavaCode("tmp/tests/", "tmp/generator:tmp/bindings/:"+config['JUNIT_JARS'], "tests/generator/:tests/bindings/:tests/prototype/:tests/screenshots/", changed)
 
 
 
