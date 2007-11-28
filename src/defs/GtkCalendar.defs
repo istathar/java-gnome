@@ -84,9 +84,9 @@
   (c-name "gtk_calendar_get_date")
   (return-type "none")
   (parameters
-    '("guint*" "year")
-    '("guint*" "month")
-    '("guint*" "day")
+    '("guint*" "year" (null-ok))
+    '("guint*" "month" (null-ok))
+    '("guint*" "day" (null-ok))
   )
 )
 

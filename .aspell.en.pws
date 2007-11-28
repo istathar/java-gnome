@@ -855,6 +855,10 @@ getClass
 getCode
 getCoronationYear
 getCurrentFolder
+getDate
+getDateDay
+getDateMonth
+getDateYear
 getDeclaredConstructor
 getDisplayOptions
 getDraw
@@ -1254,8 +1258,10 @@ screenshots
 scrollbar
 scrollbars
 segfaulted
+selectDay
 selectFilename
 selectIter
+selectMonth
 selectPath
 selectRow
 selectURI
@@ -1459,6 +1465,7 @@ unobscured
 unref
 unregisterConstant
 unregisterProxy
+unselect
 unselectAll
 unstick
 updateHash

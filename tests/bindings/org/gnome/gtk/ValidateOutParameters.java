@@ -44,4 +44,44 @@ public class ValidateOutParameters extends TestCaseGtk
         assertEquals(6, a.getPaddingLeft());
         assertEquals(12, a.getPaddingRight());
     }
+
+    public final void testCalendarSelectingDate() {
+        final Calendar c;
+
+        c = new Calendar();
+
+        c.selectMonth(9, 2001);
+        c.selectDay(11);
+
+        assertEquals(2001, c.getDateYear());
+        assertEquals(9, c.getDateMonth());
+        assertEquals(11, c.getDateDay());
+    }
+
+    public final void testCalendarRanges() {
+        final Calendar c;
+
+        c = new Calendar();
+
+        try {
+            c.selectMonth(0, 2007);
+            fail();
+        } catch (IllegalArgumentException iae) {
+            // good
+        }
+
+        try {
+            c.selectMonth(13, 2007);
+            fail();
+        } catch (IllegalArgumentException iae) {
+            // good
+        }
+
+        try {
+            c.selectDay(-1);
+            fail();
+        } catch (IllegalArgumentException iae) {
+            // good
+        }
+    }
 }
