@@ -359,6 +359,22 @@ public abstract class Widget extends org.gnome.gtk.Object
     }
 
     /**
+     * Set the colour used for text rendered by this Widget. This is the
+     * foreground colour; to change the background colour behind text use
+     * {@link #modifyBase(StateType, Color) modifyBase()}.
+     * 
+     * <p>
+     * This is one of a family of "<code>modify</code>" methods; see
+     * {@link #modifyStyle(Widget, RcStyle) modifyStyle()} for further details
+     * about the interaction of the various theming and style mechanisms.
+     * 
+     * @since 4.0.6
+     */
+    public void modifyText(StateType state, Color color) {
+        GtkWidget.modifyText(this, state, color);
+    }
+
+    /**
      * A signal providing notification that the Widget has been obscured or
      * unobscured. To use this, go through the supplied <code>event</code>
      * parameter to get to the VisibilityState as follows:
