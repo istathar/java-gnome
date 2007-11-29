@@ -11,14 +11,26 @@
  */
 package org.gnome.gtk;
 
-/*
- * FIXME this is a placeholder stub for what will become the public API for
- * this type. Replace this comment with appropriate javadoc including author
- * and since tags. Note that the class may need to be made abstract, implement
- * interfaces, or even have its parent changed. No API stability guarantees
- * are made about this class until it has been reviewed by a hacker and this
- * comment has been replaced.
+/**
+ * Methods common to Widgets which allow the line of text they display to be
+ * edited.
+ * 
+ * @author Andrew Cowie
+ * @since 4.0.6
  */
 public interface Editable
 {
+    /**
+     * Set the position of the cursor in this Editable. The cursor will be put
+     * before the character at the position indicated.
+     * 
+     * @param position
+     *            The value given must be less than or equal to the number of
+     *            characters currently in the Editable field. Supplying a
+     *            value of <code>-1</code> will cause the cursor to move to
+     *            a position after the last character in the text.
+     * 
+     * @since 4.0.6
+     */
+    public void setPosition(int position);
 }

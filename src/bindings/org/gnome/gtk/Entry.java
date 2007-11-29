@@ -137,4 +137,12 @@ public class Entry extends Widget implements Editable, CellEditable
     public void connect(ACTIVATE handler) {
         GtkEntry.connect(this, handler);
     }
+
+    public void setPosition(int position) {
+        if (position < -1) {
+            throw new IllegalArgumentException(
+                    "Position must be -1 to indicate you want it after the last character.");
+        }
+        GtkEntry.setPosition(this, position);
+    }
 }
