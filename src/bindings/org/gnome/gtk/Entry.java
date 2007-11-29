@@ -171,4 +171,8 @@ public class Entry extends Widget implements Editable, CellEditable
     public void connect(CHANGED handler) {
         GtkEditable.connect(this, handler);
     }
+
+    public void selectRegion(int start, int end) {
+        GtkEditable.selectRegion(this, start, end);
+    }
 }

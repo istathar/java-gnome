@@ -51,4 +51,22 @@ public interface Editable
      * @since 4.0.6
      */
     public void connect(CHANGED handler);
+
+    /**
+     * Select a region of the text in this Editable. The characters between
+     * <code>start</code> up to <i>but not including</i> <code>end</code>
+     * will be selected.
+     * 
+     * <p>
+     * Calling <code>selectRegion(0, 0)</code> will remove the selection
+     * (although that will only happen if some other Widget has the focus; in
+     * Windows where there is only one control the user can manipulate an
+     * Entry will end up selected no matter what).
+     * 
+     * @param end
+     *            If negative, then the selection will be from
+     *            <code>start</code> to the end of the text in the Editable.
+     * @since 4.0.6
+     */
+    public void selectRegion(int start, int end);
 }
