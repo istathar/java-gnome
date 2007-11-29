@@ -1152,6 +1152,8 @@ onActivate
 onChangeCurrentPage
 onChanged
 onClicked
+onDaySelected
+onDaySelectedDoubleClick
 onDeleteEvent
 onEnterNotifyEvent
 onEvent

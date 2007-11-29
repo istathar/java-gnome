@@ -151,4 +151,61 @@ public class Calendar extends Widget
         }
         GtkCalendar.selectDay(this, day);
     }
+
+    /**
+     * Signal emitted when the user double clicks on one of the days showing
+     * in the Calendar.
+     * 
+     * <p>
+     * See the {@link Calendar.DAY_SELECTED DAY_SELECTED} signal for the
+     * single click equivalent.
+     * 
+     * <p>
+     * <i>This is used in preference to manipulating individual button press
+     * events as the Calendar Widget itself handles those events and
+     * translates the positional co-ordinates relative the graphic displayed
+     * into a date.</i>
+     * 
+     * @author Andrew Cowie
+     * @since 4.0.6
+     */
+    public interface DAY_SELECTED_DOUBLE_CLICK extends GtkCalendar.DAY_SELECTED_DOUBLE_CLICK
+    {
+        void onDaySelectedDoubleClick(Calendar source);
+    }
+
+    /**
+     * Hook up a handler for <code>DAY_SELECTED_DOUBLE_CLICK</code> signals.
+     * 
+     * @since 4.0.6
+     */
+    public void connect(DAY_SELECTED_DOUBLE_CLICK handler) {
+        GtkCalendar.connect(this, handler);
+    }
+
+    /**
+     * Signal emitted when the user selects on one of the days showing in the
+     * Calendar.
+     * 
+     * <p>
+     * See
+     * {@link Calendar.DAY_SELECTED_DOUBLE_CLICK DAY_SELECTED_DOUBLE_CLICK}
+     * for the signal emitted when the user double clicks a day.
+     * 
+     * @author Andrew Cowie
+     * @since 4.0.6
+     */
+    public interface DAY_SELECTED extends GtkCalendar.DAY_SELECTED
+    {
+        void onDaySelected(Calendar source);
+    }
+
+    /**
+     * Hook up a handler for <code>DAY_SELECTED</code> signals.
+     * 
+     * @since 4.0.6
+     */
+    public void connect(DAY_SELECTED handler) {
+        GtkCalendar.connect(this, handler);
+    }
 }
