@@ -35,7 +35,6 @@ package org.gnome.gtk;
  */
 public class Label extends Misc
 {
-
     protected Label(long pointer) {
         super(pointer);
     }

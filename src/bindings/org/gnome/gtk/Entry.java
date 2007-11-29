@@ -145,4 +145,26 @@ public class Entry extends Widget implements Editable, CellEditable
         }
         GtkEntry.setPosition(this, position);
     }
+
+    /**
+     * Request that the width of this Entry be wide enough for a given number
+     * of characters.
+     * 
+     * <p>
+     * As with all font related operations, there are a number of competing
+     * approximations involved. In particular, this method operates by
+     * influencing the size <i>requested</i> by this Widget; the box packing
+     * model will still have the final say in the size allocation phase.
+     * 
+     * <p>
+     * See also Label's {@link Label#setWidthChars(int) setWidthChars()}; the
+     * challenges and constraints involved are similar.
+     * 
+     * @param width
+     *            A setting of <code>-1</code> will return the Entry to
+     *            normal sizing behaviour.
+     */
+    public void setWidthChars(int width) {
+        GtkEntry.setWidthChars(this, width);
+    }
 }
