@@ -33,4 +33,22 @@ public interface Editable
      * @since 4.0.6
      */
     public void setPosition(int position);
+
+    /**
+     * The signal emitted when the text in the Editable has changed.
+     * 
+     * @author Andrew Cowie
+     * @since 4.0.6
+     */
+    public interface CHANGED extends GtkEditable.CHANGED
+    {
+        void onChanged(Editable source);
+    }
+
+    /**
+     * Hook up a handler for <code>CHANGED</code> signals.
+     * 
+     * @since 4.0.6
+     */
+    public void connect(CHANGED handler);
 }

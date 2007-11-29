@@ -211,6 +211,7 @@ GtkCheckMenuItem
 GtkComboBox
 GtkContainer
 GtkDialog
+GtkEditable
 GtkEntry
 GtkFileChooser
 GtkFileChooserAction
@@ -513,7 +514,6 @@ UTC
 Ubuntu
 UnitTests
 UnsatisfiedLinkError
-Unselect
 UnsupportedOperationException
 VBox
 VBoxes
@@ -876,6 +876,7 @@ getGreen
 getHAdjustment
 getHadjustment
 getHandle
+getHasFocus
 getHeight
 getImage
 getInconsistent
@@ -1427,6 +1428,7 @@ testObjectNeverUsedIsRemoved
 testObjectNotRemovedWhenStillGtkAlive
 testRemovingAfterNoLongerReachableInBothSides
 textwidth
+theming
 throwByName
 timestamp
 tla

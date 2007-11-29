@@ -167,4 +167,8 @@ public class Entry extends Widget implements Editable, CellEditable
     public void setWidthChars(int width) {
         GtkEntry.setWidthChars(this, width);
     }
+
+    public void connect(CHANGED handler) {
+        GtkEditable.connect(this, handler);
+    }
 }

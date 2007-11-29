@@ -400,6 +400,8 @@ public abstract class Widget extends org.gnome.gtk.Object
 
     /**
      * Connect a <code>VISIBILITY_NOTIFY_EVENT</code> handler.
+     * 
+     * @since 4.0.5
      */
     /*
      * It turns out that two things are necessary for this signal to work: 1)
@@ -473,6 +475,7 @@ public abstract class Widget extends org.gnome.gtk.Object
      * 
      * @author Andrew Cowie
      * @author Ryan Lortie
+     * @since 4.0.5
      */
     public interface UNMAP_EVENT extends GtkWidget.UNMAP_EVENT
     {
@@ -487,8 +490,30 @@ public abstract class Widget extends org.gnome.gtk.Object
 
     /**
      * Connect a <code>UNMAP_EVENT</code> handler.
+     * 
+     * @since 4.0.5
      */
     public void connect(UNMAP_EVENT handler) {
         GtkWidget.connect(this, handler);
+    }
+
+    /**
+     * Does this Widget currently have the keyboard focus?
+     * 
+     * <p>
+     * This can be quite useful when one Widget takes action in a signal
+     * handler which changes the state of another Widget. Take for example two
+     * related Entry Widgets. The second Entry's <code>CHANGED</code> signal
+     * will fire when the first Entry's <code>CHANGED</code> handler calls
+     * <code>second.setText()</code>; if it changes the first Entry then
+     * you have an infinite loop on your hands. By checking for <var>has-focus</var>
+     * at the beginning of both handlers, then only the Widget that the user
+     * changed will carry out it's logic; the other will realize it doesn't
+     * have focus and can quickly pass.
+     * 
+     * @since 4.0.6
+     */
+    public boolean getHasFocus() {
+        return getPropertyBoolean("has-focus");
     }
 }
