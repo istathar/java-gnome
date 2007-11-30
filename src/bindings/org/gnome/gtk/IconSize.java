@@ -42,29 +42,29 @@ public final class IconSize extends Constant
      * The standard size used for icons on Buttons. See also
      * {@link Button#setImage(Image)} for setting an image of arbitrary size.
      */
-    public static IconSize BUTTON = new IconSize(GtkIconSize.BUTTON, "BUTTON");
+    public static final IconSize BUTTON = new IconSize(GtkIconSize.BUTTON, "BUTTON");
 
     /**
      * The standard size used for icons appearing on Menus. See
      * {@link ImageMenuItem}.
      */
-    public static IconSize MENU = new IconSize(GtkIconSize.MENU, "MENU");
+    public static final IconSize MENU = new IconSize(GtkIconSize.MENU, "MENU");
 
     /**
      * The size used when Toolbars are being rendered in their smaller
      * incarnation. Some have noted that icons created for this case bear a
      * striking resemblance to the MENU size.
      */
-    public static IconSize SMALL_TOOLBAR = new IconSize(GtkIconSize.SMALL_TOOLBAR, "SMALL_TOOLBAR");
+    public static final IconSize SMALL_TOOLBAR = new IconSize(GtkIconSize.SMALL_TOOLBAR, "SMALL_TOOLBAR");
 
     /**
      * The size used for icons appearing in large (some would call this
      * normal) size Toolbars.
      */
-    public static IconSize LARGE_TOOLBAR = new IconSize(GtkIconSize.LARGE_TOOLBAR, "LARGE_TOOLBAR");
+    public static final IconSize LARGE_TOOLBAR = new IconSize(GtkIconSize.LARGE_TOOLBAR, "LARGE_TOOLBAR");
 
-    public static IconSize DIALOG = new IconSize(GtkIconSize.DIALOG, "DIALOG");
+    public static final IconSize DIALOG = new IconSize(GtkIconSize.DIALOG, "DIALOG");
 
-    public static IconSize DND = new IconSize(GtkIconSize.DND, "DND");
+    public static final IconSize DND = new IconSize(GtkIconSize.DND, "DND");
 
 }
