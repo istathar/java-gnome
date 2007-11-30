@@ -222,6 +222,7 @@ GtkFrame
 GtkHBox
 GtkHButtonBox
 GtkHSeparator
+GtkIconSize
 GtkImage
 GtkImageType
 GtkLabel
@@ -295,6 +296,7 @@ IMP's
 IOException
 IRC
 IconSet
+IconSize
 IdentityHashMap
 IllegalAccessException
 IllegalArgumentException

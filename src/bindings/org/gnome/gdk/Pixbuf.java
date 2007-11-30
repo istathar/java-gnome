@@ -30,9 +30,6 @@ import org.gnome.glib.GlibException;
  * @author Andrew Cowie
  * @since 4.0.0
  */
-/*
- * TODO This class is a minimal skeleton only.
- */
 public class Pixbuf extends org.gnome.glib.Object
 {
     protected Pixbuf(long pointer) {
@@ -131,6 +128,11 @@ public class Pixbuf extends org.gnome.glib.Object
      * </pre>
      * 
      * @since 4.0.5
+     */
+    /*
+     * TODO there are a wide range of GError states that emanate from this
+     * call; we need some appropriate code to interpret the more "common" ones
+     * and turn them into more strongly typed Exceptions.
      */
     public void save(String filename, PixbufFormat type) {
         try {
