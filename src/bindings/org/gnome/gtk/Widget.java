@@ -236,8 +236,12 @@ public abstract class Widget extends org.gnome.gtk.Object
         GtkWidget.connect(this, handler);
     }
 
-    /*
-     * Temporary: testing full downcasting.
+    /**
+     * Return the Container that this Widget is packed into. If the Widget
+     * doesn't have a parent, or you're already at a top level Widget (ie, a
+     * Window) then expect <code>null</code>.
+     * 
+     * @since 4.0.2
      */
     public Container getParent() {
         return (Container) getPropertyObject("parent");
@@ -311,7 +315,7 @@ public abstract class Widget extends org.gnome.gtk.Object
      * 
      * <p>
      * <b>If you're looking for the top Window in a Widget hierarchy, see</b>
-     * {@link #getTopLevel() getTopLevel()}. This method is to get a
+     * {@link #getToplevel() getToplevel()}. This method is to get a
      * reference to the lower level GDK mechanisms used by this Widget, not to
      * navigate up a hierarchy of Widgets to find the top-level Window they
      * are packed into.
@@ -325,7 +329,7 @@ public abstract class Widget extends org.gnome.gtk.Object
      * <i>If you call this in a class where you're building Windows, then you
      * will probably end up having to use the fully qualified name</i>
      * <code>org.gnome.gdk.Window</code> <i>when declaring variables. That's
-     * an unavoidable consequence of the class mapping algorithm we used, but
+     * an unavoidable consequence of the class mapping algorithm we used:
      * <code>GdkWindow</code> is the name of the underlying type being
      * returned, and so Window it is.</i>
      * 
@@ -531,5 +535,35 @@ public abstract class Widget extends org.gnome.gtk.Object
      */
     public boolean getHasFocus() {
         return getPropertyBoolean("has-focus");
+    }
+
+    /**
+     * Get the Widget at the top of the container hierarchy to which this
+     * Widget belongs.
+     * 
+     * <p>
+     * It's is somewhat common to want to find the ultimately enclosing top
+     * level Window that this Widget belongs to. Assuming that the Widget has
+     * actually been packed into a Container hierarchy that tops out at a
+     * Window (or Dialog, etc) then that is what you'll get. So yes, you can
+     * do:
+     * 
+     * <pre>
+     * w = (Window) obj.getToplevel();
+     * </pre>
+     * 
+     * as you'll get a ClassCastException or NullPointerException if you're
+     * wrong about <code>obj</code> being in a Window yet.
+     * 
+     * <p>
+     * To manually walk up the hierarchy one level at a time, use
+     * {@link #getParent() getParent()}.
+     * 
+     * @return Will return <code>this</code> if the Widget isn't (yet) in a
+     *         hierarchy.
+     * @since 4.0.6
+     */
+    public Widget getToplevel() {
+        return GtkWidget.getToplevel(this);
     }
 }

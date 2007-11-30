@@ -945,7 +945,7 @@ getStorageType
 getString
 getSubmenu
 getText
-getTopLevel
+getToplevel
 getTreeView
 getType
 getURI
@@ -1108,6 +1108,7 @@ modifyBackground
 modifyBase
 modifyBg
 modifyStyle
+modifyText
 monarchName
 monarchNameColumn
 monarchObjectColumn
