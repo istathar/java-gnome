@@ -7,7 +7,11 @@ ActionGroup
 ActionGroups
 AfC
 AllAboutJNI
+AltLeft
+AltRight
 ArrayList
+AtSign
+BackSpace
 Bassi
 Behdad
 Bhagat
@@ -18,6 +22,10 @@ Blandford
 Bleh
 Bolsterlee
 BooleanValue
+BraceLeft
+BraceRight
+BracketLeft
+BracketRight
 BufferedReader
 ButtonBox
 ButtonBoxStyle
@@ -30,6 +38,7 @@ CalendarDisplayOptions
 CallStaticBooleanMethodA
 CallStaticObjectMethodA
 CallStaticVoidMethodA
+CapsLock
 CellEditable
 CellLayout
 CellRenderer
@@ -53,6 +62,8 @@ ComboBox
 ComboBoxes
 ComeOnBabyLightMyFire
 CommitMessages
+ControlLeft
+ControlRight
 Cowie
 Cowie's
 Ctrl
@@ -174,6 +185,7 @@ GdkEventType
 GdkEventVisibility
 GdkEvents
 GdkGravity
+GdkKeyval
 GdkPixbuf
 GdkPixbufFormat
 GdkScreen
@@ -332,6 +344,8 @@ Katoomba
 Kedzierski
 KeyError
 KeyListener
+KeypadKeyval
+Keyval
 Kpic
 LCA
 LDFLAGS
@@ -378,6 +392,8 @@ NewStringUTF
 NewWeakGlobalRef
 NoSuchMethodException
 NullPointerException
+NumLock
+NumberSign
 O'Reilly
 OR'ing
 ObjectProperties
@@ -391,7 +407,11 @@ PIXMAP
 PNGs
 PRELIGHT
 PackageNames
+PageDown
+PageUp
 Pango's
+ParenLeft
+ParenRight
 ParsedTree
 PascalCase
 Pendyala
@@ -410,6 +430,8 @@ PyThat
 PyThis
 QA
 QuestionMessageDialog
+QuoteDouble
+QuoteRight
 README
 RGB
 RHEL
@@ -430,12 +452,15 @@ Schmitz
 ScreenshotCapture
 ScreenshotInfoMessageDialog
 ScreenshotQuestionMessageDialog
+ScrollLock
 ScrolledWindow
 SelectionMode
 Sep
 SeparatorMenuItem
 SeparatorToolItem
 SeparatorToolItems
+ShiftLeft
+ShiftRight
 SignalHandler
 Singh
 SizeGroup
@@ -461,6 +486,7 @@ StockItems
 StorageType
 StringBuffer
 StringValue
+SysReq
 TODO
 TZ
 TestCase
@@ -821,6 +847,7 @@ foreach
 formatTime
 formatter
 foss
+fromName
 fullscreen
 gType
 gboolean
@@ -832,6 +859,7 @@ gcj
 gcjC
 gcjh
 gdk
+gdkkeysyms
 ge
 generateBindings
 generateHeaderFiles
@@ -1057,6 +1085,9 @@ kaffe
 kaffe's
 kaffec
 keybindings
+keyval
+keyvalFromName
+keyvals
 knownConstants
 knownProxies
 knownStocks
@@ -1506,8 +1537,16 @@ wr
 writeJniCode
 writeTranslationCode
 x's
+xFFFFFF
 xServerVirtual
 xalign
+xff
+xffbe
+xffbf
+xffc
+xffe
+xffea
+xffff
 xjf
 xscale
 yalign

@@ -1,5 +1,5 @@
 /*
- * ValidateScreensAndDisplays.java
+ * ValidateBoxeds.java
  *
  * Copyright (c) 2007 Operational Dynamics Consulting Pty Ltd
  * 
