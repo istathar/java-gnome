@@ -12,6 +12,7 @@
 import java.io.FileNotFoundException;
 
 import org.gnome.gdk.Event;
+import org.gnome.gdk.EventKey;
 import org.gnome.glade.Glade;
 import org.gnome.glade.XML;
 import org.gnome.gtk.Gtk;
@@ -46,6 +47,22 @@ public final class Designer
                 return false;
             }
         });
+
+        l.connect(new Widget.KEY_PRESS_EVENT() {
+            public boolean onKeyPressEvent(Widget source, EventKey event) {
+                System.out.println("Pressed:  " + event.getKeyval());
+                return false;
+            }
+        });
+
+        l.connect(new Widget.KEY_RELEASE_EVENT() {
+            public boolean onKeyReleaseEvent(Widget source, EventKey event) {
+                System.out.println("Released: " + event.getKeyval());
+                return false;
+            }
+        });
+
+        l.selectRegion(0, 0);
     }
 
     public static void main(String[] args) throws FileNotFoundException {

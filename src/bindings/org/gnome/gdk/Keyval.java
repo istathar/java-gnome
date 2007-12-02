@@ -76,15 +76,13 @@ public class Keyval extends Constant
     /**
      * If you know the name of a GDK keyval, you can instantiate a Constant
      * for it with this method.
-     * 
-     * @param name
      */
     protected Keyval(String name) {
         super(keyvalFromName(name), name.intern());
     }
 
-    protected Keyval(int keyval, String name) {
-        super(keyval, name);
+    protected Keyval(int keyval, String nickname) {
+        super(keyval, nickname);
     }
 
     private static int keyvalFromName(String name) {
@@ -192,7 +190,7 @@ public class Keyval extends Constant
     public static final Keyval Percent = new Keyval(0x025, "Percent");
 
     /**
-     * Also known as Carrot.
+     * Also known as Carrot or Hat.
      */
     public static final Keyval Circumflex = new Keyval(0x05e, "Circumflex");
 
