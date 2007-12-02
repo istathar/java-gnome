@@ -29,8 +29,12 @@ my $dict_file;
 my @words;
 my @sorted;
 my $count;
+my $root;
 
-$dict_file = ".aspell.en.pws";
+
+$root = `bzr root`;
+chomp $root;
+$dict_file = $root . "/.aspell.en.pws";
 
 open DICT, $dict_file;
 
