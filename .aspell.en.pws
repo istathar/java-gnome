@@ -1194,6 +1194,7 @@ onEnterNotifyEvent
 onEvent
 onExposeEvent
 onFocusOutEvent
+onHide
 onKeyPressEvent
 onKeyReleaseEvent
 onPopupMenu

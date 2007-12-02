@@ -566,4 +566,24 @@ public abstract class Widget extends org.gnome.gtk.Object
     public Widget getToplevel() {
         return GtkWidget.getToplevel(this);
     }
+
+    /**
+     * The signal emitted when a Widget is hidden.
+     * 
+     * @author Andrew Cowie
+     * @since 4.0.6
+     */
+    public interface HIDE extends GtkWidget.HIDE
+    {
+        void onHide(Widget source);
+    }
+
+    /**
+     * Connect a <code>HIDE</code> handler.
+     * 
+     * @since 4.0.6
+     */
+    public void connect(Widget.HIDE handler) {
+        GtkWidget.connect(this, handler);
+    }
 }
