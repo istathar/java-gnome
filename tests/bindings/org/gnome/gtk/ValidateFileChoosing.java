@@ -50,6 +50,7 @@ public class ValidateFileChoosing extends TestCaseGtk
 
         cycleMainLoop();
         assertEquals("/etc", fcd.getCurrentFolder());
+        cycleMainLoop();
         assertEquals("/etc/passwd", fcd.getFilename());
     }
 
