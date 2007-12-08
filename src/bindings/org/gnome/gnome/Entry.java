@@ -15,9 +15,11 @@ import org.gnome.gtk.Widget;
 
 /**
  * This is the beginnings of showing what a class in another package would
- * look like. Not implemented! <i>Does this widget even exist anymore?</i>
+ * look like. Not implemented!This widget is deprecated and it should not be 
+ * used.
  * 
  * @author Andrew Cowie
+ * @author Shreyas Srinivasan
  */
 public class Entry extends Widget
 {
