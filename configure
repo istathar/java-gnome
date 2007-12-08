@@ -146,7 +146,7 @@ sub check_system_library(\@$$@) {
 		} elsif ($os eq "fedora") {
 			$str .= "yum install";
 		} elsif ($os eq "suse") {
-			$str .= "yast install";
+			$str .= "zypper install";
 		} elsif ($os eq "solaris") {
 			$str .= "pkgadd";
 		} else {
@@ -198,7 +198,7 @@ sub check_prereq (\@$$@) {
 		} elsif ($os eq "fedora") {
 			$str .= "yum install";
 		} elsif ($os eq "suse") {
-			$str .= "yast install";
+			$str .= "zypper install";
 		} elsif ($os eq "solaris") {
 			$str .= "pkgadd";
 		} else {
@@ -755,7 +755,7 @@ if ($os eq "gentoo") {
 	check_prereq(@junit_jars,
 		"JUnit test framework",
 		"junit",
-		"/path/to/junit.jar");
+		"/usr/share/java/junit.jar");
 
 
 } elsif ($os eq "solaris") {
@@ -837,9 +837,13 @@ if ($os eq "gentoo") {
 
 } elsif ($os eq "suse") {
 	check_system_library(@gnomedev_libs,
-			"GNOME",
-			"gnome", $prefix,
-			("some file which shows that GNOME devel libraries are installed"));
+			"GNOME development",
+			"libgnome-devel", $prefix,
+			("/include/libgnome-2.0/libgnome/libgnome.h"));
+	check_system_library(@gnomedev_libs,
+			"Glade devel",
+			"libglade2-devel", $prefix,
+			("/include/libglade-2.0/glade/glade.h"));
 
 }
 
@@ -1089,10 +1093,10 @@ if ($os eq "gentoo") {
 		$javadoc_candidate = "$jdk_home/bin/javadoc";
 		$vendor = "Specified";
 	} else {
-		$javac_candidate = "/usr/novell/and/sun/dont/get/along/java/bin/javac";
-		$javah_candidate = "/opt/java/bin/javah";
-		$jar_candidate = "/opt/java/bin/jar";
-		$javadoc_candidate = "/opt/java/bin/javadoc";
+		$javac_candidate = "/usr/lib/jvm/java/bin/javac";
+		$javah_candidate = "/usr/lib/jvm/java/bin/javah";
+		$jar_candidate = "/usr/lib/jvm/java/bin/jar";
+		$javadoc_candidate = "/usr/lib/jvm/java/bin/javadoc";
 		$vendor = "SUN";
 	}
 	check_compiler($javac, "$vendor javac", $javac_candidate, "-g -source 1.4 -target 1.4");
@@ -1386,7 +1390,7 @@ if ($os eq "gentoo") {
 		$java_candidate = "$jdk_home/bin/java";
 		$vendor = "Specified";
 	} else {
-		$java_candidate = "/not/on/my/system/damn/you/java/bin/java";
+		$java_candidate = "/usr/lib/jvm/java/bin/java";
 		$vendor = "Sun";
 	}
 	check_runtime($java, "$vendor java VM", $java_candidate, "-client -ea");
