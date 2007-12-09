@@ -1,8 +1,8 @@
 /*
- * Surface.java
+ * Pattern.java
  *
  * Copyright (c) 2007 Operational Dynamics Consulting Pty Ltd
- *
+ * 
  * The code in this file, and the library it is a part of, are made available
  * to you by the authors under the terms of the "GNU General Public Licence,
  * version 2" plus the "Classpath Exception" (you may link to this code as a
@@ -13,28 +13,13 @@ package org.freedesktop.cairo;
 
 import org.freedesktop.bindings.Proxy;
 
-/**
- * The thing that Cairo will draw on/to. This is the base class for several
- * concrete back ends.
- * 
- * @author Andrew Cowie
- * @since 4.0.6
- */
-public abstract class Surface extends Proxy
+public abstract class Pattern extends Proxy
 {
-    protected Surface(long pointer) {
+    protected Pattern(long pointer) {
         super(pointer);
     }
 
     protected void release() {
-        CairoSurface.destroy(this);
-    }
-    
-    public void finish() {
-        CairoSurface.finish(this);
-    }
-    
-    public void writeToPNG(String filename) {
-        CairoSurface.writeToPng(this, filename);
+        CairoPattern.destroy(this);
     }
 }

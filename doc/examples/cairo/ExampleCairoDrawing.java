@@ -31,7 +31,7 @@ public class ExampleCairoDrawing
         surface = new ImageSurface(Format.ARGB32, 100, 100);
         cr = new Context(surface);
 
-        cr.setSourceRGB(0.0, 0.0, 1.0);
+        cr.setSourceRGBA(0.0, 0.0, 1.0, 0.8);
         cr.moveTo(10, 10);
         cr.lineTo(20, 5);
         cr.stroke();
