@@ -17,15 +17,20 @@ import org.gnome.gtk.Label;
 import org.gnome.gtk.VBox;
 import org.gnome.gtk.Widget;
 import org.gnome.gtk.Window;
+import java.util.HashSet;
+import java.util.Iterator;
 
 /**
  * Fork of Experiment to specifically test memory management under limited and
- * almost controllable conditions.
+ * almost controllable conditions. This is not example code!
  * 
  * @author Andrew Cowie
  */
 public final class Toggling
 {
+
+    private HashSet set;
+
     /*
      * It is not, strictly speaking, necessary to put the UI building code
      * into a constructor; there's nothing wrong in a tiny program with doing
@@ -40,7 +45,7 @@ public final class Toggling
         final VBox x;
         final Button b;
         final Button gc;
-        final Label zombie;
+        final Button res;
 
         if (!Debug.MEMORY_MANAGEMENT) {
             System.err.println("Debug.MEMORY_MANAGEMENT must be enabled to run this class");
@@ -48,11 +53,24 @@ public final class Toggling
         }
 
         w = new Window();
+        set = new HashSet();
 
         x = new VBox(false, 3);
 
-        b = new Button("See parent");
+        b = new Button("New window");
         x.packStart(b);
+
+        res = new Button("Ressurect");
+        x.packStart(res);
+        res.connect(new Button.CLICKED() {
+            public void onClicked(Button source) {
+                Iterator iter = set.iterator();
+                while (iter.hasNext()) {
+                    Window w = (Window) iter.next();
+                    w.present();
+                }
+            }
+        });
 
         gc = new Button("Run gc()");
         x.packStart(gc);
@@ -63,19 +81,32 @@ public final class Toggling
             }
         });
 
-        zombie = new Label("Will not be used");
-        zombie.getClass(); // supress warning
-
         w.add(x);
 
         w.setTitle("Toggling");
-        w.showAll();
 
         b.connect(new Button.CLICKED() {
             public void onClicked(Button source) {
-                System.out.println("My parent is...\t\t\t" + b.getParent().toString());
+                final Window z;
+                final Label d;
+                z = new Window();
+                d = new Label("This is some very very\nimportant data that concerns your future!");
+                z.add(d);
+                z.showAll();
+                set.add(z);
             }
         });
+
+        Button zero = new Button("Drop extra refs");
+        x.packStart(zero);
+        zero.connect(new Button.CLICKED() {
+            public void onClicked(Button source) {
+                System.err.println("Drop refs");
+                set = null;
+            }
+        });
+
+        w.showAll();
 
         w.connect(new Window.DELETE_EVENT() {
             public boolean onDeleteEvent(Widget source, Event event) {
@@ -97,14 +128,22 @@ public final class Toggling
         // Observe release() being done on the various Proxies created. As
         // ever, though, calling gc() is not imperative.
 
-        System.err.println("Run Java garbage collector (last time)");
+        System.err.println("Run Java garbage collector (last-1 time)");
         System.gc();
-
         try {
-            Thread.sleep(1000);
+            Thread.sleep(500);
         } catch (Exception e) {
             // ignore
         }
+
+        System.err.println("Run Java garbage collector (last time)");
+        System.gc();
+        try {
+            Thread.sleep(500);
+        } catch (Exception e) {
+            // ignore
+        }
+
         // And, hopefully, we make it out of the main loop without crashing
         System.out.println("Bye now.");
     }

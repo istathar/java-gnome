@@ -63,6 +63,7 @@ public abstract class Object extends Proxy
         super(pointer);
         if (Debug.MEMORY_MANAGEMENT) {
             System.err.println("Object.<init>(long)\t\t" + this.toString());
+            System.err.flush();
         }
         GObject.addToggleRef(this);
     }
@@ -136,6 +137,11 @@ public abstract class Object extends Proxy
      */
     protected void setPropertyBoolean(String name, boolean value) {
         GObject.setProperty(this, name, new Value(GValue.createValue(value)));
+    }
+    
+    protected boolean getPropertyBoolean(String name) {
+        Value value = GObject.getProperty(this, name);
+        return GValue.getBoolean(value);
     }
 
     /**

@@ -810,3 +810,12 @@
   (return-type "GtkWindowGroup*")
 )
 
+(define-function set_default_icon
+  (of-object "GtkWindow")
+  (c-name "gtk_window_set_default_icon")
+  (return-type "none")
+  (parameters
+    '("GdkPixbuf*" "icon")
+  )
+)
+

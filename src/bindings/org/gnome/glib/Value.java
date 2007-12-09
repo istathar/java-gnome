@@ -84,13 +84,6 @@ public class Value extends Proxy
         GValue.free(this);
     }
 
-    /*
-     * FIXME I'm not happy about the fact that we have exposed the following
-     * constructors and getters; I regard them as internals. The biggest
-     * problem is that they are not-type safe; a developer could easily shoot
-     * themselves in the foot.
-     */
-
     /**
      * Create an empty Value without initializing it's type. For use in
      * methods like TreeModel's
@@ -141,6 +134,17 @@ public class Value extends Proxy
      */
     protected Value(float f) {
         this(GValue.createValue(f));
+    }
+
+    protected Value(Object obj) {
+        this(GValue.createValue(obj));
+    }
+    
+    /*
+     * Another one that's only really here for unit tests. 
+     */
+    public Object getObject() {
+        return GValue.getObject(this);
     }
 
     protected float getFloat() {

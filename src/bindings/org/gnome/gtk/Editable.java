@@ -11,14 +11,62 @@
  */
 package org.gnome.gtk;
 
-/*
- * FIXME this is a placeholder stub for what will become the public API for
- * this type. Replace this comment with appropriate javadoc including author
- * and since tags. Note that the class may need to be made abstract, implement
- * interfaces, or even have its parent changed. No API stability guarantees
- * are made about this class until it has been reviewed by a hacker and this
- * comment has been replaced.
+/**
+ * Methods common to Widgets which allow the line of text they display to be
+ * edited.
+ * 
+ * @author Andrew Cowie
+ * @since 4.0.6
  */
 public interface Editable
 {
+    /**
+     * Set the position of the cursor in this Editable. The cursor will be put
+     * before the character at the position indicated.
+     * 
+     * @param position
+     *            The value given must be less than or equal to the number of
+     *            characters currently in the Editable field. Supplying a
+     *            value of <code>-1</code> will cause the cursor to move to
+     *            a position after the last character in the text.
+     * 
+     * @since 4.0.6
+     */
+    public void setPosition(int position);
+
+    /**
+     * The signal emitted when the text in the Editable has changed.
+     * 
+     * @author Andrew Cowie
+     * @since 4.0.6
+     */
+    public interface CHANGED extends GtkEditable.CHANGED
+    {
+        void onChanged(Editable source);
+    }
+
+    /**
+     * Hook up a handler for <code>CHANGED</code> signals.
+     * 
+     * @since 4.0.6
+     */
+    public void connect(CHANGED handler);
+
+    /**
+     * Select a region of the text in this Editable. The characters between
+     * <code>start</code> up to <i>but not including</i> <code>end</code>
+     * will be selected.
+     * 
+     * <p>
+     * Calling <code>selectRegion(0, 0)</code> will remove the selection
+     * (although that will only happen if some other Widget has the focus; in
+     * Windows where there is only one control the user can manipulate an
+     * Entry will end up selected no matter what).
+     * 
+     * @param end
+     *            If negative, then the selection will be from
+     *            <code>start</code> to the end of the text in the Editable.
+     * @since 4.0.6
+     */
+    public void selectRegion(int start, int end);
 }

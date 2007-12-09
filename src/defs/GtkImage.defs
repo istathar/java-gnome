@@ -54,6 +54,17 @@
   )
 )
 
+(define-function image_new_from_stock
+  (is-constructor-of "GtkImage")
+  (c-name "gtk_image_new_from_stock")
+  (caller-owns-return #t)
+  (return-type "GtkWidget*")
+  (parameters
+    '("const-gchar*" "stock_id")
+    '("GtkIconSize" "size")
+  )
+)
+
 (define-method clear
   (of-object "GtkImage")
   (c-name "gtk_image_clear")

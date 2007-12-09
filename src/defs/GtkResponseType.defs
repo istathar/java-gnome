@@ -1,4 +1,8 @@
-(define-enum ResponseType
+;; note that we have hacked this from (define-enum...) to (define-flags...) in
+;; order that the generated translation code pick up the actual ordinals, not
+;; our hard wired zero origin ones.
+
+(define-flags ResponseType
   (in-module "Gtk")
   (c-name "GtkResponseType")
   (gtype-id "GTK_TYPE_RESPONSE_TYPE")

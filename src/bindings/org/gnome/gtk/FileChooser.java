@@ -13,6 +13,26 @@ package org.gnome.gtk;
 
 import java.net.URI;
 
+/**
+ * Widgets which allow you to select a file or directory. <img
+ * src="FileChooserDialog.png" class="snapshot"> GNOME has a unified
+ * FileChooser which is used by all applications to select files. It comes in
+ * several pre-baked forms, notably {@link FileChooserDialog} (a Dialog which
+ * can be used as a modal popup), and {@link FileChooserButton} (which is a
+ * Button which displays the selected filename and pops up a FileChooserDialog
+ * when activated).
+ * 
+ * <p>
+ * Be aware that much of FileChooser's internal behaviour depends on the main
+ * loop cycling; calls to methods like
+ * {@link #setCurrentFolder(String) setCurrentFolder()} and
+ * {@link #setFilename(String) setFilename()} will not actually take effect
+ * until you start the main loop or return from the current signal handler (as
+ * the case may be).
+ * 
+ * @author Andrew Cowie
+ * @since 4.0.2
+ */
 public interface FileChooser
 {
     /**
@@ -93,36 +113,34 @@ public interface FileChooser
     public URI getURI();
 
     /*
-     * We do not expose FILE_ACTIVATED, as it is an internal signal (and
-     * besides, testing it didn't seem to result in the signal being fired in
-     * a visible way).
+     * We do not expose SELECTION_CHANGED or FILE_ACTIVATED, as it is an
+     * internal signal (and besides, testing it didn't seem to result in the
+     * signal being fired in a visible way).
      */
 
     /**
-     * Event generated when the selection in this FileChooser is changed. The
-     * usual cause of this would be the user pressing "OK" in a
-     * FileChooserDialog, of course, but it can also happen as a result of
-     * {@link #selectFilename(java.lang.String) selectFilename()} or
-     * {@link #selectURI(java.lang.String) selectURI()} being called.
+     * Set the file you want selected in the FileChooser.
      * 
      * <p>
-     * <b>WARNING</b><br>
-     * This signal will be replaced by <code>FILE_SET</code> in java-gnome
-     * 4.0.5. <i>This signal being the only way to get at the selection in a
-     * <code>GtkFileChooserButton</code> a bug in GTK that has been fixed in
-     * 2.12.</i>
+     * If the folder currently showing in the FileChooser isn't the directory
+     * containing the filename you specify, then the FileChooser will be
+     * changed to that directory.
+     * 
+     * @param filename
+     *            Must be an absolute path.
+     * @return <code>true</code> if the the directory was changed (if
+     *         necessary) and a file was successfully selected.
+     * @since 4.0.5
      */
-    public interface SELECTION_CHANGED extends GtkFileChooser.SELECTION_CHANGED
-    {
-        /**
-         * @deprecated
-         */
-        public void onSelectionChanged(FileChooser source);
-    }
-
-    /**
-     * Hook up a callback to handle the "selection-changed" signal generated
-     * when the file or directory has been set.
+    /*
+     * Calling this method is the equivalent of calling unselectAll() then
+     * selectFilename(filename).
+     * 
+     * I was thus very tempted not to expose this, but it makes a better
+     * complement to getFilename() than selectFilename() and so decided not to
+     * expose the latter after all. If anyone ever implements multiple
+     * selection they can [re]add it, but this is nice and clean at the
+     * moment.
      */
-    public void connect(SELECTION_CHANGED handler);
+    public boolean setFilename(String filename);
 }

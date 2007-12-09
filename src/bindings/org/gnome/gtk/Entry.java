@@ -137,4 +137,42 @@ public class Entry extends Widget implements Editable, CellEditable
     public void connect(ACTIVATE handler) {
         GtkEntry.connect(this, handler);
     }
+
+    public void setPosition(int position) {
+        if (position < -1) {
+            throw new IllegalArgumentException(
+                    "Position must be -1 to indicate you want it after the last character.");
+        }
+        GtkEntry.setPosition(this, position);
+    }
+
+    /**
+     * Request that the width of this Entry be wide enough for a given number
+     * of characters.
+     * 
+     * <p>
+     * As with all font related operations, there are a number of competing
+     * approximations involved. In particular, this method operates by
+     * influencing the size <i>requested</i> by this Widget; the box packing
+     * model will still have the final say in the size allocation phase.
+     * 
+     * <p>
+     * See also Label's {@link Label#setWidthChars(int) setWidthChars()}; the
+     * challenges and constraints involved are similar.
+     * 
+     * @param width
+     *            A setting of <code>-1</code> will return the Entry to
+     *            normal sizing behaviour.
+     */
+    public void setWidthChars(int width) {
+        GtkEntry.setWidthChars(this, width);
+    }
+
+    public void connect(CHANGED handler) {
+        GtkEditable.connect(this, handler);
+    }
+
+    public void selectRegion(int start, int end) {
+        GtkEditable.selectRegion(this, start, end);
+    }
 }

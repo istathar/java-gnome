@@ -21,7 +21,7 @@ package org.gnome.gtk;
  */
 public class CellRendererSpin extends CellRendererText
 {
-    protected CellRendererSpin(long pointer) {
-        super(pointer);
+    protected CellRendererSpin(TreeViewColumn vertical) {
+        super(GtkCellRendererSpin.createCellRendererSpin(), vertical);
     }
 }

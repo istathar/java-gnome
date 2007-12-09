@@ -11,6 +11,8 @@
  */
 package org.gnome.gtk;
 
+import org.gnome.gdk.Pixbuf;
+
 /**
  * A Widget that displays an image.
  * 
@@ -36,5 +38,33 @@ public class Image extends Misc
      */
     public Image(String filename) {
         super(GtkImage.createImageFromFile(filename));
+    }
+
+    /**
+     * Construct a new Image Widget from an image already loaded into a
+     * Pixbuf.
+     * 
+     * @since 4.0.5
+     */
+    public Image(Pixbuf pixbuf) {
+        super(GtkImage.createImageFromPixbuf(pixbuf));
+    }
+
+    /**
+     * Construct a new Image based on one of the Stock icons. As each one
+     * actually comes in various sizes, you have to say which variant you
+     * want.
+     * 
+     * <p>
+     * In most cases, you shouldn't need this; most of the special purpose
+     * Widgets have constructors which directly use a Stock item (see
+     * {@link ImageMenuItem#ImageMenuItem(Stock) ImageMenuItem} or
+     * {@link ToolButton#ToolButton(Stock) ToolButton} for example) and which
+     * will take care of the sizing issues for you.
+     * 
+     * @since 4.0.6
+     */
+    public Image(Stock stock, IconSize size) {
+        super(GtkImage.createImageFromStock(stock.getStockId(), size));
     }
 }

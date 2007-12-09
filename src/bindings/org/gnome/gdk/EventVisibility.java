@@ -11,17 +11,28 @@
  */
 package org.gnome.gdk;
 
-/*
- * FIXME this is a placeholder stub for what will become the public API for
- * this type. Replace this comment with appropriate javadoc including author
- * and since tags. Note that the class may need to be made abstract, implement
- * interfaces, or even have its parent changed. No API stability guarantees
- * are made about this class until it has been reviewed by a hacker and this
- * comment has been replaced.
+/**
+ * The data regarding an event related to the visibility of a Widget. In
+ * general this is only relevant when hooked up to a Window, but the
+ * capability is general nevertheless. See
+ * {@link org.gnome.gtk.Widget.VISIBILITY_NOTIFY_EVENT VISIBILITY_NOTIFY_EVENT}
+ * for further details.
+ * 
+ * @author Andrew Cowie
+ * @since 4.0.5
  */
 public final class EventVisibility extends Event
 {
     protected EventVisibility(long pointer) {
         super(pointer);
+    }
+
+    /**
+     * This is largely the point of this Event subclass: return the Constant
+     * describing the current visibility of the Window. This is what you use
+     * in a <code>VISIBILITY_NOTIFY_EVENT</code> handler.
+     */
+    public VisibilityState getState() {
+        return GdkEventVisibility.getState(this);
     }
 }

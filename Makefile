@@ -115,6 +115,7 @@ doc:
 		-header "java-gnome version $(VERSION)" \
 		-footer "<img src=\"/images/java-gnome_JavaDocLogo.png\" style=\"padding-right:25px;\"><br> <span style=\"font-family: Arial; font-style: normal; font-size: large;\">java-gnome</span>" \
 		-breakiterator \
+		-stylesheetfile src/bindings/stylesheet.css \
 		-overview src/bindings/overview.html \
 		-sourcepath src/bindings \
 		-subpackages org \
@@ -155,7 +156,7 @@ clean:
 		tmp/libgtkjava-*.so
 
 distclean: clean
-	@echo "RM\tbuild configuration information"
+	@echo -e "RM\tbuild configuration information"
 	-rm -f .config .config.tmp
 	@echo -e "RM\tgenerated documentation"
 	-rm -rf doc/api/*

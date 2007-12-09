@@ -32,6 +32,9 @@ public class ValidatePacking extends TestCaseGtk
         x = new VBox(false, 3);
 
         b = new Button("Change Me?");
+
+        assertNull(b.getParent());
+
         x.packStart(b);
 
         w.add(x);
@@ -44,5 +47,26 @@ public class ValidatePacking extends TestCaseGtk
         assertSame("The parent of a Button packed into a VBox should be that box!", b.getParent(), x);
 
         assertNull("A top level Widget should have had null as its parent!", w.getParent());
+    }
+
+    public final void testWidgetContainerHierarchies() {
+        final Button b;
+        final VBox x;
+        final Window w;
+
+        b = new Button("Hello");
+        x = new VBox(false, 0);
+
+        assertSame(b, b.getToplevel());
+        assertSame(x, x.getToplevel());
+
+        x.add(b);
+        assertSame(x, b.getToplevel());
+
+        w = new Window();
+        w.add(x);
+        assertSame(w, b.getToplevel());
+        assertSame(w, x.getToplevel());
+        assertSame(w, w.getToplevel());
     }
 }

@@ -12,14 +12,12 @@
 package org.gnome.gtk;
 
 /*
- * FIXME this is a placeholder stub for what will become the public API for
- * this type. Replace this comment with appropriate javadoc including author
- * and since tags. Note that the class may need to be made abstract, implement
- * interfaces, or even have its parent changed. No API stability guarantees
- * are made about this class until it has been reviewed by a hacker and this
- * comment has been replaced.
+ * TODO: shall we get rid of this? From the GTK docs: "The GtkInvisible widget
+ * is used internally in GTK+, and is probably not very useful for application
+ * developers. It is used for reliable pointer grabs and selection handling in
+ * the code for drag-and-drop."
  */
-public class Invisible extends Widget
+class Invisible extends Widget
 {
     protected Invisible(long pointer) {
         super(pointer);

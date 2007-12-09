@@ -19,9 +19,15 @@ package org.gnome.gtk;
  * are made about this class until it has been reviewed by a hacker and this
  * comment has been replaced.
  */
+/**
+ * Renderer a ProgressBar in a TreeViewColumn. TODO
+ * 
+ * @author Andrew Cowie
+ * @since 4.0.5
+ */
 public class CellRendererProgress extends CellRenderer
 {
-    protected CellRendererProgress(long pointer) {
-        super(pointer);
+    public CellRendererProgress(TreeViewColumn vertical) {
+        super(GtkCellRendererProgress.createCellRendererProgress(), vertical);
     }
 }

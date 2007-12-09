@@ -40,6 +40,8 @@ public abstract class Plumbing extends org.freedesktop.bindings.Plumbing
     private static final String TYPE_MAPPING = "typeMapping.properties";
 
     static {
+        Glib.checkInitialized();
+
         lock = Gdk.lock;
 
         typeMapping = new IdentityHashMap(100);
@@ -181,6 +183,9 @@ public abstract class Plumbing extends org.freedesktop.bindings.Plumbing
      * @see #objectFor(long)
      */
     protected static void fillObjectArray(Object[] objects, long[] pointers) {
+        if (pointers == null) {
+            return;
+        }
         for (int i = 0; i < pointers.length; ++i) {
             objects[i] = objectFor(pointers[i]);
         }
@@ -193,6 +198,9 @@ public abstract class Plumbing extends org.freedesktop.bindings.Plumbing
      * @see #boxedFor(Class, long)
      */
     protected static void fillBoxedArray(Class type, Boxed[] boxeds, long[] pointers) {
+        if (pointers == null) {
+            return;
+        }
         for (int i = 0; i < pointers.length; ++i) {
             boxeds[i] = boxedFor(type, pointers[i]);
         }

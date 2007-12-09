@@ -1,7 +1,7 @@
 /*
  * Entry.java
  *
- * Copyright (c) 2006 Operational Dynamics Consulting Pty Ltd
+ * Copyright (c) 2006-2007 Operational Dynamics Consulting Pty Ltd
  * 
  * The code in this file, and the library it is a part of, are made available
  * to you by the authors under the terms of the "GNU General Public Licence,
@@ -15,9 +15,12 @@ import org.gnome.gtk.Widget;
 
 /**
  * This is the beginnings of showing what a class in another package would
- * look like. Not implemented! <i>Does this widget even exist anymore?</i>
+ * look like. Not implemented! This widget is deprecated and it should not be
+ * used.
  * 
  * @author Andrew Cowie
+ * @author Shreyas Srinivasan
+ * @deprecated
  */
 public class Entry extends Widget
 {

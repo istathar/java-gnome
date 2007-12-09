@@ -55,10 +55,10 @@ bindings_java_toggle
 	jobject ref;
 	jobject strong;
 	jobject weak;
-	
+
 	ref = g_object_get_data(object, REFERENCE);
 	env = bindings_java_getEnv();
-	
+
 	if (is_last_ref) {
 		/*
 		 * Create weak Java reference, replace association stored in
@@ -79,6 +79,7 @@ bindings_java_toggle
 		if (DEBUG_MEMORY_MANAGEMENT) {
 			g_print("mem: toggle Java ref to STRONG\t%ld\n", (long) object);
 		}
+
 		strong = (*env)->NewGlobalRef(env, ref);
 		g_object_set_data(object, REFERENCE, strong);
 		(*env)->DeleteWeakGlobalRef(env, ref);
@@ -113,7 +114,6 @@ bindings_java_memory_deref
         g_object_unref(object);
         return FALSE;
 }       
-
 
 /**
  * Called from
@@ -188,7 +188,8 @@ bindings_java_memory_ref
 	}
 	g_idle_add(bindings_java_memory_deref, object);
 }
-	
+
+
 /**
  * Called from
  *   Java_org_gnome_glib_GObject_g_1object_1remove_1toggle_1ref()
@@ -214,5 +215,6 @@ bindings_java_memory_unref
 	if (DEBUG_MEMORY_MANAGEMENT) {
 		g_print("mem: remove toggle ref for\t%ld\n", (long) object);
 	}
+
 	g_object_remove_toggle_ref(object, bindings_java_toggle, NULL);
 }

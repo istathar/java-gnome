@@ -1,4 +1,9 @@
-(define-interface TreeModel
+;; this is actually an interface. We have, however, modelled it in java-gnome
+;; as the abstract parent class of ListStore and TreeStore. Merely as a means
+;; to eliminate unnecessary warnings from our generated code, we change it
+;; here to (define-object ...) from (define-interface ...)
+
+(define-object TreeModel
   (in-module "Gtk")
   (c-name "GtkTreeModel")
   (gtype-id "GTK_TYPE_TREE_MODEL")

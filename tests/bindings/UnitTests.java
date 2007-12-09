@@ -14,6 +14,7 @@ import junit.framework.TestSuite;
 
 import org.freedesktop.bindings.Debug;
 import org.freedesktop.bindings.ValidateEnvironment;
+import org.gnome.gdk.ValidateImageHandling;
 import org.gnome.gdk.ValidateScreensAndDisplays;
 import org.gnome.glib.ValidateConstants;
 import org.gnome.glib.ValidateGListMethods;
@@ -24,7 +25,11 @@ import org.gnome.gtk.ValidateFileChoosing;
 import org.gnome.gtk.ValidateOutParameters;
 import org.gnome.gtk.ValidatePacking;
 import org.gnome.gtk.ValidateProperties;
+import org.gnome.gtk.ValidateResponseType;
+import org.gnome.gtk.ValidateSnapshotUtilities;
 import org.gnome.gtk.ValidateStockItems;
+import org.gnome.gtk.ValidateTreeModel;
+import org.gnome.gtk.ValidateTreeView;
 
 import com.operationaldynamics.codegen.ValidateThingUsage;
 import com.operationaldynamics.codegen.ValidateUtilityMethods;
@@ -103,10 +108,15 @@ public class UnitTests
         suite.addTestSuite(ValidateConstants.class);
         suite.addTestSuite(ValidateProperties.class);
         suite.addTestSuite(ValidateScreensAndDisplays.class);
+        suite.addTestSuite(ValidateImageHandling.class);
         suite.addTestSuite(ValidateOutParameters.class);
         suite.addTestSuite(ValidatePacking.class);
         suite.addTestSuite(ValidateFileChoosing.class);
         suite.addTestSuite(ValidateStockItems.class);
+        suite.addTestSuite(ValidateResponseType.class);
+        suite.addTestSuite(ValidateTreeModel.class);
+        suite.addTestSuite(ValidateTreeView.class);
+        suite.addTestSuite(ValidateSnapshotUtilities.class);
 
         return suite;
     }

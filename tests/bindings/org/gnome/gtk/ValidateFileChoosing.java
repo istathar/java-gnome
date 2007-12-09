@@ -10,6 +10,9 @@
  */
 package org.gnome.gtk;
 
+import java.io.File;
+import java.io.IOException;
+
 /**
  * Test the use of interface FileChooser in FileChooserButton.
  * 
@@ -33,5 +36,52 @@ public class ValidateFileChoosing extends TestCaseGtk
          * A failure here could be because the main loop did not iterate
          * sufficiently, or perhaps the target doesn't exist, or...
          */
+    }
+
+    public final void testSettingFilename() {
+        final FileChooserDialog fcd;
+
+        fcd = new FileChooserDialog("", null, FileChooserAction.OPEN);
+        fcd.setCurrentFolder("/");
+        cycleMainLoop();
+        assertEquals("/", fcd.getCurrentFolder());
+
+        assertTrue(fcd.setFilename("/etc/passwd"));
+
+        cycleMainLoop();
+        assertEquals("/etc", fcd.getCurrentFolder());
+        cycleMainLoop();
+        assertEquals("/etc/passwd", fcd.getFilename());
+    }
+
+    public void testAbsolutePathEnforcement() throws IOException {
+        final FileChooserDialog fcd;
+        final FileChooserButton fcb;
+
+        assertEquals("/etc/passwd", new File("/etc/init.d/../passwd").getCanonicalPath());
+
+        fcd = new FileChooserDialog("", null, FileChooserAction.OPEN);
+        fcd.setCurrentFolder("/etc");
+        cycleMainLoop();
+        assertEquals("/etc", fcd.getCurrentFolder());
+
+        try {
+            assertTrue(fcd.setFilename("shadow"));
+            fail("Should have thrown Exception");
+        } catch (IllegalArgumentException iae) {
+            // good
+        }
+
+        fcb = new FileChooserButton("", FileChooserAction.OPEN);
+        fcb.setCurrentFolder("/etc");
+        cycleMainLoop();
+        assertEquals("/etc", fcb.getCurrentFolder());
+
+        try {
+            assertTrue(fcb.setFilename("shadow"));
+            fail("Should have thrown Exception");
+        } catch (IllegalArgumentException iae) {
+            // good
+        }
     }
 }

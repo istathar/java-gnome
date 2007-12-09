@@ -24,8 +24,8 @@ Building java-gnome
 
 For the impatient:
 
-    $ tar xjf java-gnome-4.0.4.tzr.bz2
-    $ cd java-gnome-4.0.4
+    $ tar xjf java-gnome-4.0.5.tzr.bz2
+    $ cd java-gnome-4.0.5
     $ ./configure
     $ make
 
@@ -42,8 +42,8 @@ You can download the latest java-gnome release from the GNOME FTP server at:
 
 Once you've downloaded the latest source tarball:
 
-    $ tar xjf java-gnome-4.0.4.tzr.bz2
-    $ cd java-gnome-4.0.4
+    $ tar xjf java-gnome-4.0.5.tzr.bz2
+    $ cd java-gnome-4.0.5
 
 And go on to step 2 for details about options you can pass to the
 configuration command.
@@ -58,8 +58,10 @@ our source code.
 
 Getting a checkout is easy:
 
-    $ bzr checkout bzr://research.operationaldynamics.com/bzr/java-gnome/mainline java-gnome
-    $ cd java-gnome
+    $ bzr init-repo java-gnome/
+    $ cd java-gnome/
+    $ bzr checkout bzr://research.operationaldynamics.com/bzr/java-gnome/mainline
+    $ cd mainline/
 
 
 2. Run `./configure`
@@ -151,7 +153,7 @@ of the following:
 Examples:
 
     $ ./configure
-    $ ./configure jdk=/opt/sun-jdk-bin-1.4.2.04
+    $ ./configure jdk=/opt/sun-jdk-bin-1.5.0.13
     $ ./configure jamvm=/home/joe/custom/bin/jamvm runtime=jamvm
 
 Your configuration is persistent across builds in that checkout, ie, `make
@@ -224,7 +226,8 @@ in order to tell your Virtual Machine where the library is. See below under
 The `install` target understands the `DESTDIR` variable used by packagers to
 install to a specified prefix _within_ a temporary directory. Someone writing
 an `.ebuild` to create a package for java-gnome on a Gentoo system would
-probably end up seeing the following commands being run by Portage:
+probably end up seeing the following commands being run by Portage, for
+example:
 
 	...
 	
@@ -233,7 +236,7 @@ probably end up seeing the following commands being run by Portage:
 	
 	...
 	
-	make DESTDIR=/var/tmp/portage/java-gnome-4.0.4-r2/image install
+	make DESTDIR=/var/tmp/portage/java-gnome-4.0.5-r2/image install
 	
 	...
 
@@ -311,16 +314,16 @@ your way.
 Status
 ======
 
-java-gnome 4.0 is now a solid foundation that demonstrates the design and
-architecture we are be following as we continue to implement the new Java
-bindings for GTK and GNOME. Coverage is still quite thin, of course, but that
-is changing rapidly. We're now working hard on the code generator which will
-crank out the project internals based on the shared metadata used by the other
-GNOME language bindings.
+java-gnome 4.0 is now a solid foundation that can be used to develop
+non-trivial applications. The architecture and internal design has been well
+proved, and the coverage level (relative to the full breadth of the underlying
+libraries) is growing rapidly. The code generator which cranks out the project
+internals (based on the shared metadata used by the other GNOME language
+bindings) is in good shape and continuing to be refined.
 
-Remember that java-gnome 2.x is completely deprecated and hasn't had any real
-new code from anyone in years. You don't want to be programming with it. If it
-is still available in your distribution, that's a bug.
+Remember that java-gnome 2.x is completely deprecated and hasn't had new code
+from anyone in years. You don't want to be programming with it. If it is still
+available in your distribution, that's a bug.
 
 Get Involved
 ------------
@@ -355,7 +358,7 @@ Maintainer,
 [java-gnome](http://java-gnome.sourceforge.net/),  
 opening GTK and GNOME to Java programmers!
 
-_Last modified 26 Sep 07_
+_Last modified 23 Nov 07_
 
 [mirror]: http://ftp.gnome.org/pub/gnome/sources/java-gnome/4.0/
 

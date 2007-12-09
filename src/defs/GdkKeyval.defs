@@ -1,0 +1,87 @@
+(define-boxed Keyval
+  (in-module "Gdk")
+  (c-name "GdkKeyval")
+)
+
+(define-function name
+  (of-object "GdkKeyval")
+  (c-name "gdk_keyval_name")
+  (return-type "gchar*")
+  (parameters
+    '("guint" "keyval")
+  )
+)
+
+(define-function from_name
+  (of-object "GdkKeyval")
+  (c-name "gdk_keyval_from_name")
+  (return-type "guint")
+  (parameters
+    '("const-gchar*" "keyval_name")
+  )
+)
+
+(define-function convert_case
+  (of-object "GdkKeyval")
+  (c-name "gdk_keyval_convert_case")
+  (return-type "none")
+  (parameters
+    '("guint" "symbol")
+    '("guint*" "lower")
+    '("guint*" "upper")
+  )
+)
+
+(define-function to_upper
+  (of-object "GdkKeyval")
+  (c-name "gdk_keyval_to_upper")
+  (return-type "guint")
+  (parameters
+    '("guint" "keyval")
+  )
+)
+
+(define-function to_lower
+  (of-object "GdkKeyval")
+  (c-name "gdk_keyval_to_lower")
+  (return-type "guint")
+  (parameters
+    '("guint" "keyval")
+  )
+)
+
+(define-function is_upper
+  (of-object "GdkKeyval")
+  (c-name "gdk_keyval_is_upper")
+  (return-type "gboolean")
+  (parameters
+    '("guint" "keyval")
+  )
+)
+
+(define-function is_lower
+  (of-object "GdkKeyval")
+  (c-name "gdk_keyval_is_lower")
+  (return-type "gboolean")
+  (parameters
+    '("guint" "keyval")
+  )
+)
+
+(define-function to_unicode
+  (of-object "GdkKeyval")
+  (c-name "gdk_keyval_to_unicode")
+  (return-type "guint32")
+  (parameters
+    '("guint" "keyval")
+  )
+)
+
+(define-function unicode_to_keyval
+  (of-object "GdkKeyval")
+  (c-name "gdk_unicode_to_keyval")
+  (return-type "guint")
+  (parameters
+    '("guint32" "wc")
+  )
+)

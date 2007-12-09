@@ -1,0 +1,10 @@
+(define-boxed EventVisibility
+  (in-module "Gdk")
+  (c-name "GdkEventVisibility")
+  (fields
+    '("GdkEventType" "type")
+    '("GdkWindow*" "window")
+    '("gint8" "send_event")
+    '("GdkVisibilityState" "state")
+  )
+)

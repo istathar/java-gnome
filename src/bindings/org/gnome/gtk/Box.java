@@ -53,7 +53,7 @@ public abstract class Box extends Container
      * details.</i>
      */
     public void packStart(Widget child) {
-        GtkBox.packStart(this, child, false, false, 0);
+        GtkBox.packStart(this, child, true, true, 0);
     }
 
     /**

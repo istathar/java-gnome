@@ -47,12 +47,15 @@ div.box {
 
 <div class="box">
 <span class="mono" style="font-size: xx-large; font-weight: bold;">
-@since 4.0.4
+@since 4.0.5
 </span>
-<p>The new Java bindings for GTK and GNOME are a reality! With a robust
-engineering design and the machinery to generate the complete internals of the
-bindings, we are now working on expanding our coverage of the underlying
-libraries.</p>
+<p>These are the Java bindings for GTK and GNOME! With a robust engineering
+design and the machinery to generate the complete internals of the bindings in
+place, the growing coverage of the underlying libraries means you can use
+java-gnome to develop increasingly sophisticated user interfaces for your
+applications.
+
+</p>
 
 </div>
 

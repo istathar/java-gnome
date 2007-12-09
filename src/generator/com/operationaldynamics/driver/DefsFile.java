@@ -47,7 +47,7 @@ public final class DefsFile
     /**
      * The types being used in this file that are safe to import
      */
-    // Sets they don't do duplicates. Ta-da.
+    // Sets don't do duplicates. Ta-da.
     private final Set typesToImport;
 
     /**
@@ -105,12 +105,6 @@ public final class DefsFile
         List things;
         Iterator iter;
         Thing t;
-
-        /*
-         * Quick cosmetic hack: the type of this file should always get
-         * imported first.
-         */
-        addToImports(forObject);
 
         for (int i = 0; i < blocks.length; i++) {
             things = blocks[i].usesTypes();

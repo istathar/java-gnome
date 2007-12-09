@@ -141,7 +141,7 @@ bindings_java_throw
 			return; 
 		}
 	}
-	
+
 	(*env)->ThrowNew(env, cls, msg);
     	
 	(*env)->DeleteLocalRef(env, cls);
@@ -234,3 +234,51 @@ bindings_java_typeToSignature
 		return NULL;
 	}
 }
+
+void
+bindings_java_debug
+(
+	JNIEnv* env,
+	jobject obj
+)
+{
+	jclass cls;
+	jmethodID mid = NULL;
+	jobject str;
+	gchar* name;
+
+	cls = (*env)->FindClass(env, "java/lang/Object");
+	if ((*env)->ExceptionCheck(env)) {
+		(*env)->ExceptionDescribe(env);
+		g_error("No jclass?");
+	}
+
+	mid = (*env)->GetMethodID(env, cls, "toString", "()Ljava/lang/String;");
+	if ((*env)->ExceptionCheck(env)) {
+		(*env)->ExceptionDescribe(env);
+		g_error("No methodID?");
+	}
+
+	str = (*env)->CallObjectMethod(env, obj, mid);
+	if (str == NULL) {
+		(*env)->ExceptionDescribe(env);
+		g_error("null?");
+	}
+	if ((*env)->ExceptionCheck(env)) {
+		(*env)->ExceptionDescribe(env);
+		g_error("No String");
+	}
+
+	name = (gchar*) (*env)->GetStringUTFChars(env, str, NULL);
+	if (name == NULL) {
+		(*env)->ExceptionDescribe(env);
+		g_error("OOM?");
+	}
+	if ((*env)->ExceptionCheck(env)) {
+		(*env)->ExceptionDescribe(env);
+		g_error("No conversion");
+	}
+
+	g_debug("obj.toString(): %s", name);
+}
+

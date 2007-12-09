@@ -11,19 +11,83 @@
  */
 package org.gnome.gtk;
 
-import org.gnome.glib.Object;
-
-/*
- * FIXME this is a placeholder stub for what will become the public API for
- * this type. Replace this comment with appropriate javadoc including author
- * and since tags. Note that the class may need to be made abstract, implement
- * interfaces, or even have its parent changed. No API stability guarantees
- * are made about this class until it has been reviewed by a hacker and this
- * comment has been replaced.
+/**
+ * The model storing a list of data. ListStores are the concrete TreeModel
+ * subclass used as the backing data store by a TreeView displaying tabular
+ * data, storing both the material to be presented as well as meta-information
+ * used to fine tune the presentation of that data. ListStores are also used
+ * as the backing store for the list of options in a ComboBoxes.
+ * 
+ * <p>
+ * Detailed discussion of how to instantiate ListStores is included in the
+ * {@link DataColumn} class. In summary, given
+ * 
+ * <pre>
+ * final DataColumnString monarchName;
+ * final DataColumnInteger coronatedYear;
+ * final DataColumnPixbuf portrait;
+ * final ListStore model;
+ * ...
+ * </pre>
+ * 
+ * you build a three column model as follows:
+ * 
+ * <pre>
+ * model = new ListStore(new DataColumn[] {
+ *         monarchName = new DataColumnString(),
+ *         coronatedYear = new DataColumnInteger(),
+ *         portrait = new DataColumnPixbuf()
+ * });
+ * </pre>
+ * 
+ * <p>
+ * Although we talk about TreeModels all the time as the base superclass, it's
+ * not a good idea to declare your model as a TreeModel when instantiating
+ * because you'll need {@link #appendRow() appendRow()} method which is here,
+ * on the concrete type ListStore. In other words, do:
+ * 
+ * <pre>
+ * ListStore model = new ListStore(...);
+ * </pre>
+ * 
+ * as shown above, not:
+ * 
+ * <pre>
+ * TreeModel model = new ListStore(...);
+ * </pre>
+ * 
+ * @author Andrew Cowie
+ * @since 4.0.5
  */
-public class ListStore extends Object implements TreeModel, TreeDragSource, TreeDragDest, TreeSortable
+public class ListStore extends TreeModel implements TreeDragSource, TreeDragDest, TreeSortable
 {
     protected ListStore(long pointer) {
         super(pointer);
+    }
+
+    /**
+     * Construct a new ListStore with the given column types. See
+     * {@link DataColumn DataColumn} for details. You must include at least
+     * one DataColumn in your <code>types</code> array (you can't have a
+     * ListStore with no columns).
+     */
+    public ListStore(DataColumn[] types) {
+        super(GtkTreeModelOverride.createListStore(typesToClassNames(types)));
+    }
+
+    /**
+     * Add a new row to the ListStore. You'll need to fill in the various
+     * columns with one of the various
+     * {@link TreeModel#setValue(TreeIter, DataColumnString, String) setValue()}
+     * methods, of course.
+     */
+    public TreeIter appendRow() {
+        final TreeIter iter;
+
+        iter = new TreeIter(this);
+
+        GtkListStore.append(this, iter);
+
+        return iter;
     }
 }

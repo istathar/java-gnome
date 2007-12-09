@@ -118,6 +118,9 @@ public abstract class Plumbing
      * @return opaque data to be passed to native methods only.
      */
     protected static final long[] pointersOf(Proxy[] references) {
+        if (references == null) {
+            return null;
+        }
         long[] pointers = new long[references.length];
         for (int i = 0; i < references.length; ++i) {
             pointers[i] = (references[i] == null ? 0L : references[i].pointer);

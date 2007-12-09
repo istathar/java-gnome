@@ -118,4 +118,22 @@ public abstract class Container extends Widget
     public Widget[] getChildren() {
         return GtkContainer.getChildren(this);
     }
+
+    /**
+     * Set the amount of padding to put around the outside of this Container,
+     * in pixels. This is exterior padding around the outside of the contained
+     * Widgets. The default is 0.
+     * 
+     * @param width
+     *            Although anything under 65535 is a valid value, anyone who
+     *            thinks they need a border width of sixty thousand pixels is
+     *            invited to get their head examined.
+     * @since 4.0.5
+     */
+    public void setBorderWidth(int width) {
+        if (width < 0) {
+            throw new IllegalArgumentException("width must be positive");
+        }
+        GtkContainer.setBorderWidth(this, width);
+    }
 }

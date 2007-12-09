@@ -21,6 +21,7 @@
 <title>Opening GTK and GNOME to Java Programmers</title>
 <meta name="author" content="Andrew Cowie">
 <meta name="author" content="Katrina Ross">
+<meta name="verify-v1" content="Tw3DRid/hBqoKxSEHYqegnqwJ9wTs+quVgulejkk5E0=" />
 <style>
 .italics {
 	font-family: "Times New Roman", serif;

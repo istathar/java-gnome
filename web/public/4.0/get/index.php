@@ -48,6 +48,7 @@ the library on your system.</p>
 <li><p><a class="subject" href="ubuntu.php">Ubuntu Linux</a><br></p>
 <li><p><a class="subject" href="debian.php">Debian Linux</a><br></p>
 <li><p><a class="subject" href="fedora.php">Fedora Core Linux</a><br></p>
+<li><p><a class="subject" href="arch.php">Arch Linux</a><br></p>
 </ul>
 
 If yours isn't on that list, or if they don't have the latest release, then
@@ -85,7 +86,7 @@ from source; it is written in Python and installs most anywhere).</p>
 <p>You can checkout the source code as follows:
 
 <pre>
-$ bzr checkout http://research.operationaldynamics.com/bzr/java-gnome/mainline/
+$ bzr checkout bzr://research.operationaldynamics.com/bzr/java-gnome/mainline/
 </pre>
 
 <p>We try our best to keep <code>mainline</code> in a buildable state, and

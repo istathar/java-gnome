@@ -89,15 +89,36 @@ public final class EventType extends Constant
      * A mouse button has been double clicked. Each click should also have
      * generated a {@link EventType#BUTTON_PRESS BUTTON_PRESS} event;
      * regardless this will be handled in higher level semantics.
+     * 
+     * <p>
+     * <i>Note that this is the constant <code>GDK_2BUTTON_PRESS</code> in
+     * the underlying library; we had to rename it slightly for translation
+     * into a legal Java identifier.</i>
      */
     public static final EventType BUTTON_PRESS_DOUBLE = new EventType(GdkEventType.BUTTON_PRESS_DOUBLE,
             "BUTTON_PRESS_DOUBLE");
 
     /**
-     * A mouse button has been clicked three times in a brief period. Each
-     * click should also have generated a
-     * {@link EventType#BUTTON_PRESS BUTTON_PRESS} event. TODO Has anyone ever
-     * actually seen this?
+     * A mouse button has been clicked three times in a brief period. You
+     * would probably see this generated from the sequence:
+     * 
+     * <ul>
+     * <li>click (<code>BUTTON_PRESS</code> emitted),
+     * <li>click (<code>BUTTON_PRESS</code> then
+     * <code>BUTTON_PRESS_DOUBLE</code> emitted),
+     * <li>click (<code>BUTTON_PRESS</code> then
+     * <code>BUTTON_PRESS_TRIPLE</code> emitted).
+     * </ul>
+     * Your results may vary, however, depending on what else might be
+     * intercepting events along the way.
+     * 
+     * <p>
+     * <i>Note that this is the constant <code>GDK_3BUTTON_PRESS</code> in
+     * the underlying library; we had to rename it slightly for translation
+     * into a legal Java identifier.</i>
+     */
+    /*
+     * Thanks to Ryan Lortie for helping document the Event sequence.
      */
     public static final EventType BUTTON_PRESS_TRIPLE = new EventType(GdkEventType.BUTTON_PRESS_TRIPLE,
             "BUTTON_PRESS_TRIPLE");

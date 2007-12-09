@@ -56,7 +56,8 @@ public class FileChooserWidget extends VBox implements FileChooser
         return null;
     }
 
-    public void connect(FileChooser.SELECTION_CHANGED handler) {
-    // TODO method stub to satisfy interface to permit compilation.
+    public boolean setFilename(String filename) {
+        // TODO method stub to satisfy interface to permit compilation.
+        return false;
     }
 }

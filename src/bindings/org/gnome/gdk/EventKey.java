@@ -11,17 +11,24 @@
  */
 package org.gnome.gdk;
 
-/*
- * FIXME this is a placeholder stub for what will become the public API for
- * this type. Replace this comment with appropriate javadoc including author
- * and since tags. Note that the class may need to be made abstract, implement
- * interfaces, or even have its parent changed. No API stability guarantees
- * are made about this class until it has been reviewed by a hacker and this
- * comment has been replaced.
+/**
+ * Event data describing a key press.
+ * 
+ * @author Andrew Cowie
+ * @since 4.0.6
  */
 public final class EventKey extends Event
 {
     protected EventKey(long pointer) {
         super(pointer);
+    }
+
+    /**
+     * Get the key that was pressed.
+     * 
+     * @since 4.0.6
+     */
+    public Keyval getKeyval() {
+        return GdkKeyvalOverride.enumFor(GdkEventKey.getKeyval(this));
     }
 }

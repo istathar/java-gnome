@@ -35,7 +35,6 @@ package org.gnome.gtk;
  */
 public class Label extends Misc
 {
-
     protected Label(long pointer) {
         super(pointer);
     }
@@ -234,5 +233,32 @@ public class Label extends Misc
      */
     public void setMaxWidthChars(int width) {
         GtkLabel.setMaxWidthChars(this, width);
+    }
+
+    /**
+     * Select a region of the text in this Label. The characters between
+     * <code>start</code> up to <i>but not including</i> <code>end</code>
+     * will be selected. This assumes that the Label has been made selectable
+     * with {@link #setSelectable(boolean) setSelectable(true)}.
+     * 
+     * @param end
+     *            If negative, then the selection will be from
+     *            <code>start</code> to the end of the text in the Label.
+     * @since 4.0.6
+     */
+    /*
+     * Description cloned from Editable
+     */
+    public void selectRegion(int start, int end) {
+        GtkLabel.selectRegion(this, start, end);
+    }
+
+    /**
+     * Whether the text in this Label can be selected by the user.
+     * 
+     * @since 4.0.6
+     */
+    public void setSelectable(boolean setting) {
+        GtkLabel.setSelectable(this, setting);
     }
 }

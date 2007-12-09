@@ -39,7 +39,7 @@
   (return-type "GtkWidget*")
   (parameters
     '("const-gchar*" "stock_id")
-    '("GtkAccelGroup*" "accel_group")
+    '("GtkAccelGroup*" "accel_group" (null-ok))
   )
 )
 

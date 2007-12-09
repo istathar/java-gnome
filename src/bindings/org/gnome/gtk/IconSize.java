@@ -13,17 +13,58 @@ package org.gnome.gtk;
 
 import org.freedesktop.bindings.Constant;
 
-/*
- * FIXME this is a placeholder stub for what will become the public API for
- * this type. Replace this comment with appropriate javadoc including author
- * and since tags. Note that the class may need to be made abstract, implement
- * interfaces, or even have its parent changed. No API stability guarantees
- * are made about this class until it has been reviewed by a hacker and this
- * comment has been replaced.
+/**
+ * Constants referring to the size of an icon. These are typically used when
+ * working with Stock icons, for example with the
+ * {@link Image#Image(Stock, IconSize) Image} constructor that takes a Stock
+ * image identifier and one of these constants to specify the size you want.
+ * 
+ * <p>
+ * We're rather deliberately <i>not</i> indicated the pixel dimensions
+ * associated with each IconSize constant, as this is the sort of thing that
+ * can evolve over time - and be theme dependant.
+ * 
+ * <p>
+ * In some sense you don't need this; when working with Stock items in
+ * conjunction with Buttons or Menus, the images will be arranged to be the
+ * appropriate size automatically.
+ * 
+ * @author Andrew Cowie
+ * @since 4.0.6
  */
 public final class IconSize extends Constant
 {
     private IconSize(int ordinal, String nickname) {
         super(ordinal, nickname);
     }
+
+    /**
+     * The standard size used for icons on Buttons. See also
+     * {@link Button#setImage(Image)} for setting an image of arbitrary size.
+     */
+    public static final IconSize BUTTON = new IconSize(GtkIconSize.BUTTON, "BUTTON");
+
+    /**
+     * The standard size used for icons appearing on Menus. See
+     * {@link ImageMenuItem}.
+     */
+    public static final IconSize MENU = new IconSize(GtkIconSize.MENU, "MENU");
+
+    /**
+     * The size used when Toolbars are being rendered in their smaller
+     * incarnation. Some have noted that icons created for this case bear a
+     * striking resemblance to the MENU size.
+     */
+    public static final IconSize SMALL_TOOLBAR = new IconSize(GtkIconSize.SMALL_TOOLBAR, "SMALL_TOOLBAR");
+
+    /**
+     * The size used for icons appearing in large (some would call this
+     * normal) size Toolbars.
+     */
+    public static final IconSize LARGE_TOOLBAR = new IconSize(GtkIconSize.LARGE_TOOLBAR, "LARGE_TOOLBAR");
+
+    public static final IconSize DIALOG = new IconSize(GtkIconSize.DIALOG, "DIALOG");
+
+    public static final IconSize DND = new IconSize(GtkIconSize.DND, "DND");
+
 }

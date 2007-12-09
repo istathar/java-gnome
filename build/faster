@@ -306,7 +306,6 @@ def compileJavaCode(outputDir, classpath, sourcepath, sources):
 def runJavaClass(classname, classpath, librarypath=""):
 	cmd = config['JAVA'] + " "
 	cmd += "-classpath " + classpath + " "
-	cmd += "-ea "
 	if librarypath:
 		cmd += "-Djava.library.path=" + librarypath + " "
 	cmd += classname
@@ -478,13 +477,14 @@ def compileTestClasses():
 	pairs = dependsMapSourceFilesToTargetFiles("tests/generator/", ".java", "tmp/tests/", ".class")
 	pairs += dependsMapSourceFilesToTargetFiles("tests/bindings/", ".java", "tmp/tests/", ".class")
 	pairs += dependsMapSourceFilesToTargetFiles("tests/prototype/", ".java", "tmp/tests/", ".class")
+	pairs += dependsMapSourceFilesToTargetFiles("tests/screenshots/", ".java", "tmp/tests/", ".class")
 	pairs += dependsMapSourceFilesToTargetFiles("doc/examples/", ".java", "tmp/tests/", ".class")
 
 	changed = filesNeedBuilding(pairs)
 	if not changed:
 		return
 
-	compileJavaCode("tmp/tests/", "tmp/generator:tmp/bindings/:"+config['JUNIT_JARS'], "tests/generator/:tests/bindings/:tests/prototype/", changed)
+	compileJavaCode("tmp/tests/", "tmp/generator:tmp/bindings/:"+config['JUNIT_JARS'], "tests/generator/:tests/bindings/:tests/prototype/:tests/screenshots/", changed)
 
 
 

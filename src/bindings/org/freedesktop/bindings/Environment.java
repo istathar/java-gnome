@@ -22,9 +22,10 @@ public class Environment
 {
     /**
      * Get an environment variable from the inherited (Linux or Unix)
-     * environment. This would wrap the deprecated {@link System#getenv()}
-     * call, but that throws Error in modern JDKs [so much for ABI stability,
-     * the bastards]. So we reimplement the same thing with our own JNI call.
+     * environment. This is here because the {@link System#getenv(String)}
+     * call was deprecated for a while and later threw Error in several JDKs
+     * [so much for ABI stability, the bastards]. So we reimplement the same
+     * thing with our own JNI call.
      * 
      * @param variableName
      *            the name of the environment variable you want to look up
@@ -47,7 +48,4 @@ public class Environment
 
     private static native final String getenv(String variableName);
 
-    public static int getWidth() {
-        throw new UnsupportedOperationException("Don't know how to implement this, sorry");
-    }
 }

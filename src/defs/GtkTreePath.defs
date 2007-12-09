@@ -11,6 +11,15 @@
   (return-type "GtkTreePath*")
 )
 
+(define-function tree_path_new_from_string
+  (is-constructor-of "GtkTreePath")
+  (c-name "gtk_tree_path_new_from_string")
+  (return-type "GtkTreePath*")
+  (parameters
+    '("gchar*" "path")
+  )
+)
+
 (define-method to_string
   (of-object "GtkTreePath")
   (c-name "gtk_tree_path_to_string")
