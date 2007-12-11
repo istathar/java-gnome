@@ -20,7 +20,7 @@
  *   org.freedesktop.cairo.Plumbing.createPattern(long pointer)
  */
 JNIEXPORT jobject JNICALL
-Java_org_freedesktop_bindings_Plumbing_createPattern
+Java_org_freedesktop_cairo_Plumbing_createPattern
 (
 	JNIEnv *env,
 	jclass cls,

@@ -72,3 +72,10 @@
     '("double" "y")
   )
 )
+
+(define-method get_source
+  (of-object "cairo_t")
+  (c-name "cairo_get_source")
+  (return-type "cairo_pattern_t*")
+  (caller-owns-return #f)
+)

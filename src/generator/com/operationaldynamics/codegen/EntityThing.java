@@ -26,14 +26,8 @@ public class EntityThing extends ProxiedThing
 
     protected EntityThing() {}
 
-    /*
-     * FIXME using instanceFor() will let it compile for now, but doesn't deal
-     * with the case where there isn't already a Proxy for this pointer. Will
-     * probably be trouble, but fixing it will require some sort of
-     * registration mechanism to get around the inheritance visibility
-     * problem.
-     */
     String translationToJava(String name, DefsFile data) {
-        return "(" + javaTypeInContext(data) + ") instanceFor(" + name + ")";
+        return "(" + javaTypeInContext(data) + ") entityFor(" + javaTypeInContext(data) + ".class,  " + name
+                + ")";
     }
 }

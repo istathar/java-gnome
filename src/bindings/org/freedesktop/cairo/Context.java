@@ -78,4 +78,13 @@ public class Context extends Proxy
     public void stroke() {
         CairoContext.stroke(this);
     }
+
+    /**
+     * Get the current source Pattern for this Context.
+     * 
+     * @since 4.0.6
+     */
+    public Pattern getSource() {
+        return CairoContext.getSource(this);
+    }
 }

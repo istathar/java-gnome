@@ -29,27 +29,27 @@ public class ValidateCairoInternals extends TestCaseGtk
         cr = new Context(s);
 
         /*
-         * Create some arbitrary data so the thing doesn't completely do the 0
-         * case escape.
+         * Do something arbitrary.
          */
 
         cr.setSourceRGBA(0.0, 0.0, 1.0, 0.8);
-        cr.moveTo(10, 10);
-        cr.lineTo(20, 5);
-        cr.stroke();
 
         /*
-         * Call a method that returns an abstract type
+         * Call a method that returns an abstract type, in this case a
+         * Pattern.
          */
 
-        p = new SurfacePattern(s);
+        p = cr.getSource();
+        assertNotNull(p);
+        assertTrue(p instanceof SolidPattern);
 
         /*
-         * And now I would gladly put a test that caused
-         * Plumbing.createPattern() to be used, except that I cannot find a
-         * non-constructor function that return a Pattern!
+         * Note: The preceeding assertion doesn't have to be a SolidPattern.
+         * It just needs to be something concrete, and more to the point
+         * something that we didn't already have a Proxy for. Obviously we
+         * can't have instantiated a non-concrete class, but this makes the
+         * point clearly that we got something out of it that we didn't have
+         * on the Java side before.
          */
-        
-        // TODO
     }
 }
