@@ -10,19 +10,7 @@
  */
 package org.gnome.unixprint;
 
-import org.freedesktop.bindings.Proxy;
-
 abstract class Plumbing extends org.gnome.glib.Plumbing
 {
     protected Plumbing() {}
-
-    /*
-     * FIXME this is a pathetic hack, only here to permit compilation to
-     * succeed while we work out a better means of handling the cross-package
-     * visibility issue.
-     */
-    protected static Proxy entityFor(Class type, long pointer) {
-        throw new UnsupportedOperationException(
-                "Unfortunately, we haven't figured out how to call the method in Cairo's Plumbing yet");
-    }
 }
