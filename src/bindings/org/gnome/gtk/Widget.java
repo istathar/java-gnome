@@ -473,7 +473,7 @@ public abstract class Widget extends org.gnome.gtk.Object
      * thus allowing you to do something like:
      * 
      * <pre>
-     * b.connect(new Button.ACTIVATE() {
+     * b.connect(new Button.CLICKED() {
      *     public void onClicked(Button source) {
      *         if (up) {
      *             w.hide();
@@ -483,7 +483,7 @@ public abstract class Widget extends org.gnome.gtk.Object
      *             up = true;
      *         }
      *     }
-     * }
+     * });
      * </pre>
      * 
      * to intelligently toggle the visibility of the Window.
