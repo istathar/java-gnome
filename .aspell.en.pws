@@ -706,6 +706,7 @@ createCheckMenuItemWithMnemonic
 createColor
 createComboBox
 createComboBoxText
+createComboBoxWithModel
 createDialog
 createDialogWithButtons
 createEntry
@@ -870,6 +871,7 @@ george
 getAbsolutePath
 getAction
 getActive
+getActiveIter
 getActiveText
 getAlignment
 getAlignmentX

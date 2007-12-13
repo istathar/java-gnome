@@ -12,7 +12,8 @@
 package org.gnome.gtk;
 
 /**
- * A Widget used to choose from a list of items.
+ * A Widget used to choose from a list of items. <img src="ComboBox"
+ * class="snapshot" />
  * 
  * <p>
  * <b>FIXME WARNING FIXME WARNING<br>
@@ -50,6 +51,8 @@ public class ComboBox extends Bin implements CellEditable, CellLayout
      * methods {@link #appendText(String) appendText()},
      * {@link #insertText(int, String) insertText()},
      * {@link #getActiveText() getActiveText()}, etc.
+     * 
+     * @deprecated
      */
     public ComboBox() {
         super(GtkComboBox.createComboBoxText());
@@ -64,21 +67,25 @@ public class ComboBox extends Bin implements CellEditable, CellLayout
      * Model later with {@link #setModel(TreeModel) setModel()}.
      */
     public ComboBox(TreeModel model) {
-        super(GtkComboBox.createComboBox());
+        super(GtkComboBox.createComboBoxWithModel(model));
     }
 
     /**
-     * Returns the index of the active item in the ComboBox.
+     * Returns the index of the active item in the ComboBox. This counts from
+     * a zero origin, so a return value of <code>2</code> means the third
+     * item in the list is currently the active item.
+     * 
+     * @since 4.0.6
      */
     public int getActive() {
         return GtkComboBox.getActive(this);
     }
 
     /**
-     * Change the active index for the list within this ComboBox.
+     * Change the active item within this ComboBox. Items are numbered from
+     * <code>0</code>.
      * 
-     * @param active
-     *            Index to activate
+     * @since 4.0.6
      */
     public void setActive(int active) {
         GtkComboBox.setActive(this, active);
@@ -88,6 +95,8 @@ public class ComboBox extends Bin implements CellEditable, CellLayout
      * Appends a text item to the list. This method should only be used if the
      * ComboBox was created with <code>textItemsOnly</code>. FIXME We can
      * do better than this.
+     * 
+     * @deprecated
      */
     public void appendText(String text) {
         GtkComboBox.appendText(this, text);
@@ -98,6 +107,7 @@ public class ComboBox extends Bin implements CellEditable, CellLayout
      * be used, if the ComboBox was created with <code>textItemsOnly</code>.
      * FIXME We can do better than this.
      * 
+     * @deprecated
      * @param position
      *            The position beginning from 0, where the new item should be
      *            placed
@@ -110,6 +120,8 @@ public class ComboBox extends Bin implements CellEditable, CellLayout
      * Prepends a text item to the list. This method should only be used, if
      * the ComboBox was created with <code>textItemsOnly</code>. FIXME We
      * can do better than this.
+     * 
+     * @deprecated
      */
     public void prependText(String text) {
         GtkComboBox.prependText(this, text);
@@ -119,6 +131,8 @@ public class ComboBox extends Bin implements CellEditable, CellLayout
      * Returns the text of the active item. This method should only be used,
      * if the ComboBox was created with <code>textItemsOnly</code>. FIXME
      * We can do better than this.
+     * 
+     * @deprecated
      */
     public String getActiveText() {
         return GtkComboBox.getActiveText(this);
@@ -138,5 +152,39 @@ public class ComboBox extends Bin implements CellEditable, CellLayout
      */
     public void connect(CHANGED handler) {
         GtkComboBox.connect(this, handler);
+    }
+
+    /**
+     * Cause the popup part of the ComboBox to raise and present itself. You
+     * don't tend to need this (after all it's the user who clicks on the
+     * ComboBox to cause the popup to present). The ComboBox must already have
+     * been realized to the screen before you will be able to use this.
+     * 
+     * @since 4.0.6
+     */
+    public void popup() {
+        GtkComboBox.popup(this);
+    }
+
+    TreeModel getModel() {
+        return GtkComboBox.getModel(this);
+    }
+
+    /**
+     * Get a TreeIter pointing at the currently selected row. If no row is
+     * currently active then <code>null</code> will be returned.
+     * 
+     * @since 4.0.6
+     */
+    public TreeIter getActiveIter() {
+        final TreeIter active;
+
+        active = new TreeIter(this.getModel());
+
+        if (GtkComboBox.getActiveIter(this, active)) {
+            return active;
+        } else {
+            return null;
+        }
     }
 }
