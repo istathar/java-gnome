@@ -1243,6 +1243,7 @@ pageIncrement
 pageNum
 pageSize
 pango
+parallelize
 param
 perl
 php
