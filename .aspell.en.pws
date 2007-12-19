@@ -11,6 +11,7 @@ AltLeft
 AltRight
 ArrayList
 AtSign
+AttachOptions
 BackSpace
 Bassi
 Behdad
@@ -67,6 +68,8 @@ ControlRight
 Cowie
 Cowie's
 Ctrl
+CursorType
+CursorTypes
 DDDDDD
 DESTDIR
 DNS
@@ -177,6 +180,10 @@ GValue
 GValues
 GdkColor
 GdkColorOverride
+GdkCursor
+GdkCursorType
+GdkCursors
+GdkDisplay
 GdkEvent
 GdkEventAny
 GdkEventExpose
@@ -264,6 +271,7 @@ GtkSeparatorToolItem
 GtkStateType
 GtkStatusIcon
 GtkStockItem
+GtkTable
 GtkToggleButton
 GtkToggleToolButton
 GtkToolButton
@@ -406,6 +414,7 @@ Overholt
 PIXMAP
 PNGs
 PRELIGHT
+PTR
 PackageNames
 PageDown
 PageUp
@@ -435,6 +444,7 @@ QuoteRight
 README
 RGB
 RHEL
+RTL
 Rahn
 RcStyle
 RefToJavaProxy
@@ -464,6 +474,7 @@ ShiftRight
 SignalHandler
 Singh
 SizeGroup
+SizeGroups
 SlashTime
 SmartyPants
 SnapshotButton
@@ -579,6 +590,7 @@ Xlib's
 Xml
 Xvfb
 Yeay
+Yeech
 accessibleByTrain
 accessors
 activatable
@@ -610,6 +622,7 @@ assertNull
 assertSame
 assertTrue
 atk
+attachDefaults
 autotools
 backend
 backends
@@ -630,6 +643,7 @@ boolean
 bootclasspath
 borderless
 borked
+bottomAttach
 boxedArrayFor
 boxedFor
 boxeds
@@ -707,6 +721,7 @@ createColor
 createComboBox
 createComboBoxText
 createComboBoxWithModel
+createCursor
 createDialog
 createDialogWithButtons
 createEntry
@@ -743,6 +758,7 @@ createStatusIcon
 createStatusIconFromFile
 createStatusIconFromIconName
 createStatusIconFromPixbuf
+createTable
 createThing
 createToggleButton
 createToggleButtonWithMnemonic
@@ -976,6 +992,7 @@ getString
 getSubmenu
 getText
 getToplevel
+getToplevels
 getTreeView
 getType
 getURI
@@ -1097,6 +1114,7 @@ labelWidget
 lang
 lc
 ld
+leftAttach
 len
 li
 libexec
@@ -1283,6 +1301,7 @@ resized
 resizes
 responseId
 returnType
+rightAttach
 rowstride
 rpath
 runDemo
@@ -1319,6 +1338,7 @@ setChildSecondary
 setClickable
 setCurrentFolder
 setCurrentPage
+setCursor
 setDecorated
 setDefaultIcon
 setDefaultSize
@@ -1478,6 +1498,7 @@ toString
 toolkits
 tooltip
 tooltips
+topAttach
 toplevel
 touchFile
 touples
@@ -1553,8 +1574,12 @@ xffe
 xffea
 xffff
 xjf
+xoptions
+xpadding
 xscale
 yalign
+yoptions
+ypadding
 yscale
 zdefs
 zoneinfo
