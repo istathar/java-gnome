@@ -123,4 +123,21 @@ public class TreeViewColumn extends Object implements CellLayout
     public void setExpand(boolean setting) {
         GtkTreeViewColumn.setExpand(this, setting);
     }
+
+    /**
+     * Set the horizontal alignment of the title (or custom Widget) within the
+     * header of this TreeViewColumn.
+     * 
+     * @param xalign
+     *            As with elsewhere in GTK, a value between <code>0.0f</code>
+     *            for left and <code>1.0f</code> for right alignment. The
+     *            constants in {@link Alignment} may serve.
+     * @since 4.0.6
+     */
+    public void setAlignment(float xalign) {
+        if ((xalign < 0.0) || (xalign > 1.0)) {
+            throw new IllegalArgumentException("xalign must be between 0.0 and 1.0");
+        }
+        GtkTreeViewColumn.setAlignment(this, xalign);
+    }
 }
