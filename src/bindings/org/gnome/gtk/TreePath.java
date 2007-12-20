@@ -102,4 +102,16 @@ public final class TreePath extends Boxed
             return false;
         }
     }
+
+    /**
+     * Return the text form represented by this TreePath. For example, a
+     * TreePath pointing at the third row's second child row's fifth child row
+     * in a TreeStore would be "2:1:4"; the 16th row of a ListStore would be
+     * "15".
+     * 
+     * @since 4.0.6
+     */
+    public String toString() {
+        return GtkTreePath.toString(this);
+    }
 }

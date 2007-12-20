@@ -394,4 +394,19 @@ public abstract class TreeModel extends org.gnome.glib.Object
             return null;
         }
     }
+
+    /**
+     * Get a TreePath corresponding to the row being pointed at by the given
+     * TreeIter.
+     * 
+     * <p>
+     * Remember that TreePaths, like TreeIters, are not stable across changes
+     * to the model; if you need to reliably point to a given row use
+     * {@link TreeRowReference} instead.
+     * 
+     * @since 4.0.6
+     */
+    public TreePath getPath(TreeIter row) {
+        return GtkTreeModel.getPath(this, row);
+    }
 }

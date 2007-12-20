@@ -13,13 +13,20 @@ package org.gnome.gtk;
 
 import org.gnome.glib.Boxed;
 
-/*
- * FIXME this is a placeholder stub for what will become the public API for
- * this type. Replace this comment with appropriate javadoc including author
- * and since tags. Note that the class may need to be made abstract, implement
- * interfaces, or even have its parent changed. No API stability guarantees
- * are made about this class until it has been reviewed by a hacker and this
- * comment has been replaced.
+/**
+ * A stable reference to a specific row in a TreeModel. A TreeRowReference
+ * listens to all changes made to the model (be they insertions, deletions,
+ * sorting being applied, etc) and adjusts itself internally so that the same
+ * row is pointed at by the instance regardless.
+ * 
+ * <p>
+ * This class is primarily necessary because a TreeIter instances is no longer
+ * usable if the model changes. Neither are TreePaths for that matter; if you
+ * change the sorting order then the row pointed at by TreePath "2" will
+ * [likely] be different before and after the sort.
+ * 
+ * @author Andrew Cowie
+ * @since 4.0.6
  */
 public final class TreeRowReference extends Boxed
 {
@@ -27,11 +34,31 @@ public final class TreeRowReference extends Boxed
         super(pointer);
     }
 
+    /**
+     * Construct a new TreeRowReference for the given TreePath into the given
+     * Model.
+     * 
+     * @since 4.0.6
+     */
+    public TreeRowReference(TreeModel model, TreePath path) {
+        super(GtkTreeRowReference.createTreeRowReference(model, path));
+    }
+
     protected void release() {
-        /*
-         * FIXME This class's release() method must be implemented to call the
-         * correct free() or unref() function before it can be used.
-         */
-        throw new UnsupportedOperationException("Not yet implemented");
+        GtkTreeRowReference.free(this);
+    }
+
+    /**
+     * Get a TreePath representing the row that this TreeRowReference is
+     * currently pointing at.
+     * 
+     * @return You'll get <code>null</code> back if the TreeRowReference is
+     *         no longer valid, which would happen if the row has been
+     *         deleted.
+     * 
+     * @since 4.0.6
+     */
+    public TreePath getPath() {
+        return GtkTreeRowReference.getPath(this);
     }
 }
