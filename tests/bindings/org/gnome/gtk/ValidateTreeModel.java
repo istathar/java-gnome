@@ -147,6 +147,21 @@ public class ValidateTreeModel extends TestCaseGtk
         assertEquals(42, model.getValue(row, column));
     }
 
+    public final void testSettingValueLongColumn() {
+        final ListStore model;
+        TreeIter row;
+        DataColumnLong column;
+
+        model = new ListStore(new DataColumn[] {
+            column = new DataColumnLong(),
+        });
+
+        row = model.appendRow();
+        model.setValue(row, column, -600000000000L);
+
+        assertEquals(-600000000000L, model.getValue(row, column));
+    }
+
     public final void testSettingValueBooleanColumn() {
         final ListStore model;
         TreeIter row;

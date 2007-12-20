@@ -25,8 +25,8 @@ package org.gnome.gtk;
  */
 class Value extends org.gnome.glib.Value
 {
-    protected Value(long pointer) {
-        super(pointer);
+    protected Value(long pointer, boolean proxy) {
+        super(pointer, proxy);
     }
 
     Value() {
@@ -57,8 +57,8 @@ class Value extends org.gnome.glib.Value
         return super.getBoolean();
     }
 
-    Value(float f) {
-        super(f);
+    Value(float value) {
+        super(value);
     }
 
     public Value(org.gnome.glib.Object obj) {
@@ -74,5 +74,13 @@ class Value extends org.gnome.glib.Value
 
     protected float getFloat() {
         return super.getFloat();
+    }
+    
+    Value(long value) {
+        super(value);
+    }
+
+    protected long getLong() {
+        return super.getLong();
     }
 }

@@ -111,6 +111,8 @@ bindings_java_type_lookup
 		return G_TYPE_STRING;
 	} else if (g_str_equal(fqcn, "java.lang.Integer")) {
 		return G_TYPE_INT;
+	} else if (g_str_equal(fqcn, "java.lang.Long")) {
+		return G_TYPE_INT64;
 	} else if (g_str_equal(fqcn, "java.lang.Boolean")) {
 		return G_TYPE_BOOLEAN;
 	} else if (g_str_equal(fqcn, "org.gnome.glib.Object")) {

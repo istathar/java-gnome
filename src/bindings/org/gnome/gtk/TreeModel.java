@@ -253,6 +253,28 @@ public abstract class TreeModel extends org.gnome.glib.Object
     }
 
     /**
+     * Get the <code>long</code> value stored in this TreeModel at the
+     * specified <code>row</code> and <code>column</code>.
+     */
+    public long getValue(TreeIter row, DataColumnLong column) {
+        final Value result;
+
+        result = new Value();
+
+        GtkTreeModel.getValue(this, row, column.getOrdinal(), result);
+
+        return result.getLong();
+    }
+
+    /**
+     * Store an <code>int</code> in this TreeModel at the specified
+     * <code>row</code> and <code>column</code>.
+     */
+    public void setValue(TreeIter row, DataColumnLong column, long value) {
+        dispatch(row, column, new Value(value));
+    }
+
+    /**
      * Get the <code>boolean</code> value stored in this TreeModel at the
      * specified <code>row</code> and <code>column</code>.
      */
