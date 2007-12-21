@@ -284,6 +284,7 @@ GtkTreeIterOverride
 GtkTreeModel
 GtkTreeModelOverride
 GtkTreePath
+GtkTreeRowReference
 GtkTreeSelection
 GtkTreeStore
 GtkTreeView
@@ -542,6 +543,7 @@ TreeView's
 TreeViewAndTreeModel
 TreeViewColumn
 TreeViewColumn's
+TreeViewColumnSizing
 TreeViewColumns
 TreeViews
 TypeBlock
@@ -769,6 +771,7 @@ createToolbar
 createTreeIter
 createTreePath
 createTreePathFromString
+createTreeRowReference
 createTreeView
 createTreeViewColumn
 createTreeViewWithModel
@@ -935,6 +938,7 @@ getJustify
 getLabel
 getLabelWidget
 getLayout
+getLong
 getMaxLength
 getMaximized
 getMenu
@@ -951,6 +955,7 @@ getPaddingLeft
 getPaddingRight
 getPaddingTop
 getParent
+getPath
 getPixbuf
 getPointer
 getPointerFromHandle
@@ -1353,6 +1358,7 @@ setEventsVisibility
 setExpand
 setFilename
 setFixedHeightMode
+setFixedWidth
 setFocusOnClick
 setForeground
 setFraction
@@ -1382,6 +1388,7 @@ setMaxLength
 setMaxWidthChars
 setMaximize
 setMenu
+setMinWidth
 setModal
 setMode
 setModel
@@ -1403,6 +1410,8 @@ setPropertyPixbuf
 setPropertyString
 setReference
 setRelief
+setReorderable
+setResizable
 setRighteous
 setRubberBanding
 setRulesHint
@@ -1412,6 +1421,7 @@ setSecondaryText
 setSecondaryUseMarkup
 setSelectable
 setSensitive
+setSizing
 setSortColumn
 setSortColumnId
 setStick
@@ -1488,6 +1498,7 @@ testObjectNeverUsedIsRemoved
 testObjectNotRemovedWhenStillGtkAlive
 testRemovingAfterNoLongerReachableInBothSides
 textwidth
+th
 theming
 throwByName
 timestamp
@@ -1540,6 +1551,7 @@ util
 utils
 utils's
 va
+validationCheck
 valueChanged
 valueFor
 versa

@@ -13,17 +13,41 @@ package org.gnome.gtk;
 
 import org.freedesktop.bindings.Constant;
 
-/*
- * FIXME this is a placeholder stub for what will become the public API for
- * this type. Replace this comment with appropriate javadoc including author
- * and since tags. Note that the class may need to be made abstract, implement
- * interfaces, or even have its parent changed. No API stability guarantees
- * are made about this class until it has been reviewed by a hacker and this
- * comment has been replaced.
+/**
+ * Constants controlling the [re]sizing behaviour of TreeViewColumns in a
+ * TreeView.
+ * 
+ * @since 4.0.6
  */
 public final class TreeViewColumnSizing extends Constant
 {
     private TreeViewColumnSizing(int ordinal, String nickname) {
         super(ordinal, nickname);
     }
+
+    /**
+     * Columns will (only) get bigger in reaction to changes in data in the
+     * model. If new data is set into the model which requires more space to
+     * render, the column will get wider. Otherwise things will be left alone.
+     * This is the default.
+     */
+    public static final TreeViewColumnSizing GROW_ONLY = new TreeViewColumnSizing(
+            GtkTreeViewColumnSizing.GROW_ONLY, "GROW_ONLY");
+
+    /**
+     * Columns will resize both larger and smaller to accomodate any changes
+     * to the model. This is "cool" but is horribly inefficient on large
+     * datasets, where the cascade of size allocations will cause your
+     * TreeView to become really choppy.
+     */
+    public static final TreeViewColumnSizing AUTOSIZE = new TreeViewColumnSizing(
+            GtkTreeViewColumnSizing.AUTOSIZE, "AUTOSIZE");
+
+    /**
+     * The column will be a predetemined width. The number of pixels wide is
+     * set with TreeViewColumn's
+     * {@link TreeViewColumn#setFixedWidth(int) setFixedWidth()}.
+     */
+    public static final TreeViewColumnSizing FIXED = new TreeViewColumnSizing(
+            GtkTreeViewColumnSizing.FIXED, "FIXED");
 }
