@@ -43,9 +43,9 @@ div.box {
 @deprecated 
 </span>
 <p>
-The java-gnome 2.<span class="x">x</span> series of releases are mature and
-stable, but have reached end-of-life and are no longer being developed or
-supported by anyone.</p> </div>
+The java-gnome 2.<span class="x">x</span> series of releases have reached
+end-of-life and are no longer being developed or supported by anyone.</p>
+</div>
 
 <p>The original java-gnome project was written by <b>five</b> successive teams
 of hackers from 1998-2006. That's <b>nine</b> years!</p>

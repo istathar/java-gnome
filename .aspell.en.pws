@@ -1,6 +1,7 @@
 personal_ws-1.1 en 0
 ABI
 APIs
+AUR
 AWT
 AccelGroup
 ActionGroup
@@ -404,6 +405,7 @@ OpenSolaris
 OutOfMemoryError
 Overholt
 PIXMAP
+PKGBUILD
 PNGs
 PRELIGHT
 PackageNames
@@ -637,6 +639,7 @@ br
 buf
 bugfixes
 buildable
+builddir
 buildtool
 builtin
 bytecode
@@ -779,6 +782,7 @@ dependsMapSourceFilesToTargetFiles
 deref
 dev
 devel
+devhelp
 dialog
 dictat
 dir
@@ -1111,6 +1115,7 @@ listFiles
 loadConfig
 loadHashes
 loadLibrary
+login
 lookup
 lookupType
 lookups
@@ -1121,6 +1126,7 @@ mainIterationDo
 mainQuit
 makeJarFile
 makeTime
+makepkg
 md
 mem
 menuBar
@@ -1215,6 +1221,7 @@ os
 outputDir
 packEnd
 packStart
+pacman
 paddingBottom
 paddingLeft
 paddingRight
@@ -1437,6 +1444,7 @@ strikethrough
 strsplit
 struct
 structs
+su
 subclassing
 subdirectory
 subinterface
@@ -1550,6 +1558,7 @@ xffc
 xffe
 xffea
 xffff
+xfvz
 xjf
 xscale
 yalign
