@@ -1,7 +1,7 @@
 /*
  * Widget.java
  *
- * Copyright (c) 2006-2007 Operational Dynamics Consulting Pty Ltd, and Others
+ * Copyright (c) 2006-2008 Operational Dynamics Consulting Pty Ltd, and Others
  * 
  * The code in this file, and the library it is a part of, are made available
  * to you by the authors under the terms of the "GNU General Public Licence,
@@ -585,5 +585,21 @@ public abstract class Widget extends org.gnome.gtk.Object
      */
     public void connect(Widget.HIDE handler) {
         GtkWidget.connect(this, handler);
+    }
+
+    /**
+     * Make this Widget have the keyboard focus for the Window it is within.
+     * 
+     * <p>
+     * Obviously, if this is going to actually have affect, this Widget needs
+     * to be <i>in</i> a Window. Furthermore, the Widget needs to be <i>able</i>
+     * to take input focus, that is, it must have the <var>can-focus</var>
+     * proprety set (which is inherent to the particular Widget subclass, not
+     * something you can change).
+     * 
+     * @since 4.0.6
+     */
+    public void grabFocus() {
+        GtkWidget.grabFocus(this);
     }
 }
