@@ -168,11 +168,33 @@ public abstract class Widget extends org.gnome.gtk.Object
     }
 
     /**
-     * Hook up a handler to receive "focus-out-event" events on this Widget
+     * Hook up a handler to receive <code>FOCUS_OUT_EVENT</code> events on
+     * this Widget
      * 
      * @since 4.0.2
      */
     public void connect(FOCUS_OUT_EVENT handler) {
+        GtkWidget.connect(this, handler);
+    }
+
+    /**
+     * Signal emitted when focus enters this Widget. See
+     * {@link Widget.FOCUS_OUT_EVENT FOCUS_OUT_EVENT}.
+     * 
+     * @author Andrew Cowie
+     * @since 4.0.6
+     */
+    public interface FOCUS_IN_EVENT extends GtkWidget.FOCUS_IN_EVENT
+    {
+        public boolean onFocusInEvent(Widget source, EventFocus event);
+    }
+
+    /**
+     * Hook up a handler to receive <code>FOCUS_IN_EVENT</code> signals.
+     * 
+     * @since 4.0.6
+     */
+    public void connect(FOCUS_IN_EVENT handler) {
         GtkWidget.connect(this, handler);
     }
 
@@ -207,7 +229,7 @@ public abstract class Widget extends org.gnome.gtk.Object
     }
 
     /**
-     * Hook up a handler to receive <code>key-press-event</code> signals on
+     * Hook up a handler to receive <code>KEY_PRESS_EVENT</code> signals on
      * this Widget. In general you <b>don't</b> want this.
      * 
      * @since 4.0.3
@@ -217,7 +239,10 @@ public abstract class Widget extends org.gnome.gtk.Object
     }
 
     /**
-     * Handler interface for key release events.
+     * Handler interface for key release events. Calling
+     * {@link EventKey#getKeyval() getKeyval()} on the <code>event</code>
+     * parameter gets you to the constant representing the key that was
+     * actually typed.
      * 
      * @since 4.0.3
      */
@@ -227,7 +252,7 @@ public abstract class Widget extends org.gnome.gtk.Object
     }
 
     /**
-     * Hook up a handler to receive <code>key-release-event</code> signals
+     * Hook up a handler to receive <code>KEY_RELEASE_EVENT</code> signals
      * on this Widget
      * 
      * @since 4.0.3

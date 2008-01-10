@@ -937,6 +937,7 @@ getInteger
 getIter
 getIterFirst
 getJustify
+getKeyval
 getLabel
 getLabelWidget
 getLayout
@@ -1221,6 +1222,7 @@ onDeleteEvent
 onEnterNotifyEvent
 onEvent
 onExposeEvent
+onFocusInEvent
 onFocusOutEvent
 onHide
 onKeyPressEvent
