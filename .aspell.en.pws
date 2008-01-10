@@ -684,6 +684,7 @@ cls
 cmd
 codebase
 codegen
+colAlign
 color
 commitComment
 committer
@@ -1314,6 +1315,7 @@ resizes
 responseId
 returnType
 rightAttach
+rowAlign
 rowstride
 rpath
 runDemo
@@ -1326,6 +1328,7 @@ savev
 scalarref
 screenshot
 screenshots
+scrollToCell
 scrollbar
 scrollbars
 segfaulted

@@ -1,7 +1,7 @@
 /*
  * TreeView.java
  *
- * Copyright (c) 2007 Operational Dynamics Consulting Pty Ltd, and Others
+ * Copyright (c) 2007-2008 Operational Dynamics Consulting Pty Ltd, and Others
  *
  * The code in this file, and the library it is a part of, are made available
  * to you by the authors under the terms of the "GNU General Public Licence,
@@ -483,5 +483,57 @@ public class TreeView extends Container
      */
     public void setRulesHint(boolean setting) {
         GtkTreeView.setRulesHint(this, setting);
+    }
+
+    /**
+     * Scroll the TreeView so that the cell specified by <code>path</code>,
+     * <code>vertical</code> is visible.
+     * 
+     * <p>
+     * Only one of <code>path</code> or <code>vertical</code> need to be
+     * specified if you only want to scroll in one dimension. If
+     * <code>path</code> is <code>null</code>, then it will only scroll
+     * horizontally; if no TreeViewColumn is specified in
+     * <code>vertical</code> (ie, likewise <code>null</code>), then only
+     * vertical scrolling will take place.
+     * 
+     * <p>
+     * This all assumes that you've placed the TreeView is within a
+     * ScrolledWindow to enable scrolling behaviour!
+     * 
+     * @param rowAlign
+     *            Determines where in the view the row specified by
+     *            <code>path</code> is placed, with <code>0.0f</code>
+     *            representing top, and <code>1.0f</code> representing
+     *            bottom, as usual. The constants in Alignment such as
+     *            {@link Alignment#CENTER CENTER} can be used.
+     * @param colAlign
+     *            Determines where in the view the column specified by
+     *            <code>vertical</code> will be placed; <code>0.0f</code>
+     *            is fully left, <code>1.0f</code> is fully right.
+     * @since 4.0.6
+     */
+    public void scrollToCell(TreePath path, TreeViewColumn vertical, float rowAlign, float colAlign) {
+        GtkTreeView.scrollToCell(this, path, vertical, true, rowAlign, colAlign);
+    }
+
+    /**
+     * Scroll the TreeView so that the cell specified by <code>path</code>,
+     * <code>vertical</code> is visible. This variant ignores alignment
+     * values and just scrolls the TreeView so that the cell specified is
+     * visible, closest to whichever edge it came in from, and doing nothing
+     * if the cell is already on screen.
+     * 
+     * <p>
+     * See the discussion about <code>path</code> or <code>vertical</code>
+     * in the other
+     * {@link #scrollToCell(TreePath, TreeViewColumn, float, float) scrollToCell()}
+     * method to learn how you can scroll in a single direction only if
+     * desired.
+     * 
+     * @since 4.0.6
+     */
+    public void scrollToCell(TreePath path, TreeViewColumn vertical) {
+        GtkTreeView.scrollToCell(this, path, vertical, false, 0.0f, 0.0f);
     }
 }
