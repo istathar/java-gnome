@@ -22,12 +22,18 @@ public class ValidateKeyboardHandling extends TestCaseGtk
         assertEquals(0x61, GdkKeyvalOverride.numOf(Keyval.a));
     }
 
+    public final void testTheUnicodeOfA() {
+        assertEquals('a', Keyval.a.toUnicode());
+        assertEquals(0, Keyval.ControlRight.toUnicode());
+    }
+
     public final void testSubclassInstantiateByName() {
+        final Keyval i;
         /*
          * This is a guess of a symbol that will *never* be exposed in
          * java-gnome :)
          */
-        new Keyval("ISO_Level3_Latch");
-        assertEquals(0xFE04, GdkKeyvalOverride.numOf(Keyval.a));
+        i = new Keyval("ISO_Level3_Latch");
+        assertEquals(0xFE04, GdkKeyvalOverride.numOf(i));
     }
 }

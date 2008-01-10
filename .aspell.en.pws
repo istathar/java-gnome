@@ -442,6 +442,7 @@ QA
 QuestionMessageDialog
 QuoteDouble
 QuoteRight
+QuoteSingle
 README
 RGB
 RHEL
@@ -1296,6 +1297,7 @@ refactor
 refactored
 refactoring
 refactorings
+regexAtoZ
 registerConstant
 registerProxy
 registerType
@@ -1510,6 +1512,7 @@ tm
 tmp
 tnot
 toString
+toUnicode
 toolkits
 tooltip
 tooltips
@@ -1536,6 +1539,7 @@ undelete
 underTest
 unformatted
 unfullscreen
+unicode
 unindent
 unix
 unixprint

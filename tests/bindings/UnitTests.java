@@ -15,6 +15,7 @@ import junit.framework.TestSuite;
 import org.freedesktop.bindings.Debug;
 import org.freedesktop.bindings.ValidateEnvironment;
 import org.gnome.gdk.ValidateImageHandling;
+import org.gnome.gdk.ValidateKeyboardHandling;
 import org.gnome.gdk.ValidateScreensAndDisplays;
 import org.gnome.glib.ValidateConstants;
 import org.gnome.glib.ValidateGListMethods;
@@ -108,6 +109,7 @@ public class UnitTests
         suite.addTestSuite(ValidateConstants.class);
         suite.addTestSuite(ValidateProperties.class);
         suite.addTestSuite(ValidateScreensAndDisplays.class);
+        suite.addTestSuite(ValidateKeyboardHandling.class);
         suite.addTestSuite(ValidateImageHandling.class);
         suite.addTestSuite(ValidateOutParameters.class);
         suite.addTestSuite(ValidatePacking.class);
