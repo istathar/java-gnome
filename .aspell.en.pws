@@ -172,6 +172,7 @@ GSourceFunc
 GString
 GTK's
 GTKish
+GThreads
 GToggleNotify
 GTypeInstance
 GUADEC
@@ -205,6 +206,7 @@ GetStaticMethodID
 GetStringUTFChars
 GladeXml
 GlibException
+GlibMisc
 GnomeEntry
 Gruber
 Gruber's
@@ -672,6 +674,7 @@ centered
 cfg
 cflags
 checkAlive
+checkInitialized
 checkPixbufFromFile
 checkPixbufFromFileAtScale
 checkpointHashes
@@ -1188,6 +1191,7 @@ nParsing
 nTHIS
 nThe
 nUnable
+nYou
 namespace
 nativeName
 nav
@@ -1231,6 +1235,7 @@ onKeyReleaseEvent
 onPopupMenu
 onResponse
 onRowActivated
+onRowChanged
 onSelectAll
 onSelectionChanged
 onSizeChanged
@@ -1407,6 +1412,8 @@ setPadding
 setPixbuf
 setPolicy
 setPosition
+setPrgname
+setProgramName
 setProperty
 setPropertyBar
 setPropertyBoolean
