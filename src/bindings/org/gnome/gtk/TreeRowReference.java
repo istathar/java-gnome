@@ -20,10 +20,24 @@ import org.gnome.glib.Boxed;
  * row is pointed at by the instance regardless.
  * 
  * <p>
- * This class is primarily necessary because a TreeIter instances is no longer
+ * This class is primarily necessary because a TreeIter instance is no longer
  * usable if the model changes. Neither are TreePaths for that matter; if you
  * change the sorting order then the row pointed at by TreePath "2" will
  * [likely] be different before and after the sort.
+ * 
+ * <p>
+ * Typical usage of this is from a TreeIter as follows:
+ * 
+ * <pre>
+ * TreeModel source;
+ * TreePath path;
+ * TreeIter row;
+ * TreeRowReference ref;
+ * ...
+ * 
+ * path = source.getPath(row);
+ * ref = new TreeRowReference(source, path);
+ * </pre>
  * 
  * @author Andrew Cowie
  * @since 4.0.6

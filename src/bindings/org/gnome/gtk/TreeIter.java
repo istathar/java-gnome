@@ -34,7 +34,7 @@ import org.gnome.glib.Boxed;
  * <p>
  * Like other iterators in Java, a TreeIter becomes invalid the moment the
  * underlying model changes. If you need a persistent pointer to a particular
- * row, create a {@link TreeRowReference TreeRowReference} with FIXME.
+ * row, create a {@link TreeRowReference TreeRowReference}.
  * 
  * <p>
  * <i>Note that although one use case for TreeIter is to iterate through all

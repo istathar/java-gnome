@@ -33,15 +33,17 @@ import org.gnome.glib.Boxed;
  * <p>
  * Quite frequently you want to change the Cursor for the entire application
  * (in a manner reminiscent of modal behaviour). This is trickier than it
- * should be, but you've got a couple possibilities. You can either maintain a
- * list of all the significant [<code>org.gnome.gtk</code>] Windows being
- * displayed by your application and then call
- * <code>getWindow().setCursor(BLAH)</code> on each of them, or you can use
- * {@link Window#getToplevels() getToplevels()} on [<code>org.gnome.gdk</code>]
+ * should be, but you've got a couple possibilities. You can either
+ * <ul>
+ * <li>maintain a list of all the significant [<code>org.gnome.gtk</code>]
+ * Windows being displayed by your application and then call
+ * <code>getWindow().setCursor(BLAH)</code> on each of them, or you can
+ * <li>use {@link Window#getToplevels() getToplevels()} on [<code>org.gnome.gdk</code>]
  * Window and then similarly just call <code>setCursor(BLAH)</code> as you
- * iterate over the returned set. The first option is a bit more cumbersome,
- * but many people find themselves maintaining a list of "major" Windows for
- * other purposes, so it can serve.
+ * iterate over the returned set.
+ * </ul>
+ * The first option is a bit more cumbersome, but many people find themselves
+ * maintaining a list of "major" Windows for other purposes, so it can serve.
  * 
  * <p>
  * Almost inevitably the Cursor your want is {@link CursorType#WATCH WATCH}
