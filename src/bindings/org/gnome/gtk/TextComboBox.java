@@ -11,11 +11,29 @@
 package org.gnome.gtk;
 
 /**
- * A ComboBox for displaying simple Strings. A common use case for ComboBoxes
- * is to just choose from a list of textual options. This subclass of ComboBox
- * takes care of the mechanics of setting up a the ListStore and the
- * appropriate CellRenderers so as to allow a straight forward interface with
- * a limited number of convenience methods for adding Strings.
+ * A ComboBox for displaying simple Strings. <img src="TextComboBox.png"
+ * class="snapshot" /> A common use case for ComboBoxes is to just choose from
+ * a list of textual options. This subclass of ComboBox takes care of the
+ * mechanics of setting up a the ListStore and the appropriate CellRenderers
+ * so as to allow a straight forward interface with a limited number of
+ * convenience methods for adding Strings.
+ * 
+ * <p>
+ * Usage is very straight forward:
+ * 
+ * <pre>
+ * combo = new TextComboBox();
+ * combo.appendText(&quot;SYD&quot;);
+ * combo.appendText(&quot;YYZ&quot;);
+ * combo.appendText(&quot;JFK&quot;);
+ * combo.appendText(&quot;LHR&quot;);
+ * ...
+ * </pre>
+ * 
+ * You can still use the{@link ComboBox#getActive() getActive()} from
+ * ComboBox, but for simple lists of Strings being displayed be this Widget,
+ * the String specific {@link #getActiveText() getActiveText()} that is
+ * introduced here is probably what you want.
  * 
  * <p>
  * <i>These text-only methods are actually found in GTK on

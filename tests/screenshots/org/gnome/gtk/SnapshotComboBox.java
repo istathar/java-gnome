@@ -20,42 +20,54 @@ package org.gnome.gtk;
  */
 public class SnapshotComboBox extends Snapshot
 {
+    private final ListStore model;
+
+    private final DataColumnString cityColumn;
+
+    private final DataColumnString codeColumn;
+
     public SnapshotComboBox() {
         super(ComboBox.class);
-
-        final ListStore model;
-        final DataColumnString code;
         TreeIter row;
         final ComboBox combo;
-        final CellRendererText text;
+        CellRendererText text;
 
         window = new Window();
         window.setTitle("Airports");
         window.setDecorated(false);
 
         model = new ListStore(new DataColumn[] {
-            code = new DataColumnString(),
+                cityColumn = new DataColumnString(), codeColumn = new DataColumnString(),
         });
 
-        row = model.appendRow();
-        model.setValue(row, code, "SYD");
-        row = model.appendRow();
-        model.setValue(row, code, "YYZ");
-        row = model.appendRow();
-        model.setValue(row, code, "JFK");
-        row = model.appendRow();
-        model.setValue(row, code, "LHR");
+        populate("Sydney", "Australia", "SYD");
+        populate("Toronto", "Canada", "YYZ");
+        populate("New York", "United States of America", "JFK");
+        populate("London", "United Kingdom of Great Britain and Northern Ireland", "LHR");
 
         combo = new ComboBox(model);
 
         text = new CellRendererText(combo);
-        text.setText(code);
+        text.setMarkup(cityColumn);
+
+        text = new CellRendererText(combo);
+        text.setMarkup(codeColumn);
+        text.setAlignment(Alignment.RIGHT, Alignment.TOP);
+
         window.add(combo);
 
         window.showAll();
         window.move(100, 100);
         combo.setActive(2);
         combo.popup();
+    }
+
+    private void populate(String city, String country, String code) {
+        TreeIter row;
+
+        row = model.appendRow();
+        model.setValue(row, cityColumn, city + "\n<span size='small'><i>" + country + "</i></span>");
+        model.setValue(row, codeColumn, "<span font_desc='Mono'>" + code + "</span>");
     }
 
     public static void main(String[] args) {

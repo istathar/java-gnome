@@ -23,13 +23,41 @@ package org.gnome.gtk;
  * {@link TextComboBox}.
  * 
  * <p>
+ * ComboBox is a CellLayout, that is, it possesses many of the same aspects as
+ * a TreeViewColumn, and, along with being backed by a TreeModel, is used in
+ * much the same way as a TreeView: create a ListStore or TreeStore then build
+ * the GUI side by creating CellRenderers against the ComboBox.
+ * 
+ * <p>
+ * An abbreviated example of using this follows; assuming a ListStore
+ * <code>model</code> with at least DataColumnString <code>column</code>
+ * in it,
+ * 
+ * <pre>
+ * combo = new ComboBox(model);
+ * renderer = new CellRendererText(combo);
+ * renderer.setText(column);
+ * </pre>
+ * 
+ * and that's it. While conceptually straight forward, it turns out to be a
+ * lot of work if all you're doing is a single column of DataColumnString. But
+ * the ability to <i>also</i> have a DataColumnReference in your model means
+ * you can get a link back the object that is being represented by the "mere"
+ * text label being displayed to the user, and this can be very powerful.
+ * Likewise, you can build ComboBoxes with more complicated layouts, for
+ * example having with several verticals of text and perhaps an image packed
+ * into the ComboBox as well. Finally, don't forget that you can use several
+ * different views against one TreeModel, so a TreeModel that is in use
+ * somewhere else in your app can also be the source data for your ComboBox.
+ * 
+ * <p>
  * <i>The underlying <code>GtkComboBox</code> is actually presents two
  * different APIs that are essentially mutually exclusive, which is why we
  * have split this into two public classes.</i>
  * 
  * @author Sebastian Mancke
  * @author Andrew Cowie
- * @since 4.0.6
+ * @since 4.0.3
  */
 public class ComboBox extends Bin implements CellEditable, CellLayout
 {
@@ -56,6 +84,8 @@ public class ComboBox extends Bin implements CellEditable, CellLayout
      * If subclassing ComboBox, use the <code>protected</code>
      * {@link #ComboBox() <init>()} no-arg constructor and then set the Model
      * later with {@link #setModel(TreeModel) setModel()}.
+     * 
+     * @since 4.0.3
      */
     public ComboBox(TreeModel model) {
         super(GtkComboBox.createComboBoxWithModel(model));
@@ -92,8 +122,12 @@ public class ComboBox extends Bin implements CellEditable, CellLayout
     }
 
     /**
-     * Handler interface for the <code>changed</code> signal. This event
-     * occurs whenever a different item gets selected by the user.
+     * This signal emitted whenever a different item is selected by the user.
+     * Use {@link ComboBox#getActive() getActive()} or
+     * {@link ComboBox#getActiveIter() getActiveIter()} to determine which
+     * item was picked.
+     * 
+     * @since 4.0.3
      */
     public interface CHANGED extends GtkComboBox.CHANGED
     {

@@ -1,7 +1,7 @@
 /*
  * Entry.java
  *
- * Copyright (c) 2007 Operational Dynamics Consulting Pty Ltd, and Others
+ * Copyright (c) 2007-2008 Operational Dynamics Consulting Pty Ltd, and Others
  *
  * The code in this file, and the library it is a part of, are made available
  * to you by the authors under the terms of the "GNU General Public Licence,
@@ -180,9 +180,6 @@ public class Entry extends Widget implements Editable, CellEditable
         GtkEditable.connect(this, handler);
     }
 
-    /*
-     * FIXME
-     */
     public void selectRegion(int start, int end) {
         GtkEditable.selectRegion(this, start, end);
     }

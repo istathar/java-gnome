@@ -16,6 +16,12 @@ hr {
 	clear: both;
 }
 
+pre {
+	padding-bottom: 0px;
+	margin-bottom: 0px;
+}
+	
+
 /*
  * The remainder of this file is verbatim from the default JavaDoc stylesheet.
  */
