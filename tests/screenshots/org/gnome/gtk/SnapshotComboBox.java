@@ -1,7 +1,7 @@
 /*
  * SnapshotComboBox.java
  *
- * Copyright (c) 2007 Operational Dynamics Consulting Pty Ltd
+ * Copyright (c) 2007-2008 Operational Dynamics Consulting Pty Ltd
  * 
  * The code in this file, and the library it is a part of, are made available
  * to you by the authors under the terms of the "GNU General Public Licence,
@@ -11,6 +11,11 @@
 package org.gnome.gtk;
 
 /**
+ * Wrote this before we had the text methods spliced off into TextComboBox,
+ * but in any case this provides a good test of the ComboBox functionality.
+ * FIXME Screenshot doesn't seem to capture the popup properly, even though it
+ * does raise to screen when run manually. Help?
+ * 
  * @author Andrew Cowie
  */
 public class SnapshotComboBox extends Snapshot
@@ -26,6 +31,7 @@ public class SnapshotComboBox extends Snapshot
 
         window = new Window();
         window.setTitle("Airports");
+        window.setDecorated(false);
 
         model = new ListStore(new DataColumn[] {
             code = new DataColumnString(),
@@ -47,6 +53,8 @@ public class SnapshotComboBox extends Snapshot
         window.add(combo);
 
         window.showAll();
+        window.move(100, 100);
+        combo.setActive(2);
         combo.popup();
     }
 

@@ -22,6 +22,7 @@ import org.gnome.glib.ValidateGListMethods;
 import org.gnome.glib.ValidateMemoryManagement;
 import org.gnome.glib.ValidateReferenceCounting;
 import org.gnome.gtk.TestCaseGtk;
+import org.gnome.gtk.ValidateComboBox;
 import org.gnome.gtk.ValidateFileChoosing;
 import org.gnome.gtk.ValidateOutParameters;
 import org.gnome.gtk.ValidatePacking;
@@ -118,6 +119,7 @@ public class UnitTests
         suite.addTestSuite(ValidateResponseType.class);
         suite.addTestSuite(ValidateTreeModel.class);
         suite.addTestSuite(ValidateTreeView.class);
+        suite.addTestSuite(ValidateComboBox.class);
         suite.addTestSuite(ValidateSnapshotUtilities.class);
 
         return suite;

@@ -1,7 +1,7 @@
 /*
  * ComboBox.java
  *
- * Copyright (c) 2007 Operational Dynamics Consulting Pty Ltd, and Others
+ * Copyright (c) 2007-2008 Operational Dynamics Consulting Pty Ltd, and Others
  *
  * The code in this file, and the library it is a part of, are made available
  * to you by the authors under the terms of the "GNU General Public Licence,
@@ -12,27 +12,24 @@
 package org.gnome.gtk;
 
 /**
- * A Widget used to choose from a list of items. <img src="ComboBox"
+ * A Widget used to choose from a list of items. <img src="ComboBox.png"
  * class="snapshot" />
  * 
  * <p>
- * <b>FIXME WARNING FIXME WARNING<br>
- * This API is entirely subject to change.</b>
+ * Internally, ComboBox uses a TreeModel to store the items, giving you the
+ * same MVC power of GTK's TreeView/TreeModel system. There is also an
+ * alternative API which can be used to create and manipulate ComboBoxes which
+ * are comprised only of text. If that is your requirement, see
+ * {@link TextComboBox}.
  * 
  * <p>
- * ComboBox actually uses a TreeModel to store the items, giving you the same
- * MVC power of GTK's TreeView/TreeModel system. There is also an alternative
- * API which can be used to create and manipulate ComboBoxes which are
- * comprised only of text. TODO Describe this properly, or better yet,
- * refactor.
- * 
- * <p>
- * <i>The underlying <code>GtkComboBox</code> is actually presents two APIs
- * which, while not mutually exclusive, don't tend to go together very well.
- * We may well split this into two public classes.</i>
+ * <i>The underlying <code>GtkComboBox</code> is actually presents two
+ * different APIs that are essentially mutually exclusive, which is why we
+ * have split this into two public classes.</i>
  * 
  * @author Sebastian Mancke
  * @author Andrew Cowie
+ * @since 4.0.6
  */
 public class ComboBox extends Bin implements CellEditable, CellLayout
 {
@@ -41,33 +38,36 @@ public class ComboBox extends Bin implements CellEditable, CellLayout
     }
 
     /**
-     * Construct a new ComboBox that can be used with the text-only
-     * convenience functions.
+     * Construct a new full-power TreeModel-backed ComboBox with a model to be
+     * specified at a future point via {@link #setModel(TreeModel) setModel()}.
+     * This constructor is explicitly here to permit developers to subclass
+     * ComboBox in order to create their own ComboBox based custom Widgets.
      * 
-     * <p>
-     * The ComboBox will be backed by a built-in simple model instance which
-     * is suitable for managing strings, only. If this constructor is used,
-     * manipulation of the ComboBox should only be done by the convenience
-     * methods {@link #appendText(String) appendText()},
-     * {@link #insertText(int, String) insertText()},
-     * {@link #getActiveText() getActiveText()}, etc.
-     * 
-     * @deprecated
+     * @since 4.0.6
      */
-    public ComboBox() {
-        super(GtkComboBox.createComboBoxText());
+    protected ComboBox() {
+        super(GtkComboBox.createComboBox());
     }
 
     /**
      * Construct a new full-power TreeModel-backed ComboBox.
      * 
      * <p>
-     * If subclassing ComboBox, passing <code>null</code> will allow you to
-     * use this constructor and thus the full power ComboBox; you can set the
-     * Model later with {@link #setModel(TreeModel) setModel()}.
+     * If subclassing ComboBox, use the <code>protected</code>
+     * {@link #ComboBox() <init>()} no-arg constructor and then set the Model
+     * later with {@link #setModel(TreeModel) setModel()}.
      */
     public ComboBox(TreeModel model) {
         super(GtkComboBox.createComboBoxWithModel(model));
+    }
+
+    /**
+     * Set or change the TreeModel from which this ComboBox draws its data.
+     * 
+     * @since 4.0.6
+     */
+    public void setModel(TreeModel model) {
+        GtkComboBox.setModel(this, model);
     }
 
     /**
@@ -82,60 +82,13 @@ public class ComboBox extends Bin implements CellEditable, CellLayout
     }
 
     /**
-     * Change the active item within this ComboBox. Items are numbered from
-     * <code>0</code>.
+     * Change the active item within this ComboBox to be the one at the
+     * supplied index. Items are numbered from <code>0</code>.
      * 
      * @since 4.0.6
      */
     public void setActive(int active) {
         GtkComboBox.setActive(this, active);
-    }
-
-    /**
-     * Appends a text item to the list. This method should only be used if the
-     * ComboBox was created with <code>textItemsOnly</code>. FIXME We can
-     * do better than this.
-     * 
-     * @deprecated
-     */
-    public void appendText(String text) {
-        GtkComboBox.appendText(this, text);
-    }
-
-    /**
-     * Appends a text item at the supplied position. This method should only
-     * be used, if the ComboBox was created with <code>textItemsOnly</code>.
-     * FIXME We can do better than this.
-     * 
-     * @deprecated
-     * @param position
-     *            The position beginning from 0, where the new item should be
-     *            placed
-     */
-    public void insertText(int position, String text) {
-        GtkComboBox.insertText(this, position, text);
-    }
-
-    /**
-     * Prepends a text item to the list. This method should only be used, if
-     * the ComboBox was created with <code>textItemsOnly</code>. FIXME We
-     * can do better than this.
-     * 
-     * @deprecated
-     */
-    public void prependText(String text) {
-        GtkComboBox.prependText(this, text);
-    }
-
-    /**
-     * Returns the text of the active item. This method should only be used,
-     * if the ComboBox was created with <code>textItemsOnly</code>. FIXME
-     * We can do better than this.
-     * 
-     * @deprecated
-     */
-    public String getActiveText() {
-        return GtkComboBox.getActiveText(this);
     }
 
     /**
@@ -148,7 +101,7 @@ public class ComboBox extends Bin implements CellEditable, CellLayout
     }
 
     /**
-     * Hook up a {@link CHANGED} handler to the Widget.
+     * Hook up a <code>CHANGED</code> handler to the Widget.
      */
     public void connect(CHANGED handler) {
         GtkComboBox.connect(this, handler);
@@ -186,5 +139,15 @@ public class ComboBox extends Bin implements CellEditable, CellLayout
         } else {
             return null;
         }
+    }
+
+    /**
+     * Set the ComboBox to be pointing at the row nominated by the TreeIter
+     * argument.
+     * 
+     * @since 4.0.6
+     */
+    public void setActiveIter(TreeIter row) {
+        GtkComboBox.setActiveIter(this, row);
     }
 }

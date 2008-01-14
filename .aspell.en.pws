@@ -509,6 +509,7 @@ TestCaseGtk
 TestCases
 TestRunner
 TestSuite
+TextComboBox
 TextDirection
 TextView
 ThrowNew
@@ -1348,6 +1349,7 @@ selectURI
 serialVersionUID
 setAction
 setActive
+setActiveIter
 setAlignment
 setAlignmentX
 setAngle
