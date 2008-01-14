@@ -90,4 +90,13 @@ public class ListStore extends TreeModel implements TreeDragSource, TreeDragDest
 
         return iter;
     }
+
+    /**
+     * Remove all rows (and their contents) from this ListStore.
+     * 
+     * @since 4.0.6
+     */
+    public void clear() {
+        GtkListStore.clear(this);
+    }
 }

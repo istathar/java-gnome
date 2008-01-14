@@ -1,7 +1,7 @@
 /*
  * Keyval.java
  *
- * Copyright (c) 2007 Operational Dynamics Consulting Pty Ltd
+ * Copyright (c) 2007-2008 Operational Dynamics Consulting Pty Ltd
  * 
  * The code in this file, and the library it is a part of, are made available
  * to you by the authors under the terms of the "GNU General Public Licence,
@@ -95,6 +95,46 @@ public class Keyval extends Constant
         }
 
         return result;
+    }
+
+    /**
+     * Convert this Keyval to a unicode representation. Note that not all keys
+     * have translations, in such cases <code>0</code> (not <code>'0'</code>)
+     * will be returned.
+     * 
+     * <p>
+     * This is useful when you've intercepted a keystroke and, having
+     * determined it is a "normal" character and not something more unusual,
+     * need to append it to a String.
+     * 
+     * <p>
+     * One way this might be used is:
+     * 
+     * <pre>
+     * final Pattern regexAtoZ = Pattern.compile(&quot;[a-z]&quot;);
+     * final Keyval key;
+     * final String str, result;
+     * 
+     * str = &quot;&quot; + key.toUnicode();
+     * 
+     * if (key == Keyval.Return) {
+     *     // execute
+     * } else if (key == Keyval.Escape) {
+     *     // abort
+     * } else if (regexAtoZ.matcher(str).matches()) {
+     *     entry.setText(str);
+     * } else {
+     *     ...
+     * }
+     * </pre>
+     * 
+     * this is of course a bit cumbersome, but illustrates one way of
+     * identifying "normal" letters being typed.
+     * 
+     * @since 4.0.6
+     */
+    public char toUnicode() {
+        return (char) GdkKeyval.toUnicode(GdkKeyvalOverride.numOf(this));
     }
 
     public static final Keyval BackSpace = new Keyval(0xff08, "BackSpace");

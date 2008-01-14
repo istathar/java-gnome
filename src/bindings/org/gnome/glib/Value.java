@@ -50,7 +50,11 @@ import org.freedesktop.bindings.Proxy;
  */
 public class Value extends Proxy
 {
-    protected Value(long pointer) {
+    /*
+     * The second argument is a hack to create a different overload of
+     * <init>(long). What a pain in the ass, but whatever.
+     */
+    protected Value(long pointer, boolean proxy) {
         super(pointer);
         if (Debug.MEMORY_MANAGEMENT) {
             System.err.println("Value.<init>(long)\t\t" + this.toString());
@@ -93,14 +97,14 @@ public class Value extends Proxy
      * Not public API!
      */
     protected Value() {
-        this(GValue.createValue());
+        this(GValue.createValue(), true);
     }
 
     /**
      * Create a Value containing a String. Not public API!
      */
     protected Value(String value) {
-        this(GValue.createValue(value));
+        this(GValue.createValue(value), true);
     }
 
     protected String getString() {
@@ -111,7 +115,7 @@ public class Value extends Proxy
      * Create a Value containing an <code>int</code>. Not public API!
      */
     protected Value(int value) {
-        this(GValue.createValue(value));
+        this(GValue.createValue(value), true);
     }
 
     protected int getInteger() {
@@ -122,7 +126,7 @@ public class Value extends Proxy
      * Create a Value containing a <code>boolean</code>. Not public API!
      */
     protected Value(boolean value) {
-        this(GValue.createValue(value));
+        this(GValue.createValue(value), true);
     }
 
     protected boolean getBoolean() {
@@ -132,16 +136,16 @@ public class Value extends Proxy
     /**
      * Create a Value containing a <code>float</code>. Not public API!
      */
-    protected Value(float f) {
-        this(GValue.createValue(f));
+    protected Value(float value) {
+        this(GValue.createValue(value), true);
     }
 
     protected Value(Object obj) {
-        this(GValue.createValue(obj));
+        this(GValue.createValue(obj), true);
     }
-    
+
     /*
-     * Another one that's only really here for unit tests. 
+     * Another one that's only really here for unit tests.
      */
     public Object getObject() {
         return GValue.getObject(this);
@@ -149,5 +153,13 @@ public class Value extends Proxy
 
     protected float getFloat() {
         return GValue.getFloat(this);
+    }
+
+    protected Value(long value) {
+        this(GValue.createValue(value), true);
+    }
+
+    protected long getLong() {
+        return GValue.getLong(this);
     }
 }

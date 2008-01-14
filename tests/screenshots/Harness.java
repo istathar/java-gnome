@@ -17,9 +17,11 @@ import org.gnome.gdk.PixbufFormat;
 import org.gnome.gtk.Gtk;
 import org.gnome.gtk.Snapshot;
 import org.gnome.gtk.SnapshotButton;
+import org.gnome.gtk.SnapshotComboBox;
 import org.gnome.gtk.SnapshotFileChooserDialog;
 import org.gnome.gtk.SnapshotInfoMessageDialog;
 import org.gnome.gtk.SnapshotQuestionMessageDialog;
+import org.gnome.gtk.SnapshotTextComboBox;
 import org.gnome.gtk.SnapshotTreeView;
 import org.gnome.gtk.SnapshotWindow;
 import org.gnome.gtk.Window;
@@ -108,7 +110,9 @@ public final class Harness
                     new SnapshotInfoMessageDialog(),
                     new SnapshotQuestionMessageDialog(),
                     new SnapshotTreeView(),
-                    new SnapshotFileChooserDialog()
+                    new SnapshotFileChooserDialog(),
+                    new SnapshotComboBox(),
+                    new SnapshotTextComboBox()
             };
 
             /*

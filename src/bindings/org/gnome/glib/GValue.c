@@ -150,6 +150,40 @@ Java_org_gnome_glib_GValue_g_1value_1init__I
 	return (jlong) value;
 }
 
+/**
+ * Implements
+ *   org.gnome.glib.GValue.g_value_init(long j)
+ * called from
+ *   org.gnome.glib.GValue.createValue(long j)
+ *
+ * Allocate a GValue for a gint64 with GSlice, then initialize it and return
+ * the pointer.
+ */
+JNIEXPORT jlong JNICALL
+Java_org_gnome_glib_GValue_g_1value_1init__J
+(
+	JNIEnv *env,
+	jclass cls,
+	jlong _j
+)
+{
+	gint64 j;
+	GValue* value;
+	
+	// translate arg
+	j = (gint64) _j;
+		
+	// allocate it and set to zeros, per what g_value_init requires
+	value =	g_slice_new0(GValue);
+	g_value_init(value, G_TYPE_INT64);
+	
+	// set the value
+	g_value_set_int64(value, j); 
+
+	// return address
+	return (jlong) value;
+}
+
 
 /**
  * Implements
@@ -260,7 +294,7 @@ Java_org_gnome_glib_GValue_g_1value_1init__Ljava_lang_String_2
 
 /**
  * Implements
- *   org.gnome.glib.GValue.g_value_init(long obj)
+ *   org.gnome.glib.GValue.g_value_init_object(long obj)
  * called from
  *   org.gnome.glib.GValue.createValue(Object obj)
  *
@@ -268,7 +302,7 @@ Java_org_gnome_glib_GValue_g_1value_1init__Ljava_lang_String_2
  * the pointer.
  */
 JNIEXPORT jlong JNICALL
-Java_org_gnome_glib_GValue_g_1value_1init__J
+Java_org_gnome_glib_GValue_g_1value_1init_1object
 (
 	JNIEnv *env,
 	jclass cls,
@@ -353,6 +387,31 @@ Java_org_gnome_glib_GValue_g_1value_1get_1int
 	
 	// and return
 	return (jint) result;
+}
+
+JNIEXPORT jlong JNICALL
+Java_org_gnome_glib_GValue_g_1value_1get_1long
+(
+	JNIEnv* env,
+	jclass cls,
+	jlong _value
+)
+{
+	GValue* value;
+	gint64 result;
+
+	// translate value
+	value =	(GValue*) _value;
+	if (!G_VALUE_HOLDS_INT64(value)) {
+		bindings_java_throw(env, "You've asked for the long value of a GValue, but it's not a G_TYPE_INT64!");
+		return 0;
+	}
+	
+	// call function
+	result = g_value_get_int64(value);
+	
+	// and return
+	return (jlong) result;
 }
 
 

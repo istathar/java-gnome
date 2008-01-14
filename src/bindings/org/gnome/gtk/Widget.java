@@ -1,7 +1,7 @@
 /*
  * Widget.java
  *
- * Copyright (c) 2006-2007 Operational Dynamics Consulting Pty Ltd, and Others
+ * Copyright (c) 2006-2008 Operational Dynamics Consulting Pty Ltd, and Others
  * 
  * The code in this file, and the library it is a part of, are made available
  * to you by the authors under the terms of the "GNU General Public Licence,
@@ -168,11 +168,33 @@ public abstract class Widget extends org.gnome.gtk.Object
     }
 
     /**
-     * Hook up a handler to receive "focus-out-event" events on this Widget
+     * Hook up a handler to receive <code>FOCUS_OUT_EVENT</code> events on
+     * this Widget
      * 
      * @since 4.0.2
      */
     public void connect(FOCUS_OUT_EVENT handler) {
+        GtkWidget.connect(this, handler);
+    }
+
+    /**
+     * Signal emitted when focus enters this Widget. See
+     * {@link Widget.FOCUS_OUT_EVENT FOCUS_OUT_EVENT}.
+     * 
+     * @author Andrew Cowie
+     * @since 4.0.6
+     */
+    public interface FOCUS_IN_EVENT extends GtkWidget.FOCUS_IN_EVENT
+    {
+        public boolean onFocusInEvent(Widget source, EventFocus event);
+    }
+
+    /**
+     * Hook up a handler to receive <code>FOCUS_IN_EVENT</code> signals.
+     * 
+     * @since 4.0.6
+     */
+    public void connect(FOCUS_IN_EVENT handler) {
         GtkWidget.connect(this, handler);
     }
 
@@ -207,7 +229,7 @@ public abstract class Widget extends org.gnome.gtk.Object
     }
 
     /**
-     * Hook up a handler to receive <code>key-press-event</code> signals on
+     * Hook up a handler to receive <code>KEY_PRESS_EVENT</code> signals on
      * this Widget. In general you <b>don't</b> want this.
      * 
      * @since 4.0.3
@@ -217,7 +239,10 @@ public abstract class Widget extends org.gnome.gtk.Object
     }
 
     /**
-     * Handler interface for key release events.
+     * Handler interface for key release events. Calling
+     * {@link EventKey#getKeyval() getKeyval()} on the <code>event</code>
+     * parameter gets you to the constant representing the key that was
+     * actually typed.
      * 
      * @since 4.0.3
      */
@@ -227,7 +252,7 @@ public abstract class Widget extends org.gnome.gtk.Object
     }
 
     /**
-     * Hook up a handler to receive <code>key-release-event</code> signals
+     * Hook up a handler to receive <code>KEY_RELEASE_EVENT</code> signals
      * on this Widget
      * 
      * @since 4.0.3
@@ -585,5 +610,72 @@ public abstract class Widget extends org.gnome.gtk.Object
      */
     public void connect(Widget.HIDE handler) {
         GtkWidget.connect(this, handler);
+    }
+
+    /**
+     * Make this Widget have the keyboard focus for the Window it is within.
+     * 
+     * <p>
+     * Obviously, if this is going to actually have affect, this Widget needs
+     * to be <i>in</i> a Window. Furthermore, the Widget needs to be <i>able</i>
+     * to take input focus, that is, it must have the <var>can-focus</var>
+     * property set (which is inherent to the particular Widget subclass, not
+     * something you can change).
+     * 
+     * @since 4.0.6
+     */
+    public void grabFocus() {
+        GtkWidget.grabFocus(this);
+    }
+
+    /**
+     * Set the minimum size that will be requested by this Widget of its
+     * parent Container.
+     * 
+     * <p>
+     * A major feature of GTK is its adaptability in the face of different
+     * languages, fonts, and theme engines, with all of these factors
+     * impacting the number of pixels that will be necessary for drawing. The
+     * box packing model has each Widget request the size it calculates it
+     * needs at runtime of its parent. These requests flow up the Containers
+     * the Widget is packed into, with each Container collating the requests
+     * from its children. When it reaches the toplevel, GTK negotiates with
+     * the X server, and the result ifs the size allocation for the Window as
+     * a whole. The Window proceeds to inform each Container packed into it
+     * how much space it has been allocated, leaving it to the Containers to
+     * in turn allocate space to each of its children.
+     * 
+     * <p>
+     * The whole point of all this is that in general you are <b>not</b>
+     * supposed to interfere with this process. It is virtually impossible to
+     * calculate the correct size for a Widget on a given user's desktop ahead
+     * of time, so don't try. This method is here for the unusual cases where
+     * you need to force a Widget to be a size other than what the default
+     * request-allocation process results in.
+     * 
+     * <p>
+     * A value of <code>-1</code> for either <code>width</code> or
+     * <code>height</code> will cause that dimension to revert to the
+     * "natural" size, that is, the size that would have been requested if
+     * you'd left things alone.
+     * 
+     * <p>
+     * Passing <code>0,0</code> is a special case, meaning "as small as
+     * possible". This will have varying results and may not actually have
+     * much effect.
+     * 
+     * <p>
+     * Incidentally, use
+     * {@link Window#setDefaultSize(int, int) setDefaultSize()} for top level
+     * Windows, as that method still allows a user to make the Window smaller
+     * than the specified default.
+     * 
+     * @since 4.0.6
+     */
+    public void setSizeRequest(int width, int height) {
+        if ((width < -1) || (height < -1)) {
+            throw new IllegalArgumentException("width and height need to be >= -1");
+        }
+        GtkWidget.setSizeRequest(this, width, height);
     }
 }

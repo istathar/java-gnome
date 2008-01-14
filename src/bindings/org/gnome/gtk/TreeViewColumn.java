@@ -123,4 +123,78 @@ public class TreeViewColumn extends Object implements CellLayout
     public void setExpand(boolean setting) {
         GtkTreeViewColumn.setExpand(this, setting);
     }
+
+    /**
+     * Set the horizontal alignment of the title (or custom Widget) within the
+     * header of this TreeViewColumn.
+     * 
+     * @param xalign
+     *            As with elsewhere in GTK, a value between <code>0.0f</code>
+     *            for left and <code>1.0f</code> for right alignment. The
+     *            constants in {@link Alignment} may serve.
+     * @since 4.0.6
+     */
+    public void setAlignment(float xalign) {
+        if ((xalign < 0.0) || (xalign > 1.0)) {
+            throw new IllegalArgumentException("xalign must be between 0.0 and 1.0");
+        }
+        GtkTreeViewColumn.setAlignment(this, xalign);
+    }
+
+    /**
+     * Permit the user to change the order of the columns in a TreeView by
+     * clicking on one of the column headers and dragging it to a new
+     * position. This can be useful for wide tables where a great deal of
+     * information is being presented and the user might want to have a
+     * different subset visible.
+     * 
+     * <p>
+     * Most of the time, however, the order of presentation of the columns is
+     * an integral part of your UI and you don't want the user messing with
+     * it, which is why the default is <code>false</code>. More than that,
+     * people don't much care for horizontal scrolling; if you are presenting
+     * so much data that reordering the columns would be necessary, perhaps
+     * you should rethink the way you are presenting things.
+     * 
+     * @since 4.0.6
+     */
+    public void setReorderable(boolean setting) {
+        GtkTreeViewColumn.setReorderable(this, setting);
+    }
+
+    /**
+     * Permit the user to change the width of the columns in a TreeView by
+     * clicking on the boundary of a column header and dragging it. Setting
+     * this <code>true</code> will implicitly set
+     * {@link TreeViewColumnSizing#GROW_ONLY GROW_ONLY}.
+     * 
+     * @since 4.0.6
+     */
+    public void setResizable(boolean setting) {
+        GtkTreeViewColumn.setResizable(this, setting);
+    }
+
+    /**
+     * Set the mode constant that will be used to determine the width
+     * behaviour of TreeViewColumns when data is changed in the model causing
+     * a CellRenderer to need to redraw a cell. Note that this works in
+     * conjunction with other sizing methods ({@link #setResizable(boolean) setResizable()},
+     * {@link #setMinWidth(int) setMinWidth()},
+     * {@link #setFixedWidth(int) setFixedWidth()}, etc and there are quite a
+     * number of permutations available as a result.
+     * 
+     * <p>
+     * {@link TreeViewColumnSizing#GROW_ONLY GROW_ONLY} is the default.
+     * 
+     * @since 4.0.6
+     */
+    /*
+     * TODO I've got a feeling that the different permutations are not all
+     * equal and that some settings will override others. It would be nice if
+     * whoever exposes setMinWidth(), setFixedWidth(), etc would research this
+     * and add some documentation as to their interactions.
+     */
+    public void setSizing(TreeViewColumnSizing type) {
+        GtkTreeViewColumn.setSizing(this, type);
+    }
 }

@@ -58,6 +58,5 @@
   (of-object "GtkTreeRowReference")
   (c-name "gtk_tree_row_reference_free")
   (return-type "none")
-  (deprecated "don't call this or Bad Things will happen")
 )
 

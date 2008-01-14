@@ -48,7 +48,6 @@
   (of-object "GtkTable")
   (c-name "gtk_table_attach_defaults")
   (return-type "none")
-  (deprecated "use attach instead")
   (parameters
     '("GtkWidget*" "widget")
     '("guint" "left_attach")

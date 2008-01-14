@@ -1,7 +1,7 @@
 /*
  * Box.java
  *
- * Copyright (c) 2007 Operational Dynamics Consulting Pty Ltd
+ * Copyright (c) 2007-2008 Operational Dynamics Consulting Pty Ltd
  * 
  * The code in this file, and the library it is a part of, are made available
  * to you by the authors under the terms of the "GNU General Public Licence,
@@ -86,5 +86,33 @@ public abstract class Box extends Container
      */
     public void packStart(Widget child, boolean expand, boolean fill, int padding) {
         GtkBox.packStart(this, child, expand, fill, padding);
+    }
+
+    /**
+     * Add a Widget to the end of the Box, with default padding values.
+     * 
+     * <p>
+     * <i>This is the same as calling
+     * <code>packEnd(child, true, true, 0)</code>; see the full
+     * {@link #packEnd(Widget, boolean, boolean, int) packEnd()} method for
+     * details.</i>
+     * 
+     * @since 4.0.6
+     */
+    public void packEnd(Widget child) {
+        GtkBox.packEnd(this, child, true, true, 0);
+    }
+
+    /**
+     * Add a Widget to the end of the Box. The parameters work the same as for
+     * {@link #packStart(Widget, boolean, boolean, int) packStart()}, but
+     * note that Widgets packed with respect to the end will pack <i>inwards</i>
+     * from the end, closer to the middle than Widgets already added with
+     * <code>packEnd()</code>.
+     * 
+     * @since 4.0.6
+     */
+    public void packEnd(Widget child, boolean expand, boolean fill, int padding) {
+        GtkBox.packEnd(this, child, expand, fill, padding);
     }
 }

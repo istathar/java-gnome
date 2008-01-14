@@ -28,6 +28,12 @@ public class ValidateProperties extends TestCaseGtk
         assertEquals(-42, v.getInteger());
     }
 
+
+    public final void testLongValues() {
+        final Value v = new Value(600000000000L);
+        assertEquals(600000000000L, v.getLong());
+    }
+    
     public final void testBooleanValues() {
         final Value v1, v2;
 

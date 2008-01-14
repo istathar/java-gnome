@@ -1,7 +1,7 @@
 /*
  * Plumbing.c
  *
- * Copyright (c) 2007 Operational Dynamics Consulting Pty Ltd and Others
+ * Copyright (c) 2007-2008 Operational Dynamics Consulting Pty Ltd and Others
  * 
  * The code in this file, and the library it is a part of, are made available
  * to you by the authors under the terms of the "GNU General Public Licence,
@@ -32,7 +32,7 @@ Java_org_freedesktop_bindings_Plumbing_createProxy
 	
 	constructor = (*env)->GetMethodID(env, type, "<init>", "(J)V");
 	if (constructor == NULL) {
-		g_error("Constructor methodID not found");
+		g_critical("Constructor methodID not found");
 		return NULL;
 	}
 	
@@ -59,7 +59,7 @@ Java_org_freedesktop_bindings_Plumbing_createFlag
 	
 	constructor = (*env)->GetMethodID(env, type, "<init>", "(ILjava/lang/String;)V");
 	if (constructor == NULL) {
-		g_error("Constructor methodID not found");
+		g_critical("Constructor methodID not found");
 		return NULL;
 	}
 	

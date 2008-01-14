@@ -71,19 +71,22 @@ public abstract class CellRenderer extends Object
      * The one (and only) TreeViewColumn this CellRenderer has been packed
      * into. Used by the set<Attribute>() methods.
      */
-    protected TreeViewColumn vertical;
+    protected CellLayout vertical;
 
     /**
      * Once you've constructed a CellRenderer and tied it to TreeViewColumn by
      * doing so (ie the way we have designed it), you can't reuse it, which is
      * why there's no <code>setVertical()</code>.
+     * 
+     * <p>
+     * In case you hadn't noticed yet, TreeViewColumn is a CellLayout.
      */
     /*
      * Pack into the TreeViewColumn with expand true; at the moment we're only
      * exposing one CellRenderer per column, so might as well give it the
      * space. Testing showed this to make sense at runtime.
      */
-    protected CellRenderer(long pointer, TreeViewColumn vertical) {
+    protected CellRenderer(long pointer, CellLayout vertical) {
         super(pointer);
 
         if (vertical == null) {
@@ -91,7 +94,7 @@ public abstract class CellRenderer extends Object
                     "Must pass an instantiated TreeViewColumn to the CellRenderer constructor");
         }
 
-        GtkTreeViewColumn.packStart(vertical, this, true);
+        GtkCellLayout.packStart(vertical, this, true);
 
         this.vertical = vertical;
     }
@@ -124,7 +127,7 @@ public abstract class CellRenderer extends Object
      * API.
      */
     public void setBackground(DataColumnString column) {
-        GtkTreeViewColumn.addAttribute(vertical, this, "cell-background", column.getOrdinal());
+        GtkCellLayout.addAttribute(vertical, this, "cell-background", column.getOrdinal());
     }
 
     /**

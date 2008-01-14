@@ -1,7 +1,7 @@
 /*
  * Entry.java
  *
- * Copyright (c) 2007 Operational Dynamics Consulting Pty Ltd, and Others
+ * Copyright (c) 2007-2008 Operational Dynamics Consulting Pty Ltd, and Others
  *
  * The code in this file, and the library it is a part of, are made available
  * to you by the authors under the terms of the "GNU General Public Licence,
@@ -133,6 +133,8 @@ public class Entry extends Widget implements Editable, CellEditable
 
     /**
      * Connects an {@link ACTIVATE} handler to the Widget.
+     * 
+     * @since 4.0.3
      */
     public void connect(ACTIVATE handler) {
         GtkEntry.connect(this, handler);
@@ -163,16 +165,45 @@ public class Entry extends Widget implements Editable, CellEditable
      * @param width
      *            A setting of <code>-1</code> will return the Entry to
      *            normal sizing behaviour.
+     * @since 4.0.6
      */
     public void setWidthChars(int width) {
         GtkEntry.setWidthChars(this, width);
     }
 
+    /**
+     * Connect a <code>CHANGED</code> handler.
+     * 
+     * @since 4.0.6
+     */
     public void connect(CHANGED handler) {
         GtkEditable.connect(this, handler);
     }
 
     public void selectRegion(int start, int end) {
         GtkEditable.selectRegion(this, start, end);
+    }
+
+    /**
+     * Set the alignment of the the text being displayed in the Entry.
+     * 
+     * @param xalign
+     *            A value from <code>0.0f</code> for fully left-aligned
+     *            through <code>1.0f</code> for fully right-aligned. You can
+     *            use the constants {@link Alignment#LEFT LEFT},
+     *            {@link Alignment#CENTER CENTER} and
+     *            {@link Alignment#RIGHT RIGHT} in Alignment for convenience
+     *            if you like. No, this has nothing to do with politics.
+     * @since 4.0.6
+     */
+    /*
+     * Supposedly this reverses for RTL text layout. It'd be nice of someone
+     * could test that and document it to that effect if true.
+     */
+    public void setAlignment(float xalign) {
+        if ((xalign < 0.0) || (xalign > 1.0)) {
+            throw new IllegalArgumentException("xalign must be between 0.0 and 1.0");
+        }
+        GtkEntry.setAlignment(this, xalign);
     }
 }

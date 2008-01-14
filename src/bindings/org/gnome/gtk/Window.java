@@ -1,7 +1,7 @@
 /*
  * Window.java
  *
- * Copyright (c) 2006-2007 Operational Dynamics Consulting Pty Ltd, and Others
+ * Copyright (c) 2006-2008 Operational Dynamics Consulting Pty Ltd, and Others
  * 
  * The code in this file, and the library it is a part of, are made available
  * to you by the authors under the terms of the "GNU General Public Licence,
@@ -157,9 +157,10 @@ public class Window extends Bin
      * 
      * <p>
      * Depending on your needs, {@link #resize() resize()} could be more
-     * appropriate, especially if the Window is already realized . resize()
-     * changes the current size of the Window, rather than the size to be used
-     * on initial display which is what this method is for.
+     * appropriate, especially if the Window is already realized.
+     * <code>resize()</code> changes the current size of the Window, rather
+     * than the size to be used on initial display which is what this method
+     * is for.
      * 
      * <p>
      * Incidentally, Windows can't be 0x0; the minimum size is 1x1.

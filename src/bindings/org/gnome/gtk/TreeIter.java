@@ -1,7 +1,7 @@
 /*
  * TreeIter.java
  *
- * Copyright (c) 2006 Operational Dynamics Consulting Pty Ltd, and Others
+ * Copyright (c) 2006-2008 Operational Dynamics Consulting Pty Ltd, and Others
  * 
  * The code in this file, and the library it is a part of, are made available
  * to you by the authors under the terms of the "GNU General Public Licence,
@@ -34,7 +34,7 @@ import org.gnome.glib.Boxed;
  * <p>
  * Like other iterators in Java, a TreeIter becomes invalid the moment the
  * underlying model changes. If you need a persistent pointer to a particular
- * row, create a {@link TreeRowReference TreeRowReference} with FIXME.
+ * row, create a {@link TreeRowReference TreeRowReference}.
  * 
  * <p>
  * <i>Note that although one use case for TreeIter is to iterate through all
@@ -51,10 +51,18 @@ public class TreeIter extends Boxed
     private final TreeModel model;
 
     /*
-     * The protected constructor was deliberately removed. We assume that
-     * there is no case where a TreeIter is returned from C, without us
-     * allocating for it first.
+     * The protected constructor was originally removed entirely, but it turns
+     * out we need it for signals like ROW_ACTIVATED. This is a problem,
+     * because it means we'd have to jump through *many* hoops to populate the
+     * model field. Instead, we just cripple this TreeIter as far as iterating
+     * goes but that's ok because you never need to iterate from a TreeIter in
+     * a signal callback - it's just used to point at a row, done.
      */
+    protected TreeIter(long pointer) {
+        super(pointer);
+
+        model = null;
+    }
 
     /**
      * Allocate a blank TreeIter structure. This is done by declaring one
@@ -84,6 +92,9 @@ public class TreeIter extends Boxed
      *         TreeIter to the next row.
      */
     public boolean iterNext() {
+        if (model == null) {
+            return false;
+        }
         return GtkTreeModel.iterNext(model, this);
     }
 }

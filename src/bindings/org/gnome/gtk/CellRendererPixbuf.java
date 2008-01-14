@@ -23,7 +23,7 @@ public class CellRendererPixbuf extends CellRenderer
     /**
      * Construct a new CellRendererPixbuf.
      */
-    public CellRendererPixbuf(TreeViewColumn vertical) {
+    public CellRendererPixbuf(CellLayout vertical) {
         super(GtkCellRendererPixbuf.createCellRendererPixbuf(), vertical);
     }
 
@@ -31,6 +31,6 @@ public class CellRendererPixbuf extends CellRenderer
      * Indicate the DataColumn containing the Pixbuf to render as an image.
      */
     public void setPixbuf(DataColumnPixbuf column) {
-        GtkTreeViewColumn.addAttribute(vertical, this, "pixbuf", column.getOrdinal());
+        GtkCellLayout.addAttribute(vertical, this, "pixbuf", column.getOrdinal());
     }
 }

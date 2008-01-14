@@ -62,4 +62,18 @@ public class Window extends Drawable
     public WindowState getState() {
         return GdkWindow.getState(this);
     }
+
+    /**
+     * Set the Cursor that will be shown when the pointer hovers over this
+     * Drawable Window.
+     * 
+     * @param cursor
+     *            Passing <code>null</code> will cause this Window to
+     *            [revert to] using the Cursor default inherited from its
+     *            parent.
+     * @since 4.0.6
+     */
+    public void setCursor(Cursor cursor) {
+        GdkWindow.setCursor(this, cursor);
+    }
 }

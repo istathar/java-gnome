@@ -12,6 +12,7 @@ AltLeft
 AltRight
 ArrayList
 AtSign
+AttachOptions
 BackSpace
 Bassi
 Behdad
@@ -68,6 +69,8 @@ ControlRight
 Cowie
 Cowie's
 Ctrl
+CursorType
+CursorTypes
 DDDDDD
 DESTDIR
 DNS
@@ -170,6 +173,7 @@ GSourceFunc
 GString
 GTK's
 GTKish
+GThreads
 GToggleNotify
 GTypeInstance
 GUADEC
@@ -178,6 +182,10 @@ GValue
 GValues
 GdkColor
 GdkColorOverride
+GdkCursor
+GdkCursorType
+GdkCursors
+GdkDisplay
 GdkEvent
 GdkEventAny
 GdkEventExpose
@@ -199,6 +207,7 @@ GetStaticMethodID
 GetStringUTFChars
 GladeXml
 GlibException
+GlibMisc
 GnomeEntry
 Gruber
 Gruber's
@@ -265,6 +274,7 @@ GtkSeparatorToolItem
 GtkStateType
 GtkStatusIcon
 GtkStockItem
+GtkTable
 GtkToggleButton
 GtkToggleToolButton
 GtkToolButton
@@ -277,6 +287,7 @@ GtkTreeIterOverride
 GtkTreeModel
 GtkTreeModelOverride
 GtkTreePath
+GtkTreeRowReference
 GtkTreeSelection
 GtkTreeStore
 GtkTreeView
@@ -350,6 +361,7 @@ Keyval
 Kpic
 LCA
 LDFLAGS
+LHR
 LargeLogo
 Laszlo
 LibGlade
@@ -408,6 +420,7 @@ PIXMAP
 PKGBUILD
 PNGs
 PRELIGHT
+PTR
 PackageNames
 PageDown
 PageUp
@@ -434,9 +447,11 @@ QA
 QuestionMessageDialog
 QuoteDouble
 QuoteRight
+QuoteSingle
 README
 RGB
 RHEL
+RTL
 Rahn
 RcStyle
 RefToJavaProxy
@@ -466,6 +481,7 @@ ShiftRight
 SignalHandler
 Singh
 SizeGroup
+SizeGroups
 SlashTime
 SmartyPants
 SnapshotButton
@@ -496,6 +512,7 @@ TestCaseGtk
 TestCases
 TestRunner
 TestSuite
+TextComboBox
 TextDirection
 TextView
 ThrowNew
@@ -533,6 +550,7 @@ TreeView's
 TreeViewAndTreeModel
 TreeViewColumn
 TreeViewColumn's
+TreeViewColumnSizing
 TreeViewColumns
 TreeViews
 TypeBlock
@@ -580,7 +598,9 @@ Xerces
 Xlib's
 Xml
 Xvfb
+YYZ
 Yeay
+Yeech
 accessibleByTrain
 accessors
 activatable
@@ -612,6 +632,7 @@ assertNull
 assertSame
 assertTrue
 atk
+attachDefaults
 autotools
 backend
 backends
@@ -632,6 +653,7 @@ boolean
 bootclasspath
 borderless
 borked
+bottomAttach
 boxedArrayFor
 boxedFor
 boxeds
@@ -658,6 +680,7 @@ centered
 cfg
 cflags
 checkAlive
+checkInitialized
 checkPixbufFromFile
 checkPixbufFromFileAtScale
 checkpointHashes
@@ -670,6 +693,7 @@ cls
 cmd
 codebase
 codegen
+colAlign
 color
 commitComment
 committer
@@ -709,6 +733,8 @@ createCheckMenuItemWithMnemonic
 createColor
 createComboBox
 createComboBoxText
+createComboBoxWithModel
+createCursor
 createDialog
 createDialogWithButtons
 createEntry
@@ -745,6 +771,7 @@ createStatusIcon
 createStatusIconFromFile
 createStatusIconFromIconName
 createStatusIconFromPixbuf
+createTable
 createThing
 createToggleButton
 createToggleButtonWithMnemonic
@@ -755,6 +782,7 @@ createToolbar
 createTreeIter
 createTreePath
 createTreePathFromString
+createTreeRowReference
 createTreeView
 createTreeViewColumn
 createTreeViewWithModel
@@ -874,6 +902,7 @@ george
 getAbsolutePath
 getAction
 getActive
+getActiveIter
 getActiveText
 getAlignment
 getAlignmentX
@@ -905,6 +934,7 @@ getFilename
 getFirstIter
 getFixedHeightMode
 getFlags
+getFloat
 getFormalName
 getGreen
 getHAdjustment
@@ -918,9 +948,11 @@ getInteger
 getIter
 getIterFirst
 getJustify
+getKeyval
 getLabel
 getLabelWidget
 getLayout
+getLong
 getMaxLength
 getMaximized
 getMenu
@@ -937,6 +969,7 @@ getPaddingLeft
 getPaddingRight
 getPaddingTop
 getParent
+getPath
 getPixbuf
 getPointer
 getPointerFromHandle
@@ -978,6 +1011,7 @@ getString
 getSubmenu
 getText
 getToplevel
+getToplevels
 getTreeView
 getType
 getURI
@@ -1004,6 +1038,7 @@ globalTooltipsGroup
 gnomedev
 goto
 gpointer
+grabFocus
 gthread
 gtk
 gtkjni
@@ -1099,6 +1134,7 @@ labelWidget
 lang
 lc
 ld
+leftAttach
 len
 li
 libexec
@@ -1164,6 +1200,7 @@ nParsing
 nTHIS
 nThe
 nUnable
+nYou
 namespace
 nativeName
 nav
@@ -1199,6 +1236,7 @@ onDeleteEvent
 onEnterNotifyEvent
 onEvent
 onExposeEvent
+onFocusInEvent
 onFocusOutEvent
 onHide
 onKeyPressEvent
@@ -1206,6 +1244,7 @@ onKeyReleaseEvent
 onPopupMenu
 onResponse
 onRowActivated
+onRowChanged
 onSelectAll
 onSelectionChanged
 onSizeChanged
@@ -1230,6 +1269,7 @@ pageIncrement
 pageNum
 pageSize
 pango
+parallelize
 param
 perl
 php
@@ -1275,6 +1315,7 @@ refactor
 refactored
 refactoring
 refactorings
+regexAtoZ
 registerConstant
 registerProxy
 registerType
@@ -1288,6 +1329,8 @@ resized
 resizes
 responseId
 returnType
+rightAttach
+rowAlign
 rowstride
 rpath
 runDemo
@@ -1300,6 +1343,7 @@ savev
 scalarref
 screenshot
 screenshots
+scrollToCell
 scrollbar
 scrollbars
 segfaulted
@@ -1314,6 +1358,7 @@ selectURI
 serialVersionUID
 setAction
 setActive
+setActiveIter
 setAlignment
 setAlignmentX
 setAngle
@@ -1324,6 +1369,7 @@ setChildSecondary
 setClickable
 setCurrentFolder
 setCurrentPage
+setCursor
 setDecorated
 setDefaultIcon
 setDefaultSize
@@ -1337,6 +1383,7 @@ setEventsVisibility
 setExpand
 setFilename
 setFixedHeightMode
+setFixedWidth
 setFocusOnClick
 setForeground
 setFraction
@@ -1366,6 +1413,7 @@ setMaxLength
 setMaxWidthChars
 setMaximize
 setMenu
+setMinWidth
 setModal
 setMode
 setModel
@@ -1375,6 +1423,8 @@ setPadding
 setPixbuf
 setPolicy
 setPosition
+setPrgname
+setProgramName
 setProperty
 setPropertyBar
 setPropertyBoolean
@@ -1387,6 +1437,8 @@ setPropertyPixbuf
 setPropertyString
 setReference
 setRelief
+setReorderable
+setResizable
 setRighteous
 setRubberBanding
 setRulesHint
@@ -1396,6 +1448,8 @@ setSecondaryText
 setSecondaryUseMarkup
 setSelectable
 setSensitive
+setSizeRequest
+setSizing
 setSortColumn
 setSortColumnId
 setStick
@@ -1473,6 +1527,7 @@ testObjectNeverUsedIsRemoved
 testObjectNotRemovedWhenStillGtkAlive
 testRemovingAfterNoLongerReachableInBothSides
 textwidth
+th
 theming
 throwByName
 timestamp
@@ -1481,9 +1536,11 @@ tm
 tmp
 tnot
 toString
+toUnicode
 toolkits
 tooltip
 tooltips
+topAttach
 toplevel
 touchFile
 touples
@@ -1506,6 +1563,7 @@ undelete
 underTest
 unformatted
 unfullscreen
+unicode
 unindent
 unix
 unixprint
@@ -1524,6 +1582,7 @@ util
 utils
 utils's
 va
+validationCheck
 valueChanged
 valueFor
 versa
@@ -1560,8 +1619,12 @@ xffea
 xffff
 xfvz
 xjf
+xoptions
+xpadding
 xscale
 yalign
+yoptions
+ypadding
 yscale
 zdefs
 zoneinfo
