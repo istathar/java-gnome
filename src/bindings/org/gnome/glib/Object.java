@@ -41,9 +41,19 @@ import org.freedesktop.bindings.Proxy;
  * }
  * </pre>
  * 
- * <i>This is of course insanely type-unsafe. In general, luckily, this is not
- * necessary, as most <code>GObject</code>s provide convenience methods for
- * such things, and should be used in preference wherever available.</i>
+ * <i>The use of a String property name is, of course, insanely type-unsafe,
+ * which is why we don't expose it in our public API. Luckily, though, in
+ * general it is not necessary to use this at all, as most
+ * <code>GObject</code>s provide convenience methods for such things, and
+ * should be used in preference wherever available.</i>
+ * 
+ * <p>
+ * <i>It is probably also worth noting that these code paths are less
+ * efficient by about 8:1 as a <code>GValue</code> must be constructed as a
+ * wrapper around the data for the property being set. While that's not too
+ * expensive in C, from Java (and from all other language bindings of GTK) it
+ * requires allocation and initialization of the wrapper structure which
+ * really is just throw away.</i>
  * 
  * @author Andrew Cowie
  * @since 4.0.0
@@ -110,7 +120,7 @@ public abstract class Object extends Proxy
      * that.
      */
     protected void setPropertyString(String name, String value) {
-        GObject.setProperty(this, name, new Value(GValue.createValue(value)));
+        GObject.setProperty(this, name, new Value(value));
     }
 
     /**
@@ -123,7 +133,7 @@ public abstract class Object extends Proxy
      * that.
      */
     protected void setPropertyInteger(String name, int value) {
-        GObject.setProperty(this, name, new Value(GValue.createValue(value)));
+        GObject.setProperty(this, name, new Value(value));
     }
 
     /**
@@ -136,9 +146,9 @@ public abstract class Object extends Proxy
      * that.
      */
     protected void setPropertyBoolean(String name, boolean value) {
-        GObject.setProperty(this, name, new Value(GValue.createValue(value)));
+        GObject.setProperty(this, name, new Value(value));
     }
-    
+
     protected boolean getPropertyBoolean(String name) {
         Value value = GObject.getProperty(this, name);
         return GValue.getBoolean(value);
@@ -150,7 +160,7 @@ public abstract class Object extends Proxy
      * @since 4.0.4
      */
     protected void setPropertyFloat(String name, float value) {
-        GObject.setProperty(this, name, new Value(GValue.createValue(value)));
+        GObject.setProperty(this, name, new Value(value));
     }
 
     protected float getPropertyFloat(String name) {
@@ -164,7 +174,7 @@ public abstract class Object extends Proxy
      * @since 4.0.2
      */
     protected void setPropertyObject(String name, Object value) {
-        GObject.setProperty(this, name, new Value(GValue.createValue(value)));
+        GObject.setProperty(this, name, new Value(value));
     }
 
     protected String getPropertyString(String name) {
