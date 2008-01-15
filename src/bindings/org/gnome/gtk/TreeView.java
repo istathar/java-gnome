@@ -536,4 +536,28 @@ public class TreeView extends Container
     public void scrollToCell(TreePath path, TreeViewColumn vertical) {
         GtkTreeView.scrollToCell(this, path, vertical, false, 0.0f, 0.0f);
     }
+
+    /**
+     * Set whether the TreeModel being shown by this TreeView can be reordered
+     * by dragging and dropping the rows. If this is turned on, no control is
+     * given over the ordering, so if you need to care about that you're
+     * probably going to need to manage drag and drop manually.
+     * 
+     * <p>
+     * The default is <code>false</code>.
+     * 
+     * <p>
+     * Incidentally, you can observe these changes by connecting to
+     * <code>ROW_INSERTED</code> and <code>ROW_DELETED</code>.
+     * 
+     * @since 4.0.6
+     */
+    /*
+     * TODO test that the signals mooted actually do get emitted when drag and
+     * drop re-ordering is done by the user when we get around to implementing
+     * them, and then turn those mentions in to links.
+     */
+    public void setReorderable(boolean setting) {
+        GtkTreeView.setReorderable(this, setting);
+    }
 }
