@@ -36,4 +36,23 @@ public class ValidateKeyboardHandling extends TestCaseGtk
         i = new Keyval("ISO_Level3_Latch");
         assertEquals(0xFE04, GdkKeyvalOverride.numOf(i));
     }
+
+    /**
+     * Beware that if you output this string to terminal, you'll only get
+     * "Hello". That was unexpected, hence this test, which shows that the
+     * data after \0 isn't lost (it would be in C), but \0 will screw up your
+     * output.
+     */
+    public final void testNullInString() {
+        final StringBuilder terminated;
+
+        terminated = new StringBuilder();
+
+        terminated.append("Hello");
+        terminated.append((char) 0);
+        terminated.append("World");
+
+        assertEquals("Hello\0World", terminated.toString());
+        assertEquals(11, terminated.length());
+    }
 }

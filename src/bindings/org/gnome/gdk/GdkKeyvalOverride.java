@@ -1,7 +1,7 @@
 /*
  * GtkResponseTypeOverride.java
  *
- * Copyright (c) 2007 Operational Dynamics Consulting Pty Ltd
+ * Copyright (c) 2007-2008 Operational Dynamics Consulting Pty Ltd
  *
  * The code in this file, and the library it is a part of, are made available
  * to you by the authors under the terms of the "GNU General Public Licence,
@@ -29,6 +29,19 @@ final class GdkKeyvalOverride extends Plumbing
             return (Keyval) Plumbing.enumFor(Keyval.class, keyval);
         } catch (IllegalArgumentException iae) {
             return new Keyval(keyval, GdkKeyval.name(keyval));
+        }
+    }
+
+    /**
+     * Again, there are lots of native values we don't have explicit constants
+     * registered for, so just duck around the problem rather than having
+     * Exceptions thrown.
+     */
+    static ModifierType flagFor(int state) {
+        try {
+            return (ModifierType) Plumbing.flagFor(ModifierType.class, state);
+        } catch (IllegalArgumentException iae) {
+            return new ModifierType(state, "DYNAMIC");
         }
     }
 

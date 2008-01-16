@@ -195,6 +195,7 @@ GdkEventVisibility
 GdkEvents
 GdkGravity
 GdkKeyval
+GdkModifierType
 GdkPixbuf
 GdkPixbufFormat
 GdkScreen
@@ -358,6 +359,7 @@ KeyError
 KeyListener
 KeypadKeyval
 Keyval
+Keyval's
 Kpic
 LCA
 LDFLAGS
@@ -394,6 +396,8 @@ MessageType
 MessageTypes
 Microsystems
 Misc's
+ModifierType
+ModifierTypes
 MyButton
 NG
 NSW
@@ -676,6 +680,7 @@ ccessibility
 cd
 cdrom
 center
+center's
 centered
 cfg
 cflags
@@ -1123,6 +1128,7 @@ jvm
 kaffe
 kaffe's
 kaffec
+keybinding
 keybindings
 keyval
 keyvalFromName
