@@ -216,6 +216,7 @@ GtkAction
 GtkActionGroup
 GtkAdjustment
 GtkAlignment
+GtkAllocation
 GtkApplication
 GtkB
 GtkBin
@@ -912,6 +913,7 @@ getActiveText
 getAlignment
 getAlignmentX
 getAlignmentY
+getAllocation
 getAngle
 getBlinking
 getBlue
@@ -1032,6 +1034,8 @@ getVisible
 getWidget
 getWidth
 getWindow
+getX
+getY
 getenv
 getmtime
 getters

@@ -33,6 +33,22 @@ final class GtkWidgetOverride extends Plumbing
     private static native final long gtk_widget_get_window(long self);
 
     /**
+     * Allocation is yet another accessible GObject field. We really need to
+     * deal with this into the code generator.
+     */
+    static final Allocation getAllocation(Widget self) {
+        long result;
+
+        synchronized (lock) {
+            result = gtk_widget_get_allocation(pointerOf(self));
+
+            return (Allocation) boxedFor(Allocation.class, result);
+        }
+    }
+
+    private static native final long gtk_widget_get_allocation(long self);
+
+    /**
      * Set the GdkWindow underlying this Widget to receive visibility events!
      * As a necessary convenience, the Widget will be realized first if
      * necessary.

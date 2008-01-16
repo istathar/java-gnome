@@ -1,7 +1,7 @@
 /*
  * Allocation.java
  *
- * Copyright (c) 2007 Operational Dynamics Consulting Pty Ltd
+ * Copyright (c) 2007-2008 Operational Dynamics Consulting Pty Ltd
  *
  * The code in this file, and the library it is a part of, are made available
  * to you by the authors under the terms of the "GNU General Public Licence,
@@ -13,25 +13,82 @@ package org.gnome.gtk;
 
 import org.gnome.glib.Boxed;
 
+/**
+ * An object with information about the size of the rectangle that has been
+ * allocated to a Widget and its position within its parent Container as a
+ * result of consideration of the Widget's size request. See Widget's
+ * {@link Widget#setSizeRequest(int, int) setSizeRequest()} for a more
+ * detailed discussion of the size request-allocation process. You get the
+ * Allocation currently given to a Widget with Widget's
+ * {@link Widget#getAllocation() getAllocation()}.
+ * 
+ * <p>
+ * Before the request-allocation process has occurred, you can expect this
+ * class to report a size of <code>1</code>x<code>1</code> at position
+ * <code>-1</code>,<code>-1</code>. You probably don't want to rely on
+ * those numbers; but that's what the initial values are.
+ * 
+ * @author Andrew Cowie
+ * @since 4.0.6
+ */
 /*
- * FIXME this is a placeholder stub for what will become the public API for
- * this type. Replace this comment with appropriate javadoc including author
- * and since tags. Note that the class may need to be made abstract, implement
- * interfaces, or even have its parent changed. No API stability guarantees
- * are made about this class until it has been reviewed by a hacker and this
- * comment has been replaced.
+ * Our Allocation is a direct reference to the live GtkAllocation struct in
+ * the GtkWidget, and not a dynamically allocated copy that will become out of
+ * date. I don't know how well this will hold up but the back reference should
+ * keep things safe.
  */
 public final class Allocation extends Boxed
 {
+    /**
+     * Hold a reference to the parent Widget so that the Allocation doesn't
+     * survive longer than the Widget (ie, is collected first or at the same
+     * time).
+     */
+    /*
+     * If the Allocation came from GTK originally, then this won't be
+     * populated, but there's not much we can do about that. FIXME, if you
+     * expose Allocation in a signal handler, see about populating this field
+     * in an override of the handler (like we do in Dialog for ResponseType).
+     */
+    Widget widget;
+
     protected Allocation(long pointer) {
         super(pointer);
     }
 
     protected void release() {
-        /*
-         * FIXME This class's release() method must be implemented to call the
-         * correct free() or unref() function before it can be used.
-         */
-        throw new UnsupportedOperationException("Not yet implemented");
+        widget = null;
+    }
+
+    /**
+     * The width that has been allocated.
+     */
+    public int getWidth() {
+        return GtkAllocation.getWidth(this);
+    }
+
+    /**
+     * The height that has been allocated.
+     */
+    public int getHeight() {
+        return GtkAllocation.getHeight(this);
+    }
+
+    /**
+     * The horizontal co-ordinate of the top left corner of the rectangle.
+     * This is relative to (ie, an offset from the top left corner of) the
+     * parent's Allocation).
+     */
+    public int getX() {
+        return GtkAllocation.getX(this);
+    }
+
+    /**
+     * The vertical co-ordinate of the top left corner of the rectangle. This
+     * is relative to (ie, an offset from the top left corner of) the parent's
+     * Allocation).
+     */
+    public int getY() {
+        return GtkAllocation.getY(this);
     }
 }

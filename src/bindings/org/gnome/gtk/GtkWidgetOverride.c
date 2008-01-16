@@ -39,6 +39,39 @@ Java_org_gnome_gtk_GtkWidgetOverride_gtk_1widget_1get_1window
 
 
 /**
+ * Access GtkWidget's allocation field, a GtkAllocation struct. Note that we
+ * return a pointer to the live struct, not a copy. This is a bit of a
+ * novelty, but it seems safe so long as we ensure the Widget Proxy is not
+ * collected before the Allocation Proxy, which we enforce with a back
+ * reference Java side.  
+ */
+JNIEXPORT jlong JNICALL
+Java_org_gnome_gtk_GtkWidgetOverride_gtk_1widget_1get_1allocation
+(
+	JNIEnv* env,
+	jclass cls,
+	jlong _self
+)
+{
+	GtkAllocation* result;
+	GtkWidget* self;
+
+	// convert parameter self
+	self = (GtkWidget*) _self;
+	
+	/*
+	 * This is NOT a dynamic allocation, but rather a live reference to
+	 * the GtkAllocation struct in the GtkWidget instance struct.
+	 */	
+	result = &self->allocation;
+
+	// cleanup parameter self
+
+	// and finally
+	return (jlong) result;
+}
+
+/**
  * Connecting the 'visiblity-notify-signal' seems to require that the Widget
  * have a GdkWindow already. While this could be just a quick hack until we
  * have event masks exposed, we streamline things by adding the additional

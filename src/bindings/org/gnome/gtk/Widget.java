@@ -225,12 +225,22 @@ public abstract class Widget extends org.gnome.gtk.Object
      */
     public interface KEY_PRESS_EVENT extends GtkWidget.KEY_PRESS_EVENT
     {
+        /**
+         * As with other event signals, returning <code>false</code> means
+         * "I didn't [fully] handle this signal, so proceed with the next (ie,
+         * usually the default) handler" whereas if you return
+         * <code>true</code> you mean "I have handled this event, and wish
+         * to stop further emission of the signal".
+         */
         public boolean onKeyPressEvent(Widget source, EventKey event);
     }
 
     /**
      * Hook up a handler to receive <code>KEY_PRESS_EVENT</code> signals on
-     * this Widget. In general you <b>don't</b> want this.
+     * this Widget. For general typing this is the one you want, but for
+     * critical events (like pressing <b>Enter</b> to activate a Button that
+     * is going to delete things, you might want to postpone action until
+     * <code>KEY_RELEASE_EVENT</code>.
      * 
      * @since 4.0.3
      */
@@ -248,6 +258,11 @@ public abstract class Widget extends org.gnome.gtk.Object
      */
     public interface KEY_RELEASE_EVENT extends GtkWidget.KEY_RELEASE_EVENT
     {
+        /**
+         * (See the comment at
+         * {@link Widget.KEY_PRESS_EVENT#onKeyPressEvent(Widget, EventKey) KEY_PRESS_EVENT}
+         * to understand the return value)
+         */
         public boolean onKeyReleaseEvent(Widget source, EventKey event);
     }
 
@@ -677,5 +692,32 @@ public abstract class Widget extends org.gnome.gtk.Object
             throw new IllegalArgumentException("width and height need to be >= -1");
         }
         GtkWidget.setSizeRequest(this, width, height);
+    }
+
+    /**
+     * Get the details of the rectangle that represents the size that the
+     * windowing system down to GTK on down to the parent containers of this
+     * Widget have allocated to it. Note that the Widget must already have
+     * been realized for the request-allocation cycle to have taken place (ie,
+     * the top level Window and all its children must have been
+     * <code>show()</code>n. In some circumstances the main loop may need
+     * to have iterated).
+     * 
+     * @author Andrew Cowie
+     * @since 4.0.6
+     */
+    public Allocation getAllocation() {
+        final Allocation result;
+
+        result = GtkWidgetOverride.getAllocation(this);
+        /*
+         * We are making a live reference to the GtkAllocation struct member
+         * in the GtkWidget class, so we need to make sure that our Allocation
+         * Proxy does not survive longer than the Widget. We use this back
+         * reference for this purpose.
+         */
+        result.widget = this;
+
+        return result;
     }
 }
