@@ -720,4 +720,38 @@ public abstract class Widget extends org.gnome.gtk.Object
 
         return result;
     }
+
+    /**
+     * Get the size that will be (is being) requested by this Widget.
+     * 
+     * <p>
+     * In addition to getting the Requisition object for this Widget, this
+     * method will also ask the Widget to actually calculate its requirements.
+     * This can be a relatively expensive operation as font metrics need to be
+     * worked out relative to the Display's physical characteristics (this
+     * implies that the request calculation won't have any effect if the
+     * Widget is not yet been FIXME to a Screen).
+     * 
+     * <p>
+     * <i>Implementation note: calling this method will invoke
+     * <code>gtk_widget_size_request()</code>. The returned Requisition
+     * object is "live" however, so once you've got it you can use its getter
+     * methods freely without needing to keep calling this method.</i>
+     * 
+     * @since 4.0.6
+     */
+    public Requisition getRequisition() {
+        final Requisition result;
+
+        result = GtkWidgetOverride.getRequisition(this);
+        /*
+         * We are making a live reference to the GtkRequisition struct member
+         * in the GtkWidget class, so we need to make sure that our
+         * Requisition Proxy does not survive longer than the Widget. We use
+         * this back reference for this purpose.
+         */
+        result.widget = this;
+
+        return result;
+    }
 }

@@ -97,6 +97,7 @@ Devdas
 Dialog's
 DialogFlags
 Dialogs
+Display's
 DrawingArea
 EDETACHED
 EOFError
@@ -267,6 +268,7 @@ GtkOrientation
 GtkPolicyType
 GtkProgressBar
 GtkReliefStyle
+GtkRequisition
 GtkResponseType
 GtkResponseTypeOverride
 GtkScrolledWindow
@@ -994,6 +996,7 @@ getPropertyString
 getRed
 getReference
 getRelief
+getRequisition
 getResource
 getResourceAsStream
 getResponseId
@@ -1374,6 +1377,7 @@ setAlignmentX
 setAngle
 setBackground
 setBlinking
+setBorderWidth
 setCharAt
 setChildSecondary
 setClickable

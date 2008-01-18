@@ -28,6 +28,12 @@ import org.gnome.glib.Boxed;
  * <code>-1</code>,<code>-1</code>. You probably don't want to rely on
  * those numbers; but that's what the initial values are.
  * 
+ * <p>
+ * <i>This object is a live reference to the <code>allocation</code> field
+ * in the <code>GtkWidget</code> struct and so calling the getter methods
+ * will yield correct current values once you've got the Allocation object for
+ * the Widget.</i>
+ * 
  * @author Andrew Cowie
  * @since 4.0.6
  */
