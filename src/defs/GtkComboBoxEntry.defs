@@ -14,6 +14,24 @@
   (return-type "GtkWidget*")
 )
 
+(define-function combo_box_entry_new_with_model
+  (is-constructor-of "GtkComboBoxEntry")
+  (c-name "gtk_combo_box_entry_new_with_model")
+  (caller-owns-return #t)
+  (return-type "GtkWidget*")
+  (parameters
+    '("GtkTreeModel*" "model")
+    '("gint" "text_column")
+  )
+)
+
+(define-function combo_box_entry_new_text
+  (is-constructor-of "GtkComboBoxEntry")
+  (c-name "gtk_combo_box_entry_new_text")
+  (caller-owns-return #t)
+  (return-type "GtkWidget*")
+)
+
 (define-method set_text_column
   (of-object "GtkComboBoxEntry")
   (c-name "gtk_combo_box_entry_set_text_column")

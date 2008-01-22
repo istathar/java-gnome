@@ -61,6 +61,8 @@ ClassNotFoundException
 CodeFormat
 Collins's
 ComboBox
+ComboBoxEntries
+ComboBoxEntry
 ComboBoxes
 ComeOnBabyLightMyFire
 CommitMessages
@@ -234,6 +236,7 @@ GtkCellRendererText
 GtkCheckButton
 GtkCheckMenuItem
 GtkComboBox
+GtkComboBoxEntry
 GtkContainer
 GtkDialog
 GtkEditable
@@ -520,6 +523,7 @@ TestCases
 TestRunner
 TestSuite
 TextComboBox
+TextComboBoxEntry
 TextDirection
 TextView
 ThrowNew
@@ -740,6 +744,8 @@ createCheckMenuItem
 createCheckMenuItemWithMnemonic
 createColor
 createComboBox
+createComboBoxEntryText
+createComboBoxEntryWithModel
 createComboBoxText
 createComboBoxWithModel
 createCursor
@@ -1522,6 +1528,7 @@ submenus
 subprocess
 sudo
 superclass
+superinterface
 svn
 symlinks
 sys
