@@ -19,6 +19,7 @@ public class SnapshotWindow extends Snapshot
         super(Window.class);
 
         window = new Window();
+        window.setKeepAbove(true);
         window.setTitle("Window");
     }
 

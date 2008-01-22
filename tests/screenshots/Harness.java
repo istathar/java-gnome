@@ -22,6 +22,7 @@ import org.gnome.gtk.SnapshotFileChooserDialog;
 import org.gnome.gtk.SnapshotInfoMessageDialog;
 import org.gnome.gtk.SnapshotQuestionMessageDialog;
 import org.gnome.gtk.SnapshotTextComboBox;
+import org.gnome.gtk.SnapshotTextComboBoxEntry;
 import org.gnome.gtk.SnapshotTreeView;
 import org.gnome.gtk.SnapshotWindow;
 import org.gnome.gtk.Window;
@@ -112,7 +113,8 @@ public final class Harness
                     new SnapshotTreeView(),
                     new SnapshotFileChooserDialog(),
                     new SnapshotComboBox(),
-                    new SnapshotTextComboBox()
+                    new SnapshotTextComboBox(),
+                    new SnapshotTextComboBoxEntry()
             };
 
             /*
@@ -138,6 +140,12 @@ public final class Harness
                 image = Screenshot.capture();
 
                 w.hide();
+                Snapshot.cycleMainLoop();
+                try {
+                    Thread.sleep(50);
+                } catch (InterruptedException ie) {
+                    //
+                }
 
                 image.save(f, PixbufFormat.PNG);
             }

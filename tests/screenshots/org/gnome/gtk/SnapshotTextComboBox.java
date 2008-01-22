@@ -36,7 +36,7 @@ public class SnapshotTextComboBox extends Snapshot
         window.showAll();
         window.move(100, 100);
         combo.setActive(2);
-        combo.popup();
+        // combo.popup();
     }
 
     public static void main(String[] args) {

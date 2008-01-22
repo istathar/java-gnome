@@ -59,7 +59,7 @@ public class SnapshotComboBox extends Snapshot
         window.showAll();
         window.move(100, 100);
         combo.setActive(2);
-        combo.popup();
+        // combo.popup();
     }
 
     private void populate(String city, String country, String code) {
