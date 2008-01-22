@@ -31,9 +31,23 @@ package org.gnome.gtk;
  * advanced packing mechanisms like {@link Table}.
  * </dl>
  * 
+ * <h2>Size Requests and Size Allocation</h2>
  * <p>
- * TODO Add a human understandable discussion about the basics of <i>size
- * requests</i> and <i>size allocations</i>.
+ * Containers intermediate in GTK's box packing process. Each Container
+ * aggregates the requests from its children during the <i>size request</i>
+ * phase, and then later, as actual screen real estate is granted to it, the
+ * Container must then divide that space amongst each of its children in the
+ * <i>size allocation</i> phase.
+ * 
+ * <p>
+ * For more information about how this works, and on how you can influence it
+ * if necessary, see Widget's
+ * {@link Widget#setSizeRequest(int, int) setSizeRequest()}. To get an
+ * indication of how much space has been (will be) requested by a child, a
+ * Container will also find the
+ * {@link Widget#getRequisition() getRequisition()} method useful. The Actual
+ * size granted is available at {@link Widget#getAllocation() getAllocation()}
+ * once the box packing cycle has been carried out.
  * 
  * @author Andrew Cowie
  * @since 4.0.0

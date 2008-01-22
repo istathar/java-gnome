@@ -655,10 +655,10 @@ public abstract class Widget extends org.gnome.gtk.Object
      * needs at runtime of its parent. These requests flow up the Containers
      * the Widget is packed into, with each Container collating the requests
      * from its children. When it reaches the toplevel, GTK negotiates with
-     * the X server, and the result ifs the size allocation for the Window as
-     * a whole. The Window proceeds to inform each Container packed into it
-     * how much space it has been allocated, leaving it to the Containers to
-     * in turn allocate space to each of its children.
+     * the X server, and the result is the size allocation for the Window as a
+     * whole. The Window proceeds to inform each Container packed into it how
+     * much space it has been allocated, leaving it to the Containers to in
+     * turn allocate space to each of its children.
      * 
      * <p>
      * The whole point of all this is that in general you are <b>not</b>
