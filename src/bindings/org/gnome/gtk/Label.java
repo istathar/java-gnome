@@ -261,4 +261,23 @@ public class Label extends Misc
     public void setSelectable(boolean setting) {
         GtkLabel.setSelectable(this, setting);
     }
+
+    /**
+     * Set whether this Label will attempt to wrap the text provided. This
+     * will always work, but not necessarily as you might expect. The nature
+     * of the size-request/size-allocate process is such that the Label cannot
+     * make it's requisition based on the parent's size because the parent's
+     * size will depend on the child's request. To enforce wrapping at a
+     * specific width, simply enforce the width of the Label itself with
+     * {@link Widget#setSizeRequest(int, int) setSizeRequest()}.
+     * 
+     * <p>
+     * The default is <code>false</code>.
+     * 
+     * @since 4.0.6
+     */
+    public void setLineWrap(boolean setting) {
+        GtkLabel.setLineWrap(this, setting);
+
+    }
 }

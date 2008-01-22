@@ -280,6 +280,7 @@ GtkSeparatorMenuItem
 GtkSeparatorToolItem
 GtkStateType
 GtkStatusIcon
+GtkStatusbar
 GtkStockItem
 GtkTable
 GtkToggleButton
@@ -338,6 +339,7 @@ ImageMenuItems
 ImageType
 IndexError
 InfoMessageDialog
+Inkscape
 InputStream
 InstantiationException
 IntegerValue
@@ -509,6 +511,7 @@ StatusIcon
 StatusIcon's
 StatusIcons
 Statusbar
+Statusbars
 StockItem
 StockItems
 StorageType
@@ -785,6 +788,7 @@ createStatusIcon
 createStatusIconFromFile
 createStatusIconFromIconName
 createStatusIconFromPixbuf
+createStatusbar
 createTable
 createThing
 createToggleButton
@@ -1062,6 +1066,7 @@ gtk
 gtkjni
 gtkmm
 gtkmm's
+gtkstatusbar
 guint
 hacky
 handleName
@@ -1343,6 +1348,7 @@ removeToggleRef
 renderable
 renderer
 repo
+resizable
 resize
 resized
 resizes
@@ -1415,6 +1421,7 @@ setFullscreen
 setGravity
 setHAdjustment
 setHadjustment
+setHasResizeGrip
 setHeadersClickable
 setHeadersVisible
 setIcon
@@ -1433,6 +1440,7 @@ setMaxLength
 setMaxWidthChars
 setMaximize
 setMenu
+setMessage
 setMinWidth
 setModal
 setMode
@@ -1606,6 +1614,7 @@ va
 validationCheck
 valueChanged
 valueFor
+vbox
 versa
 vhosts
 viewMenu

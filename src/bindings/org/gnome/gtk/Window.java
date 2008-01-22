@@ -143,8 +143,8 @@ public class Window extends Bin
      * 
      * @since 4.0.0
      */
-    public void setDecorated(boolean decorated) {
-        GtkWindow.setDecorated(this, decorated);
+    public void setDecorated(boolean setting) {
+        GtkWindow.setDecorated(this, setting);
     }
 
     /**
@@ -696,5 +696,25 @@ public class Window extends Bin
      */
     public void setTransientFor(Window parent) {
         GtkWindow.setTransientFor(this, parent);
+    }
+
+    /**
+     * Set whether the user can resize this Window. Windows are realizable by
+     * default.
+     * 
+     * <p>
+     * You'd probably best have a very good reason for suppressing this. GTK's
+     * box packing model and size request/size allocation cycle will draw a
+     * Window at the optimum size necessary for all the Widgets packed into it
+     * to fit and so that all text labels draw properly, etc. That said,
+     * sometimes a user wants to see more of a certain column or to expand the
+     * area given to the Window so that some dynamic element within (perhaps
+     * an image) will scale larger. It is very frustrating for a user to find
+     * that the developer has prohibited them from doing such things.
+     * 
+     * @since 4.0.6
+     */
+    public void setResizable(boolean setting) {
+        GtkWindow.setResizable(this, setting);
     }
 }
