@@ -226,6 +226,7 @@ bindings_java_typeToSignature
 		return "J";
 
 	case G_TYPE_OBJECT:
+	case G_TYPE_INTERFACE:
 		return "J";
 
 	case G_TYPE_INVALID:

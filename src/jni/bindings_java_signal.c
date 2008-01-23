@@ -186,6 +186,7 @@ bindings_java_marshaller
       			break;
 
 		case G_TYPE_OBJECT:
+		case G_TYPE_INTERFACE:
 			/*
 			 * GObjects are just pointers, and so we pass up the
 			 * address across the boundary to be looked up and
@@ -207,7 +208,7 @@ bindings_java_marshaller
 			
 		default:
 			/*
-			 * Unrecogniz2ed. Probably means we need to add a clause above.
+			 * Unrecognized. Probably means we need to add a clause above.
 			 */
 			g_warning("Don't know how to marshal a %s", g_type_name(type));
 			jargs[i+1].l = 0;

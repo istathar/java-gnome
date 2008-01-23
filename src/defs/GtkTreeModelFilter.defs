@@ -7,6 +7,16 @@
   (gtype-id "GTK_TYPE_TREE_MODEL_FILTER")
 )
 
+(define-function gtk_tree_model_filter_new
+  (is-constructor-of "GtkTreeModelFilter")
+  (c-name "gtk_tree_model_filter_new")
+  (return-type "GtkTreeModel*")
+  (parameters
+    '("GtkTreeModel*" "child_model")
+    '("GtkTreePath*" "root" (default "NULL") (null-ok))
+  )
+)
+
 (define-method set_visible_func
   (of-object "GtkTreeModelFilter")
   (c-name "gtk_tree_model_filter_set_visible_func")
@@ -96,3 +106,11 @@
   (return-type "none")
 )
 
+(define-virtual visible
+  (of-object "GtkTreeModelFilter")
+  (return-type "gboolean")
+  (parameters
+    '("GtkTreeModel*" "child")
+    '("GtkTreeIter*" "iter")
+  )
+)
