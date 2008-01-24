@@ -133,6 +133,20 @@ public class TreeModelFilter extends TreeModel implements TreeDragSource
         public boolean onVisible(TreeModelFilter source, TreeModel base, TreeIter row);
     }
 
+    /**
+     * Hookup the <code>VISIBLE</code> callback that will be used to
+     * determine whether rows from the underlying TreeModel are to be included
+     * in the set presented by this TreeModelFilter.
+     * 
+     * @since 4.0.6
+     */
+    /*
+     * From the developer's point of view this works like a signal handler,
+     * although the underlying function in GTK it actually requires a function
+     * pointer. Our implementation registers 'visible' as a custom signal
+     * which essentially has the same signature as
+     * (*GtkTreeModelFilterVisibleFunc)</code>.
+     */
     public void setVisibleCallback(VISIBLE callback) {
         GtkTreeModelFilterOverride.setVisibleFunc(this);
         GtkTreeModelFilter.connect(this, callback);
@@ -140,6 +154,8 @@ public class TreeModelFilter extends TreeModel implements TreeDragSource
 
     /**
      * Cause the TreeModelFilter to re-calculate whether rows are visible.
+     * This will cause your <code>VISIBLE</code> callback to be hit for each
+     * row.
      * 
      * @since 4.0.6
      */

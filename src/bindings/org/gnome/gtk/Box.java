@@ -60,7 +60,7 @@ public abstract class Box extends Container
      * Add a Widget to the beginning of the Box. Widget child will be ordered
      * after any other Widgets that have already been packed with respect to
      * the start of the Box, but before any Widgets that are packed at the end
-     * of the Box with {@link #packEnd() packEnd()}.
+     * of the Box with {@link #packEnd(Widget) packEnd()}.
      * 
      * @param child
      *            the Widget to be added

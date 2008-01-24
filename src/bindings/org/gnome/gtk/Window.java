@@ -603,7 +603,7 @@ public class Window extends Bin
      * account the size of any window decorations that may be present. Use
      * {@link #setPosition(WindowPosition) setPosition()}!
      * <li>If you need to take a dynamic size dependent action you should
-     * hook up to the {@link Widget.CONFIGURE_EVENT CONFIGURE_EVENT} signal
+     * hook up to the {@link Window.CONFIGURE_EVENT CONFIGURE_EVENT} signal
      * which has more accurate information and which will allow you to react
      * appropriately. If you instead use this you will be subject to a race
      * condition as the size of the Window may change between you calling this

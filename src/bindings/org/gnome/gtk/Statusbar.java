@@ -129,7 +129,7 @@ public class Statusbar extends HBox
      * this if you want to suppress the resize handle from being drawn. Note
      * that this is just a visual cue; the actual resize behaviour is governed
      * by the window manager in concert with the Window's <var>resizable</var>
-     * property. See {@link Window#setResizable() setResizable()}.
+     * property. See {@link Window#setResizable(boolean) setResizable()}.
      * 
      * <p>
      * As a very rough guide, main application Windows really ought to have

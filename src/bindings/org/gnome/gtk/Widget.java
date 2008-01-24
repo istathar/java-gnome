@@ -703,7 +703,6 @@ public abstract class Widget extends org.gnome.gtk.Object
      * <code>show()</code>n. In some circumstances the main loop may need
      * to have iterated).
      * 
-     * @author Andrew Cowie
      * @since 4.0.6
      */
     public Allocation getAllocation() {
