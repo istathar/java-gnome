@@ -44,7 +44,7 @@ package org.gnome.gtk;
  * <pre>
  * filter.setVisibleCallback(new TreeModelFilter.VISIBLE() {
  *     public boolean onVisible(TreeModelFilter source, TreeModel base, TreeIter row) {
- *         if (base.getValue(row, elevation) &gt; 1000) {
+ *         if (base.getValue(row, elevation) &gt; 8000) {
  *             return true;
  *         } else {
  *             return false;
