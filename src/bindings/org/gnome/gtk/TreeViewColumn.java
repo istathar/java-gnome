@@ -1,7 +1,7 @@
 /*
  * TreeViewColumn.java
  *
- * Copyright (c) 2007 Operational Dynamics Consulting Pty Ltd
+ * Copyright (c) 2007-2008 Operational Dynamics Consulting Pty Ltd
  *
  * The code in this file, and the library it is a part of, are made available
  * to you by the authors under the terms of the "GNU General Public Licence,
@@ -84,6 +84,14 @@ public class TreeViewColumn extends Object implements CellLayout
      * to indicate explicitly which one is to be active first, etc). Use
      * {@link #clicked()} to activate this column as the one doing the
      * sorting.
+     * 
+     * <p>
+     * <b>Warning:</b><br/>This only works if the TreeModel being presented
+     * by this TreeView is <var>sortable</var>, that is, if that model
+     * implements TreeSortable. Since almost everything in GTK does so, you
+     * ordinarily don't need to worry about this. The one that doesn't is
+     * TreeModelFilter, so if you're using a filtered model make sure you wrap
+     * it in a TreeModelSort before adding it to the TreeView.
      */
     public void setSortColumn(DataColumn column) {
         GtkTreeViewColumn.setSortColumnId(this, column.getOrdinal());

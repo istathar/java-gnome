@@ -297,6 +297,7 @@ GtkTreeModelFilter
 GtkTreeModelFilterOverride
 GtkTreeModelFilterVisibleFunc
 GtkTreeModelOverride
+GtkTreeModelSort
 GtkTreePath
 GtkTreeRowReference
 GtkTreeSelection
@@ -554,6 +555,7 @@ TreeModel
 TreeModel's
 TreeModelFilter
 TreeModelFlags
+TreeModelSort
 TreeModels
 TreePath
 TreePaths
@@ -729,6 +731,7 @@ confirmButton
 connectSignal
 const
 constantFor
+convertIterToChildIter
 copyMappingFile
 coronatedYear
 coronatedYearColumn
@@ -803,6 +806,7 @@ createToolItem
 createToolbar
 createTreeIter
 createTreeModelFilter
+createTreeModelSortWithModel
 createTreePath
 createTreePathFromString
 createTreeRowReference

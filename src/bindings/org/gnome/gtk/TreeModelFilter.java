@@ -62,6 +62,14 @@ package org.gnome.gtk;
  * view = new TreeView(filter);
  * </pre>
  * 
+ * <p>
+ * <b>Note:</b><br/> For some reason, TreeModelFilter does <b>not</b>
+ * implement TreeSortable. If you plan to sort the filtered model (ie via
+ * TreeViewColumn's
+ * {@link TreeViewColumn#setSortColumn(DataColumn) setSortColumn()}) make
+ * sure you wrap your TreeModelFilter in a {@link TreeModelSort} and add that
+ * to the TreeView instead.
+ * 
  * @author Andrew Cowie
  * @since 4.0.6
  */
@@ -72,8 +80,10 @@ public class TreeModelFilter extends TreeModel implements TreeDragSource
     }
 
     /**
+     * Construct a new TreeModelFilter.
      * 
      * @param base
+     *            The underlying model that you are filtering
      * @param root
      *            You can give a TreePath to be used as a virtual root so that
      *            the TreeModelFilter only presents and operates on a
