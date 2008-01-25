@@ -29,20 +29,13 @@ package org.gnome.gtk;
  * use {@link #convertIterToChildIter(TreeIter) convertIterToChildIter()}.
  * 
  * <p>
- * As ListStore and TreeStore implement TreeSortable already, you don't
- * normally have need of this class, but if using a TreeModelFilter, you will
- * need to wrap it in one of these to make sorting work normally again.
- * 
- * <pre>
- * store = new ListStore(...);
- * filtered = new TreeModelFilter(store, null);
- * sorted = new TreeModelSort(filtered);
- * 
- * view = new TreeView(sorted);
- * 
- * vertical = view.appendColumn();
- * vertical.setSortColumn(...);
- * </pre>
+ * You don't normally have need of this class. Both ListStore and TreeStore
+ * implement TreeSortable already, and there are various sorting tools built
+ * into the view side of the TreeView/TreeModel MVC framework, notably
+ * TreeViewColumn's
+ * {@link TreeViewColumn#setSortColumn(DataColumn) setSortColumn()}. If,
+ * however, you are using a {@link TreeModelFilter}, you will need to wrap it
+ * in one of these to make sorting work normally again.
  * 
  * @author Andrew Cowie
  * @since 4.0.6

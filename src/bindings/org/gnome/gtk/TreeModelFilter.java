@@ -68,7 +68,20 @@ package org.gnome.gtk;
  * TreeViewColumn's
  * {@link TreeViewColumn#setSortColumn(DataColumn) setSortColumn()}) make
  * sure you wrap your TreeModelFilter in a {@link TreeModelSort} and add that
- * to the TreeView instead.
+ * to the TreeView instead:
+ * 
+ * <pre>
+ * store = new ListStore(...);
+ * filtered = new TreeModelFilter(store, null);
+ * sorted = new TreeModelSort(filtered);
+ * 
+ * view = new TreeView(sorted);
+ * 
+ * vertical = view.appendColumn();
+ * vertical.setSortColumn(...);
+ * </pre>
+ * 
+ * otherwise GTK will object vociferously.
  * 
  * @author Andrew Cowie
  * @since 4.0.6
