@@ -13,6 +13,7 @@ package org.gnome.gtk;
 
 import org.gnome.gdk.Color;
 import org.gnome.gdk.Event;
+import org.gnome.gdk.EventButton;
 import org.gnome.gdk.EventExpose;
 import org.gnome.gdk.EventFocus;
 import org.gnome.gdk.EventKey;
@@ -615,7 +616,7 @@ public abstract class Widget extends org.gnome.gtk.Object
      */
     public interface HIDE extends GtkWidget.HIDE
     {
-        void onHide(Widget source);
+        public void onHide(Widget source);
     }
 
     /**
@@ -752,5 +753,82 @@ public abstract class Widget extends org.gnome.gtk.Object
         result.widget = this;
 
         return result;
+    }
+
+    /**
+     * Signal fired when the user clicks one of their mouse buttons.
+     * 
+     * <p>
+     * Typically, you will use this to do something specific on a mouse click,
+     * for example popping up a context menu in response to a "right-click"
+     * anywhere in Window <code>w</code>,
+     * 
+     * <pre>
+     * w.connect(new BUTTON_PRESS_EVENT() {
+     *     boolean onButtonPressEvent(Widget source, EventButton event) {
+     *         if (event.getButton() == MouseButton.RIGHT) {
+     *             // popup menu
+     *         }
+     *         return false;
+     *     }
+     * });
+     * </pre>
+     * 
+     * <p>
+     * Like all event signals, you only return <code>true</code> if you are
+     * intercepting this event and want to prevent the default handlers in GTK
+     * from running.
+     * 
+     * <p>
+     * The signal emitted when the user lets the button go is
+     * {@link Widget.BUTTON_RELEASE_EVENT BUTTON_RELEASE_EVENT}.
+     * 
+     * <p>
+     * Note that this signal doesn't apply just to the user clicking on a
+     * Button Widget. Indeed, "left-click" on a Button will cause
+     * {@link Button.CLICKED CLICKED} to be emitted, and you should use that
+     * in preference for normal purposes.
+     * 
+     * @author Andrew Cowie
+     * @since 4.0.6
+     */
+    public interface BUTTON_PRESS_EVENT extends GtkWidget.BUTTON_PRESS_EVENT
+    {
+        public boolean onButtonPressEvent(Widget source, EventButton event);
+    }
+
+    /**
+     * Hook up a <code>BUTTON_PRESS_EVENT</code> handler.
+     * 
+     * @since 4.0.6
+     */
+    /*
+     * Do we need to force the GDK event mask like we did with
+     * VISIBILITY_NOTIFY_EVENT
+     */
+    public void connect(Widget.BUTTON_PRESS_EVENT handler) {
+        GtkWidget.connect(this, handler);
+    }
+
+    /**
+     * The signal emitted when the user releases a pressed mouse button. See
+     * {@link Widget.BUTTON_PRESS_EVENT BUTTON_PRESS_EVENT} for discussion of
+     * this set of event signals.
+     * 
+     * @author Andrew Cowie
+     * @since 4.0.6
+     */
+    public interface BUTTON_RELEASE_EVENT extends GtkWidget.BUTTON_RELEASE_EVENT
+    {
+        public boolean onButtonReleaseEvent(Widget source, EventButton event);
+    }
+
+    /**
+     * Hook up a <code>BUTTON_RELEASE_EVENT</code> handler.
+     * 
+     * @since 4.0.6
+     */
+    public void connect(Widget.BUTTON_RELEASE_EVENT handler) {
+        GtkWidget.connect(this, handler);
     }
 }

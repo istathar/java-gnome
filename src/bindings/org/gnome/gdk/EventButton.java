@@ -1,7 +1,7 @@
 /*
  * EventButton.java
  *
- * Copyright (c) 2007 Operational Dynamics Consulting Pty Ltd
+ * Copyright (c) 2008 Operational Dynamics Consulting Pty Ltd
  *
  * The code in this file, and the library it is a part of, are made available
  * to you by the authors under the terms of the "GNU General Public Licence,
@@ -11,17 +11,52 @@
  */
 package org.gnome.gdk;
 
-/*
- * FIXME this is a placeholder stub for what will become the public API for
- * this type. Replace this comment with appropriate javadoc including author
- * and since tags. Note that the class may need to be made abstract, implement
- * interfaces, or even have its parent changed. No API stability guarantees
- * are made about this class until it has been reviewed by a hacker and this
- * comment has been replaced.
+/**
+ * Event data describing a button on a pointing device that was pressed or
+ * released. Notably, you can find out which button on the device was clicked
+ * with {@link #getButton() getButton()}, and whether any modifier keys were
+ * being held down by the user with {@link #getState() getState()}.
+ * 
+ * @author Andrew Cowie
+ * @since 4.0.6
  */
 public final class EventButton extends Event
 {
     protected EventButton(long pointer) {
         super(pointer);
+    }
+
+    /**
+     * Which button on the pointing device was pressed?
+     * 
+     * @since 4.0.6
+     */
+    public MouseButton getButton() {
+        return GdkMouseButtonOverride.enumFor(GdkEventButton.getButton(this));
+    }
+
+    /**
+     * Get the state of the modifier keys. This will be
+     * {@link ModifierType#NONE NONE} if no modifiers are being held down. See
+     * EventKey's {@link EventKey#getState() getState()} and
+     * {@link ModifierType} for usage details.
+     * 
+     * @since 4.0.6
+     */
+    public ModifierType getState() {
+        return GdkKeyvalOverride.flagFor(GdkEventButton.getState(this));
+    }
+
+    /*
+     * I'm not exposing these yet; why on earth are they double? If there's no
+     * good reason or it's legacy crap, we're going to change the return
+     * signature to int.
+     */
+    double getX() {
+        return GdkEventButton.getX(this);
+    }
+
+    double getY() {
+        return GdkEventButton.getY(this);
     }
 }

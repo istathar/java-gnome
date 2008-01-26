@@ -119,6 +119,7 @@ EventDragAndDrop
 EventExpose
 EventFocus
 EventKey
+EventKey's
 EventMotion
 EventProperty
 EventProximity
@@ -191,6 +192,7 @@ GdkCursors
 GdkDisplay
 GdkEvent
 GdkEventAny
+GdkEventButton
 GdkEventExpose
 GdkEventKey
 GdkEventType
@@ -410,6 +412,7 @@ Microsystems
 Misc's
 ModifierType
 ModifierTypes
+MouseButton
 MyButton
 NG
 NSW
@@ -939,6 +942,7 @@ getAngle
 getBlinking
 getBlue
 getBoolean
+getButton
 getChild
 getChildSecondary
 getChildren
@@ -1263,6 +1267,8 @@ objectFor
 odt
 ok
 onActivate
+onButtonPressEvent
+onButtonReleaseEvent
 onChangeCurrentPage
 onChanged
 onClicked

@@ -128,13 +128,14 @@ public final class ModifierType extends Flag
     /**
      * No modifiers were pressed.
      * 
-     * <p>
-     * <i>For some reason this isn't explicitly specified in GDK. Well, it's
-     * just <code>0</code> so you don't need much of a constant for that.</i>
-     * 
      * @since 4.0.6
      */
-    // public static final ModifierType NONE = new ModifierType(0, "NONE");
+    /*
+     * For some reason this isn't explicitly specified in GDK. Well, it's just
+     * 0 so you don't need much of a constant for that.
+     */
+    public static final ModifierType NONE = new ModifierType(0, "NONE");
+
     /**
      * The <b><code>Shift</code></b> key modifier.
      * 
