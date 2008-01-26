@@ -1,7 +1,7 @@
 /*
  * Window.java
  *
- * Copyright (c) 2007 Operational Dynamics Consulting Pty Ltd
+ * Copyright (c) 2007-2008 Operational Dynamics Consulting Pty Ltd
  *
  * The code in this file, and the library it is a part of, are made available
  * to you by the authors under the terms of the "GNU General Public Licence,
@@ -75,5 +75,76 @@ public class Window extends Drawable
      */
     public void setCursor(Cursor cursor) {
         GdkWindow.setCursor(this, cursor);
+    }
+
+    /**
+     * Get the horizontal position of this Window in terms of the root
+     * Window's co-ordinates. The root window is what you might think of as
+     * the desktop background, although in X terms it really is the parent of
+     * all windows.
+     * 
+     * @since 4.0.6
+     */
+    public int getOriginX() {
+        final int x[], y[];
+
+        x = new int[1];
+        y = new int[1];
+
+        GdkWindow.getOrigin(this, x, y);
+
+        return x[0];
+    }
+
+    /**
+     * Get the vertical position of this Window in terms of the root Window's
+     * co-ordinates.
+     * 
+     * @since 4.0.6
+     */
+    public int getOriginY() {
+        final int x[], y[];
+
+        x = new int[1];
+        y = new int[1];
+
+        GdkWindow.getOrigin(this, x, y);
+
+        return y[0];
+    }
+
+    /**
+     * Get the horizontal position of this Window relative to its parent
+     * Window. Given that many Widgets draw directly on their parent's
+     * <code>org.gnome.gdk</code> Window, you may at times be surprised at
+     * what this reports.
+     * 
+     * @since 4.0.6
+     */
+    public int getPositionX() {
+        final int x[], y[];
+
+        x = new int[1];
+        y = new int[1];
+
+        GdkWindow.getPosition(this, x, y);
+
+        return x[0];
+    }
+
+    /**
+     * Get the vertical position of this Window relative to its parent Window.
+     * 
+     * @since 4.0.6
+     */
+    public int getPositionY() {
+        final int x[], y[];
+
+        x = new int[1];
+        y = new int[1];
+
+        GdkWindow.getPosition(this, x, y);
+
+        return y[0];
     }
 }

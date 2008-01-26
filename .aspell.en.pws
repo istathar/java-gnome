@@ -991,6 +991,9 @@ getModificationDate
 getName
 getObject
 getOrdinal
+getOrigin
+getOriginX
+getOriginY
 getPadding
 getPaddingBottom
 getPaddingLeft
