@@ -11,8 +11,8 @@
   (caller-owns-return #t)
   (return-type "GtkWidget*")
   (parameters
-    '("GtkAdjustment*" "hadjustment")
-    '("GtkAdjustment*" "vadjustment")
+    '("GtkAdjustment*" "hadjustment" (null-ok))
+    '("GtkAdjustment*" "vadjustment" (null-ok))
   )
 )
 
