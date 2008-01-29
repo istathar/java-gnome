@@ -222,3 +222,12 @@
   )
 )
 
+(define-method set_program_name
+  (of-object "GtkAboutDialog")
+  (c-name "gtk_about_dialog_set_program_name")
+  (return-type "none")
+  (parameters
+    '("const-gchar*" "name" (null-ok))
+  )
+)
+
