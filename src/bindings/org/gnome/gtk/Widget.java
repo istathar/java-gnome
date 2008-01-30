@@ -831,4 +831,19 @@ public abstract class Widget extends org.gnome.gtk.Object
     public void connect(Widget.BUTTON_RELEASE_EVENT handler) {
         GtkWidget.connect(this, handler);
     }
+
+    /**
+     * Whether the Widget can (is willing to) accept the keyboard input focus.
+     * There's no default, as such; Widgets able to take keyboard focus will
+     * (already) have it <code>true</code>, and others not. The
+     * <var>can-focus</var> property is mostly internal, but it is
+     * occasionally useful to use a widget that can focus in an environment
+     * where you don't want it to take input. Calling
+     * <code>setCanFocus(false)</code> will do the trick.
+     * 
+     * @since 4.0.6
+     */
+    public void setCanFocus(boolean setting) {
+        setPropertyBoolean("can-focus", setting);
+    }
 }

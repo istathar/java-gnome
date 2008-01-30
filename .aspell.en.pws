@@ -1416,6 +1416,7 @@ setAuthors
 setBackground
 setBlinking
 setBorderWidth
+setCanFocus
 setCharAt
 setChildSecondary
 setClickable
