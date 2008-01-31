@@ -1,7 +1,7 @@
 /*
  * Table.java
  *
- * Copyright (c) 2007 Operational Dynamics Consulting Pty Ltd
+ * Copyright (c) 2007-2008 Operational Dynamics Consulting Pty Ltd
  *
  * The code in this file, and the library it is a part of, are made available
  * to you by the authors under the terms of the "GNU General Public Licence,
@@ -11,25 +11,29 @@
  */
 package org.gnome.gtk;
 
-/*
- * FIXME this is a placeholder stub for what will become the public API for
- * this type. Replace this comment with appropriate javadoc including author
- * and since tags. Note that the class may need to be made abstract, implement
- * interfaces, or even have its parent changed. No API stability guarantees
- * are made about this class until it has been reviewed by a hacker and this
- * comment has been replaced.
- */
 /**
- * Table is <b>not</b> a spreadsheet Widget!
+ * A Container which arranges child Widgets in particular rows and columns.
  * 
  * <p>
- * To be honest, this Widget is a pain in the ass to use; in most cases you
- * can achieve the same alignment effects with far greater flexibility by
- * using HBoxes nested in VBoxes and controlling the size allocations via
- * SizeGroups.
+ * Table is <b>not</b> a spreadsheet Widget! For that you would need to have
+ * (say) a sea of Entry Widgets that were all hooked up to behave the same
+ * (notably to pass focus between them appropriately) and which were
+ * individually constrained to each be the same size (at least by default),
+ * etc. By contrast, Table is for laying out Widgets in a grid but where each
+ * child can happily request the size it needs.
+ * 
+ * <p>
+ * To be honest, this Widget is a pain in the ass to use because you have to
+ * manually keep track of which <code>row,column</code> edges a Widget is to
+ * be constrained by. In most cases you can achieve the same alignment effects
+ * with far greater flexibility by using HBoxes nested in VBoxes and
+ * controlling the size allocations via {@link SizeGroup}s.
  * 
  * @author Andrew Cowie
  * @since 4.0.6
+ */
+/*
+ * TODO the documentation in this class still needs a lot of work.
  */
 public class Table extends Container
 {
@@ -81,5 +85,34 @@ public class Table extends Container
             AttachOptions xoptions, AttachOptions yoptions, int xpadding, int ypadding) {
         GtkTable.attach(this, child, leftAttach, rightAttach, topAttach, bottomAttach, xoptions,
                 yoptions, xpadding, ypadding);
+    }
+
+    /**
+     * Change the number of rows and columns in the Table.
+     * 
+     * @since 4.0.6
+     */
+    public void resize(int rows, int columns) {
+        GtkTable.resize(this, rows, columns);
+    }
+
+    /**
+     * Set the (extra) spacing to be between <code>column</code> and the one
+     * adjacent to it.
+     * 
+     * @since 4.0.6
+     */
+    public void setColumnSpacing(int column, int spacing) {
+        GtkTable.setColSpacing(this, column, spacing);
+    }
+
+    /**
+     * Set the (extra) spacing to be between <code>row</code> and the one
+     * following it.
+     * 
+     * @since 4.0.6
+     */
+    public void setRowSpacing(int row, int spacing) {
+        GtkTable.setRowSpacing(this, row, spacing);
     }
 }

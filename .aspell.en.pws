@@ -283,6 +283,8 @@ GtkScrolledWindow
 GtkSelectionMode
 GtkSeparatorMenuItem
 GtkSeparatorToolItem
+GtkSizeGroup
+GtkSizeGroupMode
 GtkStateType
 GtkStatusIcon
 GtkStatusbar
@@ -503,6 +505,7 @@ ShiftRight
 SignalHandler
 Singh
 SizeGroup
+SizeGroupMode
 SizeGroups
 SlashTime
 SmartyPants
@@ -637,6 +640,7 @@ addAttribute
 addButton
 addHandler
 addToggleRef
+addWidget
 addWithViewport
 alloca
 apache
@@ -798,6 +802,7 @@ createProxy
 createScrolledWindow
 createSeparatorMenuItem
 createSeparatorToolItem
+createSizeGroup
 createStatusIcon
 createStatusIconFromFile
 createStatusIconFromIconName
@@ -1370,6 +1375,7 @@ registerProxy
 registerType
 removePage
 removeToggleRef
+removeWidget
 renderable
 renderer
 repo
@@ -1420,6 +1426,8 @@ setCanFocus
 setCharAt
 setChildSecondary
 setClickable
+setColSpacing
+setColumnSpacing
 setComments
 setCopyright
 setCurrentFolder
@@ -1498,6 +1506,7 @@ setRelief
 setReorderable
 setResizable
 setRighteous
+setRowSpacing
 setRubberBanding
 setRulesHint
 setSearchColumn
