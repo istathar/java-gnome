@@ -114,6 +114,7 @@ ErrorMessageDialog
 Esfahbod
 EventAny
 EventBox
+EventBoxes
 EventButton
 EventConfigure
 EventCrossing
@@ -246,6 +247,7 @@ GtkContainer
 GtkDialog
 GtkEditable
 GtkEntry
+GtkEventBox
 GtkFileChooser
 GtkFileChooserAction
 GtkFileChooserButton
@@ -773,6 +775,7 @@ createCursor
 createDialog
 createDialogWithButtons
 createEntry
+createEventBox
 createFileChooserButon
 createFileChooserDialog
 createFixed
@@ -1412,6 +1415,7 @@ selectRegion
 selectRow
 selectURI
 serialVersionUID
+setAboveChild
 setAction
 setActive
 setActiveIter
@@ -1542,6 +1546,7 @@ setVisible
 setVisibleCallback
 setVisibleChars
 setVisibleFunc
+setVisibleWindow
 setWidthChars
 settingsDaemon
 showAll
