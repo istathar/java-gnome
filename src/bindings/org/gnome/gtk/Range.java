@@ -24,4 +24,44 @@ public class Range extends Widget
     protected Range(long pointer) {
         super(pointer);
     }
+
+    /**
+     * Retreive the value currently indicated by this Range instance.
+     * 
+     * @since 4.0.6
+     */
+    public double getValue() {
+        return GtkRange.getValue(this);
+    }
+
+    /**
+     * Change the value showingin the Range. As you would expect, the
+     * <code>VALUE_CHANGED</code> signal will be emitted if the new value is
+     * different from the present setting.
+     * 
+     * @since 4.0.6
+     */
+    public void setValue(double value) {
+        GtkRange.setValue(this, value);
+    }
+
+    /**
+     * The value showing in the Range instance has changed.
+     * 
+     * @author Andrew Cowie
+     * @since 4.0.6
+     */
+    public interface VALUE_CHANGED extends GtkRange.VALUE_CHANGED
+    {
+        public void onValueChanged(Range source);
+    }
+
+    /**
+     * Connect a <code>VALUE_CHANGED</code> handler to this Range instance.
+     * 
+     * @since 4.0.6
+     */
+    public void connect(Range.VALUE_CHANGED handler) {
+        GtkRange.connect(this, handler);
+    }
 }

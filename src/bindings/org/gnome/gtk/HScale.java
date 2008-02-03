@@ -24,4 +24,8 @@ public class HScale extends Scale
     protected HScale(long pointer) {
         super(pointer);
     }
+
+    public HScale(int min, int max, int step) {
+        super(GtkHScale.createHScaleWithRange(min, max, step));
+    }
 }

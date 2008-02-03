@@ -24,4 +24,15 @@ public class Scale extends Range
     protected Scale(long pointer) {
         super(pointer);
     }
+
+    /**
+     * Specify the number of decimal places that will be shown in the value.
+     * This also rounds the value so that when it is retrieved it will match
+     * what is displayed.
+     * 
+     * @since 4.0.6
+     */
+    public void setDigits(int places) {
+        GtkScale.setDigits(this, places);
+    }
 }
