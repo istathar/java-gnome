@@ -259,6 +259,7 @@ GtkHButtonBox
 GtkHSeparator
 GtkIconSize
 GtkImage
+GtkImageMenuItem
 GtkImageType
 GtkLabel
 GtkListStore
@@ -787,6 +788,7 @@ createHButtonBox
 createHSeparator
 createImageFromFile
 createImageFromPixbuf
+createImageMenuItemWithMnemonic
 createInstance
 createLabel
 createListStore

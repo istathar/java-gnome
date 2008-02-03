@@ -25,7 +25,7 @@ package org.gnome.gtk;
  * frequently need to do a UI activity from more than one place and Action
  * will (among other things) generate the ImageMenuItem for a given Stock
  * item. See also Button's {@link Button#setImage(Image) setImage()} for a
- * discussion of the relationship between Images and Label text, and
+ * discussion of the relationship between Images and Label text.
  * 
  * @author Andrew Cowie
  * @since 4.0.5
@@ -57,5 +57,55 @@ public class ImageMenuItem extends MenuItem
     public ImageMenuItem(Stock stock, MenuItem.ACTIVATE handler) {
         this(stock);
         connect(handler);
+    }
+
+    /**
+     * Create a MenuItem displaying an image next to text. When you have a
+     * custom visual that is appropriate to show beside the label of a given
+     * MenuItem, you can use this to construct it.
+     * 
+     * <p>
+     * Don't use an empty string as a label! Users can turn off display of
+     * icons in menus, and if they do you'll end up with a MenuItem with
+     * "nothing" in it.
+     * 
+     * <p>
+     * There is also a constructor which allows you to connect an
+     * <code>ACTIVATE</code> handler in-line, see
+     * {@link ImageMenuItem#ImageMenuItem(Image, String, org.gnome.gtk.MenuItem.ACTIVATE) here}.
+     * 
+     * @since 4.0.6
+     */
+    public ImageMenuItem(Image image, String label) {
+        super(GtkImageMenuItem.createImageMenuItemWithMnemonic(label));
+        GtkImageMenuItem.setImage(this, image);
+    }
+
+    /**
+     * Create a MenuItem displaying an image next to text, and hook up an
+     * <code>ACTIVATE</code> handler at the same time.
+     * 
+     * @since 4.0.6
+     */
+    public ImageMenuItem(Image image, String label, MenuItem.ACTIVATE handler) {
+        super(GtkImageMenuItem.createImageMenuItemWithMnemonic(label));
+        GtkImageMenuItem.setImage(this, image);
+        connect(handler);
+    }
+
+    /**
+     * Set the Image that will be used as an icon beside the text in the
+     * ImageMenuItem.
+     * 
+     * <p>
+     * Be aware that there are system wide settings which allow a user to turn
+     * off icons appearing in menus. Since there is always a chance that the
+     * "image" Widget being added will be hidden, don't create an
+     * ImageMenuItem with an empty label.
+     * 
+     * @since 4.0.6
+     */
+    public void setImage(Image image) {
+        GtkImageMenuItem.setImage(this, image);
     }
 }
