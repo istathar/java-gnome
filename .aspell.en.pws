@@ -741,6 +741,7 @@ conf
 config
 configFile
 confirmButton
+connectProxy
 connectSignal
 const
 constantFor
@@ -1061,6 +1062,7 @@ getStorageType
 getString
 getSubmenu
 getText
+getTooltip
 getToplevel
 getToplevels
 getTreeView
