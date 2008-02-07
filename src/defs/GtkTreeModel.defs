@@ -256,15 +256,6 @@
   )
 )
 
-(define-method filter_new
-  (of-object "GtkTreeModel")
-  (c-name "gtk_tree_model_filter_new")
-  (return-type "GtkTreeModel*")
-  (parameters
-    '("GtkTreePath*" "root" (default "NULL") (null-ok))
-  )
-)
-
 (define-virtual row_changed
   (of-object "GtkTreeModel")
   (return-type "none")

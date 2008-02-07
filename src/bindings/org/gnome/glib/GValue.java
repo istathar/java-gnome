@@ -41,11 +41,15 @@ final class GValue extends Plumbing
     }
 
     static final long createValue(Object obj) {
-        return g_value_init(pointerOf(obj));
+        return g_value_init_object(pointerOf(obj));
     }
 
     static final long createValue(float f) {
         return g_value_init(f);
+    }
+
+    static final long createValue(long j) {
+        return g_value_init(j);
     }
 
     /*
@@ -63,13 +67,32 @@ final class GValue extends Plumbing
 
     private static native final long g_value_init(String str);
 
-    private static native final long g_value_init(long obj);
+    /*
+     * ... and boom, our naming conventon goes splat when we added
+     * DataColumnLong.
+     */
+    private static native final long g_value_init(long j);
+
+    /*
+     * Meaning the original g_value_init(long) got in the way. Grr. What a
+     * mess. Oh well. Rename it as follows to create a distinct function name,
+     * and corresponding to the Value.<init>(long, boolean) bullshit
+     * constructor. TODO If someone wants to clean up these overloads, go
+     * ahead, but beware of the function prototypes on the JNI side.
+     */
+    private static native final long g_value_init_object(long obj);
 
     static final int getInteger(Value value) {
         return g_value_get_int(pointerOf(value));
     }
 
     private static native final int g_value_get_int(long value);
+
+    static final long getLong(Value value) {
+        return g_value_get_long(pointerOf(value));
+    }
+
+    private static native final long g_value_get_long(long value);
 
     static final boolean getBoolean(Value value) {
         return g_value_get_boolean(pointerOf(value));

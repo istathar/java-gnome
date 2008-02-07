@@ -36,7 +36,7 @@ public class CellRendererText extends CellRenderer
      * protected <init>(long) constructor removed deliberately, replaced with
      * this one.
      */
-    protected CellRendererText(long pointer, TreeViewColumn vertical) {
+    protected CellRendererText(long pointer, CellLayout vertical) {
         super(pointer, vertical);
     }
 
@@ -45,7 +45,7 @@ public class CellRendererText extends CellRenderer
      * belong to and from whose parent TreeView has the TreeModel where the
      * columns of data will come from.
      */
-    public CellRendererText(TreeViewColumn vertical) {
+    public CellRendererText(CellLayout vertical) {
         super(GtkCellRendererText.createCellRendererText(), vertical);
     }
 
@@ -60,7 +60,7 @@ public class CellRendererText extends CellRenderer
      * {@link #setMarkup(DataColumnString) setMarkup()} instead.
      */
     public void setText(DataColumnString column) {
-        GtkTreeViewColumn.addAttribute(vertical, this, "text", column.getOrdinal());
+        GtkCellLayout.addAttribute(vertical, this, "text", column.getOrdinal());
     }
 
     /**
@@ -78,7 +78,7 @@ public class CellRendererText extends CellRenderer
      * layouts.
      */
     public void setMarkup(DataColumnString column) {
-        GtkTreeViewColumn.addAttribute(vertical, this, "markup", column.getOrdinal());
+        GtkCellLayout.addAttribute(vertical, this, "markup", column.getOrdinal());
     }
 
     /**
@@ -86,6 +86,6 @@ public class CellRendererText extends CellRenderer
      * used when rendering text.
      */
     public void setForeground(DataColumnString column) {
-        GtkTreeViewColumn.addAttribute(vertical, this, "foreground", column.getOrdinal());
+        GtkCellLayout.addAttribute(vertical, this, "foreground", column.getOrdinal());
     }
 }

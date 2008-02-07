@@ -1,7 +1,7 @@
 /*
  * TreeModel.java
  *
- * Copyright (c) 2007 Operational Dynamics Consulting Pty Ltd
+ * Copyright (c) 2007-2008 Operational Dynamics Consulting Pty Ltd
  *
  * The code in this file, and the library it is a part of, are made available
  * to you by the authors under the terms of the "GNU General Public Licence,
@@ -253,6 +253,28 @@ public abstract class TreeModel extends org.gnome.glib.Object
     }
 
     /**
+     * Get the <code>long</code> value stored in this TreeModel at the
+     * specified <code>row</code> and <code>column</code>.
+     */
+    public long getValue(TreeIter row, DataColumnLong column) {
+        final Value result;
+
+        result = new Value();
+
+        GtkTreeModel.getValue(this, row, column.getOrdinal(), result);
+
+        return result.getLong();
+    }
+
+    /**
+     * Store an <code>int</code> in this TreeModel at the specified
+     * <code>row</code> and <code>column</code>.
+     */
+    public void setValue(TreeIter row, DataColumnLong column, long value) {
+        dispatch(row, column, new Value(value));
+    }
+
+    /**
      * Get the <code>boolean</code> value stored in this TreeModel at the
      * specified <code>row</code> and <code>column</code>.
      */
@@ -371,5 +393,60 @@ public abstract class TreeModel extends org.gnome.glib.Object
         } else {
             return null;
         }
+    }
+
+    /**
+     * Get a TreePath corresponding to the row being pointed at by the given
+     * TreeIter.
+     * 
+     * <p>
+     * Remember that TreePaths, like TreeIters, are not stable across changes
+     * to the model; if you need to reliably point to a given row use
+     * {@link TreeRowReference} instead.
+     * 
+     * @since 4.0.6
+     */
+    public TreePath getPath(TreeIter row) {
+        return GtkTreeModel.getPath(this, row);
+    }
+
+    /**
+     * The signal emitted when a row in the model is changed.
+     * 
+     * @author Andrew Cowie
+     * @since 4.0.6
+     */
+    public interface ROW_CHANGED extends GtkTreeModel.ROW_CHANGED
+    {
+        /**
+         * The <code>path</code> and <code>row</code> arguments give you
+         * valid a TreePath and TreeIter respectively pointing at the row that
+         * changed. Be wary, though, that these are not going to be stable
+         * beyond the invocation of this callback; if one row has changed, you
+         * can bet others are changing too. Do what you need to do and leave
+         * the variables to be collected.
+         * 
+         * <p>
+         * For subtle implementation reasons, you can't iterate using the
+         * <code>row</code> TreeIter. If you need to cycle over the model,
+         * get a TreeIter pointing to the beginning of the model as follows:
+         * 
+         * <pre>
+         * row = source.getIterFirst();
+         * do {
+         *     // do whatever with each row
+         * } while (row.iterNext());
+         * </pre>
+         */
+        public void onRowChanged(TreeModel source, TreePath path, TreeIter row);
+    }
+
+    /**
+     * Hook up a handler for <code>ROW_CHANGED</code> signals.
+     * 
+     * @since 4.0.6
+     */
+    public void connect(TreeModel.ROW_CHANGED handler) {
+        GtkTreeModel.connect(this, handler);
     }
 }

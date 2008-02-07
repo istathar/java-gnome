@@ -1,9 +1,16 @@
-(define-enum CursorType
+;; Manually tweaked from enum to flags due to non integer sequence of ordinal
+;; values as defined in header file declaring GdkCursorType. There are *many*
+;; more constants, but I'm not sure what use any of them are.
+
+(define-flags CursorType
   (in-module "Gdk")
   (c-name "GdkCursorType")
   (gtype-id "GDK_TYPE_CURSOR_TYPE")
   (values
-    '("gdk-cursor-is-pixmap" "GDK_CURSOR_IS_PIXMAP")
+    '("left-ptr" "GDK_LEFT_PTR")
+    '("watch" "GDK_WATCH")
+    '("xterm" "GDK_XTERM")
+    '("cursor-is-pixmap" "GDK_CURSOR_IS_PIXMAP")
   )
 )
 

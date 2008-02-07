@@ -255,6 +255,8 @@ public class Button extends Bin
      * <pre>
      * b.connect(this);
      * </pre>
+     * 
+     * @since 4.0.0
      */
     public void connect(CLICKED handler) {
         GtkButton.connect(this, handler);
@@ -267,4 +269,13 @@ public class Button extends Bin
     /*
      * ENTERED, PRESSED, etc: "deprecated"
      */
+
+    /**
+     * Cause a <code>CLICKED</code> signal to be emitted.
+     * 
+     * @since 4.0.6
+     */
+    public void emitClicked() {
+        GtkButton.clicked(this);
+    }
 }

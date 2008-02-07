@@ -1,8 +1,8 @@
 /*
  * ValidateConstants.java
  *
- * Copyright (c) 2007 Operational Dynamics Consulting Pty Ltd, and Others
- * Copyright (c) 2007 Vreixo Formoso
+ * Copyright (c) 2007-2008 Operational Dynamics Consulting Pty Ltd, and Others
+ * Copyright (c) 2007      Vreixo Formoso
  * 
  * The code in this file, and the library it is a part of, are made available
  * to you by the authors under the terms of the "GNU General Public Licence,
@@ -99,7 +99,7 @@ public class ValidateConstants extends TestCaseGtk
         /*
          * TODO I would like this to change to ABOVE|ICONIFIED
          */
-        assertEquals("org.gnome.gdk.WindowState.ICONIFIED|ABOVE", flag1.toString());
+        assertEquals("WindowState.ICONIFIED|ABOVE", flag1.toString());
 
         /* check correct ORing */
         assertTrue(flag1.contains(WindowState.ABOVE));

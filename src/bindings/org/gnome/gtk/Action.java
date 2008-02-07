@@ -311,7 +311,7 @@ public class Action extends Object
      */
     public interface ACTIVATE extends GtkAction.ACTIVATE
     {
-        public void onActivate(Action sourceObject);
+        public void onActivate(Action source);
     }
 
     /**

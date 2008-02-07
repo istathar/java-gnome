@@ -48,16 +48,6 @@ public abstract class Plumbing extends org.gnome.glib.Plumbing
             return null;
         }
 
-        proxy = instanceFor(pointer);
-
-        if (proxy != null) {
-            /*
-             * A Proxy already exists for this. Somewhat unexpected, but good
-             * all the same. Simply return it.
-             */
-            return (Boxed) proxy;
-        }
-
         /*
          * Handle the special case of the GdkEvent union.
          */

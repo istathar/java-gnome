@@ -2315,22 +2315,6 @@
   (return-type "GType")
 )
 
-(define-function combo_box_entry_new_with_model
-  (c-name "gtk_combo_box_entry_new_with_model")
-  (caller-owns-return #t)
-  (return-type "GtkWidget*")
-  (parameters
-    '("GtkTreeModel*" "model")
-    '("gint" "text_column")
-  )
-)
-
-(define-function combo_box_entry_new_text
-  (c-name "gtk_combo_box_entry_new_text")
-  (caller-owns-return #t)
-  (return-type "GtkWidget*")
-)
-
 (define-function gtk_container_get_type
   (c-name "gtk_container_get_type")
   (return-type "GType")

@@ -1,7 +1,7 @@
 /*
  * ValidateProperties.java
  *
- * Copyright (c) 2007 Operational Dynamics Consulting Pty Ltd
+ * Copyright (c) 2007-2008 Operational Dynamics Consulting Pty Ltd
  * 
  * The code in this file, and the library it is a part of, are made available
  * to you by the authors under the terms of the "GNU General Public Licence,
@@ -26,6 +26,11 @@ public class ValidateProperties extends TestCaseGtk
     public final void testIntegerValues() {
         final Value v = new Value(-42);
         assertEquals(-42, v.getInteger());
+    }
+
+    public final void testLongValues() {
+        final Value v = new Value(600000000000L);
+        assertEquals(600000000000L, v.getLong());
     }
 
     public final void testBooleanValues() {
@@ -155,5 +160,65 @@ public class ValidateProperties extends TestCaseGtk
         b.setImage(i);
         assertNotNull(b.getImage());
         assertEquals(i, b.getImage());
+    }
+
+    public final void testAllocationLive() {
+        final Window w;
+        final Button b;
+        Allocation size;
+
+        b = new Button("Blah");
+        size = b.getAllocation();
+
+        /*
+         * These were derived empirically. A bit unexpected, but hey.
+         */
+        assertEquals(1, size.getWidth());
+        assertEquals(1, size.getHeight());
+        assertEquals(-1, size.getX());
+        assertEquals(-1, size.getY());
+
+        w = new Window();
+        w.add(b);
+        w.showAll();
+
+        /*
+         * Now test that the our live reference to the GtkAllocation actually
+         * changed. Note that we did NOT get a new Allocation object.
+         */
+        assertTrue(size.getWidth() > 1);
+        assertTrue(size.getHeight() > 1);
+        assertTrue(size.getX() >= 0);
+        assertTrue(size.getY() >= 0);
+
+        w.hide();
+
+        /*
+         * and is it indeed still the same pointer, ie the same address, ie
+         * the same Proxy?
+         */
+        assertSame(size, b.getAllocation());
+    }
+
+    public final void testRequisitionSizeRequest() {
+        final Button b;
+        Requisition req;
+        int width, height;
+
+        b = new Button("Blah");
+
+        /*
+         * This isn't quite as isolated a test as it might be; because we've
+         * got this calling gtk_widget_size_request() on the C side if a
+         * request isn't set, we can't check that it changed due to invoking
+         * this.
+         */
+
+        req = b.getRequisition();
+
+        width = req.getWidth();
+        height = req.getHeight();
+        assertTrue(width > 1);
+        assertTrue(height > 1);
     }
 }

@@ -1,7 +1,7 @@
 /*
  * Keyval.java
  *
- * Copyright (c) 2007 Operational Dynamics Consulting Pty Ltd
+ * Copyright (c) 2007-2008 Operational Dynamics Consulting Pty Ltd
  * 
  * The code in this file, and the library it is a part of, are made available
  * to you by the authors under the terms of the "GNU General Public Licence,
@@ -27,20 +27,24 @@ import org.freedesktop.bindings.Constant;
  * physical button with an <b><code>A</code></b> showing. Think of that
  * physical key as having both an <b><code>a</code></b> and an <b><code>A</code></b>
  * printed on it, with the second being the key reached if the <b><code>Shift</code></b>
- * modifier is held down.
+ * modifier is held down. Have a look at the {@link ModifierType} class for a
+ * discussion of how to deal with the modifying keys and for a better
+ * understanding of the sequence in which key events occur.
+ * 
+ * <p>
+ * Looking for <b><code>1</code></b> through <b><code>9</code></b>?
+ * See {@link #Num0 Num0} to {@link #Num0 Num9}.
  * 
  * <p>
  * The correlation between keys and Unicode characters is a complex one. For
  * basic western ISO Latin letters the keys we press and the characters we get
  * are, to all intents and purposes, one and the same. But there are many
  * thousands of additional characters for which you probably don't have keys
- * for, and even if you have (or have mapped something to be) the <b><code>Compose</code></b>
+ * for, even if you have (or have mapped something to be) the <b><code>Compose</code></b>
  * key for taking the composite of several keystrokes to generate special
- * characters.
- * 
- * <p>
- * Looking for <b><code>1</code></b> through <b><code>9</code></b>?
- * See {@link #Num0 Num0} to {@link #Num0 Num9}.
+ * characters. Just remember that Keyvals are <i>key</i> constants, not
+ * constants for every <i>unicode</i> character and you'll keep things
+ * straight.
  * 
  * <p>
  * <i>GDK deals with keyvals exclusively as <code>int</code>s, and there
@@ -95,6 +99,62 @@ public class Keyval extends Constant
         }
 
         return result;
+    }
+
+    /**
+     * Translate this Keyval to a unicode representation. This is useful when
+     * you've intercepted a keystroke and, having determined it is a "normal"
+     * character and not something more unusual, need to append it to a
+     * String.
+     * 
+     * <p>
+     * One way this might be used is:
+     * 
+     * <pre>
+     * final Pattern regexAtoZ = Pattern.compile(&quot;[a-z]&quot;);
+     * final Keyval key;
+     * final String str, result;
+     * 
+     * str = &quot;&quot; + key.toUnicode();
+     * 
+     * if (key == Keyval.Return) {
+     *     // execute
+     * } else if (key == Keyval.Escape) {
+     *     // abort
+     * } else if (regexAtoZ.matcher(str).matches()) {
+     *     entry.setText(str);
+     * } else {
+     *     ...
+     * }
+     * </pre>
+     * 
+     * which is a bit cumbersome, but illustrates one way of identifying
+     * "normal" letters being typed.
+     * 
+     * <p>
+     * Not all keys have translations; in such cases <code>0</code> will be
+     * returned. Testing for this can sometimes be an easier approach to
+     * figuring out if a "normal" key was hit, but your mileage will vary
+     * depending on the user's actual configuration. Note that that's
+     * <code>(char) 0</code>, not <code>'0'</code>!
+     * 
+     * <p>
+     * <b>Be wary of appending this return value to a String!</b><br>
+     * <i>Although Java won't lose the character or subsequent ones,</i>
+     * <code>\0</code> <i>is the "<code>NULL</code> terminator" for
+     * <code>char*</code> strings in C and will prematurely terminate the
+     * printed output if you try to print the String (as, after all, in the
+     * final analysis the Java VM is nothing more than a C program and
+     * eventually a C library routine will be called to output the text)!</i>
+     * 
+     * @since 4.0.6
+     */
+    /*
+     * FUTURE This is important, but I have a nagging concern it is expensive.
+     * If so, what is a better way to determine a "normal" key event?
+     */
+    public char toUnicode() {
+        return (char) GdkKeyval.toUnicode(GdkKeyvalOverride.numOf(this));
     }
 
     public static final Keyval BackSpace = new Keyval(0xff08, "BackSpace");
@@ -366,11 +426,13 @@ public class Keyval extends Constant
 
     public static final Keyval BraceLeft = new Keyval(0x07b, "BraceLeft");
 
+    /**
+     * Also known as Pipe (from the fact that this is used in a Unix shell to
+     * "pipe" output from one command to another).
+     */
     public static final Keyval Bar = new Keyval(0x07c, "Bar");
 
     public static final Keyval BraceRight = new Keyval(0x07d, "BraceRight");
 
     public static final Keyval Tilde = new Keyval(0x07e, "Tilde");
-
-    public static final Keyval Hyphen = new Keyval(0x0ad, "Hyphen");
 }

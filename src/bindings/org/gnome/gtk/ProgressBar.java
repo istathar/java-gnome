@@ -21,6 +21,11 @@ package org.gnome.gtk;
  * task is unknown or unpredictable, you can still indicate progress is being
  * made by having the bar "pulse" back and forth.
  * 
+ * <p>
+ * Note that like most things in GTK, most of the code that actually updates
+ * the ProgressBar will not run until control is returned to the main loop.
+ * Keep that in mind if you're wondering why the bar hasn't "updated".
+ * 
  * @author Andrew Cowie
  * @since 4.0.3
  */

@@ -36,7 +36,7 @@ public class ScrolledWindow extends Bin
     }
 
     /**
-     * Constructs a ScrolledWindow with default adjustments
+     * Constructs a ScrolledWindow with default adjustments.
      */
     public ScrolledWindow() {
         // call createScrolledWindow and let it create the adjustments

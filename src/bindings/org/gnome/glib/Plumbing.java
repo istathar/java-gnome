@@ -308,7 +308,7 @@ public abstract class Plumbing extends org.freedesktop.bindings.Plumbing
              */
             return obj;
         } else {
-            obj = new Value(pointer);
+            obj = new Value(pointer, true);
             return obj;
         }
     }

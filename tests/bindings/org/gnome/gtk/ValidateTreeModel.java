@@ -14,7 +14,6 @@ import java.io.File;
 import java.io.FileNotFoundException;
 
 import org.gnome.gdk.Pixbuf;
-import org.gnome.gtk.TestCaseGtk;
 
 /**
  * @author Andrew Cowie
@@ -147,6 +146,21 @@ public class ValidateTreeModel extends TestCaseGtk
         assertEquals(42, model.getValue(row, column));
     }
 
+    public final void testSettingValueLongColumn() {
+        final ListStore model;
+        TreeIter row;
+        DataColumnLong column;
+
+        model = new ListStore(new DataColumn[] {
+            column = new DataColumnLong(),
+        });
+
+        row = model.appendRow();
+        model.setValue(row, column, -600000000000L);
+
+        assertEquals(-600000000000L, model.getValue(row, column));
+    }
+
     public final void testSettingValueBooleanColumn() {
         final ListStore model;
         TreeIter row;
@@ -175,6 +189,17 @@ public class ValidateTreeModel extends TestCaseGtk
         } catch (IllegalArgumentException iae) {
             // good
         }
+    }
+
+    public final void testTreePathFromToString() {
+        TreePath path;
+
+        path = new TreePath("42");
+        assertEquals("42", path.toString());
+        /*
+         * That this points to the 43rd row of something is irrelevent. These
+         * are abstract until used with model.getIter()
+         */
     }
 
     public final void testTreeIterFromTreePath() {
@@ -207,6 +232,25 @@ public class ValidateTreeModel extends TestCaseGtk
         assertNotSame(path2, path3);
         assertTrue(path2.equals(path3));
         assertTrue(path3.equals(path2));
+    }
+
+    public final void testTreePathFromTreeIter() {
+        final ListStore model;
+        final DataColumnBoolean column;
+        TreeIter row;
+        TreePath path;
+
+        model = new ListStore(new DataColumn[] {
+            column = new DataColumnBoolean(),
+        });
+
+        row = model.appendRow();
+        model.setValue(row, column, false);
+        row = model.appendRow();
+        model.setValue(row, column, true);
+
+        path = model.getPath(row);
+        assertEquals("1", path.toString());
     }
 
     /*
@@ -345,5 +389,66 @@ public class ValidateTreeModel extends TestCaseGtk
         } while (row.iterNext());
 
         assertEquals(10, j);
+    }
+
+    public final void testTreeRowReferences() {
+        final ListStore model;
+        final DataColumnString text;
+        final DataColumnInteger sort;
+        TreeIter row;
+        TreePath path;
+        final TreeView view;
+        TreeViewColumn vertical;
+        CellRendererText renderer;
+        TreeRowReference ref;
+
+        model = new ListStore(new DataColumn[] {
+                text = new DataColumnString(), sort = new DataColumnInteger(),
+        });
+
+        /*
+         * Initial order: 1, 2, 3, ... 10
+         */
+        for (int i = 1; i <= 10; i++) {
+            row = model.appendRow();
+            model.setValue(row, text, Integer.toString(i));
+            model.setValue(row, sort, i);
+        }
+
+        view = new TreeView(model);
+        vertical = view.appendColumn();
+        renderer = new CellRendererText(vertical);
+        renderer.setText(text);
+
+        path = new TreePath("1");
+        row = model.getIter(path);
+        assertEquals("2", model.getValue(row, text));
+
+        ref = new TreeRowReference(model, path);
+
+        path = ref.getPath();
+        row = model.getIter(path);
+        assertEquals("2", model.getValue(row, text));
+
+        /*
+         * Rearrange things: sorting will change order to 1, 10, 2, 3, ... 9
+         */
+        vertical.setSortColumn(text);
+        vertical.clicked();
+
+        path = new TreePath("1");
+        row = model.getIter(path);
+        assertEquals("10", model.getValue(row, text));
+
+        /*
+         * But is reference still stable?
+         */
+        path = ref.getPath();
+        row = model.getIter(path);
+        assertEquals("2", model.getValue(row, text)); // yup
+
+        model.clear();
+        path = ref.getPath();
+        assertNull(path);
     }
 }

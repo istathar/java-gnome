@@ -16,10 +16,15 @@ import org.gnome.gdk.Pixbuf;
 import org.gnome.gdk.PixbufFormat;
 import org.gnome.gtk.Gtk;
 import org.gnome.gtk.Snapshot;
+import org.gnome.gtk.SnapshotAboutDialog;
 import org.gnome.gtk.SnapshotButton;
+import org.gnome.gtk.SnapshotComboBox;
 import org.gnome.gtk.SnapshotFileChooserDialog;
 import org.gnome.gtk.SnapshotInfoMessageDialog;
 import org.gnome.gtk.SnapshotQuestionMessageDialog;
+import org.gnome.gtk.SnapshotStatusbar;
+import org.gnome.gtk.SnapshotTextComboBox;
+import org.gnome.gtk.SnapshotTextComboBoxEntry;
 import org.gnome.gtk.SnapshotTreeView;
 import org.gnome.gtk.SnapshotWindow;
 import org.gnome.gtk.Window;
@@ -49,7 +54,7 @@ public final class Harness
         Process windowManager = null;
         Process settingsDaemon = null;
         final Pixbuf logo;
-        final Snapshot[] demos;
+        final Class[] demos;
 
         try {
             r = Runtime.getRuntime();
@@ -102,13 +107,18 @@ public final class Harness
              * far preferable.
              */
 
-            demos = new Snapshot[] {
-                    new SnapshotWindow(),
-                    new SnapshotButton(),
-                    new SnapshotInfoMessageDialog(),
-                    new SnapshotQuestionMessageDialog(),
-                    new SnapshotTreeView(),
-                    new SnapshotFileChooserDialog()
+            demos = new Class[] {
+                    SnapshotWindow.class,
+                    SnapshotStatusbar.class,
+                    SnapshotButton.class,
+                    SnapshotInfoMessageDialog.class,
+                    SnapshotQuestionMessageDialog.class,
+                    SnapshotTreeView.class,
+                    SnapshotFileChooserDialog.class,
+                    SnapshotAboutDialog.class,
+                    SnapshotComboBox.class,
+                    SnapshotTextComboBox.class,
+                    SnapshotTextComboBoxEntry.class
             };
 
             /*
@@ -119,12 +129,29 @@ public final class Harness
              */
 
             for (int i = 0; i < demos.length; i++) {
+                final Snapshot demo;
                 final Window w;
                 final String f;
                 final Pixbuf image;
 
-                w = demos[i].getWindow();
-                f = demos[i].getFilename();
+                /*
+                 * Instantiate here (as opposed to above when specifying the
+                 * array) so that each one takes its resources in turn. We ran
+                 * into problems with all sorts of cruft being on the display
+                 * when doing it otherwise.
+                 */
+                try {
+                    demo = (Snapshot) demos[i].newInstance();
+                } catch (InstantiationException e) {
+                    e.printStackTrace();
+                    continue;
+                } catch (IllegalAccessException e) {
+                    e.printStackTrace();
+                    continue;
+                }
+
+                w = demo.getWindow();
+                f = demo.getFilename();
 
                 System.out.println("SNAP\t" + f);
                 w.showAll();
@@ -132,10 +159,9 @@ public final class Harness
                 Snapshot.cycleMainLoop();
 
                 image = Screenshot.capture();
+                image.save(f, PixbufFormat.PNG);
 
                 w.hide();
-
-                image.save(f, PixbufFormat.PNG);
             }
         } finally {
             /*

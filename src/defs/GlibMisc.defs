@@ -1,0 +1,17 @@
+;; another hand written .defs file. Misc isn't a GBoxed, in fact, it isn't
+;; anything. This is rather ugly, but ;; it saves us having to write the JNI
+;; code for general utility functions in Glib by hand.
+
+(define-boxed Misc
+  (in-module "Glib")
+  (c-name "GlibMisc")
+)
+
+(define-function set_prgname
+  (of-object "GlibMisc")
+  (c-name "g_set_prgname")
+  (return-type "none")
+  (parameters
+    '("const-gchar*" "prgname")
+  )
+)

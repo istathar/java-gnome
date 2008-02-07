@@ -31,6 +31,12 @@ import org.gnome.glib.Glib;
  * result.save(...);
  * </pre>
  * 
+ * <p>
+ * Note that for some reason taking screenshots is a very slow and CPU
+ * intensive process. Unfortunately, it occurs within the GDK lock and thus
+ * <i>will</i> block your UI for a few seconds. Threading can't help you
+ * parallelize this.
+ * 
  * <p style="margin: 10px; border: dashed 3px red; padding: 10px;
  * background-color: #DDDDDD; max-width: 600px;"> <b>LICENCE WARNING</b><br>
  * This native code used to take screenshots is licenced under the GNU General

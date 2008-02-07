@@ -40,6 +40,7 @@ public class ValidateFileChoosing extends TestCaseGtk
 
     public final void testSettingFilename() {
         final FileChooserDialog fcd;
+        String retreived;
 
         fcd = new FileChooserDialog("", null, FileChooserAction.OPEN);
         fcd.setCurrentFolder("/");
@@ -50,8 +51,12 @@ public class ValidateFileChoosing extends TestCaseGtk
 
         cycleMainLoop();
         assertEquals("/etc", fcd.getCurrentFolder());
-        cycleMainLoop();
-        assertEquals("/etc/passwd", fcd.getFilename());
+
+        do {
+            cycleMainLoop();
+            retreived = fcd.getFilename();
+        } while (retreived == null);
+        assertEquals("/etc/passwd", retreived);
     }
 
     public void testAbsolutePathEnforcement() throws IOException {

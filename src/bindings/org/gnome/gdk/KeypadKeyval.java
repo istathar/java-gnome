@@ -1,7 +1,7 @@
 /*
  * KeypadKeyval.java
  *
- * Copyright (c) 2007 Operational Dynamics Consulting Pty Ltd
+ * Copyright (c) 2007-2008 Operational Dynamics Consulting Pty Ltd
  * 
  * The code in this file, and the library it is a part of, are made available
  * to you by the authors under the terms of the "GNU General Public Licence,
@@ -17,6 +17,10 @@ package org.gnome.gdk;
  * <p>
  * This file serves mostly as an example of how Keyval can be subclassed to
  * make additional Key constants available that you may need.
+ * 
+ * <p>
+ * <i>Beware that this class has to be loaded for these constants to be
+ * recognized!</i>
  * 
  * @author Andrew Cowie
  * @since 4.0.6
@@ -64,6 +68,17 @@ public class KeypadKeyval extends Keyval
     public static final Keyval KPDecimal = new Keyval(0xffae, "KPDecimal");
 
     public static final Keyval KPDivide = new Keyval(0xffaf, "KPDivide");
+
+    /**
+     * The middle key (the one labeled <b>5</b>) on a keyboard with a numeric
+     * keypad. This is distinct from {@link #KP5}, which is what is emitted
+     * if <b>NumLock</b> is on.
+     * 
+     * <p>
+     * <i>Why "Begin"? I would have thought "Center". Weird legacy crap, no
+     * doubt.</i>
+     */
+    public static final Keyval KPBegin = new Keyval(0xff9d, "KPBegin");
 
     public static final Keyval KP0 = new Keyval(0xffb0, "KP0");
 

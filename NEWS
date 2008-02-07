@@ -1,9 +1,30 @@
 NEWS
 
+<a name="missing" id="1201159605" title="Missing coverage"></a>
+
+Missing coverage
+================
+
+Although some major initiatives are currently underway, notably Java bindings
+for Cairo and GConf, the bulk of work recently has been on fleshing out areas
+of the API needed to allow us to port applications to java-gnome 4.0. This
+work, notably taking place on the '`missing`' branch, involves small additions
+across wide areas of the library, along with a significant number of
+documentation improvements.
+
+A fair bit of this work has taken place in experimental branches, and while
+initial results are promising, it still needs further testing. As such we're
+going to hold off making the 4.0.6 release for a short while. Nevertheless, we
+have updated the [public API documentation](/4.0/doc/api/overview-summary.html)
+to the current state of the '`mainline`' branch, and welcome comments while
+we prepare the NEWS entry and related materials for the release.
+
+AfC
+
 <a name="4.0.5" id="1196060444" title="TreeView is here"></a>
 
 java-gnome 4.0.5 (26 Nov 2007)
-=================================
+==============================
 
 _TreeView is here!_
 

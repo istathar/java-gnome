@@ -1,7 +1,7 @@
 /*
  * Widget.java
  *
- * Copyright (c) 2006-2007 Operational Dynamics Consulting Pty Ltd, and Others
+ * Copyright (c) 2006-2008 Operational Dynamics Consulting Pty Ltd, and Others
  * 
  * The code in this file, and the library it is a part of, are made available
  * to you by the authors under the terms of the "GNU General Public Licence,
@@ -13,6 +13,7 @@ package org.gnome.gtk;
 
 import org.gnome.gdk.Color;
 import org.gnome.gdk.Event;
+import org.gnome.gdk.EventButton;
 import org.gnome.gdk.EventExpose;
 import org.gnome.gdk.EventFocus;
 import org.gnome.gdk.EventKey;
@@ -168,11 +169,33 @@ public abstract class Widget extends org.gnome.gtk.Object
     }
 
     /**
-     * Hook up a handler to receive "focus-out-event" events on this Widget
+     * Hook up a handler to receive <code>FOCUS_OUT_EVENT</code> events on
+     * this Widget
      * 
      * @since 4.0.2
      */
     public void connect(FOCUS_OUT_EVENT handler) {
+        GtkWidget.connect(this, handler);
+    }
+
+    /**
+     * Signal emitted when focus enters this Widget. See
+     * {@link Widget.FOCUS_OUT_EVENT FOCUS_OUT_EVENT}.
+     * 
+     * @author Andrew Cowie
+     * @since 4.0.6
+     */
+    public interface FOCUS_IN_EVENT extends GtkWidget.FOCUS_IN_EVENT
+    {
+        public boolean onFocusInEvent(Widget source, EventFocus event);
+    }
+
+    /**
+     * Hook up a handler to receive <code>FOCUS_IN_EVENT</code> signals.
+     * 
+     * @since 4.0.6
+     */
+    public void connect(FOCUS_IN_EVENT handler) {
         GtkWidget.connect(this, handler);
     }
 
@@ -203,12 +226,22 @@ public abstract class Widget extends org.gnome.gtk.Object
      */
     public interface KEY_PRESS_EVENT extends GtkWidget.KEY_PRESS_EVENT
     {
+        /**
+         * As with other event signals, returning <code>false</code> means
+         * "I didn't [fully] handle this signal, so proceed with the next (ie,
+         * usually the default) handler" whereas if you return
+         * <code>true</code> you mean "I have handled this event, and wish
+         * to stop further emission of the signal".
+         */
         public boolean onKeyPressEvent(Widget source, EventKey event);
     }
 
     /**
-     * Hook up a handler to receive <code>key-press-event</code> signals on
-     * this Widget. In general you <b>don't</b> want this.
+     * Hook up a handler to receive <code>KEY_PRESS_EVENT</code> signals on
+     * this Widget. For general typing this is the one you want, but for
+     * critical events (like pressing <b>Enter</b> to activate a Button that
+     * is going to delete things, you might want to postpone action until
+     * <code>KEY_RELEASE_EVENT</code>.
      * 
      * @since 4.0.3
      */
@@ -217,17 +250,25 @@ public abstract class Widget extends org.gnome.gtk.Object
     }
 
     /**
-     * Handler interface for key release events.
+     * Handler interface for key release events. Calling
+     * {@link EventKey#getKeyval() getKeyval()} on the <code>event</code>
+     * parameter gets you to the constant representing the key that was
+     * actually typed.
      * 
      * @since 4.0.3
      */
     public interface KEY_RELEASE_EVENT extends GtkWidget.KEY_RELEASE_EVENT
     {
+        /**
+         * (See the comment at
+         * {@link Widget.KEY_PRESS_EVENT#onKeyPressEvent(Widget, EventKey) KEY_PRESS_EVENT}
+         * to understand the return value)
+         */
         public boolean onKeyReleaseEvent(Widget source, EventKey event);
     }
 
     /**
-     * Hook up a handler to receive <code>key-release-event</code> signals
+     * Hook up a handler to receive <code>KEY_RELEASE_EVENT</code> signals
      * on this Widget
      * 
      * @since 4.0.3
@@ -473,7 +514,7 @@ public abstract class Widget extends org.gnome.gtk.Object
      * thus allowing you to do something like:
      * 
      * <pre>
-     * b.connect(new Button.ACTIVATE() {
+     * b.connect(new Button.CLICKED() {
      *     public void onClicked(Button source) {
      *         if (up) {
      *             w.hide();
@@ -483,7 +524,7 @@ public abstract class Widget extends org.gnome.gtk.Object
      *             up = true;
      *         }
      *     }
-     * }
+     * });
      * </pre>
      * 
      * to intelligently toggle the visibility of the Window.
@@ -575,7 +616,7 @@ public abstract class Widget extends org.gnome.gtk.Object
      */
     public interface HIDE extends GtkWidget.HIDE
     {
-        void onHide(Widget source);
+        public void onHide(Widget source);
     }
 
     /**
@@ -585,5 +626,224 @@ public abstract class Widget extends org.gnome.gtk.Object
      */
     public void connect(Widget.HIDE handler) {
         GtkWidget.connect(this, handler);
+    }
+
+    /**
+     * Make this Widget have the keyboard focus for the Window it is within.
+     * 
+     * <p>
+     * Obviously, if this is going to actually have affect, this Widget needs
+     * to be <i>in</i> a Window. Furthermore, the Widget needs to be <i>able</i>
+     * to take input focus, that is, it must have the <var>can-focus</var>
+     * property set (which is inherent to the particular Widget subclass, not
+     * something you can change).
+     * 
+     * @since 4.0.6
+     */
+    public void grabFocus() {
+        GtkWidget.grabFocus(this);
+    }
+
+    /**
+     * Set the minimum size that will be requested by this Widget of its
+     * parent Container.
+     * 
+     * <p>
+     * A major feature of GTK is its adaptability in the face of different
+     * languages, fonts, and theme engines, with all of these factors
+     * impacting the number of pixels that will be necessary for drawing. The
+     * box packing model has each Widget request the size it calculates it
+     * needs at runtime of its parent. These requests flow up the Containers
+     * the Widget is packed into, with each Container collating the requests
+     * from its children. When it reaches the toplevel, GTK negotiates with
+     * the X server, and the result is the size allocation for the Window as a
+     * whole. The Window proceeds to inform each Container packed into it how
+     * much space it has been allocated, leaving it to the Containers to in
+     * turn allocate space to each of its children.
+     * 
+     * <p>
+     * The whole point of all this is that in general you are <b>not</b>
+     * supposed to interfere with this process. It is virtually impossible to
+     * calculate the correct size for a Widget on a given user's desktop ahead
+     * of time, so don't try. This method is here for the unusual cases where
+     * you need to force a Widget to be a size other than what the default
+     * request-allocation process results in.
+     * 
+     * <p>
+     * A value of <code>-1</code> for either <code>width</code> or
+     * <code>height</code> will cause that dimension to revert to the
+     * "natural" size, that is, the size that would have been requested if
+     * you'd left things alone.
+     * 
+     * <p>
+     * Passing <code>0,0</code> is a special case, meaning "as small as
+     * possible". This will have varying results and may not actually have
+     * much effect.
+     * 
+     * <p>
+     * Incidentally, use
+     * {@link Window#setDefaultSize(int, int) setDefaultSize()} for top level
+     * Windows, as that method still allows a user to make the Window smaller
+     * than the specified default.
+     * 
+     * @since 4.0.6
+     */
+    public void setSizeRequest(int width, int height) {
+        if ((width < -1) || (height < -1)) {
+            throw new IllegalArgumentException("width and height need to be >= -1");
+        }
+        GtkWidget.setSizeRequest(this, width, height);
+    }
+
+    /**
+     * Get the details of the rectangle that represents the size that the
+     * windowing system down to GTK on down to the parent containers of this
+     * Widget have allocated to it. Note that the Widget must already have
+     * been realized for the request-allocation cycle to have taken place (ie,
+     * the top level Window and all its children must have been
+     * <code>show()</code>n. In some circumstances the main loop may need
+     * to have iterated).
+     * 
+     * @since 4.0.6
+     */
+    public Allocation getAllocation() {
+        final Allocation result;
+
+        result = GtkWidgetOverride.getAllocation(this);
+        /*
+         * We are making a live reference to the GtkAllocation struct member
+         * in the GtkWidget class, so we need to make sure that our Allocation
+         * Proxy does not survive longer than the Widget. We use this back
+         * reference for this purpose.
+         */
+        result.widget = this;
+
+        return result;
+    }
+
+    /**
+     * Get the size that will be (is being) requested by this Widget.
+     * 
+     * <p>
+     * In addition to getting the Requisition object for this Widget, this
+     * method will also ask the Widget to actually calculate its requirements.
+     * This can be a relatively expensive operation as font metrics need to be
+     * worked out relative to the Display's physical characteristics (this
+     * implies that the request calculation won't have any effect if the
+     * Widget is not yet been FIXME to a Screen).
+     * 
+     * <p>
+     * <i>Implementation note: calling this method will invoke
+     * <code>gtk_widget_size_request()</code>. The returned Requisition
+     * object is "live" however, so once you've got it you can use its getter
+     * methods freely without needing to keep calling this method.</i>
+     * 
+     * @since 4.0.6
+     */
+    public Requisition getRequisition() {
+        final Requisition result;
+
+        result = GtkWidgetOverride.getRequisition(this);
+        /*
+         * We are making a live reference to the GtkRequisition struct member
+         * in the GtkWidget class, so we need to make sure that our
+         * Requisition Proxy does not survive longer than the Widget. We use
+         * this back reference for this purpose.
+         */
+        result.widget = this;
+
+        return result;
+    }
+
+    /**
+     * Signal fired when the user clicks one of their mouse buttons.
+     * 
+     * <p>
+     * Typically, you will use this to do something specific on a mouse click,
+     * for example popping up a context menu in response to a "right-click"
+     * anywhere in Window <code>w</code>,
+     * 
+     * <pre>
+     * w.connect(new BUTTON_PRESS_EVENT() {
+     *     boolean onButtonPressEvent(Widget source, EventButton event) {
+     *         if (event.getButton() == MouseButton.RIGHT) {
+     *             // popup menu
+     *         }
+     *         return false;
+     *     }
+     * });
+     * </pre>
+     * 
+     * <p>
+     * Like all event signals, you only return <code>true</code> if you are
+     * intercepting this event and want to prevent the default handlers in GTK
+     * from running.
+     * 
+     * <p>
+     * The signal emitted when the user lets the button go is
+     * {@link Widget.BUTTON_RELEASE_EVENT BUTTON_RELEASE_EVENT}.
+     * 
+     * <p>
+     * Note that this signal doesn't apply just to the user clicking on a
+     * Button Widget. Indeed, "left-click" on a Button will cause
+     * {@link Button.CLICKED CLICKED} to be emitted, and you should use that
+     * in preference for normal purposes.
+     * 
+     * @author Andrew Cowie
+     * @since 4.0.6
+     */
+    public interface BUTTON_PRESS_EVENT extends GtkWidget.BUTTON_PRESS_EVENT
+    {
+        public boolean onButtonPressEvent(Widget source, EventButton event);
+    }
+
+    /**
+     * Hook up a <code>BUTTON_PRESS_EVENT</code> handler.
+     * 
+     * @since 4.0.6
+     */
+    /*
+     * Do we need to force the GDK event mask like we did with
+     * VISIBILITY_NOTIFY_EVENT
+     */
+    public void connect(Widget.BUTTON_PRESS_EVENT handler) {
+        GtkWidget.connect(this, handler);
+    }
+
+    /**
+     * The signal emitted when the user releases a pressed mouse button. See
+     * {@link Widget.BUTTON_PRESS_EVENT BUTTON_PRESS_EVENT} for discussion of
+     * this set of event signals.
+     * 
+     * @author Andrew Cowie
+     * @since 4.0.6
+     */
+    public interface BUTTON_RELEASE_EVENT extends GtkWidget.BUTTON_RELEASE_EVENT
+    {
+        public boolean onButtonReleaseEvent(Widget source, EventButton event);
+    }
+
+    /**
+     * Hook up a <code>BUTTON_RELEASE_EVENT</code> handler.
+     * 
+     * @since 4.0.6
+     */
+    public void connect(Widget.BUTTON_RELEASE_EVENT handler) {
+        GtkWidget.connect(this, handler);
+    }
+
+    /**
+     * Whether the Widget can (is willing to) accept the keyboard input focus.
+     * There's no default, as such; Widgets able to take keyboard focus will
+     * (already) have it <code>true</code>, and others not. The
+     * <var>can-focus</var> property is mostly internal, but it is
+     * occasionally useful to use a widget that can focus in an environment
+     * where you don't want it to take input. Calling
+     * <code>setCanFocus(false)</code> will do the trick.
+     * 
+     * @since 4.0.6
+     */
+    public void setCanFocus(boolean setting) {
+        setPropertyBoolean("can-focus", setting);
     }
 }

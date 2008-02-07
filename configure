@@ -787,7 +787,7 @@ if ($os eq "gentoo") {
 } elsif ($os eq "debian") {
 	check_system_library(@gnomedev_libs,
 			"GTK+",
-			"gtk-devel", $prefix,
+			"libgtk2.0-dev", $prefix,
 			("/include/gtk-2.0/gtk/gtk.h",
 			"/lib/libgtk-x11-2.0.so"));
 	
@@ -811,7 +811,7 @@ if ($os eq "gentoo") {
 
 	check_system_library(@gnomedev_libs, 
 			"LibGlade",
-			"glade-devel",$prefix,
+			"libglade2-dev",$prefix,
 			("/include/libglade-2.0/glade/glade.h",
 			 "/lib/libglade-2.0.so"));
 

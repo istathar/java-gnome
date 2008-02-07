@@ -12,7 +12,7 @@
 package org.gnome.gtk;
 
 /**
- * Hand crafted to get at the window field of Widget.
+ * Hand crafted to get at the fields of Widget.
  * 
  * @author Andrew Cowie
  */
@@ -31,6 +31,34 @@ final class GtkWidgetOverride extends Plumbing
     }
 
     private static native final long gtk_widget_get_window(long self);
+
+    /**
+     * Allocation is yet another accessible GObject field. We really need to
+     * deal with this into the code generator.
+     */
+    static final Allocation getAllocation(Widget self) {
+        long result;
+
+        synchronized (lock) {
+            result = gtk_widget_get_allocation(pointerOf(self));
+
+            return (Allocation) boxedFor(Allocation.class, result);
+        }
+    }
+
+    private static native final long gtk_widget_get_allocation(long self);
+
+    static final Requisition getRequisition(Widget self) {
+        long result;
+
+        synchronized (lock) {
+            result = gtk_widget_get_requisition(pointerOf(self));
+
+            return (Requisition) boxedFor(Requisition.class, result);
+        }
+    }
+
+    private static native final long gtk_widget_get_requisition(long self);
 
     /**
      * Set the GdkWindow underlying this Widget to receive visibility events!

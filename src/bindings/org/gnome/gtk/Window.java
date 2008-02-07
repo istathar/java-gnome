@@ -1,7 +1,7 @@
 /*
  * Window.java
  *
- * Copyright (c) 2006-2007 Operational Dynamics Consulting Pty Ltd, and Others
+ * Copyright (c) 2006-2008 Operational Dynamics Consulting Pty Ltd, and Others
  * 
  * The code in this file, and the library it is a part of, are made available
  * to you by the authors under the terms of the "GNU General Public Licence,
@@ -143,8 +143,8 @@ public class Window extends Bin
      * 
      * @since 4.0.0
      */
-    public void setDecorated(boolean decorated) {
-        GtkWindow.setDecorated(this, decorated);
+    public void setDecorated(boolean setting) {
+        GtkWindow.setDecorated(this, setting);
     }
 
     /**
@@ -157,9 +157,10 @@ public class Window extends Bin
      * 
      * <p>
      * Depending on your needs, {@link #resize() resize()} could be more
-     * appropriate, especially if the Window is already realized . resize()
-     * changes the current size of the Window, rather than the size to be used
-     * on initial display which is what this method is for.
+     * appropriate, especially if the Window is already realized.
+     * <code>resize()</code> changes the current size of the Window, rather
+     * than the size to be used on initial display which is what this method
+     * is for.
      * 
      * <p>
      * Incidentally, Windows can't be 0x0; the minimum size is 1x1.
@@ -602,7 +603,7 @@ public class Window extends Bin
      * account the size of any window decorations that may be present. Use
      * {@link #setPosition(WindowPosition) setPosition()}!
      * <li>If you need to take a dynamic size dependent action you should
-     * hook up to the {@link Widget.CONFIGURE_EVENT CONFIGURE_EVENT} signal
+     * hook up to the {@link Window.CONFIGURE_EVENT CONFIGURE_EVENT} signal
      * which has more accurate information and which will allow you to react
      * appropriately. If you instead use this you will be subject to a race
      * condition as the size of the Window may change between you calling this
@@ -695,5 +696,25 @@ public class Window extends Bin
      */
     public void setTransientFor(Window parent) {
         GtkWindow.setTransientFor(this, parent);
+    }
+
+    /**
+     * Set whether the user can resize this Window. Windows are realizable by
+     * default.
+     * 
+     * <p>
+     * You'd probably best have a very good reason for suppressing this. GTK's
+     * box packing model and size request/size allocation cycle will draw a
+     * Window at the optimum size necessary for all the Widgets packed into it
+     * to fit and so that all text labels draw properly, etc. That said,
+     * sometimes a user wants to see more of a certain column or to expand the
+     * area given to the Window so that some dynamic element within (perhaps
+     * an image) will scale larger. It is very frustrating for a user to find
+     * that the developer has prohibited them from doing such things.
+     * 
+     * @since 4.0.6
+     */
+    public void setResizable(boolean setting) {
+        GtkWindow.setResizable(this, setting);
     }
 }
