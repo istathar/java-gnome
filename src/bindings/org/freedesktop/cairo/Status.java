@@ -1,7 +1,7 @@
 /*
  * Status.java
  *
- * Copyright (c) 2007 Operational Dynamics Consulting Pty Ltd
+ * Copyright (c) 2007-2008 Operational Dynamics Consulting Pty Ltd
  * 
  * The code in this file, and the library it is a part of, are made available
  * to you by the authors under the terms of the "GNU General Public Licence,
@@ -14,13 +14,14 @@ package org.freedesktop.cairo;
 import org.freedesktop.bindings.Constant;
 
 /**
- * 
+ * Error constants for problems arising during Cairo drawing operations.
  * 
  * @author Andrew Cowie
  * @since 4.0.5
  */
 /*
- * Do we even need to expose these at all?
+ * Do we even need to expose these at all? Wouldn't it be better to check this
+ * after every operation and throw an exception instead?
  */
 public class Status extends Constant
 {
@@ -34,7 +35,13 @@ public class Status extends Constant
     public static final Status SUCCESS = new Status(CairoStatus.SUCCESS, "SUCCESS");
 
     /**
-     * Out of memory
+     * Out of memory. Yikes.
      */
     public static final Status NO_MEMORY = new Status(CairoStatus.NO_MEMORY, "NO_MEMORY");
+
+    /**
+     * C side, a <code>NULL</code> was encountered when a valid pointer was
+     * expected.
+     */
+    public static final Status NULL_POINTER = new Status(CairoStatus.NULL_POINTER, "NULL_POINTER");
 }
