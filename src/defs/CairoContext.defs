@@ -79,3 +79,10 @@
   (return-type "cairo_pattern_t*")
   (caller-owns-return #f)
 )
+
+(define-method status
+  (of-object "cairo_t")
+  (c-name "cairo_status")
+  (return-type "cairo_status_t")
+)
+
