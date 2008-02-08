@@ -1,7 +1,7 @@
 /*
  * Range.java
  *
- * Copyright (c) 2007 Operational Dynamics Consulting Pty Ltd
+ * Copyright (c) 2007-2008 Operational Dynamics Consulting Pty Ltd
  *
  * The code in this file, and the library it is a part of, are made available
  * to you by the authors under the terms of the "GNU General Public Licence,
@@ -11,15 +11,22 @@
  */
 package org.gnome.gtk;
 
-/*
- * FIXME this is a placeholder stub for what will become the public API for
- * this type. Replace this comment with appropriate javadoc including author
- * and since tags. Note that the class may need to be made abstract, implement
- * interfaces, or even have its parent changed. No API stability guarantees
- * are made about this class until it has been reviewed by a hacker and this
- * comment has been replaced.
+/**
+ * Base class for Widgets which present an adjustable quantity in some form of
+ * slider. The most obvious feature of this class is the ability to manage the
+ * "value" being shown by the Widget, but there are also facilities for
+ * exercising fine-grained control over the behaviour of the Widget when the
+ * user attempts to adjust the slider.
+ * 
+ * @author Andrew Cowie
+ * @since 4.0.6
  */
-public class Range extends Widget
+/*
+ * TODO Add coverage of the step and increment controls, obviously. As I
+ * recall, the interactions of these with Adjustment are more than complex, so
+ * please test carefully and document your experiences well.
+ */
+public abstract class Range extends Widget
 {
     protected Range(long pointer) {
         super(pointer);

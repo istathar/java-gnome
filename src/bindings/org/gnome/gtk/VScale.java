@@ -1,7 +1,7 @@
 /*
  * VScale.java
  *
- * Copyright (c) 2007 Operational Dynamics Consulting Pty Ltd
+ * Copyright (c) 2007-2008 Operational Dynamics Consulting Pty Ltd
  *
  * The code in this file, and the library it is a part of, are made available
  * to you by the authors under the terms of the "GNU General Public Licence,
@@ -23,5 +23,9 @@ public class VScale extends Scale
 {
     protected VScale(long pointer) {
         super(pointer);
+    }
+
+    public VScale(int min, int max, int step) {
+        super(GtkVScale.createVScaleWithRange(min, max, step));
     }
 }
