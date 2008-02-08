@@ -27,7 +27,7 @@ Java_org_freedesktop_cairo_Plumbing_createPattern
 	jlong _pointer
 )
 {
-	cairo_pattern_t* surface;
+	cairo_pattern_t* pattern;
 	static jclass SolidPattern = NULL;
 	static jclass SurfacePattern = NULL;	
 	jclass type;
@@ -35,9 +35,9 @@ Java_org_freedesktop_cairo_Plumbing_createPattern
 	jobject proxy;
 	
 	// convert pointer
-	surface = (cairo_pattern_t*) _pointer;
+	pattern = (cairo_pattern_t*) _pointer;
 	
-	switch (cairo_pattern_get_type(surface)) {
+	switch (cairo_pattern_get_type(pattern)) {
 	case CAIRO_PATTERN_TYPE_SOLID:
 		if (SolidPattern == NULL) {
 			SolidPattern = (*env)->FindClass(env, "org/freedesktop/cairo/SolidPattern");
@@ -56,6 +56,59 @@ Java_org_freedesktop_cairo_Plumbing_createPattern
 	case CAIRO_PATTERN_TYPE_RADIAL:		
 	default:
 		g_critical("Unimplemented pattern type");
+		return NULL;
+	}
+	
+	constructor = (*env)->GetMethodID(env, type, "<init>", "(J)V");
+	if (constructor == NULL) {
+		g_error("Constructor methodID not found");
+		return NULL;
+	}
+	
+	proxy = (*env)->NewObject(env, type, constructor, _pointer);
+	return proxy;
+}
+
+
+/*
+ * Implements
+ *   org.freedesktop.cairo.Plumbing.createSurface(long pointer)
+ */
+JNIEXPORT jobject JNICALL
+Java_org_freedesktop_cairo_Plumbing_createSurface
+(
+	JNIEnv *env,
+	jclass cls,
+	jlong _pointer
+)
+{
+	cairo_surface_t* surface;
+	static jclass ImageSurface = NULL;
+	static jclass XlibSurface = NULL;	
+	jclass type;
+	jmethodID constructor;
+	jobject proxy;
+	
+	// convert pointer
+	surface = (cairo_surface_t*) _pointer;
+	
+	switch (cairo_surface_get_type(surface)) {
+	case CAIRO_SURFACE_TYPE_IMAGE:
+		if (ImageSurface == NULL) {
+			ImageSurface = (*env)->FindClass(env, "org/freedesktop/cairo/ImageSurface");
+		}
+		type = ImageSurface;
+		break;
+		
+	case CAIRO_SURFACE_TYPE_XLIB:
+		if (XlibSurface == NULL) {
+			XlibSurface = (*env)->FindClass(env, "org/freedesktop/cairo/XlibSurface");
+		}
+		type = XlibSurface;
+		break;
+
+	default:
+		g_critical("Unimplemented surface type");
 		return NULL;
 	}
 	

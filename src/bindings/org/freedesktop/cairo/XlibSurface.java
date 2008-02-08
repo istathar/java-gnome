@@ -1,7 +1,7 @@
 /*
  * ImageSurface.java
  *
- * Copyright (c) 2007-2008 Operational Dynamics Consulting Pty Ltd
+ * Copyright (c) 2008 Operational Dynamics Consulting Pty Ltd
  * 
  * The code in this file, and the library it is a part of, are made available
  * to you by the authors under the terms of the "GNU General Public Licence,
@@ -11,13 +11,9 @@
  */
 package org.freedesktop.cairo;
 
-public class ImageSurface extends Surface
+public class XlibSurface extends Surface
 {
-    protected ImageSurface(long pointer) {
+    protected XlibSurface(long pointer) {
         super(pointer);
-    }
-
-    public ImageSurface(Format format, int width, int height) {
-        super(CairoImageSurface.createSurface(format, width, height));
     }
 }
