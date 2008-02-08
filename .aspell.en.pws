@@ -38,6 +38,8 @@ ButtonsType
 CCFLAGS
 CVS
 CairoContext
+CairoContextOverride
+CairoOperator
 CairoSurface
 CalendarDisplayOptions
 CallStaticBooleanMethodA
@@ -195,6 +197,7 @@ GdkCursor
 GdkCursorType
 GdkCursors
 GdkDisplay
+GdkDrawable
 GdkEvent
 GdkEventAny
 GdkEventButton
@@ -445,7 +448,6 @@ OpenOffice
 OpenSolaris
 OutOfMemoryError
 Overholt
-PIXMAP
 PKGBUILD
 PNGs
 PRELIGHT
@@ -741,6 +743,7 @@ compileCSourceToObject
 compileGeneratorClasses
 compileJavaCode
 compileTestClasses
+compositing
 conf
 config
 configFile
@@ -755,6 +758,7 @@ coronatedYearColumn
 countryName
 countryNameColumn
 cp
+cr
 createAboutDialog
 createAction
 createActionGroup
@@ -777,6 +781,7 @@ createComboBoxEntryWithModel
 createComboBoxText
 createComboBoxWithModel
 createContext
+createContextFromDrawable
 createCursor
 createDialog
 createDialogWithButtons
@@ -1058,13 +1063,17 @@ getSelected
 getSelection
 getSensitive
 getSize
+getSource
 getState
+getStatus
 getSticker
 getStock
 getStockId
 getStorageType
 getString
 getSubmenu
+getSurface
+getTarget
 getText
 getToplevel
 getToplevels
@@ -1496,6 +1505,7 @@ setMinWidth
 setModal
 setMode
 setModel
+setOperator
 setOrdinal
 setOrientation
 setPadding
@@ -1533,7 +1543,9 @@ setSizing
 setSortColumn
 setSortColumnId
 setSourceRGB
+setSourceRGBA
 setSourceRgb
+setSourceRgba
 setStick
 setSubmenu
 setText

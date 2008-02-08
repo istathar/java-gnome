@@ -12,6 +12,7 @@
 package org.freedesktop.cairo;
 
 import org.freedesktop.bindings.Proxy;
+import org.gnome.gdk.Drawable;
 
 /**
  * A Cairo Context.
@@ -35,6 +36,31 @@ public class Context extends Proxy
      */
     public Context(Surface target) {
         super(CairoContext.createContext(target));
+    }
+
+    /**
+     * Construct a new "Cairo Context" related to a Drawable. This is the magic
+     * glue which allows you to link between GTK's Widgets and Cairo's drawing
+     * operations.
+     * 
+     * <p>
+     * You may find yourself needing to get at the Surface that is being drawn
+     * on. Use {@link #getTarget() getTarget()}.
+     * 
+     * <p>
+     * <i>Strictly speaking, this method is a part of GDK. We expose it here
+     * as we <b>are</b>, from the Java bindings' perspective, constructing a
+     * Cairo Context.</i>
+     * 
+     * @since 4.0.6
+     */
+    /*
+     * The function in GdkDrawable is tempting, but since it is not marked as
+     * a constructor, it wants to return an object, not a long. It's also in
+     * the wrong package. We'll leave that be.
+     */
+    public Context(Drawable drawable) {
+        super(CairoContextOverride.createContextFromDrawable(drawable));
     }
 
     /**
@@ -86,5 +112,53 @@ public class Context extends Proxy
      */
     public Pattern getSource() {
         return CairoContext.getSource(this);
+    }
+
+    public Status getStatus() {
+        return CairoContext.status(this);
+    }
+
+    /**
+     * Get the Surface that this Context is drawing on.
+     * 
+     * <p>
+     * <i>Yes, this method has a stupid name. It really should be
+     * <code>getSurface()</code>. So many people have a hard time finding
+     * the generic method that allows you to get to the Surface that they're
+     * considering renaming this to <code>cairo_get_surface</code> in Cairo
+     * itself, but until they do, we'll stick with the algorithmic mapping of
+     * <code>cairo_get_target</code>.
+     * 
+     * @since 4.0.7
+     */
+    public Surface getTarget() {
+        return CairoContext.getTarget(this);
+    }
+
+    /**
+     * Set the operation that will govern forthcoming compositing actions.
+     * 
+     * <p>
+     * One particularly useful sequence is clearing the Surface to all
+     * transparent pixels:
+     * 
+     * <pre>
+     * cr.setOperator(Operator.CLEAR);
+     * cr.paint();
+     * </pre>
+     * 
+     * @since 4.0.7
+     */
+    public void setOperator(Operator op) {
+        CairoContext.setOperator(this, op);
+    }
+
+    /**
+     * Paint the current source everywhere within the current clip region.
+     * 
+     * @since 4.0.7
+     */
+    public void paint() {
+        CairoContext.paint(this);
     }
 }

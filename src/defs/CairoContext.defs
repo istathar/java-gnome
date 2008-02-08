@@ -86,3 +86,24 @@
   (return-type "cairo_status_t")
 )
 
+(define-method get_target
+  (of-object "cairo_t")
+  (c-name "cairo_get_target")
+  (return-type "cairo_surface_t*")
+)
+
+(define-method set_operator
+  (of-object "cairo_t")
+  (c-name "cairo_set_operator")
+  (return-type "none")
+  (parameters
+    '("cairo_operator_t" "op")
+  )
+)
+
+(define-method paint
+  (of-object "cairo_t")
+  (c-name "cairo_paint")
+  (return-type "none")
+)
+
