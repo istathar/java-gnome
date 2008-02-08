@@ -38,6 +38,7 @@ ButtonsType
 CCFLAGS
 CVS
 CairoContext
+CairoSurface
 CalendarDisplayOptions
 CallStaticBooleanMethodA
 CallStaticObjectMethodA
@@ -463,6 +464,7 @@ Piechotka
 Pixbuf's
 PixbufAnimation
 PixbufFormat
+Pixmap
 PolicyType
 PowerResponseType
 Preetz
@@ -678,6 +680,7 @@ bdb
 bitkeeper
 bjc
 blackdown
+blockquote
 blog
 bloggins
 blogs
@@ -1690,6 +1693,8 @@ windowManager
 workspaces
 wr
 writeJniCode
+writeToPNG
+writeToPng
 writeTranslationCode
 x's
 xFFFFFF

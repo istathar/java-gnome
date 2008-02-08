@@ -9,6 +9,12 @@
   (return-type "none")
 )
 
+(define-method flush
+  (of-object "cairo_surface_t")
+  (c-name "cairo_surface_flush")
+  (return-type "none")
+)
+
 (define-method finish
   (of-object "cairo_surface_t")
   (c-name "cairo_surface_finish")
