@@ -1,7 +1,7 @@
 /*
  * Rectangle.java
  *
- * Copyright (c) 2007 Operational Dynamics Consulting Pty Ltd
+ * Copyright (c) 2007-2008 Operational Dynamics Consulting Pty Ltd
  *
  * The code in this file, and the library it is a part of, are made available
  * to you by the authors under the terms of the "GNU General Public Licence,
@@ -11,27 +11,68 @@
  */
 package org.gnome.gdk;
 
+import org.freedesktop.bindings.Proxy;
 import org.gnome.glib.Boxed;
+import org.gnome.gtk.Allocation;
 
+/**
+ * An object describing a rectangular area. While superficially similar to
+ * {@link Allocation}, this class is in fact different. It's primary use is
+ * in describing an area that has been exposed and needs to be [re]drawn. You
+ * get one of these from the {@link EventExpose#getArea() getArea()} method on
+ * EventExpose.
+ * 
+ * @author Andrew Cowie
+ * @since 4.0.7
+ */
 /*
- * FIXME this is a placeholder stub for what will become the public API for
- * this type. Replace this comment with appropriate javadoc including author
- * and since tags. Note that the class may need to be made abstract, implement
- * interfaces, or even have its parent changed. No API stability guarantees
- * are made about this class until it has been reviewed by a hacker and this
- * comment has been replaced.
+ * FUTURE WARNING This implementation is a bit of a hack and is currently
+ * operating on the assumption that the only origin for these is the override
+ * code in EventExpose's getArea(). There *are* other scenarios where these
+ * are returned, so be careful. Whatever you do get this from, make sure you
+ * set the origin field.
  */
 public final class Rectangle extends Boxed
 {
+    /**
+     * Back reference to the enclosing struct.
+     */
+    Proxy origin;
+
     protected Rectangle(long pointer) {
         super(pointer);
     }
 
     protected void release() {
-        /*
-         * FIXME This class's release() method must be implemented to call the
-         * correct free() or unref() function before it can be used.
-         */
-        throw new UnsupportedOperationException("Not yet implemented");
+        origin = null;
+    }
+
+    /**
+     * The width of the box described by this Rectangle.
+     */
+    public int getWidth() {
+        return GdkRectangle.getWidth(this);
+    }
+
+    /**
+     * The height of the box described by this Rectangle.
+     */
+    public int getHeight() {
+        return GdkRectangle.getHeight(this);
+    }
+
+    /**
+     * The horizontal co-ordinate of the top left corner of the box described
+     * by this Rectangle.
+     */
+    public int getX() {
+        return GdkRectangle.getX(this);
+    }
+
+    /**
+     * The vertical co-ordinate of the box described by this Rectangle.
+     */
+    public int getY() {
+        return GdkRectangle.getY(this);
     }
 }

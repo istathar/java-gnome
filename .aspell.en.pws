@@ -124,6 +124,7 @@ EventConfigure
 EventCrossing
 EventDragAndDrop
 EventExpose
+EventExpose's
 EventFocus
 EventKey
 EventKey's
@@ -211,6 +212,7 @@ GdkKeyval
 GdkModifierType
 GdkPixbuf
 GdkPixbufFormat
+GdkRectangle
 GdkScreen
 GdkVisibilityState
 GdkWindow
@@ -964,6 +966,7 @@ getAlignmentX
 getAlignmentY
 getAllocation
 getAngle
+getArea
 getBlinking
 getBlue
 getBoolean
