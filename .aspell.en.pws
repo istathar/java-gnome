@@ -293,6 +293,7 @@ GtkStatusIcon
 GtkStatusbar
 GtkStockItem
 GtkTable
+GtkTextView
 GtkToggleButton
 GtkToggleToolButton
 GtkToolButton
@@ -544,6 +545,7 @@ TestSuite
 TextComboBox
 TextComboBoxEntry
 TextDirection
+TextModel
 TextView
 ThrowNew
 Timm
@@ -935,6 +937,7 @@ gchararray
 gcj
 gcjC
 gcjh
+gconf
 gdk
 gdkkeysyms
 ge
