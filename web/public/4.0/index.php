@@ -2,7 +2,7 @@
 /*
  * index.php
  *
- * Copyright (c) 2006-2007 Operational Dynamics Consulting Pty Ltd
+ * Copyright (c) 2006-2008 Operational Dynamics Consulting Pty Ltd
  * 
  * This file comprises part of the infrastructure and content of the
  * java-gnome project website. As such, it is conveyed alongside the source
@@ -44,19 +44,17 @@ div.box {
 	<code>NEWS</code> file)</a>
 </div>
 
-
 <div class="box">
 <span class="mono" style="font-size: xx-large; font-weight: bold;">
-@since 4.0.5
+@since 4.0.6
 </span>
 <p>These are the Java bindings for GTK and GNOME! With a robust engineering
 design and the machinery to generate the complete internals of the bindings in
-place, the growing coverage of the underlying libraries means you can use
-java-gnome to develop increasingly sophisticated user interfaces for your
+place, the steadily increasing coverage of the underlying libraries means you
+can use java-gnome to develop sophisticated user interfaces for your
 applications.
 
 </p>
-
 </div>
 
 <h2>Overview</h2>
