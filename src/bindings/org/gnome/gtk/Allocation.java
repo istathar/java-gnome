@@ -32,7 +32,7 @@ import org.gnome.glib.Boxed;
  * <i>This object is a live reference to the <code>allocation</code> field
  * in the <code>GtkWidget</code> struct and so calling the getter methods
  * will yield correct current values once you've got the Allocation object for
- * the Widget.</i>
+ * the Widget in question.</i>
  * 
  * @author Andrew Cowie
  * @since 4.0.6

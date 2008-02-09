@@ -670,6 +670,11 @@ public abstract class Widget extends org.gnome.gtk.Object
      * request-allocation process results in.
      * 
      * <p>
+     * See {@link Requisition} and {@link Allocation} for further discussion
+     * of how the size-request/size-allocation process works and how you can
+     * get insight into it.
+     * 
+     * <p>
      * A value of <code>-1</code> for either <code>width</code> or
      * <code>height</code> will cause that dimension to revert to the
      * "natural" size, that is, the size that would have been requested if
