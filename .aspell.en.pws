@@ -277,11 +277,13 @@ GtkObject
 GtkObjects
 GtkOrientation
 GtkPolicyType
+GtkPositionType
 GtkProgressBar
 GtkReliefStyle
 GtkRequisition
 GtkResponseType
 GtkResponseTypeOverride
+GtkScale
 GtkScrolledWindow
 GtkSelectionMode
 GtkSeparatorMenuItem
@@ -463,6 +465,7 @@ Pixbuf's
 PixbufAnimation
 PixbufFormat
 PolicyType
+PositionType
 PowerResponseType
 Preetz
 PressMe
@@ -1444,6 +1447,7 @@ setCursor
 setDecorated
 setDefaultIcon
 setDefaultSize
+setDigits
 setDirection
 setDisplayOptions
 setDraw
@@ -1529,6 +1533,8 @@ setSortColumn
 setSortColumnId
 setStick
 setSubmenu
+setTabPos
+setTabPosition
 setText
 setTimeZone
 setTip
@@ -1542,6 +1548,8 @@ setUseMarkup
 setVAdjustment
 setVadjustment
 setValue
+setValuePos
+setValuePosition
 setValueString
 setVersion
 setVertical

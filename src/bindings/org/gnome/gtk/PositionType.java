@@ -1,7 +1,7 @@
 /*
  * PositionType.java
  *
- * Copyright (c) 2007 Operational Dynamics Consulting Pty Ltd
+ * Copyright (c) 2007-2008 Operational Dynamics Consulting Pty Ltd
  *
  * The code in this file, and the library it is a part of, are made available
  * to you by the authors under the terms of the "GNU General Public Licence,
@@ -13,17 +13,40 @@ package org.gnome.gtk;
 
 import org.freedesktop.bindings.Constant;
 
-/*
- * FIXME this is a placeholder stub for what will become the public API for
- * this type. Replace this comment with appropriate javadoc including author
- * and since tags. Note that the class may need to be made abstract, implement
- * interfaces, or even have its parent changed. No API stability guarantees
- * are made about this class until it has been reviewed by a hacker and this
- * comment has been replaced.
+/**
+ * Which edge of a Widget an adornment is placed at. These constants are used
+ * by Scale and Notebook to specify where the value is located or where the
+ * tabs will be placed (see
+ * {@link Scale#setValuePosition(PositionType) setValuePosition()} and
+ * {@link Notebook#setTabPosition(PositionType) setTabPosition()}
+ * respectively).
+ * 
+ * @author Andrew Cowie
+ * @since 4.0.6
  */
 public final class PositionType extends Constant
 {
     private PositionType(int ordinal, String nickname) {
         super(ordinal, nickname);
     }
+
+    /**
+     * Feature will be placed to the left side of the Widget.
+     */
+    public static final PositionType LEFT = new PositionType(GtkPositionType.LEFT, "LEFT");
+
+    /**
+     * Feature will be placed to the right side of the Widget.
+     */
+    public static final PositionType RIGHT = new PositionType(GtkPositionType.RIGHT, "RIGHT");
+
+    /**
+     * Feature will be placed above the Widget.
+     */
+    public static final PositionType TOP = new PositionType(GtkPositionType.TOP, "TOP");
+
+    /**
+     * Feature will be placed below the Widget.
+     */
+    public static final PositionType BOTTOM = new PositionType(GtkPositionType.BOTTOM, "BOTTOM");
 }

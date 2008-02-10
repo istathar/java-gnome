@@ -14,7 +14,8 @@ package org.gnome.gtk;
 /**
  * A slider control which allows the user to manipulate a numeric value. As
  * with many other Widget hierarchies in GTK, there is a horizontal ({@link HScale})
- * and vertical ({@link VScale}) implementation for you to choose from.
+ * and vertical ({@link VScale}) implementation for you to choose from. <img
+ * src="HScale.png" class="snapshot"> <img src="VScale.png" class="snapshot">
  * 
  * <p>
  * Most of the useful methods (notably those relating to the value) are
@@ -41,5 +42,15 @@ public abstract class Scale extends Range
      */
     public void setDigits(int places) {
         GtkScale.setDigits(this, places);
+    }
+
+    /**
+     * Specify where the value will be drawn. {@link PositionType#TOP TOP} is
+     * the default.
+     * 
+     * @since 4.0.6
+     */
+    public void setValuePosition(PositionType position) {
+        GtkScale.setValuePos(this, position);
     }
 }

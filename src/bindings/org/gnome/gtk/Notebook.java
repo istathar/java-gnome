@@ -122,4 +122,14 @@ public class Notebook extends Container
     public void connect(CHANGE_CURRENT_PAGE handler) {
         GtkNotebook.connect(this, handler);
     }
+
+    /**
+     * Specify where the Notebook tabs will be located.
+     * {@link PositionType#TOP TOP} is the default.
+     * 
+     * @since 4.0.6
+     */
+    public void setTabPosition(PositionType position) {
+        GtkNotebook.setTabPos(this, position);
+    }
 }
