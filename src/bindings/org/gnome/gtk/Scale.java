@@ -12,20 +12,25 @@
 package org.gnome.gtk;
 
 /**
- * A slider control which allows the user to manipulate a numeric value. As
- * with many other Widget hierarchies in GTK, there is a horizontal ({@link HScale})
- * and vertical ({@link VScale}) implementation for you to choose from. <img
- * src="HScale.png" class="snapshot"> <img src="VScale.png" class="snapshot">
+ * A slider control which allows the user to manipulate a numeric value. <img
+ * src="HScale.png" class="snapshot"> As with many other Widget hierarchies in
+ * GTK, there is a horizontal ({@link HScale}) and vertical ({@link VScale})
+ * implementation for you to choose from.
+ * 
  * 
  * <p>
- * Most of the useful methods (notably those relating to the value) are
- * inherited from the parent class, {@link Range}.
+ * <img src="VScale.png" class="snapshot" style="clear: right;"> The default
+ * position for the value to be displayed is {@link PositionType#TOP TOP}
+ * which may not be quite what you want. Use
+ * {@link Scale#setValuePosition(PositionType) setValuePosition()} to change
+ * it.
+ * 
+ * <p>
+ * Otherwise, most of the useful methods (notably those relating to the value)
+ * are inherited from the parent class, {@link Range}.
  * 
  * @author Andrew Cowie
  * @since 4.0.6
- */
-/*
- * TODO needs a snapshot of HScale and VScale
  */
 public abstract class Scale extends Range
 {

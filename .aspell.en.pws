@@ -256,6 +256,7 @@ GtkFixed
 GtkFrame
 GtkHBox
 GtkHButtonBox
+GtkHScale
 GtkHSeparator
 GtkIconSize
 GtkImage
@@ -318,6 +319,7 @@ GtkTreeView
 GtkTreeViewColumn
 GtkVBox
 GtkVButtonBox
+GtkVScale
 GtkVSeparator
 GtkWidget
 GtkWidgetOverride
@@ -789,6 +791,7 @@ createGenerator
 createGladeXml
 createHBox
 createHButtonBox
+createHScaleWithRange
 createHSeparator
 createImageFromFile
 createImageFromPixbuf
@@ -836,6 +839,7 @@ createTreeViewColumn
 createTreeViewWithModel
 createVBox
 createVButtonBox
+createVScaleWithRange
 createVSeparator
 createValue
 createWindow

@@ -20,12 +20,14 @@ import org.gnome.gtk.SnapshotAboutDialog;
 import org.gnome.gtk.SnapshotButton;
 import org.gnome.gtk.SnapshotComboBox;
 import org.gnome.gtk.SnapshotFileChooserDialog;
+import org.gnome.gtk.SnapshotHScale;
 import org.gnome.gtk.SnapshotInfoMessageDialog;
 import org.gnome.gtk.SnapshotQuestionMessageDialog;
 import org.gnome.gtk.SnapshotStatusbar;
 import org.gnome.gtk.SnapshotTextComboBox;
 import org.gnome.gtk.SnapshotTextComboBoxEntry;
 import org.gnome.gtk.SnapshotTreeView;
+import org.gnome.gtk.SnapshotVScale;
 import org.gnome.gtk.SnapshotWindow;
 import org.gnome.gtk.Window;
 import org.gnome.screenshot.Screenshot;
@@ -116,6 +118,8 @@ public final class Harness
                     SnapshotTreeView.class,
                     SnapshotFileChooserDialog.class,
                     SnapshotAboutDialog.class,
+                    SnapshotHScale.class,
+                    SnapshotVScale.class,
                     SnapshotComboBox.class,
                     SnapshotTextComboBox.class,
                     SnapshotTextComboBoxEntry.class
