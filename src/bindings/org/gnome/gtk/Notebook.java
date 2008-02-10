@@ -1,7 +1,7 @@
 /*
  * Notebook.java
  *
- * Copyright (c) 2007 Operational Dynamics Consulting Pty Ltd, and Others
+ * Copyright (c) 2007-2008 Operational Dynamics Consulting Pty Ltd, and Others
  *
  * The code in this file, and the library it is a part of, are made available
  * to you by the authors under the terms of the "GNU General Public Licence,
@@ -121,5 +121,15 @@ public class Notebook extends Container
      */
     public void connect(CHANGE_CURRENT_PAGE handler) {
         GtkNotebook.connect(this, handler);
+    }
+
+    /**
+     * Specify where the Notebook tabs will be located.
+     * {@link PositionType#TOP TOP} is the default.
+     * 
+     * @since 4.0.6
+     */
+    public void setTabPosition(PositionType position) {
+        GtkNotebook.setTabPos(this, position);
     }
 }

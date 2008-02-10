@@ -1,7 +1,7 @@
 /*
  * HScale.java
  *
- * Copyright (c) 2007 Operational Dynamics Consulting Pty Ltd
+ * Copyright (c) 2007-2008 Operational Dynamics Consulting Pty Ltd
  *
  * The code in this file, and the library it is a part of, are made available
  * to you by the authors under the terms of the "GNU General Public Licence,
@@ -11,17 +11,37 @@
  */
 package org.gnome.gtk;
 
-/*
- * FIXME this is a placeholder stub for what will become the public API for
- * this type. Replace this comment with appropriate javadoc including author
- * and since tags. Note that the class may need to be made abstract, implement
- * interfaces, or even have its parent changed. No API stability guarantees
- * are made about this class until it has been reviewed by a hacker and this
- * comment has been replaced.
+/**
+ * A horizontal slider allowing you to visually represent data and offer the
+ * user the ability to manipulate it. <img src="HScale.png" class="snapshot">
+ * See {@link Scale} and {@link Range} for the methods used to manipulate
+ * instances of these classes.
+ * 
+ * @author Andrew Cowie
+ * @sicne 4.0.6
  */
 public class HScale extends Scale
 {
     protected HScale(long pointer) {
         super(pointer);
+    }
+
+    /**
+     * Create a new HScale allowing the user to enter a number a number
+     * between <code>min</code> and <code>max</code>, sliding in
+     * increments of <code>step</code>.
+     * 
+     * <p>
+     * The internal algorithms work best if <code>step</code> is specified
+     * as a power of 10. That shouldn't hassle you, as you can round the value
+     * showing in the HScale with {@link Scale#setDigits(int) setDigits()}.
+     * And in any case, <code>step</code> only impacts the jumps that are
+     * made if the HScale is changed via the <b><code>Left</code></b> and
+     * <b><code>Right</code></b> key strokes.
+     * 
+     * @since 4.0.6
+     */
+    public HScale(int min, int max, int step) {
+        super(GtkHScale.createHScaleWithRange(min, max, step));
     }
 }

@@ -256,6 +256,7 @@ GtkFixed
 GtkFrame
 GtkHBox
 GtkHButtonBox
+GtkHScale
 GtkHSeparator
 GtkIconSize
 GtkImage
@@ -277,11 +278,13 @@ GtkObject
 GtkObjects
 GtkOrientation
 GtkPolicyType
+GtkPositionType
 GtkProgressBar
 GtkReliefStyle
 GtkRequisition
 GtkResponseType
 GtkResponseTypeOverride
+GtkScale
 GtkScrolledWindow
 GtkSelectionMode
 GtkSeparatorMenuItem
@@ -316,6 +319,7 @@ GtkTreeView
 GtkTreeViewColumn
 GtkVBox
 GtkVButtonBox
+GtkVScale
 GtkVSeparator
 GtkWidget
 GtkWidgetOverride
@@ -463,6 +467,7 @@ Pixbuf's
 PixbufAnimation
 PixbufFormat
 PolicyType
+PositionType
 PowerResponseType
 Preetz
 PressMe
@@ -741,6 +746,7 @@ conf
 config
 configFile
 confirmButton
+connectProxy
 connectSignal
 const
 constantFor
@@ -785,6 +791,7 @@ createGenerator
 createGladeXml
 createHBox
 createHButtonBox
+createHScaleWithRange
 createHSeparator
 createImageFromFile
 createImageFromPixbuf
@@ -832,6 +839,7 @@ createTreeViewColumn
 createTreeViewWithModel
 createVBox
 createVButtonBox
+createVScaleWithRange
 createVSeparator
 createValue
 createWindow
@@ -1061,6 +1069,7 @@ getStorageType
 getString
 getSubmenu
 getText
+getTooltip
 getToplevel
 getToplevels
 getTreeView
@@ -1442,6 +1451,7 @@ setCursor
 setDecorated
 setDefaultIcon
 setDefaultSize
+setDigits
 setDirection
 setDisplayOptions
 setDraw
@@ -1527,6 +1537,8 @@ setSortColumn
 setSortColumnId
 setStick
 setSubmenu
+setTabPos
+setTabPosition
 setText
 setTimeZone
 setTip
@@ -1540,6 +1552,8 @@ setUseMarkup
 setVAdjustment
 setVadjustment
 setValue
+setValuePos
+setValuePosition
 setValueString
 setVersion
 setVertical
