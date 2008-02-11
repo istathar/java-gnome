@@ -30,6 +30,7 @@ BraceRight
 BracketLeft
 BracketRight
 BufferedReader
+Bugzilla
 ButtonBox
 ButtonBoxStyle
 ButtonBoxes
@@ -421,6 +422,7 @@ Microsystems
 Misc's
 ModifierType
 ModifierTypes
+Monospaced
 MouseButton
 MyButton
 NG
