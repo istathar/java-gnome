@@ -6,7 +6,7 @@ NEWS
 java-gnome 4.0.6 (9 Feb 2007)
 ==============================
 
-_Missing methods are found._
+_Finding the missing methods._
 
 The bulk of our effort recently has simply been fleshing out areas of the
 public API. The focus for this work as been getting the coverage needed to
@@ -135,6 +135,11 @@ deeper down in the GDK part of the toolkit:
 * **`org.gnome.gtk.Statusbar`**
 * **`org.gnome.gtk.Table`**
 * **`org.gnome.gtk.Window`**
+
+As ever, you can see the full changes accompanying a release by
+grabbing a copy of the sources and running:
+
+    $ bzr diff -r tag:v4.0.5..tag:v4.0.6
 
 Documentation
 -------------
@@ -1134,7 +1139,7 @@ AfC
 
 <!--
 
-  Copyright (c) 2007 Operational Dynamics Consulting Pty Ltd 
+  Copyright (c) 2006-2008 Operational Dynamics Consulting Pty Ltd 
 
   As project documentation, this file forms an integral part of the source
   code of the library it accompanies, and thus is made available to you by the

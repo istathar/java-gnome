@@ -2,7 +2,7 @@
 /*
  * index.php
  *
- * Copyright (c) 2006-2007 Operational Dynamics Consulting Pty Ltd
+ * Copyright (c) 2006-2008 Operational Dynamics Consulting Pty Ltd
  * 
  * This file comprises part of the infrastructure and content of the
  * java-gnome project website. As such, it is conveyed alongside the source
@@ -44,11 +44,6 @@ a.directory {
 </div>
 
 
-<p><i>As java-gnome 4.0 is still a young project, the documentation part of
-this website is by no means complete. In particular, tutorials to get people
-started and guides about how to use the more complex APIs are yet to
-come.</i></p>
-
 <h1>Getting Started</h1>
 
 <h2><a class="directory" href="../README.html">README</a></h2>
@@ -58,9 +53,31 @@ directory of the source code contains everything you need to get started: how
 to get the code in the first place, how to configure and build it, and how to
 use java-gnome as a library in your projects.</p>
 
-<!--
 <h2>Tutorials</h2>
--->
+
+<p><i>As java-gnome 4.0 is still a youngish project, the documentation part of
+this website is by no means complete. In particular, tutorials to get people
+started and guides about how to use the more complex APIs are still a work
+in progress.</i></p>
+
+<h2><a class="directory" href="doc/examples/">doc/examples/</a></h2>
+
+<dt>TreeView</dt>
+<dd>While not a complete tutorial, we have an example of a small application
+which uses a TreeView backed by a ListStore called
+<a href="examples/treeview/ExampleTrailHeads.html"><code>ExampleTrailHeads</code></a>.
+
+It is heavily commented and meant to serve as an introduction of the
+
+<a href="api/org/gnome/gtk/TreeView.html">TreeView</a> / 
+<a href="api/org/gnome/gtk/TreeModel.html">TreeModel</a>.
+system when read in conjunction with the API documentation for these types.
+Don't forget to also read the explanation of available column types in 
+
+<a href="api/org/gnome/gtk/DataColumn.html">DataColumn</a>.
+
+</dd>
+</dl>
 
 <h1>API Documentation</h1>
 
