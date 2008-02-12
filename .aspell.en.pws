@@ -1219,6 +1219,7 @@ librarypath
 linkSharedLibrary
 linux
 listFiles
+ln
 loadConfig
 loadHashes
 loadLibrary
@@ -1609,6 +1610,7 @@ sudo
 superclass
 superinterface
 svn
+symlink
 symlinks
 sys
 tabLabel
