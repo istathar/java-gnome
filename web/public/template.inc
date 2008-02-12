@@ -75,11 +75,10 @@ function template_begin() {
 
 <div class="topbanner">
 	<a href="/"><img id="logo" src="/images/java-gnome_HeaderLogo.png" width="85" height="92" border="0" alt=""></a>
-<!--
 	<div align="right" style="padding:10px; padding-top:12px">
-	Latest release: 4.0.1
+	<a class="nav-black" href="http://ftp.gnome.org/pub/gnome/sources/java-gnome/4.0/java-gnome-4.0.6.tar.bz2">java-gnome 4.0.6</a>,
+	<a class="nav-black" href="/4.0/NEWS.html#4.0.6">released 12 Feb '08</a>
 	</div>
--->
 </div>
 
 <!-- Global (top) nav -->
@@ -87,7 +86,7 @@ function template_begin() {
 <tr>
 	<td class="block">
 	<a class="nav-black" href="/4.0/">About<br>
-	<span class="tiny">Overview</span></a>
+	<span class="tiny">Overview, News</span></a>
 	</td>
 
 	<td class="block">
@@ -102,7 +101,7 @@ function template_begin() {
 
 	<td class="block" style="border:none">
 	<a class="nav-black" href="/4.0/lists/">Interact<br>
-	<span class="tiny">Mailing Lists and IRC</span></a>
+	<span class="tiny">Mailing Lists, IRC, and Reporting Bugs</span></a>
 	</td>
 </tr>
 </table>
