@@ -28,7 +28,6 @@ public class SnapshotComboBox extends Snapshot
 
     public SnapshotComboBox() {
         super(ComboBox.class);
-        TreeIter row;
         final ComboBox combo;
         CellRendererText text;
 
