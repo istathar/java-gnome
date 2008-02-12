@@ -1,22 +1,21 @@
 NEWS
 
+<a name="4.0.6" id="1202791317" title="Missing"></a>
 
-<a name="4.0.6" id="" title="Missing"></a>
-
-java-gnome 4.0.6 (9 Feb 2007)
+java-gnome 4.0.6 (12 Feb 2007)
 ==============================
 
 _Finding the missing methods._
 
-The bulk of our effort recently has simply been fleshing out areas of the
+Most of our effort recently has simply been fleshing out areas of the
 public API. The focus for this work as been getting the coverage needed to
 allow us to port some of our in-house applications to java-gnome 4.0. It's not
 especially glamorous -- if anything it has been tedious as hell -- but the
 result has been a large body of improvements to java-gnome as a whole which
 we're pleased to release as java-gnome 4.0.6
 
-The bulk of this work took place on the '`missing`' branch, so named because
-that's where I was working on what was missing `:)`.
+The bulk of this development took place on the '`missing`' branch, so named
+because that's where I was working on what was missing `:)`.
 
 Continuing Improvement
 ----------------------
