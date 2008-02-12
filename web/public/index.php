@@ -2,7 +2,7 @@
 /*
  * index.php
  *
- * Copyright (c) 2006-2007 Operational Dynamics Consulting Pty Ltd
+ * Copyright (c) 2006-2008 Operational Dynamics Consulting Pty Ltd
  * 
  * This file comprises part of the infrastructure and content of the
  * java-gnome project website. As such, it is conveyed alongside the source
@@ -47,15 +47,23 @@ GTK widget toolkit and for the rich family of libraries making up the GNOME
 desktop.</p>
 
 <p>In 2006, a complete re-engineering of the bindings was initiated, and
-that work has resulted in the new:
+that work has resulted in:
 
 <p style="padding-left: 50px;">
 <a class="subject" href="/4.0/"><img align="texttop" src="/images/openoffice_ImpressNextSlide.jpg" style="padding-right: 10px;" border="0"></a>
 <a class="subject" href="/4.0/">java-gnome 4.0</a>
 </p>
 
-<p>The old bindings are available, though only for historical
-interest:
+<p>
+An outstanding experience for developers using the library along with high
+standards for internal quality, steadily increasing breadth of coverage, and
+excellent performance are the hallmarks of the project. We are pleased to
+maintain this effort as a part of the GNOME development platform, and hope
+you'll find our work of interest!
+</p>
+<hr>
+<p>The old libraries are long since abandoned. For historical interest only,
+we have few notes on the previous project:
 
 <p style="padding-left: 50px;">
 <a class="subject" href="/2.x/"><img align="texttop" src="/images/openoffice_ImpressNextSlide.jpg" style="padding-right: 10px;" border="0"></a>

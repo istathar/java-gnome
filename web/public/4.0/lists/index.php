@@ -33,6 +33,7 @@ dt.list {
 <h1 class="title">Interact!</h1>
 <div class="bluepanel"></div>
 
+<a name="lists"></a>
 <h2>Mailing lists</h2>
 
 <p>The java-gnome project currently has two active mailing lists. At the
@@ -66,6 +67,7 @@ moment, both are hosted at SourceForge.</p>
 
 <h2>IRC</h2>
 
+<a name="IRC"></a>
 <dl>
 
 <dt class="list">#java-gnome</dt>
@@ -81,6 +83,29 @@ moment, both are hosted at SourceForge.</p>
 <p><i>The team of people active in the java-gnome community are spread all
 over the world and so tend to be on the net at different times of the day.  So
 if you have a question or problem, do be patient.</i></p>
+
+<h2>Bug reports</h2>
+
+<a name="bugs"></a>
+<dl>
+
+<dt class="list">bugzilla.gnome.org</dt>
+	<dd><p>We use the GNOME bug tracker for tracking issues. 
+	(<a href="http://bugzilla.gnome.org/browse.cgi?product=java-gnome">view bug reports</a>,
+	<a href="http://bugzilla.gnome.org/enter_bug.cgi?product=java-gnome">file a bug</a>)
+	</p></dd>
+
+</dl>
+
+<p><i>Note that we do not use Bugzilla as our TODO list; members of the project
+have their own individual areas of interest, and generally co-ordinate their
+work on IRC. Nor do we use Bugzilla to list missing functions. If a part of the
+GNOME libraries have not yet been covered it is not really necessary to file a
+bug requesting it. Far more useful would be contributing the code actually
+<b>implementing</b> the missing feature. Patch bundles can be sent out-of-band
+directly to the maintainer; they don't need to be placed in a bug nor sent as
+a mailing list message.</i></p>
+
 
 <?
 	template_end();

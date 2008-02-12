@@ -214,15 +214,48 @@ public abstract class Widget extends org.gnome.gtk.Object
     }
 
     /**
-     * Handler interface for key press events. The user <i>pressing</i> a key
-     * is generally less interesting than them <i>releasing</i> a key as
-     * that, by the conventions of modern graphical user interfaces, is when a
-     * program should take action; note for example that if they press a key
-     * but then move the mouse out the release won't cause that Button to
-     * activate.
+     * Handler interface for key press events. While ordinarily the user
+     * <i>pressing</i> a key is generally more interesting (in terms of "what
+     * key stroke did we get"), it should be noted that by the conventions of
+     * modern graphical user interfaces, them <i>releasing</i> a key is when
+     * a program should take action if action is called for. For example, if
+     * they press and hold the <b><code>Enter</code></b> key while the
+     * pointer is over a Button, but then move the mouse off of that Button,
+     * subsequently releasing won't cause that Button to activate).
      * 
+     * <p>
+     * When hooking this up, you'll probably be wanting the key that was hit.
+     * That's accomplished with Call <code>event.getKeyval()</code> as in:
+     * 
+     * <pre>
+     * widget.connect(new KEY_PRESS_EVENT() {
+     *     public boolean onKeyPressEvent(Widget source, EventKey event) {
+     *         final Keyval key;
+     *         final ModifierType mod;
+     * 
+     *         key = event.getKeyval();
+     *         mod = event.getState();
+     * 
+     *         if (key == Keyval.Up) {
+     *             // go up!
+     *         }
+     *         return false;
+     *     }
+     * });
+     * </pre>
+     * 
+     * but see {@link org.gnome.gdk.Keyval Keyval} for a long discussion of
+     * the interpretation and use of keystrokes. Also note that reacting to a
+     * key stroke does not imply intercepting it; returning <code>false</code>
+     * and letting the default handlers in GTK carry on with things is usually
+     * what you want to do.
+     * 
+     * <p>
+     * The release half of this is
+     * {@link Widget.KEY_RELEASE_EVENT KEY_RELEASE_EVENT} as you might expect.
+     * 
+     * @author Andrew Cowie
      * @since 4.0.3
-     * @see Widget.KEY_RELEASE_EVENT
      */
     public interface KEY_PRESS_EVENT extends GtkWidget.KEY_PRESS_EVENT
     {
@@ -668,6 +701,11 @@ public abstract class Widget extends org.gnome.gtk.Object
      * of time, so don't try. This method is here for the unusual cases where
      * you need to force a Widget to be a size other than what the default
      * request-allocation process results in.
+     * 
+     * <p>
+     * See {@link Requisition} and {@link Allocation} for further discussion
+     * of how the size-request/size-allocation process works and how you can
+     * get insight into it.
      * 
      * <p>
      * A value of <code>-1</code> for either <code>width</code> or

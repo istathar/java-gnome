@@ -23,8 +23,8 @@ public class SnapshotAboutDialog extends SnapshotDialog
 
         dialog.setProgramName("java-gnome");
         dialog.setVersion(Version.VERSION);
-        dialog.setComments("A snapshot of AboutDialog in action!");
-        dialog.setCopyright("Copyright 2006-2008 Operational Dynamics Consulting Pty Ltd, and Others");
+        dialog.setComments("The library allowing you to write outstanding GNOME applications with the GTK widget toolkit from Java!");
+        dialog.setCopyright("Copyright \u00A9 2006-2008 Operational Dynamics Consulting Pty Ltd, and Others");
         dialog.setAuthors(new String[] {
                 "Andrew Cowie <andrew@operationaldynamics.com>",
                 "Srichand Pendyala <srichand.pendyala@gmail.com>",

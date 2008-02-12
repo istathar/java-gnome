@@ -1,23 +1,185 @@
 NEWS
 
-<a name="missing" id="1201159605" title="Missing coverage"></a>
 
-Missing coverage
-================
+<a name="4.0.6" id="" title="Missing"></a>
 
-Although some major initiatives are currently underway, notably Java bindings
-for Cairo and GConf, the bulk of work recently has been on fleshing out areas
-of the API needed to allow us to port applications to java-gnome 4.0. This
-work, notably taking place on the '`missing`' branch, involves small additions
-across wide areas of the library, along with a significant number of
-documentation improvements.
+java-gnome 4.0.6 (9 Feb 2007)
+==============================
 
-A fair bit of this work has taken place in experimental branches, and while
-initial results are promising, it still needs further testing. As such we're
-going to hold off making the 4.0.6 release for a short while. Nevertheless, we
-have updated the [public API documentation](/4.0/doc/api/overview-summary.html)
-to the current state of the '`mainline`' branch, and welcome comments while
-we prepare the NEWS entry and related materials for the release.
+_Finding the missing methods._
+
+The bulk of our effort recently has simply been fleshing out areas of the
+public API. The focus for this work as been getting the coverage needed to
+allow us to port some of our in-house applications to java-gnome 4.0. It's not
+especially glamorous -- if anything it has been tedious as hell -- but the
+result has been a large body of improvements to java-gnome as a whole which
+we're pleased to release as java-gnome 4.0.6
+
+The bulk of this work took place on the '`missing`' branch, so named because
+that's where I was working on what was missing `:)`.
+
+Continuing Improvement
+----------------------
+
+Notable public changes include coverage additions to enable key stroke and
+mouse button handling:
+
+* **`org.gnome.gdk.Keyval`**
+* **`org.gnome.gdk.KeypadKeyval`**
+* **`org.gnome.gdk.EventKey`**
+* **`org.gnome.gdk.ModifierType`**
+* **`org.gnome.gdk.MouseButton`**
+* **`org.gnome.gdk.EventButton`**
+
+Rather than exposing the `int` keyvals that bubble up out of the X server, we
+have wrapped these as  constants of type
+[Keyval](doc/api/org/gnome/gdk/Keyval.html) (thereby being consistent with the
+rest of java-gnome in our working to the strengths of Java as a strongly-typed
+language; MouseButton was created for the same reason, helping developers
+understand just what on earth mouse button
+"[1](doc/api/org/gnome/gdk/MouseButton#LEFT)" is, anyway). Along with
+[ModifierType](doc/api/org/gnome/gdk/ModifierType.html), this gives enough to
+deal with the `KEY_PRESS_EVENT` and `KEY_RELEASE_EVENT` signals when the
+developer wishes to deal with key strokes.
+
+We've finally gotten around to providing proper coverage of the box packing
+model which underlies every aspect of how GTK presents user interfaces. To
+understand the size-request/size-allocation process, you might start with
+Widget's
+[`setSizeRequest()`](doc/api/org/gnome/gtk/Widget.html#setSizeRequest\(int,%20int\)).
+
+* **`org.gnome.gtk.Requisition`**
+* **`org.gnome.gtk.Allocation`**
+* **`org.gnome.gtk.Widget`**
+* **`org.gnome.gtk.Container`**
+* **`org.gnome.gtk.SizeGroup`**
+* **`org.gnome.gtk.SizeGroupMode`**
+
+We've also added coverage for SizeGroup, which, when used in concert with
+nested VBoxes and HBoxes, can work wonderful magic and is often far better
+than messing around with Table when doing complex layouts.
+
+After dithering for several releases, we've settled on how we're going to deal
+with ComboBox and family. The underlying GtkComboBox presents something of a
+nightmare as it is really two classes in one with more-or-less incompatible
+APIs. So, not surprisingly, we've presented it as two sets of classes, with the
+text-only convenience API spliced out of ComboBox and ComboBoxEntry into
+TextComboBox and TextComboBoxEntry respectively.
+
+* **`org.gnome.gtk.ComboBox`**
+* **`org.gnome.gtk.ComboBoxEntry`**
+* **`org.gnome.gtk.TextComboBox`**
+* **`org.gnome.gtk.TextComboBoxEntry`**
+
+We've added a few new features in our coverage of GTK's TreeView API, and many
+other classes involved have also seen improvements. The persistent reference to
+a row provided by TreeRowReference is now available as is model type
+TreeModelFilter.
+
+* **`org.gnome.gtk.TreeModel`**
+* **`org.gnome.gtk.ListStore`**
+* **`org.gnome.gtk.TreeIter`**
+* **`org.gnome.gtk.TreePath`**
+* **`org.gnome.gtk.TreeView`**
+* **`org.gnome.gtk.TreeViewColumn`**
+* **`org.gnome.gtk.TreeViewColumnSizing`**
+* **`org.gnome.gtk.TreeModelFilter`**
+* **`org.gnome.gtk.TreeRowReference`**
+* **`org.gnome.gtk.CellLayout`**
+* **`org.gnome.gtk.CellRenderer`**
+* **`org.gnome.gtk.CellRendererPixbuf`**
+* **`org.gnome.gtk.CellRendererText`**
+
+Support for the actual filtering in TreeModelFilter is notable for having been
+quite tricky. The underlying C library use a function pointers rather than a
+GObject signal emission, and we don't have any mechanism to handle that. We
+_do_, however, have a fantastic capability to marshal signals, so we dealt with
+the problem by creating a custom signal and then passing a function which emits
+it when the TreeModelFilter wants to ask the developer whether to include a row
+or not.
+
+The new classes include support for TreeModel columns storing `long` data as
+well as setting properties of that type:
+
+* `org.gnome.glib.Value`
+* `org.gnome.gtk.Value`
+* `org.gnome.gtk.Object`
+* **`org.gnome.gtk.DataColumnLong`**
+
+It should also be noted that most of the methods taking a TreeViewColumn have
+been converted to taking an argument of type CellLayout (an interface
+implemented by TreeViewColumn). This has no change to how you use our TreeView
+API, but was necessary to support ComboBox properly.
+
+Finally lots and lots of minor additions to both public APIs and internals
+deeper down in the GDK part of the toolkit:
+
+* **`org.gnome.gdk.Color`**
+* **`org.gnome.gdk.Cursor`**
+* **`org.gnome.gdk.CursorType`**
+* **`org.gnome.gdk.Pixbuf`**
+* **`org.gnome.gdk.Window`**
+* **`org.gnome.gtk.AboutDialog`**
+* **`org.gnome.gtk.Action`**
+* **`org.gnome.gtk.Box`**
+* **`org.gnome.gtk.Button`**
+* **`org.gnome.gtk.Calendar`**
+* **`org.gnome.gtk.Editable`**
+* **`org.gnome.gtk.Entry`**
+* **`org.gnome.gtk.EventBox`**
+* **`org.gnome.gtk.Image`**
+* **`org.gnome.gtk.IconSize`**
+* **`org.gnome.gtk.ImageMenuItem`**
+* **`org.gnome.gtk.Label`**
+* **`org.gnome.gtk.ScrolledWindow`**
+* **`org.gnome.gtk.Statusbar`**
+* **`org.gnome.gtk.Table`**
+* **`org.gnome.gtk.Window`**
+
+As ever, you can see the full changes accompanying a release by
+grabbing a copy of the sources and running:
+
+    $ bzr diff -r tag:v4.0.5..tag:v4.0.6
+
+Documentation
+-------------
+
+We've always had HTML JavaDoc for the current stable release at
+[`doc/api/`](/4.0/doc/api/overview-summary.html) on the java-gnome website.
+We're going to change that a bit, though. As fixes to the explanatory
+documentation happen quite frequently to classes and methods all over the
+place, we've decided to generate the JavaDoc from '`mainline`' periodically and
+upload that instead. This means that there will, of course, be descriptions of
+some methods which aren't yet available in a released version of the library,
+but they will clearly identifiable by virtue of having a `@since` tag showing
+a version number greater than the most recent release. We'll revert back to
+more traditional behaviour once we hit 4.2.0, but in the mean time we can give
+people access to the best information we can online.
+
+The idea of having up-to-date illustrations of the various Widgets has proved
+popular, and we've continued to update the suite of snapshots. Doing that 
+is _also_ tedious, but it does provide a good opportunity to test APIs we are
+exposing especially where unit tests are less suitable.
+
+![Statusbar](/4.0/doc/api/org/gnome/gtk/Statusbar.png)
+
+Looking ahead
+-------------
+
+Almost as complex as the TreeView/TreeModel API are GTK's powerful
+TextView/TextModel classes, collectively a Widget used to display and edit
+large text documents. Working out the java-gnome coverage for TextView will
+take a fair bit of consideration, but TreeView provides a road map, and, as
+with the coverage in 4.0.5 and 4.0.6 (which was driven largely by existing
+applications we were porting), we have some significant uses of GtkTextView
+which will guide us on our way.
+
+The next release will also feature significant work outside of GTK; we should
+be in a position to merge our coverage of the excellent Cairo drawing library
+soon, and likewise we have tentative work in place letting people store
+configuration and settings data in GConf. Both the '`cairo`' and '`gconf`'
+branches need more QA and documentation work, but they're looking good and will
+definitely be featured in java-gnome 4.0.7.
 
 AfC
 
@@ -977,7 +1139,7 @@ AfC
 
 <!--
 
-  Copyright (c) 2007 Operational Dynamics Consulting Pty Ltd 
+  Copyright (c) 2006-2008 Operational Dynamics Consulting Pty Ltd 
 
   As project documentation, this file forms an integral part of the source
   code of the library it accompanies, and thus is made available to you by the

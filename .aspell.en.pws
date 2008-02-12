@@ -30,6 +30,7 @@ BraceRight
 BracketLeft
 BracketRight
 BufferedReader
+Bugzilla
 ButtonBox
 ButtonBoxStyle
 ButtonBoxes
@@ -296,6 +297,7 @@ GtkStatusIcon
 GtkStatusbar
 GtkStockItem
 GtkTable
+GtkTextView
 GtkToggleButton
 GtkToggleToolButton
 GtkToolButton
@@ -424,6 +426,7 @@ Microsystems
 Misc's
 ModifierType
 ModifierTypes
+Monospaced
 MouseButton
 MyButton
 NG
@@ -549,6 +552,7 @@ TestSuite
 TextComboBox
 TextComboBoxEntry
 TextDirection
+TextModel
 TextView
 ThrowNew
 Timm
@@ -943,6 +947,7 @@ gchararray
 gcj
 gcjC
 gcjh
+gconf
 gdk
 gdkkeysyms
 ge
