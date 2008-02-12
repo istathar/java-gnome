@@ -55,12 +55,11 @@ use java-gnome as a library in your projects.</p>
 
 <h2>Tutorials</h2>
 
-<p><i>As java-gnome 4.0 is still a youngish project, the documentation part of
-this website is by no means complete. In particular, tutorials to get people
-started and guides about how to use the more complex APIs are still a work
+<p><i>
+Tutorials to get people started and guides about how to use the more complex APIs are still a work
 in progress.</i></p>
 
-<h2><a class="directory" href="doc/examples/">doc/examples/</a></h2>
+<h2><a class="directory" href="examples/">doc/examples/</a></h2>
 
 <dt>TreeView</dt>
 <dd>While not a complete tutorial, we have an example of a small application

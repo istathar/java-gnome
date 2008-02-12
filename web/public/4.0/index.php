@@ -118,8 +118,8 @@ learn from mistakes and to ensure the bindings reach the extreme quality and
 usability standards we aspire to.  That said, we do our best to keep things
 stable. We have large bodies of software that use java-gnome so don't worry; we
 aren't gratuitously breaking things. But if we have a bug which needs a
-signature change, we <b>will</b> fix it, and not attempt to paper around
-the problem.</i></p>
+signature change, we <b>will</b> fix it, and not attempt to paper over the
+problem.</i></p>
 
 <?
 	template_end();
