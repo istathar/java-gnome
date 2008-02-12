@@ -133,7 +133,9 @@ EventType
 EventTypes
 EventVisibility
 EventWindowState
+ExamplePressMe
 ExampleSimpleMenu
+ExampleTrailHeads
 ExampleTreeViewListStore
 ExceptionClear
 ExceptionDescribe
@@ -1264,6 +1266,7 @@ nCan't
 nCheck
 nGType
 nJava
+nMake
 nNo
 nParsing
 nTHIS

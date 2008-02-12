@@ -53,30 +53,30 @@ directory of the source code contains everything you need to get started: how
 to get the code in the first place, how to configure and build it, and how to
 use java-gnome as a library in your projects.</p>
 
+<h2><a class="directory" href="examples/START.html">doc/examples/</a></h2>
+
+<p>While not a complete tutorials in themselves, we have a growing number
+of small example applications that ship with the source, including one 
+for the complex TreeView / TreeModel API. See 
+<a href="/4.0/doc/examples/START.html"><code>doc/examples/START</code></a>
+for links to those that have been formatted for web viewing, but remember all
+the source code is always viewable online if you don't have a checkout handy.
+Just pull up the
+
+'<a href="http://research.operationaldynamics.com/bzr/java-gnome/mainline/" style="text-decoration: none;"><code>mainline</code></a>'
+
+branch and navigate to 
+
+<a href="http://research.operationaldynamics.com/bzr/java-gnome/mainline/doc/examples/" style="text-decoration: none;"><code>doc/examples/</code></a>. The same goes for the rest
+of the java-gnome code base; it's all there, including the sources for this website.
+</p>
+
+
 <h2>Tutorials</h2>
 
-<p><i>
-Tutorials to get people started and guides about how to use the more complex APIs are still a work
-in progress.</i></p>
-
-<h2><a class="directory" href="examples/">doc/examples/</a></h2>
-
-<dt>TreeView</dt>
-<dd>While not a complete tutorial, we have an example of a small application
-which uses a TreeView backed by a ListStore called
-<a href="examples/treeview/ExampleTrailHeads.html"><code>ExampleTrailHeads</code></a>.
-
-It is heavily commented and meant to serve as an introduction of the
-
-<a href="api/org/gnome/gtk/TreeView.html">TreeView</a> / 
-<a href="api/org/gnome/gtk/TreeModel.html">TreeModel</a>.
-system when read in conjunction with the API documentation for these types.
-Don't forget to also read the explanation of available column types in 
-
-<a href="api/org/gnome/gtk/DataColumn.html">DataColumn</a>.
-
-</dd>
-</dl>
+<p><i>Tutorials to get people started and guides about how to use the more
+complex APIs are still a work in progress. They will start appearing on this
+website in the coming months.</i></p>
 
 <h1>API Documentation</h1>
 
@@ -138,7 +138,7 @@ of this documentation is made available here on this website, cunningly
 rendered into HTML form.</p>
 
 <p>A good starting point is the <a
-href="/4.0/doc/design/START.html"><code>doc/design/START</a> file, which
+href="/4.0/doc/design/START.html"><code>doc/design/START</code></a> file, which
 links to each of the other documents in that directory.
 
 <h2><a class="directory" href="style/">doc/style/</a></h2>
