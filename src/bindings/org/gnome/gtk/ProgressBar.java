@@ -27,6 +27,7 @@ package org.gnome.gtk;
  * Keep that in mind if you're wondering why the bar hasn't "updated".
  * 
  * @author Andrew Cowie
+ * @author Vreixo Formoso
  * @since 4.0.3
  */
 public class ProgressBar extends Widget
@@ -63,10 +64,35 @@ public class ProgressBar extends Widget
      * 
      * @param fraction
      *            a value between 0.0 (not started) and 1.0 (fully complete)
-     * 
+     * @throws IllegalArgumentException
+     *             If fraction is greater than 1.0 or less than 0.0
      * @since 4.0.3
      */
     public void setFraction(double fraction) {
+        if (fraction < 0.0 || fraction > 1.0) {
+            throw new IllegalArgumentException("fraction must be between 0.0 and 1.0, inclusive.");
+        }
         GtkProgressBar.setFraction(this, fraction);
+    }
+
+    /**
+     * Causes the ProgressBar to enter &quot;activity mode&quot;, a mode used
+     * to indicate that the application is done some progress, but that can't
+     * be quantized.
+     * 
+     * This is used when the application is executing a long running task
+     * whose progress can't be quantized, i.e., we don't know how much percent
+     * of the task has been done.
+     * 
+     * <p>
+     * Each time this method is invoqued, the a little block inside the bar is
+     * moved a bit. You should call this method at little time intervals to
+     * cause the effect of the block moving back and foreward along the
+     * ProgressBar.
+     * 
+     * @since 4.0.7
+     */
+    public void pulse() {
+        GtkProgressBar.pulse(this);
     }
 }

@@ -31,6 +31,7 @@ package org.gnome.gtk;
  * 
  * @author Sebastian Mancke
  * @author Andrew Cowie
+ * @author Vreixo Formoso
  * @since 4.0.3
  */
 public class Frame extends Bin
@@ -41,6 +42,10 @@ public class Frame extends Bin
 
     /**
      * Construct a new Frame with a simple text label.
+     * 
+     * @param label
+     *            The desired label, or <code>null</code> if you don't want
+     *            to use any label.
      */
     public Frame(String label) {
         super(GtkFrame.createFrame(label));
@@ -74,5 +79,40 @@ public class Frame extends Bin
      */
     public Widget getLabelWidget() {
         return GtkFrame.getLabelWidget(this);
+    }
+
+    /**
+     * Set the ShadowType of the Frame, that will determine the appearance of
+     * the outline.
+     * 
+     * @since 4.0.7
+     */
+    public void setShadowType(ShadowType type) {
+        GtkFrame.setShadowType(this, type);
+    }
+
+    /**
+     * Sets the alignment of the Frame Widget's label.
+     * 
+     * @param xalign
+     *            The position of the label along the top edge of the widget.
+     *            A value of 0.0 represents left alignment; 1.0 represents
+     *            right alignment. The default value is 0.0
+     * @param yalign
+     *            The vertical alignment of the label. A value of 0.0 aligns
+     *            under the frame; 1.0 aligns above the frame. Default value
+     *            is 0.5.
+     * @throws IllegalArgumentException
+     *             If xalign or yalign are outside the 0.0 and 1.0 interval.
+     * @since 4.0.7
+     */
+    public void setLabelAlign(float xalign, float yalign) {
+        if (xalign < 0.0 || xalign > 1.0) {
+            throw new IllegalArgumentException("xalign must be between 0.0 and 1.0, inclusive.");
+        }
+        if (yalign < 0.0 || yalign > 1.0) {
+            throw new IllegalArgumentException("yalign must be between 0.0 and 1.0, inclusive.");
+        }
+        GtkFrame.setLabelAlign(this, xalign, yalign);
     }
 }
