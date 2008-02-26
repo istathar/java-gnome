@@ -43,7 +43,7 @@ public class ConstantArrayThing extends ArrayThing
     }
 
     String jniConversionCleanup(String name) {
-        return "(*env)->ReleaseIntArrayElements(env, _" + name + ", " + name + ", 0)";
+        return "(*env)->ReleaseIntArrayElements(env, _" + name + ", (jint*)" + name + ", 0)";
     }
 
     /*
