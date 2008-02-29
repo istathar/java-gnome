@@ -78,61 +78,6 @@
   (return-type "GtkProgressBarOrientation")
 )
 
-(define-function gtk_progress_bar_new_with_adjustment
-  (is-constructor-of "GtkProgressBar")
-  (c-name "gtk_progress_bar_new_with_adjustment")
-  (caller-owns-return #t)
-  (return-type "GtkWidget*")
-  (parameters
-    '("GtkAdjustment*" "adjustment" (default "NULL") (null-ok))
-  )
-)
-
-(define-method set_bar_style
-  (of-object "GtkProgressBar")
-  (c-name "gtk_progress_bar_set_bar_style")
-  (return-type "none")
-  (parameters
-    '("GtkProgressBarStyle" "style")
-  )
-)
-
-(define-method set_discrete_blocks
-  (of-object "GtkProgressBar")
-  (c-name "gtk_progress_bar_set_discrete_blocks")
-  (return-type "none")
-  (parameters
-    '("guint" "blocks")
-  )
-)
-
-(define-method set_activity_step
-  (of-object "GtkProgressBar")
-  (c-name "gtk_progress_bar_set_activity_step")
-  (return-type "none")
-  (parameters
-    '("guint" "step")
-  )
-)
-
-(define-method set_activity_blocks
-  (of-object "GtkProgressBar")
-  (c-name "gtk_progress_bar_set_activity_blocks")
-  (return-type "none")
-  (parameters
-    '("guint" "blocks")
-  )
-)
-
-(define-method update
-  (of-object "GtkProgressBar")
-  (c-name "gtk_progress_bar_update")
-  (return-type "none")
-  (parameters
-    '("gfloat" "percentage")
-  )
-)
-
 (define-method set_ellipsize
   (of-object "GtkProgressBar")
   (c-name "gtk_progress_bar_set_ellipsize")

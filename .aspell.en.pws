@@ -292,6 +292,7 @@ GtkScrolledWindow
 GtkSelectionMode
 GtkSeparatorMenuItem
 GtkSeparatorToolItem
+GtkShadowType
 GtkSizeGroup
 GtkSizeGroupMode
 GtkStateType
@@ -377,6 +378,7 @@ JNI's
 JNICALL
 JNIEXPORT
 JNIEnv
+JSP
 JUnit
 JVMs
 JamVM
@@ -513,6 +515,7 @@ Sep
 SeparatorMenuItem
 SeparatorToolItem
 SeparatorToolItems
+ShadowType
 ShiftLeft
 ShiftRight
 SignalHandler
@@ -1494,6 +1497,7 @@ setJustify
 setKeepAbove
 setKeepBelow
 setLabel
+setLabelAlign
 setLabelWidget
 setLayout
 setLineWrap
@@ -1540,6 +1544,7 @@ setSecondaryText
 setSecondaryUseMarkup
 setSelectable
 setSensitive
+setShadowType
 setSizeRequest
 setSizing
 setSortColumn

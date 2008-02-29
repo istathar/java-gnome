@@ -11,7 +11,7 @@
   (caller-owns-return #t)
   (return-type "GtkWidget*")
   (parameters
-    '("const-gchar*" "label")
+    '("const-gchar*" "label" (null-ok))
   )
 )
 
