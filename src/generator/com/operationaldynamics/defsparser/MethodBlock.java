@@ -1,7 +1,7 @@
 /*
  * MethodBlock.java
  *
- * Copyright (c) 2007 Operational Dynamics Consulting Pty Ltd
+ * Copyright (c) 2007-2008 Operational Dynamics Consulting Pty Ltd
  * 
  * The code in this file, and the library it is a part of, are made available
  * to you by the authors under the terms of the "GNU General Public Licence,
@@ -33,9 +33,9 @@ import com.operationaldynamics.driver.DefsFile;
  *  )
  * </pre>
  * 
- * In a sense, the definition of a method in G terms is a function whose first
- * parameter is a pointer to the object that the function will act on. This is
- * implicit in the .defs data so we prepend a reference to self to the
+ * In a sense, the definition of a method in GNOME terms is a function whose
+ * first parameter is a pointer to the object that the function will act on.
+ * This is implicit in the .defs data so we prepend a reference to self to the
  * parameter list as we construct the object to represent this block.
  * 
  * @author Andrew Cowie
@@ -44,7 +44,7 @@ class MethodBlock extends FunctionBlock
 {
     /*
      * NOTE: ofObject should be here (by the defs file legacy), but its needed
-     * at FunctionGenerator level, and VirtualsBlocks have it too.
+     * at FunctionGenerator level, and VirtualBlocks have it too.
      */
 
     MethodBlock(final String blockName, final List characteristics, final List parameters) {
