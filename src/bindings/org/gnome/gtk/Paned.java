@@ -1,8 +1,8 @@
 /*
  * Paned.java
  *
- * Copyright (c) 2007 Vreixo Formoso
- * Copyright (c) 2007 Operational Dynamics Consulting Pty Ltd
+ * Copyright (c) 2007-2008 Vreixo Formoso
+ * Copyright (c) 2007-2008 Operational Dynamics Consulting Pty Ltd
  *
  * The code in this file, and the library it is a part of, are made available
  * to you by the authors under the terms of the "GNU General Public Licence,
@@ -22,20 +22,20 @@ package org.gnome.gtk;
  * This Widget is mainly used to divide the Window area in two parts. The user
  * can adjust the size of the panes by dragging the separator that appears
  * between them. This way, the user can choose at any time how much size
- * allocate for each of the two children Widgets.
+ * allocate for each of the two child Widgets.
  * 
  * <p>
- * A typical usage of Paned Container is to provide some kind of navigator
+ * A typical usage of the Paned Container is to provide some kind of navigator
  * facilities to a application, generally with a list of bookmarks or an
  * index. In those cases, a HPaned is used to divide the application Window in
  * two columns, one at the left, with the index in a TreeView, and another,
  * wider, at the right, with the contents.
  * 
  * <p>
- * Note that Paned is only useful when we really need to allow users to
+ * Note that Paned should only be used when we really need to allow users to
  * dinamically change the way size is distributed between the two children.
- * Otherwise, a {@link HBox HBox} or {@link VBox VBox} is a better option to
- * distribute our Widgets.
+ * Otherwise, a {@link HBox HBox} or {@link VBox VBox} would be a better
+ * choice.
  * 
  * @author Vreixo Formoso
  * @since 4.0.7
@@ -53,6 +53,8 @@ public abstract class Paned extends Container
      * <p>
      * This call is equilavent to
      * {@link #pack1(Widget, boolean, boolean) pack1(child, false, true)}.
+     * 
+     * @since 4.0.7
      */
     public void add1(Widget child) {
         GtkPaned.add1(this, child);
@@ -65,6 +67,8 @@ public abstract class Paned extends Container
      * <p>
      * This call is equilavent to
      * {@link #pack2(Widget, boolean, boolean) pack2(child, false, true)}.
+     * 
+     * @since 4.0.7
      */
     public void add2(Widget child) {
         GtkPaned.add2(this, child);
@@ -85,24 +89,28 @@ public abstract class Paned extends Container
      *            user hide one of the two panels, but depending of the child
      *            Widget type it can lead to poor visual results. Use with
      *            caution.
+     * @since 4.0.7
      */
     public void pack1(Widget child, boolean resize, boolean shrink) {
         GtkPaned.pack1(this, child, resize, shrink);
     }
 
     /**
-     * Adds a child Widget to the bottom (in case of VPaned) or to the right
-     * (in case of HPaned) pane.
+     * Adds a child Widget to the bottom (in case of a VPaned) or to the right
+     * (in case of an HPaned) pane. See
+     * {@link #pack1(Widget, boolean, boolean) pack1()} for details.
      * 
-     * @see #pack1(Widget, boolean, boolean)
+     * @since 4.0.7
      */
     public void pack2(Widget child, boolean resize, boolean shrink) {
         GtkPaned.pack2(this, child, resize, shrink);
     }
 
     /**
-     * Get the child Widget at the top (in case of VPaned) or at the left (in
-     * case of HPaned) pane.
+     * Get the child Widget in the top (in case of a VPaned) or in the left
+     * (in case of an HPaned) pane.
+     * 
+     * @since 4.0.7
      */
     public Widget getChild1() {
         return GtkPaned.getChild1(this);
@@ -111,6 +119,8 @@ public abstract class Paned extends Container
     /**
      * Get the child Widget at the bottom (in case of VPaned) or at the right
      * (in case of HPaned) pane.
+     * 
+     * @since 4.0.7
      */
     public Widget getChild2() {
         return GtkPaned.getChild2(this);
@@ -127,7 +137,8 @@ public abstract class Paned extends Container
      * 
      * @param position
      *            The position of the divider, in pixels. A negative value
-     *            means that the position is unset.
+     *            means that the position is not being forced.
+     * @since 4.0.7
      */
     public void setPosition(int position) {
         GtkPaned.setPosition(this, position);
