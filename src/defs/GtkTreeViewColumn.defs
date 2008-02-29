@@ -16,14 +16,14 @@
   (is-constructor-of "GtkTreeViewColumn")
   (c-name "gtk_tree_view_column_new")
   (caller-owns-return #t)
-  (return-type "GtkObject*")
+  (return-type "GtkTreeViewColumn*")
 )
 
 (define-function gtk_tree_view_column_new_with_attributes
   (is-constructor-of "GtkTreeViewColumn")
   (c-name "gtk_tree_view_column_new_with_attributes")
   (caller-owns-return #t)
-  (return-type "GtkObject*")
+  (return-type "GtkTreeViewColumn*")
   (parameters
     '("gchar*" "title")
     '("GtkCellRenderer*" "cell")
