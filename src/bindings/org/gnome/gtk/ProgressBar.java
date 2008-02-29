@@ -1,7 +1,7 @@
 /*
  * ProgressBar.java
  *
- * Copyright (c) 2007 Operational Dynamics Consulting Pty Ltd
+ * Copyright (c) 2007-2008 Operational Dynamics Consulting Pty Ltd, and Others
  * 
  * The code in this file, and the library it is a part of, are made available
  * to you by the authors under the terms of the "GNU General Public Licence,
@@ -69,25 +69,35 @@ public class ProgressBar extends Widget
      * @since 4.0.3
      */
     public void setFraction(double fraction) {
-        if (fraction < 0.0 || fraction > 1.0) {
+        if ((fraction < 0.0) || (fraction > 1.0)) {
             throw new IllegalArgumentException("fraction must be between 0.0 and 1.0, inclusive.");
         }
         GtkProgressBar.setFraction(this, fraction);
     }
 
     /**
-     * Causes the ProgressBar to enter &quot;activity mode&quot;, a mode used
-     * to indicate that the application is done some progress, but that can't
-     * be quantized.
-     * 
-     * This is used when the application is executing a long running task
-     * whose progress can't be quantized, i.e., we don't know how much percent
-     * of the task has been done.
+     * Causes the ProgressBar to enter &quot;activity mode&quot;, used to
+     * indicate that the application is making progress but in a way that
+     * can't be strictly quantized.
      * 
      * <p>
-     * Each time this method is invoqued, the a little block inside the bar is
-     * moved a bit. You should call this method at little time intervals to
-     * cause the effect of the block moving back and foreward along the
+     * An example of this is web: most URLs addressable via
+     * <code>http://</code> are files of known size, and so when downloading
+     * them, a web browser can report exactly what percentage has been
+     * downloaded relative to the file size that was psssed in the initial
+     * HTTP header. Dynamic web pages, on the other hand (ie, your average PHP
+     * or JSP script), do not have a known size at the time the HTTP headers
+     * are sent, and so the web browser doesn't know ahead of time how many
+     * bytes are on the way. In this scenario, all the application can do is
+     * "pulse" the ProgressBar back and forth to indicate that traffic is
+     * continuing to arrive but that the percentage complete is not known, and
+     * that is what this method is for.
+     * 
+     * <p>
+     * Each time this method is invoked, the a little block inside the
+     * ProgressBar is moved a small amount. You should therefore call this
+     * method fairly frequently (ie with reasonably small time intervals) to
+     * cause the effect of the block moving back and forward along the
      * ProgressBar.
      * 
      * @since 4.0.7
