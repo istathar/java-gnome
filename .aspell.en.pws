@@ -292,6 +292,7 @@ GtkScrolledWindow
 GtkSelectionMode
 GtkSeparatorMenuItem
 GtkSeparatorToolItem
+GtkShadowType
 GtkSizeGroup
 GtkSizeGroupMode
 GtkStateType
@@ -514,6 +515,7 @@ Sep
 SeparatorMenuItem
 SeparatorToolItem
 SeparatorToolItems
+ShadowType
 ShiftLeft
 ShiftRight
 SignalHandler
@@ -1495,6 +1497,7 @@ setJustify
 setKeepAbove
 setKeepBelow
 setLabel
+setLabelAlign
 setLabelWidget
 setLayout
 setLineWrap
@@ -1541,6 +1544,7 @@ setSecondaryText
 setSecondaryUseMarkup
 setSelectable
 setSensitive
+setShadowType
 setSizeRequest
 setSizing
 setSortColumn

@@ -1,7 +1,7 @@
 /*
  * Frame.java
  *
- * Copyright (c) 2007 Operational Dynamics Consulting Pty Ltd, and Others
+ * Copyright (c) 2007-2008 Operational Dynamics Consulting Pty Ltd, and Others
  *
  * The code in this file, and the library it is a part of, are made available
  * to you by the authors under the terms of the "GNU General Public Licence,
@@ -83,7 +83,7 @@ public class Frame extends Bin
 
     /**
      * Set the ShadowType of the Frame, that will determine the appearance of
-     * the outline.
+     * the outline. The default is {@link ShadowType#ETCHED_IN ETCHED_IN}.
      * 
      * @since 4.0.7
      */
@@ -92,25 +92,25 @@ public class Frame extends Bin
     }
 
     /**
-     * Sets the alignment of the Frame Widget's label.
+     * Sets the alignment of the Frame's label.
      * 
      * @param xalign
      *            The position of the label along the top edge of the widget.
-     *            A value of 0.0 represents left alignment; 1.0 represents
-     *            right alignment. The default value is 0.0
+     *            A value of <code>0.0f</code> represents left alignment;
+     *            <code>1.0f</code> represents right alignment. The default
+     *            value is <code>0.0f</code>
      * @param yalign
-     *            The vertical alignment of the label. A value of 0.0 aligns
-     *            under the frame; 1.0 aligns above the frame. Default value
-     *            is 0.5.
-     * @throws IllegalArgumentException
-     *             If xalign or yalign are outside the 0.0 and 1.0 interval.
+     *            The vertical alignment of the label. A value of
+     *            <code>0.0f</code> aligns under the frame;
+     *            <code>1.0f</code> aligns above the frame. The default
+     *            value is <code>0.5f</code>.
      * @since 4.0.7
      */
     public void setLabelAlign(float xalign, float yalign) {
-        if (xalign < 0.0 || xalign > 1.0) {
+        if ((xalign < 0.0) || (xalign > 1.0)) {
             throw new IllegalArgumentException("xalign must be between 0.0 and 1.0, inclusive.");
         }
-        if (yalign < 0.0 || yalign > 1.0) {
+        if ((yalign < 0.0) || (yalign > 1.0)) {
             throw new IllegalArgumentException("yalign must be between 0.0 and 1.0, inclusive.");
         }
         GtkFrame.setLabelAlign(this, xalign, yalign);
