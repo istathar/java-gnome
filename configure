@@ -872,7 +872,6 @@ output "Check Java compilers:\n";
 
 # compilers we will check for:
 my $javac;
-my $jikes;
 my $ecj;
 my $gcjC;	# The moniker $gcjC refers to `gcj -C`
 my $kaffec;
@@ -896,16 +895,8 @@ if ($os eq "gentoo") {
 		chomp $java_home;
 	}
 
-	# check jikes. Since Jikes isn't a JRE of its own, it needs to be
-	# told about where to find the Java system classes. (java.lang, etc)
-	# we make an educated guess until java-config can tell us properly.
-	my $rt = "$java_home"."/jre/lib/rt.jar";
-	check_compiler($jikes, "IBM jikes", "/usr/bin/jikes", "-g -bootclasspath $rt -nowarn -source 1.4 -target 1.4 +T=4 +Z0") if ( -f "$rt");
-		
-	# check ecj, the standalone Eclipse compiler. It's slower than Jikes,
-	# but significantly more modern and maintained whereas Jikes is
-	# largely abandoned as a project.
-	check_compiler($ecj, "Eclipse ecj", "/usr/bin/ecj-3.2", "-g -preserveAllLocals -nowarn -source 1.4 -target 1.4");
+	# check ecj, the standalone Eclipse compiler.
+	check_compiler($ecj, "Eclipse ecj", "/usr/bin/ecj-3.3", "-g -preserveAllLocals -nowarn -source 1.4 -target 1.4");
 	
 	# check javac (the one specified by Gentoo's java-config tool)
 	# The $vendor business is just some precision prettiness for the
@@ -966,10 +957,6 @@ if ($os eq "gentoo") {
 	# we can do much better than this, especially for java/javac.
 	# Do we access the alternatives system, or just go with known
 	# paths, or...? `which` is lame
-
-	# check jikes. Since Jikes isn't a JRE of its own, it needs to be told
-	# about where to find the Java system classes. (java.lang, etc).
-	check_compiler($jikes, "IBM jikes", "/usr/bin/jikes", "-g -bootclasspath /usr/share/classpath/glibj.zip -source 1.4 -target 1.4 +T=4 +Z0");
 
 	# check ecj, the standalone Eclipse compiler.
 	check_compiler($ecj, "Eclipse ecj", which("ecj"), "-g -preserveAllLocals -nowarn -source 1.4 -target 1.4");
@@ -1033,10 +1020,6 @@ if ($os eq "gentoo") {
 } elsif ($os eq "fedora") {
 	# we can do much better than this, especially for java/javac.
 	# Should we just go with known paths, or...? `which` is so lame
-
-	# check for jikes. Presumably -bootclasspath will need to be set
-	# like on Gentoo and Debian; to what?
-	check_compiler($jikes, "IBM jikes", "/usr/bin/jikes", "-g -source 1.4 -target 1.4 +T=4 +Z0");
 
 	# check ecj, the standalone Eclipse compiler.
 	check_compiler($ecj, "Eclipse ecj", which("ecj"), "-g -preserveAllLocals -nowarn -source 1.4 -target 1.4");
@@ -1122,10 +1105,6 @@ if ($os eq "gentoo") {
 	# we can do much better than this, especially for java/javac.
 	# Should we just go with known paths, or...? `which` is so lame
 
-	# check for jikes. Presumably -bootclasspath will need to be set
-	# like on Gentoo and Debian; to what?
-	check_compiler($jikes, "IBM jikes", "/usr/bin/jikes", "-g -source 1.4 -target 1.4 +T=4 +Z0");
-
 	# check ecj, the standalone Eclipse compiler.
 	check_compiler($ecj, "Eclipse ecj", which("ecj"), "-g -preserveAllLocals -nowarn -source 1.4 -target 1.4");
 
@@ -1166,8 +1145,6 @@ if ($os eq "gentoo") {
 	check_javadoc($javadoc, "$vendor javadoc", $javadoc_candidate, "");
 
 } elsif ($os eq "solaris") {
-	check_compiler($jikes, "IBM jikes", "/usr/bin/jikes", "-g -bootclasspath /usr/java/jre/lib/rt.jar -source 1.4 -target 1.4 +T=4 +Z0");
-
 	check_compiler($ecj, "Eclipse ecj", which("ecj"), "-g -preserveAllLocals -nowarn -source 1.4 -target 1.4");
 
 	my $javac_candidate;
@@ -1604,23 +1581,19 @@ if ($compiler) {
 		bail "bad override", "javac specified but not detected as a workable compiler." unless $javac;
 	} elsif ($compiler eq "ecj") {
 		bail "bad override", "ecj specified but not detected as a workable compiler." unless $ecj;
-	} elsif ($compiler eq "jikes") {
-		bail "bad override", "jikes specified but not detected as a workable compiler." unless $jikes;
 	} elsif ($compiler eq "gcj") {
 		bail "bad override", "gcj (-C) specified but gcj not detected as a workable compiler." unless $gcjC;
 	} else {
 		bail "bad override", <<HERE ;
 You specified compiler=$compiler on the command line, but that's not an option.
-Valid choices are javac, jikes, or gcj - but of course that compiler must be
+Valid choices are ecj, javac, or gcj - but of course that compiler must be
 installed (and detected!) in order to be able to specify it.
 HERE
 	}
 
 } else {
 	# otherwise, pick a compiler.
-	if ($jikes) {
-		$compiler = "jikes";
-	} elsif ($ecj) {
+	if ($ecj) {
 		$compiler = "ecj";
 	} elsif ($javac) {
 		$compiler = "javac";
@@ -1636,10 +1609,7 @@ if ($compiler eq "javac") {
 	print CONFIG "JAVAC_CMD=JAVAC    \n";
 } elsif ($compiler eq "ecj") {
 	print CONFIG "JAVAC=$ecj\n";
-	print CONFIG "JAVAC_CMD=ECLIPSE  \n";
-} elsif ($compiler eq "jikes") {
-	print CONFIG "JAVAC=$jikes\n";
-	print CONFIG "JAVAC_CMD=JIKES    \n";
+	print CONFIG "JAVAC_CMD=ECJ      \n";
 } elsif ($compiler eq "gcj") {
 	print CONFIG "JAVAC=$gcjC\n";
 	print CONFIG "JAVAC_CMD=GCJ [-C] \n";

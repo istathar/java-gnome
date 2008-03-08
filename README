@@ -124,18 +124,14 @@ Meanwhile...
 You can override the choices `configure` makes by listing parameters on the
 command line, like this:
 
-    $ ./configure compiler=jikes runtime=jamvm
+    $ ./configure compiler=ecj runtime=jamvm
 
 This facilitates easily switching between runtimes and compilers for testing.
 At the moment, the available selections are:
 
-* `compiler` `-->` javac, ecj, jikes, gcj
+* `compiler` `-->` javac, ecj, and gcj
 
-* `runtime`  `-->` java, cacao, jamvm, cacao, gij, kaffe
-
-oh, and there's:
-
-* `quiet` -- (don't output anything)
+* `runtime`  `-->` java, cacao, jamvm, cacao, gij, and kaffe
 
 The whole point of the Equivalence's `configure` script is to figure things
 out for you, but if it can't quite figure out where Java is, you can override
