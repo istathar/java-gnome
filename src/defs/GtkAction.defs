@@ -69,6 +69,12 @@
   (return-type "GtkWidget*")
 )
 
+(define-method create_menu
+  (of-object "GtkAction")
+  (c-name "gtk_action_create_menu")
+  (return-type "GtkWidget*")
+)
+
 (define-method create_tool_item
   (of-object "GtkAction")
   (c-name "gtk_action_create_tool_item")
