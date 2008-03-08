@@ -1,5 +1,5 @@
 /*
- * PrintCapabilities.java
+ * Gravity.java
  *
  * Copyright (c) 2007 Operational Dynamics Consulting Pty Ltd
  *
@@ -9,9 +9,9 @@
  * library into other programs provided you don't make a derivation of it).
  * See the LICENCE file for the terms governing usage and redistribution.
  */
-package org.gnome.unixprint;
+package org.gnome.pango;
 
-import org.freedesktop.bindings.Flag;
+import org.freedesktop.bindings.Constant;
 
 /*
  * FIXME this is a placeholder stub for what will become the public API for
@@ -21,9 +21,9 @@ import org.freedesktop.bindings.Flag;
  * are made about this class until it has been reviewed by a hacker and this
  * comment has been replaced.
  */
-public final class PrintCapabilities extends Flag
+public final class Gravity extends Constant
 {
-    private PrintCapabilities(int ordinal, String nickname) {
+    private Gravity(int ordinal, String nickname) {
         super(ordinal, nickname);
     }
 }
