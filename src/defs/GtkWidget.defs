@@ -1798,6 +1798,85 @@
   )
 )
 
+(define-method get_tooltip_markup
+  (of-object "GtkWidget")
+  (c-name "gtk_widget_get_tooltip_markup")
+  (return-type "gchar*")
+  (caller-owns-return #t)
+)
+
+(define-method set_tooltip_markup
+  (of-object "GtkWidget")
+  (c-name "gtk_widget_set_tooltip_markup")
+  (return-type "none")
+  (parameters
+    '("const-gchar*" "markup" (null-ok))
+  )
+)
+
+(define-method get_tooltip_text
+  (of-object "GtkWidget")
+  (c-name "gtk_widget_get_tooltip_text")
+  (return-type "gchar*")
+  (caller-owns-return #t)
+)
+
+(define-method set_tooltip_text
+  (of-object "GtkWidget")
+  (c-name "gtk_widget_set_tooltip_text")
+  (return-type "none")
+  (parameters
+    '("const-gchar*" "text")
+  )
+)
+
+(define-method get_tooltip_window
+  (of-object "GtkWidget")
+  (c-name "gtk_widget_get_tooltip_window")
+  (return-type "GtkWindow*")
+)
+
+(define-method set_tooltip_window
+  (of-object "GtkWidget")
+  (c-name "gtk_widget_set_tooltip_window")
+  (return-type "none")
+  (parameters
+    '("GtkWindow*" "custom_window" (null-ok))
+  )
+)
+
+(define-method get_has_tooltip
+  (of-object "GtkWidget")
+  (c-name "gtk_widget_get_has_tooltip")
+  (return-type "gboolean")
+)
+
+(define-method set_has_tooltip
+  (of-object "GtkWidget")
+  (c-name "gtk_widget_set_has_tooltip")
+  (return-type "none")
+  (parameters
+    '("gboolean" "has_tooltip")
+  )
+)
+
+(define-method trigger_tooltip_query
+  (of-object "GtkWidget")
+  (c-name "gtk_widget_trigger_tooltip_query")
+  (return-type "none")
+)
+
+(define-virtual query_tooltip
+  (of-object "GtkWidget")
+  (return-type "gboolean")
+  (parameters
+    '("gint" "x")
+    '("gint" "y")
+    '("gboolean" "keyboard_mode")
+    '("GtkTooltip*" "tooltip")
+  )
+)
+
 (define-virtual composited_changed
   (of-object "GtkWidget")
   (return-type "none")
