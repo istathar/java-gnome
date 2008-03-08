@@ -109,7 +109,7 @@
   (c-name "gtk_menu_item_set_accel_path")
   (return-type "none")
   (parameters
-    '("const-gchar*" "accel_path")
+    '("const-gchar*" "accel_path" (null-ok))
   )
 )
 

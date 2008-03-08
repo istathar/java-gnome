@@ -28,6 +28,16 @@
   )
 )
 
+(define-method get_uri
+  (of-object "AtkStreamableContent")
+  (c-name "atk_streamable_content_get_uri")
+  (caller-owns-return #t)
+  (return-type "gchar*")
+  (parameters
+    '("const-gchar*" "mime_type")
+  )
+)
+
 (define-virtual get_n_mime_types
   (of-object "AtkStreamableContent")
   (return-type "gint")
@@ -44,6 +54,14 @@
 (define-virtual get_stream
   (of-object "AtkStreamableContent")
   (return-type "GIOChannel*")
+  (parameters
+    '("const-gchar*" "mime_type")
+  )
+)
+
+(define-virtual get_uri
+  (of-object "AtkStreamableContent")
+  (return-type "G_CONST_RETURNgchar*")
   (parameters
     '("const-gchar*" "mime_type")
   )
