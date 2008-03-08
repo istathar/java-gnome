@@ -215,7 +215,6 @@
 (define-method fill
   (of-object "GdkPixbuf")
   (c-name "gdk_pixbuf_fill")
-  (return-type "none")
   (parameters
     '("guint32" "pixel")
   )
@@ -249,7 +248,6 @@
 (define-method save_to_callback
   (of-object "GdkPixbuf")
   (c-name "gdk_pixbuf_save_to_callback")
-  (return-type "gboolean")
 )
 
 (define-method add_alpha
@@ -445,6 +443,7 @@
 (define-method flip
   (of-object "GdkPixbuf")
   (c-name "gdk_pixbuf_flip")
+  (caller-owns-return #t)
   (return-type "GdkPixbuf*")
   (parameters
     '("gboolean" "horizontal")

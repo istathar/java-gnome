@@ -754,7 +754,7 @@
   (of-object "GtkWindow")
   (return-type "none")
   (parameters
-    '("GtkWidget*" "focus")
+    '("GtkWidget*" "focus" (null-ok))
   )
 )
 

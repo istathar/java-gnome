@@ -389,7 +389,7 @@
   (return-type "none")
   (parameters
     '("GtkTreePath*" "path")
-    '("GtkTreeViewColumn*" "column")
+    '("GtkTreeViewColumn*" "column" (null-ok))
     '("GdkRectangle*" "rect")
   )
 )

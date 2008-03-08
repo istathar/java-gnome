@@ -568,8 +568,8 @@
   (c-name "gtk_widget_set_accel_path")
   (return-type "none")
   (parameters
-    '("const-gchar*" "accel_path")
-    '("GtkAccelGroup*" "accel_group")
+    '("const-gchar*" "accel_path" (null-ok))
+    '("GtkAccelGroup*" "accel_group" (null-ok))
   )
 )
 
@@ -1355,7 +1355,7 @@
   (of-object "GtkWidget")
   (return-type "none")
   (parameters
-    '("GtkStyle*" "previous_style")
+    '("GtkStyle*" "previous_style" (null-ok))
   )
 )
 

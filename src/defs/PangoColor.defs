@@ -33,3 +33,10 @@
   )
 )
 
+(define-method to_string
+  (of-object "PangoColor")
+  (c-name "pango_color_to_string")
+  (caller-owns-return #t)
+  (return-type "gchar*")
+)
+

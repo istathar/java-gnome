@@ -130,6 +130,12 @@
   (return-type "gint")
 )
 
+(define-method get_alpha
+  (of-object "AtkComponent")
+  (c-name "atk_component_get_alpha")
+  (return-type "gdouble")
+)
+
 (define-virtual add_focus_handler
   (of-object "AtkComponent")
   (return-type "guint")
@@ -249,5 +255,10 @@
   (parameters
     '("AtkRectangle*" "bounds")
   )
+)
+
+(define-virtual get_alpha
+  (of-object "AtkComponent")
+  (return-type "gdouble")
 )
 

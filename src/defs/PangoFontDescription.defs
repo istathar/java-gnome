@@ -160,6 +160,21 @@
   (return-type "gboolean")
 )
 
+(define-method set_gravity
+  (of-object "PangoFontDescription")
+  (c-name "pango_font_description_set_gravity")
+  (return-type "none")
+  (parameters
+    '("PangoGravity" "gravity")
+  )
+)
+
+(define-method get_gravity
+  (of-object "PangoFontDescription")
+  (c-name "pango_font_description_get_gravity")
+  (return-type "PangoGravity")
+)
+
 (define-method get_set_fields
   (of-object "PangoFontDescription")
   (c-name "pango_font_description_get_set_fields")

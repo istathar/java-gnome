@@ -12,48 +12,6 @@
   (return-type "GtkWidget*")
 )
 
-(define-function image_new_from_pixmap
-  (is-constructor-of "GtkImage")
-  (c-name "gtk_image_new_from_pixmap")
-  (caller-owns-return #t)
-  (return-type "GtkWidget*")
-  (parameters
-    '("GdkPixmap*" "pixmap")
-    '("GdkBitmap*" "mask")
-  )
-)
-
-(define-function image_new_from_image
-  (is-constructor-of "GtkImage")
-  (c-name "gtk_image_new_from_image")
-  (caller-owns-return #t)
-  (return-type "GtkWidget*")
-  (parameters
-    '("GdkImage*" "image")
-    '("GdkBitmap*" "mask")
-  )
-)
-
-(define-function image_new_from_file
-  (is-constructor-of "GtkImage")
-  (c-name "gtk_image_new_from_file")
-  (caller-owns-return #t)
-  (return-type "GtkWidget*")
-  (parameters
-    '("const-gchar*" "filename")
-  )
-)
-
-(define-function image_new_from_pixbuf
-  (is-constructor-of "GtkImage")
-  (c-name "gtk_image_new_from_pixbuf")
-  (caller-owns-return #t)
-  (return-type "GtkWidget*")
-  (parameters
-    '("GdkPixbuf*" "pixbuf")
-  )
-)
-
 (define-method clear
   (of-object "GtkImage")
   (c-name "gtk_image_clear")

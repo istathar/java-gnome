@@ -33,7 +33,6 @@
   (of-object "GtkObject")
   (c-name "gtk_object_sink")
   (return-type "none")
-  (deprecated "use GObject")
 )
 
 (define-method destroy
@@ -46,21 +45,18 @@
   (of-object "GtkObject")
   (c-name "gtk_object_ref")
   (return-type "GtkObject*")
-  (deprecated "use GObject")
 )
 
 (define-method unref
   (of-object "GtkObject")
   (c-name "gtk_object_unref")
   (return-type "none")
-  (deprecated "use GObject")
 )
 
 (define-method weakref
   (of-object "GtkObject")
   (c-name "gtk_object_weakref")
   (return-type "none")
-  (deprecated "use GObject")
   (parameters
     '("GtkDestroyNotify" "notify")
     '("gpointer" "data")
@@ -71,7 +67,6 @@
   (of-object "GtkObject")
   (c-name "gtk_object_weakunref")
   (return-type "none")
-  (deprecated "use GObject")
   (parameters
     '("GtkDestroyNotify" "notify")
     '("gpointer" "data")
@@ -82,7 +77,6 @@
   (of-object "GtkObject")
   (c-name "gtk_object_set_data")
   (return-type "none")
-  (deprecated "use GObject")
   (parameters
     '("const-gchar*" "key")
     '("gpointer" "data")
@@ -93,7 +87,6 @@
   (of-object "GtkObject")
   (c-name "gtk_object_set_data_full")
   (return-type "none")
-  (deprecated "use GObject")
   (parameters
     '("const-gchar*" "key")
     '("gpointer" "data")
@@ -105,7 +98,6 @@
   (of-object "GtkObject")
   (c-name "gtk_object_remove_data")
   (return-type "none")
-  (deprecated "use GObject")
   (parameters
     '("const-gchar*" "key")
   )
@@ -115,7 +107,6 @@
   (of-object "GtkObject")
   (c-name "gtk_object_get_data")
   (return-type "gpointer")
-  (deprecated "use GObject")
   (parameters
     '("const-gchar*" "key")
   )
@@ -125,7 +116,6 @@
   (of-object "GtkObject")
   (c-name "gtk_object_remove_no_notify")
   (return-type "none")
-  (deprecated "use GObject")
   (parameters
     '("const-gchar*" "key")
   )
@@ -135,7 +125,6 @@
   (of-object "GtkObject")
   (c-name "gtk_object_set_user_data")
   (return-type "none")
-  (deprecated "use GObject")
   (parameters
     '("gpointer" "data")
   )
@@ -145,14 +134,12 @@
   (of-object "GtkObject")
   (c-name "gtk_object_get_user_data")
   (return-type "gpointer")
-  (deprecated "use GObject")
 )
 
 (define-method set_data_by_id
   (of-object "GtkObject")
   (c-name "gtk_object_set_data_by_id")
   (return-type "none")
-  (deprecated "use GObject")
   (parameters
     '("GQuark" "data_id")
     '("gpointer" "data")
@@ -163,7 +150,6 @@
   (of-object "GtkObject")
   (c-name "gtk_object_set_data_by_id_full")
   (return-type "none")
-  (deprecated "use GObject")
   (parameters
     '("GQuark" "data_id")
     '("gpointer" "data")
@@ -175,7 +161,6 @@
   (of-object "GtkObject")
   (c-name "gtk_object_get_data_by_id")
   (return-type "gpointer")
-  (deprecated "use GObject")
   (parameters
     '("GQuark" "data_id")
   )
@@ -185,7 +170,6 @@
   (of-object "GtkObject")
   (c-name "gtk_object_remove_data_by_id")
   (return-type "none")
-  (deprecated "use GObject")
   (parameters
     '("GQuark" "data_id")
   )
@@ -195,7 +179,6 @@
   (of-object "GtkObject")
   (c-name "gtk_object_remove_no_notify_by_id")
   (return-type "none")
-  (deprecated "use GObject")
   (parameters
     '("GQuark" "key_id")
   )
@@ -205,7 +188,6 @@
   (of-object "GtkObject")
   (c-name "gtk_object_get")
   (return-type "none")
-  (deprecated "use GObject")
   (parameters
     '("const-gchar*" "first_property_name")
   )
@@ -216,7 +198,6 @@
   (of-object "GtkObject")
   (c-name "gtk_object_set")
   (return-type "none")
-  (deprecated "use GObject")
   (parameters
     '("const-gchar*" "first_property_name")
   )
@@ -226,7 +207,6 @@
 (define-virtual set_arg
   (of-object "GtkObject")
   (return-type "none")
-  (deprecated "use GObject and GParamSpec")
   (parameters
     '("GtkArg*" "arg")
     '("guint" "arg_id")
@@ -236,7 +216,6 @@
 (define-virtual get_arg
   (of-object "GtkObject")
   (return-type "none")
-  (deprecated "use GObject and GParamSpec")
   (parameters
     '("GtkArg*" "arg")
     '("guint" "arg_id")

@@ -23,9 +23,21 @@
   (return-type "PangoLayoutRun*")
 )
 
+(define-method get_run_readonly
+  (of-object "PangoLayoutIter")
+  (c-name "pango_layout_iter_get_run_readonly")
+  (return-type "PangoLayoutRun*")
+)
+
 (define-method get_line
   (of-object "PangoLayoutIter")
   (c-name "pango_layout_iter_get_line")
+  (return-type "PangoLayoutLine*")
+)
+
+(define-method get_line_readonly
+  (of-object "PangoLayoutIter")
+  (c-name "pango_layout_iter_get_line_readonly")
   (return-type "PangoLayoutLine*")
 )
 

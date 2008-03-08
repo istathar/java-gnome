@@ -35,7 +35,7 @@
   (c-name "gtk_text_layout_set_buffer")
   (return-type "none")
   (parameters
-    '("GtkTextBuffer*" "buffer")
+    '("GtkTextBuffer*" "buffer" (null-ok))
   )
 )
 
