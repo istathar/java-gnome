@@ -819,3 +819,27 @@
   )
 )
 
+(define-method get_opacity
+  (of-object "GtkWindow")
+  (c-name "gtk_window_get_opacity")
+  (return-type "gdouble")
+)
+
+(define-method set_opacity
+  (of-object "GtkWindow")
+  (c-name "gtk_window_set_opacity")
+  (return-type "none")
+  (parameters
+    '("gdouble" "opacity")
+  )
+)
+
+(define-method set_startup_id
+  (of-object "GtkWindow")
+  (c-name "gtk_window_set_startup_id")
+  (return-type "none")
+  (parameters
+    '("const-gchar*" "startup_id")
+  )
+)
+

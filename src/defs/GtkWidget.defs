@@ -1866,6 +1866,31 @@
   (return-type "none")
 )
 
+(define-method error_bell
+  (of-object "GtkWidget")
+  (c-name "gtk_widget_error_bell")
+  (return-type "none")
+)
+
+(define-method keynav_failed
+  (of-object "GtkWidget")
+  (c-name "gtk_widget_keynav_failed")
+  (return-type "gboolean")
+  (parameters
+    '("GtkDirectionType" "direction")
+  )
+)
+
+(define-method modify_cursor
+  (of-object "GtkWidget")
+  (c-name "gtk_widget_modify_cursor")
+  (return-type "none")
+  (parameters
+    '("const-GdkColor*" "primary" (null-ok))
+    '("const-GdkColor*" "secondary" (null-ok))
+  )
+)
+
 (define-virtual query_tooltip
   (of-object "GtkWidget")
   (return-type "gboolean")
