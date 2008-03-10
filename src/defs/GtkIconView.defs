@@ -413,6 +413,68 @@
   )
 )
 
+(define-method convert_widget_to_bin_window_coords
+  (of-object "GtkIconView")
+  (c-name "gtk_icon_view_convert_widget_to_bin_window_coords")
+  (return-type "none")
+  (parameters
+    '("gint" "wx")
+    '("gint" "wy")
+    '("gint*" "bx")
+    '("gint*" "by")
+  )
+)
+
+(define-method get_tooltip_column
+  (of-object "GtkIconView")
+  (c-name "gtk_icon_view_get_tooltip_column")
+  (return-type "gint")
+)
+
+(define-method get_tooltip_context
+  (of-object "GtkIconView")
+  (c-name "gtk_icon_view_get_tooltip_context")
+  (return-type "gboolean")
+  (parameters
+    '("gint*" "x")
+    '("gint*" "y")
+    '("gboolean" "keyboard_tip")
+    '("GtkTreeModel**" "model" (null-ok))
+    '("GtkTreePath**" "path" (null-ok))
+    '("GtkTreeIter*" "iter" (null-ok))
+  )
+)
+
+(define-method set_tooltip_cell
+  (of-object "GtkIconView")
+  (c-name "gtk_icon_view_set_tooltip_cell")
+  (return-type "none")
+  (parameters
+    '("GtkTooltip*" "tooltip")
+    '("GtkTreePath*" "path")
+    '("GtkCellRenderer*" "cell" (null-ok))
+  )
+)
+
+(define-method set_tooltip_column
+  (of-object "GtkIconView")
+  (c-name "gtk_icon_view_set_tooltip_column")
+  (return-type "none")
+  (parameters
+    '("gint" "column")
+  )
+)
+
+(define-method set_tooltip_item
+  (of-object "GtkIconView")
+  (c-name "gtk_icon_view_set_tooltip_item")
+  (return-type "none")
+  (parameters
+    '("GtkTooltip*" "tooltip")
+    '("GtkTreePath*" "path")
+  )
+)
+
 (define-virtual set_scroll_adjustments
   (of-object "GtkIconView")
   (return-type "none")
