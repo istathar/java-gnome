@@ -147,6 +147,10 @@ sub check_system_library(\@$$@) {
 			$str .= "yum install";
 		} elsif ($os eq "suse") {
 			$str .= "zypper install";
+		} elsif ($os eq "arch") {
+			$str .= "FIXME";
+		} elsif ($os eq "mandriva") {
+			$str .= "urpmi";
 		} elsif ($os eq "solaris") {
 			$str .= "pkgadd";
 		} else {
@@ -199,6 +203,10 @@ sub check_prereq (\@$$@) {
 			$str .= "yum install";
 		} elsif ($os eq "suse") {
 			$str .= "zypper install";
+		} elsif ($os eq "arch") {
+			$str .= "FIXME";
+		} elsif ($os eq "mandriva") {
+			$str .= "urpmi";
 		} elsif ($os eq "solaris") {
 			$str .= "pkgadd";
 		} else {
@@ -676,8 +684,11 @@ if (( -f "/etc/gentoo-release" ) || ( -f "/etc/make.conf" )) {
 	output "Open SuSE";
 	$os = "suse";
 } elsif ( -f "/etc/arch-release" ) {
-	output "Arch Linux";
+	output "Arch";
 	$os = "arch";
+} elsif ( -f "/etc/mandriva-release" ) {
+	output "Mandriva";
+	$os = "mandriva";
 } elsif ( -f "/etc/release" ) {
 	if (`grep Solaris /etc/release`) {
 		output "Solaris";
@@ -749,6 +760,14 @@ if ($os eq "gentoo") {
 		"JUnit test framework",
 		"junit",
 		"/usr/share/java/junit.jar");
+
+} elsif ($os eq "mandriva") {
+
+	check_prereq(@junit_jars,
+		"JUnit test framework",
+		"junit",
+		"$prefix/share/java/junit.jar",
+		"/usr/share/java/junit.jar"); # FIXME
 
 } elsif ($os eq "suse") {
 
@@ -845,6 +864,11 @@ if ($os eq "gentoo") {
 			"libglade2-devel", $prefix,
 			("/include/libglade-2.0/glade/glade.h"));
 
+} elsif ($os eq "mandriva") {
+	check_system_library(@gnomedev_libs,
+			"GNOME",
+			"gnome", $prefix,
+			("/include/gnome-desktop-2.0/libgnome/gnome-desktop-item.h"));
 }
 
 
@@ -1144,6 +1168,34 @@ if ($os eq "gentoo") {
 	check_jar($jar, "$vendor jar", $jar_candidate, "");
 	check_javadoc($javadoc, "$vendor javadoc", $javadoc_candidate, "");
 
+} elsif ($os eq "mandriva") {
+	# check ecj, the standalone Eclipse compiler.
+	check_compiler($ecj, "Eclipse ecj", which("ecj"), "-g -preserveAllLocals -nowarn -source 1.4 -target 1.4");
+
+	my $javac_candidate;
+	my $javah_candidate;
+	my $jar_candidate;
+	my $javadoc_candidate;
+	my $vendor;
+	if ($jdk_home) {
+		$javac_candidate = "$jdk_home/bin/javac";
+		$javah_candidate = "$jdk_home/bin/javah";
+		$jar_candidate = "$jdk_home/bin/jar";
+		$javadoc_candidate = "$jdk_home/bin/javadoc";
+		$vendor = "Specified";
+	} else {
+		$javac_candidate = "/opt/java/bin/javac"; # FIXME
+		$javah_candidate = "/opt/java/bin/javah"; # FIXME
+		$jar_candidate = "/opt/java/bin/jar"; # FIXME
+		$javadoc_candidate = "/opt/java/bin/javadoc"; # FIXME
+		$vendor = "Sun";
+	}
+	check_compiler($javac, "$vendor javac", $javac_candidate, "-g -source 1.4 -target 1.4");
+
+	check_jni_header_generator($javah, "$vendor javah", $javah_candidate, "-jni");
+	check_jar($jar, "$vendor jar", $jar_candidate, "");
+	check_javadoc($javadoc, "$vendor javadoc", $javadoc_candidate, "");
+
 } elsif ($os eq "solaris") {
 	check_compiler($ecj, "Eclipse ecj", which("ecj"), "-g -preserveAllLocals -nowarn -source 1.4 -target 1.4");
 
@@ -1402,7 +1454,6 @@ if ($os eq "gentoo") {
 	}
 	check_runtime($cacao, "CACAO VM", $cacao_candidate, "");
 
-
 } elsif ($os eq "arch") {
 	# check for a proper JDK/JRE java Virtual Machine. Red Hat is using
 	# the alternatives system symlinks to select JVMs, and then *again*
@@ -1446,6 +1497,37 @@ if ($os eq "gentoo") {
 		$cacao_candidate = "$cacao_bin";
 	} else {
 		$cacao_candidate = "/usr/bin/cacao";
+	}
+	check_runtime($cacao, "CACAO VM", $cacao_candidate, "");
+
+} elsif ($os eq "mandriva") {
+	# check for a proper JDK/JRE java Virtual Machine.
+	my $java_candidate;
+	my $vendor;
+	if ($jdk_home) {
+		$java_candidate = "$jdk_home/bin/java";
+		$vendor = "Specified";
+	} else {
+		$java_candidate = "/usr/lib/jvm/sun-jdk-1.6/bin/java"; # FIXME
+		$vendor = "Sun";
+	}
+	check_runtime($java, "$vendor java VM", $java_candidate, "-client -ea");
+
+	# check jamvm (an elegant bytecode interpreter used by many in the
+	# CLASSPATH project to test new releases)
+	my $jamvm_candidate;
+	if ($jamvm_bin) {
+		$jamvm_candidate = "$jamvm_bin";
+	} else {
+		$jamvm_candidate = "/usr/bin/jamvm"; # FIXME
+	}
+	check_runtime($jamvm, "JamVM VM", $jamvm_candidate, "");
+
+	my $cacao_candidate;
+	if ($cacao_bin) {
+		$cacao_candidate = "$cacao_bin";
+	} else {
+		$cacao_candidate = "/usr/bin/cacao"; # FIXME
 	}
 	check_runtime($cacao, "CACAO VM", $cacao_candidate, "");
 
