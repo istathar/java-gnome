@@ -1,7 +1,7 @@
 /*
  * Context.java
  *
- * Copyright (c) 2007 Operational Dynamics Consulting Pty Ltd
+ * Copyright (c) 2007-2008 Operational Dynamics Consulting Pty Ltd
  * 
  * The code in this file, and the library it is a part of, are made available
  * to you by the authors under the terms of the "GNU General Public Licence,
@@ -18,7 +18,7 @@ import org.gnome.gdk.Drawable;
  * A Cairo Context.
  * 
  * @author Andrew Cowie
- * @since 4.0.5
+ * @since 4.0.7
  */
 public class Context extends Proxy
 {
@@ -33,15 +33,17 @@ public class Context extends Proxy
     /**
      * Construct a new "Cairo Context". You supply the Surface that you are
      * drawing to.
+     * 
+     * @since 4.0.7
      */
     public Context(Surface target) {
         super(CairoContext.createContext(target));
     }
 
     /**
-     * Construct a new "Cairo Context" related to a Drawable. This is the magic
-     * glue which allows you to link between GTK's Widgets and Cairo's drawing
-     * operations.
+     * Construct a new "Cairo Context" related to a Drawable. This is the
+     * magic glue which allows you to link between GTK's Widgets and Cairo's
+     * drawing operations.
      * 
      * <p>
      * You may find yourself needing to get at the Surface that is being drawn
@@ -52,7 +54,7 @@ public class Context extends Proxy
      * as we <b>are</b>, from the Java bindings' perspective, constructing a
      * Cairo Context.</i>
      * 
-     * @since 4.0.6
+     * @since 4.0.7
      */
     /*
      * The function in GdkDrawable is tempting, but since it is not marked as
@@ -66,6 +68,8 @@ public class Context extends Proxy
     /**
      * Set the source pattern within this Context to an opaque colour. The
      * parameters each take the range <code>0.0</code> to <code>1.0</code>.
+     * 
+     * @since 4.0.7
      */
     public void setSourceRGB(double red, double green, double blue) {
         CairoContext.setSourceRgb(this, red, green, blue);
@@ -77,6 +81,8 @@ public class Context extends Proxy
      * For the <code>alpha</code> parameter, a value of <code>0.0</code>
      * indicates full transparency, and <code>1.0</code> is full opacity
      * (ie, normal).
+     * 
+     * @since 4.0.7
      */
     public void setSourceRGBA(double red, double green, double blue, double alpha) {
         CairoContext.setSourceRgba(this, red, green, blue, alpha);
@@ -85,6 +91,8 @@ public class Context extends Proxy
     /**
      * Add a line from the current location to <code>x</code>,<code>y</code>.
      * After the call the current point will be <code>x</code>,<code>y</code>.
+     * 
+     * @since 4.0.7
      */
     public void lineTo(double x, double y) {
         CairoContext.lineTo(this, x, y);
@@ -93,6 +101,8 @@ public class Context extends Proxy
     /**
      * Move to a new location without drawing, beginning a new sub-path. After
      * the call the current point will be <code>x</code>,<code>y</code>.
+     * 
+     * @since 4.0.7
      */
     public void moveTo(double x, double y) {
         CairoContext.moveTo(this, x, y);
@@ -100,6 +110,8 @@ public class Context extends Proxy
 
     /**
      * Draw the current path as a line.
+     * 
+     * @since 4.0.7
      */
     public void stroke() {
         CairoContext.stroke(this);
@@ -108,7 +120,7 @@ public class Context extends Proxy
     /**
      * Get the current source Pattern for this Context.
      * 
-     * @since 4.0.6
+     * @since 4.0.7
      */
     public Pattern getSource() {
         return CairoContext.getSource(this);
@@ -160,5 +172,24 @@ public class Context extends Proxy
      */
     public void paint() {
         CairoContext.paint(this);
+    }
+
+    /**
+     * Create a Pattern from a Surface, and then use it in this Context. This
+     * is a convenience method.
+     * 
+     * <p>
+     * <code>x</code> and <code>y</code> define where, in user-space
+     * coordinates, that the Pattern should appear.
+     * 
+     * <p>
+     * You can get the Pattern that was created internally by calling this
+     * with {@link #getSource() getSource()} and manipulate it further if you
+     * need to change the defaults.
+     * 
+     * @since 4.0.7
+     */
+    public void setSourceSurface(Surface surface, double x, double y) {
+        CairoContext.setSourceSurface(this, surface, x, y);
     }
 }
