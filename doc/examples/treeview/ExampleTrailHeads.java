@@ -1,7 +1,7 @@
 /*
  * ExampleTreeViewListStore.java
  *
- * Copyright (c) 2007 Operational Dynamics Consulting Pty Ltd
+ * Copyright (c) 2007-2008 Operational Dynamics Consulting Pty Ltd, and Others
  *
  * The code in this file, and the library it is a part of, are made available
  * to you by the authors under the terms of the "GNU General Public Licence,
@@ -53,10 +53,10 @@ public class ExampleTrailHeads
         final DataColumnBoolean accessibleByTrain;
 
         /*
-         * So we our explorations of the TreeView API here. First thing is to
-         * create a model. You'll notice we declared the variables above. You
-         * don't have to do that, of course, but it makes calling the
-         * ListStore constructor more palatable. More generally, you will
+         * So we begin our explorations of the TreeView API here. First thing
+         * is to create a model. You'll notice we declared the variables
+         * above. You don't have to do that, of course, but it makes calling
+         * the ListStore constructor more palatable. More generally, you will
          * frequently have the DataColumns as instance field variables (so
          * they can be accessed throughout the file), rather than just local
          * variables. So you'll end up pre-declaring them regardless, and that

@@ -1,7 +1,7 @@
 /*
  * ProgressBar.java
  *
- * Copyright (c) 2007 Operational Dynamics Consulting Pty Ltd
+ * Copyright (c) 2007-2008 Operational Dynamics Consulting Pty Ltd, and Others
  * 
  * The code in this file, and the library it is a part of, are made available
  * to you by the authors under the terms of the "GNU General Public Licence,
@@ -27,6 +27,7 @@ package org.gnome.gtk;
  * Keep that in mind if you're wondering why the bar hasn't "updated".
  * 
  * @author Andrew Cowie
+ * @author Vreixo Formoso
  * @since 4.0.3
  */
 public class ProgressBar extends Widget
@@ -63,10 +64,45 @@ public class ProgressBar extends Widget
      * 
      * @param fraction
      *            a value between 0.0 (not started) and 1.0 (fully complete)
-     * 
+     * @throws IllegalArgumentException
+     *             If fraction is greater than 1.0 or less than 0.0
      * @since 4.0.3
      */
     public void setFraction(double fraction) {
+        if ((fraction < 0.0) || (fraction > 1.0)) {
+            throw new IllegalArgumentException("fraction must be between 0.0 and 1.0, inclusive.");
+        }
         GtkProgressBar.setFraction(this, fraction);
+    }
+
+    /**
+     * Causes the ProgressBar to enter &quot;activity mode&quot;, used to
+     * indicate that the application is making progress but in a way that
+     * can't be strictly quantized.
+     * 
+     * <p>
+     * An example of this is web: most URLs addressable via
+     * <code>http://</code> are files of known size, and so when downloading
+     * them, a web browser can report exactly what percentage has been
+     * downloaded relative to the file size that was psssed in the initial
+     * HTTP header. Dynamic web pages, on the other hand (ie, your average PHP
+     * or JSP script), do not have a known size at the time the HTTP headers
+     * are sent, and so the web browser doesn't know ahead of time how many
+     * bytes are on the way. In this scenario, all the application can do is
+     * "pulse" the ProgressBar back and forth to indicate that traffic is
+     * continuing to arrive but that the percentage complete is not known, and
+     * that is what this method is for.
+     * 
+     * <p>
+     * Each time this method is invoked, the a little block inside the
+     * ProgressBar is moved a small amount. You should therefore call this
+     * method fairly frequently (ie with reasonably small time intervals) to
+     * cause the effect of the block moving back and forward along the
+     * ProgressBar.
+     * 
+     * @since 4.0.7
+     */
+    public void pulse() {
+        GtkProgressBar.pulse(this);
     }
 }

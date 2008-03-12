@@ -59,6 +59,7 @@ import org.gnome.glib.Object;
  * @see ActionGroup
  * 
  * @author Vreixo Formoso
+ * @author Andrew Cowie
  * @since 4.0.4
  */
 public class Action extends Object
@@ -319,5 +320,56 @@ public class Action extends Object
      */
     public void connect(ACTIVATE handler) {
         GtkAction.connect(this, handler);
+    }
+
+    /**
+     * Specify a Widget that will be (another) actor hooked up to this Action.
+     * When the proxy Widget is activated (ie if a Button, when it is pressed
+     * or clicked , etc) then this Action will be activated and its
+     * <code>ACTIVATE</code> signal will be fired.
+     * 
+     * <p>
+     * You use this when you want to use an Action to centralize activity
+     * being launched by various different UI controls, but for which the
+     * existing <code>create*</code> proxies are not sufficient. So you
+     * create your Widget separately, then tie it to this Action with this
+     * method.
+     * 
+     * <p>
+     * GTK will attempt to "synchronize" the tooltips, labels, and icons in
+     * use between the Action and the proxy. Thus you can do:
+     * 
+     * <pre>
+     * Action nifty;
+     * ImageMenuItem item;
+     * 
+     * nifty = new Action(&quot;nifty&quot;, &quot;Do nifty things!&quot;);
+     * nifty.setTooltip(&quot;This will result in amazingly nifty things happening&quot;);
+     * nifty.connect(new Action.ACTIVATE() {
+     *     public void onActivate(Action source) {
+     *     // do something cool
+     *     }
+     * });
+     * 
+     * item = new ImageMenuItem(picture, &quot;&quot;);
+     * menu.append(item);
+     * </pre>
+     * 
+     * Under ordinary circumstances the text of the MenuItem would be blank
+     * (bad), but doing:
+     * 
+     * <pre>
+     * nifty.connectProxy(item);
+     * </pre>
+     * 
+     * will cause the MenuItem's text label to become "<code>Do nifty things!</code>",
+     * and for selecting that MenuItem from the menu to result in the handler
+     * you hooked up to <code>nifty</code>'s <code>ACTIVATE</code> signal
+     * being called.
+     * 
+     * @since 4.0.6
+     */
+    public void connectProxy(Widget proxy) {
+        GtkAction.connectProxy(this, proxy);
     }
 }

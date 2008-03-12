@@ -48,15 +48,15 @@ public class FundamentalArrayThing extends ArrayThing
 
     String jniConversionCleanup(String name) {
         if (jniType.equals("jfloatArray")) {
-            return "(*env)->ReleaseFloatArrayElements(env, _" + name + ", " + name + ", 0)";
+            return "(*env)->ReleaseFloatArrayElements(env, _" + name + ", (jfloat*)" + name + ", 0)";
         } else if (jniType.equals("jdoubleArray")) {
-            return "(*env)->ReleaseDoubleArrayElements(env, _" + name + ", " + name + ", 0)";
+            return "(*env)->ReleaseDoubleArrayElements(env, _" + name + ", (jdouble*)" + name + ", 0)";
         } else if (jniType.equals("jbooleanArray")) {
-            return "(*env)->ReleaseBooleanArrayElements(env, _" + name + ", " + name + ", 0)";
+            return "(*env)->ReleaseBooleanArrayElements(env, _" + name + ", (jboolean*)" + name + ", 0)";
         } else if (jniType.equals("jintArray")) {
-            return "(*env)->ReleaseIntArrayElements(env, _" + name + ", " + name + ", 0)";
+            return "(*env)->ReleaseIntArrayElements(env, _" + name + ", (jint*)" + name + ", 0)";
         } else if (jniType.equals("jbyteArray")) {
-            return "(*env)->ReleaseByteArrayElements(env, _" + name + ", " + name + ", 0)";
+            return "(*env)->ReleaseByteArrayElements(env, _" + name + ", (jbyte*)" + name + ", 0)";
         } else {
             throw new Error();
         }

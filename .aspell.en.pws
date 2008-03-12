@@ -30,6 +30,7 @@ BraceRight
 BracketLeft
 BracketRight
 BufferedReader
+Bugzilla
 ButtonBox
 ButtonBoxStyle
 ButtonBoxes
@@ -137,7 +138,9 @@ EventType
 EventTypes
 EventVisibility
 EventWindowState
+ExamplePressMe
 ExampleSimpleMenu
+ExampleTrailHeads
 ExampleTreeViewListStore
 ExceptionClear
 ExceptionDescribe
@@ -263,6 +266,7 @@ GtkFixed
 GtkFrame
 GtkHBox
 GtkHButtonBox
+GtkHScale
 GtkHSeparator
 GtkIconSize
 GtkImage
@@ -284,15 +288,18 @@ GtkObject
 GtkObjects
 GtkOrientation
 GtkPolicyType
+GtkPositionType
 GtkProgressBar
 GtkReliefStyle
 GtkRequisition
 GtkResponseType
 GtkResponseTypeOverride
+GtkScale
 GtkScrolledWindow
 GtkSelectionMode
 GtkSeparatorMenuItem
 GtkSeparatorToolItem
+GtkShadowType
 GtkSizeGroup
 GtkSizeGroupMode
 GtkStateType
@@ -300,6 +307,7 @@ GtkStatusIcon
 GtkStatusbar
 GtkStockItem
 GtkTable
+GtkTextView
 GtkToggleButton
 GtkToggleToolButton
 GtkToolButton
@@ -323,6 +331,7 @@ GtkTreeView
 GtkTreeViewColumn
 GtkVBox
 GtkVButtonBox
+GtkVScale
 GtkVSeparator
 GtkWidget
 GtkWidgetOverride
@@ -376,6 +385,7 @@ JNI's
 JNICALL
 JNIEXPORT
 JNIEnv
+JSP
 JUnit
 JVMs
 JamVM
@@ -427,6 +437,7 @@ Microsystems
 Misc's
 ModifierType
 ModifierTypes
+Monospaced
 MouseButton
 MyButton
 NG
@@ -470,6 +481,7 @@ PixbufAnimation
 PixbufFormat
 Pixmap
 PolicyType
+PositionType
 PowerResponseType
 Preetz
 PressMe
@@ -510,6 +522,7 @@ Sep
 SeparatorMenuItem
 SeparatorToolItem
 SeparatorToolItems
+ShadowType
 ShiftLeft
 ShiftRight
 SignalHandler
@@ -551,6 +564,7 @@ TestSuite
 TextComboBox
 TextComboBoxEntry
 TextDirection
+TextModel
 TextView
 ThrowNew
 Timm
@@ -750,6 +764,7 @@ conf
 config
 configFile
 confirmButton
+connectProxy
 connectSignal
 const
 constantFor
@@ -797,6 +812,7 @@ createGenerator
 createGladeXml
 createHBox
 createHButtonBox
+createHScaleWithRange
 createHSeparator
 createImageFromFile
 createImageFromPixbuf
@@ -844,6 +860,7 @@ createTreeViewColumn
 createTreeViewWithModel
 createVBox
 createVButtonBox
+createVScaleWithRange
 createVSeparator
 createValue
 createWindow
@@ -947,6 +964,7 @@ gchararray
 gcj
 gcjC
 gcjh
+gconf
 gdk
 gdkkeysyms
 ge
@@ -1078,6 +1096,7 @@ getSubmenu
 getSurface
 getTarget
 getText
+getTooltip
 getToplevel
 getToplevels
 getTreeView
@@ -1221,6 +1240,7 @@ lineTo
 linkSharedLibrary
 linux
 listFiles
+ln
 loadConfig
 loadHashes
 loadLibrary
@@ -1269,6 +1289,7 @@ nCan't
 nCheck
 nGType
 nJava
+nMake
 nNo
 nParsing
 nTHIS
@@ -1461,6 +1482,7 @@ setCursor
 setDecorated
 setDefaultIcon
 setDefaultSize
+setDigits
 setDirection
 setDisplayOptions
 setDraw
@@ -1494,6 +1516,7 @@ setJustify
 setKeepAbove
 setKeepBelow
 setLabel
+setLabelAlign
 setLabelWidget
 setLayout
 setLineWrap
@@ -1541,6 +1564,7 @@ setSecondaryText
 setSecondaryUseMarkup
 setSelectable
 setSensitive
+setShadowType
 setSizeRequest
 setSizing
 setSortColumn
@@ -1551,6 +1575,8 @@ setSourceRgb
 setSourceRgba
 setStick
 setSubmenu
+setTabPos
+setTabPosition
 setText
 setTimeZone
 setTip
@@ -1564,6 +1590,8 @@ setUseMarkup
 setVAdjustment
 setVadjustment
 setValue
+setValuePos
+setValuePosition
 setValueString
 setVersion
 setVertical
@@ -1611,6 +1639,7 @@ sudo
 superclass
 superinterface
 svn
+symlink
 symlinks
 sys
 tabLabel

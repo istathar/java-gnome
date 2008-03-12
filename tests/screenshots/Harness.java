@@ -20,12 +20,14 @@ import org.gnome.gtk.SnapshotAboutDialog;
 import org.gnome.gtk.SnapshotButton;
 import org.gnome.gtk.SnapshotComboBox;
 import org.gnome.gtk.SnapshotFileChooserDialog;
+import org.gnome.gtk.SnapshotHScale;
 import org.gnome.gtk.SnapshotInfoMessageDialog;
 import org.gnome.gtk.SnapshotQuestionMessageDialog;
 import org.gnome.gtk.SnapshotStatusbar;
 import org.gnome.gtk.SnapshotTextComboBox;
 import org.gnome.gtk.SnapshotTextComboBoxEntry;
 import org.gnome.gtk.SnapshotTreeView;
+import org.gnome.gtk.SnapshotVScale;
 import org.gnome.gtk.SnapshotWindow;
 import org.gnome.gtk.Window;
 import org.gnome.screenshot.Screenshot;
@@ -46,7 +48,7 @@ import org.gnome.screenshot.Screenshot;
  */
 public final class Harness
 {
-    private static final String DISPLAY = ":1";
+    private static final String DISPLAY = ":0";
 
     public static void main(String[] args) throws IOException, InterruptedException {
         final Runtime r;
@@ -59,32 +61,35 @@ public final class Harness
         try {
             r = Runtime.getRuntime();
 
-            /*
-             * Xvfb arguments:
-             * 
-             * -ac disable access control (necessary so that other program can
-             * draw there)
-             * 
-             * -wr white background
-             * 
-             * Don't try to force it to 32 bits per pixed in -screen; for some
-             * reason this makes Xvfb unable to start.
-             */
+            if (DISPLAY != ":0") {
+                /*
+                 * Xvfb arguments:
+                 * 
+                 * -ac disable access control (necessary so that other program
+                 * can draw there)
+                 * 
+                 * -wr white background
+                 * 
+                 * Don't try to force it to 32 bits per pixed in -screen; for
+                 * some reason this makes Xvfb unable to start.
+                 */
+                System.out.println("EXEC\tXvfb");
+                xServerVirtual = r.exec("/usr/bin/Xvfb " + DISPLAY
+                        + " -ac -dpi 96 -screen 0 800x600x24 -wr");
+                Thread.sleep(1000);
+                checkAlive(xServerVirtual, "Xvfb");
 
-            System.out.println("EXEC\tXvfb");
-            xServerVirtual = r.exec("/usr/bin/Xvfb " + DISPLAY + " -ac -dpi 96 -screen 0 800x600x24 -wr");
-            Thread.sleep(1000);
-            checkAlive(xServerVirtual, "Xvfb");
+                System.out.println("EXEC\tmetacity");
+                windowManager = r.exec("/usr/bin/metacity --display=" + DISPLAY);
+                Thread.sleep(100);
+                checkAlive(windowManager, "metacity");
 
-            System.out.println("EXEC\tmetacity");
-            windowManager = r.exec("/usr/bin/metacity --display=" + DISPLAY);
-            Thread.sleep(100);
-            checkAlive(windowManager, "metacity");
-
-            System.out.println("EXEC\tgnome-settings-daemon");
-            settingsDaemon = r.exec("/usr/libexec/gnome-settings-daemon --display=" + DISPLAY);
-            Thread.sleep(100);
-            checkAlive(settingsDaemon, "gnome-settings-daemon");
+                System.out.println("EXEC\tgnome-settings-daemon");
+                settingsDaemon = r.exec("/usr/libexec/gnome-settings-daemon --display=" + DISPLAY
+                        + " --disable-crash-dialog");
+                Thread.sleep(100);
+                checkAlive(settingsDaemon, "gnome-settings-daemon");
+            }
 
             Gtk.init(new String[] {
                 "--display=" + DISPLAY
@@ -116,6 +121,8 @@ public final class Harness
                     SnapshotTreeView.class,
                     SnapshotFileChooserDialog.class,
                     SnapshotAboutDialog.class,
+                    SnapshotHScale.class,
+                    SnapshotVScale.class,
                     SnapshotComboBox.class,
                     SnapshotTextComboBox.class,
                     SnapshotTextComboBoxEntry.class

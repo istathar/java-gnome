@@ -21,7 +21,8 @@ import org.gnome.gtk.Widget;
 import org.gnome.gtk.Window;
 
 /**
- * Observing the flow of key strokes.
+ * Observing the flow of key strokes. This is essentially the code used to
+ * generate the data about sequencing described in {@link ModifierType}.
  * 
  * @author Andrew Cowie
  */

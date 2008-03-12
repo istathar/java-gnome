@@ -24,8 +24,8 @@ Building java-gnome
 
 For the impatient:
 
-    $ tar xjf java-gnome-4.0.5.tzr.bz2
-    $ cd java-gnome-4.0.5
+    $ tar xjf java-gnome-4.0.6.tzr.bz2
+    $ cd java-gnome-4.0.6
     $ ./configure
     $ make
 
@@ -42,8 +42,8 @@ You can download the latest java-gnome release from the GNOME FTP server at:
 
 Once you've downloaded the latest source tarball:
 
-    $ tar xjf java-gnome-4.0.5.tzr.bz2
-    $ cd java-gnome-4.0.5
+    $ tar xjf java-gnome-4.0.6.tzr.bz2
+    $ cd java-gnome-4.0.6
 
 And go on to step 2 for details about options you can pass to the
 configuration command.
@@ -124,18 +124,14 @@ Meanwhile...
 You can override the choices `configure` makes by listing parameters on the
 command line, like this:
 
-    $ ./configure compiler=jikes runtime=jamvm
+    $ ./configure compiler=ecj runtime=jamvm
 
 This facilitates easily switching between runtimes and compilers for testing.
 At the moment, the available selections are:
 
-* `compiler` `-->` javac, ecj, jikes, gcj
+* `compiler` `-->` javac, ecj, and gcj
 
-* `runtime`  `-->` java, cacao, jamvm, cacao, gij, kaffe
-
-oh, and there's:
-
-* `quiet` -- (don't output anything)
+* `runtime`  `-->` java, cacao, jamvm, cacao, gij, and kaffe
 
 The whole point of the Equivalence's `configure` script is to figure things
 out for you, but if it can't quite figure out where Java is, you can override
@@ -236,7 +232,7 @@ example:
 	
 	...
 	
-	make DESTDIR=/var/tmp/portage/java-gnome-4.0.5-r2/image install
+	make DESTDIR=/var/tmp/portage/java-gnome-4.0.6-r2/image install
 	
 	...
 
@@ -358,13 +354,13 @@ Maintainer,
 [java-gnome](http://java-gnome.sourceforge.net/),  
 opening GTK and GNOME to Java programmers!
 
-_Last modified 23 Nov 07_
+_Last modified 9 Feb 08_
 
 [mirror]: http://ftp.gnome.org/pub/gnome/sources/java-gnome/4.0/
 
 <!--
 
-  Copyright (c) 2006-2007 Operational Dynamics Consulting Pty Ltd 
+  Copyright (c) 2006-2008 Operational Dynamics Consulting Pty Ltd 
 
   As project documentation, this file forms an integral part of the source
   code of the library it accompanies, and thus is made available to you by the

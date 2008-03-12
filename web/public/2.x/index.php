@@ -2,7 +2,7 @@
 /*
  * index.php
  *
- * Copyright (c) 2006 Operational Dynamics Consulting Pty Ltd
+ * Copyright (c) 2006-2008 Operational Dynamics Consulting Pty Ltd
  * 
  * This file comprises part of the infrastructure and content of the
  * java-gnome project website. As such, it is conveyed alongside the source
@@ -44,7 +44,8 @@ div.box {
 </span>
 <p>
 The java-gnome 2.<span class="x">x</span> series of releases have reached
-end-of-life and are no longer being developed or supported by anyone.</p>
+end-of-life and are no longer being developed or supported by anyone. Do not
+use!</p>
 </div>
 
 <p>The original java-gnome project was written by <b>five</b> successive teams
@@ -69,14 +70,14 @@ and GNOME. We owe them a debt of gratitude.</p>
 java-gnome <code>2.16.2</code> was the last release of the <code>2.</code><span
 class="x">x</span> series. It consisted of the following libraries:
 
-<pre style="background-color: white;">
-	<a style="text-decoration: none;" href="http://ftp.gnome.org/pub/gnome/sources/glib-java/0.4/glib-java-0.4.2.tar.bz2">glib-java     0.4.2</a>
-	<a style="text-decoration: none;" href="http://ftp.gnome.org/pub/gnome/sources/cairo-java/1.0/cairo-java-1.0.7.tar.bz2">cairo-java    1.0.7</a>
-	<a style="text-decoration: none;" href="http://ftp.gnome.org/pub/gnome/sources/libgtk-java/2.10/libgtk-java-2.10.2.tar.bz2">libgtk-java   2.10.2</a>
-	<a style="text-decoration: none;" href="http://ftp.gnome.org/pub/gnome/sources/libgnome-java/2.12/libgnome-java-2.12.7.tar.bz2">libgnome-java 2.12.7</a>
-	<a style="text-decoration: none;" href="http://ftp.gnome.org/pub/gnome/sources/libglade-java/2.12/libglade-java-2.12.8.tar.bz2">libglade-java 2.12.8</a>
-	<a style="text-decoration: none;" href="http://ftp.gnome.org/pub/gnome/sources/libgconf-java/2.12/libgconf-java-2.12.6.tar.bz2">libgconf-java 2.12.6</a>
-	<a style="text-decoration: none;" href="http://ftp.gnome.org/pub/gnome/sources/libvte-java/0.12/libvte-java-0.12.3.tar.bz2">libvte-java   0.12.3</a>
+<pre style="background-color: white; color: black;">
+	glib-java     0.4.2
+	cairo-java    1.0.7
+	libgtk-java   2.10.2
+	libgnome-java 2.12.7
+	libglade-java 2.12.8
+	libgconf-java 2.12.6
+	libvte-java   0.12.3
 </pre>
 
 <p>There is no reason whatsoever to start a new project in java-gnome 2.<span
@@ -99,13 +100,13 @@ family; none of them achieved release quality, were abandoned as early as
 java-gnome 2.8, and probably don't build anyway. Don't even think about trying
 to use them:</p>
 
-<pre style="background-color: white;">
-	<a style="text-decoration: none;" href="http://ftp.gnome.org/pub/gnome/sources/libeds-java/0.5/libeds-java-0.5.1.tar.bz2">libeds-java   0.5.1</a>
-	<a style="text-decoration: none;" href="null://">libbonobo-java</a>
-	<a style="text-decoration: none;" href="null://">libgtkhtml-java</a>
-	<a style="text-decoration: none;" href="null://">libgtkmozembed-java</a>
-	<a style="text-decoration: none;" href="null://">libgnomevfs-java</a>
-	<a style="text-decoration: none;" href="null://">libgst-java</a>
+<pre style="background-color: white; color: black;">
+	libeds-java   0.5.1
+	libbonobo-java
+	libgtkhtml-java
+	libgtkmozembed-java
+	libgnomevfs-java
+	libgst-java
 </pre>
 
 <h2>Migrating existing applications</h2>

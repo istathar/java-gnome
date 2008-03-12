@@ -1,8 +1,8 @@
 /*
  * FunctionGenerator.java
  *
- * Copyright (c) 2007 Operational Dynamics Consulting Pty Ltd
- * Copyright (c) 2007 Vreixo Formoso
+ * Copyright (c) 2007-2008 Operational Dynamics Consulting Pty Ltd
+ * Copyright (c) 2007      Vreixo Formoso
  * 
  * The code in this file, and the library it is a part of, are made available
  * to you by the authors under the terms of the "GNU General Public Licence,
@@ -67,6 +67,8 @@ public class FunctionGenerator extends Generator
      */
     private Thing blacklistedType;
 
+    private final boolean addSentinal;
+
     /**
      * @param data
      *            the information about the class to which the block we are
@@ -87,6 +89,7 @@ public class FunctionGenerator extends Generator
     public FunctionGenerator(final DefsFile data, final String blockName, final String gReturnType,
             final String cFunctionName, final String[][] gParameters) {
         super(data);
+        final int len;
 
         this.proxyType = (ProxiedThing) data.getType();
 
@@ -96,11 +99,28 @@ public class FunctionGenerator extends Generator
 
         this.nativeMethodName = cFunctionName;
 
-        parameterTypes = new Thing[gParameters.length];
-        parameterNames = new String[gParameters.length];
-        parameterNullOk = new boolean[gParameters.length];
+        /*
+         * If ... is passed through as the last parameter, it means that we
+         * have a varargs and will need to a) add a NULL sentinel to the arg
+         * list, and b) chop this pseudo-parameter off the end of the array.
+         * This is a bit ugly, but the alternative was adding a boolean to
+         * *every* Generator constructor. This is better: varargs *is* a
+         * parameter type, and one we may someday choose to deal with.
+         */
 
-        for (int i = 0; i < gParameters.length; i++) {
+        if ((gParameters.length > 0) && ("...".equals(gParameters[gParameters.length - 1][0]))) {
+            this.addSentinal = true;
+            len = gParameters.length - 1;
+        } else {
+            this.addSentinal = false;
+            len = gParameters.length;
+        }
+
+        parameterTypes = new Thing[len];
+        parameterNames = new String[len];
+        parameterNullOk = new boolean[len];
+
+        for (int i = 0; i < len; i++) {
             parameterTypes[i] = Thing.lookup(gParameters[i][0]);
             parameterNames[i] = toCamel(gParameters[i][1]);
             parameterNullOk[i] = "yes".equals(gParameters[i][2]);
@@ -473,6 +493,11 @@ public class FunctionGenerator extends Generator
             }
 
         }
+
+        if (addSentinal) {
+            out.print(", NULL");
+        }
+
         out.print(");\n");
     }
 

@@ -1,0 +1,48 @@
+/*
+ * java.css
+ *
+ * Copyright (c) 2008 Operational Dynamics Consulting Pty Ltd
+ * 
+ * This file comprises part of the infrastructure and content of the
+ * java-gnome project website. As such, it is conveyed alongside the source
+ * code and is made available to you by its authors under the terms of the
+ * "GNU General Public Licence, version 2". See the LICENCE file for the terms
+ * governing usage, copying and redistribution.
+ * 
+ * CSS properties for syntax highlighting Java source files, as formatted in
+ * HTML with the GNU source-highlight program.
+ */
+
+.preproc {
+	color: #7F0055;
+	font-weight: bold;
+}
+.keyword {
+	color: #7F0055;
+	font-weight: bold;
+}
+.comment {
+	color: #296F4C;
+}
+
+
+.type {
+	color: #7F0055;
+	font-weight: bold;
+}
+
+.string {
+	color: #2A00FF;
+	font-weight: bold;
+}
+
+/*
+ * Custom; not in 2.5 output, and manually hacked into example.
+ */
+
+.javadoc {
+	color: #3F5FBF;
+}
+.tag {
+	color: #7F7F9F;
+}

@@ -1,7 +1,7 @@
 /*
  * FunctionBlock.java
  *
- * Copyright (c) 2007 Operational Dynamics Consulting Pty Ltd
+ * Copyright (c) 2007-2008 Operational Dynamics Consulting Pty Ltd
  * 
  * The code in this file, and the library it is a part of, are made available
  * to you by the authors under the terms of the "GNU General Public Licence,
@@ -46,12 +46,18 @@ public class FunctionBlock extends Block
 
     protected String callerOwnsReturn;
 
+    protected String varargs;
+
     protected String isConstructorOf;
 
     FunctionBlock(final String blockName, final List characteristics, final List parameters) {
         super(blockName, characteristics);
 
         processParameters(parameters);
+
+        if (varargs != null) {
+            appendVarargsMark();
+        }
     }
 
     final void setOfObject(final String ofObject) {
@@ -79,9 +85,14 @@ public class FunctionBlock extends Block
     }
 
     /*
-     * Not modelled in java-gnome at this time
+     * We don't model variable length arguments in java-gnome, but we do need
+     * to pass this along so that we can stick a NULL as a last argument to
+     * avoid "warning: not enough variable arguments to fit a sentinel" from
+     * the C compiler.
      */
-    protected final void setVarargs(final String value) {}
+    protected final void setVarargs(final String value) {
+        this.varargs = value;
+    }
 
     /**
      * Only the TypeBlock class hierarchy can create and return Things that
@@ -142,6 +153,29 @@ public class FunctionBlock extends Block
         target[0][0] = addPointerSymbol(ofObject);
         target[0][1] = "self";
         target[0][2] = "no"; /* self can't never be null */
+
+        parameters = target;
+    }
+
+    /**
+     * The varrags case is handled, essentially, an artificial last parameter.
+     * This utility method appends a marker to show that the function being
+     * described by this Block was declared as taking variable arguments. We
+     * do not actually present this with any kind of public API (and may never
+     * do so), but we do need to deal with this at the C library call layer
+     * because those functions require a NULL in the argument list to signal
+     * the end of the list.
+     * 
+     * The FunctionGenerator constructor will strip it off the end of the
+     * parameters list (thus allowing us to avoid needing a SentinalThing).
+     */
+    protected void appendVarargsMark() {
+        String[][] target;
+
+        target = new String[parameters.length + 1][3];
+        System.arraycopy(parameters, 0, target, 0, parameters.length);
+
+        target[parameters.length][0] = "...";
 
         parameters = target;
     }

@@ -66,6 +66,38 @@
   )
 )
 
+(define-function image_new_from_icon_set
+  (is-constructor-of "GtkImage")
+  (c-name "gtk_image_new_from_icon_set")
+  (caller-owns-return #t)
+  (return-type "GtkWidget*")
+  (parameters
+    '("GtkIconSet*" "icon_set")
+    '("GtkIconSize" "size")
+  )
+)
+
+(define-function image_new_from_animation
+  (is-constructor-of "GtkImage")
+  (c-name "gtk_image_new_from_animation")
+  (caller-owns-return #t)
+  (return-type "GtkWidget*")
+  (parameters
+    '("GdkPixbufAnimation*" "animation")
+  )
+)
+
+(define-function image_new_from_icon_name
+  (is-constructor-of "GtkImage")
+  (c-name "gtk_image_new_from_icon_name")
+  (caller-owns-return #t)
+  (return-type "GtkWidget*")
+  (parameters
+    '("const-gchar*" "icon_name")
+    '("GtkIconSize" "size")
+  )
+)
+
 (define-method clear
   (of-object "GtkImage")
   (c-name "gtk_image_clear")

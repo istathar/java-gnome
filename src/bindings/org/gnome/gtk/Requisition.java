@@ -41,25 +41,25 @@ import org.gnome.glib.Boxed;
  * </ul>
  * 
  * <p>
- * GTK's box packing model works on a size request-allocation process. Each
- * Widget is asked by it's parent Container how much space it wants on the
- * screen, in pixels. These <var>requests</var> are aggregated and in turn
- * represented up the tree until the top-level Window is reached. The Window
- * then negotiates with the window manager and with the X server, with the
- * result being that the Window is <var>allocated</var>. The Containers start
- * divvying up the allocation they were given amongst their children according
- * to whatever algorithms and settings are in place. Eventually your Widget
- * will be told how much space it has been given in it's {@link Allocation}
- * object, and it will have to then carry on accordingly. The important point
- * to note here is that requests are just that; a Widget must be able to cope
- * with any size down to <code>1x1</code>. Ideally it will degrade
- * gracefully, although that's not always easy.
+ * GTK's box packing model works on a size-request/size-allocation process.
+ * Each Widget is asked by it's parent Container how much space it wants on
+ * the screen, in pixels. These <var>requests</var> are aggregated and in
+ * turn represented up the tree until the top-level Window is reached. The
+ * Window then negotiates with the window manager and with the X server, with
+ * the result being that the Window is <var>allocated</var>. The Containers
+ * start divvying up the allocation they were given amongst their children
+ * according to whatever algorithms and settings are in place. Eventually your
+ * Widget will be told how much space it has been given in it's
+ * {@link Allocation} object, and it will have to then carry on accordingly.
+ * The important point to note here is that requests are just that; a Widget
+ * must be able to cope with any size down to <code>1x1</code>. Ideally it
+ * will degrade gracefully, although that's not always easy.
  * 
  * <p>
  * <i>This object is a live reference to the <code>requisition</code> field
  * in the <code>GtkWidget</code> struct and so calling the getter methods
- * will yield correct current values once you've got the Allocation object for
- * the Widget.</i>
+ * will yield correct current values once you've got the Requisition object
+ * for the Widget you are interested in.</i>
  * 
  * @author Andrew Cowie
  * @since 4.0.6

@@ -1,7 +1,7 @@
 /*
  * VScale.java
  *
- * Copyright (c) 2007 Operational Dynamics Consulting Pty Ltd
+ * Copyright (c) 2007-2008 Operational Dynamics Consulting Pty Ltd
  *
  * The code in this file, and the library it is a part of, are made available
  * to you by the authors under the terms of the "GNU General Public Licence,
@@ -11,17 +11,26 @@
  */
 package org.gnome.gtk;
 
-/*
- * FIXME this is a placeholder stub for what will become the public API for
- * this type. Replace this comment with appropriate javadoc including author
- * and since tags. Note that the class may need to be made abstract, implement
- * interfaces, or even have its parent changed. No API stability guarantees
- * are made about this class until it has been reviewed by a hacker and this
- * comment has been replaced.
+/**
+ * A sliding Widget allowing you to represent data vertically and offer the
+ * user the ability to manipulate it. <img src="VScale.png" class="snapshot"
+ * style="padding-right: 30px;">
+ * 
+ * <p>
+ * Other than orientation, there's nothing different about VScale, so see
+ * HScale for full discussion of the details of the constructors.
+ * 
+ * @author Andrew Cowie
+ * @since 4.0.6
+ * 
  */
 public class VScale extends Scale
 {
     protected VScale(long pointer) {
         super(pointer);
+    }
+
+    public VScale(int min, int max, int step) {
+        super(GtkVScale.createVScaleWithRange(min, max, step));
     }
 }
