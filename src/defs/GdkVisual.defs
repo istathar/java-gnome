@@ -38,3 +38,9 @@
   (return-type "GdkScreen*")
 )
 
+(define-function get_best_depth
+  (of-object "GdkVisual")
+  (c-name "gdk_visual_get_best_depth")
+  (return-type "gint")
+)
+

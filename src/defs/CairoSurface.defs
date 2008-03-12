@@ -29,3 +29,17 @@
     '("const-char*" "filename")
   )
 )
+
+(define-function create_similar
+  (of-object "cairo_surface_t")
+  (c-name "cairo_surface_create_similar")
+  (caller-owns-return #t)
+  (return-type "cairo_surface_t*")
+  (parameters
+    '("cairo_surface_t*" "other")
+    '("cairo_content_t" "content")
+    '("int" "width")
+    '("int" "height")
+  )
+)
+

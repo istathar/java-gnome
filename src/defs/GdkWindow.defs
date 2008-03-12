@@ -926,3 +926,8 @@
   (return-type "GdkWindowTypeHint")
 )
 
+(define-function get_default_root_window
+  (of-object "GdkWindow")
+  (c-name "gdk_get_default_root_window")
+  (return-type "GdkWindow*")
+)
