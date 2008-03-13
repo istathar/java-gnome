@@ -36,3 +36,58 @@
     '("double" "alpha")
   )
 )
+
+(define-function cairo_pattern_new_linear
+  (of-object "cairo_pattern_t")
+  (is-constructor-of "cairo_t")
+  (caller-owns-return #t)
+  (c-name "cairo_pattern_create_linear")
+  (return-type "cairo_pattern_t*")
+  (parameters
+    '("double" "x0")
+    '("double" "y0")
+    '("double" "x1")
+    '("double" "y1")
+  )
+)
+
+(define-function cairo_pattern_new_radial
+  (of-object "cairo_pattern_t")
+  (is-constructor-of "cairo_t")
+  (caller-owns-return #t)
+  (c-name "cairo_pattern_create_radial")
+  (return-type "cairo_pattern_t*")
+  (parameters
+    '("double" "cx0")
+    '("double" "cy0")
+    '("double" "radius0")
+    '("double" "cx1")
+    '("double" "cy1")
+    '("double" "radius1")
+  )
+)
+
+(define-method add_color_stop_rgb
+  (of-object "cairo_pattern_t")
+  (c-name "cairo_pattern_add_color_stop_rgb")
+  (return-type "none")
+  (parameters
+    '("double" "offset")
+    '("double" "red")
+    '("double" "green")
+    '("double" "blue")
+  )
+)
+
+(define-method add_color_stop_rgba
+  (of-object "cairo_pattern_t")
+  (c-name "cairo_pattern_add_color_stop_rgba")
+  (return-type "none")
+  (parameters
+    '("double" "offset")
+    '("double" "red")
+    '("double" "green")
+    '("double" "blue")
+    '("double" "alpha")
+  )
+)

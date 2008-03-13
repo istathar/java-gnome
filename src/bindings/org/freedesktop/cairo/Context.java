@@ -179,7 +179,7 @@ public class Context extends Proxy
      * is a convenience method.
      * 
      * <p>
-     * <code>x</code> and <code>y</code> define where, in user-space
+     * <code>x</code>,<code>y</code> define where, in user-space
      * coordinates, that the Pattern should appear.
      * 
      * <p>
@@ -195,7 +195,7 @@ public class Context extends Proxy
 
     /**
      * Draw a (closed) rectangular sub-path. The rectangle will be at
-     * <code>x</code>, <code>y</code> in user-space coordinates of the
+     * <code>x</code>,<code>y</code> in user-space coordinates of the
      * given <code>width</code> and <code>height</code>.
      * 
      * @since 4.0.7
@@ -218,5 +218,26 @@ public class Context extends Proxy
 
     public void fillPreserve() {
         CairoContext.fillPreserve(this);
+    }
+
+    /**
+     * Set a Pattern to be the source of this Context.
+     * 
+     * @since 4.0.7
+     */
+    public void setSource(Pattern pattern) {
+        CairoContext.setSource(this, pattern);
+    }
+
+    /**
+     * Paint the current source using the alpha channel of
+     * <code>pattern</code> as a mask. This means "opaque areas of the mask
+     * will be painted with the source, whereas transparent areas will not be
+     * painted"
+     * 
+     * @since 4.0.7
+     */
+    public void mask(Pattern pattern) {
+        CairoContext.mask(this, pattern);
     }
 }

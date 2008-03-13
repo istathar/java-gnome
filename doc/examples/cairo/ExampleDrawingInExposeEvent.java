@@ -11,6 +11,9 @@
 package cairo;
 
 import org.freedesktop.cairo.Context;
+import org.freedesktop.cairo.LinearPattern;
+import org.freedesktop.cairo.Pattern;
+import org.freedesktop.cairo.RadialPattern;
 import org.freedesktop.cairo.Status;
 import org.gnome.gdk.Event;
 import org.gnome.gdk.EventExpose;
@@ -50,6 +53,7 @@ public class ExampleDrawingInExposeEvent
             public boolean onExposeEvent(Widget source, EventExpose event) {
                 final Context cr;
                 final Rectangle rect;
+                final Pattern linear, radial;
 
                 /*
                  * Out of interest, where is this occuring?
@@ -91,8 +95,18 @@ public class ExampleDrawingInExposeEvent
 
                 cr.setSourceRGBA(0.0, 1.0, 0.0, 0.8);
                 cr.rectangle(70, 70, 20, 40);
-
                 cr.fill();
+
+                linear = new LinearPattern(0, 0, 150, 150);
+                linear.addColorStopRGB(0.0, 0.0, 0.3, 0.8);
+                linear.addColorStopRGB(1.0, 0.0, 0.8, 0.3);
+
+                radial = new RadialPattern(75, 75, 0, 75, 75, 50);
+                radial.addColorStopRGBA(0, 0.0, 0.0, 0.0, 0.0);
+                radial.addColorStopRGBA(1, 0.0, 0.0, 0.0, 1.0);
+
+                cr.setSource(linear);
+                cr.mask(radial);
 
                 return false;
             }

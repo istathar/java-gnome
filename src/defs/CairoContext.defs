@@ -133,6 +133,33 @@
   (return-type "none")
 )
 
+(define-method paint_with_alpha
+  (of-object "cairo_t")
+  (c-name "cairo_paint_with_alpha")
+  (return-type "none")
+  (parameters
+    '("double" "alpha")
+  )
+)
+
+(define-method set_source
+  (of-object "cairo_t")
+  (c-name "cairo_set_source")
+  (return-type "none")
+  (parameters
+    '("cairo_pattern_t*" "pattern")
+  )
+)
+
+(define-method mask
+  (of-object "cairo_t")
+  (c-name "cairo_mask")
+  (return-type "none")
+  (parameters
+    '("cairo_pattern_t*" "pattern")
+  )
+)
+
 (define-method set_source_surface
   (of-object "cairo_t")
   (c-name "cairo_set_source_surface")
