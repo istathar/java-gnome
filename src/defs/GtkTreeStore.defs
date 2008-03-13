@@ -130,7 +130,7 @@
   (return-type "none")
   (parameters
     '("GtkTreeIter*" "iter")
-    '("GtkTreeIter*" "parent")
+    '("GtkTreeIter*" "parent" (null-ok))
   )
 )
 
