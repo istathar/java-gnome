@@ -89,6 +89,11 @@ public class ExampleDrawingInExposeEvent
                 cr.lineTo(20, 45);
                 cr.stroke();
 
+                cr.setSourceRGBA(0.0, 1.0, 0.0, 0.8);
+                cr.rectangle(70, 70, 20, 40);
+
+                cr.fill();
+
                 return false;
             }
         });

@@ -73,6 +73,32 @@
   )
 )
 
+(define-method rectangle
+  (of-object "cairo_t")
+  (c-name "cairo_rectangle")
+  (return-type "none")
+  (parameters
+    '("double" "x")
+    '("double" "y")
+    '("double" "width")
+    '("double" "height")
+  )
+)
+
+(define-method fill
+  (of-object "cairo_t")
+  (c-name "cairo_fill")
+  (return-type "none")
+)
+
+(define-method fill_preserve
+  (of-object "cairo_t")
+  (c-name "cairo_fill_preserve")
+  (return-type "none")
+)
+
+
+
 (define-method get_source
   (of-object "cairo_t")
   (c-name "cairo_get_source")

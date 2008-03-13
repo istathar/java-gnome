@@ -192,4 +192,31 @@ public class Context extends Proxy
     public void setSourceSurface(Surface surface, double x, double y) {
         CairoContext.setSourceSurface(this, surface, x, y);
     }
+
+    /**
+     * Draw a (closed) rectangular sub-path. The rectangle will be at
+     * <code>x</code>, <code>y</code> in user-space coordinates of the
+     * given <code>width</code> and <code>height</code>.
+     * 
+     * @since 4.0.7
+     */
+    public void rectangle(double x, double y, double width, double height) {
+        CairoContext.rectangle(this, x, y, width, height);
+    }
+
+    /**
+     * Fill the current path, implicitly closing sub-paths first. The drawing
+     * will be done according to the current FillRule. The path will be
+     * cleared after calling <code>fill()</code>; if you want to keep it
+     * use {@link #fillPreserve() fillPreserve()} instead.
+     * 
+     * @since 4.0.7
+     */
+    public void fill() {
+        CairoContext.fill(this);
+    }
+
+    public void fillPreserve() {
+        CairoContext.fillPreserve(this);
+    }
 }
