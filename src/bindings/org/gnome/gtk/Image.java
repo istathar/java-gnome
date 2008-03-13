@@ -11,7 +11,9 @@
  */
 package org.gnome.gtk;
 
+import org.gnome.gdk.Bitmap;
 import org.gnome.gdk.Pixbuf;
+import org.gnome.gdk.Pixmap;
 
 /**
  * A Widget that displays an image.
@@ -78,5 +80,16 @@ public class Image extends Misc
      */
     public Image(Stock stock, IconSize size) {
         super(GtkImage.createImageFromStock(stock.getStockId(), size));
+    }
+
+    /**
+     * Construct a new Image based on an existing Pixmap. Though passing a
+     * mask is supported via the <code>mask</code> parameter, you generally
+     * just want to mass <code>null</code>.
+     * 
+     * @since 4.0.7
+     */
+    public Image(Pixmap pixmap, Bitmap mask) {
+        super(GtkImage.createImageFromPixmap(pixmap, mask));
     }
 }
