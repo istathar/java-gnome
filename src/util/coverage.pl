@@ -27,7 +27,11 @@ my ( @defs, @sources );
 
 $num = 0;
 
-@defs = glob "src/defs/*.defs";
+print "Size of imported pygtk data:\t";
+printf "%5d\n", 5468; 
+
+
+@defs = glob "src/defs/*.defs src/util/missing.defs";
 
 foreach my $file ( @defs ) {
 	open DEFS, $file;
