@@ -114,6 +114,7 @@ package org.gnome.gtk;
  * 
  * @author Andrew Cowie
  * @author Srichand Pendyala
+ * @author Vreixo Formoso
  * @since 4.0.5
  */
 public class TreeView extends Container
@@ -321,6 +322,50 @@ public class TreeView extends Container
             iter.setModel(source.getModel());
             handler.onRowExpanded(source, iter, path);
         }
+    }
+
+    /**
+     * Check whether the given row is expanded, i.e. whether its children are
+     * shown.
+     * 
+     * @param path
+     *            The row we want to check.
+     * @return <code>true</code> if the row is expanded, <code>false</code>
+     *         if not.
+     * @since 4.0.7
+     */
+    public boolean rowExpanded(TreePath path) {
+        return GtkTreeView.rowExpanded(this, path);
+    }
+
+    /**
+     * Expand the given row, making its children visible to the user. This has
+     * no effect if the row has no child nodes. Of course, this is always the
+     * case if you use a ListStore model.
+     * 
+     * @param path
+     *            The row to expand.
+     * @param openAll
+     *            <code>true</code> to recursively expand all children,
+     *            <code>false</code> to expand only the given row.
+     * @return <code>true</code> if the path refers to a valid row, and it
+     *         has child nodes. <code>false</code> otherwise.
+     * @since 4.0.7
+     */
+    public boolean expandRow(TreePath path, boolean openAll) {
+        return GtkTreeView.expandRow(this, path, openAll);
+    }
+
+    /**
+     * Collapse the given row, thus hiding its children if the row was
+     * previously expanded.
+     * 
+     * @param path
+     *            The row to collapse.
+     * @since 4.0.7
+     */
+    public void collapseRow(TreePath path) {
+        GtkTreeView.collapseRow(this, path);
     }
 
     /**
