@@ -44,11 +44,12 @@ import org.gnome.glib.Boxed;
  * 
  * @author Andrew Cowie
  * @author Srichand Pendyala
+ * @author Vreixo Formoso
  * @since 4.0.5
  */
 public class TreeIter extends Boxed
 {
-    private final TreeModel model;
+    private TreeModel model;
 
     /*
      * The protected constructor was originally removed entirely, but it turns
@@ -74,6 +75,14 @@ public class TreeIter extends Boxed
     TreeIter(TreeModel model) {
         super(GtkTreeIterOverride.createTreeIter());
 
+        this.model = model;
+    }
+
+    /**
+     * Set the model for this TreeIter
+     */
+    /* package protected, needed for signal handlers */
+    void setModel(TreeModel model) {
         this.model = model;
     }
 

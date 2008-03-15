@@ -261,6 +261,69 @@ public class TreeView extends Container
     }
 
     /**
+     * Emitted when a row in the TreeView has been expanded, i.e. when its
+     * child nodes are shown. A row is expanded either by clicking in the
+     * little arrow near it, or by pressing the <code>+</code> key when a
+     * row is selected. Of course, a row can be only expanded when it has
+     * child rows, and so it can be only emitted when the TreeView is used
+     * with a hierarchical model such as {@link TreeStore}.
+     * 
+     * <p>
+     * In general, you've got the TreeModel and especially its DataColumns
+     * visible, so to use <code>ROW_EXPANDED</code> you can just:
+     * 
+     * <pre>
+     * final TreeModel model;
+     * final DataColumnString column;
+     * 
+     * view.connect(new TreeView.ROW_EXPANDED() {
+     *     public void onRowExpanded(TreeView source, TreeIter iter, TreePath path) {
+     *         ... = model.getValue(iter, column);
+     *     }
+     * });
+     * </pre>
+     * 
+     * Remember that TreeIters and TreePaths are not stable over changes to
+     * the model, so get on with using <code>path</code> right away.
+     * 
+     * @author Vreixo Formoso
+     * @since 4.0.7
+     */
+    public interface ROW_EXPANDED
+    {
+        public void onRowExpanded(TreeView source, TreeIter iter, TreePath path);
+    }
+
+    /**
+     * Hook up a <code>ROW_EXPANDED</code> handler.
+     * 
+     * @since 4.0.7
+     */
+    public void connect(ROW_EXPANDED handler) {
+        GtkTreeView.connect(this, new RowExpandedHandler(handler));
+    }
+
+    /*
+     * This internal class is needed because the TreeIter passed to the
+     * handler does not have the model field properly set, so we need to set
+     * it before passing the TreeIter to the user.
+     */
+    private static class RowExpandedHandler implements GtkTreeView.ROW_EXPANDED
+    {
+        private final ROW_EXPANDED handler;
+
+        public RowExpandedHandler(ROW_EXPANDED handler) {
+            super();
+            this.handler = handler;
+        }
+
+        public void onRowExpanded(TreeView source, TreeIter iter, TreePath path) {
+            iter.setModel(source.getModel());
+            handler.onRowExpanded(source, iter, path);
+        }
+    }
+
+    /**
      * Get the TreeSelection object corresponding to this TreeView. Every
      * TreeView has a TreeSelection which is a utility instance allowing you
      * to manipulate the state of the selected row(s) in the TreeView. This
