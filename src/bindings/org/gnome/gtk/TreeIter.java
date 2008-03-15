@@ -163,4 +163,29 @@ public class TreeIter extends Boxed
             return null;
         }
     }
+
+    /**
+     * Get the parent of this row. Note that this is only useful on
+     * hierarchical TreeModels such as {@link TreeStore}.
+     * 
+     * @return The parent row, or <code>null</code> if this row has no
+     *         parent.
+     * 
+     * @since 4.0.7
+     */
+    public TreeIter parent() {
+        final TreeIter parent;
+
+        if (model == null) {
+            return null;
+        }
+
+        parent = new TreeIter(model);
+
+        if (GtkTreeModel.iterParent(model, parent, this)) {
+            return parent;
+        } else {
+            return null;
+        }
+    }
 }
