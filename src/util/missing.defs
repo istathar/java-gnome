@@ -2895,29 +2895,6 @@
   (return-type "GType")
 )
 
-(define-function icon_theme_get_default
-  (c-name "gtk_icon_theme_get_default")
-  (return-type "GtkIconTheme*")
-)
-
-(define-function icon_theme_get_for_screen
-  (c-name "gtk_icon_theme_get_for_screen")
-  (return-type "GtkIconTheme*")
-  (parameters
-    '("GdkScreen*" "screen")
-  )
-)
-
-(define-function icon_theme_add_builtin_icon
-  (c-name "gtk_icon_theme_add_builtin_icon")
-  (return-type "none")
-  (parameters
-    '("const-gchar*" "icon_name")
-    '("gint" "size")
-    '("GdkPixbuf*" "pixbuf")
-  )
-)
-
 (define-function gtk_icon_info_get_type
   (c-name "gtk_icon_info_get_type")
   (return-type "GType")
@@ -2926,15 +2903,6 @@
 (define-function gtk_icon_view_get_type
   (c-name "gtk_icon_view_get_type")
   (return-type "GType")
-)
-
-(define-function gtk_icon_view_new_with_model
-  (c-name "gtk_icon_view_new_with_model")
-  (caller-owns-return #t)
-  (return-type "GtkWidget*")
-  (parameters
-    '("GtkTreeModel*" "model")
-  )
 )
 
 (define-function gtk_image_get_type
