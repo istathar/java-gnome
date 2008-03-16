@@ -74,6 +74,13 @@ public class ListStore extends TreeModel implements TreeDragSource, TreeDragDest
     public ListStore(DataColumn[] types) {
         super(GtkTreeModelOverride.createListStore(typesToClassNames(types)));
     }
+    
+    /**
+     * @see TreeModel#dispatch(TreeIter, DataColumn, Value)
+     */
+    protected void dispatch(TreeIter row, DataColumn column, Value value) {
+        GtkListStore.setValue(this, row, column.getOrdinal(), value);
+    }
 
     /**
      * Add a new row to the ListStore. You'll need to fill in the various

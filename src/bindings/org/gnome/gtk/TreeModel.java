@@ -197,15 +197,9 @@ public abstract class TreeModel extends org.gnome.glib.Object
      * accordingly. Putting it here avoids recursive overload problems we ran
      * into.
      */
-    private void dispatch(TreeIter row, DataColumn column, Value value) {
-        if (this instanceof ListStore) {
-            GtkListStore.setValue((ListStore) this, row, column.getOrdinal(), value);
-        } else if (this instanceof TreeStore) {
-            GtkTreeStore.setValue((TreeStore) this, row, column.getOrdinal(), value);
-        } else {
-            throw new UnsupportedOperationException(
+    protected void dispatch(TreeIter row, DataColumn column, Value value) {
+        throw new UnsupportedOperationException(
                     "You need to implement setValue() for your TreeModel subclass");
-        }
     }
 
     /**

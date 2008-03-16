@@ -92,6 +92,13 @@ public class TreeStore extends TreeModel implements TreeDragSource, TreeDragDest
     public TreeStore(DataColumn[] types) {
         super(GtkTreeModelOverride.createTreeStore(typesToClassNames(types)));
     }
+    
+    /**
+     * @see TreeModel#dispatch(TreeIter, DataColumn, Value)
+     */
+    protected void dispatch(TreeIter row, DataColumn column, Value value) {
+        GtkTreeStore.setValue(this, row, column.getOrdinal(), value);
+    }
 
     /**
      * Append a new row after the last child of the given row. You'll need to
