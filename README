@@ -199,8 +199,7 @@ standard `--prefix` option to `./configure`.
 
 ### Installing locally
 
-Someone installing it locally (to your home directory, say, or `/usr/local`)
-might do:
+Someone installing it locally (to your home directory, say) might do:
 
 	$ ./configure --prefix=/home/bloggins
 	$ make install
@@ -235,10 +234,6 @@ example:
 	make DESTDIR=/var/tmp/portage/java-gnome-4.0.6-r2/image install
 	
 	...
-
-To the delight of people doing packaging everywhere, `/usr` is the default
-installation prefix, so you don't even need to worry it. And _yes_ `make
-install` builds the library first, so you can skip that too.
 
 With a prefix of `/usr` you will end up with
 
@@ -354,7 +349,7 @@ Maintainer,
 [java-gnome](http://java-gnome.sourceforge.net/),  
 opening GTK and GNOME to Java programmers!
 
-_Last modified 9 Feb 08_
+_Last modified 16 Mar 08_
 
 [mirror]: http://ftp.gnome.org/pub/gnome/sources/java-gnome/4.0/
 

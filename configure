@@ -105,35 +105,21 @@ sub bail {
 # instead of dying unceremoniously while make'ing.
 
 sub check_system_library(\@$$@) {
-	my ($gnomedevref, $item, $package, $prefix, @files) = @_;
+	my ($gnomedevref, $pkgconfig, $item, $package) = @_;
 	output " - ".$item;
 	
-	my $found = "";
+	my $found;
 	my $str = "";
 	my $tries = "";
 
-	if (!defined($prefix)) {
-		$prefix = "/usr";
-	}
+	$found = system("pkg-config --exists $pkgconfig");
 
-	foreach my $file (@files) {
-		$file = "$prefix$file";
-		if ( -f ("$file")) {
-			$found = $file;
-			last;
-		}
-		$tries .= ($tries ? ", or" : "" ) . "\n\t".  basename($file) . "\n\t(looked in ".dirname("$file").")";
-	}
-
-	if (! "$found" ){
+	if ($found) {
 
 		$str = "In order to build java-gnome, you will need the GNOME\n";
 		$str .= "development libraries. Depending on what you have installed,\n";
 		$str .= "this could be a considerable set of packages, but if you\n";
-		$str .= "want to be a GNOME hacker, that's the way it is]. We probed\n";
-		$str .= "for:\n";
-
-		$str .= "$tries\n\n";
+		$str .= "want to be a GNOME hacker, that's the way it is].\n\n";
 
 		$str .= "On a ".ucfirst($os)." system, you should be able to satisfy this\n";
 		$str .= "requirement by doing:\n\n";
@@ -799,76 +785,60 @@ output "\nCheck for required system libraries:\n";
 
 if ($os eq "gentoo") {
 	check_system_library(@gnomedev_libs,
+			"gtk+-2.0 pango atk gdk-2.0 libglade-2.0 gtk+-unix-print-2.0",
 			"GNOME",
-			"gnome", $prefix,
-			("/include/gnome-desktop-2.0/libgnome/gnome-desktop-item.h"));
+			"gnome");
 
 } elsif ($os eq "debian") {
 	check_system_library(@gnomedev_libs,
+			"gtk+-2.0",
 			"GTK+",
-			"libgtk2.0-dev", $prefix,
-			("/include/gtk-2.0/gtk/gtk.h",
-			"/lib/libgtk-x11-2.0.so"));
-	
-	check_system_library(@gnomedev_libs, 
-			"Pango",
-			"pango-devel",$prefix,
-			("/include/pango-1.0/pango/pango.h",
-			 "/lib/libpango-1.0.so"));
-	
-	check_system_library(@gnomedev_libs, 
-			"ATK",
-			"atk-devel",$prefix,
-			("/include/atk-1.0/atk/atk.h",
-			 "/lib/libatk-1.0.so"));
-
-	check_system_library(@gnomedev_libs, 
-			"GDK",
-			"gdk-devel",$prefix,
-			("/include/gtk-2.0/gdk/gdk.h",
-			 "/lib/libgtk-x11-2.0.so"));
-
-	check_system_library(@gnomedev_libs, 
-			"LibGlade",
-			"libglade2-dev",$prefix,
-			("/include/libglade-2.0/glade/glade.h",
-			 "/lib/libglade-2.0.so"));
-
-# Where is the appropriate library for the new Gtk+ printing API?
-# Is presently in libgtik-x11-2.0.so. Could change?
-# For now, we just check to make sure the header is intact.
-
-	check_system_library(@gnomedev_libs, 
-			"GNOME printing (Unix backend)",
-			"unixprint-devel",$prefix,
-			"/include/gtk-unix-print-2.0/gtk/gtkprinter.h");
-
-
-# There is something to be said for putting this first, rather than having the
-# builder trip over each individual missing dependency above In fact, I'd go
-# one further: if this is installed, do you even need to check any of the
-# others?
+			"libgtk2.0-dev");
 
 	check_system_library(@gnomedev_libs,
-			"GNOME development platform",
-			"gnome-devel",$prefix,
-			"/lib/libgnome-2.so.0");
+			"pango",
+			"Pango",
+			"pango-devel");
+
+	check_system_library(@gnomedev_libs,
+			"atk",
+			"ATK",
+			"atk-devel");
+
+	check_system_library(@gnomedev_libs,
+			"gdk-2.0",
+			"GDK",
+			"gdk-devel");
+
+	check_system_library(@gnomedev_libs,
+			"libglade-2.0",
+			"LibGlade",
+			"libglade2-dev");
+
+	check_system_library(@gnomedev_libs,
+			"gtk+-unix-print-2.0",
+			"GNOME printing (Unix backend)",
+			"unixprint-devel");
 
 } elsif ($os eq "suse") {
 	check_system_library(@gnomedev_libs,
+			"gtk+-2.0 pango atk gdk-2.0 gtk+-unix-print-2.0",
 			"GNOME development libraries",
-			"libgnome-devel", $prefix,
-			("/include/libgnome-2.0/libgnome/libgnome.h"));
+			"libgnome-devel");
 	check_system_library(@gnomedev_libs,
-			"Glade developnebt libraries",
-			"libglade2-devel", $prefix,
-			("/include/libglade-2.0/glade/glade.h"));
+			"libglade-2.0",
+			"Glade development libraries",
+			"libglade2-devel");
 
 } elsif ($os eq "mandriva") {
 	check_system_library(@gnomedev_libs,
-			"GNOME",
-			"gnome", $prefix,
-			("/include/gnome-desktop-2.0/libgnome/gnome-desktop-item.h"));
+			"gtk+-2.0 pango atk gdk-2.0 gtk+-unix-print-2.0",
+			"GNOME development libraries",
+			"libgnome-devel"); # FIXME
+	check_system_library(@gnomedev_libs,
+			"libglade-2.0",
+			"Glade development libraries",
+			"libglade2-devel"); # FIXME
 }
 
 
@@ -1872,7 +1842,7 @@ HERE
 if ($prefix) {
 	print CONFIG "PREFIX=$prefix\n";
 } else {
-	print CONFIG "PREFIX=/usr\n";
+	print CONFIG "PREFIX=/usr/local\n";
 }
 
 # --------------------------------------------------------------------
