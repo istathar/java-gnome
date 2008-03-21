@@ -558,6 +558,7 @@ HERE
 # --------------------------------------------------------------------
 
 my $prefix;
+my $libdir;
 my $compiler;
 my $runtime;
 my $jdk_home;
@@ -590,6 +591,9 @@ HERE
 	} elsif (($key =~ /^--prefix$/) ||
 		 ($key =~ /^prefix$/)) {
 		$prefix="$value";
+	} elsif (($key =~ /^--libdir$/) ||
+		 ($key =~ /^libdir$/)) {
+		$libdir="$value";
 	} elsif ($key =~ /^runtime/) {
 		$runtime="$value";
 	} elsif ($key =~ /^compiler/) {
@@ -1753,11 +1757,14 @@ print CONFIG <<HERE ;
 
 HERE
 
-if ($prefix) {
-	print CONFIG "PREFIX=$prefix\n";
-} else {
-	print CONFIG "PREFIX=/usr/local\n";
+if (!$prefix) {
+	$prefix = "/usr/local";
 }
+print CONFIG "PREFIX=$prefix\n";
+if (!$libdir) {
+	$libdir = "$prefix/lib";
+}
+print CONFIG "LIBDIR=$libdir\n";
 
 # --------------------------------------------------------------------
 # Get version constant
