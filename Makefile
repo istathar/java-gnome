@@ -54,14 +54,14 @@ $(DESTDIR)$(PREFIX)/.java-gnome-install-dirs:
 	-touch $@ 2>/dev/null
 	test -w $@ || ( echo -e "\nYou don't seem to have write permissions to $(DESDIR)$(PREFIX)\nPerhaps you need to be root?\n" && exit 7 )
 	mkdir -p $(DESTDIR)$(PREFIX)/share/java
-	mkdir -p $(DESTDIR)$(PREFIX)/lib
+	mkdir -p $(DESTDIR)$(LIBDIR)
 
 install-java: build-java \
 	$(DESTDIR)$(PREFIX)/share/java/gtk-$(APIVERSION).jar \
-	$(DESTDIR)$(PREFIX)/lib/libgtkjni-$(APIVERSION).so
+	$(DESTDIR)$(LIBDIR)/libgtkjni-$(APIVERSION).so
 
 install-native: build-native install-java \
-	$(DESTDIR)$(PREFIX)/lib/libgtkjava-$(APIVERSION).so
+	$(DESTDIR)$(LIBDIR)/libgtkjava-$(APIVERSION).so
 
 $(DESTDIR)$(PREFIX)/share/java/gtk-$(APIVERSION).jar: tmp/gtk-$(APIVERSION).jar
 	@echo -e "INSTALL\t$@"
@@ -69,11 +69,11 @@ $(DESTDIR)$(PREFIX)/share/java/gtk-$(APIVERSION).jar: tmp/gtk-$(APIVERSION).jar
 	@echo -e "SYMLINK\t$(@D)/gtk.jar -> gtk-$(APIVERSION).jar"
 	cd $(@D) && rm -f gtk.jar && ln -s gtk-$(APIVERSION).jar gtk.jar
 	
-$(DESTDIR)$(PREFIX)/lib/libgtkjni-$(APIVERSION).so: tmp/libgtkjni-$(APIVERSION).so
+$(DESTDIR)$(LIBDIR)/libgtkjni-$(APIVERSION).so: tmp/libgtkjni-$(APIVERSION).so
 	@echo -e "INSTALL\t$@"
 	cp -f $< $@
 
-$(DESTDIR)$(PREFIX)/lib/libgtkjava-$(APIVERSION).so: tmp/libgtkjava-$(APIVERSION).so
+$(DESTDIR)$(LIBDIR)/libgtkjava-$(APIVERSION).so: tmp/libgtkjava-$(APIVERSION).so
 	@echo -e "INSTALL\t$@"
 	cp -f $< $@
 
