@@ -18,7 +18,7 @@
 <?
 	template_header();
 ?>
-<title>The new java-gnome bindings</title>
+<title>The Java bindings for the GNOME Desktop</title>
 <meta name="author" content="Andrew Cowie">
 <style>
 div.box {
