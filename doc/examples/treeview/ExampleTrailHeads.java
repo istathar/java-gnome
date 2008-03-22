@@ -110,7 +110,7 @@ public class ExampleTrailHeads
         model.setValue(row, placeName, "Appalachian Trail\n<small>(roller coaster section)</small>");
         model.setValue(row, trailHead, "Harpers Ferry, West Virginia, USA");
         model.setValue(row, elevationFormatted, "147 m");
-        model.setValue(row, elevationSort, 112);
+        model.setValue(row, elevationSort, 147);
         model.setValue(row, accessibleByTrain, true);
 
         /*
