@@ -14,7 +14,6 @@ package com.operationaldynamics.codegen;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Iterator;
 import java.util.List;
 
 import com.operationaldynamics.driver.DefsFile;
@@ -104,30 +103,23 @@ abstract class TypeGenerator extends Generator
     }
 
     protected void packageStatementAndImports(final PrintWriter out) {
-        final List types;
-        Iterator iter;
+        final List<String> types;
 
         out.print("package ");
         out.print(objectType.bindingsPackage);
         out.print(";\n\n");
 
-        types = new ArrayList();
+        types = new ArrayList<String>();
         types.add(objectType.bindingsPackage + ".Plumbing");
 
-        iter = data.getTypesToImport().iterator();
-        while (iter.hasNext()) {
-            Thing type = (Thing) iter.next();
-
+        for (Thing type : data.getTypesToImport()) {
             types.add(type.fullyQualifiedJavaClassName());
         }
 
         /* sort the types */
         Collections.sort(types);
 
-        iter = types.iterator();
-        while (iter.hasNext()) {
-            String t = (String) iter.next();
-
+        for (String t : types) {
             out.print("import ");
 
             out.print(t);

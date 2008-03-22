@@ -1,7 +1,7 @@
 #
 # Makefile, part of Equivalence
 #
-# Copyright (c) 2006-2007 Operational Dynamics Consulting Pty Ltd 
+# Copyright (c) 2006-2008 Operational Dynamics Consulting Pty Ltd, and Others 
 # 
 # The code in this file, and the library it is a part of, are made available
 # to you by the authors under the terms of the "GNU General Public Licence,
@@ -17,13 +17,9 @@ endif
 
 -include .config
 
-ifdef GCJ
-all: build-java build-native
-else
 all: build-java
-endif
 
-.PHONY: test demo doc clean distlcean install
+.PHONY: test demo doc clean distclean install
 
 
 # --------------------------------------------------------------------
@@ -33,18 +29,11 @@ endif
 build-java:
 	build/faster
 
-build-native: .config tmp/gtk-$(APIVERSION).jar
-	make -f build/gcj.make
-
 # --------------------------------------------------------------------
 # Install (run as root, or specify DESTDIR on Make command line)
 # --------------------------------------------------------------------
 
-ifdef GCJ
-install: build-java build-native install-dirs install-java install-native
-else
 install: build-java install-dirs install-java
-endif
 	rm $(DESTDIR)$(PREFIX)/.java-gnome-install-dirs
 
 install-dirs: $(DESTDIR)$(PREFIX)/.java-gnome-install-dirs
@@ -54,14 +43,11 @@ $(DESTDIR)$(PREFIX)/.java-gnome-install-dirs:
 	-touch $@ 2>/dev/null
 	test -w $@ || ( echo -e "\nYou don't seem to have write permissions to $(DESDIR)$(PREFIX)\nPerhaps you need to be root?\n" && exit 7 )
 	mkdir -p $(DESTDIR)$(PREFIX)/share/java
-	mkdir -p $(DESTDIR)$(PREFIX)/lib
+	mkdir -p $(DESTDIR)$(LIBDIR)
 
 install-java: build-java \
 	$(DESTDIR)$(PREFIX)/share/java/gtk-$(APIVERSION).jar \
-	$(DESTDIR)$(PREFIX)/lib/libgtkjni-$(APIVERSION).so
-
-install-native: build-native install-java \
-	$(DESTDIR)$(PREFIX)/lib/libgtkjava-$(APIVERSION).so
+	$(DESTDIR)$(LIBDIR)/libgtkjni-$(APIVERSION).so
 
 $(DESTDIR)$(PREFIX)/share/java/gtk-$(APIVERSION).jar: tmp/gtk-$(APIVERSION).jar
 	@echo -e "INSTALL\t$@"
@@ -69,11 +55,7 @@ $(DESTDIR)$(PREFIX)/share/java/gtk-$(APIVERSION).jar: tmp/gtk-$(APIVERSION).jar
 	@echo -e "SYMLINK\t$(@D)/gtk.jar -> gtk-$(APIVERSION).jar"
 	cd $(@D) && rm -f gtk.jar && ln -s gtk-$(APIVERSION).jar gtk.jar
 	
-$(DESTDIR)$(PREFIX)/lib/libgtkjni-$(APIVERSION).so: tmp/libgtkjni-$(APIVERSION).so
-	@echo -e "INSTALL\t$@"
-	cp -f $< $@
-
-$(DESTDIR)$(PREFIX)/lib/libgtkjava-$(APIVERSION).so: tmp/libgtkjava-$(APIVERSION).so
+$(DESTDIR)$(LIBDIR)/libgtkjni-$(APIVERSION).so: tmp/libgtkjni-$(APIVERSION).so
 	@echo -e "INSTALL\t$@"
 	cp -f $< $@
 
@@ -104,7 +86,7 @@ doc:
 		-classpath tmp/bindings \
 		-public \
 		-nodeprecated \
-		-source 1.4 \
+		-source 1.5 \
 		-notree \
 		-noindex \
 		-nohelp \
@@ -146,7 +128,7 @@ clean:
 	rm -rf generated/bindings/*
 	@echo -e "RM\tcompiled output"
 	rm -rf tmp/generator/* tmp/bindings/* tmp/tests/*
-	rm -rf tmp/include/* tmp/native/* tmp/objects/*
+	rm -rf tmp/include/* tmp/objects/*
 	@echo -e "RM\ttemporary files"
 	rm -rf tmp/stamp/*
 	rm -f hs_err_*

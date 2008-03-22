@@ -42,14 +42,21 @@
   (return-type "gboolean")
 )
 
-(define-method set_tooltip
+(define-method set_tooltip_text
   (of-object "GtkToolItem")
-  (c-name "gtk_tool_item_set_tooltip")
+  (c-name "gtk_tool_item_set_tooltip_text")
   (return-type "none")
   (parameters
-    '("GtkTooltips*" "tooltips")
-    '("const-gchar*" "tip_text" (default "NULL") (null-ok))
-    '("const-gchar*" "tip_private" (default "NULL") (null-ok))
+    '("const-gchar*" "text")
+  )
+)
+
+(define-method set_tooltip_markup
+  (of-object "GtkToolItem")
+  (c-name "gtk_tool_item_set_tooltip_markup")
+  (return-type "none")
+  (parameters
+    '("const-gchar*" "markup")
   )
 )
 
@@ -177,14 +184,3 @@
   (of-object "GtkToolItem")
   (return-type "none")
 )
-
-(define-virtual set_tooltip
-  (of-object "GtkToolItem")
-  (return-type "gboolean")
-  (parameters
-    '("GtkTooltips*" "tooltips")
-    '("const-gchar*" "tip_text")
-    '("const-gchar*" "tip_private")
-  )
-)
-

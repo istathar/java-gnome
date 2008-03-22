@@ -47,7 +47,8 @@ class MethodBlock extends FunctionBlock
      * at FunctionGenerator level, and VirtualBlocks have it too.
      */
 
-    MethodBlock(final String blockName, final List characteristics, final List parameters) {
+    MethodBlock(final String blockName, final List<String[]> characteristics,
+            final List<String[]> parameters) {
         super(blockName, characteristics, parameters);
 
         prependReferenceToSelf();

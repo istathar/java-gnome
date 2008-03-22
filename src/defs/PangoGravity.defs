@@ -1,0 +1,13 @@
+(define-enum Gravity
+  (in-module "Pango")
+  (c-name "PangoGravity")
+  (gtype-id "PANGO_TYPE_GRAVITY")
+  (values
+    '("south" "PANGO_GRAVITY_SOUTH")
+    '("east" "PANGO_GRAVITY_EAST")
+    '("north" "PANGO_GRAVITY_NORTH")
+    '("west" "PANGO_GRAVITY_WEST")
+    '("auto" "PANGO_GRAVITY_AUTO")
+  )
+)
+

@@ -168,8 +168,8 @@ public abstract class TreeModel extends org.gnome.glib.Object
      * out the crucial step of setting the column number ordinals along the
      * way.
      */
-    protected static final Class[] typesToClassNames(DataColumn[] types) {
-        final Class[] names;
+    protected static final Class<?>[] typesToClassNames(DataColumn[] types) {
+        final Class<?>[] names;
 
         if (types == null) {
             throw new IllegalArgumentException("Array passed to TreeModel constructor must not be null");

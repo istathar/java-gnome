@@ -1,7 +1,7 @@
 /*
  * AccessorBlock.java
  *
- * Copyright (c) 2007 Operational Dynamics Consulting Pty Ltd
+ * Copyright (c) 2007-2008 Operational Dynamics Consulting Pty Ltd
  * 
  * The code in this file, and the library it is a part of, are made available
  * to you by the authors under the terms of the "GNU General Public Licence,
@@ -29,7 +29,7 @@ import com.operationaldynamics.codegen.Thing;
  */
 public abstract class AccessorBlock extends FunctionBlock
 {
-    AccessorBlock(final String blockName, final BoxedBlock parent, final List parameters) {
+    AccessorBlock(final String blockName, final BoxedBlock parent, final List<String[]> parameters) {
         super(blockName, Collections.EMPTY_LIST, parameters);
 
         ofObject = parent.cName;
@@ -39,12 +39,12 @@ public abstract class AccessorBlock extends FunctionBlock
     /*
      * Each AccessorBlock is for a single field, so only one type to report.
      */
-    public List usesTypes() {
+    public List<Thing> usesTypes() {
         Thing type = Thing.lookup(returnType).getTypeToImport();
         if (type != null) {
             return Collections.singletonList(type);
         } else {
-            return Collections.EMPTY_LIST;
+            return Collections.emptyList();
         }
     }
 }

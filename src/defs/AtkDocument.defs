@@ -16,6 +16,31 @@
   (return-type "gpointer")
 )
 
+(define-method get_attributes
+  (of-object "AtkDocument")
+  (c-name "atk_document_get_attributes")
+  (return-type "AtkAttributeSet*")
+)
+
+(define-method get_attribute_value
+  (of-object "AtkDocument")
+  (c-name "atk_document_get_attribute_value")
+  (return-type "const-gchar*")
+  (parameters
+    '("const-gchar*" "attribute_name")
+  )
+)
+
+(define-method set_attribute_value
+  (of-object "AtkDocument")
+  (c-name "atk_document_set_attribute_value")
+  (return-type "gboolean")
+  (parameters
+    '("const-gchar*" "attribute_name")
+    '("const-gchar*" "attribute_value")
+  )
+)
+
 (define-virtual get_document_type
   (of-object "AtkDocument")
   (return-type "const-gchar*")
@@ -24,5 +49,27 @@
 (define-virtual get_document
   (of-object "AtkDocument")
   (return-type "gpointer")
+)
+
+(define-virtual get_document_attributes
+  (of-object "AtkDocument")
+  (return-type "AtkAttributeSet*")
+)
+
+(define-virtual get_document_attribute_value
+  (of-object "AtkDocument")
+  (return-type "G_CONST_RETURNgchar*")
+  (parameters
+    '("const-gchar*" "attribute_name")
+  )
+)
+
+(define-virtual set_document_attribute
+  (of-object "AtkDocument")
+  (return-type "gboolean")
+  (parameters
+    '("const-gchar*" "attribute_name")
+    '("const-gchar*" "attribute_value")
+  )
 )
 

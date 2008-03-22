@@ -12,21 +12,6 @@
   (return-type "GtkWidget*")
 )
 
-(define-method get_name
-  (of-object "GtkAboutDialog")
-  (c-name "gtk_about_dialog_get_name")
-  (return-type "const-gchar*")
-)
-
-(define-method set_name
-  (of-object "GtkAboutDialog")
-  (c-name "gtk_about_dialog_set_name")
-  (return-type "none")
-  (parameters
-    '("const-gchar*" "name" (null-ok))
-  )
-)
-
 (define-method get_version
   (of-object "GtkAboutDialog")
   (c-name "gtk_about_dialog_get_version")
@@ -229,5 +214,11 @@
   (parameters
     '("const-gchar*" "name" (null-ok))
   )
+)
+
+(define-method get_program_name
+  (of-object "GtkAboutDialog")
+  (c-name "gtk_about_dialog_get_program_name")
+  (return-type "const-gchar*")
 )
 

@@ -125,6 +125,12 @@
   (return-type "PangoWrapMode")
 )
 
+(define-method is_wrapped
+  (of-object "PangoLayout")
+  (c-name "pango_layout_is_wrapped")
+  (return-type "gboolean")
+)
+
 (define-method set_indent
   (of-object "PangoLayout")
   (c-name "pango_layout_set_indent")
@@ -245,6 +251,18 @@
   (return-type "PangoEllipsizeMode")
 )
 
+(define-method is_ellipsized
+  (of-object "PangoLayout")
+  (c-name "pango_layout_is_ellipsized")
+  (return-type "gboolean")
+)
+
+(define-method get_unknown_glyphs_count
+  (of-object "PangoLayout")
+  (c-name "pango_layout_get_unknown_glyphs_count")
+  (return-type "int")
+)
+
 (define-method context_changed
   (of-object "PangoLayout")
   (c-name "pango_layout_context_changed")
@@ -363,9 +381,24 @@
   )
 )
 
+(define-method get_line_readonly
+  (of-object "PangoLayout")
+  (c-name "pango_layout_get_line_readonly")
+  (return-type "PangoLayoutLine*")
+  (parameters
+    '("int" "line")
+  )
+)
+
 (define-method get_lines
   (of-object "PangoLayout")
   (c-name "pango_layout_get_lines")
+  (return-type "GSList*")
+)
+
+(define-method get_lines_readonly
+  (of-object "PangoLayout")
+  (c-name "pango_layout_get_lines_readonly")
   (return-type "GSList*")
 )
 

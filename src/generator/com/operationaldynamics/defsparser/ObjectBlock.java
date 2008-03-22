@@ -1,7 +1,7 @@
 /*
  * ObjectBlock.java
  *
- * Copyright (c) 2007 Operational Dynamics Consulting Pty Ltd
+ * Copyright (c) 2007-2008 Operational Dynamics Consulting Pty Ltd
  * 
  * The code in this file, and the library it is a part of, are made available
  * to you by the authors under the terms of the "GNU General Public Licence,
@@ -28,9 +28,10 @@ public class ObjectBlock extends TypeBlock
 {
     protected String parent;
 
-    protected List interfaces;
+    protected List<String> interfaces;
 
-    public ObjectBlock(final String blockName, final List characteristics, final List fields) {
+    public ObjectBlock(final String blockName, final List<String[]> characteristics,
+            final List<String[]> fields) {
         super(blockName, characteristics);
 
         processFields(fields);
@@ -43,7 +44,7 @@ public class ObjectBlock extends TypeBlock
     /*
      * fields would be String[][]
      */
-    protected final void processFields(List fields) {}
+    protected final void processFields(List<String[]> fields) {}
 
     protected final void setParent(final String parent) {
         this.parent = parent;
@@ -51,7 +52,7 @@ public class ObjectBlock extends TypeBlock
 
     protected final void setImplements(final String impl) {
         if (interfaces == null) {
-            interfaces = new ArrayList(1);
+            interfaces = new ArrayList<String>(1);
         }
         interfaces.add(impl);
     }
@@ -67,7 +68,7 @@ public class ObjectBlock extends TypeBlock
         return new ObjectGenerator(data, addPointerSymbol(parent), implementsToArray(interfaces));
     }
 
-    protected static String[] implementsToArray(List interfaces) {
+    protected static String[] implementsToArray(List<String> interfaces) {
         String[] implemented;
         int i;
 
@@ -77,7 +78,7 @@ public class ObjectBlock extends TypeBlock
 
         implemented = new String[interfaces.size()];
         for (i = 0; i < implemented.length; i++) {
-            implemented[i] = addPointerSymbol((String) interfaces.get(i));
+            implemented[i] = addPointerSymbol(interfaces.get(i));
         }
 
         return implemented;

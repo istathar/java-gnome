@@ -1,0 +1,69 @@
+(define-object Tooltip
+  (in-module "Gtk")
+  (parent "GtkObject")
+  (c-name "GtkTooltip")
+  (gtype-id "GTK_TYPE_TOOLTIP")
+)
+
+(define-method set_markup
+  (of-object "GtkTooltip")
+  (c-name "gtk_tooltip_set_markup")
+  (return-type "none")
+  (parameters
+    '("const-gchar*" "markup" (null-ok))
+  )
+)
+
+(define-method set_text
+  (of-object "GtkTooltip")
+  (c-name "gtk_tooltip_set_text")
+  (return-type "none")
+  (parameters
+    '("const-gchar*" "text" (null-ok))
+  )
+)
+
+(define-method set_icon
+  (of-object "GtkTooltip")
+  (c-name "gtk_tooltip_set_icon")
+  (return-type "none")
+  (parameters
+    '("GdkPixbuf*" "pixbuf" (null-ok))
+  )
+)
+
+(define-method set_icon
+  (of-object "GtkTooltip")
+  (c-name "gtk_tooltip_set_icon_from_stock")
+  (return-type "none")
+  (parameters
+    '("const-gchar*" "stock_id" (null-ok))
+    '("GtkIconSize" "size")
+  )
+)
+
+(define-method set_custom
+  (of-object "GtkTooltip")
+  (c-name "gtk_tooltip_set_custom")
+  (return-type "none")
+  (parameters
+    '("GtkWidget*" "custom_widget")
+  )
+)
+
+(define-function trigger_tooltip_query
+  (c-name "gtk_tooltip_trigger_tooltip_query")
+  (return-type "none")
+  (parameters
+    '("GdkDisplay*" "display")
+  )
+)
+
+(define-method set_tip_area
+  (of-object "GtkTooltip")
+  (c-name "gtk_tooltip_set_tip_area")
+  (return-type "none")
+  (parameters
+    '("GdkRectangle*" "rect")
+  )
+)
