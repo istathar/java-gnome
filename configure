@@ -384,73 +384,6 @@ sub check_runtime (\$$$$) {
 }
 
 
-# test gcj building and executing native code.
-
-sub check_native (\$$$$$) {
-	my $scalarref = $_[0];
-	my $item = $_[1];
-	my $program = $_[2];
-	my $args = $_[3];
-	my $rpath = $_[4];
-
-	chomp $program;
-	if ( ! -f "$program") {
-		$$scalarref = "";
-		return;
-	}
-
-	# appealing to my sense of economy, we only print something out if 
-	# it's there - that way we can list lots of options to check without
-	# cluttering things endlessly.
-	output " - ".$item;
-
-	if ( ! -x "$program") {
-		output "found but not executable\n";
-		$$scalarref = "";
-		return;
-	}
-
-	# Hello.java should already available.
-
-	if ( ! -f "Hello.java") {
-		bail "internal error","where did Hello.java go?";
-	}
-
-	# compile
-	`$program $args -o Hello.o -c Hello.java >/dev/null 2>&1`;
-	if ($? != 0) {
-		output "compiling doesn't work\n";
-		$$scalarref = "";
-		return
-	}
-
-	if ( ! -f "Hello.o") {
-		bail "internal error","why isn't Hello.o present?";
-	}
-
-	# link. Note that an argument suitable for -Wl,-rpath=<gcj_base/lib> must
-	# be passed in as the last argument.
-	`$program $args -Wl,-rpath=$rpath -o Hello --main=Hello Hello.o >/dev/null 2>&1`;
-	if ($? != 0) {
-		output "linking doesn't work\n";
-		$$scalarref = "";
-		return
-	}
-
-	# run
-	my $output = `./Hello 2>/dev/null`;
-	chomp $output;
-
-	if (($? != 0) || ($output ne "Hello")) {
-		output "executable doesn't work\n";
-		$$scalarref = "";
-		return
-	}
-
-	output "works\n";
-	$$scalarref = "$program $args";
-}
-
 sub check_jni_header_generator(\$$$$) {
 	my $scalarref = $_[0];
 	my $item = $_[1];
@@ -1476,25 +1409,6 @@ output "Check native compiler:\n";
 
 # these are initialized as, unlike javac which is populated with *something*,
 # even if gcj is not found we still need a variable for it.
-my $gcj;
-my $gcj_lib_path;
-
-if ($os) {
-	my $gcj_candidate;
-
-	if ($gcj_home) {
-		$gcj_candidate = "$gcj_home/bin/gcj";
-		$gcj_lib_path = "$gcj_home/lib";
-	} else {
-		$gcj_candidate = which("gcj");
-		# this is pretty rough
-		$gcj_lib_path = "$gcj_candidate";
-		$gcj_lib_path =~ s/bin\/gcj$/lib/;
-	}
-
-	check_native($gcj, "GNU gcj", $gcj_candidate, "", $gcj_lib_path);
-}
-
 my $cc;
 
 if ($os eq "solaris") {
@@ -1502,7 +1416,7 @@ if ($os eq "solaris") {
 } elsif ($os) {
 	my $gcc_candidate;
 
-	if (($gcj_home) && ($gcj)) {
+	if (($gcj_home) && ($gcjC)) {
 		$gcc_candidate = "$gcj_home/bin/gcc";
 	} else {
 		$gcc_candidate = which("gcc");
@@ -1525,11 +1439,10 @@ output "\n";
 
 # if gij isn't sufficient version, then knock out gcj
 if (!$gij) {
-	if ($gcj) {
+	if ($gcjC) {
 		output "Can't use GCJ, insufficiently recent version\n\n";
 	}
 	undef $gcjC;
-	undef $gcj;
 	undef $gij;
 }
 
@@ -1685,22 +1598,6 @@ output "$runtime\n";
 # --------------------------------------------------------------------
 # Output native build information
 # --------------------------------------------------------------------
-print CONFIG <<HERE ;
-
-# if present, the GCJ variable contains the path to the GCC native
-# Java builder. GCJ_LIB_PATH contains an argument suitable for use
-# with -Wl,-rpath so that the linker can find the relevant libgcj.so
-# class library.
-
-HERE
-
-if ($gcj) {
-	print CONFIG "GCJ=$gcj -g -fPIC -fjni\n";
-	print CONFIG "GCJ_CMD=GCJ      \n";
-	print CONFIG "GCJ_LINK=$gcj -g -shared -fPIC -fjni\n";
-	print CONFIG "GCJ_LINK_CMD=LINK     \n";
-	print CONFIG "GCJ_LIB_PATH=$gcj_lib_path\n";
-}
 
 print CONFIG <<HERE ;
 

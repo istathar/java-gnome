@@ -70,9 +70,7 @@ after all, is about choice.
 
 Our build framework, Equivalence, allows you to easily switch between
 proprietary and Free compilers and runtimes, allowing you to evaluate
-different options. If you have a modern version of GCJ installed, then it will
-also build a native shared library suitable for use with Java programs that
-are compiled to executable binaries using GCJ.
+different options.
 
 Of course, with Sun having recently released their Java VM under the GPL, and
 having announced that the full JDK and class libraries will likewise be
