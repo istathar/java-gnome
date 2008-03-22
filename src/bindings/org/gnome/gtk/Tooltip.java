@@ -1,7 +1,7 @@
 /*
  * Tooltip.java
  *
- * Copyright (c) 2007 Operational Dynamics Consulting Pty Ltd, and Others
+ * Copyright (c) 2008 Operational Dynamics Consulting Pty Ltd, and Others
  *
  * The code in this file, and the library it is a part of, are made available
  * to you by the authors under the terms of the "GNU General Public Licence,
@@ -11,6 +11,12 @@
  */
 package org.gnome.gtk;
 
+/**
+ * FIXME
+ * 
+ * @author Thomas Schmitz
+ * @author Vreixo Formoso
+ */
 /*
  * FIXME this is a placeholder stub for what will become the public API for
  * this type. Replace this comment with appropriate javadoc including author

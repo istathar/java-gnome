@@ -1,8 +1,8 @@
 /*
  * ExampleTooltip.java
  *
- * Copyright (c) 2008 Operational Dynamics Consulting Pty Ltd
  * Copyright (c) 2008 Vreixo Formoso
+ * Copyright (c) 2008 Operational Dynamics Consulting Pty Ltd
  *
  * The code in this file, and the library it is a part of, are made available
  * to you by the authors under the terms of the "GNU General Public Licence,
@@ -23,6 +23,10 @@ import org.gnome.gtk.Window;
  * messages that are displayed when the use moves the mouse pointer over a
  * Widget.
  * 
+ * <p>
+ * This code assumes you're already seen the other simple examples that we
+ * ship with java-gnome, in particular {@link button.ExamplePressMe}.
+ * 
  * @author Vreixo Formoso
  * @since 4.0.7
  */
@@ -34,57 +38,34 @@ public class ExampleTooltip
         final Button b1;
         final Button b2;
 
-        /*
-         * Initialize GTK. You MUST call this to load the library before
-         * trying to use any other elements provided by java-gnome.
-         */
-
         Gtk.init(args);
 
-        /*
-         * Create a top level Window. It's the Container around which the
-         * window manager draws decorations such as a title bar, minimize and
-         * close buttons, resize edges, etc.
-         */
-
         w = new Window();
-
-        /*
-         * Since a Window is a Bin, it can only have one child Widget. That's
-         * probably not very useful in most cases. To take that one slot and
-         * turn it into many, we use a VBox, a Container that will stack its
-         * children vertically.
-         */
-
         x = new VBox(false, 3);
 
         /*
-         * Create our Buttons, that will have a help Tooltip.
+         * Create our Buttons. Each will have a help Tooltip. You can use
+         * Pango markup to format your Tooltips, as b2 demonstrates.
          */
 
         b1 = new Button("Exit");
         b1.setTooltipText("Click this Button to exit");
         x.add(b1);
 
-        b2 = new Button("Nop");
-        
-        /*
-         * You can use Pango markup to format your Tooltips
-         */
+        b2 = new Button("No-op");
         b2.setTooltipMarkup("Clicking this Button has <b>no effect</b>");
         x.add(b2);
 
+        /*
+         * The rest of the file is the same as you've seen in the other basic
+         * examples which ship with java-gnome.
+         */
 
         b1.connect(new Button.CLICKED() {
             public void onClicked(Button source) {
                 Gtk.mainQuit();
             }
         });
-
-        /*
-         * Now we pack the VBox into our Window, set the Window's title, and
-         * invoke the command to realize everything onto the screen.
-         */
 
         w.add(x);
         w.setTitle("Tooltip example");
