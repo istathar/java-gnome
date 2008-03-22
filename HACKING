@@ -10,12 +10,13 @@ GETTING STARTED
 
 We are using Bazaar to manage our source code. More commonly known as `bzr`,
 it is an advanced third-generation Distributed Version [or Revision] Control
-System.
+System. It's a good idea to have a recent version (ie `bzr >= 1.3`) as it
+is getting very fast.
 
 If you're going to hack on the bindings, we recommend that you do the
 following:
 
-    $ bzr init-repo --dirstate-tags java-gnome
+    $ bzr init-repo java-gnome
     $ cd java-gnome
     $ bzr checkout bzr://research.operationaldynamics.com/bzr/java-gnome/mainline
     $ bzr branch mainline working
@@ -33,17 +34,18 @@ options you can supply to the `./configure` script.
 
 ### Why `bzr`?
 
-We chose Bazaar (Bazaar-NG, as it was briefly known) as the VCS for the new
+We chose Bazaar (Bazaar-NG, as it was briefly known) as the VCS for the
 Java bindings for GNOME because of its relative straight-forwardness and
 because of our faith in the ethos and extreme competence of its developers.
 Anyone experienced with the old world 1st generation centralized VCS tools like
 CVS or Subversion will be able to make sense of it and you can learn from
 there. Bazaar is constantly improving in performance terms, has a vibrant
-developer community, is widely portable. Most of all, the fact that they
-actually follow test-driven-development practices (their unit test suite has
-over 7266 tests) keeps them honest and conclusively biases in their favour.
+developer community, is widely portable. Most of all, the fact that the people
+hacking on `bzr` itself actually follow test-driven-development practices
+(their unit test suite has over 10,000 tests!) keeps them honest and
+conclusively biases in their favour.
 
-In production use for the last year, we have found Bazaar to be reliable,
+In production use for the last two years, we have found Bazaar to be reliable,
 amazingly easy for newcomers to the Open Source world to learn, and a
 significant element in our effort to reduce barriers to entry.
 
