@@ -351,3 +351,9 @@
   (return-type "none")
 )
 
+(define-method get_tree_view
+  (of-object "GtkTreeViewColumn")
+  (c-name "gtk_tree_view_column_get_tree_view")
+  (return-type "GtkWidget*")
+)
+

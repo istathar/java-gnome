@@ -127,3 +127,39 @@
   (return-type "const-PangoMatrix*")
 )
 
+(define-method set_base_gravity
+  (of-object "PangoContext")
+  (c-name "pango_context_set_base_gravity")
+  (return-type "none")
+  (parameters
+    '("PangoGravity" "gravity")
+  )
+)
+
+(define-method get_base_gravity
+  (of-object "PangoContext")
+  (c-name "pango_context_get_base_gravity")
+  (return-type "PangoGravity")
+)
+
+(define-method get_gravity
+  (of-object "PangoContext")
+  (c-name "pango_context_get_gravity")
+  (return-type "PangoGravity")
+)
+
+(define-method set_gravity_hint
+  (of-object "PangoContext")
+  (c-name "pango_context_set_gravity_hint")
+  (return-type "none")
+  (parameters
+    '("PangoGravityHint" "hint")
+  )
+)
+
+(define-method get_gravity_hint
+  (of-object "PangoContext")
+  (c-name "pango_context_get_gravity_hint")
+  (return-type "PangoGravityHint")
+)
+

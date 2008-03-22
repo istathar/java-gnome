@@ -1,0 +1,17 @@
+(define-interface HyperlinkImpl
+  (in-module "Atk")
+  (c-name "AtkHyperlinkImpl")
+  (gtype-id "ATK_TYPE_HYPERLINK_IMPL")
+)
+
+(define-method get_hyperlink
+  (of-object "AtkHyperlinkImpl")
+  (c-name "atk_hyperlink_impl_get_hyperlink")
+  (return-type "AtkHyperlink*")
+)
+
+(define-virtual get_hyperlink
+  (of-object "AtkHyperlinkImpl")
+  (return-type "AtkHyperlink*")
+)
+

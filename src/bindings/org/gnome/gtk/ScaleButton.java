@@ -1,7 +1,7 @@
 /*
- * PrintCapabilities.java
+ * ScaleButton.java
  *
- * Copyright (c) 2007-2008 Operational Dynamics Consulting Pty Ltd, and Others
+ * Copyright (c) 2008 Operational Dynamics Consulting Pty Ltd, and Others
  *
  * The code in this file, and the library it is a part of, are made available
  * to you by the authors under the terms of the "GNU General Public Licence,
@@ -9,9 +9,7 @@
  * library into other programs provided you don't make a derivation of it).
  * See the LICENCE file for the terms governing usage and redistribution.
  */
-package org.gnome.unixprint;
-
-import org.freedesktop.bindings.Flag;
+package org.gnome.gtk;
 
 /*
  * FIXME this is a placeholder stub for what will become the public API for
@@ -21,9 +19,9 @@ import org.freedesktop.bindings.Flag;
  * are made about this class until it has been reviewed by a hacker and this
  * comment has been replaced.
  */
-public final class PrintCapabilities extends Flag
+public class ScaleButton extends Button
 {
-    private PrintCapabilities(int ordinal, String nickname) {
-        super(ordinal, nickname);
+    protected ScaleButton(long pointer) {
+        super(pointer);
     }
 }

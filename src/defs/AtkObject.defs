@@ -5,6 +5,12 @@
   (gtype-id "ATK_TYPE_OBJECT")
 )
 
+(define-method get_attributes
+  (of-object "AtkObject")
+  (c-name "atk_object_get_attributes")
+  (return-type "AtkAttributeSet*")
+)
+
 (define-method get_name
   (of-object "AtkObject")
   (c-name "atk_object_get_name")
@@ -165,6 +171,11 @@
     '("AtkRelationType" "relationship")
     '("AtkObject*" "target")
   )
+)
+
+(define-virtual get_attributes
+  (of-object "AtkObject")
+  (return-type "AtkAttributeSet*")
 )
 
 (define-virtual get_name

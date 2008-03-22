@@ -143,7 +143,7 @@
   (c-name "gtk_container_set_focus_child")
   (return-type "none")
   (parameters
-    '("GtkWidget*" "child")
+    '("GtkWidget*" "child" (null-ok))
   )
 )
 
@@ -311,7 +311,7 @@
   (of-object "GtkContainer")
   (return-type "none")
   (parameters
-    '("GtkWidget*" "widget")
+    '("GtkWidget*" "widget" (null-ok))
   )
 )
 

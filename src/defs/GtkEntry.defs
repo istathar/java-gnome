@@ -322,3 +322,18 @@
   (return-type "const-GtkBorder*")
 )
 
+(define-method set_cursor_hadjustment
+  (of-object "GtkEntry")
+  (c-name "gtk_entry_set_cursor_hadjustment")
+  (return-type "none")
+  (parameters
+    '("GtkAdjustment*" "adjustment" (null-ok))
+  )
+)
+
+(define-method get_cursor_hadjustment
+  (of-object "GtkEntry")
+  (c-name "gtk_entry_get_cursor_hadjustment")
+  (return-type "GtkAdjustment*")
+)
+

@@ -1,0 +1,49 @@
+(define-object RecentAction
+  (in-module "Gtk")
+  (parent "GtkAction")
+  (c-name "GtkRecentAction")
+  (gtype-id "GTK_TYPE_RECENT_ACTION")
+)
+
+(define-function gtk_recent_action_new
+  (is-constructor-of "GtkRecentAction")
+  (c-name "gtk_recent_action_new")
+  (caller-owns-return #t)
+  (return-type "GtkAction*")
+  (parameters
+    '("const-gchar*" "name")
+    '("const-gchar*" "label" (null-ok))
+    '("const-gchar*" "tooltip" (null-ok))
+    '("const-gchar*" "stock_id" (null-ok))
+  )
+)
+
+(define-function gtk_recent_action_new_for_manager
+  (is-constructor-of "GtkRecentAction")
+  (c-name "gtk_recent_action_new_for_manager")
+  (caller-owns-return #t)
+  (return-type "GtkAction*")
+  (parameters
+    '("const-gchar*" "name")
+    '("const-gchar*" "label" (null-ok))
+    '("const-gchar*" "tooltip" (null-ok))
+    '("const-gchar*" "stock_id" (null-ok))
+    '("GtkRecentManager*" "manager" (null-ok))
+  )
+)
+
+(define-method get_show_numbers
+  (of-object "GtkRecentAction")
+  (c-name "gtk_recent_action_get_show_numbers")
+  (return-type "gboolean")
+)
+
+(define-method set_show_numbers
+  (of-object "GtkRecentAction")
+  (c-name "gtk_recent_action_set_show_numbers")
+  (return-type "none")
+  (parameters
+    '("gboolean" "show_numbers")
+  )
+)
+

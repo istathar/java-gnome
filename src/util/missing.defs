@@ -3483,18 +3483,6 @@
   (varargs #t)
 )
 
-(define-function object_add_arg_type
-  (c-name "gtk_object_add_arg_type")
-  (return-type "none")
-  (deprecated "use GObject")
-  (parameters
-    '("const-gchar*" "arg_name")
-    '("GtkType" "arg_type")
-    '("guint" "arg_flags")
-    '("guint" "arg_id")
-  )
-)
-
 (define-function gtk_old_editable_get_type
   (c-name "gtk_old_editable_get_type")
   (return-type "GType")
@@ -6019,6 +6007,32 @@
   (return-type "GType")
 )
 
+(define-function gravity_to_rotation
+  (c-name "pango_gravity_to_rotation")
+  (return-type "double")
+  (parameters
+    '("PangoGravity" "gravity")
+  )
+)
+
+(define-function gravity_get_for_matrix
+  (c-name "pango_gravity_get_for_matrix")
+  (return-type "PangoGravity")
+  (parameters
+    '("const-PangoMatrix*" "matrix")
+  )
+)
+
+(define-function gravity_get_for_script
+  (c-name "pango_gravity_get_for_script")
+  (return-type "PangoGravity")
+  (parameters
+    '("PangoScript" "script")
+    '("PangoGravity" "base_gravity")
+    '("PangoGravityHint" "hint")
+  )
+)
+
 (define-function pango_glyph_string_get_type
   (c-name "pango_glyph_string_get_type")
   (return-type "GType")
@@ -6145,6 +6159,31 @@
   )
 )
 
+(define-function extents_to_pixels
+  (c-name "pango_extents_to_pixels")
+  (return-type "none")
+  (parameters
+    '("PangoRectangle*" "ink_rect")
+    '("PangoRectangle*" "logical_rect")
+  )
+)
+
+(define-function units_from_double
+  (c-name "pango_units_from_double")
+  (return-type "int")
+  (parameters
+    '("double" "d")
+  )
+)
+
+(define-function units_to_double
+  (c-name "pango_units_to_double")
+  (return-type "double")
+  (parameters
+    '("int" "i")
+  )
+)
+
 (define-function PIXELS
   (c-name "PANGO_PIXELS")
   (return-type "gint")
@@ -6182,6 +6221,26 @@
   (return-type "gint")
   (parameters
     '("PangoRectangle" "rect")
+  )
+)
+
+(define-function version
+  (c-name "pango_version")
+  (return-type "int")
+)
+
+(define-function version_string
+  (c-name "pango_version_string")
+  (return-type "const-char*")
+)
+
+(define-function version_check
+  (c-name "pango_version_check")
+  (return-type "const-char*")
+  (parameters
+    '("int" "required_major")
+    '("int" "required_minor")
+    '("int" "required_micro")
   )
 )
 
@@ -6275,6 +6334,11 @@
 
 (define-function atk_hyperlink_get_type
   (c-name "atk_hyperlink_get_type")
+  (return-type "GType")
+)
+
+(define-function atk_hyperlink_impl_get_type
+  (c-name "atk_hyperlink_impl_get_type")
   (return-type "GType")
 )
 

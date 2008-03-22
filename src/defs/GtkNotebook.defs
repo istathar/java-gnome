@@ -408,14 +408,6 @@
   )
 )
 
-(define-virtual move_focus_out
-  (of-object "GtkNotebook")
-  (return-type "none")
-  (parameters
-    '("GtkDirectionType" "direction")
-  )
-)
-
 (define-method set_group_id
   (of-object "GtkNotebook")
   (c-name "gtk_notebook_set_group_id")

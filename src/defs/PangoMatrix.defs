@@ -54,3 +54,41 @@
   )
 )
 
+(define-method transform_point
+  (of-object "PangoMatrix")
+  (c-name "pango_matrix_transform_point")
+  (return-type "none")
+  (parameters
+    '("double*" "x")
+    '("double*" "y")
+  )
+)
+
+(define-method transform_distance
+  (of-object "PangoMatrix")
+  (c-name "pango_matrix_transform_distance")
+  (return-type "none")
+  (parameters
+    '("double*" "dx")
+    '("double*" "dy")
+  )
+)
+
+(define-method transform_rectangle
+  (of-object "PangoMatrix")
+  (c-name "pango_matrix_transform_rectangle")
+  (return-type "none")
+  (parameters
+    '("PangoRectangle*" "rect")
+  )
+)
+
+(define-method transform_pixel_rectangle
+  (of-object "PangoMatrix")
+  (c-name "pango_matrix_transform_pixel_rectangle")
+  (return-type "none")
+  (parameters
+    '("PangoRectangle*" "rect")
+  )
+)
+
