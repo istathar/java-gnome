@@ -1,7 +1,7 @@
 /*
  * bindings_java_util.c
  *
- * Copyright (c) 2006 Operational Dynamics Consulting Pty Ltd and Others
+ * Copyright (c) 2006-2008 Operational Dynamics Consulting Pty Ltd and Others
  * 
  * The code in this file, and the library it is a part of, are made available
  * to you by the authors under the terms of the "GNU General Public Licence,
@@ -68,6 +68,10 @@ bindings_java_getEnv()
 }
 
 
+/**
+ * Throw an exception, naming the Exception or Error class to be thrown. If
+ * an Exception is already pending this call will be a no-op.
+ */
 /*
  * Inspired by code from "The Java Native Interface", section 6.1.2.
  * Modified in java-gnome 2.x by Andrew Cowie to fix a potential crasher.
@@ -93,22 +97,48 @@ bindings_java_throwByName
 	const gchar* msg
 )
 {
-	jclass cls = (*env)->FindClass(env, name);
+	jclass cls = NULL;
 
-	if (cls != NULL) {
-		(*env)->ThrowNew(env, cls, msg);
-		/*
-		 * And, since its valid, we need to free the local jclass ref that
-		 * FindClass() gave us...
-		 */
-		(*env)->DeleteLocalRef(env, cls);
+	if (env == NULL) {
+		g_printerr("Want to throw a %s but JNIEnv is NULL\n", name);
+		return;
 	}
+
+	/*
+	 * Somewhat ugly hack: Sun's JVM segfaults (!) if you try to throw
+	 * another Exception without having first handled, propegated or
+	 * otherwise cleared an existing one. The sooner we get back to Java,
+	 * the better. 
+	 */
+
+	if ((*env)->ExceptionOccurred(env)) {
+		return;
+	}
+
+	/*
+	 * Look up the class. We could cache these, but really, Exceptions
+	 * out of the native layer are rare and, in most cases, terminal. If
+	 * profiling shows a hot spot on this, then cache the lookup and
+	 * create a call which takes a jclass.
+	 */
+
+	cls = (*env)->FindClass(env, name);
+	if (cls == NULL) {
+		g_printerr("Tried to throw a %s but calling FindClass() on that name failed.\n", name);
+		return;
+	}
+
+	(*env)->ThrowNew(env, cls, msg);
+
+	(*env)->DeleteLocalRef(env, cls);
 }
 
 
 /**
- * Utility function to just blow a generic RuntimeException in order
- * to propagate a failure back to the caller.
+ * Utility function to just blow our generic FatalError throwable in order to
+ * propagate a failure back to the caller. While you could, notionally, catch
+ * such a thing, we define a condition of this nature coming out of our
+ * native code to be unrecoverable, and hence the java.lang.Error subclass.
  */
 void
 bindings_java_throw
@@ -120,31 +150,16 @@ bindings_java_throw
 {
 	va_list args;
 	
-	const guint WIDTH = 200;
-	gchar msg[WIDTH];
-	static jclass cls = NULL;
-	const gchar* name = "java/lang/RuntimeException";
-			// "org/gnome/glib/NativeException" ?
+	gchar* msg;
+	const gchar* name = "org/freedesktop/bindings/FatalError";
 
 	va_start(args, fmt);
-	g_vsnprintf(msg, WIDTH, fmt, args);
+	msg = g_strdup_vprintf(fmt, args);
 	va_end(args);
 
-	if (cls == NULL) {
-		if (env == NULL) {
-			g_error("Want to throw a %s but JNIEnv is NULL", name);
-		}	
-		
-		cls = (*env)->FindClass(env, name);
-		if (cls == NULL) {
-			g_critical("Tried to throw a %s but calling FindClass() on that name failed.", name);
-			return; 
-		}
-	}
-
-	(*env)->ThrowNew(env, cls, msg);
-    	
-	(*env)->DeleteLocalRef(env, cls);
+	bindings_java_throwByName(env, name, msg);
+	
+	g_free(msg);
 }
 
 void 
@@ -155,17 +170,9 @@ bindings_java_throw_gerror
 )
 {
 	const gchar* name = "org/gnome/glib/GlibException";
-	jclass cls;
-		
-	cls = (*env)->FindClass(env, name);
-	if (cls == NULL) {
-		g_critical("Tried to throw a %s but calling FindClass() on that name failed.", name);
-		return;
-	}
 	
-	(*env)->ThrowNew(env, cls, error->message);
-    	
-	(*env)->DeleteLocalRef(env, cls);
+	bindings_java_throwByName(env, name, error->message);
+	
 	g_error_free(error);
 }
 
@@ -283,3 +290,59 @@ bindings_java_debug
 	g_debug("obj.toString(): %s", name);
 }
 
+
+/*
+ * Meets the signature of (*GLogFunc), as used by the first parameter of
+ * g_log_set_default_handler().
+ */
+static void
+bindings_java_logging_handler
+(
+	const gchar *log_domain,
+	GLogLevelFlags log_level,
+	const gchar *message,
+	gpointer user_data
+)
+{
+	JNIEnv* env;
+	gchar* level;
+	gchar* msg;
+	
+	env = bindings_java_getEnv();
+	
+	switch (log_level) {
+	case G_LOG_LEVEL_ERROR:
+		level = "ERROR";
+		break;
+
+	case G_LOG_LEVEL_CRITICAL:
+		level = "CRITICAL";
+		break;
+
+	case G_LOG_LEVEL_WARNING:
+		/*
+		 * Whether or not to throw on WARNING here is an open
+		 * question. As people can tell GLib to make warnings fatal,
+		 * we can probably leave it to flow on to the log handler,
+		 * but there is a good case to be made to have warnings
+		 * result in our FatalError.
+		 */
+	default:
+		g_log_default_handler(log_domain, log_level, message, user_data);
+		return;
+	}
+	
+	msg = g_strdup_printf("%s-%s\n%s", log_domain, level, message);
+
+	bindings_java_throwByName(env, "org/gnome/glib/FatalError", msg);
+
+	g_free(msg);
+}
+
+void
+bindings_java_logging_init
+(
+)
+{
+	g_log_set_default_handler(bindings_java_logging_handler, NULL);
+}

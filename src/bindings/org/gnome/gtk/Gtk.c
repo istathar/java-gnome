@@ -1,7 +1,7 @@
 /*
  * Gtk.c
  *
- * Copyright (c) 2006-2007 Operational Dynamics Consulting Pty Ltd
+ * Copyright (c) 2006-2008 Operational Dynamics Consulting Pty Ltd
  * 
  * The code in this file, and the library it is a part of, are made available
  * to you by the authors under the terms of the "GNU General Public Licence,
@@ -41,13 +41,15 @@ Java_org_gnome_gtk_Gtk_gtk_1init
 	jstring _arg;
 	gchar* arg;
 
+	bindings_java_logging_init();
+
 	bindings_java_threads_init(env, _lock);
 	
 	g_thread_init(NULL);
 	gdk_threads_init();
-	
+
 	g_set_prgname("java");
-	
+
 	// convert args
 	if (_args == NULL) {
 		argc = 0;

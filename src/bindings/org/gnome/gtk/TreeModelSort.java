@@ -77,4 +77,8 @@ public class TreeModelSort extends TreeModel implements TreeDragSource, TreeSort
 
         return result;
     }
+
+    public void setSortColumn(DataColumn column, SortType ordering) {
+        GtkTreeSortable.setSortColumnId(this, column.getOrdinal(), ordering);
+    }
 }

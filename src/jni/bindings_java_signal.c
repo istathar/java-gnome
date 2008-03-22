@@ -2,7 +2,7 @@
  * bindings_java_signal.c
  *
  * Copyright (c) 1998-2005 The java-gnome Team
- * Copyright (c) 2006-2007 Operational Dynamics Consulting Pty Ltd
+ * Copyright (c) 2006-2008 Operational Dynamics Consulting Pty Ltd
  * 
  * The code in this file, and the library it is a part of, are made available
  * to you by the authors under the terms of the "GNU General Public Licence,
@@ -292,17 +292,11 @@ bindings_java_marshaller
 	}
 
 	/*
-	 * Now, check if an exception occurred in the callback and print the
-	 * stack trace in case it did. Otherwise, the stack trace gets swallowed
-	 * (ie, we're now back at GTK which is where the code path originated.
-	 * There's nowhere else for the signal to go, is there? Well, we could
-	 * call gtk_main_quit(), but that would probably be considered rude.
+	 * We used to check here if an exception occurred in the callback; if
+	 * so we printed the stack trace and then swollowed the exception.
+	 * We've stopped doing that. We want to force developers to deal with
+	 * criticals emitted by the underlying libraries.
 	 */
-
-	if ((*env)->ExceptionOccurred(env)) {
-		(*env)->ExceptionDescribe(env);
-		(*env)->ExceptionClear(env);
-	}
 
 	/*
 	 * Cleanup

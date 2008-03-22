@@ -105,35 +105,21 @@ sub bail {
 # instead of dying unceremoniously while make'ing.
 
 sub check_system_library(\@$$@) {
-	my ($gnomedevref, $item, $package, $prefix, @files) = @_;
+	my ($gnomedevref, $pkgconfig, $item, $package) = @_;
 	output " - ".$item;
 	
-	my $found = "";
+	my $found;
 	my $str = "";
 	my $tries = "";
 
-	if (!defined($prefix)) {
-		$prefix = "/usr";
-	}
+	$found = system("pkg-config --exists $pkgconfig");
 
-	foreach my $file (@files) {
-		$file = "$prefix$file";
-		if ( -f ("$file")) {
-			$found = $file;
-			last;
-		}
-		$tries .= ($tries ? ", or" : "" ) . "\n\t".  basename($file) . "\n\t(looked in ".dirname("$file").")";
-	}
-
-	if (! "$found" ){
+	if ($found) {
 
 		$str = "In order to build java-gnome, you will need the GNOME\n";
 		$str .= "development libraries. Depending on what you have installed,\n";
 		$str .= "this could be a considerable set of packages, but if you\n";
-		$str .= "want to be a GNOME hacker, that's the way it is]. We probed\n";
-		$str .= "for:\n";
-
-		$str .= "$tries\n\n";
+		$str .= "want to be a GNOME hacker, that's the way it is].\n\n";
 
 		$str .= "On a ".ucfirst($os)." system, you should be able to satisfy this\n";
 		$str .= "requirement by doing:\n\n";
@@ -780,70 +766,50 @@ output "\nCheck for required system libraries:\n";
 
 if ($os eq "gentoo") {
 	check_system_library(@gnomedev_libs,
+			"gtk+-2.0 pango atk gdk-2.0 libglade-2.0 gtk+-unix-print-2.0",
 			"GNOME",
-			"gnome", $prefix,
-			("/include/gnome-desktop-2.0/libgnome/gnome-desktop-item.h"));
+			"gnome");
 
 } elsif ($os eq "debian") {
 	check_system_library(@gnomedev_libs,
+			"gtk+-2.0",
 			"GTK+",
-			"libgtk2.0-dev", $prefix,
-			("/include/gtk-2.0/gtk/gtk.h",
-			"/lib/libgtk-x11-2.0.so"));
-	
-	check_system_library(@gnomedev_libs, 
-			"Pango",
-			"pango-devel",$prefix,
-			("/include/pango-1.0/pango/pango.h",
-			 "/lib/libpango-1.0.so"));
-	
-	check_system_library(@gnomedev_libs, 
-			"ATK",
-			"atk-devel",$prefix,
-			("/include/atk-1.0/atk/atk.h",
-			 "/lib/libatk-1.0.so"));
-
-	check_system_library(@gnomedev_libs, 
-			"GDK",
-			"gdk-devel",$prefix,
-			("/include/gtk-2.0/gdk/gdk.h",
-			 "/lib/libgtk-x11-2.0.so"));
-
-	check_system_library(@gnomedev_libs, 
-			"LibGlade",
-			"libglade2-dev",$prefix,
-			("/include/libglade-2.0/glade/glade.h",
-			 "/lib/libglade-2.0.so"));
-
-# Where is the appropriate library for the new Gtk+ printing API?
-# Is presently in libgtik-x11-2.0.so. Could change?
-# For now, we just check to make sure the header is intact.
-
-	check_system_library(@gnomedev_libs, 
-			"GNOME printing (Unix backend)",
-			"unixprint-devel",$prefix,
-			"/include/gtk-unix-print-2.0/gtk/gtkprinter.h");
-
-
-# There is something to be said for putting this first, rather than having the
-# builder trip over each individual missing dependency above In fact, I'd go
-# one further: if this is installed, do you even need to check any of the
-# others?
+			"libgtk2.0-dev");
 
 	check_system_library(@gnomedev_libs,
-			"GNOME development platform",
-			"gnome-devel",$prefix,
-			"/lib/libgnome-2.so.0");
+			"pango",
+			"Pango",
+			"pango-devel");
+
+	check_system_library(@gnomedev_libs,
+			"atk",
+			"ATK",
+			"atk-devel");
+
+	check_system_library(@gnomedev_libs,
+			"gdk-2.0",
+			"GDK",
+			"gdk-devel");
+
+	check_system_library(@gnomedev_libs,
+			"libglade-2.0",
+			"LibGlade",
+			"libglade2-dev");
+
+	check_system_library(@gnomedev_libs,
+			"gtk+-unix-print-2.0",
+			"GNOME printing (Unix backend)",
+			"unixprint-devel");
 
 } elsif ($os eq "suse") {
 	check_system_library(@gnomedev_libs,
+			"gtk+-2.0 pango atk gdk-2.0 gtk+-unix-print-2.0",
 			"GNOME development libraries",
-			"libgnome-devel", $prefix,
-			("/include/libgnome-2.0/libgnome/libgnome.h"));
+			"libgnome-devel");
 	check_system_library(@gnomedev_libs,
-			"Glade developnebt libraries",
-			"libglade2-devel", $prefix,
-			("/include/libglade-2.0/glade/glade.h"));
+			"libglade-2.0",
+			"Glade development libraries",
+			"libglade2-devel");
 
 }
 
@@ -872,7 +838,6 @@ output "Check Java compilers:\n";
 
 # compilers we will check for:
 my $javac;
-my $jikes;
 my $ecj;
 my $gcjC;	# The moniker $gcjC refers to `gcj -C`
 my $kaffec;
@@ -896,16 +861,8 @@ if ($os eq "gentoo") {
 		chomp $java_home;
 	}
 
-	# check jikes. Since Jikes isn't a JRE of its own, it needs to be
-	# told about where to find the Java system classes. (java.lang, etc)
-	# we make an educated guess until java-config can tell us properly.
-	my $rt = "$java_home"."/jre/lib/rt.jar";
-	check_compiler($jikes, "IBM jikes", "/usr/bin/jikes", "-g -bootclasspath $rt -nowarn -source 1.4 -target 1.4 +T=4 +Z0") if ( -f "$rt");
-		
-	# check ecj, the standalone Eclipse compiler. It's slower than Jikes,
-	# but significantly more modern and maintained whereas Jikes is
-	# largely abandoned as a project.
-	check_compiler($ecj, "Eclipse ecj", "/usr/bin/ecj-3.2", "-g -preserveAllLocals -nowarn -source 1.4 -target 1.4");
+	# check ecj, the standalone Eclipse compiler.
+	check_compiler($ecj, "Eclipse ecj", "/usr/bin/ecj-3.3", "-g -preserveAllLocals -nowarn -source 1.4 -target 1.4");
 	
 	# check javac (the one specified by Gentoo's java-config tool)
 	# The $vendor business is just some precision prettiness for the
@@ -966,10 +923,6 @@ if ($os eq "gentoo") {
 	# we can do much better than this, especially for java/javac.
 	# Do we access the alternatives system, or just go with known
 	# paths, or...? `which` is lame
-
-	# check jikes. Since Jikes isn't a JRE of its own, it needs to be told
-	# about where to find the Java system classes. (java.lang, etc).
-	check_compiler($jikes, "IBM jikes", "/usr/bin/jikes", "-g -bootclasspath /usr/share/classpath/glibj.zip -source 1.4 -target 1.4 +T=4 +Z0");
 
 	# check ecj, the standalone Eclipse compiler.
 	check_compiler($ecj, "Eclipse ecj", which("ecj"), "-g -preserveAllLocals -nowarn -source 1.4 -target 1.4");
@@ -1033,10 +986,6 @@ if ($os eq "gentoo") {
 } elsif ($os eq "fedora") {
 	# we can do much better than this, especially for java/javac.
 	# Should we just go with known paths, or...? `which` is so lame
-
-	# check for jikes. Presumably -bootclasspath will need to be set
-	# like on Gentoo and Debian; to what?
-	check_compiler($jikes, "IBM jikes", "/usr/bin/jikes", "-g -source 1.4 -target 1.4 +T=4 +Z0");
 
 	# check ecj, the standalone Eclipse compiler.
 	check_compiler($ecj, "Eclipse ecj", which("ecj"), "-g -preserveAllLocals -nowarn -source 1.4 -target 1.4");
@@ -1122,10 +1071,6 @@ if ($os eq "gentoo") {
 	# we can do much better than this, especially for java/javac.
 	# Should we just go with known paths, or...? `which` is so lame
 
-	# check for jikes. Presumably -bootclasspath will need to be set
-	# like on Gentoo and Debian; to what?
-	check_compiler($jikes, "IBM jikes", "/usr/bin/jikes", "-g -source 1.4 -target 1.4 +T=4 +Z0");
-
 	# check ecj, the standalone Eclipse compiler.
 	check_compiler($ecj, "Eclipse ecj", which("ecj"), "-g -preserveAllLocals -nowarn -source 1.4 -target 1.4");
 
@@ -1166,8 +1111,6 @@ if ($os eq "gentoo") {
 	check_javadoc($javadoc, "$vendor javadoc", $javadoc_candidate, "");
 
 } elsif ($os eq "solaris") {
-	check_compiler($jikes, "IBM jikes", "/usr/bin/jikes", "-g -bootclasspath /usr/java/jre/lib/rt.jar -source 1.4 -target 1.4 +T=4 +Z0");
-
 	check_compiler($ecj, "Eclipse ecj", which("ecj"), "-g -preserveAllLocals -nowarn -source 1.4 -target 1.4");
 
 	my $javac_candidate;
@@ -1604,23 +1547,19 @@ if ($compiler) {
 		bail "bad override", "javac specified but not detected as a workable compiler." unless $javac;
 	} elsif ($compiler eq "ecj") {
 		bail "bad override", "ecj specified but not detected as a workable compiler." unless $ecj;
-	} elsif ($compiler eq "jikes") {
-		bail "bad override", "jikes specified but not detected as a workable compiler." unless $jikes;
 	} elsif ($compiler eq "gcj") {
 		bail "bad override", "gcj (-C) specified but gcj not detected as a workable compiler." unless $gcjC;
 	} else {
 		bail "bad override", <<HERE ;
 You specified compiler=$compiler on the command line, but that's not an option.
-Valid choices are javac, jikes, or gcj - but of course that compiler must be
+Valid choices are ecj, javac, or gcj - but of course that compiler must be
 installed (and detected!) in order to be able to specify it.
 HERE
 	}
 
 } else {
 	# otherwise, pick a compiler.
-	if ($jikes) {
-		$compiler = "jikes";
-	} elsif ($ecj) {
+	if ($ecj) {
 		$compiler = "ecj";
 	} elsif ($javac) {
 		$compiler = "javac";
@@ -1636,10 +1575,7 @@ if ($compiler eq "javac") {
 	print CONFIG "JAVAC_CMD=JAVAC    \n";
 } elsif ($compiler eq "ecj") {
 	print CONFIG "JAVAC=$ecj\n";
-	print CONFIG "JAVAC_CMD=ECLIPSE  \n";
-} elsif ($compiler eq "jikes") {
-	print CONFIG "JAVAC=$jikes\n";
-	print CONFIG "JAVAC_CMD=JIKES    \n";
+	print CONFIG "JAVAC_CMD=ECJ      \n";
 } elsif ($compiler eq "gcj") {
 	print CONFIG "JAVAC=$gcjC\n";
 	print CONFIG "JAVAC_CMD=GCJ [-C] \n";
@@ -1820,7 +1756,7 @@ HERE
 if ($prefix) {
 	print CONFIG "PREFIX=$prefix\n";
 } else {
-	print CONFIG "PREFIX=/usr\n";
+	print CONFIG "PREFIX=/usr/local\n";
 }
 
 # --------------------------------------------------------------------

@@ -1,7 +1,7 @@
 /*
  * ListStore.java
  *
- * Copyright (c) 2007 Operational Dynamics Consulting Pty Ltd
+ * Copyright (c) 2007-2008 Operational Dynamics Consulting Pty Ltd
  *
  * The code in this file, and the library it is a part of, are made available
  * to you by the authors under the terms of the "GNU General Public Licence,
@@ -105,5 +105,9 @@ public class ListStore extends TreeModel implements TreeDragSource, TreeDragDest
      */
     public void clear() {
         GtkListStore.clear(this);
+    }
+
+    public void setSortColumn(DataColumn column, SortType ordering) {
+        GtkTreeSortable.setSortColumnId(this, column.getOrdinal(), ordering);
     }
 }
