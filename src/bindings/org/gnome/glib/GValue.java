@@ -13,6 +13,7 @@ package org.gnome.glib;
 
 import org.freedesktop.bindings.Constant;
 import org.freedesktop.bindings.Flag;
+import org.gnome.gdk.Pixbuf;
 
 /*
  * Crafted: the creation of fundamentals is quite custom.
@@ -42,6 +43,10 @@ final class GValue extends Plumbing
 
     static final long createValue(Object obj) {
         return g_value_init_object(pointerOf(obj));
+    }
+
+    static final long createValue(Pixbuf pixbuf) {
+        return g_value_init_pixbuf(pointerOf(pixbuf));
     }
 
     static final long createValue(float f) {
@@ -81,6 +86,8 @@ final class GValue extends Plumbing
      * ahead, but beware of the function prototypes on the JNI side.
      */
     private static native final long g_value_init_object(long obj);
+
+    private static native final long g_value_init_pixbuf(long pixbuf);
 
     static final int getInteger(Value value) {
         return g_value_get_int(pointerOf(value));
@@ -151,6 +158,12 @@ final class GValue extends Plumbing
     }
 
     private static native final long g_value_get_object(long value);
+
+    static final Pixbuf getPixbuf(Value value) {
+        return (Pixbuf) objectFor(g_value_get_pixbuf(pointerOf(value)));
+    }
+
+    private static native final long g_value_get_pixbuf(long value);
 
     /**
      * Lookup the type name for a given Value. <i>When a GType such as a

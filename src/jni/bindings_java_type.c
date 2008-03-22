@@ -117,6 +117,8 @@ bindings_java_type_lookup
 		return G_TYPE_BOOLEAN;
 	} else if (g_str_equal(fqcn, "org.gnome.glib.Object")) {
 		return G_TYPE_OBJECT;
+	} else if (g_str_equal(fqcn, "org.gnome.gdk.Pixbuf")) {
+		return GDK_TYPE_PIXBUF;
 	} else if (g_str_equal(fqcn, "java.lang.Object")) {
 		/*
 		 * This is what we use to stash references to Java objects.

@@ -303,7 +303,7 @@ public abstract class TreeModel extends org.gnome.glib.Object
 
         GtkTreeModel.getValue(this, row, column.getOrdinal(), result);
 
-        return (Pixbuf) result.getObject();
+        return result.getPixbuf();
     }
 
     /**
