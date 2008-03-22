@@ -61,6 +61,7 @@ ClassLoader's
 ClassName
 ClassNotFoundException
 CodeFormat
+CoderMalfunctionError
 Collins's
 ComboBox
 ComboBoxEntries
@@ -141,6 +142,7 @@ ExceptionClear
 ExceptionDescribe
 ExceptionOccurred
 FIXME
+FatalError
 FileChooser
 FileChooser's
 FileChooserAction
@@ -295,6 +297,7 @@ GtkSeparatorToolItem
 GtkShadowType
 GtkSizeGroup
 GtkSizeGroupMode
+GtkSortType
 GtkStateType
 GtkStatusIcon
 GtkStatusbar
@@ -319,6 +322,7 @@ GtkTreeModelSort
 GtkTreePath
 GtkTreeRowReference
 GtkTreeSelection
+GtkTreeSortable
 GtkTreeStore
 GtkTreeView
 GtkTreeViewColumn
@@ -531,6 +535,7 @@ SnapshotInfoMessageDialog
 SnapshotQuestionMessageDialog
 SnapshotTreeView
 SnapshotWindow
+SortType
 SourceForge
 SpinButton
 Srichand
@@ -589,6 +594,7 @@ TreeRowReference
 TreeSelection
 TreeSelection's
 TreeSortable
+TreeSortables
 TreeStore
 TreeStores
 TreeView
@@ -1730,6 +1736,7 @@ xjf
 xoptions
 xpadding
 xscale
+xsession
 yalign
 yoptions
 ypadding
