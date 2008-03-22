@@ -29,9 +29,13 @@ import org.gnome.gtk.Window;
  * are expected to do this in the EXPOSE_EVENT handler for that Widget.
  * 
  * @author Andrew Cowie
+ * @author Carl Worth
  */
 /*
  * TODO rename this once more once we actually draw something interesting!
+ */
+/*
+ * Gradient example from the Cairo Tutorial.
  */
 public class ExampleDrawingInExposeEvent
 {
@@ -88,14 +92,25 @@ public class ExampleDrawingInExposeEvent
                  * Now, finally do some drawing:
                  */
 
-                cr.setSourceRGBA(0.0, 0.0, 1.0, 0.8);
-                cr.moveTo(10, 10);
-                cr.lineTo(20, 45);
+                cr.setSourceRGBA(1.0, 0.1, 0.0, 1.0);
+                cr.moveTo(10, 40);
+                cr.lineTo(120, 145);
                 cr.stroke();
 
-                cr.setSourceRGBA(0.0, 1.0, 0.0, 0.8);
+                /*
+                 * If youre used to using RGB triplets, just normalize them to
+                 * the 0.0 to 1.0 range by dividing by 255. It's all the same
+                 * to Cairo, really.
+                 */
+
+                cr.setSourceRGBA(225 / 255.0, 148 / 255.0, 11 / 255.0, 1.0);
                 cr.rectangle(70, 70, 20, 40);
                 cr.fill();
+
+                /*
+                 * Now a much more complicated example of drawing: a linear
+                 * colour gradiant with a radial alpha mask.
+                 */
 
                 linear = new LinearPattern(0, 0, 150, 150);
                 linear.addColorStopRGB(0.0, 0.0, 0.3, 0.8);
