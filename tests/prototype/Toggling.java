@@ -1,13 +1,15 @@
 /*
  * Toggling.java
  *
- * Copyright (c) 2006-2007 Operational Dynamics Consulting Pty Ltd
+ * Copyright (c) 2006-2008 Operational Dynamics Consulting Pty Ltd
  * 
  * The code in this file, and the library it is a part of, are made available
  * to you by the authors under the terms of the "GNU General Public Licence,
  * version 2" See the LICENCE file for the terms governing usage and
  * redistribution.
  */
+
+import java.util.HashSet;
 
 import org.freedesktop.bindings.Debug;
 import org.gnome.gdk.Event;
@@ -17,8 +19,6 @@ import org.gnome.gtk.Label;
 import org.gnome.gtk.VBox;
 import org.gnome.gtk.Widget;
 import org.gnome.gtk.Window;
-import java.util.HashSet;
-import java.util.Iterator;
 
 /**
  * Fork of Experiment to specifically test memory management under limited and
@@ -29,7 +29,7 @@ import java.util.Iterator;
 public final class Toggling
 {
 
-    private HashSet set;
+    private HashSet<Window> set;
 
     /*
      * It is not, strictly speaking, necessary to put the UI building code
@@ -53,7 +53,7 @@ public final class Toggling
         }
 
         w = new Window();
-        set = new HashSet();
+        set = new HashSet<Window>();
 
         x = new VBox(false, 3);
 
@@ -64,9 +64,7 @@ public final class Toggling
         x.packStart(res);
         res.connect(new Button.CLICKED() {
             public void onClicked(Button source) {
-                Iterator iter = set.iterator();
-                while (iter.hasNext()) {
-                    Window w = (Window) iter.next();
+                for (Window w : set) {
                     w.present();
                 }
             }

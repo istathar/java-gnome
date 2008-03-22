@@ -1,7 +1,7 @@
 /*
  * BindingsGenerator.java
  *
- * Copyright (c) 2007 Operational Dynamics Consulting Pty Ltd
+ * Copyright (c) 2007-2008 Operational Dynamics Consulting Pty Ltd
  * 
  * The code in this file, and the library it is a part of, are made available
  * to you by the authors under the terms of the "GNU General Public Licence,
@@ -115,8 +115,8 @@ public class BindingsGenerator
         File[] files;
         DefsLineNumberReader in;
         DefsFile data;
-        List all;
-        Iterator iter;
+        List<DefsFile> all;
+        Iterator<DefsFile> iter;
         PrintWriter typeMapping;
 
         files = sourceDir.listFiles(new FilenameFilter() {
@@ -129,7 +129,7 @@ public class BindingsGenerator
             }
         });
 
-        all = new ArrayList(files.length);
+        all = new ArrayList<DefsFile>(files.length);
 
         /*
          * Load the all the .defs files into DefsFile objects, one per type.
@@ -179,7 +179,7 @@ public class BindingsGenerator
             File transTarget, jniTarget;
             PrintWriter trans, jni;
 
-            data = (DefsFile) iter.next();
+            data = iter.next();
 
             packageAndClassName = data.getType().fullyQualifiedTranslationClassName().replace('.', '/');
             transTarget = new File(outputDir, packageAndClassName + ".java");

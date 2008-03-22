@@ -35,7 +35,7 @@ public abstract class Plumbing extends org.freedesktop.bindings.Plumbing
 
     protected Plumbing() {}
 
-    private static final IdentityHashMap typeMapping;
+    private static final IdentityHashMap<String, Class<?>> typeMapping;
 
     private static final String TYPE_MAPPING = "typeMapping.properties";
 
@@ -44,15 +44,7 @@ public abstract class Plumbing extends org.freedesktop.bindings.Plumbing
 
         lock = Gdk.lock;
 
-        typeMapping = new IdentityHashMap(100);
-
-        // FUTURE do we still need this?
-        registerType("gchararray", Primitive.class);
-        registerType("gboolean", Primitive.class);
-        registerType("gint", Primitive.class);
-        registerType("guint", Primitive.class);
-        registerType("gint32", Primitive.class);
-        registerType("guint32", Primitive.class);
+        typeMapping = new IdentityHashMap<String, Class<?>>(470);
 
         Properties p = new Properties();
 
@@ -71,7 +63,7 @@ public abstract class Plumbing extends org.freedesktop.bindings.Plumbing
             System.exit(2);
         }
 
-        for (Iterator iter = p.keySet().iterator(); iter.hasNext();) {
+        for (Iterator<java.lang.Object> iter = p.keySet().iterator(); iter.hasNext();) {
             String gType = (String) iter.next();
             String javaClass = (String) p.get(gType);
             registerType(gType, javaClass);
@@ -86,7 +78,7 @@ public abstract class Plumbing extends org.freedesktop.bindings.Plumbing
      * be) written.
      */
     protected static void registerType(String nativeName, String javaClassName) {
-        final Class javaClass;
+        final Class<?> javaClass;
 
         assert (javaClassName != null) : "Java class being registered cannot be null";
 
@@ -112,7 +104,7 @@ public abstract class Plumbing extends org.freedesktop.bindings.Plumbing
      * all, you should also have implemented the public class that goes along
      * with it!
      */
-    protected static void registerType(String nativeName, Class javaClass) {
+    protected static void registerType(String nativeName, Class<?> javaClass) {
 
         assert ((nativeName != null) && (!nativeName.equals(""))) : "GType name being registered cannot be null or empty";
         assert (javaClass != null) : "Java class being registered cannot be null";
@@ -139,7 +131,7 @@ public abstract class Plumbing extends org.freedesktop.bindings.Plumbing
      * Retrieve an array of appropriate Java Boxeds for the given array of
      * pointers.
      */
-    protected static Boxed[] boxedArrayFor(final Class type, final long[] pointers, Boxed[] boxeds) {
+    protected static Boxed[] boxedArrayFor(final Class<?> type, final long[] pointers, Boxed[] boxeds) {
         if (pointers == null) {
             return null;
         }
@@ -156,7 +148,7 @@ public abstract class Plumbing extends org.freedesktop.bindings.Plumbing
      * @throw ClassCastException if the GType pointed by given pointer is not
      *        a GBoxed.
      */
-    protected static Boxed boxedFor(Class type, final long pointer) {
+    protected static Boxed boxedFor(Class<?> type, final long pointer) {
         Proxy proxy;
 
         if (pointer == 0L) {
@@ -197,7 +189,7 @@ public abstract class Plumbing extends org.freedesktop.bindings.Plumbing
      * 
      * @see #boxedFor(Class, long)
      */
-    protected static void fillBoxedArray(Class type, Boxed[] boxeds, long[] pointers) {
+    protected static void fillBoxedArray(Class<?> type, Boxed[] boxeds, long[] pointers) {
         if (pointers == null) {
             return;
         }
@@ -243,7 +235,7 @@ public abstract class Plumbing extends org.freedesktop.bindings.Plumbing
              * exception.
              */
             final String name;
-            final Class type;
+            final Class<?> type;
 
             /*
              * We intern the returned GType name string to reduce memory
@@ -261,7 +253,7 @@ public abstract class Plumbing extends org.freedesktop.bindings.Plumbing
              * instance for the Proxy subclass.
              */
 
-            type = (Class) typeMapping.get(name);
+            type = typeMapping.get(name);
 
             if (type != null) {
                 proxy = createProxy(type, pointer);
@@ -316,8 +308,8 @@ public abstract class Plumbing extends org.freedesktop.bindings.Plumbing
     /**
      * Get the Class object that this supplied name maps to.
      */
-    protected final static Class lookupType(String name) {
-        return (Class) typeMapping.get(name);
+    protected final static Class<?> lookupType(String name) {
+        return typeMapping.get(name);
     }
 
     /**
@@ -342,7 +334,7 @@ public abstract class Plumbing extends org.freedesktop.bindings.Plumbing
      * In this case we need to go back to GObject in order to be able to make
      * the native call to our g_signal_connect() wrapper.
      */
-    protected static final void connectSignal(Object instance, Signal handler, Class receiver,
+    protected static final void connectSignal(Object instance, Signal handler, Class<?> receiver,
             String name) {
         GObject.g_signal_connect(pointerOf(instance), handler, receiver, name);
         instance.addHandler(handler);

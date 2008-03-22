@@ -1,7 +1,7 @@
 /*
  * VirtualBlock.java
  *
- * Copyright (c) 2007 Operational Dynamics Consulting Pty Ltd
+ * Copyright (c) 2007-2008 Operational Dynamics Consulting Pty Ltd
  * 
  * The code in this file, and the library it is a part of, are made available
  * to you by the authors under the terms of the "GNU General Public Licence,
@@ -29,7 +29,7 @@ import com.operationaldynamics.driver.DefsFile;
  */
 class VirtualBlock extends FunctionBlock
 {
-    VirtualBlock(String blockName, final List characteristics, final List parameters) {
+    VirtualBlock(String blockName, final List<String[]> characteristics, final List<String[]> parameters) {
         super(blockName, characteristics, parameters);
     }
 
@@ -41,8 +41,8 @@ class VirtualBlock extends FunctionBlock
      * Insert org.gnome.glib.Signal ("Signal" is a pseudo gType registered in
      * Thing.<clinit>(). Yes, this is a bit kludgy.
      */
-    public List usesTypes() {
-        List things;
+    public List<Thing> usesTypes() {
+        List<Thing> things;
 
         things = super.usesTypes();
         things.add(Thing.lookup("Signal"));
