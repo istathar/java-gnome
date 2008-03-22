@@ -29,3 +29,12 @@
   (return-type "GPtrArray*")
 )
 
+(define-method add_target
+  (of-object "AtkRelation")
+  (c-name "atk_relation_add_target")
+  (return-type "none")
+  (parameters
+    '("AtkObject*" "target")
+  )
+)
+

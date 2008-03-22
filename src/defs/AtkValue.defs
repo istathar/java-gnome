@@ -40,6 +40,15 @@
   )
 )
 
+(define-method get_minimum_increment
+  (of-object "AtkValue")
+  (c-name "atk_value_get_minimum_increment")
+  (return-type "none")
+  (parameters
+    '("GValue*" "value")
+  )
+)
+
 (define-virtual get_current_value
   (of-object "AtkValue")
   (return-type "none")
@@ -69,6 +78,14 @@
   (return-type "gboolean")
   (parameters
     '("const-GValue*" "value")
+  )
+)
+
+(define-virtual get_minimum_increment
+  (of-object "AtkValue")
+  (return-type "none")
+  (parameters
+    '("GValue*" "value")
   )
 )
 

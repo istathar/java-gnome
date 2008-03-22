@@ -125,6 +125,7 @@
 (define-method render_icon
   (of-object "GtkStyle")
   (c-name "gtk_style_render_icon")
+  (caller-owns-return #t)
   (return-type "GdkPixbuf*")
   (parameters
     '("const-GtkIconSource*" "source")

@@ -483,6 +483,7 @@
 (define-method flip
   (of-object "GdkPixbuf")
   (c-name "gdk_pixbuf_flip")
+  (caller-owns-return #t)
   (return-type "GdkPixbuf*")
   (parameters
     '("gboolean" "horizontal")

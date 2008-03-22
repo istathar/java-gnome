@@ -1,7 +1,7 @@
 /*
  * DefsFile.java
  *
- * Copyright (c) 2007 Operational Dynamics Consulting Pty Ltd, and Others
+ * Copyright (c) 2007-2008 Operational Dynamics Consulting Pty Ltd, and Others
  * 
  * The code in this file, and the library it is a part of, are made available
  * to you by the authors under the terms of the "GNU General Public Licence,
@@ -48,15 +48,15 @@ public final class DefsFile
      * The types being used in this file that are safe to import
      */
     // Sets don't do duplicates. Ta-da.
-    private final Set typesToImport;
+    private final Set<Thing> typesToImport;
 
     /**
      * The remainder of the types in use in this file, which musy be used
      * fully qualified.
      */
-    private final Set typesThatConflict;
+    private final Set<Thing> typesThatConflict;
 
-    private final Set bareNamesInUse;
+    private final Set<String> bareNamesInUse;
 
     /**
      * Create a new wrapper class representing the parsed .defs file for a
@@ -82,9 +82,9 @@ public final class DefsFile
         this.forObject = blocks[0].createThing();
         Thing.register(forObject);
 
-        typesToImport = new HashSet();
-        typesThatConflict = new HashSet();
-        bareNamesInUse = new HashSet();
+        typesToImport = new HashSet<Thing>();
+        typesThatConflict = new HashSet<Thing>();
+        bareNamesInUse = new HashSet<String>();
     }
 
     public final Thing getType() {
@@ -102,8 +102,8 @@ public final class DefsFile
      * information is available.
      */
     private void calculateImportsAndConflicts() {
-        List things;
-        Iterator iter;
+        List<Thing> things;
+        Iterator<Thing> iter;
         Thing t;
 
         for (int i = 0; i < blocks.length; i++) {
@@ -111,7 +111,7 @@ public final class DefsFile
 
             iter = things.iterator();
             while (iter.hasNext()) {
-                t = (Thing) iter.next();
+                t = iter.next();
 
                 if (t.isBlacklisted()) {
                     addToImports(Thing.lookup("Blacklist"));
@@ -161,7 +161,7 @@ public final class DefsFile
      * return a Set with the Things representing the types that <b>can</b> be
      * imported. Assumes all types already registered.
      */
-    public Set getTypesToImport() {
+    public Set<Thing> getTypesToImport() {
         return typesToImport;
     }
 

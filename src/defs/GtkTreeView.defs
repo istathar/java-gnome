@@ -389,7 +389,7 @@
   (return-type "none")
   (parameters
     '("GtkTreePath*" "path")
-    '("GtkTreeViewColumn*" "column")
+    '("GtkTreeViewColumn*" "column" (null-ok))
     '("GdkRectangle*" "rect")
   )
 )
@@ -840,6 +840,165 @@
   (return-type "none")
   (parameters
     '("gboolean" "enabled")
+  )
+)
+
+(define-method convert_bin_window_to_tree_coords
+  (of-object "GtkTreeView")
+  (c-name "gtk_tree_view_convert_bin_window_to_tree_coords")
+  (return-type "none")
+  (parameters
+    '("gint" "bx")
+    '("gint" "by")
+    '("gint*" "tx")
+    '("gint*" "ty")
+  )
+)
+
+(define-method convert_bin_window_to_widget_coords
+  (of-object "GtkTreeView")
+  (c-name "gtk_tree_view_convert_bin_window_to_widget_coords")
+  (return-type "none")
+  (parameters
+    '("gint" "bx")
+    '("gint" "by")
+    '("gint*" "wx")
+    '("gint*" "wy")
+  )
+)
+
+(define-method convert_tree_to_bin_window_coords
+  (of-object "GtkTreeView")
+  (c-name "gtk_tree_view_convert_tree_to_bin_window_coords")
+  (return-type "none")
+  (parameters
+    '("gint" "tx")
+    '("gint" "ty")
+    '("gint*" "bx")
+    '("gint*" "by")
+  )
+)
+
+(define-method convert_tree_to_widget_coords
+  (of-object "GtkTreeView")
+  (c-name "gtk_tree_view_convert_tree_to_widget_coords")
+  (return-type "none")
+  (parameters
+    '("gint" "tx")
+    '("gint" "ty")
+    '("gint*" "wx")
+    '("gint*" "wy")
+  )
+)
+
+(define-method convert_widget_to_bin_window_coords
+  (of-object "GtkTreeView")
+  (c-name "gtk_tree_view_convert_widget_to_bin_window_coords")
+  (return-type "none")
+  (parameters
+    '("gint" "wx")
+    '("gint" "wy")
+    '("gint*" "bx")
+    '("gint*" "by")
+  )
+)
+
+(define-method convert_widget_to_tree_coords
+  (of-object "GtkTreeView")
+  (c-name "gtk_tree_view_convert_widget_to_tree_coords")
+  (return-type "none")
+  (parameters
+    '("gint" "wx")
+    '("gint" "wy")
+    '("gint*" "tx")
+    '("gint*" "ty")
+  )
+)
+
+(define-method get_level_indentation
+  (of-object "GtkTreeView")
+  (c-name "gtk_tree_view_get_level_indentation")
+  (return-type "gint")
+)
+
+(define-method set_level_indentation
+  (of-object "GtkTreeView")
+  (c-name "gtk_tree_view_set_level_indentation")
+  (return-type "none")
+  (parameters
+    '("gint" "indentation")
+  )
+)
+
+(define-method get_show_expanders
+  (of-object "GtkTreeView")
+  (c-name "gtk_tree_view_get_show_expanders")
+  (return-type "gboolean")
+)
+
+(define-method set_show_expanders
+  (of-object "GtkTreeView")
+  (c-name "gtk_tree_view_set_show_expanders")
+  (return-type "none")
+  (parameters
+    '("gboolean" "enabled")
+  )
+)
+
+(define-method get_tooltip_column
+  (of-object "GtkTreeView")
+  (c-name "gtk_tree_view_get_tooltip_column")
+  (return-type "gint")
+)
+
+(define-method set_tooltip_column
+  (of-object "GtkTreeView")
+  (c-name "gtk_tree_view_set_tooltip_column")
+  (return-type "none")
+  (parameters
+    '("gint" "column")
+  )
+)
+
+(define-method get_tooltip_context
+  (of-object "GtkTreeView")
+  (c-name "gtk_tree_view_get_tooltip_context")
+  (return-type "gboolean")
+  (parameters
+    '("gint*" "x")
+    '("gint*" "y")
+    '("gboolean" "keyboard_tip")
+    '("GtkTreeModel**" "model" (null-ok))
+    '("GtkTreePath**" "path" (null-ok))
+    '("GtkTreeIter*" "iter" (null-ok))
+  )
+)
+
+(define-method is_rubber_banding_active
+  (of-object "GtkTreeView")
+  (c-name "gtk_tree_view_is_rubber_banding_active")
+  (return-type "gboolean")
+)
+
+(define-method set_tooltip_cell
+  (of-object "GtkTreeView")
+  (c-name "gtk_tree_view_set_tooltip_cell")
+  (return-type "none")
+  (parameters
+    '("GtkTooltip*" "tooltip")
+    '("GtkTreePath*" "path" (null-ok))
+    '("GtkTreeViewColumn*" "column" (null-ok))
+    '("GtkCellRenderer*" "cell" (null-ok))
+  )
+)
+
+(define-method set_tooltip_row
+  (of-object "GtkTreeView")
+  (c-name "gtk_tree_view_set_tooltip_row")
+  (return-type "none")
+  (parameters
+    '("GtkTooltip*" "tooltip")
+    '("GtkTreePath*" "path")
   )
 )
 

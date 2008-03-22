@@ -1,7 +1,7 @@
 /*
  * Thing.java
  *
- * Copyright (c) 2007 Operational Dynamics Consulting Pty Ltd
+ * Copyright (c) 2007-2008 Operational Dynamics Consulting Pty Ltd
  * 
  * The code in this file, and the library it is a part of, are made available
  * to you by the authors under the terms of the "GNU General Public Licence,
@@ -97,10 +97,10 @@ public abstract class Thing
         return blacklisted;
     }
 
-    private static HashMap things;
+    private static HashMap<String, Thing> things;
 
     static {
-        things = new HashMap(400);
+        things = new HashMap<String, Thing>(500);
 
         register(new FundamentalThing("none", "void", "void", "void"));
         register(new FundamentalThing("gchar", "char", "char", "jchar"));
@@ -288,7 +288,7 @@ public abstract class Thing
          * Lookup the type. This will work most of the time...
          */
 
-        stored = (Thing) things.get(gType);
+        stored = things.get(gType);
 
         if (stored != null) {
             return stored;
@@ -302,7 +302,7 @@ public abstract class Thing
 
         if (gType.startsWith("const-")) {
             bareGType = gType.substring(6);
-            stored = (Thing) things.get(bareGType);
+            stored = things.get(bareGType);
 
             if (stored != null) {
                 dupe = stored.createConstVariant();
@@ -312,7 +312,7 @@ public abstract class Thing
             }
         } else if (gType.startsWith("GList-") || gType.startsWith("GSList-")) {
             bareGType = gType.split("-")[1];
-            stored = (Thing) things.get(bareGType);
+            stored = things.get(bareGType);
 
             if (stored != null) {
                 dupe = stored.createListVariant(gType);
@@ -322,7 +322,7 @@ public abstract class Thing
             }
         } else if (gType.endsWith("*")) {
             bareGType = gType.substring(0, gType.length() - 1);
-            stored = (Thing) things.get(bareGType);
+            stored = things.get(bareGType);
 
             /*
              * we don't support arrays of arrays yet. the !(stored instanceof
@@ -547,7 +547,7 @@ public abstract class Thing
         Thing t;
 
         try {
-            t = (Thing) this.getClass().newInstance();
+            t = this.getClass().newInstance();
         } catch (InstantiationException ie) {
             throw new RuntimeException("No nullary constructor available in " + this.getClass() + "?",
                     ie);

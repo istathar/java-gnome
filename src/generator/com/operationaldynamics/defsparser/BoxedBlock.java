@@ -1,8 +1,8 @@
 /*
  * BoxedBlock.java
  *
- * Copyright (c) 2007 Operational Dynamics Consulting Pty Ltd
- * Copyright (c) 2007 Vreixo Formoso
+ * Copyright (c) 2007-2008 Operational Dynamics Consulting Pty Ltd
+ * Copyright (c) 2007      Vreixo Formoso
  * 
  * The code in this file, and the library it is a part of, are made available
  * to you by the authors under the terms of the "GNU General Public Licence,
@@ -50,7 +50,7 @@ public class BoxedBlock extends TypeBlock
 
     protected String releaseFunc;
 
-    public BoxedBlock(final String blockName, final List characteristics) {
+    public BoxedBlock(final String blockName, final List<String[]> characteristics) {
         super(blockName, characteristics);
     }
 

@@ -1,7 +1,7 @@
 /*
  * Plumbing.java
  *
- * Copyright (c) 2006 Operational Dynamics Consulting Pty Ltd
+ * Copyright (c) 2006-2008 Operational Dynamics Consulting Pty Ltd
  * 
  * The code in this file, and the library it is a part of, are made available
  * to you by the authors under the terms of the "GNU General Public Licence,
@@ -41,7 +41,7 @@ public abstract class Plumbing
      * created Java side that instance is returned rather than creating a new
      * one.
      */
-    static final HashMap knownProxies;
+    static final HashMap<Long, WeakReference<Proxy>> knownProxies;
 
     /**
      * When Enums get created, we add them to this Map so we can find an
@@ -55,19 +55,19 @@ public abstract class Plumbing
      * reachable; the Constant instances themselves will always be present by
      * virtue of their being in this two tier table.
      */
-    static final HashMap knownConstants;
+    static final HashMap<Class<? extends Constant>, HashMap<Integer, Constant>> knownConstants;
 
     static {
         /*
          * TODO: any particular reason to pick a starting array size?
          * 
-         * FIXME! Early on we used WeakHashMap, but that is weak on _keys_
-         * only, and in fact we definitely do _not_ want that. We need to
-         * switch to weak _values_; we're going to need to wrap and unwrap
-         * WeakReference around the Proxies we put as values to achieve that.
+         * Early on we used WeakHashMap, but that is weak on _keys_ only, and
+         * in fact we definitely do _not_ want that. We need to switch to weak
+         * _values_; we're going to need to wrap and unwrap WeakReference
+         * around the Proxies we put as values to achieve that.
          */
-        knownProxies = new HashMap();
-        knownConstants = new HashMap();
+        knownProxies = new HashMap<Long, WeakReference<Proxy>>();
+        knownConstants = new HashMap<Class<? extends Constant>, HashMap<Integer, Constant>>();
     }
 
     /*
@@ -81,7 +81,7 @@ public abstract class Plumbing
      * lookup.
      */
     static final void registerProxy(Proxy obj) {
-        knownProxies.put(new Long(obj.pointer), new WeakReference(obj));
+        knownProxies.put(new Long(obj.pointer), new WeakReference<Proxy>(obj));
     }
 
     /**
@@ -169,12 +169,12 @@ public abstract class Plumbing
      * looked up.
      */
     protected static Proxy instanceFor(long pointer) {
-        WeakReference ref = (WeakReference) knownProxies.get(new Long(pointer));
+        WeakReference<Proxy> ref = knownProxies.get(new Long(pointer));
 
         if (ref == null) {
             return null;
         } else {
-            return (Proxy) ref.get();
+            return ref.get();
         }
     }
 
@@ -185,7 +185,7 @@ public abstract class Plumbing
      * trick of calling JNI (where visibility rules are ignored) to create
      * Proxy instances.
      */
-    protected static native Proxy createProxy(Class type, long pointer);
+    protected static native Proxy createProxy(Class<?> type, long pointer);
 
     /*
      * Constant handling ----------------------------------
@@ -206,16 +206,16 @@ public abstract class Plumbing
      * allocation.
      */
     static final void registerConstant(Constant obj) {
-        final Class type;
-        HashMap map;
+        final Class<? extends Constant> type;
+        HashMap<Integer, Constant> map;
 
         type = obj.getClass();
 
-        map = (HashMap) knownConstants.get(type);
+        map = knownConstants.get(type);
 
         if (map == null) {
             // TODO is 8 a good initial capacity?
-            map = new HashMap(8);
+            map = new HashMap<Integer, Constant>(8);
             knownConstants.put(type, map);
         }
 
@@ -250,8 +250,8 @@ public abstract class Plumbing
         int[] ordinals = new int[references.length];
         for (int i = 0; i < references.length; ++i) {
             /*
-             * Here we need to check for null, as in output parameters
-             * we don't want to initialize the array!
+             * Here we need to check for null, as in output parameters we
+             * don't want to initialize the array!
              */
             ordinals[i] = references[i] == null ? 0 : references[i].ordinal;
         }
@@ -266,7 +266,7 @@ public abstract class Plumbing
      *             if it can't find a Constant object corresponding to the
      *             Class, ordinal combination you've requested.
      */
-    protected static Constant enumFor(Class type, int ordinal) {
+    protected static Constant enumFor(Class<?> type, int ordinal) {
         Constant obj;
 
         obj = getRegisteredConstant(type, ordinal);
@@ -284,7 +284,7 @@ public abstract class Plumbing
      * 
      * @see #enumFor(Class, int)
      */
-    protected static void fillEnumArray(Class type, Constant[] enums, int[] ordinals) {
+    protected static void fillEnumArray(Class<? extends Constant> type, Constant[] enums, int[] ordinals) {
         for (int i = 0; i < enums.length; ++i) {
             enums[i] = enumFor(type, ordinals[i]);
         }
@@ -299,7 +299,7 @@ public abstract class Plumbing
     /*
      * TODO the result of toString should match the ordered
      */
-    protected static Flag flagFor(Class type, int ordinal) {
+    protected static Flag flagFor(Class<?> type, int ordinal) {
         Flag obj;
         String name;
 
@@ -313,7 +313,7 @@ public abstract class Plumbing
         if (obj != null) {
             return obj;
         }
-        
+
         /*
          * Otherwise, we need a new one to represent this bit pattern.
          */
@@ -340,7 +340,7 @@ public abstract class Plumbing
      * 
      * @see #flagFor(Class, int)
      */
-    protected static void fillFlagArray(Class type, Flag[] flags, int[] ordinals) {
+    protected static void fillFlagArray(Class<? extends Flag> type, Flag[] flags, int[] ordinals) {
         for (int i = 0; i < flags.length; ++i) {
             flags[i] = flagFor(type, ordinals[i]);
         }
@@ -349,19 +349,19 @@ public abstract class Plumbing
     /**
      * Lookup a Constant that corresponds to the given type and ordinal.
      */
-    private static Constant getRegisteredConstant(Class type, int ordinal) {
-        final HashMap map;
+    private static Constant getRegisteredConstant(Class<?> type, int ordinal) {
+        final HashMap<Integer, Constant> map;
         Constant obj;
 
         assert (type != null);
 
-        map = (HashMap) knownConstants.get(type);
+        map = knownConstants.get(type);
         if (map == null) {
             throw new IllegalArgumentException("No Constants of type " + type.getName()
                     + " are registered");
         }
 
-        obj = (Constant) map.get(new Integer(ordinal));
+        obj = map.get(new Integer(ordinal));
         return obj;
     }
 
@@ -373,5 +373,5 @@ public abstract class Plumbing
      * prevent visibility problems, we use the trick of calling JNI (where
      * visibility rules are ignored) to create Proxy instances.
      */
-    private static native Flag createFlag(Class type, int ordinal, String nickname);
+    private static native Flag createFlag(Class<?> type, int ordinal, String nickname);
 }

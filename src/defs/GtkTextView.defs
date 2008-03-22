@@ -27,7 +27,7 @@
   (c-name "gtk_text_view_set_buffer")
   (return-type "none")
   (parameters
-    '("GtkTextBuffer*" "buffer")
+    '("GtkTextBuffer*" "buffer" (null-ok))
   )
 )
 
