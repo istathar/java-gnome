@@ -39,7 +39,7 @@ public abstract class Block
      */
     protected final String blockName;
 
-    protected Block(final String blockName, final List characteristics) {
+    protected Block(final String blockName, final List<String[]> characteristics) {
         this.blockName = blockName;
 
         processCharacteristics(characteristics);
@@ -75,8 +75,8 @@ public abstract class Block
      * Reflection engine to populate object members based on key/value pairs
      * in list
      */
-    private void processCharacteristics(final List list) {
-        Iterator iter;
+    private void processCharacteristics(final List<String[]> list) {
+        Iterator<String[]> iter;
 
         if (list == null) {
             return;
@@ -86,11 +86,11 @@ public abstract class Block
         while (iter.hasNext()) {
             final String[] array;
             final String name, value;
-            final Class[] signature;
+            final Class<?>[] signature;
             Method setter;
-            Class target;
+            Class<?> target;
 
-            array = (String[]) iter.next();
+            array = iter.next();
 
             name = nameToMethod(array[0]);
             value = array[1];
@@ -186,7 +186,7 @@ public abstract class Block
 
     public String toString() {
         final StringBuffer buf;
-        Class target;
+        Class<?> target;
 
         buf = new StringBuffer();
 
@@ -256,5 +256,5 @@ public abstract class Block
      *         often want to build up the list; this is easier if less type
      *         safe (in a pre-generics world).
      */
-    public abstract List usesTypes();
+    public abstract List<Thing> usesTypes();
 }

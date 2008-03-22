@@ -1,7 +1,7 @@
 /*
  * PrintCapabilities.java
  *
- * Copyright (c) 2007 Operational Dynamics Consulting Pty Ltd
+ * Copyright (c) 2007-2008 Operational Dynamics Consulting Pty Ltd, and Others
  *
  * The code in this file, and the library it is a part of, are made available
  * to you by the authors under the terms of the "GNU General Public Licence,
@@ -11,7 +11,7 @@
  */
 package org.gnome.unixprint;
 
-import org.freedesktop.bindings.Constant;
+import org.freedesktop.bindings.Flag;
 
 /*
  * FIXME this is a placeholder stub for what will become the public API for
@@ -21,7 +21,7 @@ import org.freedesktop.bindings.Constant;
  * are made about this class until it has been reviewed by a hacker and this
  * comment has been replaced.
  */
-public final class PrintCapabilities extends Constant
+public final class PrintCapabilities extends Flag
 {
     private PrintCapabilities(int ordinal, String nickname) {
         super(ordinal, nickname);

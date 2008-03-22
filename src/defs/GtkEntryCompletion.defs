@@ -176,6 +176,27 @@
   (return-type "gboolean")
 )
 
+(define-method get_completion_prefix
+  (of-object "GtkEntryCompletion")
+  (c-name "gtk_entry_completion_get_completion_prefix")
+  (return-type "const-gchar*")
+)
+
+(define-method get_inline_selection
+  (of-object "GtkEntryCompletion")
+  (c-name "gtk_entry_completion_get_inline_selection")
+  (return-type "gboolean")
+)
+
+(define-method set_inline_selection
+  (of-object "GtkEntryCompletion")
+  (c-name "gtk_entry_completion_set_inline_selection")
+  (return-type "none")
+  (parameters
+    '("gboolean" "inline_selection")
+  )
+)
+
 (define-virtual match_selected
   (of-object "GtkEntryCompletion")
   (return-type "gboolean")

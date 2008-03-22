@@ -129,18 +129,18 @@ command line, like this:
 This facilitates easily switching between runtimes and compilers for testing.
 At the moment, the available selections are:
 
-* `compiler` `-->` javac, ecj, and gcj
+* `compiler` `-->` javac, ecj, and gcj -C
 
 * `runtime`  `-->` java, cacao, jamvm, cacao, gij, and kaffe
 
 The whole point of the Equivalence's `configure` script is to figure things
 out for you, but if it can't quite figure out where Java is, you can override
-it by specifying an alternate location to find a JDK and/or GCJ, using either
+it by specifying an alternate location to find a JDK using either
 of the following:
 
 * `jdk` -- where to find a traditional Java Development Kit, ie `JAVA_HOME`
 
-* `gcj` -- prefix of an alternate GCJ install
+* `gcj` -- prefix of an alternate GCC install
 
 * `jamvm` -- path to the JamVM executable
 
@@ -181,10 +181,6 @@ The build products end up in `tmp/`:
 `tmp/gtk-4.0.jar`  
 `tmp/libgtkjni-4.0.jar`
 
-and if you are building for GCJ, you'll also end up with:
-
-`tmp/libgtkjava-4.0.so`
-
 That's actually enough to go on -- if you're using an IDE like Eclipse you can
 just tell it about the `.jar` and indicate that `tmp/` is the native library
 location and you can jump right to "Using the Bindings". Or you can install
@@ -199,8 +195,7 @@ standard `--prefix` option to `./configure`.
 
 ### Installing locally
 
-Someone installing it locally (to your home directory, say, or `/usr/local`)
-might do:
+Someone installing it locally (to your home directory, say) might do:
 
 	$ ./configure --prefix=/home/bloggins
 	$ make install
@@ -235,10 +230,6 @@ example:
 	make DESTDIR=/var/tmp/portage/java-gnome-4.0.6-r2/image install
 	
 	...
-
-To the delight of people doing packaging everywhere, `/usr` is the default
-installation prefix, so you don't even need to worry it. And _yes_ `make
-install` builds the library first, so you can skip that too.
 
 With a prefix of `/usr` you will end up with
 
@@ -354,7 +345,7 @@ Maintainer,
 [java-gnome](http://java-gnome.sourceforge.net/),  
 opening GTK and GNOME to Java programmers!
 
-_Last modified 9 Feb 08_
+_Last modified 16 Mar 08_
 
 [mirror]: http://ftp.gnome.org/pub/gnome/sources/java-gnome/4.0/
 

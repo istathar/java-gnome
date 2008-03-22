@@ -2,7 +2,7 @@
  * DataColumn.java
  *
  * Copyright (c) 1998-2004 The java-gnome Team
- * Copyright (c) 2007-     Operational Dynamics Consulting Pty Ltd
+ * Copyright (c) 2007-2008 Operational Dynamics Consulting Pty Ltd
  * 
  * The code in this file, and the library it is a part of, are made available
  * to you by the authors under the terms of the "GNU General Public Licence,
@@ -150,17 +150,17 @@ package org.gnome.gtk;
  */
 public abstract class DataColumn
 {
-    private final Class type;
+    private final Class<?> type;
 
     private int ordinal = -1;
 
-    protected DataColumn(Class type) {
+    protected DataColumn(Class<?> type) {
         assert (type != null);
 
         this.type = type;
     }
 
-    Class getType() {
+    Class<?> getType() {
         return type;
     }
 

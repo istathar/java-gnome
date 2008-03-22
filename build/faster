@@ -4,7 +4,7 @@
 # faster.py, an abbreviated build script for java-gnome
 # Must be invoked from the project top level directory as [./]build/faster
 #
-# Copyright (c) 2007 Operational Dynamics Consulting Pty Ltd 
+# Copyright (c) 2007-2008 Operational Dynamics Consulting Pty Ltd 
 # 
 # The code in this file, and the library it is a part of, are made available
 # to you by the authors under the terms of the "GNU General Public Licence,
@@ -135,7 +135,6 @@ def touchFile(file):
 
 
 def prepareBindingsDirectories():
-	ensureDirectory("tmp/native/")
 	ensureDirectory("tmp/stamp/")
 	ensureDirectory("generated/bindings/")
 	ensureDirectory("tmp/bindings/")

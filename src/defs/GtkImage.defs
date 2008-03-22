@@ -30,8 +30,8 @@
   (return-type "GtkWidget*")
   (deprecated "GdkImage superceded by GdkRGB")
   (parameters
-    '("GdkImage*" "image")
-    '("GdkBitmap*" "mask")
+    '("GdkImage*" "image" (null-ok))
+    '("GdkBitmap*" "mask" (null-ok))
   )
 )
 
@@ -51,7 +51,7 @@
   (caller-owns-return #t)
   (return-type "GtkWidget*")
   (parameters
-    '("GdkPixbuf*" "pixbuf")
+    '("GdkPixbuf*" "pixbuf" (null-ok))
   )
 )
 

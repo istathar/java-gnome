@@ -56,7 +56,7 @@ public final class Harness
         Process windowManager = null;
         Process settingsDaemon = null;
         final Pixbuf logo;
-        final Class[] demos;
+        final Class<?>[] demos;
 
         try {
             r = Runtime.getRuntime();

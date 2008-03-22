@@ -1,7 +1,7 @@
 /*
  * DefsParser.java
  *
- * Copyright (c) 2006-2007 Operational Dynamics Consulting Pty Ltd, and Others
+ * Copyright (c) 2006-2008 Operational Dynamics Consulting Pty Ltd, and Others
  * 
  * The code in this file, and the library it is a part of, are made available
  * to you by the authors under the terms of the "GNU General Public Licence,
@@ -57,7 +57,7 @@ public class DefsParser
      * Parser state
      */
 
-    private List characteristics, values, fields, parameters;
+    private List<String[]> characteristics, values, fields, parameters;
 
     private String phylum;
 
@@ -150,7 +150,7 @@ public class DefsParser
     boolean readNextStanza() throws ParseException {
         String line;
         Matcher m;
-        List l;
+        List<String[]> l;
 
         /*
          * Clear the parser state:
@@ -159,10 +159,10 @@ public class DefsParser
         phylum = null;
         name = null;
 
-        characteristics = new ArrayList();
-        values = new ArrayList();
-        fields = new ArrayList();
-        parameters = new ArrayList();
+        characteristics = new ArrayList<String[]>();
+        values = new ArrayList<String[]>();
+        fields = new ArrayList<String[]>();
+        parameters = new ArrayList<String[]>();
 
         try {
 
@@ -278,13 +278,13 @@ public class DefsParser
      * both for the same problem needs to be changed.
      */
     public Block[] parseData() {
-        List blocks;
+        List<Block> blocks;
         Block block;
         BoxedBlock parent;
-        Iterator iter;
+        Iterator<String[]> iter;
         String[] field;
 
-        blocks = new ArrayList();
+        blocks = new ArrayList<Block>();
 
         while (true) {
             try {
@@ -329,7 +329,7 @@ public class DefsParser
 
                     iter = fields.iterator();
                     while (iter.hasNext()) {
-                        field = (String[]) iter.next();
+                        field = iter.next();
 
                         block = new GetterBlock(parent, field[0], field[1]);
                         blocks.add(block);
@@ -367,6 +367,6 @@ public class DefsParser
         }
 
         // Wow. Eclipse gave me this as a template. Nice.
-        return (Block[]) blocks.toArray(new Block[blocks.size()]);
+        return blocks.toArray(new Block[blocks.size()]);
     }
 }
