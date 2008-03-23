@@ -345,7 +345,7 @@ public abstract class Plumbing extends org.freedesktop.bindings.Plumbing
      * succeed while we work out a better means of handling the cross-package
      * visibility issue. Entities are the various Cairo types.
      */
-    protected static Proxy entityFor(Class type, long pointer) {
+    protected static Proxy entityFor(Class<?> type, long pointer) {
         throw new UnsupportedOperationException(
                 "Unfortunately, we haven't figured out how to call the method in Cairo's Plumbing yet");
     }

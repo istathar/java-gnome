@@ -91,3 +91,9 @@
     '("double" "alpha")
   )
 )
+
+(define-method status
+  (of-object "cairo_pattern_t")
+  (c-name "cairo_pattern_status")
+  (return-type "cairo_status_t")
+)

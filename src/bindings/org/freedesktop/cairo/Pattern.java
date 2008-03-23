@@ -11,15 +11,13 @@
  */
 package org.freedesktop.cairo;
 
-import org.freedesktop.bindings.Proxy;
-
 /**
  * A Pattern source.
  * 
  * @author Andrew Cowie
  * @since 4.0.7
  */
-public abstract class Pattern extends Proxy
+public abstract class Pattern extends Entity
 {
     protected Pattern(long pointer) {
         super(pointer);
@@ -27,6 +25,10 @@ public abstract class Pattern extends Proxy
 
     protected void release() {
         CairoPattern.destroy(this);
+    }
+
+    protected void checkStatus() {
+        checkStatus(CairoPattern.status(this));
     }
 
     /**
@@ -46,6 +48,7 @@ public abstract class Pattern extends Proxy
      */
     public void addColorStopRGB(double offset, double red, double green, double blue) {
         CairoPattern.addColorStopRgb(this, offset, red, green, blue);
+        checkStatus();
     }
 
     /**
@@ -68,5 +71,6 @@ public abstract class Pattern extends Proxy
      */
     public void addColorStopRGBA(double offset, double red, double green, double blue, double alpha) {
         CairoPattern.addColorStopRgba(this, offset, red, green, blue, alpha);
+        checkStatus();
     }
 }

@@ -11,7 +11,6 @@
  */
 package org.freedesktop.cairo;
 
-import org.freedesktop.bindings.Proxy;
 import org.gnome.gdk.Gdk;
 
 public abstract class Plumbing extends org.freedesktop.bindings.Plumbing
@@ -32,8 +31,10 @@ public abstract class Plumbing extends org.freedesktop.bindings.Plumbing
         lock = Gdk.lock;
     }
 
-    protected static Proxy entityFor(Class type, long pointer) {
-        Proxy obj = org.freedesktop.bindings.Plumbing.instanceFor(pointer);
+    protected static Entity entityFor(Class<?> type, long pointer) {
+        Entity obj;
+
+        obj = (Entity) org.freedesktop.bindings.Plumbing.instanceFor(pointer);
 
         if (obj != null) {
             return obj;
@@ -56,7 +57,7 @@ public abstract class Plumbing extends org.freedesktop.bindings.Plumbing
      * then map that to the appropriate Java Proxy.
      */
 
-    private static native Proxy createSurface(long pointer);
-    
-    private static native Proxy createPattern(long pointer);
+    private static native Entity createSurface(long pointer);
+
+    private static native Entity createPattern(long pointer);
 }

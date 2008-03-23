@@ -11,7 +11,6 @@
  */
 package org.freedesktop.cairo;
 
-import org.freedesktop.bindings.Proxy;
 import org.gnome.gdk.Drawable;
 
 /**
@@ -32,7 +31,7 @@ import org.gnome.gdk.Drawable;
  * @author Andrew Cowie
  * @since 4.0.7
  */
-public class Context extends Proxy
+public class Context extends Entity
 {
     protected Context(long pointer) {
         super(pointer);
@@ -61,21 +60,8 @@ public class Context extends Proxy
      * <i>The the fact that errors are not checked for after each operation is
      * a C API convenience only.</i>
      */
-    /*
-     * FUTURE It might be nice to find a way to get the code generator to
-     * insert this into the JNI code automatically. That's non trivial, if for
-     * no other reason than different parts of Cairo (ie Surface, Font) use
-     * different status checking functions. It doesn't hurt to have it here.
-     */
     void checkStatus() {
-        final Status status;
-
-        status = CairoContext.status(this);
-
-        if (status != Status.SUCCESS) {
-            throw new IllegalStateException(status.toString() + "\n"
-                    + CairoContext.statusToString(status));
-        }
+        checkStatus(CairoContext.status(this));
     }
 
     /**

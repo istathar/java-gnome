@@ -11,16 +11,14 @@
  */
 package org.freedesktop.cairo;
 
-import org.freedesktop.bindings.Proxy;
-
 /**
  * The thing that Cairo will draw on/to. This is the base class for several
  * concrete back ends.
  * 
  * @author Andrew Cowie
- * @since 4.0.6
+ * @since 4.0.7
  */
-public abstract class Surface extends Proxy
+public abstract class Surface extends Entity
 {
     protected Surface(long pointer) {
         super(pointer);
@@ -95,12 +93,5 @@ public abstract class Surface extends Proxy
 
     protected void checkStatus() {
         checkStatus(CairoSurface.status(this));
-    }
-
-    private void checkStatus(Status status) {
-        if (status != Status.SUCCESS) {
-            throw new IllegalStateException(status.toString() + "\n"
-                    + CairoContext.statusToString(status));
-        }
     }
 }
