@@ -44,4 +44,9 @@ public abstract class Drawable extends Object
     public int getDepth() {
         return GdkDrawable.getDepth(this);
     }
+
+    Colormap getColormap() {
+        return GdkDrawable.getColormap(this);
+    }
+
 }

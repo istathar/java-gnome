@@ -1,7 +1,7 @@
 /*
  * Screen.java
  *
- * Copyright (c) 2007 Operational Dynamics Consulting Pty Ltd
+ * Copyright (c) 2007-2008 Operational Dynamics Consulting Pty Ltd
  *
  * The code in this file, and the library it is a part of, are made available
  * to you by the authors under the terms of the "GNU General Public Licence,
@@ -55,6 +55,8 @@ public class Screen extends Object
 
     /**
      * Get the horizontal width of this Screen, in pixels.
+     * 
+     * @since 4.0.4
      */
     public int getWidth() {
         return GdkScreen.getWidth(this);
@@ -62,8 +64,29 @@ public class Screen extends Object
 
     /**
      * Get the vertical height of this Screen, in pixels.
+     * 
+     * @since 4.0.4
      */
     public int getHeight() {
         return GdkScreen.getHeight(this);
+    }
+
+    /*
+     * Functions being used in debugging Pixmaps. Not clear if they need to be
+     * public; doesn't seem so.
+     */
+
+    /**
+     * Get the default Screen on the default Display.
+     */
+    static Screen getDefault() {
+        return GdkScreen.getDefault();
+    }
+
+    /**
+     * Get the default Colormap associated with this Screen.
+     */
+    Colormap getDefaultColormap() {
+        return GdkScreen.getDefaultColormap(this);
     }
 }

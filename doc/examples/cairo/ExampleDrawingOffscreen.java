@@ -22,6 +22,11 @@ import org.gnome.gtk.Window;
 /**
  * Exercise drawing with the Cairo API to an off-screen Drawable.
  * 
+ * FIXME THIS EXAMPLE DOES NOT YET FUNCTION CORRECTLY.
+ * 
+ * The result of using this is either a garbage background, a solid black
+ * square, or a crash. Help?
+ * 
  * @author Andrew Cowie
  */
 public class ExampleDrawingOffscreen
@@ -38,11 +43,14 @@ public class ExampleDrawingOffscreen
         w.setTitle("Offscreen");
         w.setDefaultSize(150, 150);
 
+        // the problem is here, with the bit depth
         m = new Pixmap(100, 100, 24);
 
         cr = new Context(m);
 
+        // recommended by Carl, but doesn't seem to help
         cr.setOperator(Operator.CLEAR);
+        cr.setSourceRGBA(1.0, 1.0, 1.0, 1.0);
         cr.paint();
 
         cr.setSourceRGBA(0.0, 0.0, 1.0, 0.8);
