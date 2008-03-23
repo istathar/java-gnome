@@ -10,13 +10,15 @@
  */
 package org.freedesktop.cairo;
 
+import java.io.File;
+
 import org.gnome.gtk.Gtk;
 import org.gnome.gtk.TestCaseGtk;
 
 /**
  * Started life as the Cairo drawing example; evolved to a unit test. This
  * TestCase is predicated on the assumption that PNGs are deterministic. I
- * don't know of anything that actually guaruntees or requires this to be the
+ * don't know of anything that actually guarantees or requires this to be the
  * case, but it seems a reasonable guess, given that it is ultimately just a
  * pixel mapping. Perhaps compression will get in the way; if so, switch this
  * to a TIFF.
@@ -27,8 +29,13 @@ import org.gnome.gtk.TestCaseGtk;
  * 
  * @author Andrew Cowie
  */
+/*
+ * TODO Actually do the comaprison!
+ */
 public class ValidateDrawingToFile extends TestCaseGtk
 {
+    private static String OUTPUT_FILENAME = "tmp/tests/ValidateDrawingToFile.png";
+
     private static void draw() {
         final Context cr;
         final ImageSurface surface;
@@ -41,11 +48,27 @@ public class ValidateDrawingToFile extends TestCaseGtk
         cr.lineTo(20, 5);
         cr.stroke();
 
-        surface.writeToPNG("tmp/tests/ValidateDrawingToFile.png");
+        surface.writeToPNG(OUTPUT_FILENAME);
     }
 
     public final void testImageSurfaceWriteToPNG() {
+        final File target;
+
+        target = new File(OUTPUT_FILENAME);
+
+        if (target.exists()) {
+            target.delete();
+        }
+
         draw();
+
+        assertTrue("PNG output not found", target.exists());
+
+        /*
+         * TODO compare output to some canonical example! How? Compare MD5
+         * sums? Load the two images and compare pixels? And where are we
+         * storing the other file in the tree?
+         */
     }
 
     public static void main(String[] args) {

@@ -20,7 +20,7 @@ package org.freedesktop.cairo;
  * a few times to set up the gradient. For example:
  * 
  * <pre>
- * pat = new LinearPattern(0.0, 0.0, 1.0, 1.0);
+ * pat = new LinearPattern(40, 25, 120, 100);
  * pat.addColorStopRGB(0.0, 0.0, 0.3, 0.8);
  * pat.addColorStopRGB(1.0, 0.0, 0.8, 0.3);
  * </pre>
@@ -41,12 +41,13 @@ public class LinearPattern extends Pattern
     }
 
     /**
-     * Create a Pattern with a linear gradient between <code>x0</code>,<code>y0</code>
-     * and <code>x1</code>,<code>y1</code>.
+     * Create a Pattern with a linear gradient between co-ordinates
+     * <code>x0</code>,<code>y0</code> and <code>x1</code>,<code>y1</code>.
      * 
      * @since 4.0.7
      */
     public LinearPattern(double x0, double y0, double x1, double y1) {
         super(CairoPattern.createPatternLinear(x0, y0, x1, y1));
+        checkStatus();
     }
 }

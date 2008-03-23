@@ -29,6 +29,8 @@ public abstract class Plumbing extends org.freedesktop.bindings.Plumbing
 
     static {
         lock = Gdk.lock;
+
+        assert (Status.SUCCESS != null);
     }
 
     protected static Entity entityFor(Class<?> type, long pointer) {
