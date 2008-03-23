@@ -12,10 +12,13 @@
 package org.gnome.gtk;
 
 /**
- * Display an image in a TreeView. The image data is sourced from a DataColumn
- * of type {@link DataColumnPixbuf DataColumnPixbuf} in your TreeModel.
+ * Display an image in a TreeView. The image data is sourced either from a
+ * DataColumn of type {@link DataColumnPixbuf DataColumnPixbuf} in your
+ * TreeModel, or from a DataColumn of type
+ * {@link DataColumnStock DataColumnStock}.
  * 
  * @author Andrew Cowie
+ * @author Vreixo Formoso
  * @since 4.0.5
  */
 public class CellRendererPixbuf extends CellRenderer
@@ -32,5 +35,15 @@ public class CellRendererPixbuf extends CellRenderer
      */
     public void setPixbuf(DataColumnPixbuf column) {
         GtkCellLayout.addAttribute(vertical, this, "pixbuf", column.getOrdinal());
+    }
+
+    /**
+     * Indicate the DataColumn containing the Stock icon to render as an
+     * image.
+     * 
+     * @since 4.0.7
+     */
+    public void setStock(DataColumnStock column) {
+        GtkCellLayout.addAttribute(vertical, this, "stock-id", column.getOrdinal());
     }
 }

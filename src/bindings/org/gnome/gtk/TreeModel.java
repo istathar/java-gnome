@@ -147,6 +147,7 @@ import org.gnome.gdk.Pixbuf;
  * 
  * @author Andrew Cowie
  * @author Peter Miller
+ * @author Vreixo Formoso
  * @since 4.0.5
  * 
  */
@@ -199,7 +200,7 @@ public abstract class TreeModel extends org.gnome.glib.Object
      */
     protected void dispatch(TreeIter row, DataColumn column, Value value) {
         throw new UnsupportedOperationException(
-                    "You need to implement setValue() for your TreeModel subclass");
+                "You need to implement setValue() for your TreeModel subclass");
     }
 
     /**
@@ -298,6 +299,32 @@ public abstract class TreeModel extends org.gnome.glib.Object
         GtkTreeModel.getValue(this, row, column.getOrdinal(), result);
 
         return result.getPixbuf();
+    }
+
+    /**
+     * Store a Stock icon in this TreeModel at the specified <code>row</code>
+     * and <code>column</code>.
+     * 
+     * @since 4.0.7
+     */
+    public void setValue(TreeIter row, DataColumnStock column, Stock value) {
+        dispatch(row, column, new Value(value.getStockId()));
+    }
+
+    /**
+     * Get the Stock icon stored in this TreeModel at the specified
+     * <code>row</code> and <code>column</code>.
+     * 
+     * @since 4.0.7
+     */
+    public Stock getValue(TreeIter row, DataColumnStock column) {
+        final Value result;
+
+        result = new Value();
+
+        GtkTreeModel.getValue(this, row, column.getOrdinal(), result);
+
+        return Stock.instanceFor(result.getString());
     }
 
     /**
