@@ -13,6 +13,7 @@ package org.gnome.glib;
 
 import org.freedesktop.bindings.Debug;
 import org.freedesktop.bindings.Proxy;
+import org.gnome.gdk.Pixbuf;
 
 /**
  * A generic value that can be passed as a parameter to or returned from a
@@ -140,6 +141,10 @@ public class Value extends Proxy
         this(GValue.createValue(value), true);
     }
 
+    protected Value(Pixbuf pixbuf) {
+        this(GValue.createValue(pixbuf), true);
+    }
+
     protected Value(Object obj) {
         this(GValue.createValue(obj), true);
     }
@@ -147,8 +152,12 @@ public class Value extends Proxy
     /*
      * Another one that's only really here for unit tests.
      */
-    public Object getObject() {
+    protected Object getObject() {
         return GValue.getObject(this);
+    }
+    
+    protected Pixbuf getPixbuf() {
+        return GValue.getPixbuf(this);
     }
 
     protected float getFloat() {
