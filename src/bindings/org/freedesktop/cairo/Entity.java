@@ -41,8 +41,7 @@ abstract class Entity extends Proxy
      */
     protected void checkStatus(Status status) {
         if (status != Status.SUCCESS) {
-            throw new IllegalStateException(status.toString() + "\n"
-                    + CairoContext.statusToString(status));
+            throw new FatalError(status.toString() + "\n" + CairoContext.statusToString(status));
         }
     }
 }
