@@ -14,7 +14,6 @@ import org.freedesktop.cairo.Context;
 import org.freedesktop.cairo.LinearPattern;
 import org.freedesktop.cairo.Pattern;
 import org.freedesktop.cairo.RadialPattern;
-import org.freedesktop.cairo.Status;
 import org.gnome.gdk.Event;
 import org.gnome.gdk.EventExpose;
 import org.gnome.gdk.Rectangle;
@@ -78,15 +77,6 @@ public class ExampleDrawingInExposeEvent
                  */
 
                 cr = new Context(source.getWindow());
-
-                /*
-                 * The Cairo API is built on the notion of fast failure if an
-                 * error is encountered. You need to explicitly probe to
-                 * determine whether a problem has occured. It is tempting to
-                 * put this into every single bound Cairo method.
-                 */
-
-                assert (cr.getStatus() == Status.SUCCESS);
 
                 /*
                  * Now, finally do some drawing:

@@ -43,3 +43,9 @@
   )
 )
 
+(define-method status
+  (of-object "cairo_surface_t")
+  (c-name "cairo_surface_status")
+  (return-type "cairo_status_t")
+)
+

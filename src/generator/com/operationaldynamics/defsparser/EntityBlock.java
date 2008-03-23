@@ -27,7 +27,7 @@ import com.operationaldynamics.driver.DefsFile;
  */
 public class EntityBlock extends TypeBlock
 {
-    public EntityBlock(final String blockName, final List characteristics) {
+    public EntityBlock(final String blockName, final List<String[]> characteristics) {
         super(blockName, characteristics);
     }
 

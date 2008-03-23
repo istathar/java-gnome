@@ -17,13 +17,9 @@ import org.freedesktop.bindings.Constant;
  * Error constants for problems arising during Cairo drawing operations.
  * 
  * @author Andrew Cowie
- * @since 4.0.5
+ * @since 4.0.7
  */
-/*
- * Do we even need to expose these at all? Wouldn't it be better to check this
- * after every operation and throw an exception instead?
- */
-public class Status extends Constant
+class Status extends Constant
 {
     private Status(int ordinal, String nickname) {
         super(ordinal, nickname);
@@ -44,4 +40,11 @@ public class Status extends Constant
      * expected.
      */
     public static final Status NULL_POINTER = new Status(CairoStatus.NULL_POINTER, "NULL_POINTER");
+
+    /**
+     * The Surface has been marked as finished, so you can't draw to it
+     * anymore.
+     */
+    public static final Status SURFACE_FINISHED = new Status(CairoStatus.SURFACE_FINISHED,
+            "SURFACE_FINISHED");
 }

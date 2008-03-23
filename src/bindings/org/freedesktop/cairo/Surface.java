@@ -80,7 +80,27 @@ public abstract class Surface extends Proxy
         CairoSurface.flush(this);
     }
 
+    /**
+     * Output the contents of this Surface to the specified file.
+     * 
+     * @since 4.0.7
+     */
     public void writeToPNG(String filename) {
-        CairoSurface.writeToPng(this, filename);
+        final Status status;
+
+        status = CairoSurface.writeToPng(this, filename);
+
+        checkStatus(status);
+    }
+
+    protected void checkStatus() {
+        checkStatus(CairoSurface.status(this));
+    }
+
+    private void checkStatus(Status status) {
+        if (status != Status.SUCCESS) {
+            throw new IllegalStateException(status.toString() + "\n"
+                    + CairoContext.statusToString(status));
+        }
     }
 }

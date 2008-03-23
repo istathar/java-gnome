@@ -12,7 +12,6 @@ package cairo;
 
 import org.freedesktop.cairo.Context;
 import org.freedesktop.cairo.Operator;
-import org.freedesktop.cairo.Status;
 import org.gnome.gdk.Event;
 import org.gnome.gdk.Pixmap;
 import org.gnome.gtk.Gtk;
@@ -42,17 +41,14 @@ public class ExampleDrawingOffscreen
         m = new Pixmap(100, 100, 24);
 
         cr = new Context(m);
-        check(cr);
 
         cr.setOperator(Operator.CLEAR);
         cr.paint();
-        check(cr);
 
         cr.setSourceRGBA(0.0, 0.0, 1.0, 0.8);
         cr.moveTo(10, 10);
         cr.lineTo(20, 45);
         cr.stroke();
-        check(cr);
 
         i = new Image(m, null);
         w.add(i);
@@ -66,15 +62,5 @@ public class ExampleDrawingOffscreen
         });
 
         Gtk.main();
-    }
-
-    private static void check(Context cr) {
-        final Status status;
-
-        status = cr.getStatus();
-
-        if (status != Status.SUCCESS) {
-            throw new AssertionError(status.toString());
-        }
     }
 }

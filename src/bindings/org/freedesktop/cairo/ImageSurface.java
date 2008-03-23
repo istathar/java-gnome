@@ -11,6 +11,23 @@
  */
 package org.freedesktop.cairo;
 
+/**
+ * A Surface which is an image in memory and can be written to disk. If
+ * drawing to an image you intend to write to a PNG, you would end up doing
+ * something like:
+ * 
+ * <pre>
+ * surface = new ImageSurface(Format.ARGB32, 100, 100);
+ * cr = new Context(surface);
+ * 
+ * // do drawing 
+ * 
+ * surface.writeToPNG(filename);
+ * </pre>
+ * 
+ * @author Andrew Cowie
+ * @since 4.0.7
+ */
 public class ImageSurface extends Surface
 {
     protected ImageSurface(long pointer) {
@@ -19,5 +36,6 @@ public class ImageSurface extends Surface
 
     public ImageSurface(Format format, int width, int height) {
         super(CairoImageSurface.createSurface(format, width, height));
+        checkStatus();
     }
 }

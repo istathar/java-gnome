@@ -27,7 +27,7 @@ public class EntityThing extends ProxiedThing
     protected EntityThing() {}
 
     String translationToJava(String name, DefsFile data) {
-        return "(" + javaTypeInContext(data) + ") entityFor(" + javaTypeInContext(data) + ".class,  " + name
-                + ")";
+        return "(" + javaTypeInContext(data) + ") entityFor(" + javaTypeInContext(data) + ".class,  "
+                + name + ")";
     }
 }

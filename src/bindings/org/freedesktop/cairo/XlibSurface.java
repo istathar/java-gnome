@@ -11,6 +11,13 @@
  */
 package org.freedesktop.cairo;
 
+/**
+ * A Window as rendered by the X Server. Used internally when drawing to an
+ * application window.
+ * 
+ * @author Andrew Cowie
+ * @since 4.0.7
+ */
 public class XlibSurface extends Surface
 {
     protected XlibSurface(long pointer) {

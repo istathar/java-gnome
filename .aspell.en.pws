@@ -1320,6 +1320,7 @@ nwith
 objectArrayFor
 objectFor
 odt
+offscreen
 ok
 onActivate
 onButtonPressEvent
@@ -1408,6 +1409,7 @@ pyGTK
 pygtk
 rawing
 rb
+rect
 reentrant
 refactor
 refactored
@@ -1582,6 +1584,7 @@ setTimeZone
 setTip
 setTitle
 setTooltip
+setTooltipMarkup
 setTooltipText
 setTooltips
 setTransientFor

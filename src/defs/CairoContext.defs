@@ -170,3 +170,15 @@
     '("double" "y")
   )
 )
+
+;; strictly, this belongs in CairoStatus.defs, but functions don't go in
+;; Enum blocks.
+
+(define-function status_to_string
+  (of-object "cairo_t")
+  (c-name "cairo_status_to_string")
+  (return-type "const-char*")
+  (parameters
+    '("cairo_status_t" "status")
+  )
+)

@@ -15,7 +15,19 @@ import org.freedesktop.bindings.Proxy;
 import org.gnome.gdk.Drawable;
 
 /**
- * A Cairo Context.
+ * Carry out drawing operations with the Cairo library.
+ * 
+ * <p>
+ * Graphics will be rendered to the Surface specified when you construct the
+ * Context:
+ * <ul>
+ * <li>If creating an image to be written to a file, start with an
+ * {@link ImageSurface}, do your drawing, and then use Surface's writeToPNG()
+ * to output your image.
+ * <li>If drawing to the screen in a user interface application, you'll
+ * construct a Context using the underlying GDK Window in your Widget's
+ * {@link org.gnome.gtk.Widget.EXPOSE_EVENT EXPOSE_EVENT}.
+ * </ul>
  * 
  * @author Andrew Cowie
  * @since 4.0.7
@@ -41,6 +53,32 @@ public class Context extends Proxy
     }
 
     /**
+     * Check the status of the Cairo Context, and fail with an exception if it
+     * is other than SUCCESS. This should be called by each method in our
+     * Cairo bindings.
+     * 
+     * <p>
+     * <i>The the fact that errors are not checked for after each operation is
+     * a C API convenience only.</i>
+     */
+    /*
+     * FUTURE It might be nice to find a way to get the code generator to
+     * insert this into the JNI code automatically. That's non trivial, if for
+     * no other reason than different parts of Cairo (ie Surface, Font) use
+     * different status checking functions. It doesn't hurt to have it here.
+     */
+    void checkStatus() {
+        final Status status;
+
+        status = CairoContext.status(this);
+
+        if (status != Status.SUCCESS) {
+            throw new IllegalStateException(status.toString() + "\n"
+                    + CairoContext.statusToString(status));
+        }
+    }
+
+    /**
      * Construct a new "Cairo Context" related to a Drawable. This is the
      * magic glue which allows you to link between GTK's Widgets and Cairo's
      * drawing operations.
@@ -63,6 +101,7 @@ public class Context extends Proxy
      */
     public Context(Drawable drawable) {
         super(CairoContextOverride.createContextFromDrawable(drawable));
+        checkStatus();
     }
 
     /**
@@ -73,6 +112,7 @@ public class Context extends Proxy
      */
     public void setSourceRGB(double red, double green, double blue) {
         CairoContext.setSourceRgb(this, red, green, blue);
+        checkStatus();
     }
 
     /**
@@ -86,6 +126,7 @@ public class Context extends Proxy
      */
     public void setSourceRGBA(double red, double green, double blue, double alpha) {
         CairoContext.setSourceRgba(this, red, green, blue, alpha);
+        checkStatus();
     }
 
     /**
@@ -96,6 +137,7 @@ public class Context extends Proxy
      */
     public void lineTo(double x, double y) {
         CairoContext.lineTo(this, x, y);
+        checkStatus();
     }
 
     /**
@@ -106,6 +148,7 @@ public class Context extends Proxy
      */
     public void moveTo(double x, double y) {
         CairoContext.moveTo(this, x, y);
+        checkStatus();
     }
 
     /**
@@ -115,6 +158,7 @@ public class Context extends Proxy
      */
     public void stroke() {
         CairoContext.stroke(this);
+        checkStatus();
     }
 
     /**
@@ -123,11 +167,12 @@ public class Context extends Proxy
      * @since 4.0.7
      */
     public Pattern getSource() {
-        return CairoContext.getSource(this);
-    }
+        final Pattern result;
 
-    public Status getStatus() {
-        return CairoContext.status(this);
+        result = CairoContext.getSource(this);
+        checkStatus();
+
+        return result;
     }
 
     /**
@@ -144,7 +189,12 @@ public class Context extends Proxy
      * @since 4.0.7
      */
     public Surface getTarget() {
-        return CairoContext.getTarget(this);
+        final Surface result;
+
+        result = CairoContext.getTarget(this);
+        checkStatus();
+
+        return result;
     }
 
     /**
@@ -163,6 +213,7 @@ public class Context extends Proxy
      */
     public void setOperator(Operator op) {
         CairoContext.setOperator(this, op);
+        checkStatus();
     }
 
     /**
@@ -172,6 +223,7 @@ public class Context extends Proxy
      */
     public void paint() {
         CairoContext.paint(this);
+        checkStatus();
     }
 
     /**
@@ -191,6 +243,7 @@ public class Context extends Proxy
      */
     public void setSourceSurface(Surface surface, double x, double y) {
         CairoContext.setSourceSurface(this, surface, x, y);
+        checkStatus();
     }
 
     /**
@@ -202,6 +255,7 @@ public class Context extends Proxy
      */
     public void rectangle(double x, double y, double width, double height) {
         CairoContext.rectangle(this, x, y, width, height);
+        checkStatus();
     }
 
     /**
@@ -214,10 +268,12 @@ public class Context extends Proxy
      */
     public void fill() {
         CairoContext.fill(this);
+        checkStatus();
     }
 
     public void fillPreserve() {
         CairoContext.fillPreserve(this);
+        checkStatus();
     }
 
     /**
@@ -227,6 +283,7 @@ public class Context extends Proxy
      */
     public void setSource(Pattern pattern) {
         CairoContext.setSource(this, pattern);
+        checkStatus();
     }
 
     /**
@@ -239,5 +296,6 @@ public class Context extends Proxy
      */
     public void mask(Pattern pattern) {
         CairoContext.mask(this, pattern);
+        checkStatus();
     }
 }
