@@ -1,6 +1,7 @@
 personal_ws-1.1 en 0
 ABI
 APIs
+ARGB
 AUR
 AWT
 AboutDialog
@@ -38,6 +39,13 @@ ButtonFactory
 ButtonsType
 CCFLAGS
 CVS
+CairoContext
+CairoContextOverride
+CairoFormat
+CairoImageSurface
+CairoOperator
+CairoPattern
+CairoSurface
 CalendarDisplayOptions
 CallStaticBooleanMethodA
 CallStaticObjectMethodA
@@ -121,6 +129,7 @@ EventConfigure
 EventCrossing
 EventDragAndDrop
 EventExpose
+EventExpose's
 EventFocus
 EventKey
 EventKey's
@@ -141,6 +150,7 @@ ExceptionClear
 ExceptionDescribe
 ExceptionOccurred
 FIXME
+FatalError
 FileChooser
 FileChooser's
 FileChooserAction
@@ -196,6 +206,7 @@ GdkCursor
 GdkCursorType
 GdkCursors
 GdkDisplay
+GdkDrawable
 GdkEvent
 GdkEventAny
 GdkEventButton
@@ -209,6 +220,7 @@ GdkKeyval
 GdkModifierType
 GdkPixbuf
 GdkPixbufFormat
+GdkRectangle
 GdkScreen
 GdkVisibilityState
 GdkWindow
@@ -359,6 +371,7 @@ IllegalStateException
 IllegalThreadStateException
 ImageMenuItem
 ImageMenuItems
+ImageSurface
 ImageType
 IndexError
 InfoMessageDialog
@@ -400,6 +413,7 @@ LargeLogo
 Laszlo
 LibGlade
 Libre
+LinearPattern
 ListStore
 ListStore's
 ListStores
@@ -454,7 +468,6 @@ OpenOffice
 OpenSolaris
 OutOfMemoryError
 Overholt
-PIXMAP
 PKGBUILD
 PNGs
 PRELIGHT
@@ -473,6 +486,7 @@ Piechotka
 Pixbuf's
 PixbufAnimation
 PixbufFormat
+Pixmap
 PolicyType
 PositionType
 PowerResponseType
@@ -491,6 +505,7 @@ README
 RGB
 RHEL
 RTL
+RadialPattern
 Rahn
 RcStyle
 RefToJavaProxy
@@ -531,6 +546,7 @@ SnapshotInfoMessageDialog
 SnapshotQuestionMessageDialog
 SnapshotTreeView
 SnapshotWindow
+SolidPattern
 SourceForge
 SpinButton
 Srichand
@@ -546,6 +562,7 @@ StockItems
 StorageType
 StringBuffer
 StringValue
+SurfacePattern
 SysReq
 TODO
 TZ
@@ -617,6 +634,7 @@ VM
 VMs
 VScale
 VSeparator
+ValidateDrawingToFile
 ValidateMemoryManagement
 ValidatePacking
 ValidateProperties
@@ -642,6 +660,7 @@ XFree
 XINERAMA
 Xerces
 Xlib's
+XlibSurface
 Xml
 Xvfb
 YYZ
@@ -655,6 +674,10 @@ addAction
 addActionWithAccel
 addAttribute
 addButton
+addColorStopRGB
+addColorStopRGBA
+addColorStopRgb
+addColorStopRgba
 addHandler
 addToggleRef
 addWidget
@@ -689,8 +712,10 @@ basename
 baz
 bdb
 bitkeeper
+bitmask
 bjc
 blackdown
+blockquote
 blog
 bloggins
 blogs
@@ -731,6 +756,7 @@ checkAlive
 checkInitialized
 checkPixbufFromFile
 checkPixbufFromFileAtScale
+checkStatus
 checkpointHashes
 checksum
 clampPage
@@ -751,6 +777,7 @@ compileCSourceToObject
 compileGeneratorClasses
 compileJavaCode
 compileTestClasses
+compositing
 conf
 config
 configFile
@@ -766,6 +793,7 @@ coronatedYearColumn
 countryName
 countryNameColumn
 cp
+cr
 createAboutDialog
 createAction
 createActionGroup
@@ -787,6 +815,8 @@ createComboBoxEntryText
 createComboBoxEntryWithModel
 createComboBoxText
 createComboBoxWithModel
+createContext
+createContextFromDrawable
 createCursor
 createDialog
 createDialogWithButtons
@@ -816,6 +846,10 @@ createMenuToolButton
 createMessageDialog
 createNotebook
 createObject
+createPatternForSurface
+createPatternLinear
+createPatternRadial
+createPatternRgba
 createPixbufFromFile
 createPixbufFromFileAtScale
 createProgressBar
@@ -829,6 +863,7 @@ createStatusIconFromFile
 createStatusIconFromIconName
 createStatusIconFromPixbuf
 createStatusbar
+createSurface
 createTable
 createThing
 createToggleButton
@@ -855,6 +890,8 @@ createWindow
 createWithLabel
 currentTimeMillis
 cwd
+cx
+cy
 cycleGarbageCollector
 cycleMainLoop
 da
@@ -929,6 +966,7 @@ filename
 filenames
 filesNeedBuilding
 filetype
+fillPreserve
 finalizer
 finalizers
 findFiles
@@ -972,6 +1010,7 @@ getAlignmentX
 getAlignmentY
 getAllocation
 getAngle
+getArea
 getBlinking
 getBlue
 getBoolean
@@ -1071,13 +1110,17 @@ getSelected
 getSelection
 getSensitive
 getSize
+getSource
 getState
+getStatus
 getSticker
 getStock
 getStockId
 getStorageType
 getString
 getSubmenu
+getSurface
+getTarget
 getText
 getTooltip
 getToplevel
@@ -1219,6 +1262,7 @@ libgnome
 libgnomeui
 libgtk
 librarypath
+lineTo
 linkSharedLibrary
 linux
 listFiles
@@ -1260,6 +1304,7 @@ modifyText
 monarchName
 monarchNameColumn
 monarchObjectColumn
+moveTo
 moveWidget
 msg
 multi
@@ -1301,6 +1346,7 @@ nwith
 objectArrayFor
 objectFor
 odt
+offscreen
 ok
 onActivate
 onButtonPressEvent
@@ -1389,6 +1435,7 @@ pyGTK
 pygtk
 rawing
 rb
+rect
 reentrant
 refactor
 refactored
@@ -1512,6 +1559,7 @@ setMinWidth
 setModal
 setMode
 setModel
+setOperator
 setOrdinal
 setOrientation
 setPadding
@@ -1549,6 +1597,12 @@ setSizeRequest
 setSizing
 setSortColumn
 setSortColumnId
+setSource
+setSourceRGB
+setSourceRGBA
+setSourceRgb
+setSourceRgba
+setSourceSurface
 setStick
 setSubmenu
 setTabPos
@@ -1558,6 +1612,7 @@ setTimeZone
 setTip
 setTitle
 setTooltip
+setTooltipMarkup
 setTooltipText
 setTooltips
 setTransientFor
@@ -1594,6 +1649,7 @@ sourceObject
 sourceforge
 sourcepath
 src
+statusToString
 stepIncrement
 stockId
 str
@@ -1627,6 +1683,7 @@ testAvoidCyclicReferenceFromSignalHookup
 testButtonPropertyLabel
 testButtonReliefStyle
 testGetChildAndParent
+testImageSurfaceWriteToPNG
 testManuallyTwistingRefCount
 testNoDenaturation
 testNoMultipleCreation
@@ -1713,6 +1770,8 @@ windowManager
 workspaces
 wr
 writeJniCode
+writeToPNG
+writeToPng
 writeTranslationCode
 x's
 xFFFFFF

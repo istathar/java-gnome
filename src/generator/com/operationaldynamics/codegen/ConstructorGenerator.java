@@ -51,11 +51,11 @@ public class ConstructorGenerator extends FunctionGenerator
      * @param gParameters
      */
 
-    public ConstructorGenerator(final DefsFile data, final String gReturnType,
+    public ConstructorGenerator(final DefsFile data, final String blockName, final String gReturnType,
             final String gFunctionName, final String[][] gParameters) {
         super(data, "", "glong", gFunctionName, gParameters);
 
-        this.translationMethodName = mungeConstructorName(data.getType().gType, gFunctionName);
+        this.translationMethodName = mungeConstructorName(data.getType().gType, blockName);
         this.actualReturnType = Thing.lookup(gReturnType);
     }
 

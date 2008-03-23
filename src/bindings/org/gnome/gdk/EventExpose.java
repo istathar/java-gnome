@@ -1,7 +1,7 @@
 /*
  * EventExpose.java
  *
- * Copyright (c) 2007 Operational Dynamics Consulting Pty Ltd
+ * Copyright (c) 2007-2008 Operational Dynamics Consulting Pty Ltd
  *
  * The code in this file, and the library it is a part of, are made available
  * to you by the authors under the terms of the "GNU General Public Licence,
@@ -22,5 +22,20 @@ public final class EventExpose extends Event
 {
     protected EventExpose(long pointer) {
         super(pointer);
+    }
+
+    /**
+     * Get a Rectangle describing the box bounding the Region that has been
+     * exposed and needs redrawing.
+     * 
+     * @since 4.0.7
+     */
+    public Rectangle getArea() {
+        final Rectangle result;
+
+        result = GdkEventExposeOverride.getArea(this);
+        result.origin = this;
+
+        return result;
     }
 }

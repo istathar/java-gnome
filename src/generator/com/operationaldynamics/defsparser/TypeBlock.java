@@ -70,6 +70,10 @@ public abstract class TypeBlock extends Block
         StringBuffer buf;
         char ch;
 
+        if (module.equals("Cairo")) {
+            return "org.freedesktop.cairo";
+        }
+
         buf = new StringBuffer(module);
 
         ch = buf.charAt(0);

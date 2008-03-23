@@ -86,7 +86,7 @@ public class Glib
      */
     static void checkInitialized() {
         if (!initialized) {
-            throw new Error("\n\nYou *must* call Gtk.init() before using anything else in java-gnome!\n");
+            throw new FatalError("\n\nYou *must* call Gtk.init() before using anything else in java-gnome!\n");
         }
     }
 

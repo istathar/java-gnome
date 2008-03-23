@@ -1,5 +1,5 @@
 /*
- * Screenshot.c
+ * gnome_screenshot_capture.c
  *
  * Copyright (c) 2007 Operational Dynamics Consulting Pty Ltd
  *
