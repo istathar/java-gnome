@@ -93,18 +93,6 @@
   (return-type "GdkDisplay*")
 )
 
-(define-method ref
-  (of-object "GdkDrawable")
-  (c-name "gdk_drawable_ref")
-  (return-type "GdkDrawable*")
-)
-
-(define-method unref
-  (of-object "GdkDrawable")
-  (c-name "gdk_drawable_unref")
-  (return-type "none")
-)
-
 (define-method draw_point
   (of-object "GdkDrawable")
   (c-name "gdk_draw_point")

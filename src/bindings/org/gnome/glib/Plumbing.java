@@ -339,4 +339,14 @@ public abstract class Plumbing extends org.freedesktop.bindings.Plumbing
         GObject.g_signal_connect(pointerOf(instance), handler, receiver, name);
         instance.addHandler(handler);
     }
+
+    /*
+     * FIXME this is a pathetic hack, only here to permit compilation to
+     * succeed while we work out a better means of handling the cross-package
+     * visibility issue. Entities are the various Cairo types.
+     */
+    protected static Proxy entityFor(Class<?> type, long pointer) {
+        throw new UnsupportedOperationException(
+                "Unfortunately, we haven't figured out how to call the method in Cairo's Plumbing yet");
+    }
 }

@@ -24,6 +24,7 @@
 #include <string.h>
 #include <glib.h>
 #include <glib-object.h>
+#include <gtk/gtk.h>
 #include "bindings_java.h"
 
 typedef struct  {
@@ -231,7 +232,7 @@ bindings_java_marshaller
 
 	case 'Z':
 		/*
-		 * boolean return signal2s
+		 * boolean return signals
 		 */
 		_b = (*env)->CallStaticBooleanMethodA(env, bjc->receiver, bjc->method, jargs);		
 		if (_b == JNI_TRUE) {
@@ -292,13 +293,6 @@ bindings_java_marshaller
 	}
 
 	/*
-	 * We used to check here if an exception occurred in the callback; if
-	 * so we printed the stack trace and then swollowed the exception.
-	 * We've stopped doing that. We want to force developers to deal with
-	 * criticals emitted by the underlying libraries.
-	 */
-
-	/*
 	 * Cleanup
 	 */
 
@@ -315,8 +309,31 @@ bindings_java_marshaller
 	}
 	
 	/*
-	 * And don't need to free jargs - we alloca()'d it
+	 * Don't need to free jargs - we alloca()'d it
 	 */
+	
+	/*
+	 * Now, check if an exception occurred in the callback. There's a
+	 * catch: because we're in native code right now [care of the call to
+	 * gtk_main()] the exception gets swallowed until we return from that
+	 * native call. So we call the function which causes the main loop to
+	 * terminate, with the result that the exception will propegate out
+	 * and, yes, probably halt the program.
+	 * 
+	 * This is abrupt, but it is deliberate: we need to force developers
+	 * to deal with criticals emitted by the underlying libraries.
+	 * Otherwise, the next thing that is likely to happen is a
+	 * segmentation fault, and not only does that crash the "program" but
+	 * it takes out the Java Virtual Machine running it. People don't
+	 * like VM crashes.
+	 * 
+	 * Uncaught exceptions of any kind leaving a signal handler are to be
+	 * considered programmer error and will be fatal.
+	 */
+
+	if ((*env)->ExceptionOccurred(env)) {
+		gtk_main_quit();
+	}
 }
 
 /**

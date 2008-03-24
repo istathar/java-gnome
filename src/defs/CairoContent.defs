@@ -1,0 +1,10 @@
+(define-flags Content
+  (in-module "Cairo")
+  (c-name "cairo_content_t")
+  (values
+    '("color" "CAIRO_CONTENT_COLOR")
+    '("alpha" "CAIRO_CONTENT_ALPHA")
+    '("color_alpha" "CAIRO_CONTENT_COLOR_ALPHA")
+  )
+)
+

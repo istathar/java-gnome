@@ -62,6 +62,6 @@ public class EnumBlock extends TypeBlock
     }
 
     public Thing createThing() {
-        return new EnumThing(cName, moduleToJavaPackage(inModule), cName, blockName);
+        return new EnumThing(cName, moduleToJavaPackage(inModule), inModule + blockName, blockName);
     }
 }

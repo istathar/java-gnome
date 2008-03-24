@@ -1,7 +1,7 @@
 /*
  * Visual.java
  *
- * Copyright (c) 2007 Operational Dynamics Consulting Pty Ltd
+ * Copyright (c) 2007-2008 Operational Dynamics Consulting Pty Ltd
  *
  * The code in this file, and the library it is a part of, are made available
  * to you by the authors under the terms of the "GNU General Public Licence,
@@ -25,5 +25,13 @@ public class Visual extends Object
 {
     protected Visual(long pointer) {
         super(pointer);
+    }
+
+    /**
+     * Get the best depth supported by this Visual. The return value is depth,
+     * in bits.
+     */
+    static int getBestDepth() {
+        return GdkVisual.getBestDepth();
     }
 }

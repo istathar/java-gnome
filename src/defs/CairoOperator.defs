@@ -1,0 +1,21 @@
+(define-enum Operator
+  (in-module "Cairo")
+  (c-name "cairo_operator_t")
+  (values
+    '("clear" "CAIRO_OPERATOR_CLEAR")
+    '("source" "CAIRO_OPERATOR_SOURCE")
+    '("over" "CAIRO_OPERATOR_OVER")
+    '("in" "CAIRO_OPERATOR_IN")
+    '("out" "CAIRO_OPERATOR_OUT")
+    '("atop" "CAIRO_OPERATOR_ATOP")
+    '("dest" "CAIRO_OPERATOR_DEST")
+    '("dest_over" "CAIRO_OPERATOR_DEST_OVER")
+    '("dest_in" "CAIRO_OPERATOR_DEST_IN")
+    '("dest_out" "CAIRO_OPERATOR_DEST_OUT")
+    '("dest_atop" "CAIRO_OPERATOR_DEST_ATOP")
+    '("xor" "CAIRO_OPERATOR_XOR")
+    '("add" "CAIRO_OPERATOR_ADD")
+    '("saturate" "CAIRO_OPERATOR_SATURATE")
+  )
+)
+

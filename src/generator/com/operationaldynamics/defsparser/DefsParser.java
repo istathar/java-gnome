@@ -343,6 +343,9 @@ public class DefsParser
                         block = new SetterBlock(parent, field[0], field[1]);
                         blocks.add(block);
                     }
+                } else if (phylum.equals("entity")) {
+                    block = new EntityBlock(name, characteristics);
+                    blocks.add(block);
                 } else {
                     // etc
                     throw new ParseException("What kind of block was \"" + phylum + "\"?", 0);
