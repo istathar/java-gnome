@@ -57,6 +57,12 @@ public abstract class Plumbing
      */
     static final HashMap<Class<? extends Constant>, HashMap<Integer, Constant>> knownConstants;
 
+    /**
+     * The ClassLoader in use. This is for use by the various places where
+     * Class.forName() is being called.
+     */
+    protected static final ClassLoader loader;
+
     static {
         /*
          * TODO: any particular reason to pick a starting array size?
@@ -68,6 +74,7 @@ public abstract class Plumbing
          */
         knownProxies = new HashMap<Long, WeakReference<Proxy>>();
         knownConstants = new HashMap<Class<? extends Constant>, HashMap<Integer, Constant>>();
+        loader = Plumbing.class.getClassLoader();
     }
 
     /*
@@ -355,13 +362,19 @@ public abstract class Plumbing
 
         assert (type != null);
 
+        try {
+            Class.forName(type.getName(), true, loader);
+        } catch (ClassNotFoundException cnfe) {
+            throw new FatalError("\n" + "No class for Constants of type " + type.getName() + " found");
+        }
+
         map = knownConstants.get(type);
         if (map == null) {
-            throw new IllegalArgumentException("No Constants of type " + type.getName()
+            throw new IllegalArgumentException("\n" + "No Constants of type " + type.getName()
                     + " are registered");
         }
 
-        obj = map.get(new Integer(ordinal));
+        obj = map.get(ordinal);
         return obj;
     }
 
