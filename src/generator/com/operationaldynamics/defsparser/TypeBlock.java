@@ -1,7 +1,7 @@
 /*
  * TypeBlock.java
  *
- * Copyright (c) 2007 Operational Dynamics Consulting Pty Ltd
+ * Copyright (c) 2007-2008 Operational Dynamics Consulting Pty Ltd
  * 
  * The code in this file, and the library it is a part of, are made available
  * to you by the authors under the terms of the "GNU General Public Licence,
@@ -12,6 +12,9 @@ package com.operationaldynamics.defsparser;
 
 import java.util.Collections;
 import java.util.List;
+
+import com.operationaldynamics.codegen.Thing;
+import com.operationaldynamics.driver.DefsFile;
 
 /**
  * Base class for blocks that declare type information. <b>Note that TypeBlock
@@ -30,7 +33,7 @@ public abstract class TypeBlock extends Block
 
     protected String importHeader;
 
-    protected TypeBlock(final String blockName, final List characteristics) {
+    protected TypeBlock(final String blockName, final List<String[]> characteristics) {
         super(blockName, characteristics);
     }
 
@@ -67,6 +70,10 @@ public abstract class TypeBlock extends Block
         StringBuffer buf;
         char ch;
 
+        if (module.equals("Cairo")) {
+            return "org.freedesktop.cairo";
+        }
+
         buf = new StringBuffer(module);
 
         ch = buf.charAt(0);
@@ -83,7 +90,7 @@ public abstract class TypeBlock extends Block
      * have to change if we start using the values subcharacteristics in
      * ObjectBlocks.
      */
-    public List usesTypes() {
-        return Collections.EMPTY_LIST;
+    public List<Thing> usesTypes() {
+        return Collections.emptyList();
     }
 }

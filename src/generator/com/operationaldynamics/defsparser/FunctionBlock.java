@@ -50,7 +50,8 @@ public class FunctionBlock extends Block
 
     protected String isConstructorOf;
 
-    FunctionBlock(final String blockName, final List characteristics, final List parameters) {
+    FunctionBlock(final String blockName, final List<String[]> characteristics,
+            final List<String[]> parameters) {
         super(blockName, characteristics);
 
         processParameters(parameters);
@@ -64,8 +65,8 @@ public class FunctionBlock extends Block
         this.ofObject = ofObject;
     }
 
-    private void processParameters(final List parameters) {
-        this.parameters = (String[][]) parameters.toArray(new String[parameters.size()][]);
+    private void processParameters(final List<String[]> parameters) {
+        this.parameters = parameters.toArray(new String[parameters.size()][]);
     }
 
     protected final void setCallerOwnsReturn(final String callerOwnsReturn) {
@@ -106,11 +107,11 @@ public class FunctionBlock extends Block
      * Special cases will probably be needed for at least VirtualBlock, but
      * this is a good start.
      */
-    public List usesTypes() {
-        List types;
+    public List<Thing> usesTypes() {
+        List<Thing> types;
         Thing t;
 
-        types = new ArrayList(parameters.length + 1);
+        types = new ArrayList<Thing>(parameters.length + 1);
 
         /*
          * For constructors, our translation layer method will return long and
@@ -182,7 +183,7 @@ public class FunctionBlock extends Block
 
     public Generator createGenerator(final DefsFile data) {
         if (isConstructorOf != null) {
-            return new ConstructorGenerator(data, returnType, cName, parameters);
+            return new ConstructorGenerator(data, blockName, returnType, cName, parameters);
         } else {
             return new FunctionGenerator(data, blockName, returnType, cName, parameters);
         }

@@ -235,3 +235,9 @@
   (return-type "none")
 )
 
+(define-function get_default
+  (of-object "GdkScreen")
+  (c-name "gdk_screen_get_default")
+  (return-type "GdkScreen*")
+)
+

@@ -1,0 +1,11 @@
+(define-enum GravityHint
+  (in-module "Pango")
+  (c-name "PangoGravityHint")
+  (gtype-id "PANGO_TYPE_GRAVITY_HINT")
+  (values
+    '("natural" "PANGO_GRAVITY_HINT_NATURAL")
+    '("strong" "PANGO_GRAVITY_HINT_STRONG")
+    '("line" "PANGO_GRAVITY_HINT_LINE")
+  )
+)
+

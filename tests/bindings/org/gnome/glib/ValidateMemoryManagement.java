@@ -1,8 +1,8 @@
 /*
  * ValidateMemoryManagement.java
  *
- * Copyright (c) 2007 Vreixo Formoso Lopes
- * Copyright (c) 2007 Operational Dynamics Consulting Pty Ltd
+ * Copyright (c) 2007      Vreixo Formoso Lopes
+ * Copyright (c) 2007-2008 Operational Dynamics Consulting Pty Ltd
  * 
  * The code in this file, and the library it is a part of, are made available
  * to you by the authors under the terms of the "GNU General Public Licence,
@@ -43,7 +43,7 @@ public class ValidateMemoryManagement extends TestCaseGtk
          * we need a static field to check object finalization. Of course,
          * this not works if many instances are created with same code!!
          */
-        static HashSet finalized = new HashSet();
+        static HashSet<Integer> finalized = new HashSet<Integer>();
 
         private int code;
 
@@ -79,7 +79,7 @@ public class ValidateMemoryManagement extends TestCaseGtk
          * we need a static field to check object finalization. Of course,
          * this not works if many instances are created with same code!!
          */
-        static HashSet finalized = new HashSet();
+        static HashSet<Integer> finalized = new HashSet<Integer>();
 
         private int code;
 

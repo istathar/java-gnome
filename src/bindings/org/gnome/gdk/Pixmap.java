@@ -1,7 +1,7 @@
 /*
  * Pixmap.java
  *
- * Copyright (c) 2007 Operational Dynamics Consulting Pty Ltd
+ * Copyright (c) 2007-2008 Operational Dynamics Consulting Pty Ltd
  *
  * The code in this file, and the library it is a part of, are made available
  * to you by the authors under the terms of the "GNU General Public Licence,
@@ -23,5 +23,44 @@ public class Pixmap extends Drawable
 {
     protected Pixmap(long pointer) {
         super(pointer);
+    }
+
+    /**
+     * Create a Pixmap with qualities matching that of an existing Drawable.
+     * In other words, if you already have a GDK Window (ie, you're in an
+     * EXPOSE_EVENT), you can create a Pixmap that will be compatible with it
+     * by using this constructor.
+     * 
+     * @since 4.0.7
+     */
+    public Pixmap(Drawable example, int width, int height) {
+        super(GdkPixmap.createPixmap(validateDrawable(example), width, height, -1));
+    }
+
+    /**
+     * Create a new Pixmap with a given pixel depth.
+     * 
+     * @since 4.0.7
+     */
+    public Pixmap(int width, int height, int depth) {
+        super(GdkPixmap.createPixmap(null, width, height, validateDepth(depth)));
+        // GdkDrawable.setColormap(this,
+        // GdkScreen.getDefault().getDefaultColormap());
+        // GdkDrawable.setColormap(this,
+        // GdkWindow.getDefaultRootWindow().getColormap());
+    }
+
+    static final Drawable validateDrawable(final Drawable pixmap) {
+        if (pixmap == null) {
+            throw new IllegalArgumentException("The reference drawable must be non-null");
+        }
+        return pixmap;
+    }
+
+    static final int validateDepth(final int depth) {
+        if (depth < 1) {
+            throw new IllegalArgumentException("depth has to be set");
+        }
+        return depth;
     }
 }

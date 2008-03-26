@@ -1,8 +1,8 @@
 /*
  * Stock.java
  *
- * Copyright (c) 2007 Operational Dynamics Consulting Pty Ltd
- * Copyright (c) 2007 Vreixo Formoso
+ * Copyright (c) 2007-2008 Operational Dynamics Consulting Pty Ltd
+ * Copyright (c) 2007      Vreixo Formoso
  *
  * The code in this file, and the library it is a part of, are made available
  * to you by the authors under the terms of the "GNU General Public Licence,
@@ -69,12 +69,12 @@ public class Stock
      */
     private final String stockId;
 
-    private static final HashMap knownStocks;
+    private static final HashMap<String, Stock> knownStocks;
 
     static {
-        knownStocks = new HashMap(100, 0.999999f);
+        knownStocks = new HashMap<String, Stock>(100, 0.999999f);
     }
-    
+
     /**
      * Construct a new Stock constant from a given string. This is provided so
      * that if we missed an ID that you desperately need, you can subclass and
@@ -104,7 +104,7 @@ public class Stock
      * underlying library. Returns <code>null</code> if not found.
      */
     static Stock instanceFor(String stockId) {
-        return (Stock) knownStocks.get(stockId);
+        return knownStocks.get(stockId);
     }
 
     /**

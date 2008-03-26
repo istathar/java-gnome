@@ -12,11 +12,10 @@
 package org.gnome.gtk;
 
 /**
- * Take a TreeModel and add sorting capability to it. This class takes an
- * existing model and creates a new model of it sorted as specified (the data
- * is not copied, but the TreeModel that results from creating a TreeModel
- * sort can be used independently). It listens to and reacts to the signals
- * emitted by the underlying base TreeModel. The end result is that of
+ * Takes an existing model and creates a new model of it sorted as specified.
+ * The data is not copied, but the TreeModel that results from creating a
+ * TreeModelSort can be used independently. It listens to and reacts to the
+ * signals emitted by the underlying base TreeModel. The end result is that of
  * allowing you to have two different TreeViews with their own sort of the
  * same underlying data set. This is potentially useful if you have a common
  * TreeModel backing a number of different presentations, although you should
@@ -27,6 +26,52 @@ package org.gnome.gtk;
  * A TreeIter pointing into this TreeModelSort is <b>not</b> valid in the
  * underlying "child" TreeModel. If you need to change data in the base model,
  * use {@link #convertIterToChildIter(TreeIter) convertIterToChildIter()}.
+ * 
+ * <p>
+ * You need to be careful to use the correct TreeModel for TreeIter pointers
+ * you receive in callbacks. The scenario that arises more often is this:
+ * 
+ * <pre>
+ * ListStore model;
+ * TreeModelSort sorted;
+ * TreeView view;
+ * TreeSelection selection;
+ * 
+ * // usual TreeModel setup
+ * model = new ListStore(...);
+ * 
+ * // then create the sorted one, and use it
+ * sorted = new TreeModelSort(model);
+ * view = new TreeView(sorted);
+ * ...
+ * 
+ * // then, later
+ * selection.connect(new TreeSelection.CHANGED() {
+ *     public void onChanged(TreeSelection source) {
+ *         final TreeIter row;
+ *         final String str;
+ * 
+ *         row = selection.getSelected();
+ *         if (row == null) {
+ *             return;
+ *         }
+ *         str = model.getValue(row, column);
+ *     }
+ * }
+ * </pre>
+ * 
+ * the problem that arises is that the retrieved TreeIter <i>is not valid</i>
+ * in <code>model</code>. It's a TreeIter in <code>sorted</code>. Your
+ * program will crash if you get this wrong. The fix is simple; change it to
+ * use the correct TreeModel:
+ * 
+ * <pre>
+ * ...
+ *         str = sorted.getValue(row, column);
+ * ...
+ * </pre>
+ * 
+ * and things will work fine.
  * 
  * <p>
  * You don't normally have need of this class. Both ListStore and TreeStore

@@ -58,6 +58,10 @@ example:
 # ACCEPT_KEYWORDS=~x86 emerge java-gnome
 </pre>
 
+The Gentoo <code>.ebuild</code> can be accessed from the <a
+href="http://packages.gentoo.org/package/dev-java/java-gnome"><tt>dev-java/java-gnome</tt></a>
+page in case you're curious.
+
 
 <h1>Getting variables from <code>java-config</code></h1>
 

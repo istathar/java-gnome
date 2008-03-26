@@ -1,7 +1,7 @@
 /*
  * Plumbing.java
  *
- * Copyright (c) 2007 Operational Dynamics Consulting Pty Ltd
+ * Copyright (c) 2007-2008 Operational Dynamics Consulting Pty Ltd
  * 
  * The code in this file, and the library it is a part of, are made available
  * to you by the authors under the terms of the "GNU General Public Licence,
@@ -41,7 +41,7 @@ public abstract class Plumbing extends org.gnome.glib.Plumbing
      * GdkEventType we write a very hacky override which uses that as a
      * discriminator.
      */
-    protected static Boxed boxedFor(Class type, long pointer) {
+    protected static Boxed boxedFor(Class<? extends Boxed> type, long pointer) {
         Proxy proxy;
 
         if (pointer == 0L) {

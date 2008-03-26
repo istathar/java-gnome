@@ -1,7 +1,7 @@
 /*
  * GtkTreeModelOverride.java
  *
- * Copyright (c) 2007 Operational Dynamics Consulting Pty Ltd
+ * Copyright (c) 2007-2008 Operational Dynamics Consulting Pty Ltd
  *
  * The code in this file, and the library it is a part of, are made available
  * to you by the authors under the terms of the "GNU General Public Licence,
@@ -23,7 +23,7 @@ final class GtkTreeModelOverride extends Plumbing
      * Hand written a) to enalbe our custom signature, b) to do manually do
      * the mapping from Class objects to fully qualified class names.
      */
-    static final long createListStore(Class[] columns) {
+    static final long createListStore(Class<?>[] columns) {
         final String[] names;
 
         assert (columns != null) : "Array passed to createListStore() must not be null";

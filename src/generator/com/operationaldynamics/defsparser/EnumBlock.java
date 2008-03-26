@@ -1,7 +1,7 @@
 /*
  * EnumBlock.java
  *
- * Copyright (c) 2007 Operational Dynamics Consulting Pty Ltd, and Others
+ * Copyright (c) 2007-2008 Operational Dynamics Consulting Pty Ltd, and Others
  * 
  * The code in this file, and the library it is a part of, are made available
  * to you by the authors under the terms of the "GNU General Public Licence,
@@ -47,14 +47,14 @@ public class EnumBlock extends TypeBlock
 {
     protected String[][] values;
 
-    EnumBlock(String blockName, List characteristics, List values) {
+    EnumBlock(String blockName, List<String[]> characteristics, List<String[]> values) {
         super(blockName, characteristics);
 
         processValues(values);
     }
 
-    private void processValues(final List values) {
-        this.values = (String[][]) values.toArray(new String[values.size()][]);
+    private void processValues(final List<String[]> values) {
+        this.values = values.toArray(new String[values.size()][]);
     }
 
     public Generator createGenerator(final DefsFile data) {
@@ -62,6 +62,6 @@ public class EnumBlock extends TypeBlock
     }
 
     public Thing createThing() {
-        return new EnumThing(cName, moduleToJavaPackage(inModule), cName, blockName);
+        return new EnumThing(cName, moduleToJavaPackage(inModule), inModule + blockName, blockName);
     }
 }

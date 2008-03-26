@@ -18,8 +18,8 @@
   (caller-owns-return #t)
   (return-type "GtkWidget*")
   (parameters
-    '("GdkPixmap*" "pixmap")
-    '("GdkBitmap*" "mask")
+    '("GdkPixmap*" "pixmap" (null-ok))
+    '("GdkBitmap*" "mask" (null-ok))
   )
 )
 
@@ -28,9 +28,10 @@
   (c-name "gtk_image_new_from_image")
   (caller-owns-return #t)
   (return-type "GtkWidget*")
+  (deprecated "GdkImage superceded by GdkRGB")
   (parameters
-    '("GdkImage*" "image")
-    '("GdkBitmap*" "mask")
+    '("GdkImage*" "image" (null-ok))
+    '("GdkBitmap*" "mask" (null-ok))
   )
 )
 
@@ -50,7 +51,7 @@
   (caller-owns-return #t)
   (return-type "GtkWidget*")
   (parameters
-    '("GdkPixbuf*" "pixbuf")
+    '("GdkPixbuf*" "pixbuf" (null-ok))
   )
 )
 
@@ -117,6 +118,7 @@
   (of-object "GtkImage")
   (c-name "gtk_image_set_from_image")
   (return-type "none")
+  (deprecated "GdkImage superceded by GdkRGB")
   (parameters
     '("GdkImage*" "gdk_image" (null-ok))
     '("GdkBitmap*" "mask" (null-ok))
@@ -190,6 +192,7 @@
   (of-object "GtkImage")
   (c-name "gtk_image_get_image")
   (return-type "none")
+  (deprecated "GdkImage superceded by GdkRGB")
   (parameters
     '("GdkImage**" "gdk_image")
     '("GdkBitmap**" "mask")
@@ -232,6 +235,7 @@
   (of-object "GtkImage")
   (c-name "gtk_image_set")
   (return-type "none")
+  (deprecated "GdkImage superceded by GdkRGB")
   (parameters
     '("GdkImage*" "val")
     '("GdkBitmap*" "mask")
@@ -242,6 +246,7 @@
   (of-object "GtkImage")
   (c-name "gtk_image_get")
   (return-type "none")
+  (deprecated "GdkImage superceded by GdkRGB")
   (parameters
     '("GdkImage**" "val")
     '("GdkBitmap**" "mask")

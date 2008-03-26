@@ -1,7 +1,7 @@
 /*
  * Snapshot.java
  *
- * Copyright (c) 2007 Operational Dynamics Consulting Pty Ltd
+ * Copyright (c) 2007-2008 Operational Dynamics Consulting Pty Ltd
  * 
  * The code in this file, and the library it is a part of, are made available
  * to you by the authors under the terms of the "GNU General Public Licence,
@@ -48,7 +48,7 @@ public abstract class Snapshot
      * will be used to derive the target filename, ie Button.class ->
      * src/bindings/org/gnome/gtk/doc-files/Button.png
      */
-    protected Snapshot(Class underTest) {
+    protected Snapshot(Class<?> underTest) {
         this.target = targetFilenameFromClass(underTest);
     }
 
@@ -100,7 +100,7 @@ public abstract class Snapshot
         });
     }
 
-    static String targetFilenameFromClass(Class underTest) {
+    static String targetFilenameFromClass(Class<?> underTest) {
         final StringBuffer path;
         int i = 0;
 
