@@ -15,6 +15,8 @@ import java.util.HashSet;
 
 import org.gnome.gtk.Button;
 import org.gnome.gtk.TestCaseGtk;
+import org.gnome.gtk.TreeSelection;
+import org.gnome.gtk.TreeView;
 import org.gnome.gtk.VBox;
 import org.gnome.gtk.ValidatePacking;
 import org.gnome.gtk.ValidateProperties;
@@ -368,5 +370,32 @@ public class ValidateMemoryManagement extends TestCaseGtk
         assertTrue("Not a MyButton instance", c instanceof MyButton);
 
         assertEquals("A different object was created", 6, ((MyButton) c).getCode());
+    }
+
+    /**
+     * Check that objects that are created internally in Gtk+ are correctly
+     * managed.
+     */
+    public final void testCorrectHandlingOfGtkCreatedObjects() {
+        TreeView t;
+        TreeSelection s;
+
+        t = new TreeView();
+        cycleMainLoop();
+        
+        /* get the selection, a Gtk+ created object */
+        s = t.getSelection();
+        cycleMainLoop();
+        
+        /* free our ref */
+        s = null;
+        cycleMainLoop();
+        cycleGarbageCollector();
+        
+        /* 
+         * if all was correct, we can retrieve it again. 
+         */
+        s = t.getSelection();
+        cycleMainLoop();
     }
 }
