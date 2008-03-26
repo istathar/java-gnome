@@ -1,7 +1,7 @@
 /*
  * NotifyType.java
  *
- * Copyright (c) 2007 Operational Dynamics Consulting Pty Ltd
+ * Copyright (c) 2007-2008 Operational Dynamics Consulting Pty Ltd
  *
  * The code in this file, and the library it is a part of, are made available
  * to you by the authors under the terms of the "GNU General Public Licence,
@@ -13,17 +13,25 @@ package org.gnome.gdk;
 
 import org.freedesktop.bindings.Constant;
 
-/*
- * FIXME this is a placeholder stub for what will become the public API for
- * this type. Replace this comment with appropriate javadoc including author
- * and since tags. Note that the class may need to be made abstract, implement
- * interfaces, or even have its parent changed. No API stability guarantees
- * are made about this class until it has been reviewed by a hacker and this
- * comment has been replaced.
+/**
+ * The kind of motion in an EventCrossing.
  */
 public final class NotifyType extends Constant
 {
     private NotifyType(int ordinal, String nickname) {
         super(ordinal, nickname);
     }
+
+    public static final NotifyType ANCESTOR = new NotifyType(GdkNotifyType.ANCESTOR, "ANCESTOR");
+
+    public static final NotifyType VIRTUAL = new NotifyType(GdkNotifyType.VIRTUAL, "VIRTUAL");
+
+    public static final NotifyType INFERIOR = new NotifyType(GdkNotifyType.INFERIOR, "INFERIOR");
+
+    public static final NotifyType NONLINEAR = new NotifyType(GdkNotifyType.NONLINEAR, "NONLINEAR");
+
+    public static final NotifyType NONLINEAR_VIRTUAL = new NotifyType(GdkNotifyType.NONLINEAR_VIRTUAL,
+            "NONLINEAR_VIRTUAL");
+
+    public static final NotifyType UNKNOWN = new NotifyType(GdkNotifyType.UNKNOWN, "UNKNOWN");
 }

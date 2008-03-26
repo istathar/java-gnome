@@ -14,6 +14,7 @@ package org.gnome.gtk;
 import org.gnome.gdk.Color;
 import org.gnome.gdk.Event;
 import org.gnome.gdk.EventButton;
+import org.gnome.gdk.EventCrossing;
 import org.gnome.gdk.EventExpose;
 import org.gnome.gdk.EventFocus;
 import org.gnome.gdk.EventKey;
@@ -141,11 +142,14 @@ public abstract class Widget extends org.gnome.gtk.Object
      */
     public interface ENTER_NOTIFY_EVENT extends GtkWidget.ENTER_NOTIFY_EVENT
     {
-        public boolean onEnterNotifyEvent(Widget source, Object event);
+        /**
+         * @since 4.0.7
+         */
+        public boolean onEnterNotifyEvent(Widget source, EventCrossing event);
     }
 
     /**
-     * Hook up a handler to receive "enter-notify-event" events on this
+     * Hook up a handler to receive "ENTER_NOTIFY_EVENT" signals on this
      * Widget.
      * 
      * @since 4.0.2
@@ -155,10 +159,30 @@ public abstract class Widget extends org.gnome.gtk.Object
     }
 
     /**
-     * Signal emitted when the focus leaves this Widget. Focus is a concept
-     * that is shared evenly between the widget toolkit and the window manager -
-     * which often becomes apparent if you're wondering <i>why</i> you have
-     * lost focus or regained it.
+     * Signal emitted when the mouse pointer leaves the Widget.
+     * 
+     * @author Andrew Cowie
+     * @since 4.0.7
+     */
+    public interface LEAVE_NOTIFY_EVENT extends GtkWidget.LEAVE_NOTIFY_EVENT
+    {
+        boolean onLeaveNotifyEvent(Widget source, EventCrossing event);
+    }
+
+    /**
+     * Hook up a handler to receive <code>LEAVE_NOTIFY_EVENT</code> signals.
+     * 
+     * @since 4.0.7
+     */
+    public void connect(LEAVE_NOTIFY_EVENT handler) {
+        GtkWidget.connect(this, handler);
+    }
+
+    /**
+     * Signal emitted when the <i>keyboard</i> focus leaves this Widget.
+     * Focus is a concept that is shared evenly between the widget toolkit and
+     * the window manager - which often becomes apparent if you're wondering
+     * <i>why</i> you have lost focus or regained it.
      * 
      * @author Andrew Cowie
      * @since 4.0.2
