@@ -1,7 +1,7 @@
 /*
  * Plumbing.java
  *
- * Copyright (c) 2006-2007 Operational Dynamics Consulting Pty Ltd, and Others
+ * Copyright (c) 2006-2008 Operational Dynamics Consulting Pty Ltd, and Others
  * 
  * The code in this file, and the library it is a part of, are made available
  * to you by the authors under the terms of the "GNU General Public Licence,
@@ -35,22 +35,24 @@ public abstract class Plumbing extends org.freedesktop.bindings.Plumbing
 
     protected Plumbing() {}
 
-    private static final IdentityHashMap<String, Class<?>> typeMapping;
+    private static final IdentityHashMap<String, String> typeMapping;
 
     private static final String TYPE_MAPPING = "typeMapping.properties";
 
     static {
+        final InputStream is;
+        final Properties p;
+
         Glib.checkInitialized();
 
         lock = Gdk.lock;
 
-        typeMapping = new IdentityHashMap<String, Class<?>>(470);
+        typeMapping = new IdentityHashMap<String, String>(470);
 
-        Properties p = new Properties();
+        p = new Properties();
 
         try {
-            ClassLoader cl = Plumbing.class.getClassLoader();
-            InputStream is = cl.getResourceAsStream(TYPE_MAPPING);
+            is = loader.getResourceAsStream(TYPE_MAPPING);
             if (is == null) {
                 throw new NullPointerException("InputStream for " + TYPE_MAPPING + " is null");
             }
@@ -78,24 +80,11 @@ public abstract class Plumbing extends org.freedesktop.bindings.Plumbing
      * be) written.
      */
     protected static void registerType(String nativeName, String javaClassName) {
-        final Class<?> javaClass;
 
-        assert (javaClassName != null) : "Java class being registered cannot be null";
+        assert ((nativeName != null) && (!nativeName.equals(""))) : "GType name being registered cannot be null or empty";
+        assert (javaClassName != null) : "Java class name being registered cannot be null";
 
-        try {
-            javaClass = Class.forName(javaClassName);
-        } catch (ClassNotFoundException e) {
-            /*
-             * By design we ignore this and return. There is a logic hole
-             * here, though - if someone mistypes a class that does exist,
-             * then it won't be registered. The bug will be exposed by an
-             * UnsupportedOperationException being thrown by objectFor() when
-             * it can't look up what it rightly should be able to.
-             */
-            return;
-        }
-
-        registerType(nativeName, javaClass);
+        typeMapping.put(nativeName.intern(), javaClassName.intern());
     }
 
     /**
@@ -105,11 +94,8 @@ public abstract class Plumbing extends org.freedesktop.bindings.Plumbing
      * with it!
      */
     protected static void registerType(String nativeName, Class<?> javaClass) {
-
-        assert ((nativeName != null) && (!nativeName.equals(""))) : "GType name being registered cannot be null or empty";
         assert (javaClass != null) : "Java class being registered cannot be null";
-
-        typeMapping.put(nativeName.intern(), javaClass);
+        registerType(nativeName, javaClass.getName());
     }
 
     /**
@@ -242,10 +228,10 @@ public abstract class Plumbing extends org.freedesktop.bindings.Plumbing
              * pressure and to permit lookup by identity.
              */
 
-            name = GObject.typeName(pointer).intern();
+            name = GObject.typeName(pointer);
 
             if (name.equals("")) {
-                throw new IllegalStateException("\nGType name lookup failed");
+                throw new IllegalStateException("\n" + "GType name lookup failed");
             }
 
             /*
@@ -253,21 +239,10 @@ public abstract class Plumbing extends org.freedesktop.bindings.Plumbing
              * instance for the Proxy subclass.
              */
 
-            type = typeMapping.get(name);
+            type = lookupType(name);
 
-            if (type != null) {
-                proxy = createProxy(type, pointer);
-                return (Object) proxy;
-            }
-
-            /*
-             * But failing that, the constructor being null indicates that we
-             * don't have any information about this native type and how to
-             * map it to Java. So,
-             */
-
-            throw new UnsupportedOperationException("\nNo binding for " + name
-                    + " (yet!), GObject code path");
+            proxy = createProxy(type, pointer);
+            return (Object) proxy;
         }
     }
 
@@ -309,7 +284,22 @@ public abstract class Plumbing extends org.freedesktop.bindings.Plumbing
      * Get the Class object that this supplied name maps to.
      */
     protected final static Class<?> lookupType(String name) {
-        return typeMapping.get(name);
+        final String java;
+
+        java = typeMapping.get(name);
+
+        if (java == null) {
+            /*
+             * No class indicates that we don't have any information about
+             * this native type and how to map it to Java. So,
+             */
+            throw new FatalError("\n" + "No mapping for " + name + " (yet!)");
+        }
+        try {
+            return Class.forName(java, true, loader);
+        } catch (ClassNotFoundException cnfe) {
+            throw new FatalError("\n" + "Mapping exists, but class not found! " + cnfe.getMessage());
+        }
     }
 
     /**

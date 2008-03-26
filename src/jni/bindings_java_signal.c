@@ -309,7 +309,7 @@ bindings_java_marshaller
 	}
 	
 	/*
-	 * And don't need to free jargs - we alloca()'d it
+	 * Don't need to free jargs - we alloca()'d it
 	 */
 	
 	/*

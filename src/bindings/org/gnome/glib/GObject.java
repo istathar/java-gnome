@@ -104,7 +104,7 @@ final class GObject extends Plumbing
      * Proxy.
      */
     static final String typeName(long object) {
-        return g_type_name(object);
+        return g_type_name(object).intern();
     }
 
     private static native final String g_type_name(long object);
