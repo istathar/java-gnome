@@ -617,6 +617,7 @@ public class FunctionGenerator extends Generator
          */
         if (cleanup != null) {
             out.print("\n");
+            out.print("\t// cleanup return value\n");
             out.print("\tif (result != NULL) {\n");
             out.print("\t");
             out.print("\t");
