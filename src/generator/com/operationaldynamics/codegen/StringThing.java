@@ -43,7 +43,16 @@ public class StringThing extends Thing
     String jniReturnErrorValue() {
         return "NULL";
     }
-
+    
+    @Override
+    String jniReturnCleanup(String name, char callerOwnsReturn) {
+        if (callerOwnsReturn == 't') {
+            return "g_free(" + name + ")";
+        } else {
+            return null;
+        }
+    }
+    
     String translationToJava(String name, DefsFile data) {
         return name;
     }
