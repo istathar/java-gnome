@@ -479,6 +479,19 @@ public abstract class Thing
     }
 
     /**
+     * 
+     * @param name
+     * @param deep
+     *      It has only meaning for lists. If <code>true</code>, we must
+     *      cleanup not only the list, but also its contents. Most Things
+     *      will ignore this parameter.
+     * @return
+     */
+    String jniReturnCleanup(String name, boolean deep) {
+        return null;
+    }
+
+    /**
      * Little utility function so that when aborting out of a C function
      * (because an Exception has been thrown) the correct "emtpy" value is
      * used. Stick this after a "return" statement.
