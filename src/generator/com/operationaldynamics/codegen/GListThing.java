@@ -59,5 +59,20 @@ public class GListThing extends ProxiedArrayThing
             throw new Error("Unexpected gtype " + gType);
         }
     }
-
+    
+    @Override
+    String jniReturnCleanup(String name, char callerOwnsReturn) {
+        // FIXME we need to manage t in a different way, with deep clean-up
+        if (callerOwnsReturn != 'f') {
+            if (gType.equals("GList")) {
+                return "g_list_free(" + name + ")";
+            } else if (gType.equals("GSList")) {
+                return "g_slist_free(" + name + ")";
+            } else {
+                throw new Error("Unexpected gtype " + gType);
+            }
+        } else {
+            return null;
+        }
+    }
 }
