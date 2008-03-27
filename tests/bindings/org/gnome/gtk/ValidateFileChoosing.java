@@ -43,6 +43,7 @@ public class ValidateFileChoosing extends TestCaseGtk
         String retreived;
 
         fcd = new FileChooserDialog("", null, FileChooserAction.OPEN);
+        cycleMainLoop();
         fcd.setCurrentFolder("/");
         cycleMainLoop();
         assertEquals("/", fcd.getCurrentFolder());
