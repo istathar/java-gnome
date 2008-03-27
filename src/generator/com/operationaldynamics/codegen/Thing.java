@@ -481,13 +481,14 @@ public abstract class Thing
     /**
      * 
      * @param name
-     * @param deep
-     *      It has only meaning for lists. If <code>true</code>, we must
-     *      cleanup not only the list, but also its contents. Most Things
-     *      will ignore this parameter.
+     * @param callerOwnsReturn
+     *            Whether the caller owns the return value. It is either 'f'
+     *            (caller doesn't own return), 't' (caller own return) or 'l'
+     *            (return type is a list/array... and only the list itself is
+     *            own, not its contents)
      * @return
      */
-    String jniReturnCleanup(String name, boolean deep) {
+    String jniReturnCleanup(String name, char callerOwnsReturn) {
         return null;
     }
 

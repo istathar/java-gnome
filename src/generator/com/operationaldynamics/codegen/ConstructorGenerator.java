@@ -99,4 +99,15 @@ public class ConstructorGenerator extends FunctionGenerator
 
         returnType = originalReturnType;
     }
+    
+    @Override
+    protected void jniFunctionReturnCleanUp(PrintWriter out) {
+        Thing originalReturnType;
+
+        originalReturnType = returnType;
+        returnType = actualReturnType;
+        super.jniFunctionReturnCleanUp(out);
+
+        returnType = originalReturnType;
+    }
 }

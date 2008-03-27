@@ -597,30 +597,33 @@ public class FunctionGenerator extends Generator
             out.print(returnType.jniReturnEncode("result"));
             out.print(";\n");
             
-            if (callerOwnsReturn != 'f') {
-                boolean deep = (callerOwnsReturn == 't');
-                cleanup = returnType.jniReturnCleanup("result", deep);
-
-                /*
-                 * TODO this assumes all type that need cleanup can be
-                 * compared with NULL.
-                 */
-                if (cleanup != null) {
-                    out.print("\n");
-                    out.print("\tif (result != NULL) {\n");
-                    out.print("\t");
-                    out.print("\t");
-                    out.print(cleanup);
-                    out.print(";\n");
-                    out.print("\t}\n");
-                }
-            }
+            jniFunctionReturnCleanUp(out);
             
             out.print("\n");
             out.print("\t// and finally\n");
             out.print("\treturn _result;\n");
         }
         out.print("}\n");
+    }
+    
+    protected void jniFunctionReturnCleanUp(PrintWriter out) {
+
+        String cleanup;
+        cleanup = returnType.jniReturnCleanup("result", callerOwnsReturn);
+
+        /*
+         * TODO this assumes all type that need cleanup can be
+         * compared with NULL.
+         */
+        if (cleanup != null) {
+            out.print("\n");
+            out.print("\tif (result != NULL) {\n");
+            out.print("\t");
+            out.print("\t");
+            out.print(cleanup);
+            out.print(";\n");
+            out.print("\t}\n");
+        }
     }
 
     /**
