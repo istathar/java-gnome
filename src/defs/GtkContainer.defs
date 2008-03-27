@@ -92,6 +92,7 @@
 (define-method get_children
   (of-object "GtkContainer")
   (c-name "gtk_container_get_children")
+  (caller-owns-return #l)
   (return-type "GList-GtkWidget*")
 )
 

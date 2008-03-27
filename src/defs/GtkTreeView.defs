@@ -184,6 +184,7 @@
 (define-method get_columns
   (of-object "GtkTreeView")
   (c-name "gtk_tree_view_get_columns")
+  (caller-owns-return #l)
   (return-type "GList-GtkTreeViewColumn*")
 )
 

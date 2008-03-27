@@ -146,6 +146,7 @@
 (define-method get_cells
   (of-object "GtkCellLayout")
   (c-name "gtk_cell_layout_get_cells")
+  (caller-owns-return #l)
   (return-type "GList-GtkCellRenderer*")
 )
 
