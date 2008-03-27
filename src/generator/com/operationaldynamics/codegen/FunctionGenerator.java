@@ -378,6 +378,9 @@ public class FunctionGenerator extends Generator
             out.print("\t");
             out.print(returnType.cType);
             out.print(" result;\n");
+            out.print("\t");
+            out.print(returnType.jniType);
+            out.print(" _result;\n");
         }
 
         for (int i = 0; i < parameterTypes.length; i++) {
@@ -586,15 +589,20 @@ public class FunctionGenerator extends Generator
 
         if (!returnType.jniType.equals("void")) {
             out.print("\n");
-            out.print("\t// and finally\n");
+            out.print("\t// translate return value to JNI type\n");
 
-            out.print("\treturn ");
+            out.print("\t_result = ");
 
             out.print("(");
             out.print(returnType.jniType);
             out.print(") ");
             out.print(returnType.jniReturnEncode("result"));
             out.print(";\n");
+            
+            out.print("\n");
+            out.print("\t// and finally\n");
+
+            out.print("\treturn _result;\n");
         }
         out.print("}\n");
     }
