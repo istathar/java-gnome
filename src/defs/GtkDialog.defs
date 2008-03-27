@@ -12,14 +12,12 @@
 (define-function gtk_dialog_new
   (is-constructor-of "GtkDialog")
   (c-name "gtk_dialog_new")
-  (caller-owns-return #t)
   (return-type "GtkWidget*")
 )
 
 (define-function gtk_dialog_new_with_buttons
   (is-constructor-of "GtkDialog")
   (c-name "gtk_dialog_new_with_buttons")
-  (caller-owns-return #t)
   (return-type "GtkWidget*")
   (parameters
     '("const-gchar*" "title" (default "NULL") (null-ok))

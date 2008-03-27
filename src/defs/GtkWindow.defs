@@ -54,7 +54,6 @@
 (define-function gtk_window_new
   (is-constructor-of "GtkWindow")
   (c-name "gtk_window_new")
-  (caller-owns-return #t)
   (return-type "GtkWidget*")
   (parameters
     '("GtkWindowType" "type")

@@ -8,7 +8,6 @@
 (define-function gtk_about_dialog_new
   (is-constructor-of "GtkAboutDialog")
   (c-name "gtk_about_dialog_new")
-  (caller-owns-return #t)
   (return-type "GtkWidget*")
 )
 

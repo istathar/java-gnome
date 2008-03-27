@@ -9,7 +9,6 @@
 (define-function recent_chooser_dialog_new
   (is-constructor-of "GtkRecentChooserDialog")
   (c-name "gtk_recent_chooser_dialog_new")
-  (caller-owns-return #t)
   (return-type "GtkWidget*")
   (parameters
     '("const-gchar*" "title")
