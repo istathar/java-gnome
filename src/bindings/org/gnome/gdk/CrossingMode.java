@@ -19,6 +19,12 @@ import org.freedesktop.bindings.Constant;
  * 
  * @author Andrew Cowie
  * @since 4.0.7
+ * @see <a
+ *      href="http://xorg.freedesktop.org/releases/X11R7.0/doc/PDF/xlib.pdf">The
+ *      XLib programming manual</a>, section 10.6
+ */
+/*
+ * FIXME Improve the explanation of these occurrences.
  */
 public final class CrossingMode extends Constant
 {
@@ -27,14 +33,17 @@ public final class CrossingMode extends Constant
     }
 
     /**
-     * The EventCrossing occured because of pointer motion (by the user).
+     * The EventCrossing occurred because of pointer motion (by the user).
      */
     public static final CrossingMode NORMAL = new CrossingMode(GdkCrossingMode.NORMAL, "NORMAL");
 
     /**
-     * Event occured because a grab was activated. FIXME This means what?
+     * Event occurred because a grab was activated.
      */
     public static final CrossingMode GRAB = new CrossingMode(GdkCrossingMode.GRAB, "GRAB");
 
+    /**
+     * Event occurred because an ungrab happened.
+     */
     public static final CrossingMode UNGRAB = new CrossingMode(GdkCrossingMode.UNGRAB, "UNGRAB");
 }

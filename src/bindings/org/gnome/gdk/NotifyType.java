@@ -14,7 +14,15 @@ package org.gnome.gdk;
 import org.freedesktop.bindings.Constant;
 
 /**
- * The kind of motion in an EventCrossing.
+ * The kind of motion in an EventCrossing. These Constants describe the
+ * relationship between the GDK Window that the mouse pointer left, and the
+ * GDK Window that the mouse pointer entered.
+ * 
+ * @author Andrew Cowie
+ * @since 4.0.7
+ * @see <a
+ *      href="http://xorg.freedesktop.org/releases/X11R7.0/doc/PDF/xlib.pdf">The
+ *      XLib programming manual</a>, section 10.6
  */
 public final class NotifyType extends Constant
 {
@@ -22,12 +30,29 @@ public final class NotifyType extends Constant
         super(ordinal, nickname);
     }
 
+    /**
+     * The mouse has moved from an inferior Window to a superior or enclosing
+     * one.
+     */
     public static final NotifyType ANCESTOR = new NotifyType(GdkNotifyType.ANCESTOR, "ANCESTOR");
 
+    /**
+     * This event is generated for Windows that lay between the receiving
+     * Window and the departing Window.
+     */
     public static final NotifyType VIRTUAL = new NotifyType(GdkNotifyType.VIRTUAL, "VIRTUAL");
 
+    /**
+     * The mouse has moved from a superior (parent, enclosing) Window to an
+     * inferior (child) one.
+     */
     public static final NotifyType INFERIOR = new NotifyType(GdkNotifyType.INFERIOR, "INFERIOR");
 
+    /**
+     * The mouse moved between unrelated Windows. This is what seems to occur
+     * most of the time when you exit the app and cross to the root X Window
+     * or some other application's Window. Not terribly helpful otherwise.
+     */
     public static final NotifyType NONLINEAR = new NotifyType(GdkNotifyType.NONLINEAR, "NONLINEAR");
 
     public static final NotifyType NONLINEAR_VIRTUAL = new NotifyType(GdkNotifyType.NONLINEAR_VIRTUAL,

@@ -1,0 +1,19 @@
+(define-boxed EventCrossing
+  (in-module "Gdk")
+  (c-name "GdkEventCrossing")
+  (fields
+    '("GdkEventType" "type")
+    '("GdkWindow*" "window")
+    '("gint8" "send_event")
+    '("guint32" "time")
+    '("gdouble" "x")
+    '("gdouble" "y")
+    '("gdouble" "x_root")
+    '("gdouble" "y_root")
+    '("GdkCrossingMode" "mode")
+    '("GdkNotifyType" "detail")
+    '("gboolean" "focus")
+    '("guint" "state")
+  )
+)
+

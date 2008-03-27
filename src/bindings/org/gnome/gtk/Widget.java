@@ -134,7 +134,7 @@ public abstract class Widget extends org.gnome.gtk.Object
     }
 
     /**
-     * Signal emitted when the mouse enters the Widget
+     * Signal emitted when the mouse enters the Widget.
      * 
      * @author Andrew Cowie
      * @author Davyd Madeley
@@ -149,8 +149,8 @@ public abstract class Widget extends org.gnome.gtk.Object
     }
 
     /**
-     * Hook up a handler to receive "ENTER_NOTIFY_EVENT" signals on this
-     * Widget.
+     * Hook up a handler to receive <code>ENTER_NOTIFY_EVENT</code> signals
+     * on this Widget.
      * 
      * @since 4.0.2
      */
