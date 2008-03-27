@@ -128,6 +128,7 @@
   (of-object "GtkIconTheme")
   (c-name "gtk_icon_theme_get_icon_sizes")
   (return-type "gint*")
+  (caller-owns-return #l)
   (parameters
     '("const-gchar*" "icon_name")
   )

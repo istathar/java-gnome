@@ -72,6 +72,15 @@ public class FundamentalArrayThing extends ArrayThing
         System.out.println("Warning: Not supported return of fundamental array.");
         return "NULL";
     }
+    
+    @Override
+    String jniReturnCleanup(String name, char callerOwnsReturn) {
+        if (callerOwnsReturn != 'f') {
+            return "g_free(" + name + ")";
+        } else {
+            return null;
+        }
+    }
 
     String translationToJava(String name, DefsFile data) {
         return name;
