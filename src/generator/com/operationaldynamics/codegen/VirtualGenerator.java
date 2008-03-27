@@ -55,7 +55,7 @@ public class VirtualGenerator extends FunctionGenerator
      */
     public VirtualGenerator(final DefsFile data, final String blockName, final String gReturnType,
             final String[][] gParameters) {
-        super(data, "connect", gReturnType, null, gParameters);
+        super(data, "connect", gReturnType, null, gParameters, 'n');
 
         this.javaSignalClass = toAllCaps(blockName);
         this.cSignalName = blockName;

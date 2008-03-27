@@ -68,6 +68,13 @@ public class FunctionGenerator extends Generator
     private Thing blacklistedType;
 
     private final boolean addSentinal;
+    
+    /**
+     * Whether the caller owns the return value. It is either 'f' (caller
+     * doesn't own return), 't' (caller own return) or 'l' (return type
+     * is a list/array... and only the list itself is own, not its contents) 
+     */
+    private final char callerOwnsReturn;
 
     /**
      * @param data
@@ -85,9 +92,11 @@ public class FunctionGenerator extends Generator
      * @param gParameters
      *            an array of String[2] arrays, listing the type and name of
      *            each parameter.
+     * @param callerOwnsReturn
+     *            whether the caller owns the returned value.
      */
     public FunctionGenerator(final DefsFile data, final String blockName, final String gReturnType,
-            final String cFunctionName, final String[][] gParameters) {
+            final String cFunctionName, final String[][] gParameters, char callerOwnsReturn) {
         super(data);
         final int len;
 
@@ -98,6 +107,8 @@ public class FunctionGenerator extends Generator
         this.returnType = Thing.lookup(gReturnType);
 
         this.nativeMethodName = cFunctionName;
+        
+        this.callerOwnsReturn = callerOwnsReturn;
 
         /*
          * If ... is passed through as the last parameter, it means that we

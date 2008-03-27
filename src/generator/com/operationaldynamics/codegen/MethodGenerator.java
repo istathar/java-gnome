@@ -39,7 +39,7 @@ public class MethodGenerator extends FunctionGenerator
      * @param gParameters
      */
     public MethodGenerator(final DefsFile data, final String blockName, final String gReturnType,
-            final String gFunctionName, final String[][] gParameters) {
-        super(data, blockName, gReturnType, gFunctionName, gParameters);
+            final String gFunctionName, final String[][] gParameters, char callerOwnsReturn) {
+        super(data, blockName, gReturnType, gFunctionName, gParameters, callerOwnsReturn);
     }
 }
