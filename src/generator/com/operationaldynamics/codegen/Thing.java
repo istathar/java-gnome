@@ -124,6 +124,7 @@ public abstract class Thing
         register(new FundamentalThing("gint32", "int", "int", "jint"));
         register(new FundamentalThing("guint32", "int", "int", "jint"));
         register(new FundamentalThing("gssize", "int", "int", "jint"));
+        register(new FundamentalThing("gsize", "long", "long", "jlong"));
         register(new FundamentalThing("gint64", "long", "long", "jlong"));
         register(new FundamentalThing("glong", "long", "long", "jlong"));
         register(new FundamentalThing("gulong", "long", "long", "jlong"));
@@ -158,6 +159,7 @@ public abstract class Thing
         register(new FundamentalArrayThing("gfloat*", "gfloat"));
         register(new FundamentalArrayThing("gdouble*", "gdouble"));
         register(new FundamentalArrayThing("gboolean*", "gboolean"));
+        register(new FundamentalArrayThing("gsize*", "gsize"));
         // and so on
 
         /*
