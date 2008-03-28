@@ -40,6 +40,8 @@ public class FundamentalArrayThing extends ArrayThing
             return "(*env)->GetIntArrayElements(env, _" + name + ", NULL)";
         } else if (jniType.equals("jbyteArray")) {
             return "(*env)->GetByteArrayElements(env, _" + name + ", NULL)";
+        } else if (jniType.equals("jlongArray")) {
+            return "(*env)->GetLongArrayElements(env, _" + name + ", NULL)";
         } else {
             throw new Error(
                     "Code generator asked to deal with an array case for which we do not have logic. Stop.");
@@ -57,6 +59,8 @@ public class FundamentalArrayThing extends ArrayThing
             return "(*env)->ReleaseIntArrayElements(env, _" + name + ", (jint*)" + name + ", 0)";
         } else if (jniType.equals("jbyteArray")) {
             return "(*env)->ReleaseByteArrayElements(env, _" + name + ", (jbyte*)" + name + ", 0)";
+        } else if (jniType.equals("jlongArray")) {
+            return "(*env)->ReleaseLongArrayElements(env, _" + name + ", (jbyte*)" + name + ", 0)";
         } else {
             throw new Error();
         }
