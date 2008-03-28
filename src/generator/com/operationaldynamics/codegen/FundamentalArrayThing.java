@@ -60,7 +60,7 @@ public class FundamentalArrayThing extends ArrayThing
         } else if (jniType.equals("jbyteArray")) {
             return "(*env)->ReleaseByteArrayElements(env, _" + name + ", (jbyte*)" + name + ", 0)";
         } else if (jniType.equals("jlongArray")) {
-            return "(*env)->ReleaseLongArrayElements(env, _" + name + ", (jbyte*)" + name + ", 0)";
+            return "(*env)->ReleaseLongArrayElements(env, _" + name + ", (jlong*)" + name + ", 0)";
         } else {
             throw new Error();
         }
