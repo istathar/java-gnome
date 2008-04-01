@@ -1,8 +1,8 @@
 /*
  * Internationalization.java
  *
- * Copyright (c) 2008 Operational Dynamics Consulting Pty Ltd
  * Copyright (c) 2008 Vreixo Formoso
+ * Copyright (c) 2008 Operational Dynamics Consulting Pty Ltd
  * 
  * The code in this file, and the library it is a part of, are made available
  * to you by the authors under the terms of the "GNU General Public Licence,
@@ -18,66 +18,103 @@ import java.text.MessageFormat;
  * Internationalization support for java-gnome.
  * 
  * <p>
- * <i>Internationalization</i>, also know as i18n, is the process of
- * preparing our applications to support multiple languages. The objective is
- * that messages shown to the user are not presented in english, but in
- * his/her native language. Note that i18n does not actually mean that you, as
- * an application developer, need to translate your software to all <b>locales</b>
- * it is plan to be used. This is done later, by translators, in a process
- * called <i>localization</i>. Applications developers just need to be aware
- * of that, and prepare the software to be localized later. This preparation
- * is what we call internationalization.
+ * <dl>
+ * <dt><i>Internationalization</i>,</dt>
+ * <dd>the process of preparing applications to support multiple languages.
+ * Frequently abbreviated as "<code>i18n</code>".</dd>
+ * <dt><i>Localization</i>,</dt>
+ * <dd>Whereby other people translate your software into their own locale.
+ * Frequently abbreviated as "<code>l10n</code>".</dd>
+ * </dl>
  * 
  * <p>
- * First of all, i18n means we need to allow message translation. So, we
- * shouldn't output english messages directly. Instead, we would call a
- * function that takes care of message translation. In the same way, there are
- * other aspects that affect internationalization. The way dates, numbers,
- * currency, etc are formatted is locale-dependent. Fortunately, the methods
- * in this class will simplify that task for you.
+ * The objective is that messages be shown to the user in his or her native
+ * language, not in English (or whatever language the developer was working
+ * in). Note that internationalization does not actually mean that you, as an
+ * application developer, need to translate your software to all the
+ * <b>locales</b> where it is planned to be used. This is done later, by
+ * translators. Applications developers just need to be aware of this, and
+ * prepare their software to be localized later. This preparation is what we
+ * call internationalization.
  * 
  * <p>
- * Let's take the following Java code as an example:
+ * First of all, internationalization means we need to allow for message
+ * translation. This simply So, we shouldn't output hard coded English Strings
+ * directly. Instead, we would call a function that will takes care of the
+ * message translation. Similarly, there are other aspects that affect
+ * internationalization. The way dates, numbers, currency, etc are formatted
+ * is locale-dependent. The methods in this class will simplify this task for
+ * you.
+ * 
+ * <h2>Instead of hard coded Strings...</h2>
+ * 
+ * <p>
+ * Let's take the following Java code as a typical example:
  * 
  * <pre>
  * System.out.println(&quot;The file &quot; + filename + &quot; was modified on &quot; + date);
  * </pre>
  * 
- * Obviously the code above is not internationalized at all. For that, you
- * need to translate the message, but also formatting the date according, or
- * take care that the positional parameters (filename, date) may have a
- * different order in another language. Obviously, you don't need to know how
- * this message is written in all languages of the world!! You just need to
- * let translators do that. With the above sentence, translators would need to
- * look for messages in your sources, modify them and compile your app again.
- * Not a good idea. It is better if you just change the way you output
- * messages. For example, if you write:
+ * This code is not internationalized at all. We will need to allow the
+ * message to be translated, but must also allow for the the date to be
+ * formatted appropriately.
+ * 
+ * <p>
+ * Adding complexity is that care needs to be taken that the "positional
+ * parameters" (here <code>filename</code> and <code>date</code>) may
+ * have a different order when rendered in someone else's language.
+ * Fortunately, you do not need to know how this message is written in all
+ * languages of the world! You just need to let translators do that.
+ * 
+ * <p>
+ * One approach would be to give your sources to each translation team and
+ * have them hunt through the code for each and every String. This would be
+ * quite a nightmare, of course, and worse would require the translators to be
+ * a programmer on par with yourself. This is usually not the case; people
+ * doing translations tend <i>not</i> to be hard-core developers, but they
+ * are making a very valuable contribution to your software by offering to
+ * translate it. So we undertake internationalization in a way that enables
+ * them to do the localization without needing to be Java programmers.
+ * 
+ * <h2>... use translatable Strings</h2>
+ * 
+ * Instead of forcing translators to look for messages in your sources, modify
+ * them in-place, and then re-build the software, we ask developers to change
+ * the way you output messages so that your application doesn't need to be
+ * rebuilt. You wrap your hard coded Strings in the translation function as
+ * follows:
  * 
  * <pre>
  * System.out.println(_(&quot;The file {0} was modified on {1,date,long}&quot;, filename, date));
  * </pre>
  * 
- * The function _() can take care of that for you, returning the same message,
- * but localized to the user native language! This is internationalization.
+ * The {@link #_(String, Object...) Internationalization._()} method will take
+ * care of looking up your String in the translation database and will return
+ * the same message localized to the user's native language. This is
+ * internationalization.
  * 
  * <p>
- * In java-gnome, internationalize your apps is as easy as the code above. You
- * should use the {@link #_(String, Object...) _()} method with any message
- * you want to show to the user (not that messages intended for developers,
- * such as debug messages, don't need to be localized). As this is a static
- * method, you can use an static import:
+ * In java-gnome, internationalizing your apps is as easy as the code above.
+ * You should use the <code>_()</code> method with any message you want to
+ * show to the user [messages intended for developers, such as debug messages
+ * going to the log do not need to be localized]. Using a static import:
  * 
  * <pre>
  * import static org.gnome.glib.Internationalization._;
  * </pre>
  * 
+ * will make it clean and unobtrusive.
+ * 
+ * <h2>Positional parameters</h2>
+ * 
+ * <p>
  * To format the parameters, you have to use the {@link MessageFormat} syntax.
  * To put it briefly, you need:
  * 
  * <ul>
  * <li> Refer to any parameter with a <code>{n}</code> in your message,
  * where <code>n</code> is the 0-based index of the parameter, as you submit
- * it to the _() function. </li>
+ * it to the <code>_()</code> function. </li>
  * <li> If the parameter needs to be formatted (numbers, dates, currency), etc
  * you should pass a format type parameter (number, date, time) and optionally
  * a format style qualifier. Take a look at {@link MessageFormat}
@@ -87,64 +124,83 @@ import java.text.MessageFormat;
  * <p>
  * Of course, computers don't make magic (still), so you still need a
  * translation process to actually localize your messages. However, with this
- * approach this is done outside the code, in files named "message catalogs"
- * where the translated messages are stored. In fact, the _() function will
- * look up the given message in that catalogs, to show the translated version
- * to the user. As a developer, you don't need to create them, it is the task
- * of translator. However, so knowledge of that process is still needed.
+ * approach this is done outside the code, in files named "message catalogues"
+ * where the translated messages are stored. In fact, the <code>_()</code>
+ * function will look up the given message in that catalogues, to show the
+ * translated version to the user. As a developer, you don't need to create
+ * them, it is the task of translator. However, so knowledge of that process
+ * is useful, so we outline it below.
+ * 
+ * <h2>Employing gettext</h2>
  * 
  * <p>
- * java-gnome uses the same translation infrastructure GNOME and most GNOME
- * apps use: GNU gettext tools [TODO link to gettext page]. To put it briefly,
- * this is the process used by gettext to generate the message catalogs:
+ * java-gnome uses the GNU <a
+ * href="http://www.gnu.org/software/gettext/">gettext</a> suite, which is
+ * the same translation infrastructure that GNOME and most other Linux
+ * applications use. The process used by <code>gettext</code> to generate
+ * the message catalogues is as follows:
  * 
  * <p>
  * First of all, the messages used in your code need to be extracted. This is
- * done by the <code>xgettext</code> tool. It is able to distinguish between
- * translatable messages and other Strings because the formers are marked with
- * the calls to _(). So, the following call:
+ * done by the <code>xgettext</code> command. It is able to distinguish
+ * between translatable messages and other Strings because the formers are
+ * marked with the calls to _(). So, the following call:
  * 
  * <pre>
- * xgettext -o myapp.pot --omit-header --keyword=_ --keyword=N_ path/to/TYPE.java
+ * $ xgettext -o myapp.pot --omit-header --keyword=_ --keyword=N_ path/to/TYPE.java
  * </pre>
  * 
  * will extract the messages used in the TYPE.java class to a file called
- * myapp.pot. It is a POT file, a template with the list of translatable
- * messages, that translators will use to know the message he/she must
- * translate. With the command:
+ * <code>myapp.pot</code>. A POT file is a template with the list of
+ * translatable messages which translators will use to know the message they
+ * must translate. With the command:
  * 
  * <pre>
- * msginit -i myapp.pot -o {LANG}.po
+ * $ msginit -i myapp.pot -o ${LANG}.po
  * </pre>
  * 
- * the translator generate a PO file, where the messages will be translated.
- * PO files contain the translated messages. There is one PO file per locale,
- * named with the language_COUNTRY scheme, for example: en_US.po, es_ES.po,
- * fr.po, pt.po, pt_BR.po... Usually, the PO files of your project are stored
- * in a po directory.
+ * they can generate a PO file for their particular language which is where
+ * the messages will be translated. PO files contain the translated messages.
+ * There is one PO file per locale, named with the standard scheme
+ * <code>language_COUNTRY</code>. Examples are <code>en_CA.po</code>,
+ * <code>es_ES.po</code>, <code>fr.po</code>, <code>pt.po</code>,
+ * <code>pt_BR.po</code>... Usually, the PO files of a given project are
+ * stored in a <code>po/</code> directory.
  * 
  * <p>
  * To be used by gettext, those files need to be "compiled" to a binary form,
- * the MO files. That is done with the <code>msgfmt</code> command:
+ * known as MO files. That is done with the <code>msgfmt</code> command:
  * 
  * <pre>
- * msgfmt -o myapp.mo es.po
+ * $ msgfmt -o myapp.mo es.po
  * </pre>
  * 
  * MO files are installed together with other application artifacts, usually
- * under /usr/share/locale/${locale}/LC_MESSAGES/${packageName}.mo, where
- * ${locale} is the locale the MO is translated to, and ${packageName} an
- * unique identifier for you application, usually your application name. This
- * is needed because under that directory are stored MO files for all
- * installed apps. For example, localized messages for "pt_BR" locale of a
- * "myapp" application would be stored in the
- * /usr/share/locale/pt_BR/LC_MESSAGES/myapp.mo.
+ * under
+ * <code>/usr/share/locale/${locale}/LC_MESSAGES/${packageName}.mo</code>,
+ * where <code>${locale}</code> is the locale and
+ * <code>${packageName}</code> is a unique identifier for the program,
+ * usually your application name. This name is needed because when installed
+ * to the system, MO files are stored under a directory common to all
+ * installed apps. For example, localized messages for the <code>pt_BR</code>
+ * locale of a the <code>myapp</code> application will be packaged as
+ * <code>/usr/share/locale/pt_BR/LC_MESSAGES/myapp.mo</code>.
  * 
  * <p>
- * As you could figure out, you will need to tell gettext where those files
- * are actually localed. This is done with the
- * {@link #init(String, String) init()} method, that must be called before any
- * usage of the i18n infrastructure.
+ * As you can imagine, you will need to tell gettext where those files are
+ * physically located. This is done with the
+ * {@link #init(String, String) init()} method. This <b>must</b> be called
+ * before any usage of java-gnome internationalization infrastructure.
+ * 
+ * <pre>
+ * public void main(String[] args) {
+ *     Gtk.init(args);
+ *     Initialization.init(&quot;myapp&quot;, &quot;share/locale/&quot;);
+ *     ...
+ * }
+ * </pre>
+ * 
+ * <h2>Strings that need translation before initialization</h2>
  * 
  * <p>
  * In some cases, this might be a problem. Let's suppose you have some
@@ -152,15 +208,15 @@ import java.text.MessageFormat;
  * 
  * <pre>
  * static final String msgs = new String[] {
- *    "one message",
- *    "another message",
+ *    &quot;one message&quot;,
+ *    &quot;another message&quot;,
  *    ...
  * };
  * </pre>
  * 
- * You cannot call _() there, as probably it will be executed before
- * library initialization. You can easily postpone the _() call to the
- * momment it is actually shown:
+ * You cannot call <code>_()</code> there, as probably it will be executed
+ * before library initialization. You can easily postpone the <code>_()</code>
+ * call to the moment it is actually shown:
  * 
  * <pre>
  * System.out.println(_(msg[0]));
@@ -168,14 +224,15 @@ import java.text.MessageFormat;
  * 
  * But we still have a problem: the messages are not marked as translatable,
  * and thus they're not extracted by xgettext. For this case, we have the
- * {@link #N_(String) N_()} function. It does just this: mark the String
- * as translatable, without actually translate it. You use that as follows:
+ * {@link #N_(String) N_()} function. It does just this: mark the String as
+ * translatable, without actually translating it. You use <code>N_()</code>
+ * as follows:
  * 
  * <pre>
  * // mark the Strings as translatable
  * static final String msgs = new String[] {
- *    N_("one message"),
- *    N_("another message"),
+ *    N_(&quot;one message&quot;),
+ *    N_(&quot;another message&quot;),
  *    ...
  * };
  * 
@@ -183,14 +240,14 @@ import java.text.MessageFormat;
  * System.out.println(_(msg[0]));
  * </pre>
  * 
- * TODO documentation needs review!!
+ * TODO refactor to single hard coded example + positional parameters example.
  * 
  * @author Vreixo Formoso
+ * @author Andrew Cowie
  * @since 4.0.7
  */
 public final class Internationalization
 {
-
     private Internationalization() {}
 
     /**
@@ -198,48 +255,45 @@ public final class Internationalization
      * 
      * <p>
      * This attempts to translate a text string into the user's native
-     * language. You just need to call it with the message in english, as
-     * follows:
+     * language. You just need to call it with the message in <code>C</code>,
+     * as follows:
      * 
      * <pre>
-     * // a static import is really useful in this case
-     * import static org.gnome.glib.Internationalization._;
-     * 
-     * ....
-     * 
-     * // you must remember to initialize i18n features somewhere in your code
-     * Internationalization.init(....);
-     * 
-     * // and then call the function
      * String translated = _(&quot;Hello&quot;);
      * </pre>
      * 
      * <p>
-     * This also supports message formatting and concatenation in a
-     * language-neutral way. For example, let's suppose we want to print the
-     * following message: "The file 'data.log' has been modified at March 21,
-     * 2008 at 5:27:22 PM". This message usually would have two parameters,
-     * the file name, and the date of modification. Of course, the data is
-     * locale-dependent, as the dates are represented differently depending on
-     * language or country. We could get the internationalized message with:
+     * The java-gnome implementation of <code>_()</code> also supports
+     * message formatting and concatenation in a language-neutral way. For
+     * example, let's suppose we want to print the following message: "The
+     * file 'data.log' has been modified at March 21, 2008 at 5:27:22 PM".
+     * This message actually has two parameters, the filename, and the date of
+     * modification. This data is locale-dependent, as the dates are
+     * represented differently depending on language and country. We could get
+     * the internationalized message with:
      * 
      * <pre>
      * String filename;
      * Date date;
-     * _(&quot;&quot;The file '{0}' has been modified on {1,date,long} at {1,time}&quot;, filename, date);
+     * _(&quot;The file '{0}' has been modified on {1,date,long} at {1,time}&quot;, filename, date);
      * </pre>
      * 
      * As you can see, it is easy to construct a given message from several
-     * parameters, even if they have a format that is locale-dependent. The
-     * actual formatting is done by {@link MessageFormat}, so take a look at
-     * its documentation for all available format options.
+     * parameters, even when some parameters need locale-dependent formatting.
+     * 
+     * <p>
+     * The actual formatting is done by {@link MessageFormat}, so take a look
+     * at its documentation for all available format options. Translation is
+     * done handled by gettext before the message is passed to MessageFormat
+     * for further handling of the positional parameters.
      * 
      * @param msg
-     *            The message to print, in english.
+     *            The message to print. This is the untranslated message,
+     *            usually in English.
      * @param parameters
      *            Parameters of the message
-     * @return The message translated and formatted properly. If not
-     *         translation has found, it is returned in english.
+     * @return The message translated and properly formatted. If no
+     *         translation is found, the original English is returned.
      */
     public static final String _(String msg, java.lang.Object... parameters) {
         if (msg == null) {
@@ -255,47 +309,68 @@ public final class Internationalization
     private static native final String gettext(String msg);
 
     /**
-     * Mark the given message as translatable, without actually translate it.
-     * This is useful, for example, for static fields that are initialized
-     * before library initialization:
+     * Mark the given message as translatable, without actually translating
+     * it. This is used for static fields that are initialized before library
+     * initialization:
      * 
      * <pre>
-     * private static final String HELLO_MESSAGE = N_("Hello!");
+     * private static final String BUTTON_MESSAGE = N_(&quot;Press me!&quot;);
      * </pre>
      * 
-     * Remember that you still need to call _() later, to actually translate
-     * the message.
+     * Remember that you still need to call <code>_()</code> later, to
+     * actually translate the message.
      * 
      * <pre>
-     * System.out.println(_(HELLO_MESSAGE));
+     * button.setLabel(_(BUTTON_MESSAGE));
      * </pre>
+     * 
+     * Obviously the problem now is to come up with constant names that are
+     * unobtrusive. There are various different naming schemes that can be
+     * employed; all are somewhat ugly. In general this leads to people not
+     * using Strings in static initializers as much as they might have been
+     * used to. Indeed, the whole point of abstracting out such Strings so
+     * that they are in one place at the "top" of the file is less relevant
+     * given that the gettext tools will be extracting all your messages
+     * anyway.
      * 
      * @param msg
-     *      The message to mark as translatable
-     * @return
-     *      The submitted msg! This is only useful to mark a String as
-     *      translatable and let xgettext to extract it.
+     *            The message to mark as translatable
+     * @return The argument <code>msg</code>, <i>not</i> translated!
+     *         Remember, <code>N_()</code> is only used to mark a String as
+     *         translatable so that <code>xgettext</code> can extract it.
      */
     public static final String N_(String msg) {
         return msg;
     }
 
     /**
-     * Initialize the i18n support. You must call this function before any
-     * other usage of the i18n functions.
+     * Initialize internationalization support. You <b>must</b> call this
+     * function before any other usage of the methods on the
+     * Internationalization class, ie:
+     * 
+     * <pre>
+     * public void main(String[] args) {
+     *     Gtk.init(args);
+     *     Initialization.init(&quot;myapp&quot;, &quot;/usr/share/locale/&quot;);
+     *     ...
+     * }
+     * </pre>
      * 
      * @param packageName
      *            Application name
      * @param localeDir
-     *            Directory where to find the message catalogs (usually
-     *            /usr/share/locale) The actually message catalog is found at
-     *            ${localeDir}/${locale}/LC_MESSAGES/${packageName}.mo For
-     *            example: /usr/share/locale/pt_BR/LC_MESSAGES/myapp.mo
+     *            Directory where to find the message catalogues (usually
+     *            <code>/usr/share/locale</code>) The actually message
+     *            catalogue is found at
+     *            <code>${localeDir}/${locale}/LC_MESSAGES/${packageName}.mo</code>
+     *            For example:
+     *            <code>/usr/share/locale/pt_BR/LC_MESSAGES/myapp.mo</code>
      */
     /*
-     * FIXME this init() message is a bit ugly. It would a better idea to
-     * have both args in a properties files, maybe i18n.properties, that
-     * is read from the CLASSPATH in the Internationalization static initilizer, for example.
+     * FIXME this init() message is a bit ugly. It would a better idea to have
+     * both args in a properties files, maybe i18n.properties, that is read
+     * from the CLASSPATH in the Internationalization static initializer, for
+     * example.
      */
     public static void init(String packageName, String localeDir) {
         bindtextdomain(packageName, localeDir);
