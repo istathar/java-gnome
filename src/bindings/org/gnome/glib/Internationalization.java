@@ -15,16 +15,20 @@ package org.gnome.glib;
 import java.text.MessageFormat;
 
 /**
- * Internationalization support for java-gnome.
+ * Internationalization support for java-gnome. A few definitions:
  * 
  * <p>
  * <dl>
  * <dt><i>Internationalization</i>,</dt>
- * <dd>the process of preparing applications to support multiple languages.
- * Frequently abbreviated as "<code>i18n</code>".</dd>
+ * <dd>is the process of preparing applications to support multiple
+ * languages. Frequently abbreviated as "<code>i18n</code>".</dd>
  * <dt><i>Localization</i>,</dt>
  * <dd>Whereby other people translate your software into their own locale.
  * Frequently abbreviated as "<code>l10n</code>".</dd>
+ * <dt>Locale</dt>
+ * <dd>The combination of translations into a specific language along with
+ * formatting as used in a given country are collectively referred to as a
+ * <i>locale</i>.
  * </dl>
  * 
  * <p>
@@ -52,19 +56,11 @@ import java.text.MessageFormat;
  * Let's take the following Java code as a typical example:
  * 
  * <pre>
- * System.out.println(&quot;The file &quot; + filename + &quot; was modified on &quot; + date);
+ * greeting = new Label(&quot;Good morning&quot;);
  * </pre>
  * 
- * This code is not internationalized at all. We will need to allow the
- * message to be translated, but must also allow for the the date to be
- * formatted appropriately.
- * 
- * <p>
- * Adding complexity is that care needs to be taken that the "positional
- * parameters" (here <code>filename</code> and <code>date</code>) may
- * have a different order when rendered in someone else's language.
  * Fortunately, you do not need to know how this message is written in all
- * languages of the world! You just need to let translators do that.
+ * languages of the world! You let the translators take care of that.
  * 
  * <p>
  * One approach would be to give your sources to each translation team and
@@ -76,49 +72,75 @@ import java.text.MessageFormat;
  * translate it. So we undertake internationalization in a way that enables
  * them to do the localization without needing to be Java programmers.
  * 
- * <h2>... use translatable Strings</h2>
+ * <h2>Use translatable Strings instead</h2>
  * 
  * Instead of forcing translators to look for messages in your sources, modify
  * them in-place, and then re-build the software, we ask developers to change
- * the way you output messages so that your application doesn't need to be
- * rebuilt. You wrap your hard coded Strings in the translation function as
- * follows:
- * 
- * <pre>
- * System.out.println(_(&quot;The file {0} was modified on {1,date,long}&quot;, filename, date));
- * </pre>
- * 
- * The {@link #_(String, Object...) Internationalization._()} method will take
- * care of looking up your String in the translation database and will return
- * the same message localized to the user's native language. This is
- * internationalization.
+ * the way they output messages so that their application doesn't need to be
+ * rebuilt.
  * 
  * <p>
- * In java-gnome, internationalizing your apps is as easy as the code above.
- * You should use the <code>_()</code> method with any message you want to
- * show to the user [messages intended for developers, such as debug messages
- * going to the log do not need to be localized]. Using a static import:
+ * You wrap your hard coded Strings in the translation function as follows:
+ * 
+ * <pre>
+ * greeting = new Label(_(&quot;Good morning&quot;));
+ * </pre>
+ * 
+ * The {@link #_(String, Object...) Internationalization._()} function takes
+ * care of looking up your String in the translation database and will return
+ * the same message localized to the user's native language. This is
+ * internationalization. Obviously using the static import:
  * 
  * <pre>
  * import static org.gnome.glib.Internationalization._;
  * </pre>
  * 
- * will make it clean and unobtrusive.
+ * will make things clean and elegant.
+ * 
+ * <p>
+ * In java-gnome, internationalizing your apps is as easy as the code above.
+ * You should use the <code>_()</code> function with any message you want to
+ * show to the user. Messages intended for developers only (such as debug
+ * messages going to the log) do not need to be localized.
  * 
  * <h2>Positional parameters</h2>
  * 
  * <p>
- * To format the parameters, you have to use the {@link MessageFormat} syntax.
- * To put it briefly, you need:
+ * Matters become somewhat more complicated when you need to concatenate
+ * various parameters into a composite String. Consider the common use of the
+ * <code>+</code> operator:
+ * 
+ * <pre>
+ * System.out.println(&quot;The file &quot; + filename + &quot; was modified on &quot; + date);
+ * </pre>
+ * 
+ * This code is not internationalized at all. Not only do we need to allow the
+ * message to be translated, but we must also allow for the the date to be
+ * formatted appropriately. In java-gnome, you do this as follows:
+ * 
+ * <pre>
+ * System.out.println(_(&quot;The file {0} was modified on {1,date,long}&quot;, filename, date));
+ * </pre>
+ * 
+ * The added complexity comes from the need to cater for the "positional
+ * parameters" (here <code>filename</code> and <code>date</code>) which
+ * may have a different order when rendered in someone else's language. Again,
+ * you don't need to know the specifics for every possible target locale, you
+ * just need to supply the information in a form that can be localized.
+ * 
+ * <p>
+ * To format these parameters, you use the {@link MessageFormat} syntax. Put
+ * briefly, you will:
  * 
  * <ul>
- * <li> Refer to any parameter with a <code>{n}</code> in your message,
- * where <code>n</code> is the 0-based index of the parameter, as you submit
- * it to the <code>_()</code> function. </li>
- * <li> If the parameter needs to be formatted (numbers, dates, currency), etc
- * you should pass a format type parameter (number, date, time) and optionally
- * a format style qualifier. Take a look at {@link MessageFormat}
- * documentation for further details. </li>
+ * <li>Refer to any parameter with a <code>{n}</code> in your message,
+ * where <code>n</code> is the <code>0</code>-based index of the
+ * parameter as you submitted to the <code>_()</code> function.</li>
+ * <li>If the parameter needs to be formatted (numbers, dates, currency, etc)
+ * you pass a format type parameter ("<code>number</code>", "<code>date</code>", "<code>time</code>")
+ * and optionally a format style qualifier (in the above example, "<code>long</code>",
+ * indicating a longer form). See the MessageFormat documentation for further
+ * details.</li>
  * </ul>
  * 
  * <p>
@@ -128,8 +150,79 @@ import java.text.MessageFormat;
  * where the translated messages are stored. In fact, the <code>_()</code>
  * function will look up the given message in that catalogues, to show the
  * translated version to the user. As a developer, you don't need to create
- * them, it is the task of translator. However, so knowledge of that process
- * is useful, so we outline it below.
+ * them, it is the task of translator. However, knowledge of that process is
+ * useful, so we outline it below.
+ * 
+ * <h2>Locales</h2>
+ * 
+ * Most users are not aware of this, but having selected a "language" when
+ * they first logged in they initialize their <code>LANG</code> and
+ * <code>LC_MESSAGES</code> environment variables.
+ * 
+ * <p>
+ * Examples of locales include:
+ * <dl>
+ * <dt><code>en_CA.UTF-8</code>
+ * <dd>English as written and used in Canada
+ * <dt><code>en_UK.UTF-8</code>
+ * <dd>English as written and used in Britain
+ * <dt><code>en</code>
+ * <dd>English (generic)
+ * <dt><code>es_ES.UTF-8</code>
+ * <dd>Spanish as written and used in Spain
+ * <dt><code>es</code>
+ * <dd>Spanish (generic)
+ * <dt><code>fr_CA.UTF-8</code>
+ * <dd>French as used in Canada
+ * <dt><code>fr_FR.UTF-8</code>
+ * <dd>French as used in France
+ * <dt><code>fr</code>
+ * <dd>French (generic)
+ * </dl>
+ * etc. You'll note the addition of qualifiers like <code>.UTF-8</code>
+ * which are how a locale indicates support for specific character sets.
+ * 
+ * <p>
+ * There is also one other locale you will see:
+ * <dl>
+ * <dt><code>C</code>
+ * <dd>the untranslated domain, typically expressed in English.
+ * </dl>
+ * which is what you write in your programs.
+ * 
+ * <p>
+ * Note that <b>nothing</b> requires you to to use English for the
+ * untranslated messages in your source code. English is, however, the
+ * <i>lingua franca</i> of our age, and more to the point is the language
+ * which most translation teams understand and translate from. If you are
+ * doing your own translations, then go right ahead and program in whatever
+ * language you want. On the other hand, if you wish to leverage the GNOME
+ * Translation Project's expertise, we recommend that your untranslated
+ * Strings be in basic English.
+ * 
+ * <p>
+ * Indeed, using uncomplicated English Strings will mean that you will be less
+ * likely to "break" Strings (thereby causing the translation teams'
+ * localizations to no longer work). Even if you are a native English speaker,
+ * we recommend that you localize your own work into (say) <code>en_AU</code>
+ * or <code>en_CA</code> as this will cause you to be aware of translation
+ * issues - and will minimize String breaks.
+ * 
+ * <p>
+ * As you can imagine, the gettext and glibc libraries fallback in a
+ * predictable order. They try to find a translation that is appropriate for
+ * your locale, starting with the fully qualified <code>LANG</code> variable
+ * and then steadily degrading. For example, if your
+ * <code>LANG=fr_CA.UTF-8</code>, you could expect the following sequence
+ * of locales to be searched:
+ * 
+ * <ul>
+ * <li>fr_CA.UTF-8
+ * <li>fr_CA
+ * <li>fr.UTF-8
+ * <li>fr
+ * <li>C
+ * </ul>
  * 
  * <h2>Employing gettext</h2>
  * 
@@ -144,7 +237,7 @@ import java.text.MessageFormat;
  * First of all, the messages used in your code need to be extracted. This is
  * done by the <code>xgettext</code> command. It is able to distinguish
  * between translatable messages and other Strings because the formers are
- * marked with the calls to _(). So, the following call:
+ * marked with the calls to <code>_()</code>. So, the following call:
  * 
  * <pre>
  * $ xgettext -o myapp.pot --omit-header --keyword=_ --keyword=N_ path/to/TYPE.java
@@ -164,8 +257,8 @@ import java.text.MessageFormat;
  * There is one PO file per locale, named with the standard scheme
  * <code>language_COUNTRY</code>. Examples are <code>en_CA.po</code>,
  * <code>es_ES.po</code>, <code>fr.po</code>, <code>pt.po</code>,
- * <code>pt_BR.po</code>... Usually, the PO files of a given project are
- * stored in a <code>po/</code> directory.
+ * <code>pt_BR.po</code>.... Typically, the PO files of a given project are
+ * stored in a directory named <code>po/</code>.
  * 
  * <p>
  * To be used by gettext, those files need to be "compiled" to a binary form,
@@ -183,7 +276,7 @@ import java.text.MessageFormat;
  * usually your application name. This name is needed because when installed
  * to the system, MO files are stored under a directory common to all
  * installed apps. For example, localized messages for the <code>pt_BR</code>
- * locale of a the <code>myapp</code> application will be packaged as
+ * locale of the <code>myapp</code> application will be packaged as
  * <code>/usr/share/locale/pt_BR/LC_MESSAGES/myapp.mo</code>.
  * 
  * <p>
@@ -239,8 +332,6 @@ import java.text.MessageFormat;
  * // and actually translate the String later
  * System.out.println(_(msg[0]));
  * </pre>
- * 
- * TODO refactor to single hard coded example + positional parameters example.
  * 
  * @author Vreixo Formoso
  * @author Andrew Cowie
@@ -372,7 +463,7 @@ public final class Internationalization
      * from the CLASSPATH in the Internationalization static initializer, for
      * example.
      */
-    public static void init(String packageName, String localeDir) {
+    public static final void init(String packageName, String localeDir) {
         bindtextdomain(packageName, localeDir);
     }
 

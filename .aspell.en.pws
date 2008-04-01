@@ -633,6 +633,7 @@ UINT
 ULONG
 UNMAP
 UTC
+UTF
 Ubuntu
 UnitTests
 UnsatisfiedLinkError
@@ -1164,6 +1165,7 @@ gettext
 gij
 gint
 gjdoc
+glibc
 glibj
 globalTooltipsGroup
 gnomedev
