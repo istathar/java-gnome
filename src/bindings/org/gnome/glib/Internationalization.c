@@ -29,59 +29,62 @@ Java_org_gnome_glib_Internationalization_gettext
 	jclass cls,
 	jstring _msg
 )
-{
-	jstring _translated;
+{	
 	const char* msg;
-	char* translated_msg;
+	char* result;
 
-	// translate msg
-	msg = (const char*)(*env)->GetStringUTFChars(env, _msg, NULL);
+	// convert parameter msg
+	msg = (const char*) (*env)->GetStringUTFChars(env, _msg, NULL);
 	if (msg == NULL) {
-		return NULL; // expeption already throw
+		return NULL; // expeption already thrown
 	}
 
-	// translate msg
-	translated_msg = gettext(msg);
+	// call function 
+	result = gettext(msg);
         
-	// get translated msg
-	_translated =  (*env)->NewStringUTF(env, translated_msg);
-
 	// cleanup parameter msg
 	(*env)->ReleaseStringUTFChars(env, _msg, msg);
     
-	return _translated;
+	// convert string and return
+	return (*env)->NewStringUTF(env, result);
 }
 
 JNIEXPORT void JNICALL 
 Java_org_gnome_glib_Internationalization_bindtextdomain
 (
-    JNIEnv *env,
-    jclass cls,
-    jstring _packageName,
-    jstring _localeDir
+	JNIEnv *env,
+	jclass cls,
+	jstring _packageName,
+	jstring _localeDir
 )
 {
-    const char* packageName;
-    const char* localeDir;
+	const char* packageName;
+	const char* localeDir;
 
-    packageName = (const char*)(*env)->GetStringUTFChars(env, _packageName, NULL);
-    if (packageName == NULL) {
-        return; // expeption already throw
-    }
-    
-    localeDir = (const char*)(*env)->GetStringUTFChars(env, _localeDir, NULL);
-    if (localeDir == NULL) {
-        return; // expeption already throw
-    }
-    
-    setlocale(LC_ALL, "");
-    bindtextdomain(packageName, localeDir);
-    bind_textdomain_codeset(packageName, "UTF-8");
-    textdomain(packageName);
+	// convert parameter packageName
+	packageName = (const char*) (*env)->GetStringUTFChars(env, _packageName, NULL);
+	if (packageName == NULL) {
+		return; // expeption already throw
+	}
 
-    // cleanup parameter packageName
-    (*env)->ReleaseStringUTFChars(env, _packageName, packageName);
-    
-    // cleanup parameter localeDir
-    (*env)->ReleaseStringUTFChars(env, _localeDir, localeDir);
+	// convert parameter localeDir
+	localeDir = (const char*) (*env)->GetStringUTFChars(env, _localeDir, NULL);
+	if (localeDir == NULL) {
+		return; // expeption already throw
+	}
+
+	/*
+	 * Initialize internationalization and localization libraries
+	 */
+
+	setlocale(LC_ALL, "");
+	bindtextdomain(packageName, localeDir);
+	bind_textdomain_codeset(packageName, "UTF-8");
+	textdomain(packageName);
+
+	// cleanup parameter packageName
+	(*env)->ReleaseStringUTFChars(env, _packageName, packageName);
+
+	// cleanup parameter localeDir
+	(*env)->ReleaseStringUTFChars(env, _localeDir, localeDir);
 }

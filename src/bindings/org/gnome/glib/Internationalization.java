@@ -19,38 +19,40 @@ import java.text.MessageFormat;
  * 
  * <p>
  * <dl>
- * <dt><i>Internationalization</i>,</dt>
- * <dd>is the process of preparing applications to support multiple
- * languages. Frequently abbreviated as "<code>i18n</code>".</dd>
- * <dt><i>Localization</i>,</dt>
- * <dd>Whereby other people translate your software into their own locale.
- * Frequently abbreviated as "<code>l10n</code>".</dd>
  * <dt>Locale</dt>
  * <dd>The combination of translations into a specific language along with
  * formatting as used in a given country are collectively referred to as a
  * <i>locale</i>.
+ * <dt>Internationalization</dt>
+ * <dd><i>Internationalization</i> is the process of preparing applications
+ * to support multiple languages. You will frequently see this abbreviated as "<code>i18n</code>".</dd>
+ * <dt>Localization</dt>
+ * <dd>Whereby other people convert your software into their own locale.
+ * <i>Localization</i>, as this is process is refered to, involves more than
+ * just translating words but also involves reformatting expressions of dates
+ * and numbers so they look "correct" in that locale. Frequently abbreviated
+ * as "<code>l10n</code>".</dd>
  * </dl>
  * 
  * <p>
  * The objective is that messages be shown to the user in his or her native
  * language, not in English (or whatever language the developer was working
  * in). Note that internationalization does not actually mean that you, as an
- * application developer, need to translate your software to all the
- * <b>locales</b> where it is planned to be used. This is done later, by
- * translators. Applications developers just need to be aware of this, and
- * prepare their software to be localized later. This preparation is what we
- * call internationalization.
+ * application developer, need to translate your software to all the locales
+ * where it is planned to be used. This is done later, by translators.
+ * Applications developers just need to be aware of this, and prepare their
+ * software to be localized later. This preparation is what we call
+ * internationalization.
  * 
  * <p>
- * First of all, internationalization means we need to allow for message
- * translation. This simply So, we shouldn't output hard coded English Strings
- * directly. Instead, we would call a function that will takes care of the
- * message translation. Similarly, there are other aspects that affect
- * internationalization. The way dates, numbers, currency, etc are formatted
- * is locale-dependent. The methods in this class will simplify this task for
- * you.
+ * First of all, we need to allow for message translation. This simply means
+ * not outputting hard coded English Strings directly and instead calling a
+ * function that will redirect to the message translation. Similarly, the
+ * other aspects of internationalization such as the way dates, numbers,
+ * currency, etc are formatted is locale-dependent. The functions in this
+ * class will enable you to prepare your application for translation.
  * 
- * <h2>Instead of hard coded Strings...</h2>
+ * <h2>Use translatable Strings instead of hard coded Strings</h2>
  * 
  * <p>
  * Let's take the following Java code as a typical example:
@@ -63,24 +65,23 @@ import java.text.MessageFormat;
  * languages of the world! You let the translators take care of that.
  * 
  * <p>
- * One approach would be to give your sources to each translation team and
- * have them hunt through the code for each and every String. This would be
- * quite a nightmare, of course, and worse would require the translators to be
- * a programmer on par with yourself. This is usually not the case; people
- * doing translations tend <i>not</i> to be hard-core developers, but they
- * are making a very valuable contribution to your software by offering to
- * translate it. So we undertake internationalization in a way that enables
- * them to do the localization without needing to be Java programmers.
- * 
- * <h2>Use translatable Strings instead</h2>
- * 
- * Instead of forcing translators to look for messages in your sources, modify
- * them in-place, and then re-build the software, we ask developers to change
- * the way they output messages so that their application doesn't need to be
- * rebuilt.
+ * One approach would have been to give your sources to each translation team
+ * and have them hunt through the code for each and every String. This would
+ * be quite a nightmare, of course, and worse would require the translators to
+ * be a programmer on par with yourself. Worst of all, it would require a copy
+ * of the application specific to each locale to be distributed, which of
+ * course would be ridiculous.
  * 
  * <p>
- * You wrap your hard coded Strings in the translation function as follows:
+ * The people doing translations tend <i>not</i> to be hard-core developers
+ * but they are making a very valuable contribution to your software by
+ * offering to translate it. So we undertake internationalization in a way
+ * that enables them to do the localization without needing to be Java
+ * programmers.
+ * 
+ * <p>
+ * Instead of the hard coded String shown above, we wrap it in the translation
+ * function as follows:
  * 
  * <pre>
  * greeting = new Label(_(&quot;Good morning&quot;));
@@ -88,8 +89,8 @@ import java.text.MessageFormat;
  * 
  * The {@link #_(String, Object...) Internationalization._()} function takes
  * care of looking up your String in the translation database and will return
- * the same message localized to the user's native language. This is
- * internationalization. Obviously using the static import:
+ * the same message localized to the user's native language. Obviously using
+ * the static import:
  * 
  * <pre>
  * import static org.gnome.glib.Internationalization._;
@@ -293,45 +294,11 @@ import java.text.MessageFormat;
  * }
  * </pre>
  * 
- * <h2>Strings that need translation before initialization</h2>
- * 
  * <p>
- * In some cases, this might be a problem. Let's suppose you have some
- * messages stored in a static array:
- * 
- * <pre>
- * static final String msgs = new String[] {
- *    &quot;one message&quot;,
- *    &quot;another message&quot;,
- *    ...
- * };
- * </pre>
- * 
- * You cannot call <code>_()</code> there, as probably it will be executed
- * before library initialization. You can easily postpone the <code>_()</code>
- * call to the moment it is actually shown:
- * 
- * <pre>
- * System.out.println(_(msg[0]));
- * </pre>
- * 
- * But we still have a problem: the messages are not marked as translatable,
- * and thus they're not extracted by xgettext. For this case, we have the
- * {@link #N_(String) N_()} function. It does just this: mark the String as
- * translatable, without actually translating it. You use <code>N_()</code>
- * as follows:
- * 
- * <pre>
- * // mark the Strings as translatable
- * static final String msgs = new String[] {
- *    N_(&quot;one message&quot;),
- *    N_(&quot;another message&quot;),
- *    ...
- * };
- * 
- * // and actually translate the String later
- * System.out.println(_(msg[0]));
- * </pre>
+ * In some cases, this might be a problem. If you have messages stored in a
+ * static array initializer use the {@link #N_(String) N_()} function to mark
+ * these messages, then use <code>_()</code> later on the variable carrying
+ * the constant. See <code>N_()</code> for more details.
  * 
  * @author Vreixo Formoso
  * @author Andrew Cowie
@@ -401,15 +368,15 @@ public final class Internationalization
 
     /**
      * Mark the given message as translatable, without actually translating
-     * it. This is used for static fields that are initialized before library
-     * initialization:
+     * it. This is used for static fields that are initialized before
+     * Internationalization is initialized:
      * 
      * <pre>
      * private static final String BUTTON_MESSAGE = N_(&quot;Press me!&quot;);
      * </pre>
      * 
-     * Remember that you still need to call <code>_()</code> later, to
-     * actually translate the message.
+     * You still need to call <code>_()</code> later, to actually translate
+     * the message.
      * 
      * <pre>
      * button.setLabel(_(BUTTON_MESSAGE));
@@ -419,14 +386,14 @@ public final class Internationalization
      * unobtrusive. There are various different naming schemes that can be
      * employed; all are somewhat ugly. In general this leads to people not
      * using Strings in static initializers as much as they might have been
-     * used to. Indeed, the whole point of abstracting out such Strings so
-     * that they are in one place at the "top" of the file is less relevant
+     * used to. Indeed, the whole point of abstracting out such Strings (so
+     * that they are in one place at the "top" of the file) is less relevant
      * given that the gettext tools will be extracting all your messages
      * anyway.
      * 
      * @param msg
      *            The message to mark as translatable
-     * @return The argument <code>msg</code>, <i>not</i> translated!
+     * @return The <code>msg</code> argument, <i>not</i> translated.
      *         Remember, <code>N_()</code> is only used to mark a String as
      *         translatable so that <code>xgettext</code> can extract it.
      */
