@@ -10,7 +10,7 @@
  * library into other programs provided you don't make a derivation of it).
  * See the LICENCE file for the terms governing usage and redistribution.
  */
-package org.gnome.glib;
+package org.freedesktop.bindings;
 
 import java.text.MessageFormat;
 
@@ -93,7 +93,7 @@ import java.text.MessageFormat;
  * the static import:
  * 
  * <pre>
- * import static org.gnome.glib.Internationalization._;
+ * import static org.freedesktop.bindings.Internationalization._;
  * </pre>
  * 
  * will make things clean and elegant.

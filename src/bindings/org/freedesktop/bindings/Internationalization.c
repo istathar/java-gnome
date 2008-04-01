@@ -14,16 +14,16 @@
 #include <libintl.h>
 #include <locale.h>
 #include <jni.h>
-#include "org_gnome_glib_Internationalization.h"
+#include "org_freedesktop_bindings_Internationalization.h"
 
 /**
  * Implements
- *   org.gnome.glib.Internationalization.gettext(String msg)
+ *   org.freedesktop.bindings.Internationalization.gettext(String msg)
  * called from
- *   org.gnome.glib.Internationalization._(String msg, java.lang.Object ...parameters)
+ *   org.freedesktop.bindings.Internationalization._(String msg, java.lang.Object ...parameters)
  */
 JNIEXPORT jstring JNICALL
-Java_org_gnome_glib_Internationalization_gettext
+Java_org_freedesktop_bindings_Internationalization_gettext
 (
 	JNIEnv *env,
 	jclass cls,
@@ -50,7 +50,7 @@ Java_org_gnome_glib_Internationalization_gettext
 }
 
 JNIEXPORT void JNICALL 
-Java_org_gnome_glib_Internationalization_bindtextdomain
+Java_org_freedesktop_bindings_Internationalization_bindtextdomain
 (
 	JNIEnv *env,
 	jclass cls,
