@@ -1,7 +1,7 @@
 /*
  * Environment.c
  *
- * Copyright (c) 2007 Operational Dynamics Consulting Pty Ltd and Others
+ * Copyright (c) 2007-2008 Operational Dynamics Consulting Pty Ltd and Others
  * 
  * The code in this file, and the library it is a part of, are made available
  * to you by the authors under the terms of the "GNU General Public Licence,
@@ -28,23 +28,64 @@ Java_org_freedesktop_bindings_Environment_getenv
 )
 {
 	gchar* name;
-	gchar* value;
+	gchar* result;
 
-	// translate
+	// convert parameter name
 	name = (gchar*) (*env)->GetStringUTFChars(env, _name, NULL);
 	if (name == NULL) {
 		return NULL; /* OutOfMemoryError already thrown */
 	}
 
 	// call function
-	value = (gchar*) getenv(name); 
+	result = (gchar*) getenv(name); 
 
-	// clean up variableName
+	// clean up name
 	(*env)->ReleaseStringUTFChars(env, _name, name);
 
 	// and return	
-	return (*env)->NewStringUTF(env, value);
+	return (*env)->NewStringUTF(env, result);
 }
+
+
+/*
+ * Implements
+ *   org.freedesktop.bindings.Environment.setenv(String variableName, String value)
+ */
+JNIEXPORT void  JNICALL
+Java_org_freedesktop_bindings_Environment_setenv
+(
+	JNIEnv *env,
+	jclass cls,
+	jstring _name,
+	jstring _value
+)
+{
+	gchar* name;
+	gchar* value;
+
+	// convert parameter name
+	name = (gchar*) (*env)->GetStringUTFChars(env, _name, NULL);
+	if (name == NULL) {
+		return; /* OutOfMemoryError already thrown */
+	}
+
+	// convert parameter value
+	value = (gchar*) (*env)->GetStringUTFChars(env, _value, NULL);
+	if (value == NULL) {
+		return; /* OutOfMemoryError already thrown */
+	}
+
+	// call function
+	setenv(name, value, 1); 
+
+	// clean up name
+	(*env)->ReleaseStringUTFChars(env, _name, name);
+
+	// clean up name
+	(*env)->ReleaseStringUTFChars(env, _value, value);
+}
+
+
 
 
 /*

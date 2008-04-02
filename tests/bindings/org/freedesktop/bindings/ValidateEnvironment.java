@@ -37,4 +37,30 @@ public class ValidateEnvironment extends TestCaseGtk
                     (home.indexOf(username) != -1));
         }
     }
+
+    public final void testSetEnvironmentVariable() {
+        String blah;
+        final String SOMETHING_UNIQUE = "SOMETHING_UNIQUE";
+
+        /*
+         * Ensure it's empty
+         */
+        blah = Environment.getEnv(SOMETHING_UNIQUE);
+        assertNull(blah);
+
+        Environment.setEnv(SOMETHING_UNIQUE, "Absolutely");
+
+        blah = Environment.getEnv(SOMETHING_UNIQUE);
+        assertNotNull(blah);
+        assertEquals("Absolutely", blah);
+
+        /*
+         * And test that it will overwrite
+         */
+        Environment.setEnv(SOMETHING_UNIQUE, "Fantastic");
+
+        blah = Environment.getEnv(SOMETHING_UNIQUE);
+        assertNotNull(blah);
+        assertEquals("Fantastic", blah);
+    }
 }

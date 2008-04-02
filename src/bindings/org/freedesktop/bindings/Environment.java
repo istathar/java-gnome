@@ -1,7 +1,7 @@
 /*
  * Environment.java
  * 
- * Copyright (c) 2005,2007 Operational Dynamics Consulting Pty Ltd
+ * Copyright (c) 2005,2007-2008 Operational Dynamics Consulting Pty Ltd
  * 
  * The code in this file, and the library it is a part of, are made available
  * to you by the authors under the terms of the "GNU General Public Licence,
@@ -17,6 +17,7 @@ package org.freedesktop.bindings;
  * Retrieve values from environment.
  * 
  * @author Andrew Cowie
+ * @since 4.0.2
  */
 public class Environment
 {
@@ -31,6 +32,7 @@ public class Environment
      *            the name of the environment variable you want to look up
      * @return the value of the environment variable, or <code>null</code>
      *         if empty or not found.
+     * @since 4.0.2
      */
     public static String getEnv(final String variableName) {
         if ((variableName == null) || (variableName.equals(""))) {
@@ -48,4 +50,18 @@ public class Environment
 
     private static native final String getenv(String variableName);
 
+    /**
+     * Set a value in the environment.
+     * 
+     * @since 4.0.7
+     */
+    public static void setEnv(String variableName, String value) {
+        if ((variableName == null) || (variableName.equals(""))) {
+            throw new IllegalArgumentException("Can't set an empty or null environment variable");
+        }
+
+        setenv(variableName, value);
+    }
+
+    private static native final void setenv(String variableName, String value);
 }
