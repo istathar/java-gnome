@@ -14,6 +14,7 @@ import junit.framework.TestSuite;
 
 import org.freedesktop.bindings.Debug;
 import org.freedesktop.bindings.ValidateEnvironment;
+import org.freedesktop.bindings.ValidateInternationalization;
 import org.freedesktop.cairo.ValidateCairoInternals;
 import org.freedesktop.cairo.ValidateDrawingToFile;
 import org.gnome.gdk.ValidateImageHandling;
@@ -106,6 +107,7 @@ public class UnitTests
         suite.addTestSuite(ValidateDefsParsing.class);
         suite.addTestSuite(ValidateThingUsage.class);
         suite.addTestSuite(ValidateEnvironment.class);
+        suite.addTestSuite(ValidateInternationalization.class);
         suite.addTestSuite(ValidateReferenceCounting.class);
         suite.addTestSuite(ValidateMemoryManagement.class);
         suite.addTestSuite(ValidateGListMethods.class);

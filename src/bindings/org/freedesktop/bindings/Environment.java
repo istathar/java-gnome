@@ -53,6 +53,10 @@ public class Environment
     /**
      * Set a value in the environment.
      * 
+     * <p>
+     * Use a value of <code>null</code> to delete a variable from the
+     * environment.
+     * 
      * @since 4.0.7
      */
     public static void setEnv(String variableName, String value) {
@@ -60,8 +64,15 @@ public class Environment
             throw new IllegalArgumentException("Can't set an empty or null environment variable");
         }
 
-        setenv(variableName, value);
+        if (value == null) {
+            unsetenv(variableName);
+        } else {
+            setenv(variableName, value);
+        }
     }
 
     private static native final void setenv(String variableName, String value);
+
+    private static native final void unsetenv(String variableName);
+
 }

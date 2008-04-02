@@ -486,6 +486,18 @@ def compileTestClasses():
 	compileJavaCode("tmp/tests/", "tmp/generator:tmp/bindings/:"+config['JUNIT_JARS'], "tests/generator/:tests/bindings/:tests/prototype/:tests/screenshots/", changed)
 
 
+def buildTranslationFiles():
+	source = "tests/bindings/org/freedesktop/bindings/ValidateInternationalization.fr_CA.po"
+	target = "tmp/tests/locale/fr_CA/LC_MESSAGES/ValidateInternationalization.mo"
+
+	if not fileNeedsBuilding(source, target):
+		return
+
+	ensureDirectory("tmp/tests/locale/fr_CA/LC_MESSAGES/")
+
+	cmd = "msgfmt " + "-o " + target + " " + source
+	executeCommand("MSGFMT", target, cmd)
+
 
 #
 # main build sequence, with elaborately named methods Carl Rosenberger style
@@ -510,6 +522,7 @@ def generateBindings():
 def generateTests():
 	prepareTestDirectories()
 	compileTestClasses()
+	buildTranslationFiles()
 
 
 def runTests():

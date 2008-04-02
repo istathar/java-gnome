@@ -25,7 +25,11 @@ import org.gnome.gtk.TestCaseGtk;
  */
 public class ValidateInternationalization extends TestCaseGtk
 {
+    private static String LC_ALL;
+
     public final void testInternationalizationInitialization() {
+        LC_ALL = Environment.getEnv("LC_ALL");
+
         try {
             Internationalization.init(null, "/usr/share/locale");
             fail("Should have thrown IllegalArgumentException");
@@ -52,7 +56,7 @@ public class ValidateInternationalization extends TestCaseGtk
         }
 
         Environment.setEnv("LC_ALL", "fr_CA.UTF-8");
-        Internationalization.init("ValidateInternals", "tmp/tests/locale");
+        Internationalization.init("ValidateInternationalization", "tmp/tests/locale");
     }
 
     public final void testTranslation() {
@@ -82,5 +86,9 @@ public class ValidateInternationalization extends TestCaseGtk
         // *NOT* marked with the N_ wrapper!
         insult = "Yo mamma";
         assertSame(insult, _(insult));
+    }
+
+    public final void testRestoreEnvironment() {
+        Environment.setEnv("LC_ALL", LC_ALL);
     }
 }

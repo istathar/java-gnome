@@ -62,5 +62,12 @@ public class ValidateEnvironment extends TestCaseGtk
         blah = Environment.getEnv(SOMETHING_UNIQUE);
         assertNotNull(blah);
         assertEquals("Fantastic", blah);
+
+        /*
+         * Finally, test deleting
+         */
+        Environment.setEnv(SOMETHING_UNIQUE, null);
+        blah = Environment.getEnv(SOMETHING_UNIQUE);
+        assertNull(blah);
     }
 }

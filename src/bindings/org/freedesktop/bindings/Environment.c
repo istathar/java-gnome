@@ -13,6 +13,8 @@
 #include <jni.h>
 #include <glib.h>
 #include <stdlib.h>
+#include <errno.h>
+#include "bindings_java.h"
 #include "org_freedesktop_bindings_Environment.h"
 
 /*
@@ -76,13 +78,45 @@ Java_org_freedesktop_bindings_Environment_setenv
 	}
 
 	// call function
-	setenv(name, value, 1); 
-
+	if (setenv(name, value, 1) == -1) {
+		bindings_java_throw(env, "\nsetenv() failed: Insufficient space in environment");
+	}
+	
 	// clean up name
 	(*env)->ReleaseStringUTFChars(env, _name, name);
 
 	// clean up name
 	(*env)->ReleaseStringUTFChars(env, _value, value);
+}
+
+
+/*
+ * Implements
+ *   org.freedesktop.bindings.Environment.unsetenv(String variableName)
+ */
+JNIEXPORT void  JNICALL
+Java_org_freedesktop_bindings_Environment_unsetenv
+(
+	JNIEnv *env,
+	jclass cls,
+	jstring _name
+)
+{
+	gchar* name;
+
+	// convert parameter name
+	name = (gchar*) (*env)->GetStringUTFChars(env, _name, NULL);
+	if (name == NULL) {
+		return; /* OutOfMemoryError already thrown */
+	}
+
+	// call function
+	if (unsetenv(name) == -1) {
+		bindings_java_throw(env, "\nunsetenv() failed: %s", g_strerror(errno));
+	}
+
+	// clean up name
+	(*env)->ReleaseStringUTFChars(env, _name, name);
 }
 
 
