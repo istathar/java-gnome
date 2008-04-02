@@ -103,6 +103,32 @@
   )
 )
 
+(define-method arc
+  (of-object "cairo_t")
+  (c-name "cairo_arc")
+  (return-type "none")
+  (parameters
+    '("double" "xc")
+    '("double" "yc")
+    '("double" "radius")
+    '("double" "angle1")
+    '("double" "angle2")
+  )
+)
+
+(define-method arc_negative
+  (of-object "cairo_t")
+  (c-name "cairo_arc_negative")
+  (return-type "none")
+  (parameters
+    '("double" "xc")
+    '("double" "yc")
+    '("double" "radius")
+    '("double" "angle1")
+    '("double" "angle2")
+  )
+)
+
 (define-method fill
   (of-object "cairo_t")
   (c-name "cairo_fill")
