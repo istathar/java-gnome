@@ -115,6 +115,7 @@ public class TreeStore extends TreeModel implements TreeDragSource, TreeDragDest
     public TreeIter appendRow(TreeIter parent) {
         final TreeIter iter;
 
+        checkIter(parent);
         iter = new TreeIter(this);
 
         GtkTreeStore.append(this, iter, parent);
@@ -147,6 +148,7 @@ public class TreeStore extends TreeModel implements TreeDragSource, TreeDragDest
      * @since 4.0.7
      */
     public boolean iterHasChild(TreeIter row) {
+        checkIter(row);
         return GtkTreeModel.iterHasChild(this, row);
     }
 
@@ -174,6 +176,7 @@ public class TreeStore extends TreeModel implements TreeDragSource, TreeDragDest
     public TreeIter iterChildren(TreeIter row) {
         final TreeIter child;
 
+        checkIter(row);
         child = new TreeIter(this);
 
         if (GtkTreeModel.iterChildren(this, child, row)) {
@@ -194,6 +197,7 @@ public class TreeStore extends TreeModel implements TreeDragSource, TreeDragDest
     public TreeIter iterParent(TreeIter row) {
         final TreeIter parent;
 
+        checkIter(row);
         parent = new TreeIter(this);
 
         if (GtkTreeModel.iterParent(this, parent, row)) {

@@ -86,6 +86,14 @@ public class TreeIter extends Boxed
         this.model = model;
     }
 
+    /**
+     * Get the model
+     */
+    /* package protected */
+    TreeModel getModel() {
+        return model;
+    }
+
     protected void release() {
         GtkTreeIter.free(this);
     }

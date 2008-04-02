@@ -199,7 +199,17 @@ public abstract class TreeModel extends org.gnome.glib.Object
      */
     protected void dispatch(TreeIter row, DataColumn column, Value value) {
         throw new UnsupportedOperationException(
-                    "You need to implement setValue() for your TreeModel subclass");
+                "You need to implement setValue() for your TreeModel subclass");
+    }
+
+    /*
+     * Check that the given iter is valid for this model. Throw an
+     * IllegalArgumentException if it is not valid.
+     */
+    protected void checkIter(TreeIter iter) {
+        if (!this.equals(iter.getModel())) {
+            throw new IllegalArgumentException("TreeIter not valid for this TreeModel");
+        }
     }
 
     /**
@@ -207,6 +217,7 @@ public abstract class TreeModel extends org.gnome.glib.Object
      * and <code>column</code>.
      */
     public void setValue(TreeIter row, DataColumnString column, String value) {
+        checkIter(row);
         dispatch(row, column, new Value(value));
     }
 
@@ -216,6 +227,8 @@ public abstract class TreeModel extends org.gnome.glib.Object
      */
     public String getValue(TreeIter row, DataColumnString column) {
         final Value result;
+
+        checkIter(row);
 
         result = new Value();
 
@@ -231,6 +244,8 @@ public abstract class TreeModel extends org.gnome.glib.Object
     public int getValue(TreeIter row, DataColumnInteger column) {
         final Value result;
 
+        checkIter(row);
+
         result = new Value();
 
         GtkTreeModel.getValue(this, row, column.getOrdinal(), result);
@@ -243,6 +258,7 @@ public abstract class TreeModel extends org.gnome.glib.Object
      * <code>row</code> and <code>column</code>.
      */
     public void setValue(TreeIter row, DataColumnInteger column, int value) {
+        checkIter(row);
         dispatch(row, column, new Value(value));
     }
 
@@ -252,6 +268,8 @@ public abstract class TreeModel extends org.gnome.glib.Object
      */
     public long getValue(TreeIter row, DataColumnLong column) {
         final Value result;
+
+        checkIter(row);
 
         result = new Value();
 
@@ -265,6 +283,7 @@ public abstract class TreeModel extends org.gnome.glib.Object
      * <code>row</code> and <code>column</code>.
      */
     public void setValue(TreeIter row, DataColumnLong column, long value) {
+        checkIter(row);
         dispatch(row, column, new Value(value));
     }
 
@@ -274,6 +293,8 @@ public abstract class TreeModel extends org.gnome.glib.Object
      */
     public boolean getValue(TreeIter row, DataColumnBoolean column) {
         final Value result;
+
+        checkIter(row);
 
         result = new Value();
 
@@ -287,11 +308,14 @@ public abstract class TreeModel extends org.gnome.glib.Object
      * <code>row</code> and <code>column</code>.
      */
     public void setValue(TreeIter row, DataColumnBoolean column, boolean value) {
+        checkIter(row);
         dispatch(row, column, new Value(value));
     }
 
     Pixbuf getValue(TreeIter row, DataColumnPixbuf column) {
         final Value result;
+
+        checkIter(row);
 
         result = new Value();
 
@@ -310,6 +334,7 @@ public abstract class TreeModel extends org.gnome.glib.Object
      * TODO would making this generic help?
      */
     public java.lang.Object getValue(TreeIter row, DataColumnReference column) {
+        checkIter(row);
         return GtkTreeModelOverride.getReference(this, row, column.getOrdinal());
     }
 
@@ -326,6 +351,7 @@ public abstract class TreeModel extends org.gnome.glib.Object
      * Value(java.lang.Object) that otherwise arose and prevented compilation.
      */
     public void setValue(TreeIter row, DataColumnReference column, java.lang.Object value) {
+        checkIter(row);
         GtkTreeModelOverride.setReference(this, row, column.getOrdinal(), value);
     }
 
@@ -336,6 +362,7 @@ public abstract class TreeModel extends org.gnome.glib.Object
      * {@link CellRendererPixbuf CellRendererPixbuf} in it.
      */
     public void setValue(TreeIter row, DataColumnPixbuf column, Pixbuf value) {
+        checkIter(row);
         dispatch(row, column, new Value(value));
     }
 
@@ -401,6 +428,7 @@ public abstract class TreeModel extends org.gnome.glib.Object
      * @since 4.0.6
      */
     public TreePath getPath(TreeIter row) {
+        checkIter(row);
         return GtkTreeModel.getPath(this, row);
     }
 
