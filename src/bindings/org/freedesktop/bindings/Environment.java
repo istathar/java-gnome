@@ -51,11 +51,12 @@ public class Environment
     private static native final String getenv(String variableName);
 
     /**
-     * Set a value in the environment.
+     * Set a value in the environment. See {@link #getEnv(String) getEnv()}
+     * for further details.
      * 
      * <p>
-     * Use a value of <code>null</code> to delete a variable from the
-     * environment.
+     * If a value of <code>null</code> is passed as the <code>value</code>,
+     * then that variable will be <b>deleted</b> from the environment.
      * 
      * @since 4.0.7
      */
