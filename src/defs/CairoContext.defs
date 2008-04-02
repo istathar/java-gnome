@@ -63,6 +63,24 @@
   )
 )
 
+(define-method set_line_width
+  (of-object "cairo_t")
+  (c-name "cairo_set_line_width")
+  (return-type "none")
+  (parameters
+    '("double" "width")
+  )
+)
+
+(define-method set_antialias
+  (of-object "cairo_t")
+  (c-name "cairo_set_antialias")
+  (return-type "none")
+  (parameters
+    '("cairo_antialias_t" "antialias")
+  )
+)
+
 (define-method move_to
   (of-object "cairo_t")
   (c-name "cairo_move_to")

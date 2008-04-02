@@ -29,6 +29,7 @@ import org.gnome.gdk.Drawable;
  * </ul>
  * 
  * @author Andrew Cowie
+ * @author Vreixo Formoso
  * @since 4.0.7
  */
 public class Context extends Entity
@@ -123,6 +124,29 @@ public class Context extends Entity
      */
     public void lineTo(double x, double y) {
         CairoContext.lineTo(this, x, y);
+        checkStatus();
+    }
+    
+    /**
+     * Set the line width for this Context. This will have effect in next
+     * call to {@link #stroke()}. Default value is <code>2.0</code>.
+     * 
+     * @since 4.0.7
+     */
+    public void setLineWidth(double width) {
+        CairoContext.setLineWidth(this, width);
+        checkStatus();
+    }
+    
+    /**
+     * Set the antialiasing mode of the rasterizer used for drawing shapes. 
+     * This value is a hint, and a particular backend may or may not support 
+     * a particular value.
+     * 
+     * @since 4.0.7
+     */
+    public void setAntialias(Antialias antialias) {
+        CairoContext.setAntialias(this, antialias);
         checkStatus();
     }
 
