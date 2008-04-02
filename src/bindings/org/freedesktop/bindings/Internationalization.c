@@ -14,6 +14,7 @@
 #include <libintl.h>
 #include <locale.h>
 #include <jni.h>
+#include "bindings_java.h"
 #include "org_freedesktop_bindings_Internationalization.h"
 
 /**
@@ -74,13 +75,27 @@ Java_org_freedesktop_bindings_Internationalization_bindtextdomain
 	}
 
 	/*
-	 * Initialize internationalization and localization libraries
+	 * Initialize internationalization and localization libraries. The
+	 * second argument to setlocale() being "" means to pull settings
+	 * from the environment. 
 	 */
 
-	setlocale(LC_ALL, "");
-	bindtextdomain(packageName, localeDir);
-	bind_textdomain_codeset(packageName, "UTF-8");
-	textdomain(packageName);
+	if (setlocale(LC_ALL, "") == NULL) {
+		bindings_java_throw(env, "\nCall to setlocale() to initialize the program's locale failed");
+		return;
+	}
+	if (bindtextdomain(packageName, localeDir) == NULL) {
+		bindings_java_throw(env, "\nCall to bindtextdomain() to set the locale base dir failed");
+		return;
+	}
+	if (bind_textdomain_codeset(packageName, "UTF-8") == NULL) {
+		bindings_java_throw(env, "\nCall to bind_textdomain_codeset() to set UTF-8 failed");
+		return;
+	}
+	if (textdomain(packageName) == NULL) {
+		bindings_java_throw(env, "\nCall to textdomain() to set message source failed");
+		return;
+	}
 
 	// cleanup parameter packageName
 	(*env)->ReleaseStringUTFChars(env, _packageName, packageName);

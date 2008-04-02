@@ -1207,6 +1207,8 @@ inDir
 indexOf
 ing
 init
+initializer
+initializers
 inline
 insertPage
 insertText
@@ -1214,6 +1216,7 @@ instanceFor
 instanceof
 ints
 isActive
+isDirectory
 isEmbedded
 isSecondary
 isSensitive

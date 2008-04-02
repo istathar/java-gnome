@@ -1,0 +1,7 @@
+#: tests/bindings/org/freedesktop/bindings/ValidateInternationalization.java:59
+msgid "Hello"
+msgstr "Bonjour"
+
+#: tests/bindings/org/freedesktop/bindings/ValidateInternationalization.java:62
+msgid "Goodbye"
+msgstr "Au revoir"

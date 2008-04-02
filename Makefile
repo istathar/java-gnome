@@ -101,7 +101,6 @@ doc:
 		-overview src/bindings/overview.html \
 		-sourcepath src/bindings \
 		-subpackages org \
-		-exclude "org.freedesktop.bindings" \
 		$(REDIRECT)
 
 

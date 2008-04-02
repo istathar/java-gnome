@@ -12,6 +12,7 @@
  */
 package org.freedesktop.bindings;
 
+import java.io.File;
 import java.text.MessageFormat;
 
 /**
@@ -28,7 +29,7 @@ import java.text.MessageFormat;
  * to support multiple languages. You will frequently see this abbreviated as "<code>i18n</code>".</dd>
  * <dt>Localization</dt>
  * <dd>Whereby other people convert your software into their own locale.
- * <i>Localization</i>, as this is process is refered to, involves more than
+ * <i>Localization</i>, as this is process is referred to, involves more than
  * just translating words but also involves reformatting expressions of dates
  * and numbers so they look "correct" in that locale. Frequently abbreviated
  * as "<code>l10n</code>".</dd>
@@ -237,7 +238,7 @@ import java.text.MessageFormat;
  * <p>
  * First of all, the messages used in your code need to be extracted. This is
  * done by the <code>xgettext</code> command. It is able to distinguish
- * between translatable messages and other Strings because the formers are
+ * between translatable messages and other Strings because the former are
  * marked with the calls to <code>_()</code>. So, the following call:
  * 
  * <pre>
@@ -414,6 +415,7 @@ public final class Internationalization
      * }
      * </pre>
      * 
+     * 
      * @param packageName
      *            Application name
      * @param localeDir
@@ -422,7 +424,9 @@ public final class Internationalization
      *            catalogue is found at
      *            <code>${localeDir}/${locale}/LC_MESSAGES/${packageName}.mo</code>
      *            For example:
-     *            <code>/usr/share/locale/pt_BR/LC_MESSAGES/myapp.mo</code>
+     *            <code>/usr/share/locale/pt_BR/LC_MESSAGES/myapp.mo</code>.
+     *            It is not compulsory to use an absolute path for the
+     *            <code>localeDir</code> parameter.
      */
     /*
      * FIXME this init() message is a bit ugly. It would a better idea to have
@@ -431,6 +435,20 @@ public final class Internationalization
      * example.
      */
     public static final void init(String packageName, String localeDir) {
+        final File locale;
+
+        if (((packageName == null) || packageName.equals(""))) {
+            throw new IllegalArgumentException("packageName cannot be null or empty");
+        }
+
+        if (localeDir == null) {
+            throw new IllegalArgumentException("localeDir cannot be null");
+        }
+        locale = new File(localeDir);
+        if (!locale.isDirectory()) {
+            throw new FatalError("\nThe supplied locale base dir \"" + localeDir + "\" is not found");
+        }
+
         bindtextdomain(packageName, localeDir);
     }
 
