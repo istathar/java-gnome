@@ -358,6 +358,13 @@ public final class Internationalization
         if (msg == null) {
             return null;
         }
+        /*
+         * gettext()'s behaviour is undefined if given an empty String
+         */
+        if (msg.equals("")) {
+            return msg;
+        }
+
         if (parameters.length == 0) {
             return gettext(msg);
         } else {

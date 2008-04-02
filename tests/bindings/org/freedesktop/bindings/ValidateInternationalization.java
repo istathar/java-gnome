@@ -66,4 +66,21 @@ public class ValidateInternationalization extends TestCaseGtk
         assertSame(GOODBYE, N_(GOODBYE));
         assertEquals("Au revoir", _(GOODBYE));
     }
+
+    /*
+     * We have coded a) a check for empty Strings, and b) that in the case of
+     * no translation being available, the supplied String reference being
+     * returned as-is. This works around various gettext() limitations, and
+     * this test verfies this behaviour.
+     */
+    public final void testAvoidGettextBugs() {
+        final String insult;
+
+        assertEquals("", _(""));
+        assertSame("", _(""));
+
+        // *NOT* marked with the N_ wrapper!
+        insult = "Yo mamma";
+        assertSame(insult, _(insult));
+    }
 }

@@ -40,14 +40,26 @@ Java_org_freedesktop_bindings_Internationalization_gettext
 		return NULL; // expeption already thrown
 	}
 
-	// call function 
+	// call function
 	result = gettext(msg);
         
-	// cleanup parameter msg
-	(*env)->ReleaseStringUTFChars(env, _msg, msg);
-    
-	// convert string and return
-	return (*env)->NewStringUTF(env, result);
+	/*
+	 * If there was no translation, so just return the input String, This
+	 * avoids corrupting the statically allocated char* returned by
+	 * gettext().
+	 * 
+	 * If there is a translation, allocate a new String for it, and
+	 * return it.
+	 */
+
+	// convert and return
+	if (result == msg) {
+		(*env)->ReleaseStringUTFChars(env, _msg, msg);		
+		return _msg;
+	} else {
+		(*env)->ReleaseStringUTFChars(env, _msg, msg);
+		return (*env)->NewStringUTF(env, result);
+	}
 }
 
 JNIEXPORT void JNICALL 
