@@ -14,18 +14,18 @@ package org.gnome.gtk;
 
 /**
  * A TreeModel that stores its data in a hierarchical tree. TreeStore is a
- * concrete TreeModel subclass where rows can also have other children rows.
- * This model is suitable for hierarchical data where each row has a parent
- * and a list of children. If you just want to store a list of rows, 
- * {@link ListStore ListStore} is a better alternative.
- * 
+ * concrete TreeModel subclass where rows can also have other rows that are
+ * children. This model is suitable for hierarchical data where each row has a
+ * parent and a list of children. If you just want to store a list of rows
+ * (ie, plain tabular data), {@link ListStore ListStore} is a better
+ * alternative.
  * 
  * <p>
  * TreeStores are instantiated much like ListStores, as specified in the
  * {@link DataColumn} class. In summary, given
  * 
  * <pre>
- * final DataColumnString fileName;
+ * final DataColumnString filename;
  * final DataColumnPixbuf icon;
  * final TreeStore model;
  * ...
@@ -35,23 +35,22 @@ package org.gnome.gtk;
  * 
  * <pre>
  * model = new TreeStore(new DataColumn[] {
- *         fileName = new DataColumnString(),
- *         icon = new DataColumnPixbuf()
+ *         filename = new DataColumnString(), icon = new DataColumnPixbuf()
  * });
  * </pre>
  * 
- * <p>
  * You can then add new rows to the TreeStore. To add a new row at the top
- * level of the hierarchy, you can just use
+ * level of the hierarchy, you just use {@link #appendRow() appendRow()} as
+ * normal:
  * 
  * <pre>
  *         row = model.appendRow();
  *         model.setValue(row, ...);
  * </pre>
  * 
- * <p>
- * However, if you want to add a new row as a child of an existing row, you
- * need to pass the parent to the appendRow() method:
+ * If, however, you want to add a new row as a child of an existing row, you
+ * need to pass the <i>parent</i> to the second
+ * {@link #appendRow(TreeIter) appendRow()} method:
  * 
  * <pre>
  *         row = model.appendRow(parent);
@@ -59,10 +58,9 @@ package org.gnome.gtk;
  * </pre>
  * 
  * <p>
- * Although we talk about TreeModels all the time as the base superclass, it's
- * not a good idea to declare your model as a TreeModel when instantiating
- * because you'll need {@link #appendRow() appendRow()} method which is here,
- * on the concrete type TreeStore. In other words, do:
+ * The caveat described in ListStore applies here; don't declare your model as
+ * type TreeModel because you'll need {@link #appendRow() appendRow()} method
+ * which is here, on the concrete type TreeStore. In other words, do:
  * 
  * <pre>
  * TreeStore model = new TreeStore(...);
@@ -71,10 +69,11 @@ package org.gnome.gtk;
  * as shown above, not:
  * 
  * <pre>
- * TreeStore model = new TreeStore(...);
+ * TreeModel model = new TreeStore(...);
  * </pre>
  * 
  * @author Vreixo Formoso
+ * @author Andrew Cowie
  * @since 4.0.7
  */
 public class TreeStore extends TreeModel implements TreeDragSource, TreeDragDest, TreeSortable
@@ -88,14 +87,13 @@ public class TreeStore extends TreeModel implements TreeDragSource, TreeDragDest
      * {@link DataColumn DataColumn} for details. You must include at least
      * one DataColumn in your <code>types</code> array (you can't have a
      * TreeStore with no columns).
+     * 
+     * @since 4.0.7
      */
     public TreeStore(DataColumn[] types) {
         super(GtkTreeModelOverride.createTreeStore(typesToClassNames(types)));
     }
-    
-    /**
-     * @see TreeModel#dispatch(TreeIter, DataColumn, Value)
-     */
+
     protected void dispatch(TreeIter row, DataColumn column, Value value) {
         GtkTreeStore.setValue(this, row, column.getOrdinal(), value);
     }
@@ -107,15 +105,17 @@ public class TreeStore extends TreeModel implements TreeDragSource, TreeDragDest
      * methods, of course.
      * 
      * @param parent
-     *      The row where the new child will be added. You can submit 
-     *      <code>null</code> to add the new row at the top level. Note that
-     *      in this case you can also use {@link #appendRow() appendRow()}.
-     * @return
-     *      An iterator that represents the row newly created.
+     *            The row where the new child will be added. You can submit
+     *            <code>null</code> to add the new row at the top level.
+     *            Note that in this case you can also use
+     *            {@link #appendRow() appendRow()}.
+     * @return An iterator that represents the row newly created.
+     * @since 4.0.7
      */
     public TreeIter appendRow(TreeIter parent) {
         final TreeIter iter;
 
+        checkIter(parent);
         iter = new TreeIter(this);
 
         GtkTreeStore.append(this, iter, parent);
@@ -128,15 +128,92 @@ public class TreeStore extends TreeModel implements TreeDragSource, TreeDragDest
      * is to add a row as a child of an already existing row, you should use
      * {@link #appendRow(TreeIter) appendRow(parent)} instead.
      * 
-     * @return
-     *      An iterator that represents the row newly created.
+     * @return An iterator that represents the newly created row.
+     * @since 4.0.7
      */
     public TreeIter appendRow() {
         return appendRow(null);
     }
 
     /**
+     * Returns whether the given <code>row</code> has at least one child
+     * row.
+     * 
+     * <p>
+     * You can use {@link #iterChildren() iterChildren()} to get the actual
+     * children.
+     * 
+     * @return <code>true</code> if the specified row has one or more
+     *         children, <code>false</code> otherwise.
+     * @since 4.0.7
+     */
+    public boolean iterHasChild(TreeIter row) {
+        checkIter(row);
+        return GtkTreeModel.iterHasChild(this, row);
+    }
+
+    /**
+     * Get the children of the given <code>row</code>, if any.
+     * 
+     * <p>
+     * You can use the returned TreeIter to iterate on children rows as
+     * follows:
+     * 
+     * <pre>
+     * child = model.iterChildren(row);
+     * if (child == null) {
+     *     return;
+     * }
+     * 
+     * do {
+     *     // do something with child row
+     * } while (child.iterNext());
+     * </pre>
+     * 
+     * which works because iterating with a TreeIter will only iterate over
+     * the rows that are siblings, ie, are at the same level of the hierarchy.
+     * 
+     * @return A TreeIter pointing at the first child of this row, or
+     *         <code>null</code> if the row has no children.
+     * @since 4.0.7
+     */
+    public TreeIter iterChildren(TreeIter row) {
+        final TreeIter child;
+
+        checkIter(row);
+        child = new TreeIter(this);
+
+        if (GtkTreeModel.iterChildren(this, child, row)) {
+            return child;
+        } else {
+            return null;
+        }
+    }
+
+    /**
+     * Get the parent of the given <code>row</code>, assuming there is one.
+     * 
+     * @return The parent row, or <code>null</code> if this row has no
+     *         parent.
+     * @since 4.0.7
+     */
+    public TreeIter iterParent(TreeIter row) {
+        final TreeIter parent;
+
+        checkIter(row);
+        parent = new TreeIter(this);
+
+        if (GtkTreeModel.iterParent(this, parent, row)) {
+            return parent;
+        } else {
+            return null;
+        }
+    }
+
+    /**
      * Remove all elements from this TreeStore.
+     * 
+     * @since 4.0.7
      */
     public void clear() {
         GtkTreeStore.clear(this);

@@ -52,12 +52,10 @@ public class TreeIter extends Boxed
     private TreeModel model;
 
     /*
-     * The protected constructor was originally removed entirely, but it turns
-     * out we need it for signals like ROW_ACTIVATED. This is a problem,
-     * because it means we'd have to jump through *many* hoops to populate the
-     * model field. Instead, we just cripple this TreeIter as far as iterating
-     * goes but that's ok because you never need to iterate from a TreeIter in
-     * a signal callback - it's just used to point at a row, done.
+     * Standard no-arg constructor. In general, our TreeIters are instantiated
+     * by us, and so the model is set. If this constructor is used (ie by a
+     * signal handler delegate), then, you will need to call setModel() as
+     * well.
      */
     protected TreeIter(long pointer) {
         super(pointer);
@@ -78,15 +76,20 @@ public class TreeIter extends Boxed
         this.model = model;
     }
 
-    /**
-     * Set the model for this TreeIter
-     */
-    /* package protected, needed for signal handlers */
     void setModel(TreeModel model) {
         this.model = model;
     }
 
+    TreeModel getModel() {
+        if (model == null) {
+            throw new IllegalStateException(
+                    "\nSorry, this TreeIter doesn't have its internal reference to its parent TreeModel set");
+        }
+        return model;
+    }
+
     protected void release() {
+        model = null;
         GtkTreeIter.free(this);
     }
 
@@ -105,87 +108,5 @@ public class TreeIter extends Boxed
             return false;
         }
         return GtkTreeModel.iterNext(model, this);
-    }
-
-    /**
-     * Returns whether this row has at least one child row. Note that this is
-     * only useful on hierarchical TreeModels such as {@link TreeStore}.
-     * 
-     * <p>
-     * You can use {@link #children() children()} to get the actual children.
-     * 
-     * @return <code>true</code> if this row has children,
-     *         <code>false</code> if not.
-     * 
-     * @since 4.0.7
-     */
-    public boolean hasChild() {
-        if (model == null) {
-            return false;
-        }
-        return GtkTreeModel.iterHasChild(model, this);
-    }
-
-    /**
-     * Get the children of this row, if any. Note that this is only useful on
-     * hierarchical TreeModels such as {@link TreeStore}.
-     * 
-     * <p>
-     * You can use the returned TreeIter to iterate on children rows as
-     * follows:
-     * 
-     * <pre>
-     * TreeIter child = row.children();
-     * if (child != null) {
-     *     do {
-     *         // do something with child row
-     *     } while (child.iterNext());
-     * }
-     * </pre>
-     * 
-     * @return A TreeIter initialized to the first child, or <code>null</code>
-     *         if this row has no children.
-     * 
-     * @since 4.0.7
-     */
-    public TreeIter children() {
-        final TreeIter child;
-
-        if (model == null) {
-            return null;
-        }
-
-        child = new TreeIter(model);
-
-        if (GtkTreeModel.iterChildren(model, child, this)) {
-            return child;
-        } else {
-            return null;
-        }
-    }
-
-    /**
-     * Get the parent of this row. Note that this is only useful on
-     * hierarchical TreeModels such as {@link TreeStore}.
-     * 
-     * @return The parent row, or <code>null</code> if this row has no
-     *         parent.
-     * 
-     * @since 4.0.7
-     */
-    public TreeIter parent() {
-        final TreeIter parent;
-
-        if (model == null) {
-            return null;
-        }
-
-        parent = new TreeIter(model);
-
-        if (GtkTreeModel.iterParent(model, parent, this)) {
-            return parent;
-        } else {
-            return null;
-        }
     }
 }
