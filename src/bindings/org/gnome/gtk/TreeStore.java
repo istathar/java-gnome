@@ -115,7 +115,9 @@ public class TreeStore extends TreeModel implements TreeDragSource, TreeDragDest
     public TreeIter appendRow(TreeIter parent) {
         final TreeIter iter;
 
-        checkIter(parent);
+        if (parent != null) {
+            checkIter(parent);
+        }
         iter = new TreeIter(this);
 
         GtkTreeStore.append(this, iter, parent);
