@@ -22,6 +22,7 @@ package org.gnome.gtk;
 public class CellRendererToggle extends CellRenderer
 {
     public CellRendererToggle(TreeViewColumn vertical) {
-        super(GtkCellRendererToggle.createCellRendererToggle(), vertical);
+        // FIXME do expand to false actually make sense
+        super(GtkCellRendererToggle.createCellRendererToggle(), vertical, false);
     }
 }

@@ -27,7 +27,7 @@ public class CellRendererPixbuf extends CellRenderer
      * Construct a new CellRendererPixbuf.
      */
     public CellRendererPixbuf(CellLayout vertical) {
-        super(GtkCellRendererPixbuf.createCellRendererPixbuf(), vertical);
+        super(GtkCellRendererPixbuf.createCellRendererPixbuf(), vertical, false);
     }
 
     /**

@@ -81,12 +81,7 @@ public abstract class CellRenderer extends Object
      * <p>
      * In case you hadn't noticed yet, TreeViewColumn is a CellLayout.
      */
-    /*
-     * Pack into the TreeViewColumn with expand true; at the moment we're only
-     * exposing one CellRenderer per column, so might as well give it the
-     * space. Testing showed this to make sense at runtime.
-     */
-    protected CellRenderer(long pointer, CellLayout vertical) {
+    protected CellRenderer(long pointer, CellLayout vertical, boolean expand) {
         super(pointer);
 
         if (vertical == null) {
@@ -94,7 +89,7 @@ public abstract class CellRenderer extends Object
                     "Must pass an instantiated TreeViewColumn to the CellRenderer constructor");
         }
 
-        GtkCellLayout.packStart(vertical, this, true);
+        GtkCellLayout.packStart(vertical, this, expand);
 
         this.vertical = vertical;
     }

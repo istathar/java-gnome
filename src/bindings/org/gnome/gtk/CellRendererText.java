@@ -35,9 +35,10 @@ public class CellRendererText extends CellRenderer
     /*
      * protected <init>(long) constructor removed deliberately, replaced with
      * this one.
+     * TODO mmm, we should test if add an expand parameter!
      */
     protected CellRendererText(long pointer, CellLayout vertical) {
-        super(pointer, vertical);
+        super(pointer, vertical, true);
     }
 
     /**
@@ -46,7 +47,7 @@ public class CellRendererText extends CellRenderer
      * columns of data will come from.
      */
     public CellRendererText(CellLayout vertical) {
-        super(GtkCellRendererText.createCellRendererText(), vertical);
+        super(GtkCellRendererText.createCellRendererText(), vertical, true);
     }
 
     /**

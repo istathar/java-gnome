@@ -28,6 +28,6 @@ package org.gnome.gtk;
 public class CellRendererProgress extends CellRenderer
 {
     public CellRendererProgress(TreeViewColumn vertical) {
-        super(GtkCellRendererProgress.createCellRendererProgress(), vertical);
+        super(GtkCellRendererProgress.createCellRendererProgress(), vertical, true);
     }
 }
