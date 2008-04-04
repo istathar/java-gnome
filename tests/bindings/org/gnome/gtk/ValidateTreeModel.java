@@ -451,4 +451,30 @@ public class ValidateTreeModel extends TestCaseGtk
         path = ref.getPath();
         assertNull(path);
     }
+
+    public final void testCheckIter() {
+        final ListStore model1, model2;
+        TreeIter row;
+        DataColumnString column1, column2;
+
+        model1 = new ListStore(new DataColumn[] {
+            column1 = new DataColumnString(),
+        });
+
+        model2 = new ListStore(new DataColumn[] {
+            column2 = new DataColumnString(),
+        });
+
+        row = model1.appendRow();
+        model1.setValue(row, column1, "Hello");
+
+        assertEquals("Hello", model1.getValue(row, column1));
+
+        try {
+            model2.setValue(row, column2, "Hello");
+            fail("model2 has accepted a model1 TreeIter");
+        } catch (IllegalArgumentException iae) {
+            // ok
+        }
+    }
 }
