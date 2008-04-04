@@ -37,7 +37,7 @@
 # bring to the process when it lands, so it is a step in the right direction.
 #
 
-import os, md5, subprocess, pickle, sys
+import os, md5, subprocess, cPickle, sys
 from os.path import *
 from shutil import move
 
@@ -102,7 +102,7 @@ def loadHashes():
 	if isfile(hashFile):
 		try:
 			db = open(hashFile, "rb")
-			hashes = pickle.load(db)
+			hashes = cPickle.load(db)
 			db.close()
 		except (EOFError, KeyError, IndexError):
 			print "build checksum cache corrupt; full rebuild forced"
@@ -117,7 +117,7 @@ def loadHashes():
 
 def checkpointHashes():
 	db = open(hashFile + ".tmp", "wb")
-	pickle.dump(hashes, db)
+	cPickle.dump(hashes, db)
 	db.close()
 
 	move(hashFile + ".tmp", hashFile)
