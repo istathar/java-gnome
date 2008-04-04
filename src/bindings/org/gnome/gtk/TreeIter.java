@@ -44,19 +44,18 @@ import org.gnome.glib.Boxed;
  * 
  * @author Andrew Cowie
  * @author Srichand Pendyala
+ * @author Vreixo Formoso
  * @since 4.0.5
  */
 public class TreeIter extends Boxed
 {
-    private final TreeModel model;
+    private TreeModel model;
 
     /*
-     * The protected constructor was originally removed entirely, but it turns
-     * out we need it for signals like ROW_ACTIVATED. This is a problem,
-     * because it means we'd have to jump through *many* hoops to populate the
-     * model field. Instead, we just cripple this TreeIter as far as iterating
-     * goes but that's ok because you never need to iterate from a TreeIter in
-     * a signal callback - it's just used to point at a row, done.
+     * Standard no-arg constructor. In general, our TreeIters are instantiated
+     * by us, and so the model is set. If this constructor is used (ie by a
+     * signal handler delegate), then, you will need to call setModel() as
+     * well.
      */
     protected TreeIter(long pointer) {
         super(pointer);
@@ -77,7 +76,20 @@ public class TreeIter extends Boxed
         this.model = model;
     }
 
+    void setModel(TreeModel model) {
+        this.model = model;
+    }
+
+    TreeModel getModel() {
+        if (model == null) {
+            throw new IllegalStateException(
+                    "Sorry, this TreeIter doesn't have its internal reference to its parent TreeModel set");
+        }
+        return model;
+    }
+
     protected void release() {
+        model = null;
         GtkTreeIter.free(this);
     }
 

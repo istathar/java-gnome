@@ -33,6 +33,7 @@ import org.gnome.gtk.ValidateResponseType;
 import org.gnome.gtk.ValidateSnapshotUtilities;
 import org.gnome.gtk.ValidateStockItems;
 import org.gnome.gtk.ValidateTreeModel;
+import org.gnome.gtk.ValidateTreeStore;
 import org.gnome.gtk.ValidateTreeView;
 
 import com.operationaldynamics.codegen.ValidateThingUsage;
@@ -122,6 +123,7 @@ public class UnitTests
         suite.addTestSuite(ValidateStockItems.class);
         suite.addTestSuite(ValidateResponseType.class);
         suite.addTestSuite(ValidateTreeModel.class);
+        suite.addTestSuite(ValidateTreeStore.class);
         suite.addTestSuite(ValidateTreeView.class);
         suite.addTestSuite(ValidateComboBox.class);
         suite.addTestSuite(ValidateSnapshotUtilities.class);

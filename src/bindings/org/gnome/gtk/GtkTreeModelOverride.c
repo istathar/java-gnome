@@ -72,6 +72,63 @@ Java_org_gnome_gtk_GtkTreeModelOverride_gtk_1list_1store_1new
 	return (jlong) result;
 }
 
+/**
+ * Called from
+ *   org.gnome.gtk.GtkTreeModeOverride.gtk_tree_store_new(String[])
+ * called from
+ *   org.gnome.gtk.GtkTreeModeOverride.createTreeStore(Class[])
+ * called from
+ *   org.gnome.gtk.TreeStore.<init>(???)
+ *
+ * You should already have established Java side that ther array is bigger
+ * that 0 elements before calling this.
+ */
+JNIEXPORT jlong JNICALL
+Java_org_gnome_gtk_GtkTreeModelOverride_gtk_1tree_1store_1new
+(
+    JNIEnv* env,
+    jclass cls,
+    jobjectArray _columns
+)
+{
+    GtkTreeStore* result;
+    gint num_columns;
+    GType* columns; // GType[]
+    gint i;
+    jstring _name;
+    const gchar* name;
+    
+    num_columns = (gint) (*env)->GetArrayLength(env, _columns);
+    columns = g_newa(GType, num_columns);
+        
+    for (i = 0; i < num_columns; i++) {
+        _name = (jstring) (*env)->GetObjectArrayElement(env, _columns, i);
+
+        name = (const gchar*) (*env)->GetStringUTFChars(env, _name, NULL);
+        if (name == NULL) {
+            return 0L; // OutOfMemory already thrown
+        }
+
+        columns[i] = bindings_java_type_lookup(name);
+        
+        if (columns[i] == G_TYPE_INVALID) {
+            bindings_java_throw(env, "Don't know how to map %s into a GType", name);
+            return 0L;
+        }
+
+        (*env)->ReleaseStringUTFChars(env, _name, name);
+        (*env)->DeleteLocalRef(env, _name);
+    }
+
+    // call constructor
+    result = gtk_tree_store_newv(num_columns, columns);
+
+    // clean up of columns is automatic
+
+    // and finally
+    return (jlong) result;
+}
+
 /*
  * This could _potentially_ be replaced if we were to expose Value binding of
  * GBoxed types on the Java side.
@@ -113,6 +170,49 @@ Java_org_gnome_gtk_GtkTreeModelOverride_gtk_1list_1store_1set_1reference
 
 	// clean up
 	g_value_unset(&value);
+}
+
+/*
+ * This could _potentially_ be replaced if we were to expose Value binding of
+ * GBoxed types on the Java side.
+ */
+JNIEXPORT void JNICALL
+Java_org_gnome_gtk_GtkTreeModelOverride_gtk_1tree_1store_1set_1reference
+(
+    JNIEnv *env,
+    jclass cls,
+    jlong _self,
+    jlong _row,
+    jint _column,
+    jobject _reference
+)
+{
+    GtkTreeStore* self;
+    GtkTreeIter* row;
+    gint column;
+    GValue value = { 0, };
+    gpointer reference;
+
+    // convert parameter self
+    self = (GtkTreeStore*) _self;
+
+    // convert parameter iter
+    row = (GtkTreeIter*) _row;
+
+    // convert parameter column
+    column = (gint) _column;
+
+    // convert parameter reference
+    g_value_init(&value, BINDINGS_JAVA_TYPE_REFERENCE);
+    reference = (gpointer) _reference;
+
+    g_value_set_boxed(&value, reference);
+
+    // call function
+    gtk_tree_store_set_value(self, row, column, &value);
+
+    // clean up
+    g_value_unset(&value);
 }
 	
 JNIEXPORT jobject JNICALL

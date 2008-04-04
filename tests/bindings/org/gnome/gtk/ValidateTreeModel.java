@@ -1,7 +1,7 @@
 /*
  * ValidateTreeModel.java
  *
- * Copyright (c) 2007 Operational Dynamics Consulting Pty Ltd
+ * Copyright (c) 2007-2008 Operational Dynamics Consulting Pty Ltd, and Others
  * 
  * The code in this file, and the library it is a part of, are made available
  * to you by the authors under the terms of the "GNU General Public Licence,
@@ -450,5 +450,31 @@ public class ValidateTreeModel extends TestCaseGtk
         model.clear();
         path = ref.getPath();
         assertNull(path);
+    }
+
+    public final void testCheckIter() {
+        final ListStore model1, model2;
+        TreeIter row;
+        DataColumnString column1, column2;
+
+        model1 = new ListStore(new DataColumn[] {
+            column1 = new DataColumnString(),
+        });
+
+        model2 = new ListStore(new DataColumn[] {
+            column2 = new DataColumnString(),
+        });
+
+        row = model1.appendRow();
+        model1.setValue(row, column1, "Hello");
+
+        assertEquals("Hello", model1.getValue(row, column1));
+
+        try {
+            model2.setValue(row, column2, "Hello");
+            fail("model2 has accepted a model1 TreeIter");
+        } catch (IllegalArgumentException iae) {
+            // ok
+        }
     }
 }

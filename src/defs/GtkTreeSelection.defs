@@ -58,7 +58,7 @@
   (c-name "gtk_tree_selection_get_selected_rows")
   (return-type "GList-GtkTreePath*")
   (parameters
-    '("GtkTreeModel**" "model")
+    '("GtkTreeModel**" "model" (null-ok))
   )
 )
 

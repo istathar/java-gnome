@@ -23,6 +23,6 @@ package org.gnome.gtk;
 public final class DataColumnPixbuf extends DataColumn
 {
     public DataColumnPixbuf() {
-        super(org.gnome.glib.Object.class);
+        super(org.gnome.gdk.Pixbuf.class);
     }
 }
