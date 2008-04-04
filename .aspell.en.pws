@@ -699,6 +699,7 @@ alloca
 apache
 api
 apiversion
+appendChild
 appendColumn
 appendPage
 appendRow
@@ -768,6 +769,7 @@ cfg
 cflags
 checkAlive
 checkInitialized
+checkIter
 checkPixbufFromFile
 checkPixbufFromFileAtScale
 checkStatus
@@ -892,6 +894,7 @@ createTreeModelSortWithModel
 createTreePath
 createTreePathFromString
 createTreeRowReference
+createTreeStore
 createTreeView
 createTreeViewColumn
 createTreeViewWithModel
@@ -1225,7 +1228,10 @@ isVisibleChars
 isdir
 isfile
 iter
+iterChildren
+iterHasChild
 iterNext
+iterParent
 itse
 jN
 jamvm

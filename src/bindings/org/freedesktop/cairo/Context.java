@@ -29,6 +29,7 @@ import org.gnome.gdk.Drawable;
  * </ul>
  * 
  * @author Andrew Cowie
+ * @author Vreixo Formoso
  * @since 4.0.7
  */
 public class Context extends Entity
@@ -118,11 +119,35 @@ public class Context extends Entity
     /**
      * Add a line from the current location to <code>x</code>,<code>y</code>.
      * After the call the current point will be <code>x</code>,<code>y</code>.
+     * setLineWidtsetLineWidthh
      * 
      * @since 4.0.7
      */
     public void lineTo(double x, double y) {
         CairoContext.lineTo(this, x, y);
+        checkStatus();
+    }
+
+    /**
+     * Set the line width for this Context. This will have effect in next call
+     * to {@link #stroke()}. Default value is <code>2.0</code>.
+     * 
+     * @since 4.0.7
+     */
+    public void setLineWidth(double width) {
+        CairoContext.setLineWidth(this, width);
+        checkStatus();
+    }
+
+    /**
+     * Set the antialiasing mode of the rasterizer used for drawing shapes.
+     * This value is a hint, and a particular backend may or may not support a
+     * particular value.
+     * 
+     * @since 4.0.7
+     */
+    public void setAntialias(Antialias antialias) {
+        CairoContext.setAntialias(this, antialias);
         checkStatus();
     }
 
@@ -170,7 +195,7 @@ public class Context extends Entity
      * the generic method that allows you to get to the Surface that they're
      * considering renaming this to <code>cairo_get_surface</code> in Cairo
      * itself, but until they do, we'll stick with the algorithmic mapping of
-     * <code>cairo_get_target</code>.
+     * <code>cairo_get_target</code>.</i>
      * 
      * @since 4.0.7
      */
@@ -241,6 +266,79 @@ public class Context extends Entity
      */
     public void rectangle(double x, double y, double width, double height) {
         CairoContext.rectangle(this, x, y, width, height);
+        checkStatus();
+    }
+
+    /**
+     * Adds a circular arc of the given radius to the current path. The arc is
+     * centered at <code>(xc, yc)</code>, begins at <code>angle1</code>
+     * and proceeds in the direction of increasing angles to end at
+     * <code>angle2</code>. If <code>angle2</code> is less than
+     * <code>angle1</code> it will be progressively increased by
+     * <code>2 * {@link Math#PI &pi;}</code> until it is greater than
+     * <code>angle1</code>.
+     * 
+     * <p>
+     * If there is a current point, an initial line segment will be added to
+     * the path to connect the current point to the beginning of the arc.
+     * 
+     * <p>
+     * Angles are measured in radians. An angle of <code>0.0</code> is in
+     * the direction of the positive X axis. An angle of <code>&pi;/2.0</code>
+     * radians (90 degrees) is in the direction of the positive Y axis. Angles
+     * increase in the direction from the positive X axis toward the positive
+     * Y axis. So [TODO with the default transformation matrix,] angles
+     * increase in a clockwise direction.
+     * 
+     * <p>
+     * This function gives the arc in the direction of increasing angles; see
+     * {@link #arcNegative(double, double, double, double, double) arcNegative()}
+     * to get the arc in the direction of decreasing angles.
+     * 
+     * @param xc
+     *            X position of the center of the arc
+     * @param yc
+     *            Y position of the center of the arc
+     * @param radius
+     *            the radius of the arc
+     * @param angle1
+     *            the start angle, in radians
+     * @param angle2
+     *            the end angle, in radians
+     * 
+     * @since 4.0.7
+     */
+    public void arc(double xc, double yc, double radius, double angle1, double angle2) {
+        CairoContext.arc(this, xc, yc, radius, angle1, angle2);
+        checkStatus();
+    }
+
+    /**
+     * Adds a circular arc of the given radius to the current path. The arc is
+     * centered at <code>(xc, yc)</code>, begins at <code>angle1</code>
+     * and proceeds in the direction of decreasing angles to end at
+     * <code>angle2</code>. If <code>angle2</code> is greater than
+     * <code>angle1</code> it will be progressively decreased by
+     * <code>2 * {@link Math#PI &pi;}</code> until it is less than
+     * <code>angle1</code>.
+     * 
+     * @see #arc(double, double, double, double, double)
+     * 
+     * @param xc
+     *            X position of the center of the arc
+     * @param yc
+     *            Y position of the center of the arc
+     * @param radius
+     *            the radius of the arc
+     * @param angle1
+     *            the start angle, in radians
+     * @param angle2
+     *            the end angle, in radians
+     * 
+     * @since 4.0.7
+     */
+    public void arcNegative(double xc, double yc, double radius, double angle1, double angle2) {
+        CairoContext.arcNegative(this, xc, yc, radius, angle1, angle2);
         checkStatus();
     }
 

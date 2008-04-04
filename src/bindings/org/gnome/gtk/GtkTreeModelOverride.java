@@ -41,6 +41,25 @@ final class GtkTreeModelOverride extends Plumbing
     }
 
     private static native final long gtk_list_store_new(String[] columns);
+    
+    static final long createTreeStore(Class[] columns) {
+        final String[] names;
+
+        assert (columns != null) : "Array passed to createTreeStore() must not be null";
+        assert (columns.length > 0) : "Minimum one column when constructing ListStore";
+
+        names = new String[columns.length];
+
+        for (int i = 0; i < columns.length; i++) {
+            names[i] = columns[i].getName();
+        }
+
+        synchronized (lock) {
+            return gtk_tree_store_new(names);
+        }
+    }
+
+    private static native final long gtk_tree_store_new(String[] columns);
 
     /**
      * Hand written because of the necessary custom C code to deal with our
@@ -51,6 +70,10 @@ final class GtkTreeModelOverride extends Plumbing
             synchronized (lock) {
                 gtk_list_store_set_reference(pointerOf(self), pointerOf(row), column, reference);
             }
+        } else if (self instanceof TreeStore) {
+            synchronized (lock) {
+                gtk_tree_store_set_reference(pointerOf(self), pointerOf(row), column, reference);
+            }
         } else {
             throw new UnsupportedOperationException(
                     "You need to implement setReference() for your TreeModel subclass");
@@ -58,6 +81,9 @@ final class GtkTreeModelOverride extends Plumbing
     }
 
     private static native final void gtk_list_store_set_reference(long self, long row, int column,
+            java.lang.Object reference);
+
+    private static native final void gtk_tree_store_set_reference(long self, long row, int column,
             java.lang.Object reference);
 
     /**

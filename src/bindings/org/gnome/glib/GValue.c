@@ -328,6 +328,43 @@ Java_org_gnome_glib_GValue_g_1value_1init_1object
 	return (jlong) value;
 }
 
+
+/**
+ * Implements
+ *   org.gnome.glib.GValue.g_value_init_pixbuf(long pixbuf)
+ * called from
+ *   org.gnome.glib.GValue.createValue(Pixbuf obj)
+ *
+ * Allocate a GValue for a GdkPixbuf with GSlice, then initialize it and return
+ * the pointer.
+ */
+JNIEXPORT jlong JNICALL
+Java_org_gnome_glib_GValue_g_1value_1init_1pixbuf
+(
+    JNIEnv *env,
+    jclass cls,
+    jlong _pixbuf
+)
+{
+    GdkPixbuf* pixbuf;
+    GValue* value;
+    
+    // translate obj
+    pixbuf = (GdkPixbuf*) _pixbuf;
+    
+    // allocate and set to zeros, per what g_value_init requires
+    value = g_slice_new0(GValue);
+    g_value_init(value, GDK_TYPE_PIXBUF);
+
+    // set the value    
+    g_value_set_object(value, pixbuf);
+
+    // clean up obj
+
+    // return address
+    return (jlong) value;
+}
+
 /**
  * Implements
  *   org.gnome.glib.GValue.g_value_get_float(long value)
@@ -569,4 +606,29 @@ Java_org_gnome_glib_GValue_g_1value_1get_1object
 
 	// and return	
 	return (jlong) object;
+}
+
+JNIEXPORT jlong JNICALL
+Java_org_gnome_glib_GValue_g_1value_1get_1pixbuf
+(
+    JNIEnv* env,
+    jclass cls,
+    jlong _value
+)
+{
+    GValue* value;
+    GdkPixbuf* pixbuf; 
+
+    // translate value
+    value = (GValue*) _value;
+    if (G_VALUE_TYPE(value) != GDK_TYPE_PIXBUF) {
+        bindings_java_throw(env, "You've asked for the GdkPixbuf within a GValue, but it's not a GDK_TYPE_PIXBUF!");
+        return 0L;
+    }
+
+    // call function
+    pixbuf = g_value_get_object(value); 
+
+    // and return   
+    return (jlong) pixbuf;
 }

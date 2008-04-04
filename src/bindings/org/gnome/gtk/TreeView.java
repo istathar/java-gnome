@@ -114,6 +114,7 @@ package org.gnome.gtk;
  * 
  * @author Andrew Cowie
  * @author Srichand Pendyala
+ * @author Vreixo Formoso
  * @since 4.0.5
  */
 public class TreeView extends Container
@@ -258,6 +259,113 @@ public class TreeView extends Container
      */
     public void connect(ROW_ACTIVATED handler) {
         GtkTreeView.connect(this, handler);
+    }
+
+    /**
+     * Emitted when a row in the TreeView has been expanded, i.e. when its
+     * child nodes are shown. A row is expanded either by clicking in the
+     * little arrow near it, or by pressing the <code>+</code> key when a
+     * row is selected. Of course, a row can be only expanded when it has
+     * child rows, and so it can be only emitted when the TreeView is used
+     * with a hierarchical model such as {@link TreeStore}.
+     * 
+     * <p>
+     * In general, you've got the TreeModel and especially its DataColumns
+     * visible, so to use <code>ROW_EXPANDED</code> you can just:
+     * 
+     * <pre>
+     * final TreeModel model;
+     * final DataColumnString column;
+     * 
+     * view.connect(new TreeView.ROW_EXPANDED() {
+     *     public void onRowExpanded(TreeView source, TreeIter iter, TreePath path) {
+     *         ... = model.getValue(iter, column);
+     *     }
+     * });
+     * </pre>
+     * 
+     * Remember that TreeIters and TreePaths are not stable over changes to
+     * the model, so get on with using <code>path</code> right away.
+     * 
+     * @author Vreixo Formoso
+     * @since 4.0.7
+     */
+    public interface ROW_EXPANDED
+    {
+        public void onRowExpanded(TreeView source, TreeIter iter, TreePath path);
+    }
+
+    /**
+     * Hook up a <code>ROW_EXPANDED</code> handler.
+     * 
+     * @since 4.0.7
+     */
+    public void connect(ROW_EXPANDED handler) {
+        GtkTreeView.connect(this, new RowExpandedHandler(handler));
+    }
+
+    /*
+     * This internal class is needed because the TreeIter passed to the
+     * handler does not have the model field properly set, so we need to set
+     * it before passing the TreeIter to the user.
+     */
+    private static class RowExpandedHandler implements GtkTreeView.ROW_EXPANDED
+    {
+        private final ROW_EXPANDED handler;
+
+        public RowExpandedHandler(ROW_EXPANDED handler) {
+            super();
+            this.handler = handler;
+        }
+
+        public void onRowExpanded(TreeView source, TreeIter iter, TreePath path) {
+            iter.setModel(source.getModel());
+            handler.onRowExpanded(source, iter, path);
+        }
+    }
+
+    /**
+     * Check whether the given row is expanded, i.e. whether its children are
+     * shown.
+     * 
+     * @param path
+     *            The row we want to check.
+     * @return <code>true</code> if the row is expanded, <code>false</code>
+     *         if not.
+     * @since 4.0.7
+     */
+    public boolean rowExpanded(TreePath path) {
+        return GtkTreeView.rowExpanded(this, path);
+    }
+
+    /**
+     * Expand the given row, making its children visible to the user. This has
+     * no effect if the row has no child nodes. Of course, this is always the
+     * case if you use a ListStore model.
+     * 
+     * @param path
+     *            The row to expand.
+     * @param openAll
+     *            <code>true</code> to recursively expand all children,
+     *            <code>false</code> to expand only the given row.
+     * @return <code>true</code> if the path refers to a valid row, and it
+     *         has child nodes. <code>false</code> otherwise.
+     * @since 4.0.7
+     */
+    public boolean expandRow(TreePath path, boolean openAll) {
+        return GtkTreeView.expandRow(this, path, openAll);
+    }
+
+    /**
+     * Collapse the given row, thus hiding its children if the row was
+     * previously expanded.
+     * 
+     * @param path
+     *            The row to collapse.
+     * @since 4.0.7
+     */
+    public void collapseRow(TreePath path) {
+        GtkTreeView.collapseRow(this, path);
     }
 
     /**

@@ -111,6 +111,49 @@ public class TreeSelection extends Object
         }
     }
 
+    /**
+     * Get the rows currently selected from the TreeView. This is specially
+     * useful when the selection mode is
+     * {@link SelectionMode#MULTIPLE MULTIPLE}. Otherwise
+     * {@link #getSelected() getSelected()} offers a more convenient way to
+     * obtain the selected row.
+     * 
+     * <p>
+     * You can use the TreeModel's
+     * {@link TreeModel#getIter(TreePath) getIter()} method to convert the
+     * returned TreePaths to the more convenient TreeIter:
+     * 
+     * <pre>
+     * TreePath[] rows;
+     * TreeSelection selection;
+     * TreeModel model;
+     * 
+     * rows = selection.getSelectedRows();
+     * for (int i = 0; i &lt; rows.length; ++i) {
+     *     TreeIter row = model.getIter(rows[i]);
+     *     // do something with the row
+     * }
+     * </pre>
+     * 
+     * <p>
+     * Also remember that both TreeIter and TreePath are temporally objects no
+     * longer valid once you make any change to the model. Thus, if you plan
+     * to modify the model, you may want to convert the returned TreePaths to
+     * {@link TreeRowReference TreeRowReferences}.
+     * 
+     * @return An array with the selected rows. If no row is selected, the
+     *         arrays will be empty.
+     * @since 4.0.7
+     */
+    /*
+     * Second parameter to native call is an out-parameter that gets filled
+     * with a pointer to the GtkTreeModel. It's only for convenience, and is
+     * unnecessary for us.
+     */
+    public TreePath[] getSelectedRows() {
+        return GtkTreeSelection.getSelectedRows(this, null);
+    }
+
     TreeView getView() {
         return GtkTreeSelection.getTreeView(this);
     }

@@ -138,3 +138,26 @@
   (return-type "none")
 )
 
+(define-function get_default
+  (c-name "gtk_icon_theme_get_default")
+  (return-type "GtkIconTheme*")
+)
+
+(define-function get_for_screen
+  (c-name "gtk_icon_theme_get_for_screen")
+  (return-type "GtkIconTheme*")
+  (parameters
+    '("GdkScreen*" "screen")
+  )
+)
+
+(define-function add_builtin_icon
+  (c-name "gtk_icon_theme_add_builtin_icon")
+  (return-type "none")
+  (parameters
+    '("const-gchar*" "icon_name")
+    '("gint" "size")
+    '("GdkPixbuf*" "pixbuf")
+  )
+)
+
