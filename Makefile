@@ -101,7 +101,6 @@ doc:
 		-overview src/bindings/overview.html \
 		-sourcepath src/bindings \
 		-subpackages org \
-		-exclude "org.freedesktop.bindings" \
 		$(REDIRECT)
 
 
@@ -127,10 +126,11 @@ clean:
 	@echo -e "RM\tgenerated code"
 	rm -rf generated/bindings/*
 	@echo -e "RM\tcompiled output"
-	rm -rf tmp/generator/* tmp/bindings/* tmp/tests/*
-	rm -rf tmp/include/* tmp/objects/*
+	rm -rf tmp/generator/ tmp/bindings/ tmp/tests/
+	rm -rf tmp/include/ tmp/objects/
+	rm -rf tmp/i18n/ tmp/locale/
 	@echo -e "RM\ttemporary files"
-	rm -rf tmp/stamp/*
+	rm -rf tmp/stamp/
 	rm -f hs_err_*
 	@echo -e "RM\tbuilt .jar and .so"
 	rm -f tmp/gtk-*.jar \

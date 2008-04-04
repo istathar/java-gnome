@@ -114,6 +114,16 @@ public class Action extends Object
     }
 
     /**
+     * Create a new Action from a Stock item. The message and tooltip will be
+     * supplied by GTK automatically.
+     * 
+     * @since 4.0.7
+     */
+    public Action(String name, Stock stock) {
+        super(GtkAction.createAction(name, null, null, stock.getStockId()));
+    }
+
+    /**
      * Create a new Action, and connect a handler to its <code>ACTIVATE</code>
      * signal.
      * 

@@ -445,6 +445,7 @@ MenuShell
 MenuToolButton
 MessageDialog
 MessageDialogs
+MessageFormat
 MessageType
 MessageTypes
 Microsystems
@@ -632,6 +633,7 @@ UINT
 ULONG
 UNMAP
 UTC
+UTF
 Ubuntu
 UnitTests
 UnsatisfiedLinkError
@@ -723,6 +725,7 @@ baseDir
 basename
 baz
 bdb
+bindtextdomain
 bitkeeper
 bitmask
 bjc
@@ -951,6 +954,7 @@ elevationFormatted
 elevationSort
 elif
 ellipsized
+else's
 elsif
 endif
 endingLabel
@@ -1160,9 +1164,11 @@ getY
 getenv
 getmtime
 getters
+gettext
 gij
 gint
 gjdoc
+glibc
 glibj
 globalTooltipsGroup
 gnomedev
@@ -1204,6 +1210,8 @@ inDir
 indexOf
 ing
 init
+initializer
+initializers
 inline
 insertPage
 insertText
@@ -1211,6 +1219,7 @@ instanceFor
 instanceof
 ints
 isActive
+isDirectory
 isEmbedded
 isSecondary
 isSensitive
@@ -1288,6 +1297,7 @@ ln
 loadConfig
 loadHashes
 loadLibrary
+localeDir
 login
 lookup
 lookupType
@@ -1325,10 +1335,14 @@ monarchObjectColumn
 moveTo
 moveWidget
 msg
+msgfmt
+msginit
+msgs
 multi
 multithreaded
 mutators
 mv
+myapp
 nCan't
 nCheck
 nGType
@@ -1403,6 +1417,7 @@ os
 outputDir
 packEnd
 packStart
+packageName
 pacman
 paddingBottom
 paddingLeft
@@ -1421,6 +1436,7 @@ pkgadd
 placeName
 plugin
 png
+po
 pointerOf
 popen
 popup
@@ -1804,6 +1820,7 @@ xffe
 xffea
 xffff
 xfvz
+xgettext
 xjf
 xoptions
 xpadding
