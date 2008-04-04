@@ -260,6 +260,24 @@ def dependsListToSingleTarget(list, target):
 	return result
 
 
+#
+# the rather kludgy mapping between .po files and .mo files
+#
+
+def dependsMapTranslationFileToCatalogueFile(domain, poDir, targetDir):
+	list = findFiles(poDir, ".po")
+	result = []
+
+	for source in list:
+		target = source.replace(".po", "")
+		target = target.replace(poDir, targetDir)
+		target = target + "/LC_MESSAGES/" + domain + ".mo"
+
+		pair = (source, target)
+		result.append(pair)
+
+	return result
+
 
 #
 # FIXME One fairly glaring weakness of this script is that it doesn't do Nth
@@ -428,7 +446,6 @@ def generateHeaderFiles():
 
 
 def compileCSourceToObject(source, target):
-
 	ensureDirectory(dirname(target))
 	
 	if config.has_key('CCACHE'):
@@ -486,17 +503,45 @@ def compileTestClasses():
 	compileJavaCode("tmp/tests/", "tmp/generator:tmp/bindings/:"+config['JUNIT_JARS'], "tests/generator/:tests/bindings/:tests/prototype/:tests/screenshots/", changed)
 
 
-def buildTranslationFiles():
-	source = "tests/bindings/org/freedesktop/bindings/ValidateInternationalization.fr_CA.po"
-	target = "tmp/tests/locale/fr_CA/LC_MESSAGES/ValidateInternationalization.mo"
-
-	if not fileNeedsBuilding(source, target):
-		return
-
-	ensureDirectory("tmp/tests/locale/fr_CA/LC_MESSAGES/")
+def compileMessageCatalogue(source, target):
+	ensureDirectory(dirname(target))
 
 	cmd = "msgfmt " + "-o " + target + " " + source
 	executeCommand("MSGFMT", target, cmd)
+
+
+#
+# FIXME this could be better generalized, but in any event this verges on
+# being unnecessary
+#
+
+def extractInternationalizationTemplates():
+	list = findFiles("doc/examples/i18n", ".java")
+	template = "tmp/i18n/example.pot"
+
+	pairs = dependsListToSingleTarget(list, template)
+
+	changed = filesNeedBuilding(pairs)
+	if not changed:
+		return
+
+	ensureDirectory(dirname(template))
+
+	cmd = "xgettext "
+	cmd += "-o " + template + " "
+	cmd += "--omit-header --keyword=_ --keyword=N_ "
+	cmd += " ".join(list)
+
+	executeCommand("EXTRACT", template, cmd)
+
+
+def compileTranslationCatalogues():
+	pairs =  dependsMapTranslationFileToCatalogueFile("example", "doc/po/", "tmp/locale/")
+	pairs += dependsMapTranslationFileToCatalogueFile("unittest", "tests/po/", "tmp/locale/")
+
+	for (source, target) in pairs:
+		if fileNeedsBuilding(source, target):
+			compileMessageCatalogue(source, target)
 
 
 #
@@ -522,7 +567,9 @@ def generateBindings():
 def generateTests():
 	prepareTestDirectories()
 	compileTestClasses()
-	buildTranslationFiles()
+
+	extractInternationalizationTemplates()
+	compileTranslationCatalogues()
 
 
 def runTests():

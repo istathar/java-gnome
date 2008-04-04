@@ -39,7 +39,7 @@ public class ExampleTranslation
         /* this is called just to link against JNI library */
         Gtk.init(args);
 
-        Internationalization.init("example", "doc/examples/i18n/po");
+        Internationalization.init("example", "tmp/locale/");
 
         /* we can translate simple messages */
         System.out.println(_("Hello"));

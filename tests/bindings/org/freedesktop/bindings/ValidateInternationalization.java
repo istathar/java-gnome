@@ -27,7 +27,7 @@ public class ValidateInternationalization extends TestCaseGtk
 {
     private static String LC_ALL;
 
-    public final void testInternationalizationInitialization() {
+    public final void testInitialization() {
         LC_ALL = Environment.getEnv("LC_ALL");
 
         try {
@@ -56,7 +56,7 @@ public class ValidateInternationalization extends TestCaseGtk
         }
 
         Environment.setEnv("LC_ALL", "fr_CA.UTF-8");
-        Internationalization.init("ValidateInternationalization", "tmp/tests/locale");
+        Internationalization.init("unittest", "tmp/locale");
     }
 
     public final void testTranslation() {
