@@ -17,8 +17,8 @@ package org.gnome.gtk;
  * concrete TreeModel subclass where rows can also have other rows that are
  * children. This model is suitable for hierarchical data where each row has a
  * parent and a list of children. If you just want to store a list of rows
- * (ie, plain tabular data), {@link ListStore ListStore} is a better
- * alternative.
+ * (ie, plain tabular data), {@link ListStore ListStore} is a more appropriate
+ * choice.
  * 
  * <p>
  * TreeStores are instantiated much like ListStores, as specified in the
@@ -41,36 +41,34 @@ package org.gnome.gtk;
  * 
  * You can then add new rows to the TreeStore. To add a new row at the top
  * level of the hierarchy, you just use {@link #appendRow() appendRow()} as
- * normal:
+ * you have seen with ListStore:
  * 
  * <pre>
- *         row = model.appendRow();
- *         model.setValue(row, ...);
+ * row = model.appendRow();
+ * model.setValue(row, ...);
  * </pre>
  * 
  * If, however, you want to add a new row as a child of an existing row, you
- * need to pass the <i>parent</i> to the second
- * {@link #appendRow(TreeIter) appendRow()} method:
+ * need to use the {@link #appendChild(TreeIter) appendChild()} method
+ * instead:
  * 
  * <pre>
- *         row = model.appendRow(parent);
- *         model.setValue(row, ...);
+ * row = model.appendRow(parent);
+ * model.setValue(row, ...);
  * </pre>
+ * 
+ * passing the TreeIter representing the parent you wish to create a child
+ * under.
  * 
  * <p>
  * The caveat described in ListStore applies here; don't declare your model as
- * type TreeModel because you'll need {@link #appendRow() appendRow()} method
- * which is here, on the concrete type TreeStore. In other words, do:
+ * abstract type TreeModel, keep them as concrete type TreeStore so you can
+ * get to the TreeStore specific methods for adding rows and navigating the
+ * hierarchy.
  * 
- * <pre>
- * TreeStore model = new TreeStore(...);
- * </pre>
- * 
- * as shown above, not:
- * 
- * <pre>
- * TreeModel model = new TreeStore(...);
- * </pre>
+ * <p>
+ * You may also want to read the discussion at {@link TreePath} to understand
+ * how to address a particular row in a given TreeStore.
  * 
  * @author Vreixo Formoso
  * @author Andrew Cowie
@@ -104,37 +102,45 @@ public class TreeStore extends TreeModel implements TreeDragSource, TreeDragDest
      * {@link TreeModel#setValue(TreeIter, DataColumnString, String) setValue()}
      * methods, of course.
      * 
+     * <p>
+     * To add a top level row, use {@link #appendRow() appendRow()}.
+     * 
      * @param parent
-     *            The row where the new child will be added. You can submit
-     *            <code>null</code> to add the new row at the top level.
-     *            Note that in this case you can also use
-     *            {@link #appendRow() appendRow()}.
-     * @return An iterator that represents the row newly created.
+     *            The row to which a new child will be added.
+     * @return A pointer to the newly created child row.
      * @since 4.0.7
      */
-    public TreeIter appendRow(TreeIter parent) {
-        final TreeIter iter;
+    public TreeIter appendChild(TreeIter parent) {
+        final TreeIter child;
 
-        if (parent != null) {
-            checkIter(parent);
+        if (parent == null) {
+            throw new IllegalArgumentException("Use appendRow() to add a top level row");
         }
-        iter = new TreeIter(this);
+        checkIter(parent);
 
-        GtkTreeStore.append(this, iter, parent);
+        child = new TreeIter(this);
 
-        return iter;
+        GtkTreeStore.append(this, child, parent);
+
+        return child;
     }
 
     /**
      * Append a new row at the top level of this TreeStore. If what you want
-     * is to add a row as a child of an already existing row, you should use
-     * {@link #appendRow(TreeIter) appendRow(parent)} instead.
+     * is to add a row as a child of an already existing row, you use
+     * {@link #appendChild(TreeIter) appendChild(parent)}.
      * 
-     * @return An iterator that represents the newly created row.
+     * @return A pointer to the newly created top level row.
      * @since 4.0.7
      */
     public TreeIter appendRow() {
-        return appendRow(null);
+        final TreeIter iter;
+
+        iter = new TreeIter(this);
+
+        GtkTreeStore.append(this, iter, null);
+
+        return iter;
     }
 
     /**

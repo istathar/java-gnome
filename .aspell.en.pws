@@ -691,6 +691,7 @@ alloca
 apache
 api
 apiversion
+appendChild
 appendColumn
 appendPage
 appendRow

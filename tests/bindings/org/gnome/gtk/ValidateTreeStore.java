@@ -142,10 +142,10 @@ public class ValidateTreeStore extends TestCaseGtk
         assertTrue(iter1.iterNext());
         assertFalse(iter1.iterNext());
 
-        iter2 = model.appendRow(iter1);
+        iter2 = model.appendChild(iter1);
         assertFalse(iter2.iterNext());
 
-        model.appendRow(iter1);
+        model.appendChild(iter1);
         assertTrue(iter2.iterNext());
         assertFalse(iter2.iterNext());
 
@@ -170,7 +170,7 @@ public class ValidateTreeStore extends TestCaseGtk
         assertNotNull(iter1);
         assertFalse(model.iterHasChild(iter1));
 
-        iter2 = model.appendRow(iter1);
+        iter2 = model.appendChild(iter1);
         assertNotNull(iter2);
 
         assertFalse(model.iterHasChild(iter2));
@@ -194,7 +194,7 @@ public class ValidateTreeStore extends TestCaseGtk
         assertFalse(model.iterHasChild(iter1));
         assertNull(model.iterChildren(iter1));
 
-        iter2 = model.appendRow(iter1);
+        iter2 = model.appendChild(iter1);
         assertNotNull(iter2);
         assertNull(model.iterChildren(iter2));
         assertNotNull(model.iterChildren(iter1));
@@ -206,7 +206,7 @@ public class ValidateTreeStore extends TestCaseGtk
         assertNull(model.iterChildren(iter2));
         assertFalse(iter2.iterNext());
 
-        iter2 = model.appendRow(iter1);
+        iter2 = model.appendChild(iter1);
         model.setValue(iter2, column, "2nd child");
 
         iter2 = model.iterChildren(iter1);
@@ -240,17 +240,17 @@ public class ValidateTreeStore extends TestCaseGtk
         assertNull(model.iterParent(p2));
         model.setValue(p2, column, "parent2");
 
-        iter = model.appendRow(p1);
+        iter = model.appendChild(p1);
         assertNotNull(iter);
         iter = model.iterParent(iter);
         assertEquals("parent1", model.getValue(iter, column));
 
-        iter = model.appendRow(p1);
+        iter = model.appendChild(p1);
         assertNotNull(iter);
         iter = model.iterParent(iter);
         assertEquals("parent1", model.getValue(iter, column));
 
-        iter = model.appendRow(p2);
+        iter = model.appendChild(p2);
         assertNotNull(iter);
         iter = model.iterParent(iter);
         assertEquals("parent2", model.getValue(iter, column));
@@ -268,13 +268,13 @@ public class ValidateTreeStore extends TestCaseGtk
 
         row = model.appendRow();
         model.setValue(row, column, 1);
-        child = model.appendRow(row);
+        child = model.appendChild(row);
         model.setValue(child, column, 11);
         row = model.appendRow();
         model.setValue(row, column, 2);
-        child = model.appendRow(row);
+        child = model.appendChild(row);
         model.setValue(child, column, 21);
-        child = model.appendRow(row);
+        child = model.appendChild(row);
         model.setValue(child, column, 22);
 
         path1 = new TreePath("0");
@@ -333,15 +333,15 @@ public class ValidateTreeStore extends TestCaseGtk
         path = model.getPath(row);
         assertEquals("1", path.toString());
 
-        child = model.appendRow(row);
+        child = model.appendChild(row);
         path = model.getPath(child);
         assertEquals("1:0", path.toString());
 
-        child = model.appendRow(row);
+        child = model.appendChild(row);
         path = model.getPath(child);
         assertEquals("1:1", path.toString());
 
-        child = model.appendRow(child);
+        child = model.appendChild(child);
         path = model.getPath(child);
         assertEquals("1:1:0", path.toString());
     }
