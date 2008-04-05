@@ -14,23 +14,78 @@ package org.freedesktop.cairo;
 import org.gnome.gdk.Drawable;
 
 /**
- * Carry out drawing operations with the Cairo library.
+ * Carry out drawing operations with the Cairo Graphics library. The current
+ * Context contains the state of the rendering engine, including the
+ * co-ordinates of as yet undrawn elements.
  * 
- * <p>
+ * <h2>Constructing</h2>
+ * 
  * Graphics will be rendered to the Surface specified when you construct the
  * Context:
  * <ul>
  * <li>If creating an image to be written to a file, start with an
  * {@link ImageSurface}, do your drawing, and then use Surface's writeToPNG()
  * to output your image.
- * <li>If drawing to the screen in a user interface application, you'll
- * construct a Context using the underlying GDK Window in your Widget's
- * {@link org.gnome.gtk.Widget.EXPOSE_EVENT EXPOSE_EVENT}.
+ * <li>If drawing to the screen in a user interface application, construct a
+ * Context using the underlying GDK Window in your Widget's
+ * {@link org.gnome.gtk.Widget.EXPOSE_EVENT EXPOSE_EVENT}, and do your
+ * drawing there.
  * </ul>
  * 
+ * See the links above for examples of each use case.
+ * 
+ * <h2>Drawing Operations</h2>
+ * 
+ * Context has numerous methods allowing you to draw shapes, patterns, and
+ * images to the Surface you are drawing on. These operations are all quite
+ * low level, but give you very fine grained control over what is drawn and
+ * where.
+ * 
+ * <p>
+ * It is somewhat traditional to call your Context <code>cr</code>.
+ * 
+ * <p>
+ * All of the methods on Context take arguments of type <code>double</code>
+ * to represent co-ordinates, angles, colours, transparency levels, etc.
+ * Colours are represented as values between <code>0.0</code> and
+ * <code>0.1</code>, for example:
+ * 
+ * <pre>
+ * cr.setSourceRGB(1.0, 0.0, 0.0);
+ * </pre>
+ * 
+ * for solid red. In the case of co-ordinates, you can simply specify the
+ * pixel address you wish to move to or draw to:
+ * 
+ * <pre>
+ * cr.moveTo(0, 0);
+ * cr.lineTo(100, 100);
+ * cr.stroke();
+ * </pre>
+ * 
+ * where stroke draws the current path with the current line thickness.
+ * 
+ * <p>
+ * Various other drawing operations are done by creating a shape and then
+ * filling it in:
+ * 
+ * <pre>
+ * cr.rectangle(100, 100, 300, 200);
+ * cr.fill();
+ * </pre>
+ * 
+ * and so on.
+ * 
+ * <p>
+ * <i>Obviously this is only the beginning of our documentation for Cairo.</i>
+ * 
  * @author Andrew Cowie
+ * @author Carl Worth
+ * @author Behdad Esfahbod
  * @author Vreixo Formoso
  * @since 4.0.7
+ * @see <a href="http://www.cairographics.org/documentation/">Cairo Graphics
+ *      documentation</a>
  */
 public class Context extends Entity
 {

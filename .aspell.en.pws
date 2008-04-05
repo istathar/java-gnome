@@ -12,6 +12,7 @@ AfC
 AllAboutJNI
 AltLeft
 AltRight
+Antialias
 ArrayList
 AtSign
 AttachOptions
@@ -164,6 +165,7 @@ FileChooserWidget
 FileChoosers
 FileNotFoundException
 FilenameFilter
+FillRule
 FindClass
 Formoso
 Fortin
@@ -696,6 +698,8 @@ addToggleRef
 addWidget
 addWithViewport
 alloca
+antialias
+antialiasing
 apache
 api
 apiversion
@@ -704,6 +708,7 @@ appendColumn
 appendPage
 appendRow
 appendText
+arcNegative
 arg
 argc
 args
@@ -1467,6 +1472,7 @@ px
 py
 pyGTK
 pygtk
+rasterizer
 rawing
 rb
 rect
@@ -1526,6 +1532,7 @@ setActiveIter
 setAlignment
 setAlignmentX
 setAngle
+setAntialias
 setAuthors
 setBackground
 setBlinking
@@ -1581,6 +1588,7 @@ setLabel
 setLabelAlign
 setLabelWidget
 setLayout
+setLineWidth
 setLineWrap
 setLogo
 setMarkup
@@ -1759,6 +1767,7 @@ un
 undef
 undelete
 underTest
+undrawn
 unformatted
 unfullscreen
 ungrab
@@ -1812,6 +1821,7 @@ x's
 xFFFFFF
 xServerVirtual
 xalign
+xc
 xff
 xffbe
 xffbf
@@ -1827,6 +1837,7 @@ xpadding
 xscale
 xsession
 yalign
+yc
 yoptions
 ypadding
 yscale
