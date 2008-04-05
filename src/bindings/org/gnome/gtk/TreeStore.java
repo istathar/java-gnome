@@ -21,31 +21,36 @@ package org.gnome.gtk;
  * choice.
  * 
  * <p>
- * TreeStores are instantiated much like ListStores, as specified in the
- * {@link DataColumn} class. In summary, given
+ * TreeStores are identically to ListStores, as specified in the
+ * {@link DataColumn} class. For example, given:
  * 
  * <pre>
- * final DataColumnString filename;
- * final DataColumnPixbuf icon;
  * final TreeStore model;
+ * final DataColumnString place;
  * ...
  * </pre>
  * 
- * you build a two column model as follows:
+ * you would build a model as follows:
  * 
  * <pre>
  * model = new TreeStore(new DataColumn[] {
- *         filename = new DataColumnString(), icon = new DataColumnPixbuf()
+ *         place = new DataColumnString(),
+ *         ...
  * });
  * </pre>
  * 
- * You can then add new rows to the TreeStore. To add a new row at the top
- * level of the hierarchy, you just use {@link #appendRow() appendRow()} as
- * you have seen with ListStore:
+ * The caveat described in ListStore applies here; don't declare your model as
+ * abstract type TreeModel; keep them as concrete type TreeStore so you can
+ * get to the TreeStore specific methods for adding rows and navigating the
+ * hierarchy. <img src="TreeStore.png" class="snapshot">
+ * 
+ * <p>
+ * To add a new row at the top level of the hierarchy, you just use
+ * {@link #appendRow() appendRow()} as you have seen with ListStore:
  * 
  * <pre>
- * row = model.appendRow();
- * model.setValue(row, ...);
+ * parent = model.appendRow();
+ * model.setValue(parent, place, &quot;Europe&quot;);
  * </pre>
  * 
  * If, however, you want to add a new row as a child of an existing row, you
@@ -53,22 +58,22 @@ package org.gnome.gtk;
  * instead:
  * 
  * <pre>
- * row = model.appendRow(parent);
- * model.setValue(row, ...);
+ * child = model.appendRow(parent);
+ * model.setValue(child, place, &quot;London&quot;);
+ * child = model.appendRow(parent);
+ * model.setValue(child, place, &quot;Paris&quot;);
  * </pre>
  * 
  * passing the TreeIter representing the parent you wish to create a child
  * under.
  * 
  * <p>
- * The caveat described in ListStore applies here; don't declare your model as
- * abstract type TreeModel, keep them as concrete type TreeStore so you can
- * get to the TreeStore specific methods for adding rows and navigating the
- * hierarchy.
- * 
- * <p>
  * You may also want to read the discussion at {@link TreePath} to understand
- * how to address a particular row in a given TreeStore.
+ * how to address a particular row in a given TreeStore. You will also
+ * probably want to be aware of TreeView's
+ * {@link TreeView#expandRow(TreePath, boolean) expandRow()},
+ * {@link TreeView#expandAll() expandAll()}, and corresponding
+ * <code>collapse</code> methods.
  * 
  * @author Vreixo Formoso
  * @author Andrew Cowie
@@ -148,8 +153,8 @@ public class TreeStore extends TreeModel implements TreeDragSource, TreeDragDest
      * row.
      * 
      * <p>
-     * You can use {@link #iterChildren() iterChildren()} to get the actual
-     * children.
+     * You can use {@link #iterChildren(TreeIter) iterChildren()} to get the
+     * actual children.
      * 
      * @return <code>true</code> if the specified row has one or more
      *         children, <code>false</code> otherwise.

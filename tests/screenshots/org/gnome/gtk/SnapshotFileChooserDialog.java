@@ -25,7 +25,7 @@ public class SnapshotFileChooserDialog extends SnapshotDialog
 
         dialog = new FileChooserDialog("Pick a file", null, FileChooserAction.OPEN);
         try {
-            dialog.setFilename(new File("../mainline", "AUTHORS").getCanonicalPath());
+            dialog.setFilename(new File("/home/andrew/src/andrew/java-gnome/mainline", "AUTHORS").getCanonicalPath());
         } catch (IOException ie) {
             System.err.println("Couldn't extract the canonical path. Go figure");
             ie.printStackTrace();

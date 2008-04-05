@@ -668,4 +668,24 @@ public class TreeView extends Container
     public void setReorderable(boolean setting) {
         GtkTreeView.setReorderable(this, setting);
     }
+
+    /**
+     * Expand all the rows in this TreeStore backed TreeView, making <i>all</i>
+     * children visible.
+     * 
+     * @since 4.0.7
+     */
+    public void expandAll() {
+        GtkTreeView.expandAll(this);
+    }
+
+    /**
+     * Collapse all the (child) rows in this TreeStore backed TreeView. Only
+     * top level rows will be visible.
+     * 
+     * @since 4.0.7
+     */
+    public void collapseAll() {
+        GtkTreeView.collapseAll(this);
+    }
 }

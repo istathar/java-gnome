@@ -26,6 +26,7 @@ import org.gnome.gtk.SnapshotQuestionMessageDialog;
 import org.gnome.gtk.SnapshotStatusbar;
 import org.gnome.gtk.SnapshotTextComboBox;
 import org.gnome.gtk.SnapshotTextComboBoxEntry;
+import org.gnome.gtk.SnapshotTreeStore;
 import org.gnome.gtk.SnapshotTreeView;
 import org.gnome.gtk.SnapshotVScale;
 import org.gnome.gtk.SnapshotWindow;
@@ -119,6 +120,7 @@ public final class Harness
                     SnapshotInfoMessageDialog.class,
                     SnapshotQuestionMessageDialog.class,
                     SnapshotTreeView.class,
+                    SnapshotTreeStore.class,
                     SnapshotFileChooserDialog.class,
                     SnapshotAboutDialog.class,
                     SnapshotHScale.class,
