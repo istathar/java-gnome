@@ -55,11 +55,12 @@ import org.gnome.gdk.Drawable;
  * </pre>
  * 
  * for solid red. In the case of co-ordinates, you can simply specify the
- * pixel address you wish to move to or draw to:
+ * pixel address you wish to move to or draw to: <img src="Context-line.png"
+ * class="snapshot">
  * 
  * <pre>
- * cr.moveTo(0, 0);
- * cr.lineTo(100, 100);
+ * cr.moveTo(10, 10);
+ * cr.lineTo(90, 50);
  * cr.stroke();
  * </pre>
  * 
@@ -67,10 +68,10 @@ import org.gnome.gdk.Drawable;
  * 
  * <p>
  * Various other drawing operations are done by creating a shape and then
- * filling it in:
+ * filling it in: <img src="Context-rectangle.png" class="snapshot">
  * 
  * <pre>
- * cr.rectangle(100, 100, 300, 200);
+ * cr.rectangle(30, 20, 60, 60);
  * cr.fill();
  * </pre>
  * 

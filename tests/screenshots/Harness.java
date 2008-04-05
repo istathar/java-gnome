@@ -12,6 +12,8 @@
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
+import org.freedesktop.cairo.SnapshotContextLine;
+import org.freedesktop.cairo.SnapshotContextRectangle;
 import org.gnome.gdk.Pixbuf;
 import org.gnome.gdk.PixbufFormat;
 import org.gnome.gtk.Gtk;
@@ -127,7 +129,9 @@ public final class Harness
                     SnapshotVScale.class,
                     SnapshotComboBox.class,
                     SnapshotTextComboBox.class,
-                    SnapshotTextComboBoxEntry.class
+                    SnapshotTextComboBoxEntry.class,
+                    SnapshotContextLine.class,
+                    SnapshotContextRectangle.class
             };
 
             /*

@@ -49,7 +49,11 @@ public abstract class Snapshot
      * src/bindings/org/gnome/gtk/doc-files/Button.png
      */
     protected Snapshot(Class<?> underTest) {
-        this.target = targetFilenameFromClass(underTest);
+        this.target = targetFilenameFromClass(underTest, null);
+    }
+
+    protected Snapshot(Class<?> underTest, String suffix) {
+        this.target = targetFilenameFromClass(underTest, suffix);
     }
 
     public static void cycleMainLoop() {
@@ -100,7 +104,7 @@ public abstract class Snapshot
         });
     }
 
-    static String targetFilenameFromClass(Class<?> underTest) {
+    static String targetFilenameFromClass(Class<?> underTest, String suffix) {
         final StringBuffer path;
         int i = 0;
 
@@ -112,6 +116,12 @@ public abstract class Snapshot
 
         path.append("/");
         path.append(underTest.getSimpleName());
+
+        if (suffix != null) {
+            path.append("-");
+            path.append(suffix);
+        }
+
         path.append(".png");
 
         return path.toString();
