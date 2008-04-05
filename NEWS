@@ -1,5 +1,31 @@
 NEWS
 
+<a name="cairo" id="1207377494" title="Cairo"></a>
+
+Cairo support
+=============
+
+Adding coverage of the Cairo Graphics library is a feature we've been working
+on for about 6 months now, and during the 4.0.7 development cycle we've been
+able to land it in java-gnome!
+
+Cairo is a huge library, of course, but we've put enough coverage in place to
+ensure that things are working. Cairo has lots of convenience functions and
+tons of obscure uses; no surprise (and no apology) that there's still lots
+that will need doing. If you want to help make sure it has what you need, then
+grab '`mainline`' and see `org.freedesktop.cairo.`[`Context`][Context].
+
+Huge thanks go out to Behdad Esfahbod and Carl Worth; Behdad was really
+critical in explaining some basic Cairo concepts to me started when we were
+working together at the GNOME Summit back in October in Boston, and during March
+at the GTK hackfest in Berlin, Carl Worth was awesome for having checked our 
+preliminary APIs and for having helped sorted us out as we were working our
+way through create some examples.
+
+[Context]: doc/api/org/freedesktop/cairo/Context.html
+
+AfC
+
 <a name="4.0.6" id="1202791317" title="Missing"></a>
 
 java-gnome 4.0.6 (12 Feb 2008)

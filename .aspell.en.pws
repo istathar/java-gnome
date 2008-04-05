@@ -1002,6 +1002,7 @@ foreach
 formatTime
 formatter
 foss
+freedesktop
 fromName
 fullscreen
 gType
@@ -1187,6 +1188,7 @@ gtkmm
 gtkmm's
 gtkstatusbar
 guint
+hackfest
 hacky
 handleName
 handlerBlah
