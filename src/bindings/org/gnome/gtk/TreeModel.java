@@ -15,8 +15,9 @@ import org.gnome.gdk.Pixbuf;
 
 /**
  * The data use as the model backing a {@link TreeView}. TreeModel comes in
- * two flavours which actually store data: ListStore, for a list of rows, and
- * TreeStore, for data which has a hierarchical relationship between the rows.
+ * two flavours which actually store data: {@link ListStore}, for a list of
+ * rows, and {@link TreeStore}, for data which has a hierarchical
+ * relationship between the rows.
  * 
  * <p>
  * TreeModels are tabular, and as such have "columns", each of which is

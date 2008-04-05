@@ -21,8 +21,8 @@ package org.gnome.gtk;
  * choice.
  * 
  * <p>
- * TreeStores are identically to ListStores, as specified in the
- * {@link DataColumn} class. For example, given:
+ * Instantiating a TreeStore is done identically as with a ListStore, by
+ * specifying an array of {@link DataColumn}s. For example, given:
  * 
  * <pre>
  * final TreeStore model;
@@ -62,6 +62,7 @@ package org.gnome.gtk;
  * model.setValue(child, place, &quot;London&quot;);
  * child = model.appendRow(parent);
  * model.setValue(child, place, &quot;Paris&quot;);
+ * ...
  * </pre>
  * 
  * passing the TreeIter representing the parent you wish to create a child

@@ -12,15 +12,16 @@
 package org.gnome.gtk;
 
 /**
- * 
+ * Present data in CellLayouts (ie, the TreeViewColumns of TreeView, and
+ * ComboBox).
  * 
  * <p>
- * Note that there is not one CellRenderer per cell in the table like
- * presentation of a TreeView! Instead, a CellRenderer is an engine called
- * upon to draw <i>many</i> cells. The Widget employing them will, by turn,
- * set various properties (the actual data for the current cell in question
- * would be what changes, though most of the rest of the properties would
- * likely remain constant) and then ask the CellRenderer to return the
+ * Note that there is not one CellRenderer per individual cell in the
+ * table-like presentation of a TreeView! Instead, a CellRenderer is an engine
+ * called upon to draw <i>many</i> cells. The Widget employing them will, by
+ * turn, set various properties (the actual data for the current cell in
+ * question would be what changes, though most of the rest of the properties
+ * would likely remain constant) and then ask the CellRenderer to return the
  * rendered result.
  * 
  * <p>
