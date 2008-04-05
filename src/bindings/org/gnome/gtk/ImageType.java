@@ -33,9 +33,15 @@ public final class ImageType extends Constant
     public static final ImageType PIXMAP = new ImageType(GtkImageType.PIXMAP, "PIXMAP");
 
     /**
-     * The Widget contains a {@link org.gnome.gdk.Image}.
+     * The Widget contains an org.gnome.gdk.Image.
+     * 
+     * @deprecated
      */
-    public static final ImageType IMAGE = new ImageType(GtkImageType.IMAGE, "IMAGE");
+    /*
+     * We only keep this here for debugging purposes; GdkImage has been
+     * removed from java-gnome.
+     */
+    static final ImageType IMAGE = new ImageType(GtkImageType.IMAGE, "IMAGE");
 
     /**
      * The Widget contains a {@link org.gnome.gdk.Pixbuf}.

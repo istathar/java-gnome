@@ -42,7 +42,7 @@ public abstract class Pattern extends Entity
      * {@link #addColorStopRGBA(double, double, double, double, double) addColorStopRGBA()}
      * for documentation of the <code>offset</code> parameter. The colour
      * parameters are the same as for
-     * {@link Context#setSourceRGB(double, double, double, double) setSourceRGB()}.
+     * {@link Context#setSourceRGB(double, double, double) setSourceRGB()}.
      * 
      * @since 4.0.7
      */
@@ -64,7 +64,7 @@ public abstract class Pattern extends Entity
      * 
      * <p>
      * Colour stops handle colour arguments the same way as
-     * {@link Context#setSourceRGB(double, double, double, double) setSourceRGB()}
+     * {@link Context#setSourceRGB(double, double, double) setSourceRGB()}
      * does.
      * 
      * @since 4.0.7

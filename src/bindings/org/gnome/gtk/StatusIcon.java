@@ -37,7 +37,7 @@ import org.gnome.gdk.Pixbuf;
  * 
  * <p>
  * A StatusIcon can also have an associated tooltip, not to be confused with
- * {@link org.gnome.gtk.Tooltips}. This tooltip appears in a balloon at the
+ * {@link org.gnome.gtk.Tooltip}. This tooltip appears in a balloon at the
  * StatusIcon itself and can be used to convey additional information.
  * 
  * <p>

@@ -76,8 +76,8 @@ public class Context extends Entity
      * 
      * <p>
      * <i>Strictly speaking, this method is a part of GDK. We expose it here
-     * as we <b>are</b>, from the Java bindings' perspective, constructing a
-     * Cairo Context.</i>
+     * as we are, from the Java bindings' perspective, constructing a Cairo
+     * Context. So a constructor it is.</i>
      * 
      * @since 4.0.7
      */
@@ -119,7 +119,6 @@ public class Context extends Entity
     /**
      * Add a line from the current location to <code>x</code>,<code>y</code>.
      * After the call the current point will be <code>x</code>,<code>y</code>.
-     * setLineWidtsetLineWidthh
      * 
      * @since 4.0.7
      */
@@ -271,12 +270,11 @@ public class Context extends Entity
 
     /**
      * Adds a circular arc of the given radius to the current path. The arc is
-     * centered at <code>(xc, yc)</code>, begins at <code>angle1</code>
-     * and proceeds in the direction of increasing angles to end at
+     * centered at <code>xc,yc</code>, begins at <code>angle1</code> and
+     * proceeds in the direction of increasing angles to end at
      * <code>angle2</code>. If <code>angle2</code> is less than
      * <code>angle1</code> it will be progressively increased by
-     * <code>2 * {@link Math#PI &pi;}</code> until it is greater than
-     * <code>angle1</code>.
+     * <code>2&pi;</code> until it is greater than <code>angle1</code>.
      * 
      * <p>
      * If there is a current point, an initial line segment will be added to
@@ -284,27 +282,16 @@ public class Context extends Entity
      * 
      * <p>
      * Angles are measured in radians. An angle of <code>0.0</code> is in
-     * the direction of the positive X axis. An angle of <code>&pi;/2.0</code>
-     * radians (90 degrees) is in the direction of the positive Y axis. Angles
-     * increase in the direction from the positive X axis toward the positive
-     * Y axis. So [TODO with the default transformation matrix,] angles
-     * increase in a clockwise direction.
+     * the direction of the positive <i>x</i> axis. An angle of
+     * <code>&pi;/2</code> radians (90&deg;) is in the direction of the
+     * positive <i>y</i> axis. Angles increase in the direction from the
+     * positive <i>x</i> axis toward the positive </i> axis, increasing in a
+     * clockwise direction.
      * 
      * <p>
      * This function gives the arc in the direction of increasing angles; see
      * {@link #arcNegative(double, double, double, double, double) arcNegative()}
-     * to get the arc in the direction of decreasing angles.
-     * 
-     * @param xc
-     *            X position of the center of the arc
-     * @param yc
-     *            Y position of the center of the arc
-     * @param radius
-     *            the radius of the arc
-     * @param angle1
-     *            the start angle, in radians
-     * @param angle2
-     *            the end angle, in radians
+     * to go the other direction.
      * 
      * @since 4.0.7
      */
@@ -315,25 +302,15 @@ public class Context extends Entity
 
     /**
      * Adds a circular arc of the given radius to the current path. The arc is
-     * centered at <code>(xc, yc)</code>, begins at <code>angle1</code>
-     * and proceeds in the direction of decreasing angles to end at
+     * centered at <code>xc,yc</code>, begins at <code>angle1</code> and
+     * proceeds in the direction of decreasing angles to end at
      * <code>angle2</code>. If <code>angle2</code> is greater than
      * <code>angle1</code> it will be progressively decreased by
-     * <code>2 * {@link Math#PI &pi;}</code> until it is less than
-     * <code>angle1</code>.
+     * <code>2&pi;</code> until it is less than <code>angle1</code>.
      * 
-     * @see #arc(double, double, double, double, double)
-     * 
-     * @param xc
-     *            X position of the center of the arc
-     * @param yc
-     *            Y position of the center of the arc
-     * @param radius
-     *            the radius of the arc
-     * @param angle1
-     *            the start angle, in radians
-     * @param angle2
-     *            the end angle, in radians
+     * <p>
+     * See {@link #arc(double, double, double, double, double) arc()} for
+     * drawing in the positive direction.
      * 
      * @since 4.0.7
      */

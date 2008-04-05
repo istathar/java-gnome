@@ -11,14 +11,13 @@
  */
 package org.gnome.gdk;
 
-import org.gnome.gtk.Widget;
-
 /**
  * Event data describing a mouse entering or leaving a Window.
  * 
  * <p>
- * This is used by {@link Widget.ENTER_NOTIFY_EVENT ENTER_NOTIFY_EVENT} and
- * {@link Widget.LEAVE_NOTIFY_EVENT LEAVE_NOTIFY_EVENT}.
+ * This is used by
+ * {@link org.gnome.gtk.WidgetWidget.ENTER_NOTIFY_EVENT ENTER_NOTIFY_EVENT}
+ * and {@link org.gnome.gtk.Widget.LEAVE_NOTIFY_EVENT LEAVE_NOTIFY_EVENT}.
  * 
  * @author Andrew Cowie
  * @since 4.0.7
@@ -33,7 +32,7 @@ public final class EventCrossing extends Event
      * Describes the mode of this EventCrossing: whether the event is a
      * {@link CrossingMode#NORMAL NORMAL} one or a pseudo-motion one resulting
      * from a {@link CrossingMode#GRAB GRAB} or
-     * {@link CrossingMode#UNGRAB UNGRAB}
+     * {@link CrossingMode#UNGRAB UNGRAB}.
      * 
      * @since 4.0.7
      */
