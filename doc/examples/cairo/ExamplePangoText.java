@@ -77,6 +77,12 @@ public class ExamplePangoText
                 layout.setAlignment(Alignment.CENTER);
 
                 /*
+                 * If you want to ensure the full text fits in the Widget,
+                 * the setSizeRequest() is very useful.
+                 */
+                source.setSizeRequest(layout.getPixelSizeWidth(), layout.getPixelSizeHeight());
+                
+                /*
                  * We can also specify some attributes (such as the color)
                  * with usual Cairo functions.
                  */

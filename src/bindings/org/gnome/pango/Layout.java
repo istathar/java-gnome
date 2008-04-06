@@ -13,6 +13,7 @@
 package org.gnome.pango;
 
 import org.gnome.glib.Object;
+import org.gnome.gtk.Widget;
 
 /**
  * A Layout represents a paragraph (or paragraphs) of text, together with its
@@ -72,6 +73,58 @@ public class Layout extends Object
     }
 
     /**
+     * Get the width, in Pango units, of the Layout. This is the width of the
+     * layout text, taking its format into account (for example, the size of
+     * the Font will influence the final size!).
+     * 
+     * <p>
+     * Note that this is not necessarily related with the line wrap width you
+     * set with {@link #setWidth(int) setWidth()} method.
+     */
+    public int getSizeWidth() {
+        int[] width = new int[1];
+        PangoLayout.getSize(this, width, null);
+        return width[0];
+    }
+
+    /**
+     * Get the height, in Pango units, of the Layout. This is the height of
+     * the layout text, taking its format into account (for example, the size
+     * of the Font will influence the final size!).
+     */
+    public int getSizeHeight() {
+        int[] height = new int[1];
+        PangoLayout.getSize(this, null, height);
+        return height[0];
+    }
+
+    /**
+     * Get the width, in pixels, of the Layout. This is suitable, together
+     * with {@link #getPixelSizeHeight() getPixelSizeHeight()}, to use with
+     * Widget {@link Widget#setSizeRequest(int, int) setSizeRequest()}, and
+     * thus ensure the full text is shown!
+     * 
+     * @see #getSizeWidth()
+     */
+    public int getPixelSizeWidth() {
+        int[] width = new int[1];
+        PangoLayout.getPixelSize(this, width, null);
+        return width[0];
+    }
+
+    /**
+     * Get the height, in pixels, of the Layout.
+     * 
+     * @see #getSizeHeight()
+     * @see #getPixelSizeWidth()
+     */
+    public int getPixelSizeHeight() {
+        int[] height = new int[1];
+        PangoLayout.getPixelSize(this, null, height);
+        return height[0];
+    }
+
+    /**
      * Set the width of the Layout.
      * 
      * <p>
@@ -82,7 +135,8 @@ public class Layout extends Object
      * @param width
      *            The width in Pango units [TODO a pixel is 1024 pango units,
      *            but this may change in a future. Should we add a class for
-     *            functions to manage this?]
+     *            functions to manage this?], or <code>-1</code> to disable
+     *            automatic line wrapping.
      */
     public void setWidth(int width) {
         PangoLayout.setWidth(this, width);
