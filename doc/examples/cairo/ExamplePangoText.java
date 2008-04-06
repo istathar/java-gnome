@@ -18,6 +18,7 @@ import org.gnome.gtk.Gtk;
 import org.gnome.gtk.Image;
 import org.gnome.gtk.Widget;
 import org.gnome.gtk.Window;
+import org.gnome.pango.Alignment;
 import org.gnome.pango.Layout;
 
 /**
@@ -67,6 +68,13 @@ public class ExamplePangoText
                         + "This is an example of a how to write a <i>paragraph</i> "
                         + "of text with Pango, and how to <span foreground=\"#0000FF\">"
                         + "format</span> it with <span font_desc=\"Sans Italic 12\">Pango Markup</span>");
+
+                /*
+                 * You can set the alignment of the Layout. Note that you
+                 * should set its width too.
+                 */
+                layout.setWidth(200000);
+                layout.setAlignment(Alignment.CENTER);
 
                 /*
                  * We can also specify some attributes (such as the color)

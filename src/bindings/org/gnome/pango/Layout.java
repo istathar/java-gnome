@@ -69,4 +69,49 @@ public class Layout extends Object
          */
         PangoLayout.setMarkup(this, markup, -1);
     }
+
+    /**
+     * Set the width of the Layout.
+     * 
+     * <p>
+     * This will determine the positioning of the text and how the lines are
+     * wrapped. If a text line is greater than the given size, it is splitted
+     * in several lines.
+     * 
+     * @param width
+     *            The width in Pango units [TODO a pixel is 1024 pango units,
+     *            but this may change in a future. Should we add a class for
+     *            functions to manage this?]
+     */
+    public void setWidth(int width) {
+        PangoLayout.setWidth(this, width);
+    }
+
+    /**
+     * Sets whether each complete line should be stretched to fill the entire
+     * width of the layout.
+     * 
+     * <p>
+     * his stretching is typically done by adding whitespace, but for some
+     * scripts (such as Arabic), the justification may be done in more complex
+     * ways, like extending the characters.
+     * 
+     * @see #setWidth(int)
+     */
+    public void setJustify(boolean justify) {
+        PangoLayout.setJustify(this, justify);
+    }
+
+    /**
+     * Sets the alignment for the layout.
+     * 
+     * This determines how partial lines are positioned within the horizontal
+     * space available, i.e., within the <code>width</code> of the Layout.
+     * 
+     * @see #setWidth(int)
+     * @see #setJustify(boolean)
+     */
+    public void setAlignment(Alignment alignment) {
+        PangoLayout.setAlignment(this, alignment);
+    }
 }

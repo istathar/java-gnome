@@ -2,6 +2,7 @@
  * Alignment.java
  *
  * Copyright (c) 2007 Operational Dynamics Consulting Pty Ltd
+ * Copyright (c) 2008 Vreixo Formoso
  *
  * The code in this file, and the library it is a part of, are made available
  * to you by the authors under the terms of the "GNU General Public Licence,
@@ -13,17 +14,34 @@ package org.gnome.pango;
 
 import org.freedesktop.bindings.Constant;
 
-/*
- * FIXME this is a placeholder stub for what will become the public API for
- * this type. Replace this comment with appropriate javadoc including author
- * and since tags. Note that the class may need to be made abstract, implement
- * interfaces, or even have its parent changed. No API stability guarantees
- * are made about this class until it has been reviewed by a hacker and this
- * comment has been replaced.
+/**
+ * How the line is aligned.
+ * 
+ * <p>
+ * If you wonder why there is not a JUSTIFY alignment, that is configured with
+ * the Layout {@link Layout#setJustify(boolean) setJustify()} method.
+ * 
+ * @author Vreixo Formoso
+ * @since 4.0.8
  */
 public final class Alignment extends Constant
 {
     private Alignment(int ordinal, String nickname) {
         super(ordinal, nickname);
     }
+
+    /**
+     * Center the line within the available space.
+     */
+    public final static Alignment CENTER = new Alignment(PangoAlignment.CENTER, "CENTER");
+
+    /**
+     * Align the line at the left.
+     */
+    public final static Alignment LEFT = new Alignment(PangoAlignment.LEFT, "LEFT");
+
+    /**
+     * Align the line at the right.
+     */
+    public final static Alignment RIGHT = new Alignment(PangoAlignment.RIGHT, "RIGHT");
 }
