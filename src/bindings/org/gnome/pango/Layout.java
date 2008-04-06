@@ -15,7 +15,8 @@ package org.gnome.pango;
 import org.gnome.glib.Object;
 
 /**
- * A Layout represents a paragraph of text, together with its attributes.
+ * A Layout represents a paragraph (or paragraphs) of text, together with its
+ * attributes.
  * 
  * @author Vreixo Formoso
  * @since 4.0.8
@@ -103,6 +104,14 @@ public class Layout extends Object
     }
 
     /**
+     * Gets whether each complete line should be stretched to fill the entire
+     * width of the Layout.
+     */
+    public boolean getJustify() {
+        return PangoLayout.getJustify(this);
+    }
+
+    /**
      * Sets the alignment for the layout.
      * 
      * This determines how partial lines are positioned within the horizontal
@@ -113,5 +122,35 @@ public class Layout extends Object
      */
     public void setAlignment(Alignment alignment) {
         PangoLayout.setAlignment(this, alignment);
+    }
+
+    /**
+     * Gets the Alignment for the Layout.
+     */
+    public Alignment getAlignment() {
+        return PangoLayout.getAlignment(this);
+    }
+
+    /**
+     * Sets the width in Pango units to indent the first line of each
+     * paragraph. A negative value of indent will produce a hanging
+     * indentation. That is, the first line will have the full width, and
+     * subsequent lines will be indented by the absolute value of indent.
+     * 
+     * <p>
+     * Note that the indent is relative to the Alignment of the text, if the
+     * text is aligned to the right, the indent is computed from there.
+     */
+    public void setIndent(int indent) {
+        PangoLayout.setIndent(this, indent);
+    }
+
+    /**
+     * Get the paragraph indent of this Layout in Pango units.
+     * 
+     * @see #setIndent(int)
+     */
+    public int getIndent() {
+        return PangoLayout.getIndent(this);
     }
 }
