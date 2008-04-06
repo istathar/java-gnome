@@ -115,4 +115,33 @@ public final class FontDescription extends Boxed
     public Style getStyle() {
         return PangoFontDescription.getStyle(this);
     }
+
+    /**
+     * Set the capitalization variant of the Font.
+     */
+    public void setVariant(Variant variant) {
+        PangoFontDescription.setVariant(this, variant);
+    }
+
+    /**
+     * Get the capitalization variant of the Font.
+     */
+    public Variant getVariant() {
+        return PangoFontDescription.getVariant(this);
+    }
+
+    /**
+     * Set the weight of the Font, that specifies how bold or light the font
+     * should be.
+     */
+    public void setWeight(Weight weight) {
+        PangoFontDescription.setWeight(this, weight);
+    }
+
+    /**
+     * Get the weight of the Font.
+     */
+    public Weight getWeight() {
+        return PangoFontDescription.getWeight(this);
+    }
 }
