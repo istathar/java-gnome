@@ -2,9 +2,9 @@
  * FunctionGenerator.java
  *
  * Copyright (c) 2007-2008 Operational Dynamics Consulting Pty Ltd
- * Copyright (c) 2007      Vreixo Formoso
+ * Copyright (c) 2007-2008 Vreixo Formoso
  * 
- * The code in this file, and the library it is a part of, are made available
+ * The code in this file, and the program it is a part of, are made available
  * to you by the authors under the terms of the "GNU General Public Licence,
  * version 2" See the LICENCE file for the terms governing usage and
  * redistribution.
@@ -68,11 +68,11 @@ public class FunctionGenerator extends Generator
     private Thing blacklistedType;
 
     private final boolean addSentinal;
-    
+
     /**
      * Whether the caller owns the return value. It is either 'f' (caller
-     * doesn't own return), 't' (caller own return) or 'l' (return type
-     * is a list/array... and only the list itself is own, not its contents) 
+     * doesn't own return), 't' (caller own return) or 'l' (return type is a
+     * list/array... and only the list itself is own, not its contents)
      */
     private final char callerOwnsReturn;
 
@@ -107,7 +107,7 @@ public class FunctionGenerator extends Generator
         this.returnType = Thing.lookup(gReturnType);
 
         this.nativeMethodName = cFunctionName;
-        
+
         this.callerOwnsReturn = callerOwnsReturn;
 
         /*
@@ -596,24 +596,24 @@ public class FunctionGenerator extends Generator
             out.print(") ");
             out.print(returnType.jniReturnEncode("result"));
             out.print(";\n");
-            
+
             jniFunctionReturnCleanUp(out);
-            
+
             out.print("\n");
             out.print("\t// and finally\n");
             out.print("\treturn _result;\n");
         }
         out.print("}\n");
     }
-    
+
     protected void jniFunctionReturnCleanUp(PrintWriter out) {
 
         String cleanup;
         cleanup = returnType.jniReturnCleanup("result", callerOwnsReturn);
 
         /*
-         * TODO this assumes all type that need cleanup can be
-         * compared with NULL.
+         * TODO this assumes all type that need cleanup can be compared with
+         * NULL.
          */
         if (cleanup != null) {
             out.print("\n");
