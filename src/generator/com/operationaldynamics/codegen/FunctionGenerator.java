@@ -68,6 +68,13 @@ public class FunctionGenerator extends Generator
     private Thing blacklistedType;
 
     private final boolean addSentinal;
+    
+    /**
+     * Whether the caller owns the return value. It is either 'f' (caller
+     * doesn't own return), 't' (caller own return) or 'l' (return type
+     * is a list/array... and only the list itself is own, not its contents) 
+     */
+    private final char callerOwnsReturn;
 
     /**
      * @param data
@@ -85,9 +92,11 @@ public class FunctionGenerator extends Generator
      * @param gParameters
      *            an array of String[2] arrays, listing the type and name of
      *            each parameter.
+     * @param callerOwnsReturn
+     *            whether the caller owns the returned value.
      */
     public FunctionGenerator(final DefsFile data, final String blockName, final String gReturnType,
-            final String cFunctionName, final String[][] gParameters) {
+            final String cFunctionName, final String[][] gParameters, char callerOwnsReturn) {
         super(data);
         final int len;
 
@@ -98,6 +107,8 @@ public class FunctionGenerator extends Generator
         this.returnType = Thing.lookup(gReturnType);
 
         this.nativeMethodName = cFunctionName;
+        
+        this.callerOwnsReturn = callerOwnsReturn;
 
         /*
          * If ... is passed through as the last parameter, it means that we
@@ -367,6 +378,9 @@ public class FunctionGenerator extends Generator
             out.print("\t");
             out.print(returnType.cType);
             out.print(" result;\n");
+            out.print("\t");
+            out.print(returnType.jniType);
+            out.print(" _result;\n");
         }
 
         for (int i = 0; i < parameterTypes.length; i++) {
@@ -575,17 +589,42 @@ public class FunctionGenerator extends Generator
 
         if (!returnType.jniType.equals("void")) {
             out.print("\n");
-            out.print("\t// and finally\n");
-
-            out.print("\treturn ");
-
+            out.print("\t// translate return value to JNI type\n");
+            out.print("\t_result = ");
             out.print("(");
             out.print(returnType.jniType);
             out.print(") ");
             out.print(returnType.jniReturnEncode("result"));
             out.print(";\n");
+            
+            jniFunctionReturnCleanUp(out);
+            
+            out.print("\n");
+            out.print("\t// and finally\n");
+            out.print("\treturn _result;\n");
         }
         out.print("}\n");
+    }
+    
+    protected void jniFunctionReturnCleanUp(PrintWriter out) {
+
+        String cleanup;
+        cleanup = returnType.jniReturnCleanup("result", callerOwnsReturn);
+
+        /*
+         * TODO this assumes all type that need cleanup can be
+         * compared with NULL.
+         */
+        if (cleanup != null) {
+            out.print("\n");
+            out.print("\t// cleanup return value\n");
+            out.print("\tif (result != NULL) {\n");
+            out.print("\t");
+            out.print("\t");
+            out.print(cleanup);
+            out.print(";\n");
+            out.print("\t}\n");
+        }
     }
 
     /**

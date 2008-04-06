@@ -17,7 +17,6 @@
 (define-function gtk_plug_new
   (is-constructor-of "GtkPlug")
   (c-name "gtk_plug_new")
-  (caller-owns-return #t)
   (return-type "GtkWidget*")
   (parameters
     '("GdkNativeWindow" "socket_id")

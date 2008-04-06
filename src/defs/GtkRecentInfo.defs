@@ -79,6 +79,7 @@
 (define-method get_applications
   (of-object "GtkRecentInfo")
   (c-name "gtk_recent_info_get_applications")
+  (caller-owns-return #t)
   (return-type "gchar**")
   (parameters
     '("gsize*" "length")

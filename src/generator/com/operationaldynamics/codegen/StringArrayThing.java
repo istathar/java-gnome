@@ -35,7 +35,18 @@ public class StringArrayThing extends ArrayThing
     }
 
     String jniReturnEncode(String name) {
-        return "bindings_java_convert_gchararray_to_jarray(env, " + name + ")";
+        return "bindings_java_convert_gchararray_to_jarray(env, (const gchar**)" + name + ")";
+    }
+    
+    @Override
+    String jniReturnCleanup(String name, char callerOwnsReturn) {
+        if (callerOwnsReturn == 't') {
+            return "g_strfreev(" + name + ")";
+        } else if (callerOwnsReturn == 'l') {
+            return "g_free(" + name + ")";
+        } else {
+            return null;
+        }
     }
 
     String translationToJava(String name, DefsFile data) {

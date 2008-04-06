@@ -24,7 +24,7 @@ abstract class AccessorGenerator extends FunctionGenerator
 {
     AccessorGenerator(DefsFile data, String blockName, String gReturnType, String[][] gParameters) {
         super(data, blockName, gReturnType, toUnderscores(data.getType().bindingsClass) + "_"
-                + blockName, gParameters);
+                + blockName, gParameters, 'f');
     }
 
     /**

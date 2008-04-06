@@ -55,6 +55,6 @@ class MethodBlock extends FunctionBlock
     }
 
     public Generator createGenerator(final DefsFile data) {
-        return new MethodGenerator(data, blockName, returnType, cName, parameters);
+        return new MethodGenerator(data, blockName, returnType, cName, parameters, getCallerOwnsReturn());
     }
 }

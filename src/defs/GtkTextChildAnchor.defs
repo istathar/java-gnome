@@ -15,6 +15,7 @@
 (define-method get_widgets
   (of-object "GtkTextChildAnchor")
   (c-name "gtk_text_child_anchor_get_widgets")
+  (caller-owns-return #l)
   (return-type "GList-GtkWidget*")
 )
 

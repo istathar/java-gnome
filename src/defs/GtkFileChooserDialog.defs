@@ -9,7 +9,6 @@
 (define-function gtk_file_chooser_dialog_new
   (is-constructor-of "GtkFileChooserDialog")
   (c-name "gtk_file_chooser_dialog_new")
-  (caller-owns-return #t)
   (return-type "GtkWidget*")
   (parameters
     '("const-gchar*" "title" (null-ok))
@@ -24,7 +23,6 @@
   (is-constructor-of "GtkFileChooserDialog")
   (c-name "gtk_file_chooser_dialog_new_with_backend")
   (return-type "GtkWidget*")
-  (caller-owns-return #t)
   (parameters
     '("const-gchar*" "title" (null-ok))
     '("GtkWindow*" "parent" (null-ok))

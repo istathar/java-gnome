@@ -18,6 +18,7 @@
   (of-object "PangoGlyphItem")
   (c-name "pango_glyph_item_apply_attrs")
   (return-type "GSList-PangoGlyphItem*")
+  (caller-owns-return #f)
   (parameters
     '("const-char*" "text")
     '("PangoAttrList*" "list")

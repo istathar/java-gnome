@@ -23,6 +23,7 @@
 (define-method list_displays
   (of-object "GdkDisplayManager")
   (c-name "gdk_display_manager_list_displays")
+  (caller-owns-return #l)
   (return-type "GSList-GdkDisplay*")
 )
 
