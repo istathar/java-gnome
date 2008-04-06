@@ -40,6 +40,7 @@
 (define-method get_cell_renderers
   (of-object "GtkTreeViewColumn")
   (c-name "gtk_tree_view_column_get_cell_renderers")
+  (caller-owns-return #l)
   (return-type "GList-GtkCellRenderers*")
 )
 

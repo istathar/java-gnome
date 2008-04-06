@@ -1,9 +1,9 @@
 /*
  * FundamentalArrayThing.java
  *
- * Copyright (c) 2007 Operational Dynamics Consulting Pty Ltd
+ * Copyright (c) 2007-2008 Operational Dynamics Consulting Pty Ltd, and Others
  * 
- * The code in this file, and the library it is a part of, are made available
+ * The code in this file, and the program it is a part of, are made available
  * to you by the authors under the terms of the "GNU General Public Licence,
  * version 2" See the LICENCE file for the terms governing usage and
  * redistribution.
@@ -40,6 +40,8 @@ public class FundamentalArrayThing extends ArrayThing
             return "(*env)->GetIntArrayElements(env, _" + name + ", NULL)";
         } else if (jniType.equals("jbyteArray")) {
             return "(*env)->GetByteArrayElements(env, _" + name + ", NULL)";
+        } else if (jniType.equals("jlongArray")) {
+            return "(*env)->GetLongArrayElements(env, _" + name + ", NULL)";
         } else {
             throw new Error(
                     "Code generator asked to deal with an array case for which we do not have logic. Stop.");
@@ -57,6 +59,8 @@ public class FundamentalArrayThing extends ArrayThing
             return "(*env)->ReleaseIntArrayElements(env, _" + name + ", (jint*)" + name + ", 0)";
         } else if (jniType.equals("jbyteArray")) {
             return "(*env)->ReleaseByteArrayElements(env, _" + name + ", (jbyte*)" + name + ", 0)";
+        } else if (jniType.equals("jlongArray")) {
+            return "(*env)->ReleaseLongArrayElements(env, _" + name + ", (jlong*)" + name + ", 0)";
         } else {
             throw new Error();
         }
@@ -71,6 +75,14 @@ public class FundamentalArrayThing extends ArrayThing
     String jniReturnEncode(String name) {
         System.out.println("Warning: Not supported return of fundamental array.");
         return "NULL";
+    }
+
+    String jniReturnCleanup(String name, char callerOwnsReturn) {
+        if (callerOwnsReturn != 'f') {
+            return "g_free(" + name + ")";
+        } else {
+            return null;
+        }
     }
 
     String translationToJava(String name, DefsFile data) {

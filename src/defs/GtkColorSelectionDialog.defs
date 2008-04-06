@@ -14,7 +14,6 @@
 (define-function gtk_color_selection_dialog_new
   (is-constructor-of "GtkColorSelectionDialog")
   (c-name "gtk_color_selection_dialog_new")
-  (caller-owns-return #t)
   (return-type "GtkWidget*")
   (parameters
     '("const-gchar*" "title")

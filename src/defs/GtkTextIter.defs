@@ -173,6 +173,7 @@
 (define-method get_tags
   (of-object "GtkTextIter")
   (c-name "gtk_text_iter_get_tags")
+  (caller-owns-return #l)
   (return-type "GSList-GtkTextTag*")
 )
 

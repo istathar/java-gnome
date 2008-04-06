@@ -1,10 +1,10 @@
 /*
  * StringArrayThing.java
  *
- * Copyright (c) 2007 Operational Dynamics Consulting Pty Ltd
- * Copyright (c) 2007 Vreixo Formoso
+ * Copyright (c) 2007-2008 Operational Dynamics Consulting Pty Ltd
+ * Copyright (c) 2007-2008 Vreixo Formoso
  * 
- * The code in this file, and the library it is a part of, are made available
+ * The code in this file, and the program it is a part of, are made available
  * to you by the authors under the terms of the "GNU General Public Licence,
  * version 2" See the LICENCE file for the terms governing usage and
  * redistribution.
@@ -35,7 +35,17 @@ public class StringArrayThing extends ArrayThing
     }
 
     String jniReturnEncode(String name) {
-        return "bindings_java_convert_gchararray_to_jarray(env, " + name + ")";
+        return "bindings_java_convert_gchararray_to_jarray(env, (const gchar**)" + name + ")";
+    }
+
+    String jniReturnCleanup(String name, char callerOwnsReturn) {
+        if (callerOwnsReturn == 't') {
+            return "g_strfreev(" + name + ")";
+        } else if (callerOwnsReturn == 'l') {
+            return "g_free(" + name + ")";
+        } else {
+            return null;
+        }
     }
 
     String translationToJava(String name, DefsFile data) {

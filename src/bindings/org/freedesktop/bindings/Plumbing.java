@@ -387,4 +387,6 @@ public abstract class Plumbing
      * visibility rules are ignored) to create Proxy instances.
      */
     private static native Flag createFlag(Class<?> type, int ordinal, String nickname);
+
+    static final native String toHexString(long pointer);
 }

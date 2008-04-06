@@ -71,6 +71,7 @@
   (of-object "GtkUIManager")
   (c-name "gtk_ui_manager_get_toplevels")
   (return-type "GSList-GtkWidget*")
+  (caller-owns-return #l)
   (parameters
     '("GtkUIManagerItemType" "types")
   )

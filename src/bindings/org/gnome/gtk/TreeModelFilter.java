@@ -140,8 +140,9 @@ public class TreeModelFilter extends TreeModel implements TreeDragSource
     public interface VISIBLE extends GtkTreeModelFilter.VISIBLE
     {
         /**
-         * Return <code>true</code> for the row to be included in the model,
-         * or <code>false</code> for the row to be filtered out.
+         * Answer the question "is this row to be visible?" Return
+         * <code>true</code> for the row to be included in the model, or
+         * <code>false</code> for the row to be filtered out.
          * 
          * <p>
          * <b>Warning!</b><br/> <code>row</code> is a valid TreeIter in
@@ -154,6 +155,20 @@ public class TreeModelFilter extends TreeModel implements TreeDragSource
          * @since 4.0.6
          */
         public boolean onVisible(TreeModelFilter source, TreeModel base, TreeIter row);
+    }
+
+    private static class VisibleHandler implements GtkTreeModelFilter.VISIBLE
+    {
+        private final VISIBLE handler;
+
+        VisibleHandler(VISIBLE handler) {
+            this.handler = handler;
+        }
+
+        public boolean onVisible(TreeModelFilter source, TreeModel base, TreeIter row) {
+            row.setModel(base);
+            return handler.onVisible(source, base, row);
+        }
     }
 
     /**
@@ -172,7 +187,7 @@ public class TreeModelFilter extends TreeModel implements TreeDragSource
      */
     public void setVisibleCallback(VISIBLE callback) {
         GtkTreeModelFilterOverride.setVisibleFunc(this);
-        GtkTreeModelFilter.connect(this, callback);
+        GtkTreeModelFilter.connect(this, new VisibleHandler(callback));
     }
 
     /**

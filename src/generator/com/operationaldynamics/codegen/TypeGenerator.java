@@ -4,7 +4,7 @@
  * Copyright (c) 2007-2008 Operational Dynamics Consulting Pty Ltd
  * Copyright (c) 2007      Vreixo Formoso
  * 
- * The code in this file, and the library it is a part of, are made available
+ * The code in this file, and the program it is a part of, are made available
  * to you by the authors under the terms of the "GNU General Public Licence,
  * version 2" See the LICENCE file for the terms governing usage and
  * redistribution.
@@ -82,7 +82,7 @@ abstract class TypeGenerator extends Generator
         out.print("\n *\n");
         out.print(" * Copyright (c) 2006-2008 Operational Dynamics Consulting Pty Ltd, and Others\n");
         out.print(" *\n");
-        out.print(" * The code in this file, and the library it is a part of, are made available\n");
+        out.print(" * The code in this file, and the program it is a part of, are made available\n");
         out.print(" * to you by the authors under the terms of the \"GNU General Public Licence,\n");
         out.print(" * version 2\" plus the \"Classpath Exception\" (you may link to this code as a\n");
         out.print(" * library into other programs provided you don't make a derivation of it).\n");
