@@ -65,7 +65,7 @@ bindings_java_toggle
 		 * GObject, and remove strong Java reference
 		 */
 		if (DEBUG_MEMORY_MANAGEMENT) {
-			g_print("mem: toggle Java ref to WEAK\t%ld\n", (long) object);
+			g_print("mem: toggle Java ref to WEAK\t%s\n", bindings_java_memory_pointerToString(object));
 		}
 		weak = (*env)->NewWeakGlobalRef(env, ref);
 		g_object_set_data(object, REFERENCE, weak);
@@ -77,7 +77,7 @@ bindings_java_toggle
 		 * replaced it with a strong one. 
 		 */
 		if (DEBUG_MEMORY_MANAGEMENT) {
-			g_print("mem: toggle Java ref to STRONG\t%ld\n", (long) object);
+			g_print("mem: toggle Java ref to STRONG\t%s\n", bindings_java_memory_pointerToString(object));
 		}
 
 		strong = (*env)->NewGlobalRef(env, ref);
@@ -109,7 +109,7 @@ bindings_java_memory_deref
         
                 
 	if (DEBUG_MEMORY_MANAGEMENT) {
-		g_print("mem: drop GObject ref\t\t%ld\n", (long) object);
+		g_print("mem: drop GObject ref\t\t%s\n", bindings_java_memory_pointerToString(object));
 	}
         g_object_unref(object);
         return FALSE;
@@ -145,7 +145,7 @@ bindings_java_memory_ref
 	 */
  
  	if (DEBUG_MEMORY_MANAGEMENT) {
- 		g_print("mem: add STRONG Java ref\t%ld\n", (long) object);
+ 		g_print("mem: add STRONG Java ref\t%s\n", bindings_java_memory_pointerToString(object));
  	}
 	strong = (*env)->NewGlobalRef(env, target);
 	g_object_set_data(object, REFERENCE, strong);
@@ -189,7 +189,7 @@ bindings_java_memory_unref
 )
 {
 	if (DEBUG_MEMORY_MANAGEMENT) {
-		g_print("mem: remove toggle ref for\t%ld\n", (long) object);
+		g_print("mem: remove toggle ref for\t%s\n", bindings_java_memory_pointerToString(object));
 	}
 
 	g_object_remove_toggle_ref(object, bindings_java_toggle, NULL);
@@ -217,7 +217,7 @@ bindings_java_memory_cleanup
         if (owner) {
             if (G_IS_INITIALLY_UNOWNED(object) && g_object_is_floating(object)) {
                 if (DEBUG_MEMORY_MANAGEMENT) {
-                    g_print("mem: sink GObject ref\t\t%ld\n", (long) object);
+                    g_print("mem: sink GObject ref\t\t%s\n", bindings_java_memory_pointerToString(object));
                 }
                 g_object_ref_sink(object);
             }
@@ -227,7 +227,7 @@ bindings_java_memory_cleanup
              * Object constructor assumes we actually own the object.
              */
             if (DEBUG_MEMORY_MANAGEMENT) {
-                g_print("mem: added extra ref for\t%ld\n", (long) object);
+                g_print("mem: added extra ref for\t%s\n", bindings_java_memory_pointerToString(object));
             }
             g_object_ref(object);
         }
@@ -240,9 +240,38 @@ bindings_java_memory_cleanup
          */
         if (owner) {
             if (DEBUG_MEMORY_MANAGEMENT) {
-                g_print("mem: remove ref for\t%ld\n", (long) object);
+                g_print("mem: remove ref for\t%s\n", bindings_java_memory_pointerToString(object));
             }
             g_object_unref(object);
         }
     }
+}
+
+#if GLIB_SIZEOF_VOID_P == 8
+#define WIDTH "16"
+#define SIZE GLIB_SIZEOF_VOID_P * 2 + 3
+#else
+#define WIDTH "8"
+#define SIZE GLIB_SIZEOF_VOID_P * 2 + 3
+#endif
+
+/*
+ * A utility function to format a pointer address as an appropriate width
+ * string. This is necessary because of the inadequecies of printf's %p.
+ * The return value is statically allocated and must not be free'd. 
+ * 
+ * This is called when debugging, both from C and from Java via
+ * Plumbing.toHexString()
+ */
+const gchar*
+bindings_java_memory_pointerToString
+(
+	gpointer pointer
+)
+{
+	static gchar result[SIZE];
+	
+	g_snprintf(result, SIZE, "0x%." WIDTH "lX", (unsigned long) pointer);
+	
+	return result;
 }
