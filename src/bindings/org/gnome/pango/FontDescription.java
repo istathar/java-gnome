@@ -101,4 +101,18 @@ public final class FontDescription extends Boxed
     public String getFamily() {
         return PangoFontDescription.getFamily(this);
     }
+
+    /**
+     * Set the slant style of the Font.
+     */
+    public void setStyle(Style style) {
+        PangoFontDescription.setStyle(this, style);
+    }
+
+    /**
+     * Get the slant style of the Font.
+     */
+    public Style getStyle() {
+        return PangoFontDescription.getStyle(this);
+    }
 }

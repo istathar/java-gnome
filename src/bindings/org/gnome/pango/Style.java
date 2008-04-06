@@ -2,6 +2,7 @@
  * Style.java
  *
  * Copyright (c) 2007 Operational Dynamics Consulting Pty Ltd
+ * Copyright (c) 2008 Vreixo Formoso
  *
  * The code in this file, and the library it is a part of, are made available
  * to you by the authors under the terms of the "GNU General Public Licence,
@@ -13,17 +14,35 @@ package org.gnome.pango;
 
 import org.freedesktop.bindings.Constant;
 
-/*
- * FIXME this is a placeholder stub for what will become the public API for
- * this type. Replace this comment with appropriate javadoc including author
- * and since tags. Note that the class may need to be made abstract, implement
- * interfaces, or even have its parent changed. No API stability guarantees
- * are made about this class until it has been reviewed by a hacker and this
- * comment has been replaced.
+/**
+ * Possible slant styles of a Font.
+ * 
+ * <p>
+ * Note that most fonts will either have a ITALIC Style or an OBLIQUE Style,
+ * but not both, and font matching in Pango will match italic specifications
+ * with oblique fonts and vice-versa if an exact match is not found.
+ * 
+ * @author Vreixo Formoso
+ * @since 4.0.8
  */
 public final class Style extends Constant
 {
     private Style(int ordinal, String nickname) {
         super(ordinal, nickname);
     }
+
+    /**
+     * The font is upright.
+     */
+    public final static Style NORMAL = new Style(PangoStyle.NORMAL, "NORMAL");
+
+    /**
+     * The font is slanted, but in a roman Style.
+     */
+    public final static Style OBLIQUE = new Style(PangoStyle.OBLIQUE, "OBLIQUE");
+
+    /**
+     * The font is slanted in an italic Style.
+     */
+    public final static Style ITALIC = new Style(PangoStyle.ITALIC, "ITALIC");
 }
