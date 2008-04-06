@@ -141,7 +141,14 @@
   (return-type "none")
 )
 
-
+(define-method show_layout
+  (of-object "cairo_t")
+  (c-name "pango_cairo_show_layout")
+  (return-type "none")
+  (parameters
+    '("PangoLayout*" "layout")
+  )
+)
 
 (define-method get_source
   (of-object "cairo_t")

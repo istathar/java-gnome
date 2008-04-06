@@ -12,6 +12,7 @@
 package org.freedesktop.cairo;
 
 import org.gnome.gdk.Drawable;
+import org.gnome.pango.Layout;
 
 /**
  * Carry out drawing operations with the Cairo Graphics library. The current
@@ -393,6 +394,19 @@ public class Context extends Entity
         checkStatus();
     }
 
+    /**
+     * Draw a paragraph of text.
+     * 
+     * <p>
+     * The text to draw and its format is specified in a Pango {@link Layout},
+     * previously {@link Layout#Layout(Context) constructed} with this Context.
+     * 
+     * @since 4.0.8
+     */
+    public void showLayout(Layout layout) {
+        CairoContext.showLayout(this, layout);
+    }
+    
     /**
      * Set a Pattern to be the source of this Context.
      * 

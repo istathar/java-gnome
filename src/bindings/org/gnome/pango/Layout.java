@@ -2,6 +2,7 @@
  * Layout.java
  *
  * Copyright (c) 2007 Operational Dynamics Consulting Pty Ltd
+ * Copyright (c) 2008 Vreixo Formoso
  *
  * The code in this file, and the library it is a part of, are made available
  * to you by the authors under the terms of the "GNU General Public Licence,
@@ -13,17 +14,59 @@ package org.gnome.pango;
 
 import org.gnome.glib.Object;
 
-/*
- * FIXME this is a placeholder stub for what will become the public API for
- * this type. Replace this comment with appropriate javadoc including author
- * and since tags. Note that the class may need to be made abstract, implement
- * interfaces, or even have its parent changed. No API stability guarantees
- * are made about this class until it has been reviewed by a hacker and this
- * comment has been replaced.
+/**
+ * A Layout represents a paragraph of text, together with its attributes.
+ * 
+ * @author Vreixo Formoso
+ * @since 4.0.8
  */
 public class Layout extends Object
 {
     protected Layout(long pointer) {
         super(pointer);
+    }
+
+    /**
+     * Create a new Layout configured to draw using the given Cairo Context
+     * backend.
+     * 
+     * <p>
+     * This Layout can be used to set up the text to draw and its properties.
+     * 
+     * <p>
+     * To actually draw the text, you will need to call
+     * {@link org.freedesktop.cairo.Context#showLayout(Layout) showLayout()}
+     * method on the Cairo Context.
+     * 
+     * TODO If you change the transformation or target surface for context,
+     * you need to call pango_cairo_update_layout()
+     */
+    public Layout(org.freedesktop.cairo.Context context) {
+        super(PangoLayout.createLayout(context));
+    }
+
+    /**
+     * Sets the text of the Layout. This is the text that will be draw.
+     * 
+     * @see #setMarkup(String)
+     */
+    public void setText(String text) {
+        /*
+         * we cannot use text.length(), as the length is in bytes, so we use
+         * -1, to make Pango compute it.
+         */
+        PangoLayout.setText(this, text, -1);
+    }
+
+    /**
+     * Set the text of this Layout. Its format is specified using Pango Markup
+     * format [TODO we need to document pango markup somewhere]
+     */
+    public void setMarkup(String markup) {
+        /*
+         * we cannot use text.length(), as the length is in bytes, so we use
+         * -1, to make Pango compute it.
+         */
+        PangoLayout.setMarkup(this, markup, -1);
     }
 }

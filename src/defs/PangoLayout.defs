@@ -15,6 +15,16 @@
   )
 )
 
+(define-function pango_cairo_layout_new
+  (is-constructor-of "PangoLayout")
+  (c-name "pango_cairo_create_layout")
+  (caller-owns-return #t)
+  (return-type "PangoLayout*")
+  (parameters
+    '("cairo_t*" "context")
+  )
+)
+
 (define-method copy
   (of-object "PangoLayout")
   (c-name "pango_layout_copy")
