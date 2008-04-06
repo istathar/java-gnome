@@ -125,6 +125,14 @@ public class Layout extends Object
     }
 
     /**
+     * Sets the default FontDescription for the Layout. If no fFontDescription
+     * is set, the FontDescription from the Layout's Context is used.
+     */
+    public void setFontDescription(FontDescription desc) {
+        PangoLayout.setFontDescription(this, desc);
+    }
+
+    /**
      * Set the width of the Layout.
      * 
      * <p>

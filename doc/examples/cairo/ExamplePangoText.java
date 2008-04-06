@@ -19,6 +19,7 @@ import org.gnome.gtk.Image;
 import org.gnome.gtk.Widget;
 import org.gnome.gtk.Window;
 import org.gnome.pango.Alignment;
+import org.gnome.pango.FontDescription;
 import org.gnome.pango.Layout;
 
 /**
@@ -46,6 +47,7 @@ public class ExamplePangoText
             public boolean onExposeEvent(Widget source, EventExpose event) {
                 final Context cr;
                 final Layout layout;
+                final FontDescription font;
 
                 /*
                  * We need a Cairo context...
@@ -59,6 +61,12 @@ public class ExamplePangoText
                  * attributes.
                  */
                 layout = new Layout(cr);
+
+                /*
+                 * You can set the default font description.
+                 */
+                font = new FontDescription("Times 12");
+                layout.setFontDescription(font);
 
                 /*
                  * The usage of Pango markup is an easy way to get text
@@ -77,11 +85,11 @@ public class ExamplePangoText
                 layout.setAlignment(Alignment.CENTER);
 
                 /*
-                 * If you want to ensure the full text fits in the Widget,
-                 * the setSizeRequest() is very useful.
+                 * If you want to ensure the full text fits in the Widget, the
+                 * setSizeRequest() is very useful.
                  */
                 source.setSizeRequest(layout.getPixelSizeWidth(), layout.getPixelSizeHeight());
-                
+
                 /*
                  * We can also specify some attributes (such as the color)
                  * with usual Cairo functions.
