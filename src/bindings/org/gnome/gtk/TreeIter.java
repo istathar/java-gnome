@@ -83,7 +83,7 @@ public class TreeIter extends Boxed
     TreeModel getModel() {
         if (model == null) {
             throw new IllegalStateException(
-                    "Sorry, this TreeIter doesn't have its internal reference to its parent TreeModel set");
+                    "\nSorry, this TreeIter doesn't have its internal reference to its parent TreeModel set");
         }
         return model;
     }
