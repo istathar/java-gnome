@@ -212,6 +212,11 @@ public abstract class Thing
         register(new FixmeThing("GdkAtom*"));
 
         /*
+         * Typedefs of fundamental type
+         */
+        register(new TypedefFundamentalThing("PangoGlyphUnit", "int", "int", "jint"));
+
+        /*
          * These seem to be motif-isms.
          */
         register(new BlacklistedThing("GdkWMDecoration*"));
@@ -236,10 +241,8 @@ public abstract class Thing
         register(new FixmeThing("AtkAttributeSet*"));
 
         /*
-         * FUTURE no Cairo bindings, yet
+         * Not exposed Cairo types
          */
-        register(new BlacklistedThing("cairo_t*"));
-        register(new BlacklistedThing("cairo_surface_t*"));
         register(new BlacklistedThing("cairo_font_options_t*"));
 
         /*
