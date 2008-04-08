@@ -127,14 +127,14 @@
   (c-name "gtk_about_dialog_set_authors")
   (return-type "none")
   (parameters
-    '("gchar**" "authors")
+    '("const-gchar**" "authors")
   )
 )
 
 (define-method get_documenters
   (of-object "GtkAboutDialog")
   (c-name "gtk_about_dialog_get_documenters")
-  (return-type "gchar**")
+  (return-type "const-gchar**")
 )
 
 (define-method set_documenters
@@ -142,14 +142,14 @@
   (c-name "gtk_about_dialog_set_documenters")
   (return-type "none")
   (parameters
-    '("gchar**" "documenters")
+    '("const-gchar**" "documenters")
   )
 )
 
 (define-method get_artists
   (of-object "GtkAboutDialog")
   (c-name "gtk_about_dialog_get_artists")
-  (return-type "gchar**")
+  (return-type "const-gchar**")
 )
 
 (define-method set_artists
@@ -157,7 +157,7 @@
   (c-name "gtk_about_dialog_set_artists")
   (return-type "none")
   (parameters
-    '("gchar**" "artists")
+    '("const-gchar**" "artists")
   )
 )
 
