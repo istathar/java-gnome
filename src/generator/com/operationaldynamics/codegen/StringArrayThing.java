@@ -31,7 +31,7 @@ public class StringArrayThing extends ArrayThing
     }
 
     String jniConversionCleanup(String name) {
-        return "bindings_java_convert_gchararray_to_strarray(env, " + name + ", _" + name + ")";
+        return "bindings_java_convert_gchararray_to_strarray(env, (gchar**)" + name + ", _" + name + ")";
     }
 
     String jniReturnEncode(String name) {
