@@ -688,8 +688,7 @@ if ($os eq "gentoo") {
 	check_prereq(@junit_jars,
 		"JUnit test framework",
 		"junit",
-		"$prefix/share/java/junit.jar",
-		"/usr/share/java/junit.jar"); # FIXME
+		"/usr/share/java/junit.jar");
 
 } elsif ($os eq "suse") {
 
@@ -1076,7 +1075,7 @@ if ($os eq "gentoo") {
 
 } elsif ($os eq "mandriva") {
 	# check ecj, the standalone Eclipse compiler.
-	check_compiler($ecj, "Eclipse ecj", which("ecj"), "-g -preserveAllLocals -nowarn -source 1.4 -target 1.4");
+	check_compiler($ecj, "Eclipse ecj", which("ecj"), "-g -preserveAllLocals -nowarn -source 1.5 -target 1.5");
 
 	my $javac_candidate;
 	my $javah_candidate;
@@ -1106,7 +1105,7 @@ if ($os eq "gentoo") {
 	$javah_candidate = "$jdk_home/bin/javah";
 	$jar_candidate = "$jdk_home/bin/jar";
 	$javadoc_candidate = "$jdk_home/bin/javadoc";
-	check_compiler($javac, "$vendor javac", $javac_candidate, "-g -source 1.4 -target 1.4");
+	check_compiler($javac, "$vendor javac", $javac_candidate, "-g -source 1.5 -target 1.5");
 
 	check_jni_header_generator($javah, "$vendor javah", $javah_candidate, "-jni");
 	check_jar($jar, "$vendor jar", $jar_candidate, "");
