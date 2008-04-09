@@ -1091,7 +1091,7 @@ if ($os eq "gentoo") {
 		"/usr/lib/jvm/jdk-1.5.0-sun", 
 		"/usr/lib/jvm/jre-1.6.0-sun",
 		"/usr/lib/jvm/jre-1.5.0-sun" ) {
-			if ( -d "$possible" ) {
+			if ( -d "$possible/" ) {
 				$jdk_home = $possible;
 				last;
 			}
@@ -1428,7 +1428,7 @@ if ($os eq "gentoo") {
 		"/usr/lib/jvm/jdk-1.5.0-sun", 
 		"/usr/lib/jvm/jre-1.6.0-sun",
 		"/usr/lib/jvm/jre-1.5.0-sun" ) {
-			if ( -d "$possible" ) {
+			if ( -d "$possible/" ) {
 				$jdk_home = $possible;
 				last;
 			}
