@@ -3,7 +3,7 @@
  *
  * Copyright (c) 2007 Operational Dynamics Consulting Pty Ltd
  * 
- * The code in this file, and the library it is a part of, are made available
+ * The code in this file, and the suite it is a part of, are made available
  * to you by the authors under the terms of the "GNU General Public Licence,
  * version 2" See the LICENCE file for the terms governing usage and
  * redistribution.
@@ -36,5 +36,38 @@ public class ValidateEnvironment extends TestCaseGtk
             assertTrue("How come your user name is not in your home directory location?",
                     (home.indexOf(username) != -1));
         }
+    }
+
+    public final void testSetEnvironmentVariable() {
+        String blah;
+        final String SOMETHING_UNIQUE = "SOMETHING_UNIQUE";
+
+        /*
+         * Ensure it's empty
+         */
+        blah = Environment.getEnv(SOMETHING_UNIQUE);
+        assertNull(blah);
+
+        Environment.setEnv(SOMETHING_UNIQUE, "Absolutely");
+
+        blah = Environment.getEnv(SOMETHING_UNIQUE);
+        assertNotNull(blah);
+        assertEquals("Absolutely", blah);
+
+        /*
+         * And test that it will overwrite
+         */
+        Environment.setEnv(SOMETHING_UNIQUE, "Fantastic");
+
+        blah = Environment.getEnv(SOMETHING_UNIQUE);
+        assertNotNull(blah);
+        assertEquals("Fantastic", blah);
+
+        /*
+         * Finally, test deleting
+         */
+        Environment.setEnv(SOMETHING_UNIQUE, null);
+        blah = Environment.getEnv(SOMETHING_UNIQUE);
+        assertNull(blah);
     }
 }

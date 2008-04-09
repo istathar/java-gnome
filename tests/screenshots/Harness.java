@@ -3,7 +3,7 @@
  *
  * Copyright (c) 2007 Operational Dynamics Consulting Pty Ltd
  *
- * The code in this file, and the library it is a part of, are made available
+ * The code in this file, and the program it is a part of, are made available
  * to you by the authors under the terms of the "GNU General Public Licence,
  * version 2" See the LICENCE file for the terms governing usage and
  * redistribution.
@@ -12,6 +12,8 @@
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
+import org.freedesktop.cairo.SnapshotContextLine;
+import org.freedesktop.cairo.SnapshotContextRectangle;
 import org.gnome.gdk.Pixbuf;
 import org.gnome.gdk.PixbufFormat;
 import org.gnome.gtk.Gtk;
@@ -26,6 +28,7 @@ import org.gnome.gtk.SnapshotQuestionMessageDialog;
 import org.gnome.gtk.SnapshotStatusbar;
 import org.gnome.gtk.SnapshotTextComboBox;
 import org.gnome.gtk.SnapshotTextComboBoxEntry;
+import org.gnome.gtk.SnapshotTreeStore;
 import org.gnome.gtk.SnapshotTreeView;
 import org.gnome.gtk.SnapshotVScale;
 import org.gnome.gtk.SnapshotWindow;
@@ -119,13 +122,16 @@ public final class Harness
                     SnapshotInfoMessageDialog.class,
                     SnapshotQuestionMessageDialog.class,
                     SnapshotTreeView.class,
+                    SnapshotTreeStore.class,
                     SnapshotFileChooserDialog.class,
                     SnapshotAboutDialog.class,
                     SnapshotHScale.class,
                     SnapshotVScale.class,
                     SnapshotComboBox.class,
                     SnapshotTextComboBox.class,
-                    SnapshotTextComboBoxEntry.class
+                    SnapshotTextComboBoxEntry.class,
+                    SnapshotContextLine.class,
+                    SnapshotContextRectangle.class
             };
 
             /*

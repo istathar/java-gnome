@@ -1137,11 +1137,6 @@
   (return-type "GType")
 )
 
-(define-function screen_get_default
-  (c-name "gdk_screen_get_default")
-  (return-type "GdkScreen*")
-)
-
 (define-function selection_owner_set
   (c-name "gdk_selection_owner_set")
   (return-type "gboolean")
@@ -1255,11 +1250,6 @@
 (define-function gdk_visual_get_type
   (c-name "gdk_visual_get_type")
   (return-type "GType")
-)
-
-(define-function visual_get_best_depth
-  (c-name "gdk_visual_get_best_depth")
-  (return-type "gint")
 )
 
 (define-function visual_get_best_type
@@ -1411,11 +1401,6 @@
   (parameters
     '("const-GdkPointerHooks*" "new_hooks")
   )
-)
-
-(define-function get_default_root_window
-  (c-name "gdk_get_default_root_window")
-  (return-type "GdkWindow*")
 )
 
 (define-function pixbuf_new_from_data
@@ -2895,29 +2880,6 @@
   (return-type "GType")
 )
 
-(define-function icon_theme_get_default
-  (c-name "gtk_icon_theme_get_default")
-  (return-type "GtkIconTheme*")
-)
-
-(define-function icon_theme_get_for_screen
-  (c-name "gtk_icon_theme_get_for_screen")
-  (return-type "GtkIconTheme*")
-  (parameters
-    '("GdkScreen*" "screen")
-  )
-)
-
-(define-function icon_theme_add_builtin_icon
-  (c-name "gtk_icon_theme_add_builtin_icon")
-  (return-type "none")
-  (parameters
-    '("const-gchar*" "icon_name")
-    '("gint" "size")
-    '("GdkPixbuf*" "pixbuf")
-  )
-)
-
 (define-function gtk_icon_info_get_type
   (c-name "gtk_icon_info_get_type")
   (return-type "GType")
@@ -2926,15 +2888,6 @@
 (define-function gtk_icon_view_get_type
   (c-name "gtk_icon_view_get_type")
   (return-type "GType")
-)
-
-(define-function gtk_icon_view_new_with_model
-  (c-name "gtk_icon_view_new_with_model")
-  (caller-owns-return #t)
-  (return-type "GtkWidget*")
-  (parameters
-    '("GtkTreeModel*" "model")
-  )
 )
 
 (define-function gtk_image_get_type

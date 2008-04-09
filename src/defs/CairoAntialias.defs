@@ -1,0 +1,10 @@
+(define-enum Antialias
+  (in-module "Cairo")
+  (c-name "cairo_antialias_t")
+  (values
+    '("default" "CAIRO_ANTIALIAS_DEFAULT")
+    '("none" "CAIRO_ANTIALIAS_NONE")
+    '("gray" "CAIRO_ANTIALIAS_GRAY")
+    '("subpixel" "CAIRO_ANTIALIAS_SUBPIXEL")
+  )
+)

@@ -13,6 +13,16 @@
   (return-type "GtkWidget*")
 )
 
+(define-function gtk_icon_view_new_with_model
+  (is-constructor-of "GtkIconView")
+  (c-name "gtk_icon_view_new_with_model")
+  (caller-owns-return #t)
+  (return-type "GtkWidget*")
+  (parameters
+    '("GtkTreeModel*" "model")
+  )
+)
+
 (define-method set_model
   (of-object "GtkIconView")
   (c-name "gtk_icon_view_set_model")
@@ -265,6 +275,7 @@
 (define-method get_selected_items
   (of-object "GtkIconView")
   (c-name "gtk_icon_view_get_selected_items")
+  (caller-owns-return #f)
   (return-type "GList-GtkTreePath*")
 )
 

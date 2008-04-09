@@ -11,6 +11,8 @@
  */
 package org.gnome.gtk;
 
+import org.gnome.gdk.Pixbuf;
+
 /**
  * Wrap real Value class so that we can keep the visibility of its methods
  * restricted. See {@link org.gnome.glib.Value Value} for all the details.
@@ -61,15 +63,23 @@ class Value extends org.gnome.glib.Value
         super(value);
     }
 
-    public Value(org.gnome.glib.Object obj) {
+    Value(org.gnome.glib.Object obj) {
         super(obj);
     }
 
+    Value(Pixbuf pixbuf) {
+        super(pixbuf);
+    }
+
     /*
-     * Used by things like Pixbuf which is a GObject, not a GtkObject!
+     * Used by GObject, not GtkObject!
      */
-    public org.gnome.glib.Object getObject() {
+    protected org.gnome.glib.Object getObject() {
         return super.getObject();
+    }
+
+    protected Pixbuf getPixbuf() {
+        return super.getPixbuf();
     }
 
     protected float getFloat() {

@@ -3,7 +3,7 @@
  *
  * Copyright (c) 2007-2008 Operational Dynamics Consulting Pty Ltd, and Others
  *
- * The code in this file, and the library it is a part of, are made available
+ * The code in this file, and the program it is a part of, are made available
  * to you by the authors under the terms of the "GNU General Public Licence,
  * version 2" See the LICENCE file for the terms governing usage and
  * redistribution.
@@ -110,7 +110,7 @@ public class ExampleTrailHeads
         model.setValue(row, placeName, "Appalachian Trail\n<small>(roller coaster section)</small>");
         model.setValue(row, trailHead, "Harpers Ferry, West Virginia, USA");
         model.setValue(row, elevationFormatted, "147 m");
-        model.setValue(row, elevationSort, 112);
+        model.setValue(row, elevationSort, 147);
         model.setValue(row, accessibleByTrain, true);
 
         /*

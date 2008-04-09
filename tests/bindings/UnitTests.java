@@ -1,9 +1,9 @@
 /*
  * UnitTests.java
  *
- * Copyright (c) 2007 Operational Dynamics Consulting Pty Ltd
+ * Copyright (c) 2007-2008 Operational Dynamics Consulting Pty Ltd
  * 
- * The code in this file, and the library it is a part of, are made available
+ * The code in this file, and the suite it is a part of, are made available
  * to you by the authors under the terms of the "GNU General Public Licence,
  * version 2" See the LICENCE file for the terms governing usage and
  * redistribution.
@@ -14,6 +14,9 @@ import junit.framework.TestSuite;
 
 import org.freedesktop.bindings.Debug;
 import org.freedesktop.bindings.ValidateEnvironment;
+import org.freedesktop.bindings.ValidateInternationalization;
+import org.freedesktop.cairo.ValidateCairoInternals;
+import org.freedesktop.cairo.ValidateDrawingToFile;
 import org.gnome.gdk.ValidateImageHandling;
 import org.gnome.gdk.ValidateKeyboardHandling;
 import org.gnome.gdk.ValidateScreensAndDisplays;
@@ -31,6 +34,8 @@ import org.gnome.gtk.ValidateResponseType;
 import org.gnome.gtk.ValidateSnapshotUtilities;
 import org.gnome.gtk.ValidateStockItems;
 import org.gnome.gtk.ValidateTreeModel;
+import org.gnome.gtk.ValidateTreeModelFilter;
+import org.gnome.gtk.ValidateTreeStore;
 import org.gnome.gtk.ValidateTreeView;
 
 import com.operationaldynamics.codegen.ValidateThingUsage;
@@ -104,6 +109,7 @@ public class UnitTests
         suite.addTestSuite(ValidateDefsParsing.class);
         suite.addTestSuite(ValidateThingUsage.class);
         suite.addTestSuite(ValidateEnvironment.class);
+        suite.addTestSuite(ValidateInternationalization.class);
         suite.addTestSuite(ValidateReferenceCounting.class);
         suite.addTestSuite(ValidateMemoryManagement.class);
         suite.addTestSuite(ValidateGListMethods.class);
@@ -112,12 +118,16 @@ public class UnitTests
         suite.addTestSuite(ValidateScreensAndDisplays.class);
         suite.addTestSuite(ValidateKeyboardHandling.class);
         suite.addTestSuite(ValidateImageHandling.class);
+        suite.addTestSuite(ValidateCairoInternals.class);
+        suite.addTestSuite(ValidateDrawingToFile.class);
         suite.addTestSuite(ValidateOutParameters.class);
         suite.addTestSuite(ValidatePacking.class);
         suite.addTestSuite(ValidateFileChoosing.class);
         suite.addTestSuite(ValidateStockItems.class);
         suite.addTestSuite(ValidateResponseType.class);
         suite.addTestSuite(ValidateTreeModel.class);
+        suite.addTestSuite(ValidateTreeStore.class);
+        suite.addTestSuite(ValidateTreeModelFilter.class);
         suite.addTestSuite(ValidateTreeView.class);
         suite.addTestSuite(ValidateComboBox.class);
         suite.addTestSuite(ValidateSnapshotUtilities.class);

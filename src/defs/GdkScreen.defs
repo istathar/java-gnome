@@ -101,12 +101,14 @@
 (define-method list_visuals
   (of-object "GdkScreen")
   (c-name "gdk_screen_list_visuals")
+  (caller-owns-return #l)
   (return-type "GList-GdkVisual*")
 )
 
 (define-method get_toplevel_windows
   (of-object "GdkScreen")
   (c-name "gdk_screen_get_toplevel_windows")
+  (caller-owns-return #l)
   (return-type "GList-GdkWindow*")
 )
 
@@ -227,11 +229,18 @@
 (define-method get_window_stack
   (of-object "GdkScreen")
   (c-name "gdk_screen_get_window_stack")
+  (caller-owns-return #f)
   (return-type "GList-GdkWindow*")
 )
 
 (define-virtual composited_changed
   (of-object "GdkScreen")
   (return-type "none")
+)
+
+(define-function get_default
+  (of-object "GdkScreen")
+  (c-name "gdk_screen_get_default")
+  (return-type "GdkScreen*")
 )
 

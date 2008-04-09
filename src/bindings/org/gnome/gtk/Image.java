@@ -1,7 +1,7 @@
 /*
  * Image.java
  *
- * Copyright (c) 2007 Operational Dynamics Consulting Pty Ltd, and Others
+ * Copyright (c) 2007-2008 Operational Dynamics Consulting Pty Ltd, and Others
  *
  * The code in this file, and the library it is a part of, are made available
  * to you by the authors under the terms of the "GNU General Public Licence,
@@ -11,7 +11,9 @@
  */
 package org.gnome.gtk;
 
+import org.gnome.gdk.Bitmap;
 import org.gnome.gdk.Pixbuf;
+import org.gnome.gdk.Pixmap;
 
 /**
  * A Widget that displays an image.
@@ -41,6 +43,18 @@ public class Image extends Misc
     }
 
     /**
+     * Create a new, but empty, Image Widget. This can be used as a blank
+     * slate upon which you can do arbitrary Cairo drawing in an
+     * <code>EXPOSE_EVENT</code> handler, or you can use the setters on this
+     * class to emplace image data later.
+     * 
+     * @since 4.0.7
+     */
+    public Image() {
+        super(GtkImage.createImage());
+    }
+
+    /**
      * Construct a new Image Widget from an image already loaded into a
      * Pixbuf.
      * 
@@ -66,5 +80,16 @@ public class Image extends Misc
      */
     public Image(Stock stock, IconSize size) {
         super(GtkImage.createImageFromStock(stock.getStockId(), size));
+    }
+
+    /**
+     * Construct a new Image based on an existing Pixmap. Though passing a
+     * mask is supported via the <code>mask</code> parameter, you generally
+     * just want to mass <code>null</code>.
+     * 
+     * @since 4.0.7
+     */
+    public Image(Pixmap pixmap, Bitmap mask) {
+        super(GtkImage.createImageFromPixmap(pixmap, mask));
     }
 }

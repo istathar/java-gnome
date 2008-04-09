@@ -1,0 +1,41 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: example 0.1\n"
+"PO-Revision-Date: 2008-03-22 17:04+0100\n"
+"Last-Translator: Vreixo Formoso <metalpain2002@yahoo.es>\n"
+"Language-Team: Portuguese <translation-team-pt@lists.sourceforge.net>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: ../ExampleTranslation.java:30
+msgid "Goodbye"
+msgstr "Adeus"
+
+#: ../ExampleTranslation.java:40
+msgid "Hello"
+msgstr "Olá"
+
+#: ../ExampleTranslation.java:45
+#, java-format
+msgid "User name is {0} and home dir is {1}"
+msgstr "O nome de usuário é {0} e a pasta pessoal é {1}"
+
+#: ../ExampleTranslation.java:48
+#, java-format
+msgid "This costs {0,number,currency}"
+msgstr "Isto custa {0,number,currency}"
+
+#: ../ExampleTranslation.java:49
+#, java-format
+msgid "Today is {0,date,long}"
+msgstr "Hoje é {0,date,long}"
+
+#: ../ExampleTranslation.java:52
+#, java-format
+msgid ""
+"There {0,choice,0#are no files|1#is one file|1<are {0,number,integer} files}."
+msgstr ""
+"{0,choice,0#Não há arquivos|1#Há um arquivo|1<Há {0,number,integer} "
+"arquivos}."

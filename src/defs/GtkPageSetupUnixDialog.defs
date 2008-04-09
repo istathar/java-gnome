@@ -9,7 +9,6 @@
 (define-function gtk_page_setup_unix_dialog_new
   (is-constructor-of "GtkPageSetupUnixDialog")
   (c-name "gtk_page_setup_unix_dialog_new")
-  (caller-owns-return #t)
   (return-type "GtkWidget*")
   (parameters
     '("const-gchar*" "title" (default "NULL") (null-ok))

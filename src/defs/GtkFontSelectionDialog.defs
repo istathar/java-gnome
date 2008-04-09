@@ -16,7 +16,6 @@
 (define-function gtk_font_selection_dialog_new
   (is-constructor-of "GtkFontSelectionDialog")
   (c-name "gtk_font_selection_dialog_new")
-  (caller-owns-return #t)
   (return-type "GtkWidget*")
   (parameters
     '("const-gchar*" "title")

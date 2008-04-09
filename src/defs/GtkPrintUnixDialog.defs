@@ -9,7 +9,6 @@
 (define-function gtk_print_unix_dialog_new
   (is-constructor-of "GtkPrintUnixDialog")
   (c-name "gtk_print_unix_dialog_new")
-  (caller-owns-return #t)
   (return-type "GtkWidget*")
   (parameters
     '("const-gchar*" "title" (default "NULL") (null-ok))

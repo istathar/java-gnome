@@ -3,7 +3,7 @@
  *
  * Copyright (c) 2007 Operational Dynamics Consulting Pty Ltd
  * 
- * The code in this file, and the library it is a part of, are made available
+ * The code in this file, and the program it is a part of, are made available
  * to you by the authors under the terms of the "GNU General Public Licence,
  * version 2" See the LICENCE file for the terms governing usage and
  * redistribution.
@@ -55,7 +55,7 @@ public class VirtualGenerator extends FunctionGenerator
      */
     public VirtualGenerator(final DefsFile data, final String blockName, final String gReturnType,
             final String[][] gParameters) {
-        super(data, "connect", gReturnType, null, gParameters);
+        super(data, "connect", gReturnType, null, gParameters, 'f');
 
         this.javaSignalClass = toAllCaps(blockName);
         this.cSignalName = blockName;

@@ -1,7 +1,7 @@
 /*
  * TreeSortable.java
  *
- * Copyright (c) 2007 Operational Dynamics Consulting Pty Ltd
+ * Copyright (c) 2007-2008 Operational Dynamics Consulting Pty Ltd
  *
  * The code in this file, and the library it is a part of, are made available
  * to you by the authors under the terms of the "GNU General Public Licence,
@@ -21,4 +21,15 @@ package org.gnome.gtk;
  */
 public interface TreeSortable
 {
+
+    /**
+     * Specify the column from your (underlying) data model which will be used
+     * for sorting this TreeModelSort. Specify
+     * {@link SortType#ASCENDING ASCENDING} or
+     * {@link SortType#DESCENDING DESCENDING} order via the
+     * <code>ordering</code> parameter.
+     * 
+     * @since 4.0.7
+     */
+    public void setSortColumn(DataColumn column, SortType ordering);
 }

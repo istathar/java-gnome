@@ -207,6 +207,7 @@
 (define-method get_items
   (of-object "GtkRecentChooser")
   (c-name "gtk_recent_chooser_get_items")
+  (caller-owns-return #f)
   (return-type "GList-GtkRecentInfo*")
 )
 
@@ -241,6 +242,7 @@
 (define-method list_filters
   (of-object "GtkRecentChooser")
   (c-name "gtk_recent_chooser_list_filters")
+  (caller-owns-return #l)
   (return-type "GSList-GtkRecentFilter*")
 )
 

@@ -18,7 +18,7 @@ package org.gnome.gtk;
  * instances of these classes.
  * 
  * @author Andrew Cowie
- * @sicne 4.0.6
+ * @since 4.0.6
  */
 public class HScale extends Scale
 {

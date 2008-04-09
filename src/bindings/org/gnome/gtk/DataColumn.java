@@ -37,8 +37,8 @@ package org.gnome.gtk;
 /**
  * Specify the data type of a column in a TreeModel tabular store and identify
  * its position for later reference. When instantiating a {@link ListStore} or
- * TreeStore you use an array of DataColumns to indicate the data type that
- * each column of the model is to hold.
+ * {@link TreeStore} you use an array of DataColumns to indicate the data type
+ * that each column of the model is to hold.
  * 
  * <p>
  * The types you can store in a TreeModel is somewhat deliberately constrained

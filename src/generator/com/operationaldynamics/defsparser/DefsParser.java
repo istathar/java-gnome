@@ -3,7 +3,7 @@
  *
  * Copyright (c) 2006-2008 Operational Dynamics Consulting Pty Ltd, and Others
  * 
- * The code in this file, and the library it is a part of, are made available
+ * The code in this file, and the program it is a part of, are made available
  * to you by the authors under the terms of the "GNU General Public Licence,
  * version 2" See the LICENCE file for the terms governing usage and
  * redistribution.
@@ -343,6 +343,9 @@ public class DefsParser
                         block = new SetterBlock(parent, field[0], field[1]);
                         blocks.add(block);
                     }
+                } else if (phylum.equals("entity")) {
+                    block = new EntityBlock(name, characteristics);
+                    blocks.add(block);
                 } else {
                     // etc
                     throw new ParseException("What kind of block was \"" + phylum + "\"?", 0);

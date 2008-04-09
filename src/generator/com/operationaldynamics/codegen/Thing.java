@@ -3,7 +3,7 @@
  *
  * Copyright (c) 2007-2008 Operational Dynamics Consulting Pty Ltd
  * 
- * The code in this file, and the library it is a part of, are made available
+ * The code in this file, and the program it is a part of, are made available
  * to you by the authors under the terms of the "GNU General Public Licence,
  * version 2" See the LICENCE file for the terms governing usage and
  * redistribution.
@@ -124,6 +124,7 @@ public abstract class Thing
         register(new FundamentalThing("gint32", "int", "int", "jint"));
         register(new FundamentalThing("guint32", "int", "int", "jint"));
         register(new FundamentalThing("gssize", "int", "int", "jint"));
+        register(new FundamentalThing("gsize", "long", "long", "jlong"));
         register(new FundamentalThing("gint64", "long", "long", "jlong"));
         register(new FundamentalThing("glong", "long", "long", "jlong"));
         register(new FundamentalThing("gulong", "long", "long", "jlong"));
@@ -158,6 +159,7 @@ public abstract class Thing
         register(new FundamentalArrayThing("gfloat*", "gfloat"));
         register(new FundamentalArrayThing("gdouble*", "gdouble"));
         register(new FundamentalArrayThing("gboolean*", "gboolean"));
+        register(new FundamentalArrayThing("gsize*", "gsize"));
         // and so on
 
         /*
@@ -476,6 +478,20 @@ public abstract class Thing
 
     String jniReturnEncode(String name) {
         return name;
+    }
+
+    /**
+     * 
+     * @param name
+     * @param callerOwnsReturn
+     *            Whether the caller owns the return value. It is either 'f'
+     *            (caller doesn't own return), 't' (caller own return) or 'l'
+     *            (return type is a list/array... and only the list itself is
+     *            own, not its contents)
+     * @return
+     */
+    String jniReturnCleanup(String name, char callerOwnsReturn) {
+        return null;
     }
 
     /**

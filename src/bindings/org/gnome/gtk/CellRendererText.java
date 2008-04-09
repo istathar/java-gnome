@@ -1,7 +1,7 @@
 /*
  * CellRendererText.java
  *
- * Copyright (c) 2007 Operational Dynamics Consulting Pty Ltd
+ * Copyright (c) 2007-2008 Operational Dynamics Consulting Pty Ltd, and Others
  *
  * The code in this file, and the library it is a part of, are made available
  * to you by the authors under the terms of the "GNU General Public Licence,
@@ -34,10 +34,10 @@ public class CellRendererText extends CellRenderer
 {
     /*
      * protected <init>(long) constructor removed deliberately, replaced with
-     * this one.
+     * this one. TODO mmm, we should test if add an expand parameter!
      */
     protected CellRendererText(long pointer, CellLayout vertical) {
-        super(pointer, vertical);
+        super(pointer, vertical, true);
     }
 
     /**
@@ -46,7 +46,7 @@ public class CellRendererText extends CellRenderer
      * columns of data will come from.
      */
     public CellRendererText(CellLayout vertical) {
-        super(GtkCellRendererText.createCellRendererText(), vertical);
+        super(GtkCellRendererText.createCellRendererText(), vertical, true);
     }
 
     /**

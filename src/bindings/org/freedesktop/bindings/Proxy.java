@@ -69,6 +69,16 @@ public abstract class Proxy
     }
 
     public String toString() {
-        return this.pointer + "*" + this.getClass().getName();
+        if (Debug.MEMORY_MANAGEMENT) {
+            StringBuilder result;
+            result = new StringBuilder();
+            result.append(Plumbing.toHexString(pointer));
+            result.append("*");
+            result.append(this.getClass().getName());
+
+            return result.toString();
+        } else {
+            return this.getClass().getName();
+        }
     }
 }

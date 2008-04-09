@@ -1,6 +1,7 @@
 personal_ws-1.1 en 0
 ABI
 APIs
+ARGB
 AUR
 AWT
 AboutDialog
@@ -11,6 +12,7 @@ AfC
 AllAboutJNI
 AltLeft
 AltRight
+Antialias
 ArrayList
 AtSign
 AttachOptions
@@ -38,6 +40,13 @@ ButtonFactory
 ButtonsType
 CCFLAGS
 CVS
+CairoContext
+CairoContextOverride
+CairoFormat
+CairoImageSurface
+CairoOperator
+CairoPattern
+CairoSurface
 CalendarDisplayOptions
 CallStaticBooleanMethodA
 CallStaticObjectMethodA
@@ -61,6 +70,7 @@ ClassLoader's
 ClassName
 ClassNotFoundException
 CodeFormat
+CoderMalfunctionError
 Collins's
 ComboBox
 ComboBoxEntries
@@ -72,6 +82,7 @@ ControlLeft
 ControlRight
 Cowie
 Cowie's
+CrossingMode
 Ctrl
 CursorType
 CursorTypes
@@ -121,6 +132,7 @@ EventConfigure
 EventCrossing
 EventDragAndDrop
 EventExpose
+EventExpose's
 EventFocus
 EventKey
 EventKey's
@@ -141,6 +153,7 @@ ExceptionClear
 ExceptionDescribe
 ExceptionOccurred
 FIXME
+FatalError
 FileChooser
 FileChooser's
 FileChooserAction
@@ -152,6 +165,7 @@ FileChooserWidget
 FileChoosers
 FileNotFoundException
 FilenameFilter
+FillRule
 FindClass
 Formoso
 Fortin
@@ -192,13 +206,16 @@ GValue
 GValues
 GdkColor
 GdkColorOverride
+GdkCrossingMode
 GdkCursor
 GdkCursorType
 GdkCursors
 GdkDisplay
+GdkDrawable
 GdkEvent
 GdkEventAny
 GdkEventButton
+GdkEventCrossing
 GdkEventExpose
 GdkEventKey
 GdkEventType
@@ -207,8 +224,10 @@ GdkEvents
 GdkGravity
 GdkKeyval
 GdkModifierType
+GdkNotifyType
 GdkPixbuf
 GdkPixbufFormat
+GdkRectangle
 GdkScreen
 GdkVisibilityState
 GdkWindow
@@ -295,6 +314,7 @@ GtkSeparatorToolItem
 GtkShadowType
 GtkSizeGroup
 GtkSizeGroupMode
+GtkSortType
 GtkStateType
 GtkStatusIcon
 GtkStatusbar
@@ -319,6 +339,7 @@ GtkTreeModelSort
 GtkTreePath
 GtkTreeRowReference
 GtkTreeSelection
+GtkTreeSortable
 GtkTreeStore
 GtkTreeView
 GtkTreeViewColumn
@@ -359,6 +380,7 @@ IllegalStateException
 IllegalThreadStateException
 ImageMenuItem
 ImageMenuItems
+ImageSurface
 ImageType
 IndexError
 InfoMessageDialog
@@ -400,6 +422,7 @@ LargeLogo
 Laszlo
 LibGlade
 Libre
+LinearPattern
 ListStore
 ListStore's
 ListStores
@@ -424,6 +447,7 @@ MenuShell
 MenuToolButton
 MessageDialog
 MessageDialogs
+MessageFormat
 MessageType
 MessageTypes
 Microsystems
@@ -442,6 +466,7 @@ NewGlobalRef
 NewStringUTF
 NewWeakGlobalRef
 NoSuchMethodException
+NotifyType
 NullPointerException
 NumLock
 NumberSign
@@ -454,7 +479,6 @@ OpenOffice
 OpenSolaris
 OutOfMemoryError
 Overholt
-PIXMAP
 PKGBUILD
 PNGs
 PRELIGHT
@@ -473,6 +497,7 @@ Piechotka
 Pixbuf's
 PixbufAnimation
 PixbufFormat
+Pixmap
 PolicyType
 PositionType
 PowerResponseType
@@ -491,6 +516,7 @@ README
 RGB
 RHEL
 RTL
+RadialPattern
 Rahn
 RcStyle
 RefToJavaProxy
@@ -531,6 +557,8 @@ SnapshotInfoMessageDialog
 SnapshotQuestionMessageDialog
 SnapshotTreeView
 SnapshotWindow
+SolidPattern
+SortType
 SourceForge
 SpinButton
 Srichand
@@ -546,6 +574,7 @@ StockItems
 StorageType
 StringBuffer
 StringValue
+SurfacePattern
 SysReq
 TODO
 TZ
@@ -589,6 +618,7 @@ TreeRowReference
 TreeSelection
 TreeSelection's
 TreeSortable
+TreeSortables
 TreeStore
 TreeStores
 TreeView
@@ -605,6 +635,7 @@ UINT
 ULONG
 UNMAP
 UTC
+UTF
 Ubuntu
 UnitTests
 UnsatisfiedLinkError
@@ -617,6 +648,7 @@ VM
 VMs
 VScale
 VSeparator
+ValidateDrawingToFile
 ValidateMemoryManagement
 ValidatePacking
 ValidateProperties
@@ -640,8 +672,10 @@ Wno
 Wouter
 XFree
 XINERAMA
+XLib
 Xerces
 Xlib's
+XlibSurface
 Xml
 Xvfb
 YYZ
@@ -655,18 +689,26 @@ addAction
 addActionWithAccel
 addAttribute
 addButton
+addColorStopRGB
+addColorStopRGBA
+addColorStopRgb
+addColorStopRgba
 addHandler
 addToggleRef
 addWidget
 addWithViewport
 alloca
+antialias
+antialiasing
 apache
 api
 apiversion
+appendChild
 appendColumn
 appendPage
 appendRow
 appendText
+arcNegative
 arg
 argc
 args
@@ -688,9 +730,12 @@ baseDir
 basename
 baz
 bdb
+bindtextdomain
 bitkeeper
+bitmask
 bjc
 blackdown
+blockquote
 blog
 bloggins
 blogs
@@ -729,8 +774,10 @@ cfg
 cflags
 checkAlive
 checkInitialized
+checkIter
 checkPixbufFromFile
 checkPixbufFromFileAtScale
+checkStatus
 checkpointHashes
 checksum
 clampPage
@@ -751,6 +798,7 @@ compileCSourceToObject
 compileGeneratorClasses
 compileJavaCode
 compileTestClasses
+compositing
 conf
 config
 configFile
@@ -766,6 +814,7 @@ coronatedYearColumn
 countryName
 countryNameColumn
 cp
+cr
 createAboutDialog
 createAction
 createActionGroup
@@ -787,6 +836,8 @@ createComboBoxEntryText
 createComboBoxEntryWithModel
 createComboBoxText
 createComboBoxWithModel
+createContext
+createContextFromDrawable
 createCursor
 createDialog
 createDialogWithButtons
@@ -816,6 +867,10 @@ createMenuToolButton
 createMessageDialog
 createNotebook
 createObject
+createPatternForSurface
+createPatternLinear
+createPatternRadial
+createPatternRgba
 createPixbufFromFile
 createPixbufFromFileAtScale
 createProgressBar
@@ -829,6 +884,7 @@ createStatusIconFromFile
 createStatusIconFromIconName
 createStatusIconFromPixbuf
 createStatusbar
+createSurface
 createTable
 createThing
 createToggleButton
@@ -843,6 +899,7 @@ createTreeModelSortWithModel
 createTreePath
 createTreePathFromString
 createTreeRowReference
+createTreeStore
 createTreeView
 createTreeViewColumn
 createTreeViewWithModel
@@ -855,6 +912,8 @@ createWindow
 createWithLabel
 currentTimeMillis
 cwd
+cx
+cy
 cycleGarbageCollector
 cycleMainLoop
 da
@@ -900,6 +959,7 @@ elevationFormatted
 elevationSort
 elif
 ellipsized
+else's
 elsif
 endif
 endingLabel
@@ -929,6 +989,7 @@ filename
 filenames
 filesNeedBuilding
 filetype
+fillPreserve
 finalizer
 finalizers
 findFiles
@@ -941,6 +1002,7 @@ foreach
 formatTime
 formatter
 foss
+freedesktop
 fromName
 fullscreen
 gType
@@ -972,6 +1034,7 @@ getAlignmentX
 getAlignmentY
 getAllocation
 getAngle
+getArea
 getBlinking
 getBlue
 getBoolean
@@ -988,6 +1051,7 @@ getDateDay
 getDateMonth
 getDateYear
 getDeclaredConstructor
+getDetail
 getDisplayOptions
 getDraw
 getEnableSearch
@@ -1071,13 +1135,17 @@ getSelected
 getSelection
 getSensitive
 getSize
+getSource
 getState
+getStatus
 getSticker
 getStock
 getStockId
 getStorageType
 getString
 getSubmenu
+getSurface
+getTarget
 getText
 getTooltip
 getToplevel
@@ -1102,9 +1170,11 @@ getY
 getenv
 getmtime
 getters
+gettext
 gij
 gint
 gjdoc
+glibc
 glibj
 globalTooltipsGroup
 gnomedev
@@ -1118,6 +1188,7 @@ gtkmm
 gtkmm's
 gtkstatusbar
 guint
+hackfest
 hacky
 handleName
 handlerBlah
@@ -1146,6 +1217,8 @@ inDir
 indexOf
 ing
 init
+initializer
+initializers
 inline
 insertPage
 insertText
@@ -1153,6 +1226,7 @@ instanceFor
 instanceof
 ints
 isActive
+isDirectory
 isEmbedded
 isSecondary
 isSensitive
@@ -1161,7 +1235,10 @@ isVisibleChars
 isdir
 isfile
 iter
+iterChildren
+iterHasChild
 iterNext
+iterParent
 itse
 jN
 jamvm
@@ -1219,6 +1296,7 @@ libgnome
 libgnomeui
 libgtk
 librarypath
+lineTo
 linkSharedLibrary
 linux
 listFiles
@@ -1226,6 +1304,7 @@ ln
 loadConfig
 loadHashes
 loadLibrary
+localeDir
 login
 lookup
 lookupType
@@ -1260,12 +1339,17 @@ modifyText
 monarchName
 monarchNameColumn
 monarchObjectColumn
+moveTo
 moveWidget
 msg
+msgfmt
+msginit
+msgs
 multi
 multithreaded
 mutators
 mv
+myapp
 nCan't
 nCheck
 nGType
@@ -1301,6 +1385,7 @@ nwith
 objectArrayFor
 objectFor
 odt
+offscreen
 ok
 onActivate
 onButtonPressEvent
@@ -1339,6 +1424,7 @@ os
 outputDir
 packEnd
 packStart
+packageName
 pacman
 paddingBottom
 paddingLeft
@@ -1357,6 +1443,7 @@ pkgadd
 placeName
 plugin
 png
+po
 pointerOf
 popen
 popup
@@ -1387,8 +1474,10 @@ px
 py
 pyGTK
 pygtk
+rasterizer
 rawing
 rb
+rect
 reentrant
 refactor
 refactored
@@ -1445,6 +1534,7 @@ setActiveIter
 setAlignment
 setAlignmentX
 setAngle
+setAntialias
 setAuthors
 setBackground
 setBlinking
@@ -1500,6 +1590,7 @@ setLabel
 setLabelAlign
 setLabelWidget
 setLayout
+setLineWidth
 setLineWrap
 setLogo
 setMarkup
@@ -1512,6 +1603,7 @@ setMinWidth
 setModal
 setMode
 setModel
+setOperator
 setOrdinal
 setOrientation
 setPadding
@@ -1549,6 +1641,12 @@ setSizeRequest
 setSizing
 setSortColumn
 setSortColumnId
+setSource
+setSourceRGB
+setSourceRGBA
+setSourceRgb
+setSourceRgba
+setSourceSurface
 setStick
 setSubmenu
 setTabPos
@@ -1558,6 +1656,7 @@ setTimeZone
 setTip
 setTitle
 setTooltip
+setTooltipMarkup
 setTooltipText
 setTooltips
 setTransientFor
@@ -1594,6 +1693,7 @@ sourceObject
 sourceforge
 sourcepath
 src
+statusToString
 stepIncrement
 stockId
 str
@@ -1627,6 +1727,7 @@ testAvoidCyclicReferenceFromSignalHookup
 testButtonPropertyLabel
 testButtonReliefStyle
 testGetChildAndParent
+testImageSurfaceWriteToPNG
 testManuallyTwistingRefCount
 testNoDenaturation
 testNoMultipleCreation
@@ -1668,8 +1769,10 @@ un
 undef
 undelete
 underTest
+undrawn
 unformatted
 unfullscreen
+ungrab
 unicode
 unindent
 unix
@@ -1713,11 +1816,14 @@ windowManager
 workspaces
 wr
 writeJniCode
+writeToPNG
+writeToPng
 writeTranslationCode
 x's
 xFFFFFF
 xServerVirtual
 xalign
+xc
 xff
 xffbe
 xffbf
@@ -1726,11 +1832,14 @@ xffe
 xffea
 xffff
 xfvz
+xgettext
 xjf
 xoptions
 xpadding
 xscale
+xsession
 yalign
+yc
 yoptions
 ypadding
 yscale

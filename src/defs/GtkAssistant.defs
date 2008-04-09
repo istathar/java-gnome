@@ -8,7 +8,6 @@
 (define-function assistant_new
   (is-constructor-of "GtkAssistant")
   (c-name "gtk_assistant_new")
-  (caller-owns-return #t)
   (return-type "GtkWidget*")
 )
 

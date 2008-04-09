@@ -307,6 +307,7 @@
 (define-method list_filters
   (of-object "GtkFileChooser")
   (c-name "gtk_file_chooser_list_filters")
+  (caller-owns-return #l)
   (return-type "GSList-GtkFileFilter*")
 )
 

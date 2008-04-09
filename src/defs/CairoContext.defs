@@ -1,0 +1,228 @@
+(define-entity Context
+  (in-module "Cairo")
+  (c-name "cairo_t")
+)
+
+;; the block name is contrived to match the pattern used in GTK so that
+;; mungeConstructorName() doesn't choke on it when called by
+;; ConstructorGenerator. This could probably be fixed, but whatever. It's the
+;; c-name that matters, and that's correct.
+
+(define-function cairo_context_new
+  (is-constructor-of "cairo_t")
+  (c-name "cairo_create")
+  (caller-owns-return #t)
+  (return-type "cairo_t*")
+  (parameters
+    '("cairo_surface_t*" "target")
+  )
+)
+
+(define-method destroy
+  (of-object "cairo_t")
+  (c-name "cairo_destroy")
+  (return-type "none")
+)
+
+(define-method stroke
+  (of-object "cairo_t")
+  (c-name "cairo_stroke")
+  (return-type "none")
+)
+
+(define-method set_source_rgb
+  (of-object "cairo_t")
+  (c-name "cairo_set_source_rgb")
+  (return-type "none")
+  (parameters
+    '("double" "red")
+    '("double" "green")
+    '("double" "blue")
+  )
+)
+
+(define-method set_source_rgba
+  (of-object "cairo_t")
+  (c-name "cairo_set_source_rgba")
+  (return-type "none")
+  (parameters
+    '("double" "red")
+    '("double" "green")
+    '("double" "blue")
+    '("double" "alpha")
+  )
+)
+
+(define-method line_to
+  (of-object "cairo_t")
+  (c-name "cairo_line_to")
+  (return-type "none")
+  (parameters
+    '("double" "x")
+    '("double" "y")
+  )
+)
+
+(define-method set_line_width
+  (of-object "cairo_t")
+  (c-name "cairo_set_line_width")
+  (return-type "none")
+  (parameters
+    '("double" "width")
+  )
+)
+
+(define-method set_antialias
+  (of-object "cairo_t")
+  (c-name "cairo_set_antialias")
+  (return-type "none")
+  (parameters
+    '("cairo_antialias_t" "antialias")
+  )
+)
+
+(define-method move_to
+  (of-object "cairo_t")
+  (c-name "cairo_move_to")
+  (return-type "none")
+  (parameters
+    '("double" "x")
+    '("double" "y")
+  )
+)
+
+(define-method rectangle
+  (of-object "cairo_t")
+  (c-name "cairo_rectangle")
+  (return-type "none")
+  (parameters
+    '("double" "x")
+    '("double" "y")
+    '("double" "width")
+    '("double" "height")
+  )
+)
+
+(define-method arc
+  (of-object "cairo_t")
+  (c-name "cairo_arc")
+  (return-type "none")
+  (parameters
+    '("double" "xc")
+    '("double" "yc")
+    '("double" "radius")
+    '("double" "angle1")
+    '("double" "angle2")
+  )
+)
+
+(define-method arc_negative
+  (of-object "cairo_t")
+  (c-name "cairo_arc_negative")
+  (return-type "none")
+  (parameters
+    '("double" "xc")
+    '("double" "yc")
+    '("double" "radius")
+    '("double" "angle1")
+    '("double" "angle2")
+  )
+)
+
+(define-method fill
+  (of-object "cairo_t")
+  (c-name "cairo_fill")
+  (return-type "none")
+)
+
+(define-method fill_preserve
+  (of-object "cairo_t")
+  (c-name "cairo_fill_preserve")
+  (return-type "none")
+)
+
+
+
+(define-method get_source
+  (of-object "cairo_t")
+  (c-name "cairo_get_source")
+  (return-type "cairo_pattern_t*")
+  (caller-owns-return #f)
+)
+
+(define-method status
+  (of-object "cairo_t")
+  (c-name "cairo_status")
+  (return-type "cairo_status_t")
+)
+
+(define-method get_target
+  (of-object "cairo_t")
+  (c-name "cairo_get_target")
+  (return-type "cairo_surface_t*")
+)
+
+(define-method set_operator
+  (of-object "cairo_t")
+  (c-name "cairo_set_operator")
+  (return-type "none")
+  (parameters
+    '("cairo_operator_t" "op")
+  )
+)
+
+(define-method paint
+  (of-object "cairo_t")
+  (c-name "cairo_paint")
+  (return-type "none")
+)
+
+(define-method paint_with_alpha
+  (of-object "cairo_t")
+  (c-name "cairo_paint_with_alpha")
+  (return-type "none")
+  (parameters
+    '("double" "alpha")
+  )
+)
+
+(define-method set_source
+  (of-object "cairo_t")
+  (c-name "cairo_set_source")
+  (return-type "none")
+  (parameters
+    '("cairo_pattern_t*" "pattern")
+  )
+)
+
+(define-method mask
+  (of-object "cairo_t")
+  (c-name "cairo_mask")
+  (return-type "none")
+  (parameters
+    '("cairo_pattern_t*" "pattern")
+  )
+)
+
+(define-method set_source_surface
+  (of-object "cairo_t")
+  (c-name "cairo_set_source_surface")
+  (return-type "none")
+  (parameters
+    '("cairo_surface_t*" "surface")
+    '("double" "x")
+    '("double" "y")
+  )
+)
+
+;; strictly, this belongs in CairoStatus.defs, but functions don't go in
+;; Enum blocks.
+
+(define-function status_to_string
+  (of-object "cairo_t")
+  (c-name "cairo_status_to_string")
+  (return-type "const-char*")
+  (parameters
+    '("cairo_status_t" "status")
+  )
+)

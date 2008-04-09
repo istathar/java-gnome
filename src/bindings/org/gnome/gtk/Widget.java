@@ -14,6 +14,7 @@ package org.gnome.gtk;
 import org.gnome.gdk.Color;
 import org.gnome.gdk.Event;
 import org.gnome.gdk.EventButton;
+import org.gnome.gdk.EventCrossing;
 import org.gnome.gdk.EventExpose;
 import org.gnome.gdk.EventFocus;
 import org.gnome.gdk.EventKey;
@@ -133,7 +134,7 @@ public abstract class Widget extends org.gnome.gtk.Object
     }
 
     /**
-     * Signal emitted when the mouse enters the Widget
+     * Signal emitted when the mouse enters the Widget.
      * 
      * @author Andrew Cowie
      * @author Davyd Madeley
@@ -141,12 +142,15 @@ public abstract class Widget extends org.gnome.gtk.Object
      */
     public interface ENTER_NOTIFY_EVENT extends GtkWidget.ENTER_NOTIFY_EVENT
     {
-        public boolean onEnterNotifyEvent(Widget source, Object event);
+        /**
+         * @since 4.0.7
+         */
+        public boolean onEnterNotifyEvent(Widget source, EventCrossing event);
     }
 
     /**
-     * Hook up a handler to receive "enter-notify-event" events on this
-     * Widget.
+     * Hook up a handler to receive <code>ENTER_NOTIFY_EVENT</code> signals
+     * on this Widget.
      * 
      * @since 4.0.2
      */
@@ -155,10 +159,30 @@ public abstract class Widget extends org.gnome.gtk.Object
     }
 
     /**
-     * Signal emitted when the focus leaves this Widget. Focus is a concept
-     * that is shared evenly between the widget toolkit and the window manager -
-     * which often becomes apparent if you're wondering <i>why</i> you have
-     * lost focus or regained it.
+     * Signal emitted when the mouse pointer leaves the Widget.
+     * 
+     * @author Andrew Cowie
+     * @since 4.0.7
+     */
+    public interface LEAVE_NOTIFY_EVENT extends GtkWidget.LEAVE_NOTIFY_EVENT
+    {
+        boolean onLeaveNotifyEvent(Widget source, EventCrossing event);
+    }
+
+    /**
+     * Hook up a handler to receive <code>LEAVE_NOTIFY_EVENT</code> signals.
+     * 
+     * @since 4.0.7
+     */
+    public void connect(LEAVE_NOTIFY_EVENT handler) {
+        GtkWidget.connect(this, handler);
+    }
+
+    /**
+     * Signal emitted when the <i>keyboard</i> focus leaves this Widget.
+     * Focus is a concept that is shared evenly between the widget toolkit and
+     * the window manager - which often becomes apparent if you're wondering
+     * <i>why</i> you have lost focus or regained it.
      * 
      * @author Andrew Cowie
      * @since 4.0.2
@@ -199,15 +223,99 @@ public abstract class Widget extends org.gnome.gtk.Object
         GtkWidget.connect(this, handler);
     }
 
+    /**
+     * The signal emitted when a portion or all of the Widget has been exposed
+     * and needs [re]drawing. This can happen when a Widget is first realized
+     * to the screen or when part of it has come back from being obscured (by
+     * another Window or because it was offscreen).
+     * 
+     * <p>
+     * The <code>event</code> parameter to the callback contains information
+     * about the size of the region that was damaged or otherwise needs
+     * redrawing. For instance, if you just wanted to know what area was
+     * exposed, you could do:
+     * 
+     * <pre>
+     * w.connect(new Widget.EXPOSE_EVENT() {
+     *     public boolean onExposeEvent(Widget source, EventExpose event) {
+     *         Rectangle rect;
+     *         int width, height, x, y;
+     *         
+     *         rect = event.getArea();
+     *         
+     *         width = rect.getWidth();
+     *         height = rect.getHeight();
+     *         x = rect.getX();
+     *         y = rect.getY();
+     *         
+     *         System.out.println(width + &quot;x&quot; + height + &quot; at &quot; + x + &quot;,&quot; + y);
+     *     }
+     * } 
+     * </pre>
+     * 
+     * <p>
+     * The real purpose of <code>EXPOSE_EVENT</code>, however, is to be the
+     * the gateway to drawing. GNOME uses the excellent <a
+     * href="http://www.cairographics.org/">Cairo 2D graphics library</a> to
+     * draw its user interfaces, which we make available in java-gnome in
+     * package <code>org.freedesktop.cairo</code>.
+     * 
+     * <p>
+     * Code that does drawing needs to be written a little differently than
+     * code which just builds Widgets up into user interfaces. While we are
+     * accustomed to doing setting up various Widgets and packing them into
+     * Windows in our constructors, the one thing you cannot easily do there
+     * is graphics drawing. In order to be able to construct the Context used
+     * for drawing operations, Cairo needs the details of the [org.gnome.gdk]
+     * Display, Screen and Window it will be drawing to, and these are not
+     * available until the Widget has been realized and mapped. The
+     * <code>EXPOSE_EVENT</code> signal is emitted exactly at this point,
+     * and so that's when we have the environment we need to do our drawing.
+     * 
+     * <p>
+     * To do drawing with Cairo you need a Context. You can instantiate one by
+     * asking for the underlying GDK Window backing your Widget and passing it
+     * to the Context constructor:
+     * 
+     * <pre>
+     * w.connect(new Widget.EXPOSE_EVENT() {
+     *     public boolean onExposeEvent(Widget source, EventExpose event) {
+     *         Context cr;
+     *         
+     *         cr = new Context(source.getWindow());
+     *         
+     *         // start drawing
+     *     }
+     * }
+     * </pre>
+     * 
+     * Obviously from here you can carry on using the Cairo Graphics library
+     * to do your custom drawing. See
+     * {@link org.freedesktop.cairo.Context Context} for further details.
+     * 
+     * @author Andrew Cowie
+     * @since 4.0.7
+     */
+    /*
+     * FIXME when we figure out offscreen drawing, then we can change "cannot
+     * easily do".
+     */
     public interface EXPOSE_EVENT extends GtkWidget.EXPOSE_EVENT
     {
+        /**
+         * As with other event signals, the boolean return value indicates
+         * whether or not you wish to block further emission of the signal. In
+         * general you want to leave the default handlers alone; let them run
+         * as well. Return <code>false</code>.
+         */
         public boolean onExposeEvent(Widget source, EventExpose event);
     }
 
     /**
-     * Hook up a handler to receive "expose-event" events on this Widget
+     * Hook up a handler to receive <code>EXPOSE_EVENT</code> signals on
+     * this Widget.
      * 
-     * @since 4.0.2
+     * @since 4.0.7
      */
     public void connect(EXPOSE_EVENT handler) {
         GtkWidget.connect(this, handler);
