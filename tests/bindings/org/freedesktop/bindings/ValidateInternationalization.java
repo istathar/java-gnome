@@ -55,7 +55,11 @@ public class ValidateInternationalization extends TestCaseGtk
             // good
         }
 
-        Environment.setEnv("LC_ALL", "fr_CA.UTF-8");
+        /*
+         * Actually the messages are in French, it should be fr_CA.UTF-8,
+         * but it is really easier to find en_CA locale installed, so...
+         */
+        Environment.setEnv("LC_ALL", "en_CA.UTF-8");
         Internationalization.init("unittest", "tmp/locale");
     }
 
