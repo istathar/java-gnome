@@ -16,8 +16,8 @@ package org.gnome.gdk;
  * 
  * <p>
  * This is used by
- * {@link org.gnome.gtk.WidgetWidget.ENTER_NOTIFY_EVENT ENTER_NOTIFY_EVENT}
- * and {@link org.gnome.gtk.Widget.LEAVE_NOTIFY_EVENT LEAVE_NOTIFY_EVENT}.
+ * {@link org.gnome.gtk.Widget.ENTER_NOTIFY_EVENT ENTER_NOTIFY_EVENT} and
+ * {@link org.gnome.gtk.Widget.LEAVE_NOTIFY_EVENT LEAVE_NOTIFY_EVENT}.
  * 
  * @author Andrew Cowie
  * @since 4.0.7
