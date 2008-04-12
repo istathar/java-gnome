@@ -118,8 +118,7 @@ public class Button extends Bin
      * @since 4.0.0
      */
     public String getLabel() {
-        // return GtkButton.getLabel(this);
-        return super.getPropertyString("label");
+        return GtkButton.getLabel(this);
     }
 
     /**
