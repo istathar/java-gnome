@@ -55,20 +55,26 @@ public class ValidateInternationalization extends TestCaseGtk
             // good
         }
 
-        Environment.setEnv("LC_ALL", "fr_CA.UTF-8");
+        /*
+         * The choice here of en_US is simply because _everyone_ is going to
+         * have that installed, somewhere. We are not testing *changing*
+         * locales here, so if an American is running this, no big deal. We
+         * just need something not the C locale.
+         */
+        Environment.setEnv("LC_ALL", "en_US.UTF-8");
         Internationalization.init("unittest", "tmp/locale");
     }
 
     public final void testTranslation() {
-        assertEquals("Bonjour", _("Hello"));
+        assertEquals("Hello", _("login"));
     }
 
-    private static final String GOODBYE = N_("Goodbye");
+    private static final String GOODBYE = N_("logoff");
 
     public final void testStaticWrapper() {
-        assertEquals("Goodbye", N_(GOODBYE));
+        assertEquals("logoff", N_(GOODBYE));
         assertSame(GOODBYE, N_(GOODBYE));
-        assertEquals("Au revoir", _(GOODBYE));
+        assertEquals("Goodbye", _(GOODBYE));
     }
 
     /*
