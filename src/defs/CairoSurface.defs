@@ -49,3 +49,15 @@
   (return-type "cairo_status_t")
 )
 
+(define-function cairo_image_surface_new
+  (is-constructor-of "cairo_surface_t")
+  (c-name "cairo_image_surface_create")
+  (caller-owns-return #t)
+  (return-type "cairo_surface_t*")
+  (parameters
+    '("cairo_format_t" "format")
+    '("int" "width")
+    '("int" "height")
+  )
+)
+
