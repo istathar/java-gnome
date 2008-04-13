@@ -116,6 +116,7 @@ dist: all
 	-rm -rf tmp/java-gnome-$(VERSION)
 	bzr export --format=dir tmp/java-gnome-$(VERSION)
 	@echo -e "RM\tnon essential files"
+	rm -r tmp/java-gnome-$(VERSION)/lib
 	rm -r tmp/java-gnome-$(VERSION)/web
 	rm    tmp/java-gnome-$(VERSION)/.aspell.en.pws
 	@echo -e "TAR\tjava-gnome-$(VERSION).tar.bz2"
