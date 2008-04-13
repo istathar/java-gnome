@@ -12,7 +12,6 @@ AfC
 AllAboutJNI
 AltLeft
 AltRight
-Antialias
 ArrayList
 AtSign
 AttachOptions
@@ -270,6 +269,7 @@ GtkDialog
 GtkEditable
 GtkEntry
 GtkEventBox
+GtkExpander
 GtkFileChooser
 GtkFileChooserAction
 GtkFileChooserButton
@@ -299,9 +299,12 @@ GtkNotebook
 GtkObject
 GtkObjects
 GtkOrientation
+GtkPaned
 GtkPolicyType
 GtkPositionType
 GtkProgressBar
+GtkRadioButton
+GtkRadioButton's
 GtkReliefStyle
 GtkRequisition
 GtkResponseType
@@ -315,6 +318,7 @@ GtkShadowType
 GtkSizeGroup
 GtkSizeGroupMode
 GtkSortType
+GtkSpinButton
 GtkStateType
 GtkStatusIcon
 GtkStatusbar
@@ -356,6 +360,7 @@ GtkWindowType
 HBox
 HBoxes
 HButtonBox
+HPaned
 HScale
 HScrollbar
 HSeparator
@@ -517,6 +522,10 @@ RGB
 RHEL
 RTL
 RadialPattern
+RadioButton
+RadioButtonGroup
+RadioButtonGroup's
+RadioButtons
 Rahn
 RcStyle
 RefToJavaProxy
@@ -592,7 +601,9 @@ ThrowNew
 Timm
 ToggleButon
 ToggleButton
+ToggleButton's
 ToggleButtons
+ToggleHandler
 ToggleRef
 ToggleToolButton
 ToogleToolButtons
@@ -646,6 +657,7 @@ VButtonBox
 VCS
 VM
 VMs
+VPaned
 VScale
 VSeparator
 ValidateDrawingToFile
@@ -777,6 +789,7 @@ checkInitialized
 checkIter
 checkPixbufFromFile
 checkPixbufFromFileAtScale
+checkState
 checkStatus
 checkpointHashes
 checksum
@@ -843,6 +856,8 @@ createDialog
 createDialogWithButtons
 createEntry
 createEventBox
+createExpander
+createExpanderWithMnemonic
 createFileChooserButon
 createFileChooserDialog
 createFixed
@@ -875,10 +890,12 @@ createPixbufFromFile
 createPixbufFromFileAtScale
 createProgressBar
 createProxy
+createRadioButtonWithMnemonicFromWidget
 createScrolledWindow
 createSeparatorMenuItem
 createSeparatorToolItem
 createSizeGroup
+createSpinButtonWithRange
 createStatusIcon
 createStatusIconFromFile
 createStatusIconFromIconName
@@ -961,6 +978,7 @@ elif
 ellipsized
 else's
 elsif
+enclosingGroup
 endif
 endingLabel
 endsWith
@@ -1059,6 +1077,7 @@ getEnum
 getEnv
 getEventTypeOrdinal
 getExpand
+getExpanded
 getFilename
 getFirstIter
 getFixedHeightMode
@@ -1066,6 +1085,7 @@ getFlags
 getFloat
 getFormalName
 getGreen
+getGroup
 getHAdjustment
 getHadjustment
 getHandle
@@ -1084,6 +1104,7 @@ getLayout
 getLong
 getMaxLength
 getMaximized
+getMember
 getMenu
 getMessage
 getMode
@@ -1401,6 +1422,7 @@ onEvent
 onExposeEvent
 onFocusInEvent
 onFocusOutEvent
+onGroupToggled
 onHide
 onKeyPressEvent
 onKeyReleaseEvent
@@ -1562,6 +1584,7 @@ setEllipsize
 setEnableSearch
 setEventsVisibility
 setExpand
+setExpanded
 setFilename
 setFixedHeightMode
 setFixedWidth
@@ -1597,6 +1620,7 @@ setMarkup
 setMaxLength
 setMaxWidthChars
 setMaximize
+setMember
 setMenu
 setMessage
 setMinWidth
@@ -1745,6 +1769,7 @@ tmp
 tnot
 toString
 toUnicode
+toggleHandler
 toolkits
 tooltip
 tooltips

@@ -53,13 +53,13 @@ public class Expander extends Bin
     }
 
     /**
-     * Create a new Expander with the given label.
+     * Create a new Expander with the given label. Underscore characters will
+     * be interpreted as marking mnemonic keys.
      * 
      * @since 4.0.7
      */
     public Expander(String label) {
-        // TODO what about GtkExpander.createExpanderWithMnemonic(label)?
-        super(GtkExpander.createExpander(label));
+        super(GtkExpander.createExpanderWithMnemonic(label));
     }
 
     /**

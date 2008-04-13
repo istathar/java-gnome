@@ -34,7 +34,7 @@ package org.gnome.gtk;
  * @since 4.0.7
  */
 /*
- * This acts as a wrapper to allow us to avoid the complexiy of the GSList
+ * This acts as a wrapper to allow us to avoid the complexity of the GSList
  * used as GtkRadioButton's group property and the fact that its constructors
  * are polluted with C API sugar.
  */
@@ -82,7 +82,7 @@ public class RadioButtonGroup
      * pressing the <b><code>Up</code></b> or <b><code>Down</code></b>
      * key when one of the RadioButtons in the group has the focus, or when
      * the key combination <b><code>Alt+</code><i>mnemonic</i></b> is
-     * pressed. It can also be triggered programmaticaly by calling the
+     * pressed. It can also be triggered programmatically by calling the
      * {@link ToggleButton#setActive(boolean) setActive()} method.
      * 
      * @author Vreixo Formoso
@@ -134,12 +134,12 @@ public class RadioButtonGroup
     }
 
     /**
-     * Inidcate which RadioButton in this RadioButtonGroup is currently
+     * Indicate which RadioButton in this RadioButtonGroup is currently
      * selected active.
      * 
      * <p>
      * This Will return <code>null</code> if no RadioButton is selected, but
-     * note thatthis is generally indicative of something wrong with the
+     * note that this is generally indicative of something wrong with the
      * programming; generally a RadioButtonGroup should always have at least
      * one RadioButton selected.
      * 

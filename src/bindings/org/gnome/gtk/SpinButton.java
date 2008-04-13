@@ -20,8 +20,9 @@ package org.gnome.gtk;
  * <p>
  * It is used to let the user introduce the value of a numeric property. This
  * is specially useful when the range of allowed values is unlimited (well, in
- * practice limited by Double.MAX_VALUE!) or only limited at one end.
- * Otherwise, a control like {@link Scale} may be a better alternative.
+ * practise limited by <code>Double.MAX_VALUE</code>!) or only limited at
+ * one end. Otherwise, a control like {@link Scale} may be a better
+ * alternative.
  * 
  * <p>
  * It is also a good idea to add near the SpinButton a Label indicating the
@@ -30,18 +31,17 @@ package org.gnome.gtk;
  * <p>
  * The user can modify the SpinButton either introducing a numeric value in
  * the required range in the text entry, or by clicking the arrow Buttons. The
- * keyboard can also be used, with both the <code>Up</code> and
- * <code>Down</code>, or with the <code>RePag</code> or
- * <code>AvPag</code> keys. These last decrement or increment the value of
- * the entry by a greater amount (usually ten times the value of the arrow
- * Button step).
+ * keyboard can also be used, with both the <b><code>Up</code></b> and <b><code>Down</code></b>,
+ * or with the <b><code>PageUp</code></b> or <b><code>PageDown</code></b>
+ * keys. These last decrement or increment the value of the entry by a greater
+ * amount (usually ten times the value of the arrow Button step).
  * 
  * <p>
  * The programmer can get the value introduced by the user with the
  * {@link #getValue() getValue()} method. While this method returns a
  * <code>double</code>, by default the SpinButton only allows to introduce
  * integer values. You can use the {@link #setDigits(int) setDigits()} method
- * to change this behavior.
+ * to change this behaviour.
  * 
  * @author Vreixo Formoso
  * @version 4.0.7
@@ -74,7 +74,7 @@ public class SpinButton extends Entry
      * both the precision of the value displayed and the number of decimal
      * digits the user can introduce in the text entry. You should always give
      * enough digits to represent the <code>step</code> you have chosen,
-     * otherwise you will get an undesired behavior.
+     * otherwise you will get an undesired behaviour.
      * 
      * @since 4.0.7
      */
@@ -125,6 +125,8 @@ public class SpinButton extends Entry
 
     /**
      * Hook up a handler for the VALUE_CHANGED signal.
+     * 
+     * @since 4.0.7
      */
     public void connect(VALUE_CHANGED handler) {
         GtkSpinButton.connect(this, handler);

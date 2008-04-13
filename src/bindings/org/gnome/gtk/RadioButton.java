@@ -19,7 +19,7 @@ package org.gnome.gtk;
  * <p>
  * A RadioButton is somewhat similar to a CheckButton, but it is shown as an
  * empty circle (rather than an empty square) and the selected Button in the
- * group us shown with a dot inside (rather than a checkmark).
+ * group us shown with a dot inside (rather than a check mark).
  * 
  * <p>
  * However, while a CheckButton can be used alone to choose between two
@@ -53,7 +53,7 @@ package org.gnome.gtk;
  * <p>
  * You should generally place related RadioButtons together, better if
  * disposed vertically, as this makes them easier to scan visually - in other
- * wirds, pack them into a {@link VBox}. It is also frequently a good idea to
+ * words, pack them into a {@link VBox}. It is also frequently a good idea to
  * place a descriptive Label at the top of the Container holding the
  * RadioButtons. A {@link Frame} is a possible way to fit both requirements,
  * as you can use it to place the RadioButtons altogether with a Label at the
@@ -116,23 +116,6 @@ public class RadioButton extends CheckButton
         super(GtkRadioButton.createRadioButtonWithLabelFromWidget(group.getMember(), label));
         group.setMember(this);
         enclosingGroup = group;
-    }
-
-    /**
-     * Create a new RadioButton with the given label and that will belong to
-     * the given group.
-     * 
-     * @param group
-     *            The newly created RadioButton will be placed in the same
-     *            group this RadioButton belong to.
-     * @param label
-     *            The label that will be placed near the RadioButton. If the
-     *            text contains an underscore (<code>_<code>) it will be taken 
-     *            to be the mnemonic for the Widget.
-     * @since 4.0.7
-     */
-    public RadioButton(RadioButton group, String label) {
-        super(GtkRadioButton.createRadioButtonWithMnemonicFromWidget(group, label));
     }
 
     /**
