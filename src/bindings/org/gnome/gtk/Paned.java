@@ -33,7 +33,7 @@ package org.gnome.gtk;
  * 
  * <p>
  * Note that Paned should only be used when we really need to allow users to
- * dinamically change the way size is distributed between the two children.
+ * dynamically change the way size is distributed between the two children.
  * Otherwise, a {@link HBox HBox} or {@link VBox VBox} would be a better
  * choice.
  * 
