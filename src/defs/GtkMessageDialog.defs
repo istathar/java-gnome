@@ -12,7 +12,6 @@
 (define-function gtk_message_dialog_new
   (is-constructor-of "GtkMessageDialog")
   (c-name "gtk_message_dialog_new")
-  (caller-owns-return #t)
   (return-type "GtkWidget*")
   (parameters
     '("GtkWindow*" "parent" (default "NULL") (null-ok))
@@ -27,7 +26,6 @@
 (define-function message_dialog_new_with_markup
   (is-constructor-of "GtkMessageDialog")
   (c-name "gtk_message_dialog_new_with_markup")
-  (caller-owns-return #t)
   (return-type "GtkWidget*")
   (parameters
     '("GtkWindow*" "parent")
