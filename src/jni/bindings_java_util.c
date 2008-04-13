@@ -12,6 +12,8 @@
 
 #include <jni.h>
 #include <glib.h>
+#include <stdlib.h>
+#include <stdio.h>
 #include "bindings_java.h"
 
 static JavaVM*	cachedJavaVM;
@@ -47,24 +49,39 @@ JNI_OnLoad
 JNIEnv*
 bindings_java_getEnv()
 {
-	JNIEnv* env;
+	JNIEnv* env = NULL;
+	JavaVMAttachArgs args = { 0, };
+	static int i = 0; 
 	jint result;
 
 	result = (*cachedJavaVM)->GetEnv(cachedJavaVM, (void **) &env, JNI_VERSION_1_4);
-	if (env == NULL) {
-		switch (result) {
-		case JNI_EDETACHED:
-			g_critical("Tried to get JNIEnv but this thread detached");
-			// and attach?
-			break;
-			
-		case JNI_EVERSION:
-			g_error("Trying to get JNIEnv resulted in version error.");
-			break;
-		}
-		return NULL;
+	if (env != NULL) {
+		return env;
 	}
-	return env;
+	
+	switch (result) {	
+	case JNI_EDETACHED:
+		args.version = JNI_VERSION_1_4;
+		args.name = g_strdup_printf("NativeThread%d", i++);
+
+		result = (*cachedJavaVM)->AttachCurrentThreadAsDaemon(cachedJavaVM, (void **) &env, &args);
+		if ((result == JNI_OK) && (env != NULL)) {
+			g_free(args.name);
+			return env;
+		}
+		
+		g_printerr("\nTried to get JNIEnv but thread detached and attempt to attach failed.\n");
+		break;
+	
+	case JNI_EVERSION:
+		g_printerr("Trying to get JNIEnv resulted in version error.\n");
+		break;
+	}
+
+	fflush(stderr);
+	exit(2);
+
+	return NULL;
 }
 
 
