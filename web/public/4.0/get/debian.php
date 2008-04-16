@@ -2,7 +2,7 @@
 /*
  * debian.php
  *
- * Copyright (c) 2006-2007 Operational Dynamics Consulting Pty Ltd
+ * Copyright (c) 2006-2008 Operational Dynamics Consulting Pty Ltd
  * 
  * This file comprises part of the infrastructure and content of the
  * java-gnome project website. As such, it is conveyed alongside the source
@@ -27,27 +27,30 @@
 ?>
 <h1 class="title">Installing java-gnome on Debian</h1>
 
-<p><span class="highlight">
-TODO: This will work once someone actually packages java-gnome 4.0 for Debian
-</span></p>
-
 <p>The following command should install the latest released version of the
 bindings library:
 
 <pre>
-# apt-get install java-gnome
+# apt-get install libjava-gnome-java
 </pre>
 
-<p>If it says anything about installing <code>libgtk-java</code> you've got the
-wrong version.  You want java-gnome 4.0.<span class="x">x</span>. And don't
-fall for any of the usual Debian nonsense about older versions being stable.
-This is an active and vibrant project; the bug fixes and new code are in the
-latest release.</p>
+<p>This will install the Debian package corresponding to the current 
+release of java-gnome 4.0.<span class="x">x</span>.
 
-<p>As java-gnome 4.0 is a completely new from-the-ground-up implementation, it
-depends on a very modern version of GLib, GTK, and the other libraries in the
-GNOME stack. If you have GNOME 2.18.<span class="x">x</span>) or newer you
-will certainly have all the necessary prerequisites.</p>
+<p>
+Please note: java-gnome is an active and vibrant project; the bug fixes and
+new code are in the latest release. Older versions are <b>not</b> superior by
+virtue of having been "out there" longer.</p>
+
+<p>The java-gnome user interface toolkit depends on very modern versions of
+GLib, GTK, and the other libraries in the GNOME stack. If you have GNOME
+2.20.<span class="x">x</span> or newer installed you should have all the
+necessary prerequisites.</p>
+
+<p>
+<i>Debian wraps all Java packages as</i> <code>lib...-java</code> <i>so,
+somewhat to our chagrin,</i> <code>libjava-gnome-java</code> <i>it is.</i>
+
 
 <?
 	template_end();

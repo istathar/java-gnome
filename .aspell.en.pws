@@ -1316,6 +1316,7 @@ libglib
 libgnome
 libgnomeui
 libgtk
+libjava
 librarypath
 lineTo
 linkSharedLibrary

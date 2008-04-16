@@ -1,5 +1,24 @@
 NEWS
 
+<a name="debian" id="1208324712" title="Packaged in Debian Linux"></a>
+
+Debian packages
+===============
+
+The java-gnome bindings suite is now available in [Debian
+Linux](http://www.debian.org/) as
+
+ * `libjava-gnome-java`
+
+If you need help installing it, see the the Debian page in the
+[download](/4.0/get/debian.php) section here.
+
+Compliemnts to Manu Mahajan for having done the research to develop the Debian
+package, and thanks to Thomas Girard for having refined Manu's start and for
+having seen through the process of getting the packge uploaded.
+
+AfC
+
 <a name="cairo" id="1207377494" title="Cairo"></a>
 
 Cairo support
