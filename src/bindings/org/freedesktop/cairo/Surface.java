@@ -11,6 +11,8 @@
  */
 package org.freedesktop.cairo;
 
+import java.io.IOException;
+
 /**
  * The thing that Cairo will draw on/to. This is the base class for several
  * concrete back ends.
@@ -81,12 +83,19 @@ public abstract class Surface extends Entity
     /**
      * Output the contents of this Surface to the specified file.
      * 
+     * @throws IOException
+     *             If the file can't be written.
+     * 
      * @since 4.0.7
      */
-    public void writeToPNG(String filename) {
+    public void writeToPNG(String filename) throws IOException {
         final Status status;
 
         status = CairoSurface.writeToPng(this, filename);
+
+        if (status == Status.WRITE_ERROR) {
+            throw new IOException("You cannot write to file " + filename);
+        }
 
         checkStatus(status);
     }

@@ -11,6 +11,7 @@
 package org.freedesktop.cairo;
 
 import java.io.File;
+import java.io.IOException;
 
 import org.gnome.gtk.Gtk;
 import org.gnome.gtk.TestCaseGtk;
@@ -48,7 +49,18 @@ public class ValidateDrawingToFile extends TestCaseGtk
         cr.lineTo(20, 5);
         cr.stroke();
 
-        surface.writeToPNG(OUTPUT_FILENAME);
+        try {
+            surface.writeToPNG(OUTPUT_FILENAME);
+        } catch (IOException e) {
+            fail("Unexpected file write error");
+        }
+
+        try {
+            surface.writeToPNG("/an/inexistent/filename");
+            fail("You should get an IOException");
+        } catch (IOException e) {
+            // ok
+        }
     }
 
     public final void testImageSurfaceWriteToPNG() {
