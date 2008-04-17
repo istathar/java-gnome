@@ -47,4 +47,9 @@ class Status extends Constant
      */
     public static final Status SURFACE_FINISHED = new Status(CairoStatus.SURFACE_FINISHED,
             "SURFACE_FINISHED");
+
+    /**
+     * Write error, you don't have write permissions to a file.
+     */
+    public static final Status WRITE_ERROR = new Status(CairoStatus.WRITE_ERROR, "WRITE_ERROR");
 }

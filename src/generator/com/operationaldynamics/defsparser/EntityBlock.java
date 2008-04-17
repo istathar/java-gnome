@@ -1,7 +1,7 @@
 /*
  * EntityBlock.java
  *
- * Copyright (c) 2007 Operational Dynamics Consulting Pty Ltd
+ * Copyright (c) 2007-2008 Operational Dynamics Consulting Pty Ltd, and Others
  * 
  * The code in this file, and the program it is a part of, are made available
  * to you by the authors under the terms of the "GNU General Public Licence,
@@ -32,8 +32,10 @@ public class EntityBlock extends TypeBlock
     }
 
     public Thing createThing() {
-        return new EntityThing(addPointerSymbol(cName), "org.freedesktop.cairo", inModule + blockName,
+        EntityThing t = new EntityThing(addPointerSymbol(cName), "org.freedesktop.cairo", inModule + blockName,
                 blockName);
+        t.setImportHeader(importHeader);
+        return t;
     }
 
     public Generator createGenerator(final DefsFile data) {

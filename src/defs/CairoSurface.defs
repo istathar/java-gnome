@@ -1,6 +1,7 @@
 (define-entity Surface
   (in-module "Cairo")
   (c-name "cairo_surface_t")
+  (import-header "cairo-svg.h")
 )
 
 (define-method destroy
@@ -61,3 +62,14 @@
   )
 )
 
+(define-function cairo_surface_new_svg
+  (is-constructor-of "cairo_surface_t")
+  (c-name "cairo_svg_surface_create")
+  (caller-owns-return #t)
+  (return-type "cairo_surface_t*")
+  (parameters
+    '("const-char*" "filename")
+    '("double" "width_in_points")
+    '("double" "height_in_points")
+  )
+)
