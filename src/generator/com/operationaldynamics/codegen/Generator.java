@@ -1,7 +1,7 @@
 /*
  * Generator.java
  *
- * Copyright (c) 2007 Operational Dynamics Consulting Pty Ltd, and Others
+ * Copyright (c) 2007-2008 Operational Dynamics Consulting Pty Ltd, and Others
  * 
  * The code in this file, and the program it is a part of, are made available
  * to you by the authors under the terms of the "GNU General Public Licence,
@@ -11,6 +11,7 @@
 package com.operationaldynamics.codegen;
 
 import java.io.PrintWriter;
+import java.util.Locale;
 
 import com.operationaldynamics.driver.DefsFile;
 
@@ -112,6 +113,6 @@ public abstract class Generator
      * "delete-event" -> "DELETE_EVENT". This helper function does it for us.
      */
     protected static final String toAllCaps(String lowerCaseName) {
-        return lowerCaseName.toUpperCase().replace('-', '_');
+        return lowerCaseName.toUpperCase(Locale.ENGLISH).replace('-', '_');
     }
 }
