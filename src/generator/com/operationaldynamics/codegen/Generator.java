@@ -12,6 +12,8 @@ package com.operationaldynamics.codegen;
 
 import java.io.PrintWriter;
 
+import java.util.Locale;
+
 import com.operationaldynamics.driver.DefsFile;
 
 /**
@@ -112,6 +114,6 @@ public abstract class Generator
      * "delete-event" -> "DELETE_EVENT". This helper function does it for us.
      */
     protected static final String toAllCaps(String lowerCaseName) {
-        return lowerCaseName.toUpperCase().replace('-', '_');
+        return lowerCaseName.toUpperCase(Locale.ENGLISH).replace('-', '_');
     }
 }
