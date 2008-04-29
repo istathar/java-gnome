@@ -46,7 +46,7 @@ div.box {
 
 <div class="box">
 <span class="mono" style="font-size: xx-large; font-weight: bold;">
-@since 4.0.6
+@since 4.0.7
 </span>
 
 <p>These are the Java bindings for GTK and GNOME!  Featuring a robust
@@ -77,8 +77,8 @@ on the latest changes. Other top level meta files include
 
 <code><a href="/4.0/README.html">README</a></code>,
 <code><a href="/4.0/HACKING.html">HACKING</a></code>,
-<code><a href="/4.0/AUTHORS">AUTHORS</a></code>, and
-<code><a href="http://research.operationaldynamics.com/bzr/java-gnome/mainline/LICENCE">LICENCE</a></code>
+<code><a href="/4.0/AUTHORS.html">AUTHORS</a></code>, and
+<code><a href="/4.0/LICENCE.html">LICENCE</a></code>.
 
 
 <h2>Rationale</h2>
