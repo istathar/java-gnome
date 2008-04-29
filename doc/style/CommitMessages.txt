@@ -75,8 +75,10 @@ While you're at it, you might want
 
 to make sure a casual edit of a Java source file doesn't mess it up.
 
+<a name="id"></a>
+
 Set your user id!
------------------
+=================
 
 Keeping the integrity of the author history is important so that you get
 credit for your work. When you make a commit and subsequently send it to us in
@@ -120,11 +122,11 @@ example.com, I **will** hit you with a large mallet. `:)`
 
 AfC
 
-_Originally written by Andrew Cowie 2 Dec 06. Last modified 31 Jan 07._
+_Originally written by Andrew Cowie 2 Dec 06. Last modified 23 Apr 08._
 
 <!--
 
-  Copyright (c) 2006-2007 Operational Dynamics Consulting Pty Ltd 
+  Copyright (c) 2006-2008 Operational Dynamics Consulting Pty Ltd 
 
   As project documentation, this file forms an integral part of the source
   code of the library it accompanies, and thus is made available to you by the
