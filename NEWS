@@ -1,5 +1,191 @@
 NEWS
 
+<a name="4.0.7" id="1209449091" title="Drawing"></a>
+
+java-gnome 4.0.7 (29 Apr 2008)
+==============================
+
+_Draw some._
+
+In addition to improvements to our coverage of the GNOME libraries, this
+release introduces preliminary coverage of the Cairo Graphics drawing library,
+along with the infrastructure to make it work within a GTK program.
+
+Drawing with Cairo
+------------------
+
+![Example](doc/examples/cairo/ExampleCairoDrawingBlends.png)
+
+The trusty Cairo context, traditionally declared as a variable named `cr` in
+code, is mapped as class
+[`Context`](doc/api/org/freedesktop/cairo/Context.html). Various cairo types
+such as different surfaces and patterns are mapped as an abstract base class
+(`Surface`, `Pattern`) along with various concrete subclasses (`ImageSurface`,
+`XlibSurface`, and `SolidPattern`, `RadialPattern`, etc). Error checking is
+implicit: the library status is checked internally after each operation and an
+Exception thrown if there is a failure.
+
+* `org.freedesktop.cairo.Plumbing`
+* **`org.freedesktop.cairo.Context`**
+* **`org.freedesktop.cairo.ImageSurface`**
+* **`org.freedesktop.cairo.XlibSurface`**
+* **`org.freedesktop.cairo.SVGSurface`**
+* **`org.freedesktop.cairo.SolidPattern`**
+* **`org.freedesktop.cairo.LinearPattern`**
+* **`org.freedesktop.cairo.RadialPattern`**
+* **`org.freedesktop.cairo.SurfacePattern`**
+ **`org.freedesktop.cairo.Operator`**
+* **`org.freedesktop.cairo.Format`**
+* `org.freedesktop.cairo.Status`
+* `org.freedesktop.bindings.FatalError`
+* **`org.freedesktop.cairo.FatalError`**
+
+The gateway to custom Widgets is the
+[`EXPOSE_EVENT`](doc/api/org/gnome/gtk/Widget.EXPOSE_EVENT.html) signal; this
+is where you can transition from the GDK `Window` to a Cairo Context and then
+begin drawing.
+
+* **`org.gnome.gtk.Widget.EXPOSE_EVENT`**
+* **`org.gnome.gdk.EventExpose`**
+* **`org.gnome.gdk.Rectangle`**
+* **`org.gnome.gdk.EventCrossing`**
+* **`org.gnome.gdk.CrossingMode`**
+* **`org.gnome.gdk.NotifyType`**
+* **`org.gnome.gtk.Image`**
+
+Thanks in particular to Carl Worth for having reviewed our API and having
+tested our implementation.
+
+New coverage and continuing improvement
+---------------------------------------
+
+The single option choice buttons in GTK are called `RadioButton`s and have now
+been exposed. When using them you need to indicate the other buttons they are
+sharing a mutually exclusive relationship with, and this is expressed by
+adding them to a `RadioButtonGroup`.
+
+![RadioButton](doc/api/org/gnome/gtk/RadioButton.png)
+
+
+* **`org.gnome.gtk.RadioButton`**
+* **`org.gnome.gtk.RadioButtonGroup`**
+
+The usual steady refinements to our TreeView API continue. There's a new
+`DataColumn` type for Stock icons.
+
+* **`org.gnome.gtk.TreeModelSort`**
+* **`org.gnome.gtk.TreeModelFilter`**
+* **`org.gnome.gtk.DataColumnPixbuf`**
+* **`org.gnome.gtk.DataColumnStock`**
+* **`org.gnome.gtk.CellRendererPixbuf`**
+* **`org.gnome.gtk.TreeView`**
+* **`org.gnome.gtk.TreeModel`**
+
+and minor changes to various other miscellaneous classes:
+
+* **`org.freedesktop.bindings.Environment`**
+* **`org.gnome.gtk.Expander`**
+* **`org.gnome.gtk.Frame`**
+* **`org.gnome.gtk.Paned`**
+* **`org.gnome.gtk.HPaned`**
+* **`org.gnome.gtk.VPaned`**
+* **`org.gnome.gtk.Widget`**
+* **`org.gnome.gtk.ProgressBar`**
+* **`org.gnome.gtk.Action`**
+
+Considerable internal optimizations have been done, especially relating to
+ensuring proper memory management, with notable refinements to make use  of
+"caller owns return" information available in the `.defs` data. This fixes a
+number of bugs. Thanks to Vreixo Formoso for having driven these improvements.
+
+Error handling has been improved for GLib based libraries as well. If an
+`ERROR` or `CRITICAL` is emitted, our internals will trap this and throw an
+exception instead, allowing the developer to see a Java stack trace leading
+them to the point in their code where they caused the problem.
+
+* **`org.gnome.glib.FatalError`**
+
+Internationalization support
+----------------------------
+
+java-gnome now has full support for the GNOME translation and localization
+infrastructure, including the standard `_("Hello")` idiom for marking strings
+for extraction and translation. There's a fairly detailed explanation in the
+[`Internationalization`](/4.0/doc/api/org/freedesktop/bindings/Internationalization.html)
+utility class.
+
+* **`org.freedesktop.bindings.Internationalization`**
+
+Build changes
+-------------
+
+Note that as was advertised as forthcoming some time ago, Java 1.5 is now the
+minimum language level required of your tool chain and Java virtual machine in
+order to build and use the java-gnome library.
+
+Thanks to Colin Walters, Manu Mahajan, Thomas Girard, Rob Taylor, and Serkan
+Kaba for contributing improvements allowing the library to build in more
+environments and for their work on packages for their distributions.
+
+The [download](get/) page has updated instructions for getting either binary
+packages or checking out the source code.
+
+Documentation, examples, and quality
+------------------------------------
+
+Refinements to the API documentation continue across the board, notably
+improving consistency. A large number of javadoc warnings have also been
+cleaned up.
+
+While not a full blown tutorial, the number of fully explained examples is
+growing. There are examples for box packing and signal connection, presenting
+tabular data, and basic drawing, among others. See the description page in the
+[`doc/examples/`](doc/examples/START.html) section.
+
+This code, together with the not inconsiderable number of unit tests and the
+code for generating snapshots of Widgets and Windows means that a large
+portion of the public API is tested within the library itself. The number of
+non-trivial applications making use of java-gnome is starting to grow, which
+are likewise providing for ongoing validation of the codebase.
+
+Summary
+-------
+
+You can see the full changes accompanying a release by grabbing a copy of the
+sources and running:
+
+    $ bzr diff -r tag:v4.0.6..tag:v4.0.7
+
+It's probably unwise to predict what will be in future releases. The challenge
+for anyone contributing is that they need to understand _what_ something does,
+_when_ to use it (and more to the point, when not to!), and be able to
+_explain_ it to others. This needs neither prior experience developing with
+GNOME or guru level Java knowledge, but a certain willingness to dig into
+details _is_ necessary.
+
+That said, I imagine we'll likely see further Cairo improvements as people
+start to use it in anger. It shouldn't take too long until the bulk of the
+functionality needed for most uses is present in java-gnome. In particular,
+forthcoming coverage of the Pango text drawing library will round things out
+nicely.
+
+There are a number of other major feature improvements we'd like to see in
+java-gnome. Conceptual and design work is ongoing on for bindings of GConf,
+GStreamer, and even support for applets. Within GTK, there have been a number
+of requests made for various things to be exposed, for example, the powerful
+GtkTextView / GtkTextBuffer text display and editing capability. Some of these
+have preliminary implementations; whether or not any given piece of work is
+acceptable in time for any particular future release will remain to be seen
+and depends on the willingness of clients to fund us to review and test such
+work.
+
+In the mean time, people are happily _using_ the library to develop rich user
+interfaces, which is, of course, the whole point. We're always pleased to
+welcome new faces to the community around the project. If you want to learn
+more, stop by `#java-gnome` and say hello!
+
+AfC
+
 <a name="debian" id="1208324712" title="Packaged in Debian Linux"></a>
 
 Debian packages
@@ -13,9 +199,9 @@ Linux](http://www.debian.org/) as
 If you need help installing it, see the the Debian page in the
 [download](/4.0/get/debian.php) section here.
 
-Compliemnts to Manu Mahajan for having done the research to develop the Debian
+Compliments to Manu Mahajan for having done the research to develop the Debian
 package, and thanks to Thomas Girard for having refined Manu's start and for
-having seen through the process of getting the packge uploaded.
+having seen through the process of getting the package uploaded.
 
 AfC
 

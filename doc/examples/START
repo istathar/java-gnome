@@ -23,7 +23,7 @@ some examples which are non-trivial but nonetheless are still readable.
 
 2. Handling keystrokes
 
-   	* [`ExampleSnooping.java`](keyboard/ExampleSnooping.html)  
+	* [`ExampleSnooping.java`](keyboard/ExampleSnooping.html)  
 	Handling keyboard input is more complicated than it reasonably ought to
 	be. In most cases the existing GTK Widgets already do everything that
 	needs doing (when you type text into an Entry, the text does indeed go
@@ -38,7 +38,7 @@ some examples which are non-trivial but nonetheless are still readable.
 
 3. TreeView and TreeModel
 
-   	* [`ExampleTrailHeads.java`](treeview/ExampleTrailHeads.html)  
+	* [`ExampleTrailHeads.java`](treeview/ExampleTrailHeads.html)  
 	While not a complete tutorial, we have an example of a small
 	application which uses a TreeView backed by a ListStore called
 	`ExampleTrailHeads`.  It is heavily commented and meant to serve as an
@@ -53,6 +53,17 @@ some examples which are non-trivial but nonetheless are still readable.
 [ListStore]: /4.0/doc/api/org/gnome/gtk/ListStore.html
 [DataColumn]: /4.0/doc/api/org/gnome/gtk/DataColumn.html
 
+4. Drawing with Cairo
+
+	* [`ExampleDrawingInExposeEvent.java`](cairo/ExampleDrawingInExposeEvent.html)  
+	FIXME _this needs a better name._  
+	Using the Cairo Graphics library to draw within a GTK program means
+	following the idiom shown in this example. This program demonstrates
+	drawing lines, rectangles, and gradients using a drawing [Context][]
+	as obtained within a Widget's [EXPOSE_EVENT][] signal handler.
+
+[Context]: /4.0/doc/api/org/freedesktop/cairo/Context.html
+[EXPOSE_EVENT]: /4.0/doc/api/org/gnome/gtk/Widget.EXPOSE_EVENT.html
 
 <!--
 
