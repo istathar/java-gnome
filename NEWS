@@ -18,7 +18,7 @@ Drawing with Cairo
 
 The trusty Cairo context, traditionally declared as a variable named `cr` in
 code, is mapped as class
-[`Context`](doc/api/org/freedesktop/cairo/Context.html). Various cairo types
+[`Context`](doc/api/org/freedesktop/cairo/Context.html). Various Cairo types
 such as different surfaces and patterns are mapped as an abstract base class
 (`Surface`, `Pattern`) along with various concrete subclasses (`ImageSurface`,
 `XlibSurface`, and `SolidPattern`, `RadialPattern`, etc). Error checking is
@@ -42,8 +42,8 @@ Exception thrown if there is a failure.
 
 The gateway to custom Widgets is the
 [`EXPOSE_EVENT`](doc/api/org/gnome/gtk/Widget.EXPOSE_EVENT.html) signal; this
-is where you can transition from the GDK `Window` to a Cairo Context and then
-begin drawing.
+is where you can transition from the GDK `Window` to a Cairo `Context` and
+then begin drawing.
 
 * **`org.gnome.gtk.Widget.EXPOSE_EVENT`**
 * **`org.gnome.gdk.EventExpose`**
@@ -54,7 +54,7 @@ begin drawing.
 * **`org.gnome.gtk.Image`**
 
 Thanks in particular to Carl Worth for having reviewed our API and having
-tested our implementation.
+helped test our implementation.
 
 New coverage and continuing improvement
 ---------------------------------------
@@ -70,11 +70,11 @@ adding them to a `RadioButtonGroup`.
 * **`org.gnome.gtk.RadioButton`**
 * **`org.gnome.gtk.RadioButtonGroup`**
 
-The usual steady refinements to our TreeView API continue. There's a new
-`DataColumn` type for Stock icons.
+The usual steady refinements to our coverage of the GtkTreeView API continue.
+There's a new `DataColumn` type for Stock icons, and TreeModelSort is now
+implemented.
 
 * **`org.gnome.gtk.TreeModelSort`**
-* **`org.gnome.gtk.TreeModelFilter`**
 * **`org.gnome.gtk.DataColumnPixbuf`**
 * **`org.gnome.gtk.DataColumnStock`**
 * **`org.gnome.gtk.CellRendererPixbuf`**
@@ -130,7 +130,7 @@ environments and for their work on packages for their distributions.
 The [download](get/) page has updated instructions for getting either binary
 packages or checking out the source code.
 
-Documentation, examples, and quality
+Documentation, examples, and testing
 ------------------------------------
 
 Refinements to the API documentation continue across the board, notably
@@ -155,6 +155,9 @@ You can see the full changes accompanying a release by grabbing a copy of the
 sources and running:
 
     $ bzr diff -r tag:v4.0.6..tag:v4.0.7
+
+Looking ahead
+-------------
 
 It's probably unwise to predict what will be in future releases. The challenge
 for anyone contributing is that they need to understand _what_ something does,
