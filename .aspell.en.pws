@@ -603,7 +603,6 @@ ToggleButon
 ToggleButton
 ToggleButton's
 ToggleButtons
-ToggleHandler
 ToggleRef
 ToggleToolButton
 ToogleToolButtons
@@ -995,6 +994,8 @@ eventsPending
 executables
 executeCommand
 exitValue
+expandAll
+expandRow
 extern
 fPIC
 fastjar
@@ -1512,6 +1513,7 @@ registerConstant
 registerProxy
 registerType
 removePage
+removeRow
 removeToggleRef
 removeWidget
 renderable

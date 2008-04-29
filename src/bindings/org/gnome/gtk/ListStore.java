@@ -74,10 +74,7 @@ public class ListStore extends TreeModel implements TreeDragSource, TreeDragDest
     public ListStore(DataColumn[] types) {
         super(GtkTreeModelOverride.createListStore(typesToClassNames(types)));
     }
-    
-    /**
-     * @see TreeModel#dispatch(TreeIter, DataColumn, Value)
-     */
+
     protected void dispatch(TreeIter row, DataColumn column, Value value) {
         GtkListStore.setValue(this, row, column.getOrdinal(), value);
     }
@@ -109,5 +106,17 @@ public class ListStore extends TreeModel implements TreeDragSource, TreeDragDest
 
     public void setSortColumn(DataColumn column, SortType ordering) {
         GtkTreeSortable.setSortColumnId(this, column.getOrdinal(), ordering);
+    }
+
+    /**
+     * Delete a row from the ListStore. If there is another row after this
+     * then <code>true</code> will be returned and <code>row</code> will
+     * still be valid. Otherwise, <code>false</code> is returned and
+     * <code>row</code> is invalid from here on.
+     * 
+     * @since 4.0.7
+     */
+    public boolean removeRow(TreeIter row) {
+        return GtkListStore.remove(this, row);
     }
 }

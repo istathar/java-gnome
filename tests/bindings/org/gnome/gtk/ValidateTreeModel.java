@@ -477,4 +477,50 @@ public class ValidateTreeModel extends TestCaseGtk
             // ok
         }
     }
+
+    public final void testDeleteRow() {
+        final ListStore model;
+        final DataColumnInteger column;
+        TreeIter row;
+        int i, sum;
+        boolean result;
+
+        model = new ListStore(new DataColumn[] {
+            column = new DataColumnInteger(),
+        });
+
+        for (i = 1; i <= 5; i++) {
+            row = model.appendRow();
+            model.setValue(row, column, i);
+        }
+
+        row = model.getIterFirst();
+        sum = 0;
+        do {
+            sum += model.getValue(row, column);
+        } while (row.iterNext());
+        assertEquals(15, sum);
+
+        row = model.getIterFirst();
+
+        result = model.removeRow(row);
+        assertTrue(result);
+
+        row = model.getIterFirst();
+        sum = 0;
+        do {
+            sum += model.getValue(row, column);
+        } while (row.iterNext());
+        assertEquals(14, sum);
+
+        row = model.getIterFirst();
+        result = model.removeRow(row);
+        assertTrue(result);
+        result = model.removeRow(row);
+        assertTrue(result);
+        result = model.removeRow(row);
+        assertTrue(result);
+        result = model.removeRow(row);
+        assertFalse(result);
+    }
 }

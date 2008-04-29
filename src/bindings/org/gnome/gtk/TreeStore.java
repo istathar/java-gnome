@@ -236,4 +236,16 @@ public class TreeStore extends TreeModel implements TreeDragSource, TreeDragDest
     public void setSortColumn(DataColumn column, SortType ordering) {
         GtkTreeSortable.setSortColumnId(this, column.getOrdinal(), ordering);
     }
+
+    /**
+     * Delete a row from the TreeStore. If there is another row after this
+     * <i>at this level</i> then <code>true</code> will be returned and the
+     * TreeIter will still be valid. Otherwise, <code>false</code> is
+     * returned and <code>row</code> is invalidated.
+     * 
+     * @since 4.0.7
+     */
+    public boolean removeRow(TreeIter row) {
+        return GtkTreeStore.remove(this, row);
+    }
 }
