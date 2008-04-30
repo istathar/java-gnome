@@ -77,7 +77,7 @@ we have few notes on the previous project:
 <div style="font-size: 30px; padding-left: 10px;
 padding-top: 80px; padding-right: 80px;">
 <center>
-	<img src="/images/cross-product.png" width="420" height="120"><br>
+	<img src="/images/cross-product.png" width="450" height="120"><br><br>
 	<span class="italics">Write outstanding</span>
 	<span style="font-size: 24px; font-weight: bold">GTK</span>
 	<span class="italics">based</span>
