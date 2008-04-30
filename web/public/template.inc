@@ -76,8 +76,8 @@ function template_begin() {
 <div class="topbanner">
 	<a href="/"><img id="logo" src="/images/java-gnome_HeaderLogo.png" width="85" height="92" border="0" alt=""></a>
 	<div align="right" style="padding:10px; padding-top:12px">
-	<a class="nav-black" href="http://ftp.gnome.org/pub/gnome/sources/java-gnome/4.0/java-gnome-4.0.6.tar.bz2">java-gnome 4.0.6</a>,
-	<a class="nav-black" href="/4.0/NEWS.html#4.0.6">released 12 Feb '08</a>
+	<a class="nav-black" href="http://ftp.gnome.org/pub/gnome/sources/java-gnome/4.0/java-gnome-4.0.7.tar.bz2">java-gnome 4.0.7</a>,
+	<a class="nav-black" href="/4.0/NEWS.html#4.0.7">released 30 Apr '08</a>
 	</div>
 </div>
 
@@ -153,7 +153,7 @@ function template_end() {
 
 Contents copyright &copy; 2006-2008
 <a class="black" href="http://www.operationaldynamics.com/">Operational Dynamics</a>
-Consulting Pty Ltd, and Others. See <a class="black" href="/4.0/AUTHORS">AUTHORS</a>
+Consulting Pty Ltd, and Others. See <a class="black" href="/4.0/AUTHORS.html">AUTHORS</a>
 file and source code history for the various files comprising this site for
 full details<?
 	if ($valid) {

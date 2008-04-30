@@ -1,9 +1,41 @@
 AUTHORS
 
-Andrew Cowie <andrew@operationaldynamics.com>
-Srichand Pendyala <srichand.pendyala@gmail.com>
-Vreixo Formoso Lopes <metalpain2002@yahoo.es>
-Sebastian Mancke <s.mancke@tarent.de>
+Principal authors
+---------------
+
+	Andrew Cowie <andrew@operationaldynamics.com>
+	Srichand Pendyala <srichand.pendyala@gmail.com>
+	Vreixo Formoso Lopes <metalpain2002@yahoo.es>
+
+Casual contributors
+-------------------
+
+	Sebastian Mancke <s.mancke@tarent.de>
+	Wouter Bolsterlee <uws@xs4all.nl>
+	Nat Pryce <npryce@users.sourceforge.net>
+	Remy Suen <remy.suen@gmail.com>
+	Thomas Schmitz <t.schmitz@tarent.de>
+	Mario Torre <neugens@limasoftware.net>
+	Manu Mahajan <manu@knowyourraga.com>
+
+Mentoring and design review
+---------------------------
+
+	Owen Taylor <owen@redhat.com>
+	Carl Worth <cworth@cworth.org>
+
+Build system improvements
+-------------------------
+
+	Laszlo Peter <laca@sun.com>
+	Michael Kedzierski <waikurosu@gmail.com>
+	Maciej Piechotka <uzytkownik2@gmail.com>
+	Vincent Geddes <vgeddes@gnome.org>
+	Karsten Bräckelmann <kbrae@gnome.org>
+	Timm Preetz <timm@preetz.us>
+	Colin Walters <walters@verbum.org>
+	Rob Taylor <rob.taylor@codethink.co.uk>
+	Serkan Kaba <serkan_kaba@yahoo.com>
 
 --
 
@@ -17,3 +49,11 @@ noted in a given file reflect it. Otherwise the authors of java-gnome, and the
 copyright they exert as owners of their work, are summarized above and listed
 on a file by file basis.
 
+<style>
+<!--
+pre {
+	color: black;
+	background: white;
+}
+-->
+</style>

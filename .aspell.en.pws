@@ -144,6 +144,7 @@ EventType
 EventTypes
 EventVisibility
 EventWindowState
+ExampleCairoDrawingBlends
 ExamplePressMe
 ExampleSimpleMenu
 ExampleTrailHeads
@@ -193,6 +194,7 @@ GSignal
 GSignalQuery
 GSlice
 GSourceFunc
+GStreamer
 GString
 GTK's
 GTKish
@@ -235,6 +237,7 @@ Gentoo's
 GetMethodID
 GetStaticMethodID
 GetStringUTFChars
+Girard
 GladeXml
 GlibException
 GlibMisc
@@ -324,6 +327,7 @@ GtkStatusIcon
 GtkStatusbar
 GtkStockItem
 GtkTable
+GtkTextBuffer
 GtkTextView
 GtkToggleButton
 GtkToggleToolButton
@@ -412,6 +416,7 @@ JamVM
 JavaDoc
 JavaVM
 Juma
+Kaba
 Katoomba
 Kedzierski
 KeyError
@@ -440,10 +445,13 @@ Machame
 Maciej
 Madeley
 Madeley's
+Mahajan
 Make's
 Makefile
 Mancke
 Manish
+Manu
+Manu's
 MenuBars
 MenuItem
 MenuItem's
@@ -550,6 +558,7 @@ Sep
 SeparatorMenuItem
 SeparatorToolItem
 SeparatorToolItems
+Serkan
 ShadowType
 ShiftLeft
 ShiftRight
@@ -1840,6 +1849,7 @@ wb
 webserver
 wget
 whitespace
+whoami
 wiki
 wikis
 windowManager
