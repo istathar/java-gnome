@@ -51,86 +51,21 @@ use!</p>
 <p>The original java-gnome project was written by <b>five</b> successive teams
 of hackers from 1998-2006. That's <b>nine</b> years!</p>
 
-<p>Unfortunately, there has been almost zero new coverage activity over the
-past several years and the code that is there is full of cruft, inefficiency,
-bugs, and serious memory leaks. Its codebase was spread across
-<b>seven</b>-plus libraries, and it was virtually impossible to maintain. Its
-website was hideously out of date and the quality of examples poor. Worst of
-all, it was exceedingly difficult for new people to learn how to contribute to
-java-gnome 2.<span class="x">x</span>, and as a result was abandoned in October
-2006.</p>
+<p>Over the later years of this period, however, there was almost zero new
+coverage activity over the last years of this period, and the code that was
+there was full of cruft, inefficiency, bugs, and serious memory leaks. Its
+codebase was spread across <b>seven</b>-plus libraries, and was quite
+impossible to maintain. The project website was hideously out of date and the
+quality of its examples poor. Worst of all, the API was exceedingly difficult
+for new people to learn how to contribute to java-gnome 2.<span
+class="x">x</span>. As a result, this code was abandoned by the java-gnome 
+community in October 2006.</p>
 
-<p>This page is for historical reference and to honour the hard work of the
+<p>This page is for <a class="nav-black" href="historical.php">historical</a>
+reference and to honour the hard work of the
 fine team of <a class="nav-black" href="AUTHORS">contributors, hackers, and
 maintainers</a> who wrote the first generations of the Java bindings for GTK
 and GNOME. We owe them a debt of gratitude.</p>
-
-<h2>Last Releases</h2>
-
-java-gnome <code>2.16.2</code> was the last release of the <code>2.</code><span
-class="x">x</span> series. It consisted of the following libraries:
-
-<pre style="background-color: white; color: black;">
-	glib-java     0.4.2
-	cairo-java    1.0.7
-	libgtk-java   2.10.2
-	libgnome-java 2.12.7
-	libglade-java 2.12.8
-	libgconf-java 2.12.6
-	libvte-java   0.12.3
-</pre>
-
-<p>There is no reason whatsoever to start a new project in java-gnome 2.<span
-class="x">x</span>. Despite the version numbers above, coverage never made it 
-past GTK 2.6</p>
-
-<p>If you have an existing application that uses the old
-bindings, the you are advised to upgrade to the latest versions of these
-libraries available, as they contain bug fixes of considerable importance. Even
-then it'll probably crash.
-
-<p>From this point forward, however, each of the packages making up java-gnome
-<code>2.16.2</code> have been <b>declared end-of-life</b> and the APIs used
-have been formally deprecated. It is no longer being maintained by anyone from
-the previous or present java-gnome teams. As these bindings have been
-abandoned, contributed patches will not be accepted.</p>
-
-<p>Please note that several other libraries are available in the old java-gnome
-family; none of them achieved release quality, were abandoned as early as
-java-gnome 2.8, and probably don't build anyway. Don't even think about trying
-to use them:</p>
-
-<pre style="background-color: white; color: black;">
-	libeds-java   0.5.1
-	libbonobo-java
-	libgtkhtml-java
-	libgtkmozembed-java
-	libgnomevfs-java
-	libgst-java
-</pre>
-
-<h2>Migrating existing applications</h2>
-
-<p>There is a complete API break between java-gnome 2.<span class="x">x</span>
-and the new java-gnome 4.0 bindings. While the style of coding will be
-familiar, package space, classes, method names, and arguments are at times very
-different. This was necessary in order to ensure an algorithmic mapping of the
-underlying libraries, something sadly lacking in 2.<span class="x">x</span>.
-There are also some wholesale API redesigns, with signal handling in particular
-being completely new. Finally, internals that were previously exposed are no
-longer publicly visible and not part of the public API.
-
-<p>Also, you might note that unlike the above list of libraries with
-inconsistent names, java-gnome 4.0 is shipping at present in <!-- FIXME --> a
-single unified source release.</p>
-
-<p>There is a considerable installed base of software written in java-gnome,
-but much of it is in-house applications that do not have public open source
-code bases. As such there will be little community support forthcoming to help
-such people upgrade those applications to the new java-gnome APIs.
-Operational Dynamics has considerable expertise in doing such migrations and
-would be pleased to talk to you on a commercial basis about porting your
-existing code to java-gnome 4.0.</p>
 
 <?
 	$bottom_message = "The original 2.<span class=\"x\">x</span> bindings
