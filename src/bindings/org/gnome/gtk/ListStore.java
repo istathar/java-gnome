@@ -127,7 +127,8 @@ public class ListStore extends TreeModel implements TreeDragSource, TreeDragDest
      * 
      * <p>
      * If you have a TreeIter pointing at a row already you can instead use
-     * {@link #insertRow(TreeIter) insertRow()} to inject an new row there.
+     * the other form of {@link #insertRow(TreeIter) insertRow()} to inject an
+     * new row there.
      * 
      * <p>
      * As with {@link #appendRow() appendRow()} the new row will be empty;
@@ -152,10 +153,12 @@ public class ListStore extends TreeModel implements TreeDragSource, TreeDragDest
 
     /**
      * Insert a new row in the ListStore. The empty row will be placed in
-     * front of the supplied <code>sibling</code>. See
-     * {@link #insertRow(int) insertRow()} to insert a row at a given
-     * position, and {@link #appendRow() appendRow()} to add a row at the end
-     * of the model.
+     * front of the supplied <code>sibling</code>.
+     * 
+     * <p>
+     * Alternately, see {@link #insertRow(int) insertRow()} to insert a row at
+     * a given position, and {@link #appendRow() appendRow()} to add a blank
+     * row at the end of the model.
      * 
      * @since 4.0.7
      */
