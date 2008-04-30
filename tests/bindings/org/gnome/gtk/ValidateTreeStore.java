@@ -13,6 +13,7 @@ package org.gnome.gtk;
 /**
  * @author Andrew Cowie
  * @author Vreixo Formoso
+ * @author Stefan Prelle
  */
 /*
  * Some are copy/adapted from ValidateTreeModel
@@ -344,5 +345,63 @@ public class ValidateTreeStore extends TestCaseGtk
         child = model.appendChild(child);
         path = model.getPath(child);
         assertEquals("1:1:0", path.toString());
+    }
+
+    public final void testInsertRow() {
+        final TreeStore model;
+        final DataColumnString column;
+        TreeIter row, row2, row3;
+
+        model = new TreeStore(new DataColumn[] {
+            column = new DataColumnString(),
+        });
+
+        // base data to play with
+        row = model.appendRow();
+        model.setValue(row, column, "a");
+        row2 = model.appendChild(row);
+        model.setValue(row2, column, "aa");
+        row3 = model.appendChild(row2);
+        model.setValue(row3, column, "aaa");
+        row3 = model.appendChild(row2);
+        model.setValue(row3, column, "aab");
+        row = model.appendRow();
+        model.setValue(row, column, "b");
+
+        // Insert
+        row = model.insertRow(null, 1);
+        assertNotNull(row);
+        model.setValue(row, column, "a-b");
+
+        // Insert negative is not allowed
+        try {
+            model.insertRow(null, -1);
+            fail("Negative insertion index not recognized");
+        } catch (RuntimeException e) {
+        }
+
+        // Ensure that element is inserted between 1 and 2
+        row = model.getIterFirst();
+        assertEquals("a", model.getValue(row, column));
+        assertTrue(row.iterNext());
+        assertEquals("a-b", model.getValue(row, column));
+        assertTrue(row.iterNext());
+        assertEquals("b", model.getValue(row, column));
+        assertFalse(row.iterNext());
+
+        // Now test with depth of 3
+        row2 = model.getIter(new TreePath("0:0"));
+        row3 = model.insertRow(row2, 1);
+        assertNotNull(row3);
+        model.setValue(row3, column, "aaa-b");
+
+        // Ensure that element is inserted between 1 and 2
+        row3 = model.getIter(new TreePath("0:0:0"));
+        assertEquals("aaa", model.getValue(row3, column));
+        assertTrue(row3.iterNext());
+        assertEquals("aaa-b", model.getValue(row3, column));
+        assertTrue(row3.iterNext());
+        assertEquals("aab", model.getValue(row3, column));
+        assertFalse(row3.iterNext());
     }
 }
