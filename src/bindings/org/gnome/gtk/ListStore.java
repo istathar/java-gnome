@@ -119,4 +119,53 @@ public class ListStore extends TreeModel implements TreeDragSource, TreeDragDest
     public boolean removeRow(TreeIter row) {
         return GtkListStore.remove(this, row);
     }
+
+    /**
+     * Insert a new row in the ListStore. The row will be placed at
+     * <code>position</code>, which must be between <code>0</code> and
+     * the number or rows in the model.
+     * 
+     * <p>
+     * If you have a TreeIter pointing at a row already you can instead use
+     * {@link #insertRow(TreeIter) insertRow()} to inject an new row there.
+     * 
+     * <p>
+     * As with {@link #appendRow() appendRow()} the new row will be empty;
+     * you'll need to call one of the various <code>setValue()</code>
+     * methods to populate it.
+     * 
+     * @since 4.0.7
+     */
+    public TreeIter insertRow(int position) {
+        final TreeIter iter;
+
+        if (position < 0) {
+            throw new IllegalArgumentException("position can't be negative");
+        }
+
+        iter = new TreeIter(this);
+
+        GtkListStore.insert(this, iter, position);
+
+        return iter;
+    }
+
+    /**
+     * Insert a new row in the ListStore. The empty row will be placed in
+     * front of the supplied <code>sibling</code>. See
+     * {@link #insertRow(int) insertRow()} to insert a row at a given
+     * position, and {@link #appendRow() appendRow()} to add a row at the end
+     * of the model.
+     * 
+     * @since 4.0.7
+     */
+    public TreeIter insertRow(TreeIter sibling) {
+        final TreeIter iter;
+
+        iter = new TreeIter(this);
+
+        GtkListStore.insertBefore(this, iter, sibling);
+
+        return iter;
+    }
 }

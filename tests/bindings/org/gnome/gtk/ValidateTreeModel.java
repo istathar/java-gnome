@@ -523,4 +523,66 @@ public class ValidateTreeModel extends TestCaseGtk
         result = model.removeRow(row);
         assertFalse(result);
     }
+
+    public final void testInsertRow() {
+        final ListStore model;
+        final DataColumnInteger column;
+        TreeIter row, sibbling;
+        int i;
+        String str;
+
+        model = new ListStore(new DataColumn[] {
+            column = new DataColumnInteger(),
+        });
+
+        for (i = 0; i < 10; i += 3) {
+            row = model.appendRow();
+            model.setValue(row, column, i);
+        }
+
+        try {
+            row = model.insertRow(-1);
+            fail("Should have thrown");
+        } catch (IllegalArgumentException iae) {
+            // good
+        }
+
+        str = "";
+        row = model.getIterFirst();
+        do {
+            str += model.getValue(row, column);
+        } while (row.iterNext());
+        assertEquals("0369", str);
+
+        row = model.insertRow(1);
+        model.setValue(row, column, 2);
+
+        str = "";
+        row = model.getIterFirst();
+        do {
+            str += model.getValue(row, column);
+        } while (row.iterNext());
+        assertEquals("02369", str);
+
+        row = model.insertRow(50);
+        model.setValue(row, column, 8);
+
+        str = "";
+        row = model.getIterFirst();
+        do {
+            str += model.getValue(row, column);
+        } while (row.iterNext());
+        assertEquals("023698", str);
+
+        sibbling = model.getIter(new TreePath("3"));
+        row = model.insertRow(sibbling);
+        model.setValue(row, column, 7);
+
+        str = "";
+        row = model.getIterFirst();
+        do {
+            str += model.getValue(row, column);
+        } while (row.iterNext());
+        assertEquals("0237698", str);
+    }
 }

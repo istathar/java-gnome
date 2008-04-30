@@ -1242,7 +1242,9 @@ init
 initializer
 initializers
 inline
+insertBefore
 insertPage
+insertRow
 insertText
 instanceFor
 instanceof

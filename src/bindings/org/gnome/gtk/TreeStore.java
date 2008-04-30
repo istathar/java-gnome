@@ -248,4 +248,43 @@ public class TreeStore extends TreeModel implements TreeDragSource, TreeDragDest
     public boolean removeRow(TreeIter row) {
         return GtkTreeStore.remove(this, row);
     }
+
+    /**
+     * Insert a new row in the TreeStore. The row will be placed as a child of
+     * <code>parent</code> at the <code>position</code> specified. If
+     * <code>parent</code> is <code>null</code> then the new row will be
+     * inserted at the top level of the TreeStore.
+     * 
+     * @since 4.0.7
+     */
+    public TreeIter insertRow(TreeIter parent, int position) {
+        final TreeIter iter;
+
+        if (position < 0) {
+            throw new IllegalArgumentException("position can't be negative");
+        }
+
+        iter = new TreeIter(this);
+
+        GtkTreeStore.insert(this, iter, parent, position);
+
+        return iter;
+    }
+
+    /**
+     * Insert a new row in the TreeStore. The empty row will be a child of
+     * <code>parent</code> and will be placed in front of the supplied
+     * <code>sibling</code>.
+     * 
+     * @since 4.0.7
+     */
+    public TreeIter insertRow(TreeIter parent, TreeIter sibling) {
+        final TreeIter iter;
+
+        iter = new TreeIter(this);
+
+        GtkTreeStore.insertBefore(this, iter, parent, sibling);
+
+        return iter;
+    }
 }
