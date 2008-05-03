@@ -876,8 +876,10 @@ createHBox
 createHButtonBox
 createHScaleWithRange
 createHSeparator
+createImage
 createImageFromFile
 createImageFromPixbuf
+createImageFromPixmap
 createImageMenuItemWithMnemonic
 createInstance
 createLabel
@@ -986,6 +988,7 @@ elif
 ellipsized
 else's
 elsif
+emplace
 enclosingGroup
 endif
 endingLabel
@@ -1474,6 +1477,7 @@ param
 perl
 php
 pixbuf
+pixmap
 pkgadd
 placeName
 plugin
@@ -1605,6 +1609,7 @@ setFixedWidth
 setFocusOnClick
 setForeground
 setFraction
+setFrom
 setFromFile
 setFromIconName
 setFromPixbuf

@@ -92,4 +92,48 @@ public class Image extends Misc
     public Image(Pixmap pixmap, Bitmap mask) {
         super(GtkImage.createImageFromPixmap(pixmap, mask));
     }
+
+    /**
+     * Specify the Pixbuf to be presented by this Image.
+     * 
+     * @since 4.0.8
+     */
+    /*
+     * The first of numerous overloads, one each matching the constructors we
+     * support. Bit of a toss-up as to what the name of these should be;
+     * clearly setFrom() won't do and setFromPixbuf() etc precludes the use of
+     * an overload which is far better Java form.
+     */
+    public void setImage(Pixbuf pixbuf) {
+        GtkImage.setFromPixbuf(this, pixbuf);
+    }
+
+    /**
+     * Specify a stock icon to be displayed by this Image. See the
+     * {@link #Image(Stock, IconSize) constructor} taking a Stock instance.
+     * 
+     * @since 4.0.8
+     */
+    public void setImage(Stock stock, IconSize size) {
+        GtkImage.setFromStock(this, stock.getStockId(), size);
+    }
+
+    /**
+     * Specify the filename to load and parse as image data to be displayed in
+     * this Image. See the filename {@link #Image(String) constructor}.
+     * 
+     * @since 4.0.8
+     */
+    public void setImage(String filename) {
+        GtkImage.setFromFile(this, filename);
+    }
+
+    /**
+     * Reset this Image to be empty.
+     * 
+     * @since 4.0.8
+     */
+    public void clear() {
+        GtkImage.clear(this);
+    }
 }

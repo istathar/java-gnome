@@ -10,6 +10,10 @@
  */
 package org.gnome.gtk;
 
+import java.io.FileNotFoundException;
+
+import org.gnome.gdk.Pixbuf;
+
 /**
  * Test characteristic getters and setters to ensure correct values are
  * retrieved.
@@ -247,5 +251,22 @@ public class ValidateProperties extends TestCaseGtk
         }
 
         w.resize(1, 1);
+    }
+
+    /*
+     * TODO make this a bit more meaningful; at the moment all it is doing is
+     * making sure that no FatalErrors are blown by switching from an Image
+     * storing one type of image to another; (yes, one would expect this to
+     * Just Work; but that's the point of this test as it stands so far).
+     */
+    public final void testImageResetting() throws FileNotFoundException {
+        final Image i;
+        final Pixbuf data;
+
+        i = new Image(Stock.REFRESH, IconSize.LARGE_TOOLBAR);
+
+        data = new Pixbuf("web/public/images/java-gnome_LargeLogo.png");
+        i.setImage(data);
+        i.clear();
     }
 }
