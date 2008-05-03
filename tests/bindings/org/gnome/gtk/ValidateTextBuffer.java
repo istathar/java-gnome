@@ -10,6 +10,8 @@
  */
 package org.gnome.gtk;
 
+import org.gnome.pango.Scale;
+
 /**
  * @author Andrew Cowie
  */
@@ -81,5 +83,20 @@ public class ValidateTextBuffer extends TestCaseGtk
 
         tag.setScale(10.2d);
         assertEquals(10.2d, tag.getScale(), 0.0001);
+    }
+
+    public final void testStronglyTypedScaleProperty() {
+        final LocalTextTag tag;
+
+        tag = new LocalTextTag();
+
+        tag.setScale(Scale.LARGE);
+
+        /*
+         * At time of writing there is no Plumbing infrastructure to go from
+         * Class,double to DoubleConstant, so we use the getter from the
+         * LocalTextTag hack again to extract the property for testing.
+         */
+        assertEquals(GtkTextTagOverride.scaleOf(Scale.LARGE), tag.getScale(), 0.0001);
     }
 }
