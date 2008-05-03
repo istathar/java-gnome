@@ -63,6 +63,10 @@ class Value extends org.gnome.glib.Value
         super(value);
     }
 
+    Value(double value) {
+        super(value);
+    }
+
     Value(org.gnome.glib.Object obj) {
         super(obj);
     }
@@ -85,7 +89,11 @@ class Value extends org.gnome.glib.Value
     protected float getFloat() {
         return super.getFloat();
     }
-    
+
+    protected double getDouble() {
+        return super.getDouble();
+    }
+
     Value(long value) {
         super(value);
     }

@@ -21,6 +21,17 @@ import org.gnome.glib.Object;
  * are made about this class until it has been reviewed by a hacker and this
  * comment has been replaced.
  */
+/**
+ * ... markup and formatting for regions of text in a TextBuffer ...
+ * 
+ * @author Andrew Cowie
+ * @since 4.0.8
+ */
+/*
+ * This class is interesting and unusual in that there are no direct setter
+ * functions; all the various properties are only exposed through the GObject
+ * GValue property setting mechanism.
+ */
 public class TextTag extends Object
 {
     /*
@@ -48,5 +59,52 @@ public class TextTag extends Object
     public TextTag(String name) {
         super(GtkTextTag.createTextTag(name));
         this.name = name;
+    }
+
+    /**
+     * The default is <code>1.0</code>.
+     * 
+     * @since 4.0.8
+     */
+    /*
+     * FIXME switch to strongly typed constants?!?
+     */
+    public void setScale(double scale) {
+        setPropertyDouble("scale", scale);
+    }
+
+    /**
+     * Specify the amount by which this paragraph is to be indented, in
+     * pixels. Interestingly, this <i>can</i> be negative. The default is
+     * <code>0</code>.
+     * 
+     * @since 4.0.8
+     */
+    public void setIndent(int pixels) {
+        setPropertyInteger("indent", pixels);
+    }
+
+    /**
+     * Specify the left margin, in pixels. The default is <code>0</code>.
+     * 
+     * @since 4.0.8
+     */
+    public void setLeftMargin(int pixels) {
+        if (pixels < 0) {
+            throw new IllegalArgumentException("Margin property must be positive");
+        }
+        setPropertyInteger("left-margin", pixels);
+    }
+
+    /**
+     * Specify the right margin, in pixels. The default is <code>0</code>.
+     * 
+     * @since 4.0.8
+     */
+    public void setRightMargin(int pixels) {
+        if (pixels < 0) {
+            throw new IllegalArgumentException("Margin property must be positive");
+        }
+        setPropertyInteger("right-margin", pixels);
     }
 }

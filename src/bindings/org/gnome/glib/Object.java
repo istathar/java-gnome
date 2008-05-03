@@ -168,6 +168,15 @@ public abstract class Object extends Proxy
         return GValue.getFloat(value);
     }
 
+    protected void setPropertyDouble(String name, double value) {
+        GObject.setProperty(this, name, new Value(value));
+    }
+
+    protected double getPropertyDouble(String name) {
+        Value value = GObject.getProperty(this, name);
+        return GValue.getDouble(value);
+    }
+
     /**
      * Set a property that takes an Object subclass for its value.
      * 

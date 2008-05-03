@@ -141,6 +141,10 @@ public class Value extends Proxy
         this(GValue.createValue(value), true);
     }
 
+    protected Value(double value) {
+        this(GValue.createValue(value), true);
+    }
+
     protected Value(Pixbuf pixbuf) {
         this(GValue.createValue(pixbuf), true);
     }
@@ -155,13 +159,17 @@ public class Value extends Proxy
     protected Object getObject() {
         return GValue.getObject(this);
     }
-    
+
     protected Pixbuf getPixbuf() {
         return GValue.getPixbuf(this);
     }
 
     protected float getFloat() {
         return GValue.getFloat(this);
+    }
+
+    protected double getDouble() {
+        return GValue.getDouble(this);
     }
 
     protected Value(long value) {

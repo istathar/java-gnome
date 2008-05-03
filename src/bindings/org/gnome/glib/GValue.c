@@ -253,6 +253,39 @@ Java_org_gnome_glib_GValue_g_1value_1init__F
 
 /**
  * Implements
+ *   org.gnome.glib.GValue.g_value_init(double d)
+ * called from
+ *   org.gnome.glib.GValue.createValue(double d)
+ *
+ * Allocate a GValue for a gdouble with GSlice, then initialize it and return
+ * the pointer.
+ */
+JNIEXPORT jlong JNICALL
+Java_org_gnome_glib_GValue_g_1value_1init__D
+(
+	JNIEnv *env,
+	jclass cls,
+	jdouble _d
+)
+{
+	gdouble d;
+	GValue* value;
+	
+	d = (gdouble) _d;
+		
+	// allocate it and set to zeros, per what g_value_init requires
+	value =	g_slice_new0(GValue);
+	g_value_init(value, G_TYPE_DOUBLE);
+	
+	// set the value
+	g_value_set_double(value, d); 
+
+	// return address
+	return (jlong) value;
+}
+
+/**
+ * Implements
  *   org.gnome.glib.GValue.g_value_init(String str)
  * called from
  *   org.gnome.glib.GValue.createValue(String str)
@@ -399,6 +432,42 @@ Java_org_gnome_glib_GValue_g_1value_1get_1float
 	
 	// and return
 	return (jfloat) result; 
+}
+
+/**
+ * Implements
+ *   org.gnome.glib.GValue.g_value_get_double(long value)
+ * called from
+ *   org.gnome.glib.GValue.getDouble(Value value)
+ * called from
+ *   org.gnome.glib.Object.getPropertyDouble(String name)
+ *
+ * Extract the gdoulbe value from a GValue of G_TYPE_DOUBLE, returning the
+ * primitive.
+ */
+JNIEXPORT jdouble JNICALL
+Java_org_gnome_glib_GValue_g_1value_1get_1double
+(
+	JNIEnv* env,
+	jclass cls,
+	jlong _value
+)
+{
+	GValue* value;
+	gdouble result;
+
+	// translate value
+	value =	(GValue*) _value;
+	if (!G_VALUE_HOLDS_DOUBLE(value)) {
+		bindings_java_throw(env, "You've asked for the double value of a GValue, but it's not a G_TYPE_DOUBLE!");
+		return 0.0;
+	}
+	
+	// call function
+	result = g_value_get_double(value);
+	
+	// and return
+	return (jdouble) result; 
 }
 
 JNIEXPORT jint JNICALL

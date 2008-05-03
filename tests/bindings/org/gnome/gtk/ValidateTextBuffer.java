@@ -51,4 +51,35 @@ public class ValidateTextBuffer extends TestCaseGtk
             // good
         }
     }
+
+    /*
+     * This is here so that we can test the code paths through GValue for
+     * properties of type double. Repeating the setter and/or getter here for
+     * the scale property armours us against future changes to TextTag, which
+     * may well end up with a strongly typed interface.
+     */
+    private static class LocalTextTag extends TextTag
+    {
+        LocalTextTag() {
+            super(null);
+        }
+
+        public void setScale(double scale) {
+            setPropertyDouble("scale", scale);
+        }
+
+        public double getScale() {
+            return getPropertyDouble("scale");
+        }
+
+    }
+
+    public final void testScalePropertyInternalCodePaths() {
+        final LocalTextTag tag;
+
+        tag = new LocalTextTag();
+
+        tag.setScale(10.2d);
+        assertEquals(10.2d, tag.getScale(), 0.0001);
+    }
 }
