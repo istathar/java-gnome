@@ -741,4 +741,42 @@ public class Window extends Bin
         }
         GtkWindow.resize(this, width, height);
     }
+
+    /**
+     * Request that GNOME not include this Window in lists of open windows.
+     * These are notably the "Window List" and "Window Selector" applets
+     * included with <code>gnome-panel</code> and the on-screen-display
+     * popup presented by the window manager. This is useful when creating
+     * special purpose auxiliary windows that are not the main program.
+     * 
+     * <p>
+     * Like other "hint" setting methods, this is only a request to the
+     * external environment and could potentially be ignored.
+     * 
+     * <p>
+     * You may also need {@link #setSkipPagerHint(boolean) setSkipPagerHint()}.
+     * 
+     * @since 4.0.8
+     */
+    public void setSkipTaskbarHint(boolean setting) {
+        GtkWindow.setSkipTaskbarHint(this, setting);
+    }
+
+    /**
+     * Request that GNOME not include this Window in pagers. Pagers are
+     * applets and other utilities which show thumbnails of windows as an aide
+     * to navigation and switching. The "Workspace Switcher" applet included
+     * with <code>gnome-panel</code> is a pager.
+     * 
+     * <p>
+     * If you're trying to keep this Window off of the list of windows shown
+     * as buttons in a panel, then you're probably looking for
+     * {@link #setSkipTaskbarHint(boolean) setSkipTaskbarHint()} instead,
+     * although this can be a nice touch too.
+     * 
+     * @since 4.0.8
+     */
+    public void setSkipPagerHint(boolean setting) {
+        GtkWindow.setSkipPagerHint(this, setting);
+    }
 }

@@ -1682,6 +1682,8 @@ setSensitive
 setShadowType
 setSizeRequest
 setSizing
+setSkipPagerHint
+setSkipTaskbarHint
 setSortColumn
 setSortColumnId
 setSource
