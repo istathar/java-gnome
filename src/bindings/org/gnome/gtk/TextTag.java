@@ -23,7 +23,30 @@ import org.gnome.glib.Object;
  */
 public class TextTag extends Object
 {
+    /*
+     * Simple Java side reference to facilitate avoiding double-tap additions.
+     */
+    TextTagTable table;
+
+    /*
+     * The tags name, again to facilitate Java side checking
+     */
+    final String name;
+
     protected TextTag(long pointer) {
         super(pointer);
+        name = getPropertyString("name");
+    }
+
+    /**
+     * Create a new TextTag. The given <code>name</code> will be used as the
+     * TextTag's nickname. You can pass <code>null</code> to make this
+     * anonymous.
+     * 
+     * @since 4.0.8
+     */
+    public TextTag(String name) {
+        super(GtkTextTag.createTextTag(name));
+        this.name = name;
     }
 }

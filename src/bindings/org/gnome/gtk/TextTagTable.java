@@ -26,4 +26,53 @@ public class TextTagTable extends Object
     protected TextTagTable(long pointer) {
         super(pointer);
     }
+
+    /**
+     * Instantiate a new table for collecting TextTags.
+     * 
+     * @since 4.0.8
+     */
+    public TextTagTable() {
+        super(GtkTextTagTable.createTextTagTable());
+    }
+
+    /**
+     * Add a TextTag to this collection.
+     * 
+     * <p>
+     * You cannot add the same tag to multiple tables, and (as should be
+     * obvious) you can't add the same tag to a given TextTagTable twice.
+     * Also, you cannot add a tag with a name that is already in use by
+     * another tag in this table.
+     * 
+     * @since 4.0.8
+     */
+    public void add(TextTag tag) {
+        if (tag.table != null) {
+            if (tag.table == this) {
+                throw new IllegalStateException("You've already added tag to this table");
+            } else {
+                throw new IllegalStateException("You can't add tag to second table");
+            }
+        }
+
+        if (tag.name != null) {
+            if (GtkTextTagTable.lookup(this, tag.name) != null) {
+                throw new IllegalArgumentException("This tag has a name that's already in the table");
+            }
+        }
+
+        GtkTextTagTable.add(this, tag);
+        tag.table = this;
+    }
+
+    /**
+     * Remove a TextTag from this table.
+     * 
+     * @since 4.0.8
+     */
+    public void remove(TextTag tag) {
+        tag.table = null;
+        GtkTextTagTable.remove(this, tag);
+    }
 }

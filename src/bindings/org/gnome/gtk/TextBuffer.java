@@ -26,4 +26,14 @@ public class TextBuffer extends Object
     protected TextBuffer(long pointer) {
         super(pointer);
     }
+
+    /**
+     * Create a new TextBuffer. Uses (or reuses) the supplied TextTagTable;
+     * you can add more TextTags to it later.
+     * 
+     * @since 4.0.8
+     */
+    public TextBuffer(TextTagTable tags) {
+        super(GtkTextBuffer.createTextBuffer(tags));
+    }
 }
