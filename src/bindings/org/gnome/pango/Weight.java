@@ -1,7 +1,7 @@
 /*
  * Weight.java
  *
- * Copyright (c) 2007 Operational Dynamics Consulting Pty Ltd
+ * Copyright (c) 2007-2008 Operational Dynamics Consulting Pty Ltd
  *
  * The code in this file, and the library it is a part of, are made available
  * to you by the authors under the terms of the "GNU General Public Licence,
@@ -21,9 +21,47 @@ import org.freedesktop.bindings.Constant;
  * are made about this class until it has been reviewed by a hacker and this
  * comment has been replaced.
  */
-public final class Weight extends Constant
+/**
+ * ... font weight constants ...
+ * 
+ * @author Andrew Cowie
+ * @since 4.0.8
+ */
+/*
+ * Yes, you can subclass this if you are desparate for font weights other than
+ * the established constant values supplied here.
+ */
+public class Weight extends Constant
 {
     private Weight(int ordinal, String nickname) {
         super(ordinal, nickname);
     }
+
+    protected Weight(int value) {
+        super(validate(value), Integer.toString(value));
+    }
+
+    static final int validate(int value) {
+        if ((value < 100) || (value > 900)) {
+            throw new IllegalArgumentException("Valid font weights are 100 through 900");
+        }
+        return value;
+    }
+
+    /**
+     * The default font weight.
+     * 
+     * <p>
+     * <i>This has a value of <code>400</code>, apparently.</i>
+     */
+    public static final Weight NORMAL = new Weight(PangoWeight.NORMAL, "NORMAL");
+
+    /**
+     * Bold text.
+     * 
+     * <p>
+     * <i>This represents a font weight value of <code>700</code>,
+     * apparently.</i>
+     */
+    public static final Weight BOLD = new Weight(PangoWeight.BOLD, "BOLD");
 }

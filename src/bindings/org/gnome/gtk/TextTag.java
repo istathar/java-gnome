@@ -1,7 +1,7 @@
 /*
  * TextTag.java
  *
- * Copyright (c) 2007 Operational Dynamics Consulting Pty Ltd
+ * Copyright (c) 2007-2008 Operational Dynamics Consulting Pty Ltd
  *
  * The code in this file, and the library it is a part of, are made available
  * to you by the authors under the terms of the "GNU General Public Licence,
@@ -12,6 +12,8 @@
 package org.gnome.gtk;
 
 import org.gnome.glib.Object;
+import org.gnome.pango.Scale;
+import org.gnome.pango.Weight;
 
 /*
  * FIXME this is a placeholder stub for what will become the public API for
@@ -62,15 +64,18 @@ public class TextTag extends Object
     }
 
     /**
-     * The default is <code>1.0</code>.
+     * Specify that you want the text scaled up or scaled down from the
+     * otherwise extant font size. The default is
+     * {@link org.gnome.pango.Scale#NORMAL NORMAL} (that is, a scaling factor
+     * of <code>1.0</code> which thereby has no effect).
      * 
      * @since 4.0.8
      */
     /*
-     * FIXME switch to strongly typed constants?!?
+     * Be aware in passing that this obscures the Scale in org.gnome.gtk
      */
-    public void setScale(double scale) {
-        setPropertyDouble("scale", scale);
+    public void setScale(Scale scale) {
+        setPropertyDouble("scale", GtkTextTagOverride.scaleOf(scale));
     }
 
     /**
@@ -106,5 +111,15 @@ public class TextTag extends Object
             throw new IllegalArgumentException("Margin property must be positive");
         }
         setPropertyInteger("right-margin", pixels);
+    }
+
+    /**
+     * Specfict the font weight. The useful one is {@link Weight#BOLD BOLD};
+     * the default is {@link Weight#NORMAL NORMAL}.
+     * 
+     * @since 4.0.8
+     */
+    public void setWeight(Weight weight) {
+        setPropertyInteger("weight", GtkTextTagOverride.weightOf(weight));
     }
 }
