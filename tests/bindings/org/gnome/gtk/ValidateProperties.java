@@ -221,4 +221,31 @@ public class ValidateProperties extends TestCaseGtk
         assertTrue(width > 1);
         assertTrue(height > 1);
     }
+
+    /*
+     * FUTURE Given the elaborate relationship between resize(),
+     * setDefaultSize(), and setSizeRequest(), this could probably be a lot
+     * more stringent.
+     */
+    public final void testResizeRestrictions() {
+        final Window w;
+
+        w = new Window();
+
+        try {
+            w.resize(0, 1);
+            fail("Shouldn't accept sub-minimum sizes.");
+        } catch (IllegalArgumentException iae) {
+            // good
+        }
+
+        try {
+            w.resize(1, 0);
+            fail("Shouldn't accept sub-minimum sizes.");
+        } catch (IllegalArgumentException iae) {
+            // good
+        }
+
+        w.resize(1, 1);
+    }
 }

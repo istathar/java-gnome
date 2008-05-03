@@ -156,8 +156,8 @@ public class Window extends Bin
      * the size it had prior to hiding, rather than using the default size.
      * 
      * <p>
-     * Depending on your needs, {@link #resize() resize()} could be more
-     * appropriate, especially if the Window is already realized.
+     * Depending on your needs, {@link #resize(int, int) resize()} could be
+     * more appropriate, especially if the Window is already realized.
      * <code>resize()</code> changes the current size of the Window, rather
      * than the size to be used on initial display which is what this method
      * is for.
@@ -716,5 +716,29 @@ public class Window extends Bin
      */
     public void setResizable(boolean setting) {
         GtkWindow.setResizable(this, setting);
+    }
+
+    /**
+     * Resize the Window to the given <code>width</code> and
+     * <code>height</code>.
+     * 
+     * <p>
+     * The size specified here needs to meet or exceed the current aggregate
+     * size request for this Window as determined by the children packed into
+     * it. If that's a problem, then influence the size request with
+     * {@link #setSizeRequest(int, int) setSizeRequest()}.
+     * 
+     * <p>
+     * If you call this before the Window is realized, then the settings
+     * provided here will override those specified with
+     * {@link #setDefaultSize(int, int) setDefaultSize()}.
+     * 
+     * @since 4.0.8
+     */
+    public void resize(int width, int height) {
+        if ((width < 1) || (height < 1)) {
+            throw new IllegalArgumentException("absolute minimum size is 1x1");
+        }
+        GtkWindow.resize(this, width, height);
     }
 }
