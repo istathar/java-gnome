@@ -115,4 +115,19 @@ public abstract class Box extends Container
     public void packEnd(Widget child, boolean expand, boolean fill, int padding) {
         GtkBox.packEnd(this, child, expand, fill, padding);
     }
+
+    /**
+     * Change the position of a Widget in the Box. The child will still be
+     * packed with respect to the beginning (if
+     * {@link #packStart(Widget, boolean, boolean, int) packStart()} was used)
+     * or end (if
+     * {@link #packEnd(Widget, boolean, boolean, int) packEnd() was used}) of
+     * the Box, and will be placed just after the Widget at
+     * <code>position</code>.
+     * 
+     * @since 4.0.8
+     */
+    public void reorderChild(Widget child, int position) {
+        GtkBox.reorderChild(this, child, position);
+    }
 }
