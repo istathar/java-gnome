@@ -136,6 +136,11 @@ public abstract class Object extends Proxy
         GObject.setProperty(this, name, new Value(value));
     }
 
+    protected int getPropertyInteger(String name) {
+        Value value = GObject.getProperty(this, name);
+        return GValue.getInteger(value);
+    }
+
     /**
      * Set a property that takes a <code>boolean</code> for its value.
      * 
@@ -189,6 +194,10 @@ public abstract class Object extends Proxy
     protected String getPropertyString(String name) {
         Value value = GObject.getProperty(this, name);
         return GValue.getString(value);
+    }
+
+    protected void setPropertyEnum(String name, Constant value) {
+        GObject.setProperty(this, name, new Value(value));
     }
 
     protected Constant getPropertyEnum(String name) {

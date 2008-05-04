@@ -1,7 +1,7 @@
 /*
  * GValue.c
  *
- * Copyright (c) 2006-2007 Operational Dynamics Consulting Pty Ltd
+ * Copyright (c) 2006-2008 Operational Dynamics Consulting Pty Ltd
  * 
  * The code in this file, and the library it is a part of, are made available
  * to you by the authors under the terms of the "GNU General Public Licence,
@@ -314,7 +314,7 @@ Java_org_gnome_glib_GValue_g_1value_1init__Ljava_lang_String_2
 	value =	g_slice_new0(GValue);
 	g_value_init(value, G_TYPE_STRING);
 
-	// set the value	
+	// set the value
 	g_value_set_string(value, str); 
 
 	// clean up
@@ -352,7 +352,7 @@ Java_org_gnome_glib_GValue_g_1value_1init_1object
 	value =	g_slice_new0(GValue);
 	g_value_init(value, G_TYPE_OBJECT);
 
-	// set the value	
+	// set the value
 	g_value_set_object(value, obj);
 
 	// clean up obj
@@ -396,6 +396,56 @@ Java_org_gnome_glib_GValue_g_1value_1init_1pixbuf
 
     // return address
     return (jlong) value;
+}
+
+
+/**
+ * Implements
+ *   org.gnome.glib.GValue.g_value_init_enum(int num)
+ * called from
+ *   org.gnome.glib.GValue.createValue(Constant reference)
+ *
+ * Allocate a GValue for a GObject with GSlice, then initialize it and return
+ * the pointer.
+ */
+JNIEXPORT jlong JNICALL
+Java_org_gnome_glib_GValue_g_1value_1init_1enum
+(
+	JNIEnv *env,
+	jclass cls,
+	jstring _name,
+	jint _num
+)
+{
+	gchar* name;
+	GType type;
+	gint num;
+	GValue* value;
+	
+	// translate type;
+	name = (gchar*) (*env)->GetStringUTFChars(env, _name, NULL);
+	if (name == NULL) {
+		return 0; /* OutOfMemoryError already thrown */
+	}
+
+	type = g_type_from_name(name);
+
+	(*env)->ReleaseStringUTFChars(env, _name, name);
+	
+	// translate obj
+	num = (gint) _num;
+	
+	// allocate and set to zeros, per what g_value_init requires
+	value =	g_slice_new0(GValue);
+	g_value_init(value, type);
+
+	// set the value
+	g_value_set_enum(value, num);
+
+	// clean up obj
+
+	// return address
+	return (jlong) value;
 }
 
 /**

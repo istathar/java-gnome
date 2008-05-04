@@ -12,7 +12,8 @@
  */
 package org.gnome.gtk;
 
-import org.gnome.pango.Weight;
+import org.freedesktop.bindings.Constant;
+import org.freedesktop.bindings.DoubleConstant;
 
 final class GtkTextTagOverride extends Plumbing
 {
@@ -22,11 +23,11 @@ final class GtkTextTagOverride extends Plumbing
      * The usual visibility workaround; this one more complicated since it is
      * cross package which is why org.gnome.pango.Scale is a DoubleConstant.
      */
-    static final double scaleOf(org.gnome.pango.Scale reference) {
+    static final double valueOf(DoubleConstant reference) {
         return org.freedesktop.bindings.Plumbing.numOf(reference);
     }
 
-    static final int weightOf(Weight reference) {
+    static final int valueOf(Constant reference) {
         return org.freedesktop.bindings.Plumbing.numOf(reference);
     }
 }

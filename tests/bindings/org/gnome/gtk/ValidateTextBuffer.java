@@ -11,6 +11,7 @@
 package org.gnome.gtk;
 
 import org.gnome.pango.Scale;
+import org.gnome.pango.Underline;
 
 /**
  * @author Andrew Cowie
@@ -57,8 +58,7 @@ public class ValidateTextBuffer extends TestCaseGtk
     /*
      * This is here so that we can test the code paths through GValue for
      * properties of type double. Repeating the setter and/or getter here for
-     * the scale property armours us against future changes to TextTag, which
-     * may well end up with a strongly typed interface.
+     * the scale property armours us against public API changes to TextTag.
      */
     private static class LocalTextTag extends TextTag
     {
@@ -72,6 +72,14 @@ public class ValidateTextBuffer extends TestCaseGtk
 
         public double getScale() {
             return getPropertyDouble("scale");
+        }
+
+        public int getLeftMargin() {
+            return getPropertyInteger("left-margin");
+        }
+
+        public Underline getUnderline() {
+            return (Underline) getPropertyEnum("underline");
         }
 
     }
@@ -97,6 +105,18 @@ public class ValidateTextBuffer extends TestCaseGtk
          * Class,double to DoubleConstant, so we use the getter from the
          * LocalTextTag hack again to extract the property for testing.
          */
-        assertEquals(GtkTextTagOverride.scaleOf(Scale.LARGE), tag.getScale(), 0.0001);
+        assertEquals(GtkTextTagOverride.valueOf(Scale.LARGE), tag.getScale(), 0.0001);
+    }
+
+    public final void testUnderlineProperty() {
+        final LocalTextTag tag;
+
+        tag = new LocalTextTag();
+
+        tag.setLeftMargin(42);
+        assertEquals(42, tag.getLeftMargin());
+
+        tag.setUnderline(Underline.SINGLE);
+        assertEquals(Underline.SINGLE, tag.getUnderline());
     }
 }

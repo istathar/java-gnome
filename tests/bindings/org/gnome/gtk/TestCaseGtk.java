@@ -13,7 +13,6 @@ package org.gnome.gtk;
 import junit.framework.TestCase;
 
 import org.freedesktop.bindings.Debug;
-import org.gnome.gtk.Gtk;
 
 /**
  * Ensure that GTK has already been initialized so that things like

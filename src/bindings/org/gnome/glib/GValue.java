@@ -61,6 +61,14 @@ final class GValue extends Plumbing
         return g_value_init(j);
     }
 
+    public static long createValue(Constant value) {
+        final String typeName;
+
+        typeName = typeOf(value.getClass());
+
+        return g_value_init_enum(typeName, numOf(value));
+    }
+
     /*
      * These ones does not match the exact prototype of g_value_init() [which
      * is (GValue*, GType)]; we do the type system magic on the other side
@@ -94,6 +102,8 @@ final class GValue extends Plumbing
     private static native final long g_value_init_object(long obj);
 
     private static native final long g_value_init_pixbuf(long pixbuf);
+
+    private static native final long g_value_init_enum(String type, int num);
 
     static final int getInteger(Value value) {
         return g_value_get_int(pointerOf(value));

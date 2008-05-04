@@ -1,7 +1,7 @@
 /*
  * Value.java
  *
- * Copyright (c) 2006-2007 Operational Dynamics Consulting Pty Ltd
+ * Copyright (c) 2006-2008 Operational Dynamics Consulting Pty Ltd
  * 
  * The code in this file, and the library it is a part of, are made available
  * to you by the authors under the terms of the "GNU General Public Licence,
@@ -11,6 +11,7 @@
  */
 package org.gnome.gtk;
 
+import org.freedesktop.bindings.Constant;
 import org.gnome.gdk.Pixbuf;
 
 /**
@@ -100,5 +101,13 @@ class Value extends org.gnome.glib.Value
 
     protected long getLong() {
         return super.getLong();
+    }
+
+    Value(Constant value) {
+        super(value);
+    }
+
+    protected Constant getEnum() {
+        return super.getEnum();
     }
 }

@@ -112,6 +112,7 @@ Dialog's
 DialogFlags
 Dialogs
 Display's
+DoubleConstant
 DrawingArea
 Dumay
 EDETACHED
@@ -500,6 +501,8 @@ PackageNames
 PageDown
 PageUp
 Pango's
+PangoUnderline
+PangoWeight
 ParenLeft
 ParenRight
 ParsedTree
@@ -510,7 +513,6 @@ Piechotka
 Pixbuf's
 PixbufAnimation
 PixbufFormat
-Pixmap
 PolicyType
 PositionType
 PowerResponseType

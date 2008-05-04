@@ -28,7 +28,7 @@ import org.freedesktop.bindings.Constant;
  * @since 4.0.8
  */
 /*
- * Yes, you can subclass this if you are desparate for font weights other than
+ * Yes, you can subclass this if you are desperate for font weights other than
  * the established constant values supplied here.
  */
 public class Weight extends Constant

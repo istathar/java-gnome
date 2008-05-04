@@ -1,7 +1,7 @@
 /*
  * Value.java
  *
- * Copyright (c) 2006-2007 Operational Dynamics Consulting Pty Ltd
+ * Copyright (c) 2006-2008 Operational Dynamics Consulting Pty Ltd
  * 
  * The code in this file, and the library it is a part of, are made available
  * to you by the authors under the terms of the "GNU General Public Licence,
@@ -11,6 +11,7 @@
  */
 package org.gnome.glib;
 
+import org.freedesktop.bindings.Constant;
 import org.freedesktop.bindings.Debug;
 import org.freedesktop.bindings.Proxy;
 import org.gnome.gdk.Pixbuf;
@@ -176,7 +177,15 @@ public class Value extends Proxy
         this(GValue.createValue(value), true);
     }
 
+    protected Value(Constant value) {
+        this(GValue.createValue(value), true);
+    }
+
     protected long getLong() {
         return GValue.getLong(this);
+    }
+
+    protected Constant getEnum() {
+        return GValue.getEnum(this);
     }
 }

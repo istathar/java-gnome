@@ -13,6 +13,7 @@ package org.gnome.gtk;
 
 import org.gnome.glib.Object;
 import org.gnome.pango.Scale;
+import org.gnome.pango.Underline;
 import org.gnome.pango.Weight;
 
 /*
@@ -75,7 +76,7 @@ public class TextTag extends Object
      * Be aware in passing that this obscures the Scale in org.gnome.gtk
      */
     public void setScale(Scale scale) {
-        setPropertyDouble("scale", GtkTextTagOverride.scaleOf(scale));
+        setPropertyDouble("scale", GtkTextTagOverride.valueOf(scale));
     }
 
     /**
@@ -114,12 +115,23 @@ public class TextTag extends Object
     }
 
     /**
-     * Specfict the font weight. The useful one is {@link Weight#BOLD BOLD};
+     * Specify the font weight. The useful one is {@link Weight#BOLD BOLD};
      * the default is {@link Weight#NORMAL NORMAL}.
      * 
      * @since 4.0.8
      */
     public void setWeight(Weight weight) {
-        setPropertyInteger("weight", GtkTextTagOverride.weightOf(weight));
+        setPropertyInteger("weight", GtkTextTagOverride.valueOf(weight));
+    }
+
+    /**
+     * Specity the underling mode to be used for this text. Single underlining
+     * is {@link Underline#SINGLE SINGLE}. {@link Underline#NONE NONE} is the
+     * default, obviously.
+     * 
+     * @since 4.0.8
+     */
+    public void setUnderline(Underline underline) {
+        setPropertyEnum("underline", underline);
     }
 }
