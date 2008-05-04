@@ -339,11 +339,20 @@ bindings_java_logging_handler
 	case G_LOG_LEVEL_WARNING:
 		/*
 		 * Whether or not to throw on WARNING here is an open
-		 * question. As people can tell GLib to make warnings fatal,
-		 * we can probably leave it to flow on to the log handler,
-		 * but there is a good case to be made to have warnings
-		 * result in our FatalError.
+		 * question. Although the "--g-fatal-warnings" GTK option
+		 * allows people to tell GLib to make warnings fatal, their
+		 * idea of fatal is to print the WARNING and then to abort!
+		 * 
+		 * So the alternatives open to us are to leave it to flow on
+		 * to the default log handler, or to throw our FatalError.
+		 * During development we're going to have this on. Whether we
+		 * take it out for releases remains to be decided.
 		 */
+#if TRUE
+		level = "WARNING";
+		break;
+#endif
+
 	default:
 		g_log_default_handler(log_domain, log_level, message, user_data);
 		return;
