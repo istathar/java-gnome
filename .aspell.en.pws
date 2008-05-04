@@ -329,6 +329,8 @@ GtkStatusbar
 GtkStockItem
 GtkTable
 GtkTextBuffer
+GtkTextTag
+GtkTextTagOverride
 GtkTextView
 GtkToggleButton
 GtkToggleToolButton
@@ -603,10 +605,14 @@ TestCaseGtk
 TestCases
 TestRunner
 TestSuite
+TextBuffer
 TextComboBox
 TextComboBoxEntry
 TextDirection
 TextModel
+TextTag
+TextTag's
+TextTagTable
 TextView
 ThrowNew
 Timm
@@ -751,6 +757,7 @@ backticks
 baseDir
 basename
 baz
+bb
 bdb
 bindtextdomain
 bitkeeper
@@ -915,6 +922,7 @@ createStatusIconFromPixbuf
 createStatusbar
 createSurface
 createTable
+createTextTag
 createThing
 createToggleButton
 createToggleButtonWithMnemonic
@@ -1207,6 +1215,7 @@ getenv
 getmtime
 getters
 gettext
+gg
 gij
 gint
 gjdoc
@@ -1547,6 +1556,8 @@ rightAttach
 rowAlign
 rowstride
 rpath
+rr
+rrggbb
 runDemo
 runExample
 runJavaClass
@@ -1627,6 +1638,7 @@ setHeadersVisible
 setIcon
 setImage
 setInconsistent
+setIndent
 setInvisibleChar
 setJustify
 setKeepAbove
@@ -1635,6 +1647,7 @@ setLabel
 setLabelAlign
 setLabelWidget
 setLayout
+setLeftMargin
 setLineWidth
 setLineWrap
 setLogo
@@ -1661,6 +1674,8 @@ setProgramName
 setProperty
 setPropertyBar
 setPropertyBoolean
+setPropertyDouble
+setPropertyEnum
 setPropertyFloat
 setPropertyFoo
 setPropertyInteger
@@ -1672,10 +1687,12 @@ setReference
 setRelief
 setReorderable
 setResizable
+setRightMargin
 setRighteous
 setRowSpacing
 setRubberBanding
 setRulesHint
+setScale
 setSearchColumn
 setSearchEntry
 setSecondaryText
@@ -1696,6 +1713,7 @@ setSourceRgb
 setSourceRgba
 setSourceSurface
 setStick
+setStrikethrough
 setSubmenu
 setTabPos
 setTabPosition
@@ -1708,6 +1726,7 @@ setTooltipMarkup
 setTooltipText
 setTooltips
 setTransientFor
+setUnderline
 setUp
 setUseMarkup
 setVAdjustment
@@ -1724,6 +1743,7 @@ setVisibleCallback
 setVisibleChars
 setVisibleFunc
 setVisibleWindow
+setWeight
 setWidthChars
 settingsDaemon
 showAll
@@ -1844,6 +1864,7 @@ va
 validationCheck
 valueChanged
 valueFor
+valueOf
 vbox
 versa
 vhosts
@@ -1870,6 +1891,7 @@ writeToPNG
 writeToPng
 writeTranslationCode
 x's
+xFF
 xFFFFFF
 xServerVirtual
 xalign

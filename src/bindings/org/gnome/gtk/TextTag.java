@@ -125,7 +125,7 @@ public class TextTag extends Object
     }
 
     /**
-     * Specity the underling mode to be used for this text. Single underlining
+     * Specify the underling mode to be used for this text. Single underlining
      * is {@link Underline#SINGLE SINGLE}. {@link Underline#NONE NONE} is the
      * default, obviously.
      * 
@@ -133,5 +133,58 @@ public class TextTag extends Object
      */
     public void setUnderline(Underline underline) {
         setPropertyEnum("underline", underline);
+    }
+
+    /**
+     * Specify that this text be rendered struck through.
+     * 
+     * @since 4.0.8
+     */
+    public void setStrikethrough(boolean setting) {
+        setPropertyBoolean("strikethrough", setting);
+    }
+
+    /**
+     * Specify the background colour via a String description.
+     * 
+     * <p>
+     * See {@link #setForeground(String) setForeground()} for discussion of
+     * allowable colour names.
+     * 
+     * <p>
+     * The default is no explicit setting.
+     * 
+     * @since 4.0.8
+     */
+    public void setBackground(String colour) {
+        setPropertyString("background", colour);
+    }
+
+    /**
+     * Specify the foreground colour by name.
+     * 
+     * <p>
+     * Colours can be specified either:
+     * 
+     * <ul>
+     * <li>as hex, in the form <code>"#<i>rrggbb</i>"</code> where
+     * <code><i>rr</i></code>, <code><i>gg</i></code>, and
+     * <code><i>bb</i></code> are two hexadecimal characters expressing a
+     * values between <code>0x00</code> and <code>0xFF</code> for red,
+     * green, and blue respectively; or
+     * <li>as a symbolic name, such as <code>"blue"</code> and
+     * <code>"medium sea green"</code>, depending on what constants have
+     * been built into your X server. You can likely see a list at
+     * <code>/usr/share/X11/rgb.txt</code>. Obviously these are unreliable
+     * between different systems, but they are undeniably easy to use.
+     * </ul>
+     * 
+     * <p>
+     * The default is no explicit setting.
+     * 
+     * @since 4.0.8
+     */
+    public void setForeground(String colour) {
+        setPropertyString("foreground", colour);
     }
 }
