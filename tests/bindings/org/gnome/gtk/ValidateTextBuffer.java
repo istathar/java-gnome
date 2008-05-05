@@ -1,7 +1,7 @@
 /*
  * ValidateTextBuffer.java
  *
- * Copyright (c) 2008 Operational Dynamics Consulting Pty Ltd
+ * Copyright (c) 2008 Operational Dynamics Consulting Pty Ltd, and Others
  * 
  * The code in this file, and the suite it is a part of, are made available
  * to you by the authors under the terms of the "GNU General Public Licence,
@@ -118,5 +118,25 @@ public class ValidateTextBuffer extends TestCaseGtk
 
         tag.setUnderline(Underline.SINGLE);
         assertEquals(Underline.SINGLE, tag.getUnderline());
+    }
+
+    public final void testSimpleGetAndSet() {
+        final TextBuffer buf;
+        final TextIter start, end;
+
+        buf = new TextBuffer(new TextTagTable());
+
+        buf.setText("Hello\nWorld!");
+        start = buf.getStartIter();
+        end = buf.getEndIter();
+        assertEquals(0, start.getLine());
+        assertEquals(0, start.getLineOffset());
+        assertEquals(1, end.getLine());
+        assertEquals(6, end.getLineOffset());
+
+        assertEquals("Hello\nWorld!", buf.getText(start, end, true));
+
+        start.setLine(1);
+        assertEquals("World!", buf.getText(start, end, true));
     }
 }
