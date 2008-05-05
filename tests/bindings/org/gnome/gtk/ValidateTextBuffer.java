@@ -119,4 +119,22 @@ public class ValidateTextBuffer extends TestCaseGtk
         tag.setUnderline(Underline.SINGLE);
         assertEquals(Underline.SINGLE, tag.getUnderline());
     }
+    
+    public final void testSimpleGetAndSet() {
+        final TextBuffer buf = new TextBuffer(new TextTagTable());
+        final TextIter start, end;
+        
+        buf.setText("Hello\nWorld!");
+        start = buf.getStartIter();
+        end   = buf.getEndIter();
+        assertEquals(0, start.getLine());
+        assertEquals(0, start.getLineOffset());
+        assertEquals(1, end.getLine());
+        assertEquals(6, end.getLineOffset());
+        
+        assertEquals("Hello\nWorld!", buf.getText(start, end, true));
+        
+        start.setLine(1);
+        assertEquals("World!", buf.getText(start, end, true));
+    }
 }

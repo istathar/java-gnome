@@ -26,4 +26,27 @@ public final class WrapMode extends Constant
     private WrapMode(int ordinal, String nickname) {
         super(ordinal, nickname);
     }
+    
+    /**
+     * Do not wrap lines; just make the text area wider
+     */
+    public static final WrapMode NONE = new WrapMode(GtkWrapMode.NONE, "NONE");
+    
+    /**
+     * Wrap text, breaking lines anywhere the cursor can appear (between 
+     * characters, usually) 
+     */
+    public static final WrapMode CHAR = new WrapMode(GtkWrapMode.CHAR, "CHAR");
+    
+    /**
+     * Wrap text, breaking lines in between words
+     */
+    public static final WrapMode WORD = new WrapMode(GtkWrapMode.WORD, "WORD");
+    
+    /**
+     * Wrap text, breaking lines in between words, or if that is not enough, 
+     * also between graphemes.
+     */
+    public static final WrapMode WORD_CHAR = new WrapMode(GtkWrapMode.WORD_CHAR, "WORD_CHAR");
+
 }
