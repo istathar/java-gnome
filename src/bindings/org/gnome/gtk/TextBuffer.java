@@ -36,4 +36,16 @@ public class TextBuffer extends Object
     public TextBuffer(TextTagTable tags) {
         super(GtkTextBuffer.createTextBuffer(tags));
     }
+
+    /**
+     * Create a new TextMark at the position of the supplied TextIter.
+     * 
+     * <p>
+     * The <code>leftGravity</code> parameter is interesting. FIXME
+     * 
+     * @since 4.0.8
+     */
+    public TextMark createMark(String name, TextIter where, boolean leftGravity) {
+        return GtkTextBuffer.createMark(this, name, where, leftGravity);
+    }
 }
