@@ -11,6 +11,8 @@
  */
 package org.gnome.gtk;
 
+import org.gnome.gtk.Button.CLICKED;
+
 /**
  * Render textual data into a TreeViewColumn. This is the most commonly used
  * CellRenderer, used to present Strings. The fundamental mapping method is
@@ -87,5 +89,55 @@ public class CellRendererText extends CellRenderer
      */
     public void setForeground(DataColumnString column) {
         GtkCellLayout.addAttribute(vertical, this, "foreground", column.getOrdinal());
+    }
+
+    /**
+     * Indicate if the contents rendered by this CellRenderer should be 
+     * editable. This affects all rows rendered by this CellRenderer. 
+     */
+    public void setEditable(boolean editable) {
+        setPropertyBoolean("editable", editable);
+    }
+
+    /**
+     * Event generated after user activated a cell, changed its content and
+     * pressed Return.
+     * 
+     * @since 4.0.8
+     */
+    public interface EDITED extends GtkCellRendererText.EDITED
+    {
+        public void onEdited(CellRendererText source, String path, String newText);
+    }
+    
+    /**
+     * Hook up a handler to receive "edited" events on this CellRenderer. 
+     * A typical example of how this is used is as follows:
+     * 
+     * <pre>
+     * final DataColumnString column;
+     * final ListStore store = new ListStore(new DataColumn[]{
+     *          column = new DataColumnString()
+     *      });
+     *      
+     * TreeView view = new TreeView(store);
+     * TreeViewColumn visibleColumn = view.appendColumn();
+     *
+     * CellRendererText renderer = new CellRendererText(visibleColumn);
+     * renderer.setText(column);
+     * renderer.setEditable(true);
+     * renderer.connect(new EDITED(){
+     *      public void onEdited(CellRendererText source, String path, String newText) {
+     *          System.out.println("New value for path "+path+" is "+newText);
+     *          TreePath tp = new TreePath(path);
+     *          TreeIter row = store.getIter(tp);
+     *          store.setValue(row, column, newText);
+     *      }});
+     * </pre>
+     * 
+     * @since 4.0.8
+     */
+   public void connect(EDITED handler) {
+        GtkCellRendererText.connect(this, handler);
     }
 }

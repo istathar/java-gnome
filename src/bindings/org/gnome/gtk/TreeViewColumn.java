@@ -174,7 +174,9 @@ public class TreeViewColumn extends Object implements CellLayout
      * Permit the user to change the width of the columns in a TreeView by
      * clicking on the boundary of a column header and dragging it. Setting
      * this <code>true</code> will implicitly set
-     * {@link TreeViewColumnSizing#GROW_ONLY GROW_ONLY}.
+     * {@link TreeViewColumnSizing#GROW_ONLY GROW_ONLY}. On the other hand
+     * setting {@link TreeViewColumnSizing#AUTOSIZE AUTOSIZE} will implicitly
+     * disable resizing.
      * 
      * @since 4.0.6
      */
@@ -204,5 +206,49 @@ public class TreeViewColumn extends Object implements CellLayout
      */
     public void setSizing(TreeViewColumnSizing type) {
         GtkTreeViewColumn.setSizing(this, type);
+    }
+
+    /**
+     * Sets the minimal width this column can shrink to. Works in all 
+     * {@link TreeViewColumnSizing} variants. 
+     * 
+     * @param width Column width in pixel
+     * 
+     * @since 4.0.8
+     */
+    public void setMinWidth(int width) {
+        GtkTreeViewColumn.setMinWidth(this, width);
+    }
+
+    /**
+     * If operating with {@link TreeViewColumnSizing#FIXED FIXED} TreeViewSizing
+     * (and only then) this defines the fixed column width in pixels. If 
+     * {@link #setMinWidth(int)} setMinWidth} or {@link #setMaxWidth(int)}
+     * has been called and the fixed width is outside these bounds Min- or 
+     * MaxWidth take precedence.
+     * <p>
+     * The fixed width can be overridden by the user if {@link #setResizable(boolean)}
+     * has been set to <code>true</code>.
+     * </p>
+     * 
+     * @param width Column width in pixel
+     * 
+     * @since 4.0.8
+     */
+    public void setFixedWidth(int width) {
+        GtkTreeViewColumn.setFixedWidth(this, width);
+    }
+
+    /**
+     * Sets the maximum width this column can grow. Works in all 
+     * {@link TreeViewColumnSizing} variants. If not set, the column growth
+     * is not limited.
+     * 
+     * @param width Column width in pixel
+     * 
+     * @since 4.0.8
+     */
+   public void setMaxWidth(int width) {
+        GtkTreeViewColumn.setMaxWidth(this, width);
     }
 }

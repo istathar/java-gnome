@@ -115,4 +115,25 @@ public class Table extends Container
     public void setRowSpacing(int row, int spacing) {
         GtkTable.setRowSpacing(this, row, spacing);
     }
+
+    /**
+     * Set the (extra) spacing etween all columns. Overwrites previous settings
+     * or those made by {@link setColumnSpacing(int,int)}.
+     * 
+     * @since 4.0.6
+     */
+    public void setColumnSpacing(int spacing) {
+        GtkTable.setColSpacings(this, spacing);
+    }
+
+    /**
+     * Set the (extra) spacing between all rows. Overwrites previous settings
+     * or those made by {@link setRowSpacing(int,int)}. 
+     * 
+     * @since 4.0.6
+     */
+    public void setRowSpacing(int spacing) {
+        GtkTable.setRowSpacings(this, spacing);
+    }
+
 }
