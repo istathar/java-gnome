@@ -187,4 +187,18 @@ public class TextTag extends Object
     public void setForeground(String colour) {
         setPropertyString("foreground", colour);
     }
+
+    /**
+     * Set whether the region of text covered by this TextTag is editable by
+     * the user.
+     * 
+     * @since 4.0.8
+     */
+    /*
+     * FIXME The default is true what happens if a TextView is
+     * setEditable(false)? Needs a test case.
+     */
+    public void setEditable(boolean setting) {
+        setPropertyBoolean("editable", setting);
+    }
 }

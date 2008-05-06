@@ -22,7 +22,9 @@ public class TextView extends Container
     }
 
     /**
-     * Create an empty TextView without an associated TextBuffer.
+     * Create an empty TextView without (yet) having an associated TextBuffer.
+     * Use {@link #setBuffer(TextBuffer) setBuffer()} to indicate later which
+     * TextBuffer to use.
      * 
      * @since 4.0.8
      */
@@ -39,6 +41,16 @@ public class TextView extends Container
      */
     public TextView(TextBuffer buf) {
         super(GtkTextView.createTextViewWithBuffer(buf));
+    }
+
+    /**
+     * Set or replace the TextBuffer that is currently being displayed by this
+     * TextView.
+     * 
+     * @since 4.0.8
+     */
+    public void setBuffer(TextBuffer buffer) {
+        GtkTextView.setBuffer(this, buffer);
     }
 
     /**
@@ -60,24 +72,26 @@ public class TextView extends Container
     }
 
     /**
-     * Set the default editability of the TextView. You can override this
-     * default setting with tags in the buffer, using the "editable" attribute
-     * of tags.
+     * Set whether the normal state of this TextView is to allow editing or
+     * not. The default for the <var>editability</var> property is
+     * <code>true</code>.
+     * 
+     * <p>
+     * Regardless of the default setting here, you can override this for
+     * specific regions of text with TextTag's
+     * {@link TextTag#setEditable(boolean) setEditable()}. of tags.
      * 
      * @since 4.0.8
-     */
-    /*
-     * FIXME link to the TextTag setter instead of saying "editiable"
      */
     public void setEditable(boolean editable) {
         GtkTextView.setEditable(this, editable);
     }
 
     /**
-     * Returns the default editability of the TextView. Tags in the buffer may
-     * override this setting for some ranges of text.
+     * Get whether the default editability of the TextView. Tags in the buffer
+     * may override this setting for some ranges of text.
      * 
-     * @return Whether text is editable by default
+     * @since 4.0.8
      */
     public boolean getEditable() {
         return GtkTextView.getEditable(this);
@@ -85,10 +99,10 @@ public class TextView extends Container
 
     /**
      * Allows you to activate or deactivate the visible cursor. Usually used
-     * in non-editable buffers to hide the cursor.
+     * to hide the cursor when displaying text that is non-editable. The
+     * default is <code>true</code>, indicating the cursor will be shown.
      * 
-     * @param visible
-     *            Whether to show the insertion cursor or not.
+     * @since 4.0.8
      */
     public void setCursorVisible(boolean visible) {
         GtkTextView.setCursorVisible(this, visible);
@@ -96,6 +110,8 @@ public class TextView extends Container
 
     /**
      * Returns whether the cursor is currently visible or not.
+     * 
+     * @since 4.0.8
      */
     public boolean getCursorVisible() {
         return GtkTextView.getCursorVisible(this);
