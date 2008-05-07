@@ -118,6 +118,7 @@ EDETACHED
 EOFError
 EOSTR
 EVERSION
+EditedHandler
 Eeek
 Emmanuele
 EnumValue
@@ -261,6 +262,7 @@ GtkButtonBoxStyle
 GtkButtonsType
 GtkCalendar
 GtkCalendarDisplayOptions
+GtkCellLayout
 GtkCellRendererPixbuf
 GtkCellRendererText
 GtkCheckButton
@@ -515,6 +517,7 @@ PolicyType
 PositionType
 PowerResponseType
 Preetz
+Prelle
 PressMe
 ProgressBar
 Pty
@@ -1433,6 +1436,7 @@ onClicked
 onDaySelected
 onDaySelectedDoubleClick
 onDeleteEvent
+onEdited
 onEnterNotifyEvent
 onEvent
 onExposeEvent

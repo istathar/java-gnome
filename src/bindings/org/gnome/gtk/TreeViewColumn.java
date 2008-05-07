@@ -1,7 +1,7 @@
 /*
  * TreeViewColumn.java
  *
- * Copyright (c) 2007-2008 Operational Dynamics Consulting Pty Ltd
+ * Copyright (c) 2007-2008 Operational Dynamics Consulting Pty Ltd, and Others
  *
  * The code in this file, and the library it is a part of, are made available
  * to you by the authors under the terms of the "GNU General Public Licence,
@@ -23,6 +23,7 @@ package org.gnome.gtk;
  * {@link TreeView#appendColumn() appendColumn()}.
  * 
  * @author Andrew Cowie
+ * @author Stefan Prelle
  * @since 4.0.5
  */
 /*
@@ -174,7 +175,9 @@ public class TreeViewColumn extends Object implements CellLayout
      * Permit the user to change the width of the columns in a TreeView by
      * clicking on the boundary of a column header and dragging it. Setting
      * this <code>true</code> will implicitly set
-     * {@link TreeViewColumnSizing#GROW_ONLY GROW_ONLY}.
+     * {@link TreeViewColumnSizing#GROW_ONLY GROW_ONLY}. On the other hand
+     * setting {@link TreeViewColumnSizing#AUTOSIZE AUTOSIZE} will implicitly
+     * disable resizing.
      * 
      * @since 4.0.6
      */
@@ -196,13 +199,55 @@ public class TreeViewColumn extends Object implements CellLayout
      * 
      * @since 4.0.6
      */
-    /*
-     * TODO I've got a feeling that the different permutations are not all
-     * equal and that some settings will override others. It would be nice if
-     * whoever exposes setMinWidth(), setFixedWidth(), etc would research this
-     * and add some documentation as to their interactions.
-     */
     public void setSizing(TreeViewColumnSizing type) {
         GtkTreeViewColumn.setSizing(this, type);
+    }
+
+    /**
+     * Sets the minimal width this column can shrink to. Works in all
+     * {@link TreeViewColumnSizing} variants.
+     * 
+     * @param width
+     *            Column width in pixel
+     * 
+     * @since 4.0.8
+     */
+    public void setMinWidth(int width) {
+        GtkTreeViewColumn.setMinWidth(this, width);
+    }
+
+    /**
+     * If (and only if) operating with the
+     * {@link TreeViewColumnSizing#FIXED FIXED} TreeViewSizing mode, this
+     * defines the fixed column width in pixels. If {@link #setMinWidth(int)}
+     * setMinWidth} or {@link #setMaxWidth(int)} have been called and the
+     * fixed width is outside these bounds Min- or MaxWidth take precedence.
+     * 
+     * <p>
+     * The fixed width can be overridden by the user if
+     * {@link #setResizable(boolean) setResizable()} has been set to
+     * <code>true</code>.
+     * 
+     * @param width
+     *            Column width in pixels
+     * 
+     * @since 4.0.8
+     */
+    public void setFixedWidth(int width) {
+        GtkTreeViewColumn.setFixedWidth(this, width);
+    }
+
+    /**
+     * Sets the maximum width this column can grow. Works in all
+     * {@link TreeViewColumnSizing} variants. If not set, the column growth is
+     * not limited.
+     * 
+     * @param width
+     *            Column width in pixels
+     * 
+     * @since 4.0.8
+     */
+    public void setMaxWidth(int width) {
+        GtkTreeViewColumn.setMaxWidth(this, width);
     }
 }
