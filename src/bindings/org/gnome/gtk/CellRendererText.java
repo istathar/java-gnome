@@ -111,12 +111,29 @@ public class CellRendererText extends CellRenderer
      * Event generated after user activated a cell, changed its content and
      * pressed Return.
      * 
+     * <p>
+     * Note that the act of editing the cell in the TreeView does <b>not</b>
+     * cause a change in the underlying model. In the usual case (where a
+     * given TreeModel is only being used as the backing store for the
+     * TreeView) then you'll want to update it:
+     * 
+     * <pre>
+     * renderer.connect(new EDITED() {
+     *     public void onEdited(CellRendererText source, TreePath path, String text) {
+     *         model.setValue(model.getIter(path), column, text); 
+     *     }
+     * }
+     * </pre>
+     * 
+     * assuming you have access to the TreeModel and DataColumn variables.
+     * 
      * @author Stefan Prelle
+     * @author Andrew Cowie
      * @since 4.0.8
      */
-    public interface EDITED extends GtkCellRendererText.EDITED
+    public interface EDITED
     {
-        public void onEdited(CellRendererText source, String path, String newText);
+        public void onEdited(CellRendererText source, TreePath path, String text);
     }
 
     /**
@@ -139,17 +156,32 @@ public class CellRendererText extends CellRenderer
      * renderer.setText(column);
      * renderer.setEditable(true);
      * renderer.connect(new EDITED(){
-     *      public void onEdited(CellRendererText source, String path, String newText) {
-     *          System.out.println(&quot;New value for path &quot; + path + &quot; is &quot; + newText);
-     *          TreePath tp = new TreePath(path);
-     *          TreeIter row = store.getIter(tp);
-     *          store.setValue(row, column, newText);
+     *      public void onEdited(CellRendererText source, TreePath path, String text) {
+     *          System.out.println(&quot;New value for path &quot; + path + &quot; is &quot; + text);
+     *          TreeIter row = store.getIter(path);
+     *          store.setValue(row, column, text);
      *      }});
      * </pre>
      * 
      * @since 4.0.8
      */
     public void connect(EDITED handler) {
-        GtkCellRendererText.connect(this, handler);
+        GtkCellRendererText.connect(this, new EditedHandler(handler));
+    }
+
+    /*
+     * Helper class to convert second parameter from String to TreePath
+     */
+    private static class EditedHandler implements GtkCellRendererText.EDITED
+    {
+        private EDITED handler;
+
+        private EditedHandler(EDITED handler) {
+            this.handler = handler;
+        }
+
+        public void onEdited(CellRendererText source, String path, String text) {
+            handler.onEdited(source, new TreePath(path), text);
+        }
     }
 }
