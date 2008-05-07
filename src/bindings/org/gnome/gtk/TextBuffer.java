@@ -76,7 +76,7 @@ public class TextBuffer extends Object
 
     /**
      * Returns the text in the TextBuffer. This is merely a convenience
-     * function that calls {@link getText(TextIter, TextIter, boolean)} from
+     * function that calls {@link #getText(TextIter, TextIter, boolean)} from
      * buffer start to end with <code>includeHiddenChars</code> being
      * <code>true</code>.
      * 
@@ -88,7 +88,7 @@ public class TextBuffer extends Object
     }
 
     /**
-     * Marks the content as changed. This is primarly used to <i>unset</i>
+     * Marks the content as changed. This is primarily used to <i>unset</i>
      * this property, making it <code>false</code>. See
      * {@link #getModified() getModified()} for details.
      * 
@@ -152,13 +152,147 @@ public class TextBuffer extends Object
      * 
      * <p>
      * The <code>leftGravity</code> parameter is interesting. FIXME
+     */
+    /*
+     * TODO should we remove exposure of the mark_name? TODO (SP) I don't see
+     * any advantage in using the the mark_names, unless you need to access
+     * built-in names like "insert" or "selection-bound" (are there more?)
+     */
+    public TextMark createMark(String name, TextIter where, boolean leftGravity) {
+        return GtkTextBuffer.createMark(this, name, where, leftGravity);
+    }
+
+    /**
+     * Returns a TextMark with the given name.
+     * 
+     * @since 4.0.8
+     */
+    public TextMark getMark(String name) {
+        return GtkTextBuffer.getMark(this, name);
+    }
+
+    /**
+     * Insert a text at a given position. All {@link TextIter} behind the
+     * position move accordingly, while marks keep their position.
+     * 
+     * @since 4.0.8
+     */
+    public void insert(TextIter position, String text) {
+        GtkTextBuffer.insert(this, position, text, text.length());
+    }
+
+    /**
+     * Insert the text at the current cursor position.
+     * 
+     * @since 4.0.8
+     */
+    public void insertAtCursor(String text) {
+        GtkTextBuffer.insertAtCursor(this, text, text.length());
+    }
+
+    /**
+     * Like {@link #insert(TextIter, String) insert(TextIter,String)}, but
+     * the insertion will not occur if <code>pos</code> points to a
+     * non-editable location in the buffer - meaning that it is enclosed in
+     * TextTags that mark the area non-editable.<br/>
+     * 
+     * @param pos
+     *            Position to insert at.
+     * @param text
+     *            Text to insert.
+     * @param defaultEditable
+     *            How shall the area be handled, if there are no tags
+     *            affacting editability.
+     * @since 4.0.8
+     */
+    public void insertInteractive(TextIter pos, String text, boolean defaultEditable) {
+        GtkTextBuffer.insertInteractive(this, pos, text, text.length(), defaultEditable);
+    }
+
+    /**
+     * Returns the current cursor position. Is also used at the start position
+     * of a selected text.
+     * 
+     * You can call {@link #getIterAtMark(TextMark) getIterAtMark()} to
+     * convert the TextMark to an TextIter.
+     * 
+     * @since 4.0.8
+     */
+    public TextMark getInsert() {
+        return GtkTextBuffer.getSelectionBound(this);
+    }
+
+    /**
+     * Returns the end of the current selection. If you need the beginning of
+     * the selection use {@link #getInsert() getInsert()}.
+     * 
+     * You can call {@link #getIterAtMark(TextMark) getIterAtMark()} to
+     * convert the TextMark to an TextIter.
      * 
      * @since 4.0.8
      */
     /*
-     * TODO should we remove exposure of the mark_name?
+     * (SP) I tested around a bit and getSelectionBound() always returned the
+     * same position as getInsert(). I checked the generated code - it looks
+     * ok. A bug in GTK ? This even is true if I access the mark
+     * "selection_bound" directly.
      */
-    public TextMark createMark(String name, TextIter where, boolean leftGravity) {
-        return GtkTextBuffer.createMark(this, name, where, leftGravity);
+    public TextMark getSelectionBound() {
+        return GtkTextBuffer.getSelectionBound(this);
+    }
+
+    /**
+     * Returns whether or not the TextBuffer has a selection
+     */
+    public boolean getHasSelection() {
+        return GtkTextBuffer.getHasSelection(this);
+    }
+
+    /**
+     * Return start and end of the current selection - if any.
+     * 
+     * @return A array of two TextIter (start,end) marking the selection or
+     *         <code>null</code> if nothing was selected.
+     * @since 4.0.8
+     */
+    public TextIter[] getSelectionBounds() {
+        TextIter start = new TextIter(this);
+        TextIter end = new TextIter(this);
+        if (GtkTextBuffer.getSelectionBounds(this, start, end)) {
+            return new TextIter[] {
+                    start, end
+            };
+        } else {
+            return null;
+        }
+    }
+
+    /**
+     * Converts a {@link TextMark TextMark} into a {@link TextIter TextIter}.
+     * 
+     * @since 4.0.8
+     */
+    public TextIter getIterAtMark(TextMark mark) {
+        TextIter iter = new TextIter(this);
+        GtkTextBuffer.getIterAtMark(this, iter, mark);
+        return iter;
+    }
+
+    /**
+     * Apply the selected tag on the area in the TextBuffer between the start
+     * and end positions.
+     * 
+     * @since 4.0.8
+     */
+    public void applyTag(TextTag tag, TextIter start, TextIter end) {
+        GtkTextBuffer.applyTag(this, tag, start, end);
+    }
+
+    /*
+     * TODO (SP) When we don't expose mark names we also don't need to expose
+     * tag names, don't we?
+     */
+    void applyTagByName(String name, TextIter start, TextIter end) {
+        GtkTextBuffer.applyTagByName(this, name, start, end);
     }
 }

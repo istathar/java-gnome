@@ -13,13 +13,19 @@ package org.gnome.gtk;
 
 import org.gnome.glib.Boxed;
 
-/*
- * FIXME this is a placeholder stub for what will become the public API for
- * this type. Replace this comment with appropriate javadoc including author
- * and since tags. Note that the class may need to be made abstract, implement
- * interfaces, or even have its parent changed. No API stability guarantees
- * are made about this class until it has been reviewed by a hacker and this
- * comment has been replaced.
+/**
+ * A TextIter defines a position inside a {@link TextBuffer} and allows you to
+ * manipulate it.
+ * 
+ * <p>
+ * TextIters are just used for immediate operations, and are invalidated any
+ * time when the TextBuffer's contents change. If you need to hold a reference
+ * to a specific position, convert this TextIter into a TextMark with
+ * TextBuffer's
+ * {@link TextBuffer#createMark(String, TextIter, boolean) createMark()}.
+ * 
+ * @author Stefan Prelle
+ * @since 4.0.8
  */
 public final class TextIter extends Boxed
 {
@@ -146,8 +152,56 @@ public final class TextIter extends Boxed
      * @param column
      *            A character offset relative to the start of iter's current
      *            line
+     * @since 4.0.8
      */
     public void setLineOffset(int column) {
         GtkTextIter.setLineOffset(this, column);
+    }
+
+    /**
+     * Like {@link #getLineOffset()} but not counting those characters that
+     * are tagged "invisible".
+     * 
+     * @return Offset from start of line
+     * @since 4.0.8
+     */
+    public int getVisibleLineOffset() {
+        return GtkTextIter.getVisibleLineOffset(this);
+    }
+
+    /**
+     * Like {@link #setLineOffset(int)} but not counting those characters that
+     * are tagged "invisible".
+     * 
+     * @param column
+     *            A character offset relative to the start of iter's current
+     *            line
+     * @since 4.0.8
+     */
+    public void setVisibleLineOffset(int column) {
+        GtkTextIter.setVisibleLineOffset(this, column);
+    }
+
+    public String toString() {
+        StringBuffer buf = new StringBuffer("TextIter(");
+        buf.append(getLineOffset());
+        buf.append(":");
+        buf.append(getLine());
+        buf.append(",");
+        buf.append(getOffset());
+        buf.append(")");
+        return buf.toString();
+    }
+
+    /**
+     * Returns the character at the position this TextIter points to.
+     * 
+     * @return The UTF-8 character. A char value of 0xFFFC indicates a
+     *         non-character element (such as an embedded image). A value of 0
+     *         indicates the buffer end.
+     * @since 4.0.8
+     */
+    public char getChar() {
+        return GtkTextIter.getChar(this);
     }
 }
