@@ -1,7 +1,7 @@
 /*
  * TreeViewColumnSizing.java
  *
- * Copyright (c) 2007 Operational Dynamics Consulting Pty Ltd
+ * Copyright (c) 2007-2008 Operational Dynamics Consulting Pty Ltd, and Others
  *
  * The code in this file, and the library it is a part of, are made available
  * to you by the authors under the terms of the "GNU General Public Licence,
@@ -39,11 +39,11 @@ public final class TreeViewColumnSizing extends Constant
      * to the model. This is "cool" but is horribly inefficient on large
      * datasets, where the cascade of size allocations will cause your
      * TreeView to become really choppy.
+     * 
      * <p>
-     * Choosing this column sizing method will implicitly set 
-     * {@link TreeViewColumn#setResizable(boolean) setResizeable()} to 
+     * Choosing this column sizing method will implicitly set
+     * {@link TreeViewColumn#setResizable(boolean) setResizeable()} to
      * <code>false</code>.
-     * </p>
      */
     public static final TreeViewColumnSizing AUTOSIZE = new TreeViewColumnSizing(
             GtkTreeViewColumnSizing.AUTOSIZE, "AUTOSIZE");

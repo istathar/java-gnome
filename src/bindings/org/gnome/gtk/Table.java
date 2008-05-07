@@ -1,7 +1,7 @@
 /*
  * Table.java
  *
- * Copyright (c) 2007-2008 Operational Dynamics Consulting Pty Ltd
+ * Copyright (c) 2007-2008 Operational Dynamics Consulting Pty Ltd, and Others
  *
  * The code in this file, and the library it is a part of, are made available
  * to you by the authors under the terms of the "GNU General Public Licence,
@@ -117,10 +117,11 @@ public class Table extends Container
     }
 
     /**
-     * Set the (extra) spacing etween all columns. Overwrites previous settings
-     * or those made by {@link setColumnSpacing(int,int)}.
+     * Set the (extra) spacing between all columns. Overwrites previous
+     * settings or those made by the two argument form of
+     * {@link #setColumnSpacing(int,int) setColumnSpacing()}.
      * 
-     * @since 4.0.6
+     * @since 4.0.8
      */
     public void setColumnSpacing(int spacing) {
         GtkTable.setColSpacings(this, spacing);
@@ -128,12 +129,11 @@ public class Table extends Container
 
     /**
      * Set the (extra) spacing between all rows. Overwrites previous settings
-     * or those made by {@link setRowSpacing(int,int)}. 
+     * or those made by {@link #setRowSpacing(int,int)}.
      * 
-     * @since 4.0.6
+     * @since 4.0.8
      */
     public void setRowSpacing(int spacing) {
         GtkTable.setRowSpacings(this, spacing);
     }
-
 }

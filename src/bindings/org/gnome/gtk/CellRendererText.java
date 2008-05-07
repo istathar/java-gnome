@@ -11,8 +11,6 @@
  */
 package org.gnome.gtk;
 
-import org.gnome.gtk.Button.CLICKED;
-
 /**
  * Render textual data into a TreeViewColumn. This is the most commonly used
  * CellRenderer, used to present Strings. The fundamental mapping method is
@@ -46,6 +44,8 @@ public class CellRendererText extends CellRenderer
      * Construct a new CellRendererText. Specify the TreeViewColumn it will
      * belong to and from whose parent TreeView has the TreeModel where the
      * columns of data will come from.
+     * 
+     * @since 4.0.5
      */
     public CellRendererText(CellLayout vertical) {
         super(GtkCellRendererText.createCellRendererText(), vertical, true);
@@ -60,6 +60,8 @@ public class CellRendererText extends CellRenderer
      * <p>
      * If you want to use Pango markup to format the text being rendered, call
      * {@link #setMarkup(DataColumnString) setMarkup()} instead.
+     * 
+     * @since 4.0.5
      */
     public void setText(DataColumnString column) {
         GtkCellLayout.addAttribute(vertical, this, "text", column.getOrdinal());
@@ -78,6 +80,8 @@ public class CellRendererText extends CellRenderer
      * has the same effect as using a Label with
      * {@link Label#setUseMarkup(boolean) setUseMarkup(true)} in normal
      * layouts.
+     * 
+     * @since 4.0.5
      */
     public void setMarkup(DataColumnString column) {
         GtkCellLayout.addAttribute(vertical, this, "markup", column.getOrdinal());
@@ -86,14 +90,18 @@ public class CellRendererText extends CellRenderer
     /**
      * Indicate the DataColumn containing the name of the foreground colour to
      * used when rendering text.
+     * 
+     * @since 4.0.5
      */
     public void setForeground(DataColumnString column) {
         GtkCellLayout.addAttribute(vertical, this, "foreground", column.getOrdinal());
     }
 
     /**
-     * Indicate if the contents rendered by this CellRenderer should be 
-     * editable. This affects all rows rendered by this CellRenderer. 
+     * Indicate if the contents rendered by this CellRenderer should be
+     * editable. This affects all rows rendered by this CellRenderer.
+     * 
+     * @since 4.0.8
      */
     public void setEditable(boolean editable) {
         setPropertyBoolean("editable", editable);
@@ -103,32 +111,36 @@ public class CellRendererText extends CellRenderer
      * Event generated after user activated a cell, changed its content and
      * pressed Return.
      * 
+     * @author Stefan Prelle
      * @since 4.0.8
      */
     public interface EDITED extends GtkCellRendererText.EDITED
     {
         public void onEdited(CellRendererText source, String path, String newText);
     }
-    
+
     /**
-     * Hook up a handler to receive "edited" events on this CellRenderer. 
-     * A typical example of how this is used is as follows:
+     * Hook up a handler to receive "edited" events on this CellRenderer. A
+     * typical example of how this is used is as follows:
      * 
      * <pre>
      * final DataColumnString column;
-     * final ListStore store = new ListStore(new DataColumn[]{
+     * final TreeView view;
+     * final ListStore store;
+     * final TreeViewColumn visibleColumn 
+     * 
+     * store = new ListStore(new DataColumn[]{
      *          column = new DataColumnString()
-     *      });
+     * });
      *      
-     * TreeView view = new TreeView(store);
-     * TreeViewColumn visibleColumn = view.appendColumn();
-     *
+     * view = new TreeView(store);
+     * visibleColumn = view.appendColumn();
      * CellRendererText renderer = new CellRendererText(visibleColumn);
      * renderer.setText(column);
      * renderer.setEditable(true);
      * renderer.connect(new EDITED(){
      *      public void onEdited(CellRendererText source, String path, String newText) {
-     *          System.out.println("New value for path "+path+" is "+newText);
+     *          System.out.println(&quot;New value for path &quot; + path + &quot; is &quot; + newText);
      *          TreePath tp = new TreePath(path);
      *          TreeIter row = store.getIter(tp);
      *          store.setValue(row, column, newText);
@@ -137,7 +149,7 @@ public class CellRendererText extends CellRenderer
      * 
      * @since 4.0.8
      */
-   public void connect(EDITED handler) {
+    public void connect(EDITED handler) {
         GtkCellRendererText.connect(this, handler);
     }
 }
