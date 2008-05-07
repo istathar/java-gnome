@@ -219,7 +219,7 @@ public class TextBuffer extends Object
      * @since 4.0.8
      */
     public TextMark getInsert() {
-        return GtkTextBuffer.getSelectionBound(this);
+        return GtkTextBuffer.getInsert(this);
     }
 
     /**
@@ -273,8 +273,12 @@ public class TextBuffer extends Object
      * @since 4.0.8
      */
     public TextIter getIterAtMark(TextMark mark) {
-        TextIter iter = new TextIter(this);
+        final TextIter iter;
+
+        iter = new TextIter(this);
+
         GtkTextBuffer.getIterAtMark(this, iter, mark);
+
         return iter;
     }
 
@@ -294,5 +298,26 @@ public class TextBuffer extends Object
      */
     void applyTagByName(String name, TextIter start, TextIter end) {
         GtkTextBuffer.applyTagByName(this, name, start, end);
+    }
+
+    /**
+     * Select a range of text. The <var>selection-bound</var> mark will be
+     * placed at <code>start</code>, and the <var>insert</var> mark will
+     * be placed at <code>end</code>.
+     * 
+     * <p>
+     * Note that this should be used in preference to manually manipulating
+     * the two marks with {@link #moveMark() moveMark()} calls; doing it that
+     * way results in transient selections appearing which are different than
+     * what you wish to see.
+     * 
+     * <p>
+     * <i>The native GTK function has these arguments reversed but start and
+     * end make more sense in consecuitive order.</i>
+     * 
+     * @since 4.0.8
+     */
+    public void selectRange(TextIter start, TextIter end) {
+        GtkTextBuffer.selectRange(this, end, start);
     }
 }

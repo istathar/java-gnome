@@ -16,6 +16,7 @@ import org.gnome.gtk.Gtk;
 import org.gnome.gtk.HButtonBox;
 import org.gnome.gtk.TextBuffer;
 import org.gnome.gtk.TextIter;
+import org.gnome.gtk.TextMark;
 import org.gnome.gtk.TextTag;
 import org.gnome.gtk.TextTagTable;
 import org.gnome.gtk.TextView;
@@ -102,22 +103,25 @@ public class ExampleTextBuffer implements Button.CLICKED
     public void onClicked(Button source) {
         /*
          * Not used since get getSelectionBound() seems broken TextMark
-         * startMark = buffer.getInsert(); TextMark endMark =
-         * buffer.getSelectionBound(); System.out.println("endMark =
-         * "+endMark);
-         * 
-         * TextIter start = buffer.getIterAtMark(startMark); TextIter end =
-         * buffer.getIterAtMark(endMark);
          */
+        TextMark startMark, endMark;
+        TextIter start, end;
+
+        startMark = buffer.getSelectionBound();
+        endMark = buffer.getInsert();
+
+        start = buffer.getIterAtMark(startMark);
+        end = buffer.getIterAtMark(endMark);
+
+        System.out.println("Selected A: " + start + " to " + end);
 
         TextIter[] selection = buffer.getSelectionBounds();
-        TextIter start = selection[0];
-        TextIter end = selection[1];
-        System.out.println("Selected: " + start + " to " + end);
+        start = selection[0];
+        end = selection[1];
+        System.out.println("Selected B: " + start + " to " + end);
 
         if (source == blue) {
             buffer.applyTag(blueback, start, end);
         }
     }
-
 }

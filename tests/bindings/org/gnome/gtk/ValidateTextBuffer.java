@@ -143,6 +143,7 @@ public class ValidateTextBuffer extends TestCaseGtk
     public final void testBasicTextInsertion() {
         final TextBuffer buf;
         TextIter pointer;
+        TextMark selectionBound, insert;
 
         buf = new TextBuffer(new TextTagTable());
 
@@ -157,8 +158,19 @@ public class ValidateTextBuffer extends TestCaseGtk
          * Test the assumption that the cursor is at the end of the TextBuffer
          * by default.
          */
+
         buf.insertAtCursor(" of the ");
         assertEquals(buf.getText(), "This is a test of the ");
+
+        /*
+         * And, test the getSelectionBounds() bug.
+         */
+        buf.selectRange(buf.getStartIter(), buf.getEndIter());
+
+        selectionBound = buf.getSelectionBound();
+        insert = buf.getInsert();
+        assertEquals(0, buf.getIterAtMark(selectionBound).getOffset());
+        assertEquals("This is a test of the ".length(), buf.getIterAtMark(insert).getOffset());
 
         pointer = buf.getEndIter();
         buf.insert(pointer, "Emergency Broadcast System");
