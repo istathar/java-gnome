@@ -139,4 +139,29 @@ public class ValidateTextBuffer extends TestCaseGtk
         start.setLine(1);
         assertEquals("World!", buf.getText(start, end, true));
     }
+
+    public final void testBasicTextInsertion() {
+        final TextBuffer buf;
+        TextIter pointer;
+
+        buf = new TextBuffer(new TextTagTable());
+
+        buf.setText("This test");
+        pointer = buf.getStartIter();
+
+        pointer.setOffset(5);
+        buf.insert(pointer, "is a ");
+        assertEquals(buf.getText(), "This is a test");
+
+        /*
+         * Test the assumption that the cursor is at the end of the TextBuffer
+         * by default.
+         */
+        buf.insertAtCursor(" of the ");
+        assertEquals(buf.getText(), "This is a test of the ");
+
+        pointer = buf.getEndIter();
+        buf.insert(pointer, "Emergency Broadcast System");
+        assertEquals(buf.getText(), "This is a test of the " + "Emergency Broadcast System");
+    }
 }

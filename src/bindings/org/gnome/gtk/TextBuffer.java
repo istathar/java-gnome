@@ -178,7 +178,7 @@ public class TextBuffer extends Object
      * @since 4.0.8
      */
     public void insert(TextIter position, String text) {
-        GtkTextBuffer.insert(this, position, text, text.length());
+        GtkTextBuffer.insert(this, position, text, -1);
     }
 
     /**
@@ -187,7 +187,7 @@ public class TextBuffer extends Object
      * @since 4.0.8
      */
     public void insertAtCursor(String text) {
-        GtkTextBuffer.insertAtCursor(this, text, text.length());
+        GtkTextBuffer.insertAtCursor(this, text, -1);
     }
 
     /**
@@ -206,7 +206,7 @@ public class TextBuffer extends Object
      * @since 4.0.8
      */
     public void insertInteractive(TextIter pos, String text, boolean defaultEditable) {
-        GtkTextBuffer.insertInteractive(this, pos, text, text.length(), defaultEditable);
+        GtkTextBuffer.insertInteractive(this, pos, text, -1, defaultEditable);
     }
 
     /**
