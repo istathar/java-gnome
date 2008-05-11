@@ -29,7 +29,7 @@ import org.gnome.gtk.Window;
  * 
  * @author Stefan Prelle
  */
-public class ExampleTextBuffer implements Button.CLICKED
+public class ExampleTextBuffer
 {
 
     private TextBuffer buffer;
@@ -57,7 +57,22 @@ public class ExampleTextBuffer implements Button.CLICKED
 
     private void init() {
         blue = new Button("blue");
-        blue.connect(this);
+        blue.connect(new Button.CLICKED() {
+            public void onClicked(Button source) {
+                TextMark startMark, endMark;
+                TextIter start, end;
+
+                startMark = buffer.getSelectionBound();
+                endMark = buffer.getInsert();
+
+                start = buffer.getIterAtMark(startMark);
+                end = buffer.getIterAtMark(endMark);
+
+                System.out.println("Selected from: " + start + " to " + end);
+
+                buffer.applyTag(blueback, start, end);
+            }
+        });
 
         // Define possible tags
         blueback = new TextTag();
@@ -98,22 +113,5 @@ public class ExampleTextBuffer implements Button.CLICKED
         // pos1.setLineOffset(6);
         //        
         // buffer.applyTag(blueback, pos1, buffer.getEndIter());
-    }
-
-    public void onClicked(Button source) {
-        TextMark startMark, endMark;
-        TextIter start, end;
-
-        startMark = buffer.getSelectionBound();
-        endMark = buffer.getInsert();
-
-        start = buffer.getIterAtMark(startMark);
-        end = buffer.getIterAtMark(endMark);
-
-        System.out.println("Selected from: " + start + " to " + end);
-
-        if (source == blue) {
-            buffer.applyTag(blueback, start, end);
-        }
     }
 }
