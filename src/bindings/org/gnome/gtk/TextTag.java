@@ -42,14 +42,8 @@ public class TextTag extends Object
      */
     TextTagTable table;
 
-    /*
-     * The tags name, again to facilitate Java side checking
-     */
-    final String name;
-
     protected TextTag(long pointer) {
         super(pointer);
-        name = getPropertyString("name");
     }
 
     /**
@@ -59,9 +53,8 @@ public class TextTag extends Object
      * 
      * @since 4.0.8
      */
-    public TextTag(String name) {
-        super(GtkTextTag.createTextTag(name));
-        this.name = name;
+    public TextTag() {
+        super(GtkTextTag.createTextTag(null));
     }
 
     /**

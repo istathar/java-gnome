@@ -29,7 +29,7 @@ import org.gnome.glib.Object;
  * invalidated when that TextBuffer is modified, so you can't "save" them. If
  * you need to preserve a position for later reuse, then get a TextMark by
  * calling TextBuffer's
- * {@link TextBuffer#createMark(String, TextIter, boolean) createMark()}.
+ * {@link TextBuffer#createMark(TextIter, boolean) createMark()} on it.
  * 
  * <p>
  * Instances of this class fill the same role for TextBuffers that

@@ -56,12 +56,6 @@ public class TextTagTable extends Object
             }
         }
 
-        if (tag.name != null) {
-            if (GtkTextTagTable.lookup(this, tag.name) != null) {
-                throw new IllegalArgumentException("This tag has a name that's already in the table");
-            }
-        }
-
         GtkTextTagTable.add(this, tag);
         tag.table = this;
     }

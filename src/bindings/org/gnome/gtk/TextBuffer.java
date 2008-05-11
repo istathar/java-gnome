@@ -153,22 +153,8 @@ public class TextBuffer extends Object
      * <p>
      * The <code>leftGravity</code> parameter is interesting. FIXME
      */
-    /*
-     * TODO should we remove exposure of the mark_name? TODO (SP) I don't see
-     * any advantage in using the the mark_names, unless you need to access
-     * built-in names like "insert" or "selection-bound" (are there more?)
-     */
-    public TextMark createMark(String name, TextIter where, boolean leftGravity) {
-        return GtkTextBuffer.createMark(this, name, where, leftGravity);
-    }
-
-    /**
-     * Returns a TextMark with the given name.
-     * 
-     * @since 4.0.8
-     */
-    public TextMark getMark(String name) {
-        return GtkTextBuffer.getMark(this, name);
+    public TextMark createMark(TextIter where, boolean leftGravity) {
+        return GtkTextBuffer.createMark(this, null, where, leftGravity);
     }
 
     /**
@@ -290,14 +276,6 @@ public class TextBuffer extends Object
      */
     public void applyTag(TextTag tag, TextIter start, TextIter end) {
         GtkTextBuffer.applyTag(this, tag, start, end);
-    }
-
-    /*
-     * TODO (SP) When we don't expose mark names we also don't need to expose
-     * tag names, don't we?
-     */
-    void applyTagByName(String name, TextIter start, TextIter end) {
-        GtkTextBuffer.applyTagByName(this, name, start, end);
     }
 
     /**

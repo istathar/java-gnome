@@ -20,17 +20,17 @@ public class ValidateTextBuffer extends TestCaseGtk
 {
     public final void testAddingTagsToTextTagTable() {
         final TextTagTable table;
-        final TextTag anon, bold1, italic, bold2;
+        final TextTag anon, bold1, italic;
 
         table = new TextTagTable();
 
         // shouldn't crash
-        anon = new TextTag(null);
+        anon = new TextTag();
 
         // neither should this
         table.add(anon);
 
-        bold1 = new TextTag("bold");
+        bold1 = new TextTag();
         table.add(bold1);
 
         // but this will without the extra defences we've added
@@ -42,17 +42,8 @@ public class ValidateTextBuffer extends TestCaseGtk
         }
 
         // adding another named tag is no problem
-        italic = new TextTag("italics");
+        italic = new TextTag();
         table.add(italic);
-
-        // but adding one with a name in use is bad.
-        bold2 = new TextTag("bold");
-        try {
-            table.add(bold2);
-            fail("Shouldn't be able to add a tag with a name already in this table");
-        } catch (IllegalArgumentException iae) {
-            // good
-        }
     }
 
     /*
@@ -63,7 +54,7 @@ public class ValidateTextBuffer extends TestCaseGtk
     private static class LocalTextTag extends TextTag
     {
         LocalTextTag() {
-            super(null);
+            super();
         }
 
         public void setScale(double scale) {

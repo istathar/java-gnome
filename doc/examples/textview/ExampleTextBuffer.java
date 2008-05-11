@@ -60,7 +60,7 @@ public class ExampleTextBuffer implements Button.CLICKED
         blue.connect(this);
 
         // Define possible tags
-        blueback = new TextTag("blueback");
+        blueback = new TextTag();
         blueback.setBackground("blue");
         // Build a tag collection
         tags = new TextTagTable();
@@ -101,9 +101,6 @@ public class ExampleTextBuffer implements Button.CLICKED
     }
 
     public void onClicked(Button source) {
-        /*
-         * Not used since get getSelectionBound() seems broken TextMark
-         */
         TextMark startMark, endMark;
         TextIter start, end;
 
