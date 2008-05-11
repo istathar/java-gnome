@@ -110,12 +110,7 @@ public class ExampleTextBuffer implements Button.CLICKED
         start = buffer.getIterAtMark(startMark);
         end = buffer.getIterAtMark(endMark);
 
-        System.out.println("Selected A: " + start + " to " + end);
-
-        TextIter[] selection = buffer.getSelectionBounds();
-        start = selection[0];
-        end = selection[1];
-        System.out.println("Selected B: " + start + " to " + end);
+        System.out.println("Selected from: " + start + " to " + end);
 
         if (source == blue) {
             buffer.applyTag(blueback, start, end);

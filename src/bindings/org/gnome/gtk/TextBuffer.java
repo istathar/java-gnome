@@ -235,25 +235,6 @@ public class TextBuffer extends Object
     }
 
     /**
-     * Return start and end of the current selection - if any.
-     * 
-     * @return A array of two TextIter (start,end) marking the selection or
-     *         <code>null</code> if nothing was selected.
-     * @since 4.0.8
-     */
-    public TextIter[] getSelectionBounds() {
-        TextIter start = new TextIter(this);
-        TextIter end = new TextIter(this);
-        if (GtkTextBuffer.getSelectionBounds(this, start, end)) {
-            return new TextIter[] {
-                    start, end
-            };
-        } else {
-            return null;
-        }
-    }
-
-    /**
      * Converts a {@link TextMark TextMark} into a {@link TextIter TextIter}.
      * 
      * @since 4.0.8
