@@ -65,8 +65,8 @@ public class ExampleTextBuffer
                 startMark = buffer.getSelectionBound();
                 endMark = buffer.getInsert();
 
-                start = buffer.getIterAtMark(startMark);
-                end = buffer.getIterAtMark(endMark);
+                start = buffer.getIter(startMark);
+                end = buffer.getIter(endMark);
 
                 System.out.println("Selected from: " + start + " to " + end);
 

@@ -118,8 +118,8 @@ public class ValidateTextBuffer extends TestCaseGtk
         buf = new TextBuffer(new TextTagTable());
 
         buf.setText("Hello\nWorld!");
-        start = buf.getStartIter();
-        end = buf.getEndIter();
+        start = buf.getIterStart();
+        end = buf.getIterEnd();
         assertEquals(0, start.getLine());
         assertEquals(0, start.getLineOffset());
         assertEquals(1, end.getLine());
@@ -139,7 +139,7 @@ public class ValidateTextBuffer extends TestCaseGtk
         buf = new TextBuffer(new TextTagTable());
 
         buf.setText("This test");
-        pointer = buf.getStartIter();
+        pointer = buf.getIterStart();
 
         pointer.setOffset(5);
         buf.insert(pointer, "is a ");
@@ -156,14 +156,14 @@ public class ValidateTextBuffer extends TestCaseGtk
         /*
          * And, test the getSelectionBounds() bug.
          */
-        buf.selectRange(buf.getStartIter(), buf.getEndIter());
+        buf.selectRange(buf.getIterStart(), buf.getIterEnd());
 
         selectionBound = buf.getSelectionBound();
         insert = buf.getInsert();
-        assertEquals(0, buf.getIterAtMark(selectionBound).getOffset());
-        assertEquals("This is a test of the ".length(), buf.getIterAtMark(insert).getOffset());
+        assertEquals(0, buf.getIter(selectionBound).getOffset());
+        assertEquals("This is a test of the ".length(), buf.getIter(insert).getOffset());
 
-        pointer = buf.getEndIter();
+        pointer = buf.getIterEnd();
         buf.insert(pointer, "Emergency Broadcast System");
         assertEquals(buf.getText(), "This is a test of the " + "Emergency Broadcast System");
     }

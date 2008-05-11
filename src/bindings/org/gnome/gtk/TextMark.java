@@ -32,6 +32,12 @@ import org.gnome.glib.Object;
  * {@link TextBuffer#createMark(TextIter, boolean) createMark()} on it.
  * 
  * <p>
+ * There are two "standard" TextMarks available in all TextBuffers, relating
+ * to the cursor and the current selection. See
+ * {@link TextBuffer#getInsert() getInsert()} and
+ * {@link TextBuffer#getSelectionBound() getSelectionBound()}.
+ * 
+ * <p>
  * Instances of this class fill the same role for TextBuffers that
  * {@link TreeRowReference} does in providing stability for rows pointed to
  * transiently by TreeIters that come from TreeModels.

@@ -84,7 +84,7 @@ public class TextBuffer extends Object
      * @since 4.0.8
      */
     public String getText() {
-        return getText(getStartIter(), getEndIter(), true);
+        return getText(getIterStart(), getIterEnd(), true);
     }
 
     /**
@@ -122,7 +122,7 @@ public class TextBuffer extends Object
      * 
      * @since 4.0.8
      */
-    public TextIter getStartIter() {
+    public TextIter getIterStart() {
         final TextIter iter;
 
         iter = new TextIter(this);
@@ -137,7 +137,11 @@ public class TextBuffer extends Object
      * 
      * @since 4.0.8
      */
-    public TextIter getEndIter() {
+    /*
+     * The naming of this method is inverted so as to correspond with the
+     * naming pattern established in TreeModel.
+     */
+    public TextIter getIterEnd() {
         final TextIter iter;
 
         iter = new TextIter(this);
@@ -199,8 +203,9 @@ public class TextBuffer extends Object
      * Returns the current cursor position. Is also used at the start position
      * of a selected text.
      * 
-     * You can call {@link #getIterAtMark(TextMark) getIterAtMark()} to
-     * convert the TextMark to an TextIter.
+     * <p>
+     * You can call {@link #getIter(TextMark) getIter()} to convert the
+     * TextMark to an TextIter.
      * 
      * @since 4.0.8
      */
@@ -212,16 +217,18 @@ public class TextBuffer extends Object
      * Returns the end of the current selection. If you need the beginning of
      * the selection use {@link #getInsert() getInsert()}.
      * 
-     * You can call {@link #getIterAtMark(TextMark) getIterAtMark()} to
-     * convert the TextMark to an TextIter.
+     * <p>
+     * Under ordinary circumstances you could think the <var>selection-bound</var>
+     * TextMark as being the beginning of a selection, and the <var>insert</var>
+     * mark as the end, but if the user (or you, programatically) has selected
+     * "backwards" then this TextMark will be further ahead in the TextBuffer
+     * than the insertion one.
+     * 
+     * <p>
+     * You can call {@link #getIter(TextMark) getIter()} to convert the
+     * TextMark to an TextIter.
      * 
      * @since 4.0.8
-     */
-    /*
-     * (SP) I tested around a bit and getSelectionBound() always returned the
-     * same position as getInsert(). I checked the generated code - it looks
-     * ok. A bug in GTK ? This even is true if I access the mark
-     * "selection_bound" directly.
      */
     public TextMark getSelectionBound() {
         return GtkTextBuffer.getSelectionBound(this);
@@ -235,11 +242,17 @@ public class TextBuffer extends Object
     }
 
     /**
-     * Converts a {@link TextMark TextMark} into a {@link TextIter TextIter}.
+     * Converts a {@link TextMark TextMark} into a valid
+     * {@link TextIter TextIter} that you can use to point into the TextBuffer
+     * in its current state.
      * 
      * @since 4.0.8
      */
-    public TextIter getIterAtMark(TextMark mark) {
+    /*
+     * This method is more compactly named so as to correspond with the naming
+     * pattern already established in TreeModel.
+     */
+    public TextIter getIter(TextMark mark) {
         final TextIter iter;
 
         iter = new TextIter(this);
