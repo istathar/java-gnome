@@ -50,4 +50,13 @@ public class TextMark extends Object
     protected TextMark(long pointer) {
         super(pointer);
     }
+
+    /**
+     * Get the TextBuffer that this TextMark points into.
+     * 
+     * @since 4.0.8
+     */
+    public TextBuffer getBuffer() {
+        return GtkTextMark.getBuffer(this);
+    }
 }

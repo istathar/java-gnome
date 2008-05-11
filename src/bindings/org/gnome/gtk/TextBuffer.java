@@ -28,6 +28,16 @@ import org.gnome.glib.Object;
  * @author Stefan Prelle
  * @since 4.0.8
  */
+/*
+ * Judging by the GTK documentation, almost everything in this class works
+ * through the default signal handlers. Thus if we expose any signals we must
+ * a) make sure that the documentation of the corresponding methods here
+ * mentions that behaviour could change, b) warn people in the signal's
+ * documentation that they could massively screw things up, and c) write test
+ * coverage to guard against this sort of thing. Based on all that, I'm not
+ * going to be in a rush to see any of those internal signals exposed in our
+ * public API.
+ */
 public class TextBuffer extends Object
 {
     protected TextBuffer(long pointer) {
@@ -172,6 +182,16 @@ public class TextBuffer extends Object
     }
 
     /**
+     * Insert text as for {@link #insert(TextIter, String) insert()} but
+     * simultaneously apply the formatting described by <code>tag</code>.
+     * 
+     * @since 4.0.8
+     */
+    public void insert(TextIter position, String text, TextTag tag) {
+        GtkTextBuffer.insertWithTags(this, position, text, -1, tag);
+    }
+
+    /**
      * Insert the text at the current cursor position.
      * 
      * @since 4.0.8
@@ -192,7 +212,7 @@ public class TextBuffer extends Object
      *            Text to insert.
      * @param defaultEditable
      *            How shall the area be handled, if there are no tags
-     *            affacting editability.
+     *            affecting editability.
      * @since 4.0.8
      */
     public void insertInteractive(TextIter pos, String text, boolean defaultEditable) {
@@ -220,9 +240,9 @@ public class TextBuffer extends Object
      * <p>
      * Under ordinary circumstances you could think the <var>selection-bound</var>
      * TextMark as being the beginning of a selection, and the <var>insert</var>
-     * mark as the end, but if the user (or you, programatically) has selected
-     * "backwards" then this TextMark will be further ahead in the TextBuffer
-     * than the insertion one.
+     * mark as the end, but if the user (or you, programmatically) has
+     * selected "backwards" then this TextMark will be further ahead in the
+     * TextBuffer than the insertion one.
      * 
      * <p>
      * You can call {@link #getIter(TextMark) getIter()} to convert the
@@ -285,11 +305,22 @@ public class TextBuffer extends Object
      * 
      * <p>
      * <i>The native GTK function has these arguments reversed but start and
-     * end make more sense in consecuitive order.</i>
+     * end make more sense in consecutive order.</i>
      * 
      * @since 4.0.8
      */
     public void selectRange(TextIter start, TextIter end) {
         GtkTextBuffer.selectRange(this, end, start);
+    }
+
+    /**
+     * Remove the effect of the supplied <code>tag</code> from across the
+     * range between <code>start</code> and <code>end</code>. The order
+     * of the two TextIters doesn't actually matter; they are just bounds.
+     * 
+     * @since 4.0.8
+     */
+    public void removeTag(TextTag tag, TextIter start, TextIter end) {
+        GtkTextBuffer.removeTag(this, tag, start, end);
     }
 }

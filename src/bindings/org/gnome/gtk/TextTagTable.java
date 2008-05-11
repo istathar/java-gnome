@@ -42,8 +42,6 @@ public class TextTagTable extends Object
      * <p>
      * You cannot add the same tag to multiple tables, and (as should be
      * obvious) you can't add the same tag to a given TextTagTable twice.
-     * Also, you cannot add a tag with a name that is already in use by
-     * another tag in this table.
      * 
      * @since 4.0.8
      */

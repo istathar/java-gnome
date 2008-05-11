@@ -519,6 +519,7 @@ PolicyType
 PositionType
 PowerResponseType
 Preetz
+Prelle
 PressMe
 ProgressBar
 Pty
@@ -606,13 +607,18 @@ TestCases
 TestRunner
 TestSuite
 TextBuffer
+TextBuffer's
 TextComboBox
 TextComboBoxEntry
 TextDirection
+TextIter
+TextIters
+TextMark
 TextModel
 TextTag
 TextTag's
 TextTagTable
+TextTags
 TextView
 ThrowNew
 Timm
@@ -736,6 +742,7 @@ appendColumn
 appendPage
 appendRow
 appendText
+applyTag
 arcNegative
 arg
 argc
@@ -893,6 +900,7 @@ createImageMenuItemWithMnemonic
 createInstance
 createLabel
 createListStore
+createMark
 createMenu
 createMenuBar
 createMenuItem
@@ -922,6 +930,7 @@ createStatusIconFromPixbuf
 createStatusbar
 createSurface
 createTable
+createTextBuffer
 createTextTag
 createThing
 createToggleButton
@@ -1096,6 +1105,7 @@ getDetail
 getDisplayOptions
 getDraw
 getEnableSearch
+getEndIter
 getEnum
 getEnv
 getEventTypeOrdinal
@@ -1113,12 +1123,17 @@ getHAdjustment
 getHadjustment
 getHandle
 getHasFocus
+getHasSelection
 getHeight
 getImage
 getInconsistent
+getInsert
 getInteger
 getIter
+getIterAtMark
+getIterEnd
 getIterFirst
+getIterStart
 getJustify
 getKeyval
 getLabel
@@ -1133,6 +1148,7 @@ getMessage
 getMode
 getModel
 getModificationDate
+getModified
 getName
 getObject
 getOrdinal
@@ -1177,9 +1193,11 @@ getSearchEntry
 getSecondaryUseMarkup
 getSelected
 getSelection
+getSelectionBound
 getSensitive
 getSize
 getSource
+getStartIter
 getState
 getStatus
 getSticker
@@ -1265,10 +1283,13 @@ init
 initializer
 initializers
 inline
+insertAtCursor
 insertBefore
+insertInteractive
 insertPage
 insertRow
 insertText
+insertWithTags
 instanceFor
 instanceof
 ints
@@ -1333,6 +1354,7 @@ lang
 lc
 ld
 leftAttach
+leftGravity
 len
 li
 libexec
@@ -1540,6 +1562,7 @@ registerProxy
 registerType
 removePage
 removeRow
+removeTag
 removeToggleRef
 removeWidget
 renderable
@@ -1577,6 +1600,7 @@ selectFilename
 selectIter
 selectMonth
 selectPath
+selectRange
 selectRegion
 selectRow
 selectURI
@@ -1662,6 +1686,7 @@ setMinWidth
 setModal
 setMode
 setModel
+setModified
 setOperator
 setOrdinal
 setOrientation
