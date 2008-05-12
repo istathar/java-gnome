@@ -27,6 +27,15 @@ import org.gnome.pango.Weight;
 /**
  * ... markup and formatting for regions of text in a TextBuffer ...
  * 
+ * <p>
+ * All TextTags belong to a TextTagTable, and likewise all TextBuffers are
+ * constructed by specifying the TextTagTable that it will draw tags from.
+ * 
+ * <p>
+ * <i>All TextTags created in java-gnome are "anonymous"; the underlying
+ * library has a notion of named tags but we have no need of this and have not
+ * exposed it. In order to use a TextTag later just keep a reference to it.</i>
+ * 
  * @author Andrew Cowie
  * @since 4.0.8
  */
@@ -37,24 +46,23 @@ import org.gnome.pango.Weight;
  */
 public class TextTag extends Object
 {
-    /*
-     * Simple Java side reference to facilitate avoiding double-tap additions.
-     */
-    TextTagTable table;
-
     protected TextTag(long pointer) {
         super(pointer);
     }
 
     /**
-     * Create a new TextTag. The given <code>name</code> will be used as the
-     * TextTag's nickname. You can pass <code>null</code> to make this
-     * anonymous.
+     * Create a new TextTag. You pass the TextTagTable that will enclose this
+     * TextTag as the argument to the constructor.
+     * 
+     * <p>
+     * <i>In GTK you have to add TextTags to TextTagTables; we do this for you
+     * automatically.</i>
      * 
      * @since 4.0.8
      */
-    public TextTag() {
+    public TextTag(TextTagTable table) {
         super(GtkTextTag.createTextTag(null));
+        GtkTextTagTable.add(table, this);
     }
 
     /**

@@ -18,32 +18,26 @@ import org.gnome.pango.Underline;
  */
 public class ValidateTextBuffer extends TestCaseGtk
 {
-    public final void testAddingTagsToTextTagTable() {
+    public final void testTagsAddedToTextTagTableAutomatically() {
         final TextTagTable table;
-        final TextTag anon, bold1, italic;
+        final TextTag anon, bold, italic;
 
         table = new TextTagTable();
 
         // shouldn't crash
-        anon = new TextTag();
+        anon = new TextTag(table);
 
-        // neither should this
-        table.add(anon);
-
-        bold1 = new TextTag();
-        table.add(bold1);
-
-        // but this will without the extra defences we've added
-        try {
-            table.add(bold1);
-            fail("Should have thrown");
-        } catch (IllegalStateException ise) {
-            // good
-        }
+        bold = new TextTag(table);
 
         // adding another named tag is no problem
-        italic = new TextTag();
-        table.add(italic);
+        italic = new TextTag(table);
+
+        assertEquals(3, GtkTextTagTable.getSize(table));
+
+        // avoid warnings
+        anon.getClass();
+        bold.getClass();
+        italic.getClass();
     }
 
     /*
@@ -54,7 +48,7 @@ public class ValidateTextBuffer extends TestCaseGtk
     private static class LocalTextTag extends TextTag
     {
         LocalTextTag() {
-            super();
+            super(new TextTagTable());
         }
 
         public void setScale(double scale) {

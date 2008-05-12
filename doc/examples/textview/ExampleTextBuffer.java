@@ -75,11 +75,11 @@ public class ExampleTextBuffer
         });
 
         // Define possible tags
-        blueback = new TextTag();
-        blueback.setBackground("blue");
-        // Build a tag collection
         tags = new TextTagTable();
-        tags.add(blueback);
+
+        blueback = new TextTag(tags);
+        blueback.setBackground("blue");
+
         // Create a buffer with the tag collection
         buffer = new TextBuffer(tags);
         // Create a view
