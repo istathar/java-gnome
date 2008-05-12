@@ -16,10 +16,10 @@ import org.freedesktop.bindings.Constant;
 /**
  * Used for determining the page role inside the {@link Assistant}. It's used
  * to handle buttons sensitivity and visibility.
+ * 
  * <p>
  * Note that an assistant needs to end its page flow with a page of type
- * CONFIRM or PAGE_SUMMARY to be correct.
- * </p>
+ * {@link #CONFIRM CONFIRM} or {@link #SUMMARY SUMMARY} to be correct.
  * 
  * @author Stefan Prelle
  * @since 4.0.8

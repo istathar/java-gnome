@@ -28,7 +28,7 @@ public class ValidateAssistant extends TestCaseGtk
         druid.appendPage(page2);
         druid.appendPage(page3);
 
-        assertEquals(3, druid.getNPages());
+        assertEquals(3, druid.getNumPages());
         assertEquals(page3, druid.getPage(2));
         assertEquals(page2, druid.getPage(1));
         assertEquals(page1, druid.getPage(0));
@@ -53,7 +53,7 @@ public class ValidateAssistant extends TestCaseGtk
         druid.appendPage(page2);
         druid.insertPage(page3, 1);
 
-        assertEquals(3, druid.getNPages());
+        assertEquals(3, druid.getNumPages());
         assertEquals(page1, druid.getPage(0));
         assertEquals(page3, druid.getPage(1));
         assertEquals(page2, druid.getPage(2));
@@ -78,7 +78,7 @@ public class ValidateAssistant extends TestCaseGtk
         druid.prependPage(page2);
         druid.prependPage(page3);
 
-        assertEquals(3, druid.getNPages());
+        assertEquals(3, druid.getNumPages());
         assertEquals(page3, druid.getPage(0));
         assertEquals(page2, druid.getPage(1));
         assertEquals(page1, druid.getPage(2));

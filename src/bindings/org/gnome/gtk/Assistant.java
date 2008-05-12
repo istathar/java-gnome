@@ -14,17 +14,22 @@ package org.gnome.gtk;
 import org.gnome.gdk.Pixbuf;
 
 /**
- * A widget used to guide users through multi-step operations.
+ * Guide a user through a multi-step operation one page at a time. You may
+ * recognize the name "wizard" or "druid"; GTK calls these Assistants.
  * 
  * <p>
- * An Assistant contains of multiple pages, where a page is a Widget of your
- * choice, but most likely a layout container. Each page in the Assistant is
- * marked as a specific type (see {@link AssistantPageType AssistantPageType}).
- * _ATTENTION_: GTK requires that the last page is of the type CONFIRM or
- * SUMMARY.
+ * An Assistant contains of multiple pages. While each page is just a Widget
+ * of your choice, in most cases you will use a layout container as you would
+ * in creating a regular top level Window. Each page in the Assistant is
+ * marked as a specific type, set with
+ * {@link #setPageType(Widget, AssistantPageType) setPageType()}. Be aware
+ * that the last page of the Assistant must be of type
+ * {@link AssistantPageType#CONFIRM CONFIRM} or
+ * {@link AssistantPageType#SUMMARY SUMMARY}.
  * 
  * <p>
- * You can hook to events in the Assistant, which are:
+ * You can hook to a number of signals which indicate user actions specific to
+ * the Assistant:
  * 
  * <ul>
  * <li>APPLY - The user activated the 'Apply' button on the page.</li>
@@ -34,18 +39,21 @@ import org.gnome.gdk.Pixbuf;
  * </ul>
  * 
  * <p>
- * Listening to the PREPARE event allows you to modify the page contents in
- * time, perhaps depending on input made on previous pages.
+ * Listening to the <code>PREPARE</code> signal allows you to modify the
+ * page contents in time, perhaps depending on input made on previous pages.
  * 
  * <p>
  * You create the Assistant with a number of pages, the most of it possibly
  * being of type CONTENT. To allow a user to go from one page to the user, the
- * page must be flagged as *complete*. If not complete, the 'next' button is
- * disabled. There is no suggested way where to apply such a check for
- * completeness. A possible way would listening to events emitted from the
+ * page must be flagged as <var>complete</var>. If not complete, the 'Next'
+ * button is disabled. There is no suggested way where to apply such a check
+ * for completeness. A possible way would listening to events emitted from the
  * Widgets inside the page when there contents change.
  * 
+ * FIXME then lets suggest one.
+ * 
  * @author Stefan Prelle
+ * @author Andrew Cowie
  * @since 4.0.8
  */
 public class Assistant extends Window
@@ -62,10 +70,10 @@ public class Assistant extends Window
     }
 
     /**
-     * Returns the page number of the current page
+     * Get the page number of the currently displayed page. Page numbers count
+     * from <code>0</code>. If the assistant has no pages, <code>-1</code>
+     * will be returned.
      * 
-     * @return The index (starting from 0) of the current page in the
-     *         assistant, if the assistant has no pages, -1 will be returned
      * @since 4.0.8
      */
     public int getCurrentPage() {
@@ -73,14 +81,8 @@ public class Assistant extends Window
     }
 
     /**
-     * Switches the page to page_num. Note that this will only be necessary in
-     * custom buttons, as the assistant flow can be set with
-     * {@link setForwardPage}.
+     * FIXME
      * 
-     * @param pageNum
-     *            index of the page to switch to, starting from 0. If
-     *            negative, the last page will be used. If greater than the
-     *            number of pages in the assistant, nothing will be done.
      * @since 4.0.8
      */
     public void setCurrentPage(int pageNum) {
@@ -88,34 +90,37 @@ public class Assistant extends Window
     }
 
     /**
-     * Returns the number of pages in the Assistant
+     * Get the number of pages in the Assistant.
      * 
-     * @return Number of pages
      * @since 4.0.8
      */
-    public int getNPages() {
+    public int getNumPages() {
         return GtkAssistant.getNPages(this);
     }
 
     /**
-     * Returns the child widget contained in the given page.
+     * Returns the child Widget contained in the given page.
      * 
      * @param pageNum
-     *            The index of a page in the assistant, or -1 to get the last
-     *            page;
-     * @return The child widget, or NULL if page_num is out of bounds.
+     *            The index of a page in the assistant. Use <code>-1</code>
+     *            to get the last page.
      * @since 4.0.8
      */
     public Widget getPage(int pageNum) {
-        return GtkAssistant.getNthPage(this, pageNum);
+        final Widget result;
+
+        result = GtkAssistant.getNthPage(this, pageNum);
+
+        if (result == null) {
+            throw new IndexOutOfBoundsException("Illegal page number requested");
+        }
+        return result;
     }
 
     /**
-     * Prepends a page to the pages in the Assistant.
+     * Prepend <code>page</code> to the existing pages in the Assistant.
      * 
-     * @param page
-     *            Page to add.
-     * @return the index (starting at 0) of the inserted page
+     * @return the index (starting at 0) of the inserted page.
      * @since 4.0.8
      */
     public int prependPage(Widget page) {
@@ -150,13 +155,9 @@ public class Assistant extends Window
     }
 
     /**
-     * Sets the page type for page. The page type determines the page behavior
-     * in the assistant.
+     * Set the page type for page. The page type determines the page behavior
+     * in the assistant. FIXME describe FIXME what is the default?
      * 
-     * @param page
-     *            A page of assistant
-     * @param type
-     *            The new type of the page
      * @since 4.0.8
      */
     public void setPageType(Widget page, AssistantPageType type) {
@@ -164,11 +165,8 @@ public class Assistant extends Window
     }
 
     /**
-     * Gets the page type of page.
+     * Get the type of the given Assistant page.
      * 
-     * @param page
-     *            A page of assistant
-     * @return The type of the page
      * @since 4.0.8
      */
     public AssistantPageType getPageType(Widget page) {
@@ -190,11 +188,8 @@ public class Assistant extends Window
     }
 
     /**
-     * Gets the page type of page.
+     * FIXME
      * 
-     * @param page
-     *            A page of assistant
-     * @return The title of the page
      * @since 4.0.8
      */
     public String getPageTitle(Widget page) {
@@ -272,7 +267,7 @@ public class Assistant extends Window
      * 
      * @param page
      *            A page of assistant
-     * @return TRUE if page is complete.
+     * @return <code>true</code> if page is complete.
      * @since 4.0.8
      */
     public boolean getPageComplete(Widget page) {
@@ -293,8 +288,6 @@ public class Assistant extends Window
     /**
      * Removes a widget from the action area of a Assistant.
      * 
-     * @param child
-     *            Widget to remove
      * @since 4.0.8
      */
     public void removeActionWidget(Widget child) {
@@ -302,17 +295,7 @@ public class Assistant extends Window
     }
 
     /**
-     * Forces assistant to recompute the buttons state.
-     * <p>
-     * GTK+ automatically takes care of this in most situations, e.g. when the
-     * user goes to a different page, or when the visibility or completeness
-     * of a page changes.
-     * </p>
-     * <p>
-     * One situation where it can be necessary to call this function is when
-     * changing a value on the current page affects the future page flow of
-     * the assistant.
-     * </p>
+     * Force the ... FIXME
      * 
      * @since 4.0.8
      */
@@ -403,17 +386,20 @@ public class Assistant extends Window
         GtkAssistant.connect(this, handler);
     }
 
-    /**
+    /*
      * This is not part of the normal GTK+ bindings. It only performs a sanity
      * check whether you thought about having a CONFIRM or SUMMARY page at
      * your last page in the assistant.
      */
-    public void prepareForDisplay() {
-        Widget lastPage = getPage(getNPages() - 1);
-        AssistantPageType type = getPageType(lastPage);
+    void prepareForDisplay() {
+        final Widget lastPage;
+        final AssistantPageType type;
+
+        lastPage = getPage(getNumPages() - 1);
+        type = getPageType(lastPage);
+
         if ((type != AssistantPageType.CONFIRM) && (type != AssistantPageType.SUMMARY)) {
             throw new IllegalArgumentException("Last page must be of type CONFIRM or SUMMARY");
         }
-
     }
 }
