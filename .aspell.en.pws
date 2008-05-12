@@ -1217,6 +1217,7 @@ globalTooltipsGroup
 gnomedev
 goto
 gpointer
+grabDefault
 grabFocus
 gthread
 gtk
@@ -1446,6 +1447,7 @@ onGroupToggled
 onHide
 onKeyPressEvent
 onKeyReleaseEvent
+onLeaveNotifyEvent
 onPopupMenu
 onResponse
 onRowActivated
