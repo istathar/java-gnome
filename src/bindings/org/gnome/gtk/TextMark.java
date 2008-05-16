@@ -13,14 +13,6 @@ package org.gnome.gtk;
 
 import org.gnome.glib.Object;
 
-/*
- * FIXME this is a placeholder stub for what will become the public API for
- * this type. Replace this comment with appropriate javadoc including author
- * and since tags. Note that the class may need to be made abstract, implement
- * interfaces, or even have its parent changed. No API stability guarantees
- * are made about this class until it has been reviewed by a hacker and this
- * comment has been replaced.
- */
 /**
  * A stable reference to a specific position within a TextBuffer.
  * 
@@ -58,5 +50,39 @@ public class TextMark extends Object
      */
     public TextBuffer getBuffer() {
         return GtkTextMark.getBuffer(this);
+    }
+
+    /**
+     * Get a currently valid TextIter indicating where in the TextBuffer this
+     * TextMark is pointing. This is a convenience method for the common case
+     * where you have a series of TextMarks but need to call various
+     * TextBuffer insertion or markup related methods, all of which take
+     * TextIter arguments.
+     * 
+     * <p>
+     * The usual caveats about changes invalidating iterators apply, but if
+     * you use these inline you will have no problems. For example, given
+     * TextMarks <code>start</code>, <code>end</code> and a TextTag of
+     * some sort, you could easily do:
+     * 
+     * <pre>
+     * buf.applyTag(bold, start.getIter(), end.getIter());
+     * </pre>
+     * 
+     * which is very straight forward. If you are using the same position
+     * repeatedly, however, and not changing the TextBuffer, then it is far
+     * more efficient to convert the TextMark into a TextIter once and use
+     * that directly.
+     * 
+     * @since 4.0.8
+     */
+    public TextIter getIter() {
+        final TextIter pointer;
+        final TextBuffer buf;
+
+        buf = GtkTextMark.getBuffer(this);
+        pointer = buf.getIter(this);
+
+        return pointer;
     }
 }

@@ -329,6 +329,7 @@ GtkStatusbar
 GtkStockItem
 GtkTable
 GtkTextBuffer
+GtkTextMark
 GtkTextTag
 GtkTextTagOverride
 GtkTextView
@@ -608,12 +609,14 @@ TestRunner
 TestSuite
 TextBuffer
 TextBuffer's
+TextBuffers
 TextComboBox
 TextComboBoxEntry
 TextDirection
 TextIter
 TextIters
 TextMark
+TextMarks
 TextModel
 TextTag
 TextTag's
@@ -1088,6 +1091,7 @@ getArea
 getBlinking
 getBlue
 getBoolean
+getBuffer
 getButton
 getChild
 getChildSecondary
