@@ -161,4 +161,20 @@ public class ValidateTextBuffer extends TestCaseGtk
         buf.insert(pointer, "Emergency Broadcast System");
         assertEquals(buf.getText(), "This is a test of the " + "Emergency Broadcast System");
     }
+
+    public void testIterFromOffset() {
+        final TextBuffer buf;
+        TextIter pointer, other;
+
+        buf = new TextBuffer(new TextTagTable());
+
+        pointer = buf.getIterEnd();
+        assertEquals(0, pointer.getOffset());
+
+        buf.insertAtCursor("I hate spam");
+        pointer = buf.getIter(7);
+        other = pointer.copy();
+        other.forwardLine();
+        assertEquals(11, other.getOffset());
+    }
 }

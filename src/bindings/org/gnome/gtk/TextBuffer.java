@@ -283,6 +283,22 @@ public class TextBuffer extends Object
     }
 
     /**
+     * Get a TextIter pointing at the position <code>offset</code>
+     * characters into the TextBuffer.
+     * 
+     * @since 4.0.8
+     */
+    public TextIter getIter(int offset) {
+        final TextIter iter;
+
+        iter = new TextIter(this);
+
+        GtkTextBuffer.getIterAtOffset(this, iter, offset);
+
+        return iter;
+    }
+
+    /**
      * Apply the selected tag on the area in the TextBuffer between the start
      * and end positions.
      * 
@@ -322,5 +338,15 @@ public class TextBuffer extends Object
      */
     public void removeTag(TextTag tag, TextIter start, TextIter end) {
         GtkTextBuffer.removeTag(this, tag, start, end);
+    }
+
+    /**
+     * Create a new TextChildAnchor at <code>location</code>. Use the
+     * method in TextView to load a Widget into it.
+     * 
+     * @since 4.0.8
+     */
+    public TextChildAnchor createChildAnchor(TextIter location) {
+        return GtkTextBuffer.createChildAnchor(this, location);
     }
 }

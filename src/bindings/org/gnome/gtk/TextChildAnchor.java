@@ -26,4 +26,8 @@ public class TextChildAnchor extends Object
     protected TextChildAnchor(long pointer) {
         super(pointer);
     }
+
+    public TextChildAnchor() {
+        super(GtkTextChildAnchor.createTextChildAnchor());
+    }
 }

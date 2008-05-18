@@ -116,4 +116,23 @@ public class TextView extends Container
     public boolean getCursorVisible() {
         return GtkTextView.getCursorVisible(this);
     }
+
+    /**
+     * Load a Widget into the given TextChildAnchor such that it shows in this
+     * TextView.
+     * 
+     * <p>
+     * <i>This is somewhat convoluted due to the fact that more than one
+     * TextView can be displaying a given TextBuffer, but a Widget can only
+     * appear in one parent Container.</i>
+     * 
+     * @since 4.0.8
+     */
+    /*
+     * WARNING Signature subject to conversion to an overload if another
+     * addChild ish method is implemented.
+     */
+    public void addChildAtAnchor(Widget child, TextChildAnchor anchor) {
+        GtkTextView.addChildAtAnchor(this, child, anchor);
+    }
 }

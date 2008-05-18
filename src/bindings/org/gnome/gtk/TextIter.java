@@ -21,8 +21,7 @@ import org.gnome.glib.Boxed;
  * TextIters are just used for immediate operations, and are invalidated any
  * time when the TextBuffer's contents change. If you need to hold a reference
  * to a specific position, convert this TextIter into a TextMark with
- * TextBuffer's
- * {@link TextBuffer#createMark(String, TextIter, boolean) createMark()}.
+ * TextBuffer's {@link TextBuffer#createMark(TextIter, boolean) createMark()}.
  * 
  * @author Stefan Prelle
  * @since 4.0.8
@@ -72,7 +71,7 @@ public final class TextIter extends Boxed
      * 
      * <p>
      * <i>This is basically the same as a clone() on normal Java object would
-     * do, but in this case passed on to the native GTK layer.</i>
+     * do, but in this case is passed on to the native GTK layer.</i>
      * 
      * @since 4.0.8
      */
@@ -81,11 +80,16 @@ public final class TextIter extends Boxed
     }
 
     /**
-     * Returns the character offset of an iterator. Each character in a
-     * TextBuffer has an offset, starting with 0 for the first character in
-     * the buffer. Use
-     * {@link TextBuffer.getIterAtOffset(int) getIterAtOffset()} to convert an
-     * offset back into an iterator.
+     * Returns the nunber of characters into the TextBuffer that this TextIter
+     * is pointing. Offset counts are <code>0</code> origin.
+     * 
+     * 
+     * <p>
+     * If you have a given offset, you can use the TextBuffer
+     * {@link TextBuffer#getIter(int) getIter()} method taking an
+     * <code>int</code> to convert it into an TreeIter. If you want to move
+     * this TreeIter to a given offset, then call
+     * {@link #setOffset(int) setOffset()}.
      * 
      * @return A character offset from the start of the TextBuffer.
      * @since 4.0.8
@@ -95,15 +99,13 @@ public final class TextIter extends Boxed
     }
 
     /**
-     * Sets the iterator to a character offset within the entire TextBuffer,
-     * starting with 0.
+     * Change this TextIter so that it points to the given offset into the
+     * underlying TextBuffer.
      * 
-     * @param charOffset
-     *            A character number within the buffer.
      * @since 4.0.8
      */
-    public void setOffset(int charOffset) {
-        GtkTextIter.setOffset(this, charOffset);
+    public void setOffset(int offset) {
+        GtkTextIter.setOffset(this, offset);
     }
 
     /**
@@ -203,5 +205,9 @@ public final class TextIter extends Boxed
      */
     public char getChar() {
         return GtkTextIter.getChar(this);
+    }
+
+    public void forwardLine() {
+        GtkTextIter.forwardLine(this);
     }
 }
