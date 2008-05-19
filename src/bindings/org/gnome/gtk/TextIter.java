@@ -24,6 +24,7 @@ import org.gnome.glib.Boxed;
  * TextBuffer's {@link TextBuffer#createMark(TextIter, boolean) createMark()}.
  * 
  * @author Stefan Prelle
+ * @author Andrew Cowie
  * @since 4.0.8
  */
 public final class TextIter extends Boxed
@@ -51,13 +52,11 @@ public final class TextIter extends Boxed
         this.buffer = buffer;
     }
 
-    /**
-     * Returns the {@link TextBuffer} this iterator is associated with.
-     */
     TextBuffer getBuffer() {
         if (buffer == null) {
             throw new IllegalStateException(
-                    "\nSorry, this TextIter doesn't have its internal reference to its parent TextBuffer set");
+                    "\n"
+                            + "Sorry, this TextIter doesn't have its internal reference to its parent TextBuffer set");
         }
         return buffer;
     }
@@ -80,7 +79,7 @@ public final class TextIter extends Boxed
     }
 
     /**
-     * Returns the nunber of characters into the TextBuffer that this TextIter
+     * Returns the number of characters into the TextBuffer that this TextIter
      * is pointing. Offset counts are <code>0</code> origin.
      * 
      * 
@@ -109,8 +108,19 @@ public final class TextIter extends Boxed
     }
 
     /**
-     * Returns the line number containing the iterator. Lines in a TextBuffer
-     * are numbered beginning with 0 for the first line in the buffer.
+     * Get the line number of the TextBuffer that this TextIter points at.
+     * Lines in a TextBuffer are numbered from <code>0</code>.
+     * 
+     * <p>
+     * Be aware that this is the count of <i>unwrapped</i> lines in the
+     * TextBuffer, where lines are split by newline characters. Most of the
+     * time TextViews are set to wrap lines and thus a single very long line
+     * will be presented visually as a paragraph (there is no definition of
+     * paragraph in TextBuffer terms). If you're wondering about where the
+     * position (the cursor, say) is down into a TextView widget, then see
+     * TextView's
+     * {@link TextView#startsDisplayLine(TextIter) startsDisplayLine()} and
+     * related "<code>display</code>" methods.
      * 
      * @since 4.0.8
      */
@@ -119,26 +129,30 @@ public final class TextIter extends Boxed
     }
 
     /**
-     * Moves the iterator to the start of the given line. If
-     * <code>lineNumber</code> is negative or larger than the number of
-     * lines in the TextBuffer, it moves the iterator to the start of the last
-     * line in the TextBuffer.
+     * Move this TextIter to the start of the given line.
      * 
      * <p>
-     * Line numbers in TextBuffers are counted from 0.
+     * If <code>num</code> is negative or larger than the number of lines in
+     * the TextBuffer, it moves the iterator to the start of the last line.
+     * Line numbers are <code>0</code> origin.
      * 
      * @since 4.0.8
      */
-    public void setLine(int lineNumber) {
-        GtkTextIter.setLine(this, lineNumber);
+    public void setLine(int row) {
+        GtkTextIter.setLine(this, row);
     }
 
     /**
-     * Returns the character offset of the iterator, counting from the start
-     * of a newline-terminated line. The first character on the line has
-     * offset 0. So basically this is a _getColumn()_ function.
+     * Get the character offset of this TextIter, counting from the start of
+     * the line. The first character on the line has line offset
+     * <code>0</code>.
      * 
-     * @return Offset from start of line
+     * <p>
+     * <i> This is, in essence, a <code>getColumn()</code> method, but
+     * beware that the number of characters you are into a given line in a
+     * TextBuffer will only correspond to the column position on screen if the
+     * presenting TextView is not wrapping lines.</i>
+     * 
      * @since 4.0.8
      */
     public int getLineOffset() {
@@ -146,14 +160,9 @@ public final class TextIter extends Boxed
     }
 
     /**
-     * Moves the iterator within a line, to a new character (not byte) offset.
-     * The given character offset must be less than or equal to the number of
-     * characters in the line; if equal, the iterator moves to the start of
-     * the next line.
+     * Move the iterator within the current TextBuffer line to the given
+     * character offset.
      * 
-     * @param column
-     *            A character offset relative to the start of iter's current
-     *            line
      * @since 4.0.8
      */
     public void setLineOffset(int column) {
@@ -172,12 +181,14 @@ public final class TextIter extends Boxed
     }
 
     /**
-     * Like {@link #setLineOffset(int)} but not counting those characters that
-     * are tagged "invisible".
+     * Move this TextIter into the current line at the given offset, but
+     * skipping characters that have been marked
+     * {@link TextTag#setInvisible(boolean) invisible}.
      * 
-     * @param column
-     *            A character offset relative to the start of iter's current
-     *            line
+     * <p>
+     * See {@link #setLineOffset(int) setLineOffset()} for the method that
+     * treats all characters normally.
+     * 
      * @since 4.0.8
      */
     public void setVisibleLineOffset(int column) {
@@ -196,17 +207,29 @@ public final class TextIter extends Boxed
     }
 
     /**
-     * Returns the character at the position this TextIter points to.
+     * Get the character immediately following the position this TextIter is
+     * pointing at.
      * 
-     * @return The UTF-8 character. A char value of 0xFFFC indicates a
-     *         non-character element (such as an embedded image). A value of 0
-     *         indicates the buffer end.
+     * @return A <code>char</code> value of <code>0xFFFC</code> indicates
+     *         a non-character element (an embedded Pixbuf or Widget). You'll
+     *         get <code>0</code> if this TextIter is already at the
+     *         TextBuffer's end.
      * @since 4.0.8
      */
     public char getChar() {
         return GtkTextIter.getChar(this);
     }
 
+    /**
+     * Bump this TextIter forward to the start of the next line. As a special
+     * case, if you're already pointing at the last line of the TextBuffer,
+     * then you will be moved to the end of the line.
+     * 
+     * @since 4.0.8
+     */
+    /*
+     * According to tests, we don't need the boolean return value.
+     */
     public void forwardLine() {
         GtkTextIter.forwardLine(this);
     }

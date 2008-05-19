@@ -177,4 +177,49 @@ public class ValidateTextBuffer extends TestCaseGtk
         other.forwardLine();
         assertEquals(11, other.getOffset());
     }
+
+    public void testEndOfBuffer() {
+        final TextBuffer buf;
+        TextIter pointer, other;
+
+        buf = new TextBuffer(new TextTagTable());
+
+        pointer = buf.getIterStart();
+
+        buf.insertAtCursor("I need a bunch of lines\n");
+        buf.insertAtCursor("This is the second line\n");
+        buf.insertAtCursor("Three should be enough"); // note lack of \n
+
+        pointer = buf.getIterStart();
+
+        assertEquals(0, pointer.getLine());
+        pointer.forwardLine();
+        assertEquals(1, pointer.getLine());
+        pointer.forwardLine();
+        assertEquals(2, pointer.getLine());
+
+        /*
+         * Last line, should be at beginning of line according to docs. Then,
+         * calling forwardLine() should bump us to the end of the last line.
+         */
+
+        assertEquals(0, pointer.getLineOffset());
+        pointer.forwardLine();
+        assertEquals(22, pointer.getLineOffset());
+
+        assertEquals(buf.getIterEnd().getOffset(), pointer.getOffset());
+
+        /*
+         * Now, the question of the return value. At present we've made the
+         * signature void, because we can't figure out what we'd need it for.
+         * Does this error or invalidate the TreeIter?
+         */
+
+        pointer.forwardLine();
+        assertEquals(22, pointer.getLineOffset());
+
+        /*
+         * Apparently not. void it is.
+         */
+    }
 }

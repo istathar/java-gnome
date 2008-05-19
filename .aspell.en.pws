@@ -329,6 +329,8 @@ GtkStatusbar
 GtkStockItem
 GtkTable
 GtkTextBuffer
+GtkTextIter
+GtkTextIterOverride
 GtkTextMark
 GtkTextTag
 GtkTextTagOverride
@@ -623,6 +625,8 @@ TextTag's
 TextTagTable
 TextTags
 TextView
+TextView's
+TextViews
 ThrowNew
 Timm
 ToggleButon
@@ -934,6 +938,7 @@ createStatusbar
 createSurface
 createTable
 createTextBuffer
+createTextIter
 createTextTag
 createThing
 createToggleButton
@@ -1054,6 +1059,7 @@ forName
 foreach
 formatTime
 formatter
+forwardLine
 foss
 freedesktop
 fromName
@@ -1093,11 +1099,13 @@ getBlue
 getBoolean
 getBuffer
 getButton
+getChar
 getChild
 getChildSecondary
 getChildren
 getClass
 getCode
+getColumn
 getCoronationYear
 getCurrentFolder
 getDate
@@ -1143,6 +1151,8 @@ getKeyval
 getLabel
 getLabelWidget
 getLayout
+getLine
+getLineOffset
 getLong
 getMaxLength
 getMaximized
@@ -1155,6 +1165,7 @@ getModificationDate
 getModified
 getName
 getObject
+getOffset
 getOrdinal
 getOrigin
 getOriginX
@@ -1228,6 +1239,7 @@ getValueString
 getView
 getVisibility
 getVisible
+getVisibleLineOffset
 getWidget
 getWidth
 getWindow
@@ -1621,6 +1633,7 @@ setAuthors
 setBackground
 setBlinking
 setBorderWidth
+setBuffer
 setCanFocus
 setCharAt
 setChildSecondary
@@ -1676,6 +1689,8 @@ setLabelAlign
 setLabelWidget
 setLayout
 setLeftMargin
+setLine
+setLineOffset
 setLineWidth
 setLineWrap
 setLogo
@@ -1691,6 +1706,7 @@ setModal
 setMode
 setModel
 setModified
+setOffset
 setOperator
 setOrdinal
 setOrientation
@@ -1771,6 +1787,7 @@ setVisible
 setVisibleCallback
 setVisibleChars
 setVisibleFunc
+setVisibleLineOffset
 setVisibleWindow
 setWeight
 setWidthChars
@@ -1790,6 +1807,7 @@ sourceObject
 sourceforge
 sourcepath
 src
+startsDisplayLine
 statusToString
 stepIncrement
 stockId
@@ -1921,6 +1939,7 @@ writeToPng
 writeTranslationCode
 x's
 xFF
+xFFFC
 xFFFFFF
 xServerVirtual
 xalign
