@@ -1,7 +1,7 @@
 /*
  * ScrollType.java
  *
- * Copyright (c) 2007 Operational Dynamics Consulting Pty Ltd
+ * Copyright (c) 2007-2008 Operational Dynamics Consulting Pty Ltd
  *
  * The code in this file, and the library it is a part of, are made available
  * to you by the authors under the terms of the "GNU General Public Licence,
@@ -21,9 +21,27 @@ import org.freedesktop.bindings.Constant;
  * are made about this class until it has been reviewed by a hacker and this
  * comment has been replaced.
  */
+/**
+ * Constants used to describe various scrolling actions.
+ * 
+ * @author Andrew Cowie
+ * @since 4.0.8
+ */
+/*
+ * FIXME make constants public if and when they are needed and documented
+ * accordingly.
+ */
 public final class ScrollType extends Constant
 {
     private ScrollType(int ordinal, String nickname) {
         super(ordinal, nickname);
     }
+
+    static final ScrollType STEP_BACKWARD = new ScrollType(GtkScrollType.STEP_BACKWARD, "STEP_BACKWARD");
+
+    static final ScrollType STEP_FORWARD = new ScrollType(GtkScrollType.STEP_FORWARD, "STEP_FORWARD");
+
+    static final ScrollType STEP_LEFT = new ScrollType(GtkScrollType.STEP_RIGHT, "STEP_LEFT");
+
+    static final ScrollType STEP_RIGHT = new ScrollType(GtkScrollType.STEP_RIGHT, "STEP_RIGHT");
 }

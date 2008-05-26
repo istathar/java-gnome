@@ -1,7 +1,7 @@
 /*
  * ScrollStep.java
  *
- * Copyright (c) 2007 Operational Dynamics Consulting Pty Ltd
+ * Copyright (c) 2007-2008 Operational Dynamics Consulting Pty Ltd
  *
  * The code in this file, and the library it is a part of, are made available
  * to you by the authors under the terms of the "GNU General Public Licence,
@@ -21,9 +21,35 @@ import org.freedesktop.bindings.Constant;
  * are made about this class until it has been reviewed by a hacker and this
  * comment has been replaced.
  */
-public final class ScrollStep extends Constant
+/**
+ * Constants used by the MOVE_VIEWPORT signal of {@link TextView}, which
+ * doesn't even seem to get hit. Do we even need these?
+ * 
+ * @author Andrew Cowie
+ * @since 4.0.8
+ */
+/*
+ * FIXME to make public, figure out when necessary and document to that
+ * effect. What is the difference between these?
+ */
+final class ScrollStep extends Constant
 {
     private ScrollStep(int ordinal, String nickname) {
         super(ordinal, nickname);
     }
+
+    static final ScrollStep STEPS = new ScrollStep(GtkScrollStep.STEPS, "STEPS");
+
+    static final ScrollStep PAGES = new ScrollStep(GtkScrollStep.PAGES, "PAGES");
+
+    static final ScrollStep ENDS = new ScrollStep(GtkScrollStep.ENDS, "ENDS");
+
+    static final ScrollStep HORIZONTAL_STEPS = new ScrollStep(GtkScrollStep.HORIZONTAL_STEPS,
+            "HORIZONTAL_STEPS");
+
+    static final ScrollStep HORIZONTAL_PAGES = new ScrollStep(GtkScrollStep.HORIZONTAL_PAGES,
+            "HORIZONTAL_PAGES");
+
+    static final ScrollStep HORIZONTAL_ENDS = new ScrollStep(GtkScrollStep.HORIZONTAL_ENDS,
+            "HORIZONTAL_ENDS");
 }
