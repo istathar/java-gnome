@@ -26,6 +26,7 @@ Blandford
 Bleh
 Bolsterlee
 BooleanValue
+BorderWindows
 BraceLeft
 BraceRight
 BracketLeft
@@ -335,6 +336,7 @@ GtkTextMark
 GtkTextTag
 GtkTextTagOverride
 GtkTextView
+GtkTextWindowType
 GtkToggleButton
 GtkToggleToolButton
 GtkToolButton
@@ -612,6 +614,7 @@ TestSuite
 TextBuffer
 TextBuffer's
 TextBuffers
+TextChildAnchor
 TextComboBox
 TextComboBoxEntry
 TextDirection
@@ -627,6 +630,7 @@ TextTags
 TextView
 TextView's
 TextViews
+TextWindowType
 ThrowNew
 Timm
 ToggleButon
@@ -711,6 +715,7 @@ WindowType
 Wl
 Wno
 Wouter
+WrapMode
 XFree
 XINERAMA
 XLib
@@ -730,6 +735,9 @@ addAction
 addActionWithAccel
 addAttribute
 addButton
+addChild
+addChildAtAnchor
+addChildInWindow
 addColorStopRGB
 addColorStopRGBA
 addColorStopRgb
@@ -793,7 +801,9 @@ boxedArrayFor
 boxedFor
 boxeds
 br
+breakpoint
 buf
+bufferToWindowCoords
 bugfixes
 buildable
 builddir
@@ -851,7 +861,11 @@ connectProxy
 connectSignal
 const
 constantFor
+convertBufferToWindowCoordsX
+convertBufferToWindowCoordsY
 convertIterToChildIter
+convertWindowToBufferCoordsX
+convertWindowToBufferCoordsY
 copyMappingFile
 coronatedYear
 coronatedYearColumn
@@ -940,6 +954,8 @@ createTable
 createTextBuffer
 createTextIter
 createTextTag
+createTextView
+createTextViewWithBuffer
 createThing
 createToggleButton
 createToggleButtonWithMnemonic
@@ -1008,6 +1024,7 @@ ebuild
 ecj
 editMenu
 editMenuItem
+editability
 eg
 elevationFormatted
 elevationSort
@@ -1097,6 +1114,7 @@ getArea
 getBlinking
 getBlue
 getBoolean
+getBorderWindowSize
 getBuffer
 getButton
 getChar
@@ -1108,6 +1126,7 @@ getCode
 getColumn
 getCoronationYear
 getCurrentFolder
+getCursorVisible
 getDate
 getDateDay
 getDateMonth
@@ -1116,6 +1135,7 @@ getDeclaredConstructor
 getDetail
 getDisplayOptions
 getDraw
+getEditable
 getEnableSearch
 getEndIter
 getEnum
@@ -1142,6 +1162,7 @@ getInconsistent
 getInsert
 getInteger
 getIter
+getIterAtLocation
 getIterAtMark
 getIterEnd
 getIterFirst
@@ -1153,6 +1174,9 @@ getLabelWidget
 getLayout
 getLine
 getLineOffset
+getLineRange
+getLineY
+getLineYrange
 getLong
 getMaxLength
 getMaximized
@@ -1240,9 +1264,12 @@ getView
 getVisibility
 getVisible
 getVisibleLineOffset
+getVisibleRect
+getVisibleRectangle
 getWidget
 getWidth
 getWindow
+getWrapMode
 getX
 getY
 getenv
@@ -1266,6 +1293,7 @@ gtkjni
 gtkmm
 gtkmm's
 gtkstatusbar
+gtktextview
 guint
 hackfest
 hacky
@@ -1319,6 +1347,7 @@ isVisible
 isVisibleChars
 isdir
 isfile
+ish
 iter
 iterChildren
 iterHasChild
@@ -1426,6 +1455,7 @@ modifyText
 monarchName
 monarchNameColumn
 monarchObjectColumn
+moveChild
 moveTo
 moveWidget
 msg
@@ -1634,6 +1664,7 @@ setAuthors
 setBackground
 setBlinking
 setBorderWidth
+setBorderWindowSize
 setBuffer
 setCanFocus
 setCharAt
@@ -1646,6 +1677,7 @@ setCopyright
 setCurrentFolder
 setCurrentPage
 setCursor
+setCursorVisible
 setDecorated
 setDefaultIcon
 setDefaultSize
@@ -1792,6 +1824,7 @@ setVisibleLineOffset
 setVisibleWindow
 setWeight
 setWidthChars
+setWrapMode
 settingsDaemon
 showAll
 shutil
@@ -1918,6 +1951,7 @@ versa
 vhosts
 viewMenu
 viewMenuItem
+viewport
 vimrc
 virtualhost
 vscrollbarPolicy
@@ -1934,6 +1968,7 @@ wikis
 windowManager
 workspaces
 wr
+wrapMode
 writeJniCode
 writeToPNG
 writeToPng
