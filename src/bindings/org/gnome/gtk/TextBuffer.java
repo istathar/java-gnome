@@ -11,6 +11,7 @@
  */
 package org.gnome.gtk;
 
+import org.gnome.gdk.Pixbuf;
 import org.gnome.glib.Object;
 
 /*
@@ -220,6 +221,14 @@ public class TextBuffer extends Object
     }
 
     /**
+     * Inserts an image at the cursor position.
+     * @since 4.0.8
+     */
+    public void insertPixbuf(TextIter pos, Pixbuf image) {
+        GtkTextBuffer.insertPixbuf(this, pos, image);
+    }
+
+    /**
      * Returns the current cursor position. Is also used at the start position
      * of a selected text.
      * 
@@ -348,5 +357,25 @@ public class TextBuffer extends Object
      */
     public TextChildAnchor createChildAnchor(TextIter location) {
         return GtkTextBuffer.createChildAnchor(this, location);
+    }
+
+    /**
+     * Returns the number of characters in this buffer. Since non-character
+     * elements such as widgets use more than one byte, this may differ from
+     * the number of bytes.
+     *
+     * @since 4.0.8
+     */
+    public int getCharCount() {
+        return GtkTextBuffer.getCharCount(this);
+    }
+
+    /**
+     * Returns the number of text lines in this buffer.
+     *
+     * @since 4.0.8
+     */
+    public int getLineCount() {
+        return GtkTextBuffer.getLineCount(this);
     }
 }
