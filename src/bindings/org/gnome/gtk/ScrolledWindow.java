@@ -1,7 +1,7 @@
 /*
  * ScrolledWindow.java
  *
- * Copyright (c) 2007 Operational Dynamics Consulting Pty Ltd, and Others
+ * Copyright (c) 2007-2008 Operational Dynamics Consulting Pty Ltd, and Others
  *
  * The code in this file, and the library it is a part of, are made available
  * to you by the authors under the terms of the "GNU General Public Licence,
@@ -25,9 +25,17 @@ package org.gnome.gtk;
  * {@link #addWithViewport(Widget) addWithViewport()} as a quick way to
  * achieve this.
  * 
+ * <p>
+ * <i>This is very poorly named. It is <b>not</b> a subclass of Window; it
+ * refers instead to a viewport scrolling around on an underlying canvas.</i>
+ * 
  * @author Sebastian Mancke
  * @author Andrew Cowie
  * @since 4.0.3
+ */
+/*
+ * TODO document the relationship between the subordinate Adjustments and
+ * Scrollbars.
  */
 public class ScrolledWindow extends Bin
 {
@@ -60,5 +68,25 @@ public class ScrolledWindow extends Bin
      */
     public void addWithViewport(Widget child) {
         GtkScrolledWindow.addWithViewport(this, child);
+    }
+
+    /**
+     * Get the Scrollbar Widget that is being used to draw the vertical scroll
+     * bar on the right hand side of this ScrolledWindow.
+     * 
+     * @since 4.0.8
+     */
+    public Scrollbar getVScrollbar() {
+        return (Scrollbar) GtkScrolledWindow.getVscrollbar(this);
+    }
+
+    /**
+     * Get the Adjustment that is being used to drive the vertical position of
+     * the scroll bar on the right hand side of this ScrolledWindow.
+     * 
+     * @since 4.0.8
+     */
+    public Adjustment getVAdjustment() {
+        return GtkScrolledWindow.getVadjustment(this);
     }
 }

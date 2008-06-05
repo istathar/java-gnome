@@ -34,6 +34,7 @@ import org.gnome.gtk.ValidateResponseType;
 import org.gnome.gtk.ValidateSnapshotUtilities;
 import org.gnome.gtk.ValidateStockItems;
 import org.gnome.gtk.ValidateTextBuffer;
+import org.gnome.gtk.ValidateTextViewBorderWindows;
 import org.gnome.gtk.ValidateTreeModel;
 import org.gnome.gtk.ValidateTreeModelFilter;
 import org.gnome.gtk.ValidateTreeStore;
@@ -133,6 +134,7 @@ public class UnitTests
         suite.addTestSuite(ValidateComboBox.class);
         suite.addTestSuite(ValidateSnapshotUtilities.class);
         suite.addTestSuite(ValidateTextBuffer.class);
+        suite.addTestSuite(ValidateTextViewBorderWindows.class);
 
         return suite;
     }

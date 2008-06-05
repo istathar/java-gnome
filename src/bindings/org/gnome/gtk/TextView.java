@@ -276,7 +276,13 @@ public class TextView extends Container
      * @since 4.0.8
      */
     public int convertWindowToBufferCoordsX(TextWindowType which, int x) {
-        throw new UnsupportedOperationException("Not yet implemented");
+        int[] X;
+
+        X = new int[1];
+
+        GtkTextView.windowToBufferCoords(this, which, 0, x, null, X);
+
+        return X[0];
     }
 
     /**
@@ -288,7 +294,13 @@ public class TextView extends Container
      * @since 4.0.8
      */
     public int convertWindowToBufferCoordsY(TextWindowType which, int y) {
-        throw new UnsupportedOperationException("Not yet implemented");
+        int[] Y;
+
+        Y = new int[1];
+
+        GtkTextView.windowToBufferCoords(this, which, 0, y, null, Y);
+
+        return Y[0];
     }
 
     /**
@@ -399,5 +411,26 @@ public class TextView extends Container
         GtkTextView.getLineYrange(this, position, null, range);
 
         return range[0];
+    }
+
+    /**
+     * Move the cursor (ie, <var>insert</var> mark in the current source
+     * TextBuffer) so that is is showing somewhere in the section of text
+     * currently displayed in the viewport.
+     * 
+     * @since 4.0.8
+     */
+    public void placeCursorOnscreen() {
+        GtkTextView.placeCursorOnscreen(this);
+    }
+
+    /**
+     * Given a TextMark in the TextBuffer currently powering this TextView,
+     * scroll the viewport so that it is showing.
+     * 
+     * @since 4.0.8
+     */
+    public void scrollMarkOnscreen(TextMark mark) {
+        GtkTextView.scrollMarkOnscreen(this, mark);
     }
 }

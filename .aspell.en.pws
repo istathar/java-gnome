@@ -700,7 +700,6 @@ ValidateProperties
 ValidateReferenceCounting
 VerboseTestRunner
 VersionNumbers
-Viewport
 VirtualHost
 VisibilityState
 Vreixo
@@ -715,7 +714,6 @@ WindowType
 Wl
 Wno
 Wouter
-WrapMode
 XFree
 XINERAMA
 XLib
@@ -888,6 +886,7 @@ createCheckButton
 createCheckButtonWithMnemonic
 createCheckMenuItem
 createCheckMenuItemWithMnemonic
+createChildAnchor
 createColor
 createComboBox
 createComboBoxEntryText
@@ -1164,6 +1163,7 @@ getInteger
 getIter
 getIterAtLocation
 getIterAtMark
+getIterAtOffset
 getIterEnd
 getIterFirst
 getIterStart
@@ -1559,6 +1559,8 @@ php
 pixbuf
 pixmap
 pkgadd
+placeCursor
+placeCursorOnscreen
 placeName
 plugin
 png
@@ -1638,6 +1640,7 @@ savev
 scalarref
 screenshot
 screenshots
+scrollMarkOnscreen
 scrollToCell
 scrollbar
 scrollbars
@@ -1966,6 +1969,7 @@ whoami
 wiki
 wikis
 windowManager
+windowToBufferCoords
 workspaces
 wr
 wrapMode

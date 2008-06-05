@@ -13,6 +13,7 @@ package org.gnome.gtk;
 import junit.framework.TestCase;
 
 import org.freedesktop.bindings.Debug;
+import org.gnome.gdk.Event;
 
 /**
  * Ensure that GTK has already been initialized so that things like
@@ -107,5 +108,22 @@ public class TestCaseGtk extends TestCase
         } catch (InterruptedException e) {
             // ignore
         }
+    }
+
+    /**
+     * Just for hacking... sometimes when you're creating a unit test you need
+     * to see it run to make sure it looks the way it should before probing
+     * its qualities. TODO; this is a bit weak, and is very close to the edge
+     * whereby really unit tests should be running in a virtual X server.
+     */
+    protected void runMainLoop(Window w) {
+        w.connect(new Window.DELETE_EVENT() {
+            public boolean onDeleteEvent(Widget source, Event event) {
+                Gtk.mainQuit();
+                return false;
+            }
+        });
+        Gtk.main();
+        System.exit(0);
     }
 }

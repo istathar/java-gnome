@@ -320,6 +320,11 @@ public class TextBuffer extends Object
      * what you wish to see.
      * 
      * <p>
+     * See {@link #placeCursor(TextIter) placeCursor()} if you just want to
+     * move the two marks to the same location; and, assuming the TextBuffer
+     * is showing in a TextView, this will move the cursor.
+     * 
+     * <p>
      * <i>The native GTK function has these arguments reversed but start and
      * end make more sense in consecutive order.</i>
      * 
@@ -348,5 +353,26 @@ public class TextBuffer extends Object
      */
     public TextChildAnchor createChildAnchor(TextIter location) {
         return GtkTextBuffer.createChildAnchor(this, location);
+    }
+
+    /**
+     * Move the cursor (ie, the <var>selection-bound</var> and <var>insert</var>
+     * marks) to the given location.
+     * 
+     * <p>
+     * This is more than just a convenience function; like
+     * {@link #selectRange(TextIter, TextIter) selectRange()} it carries out
+     * the move without intermediate state of part of the text being selected
+     * while the individual TextMarks are being moved.
+     * 
+     * <p>
+     * See also TextView's
+     * {@link TextView#placeCursorOnscreen() placeCursorOnscreen()} if you
+     * just want to force the cursor into the currently showing section of the text.
+     * 
+     * @since 4.0.8
+     */
+    public void placeCursor(TextIter location) {
+        GtkTextBuffer.placeCursor(this, location);
     }
 }
