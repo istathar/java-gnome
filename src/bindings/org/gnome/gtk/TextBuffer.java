@@ -222,6 +222,7 @@ public class TextBuffer extends Object
 
     /**
      * Inserts an image at the cursor position.
+     * 
      * @since 4.0.8
      */
     public void insertPixbuf(TextIter pos, Pixbuf image) {
@@ -363,7 +364,7 @@ public class TextBuffer extends Object
      * Returns the number of characters in this buffer. Since non-character
      * elements such as widgets use more than one byte, this may differ from
      * the number of bytes.
-     *
+     * 
      * @since 4.0.8
      */
     public int getCharCount() {
@@ -372,7 +373,7 @@ public class TextBuffer extends Object
 
     /**
      * Returns the number of text lines in this buffer.
-     *
+     * 
      * @since 4.0.8
      */
     public int getLineCount() {

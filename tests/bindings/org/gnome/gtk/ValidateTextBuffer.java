@@ -18,6 +18,7 @@ import org.gnome.pango.Underline;
 
 /**
  * @author Andrew Cowie
+ * @author Stefan Prelle
  */
 public class ValidateTextBuffer extends TestCaseGtk
 {
@@ -236,7 +237,7 @@ public class ValidateTextBuffer extends TestCaseGtk
 
         buf.insertAtCursor("I need a bunch of lines\n");
         buf.insertAtCursor("This is the second line\n");
-        buf.insertAtCursor("and some non-ASCII: äöüß");
+        buf.insertAtCursor("and some non-ASCII: \u00e4\u00f6\u00fc\u00df");
 
         pointer = buf.getIterStart();
         pointer.forwardLine();
@@ -250,9 +251,8 @@ public class ValidateTextBuffer extends TestCaseGtk
         }
 
         /*
-         * Assert that getChar recognizes non-character values
-         * and that moving forward and backward over such elements
-         * works
+         * Assert that getChar recognizes non-character values and that moving
+         * forward and backward over such elements works
          */
         assertEquals('T', pointer.getChar());
         pointer.backwardChar();
@@ -280,23 +280,22 @@ public class ValidateTextBuffer extends TestCaseGtk
         /*
          * ASCII characters only. In UTF-8 each character uses 1 byte
          */
-        buf.setText("abcd");        
+        buf.setText("abcd");
         pointer = buf.getIterStart();
         assertEquals(4, pointer.getCharsInLine());
         assertEquals(4, pointer.getBytesInLine());
         assertEquals(4, buf.getCharCount());
 
-        // UTF-8 for 'äöüß'
-        buf.setText("Some umlauts: äöü");
-        System.out.println("buf.getText: "+buf.getText());
-        assertEquals("Some umlauts: äöü", buf.getText());
-//        pointer = buf.getIterStart();
-//        System.out.println(buf.getCharCount());
-//        System.out.println(pointer.getBytesInLine());
-//        System.out.println(pointer.getText(buf.getIterEnd()));
-//        assertEquals(4, pointer.getCharsInLine());
-//        assertEquals(8, pointer.getBytesInLine());
-//        assertEquals(4, buf.getCharCount());
+        // UTF-8 for 'Ã¤Ã¶Ã¼ÃŸ'
+        buf.setText("Some umlauts: \u00e4\u00f6\u00fc\u00df");
+        assertEquals("Some umlauts: \u00e4\u00f6\u00fc\u00df", buf.getText());
+        // pointer = buf.getIterStart();
+        // System.out.println(buf.getCharCount());
+        // System.out.println(pointer.getBytesInLine());
+        // System.out.println(pointer.getText(buf.getIterEnd()));
+        // assertEquals(4, pointer.getCharsInLine());
+        // assertEquals(8, pointer.getBytesInLine());
+        // assertEquals(4, buf.getCharCount());
     }
 
     public void testEditability() {
@@ -314,7 +313,7 @@ public class ValidateTextBuffer extends TestCaseGtk
         buf.insertAtCursor("This is the second line\n");
 
         start = buf.getIter(2);
-        end   = buf.getIter(6);
+        end = buf.getIter(6);
         buf.applyTag(nonEdit, start, end);
 
         // start points to begin of a non-editable block
@@ -405,5 +404,4 @@ public class ValidateTextBuffer extends TestCaseGtk
         assertEquals(7, pointer.getCharsInLine());
         assertEquals(9, pointer.getBytesInLine());
     }
-
 }

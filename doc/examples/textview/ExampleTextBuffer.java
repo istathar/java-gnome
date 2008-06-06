@@ -47,6 +47,7 @@ public class ExampleTextBuffer
     private TextView view;
 
     private Window win;
+
     private Button blue, image;
 
     public final static void main(String[] args) {
@@ -85,12 +86,9 @@ public class ExampleTextBuffer
         image = new Button("image");
         image.connect(new Button.CLICKED() {
             public void onClicked(Button source) {
-                FileChooserDialog chooser = new FileChooserDialog(
-                        "Select image",
-                        win,
-                        FileChooserAction.OPEN
-                );
-                if (chooser.run()!=ResponseType.OK) {
+                FileChooserDialog chooser = new FileChooserDialog("Select image", win,
+                        FileChooserAction.OPEN);
+                if (chooser.run() != ResponseType.OK) {
                     chooser.hide();
                     return;
                 }
