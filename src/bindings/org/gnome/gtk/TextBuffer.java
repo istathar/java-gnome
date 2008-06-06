@@ -72,7 +72,7 @@ public class TextBuffer extends Object
      * @since 4.0.8
      */
     public void setText(String text) {
-        GtkTextBuffer.setText(this, text, text.length());
+        GtkTextBuffer.setText(this, text, -1);
     }
 
     /**
