@@ -74,7 +74,6 @@ public class ValidateTextViewBorderWindows extends TestCaseGtk
         Y = view.getLineY(pointer);
 
         y = view.convertBufferToWindowCoordsY(LEFT, Y);
-        System.out.println("y, Y = " + y + "," + Y);
 
         assertTrue(Y > 0);
         assertTrue(y < Y);

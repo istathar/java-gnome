@@ -289,13 +289,15 @@ public class ValidateTextBuffer extends TestCaseGtk
         /*
          * Now some more complicated Unicode. This represents äöüß.
          */
-        buf.setText("Some umlauts: \u00e4\u00f6\u00fc\u00df");
-        assertEquals("Some umlauts: \u00e4\u00f6\u00fc\u00df", buf.getText());
-        // pointer = buf.getIterStart();
-        // System.out.println(buf.getCharCount());
-        // System.out.println(pointer.getText(buf.getIterEnd()));
-        // assertEquals(4, pointer.getCharsInLine());
-        // assertEquals(4, buf.getCharCount());
+        final String COMPLEX = "Some umlauts: \u00e4\u00f6\u00fc\u00df";
+
+        buf.setText(COMPLEX);
+        assertEquals(COMPLEX, buf.getText());
+
+        pointer = buf.getIterStart();
+        assertEquals(18, COMPLEX.length());
+        assertEquals(18, pointer.getCharsInLine());
+        assertEquals(18, buf.getCharCount());
     }
 
     public void testEditability() {
