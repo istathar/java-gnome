@@ -10,11 +10,15 @@
  */
 package org.gnome.gtk;
 
+import java.io.FileNotFoundException;
+
+import org.gnome.gdk.Pixbuf;
 import org.gnome.pango.Scale;
 import org.gnome.pango.Underline;
 
 /**
  * @author Andrew Cowie
+ * @author Stefan Prelle
  */
 public class ValidateTextBuffer extends TestCaseGtk
 {
@@ -180,7 +184,7 @@ public class ValidateTextBuffer extends TestCaseGtk
 
     public void testEndOfBuffer() {
         final TextBuffer buf;
-        TextIter pointer, other;
+        TextIter pointer;
 
         buf = new TextBuffer(new TextTagTable());
 
@@ -221,5 +225,180 @@ public class ValidateTextBuffer extends TestCaseGtk
         /*
          * Apparently not. void it is.
          */
+    }
+
+    public void testNonPrintable() {
+        final TextBuffer buf;
+        TextIter pointer;
+
+        buf = new TextBuffer(new TextTagTable());
+
+        pointer = buf.getIterStart();
+
+        buf.insertAtCursor("I need a bunch of lines\n");
+        buf.insertAtCursor("This is the second line\n");
+        buf.insertAtCursor("and some non-ASCII: \u00e4\u00f6\u00fc\u00df");
+
+        pointer = buf.getIterStart();
+        pointer.forwardLine();
+
+        Pixbuf pixbuf = null;
+        try {
+            pixbuf = new Pixbuf("src/bindings/java-gnome_Icon.png");
+            buf.insertPixbuf(pointer, pixbuf);
+        } catch (FileNotFoundException e) {
+            fail("Could not open image");
+        }
+
+        /*
+         * Assert that getChar recognizes non-character values and that moving
+         * forward and backward over such elements works
+         */
+        assertEquals('T', pointer.getChar());
+        pointer.backwardChar();
+        assertEquals(TextBuffer.OBJECT_REPLACEMENT_CHARACTER, pointer.getChar());
+
+        /*
+         * The image returned by getPixbuf() should be identical.
+         */
+        Pixbuf check = pointer.getPixbuf();
+        assertNotNull(check);
+        assertEquals(pixbuf, check);
+        assertSame(pixbuf, check);
+
+        // And where no image is, it should be null
+        pointer.forwardChar();
+        assertNull(pointer.getPixbuf());
+    }
+
+    public void testUnicodeChars() {
+        final TextBuffer buf;
+        TextIter pointer;
+
+        buf = new TextBuffer(new TextTagTable());
+
+        /*
+         * ASCII characters only. In UTF-8 each character uses 1 byte (but we
+         * are no longer assessing bytes vs characters)
+         */
+        buf.setText("abcd");
+        pointer = buf.getIterStart();
+        assertEquals(4, pointer.getCharsInLine());
+        assertEquals(4, buf.getCharCount());
+
+        /*
+         * Now some more complicated Unicode. This represents äöüß.
+         */
+        buf.setText("Some umlauts: \u00e4\u00f6\u00fc\u00df");
+        assertEquals("Some umlauts: \u00e4\u00f6\u00fc\u00df", buf.getText());
+        // pointer = buf.getIterStart();
+        // System.out.println(buf.getCharCount());
+        // System.out.println(pointer.getText(buf.getIterEnd()));
+        // assertEquals(4, pointer.getCharsInLine());
+        // assertEquals(4, buf.getCharCount());
+    }
+
+    public void testEditability() {
+        final TextBuffer buf;
+        final TextTagTable table;
+        TextIter start, end;
+        TextTag nonEdit;
+
+        table = new TextTagTable();
+        nonEdit = new TextTag(table);
+        nonEdit.setEditable(false);
+
+        buf = new TextBuffer(table);
+        buf.insertAtCursor("I need a bunch of lines\n");
+        buf.insertAtCursor("This is the second line\n");
+
+        start = buf.getIter(2);
+        end = buf.getIter(6);
+        buf.applyTag(nonEdit, start, end);
+
+        // start points to begin of a non-editable block
+        assertEquals(false, start.isEditable(true));
+        // end points to end of non-editable block, which means that
+        // it is editable
+        assertEquals(true, end.isEditable(true));
+
+        // Now the other way around
+        nonEdit.setEditable(true);
+        // start points to begin of an editable block
+        assertEquals(true, start.isEditable(false));
+        // end points to end of an editable block, which means that
+        // it is non-editable
+        assertEquals(false, end.isEditable(false));
+    }
+
+    public void testWordBoundaries() {
+        final TextBuffer buf;
+        TextIter pos;
+
+        buf = new TextBuffer(new TextTagTable());
+        buf.insertAtCursor("  Give.  123 \n");
+
+        pos = buf.getIter(0);
+        assertEquals(false, pos.startsWord());
+        assertEquals(false, pos.insideWord());
+        assertEquals(false, pos.endsWord());
+
+        pos = buf.getIter(2);
+        assertEquals('G', pos.getChar());
+        assertEquals(true, pos.startsWord());
+        assertEquals(true, pos.insideWord());
+        assertEquals(false, pos.endsWord());
+        assertEquals(true, pos.startsSentence());
+
+        pos = buf.getIter(3);
+        assertEquals('i', pos.getChar());
+        assertEquals(false, pos.startsWord());
+        assertEquals(true, pos.insideWord());
+        assertEquals(false, pos.endsWord());
+        assertEquals(false, pos.startsSentence());
+        assertEquals(false, pos.endsSentence());
+
+        pos = buf.getIter(5);
+        assertEquals('e', pos.getChar());
+        assertEquals(false, pos.startsWord());
+        assertEquals(true, pos.insideWord());
+        assertEquals(false, pos.endsWord());
+        assertEquals(false, pos.startsSentence());
+        assertEquals(false, pos.endsSentence());
+
+        pos = buf.getIter(6);
+        assertEquals('.', pos.getChar());
+        assertEquals(false, pos.startsWord());
+        assertEquals(false, pos.insideWord());
+        assertEquals(true, pos.endsWord());
+        assertEquals(false, pos.endsSentence());
+
+        pos = buf.getIter(7);
+        assertEquals(true, pos.endsSentence());
+    }
+
+    public void testCharCounts() {
+        final TextBuffer buf;
+        TextIter pointer;
+
+        buf = new TextBuffer(new TextTagTable());
+
+        buf.setText("hello");
+        pointer = buf.getIterStart();
+        assertEquals(5, pointer.getCharsInLine());
+
+        buf.setText("hello\n");
+        pointer = buf.getIterStart();
+        assertEquals(6, pointer.getCharsInLine());
+
+        pointer = buf.getIter(2);
+        Pixbuf pixbuf = null;
+        try {
+            pixbuf = new Pixbuf("src/bindings/java-gnome_Icon.png");
+            buf.insertPixbuf(pointer, pixbuf);
+        } catch (FileNotFoundException e) {
+            fail("Could not open image");
+        }
+        assertEquals(7, pointer.getCharsInLine());
     }
 }

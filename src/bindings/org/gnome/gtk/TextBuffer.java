@@ -11,6 +11,7 @@
  */
 package org.gnome.gtk;
 
+import org.gnome.gdk.Pixbuf;
 import org.gnome.glib.Object;
 
 /*
@@ -40,6 +41,17 @@ import org.gnome.glib.Object;
  */
 public class TextBuffer extends Object
 {
+    /**
+     * This constant is used to identify cells in the TextBuffer that are not
+     * actually characters - in other words, Widgets and Pixbufs. The
+     * placholder is Unicode value <code>0xFFFC</code>, the "Object
+     * Replacement Character" from the Special block. You might see it as
+     * &#65532; in other contexts.
+     * 
+     * @since 4.0.8
+     */
+    public static final char OBJECT_REPLACEMENT_CHARACTER = 0xFFFC;
+
     protected TextBuffer(long pointer) {
         super(pointer);
     }
@@ -220,6 +232,15 @@ public class TextBuffer extends Object
     }
 
     /**
+     * Inserts an image at the cursor position.
+     * 
+     * @since 4.0.8
+     */
+    public void insertPixbuf(TextIter pos, Pixbuf image) {
+        GtkTextBuffer.insertPixbuf(this, pos, image);
+    }
+
+    /**
      * Returns the current cursor position. Is also used at the start position
      * of a selected text.
      * 
@@ -368,11 +389,32 @@ public class TextBuffer extends Object
      * <p>
      * See also TextView's
      * {@link TextView#placeCursorOnscreen() placeCursorOnscreen()} if you
-     * just want to force the cursor into the currently showing section of the text.
+     * just want to force the cursor into the currently showing section of the
+     * text.
      * 
      * @since 4.0.8
      */
     public void placeCursor(TextIter location) {
         GtkTextBuffer.placeCursor(this, location);
+    }
+
+    /**
+     * Returns the number of characters in this buffer. Since non-character
+     * elements such as widgets use more than one byte, this may differ from
+     * the number of bytes.
+     * 
+     * @since 4.0.8
+     */
+    public int getCharCount() {
+        return GtkTextBuffer.getCharCount(this);
+    }
+
+    /**
+     * Returns the number of text lines in this buffer.
+     * 
+     * @since 4.0.8
+     */
+    public int getLineCount() {
+        return GtkTextBuffer.getLineCount(this);
     }
 }

@@ -10,10 +10,16 @@
  */
 package textview;
 
+import java.io.FileNotFoundException;
+
 import org.gnome.gdk.Event;
+import org.gnome.gdk.Pixbuf;
 import org.gnome.gtk.Button;
+import org.gnome.gtk.FileChooserAction;
+import org.gnome.gtk.FileChooserDialog;
 import org.gnome.gtk.Gtk;
 import org.gnome.gtk.HButtonBox;
+import org.gnome.gtk.ResponseType;
 import org.gnome.gtk.TextBuffer;
 import org.gnome.gtk.TextIter;
 import org.gnome.gtk.TextMark;
@@ -40,7 +46,9 @@ public class ExampleTextBuffer
 
     private TextView view;
 
-    private Button blue;
+    private Window win;
+
+    private Button blue, image;
 
     public final static void main(String[] args) {
         Gtk.init(args);
@@ -49,6 +57,7 @@ public class ExampleTextBuffer
     }
 
     public ExampleTextBuffer() {
+        win = new Window();
         init();
         doLayout();
 
@@ -74,6 +83,28 @@ public class ExampleTextBuffer
             }
         });
 
+        image = new Button("image");
+        image.connect(new Button.CLICKED() {
+            public void onClicked(Button source) {
+                FileChooserDialog chooser = new FileChooserDialog("Select image", win,
+                        FileChooserAction.OPEN);
+                if (chooser.run() != ResponseType.OK) {
+                    chooser.hide();
+                    return;
+                }
+
+                try {
+                    Pixbuf image = new Pixbuf(chooser.getFilename());
+                    TextIter pos = buffer.getIter(buffer.getInsert());
+                    buffer.insertPixbuf(pos, image);
+                } catch (FileNotFoundException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }
+                chooser.hide();
+            }
+        });
+
         // Define possible tags
         tags = new TextTagTable();
 
@@ -90,10 +121,10 @@ public class ExampleTextBuffer
         VBox layout = new VBox(false, 3);
         HButtonBox buttons = new HButtonBox();
         buttons.add(blue);
+        buttons.add(image);
         layout.add(buttons);
         layout.add(view);
 
-        Window win = new Window();
         win.setTitle("ExampleTextBuffer");
         win.connect(new Window.DELETE_EVENT() {
             public boolean onDeleteEvent(Widget source, Event event) {
@@ -109,9 +140,9 @@ public class ExampleTextBuffer
     private void fillBuffer() {
         buffer.setText("Hello\nWorld!");
 
-        // TextIter pos1 = buffer.getStartIter();
-        // pos1.setLineOffset(6);
-        //        
-        // buffer.applyTag(blueback, pos1, buffer.getEndIter());
+        TextIter pos1 = buffer.getIterStart();
+        pos1.setLineOffset(6);
+
+        buffer.applyTag(blueback, pos1, buffer.getIterEnd());
     }
 }
