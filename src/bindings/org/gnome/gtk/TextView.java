@@ -168,8 +168,8 @@ public class TextView extends Container
      * <p>
      * The Widget <code>child</code> will be placed at the coordinates
      * <code>x</code>,<code>y</code> in the [org.gnome.gdk] Window
-     * specified by which. You can get that Window by calling
-     * {@link #getWindow(TextWindowType) getWindow()}.
+     * specified by which. You can get that Window by calling TextView's
+     * variant of {@link #getWindow(TextWindowType) getWindow()}.
      * 
      * <p>
      * This cannot be used unless <code>which</code> has been initialized to
@@ -425,12 +425,125 @@ public class TextView extends Container
     }
 
     /**
-     * Given a TextMark in the TextBuffer currently powering this TextView,
-     * scroll the viewport so that it is showing.
+     * Scroll the viewport so that <code>pointer</code> is visible. This
+     * will get the location specified onto the screen with as little scroll
+     * movement as possible. If you need finer grained control, use one of the
+     * other <code>scrollTo()</code> variants. variant.
      * 
      * @since 4.0.8
      */
-    public void scrollMarkOnscreen(TextMark mark) {
-        GtkTextView.scrollMarkOnscreen(this, mark);
+    public void scrollTo(TextIter pointer) {
+        scrollTo(pointer, 0.0, 0.0, 0.0);
+    }
+
+    /**
+     * Scroll the viewport so that <code>pointer</code> is visible,
+     * attempting to fine tune the result of the scrolling. See the
+     * {@link #scrollTo(TextMark, double, double, double) scrollTo()} method
+     * taking a TextMark and the same parameters for a detailed discussion of
+     * their use.
+     * 
+     * @since 4.0.8
+     */
+    /*
+     * WARNING! The real gtk_tree_view_scroll_to_iter() function is known to
+     * be broken. See GTK bugs #102862, #311728 and perhaps many others. This
+     * implementation therefore skips calling that function and follows the
+     * suggestions of the bugs above. Obviously when GTK is fixed this
+     * behaviour should be reverted to calling the real function.
+     */
+    public void scrollTo(TextIter pointer, double withinMargin, double xalign, double yalign) {
+        TextBuffer buffer;
+        TextMark mark;
+
+        buffer = getBuffer();
+        mark = buffer.createMark(pointer, true);
+
+        scrollTo(mark, withinMargin, xalign, yalign);
+    }
+
+    /**
+     * Scroll the viewport so that <code>mark</code> is visible. This will
+     * have the effect of doing the minimum necessary scrolling to get the
+     * location specified by the TextMark onto the screen.
+     * 
+     * <p>
+     * See also the full
+     * {@link #scrollTo(TextMark, double, double, double) scrollTo()} which
+     * takes additional parameters which may allow you to fine tune the result
+     * of the scrolling.
+     * 
+     * @since 4.0.8
+     */
+    public void scrollTo(TextMark mark) {
+        GtkTextView.scrollToMark(this, mark, 0.0, false, 0.0, 0.0);
+    }
+
+    /**
+     * Scroll the viewport so that <code>mark</code> is visible.
+     * 
+     * <p>
+     * The GTK documentation states that the <i>the effective screen will be
+     * reduced by</i> <code>withinMargin</code>. The acceptable range is
+     * <code>0.0</code> to <code>0.5</code>. TODO It would be cool if
+     * someone could figure out what that actually means; the allowed range is
+     * clearly not a multiplier, so what is it?
+     * 
+     * <p>
+     * The alignment parameters have the same meaning as elsewhere in GTK:
+     * <code>0.0</code> for top|right, <code>1.0</code> for bottom|left.
+     * 
+     * <p>
+     * If you don't need to mess with margins or alignment, then just use the
+     * single arg {@link #scrollTo(TextMark) scrollTo()} method.
+     * 
+     * <p>
+     * <b>WARNING</b><br>
+     * <i>It turns out that much of TextView's processing is done in idle
+     * callbacks. In particular, this method only works correctly if the
+     * heights of each line have been computed and cached. Since doing so can
+     * be computationally expensive, it happens some time after text is
+     * actually inserted and thus may not be available yet. In theory the
+     * scrolling will be queued up, but you may notice odd effects.</i>
+     * 
+     * <p>
+     * This problem can crop up if you have newly populated a large amount of
+     * text into a TextView and want to force the viewport and cursor to be at
+     * the end of the text. One possible workaround: after doing the large
+     * <code>insertAtCursor()</code>, you might try the following:
+     * 
+     * <pre>
+     * start = buffer.getIterStart();
+     * buffer.placeCursor(start);
+     * </pre>
+     * 
+     * before calling
+     * 
+     * <pre>
+     * end = buffer.getIterEnd();
+     * view.scrollTo(end);
+     * </pre>
+     * 
+     * this may have the effect of causing the heights to be calculated.
+     * 
+     * @since 4.0.8
+     */
+    /*
+     * The oddities and "workaround" suggested are based on the currently weak
+     * scrolling behaviour in GtkTextView. If and when that gets cleaned up,
+     * then remove this nonsense from the documentatin here.
+     */
+    public void scrollTo(TextMark mark, double withinMargin, double xalign, double yalign) {
+        if ((withinMargin < 0) || (withinMargin > 0.5)) {
+            throw new IllegalArgumentException("withinMargin must be between 0.0 and 0.5");
+        }
+        if ((xalign < 0.0) || (xalign > 1.0)) {
+            throw new IllegalArgumentException("xalign must be between 0.0 and 1.0");
+        }
+        if ((yalign < 0.0) || (yalign > 1.0)) {
+            throw new IllegalArgumentException("yalign must be between 0.0 and 1.0");
+        }
+
+        GtkTextView.scrollToMark(this, mark, withinMargin, true, xalign, yalign);
     }
 }

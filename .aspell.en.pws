@@ -1645,7 +1645,10 @@ scalarref
 screenshot
 screenshots
 scrollMarkOnscreen
+scrollTo
 scrollToCell
+scrollToIter
+scrollToMark
 scrollbar
 scrollbars
 segfaulted
@@ -1974,6 +1977,7 @@ wiki
 wikis
 windowManager
 windowToBufferCoords
+withinMargin
 workspaces
 wr
 wrapMode
