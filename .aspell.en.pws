@@ -520,6 +520,7 @@ Piechotka
 Pixbuf's
 PixbufAnimation
 PixbufFormat
+Pixbufs
 PolicyType
 PositionType
 PowerResponseType
@@ -1117,6 +1118,7 @@ getBorderWindowSize
 getBuffer
 getButton
 getChar
+getCharCount
 getChild
 getChildSecondary
 getChildren
@@ -1173,6 +1175,7 @@ getLabel
 getLabelWidget
 getLayout
 getLine
+getLineCount
 getLineOffset
 getLineRange
 getLineY
@@ -1331,6 +1334,7 @@ insertAtCursor
 insertBefore
 insertInteractive
 insertPage
+insertPixbuf
 insertRow
 insertText
 insertWithTags

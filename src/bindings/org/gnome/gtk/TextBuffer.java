@@ -44,7 +44,7 @@ public class TextBuffer extends Object
     /**
      * This constant is used to identify cells in the TextBuffer that are not
      * actually characters - in other words, Widgets and Pixbufs. The
-     * placholder is Unicode value <code>0xFFFC</code>, the "Object
+     * placeholder is Unicode value <code>0xFFFC</code>, the "Object
      * Replacement Character" from the Special block. You might see it as
      * &#65532; in other contexts.
      * 
@@ -416,5 +416,25 @@ public class TextBuffer extends Object
      */
     public int getLineCount() {
         return GtkTextBuffer.getLineCount(this);
+    }
+
+    /**
+     * The signal emitted when the contents of the TextBuffer have changed.
+     * 
+     * @author Andrew Cowie
+     * @since 4.0.8
+     */
+    public interface CHANGED extends GtkTextBuffer.CHANGED
+    {
+        public void onChanged(TextBuffer source);
+    }
+
+    /**
+     * Hook up a handler for <code>CHANGED</code> signals.
+     * 
+     * @since 4.0.8
+     */
+    public void connect(CHANGED handler) {
+        GtkTextBuffer.connect(this, handler);
     }
 }
