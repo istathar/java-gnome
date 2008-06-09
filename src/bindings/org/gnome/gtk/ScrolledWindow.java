@@ -67,6 +67,11 @@ public class ScrolledWindow extends Bin
      * Widgets that do.
      */
     public void addWithViewport(Widget child) {
+        if ((child instanceof TextView) || (child instanceof TreeView) || (child instanceof Layout)) {
+            // any others?
+            throw new IllegalArgumentException(
+                    "You must not addWithViewport() a Widget that already has scrolling support built in. Use Container's add() instead.");
+        }
         GtkScrolledWindow.addWithViewport(this, child);
     }
 
