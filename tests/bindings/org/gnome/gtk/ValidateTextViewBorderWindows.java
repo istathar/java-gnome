@@ -15,15 +15,31 @@ import static org.gnome.gtk.WrapMode.WORD;
 
 /**
  * Evaluate the conversions between buffer co-ordinates and window
- * co-ordinates.
+ * co-ordinates. Also exercises some of the scrolling code.
  * 
  * @author Andrew Cowie
  */
 public class ValidateTextViewBorderWindows extends TestCaseGtk
 {
+    public final void testDontAllowAddWithViewport() {
+        final TextView view;
+        final ScrolledWindow scroll;
+
+        view = new TextView();
+        scroll = new ScrolledWindow();
+
+        try {
+            scroll.addWithViewport(view);
+            fail("Should have been prevented");
+        } catch (IllegalArgumentException iae) {
+            // good
+        }
+    }
+
     /*
      * If you want to see what the heck this is doing, add a showAll() to the
-     * Window and a Gtk.main() towards the end.
+     * Window and a Gtk.main() towards the end. TODO Needs something that
+     * tests horizontal (x and X) as well as vertical.
      */
     public final void testCovertCoordinatesRoundTrip() {
         final TextTagTable table;
@@ -32,7 +48,7 @@ public class ValidateTextViewBorderWindows extends TestCaseGtk
         final ScrolledWindow scroll;
         final Window window;
         TextIter pointer;
-        int x, y, X, Y;
+        int y, Y;
 
         table = new TextTagTable();
         buffer = new TextBuffer(table);
@@ -62,7 +78,7 @@ public class ValidateTextViewBorderWindows extends TestCaseGtk
         pointer.setLineOffset(5);
 
         buffer.placeCursor(pointer);
-        view.scrollMarkOnscreen(buffer.getInsert());
+        view.scrollTo(buffer.getInsert());
 
         /*
          * Critical to ensure that the necessary [re]calculations have
