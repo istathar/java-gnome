@@ -10,7 +10,6 @@
  */
 package org.gnome.gtk;
 
-import org.gnome.gtk.TestCaseGtk;
 
 /**
  * @author Andrew Cowie
@@ -29,5 +28,20 @@ public class ValidateTreeView extends TestCaseGtk
         selection = view.getSelection();
 
         assertEquals(SelectionMode.SINGLE, selection.getMode());
+    }
+
+    public final void testDontAllowAddWithViewport() {
+        final TreeView view;
+        final ScrolledWindow scroll;
+
+        view = new TreeView();
+        scroll = new ScrolledWindow();
+
+        try {
+            scroll.addWithViewport(view);
+            fail("Should have been prevented");
+        } catch (IllegalArgumentException iae) {
+            // good
+        }
     }
 }
