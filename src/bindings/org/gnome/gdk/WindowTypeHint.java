@@ -1,7 +1,7 @@
 /*
  * WindowTypeHint.java
  *
- * Copyright (c) 2007 Operational Dynamics Consulting Pty Ltd
+ * Copyright (c) 2007-2008 Operational Dynamics Consulting Pty Ltd
  *
  * The code in this file, and the library it is a part of, are made available
  * to you by the authors under the terms of the "GNU General Public Licence,
@@ -13,17 +13,59 @@ package org.gnome.gdk;
 
 import org.freedesktop.bindings.Constant;
 
-/*
- * FIXME this is a placeholder stub for what will become the public API for
- * this type. Replace this comment with appropriate javadoc including author
- * and since tags. Note that the class may need to be made abstract, implement
- * interfaces, or even have its parent changed. No API stability guarantees
- * are made about this class until it has been reviewed by a hacker and this
- * comment has been replaced.
+/**
+ * Constants indicating hints you can provide to the window manager about what
+ * the nature and purpose of a given Window is. While this is in the GDK
+ * package, its primary use is for designating the purpose of top level [<code>org.gnome.gtk</code>]
+ * Windows via
+ * {@link org.gnome.gtk.Window#setTypeHint(WindowTypeHint) setTypeHint()}.
+ * 
+ * @author Andrew Cowie
+ * @since 4.0.8
  */
 public final class WindowTypeHint extends Constant
 {
     private WindowTypeHint(int ordinal, String nickname) {
         super(ordinal, nickname);
     }
+
+    /**
+     * This is the default when constructing a new Window and you don't need
+     * to set it.
+     * 
+     * @since 4.0.8
+     */
+    public static final WindowTypeHint NORMAL = new WindowTypeHint(GdkWindowTypeHint.NORMAL, "NORMAL");
+
+    /**
+     * Mark this Window as a utility window. Under Metacity you should expect
+     * a Window so marked to not appear in the pager or taskbar. A utility
+     * window will be raised when a normal Window from the same application
+     * gains the focus.
+     * 
+     * <p>
+     * This setting is excellent for secondary windows. The key question is
+     * "should I be able to <b><code>Alt+Tab</code></b> to this Window?"
+     * If it's not the real application, per se, then the answer is "probably
+     * not" and the Window should be marked <code>UTILITY</code>.
+     * 
+     * @since 4.0.8
+     */
+    public static final WindowTypeHint UTILITY = new WindowTypeHint(GdkWindowTypeHint.UTILITY, "UTILITY");
+
+    /**
+     * This Window will be used to present something that is docked,
+     * presumably to the panel. An example in GNOME is the calendar that the
+     * clock applet displays as a popup. Once raised, it stays on top of all
+     * other windows regardless of which workspace you are on or what other
+     * applications you focus.
+     * 
+     * <p>
+     * If you're thinking to use this you probably want Window's
+     * {@link org.gnome.gtk.Window#setKeepAbove(boolean) setKeepAbove()}
+     * instead.
+     * 
+     * @since 4.0.8
+     */
+    public static final WindowTypeHint DOCK = new WindowTypeHint(GdkWindowTypeHint.DOCK, "DOCK");
 }
