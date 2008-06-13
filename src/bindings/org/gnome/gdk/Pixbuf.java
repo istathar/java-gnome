@@ -59,7 +59,7 @@ public class Pixbuf extends org.gnome.glib.Object
 
         target = new File(filename);
         if (!target.exists()) {
-            throw new FileNotFoundException(target + "not found");
+            throw new FileNotFoundException(target + " not found");
         }
         try {
             return GdkPixbuf.createPixbufFromFile(filename);
