@@ -1265,6 +1265,7 @@ insertText
 instanceFor
 instanceof
 ints
+invalidateRect
 isActive
 isDirectory
 isEmbedded

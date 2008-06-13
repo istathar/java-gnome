@@ -35,10 +35,15 @@ Java_org_gnome_gdk_GdkEventExposeOverride_gdk_1event_1expose_1get_1area
 	self = (GdkEventExpose*) _self;
 	
 	/*
-	 * This is NOT a dynamic allocation, but rather a live reference to
-	 * the GtkAllocation struct in the GtkWidget instance struct.
+	 * This is a dynamic allocation. This must match the release function
+	 * implemented in GdkRectangleOverride.free().
 	 */	
-	result = &self->area;
+	result = g_slice_new0(GdkRectangle);
+		
+	result->x = self->area.x;
+	result->y = self->area.y;
+	result->width = self->area.width;
+	result->height = self->area.height;
 
 	// cleanup parameter self
 
