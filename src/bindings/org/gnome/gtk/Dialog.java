@@ -205,7 +205,7 @@ public class Dialog extends Window
      * Hook up a <code>RESPONSE</code> handler.
      */
     public void connect(RESPONSE handler) {
-        GtkDialog.connect(this, new ResponseHandler(handler));
+        GtkDialog.connect(this, new ResponseHandler(handler), false);
     }
 
     /*

@@ -187,7 +187,7 @@ public class TreeModelFilter extends TreeModel implements TreeDragSource
      */
     public void setVisibleCallback(VISIBLE callback) {
         GtkTreeModelFilterOverride.setVisibleFunc(this);
-        GtkTreeModelFilter.connect(this, new VisibleHandler(callback));
+        GtkTreeModelFilter.connect(this, new VisibleHandler(callback), false);
     }
 
     /**

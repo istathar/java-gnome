@@ -146,7 +146,7 @@ public class Adjustment extends Object
      * Hook up a <code>CHANGED</code> handler.
      */
     public void connect(CHANGED handler) {
-        GtkAdjustment.connect(this, handler);
+        GtkAdjustment.connect(this, handler, false);
     }
 
     /**
@@ -167,6 +167,6 @@ public class Adjustment extends Object
      * Hook up a <code>VALUE_CHANGED</code> handler.
      */
     public void connect(VALUE_CHANGED handler) {
-        GtkAdjustment.connect(this, handler);
+        GtkAdjustment.connect(this, handler, false);
     }
 }
