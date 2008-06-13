@@ -235,6 +235,7 @@ GdkScreen
 GdkVisibilityState
 GdkWindow
 GdkWindowState
+GdkWindowTypeHint
 Gentoo's
 GetMethodID
 GetStaticMethodID
@@ -712,6 +713,7 @@ Wikipedia
 WindowPosition
 WindowState
 WindowType
+WindowTypeHint
 Wl
 Wno
 Wouter
@@ -1651,6 +1653,7 @@ scrollToIter
 scrollToMark
 scrollbar
 scrollbars
+se
 segfaulted
 selectDay
 selectFilename
@@ -1814,6 +1817,7 @@ setTooltipMarkup
 setTooltipText
 setTooltips
 setTransientFor
+setTypeHint
 setUnderline
 setUp
 setUseMarkup
@@ -1881,6 +1885,7 @@ tabLabel
 targetDir
 targetExt
 targetFilenameFromClass
+taskbar
 tearDown
 testAvoidCyclicReferenceFromSignalHookup
 testButtonPropertyLabel
