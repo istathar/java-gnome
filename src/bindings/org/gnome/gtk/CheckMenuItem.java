@@ -152,7 +152,7 @@ public class CheckMenuItem extends MenuItem
      * Connect a <code>TOGGLED</code> handler to the Widget.
      */
     public void connect(TOGGLED handler) {
-        GtkCheckMenuItem.connect(this, handler);
+        GtkCheckMenuItem.connect(this, handler, false);
     }
 
 }

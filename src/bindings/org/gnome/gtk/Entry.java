@@ -137,7 +137,7 @@ public class Entry extends Widget implements Editable, CellEditable
      * @since 4.0.3
      */
     public void connect(ACTIVATE handler) {
-        GtkEntry.connect(this, handler);
+        GtkEntry.connect(this, handler, false);
     }
 
     public void setPosition(int position) {
@@ -177,7 +177,7 @@ public class Entry extends Widget implements Editable, CellEditable
      * @since 4.0.6
      */
     public void connect(CHANGED handler) {
-        GtkEditable.connect(this, handler);
+        GtkEditable.connect(this, handler, false);
     }
 
     public void selectRegion(int start, int end) {

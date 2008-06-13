@@ -122,6 +122,6 @@ public class MenuItem extends Item
      * Connect an <code>ACTIVATE</code> handler to the widget.
      */
     public void connect(ACTIVATE handler) {
-        GtkMenuItem.connect(this, handler);
+        GtkMenuItem.connect(this, handler, false);
     }
 }

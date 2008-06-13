@@ -40,7 +40,7 @@ final class GObject extends Plumbing
      * the only method which calls this one.
      */
     final static native void g_signal_connect(long instance, java.lang.Object handler,
-            Class<?> receiver, String name);
+            Class<?> receiver, String name, boolean after);
 
     /**
      * Call g_object_add_toggle_ref() on the argument passed. This should only

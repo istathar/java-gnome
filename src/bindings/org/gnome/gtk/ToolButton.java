@@ -149,6 +149,6 @@ public class ToolButton extends ToolItem
      * Connect a handler to the <code>CLICKED</code> signal.
      */
     public void connect(CLICKED handler) {
-        GtkToolButton.connect(this, handler);
+        GtkToolButton.connect(this, handler, false);
     }
 }

@@ -435,7 +435,7 @@ public class TextBuffer extends Object
      * @since 4.0.8
      */
     public void connect(CHANGED handler) {
-        GtkTextBuffer.connect(this, handler);
+        GtkTextBuffer.connect(this, handler, false);
     }
 
     /**
@@ -462,12 +462,24 @@ public class TextBuffer extends Object
     }
 
     /**
-     * Hook up a handler for <code>INSERT_TEXT</code> signals.
+     * Hook up a handler for <code>INSERT_TEXT</code> signals. This will be
+     * invoked before the default handler is run, that is, before the new text
+     * is actually inserted into the TextBuffer.
      * 
      * @since 4.0.8
      */
     public void connect(INSERT_TEXT handler) {
-        GtkTextBuffer.connect(this, new InsertTextHandler(handler));
+        GtkTextBuffer.connect(this, new InsertTextHandler(handler), false);
+    }
+
+    /**
+     * Hook up a handler for <code>INSERT_TEXT</code> signals that will be
+     * called <i>after</i> the default handler.
+     * 
+     * @since 4.0.8
+     */
+    public void connectAfter(INSERT_TEXT handler) {
+        GtkTextBuffer.connect(this, new InsertTextHandler(handler), true);
     }
 
     /*

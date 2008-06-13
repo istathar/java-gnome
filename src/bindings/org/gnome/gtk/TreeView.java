@@ -258,7 +258,7 @@ public class TreeView extends Container
      * Hook up a <code>ROW_ACTIVATED</code> handler.
      */
     public void connect(ROW_ACTIVATED handler) {
-        GtkTreeView.connect(this, handler);
+        GtkTreeView.connect(this, handler, false);
     }
 
     /**
@@ -301,7 +301,7 @@ public class TreeView extends Container
      * @since 4.0.7
      */
     public void connect(ROW_EXPANDED handler) {
-        GtkTreeView.connect(this, new RowExpandedHandler(handler));
+        GtkTreeView.connect(this, new RowExpandedHandler(handler), false);
     }
 
     /*
@@ -574,7 +574,7 @@ public class TreeView extends Container
      * Hook up a <code>SELECT_ALL</code> signal handler.
      */
     public void connect(SELECT_ALL handler) {
-        GtkTreeView.connect(this, handler);
+        GtkTreeView.connect(this, handler, false);
     }
 
     /**

@@ -255,7 +255,7 @@ public class Button extends Bin
      * @since 4.0.0
      */
     public void connect(CLICKED handler) {
-        GtkButton.connect(this, handler);
+        GtkButton.connect(this, handler, false);
     }
 
     /*

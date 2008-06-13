@@ -293,7 +293,7 @@ public class StatusIcon extends org.gnome.glib.Object
     }
 
     public void connect(ACTIVATE handler) {
-        GtkStatusIcon.connect(this, handler);
+        GtkStatusIcon.connect(this, handler, false);
     }
 
     /**
@@ -328,7 +328,7 @@ public class StatusIcon extends org.gnome.glib.Object
     }
 
     public void connect(POPUP_MENU handler) {
-        GtkStatusIcon.connect(this, handler);
+        GtkStatusIcon.connect(this, handler, false);
     }
 
     /**
@@ -350,6 +350,6 @@ public class StatusIcon extends org.gnome.glib.Object
     }
 
     public void connect(SIZE_CHANGED handler) {
-        GtkStatusIcon.connect(this, handler);
+        GtkStatusIcon.connect(this, handler, false);
     }
 }

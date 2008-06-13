@@ -129,6 +129,6 @@ public class SpinButton extends Entry
      * @since 4.0.7
      */
     public void connect(VALUE_CHANGED handler) {
-        GtkSpinButton.connect(this, handler);
+        GtkSpinButton.connect(this, handler, false);
     }
 }

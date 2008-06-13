@@ -260,7 +260,7 @@ public class Window extends Bin
     }
 
     public void connect(DELETE_EVENT handler) {
-        GtkWidget.connect(this, handler);
+        GtkWidget.connect(this, handler, false);
     }
 
     /**
