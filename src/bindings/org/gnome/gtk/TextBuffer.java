@@ -437,4 +437,52 @@ public class TextBuffer extends Object
     public void connect(CHANGED handler) {
         GtkTextBuffer.connect(this, handler);
     }
+
+    /**
+     * Signal emitted when text is inserted into the TextBuffer.
+     * 
+     * <p>
+     * You must leave the TextIter <code>pos</code> in a valid state; that
+     * is, if you do something in your signal handler that changes the
+     * TextBuffer, you must revalidate <code>pos</code> before returning.
+     * 
+     * <p>
+     * <i>The default handler for this signal is where the mechanism to
+     * actually insert text into the TextBuffer lives.</i>
+     * 
+     * @author Andrew Cowie
+     * @since 4.0.8
+     */
+    /*
+     * FIXME How do you do that?
+     */
+    public interface INSERT_TEXT
+    {
+        public void onInsertText(TextBuffer source, TextIter pos, String text);
+    }
+
+    /**
+     * Hook up a handler for <code>INSERT_TEXT</code> signals.
+     * 
+     * @since 4.0.8
+     */
+    public void connect(INSERT_TEXT handler) {
+        GtkTextBuffer.connect(this, new InsertTextHandler(handler));
+    }
+
+    /*
+     * Trim off the length parameter which is unnecessary in Java.
+     */
+    private static class InsertTextHandler implements GtkTextBuffer.INSERT_TEXT
+    {
+        private final INSERT_TEXT handler;
+
+        private InsertTextHandler(INSERT_TEXT handler) {
+            this.handler = handler;
+        }
+
+        public void onInsertText(TextBuffer source, TextIter pos, String text, int length) {
+            handler.onInsertText(source, pos, text);
+        }
+    }
 }
