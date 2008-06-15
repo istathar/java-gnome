@@ -20,12 +20,12 @@ import org.gnome.glib.GlibException;
  * An image in memory.
  * 
  * <p>
- * <i>Image data in a Pixbuf is stored in memory in uncompressed, packed
- * format. Rows in the image are stored top to bottom, and in each row pixels
- * are stored from left to right. There may be padding at the end of a row.
- * The "rowstride" value of a pixbuf, as returned by
- * {@link #getRowstride() getRowstride()}, indicates the number of bytes
- * between rows.</i>
+ * <i> Pixbuf is just here to be efficient at handling images that are going
+ * to placed in your GTK user interfaces. If you want to draw on an image, use
+ * Cairo's ImageSurface. If you want to otherwise manipulate the image, use a
+ * dedicated image processing library to load the data as it will doubtless
+ * provide for more efficient storage anticipating the processing tasks it
+ * will facilitate.</i>
  * 
  * @author Andrew Cowie
  * @since 4.0.0
@@ -141,5 +141,78 @@ public class Pixbuf extends org.gnome.glib.Object
             // FIXME
             e.printStackTrace();
         }
+    }
+
+    /**
+     * Get the width of this Pixbuf, in pixels
+     * 
+     * @since 4.0.8
+     */
+    public int getWidth() {
+        return GdkPixbuf.getWidth(this);
+    }
+
+    /**
+     * Get the height of this Pixbuf, in pixels
+     * 
+     * @since 4.0.8
+     */
+    public int getHeight() {
+        return GdkPixbuf.getHeight(this);
+    }
+
+    /**
+     * Get a the individual pixel values comprising this Pixbuf.
+     * 
+     * <p>
+     * Image data in a Pixbuf is stored in memory in an uncompressed but
+     * packed format. Rows in the image are stored top to bottom, and in each
+     * row pixels are stored from left to right. The returned array is, as you
+     * would expect, the bytes comprising each single pixel in a sequential
+     * series. There will be either three (RGB) or four (RGBA) bytes per
+     * pixel, see {@link #getNumChannels() getNumChannels()}.
+     * 
+     * <p>
+     * The return array is of type of is <code>byte</code> but you can
+     * expect unsigned values in the range <code>0</code> to
+     * <code>255</code>. If you need the actual values you'll have to
+     * <code>&</code> with <code>0xFF</code> to get yourself to the
+     * correct unsigned integer.
+     * 
+     * <p>
+     * You should not need to call this. See the caveats at the top of this
+     * class; changing the values of this array will <b>not</b> change the
+     * underlying image.
+     * 
+     * <p>
+     * <i>The underlying library stores Pixbufs in a format which is efficient
+     * for internal representation and memory operations, though not
+     * necessarily efficient for size and frequently extra bits are added as
+     * alignment padding. We do some minor copying so that the array returned
+     * is one byte per channel and Cartesian. </i>
+     * 
+     * <p>
+     * <i>In the current GDK Pixbuf library implementation, the red, green,
+     * blue and optional alpha are fixed at 8 bits per channel.</i>
+     * 
+     * @since 4.0.8
+     */
+    public byte[] getPixels() {
+        return GdkPixbufOverride.getPixels(this);
+    }
+
+    /**
+     * Get the number of colour channels in this Pixbuf. This will be either
+     * <code>3</code> for RGB or <code>4</code> for an RGBA image.
+     * 
+     * <p>
+     * You don't actually need this; if you're working with the pixel data
+     * from {@link #getPixels() getPixels()} just divide the length of the
+     * returned array by (<var>width</var> <code>*</code> <var>height</var>).
+     * 
+     * @since 4.0.8
+     */
+    public int getNumChannels() {
+        return GdkPixbuf.getNChannels(this);
     }
 }

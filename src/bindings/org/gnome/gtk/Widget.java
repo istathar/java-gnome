@@ -996,4 +996,23 @@ public abstract class Widget extends org.gnome.gtk.Object
     public void setCanFocus(boolean setting) {
         setPropertyBoolean("can-focus", setting);
     }
+
+    /**
+     * Make this Widget attempt to become the default. The default Widget is
+     * the one which is activated when the user presses <b><code>Enter</code></b>.
+     * 
+     * <p>
+     * This will only work if the widget is <var>activatable</var>; see
+     * {@link #activate() activate()}.
+     * 
+     * <p>
+     * If you're reading this you may in fact be looking for
+     * {@link #grabFocus() grabFocus()} which affects where keyboard input is
+     * going, as opposed to this method which affects activation.
+     * 
+     * @since 4.0.8
+     */
+    public void grabDefault() {
+        GtkWidget.grabDefault(this);
+    }
 }

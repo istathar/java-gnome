@@ -64,6 +64,9 @@ from fcntl import flock, LOCK_EX, LOCK_NB
 
 def lockBuild():
 	global lock
+
+	ensureDirectory("tmp/")
+
 	lock = open(lockFile, "wb")
 	try:
 		flock(lock, LOCK_EX | LOCK_NB)

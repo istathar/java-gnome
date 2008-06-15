@@ -37,10 +37,11 @@
 <?
 	template_begin();
 ?>
-<h1 class="title">The java-gnome language bindings project</h1>
+<h1 class="title">The java-gnome User Interface Library</h1>
 <div class="bluepanel"></div>
 
-<div style="float:right; width: 40%; padding-right: 50px; padding-bottom: 50px;">
+<div style="float:right; width: 40%; padding-right: 50px; padding-bottom:
+50px; padding-left: 50px;">
 
 <p>Since 1998, the java-gnome project has been offering Java bindings for the
 GTK widget toolkit and for the rich family of libraries making up the GNOME
@@ -73,15 +74,15 @@ we have few notes on the previous project:
 
 </div>
 
-<div class="italics" style="font-size: 30px; padding-left: 10px;
-padding-top: 30px; padding-right: 50px;">
+<div style="font-size: 30px; padding-left: 10px;
+padding-top: 80px; padding-right: 80px;">
 <center>
-	Write outstanding<br>
-	<img src="/images/gtk_RGBLogo.png" width="67" height="88"><br>
-	based<br>
-	<img style="padding:5px;" src="/images/gnome_ButtonLogo.png" width="64" height="64"><br>
-	programs ... from <br>
-	<img src="/images/java_CupLogo.png" width="52" height="88">
+	<img src="/images/cross-product.png" width="450" height="120"><br><br>
+	<span class="italics">Write outstanding</span>
+	<span style="font-size: 24px; font-weight: bold">GTK</span>
+	<span class="italics">based</span>
+	<span style="font-size: 24px; font-weight: bold">GNOME</span>
+	<span class="italics">programs ... from Java!</span>
 </center>
 </div>
 

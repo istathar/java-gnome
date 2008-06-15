@@ -91,8 +91,8 @@ GNOME libraries as we can possibly come up with, consistent with the
 goal of approachability and the design constraints we decided to adopt.
 
 <p>If you'd like to know more about the background, design, and architecture
-of java-gnome 4.0, please see the pages in the <a
-href="doc/design/">documentation</a> section.
+of java-gnome 4.0, please see the design pages in the <a
+href="doc/design/START.html">documentation</a> section.
 
 <p class="note">This is an edited version of the Objectives and Audience <a
 href="doc/design/2a-ObjectiveAndAudience.html">proposal</a>

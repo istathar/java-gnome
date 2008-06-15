@@ -52,14 +52,13 @@ use!</p>
 of hackers from 1998-2006. That's <b>nine</b> years!</p>
 
 <p>Over the later years of this period, however, there was almost zero new
-coverage activity over the last years of this period, and the code that was
-there was full of cruft, inefficiency, bugs, and serious memory leaks. Its
-codebase was spread across <b>seven</b>-plus libraries, and was quite
-impossible to maintain. The project website was hideously out of date and the
-quality of its examples poor. Worst of all, the API was exceedingly difficult
-for new people to learn how to contribute to java-gnome 2.<span
-class="x">x</span>. As a result, this code was abandoned by the java-gnome 
-community in October 2006.</p>
+coverage activity, and the code that was there was full of cruft, inefficiency,
+bugs, and serious memory leaks. Its codebase was spread across
+<b>seven</b>-plus libraries, and was quite impossible to maintain. The project
+website was hideously out of date and the quality of its examples poor. Worst
+of all, the API was exceedingly difficult for new people to learn how to
+contribute to java-gnome 2.<span class="x">x</span>. As a result, this code was
+abandoned by the java-gnome community in October 2006.</p>
 
 <p>This page is for <a class="nav-black" href="historical.php">historical</a>
 reference and to honour the hard work of the

@@ -1,4 +1,10 @@
 personal_ws-1.1 en 0
+<<<<<<< TREE
+<<<<<<< TREE
+=======
+=======
+>>>>>>> MERGE-SOURCE
+>>>>>>> MERGE-SOURCE
 ABI
 APIs
 ARGB
@@ -120,6 +126,7 @@ EDETACHED
 EOFError
 EOSTR
 EVERSION
+EditedHandler
 Eeek
 Emmanuele
 EnumValue
@@ -230,6 +237,7 @@ GdkModifierType
 GdkNotifyType
 GdkPixbuf
 GdkPixbufFormat
+GdkPixbufOverride
 GdkRectangle
 GdkScreen
 GdkVisibilityState
@@ -264,6 +272,7 @@ GtkButtonBoxStyle
 GtkButtonsType
 GtkCalendar
 GtkCalendarDisplayOptions
+GtkCellLayout
 GtkCellRendererPixbuf
 GtkCellRendererText
 GtkCheckButton
@@ -522,6 +531,7 @@ Pixbuf's
 PixbufAnimation
 PixbufFormat
 Pixbufs
+Pixmap
 PolicyType
 PositionType
 PowerResponseType
@@ -539,6 +549,7 @@ QuoteRight
 QuoteSingle
 README
 RGB
+RGBA
 RHEL
 RTL
 RadialPattern
@@ -1192,7 +1203,9 @@ getMode
 getModel
 getModificationDate
 getModified
+getNChannels
 getName
+getNumChannels
 getObject
 getOffset
 getOrdinal
@@ -1207,6 +1220,7 @@ getPaddingTop
 getParent
 getPath
 getPixbuf
+getPixels
 getPointer
 getPointerFromHandle
 getPortrait
@@ -1291,6 +1305,7 @@ globalTooltipsGroup
 gnomedev
 goto
 gpointer
+grabDefault
 grabFocus
 gthread
 gtk
@@ -1519,6 +1534,7 @@ onClicked
 onDaySelected
 onDaySelectedDoubleClick
 onDeleteEvent
+onEdited
 onEnterNotifyEvent
 onEvent
 onExposeEvent
@@ -1528,6 +1544,7 @@ onGroupToggled
 onHide
 onKeyPressEvent
 onKeyReleaseEvent
+onLeaveNotifyEvent
 onPopupMenu
 onResponse
 onRowActivated
@@ -1991,6 +2008,7 @@ writeToPNG
 writeToPng
 writeTranslationCode
 x's
+xFF
 xFF
 xFFFC
 xFFFFFF
