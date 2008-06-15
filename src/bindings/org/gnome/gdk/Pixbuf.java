@@ -20,9 +20,9 @@ import org.gnome.glib.GlibException;
  * An image in memory.
  * 
  * <p>
- * <i> Pixbuf is just here to be efficicent at handling images that are going
+ * <i> Pixbuf is just here to be efficient at handling images that are going
  * to placed in your GTK user interfaces. If you want to draw on an image, use
- * Cairo's ImageSurgace. If you want to otherwise manipualte the image, use a
+ * Cairo's ImageSurface. If you want to otherwise manipulate the image, use a
  * dedicated image processing library to load the data as it will doubtless
  * provide for more efficient storage anticipating the processing tasks it
  * will facilitate.</i>
@@ -189,7 +189,7 @@ public class Pixbuf extends org.gnome.glib.Object
      * for internal representation and memory operations, though not
      * necessarily efficient for size and frequently extra bits are added as
      * alignment padding. We do some minor copying so that the array returned
-     * is one byte per channel and cartesian. </i>
+     * is one byte per channel and Cartesian. </i>
      * 
      * <p>
      * <i>In the current GDK Pixbuf library implementation, the red, green,
