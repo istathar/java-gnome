@@ -1,5 +1,5 @@
 /*
- * GtkTreeIterOverride.c
+ * GdkColorOverride.c
  *
  * Copyright (c) 2007 Operational Dynamics Consulting Pty Ltd
  *

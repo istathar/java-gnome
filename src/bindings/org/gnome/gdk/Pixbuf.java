@@ -59,7 +59,7 @@ public class Pixbuf extends org.gnome.glib.Object
 
         target = new File(filename);
         if (!target.exists()) {
-            throw new FileNotFoundException(target + "not found");
+            throw new FileNotFoundException(target + " not found");
         }
         try {
             return GdkPixbuf.createPixbufFromFile(filename);
@@ -198,33 +198,7 @@ public class Pixbuf extends org.gnome.glib.Object
      * @since 4.0.8
      */
     public byte[] getPixels() {
-        final int width, height;
-        final int numChannels, rowstride, size;
-        final byte[] data;
-        int p, k;
-        final byte[] result;
-
-        width = GdkPixbuf.getWidth(this);
-        height = GdkPixbuf.getHeight(this);
-        numChannels = GdkPixbuf.getNChannels(this);
-        rowstride = GdkPixbuf.getRowstride(this);
-
-        data = GdkPixbufOverride.getPixels(this);
-
-        size = width * numChannels;
-        result = new byte[height * size];
-
-        k = 0;
-        p = 0;
-
-        for (int j = 0; j < height; j++) {
-            System.arraycopy(data, p, result, k, size);
-
-            p += rowstride;
-            k += size;
-        }
-
-        return result;
+        return GdkPixbufOverride.getPixels(this);
     }
 
     /**

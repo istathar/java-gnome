@@ -24,14 +24,16 @@ Java_org_gnome_gdk_GdkPixbufOverride_gdk_1pixbuf_1get_1pixels
 )
 {
 	GdkPixbuf* self;
-	guchar* pixel;
 	int rowstride;
 	int width;
 	int height;
 	int n_channels;
 	int bits_per_sample;
-	int length;
+	guchar* data;
 	jbyteArray result;
+	int size;
+	int j, p;
+	
 	
 	// convert parameter self
 	self = (GdkPixbuf*) _self;
@@ -39,7 +41,10 @@ Java_org_gnome_gdk_GdkPixbufOverride_gdk_1pixbuf_1get_1pixels
 	/*
 	 * We need to know how much image data there is. The rowstride gives
 	 * us the width of each row, but the last row is *not* this wide. The
-	 * formula here is from the GDK docs. 
+	 * formula is in the GDK docs [and more to the point, in the source
+	 * code of gdk_pixbuf_new()] but, as finally implemented, we don't
+	 * need it since we're extracting the rows individually, thereby
+	 * jettisoning the padding. 
 	 */
 	
 	width = gdk_pixbuf_get_width(self);
@@ -48,30 +53,47 @@ Java_org_gnome_gdk_GdkPixbufOverride_gdk_1pixbuf_1get_1pixels
 	n_channels = gdk_pixbuf_get_n_channels(self);
 	bits_per_sample = gdk_pixbuf_get_bits_per_sample(self);
 	
+	// length =  ((height - 1) * rowstride) + (width * ((n_channels * bits_per_sample + 7) / 8));
+	
 	if (bits_per_sample != 8) {
 		bindings_java_throw(env, "This algorithm only supports 8 bits per channel");
 		/*
-		 * This code below is safe, but if this is hit, then the
-		 * assumption made in Pixbuf.java that each channel is a byte
-		 * will need to be reworked and the impact of the rounding
-		 * implied in the following call to SetByteArrayRegion call
-		 * verified.
+		 * If this is hit, then the algorithm made below [and
+		 * descirbed in our description of Pixbuf's getPixels()] that
+		 * each channel is a single byte will need to be reworked.
 		 */
 		return NULL;
 	}
-
-	length =  ((height - 1) * rowstride) + (width * ((n_channels * bits_per_sample + 7) / 8));
 	
 	/*
 	 * Now we can extract the image data, and return it.
 	 */
 
 	// call function
-	pixel = gdk_pixbuf_get_pixels(self);
+	data = gdk_pixbuf_get_pixels(self);
+	
+
+	/*
+	 * Now copy the bytes of each pixel out row by row. Most of the time
+	 * size will match rowstride, but not always. The net effect of this
+	 * is to return a cartesian array without padding and without the
+	 * dangling last row. We orginally had this in Pixbuf.java, but this
+	 * turns out to be 20% faster under heavy load.
+	 */
+	
+	size = width * n_channels;
+	
+	result = (*env)->NewByteArray(env, height * size);
+	
+	p = 0;
+	
+	for (j = 0; j < height; j++) {
+		(*env)->SetByteArrayRegion(env, result, p, size, (jbyte*) data);
+		
+		data += rowstride;
+		p += size;
+	}
 	
 	// and finally
-	result = (*env)->NewByteArray(env, length);
-	(*env)->SetByteArrayRegion(env, result, 0, length, (jbyte*) pixel);
-	
 	return result;
 }
