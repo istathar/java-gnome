@@ -230,6 +230,7 @@ GdkModifierType
 GdkNotifyType
 GdkPixbuf
 GdkPixbufFormat
+GdkPixbufOverride
 GdkRectangle
 GdkScreen
 GdkVisibilityState
@@ -514,6 +515,7 @@ Piechotka
 Pixbuf's
 PixbufAnimation
 PixbufFormat
+Pixbufs
 Pixmap
 PolicyType
 PositionType
@@ -532,6 +534,7 @@ QuoteRight
 QuoteSingle
 README
 RGB
+RGBA
 RHEL
 RTL
 RadialPattern
@@ -1129,7 +1132,9 @@ getMessage
 getMode
 getModel
 getModificationDate
+getNChannels
 getName
+getNumChannels
 getObject
 getOrdinal
 getOrigin
@@ -1143,6 +1148,7 @@ getPaddingTop
 getParent
 getPath
 getPixbuf
+getPixels
 getPointer
 getPointerFromHandle
 getPortrait
@@ -1882,6 +1888,7 @@ writeToPNG
 writeToPng
 writeTranslationCode
 x's
+xFF
 xFFFFFF
 xServerVirtual
 xalign
