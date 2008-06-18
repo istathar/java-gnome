@@ -88,7 +88,15 @@ public abstract class Plumbing
      * lookup.
      */
     static final void registerProxy(Proxy obj) {
-        knownProxies.put(new Long(obj.pointer), new WeakReference<Proxy>(obj));
+        final WeakReference<Proxy> ref;
+        final Long box;
+
+        box = new Long(obj.pointer);
+        ref = new WeakReference<Proxy>(obj);
+
+        synchronized (knownProxies) {
+            knownProxies.put(box, ref);
+        }
     }
 
     /**
@@ -96,7 +104,13 @@ public abstract class Plumbing
      * up any entries of the Proxy in the Plumbings internals.
      */
     static final void unregisterProxy(Proxy obj) {
-        knownProxies.remove(new Long(obj.pointer));
+        final Long box;
+
+        box = new Long(obj.pointer);
+
+        synchronized (knownProxies) {
+            knownProxies.remove(box);
+        }
     }
 
     /**
@@ -176,7 +190,14 @@ public abstract class Plumbing
      * looked up.
      */
     protected static Proxy instanceFor(long pointer) {
-        WeakReference<Proxy> ref = knownProxies.get(new Long(pointer));
+        final WeakReference<Proxy> ref;
+        final Long box;
+
+        box = new Long(pointer);
+
+        synchronized (knownProxies) {
+            ref = knownProxies.get(box);
+        }
 
         if (ref == null) {
             return null;
