@@ -12,6 +12,7 @@
 package org.gnome.gtk;
 
 import org.gnome.gdk.Event;
+import org.gnome.gdk.EventConfigure;
 import org.gnome.gdk.Gravity;
 import org.gnome.gdk.Pixbuf;
 import org.gnome.gdk.Screen;
@@ -804,5 +805,46 @@ public class Window extends Bin
      */
     public void setTypeHint(WindowTypeHint hint) {
         GtkWindow.setTypeHint(this, hint);
+    }
+
+    /**
+     * Event emitted when the Window's size or position changes. The
+     * {@link EventConfigure EventConfigure} object has the position and size
+     * information.
+     * 
+     * <p>
+     * This event will also be emitted when the Window is first mapped and
+     * when it reappears on the screen having been obscured, so don't count on
+     * the values received being different from a previous iteration.
+     * 
+     * <p>
+     * <i>Note that this event signal plays a fairly crucial role in GTK
+     * internally; it is used by numerous subsystems (notably the size-request /
+     * size-allocation mechanism) to propagate that a Window had a new
+     * configuration. Do not attempt to block this signal.</i>
+     * 
+     * @author Andrew Cowie
+     * @since 4.0.8
+     */
+    /*
+     * This is here for the same reason that DELETE_EVENT is.
+     */
+    public interface CONFIGURE_EVENT extends GtkWidget.CONFIGURE_EVENT
+    {
+        /**
+         * Return <code>false</code>! Although this is an event signal with
+         * a boolean return, there is no point in attempting to block further
+         * propagation.
+         */
+        public boolean onConfigureEvent(Widget source, EventConfigure event);
+    }
+
+    /**
+     * Hook up a <code>CONFIGURE_EVENT</code> handler.
+     * 
+     * @since 4.0.8
+     */
+    public void connect(CONFIGURE_EVENT handler) {
+        GtkWidget.connect(this, handler);
     }
 }

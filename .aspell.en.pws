@@ -217,6 +217,7 @@ GdkDrawable
 GdkEvent
 GdkEventAny
 GdkEventButton
+GdkEventConfigure
 GdkEventCrossing
 GdkEventExpose
 GdkEventKey
@@ -1437,6 +1438,7 @@ onButtonReleaseEvent
 onChangeCurrentPage
 onChanged
 onClicked
+onConfigureEvent
 onDaySelected
 onDaySelectedDoubleClick
 onDeleteEvent
