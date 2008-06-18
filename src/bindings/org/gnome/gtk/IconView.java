@@ -1,8 +1,8 @@
 /*
  * IconView.java
  *
- * Copyright (c) 2007 Operational Dynamics Consulting Pty Ltd
- * Copyright (c) 2008 Vreixo Formoso
+ * Copyright (c) 2007-2008 Operational Dynamics Consulting Pty Ltd
+ * Copyright (c) 2008      Vreixo Formoso
  *
  * The code in this file, and the library it is a part of, are made available
  * to you by the authors under the terms of the "GNU General Public Licence,
@@ -60,8 +60,8 @@ package org.gnome.gtk;
  * </pre>
  * 
  * Once the IconView is configured, you may want to hook up a handler for the
- * {@link ITEM_ACTIVATED} signal, emitted when the user activates an item
- * (for example, by double-clicking over it).
+ * {@link ITEM_ACTIVATED} signal, emitted when the user activates an item (for
+ * example, by double-clicking over it).
  * 
  * <p>
  * Finally, an IconView has methods to handle the selection, so you don't need
@@ -79,19 +79,40 @@ public class IconView extends Container implements CellLayout
     /**
      * Create a new IconView
      * 
-     * @param model
-     *            Remember <b>you cannot use a TreeStore model with an
-     *            IconView</b>.
+     * <p>
+     * Remember you cannot use a TreeStore model with an IconView.
+     * 
+     * @since 4.0.7
      */
     public IconView(TreeModel model) {
-        super(GtkIconView.createIconViewWithModel(model));
+        super(GtkIconView.createIconViewWithModel(checkModel(model)));
+    }
+
+    /**
+     * Construct an IconView whose backing model will be assigned later.
+     * You'll need to use {@link #setModel(TreeModel) setModel()} to set it.
+     * 
+     * @since 4.0.8
+     */
+    public IconView() {
+        super(GtkIconView.createIconView());
     }
 
     /**
      * Set or change the TreeModel from which this IconView draws its data.
+     * 
+     * @since 4.0.7
      */
     public void setModel(TreeModel model) {
-        GtkIconView.setModel(this, model);
+        GtkIconView.setModel(this, checkModel(model));
+    }
+
+    private static TreeModel checkModel(final TreeModel model) {
+        if (model instanceof TreeStore) {
+            throw new IllegalArgumentException("model has to be a ListStore");
+            // or what else?
+        }
+        return model;
     }
 
     /**
@@ -100,6 +121,8 @@ public class IconView extends Container implements CellLayout
      * model column to map to the label. Alternatively you can use
      * {@link #setMarkupColumn(DataColumnString) setMarkupColumn()} to provide
      * a text with Pango markup.
+     * 
+     * @since 4.0.7
      */
     public void setTextColumn(DataColumnString column) {
         GtkIconView.setTextColumn(this, column.getOrdinal());
@@ -108,6 +131,8 @@ public class IconView extends Container implements CellLayout
     /**
      * Set the DataColumn, containing Pango markup, to render as the label of
      * each item.
+     * 
+     * @since 4.0.7
      */
     public void setMarkupColumn(DataColumnString column) {
         GtkIconView.setMarkupColumn(this, column.getOrdinal());
@@ -116,6 +141,8 @@ public class IconView extends Container implements CellLayout
     /**
      * Set the DataColumn of the model that contains the Pixbuf to use as the
      * icon of each item.
+     * 
+     * @since 4.0.7
      */
     public void setPixbufColumn(DataColumnPixbuf column) {
         GtkIconView.setPixbufColumn(this, column.getOrdinal());
@@ -150,6 +177,7 @@ public class IconView extends Container implements CellLayout
      * the model, so get on with using <code>path</code> right away.
      * 
      * @author Vreixo Formoso
+     * @since 4.0.7
      */
     public interface ITEM_ACTIVATED extends GtkIconView.ITEM_ACTIVATED
     {
@@ -164,6 +192,8 @@ public class IconView extends Container implements CellLayout
 
     /**
      * Hook up a <code>ITEM_ACTIVATED</code> handler.
+     * 
+     * @since 4.0.7
      */
     public void connect(ITEM_ACTIVATED handler) {
         GtkIconView.connect(this, handler);
@@ -175,6 +205,8 @@ public class IconView extends Container implements CellLayout
      * {@link SelectionMode#MULTIPLE MULTIPLE} since
      * {@link SelectionMode#SINGLE SINGLE} is the default. See SelectionMode
      * for the details of the behaviour implied by each option.
+     * 
+     * @since 4.0.7
      */
     public void setSelectionMode(SelectionMode mode) {
         GtkIconView.setSelectionMode(this, mode);
@@ -206,6 +238,8 @@ public class IconView extends Container implements CellLayout
      * 
      * @return An arrays with the selected items. If no item is selected, an
      *         empty array is returned.
+     * 
+     * @since 4.0.7
      */
     public TreePath[] getSelectedItems() {
         return GtkIconView.getSelectedItems(this);
@@ -216,6 +250,7 @@ public class IconView extends Container implements CellLayout
      * selected or a previously selected item was unselected.
      * 
      * @author Vreixo Formoso
+     * @since 4.0.7
      */
     public interface SELECTION_CHANGED extends GtkIconView.SELECTION_CHANGED
     {
@@ -223,7 +258,9 @@ public class IconView extends Container implements CellLayout
     }
 
     /**
-     * Hook up a handler for the SELECTION_CHANGED signal.
+     * Hook up a handler for the <code>SELECTION_CHANGED</code> signal.
+     * 
+     * @since 4.0.7
      */
     public void connect(SELECTION_CHANGED handler) {
         GtkIconView.connect(this, handler);
