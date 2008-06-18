@@ -80,13 +80,23 @@ public class IconView extends Container implements CellLayout
     /**
      * Create a new IconView
      * 
-     * @param model
-     *            Remember <b>you cannot use a TreeStore model with an
-     *            IconView</b>.
+     * <p>
+     * Remember you cannot use a TreeStore model with an IconView.
+     * 
      * @since 4.0.7
      */
     public IconView(TreeModel model) {
-        super(GtkIconView.createIconViewWithModel(model));
+        super(GtkIconView.createIconViewWithModel(checkModel(model)));
+    }
+
+    /**
+     * Construct an IconView whose backing model will be assigned later.
+     * You'll need to use {@link #setModel(TreeModel) setModel()} to set it.
+     * 
+     * @since 4.0.8
+     */
+    public IconView() {
+        super(GtkIconView.createIconView());
     }
 
     /**
@@ -95,7 +105,15 @@ public class IconView extends Container implements CellLayout
      * @since 4.0.7
      */
     public void setModel(TreeModel model) {
-        GtkIconView.setModel(this, model);
+        GtkIconView.setModel(this, checkModel(model));
+    }
+
+    private static TreeModel checkModel(final TreeModel model) {
+        if (model instanceof TreeStore) {
+            throw new IllegalArgumentException("model has to be a ListStore");
+            // or what else?
+        }
+        return model;
     }
 
     /**

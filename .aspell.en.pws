@@ -1,10 +1,4 @@
 personal_ws-1.1 en 0
-<<<<<<< TREE
-<<<<<<< TREE
-=======
-=======
->>>>>>> MERGE-SOURCE
->>>>>>> MERGE-SOURCE
 ABI
 APIs
 ARGB
@@ -225,6 +219,7 @@ GdkDrawable
 GdkEvent
 GdkEventAny
 GdkEventButton
+GdkEventConfigure
 GdkEventCrossing
 GdkEventExpose
 GdkEventKey
@@ -1531,6 +1526,7 @@ onButtonReleaseEvent
 onChangeCurrentPage
 onChanged
 onClicked
+onConfigureEvent
 onDaySelected
 onDaySelectedDoubleClick
 onDeleteEvent

@@ -68,4 +68,14 @@ public final class WindowTypeHint extends Constant
      * @since 4.0.8
      */
     public static final WindowTypeHint DOCK = new WindowTypeHint(GdkWindowTypeHint.DOCK, "DOCK");
+
+    /**
+     * This Window is a dialog. Obviously if you've used Dialog or one of its
+     * subclasses, the window manager will be informed properly for you. This
+     * is for when you've created a Window that is acting as a dialog but
+     * isn't a Dialog.
+     * 
+     * @since 4.0.8
+     */
+    public static final WindowTypeHint DIALOG = new WindowTypeHint(GdkWindowTypeHint.DIALOG, "DIALOG");
 }

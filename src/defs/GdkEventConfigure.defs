@@ -1,0 +1,14 @@
+(define-boxed EventConfigure
+  (in-module "Gdk")
+  (c-name "GdkEventConfigure")
+  (fields
+    '("GdkEventType" "type")
+    '("GdkWindow*" "window")
+    '("gint8" "send_event")
+    '("gint" "x")
+    '("gint" "y")
+    '("gint" "width")
+    '("gint" "height")
+  )
+)
+
