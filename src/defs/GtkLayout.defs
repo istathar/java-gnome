@@ -91,18 +91,6 @@
   )
 )
 
-(define-method freeze
-  (of-object "GtkLayout")
-  (c-name "gtk_layout_freeze")
-  (return-type "none")
-)
-
-(define-method thaw
-  (of-object "GtkLayout")
-  (c-name "gtk_layout_thaw")
-  (return-type "none")
-)
-
 (define-virtual set_scroll_adjustments
   (of-object "GtkLayout")
   (return-type "none")
