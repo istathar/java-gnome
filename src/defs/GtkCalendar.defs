@@ -70,15 +70,6 @@
   (return-type "GtkCalendarDisplayOptions")
 )
 
-(define-method display_options
-  (of-object "GtkCalendar")
-  (c-name "gtk_calendar_display_options")
-  (return-type "none")
-  (parameters
-    '("GtkCalendarDisplayOptions" "flags")
-  )
-)
-
 (define-method get_date
   (of-object "GtkCalendar")
   (c-name "gtk_calendar_get_date")
@@ -88,18 +79,6 @@
     '("guint*" "month" (null-ok))
     '("guint*" "day" (null-ok))
   )
-)
-
-(define-method freeze
-  (of-object "GtkCalendar")
-  (c-name "gtk_calendar_freeze")
-  (return-type "none")
-)
-
-(define-method thaw
-  (of-object "GtkCalendar")
-  (c-name "gtk_calendar_thaw")
-  (return-type "none")
 )
 
 (define-virtual month_changed
