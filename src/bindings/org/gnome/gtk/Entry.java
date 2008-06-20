@@ -119,7 +119,7 @@ public class Entry extends Widget implements Editable, CellEditable
      * Set whether the text in the Entry can be change by the user.
      */
     public void setEditable(boolean editable) {
-        GtkEntry.setEditable(this, editable);
+        GtkEditable.setEditable(this, editable);
     }
 
     /**
@@ -145,7 +145,7 @@ public class Entry extends Widget implements Editable, CellEditable
             throw new IllegalArgumentException(
                     "Position must be -1 to indicate you want it after the last character.");
         }
-        GtkEntry.setPosition(this, position);
+        GtkEditable.setPosition(this, position);
     }
 
     /**
