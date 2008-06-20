@@ -415,30 +415,6 @@
   )
 )
 
-(define-method widget_to_tree_coords
-  (of-object "GtkTreeView")
-  (c-name "gtk_tree_view_widget_to_tree_coords")
-  (return-type "none")
-  (parameters
-    '("gint" "wx")
-    '("gint" "wy")
-    '("gint*" "tx")
-    '("gint*" "ty")
-  )
-)
-
-(define-method tree_to_widget_coords
-  (of-object "GtkTreeView")
-  (c-name "gtk_tree_view_tree_to_widget_coords")
-  (return-type "none")
-  (parameters
-    '("gint" "tx")
-    '("gint" "ty")
-    '("gint*" "wx")
-    '("gint*" "wy")
-  )
-)
-
 (define-method enable_model_drag_source
   (of-object "GtkTreeView")
   (c-name "gtk_tree_view_enable_model_drag_source")
