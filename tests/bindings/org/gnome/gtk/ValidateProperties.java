@@ -285,7 +285,24 @@ public class ValidateProperties extends TestCaseGtk
          */
 
         entry.setHasFrame(false);
-
         assertEquals(false, GtkEntry.getHasFrame(entry));
+    }
+
+    public final void testButtonFocus() {
+        final Button button;
+
+        button = new Button("Hello");
+
+        /*
+         * Check default
+         */
+        assertEquals(true, GtkButton.getFocusOnClick(button));
+
+        /*
+         * Check our setter
+         */
+
+        button.setFocusOnClick(false);
+        assertEquals(false, GtkButton.getFocusOnClick(button));
     }
 }

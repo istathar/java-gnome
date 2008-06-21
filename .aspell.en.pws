@@ -998,6 +998,7 @@ elif
 ellipsized
 else's
 elsif
+emitClicked
 emplace
 enclosingGroup
 endif

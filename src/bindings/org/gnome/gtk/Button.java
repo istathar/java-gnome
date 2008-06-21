@@ -274,4 +274,17 @@ public class Button extends Bin
     public void emitClicked() {
         GtkButton.clicked(this);
     }
+
+    /**
+     * Set whether clicking the Button will cause the Button to grab the
+     * focus. The default is <code>true</code>, the behaviour you're
+     * accustomed to with regular Buttons. Setting this to <code>false</code>
+     * is only used in unusual situations like toolboxes where you don't want
+     * to steal focus away from where the main action is taking place.
+     * 
+     * @since 4.0.8
+     */
+    public void setFocusOnClick(boolean setting) {
+        GtkButton.setFocusOnClick(this, setting);
+    }
 }
