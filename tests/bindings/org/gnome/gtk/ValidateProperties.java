@@ -269,4 +269,23 @@ public class ValidateProperties extends TestCaseGtk
         i.setImage(data);
         i.clear();
     }
+
+    public final void testEntryStyleProperties() {
+        final Entry entry;
+
+        entry = new Entry();
+
+        /*
+         * Check default
+         */
+        assertEquals(true, GtkEntry.getHasFrame(entry));
+
+        /*
+         * Check our setter
+         */
+
+        entry.setHasFrame(false);
+
+        assertEquals(false, GtkEntry.getHasFrame(entry));
+    }
 }

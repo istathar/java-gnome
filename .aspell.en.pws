@@ -276,6 +276,7 @@ GtkContainer
 GtkDialog
 GtkEditable
 GtkEntry
+GtkEntryOverride
 GtkEventBox
 GtkExpander
 GtkFileChooser
@@ -1637,12 +1638,15 @@ setFullscreen
 setGravity
 setHAdjustment
 setHadjustment
+setHasFrame
 setHasResizeGrip
 setHeadersClickable
 setHeadersVisible
 setIcon
 setImage
 setInconsistent
+setIndent
+setInnerBorder
 setInvisibleChar
 setJustify
 setKeepAbove
@@ -1889,6 +1893,7 @@ writeToPng
 writeTranslationCode
 x's
 xFF
+xFFFC
 xFFFFFF
 xServerVirtual
 xalign
