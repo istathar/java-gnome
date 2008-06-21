@@ -278,6 +278,7 @@ GtkContainer
 GtkDialog
 GtkEditable
 GtkEntry
+GtkEntryOverride
 GtkEventBox
 GtkExpander
 GtkFileChooser
@@ -1040,6 +1041,7 @@ elif
 ellipsized
 else's
 elsif
+emitClicked
 emplace
 enclosingGroup
 endif
@@ -1732,13 +1734,14 @@ setFullscreen
 setGravity
 setHAdjustment
 setHadjustment
+setHasFrame
 setHasResizeGrip
 setHeadersClickable
 setHeadersVisible
 setIcon
 setImage
 setInconsistent
-setIndent
+setInnerBorder
 setInvisibleChar
 setJustify
 setKeepAbove
