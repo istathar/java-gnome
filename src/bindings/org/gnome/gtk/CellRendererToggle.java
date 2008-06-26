@@ -82,13 +82,13 @@ public class CellRendererToggle extends CellRenderer
 
     /**
      * Indicate if the CellRendererToggle's toggle button is actually
-     * activatable, which means that clicking the toggle button causes a change
-     * in the CellRendererToggle's state. Please note that toggling the toggle button
-     * does not cause a change in the underlying model.
-     *
+     * activatable, which means that clicking the toggle button causes a
+     * change in the CellRendererToggle's state. Please note that toggling the
+     * toggle button does not cause a change in the underlying model.
+     * 
      * <p>
      * A CellRendererToggle is activatable by default.
-     *
+     * 
      * @since 4.0.8
      */
     public void setActivatable(boolean setting) {
