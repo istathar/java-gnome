@@ -59,6 +59,7 @@ CellRendererPixbuf
 CellRendererText
 CellRendererText's
 CellRendererTexts
+CellRendererToggle
 CellRenderers
 CheckButton
 CheckButtons
@@ -91,6 +92,7 @@ DESTDIR
 DNS
 DVCS
 DataColumn
+DataColumn's
 DataColumnBoolean
 DataColumnInt
 DataColumnInteger
@@ -270,6 +272,7 @@ GtkCalendarDisplayOptions
 GtkCellLayout
 GtkCellRendererPixbuf
 GtkCellRendererText
+GtkCellRendererToggle
 GtkCheckButton
 GtkCheckMenuItem
 GtkComboBox
@@ -439,6 +442,7 @@ KeypadKeyval
 Keyval
 Keyval's
 Kpic
+Kuehntopf
 LCA
 LDFLAGS
 LHR
@@ -648,6 +652,7 @@ ToggleButton's
 ToggleButtons
 ToggleRef
 ToggleToolButton
+ToggledHandler
 ToogleToolButtons
 ToolBar
 ToolButton
@@ -892,6 +897,7 @@ createButtonWithMnemonic
 createCalendar
 createCellRendererPixbuf
 createCellRendererText
+createCellRendererToggle
 createCheckButton
 createCheckButtonWithMnemonic
 createCheckMenuItem
@@ -1790,6 +1796,7 @@ setPropertyLabel
 setPropertyObject
 setPropertyPixbuf
 setPropertyString
+setRadio
 setReference
 setRelief
 setReorderable
