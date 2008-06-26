@@ -35,13 +35,14 @@ public class CellRendererToggle extends CellRenderer
     }
 
     /**
-     * Indicate the appearance of this CellRenderer. If this is set to true a
-     * radio button is used instead of the default check box.
+     * Indicate the appearance of this CellRenderer. If this is set to
+     * <code>true</code> a radio button is used instead of the default check
+     * box.
      * 
      * @since 4.0.8
      */
-    public void setRadio(boolean radio) {
-        GtkCellRendererToggle.setRadio(this, true);
+    public void setRadio(boolean setting) {
+        GtkCellRendererToggle.setRadio(this, setting);
     }
 
     /**
