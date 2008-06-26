@@ -81,6 +81,21 @@ public class CellRendererToggle extends CellRenderer
     }
 
     /**
+     * Indicate if the CellRendererToggle's toggle button is actually
+     * activatable, which means that clicking the toggle button causes a change
+     * in the CellRendererToggle's state. Please note that toggling the toggle button
+     * does not cause a change in the underlying model.
+     *
+     * <p>
+     * A CellRendererToggle is activatable by default.
+     *
+     * @since 4.0.8
+     */
+    public void setActivatable(boolean setting) {
+        setPropertyBoolean("activatable", setting);
+    }
+
+    /**
      * Signal emitted after user toggles the rendered toggle button in a Cell.
      * 
      * <p>
@@ -113,7 +128,6 @@ public class CellRendererToggle extends CellRenderer
      * vertical = view.appendColumn();
      * CellRendererToggle renderer = new CellRendererToggle(vertical);
      * renderer.setActive(column);
-     * renderer.setEditable(true);
      * renderer.connect(new TOGGLED() {
      *     public void onToggled(CellRendererToggle renderer, TreePath path) {
      *         System.out.println(&quot;Path &quot; + path + &quot; toggled to &quot; + renderer.getActive());
