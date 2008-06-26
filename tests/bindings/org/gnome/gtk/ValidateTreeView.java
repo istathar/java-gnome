@@ -10,7 +10,6 @@
  */
 package org.gnome.gtk;
 
-
 /**
  * @author Andrew Cowie
  */
@@ -43,5 +42,46 @@ public class ValidateTreeView extends TestCaseGtk
         } catch (IllegalArgumentException iae) {
             // good
         }
+    }
+
+    public final void testCellRendererToggleProperties() {
+        final TreeView view;
+        final TreeViewColumn vertical;
+        final CellRendererToggle renderer;
+
+        view = new TreeView();
+        vertical = view.appendColumn();
+        renderer = new CellRendererToggle(vertical);
+
+        /*
+         * Check default
+         */
+        assertEquals(false, GtkCellRendererToggle.getRadio(renderer));
+
+        /*
+         * Check setter
+         */
+
+        renderer.setRadio(true);
+        assertEquals(true, GtkCellRendererToggle.getRadio(renderer));
+
+        /*
+         * Observe bug in setter
+         */
+
+        renderer.setRadio(false);
+        assertEquals(false, GtkCellRendererToggle.getRadio(renderer));
+
+        // and fixed.
+
+        /*
+         * Now check the fixed active property. Same sequenece as above.
+         */
+
+        assertEquals(false, renderer.getActive());
+        renderer.setActive(true);
+        assertEquals(true, renderer.getActive());
+        renderer.setActive(false);
+        assertEquals(false, renderer.getActive());
     }
 }
