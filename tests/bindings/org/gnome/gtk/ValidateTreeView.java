@@ -44,7 +44,7 @@ public class ValidateTreeView extends TestCaseGtk
         }
     }
 
-    public final void testCellRendererToggleActiveBug() {
+    public final void testCellRendererToggleProperties() {
         final TreeView view;
         final TreeViewColumn vertical;
         final CellRendererToggle renderer;
@@ -73,5 +73,15 @@ public class ValidateTreeView extends TestCaseGtk
         assertEquals(false, GtkCellRendererToggle.getRadio(renderer));
 
         // and fixed.
+
+        /*
+         * Now check the fixed active property. Same sequenece as above.
+         */
+
+        assertEquals(false, renderer.getActive());
+        renderer.setActive(true);
+        assertEquals(true, renderer.getActive());
+        renderer.setActive(false);
+        assertEquals(false, renderer.getActive());
     }
 }

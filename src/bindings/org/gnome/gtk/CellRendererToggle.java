@@ -46,21 +46,21 @@ public class CellRendererToggle extends CellRenderer
     }
 
     /**
-     * Indicate if the CellRenderer's toggle button should be active.
+     * Indicate if the CellRendererToggle's toggle button should be active.
      * 
      * <p>
      * If you want to bind the state of the toggle button to a DataColumn you
      * might want to use the overloaded method
-     * {@link #setActive(DataColumnBoolean) setActive()}
+     * {@link #setActive(DataColumnBoolean) setActive()}.
      * 
      * @since 4.0.8
      */
-    public void setActive(boolean active) {
-        GtkCellRendererToggle.setActive(this, active);
+    public void setActive(boolean setting) {
+        GtkCellRendererToggle.setActive(this, setting);
     }
 
     /**
-     * Get the current state of the toggle button
+     * Get the current state of the toggle button.
      * 
      * @since 4.0.8
      */
@@ -69,9 +69,10 @@ public class CellRendererToggle extends CellRenderer
     }
 
     /**
-     * Indicate the DataColumn the state of the CellRendererBoolean is bound
-     * to. This is the mapping method you should use if you want to bind the
-     * toggle button's state to a DataColumn's value.
+     * Indicate a DataColumnBoolean you want the state of the
+     * CellRendererToggle to be bound to. This is the method you should use if
+     * you want make the toggle's state dynamic based on data in the TreeModel
+     * underlying the TreeView you are presenting in.
      * 
      * @since 4.0.8
      */
@@ -80,8 +81,7 @@ public class CellRendererToggle extends CellRenderer
     }
 
     /**
-     * Signal generated after user toggles the renderered toggle button in a
-     * Cell.
+     * Signal emitted after user toggles the rendered toggle button in a Cell.
      * 
      * <p>
      * Note that the act of toggling the cell does not cause a change in the
@@ -103,22 +103,22 @@ public class CellRendererToggle extends CellRenderer
      * final DataColumnBoolean column;
      * final TreeView view;
      * final ListStore store;
-     * final TreeViewColumn visibleColumn 
+     * final TreeViewColumn vertical;
      * 
      * store = new ListStore(new DataColumn[] {
-     *      column = new DataColumnBoolean()
+     *     column = new DataColumnBoolean()
      * });
-     *      
+     * 
      * view = new TreeView(store);
-     * visibleColumn = view.appendColumn();
-     * CellRendererToggle renderer = new CellRendererToggle(visibleColumn);
+     * vertical = view.appendColumn();
+     * CellRendererToggle renderer = new CellRendererToggle(vertical);
      * renderer.setActive(column);
      * renderer.setEditable(true);
      * renderer.connect(new TOGGLED() {
-     *       public void onToggled(CellRendererToggle renderer, TreePath path) {       
-     *              System.out.println(&quot;Path &quot; + path + &quot; toggled to &quot; + 
-     *                  renderer.getActive());
-     *       }});
+     *     public void onToggled(CellRendererToggle renderer, TreePath path) {
+     *         System.out.println(&quot;Path &quot; + path + &quot; toggled to &quot; + renderer.getActive());
+     *     }
+     * });
      * </pre>
      * 
      * @since 4.0.8
@@ -134,7 +134,7 @@ public class CellRendererToggle extends CellRenderer
     {
         private TOGGLED handler;
 
-        public ToggledHandler(TOGGLED handler) {
+        private ToggledHandler(TOGGLED handler) {
             this.handler = handler;
         }
 
