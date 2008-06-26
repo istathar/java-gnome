@@ -62,8 +62,8 @@ public class TreeViewColumn extends Object implements CellLayout
 
     /**
      * Gets the Title of this TreeViewColumn. Please see
-     * {@link TreeView#setTitle(String) setTitle()} for further
-     * Informations about TreeViewColumn titles.
+     * {@link TreeView#setTitle(String) setTitle()} for further information
+     * about TreeViewColumn titles.
      * 
      * @since 4.0.8
      */

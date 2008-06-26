@@ -690,9 +690,13 @@ public class TreeView extends Container
     }
 
     /**
-     * Get the TreeViewColumn at the given position
-     * in the TreeView counting from 0.
-     *
+     * Get the TreeViewColumn at the given position in the TreeView, with
+     * <code>0</code> being the left-most one.
+     * 
+     * <p>
+     * If they know they are going to need it later, most people just keep a
+     * reference to the TreeViewColumn around when they create it.
+     * 
      * @since 4.0.8
      */
     public TreeViewColumn getColumn(int index) {
@@ -700,19 +704,23 @@ public class TreeView extends Container
     }
 
     /**
-     * Set the current keyboard focus to be at a specific path in a
-     * treeview. Because this method selects the row at <code>path</code>,
-     * it is useful for focusing the user's attention to a particular row. 
-     * If <code>col</code> is set the particular column is selected.
-     *
+     * Set the current keyboard focus to be at a specific path in the
+     * TreeView. This method selects the row at <code>path</code>, and as a
+     * result is often used to draw a user's attention to a particular place.
+     * 
      * <p>
-     * Setting <code>startEdit</code> to <code>true</code> causes the treeview
-     * to immediately start editing the specified row and column.
-     *
+     * If <code>vertical</code> is supplied, the specific TreeViewColumn
+     * indicated is selected. This is usually used in concert with setting
+     * <code>startEditing</code> to <code>true</code> which causes the
+     * TreeView to immediately start editing at the the specified row and
+     * column (assuming, of course, that that CellRenderer has been made
+     * mutable. See
+     * {@link CellRendererText#setEditable(boolean) setEditable()}).
+     * 
      * @since 4.0.8
      */
-    public void setCursor(TreePath path, TreeViewColumn column, boolean startEdit) {
-        GtkTreeView.setCursor(this, path, column, startEdit);
+    public void setCursor(TreePath path, TreeViewColumn vertical, boolean startEditing) {
+        GtkTreeView.setCursor(this, path, vertical, startEditing);
     }
 
 }
