@@ -84,4 +84,23 @@ public class ValidateTreeView extends TestCaseGtk
         renderer.setActive(false);
         assertEquals(false, renderer.getActive());
     }
+
+    /*
+     * Test if getting a column by index works as expected
+     */
+    public final void testGetColumn() {
+        final TreeView view;
+        final TreeViewColumn vertical, out;
+        final String testName = "Test";
+
+        view = new TreeView();
+        vertical = view.appendColumn();
+        vertical.setTitle(testName);
+
+        out = view.getColumn(0);
+
+        assertNotNull(out);
+        assertEquals(testName, out.getTitle());
+        assertSame(vertical, out);
+    }
 }
