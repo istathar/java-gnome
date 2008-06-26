@@ -688,4 +688,31 @@ public class TreeView extends Container
     public void collapseAll() {
         GtkTreeView.collapseAll(this);
     }
+
+    /**
+     * Get the TreeViewColumn at the given position
+     * in the TreeView counting from 0.
+     *
+     * @since 4.0.8
+     */
+    public TreeViewColumn getColumn(int index) {
+        return GtkTreeView.getColumn(this, index);
+    }
+
+    /**
+     * Set the current keyboard focus to be at a specific path in a
+     * treeview. Because this method selects the row at <code>path</code>,
+     * it is useful for focusing the user's attention to a particular row. 
+     * If <code>col</code> is set the particular column is selected.
+     *
+     * <p>
+     * Setting <code>startEdit</code> to <code>true</code> causes the treeview
+     * to immediately start editing the specified row and column.
+     *
+     * @since 4.0.8
+     */
+    public void setCursor(TreePath path, TreeViewColumn column, boolean startEdit) {
+        GtkTreeView.setCursor(this, path, column, startEdit);
+    }
+
 }
