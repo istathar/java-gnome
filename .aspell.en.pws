@@ -60,6 +60,7 @@ CellRendererText
 CellRendererText's
 CellRendererTexts
 CellRendererToggle
+CellRendererToggle's
 CellRenderers
 CheckButton
 CheckButtons
@@ -1688,6 +1689,7 @@ selectURI
 serialVersionUID
 setAboveChild
 setAction
+setActivatable
 setActive
 setActiveIter
 setAlignment
