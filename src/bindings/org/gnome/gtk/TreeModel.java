@@ -500,6 +500,6 @@ public abstract class TreeModel extends org.gnome.glib.Object
      * @since 4.0.6
      */
     public void connect(TreeModel.ROW_CHANGED handler) {
-        GtkTreeModel.connect(this, handler);
+        GtkTreeModel.connect(this, handler, false);
     }
 }

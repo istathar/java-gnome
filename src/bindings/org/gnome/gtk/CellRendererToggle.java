@@ -138,7 +138,7 @@ public class CellRendererToggle extends CellRenderer
      * @since 4.0.8
      */
     public void connect(TOGGLED handler) {
-        GtkCellRendererToggle.connect(this, new ToggledHandler(handler));
+        GtkCellRendererToggle.connect(this, new ToggledHandler(handler), false);
     }
 
     /*

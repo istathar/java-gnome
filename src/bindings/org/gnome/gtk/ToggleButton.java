@@ -70,6 +70,6 @@ public class ToggleButton extends Button
     }
 
     public void connect(TOGGLED handler) {
-        GtkToggleButton.connect(this, handler);
+        GtkToggleButton.connect(this, handler, false);
     }
 }

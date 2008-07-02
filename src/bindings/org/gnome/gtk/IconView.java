@@ -196,7 +196,7 @@ public class IconView extends Container implements CellLayout
      * @since 4.0.7
      */
     public void connect(ITEM_ACTIVATED handler) {
-        GtkIconView.connect(this, handler);
+        GtkIconView.connect(this, handler, false);
     }
 
     /**
@@ -263,6 +263,6 @@ public class IconView extends Container implements CellLayout
      * @since 4.0.7
      */
     public void connect(SELECTION_CHANGED handler) {
-        GtkIconView.connect(this, handler);
+        GtkIconView.connect(this, handler, false);
     }
 }

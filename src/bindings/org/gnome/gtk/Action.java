@@ -329,7 +329,7 @@ public class Action extends Object
      * Connect a handler to the <code>ACTIVATE</code> signal.
      */
     public void connect(ACTIVATE handler) {
-        GtkAction.connect(this, handler);
+        GtkAction.connect(this, handler, false);
     }
 
     /**

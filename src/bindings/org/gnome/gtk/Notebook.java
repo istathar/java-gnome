@@ -120,7 +120,7 @@ public class Notebook extends Container
      * Connects a <code>CHANGE_CURRENT_PAGE</code> handler to the Notebook.
      */
     public void connect(CHANGE_CURRENT_PAGE handler) {
-        GtkNotebook.connect(this, handler);
+        GtkNotebook.connect(this, handler, false);
     }
 
     /**
