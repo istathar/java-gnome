@@ -59,8 +59,6 @@ public final class FontDescription extends Boxed
      * 
      * <p>
      * Examples are "Sans Bold 27"
-     * 
-     * @param str
      */
     public FontDescription(String str) {
         super(PangoFontDescription.createFontDescriptionFromString(str));

@@ -2,7 +2,7 @@
  * ExamplePangoText.java
  *
  * Copyright (c) 2007-2008 Operational Dynamics Consulting Pty Ltd
- * Copyright (c) 2008 Vreixo Formoso
+ * Copyright (c) 2008      Vreixo Formoso
  * 
  * The code in this file, and the library it is a part of, are made available
  * to you by the authors under the terms of the "GNU General Public Licence,
@@ -47,7 +47,7 @@ public class ExamplePangoText
             public boolean onExposeEvent(Widget source, EventExpose event) {
                 final Context cr;
                 final Layout layout;
-                final FontDescription font;
+                final FontDescription desc;
 
                 /*
                  * We need a Cairo context...
@@ -65,8 +65,8 @@ public class ExamplePangoText
                 /*
                  * You can set the default font description.
                  */
-                font = new FontDescription("Times 12");
-                layout.setFontDescription(font);
+                desc = new FontDescription("Times New Roman, 12");
+                layout.setFontDescription(desc);
 
                 /*
                  * The usage of Pango markup is an easy way to get text
@@ -81,7 +81,7 @@ public class ExamplePangoText
                  * You can set the alignment of the Layout. Note that you
                  * should set its width too.
                  */
-                layout.setWidth(200000);
+                layout.setWidth(150 * 1024);
                 layout.setAlignment(Alignment.CENTER);
 
                 /*
@@ -94,7 +94,7 @@ public class ExamplePangoText
                  * We can also specify some attributes (such as the color)
                  * with usual Cairo functions.
                  */
-                cr.setSourceRGB(1, 0, 0);
+                cr.setSourceRGB(0.1, 0.5, 0.7);
 
                 /*
                  * And finally, we draw the text!
