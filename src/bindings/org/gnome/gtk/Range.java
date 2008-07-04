@@ -69,6 +69,6 @@ public abstract class Range extends Widget
      * @since 4.0.6
      */
     public void connect(Range.VALUE_CHANGED handler) {
-        GtkRange.connect(this, handler);
+        GtkRange.connect(this, handler, false);
     }
 }

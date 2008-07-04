@@ -65,7 +65,7 @@ bindings_java_toggle
 		 * GObject, and remove strong Java reference
 		 */
 		if (DEBUG_MEMORY_MANAGEMENT) {
-			g_print("mem: toggle Java ref to WEAK\t%ld\n", (long) object);
+			g_print("mem: toggle Java ref to WEAK\t%s\n", bindings_java_memory_pointerToString(object));
 		}
 		weak = (*env)->NewWeakGlobalRef(env, ref);
 		g_object_set_data(object, REFERENCE, weak);
@@ -77,7 +77,7 @@ bindings_java_toggle
 		 * replaced it with a strong one. 
 		 */
 		if (DEBUG_MEMORY_MANAGEMENT) {
-			g_print("mem: toggle Java ref to STRONG\t%ld\n", (long) object);
+			g_print("mem: toggle Java ref to STRONG\t%s\n", bindings_java_memory_pointerToString(object));
 		}
 
 		strong = (*env)->NewGlobalRef(env, ref);
@@ -109,7 +109,7 @@ bindings_java_memory_deref
         
                 
 	if (DEBUG_MEMORY_MANAGEMENT) {
-		g_print("mem: drop GObject ref\t\t%ld\n", (long) object);
+		g_print("mem: drop GObject ref\t\t%s\n", bindings_java_memory_pointerToString(object));
 	}
         g_object_unref(object);
         return FALSE;
@@ -145,7 +145,7 @@ bindings_java_memory_ref
 	 */
  
  	if (DEBUG_MEMORY_MANAGEMENT) {
- 		g_print("mem: add STRONG Java ref\t%ld\n", (long) object);
+ 		g_print("mem: add STRONG Java ref\t%s\n", bindings_java_memory_pointerToString(object));
  	}
 	strong = (*env)->NewGlobalRef(env, target);
 	g_object_set_data(object, REFERENCE, strong);
@@ -158,34 +158,10 @@ bindings_java_memory_ref
 	g_object_add_toggle_ref(object, bindings_java_toggle, NULL);
 
 	/*
-	 * All GObjects are created with an initial ref, owned by the caller.
-	 * The ToggleRef we just created makes a second ref. We need to drop
-	 * the original.
-	 *
-	 * In GTK, most objects are subclasses of GtkObject which are 
-	 * derived from GInitiallyUnowned, marking them to be created with
-	 * a "floating" ref for better API convenience when working in C. That
-	 * reference must be "sunk" (us taking ownership of the Ref), then
-	 * likewise dropped.
-	 *
-	 * In some very rare situations, however, GTK will have sunk the Ref
-	 * already (the primary example is GtkWindow for which GTK sinks the
-	 * reference and uses it to connect to the X server) in which case we
-	 * must NOT drop the Ref we don't own. 
-	 *
-	 * To prevent memory leaks, we must take care about all these
-	 * situations.
+	 * And drop the reference we originally own. Note that our automatically
+	 * generated code ensure we always own a ref, adding it if we don't have
+	 * such reference originally.
 	 */
-	if (G_IS_INITIALLY_UNOWNED(object)) {
-		if (!g_object_is_floating(object)) {
-			return;
-		}
-		        
-		if (DEBUG_MEMORY_MANAGEMENT) {
-			g_print("mem: sink GObject ref\t\t%ld\n", (long) object);
-		}
-		g_object_ref_sink(object);
-	}
 	g_idle_add(bindings_java_memory_deref, object);
 }
 
@@ -213,8 +189,89 @@ bindings_java_memory_unref
 )
 {
 	if (DEBUG_MEMORY_MANAGEMENT) {
-		g_print("mem: remove toggle ref for\t%ld\n", (long) object);
+		g_print("mem: remove toggle ref for\t%s\n", bindings_java_memory_pointerToString(object));
 	}
 
 	g_object_remove_toggle_ref(object, bindings_java_toggle, NULL);
+}
+
+void
+bindings_java_memory_cleanup
+(
+    GObject* object,
+    gboolean owner
+)
+{
+    if (g_object_get_data(object, REFERENCE) == NULL) {
+        
+        /* 
+         * We don't have a proxy for the given object. If we own the object,
+         * we don't need to do anything, as Object constructor will take care
+         * of adding the toggle ref and removing the ref we own. There is an
+         * exception, however, as for GInitiallyUnowned we need to sink the
+         * reference if we have one.
+         * 
+         * If we don't own the object, we need to add a new ref, that will be
+         * later removed by the Proxy constructor.
+         */
+        if (owner) {
+            if (G_IS_INITIALLY_UNOWNED(object) && g_object_is_floating(object)) {
+                if (DEBUG_MEMORY_MANAGEMENT) {
+                    g_print("mem: sink GObject ref\t\t%s\n", bindings_java_memory_pointerToString(object));
+                }
+                g_object_ref_sink(object);
+            }
+        } else {
+            /*
+             * We do not own the object, so we need to add an extra ref, as
+             * Object constructor assumes we actually own the object.
+             */
+            if (DEBUG_MEMORY_MANAGEMENT) {
+                g_print("mem: added extra ref for\t%s\n", bindings_java_memory_pointerToString(object));
+            }
+            g_object_ref(object);
+        }
+    } else {
+        /*
+         * We already have a proxy for the object. So we already have our 
+         * toggle ref. Thus, if a methods adds an extra ref, we need to drop
+         * it. 
+         * TODO does such behavior exist in Gtk+?
+         */
+        if (owner) {
+            if (DEBUG_MEMORY_MANAGEMENT) {
+                g_print("mem: remove ref for\t%s\n", bindings_java_memory_pointerToString(object));
+            }
+            g_object_unref(object);
+        }
+    }
+}
+
+#if GLIB_SIZEOF_VOID_P == 8
+#define WIDTH "16"
+#define SIZE GLIB_SIZEOF_VOID_P * 2 + 3
+#else
+#define WIDTH "8"
+#define SIZE GLIB_SIZEOF_VOID_P * 2 + 3
+#endif
+
+/*
+ * A utility function to format a pointer address as an appropriate width
+ * string. This is necessary because of the inadequecies of printf's %p.
+ * The return value is statically allocated and must not be free'd. 
+ * 
+ * This is called when debugging, both from C and from Java via
+ * Plumbing.toHexString()
+ */
+const gchar*
+bindings_java_memory_pointerToString
+(
+	gpointer pointer
+)
+{
+	static gchar result[SIZE];
+	
+	g_snprintf(result, SIZE, "0x%." WIDTH "lX", (unsigned long) pointer);
+	
+	return result;
 }

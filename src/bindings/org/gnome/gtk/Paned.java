@@ -14,8 +14,8 @@ package org.gnome.gtk;
 
 /**
  * Base type for Containers that dispose child Widgets in two panes, arranged
- * either horizantally ({@link HPaned HPaned}) or vertically ({@link VPaned VPaned}).
- * A Paned will have two children, refered as child <code>1</code> and
+ * either horizontally ({@link HPaned HPaned}) or vertically ({@link VPaned VPaned}).
+ * A Paned will have two children, referred as child <code>1</code> and
  * <code>2</code>.
  * 
  * <p>
@@ -33,7 +33,7 @@ package org.gnome.gtk;
  * 
  * <p>
  * Note that Paned should only be used when we really need to allow users to
- * dinamically change the way size is distributed between the two children.
+ * dynamically change the way size is distributed between the two children.
  * Otherwise, a {@link HBox HBox} or {@link VBox VBox} would be a better
  * choice.
  * 
@@ -51,7 +51,7 @@ public abstract class Paned extends Container
      * case of HPaned) pane.
      * 
      * <p>
-     * This call is equilavent to
+     * This call is equivalent to
      * {@link #pack1(Widget, boolean, boolean) pack1(child, false, true)}.
      * 
      * @since 4.0.7
@@ -65,7 +65,7 @@ public abstract class Paned extends Container
      * (in case of HPaned) pane.
      * 
      * <p>
-     * This call is equilavent to
+     * This call is equivalent to
      * {@link #pack2(Widget, boolean, boolean) pack2(child, false, true)}.
      * 
      * @since 4.0.7

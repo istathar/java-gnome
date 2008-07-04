@@ -3,7 +3,7 @@
  *
  * Copyright (c) 2007 Operational Dynamics Consulting Pty Ltd
  * 
- * The code in this file, and the library it is a part of, are made available
+ * The code in this file, and the suite it is a part of, are made available
  * to you by the authors under the terms of the "GNU General Public Licence,
  * version 2" See the LICENCE file for the terms governing usage and
  * redistribution.
@@ -53,5 +53,16 @@ public class ValidateBoxeds extends TestCaseGtk
          */
         assertFalse(white.equals(Color.BLACK));
         assertTrue(white.equals(Color.WHITE));
+    }
+
+    public final void testRectangle() {
+        final Rectangle original;
+
+        original = new Rectangle(26, 127, 228, 329);
+
+        assertEquals(26, original.getX());
+        assertEquals(127, original.getY());
+        assertEquals(228, original.getWidth());
+        assertEquals(329, original.getHeight());
     }
 }

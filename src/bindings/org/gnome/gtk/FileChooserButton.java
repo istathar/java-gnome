@@ -110,7 +110,7 @@ public class FileChooserButton extends HBox implements FileChooser
      * @since 4.0.5
      */
     public void connect(FILE_SET handler) {
-        GtkFileChooserButton.connect(this, handler);
+        GtkFileChooserButton.connect(this, handler, false);
     }
 
     public boolean setFilename(String filename) {

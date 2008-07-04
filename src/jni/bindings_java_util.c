@@ -12,6 +12,8 @@
 
 #include <jni.h>
 #include <glib.h>
+#include <stdlib.h>
+#include <stdio.h>
 #include "bindings_java.h"
 
 static JavaVM*	cachedJavaVM;
@@ -47,24 +49,39 @@ JNI_OnLoad
 JNIEnv*
 bindings_java_getEnv()
 {
-	JNIEnv* env;
+	JNIEnv* env = NULL;
+	JavaVMAttachArgs args = { 0, };
+	static int i = 0; 
 	jint result;
 
 	result = (*cachedJavaVM)->GetEnv(cachedJavaVM, (void **) &env, JNI_VERSION_1_4);
-	if (env == NULL) {
-		switch (result) {
-		case JNI_EDETACHED:
-			g_critical("Tried to get JNIEnv but this thread detached");
-			// and attach?
-			break;
-			
-		case JNI_EVERSION:
-			g_error("Trying to get JNIEnv resulted in version error.");
-			break;
-		}
-		return NULL;
+	if (env != NULL) {
+		return env;
 	}
-	return env;
+	
+	switch (result) {	
+	case JNI_EDETACHED:
+		args.version = JNI_VERSION_1_4;
+		args.name = g_strdup_printf("NativeThread%d", i++);
+
+		result = (*cachedJavaVM)->AttachCurrentThreadAsDaemon(cachedJavaVM, (void **) &env, &args);
+		if ((result == JNI_OK) && (env != NULL)) {
+			g_free(args.name);
+			return env;
+		}
+		
+		g_printerr("\nTried to get JNIEnv but thread detached and attempt to attach failed.\n");
+		break;
+	
+	case JNI_EVERSION:
+		g_printerr("Trying to get JNIEnv resulted in version error.\n");
+		break;
+	}
+
+	fflush(stderr);
+	exit(2);
+
+	return NULL;
 }
 
 
@@ -322,11 +339,20 @@ bindings_java_logging_handler
 	case G_LOG_LEVEL_WARNING:
 		/*
 		 * Whether or not to throw on WARNING here is an open
-		 * question. As people can tell GLib to make warnings fatal,
-		 * we can probably leave it to flow on to the log handler,
-		 * but there is a good case to be made to have warnings
-		 * result in our FatalError.
+		 * question. Although the "--g-fatal-warnings" GTK option
+		 * allows people to tell GLib to make warnings fatal, their
+		 * idea of fatal is to print the WARNING and then to abort!
+		 * 
+		 * So the alternatives open to us are to leave it to flow on
+		 * to the default log handler, or to throw our FatalError.
+		 * During development we're going to have this on. Whether we
+		 * take it out for releases remains to be decided.
 		 */
+#if TRUE
+		level = "WARNING";
+		break;
+#endif
+
 	default:
 		g_log_default_handler(log_domain, log_level, message, user_data);
 		return;

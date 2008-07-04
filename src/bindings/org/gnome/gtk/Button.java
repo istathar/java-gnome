@@ -1,7 +1,7 @@
 /*
  * Button.java
  *
- * Copyright (c) 2006-2007 Operational Dynamics Consulting Pty Ltd, and Others
+ * Copyright (c) 2006-2008 Operational Dynamics Consulting Pty Ltd, and Others
  * 
  * The code in this file, and the library it is a part of, are made available
  * to you by the authors under the terms of the "GNU General Public Licence,
@@ -72,8 +72,7 @@ public class Button extends Bin
      * @since 4.0.0
      */
     public Button(String text) {
-        // TODO replace with GtkButton.createButtonWithMnemonic(text) ?
-        super(GtkButton.createButtonWithLabel(text));
+        super(GtkButton.createButtonWithMnemonic(text));
     }
 
     /**
@@ -118,8 +117,7 @@ public class Button extends Bin
      * @since 4.0.0
      */
     public String getLabel() {
-        // return GtkButton.getLabel(this);
-        return super.getPropertyString("label");
+        return GtkButton.getLabel(this);
     }
 
     /**
@@ -209,9 +207,7 @@ public class Button extends Bin
      * @since 4.0.1
      */
     public ReliefStyle getRelief() {
-        // return GtkButton.getRelief(this);
-        // TODO use real translation layer method
-        return (ReliefStyle) getPropertyEnum("relief");
+        return GtkButton.getRelief(this);
     }
 
     /**
@@ -259,7 +255,7 @@ public class Button extends Bin
      * @since 4.0.0
      */
     public void connect(CLICKED handler) {
-        GtkButton.connect(this, handler);
+        GtkButton.connect(this, handler, false);
     }
 
     /*
@@ -277,5 +273,18 @@ public class Button extends Bin
      */
     public void emitClicked() {
         GtkButton.clicked(this);
+    }
+
+    /**
+     * Set whether clicking the Button will cause the Button to grab the
+     * focus. The default is <code>true</code>, the behaviour you're
+     * accustomed to with regular Buttons. Setting this to <code>false</code>
+     * is only used in unusual situations like toolboxes where you don't want
+     * to steal focus away from where the main action is taking place.
+     * 
+     * @since 4.0.8
+     */
+    public void setFocusOnClick(boolean setting) {
+        GtkButton.setFocusOnClick(this, setting);
     }
 }

@@ -87,6 +87,6 @@ public class ToggleToolButton extends ToolButton
      * Connect a handler to the <code>TOGGLED</code> signal.
      */
     public void connect(TOGGLED handler) {
-        GtkToggleToolButton.connect(this, handler);
+        GtkToggleToolButton.connect(this, handler, false);
     }
 }

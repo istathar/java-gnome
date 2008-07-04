@@ -35,7 +35,7 @@ public class ImageSurface extends Surface
     }
 
     public ImageSurface(Format format, int width, int height) {
-        super(CairoImageSurface.createSurface(format, width, height));
+        super(CairoSurface.createSurface(format, width, height));
         checkStatus();
     }
 }

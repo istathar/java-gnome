@@ -74,10 +74,7 @@ public class ListStore extends TreeModel implements TreeDragSource, TreeDragDest
     public ListStore(DataColumn[] types) {
         super(GtkTreeModelOverride.createListStore(typesToClassNames(types)));
     }
-    
-    /**
-     * @see TreeModel#dispatch(TreeIter, DataColumn, Value)
-     */
+
     protected void dispatch(TreeIter row, DataColumn column, Value value) {
         GtkListStore.setValue(this, row, column.getOrdinal(), value);
     }
@@ -109,5 +106,69 @@ public class ListStore extends TreeModel implements TreeDragSource, TreeDragDest
 
     public void setSortColumn(DataColumn column, SortType ordering) {
         GtkTreeSortable.setSortColumnId(this, column.getOrdinal(), ordering);
+    }
+
+    /**
+     * Delete a row from the ListStore. If there is another row after this
+     * then <code>true</code> will be returned and <code>row</code> will
+     * still be valid. Otherwise, <code>false</code> is returned and
+     * <code>row</code> is invalid from here on.
+     * 
+     * @since 4.0.7
+     */
+    public boolean removeRow(TreeIter row) {
+        return GtkListStore.remove(this, row);
+    }
+
+    /**
+     * Insert a new row in the ListStore. The row will be placed at
+     * <code>position</code>, which must be between <code>0</code> and
+     * the number or rows in the model.
+     * 
+     * <p>
+     * If you have a TreeIter pointing at a row already you can instead use
+     * the other form of {@link #insertRow(TreeIter) insertRow()} to inject an
+     * new row there.
+     * 
+     * <p>
+     * As with {@link #appendRow() appendRow()} the new row will be empty;
+     * you'll need to call one of the various <code>setValue()</code>
+     * methods to populate it.
+     * 
+     * @since 4.0.7
+     */
+    public TreeIter insertRow(int position) {
+        final TreeIter iter;
+
+        if (position < 0) {
+            throw new IllegalArgumentException("position can't be negative");
+        }
+
+        iter = new TreeIter(this);
+
+        GtkListStore.insert(this, iter, position);
+
+        return iter;
+    }
+
+    /**
+     * Insert a new row in the ListStore. The empty row will be placed in
+     * front of the supplied <code>sibling</code>.
+     * 
+     * <p>
+     * Alternately, see {@link #insertRow(int) insertRow()} to insert a row at
+     * a given position, and {@link #appendRow() appendRow()} to add a blank
+     * row at the end of the model.
+     * 
+     * @since 4.0.7
+     */
+    public TreeIter insertRow(TreeIter sibling) {
+        final TreeIter iter;
+
+        iter = new TreeIter(this);
+
+        GtkListStore.insertBefore(this, iter, sibling);
+
+        return iter;
     }
 }

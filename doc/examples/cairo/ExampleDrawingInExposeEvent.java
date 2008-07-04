@@ -1,9 +1,9 @@
 /*
  * ExampleDrawingInExposeEvent.java
  *
- * Copyright (c) 2007-2008 Operational Dynamics Consulting Pty Ltd
+ * Copyright (c) 2007-2008 Operational Dynamics Consulting Pty Ltd, and Others
  * 
- * The code in this file, and the library it is a part of, are made available
+ * The code in this file, and the program it is a part of, are made available
  * to you by the authors under the terms of the "GNU General Public Licence,
  * version 2" See the LICENCE file for the terms governing usage and
  * redistribution.
@@ -16,11 +16,15 @@ import org.freedesktop.cairo.Pattern;
 import org.freedesktop.cairo.RadialPattern;
 import org.gnome.gdk.Event;
 import org.gnome.gdk.EventExpose;
+import org.gnome.gdk.Pixbuf;
+import org.gnome.gdk.PixbufFormat;
 import org.gnome.gdk.Rectangle;
 import org.gnome.gtk.Gtk;
 import org.gnome.gtk.Image;
+import org.gnome.gtk.Snapshot;
 import org.gnome.gtk.Widget;
 import org.gnome.gtk.Window;
+import org.gnome.screenshot.Screenshot;
 
 /**
  * Exercise drawing with the Cairo API. If you are rendering a custom Widget
@@ -31,7 +35,7 @@ import org.gnome.gtk.Window;
  * @author Carl Worth
  */
 /*
- * TODO rename this once more once we actually draw something interesting!
+ * TODO rename this once we actually draw something interesting!
  */
 /*
  * Gradient example from the Cairo Tutorial.
@@ -106,7 +110,7 @@ public class ExampleDrawingInExposeEvent
                 linear.addColorStopRGB(0.0, 0.0, 0.3, 0.8);
                 linear.addColorStopRGB(1.0, 0.0, 0.8, 0.3);
 
-                radial = new RadialPattern(75, 75, 0, 75, 75, 50);
+                radial = new RadialPattern(75, 75, 15, 75, 75, 60);
                 radial.addColorStopRGBA(0, 0.0, 0.0, 0.0, 0.0);
                 radial.addColorStopRGBA(1, 0.0, 0.0, 0.0, 1.0);
 

@@ -31,9 +31,6 @@
 	binary</a>
 </div>
 
-<p style="margin-bottom: 0px;"><i>You can help by ensuring java-gnome is properly packaged for your 
-operating system!</i></p>
-
 <table cellpadding="0" cellspacing="0" border="0">
 <tr style="vertical-align: top;">
 <td style="padding-right: 15px;">
@@ -97,6 +94,7 @@ the library on your system.</p>
 <ul>
 <li><p><a class="subject" href="gentoo.php">Gentoo Linux</a><br></p>
 <li><p><a class="subject" href="arch.php">Arch Linux</a><br></p>
+<li><p><a class="subject" href="debian.php">Debian Linux</a><br></p>
 </ul>
 
 <p>
@@ -108,7 +106,6 @@ it is certainly time to file a bug report!</p>
 
 <ul>
 <li><p><a class="subject" href="ubuntu.php">Ubuntu Linux</a><br></p>
-<li><p><a class="subject" href="debian.php">Debian Linux</a><br></p>
 <li><p><a class="subject" href="solaris.php">Open Solaris</a><br></p>
 <li><p><a class="subject" href="fedora.php">Fedora Core Linux</a><br></p>
 </ul>
@@ -121,6 +118,10 @@ do so you will find that the level of community interest and support will be
 quite high. Those on other platforms will necessarily meet with a less
 enthusiastic response, but Open Source is about choice, so try java-gnome
 where ever you like.</i></p>
+
+<p><i>You can help by ensuring java-gnome is properly packaged for your 
+operating system!</i></p>
+
 
 </td>
 </tr>

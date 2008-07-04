@@ -108,7 +108,7 @@ public class Time
      *            the number of seconds since Epoch being the date/time group
      *            you wish to present according to <code>format</code>.
      * @see <a
-     *      href="http://manpages.courier-mta.org/htmlman3/strftime.3.html">strftime(3)</a>.
+     *      href="http://manpages.courier-mta.org/htmlman3/strftime.3.html">strftime(3)</a>
      */
     public static String formatTime(final String format, final long when) {
         if (format == null) {
@@ -145,7 +145,7 @@ public class Time
      * @param second
      *            the second, <code>0-59</code>
      * @see <a
-     *      href="http://manpages.courier-mta.org/htmlman3/ctime.3.html">mktime(3)</a>.
+     *      href="http://manpages.courier-mta.org/htmlman3/ctime.3.html">mktime(3)</a>
      */
     public static long makeTime(final int year, final int month, final int day, final int hour,
             final int minute, final int second) {

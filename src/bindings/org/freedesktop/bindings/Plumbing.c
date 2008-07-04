@@ -66,3 +66,23 @@ Java_org_freedesktop_bindings_Plumbing_createFlag
 	flag = (*env)->NewObject(env, type, constructor, ordinal, nickname);
 	return flag;
 }
+
+
+/*
+ * Implements
+ *   org.freedesktop.bindings.Plumbing.toHexString(long pointer)
+ */
+JNIEXPORT jstring JNICALL
+Java_org_freedesktop_bindings_Plumbing_toHexString
+(
+	JNIEnv *env,
+	jclass cls,
+	jlong _pointer
+)
+{
+	const gchar* result;
+	
+	result = bindings_java_memory_pointerToString((gpointer) _pointer);
+	
+	return (*env)->NewStringUTF(env, result);
+}

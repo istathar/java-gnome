@@ -3,7 +3,7 @@
  *
  * Copyright (c) 2007 Operational Dynamics Consulting Pty Ltd
  *
- * The code in this file, and the library it is a part of, are made available
+ * The code in this file, and the program it is a part of, are made available
  * to you by the authors under the terms of the "GNU General Public Licence,
  * version 2" See the LICENCE file for the terms governing usage and
  * redistribution.
@@ -25,6 +25,7 @@ import org.gnome.gtk.SnapshotFileChooserDialog;
 import org.gnome.gtk.SnapshotHScale;
 import org.gnome.gtk.SnapshotInfoMessageDialog;
 import org.gnome.gtk.SnapshotQuestionMessageDialog;
+import org.gnome.gtk.SnapshotRadioButton;
 import org.gnome.gtk.SnapshotStatusbar;
 import org.gnome.gtk.SnapshotTextComboBox;
 import org.gnome.gtk.SnapshotTextComboBoxEntry;
@@ -127,6 +128,7 @@ public final class Harness
                     SnapshotAboutDialog.class,
                     SnapshotHScale.class,
                     SnapshotVScale.class,
+                    SnapshotRadioButton.class,
                     SnapshotComboBox.class,
                     SnapshotTextComboBox.class,
                     SnapshotTextComboBoxEntry.class,

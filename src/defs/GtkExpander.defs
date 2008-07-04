@@ -15,6 +15,16 @@
   )
 )
 
+(define-function expander_new_with_mnemonic
+  (is-constructor-of "GtkExpander")
+  (c-name "gtk_expander_new_with_mnemonic")
+  (caller-owns-return #t)
+  (return-type "GtkWidget*")
+  (parameters
+    '("const-gchar*" "label" (default "NULL") (null-ok))
+  )
+)
+
 (define-method set_expanded
   (of-object "GtkExpander")
   (c-name "gtk_expander_set_expanded")

@@ -1,5 +1,27 @@
 START HERE
 
+<style>
+div.box {
+	background-color: #DDDDDD;
+	padding: 15px;
+	border: dashed 3px orange;
+	margin-left: 100px;
+	margin-right: 100px;
+	margin-top: 20px;
+	font-size: x-large;
+}
+</style>
+<div class="box">
+<span class="mono" style="font-size: xx-large; font-weight: bold;">
+Out of date
+</span>
+<p>
+These documents were mostly written in 2006, before java-gnome 4.0 became a
+reality. Two years on most of these decisions have been implemented.  This
+tree will therefore soon be replaced by documents defining the current design
+and architecture.
+</p>
+</div>
 This directory documents the evolution and design of the re-engineered (4.0)
 java-gnome bindings.
 

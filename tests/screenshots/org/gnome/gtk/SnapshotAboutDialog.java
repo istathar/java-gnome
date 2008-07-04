@@ -3,7 +3,7 @@
  *
  * Copyright (c) 2008 Operational Dynamics Consulting Pty Ltd
  * 
- * The code in this file, and the library it is a part of, are made available
+ * The code in this file, and the program it is a part of, are made available
  * to you by the authors under the terms of the "GNU General Public Licence,
  * version 2" See the LICENCE file for the terms governing usage and
  * redistribution.
@@ -23,7 +23,7 @@ public class SnapshotAboutDialog extends SnapshotDialog
 
         dialog.setProgramName("java-gnome");
         dialog.setVersion(Version.VERSION);
-        dialog.setComments("The library allowing you to write outstanding GNOME applications with the GTK widget toolkit from Java!");
+        dialog.setComments("The library allowing you to write outstanding GNOME applications with the GTK widget toolkit, from Java!");
         dialog.setCopyright("Copyright \u00A9 2006-2008 Operational Dynamics Consulting Pty Ltd, and Others");
         dialog.setAuthors(new String[] {
                 "Andrew Cowie <andrew@operationaldynamics.com>",

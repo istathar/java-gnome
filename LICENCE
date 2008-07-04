@@ -1,7 +1,11 @@
-GTK and GNOME programs from Java!
+LICENCE
+
+This is the java-gnome user interface library allowing you to write GTK and
+GNOME programs from Java!
 
     Copyright (c) 2006-2008 Operational Dynamics Consulting Pty Ltd, and Others
-    See AUTHORS file for contributors.
+
+See [`AUTHORS`](AUTHORS.html) file for contributors.
 
 1) java-gnome source code and documentation
 -------------------------------------------
@@ -25,6 +29,11 @@ library, you may extend this exception to your version of the library, but you
 are not obligated to do so. If you do not wish to do so, delete this exception
 statement from your version.
 
+_In other words, if you change java-gnome itself, you can still link against
+it, but you must publish the changes you made to this library._
+
+--
+
 java-gnome is distributed in the hope that it will be useful, but WITHOUT ANY
 WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR
 A PARTICULAR PURPOSE. See the GPL for more details. In particular, note that
@@ -32,22 +41,23 @@ if you use this and lose your data, you're on your own.
 
 Of course, if you find a bug, please let us know. And, if you fix anything or
 improve the code please contribute your changes back -- that's the whole idea
-of Open Source. See BUGS and HACKING files for details.
+of Open Source. See [`BUGS`](/4.0/lists/#bugs) and [`HACKING`](HACKING.html)
+files for details.
 
 You should have a copy of the GPL somewhere on your system. If you don't, see
-http://www.gnu.org/copyleft/gpl.html or write to the Free Software Foundation,
-Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA.
+[`http://www.gnu.org/copyleft/gpl.html`][GPL] or write to the Free Software
+Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA.
 
 2) prerequisites and dependencies
 ---------------------------------
 
 java-gnome depends on a number of external libraries. They are either provided
 by your operating system distribution or, in some cases, may be shipped
-alongside the java-gnome sources in the lib/ subdirectory. That code is open
+alongside the java-gnome sources in the `lib/` subdirectory. That code is open
 source (or we couldn't have redistributed it), but note that third party
 sources are made available under the terms specified by their authors and as
 documented in the individual licences within those files, as noted below and
-in lib/README.
+in `lib/README`.
 
 The most notable dependency, of course, is GNOME itself. You will need to have
 a recent version of GLib, Cairo, GTK, and many of the other GNOME libraries
@@ -82,5 +92,7 @@ that code as it becomes available. Java Libre!
 
 Java is a trademark of Sun Microsystems, Inc.
 GNOME is a trademark of the GNOME Foundation.
+
+[GPL]: http://www.gnu.org/copyleft/gpl.html
 
 <!-- vim: set textwidth=78 nowrap: -->

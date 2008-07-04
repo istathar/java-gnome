@@ -11,44 +11,49 @@
  */
 package org.gnome.gdk;
 
-import org.freedesktop.bindings.Proxy;
 import org.gnome.glib.Boxed;
-import org.gnome.gtk.Allocation;
 
 /**
  * An object describing a rectangular area. While superficially similar to
- * {@link Allocation}, this class is in fact different. It's primary use is
- * in describing an area that has been exposed and needs to be [re]drawn. You
- * get one of these from the {@link EventExpose#getArea() getArea()} method on
- * EventExpose.
+ * {@link org.gnome.gtk.Allocation Allocation}, this class is in fact
+ * different. It's primary use is in describing an area that has been exposed
+ * and needs to be [re]drawn. You normally get one of these from the
+ * {@link EventExpose#getArea() getArea()} method on EventExpose, though in
+ * rare situations you need to describe an area based on your own calculations
+ * and there is a constructor for that case.
  * 
  * @author Andrew Cowie
  * @since 4.0.7
  */
-/*
- * FUTURE WARNING This implementation is a bit of a hack and is currently
- * operating on the assumption that the only origin for these is the override
- * code in EventExpose's getArea(). There *are* other scenarios where these
- * are returned, so be careful. Whatever you do get this from, make sure you
- * set the origin field.
- */
 public final class Rectangle extends Boxed
 {
-    /**
-     * Back reference to the enclosing struct.
-     */
-    Proxy origin;
-
     protected Rectangle(long pointer) {
         super(pointer);
     }
 
+    /**
+     * Create a Rectanlge. This is principally used so that you can describe
+     * an area that needs to be redrawn, passing it to the
+     * {@link Window#invalidate(Rectangle, boolean) invalidate()} method of an
+     * [org.gnome.gdk] Window.
+     * 
+     * <p>
+     * As usual, measurements are in pixels.
+     * 
+     * @since 4.0.8
+     */
+    public Rectangle(int x, int y, int width, int height) {
+        super(GdkRectangleOverride.createRectangle(x, y, width, height));
+    }
+
     protected void release() {
-        origin = null;
+        GdkRectangleOverride.free(this);
     }
 
     /**
      * The width of the box described by this Rectangle.
+     * 
+     * @since 4.0.7
      */
     public int getWidth() {
         return GdkRectangle.getWidth(this);
@@ -56,6 +61,8 @@ public final class Rectangle extends Boxed
 
     /**
      * The height of the box described by this Rectangle.
+     * 
+     * @since 4.0.7
      */
     public int getHeight() {
         return GdkRectangle.getHeight(this);
@@ -64,6 +71,8 @@ public final class Rectangle extends Boxed
     /**
      * The horizontal co-ordinate of the top left corner of the box described
      * by this Rectangle.
+     * 
+     * @since 4.0.7
      */
     public int getX() {
         return GdkRectangle.getX(this);
@@ -71,6 +80,8 @@ public final class Rectangle extends Boxed
 
     /**
      * The vertical co-ordinate of the box described by this Rectangle.
+     * 
+     * @since 4.0.7
      */
     public int getY() {
         return GdkRectangle.getY(this);

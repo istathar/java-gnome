@@ -48,9 +48,37 @@ verbose = False
 configFile = ".config"
 versionFile = "src/bindings/org/gnome/gtk/Version.java"
 hashFile = "tmp/.hashes"
+lockFile = "tmp/.build"
 
 GNOME_MODULES = "gthread-2.0 glib-2.0 gtk+-2.0 gtk+-unix-print-2.0 libglade-2.0"
 
+#
+# Armour against multiple simultaneous invocations.
+#
+# Rumour has it that locking is hard, unsafe, and generally evil. That's all
+# true. Usage here should be safe enough; this lock is just to prevent
+# double-taps by Eclipse being overzealous. Question: is this NFS safe?
+#
+
+from fcntl import flock, LOCK_EX, LOCK_NB
+
+def lockBuild():
+	global lock
+
+	ensureDirectory("tmp/")
+
+	lock = open(lockFile, "wb")
+	try:
+		flock(lock, LOCK_EX | LOCK_NB)
+	except IOError:
+		print "Inhibited: another build process already running"
+		sys.stdout.flush()
+		sys.exit(0)
+
+
+def unlockBuild():
+	global lock
+	lock.close()
 
 #
 # Read the configuration data from .config
@@ -589,20 +617,23 @@ if __name__ == '__main__':
 	if os.getenv("V"):
 		verbose = True
 
+	lockBuild()
 	loadConfig()
 	loadHashes()
 
 	generateBindings()
 
-	if len(argv) > 1 and sys.argv[1] == "test":
+	if len(argv) > 1:
 		generateTests()
+
+	unlockBuild()
+
+	if len(argv) > 1 and sys.argv[1] == "test":
 		runTests()
 
 	if len(argv) > 1 and sys.argv[1] == "demo":
-		generateTests()
 		runDemo()
 
 	if len(argv) > 1 and sys.argv[1] == "eclipse":
-		generateTests()
 		print "done"
 

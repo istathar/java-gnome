@@ -1,9 +1,9 @@
 /*
  * ValidateDrawingToFile.java
  *
- * Copyright (c) 2007-2008 Operational Dynamics Consulting Pty Ltd
+ * Copyright (c) 2007-2008 Operational Dynamics Consulting Pty Ltd, and Others
  * 
- * The code in this file, and the library it is a part of, are made available
+ * The code in this file, and the suite it is a part of, are made available
  * to you by the authors under the terms of the "GNU General Public Licence,
  * version 2" See the LICENCE file for the terms governing usage and
  * redistribution.
@@ -11,6 +11,7 @@
 package org.freedesktop.cairo;
 
 import java.io.File;
+import java.io.IOException;
 
 import org.gnome.gtk.Gtk;
 import org.gnome.gtk.TestCaseGtk;
@@ -48,7 +49,18 @@ public class ValidateDrawingToFile extends TestCaseGtk
         cr.lineTo(20, 5);
         cr.stroke();
 
-        surface.writeToPNG(OUTPUT_FILENAME);
+        try {
+            surface.writeToPNG(OUTPUT_FILENAME);
+        } catch (IOException e) {
+            fail("Unexpected file write error");
+        }
+
+        try {
+            surface.writeToPNG("/an/inexistent/filename");
+            fail("You should get an IOException");
+        } catch (IOException e) {
+            // ok
+        }
     }
 
     public final void testImageSurfaceWriteToPNG() {

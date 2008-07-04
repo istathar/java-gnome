@@ -3,7 +3,7 @@
  *
  * Copyright (c) 2007-2008 Operational Dynamics Consulting Pty Ltd, and Others
  * 
- * The code in this file, and the library it is a part of, are made available
+ * The code in this file, and the suite it is a part of, are made available
  * to you by the authors under the terms of the "GNU General Public Licence,
  * version 2" See the LICENCE file for the terms governing usage and
  * redistribution.
@@ -476,5 +476,113 @@ public class ValidateTreeModel extends TestCaseGtk
         } catch (IllegalArgumentException iae) {
             // ok
         }
+    }
+
+    public final void testDeleteRow() {
+        final ListStore model;
+        final DataColumnInteger column;
+        TreeIter row;
+        int i, sum;
+        boolean result;
+
+        model = new ListStore(new DataColumn[] {
+            column = new DataColumnInteger(),
+        });
+
+        for (i = 1; i <= 5; i++) {
+            row = model.appendRow();
+            model.setValue(row, column, i);
+        }
+
+        row = model.getIterFirst();
+        sum = 0;
+        do {
+            sum += model.getValue(row, column);
+        } while (row.iterNext());
+        assertEquals(15, sum);
+
+        row = model.getIterFirst();
+
+        result = model.removeRow(row);
+        assertTrue(result);
+
+        row = model.getIterFirst();
+        sum = 0;
+        do {
+            sum += model.getValue(row, column);
+        } while (row.iterNext());
+        assertEquals(14, sum);
+
+        row = model.getIterFirst();
+        result = model.removeRow(row);
+        assertTrue(result);
+        result = model.removeRow(row);
+        assertTrue(result);
+        result = model.removeRow(row);
+        assertTrue(result);
+        result = model.removeRow(row);
+        assertFalse(result);
+    }
+
+    public final void testInsertRow() {
+        final ListStore model;
+        final DataColumnInteger column;
+        TreeIter row, sibbling;
+        int i;
+        String str;
+
+        model = new ListStore(new DataColumn[] {
+            column = new DataColumnInteger(),
+        });
+
+        for (i = 0; i < 10; i += 3) {
+            row = model.appendRow();
+            model.setValue(row, column, i);
+        }
+
+        try {
+            row = model.insertRow(-1);
+            fail("Should have thrown");
+        } catch (IllegalArgumentException iae) {
+            // good
+        }
+
+        str = "";
+        row = model.getIterFirst();
+        do {
+            str += model.getValue(row, column);
+        } while (row.iterNext());
+        assertEquals("0369", str);
+
+        row = model.insertRow(1);
+        model.setValue(row, column, 2);
+
+        str = "";
+        row = model.getIterFirst();
+        do {
+            str += model.getValue(row, column);
+        } while (row.iterNext());
+        assertEquals("02369", str);
+
+        row = model.insertRow(50);
+        model.setValue(row, column, 8);
+
+        str = "";
+        row = model.getIterFirst();
+        do {
+            str += model.getValue(row, column);
+        } while (row.iterNext());
+        assertEquals("023698", str);
+
+        sibbling = model.getIter(new TreePath("3"));
+        row = model.insertRow(sibbling);
+        model.setValue(row, column, 7);
+
+        str = "";
+        row = model.getIterFirst();
+        do {
+            str += model.getValue(row, column);
+        } while (row.iterNext());
+        assertEquals("0237698", str);
     }
 }

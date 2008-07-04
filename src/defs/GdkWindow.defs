@@ -575,6 +575,7 @@
 (define-method get_children
   (of-object "GdkWindow")
   (c-name "gdk_window_get_children")
+  (caller-owns-return #l)
   (return-type "GList-GdkWindow*")
 )
 

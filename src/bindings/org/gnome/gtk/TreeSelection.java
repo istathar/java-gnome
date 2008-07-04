@@ -191,7 +191,7 @@ public class TreeSelection extends Object
      * Hook up a <code>CHANGED</code> signal handler.
      */
     public void connect(CHANGED handler) {
-        GtkTreeSelection.connect(this, handler);
+        GtkTreeSelection.connect(this, handler, false);
     }
 
     /**

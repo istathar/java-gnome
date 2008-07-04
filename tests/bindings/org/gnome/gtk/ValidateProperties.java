@@ -3,12 +3,16 @@
  *
  * Copyright (c) 2007-2008 Operational Dynamics Consulting Pty Ltd
  * 
- * The code in this file, and the library it is a part of, are made available
+ * The code in this file, and the suite it is a part of, are made available
  * to you by the authors under the terms of the "GNU General Public Licence,
  * version 2" See the LICENCE file for the terms governing usage and
  * redistribution.
  */
 package org.gnome.gtk;
+
+import java.io.FileNotFoundException;
+
+import org.gnome.gdk.Pixbuf;
 
 /**
  * Test characteristic getters and setters to ensure correct values are
@@ -220,5 +224,85 @@ public class ValidateProperties extends TestCaseGtk
         height = req.getHeight();
         assertTrue(width > 1);
         assertTrue(height > 1);
+    }
+
+    /*
+     * FUTURE Given the elaborate relationship between resize(),
+     * setDefaultSize(), and setSizeRequest(), this could probably be a lot
+     * more stringent.
+     */
+    public final void testResizeRestrictions() {
+        final Window w;
+
+        w = new Window();
+
+        try {
+            w.resize(0, 1);
+            fail("Shouldn't accept sub-minimum sizes.");
+        } catch (IllegalArgumentException iae) {
+            // good
+        }
+
+        try {
+            w.resize(1, 0);
+            fail("Shouldn't accept sub-minimum sizes.");
+        } catch (IllegalArgumentException iae) {
+            // good
+        }
+
+        w.resize(1, 1);
+    }
+
+    /*
+     * TODO make this a bit more meaningful; at the moment all it is doing is
+     * making sure that no FatalErrors are blown by switching from an Image
+     * storing one type of image to another; (yes, one would expect this to
+     * Just Work; but that's the point of this test as it stands so far).
+     */
+    public final void testImageResetting() throws FileNotFoundException {
+        final Image i;
+        final Pixbuf data;
+
+        i = new Image(Stock.REFRESH, IconSize.LARGE_TOOLBAR);
+
+        data = new Pixbuf("web/public/images/java-gnome_LargeLogo.png");
+        i.setImage(data);
+        i.clear();
+    }
+
+    public final void testEntryStyleProperties() {
+        final Entry entry;
+
+        entry = new Entry();
+
+        /*
+         * Check default
+         */
+        assertEquals(true, GtkEntry.getHasFrame(entry));
+
+        /*
+         * Check our setter
+         */
+
+        entry.setHasFrame(false);
+        assertEquals(false, GtkEntry.getHasFrame(entry));
+    }
+
+    public final void testButtonFocus() {
+        final Button button;
+
+        button = new Button("Hello");
+
+        /*
+         * Check default
+         */
+        assertEquals(true, GtkButton.getFocusOnClick(button));
+
+        /*
+         * Check our setter
+         */
+
+        button.setFocusOnClick(false);
+        assertEquals(false, GtkButton.getFocusOnClick(button));
     }
 }

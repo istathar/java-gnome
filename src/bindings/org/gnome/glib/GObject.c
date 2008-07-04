@@ -158,11 +158,11 @@ JNIEXPORT jlong JNICALL Java_org_gnome_glib_GObject_g_1object_1get_1property
 
 /**
  * Implements
- *   org.gnome.glib.GObject.g_signal_connect(long instance, Object handler, String name)
+ *   org.gnome.glib.GObject.g_signal_connect(long instance, Object handler, String name, boolean after)
  * called from
- *   org.gnome.glib.Plumbing.connectSignal(Object instance, Signal handler, String name)
+ *   org.gnome.glib.Plumbing.connectSignal(Object instance, Signal handler, String name, boolean after)
  * called from
- *   <generated package scope classes>.connect(Object instance, Signal handler)
+ *   <generated package scope classes>.connect(Object instance, Signal handler, boolean after)
  *
  * This is where the magic to create a GClosure and hook it up to the GSignal
  * handling mechanisms is taken care of. A reference is created to the passed
@@ -176,11 +176,13 @@ Java_org_gnome_glib_GObject_g_1signal_1connect
 	jlong _instance,
 	jobject _handler,
 	jobject _receiver,
-	jstring _name
+	jstring _name,
+	jboolean _after
 )
 {
 	GObject* instance;
   	gchar* name;
+  	gboolean after;
 
   	guint id;
   	GQuark detail = 0;
@@ -192,7 +194,10 @@ Java_org_gnome_glib_GObject_g_1signal_1connect
 
 	// translate the signal name
 	name = (gchar*) (*env)->GetStringUTFChars(env, _name, NULL);	
-	
+
+	// translate after  	
+  	after = (gboolean) _after;
+
 	/*
 	 * Lookup the signal information. We use this rather than g_signal_lookup() because
 	 * it allows us to sidestep the issue of detailed signal names.
@@ -212,7 +217,7 @@ Java_org_gnome_glib_GObject_g_1signal_1connect
   	}
 
 	// returns the handler id, but we don't need it.
-	g_signal_connect_closure_by_id(instance, id, detail, closure, FALSE);
+	g_signal_connect_closure_by_id(instance, id, detail, closure, after);
 	
 	// cleanup. Not really necessary as will happen automatically in a moment.
 	(*env)->ReleaseStringUTFChars(env, _name, name);

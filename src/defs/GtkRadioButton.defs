@@ -11,7 +11,7 @@
   (caller-owns-return #t)
   (return-type "GtkWidget*")
   (parameters
-    '("GSList-GtkRadioButton*" "group")
+    '("GSList-GtkRadioButton*" "group" (null-ok))
   )
 )
 
@@ -21,7 +21,7 @@
   (caller-owns-return #t)
   (return-type "GtkWidget*")
   (parameters
-    '("GtkRadioButton*" "group")
+    '("GtkRadioButton*" "radio_group_member" (null-ok))
   )
 )
 
@@ -31,7 +31,7 @@
   (caller-owns-return #t)
   (return-type "GtkWidget*")
   (parameters
-    '("GSList-GtkRadioButton*" "group")
+    '("GSList-GtkRadioButton*" "group" (null-ok))
     '("const-gchar*" "label")
   )
 )
@@ -42,7 +42,7 @@
   (caller-owns-return #t)
   (return-type "GtkWidget*")
   (parameters
-    '("GtkRadioButton*" "group")
+    '("GtkRadioButton*" "radio_group_member" (null-ok))
     '("const-gchar*" "label")
   )
 )
@@ -53,7 +53,7 @@
   (caller-owns-return #t)
   (return-type "GtkWidget*")
   (parameters
-    '("GSList-GtkRadioButton*" "group")
+    '("GSList-GtkRadioButton*" "group" (null-ok))
     '("const-gchar*" "label")
   )
 )
@@ -64,7 +64,7 @@
   (caller-owns-return #t)
   (return-type "GtkWidget*")
   (parameters
-    '("GtkRadioButton*" "group")
+    '("GtkRadioButton*" "group" (null-ok))
     '("const-gchar*" "label")
   )
 )

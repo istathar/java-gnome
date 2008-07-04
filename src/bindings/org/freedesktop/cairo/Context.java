@@ -406,7 +406,7 @@ public class Context extends Entity
     public void showLayout(Layout layout) {
         CairoContext.showLayout(this, layout);
     }
-    
+
     /**
      * Set a Pattern to be the source of this Context.
      * 

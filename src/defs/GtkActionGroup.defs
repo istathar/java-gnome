@@ -63,6 +63,7 @@
 (define-method list_actions
   (of-object "GtkActionGroup")
   (c-name "gtk_action_group_list_actions")
+  (caller-owns-return #l)
   (return-type "GList-GtkAction*")
 )
 

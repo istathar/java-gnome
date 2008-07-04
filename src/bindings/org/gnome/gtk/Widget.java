@@ -155,7 +155,7 @@ public abstract class Widget extends org.gnome.gtk.Object
      * @since 4.0.2
      */
     public void connect(ENTER_NOTIFY_EVENT handler) {
-        GtkWidget.connect(this, handler);
+        GtkWidget.connect(this, handler, false);
     }
 
     /**
@@ -175,7 +175,7 @@ public abstract class Widget extends org.gnome.gtk.Object
      * @since 4.0.7
      */
     public void connect(LEAVE_NOTIFY_EVENT handler) {
-        GtkWidget.connect(this, handler);
+        GtkWidget.connect(this, handler, false);
     }
 
     /**
@@ -199,7 +199,7 @@ public abstract class Widget extends org.gnome.gtk.Object
      * @since 4.0.2
      */
     public void connect(FOCUS_OUT_EVENT handler) {
-        GtkWidget.connect(this, handler);
+        GtkWidget.connect(this, handler, false);
     }
 
     /**
@@ -220,7 +220,7 @@ public abstract class Widget extends org.gnome.gtk.Object
      * @since 4.0.6
      */
     public void connect(FOCUS_IN_EVENT handler) {
-        GtkWidget.connect(this, handler);
+        GtkWidget.connect(this, handler, false);
     }
 
     /**
@@ -318,7 +318,7 @@ public abstract class Widget extends org.gnome.gtk.Object
      * @since 4.0.7
      */
     public void connect(EXPOSE_EVENT handler) {
-        GtkWidget.connect(this, handler);
+        GtkWidget.connect(this, handler, false);
     }
 
     /**
@@ -387,7 +387,7 @@ public abstract class Widget extends org.gnome.gtk.Object
      * @since 4.0.3
      */
     public void connect(KEY_PRESS_EVENT handler) {
-        GtkWidget.connect(this, handler);
+        GtkWidget.connect(this, handler, false);
     }
 
     /**
@@ -415,7 +415,7 @@ public abstract class Widget extends org.gnome.gtk.Object
      * @since 4.0.3
      */
     public void connect(KEY_RELEASE_EVENT handler) {
-        GtkWidget.connect(this, handler);
+        GtkWidget.connect(this, handler, false);
     }
 
     /**
@@ -617,7 +617,7 @@ public abstract class Widget extends org.gnome.gtk.Object
      */
     public void connect(VISIBILITY_NOTIFY_EVENT handler) {
         GtkWidgetOverride.setEventsVisibility(this);
-        GtkWidget.connect(this, handler);
+        GtkWidget.connect(this, handler, false);
     }
 
     /**
@@ -700,7 +700,7 @@ public abstract class Widget extends org.gnome.gtk.Object
      * @since 4.0.5
      */
     public void connect(UNMAP_EVENT handler) {
-        GtkWidget.connect(this, handler);
+        GtkWidget.connect(this, handler, false);
     }
 
     /**
@@ -770,7 +770,7 @@ public abstract class Widget extends org.gnome.gtk.Object
      * @since 4.0.6
      */
     public void connect(Widget.HIDE handler) {
-        GtkWidget.connect(this, handler);
+        GtkWidget.connect(this, handler, false);
     }
 
     /**
@@ -957,7 +957,7 @@ public abstract class Widget extends org.gnome.gtk.Object
      * VISIBILITY_NOTIFY_EVENT
      */
     public void connect(Widget.BUTTON_PRESS_EVENT handler) {
-        GtkWidget.connect(this, handler);
+        GtkWidget.connect(this, handler, false);
     }
 
     /**
@@ -979,7 +979,7 @@ public abstract class Widget extends org.gnome.gtk.Object
      * @since 4.0.6
      */
     public void connect(Widget.BUTTON_RELEASE_EVENT handler) {
-        GtkWidget.connect(this, handler);
+        GtkWidget.connect(this, handler, false);
     }
 
     /**
@@ -995,5 +995,24 @@ public abstract class Widget extends org.gnome.gtk.Object
      */
     public void setCanFocus(boolean setting) {
         setPropertyBoolean("can-focus", setting);
+    }
+
+    /**
+     * Make this Widget attempt to become the default. The default Widget is
+     * the one which is activated when the user presses <b><code>Enter</code></b>.
+     * 
+     * <p>
+     * This will only work if the widget is <var>activatable</var>; see
+     * {@link #activate() activate()}.
+     * 
+     * <p>
+     * If you're reading this you may in fact be looking for
+     * {@link #grabFocus() grabFocus()} which affects where keyboard input is
+     * going, as opposed to this method which affects activation.
+     * 
+     * @since 4.0.8
+     */
+    public void grabDefault() {
+        GtkWidget.grabDefault(this);
     }
 }

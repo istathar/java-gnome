@@ -3,7 +3,7 @@
  *
  * Copyright (c) 2007-2008 Operational Dynamics Consulting Pty Ltd
  * 
- * The code in this file, and the library it is a part of, are made available
+ * The code in this file, and the program it is a part of, are made available
  * to you by the authors under the terms of the "GNU General Public Licence,
  * version 2" See the LICENCE file for the terms governing usage and
  * redistribution.
@@ -73,6 +73,14 @@ public class FunctionBlock extends Block
         this.callerOwnsReturn = callerOwnsReturn;
     }
 
+    protected final char getCallerOwnsReturn() {
+        if (this.callerOwnsReturn == null) {
+            return 'f';
+        } else {
+            return this.callerOwnsReturn.charAt(1);
+        }
+    }
+    
     protected final void setIsConstructorOf(final String isConstructorOf) {
         this.isConstructorOf = isConstructorOf;
     }
@@ -183,9 +191,9 @@ public class FunctionBlock extends Block
 
     public Generator createGenerator(final DefsFile data) {
         if (isConstructorOf != null) {
-            return new ConstructorGenerator(data, blockName, returnType, cName, parameters);
+            return new ConstructorGenerator(data, blockName, returnType, cName, parameters, getCallerOwnsReturn());
         } else {
-            return new FunctionGenerator(data, blockName, returnType, cName, parameters);
+            return new FunctionGenerator(data, blockName, returnType, cName, parameters, getCallerOwnsReturn());
         }
     }
 

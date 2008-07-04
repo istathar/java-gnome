@@ -138,7 +138,7 @@ public class ComboBox extends Bin implements CellEditable, CellLayout
      * Hook up a <code>CHANGED</code> handler to the Widget.
      */
     public void connect(CHANGED handler) {
-        GtkComboBox.connect(this, handler);
+        GtkComboBox.connect(this, handler, false);
     }
 
     /**
