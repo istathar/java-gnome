@@ -149,4 +149,27 @@ distclean: clean
 	@echo -e "RM\tglade cruft"
 	find . -name '*.glade.bak' -o -name '*.gladep*' -type f | xargs rm -f
 
+#
+# A convenience target to run the code formatter built into Eclipse. This is
+# for people who don't use the Eclipse Java IDE as their editor so they
+# can normalize their code and ensure clean patches are submitted.
+#
+
+ECLIPSE=/usr/bin/eclipse-3.3
+ifdef V
+ECLIPSE:=$(ECLIPSE) -verbose
+else
+endif
+
+format: all
+	@echo -e "FORMAT\tsrc/ tests/ doc/examples"
+	touch -r src/bindings/org/gnome/gtk/Version.java tmp/stamp/version
+	$(ECLIPSE) -nosplash \
+		-application org.eclipse.jdt.core.JavaCodeFormatter \
+		-config .settings/org.eclipse.jdt.core.prefs \
+		src/ tests/ doc/examples/ \
+		$(REDIRECT)
+	touch -r tmp/stamp/version src/bindings/org/gnome/gtk/Version.java
+	
+
 # vim: set filetype=make textwidth=78 nowrap:
