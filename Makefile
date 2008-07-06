@@ -155,7 +155,11 @@ distclean: clean
 # can normalize their code and ensure clean patches are submitted.
 #
 
+ifdef ECLIPSE
+else
 ECLIPSE=/usr/bin/eclipse-3.3
+endif
+
 ifdef V
 ECLIPSE:=$(ECLIPSE) -verbose
 else
