@@ -155,7 +155,7 @@ public class Value extends Proxy
     protected Object getObject() {
         return GValue.getObject(this);
     }
-    
+
     protected Pixbuf getPixbuf() {
         return GValue.getPixbuf(this);
     }
