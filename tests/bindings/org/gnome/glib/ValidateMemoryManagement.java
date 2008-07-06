@@ -382,16 +382,16 @@ public class ValidateMemoryManagement extends TestCaseGtk
 
         t = new TreeView();
         cycleMainLoop();
-        
+
         /* get the selection, a Gtk+ created object */
         s = t.getSelection();
         cycleMainLoop();
-        
+
         /* free our ref */
         s = null;
         cycleMainLoop();
         cycleGarbageCollector();
-        
+
         /* 
          * if all was correct, we can retrieve it again. 
          */
