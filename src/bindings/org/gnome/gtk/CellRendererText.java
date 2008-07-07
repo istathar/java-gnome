@@ -166,7 +166,7 @@ public class CellRendererText extends CellRenderer
      * @since 4.0.8
      */
     public void connect(EDITED handler) {
-        GtkCellRendererText.connect(this, new EditedHandler(handler));
+        GtkCellRendererText.connect(this, new EditedHandler(handler), false);
     }
 
     /*

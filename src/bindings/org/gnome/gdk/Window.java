@@ -147,4 +147,31 @@ public class Window extends Drawable
 
         return y[0];
     }
+
+    /**
+     * Mark the given area as damaged and needing redrawing. Calling this
+     * method will ultimately result in <code>EXPOSE_EVENT</code> being
+     * emitted on Widgets that are present in the area being invalidated.
+     * 
+     * @param recursive
+     *            If <code>true</code>, calling this method will invalidate
+     *            not only the described area in this [org.gnome.gdk] Window,
+     *            but also the corresponding areas of any child
+     *            [org.gnome.gdk] Windows that overlap it. This is mostly an
+     *            implementation detail, but occasionally you need to find
+     *            tune the control. We tend to use <code>true</code>.
+     * @since 4.0.8
+     */
+    /*
+     * TODO this needs a much stronger description, linked to wherever else we
+     * end up discussing drawing, regions, and invalidation.
+     */
+    /*
+     * If we expose Region then there will be an invalidate(Region, boolean)
+     * in due course corresponding to this method, hence the name change to
+     * invalidate().
+     */
+    public void invalidate(Rectangle area, boolean recursive) {
+        GdkWindow.invalidateRect(this, area, recursive);
+    }
 }

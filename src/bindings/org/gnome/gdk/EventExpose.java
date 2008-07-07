@@ -31,11 +31,6 @@ public final class EventExpose extends Event
      * @since 4.0.7
      */
     public Rectangle getArea() {
-        final Rectangle result;
-
-        result = GdkEventExposeOverride.getArea(this);
-        result.origin = this;
-
-        return result;
+        return GdkEventExposeOverride.getArea(this);
     }
 }

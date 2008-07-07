@@ -180,7 +180,7 @@ public class Calendar extends Widget
      * @since 4.0.6
      */
     public void connect(DAY_SELECTED_DOUBLE_CLICK handler) {
-        GtkCalendar.connect(this, handler);
+        GtkCalendar.connect(this, handler, false);
     }
 
     /**
@@ -206,6 +206,6 @@ public class Calendar extends Widget
      * @since 4.0.6
      */
     public void connect(DAY_SELECTED handler) {
-        GtkCalendar.connect(this, handler);
+        GtkCalendar.connect(this, handler, false);
     }
 }

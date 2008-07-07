@@ -139,7 +139,9 @@ public final class Gtk extends Glib
      * @since 4.0.0
      */
     public static void mainQuit() {
-        gtk_main_quit();
+        synchronized (Gdk.lock) {
+            gtk_main_quit();
+        }
     }
 
     private static native final void gtk_main_quit();

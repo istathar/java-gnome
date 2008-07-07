@@ -311,7 +311,7 @@ public class Assistant extends Window
      * @since 4.0.8
      */
     public void connect(PREPARE handler) {
-        GtkAssistant.connect(this, handler);
+        GtkAssistant.connect(this, handler, false);
     }
 
     /**
@@ -332,7 +332,7 @@ public class Assistant extends Window
      * @since 4.0.8
      */
     public void connect(APPLY handler) {
-        GtkAssistant.connect(this, handler);
+        GtkAssistant.connect(this, handler, false);
     }
 
     /**
@@ -353,7 +353,7 @@ public class Assistant extends Window
      * @since 4.0.8
      */
     public void connect(CLOSE handler) {
-        GtkAssistant.connect(this, handler);
+        GtkAssistant.connect(this, handler, false);
     }
 
     /**
@@ -373,7 +373,7 @@ public class Assistant extends Window
      * @since 4.0.8
      */
     public void connect(CANCEL handler) {
-        GtkAssistant.connect(this, handler);
+        GtkAssistant.connect(this, handler, false);
     }
 
     /*

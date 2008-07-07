@@ -28,6 +28,7 @@ import org.gnome.gtk.TestCaseGtk;
 import org.gnome.gtk.ValidateAssistant;
 import org.gnome.gtk.ValidateComboBox;
 import org.gnome.gtk.ValidateFileChoosing;
+import org.gnome.gtk.ValidateIconView;
 import org.gnome.gtk.ValidateOutParameters;
 import org.gnome.gtk.ValidatePacking;
 import org.gnome.gtk.ValidateProperties;
@@ -130,6 +131,7 @@ public class UnitTests
         suite.addTestSuite(ValidateTreeStore.class);
         suite.addTestSuite(ValidateTreeModelFilter.class);
         suite.addTestSuite(ValidateTreeView.class);
+        suite.addTestSuite(ValidateIconView.class);
         suite.addTestSuite(ValidateComboBox.class);
         suite.addTestSuite(ValidateSnapshotUtilities.class);
         suite.addTestSuite(ValidateAssistant.class);

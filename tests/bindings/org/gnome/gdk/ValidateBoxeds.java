@@ -54,4 +54,15 @@ public class ValidateBoxeds extends TestCaseGtk
         assertFalse(white.equals(Color.BLACK));
         assertTrue(white.equals(Color.WHITE));
     }
+
+    public final void testRectangle() {
+        final Rectangle original;
+
+        original = new Rectangle(26, 127, 228, 329);
+
+        assertEquals(26, original.getX());
+        assertEquals(127, original.getY());
+        assertEquals(228, original.getWidth());
+        assertEquals(329, original.getHeight());
+    }
 }

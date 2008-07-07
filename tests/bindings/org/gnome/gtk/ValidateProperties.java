@@ -269,4 +269,40 @@ public class ValidateProperties extends TestCaseGtk
         i.setImage(data);
         i.clear();
     }
+
+    public final void testEntryStyleProperties() {
+        final Entry entry;
+
+        entry = new Entry();
+
+        /*
+         * Check default
+         */
+        assertEquals(true, GtkEntry.getHasFrame(entry));
+
+        /*
+         * Check our setter
+         */
+
+        entry.setHasFrame(false);
+        assertEquals(false, GtkEntry.getHasFrame(entry));
+    }
+
+    public final void testButtonFocus() {
+        final Button button;
+
+        button = new Button("Hello");
+
+        /*
+         * Check default
+         */
+        assertEquals(true, GtkButton.getFocusOnClick(button));
+
+        /*
+         * Check our setter
+         */
+
+        button.setFocusOnClick(false);
+        assertEquals(false, GtkButton.getFocusOnClick(button));
+    }
 }

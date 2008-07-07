@@ -12,10 +12,12 @@
 package org.gnome.gtk;
 
 import org.gnome.gdk.Event;
+import org.gnome.gdk.EventConfigure;
 import org.gnome.gdk.Gravity;
 import org.gnome.gdk.Pixbuf;
 import org.gnome.gdk.Screen;
 import org.gnome.gdk.WindowState;
+import org.gnome.gdk.WindowTypeHint;
 
 /**
  * The top level Widget that contains other Widgets. Typical examples are
@@ -259,7 +261,7 @@ public class Window extends Bin
     }
 
     public void connect(DELETE_EVENT handler) {
-        GtkWidget.connect(this, handler);
+        GtkWidget.connect(this, handler, false);
     }
 
     /**
@@ -756,6 +758,11 @@ public class Window extends Bin
      * <p>
      * You may also need {@link #setSkipPagerHint(boolean) setSkipPagerHint()}.
      * 
+     * <p>
+     * Note that if the WindowTypeHint of a Window has been set appropriately,
+     * you will not need to call this. Therefore use
+     * {@link #setTypeHint(WindowTypeHint) setTypeHint()} instead.
+     * 
      * @since 4.0.8
      */
     public void setSkipTaskbarHint(boolean setting) {
@@ -774,9 +781,70 @@ public class Window extends Bin
      * {@link #setSkipTaskbarHint(boolean) setSkipTaskbarHint()} instead,
      * although this can be a nice touch too.
      * 
+     * <p>
+     * Note that if the WindowTypeHint of a Window has been set appropriately,
+     * you will not need to call this. Therefore use
+     * {@link #setTypeHint(WindowTypeHint) setTypeHint()} instead.
+     * 
      * @since 4.0.8
      */
     public void setSkipPagerHint(boolean setting) {
         GtkWindow.setSkipPagerHint(this, setting);
+    }
+
+    /**
+     * Indicate to the window manager what type of use this Window will be put
+     * to. While the default is {@link WindowTypeHint#NORMAL NORMAL}, you may
+     * find the greatest utility from calling this with the
+     * {@link WindowTypeHint#UTILITY UTILITY} hint.
+     * 
+     * @since 4.0.8
+     */
+    /*
+     * Yes, that's a bad pun. I dare you to do better!
+     */
+    public void setTypeHint(WindowTypeHint hint) {
+        GtkWindow.setTypeHint(this, hint);
+    }
+
+    /**
+     * Event emitted when the Window's size or position changes. The
+     * {@link EventConfigure EventConfigure} object has the position and size
+     * information.
+     * 
+     * <p>
+     * This event will also be emitted when the Window is first mapped and
+     * when it reappears on the screen having been obscured, so don't count on
+     * the values received being different from a previous iteration.
+     * 
+     * <p>
+     * <i>Note that this event signal plays a fairly crucial role in GTK
+     * internally; it is used by numerous subsystems (notably the size-request /
+     * size-allocation mechanism) to propagate that a Window had a new
+     * configuration. Do not attempt to block this signal.</i>
+     * 
+     * @author Andrew Cowie
+     * @since 4.0.8
+     */
+    /*
+     * This is here for the same reason that DELETE_EVENT is.
+     */
+    public interface CONFIGURE_EVENT extends GtkWidget.CONFIGURE_EVENT
+    {
+        /**
+         * Return <code>false</code>! Although this is an event signal with
+         * a boolean return, there is no point in attempting to block further
+         * propagation.
+         */
+        public boolean onConfigureEvent(Widget source, EventConfigure event);
+    }
+
+    /**
+     * Hook up a <code>CONFIGURE_EVENT</code> handler.
+     * 
+     * @since 4.0.8
+     */
+    public void connect(CONFIGURE_EVENT handler) {
+        GtkWidget.connect(this, handler, false);
     }
 }
