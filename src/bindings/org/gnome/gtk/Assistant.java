@@ -63,6 +63,8 @@ public class Assistant extends Window
     }
 
     /**
+     * Creates a new instance of the Assistant.
+     * 
      * @since 4.0.8
      */
     public Assistant() {
@@ -81,8 +83,8 @@ public class Assistant extends Window
     }
 
     /**
-     * FIXME
-     * 
+	  * FIXME
+	  *
      * @since 4.0.8
      */
     public void setCurrentPage(int pageNum) {
@@ -140,14 +142,15 @@ public class Assistant extends Window
     }
 
     /**
-     * Appends a page to the pages in the Assistant.
+     * Places a page at a specific position between the pages already
+     * existing in the Assistant.
      * 
      * @param page
      *            Page to add.
      * @param position
-     *            The index (starting at 0) at which to insert the page, or -1
-     *            to append the page to the assistant
-     * @return the index (starting at 0) of the inserted page
+     *          The index (starting at 0) at which to insert the page, or -1 
+     *          to append the page to the Assistant.
+     * @return The index (starting at 0) of the inserted page
      * @since 4.0.8
      */
     public int insertPage(Widget page, int position) {
@@ -155,8 +158,8 @@ public class Assistant extends Window
     }
 
     /**
-     * Set the page type for page. The page type determines the page behavior
-     * in the assistant. FIXME describe FIXME what is the default?
+     * Sets the {@link AssistantPageType page type} for page. The page type 
+     * determines the page behavior in the Assistant.
      * 
      * @since 4.0.8
      */
@@ -175,10 +178,10 @@ public class Assistant extends Window
 
     /**
      * Sets the title for page. The title is displayed in the header area of
-     * the assistant when page is the current page.
+     * the Assistant when page is the current page.
      * 
      * @param page
-     *            A page of assistant
+     *            A page of Assistant
      * @param type
      *            The new title of the page
      * @since 4.0.8
@@ -197,8 +200,8 @@ public class Assistant extends Window
     }
 
     /**
-     * Sets a header image for page. This image is displayed in the header
-     * area of the assistant when page is the current page.
+     * Sets a header image for page. This image is displayed in the header 
+     * area of the Assistant when <code>page</code> is the current page.
      * 
      * @param page
      *            A page of assistant
@@ -212,10 +215,7 @@ public class Assistant extends Window
 
     /**
      * Gets the header image for page.
-     * 
-     * @param page
-     *            A page of assistant
-     * @return The header image of the page
+     *
      * @since 4.0.8
      */
     public Pixbuf getPageHeaderImage(Widget page) {
@@ -224,7 +224,7 @@ public class Assistant extends Window
 
     /**
      * Sets a side image for page. This image is displayed in the side area of
-     * the assistant when page is the current page.
+     * the assistant when <code>page</code> is the current page.
      * 
      * @param page
      *            A page of assistant
@@ -239,9 +239,6 @@ public class Assistant extends Window
     /**
      * Gets the side image for page.
      * 
-     * @param page
-     *            A page of assistant
-     * @return The side image of the page
      * @since 4.0.8
      */
     public Pixbuf getPageSideImage(Widget page) {
@@ -252,10 +249,6 @@ public class Assistant extends Window
      * Sets whether page contents are complete. This will make assistant
      * update the buttons state to be able to continue the task.
      * 
-     * @param page
-     *            A page of assistant
-     * @param complete
-     *            The completeness status of the page
      * @since 4.0.8
      */
     public void setPageComplete(Widget page, boolean complete) {
@@ -265,9 +258,6 @@ public class Assistant extends Window
     /**
      * Gets whether page is complete.
      * 
-     * @param page
-     *            A page of assistant
-     * @return <code>true</code> if page is complete.
      * @since 4.0.8
      */
     public boolean getPageComplete(Widget page) {
@@ -277,8 +267,6 @@ public class Assistant extends Window
     /**
      * Adds a widget to the action area of a Assistant.
      * 
-     * @param child
-     *            Widget to add
      * @since 4.0.8
      */
     public void addActionWidget(Widget child) {
@@ -286,7 +274,7 @@ public class Assistant extends Window
     }
 
     /**
-     * Removes a widget from the action area of a Assistant.
+     * Removes a Widget that has been added with {@link #addActionWidget(Widget)}.
      * 
      * @since 4.0.8
      */
