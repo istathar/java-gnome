@@ -83,8 +83,8 @@ public class Assistant extends Window
     }
 
     /**
-	  * FIXME
-	  *
+     * FIXME
+     * 
      * @since 4.0.8
      */
     public void setCurrentPage(int pageNum) {
@@ -142,15 +142,16 @@ public class Assistant extends Window
     }
 
     /**
-     * Places a page at a specific position between the pages already
-     * existing in the Assistant.
+     * Places a page at a specific position between the pages already existing
+     * in the Assistant.
      * 
      * @param page
      *            Page to add.
      * @param position
-     *          The index (starting at 0) at which to insert the page, or -1 
-     *          to append the page to the Assistant.
-     * @return The index (starting at 0) of the inserted page
+     *            The index (starting at <code>0</code>) at which to insert
+     *            the page, or <code>-1</code> to append the page to the
+     *            Assistant.
+     * @return The index (starting at <code>0</code>) of the inserted page.
      * @since 4.0.8
      */
     public int insertPage(Widget page, int position) {
@@ -158,7 +159,7 @@ public class Assistant extends Window
     }
 
     /**
-     * Sets the {@link AssistantPageType page type} for page. The page type 
+     * Sets the {@link AssistantPageType page type} for page. The page type
      * determines the page behavior in the Assistant.
      * 
      * @since 4.0.8
@@ -200,7 +201,7 @@ public class Assistant extends Window
     }
 
     /**
-     * Sets a header image for page. This image is displayed in the header 
+     * Sets a header image for page. This image is displayed in the header
      * area of the Assistant when <code>page</code> is the current page.
      * 
      * @param page
@@ -215,7 +216,7 @@ public class Assistant extends Window
 
     /**
      * Gets the header image for page.
-     *
+     * 
      * @since 4.0.8
      */
     public Pixbuf getPageHeaderImage(Widget page) {
@@ -274,7 +275,8 @@ public class Assistant extends Window
     }
 
     /**
-     * Removes a Widget that has been added with {@link #addActionWidget(Widget)}.
+     * Removes a Widget that has been added with
+     * {@link #addActionWidget(Widget)}.
      * 
      * @since 4.0.8
      */

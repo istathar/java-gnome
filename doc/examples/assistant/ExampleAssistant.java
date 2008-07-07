@@ -95,7 +95,6 @@ public class ExampleAssistant implements Assistant.CANCEL, Assistant.APPLY, Assi
         assi.setPageTitle(page3, "Done");
         assi.setPageComplete(page3, true);
 
-        assi.prepareForDisplay();
         assi.showAll();
     }
 
