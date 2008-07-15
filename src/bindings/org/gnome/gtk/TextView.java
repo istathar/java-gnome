@@ -546,4 +546,45 @@ public class TextView extends Container
 
         GtkTextView.scrollToMark(this, mark, withinMargin, true, xalign, yalign);
     }
+
+    /**
+     * Signal emitted to populate the popup menu for a GtkTextView.
+     * 
+     * Populating the popup menu is done by adding items to the
+     * <code>menu</code> parameter with <code>menu.add()</code>. After
+     * constructing your menu one <i>must</i> call
+     * <code>menu.showAll()</code> or your menu will <i>not</i> appear in
+     * the popup menu.
+     * 
+     * An example:
+     * 
+     * <pre>
+     * TextView t;
+     * 
+     * t.connect(new TextView.POPULATE_POPUP() {
+     *     public void onPopulatePopup(TextView source, Menu menu) {
+     *         menu.add(new ImageMenuItem(Stock.SAVE, new MenuItem.ACTIVATE() {
+     *             public void onActivate(MenuItem source) {
+     *             //do stuff
+     *             }
+     *         }));
+     *         menu.showAll();
+     *     }
+     * });
+     * </pre>
+     * 
+     * <i>Note: Trying to add or append an existing GtkMenu will not work.</i>
+     */
+    public interface POPULATE_POPUP extends GtkTextView.POPULATE_POPUP
+    {
+        public void onPopulatePopup(TextView source, Menu menu);
+    }
+
+    /**
+     * Hook up a handler to receive <code>POPULATE_POPUP</code> signals on
+     * this GtkTextView.
+     */
+    public void connect(POPULATE_POPUP handler) {
+        GtkTextView.connect(this, handler, false);
+    }
 }
