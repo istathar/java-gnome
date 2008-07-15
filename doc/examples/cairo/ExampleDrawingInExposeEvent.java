@@ -16,15 +16,11 @@ import org.freedesktop.cairo.Pattern;
 import org.freedesktop.cairo.RadialPattern;
 import org.gnome.gdk.Event;
 import org.gnome.gdk.EventExpose;
-import org.gnome.gdk.Pixbuf;
-import org.gnome.gdk.PixbufFormat;
 import org.gnome.gdk.Rectangle;
 import org.gnome.gtk.Gtk;
 import org.gnome.gtk.Image;
-import org.gnome.gtk.Snapshot;
 import org.gnome.gtk.Widget;
 import org.gnome.gtk.Window;
-import org.gnome.screenshot.Screenshot;
 
 /**
  * Exercise drawing with the Cairo API. If you are rendering a custom Widget
