@@ -541,6 +541,7 @@ Preetz
 Prelle
 PressMe
 ProgressBar
+Prugh
 Pty
 PyThat
 PyThis
@@ -1561,6 +1562,7 @@ onInsertText
 onKeyPressEvent
 onKeyReleaseEvent
 onLeaveNotifyEvent
+onPopulatePopup
 onPopupMenu
 onResponse
 onRowActivated

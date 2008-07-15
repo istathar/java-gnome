@@ -531,7 +531,7 @@ public class TextView extends Container
     /*
      * The oddities and "workaround" suggested are based on the currently weak
      * scrolling behaviour in GtkTextView. If and when that gets cleaned up,
-     * then remove this nonsense from the documentatin here.
+     * then remove this nonsense from the documentation here.
      */
     public void scrollTo(TextMark mark, double withinMargin, double xalign, double yalign) {
         if ((withinMargin < 0) || (withinMargin > 0.5)) {
@@ -545,5 +545,60 @@ public class TextView extends Container
         }
 
         GtkTextView.scrollToMark(this, mark, withinMargin, true, xalign, yalign);
+    }
+
+    /**
+     * Signal emitted by GTK allowing you to populate MenuItems into the popup
+     * context menu displayed by a TextView (typically in response to the user
+     * right-clicking).
+     * 
+     * <p>
+     * The signal has a parameter of type Menu and populating the popup menu
+     * is done by adding items to it with Menu's <code>append()</code>,
+     * etc. After constructing your menu one <i>must</i> call
+     * <code>showAll()</code> on the Menu or your newly added MenuItems will
+     * <i>not</i> appear in the popup menu.
+     * 
+     * <p>
+     * An example:
+     * 
+     * <pre>
+     * TextView t;
+     * 
+     * t.connect(new TextView.POPULATE_POPUP() {
+     *     public void onPopulatePopup(TextView source, Menu menu) {
+     *         menu.append(new ImageMenuItem(Stock.SAVE, new MenuItem.ACTIVATE() {
+     *             public void onActivate(MenuItem source) {
+     *             //do stuff
+     *             }
+     *         }));
+     *         menu.showAll();
+     *     }
+     * });
+     * </pre>
+     * 
+     * @author Kenneth Prugh
+     * @since 4.0.8
+     */
+    public interface POPULATE_POPUP extends GtkTextView.POPULATE_POPUP
+    {
+        /**
+         * Add MenuItems you wish to see in the TreeView's context menu to
+         * <code>menu</code>.
+         */
+        public void onPopulatePopup(TextView source, Menu menu);
+    }
+
+    /**
+     * Hook up a handler to receive <code>POPULATE_POPUP</code> signals on
+     * this TextView. This will be emitted each time the user right-clicks or
+     * presses the <b><code>Menu</code></b> key, and allows you to
+     * populate the popup menu according to the current circumstances - in
+     * other words, making it a context menu.
+     * 
+     * @since 4.0.8
+     */
+    public void connect(POPULATE_POPUP handler) {
+        GtkTextView.connect(this, handler, false);
     }
 }
