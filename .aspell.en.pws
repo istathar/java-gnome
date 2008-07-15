@@ -345,6 +345,7 @@ GtkTextIterOverride
 GtkTextMark
 GtkTextTag
 GtkTextTagOverride
+GtkTextTagTable
 GtkTextView
 GtkTextWindowType
 GtkToggleButton
@@ -413,6 +414,7 @@ IndexError
 InfoMessageDialog
 Inkscape
 InputStream
+InsertTextHandler
 InstantiationException
 IntegerValue
 InternalButtonImplementation
@@ -640,6 +642,7 @@ TextModel
 TextTag
 TextTag's
 TextTagTable
+TextTagTables
 TextTags
 TextView
 TextView's
@@ -871,6 +874,7 @@ conf
 config
 configFile
 confirmButton
+connectAfter
 connectProxy
 connectSignal
 const
@@ -970,6 +974,7 @@ createTable
 createTextBuffer
 createTextIter
 createTextTag
+createTextTagTable
 createTextView
 createTextViewWithBuffer
 createThing
@@ -1006,6 +1011,7 @@ da
 dbm
 de
 debian
+defaultTable
 defs
 deiconify
 demultiplex
@@ -1150,6 +1156,7 @@ getDateDay
 getDateMonth
 getDateYear
 getDeclaredConstructor
+getDefaultTable
 getDetail
 getDisplayOptions
 getDraw
@@ -1547,6 +1554,7 @@ onFocusInEvent
 onFocusOutEvent
 onGroupToggled
 onHide
+onInsertText
 onKeyPressEvent
 onKeyReleaseEvent
 onLeaveNotifyEvent
@@ -1652,6 +1660,7 @@ resized
 resizes
 responseId
 returnType
+revalidate
 rightAttach
 rowAlign
 rowstride
@@ -1749,6 +1758,7 @@ setHeadersVisible
 setIcon
 setImage
 setInconsistent
+setIndent
 setInnerBorder
 setInvisibleChar
 setJustify
@@ -2016,7 +2026,6 @@ writeToPNG
 writeToPng
 writeTranslationCode
 x's
-xFF
 xFF
 xFFFC
 xFFFFFF

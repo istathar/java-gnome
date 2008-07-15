@@ -15,6 +15,7 @@ import java.io.FileNotFoundException;
 import org.gnome.gdk.Pixbuf;
 import org.gnome.pango.Scale;
 import org.gnome.pango.Underline;
+import org.gnome.pango.Weight;
 
 /**
  * @author Andrew Cowie
@@ -402,5 +403,41 @@ public class ValidateTextBuffer extends TestCaseGtk
             fail("Could not open image");
         }
         assertEquals(7, pointer.getCharsInLine());
+    }
+
+    public final void testImplicitTextTagTable() {
+        final TextBuffer buf;
+        final TextTag bold;
+        TextIter pointer;
+        final TextTag[] tags;
+
+        /*
+         * Does no-arg TextBuffer constructor exist and work? This will
+         * initialize default text tag table...
+         */
+
+        buf = new TextBuffer();
+
+        /*
+         * Well, did it?
+         */
+
+        assertSame(TextTagTable.getDefaultTable(), GtkTextBuffer.getTagTable(buf));
+
+        /*
+         * Does no-arg TextTag constructor exist and work?
+         */
+
+        bold = new TextTag();
+        bold.setWeight(Weight.BOLD);
+
+        pointer = buf.getIterStart();
+        buf.insert(pointer, "Be bold!", bold);
+
+        pointer = buf.getIter(4);
+        tags = pointer.getTags();
+
+        assertEquals(1, tags.length);
+        assertSame(bold, tags[0]);
     }
 }

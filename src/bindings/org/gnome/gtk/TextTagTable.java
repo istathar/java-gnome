@@ -39,6 +39,8 @@ import org.gnome.glib.Object;
  */
 public class TextTagTable extends Object
 {
+    private static TextTagTable defaultTable;
+
     protected TextTagTable(long pointer) {
         super(pointer);
     }
@@ -50,5 +52,20 @@ public class TextTagTable extends Object
      */
     public TextTagTable() {
         super(GtkTextTagTable.createTextTagTable());
+    }
+
+    /**
+     * We maintain a single default TextTagTable to facilitate no-arg
+     * convenience constructors for TextTag and TextBuffer. Get (and
+     * initialize if necessary) this table.
+     */
+    /*
+     * synchronized?
+     */
+    static TextTagTable getDefaultTable() {
+        if (defaultTable == null) {
+            defaultTable = new TextTagTable();
+        }
+        return defaultTable;
     }
 }

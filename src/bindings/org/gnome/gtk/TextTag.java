@@ -11,6 +11,8 @@
  */
 package org.gnome.gtk;
 
+import static org.gnome.gtk.TextTagTable.getDefaultTable;
+
 import org.gnome.glib.Object;
 import org.gnome.pango.Scale;
 import org.gnome.pango.Underline;
@@ -48,6 +50,18 @@ public class TextTag extends Object
 {
     protected TextTag(long pointer) {
         super(pointer);
+    }
+
+    /**
+     * Create a new TextTag and place it in the default TextTagTable. This
+     * will be usable by a TextBuffer created with the
+     * {@link TextBuffer#TextBuffer() no-arg} constructor.
+     * 
+     * @since 4.0.8
+     */
+    public TextTag() {
+        super(GtkTextTag.createTextTag(null));
+        GtkTextTagTable.add(getDefaultTable(), this);
     }
 
     /**

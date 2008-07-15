@@ -11,6 +11,8 @@
  */
 package org.gnome.gtk;
 
+import static org.gnome.gtk.TextTagTable.getDefaultTable;
+
 import org.gnome.gdk.Pixbuf;
 import org.gnome.glib.Object;
 
@@ -54,6 +56,22 @@ public class TextBuffer extends Object
 
     protected TextBuffer(long pointer) {
         super(pointer);
+    }
+
+    /**
+     * Create a new TextBuffer.
+     * 
+     * <p>
+     * This will use the default built-in TextTagTable which in turn will be
+     * populated with tags created using the no-arg
+     * {@link TextTag#TextTag() TextTag} constructor. This is a convenience;
+     * if you need to segregate TextTags used by different TextBuffers then
+     * just use the other TextBuffer constructor.
+     * 
+     * @since 4.0.8
+     */
+    public TextBuffer() {
+        super(GtkTextBuffer.createTextBuffer(getDefaultTable()));
     }
 
     /**
