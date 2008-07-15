@@ -534,7 +534,6 @@ Pixbuf's
 PixbufAnimation
 PixbufFormat
 Pixbufs
-Pixmap
 PolicyType
 PositionType
 PowerResponseType
@@ -1011,6 +1010,7 @@ da
 dbm
 de
 debian
+defaultEditable
 defaultTable
 defs
 deiconify
@@ -1276,6 +1276,7 @@ getStorageType
 getString
 getSubmenu
 getSurface
+getTags
 getTarget
 getText
 getTooltip
@@ -1352,6 +1353,7 @@ ifndef
 ijuma
 img
 inDir
+includeHidden
 indexOf
 ing
 init
@@ -1488,6 +1490,7 @@ monarchName
 monarchNameColumn
 monarchObjectColumn
 moveChild
+moveMark
 moveTo
 moveWidget
 msg

@@ -32,6 +32,14 @@ import org.gnome.pango.Weight;
  * <p>
  * All TextTags belong to a TextTagTable, and likewise all TextBuffers are
  * constructed by specifying the TextTagTable that it will draw tags from.
+ * That said, if you don't mind sharing your TextTags between all TextBuffers
+ * in your application, then you can use the no-arg convenience constructors
+ * here and in TextBuffer.
+ * 
+ * <p>
+ * If you want to know what TextTags are applying at a given spot in a
+ * TextBuffer, then get a TextIter pointing there and use its
+ * {@link TextIter#getTags() getTags()} method.
  * 
  * <p>
  * <i>All TextTags created in java-gnome are "anonymous"; the underlying

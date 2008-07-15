@@ -62,11 +62,12 @@ public class TextBuffer extends Object
      * Create a new TextBuffer.
      * 
      * <p>
-     * This will use the default built-in TextTagTable which in turn will be
-     * populated with tags created using the no-arg
-     * {@link TextTag#TextTag() TextTag} constructor. This is a convenience;
-     * if you need to segregate TextTags used by different TextBuffers then
-     * just use the other TextBuffer constructor.
+     * This will use the default built-in TextTagTable (shared by all
+     * TextBuffers constructed with this call) which in turn will be populated
+     * with tags created using the no-arg {@link TextTag#TextTag() TextTag}
+     * constructor. This is a convenience; if you need to segregate TextTags
+     * used by different TextBuffers then just use the other TextBuffer
+     * constructor.
      * 
      * @since 4.0.8
      */
@@ -96,10 +97,10 @@ public class TextBuffer extends Object
     /**
      * Returns the text in the range start,end. Excludes undisplayed text
      * (text marked with tags that set the invisibility attribute) if
-     * <code>includeHiddenChars</code> is <code>false</code>. Does not
-     * include characters representing embedded images, so byte and character
-     * indexes into the returned string do not correspond to byte and
-     * character indexes into the buffer.
+     * <code>includeHidden</code> is <code>false</code>. Does not include
+     * characters representing embedded images, so byte and character indexes
+     * into the returned string do not correspond to byte and character
+     * indexes into the buffer.
      * 
      * @param start
      *            Start of a range
@@ -117,7 +118,7 @@ public class TextBuffer extends Object
     /**
      * Returns the text in the TextBuffer. This is merely a convenience
      * function that calls {@link #getText(TextIter, TextIter, boolean)} from
-     * buffer start to end with <code>includeHiddenChars</code> being
+     * buffer start to end with <code>includeHidden</code> being
      * <code>true</code>.
      * 
      * @return The complete text in the TextBuffer.
