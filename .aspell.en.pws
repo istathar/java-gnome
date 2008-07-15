@@ -540,6 +540,7 @@ Preetz
 Prelle
 PressMe
 ProgressBar
+Prugh
 Pty
 PyThat
 PyThis
@@ -1550,6 +1551,7 @@ onHide
 onKeyPressEvent
 onKeyReleaseEvent
 onLeaveNotifyEvent
+onPopulatePopup
 onPopupMenu
 onResponse
 onRowActivated
@@ -2016,7 +2018,6 @@ writeToPNG
 writeToPng
 writeTranslationCode
 x's
-xFF
 xFF
 xFFFC
 xFFFFFF

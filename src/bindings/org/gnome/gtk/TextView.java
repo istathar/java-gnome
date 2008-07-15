@@ -531,7 +531,7 @@ public class TextView extends Container
     /*
      * The oddities and "workaround" suggested are based on the currently weak
      * scrolling behaviour in GtkTextView. If and when that gets cleaned up,
-     * then remove this nonsense from the documentatin here.
+     * then remove this nonsense from the documentation here.
      */
     public void scrollTo(TextMark mark, double withinMargin, double xalign, double yalign) {
         if ((withinMargin < 0) || (withinMargin > 0.5)) {
@@ -548,14 +548,18 @@ public class TextView extends Container
     }
 
     /**
-     * Signal emitted to populate the popup menu for a GtkTextView.
+     * Signal emitted by GTK allowing you to populate MenuItems into the popup
+     * context menu displayed by a TextView (typically in response to the user
+     * right-clicking).
      * 
-     * Populating the popup menu is done by adding items to the
-     * <code>menu</code> parameter with <code>menu.add()</code>. After
-     * constructing your menu one <i>must</i> call
-     * <code>menu.showAll()</code> or your menu will <i>not</i> appear in
-     * the popup menu.
+     * <p>
+     * The signal has a parameter of type Menu and populating the popup menu
+     * is done by adding items to it with Menu's <code>append()</code>,
+     * etc. After constructing your menu one <i>must</i> call
+     * <code>showAll()</code> on the Menu or your newly added MenuItems will
+     * <i>not</i> appear in the popup menu.
      * 
+     * <p>
      * An example:
      * 
      * <pre>
@@ -563,7 +567,7 @@ public class TextView extends Container
      * 
      * t.connect(new TextView.POPULATE_POPUP() {
      *     public void onPopulatePopup(TextView source, Menu menu) {
-     *         menu.add(new ImageMenuItem(Stock.SAVE, new MenuItem.ACTIVATE() {
+     *         menu.append(new ImageMenuItem(Stock.SAVE, new MenuItem.ACTIVATE() {
      *             public void onActivate(MenuItem source) {
      *             //do stuff
      *             }
@@ -573,16 +577,26 @@ public class TextView extends Container
      * });
      * </pre>
      * 
-     * <i>Note: Trying to add or append an existing GtkMenu will not work.</i>
+     * @author Kenneth Prugh
+     * @since 4.0.8
      */
     public interface POPULATE_POPUP extends GtkTextView.POPULATE_POPUP
     {
+        /**
+         * Add MenuItems you wish to see in the TreeView's context menu to
+         * <code>menu</code>.
+         */
         public void onPopulatePopup(TextView source, Menu menu);
     }
 
     /**
      * Hook up a handler to receive <code>POPULATE_POPUP</code> signals on
-     * this GtkTextView.
+     * this TextView. This will be emitted each time the user right-clicks or
+     * presses the <b><code>Menu</code></b> key, and allows you to
+     * populate the popup menu according to the current circumstances - in
+     * other words, making it a context menu.
+     * 
+     * @since 4.0.8
      */
     public void connect(POPULATE_POPUP handler) {
         GtkTextView.connect(this, handler, false);
