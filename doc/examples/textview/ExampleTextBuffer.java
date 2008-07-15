@@ -96,7 +96,7 @@ public class ExampleTextBuffer
                 try {
                     Pixbuf image = new Pixbuf(chooser.getFilename());
                     TextIter pos = buffer.getIter(buffer.getInsert());
-                    buffer.insertPixbuf(pos, image);
+                    buffer.insert(pos, image);
                 } catch (FileNotFoundException e) {
                     // TODO Auto-generated catch block
                     e.printStackTrace();

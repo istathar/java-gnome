@@ -255,7 +255,7 @@ public class TextBuffer extends Object
      * 
      * @since 4.0.8
      */
-    public void insertPixbuf(TextIter pos, Pixbuf image) {
+    public void insert(TextIter pos, Pixbuf image) {
         GtkTextBuffer.insertPixbuf(this, pos, image);
     }
 

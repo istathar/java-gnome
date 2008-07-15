@@ -246,7 +246,7 @@ public class ValidateTextBuffer extends TestCaseGtk
         Pixbuf pixbuf = null;
         try {
             pixbuf = new Pixbuf("src/bindings/java-gnome_Icon.png");
-            buf.insertPixbuf(pointer, pixbuf);
+            buf.insert(pointer, pixbuf);
         } catch (FileNotFoundException e) {
             fail("Could not open image");
         }
@@ -398,7 +398,7 @@ public class ValidateTextBuffer extends TestCaseGtk
         Pixbuf pixbuf = null;
         try {
             pixbuf = new Pixbuf("src/bindings/java-gnome_Icon.png");
-            buf.insertPixbuf(pointer, pixbuf);
+            buf.insert(pointer, pixbuf);
         } catch (FileNotFoundException e) {
             fail("Could not open image");
         }
