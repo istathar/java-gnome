@@ -1011,6 +1011,7 @@ da
 dbm
 de
 debian
+defaultEditability
 defaultEditable
 defaultTable
 defs
@@ -1550,6 +1551,7 @@ onConfigureEvent
 onDaySelected
 onDaySelectedDoubleClick
 onDeleteEvent
+onDeleteRange
 onEdited
 onEnterNotifyEvent
 onEvent

@@ -87,8 +87,8 @@ public class TextView extends Container
      * 
      * <p>
      * Regardless of the default setting here, you can override this for
-     * specific regions of text with TextTag's
-     * {@link TextTag#setEditable(boolean) setEditable()}. of tags.
+     * specific regions of text with by applying TextTags with
+     * {@link TextTag#setEditable(boolean) setEditable()} set.
      * 
      * @since 4.0.8
      */

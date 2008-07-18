@@ -95,12 +95,12 @@ public class TextBuffer extends Object
     }
 
     /**
-     * Returns the text in the range start,end. Excludes undisplayed text
-     * (text marked with tags that set the invisibility attribute) if
-     * <code>includeHidden</code> is <code>false</code>. Does not include
-     * characters representing embedded images, so byte and character indexes
-     * into the returned string do not correspond to byte and character
-     * indexes into the buffer.
+     * Returns the text in the range <code>start</code> .. <code>end</code>.
+     * Excludes undisplayed text (text marked with tags that set the
+     * <var>invisibility</var> attribute) if <code>includeHidden</code> is
+     * <code>false</code>. Does not include characters representing
+     * embedded images, so indexes into the returned string do not correspond
+     * to indexes into the TextBuffer.
      * 
      * @param start
      *            Start of a range
@@ -232,22 +232,27 @@ public class TextBuffer extends Object
     }
 
     /**
-     * Like {@link #insert(TextIter, String) insert(TextIter,String)}, but
-     * the insertion will not occur if <code>pos</code> points to a
-     * non-editable location in the buffer - meaning that it is enclosed in
-     * TextTags that mark the area non-editable.<br/>
+     * Like {@link #insert(TextIter, String) insert()}, but the insertion
+     * will not occur if <code>pos</code> points to a non-editable location
+     * in the buffer - meaning that it is enclosed in TextTags that mark the
+     * area non-editable.<br/>
      * 
      * @param pos
      *            Position to insert at.
      * @param text
      *            Text to insert.
-     * @param defaultEditable
+     * @param defaultEditability
      *            How shall the area be handled, if there are no tags
-     *            affecting editability.
+     *            affecting the <var>editable</var> property at the given
+     *            location. You probably want to use <code>true</code>
+     *            unless you used TextView's
+     *            {@link TextView#setEditable(boolean) setEditable()} to
+     *            change the default setting in the display Widget you're
+     *            using.
      * @since 4.0.8
      */
-    public void insertInteractive(TextIter pos, String text, boolean defaultEditable) {
-        GtkTextBuffer.insertInteractive(this, pos, text, -1, defaultEditable);
+    public void insertInteractive(TextIter pos, String text, boolean defaultEditability) {
+        GtkTextBuffer.insertInteractive(this, pos, text, -1, defaultEditability);
     }
 
     /**
@@ -296,6 +301,8 @@ public class TextBuffer extends Object
 
     /**
      * Returns whether or not the TextBuffer has a selection
+     * 
+     * @since 4.0.8
      */
     public boolean getHasSelection() {
         return GtkTextBuffer.getHasSelection(this);
@@ -515,5 +522,46 @@ public class TextBuffer extends Object
         public void onInsertText(TextBuffer source, TextIter pos, String text, int length) {
             handler.onInsertText(source, pos, text);
         }
+    }
+
+    /**
+     * Signal emitted when one or more characters are deleted.
+     * 
+     * <p>
+     * You can get a String representing the the removed characters by
+     * calling:
+     * 
+     * <pre>
+     * deleted = buffer.getText(start, end, false);
+     * </pre>
+     * 
+     * <p>
+     * Note that in the case of a user action which attempts to delete text in
+     * a TextView that is not <var>editable</var> or within a range of
+     * characters affected by TextTags with the <var>editable</var> property
+     * set to <code>false</code> then the action will be inhibited and this
+     * signal will not be raised.
+     * 
+     * @author Andrew Cowie
+     * @since 4.0.8
+     */
+    /*
+     * TODO Can anyone explain how to stop a deletion from occurring in
+     * response to the value of the text between start and end? The default
+     * handler will nuke the text.
+     */
+    public interface DELETE_RANGE extends GtkTextBuffer.DELETE_RANGE
+    {
+        public void onDeleteRange(TextBuffer source, TextIter start, TextIter end);
+    }
+
+    /**
+     * Hook up a handler for <code>DELETE_RANGE</code> signals on this
+     * TextBuffer.
+     * 
+     * @since 4.0.8
+     */
+    public void connect(DELETE_RANGE handler) {
+        GtkTextBuffer.connect(this, handler, false);
     }
 }
