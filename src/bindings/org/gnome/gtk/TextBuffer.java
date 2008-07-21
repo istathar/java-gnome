@@ -468,8 +468,8 @@ public class TextBuffer extends Object
      * Signal emitted when text is inserted into the TextBuffer.
      * 
      * <p>
-     * You must leave the TextIter <code>pos</code> in a valid state; that
-     * is, if you do something in your signal handler that changes the
+     * You must leave the TextIter <code>pointer</code> in a valid state;
+     * that is, if you do something in your signal handler that changes the
      * TextBuffer, you must revalidate <code>pos</code> before returning.
      * 
      * <p>
@@ -484,7 +484,7 @@ public class TextBuffer extends Object
      */
     public interface INSERT_TEXT
     {
-        public void onInsertText(TextBuffer source, TextIter pos, String text);
+        public void onInsertText(TextBuffer source, TextIter pointer, String text);
     }
 
     /**
