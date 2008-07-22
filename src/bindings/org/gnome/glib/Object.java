@@ -11,7 +11,7 @@
  */
 package org.gnome.glib;
 
-import java.util.HashSet;
+import java.util.ArrayList;
 
 import org.freedesktop.bindings.Constant;
 import org.freedesktop.bindings.Debug;
@@ -67,7 +67,7 @@ public abstract class Object extends Proxy
      * a weak Java reference from the BindingsJavaClosure on the JNI side. See
      * bindings_java_signal.c in src/jni.
      */
-    private HashSet<Signal> handlers;
+    private ArrayList<Signal> handlers;
 
     protected Object(long pointer) {
         super(pointer);
@@ -211,12 +211,14 @@ public abstract class Object extends Proxy
     /**
      * When a Signal handler is connected, we maintain a strong reference from
      * here. We don't use it for anything, just memory management. Only called
-     * from {@link Plumbing#connectSignal(Object, Signal, Class, String)}.
+     * from Plumbing.connectSignal().
      */
     void addHandler(Signal handler) {
-        if (handlers == null) {
-            handlers = new HashSet<Signal>();
+        synchronized (this) {
+            if (handlers == null) {
+                handlers = new ArrayList<Signal>(1);
+            }
+            handlers.add(handler);
         }
-        handlers.add(handler);
     }
 }

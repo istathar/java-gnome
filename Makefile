@@ -166,7 +166,7 @@ else
 endif
 
 format: all
-	@echo -e "FORMAT\tsrc/ tests/ doc/examples"
+	@echo -e "FORMAT\tsrc/ tests/ doc/examples/"
 	touch -r src/bindings/org/gnome/gtk/Version.java tmp/stamp/version
 	$(ECLIPSE) -nosplash \
 		-application org.eclipse.jdt.core.JavaCodeFormatter \
