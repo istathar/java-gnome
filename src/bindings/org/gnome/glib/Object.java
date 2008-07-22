@@ -229,12 +229,14 @@ public abstract class Object extends Proxy
     /**
      * When a Signal handler is connected, we maintain a strong reference from
      * here. We don't use it for anything, just memory management. Only called
-     * from {@link Plumbing#connectSignal(Object, Signal, Class, String)}.
+     * from Plumbing.connectSignal().
      */
     void addHandler(Signal handler) {
-        if (handlers == null) {
-            handlers = new ArrayList<Signal>(1);
+        synchronized (this) {
+            if (handlers == null) {
+                handlers = new ArrayList<Signal>(1);
+            }
+            handlers.add(handler);
         }
-        handlers.add(handler);
     }
 }
