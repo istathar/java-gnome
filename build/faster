@@ -617,26 +617,29 @@ def runDemo():
 from sys import argv
 
 if __name__ == '__main__':
-	if os.getenv("V"):
-		verbose = True
-
-	if len(argv) > 1 and sys.argv[1] == "ide":
-		silent = True
-
-	lockBuild()
-	loadConfig()
-	loadHashes()
-
-	generateBindings()
-
-	if len(argv) > 1:
-		generateTests()
-
-	unlockBuild()
-
-	if len(argv) > 1 and sys.argv[1] == "test":
-		runTests()
-
-	if len(argv) > 1 and sys.argv[1] == "demo":
-		runDemo()
+	try:
+		if os.getenv("V"):
+			verbose = True
+	
+		if len(argv) > 1 and sys.argv[1] == "ide":
+			silent = True
+	
+		lockBuild()
+		loadConfig()
+		loadHashes()
+	
+		generateBindings()
+	
+		if len(argv) > 1:
+			generateTests()
+	
+		unlockBuild()
+	
+		if len(argv) > 1 and sys.argv[1] == "test":
+			runTests()
+	
+		if len(argv) > 1 and sys.argv[1] == "demo":
+			runDemo()
+	except KeyboardInterrupt:
+		print
 
