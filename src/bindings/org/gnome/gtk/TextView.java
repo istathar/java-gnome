@@ -601,4 +601,71 @@ public class TextView extends Container
     public void connect(POPULATE_POPUP handler) {
         GtkTextView.connect(this, handler, false);
     }
+
+    /**
+     * Set the padding that will be put below each paragraph of text in the
+     * TextView. The default is <code>0</code>, ie for it just to continue
+     * with normal line spacing as specified by the current font metrics.
+     * 
+     * <p>
+     * See also
+     * {@link #setPaddingAboveParagraph(int) setPaddingAboveParagraph()} and
+     * {@link #setPaddingInsideParagraph(int) setPaddingInsideParagraph()}.
+     * 
+     * <p>
+     * <i>This sets the <var>pixels-below-lines</var> property in GTK.</i>
+     * 
+     * @since 4.0.8
+     */
+    public void setPaddingBelowParagraph(int pixels) {
+        GtkTextView.setPixelsBelowLines(this, pixels);
+    }
+
+    /**
+     * Set the padding that will be put above each paragraph of text in the
+     * TextView. The default is <code>0</code>; if you change this then the
+     * first line will be offset from the top edge of the TextView.
+     * 
+     * <p>
+     * See also
+     * {@link #setPaddingBelowParagraph(int) setPaddingBelowParagraph()} and
+     * {@link #setPaddingInsideParagraph(int) setPaddingInsideParagraph()}.
+     * 
+     * <p>
+     * <i>This sets the <var>pixels-above-lines</var> property in GTK.</i>
+     * 
+     * @since 4.0.8
+     */
+    public void setPaddingAboveParagraph(int pixels) {
+        GtkTextView.setPixelsAboveLines(this, pixels);
+    }
+
+    /**
+     * Set the padding that will be put between each line in a paragraph if
+     * wrapping is turned on. Wrapping happens as a result of enabling
+     * {@link #setWrapMode(WrapMode) setWrapMode()} along with something
+     * acting to restrict the width allocated to the TextView (for example, by
+     * placing it in a ScrolledWindow). When wrapping occurs, then a single
+     * line of text in a TextBuffer will become a paragraph of multiple lines
+     * in the TextView displaying it.
+     * 
+     * <p>
+     * The default is <code>0</code>, ie to leave the line spacing alone.
+     * If nothing is causing lines to wrap then this setting will have no
+     * effect.
+     * 
+     * <p>
+     * See also
+     * {@link #setPaddingAboveParagraph(int) setPaddingAboveParagraph()} and
+     * {@link #setPaddingBelowParagraph(int) setPaddingBelowParagraph()} for
+     * the spacing before and after each paragraph (wrapped or not).
+     * 
+     * <p>
+     * <i>This sets the <var>pixels-inside-wrap</var> property in GTK.</i>
+     * 
+     * @since 4.0.8
+     */
+    public void setPaddingInsideParagraph(int pixels) {
+        GtkTextView.setPixelsInsideWrap(this, pixels);
+    }
 }

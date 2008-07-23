@@ -1798,7 +1798,13 @@ setOperator
 setOrdinal
 setOrientation
 setPadding
+setPaddingAboveParagraph
+setPaddingBelowParagraph
+setPaddingInsideParagraph
 setPixbuf
+setPixelsAboveLines
+setPixelsBelowLines
+setPixelsInsideWrap
 setPolicy
 setPosition
 setPrgname
