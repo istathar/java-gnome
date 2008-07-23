@@ -44,6 +44,7 @@ from shutil import move
 config = {}
 hashes = {}
 verbose = False
+silent = False
 
 configFile = ".config"
 versionFile = "src/bindings/org/gnome/gtk/Version.java"
@@ -71,8 +72,9 @@ def lockBuild():
 	try:
 		flock(lock, LOCK_EX | LOCK_NB)
 	except IOError:
-		print "Inhibited: another build process already running"
-		sys.stdout.flush()
+		if not silent:
+			print "Inhibited: another build process already running"
+			sys.stdout.flush()
 		sys.exit(0)
 
 
@@ -316,9 +318,10 @@ def dependsMapTranslationFileToCatalogueFile(domain, poDir, targetDir):
 
 def executeCommand(short, what, cmd, inDir=None):
 	sys.stderr.flush()
-	print short + "\t" + what
-	if verbose:
-		print cmd
+	if not silent:
+		print short + "\t" + what
+		if verbose:
+			print cmd
 	sys.stdout.flush()
 	
 	status = subprocess.call(cmd, shell=True, cwd=inDir, bufsize=1)
@@ -617,6 +620,9 @@ if __name__ == '__main__':
 	if os.getenv("V"):
 		verbose = True
 
+	if len(argv) > 1 and sys.argv[1] == "eclipse":
+		silent = True
+
 	lockBuild()
 	loadConfig()
 	loadHashes()
@@ -633,7 +639,4 @@ if __name__ == '__main__':
 
 	if len(argv) > 1 and sys.argv[1] == "demo":
 		runDemo()
-
-	if len(argv) > 1 and sys.argv[1] == "eclipse":
-		print "done"
 
