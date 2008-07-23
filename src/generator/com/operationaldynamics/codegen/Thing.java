@@ -229,20 +229,7 @@ public abstract class Thing
          */
         register(new BlacklistedThing("guchar**"));
 
-        /*
-         * GList/GSList and related typedefs... FIXME change this when we
-         * properly map the list and array returns.
-         */
-        register(new FixmeThing("GList*"));
-        register(new FixmeThing("GSList*"));
         register(new FixmeThing("AtkAttributeSet*"));
-
-        /*
-         * FUTURE no Cairo bindings, yet
-         */
-        register(new BlacklistedThing("cairo_t*"));
-        register(new BlacklistedThing("cairo_surface_t*"));
-        register(new BlacklistedThing("cairo_font_options_t*"));
 
         /*
          * And what on earth are...
