@@ -1564,6 +1564,7 @@ onInsertText
 onKeyPressEvent
 onKeyReleaseEvent
 onLeaveNotifyEvent
+onMapEvent
 onPopulatePopup
 onPopupMenu
 onResponse

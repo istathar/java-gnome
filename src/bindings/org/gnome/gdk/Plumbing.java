@@ -59,6 +59,7 @@ public abstract class Plumbing extends org.gnome.glib.Plumbing
 
             // FIXME this must be wrong, but what else should we do with it?
             case GdkEventType.DELETE:
+            case GdkEventType.MAP:
             case GdkEventType.UNMAP:
                 type = EventAny.class;
                 break;
