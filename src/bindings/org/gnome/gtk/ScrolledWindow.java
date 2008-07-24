@@ -58,12 +58,12 @@ public class ScrolledWindow extends Bin
      * Construct a ScrolledWindow with the specified Adjustments
      */
     /*
-	  * FIXME This doesn't work, at least not the way I expect it to. In fact,
-	  * every time I've tried it the other ScrolledWindow whose Adjustments I
-	  * borrow breaks. If someome can figure out the proper use of this, and 
-	  * document it, we can make this public.
+     * FIXME This doesn't work, at least not the way I expect it to. In fact,
+     * every time I've tried it the other ScrolledWindow whose Adjustments I
+     * borrow breaks. If someome can figure out the proper use of this, and 
+     * document it, we can make this public.
      */
-	 ScrolledWindow(Adjustment hadjustment, Adjustment vadjustment) {
+    ScrolledWindow(Adjustment hadjustment, Adjustment vadjustment) {
         super(GtkScrolledWindow.createScrolledWindow(hadjustment, vadjustment));
     }
 
