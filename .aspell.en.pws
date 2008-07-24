@@ -1468,6 +1468,7 @@ onHide
 onKeyPressEvent
 onKeyReleaseEvent
 onLeaveNotifyEvent
+onMapEvent
 onPopupMenu
 onResponse
 onRowActivated
