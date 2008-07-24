@@ -300,6 +300,7 @@ GtkImage
 GtkImageMenuItem
 GtkImageType
 GtkLabel
+GtkLayout
 GtkListStore
 GtkMain
 GtkMenu
@@ -579,6 +580,7 @@ ScreenshotInfoMessageDialog
 ScreenshotQuestionMessageDialog
 ScrollLock
 ScrolledWindow
+ScrolledWindow's
 SelectionMode
 Sep
 SeparatorMenuItem
@@ -940,6 +942,7 @@ createImageFromPixmap
 createImageMenuItemWithMnemonic
 createInstance
 createLabel
+createLayout
 createListStore
 createMark
 createMenu
@@ -1179,11 +1182,13 @@ getFormalName
 getGreen
 getGroup
 getHAdjustment
+getHScrollbar
 getHadjustment
 getHandle
 getHasFocus
 getHasSelection
 getHeight
+getHscrollbar
 getImage
 getInconsistent
 getInsert
@@ -1290,6 +1295,7 @@ getURI
 getUri
 getUseMarkup
 getVAdjustment
+getVScrollbar
 getVadjustment
 getValue
 getValueString
@@ -1299,6 +1305,7 @@ getVisible
 getVisibleLineOffset
 getVisibleRect
 getVisibleRectangle
+getVscrollbar
 getWidget
 getWidth
 getWindow
@@ -1331,6 +1338,7 @@ gtktextview
 guint
 hackfest
 hacky
+hadjustment
 handleName
 handlerBlah
 handlerInstance
@@ -1840,6 +1848,7 @@ setSecondaryUseMarkup
 setSelectable
 setSensitive
 setShadowType
+setSize
 setSizeRequest
 setSizing
 setSkipPagerHint
@@ -2006,6 +2015,7 @@ util
 utils
 utils's
 va
+vadjustment
 validationCheck
 valueChanged
 valueFor

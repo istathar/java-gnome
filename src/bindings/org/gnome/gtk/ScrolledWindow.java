@@ -76,6 +76,16 @@ public class ScrolledWindow extends Bin
     }
 
     /**
+     * Get the Scrollbar Widget that is being used to draw the horizontal
+     * scroll bar on the bottom edge of this ScrolledWindow.
+     * 
+     * @since 4.0.8
+     */
+    public Scrollbar getHScrollbar() {
+        return (Scrollbar) GtkScrolledWindow.getHscrollbar(this);
+    }
+
+    /**
      * Get the Scrollbar Widget that is being used to draw the vertical scroll
      * bar on the right hand side of this ScrolledWindow.
      * 
@@ -83,6 +93,16 @@ public class ScrolledWindow extends Bin
      */
     public Scrollbar getVScrollbar() {
         return (Scrollbar) GtkScrolledWindow.getVscrollbar(this);
+    }
+
+    /**
+     * Get the Adjustment that is being used to drive the horizontal position
+     * of the scroll bar on the bottom edge of this ScrolledWindow.
+     * 
+     * @since 4.0.8
+     */
+    public Adjustment getHAdjustment() {
+        return GtkScrolledWindow.getHadjustment(this);
     }
 
     /**

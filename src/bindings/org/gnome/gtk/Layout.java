@@ -1,7 +1,7 @@
 /*
  * Layout.java
  *
- * Copyright (c) 2007 Operational Dynamics Consulting Pty Ltd
+ * Copyright (c) 2007-2008 Operational Dynamics Consulting Pty Ltd
  *
  * The code in this file, and the library it is a part of, are made available
  * to you by the authors under the terms of the "GNU General Public Licence,
@@ -11,6 +11,22 @@
  */
 package org.gnome.gtk;
 
+/**
+ * A Container that is able to hold present a limited view of Widgets laid out
+ * on a larger canvas. Layouts are designed for scrolling and should be added
+ * to a ScrolledWindow with {@link ScrolledWindow#add(Widget) add()}.
+ * 
+ * <p>
+ * Note that this Widget has the same limitations as Fixed due to it
+ * positioning child Widgets by co-ordinates and not by box packing (no layout
+ * management, no resizing, likelihood of rendering collisions, etc). You are
+ * better off adding a proper Container and adding scrolling with
+ * ScrolledWindow's
+ * {@link ScrolledWindow#addWithViewport(Widget) addWithViewport()}.
+ * 
+ * @author Andrew Cowie
+ * @since 4.0.8
+ */
 /*
  * FIXME this is a placeholder stub for what will become the public API for
  * this type. Replace this comment with appropriate javadoc including author
@@ -23,5 +39,55 @@ public class Layout extends Container
 {
     protected Layout(long pointer) {
         super(pointer);
+    }
+
+    /**
+     * Construct a Layout with default adjustments.
+     * 
+     * @since 4.0.8
+     */
+    public Layout() {
+        // call createScrolledWindow and let it create the adjustments
+        super(GtkLayout.createLayout(null, null));
+    }
+
+    /**
+     * Construct a Layout, supplying the Adjustment object used to control the
+     * panning. You'd use this if you are manually managing the Adjustment
+     * values yourself, or if you are using the Adjustments from another
+     * viewport based Widget, ie from a ScrolledWindow.
+     * 
+     * @since 4.0.8
+     */
+    public Layout(Adjustment hadjustment, Adjustment vadjustment) {
+        super(GtkLayout.createLayout(hadjustment, vadjustment));
+    }
+
+    /**
+     * Add a child Widget at the specified co-ordinates.
+     * 
+     * @since 4.0.8
+     */
+    public void put(Widget child, int x, int y) {
+        GtkLayout.put(this, child, x, y);
+    }
+
+    /**
+     * Relocate a child Widget to the specified co-ordinates.
+     * 
+     * @since 4.0.8
+     */
+    public void move(Widget child, int x, int y) {
+        GtkLayout.move(this, child, x, y);
+    }
+
+    /**
+     * Set the total extent of the canvas that this Layout will scroll its
+     * viewport over.
+     * 
+     * @since 4.0.8
+     */
+    public void setSize(int width, int height) {
+        GtkLayout.setSize(this, width, height);
     }
 }
