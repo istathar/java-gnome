@@ -89,4 +89,8 @@ public final class Requisition extends Boxed
     public int getHeight() {
         return GtkRequisition.getHeight(this);
     }
+
+    public String toString() {
+        return this.getClass().getName() + ": " + getWidth() + "x" + getHeight();
+    }
 }
