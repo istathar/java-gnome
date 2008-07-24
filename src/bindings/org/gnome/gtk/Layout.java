@@ -54,8 +54,7 @@ public class Layout extends Container
     /**
      * Construct a Layout, supplying the Adjustment object used to control the
      * panning. You'd use this if you are manually managing the Adjustment
-     * values yourself, or if you are using the Adjustments from another
-     * viewport based Widget, ie from a ScrolledWindow.
+     * values yourself.
      * 
      * @since 4.0.8
      */
@@ -89,5 +88,25 @@ public class Layout extends Container
      */
     public void setSize(int width, int height) {
         GtkLayout.setSize(this, width, height);
+    }
+
+    /**
+     * Get the Adjustment that is being used to drive the horizontal position
+     * of the viewport showing over this Layout's canvas.
+     * 
+     * @since 4.0.8
+     */
+    public Adjustment getHAdjustment() {
+        return GtkLayout.getHadjustment(this);
+    }
+
+    /**
+     * Get the Adjustment that is being used to drive the vertical position of
+     * the viewport showing over this Layout's canvas.
+     * 
+     * @since 4.0.8
+     */
+    public Adjustment getVAdjustment() {
+        return GtkLayout.getVadjustment(this);
     }
 }

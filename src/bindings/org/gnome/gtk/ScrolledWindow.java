@@ -44,7 +44,10 @@ public class ScrolledWindow extends Bin
     }
 
     /**
-     * Constructs a ScrolledWindow with default adjustments.
+     * Construct a ScrolledWindow. This will automatically create default
+     * Adjustments for managing the horizontal and vertical ScrollBars.
+     * 
+     * @since 4.0.3
      */
     public ScrolledWindow() {
         // call createScrolledWindow and let it create the adjustments
@@ -52,7 +55,22 @@ public class ScrolledWindow extends Bin
     }
 
     /**
+     * Construct a ScrolledWindow with the specified Adjustments
+     */
+    /*
+     * FIXME This doesn't work, at least not the way I expect it to. In fact,
+     * every time I've tried it the other ScrolledWindow whose Adjustments I
+     * borrow breaks. If someome can figure out the proper use of this, and 
+     * document it, we can make this public.
+     */
+    ScrolledWindow(Adjustment hadjustment, Adjustment vadjustment) {
+        super(GtkScrolledWindow.createScrolledWindow(hadjustment, vadjustment));
+    }
+
+    /**
      * Set the scrollbar policy for the horizontal and vertical scrollbars.
+     * 
+     * @since 4.0.3
      */
     public void setPolicy(PolicyType hscrollbarPolicy, PolicyType vscrollbarPolicy) {
         GtkScrolledWindow.setPolicy(this, hscrollbarPolicy, vscrollbarPolicy);
@@ -113,5 +131,16 @@ public class ScrolledWindow extends Bin
      */
     public Adjustment getVAdjustment() {
         return GtkScrolledWindow.getVadjustment(this);
+    }
+
+    /**
+     * Set the type of decoration you want around the child Widget in the
+     * ScrolledWindow.
+     */
+    /*
+     * FIXME This doesn't work!?! GTK bug?
+     */
+    void setShadowType(ShadowType type) {
+        GtkScrolledWindow.setShadowType(this, type);
     }
 }
