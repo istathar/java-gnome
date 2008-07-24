@@ -20,14 +20,19 @@ import org.freedesktop.bindings.Constant;
  * panels. This class specifies constants identifying these underlying
  * resources.
  * 
- * <b>These border Windows are an obscure, advanced, and not wholly functional
- * feature of GTK.</b>
+ * <p>
+ * The {@link #TEXT TEXT} Window is where most of the work happens; use
+ * Textview's {@link TextView#getWindow(TextWindowType) getWindow(TEXT)}
+ * rather than Widget's <code>getWindow()</code> and can be used if you need
+ * to work out relative positioning.
  * 
  * <p>
- * The accompanying illustration is a TextView with each border window
- * specified to a width of 50 pixels and a Label placed at <i>window
- * co-ordinates</i> <code>0</code>,<code>0</code> in each one. <img
- * class="snapshot" src="TextView-BorderWindows.png">
+ * On the other hand there are border windows, specified by <code>LEFT</code>,
+ * <code>TOP</code>, etc. <b>These border Windows are an obscure, advanced,
+ * and not wholly functional feature of GTK.</b> The accompanying
+ * illustration is a TextView with each border window specified to a width of
+ * 50 pixels and a Label placed at <i>window co-ordinates</i> <code>0</code>,<code>0</code>
+ * in each one. <img class="snapshot" src="TextView-BorderWindows.png">
  * 
  * Code to create this snapshot consisted of a series of calls like:
  * 
@@ -92,7 +97,15 @@ public final class TextWindowType extends Constant
      */
     public static TextWindowType BOTTOM = new TextWindowType(GtkTextWindowType.BOTTOM, "BOTTOM");
 
+    /**
+     * The main part of the TextView which displays the text to the user. This
+     * is, quite likely, the only Window you will need to get at.
+     * 
+     * @since 4.0.8
+     */
+    public static TextWindowType TEXT = new TextWindowType(GtkTextWindowType.TEXT, "TEXT");
+
     /*
-     * There are several more!
+     * Do we need PRIVATE or WIDGET?
      */
 }
