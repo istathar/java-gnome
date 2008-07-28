@@ -16,6 +16,88 @@ import org.gnome.gdk.Rectangle;
 /**
  * FIXME
  * 
+ * <a name="height"></a>
+ * <h2>Line height calculations</h2>
+ * 
+ * <p>
+ * Working out the heights for each line of text in the TextView and doing
+ * related positioning can, at times, be computationally intensive. So GTK
+ * does this in a background idle task.
+ * 
+ * <p>
+ * Ordinarily you don't have to worry about this, but methods like
+ * {@link #getLineY(TextIter) getLineY()} will not report correct information
+ * until this has happened. If you are doing drawing based on the co-ordinates
+ * of a given line in the <code>TEXT</code> Window of the TextView, it is
+ * easy to be trapped by this: you hook up to the
+ * <code>TextBuffer.CHANGED</code> thinking that you can use this as an
+ * indication of when the TextView has changed, but unfortunately this turns
+ * out not to be the case. <code>CHANGED</code> is indeed emitted, but the
+ * information returned by <code>getLineY()</code> will not have been
+ * updated until after the current signal handlers finish and the
+ * high-priority idle task can run.
+ * 
+ * <p>
+ * Studying the internal implementation of this logic in GTK, it turns out
+ * that the bulk of the work to do validation of the line height calculations
+ * and text placement happens in code paths triggered off of
+ * <code>Adjustment.VALUE_CHANGED</code> (which is emitted, for example,
+ * when scrolling occurs). Thus there does seem to be a way to trick the
+ * TreeView into getting on with the revalidation early, and that is to emit
+ * <code>VALUE_CHANGED</code> yourself. So, given the usual
+ * TextView/TextBuffer fields and an Adjustment:
+ * 
+ * <pre>
+ * ...
+ * final TextView view;
+ * final TextBuffer buffer;
+ * final ScrolledWindow scroll;
+ * final Adjustment vadj;
+ * ...
+ * </pre>
+ * 
+ * and assuming <code>view</code> has been packed into <code>scroll</code>,
+ * etc, you can get the Adjustment and use <i>it</i> changing as the trigger
+ * to do your redrawing logic:
+ * 
+ * <pre>
+ * vadj = scroll.getVAdjustment();
+ * vadj.connect(new Adjustment.VALUE_CHANGED() {
+ *     public void onValueChanged(Adjustment source) {
+ *         // now the line heights will be correct
+ *         doSomethingWith(view.getLineY());
+ *     }
+ * });
+ * </pre>
+ * 
+ * That works for when real scrolling happens, but if you need to precipitate
+ * matters, use Adjustment's <code>emitValueChanged()</code> to fire the
+ * <code>VALUE_CHANGED</code> signal:
+ * 
+ * <pre>
+ * buffer.connect(new TextBuffer.CHANGED() {
+ *     public void onChanged(TextBuffer source) {
+ *         vadj.emitValueChanged();
+ *     }
+ * });
+ * 
+ * window.connect(new Window.CONFIGURE_EVENT() {
+ *     public boolean onConfigureEvent(Widget source, EventConfigure event) {
+ *         vadj.emitValueChanged();
+ *         return false;
+ *     }
+ * });
+ * </pre>
+ * 
+ * and so on.
+ * 
+ * <p>
+ * <i>Obviously "internal to GTK" implies that we are second guessing the
+ * implementation details. This workaround is not based on documented public
+ * behaviour, and unfortunately is not guaranteed to be stable. So as we say
+ * in Open Source, Your Mileage May Vary. Perhaps GTK will improve this aspect
+ * of the API in the future.</i>
+ * 
  * @author Stefan Prelle
  * @author Andrew Cowie
  * @since 4.0.8
@@ -384,6 +466,14 @@ public class TextView extends Container
      * the line. If you need to know how high the line is, call
      * {@link #getLineRange(TextIter) getLineRange()}.
      * 
+     * <p>
+     * <b>WARNING</b><br>
+     * The co-ordinates of the start of each line height are cached are not
+     * immediately updated when the underlying TextBuffer changes; see the
+     * comment titled "<a href="#height">Line Height Calculations</a>" in
+     * the documentation for this class for discussion of when you can safely
+     * use this method.
+     * 
      * @since 4.0.8
      */
     public int getLineY(TextIter position) {
@@ -400,6 +490,13 @@ public class TextView extends Container
      * This is the compliment of {@link #getLineY(TextIter) getLineY()},
      * giving you the corresponding line height that drops from the top
      * specified by that method.
+     * 
+     * <p>
+     * <b>WARNING</b><br>
+     * Line height values are cached by are not immediately refreshed when the
+     * underlying TextBuffer changes; see the comment titled "<a
+     * href="#height">Line Height Calculations</a>" in the documentation for
+     * this class for discussion of when you can safely use this method.
      * 
      * @since 4.0.8
      */
