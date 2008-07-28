@@ -32,6 +32,7 @@ import org.gnome.gtk.ValidateOutParameters;
 import org.gnome.gtk.ValidatePacking;
 import org.gnome.gtk.ValidateProperties;
 import org.gnome.gtk.ValidateResponseType;
+import org.gnome.gtk.ValidateSignalEmission;
 import org.gnome.gtk.ValidateSnapshotUtilities;
 import org.gnome.gtk.ValidateStockItems;
 import org.gnome.gtk.ValidateTreeModel;
@@ -116,6 +117,7 @@ public class UnitTests
         suite.addTestSuite(ValidateGListMethods.class);
         suite.addTestSuite(ValidateConstants.class);
         suite.addTestSuite(ValidateProperties.class);
+        suite.addTestSuite(ValidateSignalEmission.class);
         suite.addTestSuite(ValidateScreensAndDisplays.class);
         suite.addTestSuite(ValidateKeyboardHandling.class);
         suite.addTestSuite(ValidateImageHandling.class);

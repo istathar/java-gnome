@@ -24,8 +24,28 @@ public class ValidateSignalEmission extends TestCaseGtk
         result = false;
     }
 
+    public final void testButtonClicked() {
+        final Button b;
+
+        assertFalse(result);
+
+        b = new Button("Hello");
+        b.connect(new Button.CLICKED() {
+            public void onClicked(Button source) {
+                assertEquals("Hello", source.getLabel());
+                result = true;
+            }
+        });
+        b.emitClicked();
+
+        cycleMainLoop();
+        assertTrue("CLICKED wasn't handled", result);
+    }
+
     public final void testAdjustmentValueChanged() {
         final Adjustment adj;
+
+        assertFalse(result);
 
         adj = new Adjustment(5, 0, 100, 2, 5, 10);
         adj.connect(new Adjustment.VALUE_CHANGED() {
