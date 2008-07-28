@@ -80,5 +80,5 @@ public final class LoremIpsum
             + "In ante quis neque laoreet pulvinar. Integer pharetra ligula "
             + "eget magna. Morbi condimentum lectus commodo nunc. Sed "
             + "suscipit, elit quis condimentum malesuada, erat arcu pulvinar "
-            + "tortor, vitae rhoncus justo est ut ipsum. Sed sagittis mi sit amet mauris.\n";
+            + "tortor, vitae rhoncus justo est ut ipsum. Sed sagittis mi sit amet mauris.";
 }
