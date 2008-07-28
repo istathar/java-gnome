@@ -106,6 +106,29 @@ public abstract class Generator
         return buf.toString();
     }
 
+    public static String toPascalCase(String lowerCaseName) {
+        StringBuffer buf;
+        int i;
+        char ch;
+
+        buf = new StringBuffer(lowerCaseName);
+
+        ch = buf.charAt(0);
+        buf.setCharAt(0, Character.toUpperCase(ch));
+
+        i = 1;
+
+        while ((i = buf.indexOf("_", i)) != -1) {
+            buf.deleteCharAt(i);
+            if (buf.length() > i) {
+                ch = buf.charAt(i);
+                buf.setCharAt(i, Character.toUpperCase(ch));
+            }
+        }
+
+        return buf.toString();
+    }
+
     /**
      * We map a number of .defs file entities from lower case with a hyphen to
      * upper case with an underscore. Notable examples are enums, where we map

@@ -255,12 +255,12 @@ public class Window extends Bin
      * @author Devdas Bhagat
      * @since 4.0.0
      */
-    public interface DELETE_EVENT extends GtkWidget.DELETE_EVENT
+    public interface DeleteEvent extends GtkWidget.DeleteEventSignal
     {
         public boolean onDeleteEvent(Widget source, Event event);
     }
 
-    public void connect(DELETE_EVENT handler) {
+    public void connect(DeleteEvent handler) {
         GtkWidget.connect(this, handler, false);
     }
 
@@ -829,7 +829,7 @@ public class Window extends Bin
     /*
      * This is here for the same reason that DELETE_EVENT is.
      */
-    public interface CONFIGURE_EVENT extends GtkWidget.CONFIGURE_EVENT
+    public interface ConfigureEvent extends GtkWidget.ConfigureEventSignal
     {
         /**
          * Return <code>false</code>! Although this is an event signal with
@@ -844,7 +844,7 @@ public class Window extends Bin
      * 
      * @since 4.0.8
      */
-    public void connect(CONFIGURE_EVENT handler) {
+    public void connect(ConfigureEvent handler) {
         GtkWidget.connect(this, handler, false);
     }
 }

@@ -220,7 +220,7 @@ public class Button extends Bin
      * button is released. You're probably used to this behaviour without
      * realizing it.</i>
      */
-    public interface CLICKED extends GtkButton.CLICKED
+    public interface Clicked extends GtkButton.ClickedSignal
     {
         public void onClicked(Button source);
     }
@@ -232,7 +232,7 @@ public class Button extends Bin
      * <pre>
      * Button b;
      *              
-     * b.connect(new Button.CLICKED() {
+     * b.connect(new Button.Clicked() {
      *     public void onClicked(Button source) {
      *         // do something!
      *     }
@@ -240,11 +240,11 @@ public class Button extends Bin
      * </pre>
      * 
      * <p>
-     * You can of course create a subclass of Button.CLICKED and then use
+     * You can of course create a subclass of Button.Clicked and then use
      * instances of it if you have highly complicated algorithms to implement.
      * 
      * <p>
-     * If you implement Button.CLICKED in the class you're currently working
+     * If you implement Button.Clicked in the class you're currently working
      * on, then you use a technique called "self-delegation" which can
      * sometimes work well;
      * 
@@ -254,20 +254,19 @@ public class Button extends Bin
      * 
      * @since 4.0.0
      */
-    public void connect(CLICKED handler) {
+    public void connect(Clicked handler) {
         GtkButton.connect(this, handler, false);
     }
 
     /*
-     * ACTIVATE: "Applications should never connect to this signal, but use
-     * the 'clicked' signal."
-     */
-    /*
-     * ENTERED, PRESSED, etc: "deprecated"
+     * Button.Activate: "Applications should never connect to this signal, but
+     * use the 'clicked' signal."
+     * 
+     * Button.Entered, Button.Pressed, etc: deprecated.
      */
 
     /**
-     * Cause a <code>CLICKED</code> signal to be emitted.
+     * Cause a <code>Clicked</code> signal to be emitted.
      * 
      * @since 4.0.6
      */
