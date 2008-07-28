@@ -210,12 +210,12 @@ public final class TextIter extends Boxed
     }
 
     public String toString() {
-        StringBuffer buf = new StringBuffer("TextIter(");
-        buf.append(getLineOffset());
-        buf.append(":");
+        StringBuffer buf = new StringBuffer("TextIter ");
+        buf.append(getOffset());
+        buf.append(" (");
         buf.append(getLine());
         buf.append(",");
-        buf.append(getOffset());
+        buf.append(getLineOffset());
         buf.append(")");
         return buf.toString();
     }
