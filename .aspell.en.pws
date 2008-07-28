@@ -1007,7 +1007,9 @@ elif
 ellipsized
 else's
 elsif
+emitChanged
 emitClicked
+emitValueChanged
 emplace
 enclosingGroup
 endif
