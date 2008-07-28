@@ -415,7 +415,7 @@ public class TextView extends Container
      * 
      * <p>
      * The <code>width</code> and <code>height</code> will, more or less,
-     * correspond to the size of the area of text actually being display in
+     * correspond to the size of the area of text actually being displayed in
      * the TextView.
      * 
      * @since 4.0.8

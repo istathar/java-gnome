@@ -11,10 +11,10 @@
  */
 package org.gnome.gtk;
 
-import static org.gnome.gtk.TextTagTable.getDefaultTable;
-
 import org.gnome.gdk.Pixbuf;
 import org.gnome.glib.Object;
+
+import static org.gnome.gtk.TextTagTable.getDefaultTable;
 
 /*
  * FIXME this is a placeholder stub for what will become the public API for
