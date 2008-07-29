@@ -219,18 +219,19 @@ public class Button extends Bin
      * emitted, but only if the cursor is still in the Button when the mouse
      * button is released. You're probably used to this behaviour without
      * realizing it.</i>
-     */
-    public interface Clicked extends GtkButton.ClickedSignal
-    {
-        public void onClicked(Button source);
-    }
-
-    /**
-     * Hook up a handler to receive "clicked" events on this Button. A typical
-     * example of how this is used is as follows:
+     * 
+     * <h2>All about signal handling</h2>
+     * 
+     * <h3>Use an anonymous inner class</h3>
+     * 
+     * <p>
+     * In general, the way that java-gnome is intended to be used is for you
+     * to create an anonymous inner class right where you call the
+     * <code>connect()</code> method to hook up the signal. A typical
+     * example is as follows:
      * 
      * <pre>
-     * Button b;
+     * final Button b;
      *              
      * b.connect(new Button.Clicked() {
      *     public void onClicked(Button source) {
@@ -239,18 +240,91 @@ public class Button extends Bin
      * }
      * </pre>
      * 
+     * This is the form we recommend; it has the advantage that your handler
+     * code is close to the code that declares and configures the Widget.
+     * Also, if variables are declared <code>final</code> then you can
+     * access them from within the nested anonymous class, and that makes
+     * things easy indeed.
+     * 
+     * <h3>Using a concrete instance</h3>
+     * 
      * <p>
-     * You can of course create a subclass of Button.Clicked and then use
-     * instances of it if you have highly complicated algorithms to implement.
+     * If you have more complex code, perhaps that you need to reuse across
+     * several Widgets, then you can of course create a concrete class that
+     * implements Button.Clicked and then use instances of it if you have
+     * highly complicated algorithms to implement:
+     * 
+     * <pre>
+     * class ComplexHandler implements Button.Clicked
+     * {
+     *     private int field;
+     * 
+     *     ComplexHandler(int param) {
+     *         this.field = param;
+     *     }
+     * 
+     *     public void onClicked(Button source) {
+     *     // do something very complex with field!
+     *     }
+     * }
+     * </pre>
+     * 
+     * and then when you construct the Button:
+     * 
+     * <pre>
+     * b = new Button();
+     * b.connect(new ComplexHandler(42));
+     * </pre>
+     * 
+     * You can just as easily declare one and reuse it if you want to apply
+     * the same logic to a series of Button; this is where the
+     * <code>source</code> parameter that every signal callback signature
+     * includes.
+     * 
+     * <pre>
+     * final ComplexHandler handler;
+     * 
+     * handler = new ComplexHandler(42);
+     * ...
+     * b1.connect(handler);
+     * b2.connect(handler);
+     * b3.connect(handler);
+     * ...
+     * </pre>
+     * 
+     * <h3>Self-delegation</h3>
      * 
      * <p>
      * If you implement Button.Clicked in the class you're currently working
-     * on, then you use a technique called "self-delegation" which can
-     * sometimes work well;
+     * on, then you use a technique called "self-delegation" which can be
+     * useful in certain circumstances:
      * 
      * <pre>
      * b.connect(this);
      * </pre>
+     * 
+     * This has disadvantage that you can only have one
+     * <code>onClicked()</code> method in your class, so if you have lots of
+     * Buttons then you lose the benefit of being able to connect different
+     * handlers to different Buttons.
+     * 
+     * <p>
+     * We recommend you use anonymous inner classes in-place whenever
+     * possible. In our experience, having the handler logic next to the code
+     * that declares an instance dramatically improves readability.
+     * 
+     * @author Andrew Cowie
+     * @since 4.0.0
+     */
+    public interface Clicked extends GtkButton.ClickedSignal
+    {
+        public void onClicked(Button source);
+    }
+
+    /**
+     * Hook up a handler to receive <code>Button.Clicked</code> events on
+     * this Button. See {@link Button.Clicked Button.Clicked} for a detailed
+     * discussion of how to connect signals.
      * 
      * @since 4.0.0
      */
@@ -266,7 +340,7 @@ public class Button extends Bin
      */
 
     /**
-     * Cause a <code>Clicked</code> signal to be emitted.
+     * Cause a <code>Button.Clicked</code> signal to be emitted.
      * 
      * @since 4.0.6
      */
