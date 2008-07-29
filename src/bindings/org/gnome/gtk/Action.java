@@ -320,15 +320,26 @@ public class Action extends Object
      * (s)he activates an associated MenuItem or when
      * {@link Action#activate() activate()} is called.
      */
-    public interface ACTIVATE extends GtkAction.ACTIVATE
+    public interface Activate extends GtkAction.ActivateSignal
     {
         public void onActivate(Action source);
     }
 
     /**
-     * Connect a handler to the <code>ACTIVATE</code> signal.
+     * Connect a handler to the <code>Action.Activate</code> signal.
      */
+    public void connect(Action.Activate handler) {
+        GtkAction.connect(this, handler, false);
+    }
+
+    /** @deprecated */
+    public interface ACTIVATE extends GtkAction.ActivateSignal
+    {
+    }
+
+    /** @deprecated */
     public void connect(ACTIVATE handler) {
+        assert false : "use Action.Activate instead";
         GtkAction.connect(this, handler, false);
     }
 

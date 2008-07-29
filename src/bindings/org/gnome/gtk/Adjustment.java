@@ -218,17 +218,13 @@ public class Adjustment extends Object
         GtkAdjustment.connect(this, handler, false);
     }
 
-    /**
-     * @deprecated
-     */
+    /** @deprecated */
     public interface VALUE_CHANGED extends GtkAdjustment.ValueChangedSignal
     {
         public void onValueChanged(Adjustment source);
     }
 
-    /**
-     * @deprecated
-     */
+    /** @deprecated */
     public void connect(VALUE_CHANGED handler) {
         assert false : "use Adjustment.ValueChanged instead";
         GtkAdjustment.connect(this, handler, false);

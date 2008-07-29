@@ -190,7 +190,18 @@ public class TreeSelection extends Object
     /**
      * Hook up a <code>TreeSelection.Changed</code> signal handler.
      */
-    public void connect(Changed handler) {
+    public void connect(TreeSelection.Changed handler) {
+        GtkTreeSelection.connect(this, handler, false);
+    }
+
+    /** @deprecated */
+    public interface CHANGED extends GtkTreeSelection.ChangedSignal
+    {
+    }
+
+    /** @deprecated */
+    public void connect(CHANGED handler) {
+        assert false : "use TreeSelection.Changed instead";
         GtkTreeSelection.connect(this, handler, false);
     }
 

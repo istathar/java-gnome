@@ -164,17 +164,29 @@ public abstract class Widget extends org.gnome.gtk.Object
      * @author Andrew Cowie
      * @since 4.0.7
      */
-    public interface LEAVE_NOTIFY_EVENT extends GtkWidget.LEAVE_NOTIFY_EVENT
+    public interface LeaveNotifyEvent extends GtkWidget.LeaveNotifyEventSignal
     {
         boolean onLeaveNotifyEvent(Widget source, EventCrossing event);
     }
 
     /**
-     * Hook up a handler to receive <code>LEAVE_NOTIFY_EVENT</code> signals.
+     * Hook up a handler to receive <code>Widget.LeaveNotifyEvent</code>
+     * signals.
      * 
      * @since 4.0.7
      */
+    public void connect(Widget.LeaveNotifyEvent handler) {
+        GtkWidget.connect(this, handler, false);
+    }
+
+    /** @deprecated */
+    public interface LEAVE_NOTIFY_EVENT extends GtkWidget.LeaveNotifyEventSignal
+    {
+    }
+
+    /** @deprecated */
     public void connect(LEAVE_NOTIFY_EVENT handler) {
+        assert false : "use Widget.LeaveNotifyEvent instead";
         GtkWidget.connect(this, handler, false);
     }
 
@@ -590,7 +602,7 @@ public abstract class Widget extends org.gnome.gtk.Object
      * @author Andrew Cowie
      * @since 4.0.5
      */
-    public interface VISIBILITY_NOTIFY_EVENT extends GtkWidget.VISIBILITY_NOTIFY_EVENT
+    public interface VisibilityNotifyEvent extends GtkWidget.VisibilityNotifyEventSignal
     {
         /**
          * Although this is an <var>event-signal</var>, this merely reports
@@ -605,7 +617,7 @@ public abstract class Widget extends org.gnome.gtk.Object
     }
 
     /**
-     * Connect a <code>VISIBILITY_NOTIFY_EVENT</code> handler.
+     * Connect a <code>Widget.VisibilityNotifyEvent</code> handler.
      * 
      * @since 4.0.5
      */
@@ -615,7 +627,19 @@ public abstract class Widget extends org.gnome.gtk.Object
      * window must have been assigned. by realize. We do these two steps in
      * the override.
      */
+    public void connect(Widget.VisibilityNotifyEvent handler) {
+        GtkWidgetOverride.setEventsVisibility(this);
+        GtkWidget.connect(this, handler, false);
+    }
+
+    /** @deprecated */
+    public interface VISIBILITY_NOTIFY_EVENT extends GtkWidget.VisibilityNotifyEventSignal
+    {
+    }
+
+    /** @deprecated */
     public void connect(VISIBILITY_NOTIFY_EVENT handler) {
+        assert false : "use Widget.VisibilityNotifyEvent instead";
         GtkWidgetOverride.setEventsVisibility(this);
         GtkWidget.connect(this, handler, false);
     }
@@ -626,8 +650,7 @@ public abstract class Widget extends org.gnome.gtk.Object
      * change workspaces, and as a Window is being destroyed.
      * 
      * <p>
-     * In combination with
-     * {@link VISIBILITY_NOTIFY_EVENT VISIBILITY_NOTIFY_EVENT}, this can be
+     * In combination with {@link Widget.VisibilityNotifyEvent}, this can be
      * used to detect whether a Window is actually currently presented to the
      * top of the stack and visible to the user:
      * 
@@ -637,7 +660,7 @@ public abstract class Widget extends org.gnome.gtk.Object
      * final Window w;
      * final Button b;
      * ...
-     * w.connect(new Widget.VISIBILITY_NOTIFY_EVENT() {
+     * w.connect(new Widget.VisibilityNotifyEvent() {
      *     public boolean onVisibilityNotifyEvent(Widget source, EventVisibility event) {
      *         if (event.getState() == VisibilityState.UNOBSCURED) {
      *             up = true;
@@ -648,7 +671,7 @@ public abstract class Widget extends org.gnome.gtk.Object
      *     }
      * });
      * 
-     * w.connect(new Widget.UNMAP_EVENT() {
+     * w.connect(new Widget.UnmapEvent() {
      *     public boolean onUnmapEvent(Widget source, Event event) {
      *         up = false;
      *         return false;
@@ -659,7 +682,7 @@ public abstract class Widget extends org.gnome.gtk.Object
      * thus allowing you to do something like:
      * 
      * <pre>
-     * b.connect(new Button.CLICKED() {
+     * b.connect(new Button.Clicked() {
      *     public void onClicked(Button source) {
      *         if (up) {
      *             w.hide();
@@ -675,15 +698,15 @@ public abstract class Widget extends org.gnome.gtk.Object
      * to intelligently toggle the visibility of the Window.
      * 
      * <p>
-     * Note that you don't need <code>MAP_EVENT</code> because the the
-     * <code>VISIBILITY_NOTIFY_EVENT</code> will be tripped if you come back
-     * to the workspace the Window is already on.
+     * Note that you don't need <code>Widget.MapEvent</code> here because
+     * the the <code>Widget.VisibilityNotifyEvent</code> will be tripped if
+     * you come back to the workspace the Window is already on.
      * 
      * @author Andrew Cowie
      * @author Ryan Lortie
      * @since 4.0.5
      */
-    public interface UNMAP_EVENT extends GtkWidget.UNMAP_EVENT
+    public interface UnmapEvent extends GtkWidget.UnmapEventSignal
     {
         /**
          * Although this is an <var>event-signal</var>, this merely reports
@@ -695,11 +718,22 @@ public abstract class Widget extends org.gnome.gtk.Object
     }
 
     /**
-     * Connect a <code>UNMAP_EVENT</code> handler.
+     * Connect a <code>Widget.UnmapEvent</code> handler.
      * 
      * @since 4.0.5
      */
+    public void connect(Widget.UnmapEvent handler) {
+        GtkWidget.connect(this, handler, false);
+    }
+
+    /** @deprecated */
+    public interface UNMAP_EVENT extends GtkWidget.UnmapEventSignal
+    {
+    }
+
+    /** @deprecated */
     public void connect(UNMAP_EVENT handler) {
+        assert false : "use Widget.UnmapEvent instead";
         GtkWidget.connect(this, handler, false);
     }
 
@@ -942,21 +976,32 @@ public abstract class Widget extends org.gnome.gtk.Object
      * @author Andrew Cowie
      * @since 4.0.6
      */
-    public interface BUTTON_PRESS_EVENT extends GtkWidget.BUTTON_PRESS_EVENT
+    public interface ButtonPressEvent extends GtkWidget.ButtonPressEventSignal
     {
         public boolean onButtonPressEvent(Widget source, EventButton event);
     }
 
     /**
-     * Hook up a <code>BUTTON_PRESS_EVENT</code> handler.
+     * Hook up a <code>Widget.ButtonPressEvent</code> handler.
      * 
      * @since 4.0.6
      */
     /*
      * Do we need to force the GDK event mask like we did with
-     * VISIBILITY_NOTIFY_EVENT
+     * Widget.VisibilityNotifyEvent?
      */
+    public void connect(Widget.ButtonPressEvent handler) {
+        GtkWidget.connect(this, handler, false);
+    }
+
+    /** @deprecated */
+    public interface BUTTON_PRESS_EVENT extends GtkWidget.ButtonPressEventSignal
+    {
+    }
+
+    /** @deprecated */
     public void connect(Widget.BUTTON_PRESS_EVENT handler) {
+        assert false : "use Widget.ButtonPressEvent instead";
         GtkWidget.connect(this, handler, false);
     }
 
