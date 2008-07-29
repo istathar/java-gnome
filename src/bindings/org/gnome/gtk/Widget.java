@@ -140,7 +140,7 @@ public abstract class Widget extends org.gnome.gtk.Object
      * @author Davyd Madeley
      * @since 4.0.2
      */
-    public interface ENTER_NOTIFY_EVENT extends GtkWidget.ENTER_NOTIFY_EVENT
+    public interface EnterNotifyEvent extends GtkWidget.EnterNotifyEventSignal
     {
         /**
          * @since 4.0.7
@@ -149,12 +149,23 @@ public abstract class Widget extends org.gnome.gtk.Object
     }
 
     /**
-     * Hook up a handler to receive <code>ENTER_NOTIFY_EVENT</code> signals
-     * on this Widget.
+     * Hook up a handler to receive <code>Widget.EnterNotifyEvent</code>
+     * signals on this Widget.
      * 
      * @since 4.0.2
      */
+    public void connect(Widget.EnterNotifyEvent handler) {
+        GtkWidget.connect(this, handler, false);
+    }
+
+    /** @deprecated */
+    public interface ENTER_NOTIFY_EVENT extends GtkWidget.EnterNotifyEventSignal
+    {
+    }
+
+    /** @deprecated */
     public void connect(ENTER_NOTIFY_EVENT handler) {
+        assert false : "use Widget.EnterNotifyEvent instead";
         GtkWidget.connect(this, handler, false);
     }
 
@@ -199,39 +210,62 @@ public abstract class Widget extends org.gnome.gtk.Object
      * @author Andrew Cowie
      * @since 4.0.2
      */
-    public interface FOCUS_OUT_EVENT extends GtkWidget.FOCUS_OUT_EVENT
+    public interface FocusOutEvent extends GtkWidget.FocusOutEventSignal
     {
         public boolean onFocusOutEvent(Widget source, EventFocus event);
     }
 
     /**
-     * Hook up a handler to receive <code>FOCUS_OUT_EVENT</code> events on
-     * this Widget
+     * Hook up a handler to receive <code>Widget.FocusOutEvent</code> events
+     * on this Widget
      * 
      * @since 4.0.2
      */
+    public void connect(Widget.FocusOutEvent handler) {
+        GtkWidget.connect(this, handler, false);
+    }
+
+    /** @deprecated */
+    public interface FOCUS_OUT_EVENT extends GtkWidget.FocusOutEventSignal
+    {
+    }
+
+    /** @deprecated */
     public void connect(FOCUS_OUT_EVENT handler) {
+        assert false : "use Widget.FocusOutEvent instead";
         GtkWidget.connect(this, handler, false);
     }
 
     /**
      * Signal emitted when focus enters this Widget. See
-     * {@link Widget.FOCUS_OUT_EVENT FOCUS_OUT_EVENT}.
+     * {@link Widget.FocusOutEvent}.
      * 
      * @author Andrew Cowie
      * @since 4.0.6
      */
-    public interface FOCUS_IN_EVENT extends GtkWidget.FOCUS_IN_EVENT
+    public interface FocusInEvent extends GtkWidget.FocusInEventSignal
     {
         public boolean onFocusInEvent(Widget source, EventFocus event);
     }
 
     /**
-     * Hook up a handler to receive <code>FOCUS_IN_EVENT</code> signals.
+     * Hook up a handler to receive <code>Widget.FocusInEvent</code>
+     * signals.
      * 
      * @since 4.0.6
      */
+    public void connect(Widget.FocusInEvent handler) {
+        GtkWidget.connect(this, handler, false);
+    }
+
+    /** @deprecated */
+    public interface FOCUS_IN_EVENT extends GtkWidget.FocusInEventSignal
+    {
+    }
+
+    /** @deprecated */
     public void connect(FOCUS_IN_EVENT handler) {
+        assert false : "use Widget.FocusInEvent instead";
         GtkWidget.connect(this, handler, false);
     }
 
@@ -248,7 +282,7 @@ public abstract class Widget extends org.gnome.gtk.Object
      * exposed, you could do:
      * 
      * <pre>
-     * w.connect(new Widget.ExposeEvent() {
+     * foo.connect(new Widget.ExposeEvent() {
      *     public boolean onExposeEvent(Widget source, EventExpose event) {
      *         Rectangle rect;
      *         int width, height, x, y;
@@ -291,7 +325,7 @@ public abstract class Widget extends org.gnome.gtk.Object
      * to the Context constructor:
      * 
      * <pre>
-     * w.connect(new Widget.ExposeEvent() {
+     * foo.connect(new Widget.ExposeEvent() {
      *     public boolean onExposeEvent(Widget source, EventExpose event) {
      *         Context cr;
      *         
@@ -826,17 +860,28 @@ public abstract class Widget extends org.gnome.gtk.Object
      * @author Andrew Cowie
      * @since 4.0.6
      */
-    public interface HIDE extends GtkWidget.HIDE
+    public interface Hide extends GtkWidget.HideSignal
     {
         public void onHide(Widget source);
     }
 
     /**
-     * Connect a <code>HIDE</code> handler.
+     * Connect a <code>Widget.Hide</code> handler.
      * 
      * @since 4.0.6
      */
-    public void connect(Widget.HIDE handler) {
+    public void connect(Widget.Hide handler) {
+        GtkWidget.connect(this, handler, false);
+    }
+
+    /** @deprecated */
+    public interface HIDE extends GtkWidget.HideSignal
+    {
+    }
+
+    /** @deprecated */
+    public void connect(HIDE handler) {
+        assert false : "use Widget.Hide instead";
         GtkWidget.connect(this, handler, false);
     }
 
@@ -981,7 +1026,7 @@ public abstract class Widget extends org.gnome.gtk.Object
      * anywhere in Window <code>w</code>,
      * 
      * <pre>
-     * w.connect(new BUTTON_PRESS_EVENT() {
+     * w.connect(new Widget.ButtonPressEvent() {
      *     boolean onButtonPressEvent(Widget source, EventButton event) {
      *         if (event.getButton() == MouseButton.RIGHT) {
      *             // popup menu
@@ -998,13 +1043,13 @@ public abstract class Widget extends org.gnome.gtk.Object
      * 
      * <p>
      * The signal emitted when the user lets the button go is
-     * {@link Widget.BUTTON_RELEASE_EVENT BUTTON_RELEASE_EVENT}.
+     * {@link Widget.ButtonReleaseEvent}.
      * 
      * <p>
      * Note that this signal doesn't apply just to the user clicking on a
      * Button Widget. Indeed, "left-click" on a Button will cause
-     * {@link Button.CLICKED CLICKED} to be emitted, and you should use that
-     * in preference for normal purposes.
+     * {@link Button.Clicked} to be emitted, and you should use that in
+     * preference for normal purposes.
      * 
      * @author Andrew Cowie
      * @since 4.0.6
@@ -1040,23 +1085,35 @@ public abstract class Widget extends org.gnome.gtk.Object
 
     /**
      * The signal emitted when the user releases a pressed mouse button. See
-     * {@link Widget.BUTTON_PRESS_EVENT BUTTON_PRESS_EVENT} for discussion of
-     * this set of event signals.
+     * {@link Widget.ButtonPressEvent} for discussion of this set of event
+     * signals.
      * 
      * @author Andrew Cowie
      * @since 4.0.6
      */
-    public interface BUTTON_RELEASE_EVENT extends GtkWidget.BUTTON_RELEASE_EVENT
+    public interface ButtonReleaseEvent extends GtkWidget.ButtonReleaseEventSignal
     {
         public boolean onButtonReleaseEvent(Widget source, EventButton event);
     }
 
     /**
-     * Hook up a <code>BUTTON_RELEASE_EVENT</code> handler.
+     * Hook up a <code>Widget.ButtonReleaseEvent</code> handler.
      * 
      * @since 4.0.6
      */
+    public void connect(Widget.ButtonReleaseEvent handler) {
+        GtkWidget.connect(this, handler, false);
+    }
+
+    /** @deprecated */
+    public interface BUTTON_RELEASE_EVENT extends GtkWidget.ButtonReleaseEventSignal
+    {
+        public boolean onButtonReleaseEvent(Widget source, EventButton event);
+    }
+
+    /** @deprecated */
     public void connect(Widget.BUTTON_RELEASE_EVENT handler) {
+        assert false : "use Widget.ButtonReleaseEvent instead";
         GtkWidget.connect(this, handler, false);
     }
 
