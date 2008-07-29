@@ -55,8 +55,7 @@ public class Entry extends Widget implements Editable, CellEditable
     /**
      * Get the text currently showing in the Entry. This is typically the most
      * significant method as it is the one you use to get the result of the
-     * user's activity upon receiving a {@link Entry.ACTIVATE ACTIVATE}
-     * signal.
+     * user's activity upon receiving a {@link Entry.Activate} signal.
      * 
      * @since 4.0.3
      */
@@ -138,22 +137,33 @@ public class Entry extends Widget implements Editable, CellEditable
     }
 
     /**
-     * The <code>ACTIVATE</code> signal occurs when the user presses <b><code>RETURN</code></b>
-     * in an Entry.
+     * The <code>Entry.Activate</code> signal occurs when the user presses
+     * <b><code>RETURN</code></b> in an Entry.
      * 
      * @since 4.0.3
      */
-    public interface ACTIVATE extends GtkEntry.ACTIVATE
+    public interface Activate extends GtkEntry.ActivateSignal
     {
         public void onActivate(Entry source);
     }
 
     /**
-     * Connects an <code>ACTIVATE</code> handler to the Widget.
+     * Connects an <code>Entry.Activate</code> handler to the Widget.
      * 
      * @since 4.0.3
      */
+    public void connect(Entry.Activate handler) {
+        GtkEntry.connect(this, handler, false);
+    }
+
+    /** @deprecated */
+    public interface ACTIVATE extends GtkEntry.ActivateSignal
+    {
+    }
+
+    /** @deprecated */
     public void connect(ACTIVATE handler) {
+        assert false : "use Entry.Activate instead";
         GtkEntry.connect(this, handler, false);
     }
 
@@ -189,11 +199,17 @@ public class Entry extends Widget implements Editable, CellEditable
     }
 
     /**
-     * Connect a <code>CHANGED</code> handler.
+     * Connect a <code>Editable.Changed</code> handler.
      * 
      * @since 4.0.6
      */
+    public void connect(Editable.Changed handler) {
+        GtkEditable.connect(this, handler, false);
+    }
+
+    /** @deprecated */
     public void connect(CHANGED handler) {
+        assert false : "use Editable.Changed instead";
         GtkEditable.connect(this, handler, false);
     }
 
