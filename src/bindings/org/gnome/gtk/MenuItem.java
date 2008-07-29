@@ -117,8 +117,7 @@ public class MenuItem extends Item
      * The handler interface for an activation. An activation is triggered
      * either when the user clicks the MenuItem, or activates it with the
      * keyboard either by typing that MenuItem's mnemonic character (if it has
-     * one) or selecting the MenuItem via the arrow keys and then pressing
-     * <code>&lt;ENTER&gt;</code>.
+     * one) or selecting the MenuItem via the arrow keys and then pressing <b><code>Enter</code></b>.
      * 
      * @since 4.0.3
      */
