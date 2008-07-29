@@ -301,7 +301,7 @@ public class TreeView extends Container
      * @author Vreixo Formoso
      * @since 4.0.7
      */
-    public interface RowExpanded extends GtkTreeView.RowExpandedSignal
+    public interface RowExpanded
     {
         public void onRowExpanded(TreeView source, TreeIter iter, TreePath path);
     }
