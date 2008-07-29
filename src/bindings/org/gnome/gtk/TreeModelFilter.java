@@ -137,7 +137,7 @@ public class TreeModelFilter extends TreeModel implements TreeDragSource
      * callback using the existing Signal machinery. Note that there is no
      * connect() method.
      */
-    public interface Visible extends GtkTreeModelFilter.VisibleSignal
+    public interface Visible
     {
         /**
          * Answer the question "is this row to be visible?" Return
@@ -161,7 +161,7 @@ public class TreeModelFilter extends TreeModel implements TreeDragSource
     {
         private final Visible handler;
 
-        VisibleHandler(Visible handler) {
+        private VisibleHandler(Visible handler) {
             this.handler = handler;
         }
 
@@ -185,9 +185,37 @@ public class TreeModelFilter extends TreeModel implements TreeDragSource
      * which essentially has the same signature as
      * (*GtkTreeModelFilterVisibleFunc)</code>.
      */
-    public void setVisibleCallback(Visible callback) {
+    public void setVisibleCallback(TreeModelFilter.Visible callback) {
         GtkTreeModelFilterOverride.setVisibleFunc(this);
         GtkTreeModelFilter.connect(this, new VisibleHandler(callback), false);
+    }
+
+    /** @deprecated */
+    public interface VISIBLE extends GtkTreeModelFilter.VisibleSignal
+    {
+    }
+
+    /** @deprecated */
+    private static class VisibleHandler0 implements GtkTreeModelFilter.VisibleSignal
+    {
+        private final VISIBLE handler;
+
+        /** @deprecated */
+        private VisibleHandler0(VISIBLE handler) {
+            this.handler = handler;
+        }
+
+        public boolean onVisible(TreeModelFilter source, TreeModel base, TreeIter row) {
+            row.setModel(base);
+            return handler.onVisible(source, base, row);
+        }
+    }
+
+    /** @deprecated */
+    public void setVisibleCallback(VISIBLE callback) {
+        assert false : "use TreeModelFilter.Visible instead";
+        GtkTreeModelFilterOverride.setVisibleFunc(this);
+        GtkTreeModelFilter.connect(this, new VisibleHandler0(callback), false);
     }
 
     /**
