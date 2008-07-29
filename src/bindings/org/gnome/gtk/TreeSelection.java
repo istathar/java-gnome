@@ -172,25 +172,25 @@ public class TreeSelection extends Object
      * "changed" or not.
      * 
      * <p>
-     * <i>The nonsense about the <code>CHANGED</code> signal is supposedly
-     * due to the fact that there are multiple actors in the TreeModel
-     * environment, and both internal actions within GTK and events due to
-     * window manager activity can result in the signal being emitted. What a
-     * load of crap; either the selection changed or it didn't. Sorry we can't
-     * do better for you.</i>
+     * <i>The nonsense about the <code>TreeSelection.Changed</code> signal
+     * is supposedly due to the fact that there are multiple actors in the
+     * TreeModel environment, and both internal actions within GTK and events
+     * due to window manager activity can result in the signal being emitted.
+     * What a load of crap; either the selection changed or it didn't. Sorry
+     * we can't do better for you.</i>
      * 
      * @author Andrew Cowie
      * @since 4.0.5
      */
-    public interface CHANGED extends GtkTreeSelection.CHANGED
+    public interface Changed extends GtkTreeSelection.ChangedSignal
     {
         void onChanged(TreeSelection source);
     }
 
     /**
-     * Hook up a <code>CHANGED</code> signal handler.
+     * Hook up a <code>Changed</code> signal handler.
      */
-    public void connect(CHANGED handler) {
+    public void connect(Changed handler) {
         GtkTreeSelection.connect(this, handler, false);
     }
 

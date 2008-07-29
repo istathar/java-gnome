@@ -165,15 +165,15 @@ public class Adjustment extends Object
      * @author Srichand Pendyala
      * @since 4.0.5
      */
-    public interface CHANGED extends GtkAdjustment.CHANGED
+    public interface Changed extends GtkAdjustment.ChangedSignal
     {
         public void onChanged(Adjustment source);
     }
 
     /**
-     * Hook up a <code>CHANGED</code> handler.
+     * Hook up a <code>Changed</code> handler.
      */
-    public void connect(CHANGED handler) {
+    public void connect(Changed handler) {
         GtkAdjustment.connect(this, handler, false);
     }
 
@@ -187,17 +187,17 @@ public class Adjustment extends Object
      * @author Srichand Pendyala
      * @since 4.0.5
      */
-    public interface VALUE_CHANGED extends GtkAdjustment.VALUE_CHANGED
+    public interface ValueChanged extends GtkAdjustment.ValueChangedSignal
     {
         public void onValueChanged(Adjustment source);
     }
 
     /**
-     * Hook up a <code>VALUE_CHANGED</code> handler.
+     * Hook up a <code>ValueChanged</code> handler.
      * 
      * @since 4.0.5
      */
-    public void connect(VALUE_CHANGED handler) {
+    public void connect(ValueChanged handler) {
         GtkAdjustment.connect(this, handler, false);
     }
 }

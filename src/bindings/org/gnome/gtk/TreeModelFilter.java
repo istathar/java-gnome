@@ -37,12 +37,12 @@ package org.gnome.gtk;
  * then instruct the TreeModelFilter how to select the rows from the concrete
  * TreeModel it is proxying to be included in the virtual model it presents
  * via the
- * {@link #setVisibleCallback(org.gnome.gtk.TreeModelFilter.VISIBLE) setVisibleCallback()}.
+ * {@link #setVisibleCallback(org.gnome.gtk.TreeModelFilter.Visible) setVisibleCallback()}.
  * For instance, if you have a list of all mountains and only want to present
  * peaks higher than 8000 meters, you might do:
  * 
  * <pre>
- * filter.setVisibleCallback(new TreeModelFilter.VISIBLE() {
+ * filter.setVisibleCallback(new TreeModelFilter.Visible() {
  *     public boolean onVisible(TreeModelFilter source, TreeModel base, TreeIter row) {
  *         if (base.getValue(row, elevation) &gt; 8000) {
  *             return true;
@@ -116,11 +116,11 @@ public class TreeModelFilter extends TreeModel implements TreeDragSource
      * Typically when you receive this callback you will reach into the
      * underlying model and query a column by which you will determine whether
      * or not to include this row. This grants the opportunity to put some
-     * very complex logic into the VISIBLE callback. We tend to prefer this
-     * approach, but if you're rather pre-calculate such states, then you can
-     * always add a DataColumnBoolean to the model and simply return the state
-     * of that column as the return value from this interface when it is
-     * invoked.
+     * very complex logic into the <code>TextModelFilter.Visible</code>
+     * callback. We tend to prefer this approach, but if you're rather
+     * pre-calculate such states, then you can always add a DataColumnBoolean
+     * to the model and simply return the state of that column as the return
+     * value from this interface when it is invoked.
      * 
      * <p>
      * <i>If you are researching the GTK API documentation, see
@@ -137,7 +137,7 @@ public class TreeModelFilter extends TreeModel implements TreeDragSource
      * callback using the existing Signal machinery. Note that there is no
      * connect() method.
      */
-    public interface VISIBLE extends GtkTreeModelFilter.VISIBLE
+    public interface Visible extends GtkTreeModelFilter.VisibleSignal
     {
         /**
          * Answer the question "is this row to be visible?" Return
@@ -157,11 +157,11 @@ public class TreeModelFilter extends TreeModel implements TreeDragSource
         public boolean onVisible(TreeModelFilter source, TreeModel base, TreeIter row);
     }
 
-    private static class VisibleHandler implements GtkTreeModelFilter.VISIBLE
+    private static class VisibleHandler implements GtkTreeModelFilter.VisibleSignal
     {
-        private final VISIBLE handler;
+        private final Visible handler;
 
-        VisibleHandler(VISIBLE handler) {
+        VisibleHandler(Visible handler) {
             this.handler = handler;
         }
 
@@ -172,7 +172,7 @@ public class TreeModelFilter extends TreeModel implements TreeDragSource
     }
 
     /**
-     * Hookup the <code>VISIBLE</code> callback that will be used to
+     * Hookup the <code>Visible</code> callback that will be used to
      * determine whether rows from the underlying TreeModel are to be included
      * in the set presented by this TreeModelFilter.
      * 
@@ -185,14 +185,14 @@ public class TreeModelFilter extends TreeModel implements TreeDragSource
      * which essentially has the same signature as
      * (*GtkTreeModelFilterVisibleFunc)</code>.
      */
-    public void setVisibleCallback(VISIBLE callback) {
+    public void setVisibleCallback(Visible callback) {
         GtkTreeModelFilterOverride.setVisibleFunc(this);
         GtkTreeModelFilter.connect(this, new VisibleHandler(callback), false);
     }
 
     /**
      * Cause the TreeModelFilter to re-calculate whether rows are visible.
-     * This will cause your <code>VISIBLE</code> callback to be hit for each
+     * This will cause your <code>Visible</code> callback to be hit for each
      * row.
      * 
      * @since 4.0.6

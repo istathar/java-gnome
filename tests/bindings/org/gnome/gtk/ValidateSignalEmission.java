@@ -30,7 +30,7 @@ public class ValidateSignalEmission extends TestCaseGtk
         assertFalse(result);
 
         b = new Button("Hello");
-        b.connect(new Button.CLICKED() {
+        b.connect(new Button.Clicked() {
             public void onClicked(Button source) {
                 assertEquals("Hello", source.getLabel());
                 result = true;
@@ -38,7 +38,7 @@ public class ValidateSignalEmission extends TestCaseGtk
         });
         b.emitClicked();
 
-        assertTrue("CLICKED wasn't handled", result);
+        assertTrue("Button.Clicked wasn't handled", result);
     }
 
     public final void testAdjustmentValueChanged() {
@@ -47,14 +47,14 @@ public class ValidateSignalEmission extends TestCaseGtk
         assertFalse(result);
 
         adj = new Adjustment(5, 0, 100, 2, 5, 10);
-        adj.connect(new Adjustment.VALUE_CHANGED() {
+        adj.connect(new Adjustment.ValueChanged() {
             public void onValueChanged(Adjustment source) {
                 result = true;
             }
         });
         adj.emitValueChanged();
 
-        assertTrue("VALUE_CHANGED wasn't handled", result);
+        assertTrue("Adjustment.ValueChanged wasn't handled", result);
     }
 
     public final void testAdjustmentChanged() {
@@ -63,13 +63,13 @@ public class ValidateSignalEmission extends TestCaseGtk
         assertFalse(result);
 
         adj = new Adjustment(5, 0, 100, 2, 5, 10);
-        adj.connect(new Adjustment.CHANGED() {
+        adj.connect(new Adjustment.Changed() {
             public void onChanged(Adjustment source) {
                 result = true;
             }
         });
         adj.emitChanged();
 
-        assertTrue("CHANGED wasn't handled", result);
+        assertTrue("Adjustment.Changed wasn't handled", result);
     }
 }
