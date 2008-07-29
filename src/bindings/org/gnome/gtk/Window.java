@@ -266,6 +266,21 @@ public class Window extends Bin
     }
 
     /**
+     * @deprecated
+     */
+    public interface DELETE_EVENT extends GtkWidget.DeleteEventSignal
+    {
+    }
+
+    /**
+     * @deprecated
+     */
+    public void connect(DELETE_EVENT handler) {
+        assert false : "use Window.DeleteEvent instead";
+        GtkWidget.connect(this, handler, false);
+    }
+
+    /**
      * Request that the Window be moved to the specified co-ordinates. As with
      * other Window operations, the window manager running on the display may
      * or may not service the request; in particular you sometimes find that
@@ -606,11 +621,11 @@ public class Window extends Bin
      * account the size of any window decorations that may be present. Use
      * {@link #setPosition(WindowPosition) setPosition()}!
      * <li>If you need to take a dynamic size dependent action you should
-     * hook up to the {@link Window.CONFIGURE_EVENT CONFIGURE_EVENT} signal
-     * which has more accurate information and which will allow you to react
-     * appropriately. If you instead use this you will be subject to a race
-     * condition as the size of the Window may change between you calling this
-     * method and taking action based on the returned value.
+     * hook up to the {@link Window.ConfigureEvent} signal which has more
+     * accurate information and which will allow you to react appropriately.
+     * If you instead use this you will be subject to a race condition as the
+     * size of the Window may change between you calling this method and
+     * taking action based on the returned value.
      * </ul>
      * 
      * In other words, although this method can be useful for debugging, it's

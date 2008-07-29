@@ -102,8 +102,8 @@ public class Adjustment extends Object
      * in the current page.
      * 
      * <p>
-     * As always, a <code>CHANGED</code> signal is emitted if the value is
-     * changed.
+     * As always, a <code>Adjustment.Changed</code> signal is emitted if the
+     * value is changed.
      * 
      * @since 4.0.5
      */
@@ -112,10 +112,10 @@ public class Adjustment extends Object
     }
 
     /**
-     * Emits a <code>CHANGED</code> signal from the Adjustment widget. This
-     * method will typically be called by the Widget with which the Adjustment
-     * is associated when it changes any of Adjustment's properties, other
-     * than <var>value</var>.
+     * Emits a <code>Adjustment.Changed</code> signal from the Adjustment
+     * widget. This method will typically be called by the Widget with which
+     * the Adjustment is associated when it changes any of Adjustment's
+     * properties, other than <var>value</var>.
      * 
      * <p>
      * If you have changed <var>value</var>, then
@@ -129,17 +129,18 @@ public class Adjustment extends Object
     }
 
     /**
-     * @deprecated Use {@link #emitChanged()}.
+     * @deprecated
      */
     public void changed() {
-        assert false : "Deprecated. Use emitChanged()";
+        assert false : "use emitChanged() instead";
         GtkAdjustment.changed(this);
     }
 
     /**
-     * Emits a <code>VALUE_CHANGED</code> signal on the Adjustment. This
-     * method will typically be called by the Widget with which the Adjustment
-     * is associated, when it changes the Adjustment's <var>value</var>.
+     * Emits a <code>Adjustment.ValueChanged</code> signal on the
+     * Adjustment. This method will typically be called by the Widget with
+     * which the Adjustment is associated, when it changes the Adjustment's
+     * <var>value</var>.
      * 
      * @since 4.0.8
      */
@@ -148,10 +149,10 @@ public class Adjustment extends Object
     }
 
     /**
-     * @deprecated Use {@link #emitValueChanged()}.
+     * @deprecated
      */
     public void valueChanged() {
-        assert false : "Deprecated. Use emitValueChanged()";
+        assert false : "use emitValueChanged() instead";
         GtkAdjustment.valueChanged(this);
     }
 
@@ -171,9 +172,25 @@ public class Adjustment extends Object
     }
 
     /**
-     * Hook up a <code>Changed</code> handler.
+     * Hook up a <code>Adjustment.Changed</code> handler.
      */
     public void connect(Changed handler) {
+        GtkAdjustment.connect(this, handler, false);
+    }
+
+    /**
+     * @deprecated
+     */
+    public interface CHANGED extends GtkAdjustment.ChangedSignal
+    {
+        public void onChanged(Adjustment source);
+    }
+
+    /**
+     * @deprecated
+     */
+    public void connect(CHANGED handler) {
+        assert false : "use Adjustment.Changed instead";
         GtkAdjustment.connect(this, handler, false);
     }
 
@@ -198,6 +215,22 @@ public class Adjustment extends Object
      * @since 4.0.5
      */
     public void connect(ValueChanged handler) {
+        GtkAdjustment.connect(this, handler, false);
+    }
+
+    /**
+     * @deprecated
+     */
+    public interface VALUE_CHANGED extends GtkAdjustment.ValueChangedSignal
+    {
+        public void onValueChanged(Adjustment source);
+    }
+
+    /**
+     * @deprecated
+     */
+    public void connect(VALUE_CHANGED handler) {
+        assert false : "use Adjustment.ValueChanged instead";
         GtkAdjustment.connect(this, handler, false);
     }
 }

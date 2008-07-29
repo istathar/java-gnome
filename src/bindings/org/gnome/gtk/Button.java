@@ -323,12 +323,27 @@ public class Button extends Bin
 
     /**
      * Hook up a handler to receive <code>Button.Clicked</code> events on
-     * this Button. See {@link Button.Clicked Button.Clicked} for a detailed
-     * discussion of how to connect signals.
+     * this Button. See {@link Button.Clicked} for a detailed discussion of
+     * how to connect signals.
      * 
      * @since 4.0.0
      */
     public void connect(Clicked handler) {
+        GtkButton.connect(this, handler, false);
+    }
+
+    /**
+     * @deprecated
+     */
+    public interface CLICKED extends GtkButton.ClickedSignal
+    {
+    }
+
+    /**
+     * @deprecated
+     */
+    public void connect(CLICKED handler) {
+        assert false : "use Button.Clicked instead";
         GtkButton.connect(this, handler, false);
     }
 
