@@ -54,6 +54,12 @@ public class ImageMenuItem extends MenuItem
      * stock icon while simultaneously hooking up the handler which will take
      * its <code>ACTIVATE</code> signals.
      */
+    public ImageMenuItem(Stock stock, MenuItem.Activate handler) {
+        this(stock);
+        connect(handler);
+    }
+
+    /** @deprecated */
     public ImageMenuItem(Stock stock, MenuItem.ACTIVATE handler) {
         this(stock);
         connect(handler);
@@ -87,6 +93,13 @@ public class ImageMenuItem extends MenuItem
      * 
      * @since 4.0.6
      */
+    public ImageMenuItem(Image image, String label, MenuItem.Activate handler) {
+        super(GtkImageMenuItem.createImageMenuItemWithMnemonic(label));
+        GtkImageMenuItem.setImage(this, image);
+        connect(handler);
+    }
+
+    /** @deprecated */
     public ImageMenuItem(Image image, String label, MenuItem.ACTIVATE handler) {
         super(GtkImageMenuItem.createImageMenuItemWithMnemonic(label));
         GtkImageMenuItem.setImage(this, image);
