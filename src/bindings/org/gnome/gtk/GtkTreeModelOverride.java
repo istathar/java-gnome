@@ -41,7 +41,7 @@ final class GtkTreeModelOverride extends Plumbing
     }
 
     private static native final long gtk_list_store_new(String[] columns);
-    
+
     static final long createTreeStore(Class[] columns) {
         final String[] names;
 

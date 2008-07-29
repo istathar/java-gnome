@@ -61,6 +61,17 @@ public class TreeViewColumn extends Object implements CellLayout
     }
 
     /**
+     * Gets the Title of this TreeViewColumn. Please see
+     * {@link TreeView#setTitle(String) setTitle()} for further information
+     * about TreeViewColumn titles.
+     * 
+     * @since 4.0.8
+     */
+    public String getTitle() {
+        return GtkTreeViewColumn.getTitle(this);
+    }
+
+    /**
      * Set whether the column header allows itself to be clicked. The default
      * is <code>false</code>, not to be clickable, also meaning that header
      * won't take the keyboard focus either. Since calling

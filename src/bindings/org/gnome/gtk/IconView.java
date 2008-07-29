@@ -68,6 +68,7 @@ package org.gnome.gtk;
  * to use the TreeSelection object.
  * 
  * @author Vreixo Formoso
+ * @author Andrew Cowie
  * @since 4.0.7
  */
 public class IconView extends Container implements CellLayout
@@ -196,7 +197,7 @@ public class IconView extends Container implements CellLayout
      * @since 4.0.7
      */
     public void connect(ITEM_ACTIVATED handler) {
-        GtkIconView.connect(this, handler);
+        GtkIconView.connect(this, handler, false);
     }
 
     /**
@@ -263,6 +264,34 @@ public class IconView extends Container implements CellLayout
      * @since 4.0.7
      */
     public void connect(SELECTION_CHANGED handler) {
-        GtkIconView.connect(this, handler);
+        GtkIconView.connect(this, handler, false);
+    }
+
+    /**
+     * The number of columns in which icons should be displayed. The default
+     * is <code>-1</code> which indicates that the IconView will determine
+     * this automatically based on the size allocated to it.
+     * 
+     * @since 4.0.8
+     */
+    public void setColumns(int num) {
+        if ((num < 1) && (num != -1)) {
+            throw new IllegalArgumentException("num must be positive, or -1 to indicate automatic");
+        }
+        GtkIconView.setColumns(this, num);
+    }
+
+    /**
+     * Set the maximum width that will be given to each column of icons. The
+     * width is measured in pixels. The default value is <code>-1</code>
+     * which indicates
+     * 
+     * @since 4.0.8
+     */
+    public void setItemWidth(int width) {
+        if ((width < 1) && (width != -1)) {
+            throw new IllegalArgumentException("width must be positive, or -1 to indicate automatic");
+        }
+        GtkIconView.setItemWidth(this, width);
     }
 }

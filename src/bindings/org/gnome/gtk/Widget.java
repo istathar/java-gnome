@@ -155,7 +155,7 @@ public abstract class Widget extends org.gnome.gtk.Object
      * @since 4.0.2
      */
     public void connect(ENTER_NOTIFY_EVENT handler) {
-        GtkWidget.connect(this, handler);
+        GtkWidget.connect(this, handler, false);
     }
 
     /**
@@ -175,7 +175,7 @@ public abstract class Widget extends org.gnome.gtk.Object
      * @since 4.0.7
      */
     public void connect(LEAVE_NOTIFY_EVENT handler) {
-        GtkWidget.connect(this, handler);
+        GtkWidget.connect(this, handler, false);
     }
 
     /**
@@ -199,7 +199,7 @@ public abstract class Widget extends org.gnome.gtk.Object
      * @since 4.0.2
      */
     public void connect(FOCUS_OUT_EVENT handler) {
-        GtkWidget.connect(this, handler);
+        GtkWidget.connect(this, handler, false);
     }
 
     /**
@@ -220,7 +220,7 @@ public abstract class Widget extends org.gnome.gtk.Object
      * @since 4.0.6
      */
     public void connect(FOCUS_IN_EVENT handler) {
-        GtkWidget.connect(this, handler);
+        GtkWidget.connect(this, handler, false);
     }
 
     /**
@@ -318,7 +318,7 @@ public abstract class Widget extends org.gnome.gtk.Object
      * @since 4.0.7
      */
     public void connect(EXPOSE_EVENT handler) {
-        GtkWidget.connect(this, handler);
+        GtkWidget.connect(this, handler, false);
     }
 
     /**
@@ -387,7 +387,7 @@ public abstract class Widget extends org.gnome.gtk.Object
      * @since 4.0.3
      */
     public void connect(KEY_PRESS_EVENT handler) {
-        GtkWidget.connect(this, handler);
+        GtkWidget.connect(this, handler, false);
     }
 
     /**
@@ -415,7 +415,7 @@ public abstract class Widget extends org.gnome.gtk.Object
      * @since 4.0.3
      */
     public void connect(KEY_RELEASE_EVENT handler) {
-        GtkWidget.connect(this, handler);
+        GtkWidget.connect(this, handler, false);
     }
 
     /**
@@ -617,7 +617,7 @@ public abstract class Widget extends org.gnome.gtk.Object
      */
     public void connect(VISIBILITY_NOTIFY_EVENT handler) {
         GtkWidgetOverride.setEventsVisibility(this);
-        GtkWidget.connect(this, handler);
+        GtkWidget.connect(this, handler, false);
     }
 
     /**
@@ -675,7 +675,7 @@ public abstract class Widget extends org.gnome.gtk.Object
      * to intelligently toggle the visibility of the Window.
      * 
      * <p>
-     * Note that you don't need <code>MAP</code> because the the
+     * Note that you don't need <code>MAP_EVENT</code> because the the
      * <code>VISIBILITY_NOTIFY_EVENT</code> will be tripped if you come back
      * to the workspace the Window is already on.
      * 
@@ -700,7 +700,7 @@ public abstract class Widget extends org.gnome.gtk.Object
      * @since 4.0.5
      */
     public void connect(UNMAP_EVENT handler) {
-        GtkWidget.connect(this, handler);
+        GtkWidget.connect(this, handler, false);
     }
 
     /**
@@ -770,7 +770,7 @@ public abstract class Widget extends org.gnome.gtk.Object
      * @since 4.0.6
      */
     public void connect(Widget.HIDE handler) {
-        GtkWidget.connect(this, handler);
+        GtkWidget.connect(this, handler, false);
     }
 
     /**
@@ -957,7 +957,7 @@ public abstract class Widget extends org.gnome.gtk.Object
      * VISIBILITY_NOTIFY_EVENT
      */
     public void connect(Widget.BUTTON_PRESS_EVENT handler) {
-        GtkWidget.connect(this, handler);
+        GtkWidget.connect(this, handler, false);
     }
 
     /**
@@ -979,7 +979,7 @@ public abstract class Widget extends org.gnome.gtk.Object
      * @since 4.0.6
      */
     public void connect(Widget.BUTTON_RELEASE_EVENT handler) {
-        GtkWidget.connect(this, handler);
+        GtkWidget.connect(this, handler, false);
     }
 
     /**
@@ -1014,5 +1014,46 @@ public abstract class Widget extends org.gnome.gtk.Object
      */
     public void grabDefault() {
         GtkWidget.grabDefault(this);
+    }
+
+    /**
+     * The signal emitted when a Widget becomes visible on the screen.
+     * 
+     * <p>
+     * This can be used as an indication that your Window is no longer
+     * minimized. Connecting to {@link Widget.EXPOSE_EVENT EXPOSE_EVENT} would
+     * probably tell you what you need to know, but if all you want to do is
+     * find out your app is [back] onscreen then <code>EXPOSE_EVENT</code>
+     * would be a bit heavy handed. Of course, if you are drawing anyway, then
+     * it's fine. See {@link Widget.UNMAP_EVENT UNMAP_EVENT} for examples of
+     * other variations on the theme of tracking the state of your
+     * application.
+     * 
+     * <p>
+     * <i>The interaction between the GTK library we use, its underlying GDK
+     * resource management layer, and the the X windowing system which GDK
+     * wraps, is complex. Sometimes there is more than one way to do things.</i>
+     * 
+     * @author Andrew Cowie
+     * @since 4.0.8
+     */
+    public interface MAP_EVENT extends GtkWidget.MAP_EVENT
+    {
+        /**
+         * Although this is an <var>event-signal</var>, this merely reports
+         * information coming from the underlying X11 windowing system. It's
+         * information you can monitor, but don't try to block this signal.
+         * Return <code>false</code>!
+         */
+        public boolean onMapEvent(Widget source, Event event);
+    }
+
+    /**
+     * Hook up a <code>MAP_EVENT</code> signal handler.
+     * 
+     * @since 4.0.8
+     */
+    public void connect(MAP_EVENT handler) {
+        GtkWidget.connect(this, handler, false);
     }
 }

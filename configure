@@ -1719,7 +1719,7 @@ if ($cc =~ /gcc/) {
 
 	my $jni_include = "";
 	my $java_home = dirname($java);
-	$java_home =~ s/\/bin//;
+	$java_home =~ s/\/bin$//;
 
 	if (!-d "$java_home"."/include") {
 		$java_home =~ s/\/jre//;

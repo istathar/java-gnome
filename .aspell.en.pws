@@ -58,6 +58,8 @@ CellRendererPixbuf
 CellRendererText
 CellRendererText's
 CellRendererTexts
+CellRendererToggle
+CellRendererToggle's
 CellRenderers
 CheckButton
 CheckButtons
@@ -90,6 +92,7 @@ DESTDIR
 DNS
 DVCS
 DataColumn
+DataColumn's
 DataColumnBoolean
 DataColumnInt
 DataColumnInteger
@@ -268,6 +271,7 @@ GtkCalendarDisplayOptions
 GtkCellLayout
 GtkCellRendererPixbuf
 GtkCellRendererText
+GtkCellRendererToggle
 GtkCheckButton
 GtkCheckMenuItem
 GtkComboBox
@@ -276,6 +280,7 @@ GtkContainer
 GtkDialog
 GtkEditable
 GtkEntry
+GtkEntryOverride
 GtkEventBox
 GtkExpander
 GtkFileChooser
@@ -293,6 +298,7 @@ GtkImage
 GtkImageMenuItem
 GtkImageType
 GtkLabel
+GtkLayout
 GtkListStore
 GtkMain
 GtkMenu
@@ -427,9 +433,9 @@ Kedzierski
 KeyError
 KeyListener
 KeypadKeyval
-Keyval
 Keyval's
 Kpic
+Kuehntopf
 LCA
 LDFLAGS
 LHR
@@ -561,6 +567,7 @@ ScreenshotInfoMessageDialog
 ScreenshotQuestionMessageDialog
 ScrollLock
 ScrolledWindow
+ScrolledWindow's
 SelectionMode
 Sep
 SeparatorMenuItem
@@ -622,6 +629,7 @@ ToggleButton's
 ToggleButtons
 ToggleRef
 ToggleToolButton
+ToggledHandler
 ToogleToolButtons
 ToolBar
 ToolButton
@@ -856,6 +864,7 @@ createButtonWithMnemonic
 createCalendar
 createCellRendererPixbuf
 createCellRendererText
+createCellRendererToggle
 createCheckButton
 createCheckButtonWithMnemonic
 createCheckMenuItem
@@ -892,6 +901,7 @@ createImageFromPixmap
 createImageMenuItemWithMnemonic
 createInstance
 createLabel
+createLayout
 createListStore
 createMenu
 createMenuBar
@@ -997,6 +1007,9 @@ elif
 ellipsized
 else's
 elsif
+emitChanged
+emitClicked
+emitValueChanged
 emplace
 enclosingGroup
 endif
@@ -1109,10 +1122,12 @@ getFormalName
 getGreen
 getGroup
 getHAdjustment
+getHScrollbar
 getHadjustment
 getHandle
 getHasFocus
 getHeight
+getHscrollbar
 getImage
 getInconsistent
 getInteger
@@ -1202,12 +1217,17 @@ getURI
 getUri
 getUseMarkup
 getVAdjustment
+getVScrollbar
 getVadjustment
 getValue
 getValueString
 getView
 getVisibility
 getVisible
+getVisibleLineOffset
+getVisibleRect
+getVisibleRectangle
+getVscrollbar
 getWidget
 getWidth
 getWindow
@@ -1237,6 +1257,7 @@ gtkstatusbar
 guint
 hackfest
 hacky
+hadjustment
 handleName
 handlerBlah
 handlerInstance
@@ -1459,6 +1480,7 @@ onHide
 onKeyPressEvent
 onKeyReleaseEvent
 onLeaveNotifyEvent
+onMapEvent
 onPopupMenu
 onResponse
 onRowActivated
@@ -1588,6 +1610,7 @@ selectURI
 serialVersionUID
 setAboveChild
 setAction
+setActivatable
 setActive
 setActiveIter
 setAlignment
@@ -1637,12 +1660,15 @@ setFullscreen
 setGravity
 setHAdjustment
 setHadjustment
+setHasFrame
 setHasResizeGrip
 setHeadersClickable
 setHeadersVisible
 setIcon
 setImage
 setInconsistent
+setIndent
+setInnerBorder
 setInvisibleChar
 setJustify
 setKeepAbove
@@ -1684,6 +1710,7 @@ setPropertyLabel
 setPropertyObject
 setPropertyPixbuf
 setPropertyString
+setRadio
 setReference
 setRelief
 setReorderable
@@ -1699,6 +1726,7 @@ setSecondaryUseMarkup
 setSelectable
 setSensitive
 setShadowType
+setSize
 setSizeRequest
 setSizing
 setSkipPagerHint
@@ -1859,6 +1887,7 @@ util
 utils
 utils's
 va
+vadjustment
 validationCheck
 valueChanged
 valueFor
@@ -1889,6 +1918,7 @@ writeToPng
 writeTranslationCode
 x's
 xFF
+xFFFC
 xFFFFFF
 xServerVirtual
 xalign

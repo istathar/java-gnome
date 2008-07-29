@@ -77,7 +77,7 @@ public class VirtualGenerator extends FunctionGenerator
         out.print(proxyType.bindingsClass);
         out.print(".");
         out.print(javaSignalClass);
-        out.print(" handlerInstance) {");
+        out.print(" handlerInstance, boolean after) {");
         out.print("\n");
     }
 
@@ -91,7 +91,7 @@ public class VirtualGenerator extends FunctionGenerator
         out.print(proxyType.bindingsClass);
         out.print(".class, \"");
         out.print(cSignalName);
-        out.print("\");\n");
+        out.print("\", after);\n");
 
         out.print("    }\n");
     }

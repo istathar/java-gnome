@@ -26,6 +26,8 @@ public class Entry extends Widget implements Editable, CellEditable
 
     /**
      * Construct a new Entry
+     * 
+     * @since 4.0.3
      */
     public Entry() {
         this(GtkEntry.createEntry());
@@ -33,6 +35,8 @@ public class Entry extends Widget implements Editable, CellEditable
 
     /**
      * Construct a new Entry, initialized with the specified text
+     * 
+     * @since 4.0.3
      */
     public Entry(String text) {
         this(GtkEntry.createEntry());
@@ -41,6 +45,8 @@ public class Entry extends Widget implements Editable, CellEditable
 
     /**
      * Replace the current contents of the Entry with the supplied text.
+     * 
+     * @since 4.0.3
      */
     public void setText(String text) {
         GtkEntry.setText(this, text);
@@ -51,6 +57,8 @@ public class Entry extends Widget implements Editable, CellEditable
      * significant method as it is the one you use to get the result of the
      * user's activity upon receiving a {@link Entry.ACTIVATE ACTIVATE}
      * signal.
+     * 
+     * @since 4.0.3
      */
     public String getText() {
         return GtkEntry.getText(this);
@@ -63,6 +71,7 @@ public class Entry extends Widget implements Editable, CellEditable
      * 
      * @param max
      *            A value of <code>0</code> indicates no maximum length.
+     * @since 4.0.3
      */
     public void setMaxLength(int max) {
         GtkEntry.setMaxLength(this, max);
@@ -71,6 +80,8 @@ public class Entry extends Widget implements Editable, CellEditable
     /**
      * Returns the current maximum width, in characters, the text in the Entry
      * is allowed to be.
+     * 
+     * @since 4.0.3
      */
     public int getMaxLength() {
         return GtkEntry.getMaxLength(this);
@@ -86,6 +97,7 @@ public class Entry extends Widget implements Editable, CellEditable
      * 
      * @param visible
      *            true for showing, false for hiding
+     * @since 4.0.3
      */
     public void setVisibleChars(boolean visible) {
         GtkEntry.setVisibility(this, visible);
@@ -97,6 +109,7 @@ public class Entry extends Widget implements Editable, CellEditable
      * 
      * @return <code>true</code> if characters entered are visible,
      *         <code>false</code> if obscured.
+     * @since 4.0.3
      */
     public boolean isVisibleChars() {
         return GtkEntry.getVisibility(this);
@@ -117,14 +130,18 @@ public class Entry extends Widget implements Editable, CellEditable
 
     /**
      * Set whether the text in the Entry can be change by the user.
+     * 
+     * @since 4.0.3
      */
     public void setEditable(boolean editable) {
         GtkEditable.setEditable(this, editable);
     }
 
     /**
-     * The <code>activate</code> signal occurs when the user presses
-     * &lt;RETURN&gt; in an Entry.
+     * The <code>ACTIVATE</code> signal occurs when the user presses <b><code>RETURN</code></b>
+     * in an Entry.
+     * 
+     * @since 4.0.3
      */
     public interface ACTIVATE extends GtkEntry.ACTIVATE
     {
@@ -132,12 +149,12 @@ public class Entry extends Widget implements Editable, CellEditable
     }
 
     /**
-     * Connects an {@link ACTIVATE} handler to the Widget.
+     * Connects an <code>ACTIVATE</code> handler to the Widget.
      * 
      * @since 4.0.3
      */
     public void connect(ACTIVATE handler) {
-        GtkEntry.connect(this, handler);
+        GtkEntry.connect(this, handler, false);
     }
 
     public void setPosition(int position) {
@@ -177,7 +194,7 @@ public class Entry extends Widget implements Editable, CellEditable
      * @since 4.0.6
      */
     public void connect(CHANGED handler) {
-        GtkEditable.connect(this, handler);
+        GtkEditable.connect(this, handler, false);
     }
 
     public void selectRegion(int start, int end) {
@@ -205,5 +222,40 @@ public class Entry extends Widget implements Editable, CellEditable
             throw new IllegalArgumentException("xalign must be between 0.0 and 1.0");
         }
         GtkEntry.setAlignment(this, xalign);
+    }
+
+    /**
+     * Set whether the Entry has a bevelled frame around it or not. The
+     * default (as you will be well accustomed to seeing) is <code>true</code>.
+     * 
+     * <p>
+     * As this decoration is a strong visual cue for users to realize that
+     * they are able to enter text into a given control, your are discouraged
+     * from turning it off unless you really need to minutely control
+     * placement; in that case, see also
+     * {@link #setInnerBorder(int, int, int, int) setInnerBorder()}.
+     * 
+     * @since 4.0.8
+     */
+    public void setHasFrame(boolean setting) {
+        GtkEntry.setHasFrame(this, setting);
+    }
+
+    /**
+     * Set the padding between the text entry control itself, and the
+     * surrounding decoration. This overrides the <var>inner-border</var>
+     * style property set by the theme.
+     * 
+     * <p>
+     * Ordinarily you shouldn't need this; in general you should leave things
+     * alone so that Entries appear uniform across the user's desktop. This is
+     * provided for the rare cases that minute positioning control is required
+     * (think of what goes on when you edit text in a CellRendererText) it is
+     * possible to do so.
+     * 
+     * @since 4.0.8
+     */
+    public void setInnerBorder(int left, int right, int top, int bottom) {
+        GtkEntryOverride.setInnerBorder(this, left, right, top, bottom);
     }
 }

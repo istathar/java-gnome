@@ -319,14 +319,19 @@ public abstract class Plumbing extends org.freedesktop.bindings.Plumbing
      *            being hooked up. Because all the calls to connectSignal()
      *            will be in generated code, the signal name is sourced from
      *            .defs data and should always be correct!</i>
+     * @param after
+     *            Whether this handler should be registered before or after
+     *            the default handler. The default is to connect before, so
+     *            <code>false</code>. Any time you use this, you <b>must</b>
+     *            name the public method <code>connectAfter()</code>.
      */
     /*
      * In this case we need to go back to GObject in order to be able to make
      * the native call to our g_signal_connect() wrapper.
      */
     protected static final void connectSignal(Object instance, Signal handler, Class<?> receiver,
-            String name) {
-        GObject.g_signal_connect(pointerOf(instance), handler, receiver, name);
+            String name, boolean after) {
+        GObject.g_signal_connect(pointerOf(instance), handler, receiver, name, after);
         instance.addHandler(handler);
     }
 

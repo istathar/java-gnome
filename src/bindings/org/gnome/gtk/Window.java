@@ -261,7 +261,7 @@ public class Window extends Bin
     }
 
     public void connect(DELETE_EVENT handler) {
-        GtkWidget.connect(this, handler);
+        GtkWidget.connect(this, handler, false);
     }
 
     /**
@@ -845,6 +845,6 @@ public class Window extends Bin
      * @since 4.0.8
      */
     public void connect(CONFIGURE_EVENT handler) {
-        GtkWidget.connect(this, handler);
+        GtkWidget.connect(this, handler, false);
     }
 }
