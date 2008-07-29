@@ -43,7 +43,8 @@ import org.gnome.gdk.WindowTypeHint;
  * 
  * <p>
  * <code>hide()</code> is also important when Windows are being closed; see
- * the comments in the description of {@link Window.DELETE_EVENT DELETE_EVENT}.
+ * the comments in the description of
+ * {@link Window.DeleteEvent Window.DeleteEvent}.
  * 
  * @author Andrew Cowie
  * @author Srichand Pendyala
@@ -827,7 +828,7 @@ public class Window extends Bin
      * @since 4.0.8
      */
     /*
-     * This is here for the same reason that DELETE_EVENT is.
+     * This is here for the same reason that DeleteEvent is.
      */
     public interface ConfigureEvent extends GtkWidget.ConfigureEventSignal
     {
@@ -840,7 +841,7 @@ public class Window extends Bin
     }
 
     /**
-     * Hook up a <code>CONFIGURE_EVENT</code> handler.
+     * Hook up a <code>Window.ConfigureEvent</code> handler.
      * 
      * @since 4.0.8
      */

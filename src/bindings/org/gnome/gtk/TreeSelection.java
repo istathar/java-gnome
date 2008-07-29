@@ -1,7 +1,7 @@
 /*
  * TreeSelection.java
  *
- * Copyright (c) 2007 Operational Dynamics Consulting Pty Ltd
+ * Copyright (c) 2007-2008 Operational Dynamics Consulting Pty Ltd
  *
  * The code in this file, and the library it is a part of, are made available
  * to you by the authors under the terms of the "GNU General Public Licence,
@@ -36,7 +36,7 @@ import org.gnome.glib.Object;
  * straight forward:
  * 
  * <pre>
- * selection.connect(new TreeSelection.CHANGED() {
+ * selection.connect(new TreeSelection.Changed() {
  *     public void onChanged(TreeSelection source) {
  *         final TreeIter row;
  * 
@@ -49,9 +49,9 @@ import org.gnome.glib.Object;
  * });
  * </pre>
  * 
- * Unfortunately, the <code>CHANGED</code> signal is not entirely
- * deterministic; it is sometimes emitted more than once or for no change at
- * all. You'll need to allow for this in your code.
+ * Unfortunately, the <code>TreeSelection.Changed</code> signal is not
+ * entirely deterministic; it is sometimes emitted more than once or for no
+ * change at all. You'll need to allow for this in your code.
  * 
  * <p>
  * <i>Mostly this is an API helper; the underlying documentation notes that
@@ -188,7 +188,7 @@ public class TreeSelection extends Object
     }
 
     /**
-     * Hook up a <code>Changed</code> signal handler.
+     * Hook up a <code>TreeSelection.Changed</code> signal handler.
      */
     public void connect(Changed handler) {
         GtkTreeSelection.connect(this, handler, false);
