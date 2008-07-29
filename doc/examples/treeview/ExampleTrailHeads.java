@@ -175,10 +175,10 @@ public class ExampleTrailHeads
          * 
          * ... except that if it's for more than information, you probably
          * want something to happen when someone clicks on a row. So, we hook
-         * up a handler to the ROW_ACTIVATED signal. The TreePath it gives you
-         * is the useful bit.
+         * up a handler to the TreeView.RowActivated signal. The TreePath it
+         * gives you is the useful bit.
          */
-        view.connect(new TreeView.ROW_ACTIVATED() {
+        view.connect(new TreeView.RowActivated() {
             public void onRowActivated(TreeView source, TreePath path, TreeViewColumn vertical) {
                 final TreeIter row;
                 final String place, height;
@@ -203,7 +203,7 @@ public class ExampleTrailHeads
         w.setTitle("Trail Heads");
         w.showAll();
 
-        w.connect(new Window.DELETE_EVENT() {
+        w.connect(new Window.DeleteEvent() {
             public boolean onDeleteEvent(Widget source, Event event) {
                 Gtk.mainQuit();
                 return false;
