@@ -5,50 +5,11 @@
   (gtype-id "GTK_TYPE_RC_STYLE")
 )
 
-(define-method rc_add_widget_name_style
-  (of-object "GtkRcStyle")
-  (c-name "gtk_rc_add_widget_name_style")
-  (return-type "none")
-  (parameters
-    '("const-gchar*" "pattern")
-  )
-)
-
-(define-method rc_add_widget_class_style
-  (of-object "GtkRcStyle")
-  (c-name "gtk_rc_add_widget_class_style")
-  (return-type "none")
-  (parameters
-    '("const-gchar*" "pattern")
-  )
-)
-
-(define-method rc_add_class_style
-  (of-object "GtkRcStyle")
-  (c-name "gtk_rc_add_class_style")
-  (return-type "none")
-  (parameters
-    '("const-gchar*" "pattern")
-  )
-)
-
 (define-method copy
   (of-object "GtkRcStyle")
   (c-name "gtk_rc_style_copy")
   (caller-owns-return #t)
   (return-type "GtkRcStyle*")
-)
-
-(define-method ref
-  (of-object "GtkRcStyle")
-  (c-name "gtk_rc_style_ref")
-  (return-type "none")
-)
-
-(define-method unref
-  (of-object "GtkRcStyle")
-  (c-name "gtk_rc_style_unref")
-  (return-type "none")
 )
 
 (define-virtual create_rc_style
