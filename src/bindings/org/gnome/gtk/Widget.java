@@ -248,7 +248,7 @@ public abstract class Widget extends org.gnome.gtk.Object
      * exposed, you could do:
      * 
      * <pre>
-     * w.connect(new Widget.EXPOSE_EVENT() {
+     * w.connect(new Widget.ExposeEvent() {
      *     public boolean onExposeEvent(Widget source, EventExpose event) {
      *         Rectangle rect;
      *         int width, height, x, y;
@@ -266,8 +266,8 @@ public abstract class Widget extends org.gnome.gtk.Object
      * </pre>
      * 
      * <p>
-     * The real purpose of <code>EXPOSE_EVENT</code>, however, is to be the
-     * the gateway to drawing. GNOME uses the excellent <a
+     * The real purpose of <code>Widget.ExposeEvent</code>, however, is to
+     * be the the gateway to drawing. GNOME uses the excellent <a
      * href="http://www.cairographics.org/">Cairo 2D graphics library</a> to
      * draw its user interfaces, which we make available in java-gnome in
      * package <code>org.freedesktop.cairo</code>.
@@ -281,8 +281,9 @@ public abstract class Widget extends org.gnome.gtk.Object
      * for drawing operations, Cairo needs the details of the [org.gnome.gdk]
      * Display, Screen and Window it will be drawing to, and these are not
      * available until the Widget has been realized and mapped. The
-     * <code>EXPOSE_EVENT</code> signal is emitted exactly at this point,
-     * and so that's when we have the environment we need to do our drawing.
+     * <code>Widget.ExposeEvent</code> signal is emitted exactly at this
+     * point, and so that's when we have the environment we need to do our
+     * drawing.
      * 
      * <p>
      * To do drawing with Cairo you need a Context. You can instantiate one by
@@ -290,7 +291,7 @@ public abstract class Widget extends org.gnome.gtk.Object
      * to the Context constructor:
      * 
      * <pre>
-     * w.connect(new Widget.EXPOSE_EVENT() {
+     * w.connect(new Widget.ExposeEvent() {
      *     public boolean onExposeEvent(Widget source, EventExpose event) {
      *         Context cr;
      *         
@@ -312,7 +313,7 @@ public abstract class Widget extends org.gnome.gtk.Object
      * FIXME when we figure out offscreen drawing, then we can change "cannot
      * easily do".
      */
-    public interface EXPOSE_EVENT extends GtkWidget.EXPOSE_EVENT
+    public interface ExposeEvent extends GtkWidget.ExposeEventSignal
     {
         /**
          * As with other event signals, the boolean return value indicates
@@ -324,12 +325,23 @@ public abstract class Widget extends org.gnome.gtk.Object
     }
 
     /**
-     * Hook up a handler to receive <code>EXPOSE_EVENT</code> signals on
-     * this Widget.
+     * Hook up a handler to receive <code>Widget.ExposeEvent</code> signals
+     * on this Widget.
      * 
      * @since 4.0.7
      */
+    public void connect(Widget.ExposeEvent handler) {
+        GtkWidget.connect(this, handler, false);
+    }
+
+    /** @deprecated */
+    public interface EXPOSE_EVENT extends GtkWidget.ExposeEventSignal
+    {
+    }
+
+    /** @deprecated */
     public void connect(EXPOSE_EVENT handler) {
+        assert false : "use Widget.ExposeEvent instead";
         GtkWidget.connect(this, handler, false);
     }
 
@@ -348,7 +360,7 @@ public abstract class Widget extends org.gnome.gtk.Object
      * That's accomplished with Call <code>event.getKeyval()</code> as in:
      * 
      * <pre>
-     * widget.connect(new KEY_PRESS_EVENT() {
+     * foo.connect(new Widget.KeyPressEvent() {
      *     public boolean onKeyPressEvent(Widget source, EventKey event) {
      *         final Keyval key;
      *         final ModifierType mod;
@@ -371,13 +383,13 @@ public abstract class Widget extends org.gnome.gtk.Object
      * what you want to do.
      * 
      * <p>
-     * The release half of this is
-     * {@link Widget.KEY_RELEASE_EVENT KEY_RELEASE_EVENT} as you might expect.
+     * The release half of this is {@link Widget.KeyReleaseEvent} as you might
+     * expect.
      * 
      * @author Andrew Cowie
      * @since 4.0.3
      */
-    public interface KEY_PRESS_EVENT extends GtkWidget.KEY_PRESS_EVENT
+    public interface KeyPressEvent extends GtkWidget.KeyPressEventSignal
     {
         /**
          * As with other event signals, returning <code>false</code> means
@@ -390,15 +402,26 @@ public abstract class Widget extends org.gnome.gtk.Object
     }
 
     /**
-     * Hook up a handler to receive <code>KEY_PRESS_EVENT</code> signals on
-     * this Widget. For general typing this is the one you want, but for
-     * critical events (like pressing <b>Enter</b> to activate a Button that
-     * is going to delete things, you might want to postpone action until
-     * <code>KEY_RELEASE_EVENT</code>.
+     * Hook up a handler to receive <code>Widget.KeyPressEvent</code>
+     * signals on this Widget. For general typing this is the one you want,
+     * but for critical events (like pressing <b>Enter</b> to activate a
+     * Button that is going to delete things, you might want to postpone
+     * action until <code>KEY_RELEASE_EVENT</code>.
      * 
      * @since 4.0.3
      */
+    public void connect(Widget.KeyPressEvent handler) {
+        GtkWidget.connect(this, handler, false);
+    }
+
+    /** @deprecated */
+    public interface KEY_PRESS_EVENT extends GtkWidget.KeyPressEventSignal
+    {
+    }
+
+    /** @deprecated */
     public void connect(KEY_PRESS_EVENT handler) {
+        assert false : "use Widget.KeyPressEvent instead";
         GtkWidget.connect(this, handler, false);
     }
 
@@ -410,22 +433,32 @@ public abstract class Widget extends org.gnome.gtk.Object
      * 
      * @since 4.0.3
      */
-    public interface KEY_RELEASE_EVENT extends GtkWidget.KEY_RELEASE_EVENT
+    public interface KeyReleaseEvent extends GtkWidget.KeyReleaseEventSignal
     {
         /**
          * (See the comment at
-         * {@link Widget.KEY_PRESS_EVENT#onKeyPressEvent(Widget, EventKey) KEY_PRESS_EVENT}
+         * {@link Widget.KeyPressEvent#onKeyPressEvent(Widget, EventKey) Widget.KeyReleaseEvent}
          * to understand the return value)
          */
         public boolean onKeyReleaseEvent(Widget source, EventKey event);
     }
 
     /**
-     * Hook up a handler to receive <code>KEY_RELEASE_EVENT</code> signals
-     * on this Widget
+     * Hook up a handler to receive <code>Widget.KeyReleaseEvent</code>
+     * signals on this Widget
      * 
      * @since 4.0.3
      */
+    public void connect(Widget.KeyReleaseEvent handler) {
+        GtkWidget.connect(this, handler, false);
+    }
+
+    /** @deprecated */
+    public interface KEY_RELEASE_EVENT extends GtkWidget.KeyReleaseEventSignal
+    {
+    }
+
+    /** @deprecated */
     public void connect(KEY_RELEASE_EVENT handler) {
         GtkWidget.connect(this, handler, false);
     }
@@ -1066,13 +1099,12 @@ public abstract class Widget extends org.gnome.gtk.Object
      * 
      * <p>
      * This can be used as an indication that your Window is no longer
-     * minimized. Connecting to {@link Widget.EXPOSE_EVENT EXPOSE_EVENT} would
-     * probably tell you what you need to know, but if all you want to do is
-     * find out your app is [back] onscreen then <code>EXPOSE_EVENT</code>
-     * would be a bit heavy handed. Of course, if you are drawing anyway, then
-     * it's fine. See {@link Widget.UNMAP_EVENT UNMAP_EVENT} for examples of
-     * other variations on the theme of tracking the state of your
-     * application.
+     * minimized. Connecting to {@link Widget.ExposeEvent} would probably tell
+     * you what you need to know, but if all you want to do is find out your
+     * app is [back] onscreen then <code>Widget.ExposeEvent</code> would be
+     * a bit heavy handed. Of course, if you are drawing anyway, then it's
+     * fine. See {@link Widget.UnmapEvent} for examples of other variations on
+     * the theme of tracking the state of your application.
      * 
      * <p>
      * <i>The interaction between the GTK library we use, its underlying GDK
@@ -1082,7 +1114,7 @@ public abstract class Widget extends org.gnome.gtk.Object
      * @author Andrew Cowie
      * @since 4.0.8
      */
-    public interface MAP_EVENT extends GtkWidget.MAP_EVENT
+    public interface MapEvent extends GtkWidget.MapEventSignal
     {
         /**
          * Although this is an <var>event-signal</var>, this merely reports
@@ -1094,11 +1126,11 @@ public abstract class Widget extends org.gnome.gtk.Object
     }
 
     /**
-     * Hook up a <code>MAP_EVENT</code> signal handler.
+     * Hook up a <code>Widget.MapEvent</code> signal handler.
      * 
      * @since 4.0.8
      */
-    public void connect(MAP_EVENT handler) {
+    public void connect(Widget.MapEvent handler) {
         GtkWidget.connect(this, handler, false);
     }
 }
