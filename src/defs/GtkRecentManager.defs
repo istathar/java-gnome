@@ -12,15 +12,6 @@
   (return-type "GtkRecentManager*")
 )
 
-(define-method set_screen
-  (of-object "GtkRecentManager")
-  (c-name "gtk_recent_manager_set_screen")
-  (return-type "none")
-  (parameters
-    '("GdkScreen*" "screen")
-  )
-)
-
 (define-method add_item
   (of-object "GtkRecentManager")
   (c-name "gtk_recent_manager_add_item")
