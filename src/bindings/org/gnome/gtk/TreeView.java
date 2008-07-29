@@ -241,7 +241,7 @@ public class TreeView extends Container
      * @author Andrew Cowie
      * @since 4.0.5
      */
-    public interface ROW_ACTIVATED extends GtkTreeView.ROW_ACTIVATED
+    public interface RowActivated extends GtkTreeView.RowActivatedSignal
     {
         /**
          * The useful parameter is usually <code>path</code> which can be
@@ -255,9 +255,20 @@ public class TreeView extends Container
     }
 
     /**
-     * Hook up a <code>ROW_ACTIVATED</code> handler.
+     * Hook up a <code>TreeView.RowActivated</code> handler.
      */
+    public void connect(TreeView.RowActivated handler) {
+        GtkTreeView.connect(this, handler, false);
+    }
+
+    /** @deprecated */
+    public interface ROW_ACTIVATED extends GtkTreeView.RowActivatedSignal
+    {
+    }
+
+    /** @deprecated */
     public void connect(ROW_ACTIVATED handler) {
+        assert false : "use TreeView.RowActivated instead";
         GtkTreeView.connect(this, handler, false);
     }
 
@@ -290,17 +301,17 @@ public class TreeView extends Container
      * @author Vreixo Formoso
      * @since 4.0.7
      */
-    public interface ROW_EXPANDED
+    public interface RowExpanded extends GtkTreeView.RowExpandedSignal
     {
         public void onRowExpanded(TreeView source, TreeIter iter, TreePath path);
     }
 
     /**
-     * Hook up a <code>ROW_EXPANDED</code> handler.
+     * Hook up a <code>TreeView.RowExpanded</code> handler.
      * 
      * @since 4.0.7
      */
-    public void connect(ROW_EXPANDED handler) {
+    public void connect(TreeView.RowExpanded handler) {
         GtkTreeView.connect(this, new RowExpandedHandler(handler), false);
     }
 
@@ -309,11 +320,39 @@ public class TreeView extends Container
      * handler does not have the model field properly set, so we need to set
      * it before passing the TreeIter to the user.
      */
-    private static class RowExpandedHandler implements GtkTreeView.ROW_EXPANDED
+    private static class RowExpandedHandler implements GtkTreeView.RowExpandedSignal
+    {
+        private final TreeView.RowExpanded handler;
+
+        private RowExpandedHandler(TreeView.RowExpanded handler) {
+            super();
+            this.handler = handler;
+        }
+
+        public void onRowExpanded(TreeView source, TreeIter iter, TreePath path) {
+            iter.setModel(source.getModel());
+            handler.onRowExpanded(source, iter, path);
+        }
+    }
+
+    /** @deprecated */
+    public interface ROW_EXPANDED extends GtkTreeView.RowExpandedSignal
+    {
+    }
+
+    /** @deprecated */
+    public void connect(ROW_EXPANDED handler) {
+        assert false : "use TreeView.RowExpanded instead";
+        GtkTreeView.connect(this, new RowExpandedHandler0(handler), false);
+    }
+
+    /** @deprecated */
+    private static class RowExpandedHandler0 implements GtkTreeView.RowExpandedSignal
     {
         private final ROW_EXPANDED handler;
 
-        public RowExpandedHandler(ROW_EXPANDED handler) {
+        /** @deprecated */
+        private RowExpandedHandler0(ROW_EXPANDED handler) {
             super();
             this.handler = handler;
         }
@@ -565,15 +604,26 @@ public class TreeView extends Container
      * @author Srichand Pendyala
      * 
      */
-    public interface SELECT_ALL extends GtkTreeView.SELECT_ALL
+    public interface SelectAll extends GtkTreeView.SelectAllSignal
     {
         public boolean onSelectAll(TreeView source);
     }
 
     /**
-     * Hook up a <code>SELECT_ALL</code> signal handler.
+     * Hook up a <code>TreeView.SelectAll</code> signal handler.
      */
+    public void connect(TreeView.SelectAll handler) {
+        GtkTreeView.connect(this, handler, false);
+    }
+
+    /** @deprecated */
+    public interface SELECT_ALL extends GtkTreeView.SelectAllSignal
+    {
+    }
+
+    /** @deprecated */
     public void connect(SELECT_ALL handler) {
+        assert false : "use TreeView.SelectAll instead";
         GtkTreeView.connect(this, handler, false);
     }
 
