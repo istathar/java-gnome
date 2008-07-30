@@ -63,7 +63,7 @@ public class MenuItem extends Item
 
     /**
      * Construct a MenuItem with a given text label, and additionally connect
-     * a handler to its <code>ACTIVATE</code> signal.
+     * a handler to its <code>MenuItem.Activate</code> signal.
      * 
      * <p>
      * This is equivalent to:
@@ -79,7 +79,7 @@ public class MenuItem extends Item
      * <pre>
      * Menu editMenu;
      *    
-     * editMenu.append(new MenuItem(&quot;_Paste&quot;, new ACTIVATE() {
+     * editMenu.append(new MenuItem(&quot;_Paste&quot;, new MenuItem.Activate() {
      *     public void onActivate(MenuItem source) {
      *         ...
      *     }

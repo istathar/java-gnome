@@ -161,13 +161,13 @@ public class ExampleTrailHeads
          * setHeadersClickable() or TreeViewColumn's setClickable(), although
          * there are occasional use cases for them.
          * 
-         * Then we call clicked() to force the header we want things to be
+         * Then we call emitClicked() to force the header we want things to be
          * sorted on to actually be active. This is especially necessary if
          * you've defined sorting for more than one vertical column, but if
          * you want sorting on from the start, you need to call it.
          */
         vertical.setSortColumn(elevationSort);
-        vertical.clicked();
+        vertical.emitClicked();
 
         /*
          * And that's it! You've now done everything you need to have a

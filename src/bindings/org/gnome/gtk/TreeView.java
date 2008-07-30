@@ -88,12 +88,12 @@ package org.gnome.gtk;
  * Dealing with the events generated on the TreeView is either straight
  * forward or quite complicated, depending on what you are trying to
  * accomplish. If you just need a callback when the user activates a row in
- * the display, then the {@link TreeView.ROW_ACTIVATED ROW_ACTIVATED} signal
- * will do the trick fairly simply; see its documentation for an example. For
- * anything else, you will need to use the {@link TreeSelection TreeSelection}
- * helper class (every TreeView automatically has one). It has a
- * {@link TreeSelection.CHANGED CHANGED} signal which you hook up to which
- * will tell you what row(s) are currently selected.
+ * the display, then the {@link TreeView.RowActivated} signal will do the
+ * trick fairly simply; see its documentation for an example. For anything
+ * else, you will need to use the {@link TreeSelection TreeSelection} helper
+ * class (every TreeView automatically has one). It has a
+ * {@link TreeSelection.Changed} signal which you hook up to which will tell
+ * you what row(s) are currently selected.
  * 
  * <pre>
  * selection = view.getSelection();
@@ -206,19 +206,18 @@ public class TreeView extends Container
 
     /**
      * Emitted when a row in the TreeView has been activated. Activation
-     * occurs when a row in the view is double-clicked, or when
-     * <code>Space</code> or <code>Enter</code> is pressed while a row is
-     * selected.
+     * occurs when a row in the view is double-clicked, or when <b><code>Space</code></b>
+     * or <b><code>Enter</code></b> are pressed while a row is selected.
      * 
      * <p>
      * In general, you've got the TreeModel and especially its DataColumns
-     * visible, so to use <code>ROW_ACTIVATED</code> you can just:
+     * visible, so to use <code>TreeView.RowActivated</code> you can just:
      * 
      * <pre>
      * final TreeModel model;
      * final DataColumnString column;
      * 
-     * view.connect(new TreeView.ROW_ACTIVATED() {
+     * view.connect(new TreeView.RowActivated() {
      *     public void onRowActivated(TreeView source, TreePath path, TreeViewColumn vertical) {
      *         final TreeIter row;
      * 
@@ -233,10 +232,10 @@ public class TreeView extends Container
      * the model, so get on with using <code>path</code> right away.
      * 
      * <p>
-     * <code>ROW_ACTIVATED</code> is perfectly sufficient for basic
+     * <code>TreeView.RowActivated</code> is perfectly sufficient for basic
      * situations, but you may need to see TreeSelection's
-     * {@link TreeSelection.CHANGED CHANGED} to for more complicated selection
-     * and activation expressions. In practise you'll use both.
+     * {@link TreeSelection.Changed} to for more complicated selection and
+     * activation expressions. In practise you'll use both.
      * 
      * @author Andrew Cowie
      * @since 4.0.5
@@ -282,13 +281,13 @@ public class TreeView extends Container
      * 
      * <p>
      * In general, you've got the TreeModel and especially its DataColumns
-     * visible, so to use <code>ROW_EXPANDED</code> you can just:
+     * visible, so to use <code>TreeView.RowExpanded</code> you can just:
      * 
      * <pre>
      * final TreeModel model;
      * final DataColumnString column;
      * 
-     * view.connect(new TreeView.ROW_EXPANDED() {
+     * view.connect(new TreeView.RowExpanded() {
      *     public void onRowExpanded(TreeView source, TreeIter iter, TreePath path) {
      *         ... = model.getValue(iter, column);
      *     }
@@ -706,7 +705,8 @@ public class TreeView extends Container
      * 
      * <p>
      * Incidentally, you can observe these changes by connecting to
-     * <code>ROW_INSERTED</code> and <code>ROW_DELETED</code>.
+     * <code>TreeView.RowInserted</code> and
+     * <code>TreeView.RowDeleted</code>.
      * 
      * @since 4.0.6
      */

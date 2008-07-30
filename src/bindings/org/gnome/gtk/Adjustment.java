@@ -29,7 +29,8 @@ package org.gnome.gtk;
  * An Adjustment object does not update its own values. The associated Widgets
  * that use the Adjustment are free to change its values though. Associated
  * Widgets that use an Adjustment call the <code>emitValueChanged()</code>
- * method on the widget, causing a <code>VALUE_CHANGED</code> signal.
+ * method on the widget, causing a <code>Adjustment.ValueChanged</code>
+ * signal.
  * 
  * @author Srichand Pendyala
  * @since 4.0.5

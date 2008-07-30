@@ -52,7 +52,7 @@ public class ImageMenuItem extends MenuItem
     /**
      * Convenience constructor, allowing you to create a MenuItem displaying a
      * stock icon while simultaneously hooking up the handler which will take
-     * its <code>ACTIVATE</code> signals.
+     * its <code>MenuItem.Activate</code> signals.
      */
     public ImageMenuItem(Stock stock, MenuItem.Activate handler) {
         this(stock);
@@ -77,8 +77,8 @@ public class ImageMenuItem extends MenuItem
      * 
      * <p>
      * There is also a constructor which allows you to connect an
-     * <code>ACTIVATE</code> handler in-line, see
-     * {@link ImageMenuItem#ImageMenuItem(Image, String, org.gnome.gtk.MenuItem.ACTIVATE) here}.
+     * <code>MenuItem.Activate</code> handler in-line, see
+     * {@link ImageMenuItem#ImageMenuItem(Image, String, org.gnome.gtk.MenuItem.Activate) here}.
      * 
      * @since 4.0.6
      */
@@ -89,7 +89,7 @@ public class ImageMenuItem extends MenuItem
 
     /**
      * Create a MenuItem displaying an image next to text, and hook up an
-     * <code>ACTIVATE</code> handler at the same time.
+     * <code>MenuItem.Activate</code> handler at the same time.
      * 
      * @since 4.0.6
      */

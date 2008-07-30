@@ -438,9 +438,9 @@ public abstract class Widget extends org.gnome.gtk.Object
     /**
      * Hook up a handler to receive <code>Widget.KeyPressEvent</code>
      * signals on this Widget. For general typing this is the one you want,
-     * but for critical events (like pressing <b>Enter</b> to activate a
-     * Button that is going to delete things, you might want to postpone
-     * action until <code>KEY_RELEASE_EVENT</code>.
+     * but for critical events (like pressing <b><code>Enter</code></b> to
+     * activate a Button that is going to delete things, you might want to
+     * postpone action until <code>Widget.KeyReleaseEvent</code>.
      * 
      * @since 4.0.3
      */
@@ -649,7 +649,7 @@ public abstract class Widget extends org.gnome.gtk.Object
      * parameter to get to the VisibilityState as follows:
      * 
      * <pre>
-     * w.connect(new Widget.VISIBILITY_NOTIFY_EVENT() {
+     * foo.connect(new Widget.VisibilityNotifyEvent() {
      *     public boolean onVisibilityNotifyEvent(Widget source, EventVisibility event) {
      *         VisibilityState state = event.getState();
      *         if (state == VisibilityState.FULLY_OBSCURED) {
@@ -662,7 +662,7 @@ public abstract class Widget extends org.gnome.gtk.Object
      * 
      * See {@link VisibilityState VisibilityState} for the constants
      * describing the possible three possible changes to an underlying
-     * element's visibility. See also {@link UNMAP_EVENT UNMAP_EVENT} for a
+     * element's visibility. See also {@link Widget.UnmapEvent} for a
      * discussion of how this can be used to actively toggle the presentation
      * of a Window to the user.
      * 
@@ -810,13 +810,13 @@ public abstract class Widget extends org.gnome.gtk.Object
      * <p>
      * This can be quite useful when one Widget takes action in a signal
      * handler which changes the state of another Widget. Take for example two
-     * related Entry Widgets. The second Entry's <code>CHANGED</code> signal
-     * will fire when the first Entry's <code>CHANGED</code> handler calls
-     * <code>second.setText()</code>; if it changes the first Entry then
-     * you have an infinite loop on your hands. By checking for <var>has-focus</var>
-     * at the beginning of both handlers, then only the Widget that the user
-     * changed will carry out it's logic; the other will realize it doesn't
-     * have focus and can quickly pass.
+     * related Entry Widgets. The second Entry's <code>Entry.Changed</code>
+     * signal will fire when the first Entry's <code>Entry.Changed</code>
+     * handler calls <code>second.setText()</code>; if it changes the first
+     * Entry then you have an infinite loop on your hands. By checking for
+     * <var>has-focus</var> at the beginning of both handlers, then only the
+     * Widget that the user changed will carry out it's logic; the other will
+     * realize it doesn't have focus and can quickly pass.
      * 
      * @since 4.0.6
      */
