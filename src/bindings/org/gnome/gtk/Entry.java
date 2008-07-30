@@ -134,7 +134,7 @@ public class Entry extends Widget implements Editable, CellEditable
      * @since 4.0.3
      */
     public void setEditable(boolean editable) {
-        GtkEntry.setEditable(this, editable);
+        GtkEditable.setEditable(this, editable);
     }
 
     /**
@@ -162,7 +162,7 @@ public class Entry extends Widget implements Editable, CellEditable
             throw new IllegalArgumentException(
                     "Position must be -1 to indicate you want it after the last character.");
         }
-        GtkEntry.setPosition(this, position);
+        GtkEditable.setPosition(this, position);
     }
 
     /**

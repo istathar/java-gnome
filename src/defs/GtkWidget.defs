@@ -340,18 +340,6 @@
   (varargs #t)
 )
 
-(define-method ref
-  (of-object "GtkWidget")
-  (c-name "gtk_widget_ref")
-  (return-type "GtkWidget*")
-)
-
-(define-method unref
-  (of-object "GtkWidget")
-  (c-name "gtk_widget_unref")
-  (return-type "none")
-)
-
 (define-method destroy
   (of-object "GtkWidget")
   (c-name "gtk_widget_destroy")
@@ -365,16 +353,6 @@
   (parameters
     '("GtkWidget**" "widget_pointer")
   )
-)
-
-(define-method set
-  (of-object "GtkWidget")
-  (c-name "gtk_widget_set")
-  (return-type "none")
-  (parameters
-    '("const-gchar*" "first_property_name")
-  )
-  (varargs #t)
 )
 
 (define-method unparent
@@ -830,27 +808,6 @@
   (parameters
     '("gint*" "width")
     '("gint*" "height")
-  )
-)
-
-(define-method set_uposition
-  (of-object "GtkWidget")
-  (c-name "gtk_widget_set_uposition")
-  (return-type "none")
-  (parameters
-    '("gint" "x")
-    '("gint" "y")
-  )
-)
-
-(define-method set_usize
-  (of-object "GtkWidget")
-  (c-name "gtk_widget_set_usize")
-  (return-type "none")
-  (deprecated "use GtkWidget.set_size_request")
-  (parameters
-    '("gint" "width")
-    '("gint" "height")
   )
 )
 
