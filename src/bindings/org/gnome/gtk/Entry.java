@@ -138,7 +138,13 @@ public class Entry extends Widget implements Editable, CellEditable
 
     /**
      * The <code>Entry.Activate</code> signal occurs when the user presses
-     * <b><code>RETURN</code></b> in an Entry.
+     * <b><code>Enter</code></b> or <b><code>Return</code></b> in an
+     * Entry.
+     * 
+     * <p>
+     * Note that the other significant signal on an Entry is
+     * <code>Editable.Changed</code>, inherited from Editable. There is a
+     * {@link Entry#connect(org.gnome.gtk.Editable.Changed) connect()} method.
      * 
      * @since 4.0.3
      */
@@ -199,7 +205,34 @@ public class Entry extends Widget implements Editable, CellEditable
     }
 
     /**
-     * Connect a <code>Editable.Changed</code> handler.
+     * The signal emitted when the text in the Entry has changed.
+     * 
+     * @author Andrew Cowie
+     * @since 4.0.8
+     */
+    /*
+     * This signal is inherited from Editable which is implemented by Entry,
+     * but some IDEs did not show Entry.Changed it as an option beside
+     * Editable.Activate when doing code completion. We have therefore exposed
+     * it (again) here to force the issue.
+     */
+    public interface Changed extends Editable.Changed
+    {
+    }
+
+    /**
+     * Connect a <code>Editable.Changed</code> handler. Note that you can
+     * say:
+     * 
+     * <pre>
+     * e.connect(new Entry.Changed() {
+     *     public void onChanged(Editable source) {
+     *         doStuff();
+     *     }
+     * });
+     * </pre>
+     * 
+     * as the Editable.Changed interface is [re]exposed here.
      * 
      * @since 4.0.6
      */

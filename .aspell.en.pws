@@ -8,6 +8,7 @@ AboutDialog
 AccelGroup
 ActionGroup
 ActionGroups
+ActivateSignal
 AfC
 AllAboutJNI
 AltLeft
@@ -991,6 +992,7 @@ distro's
 distros
 dl
 dnd
+doStuff
 dobSort
 documenters
 downcasting
