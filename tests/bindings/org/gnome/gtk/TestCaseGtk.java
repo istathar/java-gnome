@@ -1,7 +1,7 @@
 /*
  * TestCaseGtk.java
  *
- * Copyright (c) 2007 Operational Dynamics Consulting Pty Ltd and Others
+ * Copyright (c) 2007-2008 Operational Dynamics Consulting Pty Ltd and Others
  * 
  * The code in this file, and the suite it is a part of, are made available
  * to you by the authors under the terms of the "GNU General Public Licence,
@@ -117,7 +117,7 @@ public class TestCaseGtk extends TestCase
      * whereby really unit tests should be running in a virtual X server.
      */
     protected void runMainLoop(Window w) {
-        w.connect(new Window.DELETE_EVENT() {
+        w.connect(new Window.DeleteEvent() {
             public boolean onDeleteEvent(Widget source, Event event) {
                 Gtk.mainQuit();
                 return false;

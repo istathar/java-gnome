@@ -30,21 +30,21 @@ import org.gnome.gdk.Rectangle;
  * until this has happened. If you are doing drawing based on the co-ordinates
  * of a given line in the <code>TEXT</code> Window of the TextView, it is
  * easy to be trapped by this: you hook up to the
- * <code>TextBuffer.CHANGED</code> thinking that you can use this as an
+ * <code>TextBuffer.Changed</code> thinking that you can use this as an
  * indication of when the TextView has changed, but unfortunately this turns
- * out not to be the case. <code>CHANGED</code> is indeed emitted, but the
- * information returned by <code>getLineY()</code> will not have been
- * updated until after the current signal handlers finish and the
+ * out not to be the case. <code>TextBuffer.Changed</code> is indeed
+ * emitted, but the information returned by <code>getLineY()</code> will not
+ * have been updated until after the current signal handlers finish and the
  * high-priority idle task can run.
  * 
  * <p>
  * Studying the internal implementation of this logic in GTK, it turns out
  * that the bulk of the work to do validation of the line height calculations
  * and text placement happens in code paths triggered off of
- * <code>Adjustment.VALUE_CHANGED</code> (which is emitted, for example,
- * when scrolling occurs). Thus there does seem to be a way to trick the
- * TreeView into getting on with the revalidation early, and that is to emit
- * <code>VALUE_CHANGED</code> yourself. So, given the usual
+ * <code>Adjustment.ValueChanged</code> (which is emitted, for example, when
+ * scrolling occurs). Thus there does seem to be a way to trick the TreeView
+ * into getting on with the revalidation early, and that is to emit
+ * <code>Adjustment.ValueChanged</code> yourself. So, given the usual
  * TextView/TextBuffer fields and an Adjustment:
  * 
  * <pre>
@@ -62,7 +62,7 @@ import org.gnome.gdk.Rectangle;
  * 
  * <pre>
  * vadj = scroll.getVAdjustment();
- * vadj.connect(new Adjustment.VALUE_CHANGED() {
+ * vadj.connect(new Adjustment.ValueChanged() {
  *     public void onValueChanged(Adjustment source) {
  *         // now the line heights will be correct
  *         doSomethingWith(view.getLineY());
@@ -72,16 +72,16 @@ import org.gnome.gdk.Rectangle;
  * 
  * That works for when real scrolling happens, but if you need to precipitate
  * matters, use Adjustment's <code>emitValueChanged()</code> to fire the
- * <code>VALUE_CHANGED</code> signal:
+ * <code>Adjustment.ValueChanged</code> signal:
  * 
  * <pre>
- * buffer.connect(new TextBuffer.CHANGED() {
+ * buffer.connect(new TextBuffer.Changed() {
  *     public void onChanged(TextBuffer source) {
  *         vadj.emitValueChanged();
  *     }
  * });
  * 
- * window.connect(new Window.CONFIGURE_EVENT() {
+ * window.connect(new Window.ConfigureEvent() {
  *     public boolean onConfigureEvent(Widget source, EventConfigure event) {
  *         vadj.emitValueChanged();
  *         return false;
@@ -96,7 +96,7 @@ import org.gnome.gdk.Rectangle;
  * implementation details. This workaround is not based on documented public
  * behaviour, and unfortunately is not guaranteed to be stable. So as we say
  * in Open Source, Your Mileage May Vary. Perhaps GTK will improve this aspect
- * of the API in the future.</i>
+ * of the library in the future.</i>
  * 
  * @author Stefan Prelle
  * @author Andrew Cowie
@@ -662,11 +662,11 @@ public class TextView extends Container
      * <pre>
      * TextView t;
      * 
-     * t.connect(new TextView.POPULATE_POPUP() {
+     * t.connect(new TextView.PopulatePopup() {
      *     public void onPopulatePopup(TextView source, Menu menu) {
-     *         menu.append(new ImageMenuItem(Stock.SAVE, new MenuItem.ACTIVATE() {
+     *         menu.append(new ImageMenuItem(Stock.SAVE, new MenuItem.Activate() {
      *             public void onActivate(MenuItem source) {
-     *             //do stuff
+     *                 doStuff();
      *             }
      *         }));
      *         menu.showAll();
@@ -677,7 +677,7 @@ public class TextView extends Container
      * @author Kenneth Prugh
      * @since 4.0.8
      */
-    public interface POPULATE_POPUP extends GtkTextView.POPULATE_POPUP
+    public interface PopulatePopup extends GtkTextView.PopulatePopupSignal
     {
         /**
          * Add MenuItems you wish to see in the TreeView's context menu to
@@ -687,15 +687,15 @@ public class TextView extends Container
     }
 
     /**
-     * Hook up a handler to receive <code>POPULATE_POPUP</code> signals on
-     * this TextView. This will be emitted each time the user right-clicks or
-     * presses the <b><code>Menu</code></b> key, and allows you to
-     * populate the popup menu according to the current circumstances - in
-     * other words, making it a context menu.
+     * Hook up a handler to receive <code>TextView.PopulatePopup</code>
+     * signals on this TextView. This will be emitted each time the user
+     * right-clicks or presses the <b><code>Menu</code></b> key, and
+     * allows you to populate the popup menu according to the current
+     * circumstances - in other words, making it a context menu.
      * 
      * @since 4.0.8
      */
-    public void connect(POPULATE_POPUP handler) {
+    public void connect(TextView.PopulatePopup handler) {
         GtkTextView.connect(this, handler, false);
     }
 

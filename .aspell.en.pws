@@ -63,6 +63,7 @@ CellRendererTexts
 CellRendererToggle
 CellRendererToggle's
 CellRenderers
+ChangedSignal
 CheckButton
 CheckButtons
 CheckMenuItem
@@ -83,6 +84,7 @@ ComboBoxes
 ComeOnBabyLightMyFire
 CommitMessages
 ComplexHandler
+ConfigureEvent
 ControlLeft
 ControlRight
 Cowie
@@ -112,6 +114,8 @@ DefsFile
 DefsParser
 DeleteGlobalRef
 DeleteLocalRef
+DeleteRange
+DeleteRangeSignal
 DeleteWeakGlobalRef
 DesignConstraints
 Devdas
@@ -419,6 +423,7 @@ InfoMessageDialog
 Inkscape
 InputStream
 InsertTextHandler
+InsertTextSignal
 InstantiationException
 IntegerValue
 InternalButtonImplementation
@@ -539,6 +544,8 @@ PixbufAnimation
 PixbufFormat
 Pixbufs
 PolicyType
+PopulatePopup
+PopulatePopupSignal
 PositionType
 PowerResponseType
 Preetz
@@ -1043,6 +1050,7 @@ distro's
 distros
 dl
 dnd
+doSomethingWith
 doStuff
 dobSort
 documenters
@@ -1683,6 +1691,7 @@ resizes
 responseId
 returnType
 revalidate
+revalidation
 rightAttach
 rowAlign
 rowstride
@@ -2021,6 +2030,7 @@ util
 utils
 utils's
 va
+vadj
 vadjustment
 validationCheck
 valueChanged

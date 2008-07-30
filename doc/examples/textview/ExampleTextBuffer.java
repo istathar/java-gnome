@@ -66,7 +66,7 @@ public class ExampleTextBuffer
 
     private void init() {
         blue = new Button("blue");
-        blue.connect(new Button.CLICKED() {
+        blue.connect(new Button.Clicked() {
             public void onClicked(Button source) {
                 TextMark startMark, endMark;
                 TextIter start, end;
@@ -84,7 +84,7 @@ public class ExampleTextBuffer
         });
 
         image = new Button("image");
-        image.connect(new Button.CLICKED() {
+        image.connect(new Button.Clicked() {
             public void onClicked(Button source) {
                 FileChooserDialog chooser = new FileChooserDialog("Select image", win,
                         FileChooserAction.OPEN);
@@ -126,7 +126,7 @@ public class ExampleTextBuffer
         layout.add(view);
 
         win.setTitle("ExampleTextBuffer");
-        win.connect(new Window.DELETE_EVENT() {
+        win.connect(new Window.DeleteEvent() {
             public boolean onDeleteEvent(Widget source, Event event) {
                 Gtk.mainQuit();
                 return true;

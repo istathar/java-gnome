@@ -450,17 +450,17 @@ public class TextBuffer extends Object
      * @author Andrew Cowie
      * @since 4.0.8
      */
-    public interface CHANGED extends GtkTextBuffer.CHANGED
+    public interface Changed extends GtkTextBuffer.ChangedSignal
     {
         public void onChanged(TextBuffer source);
     }
 
     /**
-     * Hook up a handler for <code>CHANGED</code> signals.
+     * Hook up a handler for <code>TextBuffer.Changed</code> signals.
      * 
      * @since 4.0.8
      */
-    public void connect(CHANGED handler) {
+    public void connect(TextBuffer.Changed handler) {
         GtkTextBuffer.connect(this, handler, false);
     }
 
@@ -482,40 +482,40 @@ public class TextBuffer extends Object
     /*
      * FIXME How do you do that?
      */
-    public interface INSERT_TEXT
+    public interface InsertText
     {
         public void onInsertText(TextBuffer source, TextIter pointer, String text);
     }
 
     /**
-     * Hook up a handler for <code>INSERT_TEXT</code> signals. This will be
-     * invoked before the default handler is run, that is, before the new text
-     * is actually inserted into the TextBuffer.
+     * Hook up a handler for <code>TextBuffer.InsertText</code> signals.
+     * This will be invoked before the default handler is run, that is, before
+     * the new text is actually inserted into the TextBuffer.
      * 
      * @since 4.0.8
      */
-    public void connect(INSERT_TEXT handler) {
+    public void connect(TextBuffer.InsertText handler) {
         GtkTextBuffer.connect(this, new InsertTextHandler(handler), false);
     }
 
     /**
-     * Hook up a handler for <code>INSERT_TEXT</code> signals that will be
-     * called <i>after</i> the default handler.
+     * Hook up a handler for <code>TextBuffer.InsertText</code> signals that
+     * will be called <i>after</i> the default handler.
      * 
      * @since 4.0.8
      */
-    public void connectAfter(INSERT_TEXT handler) {
+    public void connectAfter(TextBuffer.InsertText handler) {
         GtkTextBuffer.connect(this, new InsertTextHandler(handler), true);
     }
 
     /*
      * Trim off the length parameter which is unnecessary in Java.
      */
-    private static class InsertTextHandler implements GtkTextBuffer.INSERT_TEXT
+    private static class InsertTextHandler implements GtkTextBuffer.InsertTextSignal
     {
-        private final INSERT_TEXT handler;
+        private final InsertText handler;
 
-        private InsertTextHandler(INSERT_TEXT handler) {
+        private InsertTextHandler(InsertText handler) {
             this.handler = handler;
         }
 
@@ -550,18 +550,18 @@ public class TextBuffer extends Object
      * response to the value of the text between start and end? The default
      * handler will nuke the text.
      */
-    public interface DELETE_RANGE extends GtkTextBuffer.DELETE_RANGE
+    public interface DeleteRange extends GtkTextBuffer.DeleteRangeSignal
     {
         public void onDeleteRange(TextBuffer source, TextIter start, TextIter end);
     }
 
     /**
-     * Hook up a handler for <code>DELETE_RANGE</code> signals on this
-     * TextBuffer.
+     * Hook up a handler for <code>TextBuffer.DeleteRange</code> signals on
+     * this TextBuffer.
      * 
      * @since 4.0.8
      */
-    public void connect(DELETE_RANGE handler) {
+    public void connect(TextBuffer.DeleteRange handler) {
         GtkTextBuffer.connect(this, handler, false);
     }
 }
