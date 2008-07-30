@@ -1,8 +1,8 @@
 /*
  * ValidateThreadStability.java
  *
- * Copyright (c) 2007 Operational Dynamics Consulting Pty Ltd
- * Copyright (c) 2007 Vreixo Formoso
+ * Copyright (c) 2007-2008 Operational Dynamics Consulting Pty Ltd
+ * Copyright (c) 2007      Vreixo Formoso
  * 
  * The code in this file, and the suite it is a part of, are made available
  * to you by the authors under the terms of the "GNU General Public Licence,
@@ -46,7 +46,7 @@ public final class ValidateThreadStability
         w.setTitle("Exp");
         w.showAll();
 
-        w.connect(new Window.DELETE_EVENT() {
+        w.connect(new Window.DeleteEvent() {
             public boolean onDeleteEvent(Widget source, Event event) {
                 System.out.println("I was deleted!");
                 Gtk.mainQuit();
@@ -54,7 +54,7 @@ public final class ValidateThreadStability
             }
         });
 
-        x2.connect(new Widget.EXPOSE_EVENT() {
+        x2.connect(new Widget.ExposeEvent() {
             public boolean onExposeEvent(Widget source, EventExpose event) {
                 System.out.println("Expose event. VBOX");
                 Thread.yield();

@@ -1,7 +1,7 @@
 /*
  * WorkerThreads.java
  *
- * Copyright (c) 2006-2007 Operational Dynamics Consulting Pty Ltd
+ * Copyright (c) 2006-2008 Operational Dynamics Consulting Pty Ltd
  * 
  * The code in this file, and the program it is a part of, are made available
  * to you by the authors under the terms of the "GNU General Public Licence,
@@ -65,7 +65,7 @@ public final class WorkerThreads implements Runnable
         w.setTitle("Worker Threads");
         w.showAll();
 
-        b.connect(new Button.CLICKED() {
+        b.connect(new Button.Clicked() {
             public void onClicked(Button source) {
                 String name = "" + (char) j;
                 System.out.println(name + " launching.");
@@ -75,7 +75,7 @@ public final class WorkerThreads implements Runnable
             }
         });
 
-        w.connect(new Window.DELETE_EVENT() {
+        w.connect(new Window.DeleteEvent() {
             public boolean onDeleteEvent(Widget source, Event event) {
                 System.out.println("I was deleted!");
                 Gtk.mainQuit();
