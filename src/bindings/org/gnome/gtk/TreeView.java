@@ -88,12 +88,12 @@ package org.gnome.gtk;
  * Dealing with the events generated on the TreeView is either straight
  * forward or quite complicated, depending on what you are trying to
  * accomplish. If you just need a callback when the user activates a row in
- * the display, then the {@link TreeView.ROW_ACTIVATED ROW_ACTIVATED} signal
- * will do the trick fairly simply; see its documentation for an example. For
- * anything else, you will need to use the {@link TreeSelection TreeSelection}
- * helper class (every TreeView automatically has one). It has a
- * {@link TreeSelection.CHANGED CHANGED} signal which you hook up to which
- * will tell you what row(s) are currently selected.
+ * the display, then the {@link TreeView.RowActivated} signal will do the
+ * trick fairly simply; see its documentation for an example. For anything
+ * else, you will need to use the {@link TreeSelection TreeSelection} helper
+ * class (every TreeView automatically has one). It has a
+ * {@link TreeSelection.Changed} signal which you hook up to which will tell
+ * you what row(s) are currently selected.
  * 
  * <pre>
  * selection = view.getSelection();
@@ -206,19 +206,18 @@ public class TreeView extends Container
 
     /**
      * Emitted when a row in the TreeView has been activated. Activation
-     * occurs when a row in the view is double-clicked, or when
-     * <code>Space</code> or <code>Enter</code> is pressed while a row is
-     * selected.
+     * occurs when a row in the view is double-clicked, or when <b><code>Space</code></b>
+     * or <b><code>Enter</code></b> are pressed while a row is selected.
      * 
      * <p>
      * In general, you've got the TreeModel and especially its DataColumns
-     * visible, so to use <code>ROW_ACTIVATED</code> you can just:
+     * visible, so to use <code>TreeView.RowActivated</code> you can just:
      * 
      * <pre>
      * final TreeModel model;
      * final DataColumnString column;
      * 
-     * view.connect(new TreeView.ROW_ACTIVATED() {
+     * view.connect(new TreeView.RowActivated() {
      *     public void onRowActivated(TreeView source, TreePath path, TreeViewColumn vertical) {
      *         final TreeIter row;
      * 
@@ -233,15 +232,15 @@ public class TreeView extends Container
      * the model, so get on with using <code>path</code> right away.
      * 
      * <p>
-     * <code>ROW_ACTIVATED</code> is perfectly sufficient for basic
+     * <code>TreeView.RowActivated</code> is perfectly sufficient for basic
      * situations, but you may need to see TreeSelection's
-     * {@link TreeSelection.CHANGED CHANGED} to for more complicated selection
-     * and activation expressions. In practise you'll use both.
+     * {@link TreeSelection.Changed} to for more complicated selection and
+     * activation expressions. In practise you'll use both.
      * 
      * @author Andrew Cowie
      * @since 4.0.5
      */
-    public interface ROW_ACTIVATED extends GtkTreeView.ROW_ACTIVATED
+    public interface RowActivated extends GtkTreeView.RowActivatedSignal
     {
         /**
          * The useful parameter is usually <code>path</code> which can be
@@ -255,9 +254,20 @@ public class TreeView extends Container
     }
 
     /**
-     * Hook up a <code>ROW_ACTIVATED</code> handler.
+     * Hook up a <code>TreeView.RowActivated</code> handler.
      */
+    public void connect(TreeView.RowActivated handler) {
+        GtkTreeView.connect(this, handler, false);
+    }
+
+    /** @deprecated */
+    public interface ROW_ACTIVATED extends GtkTreeView.RowActivatedSignal
+    {
+    }
+
+    /** @deprecated */
     public void connect(ROW_ACTIVATED handler) {
+        assert false : "use TreeView.RowActivated instead";
         GtkTreeView.connect(this, handler, false);
     }
 
@@ -271,13 +281,13 @@ public class TreeView extends Container
      * 
      * <p>
      * In general, you've got the TreeModel and especially its DataColumns
-     * visible, so to use <code>ROW_EXPANDED</code> you can just:
+     * visible, so to use <code>TreeView.RowExpanded</code> you can just:
      * 
      * <pre>
      * final TreeModel model;
      * final DataColumnString column;
      * 
-     * view.connect(new TreeView.ROW_EXPANDED() {
+     * view.connect(new TreeView.RowExpanded() {
      *     public void onRowExpanded(TreeView source, TreeIter iter, TreePath path) {
      *         ... = model.getValue(iter, column);
      *     }
@@ -290,17 +300,17 @@ public class TreeView extends Container
      * @author Vreixo Formoso
      * @since 4.0.7
      */
-    public interface ROW_EXPANDED
+    public interface RowExpanded
     {
         public void onRowExpanded(TreeView source, TreeIter iter, TreePath path);
     }
 
     /**
-     * Hook up a <code>ROW_EXPANDED</code> handler.
+     * Hook up a <code>TreeView.RowExpanded</code> handler.
      * 
      * @since 4.0.7
      */
-    public void connect(ROW_EXPANDED handler) {
+    public void connect(TreeView.RowExpanded handler) {
         GtkTreeView.connect(this, new RowExpandedHandler(handler), false);
     }
 
@@ -309,11 +319,39 @@ public class TreeView extends Container
      * handler does not have the model field properly set, so we need to set
      * it before passing the TreeIter to the user.
      */
-    private static class RowExpandedHandler implements GtkTreeView.ROW_EXPANDED
+    private static class RowExpandedHandler implements GtkTreeView.RowExpandedSignal
+    {
+        private final TreeView.RowExpanded handler;
+
+        private RowExpandedHandler(TreeView.RowExpanded handler) {
+            super();
+            this.handler = handler;
+        }
+
+        public void onRowExpanded(TreeView source, TreeIter iter, TreePath path) {
+            iter.setModel(source.getModel());
+            handler.onRowExpanded(source, iter, path);
+        }
+    }
+
+    /** @deprecated */
+    public interface ROW_EXPANDED extends GtkTreeView.RowExpandedSignal
+    {
+    }
+
+    /** @deprecated */
+    public void connect(ROW_EXPANDED handler) {
+        assert false : "use TreeView.RowExpanded instead";
+        GtkTreeView.connect(this, new RowExpandedHandler0(handler), false);
+    }
+
+    /** @deprecated */
+    private static class RowExpandedHandler0 implements GtkTreeView.RowExpandedSignal
     {
         private final ROW_EXPANDED handler;
 
-        public RowExpandedHandler(ROW_EXPANDED handler) {
+        /** @deprecated */
+        private RowExpandedHandler0(ROW_EXPANDED handler) {
             super();
             this.handler = handler;
         }
@@ -565,15 +603,26 @@ public class TreeView extends Container
      * @author Srichand Pendyala
      * 
      */
-    public interface SELECT_ALL extends GtkTreeView.SELECT_ALL
+    public interface SelectAll extends GtkTreeView.SelectAllSignal
     {
         public boolean onSelectAll(TreeView source);
     }
 
     /**
-     * Hook up a <code>SELECT_ALL</code> signal handler.
+     * Hook up a <code>TreeView.SelectAll</code> signal handler.
      */
+    public void connect(TreeView.SelectAll handler) {
+        GtkTreeView.connect(this, handler, false);
+    }
+
+    /** @deprecated */
+    public interface SELECT_ALL extends GtkTreeView.SelectAllSignal
+    {
+    }
+
+    /** @deprecated */
     public void connect(SELECT_ALL handler) {
+        assert false : "use TreeView.SelectAll instead";
         GtkTreeView.connect(this, handler, false);
     }
 
@@ -656,7 +705,8 @@ public class TreeView extends Container
      * 
      * <p>
      * Incidentally, you can observe these changes by connecting to
-     * <code>ROW_INSERTED</code> and <code>ROW_DELETED</code>.
+     * <code>TreeView.RowInserted</code> and
+     * <code>TreeView.RowDeleted</code>.
      * 
      * @since 4.0.6
      */

@@ -25,7 +25,7 @@ import org.gnome.gtk.Window;
 /**
  * Exercise drawing with the Cairo API. If you are rendering a custom Widget
  * or otherwise drawing stuff with Cairo that is to be presented by GTK, you
- * are expected to do this in the EXPOSE_EVENT handler for that Widget.
+ * are expected to do this in the Widget.ExposeEvent handler for that Widget.
  * 
  * @author Andrew Cowie
  * @author Carl Worth
@@ -52,7 +52,7 @@ public class ExampleDrawingInExposeEvent
         w.add(i);
         w.showAll();
 
-        i.connect(new Widget.EXPOSE_EVENT() {
+        i.connect(new Widget.ExposeEvent() {
             public boolean onExposeEvent(Widget source, EventExpose event) {
                 final Context cr;
                 final Rectangle rect;
@@ -63,17 +63,17 @@ public class ExampleDrawingInExposeEvent
                  */
 
                 rect = event.getArea();
-                System.out.println("EXPOSE_EVENT bounded by " + rect.getWidth() + "x" + rect.getHeight()
-                        + " at " + rect.getX() + "," + rect.getY());
+                System.out.println("Widget.ExposeEvent bounded by " + rect.getWidth() + "x"
+                        + rect.getHeight() + " at " + rect.getX() + "," + rect.getY());
 
                 /*
                  * With that out of the way, we get to the heart of the
                  * matter: creating a Cairo Context based on (and mapped to)
                  * the Drawable underlying the Widget. The key here is that
                  * the Widget is mapped unlike earlier when we were
-                 * constructing it. The first EXPOSE_EVENT does not occur
-                 * until after the Widget is realized; indeed, that is when it
-                 * is triggered.
+                 * constructing it. The first Widget.ExposeEvent does not
+                 * occur until after the Widget is realized; indeed, that is
+                 * when it is triggered.
                  */
 
                 cr = new Context(source.getWindow());
@@ -122,7 +122,7 @@ public class ExampleDrawingInExposeEvent
          * handler, and then fire up the main loop.
          */
 
-        w.connect(new Window.DELETE_EVENT() {
+        w.connect(new Window.DeleteEvent() {
             public boolean onDeleteEvent(Widget source, Event event) {
                 Gtk.mainQuit();
                 return false;

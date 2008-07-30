@@ -100,7 +100,7 @@ public abstract class Snapshot
         w.showAll();
         w.present();
 
-        w.connect(new Window.DELETE_EVENT() {
+        w.connect(new Window.DeleteEvent() {
             public boolean onDeleteEvent(Widget source, Event event) {
                 Gtk.mainQuit();
                 return false;

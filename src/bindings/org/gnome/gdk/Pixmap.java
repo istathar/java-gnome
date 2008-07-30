@@ -27,9 +27,9 @@ public class Pixmap extends Drawable
 
     /**
      * Create a Pixmap with qualities matching that of an existing Drawable.
-     * In other words, if you already have a GDK Window (ie, you're in an
-     * EXPOSE_EVENT), you can create a Pixmap that will be compatible with it
-     * by using this constructor.
+     * In other words, if you already have a GDK Window (ie, you're in a
+     * Widget.ExposeEvent), you can create a Pixmap that will be compatible
+     * with it by using this constructor.
      * 
      * @since 4.0.7
      */

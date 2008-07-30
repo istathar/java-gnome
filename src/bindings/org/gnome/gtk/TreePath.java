@@ -31,10 +31,9 @@ import org.gnome.glib.Boxed;
  * 
  * <p>
  * TreePaths are given to you as a row address in signals like
- * {@link TreeView.ROW_ACTIVATED ROW_ACTIVATED}. Usually you need the row
- * expressed as a TreeIter (ie to get a value out of the row);to do that call
- * the underlying TreeModel's {@link TreeModel#getIter(TreePath) getIter()}
- * method.
+ * {@link TreeView.RowActivated}. Usually you need the row expressed as a
+ * TreeIter (ie to get a value out of the row);to do that call the underlying
+ * TreeModel's {@link TreeModel#getIter(TreePath) getIter()} method.
  * 
  * @author Andrew Cowie
  * @since 4.0.5

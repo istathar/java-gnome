@@ -16,7 +16,7 @@ package org.gnome.gdk;
  * 
  * @author Andrew Cowie
  * @since 4.0.3
- * @see org.gnome.gtk.Widget.EXPOSE_EVENT
+ * @see org.gnome.gtk.Widget.ExposeEvent
  */
 public final class EventExpose extends Event
 {

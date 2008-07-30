@@ -94,8 +94,8 @@ public class TreeViewColumn extends Object implements CellLayout
      * sorting to be optional and only active if the user clicks a header,
      * certainly if you've set sort information for many columns you will have
      * to indicate explicitly which one is to be active first, etc). Use
-     * {@link #clicked()} to activate this column as the one doing the
-     * sorting.
+     * {@link #emitClicked() emitClicked()} to activate this column as the one
+     * doing the sorting.
      * 
      * <p>
      * <b>Warning:</b><br/>This only works if the TreeModel being presented
@@ -111,15 +111,23 @@ public class TreeViewColumn extends Object implements CellLayout
 
     /**
      * Activate this column's sorting by sending a click the TreeViewColumn
-     * header. Causes <code>CLICKED</code> to fire, but more importantly
-     * this causes this vertical to become the active column dictating the
-     * ordering of the TreeView as a whole (assuming the vertical is
-     * {@link #setClickable(boolean) setClickable(true)} and assuming a
-     * DataColumn has been set with
+     * header. Causes <code>TreeViewColumn.Clicked</code> to fire, but more
+     * importantly this causes this vertical to become the active column
+     * dictating the ordering of the TreeView as a whole (assuming the
+     * vertical is {@link #setClickable(boolean) setClickable(true)} and
+     * assuming a DataColumn has been set with
      * {@link #setSortColumn(DataColumn) setSortColumn()} to indicate the
      * ordering).
+     * 
+     * @since 4.0.8
      */
+    public void emitClicked() {
+        GtkTreeViewColumn.clicked(this);
+    }
+
+    /** @deprecated */
     public void clicked() {
+        assert false : "use emitClicked() instead";
         GtkTreeViewColumn.clicked(this);
     }
 

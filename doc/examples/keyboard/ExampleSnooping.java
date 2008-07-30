@@ -39,7 +39,7 @@ public class ExampleSnooping
 
         w.add(l);
 
-        w.connect(new Widget.KEY_PRESS_EVENT() {
+        w.connect(new Widget.KeyPressEvent() {
             public boolean onKeyPressEvent(Widget source, EventKey event) {
                 final Keyval key;
                 final ModifierType mod;
@@ -69,7 +69,7 @@ public class ExampleSnooping
         w.setBorderWidth(30);
         w.showAll();
 
-        w.connect(new Window.DELETE_EVENT() {
+        w.connect(new Window.DeleteEvent() {
             public boolean onDeleteEvent(Widget source, Event event) {
                 Gtk.mainQuit();
                 return false;

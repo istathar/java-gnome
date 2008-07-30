@@ -39,7 +39,7 @@ public class ValidateMemoryManagement extends TestCaseGtk
     /**
      * Subclass Button to simplify automatic testing
      */
-    private static class MyButton extends Button implements Button.CLICKED
+    private static class MyButton extends Button implements Button.Clicked
     {
         /*
          * we need a static field to check object finalization. Of course,
@@ -75,7 +75,7 @@ public class ValidateMemoryManagement extends TestCaseGtk
 
     }
 
-    private static class MyHandler implements Button.CLICKED
+    private static class MyHandler implements Button.Clicked
     {
         /*
          * we need a static field to check object finalization. Of course,
@@ -392,8 +392,8 @@ public class ValidateMemoryManagement extends TestCaseGtk
         cycleMainLoop();
         cycleGarbageCollector();
 
-        /* 
-         * if all was correct, we can retrieve it again. 
+        /*
+         * if all was correct, we can retrieve it again.
          */
         s = t.getSelection();
         cycleMainLoop();

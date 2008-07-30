@@ -1,8 +1,8 @@
 /*
  * ExampleToolbar.java
  *
- * Copyright (c) 2007 Operational Dynamics Consulting Pty Ltd
- * Copyright (c) 2007 Vreixo Formoso
+ * Copyright (c) 2007-2008 Operational Dynamics Consulting Pty Ltd
+ * Copyright (c) 2007      Vreixo Formoso
  *
  * The code in this file, and the program it is a part of, are made available
  * to you by the authors under the terms of the "GNU General Public Licence,
@@ -27,9 +27,6 @@ import org.gnome.gtk.Toolbar;
 import org.gnome.gtk.VBox;
 import org.gnome.gtk.Widget;
 import org.gnome.gtk.Window;
-import org.gnome.gtk.ToggleToolButton.TOGGLED;
-import org.gnome.gtk.ToolButton.CLICKED;
-import org.gnome.gtk.Window.DELETE_EVENT;
 
 /**
  * How to use {@link Toolbar} and related Widgets.
@@ -75,11 +72,11 @@ public class ExampleToolbar
 
         /*
          * You can respond to user clicks in the ToolButton connecting to the
-         * CLICKED signal.
+         * ToolButton.Clicked signal.
          */
-        buttonNew.connect(new CLICKED() {
-            public void onClicked(ToolButton sourceObject) {
-                l.setLabel("You have click NEW ToolButton");
+        buttonNew.connect(new ToolButton.Clicked() {
+            public void onClicked(ToolButton source) {
+                l.setLabel("You have clicked NEW ToolButton");
             }
         });
 
@@ -95,14 +92,14 @@ public class ExampleToolbar
          * You can add your Menu to this kind of ToolButtons
          */
         openMenu = new Menu();
-        openMenu.append(new MenuItem("File _A", new MenuItem.ACTIVATE() {
-            public void onActivate(MenuItem sourceObject) {
-                l.setLabel("You have select File A in the Menu");
+        openMenu.append(new MenuItem("File _A", new MenuItem.Activate() {
+            public void onActivate(MenuItem source) {
+                l.setLabel("You have selected File A in the Menu");
             }
         }));
-        openMenu.append(new MenuItem("File _B", new MenuItem.ACTIVATE() {
-            public void onActivate(MenuItem sourceObject) {
-                l.setLabel("You have select File B in the Menu");
+        openMenu.append(new MenuItem("File _B", new MenuItem.Activate() {
+            public void onActivate(MenuItem source) {
+                l.setLabel("You have selected File B in the Menu");
             }
         }));
         openMenu.showAll();
@@ -111,9 +108,9 @@ public class ExampleToolbar
         /*
          * You also can respond to user clicks in the MenuToolButton itself
          */
-        mtb.connect(new CLICKED() {
-            public void onClicked(ToolButton sourceObject) {
-                l.setLabel("You have click the Open MenuToolButton");
+        mtb.connect(new ToolButton.Clicked() {
+            public void onClicked(ToolButton source) {
+                l.setLabel("You have clicked the Open MenuToolButton");
             }
         });
 
@@ -138,9 +135,9 @@ public class ExampleToolbar
 
         /*
          * the changes in the active state can be tracked by connecting to the
-         * TOGGLED signal.
+         * ToggleToolButton.Toggled signal.
          */
-        boldButton.connect(new TOGGLED() {
+        boldButton.connect(new ToggleToolButton.Toggled() {
             public void onToggled(ToggleToolButton source) {
                 /* You can get the state with the getActive() method */
                 if (source.getActive()) {
@@ -163,7 +160,7 @@ public class ExampleToolbar
         item.add(new Label("This is a label"));
         toolbar.add(item);
 
-        w.connect(new DELETE_EVENT() {
+        w.connect(new Window.DeleteEvent() {
             public boolean onDeleteEvent(Widget source, Event event) {
                 Gtk.mainQuit();
                 return false;

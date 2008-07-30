@@ -46,7 +46,7 @@ package org.gnome.gtk;
  * ...
  * 
  * // then, later
- * selection.connect(new TreeSelection.CHANGED() {
+ * selection.connect(new TreeSelection.Changed() {
  *     public void onChanged(TreeSelection source) {
  *         final TreeIter row;
  *         final String str;

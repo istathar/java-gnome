@@ -61,8 +61,8 @@ public class SpinButton extends Entry
      *            The maximum value allowed.
      * @param step
      *            The amount to increment/decrement when one of the arrow
-     *            Buttons are clicked, or when the user press the
-     *            <code>Up</code> or <code>Down</code> keys.
+     *            Buttons are clicked, or when the user press the <b><code>Up</code></b>
+     *            or <b><code>Down</code></b> keys.
      * @since 4.0.7
      */
     public SpinButton(double min, double max, double step) {
@@ -118,17 +118,30 @@ public class SpinButton extends Entry
      * @author Vreixo Formoso
      * @since 4.0.7
      */
-    public interface VALUE_CHANGED extends GtkSpinButton.VALUE_CHANGED
+    public interface ValueChanged extends GtkSpinButton.ValueChangedSignal
     {
         public void onValueChanged(SpinButton source);
     }
 
     /**
-     * Hook up a handler for the VALUE_CHANGED signal.
+     * Hook up a handler for the <code>SpinButton.ValueChanged</code>
+     * signal.
      * 
      * @since 4.0.7
      */
+    public void connect(SpinButton.ValueChanged handler) {
+        GtkSpinButton.connect(this, handler, false);
+    }
+
+    /** @deprecated */
+    public interface VALUE_CHANGED extends GtkSpinButton.ValueChangedSignal
+    {
+        public void onValueChanged(SpinButton source);
+    }
+
+    /** @deprecated */
     public void connect(VALUE_CHANGED handler) {
+        assert false : "use SpinButton.ValueChanged instead";
         GtkSpinButton.connect(this, handler, false);
     }
 }
