@@ -15,9 +15,8 @@ package org.gnome.gdk;
  * Event data describing a mouse entering or leaving a Window.
  * 
  * <p>
- * This is used by
- * {@link org.gnome.gtk.Widget.ENTER_NOTIFY_EVENT ENTER_NOTIFY_EVENT} and
- * {@link org.gnome.gtk.Widget.LEAVE_NOTIFY_EVENT LEAVE_NOTIFY_EVENT}.
+ * This is used by {@link org.gnome.gtk.Widget.EnterNotifyEvent} and
+ * {@link org.gnome.gtk.Widget.LeaveNotifyEvent}.
  * 
  * @author Andrew Cowie
  * @since 4.0.7

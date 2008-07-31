@@ -1,7 +1,7 @@
 /*
  * Dialog.java
  *
- * Copyright (c) 2007 Operational Dynamics Consulting Pty Ltd, and Others
+ * Copyright (c) 2007-2008 Operational Dynamics Consulting Pty Ltd, and Others
  *
  * The code in this file, and the library it is a part of, are made available
  * to you by the authors under the terms of the "GNU General Public Licence,
@@ -127,7 +127,7 @@ public class Dialog extends Window
     /**
      * Adds an action {@link Button} with the given text as its label to the
      * end of the Dialog's <var>action area</var>. The given ResponseType
-     * will be returned back in the Dialog's {@link RESPONSE RESPONSE} signal
+     * will be returned back in the Dialog's {@link Dialog.Response} signal
      * when the Button added as a result of this call is clicked.
      * 
      * @return the added Button. This is a convenience allowing you to hook up
@@ -148,11 +148,10 @@ public class Dialog extends Window
 
     /**
      * Block the rest of the application by running in a recursive main loop
-     * until a {@link RESPONSE RESPONSE} signal arises on the Dialog as a
-     * result of the user activating one of the <var>action area</var>
-     * Buttons. This is known as a 'modal' Dialog. While this loop is running
-     * the user is prevented from interacting with the rest of the
-     * application.
+     * until a {@link Dialog.Response} signal arises on the Dialog as a result
+     * of the user activating one of the <var>action area</var> Buttons. This
+     * is known as a 'modal' Dialog. While this loop is running the user is
+     * prevented from interacting with the rest of the application.
      * 
      * <p>
      * While there are legitimate uses of modal Dialogs, it is a feature that
@@ -172,7 +171,7 @@ public class Dialog extends Window
      * <p>
      * While <code>run()</code> can be very useful in callbacks when popping
      * up a quick question, you may find hooking up to the
-     * {@link Dialog.RESPONSE RESPONSE} signal more flexible.
+     * {@link Dialog.Response} signal more flexible.
      * 
      * @return the emitted response constant. If asking a question, you should
      *         check this against the various constants in the ResponseType
@@ -196,27 +195,58 @@ public class Dialog extends Window
      * @author Vreixo Formoso
      * @since 4.0.5
      */
-    public interface RESPONSE
+    public interface Response
     {
         void onResponse(Dialog source, ResponseType response);
     }
 
     /**
-     * Hook up a <code>RESPONSE</code> handler.
+     * Hook up a <code>Dialog.Response</code> handler.
      */
-    public void connect(RESPONSE handler) {
+    public void connect(Dialog.Response handler) {
         GtkDialog.connect(this, new ResponseHandler(handler), false);
     }
 
     /*
-     * Needed for emit the RESPONSE signal with a type-safe ResponseType
-     * instead of the underlying int ordinal.
+     * Needed for emit the Dialog.Response signal with a type-safe
+     * ResponseType instead of the underlying int ordinal.
      */
-    private static class ResponseHandler implements GtkDialog.RESPONSE
+    private static class ResponseHandler implements GtkDialog.ResponseSignal
+    {
+        private Dialog.Response handler;
+
+        private ResponseHandler(Dialog.Response handler) {
+            this.handler = handler;
+        }
+
+        public void onResponse(Dialog source, int responseId) {
+            final ResponseType response;
+
+            response = ResponseType.constantFor(responseId);
+
+            handler.onResponse(source, response);
+        }
+    }
+
+    /** @deprecated */
+    public interface RESPONSE
+    {
+        void onResponse(Dialog source, ResponseType response);
+    }
+
+    /** @deprecated */
+    public void connect(RESPONSE handler) {
+        assert false : "use Dialog.Response instead";
+        GtkDialog.connect(this, new ResponseHandler0(handler), false);
+    }
+
+    /** @deprecated */
+    private static class ResponseHandler0 implements GtkDialog.ResponseSignal
     {
         private RESPONSE handler;
 
-        ResponseHandler(RESPONSE handler) {
+        /** @deprecated */
+        private ResponseHandler0(RESPONSE handler) {
             this.handler = handler;
         }
 

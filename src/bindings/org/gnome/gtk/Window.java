@@ -43,7 +43,8 @@ import org.gnome.gdk.WindowTypeHint;
  * 
  * <p>
  * <code>hide()</code> is also important when Windows are being closed; see
- * the comments in the description of {@link Window.DELETE_EVENT DELETE_EVENT}.
+ * the comments in the description of
+ * {@link Window.DeleteEvent Window.DeleteEvent}.
  * 
  * @author Andrew Cowie
  * @author Srichand Pendyala
@@ -255,12 +256,27 @@ public class Window extends Bin
      * @author Devdas Bhagat
      * @since 4.0.0
      */
-    public interface DELETE_EVENT extends GtkWidget.DELETE_EVENT
+    public interface DeleteEvent extends GtkWidget.DeleteEventSignal
     {
         public boolean onDeleteEvent(Widget source, Event event);
     }
 
+    public void connect(DeleteEvent handler) {
+        GtkWidget.connect(this, handler, false);
+    }
+
+    /**
+     * @deprecated
+     */
+    public interface DELETE_EVENT extends GtkWidget.DeleteEventSignal
+    {
+    }
+
+    /**
+     * @deprecated
+     */
     public void connect(DELETE_EVENT handler) {
+        assert false : "use Window.DeleteEvent instead";
         GtkWidget.connect(this, handler, false);
     }
 
@@ -605,11 +621,11 @@ public class Window extends Bin
      * account the size of any window decorations that may be present. Use
      * {@link #setPosition(WindowPosition) setPosition()}!
      * <li>If you need to take a dynamic size dependent action you should
-     * hook up to the {@link Window.CONFIGURE_EVENT CONFIGURE_EVENT} signal
-     * which has more accurate information and which will allow you to react
-     * appropriately. If you instead use this you will be subject to a race
-     * condition as the size of the Window may change between you calling this
-     * method and taking action based on the returned value.
+     * hook up to the {@link Window.ConfigureEvent} signal which has more
+     * accurate information and which will allow you to react appropriately.
+     * If you instead use this you will be subject to a race condition as the
+     * size of the Window may change between you calling this method and
+     * taking action based on the returned value.
      * </ul>
      * 
      * In other words, although this method can be useful for debugging, it's
@@ -827,9 +843,9 @@ public class Window extends Bin
      * @since 4.0.8
      */
     /*
-     * This is here for the same reason that DELETE_EVENT is.
+     * This is here for the same reason that DeleteEvent is.
      */
-    public interface CONFIGURE_EVENT extends GtkWidget.CONFIGURE_EVENT
+    public interface ConfigureEvent extends GtkWidget.ConfigureEventSignal
     {
         /**
          * Return <code>false</code>! Although this is an event signal with
@@ -840,11 +856,11 @@ public class Window extends Bin
     }
 
     /**
-     * Hook up a <code>CONFIGURE_EVENT</code> handler.
+     * Hook up a <code>Window.ConfigureEvent</code> handler.
      * 
      * @since 4.0.8
      */
-    public void connect(CONFIGURE_EVENT handler) {
+    public void connect(ConfigureEvent handler) {
         GtkWidget.connect(this, handler, false);
     }
 }

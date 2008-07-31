@@ -1,7 +1,7 @@
 /*
  * Calendar.java
  *
- * Copyright (c) 2007 Operational Dynamics Consulting Pty Ltd, and Others
+ * Copyright (c) 2007-2008 Operational Dynamics Consulting Pty Ltd, and Others
  *
  * The code in this file, and the library it is a part of, are made available
  * to you by the authors under the terms of the "GNU General Public Licence,
@@ -157,8 +157,8 @@ public class Calendar extends Widget
      * in the Calendar.
      * 
      * <p>
-     * See the {@link Calendar.DAY_SELECTED DAY_SELECTED} signal for the
-     * single click equivalent.
+     * See the {@link Calendar.DaySelected} signal for the single click
+     * equivalent.
      * 
      * <p>
      * <i>This is used in preference to manipulating individual button press
@@ -169,17 +169,29 @@ public class Calendar extends Widget
      * @author Andrew Cowie
      * @since 4.0.6
      */
-    public interface DAY_SELECTED_DOUBLE_CLICK extends GtkCalendar.DAY_SELECTED_DOUBLE_CLICK
+    public interface DaySelectedDoubleClick extends GtkCalendar.DaySelectedDoubleClickSignal
     {
         void onDaySelectedDoubleClick(Calendar source);
     }
 
     /**
-     * Hook up a handler for <code>DAY_SELECTED_DOUBLE_CLICK</code> signals.
+     * Hook up a handler for <code>Calendar.DaySelectedDoubleClick</code>
+     * signals.
      * 
      * @since 4.0.6
      */
+    public void connect(Calendar.DaySelectedDoubleClick handler) {
+        GtkCalendar.connect(this, handler, false);
+    }
+
+    /** @deprecated */
+    public interface DAY_SELECTED_DOUBLE_CLICK extends GtkCalendar.DaySelectedDoubleClickSignal
+    {
+    }
+
+    /** @deprecated */
     public void connect(DAY_SELECTED_DOUBLE_CLICK handler) {
+        assert false : "use Calendar.DaySelectedDoubleClick instead";
         GtkCalendar.connect(this, handler, false);
     }
 
@@ -188,24 +200,34 @@ public class Calendar extends Widget
      * Calendar.
      * 
      * <p>
-     * See
-     * {@link Calendar.DAY_SELECTED_DOUBLE_CLICK DAY_SELECTED_DOUBLE_CLICK}
-     * for the signal emitted when the user double clicks a day.
+     * See {@link Calendar.DaySelectedDoubleClick} for the signal emitted when
+     * the user double clicks on a given day.
      * 
      * @author Andrew Cowie
      * @since 4.0.6
      */
-    public interface DAY_SELECTED extends GtkCalendar.DAY_SELECTED
+    public interface DaySelected extends GtkCalendar.DaySelectedSignal
     {
         void onDaySelected(Calendar source);
     }
 
     /**
-     * Hook up a handler for <code>DAY_SELECTED</code> signals.
+     * Hook up a handler for <code>Calendar.DaySelected</code> signals.
      * 
      * @since 4.0.6
      */
+    public void connect(Calendar.DaySelected handler) {
+        GtkCalendar.connect(this, handler, false);
+    }
+
+    /** @deprecated */
+    public interface DAY_SELECTED extends GtkCalendar.DaySelectedSignal
+    {
+    }
+
+    /** @deprecated */
     public void connect(DAY_SELECTED handler) {
+        assert false : "use Calendar.DaySelected instead";
         GtkCalendar.connect(this, handler, false);
     }
 }

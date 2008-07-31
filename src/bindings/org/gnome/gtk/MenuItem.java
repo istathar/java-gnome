@@ -1,7 +1,7 @@
 /*
  * MenuItem.java
  *
- * Copyright (c) 2007 Operational Dynamics Consulting Pty Ltd, and Others
+ * Copyright (c) 2007-2008 Operational Dynamics Consulting Pty Ltd, and Others
  *
  * The code in this file, and the library it is a part of, are made available
  * to you by the authors under the terms of the "GNU General Public Licence,
@@ -42,6 +42,8 @@ public class MenuItem extends Item
 
     /**
      * Construct a MenuItem
+     * 
+     * @since 4.0.3
      */
     public MenuItem() {
         super(GtkMenuItem.createMenuItem());
@@ -52,6 +54,8 @@ public class MenuItem extends Item
      * underscores (the <code>_</code> character) which, if present, will
      * indicate the mnemonic which will activate that MenuItem directly if
      * that key is pressed (whilst the Menu is showing, obviously).
+     * 
+     * @since 4.0.3
      */
     public MenuItem(String mnemonicLabel) {
         super(GtkMenuItem.createMenuItemWithMnemonic(mnemonicLabel));
@@ -59,7 +63,7 @@ public class MenuItem extends Item
 
     /**
      * Construct a MenuItem with a given text label, and additionally connect
-     * a handler to its <code>ACTIVATE</code> signal.
+     * a handler to its <code>MenuItem.Activate</code> signal.
      * 
      * <p>
      * This is equivalent to:
@@ -75,7 +79,7 @@ public class MenuItem extends Item
      * <pre>
      * Menu editMenu;
      *    
-     * editMenu.append(new MenuItem(&quot;_Paste&quot;, new ACTIVATE() {
+     * editMenu.append(new MenuItem(&quot;_Paste&quot;, new MenuItem.Activate() {
      *     public void onActivate(MenuItem source) {
      *         ...
      *     }
@@ -84,7 +88,7 @@ public class MenuItem extends Item
      * 
      * @since 4.0.4
      */
-    public MenuItem(String mnemonicLabel, ACTIVATE handler) {
+    public MenuItem(String mnemonicLabel, MenuItem.Activate handler) {
         super(GtkMenuItem.createMenuItemWithMnemonic(mnemonicLabel));
         connect(handler);
     }
@@ -92,6 +96,8 @@ public class MenuItem extends Item
     /**
      * Sets or replaces the MenuItem's submenu, or removes it if a
      * <code>null</code> Menu is passed.
+     * 
+     * @since 4.0.3
      */
     public void setSubmenu(Menu child) {
         GtkMenuItem.setSubmenu(this, child);
@@ -101,6 +107,7 @@ public class MenuItem extends Item
      * Returns the submenu underneath this menu item, if any
      * 
      * @return submenu for this menu item, or <code>null</code> if none.
+     * @since 4.0.3
      */
     public Widget getSubmenu() {
         return GtkMenuItem.getSubmenu(this);
@@ -110,18 +117,38 @@ public class MenuItem extends Item
      * The handler interface for an activation. An activation is triggered
      * either when the user clicks the MenuItem, or activates it with the
      * keyboard either by typing that MenuItem's mnemonic character (if it has
-     * one) or selecting the MenuItem via the arrow keys and then pressing
-     * <code>&lt;ENTER&gt;</code>.
+     * one) or selecting the MenuItem via the arrow keys and then pressing <b><code>Enter</code></b>.
+     * 
+     * @since 4.0.3
      */
-    public interface ACTIVATE extends GtkMenuItem.ACTIVATE
+    public interface Activate extends GtkMenuItem.ActivateSignal
     {
         public void onActivate(MenuItem source);
     }
 
     /**
-     * Connect an <code>ACTIVATE</code> handler to the widget.
+     * Connect an <code>MenuItem.Activate</code> handler to the widget.
+     * 
+     * @since 4.0.3
      */
-    public void connect(ACTIVATE handler) {
+    public void connect(MenuItem.Activate handler) {
         GtkMenuItem.connect(this, handler, false);
+    }
+
+    /** @deprecated */
+    public interface ACTIVATE extends GtkMenuItem.ActivateSignal
+    {
+    }
+
+    /** @deprecated */
+    public void connect(ACTIVATE handler) {
+        assert false : "use MenuItem.Activate instead";
+        GtkMenuItem.connect(this, handler, false);
+    }
+
+    /** @deprecated */
+    public MenuItem(String mnemonicLabel, ACTIVATE handler) {
+        super(GtkMenuItem.createMenuItemWithMnemonic(mnemonicLabel));
+        connect(handler);
     }
 }

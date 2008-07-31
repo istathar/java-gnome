@@ -1,7 +1,7 @@
 /*
  * VirtualGenerator.java
  *
- * Copyright (c) 2007 Operational Dynamics Consulting Pty Ltd
+ * Copyright (c) 2007-2008 Operational Dynamics Consulting Pty Ltd
  * 
  * The code in this file, and the program it is a part of, are made available
  * to you by the authors under the terms of the "GNU General Public Licence,
@@ -57,7 +57,7 @@ public class VirtualGenerator extends FunctionGenerator
             final String[][] gParameters) {
         super(data, "connect", gReturnType, null, gParameters, 'f');
 
-        this.javaSignalClass = toAllCaps(blockName);
+        this.javaSignalClass = toPascalCase(blockName) + "Signal";
         this.cSignalName = blockName;
         this.receiverMethodName = toCamel("handle_" + blockName);
         this.interfaceMethodName = toCamel("on_" + blockName);

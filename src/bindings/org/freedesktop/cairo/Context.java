@@ -28,7 +28,7 @@ import org.gnome.gdk.Drawable;
  * to output your image.
  * <li>If drawing to the screen in a user interface application, construct a
  * Context using the underlying GDK Window in your Widget's
- * {@link org.gnome.gtk.Widget.EXPOSE_EVENT EXPOSE_EVENT}, and do your
+ * {@link org.gnome.gtk.Widget.ExposeEvent Widget.ExposeEvent}, and do your
  * drawing there.
  * </ul>
  * 
