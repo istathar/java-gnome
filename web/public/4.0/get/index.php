@@ -156,23 +156,7 @@ you won't pay any penalty for creating as many branches as you like.</p>
 If you're using Eclipse, we recommend creating a branch in your Workspace
 and using that to work on. This will allow you to relatively easily 
 change branches while not screwing up all your launchers.
-Either
-<p>1) create a symlink from your Workspace
-to whichever branch you're working on:
-<a class="nav-black" href="/4.0/README.html">
-<pre style="margin-left: 0px;">
-<span class="file">$ cd ~/workspace</span>
-$ ln -s ~/src/george/java-gnome/working java-gnome
-$ cd ~/workspace/java-gnome/
-$ less README
-</pre></a>
 
-<p>
-or,
-</p>
-
-<p>
-2) use the <code>switch</code> feature within Bazaar.
 <a class="nav-black" href="/4.0/README.html">
 <pre style="margin-left: 0px;">
 <span class="file">$ cd ~/workspace</span>
@@ -187,7 +171,7 @@ $ less README
 <span class="file">$ bzr switch ~/src/george/java-gnome/some-other-branch</span>
 </pre></a>
 to change between branches you have created with different lines of
-development. This works well, but is a more advanced layout. Do experiement
+development. This works well, but is an advanced layout. Do experiement
 with it to get a feel for it first)
 </p>
 
