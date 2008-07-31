@@ -118,7 +118,7 @@ public class CellRendererText extends CellRenderer
      * TreeView) then you'll want to update it:
      * 
      * <pre>
-     * renderer.connect(new EDITED() {
+     * renderer.connect(new CellRendererText.Edited() {
      *     public void onEdited(CellRendererText source, TreePath path, String text) {
      *         model.setValue(model.getIter(path), column, text); 
      *     }
@@ -131,7 +131,7 @@ public class CellRendererText extends CellRenderer
      * @author Andrew Cowie
      * @since 4.0.8
      */
-    public interface EDITED
+    public interface Edited
     {
         public void onEdited(CellRendererText source, TreePath path, String text);
     }
@@ -155,7 +155,7 @@ public class CellRendererText extends CellRenderer
      * CellRendererText renderer = new CellRendererText(visibleColumn);
      * renderer.setText(column);
      * renderer.setEditable(true);
-     * renderer.connect(new EDITED(){
+     * renderer.connect(new CellRendererText.Edited(){
      *      public void onEdited(CellRendererText source, TreePath path, String text) {
      *          System.out.println(&quot;New value for path &quot; + path + &quot; is &quot; + text);
      *          TreeIter row = store.getIter(path);
@@ -165,18 +165,18 @@ public class CellRendererText extends CellRenderer
      * 
      * @since 4.0.8
      */
-    public void connect(EDITED handler) {
-        GtkCellRendererText.connect(this, new EditedHandler(handler));
+    public void connect(CellRendererText.Edited handler) {
+        GtkCellRendererText.connect(this, new EditedHandler(handler), false);
     }
 
     /*
      * Helper class to convert second parameter from String to TreePath
      */
-    private static class EditedHandler implements GtkCellRendererText.EDITED
+    private static class EditedHandler implements GtkCellRendererText.EditedSignal
     {
-        private EDITED handler;
+        private CellRendererText.Edited handler;
 
-        private EditedHandler(EDITED handler) {
+        private EditedHandler(CellRendererText.Edited handler) {
             this.handler = handler;
         }
 

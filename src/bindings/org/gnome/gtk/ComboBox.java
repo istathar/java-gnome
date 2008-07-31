@@ -129,16 +129,29 @@ public class ComboBox extends Bin implements CellEditable, CellLayout
      * 
      * @since 4.0.3
      */
-    public interface CHANGED extends GtkComboBox.CHANGED
+    public interface Changed extends GtkComboBox.ChangedSignal
     {
         public void onChanged(ComboBox source);
     }
 
     /**
-     * Hook up a <code>CHANGED</code> handler to the Widget.
+     * Hook up a <code>ComboBox.Changed</code> handler to the Widget.
+     * 
+     * since 4.0.3
      */
+    public void connect(ComboBox.Changed handler) {
+        GtkComboBox.connect(this, handler, false);
+    }
+
+    /** @deprecated */
+    public interface CHANGED extends GtkComboBox.ChangedSignal
+    {
+    }
+
+    /** @deprecated */
     public void connect(CHANGED handler) {
-        GtkComboBox.connect(this, handler);
+        assert false : "use ComboBox.Changed instead";
+        GtkComboBox.connect(this, handler, false);
     }
 
     /**

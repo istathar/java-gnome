@@ -14,8 +14,8 @@
   (caller-owns-return #t)
   (return-type "GtkWidget*")
   (parameters
-    '("GtkAdjustment*" "hadjustment")
-    '("GtkAdjustment*" "vadjustment")
+    '("GtkAdjustment*" "hadjustment" (null-ok))
+    '("GtkAdjustment*" "vadjustment" (null-ok))
   )
 )
 
@@ -89,18 +89,6 @@
   (parameters
     '("GtkAdjustment*" "adjustment" (null-ok))
   )
-)
-
-(define-method freeze
-  (of-object "GtkLayout")
-  (c-name "gtk_layout_freeze")
-  (return-type "none")
-)
-
-(define-method thaw
-  (of-object "GtkLayout")
-  (c-name "gtk_layout_thaw")
-  (return-type "none")
 )
 
 (define-virtual set_scroll_adjustments

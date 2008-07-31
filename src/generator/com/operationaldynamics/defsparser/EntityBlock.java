@@ -32,8 +32,8 @@ public class EntityBlock extends TypeBlock
     }
 
     public Thing createThing() {
-        EntityThing t = new EntityThing(addPointerSymbol(cName), "org.freedesktop.cairo", inModule + blockName,
-                blockName);
+        EntityThing t = new EntityThing(addPointerSymbol(cName), "org.freedesktop.cairo", inModule
+                + blockName, blockName);
         t.setImportHeader(importHeader);
         return t;
     }

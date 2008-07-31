@@ -49,7 +49,7 @@ public class ValidateTreeModelFilter extends TestCaseGtk
 
         filter = new TreeModelFilter(model, null);
 
-        filter.setVisibleCallback(new TreeModelFilter.VISIBLE() {
+        filter.setVisibleCallback(new TreeModelFilter.Visible() {
             public boolean onVisible(TreeModelFilter source, TreeModel base, TreeIter row) {
                 return base.getValue(row, useful);
             }

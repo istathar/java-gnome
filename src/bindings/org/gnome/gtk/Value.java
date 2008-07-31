@@ -85,7 +85,7 @@ class Value extends org.gnome.glib.Value
     protected float getFloat() {
         return super.getFloat();
     }
-    
+
     Value(long value) {
         super(value);
     }

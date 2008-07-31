@@ -23,18 +23,6 @@
   (return-type "GdkDragContext*")
 )
 
-(define-method ref
-  (of-object "GdkDragContext")
-  (c-name "gdk_drag_context_ref")
-  (return-type "none")
-)
-
-(define-method unref
-  (of-object "GdkDragContext")
-  (c-name "gdk_drag_context_unref")
-  (return-type "none")
-)
-
 (define-method drag_status
   (of-object "GdkDragContext")
   (c-name "gdk_drag_status")

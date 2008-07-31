@@ -60,14 +60,15 @@ package org.gnome.gtk;
  * </pre>
  * 
  * Once the IconView is configured, you may want to hook up a handler for the
- * {@link ITEM_ACTIVATED} signal, emitted when the user activates an item (for
- * example, by double-clicking over it).
+ * {@link IconView.ItemActivated} signal, emitted when the user activates an
+ * item (for example, by double-clicking over it).
  * 
  * <p>
  * Finally, an IconView has methods to handle the selection, so you don't need
  * to use the TreeSelection object.
  * 
  * @author Vreixo Formoso
+ * @author Andrew Cowie
  * @since 4.0.7
  */
 public class IconView extends Container implements CellLayout
@@ -150,19 +151,18 @@ public class IconView extends Container implements CellLayout
 
     /**
      * Emitted when an item in the IconView has been activated. Activation
-     * occurs when an item in the view is double-clicked, or when
-     * <code>Space</code> or <code>Enter</code> is pressed while an item
-     * is selected.
+     * occurs when an item in the view is double-clicked, or when <b><code>Space</code></b>
+     * or <b><code>Enter</code></b> are pressed while an item is selected.
      * 
      * <p>
      * In general, you've got the TreeModel and especially its DataColumns
-     * visible, so to use <code>ITEM_ACTIVATED</code> you can just:
+     * visible, so to use <code>IconView.ItemActivated</code> you can just:
      * 
      * <pre>
      * final TreeModel model;
      * final DataColumnString column;
      * 
-     * view.connect(new IconView.ITEM_ACTIVATED() {
+     * view.connect(new IconView.ItemActivated() {
      *     public void onItemActivated(IconView source, TreePath path) {
      *         final TreeIter row;
      * 
@@ -179,7 +179,7 @@ public class IconView extends Container implements CellLayout
      * @author Vreixo Formoso
      * @since 4.0.7
      */
-    public interface ITEM_ACTIVATED extends GtkIconView.ITEM_ACTIVATED
+    public interface ItemActivated extends GtkIconView.ItemActivatedSignal
     {
         /**
          * The useful parameter is usually <code>path</code> which can be
@@ -191,12 +191,23 @@ public class IconView extends Container implements CellLayout
     }
 
     /**
-     * Hook up a <code>ITEM_ACTIVATED</code> handler.
+     * Hook up a <code>IconView.ItemActivated</code> handler.
      * 
      * @since 4.0.7
      */
+    public void connect(IconView.ItemActivated handler) {
+        GtkIconView.connect(this, handler, false);
+    }
+
+    /** @deprecated */
+    public interface ITEM_ACTIVATED extends GtkIconView.ItemActivatedSignal
+    {
+    }
+
+    /** @deprecated */
     public void connect(ITEM_ACTIVATED handler) {
-        GtkIconView.connect(this, handler);
+        assert false : "use IconView.ItemActivated instead";
+        GtkIconView.connect(this, handler, false);
     }
 
     /**
@@ -252,17 +263,57 @@ public class IconView extends Container implements CellLayout
      * @author Vreixo Formoso
      * @since 4.0.7
      */
-    public interface SELECTION_CHANGED extends GtkIconView.SELECTION_CHANGED
+    public interface SelectionChanged extends GtkIconView.SelectionChangedSignal
     {
         public void onSelectionChanged(IconView source);
     }
 
     /**
-     * Hook up a handler for the <code>SELECTION_CHANGED</code> signal.
+     * Hook up a handler for the <code>IconView.SelectionChanged</code>
+     * signal.
      * 
      * @since 4.0.7
      */
+    public void connect(IconView.SelectionChanged handler) {
+        GtkIconView.connect(this, handler, false);
+    }
+
+    /** @deprecated */
+    public interface SELECTION_CHANGED extends GtkIconView.SelectionChangedSignal
+    {
+    }
+
+    /** @deprecated */
     public void connect(SELECTION_CHANGED handler) {
-        GtkIconView.connect(this, handler);
+        assert false : "use IconView.SelectionChanged instead";
+        GtkIconView.connect(this, handler, false);
+    }
+
+    /**
+     * The number of columns in which icons should be displayed. The default
+     * is <code>-1</code> which indicates that the IconView will determine
+     * this automatically based on the size allocated to it.
+     * 
+     * @since 4.0.8
+     */
+    public void setColumns(int num) {
+        if ((num < 1) && (num != -1)) {
+            throw new IllegalArgumentException("num must be positive, or -1 to indicate automatic");
+        }
+        GtkIconView.setColumns(this, num);
+    }
+
+    /**
+     * Set the maximum width that will be given to each column of icons. The
+     * width is measured in pixels. The default value is <code>-1</code>
+     * which indicates
+     * 
+     * @since 4.0.8
+     */
+    public void setItemWidth(int width) {
+        if ((width < 1) && (width != -1)) {
+            throw new IllegalArgumentException("width must be positive, or -1 to indicate automatic");
+        }
+        GtkIconView.setItemWidth(this, width);
     }
 }

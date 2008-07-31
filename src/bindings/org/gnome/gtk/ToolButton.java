@@ -1,7 +1,7 @@
 /*
  * ToolButton.java
  *
- * Copyright (c) 2007 Operational Dynamics Consulting Pty Ltd, and Others
+ * Copyright (c) 2007-2008 Operational Dynamics Consulting Pty Ltd, and Others
  *
  * The code in this file, and the library it is a part of, are made available
  * to you by the authors under the terms of the "GNU General Public Licence,
@@ -140,15 +140,26 @@ public class ToolButton extends ToolItem
      * Signal generated when a user presses and releases a ToolButton, causing
      * it to activate.
      */
-    public interface CLICKED extends GtkToolButton.CLICKED
+    public interface Clicked extends GtkToolButton.ClickedSignal
     {
         public void onClicked(ToolButton source);
     }
 
     /**
-     * Connect a handler to the <code>CLICKED</code> signal.
+     * Connect a handler to the <code>ToolButton.Clicked</code> signal.
      */
+    public void connect(ToolButton.Clicked handler) {
+        GtkToolButton.connect(this, handler, false);
+    }
+
+    /** @deprecated */
+    public interface CLICKED extends GtkToolButton.ClickedSignal
+    {
+    }
+
+    /** @deprecated */
     public void connect(CLICKED handler) {
-        GtkToolButton.connect(this, handler);
+        assert false : "use ToolButton.Clicked instead";
+        GtkToolButton.connect(this, handler, false);
     }
 }

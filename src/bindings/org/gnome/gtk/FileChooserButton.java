@@ -97,7 +97,7 @@ public class FileChooserButton extends HBox implements FileChooser
      * @author Andrew Cowie
      * @since 4.0.5
      */
-    public interface FILE_SET extends GtkFileChooserButton.FILE_SET
+    public interface FileSet extends GtkFileChooserButton.FileSetSignal
     {
         public void onFileSet(FileChooserButton source);
     }
@@ -109,8 +109,8 @@ public class FileChooserButton extends HBox implements FileChooser
      * 
      * @since 4.0.5
      */
-    public void connect(FILE_SET handler) {
-        GtkFileChooserButton.connect(this, handler);
+    public void connect(FileSet handler) {
+        GtkFileChooserButton.connect(this, handler, false);
     }
 
     public boolean setFilename(String filename) {

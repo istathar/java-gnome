@@ -43,8 +43,8 @@ public abstract class Range extends Widget
 
     /**
      * Change the value showingin the Range. As you would expect, the
-     * <code>VALUE_CHANGED</code> signal will be emitted if the new value is
-     * different from the present setting.
+     * <code>Range.ValueChanged</code> signal will be emitted if the new
+     * value is different from the present setting.
      * 
      * @since 4.0.6
      */
@@ -58,17 +58,31 @@ public abstract class Range extends Widget
      * @author Andrew Cowie
      * @since 4.0.6
      */
-    public interface VALUE_CHANGED extends GtkRange.VALUE_CHANGED
+    public interface ValueChanged extends GtkRange.ValueChangedSignal
     {
         public void onValueChanged(Range source);
     }
 
     /**
-     * Connect a <code>VALUE_CHANGED</code> handler to this Range instance.
+     * Connect a <code>Range.ValueChanged</code> handler to this Range
+     * instance.
      * 
      * @since 4.0.6
      */
-    public void connect(Range.VALUE_CHANGED handler) {
-        GtkRange.connect(this, handler);
+    public void connect(Range.ValueChanged handler) {
+        GtkRange.connect(this, handler, false);
     }
+
+    /** @deprecated */
+    public interface VALUE_CHANGED extends GtkRange.ValueChangedSignal
+    {
+        public void onValueChanged(Range source);
+    }
+
+    /** @deprecated */
+    public void connect(Range.VALUE_CHANGED handler) {
+        assert false : "use Range.ValueChanged instead";
+        GtkRange.connect(this, handler, false);
+    }
+
 }

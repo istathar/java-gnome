@@ -47,12 +47,6 @@
   (return-type "GtkWidget*")
 )
 
-(define-method remove_submenu
-  (of-object "GtkMenuItem")
-  (c-name "gtk_menu_item_remove_submenu")
-  (return-type "none")
-)
-
 (define-method select
   (of-object "GtkMenuItem")
   (c-name "gtk_menu_item_select")
@@ -111,13 +105,6 @@
   (parameters
     '("const-gchar*" "accel_path" (null-ok))
   )
-)
-
-(define-method right_justify
-  (of-object "GtkMenuItem")
-  (c-name "gtk_menu_item_right_justify")
-  (return-type "none")
-  (deprecated "use GtkMenuItem.set_right_justified")
 )
 
 (define-virtual activate

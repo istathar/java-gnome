@@ -38,7 +38,9 @@ public class Notebook extends Container
     }
 
     /**
-     * Constructs a new Notebook
+     * Constructs a new Notebook.
+     * 
+     * @since 4.0.3
      */
     public Notebook() {
         super(GtkNotebook.createNotebook());
@@ -51,6 +53,7 @@ public class Notebook extends Container
      *            The Widget to be shown on the new Notebook page.
      * @param tabLabel
      *            The Label Widget you want to use for the tab itself.
+     * @since 4.0.3
      */
     public int appendPage(Widget child, Widget tabLabel) {
         return GtkNotebook.appendPage(this, child, tabLabel);
@@ -64,13 +67,14 @@ public class Notebook extends Container
      * @param tabLabel
      *            The Label Widget for the tab
      * @return the position of the prepended tab.
+     * @since 4.0.3
      */
     public int prependPage(Widget child, Widget tabLabel) {
         return GtkNotebook.prependPage(this, child, tabLabel);
     }
 
     /**
-     * Insert a tab at the supplied position in the Notebook
+     * Insert a tab at the supplied position in the Notebook.
      * 
      * @param child
      *            The Widget shown on the new Notebook page.
@@ -79,26 +83,29 @@ public class Notebook extends Container
      * @param position
      *            The position at which to insert the page.
      * @return the position in the Notebook of the inserted tab.
+     * @since 4.0.3
      */
     public int insertPage(Widget child, Widget tabLabel, int position) {
         return GtkNotebook.insertPage(this, child, tabLabel, position);
     }
 
     /**
-     * Remove a tab
+     * Remove a tab.
      * 
      * @param pageNum
      *            The position number (from 0) of the page to remove.
+     * @since 4.0.3
      */
     public void removePage(int pageNum) {
         GtkNotebook.removePage(this, pageNum);
     }
 
     /**
-     * Activate/show the page at the supplied position
+     * Activate/show the page at the supplied position.
      * 
      * @param pageNum
      *            Position of the page to activate
+     * @since 4.0.3
      */
     public void setCurrentPage(int pageNum) {
         GtkNotebook.setCurrentPage(this, pageNum);
@@ -106,8 +113,10 @@ public class Notebook extends Container
 
     /**
      * The handler interface for notification of changes in the current page.
+     * 
+     * @since 4.0.3
      */
-    public interface CHANGE_CURRENT_PAGE extends GtkNotebook.CHANGE_CURRENT_PAGE
+    public interface ChangeCurrentPage extends GtkNotebook.ChangeCurrentPageSignal
     {
         /**
          * @param offset
@@ -117,10 +126,24 @@ public class Notebook extends Container
     }
 
     /**
-     * Connects a <code>CHANGE_CURRENT_PAGE</code> handler to the Notebook.
+     * Connects a <code>Notebook.ChangeCurrentPage</code> handler to the
+     * Notebook.
+     * 
+     * @since 4.0.3
      */
+    public void connect(Notebook.ChangeCurrentPage handler) {
+        GtkNotebook.connect(this, handler, false);
+    }
+
+    /** @deprecated */
+    public interface CHANGE_CURRENT_PAGE extends GtkNotebook.ChangeCurrentPageSignal
+    {
+    }
+
+    /** @deprecated */
     public void connect(CHANGE_CURRENT_PAGE handler) {
-        GtkNotebook.connect(this, handler);
+        assert false : "use Notebook.ChangeCurrentPage instead";
+        GtkNotebook.connect(this, handler, false);
     }
 
     /**

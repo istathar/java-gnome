@@ -5,18 +5,6 @@
   (gtype-id "GDK_TYPE_GC")
 )
 
-(define-method ref
-  (of-object "GdkGC")
-  (c-name "gdk_gc_ref")
-  (return-type "GdkGC*")
-)
-
-(define-method unref
-  (of-object "GdkGC")
-  (c-name "gdk_gc_unref")
-  (return-type "none")
-)
-
 (define-function gc_new
   (is-constructor-of "GdkGC")
   (c-name "gdk_gc_new")

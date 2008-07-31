@@ -96,7 +96,7 @@ public class CellRendererToggle extends CellRenderer
     }
 
     /**
-     * Signal emitted after user toggles the rendered toggle button in a Cell.
+     * Signal emitted after user toggles the rendered toggle button in a cell.
      * 
      * <p>
      * Note that the act of toggling the cell does not cause a change in the
@@ -105,7 +105,7 @@ public class CellRendererToggle extends CellRenderer
      * @author Andreas Kuehntopf
      * @since 4.0.8
      */
-    public interface TOGGLED
+    public interface Toggled
     {
         public void onToggled(CellRendererToggle source, TreePath path);
     }
@@ -137,18 +137,18 @@ public class CellRendererToggle extends CellRenderer
      * 
      * @since 4.0.8
      */
-    public void connect(TOGGLED handler) {
-        GtkCellRendererToggle.connect(this, new ToggledHandler(handler));
+    public void connect(CellRendererToggle.Toggled handler) {
+        GtkCellRendererToggle.connect(this, new ToggledHandler(handler), false);
     }
 
     /*
      * Helper class to convert second parameter from String to TreePath
      */
-    private static class ToggledHandler implements GtkCellRendererToggle.TOGGLED
+    private static class ToggledHandler implements GtkCellRendererToggle.ToggledSignal
     {
-        private TOGGLED handler;
+        private CellRendererToggle.Toggled handler;
 
-        private ToggledHandler(TOGGLED handler) {
+        private ToggledHandler(CellRendererToggle.Toggled handler) {
             this.handler = handler;
         }
 

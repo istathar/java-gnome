@@ -55,8 +55,7 @@ public class Entry extends Widget implements Editable, CellEditable
     /**
      * Get the text currently showing in the Entry. This is typically the most
      * significant method as it is the one you use to get the result of the
-     * user's activity upon receiving a {@link Entry.ACTIVATE ACTIVATE}
-     * signal.
+     * user's activity upon receiving a {@link Entry.Activate} signal.
      * 
      * @since 4.0.3
      */
@@ -134,27 +133,44 @@ public class Entry extends Widget implements Editable, CellEditable
      * @since 4.0.3
      */
     public void setEditable(boolean editable) {
-        GtkEntry.setEditable(this, editable);
+        GtkEditable.setEditable(this, editable);
     }
 
     /**
-     * The <code>ACTIVATE</code> signal occurs when the user presses <b><code>RETURN</code></b>
-     * in an Entry.
+     * The <code>Entry.Activate</code> signal occurs when the user presses
+     * <b><code>Enter</code></b> or <b><code>Return</code></b> in an
+     * Entry.
+     * 
+     * <p>
+     * Note that the other significant signal on an Entry is
+     * <code>Editable.Changed</code>, inherited from Editable. There is a
+     * {@link Entry#connect(org.gnome.gtk.Editable.Changed) connect()} method.
      * 
      * @since 4.0.3
      */
-    public interface ACTIVATE extends GtkEntry.ACTIVATE
+    public interface Activate extends GtkEntry.ActivateSignal
     {
         public void onActivate(Entry source);
     }
 
     /**
-     * Connects an <code>ACTIVATE</code> handler to the Widget.
+     * Connects an <code>Entry.Activate</code> handler to the Widget.
      * 
      * @since 4.0.3
      */
+    public void connect(Entry.Activate handler) {
+        GtkEntry.connect(this, handler, false);
+    }
+
+    /** @deprecated */
+    public interface ACTIVATE extends GtkEntry.ActivateSignal
+    {
+    }
+
+    /** @deprecated */
     public void connect(ACTIVATE handler) {
-        GtkEntry.connect(this, handler);
+        assert false : "use Entry.Activate instead";
+        GtkEntry.connect(this, handler, false);
     }
 
     public void setPosition(int position) {
@@ -162,7 +178,7 @@ public class Entry extends Widget implements Editable, CellEditable
             throw new IllegalArgumentException(
                     "Position must be -1 to indicate you want it after the last character.");
         }
-        GtkEntry.setPosition(this, position);
+        GtkEditable.setPosition(this, position);
     }
 
     /**
@@ -189,12 +205,45 @@ public class Entry extends Widget implements Editable, CellEditable
     }
 
     /**
-     * Connect a <code>CHANGED</code> handler.
+     * The signal emitted when the text in the Entry has changed.
+     * 
+     * @author Andrew Cowie
+     * @since 4.0.8
+     */
+    /*
+     * This signal is inherited from Editable which is implemented by Entry,
+     * but some IDEs did not show Entry.Changed it as an option beside
+     * Editable.Activate when doing code completion. We have therefore exposed
+     * it (again) here to force the issue.
+     */
+    public interface Changed extends Editable.Changed
+    {
+    }
+
+    /**
+     * Connect a <code>Editable.Changed</code> handler. Note that you can
+     * say:
+     * 
+     * <pre>
+     * e.connect(new Entry.Changed() {
+     *     public void onChanged(Editable source) {
+     *         doStuff();
+     *     }
+     * });
+     * </pre>
+     * 
+     * as the Editable.Changed interface is [re]exposed here.
      * 
      * @since 4.0.6
      */
+    public void connect(Editable.Changed handler) {
+        GtkEditable.connect(this, handler, false);
+    }
+
+    /** @deprecated */
     public void connect(CHANGED handler) {
-        GtkEditable.connect(this, handler);
+        assert false : "use Editable.Changed instead";
+        GtkEditable.connect(this, handler, false);
     }
 
     public void selectRegion(int start, int end) {

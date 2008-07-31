@@ -82,11 +82,11 @@ public class ExamplePressMe
          * anything. You need to hook up a "signal handler" to deal with the
          * 'clicked' signal. This is how we do it in java-gnome.
          * 
-         * Button.CLICKED is a Java interface. You create an instance of it to
+         * Button.Clicked is a Java interface. You create an instance of it to
          * do what you want when the callback happens, and then pass it to the
          * Button's connect() method.
          * 
-         * The onClicked() method is what is required by the Button.CLICKED
+         * The onClicked() method is what is required by the Button.Clicked
          * interface. Most IDEs will prompt you asking if you want to "Add
          * unimplemented methods?" You bet! And ta-da! You have exactly the
          * signature you need to implement a 'clicked' signal handler.
@@ -97,7 +97,7 @@ public class ExamplePressMe
          * find out what Button was clicked.
          */
 
-        b.connect(new Button.CLICKED() {
+        b.connect(new Button.Clicked() {
             public void onClicked(Button source) {
                 System.out.println("I was clicked: " + b.getLabel());
             }
@@ -121,7 +121,7 @@ public class ExamplePressMe
          * Again, the method here implements the interface.
          */
 
-        w.connect(new Window.DELETE_EVENT() {
+        w.connect(new Window.DeleteEvent() {
             public boolean onDeleteEvent(Widget source, Event event) {
                 Gtk.mainQuit();
                 return false;

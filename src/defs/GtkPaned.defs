@@ -72,16 +72,16 @@
   (return-type "GtkWidget*")
 )
 
-(define-method compute_position
-  (of-object "GtkPaned")
-  (c-name "gtk_paned_compute_position")
-  (return-type "none")
-  (parameters
-    '("gint" "allocation")
-    '("gint" "child1_req")
-    '("gint" "child2_req")
-  )
-)
+;;(define-method compute_position
+;;  (of-object "GtkPaned")
+;;  (c-name "gtk_paned_compute_position")
+;;  (return-type "none")
+;;  (parameters
+;;    '("gint" "allocation")
+;;    '("gint" "child1_req")
+;;    '("gint" "child2_req")
+;;  )
+;;)
 
 (define-virtual cycle_child_focus
   (of-object "GtkPaned")

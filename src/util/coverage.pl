@@ -50,7 +50,7 @@ foreach my $file ( @defs ) {
 print "Current size of .defs data:\t";
 printf "%5d\n", $num;
 
-print "% that are relevant\t\t    ?\n";
+print "Number that are relevant:\t 1600?\n";
 
 @sources = split(/\n/, `find src/bindings/ -name '*.java'`);
 $num = 0;

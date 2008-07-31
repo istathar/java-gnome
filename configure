@@ -1719,7 +1719,7 @@ if ($cc =~ /gcc/) {
 
 	my $jni_include = "";
 	my $java_home = dirname($java);
-	$java_home =~ s/\/bin//;
+	$java_home =~ s/\/bin$//;
 
 	if (!-d "$java_home"."/include") {
 		$java_home =~ s/\/jre//;
@@ -1738,7 +1738,7 @@ if ($cc =~ /gcc/) {
 		print CONFIG "CCACHE=$ccache\n";
 	}
 	
-	print CONFIG "CC=$cc -g -Wall -fPIC $jni_include -Wno-int-to-pointer-cast -Wno-pointer-to-int-cast\n";
+	print CONFIG "CC=$cc -g -Wall -fPIC $jni_include -Wno-int-to-pointer-cast -Wno-pointer-to-int-cast -DGTK_DISABLE_DEPRECATED -DGDK_DISABLE_DEPRECATED -DGDK_PIXBUF_DISABLE_DEPRECATED -DG_DISABLE_DEPRECATED -Werror-implicit-function-declaration -Wfatal-errors\n";
 	print CONFIG "CC_CMD=GCC      \n";
 	print CONFIG "LINK=$cc -g -shared -Wall -fPIC\n";
 	print CONFIG "LINK_CMD=LINK     \n";

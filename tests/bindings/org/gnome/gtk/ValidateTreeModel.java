@@ -434,7 +434,7 @@ public class ValidateTreeModel extends TestCaseGtk
          * Rearrange things: sorting will change order to 1, 10, 2, 3, ... 9
          */
         vertical.setSortColumn(text);
-        vertical.clicked();
+        vertical.emitClicked();
 
         path = new TreePath("1");
         row = model.getIter(path);

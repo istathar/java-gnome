@@ -61,7 +61,7 @@ public class ExampleTooltip
          * examples which ship with java-gnome.
          */
 
-        b1.connect(new Button.CLICKED() {
+        b1.connect(new Button.Clicked() {
             public void onClicked(Button source) {
                 Gtk.mainQuit();
             }
@@ -71,7 +71,7 @@ public class ExampleTooltip
         w.setTitle("Tooltip example");
         w.showAll();
 
-        w.connect(new Window.DELETE_EVENT() {
+        w.connect(new Window.DeleteEvent() {
             public boolean onDeleteEvent(Widget source, Event event) {
                 Gtk.mainQuit();
                 return false;

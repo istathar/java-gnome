@@ -94,21 +94,6 @@
   (return-type "gboolean")
 )
 
-(define-method set_show_numbers
-  (of-object "GtkRecentChooser")
-  (c-name "gtk_recent_chooser_set_show_numbers")
-  (return-type "none")
-  (parameters
-    '("gboolean" "show_numbers")
-  )
-)
-
-(define-method get_show_numbers
-  (of-object "GtkRecentChooser")
-  (c-name "gtk_recent_chooser_get_show_numbers")
-  (return-type "gboolean")
-)
-
 (define-method set_show_icons
   (of-object "GtkRecentChooser")
   (c-name "gtk_recent_chooser_set_show_icons")

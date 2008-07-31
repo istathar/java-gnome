@@ -16,18 +16,6 @@
   )
 )
 
-(define-method ref
-  (of-object "GdkPixbufAnimation")
-  (c-name "gdk_pixbuf_animation_ref")
-  (return-type "GdkPixbufAnimation*")
-)
-
-(define-method unref
-  (of-object "GdkPixbufAnimation")
-  (c-name "gdk_pixbuf_animation_unref")
-  (return-type "none")
-)
-
 (define-method get_width
   (of-object "GdkPixbufAnimation")
   (c-name "gdk_pixbuf_animation_get_width")

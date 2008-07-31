@@ -1,7 +1,7 @@
 /*
  * ValidateUtilityMethods.java
  *
- * Copyright (c) 2007 Operational Dynamics Consulting Pty Ltd
+ * Copyright (c) 2007-2008 Operational Dynamics Consulting Pty Ltd
  * 
  * The code in this file, and the suite it is a part of, are made available
  * to you by the authors under the terms of the "GNU General Public Licence,
@@ -65,8 +65,12 @@ public final class ValidateUtilityMethods extends ValidateDefsParsing
         assertEquals("(Widget) objectFor(b)", ot.translationToJava("b", context));
     }
 
+    public final void testConsantNameMunging() {
+        assertEquals("REALLY_IMPORTANT", Generator.toAllCaps("really-important"));
+    }
+
     public final void testSignalNameMunging() {
-        assertEquals("DELETE_EVENT", Generator.toAllCaps("delete-event"));
+        assertEquals("DeleteEvent", Generator.toPascalCase("delete_event"));
     }
 
     public final void testPascalCaseBackToUnderscores() {
