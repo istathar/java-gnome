@@ -35,14 +35,14 @@ import org.gnome.gtk.Window;
 public class ExampleTrailHeads
 {
     public ExampleTrailHeads() {
-        final Window w;
+        final Window window;
         final TreeView view;
         final ListStore model;
         TreeIter row;
         CellRendererText renderer;
         TreeViewColumn vertical;
 
-        w = new Window();
+        window = new Window();
 
         // ------------------------------------------------
 
@@ -161,13 +161,13 @@ public class ExampleTrailHeads
          * setHeadersClickable() or TreeViewColumn's setClickable(), although
          * there are occasional use cases for them.
          * 
-         * Then we call clicked() to force the header we want things to be
+         * Then we call emitClicked() to force the header we want things to be
          * sorted on to actually be active. This is especially necessary if
          * you've defined sorting for more than one vertical column, but if
          * you want sorting on from the start, you need to call it.
          */
         vertical.setSortColumn(elevationSort);
-        vertical.clicked();
+        vertical.emitClicked();
 
         /*
          * And that's it! You've now done everything you need to have a
@@ -175,10 +175,10 @@ public class ExampleTrailHeads
          * 
          * ... except that if it's for more than information, you probably
          * want something to happen when someone clicks on a row. So, we hook
-         * up a handler to the ROW_ACTIVATED signal. The TreePath it gives you
-         * is the useful bit.
+         * up a handler to the TreeView.RowActivated signal. The TreePath it
+         * gives you is the useful bit.
          */
-        view.connect(new TreeView.ROW_ACTIVATED() {
+        view.connect(new TreeView.RowActivated() {
             public void onRowActivated(TreeView source, TreePath path, TreeViewColumn vertical) {
                 final TreeIter row;
                 final String place, height;
@@ -198,12 +198,12 @@ public class ExampleTrailHeads
          */
 
         // ------------------------------------------------
-        w.add(view);
+        window.add(view);
 
-        w.setTitle("Trail Heads");
-        w.showAll();
+        window.setTitle("Trail Heads");
+        window.showAll();
 
-        w.connect(new Window.DELETE_EVENT() {
+        window.connect(new Window.DeleteEvent() {
             public boolean onDeleteEvent(Widget source, Event event) {
                 Gtk.mainQuit();
                 return false;
