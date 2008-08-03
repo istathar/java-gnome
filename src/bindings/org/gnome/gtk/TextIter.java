@@ -224,10 +224,11 @@ public final class TextIter extends Boxed
      * Get the character immediately following the position this TextIter is
      * pointing at.
      * 
-     * @return A <code>char</code> value of {@link TextIter#NON_CHARACTER}
+     * @return A <code>char</code> value of
+     *         {@link TextBuffer#OBJECT_REPLACEMENT_CHARACTER OBJECT_REPLACEMENT_CHARACTER}
      *         indicates a non-character element (an embedded Pixbuf or
-     *         Widget). You'll get <code>0</code> if this TextIter is
-     *         already at the TextBuffer's end.
+     *         Widget). You'll get <code>0</code> (not <code>'0'</code>)
+     *         if this TextIter is already at the TextBuffer's end.
      * @since 4.0.8
      */
     public char getChar() {
