@@ -81,12 +81,6 @@
   )
 )
 
-(define-method editing_canceled
-  (of-object "GtkCellRenderer")
-  (c-name "gtk_cell_renderer_editing_canceled")
-  (return-type "none")
-)
-
 (define-method stop_editing
   (of-object "GtkCellRenderer")
   (c-name "gtk_cell_renderer_stop_editing")

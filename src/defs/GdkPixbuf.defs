@@ -418,18 +418,6 @@
   )
 )
 
-(define-method ref
-  (of-object "GdkPixbuf")
-  (c-name "gdk_pixbuf_ref")
-  (return-type "GdkPixbuf*")
-)
-
-(define-method unref
-  (of-object "GdkPixbuf")
-  (c-name "gdk_pixbuf_unref")
-  (return-type "none")
-)
-
 (define-method save_to_callbackv
   (of-object "GdkPixbuf")
   (c-name "gdk_pixbuf_save_to_callbackv")
