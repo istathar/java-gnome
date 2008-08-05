@@ -305,8 +305,16 @@ public class Action extends Object
      * that goes with this Action), so in most cases <b>you don't need this.</b>
      * However, in some cases you want to activate the Action in your
      * application code. Use this there.
+     *
+     * @since 4.0.8
      */
+    public void emitActivate() {
+        GtkAction.activate(this);
+    }
+
+    /** @deprecated */
     public void activate() {
+        assert false : "use emitActivate() instead";
         GtkAction.activate(this);
     }
 
