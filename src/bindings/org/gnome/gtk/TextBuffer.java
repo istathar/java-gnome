@@ -564,4 +564,21 @@ public class TextBuffer extends Object
     public void connect(TextBuffer.DeleteRange handler) {
         GtkTextBuffer.connect(this, handler, false);
     }
+
+    /**
+     * Delete text between <code>start</code> and <code>end</code>. (The
+     * order of the two TextIters doesn't matter; this method will delete
+     * between the two regardless).
+     * 
+     * <p>
+     * The two TextIters passed to <code>delete()</code> will be reset so as
+     * to point to the location where the text was removed. This can be a
+     * useful feature; since it mutates the TextBuffer, calling this method
+     * will invalidate all other TextIters.
+     * 
+     * @since 4.0.8
+     */
+    public void delete(TextIter start, TextIter end) {
+        GtkTextBuffer.delete(this, start, end);
+    }
 }
