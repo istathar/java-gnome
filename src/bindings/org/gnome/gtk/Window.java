@@ -166,6 +166,10 @@ public class Window extends Bin
      * is for.
      * 
      * <p>
+     * You probably want to call this after you've done the bulk of your
+     * packing.
+     * 
+     * <p>
      * Incidentally, Windows can't be 0x0; the minimum size is 1x1.
      * 
      * @param width
