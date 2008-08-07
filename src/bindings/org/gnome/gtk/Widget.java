@@ -1133,12 +1133,59 @@ public abstract class Widget extends org.gnome.gtk.Object
     }
 
     /**
+     * Get the value of the <var>can-focus</var> property. See
+     * {@link #setCanFocus(boolean) setCanFocus()} and
+     * {@link #grabFocus() grabFocus()} for details.
+     * 
+     * @since 4.0.8
+     */
+    public boolean getCanFocus() {
+        return getPropertyBoolean("can-focus");
+    }
+
+    /**
+     * Whether this Widget is willing to be the default Widget. The
+     * <var>can-default</var> property, like <var>can-focus</var>, is mostly
+     * internal; while telling GTK that this Widget isn't the one that should
+     * activated on <b><code>Enter</code></b> isn't that useful, setting
+     * this <i>sometimes</i> has an effect on whether or not the theme will
+     * draw a dotted line (or other markup) around a Button to indicate that
+     * the Widget is the current default Widget.
+     * 
+     * <p>
+     * Normally, this setting is <code>false</code>, though
+     * <var>activatable</var> Widgets will already have it <code>true</code>.
+     * Disabling <var>can-default</var> will mean that a
+     * {@link #grabDefault() grabDefault()} on this Widget will be ignored.
+     * 
+     * @since 4.0.8
+     */
+    public void setCanDefault(boolean setting) {
+        setPropertyBoolean("can-default", setting);
+    }
+
+    /**
+     * Get the value of the <var>can-default</var> property. See
+     * {@link #setCanDefault(boolean) setCanDefault()} and
+     * {@link #grabDefault() grabDefault()} for details.
+     * 
+     * @since 4.0.8
+     */
+    public boolean getCanDefault() {
+        return getPropertyBoolean("can-default");
+    }
+
+    /**
      * Make this Widget attempt to become the default. The default Widget is
      * the one which is activated when the user presses <b><code>Enter</code></b>.
      * 
      * <p>
-     * This will only work if the widget is <var>activatable</var>; see
-     * {@link #activate() activate()}.
+     * This will only work if the Widget is <var>activatable</var> (see
+     * {@link #activate() activate()}) and if the Widget has its
+     * <var>can-default</var> property enabled with
+     * {@link #setCanDefault(boolean) setCanDefault()}. The Widget also needs
+     * to have already been packed into a hierarchy which tops out at a
+     * Window.
      * 
      * <p>
      * If you're reading this you may in fact be looking for
