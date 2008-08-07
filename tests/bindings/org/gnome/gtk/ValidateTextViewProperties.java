@@ -19,6 +19,7 @@ public class ValidateTextViewProperties extends TestCaseGtk
 {
     public final void testTabCharacter() {
         final TextView view;
+
         view = new TextView();
 
         assertEquals(true, GtkTextView.getAcceptsTab(view));
@@ -26,5 +27,39 @@ public class ValidateTextViewProperties extends TestCaseGtk
         view.setAcceptsTab(false);
 
         assertEquals(false, GtkTextView.getAcceptsTab(view));
+    }
+
+    public final void testMarginSetters() {
+        final TextView view;
+
+        view = new TextView();
+
+        assertEquals(0, GtkTextView.getLeftMargin(view));
+
+        try {
+            view.setMarginLeft(-5);
+            fail();
+        } catch (IllegalArgumentException iae) {
+            // good
+        }
+
+        view.setMarginLeft(5);
+        assertEquals(5, GtkTextView.getLeftMargin(view));
+
+        /*
+         * Repeat for margin-right
+         */
+
+        assertEquals(0, GtkTextView.getRightMargin(view));
+
+        try {
+            view.setMarginRight(-11);
+            fail();
+        } catch (IllegalArgumentException iae) {
+            // good
+        }
+
+        view.setMarginRight(11);
+        assertEquals(11, GtkTextView.getRightMargin(view));
     }
 }

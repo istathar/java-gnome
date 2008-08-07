@@ -779,4 +779,36 @@ public class TextView extends Container
     public void setAcceptsTab(boolean setting) {
         GtkTextView.setAcceptsTab(this, setting);
     }
+
+    /**
+     * Set the padding to appear on the left side of the text. The default is
+     * <code>0</code>.
+     * 
+     * <p>
+     * <i>This sets the <var>left-margin</var> property in GTK.</i>
+     * 
+     * @since 4.0.8
+     */
+    public void setMarginLeft(int pixels) {
+        if (pixels < 0) {
+            throw new IllegalArgumentException("Margin must be >= 0 pixels");
+        }
+        GtkTextView.setLeftMargin(this, pixels);
+    }
+
+    /**
+     * Set the padding to appear on the right side of the text. The default is
+     * <code>0</code>.
+     * 
+     * <p>
+     * <i>This sets the <var>right-margin</var> property in GTK.</i>
+     * 
+     * @since 4.0.8
+     */
+    public void setMarginRight(int pixels) {
+        if (pixels < 0) {
+            throw new IllegalArgumentException("Margin must be >= 0 pixels");
+        }
+        GtkTextView.setRightMargin(this, pixels);
+    }
 }

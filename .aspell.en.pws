@@ -1806,6 +1806,8 @@ setLineOffset
 setLineWidth
 setLineWrap
 setLogo
+setMarginLeft
+setMarginRight
 setMarkup
 setMaxLength
 setMaxWidthChars
