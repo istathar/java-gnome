@@ -1,5 +1,46 @@
 NEWS
 
+<a name="signal" id="1217552625" title="Signal API change"></a>
+
+Signal API change
+=================
+
+We have changed the naming scheme used to name the interfaces that are used
+when hooking up signal handlers.
+
+Connecting a handler to a Button now looks as follows:
+
+<pre style="background:white; color:black;">
+b.connect(new Button.Clicked() {
+    public void onClicked(Button source) {
+        // do stuff
+    }
+});
+</pre>
+
+Those developing with java-gnome will recognize that the inner interface's
+name has changed to `Button.Clicked`, being more appropriate to Java type
+naming conventions and providing better consistency between the signal name,
+the method to be implemented, `onClicked()`, and the method that can be used
+to emit this signal, `emitClicked()`.
+
+The process which led to this change was discussed on the `java-gnome-hackers`
+mailing list; see first [message][] if interested.
+
+[message]: http://article.gmane.org/gmane.comp.gnome.bindings.java.devel/1147
+
+Interfaces with the old names and corresponding `connect()` methods are still
+present in the library (marked `@deprecated`, of course, and with assertions
+to encourage developers to migrate their code) so the upcoming release will
+preserve ABI compatibility.
+
+The [documentation](/4.0/doc/api/overview-summary.html) posted here has been
+updated and a [release candidate][rc] has been uploaded.
+
+[rc]: http://ftp.gnome.org/pub/gnome/sources/java-gnome/4.0/java-gnome-4.0.8-rc1.tar.bz2
+
+AfC
+
 <a name="4.0.7" id="1209449091" title="Drawing"></a>
 
 java-gnome 4.0.7 (30 Apr 2008)

@@ -35,14 +35,14 @@ import org.gnome.gtk.Window;
 public class ExampleTrailHeads
 {
     public ExampleTrailHeads() {
-        final Window w;
+        final Window window;
         final TreeView view;
         final ListStore model;
         TreeIter row;
         CellRendererText renderer;
         TreeViewColumn vertical;
 
-        w = new Window();
+        window = new Window();
 
         // ------------------------------------------------
 
@@ -198,12 +198,12 @@ public class ExampleTrailHeads
          */
 
         // ------------------------------------------------
-        w.add(view);
+        window.add(view);
 
-        w.setTitle("Trail Heads");
-        w.showAll();
+        window.setTitle("Trail Heads");
+        window.showAll();
 
-        w.connect(new Window.DeleteEvent() {
+        window.connect(new Window.DeleteEvent() {
             public boolean onDeleteEvent(Widget source, Event event) {
                 Gtk.mainQuit();
                 return false;
