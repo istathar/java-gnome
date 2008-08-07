@@ -765,4 +765,18 @@ public class TextView extends Container
     public void setPaddingInsideParagraph(int pixels) {
         GtkTextView.setPixelsInsideWrap(this, pixels);
     }
+
+    /**
+     * Set the behaviour when the <b><code>Tab</code></b> key is pressed.
+     * The default is <code>true</code>, that a <code>'\t'</code>
+     * character will be inserted into the underlying TextBuffer. If you would
+     * rather that <b><code>Tab</code></b> causes the focus to change to
+     * the next Widget rather than inserting a tab, then set this to
+     * <code>false</code>.
+     * 
+     * @since 4.0.8
+     */
+    public void setAcceptsTab(boolean setting) {
+        GtkTextView.setAcceptsTab(this, setting);
+    }
 }

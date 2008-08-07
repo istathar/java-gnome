@@ -1728,6 +1728,7 @@ selectRow
 selectURI
 serialVersionUID
 setAboveChild
+setAcceptsTab
 setAction
 setActivatable
 setActive
