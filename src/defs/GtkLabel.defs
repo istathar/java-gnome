@@ -258,15 +258,6 @@
   )
 )
 
-(define-method parse_uline
-  (of-object "GtkLabel")
-  (c-name "gtk_label_parse_uline")
-  (return-type "guint")
-  (parameters
-    '("const-gchar*" "string")
-  )
-)
-
 (define-method set_ellipsize
   (of-object "GtkLabel")
   (c-name "gtk_label_set_ellipsize")

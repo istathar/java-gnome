@@ -1,7 +1,7 @@
 /*
  * FileChooser.java
  *
- * Copyright (c) 2007 Operational Dynamics Consulting Pty Ltd and Others
+ * Copyright (c) 2007-2008 Operational Dynamics Consulting Pty Ltd and Others
  * 
  * The code in this file, and the library it is a part of, are made available
  * to you by the authors under the terms of the "GNU General Public Licence,
@@ -113,8 +113,8 @@ public interface FileChooser
     public URI getURI();
 
     /*
-     * We do not expose SELECTION_CHANGED or FILE_ACTIVATED, as it is an
-     * internal signal (and besides, testing it didn't seem to result in the
+     * We do not expose SelectionChanged or FileActivated, as they are
+     * internal signals (and besides, testing it didn't seem to result in the
      * signal being fired in a visible way).
      */
 

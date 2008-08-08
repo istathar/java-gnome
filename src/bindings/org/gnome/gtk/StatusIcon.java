@@ -1,7 +1,7 @@
 /*
  * StatusIcon.java
  *
- * Copyright (c) 2007 Operational Dynamics Consulting Pty Ltd, and Others
+ * Copyright (c) 2007-2008 Operational Dynamics Consulting Pty Ltd, and Others
  *
  * The code in this file, and the library it is a part of, are made available
  * to you by the authors under the terms of the "GNU General Public Licence,
@@ -250,9 +250,8 @@ public class StatusIcon extends org.gnome.glib.Object
     /**
      * Gets the size available for the image, in pixels. Stock icons adapt
      * their size automatically if the size of the notification area changes.
-     * For other storage types, the
-     * {@link StatusIcon.SIZE_CHANGED SIZE_CHANGED} signal can be used to
-     * react to size changes.
+     * For other storage types, the {@link StatusIcon.SizeChanged} signal can
+     * be used to react to size changes.
      */
     public int getSize() {
         return GtkStatusIcon.getSize(this);
@@ -281,7 +280,7 @@ public class StatusIcon extends org.gnome.glib.Object
     /*
      * FIXME any other ways?
      */
-    public interface ACTIVATE extends GtkStatusIcon.ACTIVATE
+    public interface Activate extends GtkStatusIcon.ActivateSignal
     {
         /**
          * The signal emitted when the user activates the StatusIcon.
@@ -292,7 +291,23 @@ public class StatusIcon extends org.gnome.glib.Object
         void onActivate(StatusIcon source);
     }
 
+    /**
+     * Hook up a <code>StatusIcon.Activate</code> handler
+     * 
+     * @since 4.0.4
+     */
+    public void connect(StatusIcon.Activate handler) {
+        GtkStatusIcon.connect(this, handler, false);
+    }
+
+    /** @deprecated */
+    public interface ACTIVATE extends GtkStatusIcon.ActivateSignal
+    {
+    }
+
+    /** @deprecated */
     public void connect(ACTIVATE handler) {
+        assert false : "use StatusIcon.Activate instead";
         GtkStatusIcon.connect(this, handler, false);
     }
 
@@ -300,7 +315,7 @@ public class StatusIcon extends org.gnome.glib.Object
      * The signal emitted when the user brings up the context menu of the
      * StatusIcon.
      */
-    public interface POPUP_MENU extends GtkStatusIcon.POPUP_MENU
+    public interface PopupMenu extends GtkStatusIcon.PopupMenuSignal
     {
         /**
          * The signal emitted when the user right-clicks on the StatusIcon.
@@ -327,7 +342,18 @@ public class StatusIcon extends org.gnome.glib.Object
         void onPopupMenu(StatusIcon source, int button, int activateTime);
     }
 
+    public void connect(StatusIcon.PopupMenu handler) {
+        GtkStatusIcon.connect(this, handler, false);
+    }
+
+    /** @deprecated */
+    public interface POPUP_MENU extends GtkStatusIcon.PopupMenuSignal
+    {
+    }
+
+    /** @deprecated */
     public void connect(POPUP_MENU handler) {
+        assert false : "use StatusIcon.PopupMenu instead";
         GtkStatusIcon.connect(this, handler, false);
     }
 
@@ -336,7 +362,7 @@ public class StatusIcon extends org.gnome.glib.Object
      * changes. This happens if the panel the Notification Area applet is
      * running in gets resized.
      */
-    public interface SIZE_CHANGED extends GtkStatusIcon.SIZE_CHANGED
+    public interface SizeChanged extends GtkStatusIcon.SizeChangedSignal
     {
         /**
          * Signal emitted when the size available for the image changes.
@@ -349,7 +375,18 @@ public class StatusIcon extends org.gnome.glib.Object
         boolean onSizeChanged(StatusIcon source, int size);
     }
 
+    public void connect(StatusIcon.SizeChanged handler) {
+        GtkStatusIcon.connect(this, handler, false);
+    }
+
+    /** @deprecated */
+    public interface SIZE_CHANGED extends GtkStatusIcon.SizeChangedSignal
+    {
+    }
+
+    /** @deprecated */
     public void connect(SIZE_CHANGED handler) {
+        assert false : "use StatusIcon.SizeChanged instead";
         GtkStatusIcon.connect(this, handler, false);
     }
 }

@@ -10,16 +10,17 @@ some examples which are non-trivial but nonetheless are still readable.
 1. Button in a Window
 
 	* [`ExamplePressMe.java`](button/ExamplePressMe.html)  
-	It doesn't get any simpler than this. A [Label][] and a [Button][] in a
-	[Window][], showing how to connect a listener to handle a
-	[`CLICKED`][CLICKED] signal from the Button and how to ensure your
-	application terminates when the Window is [deleted][DELETE_EVENT].
+	It doesn't get any simpler than this. A [Label][] and a [Button][] in
+	a [Window][], showing how to connect a listener to handle a
+	[`Button.Clicked`][Button.Clicked] signal from the Button and how to
+	ensure your application terminates when the Window is
+	[deleted][Window.DeleteEvent].
 
 [Button]: /4.0/doc/api/org/gnome/gtk/Button.html
 [Label]: /4.0/doc/api/org/gnome/gtk/Label.html
 [Window]: /4.0/doc/api/org/gnome/gtk/Window.html
-[CLICKED]: /4.0/doc/api/org/gnome/gtk/Button.CLICKED.html
-[DELETE_EVENT]: /4.0/doc/api/org/gnome/gtk/Window.DELETE_EVENT.html
+[Button.Clicked]: /4.0/doc/api/org/gnome/gtk/Button.Clicked.html
+[Window.DeleteEvent]: /4.0/doc/api/org/gnome/gtk/Window.DeleteEvent.html
 
 2. Handling keystrokes
 
@@ -30,11 +31,11 @@ some examples which are non-trivial but nonetheless are still readable.
 	into that Entry), focus handling, etc. However, if you need to
 	intercept a keystroke so you can do something special, then you need to 
 	work with the [Keyval][] and [ModifierType][] classes in response to the
-	[`KEY_PRESS_EVENT`][KEY_PRESS_EVENT] signal. This is how.
+	[`Widget.KeyPressEvent`][Widget.KeyPressEvent] signal. This is how.
 
 [Keyval]: /4.0/doc/api/org/gnome/gdk/Keyval.html
 [ModifierType]: /4.0/doc/api/org/gnome/gdk/ModifierType.html
-[KEY_PRESS_EVENT]: /4.0/doc/api/org/gnome/gtk/Widget.KEY_PRESS_EVENT.html
+[Widget.KeyPressEvent]: /4.0/doc/api/org/gnome/gtk/Widget.KeyPressEvent.html
 
 3. TreeView and TreeModel
 
@@ -60,10 +61,10 @@ some examples which are non-trivial but nonetheless are still readable.
 	Using the Cairo Graphics library to draw within a GTK program means
 	following the idiom shown in this example. This program demonstrates
 	drawing lines, rectangles, and gradients using a drawing [Context][]
-	as obtained within a Widget's [EXPOSE_EVENT][] signal handler.
+	as obtained within a Widget's [Widget.ExposeEvent][] signal handler.
 
 [Context]: /4.0/doc/api/org/freedesktop/cairo/Context.html
-[EXPOSE_EVENT]: /4.0/doc/api/org/gnome/gtk/Widget.EXPOSE_EVENT.html
+[Widget.ExposeEvent]: /4.0/doc/api/org/gnome/gtk/Widget.ExposeEvent.html
 
 <!--
 

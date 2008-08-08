@@ -1,8 +1,8 @@
 /*
  * Action.java
  *
- * Copyright (c) 2007 Operational Dynamics Consulting Pty Ltd
- * Copyright (c) 2007 Vreixo Formoso
+ * Copyright (c) 2007-2008 Operational Dynamics Consulting Pty Ltd
+ * Copyright (c) 2007      Vreixo Formoso
  *
  * The code in this file, and the library it is a part of, are made available
  * to you by the authors under the terms of the "GNU General Public Licence,
@@ -41,10 +41,10 @@ import org.gnome.glib.Object;
  * properly.
  * 
  * <p>
- * Each Action has an {@link ACTIVATE} signal emitted when any of its proxies
- * are triggered. Thus you can just connect one signal to start the needed
- * operation, instead of having to connect to the <code>ACTIVATE</code>
- * signal of each of various proxies.
+ * Each Action has an {@link Action.Activate} signal emitted when any of its
+ * proxies are triggered. Thus you can just connect one signal to start the
+ * needed operation, instead of having to connect to the
+ * <code>Action.Activate</code> signal of each of various proxies.
  * 
  * <p>
  * Once you have created an Action, you can get proxies for it with the
@@ -69,8 +69,8 @@ public class Action extends Object
     }
 
     /**
-     * Create a new Action, and connect a handler to its <code>ACTIVATE</code>
-     * signal.
+     * Create a new Action, and connect a handler to its
+     * <code>Action.Activate</code> signal.
      * 
      * @param name
      *            A unique name for the Action.
@@ -83,13 +83,19 @@ public class Action extends Object
      * @param stock
      *            The stock icon to display in proxy Widgets.
      * @param handler
-     *            A handler to connect to the <code>ACTIVATE</code> signal.
-     *            Typically this will be used to actually start the operation
-     *            related to this Action.
+     *            A handler to connect to the <code>Action.Activate</code>
+     *            signal. Typically this will be used to actually start the
+     *            operation related to this Action.
      */
     /*
      * FIXME describe the implications of different choices for name.
      */
+    public Action(String name, String label, String tooltip, Stock stock, Action.Activate handler) {
+        super(GtkAction.createAction(name, label, tooltip, stock.getStockId()));
+        connect(handler);
+    }
+
+    /** @deprecated */
     public Action(String name, String label, String tooltip, Stock stock, ACTIVATE handler) {
         super(GtkAction.createAction(name, label, tooltip, stock.getStockId()));
         connect(handler);
@@ -124,8 +130,8 @@ public class Action extends Object
     }
 
     /**
-     * Create a new Action, and connect a handler to its <code>ACTIVATE</code>
-     * signal.
+     * Create a new Action, and connect a handler to its
+     * <code>Action.Activate</code> signal.
      * 
      * @param name
      *            A unique name for the Action.
@@ -133,10 +139,16 @@ public class Action extends Object
      *            The label that will be displayed in the proxy Widgets. You
      *            usually will want to localize it to the user language.
      * @param handler
-     *            A handler to connect to the <code>ACTIVATE</code> signal.
-     *            Usually will will start from here the operation related to
-     *            the Action.
+     *            A handler to connect to the <code>Action.Activate</code>
+     *            signal. Usually will will start from here the operation
+     *            related to the Action.
      */
+    public Action(String name, String label, Action.Activate handler) {
+        super(GtkAction.createAction(name, label, null, null));
+        connect(handler);
+    }
+
+    /** @deprecated */
     public Action(String name, String label, ACTIVATE handler) {
         super(GtkAction.createAction(name, label, null, null));
         connect(handler);
@@ -161,8 +173,8 @@ public class Action extends Object
      * <p>
      * You can add the returned MenuItem to a {@link Menu}. The MenuItem will
      * have the same label, icon or accelerator of this Action, and when the
-     * user activates the MenuItem, this Action will <code>ACTIVATE</code>
-     * too.
+     * user activates the MenuItem, this Action will
+     * <code>Action.Activate</code> too.
      */
     public MenuItem createMenuItem() {
         return (MenuItem) GtkAction.createMenuItem(this);
@@ -174,7 +186,8 @@ public class Action extends Object
      * <p>
      * You can add the returned ToolItem to a {@link Toolbar}. The ToolItem
      * will have the same Label, icon, tooltips or accelerator of this Action,
-     * and when the user clicks it, this Action will be <code>ACTIVATE</code>D.
+     * and when the user clicks it, this Action will be
+     * <code>Action.Activate</code>D.
      */
     public ToolItem createToolItem() {
         return (ToolItem) GtkAction.createToolItem(this);
@@ -282,9 +295,9 @@ public class Action extends Object
      * Activates the Action.
      * 
      * <p>
-     * Programmatically cause this Action to fire its <code>ACTIVATE</code>
-     * signal. Note that this has no effect if the Action is not currently
-     * sensitive.
+     * Programmatically cause this Action to fire its
+     * <code>Action.Activate</code> signal. Note that this has no effect if
+     * the Action is not currently sensitive.
      * 
      * <p>
      * Since the Action is automatically activated when user activates one of
@@ -292,8 +305,16 @@ public class Action extends Object
      * that goes with this Action), so in most cases <b>you don't need this.</b>
      * However, in some cases you want to activate the Action in your
      * application code. Use this there.
+     *
+     * @since 4.0.8
      */
+    public void emitActivate() {
+        GtkAction.activate(this);
+    }
+
+    /** @deprecated */
     public void activate() {
+        assert false : "use emitActivate() instead";
         GtkAction.activate(this);
     }
 
@@ -320,15 +341,26 @@ public class Action extends Object
      * (s)he activates an associated MenuItem or when
      * {@link Action#activate() activate()} is called.
      */
-    public interface ACTIVATE extends GtkAction.ACTIVATE
+    public interface Activate extends GtkAction.ActivateSignal
     {
         public void onActivate(Action source);
     }
 
     /**
-     * Connect a handler to the <code>ACTIVATE</code> signal.
+     * Connect a handler to the <code>Action.Activate</code> signal.
      */
+    public void connect(Action.Activate handler) {
+        GtkAction.connect(this, handler, false);
+    }
+
+    /** @deprecated */
+    public interface ACTIVATE extends GtkAction.ActivateSignal
+    {
+    }
+
+    /** @deprecated */
     public void connect(ACTIVATE handler) {
+        assert false : "use Action.Activate instead";
         GtkAction.connect(this, handler, false);
     }
 
@@ -336,7 +368,7 @@ public class Action extends Object
      * Specify a Widget that will be (another) actor hooked up to this Action.
      * When the proxy Widget is activated (ie if a Button, when it is pressed
      * or clicked , etc) then this Action will be activated and its
-     * <code>ACTIVATE</code> signal will be fired.
+     * <code>Action.Activate</code> signal will be fired.
      * 
      * <p>
      * You use this when you want to use an Action to centralize activity
@@ -355,7 +387,7 @@ public class Action extends Object
      * 
      * nifty = new Action(&quot;nifty&quot;, &quot;Do nifty things!&quot;);
      * nifty.setTooltip(&quot;This will result in amazingly nifty things happening&quot;);
-     * nifty.connect(new Action.ACTIVATE() {
+     * nifty.connect(new Action.Activate() {
      *     public void onActivate(Action source) {
      *     // do something cool
      *     }
@@ -374,8 +406,8 @@ public class Action extends Object
      * 
      * will cause the MenuItem's text label to become "<code>Do nifty things!</code>",
      * and for selecting that MenuItem from the menu to result in the handler
-     * you hooked up to <code>nifty</code>'s <code>ACTIVATE</code> signal
-     * being called.
+     * you hooked up to <code>nifty</code>'s <code>Action.Activate</code>
+     * signal being called.
      * 
      * @since 4.0.6
      */

@@ -68,7 +68,7 @@ public final class Color extends Boxed
     public static final Color BLACK = new Color(0, 0, 0);
 
     public static final Color WHITE = new Color(65535, 65535, 65535);
-    
+
     public static final Color RED = new Color(65535, 0, 0);
 
     public boolean equals(Object obj) {

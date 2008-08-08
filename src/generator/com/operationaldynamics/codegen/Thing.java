@@ -234,12 +234,6 @@ public abstract class Thing
          */
         register(new BlacklistedThing("guchar**"));
 
-        /*
-         * GList/GSList and related typedefs... FIXME change this when we
-         * properly map the list and array returns.
-         */
-        register(new FixmeThing("GList*"));
-        register(new FixmeThing("GSList*"));
         register(new FixmeThing("AtkAttributeSet*"));
 
         /*

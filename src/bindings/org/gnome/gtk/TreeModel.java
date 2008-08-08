@@ -110,11 +110,10 @@ import org.gnome.gdk.Pixbuf;
  * </pre>
  * 
  * The <code>row</code> TreeIter in this case usually comes from a TreeView
- * {@link TreeView.ROW_ACTIVATED ROW_ACTIVATED} signal or a TreeSelection
- * {@link TreeSelection.CHANGED CHANGED} signal. You can also get a TreeIter
- * for a specific row via <code>getIter()</code>. Less frequently you will
- * want to iterate over all the rows in the model, which is possible as
- * follows:
+ * {@link TreeView.RowActivated} signal or a TreeSelection
+ * {@link TreeSelection.Changed} signal. You can also get a TreeIter for a
+ * specific row via <code>getIter()</code>. Less frequently you will want
+ * to iterate over all the rows in the model, which is possible as follows:
  * 
  * <pre>
  * row = model.getIterFirst();
@@ -469,7 +468,7 @@ public abstract class TreeModel extends org.gnome.glib.Object
      * @author Andrew Cowie
      * @since 4.0.6
      */
-    public interface ROW_CHANGED extends GtkTreeModel.ROW_CHANGED
+    public interface RowChanged extends GtkTreeModel.RowChangedSignal
     {
         /**
          * The <code>path</code> and <code>row</code> arguments give you
@@ -495,11 +494,23 @@ public abstract class TreeModel extends org.gnome.glib.Object
     }
 
     /**
-     * Hook up a handler for <code>ROW_CHANGED</code> signals.
+     * Hook up a handler for <code>TreeModel.RowChanged</code> signals.
      * 
      * @since 4.0.6
      */
-    public void connect(TreeModel.ROW_CHANGED handler) {
+    public void connect(TreeModel.RowChanged handler) {
         GtkTreeModel.connect(this, handler, false);
     }
+
+    /** @deprecated */
+    public interface ROW_CHANGED extends GtkTreeModel.RowChangedSignal
+    {
+    }
+
+    /** @deprecated */
+    public void connect(ROW_CHANGED handler) {
+        assert false : "use TreeModel.RowChanged instead";
+        GtkTreeModel.connect(this, handler, false);
+    }
+
 }

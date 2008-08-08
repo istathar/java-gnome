@@ -41,7 +41,7 @@ typedef struct  {
 	jchar		returnType;
  	
  	/*
- 	 * The Class upon which we invoke the [static] "handlerBlah" method.
+ 	 * The Class upon which we invoke the [static] "receiveBlah" method.
  	 */
  	jclass		receiver;
  
@@ -118,7 +118,7 @@ bindings_java_marshaller
 	 * Build the parameters for the callback. The signature of the
 	 * handlers on the Java side for a signal "name" would be:
 	 * 
-	 * 	handlerName(Signal handler, type arg0, type arg1, ...)
+	 * 	receiveName(Signal handler, type arg0, type arg1, ...)
 	 *
 	 * Note that arg0 is universally the source object (in otherwords, a
 	 * method function where the first argument is always a reference to
@@ -440,12 +440,12 @@ bindings_java_closure_new
 	
 
 	/*
-	 * the name of the methods we invoke is algorithmic: "handleName",
+	 * the name of the methods we invoke is algorithmic: "receiveName",
 	 * where Name is a PascalCase version of the signal name we were
 	 * passed in.
 	 */
 	 
-	buf = g_string_new("handle");
+	buf = g_string_new("receive");
 	
 	gchar** tokens = g_strsplit_set(name, "_-", -1);
 	

@@ -65,7 +65,8 @@ public abstract class Surface extends Entity
      * <p>
      * In other words, if you are the only one drawing on the Surface, then
      * you don't need this. And that is indeed the case if you are drawing on
-     * your own custom Widget in its <code>EXPOSE_EVENT</code> handler.
+     * your own custom Widget in its <code>Widget.ExposeEvent</code>
+     * handler.
      * 
      * <p>
      * See also {@link #finish() finish()} if you're just trying to day "I'm

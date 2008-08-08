@@ -134,15 +134,6 @@
   )
 )
 
-(define-method set_update_policy
-  (of-object "GtkColorSelection")
-  (c-name "gtk_color_selection_set_update_policy")
-  (return-type "none")
-  (parameters
-    '("GtkUpdateType" "policy")
-  )
-)
-
 (define-virtual color_changed
   (of-object "GtkColorSelection")
   (return-type "none")

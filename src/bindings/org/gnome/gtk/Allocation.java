@@ -97,4 +97,9 @@ public final class Allocation extends Boxed
     public int getY() {
         return GtkAllocation.getY(this);
     }
+
+    public String toString() {
+        return this.getClass().getName() + ": " + getWidth() + "x" + getHeight() + " at " + getX() + ","
+                + getY();
+    }
 }

@@ -33,7 +33,7 @@ public abstract class SnapshotContext extends Snapshot
         window.add(image);
         window.showAll();
 
-        image.connect(new Widget.EXPOSE_EVENT() {
+        image.connect(new Widget.ExposeEvent() {
             public boolean onExposeEvent(Widget source, EventExpose event) {
                 final Context cr;
 

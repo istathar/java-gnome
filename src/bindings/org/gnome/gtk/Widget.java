@@ -140,7 +140,7 @@ public abstract class Widget extends org.gnome.gtk.Object
      * @author Davyd Madeley
      * @since 4.0.2
      */
-    public interface ENTER_NOTIFY_EVENT extends GtkWidget.ENTER_NOTIFY_EVENT
+    public interface EnterNotifyEvent extends GtkWidget.EnterNotifyEventSignal
     {
         /**
          * @since 4.0.7
@@ -149,12 +149,23 @@ public abstract class Widget extends org.gnome.gtk.Object
     }
 
     /**
-     * Hook up a handler to receive <code>ENTER_NOTIFY_EVENT</code> signals
-     * on this Widget.
+     * Hook up a handler to receive <code>Widget.EnterNotifyEvent</code>
+     * signals on this Widget.
      * 
      * @since 4.0.2
      */
+    public void connect(Widget.EnterNotifyEvent handler) {
+        GtkWidget.connect(this, handler, false);
+    }
+
+    /** @deprecated */
+    public interface ENTER_NOTIFY_EVENT extends GtkWidget.EnterNotifyEventSignal
+    {
+    }
+
+    /** @deprecated */
     public void connect(ENTER_NOTIFY_EVENT handler) {
+        assert false : "use Widget.EnterNotifyEvent instead";
         GtkWidget.connect(this, handler, false);
     }
 
@@ -164,17 +175,29 @@ public abstract class Widget extends org.gnome.gtk.Object
      * @author Andrew Cowie
      * @since 4.0.7
      */
-    public interface LEAVE_NOTIFY_EVENT extends GtkWidget.LEAVE_NOTIFY_EVENT
+    public interface LeaveNotifyEvent extends GtkWidget.LeaveNotifyEventSignal
     {
         boolean onLeaveNotifyEvent(Widget source, EventCrossing event);
     }
 
     /**
-     * Hook up a handler to receive <code>LEAVE_NOTIFY_EVENT</code> signals.
+     * Hook up a handler to receive <code>Widget.LeaveNotifyEvent</code>
+     * signals.
      * 
      * @since 4.0.7
      */
+    public void connect(Widget.LeaveNotifyEvent handler) {
+        GtkWidget.connect(this, handler, false);
+    }
+
+    /** @deprecated */
+    public interface LEAVE_NOTIFY_EVENT extends GtkWidget.LeaveNotifyEventSignal
+    {
+    }
+
+    /** @deprecated */
     public void connect(LEAVE_NOTIFY_EVENT handler) {
+        assert false : "use Widget.LeaveNotifyEvent instead";
         GtkWidget.connect(this, handler, false);
     }
 
@@ -187,39 +210,62 @@ public abstract class Widget extends org.gnome.gtk.Object
      * @author Andrew Cowie
      * @since 4.0.2
      */
-    public interface FOCUS_OUT_EVENT extends GtkWidget.FOCUS_OUT_EVENT
+    public interface FocusOutEvent extends GtkWidget.FocusOutEventSignal
     {
         public boolean onFocusOutEvent(Widget source, EventFocus event);
     }
 
     /**
-     * Hook up a handler to receive <code>FOCUS_OUT_EVENT</code> events on
-     * this Widget
+     * Hook up a handler to receive <code>Widget.FocusOutEvent</code> events
+     * on this Widget
      * 
      * @since 4.0.2
      */
+    public void connect(Widget.FocusOutEvent handler) {
+        GtkWidget.connect(this, handler, false);
+    }
+
+    /** @deprecated */
+    public interface FOCUS_OUT_EVENT extends GtkWidget.FocusOutEventSignal
+    {
+    }
+
+    /** @deprecated */
     public void connect(FOCUS_OUT_EVENT handler) {
+        assert false : "use Widget.FocusOutEvent instead";
         GtkWidget.connect(this, handler, false);
     }
 
     /**
      * Signal emitted when focus enters this Widget. See
-     * {@link Widget.FOCUS_OUT_EVENT FOCUS_OUT_EVENT}.
+     * {@link Widget.FocusOutEvent}.
      * 
      * @author Andrew Cowie
      * @since 4.0.6
      */
-    public interface FOCUS_IN_EVENT extends GtkWidget.FOCUS_IN_EVENT
+    public interface FocusInEvent extends GtkWidget.FocusInEventSignal
     {
         public boolean onFocusInEvent(Widget source, EventFocus event);
     }
 
     /**
-     * Hook up a handler to receive <code>FOCUS_IN_EVENT</code> signals.
+     * Hook up a handler to receive <code>Widget.FocusInEvent</code>
+     * signals.
      * 
      * @since 4.0.6
      */
+    public void connect(Widget.FocusInEvent handler) {
+        GtkWidget.connect(this, handler, false);
+    }
+
+    /** @deprecated */
+    public interface FOCUS_IN_EVENT extends GtkWidget.FocusInEventSignal
+    {
+    }
+
+    /** @deprecated */
     public void connect(FOCUS_IN_EVENT handler) {
+        assert false : "use Widget.FocusInEvent instead";
         GtkWidget.connect(this, handler, false);
     }
 
@@ -236,7 +282,7 @@ public abstract class Widget extends org.gnome.gtk.Object
      * exposed, you could do:
      * 
      * <pre>
-     * w.connect(new Widget.EXPOSE_EVENT() {
+     * foo.connect(new Widget.ExposeEvent() {
      *     public boolean onExposeEvent(Widget source, EventExpose event) {
      *         Rectangle rect;
      *         int width, height, x, y;
@@ -254,8 +300,8 @@ public abstract class Widget extends org.gnome.gtk.Object
      * </pre>
      * 
      * <p>
-     * The real purpose of <code>EXPOSE_EVENT</code>, however, is to be the
-     * the gateway to drawing. GNOME uses the excellent <a
+     * The real purpose of <code>Widget.ExposeEvent</code>, however, is to
+     * be the the gateway to drawing. GNOME uses the excellent <a
      * href="http://www.cairographics.org/">Cairo 2D graphics library</a> to
      * draw its user interfaces, which we make available in java-gnome in
      * package <code>org.freedesktop.cairo</code>.
@@ -269,8 +315,9 @@ public abstract class Widget extends org.gnome.gtk.Object
      * for drawing operations, Cairo needs the details of the [org.gnome.gdk]
      * Display, Screen and Window it will be drawing to, and these are not
      * available until the Widget has been realized and mapped. The
-     * <code>EXPOSE_EVENT</code> signal is emitted exactly at this point,
-     * and so that's when we have the environment we need to do our drawing.
+     * <code>Widget.ExposeEvent</code> signal is emitted exactly at this
+     * point, and so that's when we have the environment we need to do our
+     * drawing.
      * 
      * <p>
      * To do drawing with Cairo you need a Context. You can instantiate one by
@@ -278,7 +325,7 @@ public abstract class Widget extends org.gnome.gtk.Object
      * to the Context constructor:
      * 
      * <pre>
-     * w.connect(new Widget.EXPOSE_EVENT() {
+     * foo.connect(new Widget.ExposeEvent() {
      *     public boolean onExposeEvent(Widget source, EventExpose event) {
      *         Context cr;
      *         
@@ -300,7 +347,7 @@ public abstract class Widget extends org.gnome.gtk.Object
      * FIXME when we figure out offscreen drawing, then we can change "cannot
      * easily do".
      */
-    public interface EXPOSE_EVENT extends GtkWidget.EXPOSE_EVENT
+    public interface ExposeEvent extends GtkWidget.ExposeEventSignal
     {
         /**
          * As with other event signals, the boolean return value indicates
@@ -312,12 +359,23 @@ public abstract class Widget extends org.gnome.gtk.Object
     }
 
     /**
-     * Hook up a handler to receive <code>EXPOSE_EVENT</code> signals on
-     * this Widget.
+     * Hook up a handler to receive <code>Widget.ExposeEvent</code> signals
+     * on this Widget.
      * 
      * @since 4.0.7
      */
+    public void connect(Widget.ExposeEvent handler) {
+        GtkWidget.connect(this, handler, false);
+    }
+
+    /** @deprecated */
+    public interface EXPOSE_EVENT extends GtkWidget.ExposeEventSignal
+    {
+    }
+
+    /** @deprecated */
     public void connect(EXPOSE_EVENT handler) {
+        assert false : "use Widget.ExposeEvent instead";
         GtkWidget.connect(this, handler, false);
     }
 
@@ -336,7 +394,7 @@ public abstract class Widget extends org.gnome.gtk.Object
      * That's accomplished with Call <code>event.getKeyval()</code> as in:
      * 
      * <pre>
-     * widget.connect(new KEY_PRESS_EVENT() {
+     * foo.connect(new Widget.KeyPressEvent() {
      *     public boolean onKeyPressEvent(Widget source, EventKey event) {
      *         final Keyval key;
      *         final ModifierType mod;
@@ -359,13 +417,13 @@ public abstract class Widget extends org.gnome.gtk.Object
      * what you want to do.
      * 
      * <p>
-     * The release half of this is
-     * {@link Widget.KEY_RELEASE_EVENT KEY_RELEASE_EVENT} as you might expect.
+     * The release half of this is {@link Widget.KeyReleaseEvent} as you might
+     * expect.
      * 
      * @author Andrew Cowie
      * @since 4.0.3
      */
-    public interface KEY_PRESS_EVENT extends GtkWidget.KEY_PRESS_EVENT
+    public interface KeyPressEvent extends GtkWidget.KeyPressEventSignal
     {
         /**
          * As with other event signals, returning <code>false</code> means
@@ -378,15 +436,26 @@ public abstract class Widget extends org.gnome.gtk.Object
     }
 
     /**
-     * Hook up a handler to receive <code>KEY_PRESS_EVENT</code> signals on
-     * this Widget. For general typing this is the one you want, but for
-     * critical events (like pressing <b>Enter</b> to activate a Button that
-     * is going to delete things, you might want to postpone action until
-     * <code>KEY_RELEASE_EVENT</code>.
+     * Hook up a handler to receive <code>Widget.KeyPressEvent</code>
+     * signals on this Widget. For general typing this is the one you want,
+     * but for critical events (like pressing <b><code>Enter</code></b> to
+     * activate a Button that is going to delete things, you might want to
+     * postpone action until <code>Widget.KeyReleaseEvent</code>.
      * 
      * @since 4.0.3
      */
+    public void connect(Widget.KeyPressEvent handler) {
+        GtkWidget.connect(this, handler, false);
+    }
+
+    /** @deprecated */
+    public interface KEY_PRESS_EVENT extends GtkWidget.KeyPressEventSignal
+    {
+    }
+
+    /** @deprecated */
     public void connect(KEY_PRESS_EVENT handler) {
+        assert false : "use Widget.KeyPressEvent instead";
         GtkWidget.connect(this, handler, false);
     }
 
@@ -398,22 +467,32 @@ public abstract class Widget extends org.gnome.gtk.Object
      * 
      * @since 4.0.3
      */
-    public interface KEY_RELEASE_EVENT extends GtkWidget.KEY_RELEASE_EVENT
+    public interface KeyReleaseEvent extends GtkWidget.KeyReleaseEventSignal
     {
         /**
          * (See the comment at
-         * {@link Widget.KEY_PRESS_EVENT#onKeyPressEvent(Widget, EventKey) KEY_PRESS_EVENT}
+         * {@link Widget.KeyPressEvent#onKeyPressEvent(Widget, EventKey) Widget.KeyReleaseEvent}
          * to understand the return value)
          */
         public boolean onKeyReleaseEvent(Widget source, EventKey event);
     }
 
     /**
-     * Hook up a handler to receive <code>KEY_RELEASE_EVENT</code> signals
-     * on this Widget
+     * Hook up a handler to receive <code>Widget.KeyReleaseEvent</code>
+     * signals on this Widget
      * 
      * @since 4.0.3
      */
+    public void connect(Widget.KeyReleaseEvent handler) {
+        GtkWidget.connect(this, handler, false);
+    }
+
+    /** @deprecated */
+    public interface KEY_RELEASE_EVENT extends GtkWidget.KeyReleaseEventSignal
+    {
+    }
+
+    /** @deprecated */
     public void connect(KEY_RELEASE_EVENT handler) {
         GtkWidget.connect(this, handler, false);
     }
@@ -570,7 +649,7 @@ public abstract class Widget extends org.gnome.gtk.Object
      * parameter to get to the VisibilityState as follows:
      * 
      * <pre>
-     * w.connect(new Widget.VISIBILITY_NOTIFY_EVENT() {
+     * foo.connect(new Widget.VisibilityNotifyEvent() {
      *     public boolean onVisibilityNotifyEvent(Widget source, EventVisibility event) {
      *         VisibilityState state = event.getState();
      *         if (state == VisibilityState.FULLY_OBSCURED) {
@@ -583,14 +662,14 @@ public abstract class Widget extends org.gnome.gtk.Object
      * 
      * See {@link VisibilityState VisibilityState} for the constants
      * describing the possible three possible changes to an underlying
-     * element's visibility. See also {@link UNMAP_EVENT UNMAP_EVENT} for a
+     * element's visibility. See also {@link Widget.UnmapEvent} for a
      * discussion of how this can be used to actively toggle the presentation
      * of a Window to the user.
      * 
      * @author Andrew Cowie
      * @since 4.0.5
      */
-    public interface VISIBILITY_NOTIFY_EVENT extends GtkWidget.VISIBILITY_NOTIFY_EVENT
+    public interface VisibilityNotifyEvent extends GtkWidget.VisibilityNotifyEventSignal
     {
         /**
          * Although this is an <var>event-signal</var>, this merely reports
@@ -605,7 +684,7 @@ public abstract class Widget extends org.gnome.gtk.Object
     }
 
     /**
-     * Connect a <code>VISIBILITY_NOTIFY_EVENT</code> handler.
+     * Connect a <code>Widget.VisibilityNotifyEvent</code> handler.
      * 
      * @since 4.0.5
      */
@@ -615,7 +694,19 @@ public abstract class Widget extends org.gnome.gtk.Object
      * window must have been assigned. by realize. We do these two steps in
      * the override.
      */
+    public void connect(Widget.VisibilityNotifyEvent handler) {
+        GtkWidgetOverride.setEventsVisibility(this);
+        GtkWidget.connect(this, handler, false);
+    }
+
+    /** @deprecated */
+    public interface VISIBILITY_NOTIFY_EVENT extends GtkWidget.VisibilityNotifyEventSignal
+    {
+    }
+
+    /** @deprecated */
     public void connect(VISIBILITY_NOTIFY_EVENT handler) {
+        assert false : "use Widget.VisibilityNotifyEvent instead";
         GtkWidgetOverride.setEventsVisibility(this);
         GtkWidget.connect(this, handler, false);
     }
@@ -626,8 +717,7 @@ public abstract class Widget extends org.gnome.gtk.Object
      * change workspaces, and as a Window is being destroyed.
      * 
      * <p>
-     * In combination with
-     * {@link VISIBILITY_NOTIFY_EVENT VISIBILITY_NOTIFY_EVENT}, this can be
+     * In combination with {@link Widget.VisibilityNotifyEvent}, this can be
      * used to detect whether a Window is actually currently presented to the
      * top of the stack and visible to the user:
      * 
@@ -637,7 +727,7 @@ public abstract class Widget extends org.gnome.gtk.Object
      * final Window w;
      * final Button b;
      * ...
-     * w.connect(new Widget.VISIBILITY_NOTIFY_EVENT() {
+     * w.connect(new Widget.VisibilityNotifyEvent() {
      *     public boolean onVisibilityNotifyEvent(Widget source, EventVisibility event) {
      *         if (event.getState() == VisibilityState.UNOBSCURED) {
      *             up = true;
@@ -648,7 +738,7 @@ public abstract class Widget extends org.gnome.gtk.Object
      *     }
      * });
      * 
-     * w.connect(new Widget.UNMAP_EVENT() {
+     * w.connect(new Widget.UnmapEvent() {
      *     public boolean onUnmapEvent(Widget source, Event event) {
      *         up = false;
      *         return false;
@@ -659,7 +749,7 @@ public abstract class Widget extends org.gnome.gtk.Object
      * thus allowing you to do something like:
      * 
      * <pre>
-     * b.connect(new Button.CLICKED() {
+     * b.connect(new Button.Clicked() {
      *     public void onClicked(Button source) {
      *         if (up) {
      *             w.hide();
@@ -675,15 +765,15 @@ public abstract class Widget extends org.gnome.gtk.Object
      * to intelligently toggle the visibility of the Window.
      * 
      * <p>
-     * Note that you don't need <code>MAP</code> because the the
-     * <code>VISIBILITY_NOTIFY_EVENT</code> will be tripped if you come back
-     * to the workspace the Window is already on.
+     * Note that you don't need <code>Widget.MapEvent</code> here because
+     * the the <code>Widget.VisibilityNotifyEvent</code> will be tripped if
+     * you come back to the workspace the Window is already on.
      * 
      * @author Andrew Cowie
      * @author Ryan Lortie
      * @since 4.0.5
      */
-    public interface UNMAP_EVENT extends GtkWidget.UNMAP_EVENT
+    public interface UnmapEvent extends GtkWidget.UnmapEventSignal
     {
         /**
          * Although this is an <var>event-signal</var>, this merely reports
@@ -695,11 +785,22 @@ public abstract class Widget extends org.gnome.gtk.Object
     }
 
     /**
-     * Connect a <code>UNMAP_EVENT</code> handler.
+     * Connect a <code>Widget.UnmapEvent</code> handler.
      * 
      * @since 4.0.5
      */
+    public void connect(Widget.UnmapEvent handler) {
+        GtkWidget.connect(this, handler, false);
+    }
+
+    /** @deprecated */
+    public interface UNMAP_EVENT extends GtkWidget.UnmapEventSignal
+    {
+    }
+
+    /** @deprecated */
     public void connect(UNMAP_EVENT handler) {
+        assert false : "use Widget.UnmapEvent instead";
         GtkWidget.connect(this, handler, false);
     }
 
@@ -709,13 +810,13 @@ public abstract class Widget extends org.gnome.gtk.Object
      * <p>
      * This can be quite useful when one Widget takes action in a signal
      * handler which changes the state of another Widget. Take for example two
-     * related Entry Widgets. The second Entry's <code>CHANGED</code> signal
-     * will fire when the first Entry's <code>CHANGED</code> handler calls
-     * <code>second.setText()</code>; if it changes the first Entry then
-     * you have an infinite loop on your hands. By checking for <var>has-focus</var>
-     * at the beginning of both handlers, then only the Widget that the user
-     * changed will carry out it's logic; the other will realize it doesn't
-     * have focus and can quickly pass.
+     * related Entry Widgets. The second Entry's <code>Entry.Changed</code>
+     * signal will fire when the first Entry's <code>Entry.Changed</code>
+     * handler calls <code>second.setText()</code>; if it changes the first
+     * Entry then you have an infinite loop on your hands. By checking for
+     * <var>has-focus</var> at the beginning of both handlers, then only the
+     * Widget that the user changed will carry out it's logic; the other will
+     * realize it doesn't have focus and can quickly pass.
      * 
      * @since 4.0.6
      */
@@ -759,17 +860,28 @@ public abstract class Widget extends org.gnome.gtk.Object
      * @author Andrew Cowie
      * @since 4.0.6
      */
-    public interface HIDE extends GtkWidget.HIDE
+    public interface Hide extends GtkWidget.HideSignal
     {
         public void onHide(Widget source);
     }
 
     /**
-     * Connect a <code>HIDE</code> handler.
+     * Connect a <code>Widget.Hide</code> handler.
      * 
      * @since 4.0.6
      */
-    public void connect(Widget.HIDE handler) {
+    public void connect(Widget.Hide handler) {
+        GtkWidget.connect(this, handler, false);
+    }
+
+    /** @deprecated */
+    public interface HIDE extends GtkWidget.HideSignal
+    {
+    }
+
+    /** @deprecated */
+    public void connect(HIDE handler) {
+        assert false : "use Widget.Hide instead";
         GtkWidget.connect(this, handler, false);
     }
 
@@ -914,7 +1026,7 @@ public abstract class Widget extends org.gnome.gtk.Object
      * anywhere in Window <code>w</code>,
      * 
      * <pre>
-     * w.connect(new BUTTON_PRESS_EVENT() {
+     * w.connect(new Widget.ButtonPressEvent() {
      *     boolean onButtonPressEvent(Widget source, EventButton event) {
      *         if (event.getButton() == MouseButton.RIGHT) {
      *             // popup menu
@@ -931,54 +1043,77 @@ public abstract class Widget extends org.gnome.gtk.Object
      * 
      * <p>
      * The signal emitted when the user lets the button go is
-     * {@link Widget.BUTTON_RELEASE_EVENT BUTTON_RELEASE_EVENT}.
+     * {@link Widget.ButtonReleaseEvent}.
      * 
      * <p>
      * Note that this signal doesn't apply just to the user clicking on a
      * Button Widget. Indeed, "left-click" on a Button will cause
-     * {@link Button.CLICKED CLICKED} to be emitted, and you should use that
-     * in preference for normal purposes.
+     * {@link Button.Clicked} to be emitted, and you should use that in
+     * preference for normal purposes.
      * 
      * @author Andrew Cowie
      * @since 4.0.6
      */
-    public interface BUTTON_PRESS_EVENT extends GtkWidget.BUTTON_PRESS_EVENT
+    public interface ButtonPressEvent extends GtkWidget.ButtonPressEventSignal
     {
         public boolean onButtonPressEvent(Widget source, EventButton event);
     }
 
     /**
-     * Hook up a <code>BUTTON_PRESS_EVENT</code> handler.
+     * Hook up a <code>Widget.ButtonPressEvent</code> handler.
      * 
      * @since 4.0.6
      */
     /*
      * Do we need to force the GDK event mask like we did with
-     * VISIBILITY_NOTIFY_EVENT
+     * Widget.VisibilityNotifyEvent?
      */
+    public void connect(Widget.ButtonPressEvent handler) {
+        GtkWidget.connect(this, handler, false);
+    }
+
+    /** @deprecated */
+    public interface BUTTON_PRESS_EVENT extends GtkWidget.ButtonPressEventSignal
+    {
+    }
+
+    /** @deprecated */
     public void connect(Widget.BUTTON_PRESS_EVENT handler) {
+        assert false : "use Widget.ButtonPressEvent instead";
         GtkWidget.connect(this, handler, false);
     }
 
     /**
      * The signal emitted when the user releases a pressed mouse button. See
-     * {@link Widget.BUTTON_PRESS_EVENT BUTTON_PRESS_EVENT} for discussion of
-     * this set of event signals.
+     * {@link Widget.ButtonPressEvent} for discussion of this set of event
+     * signals.
      * 
      * @author Andrew Cowie
      * @since 4.0.6
      */
-    public interface BUTTON_RELEASE_EVENT extends GtkWidget.BUTTON_RELEASE_EVENT
+    public interface ButtonReleaseEvent extends GtkWidget.ButtonReleaseEventSignal
     {
         public boolean onButtonReleaseEvent(Widget source, EventButton event);
     }
 
     /**
-     * Hook up a <code>BUTTON_RELEASE_EVENT</code> handler.
+     * Hook up a <code>Widget.ButtonReleaseEvent</code> handler.
      * 
      * @since 4.0.6
      */
+    public void connect(Widget.ButtonReleaseEvent handler) {
+        GtkWidget.connect(this, handler, false);
+    }
+
+    /** @deprecated */
+    public interface BUTTON_RELEASE_EVENT extends GtkWidget.ButtonReleaseEventSignal
+    {
+        public boolean onButtonReleaseEvent(Widget source, EventButton event);
+    }
+
+    /** @deprecated */
     public void connect(Widget.BUTTON_RELEASE_EVENT handler) {
+        assert false : "use Widget.ButtonReleaseEvent instead";
         GtkWidget.connect(this, handler, false);
     }
 
@@ -998,12 +1133,59 @@ public abstract class Widget extends org.gnome.gtk.Object
     }
 
     /**
+     * Get the value of the <var>can-focus</var> property. See
+     * {@link #setCanFocus(boolean) setCanFocus()} and
+     * {@link #grabFocus() grabFocus()} for details.
+     * 
+     * @since 4.0.8
+     */
+    public boolean getCanFocus() {
+        return getPropertyBoolean("can-focus");
+    }
+
+    /**
+     * Whether this Widget is willing to be the default Widget. The
+     * <var>can-default</var> property, like <var>can-focus</var>, is mostly
+     * internal; while telling GTK that this Widget isn't the one that should
+     * activated on <b><code>Enter</code></b> isn't that useful, setting
+     * this <i>sometimes</i> has an effect on whether or not the theme will
+     * draw a dotted line (or other markup) around a Button to indicate that
+     * the Widget is the current default Widget.
+     * 
+     * <p>
+     * Normally, this setting is <code>false</code>, though
+     * <var>activatable</var> Widgets will already have it <code>true</code>.
+     * Disabling <var>can-default</var> will mean that a
+     * {@link #grabDefault() grabDefault()} on this Widget will be ignored.
+     * 
+     * @since 4.0.8
+     */
+    public void setCanDefault(boolean setting) {
+        setPropertyBoolean("can-default", setting);
+    }
+
+    /**
+     * Get the value of the <var>can-default</var> property. See
+     * {@link #setCanDefault(boolean) setCanDefault()} and
+     * {@link #grabDefault() grabDefault()} for details.
+     * 
+     * @since 4.0.8
+     */
+    public boolean getCanDefault() {
+        return getPropertyBoolean("can-default");
+    }
+
+    /**
      * Make this Widget attempt to become the default. The default Widget is
      * the one which is activated when the user presses <b><code>Enter</code></b>.
      * 
      * <p>
-     * This will only work if the widget is <var>activatable</var>; see
-     * {@link #activate() activate()}.
+     * This will only work if the Widget is <var>activatable</var> (see
+     * {@link #activate() activate()}) and if the Widget has its
+     * <var>can-default</var> property enabled with
+     * {@link #setCanDefault(boolean) setCanDefault()}. The Widget also needs
+     * to have already been packed into a hierarchy which tops out at a
+     * Window.
      * 
      * <p>
      * If you're reading this you may in fact be looking for
@@ -1014,5 +1196,45 @@ public abstract class Widget extends org.gnome.gtk.Object
      */
     public void grabDefault() {
         GtkWidget.grabDefault(this);
+    }
+
+    /**
+     * The signal emitted when a Widget becomes visible on the screen.
+     * 
+     * <p>
+     * This can be used as an indication that your Window is no longer
+     * minimized. Connecting to {@link Widget.ExposeEvent} would probably tell
+     * you what you need to know, but if all you want to do is find out your
+     * app is [back] onscreen then <code>Widget.ExposeEvent</code> would be
+     * a bit heavy handed. Of course, if you are drawing anyway, then it's
+     * fine. See {@link Widget.UnmapEvent} for examples of other variations on
+     * the theme of tracking the state of your application.
+     * 
+     * <p>
+     * <i>The interaction between the GTK library we use, its underlying GDK
+     * resource management layer, and the the X windowing system which GDK
+     * wraps, is complex. Sometimes there is more than one way to do things.</i>
+     * 
+     * @author Andrew Cowie
+     * @since 4.0.8
+     */
+    public interface MapEvent extends GtkWidget.MapEventSignal
+    {
+        /**
+         * Although this is an <var>event-signal</var>, this merely reports
+         * information coming from the underlying X11 windowing system. It's
+         * information you can monitor, but don't try to block this signal.
+         * Return <code>false</code>!
+         */
+        public boolean onMapEvent(Widget source, Event event);
+    }
+
+    /**
+     * Hook up a <code>Widget.MapEvent</code> signal handler.
+     * 
+     * @since 4.0.8
+     */
+    public void connect(Widget.MapEvent handler) {
+        GtkWidget.connect(this, handler, false);
     }
 }

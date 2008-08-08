@@ -43,7 +43,7 @@ public class ExamplePangoText
         w.add(i);
         w.showAll();
 
-        i.connect(new Widget.EXPOSE_EVENT() {
+        i.connect(new Widget.ExposeEvent() {
             public boolean onExposeEvent(Widget source, EventExpose event) {
                 final Context cr;
                 final Layout layout;
@@ -109,7 +109,7 @@ public class ExamplePangoText
          * handler, and then fire up the main loop.
          */
 
-        w.connect(new Window.DELETE_EVENT() {
+        w.connect(new Window.DeleteEvent() {
             public boolean onDeleteEvent(Widget source, Event event) {
                 Gtk.mainQuit();
                 return false;

@@ -305,4 +305,28 @@ public class ValidateProperties extends TestCaseGtk
         button.setFocusOnClick(false);
         assertEquals(false, GtkButton.getFocusOnClick(button));
     }
+
+    public final void testDefaultProperty() {
+        final Button button;
+        final Window window;
+
+        button = new Button("Hello");
+
+        /*
+         * Check can-default's default :)
+         */
+
+        assertEquals(false, button.getCanDefault());
+
+        button.setCanDefault(true);
+        assertEquals(true, button.getCanDefault());
+
+        /*
+         * And make sure that this doesn't fail
+         */
+
+        window = new Window();
+        window.add(button);
+        button.grabDefault();
+    }
 }

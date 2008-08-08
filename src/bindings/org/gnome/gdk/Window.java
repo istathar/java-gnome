@@ -150,7 +150,7 @@ public class Window extends Drawable
 
     /**
      * Mark the given area as damaged and needing redrawing. Calling this
-     * method will ultimately result in <code>EXPOSE_EVENT</code> being
+     * method will ultimately result in <code>Widget.ExposeEvent</code> being
      * emitted on Widgets that are present in the area being invalidated.
      * 
      * @param recursive

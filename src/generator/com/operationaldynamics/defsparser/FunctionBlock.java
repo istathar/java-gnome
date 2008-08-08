@@ -80,7 +80,7 @@ public class FunctionBlock extends Block
             return this.callerOwnsReturn.charAt(1);
         }
     }
-    
+
     protected final void setIsConstructorOf(final String isConstructorOf) {
         this.isConstructorOf = isConstructorOf;
     }
@@ -191,9 +191,11 @@ public class FunctionBlock extends Block
 
     public Generator createGenerator(final DefsFile data) {
         if (isConstructorOf != null) {
-            return new ConstructorGenerator(data, blockName, returnType, cName, parameters, getCallerOwnsReturn());
+            return new ConstructorGenerator(data, blockName, returnType, cName, parameters,
+                    getCallerOwnsReturn());
         } else {
-            return new FunctionGenerator(data, blockName, returnType, cName, parameters, getCallerOwnsReturn());
+            return new FunctionGenerator(data, blockName, returnType, cName, parameters,
+                    getCallerOwnsReturn());
         }
     }
 

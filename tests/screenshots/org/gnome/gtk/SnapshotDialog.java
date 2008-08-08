@@ -35,7 +35,7 @@ abstract class SnapshotDialog extends Snapshot
 
         dialog = (Dialog) example.window;
 
-        dialog.connect(new Dialog.RESPONSE() {
+        dialog.connect(new Dialog.Response() {
             public void onResponse(Dialog source, ResponseType response) {
                 Gtk.mainQuit();
             }
