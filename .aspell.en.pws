@@ -82,6 +82,7 @@ ComboBoxes
 ComeOnBabyLightMyFire
 CommitMessages
 ComplexHandler
+ConfigureEvent
 ControlLeft
 ControlRight
 Cowie
@@ -533,6 +534,7 @@ Preetz
 Prelle
 PressMe
 ProgressBar
+Prugh
 Pty
 PyThat
 PyThis
@@ -619,6 +621,7 @@ TestCaseGtk
 TestCases
 TestRunner
 TestSuite
+TextBuffer
 TextComboBox
 TextComboBoxEntry
 TextDirection
@@ -702,6 +705,7 @@ Wallach
 WarningMessageDialog
 WeakHashMap
 WeakReference
+WebKit
 Wikipedia
 WindowPosition
 WindowState
@@ -1559,6 +1563,7 @@ pygtk
 rasterizer
 rawing
 rb
+rc
 rect
 reentrant
 refactor
