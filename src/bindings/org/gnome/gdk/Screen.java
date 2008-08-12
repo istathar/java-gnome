@@ -86,7 +86,17 @@ public class Screen extends Object
     /**
      * Get the default Colormap associated with this Screen.
      */
-    Colormap getDefaultColormap() {
+    public Colormap getDefaultColormap() {
         return GdkScreen.getDefaultColormap(this);
+    }
+    
+    /**
+     * Get the RGBA Colormap associated with this Screen. This is useful for
+     * per-pixel translucency in top level windows.
+     *
+     * @since 4.0.8
+     */
+    public Colormap getRgbaColormap() {
+    	return GdkScreen.getRgbaColormap(this);
     }
 }

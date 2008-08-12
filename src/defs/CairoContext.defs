@@ -24,10 +24,69 @@
   (return-type "none")
 )
 
+(define-method save
+  (of-object "cairo_t")
+  (c-name "cairo_save")
+  (return-type "none")
+)
+
+(define-method restore
+  (of-object "cairo_t")
+  (c-name "cairo_restore")
+  (return-type "none")
+)
+
+(define-method clip
+  (of-object "cairo_t")
+  (c-name "cairo_clip")
+  (return-type "none")
+)
+
+(define-method clip_preserve
+  (of-object "cairo_t")
+  (c-name "cairo_clip_preserve")
+  (return-type "none")
+)
+
 (define-method stroke
   (of-object "cairo_t")
   (c-name "cairo_stroke")
   (return-type "none")
+)
+
+(define-method stroke_preserve
+  (of-object "cairo_t")
+  (c-name "cairo_stroke_preserve")
+  (return-type "none")
+)
+
+(define-method rotate
+  (of-object "cairo_t")
+  (c-name "cairo_rotate")
+  (return-type "none")
+  (parameters
+    '("double" "rad")
+  )
+)
+
+(define-method translate
+  (of-object "cairo_t")
+  (c-name "cairo_translate")
+  (return-type "none")
+  (parameters
+    '("double" "tx")
+    '("double" "ty")
+  )
+)
+
+(define-method scale
+  (of-object "cairo_t")
+  (c-name "cairo_scale")
+  (return-type "none")
+  (parameters
+    '("double" "sx")
+    '("double" "sy")
+  )
 )
 
 (define-method set_source_rgb

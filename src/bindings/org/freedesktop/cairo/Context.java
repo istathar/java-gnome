@@ -147,6 +147,66 @@ public class Context extends Entity
         checkStatus();
     }
 
+	/**
+	 * Save the current state, which can be restored later. Calls to save and
+	 * restore can be nested. This is useful for structured graphics.
+	 *
+	 * @author Zak Fenton
+	 * @since 4.0.8
+	 */
+	public void save () {
+		CairoContext.save(this);
+		checkStatus();
+	}
+	
+	/**
+	 * Restores the context to the last (nested) saved state.
+	 *
+	 * @author Zak Fenton
+	 * @since 4.0.8
+	 */
+	public void restore () {
+		CairoContext.restore(this);
+		checkStatus();
+	}
+	
+	/**
+	 * Applies a "translate" transformation. What this does is move the point of
+	 * origin - so 0,0 is now at a new position.
+	 *
+	 * <pre>
+	 *  cr.translate(20,50);
+	 *  cr.moveTo(20,20);    // This is now 40,70
+	 *  ...
+	 * </pre>
+	 *
+	 * @author Zak Fenton
+	 * @since 4.0.8
+	 */
+	public void translate (double tx, double ty) {
+		CairoContext.translate(this, tx, ty);
+	}
+	
+	/**
+	 * Applies a rotate transformation. This rotates the co-ordinates of
+	 * subsequent drawing operations by a given value in radians. The rotation
+	 * happens around the point of origin (0,0). To rotate around a different
+	 * point, try the following:
+	 *
+	 * <pre>
+	 *  cr.translate(x,y);
+	 *  cr.rotate(r);
+	 *  cr.translate(-x,-y);
+	 * </pre>
+	 *
+	 * @author Zak Fenton
+	 * @since 4.0.8
+	 */
+	public void rotate (double r) {
+		CairoContext.rotate(this,r);
+	}
+	 
+
     /**
      * Set the source pattern within this Context to an opaque colour. The
      * parameters each take the range <code>0.0</code> to <code>1.0</code>.
@@ -225,6 +285,42 @@ public class Context extends Entity
     public void stroke() {
         CairoContext.stroke(this);
         checkStatus();
+    }
+    
+    /**
+     * Draw the current path as a line, leaving the path in tact for subsequent
+     * operations.
+     *
+     * @author Zak Fenton
+     * @since 4.0.8
+     */
+    public void strokePreserve() {
+    	CairoContext.strokePreserve(this);
+    	checkStatus();
+    }
+    
+    /**
+     * Confines subsequent drawing operations to the inside area of the current
+     * path.
+     *
+     * @author Zak Fenton
+     * @since 4.0.8
+     */
+    public void clip() {
+        CairoContext.clip(this);
+        checkStatus();
+    }
+    
+    /**
+     * Confines subsequent drawing operations to the inside area of the current
+     * path, leaving the path in tact for subsequent operations.
+     *
+     * @author Zak Fenton
+     * @since 4.0.8
+     */
+    public void clipPreserve() {
+    	CairoContext.clipPreserve(this);
+    	checkStatus();
     }
 
     /**
@@ -388,6 +484,11 @@ public class Context extends Entity
         checkStatus();
     }
 
+	/**
+	 * Fill the current path, leaving the path in tact for subsequent operations
+	 *
+	 * @since 4.0.7
+	 */
     public void fillPreserve() {
         CairoContext.fillPreserve(this);
         checkStatus();

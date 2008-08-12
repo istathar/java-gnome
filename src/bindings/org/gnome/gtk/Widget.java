@@ -12,6 +12,7 @@
 package org.gnome.gtk;
 
 import org.gnome.gdk.Color;
+import org.gnome.gdk.Colormap;
 import org.gnome.gdk.Event;
 import org.gnome.gdk.EventButton;
 import org.gnome.gdk.EventCrossing;
@@ -131,6 +132,31 @@ public abstract class Widget extends org.gnome.gtk.Object
      */
     public void hide() {
         GtkWidget.hide(this);
+    }
+    
+    /**
+     * Queues an area of the Widget to be redrawn. This means it will be sent an
+     * ExposeEvent asking it to render the area. This will not happen immediately
+     * (rather, through the event loop) and several requests may be combined into
+     * a single ExposeEvent.
+     *
+     * @author Zak Fenton
+     * @since 4.0.8
+     */
+    public void queueDrawArea (int x, int y, int width, int height) {
+    	GtkWidget.queueDrawArea(this, x, y, width, height);
+    }
+    
+    /**
+     * Queues the entire Widget to be redrawn.
+     *
+     * @see #queueDrawArea()
+     *
+     * @author Zak Fenton
+     * @since 4.0.8
+     */
+    public void queueDraw () {
+    	GtkWidget.queueDraw(this);
     }
 
     /**
@@ -606,6 +632,18 @@ public abstract class Widget extends org.gnome.gtk.Object
     public org.gnome.gdk.Window getWindow() {
         return GtkWidgetOverride.getWindow(this);
     }
+
+	/**
+	 * Sets the colormap of this widget. A useful application of this (for top
+	 * level widgets) is to enable per-pixel translucency. This involves getting
+	 * the RGBA colormap from the associated screen, and also requires (if using
+	 * cairo) using the clear operator to remove the standard 
+	 *
+	 * @since 4.0.8
+	 */
+	public void setColormap (Colormap c) {
+		GtkWidget.setColormap(this, c);
+	}
 
     /**
      * Adjust the background colour being used when drawing this Widget. This

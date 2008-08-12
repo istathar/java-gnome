@@ -32,4 +32,20 @@ public class Operator extends Constant
      * Clear a surface to all transparent.
      */
     public static final Operator CLEAR = new Operator(CairoOperator.CLEAR, "CLEAR");
+    
+    /**
+     * Default operator - just draws over existing pixels.
+     *
+     * @author Zak Fenton
+     * @since 4.0.8
+     */
+    public static final Operator OVER = new Operator(CairoOperator.OVER, "OVER");
+    
+    /**
+     * Alias for OVER.
+     *
+     * @author Zak Fenton
+     * @since 4.0.8
+     */
+    public static final Operator DEFAULT = OVER;
 }
