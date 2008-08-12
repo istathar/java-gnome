@@ -1,5 +1,128 @@
 NEWS
 
+<a name="4.0.8" id="1209449091" title="Cleanups and signals revised"></a>
+
+java-gnome 4.0.8 (10 Aug 2008)
+==============================
+
+_Cleanups and bug fixes._
+
+While this release is mostly to push out bug fixes and internal improvements,
+we've also taken the opportunity to introduce a major change to the way we
+connect handlers for signals.
+
+New coverage and continuing improvement
+---------------------------------------
+
+With thanks to new contributors Stefan Prelle and Andreas Kuehntopf we have a
+number of small improvements to the TreeView/TreeModel APIs.
+
+* **`org.gnome.gtk.TreeView`**
+* **`org.gnome.gtk.TreeViewColumn`**
+* **`org.gnome.gtk.TreeViewColumnSizing`**
+* **`org.gnome.gtk.CellRendererText`**
+* **`org.gnome.gtk.CellRendererToggle`**
+
+As always, Widget and Window saw a bunch of work, with `Window.ConfigureEvent`
+now being available and a number of additional property setters and methods
+relating to window type.
+
+* **`org.gnome.gdk.WindowTypeHint`**
+* **`org.gnome.gtk.Widget`**
+* **`org.gnome.gtk.Window`**
+
+Error handling continues to improve. In the (hand written) public API wrapper
+layer we do our best to catch  misuses of the library before they get sent to
+the native code. But that's not always possible, and in 4.0.7 we introduced a
+mechanism whereby GLib error messages get translated into Java Exceptions and
+thrown. In 4.0.8, in addition to  `ERROR` and `CRITICAL`, `WARNING`s are also
+thrown as Exceptions. Getting a stack trace this way has proved very useful in
+helping developers track down where they are making mistakes in using the
+library.
+
+Build changes
+-------------
+
+java-gnome now defines C compiler flags like `GTK_DISABLE_DEPRECATED` to
+ensure we are not linking against code that will be unavailable in GTK 3.0.
+Many thanks are due to new contributor Kenneth Prugh for having done some
+terrific grunt work to remove deprecated classes and methods from our `.defs`
+data so that java-gnome compiles without using these APIs.
+
+Documentation, examples, and testing
+------------------------------------
+
+Our [API documentation](doc/api/overview-summary.html) and the growing set of
+[example code](doc/examples/START.html) have all been updated to reflect the
+new signal interface names.
+
+Conclusion
+----------
+
+You can see the full changes accompanying a release by grabbing a copy of the
+sources and running:
+
+    $ bzr diff -r tag:v4.0.7..tag:v4.0.8
+
+Because of the API changes to signal handling this release touches just about
+every public class in the library and so isn't quite as clean (as a summary)
+as in previous releases -- but it does tell you everything `:)`.
+
+Looking ahead
+-------------
+
+Most of the contributors to java-gnome are working on branches that didn't
+reach sufficient maturity to be merged in time for 4.0.8; that's the way it
+goes sometimes. That said, major effort continues on implementing coverage of
+GTK's powerful TextView/TextBuffer APIs, along with further drawing
+capabilities in Cairo and Pango. There have also been a surprising level of
+interest on other areas of the GNOME stack, with new contributors working on
+adding support to java-gnome for Nautilus, GStreamer, and even WebKit!
+Exciting stuff.
+
+AfC
+
+<a name="signal" id="1217552625" title="Signal API change"></a>
+
+Signal API change
+=================
+
+We have changed the naming scheme used to name the interfaces that are used
+when hooking up signal handlers.
+
+Connecting a handler to a Button now looks as follows:
+
+<pre style="background:white; color:black;">
+b.connect(new Button.Clicked() {
+    public void onClicked(Button source) {
+        // do stuff
+    }
+});
+</pre>
+
+Those developing with java-gnome will recognize that the inner interface's
+name has changed to `Button.Clicked`, being more appropriate to Java type
+naming conventions and providing better consistency between the signal name,
+the method to be implemented, `onClicked()`, and the method that can be used
+to emit this signal, `emitClicked()`.
+
+The process which led to this change was discussed on the `java-gnome-hackers`
+mailing list; see first [message][] if interested.
+
+[message]: http://article.gmane.org/gmane.comp.gnome.bindings.java.devel/1147
+
+Interfaces with the old names and corresponding `connect()` methods are still
+present in the library (marked `@deprecated`, of course, and with assertions
+to encourage developers to migrate their code) so the upcoming release will
+preserve ABI compatibility.
+
+The [documentation](/4.0/doc/api/overview-summary.html) posted here has been
+updated and a [release candidate][rc] has been uploaded.
+
+[rc]: http://ftp.gnome.org/pub/gnome/sources/java-gnome/4.0/java-gnome-4.0.8-rc1.tar.bz2
+
+AfC
+
 <a name="4.0.7" id="1209449091" title="Drawing"></a>
 
 java-gnome 4.0.7 (30 Apr 2008)
