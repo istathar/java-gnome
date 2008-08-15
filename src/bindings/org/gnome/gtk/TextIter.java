@@ -39,7 +39,7 @@ import org.gnome.glib.Boxed;
  * 
  * @author Stefan Prelle
  * @author Andrew Cowie
- * @since 4.0.8
+ * @since 4.0.9
  */
 public final class TextIter extends Boxed
 {
@@ -86,7 +86,7 @@ public final class TextIter extends Boxed
      * <i>This is basically the same as a clone() on normal Java object would
      * do, but in this case is passed on to the native GTK layer.</i>
      * 
-     * @since 4.0.8
+     * @since 4.0.9
      */
     public TextIter copy() {
         return GtkTextIter.copy(this);
@@ -105,7 +105,7 @@ public final class TextIter extends Boxed
      * {@link #setOffset(int) setOffset()}.
      * 
      * @return A character offset from the start of the TextBuffer.
-     * @since 4.0.8
+     * @since 4.0.9
      */
     public int getOffset() {
         return GtkTextIter.getOffset(this);
@@ -115,7 +115,7 @@ public final class TextIter extends Boxed
      * Change this TextIter so that it points to the given offset into the
      * underlying TextBuffer.
      * 
-     * @since 4.0.8
+     * @since 4.0.9
      */
     public void setOffset(int offset) {
         GtkTextIter.setOffset(this, offset);
@@ -136,7 +136,7 @@ public final class TextIter extends Boxed
      * {@link TextView#startsDisplayLine(TextIter) startsDisplayLine()} and
      * related "<code>display</code>" methods.
      * 
-     * @since 4.0.8
+     * @since 4.0.9
      */
     public int getLine() {
         return GtkTextIter.getLine(this);
@@ -150,7 +150,7 @@ public final class TextIter extends Boxed
      * the TextBuffer, it moves the iterator to the start of the last line.
      * Line numbers are <code>0</code> origin.
      * 
-     * @since 4.0.8
+     * @since 4.0.9
      */
     public void setLine(int row) {
         GtkTextIter.setLine(this, row);
@@ -167,7 +167,7 @@ public final class TextIter extends Boxed
      * TextBuffer will only correspond to the column position on screen if the
      * presenting TextView is not wrapping lines.</i>
      * 
-     * @since 4.0.8
+     * @since 4.0.9
      */
     public int getLineOffset() {
         return GtkTextIter.getLineOffset(this);
@@ -177,7 +177,7 @@ public final class TextIter extends Boxed
      * Move the iterator within the current TextBuffer line to the given
      * character offset.
      * 
-     * @since 4.0.8
+     * @since 4.0.9
      */
     public void setLineOffset(int column) {
         GtkTextIter.setLineOffset(this, column);
@@ -188,7 +188,7 @@ public final class TextIter extends Boxed
      * are tagged "invisible".
      * 
      * @return Offset from start of line
-     * @since 4.0.8
+     * @since 4.0.9
      */
     public int getVisibleLineOffset() {
         return GtkTextIter.getVisibleLineOffset(this);
@@ -203,7 +203,7 @@ public final class TextIter extends Boxed
      * See {@link #setLineOffset(int) setLineOffset()} for the method that
      * treats all characters normally.
      * 
-     * @since 4.0.8
+     * @since 4.0.9
      */
     public void setVisibleLineOffset(int column) {
         GtkTextIter.setVisibleLineOffset(this, column);
@@ -229,7 +229,7 @@ public final class TextIter extends Boxed
      *         indicates a non-character element (an embedded Pixbuf or
      *         Widget). You'll get <code>0</code> (not <code>'0'</code>)
      *         if this TextIter is already at the TextBuffer's end.
-     * @since 4.0.8
+     * @since 4.0.9
      */
     public char getChar() {
         return GtkTextIter.getChar(this);
@@ -240,7 +240,7 @@ public final class TextIter extends Boxed
      * case, if you're already pointing at the last line of the TextBuffer,
      * then you will be moved to the end of the line.
      * 
-     * @since 4.0.8
+     * @since 4.0.9
      */
     public boolean forwardLine() {
         return GtkTextIter.forwardLine(this);
@@ -251,7 +251,7 @@ public final class TextIter extends Boxed
      * case, if you're already pointing at the first line of the TextBuffer,
      * then you will be moved to the start of the line.
      * 
-     * @since 4.0.8
+     * @since 4.0.9
      */
     public boolean backwardLine() {
         return GtkTextIter.backwardLine(this);
@@ -263,7 +263,7 @@ public final class TextIter extends Boxed
      * Widgets and Pixbufs are not included in the returned string. If you
      * need them use {@link #getSlice(TextIter)}.
      * 
-     * @since 4.0.8
+     * @since 4.0.9
      */
     public String getText(TextIter end) {
         return GtkTextIter.getText(this, end);
@@ -274,7 +274,7 @@ public final class TextIter extends Boxed
      * position referenced by a given TextIter, including non character
      * elements like widgets or pixbufs.
      * 
-     * @since 4.0.8
+     * @since 4.0.9
      */
     public String getSlice(TextIter end) {
         return GtkTextIter.getSlice(this, end);
@@ -284,7 +284,7 @@ public final class TextIter extends Boxed
      * Like {@link #getSlice(TextIter)} but returns only those parts that are
      * not flagged invisible.
      * 
-     * @since 4.0.8
+     * @since 4.0.9
      */
     public String getVisibleSlice(TextIter end) {
         return GtkTextIter.getVisibleSlice(this, end);
@@ -294,7 +294,7 @@ public final class TextIter extends Boxed
      * Like {@link #getText(TextIter)} but returns only those parts that are
      * not flagged invisible.
      * 
-     * @since 4.0.8
+     * @since 4.0.9
      */
     public String getVisibleText(TextIter end) {
         return GtkTextIter.getVisibleText(this, end);
@@ -306,7 +306,7 @@ public final class TextIter extends Boxed
      * @return The {@link Pixbuf} object or <code>null</code> if there is no
      *         image at the current position of this TextIter.
      * 
-     * @since 4.0.8
+     * @since 4.0.9
      */
     public Pixbuf getPixbuf() {
         return GtkTextIter.getPixbuf(this);
@@ -316,7 +316,7 @@ public final class TextIter extends Boxed
      * Return the {@link TextMark}s that exists at the location the TextIter
      * points to.
      * 
-     * @since 4.0.8
+     * @since 4.0.9
      */
     public TextMark[] getMarks() {
         return GtkTextIter.getMarks(this);
@@ -326,7 +326,7 @@ public final class TextIter extends Boxed
      * Return all the TextTags that are either turned on or off at this
      * position.
      * 
-     * @since 4.0.8
+     * @since 4.0.9
      */
     public TextTag[] getToggledTags(boolean state) {
         return GtkTextIter.getToggledTags(this, state);
@@ -336,7 +336,7 @@ public final class TextIter extends Boxed
      * If there is a {@link TextChildAnchor} at the current position, return
      * it. Otherwise return <code>null</code>.
      * 
-     * @since 4.0.8
+     * @since 4.0.9
      */
     public TextChildAnchor getChildAnchor() {
         return GtkTextIter.getChildAnchor(this);
@@ -346,7 +346,7 @@ public final class TextIter extends Boxed
      * Check whether a specific {@link TextTag} is started at exactly this
      * point identified by the TextIter.
      * 
-     * @since 4.0.8
+     * @since 4.0.9
      */
     public boolean beginsTag(TextTag tag) {
         return GtkTextIter.beginsTag(this, tag);
@@ -356,7 +356,7 @@ public final class TextIter extends Boxed
      * Check whether a specific {@link TextTag} is ended at exactly this point
      * identified by the TextIter.
      * 
-     * @since 4.0.8
+     * @since 4.0.9
      */
     public boolean endsTag(TextTag tag) {
         return GtkTextIter.endsTag(this, tag);
@@ -366,7 +366,7 @@ public final class TextIter extends Boxed
      * Check whether a specific {@link TextTag} is either started or ended at
      * exactly this point identified by the TextIter.
      * 
-     * @since 4.0.8
+     * @since 4.0.9
      */
     public boolean togglesTag(TextTag tag) {
         return GtkTextIter.togglesTag(this, tag);
@@ -377,7 +377,7 @@ public final class TextIter extends Boxed
      * current position. Or in other words if the current position is between
      * start and end of the {@link TextTag}.
      * 
-     * @since 4.0.8
+     * @since 4.0.9
      */
     public boolean hasTag(TextTag tag) {
         return GtkTextIter.hasTag(this, tag);
@@ -386,7 +386,7 @@ public final class TextIter extends Boxed
     /**
      * Returns all TextTags that apply to the current position.
      * 
-     * @since 4.0.8
+     * @since 4.0.9
      */
     public TextTag[] getTags() {
         return GtkTextIter.getTags(this);
@@ -399,7 +399,7 @@ public final class TextIter extends Boxed
      * end of an editable block (which is also the star of a non-editable
      * area), this method returns <code>false</code>.
      * 
-     * @since 4.0.8
+     * @since 4.0.9
      */
     public boolean isEditable(boolean defaultEditability) {
         return GtkTextIter.editable(this, defaultEditability);
@@ -411,7 +411,7 @@ public final class TextIter extends Boxed
      * (including the start AND end position) or the default editability is
      * <code>true</code>.
      * 
-     * @since 4.0.8
+     * @since 4.0.9
      */
     public boolean canInsert(boolean defaultEditability) {
         return GtkTextIter.canInsert(this, defaultEditability);
@@ -421,7 +421,7 @@ public final class TextIter extends Boxed
      * Returns if a word is beginning at the current position, which is the
      * case when the TextIter points to the first letter of the word.
      * 
-     * @since 4.0.8
+     * @since 4.0.9
      */
     public boolean startsWord() {
         return GtkTextIter.startsWord(this);
@@ -432,7 +432,7 @@ public final class TextIter extends Boxed
      * means that you are at the first whitespace or sentence ending sign
      * behind a word.
      * 
-     * @since 4.0.8
+     * @since 4.0.9
      */
     public boolean endsWord() {
         return GtkTextIter.endsWord(this);
@@ -442,7 +442,7 @@ public final class TextIter extends Boxed
      * Check if the current position is inside a word, including the first or
      * last letter.
      * 
-     * @since 4.0.8
+     * @since 4.0.9
      */
     public boolean insideWord() {
         return GtkTextIter.insideWord(this);
@@ -451,7 +451,7 @@ public final class TextIter extends Boxed
     /**
      * Check if the current position is at the start of a line.
      * 
-     * @since 4.0.8
+     * @since 4.0.9
      */
     public boolean startsLine() {
         return GtkTextIter.startsLine(this);
@@ -460,7 +460,7 @@ public final class TextIter extends Boxed
     /**
      * Check if the current position marks the end of a line.
      * 
-     * @since 4.0.8
+     * @since 4.0.9
      */
     public boolean endsLine() {
         return GtkTextIter.endsLine(this);
@@ -470,7 +470,7 @@ public final class TextIter extends Boxed
      * Returns <code>true</code> if the TextIter points to the first
      * character of a sentence.
      * 
-     * @since 4.0.8
+     * @since 4.0.9
      */
     public boolean startsSentence() {
         return GtkTextIter.startsSentence(this);
@@ -481,7 +481,7 @@ public final class TextIter extends Boxed
      * that does not belong to the sentence - usually the first whitespace,
      * since e.g. dots belong to a sentence.
      * 
-     * @since 4.0.8
+     * @since 4.0.9
      */
     public boolean endsSentence() {
         return GtkTextIter.endsSentence(this);
@@ -490,7 +490,7 @@ public final class TextIter extends Boxed
     /**
      * Checks whether or not the current position is inside a sentence.
      * 
-     * @since 4.0.8
+     * @since 4.0.9
      */
     public boolean insideSentence() {
         return GtkTextIter.insideSentence(this);
@@ -500,7 +500,7 @@ public final class TextIter extends Boxed
      * Returns if the TextIter is identical with the GUIs cursor position
      * inside the TextView.
      * 
-     * @since 4.0.8
+     * @since 4.0.9
      */
     public boolean isCursorPosition() {
         return GtkTextIter.isCursorPosition(this);
@@ -510,7 +510,7 @@ public final class TextIter extends Boxed
      * Counts the characters in the current text line, including the newline
      * if present. Non-printable objects like images count as one character.
      * 
-     * @since 4.0.8
+     * @since 4.0.9
      */
     public int getCharsInLine() {
         return GtkTextIter.getCharsInLine(this);
@@ -521,7 +521,7 @@ public final class TextIter extends Boxed
      * case if this TextIter has the same offset as the TextIter returned by
      * {@link TextBuffer#getIterEnd()}
      * 
-     * @since 4.0.8
+     * @since 4.0.9
      */
     public boolean isEnd() {
         return GtkTextIter.isEnd(this);
@@ -531,7 +531,7 @@ public final class TextIter extends Boxed
      * Checks if the TextIter points to the start of the buffer. This is the
      * case if this TextIter has the offset 0.
      * 
-     * @since 4.0.8
+     * @since 4.0.9
      */
     public boolean isStart() {
         return GtkTextIter.isStart(this);
@@ -545,7 +545,7 @@ public final class TextIter extends Boxed
      *         <code>false</code> if the TextIter already pointed to the
      *         start of the TextBuffer.
      * 
-     * @since 4.0.8
+     * @since 4.0.9
      */
     public boolean backwardChar() {
         return GtkTextIter.backwardChar(this);
@@ -559,7 +559,7 @@ public final class TextIter extends Boxed
      *         <code>false</code> if the TextIter already pointed to the end
      *         of the TextBuffer.
      * 
-     * @since 4.0.8
+     * @since 4.0.9
      */
     public boolean forwardChar() {
         return GtkTextIter.forwardChar(this);
@@ -572,7 +572,7 @@ public final class TextIter extends Boxed
      * @return <code>true</code> if the position changed because of this
      *         call.
      * 
-     * @since 4.0.8
+     * @since 4.0.9
      */
     public boolean backwardChars(int count) {
         return GtkTextIter.backwardChars(this, count);
@@ -586,7 +586,7 @@ public final class TextIter extends Boxed
      * @return <code>true</code> if the position changed because of this
      *         call.
      * 
-     * @since 4.0.8
+     * @since 4.0.9
      */
     public boolean forwardChars(int count) {
         return GtkTextIter.forwardChars(this, count);
@@ -597,7 +597,7 @@ public final class TextIter extends Boxed
      * line. As a special case, if you're already pointing at the first line
      * of the TextBuffer, then you will be moved to the start of the line.
      * 
-     * @since 4.0.8
+     * @since 4.0.9
      */
     public boolean backwardLines(int count) {
         return GtkTextIter.backwardLines(this, count);
@@ -608,7 +608,7 @@ public final class TextIter extends Boxed
      * line. As a special case, if you're already pointing at the last line of
      * the TextBuffer, then you will be moved to the end of the line.
      * 
-     * @since 4.0.8
+     * @since 4.0.9
      */
     public boolean forwardLines(int count) {
         return GtkTextIter.forwardLines(this, count);

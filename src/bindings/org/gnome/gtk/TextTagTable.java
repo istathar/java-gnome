@@ -35,7 +35,7 @@ import org.gnome.glib.Object;
  * the entire application.
  * 
  * @author Andrew Cowie
- * @since 4.0.8
+ * @since 4.0.9
  */
 public class TextTagTable extends Object
 {
@@ -48,7 +48,7 @@ public class TextTagTable extends Object
     /**
      * Instantiate a new table for collecting TextTags.
      * 
-     * @since 4.0.8
+     * @since 4.0.9
      */
     public TextTagTable() {
         super(GtkTextTagTable.createTextTagTable());

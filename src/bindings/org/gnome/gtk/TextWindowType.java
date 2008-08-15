@@ -57,7 +57,7 @@ import org.freedesktop.bindings.Constant;
  * behaviour to be somewhat unpredictable.</i>
  * 
  * @author Andrew Cowie
- * @since 4.0.8
+ * @since 4.0.9
  */
 public final class TextWindowType extends Constant
 {
@@ -72,28 +72,28 @@ public final class TextWindowType extends Constant
      * scrolling (if enabled) is <b>very</b> tricky, though. See FIXME for an
      * example.
      * 
-     * @since 4.0.8
+     * @since 4.0.9
      */
     public static TextWindowType LEFT = new TextWindowType(GtkTextWindowType.LEFT, "LEFT");
 
     /**
      * The optional border Window on the left hand side of a TextView.
      * 
-     * @since 4.0.8
+     * @since 4.0.9
      */
     public static TextWindowType RIGHT = new TextWindowType(GtkTextWindowType.RIGHT, "RIGHT");
 
     /**
      * The optional border Window above a TextView.
      * 
-     * @since 4.0.8
+     * @since 4.0.9
      */
     public static TextWindowType TOP = new TextWindowType(GtkTextWindowType.TOP, "TOP");
 
     /**
      * The optional border Window below a TextView.
      * 
-     * @since 4.0.8
+     * @since 4.0.9
      */
     public static TextWindowType BOTTOM = new TextWindowType(GtkTextWindowType.BOTTOM, "BOTTOM");
 
@@ -101,7 +101,7 @@ public final class TextWindowType extends Constant
      * The main part of the TextView which displays the text to the user. This
      * is, quite likely, the only Window you will need to get at.
      * 
-     * @since 4.0.8
+     * @since 4.0.9
      */
     public static TextWindowType TEXT = new TextWindowType(GtkTextWindowType.TEXT, "TEXT");
 

@@ -22,11 +22,10 @@ import org.freedesktop.bindings.Constant;
  * comment has been replaced.
  */
 /**
- * Constants used by the MOVE_VIEWPORT signal of {@link TextView}, which
+ * Constants used by the {@link TextView.MoveViewport}, which
  * doesn't even seem to get hit. Do we even need these?
  * 
  * @author Andrew Cowie
- * @since 4.0.8
  */
 /*
  * FIXME to make public, figure out when necessary and document to that

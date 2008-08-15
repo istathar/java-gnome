@@ -37,7 +37,7 @@ import org.freedesktop.bindings.DoubleConstant;
  * {@link #X_SMALL X_SMALL}, <i>and</i> {@link #XX_SMALL XX_SMALL}
  * <i>respectively.</i>
  * 
- * @since 4.0.8
+ * @since 4.0.9
  */
 /*
  * FUTURE Ordinarily we would go to native, but at present we don't have a

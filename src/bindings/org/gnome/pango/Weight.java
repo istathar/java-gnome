@@ -25,7 +25,7 @@ import org.freedesktop.bindings.Constant;
  * ... font weight constants ...
  * 
  * @author Andrew Cowie
- * @since 4.0.8
+ * @since 4.0.9
  */
 /*
  * Yes, you can subclass this if you are desperate for font weights other than

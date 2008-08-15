@@ -29,7 +29,7 @@ import static org.gnome.gtk.TextTagTable.getDefaultTable;
  * 
  * @author Andrew Cowie
  * @author Stefan Prelle
- * @since 4.0.8
+ * @since 4.0.9
  */
 /*
  * Judging by the GTK documentation, almost everything in this class works
@@ -50,7 +50,7 @@ public class TextBuffer extends Object
      * Replacement Character" from the Special block. You might see it as
      * &#65532; in other contexts.
      * 
-     * @since 4.0.8
+     * @since 4.0.9
      */
     public static final char OBJECT_REPLACEMENT_CHARACTER = 0xFFFC;
 
@@ -69,7 +69,7 @@ public class TextBuffer extends Object
      * used by different TextBuffers then just use the other TextBuffer
      * constructor.
      * 
-     * @since 4.0.8
+     * @since 4.0.9
      */
     public TextBuffer() {
         super(GtkTextBuffer.createTextBuffer(getDefaultTable()));
@@ -79,7 +79,7 @@ public class TextBuffer extends Object
      * Create a new TextBuffer. Uses (or reuses) the supplied TextTagTable;
      * you can add more TextTags to it later.
      * 
-     * @since 4.0.8
+     * @since 4.0.9
      */
     public TextBuffer(TextTagTable tags) {
         super(GtkTextBuffer.createTextBuffer(tags));
@@ -88,7 +88,7 @@ public class TextBuffer extends Object
     /**
      * Replace the entire current contents of the TextBuffer.
      * 
-     * @since 4.0.8
+     * @since 4.0.9
      */
     public void setText(String text) {
         GtkTextBuffer.setText(this, text, -1);
@@ -109,7 +109,7 @@ public class TextBuffer extends Object
      * @param includeHidden
      *            Whether to include invisible text
      * @return The text of (the range of) the buffer.
-     * @since 4.0.8
+     * @since 4.0.9
      */
     public String getText(TextIter start, TextIter end, boolean includeHidden) {
         return GtkTextBuffer.getText(this, start, end, includeHidden);
@@ -122,7 +122,7 @@ public class TextBuffer extends Object
      * <code>true</code>.
      * 
      * @return The complete text in the TextBuffer.
-     * @since 4.0.8
+     * @since 4.0.9
      */
     public String getText() {
         return getText(getIterStart(), getIterEnd(), true);
@@ -133,7 +133,7 @@ public class TextBuffer extends Object
      * this property, making it <code>false</code>. See
      * {@link #getModified() getModified()} for details.
      * 
-     * @since 4.0.8
+     * @since 4.0.9
      */
     public void setModified(boolean modified) {
         GtkTextBuffer.setModified(this, modified);
@@ -152,7 +152,7 @@ public class TextBuffer extends Object
      * probably track that state more robustly, this can at least feed
      * information into that process).
      * 
-     * @since 4.0.8
+     * @since 4.0.9
      */
     public boolean getModified() {
         return GtkTextBuffer.getModified(this);
@@ -161,7 +161,7 @@ public class TextBuffer extends Object
     /**
      * Returns a pointer to the beginning of the TextBuffer.
      * 
-     * @since 4.0.8
+     * @since 4.0.9
      */
     public TextIter getIterStart() {
         final TextIter iter;
@@ -176,7 +176,7 @@ public class TextBuffer extends Object
     /**
      * Returns a pointer to the end of the TextBuffer.
      * 
-     * @since 4.0.8
+     * @since 4.0.9
      */
     /*
      * The naming of this method is inverted so as to correspond with the
@@ -206,7 +206,7 @@ public class TextBuffer extends Object
      * Insert a text at a given position. All {@link TextIter} behind the
      * position move accordingly, while marks keep their position.
      * 
-     * @since 4.0.8
+     * @since 4.0.9
      */
     public void insert(TextIter position, String text) {
         GtkTextBuffer.insert(this, position, text, -1);
@@ -216,7 +216,7 @@ public class TextBuffer extends Object
      * Insert text as for {@link #insert(TextIter, String) insert()} but
      * simultaneously apply the formatting described by <code>tag</code>.
      * 
-     * @since 4.0.8
+     * @since 4.0.9
      */
     public void insert(TextIter position, String text, TextTag tag) {
         GtkTextBuffer.insertWithTags(this, position, text, -1, tag);
@@ -225,7 +225,7 @@ public class TextBuffer extends Object
     /**
      * Insert the text at the current cursor position.
      * 
-     * @since 4.0.8
+     * @since 4.0.9
      */
     public void insertAtCursor(String text) {
         GtkTextBuffer.insertAtCursor(this, text, -1);
@@ -249,7 +249,7 @@ public class TextBuffer extends Object
      *            {@link TextView#setEditable(boolean) setEditable()} to
      *            change the default setting in the display Widget you're
      *            using.
-     * @since 4.0.8
+     * @since 4.0.9
      */
     public void insertInteractive(TextIter pos, String text, boolean defaultEditability) {
         GtkTextBuffer.insertInteractive(this, pos, text, -1, defaultEditability);
@@ -258,7 +258,7 @@ public class TextBuffer extends Object
     /**
      * Inserts an image at the cursor position.
      * 
-     * @since 4.0.8
+     * @since 4.0.9
      */
     public void insert(TextIter position, Pixbuf image) {
         GtkTextBuffer.insertPixbuf(this, position, image);
@@ -272,7 +272,7 @@ public class TextBuffer extends Object
      * You can call {@link #getIter(TextMark) getIter()} to convert the
      * TextMark to an TextIter.
      * 
-     * @since 4.0.8
+     * @since 4.0.9
      */
     public TextMark getInsert() {
         return GtkTextBuffer.getInsert(this);
@@ -293,7 +293,7 @@ public class TextBuffer extends Object
      * You can call {@link #getIter(TextMark) getIter()} to convert the
      * TextMark to an TextIter.
      * 
-     * @since 4.0.8
+     * @since 4.0.9
      */
     public TextMark getSelectionBound() {
         return GtkTextBuffer.getSelectionBound(this);
@@ -302,7 +302,7 @@ public class TextBuffer extends Object
     /**
      * Returns whether or not the TextBuffer has a selection
      * 
-     * @since 4.0.8
+     * @since 4.0.9
      */
     public boolean getHasSelection() {
         return GtkTextBuffer.getHasSelection(this);
@@ -313,7 +313,7 @@ public class TextBuffer extends Object
      * {@link TextIter TextIter} that you can use to point into the TextBuffer
      * in its current state.
      * 
-     * @since 4.0.8
+     * @since 4.0.9
      */
     /*
      * This method is more compactly named so as to correspond with the naming
@@ -333,7 +333,7 @@ public class TextBuffer extends Object
      * Get a TextIter pointing at the position <code>offset</code>
      * characters into the TextBuffer.
      * 
-     * @since 4.0.8
+     * @since 4.0.9
      */
     public TextIter getIter(int offset) {
         final TextIter iter;
@@ -349,7 +349,7 @@ public class TextBuffer extends Object
      * Apply the selected tag on the area in the TextBuffer between the start
      * and end positions.
      * 
-     * @since 4.0.8
+     * @since 4.0.9
      */
     public void applyTag(TextTag tag, TextIter start, TextIter end) {
         GtkTextBuffer.applyTag(this, tag, start, end);
@@ -375,7 +375,7 @@ public class TextBuffer extends Object
      * <i>The native GTK function has these arguments reversed but start and
      * end make more sense in consecutive order.</i>
      * 
-     * @since 4.0.8
+     * @since 4.0.9
      */
     public void selectRange(TextIter start, TextIter end) {
         GtkTextBuffer.selectRange(this, end, start);
@@ -386,7 +386,7 @@ public class TextBuffer extends Object
      * range between <code>start</code> and <code>end</code>. The order
      * of the two TextIters doesn't actually matter; they are just bounds.
      * 
-     * @since 4.0.8
+     * @since 4.0.9
      */
     public void removeTag(TextTag tag, TextIter start, TextIter end) {
         GtkTextBuffer.removeTag(this, tag, start, end);
@@ -396,7 +396,7 @@ public class TextBuffer extends Object
      * Create a new TextChildAnchor at <code>location</code>. Use the
      * method in TextView to load a Widget into it.
      * 
-     * @since 4.0.8
+     * @since 4.0.9
      */
     public TextChildAnchor createChildAnchor(TextIter location) {
         return GtkTextBuffer.createChildAnchor(this, location);
@@ -418,7 +418,7 @@ public class TextBuffer extends Object
      * just want to force the cursor into the currently showing section of the
      * text.
      * 
-     * @since 4.0.8
+     * @since 4.0.9
      */
     public void placeCursor(TextIter location) {
         GtkTextBuffer.placeCursor(this, location);
@@ -429,7 +429,7 @@ public class TextBuffer extends Object
      * elements such as widgets use more than one byte, this may differ from
      * the number of bytes.
      * 
-     * @since 4.0.8
+     * @since 4.0.9
      */
     public int getCharCount() {
         return GtkTextBuffer.getCharCount(this);
@@ -438,7 +438,7 @@ public class TextBuffer extends Object
     /**
      * Returns the number of text lines in this buffer.
      * 
-     * @since 4.0.8
+     * @since 4.0.9
      */
     public int getLineCount() {
         return GtkTextBuffer.getLineCount(this);
@@ -448,7 +448,7 @@ public class TextBuffer extends Object
      * The signal emitted when the contents of the TextBuffer have changed.
      * 
      * @author Andrew Cowie
-     * @since 4.0.8
+     * @since 4.0.9
      */
     public interface Changed extends GtkTextBuffer.ChangedSignal
     {
@@ -458,7 +458,7 @@ public class TextBuffer extends Object
     /**
      * Hook up a handler for <code>TextBuffer.Changed</code> signals.
      * 
-     * @since 4.0.8
+     * @since 4.0.9
      */
     public void connect(TextBuffer.Changed handler) {
         GtkTextBuffer.connect(this, handler, false);
@@ -477,7 +477,7 @@ public class TextBuffer extends Object
      * actually insert text into the TextBuffer lives.</i>
      * 
      * @author Andrew Cowie
-     * @since 4.0.8
+     * @since 4.0.9
      */
     /*
      * FIXME How do you do that?
@@ -492,7 +492,7 @@ public class TextBuffer extends Object
      * This will be invoked before the default handler is run, that is, before
      * the new text is actually inserted into the TextBuffer.
      * 
-     * @since 4.0.8
+     * @since 4.0.9
      */
     public void connect(TextBuffer.InsertText handler) {
         GtkTextBuffer.connect(this, new InsertTextHandler(handler), false);
@@ -502,7 +502,7 @@ public class TextBuffer extends Object
      * Hook up a handler for <code>TextBuffer.InsertText</code> signals that
      * will be called <i>after</i> the default handler.
      * 
-     * @since 4.0.8
+     * @since 4.0.9
      */
     public void connectAfter(TextBuffer.InsertText handler) {
         GtkTextBuffer.connect(this, new InsertTextHandler(handler), true);
@@ -543,7 +543,7 @@ public class TextBuffer extends Object
      * signal will not be raised.
      * 
      * @author Andrew Cowie
-     * @since 4.0.8
+     * @since 4.0.9
      */
     /*
      * TODO Can anyone explain how to stop a deletion from occurring in
@@ -559,7 +559,7 @@ public class TextBuffer extends Object
      * Hook up a handler for <code>TextBuffer.DeleteRange</code> signals on
      * this TextBuffer.
      * 
-     * @since 4.0.8
+     * @since 4.0.9
      */
     public void connect(TextBuffer.DeleteRange handler) {
         GtkTextBuffer.connect(this, handler, false);
@@ -576,7 +576,7 @@ public class TextBuffer extends Object
      * useful feature; since it mutates the TextBuffer, calling this method
      * will invalidate all other TextIters.
      * 
-     * @since 4.0.8
+     * @since 4.0.9
      */
     public void delete(TextIter start, TextIter end) {
         GtkTextBuffer.delete(this, start, end);

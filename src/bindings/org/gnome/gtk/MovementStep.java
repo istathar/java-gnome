@@ -22,12 +22,12 @@ import org.freedesktop.bindings.Constant;
  * comment has been replaced.
  */
 /**
- * Constants describing the nature of a motion in <code>MOVE_CURSOR</code>
+ * Constants describing the nature of a motion in <code>MoveCursor</code>
  * signal handlers found in {@link TextView}, {@link TreeView},
  * {@link Entry}, etc.
  * 
  * @author Andrew Cowie
- * @since 4.0.8
+ * @since 4.0.9
  */
 /*
  * FIXME Make constants public as necessary. What is the difference between

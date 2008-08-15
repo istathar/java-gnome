@@ -100,7 +100,7 @@ import org.gnome.gdk.Rectangle;
  * 
  * @author Stefan Prelle
  * @author Andrew Cowie
- * @since 4.0.8
+ * @since 4.0.9
  */
 public class TextView extends Container
 {
@@ -113,7 +113,7 @@ public class TextView extends Container
      * Use {@link #setBuffer(TextBuffer) setBuffer()} to indicate later which
      * TextBuffer to use.
      * 
-     * @since 4.0.8
+     * @since 4.0.9
      */
     public TextView() {
         super(GtkTextView.createTextView());
@@ -124,7 +124,7 @@ public class TextView extends Container
      * 
      * @param buf
      *            TextBuffer to associated with this TextView.
-     * @since 4.0.8
+     * @since 4.0.9
      */
     public TextView(TextBuffer buf) {
         super(GtkTextView.createTextViewWithBuffer(buf));
@@ -138,7 +138,7 @@ public class TextView extends Container
      * Set or replace the TextBuffer that is currently being displayed by this
      * TextView.
      * 
-     * @since 4.0.8
+     * @since 4.0.9
      */
     public void setBuffer(TextBuffer buffer) {
         GtkTextView.setBuffer(this, buffer);
@@ -147,7 +147,7 @@ public class TextView extends Container
     /**
      * Set the line wrapping for the view.
      * 
-     * @since 4.0.8
+     * @since 4.0.9
      */
     public void setWrapMode(WrapMode wrapMode) {
         GtkTextView.setWrapMode(this, wrapMode);
@@ -156,7 +156,7 @@ public class TextView extends Container
     /**
      * Get the line wrapping for the view.
      * 
-     * @since 4.0.8
+     * @since 4.0.9
      */
     public WrapMode getWrapMode() {
         return GtkTextView.getWrapMode(this);
@@ -172,7 +172,7 @@ public class TextView extends Container
      * specific regions of text with by applying TextTags with
      * {@link TextTag#setEditable(boolean) setEditable()} set.
      * 
-     * @since 4.0.8
+     * @since 4.0.9
      */
     public void setEditable(boolean editable) {
         GtkTextView.setEditable(this, editable);
@@ -182,7 +182,7 @@ public class TextView extends Container
      * Get whether the default editability of the TextView. Tags in the buffer
      * may override this setting for some ranges of text.
      * 
-     * @since 4.0.8
+     * @since 4.0.9
      */
     public boolean getEditable() {
         return GtkTextView.getEditable(this);
@@ -193,7 +193,7 @@ public class TextView extends Container
      * to hide the cursor when displaying text that is non-editable. The
      * default is <code>true</code>, indicating the cursor will be shown.
      * 
-     * @since 4.0.8
+     * @since 4.0.9
      */
     public void setCursorVisible(boolean visible) {
         GtkTextView.setCursorVisible(this, visible);
@@ -202,7 +202,7 @@ public class TextView extends Container
     /**
      * Returns whether the cursor is currently visible or not.
      * 
-     * @since 4.0.8
+     * @since 4.0.9
      */
     public boolean getCursorVisible() {
         return GtkTextView.getCursorVisible(this);
@@ -217,7 +217,7 @@ public class TextView extends Container
      * TextView can be displaying a given TextBuffer, but a Widget can only
      * appear in one parent Container.</i>
      * 
-     * @since 4.0.8
+     * @since 4.0.9
      */
     /*
      * WARNING Signature subject to conversion to an overload if another
@@ -236,7 +236,7 @@ public class TextView extends Container
      * {@link #setBorderWidth(int) setBorderWidth()}, a method inherited from
      * Container.
      * 
-     * @since 4.0.8
+     * @since 4.0.9
      */
     public void setBorderWindowSize(TextWindowType which, int size) {
         GtkTextView.setBorderWindowSize(this, which, size);
@@ -258,7 +258,7 @@ public class TextView extends Container
      * have a non-zero size with
      * {@link #setBorderWindowSize(TextWindowType, int) setBorderWindowSize()}.
      * 
-     * @since 4.0.8
+     * @since 4.0.9
      */
     public void addChildInWindow(Widget child, TextWindowType which, int x, int y) {
         final int width;
@@ -277,7 +277,7 @@ public class TextView extends Container
      * panels. <code>x</code>,<code>y</code> are specified in <i>window
      * co-ordinates</i>.
      * 
-     * @since 4.0.8
+     * @since 4.0.9
      */
     public void moveChild(Widget child, int x, int y) {
         GtkTextView.moveChild(this, child, x, y);
@@ -289,7 +289,7 @@ public class TextView extends Container
      * {@link #convertBufferToWindowCoordsY(TextWindowType, int) convertBufferToWindowCoordsY()}
      * for a detailed discussion.
      * 
-     * @since 4.0.8
+     * @since 4.0.9
      */
     /*
      * In this method and the corresponding Y co-ordinate version we just pass
@@ -335,7 +335,7 @@ public class TextView extends Container
      * {@link #convertBufferToWindowCoordsX(TextWindowType, int) convertBufferToWindowCoordsX()}
      * for the corresponding horizontal conversion.
      * 
-     * @since 4.0.8
+     * @since 4.0.9
      */
     public int convertBufferToWindowCoordsY(TextWindowType which, int Y) {
         int[] y;
@@ -355,7 +355,7 @@ public class TextView extends Container
      * {@link #convertBufferToWindowCoordsY(TextWindowType, int) convertBufferToWindowCoordsY()}
      * for a detailed discussion.
      * 
-     * @since 4.0.8
+     * @since 4.0.9
      */
     public int convertWindowToBufferCoordsX(TextWindowType which, int x) {
         int[] X;
@@ -373,7 +373,7 @@ public class TextView extends Container
      * {@link #convertBufferToWindowCoordsY(TextWindowType, int) convertBufferToWindowCoordsY()}
      * for a detailed discussion.
      * 
-     * @since 4.0.8
+     * @since 4.0.9
      */
     public int convertWindowToBufferCoordsY(TextWindowType which, int y) {
         int[] Y;
@@ -418,7 +418,7 @@ public class TextView extends Container
      * correspond to the size of the area of text actually being displayed in
      * the TextView.
      * 
-     * @since 4.0.8
+     * @since 4.0.9
      */
     public Rectangle getVisibleRectangle() {
         final Rectangle visible;
@@ -434,7 +434,7 @@ public class TextView extends Container
      * Get the underlying resource corresponding with one of the sub elements
      * of this TextView. See {@link TextWindowType} for a detailed discussion.
      * 
-     * @since 4.0.8
+     * @since 4.0.9
      */
     public org.gnome.gdk.Window getWindow(TextWindowType which) {
         return GtkTextView.getWindow(this, which);
@@ -448,7 +448,7 @@ public class TextView extends Container
      * {@link #convertWindowToBufferCoordsY(TextWindowType, int, int) convertWindowToBufferCoordsY()}
      * to convert.
      * 
-     * @since 4.0.8
+     * @since 4.0.9
      */
     public TextIter getIterAtLocation(int X, int Y) {
         final TextIter result;
@@ -474,7 +474,7 @@ public class TextView extends Container
      * the documentation for this class for discussion of when you can safely
      * use this method.
      * 
-     * @since 4.0.8
+     * @since 4.0.9
      */
     public int getLineY(TextIter position) {
         int[] y;
@@ -498,7 +498,7 @@ public class TextView extends Container
      * href="#height">Line Height Calculations</a>" in the documentation for
      * this class for discussion of when you can safely use this method.
      * 
-     * @since 4.0.8
+     * @since 4.0.9
      */
     public int getLineRange(TextIter position) {
         int[] range;
@@ -515,7 +515,7 @@ public class TextView extends Container
      * TextBuffer) so that is is showing somewhere in the section of text
      * currently displayed in the viewport.
      * 
-     * @since 4.0.8
+     * @since 4.0.9
      */
     public void placeCursorOnscreen() {
         GtkTextView.placeCursorOnscreen(this);
@@ -527,7 +527,7 @@ public class TextView extends Container
      * movement as possible. If you need finer grained control, use one of the
      * other <code>scrollTo()</code> variants. variant.
      * 
-     * @since 4.0.8
+     * @since 4.0.9
      */
     public void scrollTo(TextIter pointer) {
         scrollTo(pointer, 0.0, 0.0, 0.0);
@@ -540,7 +540,7 @@ public class TextView extends Container
      * taking a TextMark and the same parameters for a detailed discussion of
      * their use.
      * 
-     * @since 4.0.8
+     * @since 4.0.9
      */
     /*
      * WARNING! The real gtk_tree_view_scroll_to_iter() function is known to
@@ -570,7 +570,7 @@ public class TextView extends Container
      * takes additional parameters which may allow you to fine tune the result
      * of the scrolling.
      * 
-     * @since 4.0.8
+     * @since 4.0.9
      */
     public void scrollTo(TextMark mark) {
         GtkTextView.scrollToMark(this, mark, 0.0, false, 0.0, 0.0);
@@ -623,7 +623,7 @@ public class TextView extends Container
      * 
      * this may have the effect of causing the heights to be calculated.
      * 
-     * @since 4.0.8
+     * @since 4.0.9
      */
     /*
      * The oddities and "workaround" suggested are based on the currently weak
@@ -675,7 +675,7 @@ public class TextView extends Container
      * </pre>
      * 
      * @author Kenneth Prugh
-     * @since 4.0.8
+     * @since 4.0.9
      */
     public interface PopulatePopup extends GtkTextView.PopulatePopupSignal
     {
@@ -693,7 +693,7 @@ public class TextView extends Container
      * allows you to populate the popup menu according to the current
      * circumstances - in other words, making it a context menu.
      * 
-     * @since 4.0.8
+     * @since 4.0.9
      */
     public void connect(TextView.PopulatePopup handler) {
         GtkTextView.connect(this, handler, false);
@@ -712,7 +712,7 @@ public class TextView extends Container
      * <p>
      * <i>This sets the <var>pixels-below-lines</var> property in GTK.</i>
      * 
-     * @since 4.0.8
+     * @since 4.0.9
      */
     public void setPaddingBelowParagraph(int pixels) {
         GtkTextView.setPixelsBelowLines(this, pixels);
@@ -731,7 +731,7 @@ public class TextView extends Container
      * <p>
      * <i>This sets the <var>pixels-above-lines</var> property in GTK.</i>
      * 
-     * @since 4.0.8
+     * @since 4.0.9
      */
     public void setPaddingAboveParagraph(int pixels) {
         GtkTextView.setPixelsAboveLines(this, pixels);
@@ -760,7 +760,7 @@ public class TextView extends Container
      * <p>
      * <i>This sets the <var>pixels-inside-wrap</var> property in GTK.</i>
      * 
-     * @since 4.0.8
+     * @since 4.0.9
      */
     public void setPaddingInsideParagraph(int pixels) {
         GtkTextView.setPixelsInsideWrap(this, pixels);
@@ -774,7 +774,7 @@ public class TextView extends Container
      * the next Widget rather than inserting a tab, then set this to
      * <code>false</code>.
      * 
-     * @since 4.0.8
+     * @since 4.0.9
      */
     public void setAcceptsTab(boolean setting) {
         GtkTextView.setAcceptsTab(this, setting);
@@ -787,7 +787,7 @@ public class TextView extends Container
      * <p>
      * <i>This sets the <var>left-margin</var> property in GTK.</i>
      * 
-     * @since 4.0.8
+     * @since 4.0.9
      */
     public void setMarginLeft(int pixels) {
         if (pixels < 0) {
@@ -803,7 +803,7 @@ public class TextView extends Container
      * <p>
      * <i>This sets the <var>right-margin</var> property in GTK.</i>
      * 
-     * @since 4.0.8
+     * @since 4.0.9
      */
     public void setMarginRight(int pixels) {
         if (pixels < 0) {

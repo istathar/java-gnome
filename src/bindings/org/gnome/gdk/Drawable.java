@@ -44,7 +44,7 @@ public abstract class Drawable extends Object
     /**
      * Get the width of this Drawable.
      * 
-     * @since 4.0.8
+     * @since 4.0.9
      */
     /*
      * TODO document the impact of this reporting the most recent
@@ -63,7 +63,7 @@ public abstract class Drawable extends Object
     /**
      * Get the height of this Drawable.
      * 
-     * @since 4.0.8
+     * @since 4.0.9
      */
     public int getHeight() {
         int[] height;

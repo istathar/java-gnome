@@ -35,7 +35,7 @@ import org.gnome.glib.Object;
  * transiently by TreeIters that come from TreeModels.
  * 
  * @author Andrew Cowie
- * @since 4.0.8
+ * @since 4.0.9
  */
 public class TextMark extends Object
 {
@@ -46,7 +46,7 @@ public class TextMark extends Object
     /**
      * Get the TextBuffer that this TextMark points into.
      * 
-     * @since 4.0.8
+     * @since 4.0.9
      */
     public TextBuffer getBuffer() {
         return GtkTextMark.getBuffer(this);
@@ -74,7 +74,7 @@ public class TextMark extends Object
      * more efficient to convert the TextMark into a TextIter once and use
      * that directly.
      * 
-     * @since 4.0.8
+     * @since 4.0.9
      */
     public TextIter getIter() {
         final TextIter pointer;

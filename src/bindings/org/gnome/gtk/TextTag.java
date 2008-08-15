@@ -47,7 +47,7 @@ import org.gnome.pango.Weight;
  * exposed it. In order to use a TextTag later just keep a reference to it.</i>
  * 
  * @author Andrew Cowie
- * @since 4.0.8
+ * @since 4.0.9
  */
 /*
  * This class is interesting and unusual in that there are no direct setter
@@ -65,7 +65,7 @@ public class TextTag extends Object
      * will be usable by a TextBuffer created with the
      * {@link TextBuffer#TextBuffer() no-arg} constructor.
      * 
-     * @since 4.0.8
+     * @since 4.0.9
      */
     public TextTag() {
         super(GtkTextTag.createTextTag(null));
@@ -80,7 +80,7 @@ public class TextTag extends Object
      * <i>In GTK you have to add TextTags to TextTagTables; we do this for you
      * automatically.</i>
      * 
-     * @since 4.0.8
+     * @since 4.0.9
      */
     public TextTag(TextTagTable table) {
         super(GtkTextTag.createTextTag(null));
@@ -93,7 +93,7 @@ public class TextTag extends Object
      * {@link org.gnome.pango.Scale#NORMAL NORMAL} (that is, a scaling factor
      * of <code>1.0</code> which thereby has no effect).
      * 
-     * @since 4.0.8
+     * @since 4.0.9
      */
     /*
      * Be aware in passing that this obscures the Scale in org.gnome.gtk
@@ -107,7 +107,7 @@ public class TextTag extends Object
      * pixels. Interestingly, this <i>can</i> be negative. The default is
      * <code>0</code>.
      * 
-     * @since 4.0.8
+     * @since 4.0.9
      */
     public void setIndent(int pixels) {
         setPropertyInteger("indent", pixels);
@@ -116,7 +116,7 @@ public class TextTag extends Object
     /**
      * Specify the left margin, in pixels. The default is <code>0</code>.
      * 
-     * @since 4.0.8
+     * @since 4.0.9
      */
     public void setLeftMargin(int pixels) {
         if (pixels < 0) {
@@ -128,7 +128,7 @@ public class TextTag extends Object
     /**
      * Specify the right margin, in pixels. The default is <code>0</code>.
      * 
-     * @since 4.0.8
+     * @since 4.0.9
      */
     public void setRightMargin(int pixels) {
         if (pixels < 0) {
@@ -141,7 +141,7 @@ public class TextTag extends Object
      * Specify the font weight. The useful one is {@link Weight#BOLD BOLD};
      * the default is {@link Weight#NORMAL NORMAL}.
      * 
-     * @since 4.0.8
+     * @since 4.0.9
      */
     public void setWeight(Weight weight) {
         setPropertyInteger("weight", GtkTextTagOverride.valueOf(weight));
@@ -152,7 +152,7 @@ public class TextTag extends Object
      * is {@link Underline#SINGLE SINGLE}. {@link Underline#NONE NONE} is the
      * default, obviously.
      * 
-     * @since 4.0.8
+     * @since 4.0.9
      */
     public void setUnderline(Underline underline) {
         setPropertyEnum("underline", underline);
@@ -161,7 +161,7 @@ public class TextTag extends Object
     /**
      * Specify that this text be rendered struck through.
      * 
-     * @since 4.0.8
+     * @since 4.0.9
      */
     public void setStrikethrough(boolean setting) {
         setPropertyBoolean("strikethrough", setting);
@@ -177,7 +177,7 @@ public class TextTag extends Object
      * <p>
      * The default is no explicit setting.
      * 
-     * @since 4.0.8
+     * @since 4.0.9
      */
     public void setBackground(String colour) {
         setPropertyString("background", colour);
@@ -205,7 +205,7 @@ public class TextTag extends Object
      * <p>
      * The default is no explicit setting.
      * 
-     * @since 4.0.8
+     * @since 4.0.9
      */
     public void setForeground(String colour) {
         setPropertyString("foreground", colour);
@@ -215,7 +215,7 @@ public class TextTag extends Object
      * Set whether the region of text covered by this TextTag is editable by
      * the user.
      * 
-     * @since 4.0.8
+     * @since 4.0.9
      */
     /*
      * FIXME The default is true what happens if a TextView is

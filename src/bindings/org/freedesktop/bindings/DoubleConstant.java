@@ -16,7 +16,7 @@ package org.freedesktop.bindings;
  * are of type <code>double</code>.
  * 
  * @author Andrew Cowie
- * @since 4.0.8
+ * @since 4.0.9
  * @see Constant
  */
 /*

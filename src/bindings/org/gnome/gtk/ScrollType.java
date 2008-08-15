@@ -25,7 +25,7 @@ import org.freedesktop.bindings.Constant;
  * Constants used to describe various scrolling actions.
  * 
  * @author Andrew Cowie
- * @since 4.0.8
+ * @since 4.0.9
  */
 /*
  * FIXME make constants public if and when they are needed and documented
