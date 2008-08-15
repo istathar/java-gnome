@@ -603,6 +603,66 @@ def generateTests():
 	compileTranslationCatalogues()
 
 
+#
+# Output the API documentation. Owing to the need to configure the standard
+# doclet on the command line, building up this expression is rather ulgy, and
+# not the place we'd like to see presentation stuff, all things considered.
+#
+# We also run the harness which takes screenshots of the Snapshot classes
+# which are used to illustrate our docs.
+#
+# The logic to have this rendered off screen is buggy at the moment, so you
+# need to let it run by itself and not take focus away. The code to execute it
+# is also somewhat fragile and still has a number of hard coded paths. As the
+# only person who actually has to run this is the maintainer uploading to the
+# website, this isn't a problem right now, but at some point we'll want to
+# consider having configure probe for the things that (disabled) code path
+# depends on.
+#
+
+def compileDocumentation():
+	cmd = config['JAVADOC'] + " "
+	if not verbose:
+		cmd += "-quiet "
+
+	cmd += "-d doc/api "
+	cmd += "-classpath tmp/bindings "
+	cmd += "-public "
+	cmd += "-nodeprecated "
+	cmd += "-source 1.5 "
+	cmd += "-notree "
+	cmd += "-noindex "
+	cmd += "-nohelp "
+	cmd += "-version "
+	cmd += "-author "
+	cmd += "-windowtitle 'java-gnome %s API Documentation' " % config['APIVERSION']
+	cmd += "-doctitle '<h1>java-gnome %s API Documentation</h1>' " % config['APIVERSION']
+	cmd += "-header 'java-gnome version %s' " % config['VERSION']
+	cmd += "-footer '<img src=\"/images/java-gnome_JavaDocLogo.png\" style=\"padding-right:25px;\"><br> <span style=\"font-family: Arial; font-style: normal; font-size: large;\">java-gnome</span>' "
+	cmd += "-breakiterator "
+	cmd += "-stylesheetfile src/bindings/stylesheet.css "
+	cmd += "-overview src/bindings/overview.html "
+	cmd += "-sourcepath src/bindings "
+	cmd += "-subpackages org "
+	if not verbose:
+		cmd += " >/dev/null"
+
+	executeCommand(config["JAVADOC_CMD"], "doc/api/*.html", cmd % config)
+
+
+def takeSnapshots():
+	runJavaClass("Harness", "tmp/gtk-4.0.jar:tmp/tests/", "tmp/")
+
+
+def generateDocumentation():
+	compileDocumentation()
+	takeSnapshots()
+
+#
+# Final miscallaneous execution targets, taking advantage of the fact that
+# we've got all this infrastructure to run Java code.
+#
+
 def runTests():
 	runJavaClass("UnitTests", "tmp/gtk-4.0.jar:tmp/generator/:tmp/tests/:"+config['JUNIT_JARS'], "tmp/")
 
@@ -611,35 +671,45 @@ def runDemo():
 
 
 #
-# preliminary setup
+# Preliminary setup & main entry point.
 #
 
 from sys import argv
 
+def main():
+	lockBuild()
+	loadConfig()
+	loadHashes()
+
+	generateBindings()
+
+	if len(argv) > 1:
+		generateTests()
+
+	unlockBuild()
+
+	if len(argv) == 1:
+		return
+
+	if sys.argv[1] == "doc":
+		generateDocumentation()
+
+	elif sys.argv[1] == "test":
+		runTests()
+
+	elif sys.argv[1] == "demo":
+		runDemo()
+
+
 if __name__ == '__main__':
+	if os.getenv("V"):
+		verbose = True
+	
+	if len(argv) > 1 and sys.argv[1] == "ide":
+		silent = True
+	
 	try:
-		if os.getenv("V"):
-			verbose = True
-	
-		if len(argv) > 1 and sys.argv[1] == "ide":
-			silent = True
-	
-		lockBuild()
-		loadConfig()
-		loadHashes()
-	
-		generateBindings()
-	
-		if len(argv) > 1:
-			generateTests()
-	
-		unlockBuild()
-	
-		if len(argv) > 1 and sys.argv[1] == "test":
-			runTests()
-	
-		if len(argv) > 1 and sys.argv[1] == "demo":
-			runDemo()
+		main()
 	except KeyboardInterrupt:
 		print
 
