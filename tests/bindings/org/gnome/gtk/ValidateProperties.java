@@ -265,7 +265,7 @@ public class ValidateProperties extends TestCaseGtk
 
         i = new Image(Stock.REFRESH, IconSize.LARGE_TOOLBAR);
 
-        data = new Pixbuf("web/public/images/java-gnome_LargeLogo.png");
+        data = new Pixbuf("src/bindings/java-gnome_Icon.png");
         i.setImage(data);
         i.clear();
     }
