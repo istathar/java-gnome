@@ -74,34 +74,8 @@ demo:
 # Documentation generation
 # --------------------------------------------------------------------
 
-ifdef V
-else
-JAVADOC:=$(JAVADOC) -quiet
-endif
-
 doc:
-	@echo "$(JAVADOC_CMD) doc/api/*.html"
-	$(JAVADOC) \
-		-d doc/api \
-		-classpath tmp/bindings \
-		-public \
-		-nodeprecated \
-		-source 1.5 \
-		-notree \
-		-noindex \
-		-nohelp \
-		-version \
-		-author \
-		-windowtitle "java-gnome $(APIVERSION) API Documentation" \
-		-doctitle "<h1>java-gnome $(APIVERSION) API Documentation</h1>" \
-		-header "java-gnome version $(VERSION)" \
-		-footer "<img src=\"/images/java-gnome_JavaDocLogo.png\" style=\"padding-right:25px;\"><br> <span style=\"font-family: Arial; font-style: normal; font-size: large;\">java-gnome</span>" \
-		-breakiterator \
-		-stylesheetfile src/bindings/stylesheet.css \
-		-overview src/bindings/overview.html \
-		-sourcepath src/bindings \
-		-subpackages org \
-		$(REDIRECT)
+	build/faster doc
 
 
 #
