@@ -139,6 +139,8 @@ sub check_system_library(\@$$@) {
 			$str .= "urpmi";
 		} elsif ($os eq "solaris") {
 			$str .= "pkgadd";
+		} elsif ($os eq "slackware") {
+			$str .= "FIXME";
 		} else {
 			$str .= "[FIXME fetch and install command for this OS]"; 
 		}
@@ -195,6 +197,8 @@ sub check_prereq (\@$$@) {
 			$str .= "urpmi";
 		} elsif ($os eq "solaris") {
 			$str .= "pkgadd";
+		} elsif ($os eq "slackware") {
+			$str .= "installpkg";
 		} else {
 			$str .= "[FIXME fetch and install command for this OS]"; 
 		}
@@ -616,6 +620,9 @@ if (( -f "/etc/gentoo-release" ) || ( -f "/etc/make.conf" )) {
 		output "Solaris";
 		$os = "solaris";
 	}
+} elsif ( -f "/etc/slackware-version" ) {
+	output "Slackware";
+	$os = "slackware";
 }
 
 if ($os) {
@@ -705,6 +712,14 @@ if ($os eq "gentoo") {
 		"junit",
 		"/usr/share/lib/java/junit.jar");
 
+} elsif ($os eq "slackware") {
+
+	check_prereq(@junit_jars,
+		"JUnit test framework",
+		"junit",
+		"/usr/share/java/junit.jar");
+
+	
 	
 } else {
 	bail "failed!", "This OS not configured with defaults!\nTHIS IS AN INTERNAL ERROR, PLEASE FILE A BUG.";
@@ -1150,6 +1165,49 @@ if ($os eq "gentoo") {
 	check_jar($jar, "$vendor jar", $jar_candidate, "");
 	check_javadoc($javadoc, "$vendor javadoc", $javadoc_candidate, "");
 
+} elsif ($os eq "slackware") {
+	# we can do much better than this, especially for java/javac.
+	# Should we just go with known paths, or...? `which` is so lame
+
+	# check ecj, the standalone Eclipse compiler.
+	check_compiler($ecj, "Eclipse ecj", which("ecj"), "-g -preserveAllLocals -nowarn -source 1.5 -target 1.5");
+
+	my $javac_candidate;
+	my $javah_candidate;
+	my $jar_candidate;
+	my $javadoc_candidate;
+	my $vendor;
+	if ($jdk_home) {
+		$javac_candidate = "$jdk_home/bin/javac";
+		$javah_candidate = "$jdk_home/bin/javah";
+		$jar_candidate = "$jdk_home/bin/jar";
+		$javadoc_candidate = "$jdk_home/bin/javadoc";
+		$vendor = "Specified";
+	} else {
+		$javac_candidate = "/usr/lib/java/bin/javac";
+		$javah_candidate = "/usr/lib/java/bin/javah";
+		$jar_candidate = "/usr/lib/java/bin/jar";
+		$javadoc_candidate = "/usr/lib/java/bin/javadoc";
+		$vendor = "Sun";
+	}
+	check_compiler($javac, "$vendor javac", $javac_candidate, "-g -source 1.5 -target 1.5");
+
+	# check for gcj
+	my $gcj_candidate;
+	if ($gcj_home) {
+		$gcj_candidate = "$gcj_home/bin/gcj";
+	} else {
+		$gcj_candidate = which("gcj");
+	}
+	check_compiler($gcjC, "GNU gcj -C (bytecode mode)", $gcj_candidate, "-C");
+
+	# check for kaffe's compiler
+	check_compiler($kaffec, "Kaffe javac", which("kaffec"), "");
+
+	check_jni_header_generator($javah, "$vendor javah", $javah_candidate, "-jni");
+	check_jar($jar, "$vendor jar", $jar_candidate, "");
+	check_javadoc($javadoc, "$vendor javadoc", $javadoc_candidate, "");
+
 } else {
 	bail "failed!", "This OS not configured with a workable Java compiler checks!\nTHIS IS AN INTERNAL ERROR, PLEASE FILE A BUG.";
 }
@@ -1484,6 +1542,49 @@ if ($os eq "gentoo") {
 
 	# check kaffe
 	check_runtime($kaffe, "kaffe VM", which("kaffe"), "");
+
+	# check jamvm (an elegant bytecode interpreter used by many in the
+	# CLASSPATH project to test new releases)
+	my $jamvm_candidate;
+	if ($jamvm_bin) {
+		$jamvm_candidate = "$jamvm_bin";
+	} else {
+		$jamvm_candidate = "/usr/bin/jamvm";
+	}
+	check_runtime($jamvm, "JamVM VM", $jamvm_candidate, "");
+
+	my $cacao_candidate;
+	if ($cacao_bin) {
+		$cacao_candidate = "$cacao_bin";
+	} else {
+		$cacao_candidate = "/usr/bin/cacao";
+	}
+	check_runtime($cacao, "CACAO VM", $cacao_candidate, "");
+
+} elsif ($os eq "slackware") {
+	# check for a proper JDK/JRE java Virtual Machine. 
+	my $java_candidate;
+	my $vendor;
+	if ($jdk_home) {
+		$java_candidate = "$jdk_home/bin/java";
+		$vendor = "Specified";
+	} else {
+		$java_candidate = "/usr/lib/java/bin/java";
+		$vendor = "Sun";
+	}
+	check_runtime($java, "$vendor java VM", $java_candidate, "-client -ea");
+
+	# check gij (the bytecode interpreter from the GCJ project)
+	my $gij_candidate;
+	if ($gcj_home) {
+		$gij_candidate = "$gcj_home/bin/gij";
+	} else {
+		$gij_candidate = which("gij");
+	}
+	check_runtime($gij, "GNU gij", $gij_candidate, "");
+
+	# check kaffe. See the comment about Kaffe above in the Debian block.
+	check_runtime($kaffe, "Kaffe VM", which("kaffe"), "");
 
 	# check jamvm (an elegant bytecode interpreter used by many in the
 	# CLASSPATH project to test new releases)
