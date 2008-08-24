@@ -440,4 +440,28 @@ public class ValidateTextBuffer extends TestCaseGtk
         assertEquals(1, tags.length);
         assertSame(bold, tags[0]);
     }
+
+    public void testTagsAtLocation() {
+        final TextBuffer buf;
+        final TextTag blue;
+        TextIter pointer;
+
+        buf = new TextBuffer();
+
+        blue = new TextTag();
+        blue.setForeground("blue");
+
+        pointer = buf.getIterStart();
+
+        buf.insert(pointer, "Hello ");
+        buf.insert(pointer, "World", blue);
+
+        pointer = buf.getIterStart();
+        assertEquals(0, pointer.getTags().length);
+
+        assertTrue(pointer.forwardChars(8));
+        assertTrue(pointer.insideWord());
+        assertEquals(1, pointer.getTags().length);
+        assertSame(blue, pointer.getTags()[0]);
+    }
 }

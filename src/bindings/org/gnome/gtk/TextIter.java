@@ -321,7 +321,8 @@ public final class TextIter extends Boxed
 
     /**
      * Return the {@link TextMark}s that exists at the location the TextIter
-     * points to.
+     * points to. If there are none present here then a zero length array will
+     * be returned.
      * 
      * @since 4.0.9
      */
@@ -391,7 +392,8 @@ public final class TextIter extends Boxed
     }
 
     /**
-     * Returns all TextTags that apply to the current position.
+     * Returns all TextTags that apply to the current position. If there are
+     * not any present here then a zero length array will be returned.
      * 
      * @since 4.0.9
      */
