@@ -74,16 +74,11 @@ Java_org_gnome_glib_GValue_g_1value_1free
 	value =	(GValue*) _value;
 	
 	/*
-	 * Not 100% sure that this is the correct place to do this, but
-	 * it seems that when you get a property with a GObject in it,
-	 * there is a ref count to that object from the GValue.
+	 * Although this function is mostly about resetting the GValue to
+	 * the blank state, it also has the effect of unref()'ing GObjects,
+	 * free()'ing NULL terminated strings, etc.
 	 */
-	if (G_VALUE_HOLDS_OBJECT(value)) {
-		object = g_value_get_object(value);
-		if (G_IS_OBJECT(object)) {
-			g_object_unref(object);
-		}
-	}
+	g_value_unset(value);
 
 	g_slice_free(GValue, value);
 }
