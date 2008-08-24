@@ -445,7 +445,7 @@ public class TextView extends Container
      * displayed by the TextView. <code>X</code>,<code>Y</code> are in
      * <var>buffer co-ordinates</var>; if you have a position into the
      * [org.gnome.gdk] Window then use
-     * {@link #convertWindowToBufferCoordsY(TextWindowType, int, int) convertWindowToBufferCoordsY()}
+     * {@link #convertWindowToBufferCoordsY(TextWindowType, int) convertWindowToBufferCoordsY()}
      * to convert.
      * 
      * @since 4.0.9

@@ -30,12 +30,12 @@ import org.gnome.glib.Boxed;
  * Quite a number of methods on TextIter allow you to move the location of the
  * pointer in the TextBuffer, including {@link #forwardLine() forwardLine()},
  * {@link #backwardChars(int) backwardChars()}, and many others. These are
- * both imperative commands and as well means of querying. The TreeIter will
- * attempt to move as requested, while the boolean return value of the call
- * will tell you <i>whether</i> the TreeIter changed location. This can be
- * used to ascertain your position in a logical sense or to limit loops.
- * Remeber, however, that (unless otherwise marked) any method which changes
- * the TextBuffer invalidates the TextIters pointing into it.
+ * both imperative commands and a means of querying. The TreeIter will attempt
+ * to move as requested, while the boolean return value of the call will tell
+ * you <i>whether</i> the TreeIter changed location. This can be used to
+ * ascertain your position in a logical sense or to limit loops. Remeber,
+ * however, that (unless otherwise marked) any method which changes the
+ * TextBuffer invalidates the TextIters pointing into it.
  * 
  * @author Stefan Prelle
  * @author Andrew Cowie
@@ -239,6 +239,13 @@ public final class TextIter extends Boxed
      * Bump this TextIter forward to the start of the next line. As a special
      * case, if you're already pointing at the last line of the TextBuffer,
      * then you will be moved to the end of the line.
+     * 
+     * <p>
+     * Keep in mind that a line in the TextBuffer may well be wrapped when
+     * displayed onscreen in a TextView as the several lines comprising a
+     * paragraph; to move forward such a displayed line (ie <i>within</i> a
+     * paragraph) use
+     * {@link #forwardDisplayLine(TextView) forwardDisplayLine()}.
      * 
      * @since 4.0.9
      */
@@ -612,5 +619,44 @@ public final class TextIter extends Boxed
      */
     public boolean forwardLines(int count) {
         return GtkTextIter.forwardLines(this, count);
+    }
+
+    /**
+     * Movie forward one <i>display</i> line within a paragraph as displayed
+     * in a TextView. A single line in a TextBuffer will be displayed as
+     * multiple lines (known to mere mortals as a "paragraph") in a TextView
+     * if word wrapping is enabled and something is acting to constrain the
+     * width of the TextView to less than the width of the lines.
+     * 
+     * <p>
+     * A given TextBuffer can be displayed by more than one TextView, so where
+     * the wrapping occurs is dependent on the width of that Widget, which is
+     * why you need to pass the view you are working in to this method.
+     * 
+     * <p>
+     * <i>In the native library this is a method on TextView; however, we have
+     * exposed it here so that it is in the same completion space as all the
+     * other</i> <code>forward...()</code> <i>methods available on
+     * TextIter.</i>
+     * 
+     * @return <code>true</code> if the location the TextIter points at was
+     *         changed; that is, if <code>pointer</code> is not yet at the
+     *         end of the underlying TextBuffer.
+     * @since 4.0.9
+     */
+    public boolean forwardDisplayLine(TextView view) {
+        return GtkTextView.forwardDisplayLine(view, this);
+    }
+
+    /**
+     * Move backward one <i>display</i> line within a paragraph as displayed
+     * in this TextView. This is the complement of
+     * {@link #forwardDisplayLine(TextView) forwardDisplayLine()}; see there
+     * for details.
+     * 
+     * @since 4.0.9
+     */
+    public boolean backwardDisplayLine(TextView view) {
+        return GtkTextView.backwardDisplayLine(view, this);
     }
 }

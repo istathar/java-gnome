@@ -647,6 +647,7 @@ TextComboBox
 TextComboBoxEntry
 TextDirection
 TextIter
+TextIter's
 TextIters
 TextMark
 TextMarks
@@ -1120,6 +1121,7 @@ forName
 foreach
 formatTime
 formatter
+forwardDisplayLine
 forwardLine
 foss
 freedesktop
@@ -1935,6 +1937,7 @@ sourceforge
 sourcepath
 src
 startsDisplayLine
+startsWord
 statusToString
 stepIncrement
 stockId

@@ -16,16 +16,92 @@ import org.gnome.glib.Object;
 
 import static org.gnome.gtk.TextTagTable.getDefaultTable;
 
-/*
- * FIXME this is a placeholder stub for what will become the public API for
- * this type. Replace this comment with appropriate javadoc including author
- * and since tags. Note that the class may need to be made abstract, implement
- * interfaces, or even have its parent changed. No API stability guarantees
- * are made about this class until it has been reviewed by a hacker and this
- * comment has been replaced.
- */
 /**
- * TODO
+ * A TextBuffer is a powerful mechanism for storing and manipulating text. It
+ * exists primarily to be the model that backs the view of one or more
+ * paragraphs as presented by the TextView Widget. Together, these make for a
+ * powerful text display and text editing capability, but it does come at the
+ * cost of considerable come complexity.
+ * 
+ * <p>
+ * Creating a TextBuffer is straight forward, as is placing text in it:
+ * 
+ * <pre>
+ * TextBuffer buffer;
+ * 
+ * buffer = new TextBuffer();
+ * buffer.setText(&quot;Hello world!&quot;);
+ * </pre>
+ * 
+ * Of course, you rarely just want to write an entire body of text in one go.
+ * To insert text in a more piecemeal fashion we use one of the
+ * <code>insert()</code> family of methods, but before we can do so, we need
+ * to indicate <i>where</i> we want to insert that text. This is the role of
+ * {@link TextIter} class.
+ * 
+ * <pre>
+ * TextIter pointer;
+ * 
+ * pointer = buffer.getIterStart();
+ * buffer.insert(pointer, &quot;This is the beginning&quot;);
+ * </pre>
+ * 
+ * Note that TextIters are not persistent; as soon as any change is made to
+ * the TextBuffer all TextIters are invalidated and you'll need to acquire new
+ * ones. If you need a stable reference to a particular position in the text,
+ * create a TextMark with {@link #createMark(TextIter, boolean) createMark()}.
+ * 
+ * <p>
+ * As you might expect, a TextBuffer has a notion of a cursor which indicates
+ * the (user's) current insertion point. You can get the TextMark representing
+ * the cursor, and can use it to insert text or otherwise manipulate a
+ * position by converting it to a valid TextIter:
+ * 
+ * <pre>
+ * TextMark cursor;
+ * 
+ * cursor = buffer.getInsert();
+ * ...
+ * pointer = cursor.getIter();
+ * buffer.insert(pointer, &quot;This text was inserted at the cursor&quot;);
+ * </pre>
+ * 
+ * The <code>insertAtCursor()</code> method is a shortcut for this.
+ * 
+ * <p>
+ * There are an incredibly wide range of methods available on the TextIter
+ * class for manipulating the position into the TextBuffer that it represents
+ * and for finding out more information about the nature of the text at that
+ * point. TextIter's {@link TextIter#forwardLine() forwardLine()} is one
+ * example; you could use it to count the non-empty lines in a TextBuffer:
+ * 
+ * <pre>
+ * pointer = buffer.getIterStart();
+ * i = 0;
+ * 
+ * while (pointer.forwardLine()) {
+ *     if (pointer.startsWord()) {
+ *         i++;
+ *     }
+ * }
+ * </pre>
+ * 
+ * Although trivial, this raises a pitfall you need to be aware of: lines of
+ * text in a TextBuffer are <i>not</i> the same as wrapped visible lines in a
+ * TextView. Lines in a TextBuffer are a sequences of characters separated by
+ * newlines (you don't need a <code>'\n'</code> at the end of the
+ * TextBuffer; the end is an implicit line termination). When presented in a
+ * TextView with word wrapping enabled, however, each of these lines may take
+ * up more than one line on the screen. The term paragraph is used there; see
+ * {@link TextIter#forwardDisplayLine(TextView) forwardDisplayLine()} to move
+ * a TextIter around within a paragraph on screen.
+ * 
+ * <p>
+ * Finally, formatting and other properties can be set on ranges of text. See
+ * {@link TextTag}. While these are mostly about visual presentation, they
+ * are nevertheless set by applying TextTags to text in the TextBuffer via the
+ * {@link #applyTag(TextTag, TextIter, TextIter) applyTag()} and
+ * {@link #insert(TextIter, String, TextTag) insert()} methods here.
  * 
  * <p>
  * <i>These APIs can be somewhat frustrating to use as the methods you need
@@ -113,13 +189,6 @@ public class TextBuffer extends Object
      * embedded images, so indexes into the returned string do not correspond
      * to indexes into the TextBuffer.
      * 
-     * @param start
-     *            Start of a range
-     * @param end
-     *            End of a range
-     * @param includeHidden
-     *            Whether to include invisible text
-     * @return The text of (the range of) the buffer.
      * @since 4.0.9
      */
     public String getText(TextIter start, TextIter end, boolean includeHidden) {
@@ -435,9 +504,7 @@ public class TextBuffer extends Object
     }
 
     /**
-     * Returns the number of characters in this buffer. Since non-character
-     * elements such as widgets use more than one byte, this may differ from
-     * the number of bytes.
+     * Returns the number of characters in this buffer.
      * 
      * @since 4.0.9
      */

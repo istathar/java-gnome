@@ -20,7 +20,10 @@ pre {
 	padding-bottom: 0px;
 	margin-bottom: 0px;
 }
-	
+
+var {
+	color: green;
+}
 
 /*
  * The remainder of this file is verbatim from the default JavaDoc stylesheet.
