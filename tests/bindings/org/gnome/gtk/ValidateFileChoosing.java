@@ -64,7 +64,7 @@ public class ValidateFileChoosing extends TestCaseGtk
         final FileChooserDialog fcd;
         final FileChooserButton fcb;
 
-        assertEquals("/etc/passwd", new File("/etc/init.d/../passwd").getCanonicalPath());
+        assertEquals("/etc/passwd", new File("/etc/../etc/passwd").getCanonicalPath());
 
         fcd = new FileChooserDialog("", null, FileChooserAction.OPEN);
         fcd.setCurrentFolder("/etc");
