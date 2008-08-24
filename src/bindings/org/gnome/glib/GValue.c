@@ -69,21 +69,15 @@ Java_org_gnome_glib_GValue_g_1value_1free
 )
 {
 	GValue* value;
-	GObject* object;
 		
 	value =	(GValue*) _value;
 	
 	/*
-	 * Not 100% sure that this is the correct place to do this, but
-	 * it seems that when you get a property with a GObject in it,
-	 * there is a ref count to that object from the GValue.
+	 * Although this function is mostly about resetting the GValue to
+	 * the blank state, it also has the effect of unref()'ing GObjects,
+	 * free()'ing NULL terminated strings, etc.
 	 */
-	if (G_VALUE_HOLDS_OBJECT(value)) {
-		object = g_value_get_object(value);
-		if (G_IS_OBJECT(object)) {
-			g_object_unref(object);
-		}
-	}
+	g_value_unset(value);
 
 	g_slice_free(GValue, value);
 }
@@ -135,16 +129,16 @@ Java_org_gnome_glib_GValue_g_1value_1init__I
 {
 	gint32 i;
 	GValue* value;
-	
+
 	// translate arg
 	i = (gint32) _i;
-		
+
 	// allocate it and set to zeros, per what g_value_init requires
 	value =	g_slice_new0(GValue);
 	g_value_init(value, G_TYPE_INT);
-	
+
 	// set the value
-	g_value_set_int(value, i); 
+	g_value_set_int(value, i);
 
 	// return address
 	return (jlong) value;
@@ -169,16 +163,16 @@ Java_org_gnome_glib_GValue_g_1value_1init__J
 {
 	gint64 j;
 	GValue* value;
-	
+
 	// translate arg
 	j = (gint64) _j;
-		
+
 	// allocate it and set to zeros, per what g_value_init requires
 	value =	g_slice_new0(GValue);
 	g_value_init(value, G_TYPE_INT64);
-	
+
 	// set the value
-	g_value_set_int64(value, j); 
+	g_value_set_int64(value, j);
 
 	// return address
 	return (jlong) value;
@@ -206,13 +200,13 @@ Java_org_gnome_glib_GValue_g_1value_1init__Z
 	GValue* value;
 	
 	b = (gboolean) _b;
-		
+
 	// allocate it and set to zeros, per what g_value_init requires
 	value =	g_slice_new0(GValue);
 	g_value_init(value, G_TYPE_BOOLEAN);
-	
+
 	// set the value
-	g_value_set_boolean(value, b); 
+	g_value_set_boolean(value, b);
 
 	// return address
 	return (jlong) value;
@@ -243,9 +237,9 @@ Java_org_gnome_glib_GValue_g_1value_1init__F
 	// allocate it and set to zeros, per what g_value_init requires
 	value =	g_slice_new0(GValue);
 	g_value_init(value, G_TYPE_FLOAT);
-	
+
 	// set the value
-	g_value_set_float(value, f); 
+	g_value_set_float(value, f);
 
 	// return address
 	return (jlong) value;
@@ -272,13 +266,13 @@ Java_org_gnome_glib_GValue_g_1value_1init__D
 	GValue* value;
 	
 	d = (gdouble) _d;
-		
+
 	// allocate it and set to zeros, per what g_value_init requires
 	value =	g_slice_new0(GValue);
 	g_value_init(value, G_TYPE_DOUBLE);
-	
+
 	// set the value
-	g_value_set_double(value, d); 
+	g_value_set_double(value, d);
 
 	// return address
 	return (jlong) value;
@@ -303,19 +297,19 @@ Java_org_gnome_glib_GValue_g_1value_1init__Ljava_lang_String_2
 {
 	gchar* str;
 	GValue* value;
-	
+
 	// translate
 	str = (gchar*) (*env)->GetStringUTFChars(env, _str, NULL);
 	if (str == NULL) {
 		return 0; /* OutOfMemoryError already thrown */
 	}
-	
+
 	// allocate and set to zeros, per what g_value_init requires
 	value =	g_slice_new0(GValue);
 	g_value_init(value, G_TYPE_STRING);
 
 	// set the value
-	g_value_set_string(value, str); 
+	g_value_set_string(value, str);
 
 	// clean up
 	(*env)->ReleaseStringUTFChars(env, _str, str);
@@ -347,7 +341,7 @@ Java_org_gnome_glib_GValue_g_1value_1init_1object
 	
 	// translate obj
 	obj = (GObject*) _obj;
-	
+
 	// allocate and set to zeros, per what g_value_init requires
 	value =	g_slice_new0(GValue);
 	g_value_init(value, G_TYPE_OBJECT);
@@ -476,10 +470,10 @@ Java_org_gnome_glib_GValue_g_1value_1get_1float
 		bindings_java_throw(env, "You've asked for the float value of a GValue, but it's not a G_TYPE_FLOAT!");
 		return 0.0f;
 	}
-	
+
 	// call function
 	result = g_value_get_float(value);
-	
+
 	// and return
 	return (jfloat) result; 
 }
@@ -512,7 +506,7 @@ Java_org_gnome_glib_GValue_g_1value_1get_1double
 		bindings_java_throw(env, "You've asked for the double value of a GValue, but it's not a G_TYPE_DOUBLE!");
 		return 0.0;
 	}
-	
+
 	// call function
 	result = g_value_get_double(value);
 	
@@ -537,7 +531,7 @@ Java_org_gnome_glib_GValue_g_1value_1get_1int
 		bindings_java_throw(env, "You've asked for the int value of a GValue, but it's not a G_TYPE_INT!");
 		return 0;
 	}
-	
+
 	// call function
 	result = g_value_get_int(value);
 	
@@ -562,10 +556,10 @@ Java_org_gnome_glib_GValue_g_1value_1get_1long
 		bindings_java_throw(env, "You've asked for the long value of a GValue, but it's not a G_TYPE_INT64!");
 		return 0;
 	}
-	
+
 	// call function
 	result = g_value_get_int64(value);
-	
+
 	// and return
 	return (jlong) result;
 }
@@ -588,10 +582,10 @@ Java_org_gnome_glib_GValue_g_1value_1get_1boolean
 		bindings_java_throw(env, "You've asked for the boolean value of a GValue, but it's not a G_TYPE_BOOLEAN!");
 		return 0;
 	}
-	
+
 	// call function
 	result = g_value_get_boolean(value);
-	
+
 	// and return
 	return (jboolean) result; 
 }
@@ -624,9 +618,9 @@ Java_org_gnome_glib_GValue_g_1value_1get_1string
 		bindings_java_throw(env, "You've asked for the string value of a GValue, but it's not a G_TYPE_STRING!");
 		return NULL;
 	}
-	
+
 	// call function
-	str = g_value_get_string(value); 
+	str = g_value_get_string(value);
 
 	// and return	
 	return (*env)->NewStringUTF(env, str);
@@ -659,9 +653,9 @@ Java_org_gnome_glib_GValue_g_1value_1get_1enum
 		bindings_java_throw(env, "You've asked for the ordinal value of a GValue, but it's not a G_TYPE_ENUM!");
 		return 0;
 	}
-	
+
 	// call function
-	num = g_value_get_enum(value); 
+	num = g_value_get_enum(value);
 
 	// and return	
 	return (jint) num;
@@ -694,7 +688,7 @@ Java_org_gnome_glib_GValue_g_1value_1get_1flags
 		bindings_java_throw(env, "You've asked for the flags ordinal value of a GValue, but it's not a G_TYPE_FLAGS!");
 		return 0;
 	}
-	
+
 	// call function
 	num = g_value_get_flags(value); 
 

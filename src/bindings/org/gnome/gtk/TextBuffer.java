@@ -116,12 +116,11 @@ public class TextBuffer extends Object
     }
 
     /**
-     * Returns the text in the TextBuffer. This is merely a convenience
-     * function that calls {@link #getText(TextIter, TextIter, boolean)} from
-     * buffer start to end with <code>includeHidden</code> being
-     * <code>true</code>.
+     * Returns the text in the TextBuffer in its entirety. This is merely a
+     * convenience function that calls
+     * {@link #getText(TextIter, TextIter, boolean)} from buffer start to end
+     * with <code>includeHidden</code> being <code>true</code>.
      * 
-     * @return The complete text in the TextBuffer.
      * @since 4.0.9
      */
     public String getText() {

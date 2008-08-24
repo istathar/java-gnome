@@ -11,12 +11,12 @@
  */
 package org.gnome.gtk;
 
-import static org.gnome.gtk.TextTagTable.getDefaultTable;
-
 import org.gnome.glib.Object;
 import org.gnome.pango.Scale;
 import org.gnome.pango.Underline;
 import org.gnome.pango.Weight;
+
+import static org.gnome.gtk.TextTagTable.getDefaultTable;
 
 /*
  * FIXME this is a placeholder stub for what will become the public API for
@@ -77,8 +77,8 @@ public class TextTag extends Object
      * TextTag as the argument to the constructor.
      * 
      * <p>
-     * <i>In GTK you have to add TextTags to TextTagTables; we do this for you
-     * automatically.</i>
+     * <i>In native GTK you have to add TextTags to TextTagTables; we do this
+     * for you automatically.</i>
      * 
      * @since 4.0.9
      */
