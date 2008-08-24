@@ -13,16 +13,10 @@ package org.gnome.pango;
 
 import org.freedesktop.bindings.DoubleConstant;
 
-/*
- * FIXME this is a placeholder stub for what will become the public API for
- * this type. Replace this comment with appropriate javadoc including author
- * and since tags. Note that the class may need to be made abstract, implement
- * interfaces, or even have its parent changed. No API stability guarantees
- * are made about this class until it has been reviewed by a hacker and this
- * comment has been replaced.
- */
 /**
- * ... scale constants ...
+ * Constants use to scale text by an amount relative to that around it. This
+ * is used when specifying text size with TextTag's
+ * {@link org.gnome.gtk.TextTag#setScale(Scale) setScale()}.
  * 
  * <p>
  * The default, such as it is, is {@link #NORMAL NORMAL} which represents a
