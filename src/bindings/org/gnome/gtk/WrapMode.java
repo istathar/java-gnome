@@ -13,13 +13,14 @@ package org.gnome.gtk;
 
 import org.freedesktop.bindings.Constant;
 
-/*
- * FIXME this is a placeholder stub for what will become the public API for
- * this type. Replace this comment with appropriate javadoc including author
- * and since tags. Note that the class may need to be made abstract, implement
- * interfaces, or even have its parent changed. No API stability guarantees
- * are made about this class until it has been reviewed by a hacker and this
- * comment has been replaced.
+/**
+ * Indicate if you want a TextView to wrap, and if so, where it should break
+ * lines. These constants are used with TextView's
+ * {@link TextView#setWrapMode(WrapMode) setWrapMode()} method.
+ * 
+ * @author Stefan Prelle
+ * @author Andrew Cowie
+ * @since 4.0.9
  */
 public final class WrapMode extends Constant
 {
@@ -28,7 +29,9 @@ public final class WrapMode extends Constant
     }
 
     /**
-     * Do not wrap lines; just make the text area wider
+     * Do not wrap lines; attempt to make the TextView as wide as the widest
+     * line in the underlying TextBuffer; lines will be truncated if they are
+     * longer than the width allocated to the TextView.
      */
     public static final WrapMode NONE = new WrapMode(GtkWrapMode.NONE, "NONE");
 
@@ -39,13 +42,17 @@ public final class WrapMode extends Constant
     public static final WrapMode CHAR = new WrapMode(GtkWrapMode.CHAR, "CHAR");
 
     /**
-     * Wrap text, breaking lines in between words
+     * Wrap text, breaking lines in between words. This is usually the one you
+     * want if you are trying to enable word wrapping, but keep in mind that
+     * something <i>also</i> has to act to constrain the width of the
+     * TextView as it is packed into a Container hierarchy or no wrapping will
+     * occur.
      */
     public static final WrapMode WORD = new WrapMode(GtkWrapMode.WORD, "WORD");
 
     /**
      * Wrap text, breaking lines in between words, or if that is not enough,
-     * also between graphemes.
+     * also between graphemes. FIXME What is a grapheme?
      */
     public static final WrapMode WORD_CHAR = new WrapMode(GtkWrapMode.WORD_CHAR, "WORD_CHAR");
 
