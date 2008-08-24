@@ -25,13 +25,12 @@ import org.freedesktop.bindings.Constant;
  * Constants used to describe various scrolling actions.
  * 
  * @author Andrew Cowie
- * @since 4.0.9
  */
 /*
  * FIXME make constants public if and when they are needed and documented
  * accordingly.
  */
-public final class ScrollType extends Constant
+final class ScrollType extends Constant
 {
     private ScrollType(int ordinal, String nickname) {
         super(ordinal, nickname);
