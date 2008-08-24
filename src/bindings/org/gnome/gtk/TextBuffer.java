@@ -76,12 +76,15 @@ import static org.gnome.gtk.TextTagTable.getDefaultTable;
  * example; you could use it to count the non-empty lines in a TextBuffer:
  * 
  * <pre>
+ * int paragraphs;
+ * ...
+ * 
  * pointer = buffer.getIterStart();
- * i = 0;
+ * paragraphs = 0;
  * 
  * while (pointer.forwardLine()) {
  *     if (pointer.startsWord()) {
- *         i++;
+ *         paragraphs++;
  *     }
  * }
  * </pre>
@@ -94,7 +97,8 @@ import static org.gnome.gtk.TextTagTable.getDefaultTable;
  * TextView with word wrapping enabled, however, each of these lines may take
  * up more than one line on the screen. The term paragraph is used there; see
  * {@link TextIter#forwardDisplayLine(TextView) forwardDisplayLine()} to move
- * a TextIter around within a paragraph on screen.
+ * a TextIter to the next displayed line within a paragraph as shown on screen
+ * in a TextView.
  * 
  * <p>
  * Finally, formatting and other properties can be set on ranges of text. See

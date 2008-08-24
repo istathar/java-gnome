@@ -18,7 +18,7 @@ import org.gnome.glib.Object;
  * 
  * <p>
  * TextIters are transient pointers to positions within TextBuffers which are
- * invalidated when that TextBuffer is modified, so you can't "save" them. If
+ * invalidated when their TextBuffer is modified, so you can't "save" them. If
  * you need to preserve a position for later reuse, then get a TextMark by
  * calling TextBuffer's
  * {@link TextBuffer#createMark(TextIter, boolean) createMark()} on it.
@@ -66,7 +66,7 @@ public class TextMark extends Object
      * some sort, you could easily do:
      * 
      * <pre>
-     * buf.applyTag(bold, start.getIter(), end.getIter());
+     * buffer.applyTag(bold, start.getIter(), end.getIter());
      * </pre>
      * 
      * which is very straight forward. If you are using the same position
