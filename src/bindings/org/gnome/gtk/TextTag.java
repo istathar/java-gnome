@@ -27,24 +27,77 @@ import static org.gnome.gtk.TextTagTable.getDefaultTable;
  * comment has been replaced.
  */
 /**
- * ... markup and formatting for regions of text in a TextBuffer ...
+ * TextTags are used to apply markup and formatting for regions of text in a
+ * TextBuffer.
  * 
  * <p>
  * All TextTags belong to a TextTagTable, and likewise all TextBuffers are
  * constructed by specifying the TextTagTable that it will draw tags from.
  * That said, if you don't mind sharing your TextTags between all TextBuffers
  * in your application, then you can use the no-arg convenience constructors
- * here and in TextBuffer.
+ * here and in TextBuffer. We will in all our examples.
  * 
  * <p>
- * If you want to know what TextTags are applying at a given spot in a
- * TextBuffer, then get a TextIter pointing there and use its
+ * You can create a new and unique TextTag every time you go to apply
+ * formatting, but in general you'll want to reuse them and that will be more
+ * efficient. Given:
+ * 
+ * <pre>
+ * TextTag bold;
+ * TextBuffer buffer;
+ * TextIter start, end, pointer;
+ * ...
+ * </pre>
+ * 
+ * and assuming the TextBuffer was created with the no-arg constructor, create
+ * a TextTag and apply some formatting:
+ * 
+ * <pre>
+ * bold = new TextTag();
+ * bold.setWeight(Weight.BOLD);
+ * ...
+ * </pre>
+ * 
+ * As you will see, there are any number of properties and font
+ * characteristics that can be applied with a tag. See the setter methods on
+ * this class for all the current possibilities.
+ * 
+ * <p>
+ * Now, to make use of the tag, you'll call TextBuffer's
+ * {@link TextBuffer#applyTag(TextTag, TextIter, TextIter) applyTag()}. It
+ * needs a pair of TextIters to delineate the range you want to apply the
+ * TextTag to. You could, for example, react to the currently selected region:
+ * 
+ * <pre>
+ * start = buffer.getSelectionBound().getIter();
+ * end = buffer.getInsert().getIter();
+ * </pre>
+ * 
+ * And now apply your tag:
+ * 
+ * <pre>
+ * buffer.applyTag(bold, start, end);
+ * </pre>
+ * 
+ * As an alternative, you can apply a TextTag when
+ * {@link TextBuffer#insert(TextIter, String, TextTag) insert()}ing text:
+ * 
+ * <pre>
+ * buffer.insert(pointer, &quot;Hello World&quot;, bold);
+ * </pre>
+ * 
+ * Either way, going forward, you've now got <code>bold</code> which you can
+ * apply on other regions of your TextBuffer.
+ * 
+ * <p>
+ * Finally, if you want to know what TextTags are applying at a given spot in
+ * a TextBuffer, then get a TextIter pointing there and use its
  * {@link TextIter#getTags() getTags()} method.
  * 
  * <p>
  * <i>All TextTags created in java-gnome are "anonymous"; the underlying
  * library has a notion of named tags but we have no need of this and have not
- * exposed it. In order to use a TextTag later just keep a reference to it.</i>
+ * exposed it. In order to reuse a TextTag later just keep a reference to it.</i>
  * 
  * @author Andrew Cowie
  * @since 4.0.9

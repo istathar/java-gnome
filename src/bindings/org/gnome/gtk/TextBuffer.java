@@ -27,6 +27,17 @@ import static org.gnome.gtk.TextTagTable.getDefaultTable;
 /**
  * TODO
  * 
+ * <p>
+ * <i>These APIs can be somewhat frustrating to use as the methods you need
+ * (relative to the order you need them in) tend to be scattered around
+ * between TextView, TextBuffer, and TextIter. It was tempting to try and
+ * normalize these to a common interface, but in the end we deferred to being
+ * faithful to the placement of methods in the underlying library's classes.
+ * We have done our best to cross reference our documentation to help you find
+ * the "next" logical element when you need it, but if you find yourself
+ * struggling to find something and think this documentation could benefit
+ * from another such pointer, please feel free to suggest it.</i>
+ * 
  * @author Andrew Cowie
  * @author Stefan Prelle
  * @since 4.0.9
