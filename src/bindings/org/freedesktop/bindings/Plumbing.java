@@ -115,7 +115,7 @@ public abstract class Plumbing
 
     /**
      * Get the memory address which is the location of the Object or Structure
-     * that a given Proxy represents. That doesn't mean anything on the Java
+     * that a given Pointer represents. That doesn't mean anything on the Java
      * side so don't try to interpret it - it's for use by the translation
      * layer as they marshal objects through to the native layer.
      * 
@@ -124,21 +124,21 @@ public abstract class Plumbing
     /*
      * We go to considerable effort to keep this method out of the visibility
      * of public users which is why translation layer code subclass this
-     * org.freedesktop.bindings.Pluming which has package visibility of Proxy
+     * org.freedesktop.bindings.Pluming which has package visibility of Pointer
      * and Constant. Even more, there's nothing we can do about this being
      * protected, so we choose a method name other than getPointer() to keep
      * it totally of out of view from get<COMPLETE>.
      */
-    protected static final long pointerOf(Proxy reference) {
+    protected static final long pointerOf(Pointer reference) {
         return reference == null ? 0L : reference.pointer;
     }
 
     /**
-     * Like {@link #pointerOf(Proxy)}, but acts over an array of Proxys.
+     * Like {@link #pointerOf(Pointer)}, but acts over an array of Pointers.
      * 
      * @return opaque data to be passed to native methods only.
      */
-    protected static final long[] pointersOf(Proxy[] references) {
+    protected static final long[] pointersOf(Pointer[] references) {
         if (references == null) {
             return null;
         }
