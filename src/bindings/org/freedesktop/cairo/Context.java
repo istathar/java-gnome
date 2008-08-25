@@ -238,7 +238,7 @@ public class Context extends Entity
         result = CairoContext.getSource(this);
         checkStatus();
 
-        return result;
+        return CairoPattern.reference(result);
     }
 
     /**
