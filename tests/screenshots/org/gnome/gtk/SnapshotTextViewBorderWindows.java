@@ -1,5 +1,5 @@
 /*
- * SnapshotTreeStore.java
+ * SnapshotTextViewBorderWindows.java
  *
  * Copyright (c) 2008 Operational Dynamics Consulting Pty Ltd
  * 

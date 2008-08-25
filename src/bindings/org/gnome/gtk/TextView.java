@@ -14,7 +14,70 @@ package org.gnome.gtk;
 import org.gnome.gdk.Rectangle;
 
 /**
- * FIXME
+ * A multi-line text display Widget. <img class="snapshot" src="TextView.png">
+ * 
+ * GTK leverages the powerful text rendering capability provided by the Pango
+ * library. This is used throughout the toolkit, but nowhere more so that when
+ * displaying multiple lines of text in a single Widget. TextView is the view
+ * part of GTK's model-view-controller pattern text display Widget, with a
+ * {@link TextBuffer} supplying the underlying data model.
+ * 
+ * <p>
+ * TextView can be used for passive display of multiple lines of text by
+ * disabling the <var>editable</var> property. Usually, however, a text
+ * canvas is used for entering or editing text and the TextView/TextBuffer
+ * APIs combine to provide a powerful editing capability.
+ * 
+ * <h2>Usage</h2>
+ * 
+ * Having instantiated a TextBuffer to store and programmatically manipulate
+ * the text, you create a TextView as follows:
+ * 
+ * <pre>
+ * TextBuffer buffer;
+ * TextView view;
+ * ScrolledWindow scroll;
+ * ...
+ * 
+ * view = new TextView(buffer);
+ * </pre>
+ * 
+ * Most people want the text to wrap. This is enabled by setting a WrapMode
+ * but something must act to restrain the horizontal width of the TextView
+ * Widget as it will size-request as much space as would be needed to render a
+ * single line. Likewise, wrapping is usually combined with scrolling, and
+ * this can be set up in a fairly straight forward fashion:
+ * 
+ * <pre>
+ * view.setWrapMode(WrapMode.WORD);
+ * 
+ * scroll = new ScrolledWindow();
+ * scroll.setPolicy(PolicyType.NEVER, PolicyType.ALWAYS);
+ * scroll.add(view);
+ * ...
+ * 
+ * window.setDefaultSize(300,700);
+ * </pre>
+ * 
+ * then packing the ScrolledWindow into a parent Container hierarchy. In
+ * example shown here the call to <code>setDefaultSize()</code> on the
+ * toplevel would constrain the overall Window size, forcing a narrow
+ * size-allocation on the TextView.
+ * 
+ * <p>
+ * As with TextBuffer, TextIters are the mechanism used to point to locations
+ * within the displayed text. There are numerous methods here on TextView
+ * which manipulate the displayed view (for example
+ * {@link #scrollTo(TextIter) scrollTo()} and
+ * {@link #getLineY(TextIter) getLineY()}) many of which take a TextIter as
+ * an indicator of position. Don't be confused that the TextIters are somehow
+ * different depending on their source; they <i>always</i> refer to a
+ * position in a TextBuffer but are often translated to <i>also</i> refer to
+ * a screen position in the TextView. You will often find yourself getting a
+ * TextIter from the TextBuffer (perhaps in response to a TextBuffer.Changed
+ * or TextBuffer.InsertText emission) and then switching over to here and
+ * calling TextView methods - and then going back to TextBuffer again a moment
+ * later.
  * 
  * <a name="height"></a>
  * <h2>Line height calculations</h2>
@@ -217,7 +280,7 @@ public class TextView extends Container
      * TextView can be displaying a given TextBuffer, but a Widget can only
      * appear in one parent Container.</i>
      * 
-     * @since 4.0.9
+     * @since <span style="color:red">unstable</span>
      */
     /*
      * WARNING Signature subject to conversion to an overload if another
@@ -257,6 +320,12 @@ public class TextView extends Container
      * This cannot be used unless <code>which</code> has been initialized to
      * have a non-zero size with
      * {@link #setBorderWindowSize(TextWindowType, int) setBorderWindowSize()}.
+     * 
+     * <p>
+     * <b>WARNING</b><br>
+     * <i>This feature seems somewhat poorly implemented in the underlying
+     * library. While we have fully exposed it, testing showed it to be rather
+     * difficult to use reliably. Sorry we can't do better for you.</i>
      * 
      * @since 4.0.9
      */
@@ -511,9 +580,9 @@ public class TextView extends Container
     }
 
     /**
-     * Move the cursor (ie, <var>insert</var> mark in the current source
-     * TextBuffer) so that is is showing somewhere in the section of text
-     * currently displayed in the viewport.
+     * Move the cursor (ie, the <var>insert</var> TextMark in the current
+     * source TextBuffer) so that is is showing somewhere in the section of
+     * text currently displayed in the viewport.
      * 
      * @since 4.0.9
      */

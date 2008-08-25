@@ -29,6 +29,7 @@ import org.gnome.gtk.SnapshotRadioButton;
 import org.gnome.gtk.SnapshotStatusbar;
 import org.gnome.gtk.SnapshotTextComboBox;
 import org.gnome.gtk.SnapshotTextComboBoxEntry;
+import org.gnome.gtk.SnapshotTextView;
 import org.gnome.gtk.SnapshotTextViewBorderWindows;
 import org.gnome.gtk.SnapshotTreeStore;
 import org.gnome.gtk.SnapshotTreeView;
@@ -134,6 +135,7 @@ public final class Harness
                     SnapshotTextComboBox.class,
                     SnapshotTextComboBoxEntry.class,
                     SnapshotContextLine.class,
+                    SnapshotTextView.class,
                     SnapshotTextViewBorderWindows.class,
                     SnapshotContextRectangle.class
             };

@@ -19,11 +19,12 @@ import static org.gnome.gtk.TextTagTable.getDefaultTable;
 /**
  * A TextBuffer is a powerful mechanism for storing and manipulating text. It
  * exists primarily to be the model that backs the view of one or more
- * paragraphs as presented by the TextView Widget. Together, these make for a
- * powerful text display and text editing capability, but it does come at the
- * cost of considerable come complexity.
+ * paragraphs as presented by the {@link TextView} Widget. Together, these
+ * make for a powerful text display and text editing capability, but it does
+ * come at the cost of considerable come complexity.
  * 
- * <p>
+ * <h2>Usage</h2>
+ * 
  * Creating a TextBuffer is straight forward, as is placing text in it:
  * 
  * <pre>
