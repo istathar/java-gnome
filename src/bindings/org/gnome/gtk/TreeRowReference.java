@@ -58,7 +58,7 @@ public final class TreeRowReference extends Boxed
         super(GtkTreeRowReference.createTreeRowReference(model, path));
     }
 
-    protected void release() {
+    protected void free() {
         GtkTreeRowReference.free(this);
     }
 

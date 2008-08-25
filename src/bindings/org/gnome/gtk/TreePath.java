@@ -73,7 +73,7 @@ public final class TreePath extends Boxed
         return pointer;
     }
 
-    protected void release() {
+    protected void free() {
         GtkTreePath.free(this);
     }
 

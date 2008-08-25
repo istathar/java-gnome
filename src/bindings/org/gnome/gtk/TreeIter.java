@@ -88,7 +88,7 @@ public class TreeIter extends Boxed
         return model;
     }
 
-    protected void release() {
+    protected void free() {
         model = null;
         GtkTreeIter.free(this);
     }

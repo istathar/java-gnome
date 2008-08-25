@@ -62,7 +62,7 @@ public final class Allocation extends Boxed
         super(pointer);
     }
 
-    protected void release() {
+    protected void free() {
         widget = null;
     }
 

@@ -80,7 +80,7 @@ public final class Cursor extends Boxed
         super(GdkCursor.createCursor(type));
     }
 
-    protected void release() {
+    protected void free() {
         GdkCursor.unref(this);
     }
 }

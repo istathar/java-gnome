@@ -33,7 +33,7 @@ public abstract class Event extends Boxed
         super(pointer);
     }
 
-    protected void release() {
+    protected void free() {
         GdkEvent.free(this);
     }
 

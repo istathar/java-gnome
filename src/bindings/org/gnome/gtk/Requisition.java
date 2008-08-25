@@ -72,7 +72,7 @@ public final class Requisition extends Boxed
         super(pointer);
     }
 
-    protected void release() {
+    protected void free() {
         widget = null;
     }
 

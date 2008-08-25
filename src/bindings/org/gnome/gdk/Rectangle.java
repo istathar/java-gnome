@@ -46,7 +46,7 @@ public final class Rectangle extends Boxed
         super(GdkRectangleOverride.createRectangle(x, y, width, height));
     }
 
-    protected void release() {
+    protected void free() {
         GdkRectangleOverride.free(this);
     }
 

@@ -19,6 +19,7 @@ package org.freedesktop.bindings;
  * <i><b>This is implementation, and you will never need to use it directly</b></i>
  * 
  * @author Andrew Cowie
+ * @author Vreixo Formoso
  * @since 4.0.0
  */
 /*
@@ -65,6 +66,7 @@ public abstract class Proxy
      * necessary, irrespective of the finalizer technique used.
      */
     protected void finalize() {
+        release();
         Plumbing.unregisterProxy(this);
     }
 

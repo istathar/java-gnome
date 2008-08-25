@@ -27,9 +27,9 @@ public final class GlyphInfo extends Boxed
         super(pointer);
     }
 
-    protected void release() {
+    protected void free() {
         /*
-         * FIXME This class's release() method must be implemented to call the
+         * FIXME This class's free() method must be implemented to call the
          * correct free() or unref() function before it can be used.
          */
         throw new UnsupportedOperationException("Not yet implemented");

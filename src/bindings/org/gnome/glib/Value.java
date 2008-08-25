@@ -64,19 +64,6 @@ public class Value extends Proxy
     }
 
     /**
-     * Call the release() method to free the GValue, then carry on to
-     * {@link org.freedesktop.bindings.Proxy#finalize() Proxy's finalize()}.
-     */
-    /*
-     * This is a placeholder to remind us of the cleanup actions that will be
-     * necessary, irrespective of the finalizer technique used.
-     */
-    protected void finalize() {
-        release();
-        super.finalize();
-    }
-
-    /**
      * By design, we are the owner of all the GValues because we allocate the
      * memory for them in (for example) the native implementation of
      * {@link GValue#createValue(int)}. So, call <code>g_slice_free()</code>

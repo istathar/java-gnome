@@ -40,7 +40,7 @@ public final class Color extends Boxed
         super(GdkColorOverride.createColor(red, green, blue));
     }
 
-    protected void release() {
+    protected void free() {
         GdkColor.free(this);
     }
 
