@@ -61,11 +61,11 @@ public class BoxedGenerator extends TypeGenerator
 
         out.print("\n");
         out.print("    ");
-        out.print("protected void release() {\n");
+        out.print("protected void free() {\n");
         out.print("        ");
         out.print("/*\n");
         out.print("        ");
-        out.print(" * FIXME This class's release() method must be implemented to call\n");
+        out.print(" * FIXME This class's free() method must be implemented to call\n");
         out.print("        ");
         out.print(" * the correct free() or unref() function before it can be used.\n");
         out.print("        ");
