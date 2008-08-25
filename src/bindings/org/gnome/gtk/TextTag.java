@@ -13,6 +13,7 @@ package org.gnome.gtk;
 
 import org.gnome.glib.Object;
 import org.gnome.pango.Scale;
+import org.gnome.pango.Style;
 import org.gnome.pango.Underline;
 import org.gnome.pango.Weight;
 
@@ -276,5 +277,15 @@ public class TextTag extends Object
      */
     public void setEditable(boolean setting) {
         setPropertyBoolean("editable", setting);
+    }
+
+    /**
+     * Specify the font <i>style</i> to be used (normal, oblique, or
+     * italics).
+     * 
+     * @since 4.0.9
+     */
+    public void setStyle(Style style) {
+        setPropertyInteger("style", GtkTextTagOverride.valueOf(style));
     }
 }
