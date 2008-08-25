@@ -56,7 +56,7 @@ import org.gnome.gdk.Rectangle;
  * scroll.add(view);
  * ...
  * 
- * window.setDefaultSize(300,700);
+ * window.setDefaultSize(300, 700);
  * </pre>
  * 
  * then packing the ScrolledWindow into a parent Container hierarchy. In
@@ -68,16 +68,15 @@ import org.gnome.gdk.Rectangle;
  * As with TextBuffer, TextIters are the mechanism used to point to locations
  * within the displayed text. There are numerous methods here on TextView
  * which manipulate the displayed view (for example
- * {@link #scrollTo(TextIter) scrollTo()} and
- * {@link #getLineY(TextIter) getLineY()}) many of which take a TextIter as
+ * {@link #scrollTo(TextIter) scrollTo()}) many of which take a TextIter as
  * an indicator of position. Don't be confused that the TextIters are somehow
  * different depending on their source; they <i>always</i> refer to a
- * position in a TextBuffer but are often translated to <i>also</i> refer to
- * a screen position in the TextView. You will often find yourself getting a
- * TextIter from the TextBuffer (perhaps in response to a TextBuffer.Changed
- * or TextBuffer.InsertText emission) and then switching over to here and
- * calling TextView methods - and then going back to TextBuffer again a moment
- * later.
+ * position in a TextBuffer but are often translated to also identify a screen
+ * position in the TextView. You will often find yourself getting a TextIter
+ * from the TextBuffer (perhaps in response to a
+ * <code>TextBuffer.Changed</code> or <code>TextBuffer.InsertText</code>
+ * emission) and then switching over to here and calling TextView methods -
+ * and then going back to TextBuffer again a moment later.
  * 
  * <a name="height"></a>
  * <h2>Line height calculations</h2>

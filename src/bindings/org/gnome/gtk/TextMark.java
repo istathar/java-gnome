@@ -44,6 +44,22 @@ public class TextMark extends Object
     }
 
     /**
+     * Left-gravity. This is a convenience constant that can be used when
+     * creating a TextMark with
+     * {@link TextBuffer#createMark(TextIter, boolean) createMark()}. The
+     * TextMark will stay fixed to the left if text is added there.
+     */
+    public static final boolean LEFT = true;
+
+    /**
+     * Right-gravity. Used when creating a TextMark via
+     * {@link TextBuffer#createMark(TextIter, boolean) createMark()}. The
+     * TextMark will move to the right if text is added there. The <var>insert</var>
+     * TextMark (your cursor) has right-gravity.
+     */
+    public static final boolean RIGHT = false;
+
+    /**
      * Get the TextBuffer that this TextMark points into.
      * 
      * @since 4.0.9

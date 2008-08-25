@@ -280,10 +280,17 @@ public class TextBuffer extends Object
      * Create a new TextMark at the position of the supplied TextIter.
      * 
      * <p>
-     * The <code>leftGravity</code> parameter is interesting. FIXME
+     * The <code>gravity</code> parameter is interesting. It specifies
+     * whether you want the TextMark to have left-gravity. If
+     * {@link TextMark#LEFT LEFT} (<code>true</code>), then the TextMark
+     * will remain pointing to the same location if text is inserted at this
+     * point. If {@link TextMark#RIGHT RIGHT} (<code>false</code>), then
+     * as text is inserted at this point the TextMark will move to the right.
+     * The standard behaviour of the blinking cursor we all stare at all day
+     * long following us as we type is an example of right-gravity.
      */
-    public TextMark createMark(TextIter where, boolean leftGravity) {
-        return GtkTextBuffer.createMark(this, null, where, leftGravity);
+    public TextMark createMark(TextIter where, boolean gravity) {
+        return GtkTextBuffer.createMark(this, null, where, gravity);
     }
 
     /**
@@ -354,7 +361,7 @@ public class TextBuffer extends Object
      * 
      * <p>
      * You can call {@link #getIter(TextMark) getIter()} to convert the
-     * TextMark to an TextIter.
+     * <var>insert</var> TextMark to an TextIter.
      * 
      * @since 4.0.9
      */
