@@ -464,4 +464,13 @@ public class ValidateTextBuffer extends TestCaseGtk
         assertEquals(1, pointer.getTags().length);
         assertSame(blue, pointer.getTags()[0]);
     }
+
+    /*
+     * Validate the values of various Pango constants, mostly to ensure our
+     * documentation is accurate.
+     */
+    public final void testPangoWeight() {
+        assertEquals(400, GtkTextTagOverride.valueOf(Weight.NORMAL));
+        assertEquals(700, GtkTextTagOverride.valueOf(Weight.BOLD));
+    }
 }

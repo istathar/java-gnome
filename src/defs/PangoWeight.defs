@@ -1,4 +1,4 @@
-(define-enum Weight
+(define-flags Weight
   (in-module "Pango")
   (c-name "PangoWeight")
   (gtype-id "PANGO_TYPE_WEIGHT")

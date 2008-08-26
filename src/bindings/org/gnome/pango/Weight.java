@@ -11,7 +11,7 @@
  */
 package org.gnome.pango;
 
-import org.freedesktop.bindings.Constant;
+import org.freedesktop.bindings.Flag;
 
 /*
  * FIXME this is a placeholder stub for what will become the public API for
@@ -31,7 +31,13 @@ import org.freedesktop.bindings.Constant;
  * Yes, you can subclass this if you are desperate for font weights other than
  * the established constant values supplied here.
  */
-public class Weight extends Constant
+/*
+ * FIXME I'd prefer if this were a Constant; the fact that we've hacked it to
+ * (define-flags...) is to get at the actual values. We got away with it in
+ * ResponseType but generated PangoFontDescription has a flagFor() in it that
+ * breaks.
+ */
+public class Weight extends Flag
 {
     private Weight(int ordinal, String nickname) {
         super(ordinal, nickname);
