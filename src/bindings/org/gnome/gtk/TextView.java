@@ -192,7 +192,12 @@ public class TextView extends Container
         super(GtkTextView.createTextViewWithBuffer(buf));
     }
 
-    TextBuffer getBuffer() {
+    /**
+     * Get the TextBuffer currently underlying this TextView.
+     * 
+     * @since 4.0.9
+     */
+    public TextBuffer getBuffer() {
         return GtkTextView.getBuffer(this);
     }
 
