@@ -630,6 +630,8 @@ public class TextView extends Container
         mark = buffer.createMark(pointer, true);
 
         scrollTo(mark, withinMargin, xalign, yalign);
+
+        buffer.deleteMark(mark);
     }
 
     /**

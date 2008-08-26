@@ -293,6 +293,10 @@ public class TextBuffer extends Object
         return GtkTextBuffer.createMark(this, null, where, gravity);
     }
 
+    void deleteMark(TextMark mark) {
+        GtkTextBuffer.deleteMark(this, mark);
+    }
+
     /**
      * Insert a text at a given position. All {@link TextIter} behind the
      * position move accordingly, while marks keep their position.
