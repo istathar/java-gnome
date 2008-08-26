@@ -20,7 +20,9 @@ import org.gnome.gdk.Event;
 import org.gnome.gdk.Pixbuf;
 import org.gnome.gtk.Entry;
 import org.gnome.gtk.Gtk;
+import org.gnome.gtk.IconSize;
 import org.gnome.gtk.ScrolledWindow;
+import org.gnome.gtk.Stock;
 import org.gnome.gtk.TextBuffer;
 import org.gnome.gtk.TextIter;
 import org.gnome.gtk.TextTag;
@@ -53,13 +55,14 @@ public class ExampleInstantMessenger
 
     private final TextTag gray, italics, blue;
 
-    private ExampleInstantMessenger() throws FileNotFoundException {
+    private ExampleInstantMessenger() {
         final Window window;
         final VBox top;
         final TextView incoming;
         final Entry outgoing;
         final ScrolledWindow scroll;
         final Thread other;
+        Pixbuf tmp;
 
         /*
          * Start with the usual establishment of a Window to contain the
@@ -162,11 +165,19 @@ public class ExampleInstantMessenger
         blue.setForeground("blue");
 
         /*
-         * And finally load an image that we'll use later to replace text
-         * smilies with.
+         * Almost there. Quickly load an image that we'll use later to replace
+         * text smilies with. Since people frequently screw up relative paths
+         * when running things, we'll go to some trouble to load the broken
+         * image icon instead if we can't find our smiley.
          */
 
-        smiley = new Pixbuf("doc/examples/textview/face-smile.png");
+        try {
+            tmp = new Pixbuf("doc/examples/textview/face-smile.png");
+        } catch (FileNotFoundException fnfe) {
+            System.err.println("Warning: smiley image " + fnfe.getMessage());
+            tmp = Gtk.renderIcon(window, Stock.MISSING_IMAGE, IconSize.BUTTON);
+        }
+        smiley = tmp;
 
         /*
          * Put the Window and all its children on screen.
@@ -176,8 +187,9 @@ public class ExampleInstantMessenger
 
         /*
          * Make sure the user's text Entry has the keyboard focus. For a
-         * number of reasons, this won't work until late in the game, else
-         * something else will end up with focus despite this call.
+         * number of reasons, this won't work until late in the game after
+         * everything else is packed. If you try it earlier something else
+         * will end up with focus despite this call having been made.
          */
 
         outgoing.grabFocus();
@@ -305,12 +317,7 @@ public class ExampleInstantMessenger
     public static void main(String[] args) {
         Gtk.init(args);
 
-        try {
-            new ExampleInstantMessenger();
-        } catch (FileNotFoundException fnfe) {
-            System.err.println("Sorry " + fnfe.getMessage());
-            System.exit(1);
-        }
+        new ExampleInstantMessenger();
 
         Gtk.main();
     }
