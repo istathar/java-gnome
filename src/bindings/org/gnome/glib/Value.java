@@ -12,7 +12,7 @@
 package org.gnome.glib;
 
 import org.freedesktop.bindings.Debug;
-import org.freedesktop.bindings.Proxy;
+import org.freedesktop.bindings.Pointer;
 import org.gnome.gdk.Pixbuf;
 
 /**
@@ -49,7 +49,7 @@ import org.gnome.gdk.Pixbuf;
  * @author Andrew Cowie
  * @since 4.0.0
  */
-public class Value extends Proxy
+public class Value extends Pointer
 {
     /*
      * The second argument is a hack to create a different overload of

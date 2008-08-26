@@ -247,7 +247,7 @@ public abstract class Plumbing extends org.freedesktop.bindings.Plumbing
     }
 
     /**
-     * Retrieve a Proxy object corresponding to a <code>GValue</code>. This
+     * Retrieve a Pointer object corresponding to a <code>GValue</code>. This
      * should only be needed by the property getter functions.
      * 
      * <p>
@@ -266,18 +266,8 @@ public abstract class Plumbing extends org.freedesktop.bindings.Plumbing
             return null;
         }
 
-        obj = (Value) org.freedesktop.bindings.Plumbing.instanceFor(pointer);
-
-        if (obj != null) {
-            /*
-             * This is somewhat unexpected, but ok, a Proxy already exists.
-             * Return it.
-             */
-            return obj;
-        } else {
-            obj = new Value(pointer, true);
-            return obj;
-        }
+        obj = new Value(pointer, true);
+        return obj;
     }
 
     /**
