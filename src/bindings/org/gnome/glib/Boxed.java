@@ -34,6 +34,7 @@ import org.freedesktop.bindings.Proxy;
  * figure out whether we are owner of the <code>GBoxed</code> or not...</i>
  * 
  * @author Andrew Cowie
+ * @author Vreixo Formoso
  * @since 4.0.0
  */
 /*
@@ -48,22 +49,5 @@ public abstract class Boxed extends Proxy
 
     protected Boxed(long pointer) {
         super(pointer);
-    }
-
-    /**
-     * Check to see if we are the owner of this Boxed. Call the underlying
-     * <code>free()</code> if we are, then carry on to
-     * {@link org.freedesktop.bindings.Proxy#finalize() Proxy's finalize()}.
-     */
-    /*
-     * This is a placeholder to remind us of the cleanup actions that will be
-     * necessary, irrespective of the finalizer technique used.
-     */
-    protected void finalize() {
-        if (owner) {
-            release();
-            owner = false;
-        }
-        super.finalize();
     }
 }

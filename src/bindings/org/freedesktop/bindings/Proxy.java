@@ -1,7 +1,7 @@
 /*
  * Proxy.java
  *
- * Copyright (c) 2006-2008 Operational Dynamics Consulting Pty Ltd
+ * Copyright (c) 2006-2008 Operational Dynamics Consulting Pty Ltd, and Others
  * 
  * The code in this file, and the library it is a part of, are made available
  * to you by the authors under the terms of the "GNU General Public Licence,
@@ -14,14 +14,15 @@ package org.freedesktop.bindings;
 /**
  * A proxy object representing a native resource that has a unique
  * identity and can be looked up.
- * 
+ *
  * <p>
  * <i><b>This is implementation, and you will never need to use it directly</b></i>
  * 
  * @author Andrew Cowie
+ * @author Vreixo Formoso
  * @since 4.0.0
  */
-public abstract class Proxy
+public abstract class Proxy extends Pointer
 {
     /**
      * Create a new proxy object with the specified address as its pointer.

@@ -238,7 +238,11 @@ public class Context extends Entity
         result = CairoContext.getSource(this);
         checkStatus();
 
-        return result;
+        /*
+         * FIXME If result was already proxied, this adds an extra ref
+         * and will cause a memory leak 
+         */
+        return CairoPattern.reference(result);
     }
 
     /**

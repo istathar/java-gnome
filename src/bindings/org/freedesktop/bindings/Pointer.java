@@ -1,7 +1,7 @@
 /*
  * Pointer.java
  *
- * Copyright (c) 2006-2008 Operational Dynamics Consulting Pty Ltd
+ * Copyright (c) 2006-2008 Operational Dynamics Consulting Pty Ltd, and Others
  * 
  * The code in this file, and the library it is a part of, are made available
  * to you by the authors under the terms of the "GNU General Public Licence,
@@ -20,7 +20,7 @@ package org.freedesktop.bindings;
  * 
  * @author Andrew Cowie
  * @author Vreixo Formoso
- * @since 4.0.0
+ * @since 4.0.9
  */
 /*
  * And so the magic happens. This is where the pointer that this class proxies
