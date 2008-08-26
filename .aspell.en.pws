@@ -112,6 +112,7 @@ DataColumns
 Davyd
 DefsFile
 DefsParser
+DeleteEvent
 DeleteGlobalRef
 DeleteLocalRef
 DeleteRange
@@ -158,6 +159,7 @@ EventTypes
 EventVisibility
 EventWindowState
 ExampleCairoDrawingBlends
+ExampleInstantMessenger
 ExamplePressMe
 ExampleSimpleMenu
 ExampleTrailHeads
@@ -419,6 +421,7 @@ ImageMenuItem
 ImageMenuItems
 ImageSurface
 ImageType
+IncomingConversation
 IndexError
 InfoMessageDialog
 Inkscape
@@ -518,6 +521,7 @@ O'Reilly
 OR'ing
 ObjectProperties
 ObjectiveAndAudience
+Ojiambo
 OnLoad
 OpenOffice
 OpenSolaris
@@ -737,6 +741,7 @@ VirtualHost
 VisibilityState
 Vreixo
 Wallach
+Wanjiru
 WarningMessageDialog
 WeakHashMap
 WeakReference
@@ -787,6 +792,7 @@ api
 apiversion
 appendChild
 appendColumn
+appendMessage
 appendPage
 appendRow
 appendText
@@ -1025,6 +1031,7 @@ cy
 cycleGarbageCollector
 cycleMainLoop
 da
+darkgreen
 dbm
 de
 debian
@@ -1763,6 +1770,7 @@ setCurrentFolder
 setCurrentPage
 setCursor
 setCursorVisible
+setDaemon
 setDecorated
 setDefaultIcon
 setDefaultSize
@@ -1939,6 +1947,7 @@ sourceObject
 sourceforge
 sourcepath
 src
+startConversationWith
 startsDisplayLine
 startsWord
 statusToString
@@ -1959,6 +1968,7 @@ subitems
 submenu
 submenus
 subprocess
+substring
 sudo
 superclass
 superinterface
@@ -1983,6 +1993,7 @@ testNoMultipleCreation
 testObjectNeverUsedIsRemoved
 testObjectNotRemovedWhenStillGtkAlive
 testRemovingAfterNoLongerReachableInBothSides
+textview
 textwidth
 th
 theming

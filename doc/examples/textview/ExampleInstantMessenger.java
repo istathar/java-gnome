@@ -1,5 +1,5 @@
 /*
- * ExampleInstantMessager.java
+ * ExampleInstantMessenger.java
  *
  * Copyright (c) 2008 Operational Dynamics Consulting Pty Ltd, and Others
  * 
@@ -39,10 +39,21 @@ import static org.gnome.gtk.PolicyType.NEVER;
 import static org.gnome.gtk.WrapMode.WORD;
 
 /**
- * TODO describe
+ * An example of rendering multi-line text in an application.
  * 
- * There comes a point when it is difficult to demostrate complex
- * functionality in a trivial example, so we have opted to show... FIXME
+ * There comes a point when it is difficult to demonstrate complex
+ * functionality in a trivial example, so so illustrate usage of the powerful
+ * TextView/TextBuffer APIs, we so we have opted to do something a bit more
+ * involved.
+ * 
+ * This program creates the conversation window you might see in a typical
+ * graphical instant messenger. It has a TextView displaying the conversation
+ * above, and uses various formatting to differentiate between incoming
+ * messages and outgoing ones. There is a small Entry at the bottom is where
+ * the user can write the messages and "send" them. Finally, a tiny worker
+ * thread is kicked off to simulate incoming conversation.
+ * 
+ * Enjoy!
  * 
  * @author Andrew Cowie
  * @author Stefan Prelle
@@ -51,14 +62,15 @@ public class ExampleInstantMessenger
 {
     private final TextBuffer buffer;
 
+    private final TextView incoming;
+
     private final Pixbuf smiley;
 
-    private final TextTag gray, italics, blue;
+    private final TextTag grey, italics, blue;
 
     private ExampleInstantMessenger() {
         final Window window;
         final VBox top;
-        final TextView incoming;
         final Entry outgoing;
         final ScrolledWindow scroll;
         final Thread other;
@@ -71,7 +83,7 @@ public class ExampleInstantMessenger
 
         window = new Window();
         window.setTitle("Instant Messaging");
-        window.setSizeRequest(300, 200);
+        window.setDefaultSize(300, 200);
 
         top = new VBox(false, 3);
         window.add(top);
@@ -117,10 +129,10 @@ public class ExampleInstantMessenger
          * Create the place for the user to enter messages they want to send.
          * 
          * The interesting part here is not that there is an Entry (a real
-         * Instant Messager would have a TextView supporting rich content area
-         * for the user to write messages too) but that when the user presses
-         * Enter in the Entry it "sends" a message and appends it to the log
-         * in the incoming TextView.
+         * Instant Messenger would have a TextView supporting rich content
+         * area for the user to write messages too) but that when the user
+         * presses Enter in the Entry it "sends" a message and appends it to
+         * the log in the incoming TextView.
          */
 
         outgoing = new Entry();
@@ -153,8 +165,8 @@ public class ExampleInstantMessenger
          * few for later use in the display.
          */
 
-        gray = new TextTag();
-        gray.setForeground("#777777");
+        grey = new TextTag();
+        grey.setForeground("#777777");
 
         italics = new TextTag();
         italics.setStyle(Style.ITALIC);
@@ -166,7 +178,7 @@ public class ExampleInstantMessenger
 
         /*
          * Almost there. Quickly load an image that we'll use later to replace
-         * text smilies with. Since people frequently screw up relative paths
+         * text smileys with. Since people frequently screw up relative paths
          * when running things, we'll go to some trouble to load the broken
          * image icon instead if we can't find our smiley.
          */
@@ -195,7 +207,7 @@ public class ExampleInstantMessenger
         outgoing.grabFocus();
 
         /*
-         * And start the "converstaion" :)
+         * And start the "conversation" :)
          */
 
         other = new IncomingConversation();
@@ -232,7 +244,7 @@ public class ExampleInstantMessenger
 
         now = System.currentTimeMillis() / 1000;
         timestamp = formatTime("%H:%M:%S\t", now);
-        buffer.insert(end, timestamp, gray);
+        buffer.insert(end, timestamp, grey);
 
         /*
          * Loop over what we're going to add, replacing text smileys with
@@ -256,6 +268,16 @@ public class ExampleInstantMessenger
             prev = i;
         }
         buffer.insert(end, msg.substring(prev), colour);
+
+        /*
+         * We would be done, except that we need to scroll the TextView to
+         * show the message just appended. Otherwise the display will stay
+         * scrolled to top despite the fact that more message traffic is
+         * coming in. An instant messenger shows the recently arrived traffic
+         * on screen, letting older messages go off the top.
+         */
+
+        incoming.scrollTo(end);
     }
 
     /**
@@ -273,12 +295,30 @@ public class ExampleInstantMessenger
         buffer.insert(pointer, "Starting conversation with " + who, italics);
     }
 
+    /*
+     * We end with the program's main() method where we initialize GTK, call
+     * the constructor to build the GUI and then start the main event loop.
+     */
+
+    public static void main(String[] args) {
+        Gtk.init(args);
+
+        new ExampleInstantMessenger();
+
+        Gtk.main();
+    }
+
+    /*
+     * And that's it! The remainder of this file is just some contrived
+     * infrastructure to simulate a conversation. Run this example and you'll
+     * see it all in action!
+     */
+
     class IncomingConversation extends Thread
     {
         private final String[] messages;
 
         private IncomingConversation() {
-
             /*
              * Mark this thread as a daemon thread, else the main thread
              * terminating after Gtk.main() returns will not end the program.
@@ -293,8 +333,8 @@ public class ExampleInstantMessenger
             messages = new String[] {
                     "Hello there!",
                     "Will you be my friend? :)",
-                    "I live in Kenya. " + "It's nice there because it is so warm. "
-                            + "Someday, though, I want to see snow.",
+                    "I live in Kenya. " + "It's nice here because it is so warm.",
+                    "Someday, though, I want to see snow. " + "Perhaps I will go climb Kilimanjaro.",
                     "Did you see the marathon on the last day of the Olympics? "
                             + "What a run by Samuel Wanjiru! " + "We are all so proud."
             };
@@ -312,13 +352,5 @@ public class ExampleInstantMessenger
                 appendMessage(messages[i], false);
             }
         }
-    }
-
-    public static void main(String[] args) {
-        Gtk.init(args);
-
-        new ExampleInstantMessenger();
-
-        Gtk.main();
     }
 }
