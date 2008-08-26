@@ -20,6 +20,7 @@ import org.gnome.gdk.Event;
 import org.gnome.gdk.Pixbuf;
 import org.gnome.gtk.Entry;
 import org.gnome.gtk.Gtk;
+import org.gnome.gtk.ScrolledWindow;
 import org.gnome.gtk.TextBuffer;
 import org.gnome.gtk.TextIter;
 import org.gnome.gtk.TextTag;
@@ -31,6 +32,9 @@ import org.gnome.pango.Style;
 import org.gnome.pango.Weight;
 
 import static org.freedesktop.bindings.Time.formatTime;
+import static org.gnome.gtk.PolicyType.ALWAYS;
+import static org.gnome.gtk.PolicyType.NEVER;
+import static org.gnome.gtk.WrapMode.WORD;
 
 /**
  * TODO describe
@@ -43,8 +47,6 @@ import static org.freedesktop.bindings.Time.formatTime;
  */
 public class ExampleInstantMessenger
 {
-    private final TextView incoming;
-
     private final TextBuffer buffer;
 
     private final Pixbuf smiley;
@@ -54,8 +56,10 @@ public class ExampleInstantMessenger
     private ExampleInstantMessenger() throws FileNotFoundException {
         final Window window;
         final VBox top;
-        final Thread other;
+        final TextView incoming;
         final Entry outgoing;
+        final ScrolledWindow scroll;
+        final Thread other;
 
         /*
          * Start with the usual establishment of a Window to contain the
@@ -91,7 +95,20 @@ public class ExampleInstantMessenger
         incoming.setCursorVisible(false);
         incoming.setPaddingBelowParagraph(10);
 
-        top.packStart(incoming, true, true, 0);
+        /*
+         * We want word wrapping, otherwise messages wider that the screen
+         * width will be truncated. We also need to set up vertical scrolling
+         * so that as the conversation continues it won't be inaccessible off
+         * the bottom of the screen.
+         */
+
+        incoming.setWrapMode(WORD);
+
+        scroll = new ScrolledWindow();
+        scroll.setPolicy(NEVER, ALWAYS);
+        scroll.add(incoming);
+
+        top.packStart(scroll, true, true, 0);
 
         /*
          * Create the place for the user to enter messages they want to send.
@@ -264,18 +281,19 @@ public class ExampleInstantMessenger
             messages = new String[] {
                     "Hello there!",
                     "Will you be my friend? :)",
-                    "What's wrong?",
-                    "Why won't you talk to me?"
+                    "I live in Kenya. " + "It's nice there because it is so warm. "
+                            + "Someday, though, I want to see snow.",
+                    "Did you see the marathon on the last day of the Olympics? "
+                            + "What a run by Samuel Wanjiru! " + "We are all so proud."
             };
 
-            startConversationWith("Jane Doe");
+            startConversationWith("Catherine Ojiambo");
         }
 
         public void run() {
             for (int i = 0; i < messages.length; i++) {
                 try {
                     sleep((int) (1000 + i * 2000 * Math.random()));
-
                 } catch (InterruptedException ie) {
                 }
 
