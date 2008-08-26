@@ -306,6 +306,9 @@ public class TextBuffer extends Object
     /**
      * Insert text as for {@link #insert(TextIter, String) insert()} but
      * simultaneously apply the formatting described by <code>tag</code>.
+     * You can specify <code>null</code> TextTag if you actually want to
+     * skip applying formatting, but in that case you'd probably rather just
+     * use {@link #insert(TextIter, String) insert()}.
      * 
      * @since 4.0.9
      */
