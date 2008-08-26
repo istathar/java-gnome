@@ -1687,6 +1687,7 @@ removeRow
 removeTag
 removeToggleRef
 removeWidget
+renderIcon
 renderable
 renderer
 reorderChild
