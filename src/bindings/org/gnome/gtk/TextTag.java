@@ -19,14 +19,6 @@ import org.gnome.pango.Weight;
 
 import static org.gnome.gtk.TextTagTable.getDefaultTable;
 
-/*
- * FIXME this is a placeholder stub for what will become the public API for
- * this type. Replace this comment with appropriate javadoc including author
- * and since tags. Note that the class may need to be made abstract, implement
- * interfaces, or even have its parent changed. No API stability guarantees
- * are made about this class until it has been reviewed by a hacker and this
- * comment has been replaced.
- */
 /**
  * TextTags are used to apply markup and formatting for regions of text in a
  * TextBuffer.
@@ -192,8 +184,9 @@ public class TextTag extends Object
     }
 
     /**
-     * Specify the font weight. The useful one is {@link Weight#BOLD BOLD};
-     * the default is {@link Weight#NORMAL NORMAL}.
+     * Specify the font weight. The useful one is
+     * {@link org.gnome.pango.Weight#BOLD BOLD}; the default is
+     * {@link org.gnome.pango.Weight#NORMAL NORMAL}.
      * 
      * @since 4.0.9
      */
@@ -203,8 +196,8 @@ public class TextTag extends Object
 
     /**
      * Specify the underling mode to be used for this text. Single underlining
-     * is {@link Underline#SINGLE SINGLE}. {@link Underline#NONE NONE} is the
-     * default, obviously.
+     * is {@link org.gnome.pango.Underline#SINGLE SINGLE}.
+     * {@link org.gnome.pango.Underline#NONE NONE} is the default, obviously.
      * 
      * @since 4.0.9
      */
@@ -280,8 +273,9 @@ public class TextTag extends Object
     }
 
     /**
-     * Specify the font <i>style</i> to be used (normal, oblique, or
-     * italics).
+     * Specify the font <i>style</i> to be used ({@link org.gnome.pango.Style#NORMAL NORMAL},
+     * {@link org.gnome.pango.Style#OBLIQUE OBLIQUE} and
+     * {@link org.gnome.pango.Style#ITALIC ITALIC}s).
      * 
      * @since 4.0.9
      */

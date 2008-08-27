@@ -48,13 +48,14 @@ import org.freedesktop.bindings.Constant;
  * used for things like breakpoint annotations in a programming editor.
  * 
  * <p>
- * <i>By all accounts, this feature is still evolving in GTK; it is entirely
- * possible that it was not completely implemented in the first place, and in
- * any case the interface for using it seems ... unsteady. We have included
- * this in java-gnome largely because we had already gone to all the work of
- * exposing it only to discover that it is exceedingly hard to use and
- * somewhat buggy. Hopefully GTK will improve, but if you use this, expect the
- * behaviour to be somewhat unpredictable.</i>
+ * <b>WARNING</b><br>
+ * <i style="color:red">By all accounts, this feature is still evolving in
+ * GTK; it is entirely possible that it was not completely implemented in the
+ * first place, and in any case the interface for using it seems ... unsteady.
+ * We have included this in java-gnome largely because we had already gone to
+ * all the work of exposing it only to discover that it is exceedingly hard to
+ * use and somewhat buggy. Hopefully GTK will improve, but if you use this,
+ * expect the behaviour to be somewhat unpredictable.</i>
  * 
  * @author Andrew Cowie
  * @since 4.0.9

@@ -13,16 +13,16 @@ package org.gnome.pango;
 
 import org.freedesktop.bindings.Flag;
 
-/*
- * FIXME this is a placeholder stub for what will become the public API for
- * this type. Replace this comment with appropriate javadoc including author
- * and since tags. Note that the class may need to be made abstract, implement
- * interfaces, or even have its parent changed. No API stability guarantees
- * are made about this class until it has been reviewed by a hacker and this
- * comment has been replaced.
- */
 /**
- * ... font weight constants ...
+ * Constants used for selecting the weight of a font. {@link #NORMAL NORMAL}
+ * is the default corresponding to text as we are generally accustomed to
+ * seeing it.
+ * 
+ * <p>
+ * A common use of these constants is to make text in a TextView strong; use
+ * TextTag's {@link org.gnome.gtk.TextTag#setWeight(Weight) setWeight()} and
+ * pass in {@link #BOLD BOLD}.
+ * 
  * 
  * @author Andrew Cowie
  * @since 4.0.9

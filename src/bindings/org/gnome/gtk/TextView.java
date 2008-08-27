@@ -327,9 +327,10 @@ public class TextView extends Container
      * 
      * <p>
      * <b>WARNING</b><br>
-     * <i>This feature seems somewhat poorly implemented in the underlying
-     * library. While we have fully exposed it, testing showed it to be rather
-     * difficult to use reliably. Sorry we can't do better for you.</i>
+     * <i style="color:red">This feature seems somewhat poorly implemented in
+     * the underlying library. While we have fully exposed it, testing showed
+     * it to be rather difficult to use reliably. Sorry we can't do better for
+     * you.</i>
      * 
      * @since 4.0.9
      */

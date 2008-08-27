@@ -26,7 +26,7 @@ import org.freedesktop.bindings.Constant;
  * text.
  * 
  * @author Andrew Cowie
- * @since 4.0.8
+ * @since 4.0.9
  */
 public final class Underline extends Constant
 {
