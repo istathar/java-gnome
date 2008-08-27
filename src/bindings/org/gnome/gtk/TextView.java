@@ -184,12 +184,10 @@ public class TextView extends Container
     /**
      * Create a TextView and display the contents of the TextBuffer.
      * 
-     * @param buf
-     *            TextBuffer to associated with this TextView.
      * @since 4.0.9
      */
-    public TextView(TextBuffer buf) {
-        super(GtkTextView.createTextViewWithBuffer(buf));
+    public TextView(TextBuffer buffer) {
+        super(GtkTextView.createTextViewWithBuffer(buffer));
     }
 
     /**
@@ -361,7 +359,7 @@ public class TextView extends Container
      * 
      * @since 4.0.9
      */
-    public void addChildInWindow(Widget child, TextWindowType which, int x, int y) {
+    public void add(Widget child, TextWindowType which, int x, int y) {
         final int width;
 
         width = GtkTextView.getBorderWindowSize(this, which);
@@ -371,6 +369,10 @@ public class TextView extends Container
         }
 
         GtkTextView.addChildInWindow(this, child, which, x, y);
+    }
+
+    public void add(Widget child) {
+        throw new UnsupportedOperationException("Use add(Widget,TextIter) instead");
     }
 
     /**

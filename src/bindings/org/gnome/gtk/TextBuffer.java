@@ -378,7 +378,8 @@ public class TextBuffer extends Object
      * appear in a Container hierarchy. Thus adding a Widget is actually a
      * function of TextView. All the other methods that conceptually insert
      * things into a TextBuffer are here, however, so we include this as a
-     * convenience.</i>
+     * convenience. This is just a wrapper around TextView's</i>
+     * <code>add()</code>.
      * 
      * @since 4.0.9
      */

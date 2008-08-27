@@ -39,7 +39,7 @@ import org.freedesktop.bindings.Constant;
  * <pre>
  * left = new Label(&quot;LEFT&quot;);
  * view.setBorderWindowSize(TextWindowType.LEFT, 50);
- * view.addChildInWindow(left, TextWindowType.LEFT, 0, 0);
+ * view.add(left, TextWindowType.LEFT, 0, 0);
  * </pre>
  * 
  * one for each side. Note the positions and relative sizes of the scrollbars
