@@ -125,10 +125,10 @@ public abstract class Plumbing
     /*
      * We go to considerable effort to keep this method out of the visibility
      * of public users which is why translation layer code subclass this
-     * org.freedesktop.bindings.Pluming which has package visibility of Pointer
-     * and Constant. Even more, there's nothing we can do about this being
-     * protected, so we choose a method name other than getPointer() to keep
-     * it totally of out of view from get<COMPLETE>.
+     * org.freedesktop.bindings.Pluming which has package visibility of
+     * Pointer and Constant. Even more, there's nothing we can do about this
+     * being protected, so we choose a method name other than getPointer() to
+     * keep it totally of out of view from get<COMPLETE>.
      */
     protected static final long pointerOf(Pointer reference) {
         return reference == null ? 0L : reference.pointer;
@@ -167,15 +167,16 @@ public abstract class Plumbing
      * register) a new Proxy object.
      * 
      * <p>
-     * Note that under this architecture, denaturation should <b>not</b>
-     * occur because if we created the type, then we will already and always
-     * have a reference to it. Regardless if our type is a much derived
-     * subclass of whatever the native library's equivalent is, any look up of
-     * that pointer will be routed to our Proxy subtype.
+     * Note that under this architecture, denaturation should <b>not</b> occur
+     * because if we created the type, then we will already and always have a
+     * reference to it. Regardless if our type is a much derived subclass of
+     * whatever the native library's equivalent is, any look up of that
+     * pointer will be routed to our Proxy subtype.
      * 
      * <p>
      * <i><b>This must be overridden by any library using these bindings, or
-     * you will only be able to get instances for objects created Java side.</b></i>.
+     * you will only be able to get instances for objects created Java
+     * side.</b></i>.
      * 
      * @param pointer
      *            opaque memory reference as passed from the C side.
@@ -214,7 +215,7 @@ public abstract class Plumbing
      * trick of calling JNI (where visibility rules are ignored) to create
      * Proxy instances.
      */
-    protected static native Proxy createProxy(Class<?> type, long pointer);
+    protected static native Pointer createPointer(Class<?> type, long pointer);
 
     /*
      * Constant handling ----------------------------------

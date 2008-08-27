@@ -196,12 +196,6 @@ public class ValidateProperties extends TestCaseGtk
         assertTrue(size.getY() >= 0);
 
         w.hide();
-
-        /*
-         * and is it indeed still the same pointer, ie the same address, ie
-         * the same Proxy?
-         */
-        assertSame(size, b.getAllocation());
     }
 
     public final void testRequisitionSizeRequest() {

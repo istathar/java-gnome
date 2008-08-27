@@ -11,7 +11,7 @@
  */
 package org.gnome.glib;
 
-import org.freedesktop.bindings.Proxy;
+import org.freedesktop.bindings.Pointer;
 
 /**
  * Parent class of proxied structures. Java side, these behave like normal
@@ -40,13 +40,8 @@ import org.freedesktop.bindings.Proxy;
 /*
  * WARNING This is not fully implemented.
  */
-public abstract class Boxed extends Proxy
+public abstract class Boxed extends Pointer
 {
-    /*
-     * Default true, which is the case for most instances. TODO True?
-     */
-    boolean owner = true;
-
     protected Boxed(long pointer) {
         super(pointer);
     }
