@@ -189,7 +189,7 @@ public class Entry extends Widget implements Editable, CellEditable
      * As with all font related operations, there are a number of competing
      * approximations involved. In particular, this method operates by
      * influencing the size <i>requested</i> by this Widget; the box packing
-     * model will still have the final say in the size allocation phase.
+     * model will still have the final say in the size-allocation phase.
      * 
      * <p>
      * See also Label's {@link Label#setWidthChars(int) setWidthChars()}; the

@@ -211,4 +211,25 @@ public final class Gtk extends Glib
     public static void setDefaultIcon(Pixbuf icon) {
         GtkWindow.setDefaultIcon(icon);
     }
+
+    /**
+     * Lookup the Pixbuf corresponding to a stock icon of a certain size.
+     * 
+     * <p>
+     * You need to specify a Widget in order that the most correct theme
+     * engine and Style are employed to pick the appropriate image. This is
+     * redundant in most programs where we don't interfere with the theming or
+     * styling; just pass in your top level Window (or for that matter, any
+     * other Widget you have handy).
+     * 
+     * @since 4.0.9
+     */
+    /*
+     * YES this is a function on GtkWidget, but it really has nothing to do
+     * with Widgets (and *certainly* is not a method that every single Widget
+     * subclass needs to inherit or have visible).
+     */
+    public static Pixbuf renderIcon(Widget source, Stock stock, IconSize size) {
+        return GtkWidget.renderIcon(source, stock.getStockId(), size, null);
+    }
 }
