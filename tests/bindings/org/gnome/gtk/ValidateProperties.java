@@ -55,6 +55,11 @@ public class ValidateProperties extends TestCaseGtk
         assertEquals(0.1f, v.getFloat(), 0.0001);
     }
 
+    public final void testDoubleValues() {
+        final Value v = new Value(42.2d);
+        assertEquals(42.2d, v.getDouble(), 0.0001);
+    }
+
     /**
      * Test changing the label of a Button and getting the label back.
      */

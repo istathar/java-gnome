@@ -40,7 +40,7 @@ public class GetterBlock extends AccessorBlock
      * @param ofObject
      *            the boxed this getter belongs to
      */
-
+    @SuppressWarnings("unchecked")
     GetterBlock(final BoxedBlock parent, final String gType, final String name) {
         super(name, parent, Collections.EMPTY_LIST);
 

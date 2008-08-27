@@ -86,4 +86,9 @@ public final class Rectangle extends Boxed
     public int getY() {
         return GdkRectangle.getY(this);
     }
+
+    public String toString() {
+        return this.getClass().getName() + ": " + getWidth() + "x" + getHeight() + " at " + getX() + ","
+                + getY();
+    }
 }

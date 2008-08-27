@@ -410,4 +410,11 @@ public abstract class Plumbing
     private static native Flag createFlag(Class<?> type, int ordinal, String nickname);
 
     static final native String toHexString(long pointer);
+
+    /**
+     * Get the value encoded by a DoubleConstant instance.
+     */
+    protected static final double numOf(DoubleConstant reference) {
+        return reference.value;
+    }
 }

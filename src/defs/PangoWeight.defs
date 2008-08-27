@@ -1,4 +1,7 @@
-(define-enum Weight
+;; This is actually an enum, but has non-ordinal values. So, declare it as a
+;; Flag so our generated code will get to the real values.
+
+(define-flags Weight
   (in-module "Pango")
   (c-name "PangoWeight")
   (gtype-id "PANGO_TYPE_WEIGHT")

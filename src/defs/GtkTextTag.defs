@@ -11,7 +11,7 @@
   (caller-owns-return #t)
   (return-type "GtkTextTag*")
   (parameters
-    '("const-gchar*" "name")
+    '("const-gchar*" "name" (null-ok))
   )
 )
 

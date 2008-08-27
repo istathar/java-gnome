@@ -144,14 +144,18 @@
   )
 )
 
+;; investigation of this code path shows that it calls
+;; gtk_text_layout_get_line_yrange() which accepts NULL for
+;; both y and height parameters.
+
 (define-method get_line_yrange
   (of-object "GtkTextView")
   (c-name "gtk_text_view_get_line_yrange")
   (return-type "none")
   (parameters
     '("const-GtkTextIter*" "iter")
-    '("gint*" "y")
-    '("gint*" "height")
+    '("gint*" "y" (null-ok))
+    '("gint*" "height" (null-ok))
   )
 )
 
@@ -174,8 +178,8 @@
     '("GtkTextWindowType" "win")
     '("gint" "buffer_x")
     '("gint" "buffer_y")
-    '("gint*" "window_x")
-    '("gint*" "window_y")
+    '("gint*" "window_x" (null-ok))
+    '("gint*" "window_y" (null-ok))
   )
 )
 
@@ -187,8 +191,8 @@
     '("GtkTextWindowType" "win")
     '("gint" "window_x")
     '("gint" "window_y")
-    '("gint*" "buffer_x")
-    '("gint*" "buffer_y")
+    '("gint*" "buffer_x" (null-ok))
+    '("gint*" "buffer_y" (null-ok))
   )
 )
 
@@ -527,6 +531,15 @@
     '("GtkMovementStep" "step")
     '("gint" "count")
     '("gboolean" "extend_selection")
+  )
+)
+
+(define-virtual move_viewport
+  (of-object "GtkTextView")
+  (return-type "none")
+  (parameters
+    '("GtkScrollStep" "step")
+    '("gint" "count")
   )
 )
 

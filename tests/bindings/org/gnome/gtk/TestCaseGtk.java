@@ -1,7 +1,7 @@
 /*
  * TestCaseGtk.java
  *
- * Copyright (c) 2007 Operational Dynamics Consulting Pty Ltd and Others
+ * Copyright (c) 2007-2008 Operational Dynamics Consulting Pty Ltd and Others
  * 
  * The code in this file, and the suite it is a part of, are made available
  * to you by the authors under the terms of the "GNU General Public Licence,
@@ -13,7 +13,7 @@ package org.gnome.gtk;
 import junit.framework.TestCase;
 
 import org.freedesktop.bindings.Debug;
-import org.gnome.gtk.Gtk;
+import org.gnome.gdk.Event;
 
 /**
  * Ensure that GTK has already been initialized so that things like
@@ -108,5 +108,22 @@ public class TestCaseGtk extends TestCase
         } catch (InterruptedException e) {
             // ignore
         }
+    }
+
+    /**
+     * Just for hacking... sometimes when you're creating a unit test you need
+     * to see it run to make sure it looks the way it should before probing
+     * its qualities. TODO; this is a bit weak, and is very close to the edge
+     * whereby really unit tests should be running in a virtual X server.
+     */
+    protected void runMainLoop(Window w) {
+        w.connect(new Window.DeleteEvent() {
+            public boolean onDeleteEvent(Widget source, Event event) {
+                Gtk.mainQuit();
+                return false;
+            }
+        });
+        Gtk.main();
+        System.exit(0);
     }
 }

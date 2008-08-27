@@ -13,14 +13,6 @@ package org.gnome.gdk;
 
 import org.gnome.glib.Object;
 
-/*
- * FIXME this is a placeholder stub for what will become the public API for
- * this type. Replace this comment with appropriate javadoc including author
- * and since tags. Note that the class may need to be made abstract, implement
- * interfaces, or even have its parent changed. No API stability guarantees
- * are made about this class until it has been reviewed by a hacker and this
- * comment has been replaced.
- */
 /**
  * Drawable is notable for being the parent class of both [<code>org.gnome.gdk</code>]
  * Window (representing the native server-side on-screen resources behind a
@@ -49,4 +41,37 @@ public abstract class Drawable extends Object
         return GdkDrawable.getColormap(this);
     }
 
+    /**
+     * Get the width of this Drawable.
+     * 
+     * @since 4.0.9
+     */
+    /*
+     * TODO document the impact of this reporting the most recent
+     * CONFIGURE_EVENT, not necesarily live X server information.
+     */
+    public int getWidth() {
+        int[] width;
+
+        width = new int[1];
+
+        GdkDrawable.getSize(this, width, null);
+
+        return width[0];
+    }
+
+    /**
+     * Get the height of this Drawable.
+     * 
+     * @since 4.0.9
+     */
+    public int getHeight() {
+        int[] height;
+
+        height = new int[1];
+
+        GdkDrawable.getSize(this, null, height);
+
+        return height[0];
+    }
 }
