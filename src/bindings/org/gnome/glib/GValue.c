@@ -69,7 +69,6 @@ Java_org_gnome_glib_GValue_g_1value_1free
 )
 {
 	GValue* value;
-	GObject* object;
 		
 	value =	(GValue*) _value;
 	
