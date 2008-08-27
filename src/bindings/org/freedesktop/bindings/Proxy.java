@@ -38,5 +38,6 @@ public abstract class Proxy extends Pointer
      */
     protected void finalize() {
         Plumbing.unregisterProxy(this);
+        super.finalize();
     }
 }
