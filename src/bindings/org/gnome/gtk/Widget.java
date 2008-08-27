@@ -973,6 +973,19 @@ public abstract class Widget extends org.gnome.gtk.Object
         GtkWidget.setSizeRequest(this, width, height);
     }
 
+    /*
+     * We cache our wrappers for the GtkRequisition and GtkAllocation structs
+     * so that we get the same Pointer object back if multiple calls are made
+     * to getRequisition() and getAllocation(), thus creating a Proxy like
+     * behaviour even though these are Boxeds. This avoids allocating
+     * duplicates but the real point is that these objects are "live" and so
+     * we want to refer to the real structs in GtkWidget.
+     */
+
+    private Requisition requisition;
+
+    private Allocation allocation;
+
     /**
      * Get the details of the rectangle that represents the size that the
      * windowing system down to GTK on down to the parent containers of this
@@ -985,18 +998,18 @@ public abstract class Widget extends org.gnome.gtk.Object
      * @since 4.0.6
      */
     public Allocation getAllocation() {
-        final Allocation result;
+        if (allocation == null) {
+            allocation = GtkWidgetOverride.getAllocation(this);
 
-        result = GtkWidgetOverride.getAllocation(this);
-        /*
-         * We are making a live reference to the GtkAllocation struct member
-         * in the GtkWidget class, so we need to make sure that our Allocation
-         * Proxy does not survive longer than the Widget. We use this back
-         * reference for this purpose.
-         */
-        result.widget = this;
-
-        return result;
+            /*
+             * We are making a live reference to the GtkAllocation struct
+             * member in the GtkWidget class, so we need to make sure that our
+             * Allocation Proxy does not survive longer than the Widget. We
+             * use this back reference for this purpose.
+             */
+            allocation.widget = this;
+        }
+        return allocation;
     }
 
     /**
@@ -1019,18 +1032,18 @@ public abstract class Widget extends org.gnome.gtk.Object
      * @since 4.0.6
      */
     public Requisition getRequisition() {
-        final Requisition result;
+        if (requisition == null) {
+            requisition = GtkWidgetOverride.getRequisition(this);
 
-        result = GtkWidgetOverride.getRequisition(this);
-        /*
-         * We are making a live reference to the GtkRequisition struct member
-         * in the GtkWidget class, so we need to make sure that our
-         * Requisition Proxy does not survive longer than the Widget. We use
-         * this back reference for this purpose.
-         */
-        result.widget = this;
-
-        return result;
+            /*
+             * We are making a live reference to the GtkRequisition struct
+             * member in the GtkWidget class, so we need to make sure that our
+             * Requisition Proxy does not survive longer than the Widget. We
+             * use this back reference for this purpose.
+             */
+            requisition.widget = this;
+        }
+        return requisition;
     }
 
     /**
