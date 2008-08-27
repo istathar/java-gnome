@@ -16,10 +16,10 @@
 
 /*
  * Implements
- *   org.freedesktop.bindings.Plumbing.createProxy(Class type, long pointer)
+ *   org.freedesktop.bindings.Plumbing.createPointer(Class type, long pointer)
  */
 JNIEXPORT jobject JNICALL
-Java_org_freedesktop_bindings_Plumbing_createProxy
+Java_org_freedesktop_bindings_Plumbing_createPointer
 (
 	JNIEnv *env,
 	jclass cls,
