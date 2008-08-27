@@ -491,12 +491,19 @@ public class TextBuffer extends Object
     }
 
     /**
-     * Create a new TextChildAnchor at <code>location</code>. Use the
-     * method in TextView to load a Widget into it.
+     * Create a new TextChildAnchor at <code>location</code>. Once you have
+     * an anchor for where you want the Widget, you use TextView's
+     * {@link TextView#add(Widget, TextChildAnchor) add()} to load a Widget
+     * into it.
      * 
      * @since 4.0.9
      */
-    public TextChildAnchor createChildAnchor(TextIter location) {
+    /*
+     * This is already a convenience method according to the GTK docs. Uh,
+     * "good". Thanks. Means we don't need another constructor in
+     * TextChildAnchor.
+     */
+    TextChildAnchor createChildAnchor(TextIter location) {
         return GtkTextBuffer.createChildAnchor(this, location);
     }
 

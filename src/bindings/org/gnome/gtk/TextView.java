@@ -276,21 +276,38 @@ public class TextView extends Container
     }
 
     /**
-     * Load a Widget into the given TextChildAnchor such that it shows in this
-     * TextView.
+     * Load a Widget into the TextView at the given position.
      * 
      * <p>
-     * <i>This is somewhat convoluted due to the fact that more than one
-     * TextView can be displaying a given TextBuffer, but a Widget can only
-     * appear in one parent Container.</i>
+     * <i>The underlying library is somewhat convoluted about this due to the
+     * fact that more than one TextView can be displaying a given TextBuffer,
+     * but a Widget can only appear in one parent Container. GTK uses an
+     * intermediate called TextChildAnchor to bridge between TextView and
+     * TextBuffer; we take care of handling that for you.</i>
      * 
-     * @since <span style="color:red">unstable</span>
+     * @since 4.0.9
      */
     /*
-     * WARNING Signature subject to conversion to an overload if another
-     * addChild ish method is implemented.
+     * I wish this was insert() on TextBuffer.
      */
-    public void addChildAtAnchor(Widget child, TextChildAnchor anchor) {
+    public void add(Widget child, TextIter where) {
+        final TextBuffer buffer;
+        final TextChildAnchor anchor;
+
+        /*
+         * TextChildAnchors are just an intermediate to bridge between
+         * TextView and TextBuffer. There doesn't seem to be a reason to
+         * expose them when we can just join them here. So, first create an
+         * anchor:
+         */
+
+        buffer = getBuffer();
+        anchor = buffer.createChildAnchor(where);
+
+        /*
+         * Now use the anchor to add the Widget:
+         */
+
         GtkTextView.addChildAtAnchor(this, child, anchor);
     }
 
