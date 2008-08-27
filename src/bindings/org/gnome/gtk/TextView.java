@@ -279,6 +279,19 @@ public class TextView extends Container
      * Load a Widget into the TextView at the given position.
      * 
      * <p>
+     * A very impressive feature of TextViews is that you can embed Widgets
+     * into them! You supply the <code>position</code> where you want the
+     * Widget to be anchored, and the Widget will appear in the display amidst
+     * the rest of your text. Don't forget to <code>show()</code> the Widget
+     * you're adding or it won't appear.
+     * 
+     * <p>
+     * There is an
+     * {@link TextBuffer#insert(TextIter, Widget, TextView) insert()} method
+     * available on TextBuffer which wraps this; you may find it more
+     * convenient.
+     * 
+     * <p>
      * <i>The underlying library is somewhat convoluted about this due to the
      * fact that more than one TextView can be displaying a given TextBuffer,
      * but a Widget can only appear in one parent Container. GTK uses an
@@ -287,10 +300,7 @@ public class TextView extends Container
      * 
      * @since 4.0.9
      */
-    /*
-     * I wish this was insert() on TextBuffer.
-     */
-    public void add(Widget child, TextIter where) {
+    public void add(Widget child, TextIter position) {
         final TextBuffer buffer;
         final TextChildAnchor anchor;
 
@@ -302,7 +312,7 @@ public class TextView extends Container
          */
 
         buffer = getBuffer();
-        anchor = buffer.createChildAnchor(where);
+        anchor = buffer.createChildAnchor(position);
 
         /*
          * Now use the anchor to add the Widget:

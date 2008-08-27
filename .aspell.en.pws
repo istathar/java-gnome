@@ -649,6 +649,7 @@ TextBuffer
 TextBuffer's
 TextBuffers
 TextChildAnchor
+TextChildAnchors
 TextComboBox
 TextComboBoxEntry
 TextDirection
@@ -1040,6 +1041,7 @@ defaultEditable
 defaultTable
 defs
 deiconify
+deleteMark
 demultiplex
 demuxed
 denaturation

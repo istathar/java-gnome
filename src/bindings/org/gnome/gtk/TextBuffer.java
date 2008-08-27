@@ -363,6 +363,34 @@ public class TextBuffer extends Object
     }
 
     /**
+     * Insert a Widget into the TextBuffer.
+     * 
+     * <p>
+     * Since multiple TextViews can present information from a given
+     * TextBuffer, you need to specify <code>which</code> TextView you want
+     * the image to appear in.
+     * 
+     * <p>
+     * Don't forget to <code>show()</code> the Widget.
+     * 
+     * <p>
+     * <i>Widgets, of course, are neither text nor image data; they need to
+     * appear in a Container hierarchy. Thus adding a Widget is actually a
+     * function of TextView. All the other methods that conceptually insert
+     * things into a TextBuffer are here, however, so we include this as a
+     * convenience.</i>
+     * 
+     * @since 4.0.9
+     */
+    /*
+     * FUTURE Can anyone think of a way to get rid of the need to specify the
+     * TextView?
+     */
+    public void insert(TextIter position, Widget child, TextView which) {
+        which.add(child, position);
+    }
+
+    /**
      * Returns the current cursor position. Is also used at the start position
      * of a selected text.
      * 
