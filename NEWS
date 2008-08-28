@@ -1,5 +1,30 @@
 NEWS
 
+<!--
+<img src="doc/api/org/gnome/gtk/TextView.png" alt="" style="float: right;
+text-align: right; padding-left: 15px;" /> 
+-->
+
+<a name="textview" id="1219892996" title="Text rendering"></a>
+
+Lorem ipsum
+===========
+
+A major concentration of effort over the last few months has been to write
+appropriate public coverage to present GTK's powerful but complex
+TextView/TextBuffer API, a Widget for presenting multi-line text and the
+backing store for manipulating it.
+
+The '`textview`' branch where this work has been taking place has finally been
+merged to '`mainline`'.
+
+As this development cycle continues we will continue to review and refine the
+API we're presenting, but this is nonetheless a significant milestone and one
+we're justly proud of. Thanks to Stefan Prelle for having done much of the leg
+work and also to Kenneth Prugh for his support during testing.
+
+AfC
+
 <a name="4.0.8" id="1218770492" title="Cleanups and signals naming revised"></a>
 
 java-gnome 4.0.8 (15 Aug 2008)
