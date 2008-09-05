@@ -11,6 +11,9 @@
  */
 package org.gnome.gtk;
 
+import java.io.IOException;
+import java.net.URI;
+
 import org.gnome.gdk.Gdk;
 import org.gnome.gdk.Pixbuf;
 import org.gnome.glib.Glib;
@@ -155,7 +158,7 @@ public final class Gtk extends Glib
      * 
      * <p>
      * In a test case, this could be used as follows; see
-     * <code>TestCaseGtk.cycleMainLoop()</codde> in the <code>tests/</code> tree for
+     * <code>TestCaseGtk.cycleMainLoop()</code> in the <code>tests/</code> tree for
      * details:
      * 
      * <pre>
@@ -231,5 +234,50 @@ public final class Gtk extends Glib
      */
     public static Pixbuf renderIcon(Widget source, Stock stock, IconSize size) {
         return GtkWidget.renderIcon(source, stock.getStockId(), size, null);
+    }
+    
+    /**
+     * Convenience function for launching the default GNOME application
+     * to show the supplied URI.
+     * 
+     * <p>
+     * Typical examples for URIs understood by GNOME are:<br><br>
+     * <code>file:///home/gnome/pict.png</code><br>
+     * <code>http://www.gnome.org</code><br>
+     * <code>mailto:me@gnome.org</code><br>
+     * 
+     * <p>
+     * This function will return <code>true</code> if the call
+     * succeeded and <code>false</code> otherwise.
+     * 
+     * @since 4.0.9
+     */
+    /*
+     * Please note that this function wraps an exec call to gnome-open
+     * at the moment. In the future this will be replaced by a call to the
+     * native GTK api (gtk_show_uri) when GTK 2.14 is out. 
+     */
+    public static boolean showURI(URI uri) {
+        Process proc;
+        int retCode;
+        
+        try {
+            proc = Runtime.getRuntime().exec(
+                                "gnome-open " + uri.toString());
+            
+            // Run the process and wait until it terminates
+            retCode = proc.waitFor();            
+            
+            if (retCode == 0) {
+                return true;
+            }
+
+        } catch (IOException e) {
+            // This will fall through to return false
+        } catch (InterruptedException e) {
+            // This will fall through to return false
+        }
+        
+        return false;
     }
 }
