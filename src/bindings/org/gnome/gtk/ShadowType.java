@@ -14,7 +14,8 @@ package org.gnome.gtk;
 import org.freedesktop.bindings.Constant;
 
 /**
- * Appearance of the outline shown in some Widgets such as {@link Frame Frame}.
+ * Appearance of the outline shown in some Widgets such as {@link Frame Frame}
+ * .
  * 
  * @author Vreixo Formoso
  * @since 4.0.7

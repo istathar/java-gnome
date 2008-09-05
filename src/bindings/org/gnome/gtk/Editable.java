@@ -27,8 +27,8 @@ public interface Editable
      * @param position
      *            The value given must be less than or equal to the number of
      *            characters currently in the Editable field. Supplying a
-     *            value of <code>-1</code> will cause the cursor to move to
-     *            a position after the last character in the text.
+     *            value of <code>-1</code> will cause the cursor to move to a
+     *            position after the last character in the text.
      * 
      * @since 4.0.6
      */
@@ -59,8 +59,8 @@ public interface Editable
 
     /**
      * Select a region of the text in this Editable. The characters between
-     * <code>start</code> up to <i>but not including</i> <code>end</code>
-     * will be selected.
+     * <code>start</code> up to <i>but not including</i> <code>end</code> will
+     * be selected.
      * 
      * <p>
      * Calling <code>selectRegion(0, 0)</code> will remove the selection

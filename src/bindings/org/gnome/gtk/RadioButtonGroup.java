@@ -79,10 +79,10 @@ public class RadioButtonGroup
      * 
      * <p>
      * This happens either by clicking in a different option on the group, by
-     * pressing the <b><code>Up</code></b> or <b><code>Down</code></b>
-     * key when one of the RadioButtons in the group has the focus, or when
-     * the key combination <b><code>Alt+</code><i>mnemonic</i></b> is
-     * pressed. It can also be triggered programmatically by calling the
+     * pressing the <b><code>Up</code></b> or <b><code>Down</code></b> key
+     * when one of the RadioButtons in the group has the focus, or when the
+     * key combination <b><code>Alt+</code><i>mnemonic</i></b> is pressed. It
+     * can also be triggered programmatically by calling the
      * {@link ToggleButton#setActive(boolean) setActive()} method.
      * 
      * @author Vreixo Formoso

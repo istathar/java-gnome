@@ -90,7 +90,8 @@ import static org.gnome.gtk.TextTagTable.getDefaultTable;
  * <p>
  * <i>All TextTags created in java-gnome are "anonymous"; the underlying
  * library has a notion of named tags but we have no need of this and have not
- * exposed it. In order to reuse a TextTag later just keep a reference to it.</i>
+ * exposed it. In order to reuse a TextTag later just keep a reference to
+ * it.</i>
  * 
  * @author Andrew Cowie
  * @since 4.0.9
@@ -240,11 +241,11 @@ public class TextTag extends Object
      * <li>as hex, in the form <code>"#<i>rrggbb</i>"</code> where
      * <code><i>rr</i></code>, <code><i>gg</i></code>, and
      * <code><i>bb</i></code> are two hexadecimal characters expressing a
-     * values between <code>0x00</code> and <code>0xFF</code> for red,
-     * green, and blue respectively; or
+     * values between <code>0x00</code> and <code>0xFF</code> for red, green,
+     * and blue respectively; or
      * <li>as a symbolic name, such as <code>"blue"</code> and
-     * <code>"medium sea green"</code>, depending on what constants have
-     * been built into your X server. You can likely see a list at
+     * <code>"medium sea green"</code>, depending on what constants have been
+     * built into your X server. You can likely see a list at
      * <code>/usr/share/X11/rgb.txt</code>. Obviously these are unreliable
      * between different systems, but they are undeniably easy to use.
      * </ul>
@@ -273,7 +274,8 @@ public class TextTag extends Object
     }
 
     /**
-     * Specify the font <i>style</i> to be used ({@link org.gnome.pango.Style#NORMAL NORMAL},
+     * Specify the font <i>style</i> to be used (
+     * {@link org.gnome.pango.Style#NORMAL NORMAL},
      * {@link org.gnome.pango.Style#OBLIQUE OBLIQUE} and
      * {@link org.gnome.pango.Style#ITALIC ITALIC}s).
      * 

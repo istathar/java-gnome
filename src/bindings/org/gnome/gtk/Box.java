@@ -43,8 +43,8 @@ public abstract class Box extends Container
 
     /**
      * Add a Widget to the beginning of the Box, with default padding values.
-     * With only the <code>child</code> Widget to specify, this is easy to
-     * use and suffices for most cases.
+     * With only the <code>child</code> Widget to specify, this is easy to use
+     * and suffices for most cases.
      * 
      * <p>
      * <i>This is the same as calling
@@ -72,17 +72,16 @@ public abstract class Box extends Container
      * @param fill
      *            Whether space given to <code>child</code> by the
      *            <code>expand</code> option is actually allocated to child.
-     *            If you specify <code>false</code> here, then any extra
-     *            space will pad the Widget, rather than causing it to grow
-     *            larger.
+     *            If you specify <code>false</code> here, then any extra space
+     *            will pad the Widget, rather than causing it to grow larger.
      * @param padding
      *            extra space (in pixels) to put between this child and its
      *            neighbours. This is over and above the global amount of
      *            padding that was specified by the <code>spacing</code>
      *            parameter when the Box was constructed. If
-     *            <code>child</code> is the Widget at one of the start of
-     *            the Box, then <code>padding</code> pixels are also put
-     *            between the Widget and the leading edge.
+     *            <code>child</code> is the Widget at one of the start of the
+     *            Box, then <code>padding</code> pixels are also put between
+     *            the Widget and the leading edge.
      */
     public void packStart(Widget child, boolean expand, boolean fill, int padding) {
         GtkBox.packStart(this, child, expand, fill, padding);
@@ -105,8 +104,8 @@ public abstract class Box extends Container
 
     /**
      * Add a Widget to the end of the Box. The parameters work the same as for
-     * {@link #packStart(Widget, boolean, boolean, int) packStart()}, but
-     * note that Widgets packed with respect to the end will pack <i>inwards</i>
+     * {@link #packStart(Widget, boolean, boolean, int) packStart()}, but note
+     * that Widgets packed with respect to the end will pack <i>inwards</i>
      * from the end, closer to the middle than Widgets already added with
      * <code>packEnd()</code>.
      * 
@@ -120,9 +119,8 @@ public abstract class Box extends Container
      * Change the position of a Widget in the Box. The child will still be
      * packed with respect to the beginning (if
      * {@link #packStart(Widget, boolean, boolean, int) packStart()} was used)
-     * or end (if
-     * {@link #packEnd(Widget, boolean, boolean, int) packEnd() was used}) of
-     * the Box, and will be placed just after the Widget at
+     * or end (if {@link #packEnd(Widget, boolean, boolean, int) packEnd() was
+     * used}) of the Box, and will be placed just after the Widget at
      * <code>position</code>.
      * 
      * @since 4.0.8

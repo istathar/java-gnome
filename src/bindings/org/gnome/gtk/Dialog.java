@@ -95,9 +95,9 @@ public class Dialog extends Window
      * @param title
      *            Title of the new Dialog.
      * @param parent
-     *            Transient parent of the dialog, or <code>null</code>. If
-     *            a parent is provided, the window manager will keep the
-     *            Dialog on top of it. If the Dialog is modal, it is highly
+     *            Transient parent of the dialog, or <code>null</code>. If a
+     *            parent is provided, the window manager will keep the Dialog
+     *            on top of it. If the Dialog is modal, it is highly
      *            recommended that you provide a parent Window, otherwise the
      *            user could be trying to interact with the main Window while
      *            the Dialog is blocking it, but hidden under other Window. In
@@ -126,9 +126,9 @@ public class Dialog extends Window
 
     /**
      * Adds an action {@link Button} with the given text as its label to the
-     * end of the Dialog's <var>action area</var>. The given ResponseType
-     * will be returned back in the Dialog's {@link Dialog.Response} signal
-     * when the Button added as a result of this call is clicked.
+     * end of the Dialog's <var>action area</var>. The given ResponseType will
+     * be returned back in the Dialog's {@link Dialog.Response} signal when
+     * the Button added as a result of this call is clicked.
      * 
      * @return the added Button. This is a convenience allowing you to hook up
      *         further handlers to the Button if necessary.

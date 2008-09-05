@@ -51,8 +51,8 @@ public class Adjustment extends Object
      * causes all the parameters to be set to 0.
      * 
      * @param value
-     *            the initial setting for the <var>value</var> property of
-     *            the Adjustment
+     *            the initial setting for the <var>value</var> property of the
+     *            Adjustment
      * @param lower
      *            the lower bound of the Adjustment
      * @param upper
@@ -119,9 +119,8 @@ public class Adjustment extends Object
      * properties, other than <var>value</var>.
      * 
      * <p>
-     * If you have changed <var>value</var>, then
-     * {@link #emitValueChanged() emitValueChanged()} is the method you want
-     * to change instead. instead.
+     * If you have changed <var>value</var>, then {@link #emitValueChanged()
+     * emitValueChanged()} is the method you want to change instead. instead.
      * 
      * @since 4.0.8
      */
@@ -136,9 +135,9 @@ public class Adjustment extends Object
     }
 
     /**
-     * Emits a <code>Adjustment.ValueChanged</code> signal on the
-     * Adjustment. This method will typically be called by the Widget with
-     * which the Adjustment is associated, when it changes the Adjustment's
+     * Emits a <code>Adjustment.ValueChanged</code> signal on the Adjustment.
+     * This method will typically be called by the Widget with which the
+     * Adjustment is associated, when it changes the Adjustment's
      * <var>value</var>.
      * 
      * @since 4.0.8
@@ -155,10 +154,10 @@ public class Adjustment extends Object
 
     /**
      * This signal is emitted when one or more of Adjustment's fields, other
-     * than the <var>value</var> field have been changed. This will be
-     * emitted if you call the {@link #emitChanged() emitChanged()} method,
-     * but in general it is in response to actions taken by the Widget with
-     * which this Adjustment is associated.
+     * than the <var>value</var> field have been changed. This will be emitted
+     * if you call the {@link #emitChanged() emitChanged()} method, but in
+     * general it is in response to actions taken by the Widget with which
+     * this Adjustment is associated.
      * 
      * @author Srichand Pendyala
      * @since 4.0.5

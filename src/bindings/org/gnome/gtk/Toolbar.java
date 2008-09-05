@@ -34,8 +34,7 @@ package org.gnome.gtk;
  * of "<var>Text below Icons</var>" (the usual default), "<var>Text beside
  * Icons</var>", "<var>Icons only</var>", and "<var>Text only</var>" are
  * available from the GNOME panel menu at <b>System <code>&gt;</code> Menus
- * &amp; Toolbars</b> which runs the <code>gnome-ui-properties</code>
- * program.
+ * &amp; Toolbars</b> which runs the <code>gnome-ui-properties</code> program.
  * 
  * @author Vreixo Formoso
  * @author Andrew Cowie

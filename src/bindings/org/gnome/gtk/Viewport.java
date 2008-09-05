@@ -30,9 +30,8 @@ public class Viewport extends Bin
     /**
      * Construct a Viewport, specifying the Adjustment objects used to control
      * the panning. If you're adding your child Widget to a ScrolledWindow,
-     * use its
-     * {@link ScrolledWindow#addWithViewport(Widget) addWithViewport()}
-     * instead of constructing a Viewport manually.
+     * use its {@link ScrolledWindow#addWithViewport(Widget)
+     * addWithViewport()} instead of constructing a Viewport manually.
      * 
      * @since 4.0.8
      */

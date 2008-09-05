@@ -20,14 +20,13 @@ import org.gnome.glib.Object;
  * TextIters are transient pointers to positions within TextBuffers which are
  * invalidated when their TextBuffer is modified, so you can't "save" them. If
  * you need to preserve a position for later reuse, then get a TextMark by
- * calling TextBuffer's
- * {@link TextBuffer#createMark(TextIter, boolean) createMark()} on it.
+ * calling TextBuffer's {@link TextBuffer#createMark(TextIter, boolean)
+ * createMark()} on it.
  * 
  * <p>
  * There are two "standard" TextMarks available in all TextBuffers, relating
- * to the cursor and the current selection. See
- * {@link TextBuffer#getInsert() getInsert()} and
- * {@link TextBuffer#getSelectionBound() getSelectionBound()}.
+ * to the cursor and the current selection. See {@link TextBuffer#getInsert()
+ * getInsert()} and {@link TextBuffer#getSelectionBound() getSelectionBound()}.
  * 
  * <p>
  * Instances of this class fill the same role for TextBuffers that
@@ -54,8 +53,8 @@ public class TextMark extends Object
     /**
      * Right-gravity. Used when creating a TextMark via
      * {@link TextBuffer#createMark(TextIter, boolean) createMark()}. The
-     * TextMark will move to the right if text is added there. The <var>insert</var>
-     * TextMark (your cursor) has right-gravity.
+     * TextMark will move to the right if text is added there. The
+     * <var>insert</var> TextMark (your cursor) has right-gravity.
      */
     public static final boolean RIGHT = false;
 
@@ -78,8 +77,8 @@ public class TextMark extends Object
      * <p>
      * The usual caveats about changes invalidating iterators apply, but if
      * you use these inline you will have no problems. For example, given
-     * TextMarks <code>start</code>, <code>end</code> and a TextTag of
-     * some sort, you could easily do:
+     * TextMarks <code>start</code>, <code>end</code> and a TextTag of some
+     * sort, you could easily do:
      * 
      * <pre>
      * buffer.applyTag(bold, start.getIter(), end.getIter());

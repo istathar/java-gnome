@@ -13,8 +13,8 @@ package org.gnome.gtk;
 
 /**
  * Control the alignment and size of a child Widget. It has four settings:
- * <var>xscale</var>, <var>yscale</var>, <var>xalign</var>, and <var>yalign</var>.
- * You can also specify padding around the child.
+ * <var>xscale</var>, <var>yscale</var>, <var>xalign</var>, and
+ * <var>yalign</var>. You can also specify padding around the child.
  * 
  * <p>
  * The alignment settings are used to place the child within the available
@@ -26,8 +26,8 @@ package org.gnome.gtk;
  * fill the space allocated to the Alignment. The values can range from
  * <code>0.0f</code> (meaning the child doesn't expand at all) to
  * <code>1.0f</code> (meaning the child will expand to fill all of the
- * allocated space). If both scale settings are set to <code>1.0f</code>,
- * the two alignment values will have no effect on the child Widget.
+ * allocated space). If both scale settings are set to <code>1.0f</code>, the
+ * two alignment values will have no effect on the child Widget.
  * 
  * @author Nat Pryce
  * @author Andrew Cowie

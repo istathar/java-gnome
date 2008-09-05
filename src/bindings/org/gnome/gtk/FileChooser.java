@@ -24,11 +24,10 @@ import java.net.URI;
  * 
  * <p>
  * Be aware that much of FileChooser's internal behaviour depends on the main
- * loop cycling; calls to methods like
- * {@link #setCurrentFolder(String) setCurrentFolder()} and
- * {@link #setFilename(String) setFilename()} will not actually take effect
- * until you start the main loop or return from the current signal handler (as
- * the case may be).
+ * loop cycling; calls to methods like {@link #setCurrentFolder(String)
+ * setCurrentFolder()} and {@link #setFilename(String) setFilename()} will not
+ * actually take effect until you start the main loop or return from the
+ * current signal handler (as the case may be).
  * 
  * @author Andrew Cowie
  * @since 4.0.2
@@ -39,9 +38,9 @@ public interface FileChooser
      * Get the filename currently selected by this FileChooser.
      * 
      * @return The filename, or if no file is selected then this will return
-     *         <code>null</code>. If multiple files are selected, one of
-     *         the filenames will be returned at random. If the FileChooser is
-     *         in one of the folder modes, this returns the selected folder's
+     *         <code>null</code>. If multiple files are selected, one of the
+     *         filenames will be returned at random. If the FileChooser is in
+     *         one of the folder modes, this returns the selected folder's
      *         name.
      */
     public String getFilename();
@@ -53,10 +52,10 @@ public interface FileChooser
      * mode. To get the currently-selected folder in that mode, you can use
      * {@link #getURI()} instead.
      * 
-     * @return The current folder, or <code>null</code> if if the
-     *         FileChooser was unable to load the last folder that was
-     *         requested of it (as would happen if calling
-     *         {@link #setCurrentFolder(String)} on a nonexistent directory).
+     * @return The current folder, or <code>null</code> if if the FileChooser
+     *         was unable to load the last folder that was requested of it (as
+     *         would happen if calling {@link #setCurrentFolder(String)} on a
+     *         nonexistent directory).
      * @see #getFilename()
      * @since 4.0.2
      */
@@ -69,8 +68,8 @@ public interface FileChooser
      * 
      * @param directory
      *            the full path of the new current folder
-     * @return <code>true</code> if the folder could be changed
-     *         successfully, <code>false</code> otherwise.
+     * @return <code>true</code> if the folder could be changed successfully,
+     *         <code>false</code> otherwise.
      * @since 4.0.2
      */
     public boolean setCurrentFolder(String directory);
@@ -99,9 +98,9 @@ public interface FileChooser
      * this FileChooser.
      * 
      * @return The selected file's URI, or if no file is selected then this
-     *         will return <code>null</code>. If multiple files are
-     *         selected, one of the filenames will be returned at random. If
-     *         the FileChooser is in one of the folder modes, this returns the
+     *         will return <code>null</code>. If multiple files are selected,
+     *         one of the filenames will be returned at random. If the
+     *         FileChooser is in one of the folder modes, this returns the
      *         selected folder's URI.
      */
     /*

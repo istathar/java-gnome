@@ -29,9 +29,9 @@ import org.freedesktop.bindings.Constant;
  * <p>
  * On the other hand there are border windows, specified by <code>LEFT</code>,
  * <code>TOP</code>, etc. <b>These border Windows are an obscure, advanced,
- * and not wholly functional feature of GTK.</b> The accompanying
- * illustration is a TextView with each border window specified to a width of
- * 50 pixels and a Label placed at <i>window co-ordinates</i> <code>0</code>,<code>0</code>
+ * and not wholly functional feature of GTK.</b> The accompanying illustration
+ * is a TextView with each border window specified to a width of 50 pixels and
+ * a Label placed at <i>window co-ordinates</i> <code>0</code>,<code>0</code>
  * in each one. <img class="snapshot" src="TextView-BorderWindows.png">
  * 
  * Code to create this snapshot consisted of a series of calls like:

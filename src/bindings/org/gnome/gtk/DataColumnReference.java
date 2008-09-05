@@ -17,20 +17,19 @@ package org.gnome.gtk;
  * <p>
  * If your TreeView is a GUI representation of a List of Account objects, say,
  * and someone selects one of the rows, you quite reasonably want to know
- * <i>which</i> Account was selected. While you could extract the account
- * name or some other text field displayed in the TextView and attempt to use
- * that to look up the Account object back on the Java side, a much better
- * solution is to merely store a reference to the object that was the source
- * of the data in that row in the first place. That's what DataColumnReference
- * is for.
+ * <i>which</i> Account was selected. While you could extract the account name
+ * or some other text field displayed in the TextView and attempt to use that
+ * to look up the Account object back on the Java side, a much better solution
+ * is to merely store a reference to the object that was the source of the
+ * data in that row in the first place. That's what DataColumnReference is
+ * for.
  * 
  * <p>
- * Simply call
- * {@link TreeModel#getValue(TreeIter, DataColumnReference) getValue()} with
- * the TreeIter the selection gave you and the DataColumnReference indicating
- * the column you stashed your object in, and then ta-da you have the Account
- * which was selected, allowing you to carry on with your application logic in
- * your application's domain model's terms.
+ * Simply call {@link TreeModel#getValue(TreeIter, DataColumnReference)
+ * getValue()} with the TreeIter the selection gave you and the
+ * DataColumnReference indicating the column you stashed your object in, and
+ * then ta-da you have the Account which was selected, allowing you to carry
+ * on with your application logic in your application's domain model's terms.
  * 
  * <p>
  * Beyond this, see {@link DataColumn} for the full discussion of the role of

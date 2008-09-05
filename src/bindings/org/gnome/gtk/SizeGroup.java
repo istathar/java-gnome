@@ -20,12 +20,12 @@ import org.gnome.glib.Object;
  * not itself a Widget. When you create a SizeGroup, you specify the mode
  * indicating the way you want it to act upon the Widgets placed into it, and
  * then add Widgets. All the Widgets "in" the SizeGroup will then all have
- * have their width request in common ({@link SizeGroupMode#HORIZONTAL HORIZONTAL})
- * or their height request in common ({@link SizeGroupMode#VERTICAL VERTICAL}),
- * or, in somewhat rarer circumstances, have both their width and height
- * requests in common {@link SizeGroupMode#BOTH BOTH}). The size requested
- * will be that of the Widget in the group that is the largest in that
- * dimension.
+ * have their width request in common ({@link SizeGroupMode#HORIZONTAL
+ * HORIZONTAL}) or their height request in common (
+ * {@link SizeGroupMode#VERTICAL VERTICAL}), or, in somewhat rarer
+ * circumstances, have both their width and height requests in common
+ * {@link SizeGroupMode#BOTH BOTH}). The size requested will be that of the
+ * Widget in the group that is the largest in that dimension.
  * 
  * <p>
  * When doing data entry across a large number of fields, it is a GNOME

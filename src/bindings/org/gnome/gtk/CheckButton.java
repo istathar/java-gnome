@@ -52,7 +52,8 @@ public class CheckButton extends ToggleButton
 
     /**
      * Construct a new CheckButton containing a label with the given text. If
-     * the text contains an underscore (<code>_<code>) it will be taken to be the
+     * the text contains an underscore (the
+     * <code>_<code> character) it will be taken to be the
      * mnemonic for the Widget.
      */
     public CheckButton(String label) {

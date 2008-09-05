@@ -14,8 +14,8 @@ package org.gnome.gtk;
 /**
  * Display an image in a TreeView. The image data is sourced either from a
  * DataColumn of type {@link DataColumnPixbuf DataColumnPixbuf} in your
- * TreeModel, or from a DataColumn of type
- * {@link DataColumnStock DataColumnStock}.
+ * TreeModel, or from a DataColumn of type {@link DataColumnStock
+ * DataColumnStock}.
  * 
  * @author Andrew Cowie
  * @author Vreixo Formoso

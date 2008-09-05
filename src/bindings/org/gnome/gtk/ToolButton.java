@@ -84,13 +84,13 @@ public class ToolButton extends ToolItem
     }
 
     /**
-     * Get the text Label previously set with
-     * {@link #setLabel(String) setLabel()}.
+     * Get the text Label previously set with {@link #setLabel(String)
+     * setLabel()}.
      * 
-     * @return The Label or <code>null</code> if not Label has been set.
-     *         Note that a <code>null</code> return value doesn't mean that
-     *         the ToolButton doesn't have a Label, as it can have a Widget
-     *         Label or a Label taken from a stock item.
+     * @return The Label or <code>null</code> if not Label has been set. Note
+     *         that a <code>null</code> return value doesn't mean that the
+     *         ToolButton doesn't have a Label, as it can have a Widget Label
+     *         or a Label taken from a stock item.
      */
     public String getLabel() {
         return GtkToolButton.getLabel(this);
@@ -110,15 +110,15 @@ public class ToolButton extends ToolItem
      * Widget as the label, and this method is how.
      * 
      * @param labelWidget
-     *            A Widget to be used as a Label, or <code>null</code> to
-     *            not use the Widget Label (in this case, the text Label will
-     *            be used. If the text Label is also <code>null</code>, the
+     *            A Widget to be used as a Label, or <code>null</code> to not
+     *            use the Widget Label (in this case, the text Label will be
+     *            used. If the text Label is also <code>null</code>, the
      *            default stock item label is used. In this later case, if
      *            this ToolButton has no stock item, then no Label will be
-     *            used at all). Note that if you <i>do</i> pass a non-<code>null</code>
-     *            Widget here, this argument will be used as the label despite
-     *            the text in the normal Label or one generated as a result of
-     *            using a stock item.
+     *            used at all). Note that if you <i>do</i> pass a non-
+     *            <code>null</code> Widget here, this argument will be used as
+     *            the label despite the text in the normal Label or one
+     *            generated as a result of using a stock item.
      */
     public void setLabelWidget(Widget labelWidget) {
         GtkToolButton.setLabelWidget(this, labelWidget);

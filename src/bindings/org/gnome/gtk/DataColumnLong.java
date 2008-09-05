@@ -12,9 +12,9 @@
 package org.gnome.gtk;
 
 /**
- * A column of <code>long</code> values in a TreeModel. This class
- * complements DataColumnInteger by adding the ability to use
- * <code>long</code> data when sorting or for CellRenderer properties.
+ * A column of <code>long</code> values in a TreeModel. This class complements
+ * DataColumnInteger by adding the ability to use <code>long</code> data when
+ * sorting or for CellRenderer properties.
  * 
  * <p>
  * See {@link DataColumnInteger} for discussion of why you may not necessarily

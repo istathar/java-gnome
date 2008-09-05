@@ -61,9 +61,9 @@ package org.gnome.gtk;
  * </pre>
  * 
  * the problem that arises is that the retrieved TreeIter <i>is not valid</i>
- * in <code>model</code>. It's a TreeIter in <code>sorted</code>. Your
- * program will crash if you get this wrong. The fix is simple; change it to
- * use the correct TreeModel:
+ * in <code>model</code>. It's a TreeIter in <code>sorted</code>. Your program
+ * will crash if you get this wrong. The fix is simple; change it to use the
+ * correct TreeModel:
  * 
  * <pre>
  * ...
@@ -77,10 +77,9 @@ package org.gnome.gtk;
  * You don't normally have need of this class. Both ListStore and TreeStore
  * implement TreeSortable already, and there are various sorting tools built
  * into the view side of the TreeView/TreeModel MVC framework, notably
- * TreeViewColumn's
- * {@link TreeViewColumn#setSortColumn(DataColumn) setSortColumn()}. If,
- * however, you are using a {@link TreeModelFilter}, you will need to wrap it
- * in one of these to make sorting work normally again.
+ * TreeViewColumn's {@link TreeViewColumn#setSortColumn(DataColumn)
+ * setSortColumn()}. If, however, you are using a {@link TreeModelFilter}, you
+ * will need to wrap it in one of these to make sorting work normally again.
  * 
  * @author Andrew Cowie
  * @since 4.0.6

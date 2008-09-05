@@ -44,9 +44,8 @@ public final class WrapMode extends Constant
     /**
      * Wrap text, breaking lines in between words. This is usually the one you
      * want if you are trying to enable word wrapping, but keep in mind that
-     * something <i>also</i> has to act to constrain the width of the
-     * TextView as it is packed into a Container hierarchy or no wrapping will
-     * occur.
+     * something <i>also</i> has to act to constrain the width of the TextView
+     * as it is packed into a Container hierarchy or no wrapping will occur.
      */
     public static final WrapMode WORD = new WrapMode(GtkWrapMode.WORD, "WORD");
 

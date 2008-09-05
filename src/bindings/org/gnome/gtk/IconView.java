@@ -151,8 +151,9 @@ public class IconView extends Container implements CellLayout
 
     /**
      * Emitted when an item in the IconView has been activated. Activation
-     * occurs when an item in the view is double-clicked, or when <b><code>Space</code></b>
-     * or <b><code>Enter</code></b> are pressed while an item is selected.
+     * occurs when an item in the view is double-clicked, or when <b>
+     * <code>Space</code></b> or <b><code>Enter</code></b> are pressed while
+     * an item is selected.
      * 
      * <p>
      * In general, you've got the TreeModel and especially its DataColumns
@@ -227,9 +228,9 @@ public class IconView extends Container implements CellLayout
      * Get the items currently selected.
      * 
      * <p>
-     * You can use the TreeModel's
-     * {@link TreeModel#getIter(TreePath) getIter()} method to convert the
-     * returned TreePaths to the more convenient TreeIter:
+     * You can use the TreeModel's {@link TreeModel#getIter(TreePath)
+     * getIter()} method to convert the returned TreePaths to the more
+     * convenient TreeIter:
      * 
      * <pre>
      * IconView view;
@@ -305,8 +306,8 @@ public class IconView extends Container implements CellLayout
 
     /**
      * Set the maximum width that will be given to each column of icons. The
-     * width is measured in pixels. The default value is <code>-1</code>
-     * which indicates
+     * width is measured in pixels. The default value is <code>-1</code> which
+     * indicates
      * 
      * @since 4.0.8
      */
