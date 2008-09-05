@@ -23,10 +23,10 @@ package org.gnome.gtk;
  * Since Button is a Bin it strictly only has one child. Internally, however,
  * it may have both an icon image and some text (which is the look commonly
  * seen in the action buttons in Dialog boxes). You can add such an image to a
- * Button by calling {@link #setImage(Image) setImage()}; this works
- * alongside and with {@link #setLabel(String) setLabel()}. The machinery
- * within Button will manage creating the necessary internal structure
- * (HBoxes, Alignments, etc).
+ * Button by calling {@link #setImage(Image) setImage()}; this works alongside
+ * and with {@link #setLabel(String) setLabel()}. The machinery within Button
+ * will manage creating the necessary internal structure (HBoxes, Alignments,
+ * etc).
  * 
  * @author Andrew Cowie
  * @author Vreixo Formoso
@@ -95,12 +95,11 @@ public class Button extends Bin
      * Set the text showing in the Button.
      * 
      * <p>
-     * If you created an empty Button without a Label using
-     * {@link #Button() Button()}, this will create a Label nested in an
-     * Alignment for you. That <i>won't</i> work if you create an empty
-     * Button then put a custom Widget in place with
-     * {@link Container#add(Widget) add()} instead of employing this method
-     * and/or {@link #setImage(Image) setImage()}).
+     * If you created an empty Button without a Label using {@link #Button()
+     * Button()}, this will create a Label nested in an Alignment for you.
+     * That <i>won't</i> work if you create an empty Button then put a custom
+     * Widget in place with {@link Container#add(Widget) add()} instead of
+     * employing this method and/or {@link #setImage(Image) setImage()}).
      * 
      * @since 4.0.0
      */
@@ -227,24 +226,24 @@ public class Button extends Bin
      * <p>
      * In general, the way that java-gnome is intended to be used is for you
      * to create an anonymous inner class right where you call the
-     * <code>connect()</code> method to hook up the signal. A typical
-     * example is as follows:
+     * <code>connect()</code> method to hook up the signal. A typical example
+     * is as follows:
      * 
      * <pre>
      * final Button b;
-     *              
+     * 
      * b.connect(new Button.Clicked() {
      *     public void onClicked(Button source) {
-     *         // do something!
+     *         doSomething();
      *     }
      * }
      * </pre>
      * 
      * This is the form we recommend; it has the advantage that your handler
      * code is close to the code that declares and configures the Widget.
-     * Also, if variables are declared <code>final</code> then you can
-     * access them from within the nested anonymous class, and that makes
-     * things easy indeed.
+     * Also, if variables are declared <code>final</code> then you can access
+     * them from within the nested anonymous class, and that makes things easy
+     * indeed.
      * 
      * <h3>Using a concrete instance</h3>
      * 
@@ -264,7 +263,7 @@ public class Button extends Bin
      *     }
      * 
      *     public void onClicked(Button source) {
-     *     // do something very complex with field!
+     *         doSomethingVeryComplicatedWith(field);
      *     }
      * }
      * </pre>
@@ -322,9 +321,9 @@ public class Button extends Bin
     }
 
     /**
-     * Hook up a handler to receive <code>Button.Clicked</code> events on
-     * this Button. See {@link Button.Clicked} for a detailed discussion of
-     * how to connect signals.
+     * Hook up a handler to receive <code>Button.Clicked</code> events on this
+     * Button. See {@link Button.Clicked} for a detailed discussion of how to
+     * connect signals.
      * 
      * @since 4.0.0
      */
