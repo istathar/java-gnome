@@ -24,9 +24,9 @@ import org.gnome.gdk.Rectangle;
  * 
  * <p>
  * TextView can be used for passive display of multiple lines of text by
- * disabling the <var>editable</var> property. Usually, however, a text
- * canvas is used for entering or editing text and the TextView/TextBuffer
- * APIs combine to provide a powerful editing capability.
+ * disabling the <var>editable</var> property. Usually, however, a text canvas
+ * is used for entering or editing text and the TextView/TextBuffer APIs
+ * combine to provide a powerful editing capability.
  * 
  * <h2>Usage</h2>
  * 
@@ -68,15 +68,15 @@ import org.gnome.gdk.Rectangle;
  * As with TextBuffer, TextIters are the mechanism used to point to locations
  * within the displayed text. There are numerous methods here on TextView
  * which manipulate the displayed view (for example
- * {@link #scrollTo(TextIter) scrollTo()}) many of which take a TextIter as
- * an indicator of position. Don't be confused that the TextIters are somehow
- * different depending on their source; they <i>always</i> refer to a
- * position in a TextBuffer but are often translated to also identify a screen
- * position in the TextView. You will often find yourself getting a TextIter
- * from the TextBuffer (perhaps in response to a
- * <code>TextBuffer.Changed</code> or <code>TextBuffer.InsertText</code>
- * emission) and then switching over to here and calling TextView methods -
- * and then going back to TextBuffer again a moment later.
+ * {@link #scrollTo(TextIter) scrollTo()}) many of which take a TextIter as an
+ * indicator of position. Don't be confused that the TextIters are somehow
+ * different depending on their source; they <i>always</i> refer to a position
+ * in a TextBuffer but are often translated to also identify a screen position
+ * in the TextView. You will often find yourself getting a TextIter from the
+ * TextBuffer (perhaps in response to a <code>TextBuffer.Changed</code> or
+ * <code>TextBuffer.InsertText</code> emission) and then switching over to
+ * here and calling TextView methods - and then going back to TextBuffer again
+ * a moment later.
  * 
  * <a name="height"></a>
  * <h2>Line height calculations</h2>
@@ -90,14 +90,13 @@ import org.gnome.gdk.Rectangle;
  * Ordinarily you don't have to worry about this, but methods like
  * {@link #getLineY(TextIter) getLineY()} will not report correct information
  * until this has happened. If you are doing drawing based on the co-ordinates
- * of a given line in the <code>TEXT</code> Window of the TextView, it is
- * easy to be trapped by this: you hook up to the
- * <code>TextBuffer.Changed</code> thinking that you can use this as an
- * indication of when the TextView has changed, but unfortunately this turns
- * out not to be the case. <code>TextBuffer.Changed</code> is indeed
- * emitted, but the information returned by <code>getLineY()</code> will not
- * have been updated until after the current signal handlers finish and the
- * high-priority idle task can run.
+ * of a given line in the <code>TEXT</code> Window of the TextView, it is easy
+ * to be trapped by this: you hook up to the <code>TextBuffer.Changed</code>
+ * thinking that you can use this as an indication of when the TextView has
+ * changed, but unfortunately this turns out not to be the case.
+ * <code>TextBuffer.Changed</code> is indeed emitted, but the information
+ * returned by <code>getLineY()</code> will not have been updated until after
+ * the current signal handlers finish and the high-priority idle task can run.
  * 
  * <p>
  * Studying the internal implementation of this logic in GTK, it turns out
@@ -284,10 +283,9 @@ public class TextView extends Container
      * you're adding or it won't appear.
      * 
      * <p>
-     * There is an
-     * {@link TextBuffer#insert(TextIter, Widget, TextView) insert()} method
-     * available on TextBuffer which wraps this; you may find it more
-     * convenient.
+     * There is an {@link TextBuffer#insert(TextIter, Widget, TextView)
+     * insert()} method available on TextBuffer which wraps this; you may find
+     * it more convenient.
      * 
      * <p>
      * <i>The underlying library is somewhat convoluted about this due to the
@@ -341,9 +339,9 @@ public class TextView extends Container
      * 
      * <p>
      * The Widget <code>child</code> will be placed at the coordinates
-     * <code>x</code>,<code>y</code> in the [org.gnome.gdk] Window
-     * specified by which. You can get that Window by calling TextView's
-     * variant of {@link #getWindow(TextWindowType) getWindow()}.
+     * <code>x</code>,<code>y</code> in the [org.gnome.gdk] Window specified
+     * by which. You can get that Window by calling TextView's variant of
+     * {@link #getWindow(TextWindowType) getWindow()}.
      * 
      * <p>
      * This cannot be used unless <code>which</code> has been initialized to
@@ -389,8 +387,8 @@ public class TextView extends Container
     /**
      * Convert <code>X</code> from <var>buffer co-ordinates</var> to
      * <var>window co-ordinates</var>. See
-     * {@link #convertBufferToWindowCoordsY(TextWindowType, int) convertBufferToWindowCoordsY()}
-     * for a detailed discussion.
+     * {@link #convertBufferToWindowCoordsY(TextWindowType, int)
+     * convertBufferToWindowCoordsY()} for a detailed discussion.
      * 
      * @since 4.0.9
      */
@@ -412,10 +410,10 @@ public class TextView extends Container
 
     /**
      * The canvas that is used to present the text in a TextView has an origin
-     * at <code>0</code>,<code>0</code> that is at the top left corner.
-     * and extends for as many pixels as would be necessary to present the
-     * entire TextBuffer if it were shown on an arbitrarily large screen
-     * without scrolling.
+     * at <code>0</code>,<code>0</code> that is at the top left corner. and
+     * extends for as many pixels as would be necessary to present the entire
+     * TextBuffer if it were shown on an arbitrarily large screen without
+     * scrolling.
      * 
      * <p>
      * In most cases, the text shown will require an area larger than the
@@ -423,9 +421,9 @@ public class TextView extends Container
      * scrollbars (which can be added by putting the TextView into a
      * ScrolledWindow), the viewport showing the text will slide when the
      * cursor is moved down from the start position and into the body of text.
-     * Thus you can be at a position in <var>buffer co-ordinates</var> that
-     * is far "greater" than the size of the [org.gnome.gdk] Window that
-     * displays it.
+     * Thus you can be at a position in <var>buffer co-ordinates</var> that is
+     * far "greater" than the size of the [org.gnome.gdk] Window that displays
+     * it.
      * 
      * <p>
      * Numerous methods, notably {@link #getLineY(TextIter) getLineY()},
@@ -434,9 +432,9 @@ public class TextView extends Container
      * to <var>window co-ordinates</var> which are relative to the top left
      * corner of the [org.gnome.gdk] Window being used to present the text on
      * screen. This method will carry out that conversion for the vertical
-     * axis. See
-     * {@link #convertBufferToWindowCoordsX(TextWindowType, int) convertBufferToWindowCoordsX()}
-     * for the corresponding horizontal conversion.
+     * axis. See {@link #convertBufferToWindowCoordsX(TextWindowType, int)
+     * convertBufferToWindowCoordsX()} for the corresponding horizontal
+     * conversion.
      * 
      * @since 4.0.9
      */
@@ -455,8 +453,8 @@ public class TextView extends Container
      * on screen position) to <var>buffer co-ordinates</var> (the pixel
      * distance into the canvas used to describe the entire text being
      * displayed). See
-     * {@link #convertBufferToWindowCoordsY(TextWindowType, int) convertBufferToWindowCoordsY()}
-     * for a detailed discussion.
+     * {@link #convertBufferToWindowCoordsY(TextWindowType, int)
+     * convertBufferToWindowCoordsY()} for a detailed discussion.
      * 
      * @since 4.0.9
      */
@@ -473,8 +471,8 @@ public class TextView extends Container
     /**
      * Convert a vertical position from <var>window co-ordinates</var> to
      * <var>buffer co-ordinates</var>. See
-     * {@link #convertBufferToWindowCoordsY(TextWindowType, int) convertBufferToWindowCoordsY()}
-     * for a detailed discussion.
+     * {@link #convertBufferToWindowCoordsY(TextWindowType, int)
+     * convertBufferToWindowCoordsY()} for a detailed discussion.
      * 
      * @since 4.0.9
      */
@@ -497,9 +495,9 @@ public class TextView extends Container
      * If you consider the text being displayed as a canvas of a fixed size,
      * but have turned on scrolling and only have a limited portion of that
      * canvas displayed due to the Widget being sized smaller than that
-     * canvas, then the <code>x</code>,<code>y</code> co-ordinates
-     * returned in the Rectangle represent the current <i>offset</i> into
-     * that canvas that the viewport is showing.
+     * canvas, then the <code>x</code>,<code>y</code> co-ordinates returned in
+     * the Rectangle represent the current <i>offset</i> into that canvas that
+     * the viewport is showing.
      * 
      * <p>
      * If, for example, you only have vertical scrolling enabled,
@@ -511,8 +509,8 @@ public class TextView extends Container
      * scroll.add(view);
      * </pre>
      * 
-     * then you can expect <code>getVisibleRectangle()</code> to always
-     * return Rectangles with an {@link Rectangle#getX() x} offset value of
+     * then you can expect <code>getVisibleRectangle()</code> to always return
+     * Rectangles with an {@link Rectangle#getX() x} offset value of
      * <code>0</code> - the viewport is never scrolled horizontally into the
      * text canvas.
      * 
@@ -548,8 +546,8 @@ public class TextView extends Container
      * displayed by the TextView. <code>X</code>,<code>Y</code> are in
      * <var>buffer co-ordinates</var>; if you have a position into the
      * [org.gnome.gdk] Window then use
-     * {@link #convertWindowToBufferCoordsY(TextWindowType, int) convertWindowToBufferCoordsY()}
-     * to convert.
+     * {@link #convertWindowToBufferCoordsY(TextWindowType, int)
+     * convertWindowToBufferCoordsY()} to convert.
      * 
      * @since 4.0.9
      */
@@ -573,9 +571,9 @@ public class TextView extends Container
      * <b>WARNING</b><br>
      * The co-ordinates of the start of each line height are cached are not
      * immediately updated when the underlying TextBuffer changes; see the
-     * comment titled "<a href="#height">Line Height Calculations</a>" in
-     * the documentation for this class for discussion of when you can safely
-     * use this method.
+     * comment titled "<a href="#height">Line Height Calculations</a>" in the
+     * documentation for this class for discussion of when you can safely use
+     * this method.
      * 
      * @since 4.0.9
      */
@@ -625,8 +623,8 @@ public class TextView extends Container
     }
 
     /**
-     * Scroll the viewport so that <code>pointer</code> is visible. This
-     * will get the location specified onto the screen with as little scroll
+     * Scroll the viewport so that <code>pointer</code> is visible. This will
+     * get the location specified onto the screen with as little scroll
      * movement as possible. If you need finer grained control, use one of the
      * other <code>scrollTo()</code> variants. variant.
      * 
@@ -637,8 +635,8 @@ public class TextView extends Container
     }
 
     /**
-     * Scroll the viewport so that <code>pointer</code> is visible,
-     * attempting to fine tune the result of the scrolling. See the
+     * Scroll the viewport so that <code>pointer</code> is visible, attempting
+     * to fine tune the result of the scrolling. See the
      * {@link #scrollTo(TextMark, double, double, double) scrollTo()} method
      * taking a TextMark and the same parameters for a detailed discussion of
      * their use.
@@ -670,10 +668,9 @@ public class TextView extends Container
      * location specified by the TextMark onto the screen.
      * 
      * <p>
-     * See also the full
-     * {@link #scrollTo(TextMark, double, double, double) scrollTo()} which
-     * takes additional parameters which may allow you to fine tune the result
-     * of the scrolling.
+     * See also the full {@link #scrollTo(TextMark, double, double, double)
+     * scrollTo()} which takes additional parameters which may allow you to
+     * fine tune the result of the scrolling.
      * 
      * @since 4.0.9
      */
@@ -687,9 +684,9 @@ public class TextView extends Container
      * <p>
      * The GTK documentation states that the <i>the effective screen will be
      * reduced by</i> <code>withinMargin</code>. The acceptable range is
-     * <code>0.0</code> to <code>0.5</code>. TODO It would be cool if
-     * someone could figure out what that actually means; the allowed range is
-     * clearly not a multiplier, so what is it?
+     * <code>0.0</code> to <code>0.5</code>. TODO It would be cool if someone
+     * could figure out what that actually means; the allowed range is clearly
+     * not a multiplier, so what is it?
      * 
      * <p>
      * The alignment parameters have the same meaning as elsewhere in GTK:
@@ -756,8 +753,8 @@ public class TextView extends Container
      * 
      * <p>
      * The signal has a parameter of type Menu and populating the popup menu
-     * is done by adding items to it with Menu's <code>append()</code>,
-     * etc. After constructing your menu one <i>must</i> call
+     * is done by adding items to it with Menu's <code>append()</code>, etc.
+     * After constructing your menu one <i>must</i> call
      * <code>showAll()</code> on the Menu or your newly added MenuItems will
      * <i>not</i> appear in the popup menu.
      * 
@@ -794,9 +791,9 @@ public class TextView extends Container
     /**
      * Hook up a handler to receive <code>TextView.PopulatePopup</code>
      * signals on this TextView. This will be emitted each time the user
-     * right-clicks or presses the <b><code>Menu</code></b> key, and
-     * allows you to populate the popup menu according to the current
-     * circumstances - in other words, making it a context menu.
+     * right-clicks or presses the <b><code>Menu</code></b> key, and allows
+     * you to populate the popup menu according to the current circumstances -
+     * in other words, making it a context menu.
      * 
      * @since 4.0.9
      */
@@ -810,9 +807,9 @@ public class TextView extends Container
      * with normal line spacing as specified by the current font metrics.
      * 
      * <p>
-     * See also
-     * {@link #setPaddingAboveParagraph(int) setPaddingAboveParagraph()} and
-     * {@link #setPaddingInsideParagraph(int) setPaddingInsideParagraph()}.
+     * See also {@link #setPaddingAboveParagraph(int)
+     * setPaddingAboveParagraph()} and {@link #setPaddingInsideParagraph(int)
+     * setPaddingInsideParagraph()}.
      * 
      * <p>
      * <i>This sets the <var>pixels-below-lines</var> property in GTK.</i>
@@ -829,9 +826,9 @@ public class TextView extends Container
      * first line will be offset from the top edge of the TextView.
      * 
      * <p>
-     * See also
-     * {@link #setPaddingBelowParagraph(int) setPaddingBelowParagraph()} and
-     * {@link #setPaddingInsideParagraph(int) setPaddingInsideParagraph()}.
+     * See also {@link #setPaddingBelowParagraph(int)
+     * setPaddingBelowParagraph()} and {@link #setPaddingInsideParagraph(int)
+     * setPaddingInsideParagraph()}.
      * 
      * <p>
      * <i>This sets the <var>pixels-above-lines</var> property in GTK.</i>
@@ -852,15 +849,14 @@ public class TextView extends Container
      * in the TextView displaying it.
      * 
      * <p>
-     * The default is <code>0</code>, ie to leave the line spacing alone.
-     * If nothing is causing lines to wrap then this setting will have no
-     * effect.
+     * The default is <code>0</code>, ie to leave the line spacing alone. If
+     * nothing is causing lines to wrap then this setting will have no effect.
      * 
      * <p>
-     * See also
-     * {@link #setPaddingAboveParagraph(int) setPaddingAboveParagraph()} and
-     * {@link #setPaddingBelowParagraph(int) setPaddingBelowParagraph()} for
-     * the spacing before and after each paragraph (wrapped or not).
+     * See also {@link #setPaddingAboveParagraph(int)
+     * setPaddingAboveParagraph()} and {@link #setPaddingBelowParagraph(int)
+     * setPaddingBelowParagraph()} for the spacing before and after each
+     * paragraph (wrapped or not).
      * 
      * <p>
      * <i>This sets the <var>pixels-inside-wrap</var> property in GTK.</i>
@@ -872,12 +868,11 @@ public class TextView extends Container
     }
 
     /**
-     * Set the behaviour when the <b><code>Tab</code></b> key is pressed.
-     * The default is <code>true</code>, that a <code>'\t'</code>
-     * character will be inserted into the underlying TextBuffer. If you would
-     * rather that <b><code>Tab</code></b> causes the focus to change to
-     * the next Widget rather than inserting a tab, then set this to
-     * <code>false</code>.
+     * Set the behaviour when the <b><code>Tab</code></b> key is pressed. The
+     * default is <code>true</code>, that a <code>'\t'</code> character will
+     * be inserted into the underlying TextBuffer. If you would rather that
+     * <b><code>Tab</code></b> causes the focus to change to the next Widget
+     * rather than inserting a tab, then set this to <code>false</code>.
      * 
      * @since 4.0.9
      */
