@@ -48,8 +48,8 @@ import org.gnome.glib.Object;
  * 
  * <p>
  * Once you have created an Action, you can get proxies for it with the
- * {@link #createMenuItem() createMenuItem()} and
- * {@link #createToolItem() createToolItem()} methods.
+ * {@link #createMenuItem() createMenuItem()} and {@link #createToolItem()
+ * createToolItem()} methods.
  * 
  * <p>
  * Incidentally, you can still use Actions even if you only plan to let the
@@ -249,11 +249,10 @@ public class Action extends Object
      * MenuItems or ToolItems are hidden to the used.
      * 
      * <p>
-     * In most cases, it's a better idea to
-     * {@link #setSensitive(boolean) setSensitive(false)} an Action instead of
-     * make it not visible. That way, users can see that such operation exists
-     * in the application, but they need to do some operations before it
-     * becomes available.
+     * In most cases, it's a better idea to {@link #setSensitive(boolean)
+     * setSensitive(false)} an Action instead of make it not visible. That
+     * way, users can see that such operation exists in the application, but
+     * they need to do some operations before it becomes available.
      * 
      * <p>
      * However, when a full Menu is disabled, this could be a good option. For
@@ -263,7 +262,8 @@ public class Action extends Object
      * <p>
      * Finally, note that setting an Action visible doesn't always mean it
      * will be actually displayed, as you also need to make visible the
-     * ActionGroup the Action belongs to (see {@link #isVisible() isVisible()}).
+     * ActionGroup the Action belongs to (see {@link #isVisible() isVisible()}
+     * ).
      */
     public void setVisible(boolean visible) {
         GtkAction.setVisible(this, visible);
@@ -302,10 +302,10 @@ public class Action extends Object
      * <p>
      * Since the Action is automatically activated when user activates one of
      * its proxies (selecting the specific MenuItem or clicking the ToolButton
-     * that goes with this Action), so in most cases <b>you don't need this.</b>
-     * However, in some cases you want to activate the Action in your
-     * application code. Use this there.
-     *
+     * that goes with this Action), so in most cases <b>you don't need
+     * this.</b> However, in some cases you want to activate the Action in
+     * your application code. Use this there.
+     * 
      * @since 4.0.8
      */
     public void emitActivate() {
@@ -373,9 +373,8 @@ public class Action extends Object
      * <p>
      * You use this when you want to use an Action to centralize activity
      * being launched by various different UI controls, but for which the
-     * existing <code>create*</code> proxies are not sufficient. So you
-     * create your Widget separately, then tie it to this Action with this
-     * method.
+     * existing <code>create*</code> proxies are not sufficient. So you create
+     * your Widget separately, then tie it to this Action with this method.
      * 
      * <p>
      * GTK will attempt to "synchronize" the tooltips, labels, and icons in
@@ -404,10 +403,10 @@ public class Action extends Object
      * nifty.connectProxy(item);
      * </pre>
      * 
-     * will cause the MenuItem's text label to become "<code>Do nifty things!</code>",
-     * and for selecting that MenuItem from the menu to result in the handler
-     * you hooked up to <code>nifty</code>'s <code>Action.Activate</code>
-     * signal being called.
+     * will cause the MenuItem's text label to become
+     * <code>&quot;Do nifty things!&quot;</code>, and for selecting that
+     * MenuItem from the menu to result in the handler you hooked up to
+     * <code>nifty</code>'s <code>Action.Activate</code> signal being called.
      * 
      * @since 4.0.6
      */
