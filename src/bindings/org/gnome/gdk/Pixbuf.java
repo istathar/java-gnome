@@ -78,15 +78,15 @@ public class Pixbuf extends org.gnome.glib.Object
      * <p>
      * If preserving the aspect ratio,
      * <ul>
-     * <li>width of <code>-1</code> will cause the image to be scaled to
-     * the exact given height
-     * <li>height of <code>-1</code> will cause the image to be scaled to
-     * the exact given width.
+     * <li>width of <code>-1</code> will cause the image to be scaled to the
+     * exact given height
+     * <li>height of <code>-1</code> will cause the image to be scaled to the
+     * exact given width.
      * </ul>
      * When not preserving aspect ratio,
      * <ul>
-     * <li>a width or height of <code>-1</code> means to not scale the
-     * image at all in that dimension.
+     * <li>a width or height of <code>-1</code> means to not scale the image
+     * at all in that dimension.
      * </ul>
      * 
      * @since 4.0.5
@@ -173,11 +173,10 @@ public class Pixbuf extends org.gnome.glib.Object
      * pixel, see {@link #getNumChannels() getNumChannels()}.
      * 
      * <p>
-     * The return array is of type of is <code>byte</code> but you can
-     * expect unsigned values in the range <code>0</code> to
-     * <code>255</code>. If you need the actual values you'll have to
-     * <code>&</code> with <code>0xFF</code> to get yourself to the
-     * correct unsigned integer.
+     * The return array is of type of is <code>byte</code> but you can expect
+     * unsigned values in the range <code>0</code> to <code>255</code>. If you
+     * need the actual values you'll have to <code>&amp;</code> with
+     * <code>0xFF</code> to get yourself to the correct unsigned integer.
      * 
      * <p>
      * You should not need to call this. See the caveats at the top of this

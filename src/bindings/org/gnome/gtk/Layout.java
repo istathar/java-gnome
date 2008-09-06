@@ -21,8 +21,8 @@ package org.gnome.gtk;
  * positioning child Widgets by co-ordinates and not by box packing (no layout
  * management, no resizing, likelihood of rendering collisions, etc). You are
  * better off adding a proper Container and adding scrolling with
- * ScrolledWindow's
- * {@link ScrolledWindow#addWithViewport(Widget) addWithViewport()}.
+ * ScrolledWindow's {@link ScrolledWindow#addWithViewport(Widget)
+ * addWithViewport()}.
  * 
  * @author Andrew Cowie
  * @since 4.0.8

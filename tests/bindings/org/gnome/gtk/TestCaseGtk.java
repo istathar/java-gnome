@@ -28,8 +28,8 @@ public class TestCaseGtk extends TestCase
 
     /**
      * Called by <code>UnitTests.suite()</code> to in turn call
-     * <code>Gtk.init()</code>. This allows the command line arguments to
-     * be passed if necessary.
+     * <code>Gtk.init()</code>. This allows the command line arguments to be
+     * passed if necessary.
      */
     public static void init(String[] args) {
         Gtk.init(args);

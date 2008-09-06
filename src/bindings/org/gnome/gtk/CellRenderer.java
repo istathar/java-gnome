@@ -33,9 +33,9 @@ package org.gnome.gtk;
  * <p>
  * While the whole point of the CellRenderers is to present the data from a
  * given column of your data model, CellRenderers also offer a considerable
- * number of properties that you <i>don't</i> need to vary row by row but
- * want to set for the TreeViewColumn as a whole. For these you will notice a
- * a setter which takes a conventional type as its argument; setting this
+ * number of properties that you <i>don't</i> need to vary row by row but want
+ * to set for the TreeViewColumn as a whole. For these you will notice a a
+ * setter which takes a conventional type as its argument; setting this
  * property will set it for all rows in that column. (Occasionally you will
  * see the setter for a property overloaded to offer you both a DataColumn
  * driven mode and a fixed value mode for the rare occasions where both styles
@@ -44,10 +44,9 @@ package org.gnome.gtk;
  * 
  * <p>
  * It's easy to be tempted into thinking that CellRenderers are Widgets,
- * especially as they get <code>pack()</code>ed into TreeViewColumns on
- * their way to being used in TreeViews. They are, however, merely utility
- * elements that are used to facilitate drawing, and <i>not</i> full power
- * Widgets.
+ * especially as they get <code>pack()</code>ed into TreeViewColumns on their
+ * way to being used in TreeViews. They are, however, merely utility elements
+ * that are used to facilitate drawing, and <i>not</i> full power Widgets.
  * 
  * <p>
  * Do not try to reuse a CellRenderer between different TreeViewColumns.

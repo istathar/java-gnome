@@ -35,12 +35,12 @@ import org.gnome.glib.Boxed;
  * (in a manner reminiscent of modal behaviour). This is trickier than it
  * should be, but you've got a couple possibilities. You can either
  * <ul>
- * <li>maintain a list of all the significant [<code>org.gnome.gtk</code>]
+ * <li>maintain a list of all the significant <code>[org.gnome.gtk]</code>
  * Windows being displayed by your application and then call
  * <code>getWindow().setCursor(BLAH)</code> on each of them, or you can
- * <li>use {@link Window#getToplevels() getToplevels()} on [<code>org.gnome.gdk</code>]
- * Window and then similarly just call <code>setCursor(BLAH)</code> as you
- * iterate over the returned set.
+ * <li>use {@link Window#getToplevels() getToplevels()} on
+ * <code>[org.gnome.gdk]</code> Window and then similarly just call
+ * <code>setCursor(BLAH)</code> as you iterate over the returned set.
  * </ul>
  * The first option is a bit more cumbersome, but many people find themselves
  * maintaining a list of "major" Windows for other purposes, so it can serve.
@@ -49,8 +49,8 @@ import org.gnome.glib.Boxed;
  * Almost inevitably the Cursor your want is {@link CursorType#WATCH WATCH}
  * which is the "busy" pointer. You can revert to "normal" by setting
  * {@link CursorType#LEFT_PTR LEFT_PTR} directly (which is the default cursor
- * you spend most of your time looking at), or by passing <code>null</code>
- * to <code>setCursor()</code>.
+ * you spend most of your time looking at), or by passing <code>null</code> to
+ * <code>setCursor()</code>.
  * 
  * <p>
  * Note that different theme engines (let alone different Linux vendors) tend
@@ -59,8 +59,8 @@ import org.gnome.glib.Boxed;
  * 
  * <p>
  * <i>Our implementation of Cursor assumes you want to manipulate
- * <code>GdkCursors</code> on the "default" <code>GdkDisplay</code>.
- * Where else would you be working?</i>
+ * <code>GdkCursors</code> on the "default" <code>GdkDisplay</code>. Where
+ * else would you be working?</i>
  * 
  * @author Andrew Cowie
  * @since 4.0.6

@@ -1,7 +1,7 @@
 /*
  * Gtk.java
  *
- * Copyright (c) 2006-2007 Operational Dynamics Consulting Pty Ltd
+ * Copyright (c) 2006-2008 Operational Dynamics Consulting Pty Ltd
  * 
  * The code in this file, and the library it is a part of, are made available
  * to you by the authors under the terms of the "GNU General Public Licence,
@@ -100,11 +100,10 @@ public final class Gtk extends Glib
      * This method blocks, ie, it does not return until the GTK main loop is
      * terminated.
      * <p>
-     * You can nest calls to <code>Gtk.main()</code>! If you do, then
-     * calling {@link #mainQuit() mainQuit()} will make the innermost
-     * invocation of the main loop return. (This is how modal Dialog boxes run
-     * and block the rest of the application while still accepting events
-     * themselves)
+     * You can nest calls to <code>Gtk.main()</code>! If you do, then calling
+     * {@link #mainQuit() mainQuit()} will make the innermost invocation of
+     * the main loop return. (This is how modal Dialog boxes run and block the
+     * rest of the application while still accepting events themselves)
      * 
      * @since 4.0.0
      */
@@ -131,8 +130,8 @@ public final class Gtk extends Glib
     /**
      * Exit the main loop. Since main loops can be nested, this does not
      * necessarily imply application termination, but if you have a typical
-     * GTK program with a single call to <code>Gtk.main()</code> at the end
-     * of your Java <code>main()</code> function, then calling
+     * GTK program with a single call to <code>Gtk.main()</code> at the end of
+     * your Java <code>main()</code> function, then calling
      * <code>Gtk.mainQuit()</code> in a signal handler somewhere will return
      * the program flow to <code>main()</code> on your way exiting.
      * 
@@ -155,8 +154,8 @@ public final class Gtk extends Glib
      * 
      * <p>
      * In a test case, this could be used as follows; see
-     * <code>TestCaseGtk.cycleMainLoop()</codde> in the <code>tests/</code> tree for
-     * details:
+     * <code>TestCaseGtk.cycleMainLoop()</code> in the <code>tests/</code>
+     * tree for details:
      * 
      * <pre>
      * while (Gtk.eventsPending()) {
@@ -179,13 +178,12 @@ public final class Gtk extends Glib
      * Not public! This is for internal use only, notably by test cases.
      * 
      * @param block
-     *            Whether to block or not. If <code>true</code>, this
-     *            method will block until an event is processed.
-     * @return Will result in <code>true</code> if
-     *         <code>Gtk.mainQuit()</code> (aka <code>gtk_main_quit()</code>)
-     *         has been called on the innermost active main loop.
-     *         <code>true</code> will also be returned if there <i>is</i>
-     *         no main loop running.
+     *            Whether to block or not. If <code>true</code>, this method
+     *            will block until an event is processed.
+     * @return Will result in <code>true</code> if <code>Gtk.mainQuit()</code>
+     *         (aka <code>gtk_main_quit()</code>) has been called on the
+     *         innermost active main loop. <code>true</code> will also be
+     *         returned if there <i>is</i> no main loop running.
      */
     static final boolean mainIterationDo(boolean block) {
         synchronized (Gdk.lock) {
@@ -226,7 +224,7 @@ public final class Gtk extends Glib
      */
     /*
      * YES this is a function on GtkWidget, but it really has nothing to do
-     * with Widgets (and *certainly* is not a method that every single Widget
+     * with Widgets (and certainly is not a method that every single Widget
      * subclass needs to inherit or have visible).
      */
     public static Pixbuf renderIcon(Widget source, Stock stock, IconSize size) {

@@ -14,8 +14,8 @@ package org.gnome.gtk;
 import java.net.URI;
 
 /**
- * A Dialog suitable for operations that need to select a file, such as "File ->
- * Open" or "File -> Save" commands.
+ * A Dialog suitable for operations that need to select a file, such as "File
+ * -> Open" or "File -> Save" commands.
  * 
  * <p>
  * A FileChooserDialog is just a Dialog with a FileChooserWidget plus

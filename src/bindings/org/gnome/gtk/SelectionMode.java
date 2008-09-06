@@ -16,8 +16,8 @@ import org.freedesktop.bindings.Constant;
 /**
  * What kinds of selections are possible on a TreeView? These are used by
  * {@link TreeSelection#setMode(SelectionMode) setMode()} on TreeSelection,
- * which in turn you get by calling TreeView's
- * {@link TreeView#getSelection() getSelection()}.
+ * which in turn you get by calling TreeView's {@link TreeView#getSelection()
+ * getSelection()}.
  * 
  * <p>
  * The default is {@link #SINGLE SINGLE}.

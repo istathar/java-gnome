@@ -78,7 +78,8 @@ public class ImageMenuItem extends MenuItem
      * <p>
      * There is also a constructor which allows you to connect an
      * <code>MenuItem.Activate</code> handler in-line, see
-     * {@link ImageMenuItem#ImageMenuItem(Image, String, org.gnome.gtk.MenuItem.Activate) here}.
+     * {@link ImageMenuItem#ImageMenuItem(Image, String, org.gnome.gtk.MenuItem.Activate)
+     * here}.
      * 
      * @since 4.0.6
      */

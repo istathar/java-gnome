@@ -28,16 +28,16 @@ public class HScale extends Scale
 
     /**
      * Create a new HScale allowing the user to enter a number a number
-     * between <code>min</code> and <code>max</code>, sliding in
-     * increments of <code>step</code>.
+     * between <code>min</code> and <code>max</code>, sliding in increments of
+     * <code>step</code>.
      * 
      * <p>
-     * The internal algorithms work best if <code>step</code> is specified
-     * as a power of 10. That shouldn't hassle you, as you can round the value
+     * The internal algorithms work best if <code>step</code> is specified as
+     * a power of 10. That shouldn't hassle you, as you can round the value
      * showing in the HScale with {@link Scale#setDigits(int) setDigits()}.
-     * And in any case, <code>step</code> only impacts the jumps that are
-     * made if the HScale is changed via the <b><code>Left</code></b> and
-     * <b><code>Right</code></b> key strokes.
+     * And in any case, <code>step</code> only impacts the jumps that are made
+     * if the HScale is changed via the <b><code>Left</code></b> and <b>
+     * <code>Right</code></b> key strokes.
      * 
      * @since 4.0.6
      */

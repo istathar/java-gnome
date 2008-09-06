@@ -82,8 +82,8 @@ public class ListStore extends TreeModel implements TreeDragSource, TreeDragDest
     /**
      * Add a new row to the ListStore. You'll need to fill in the various
      * columns with one of the various
-     * {@link TreeModel#setValue(TreeIter, DataColumnString, String) setValue()}
-     * methods, of course.
+     * {@link TreeModel#setValue(TreeIter, DataColumnString, String)
+     * setValue()} methods, of course.
      */
     public TreeIter appendRow() {
         final TreeIter iter;
@@ -110,8 +110,8 @@ public class ListStore extends TreeModel implements TreeDragSource, TreeDragDest
 
     /**
      * Delete a row from the ListStore. If there is another row after this
-     * then <code>true</code> will be returned and <code>row</code> will
-     * still be valid. Otherwise, <code>false</code> is returned and
+     * then <code>true</code> will be returned and <code>row</code> will still
+     * be valid. Otherwise, <code>false</code> is returned and
      * <code>row</code> is invalid from here on.
      * 
      * @since 4.0.7
@@ -122,8 +122,8 @@ public class ListStore extends TreeModel implements TreeDragSource, TreeDragDest
 
     /**
      * Insert a new row in the ListStore. The row will be placed at
-     * <code>position</code>, which must be between <code>0</code> and
-     * the number or rows in the model.
+     * <code>position</code>, which must be between <code>0</code> and the
+     * number or rows in the model.
      * 
      * <p>
      * If you have a TreeIter pointing at a row already you can instead use
@@ -132,8 +132,8 @@ public class ListStore extends TreeModel implements TreeDragSource, TreeDragDest
      * 
      * <p>
      * As with {@link #appendRow() appendRow()} the new row will be empty;
-     * you'll need to call one of the various <code>setValue()</code>
-     * methods to populate it.
+     * you'll need to call one of the various <code>setValue()</code> methods
+     * to populate it.
      * 
      * @since 4.0.7
      */

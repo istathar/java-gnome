@@ -39,6 +39,7 @@ public class ToggleButton extends Button
      * <p>
      * The label may contain underscores (<code>_<code>) to indicate
      * the mnemonic for the Button.
+     * 
      * @since 4.0.3
      */
     public ToggleButton(String label) {

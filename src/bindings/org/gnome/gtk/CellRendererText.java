@@ -24,8 +24,8 @@ package org.gnome.gtk;
  * in the process) before rendering it. If you do that, you'll probably want
  * to use a second (numerically typed) DataColumn to indicate the appropriate
  * sorting order to be applied if that TreeViewColumn is clicked and sorting
- * is turned on for it; see
- * {@link TreeViewColumn#setSortColumn(DataColumn) setSortColumn()}.
+ * is turned on for it; see {@link TreeViewColumn#setSortColumn(DataColumn)
+ * setSortColumn()}.
  * 
  * @author Andrew Cowie
  * @since 4.0.5

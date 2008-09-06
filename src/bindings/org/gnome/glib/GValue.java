@@ -70,10 +70,10 @@ final class GValue extends Plumbing
     }
 
     /*
-     * These ones does not match the exact prototype of g_value_init() [which
-     * is (GValue*, GType)]; we do the type system magic on the other side
-     * (where its all mostly macros in any case) and carry out allocation
-     * using GSlice. A rare occasion when we overload the native call.
+     * These ones does not match the exact prototype of g_value_init(); we do
+     * the type system magic on the other side (where its all mostly macros in
+     * any case) and carry out allocation using GSlice. A rare occasion when
+     * we overload the native call.
      */
 
     private static native final long g_value_init(int i);

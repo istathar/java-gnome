@@ -18,8 +18,8 @@ package org.gnome.gtk;
  * <p>
  * Usually you will prefer to use a subtype of this class, such as
  * {@link ToolButton}, in your Toolbars. However, if you want to add another
- * kind of Widget, you have to create a new ToolItem and
- * {@link #add(Widget) add()} the desired Widget to it.
+ * kind of Widget, you have to create a new ToolItem and {@link #add(Widget)
+ * add()} the desired Widget to it.
  * 
  * @see Toolbar
  * 

@@ -30,7 +30,7 @@ public class ValidateKeyboardHandling extends TestCaseGtk
     public final void testSubclassInstantiateByName() {
         final Keyval i;
         /*
-         * This is a guess of a symbol that will *never* be exposed in
+         * This is a guess of a symbol that will NEVER be exposed in
          * java-gnome :)
          */
         i = new Keyval("ISO_Level3_Latch");

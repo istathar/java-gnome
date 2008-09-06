@@ -20,8 +20,9 @@ package org.gnome.gtk;
  * <p>
  * Note that Notebooks are a poor way to organize pages of application
  * preferences; if your program has that many options there is probably
- * something very wrong with your design in the first place. Do you <i>really</i>
- * need to present that many different configuration settings to the user?
+ * something very wrong with your design in the first place. Do you
+ * <i>really</i> need to present that many different configuration settings to
+ * the user?
  * 
  * @author Sebastian Mancke
  * @author Andrew Cowie

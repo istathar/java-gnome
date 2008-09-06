@@ -15,8 +15,8 @@ package org.gnome.gdk;
  * The data regarding an event related to the visibility of a Widget. In
  * general this is only relevant when hooked up to a Window, but the
  * capability is general nevertheless. See
- * {@link org.gnome.gtk.Widget.VisibilityNotifyEvent Widget.VisibilityNotifyEvent}
- * for further details.
+ * {@link org.gnome.gtk.Widget.VisibilityNotifyEvent
+ * Widget.VisibilityNotifyEvent} for further details.
  * 
  * @author Andrew Cowie
  * @since 4.0.5

@@ -21,8 +21,8 @@ package org.gnome.gtk;
  * <p>
  * Somewhat unusually, a SeparatorToolItem can be used to force align other
  * ToolItems at the right of the Toolbar by adding one with
- * {@link #setDraw(boolean) setDraw(false)} and
- * {@link #setExpand(boolean) setExpand(true)} between the two "sides".
+ * {@link #setDraw(boolean) setDraw(false)} and {@link #setExpand(boolean)
+ * setExpand(true)} between the two "sides".
  * 
  * @author Vreixo Formoso
  * @author Andrew Cowie

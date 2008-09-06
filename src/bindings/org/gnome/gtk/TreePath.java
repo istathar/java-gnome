@@ -45,7 +45,8 @@ public final class TreePath extends Boxed
     }
 
     /**
-     * Create an empty TreePath object. <b>For use by bindings hackers only!</b>
+     * Create an empty TreePath object. <b>For use by bindings hackers
+     * only!</b>
      */
     TreePath() {
         super(GtkTreePath.createTreePath());

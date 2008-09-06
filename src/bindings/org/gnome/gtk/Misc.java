@@ -32,8 +32,8 @@ public abstract class Misc extends Widget
      * not alter the Widget's position.
      * 
      * @param xalign
-     *            the horizontal alignment, from <code>0.0f</code> (full
-     *            left) to <code>1.0f</code> (full right).
+     *            the horizontal alignment, from <code>0.0f</code> (full left)
+     *            to <code>1.0f</code> (full right).
      * @param yalign
      *            the vertical alignment, from <code>0.0f</code> (top) to
      *            <code>1.0f</code> (bottom).

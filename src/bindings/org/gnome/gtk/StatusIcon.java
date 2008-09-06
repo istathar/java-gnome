@@ -31,9 +31,9 @@ import org.gnome.gdk.Pixbuf;
  * 
  * <p>
  * Using a StatusIcon in the notification area is generally less annoying than
- * popping up a {@link org.gnome.gtk.Dialog}, but they are also less likely
- * to catch user attention. Thus a StatusIcon can be used to inform the user
- * of an important event, but not necessarily an urgent event.
+ * popping up a {@link org.gnome.gtk.Dialog}, but they are also less likely to
+ * catch user attention. Thus a StatusIcon can be used to inform the user of
+ * an important event, but not necessarily an urgent event.
  * 
  * <p>
  * A StatusIcon can also have an associated tooltip, not to be confused with
@@ -171,8 +171,8 @@ public class StatusIcon extends org.gnome.glib.Object
     /**
      * Returns the id of the stock icon being displayed by the StatusIcon. The
      * StorageType of the StatusIcon must be {@link ImageType#EMPTY EMPTY} or
-     * {@link ImageType#STOCK STOCK}; use
-     * {@link #getStorageType() getStorageType()} to find out which it is.
+     * {@link ImageType#STOCK STOCK}; use {@link #getStorageType()
+     * getStorageType()} to find out which it is.
      * 
      * @return the Stock representing of the stock icon being displayed by the
      *         StatusIcon or <code>null</code> if the StatusIcon is empty.
@@ -212,8 +212,8 @@ public class StatusIcon extends org.gnome.glib.Object
      * Widgets.
      * 
      * @param visible
-     *            <code>true</code> to show the StatusIcon,
-     *            <code>false</code> to hide it.
+     *            <code>true</code> to show the StatusIcon, <code>false</code>
+     *            to hide it.
      */
     /*
      * FIXME is that second sentence true?

@@ -46,8 +46,8 @@ public class Table extends Container
      * <code>n</code> rows of <code>n</code> columns of child Widgets.
      * 
      * @param homogeneous
-     *            If <code>true</code>, all cells are sized to that
-     *            requested by the largest Widget in the Table.
+     *            If <code>true</code>, all cells are sized to that requested
+     *            by the largest Widget in the Table.
      * @since 4.0.6
      */
     public Table(int rows, int columns, boolean homogeneous) {
@@ -57,8 +57,8 @@ public class Table extends Container
     /**
      * Add a child Widget to this Table. This is a convenience method where
      * the more esoteric parameters of the full
-     * {@link #attach(Widget, int, int, int, int, AttachOptions, AttachOptions, int, int) attach()}
-     * are given appropriate default values.
+     * {@link #attach(Widget, int, int, int, int, AttachOptions, AttachOptions, int, int)
+     * attach()} are given appropriate default values.
      * 
      * <p>
      * Each of the parameters refer to the column or row to which the Widget

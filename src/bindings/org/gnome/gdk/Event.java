@@ -19,10 +19,10 @@ import org.gnome.glib.Boxed;
  * 
  * <p>
  * <i>C side, <code>GdkEvent</code> is a union of various event structs such
- * as <code>GdkEventExpose</code> and <code>GdkEventKey</code>. Each
- * struct in this family starts with the same fields, and these fields are
- * represented by <code>GdkEventAny</code>. We have exposed those fields
- * here on Event.</i>
+ * as <code>GdkEventExpose</code> and <code>GdkEventKey</code>. Each struct in
+ * this family starts with the same fields, and these fields are represented
+ * by <code>GdkEventAny</code>. We have exposed those fields here on
+ * Event.</i>
  * 
  * @author Andrew Cowie
  * @since 4.0.3

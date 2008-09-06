@@ -41,10 +41,9 @@ package org.gnome.gtk;
  * 
  * <p>
  * For more information about how this works, and on how you can influence it
- * if necessary, see Widget's
- * {@link Widget#setSizeRequest(int, int) setSizeRequest()}. To get an
- * indication of how much space has been (will be) requested by a child, a
- * Container will also find the
+ * if necessary, see Widget's {@link Widget#setSizeRequest(int, int)
+ * setSizeRequest()}. To get an indication of how much space has been (will
+ * be) requested by a child, a Container will also find the
  * {@link Widget#getRequisition() getRequisition()} method useful. The Actual
  * size granted is available at {@link Widget#getAllocation() getAllocation()}
  * once the box packing cycle has been carried out.
@@ -119,11 +118,11 @@ public abstract class Container extends Widget
      * 
      * In other situations (wondering just what aggregation of Widgets makes
      * up something that was handed to you by Glade, perhaps),
-     * <code>instanceof</code> is your friend. Indeed sometimes it's the
-     * only way; the box packing composition of GTK elements means that even
-     * things you might take for granted as elementary (Button) are in fact
-     * more complex (an HBox of an Image and a Label) - and often the only way
-     * to find this out is to walk the Widget hierarchy.
+     * <code>instanceof</code> is your friend. Indeed sometimes it's the only
+     * way; the box packing composition of GTK elements means that even things
+     * you might take for granted as elementary (Button) are in fact more
+     * complex (an HBox of an Image and a Label) - and often the only way to
+     * find this out is to walk the Widget hierarchy.
      * 
      * @return an array with the Container's child Widgets. The array will be
      *         empty (zero length) if the Container hasn't got any children.

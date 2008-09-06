@@ -131,7 +131,7 @@ distclean: clean
 
 ifdef ECLIPSE
 else
-ECLIPSE=/usr/bin/eclipse-3.3
+ECLIPSE=/usr/bin/eclipse-3.4
 endif
 
 ifdef V

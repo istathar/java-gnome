@@ -70,8 +70,8 @@ public class Menu extends MenuShell
     /**
      * A special case for popping up the context menu associated with a
      * StatusIcon. Having constructed a Menu to be used as the context menu,
-     * you then call this from the <code>POPUP_MENU</code> signal callback
-     * as follows:
+     * you then call this from the <code>POPUP_MENU</code> signal callback as
+     * follows:
      * 
      * <pre>
      * StatusIcon si;

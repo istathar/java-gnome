@@ -47,8 +47,8 @@ package org.gnome.gtk;
  * {@link RadioButtonGroup#getActive() getActive()} method. And while you can
  * still connect a handler to the ToggleButton's
  * {@link org.gnome.gtk.ToggleButton.TOGGLED TOGGLED} signal, the
- * {@link org.gnome.gtk.RadioButtonGroup.GroupToggled GROUP_TOGGLED} signal
- * is provided as a convenience.
+ * {@link org.gnome.gtk.RadioButtonGroup.GroupToggled GROUP_TOGGLED} signal is
+ * provided as a convenience.
  * 
  * <p>
  * You should generally place related RadioButtons together, better if

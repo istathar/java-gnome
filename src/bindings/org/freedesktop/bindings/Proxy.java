@@ -16,7 +16,8 @@ package org.freedesktop.bindings;
  * wrapper around a pointer.
  * 
  * <p>
- * <i><b>This is implementation, and you will never need to use it directly</b></i>
+ * <i><b>This is implementation, and you will never need to use it
+ * directly</b></i>
  * 
  * @author Andrew Cowie
  * @since 4.0.0

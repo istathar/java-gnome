@@ -48,8 +48,7 @@ public abstract class Flag extends Constant
 
     /**
      * Utility function to determine whether a Flags instance has the bit
-     * embodied by <code>setting</code> set. An example of this in action
-     * is:
+     * embodied by <code>setting</code> set. An example of this in action is:
      * 
      * <pre>
      * WindowState s;

@@ -31,9 +31,9 @@ package org.gnome.gdk;
  * validation in the background after the user presses "OK", you have to jump
  * through horrific contortions to do so safely, resulting in cumbersome,
  * clunky code. By contrast, the java-gnome 4.0 bindings of GTK are
- * <b>transparently thread safe</b>. We integrate properly with the
- * underlying GDK thread lock and as a result you can safely make calls to
- * various GTK methods from worker threads.
+ * <b>transparently thread safe</b>. We integrate properly with the underlying
+ * GDK thread lock and as a result you can safely make calls to various GTK
+ * methods from worker threads.
  * 
  * <p>
  * <i>Threading and GNOME is tricky. This class mostly exists for the purpose
@@ -79,8 +79,8 @@ public class Gdk
      * access it via this field.
      */
     /*
-     * If you're not a java-gnome bindings hacker who **really** knows what
-     * they're doing, DO NOT TOUCH THIS.
+     * If you're not a java-gnome bindings hacker whoreally knows what they're
+     * doing, DO NOT TOUCH THIS.
      */
     public static final Lock lock;
 

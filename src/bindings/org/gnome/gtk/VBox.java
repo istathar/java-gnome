@@ -41,8 +41,8 @@ public class VBox extends Box
      * Creates a new VBox.
      * 
      * @param homogeneous
-     *            If <code>true</code>, all children will be given equal
-     *            space allotments.
+     *            If <code>true</code>, all children will be given equal space
+     *            allotments.
      * @param spacing
      *            the number of pixels to place (by default) between children.
      */
