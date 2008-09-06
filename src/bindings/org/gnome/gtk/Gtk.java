@@ -235,26 +235,33 @@ public final class Gtk extends Glib
     }
 
     /**
-     * Convenience function for launching the default GNOME application to
-     * show the supplied URI.
+     * Launch the user's preferred application to handle (display) the the
+     * supplied URI. This is most commonly used for raising URLs in the user's
+     * web browser, but the capability is more general than that; any URI
+     * conveying a MIME type that the desktop knows how to interpret will be
+     * handled.
      * 
      * <p>
      * Typical examples for URIs understood by GNOME are:<br>
      * <br>
-     * <code>file:///home/gnome/pict.png</code><br>
-     * <code>http://www.gnome.org</code><br>
-     * <code>mailto:me@gnome.org</code><br>
+     * <code>file:///home/george/Desktop/image.png</code><br>
+     * <code>http://java-gnome.sourceforge.net/</code><br>
+     * <code>mailto:george@example.com</code><br>
      * 
      * <p>
-     * This function will return <code>true</code> if the call succeeded and
+     * The launching will take appreciable real time, but this call does not
+     * block on the application being launched terminating. Think fork+exec.
+     * 
+     * <p>
+     * This function will return <code>true</code> if the call succeeds, and
      * <code>false</code> otherwise.
      * 
      * @since 4.0.9
      */
     /*
-     * Please note that this function wraps an exec call to gnome-open at the
-     * moment. In the future this will be replaced by a call to the native GTK
-     * api (gtk_show_uri) when GTK 2.14 is out.
+     * Please note that this function wraps an exec call to `gnome-open` at
+     * the moment, but in the near future this will be replaced by a call to
+     * gtk_show_uri() newly available in GTK 2.14.
      */
     public static boolean showURI(URI uri) {
         Process proc;
@@ -263,7 +270,10 @@ public final class Gtk extends Glib
         try {
             proc = Runtime.getRuntime().exec("gnome-open " + uri.toString());
 
-            // Run the process and wait until it terminates
+            /*
+             * Run process and wait until it terminates. While not
+             * instantaneous, this is expected to return relatively quickly.
+             */
             retCode = proc.waitFor();
 
             if (retCode == 0) {
