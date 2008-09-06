@@ -25,11 +25,10 @@ import org.freedesktop.bindings.DoubleConstant;
  * <p>
  * <i>In case you're wondering, these scaling constants are</i>
  * <code>(1.2)<sup>n</sup></code> <i>where</i> <code>n</code> <i>is
- * <code>1,2,3</code> for</i> {@link #LARGE LARGE},
- * {@link #X_LARGE X_LARGE}, {@link #XX_LARGE XX_LARGE}<i>, and
- * <code>-1,-2,-3</code> for</i> {@link #SMALL SMALL},
- * {@link #X_SMALL X_SMALL}, <i>and</i> {@link #XX_SMALL XX_SMALL}
- * <i>respectively.</i>
+ * <code>1,2,3</code> for</i> {@link #LARGE LARGE}, {@link #X_LARGE X_LARGE},
+ * {@link #XX_LARGE XX_LARGE}<i>, and <code>-1,-2,-3</code> for</i>
+ * {@link #SMALL SMALL}, {@link #X_SMALL X_SMALL}, <i>and</i>
+ * {@link #XX_SMALL XX_SMALL} <i>respectively.</i>
  * 
  * @since 4.0.9
  */
