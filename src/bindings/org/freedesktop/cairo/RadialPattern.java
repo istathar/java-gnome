@@ -16,9 +16,9 @@ package org.freedesktop.cairo;
  * 
  * <p>
  * After calling this and before using the RadialPattern you need to call
- * {@link Pattern#addColorStopRGBA(double, double, double, double, double) addColorStopRGBA()}
- * a few times to set up the gradient. For example, to create an circular
- * alpha blend:
+ * {@link Pattern#addColorStopRGBA(double, double, double, double, double)
+ * addColorStopRGBA()} a few times to set up the gradient. For example, to
+ * create an circular alpha blend:
  * 
  * <pre>
  * pattern = new RadialPattern(75, 75, 25, 75, 75, 120);
@@ -43,15 +43,15 @@ public class RadialPattern extends Pattern
 
     /**
      * Create a Pattern with a radial gradient between two circles. The first
-     * circle is centered at <code>cx0</code>,<code>cy0</code> with a
-     * radius of <code>radius0</code>, and the second circle is centered at
-     * <code>cx1</code>,<code>cy1</code> with a radius of
-     * <code>radius1</code>.
+     * circle is centered at <code>cx0</code>,<code>cy0</code> with a radius
+     * of <code>radius0</code>, and the second circle is centered at
+     * <code>cx1</code>,<code>cy1</code> with a radius of <code>radius1</code>
+     * .
      * 
      * <p>
      * Quite typically, you will want a strict radial pattern from a common
-     * centre, in which case have <code>cx1</code>,<code>cy1</code>
-     * equal to <code>cx0</code>,<code>cy0</code>.
+     * centre, in which case have <code>cx1</code>,<code>cy1</code> equal to
+     * <code>cx0</code>,<code>cy0</code>.
      * 
      * @since 4.0.7
      */
