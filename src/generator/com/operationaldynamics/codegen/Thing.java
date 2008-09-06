@@ -315,7 +315,8 @@ public abstract class Thing
 
             /*
              * we don't support arrays of arrays yet. the !(stored instanceof
-             * ArrayThing) is needed to prevent multiple recursion on *
+             * ArrayThing) is needed to prevent multiple recursion on the
+             * pointer star.
              */
             if ((stored != null) && !(stored instanceof ArrayThing)) {
                 dupe = stored.createArrayVariant();
@@ -324,11 +325,6 @@ public abstract class Thing
                 return dupe;
             }
         }
-
-        /*
-         * TODO if we finally difference between * and [] we need to add more
-         * code here
-         */
 
         /*
          * If we're still stuck, then that is would be fatal, except that we

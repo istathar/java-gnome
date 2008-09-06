@@ -109,11 +109,11 @@ public class DefsParser
         valuesBegin = Pattern.compile("^\\s+\\(values");
 
         /*
-         * FIXME The final .* excludes qualifying information as found in
-         * lines like the second following line; we need to figure out whether
-         * we need to capture and use this information; while defaul values
-         * are meaningless in Java (except in so far as advising that an
-         * overloaded public API method with less parameters and using that
+         * FIXME The final dot-star excludes qualifying information as found
+         * in lines like the second following line; we need to figure out
+         * whether we need to capture and use this information; while defaul
+         * values are meaningless in Java (except in so far as advising that
+         * an overloaded public API method with less parameters and using that
          * default might make sense), we'll need it for others (ie (null-ok),
          * which would allow us to put an assert elsewhere, and (read-write)
          * if we add it to struct fields to indicate that it's ok to create a
