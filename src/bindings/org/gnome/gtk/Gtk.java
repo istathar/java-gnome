@@ -1,7 +1,7 @@
 /*
  * Gtk.java
  *
- * Copyright (c) 2006-2008 Operational Dynamics Consulting Pty Ltd
+ * Copyright (c) 2006-2008 Operational Dynamics Consulting Pty Ltd, and Others
  * 
  * The code in this file, and the library it is a part of, are made available
  * to you by the authors under the terms of the "GNU General Public Licence,
@@ -10,6 +10,9 @@
  * See the LICENCE file for the terms governing usage and redistribution.
  */
 package org.gnome.gtk;
+
+import java.io.IOException;
+import java.net.URI;
 
 import org.gnome.gdk.Gdk;
 import org.gnome.gdk.Pixbuf;
@@ -229,5 +232,50 @@ public final class Gtk extends Glib
      */
     public static Pixbuf renderIcon(Widget source, Stock stock, IconSize size) {
         return GtkWidget.renderIcon(source, stock.getStockId(), size, null);
+    }
+
+    /**
+     * Convenience function for launching the default GNOME application to
+     * show the supplied URI.
+     * 
+     * <p>
+     * Typical examples for URIs understood by GNOME are:<br>
+     * <br>
+     * <code>file:///home/gnome/pict.png</code><br>
+     * <code>http://www.gnome.org</code><br>
+     * <code>mailto:me@gnome.org</code><br>
+     * 
+     * <p>
+     * This function will return <code>true</code> if the call succeeded and
+     * <code>false</code> otherwise.
+     * 
+     * @since 4.0.9
+     */
+    /*
+     * Please note that this function wraps an exec call to gnome-open at the
+     * moment. In the future this will be replaced by a call to the native GTK
+     * api (gtk_show_uri) when GTK 2.14 is out.
+     */
+    public static boolean showURI(URI uri) {
+        Process proc;
+        int retCode;
+
+        try {
+            proc = Runtime.getRuntime().exec("gnome-open " + uri.toString());
+
+            // Run the process and wait until it terminates
+            retCode = proc.waitFor();
+
+            if (retCode == 0) {
+                return true;
+            }
+
+        } catch (IOException e) {
+            // This will fall through to return false
+        } catch (InterruptedException e) {
+            // This will fall through to return false
+        }
+
+        return false;
     }
 }
