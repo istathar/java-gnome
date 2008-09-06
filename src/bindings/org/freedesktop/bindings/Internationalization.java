@@ -322,11 +322,11 @@ public final class Internationalization
      * </pre>
      * 
      * <p>
-     * The java-gnome implementation of <code>_()</code> also supports
-     * message formatting and concatenation in a language-neutral way. For
-     * example, let's suppose we want to print the following message: "The
-     * file 'data.log' has been modified at March 21, 2008 at 5:27:22 PM".
-     * This message actually has two parameters, the filename, and the date of
+     * The java-gnome implementation of <code>_()</code> also supports message
+     * formatting and concatenation in a language-neutral way. For example,
+     * let's suppose we want to print the following message: "The file
+     * 'data.log' has been modified at March 21, 2008 at 5:27:22 PM". This
+     * message actually has two parameters, the filename, and the date of
      * modification. This data is locale-dependent, as the dates are
      * represented differently depending on language and country. We could get
      * the internationalized message with:
@@ -402,9 +402,9 @@ public final class Internationalization
      * 
      * @param msg
      *            The message to mark as translatable
-     * @return The <code>msg</code> argument, <i>not</i> translated.
-     *         Remember, <code>N_()</code> is only used to mark a String as
-     *         translatable so that <code>xgettext</code> can extract it.
+     * @return The <code>msg</code> argument, <i>not</i> translated. Remember,
+     *         <code>N_()</code> is only used to mark a String as translatable
+     *         so that <code>xgettext</code> can extract it.
      * @since 4.0.7
      */
     public static final String N_(String msg) {

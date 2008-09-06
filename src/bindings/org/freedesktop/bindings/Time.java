@@ -38,24 +38,24 @@ public class Time
      * 
      * <p>
      * <b>This will change the timezone as far as the entire program is
-     * concerned.</b> If you have some reason to restore the original
-     * setting, use {@link Environment#getEnv(String) getEnv()}.
+     * concerned.</b> If you have some reason to restore the original setting,
+     * use {@link Environment#getEnv(String) getEnv()}.
      * 
      * <p>
-     * <i>This works by changing the environment variable <code>TZ</code>
-     * and then calling <code>tzset()</code>. That may or may not be what
-     * you want. We've made it static since this impacts the <b>entire</b>
+     * <i>This works by changing the environment variable <code>TZ</code> and
+     * then calling <code>tzset()</code>. That may or may not be what you
+     * want. We've made it static since this impacts the <b>entire</b>
      * process. If someone can figure out a way to change the timezone that
-     * <code>strftime()</code> thinks it is in without doing this, then
-     * please let us know.</i>
+     * <code>strftime()</code> thinks it is in without doing this, then please
+     * let us know.</i>
      * 
      * @param zoneinfo
      *            A String of the form "Australia/Sydney", "America/Toronto",
      *            "America/New_York", or "Europe/London", etc. Some zones have
      *            definitive abbreviations, notably Universal Time,
      *            Co-ordinated as "UTC". In case it wasn't obvious, these are
-     *            files in <code>/usr/share/zoneinfo/</code> and are
-     *            relative to that path.
+     *            files in <code>/usr/share/zoneinfo/</code> and are relative
+     *            to that path.
      * @see <a
      *      href="http://manpages.courier-mta.org/htmlman3/tzset.3.html">tzset(3)</a>
      */
@@ -98,11 +98,11 @@ public class Time
      * the way we like it.
      * 
      * <p>
-     * <i>This is a wrapper around <code>strftime()</code> from the standard
-     * C library. It is exposed because the formatting is done according to
-     * the value of the <code>TZ</code> environment variable, which in turn
-     * draws from the system zoneinfo libraries, data which is <b>much</b>
-     * more up to date than what Java offers.</i>
+     * <i>This is a wrapper around <code>strftime()</code> from the standard C
+     * library. It is exposed because the formatting is done according to the
+     * value of the <code>TZ</code> environment variable, which in turn draws
+     * from the system zoneinfo libraries, data which is <b>much</b> more up
+     * to date than what Java offers.</i>
      * 
      * @param when
      *            the number of seconds since Epoch being the date/time group

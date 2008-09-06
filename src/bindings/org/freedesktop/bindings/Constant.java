@@ -52,8 +52,8 @@ public abstract class Constant
      */
     /*
      * In GTK, enums are frequently registered as <code>GEnumValues</code>
-     * with <code>g_enum_register_static()</code>. This, however, is not
-     * done consistently, and cannot be relied upon.
+     * with <code>g_enum_register_static()</code>. This, however, is not done
+     * consistently, and cannot be relied upon.
      */
     final String nickname;
 
