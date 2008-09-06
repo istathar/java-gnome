@@ -45,16 +45,16 @@ public class SnapshotTextViewBorderWindows extends Snapshot
         bottom = new Label("BOTTOM");
 
         view.setBorderWindowSize(LEFT, 50);
-        view.add(left, TextWindowType.LEFT, 0, 0);
+        view.add(left, LEFT, 0, 0);
 
         view.setBorderWindowSize(RIGHT, 50);
-        view.add(right, TextWindowType.RIGHT, 0, 0);
+        view.add(right, RIGHT, 0, 0);
 
         view.setBorderWindowSize(TOP, 50);
-        view.add(top, TextWindowType.TOP, 0, 0);
+        view.add(top, TOP, 0, 0);
 
         view.setBorderWindowSize(BOTTOM, 50);
-        view.add(bottom, TextWindowType.BOTTOM, 0, 0);
+        view.add(bottom, BOTTOM, 0, 0);
 
         view.setWrapMode(WORD);
         scroll = new ScrolledWindow();

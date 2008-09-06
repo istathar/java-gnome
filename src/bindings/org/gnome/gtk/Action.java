@@ -302,9 +302,9 @@ public class Action extends Object
      * <p>
      * Since the Action is automatically activated when user activates one of
      * its proxies (selecting the specific MenuItem or clicking the ToolButton
-     * that goes with this Action), so in most cases <b>you don't need
-     * this.</b> However, in some cases you want to activate the Action in
-     * your application code. Use this there.
+     * that goes with this Action), normally <b>you don't need this</b>.
+     * However, in some cases you want to activate the Action in your
+     * application code. Use this there.
      * 
      * @since 4.0.8
      */

@@ -1,7 +1,7 @@
 /*
  * Container.java
  *
- * Copyright (c) 2006 Operational Dynamics Consulting Pty Ltd, and Others
+ * Copyright (c) 2006-2008 Operational Dynamics Consulting Pty Ltd, and Others
  * 
  * The code in this file, and the library it is a part of, are made available
  * to you by the authors under the terms of the "GNU General Public Licence,
@@ -74,9 +74,9 @@ public abstract class Container extends Widget
      * 
      * <p>
      * <i>In native GTK, this often results in the destruction of the Widget.
-     * In java-gnome, that will occur once the last Java reference goes out of
-     * scope and a garbage collection run occurs. So you can, quite safely,
-     * do:</i>
+     * In java-gnome, that will only occur once the last Java reference goes
+     * out of scope and a garbage collection run occurs. So you can, quite
+     * safely, do:</i>
      * 
      * <pre>
      * box1.remove(button);

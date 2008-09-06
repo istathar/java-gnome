@@ -369,6 +369,13 @@ public class TextView extends Container
         GtkTextView.addChildInWindow(this, child, which, x, y);
     }
 
+    /**
+     * @deprecated Despite TextView inherheriting from Container, add(Widget)
+     *             doesn't work. Use TextView's add(Widget,TextIter) instead.
+     */
+    /*
+     * This is marked deprecated just to keep it out of the API documentation.
+     */
     public void add(Widget child) {
         throw new UnsupportedOperationException("Use add(Widget,TextIter) instead");
     }
