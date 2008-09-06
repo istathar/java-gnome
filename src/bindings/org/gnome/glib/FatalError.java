@@ -19,8 +19,8 @@ package org.gnome.glib;
  * caught the problem.
  * 
  * <p>
- * By definition, a <code>CRITICAL</code> has to be fatal; the application
- * is known to be in an undefined state after one has been emitted. While some
+ * By definition, a <code>CRITICAL</code> has to be fatal; the application is
+ * known to be in an undefined state after one has been emitted. While some
  * programs allow the user to carry on in blissful ignorance, these warnings
  * indicate a programmer doing something wrong, and that needs fixing.
  * 
@@ -34,11 +34,11 @@ package org.gnome.glib;
  * 
  * <p>
  * <i>This class is our way of exposing fatal error conditions in a
- * Java-appropriate fashion. <code>GError</code>, on the other hand, is
- * GLib's mechanism for returning conditions that the developer can ask the
- * user for a decision about. Incidentally, we do not expose those directly in
- * the java-gnome public API; where they occur we propagate an appropriate
- * Java checked exception instead. See {@link GlibException}</i>.
+ * Java-appropriate fashion. <code>GError</code>, on the other hand, is GLib's
+ * mechanism for returning conditions that the developer can ask the user for
+ * a decision about. Incidentally, we do not expose those directly in the
+ * java-gnome public API; where they occur we propagate an appropriate Java
+ * checked exception instead. See {@link GlibException}</i>.
  * 
  * @author Andrew Cowie
  * @since 4.0.7

@@ -101,15 +101,15 @@ public class Glib
      * (gnome-panel:5581): Gtk-WARNING **: gtk_widget_size_allocate(): attempt to...
      * </pre>
      * 
-     * where "<code>gnome-panel</code>" was the name set by that program
-     * with this method call, and <code>5581</code> was the process id
-     * originating the message. As you can see, the whole thing is pretty ugly
-     * (not to mention having no context), which is why one of the design
-     * goals of java-gnome is to fully proxy the entire underlying library and
-     * have none of the internals from GLib or GTK be exposed to the Java
+     * where "<code>gnome-panel</code>" was the name set by that program with
+     * this method call, and <code>5581</code> was the process id originating
+     * the message. As you can see, the whole thing is pretty ugly (not to
+     * mention having no context), which is why one of the design goals of
+     * java-gnome is to fully proxy the entire underlying library and have
+     * none of the internals from GLib or GTK be exposed to the Java
      * developer. If we do our job right, your users should never see a
-     * message like that; at <i>worst</i> it would be reported as a Java
-     * stack trace.
+     * message like that; at <i>worst</i> it would be reported as a Java stack
+     * trace.
      * 
      * <p>
      * You don't really need to call this, but it's here if you want to make

@@ -44,8 +44,8 @@ import org.gnome.gdk.Pixbuf;
  * <p>
  * <i>Since instances of Java classes are their own identity, we do not need
  * to directly represent <code>GType</code> and <code>GValue</code> as
- * separate classes. We implement <code>GType</code> as a characteristic
- * that any</i> <code>Value</code> <i>or</i> <code>Object</code> <i>has.</i>
+ * separate classes. We implement <code>GType</code> as a characteristic that
+ * any</i> <code>Value</code> <i>or</i> <code>Object</code> <i>has.</i>
  * 
  * @author Andrew Cowie
  * @since 4.0.0
@@ -93,8 +93,8 @@ public class Value extends Proxy
     /**
      * Create an empty Value without initializing it's type. For use in
      * methods like TreeModel's
-     * {@link org.gnome.gtk.TreeModel#getValue(org.gnome.gtk.TreeIter, org.gnome.gtk.DataColumnString) getValue()}
-     * family, which use a blank Value internally.
+     * {@link org.gnome.gtk.TreeModel#getValue(org.gnome.gtk.TreeIter, org.gnome.gtk.DataColumnString)
+     * getValue()} family, which use a blank Value internally.
      * 
      * Not public API!
      */
