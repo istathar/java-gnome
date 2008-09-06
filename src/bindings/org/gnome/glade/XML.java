@@ -16,9 +16,9 @@ import org.gnome.gtk.Widget;
 
 /**
  * This class proxies the internal representation used by
- * <code>libglade</code> to represent the processed <code>.glade</code>
- * XML data. Ideally we wouldn't expose such a thing, but it turns out that
- * the library's power is accessed care of methods on this Object.
+ * <code>libglade</code> to represent the processed <code>.glade</code> XML
+ * data. Ideally we wouldn't expose such a thing, but it turns out that the
+ * library's power is accessed care of methods on this Object.
  * 
  * <p>
  * <i>There comes a point when the underlying mapping becomes a bit
