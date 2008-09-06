@@ -21,8 +21,8 @@ import org.gnome.gtk.Widget;
 import org.gnome.gtk.Window;
 
 /**
- * A skeleton program to test using the <code>.glade</code> XML output from
- * a GNOME user interface designer translated into live Widgets with
+ * A skeleton program to test using the <code>.glade</code> XML output from a
+ * GNOME user interface designer translated into live Widgets with
  * <code>libglade</code>.
  * 
  * @author Andrew Cowie
