@@ -208,6 +208,9 @@ public abstract class TreeModel extends org.gnome.glib.Object
      * IllegalArgumentException if it is not valid.
      */
     protected void checkIter(TreeIter iter) {
+        if (iter == null) {
+            throw new IllegalArgumentException("TreeIter can't be null");
+        }
         if (this != iter.getModel()) {
             throw new IllegalArgumentException("TreeIter not valid for this TreeModel");
         }

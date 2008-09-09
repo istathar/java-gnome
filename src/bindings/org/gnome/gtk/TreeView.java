@@ -261,6 +261,17 @@ public class TreeView extends Container
         GtkTreeView.connect(this, handler, false);
     }
 
+    /**
+     * Cause a <code>TreeView.RowActivated</code> signal to be emitted for the
+     * given TreePath. The TreeViewColumn is optional; use <code>null</code>
+     * if you don't want to specify it.
+     * 
+     * @since 4.0.9
+     */
+    public void emitRowActivated(TreePath path, TreeViewColumn vertical) {
+        GtkTreeView.rowActivated(this, path, vertical);
+    }
+
     /** @deprecated */
     public interface ROW_ACTIVATED extends GtkTreeView.RowActivatedSignal
     {
@@ -770,5 +781,4 @@ public class TreeView extends Container
     public void setCursor(TreePath path, TreeViewColumn vertical, boolean startEditing) {
         GtkTreeView.setCursor(this, path, vertical, startEditing);
     }
-
 }

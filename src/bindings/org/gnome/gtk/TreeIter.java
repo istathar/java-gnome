@@ -100,8 +100,15 @@ public class TreeIter extends Boxed
      * iterate through the entire model. In a TreeStore, however, it will
      * return the next row <i>at this level</i>.
      * 
-     * @return Will return <code>true</code> if it was able to change this
-     *         TreeIter to the next row.
+     * <p>
+     * This will return <code>true</code> if it was able to change this
+     * TreeIter to the next row.
+     * 
+     * <p>
+     * Be aware that when this returns <code>false</code> the TreeIter is no
+     * longer valid.
+     * 
+     * @since 4.0.5
      */
     public boolean iterNext() {
         if (model == null) {
