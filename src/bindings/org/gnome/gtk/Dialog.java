@@ -258,4 +258,14 @@ public class Dialog extends Window
             handler.onResponse(source, response);
         }
     }
+
+    /**
+     * Cause a <code>Dialog.Response</code> signal with the specified
+     * ResponseType to be emitted by this Dialog.
+     * 
+     * @since 4.0.9
+     */
+    public void emitResponse(ResponseType response) {
+        GtkDialog.response(this, response.getResponseId());
+    }
 }
