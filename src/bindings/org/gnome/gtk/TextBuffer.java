@@ -146,8 +146,11 @@ public class TextBuffer extends Object
      */
     public static final char OBJECT_REPLACEMENT_CHARACTER = 0xFFFC;
 
+    private final boolean usingDefaultTable;
+
     protected TextBuffer(long pointer) {
         super(pointer);
+        usingDefaultTable = false;
     }
 
     /**
@@ -165,6 +168,7 @@ public class TextBuffer extends Object
      */
     public TextBuffer() {
         super(GtkTextBuffer.createTextBuffer(getDefaultTable()));
+        usingDefaultTable = true;
     }
 
     /**
@@ -175,6 +179,7 @@ public class TextBuffer extends Object
      */
     public TextBuffer(TextTagTable tags) {
         super(GtkTextBuffer.createTextBuffer(tags));
+        usingDefaultTable = false;
     }
 
     /**
@@ -317,6 +322,7 @@ public class TextBuffer extends Object
      * @since 4.0.9
      */
     public void insert(TextIter position, String text, TextTag tag) {
+        checkTag(tag);
         GtkTextBuffer.insertWithTags(this, position, text, -1, tag);
     }
 
@@ -471,6 +477,28 @@ public class TextBuffer extends Object
         return iter;
     }
 
+    /*
+     * Validate that the TextTag being submitted for application is legal for
+     * use in this TextBuffer. FUTURE we could cache the table in the
+     * constructors if this becomes a hot spot.
+     */
+    private void checkTag(TextTag tag) {
+        if (usingDefaultTable) {
+            if (tag.table != getDefaultTable()) {
+                throw new IllegalArgumentException("\n"
+                        + "You cannot apply a TextTag created with the no-arg TextTag() constructor\n"
+                        + "to a TextBuffer not likewise constructed with the no-arg TextBuffer()\n"
+                        + "constructor.");
+            }
+        } else {
+            if (tag.table != GtkTextBuffer.getTagTable(this)) {
+                throw new IllegalArgumentException("\n"
+                        + "You can only apply a TextTag to a TextBuffer created with the same\n"
+                        + "TextTagTable.");
+            }
+        }
+    }
+
     /**
      * Apply the selected tag on the area in the TextBuffer between the start
      * and end positions.
@@ -478,6 +506,7 @@ public class TextBuffer extends Object
      * @since 4.0.9
      */
     public void applyTag(TextTag tag, TextIter start, TextIter end) {
+        checkTag(tag);
         GtkTextBuffer.applyTag(this, tag, start, end);
     }
 

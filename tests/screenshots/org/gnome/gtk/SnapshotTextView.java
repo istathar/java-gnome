@@ -13,6 +13,7 @@ package org.gnome.gtk;
 import org.gnome.pango.Style;
 
 import static org.gnome.gtk.PolicyType.ALWAYS;
+import static org.gnome.gtk.PolicyType.NEVER;
 import static org.gnome.gtk.WrapMode.WORD;
 import static textview.LoremIpsum.text;
 
@@ -34,7 +35,7 @@ public class SnapshotTextView extends Snapshot
 
         view.setWrapMode(WORD);
         scroll = new ScrolledWindow();
-        scroll.setPolicy(ALWAYS, ALWAYS);
+        scroll.setPolicy(NEVER, ALWAYS);
         scroll.add(view);
 
         italic = new TextTag();

@@ -86,6 +86,7 @@ public class Action extends Object
      *            A handler to connect to the <code>Action.Activate</code>
      *            signal. Typically this will be used to actually start the
      *            operation related to this Action.
+     * @since 4.0.4
      */
     /*
      * FIXME describe the implications of different choices for name.
@@ -114,6 +115,7 @@ public class Action extends Object
      *            localized.
      * @param stock
      *            The Stock icon to display in proxy Widgets.
+     * @since 4.0.4
      */
     public Action(String name, String label, String tooltip, Stock stock) {
         super(GtkAction.createAction(name, label, tooltip, stock.getStockId()));
@@ -142,6 +144,7 @@ public class Action extends Object
      *            A handler to connect to the <code>Action.Activate</code>
      *            signal. Usually will will start from here the operation
      *            related to the Action.
+     * @since 4.0.4
      */
     public Action(String name, String label, Action.Activate handler) {
         super(GtkAction.createAction(name, label, null, null));
@@ -162,6 +165,7 @@ public class Action extends Object
      * @param label
      *            The text that will be displayed in the proxy Widgets. You
      *            usually will want to localize it to the user language.
+     * @since 4.0.4
      */
     public Action(String name, String label) {
         super(GtkAction.createAction(name, label, null, null));
@@ -175,6 +179,8 @@ public class Action extends Object
      * have the same label, icon or accelerator of this Action, and when the
      * user activates the MenuItem, this Action will
      * <code>Action.Activate</code> too.
+     * 
+     * @since 4.0.4
      */
     public MenuItem createMenuItem() {
         return (MenuItem) GtkAction.createMenuItem(this);
@@ -187,7 +193,9 @@ public class Action extends Object
      * You can add the returned ToolItem to a {@link Toolbar}. The ToolItem
      * will have the same Label, icon, tooltips or accelerator of this Action,
      * and when the user clicks it, this Action will be
-     * <code>Action.Activate</code>D.
+     * <code>Action.Activate</code>d.
+     * 
+     * @since 4.0.4
      */
     public ToolItem createToolItem() {
         return (ToolItem) GtkAction.createToolItem(this);
@@ -218,6 +226,11 @@ public class Action extends Object
      * Finally, note that setting an Action sensitive doesn't always mean it
      * will be actually sensitive, as you also need to make sensitive the
      * ActionGroup the Action belongs to (see {@link #isSensitive()}).
+     * 
+     * <p>
+     * An Action starts life sensitive (ie, <code>true</code>).
+     * 
+     * @since 4.0.4
      */
     public void setSensitive(boolean sensitive) {
         GtkAction.setSensitive(this, sensitive);
@@ -228,6 +241,8 @@ public class Action extends Object
      * user. Note that this doesn't necessarily mean effective sensitivity due
      * to the effect of ActionGroups; see {@link #isSensitive() isSensitive()}
      * for that.
+     * 
+     * @since 4.0.4
      */
     public boolean getSensitive() {
         return GtkAction.getSensitive(this);
@@ -236,6 +251,8 @@ public class Action extends Object
     /**
      * Returns whether the action is effectively sensitive, i.e., if both the
      * Action and the ActionGroup it belongs to are enabled.
+     * 
+     * @since 4.0.4
      */
     public boolean isSensitive() {
         return GtkAction.isSensitive(this);
@@ -263,7 +280,9 @@ public class Action extends Object
      * Finally, note that setting an Action visible doesn't always mean it
      * will be actually displayed, as you also need to make visible the
      * ActionGroup the Action belongs to (see {@link #isVisible() isVisible()}
-     * ).
+     * for details).
+     * 
+     * @since 4.0.4
      */
     public void setVisible(boolean visible) {
         GtkAction.setVisible(this, visible);
@@ -275,6 +294,7 @@ public class Action extends Object
      * 
      * @see #isVisible()
      * @see #setVisible(boolean)
+     * @since 4.0.4
      */
     public boolean getVisible() {
         return GtkAction.getVisible(this);
@@ -286,6 +306,7 @@ public class Action extends Object
      * @return <code>true</code> when both the Action and the ActionGroup it
      *         belongs to are visible, <code>false</code> otherwise.
      * @see #setVisible(boolean)
+     * @since 4.0.4
      */
     public boolean isVisible() {
         return GtkAction.isVisible(this);
@@ -321,6 +342,8 @@ public class Action extends Object
     /**
      * Set a tooltip (little help message appearing in a hover) for the
      * Action.
+     * 
+     * @since 4.0.4
      */
     public void setTooltip(String tooltip) {
         setPropertyString("tooltip", tooltip);
@@ -328,6 +351,8 @@ public class Action extends Object
 
     /**
      * Get the tooltip for the Action.
+     * 
+     * @since 4.0.4
      */
     public String getTooltip() {
         return getPropertyString("tooltip");
@@ -340,6 +365,8 @@ public class Action extends Object
      * An Action is activated when the user clicks a ToolButton proxy, when
      * (s)he activates an associated MenuItem or when
      * {@link Action#activate() activate()} is called.
+     * 
+     * @since 4.0.4
      */
     public interface Activate extends GtkAction.ActivateSignal
     {
@@ -348,6 +375,8 @@ public class Action extends Object
 
     /**
      * Connect a handler to the <code>Action.Activate</code> signal.
+     * 
+     * @since 4.0.4
      */
     public void connect(Action.Activate handler) {
         GtkAction.connect(this, handler, false);

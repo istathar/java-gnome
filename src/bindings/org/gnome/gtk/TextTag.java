@@ -103,8 +103,21 @@ import static org.gnome.gtk.TextTagTable.getDefaultTable;
  */
 public class TextTag extends Object
 {
+    /**
+     * An internal reference to the TextTagTable that this TextTag was
+     * constructed with. This is used for validation by TextBuffer's
+     * checkTag() to protect against misuse of our no-arg conveniences.
+     */
+    final TextTagTable table;
+
     protected TextTag(long pointer) {
         super(pointer);
+        /*
+         * FIXME Does this ever actually get hit? If so, we're in trouble; how
+         * can we find out what table it is actually in? Probably means
+         * changing the logic in checkTag().
+         */
+        this.table = null;
     }
 
     /**
@@ -116,7 +129,8 @@ public class TextTag extends Object
      */
     public TextTag() {
         super(GtkTextTag.createTextTag(null));
-        GtkTextTagTable.add(getDefaultTable(), this);
+        this.table = getDefaultTable();
+        GtkTextTagTable.add(table, this);
     }
 
     /**
@@ -131,6 +145,7 @@ public class TextTag extends Object
      */
     public TextTag(TextTagTable table) {
         super(GtkTextTag.createTextTag(null));
+        this.table = table;
         GtkTextTagTable.add(table, this);
     }
 
