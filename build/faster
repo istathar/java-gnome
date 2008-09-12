@@ -502,7 +502,7 @@ def compileBindingsObjects():
 
 	
 def linkSharedLibrary():
-	so = "tmp/libgtkjni-4.0.so"
+	so = "tmp/libgtkjni-" + config['VERSION'] +  ".so"
 
 	list = findFiles("tmp/objects/", ".o")
 	pairs = dependsListToSingleTarget(list, so)

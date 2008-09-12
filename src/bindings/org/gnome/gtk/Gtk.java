@@ -50,7 +50,7 @@ import org.gnome.glib.Glib;
 public final class Gtk extends Glib
 {
     static {
-        System.loadLibrary("gtkjni-" + Version.APIVERSION);
+        System.loadLibrary("gtkjni-" + Version.VERSION);
     }
 
     /**
