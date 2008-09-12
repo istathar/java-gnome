@@ -23,7 +23,13 @@ API we're presenting, but this is nonetheless a significant milestone and one
 we're justly proud of. Thanks to Stefan Prelle for having done much of the leg
 work and also to Kenneth Prugh for his support during testing.
 
+You can read the API documentation for [TextBuffer][] and [TextView][] if
+you're interested in how things are shaping up.
+
 AfC
+
+[TextBuffer]: doc/api/org/gnome/gtk/TextBuffer.html
+[TextView]: doc/api/org/gnome/gtk/TextView.html
 
 <a name="4.0.8" id="1218770492" title="Cleanups and signals naming revised"></a>
 
