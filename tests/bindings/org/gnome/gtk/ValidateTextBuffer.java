@@ -473,4 +473,85 @@ public class ValidateTextBuffer extends TestCaseGtk
         assertEquals(400, GtkTextTagOverride.valueOf(Weight.NORMAL));
         assertEquals(700, GtkTextTagOverride.valueOf(Weight.BOLD));
     }
+
+    /**
+     * Verify that the checkTag() method in TextBuffer works.
+     */
+    public final void testApplyTextTagCheckTable() {
+        final TextTagTable table;
+        final TextBuffer buffer;
+        final TextTag noarg, legal;
+        final TextIter pointer;
+
+        table = new TextTagTable();
+        buffer = new TextBuffer(table);
+
+        noarg = new TextTag();
+        legal = new TextTag(table);
+
+        pointer = buffer.getIterStart();
+
+        buffer.insert(pointer, "Hello");
+
+        try {
+            buffer.insert(pointer, " World", noarg);
+            fail();
+        } catch (IllegalArgumentException iae) {
+            // good
+        }
+
+        buffer.insert(pointer, " World", legal);
+        // good
+
+        try {
+            buffer.applyTag(noarg, buffer.getIterStart(), buffer.getIterEnd());
+            fail();
+        } catch (IllegalArgumentException iae) {
+            // good
+        }
+        buffer.applyTag(legal, buffer.getIterStart(), buffer.getIterEnd());
+        // good
+    }
+
+    /**
+     * Verify that the checkTag() method in TextBuffer works, this time with
+     * TextTags using our default table.
+     */
+    public final void testApplyTextTagCheckNoArg() {
+        final TextTagTable table;
+        final TextBuffer buffer;
+        final TextTag noarg, illegal;
+        final TextIter pointer;
+
+        /*
+         * Now the reverse - we construct without a TextTagTable.
+         */
+
+        buffer = new TextBuffer();
+
+        noarg = new TextTag();
+
+        table = new TextTagTable();
+        illegal = new TextTag(table);
+
+        pointer = buffer.getIterStart();
+
+        buffer.insert(pointer, "Hello");
+
+        buffer.insert(pointer, " World", noarg);
+        try {
+            buffer.insert(pointer, " World", illegal);
+            fail();
+        } catch (IllegalArgumentException iae) {
+            // good
+        }
+
+        buffer.applyTag(noarg, buffer.getIterStart(), buffer.getIterEnd());
+        try {
+            buffer.applyTag(illegal, buffer.getIterStart(), buffer.getIterEnd());
+            fail();
+        } catch (IllegalArgumentException iae) {
+            // good
+        }
+    }
 }
