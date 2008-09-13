@@ -52,6 +52,7 @@ package org.gnome.gtk;
  * Do not try to reuse a CellRenderer between different TreeViewColumns.
  * 
  * @author Andrew Cowie
+ * @author Stefan Prelle
  * @since 4.0.5
  */
 /*
@@ -132,4 +133,18 @@ public abstract class CellRenderer extends Object
     public void setBackground(String colour) {
         setPropertyString("cell-background", colour);
     }
+
+    /**
+     * Indicate if the CellRenderer should be visible, depending
+     * on the content of a DataColumnBoolean. E.g. if you have
+     * a TreeView where the leave rows have a checkbox 
+     * {@link CellRendererToggle}, which should not be visible
+     * for the node rows.
+     * 
+     * @since 4.0.9
+     */
+    public void setVisible(DataColumnBoolean column) {
+        GtkCellLayout.addAttribute(vertical, this, "visible", column.getOrdinal());
+    }
+
 }
