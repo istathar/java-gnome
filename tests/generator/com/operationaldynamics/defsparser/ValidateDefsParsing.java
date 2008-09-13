@@ -55,6 +55,13 @@ public class ValidateDefsParsing extends TestCase
                 "  )",
                 ")",
                 "",
+                "(define-method leave",
+                "  (of-object \"GtkButton\")",
+                "  (c-name \"gtk_button_leave\")",
+                "  (return-type \"none\")",
+                "  (deprecated)",
+                ")",
+                "",
                 "(define-virtual clicked",
                 "  (of-object \"GtkButton\")",
                 "  (return-type \"none\")",
@@ -87,10 +94,11 @@ public class ValidateDefsParsing extends TestCase
     public final void testInputStreamToStanzas() throws ParseException {
         int i;
 
-        for (i = 0; parser.readNextStanza(); i++)
+        for (i = 0; parser.readNextStanza(); i++) {
             ;
+        }
 
-        assertEquals(4, i);
+        assertEquals(5, i);
     }
 
     public final void testObjectBlockCreated() throws ParseException {
@@ -139,5 +147,13 @@ public class ValidateDefsParsing extends TestCase
         assertEquals("self", block.parameters[0][1]);
         assertEquals("const-gchar*", block.parameters[1][0]);
         assertEquals("label", block.parameters[1][1]);
+    }
+
+    public final void testIgnoreUnnecessaryBlocks() {
+        Block[] results;
+
+        results = parser.parseData();
+
+        assertEquals(4, results.length);
     }
 }
