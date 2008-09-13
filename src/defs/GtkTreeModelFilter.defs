@@ -59,7 +59,7 @@
 (define-method convert_child_iter_to_iter
   (of-object "GtkTreeModelFilter")
   (c-name "gtk_tree_model_filter_convert_child_iter_to_iter")
-  (return-type "none")
+  (return-type "gboolean")
   (parameters
     '("GtkTreeIter*" "filter_iter")
     '("GtkTreeIter*" "child_iter")
