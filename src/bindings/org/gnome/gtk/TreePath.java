@@ -11,6 +11,8 @@
  */
 package org.gnome.gtk;
 
+import java.util.StringTokenizer;
+
 import org.gnome.glib.Boxed;
 
 /**
@@ -36,6 +38,7 @@ import org.gnome.glib.Boxed;
  * TreeModel's {@link TreeModel#getIter(TreePath) getIter()} method.
  * 
  * @author Andrew Cowie
+ * @author Stefan Prelle
  * @since 4.0.5
  */
 public final class TreePath extends Boxed
@@ -105,4 +108,47 @@ public final class TreePath extends Boxed
     public String toString() {
         return GtkTreePath.toString(this);
     }
+    
+    //----------------------------------------------------
+    /**
+     * Returns the depth of node identified by this TreePath
+     * within the tree. Or with other words: The number of
+     * elements in the TreePath.
+     * 
+     * @since 4.0.9
+     */
+    public int getDepth() {
+        return GtkTreePath.getDepth(this);
+    }
+    
+    //----------------------------------------------------
+    /**
+     * Returns the indices the path consists of as an array
+     * of integer. If for example the path would be "1:4:2"
+     * you would get {1,4,2}.
+     * 
+     * @return The indices of the nodes or <code>null</code>
+     *   if nothing is selected.
+     * 
+     * @since 4.0.9
+     */
+    /*
+     * Calling GtkTreePath.getIndices() always returns a
+     * NullPointer for me, so I implemented this workaround.
+     * If someone willing to dig deeper in the native code
+     * finds out why, that code can be removed.
+     */
+    public int[] getIndices() {
+//        return GtkTreePath.getIndices(this);
+        try {
+            StringTokenizer tok = new StringTokenizer(this.toString(), ":");
+            int[] ret = new int[tok.countTokens()];
+            for (int i=0; i<ret.length; i++)
+                ret[i] = Integer.parseInt(tok.nextToken());
+            return ret;
+        } catch (NumberFormatException e) {
+            return null;
+        }
+    }
+
 }
