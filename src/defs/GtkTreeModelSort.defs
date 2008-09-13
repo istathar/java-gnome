@@ -74,6 +74,7 @@
   (of-object "GtkTreeModelSort")
   (c-name "gtk_tree_model_sort_clear_cache")
   (return-type "none")
+  (unnecessary)
 )
 
 (define-method iter_is_valid
