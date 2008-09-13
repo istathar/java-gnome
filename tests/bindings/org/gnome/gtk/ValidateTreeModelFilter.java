@@ -25,10 +25,6 @@ public class ValidateTreeModelFilter extends TestCaseGtk
 
     private final TreeModelFilter filter;
 
-    public void setUp() {
-        super.setUp();
-    }
-
     public ValidateTreeModelFilter() {
         TreeIter row;
 
