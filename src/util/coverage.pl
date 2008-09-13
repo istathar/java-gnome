@@ -50,6 +50,28 @@ foreach my $file ( @defs ) {
 print "Current size of .defs data:\t";
 printf "%5d\n", $num;
 
+@sources = split(/\n/, `find generated/bindings/ -name '*.java'`);
+$num = 0;
+
+foreach my $file ( @sources ) {
+	open JAVA, $file;
+
+	
+	while (<JAVA>) {
+		if (/^    private static native /) {
+			if (/get_ordinal_/) {
+				next;
+			}
+			$num++;
+		}
+	}
+
+	close JAVA;
+}
+
+print "Number methods generated:\t";
+printf "%5d\n", $num;
+
 print "Number that are relevant:\t 1600?\n";
 
 @sources = split(/\n/, `find src/bindings/ -name '*.java'`);
