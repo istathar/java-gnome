@@ -483,6 +483,9 @@ public class TextBuffer extends Object
      * constructors if this becomes a hot spot.
      */
     private void checkTag(TextTag tag) {
+        if (tag == null) {
+            return;
+        }
         if (usingDefaultTable) {
             if (tag.table != getDefaultTable()) {
                 throw new IllegalArgumentException("\n"
