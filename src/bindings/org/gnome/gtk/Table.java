@@ -78,10 +78,39 @@ public class Table extends Container
         GtkTable.attachDefaults(this, child, leftAttach, rightAttach, topAttach, bottomAttach);
     }
 
-    /*
-     * TODO document and make public.
+    /**
+     * Like {@link #attach(Widget, int, int, int, int)} but with finer 
+     * layout control for the added widget. This is mostly done by using
+     * the {@link AttachOptions}.
+     * <p>
+     * To define that a widget shall grow on the x-axis, but keep the size
+     * on the y-axis you would do:
+     * </p>
+     * <pre>
+     * table.attach(child, 3, 4, 1, 2, AttachOptions.EXPAND, AttachOptions.SHRINK, 0,0);
+     * </pre>
+     * <p>
+     * Another common problem is that you have widgets of different sizes 
+     * (e.g. labels in a column). If a widget is smaller than the required
+     * space additional spaces are added to the sides, so finally the 
+     * smaller widget is centered compared to the larger widget. To avoid
+     * that you a) need to encapsulate the widget in an {@link Alignment} 
+     * container and b) attach it using AttachOptions.FILL, so that instead
+     * of additional spaces to the sides the <code>Alignment</code> 
+     * container may decide how to distribute it.
+     * </p>
+     * <p>
+     * The following example left-aligns the child widget within its cell,
+     * while it is vertically centered.
+     * </p>
+     * <pre>
+     * Alignment aligned = new Alignment(Alignment.LEFT, Alignment.CENTER, 1f,1f, child);
+     * table.attach(aligned, 3, 4, 1, 2, AttachOptions.FILL, AttachOptions.FILL, 0,0);
+     * </pre>
+     * 
+     * @since 4.0.10
      */
-    void attach(Widget child, int leftAttach, int rightAttach, int topAttach, int bottomAttach,
+    public void attach(Widget child, int leftAttach, int rightAttach, int topAttach, int bottomAttach,
             AttachOptions xoptions, AttachOptions yoptions, int xpadding, int ypadding) {
         GtkTable.attach(this, child, leftAttach, rightAttach, topAttach, bottomAttach, xoptions,
                 yoptions, xpadding, ypadding);

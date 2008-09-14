@@ -32,10 +32,10 @@ import org.gnome.gdk.Pixbuf;
  * the Assistant:
  * 
  * <ul>
- * <li>APPLY - The user activated the 'Apply' button on the page.</li>
- * <li>CANCEL - The user cancelled the Assistant.</li>
- * <li>CLOSE - The Assistant closes normally.</li>
- * <li>PREPARE - Another page is going to be displayed</li>
+ * <li>Apply - The user activated the 'Apply' button on the page.</li>
+ * <li>Cancel - The user cancelled the Assistant.</li>
+ * <li>Close - The Assistant closes normally.</li>
+ * <li>Prepare - Another page is going to be displayed</li>
  * </ul>
  * 
  * <p>
@@ -50,11 +50,9 @@ import org.gnome.gdk.Pixbuf;
  * for completeness. A possible way would listening to events emitted from the
  * Widgets inside the page when there contents change.
  * 
- * FIXME then lets suggest one.
- * 
  * @author Stefan Prelle
  * @author Andrew Cowie
- * @since 4.0.8
+ * @since 4.0.9
  */
 public class Assistant extends Window
 {
@@ -65,7 +63,7 @@ public class Assistant extends Window
     /**
      * Creates a new instance of the Assistant.
      * 
-     * @since 4.0.8
+     * @since 4.0.9
      */
     public Assistant() {
         super(GtkAssistant.createAssistant());
@@ -76,16 +74,16 @@ public class Assistant extends Window
      * from <code>0</code>. If the assistant has no pages, <code>-1</code>
      * will be returned.
      * 
-     * @since 4.0.8
+     * @since 4.0.9
      */
     public int getCurrentPage() {
         return GtkAssistant.getCurrentPage(this);
     }
 
     /**
-     * FIXME
+     * Select the page to be displayed to the user.
      * 
-     * @since 4.0.8
+     * @since 4.0.9
      */
     public void setCurrentPage(int pageNum) {
         GtkAssistant.setCurrentPage(this, pageNum);
@@ -94,7 +92,7 @@ public class Assistant extends Window
     /**
      * Get the number of pages in the Assistant.
      * 
-     * @since 4.0.8
+     * @since 4.0.9
      */
     public int getNumPages() {
         return GtkAssistant.getNPages(this);
@@ -106,7 +104,7 @@ public class Assistant extends Window
      * @param pageNum
      *            The index of a page in the assistant. Use <code>-1</code>
      *            to get the last page.
-     * @since 4.0.8
+     * @since 4.0.9
      */
     public Widget getPage(int pageNum) {
         final Widget result;
@@ -123,7 +121,7 @@ public class Assistant extends Window
      * Prepend <code>page</code> to the existing pages in the Assistant.
      * 
      * @return the index (starting at 0) of the inserted page.
-     * @since 4.0.8
+     * @since 4.0.9
      */
     public int prependPage(Widget page) {
         return GtkAssistant.prependPage(this, page);
@@ -135,7 +133,7 @@ public class Assistant extends Window
      * @param page
      *            Page to add.
      * @return the index (starting at 0) of the inserted page
-     * @since 4.0.8
+     * @since 4.0.9
      */
     public int appendPage(Widget page) {
         return GtkAssistant.appendPage(this, page);
@@ -152,7 +150,7 @@ public class Assistant extends Window
      *            the page, or <code>-1</code> to append the page to the
      *            Assistant.
      * @return The index (starting at <code>0</code>) of the inserted page.
-     * @since 4.0.8
+     * @since 4.0.9
      */
     public int insertPage(Widget page, int position) {
         return GtkAssistant.insertPage(this, page, position);
@@ -162,7 +160,7 @@ public class Assistant extends Window
      * Sets the {@link AssistantPageType page type} for page. The page type
      * determines the page behavior in the Assistant.
      * 
-     * @since 4.0.8
+     * @since 4.0.9
      */
     public void setPageType(Widget page, AssistantPageType type) {
         GtkAssistant.setPageType(this, page, type);
@@ -171,7 +169,7 @@ public class Assistant extends Window
     /**
      * Get the type of the given Assistant page.
      * 
-     * @since 4.0.8
+     * @since 4.0.9
      */
     public AssistantPageType getPageType(Widget page) {
         return GtkAssistant.getPageType(this, page);
@@ -185,16 +183,16 @@ public class Assistant extends Window
      *            A page of Assistant
      * @param type
      *            The new title of the page
-     * @since 4.0.8
+     * @since 4.0.9
      */
     public void setPageTitle(Widget page, String title) {
         GtkAssistant.setPageTitle(this, page, title);
     }
 
     /**
-     * FIXME
+     * Obtains the title that has been set for a specific page.
      * 
-     * @since 4.0.8
+     * @since 4.0.9
      */
     public String getPageTitle(Widget page) {
         return GtkAssistant.getPageTitle(this, page);
@@ -208,7 +206,7 @@ public class Assistant extends Window
      *            A page of assistant
      * @param image
      *            the new header image
-     * @since 4.0.8
+     * @since 4.0.9
      */
     public void setPageHeaderImage(Widget page, Pixbuf image) {
         GtkAssistant.setPageHeaderImage(this, page, image);
@@ -217,7 +215,7 @@ public class Assistant extends Window
     /**
      * Gets the header image for page.
      * 
-     * @since 4.0.8
+     * @since 4.0.9
      */
     public Pixbuf getPageHeaderImage(Widget page) {
         return GtkAssistant.getPageHeaderImage(this, page);
@@ -231,7 +229,7 @@ public class Assistant extends Window
      *            A page of assistant
      * @param image
      *            the new side image
-     * @since 4.0.8
+     * @since 4.0.9
      */
     public void setPageSideImage(Widget page, Pixbuf image) {
         GtkAssistant.setPageSideImage(this, page, image);
@@ -240,7 +238,7 @@ public class Assistant extends Window
     /**
      * Gets the side image for page.
      * 
-     * @since 4.0.8
+     * @since 4.0.9
      */
     public Pixbuf getPageSideImage(Widget page) {
         return GtkAssistant.getPageSideImage(this, page);
@@ -250,7 +248,7 @@ public class Assistant extends Window
      * Sets whether page contents are complete. This will make assistant
      * update the buttons state to be able to continue the task.
      * 
-     * @since 4.0.8
+     * @since 4.0.9
      */
     public void setPageComplete(Widget page, boolean complete) {
         GtkAssistant.setPageComplete(this, page, complete);
@@ -259,7 +257,7 @@ public class Assistant extends Window
     /**
      * Gets whether page is complete.
      * 
-     * @since 4.0.8
+     * @since 4.0.9
      */
     public boolean getPageComplete(Widget page) {
         return GtkAssistant.getPageComplete(this, page);
@@ -268,7 +266,7 @@ public class Assistant extends Window
     /**
      * Adds a widget to the action area of a Assistant.
      * 
-     * @since 4.0.8
+     * @since 4.0.9
      */
     public void addActionWidget(Widget child) {
         GtkAssistant.addActionWidget(this, child);
@@ -278,7 +276,7 @@ public class Assistant extends Window
      * Removes a Widget that has been added with
      * {@link #addActionWidget(Widget)}.
      * 
-     * @since 4.0.8
+     * @since 4.0.9
      */
     public void removeActionWidget(Widget child) {
         GtkAssistant.removeActionWidget(this, child);
@@ -287,7 +285,7 @@ public class Assistant extends Window
     /**
      * Force the ... FIXME
      * 
-     * @since 4.0.8
+     * @since 4.0.9
      */
     public void updateButtonsState() {
         GtkAssistant.updateButtonsState(this);
@@ -298,7 +296,7 @@ public class Assistant extends Window
      * displayed. This includes the first page, as well as every page when
      * flipping forward and backward through the Assistants pages.
      * 
-     * @since 4.0.8
+     * @since 4.0.9
      */
     public interface Prepare extends GtkAssistant.PrepareSignal
     {
@@ -308,7 +306,7 @@ public class Assistant extends Window
     /**
      * Attach the handler that is called when a new page is displayed.
      * 
-     * @since 4.0.8
+     * @since 4.0.9
      */
     public void connect(Prepare handler) {
         GtkAssistant.connect(this, handler, false);
@@ -318,7 +316,7 @@ public class Assistant extends Window
      * This handler is called when the user choices to confirm the input of
      * the Assistant at the confirmation page (AssistantPageType = CONFIRM)
      * 
-     * @since 4.0.8
+     * @since 4.0.9
      */
     public interface Apply extends GtkAssistant.ApplySignal
     {
@@ -329,7 +327,7 @@ public class Assistant extends Window
      * Attach the handler that is called when the user chooses to apply the
      * selections.
      * 
-     * @since 4.0.8
+     * @since 4.0.9
      */
     public void connect(Apply handler) {
         GtkAssistant.connect(this, handler, false);
@@ -339,7 +337,7 @@ public class Assistant extends Window
      * This handler is called at the end of the assistant after the APPLY
      * event when the handler ends normally.
      * 
-     * @since 4.0.8
+     * @since 4.0.9
      */
     public interface Close extends GtkAssistant.CloseSignal
     {
@@ -350,7 +348,7 @@ public class Assistant extends Window
      * Attach the handler that is called when the Assistant is closed normally
      * at a CONFIRM or SUMMARY page.
      * 
-     * @since 4.0.8
+     * @since 4.0.9
      */
     public void connect(Close handler) {
         GtkAssistant.connect(this, handler, false);
@@ -360,7 +358,7 @@ public class Assistant extends Window
      * This handler is called when the user cancels the Assistant, no matter
      * at which page this happens.
      * 
-     * @since 4.0.8
+     * @since 4.0.9
      */
     public interface Cancel extends GtkAssistant.CancelSignal
     {
@@ -370,7 +368,7 @@ public class Assistant extends Window
     /**
      * Attach the handler that is called when the Assistant is cancelled.
      * 
-     * @since 4.0.8
+     * @since 4.0.9
      */
     public void connect(Cancel handler) {
         GtkAssistant.connect(this, handler, false);
@@ -391,5 +389,23 @@ public class Assistant extends Window
         if ((type != AssistantPageType.CONFIRM) && (type != AssistantPageType.SUMMARY)) {
             throw new IllegalArgumentException("Last page must be of type CONFIRM or SUMMARY");
         }
+    }
+    
+    /**
+     * Overwritten method of <code>Widget</code> that performs additional 
+     * sanity checks to the Assistant configuration before displaying it.
+     */
+    public void show() {
+        prepareForDisplay();
+        super.show();
+    }
+    
+    /**
+     * Overwritten method of <code>Widget</code> that performs additional 
+     * sanity checks to the Assistant configuration before displaying it.
+     */
+   public void showAll() {
+        prepareForDisplay();
+        super.showAll();
     }
 }
