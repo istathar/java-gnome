@@ -32,23 +32,27 @@ import org.gnome.gdk.Pixbuf;
  * the Assistant:
  * 
  * <ul>
- * <li>Apply - The user activated the 'Apply' button on the page.</li>
- * <li>Cancel - The user cancelled the Assistant.</li>
- * <li>Close - The Assistant closes normally.</li>
- * <li>Prepare - Another page is going to be displayed</li>
+ * <li><code>Assistant.Apply</code> - The user activated the 'Apply' button on
+ * the page.</li>
+ * <li><code>Assistant.Cancel</code> - The user cancelled the Assistant.</li>
+ * <li><code>Assistant.Close</code> - The Assistant closes normally.</li>
+ * <li><code>Assistant.Prepare</code> - Another page is going to be displayed</li>
  * </ul>
  * 
  * <p>
- * Listening to the <code>PREPARE</code> signal allows you to modify the
- * page contents in time, perhaps depending on input made on previous pages.
+ * Listening to the <code>Assistant.Prepare</code> signal allows you to modify
+ * the page contents in time, perhaps depending on input made on previous
+ * pages.
  * 
  * <p>
- * You create the Assistant with a number of pages, the most of it possibly
- * being of type CONTENT. To allow a user to go from one page to the user, the
- * page must be flagged as <var>complete</var>. If not complete, the 'Next'
- * button is disabled. There is no suggested way where to apply such a check
- * for completeness. A possible way would listening to events emitted from the
- * Widgets inside the page when there contents change.
+ * You create the Assistant with a number of pages with most of them being of
+ * type CONTENT. To allow a user to go from one page to the next, the page
+ * must be flagged as <var>complete</var>. The 'Next' button will remain
+ * disabled until this property is set for that page. The definition of
+ * "complete" will necessarily depend on what you are doing on a given page,
+ * but typically you hook up to signals emitted from the Widgets inside the
+ * page and when contents have changed call
+ * {@link #setPageComplete(Widget, boolean) setPageComplete(true)}.
  * 
  * @author Stefan Prelle
  * @author Andrew Cowie
@@ -102,8 +106,8 @@ public class Assistant extends Window
      * Returns the child Widget contained in the given page.
      * 
      * @param pageNum
-     *            The index of a page in the assistant. Use <code>-1</code>
-     *            to get the last page.
+     *            The index of a page in the assistant. Use <code>-1</code> to
+     *            get the last page.
      * @since 4.0.9
      */
     public Widget getPage(int pageNum) {
@@ -157,8 +161,8 @@ public class Assistant extends Window
     }
 
     /**
-     * Sets the {@link AssistantPageType page type} for page. The page type
-     * determines the page behavior in the Assistant.
+     * Sets the <var>page-type</var> for the given page. This determines the
+     * page's behavior in the Assistant; see {@link AssistantPageType}.
      * 
      * @since 4.0.9
      */
@@ -292,8 +296,8 @@ public class Assistant extends Window
     }
 
     /**
-     * This handler is called every time a page inside the assistant is
-     * displayed. This includes the first page, as well as every page when
+     * Every time a page inside the assistant is displayed this signal will be
+     * emitted. This includes the first page as well as every page when
      * flipping forward and backward through the Assistants pages.
      * 
      * @since 4.0.9
@@ -304,17 +308,18 @@ public class Assistant extends Window
     }
 
     /**
-     * Attach the handler that is called when a new page is displayed.
+     * Hook up an <code>Assistant.Prepare</code> handler that is called when a
+     * new page is displayed.
      * 
      * @since 4.0.9
      */
-    public void connect(Prepare handler) {
+    public void connect(Assistant.Prepare handler) {
         GtkAssistant.connect(this, handler, false);
     }
 
     /**
-     * This handler is called when the user choices to confirm the input of
-     * the Assistant at the confirmation page (AssistantPageType = CONFIRM)
+     * This signal is emitted when the user is on a <code>CONFIRM</code> page
+     * and confirms the input they have given.
      * 
      * @since 4.0.9
      */
@@ -324,12 +329,12 @@ public class Assistant extends Window
     }
 
     /**
-     * Attach the handler that is called when the user chooses to apply the
-     * selections.
+     * Hook up an <code>Assistant.Apply</code> handler that will be called
+     * when the user chooses to confirm their selections.
      * 
      * @since 4.0.9
      */
-    public void connect(Apply handler) {
+    public void connect(Assistant.Apply handler) {
         GtkAssistant.connect(this, handler, false);
     }
 
@@ -346,17 +351,18 @@ public class Assistant extends Window
 
     /**
      * Attach the handler that is called when the Assistant is closed normally
-     * at a CONFIRM or SUMMARY page.
+     * at a <code>CONFIRM</code> or <code>SUMMARY</code> page.
      * 
      * @since 4.0.9
      */
-    public void connect(Close handler) {
+    public void connect(Assistant.Close handler) {
         GtkAssistant.connect(this, handler, false);
     }
 
     /**
-     * This handler is called when the user cancels the Assistant, no matter
-     * at which page this happens.
+     * The signal emitted if the user cancels the Assistant. This signal will
+     * be raised regardless of which page the user happens to be on when they
+     * cancel.
      * 
      * @since 4.0.9
      */
@@ -366,20 +372,20 @@ public class Assistant extends Window
     }
 
     /**
-     * Attach the handler that is called when the Assistant is cancelled.
+     * Hook up an <code>Assistant.Cancel</code> handler will be called when
+     * the Assistant is cancelled.
      * 
      * @since 4.0.9
      */
-    public void connect(Cancel handler) {
+    public void connect(Assistant.Cancel handler) {
         GtkAssistant.connect(this, handler, false);
     }
 
     /*
-     * This is not part of the normal GTK+ bindings. It only performs a sanity
-     * check whether you thought about having a CONFIRM or SUMMARY page at
-     * your last page in the assistant.
+     * Performs a sanity check whether you thought about having a CONFIRM or
+     * SUMMARY page at your last page in the assistant.
      */
-    void prepareForDisplay() {
+    void checkReadyForDisplay() {
         final Widget lastPage;
         final AssistantPageType type;
 
@@ -390,22 +396,20 @@ public class Assistant extends Window
             throw new IllegalArgumentException("Last page must be of type CONFIRM or SUMMARY");
         }
     }
-    
-    /**
-     * Overwritten method of <code>Widget</code> that performs additional 
-     * sanity checks to the Assistant configuration before displaying it.
+
+    /*
+     * Override Widget to performs additional sanity checks.
      */
     public void show() {
-        prepareForDisplay();
+        checkReadyForDisplay();
         super.show();
     }
-    
-    /**
-     * Overwritten method of <code>Widget</code> that performs additional 
-     * sanity checks to the Assistant configuration before displaying it.
+
+    /*
+     * Override Widget to performs additional sanity checks.
      */
-   public void showAll() {
-        prepareForDisplay();
+    public void showAll() {
+        checkReadyForDisplay();
         super.showAll();
     }
 }

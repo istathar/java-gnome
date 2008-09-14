@@ -72,7 +72,7 @@ public class ExampleAssistant implements Assistant.Cancel, Assistant.Apply, Assi
         // Page 2
         final VBox page2 = new VBox(false, 3);
         id_tf = new Entry();
-        id_tf.connect(new Entry.ACTIVATE() {
+        id_tf.connect(new Entry.Activate() {
             public void onActivate(Entry source) {
                 input = id_tf.getText();
                 if (input.length() > 0) {
@@ -114,7 +114,7 @@ public class ExampleAssistant implements Assistant.Cancel, Assistant.Apply, Assi
     public void onPrepare(Assistant source, Widget page) {
         System.out.println("onPrepare");
         if (page == page3) {
-            page3.setLabel("This is the confirmatio npage.\nYou entered: " + input);
+            page3.setLabel("This is the confirmation page.\nYou entered: " + input);
         }
     }
 }

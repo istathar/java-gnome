@@ -104,21 +104,21 @@ public class ValidateAssistant extends TestCaseGtk
         druid.appendPage(page3);
 
         try {
-            druid.prepareForDisplay();
+            druid.checkReadyForDisplay();
             fail("Should be missing types");
         } catch (Throwable e) {
             // OK
         }
 
         druid.setPageType(page3, AssistantPageType.CONFIRM);
-        druid.prepareForDisplay();
+        druid.checkReadyForDisplay();
 
         druid.setPageType(page3, AssistantPageType.SUMMARY);
-        druid.prepareForDisplay();
+        druid.checkReadyForDisplay();
 
         druid.setPageType(page3, AssistantPageType.CONTENT);
         try {
-            druid.prepareForDisplay();
+            druid.checkReadyForDisplay();
             fail("Should be missing types");
         } catch (Throwable e) {
             // OK
