@@ -342,11 +342,7 @@ def compileJavaCode(outputDir, classpath, sourcepath, sources):
 		cmd += " -sourcepath " + sourcepath
 	cmd += " " + " ".join(sources)
 
-	blurb = ""
-	for path in sourcepath.split(":"):
-		if blurb:
-			blurb += ", "
-		blurb += path + "*.java"
+	blurb = "\n\t".join(sources)
 
 	executeCommand(config['JAVAC_CMD'], blurb, cmd)
 
@@ -387,8 +383,8 @@ def generateTranslationAndJniLayers():
 
 
 def compileBindingsClasses():
-	pairs = dependsMapSourceFilesToTargetFiles("src/bindings/", ".java", "tmp/bindings/", ".class")
-	pairs += dependsMapSourceFilesToTargetFiles("generated/bindings/", ".java", "tmp/bindings/", ".class")
+	pairs = dependsMapSourceFilesToTargetFiles("generated/bindings/", ".java", "tmp/bindings/", ".class")
+	pairs += dependsMapSourceFilesToTargetFiles("src/bindings/", ".java", "tmp/bindings/", ".class")
 
 	changed = filesNeedBuilding(pairs)
 	if not changed:
