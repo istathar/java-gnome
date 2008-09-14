@@ -162,7 +162,7 @@ public class Assistant extends Window
 
     /**
      * Sets the <var>page-type</var> for the given page. This determines the
-     * page's behavior in the Assistant; see {@link AssistantPageType}.
+     * page's behaviour in the Assistant; see {@link AssistantPageType}.
      * 
      * @since 4.0.9
      */
@@ -296,9 +296,9 @@ public class Assistant extends Window
     }
 
     /**
-     * Every time a page inside the assistant is displayed this signal will be
-     * emitted. This includes the first page as well as every page when
-     * flipping forward and backward through the Assistants pages.
+     * This signal emitted every time a page inside the assistant is
+     * displayed. This includes the first page as well as every page when
+     * flipping forward and backward through the Assistant's pages.
      * 
      * @since 4.0.9
      */
@@ -339,8 +339,9 @@ public class Assistant extends Window
     }
 
     /**
-     * This handler is called at the end of the assistant after the APPLY
-     * event when the handler ends normally.
+     * This signal emitted at the end of the Assistant's life cycle. This is
+     * raised <i>after</i> the <code>Assistant.Apply</code> signal when the
+     * handler ends normally.
      * 
      * @since 4.0.9
      */
@@ -350,8 +351,9 @@ public class Assistant extends Window
     }
 
     /**
-     * Attach the handler that is called when the Assistant is closed normally
-     * at a <code>CONFIRM</code> or <code>SUMMARY</code> page.
+     * Attach a <code>Assistant.Close</code> handler that will be called when
+     * the Assistant is closed normally at a <code>CONFIRM</code> or
+     * <code>SUMMARY</code> page.
      * 
      * @since 4.0.9
      */
