@@ -135,11 +135,11 @@ public abstract class CellRenderer extends Object
     }
 
     /**
-     * Indicate if the CellRenderer should be visible, depending
-     * on the content of a DataColumnBoolean. E.g. if you have
-     * a TreeView where the leave rows have a checkbox 
-     * {@link CellRendererToggle}, which should not be visible
-     * for the node rows.
+     * Indicate if the CellRenderer should be visible, depending on the
+     * content of a DataColumnBoolean. For example, you could set use this
+     * property to control whether or not a {@link CellRendererToggle} was
+     * visible in a TreeView where you want each of the leaf rows to have such
+     * a Button but you do not want the parent node rows to have one.
      * 
      * @since 4.0.9
      */

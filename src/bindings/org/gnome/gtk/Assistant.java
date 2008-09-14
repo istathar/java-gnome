@@ -296,9 +296,9 @@ public class Assistant extends Window
     }
 
     /**
-     * This signal emitted every time a page inside the assistant is
-     * displayed. This includes the first page as well as every page when
-     * flipping forward and backward through the Assistant's pages.
+     * The signal emitted every time a page inside the assistant is displayed.
+     * This includes the first page as well as every page when flipping
+     * forward and backward through the Assistant's pages.
      * 
      * @since 4.0.9
      */
@@ -318,8 +318,8 @@ public class Assistant extends Window
     }
 
     /**
-     * This signal is emitted when the user is on a <code>CONFIRM</code> page
-     * and confirms the input they have given.
+     * The signal emitted when the user is on a <code>CONFIRM</code> page and
+     * confirms the input they have given.
      * 
      * @since 4.0.9
      */

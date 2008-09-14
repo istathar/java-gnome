@@ -30,6 +30,7 @@ package org.gnome.gtk;
  * controlling the size allocations via {@link SizeGroup}s.
  * 
  * @author Andrew Cowie
+ * @author Stefan Prelle
  * @since 4.0.6
  */
 /*
@@ -79,36 +80,40 @@ public class Table extends Container
     }
 
     /**
-     * Like {@link #attach(Widget, int, int, int, int)} but with finer 
-     * layout control for the added widget. This is mostly done by using
-     * the {@link AttachOptions}.
+     * Like {@link #attach(Widget, int, int, int, int) attach()} but has finer
+     * layout control for the Widget being added, mostly achieved using the
+     * {@link AttachOptions}.
+     * 
      * <p>
-     * To define that a widget shall grow on the x-axis, but keep the size
-     * on the y-axis you would do:
-     * </p>
+     * To define that a Widget shall grow on the x-axis, but keep the size on
+     * the y-axis you would do:
+     * 
      * <pre>
-     * table.attach(child, 3, 4, 1, 2, AttachOptions.EXPAND, AttachOptions.SHRINK, 0,0);
-     * </pre>
-     * <p>
-     * Another common problem is that you have widgets of different sizes 
-     * (e.g. labels in a column). If a widget is smaller than the required
-     * space additional spaces are added to the sides, so finally the 
-     * smaller widget is centered compared to the larger widget. To avoid
-     * that you a) need to encapsulate the widget in an {@link Alignment} 
-     * container and b) attach it using AttachOptions.FILL, so that instead
-     * of additional spaces to the sides the <code>Alignment</code> 
-     * container may decide how to distribute it.
-     * </p>
-     * <p>
-     * The following example left-aligns the child widget within its cell,
-     * while it is vertically centered.
-     * </p>
-     * <pre>
-     * Alignment aligned = new Alignment(Alignment.LEFT, Alignment.CENTER, 1f,1f, child);
-     * table.attach(aligned, 3, 4, 1, 2, AttachOptions.FILL, AttachOptions.FILL, 0,0);
+     * table.attach(child, 3, 4, 1, 2, AttachOptions.EXPAND, AttachOptions.SHRINK, 0, 0);
      * </pre>
      * 
-     * @since 4.0.10
+     * <p>
+     * A common problem is that you have Widgets of different sizes (e.g.
+     * labels in a column). If a widget is smaller than the required space
+     * additional padding is added to the sides, so finally the smaller Widget
+     * is centered compared to the larger Widget. To avoid this you a) need to
+     * encapsulate the Widget in an {@link Alignment} Container and b) need to
+     * attach it here using <code>AttachOptions.FILL</code>, so that instead
+     * of additional space being added to the sides, the
+     * <code>Alignment</code> Container may decide how to distribute it.
+     * 
+     * <p>
+     * The following example left-aligns the child Widget within its cell,
+     * while it is vertically centered:
+     * 
+     * <pre>
+     * final Alignment aligned;
+     * 
+     * aligned = new Alignment(Alignment.LEFT, Alignment.CENTER, 1.0f, 1.0f, child);
+     * table.attach(aligned, 3, 4, 1, 2, AttachOptions.FILL, AttachOptions.FILL, 0, 0);
+     * </pre>
+     * 
+     * @since 4.0.9
      */
     public void attach(Widget child, int leftAttach, int rightAttach, int topAttach, int bottomAttach,
             AttachOptions xoptions, AttachOptions yoptions, int xpadding, int ypadding) {

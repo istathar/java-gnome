@@ -170,8 +170,6 @@ public class Notebook extends Container
     /**
      * Returns the number of pages in the Notebook.
      * 
-     * @return The number of pages in the Notebook
-     *
      * @since 4.0.9
      */
     public int getPageCount() {
@@ -181,11 +179,9 @@ public class Notebook extends Container
     /**
      * Returns the page number of the given Widget.
      * 
-     * @param child
-     *            The widget for which the page number shall
-     *            be returned
-     * @return The page number or -1, if widget is not in the Notebook.
-     *
+     * @return The page number or <code>-1</code> if <code>child</code> is not
+     *         in the Notebook.
+     * 
      * @since 4.0.9
      */
     public int getPageNumber(Widget child) {
@@ -193,10 +189,9 @@ public class Notebook extends Container
     }
 
     /**
-     * Returns the widget of the page at a given index.
+     * Get the Widget which is the page at a given index. Page numbers start
+     * at <code>0</code>.
      * 
-     * @param pageNum
-     *             The number of the page (starting with 0)
      * @since 4.0.9
      */
     public Widget getPage(int pageNum) {
