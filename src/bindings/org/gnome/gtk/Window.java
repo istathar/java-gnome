@@ -43,7 +43,8 @@ import org.gnome.gdk.WindowTypeHint;
  * 
  * <p>
  * <code>hide()</code> is also important when Windows are being closed; see
- * the comments in the description of {@link Window.DELETE_EVENT DELETE_EVENT}.
+ * the comments in the description of {@link Window.DeleteEvent
+ * Window.DeleteEvent}.
  * 
  * @author Andrew Cowie
  * @author Srichand Pendyala
@@ -67,10 +68,9 @@ public class Window extends Bin
 
     /**
      * Create a new Window of the specified type. In general you don't need to
-     * use this; see the comments in
-     * {@link org.gnome.gtk.WindowType WindowType}; in particular,
-     * {@link org.gnome.gtk.WindowType#POPUP POPUP} is <b>not</b> for dialog
-     * windows!
+     * use this; see the comments in {@link org.gnome.gtk.WindowType
+     * WindowType}; in particular, {@link org.gnome.gtk.WindowType#POPUP
+     * POPUP} is <b>not</b> for dialog windows!
      * 
      * @since 4.0.0
      */
@@ -165,6 +165,10 @@ public class Window extends Bin
      * is for.
      * 
      * <p>
+     * You probably want to call this after you've done the bulk of your
+     * packing.
+     * 
+     * <p>
      * Incidentally, Windows can't be 0x0; the minimum size is 1x1.
      * 
      * @param width
@@ -186,9 +190,8 @@ public class Window extends Bin
      * 
      * <p>
      * Somewhat unusually, if the new value for <code>position</code> is
-     * {@link WindowPosition#CENTER_ALWAYS CENTER_ALWAYS}, then this call
-     * will also result in the Window being moved to the new centered
-     * position.
+     * {@link WindowPosition#CENTER_ALWAYS CENTER_ALWAYS}, then this call will
+     * also result in the Window being moved to the new centered position.
      * 
      * @since 4.0.3
      * @see WindowPosition
@@ -210,8 +213,8 @@ public class Window extends Bin
      * 
      * @param setting
      *            <code>true</code> to request fullscreen mode,
-     *            <code>false</code> to request that the window be returned
-     *            to normal management.
+     *            <code>false</code> to request that the window be returned to
+     *            normal management.
      * @since 4.0.4
      */
     public void setFullscreen(boolean setting) {
@@ -229,8 +232,8 @@ public class Window extends Bin
      * 
      * <p>
      * If you want to prevent a Window from being closed, connect this signal,
-     * and return <code>true</code>. Often the reason to do this is to pop
-     * up a notification Dialog, for example asking you if you want to save an
+     * and return <code>true</code>. Often the reason to do this is to pop up
+     * a notification Dialog, for example asking you if you want to save an
      * unsaved document. Another technique is reusing a Window: rather than
      * going to all the trouble to create this Window again, you can just
      * temporarily hide it by calling Widget's {@link Widget#hide() hide()}.
@@ -255,12 +258,27 @@ public class Window extends Bin
      * @author Devdas Bhagat
      * @since 4.0.0
      */
-    public interface DELETE_EVENT extends GtkWidget.DELETE_EVENT
+    public interface DeleteEvent extends GtkWidget.DeleteEventSignal
     {
         public boolean onDeleteEvent(Widget source, Event event);
     }
 
+    public void connect(DeleteEvent handler) {
+        GtkWidget.connect(this, handler, false);
+    }
+
+    /**
+     * @deprecated
+     */
+    public interface DELETE_EVENT extends GtkWidget.DeleteEventSignal
+    {
+    }
+
+    /**
+     * @deprecated
+     */
     public void connect(DELETE_EVENT handler) {
+        assert false : "use Window.DeleteEvent instead";
         GtkWidget.connect(this, handler, false);
     }
 
@@ -275,16 +293,17 @@ public class Window extends Bin
      * 
      * <p>
      * Chances are
-     * {@link org.gnome.gtk.Window#setPosition(org.gnome.gtk.WindowPosition) setPosition()}
-     * will do what you want more easily than manually moving the Window.
+     * {@link org.gnome.gtk.Window#setPosition(org.gnome.gtk.WindowPosition)
+     * setPosition()} will do what you want more easily than manually moving
+     * the Window.
      * 
      * <p>
-     * <i>The co-ordinates <code>x</code>, <code>y</code> are with
-     * respect to the reference point specified by the "gravity" in effect for
-     * this Window; since the default is</i>
-     * {@link Gravity#NORTH_WEST NORTH_WEST}<i>, x and y mean what you want
-     * them to: horizontal and vertical distance of the top-left corner of the
-     * Window from the top-left corner, respectively.</i>
+     * <i>The co-ordinates <code>x</code>, <code>y</code> are with respect to
+     * the reference point specified by the "gravity" in effect for this
+     * Window; since the default is</i> {@link Gravity#NORTH_WEST NORTH_WEST}
+     * <i>, x and y mean what you want them to: horizontal and vertical
+     * distance of the top-left corner of the Window from the top-left corner,
+     * respectively.</i>
      * 
      * @since 4.0.4
      */
@@ -294,8 +313,8 @@ public class Window extends Bin
 
     /**
      * Set the interpretation of co-ordinates passed to
-     * {@link #move(int, int)} and returned by
-     * {@link #getPositionX() getPosition()}.
+     * {@link #move(int, int)} and returned by {@link #getPositionX()
+     * getPosition()}.
      * 
      * <p>
      * <i>The window manager specification has long been notorious for not
@@ -406,20 +425,20 @@ public class Window extends Bin
      * desktop.
      * 
      * <p>
-     * You can call this before <code>show()</code>ing a Window, in which
-     * case the initial presentation will be behind other windows.
+     * You can call this before <code>show()</code>ing a Window, in which case
+     * the initial presentation will be behind other windows.
      * 
      * <p>
-     * The caveats and notes discussed in
-     * {@link #setKeepAbove(boolean) setKeepAbove()} apply here. Once again,
-     * while there are legitimate uses for this method, please think about the
-     * impact on user's overall desktop experience before employing it.
+     * The caveats and notes discussed in {@link #setKeepAbove(boolean)
+     * setKeepAbove()} apply here. Once again, while there are legitimate uses
+     * for this method, please think about the impact on user's overall
+     * desktop experience before employing it.
      * 
      * 
      * @param setting
-     *            <code>true</code> to request this Window be kept behind
-     *            all other windows on the desktop, <code>false</code> for
-     *            normal behaviour.
+     *            <code>true</code> to request this Window be kept behind all
+     *            other windows on the desktop, <code>false</code> for normal
+     *            behaviour.
      * @since 4.0.4
      */
     public void setKeepBelow(boolean setting) {
@@ -451,8 +470,8 @@ public class Window extends Bin
      * 
      * @param setting
      *            <code>true</code> to request the Window be stuck,
-     *            <code>false</code> to request a return to the normal
-     *            default state.
+     *            <code>false</code> to request a return to the normal default
+     *            state.
      * @since 4.0.4
      */
     public void setStick(boolean setting) {
@@ -468,13 +487,13 @@ public class Window extends Bin
      * restore (return to normal) this Window.
      * 
      * <p>
-     * The difference between this and
-     * {@link #setFullscreen(boolean) setFullscreen(true)} is that a maximized
-     * Window still has the title at the top of the screen (along with other
-     * window decorations, depending on the theme), and the panel(s) are still
-     * visible; a fullscreen window is over top of <i>everything</i>. While
-     * there are legitimate uses for both, maximizing is somewhat preferable
-     * since it does not obscure the panels.
+     * The difference between this and {@link #setFullscreen(boolean)
+     * setFullscreen(true)} is that a maximized Window still has the title at
+     * the top of the screen (along with other window decorations, depending
+     * on the theme), and the panel(s) are still visible; a fullscreen window
+     * is over top of <i>everything</i>. While there are legitimate uses for
+     * both, maximizing is somewhat preferable since it does not obscure the
+     * panels.
      * 
      * <p>
      * The default for new Windows in ordinary circumstances is that they are
@@ -511,9 +530,9 @@ public class Window extends Bin
      * <p>
      * While this is in the form of a getter, <var>maximize</var> is not a
      * property, as such. This method only works (ie, reports
-     * <code>true</code>) if the Window is actually on the screen (ie has
-     * been mapped via a <code>show()</code> call), and really <b>is</b>
-     * currently maximized.
+     * <code>true</code>) if the Window is actually on the screen (ie has been
+     * mapped via a <code>show()</code> call), and really <b>is</b> currently
+     * maximized.
      * 
      * <p>
      * In other words, this won't do you any good when initializing your
@@ -571,15 +590,15 @@ public class Window extends Bin
      * Present the Window to the user. This will raise the window to the top
      * of the stack, deiconify it, and even bring it to the current virtual
      * workspace (all depending, as ever, on how co-operative your window
-     * manager is). This is also invokes the equivalent of
-     * {@link #show() show()} to [re]map the Window.
+     * manager is). This is also invokes the equivalent of {@link #show()
+     * show()} to [re]map the Window.
      * 
      * <p>
      * This method is ideal for cases where a Window is already showing
      * somewhere and you need to [re]present it to the user. It's also what
-     * you should use if you have already called <code>show()</code> to
-     * force the Window to map but then immediately called <code>hide()</code>
-     * while you finished building the Window.
+     * you should use if you have already called <code>show()</code> to force
+     * the Window to map but then immediately called <code>hide()</code> while
+     * you finished building the Window.
      * 
      * @since 4.0.5
      */
@@ -604,12 +623,12 @@ public class Window extends Bin
      * accessibility and user preference. Also, GTK is unable to take into
      * account the size of any window decorations that may be present. Use
      * {@link #setPosition(WindowPosition) setPosition()}!
-     * <li>If you need to take a dynamic size dependent action you should
-     * hook up to the {@link Window.CONFIGURE_EVENT CONFIGURE_EVENT} signal
-     * which has more accurate information and which will allow you to react
-     * appropriately. If you instead use this you will be subject to a race
-     * condition as the size of the Window may change between you calling this
-     * method and taking action based on the returned value.
+     * <li>If you need to take a dynamic size dependent action you should hook
+     * up to the {@link Window.ConfigureEvent} signal which has more accurate
+     * information and which will allow you to react appropriately. If you
+     * instead use this you will be subject to a race condition as the size of
+     * the Window may change between you calling this method and taking action
+     * based on the returned value.
      * </ul>
      * 
      * In other words, although this method can be useful for debugging, it's
@@ -747,9 +766,9 @@ public class Window extends Bin
     /**
      * Request that GNOME not include this Window in lists of open windows.
      * These are notably the "Window List" and "Window Selector" applets
-     * included with <code>gnome-panel</code> and the on-screen-display
-     * popup presented by the window manager. This is useful when creating
-     * special purpose auxiliary windows that are not the main program.
+     * included with <code>gnome-panel</code> and the on-screen-display popup
+     * presented by the window manager. This is useful when creating special
+     * purpose auxiliary windows that are not the main program.
      * 
      * <p>
      * Like other "hint" setting methods, this is only a request to the
@@ -819,32 +838,32 @@ public class Window extends Bin
      * 
      * <p>
      * <i>Note that this event signal plays a fairly crucial role in GTK
-     * internally; it is used by numerous subsystems (notably the size-request /
-     * size-allocation mechanism) to propagate that a Window had a new
+     * internally; it is used by numerous subsystems (notably the size-request
+     * / size-allocation mechanism) to propagate that a Window had a new
      * configuration. Do not attempt to block this signal.</i>
      * 
      * @author Andrew Cowie
      * @since 4.0.8
      */
     /*
-     * This is here for the same reason that DELETE_EVENT is.
+     * This is here for the same reason that DeleteEvent is.
      */
-    public interface CONFIGURE_EVENT extends GtkWidget.CONFIGURE_EVENT
+    public interface ConfigureEvent extends GtkWidget.ConfigureEventSignal
     {
         /**
-         * Return <code>false</code>! Although this is an event signal with
-         * a boolean return, there is no point in attempting to block further
+         * Return <code>false</code>! Although this is an event signal with a
+         * boolean return, there is no point in attempting to block further
          * propagation.
          */
         public boolean onConfigureEvent(Widget source, EventConfigure event);
     }
 
     /**
-     * Hook up a <code>CONFIGURE_EVENT</code> handler.
+     * Hook up a <code>Window.ConfigureEvent</code> handler.
      * 
      * @since 4.0.8
      */
-    public void connect(CONFIGURE_EVENT handler) {
+    public void connect(ConfigureEvent handler) {
         GtkWidget.connect(this, handler, false);
     }
 }

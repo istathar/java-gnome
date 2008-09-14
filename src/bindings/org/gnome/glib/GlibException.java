@@ -39,10 +39,10 @@ package org.gnome.glib;
  * being handled in the C side JNI code.</i>
  * 
  * <p>
- * <i>Note that <code>GError</code>s are meant as Exceptions in the Java
- * sense of the term; they do not represent crashes nor RuntimeExceptions;
- * they are conditions that the programmer will need to create appropriate
- * user interface code for to allow the <i>user</i> to deal with.</i>
+ * <i>Note that <code>GError</code>s are meant as Exceptions in the Java sense
+ * of the term; they do not represent crashes nor RuntimeExceptions; they are
+ * conditions that the programmer will need to create appropriate user
+ * interface code for to allow the <i>user</i> to deal with.</i>
  * 
  * @author Vreixo Formoso
  * @author Andrew Cowie

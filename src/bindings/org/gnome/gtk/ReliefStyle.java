@@ -40,7 +40,6 @@ public final class ReliefStyle extends Constant
     /*
      * TODO this means what, exactly? To be honest, I thought that
      * GTK_RELIEF_HALF would exhibit the behaviour described for NONE below.
-     * 
      */
     public static final ReliefStyle HALF = new ReliefStyle(GtkReliefStyle.HALF, "HALF");
 

@@ -15,7 +15,8 @@ import org.freedesktop.bindings.Constant;
 
 /**
  * Constants that represent the justification of text. Most notably, this is
- * used by Label; see its {@link Label#setJustify(Justification) setJustify()}.
+ * used by Label; see its {@link Label#setJustify(Justification) setJustify()}
+ * .
  * 
  * @author Nat Pryce
  * @author Andrew Cowie

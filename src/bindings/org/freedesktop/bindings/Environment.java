@@ -30,16 +30,28 @@ public class Environment
      * 
      * @param variableName
      *            the name of the environment variable you want to look up
-     * @return the value of the environment variable, or <code>null</code>
-     *         if empty or not found.
+     * @return the value of the environment variable, or <code>null</code> if
+     *         empty or not found.
      * @since 4.0.2
      */
     public static String getEnv(final String variableName) {
+        String candidate;
+
         if ((variableName == null) || (variableName.equals(""))) {
             throw new IllegalArgumentException("Can't get an empty or null environment variable");
         }
 
-        String candidate = getenv(variableName);
+        try {
+            candidate = Environment.getenv(variableName);
+        } catch (UnsatisfiedLinkError ule) {
+            /*
+             * Fallback for the rare but legitimate cases when this is being
+             * called before Gtk.init(). Of course, given the original premise
+             * of this method being here this too might fail, but as of Sun
+             * Java 1.5 it was working again, so give it a shot.
+             */
+            candidate = System.getenv(variableName);
+        }
 
         if ((candidate == null) || (candidate.equals(""))) {
             return null;

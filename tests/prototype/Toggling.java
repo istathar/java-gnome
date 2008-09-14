@@ -62,7 +62,7 @@ public final class Toggling
 
         res = new Button("Ressurect");
         x.packStart(res);
-        res.connect(new Button.CLICKED() {
+        res.connect(new Button.Clicked() {
             public void onClicked(Button source) {
                 for (Window w : set) {
                     w.present();
@@ -72,7 +72,7 @@ public final class Toggling
 
         gc = new Button("Run gc()");
         x.packStart(gc);
-        gc.connect(new Button.CLICKED() {
+        gc.connect(new Button.Clicked() {
             public void onClicked(Button source) {
                 System.err.println("Run Java garbage collector");
                 System.gc();
@@ -83,7 +83,7 @@ public final class Toggling
 
         w.setTitle("Toggling");
 
-        b.connect(new Button.CLICKED() {
+        b.connect(new Button.Clicked() {
             public void onClicked(Button source) {
                 final Window z;
                 final Label d;
@@ -97,7 +97,7 @@ public final class Toggling
 
         Button zero = new Button("Drop extra refs");
         x.packStart(zero);
-        zero.connect(new Button.CLICKED() {
+        zero.connect(new Button.Clicked() {
             public void onClicked(Button source) {
                 System.err.println("Drop refs");
                 set = null;
@@ -106,7 +106,7 @@ public final class Toggling
 
         w.showAll();
 
-        w.connect(new Window.DELETE_EVENT() {
+        w.connect(new Window.DeleteEvent() {
             public boolean onDeleteEvent(Widget source, Event event) {
                 System.out.println("I was deleted!");
                 Gtk.mainQuit();

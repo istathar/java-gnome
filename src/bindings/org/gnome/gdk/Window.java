@@ -32,8 +32,8 @@ package org.gnome.gdk;
  * either.
  * 
  * <p>
- * What this <i>is</i> useful for is as a way to get to the state of top
- * level windows and various low level drawing functions.
+ * What this <i>is</i> useful for is as a way to get to the state of top level
+ * windows and various low level drawing functions.
  * 
  * <p>
  * <i>Since the C name of this class is <code>GdkWindow</code>, the
@@ -68,9 +68,8 @@ public class Window extends Drawable
      * Drawable Window.
      * 
      * @param cursor
-     *            Passing <code>null</code> will cause this Window to
-     *            [revert to] using the Cursor default inherited from its
-     *            parent.
+     *            Passing <code>null</code> will cause this Window to [revert
+     *            to] using the Cursor default inherited from its parent.
      * @since 4.0.6
      */
     public void setCursor(Cursor cursor) {
@@ -150,7 +149,7 @@ public class Window extends Drawable
 
     /**
      * Mark the given area as damaged and needing redrawing. Calling this
-     * method will ultimately result in <code>EXPOSE_EVENT</code> being
+     * method will ultimately result in <code>Widget.ExposeEvent</code> being
      * emitted on Widgets that are present in the area being invalidated.
      * 
      * @param recursive

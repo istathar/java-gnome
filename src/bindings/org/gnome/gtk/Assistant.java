@@ -300,7 +300,7 @@ public class Assistant extends Window
      * 
      * @since 4.0.8
      */
-    public interface PREPARE extends GtkAssistant.PREPARE
+    public interface Prepare extends GtkAssistant.PrepareSignal
     {
         public void onPrepare(Assistant source, Widget page);
     }
@@ -310,7 +310,7 @@ public class Assistant extends Window
      * 
      * @since 4.0.8
      */
-    public void connect(PREPARE handler) {
+    public void connect(Prepare handler) {
         GtkAssistant.connect(this, handler, false);
     }
 
@@ -320,7 +320,7 @@ public class Assistant extends Window
      * 
      * @since 4.0.8
      */
-    public interface APPLY extends GtkAssistant.APPLY
+    public interface Apply extends GtkAssistant.ApplySignal
     {
         public void onApply(Assistant source);
     }
@@ -331,7 +331,7 @@ public class Assistant extends Window
      * 
      * @since 4.0.8
      */
-    public void connect(APPLY handler) {
+    public void connect(Apply handler) {
         GtkAssistant.connect(this, handler, false);
     }
 
@@ -341,7 +341,7 @@ public class Assistant extends Window
      * 
      * @since 4.0.8
      */
-    public interface CLOSE extends GtkAssistant.CLOSE
+    public interface Close extends GtkAssistant.CloseSignal
     {
         public void onClose(Assistant source);
     }
@@ -352,7 +352,7 @@ public class Assistant extends Window
      * 
      * @since 4.0.8
      */
-    public void connect(CLOSE handler) {
+    public void connect(Close handler) {
         GtkAssistant.connect(this, handler, false);
     }
 
@@ -362,7 +362,7 @@ public class Assistant extends Window
      * 
      * @since 4.0.8
      */
-    public interface CANCEL extends GtkAssistant.CANCEL
+    public interface Cancel extends GtkAssistant.CancelSignal
     {
         public void onCancel(Assistant source);
     }
@@ -372,7 +372,7 @@ public class Assistant extends Window
      * 
      * @since 4.0.8
      */
-    public void connect(CANCEL handler) {
+    public void connect(Cancel handler) {
         GtkAssistant.connect(this, handler, false);
     }
 

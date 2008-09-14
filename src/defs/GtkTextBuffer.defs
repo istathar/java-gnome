@@ -121,7 +121,7 @@
     '("GtkTextIter*" "iter")
     '("const-gchar*" "text")
     '("gint" "len")
-    '("GtkTextTag*" "first_tag")
+    '("GtkTextTag*" "first_tag" (null-ok))
   )
   (varargs #t)
 )

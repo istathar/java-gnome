@@ -30,8 +30,8 @@ package org.gnome.gtk;
  * 
  * <p>
  * An abbreviated example of using this follows; assuming a ListStore
- * <code>model</code> with at least DataColumnString <code>column</code>
- * in it,
+ * <code>model</code> with at least DataColumnString <code>column</code> in
+ * it,
  * 
  * <pre>
  * combo = new ComboBox(model);
@@ -67,9 +67,10 @@ public class ComboBox extends Bin implements CellEditable, CellLayout
 
     /**
      * Construct a new full-power TreeModel-backed ComboBox with a model to be
-     * specified at a future point via {@link #setModel(TreeModel) setModel()}.
-     * This constructor is explicitly here to permit developers to subclass
-     * ComboBox in order to create their own ComboBox based custom Widgets.
+     * specified at a future point via the {@link #setModel(TreeModel)
+     * setModel()} method. This constructor is explicitly here to permit
+     * developers to subclass ComboBox in order to create their own ComboBox
+     * based custom Widgets.
      * 
      * @since 4.0.6
      */
@@ -102,8 +103,8 @@ public class ComboBox extends Bin implements CellEditable, CellLayout
 
     /**
      * Returns the index of the active item in the ComboBox. This counts from
-     * a zero origin, so a return value of <code>2</code> means the third
-     * item in the list is currently the active item.
+     * a zero origin, so a return value of <code>2</code> means the third item
+     * in the list is currently the active item.
      * 
      * @since 4.0.6
      */
@@ -129,15 +130,28 @@ public class ComboBox extends Bin implements CellEditable, CellLayout
      * 
      * @since 4.0.3
      */
-    public interface CHANGED extends GtkComboBox.CHANGED
+    public interface Changed extends GtkComboBox.ChangedSignal
     {
         public void onChanged(ComboBox source);
     }
 
     /**
-     * Hook up a <code>CHANGED</code> handler to the Widget.
+     * Hook up a <code>ComboBox.Changed</code> handler to the Widget.
+     * 
+     * since 4.0.3
      */
+    public void connect(ComboBox.Changed handler) {
+        GtkComboBox.connect(this, handler, false);
+    }
+
+    /** @deprecated */
+    public interface CHANGED extends GtkComboBox.ChangedSignal
+    {
+    }
+
+    /** @deprecated */
     public void connect(CHANGED handler) {
+        assert false : "use ComboBox.Changed instead";
         GtkComboBox.connect(this, handler, false);
     }
 

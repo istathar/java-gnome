@@ -76,8 +76,8 @@ public class TreeViewColumn extends Object implements CellLayout
      * is <code>false</code>, not to be clickable, also meaning that header
      * won't take the keyboard focus either. Since calling
      * {@link #setSortColumn(DataColumn) setSortColumn()} will set
-     * <var>clickable</var> to <code>true</code>, so you only need this
-     * for the case where you assign a sort order to a column, but don't want
+     * <var>clickable</var> to <code>true</code>, so you only need this for
+     * the case where you assign a sort order to a column, but don't want
      * users to be able to change the sorting column or its order.
      */
     public void setClickable(boolean setting) {
@@ -89,21 +89,22 @@ public class TreeViewColumn extends Object implements CellLayout
      * sorting be enabled.
      * 
      * <p>
-     * Calling this also makes the TreeViewColumn <var>clickable</var>, but
-     * it does not automatically engage the sorting (maybe you only want
-     * sorting to be optional and only active if the user clicks a header,
-     * certainly if you've set sort information for many columns you will have
-     * to indicate explicitly which one is to be active first, etc). Use
-     * {@link #clicked()} to activate this column as the one doing the
-     * sorting.
+     * Calling this also makes the TreeViewColumn <var>clickable</var>, but it
+     * does not automatically engage the sorting (maybe you only want sorting
+     * to be optional and only active if the user clicks a header, certainly
+     * if you've set sort information for many columns you will have to
+     * indicate explicitly which one is to be active first, etc). Use
+     * {@link #emitClicked() emitClicked()} to activate this column as the one
+     * doing the sorting.
      * 
      * <p>
-     * <b>Warning:</b><br/>This only works if the TreeModel being presented
-     * by this TreeView is <var>sortable</var>, that is, if that model
-     * implements TreeSortable. Since almost everything in GTK does so, you
-     * ordinarily don't need to worry about this. The one that doesn't is
-     * TreeModelFilter, so if you're using a filtered model make sure you wrap
-     * it in a TreeModelSort before adding it to the TreeView.
+     * <b>Warning:</b><br/>
+     * This only works if the TreeModel being presented by this TreeView is
+     * <var>sortable</var>, that is, if that model implements TreeSortable.
+     * Since almost everything in GTK does so, you ordinarily don't need to
+     * worry about this. The one that doesn't is TreeModelFilter, so if you're
+     * using a filtered model make sure you wrap it in a TreeModelSort before
+     * adding it to the TreeView.
      */
     public void setSortColumn(DataColumn column) {
         GtkTreeViewColumn.setSortColumnId(this, column.getOrdinal());
@@ -111,15 +112,23 @@ public class TreeViewColumn extends Object implements CellLayout
 
     /**
      * Activate this column's sorting by sending a click the TreeViewColumn
-     * header. Causes <code>CLICKED</code> to fire, but more importantly
-     * this causes this vertical to become the active column dictating the
-     * ordering of the TreeView as a whole (assuming the vertical is
-     * {@link #setClickable(boolean) setClickable(true)} and assuming a
-     * DataColumn has been set with
+     * header. Causes <code>TreeViewColumn.Clicked</code> to fire, but more
+     * importantly this causes this vertical to become the active column
+     * dictating the ordering of the TreeView as a whole (assuming the
+     * vertical is {@link #setClickable(boolean) setClickable(true)} and
+     * assuming a DataColumn has been set with
      * {@link #setSortColumn(DataColumn) setSortColumn()} to indicate the
      * ordering).
+     * 
+     * @since 4.0.8
      */
+    public void emitClicked() {
+        GtkTreeViewColumn.clicked(this);
+    }
+
+    /** @deprecated */
     public void clicked() {
+        assert false : "use emitClicked() instead";
         GtkTreeViewColumn.clicked(this);
     }
 
@@ -136,9 +145,8 @@ public class TreeViewColumn extends Object implements CellLayout
      * The default for new TreeViewColumns is <code>false</code>. The last
      * (right-most) column is treated specially, however. Extra space given to
      * the TreeView as a whole will automatically go to the last vertical
-     * column (ie, ignoring this being set <code>false</code>) unless one
-     * or more other columns have had <var>expand</var> set to
-     * <code>true</code>.
+     * column (ie, ignoring this being set <code>false</code>) unless one or
+     * more other columns have had <var>expand</var> set to <code>true</code>.
      */
     public void setExpand(boolean setting) {
         GtkTreeViewColumn.setExpand(this, setting);
@@ -200,8 +208,8 @@ public class TreeViewColumn extends Object implements CellLayout
      * Set the mode constant that will be used to determine the width
      * behaviour of TreeViewColumns when data is changed in the model causing
      * a CellRenderer to need to redraw a cell. Note that this works in
-     * conjunction with other sizing methods ({@link #setResizable(boolean) setResizable()},
-     * {@link #setMinWidth(int) setMinWidth()},
+     * conjunction with other sizing methods ({@link #setResizable(boolean)
+     * setResizable()}, {@link #setMinWidth(int) setMinWidth()},
      * {@link #setFixedWidth(int) setFixedWidth()}, etc and there are quite a
      * number of permutations available as a result.
      * 
@@ -228,11 +236,11 @@ public class TreeViewColumn extends Object implements CellLayout
     }
 
     /**
-     * If (and only if) operating with the
-     * {@link TreeViewColumnSizing#FIXED FIXED} TreeViewSizing mode, this
-     * defines the fixed column width in pixels. If {@link #setMinWidth(int)}
-     * setMinWidth} or {@link #setMaxWidth(int)} have been called and the
-     * fixed width is outside these bounds Min- or MaxWidth take precedence.
+     * If (and only if) operating with the {@link TreeViewColumnSizing#FIXED
+     * FIXED} TreeViewSizing mode, this defines the fixed column width in
+     * pixels. If {@link #setMinWidth(int)} setMinWidth} or
+     * {@link #setMaxWidth(int)} have been called and the fixed width is
+     * outside these bounds Min- or MaxWidth take precedence.
      * 
      * <p>
      * The fixed width can be overridden by the user if

@@ -20,11 +20,11 @@ package org.gnome.gtk;
  * <p>
  * <i>Since the GObject type system was abstracted out from GTK some time
  * after GTK was first written, <code>GtkObject</code> predates
- * <code>GObject</code>; almost all of the functionality originally
- * resident in <code>GtkObject</code> was moved to <code>GObject</code>
- * long ago. Its presence in the type hierarchy is largely for backwards
- * compatibility. Only people hacking on java-gnome itself will have any need
- * to interact with this class, and then only rarely.</i>
+ * <code>GObject</code>; almost all of the functionality originally resident
+ * in <code>GtkObject</code> was moved to <code>GObject</code> long ago. Its
+ * presence in the type hierarchy is largely for backwards compatibility. Only
+ * people hacking on java-gnome itself will have any need to interact with
+ * this class, and then only rarely.</i>
  * 
  * @author Andrew Cowie
  * @since 4.0.0

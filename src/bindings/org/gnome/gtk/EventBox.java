@@ -13,10 +13,10 @@ package org.gnome.gtk;
 
 /**
  * Add the ability for a Widget to accept events. A fair number of Widgets do
- * <i>not</i> have the ability to process events coming from the user
- * because, under ordinary circumstances, they don't need it. If you want a
- * Label or Image to take keystrokes or mouse clicks, then you instantiate an
- * EventBox and pack your Widget into it.
+ * <i>not</i> have the ability to process events coming from the user because,
+ * under ordinary circumstances, they don't need it. If you want a Label or
+ * Image to take keystrokes or mouse clicks, then you instantiate an EventBox
+ * and pack your Widget into it.
  * 
  * <p>
  * Quite a number of Widgets share underlying resources. That's not something
@@ -39,9 +39,9 @@ public class EventBox extends Bin
     }
 
     /**
-     * Create a new EventBox. Be sure to call
-     * {@link #setAboveChild(boolean) setAboveChild()} and
-     * {@link #setVisibleWindow(boolean) setVisibleWindow()} if necessary.
+     * Create a new EventBox. Be sure to call {@link #setAboveChild(boolean)
+     * setAboveChild()} and {@link #setVisibleWindow(boolean)
+     * setVisibleWindow()} if necessary.
      * 
      * @since 4.0.6
      */
@@ -65,8 +65,8 @@ public class EventBox extends Bin
 
     /**
      * Whether the EventBox will have a "visible" child. The default is
-     * <code>true</code>; ordinarily you want the child Widget to be
-     * displayed normally.
+     * <code>true</code>; ordinarily you want the child Widget to be displayed
+     * normally.
      * 
      * @since 4.0.6
      */

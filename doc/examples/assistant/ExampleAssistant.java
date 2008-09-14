@@ -22,10 +22,9 @@ import org.gnome.gtk.Label;
 import org.gnome.gtk.VBox;
 import org.gnome.gtk.Widget;
 import org.gnome.gtk.Window;
-import org.gnome.gtk.Window.DELETE_EVENT;
 
-public class ExampleAssistant implements Assistant.CANCEL, Assistant.APPLY, Assistant.CLOSE,
-        Assistant.PREPARE
+public class ExampleAssistant implements Assistant.Cancel, Assistant.Apply, Assistant.Close,
+        Assistant.Prepare
 {
 
     Label page1, page3;
@@ -43,7 +42,7 @@ public class ExampleAssistant implements Assistant.CANCEL, Assistant.APPLY, Assi
     public ExampleAssistant() {
         Window win = new Window();
         win.setTitle("ExampleAssistant");
-        win.connect(new DELETE_EVENT() {
+        win.connect(new Window.DeleteEvent() {
             public boolean onDeleteEvent(Widget source, Event event) {
                 Gtk.mainQuit();
                 return true;
@@ -51,10 +50,10 @@ public class ExampleAssistant implements Assistant.CANCEL, Assistant.APPLY, Assi
         });
 
         final Assistant assi = new Assistant();
-        assi.connect((Assistant.CANCEL) this);
-        assi.connect((Assistant.PREPARE) this);
-        assi.connect((Assistant.APPLY) this);
-        assi.connect((Assistant.CLOSE) this);
+        assi.connect((Assistant.Cancel) this);
+        assi.connect((Assistant.Prepare) this);
+        assi.connect((Assistant.Apply) this);
+        assi.connect((Assistant.Close) this);
 
         // Page 1
         page1 = new Label("This is a introductionary page.");

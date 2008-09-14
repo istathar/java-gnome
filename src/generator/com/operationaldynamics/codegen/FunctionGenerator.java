@@ -115,8 +115,8 @@ public class FunctionGenerator extends Generator
          * have a varargs and will need to a) add a NULL sentinel to the arg
          * list, and b) chop this pseudo-parameter off the end of the array.
          * This is a bit ugly, but the alternative was adding a boolean to
-         * *every* Generator constructor. This is better: varargs *is* a
-         * parameter type, and one we may someday choose to deal with.
+         * every Generator constructor. This is better: varargs is a parameter
+         * type, and one we may someday choose to deal with.
          */
 
         if ((gParameters.length > 0) && ("...".equals(gParameters[gParameters.length - 1][0]))) {
@@ -560,10 +560,10 @@ public class FunctionGenerator extends Generator
         }
 
         /*
-         * When the function takes a GError** as a parameter, we need to check
-         * if the function has efectivelly thrown an error. After doing the
-         * needed clean-up, we check for that situation and throw an exception
-         * from JNI side.
+         * When the function takes a GError pointer as an out-parameter, we
+         * need to check if the function has efectivelly thrown an error.
+         * After doing the needed clean-up, we check for that situation and
+         * throw an exception from JNI side.
          */
         if (paramGError != null) {
             out.print("\n");

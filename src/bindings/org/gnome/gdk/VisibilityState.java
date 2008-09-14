@@ -1,7 +1,7 @@
 /*
  * VisibilityState.java
  *
- * Copyright (c) 2007 Operational Dynamics Consulting Pty Ltd
+ * Copyright (c) 2007-2008 Operational Dynamics Consulting Pty Ltd
  *
  * The code in this file, and the library it is a part of, are made available
  * to you by the authors under the terms of the "GNU General Public Licence,
@@ -15,9 +15,10 @@ import org.freedesktop.bindings.Constant;
 
 /**
  * Constants indicating the current visibility of a Widget. See the
- * {@link org.gnome.gtk.Widget.VISIBILITY_NOTIFY_EVENT VISIBILITY_NOTIFY_EVENT}
- * signal on Widget for further details; these constants come from the
- * {@link EventVisibility#getState() getState()} method on an EventVisibility.
+ * {@link org.gnome.gtk.Widget.VisibilityNotifyEvent
+ * Widget.VisibilityNotifyEvent} signal for further details; these constants
+ * come from the {@link EventVisibility#getState() getState()} method on an
+ * EventVisibility.
  * 
  * @author Andrew Cowie
  * @since 4.0.5

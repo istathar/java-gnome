@@ -15,9 +15,9 @@ package org.gnome.gtk;
 /**
  * Version constants for the java-gnome library. The top level
  * <code>.config</code> Makefile fragment depends on this file and the
- * <code>./configure</code> of Equivalence extracts the values for the
- * library API version and (pending) release version from the constants
- * defined herein.
+ * <code>./configure</code> of Equivalence extracts the values for the library
+ * API version and (pending) release version from the constants defined
+ * herein.
  * 
  * @author Andrew Cowie
  * @since 4.0.2
@@ -30,7 +30,7 @@ final class Version
 {
     static final String APIVERSION = "4.0";
 
-    static final String VERSION = "4.0.8";
+    static final String VERSION = "4.0.9";
 
     private Version() {}
 }

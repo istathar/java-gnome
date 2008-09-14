@@ -79,10 +79,10 @@ public class RadioButtonGroup
      * 
      * <p>
      * This happens either by clicking in a different option on the group, by
-     * pressing the <b><code>Up</code></b> or <b><code>Down</code></b>
-     * key when one of the RadioButtons in the group has the focus, or when
-     * the key combination <b><code>Alt+</code><i>mnemonic</i></b> is
-     * pressed. It can also be triggered programmatically by calling the
+     * pressing the <b><code>Up</code></b> or <b><code>Down</code></b> key
+     * when one of the RadioButtons in the group has the focus, or when the
+     * key combination <b><code>Alt+</code><i>mnemonic</i></b> is pressed. It
+     * can also be triggered programmatically by calling the
      * {@link ToggleButton#setActive(boolean) setActive()} method.
      * 
      * @author Vreixo Formoso
@@ -91,7 +91,7 @@ public class RadioButtonGroup
     /*
      * In case you're wondering, yes, this is java-gnome specific.
      */
-    public interface GROUP_TOGGLED
+    public interface GroupToggled
     {
         /**
          * Called when user changes the active RadioButton in a group
@@ -103,11 +103,12 @@ public class RadioButtonGroup
     }
 
     /**
-     * Hook up a handler to the GROUP_TOGGLED signal.
+     * Hook up a handler to the <code>RadioButtonGroup.GroupToggled</code>
+     * signal.
      * 
      * @since <span style="color: red">Unstable</span>
      */
-    public void connect(GROUP_TOGGLED handler) {
+    public void connect(RadioButtonGroup.GroupToggled handler) {
         ToggleHandler toggleHandler = new ToggleHandler(handler);
         RadioButton[] group = GtkRadioButton.getGroup(member);
         for (int i = 0; i < group.length; ++i) {
@@ -116,13 +117,14 @@ public class RadioButtonGroup
     }
 
     /*
-     * Custom handler needed to implement GROUP_TOGGLED custom signal.
+     * Custom handler needed to implement RadioButtonGroup.GroupToggled custom
+     * signal.
      */
-    private static final class ToggleHandler implements ToggleButton.TOGGLED
+    private static final class ToggleHandler implements ToggleButton.Toggled
     {
-        private final GROUP_TOGGLED handler;
+        private final RadioButtonGroup.GroupToggled handler;
 
-        ToggleHandler(GROUP_TOGGLED handler) {
+        private ToggleHandler(RadioButtonGroup.GroupToggled handler) {
             this.handler = handler;
         }
 

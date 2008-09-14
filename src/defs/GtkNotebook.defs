@@ -185,42 +185,6 @@
   (return-type "GtkPositionType")
 )
 
-(define-method set_homogeneous_tabs
-  (of-object "GtkNotebook")
-  (c-name "gtk_notebook_set_homogeneous_tabs")
-  (return-type "none")
-  (parameters
-    '("gboolean" "homogeneous")
-  )
-)
-
-(define-method set_tab_border
-  (of-object "GtkNotebook")
-  (c-name "gtk_notebook_set_tab_border")
-  (return-type "none")
-  (parameters
-    '("guint" "border_width")
-  )
-)
-
-(define-method set_tab_hborder
-  (of-object "GtkNotebook")
-  (c-name "gtk_notebook_set_tab_hborder")
-  (return-type "none")
-  (parameters
-    '("guint" "tab_hborder")
-  )
-)
-
-(define-method set_tab_vborder
-  (of-object "GtkNotebook")
-  (c-name "gtk_notebook_set_tab_vborder")
-  (return-type "none")
-  (parameters
-    '("guint" "tab_vborder")
-  )
-)
-
 (define-method set_scrollable
   (of-object "GtkNotebook")
   (c-name "gtk_notebook_set_scrollable")
@@ -406,21 +370,6 @@
   (parameters
     '("gint" "offset")
   )
-)
-
-(define-method set_group_id
-  (of-object "GtkNotebook")
-  (c-name "gtk_notebook_set_group_id")
-  (return-type "none")
-  (parameters
-    '("gint" "group_id")
-  )
-)
-
-(define-method get_group_id
-  (of-object "GtkNotebook")
-  (c-name "gtk_notebook_get_group_id")
-  (return-type "gint")
 )
 
 (define-method get_tab_reorderable

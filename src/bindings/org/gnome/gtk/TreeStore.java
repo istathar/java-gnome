@@ -105,8 +105,8 @@ public class TreeStore extends TreeModel implements TreeDragSource, TreeDragDest
     /**
      * Append a new row after the last child of the given row. You'll need to
      * fill in the various columns with one of the various
-     * {@link TreeModel#setValue(TreeIter, DataColumnString, String) setValue()}
-     * methods, of course.
+     * {@link TreeModel#setValue(TreeIter, DataColumnString, String)
+     * setValue()} methods, of course.
      * 
      * <p>
      * To add a top level row, use {@link #appendRow() appendRow()}.
@@ -150,8 +150,7 @@ public class TreeStore extends TreeModel implements TreeDragSource, TreeDragDest
     }
 
     /**
-     * Returns whether the given <code>row</code> has at least one child
-     * row.
+     * Returns whether the given <code>row</code> has at least one child row.
      * 
      * <p>
      * You can use {@link #iterChildren(TreeIter) iterChildren()} to get the
@@ -207,8 +206,7 @@ public class TreeStore extends TreeModel implements TreeDragSource, TreeDragDest
     /**
      * Get the parent of the given <code>row</code>, assuming there is one.
      * 
-     * @return The parent row, or <code>null</code> if this row has no
-     *         parent.
+     * @return The parent row, or <code>null</code> if this row has no parent.
      * @since 4.0.7
      */
     public TreeIter iterParent(TreeIter row) {
@@ -240,8 +238,8 @@ public class TreeStore extends TreeModel implements TreeDragSource, TreeDragDest
     /**
      * Delete a row from the TreeStore. If there is another row after this
      * <i>at this level</i> then <code>true</code> will be returned and the
-     * TreeIter will still be valid. Otherwise, <code>false</code> is
-     * returned and <code>row</code> is invalidated.
+     * TreeIter will still be valid. Otherwise, <code>false</code> is returned
+     * and <code>row</code> is invalidated.
      * 
      * @since 4.0.7
      */

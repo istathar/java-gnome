@@ -24,8 +24,8 @@ Building java-gnome
 
 For the impatient:
 
-    $ tar xjf java-gnome-4.0.7.tzr.bz2
-    $ cd java-gnome-4.0.7
+    $ tar xjf java-gnome-4.0.9.tzr.bz2
+    $ cd java-gnome-4.0.9
     $ ./configure
     $ make
 
@@ -42,8 +42,8 @@ You can download the latest java-gnome release from the GNOME FTP server at:
 
 Once you've downloaded the latest source tarball:
 
-    $ tar xjf java-gnome-4.0.7.tzr.bz2
-    $ cd java-gnome-4.0.7
+    $ tar xjf java-gnome-4.0.9.tzr.bz2
+    $ cd java-gnome-4.0.9
 
 And go on to step 2 for details about options you can pass to the
 configuration command.
@@ -149,7 +149,7 @@ of the following:
 Examples:
 
     $ ./configure
-    $ ./configure jdk=/opt/sun-jdk-bin-1.6.0.06
+    $ ./configure jdk=/opt/sun-jdk-bin-1.6.0.07
     $ ./configure jamvm=/home/joe/custom/bin/jamvm runtime=jamvm
 
 Your configuration is persistent across builds in that checkout, ie, `make
@@ -179,7 +179,7 @@ variables come from.
 The build products end up in `tmp/`:
 
 `tmp/gtk-4.0.jar`  
-`tmp/libgtkjni-4.0.jar`
+`tmp/libgtkjni-4.0.9.so`
 
 That's actually enough to go on -- if you're using an IDE like Eclipse you can
 just tell it about the `.jar` and indicate that `tmp/` is the native library
@@ -204,7 +204,7 @@ and you would end up with:
 
 `~/share/java/gtk-4.0.jar`  
 `~/share/java/gtk.jar`  
-`~/lib/libgtkjni-4.0.so`
+`~/lib/libgtkjni-4.0.9.so`
 
 Of course, if you do that (or install anywhere else off the system shared
 library search path), you'll need to use the `LD_LIBRARY_PATH` environment
@@ -227,7 +227,7 @@ example:
 	
 	...
 	
-	make DESTDIR=/var/tmp/portage/java-gnome-4.0.7-r2/image install
+	make DESTDIR=/var/tmp/portage/java-gnome-4.0.9-r2/image install
 	
 	...
 
@@ -235,7 +235,7 @@ With a prefix of `/usr` you will end up with
 
 `/usr/share/java/gtk-4.0.jar`  
 `/usr/share/java/gtk.jar`  
-`/usr/lib/libgtkjni-4.0.so`
+`/usr/lib/libgtkjni-4.0.9.so`
 
 If you have distro policy issues to deal with, then move things around once
 they've landed in `DESTDIR`.
@@ -304,10 +304,6 @@ libraries) is growing rapidly. The code generator which cranks out the project
 internals (based on the shared metadata used by the other GNOME language
 bindings) is in excellent shape.
 
-Remember that java-gnome 2.x is completely deprecated and hasn't had new code
-from anyone in years. You don't want to be programming with it. If it is still
-available in your distribution, that's a bug.
-
 Get Involved
 ------------
 
@@ -341,7 +337,7 @@ Maintainer,
 [java-gnome](http://java-gnome.sourceforge.net/),  
 opening GTK and GNOME to Java programmers!
 
-_Last modified 29 Apr 08_
+_Last modified 12 Sep 08_
 
 [mirror]: http://ftp.gnome.org/pub/gnome/sources/java-gnome/4.0/
 

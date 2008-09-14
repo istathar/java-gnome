@@ -166,15 +166,16 @@ public abstract class Plumbing
      * register) a new Proxy object.
      * 
      * <p>
-     * Note that under this architecture, denaturation should <b>not</b>
-     * occur because if we created the type, then we will already and always
-     * have a reference to it. Regardless if our type is a much derived
-     * subclass of whatever the native library's equivalent is, any look up of
-     * that pointer will be routed to our Proxy subtype.
+     * Note that under this architecture, denaturation should <b>not</b> occur
+     * because if we created the type, then we will already and always have a
+     * reference to it. Regardless if our type is a much derived subclass of
+     * whatever the native library's equivalent is, any look up of that
+     * pointer will be routed to our Proxy subtype.
      * 
      * <p>
      * <i><b>This must be overridden by any library using these bindings, or
-     * you will only be able to get instances for objects created Java side.</b></i>.
+     * you will only be able to get instances for objects created Java
+     * side.</b></i>.
      * 
      * @param pointer
      *            opaque memory reference as passed from the C side.
@@ -410,4 +411,11 @@ public abstract class Plumbing
     private static native Flag createFlag(Class<?> type, int ordinal, String nickname);
 
     static final native String toHexString(long pointer);
+
+    /**
+     * Get the value encoded by a DoubleConstant instance.
+     */
+    protected static final double numOf(DoubleConstant reference) {
+        return reference.value;
+    }
 }

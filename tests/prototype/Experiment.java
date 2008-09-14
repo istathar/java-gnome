@@ -1,7 +1,7 @@
 /*
  * Experiment.java
  *
- * Copyright (c) 2006-2007 Operational Dynamics Consulting Pty Ltd
+ * Copyright (c) 2006-2008 Operational Dynamics Consulting Pty Ltd
  *
  * The code in this file, and the program it is a part of, are made available
  * to you by the authors under the terms of the "GNU General Public Licence,
@@ -74,13 +74,13 @@ public final class Experiment
         s = w.getScreen();
         w.move(s.getWidth() - 200, s.getHeight() - 200);
 
-        b.connect(new Button.CLICKED() {
+        b.connect(new Button.Clicked() {
             public void onClicked(Button source) {
                 System.out.println("I was clicked... " + b.getLabel());
             }
         });
 
-        w.connect(new Window.DELETE_EVENT() {
+        w.connect(new Window.DeleteEvent() {
             public boolean onDeleteEvent(Widget source, Event event) {
                 System.out.println("I was deleted!");
                 Gtk.mainQuit();
@@ -88,7 +88,7 @@ public final class Experiment
             }
         });
 
-        fcb.connect(new FileChooserButton.FILE_SET() {
+        fcb.connect(new FileChooserButton.FileSet() {
             public void onFileSet(FileChooserButton source) {
                 System.out.println("File selected:   " + source.getURI());
                 System.gc();

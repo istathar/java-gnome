@@ -49,8 +49,8 @@
   (c-name "gdk_drawable_get_size")
   (return-type "none")
   (parameters
-    '("gint*" "width")
-    '("gint*" "height")
+    '("gint*" "width" (null-ok))
+    '("gint*" "height" (null-ok))
   )
 )
 

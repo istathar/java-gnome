@@ -5,28 +5,6 @@
   (gtype-id "GDK_TYPE_COLORMAP")
 )
 
-(define-method ref
-  (of-object "GdkColormap")
-  (c-name "gdk_colormap_ref")
-  (return-type "GdkColormap*")
-)
-
-(define-method unref
-  (of-object "GdkColormap")
-  (c-name "gdk_colormap_unref")
-  (return-type "none")
-)
-
-(define-method change
-  (of-object "GdkColormap")
-  (c-name "gdk_colormap_change")
-  (return-type "none")
-  (deprecated "deprecated")
-  (parameters
-    '("gint" "ncolors")
-  )
-)
-
 (define-method alloc_colors
   (of-object "GdkColormap")
   (c-name "gdk_colormap_alloc_colors")

@@ -106,14 +106,6 @@
   )
 )
 
-(define-virtual get_range_border
-  (of-object "GtkRange")
-  (return-type "none")
-  (parameters
-    '("GtkBorder*" "border_")
-  )
-)
-
 (define-virtual change_value
   (of-object "GtkRange")
   (return-type "gboolean")

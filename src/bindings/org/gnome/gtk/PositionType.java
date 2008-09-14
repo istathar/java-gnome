@@ -16,10 +16,9 @@ import org.freedesktop.bindings.Constant;
 /**
  * Which edge of a Widget an adornment is placed at. These constants are used
  * by Scale and Notebook to specify where the value is located or where the
- * tabs will be placed (see
- * {@link Scale#setValuePosition(PositionType) setValuePosition()} and
- * {@link Notebook#setTabPosition(PositionType) setTabPosition()}
- * respectively).
+ * tabs will be placed (see {@link Scale#setValuePosition(PositionType)
+ * setValuePosition()} and {@link Notebook#setTabPosition(PositionType)
+ * setTabPosition()} respectively).
  * 
  * @author Andrew Cowie
  * @since 4.0.6

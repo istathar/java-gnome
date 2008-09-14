@@ -41,16 +41,16 @@ import com.operationaldynamics.driver.ImproperDefsFileException;
  * Block objects. Blocks are Java objects representing the contents of a given
  * (define-...) stanza.
  * 
- * <li>Completely independent of the parser is the code generator. A
- * hierarchy of Generator objects exist with the code to output the necessary
- * Java and C code They have constructors which minutely specify the
- * information they require (and with variables names that means something to
- * the task of bindings generation, rather than whatever the origin .defs data
- * might have called it). The types information describing the underlying
- * library is stored in a hash table of which uses the underlying type (as
- * found in the source .defs data) as a key, and a Thing object as the value
- * containing all the necessary mappings of that type to the actual Java or C
- * language type used at each layer of the bindings.
+ * <li>Completely independent of the parser is the code generator. A hierarchy
+ * of Generator objects exist with the code to output the necessary Java and C
+ * code They have constructors which minutely specify the information they
+ * require (and with variables names that means something to the task of
+ * bindings generation, rather than whatever the origin .defs data might have
+ * called it). The types information describing the underlying library is
+ * stored in a hash table of which uses the underlying type (as found in the
+ * source .defs data) as a key, and a Thing object as the value containing all
+ * the necessary mappings of that type to the actual Java or C language type
+ * used at each layer of the bindings.
  * </ul>
  * 
  * <p>

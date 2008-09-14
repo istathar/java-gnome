@@ -36,11 +36,11 @@
   )
 )
 
-(define-method get_shape_engine_type
-  (of-object "PangoFontMap")
-  (c-name "pango_font_map_get_shape_engine_type")
-  (return-type "const-char*")
-)
+;;(define-method get_shape_engine_type
+;;  (of-object "PangoFontMap")
+;;  (c-name "pango_font_map_get_shape_engine_type")
+;;  (return-type "const-char*")
+;;)
 
 (define-virtual load_font
   (of-object "PangoFontMap")

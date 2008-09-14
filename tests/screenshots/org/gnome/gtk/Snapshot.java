@@ -46,12 +46,16 @@ public abstract class Snapshot
     /**
      * Instantiate a new screenshot demo. The class you are doing a demo for
      * will be used to derive the target filename, ie Button.class ->
-     * src/bindings/org/gnome/gtk/doc-files/Button.png
+     * doc/api/org/gnome/gtk/Button.png
      */
     protected Snapshot(Class<?> underTest) {
         this.target = targetFilenameFromClass(underTest, null);
     }
 
+    /**
+     * Instantiate a new screenshot demo. For (Button.class, "blah") you'll
+     * get doc/api/org/gnome/gtk/Button-blah.png
+     */
     protected Snapshot(Class<?> underTest, String suffix) {
         this.target = targetFilenameFromClass(underTest, suffix);
     }
@@ -96,7 +100,7 @@ public abstract class Snapshot
         w.showAll();
         w.present();
 
-        w.connect(new Window.DELETE_EVENT() {
+        w.connect(new Window.DeleteEvent() {
             public boolean onDeleteEvent(Widget source, Event event) {
                 Gtk.mainQuit();
                 return false;
