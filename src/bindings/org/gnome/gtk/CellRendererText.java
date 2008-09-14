@@ -108,6 +108,16 @@ public class CellRendererText extends CellRenderer
     }
 
     /**
+     * Indicate the DataColumn containing the information whether the cell
+     * should be editable or not.
+     * 
+     * @since 4.0.9
+     */
+    public void setEditable(DataColumnBoolean column) {
+        GtkCellLayout.addAttribute(vertical, this, "editable", column.getOrdinal());
+    }
+
+    /**
      * Event generated after user activated a cell, changed its content and
      * pressed Return.
      * 

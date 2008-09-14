@@ -13,7 +13,9 @@ AfC
 AllAboutJNI
 AltLeft
 AltRight
+ApplySignal
 ArrayList
+AssistantPageType
 AtSign
 AttachOptions
 BackSpace
@@ -52,6 +54,7 @@ CalendarDisplayOptions
 CallStaticBooleanMethodA
 CallStaticObjectMethodA
 CallStaticVoidMethodA
+CancelSignal
 CapsLock
 CellEditable
 CellLayout
@@ -74,6 +77,7 @@ ClassLoader's
 ClassName
 ClassNotFoundException
 ClickedSignal
+CloseSignal
 CodeFormat
 CoderMalfunctionError
 Collins's
@@ -269,6 +273,7 @@ GtkAdjustment
 GtkAlignment
 GtkAllocation
 GtkApplication
+GtkAssistant
 GtkB
 GtkBin
 GtkBox
@@ -423,6 +428,7 @@ ImageSurface
 ImageType
 IncomingConversation
 IndexError
+IndexOutOfBoundsException
 InfoMessageDialog
 Inkscape
 InputStream
@@ -556,6 +562,7 @@ PositionType
 PowerResponseType
 Preetz
 Prelle
+PrepareSignal
 PressMe
 ProgressBar
 Prugh
@@ -771,6 +778,7 @@ accessors
 activatable
 activateTime
 addAction
+addActionWidget
 addActionWithAccel
 addAttribute
 addButton
@@ -870,6 +878,7 @@ checkInitialized
 checkIter
 checkPixbufFromFile
 checkPixbufFromFileAtScale
+checkReadyForDisplay
 checkState
 checkStatus
 checkpointHashes
@@ -919,6 +928,7 @@ createAction
 createActionGroup
 createAdjustment
 createAlignment
+createAssistant
 createButton
 createButtonWithLabel
 createButtonWithMnemonic
@@ -1184,6 +1194,7 @@ getCode
 getColumn
 getCoronationYear
 getCurrentFolder
+getCurrentPage
 getCursorVisible
 getDate
 getDateDay
@@ -1251,8 +1262,11 @@ getModel
 getModificationDate
 getModified
 getNChannels
+getNPages
 getName
+getNthPage
 getNumChannels
+getNumPages
 getObject
 getOffset
 getOrdinal
@@ -1264,6 +1278,12 @@ getPaddingBottom
 getPaddingLeft
 getPaddingRight
 getPaddingTop
+getPage
+getPageComplete
+getPageHeaderImage
+getPageSideImage
+getPageTitle
+getPageType
 getParent
 getPath
 getPixbuf
@@ -1470,6 +1490,7 @@ knownProxies
 knownStocks
 labelWidget
 lang
+lastPage
 lc
 ld
 leftAttach
@@ -1579,11 +1600,14 @@ odt
 offscreen
 ok
 onActivate
+onApply
 onButtonPressEvent
 onButtonReleaseEvent
+onCancel
 onChangeCurrentPage
 onChanged
 onClicked
+onClose
 onConfigureEvent
 onDaySelected
 onDaySelectedDoubleClick
@@ -1604,6 +1628,7 @@ onLeaveNotifyEvent
 onMapEvent
 onPopulatePopup
 onPopupMenu
+onPrepare
 onResponse
 onRowActivated
 onRowChanged
@@ -1691,6 +1716,7 @@ regexAtoZ
 registerConstant
 registerProxy
 registerType
+removeActionWidget
 removePage
 removeRow
 removeTag
@@ -1846,6 +1872,11 @@ setPadding
 setPaddingAboveParagraph
 setPaddingBelowParagraph
 setPaddingInsideParagraph
+setPageComplete
+setPageHeaderImage
+setPageSideImage
+setPageTitle
+setPageType
 setPixbuf
 setPixelsAboveLines
 setPixelsBelowLines
@@ -2048,6 +2079,7 @@ unregisterProxy
 unselect
 unselectAll
 unstick
+updateButtonsState
 updateHash
 uri
 usr

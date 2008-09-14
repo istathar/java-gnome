@@ -13,17 +13,56 @@ package org.gnome.gtk;
 
 import org.freedesktop.bindings.Constant;
 
-/*
- * FIXME this is a placeholder stub for what will become the public API for
- * this type. Replace this comment with appropriate javadoc including author
- * and since tags. Note that the class may need to be made abstract, implement
- * interfaces, or even have its parent changed. No API stability guarantees
- * are made about this class until it has been reviewed by a hacker and this
- * comment has been replaced.
+/**
+ * Using AttachOptions you control how a Widget placed in a {@link Table}
+ * uses eventually existing additional space, e.g. because another cell in
+ * the same row is much wider or another column much higher.
+ * <p>
+ * It may be necessary to encapsulate your attached Widget in an
+ * {@link Alignment} container. This could look like this:
+ * </p> 
+ * <pre>
+ * Table table;
+ * ...
+ * TextEntry number = new TextEntry();
+ * number.setWidthChars(4);
+ * Alignment alignNumber = new Alignment(Alignment.LEFT, Alignment.CENTER, 0,0, number);
+ * table.attach(alignNumber, 1, 2, 1, 2, AttachOptions.FILL, AttachOptions.SHRINK, 0,0);
+ * </pre>
+ * 
+ * @since 4.0.10
  */
 public final class AttachOptions extends Constant
 {
     private AttachOptions(int ordinal, String nickname) {
         super(ordinal, nickname);
     }
+    
+    /**
+     * Although there is additional space available, the Widget shall keep
+     * its size or even shrink if possible. This usually gets the extra space
+     * distributed evenly among the widget, so you have the Widget centered
+     * in the extra space.
+     * <p>
+     * Encapsulating the Widget in an {@link Alignment} container does not
+     * help, since the Alignment container only gets the same space granted
+     * the shrinked Widget would get.
+     * </p>
+     */
+    public static final AttachOptions SHRINK = new AttachOptions(GtkAttachOptions.SHRINK, "SHRINK");
+    
+    /**
+     * The widget gets all the available space. Unless you put the widget
+     * inside an {@link Alignment} container, the Widget is resized to fill
+     * the space. If you do use Alignment containers the Widget itself will
+     * not grow, but keep its size while the container controls where it 
+     * resides.
+     */
+    public static final AttachOptions FILL = new AttachOptions(GtkAttachOptions.FILL, "FILL");
+
+    /**
+     * Like FILL, but also causes the cell to expand and use extra space.
+     */
+    public static final AttachOptions EXPAND = new AttachOptions(GtkAttachOptions.EXPAND, "EXPAND");
+
 }
