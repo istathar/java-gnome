@@ -11,8 +11,12 @@
  */
 package org.gnome.gtk;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.URI;
+import java.net.URL;
+import java.security.CodeSource;
+import java.security.ProtectionDomain;
 
 import org.gnome.gdk.Gdk;
 import org.gnome.gdk.Pixbuf;
@@ -50,7 +54,41 @@ import org.gnome.glib.Glib;
 public final class Gtk extends Glib
 {
     static {
-        System.loadLibrary("gtkjni-" + Version.VERSION);
+        loadNativeLibrary();
+    }
+
+    private static final void loadNativeLibrary() {
+        final ProtectionDomain domain;
+        final CodeSource source;
+        final URL url;
+        final File origin, location, shared, resolved;
+        final String path;
+
+        domain = Gtk.class.getProtectionDomain();
+        source = domain.getCodeSource();
+        url = source.getLocation();
+        origin = new File(url.getPath());
+
+        if (!origin.exists()) {
+            throw new UnsatisfiedLinkError("\n" + "Unable to decode " + url);
+        }
+
+        location = origin.getParentFile();
+        shared = new File(location, "libgtkjni-" + Version.VERSION + ".so");
+
+        try {
+            resolved = shared.getCanonicalFile();
+        } catch (IOException ioe) {
+            throw new UnsatisfiedLinkError("\n" + "Failed getting canonical path; " + ioe.getMessage());
+        }
+
+        if (!resolved.exists()) {
+            throw new UnsatisfiedLinkError("\n" + "Anticipated native library at\n" + resolved + "\n"
+                    + "but not found.");
+        }
+
+        path = resolved.getPath();
+        System.load(path);
     }
 
     /**
