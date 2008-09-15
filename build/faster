@@ -434,9 +434,11 @@ def makeJarFile():
 
 def generateHeaderFiles():
 	list = findFiles("tmp/bindings/", ".class")
-	map = {}
+	map_c = {}
+	map_h = {}
 	pairs = []
 	classes = []
+	headers = []
 
 	for file in list:
 		if file.find("$") != -1:
@@ -451,14 +453,16 @@ def generateHeaderFiles():
 		t = "tmp/include/" + t
 
 		pairs.append((file, t))
-		map[file] = c
+		map_c[file] = c
+		map_h[file] = t
 
 	changed = filesNeedBuilding(pairs)
 	if not changed:
 		return
 
 	for file in changed:
-		classes.append(map[file])
+		classes.append(map_c[file])
+		headers.append(map_h[file])
 	
 	cmd = config['JAVAH'] + " "
 	if verbose:
@@ -469,7 +473,9 @@ def generateHeaderFiles():
 	if not verbose:
 		cmd += " >/dev/null"
 
-	executeCommand(config['JAVAH_CMD'], "tmp/include/*.h", cmd)
+	blurb = "\n\t".join(headers)
+
+	executeCommand(config['JAVAH_CMD'], blurb, cmd)
 
 
 def compileCSourceToObject(source, target):
