@@ -1927,7 +1927,7 @@ output "\n";
 
 output "Write library location:";
 
-open LIBRARY, ">tmp/libdir.txt";
+open LIBRARY, ">.libdir";
 
 print LIBRARY <<HERE ;
 $libdir

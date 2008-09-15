@@ -79,7 +79,7 @@ public abstract class Plumbing
         loadNativeLibrary();
     }
 
-    private static final String LIBDIR_FILE = "libdir.txt";
+    private static final String LIBDIR_FILE = ".libdir";
 
     /**
      * Load the native library. The governing assumption is that the .jar

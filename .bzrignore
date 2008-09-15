@@ -1,4 +1,5 @@
 .config
+.libdir
 tmp
 build
 tests/exploration
