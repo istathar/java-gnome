@@ -1880,7 +1880,7 @@ print CONFIG "LIBDIR=$libdir\n";
 my $apiversion;
 my $version;
 
-open SOURCE, "src/bindings/org/gnome/gtk/Version.java";
+open SOURCE, "src/bindings/org/freedesktop/bindings/Version.java";
 while (<SOURCE>) {
 	chomp;
 	if (/.* APIVERSION = \"([\d\.]+)\";/) {
@@ -1927,15 +1927,10 @@ output "\n";
 
 output "Write library location:";
 
-open LIBRARY, ">generated/bindings/org/gnome/gtk/Library.java";
+open LIBRARY, ">tmp/libdir.txt";
 
 print LIBRARY <<HERE ;
-package org.gnome.gtk;
-
-class Library
-{
-    static final String LIBDIR = "$libdir";
-}
+$libdir
 HERE
 
 close LIBRARY;

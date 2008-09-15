@@ -47,7 +47,7 @@ verbose = False
 silent = False
 
 configFile = ".config"
-versionFile = "src/bindings/org/gnome/gtk/Version.java"
+versionFile = "src/bindings/org/freedesktop/bindings/Version.java"
 hashFile = "tmp/.hashes"
 lockFile = "tmp/.build"
 

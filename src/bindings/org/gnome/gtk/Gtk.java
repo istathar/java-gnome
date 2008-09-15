@@ -11,11 +11,9 @@
  */
 package org.gnome.gtk;
 
-import java.io.File;
 import java.io.IOException;
 import java.net.URI;
 
-import org.gnome.gdk.Gdk;
 import org.gnome.gdk.Pixbuf;
 import org.gnome.glib.Glib;
 
@@ -42,39 +40,8 @@ import org.gnome.glib.Glib;
  * @author Andrew Cowie
  * @since 4.0.0
  */
-/*
- * Extremely atypically, this class contains native declarations because a)
- * There's nothing left if you strip off the Gtk prefix from Gtk, b) no reason
- * to use a static class GtkMain or whatever as none of these methods need
- * access to Plumbing.
- */
 public final class Gtk extends Glib
 {
-    static {
-        loadNativeLibrary();
-    }
-
-    private static final void loadNativeLibrary() {
-        final File shared, resolved;
-        final String path;
-
-        shared = new File(Library.LIBDIR, "libgtkjni-" + Version.VERSION + ".so");
-
-        try {
-            resolved = shared.getCanonicalFile();
-        } catch (IOException ioe) {
-            throw new UnsatisfiedLinkError("\n" + "Failed getting canonical path; " + ioe.getMessage());
-        }
-
-        if (!resolved.exists()) {
-            throw new UnsatisfiedLinkError("\n" + "Anticipated native library at\n" + resolved + "\n"
-                    + "but not found.");
-        }
-
-        path = resolved.getPath();
-        System.load(path);
-    }
-
     /**
      * No instantiation. Static methods only!
      */
@@ -108,18 +75,10 @@ public final class Gtk extends Glib
         /*
          * Initialize GTK and along with it GLib, GObject, etc.
          */
-        gtk_init(Gdk.lock, args);
+        GtkMain.init(args);
 
         initialized = true;
     }
-
-    /*
-     * This is one of the rarer cases where the arguments we pass to the JNI
-     * side have little relation to the signature of the actual target
-     * function. In this case, the first argument is a reference to the GDK
-     * lock used to permit multithreaded access to the GTK library.
-     */
-    private static native final void gtk_init(java.lang.Object lock, String[] args);
 
     /**
      * This method blocks, ie, it does not return until the GTK main loop is
@@ -132,25 +91,9 @@ public final class Gtk extends Glib
      * 
      * @since 4.0.0
      */
-    /*
-     * Note that although this code is marked as being within the Gdk$Lock,
-     * there is, in effect, a wait() within this call: as the GTK main loop
-     * cycles it releases the lock [via gdk_threads_leave()?] and then
-     * reestablishes [via gdk_threads_enter()? No matter - the custom lock
-     * functions get hit]. The effect is that the monitor on Gdk.lock is
-     * frequently relinquished, which is the behaviour that is expected if a
-     * piece of Java code object executes wait() within a monitor block. Which
-     * is exactly what we need! The only tiny hiccup is that the thread dump
-     * [via Ctrl+\] and debugger don't seem to quite realize that this thread
-     * no longer owns the lock.
-     */
     public static void main() {
-        synchronized (Gdk.lock) {
-            gtk_main();
-        }
+        GtkMain.main();
     }
-
-    private static native final void gtk_main();
 
     /**
      * Exit the main loop. Since main loops can be nested, this does not
@@ -163,60 +106,8 @@ public final class Gtk extends Glib
      * @since 4.0.0
      */
     public static void mainQuit() {
-        synchronized (Gdk.lock) {
-            gtk_main_quit();
-        }
+        GtkMain.mainQuit();
     }
-
-    private static native final void gtk_main_quit();
-
-    /**
-     * Are there any events pending for the main loop to process?
-     * 
-     * <p>
-     * <b>This is not for general use! Do not expose this and do not encourage
-     * anyone to use this to hack into the main loop.</b>
-     * 
-     * <p>
-     * In a test case, this could be used as follows; see
-     * <code>TestCaseGtk.cycleMainLoop()</code> in the <code>tests/</code>
-     * tree for details:
-     * 
-     * <pre>
-     * while (Gtk.eventsPending()) {
-     *     Gtk.mainIterationDo(false);
-     * }
-     * </pre>
-     */
-    static final boolean eventsPending() {
-        synchronized (Gdk.lock) {
-            return gtk_events_pending();
-        }
-    }
-
-    private static native final boolean gtk_events_pending();
-
-    /**
-     * Run a single iteration of the main loop.
-     * 
-     * <p>
-     * Not public! This is for internal use only, notably by test cases.
-     * 
-     * @param block
-     *            Whether to block or not. If <code>true</code>, this method
-     *            will block until an event is processed.
-     * @return Will result in <code>true</code> if <code>Gtk.mainQuit()</code>
-     *         (aka <code>gtk_main_quit()</code>) has been called on the
-     *         innermost active main loop. <code>true</code> will also be
-     *         returned if there <i>is</i> no main loop running.
-     */
-    static final boolean mainIterationDo(boolean block) {
-        synchronized (Gdk.lock) {
-            return gtk_main_iteration_do(block);
-        }
-    }
-
-    private static native final boolean gtk_main_iteration_do(boolean blocking);
 
     /**
      * Set the icon that will be used for all Windows in this application that

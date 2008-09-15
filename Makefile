@@ -52,6 +52,8 @@ install-java: build-java \
 $(DESTDIR)$(PREFIX)/share/java/gtk-$(APIVERSION).jar: tmp/gtk-$(APIVERSION).jar
 	@echo -e "INSTALL\t$@"
 	cp -f $< $@
+	@echo -e "JAR\t$@"
+	jar uf $@ -C tmp libdir.txt
 	@echo -e "SYMLINK\t$(@D)/gtk.jar -> gtk-$(APIVERSION).jar"
 	cd $(@D) && rm -f gtk.jar && ln -s gtk-$(APIVERSION).jar gtk.jar
 	

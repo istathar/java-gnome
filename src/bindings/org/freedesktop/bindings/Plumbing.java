@@ -11,8 +11,13 @@
  */
 package org.freedesktop.bindings;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.InputStreamReader;
 import java.lang.ref.WeakReference;
 import java.util.HashMap;
+
+import static org.freedesktop.bindings.Version.getVersion;
 
 /**
  * Parent of all classes in the translation layer of a bindings library. This
@@ -66,15 +71,44 @@ public abstract class Plumbing
     static {
         /*
          * TODO: any particular reason to pick a starting array size?
-         * 
-         * Early on we used WeakHashMap, but that is weak on _keys_ only, and
-         * in fact we definitely do _not_ want that. We need to switch to weak
-         * _values_; we're going to need to wrap and unwrap WeakReference
-         * around the Proxies we put as values to achieve that.
          */
         knownProxies = new HashMap<Long, WeakReference<Proxy>>();
         knownConstants = new HashMap<Class<? extends Constant>, HashMap<Integer, Constant>>();
         loader = Plumbing.class.getClassLoader();
+
+        loadNativeLibrary();
+    }
+
+    private static final String LIBDIR_FILE = "libdir.txt";
+
+    /**
+     * Load the native library. The governing assumption is that the .jar
+     * created "in-place" does NOT have the libdir file; it is appended to the
+     * .jar during the `make install` step. The root name "libgtkjni" is
+     * historical.
+     */
+    private static final void loadNativeLibrary() {
+        final BufferedReader reader;
+        String libdir;
+        final File library;
+        final String path;
+
+        try {
+            reader = new BufferedReader(new InputStreamReader(loader.getResourceAsStream(LIBDIR_FILE)));
+            libdir = reader.readLine();
+            reader.close();
+        } catch (Exception e) {
+            libdir = new File("tmp").getAbsolutePath();
+        }
+
+        library = new File(libdir, "libgtkjni-" + getVersion() + ".so");
+        if (!library.exists()) {
+            throw new UnsatisfiedLinkError("\n" + "Anticipated native library at\n" + library + "\n"
+                    + "but not found.");
+        }
+
+        path = library.getPath();
+        System.load(path);
     }
 
     /*
