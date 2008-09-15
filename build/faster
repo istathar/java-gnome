@@ -347,14 +347,13 @@ def compileJavaCode(outputDir, classpath, sourcepath, sources):
 	executeCommand(config['JAVAC_CMD'], blurb, cmd)
 
 
-def runJavaClass(classname, classpath, librarypath=""):
+def runJavaClass(classname, classpath, args=""):
 	cmd = config['JAVA'] + " "
 	cmd += "-classpath " + classpath + " "
-	if librarypath:
-		cmd += "-Djava.library.path=" + librarypath + " "
 	cmd += classname
-	if not librarypath and not verbose:
-		cmd += " >/dev/null"
+
+	if args:
+		cmd += " " + args
 
 	executeCommand(config['JAVA_CMD'], classname, cmd)
 
@@ -371,6 +370,7 @@ def generateTranslationAndJniLayers():
 	list = findFiles("tmp/generator", ".class")
 	list += findFiles("src/defs", ".defs")
 	stamp = "tmp/stamp/generator"
+	redirect = ""
 
 	pairs = dependsListToSingleTarget(list, stamp)
 
@@ -378,7 +378,10 @@ def generateTranslationAndJniLayers():
 	if not changed:
 		return
 
-	runJavaClass("BindingsGenerator", "tmp/generator/", "")
+	if not verbose:
+		redirect = "> /dev/null"
+
+	runJavaClass("BindingsGenerator", "tmp/generator/", redirect)
 	touchFile(stamp)
 
 
@@ -653,7 +656,7 @@ def compileDocumentation():
 
 
 def takeSnapshots():
-	runJavaClass("Harness", "tmp/gtk-4.0.jar:tmp/tests/", "tmp/")
+	runJavaClass("Harness", "tmp/gtk-4.0.jar:tmp/tests/")
 
 
 def generateDocumentation():
@@ -666,10 +669,10 @@ def generateDocumentation():
 #
 
 def runTests():
-	runJavaClass("UnitTests", "tmp/gtk-4.0.jar:tmp/generator/:tmp/tests/:"+config['JUNIT_JARS'], "tmp/")
+	runJavaClass("UnitTests", "tmp/gtk-4.0.jar:tmp/generator/:tmp/tests/:"+config['JUNIT_JARS'])
 
 def runDemo():
-	runJavaClass("Experiment", "tmp/gtk-4.0.jar:tmp/tests/", "tmp/")
+	runJavaClass("Experiment", "tmp/gtk-4.0.jar:tmp/tests/")
 
 
 #
