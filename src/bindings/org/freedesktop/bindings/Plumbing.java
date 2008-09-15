@@ -15,6 +15,9 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.InputStreamReader;
 import java.lang.ref.WeakReference;
+import java.net.URL;
+import java.security.CodeSource;
+import java.security.ProtectionDomain;
 import java.util.HashMap;
 
 import static org.freedesktop.bindings.Version.getVersion;
@@ -76,7 +79,7 @@ public abstract class Plumbing
         knownConstants = new HashMap<Class<? extends Constant>, HashMap<Integer, Constant>>();
         loader = Plumbing.class.getClassLoader();
 
-        loadNativeLibrary();
+        loadNativeCode();
     }
 
     private static final String LIBDIR_FILE = ".libdir";
@@ -84,27 +87,68 @@ public abstract class Plumbing
     /**
      * Load the native library. The governing assumption is that the .jar
      * created "in-place" does NOT have the libdir file; it is appended to the
-     * .jar during the `make install` step. The root name "libgtkjni" is
-     * historical.
+     * .jar during the `make install` step.
+     * 
+     * <p>
+     * The root name "libgtkjni" is historical. We've left it as is because
+     * there's no burning need to further pollute the system library space
+     * (although we will change it if we ever start constructing different .so
+     * for different dependencies).
      */
-    private static final void loadNativeLibrary() {
+    /*
+     * We go through quite some hoop jumping in the fallback case. If we were
+     * just concerned with things being run from a java-gnome checkout, then
+     * libdir could hae been set to relative path "tmp" and been done with it.
+     * 
+     * But since an "in-place" build can be used from an arbitrary external
+     * location, we need to work out the URL of the .jar file that was
+     * referenced in the first place and use that to find the directory to use
+     * as libdir.
+     * 
+     * The code path to do this is insane, but not to worry - this stuff is
+     * already laoded by the VM so it doesn't cost anything being here.
+     * 
+     * Conveniently, this also works if you have tmp/bindings/ as the
+     * classpath, as getParent() extracts the URL of that to .../tmp/ which is
+     * what we want.
+     */
+    private static final void loadNativeCode() {
         final BufferedReader reader;
         String libdir;
+        final ProtectionDomain domain;
+        final CodeSource source;
+        final URL url;
+        final String jar;
         final File library;
         final String path;
 
         try {
+            /*
+             * Attmept to load the .libdir file and use its contents as the
+             * directory which we will load our shared library from.
+             */
             reader = new BufferedReader(new InputStreamReader(loader.getResourceAsStream(LIBDIR_FILE)));
             libdir = reader.readLine();
             reader.close();
         } catch (Exception e) {
-            libdir = new File("tmp").getAbsolutePath();
+            /*
+             * If that fails, it means we're running on an "in-place" (built
+             * but not installed) copy of java-gnome. We need to work out the
+             * path to tmp/ that the .jar file came from in the first place.
+             */
+            domain = Plumbing.class.getProtectionDomain();
+            source = domain.getCodeSource();
+            url = source.getLocation();
+            jar = url.getPath();
+
+            libdir = new File(jar).getParent();
         }
 
         library = new File(libdir, "libgtkjni-" + getVersion() + ".so");
         if (!library.exists()) {
-            throw new UnsatisfiedLinkError("\n" + "Anticipated native library at\n" + library + "\n"
-                    + "but not found.");
+            throw new UnsatisfiedLinkError("\n\n"
+                    + "We anticipated loading the native portion of java-gnome from:\n" + library + "\n"
+                    + "but didn't find the library there.\n");
         }
 
         path = library.getPath();
