@@ -840,7 +840,8 @@ if ($os eq "gentoo") {
 	}
 
 	# check ecj, the standalone Eclipse compiler.
-	check_compiler($ecj, "Eclipse ecj", "/usr/bin/ecj-3.3", "-g -preserveAllLocals -nowarn -source 1.5 -target 1.5");
+	check_compiler($ecj, "Eclipse ecj", "/usr/bin/ecj-3.4", "-g -preserveAllLocals -nowarn -source 1.5 -target 1.5");
+	check_compiler($ecj, "Eclipse ecj", "/usr/bin/ecj-3.3", "-g -preserveAllLocals -nowarn -source 1.5 -target 1.5") unless $ecj;
 	
 	# check javac (the one specified by Gentoo's java-config tool)
 	# The $vendor business is just some precision prettiness for the
