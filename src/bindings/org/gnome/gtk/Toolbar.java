@@ -90,12 +90,14 @@ public class Toolbar extends Container
     }
 
     /**
-     * Set whether the Tooltips of the items in the Toolbar should be enabled
-     * or not. When enabled, a little help message will be shown when user
-     * puts the mouse cursor over a toolbar item (if that item has a tooltip,
-     * of course).
+     * @deprecated This is now a toolkit wide policy setting, and no longer
+     *             individually controllable via this method. We've made this
+     *             a no-op.
      */
-    public void setTooltips(boolean enable) {
-        GtkToolbar.setTooltips(this, enable);
-    }
+    /*
+     * As of GTK 2.14, gtk_toolbar_set_tooltips() is deprecated, and replaced
+     * by "gtk-enable-tooltips" via GtkSettings. We don't need to expose this
+     * here anymore.
+     */
+    public void setTooltips(boolean enable) {}
 }
