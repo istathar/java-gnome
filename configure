@@ -1919,3 +1919,25 @@ system "mv .config.tmp .config";
 output "ok\n";
 output "\n";
 
+
+# --------------------------------------------------------------------
+# Output .class files with library location
+# --------------------------------------------------------------------
+
+output "Write library location:";
+
+open LIBRARY, ">generated/bindings/org/gnome/gtk/Library.java";
+
+print LIBRARY <<HERE ;
+package org.gnome.gtk;
+
+class Library
+{
+    static final String LIBDIR = "$libdir";
+}
+HERE
+
+close LIBRARY;
+
+output "ok\n";
+output "\n";
