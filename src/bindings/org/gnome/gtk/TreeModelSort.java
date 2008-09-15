@@ -125,4 +125,63 @@ public class TreeModelSort extends TreeModel implements TreeDragSource, TreeSort
     public void setSortColumn(DataColumn column, SortType ordering) {
         GtkTreeSortable.setSortColumnId(this, column.getOrdinal(), ordering);
     }
+
+    /**
+     * Given a TreeIter obtained from the underying TreeModel, return one that
+     * represents the same row but that will be valid in this TreeModelSort.
+     * 
+     * @since 4.0.9
+     */
+    public TreeIter convertIterBaseToSort(TreeIter row) {
+        final TreeIter result;
+
+        result = new TreeIter(this);
+
+        GtkTreeModelSort.convertChildIterToIter(this, result, row);
+
+        return result;
+    }
+
+    /**
+     * Given a TreeIter valid in this TreeModelSort, figure out the
+     * correspnding row in the underlying TreeModel and return a TreeIter that
+     * will be valid there.
+     * 
+     * @since 4.0.9
+     */
+    public TreeIter convertIterSortToBase(TreeIter row) {
+        final TreeModel base;
+        final TreeIter result;
+
+        base = GtkTreeModelSort.getModel(this);
+        result = new TreeIter(base);
+
+        GtkTreeModelSort.convertIterToChildIter(this, result, row);
+
+        return result;
+    }
+
+    /**
+     * Convert a TreePath identifying a row in the underying TreeModel into
+     * the corresponding locator in this TreeModelSort.
+     * 
+     * <p>
+     * If the row location specified by <code>path</code> isn't resolvable in
+     * the underlying TreeModel, <code>null</code> is returned.
+     * 
+     * @since 4.0.9
+     */
+    public TreePath convertPathBaseToSort(TreePath path) {
+        return GtkTreeModelSort.convertChildPathToPath(this, path);
+    }
+
+    /**
+     * Convert a TreePath identifying a row in this TreeModelSort into one
+     * that points to the corresponding row in the underying TreeModel.
+     * 
+     * @since 4.0.9
+     */
+    public TreePath convertPathSortToBase(TreePath path) {
+        return GtkTreeModelSort.convertPathToChildPath(this, path);
+    }
 }
