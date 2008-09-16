@@ -399,12 +399,14 @@ public class Context extends Entity
      * 
      * <p>
      * The text to draw and its format is specified in a Pango {@link Layout},
-     * previously {@link Layout#Layout(Context) constructed} with this Context.
+     * previously {@link Layout#Layout(Context) constructed} with this
+     * Context.
      * 
      * @since 4.0.8
      */
     public void showLayout(Layout layout) {
         CairoContext.showLayout(this, layout);
+        checkStatus();
     }
 
     /**
