@@ -88,7 +88,7 @@ public class ExampleDrawingText
                  * If you want to ensure the full text fits in the Widget,
                  * setting the size-request is generally useful.
                  */
-                source.setSizeRequest(layout.getPixelSizeWidth(), layout.getPixelSizeHeight());
+                source.setSizeRequest(layout.getPixelWidth(), layout.getPixelHeight());
 
                 /*
                  * We can also specify some attributes (such as the color)

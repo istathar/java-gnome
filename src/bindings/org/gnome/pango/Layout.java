@@ -92,27 +92,33 @@ public class Layout extends Object
     /**
      * Sets the text of the Layout. This is the text that will be draw.
      * 
-     * @see #setMarkup(String)
+     * <p>
+     * If you wish to pass text enhanced with Pango Markup, use
+     * {@link #setMarkup(String) setMarkup()} instead.
+     * 
      * @since 4.0.9
      */
     public void setText(String text) {
         /*
          * we cannot use text.length(), as the length is in bytes, so we use
-         * -1, to make Pango compute it.
+         * -1 to make Pango compute it.
          */
         PangoLayout.setText(this, text, -1);
     }
 
     /**
      * Set the text of this Layout. Its format is specified using Pango Markup
-     * format [TODO we need to document pango markup somewhere]
+     * format [TODO we need to document pango markup somewhere].
+     * 
+     * If you're just passing in normal straight-forward unformatted text, use
+     * {@link #setText(String) setText()}.
      * 
      * @since 4.0.9
      */
     public void setMarkup(String markup) {
         /*
          * we cannot use text.length(), as the length is in bytes, so we use
-         * -1, to make Pango compute it.
+         * -1 to make Pango compute it.
          */
         PangoLayout.setMarkup(this, markup, -1);
     }
@@ -135,9 +141,9 @@ public class Layout extends Object
     }
 
     /**
-     * Get the height, in Pango units, of the Layout. This is the height of
-     * the layout text, taking its format into account (for example, the size
-     * of the Font will influence the final size!).
+     * Get the height of the Layout. This is the height of the layout text,
+     * taking its format into account (for example, the size of the Font will
+     * influence the final size!).
      * 
      * @since 4.0.9
      */
@@ -149,27 +155,25 @@ public class Layout extends Object
 
     /**
      * Get the width, in pixels, of the Layout. This is suitable, together
-     * with {@link #getPixelSizeHeight() getPixelSizeHeight()}, to use with
-     * Widget {@link Widget#setSizeRequest(int, int) setSizeRequest()}, and
-     * thus ensure the full text is shown!
+     * with {@link #getPixelHeight() getPixelHeight()}, to pass to a Widget's
+     * {@link Widget#setSizeRequest(int, int) setSizeRequest()} in order to
+     * ensure enough space is available for the text to actually be shown.
      * 
-     * @see #getSizeWidth()
      * @since 4.0.9
      */
-    public int getPixelSizeWidth() {
+    public int getPixelWidth() {
         int[] width = new int[1];
         PangoLayout.getPixelSize(this, width, null);
         return width[0];
     }
 
     /**
-     * Get the height, in pixels, of the Layout.
+     * Get the height, in pixels, of the Layout. See the corresponding method
+     * {@link #getPixelWidth() getPixelWidth()} for details.
      * 
-     * @see #getSizeHeight()
-     * @see #getPixelSizeWidth()
      * @since 4.0.9
      */
-    public int getPixelSizeHeight() {
+    public int getPixelHeight() {
         int[] height = new int[1];
         PangoLayout.getPixelSize(this, null, height);
         return height[0];
@@ -186,7 +190,7 @@ public class Layout extends Object
     }
 
     /**
-     * Set the width of the Layout.
+     * Set the width of the Layout to be used for word-wrapping purposes.
      * 
      * <p>
      * This will determine the positioning of the text and how the lines are
