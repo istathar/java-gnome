@@ -10,7 +10,7 @@
  * See the LICENCE file for the terms governing usage and redistribution.
  * 
  */
-package org.gnome.gtk;
+package org.freedesktop.bindings;
 
 /**
  * Version constants for the java-gnome library. The top level
@@ -25,12 +25,35 @@ package org.gnome.gtk;
 /*
  * This data was formerly in org.gnome.gtk.Gtk; moved here so that hacking on
  * that file's code does not require re-configuring every time it is saved.
+ * Later renamed from org.gnome.gtk.Version
+ * 
+ * We now go to the trouble of wrapping these in getters because otherwise
+ * foreign classes will inline these values, making propegating the changes a
+ * nightmare.
  */
-final class Version
+public final class Version
 {
-    static final String APIVERSION = "4.0";
+    private static final String APIVERSION = "4.0";
 
-    static final String VERSION = "4.0.9";
+    private static final String VERSION = "4.0.9";
+
+    /**
+     * The full (usually three digit) version of java-gnome. This is used in a
+     * number of the examples and screenshots, but far more critically it is
+     * used to precisely identify which version of the shared library with the
+     * native code is to be loaded.
+     */
+    public static final String getVersion() {
+        return VERSION;
+    }
+
+    /**
+     * The API version (also known as "SLOT") of the java-gnome library.
+     * Notably, this is used to name the <code>.jar</code> file.
+     */
+    public static final String getAPI() {
+        return APIVERSION;
+    }
 
     private Version() {}
 }

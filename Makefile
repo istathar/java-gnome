@@ -52,6 +52,8 @@ install-java: build-java \
 $(DESTDIR)$(PREFIX)/share/java/gtk-$(APIVERSION).jar: tmp/gtk-$(APIVERSION).jar
 	@echo -e "INSTALL\t$@"
 	cp -f $< $@
+	@echo -e "JAR\t$@"
+	jar uf $@ .libdir
 	@echo -e "SYMLINK\t$(@D)/gtk.jar -> gtk-$(APIVERSION).jar"
 	cd $(@D) && rm -f gtk.jar && ln -s gtk-$(APIVERSION).jar gtk.jar
 	
@@ -113,7 +115,7 @@ clean:
 
 distclean: clean
 	@echo -e "RM\tbuild configuration information"
-	-rm -f .config .config.tmp
+	-rm -f .config .config.tmp .libdir
 	@echo -e "RM\tgenerated documentation"
 	-rm -rf doc/api/*
 	-rm -f java-gnome-*.tar.bz2
