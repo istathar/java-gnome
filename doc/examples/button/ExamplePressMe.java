@@ -92,7 +92,7 @@ public class ExamplePressMe
          * signature you need to implement a 'clicked' signal handler.
          * 
          * Since we declared b as final we can use it in the anonymous nested
-         * class (yet *another* reason that final is worth using). If the
+         * class (yet another reason that final is worth using). If the
          * situation were otherwise, then the source parameter can be used to
          * find out what Button was clicked.
          */

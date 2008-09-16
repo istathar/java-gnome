@@ -53,15 +53,27 @@ final class GValue extends Plumbing
         return g_value_init(f);
     }
 
+    static final long createValue(double d) {
+        return g_value_init(d);
+    }
+
     static final long createValue(long j) {
         return g_value_init(j);
     }
 
+    public static long createValue(Constant value) {
+        final String typeName;
+
+        typeName = typeOf(value.getClass());
+
+        return g_value_init_enum(typeName, numOf(value));
+    }
+
     /*
-     * These ones does not match the exact prototype of g_value_init() [which
-     * is (GValue*, GType)]; we do the type system magic on the other side
-     * (where its all mostly macros in any case) and carry out allocation
-     * using GSlice. A rare occasion when we overload the native call.
+     * These ones does not match the exact prototype of g_value_init(); we do
+     * the type system magic on the other side (where its all mostly macros in
+     * any case) and carry out allocation using GSlice. A rare occasion when
+     * we overload the native call.
      */
 
     private static native final long g_value_init(int i);
@@ -69,6 +81,8 @@ final class GValue extends Plumbing
     private static native final long g_value_init(boolean b);
 
     private static native final long g_value_init(float f);
+
+    private static native final long g_value_init(double d);
 
     private static native final long g_value_init(String str);
 
@@ -88,6 +102,8 @@ final class GValue extends Plumbing
     private static native final long g_value_init_object(long obj);
 
     private static native final long g_value_init_pixbuf(long pixbuf);
+
+    private static native final long g_value_init_enum(String type, int num);
 
     static final int getInteger(Value value) {
         return g_value_get_int(pointerOf(value));
@@ -112,6 +128,12 @@ final class GValue extends Plumbing
     }
 
     private static native final float g_value_get_float(long value);
+
+    static final double getDouble(Value value) {
+        return g_value_get_double(pointerOf(value));
+    }
+
+    private static native final double g_value_get_double(long value);
 
     static final String getString(Value value) {
         return g_value_get_string(pointerOf(value));

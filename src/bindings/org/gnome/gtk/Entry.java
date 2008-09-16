@@ -137,9 +137,8 @@ public class Entry extends Widget implements Editable, CellEditable
     }
 
     /**
-     * The <code>Entry.Activate</code> signal occurs when the user presses
-     * <b><code>Enter</code></b> or <b><code>Return</code></b> in an
-     * Entry.
+     * The <code>Entry.Activate</code> signal occurs when the user presses <b>
+     * <code>Enter</code></b> or <b><code>Return</code></b> in an Entry.
      * 
      * <p>
      * Note that the other significant signal on an Entry is
@@ -189,15 +188,15 @@ public class Entry extends Widget implements Editable, CellEditable
      * As with all font related operations, there are a number of competing
      * approximations involved. In particular, this method operates by
      * influencing the size <i>requested</i> by this Widget; the box packing
-     * model will still have the final say in the size allocation phase.
+     * model will still have the final say in the size-allocation phase.
      * 
      * <p>
      * See also Label's {@link Label#setWidthChars(int) setWidthChars()}; the
      * challenges and constraints involved are similar.
      * 
      * @param width
-     *            A setting of <code>-1</code> will return the Entry to
-     *            normal sizing behaviour.
+     *            A setting of <code>-1</code> will return the Entry to normal
+     *            sizing behaviour.
      * @since 4.0.6
      */
     public void setWidthChars(int width) {
@@ -221,8 +220,7 @@ public class Entry extends Widget implements Editable, CellEditable
     }
 
     /**
-     * Connect a <code>Editable.Changed</code> handler. Note that you can
-     * say:
+     * Connect a <code>Editable.Changed</code> handler. Note that you can say:
      * 
      * <pre>
      * e.connect(new Entry.Changed() {
@@ -257,9 +255,9 @@ public class Entry extends Widget implements Editable, CellEditable
      *            A value from <code>0.0f</code> for fully left-aligned
      *            through <code>1.0f</code> for fully right-aligned. You can
      *            use the constants {@link Alignment#LEFT LEFT},
-     *            {@link Alignment#CENTER CENTER} and
-     *            {@link Alignment#RIGHT RIGHT} in Alignment for convenience
-     *            if you like. No, this has nothing to do with politics.
+     *            {@link Alignment#CENTER CENTER} and {@link Alignment#RIGHT
+     *            RIGHT} in Alignment for convenience if you like. No, this
+     *            has nothing to do with politics.
      * @since 4.0.6
      */
     /*
@@ -275,7 +273,8 @@ public class Entry extends Widget implements Editable, CellEditable
 
     /**
      * Set whether the Entry has a bevelled frame around it or not. The
-     * default (as you will be well accustomed to seeing) is <code>true</code>.
+     * default (as you will be well accustomed to seeing) is <code>true</code>
+     * .
      * 
      * <p>
      * As this decoration is a strong visual cue for users to realize that

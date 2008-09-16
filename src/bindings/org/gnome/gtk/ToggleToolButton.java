@@ -94,8 +94,7 @@ public class ToggleToolButton extends ToolButton
     }
 
     /**
-     * Connect a handler to the <code>ToggleToolButton.Toggled</code>
-     * signal.
+     * Connect a handler to the <code>ToggleToolButton.Toggled</code> signal.
      * 
      * @since 4.0.4
      */

@@ -161,19 +161,19 @@ public class FunctionBlock extends Block
 
         target[0][0] = addPointerSymbol(ofObject);
         target[0][1] = "self";
-        target[0][2] = "no"; /* self can't never be null */
+        target[0][2] = "no"; /* self can't ever be null */
 
         parameters = target;
     }
 
     /**
-     * The varrags case is handled, essentially, an artificial last parameter.
-     * This utility method appends a marker to show that the function being
-     * described by this Block was declared as taking variable arguments. We
-     * do not actually present this with any kind of public API (and may never
-     * do so), but we do need to deal with this at the C library call layer
-     * because those functions require a NULL in the argument list to signal
-     * the end of the list.
+     * The varrags case is handled, essentially, as an artificial last
+     * parameter. This utility method appends a marker to show that the
+     * function being described by this Block was declared as taking variable
+     * arguments. We do not actually present this with any kind of public API
+     * (and may never do so), but we do need to deal with this at the C
+     * library call layer because those functions require a NULL in the
+     * argument list to signal the end of the list.
      * 
      * The FunctionGenerator constructor will strip it off the end of the
      * parameters list (thus allowing us to avoid needing a SentinalThing).

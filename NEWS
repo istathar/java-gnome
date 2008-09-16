@@ -1,5 +1,150 @@
 NEWS
 
+<a name="4.0.8" id="1218770492" title="Cleanups and signals naming revised"></a>
+
+java-gnome 4.0.8 (15 Aug 2008)
+==============================
+
+_Cleanups and fixups._
+
+This release is mostly to push out bug fixes and internal improvements,
+setting the stage for some major new feature development. We've also taken the
+opportunity to introduce a major change to the way we connect handlers for
+signals.
+
+New coverage and continuing improvement
+---------------------------------------
+
+With thanks to new contributors Stefan Prelle and Andreas Kuehntopf we have a
+number of small improvements to the TreeView/TreeModel APIs.
+
+* **`org.gnome.gtk.TreeView`**
+* **`org.gnome.gtk.TreeViewColumn`**
+* **`org.gnome.gtk.TreeViewColumnSizing`**
+* **`org.gnome.gtk.CellRendererText`**
+* **`org.gnome.gtk.CellRendererToggle`**
+
+As always, Widget and Window saw a bunch of work, with `Window.ConfigureEvent`
+now being available and a number of additional property setters and methods
+relating to window type.
+
+* **`org.gnome.gdk.WindowTypeHint`**
+* **`org.gnome.gtk.Widget`**
+* **`org.gnome.gtk.Window`**
+
+Widgets that scroll around a view of a broader underlying canvas have seen a
+fair bit of activity related to controlling that scrolling.
+
+* **`org.gnome.gtk.Adjustment`**
+* **`org.gnome.gtk.Layout`**
+* **`org.gnome.gtk.ScrolledWindow`**
+* **`org.gnome.gtk.Viewport`**
+
+New features include refinements and new coverage of methods in a variety of
+lower level classes including that further support drawing operations. Bug
+fixes, debugging improvements, and defencive enhancements to our thread safety
+measures have also featured largely.
+
+* `org.freedesktop.bindings.Plumbing`
+* `org.gnome.glib.GObject`
+* **`org.gnome.glib.Object`**
+* `org.gnome.glib.Plumbing`
+* `org.gnome.gdk.Plumbing`
+* **`org.gnome.gdk.Rectangle`**
+* **`org.gnome.gdk.Pixbuf`**
+* **`org.gnome.gdk.Window`**
+* **`org.gnome.gtk.Allocation`**
+* **`org.gnome.gtk.Box`**
+* **`org.gnome.gtk.Button`**
+* **`org.gnome.gtk.Entry`**
+* **`org.gnome.gtk.Image`**
+* **`org.gnome.gtk.IconView`**
+* **`org.gnome.gtk.Gtk`**
+* **`org.gnome.gtk.Requisition`**
+* **`org.gnome.gtk.Table`**
+
+Signal naming change
+--------------------
+
+We have changed the naming scheme used to name the interfaces that are used
+when hooking up signal handlers.
+
+The names of the inner interfaces used to specify the prototypes of the
+methods which receive signal callbacks have changed to the pattern
+`Button.Clicked`, this being more appropriate to Java type naming conventions
+and providing better consistency between the signal name, the method to be
+implemented to receive the callback, and the method that can be used to emit
+this signal.
+
+API compatibility to previous releases in the 4.0 series has been preserved.
+The old signal interfaces and `connect()` methods are `@deprecated`.
+Developers are encouraged to migrate quickly; new coverage will of course all
+follow the new pattern. Making the transition is is easy, especially in an
+IDE. Most of the people we're aware of using the library have already ported
+their code. Just turn assertions on to double check.
+
+Build changes
+-------------
+
+java-gnome now defines C compiler flags like `GTK_DISABLE_DEPRECATED` to
+ensure we are not linking against code that will be unavailable in GTK 3.0.
+Many thanks are due to new contributor Kenneth Prugh for having done some
+terrific grunt work to prune deprecated classes and methods from our `.defs`
+data so that java-gnome compiles without using these APIs.
+
+The build system internally now ensures that multiple runs don't occur
+simultaneously, fixing a number of annoyances that cropped up when using IDEs
+which tend to like trying to frequently re-run the build even if a previous
+one hasn't finished.
+
+Documentation, examples, and testing
+------------------------------------
+
+Our [API documentation](doc/api/overview-summary.html) and the growing set of
+[example code](doc/examples/START.html) have all been updated to reflect the
+new signal interface names. Doing so forced us to review a wide swath of the
+documentation, and so along the way a huge number of minor improvements were
+made. Given how detailed our JavaDoc is, this sort of painstaking work really
+makes a genuine contribution to overall quality.
+
+There has been steady growth in our test suite, which is great. When combined
+with the snapshots used to illustrate our documentation, the coverage level
+is substantial.
+
+Error handling continues to improve. In the (hand written) public API wrapper
+layer we do our best to catch  misuses of the library before they get sent to
+the native code. But that's not always possible, and in 4.0.7 we introduced a
+mechanism whereby GLib error messages get translated into Java Exceptions and
+thrown. As of 4.0.8, in addition to `ERROR` and `CRITICAL`, we also throw
+`WARNING`s as Exceptions. Getting a stack trace this way has proved very
+useful in helping developers track down where they are making mistakes in
+using the library.
+
+Conclusion
+----------
+
+You can see the full changes accompanying a release by grabbing a copy of the
+sources and running:
+
+    $ bzr diff -r tag:v4.0.7..tag:v4.0.8
+
+Because of the API changes to signal handling this release touches just about
+every public class in the library and so isn't quite as clean (as a summary)
+as in previous releases -- but it does show you everything that changed. `:)`
+
+Looking ahead
+-------------
+
+Most of the contributors to java-gnome are working on branches that didn't
+reach sufficient maturity to be merged in time for 4.0.8; that's the way it
+goes sometimes. Major effort continues on implementing coverage of GTK's
+powerful TextView/TextBuffer APIs, along with further drawing capabilities in
+Cairo and Pango. There have also been a surprising level of interest on other
+areas of the GNOME stack, with new contributors working on adding support to
+java-gnome for Nautilus, GStreamer, and even WebKit. Exciting stuff!
+
+AfC
+
 <a name="signal" id="1217552625" title="Signal API change"></a>
 
 Signal API change
@@ -35,9 +180,7 @@ to encourage developers to migrate their code) so the upcoming release will
 preserve ABI compatibility.
 
 The [documentation](/4.0/doc/api/overview-summary.html) posted here has been
-updated and a [release candidate][rc] has been uploaded.
-
-[rc]: http://ftp.gnome.org/pub/gnome/sources/java-gnome/4.0/java-gnome-4.0.8-rc1.tar.bz2
+updated and a release candidate has been uploaded.
 
 AfC
 

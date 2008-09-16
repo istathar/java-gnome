@@ -28,9 +28,9 @@ package org.gnome.gtk;
  * 
  * <p>
  * The active state is switched automatically when the user activates the
- * MenuItem. You can access the current state with the
- * {@link #getActive() getActive()} method. And while you can still connect to
- * the <code>MenuItem.Active</code> signal, CheckMenuItem provides the
+ * MenuItem. You can access the current state with the {@link #getActive()
+ * getActive()} method. And while you can still connect to the
+ * <code>MenuItem.Active</code> signal, CheckMenuItem provides the
  * {@link CheckMenuItem.Toggled} signal, emitted when the active state
  * changes.
  * 
@@ -64,6 +64,7 @@ public class CheckMenuItem extends MenuItem
      * underscores (<code>_<code>) which, if present, will indicate the
      * mnemonic which will activate that CheckMenuItem directly if that key is
      * pressed while viewing the Menu.
+     * 
      * @since 4.0.4
      */
     public CheckMenuItem(String mnemonicLabel) {
@@ -131,8 +132,7 @@ public class CheckMenuItem extends MenuItem
      * 
      * <p>
      * However, note that, while such property can be really useful in a
-     * {@link ToggleButton}, its utility in a CheckMenuItem is really
-     * unclear.
+     * {@link ToggleButton}, its utility in a CheckMenuItem is really unclear.
      * 
      * <p>
      * Notice also that this property only affects visual appearance, it

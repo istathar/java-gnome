@@ -26,7 +26,8 @@ import org.freedesktop.bindings.Flag;
  * <p>
  * <i>The fact that "cursor" is used to name this class and the Cursor class
  * which manipulates them is a bit strange seeing as how the term used in user
- * interface design for the thing where your mouse is indicating is "pointer".</i>
+ * interface design for the thing where your mouse is indicating is
+ * "pointer".</i>
  * 
  * <p>
  * <i>It was quite tempting to mess with the constant names here; after all

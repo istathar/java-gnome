@@ -1,7 +1,7 @@
 /*
  * Harness.java
  *
- * Copyright (c) 2007 Operational Dynamics Consulting Pty Ltd
+ * Copyright (c) 2007-2008 Operational Dynamics Consulting Pty Ltd
  *
  * The code in this file, and the program it is a part of, are made available
  * to you by the authors under the terms of the "GNU General Public Licence,
@@ -12,6 +12,7 @@
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
+import org.freedesktop.bindings.Environment;
 import org.freedesktop.cairo.SnapshotContextLine;
 import org.freedesktop.cairo.SnapshotContextRectangle;
 import org.gnome.gdk.Pixbuf;
@@ -29,6 +30,8 @@ import org.gnome.gtk.SnapshotRadioButton;
 import org.gnome.gtk.SnapshotStatusbar;
 import org.gnome.gtk.SnapshotTextComboBox;
 import org.gnome.gtk.SnapshotTextComboBoxEntry;
+import org.gnome.gtk.SnapshotTextView;
+import org.gnome.gtk.SnapshotTextViewBorderWindows;
 import org.gnome.gtk.SnapshotTreeStore;
 import org.gnome.gtk.SnapshotTreeView;
 import org.gnome.gtk.SnapshotVScale;
@@ -52,9 +55,10 @@ import org.gnome.screenshot.Screenshot;
  */
 public final class Harness
 {
-    private static final String DISPLAY = ":0";
+    private static final boolean USE_VIRTUAL_DISPLAY = false;
 
     public static void main(String[] args) throws IOException, InterruptedException {
+        final String DISPLAY;
         final Runtime r;
         Process xServerVirtual = null;
         Process windowManager = null;
@@ -65,7 +69,16 @@ public final class Harness
         try {
             r = Runtime.getRuntime();
 
-            if (DISPLAY != ":0") {
+            /*
+             * Get the X server address. If it's not present, abort, giving a
+             * short-cut way to skip generating snapshots.
+             */
+
+            DISPLAY = Environment.getEnv("DISPLAY");
+
+            if (DISPLAY == null) {
+                return;
+            } else if (USE_VIRTUAL_DISPLAY) {
                 /*
                  * Xvfb arguments:
                  * 
@@ -133,6 +146,8 @@ public final class Harness
                     SnapshotTextComboBox.class,
                     SnapshotTextComboBoxEntry.class,
                     SnapshotContextLine.class,
+                    SnapshotTextView.class,
+                    SnapshotTextViewBorderWindows.class,
                     SnapshotContextRectangle.class
             };
 

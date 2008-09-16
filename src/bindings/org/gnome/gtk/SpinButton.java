@@ -20,9 +20,8 @@ package org.gnome.gtk;
  * <p>
  * It is used to let the user introduce the value of a numeric property. This
  * is specially useful when the range of allowed values is unlimited (well, in
- * practise limited by <code>Double.MAX_VALUE</code>!) or only limited at
- * one end. Otherwise, a control like {@link Scale} may be a better
- * alternative.
+ * practise limited by <code>Double.MAX_VALUE</code>!) or only limited at one
+ * end. Otherwise, a control like {@link Scale} may be a better alternative.
  * 
  * <p>
  * It is also a good idea to add near the SpinButton a Label indicating the
@@ -31,10 +30,11 @@ package org.gnome.gtk;
  * <p>
  * The user can modify the SpinButton either introducing a numeric value in
  * the required range in the text entry, or by clicking the arrow Buttons. The
- * keyboard can also be used, with both the <b><code>Up</code></b> and <b><code>Down</code></b>,
- * or with the <b><code>PageUp</code></b> or <b><code>PageDown</code></b>
- * keys. These last decrement or increment the value of the entry by a greater
- * amount (usually ten times the value of the arrow Button step).
+ * keyboard can also be used, with both the <b><code>Up</code></b> and <b>
+ * <code>Down</code></b>, or with the <b><code>PageUp</code></b> or <b>
+ * <code>PageDown</code></b> keys. These last decrement or increment the value
+ * of the entry by a greater amount (usually ten times the value of the arrow
+ * Button step).
  * 
  * <p>
  * The programmer can get the value introduced by the user with the
@@ -61,8 +61,8 @@ public class SpinButton extends Entry
      *            The maximum value allowed.
      * @param step
      *            The amount to increment/decrement when one of the arrow
-     *            Buttons are clicked, or when the user press the <b><code>Up</code></b>
-     *            or <b><code>Down</code></b> keys.
+     *            Buttons are clicked, or when the user press the <b>
+     *            <code>Up</code></b> or <b><code>Down</code></b> keys.
      * @since 4.0.7
      */
     public SpinButton(double min, double max, double step) {
@@ -124,8 +124,7 @@ public class SpinButton extends Entry
     }
 
     /**
-     * Hook up a handler for the <code>SpinButton.ValueChanged</code>
-     * signal.
+     * Hook up a handler for the <code>SpinButton.ValueChanged</code> signal.
      * 
      * @since 4.0.7
      */

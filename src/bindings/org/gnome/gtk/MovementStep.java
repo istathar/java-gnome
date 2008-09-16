@@ -1,7 +1,7 @@
 /*
  * MovementStep.java
  *
- * Copyright (c) 2007 Operational Dynamics Consulting Pty Ltd
+ * Copyright (c) 2007-2008 Operational Dynamics Consulting Pty Ltd
  *
  * The code in this file, and the library it is a part of, are made available
  * to you by the authors under the terms of the "GNU General Public Licence,
@@ -21,9 +21,37 @@ import org.freedesktop.bindings.Constant;
  * are made about this class until it has been reviewed by a hacker and this
  * comment has been replaced.
  */
+/**
+ * Constants describing the nature of a motion in <code>MoveCursor</code>
+ * signal handlers found in {@link TextView}, {@link TreeView}, {@link Entry},
+ * etc.
+ * 
+ * @author Andrew Cowie
+ * @since 4.0.9
+ */
+/*
+ * FIXME Make constants public as necessary. What is the difference between
+ * these? Especially, what are "logical" and "virtual" positions and why would
+ * you care?
+ */
 public final class MovementStep extends Constant
 {
     private MovementStep(int ordinal, String nickname) {
         super(ordinal, nickname);
     }
+
+    static final MovementStep LOGICAL_POSITIONS = new MovementStep(GtkMovementStep.LOGICAL_POSITIONS,
+            "LOGICAL_POSITIONS");
+
+    static final MovementStep VISUAL_POSITIONS = new MovementStep(GtkMovementStep.VISUAL_POSITIONS,
+            "VISUAL_POSITIONS");
+
+    static final MovementStep WORDS = new MovementStep(GtkMovementStep.WORDS, "WORDS");
+
+    static final MovementStep DISPLAY_LINES = new MovementStep(GtkMovementStep.DISPLAY_LINES,
+            "DISPLAY_LINES");
+
+    static final MovementStep PARAGRAPHS = new MovementStep(GtkMovementStep.PARAGRAPHS, "PARAGRAPHS");
+
+    static final MovementStep PAGES = new MovementStep(GtkMovementStep.PAGES, "PAGES");
 }

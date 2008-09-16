@@ -20,11 +20,13 @@ package org.gnome.gtk;
  * <p>
  * Note that Notebooks are a poor way to organize pages of application
  * preferences; if your program has that many options there is probably
- * something very wrong with your design in the first place. Do you <i>really</i>
- * need to present that many different configuration settings to the user?
+ * something very wrong with your design in the first place. Do you
+ * <i>really</i> need to present that many different configuration settings to
+ * the user?
  * 
  * @author Sebastian Mancke
  * @author Andrew Cowie
+ * @author Stefan Prelle
  * @since 4.0.3
  */
 /*
@@ -112,6 +114,15 @@ public class Notebook extends Container
     }
 
     /**
+     * Returns the number of the active page
+     * 
+     * @since 4.0.9
+     */
+    public int getCurrentPage() {
+        return GtkNotebook.getCurrentPage(this);
+    }
+
+    /**
      * The handler interface for notification of changes in the current page.
      * 
      * @since 4.0.3
@@ -154,5 +165,36 @@ public class Notebook extends Container
      */
     public void setTabPosition(PositionType position) {
         GtkNotebook.setTabPos(this, position);
+    }
+
+    /**
+     * Returns the number of pages in the Notebook.
+     * 
+     * @since 4.0.9
+     */
+    public int getPageCount() {
+        return GtkNotebook.getNPages(this);
+    }
+
+    /**
+     * Returns the page number of the given Widget.
+     * 
+     * @return The page number or <code>-1</code> if <code>child</code> is not
+     *         in the Notebook.
+     * 
+     * @since 4.0.9
+     */
+    public int getPageNumber(Widget child) {
+        return GtkNotebook.pageNum(this, child);
+    }
+
+    /**
+     * Get the Widget which is the page at a given index. Page numbers start
+     * at <code>0</code>.
+     * 
+     * @since 4.0.9
+     */
+    public Widget getPage(int pageNum) {
+        return GtkNotebook.getNthPage(this, pageNum);
     }
 }

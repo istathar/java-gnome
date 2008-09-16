@@ -18,9 +18,8 @@ import org.gnome.glib.Glib;
  * screenshots used as illustrations in the java-gnome API documentation.
  * 
  * <p>
- * Usage is simple: given a Window,
- * {@link org.gnome.gtk.Window#present() present()} it, and then call the
- * <code>capture</code> method here.
+ * Usage is simple: given a Window, {@link org.gnome.gtk.Window#present()
+ * present()} it, and then call the <code>capture</code> method here.
  * 
  * <pre>
  * final Window window;

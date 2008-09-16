@@ -20,7 +20,7 @@ package org.gnome.gdk;
  * @since 4.0.5
  */
 /*
- * This is a total hack at the moment. There *is* a GdkPixbufFormat, but we'll
+ * This is a total hack at the moment. There is a GdkPixbufFormat, but we'll
  * need to clean things up so that these constants are actually properly
  * instantiated from the underlying structs. The only thing that will stay the
  * same is that the constants here will be for the writable formats only.
@@ -40,14 +40,14 @@ public class PixbufFormat // FIXME is actually a Boxed
     }
 
     /*
-     * This will *all* have to be redone when we get the real GdkPixbufFormat
+     * This will all have to be redone when we get the real GdkPixbufFormat
      * hooked up.
      */
 
     /**
      * The Portable Network Graphic image format. The filename extension for
-     * PNGs is <code>.png</code> and should be used when saving images of
-     * this type.
+     * PNGs is <code>.png</code> and should be used when saving images of this
+     * type.
      */
     public static PixbufFormat PNG = new PixbufFormat("png");
 

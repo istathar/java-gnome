@@ -1,8 +1,8 @@
 /*
  * Style.java
  *
- * Copyright (c) 2007 Operational Dynamics Consulting Pty Ltd
- * Copyright (c) 2008 Vreixo Formoso
+ * Copyright (c) 2007-2008 Operational Dynamics Consulting Pty Ltd
+ * Copyright (c) 2008      Vreixo Formoso
  *
  * The code in this file, and the library it is a part of, are made available
  * to you by the authors under the terms of the "GNU General Public Licence,
@@ -15,15 +15,15 @@ package org.gnome.pango;
 import org.freedesktop.bindings.Constant;
 
 /**
- * Possible slant styles of a Font.
- * 
- * <p>
- * Note that most fonts will either have a ITALIC Style or an OBLIQUE Style,
- * but not both, and font matching in Pango will match italic specifications
- * with oblique fonts and vice-versa if an exact match is not found.
+ * Constants specifying the style of a font. Style is the typographic term
+ * describing whether the slant of the characters. The upright default we're
+ * all used to is {@link #NORMAL NORMAL}; when this is tipped over on its side
+ * it is the {@link #OBLIQUE OBLIQUE} style, whereas the more fancy script
+ * like lettering is {@link #ITALIC ITALIC}s.
  * 
  * @author Vreixo Formoso
- * @since 4.0.8
+ * @author Andrew Cowie
+ * @since 4.0.9
  */
 public final class Style extends Constant
 {
@@ -32,17 +32,19 @@ public final class Style extends Constant
     }
 
     /**
-     * The font is upright.
+     * Ordinary text we use by default.
      */
-    public final static Style NORMAL = new Style(PangoStyle.NORMAL, "NORMAL");
+    public static final Style NORMAL = new Style(PangoStyle.NORMAL, "NORMAL");
 
     /**
-     * The font is slanted, but in a roman Style.
+     * Text written in an elegant script, not just slanted over but usually a
+     * more sculpted, rounded, and flowing appearance.
      */
-    public final static Style OBLIQUE = new Style(PangoStyle.OBLIQUE, "OBLIQUE");
+    public static final Style ITALIC = new Style(PangoStyle.ITALIC, "ITALIC");
 
     /**
-     * The font is slanted in an italic Style.
+     * Normal text slanted over to the side but otherwise appearing the same
+     * as the {@link #NORMAL NORMAL} roman style.
      */
-    public final static Style ITALIC = new Style(PangoStyle.ITALIC, "ITALIC");
+    public static final Style OBLIQUE = new Style(PangoStyle.OBLIQUE, "OBLIQUE");
 }

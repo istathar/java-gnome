@@ -19,8 +19,8 @@ import org.freedesktop.bindings.Flag;
  * 
  * <p>
  * You can specify one or several of these using the method
- * {@link Calendar#setDisplayOptions(CalendarDisplayOptions) setDisplayOptions()}
- * in Calendar.
+ * {@link Calendar#setDisplayOptions(CalendarDisplayOptions)
+ * setDisplayOptions()} in Calendar.
  * 
  * @author Vreixo Formoso
  * @since 4.0.3

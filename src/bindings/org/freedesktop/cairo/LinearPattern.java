@@ -16,8 +16,8 @@ package org.freedesktop.cairo;
  * 
  * <p>
  * Before using the LinearPattern you need to call
- * {@link Pattern#addColorStopRGBA(double, double, double, double, double) addColorStopRGBA()}
- * a few times to set up the gradient. For example:
+ * {@link Pattern#addColorStopRGBA(double, double, double, double, double)
+ * addColorStopRGBA()} a few times to set up the gradient. For example:
  * 
  * <pre>
  * pat = new LinearPattern(40, 25, 120, 100);

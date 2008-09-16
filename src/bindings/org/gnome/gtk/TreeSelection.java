@@ -113,15 +113,14 @@ public class TreeSelection extends Object
 
     /**
      * Get the rows currently selected from the TreeView. This is specially
-     * useful when the selection mode is
-     * {@link SelectionMode#MULTIPLE MULTIPLE}. Otherwise
-     * {@link #getSelected() getSelected()} offers a more convenient way to
-     * obtain the selected row.
+     * useful when the selection mode is {@link SelectionMode#MULTIPLE
+     * MULTIPLE}. Otherwise {@link #getSelected() getSelected()} offers a more
+     * convenient way to obtain the selected row.
      * 
      * <p>
-     * You can use the TreeModel's
-     * {@link TreeModel#getIter(TreePath) getIter()} method to convert the
-     * returned TreePaths to the more convenient TreeIter:
+     * You can use the TreeModel's {@link TreeModel#getIter(TreePath)
+     * getIter()} method to convert the returned TreePaths to the more
+     * convenient TreeIter:
      * 
      * <pre>
      * TreePath[] rows;
@@ -164,16 +163,15 @@ public class TreeSelection extends Object
      * <p>
      * Beware that this is considered a hint by GTK, so you sometimes get
      * false positives or false negatives relative to how you are interpreting
-     * "change". You'll be calling
-     * {@link TreeSelection#getSelected() getSelected()} anyway, but it's a
-     * good idea to keep in mind that the state may not have changed in quite
-     * the way you think it might have. Have a look at the return from that
-     * method fairly closely to decide for yourself whether the selection has
-     * "changed" or not.
+     * "change". You'll be calling {@link TreeSelection#getSelected()
+     * getSelected()} anyway, but it's a good idea to keep in mind that the
+     * state may not have changed in quite the way you think it might have.
+     * Have a look at the return from that method fairly closely to decide for
+     * yourself whether the selection has "changed" or not.
      * 
      * <p>
-     * <i>The nonsense about the <code>TreeSelection.Changed</code> signal
-     * is supposedly due to the fact that there are multiple actors in the
+     * <i>The nonsense about the <code>TreeSelection.Changed</code> signal is
+     * supposedly due to the fact that there are multiple actors in the
      * TreeModel environment, and both internal actions within GTK and events
      * due to window manager activity can result in the signal being emitted.
      * What a load of crap; either the selection changed or it didn't. Sorry

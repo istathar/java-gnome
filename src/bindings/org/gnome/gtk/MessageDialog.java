@@ -21,13 +21,12 @@ package org.gnome.gtk;
  * 
  * <p>
  * A MessageDialog is a simple Dialog with an image representing the type of
- * the message (error, warning, etc... take a look at
- * {@link MessageType MessageType}), the message text and some Buttons to let
- * the user decide how to respond to the message. The
- * {@link ButtonsType ButtonsType} enumeration can be used to choose among
- * some common combination of Buttons, but you can also add other Buttons via
- * the usual Dialog's {@link #addButton(String, ResponseType) addButton()}
- * method.
+ * the message (error, warning, etc... take a look at {@link MessageType
+ * MessageType}), the message text and some Buttons to let the user decide how
+ * to respond to the message. The {@link ButtonsType ButtonsType} enumeration
+ * can be used to choose among some common combination of Buttons, but you can
+ * also add other Buttons via the usual Dialog's
+ * {@link #addButton(String, ResponseType) addButton()} method.
  * 
  * <p>
  * Optionally you can provide a secondary text that displays more information
@@ -150,8 +149,8 @@ public class MessageDialog extends Dialog
      * Sets the secondary text for the MessageDialog. This text is interpreted
      * as plain text, if you want to use Pango markup format you should call
      * {@link #setSecondaryUseMarkup(boolean) setSecondaryUseMarkup()} or call
-     * {@link #setSecondaryText(String, boolean) setSecondaryText(String, true)}
-     * instead.
+     * {@link #setSecondaryText(String, boolean) setSecondaryText(String,
+     * true)} instead.
      */
     public void setSecondaryText(String text) {
         setPropertyString("secondary-text", text);

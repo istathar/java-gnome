@@ -25,6 +25,7 @@ import org.gnome.glib.ValidateGListMethods;
 import org.gnome.glib.ValidateMemoryManagement;
 import org.gnome.glib.ValidateReferenceCounting;
 import org.gnome.gtk.TestCaseGtk;
+import org.gnome.gtk.ValidateAssistant;
 import org.gnome.gtk.ValidateComboBox;
 import org.gnome.gtk.ValidateFileChoosing;
 import org.gnome.gtk.ValidateIconView;
@@ -35,6 +36,9 @@ import org.gnome.gtk.ValidateResponseType;
 import org.gnome.gtk.ValidateSignalEmission;
 import org.gnome.gtk.ValidateSnapshotUtilities;
 import org.gnome.gtk.ValidateStockItems;
+import org.gnome.gtk.ValidateTextBuffer;
+import org.gnome.gtk.ValidateTextViewBorderWindows;
+import org.gnome.gtk.ValidateTextViewProperties;
 import org.gnome.gtk.ValidateTreeModel;
 import org.gnome.gtk.ValidateTreeModelFilter;
 import org.gnome.gtk.ValidateTreeStore;
@@ -135,6 +139,10 @@ public class UnitTests
         suite.addTestSuite(ValidateIconView.class);
         suite.addTestSuite(ValidateComboBox.class);
         suite.addTestSuite(ValidateSnapshotUtilities.class);
+        suite.addTestSuite(ValidateAssistant.class);
+        suite.addTestSuite(ValidateTextBuffer.class);
+        suite.addTestSuite(ValidateTextViewProperties.class);
+        suite.addTestSuite(ValidateTextViewBorderWindows.class);
 
         return suite;
     }

@@ -193,9 +193,9 @@ public class TreeView extends Container
     /**
      * Set whether the column titles in the header row can be clicked to
      * change the sorting of the displayed data. While the default is
-     * <code>false</code> (since you frequently have the rows ordered the
-     * way they are for a reason and don't want to let the user be reordering
-     * the display and getting lost in the process), calling TreeViewColumn's
+     * <code>false</code> (since you frequently have the rows ordered the way
+     * they are for a reason and don't want to let the user be reordering the
+     * display and getting lost in the process), calling TreeViewColumn's
      * {@link TreeViewColumn#setSortColumn(DataColumn) setSortColumn()} will
      * make the headers clickable. Use this method after your column setup to
      * turn it off [again].
@@ -206,8 +206,9 @@ public class TreeView extends Container
 
     /**
      * Emitted when a row in the TreeView has been activated. Activation
-     * occurs when a row in the view is double-clicked, or when <b><code>Space</code></b>
-     * or <b><code>Enter</code></b> are pressed while a row is selected.
+     * occurs when a row in the view is double-clicked, or when <b>
+     * <code>Space</code></b> or <b><code>Enter</code></b> are pressed while a
+     * row is selected.
      * 
      * <p>
      * In general, you've got the TreeModel and especially its DataColumns
@@ -247,8 +248,8 @@ public class TreeView extends Container
          * converted into a TreeIter with your TreeModel's
          * {@link TreeModel#getIter(TreePath) getIter()} allowing you to then
          * lookup a particular value from the data model. You rarely need
-         * <code>vertical</code> but it can give you some indication in
-         * which column the click happened.
+         * <code>vertical</code> but it can give you some indication in which
+         * column the click happened.
          */
         public void onRowActivated(TreeView source, TreePath path, TreeViewColumn vertical);
     }
@@ -258,6 +259,17 @@ public class TreeView extends Container
      */
     public void connect(TreeView.RowActivated handler) {
         GtkTreeView.connect(this, handler, false);
+    }
+
+    /**
+     * Cause a <code>TreeView.RowActivated</code> signal to be emitted for the
+     * given TreePath. The TreeViewColumn is optional; use <code>null</code>
+     * if you don't want to specify it.
+     * 
+     * @since 4.0.9
+     */
+    public void emitRowActivated(TreePath path, TreeViewColumn vertical) {
+        GtkTreeView.rowActivated(this, path, vertical);
     }
 
     /** @deprecated */
@@ -274,10 +286,10 @@ public class TreeView extends Container
     /**
      * Emitted when a row in the TreeView has been expanded, i.e. when its
      * child nodes are shown. A row is expanded either by clicking in the
-     * little arrow near it, or by pressing the <code>+</code> key when a
-     * row is selected. Of course, a row can be only expanded when it has
-     * child rows, and so it can be only emitted when the TreeView is used
-     * with a hierarchical model such as {@link TreeStore}.
+     * little arrow near it, or by pressing the <code>+</code> key when a row
+     * is selected. Of course, a row can be only expanded when it has child
+     * rows, and so it can be only emitted when the TreeView is used with a
+     * hierarchical model such as {@link TreeStore}.
      * 
      * <p>
      * In general, you've got the TreeModel and especially its DataColumns
@@ -368,8 +380,8 @@ public class TreeView extends Container
      * 
      * @param path
      *            The row we want to check.
-     * @return <code>true</code> if the row is expanded, <code>false</code>
-     *         if not.
+     * @return <code>true</code> if the row is expanded, <code>false</code> if
+     *         not.
      * @since 4.0.7
      */
     public boolean rowExpanded(TreePath path) {
@@ -386,8 +398,8 @@ public class TreeView extends Container
      * @param openAll
      *            <code>true</code> to recursively expand all children,
      *            <code>false</code> to expand only the given row.
-     * @return <code>true</code> if the path refers to a valid row, and it
-     *         has child nodes. <code>false</code> otherwise.
+     * @return <code>true</code> if the path refers to a valid row, and it has
+     *         child nodes. <code>false</code> otherwise.
      * @since 4.0.7
      */
     public boolean expandRow(TreePath path, boolean openAll) {
@@ -557,8 +569,8 @@ public class TreeView extends Container
      * application.
      * 
      * <p>
-     * To fetch the current height mode, see
-     * {@link #getFixedHeightMode() getFixedHeightMode()}.
+     * To fetch the current height mode, see {@link #getFixedHeightMode()
+     * getFixedHeightMode()}.
      * 
      * @param enable
      *            <code>true</code> if all rows in the TreeView are to be of
@@ -635,8 +647,7 @@ public class TreeView extends Container
      * request.
      * 
      * <p>
-     * The default is <code>false</code>, not drawing alternating row
-     * colours.
+     * The default is <code>false</code>, not drawing alternating row colours.
      */
     public void setRulesHint(boolean setting) {
         GtkTreeView.setRulesHint(this, setting);
@@ -661,13 +672,13 @@ public class TreeView extends Container
      * @param rowAlign
      *            Determines where in the view the row specified by
      *            <code>path</code> is placed, with <code>0.0f</code>
-     *            representing top, and <code>1.0f</code> representing
-     *            bottom, as usual. The constants in Alignment such as
+     *            representing top, and <code>1.0f</code> representing bottom,
+     *            as usual. The constants in Alignment such as
      *            {@link Alignment#CENTER CENTER} can be used.
      * @param colAlign
      *            Determines where in the view the column specified by
-     *            <code>vertical</code> will be placed; <code>0.0f</code>
-     *            is fully left, <code>1.0f</code> is fully right.
+     *            <code>vertical</code> will be placed; <code>0.0f</code> is
+     *            fully left, <code>1.0f</code> is fully right.
      * @since 4.0.6
      */
     public void scrollToCell(TreePath path, TreeViewColumn vertical, float rowAlign, float colAlign) {
@@ -676,17 +687,16 @@ public class TreeView extends Container
 
     /**
      * Scroll the TreeView so that the cell specified by <code>path</code>,
-     * <code>vertical</code> is visible. This variant ignores alignment
-     * values and just scrolls the TreeView so that the cell specified is
-     * visible, closest to whichever edge it came in from, and doing nothing
-     * if the cell is already on screen.
+     * <code>vertical</code> is visible. This variant ignores alignment values
+     * and just scrolls the TreeView so that the cell specified is visible,
+     * closest to whichever edge it came in from, and doing nothing if the
+     * cell is already on screen.
      * 
      * <p>
-     * See the discussion about <code>path</code> or <code>vertical</code>
-     * in the other
-     * {@link #scrollToCell(TreePath, TreeViewColumn, float, float) scrollToCell()}
-     * method to learn how you can scroll in a single direction only if
-     * desired.
+     * See the discussion about <code>path</code> or <code>vertical</code> in
+     * the other {@link #scrollToCell(TreePath, TreeViewColumn, float, float)
+     * scrollToCell()} method to learn how you can scroll in a single
+     * direction only if desired.
      * 
      * @since 4.0.6
      */
@@ -705,8 +715,7 @@ public class TreeView extends Container
      * 
      * <p>
      * Incidentally, you can observe these changes by connecting to
-     * <code>TreeView.RowInserted</code> and
-     * <code>TreeView.RowDeleted</code>.
+     * <code>TreeView.RowInserted</code> and <code>TreeView.RowDeleted</code>.
      * 
      * @since 4.0.6
      */
@@ -720,8 +729,8 @@ public class TreeView extends Container
     }
 
     /**
-     * Expand all the rows in this TreeStore backed TreeView, making <i>all</i>
-     * children visible.
+     * Expand all the rows in this TreeStore backed TreeView, making
+     * <i>all</i> children visible.
      * 
      * @since 4.0.7
      */
@@ -764,13 +773,12 @@ public class TreeView extends Container
      * <code>startEditing</code> to <code>true</code> which causes the
      * TreeView to immediately start editing at the the specified row and
      * column (assuming, of course, that that CellRenderer has been made
-     * mutable. See
-     * {@link CellRendererText#setEditable(boolean) setEditable()}).
+     * mutable. See {@link CellRendererText#setEditable(boolean)
+     * setEditable()}).
      * 
      * @since 4.0.8
      */
     public void setCursor(TreePath path, TreeViewColumn vertical, boolean startEditing) {
         GtkTreeView.setCursor(this, path, vertical, startEditing);
     }
-
 }

@@ -15,9 +15,10 @@ import org.freedesktop.bindings.Constant;
 
 /**
  * Constants indicating the current visibility of a Widget. See the
- * {@link org.gnome.gtk.Widget.VisibilityNotifyEvent Widget.VisibilityNotifyEvent}
- * signal for further details; these constants come from the
- * {@link EventVisibility#getState() getState()} method on an EventVisibility.
+ * {@link org.gnome.gtk.Widget.VisibilityNotifyEvent
+ * Widget.VisibilityNotifyEvent} signal for further details; these constants
+ * come from the {@link EventVisibility#getState() getState()} method on an
+ * EventVisibility.
  * 
  * @author Andrew Cowie
  * @since 4.0.5

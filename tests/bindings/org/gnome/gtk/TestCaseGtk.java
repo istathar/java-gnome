@@ -1,7 +1,7 @@
 /*
  * TestCaseGtk.java
  *
- * Copyright (c) 2007 Operational Dynamics Consulting Pty Ltd and Others
+ * Copyright (c) 2007-2008 Operational Dynamics Consulting Pty Ltd and Others
  * 
  * The code in this file, and the suite it is a part of, are made available
  * to you by the authors under the terms of the "GNU General Public Licence,
@@ -13,7 +13,7 @@ package org.gnome.gtk;
 import junit.framework.TestCase;
 
 import org.freedesktop.bindings.Debug;
-import org.gnome.gtk.Gtk;
+import org.gnome.gdk.Event;
 
 /**
  * Ensure that GTK has already been initialized so that things like
@@ -22,14 +22,14 @@ import org.gnome.gtk.Gtk;
  * @author Andrew Cowie
  * @since 4.0.2
  */
-public class TestCaseGtk extends TestCase
+public abstract class TestCaseGtk extends TestCase
 {
     private static boolean initialized = false;
 
     /**
      * Called by <code>UnitTests.suite()</code> to in turn call
-     * <code>Gtk.init()</code>. This allows the command line arguments to
-     * be passed if necessary.
+     * <code>Gtk.init()</code>. This allows the command line arguments to be
+     * passed if necessary.
      */
     public static void init(String[] args) {
         Gtk.init(args);
@@ -39,13 +39,21 @@ public class TestCaseGtk extends TestCase
     /**
      * If you try to run a single Test Case (rather than using the top level
      * UnitTests launcher), then you need to initialize Gtk (and GLib along
-     * with it). This will take care of that. If you override this, you'd
-     * probably better call <code>super.setUp()</code>.
+     * with it). This will take care of that as all JUnit test cases are
+     * instantiated once for each text fixture.
      */
-    public void setUp() {
+    protected TestCaseGtk() {
         if (!initialized) {
             init(null);
         }
+        System.out.flush();
+    }
+
+    /*
+     * If you override this and you are debugging, you'd probably better call
+     * <code>super.setUp()</code>.
+     */
+    public void setUp() {
         System.out.flush();
     }
 
@@ -108,5 +116,22 @@ public class TestCaseGtk extends TestCase
         } catch (InterruptedException e) {
             // ignore
         }
+    }
+
+    /**
+     * Just for hacking... sometimes when you're creating a unit test you need
+     * to see it run to make sure it looks the way it should before probing
+     * its qualities. TODO; this is a bit weak, and is very close to the edge
+     * whereby really unit tests should be running in a virtual X server.
+     */
+    protected void runMainLoop(Window w) {
+        w.connect(new Window.DeleteEvent() {
+            public boolean onDeleteEvent(Widget source, Event event) {
+                Gtk.mainQuit();
+                return false;
+            }
+        });
+        Gtk.main();
+        System.exit(0);
     }
 }

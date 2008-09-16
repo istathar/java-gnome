@@ -175,13 +175,13 @@ public final class ModifierType extends Flag
             "HYPER_MASK");
 
     /**
-     * The <b><code>Window</code></b> modifier key. You will probably also
-     * get <code>SUPER_MASK</code> with this one.
+     * The <b><code>Window</code></b> modifier key. You will probably also get
+     * <code>SUPER_MASK</code> with this one.
      * 
      * <p>
      * <i>Unless your user has changed things of their X server is doing
-     * something weird, it is likely that <code>MOD4_MASK</code> is mapped
-     * to the "key with the Microsoft Windows logo" that is present on modern
+     * something weird, it is likely that <code>MOD4_MASK</code> is mapped to
+     * the "key with the Microsoft Windows logo" that is present on modern
      * PC104 keyboards. Damn monopolists. Anyway, that's what people call it,
      * so that's that's what we've named our constant.</i>
      * 

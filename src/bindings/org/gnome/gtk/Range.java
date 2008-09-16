@@ -43,8 +43,8 @@ public abstract class Range extends Widget
 
     /**
      * Change the value showingin the Range. As you would expect, the
-     * <code>Range.ValueChanged</code> signal will be emitted if the new
-     * value is different from the present setting.
+     * <code>Range.ValueChanged</code> signal will be emitted if the new value
+     * is different from the present setting.
      * 
      * @since 4.0.6
      */

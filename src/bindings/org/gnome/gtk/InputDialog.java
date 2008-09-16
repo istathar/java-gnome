@@ -1,7 +1,7 @@
 /*
  * InputDialog.java
  *
- * Copyright (c) 2007 Operational Dynamics Consulting Pty Ltd
+ * Copyright (c) 2007-2008 Operational Dynamics Consulting Pty Ltd
  *
  * The code in this file, and the library it is a part of, are made available
  * to you by the authors under the terms of the "GNU General Public Licence,
@@ -19,7 +19,16 @@ package org.gnome.gtk;
  * are made about this class until it has been reviewed by a hacker and this
  * comment has been replaced.
  */
-public class InputDialog extends Dialog
+/**
+ * <i>The GTK API documentation marks this as subject to being tossed. It's
+ * not clear what replacement library this might move to, if any.</i>
+ * 
+ * @deprecated
+ */
+/*
+ * Any reason to expose this class?
+ */
+class InputDialog extends Dialog
 {
     protected InputDialog(long pointer) {
         super(pointer);

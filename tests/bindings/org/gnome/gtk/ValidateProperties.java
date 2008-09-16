@@ -55,6 +55,11 @@ public class ValidateProperties extends TestCaseGtk
         assertEquals(0.1f, v.getFloat(), 0.0001);
     }
 
+    public final void testDoubleValues() {
+        final Value v = new Value(42.2d);
+        assertEquals(42.2d, v.getDouble(), 0.0001);
+    }
+
     /**
      * Test changing the label of a Button and getting the label back.
      */
@@ -265,7 +270,7 @@ public class ValidateProperties extends TestCaseGtk
 
         i = new Image(Stock.REFRESH, IconSize.LARGE_TOOLBAR);
 
-        data = new Pixbuf("web/public/images/java-gnome_LargeLogo.png");
+        data = new Pixbuf("src/bindings/java-gnome_Icon.png");
         i.setImage(data);
         i.clear();
     }

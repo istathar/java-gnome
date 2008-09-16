@@ -12,10 +12,12 @@
 package org.gnome.glib;
 
 import java.io.InputStream;
+import java.util.Collection;
 import java.util.IdentityHashMap;
 import java.util.Iterator;
 import java.util.Properties;
 
+import org.freedesktop.bindings.Constant;
 import org.freedesktop.bindings.Proxy;
 import org.gnome.gdk.Gdk;
 
@@ -192,8 +194,8 @@ public abstract class Plumbing extends org.freedesktop.bindings.Plumbing
      * 
      * @return null if the <code>pointer</code> argument is <code>0x0</code>,
      *         <i>which can happen after looking up a valid GValue which turns
-     *         out to contains a <code>NULL</code> pointer value for a
-     *         GObject it is carrying.</i>
+     *         out to contains a <code>NULL</code> pointer value for a GObject
+     *         it is carrying.</i>
      * @throw UnsupportedOperationException if no Java class has been
      *        registered for this <code>GType</code>.
      * 
@@ -255,9 +257,9 @@ public abstract class Plumbing extends org.freedesktop.bindings.Plumbing
      * Superficially the structure seems like <code>GObject</code> and
      * friends, starting with a <code>GType</code>, but this is misleading
      * because <code>GObject</code> has a <b>pointer</b> to a
-     * <code>GTypeInstance</code> which contains the <code>GType</code>
-     * first. This means that we cannot use the same code path to figure out
-     * what the type name of a pointer is that we do in objectFor() above.</i>
+     * <code>GTypeInstance</code> which contains the <code>GType</code> first.
+     * This means that we cannot use the same code path to figure out what the
+     * type name of a pointer is that we do in objectFor() above.</i>
      */
     protected static Value valueFor(long pointer) {
         Value obj;
@@ -343,5 +345,39 @@ public abstract class Plumbing extends org.freedesktop.bindings.Plumbing
     protected static Proxy entityFor(Class<?> type, long pointer) {
         throw new UnsupportedOperationException(
                 "Unfortunately, we haven't figured out how to call the method in Cairo's Plumbing yet");
+    }
+
+    /**
+     * This (quite inefficiently) goes the reverse direction as compared to
+     * lookupType() [those based on g_type_name()], from a known class name to
+     * a GType name.
+     */
+    /*
+     * At time of writing, this isonly being used to create GValues containing
+     * enums for use in GObject property setting. For whatever reason GValue
+     * requires something more derived than G_TYPE_ENUM.
+     * 
+     * FUTURE If this becomes a hotspot at all, replace with a Map going the
+     * reverse direction as typeMapping does presenty.
+     */
+    protected static String typeOf(Class<? extends Constant> cls) {
+        final String name;
+        final Collection<String> values;
+
+        name = cls.getName();
+
+        values = typeMapping.values();
+
+        if (!values.contains(name)) {
+            throw new IllegalArgumentException("Class " + name + " not in typeMapping");
+        }
+
+        for (String gType : typeMapping.keySet()) {
+            if (typeMapping.get(gType) == name) {
+                return gType;
+            }
+        }
+
+        throw new IllegalStateException("Reverse type lookup failed");
     }
 }
