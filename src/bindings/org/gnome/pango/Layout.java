@@ -124,7 +124,7 @@ public class Layout extends Object
      * 
      * <p>
      * Note that this is not necessarily related with the line wrap width you
-     * set with {@link #setWidth(int) setWidth()} method.
+     * set with {@link #setWidth(double) setWidth()} method.
      * 
      * @since 4.0.9
      */
@@ -190,8 +190,8 @@ public class Layout extends Object
      * 
      * <p>
      * This will determine the positioning of the text and how the lines are
-     * wrapped. If a text line is greater than the given size, it is splitted
-     * in several lines.
+     * wrapped. If a text line is greater than the given size, it is split
+     * into several lines.
      * 
      * @param width
      *            The width in Cairo terms (typically pixels).
@@ -210,7 +210,6 @@ public class Layout extends Object
      * scripts (such as Arabic), the justification may be done in more complex
      * ways, like extending the characters.
      * 
-     * @see #setWidth(int)
      * @since 4.0.9
      */
     public void setJustify(boolean justify) {
@@ -228,13 +227,17 @@ public class Layout extends Object
     }
 
     /**
-     * Sets the alignment for the layout.
+     * Sets the <var>alignment</var> for the Layout. This controls how partial
+     * lines are positioned within the available horizontal space.
      * 
-     * This determines how partial lines are positioned within the horizontal
-     * space available, i.e., within the <code>width</code> of the Layout.
+     * <p>
+     * Note that contrary to what is commonly expressed in the user interface
+     * of common tools like word processors, justification is not an alignment
+     * type. If you wish to have equally wide lines, see
+     * {@link #setJustify(boolean) setJustify()}. Alignment remains important
+     * as it controls where indentation is relative to and what to do with the
+     * last line of each paragraph.
      * 
-     * @see #setWidth(int)
-     * @see #setJustify(boolean)
      * @since 4.0.9
      */
     public void setAlignment(Alignment alignment) {
@@ -251,10 +254,10 @@ public class Layout extends Object
     }
 
     /**
-     * Sets the width in Pango units to indent the first line of each
-     * paragraph. A negative value of indent will produce a hanging
-     * indentation. That is, the first line will have the full width, and
-     * subsequent lines will be indented by the absolute value of indent.
+     * Sets the width by which to indent the first line of each paragraph. A
+     * negative value of indent will produce a hanging indentation. That is,
+     * the first line will have the full width, and subsequent lines will be
+     * indented by the absolute value of indent.
      * 
      * <p>
      * Note that the indent is relative to the Alignment of the text, if the
@@ -267,9 +270,9 @@ public class Layout extends Object
     }
 
     /**
-     * Get the paragraph indent of this Layout in Pango units.
+     * Get the paragraph indent of this Layout. It'll be <code>0</code> unless
+     * you called {@link #setIndent(double) setIndent()} to change it.
      * 
-     * @see #setIndent(int)
      * @since 4.0.9
      */
     public double getIndent() {
