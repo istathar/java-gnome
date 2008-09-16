@@ -672,7 +672,7 @@ def runTests():
 	runJavaClass("UnitTests", "tmp/gtk-4.0.jar:tmp/generator/:tmp/tests/:"+config['JUNIT_JARS'])
 
 def runDemo():
-	runJavaClass("Experiment", "tmp/gtk-4.0.jar:tmp/tests/")
+	runJavaClass("button.ExamplePressMe", "tmp/gtk-4.0.jar:tmp/tests/")
 
 
 #
