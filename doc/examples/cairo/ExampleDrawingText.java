@@ -1,5 +1,5 @@
 /*
- * ExamplePangoText.java
+ * ExampleDrawingText.java
  *
  * Copyright (c) 2007-2008 Operational Dynamics Consulting Pty Ltd
  * Copyright (c) 2008      Vreixo Formoso
@@ -27,7 +27,7 @@ import org.gnome.pango.Layout;
  * 
  * @author Vreixo Formoso
  */
-public class ExamplePangoText
+public class ExampleDrawingText
 {
     public static void main(String[] args) {
         final Window w;
@@ -81,12 +81,12 @@ public class ExamplePangoText
                  * You can set the alignment of the Layout. Note that you
                  * should set its width too.
                  */
-                layout.setWidth(150 * 1024);
+                layout.setWidth(150.0);
                 layout.setAlignment(Alignment.CENTER);
 
                 /*
-                 * If you want to ensure the full text fits in the Widget, the
-                 * setSizeRequest() is very useful.
+                 * If you want to ensure the full text fits in the Widget,
+                 * setting the size-request is generally useful.
                  */
                 source.setSizeRequest(layout.getPixelSizeWidth(), layout.getPixelSizeHeight());
 

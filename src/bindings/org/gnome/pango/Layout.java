@@ -1,8 +1,8 @@
 /*
  * Layout.java
  *
- * Copyright (c) 2007 Operational Dynamics Consulting Pty Ltd
- * Copyright (c) 2008 Vreixo Formoso
+ * Copyright (c) 2007-2008 Operational Dynamics Consulting Pty Ltd
+ * Copyright (c) 2008      Vreixo Formoso
  *
  * The code in this file, and the library it is a part of, are made available
  * to you by the authors under the terms of the "GNU General Public Licence,
@@ -19,11 +19,51 @@ import org.gnome.gtk.Widget;
  * A Layout represents a paragraph (or paragraphs) of text, together with its
  * attributes.
  * 
+ * <p>
+ * Drawing is done in with Cairo; you get a Layout by passing the Cairo
+ * drawing Context you're currently working in to the constructor. If you're
+ * drawing a Widget, you'll be doing so in a <code>Widget.ExposeEvent</code>
+ * handler where you'll typically see:
+ * 
+ * <pre>
+ * w.connect(new Widget.ExposeEvent() {
+ *     public boolean onExposeEvent(Widget source, EventExpose event) {
+ *         final Context cr;
+ *         final Layout layout;
+ * 
+ *         cr = new Context(source.getWindow());
+ *         layout = new Layout(cr);
+ * 
+ *         // use layout to lay out the text you wish to draw
+ * 
+ *         cr.showLayout(layout);
+ *     }
+ * });
+ * </pre>
+ * 
  * @author Vreixo Formoso
- * @since 4.0.8
+ * @author Andrew Cowie
+ * @since 4.0.9
  */
 public class Layout extends Object
 {
+    /**
+     * Conversion factor to go from "Cairo Units" to "Pango Units".
+     */
+    /*
+     * The Pango library uses a fixed point system, scaled up by this
+     * constant; Cairo on the other hand uses doubles. Since all the drawing
+     * we're doing with Pango will be in the context of a Cairo drawing
+     * operation, we expose our API as doubles to match Cairo, and quietly
+     * convert internally.
+     * 
+     * Seeing as how Pango draws on Cairo, it'd be nice if Pango just exposed
+     * the doubles and was done with it.
+     * 
+     * FIXME retreive from native as this is subject to change in the future.
+     */
+    private static final int PANGO_SCALE = 1024;
+
     protected Layout(long pointer) {
         super(pointer);
     }
@@ -42,6 +82,8 @@ public class Layout extends Object
      * 
      * TODO If you change the transformation or target surface for context,
      * you need to call pango_cairo_update_layout()
+     * 
+     * @since 4.0.9
      */
     public Layout(org.freedesktop.cairo.Context context) {
         super(PangoLayout.createLayout(context));
@@ -51,6 +93,7 @@ public class Layout extends Object
      * Sets the text of the Layout. This is the text that will be draw.
      * 
      * @see #setMarkup(String)
+     * @since 4.0.9
      */
     public void setText(String text) {
         /*
@@ -63,6 +106,8 @@ public class Layout extends Object
     /**
      * Set the text of this Layout. Its format is specified using Pango Markup
      * format [TODO we need to document pango markup somewhere]
+     * 
+     * @since 4.0.9
      */
     public void setMarkup(String markup) {
         /*
@@ -73,29 +118,33 @@ public class Layout extends Object
     }
 
     /**
-     * Get the width, in Pango units, of the Layout. This is the width of the
-     * layout text, taking its format into account (for example, the size of
-     * the Font will influence the final size!).
+     * Get the width of the Layout. This is the width of the layout text,
+     * taking its format into account (for example, the size of the Font will
+     * influence the final size!).
      * 
      * <p>
      * Note that this is not necessarily related with the line wrap width you
      * set with {@link #setWidth(int) setWidth()} method.
+     * 
+     * @since 4.0.9
      */
-    public int getSizeWidth() {
+    public double getSizeWidth() {
         int[] width = new int[1];
         PangoLayout.getSize(this, width, null);
-        return width[0];
+        return ((double) width[0]) / PANGO_SCALE;
     }
 
     /**
      * Get the height, in Pango units, of the Layout. This is the height of
      * the layout text, taking its format into account (for example, the size
      * of the Font will influence the final size!).
+     * 
+     * @since 4.0.9
      */
-    public int getSizeHeight() {
+    public double getSizeHeight() {
         int[] height = new int[1];
         PangoLayout.getSize(this, null, height);
-        return height[0];
+        return ((double) height[0]) / PANGO_SCALE;
     }
 
     /**
@@ -105,6 +154,7 @@ public class Layout extends Object
      * thus ensure the full text is shown!
      * 
      * @see #getSizeWidth()
+     * @since 4.0.9
      */
     public int getPixelSizeWidth() {
         int[] width = new int[1];
@@ -117,6 +167,7 @@ public class Layout extends Object
      * 
      * @see #getSizeHeight()
      * @see #getPixelSizeWidth()
+     * @since 4.0.9
      */
     public int getPixelSizeHeight() {
         int[] height = new int[1];
@@ -127,6 +178,8 @@ public class Layout extends Object
     /**
      * Sets the default FontDescription for the Layout. If no fFontDescription
      * is set, the FontDescription from the Layout's Context is used.
+     * 
+     * @since 4.0.9
      */
     public void setFontDescription(FontDescription desc) {
         PangoLayout.setFontDescription(this, desc);
@@ -141,13 +194,11 @@ public class Layout extends Object
      * in several lines.
      * 
      * @param width
-     *            The width in Pango units [TODO a pixel is 1024 pango units,
-     *            but this may change in a future. Should we add a class for
-     *            functions to manage this?], or <code>-1</code> to disable
-     *            automatic line wrapping.
+     *            The width in Cairo terms (typically pixels).
+     * @since 4.0.9
      */
-    public void setWidth(int width) {
-        PangoLayout.setWidth(this, width);
+    public void setWidth(double width) {
+        PangoLayout.setWidth(this, (int) (width * PANGO_SCALE));
     }
 
     /**
@@ -155,11 +206,12 @@ public class Layout extends Object
      * width of the layout.
      * 
      * <p>
-     * his stretching is typically done by adding whitespace, but for some
+     * This stretching is typically done by adding whitespace, but for some
      * scripts (such as Arabic), the justification may be done in more complex
      * ways, like extending the characters.
      * 
      * @see #setWidth(int)
+     * @since 4.0.9
      */
     public void setJustify(boolean justify) {
         PangoLayout.setJustify(this, justify);
@@ -168,6 +220,8 @@ public class Layout extends Object
     /**
      * Gets whether each complete line should be stretched to fill the entire
      * width of the Layout.
+     * 
+     * @since 4.0.9
      */
     public boolean getJustify() {
         return PangoLayout.getJustify(this);
@@ -181,6 +235,7 @@ public class Layout extends Object
      * 
      * @see #setWidth(int)
      * @see #setJustify(boolean)
+     * @since 4.0.9
      */
     public void setAlignment(Alignment alignment) {
         PangoLayout.setAlignment(this, alignment);
@@ -188,6 +243,8 @@ public class Layout extends Object
 
     /**
      * Gets the Alignment for the Layout.
+     * 
+     * @since 4.0.9
      */
     public Alignment getAlignment() {
         return PangoLayout.getAlignment(this);
@@ -202,17 +259,22 @@ public class Layout extends Object
      * <p>
      * Note that the indent is relative to the Alignment of the text, if the
      * text is aligned to the right, the indent is computed from there.
+     * 
+     * @since 4.0.9
      */
-    public void setIndent(int indent) {
-        PangoLayout.setIndent(this, indent);
+    public void setIndent(double indent) {
+        PangoLayout.setIndent(this, (int) (indent * PANGO_SCALE));
     }
 
     /**
      * Get the paragraph indent of this Layout in Pango units.
      * 
      * @see #setIndent(int)
+     * @since 4.0.9
      */
-    public int getIndent() {
-        return PangoLayout.getIndent(this);
+    public double getIndent() {
+        final int units;
+        units = PangoLayout.getIndent(this);
+        return ((double) units) / PANGO_SCALE;
     }
 }
