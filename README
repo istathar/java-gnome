@@ -206,12 +206,6 @@ and you would end up with:
 `~/share/java/gtk.jar`  
 `~/lib/libgtkjni-4.0.9.so`
 
-Of course, if you do that (or install anywhere else off the system shared
-library search path), you'll need to use the `LD_LIBRARY_PATH` environment
-variable or the `java.library.path` Java system property when you run programs
-in order to tell your Virtual Machine where the library is. See below under
-"Using the Bindings"
-
 ### Installing to system (for people packaging the library for their distro)
 
 The `install` target understands the `DESTDIR` variable used by packagers to
@@ -247,16 +241,15 @@ Using the bindings
 
 ### Running the "demo"
 
-There is a _tiny_ and _trivial_ demonstration program in the `tests/`
-directory of the bindings. If you would like to see it, you could compile and
+There are a few _tiny_ and _trivial_ example programs in the `doc/examples/`
+directory of the bindings. If you would like to see one, you could compile and
 run it by hand, doing something like:
 
-    $ javac -classpath tmp/gtk-4.0.jar -d tmp/classes tests/prototype/Experiment.java
-    $ java -classpath tmp/gtk-4.0.jar:tmp/classes -Djava.library.path=tmp Experiment
+    $ javac -classpath tmp/gtk-4.0.jar -d tmp/tests doc/examples/button/ExamplePressMe.java
+    $ java -classpath tmp/gtk-4.0.jar:tmp/tests button.ExamplePressMe
 
 This shows you how you can reference and use the library after it is built by
-`make` into `tmp/`. Note the necessity to tell the VM where to find
-java-gnome's JNI library.
+`make` into `tmp/`.
 
 Of course, that was _way_ too much typing. Instead, just do this:
 
@@ -268,41 +261,23 @@ Of course, that was _way_ too much typing. Instead, just do this:
 
 java-gnome has a native component that links tightly against various GNOME
 libraries (after all, the whole point is to use the real GTK, not some pseudo
-look alike pathetic attempt of a widget toolkit). This means that **you need
-to tell Java where to find the native library in addition to the location of
-the `.jar` file**. For instance:
+look alike pathetic attempt of a widget toolkit), but we take care of locating
+it and loading it for you. So all you need to do to run an application is:
 
-    $ java                                           \
+    $ java -client -ea                               \
         -classpath /home/bloggins/share/java/gtk.jar \
-        -Djava.library.path=/home/bloggins/lib       \
-        -ea                                          \
         com.example.ComeOnBabyLightMyFire
 
-Oh, the joys of running Java programs by hand. If you get an
-`UnsatisfiedLinkError`, you've stuffed this part up. Go back and check that
-you've actually got the java-gnome JNI library in the directory you specified.
-Tip: for some reason, Java doesn't expand `~` in `java.library.path`. Go
-figure.
+Oh, the joys of running Java programs by hand. 
 
-If you're running programs in Eclipse, you can specify a native library
-location in when you add a `.jar` file under  
-
-> Project `->` Properties `->` Java Build Path
-
-which can simplify your life a great deal. Just expand the entries under that
-`.jar` and you'll see "Native library location: (none)". Enter the path to the
-`lib` directory where you've got the `libgtkjni-4.0.so` file, and you're on
-your way.
 
 Status
 ======
 
-java-gnome 4.0 is now a solid foundation that can be used to develop
+java-gnome 4.0 is now a solid foundation that has been used to develop
 non-trivial applications. The architecture and internal design has been well
 proved, and the coverage level (relative to the full breadth of the underlying
-libraries) is growing rapidly. The code generator which cranks out the project
-internals (based on the shared metadata used by the other GNOME language
-bindings) is in excellent shape.
+libraries) is reaching maturity.
 
 Get Involved
 ------------

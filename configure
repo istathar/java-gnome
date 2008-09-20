@@ -840,7 +840,8 @@ if ($os eq "gentoo") {
 	}
 
 	# check ecj, the standalone Eclipse compiler.
-	check_compiler($ecj, "Eclipse ecj", "/usr/bin/ecj-3.3", "-g -preserveAllLocals -nowarn -source 1.5 -target 1.5");
+	check_compiler($ecj, "Eclipse ecj", "/usr/bin/ecj-3.4", "-g -preserveAllLocals -nowarn -source 1.5 -target 1.5");
+	check_compiler($ecj, "Eclipse ecj", "/usr/bin/ecj-3.3", "-g -preserveAllLocals -nowarn -source 1.5 -target 1.5") unless $ecj;
 	
 	# check javac (the one specified by Gentoo's java-config tool)
 	# The $vendor business is just some precision prettiness for the
@@ -1879,7 +1880,7 @@ print CONFIG "LIBDIR=$libdir\n";
 my $apiversion;
 my $version;
 
-open SOURCE, "src/bindings/org/gnome/gtk/Version.java";
+open SOURCE, "src/bindings/org/freedesktop/bindings/Version.java";
 while (<SOURCE>) {
 	chomp;
 	if (/.* APIVERSION = \"([\d\.]+)\";/) {
@@ -1912,10 +1913,28 @@ print CONFIG "VERSION=$version\n";
 # Done! Create .config file
 # --------------------------------------------------------------------
 
-output "Write .config file:";
+output "\n";
+output "Output:\n";
+output " - configuration data";
 close CONFIG;
 system "mv .config.tmp .config";
 
 output "ok\n";
-output "\n";
 
+
+# --------------------------------------------------------------------
+# Output text file with library location
+# --------------------------------------------------------------------
+
+output " - native library location";
+
+open LIBRARY, ">.libdir";
+
+print LIBRARY <<HERE ;
+$libdir
+HERE
+
+close LIBRARY;
+
+output "ok\n";
+output "\n";

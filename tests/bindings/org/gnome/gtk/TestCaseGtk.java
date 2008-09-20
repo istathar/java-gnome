@@ -90,14 +90,14 @@ public abstract class TestCaseGtk extends TestCase
             } catch (InterruptedException e) {
                 // 
             }
-            Gtk.mainIterationDo(false);
+            GtkMain.mainIterationDo(false);
             try {
                 Thread.yield();
                 Thread.sleep(25);
             } catch (InterruptedException e) {
                 // 
             }
-        } while (Gtk.eventsPending());
+        } while (GtkMain.eventsPending());
     }
 
     /**
