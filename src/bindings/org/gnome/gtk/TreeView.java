@@ -418,6 +418,8 @@ public class TreeView extends Container
         GtkTreeView.collapseRow(this, path);
     }
 
+    private TreeSelection selection;
+
     /**
      * Get the TreeSelection object corresponding to this TreeView. Every
      * TreeView has a TreeSelection which is a utility instance allowing you
@@ -425,7 +427,10 @@ public class TreeView extends Container
      * method gives you access to it.
      */
     public TreeSelection getSelection() {
-        return GtkTreeView.getSelection(this);
+        if (selection == null) {
+            selection = GtkTreeView.getSelection(this);
+        }
+        return selection;
     }
 
     /**
