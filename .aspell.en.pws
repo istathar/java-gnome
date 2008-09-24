@@ -40,6 +40,7 @@ ButtonBox
 ButtonBoxStyle
 ButtonBoxes
 ButtonFactory
+ButtonPressEvent
 ButtonsType
 CCFLAGS
 CVS
@@ -594,6 +595,11 @@ ResponseType
 ResponseTypes
 Rietveld
 Rosenberger
+RowActivated
+RowActivatedSignal
+RowExpanded
+RowExpandedHandler
+RowExpandedSignal
 RuntimeException
 RuntimeExceptions
 SWT
@@ -604,6 +610,8 @@ ScreenshotQuestionMessageDialog
 ScrollLock
 ScrolledWindow
 ScrolledWindow's
+SelectAll
+SelectAllSignal
 SelectionMode
 Sep
 SeparatorMenuItem
@@ -892,6 +900,8 @@ cmd
 codebase
 codegen
 colAlign
+collapseAll
+collapseRow
 color
 commitComment
 committer
@@ -1096,6 +1106,7 @@ else's
 elsif
 emitChanged
 emitClicked
+emitRowActivated
 emitValueChanged
 emplace
 enclosingGroup
@@ -1178,6 +1189,7 @@ getAlignmentY
 getAllocation
 getAngle
 getArea
+getAtPosPath
 getBlinking
 getBlue
 getBoolean
@@ -1192,6 +1204,7 @@ getChildren
 getClass
 getCode
 getColumn
+getColumnAtPos
 getCoronationYear
 getCurrentFolder
 getCurrentPage
@@ -1286,6 +1299,7 @@ getPageTitle
 getPageType
 getParent
 getPath
+getPathAtPos
 getPixbuf
 getPixels
 getPointer
@@ -1632,6 +1646,7 @@ onPrepare
 onResponse
 onRowActivated
 onRowChanged
+onRowExpanded
 onSelectAll
 onSelectionChanged
 onSizeChanged
@@ -1736,7 +1751,9 @@ returnType
 revalidate
 revalidation
 rightAttach
+rowActivated
 rowAlign
+rowExpanded
 rowstride
 rpath
 rr

@@ -47,16 +47,30 @@ public final class EventButton extends Event
         return GdkKeyvalOverride.flagFor(GdkEventButton.getState(this));
     }
 
-    /*
-     * I'm not exposing these yet; why on earth are they double? If there's no
-     * good reason or it's legacy crap, we're going to change the return
-     * signature to int.
+    /**
+     * Get the horizontal location that this Event occured at, relative to the
+     * <code>[org.gnome.gdk]</code> Window.
+     * 
+     * @since 4.0.9
      */
-    double getX() {
-        return GdkEventButton.getX(this);
+    /*
+     * Why on earth are they double? No one has been able to give us a
+     * coherent answer, and all the C code examples I've seen relating to
+     * TreeView selections cast these fields to (gint) so we'll do the same.
+     * FUTURE if anyone does an Override for this, then do this in C so we
+     * save shipping the double across the boundary.
+     */
+    public int getX() {
+        return (int) GdkEventButton.getX(this);
     }
 
-    double getY() {
-        return GdkEventButton.getY(this);
+    /**
+     * Get the vertical location that this Event occured at, relative to the
+     * <code>[org.gnome.gdk]</code> Window.
+     * 
+     * @since 4.0.9
+     */
+    public int getY() {
+        return (int) GdkEventButton.getY(this);
     }
 }
