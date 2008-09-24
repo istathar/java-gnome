@@ -628,7 +628,7 @@ public abstract class Widget extends org.gnome.gtk.Object
 
     /**
      * Set the colour used for text background on this Widget. To change the
-     * foregorund colour of the text, use
+     * foreground colour of the text, use
      * {@link #modifyText(StateType, Color) modifyText()}.
      * 
      * <p>
@@ -1251,6 +1251,33 @@ public abstract class Widget extends org.gnome.gtk.Object
      * @since 4.0.8
      */
     public void connect(Widget.MapEvent handler) {
+        GtkWidget.connect(this, handler, false);
+    }
+
+    /**
+     * The signal emitted when the user presses the <b><code>Menu</code></b>
+     * key.
+     * 
+     * <p>
+     * This is usually used in conjunction with a
+     * <code>Widget.ButtonPressEvent</code> handler set up to intercept a
+     * right-click, with both handlers being written to call common code to
+     * populate and present a context menu.
+     * 
+     * @author Andrew Cowie
+     * @since 4.0.9
+     */
+    public interface PopupMenu extends GtkWidget.PopupMenuSignal
+    {
+        public boolean onPopupMenu(Widget source);
+    }
+
+    /**
+     * Hookup a <code>Widget.PopupMenu</code> handler.
+     * 
+     * @since 4.0.9
+     */
+    public void connect(Widget.PopupMenu handler) {
         GtkWidget.connect(this, handler, false);
     }
 }

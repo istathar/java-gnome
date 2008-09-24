@@ -41,6 +41,9 @@ ButtonBoxStyle
 ButtonBoxes
 ButtonFactory
 ButtonPressEvent
+ButtonPressEventSignal
+ButtonReleaseEvent
+ButtonReleaseEventSignal
 ButtonsType
 CCFLAGS
 CVS
@@ -139,6 +142,8 @@ EVERSION
 EditedHandler
 Eeek
 Emmanuele
+EnterNotifyEvent
+EnterNotifyEventSignal
 EnumValue
 ErrorMessageDialog
 Esfahbod
@@ -172,6 +177,8 @@ ExampleTreeViewListStore
 ExceptionClear
 ExceptionDescribe
 ExceptionOccurred
+ExposeEvent
+ExposeEventSignal
 FIXME
 FatalError
 FileChooser
@@ -187,6 +194,10 @@ FileNotFoundException
 FilenameFilter
 FillRule
 FindClass
+FocusInEvent
+FocusInEventSignal
+FocusOutEvent
+FocusOutEventSignal
 Formoso
 Fortin
 FreeDesktop
@@ -409,6 +420,7 @@ HashMap
 HashSet
 HelpWindow
 Henstridge
+HideSignal
 IDE
 IDE's
 IDEs
@@ -461,6 +473,10 @@ Katoomba
 Kedzierski
 KeyError
 KeyListener
+KeyPressEvent
+KeyPressEventSignal
+KeyReleaseEvent
+KeyReleaseEventSignal
 KeypadKeyval
 Keyval
 Keyval's
@@ -471,6 +487,8 @@ LDFLAGS
 LHR
 LargeLogo
 Laszlo
+LeaveNotifyEvent
+LeaveNotifyEventSignal
 LibGlade
 Libre
 LinearPattern
@@ -493,6 +511,8 @@ Mancke
 Manish
 Manu
 Manu's
+MapEvent
+MapEventSignal
 MenuBars
 MenuItem
 MenuItem's
@@ -559,6 +579,8 @@ Pixbufs
 PolicyType
 PopulatePopup
 PopulatePopupSignal
+PopupMenu
+PopupMenuSignal
 PositionType
 PowerResponseType
 Preetz
@@ -735,6 +757,8 @@ UTC
 UTF
 Ubuntu
 UnitTests
+UnmapEvent
+UnmapEventSignal
 UnsatisfiedLinkError
 UnsupportedOperationException
 VBox
@@ -754,6 +778,8 @@ ValidateReferenceCounting
 VerboseTestRunner
 VersionNumbers
 VirtualHost
+VisibilityNotifyEvent
+VisibilityNotifyEventSignal
 VisibilityState
 Vreixo
 Wallach
@@ -1196,6 +1222,8 @@ getBoolean
 getBorderWindowSize
 getBuffer
 getButton
+getCanDefault
+getCanFocus
 getChar
 getCharCount
 getChild
@@ -1803,6 +1831,7 @@ setBlinking
 setBorderWidth
 setBorderWindowSize
 setBuffer
+setCanDefault
 setCanFocus
 setCharAt
 setChildSecondary
