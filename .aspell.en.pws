@@ -1130,6 +1130,7 @@ elif
 ellipsized
 else's
 elsif
+emitActivate
 emitChanged
 emitClicked
 emitRowActivated
