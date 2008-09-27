@@ -1839,8 +1839,15 @@ if ($cc =~ /gcc/) {
 	if ( -x $ccache) {
 		print CONFIG "CCACHE=$ccache\n";
 	}
-	
-	print CONFIG "CC=$cc -g -Wall -fPIC $jni_include -Wno-int-to-pointer-cast -Wno-pointer-to-int-cast -DGTK_DISABLE_DEPRECATED -DGDK_DISABLE_DEPRECATED -DGDK_PIXBUF_DISABLE_DEPRECATED -DG_DISABLE_DEPRECATED -Werror-implicit-function-declaration -Wfatal-errors\n";
+
+	my $deprecations;
+	if ( -d ".bzr" ) {
+		$deprecations = "-DGTK_DISABLE_DEPRECATED -DGDK_DISABLE_DEPRECATED -DGDK_PIXBUF_DISABLE_DEPRECATED -DG_DISABLE_DEPRECATED";
+	} else {
+		$deprecations = "";
+	}
+
+	print CONFIG "CC=$cc -g -Wall -fPIC $jni_include -Wno-int-to-pointer-cast -Wno-pointer-to-int-cast $deprecations -Werror-implicit-function-declaration -Wfatal-errors\n";
 	print CONFIG "CC_CMD=GCC      \n";
 	print CONFIG "LINK=$cc -g -shared -Wall -fPIC\n";
 	print CONFIG "LINK_CMD=LINK     \n";
