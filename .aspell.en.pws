@@ -40,6 +40,10 @@ ButtonBox
 ButtonBoxStyle
 ButtonBoxes
 ButtonFactory
+ButtonPressEvent
+ButtonPressEventSignal
+ButtonReleaseEvent
+ButtonReleaseEventSignal
 ButtonsType
 CCFLAGS
 CVS
@@ -138,6 +142,8 @@ EVERSION
 EditedHandler
 Eeek
 Emmanuele
+EnterNotifyEvent
+EnterNotifyEventSignal
 EnumValue
 ErrorMessageDialog
 Esfahbod
@@ -171,6 +177,8 @@ ExampleTreeViewListStore
 ExceptionClear
 ExceptionDescribe
 ExceptionOccurred
+ExposeEvent
+ExposeEventSignal
 FIXME
 FatalError
 FileChooser
@@ -186,6 +194,10 @@ FileNotFoundException
 FilenameFilter
 FillRule
 FindClass
+FocusInEvent
+FocusInEventSignal
+FocusOutEvent
+FocusOutEventSignal
 Formoso
 Fortin
 FreeDesktop
@@ -408,6 +420,7 @@ HashMap
 HashSet
 HelpWindow
 Henstridge
+HideSignal
 IDE
 IDE's
 IDEs
@@ -460,6 +473,10 @@ Katoomba
 Kedzierski
 KeyError
 KeyListener
+KeyPressEvent
+KeyPressEventSignal
+KeyReleaseEvent
+KeyReleaseEventSignal
 KeypadKeyval
 Keyval
 Keyval's
@@ -470,6 +487,8 @@ LDFLAGS
 LHR
 LargeLogo
 Laszlo
+LeaveNotifyEvent
+LeaveNotifyEventSignal
 LibGlade
 Libre
 LinearPattern
@@ -492,6 +511,8 @@ Mancke
 Manish
 Manu
 Manu's
+MapEvent
+MapEventSignal
 MenuBars
 MenuItem
 MenuItem's
@@ -558,6 +579,8 @@ Pixbufs
 PolicyType
 PopulatePopup
 PopulatePopupSignal
+PopupMenu
+PopupMenuSignal
 PositionType
 PowerResponseType
 Preetz
@@ -594,6 +617,11 @@ ResponseType
 ResponseTypes
 Rietveld
 Rosenberger
+RowActivated
+RowActivatedSignal
+RowExpanded
+RowExpandedHandler
+RowExpandedSignal
 RuntimeException
 RuntimeExceptions
 SWT
@@ -604,6 +632,8 @@ ScreenshotQuestionMessageDialog
 ScrollLock
 ScrolledWindow
 ScrolledWindow's
+SelectAll
+SelectAllSignal
 SelectionMode
 Sep
 SeparatorMenuItem
@@ -727,6 +757,8 @@ UTC
 UTF
 Ubuntu
 UnitTests
+UnmapEvent
+UnmapEventSignal
 UnsatisfiedLinkError
 UnsupportedOperationException
 VBox
@@ -746,6 +778,8 @@ ValidateReferenceCounting
 VerboseTestRunner
 VersionNumbers
 VirtualHost
+VisibilityNotifyEvent
+VisibilityNotifyEventSignal
 VisibilityState
 Vreixo
 Wallach
@@ -892,6 +926,8 @@ cmd
 codebase
 codegen
 colAlign
+collapseAll
+collapseRow
 color
 commitComment
 committer
@@ -1094,8 +1130,10 @@ elif
 ellipsized
 else's
 elsif
+emitActivate
 emitChanged
 emitClicked
+emitRowActivated
 emitValueChanged
 emplace
 enclosingGroup
@@ -1178,12 +1216,15 @@ getAlignmentY
 getAllocation
 getAngle
 getArea
+getAtPosPath
 getBlinking
 getBlue
 getBoolean
 getBorderWindowSize
 getBuffer
 getButton
+getCanDefault
+getCanFocus
 getChar
 getCharCount
 getChild
@@ -1192,6 +1233,7 @@ getChildren
 getClass
 getCode
 getColumn
+getColumnAtPos
 getCoronationYear
 getCurrentFolder
 getCurrentPage
@@ -1286,6 +1328,7 @@ getPageTitle
 getPageType
 getParent
 getPath
+getPathAtPos
 getPixbuf
 getPixels
 getPointer
@@ -1632,6 +1675,7 @@ onPrepare
 onResponse
 onRowActivated
 onRowChanged
+onRowExpanded
 onSelectAll
 onSelectionChanged
 onSizeChanged
@@ -1736,7 +1780,9 @@ returnType
 revalidate
 revalidation
 rightAttach
+rowActivated
 rowAlign
+rowExpanded
 rowstride
 rpath
 rr
@@ -1786,6 +1832,7 @@ setBlinking
 setBorderWidth
 setBorderWindowSize
 setBuffer
+setCanDefault
 setCanFocus
 setCharAt
 setChildSecondary

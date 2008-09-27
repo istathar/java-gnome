@@ -132,6 +132,18 @@ public class Action extends Object
     }
 
     /**
+     * Create a new Action based on a Stock item, and connect a handler to its
+     * <code>Action.Activate</code> signal. Complements the
+     * {@link #Action(String, Stock) &lt;init&gt;(String, Stock)} constructor.
+     * 
+     * @since 4.0.9
+     */
+    public Action(String name, Stock stock, Action.Activate handler) {
+        super(GtkAction.createAction(name, null, null, stock.getStockId()));
+        connect(handler);
+    }
+
+    /**
      * Create a new Action, and connect a handler to its
      * <code>Action.Activate</code> signal.
      * 
