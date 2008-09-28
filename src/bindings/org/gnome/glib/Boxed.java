@@ -11,7 +11,7 @@
  */
 package org.gnome.glib;
 
-import org.freedesktop.bindings.Proxy;
+import org.freedesktop.bindings.Pointer;
 
 /**
  * Parent class of proxied structures. Java side, these behave like normal
@@ -34,36 +34,15 @@ import org.freedesktop.bindings.Proxy;
  * whether we are owner of the <code>GBoxed</code> or not...</i>
  * 
  * @author Andrew Cowie
+ * @author Vreixo Formoso
  * @since 4.0.0
  */
 /*
  * WARNING This is not fully implemented.
  */
-public abstract class Boxed extends Proxy
+public abstract class Boxed extends Pointer
 {
-    /*
-     * Default true, which is the case for most instances. TODO True?
-     */
-    boolean owner = true;
-
     protected Boxed(long pointer) {
         super(pointer);
-    }
-
-    /**
-     * Check to see if we are the owner of this Boxed. Call the underlying
-     * <code>free()</code> if we are, then carry on to
-     * {@link org.freedesktop.bindings.Proxy#finalize() Proxy's finalize()}.
-     */
-    /*
-     * This is a placeholder to remind us of the cleanup actions that will be
-     * necessary, irrespective of the finalizer technique used.
-     */
-    protected void finalize() {
-        if (owner) {
-            release();
-            owner = false;
-        }
-        super.finalize();
     }
 }

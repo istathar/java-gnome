@@ -47,7 +47,7 @@ import org.gnome.glib.Boxed;
  * @author Vreixo Formoso
  * @since 4.0.5
  */
-public class TreeIter extends Boxed
+public final class TreeIter extends Boxed
 {
     private TreeModel model;
 
