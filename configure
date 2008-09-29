@@ -1893,7 +1893,7 @@ while (<SOURCE>) {
 	if (/.* APIVERSION = \"([\d\.]+)\";/) {
 		$apiversion = $1;
 	}
-	if (/.* VERSION = \"([\d\.]+)\";/) {
+	if (/.* VERSION = \"([\d\.\-rc]+)\";/) {
 		$version = $1;
 	}
 }
