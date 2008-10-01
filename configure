@@ -503,6 +503,7 @@ HERE
 
 my $prefix;
 my $libdir;
+my $jardir;
 my $compiler;
 my $runtime;
 my $jdk_home;
@@ -538,6 +539,9 @@ HERE
 	} elsif (($key =~ /^--libdir$/) ||
 		 ($key =~ /^libdir$/)) {
 		$libdir="$value";
+	} elsif (($key =~ /^--jardir$/) ||
+		 ($key =~ /^jardir$/)) {
+		$jardir="$value";
 	} elsif ($key =~ /^runtime/) {
 		$runtime="$value";
 	} elsif ($key =~ /^compiler/) {
@@ -1879,6 +1883,10 @@ if (!$libdir) {
 	$libdir = "$prefix/lib";
 }
 print CONFIG "LIBDIR=$libdir\n";
+if (!$jardir) {
+	$jardir = "$prefix/share/java";
+}
+print CONFIG "JARDIR=$jardir\n";
 
 # --------------------------------------------------------------------
 # Get version constant
@@ -1939,6 +1947,20 @@ open LIBRARY, ">.libdir";
 
 print LIBRARY <<HERE ;
 $libdir
+HERE
+
+close LIBRARY;
+
+# --------------------------------------------------------------------
+# Output text file with jar location
+# --------------------------------------------------------------------
+
+output " - jar location";
+
+open JAR, ">.jardir";
+
+print JAR <<HERE ;
+$jardir
 HERE
 
 close LIBRARY;
