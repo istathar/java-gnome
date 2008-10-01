@@ -1963,7 +1963,7 @@ print JAR <<HERE ;
 $jardir
 HERE
 
-close LIBRARY;
+close JAR;
 
 output "ok\n";
 output "\n";
