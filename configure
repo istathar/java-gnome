@@ -112,14 +112,14 @@ sub check_system_library(\@$$@) {
 	my $str = "";
 	my $tries = "";
 
-	$found = system("pkg-config --exists $pkgconfig");
+	$found = system("pkg-config --exists '$pkgconfig'");
 
 	if ($found) {
-
-		$str = "In order to build java-gnome, you will need the GNOME\n";
+		$str .= `pkg-config --modversion --errors-to-stdout '$pkgconfig'`;
+		$str .= "\nIn order to build java-gnome, you will need the GNOME\n";
 		$str .= "development libraries. Depending on what you have installed,\n";
 		$str .= "this could be a considerable set of packages, but if you\n";
-		$str .= "want to be a GNOME hacker, that's the way it is].\n\n";
+		$str .= "want to be a GNOME hacker, that's the way it is.\n\n";
 
 		$str .= "On a ".ucfirst($os)." system, you should be able to satisfy this\n";
 		$str .= "requirement by doing:\n\n";
@@ -739,7 +739,7 @@ output "\nCheck for required system libraries:\n";
 
 if ($os eq "gentoo") {
 	check_system_library(@gnomedev_libs,
-			"gtk+-2.0 pango atk gdk-2.0 libglade-2.0 gtk+-unix-print-2.0",
+			"gtk+-2.0 >= 2.12.11 pango atk gdk-2.0 libglade-2.0 >= 2.6.3 gtk+-unix-print-2.0 cairo-svg >= 1.6.4",
 			"GNOME",
 			"gnome");
 
