@@ -111,12 +111,14 @@ sub check_system_library(\@$$@) {
 	my $found;
 	my $str = "";
 	my $tries = "";
+	my $pkgconfigout = "";
 
-	$found = system("pkg-config --exists $pkgconfig");
+	$found = system("pkg-config --exists '$pkgconfig'");
+	$pkgconfigout = `pkg-config --modversion --errors-to-stdout '$pkgconfig'`;
 
 	if ($found) {
-
-		$str = "In order to build java-gnome, you will need the GNOME\n";
+		$str .= $pkgconfigout;
+		$str .= "\nIn order to build java-gnome, you will need the GNOME\n";
 		$str .= "development libraries. Depending on what you have installed,\n";
 		$str .= "this could be a considerable set of packages, but if you\n";
 		$str .= "want to be a GNOME hacker, that's the way it is].\n\n";
