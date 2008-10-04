@@ -115,8 +115,11 @@ sub check_system_library(\@$$@) {
 	$found = system("pkg-config --exists '$pkgconfig'");
 
 	if ($found) {
-		$str .= `pkg-config --modversion --errors-to-stdout '$pkgconfig'`;
-		$str .= "\nIn order to build java-gnome, you will need the GNOME\n";
+		my $msg;
+
+		$msg = `pkg-config --modversion --errors-to-stdout '$pkgconfig'`;
+		$str .= "$msg\n" if ($msg =~ /^Requested /);
+		$str .= "In order to build java-gnome, you will need the GNOME\n";
 		$str .= "development libraries. Depending on what you have installed,\n";
 		$str .= "this could be a considerable set of packages, but if you\n";
 		$str .= "want to be a GNOME hacker, that's the way it is.\n\n";
@@ -745,7 +748,7 @@ if ($os eq "gentoo") {
 
 } elsif ($os eq "debian") {
 	check_system_library(@gnomedev_libs,
-			"gtk+-2.0",
+			"gtk+-2.0 >= 2.12.11",
 			"GTK+",
 			"libgtk2.0-dev");
 
@@ -776,7 +779,7 @@ if ($os eq "gentoo") {
 
 } elsif ($os eq "suse") {
 	check_system_library(@gnomedev_libs,
-			"gtk+-2.0 pango atk gdk-2.0 gtk+-unix-print-2.0",
+			"gtk+-2.0 >= 2.12.0 pango atk gdk-2.0 gtk+-unix-print-2.0",
 			"GNOME development libraries",
 			"libgnome-devel");
 	check_system_library(@gnomedev_libs,
@@ -786,7 +789,7 @@ if ($os eq "gentoo") {
 
 } elsif ($os eq "mandriva") {
 	check_system_library(@gnomedev_libs,
-			"gtk+-2.0 pango atk gdk-2.0 gtk+-unix-print-2.0",
+			"gtk+-2.0 >= 2.12.0 pango atk gdk-2.0 gtk+-unix-print-2.0",
 			"GTK development libraries",
 			"libgtk+2.0_0-devel");
 	check_system_library(@gnomedev_libs,
