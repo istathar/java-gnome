@@ -46,4 +46,19 @@ public final class CrossingMode extends Constant
      * Event occurred because an ungrab happened.
      */
     public static final CrossingMode UNGRAB = new CrossingMode(GdkCrossingMode.UNGRAB, "UNGRAB");
+
+    /**
+     * Event occurred because a GTK+ grab happened.
+     */
+    public static final CrossingMode GTK_GRAB = new CrossingMode(GdkCrossingMode.GTK_GRAB, "GTK_GRAB");
+
+    /**
+     * Event occurred because a GTK+ ungrab happened.
+     */
+    public static final CrossingMode GTK_UNGRAB = new CrossingMode(GdkCrossingMode.GTK_UNGRAB, "GTK_UNGRAB");
+
+    /**
+     * Event occurred because a GTK+ widget changed state.
+     */
+    public static final CrossingMode STATE_CHANGED = new CrossingMode(GdkCrossingMode.STATE_CHANGED, "STATE_CHANGED");
 }
