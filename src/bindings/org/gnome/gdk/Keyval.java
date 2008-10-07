@@ -25,38 +25,39 @@ import org.freedesktop.bindings.Constant;
  * It is important to note that lower case and upper case letters are
  * considered different keys even though most keyboards present but a single
  * physical button with an <b><code>A</code></b> showing. Think of that
- * physical key as having both an <b><code>a</code></b> and an <b><code>A</code></b>
- * printed on it, with the second being the key reached if the <b><code>Shift</code></b>
- * modifier is held down. Have a look at the {@link ModifierType} class for a
- * discussion of how to deal with the modifying keys and for a better
- * understanding of the sequence in which key events occur.
+ * physical key as having both an <b><code>a</code></b> and an <b>
+ * <code>A</code></b> printed on it, with the second being the key reached if
+ * the <b><code>Shift</code></b> modifier is held down. Have a look at the
+ * {@link ModifierType} class for a discussion of how to deal with the
+ * modifying keys and for a better understanding of the sequence in which key
+ * events occur.
  * 
  * <p>
- * Looking for <b><code>1</code></b> through <b><code>9</code></b>?
- * See {@link #Num0 Num0} to {@link #Num0 Num9}.
+ * Looking for <b><code>1</code></b> through <b><code>9</code></b>? See
+ * {@link #Num0 Num0} to {@link #Num0 Num9}.
  * 
  * <p>
  * The correlation between keys and Unicode characters is a complex one. For
  * basic western ISO Latin letters the keys we press and the characters we get
  * are, to all intents and purposes, one and the same. But there are many
  * thousands of additional characters for which you probably don't have keys
- * for, even if you have (or have mapped something to be) the <b><code>Compose</code></b>
- * key for taking the composite of several keystrokes to generate special
- * characters. Just remember that Keyvals are <i>key</i> constants, not
- * constants for every <i>unicode</i> character and you'll keep things
- * straight.
+ * for, even if you have (or have mapped something to be) the <b>
+ * <code>Compose</code></b> key for taking the composite of several keystrokes
+ * to generate special characters. Just remember that Keyvals are <i>key</i>
+ * constants, not constants for every <i>unicode</i> character and you'll keep
+ * things straight.
  * 
  * <p>
- * <i>GDK deals with keyvals exclusively as <code>int</code>s, and there
- * are over 1700 of them. Most of these "keys" are ridiculous or apply to
- * hardware that has long since ceased to exist. We've deliberately
- * constrained this class to a narrow range; experience in 2.x showed that
- * even mighty Eclipse chokes when asked to complete from a list that big.
- * This leads us to two consequences. 1) Constants will be registered for
- * keyvals encountered that haven't been explicitly created here, so you don't
- * have to worry about some nasty RuntimeException kicking your ass. 2) You
- * can extend this Keyval class as necessary to create your own constants if
- * you need to. See</i> {@link KeypadKeyval} <i>for an example.</i>
+ * <i>GDK deals with keyvals exclusively as <code>int</code>s, and there are
+ * over 1700 of them. Most of these "keys" are ridiculous or apply to hardware
+ * that has long since ceased to exist. We've deliberately constrained this
+ * class to a narrow range; experience in 2.x showed that even mighty Eclipse
+ * chokes when asked to complete from a list that big. This leads us to two
+ * consequences. 1) Constants will be registered for keyvals encountered that
+ * haven't been explicitly created here, so you don't have to worry about some
+ * nasty RuntimeException kicking your ass. 2) You can extend this Keyval
+ * class as necessary to create your own constants if you need to. See</i>
+ * {@link KeypadKeyval} <i>for an example.</i>
  * 
  * @author Andrew Cowie
  * @since 4.0.6

@@ -16,8 +16,8 @@ import org.freedesktop.bindings.Constant;
 /**
  * Constants indicating hints you can provide to the window manager about what
  * the nature and purpose of a given Window is. While this is in the GDK
- * package, its primary use is for designating the purpose of top level [<code>org.gnome.gtk</code>]
- * Windows via
+ * package, its primary use is for designating the purpose of top level
+ * <code>[org.gnome.gtk]</code> Windows via
  * {@link org.gnome.gtk.Window#setTypeHint(WindowTypeHint) setTypeHint()}.
  * 
  * @author Andrew Cowie
@@ -45,8 +45,8 @@ public final class WindowTypeHint extends Constant
      * 
      * <p>
      * This setting is excellent for secondary windows. The key question is
-     * "should I be able to <b><code>Alt+Tab</code></b> to this Window?"
-     * If it's not the real application, per se, then the answer is "probably
+     * "should I be able to <b><code>Alt+Tab</code></b> to this Window?" If
+     * it's not the real application, per se, then the answer is "probably
      * not" and the Window should be marked <code>UTILITY</code>.
      * 
      * @since 4.0.8

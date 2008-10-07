@@ -27,13 +27,13 @@ import org.freedesktop.bindings.Proxy;
  * 
  * <p>
  * <i>Methods here provide the mechanism to get and set "properties" on the
- * underlying <code>GObject</code>s. As a deliberate design decision to
- * ensure type safety, however, these are not exposed for public use. To offer
- * a getter or setter for a property, a java-gnome subclass must expose an
- * explicitly named method. For example, to set the</i> "<code>righteous</code>"
- * <i>property, (assuming that the <code>GObject</code> in question has such
- * a property, that it is writable, and that it takes a string), create a
- * method like this:</i>
+ * underlying <code>GObject</code>s. As a deliberate design decision to ensure
+ * type safety, however, these are not exposed for public use. To offer a
+ * getter or setter for a property, a java-gnome subclass must expose an
+ * explicitly named method. For example, to set the</i> <var>righteous</var>
+ * <i>property, (assuming that the <code>GObject</code> in question has such a
+ * property, that it is writable, and that it takes a string), create a method
+ * like this:</i>
  * 
  * <pre>
  * public void setRighteous(String value) {
@@ -76,20 +76,6 @@ public abstract class Object extends Proxy
             System.err.flush();
         }
         GObject.addToggleRef(this);
-    }
-
-    /**
-     * Take the actions necessary to release our reference to the underlying
-     * GObject, then carry on to
-     * {@link org.freedesktop.bindings.Proxy#finalize() Proxy's finalize()}.
-     */
-    /*
-     * This is a placeholder to remind us of the cleanup actions that will be
-     * necessary, irrespective of the finalizer technique used.
-     */
-    protected void finalize() {
-        release();
-        super.finalize();
     }
 
     /**

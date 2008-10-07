@@ -33,8 +33,8 @@ public class MouseButton extends Constant
     public static final MouseButton LEFT = new MouseButton(1, "LEFT");
 
     /**
-     * A "centre click", mouse button <code>2</code>. Some mice don't have
-     * a middle button; in such cases your X server may be configured to
+     * A "centre click", mouse button <code>2</code>. Some mice don't have a
+     * middle button; in such cases your X server may be configured to
      * generate the middle button press if you press both right and left
      * simultaneously. Mice with scroll wheels will often generated this
      * button if the wheel is clicked (not scrolled, but pressed).

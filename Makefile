@@ -47,15 +47,17 @@ $(DESTDIR)$(PREFIX)/.java-gnome-install-dirs:
 
 install-java: build-java \
 	$(DESTDIR)$(PREFIX)/share/java/gtk-$(APIVERSION).jar \
-	$(DESTDIR)$(LIBDIR)/libgtkjni-$(APIVERSION).so
+	$(DESTDIR)$(LIBDIR)/libgtkjni-$(VERSION).so
 
 $(DESTDIR)$(PREFIX)/share/java/gtk-$(APIVERSION).jar: tmp/gtk-$(APIVERSION).jar
 	@echo -e "INSTALL\t$@"
 	cp -f $< $@
+	@echo -e "JAR\t$@"
+	jar uf $@ .libdir
 	@echo -e "SYMLINK\t$(@D)/gtk.jar -> gtk-$(APIVERSION).jar"
 	cd $(@D) && rm -f gtk.jar && ln -s gtk-$(APIVERSION).jar gtk.jar
 	
-$(DESTDIR)$(LIBDIR)/libgtkjni-$(APIVERSION).so: tmp/libgtkjni-$(APIVERSION).so
+$(DESTDIR)$(LIBDIR)/libgtkjni-$(VERSION).so: tmp/libgtkjni-$(VERSION).so
 	@echo -e "INSTALL\t$@"
 	cp -f $< $@
 
@@ -109,12 +111,11 @@ clean:
 	rm -f hs_err_*
 	@echo -e "RM\tbuilt .jar and .so"
 	rm -f tmp/gtk-*.jar \
-		tmp/libgtkjni-*.so \
-		tmp/libgtkjava-*.so
+		tmp/libgtkjni-*.so
 
 distclean: clean
 	@echo -e "RM\tbuild configuration information"
-	-rm -f .config .config.tmp
+	-rm -f .config .config.tmp .libdir
 	@echo -e "RM\tgenerated documentation"
 	-rm -rf doc/api/*
 	-rm -f java-gnome-*.tar.bz2
@@ -131,7 +132,7 @@ distclean: clean
 
 ifdef ECLIPSE
 else
-ECLIPSE=/usr/bin/eclipse-3.3
+ECLIPSE=/usr/bin/eclipse-3.4
 endif
 
 ifdef V

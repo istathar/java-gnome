@@ -25,14 +25,14 @@ import org.gnome.glib.Boxed;
  * <p>
  * Before the request-allocation process has occurred, you can expect this
  * class to report a size of <code>1</code>x<code>1</code> at position
- * <code>-1</code>,<code>-1</code>. You probably don't want to rely on
- * those numbers; but that's what the initial values are.
+ * <code>-1</code>,<code>-1</code>. You probably don't want to rely on those
+ * numbers; but that's what the initial values are.
  * 
  * <p>
- * <i>This object is a live reference to the <code>allocation</code> field
- * in the <code>GtkWidget</code> struct and so calling the getter methods
- * will yield correct current values once you've got the Allocation object for
- * the Widget in question.</i>
+ * <i>This object is a live reference to the <code>allocation</code> field in
+ * the <code>GtkWidget</code> struct and so calling the getter methods will
+ * yield correct current values once you've got the Allocation object for the
+ * Widget in question.</i>
  * 
  * @author Andrew Cowie
  * @since 4.0.6

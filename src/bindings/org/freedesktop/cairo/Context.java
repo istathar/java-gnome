@@ -45,10 +45,10 @@ import org.gnome.gdk.Drawable;
  * It is somewhat traditional to call your Context <code>cr</code>.
  * 
  * <p>
- * All of the methods on Context take arguments of type <code>double</code>
- * to represent co-ordinates, angles, colours, transparency levels, etc.
- * Colours are represented as values between <code>0.0</code> and
- * <code>0.1</code>, for example:
+ * All of the methods on Context take arguments of type <code>double</code> to
+ * represent co-ordinates, angles, colours, transparency levels, etc. Colours
+ * are represented as values between <code>0.0</code> and <code>0.1</code>,
+ * for example:
  * 
  * <pre>
  * cr.setSourceRGB(1.0, 0.0, 0.0);
@@ -162,8 +162,8 @@ public class Context extends Entity
      * Set the source pattern within this Context to a translucent colour. The
      * parameters each take the range <code>0.0</code> to <code>1.0</code>.
      * For the <code>alpha</code> parameter, a value of <code>0.0</code>
-     * indicates full transparency, and <code>1.0</code> is full opacity
-     * (ie, normal).
+     * indicates full transparency, and <code>1.0</code> is full opacity (ie,
+     * normal).
      * 
      * @since 4.0.7
      */
@@ -238,7 +238,11 @@ public class Context extends Entity
         result = CairoContext.getSource(this);
         checkStatus();
 
-        return result;
+        /*
+         * FIXME If result was already proxied, this adds an extra ref
+         * and will cause a memory leak 
+         */
+        return CairoPattern.reference(result);
     }
 
     /**
@@ -246,8 +250,8 @@ public class Context extends Entity
      * 
      * <p>
      * <i>Yes, this method has a stupid name. It really should be
-     * <code>getSurface()</code>. So many people have a hard time finding
-     * the generic method that allows you to get to the Surface that they're
+     * <code>getSurface()</code>. So many people have a hard time finding the
+     * generic method that allows you to get to the Surface that they're
      * considering renaming this to <code>cairo_get_surface</code> in Cairo
      * itself, but until they do, we'll stick with the algorithmic mapping of
      * <code>cairo_get_target</code>.</i>
@@ -297,8 +301,8 @@ public class Context extends Entity
      * is a convenience method.
      * 
      * <p>
-     * <code>x</code>,<code>y</code> define where, in user-space
-     * coordinates, that the Pattern should appear.
+     * <code>x</code>,<code>y</code> define where, in user-space coordinates,
+     * that the Pattern should appear.
      * 
      * <p>
      * You can get the Pattern that was created internally by calling this
@@ -314,8 +318,8 @@ public class Context extends Entity
 
     /**
      * Draw a (closed) rectangular sub-path. The rectangle will be at
-     * <code>x</code>,<code>y</code> in user-space coordinates of the
-     * given <code>width</code> and <code>height</code>.
+     * <code>x</code>,<code>y</code> in user-space coordinates of the given
+     * <code>width</code> and <code>height</code>.
      * 
      * @since 4.0.7
      */
@@ -337,8 +341,8 @@ public class Context extends Entity
      * the path to connect the current point to the beginning of the arc.
      * 
      * <p>
-     * Angles are measured in radians. An angle of <code>0.0</code> is in
-     * the direction of the positive <i>x</i> axis. An angle of
+     * Angles are measured in radians. An angle of <code>0.0</code> is in the
+     * direction of the positive <i>x</i> axis. An angle of
      * <code>&pi;/2</code> radians (90&deg;) is in the direction of the
      * positive <i>y</i> axis. Angles increase in the direction from the
      * positive <i>x</i> axis toward the positive </i> axis, increasing in a
@@ -346,8 +350,8 @@ public class Context extends Entity
      * 
      * <p>
      * This function gives the arc in the direction of increasing angles; see
-     * {@link #arcNegative(double, double, double, double, double) arcNegative()}
-     * to go the other direction.
+     * {@link #arcNegative(double, double, double, double, double)
+     * arcNegative()} to go the other direction.
      * 
      * @since 4.0.7
      */
@@ -378,8 +382,8 @@ public class Context extends Entity
     /**
      * Fill the current path, implicitly closing sub-paths first. The drawing
      * will be done according to the current FillRule. The path will be
-     * cleared after calling <code>fill()</code>; if you want to keep it
-     * use {@link #fillPreserve() fillPreserve()} instead.
+     * cleared after calling <code>fill()</code>; if you want to keep it use
+     * {@link #fillPreserve() fillPreserve()} instead.
      * 
      * @since 4.0.7
      */

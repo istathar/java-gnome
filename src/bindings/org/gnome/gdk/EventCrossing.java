@@ -30,8 +30,8 @@ public final class EventCrossing extends Event
     /**
      * Describes the mode of this EventCrossing: whether the event is a
      * {@link CrossingMode#NORMAL NORMAL} one or a pseudo-motion one resulting
-     * from a {@link CrossingMode#GRAB GRAB} or
-     * {@link CrossingMode#UNGRAB UNGRAB}.
+     * from a {@link CrossingMode#GRAB GRAB} or {@link CrossingMode#UNGRAB
+     * UNGRAB}.
      * 
      * @since 4.0.7
      */
@@ -42,8 +42,8 @@ public final class EventCrossing extends Event
     /**
      * Describes the relationship between the Window from which the mouse
      * pointer left, and the Window which the mouse pointer entered. Most
-     * often you'll see is {@link NotifyType#NONLINEAR NONLINEAR}, which
-     * tells you that the pointer moved between unrelated X Windows.
+     * often you'll see is {@link NotifyType#NONLINEAR NONLINEAR}, which tells
+     * you that the pointer moved between unrelated X Windows.
      * 
      * @since 4.0.7
      */

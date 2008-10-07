@@ -50,8 +50,8 @@ package org.gnome.gtk;
  * and so will end up using a DataColumnString anyway.
  * 
  * <p>
- * Keep in mind that you do <i>not</i> need to store all your application
- * data in the TreeModel. After all, you already have a perfectly sound (and
+ * Keep in mind that you do <i>not</i> need to store all your application data
+ * in the TreeModel. After all, you already have a perfectly sound (and
  * infinitely more powerful) means to model and represent your data: the Java
  * language you're working from in the first place. You only need to push data
  * into a TreeModel that will be directly displayed by a TreeView or that will

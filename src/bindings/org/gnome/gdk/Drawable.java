@@ -14,10 +14,10 @@ package org.gnome.gdk;
 import org.gnome.glib.Object;
 
 /**
- * Drawable is notable for being the parent class of both [<code>org.gnome.gdk</code>]
- * Window (representing the native server-side on-screen resources behind a
- * Widget) and [<code>org.gnome.gdk</code>] Pixmap (a general server-side
- * but off-screen area you can draw to).
+ * Drawable is notable for being the parent class of both
+ * <code>[org.gnome.gdk]</code> Window (representing the native server-side
+ * on-screen resources behind a Widget) and <code>[org.gnome.gdk]</code>
+ * Pixmap (a general server-side but off-screen area you can draw to).
  * 
  * @author Andrew Cowie
  * @since 4.0.6

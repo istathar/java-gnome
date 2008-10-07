@@ -47,7 +47,7 @@ verbose = False
 silent = False
 
 configFile = ".config"
-versionFile = "src/bindings/org/gnome/gtk/Version.java"
+versionFile = "src/bindings/org/freedesktop/bindings/Version.java"
 hashFile = "tmp/.hashes"
 lockFile = "tmp/.build"
 
@@ -342,23 +342,18 @@ def compileJavaCode(outputDir, classpath, sourcepath, sources):
 		cmd += " -sourcepath " + sourcepath
 	cmd += " " + " ".join(sources)
 
-	blurb = ""
-	for path in sourcepath.split(":"):
-		if blurb:
-			blurb += ", "
-		blurb += path + "*.java"
+	blurb = "\n\t".join(sources)
 
 	executeCommand(config['JAVAC_CMD'], blurb, cmd)
 
 
-def runJavaClass(classname, classpath, librarypath=""):
+def runJavaClass(classname, classpath, args=""):
 	cmd = config['JAVA'] + " "
 	cmd += "-classpath " + classpath + " "
-	if librarypath:
-		cmd += "-Djava.library.path=" + librarypath + " "
 	cmd += classname
-	if not librarypath and not verbose:
-		cmd += " >/dev/null"
+
+	if args:
+		cmd += " " + args
 
 	executeCommand(config['JAVA_CMD'], classname, cmd)
 
@@ -375,6 +370,7 @@ def generateTranslationAndJniLayers():
 	list = findFiles("tmp/generator", ".class")
 	list += findFiles("src/defs", ".defs")
 	stamp = "tmp/stamp/generator"
+	redirect = ""
 
 	pairs = dependsListToSingleTarget(list, stamp)
 
@@ -382,13 +378,16 @@ def generateTranslationAndJniLayers():
 	if not changed:
 		return
 
-	runJavaClass("BindingsGenerator", "tmp/generator/", "")
+	if not verbose:
+		redirect = "> /dev/null"
+
+	runJavaClass("BindingsGenerator", "tmp/generator/", redirect)
 	touchFile(stamp)
 
 
 def compileBindingsClasses():
-	pairs = dependsMapSourceFilesToTargetFiles("src/bindings/", ".java", "tmp/bindings/", ".class")
-	pairs += dependsMapSourceFilesToTargetFiles("generated/bindings/", ".java", "tmp/bindings/", ".class")
+	pairs = dependsMapSourceFilesToTargetFiles("generated/bindings/", ".java", "tmp/bindings/", ".class")
+	pairs += dependsMapSourceFilesToTargetFiles("src/bindings/", ".java", "tmp/bindings/", ".class")
 
 	changed = filesNeedBuilding(pairs)
 	if not changed:
@@ -438,9 +437,11 @@ def makeJarFile():
 
 def generateHeaderFiles():
 	list = findFiles("tmp/bindings/", ".class")
-	map = {}
+	map_c = {}
+	map_h = {}
 	pairs = []
 	classes = []
+	headers = []
 
 	for file in list:
 		if file.find("$") != -1:
@@ -455,14 +456,16 @@ def generateHeaderFiles():
 		t = "tmp/include/" + t
 
 		pairs.append((file, t))
-		map[file] = c
+		map_c[file] = c
+		map_h[file] = t
 
 	changed = filesNeedBuilding(pairs)
 	if not changed:
 		return
 
 	for file in changed:
-		classes.append(map[file])
+		classes.append(map_c[file])
+		headers.append(map_h[file])
 	
 	cmd = config['JAVAH'] + " "
 	if verbose:
@@ -473,7 +476,9 @@ def generateHeaderFiles():
 	if not verbose:
 		cmd += " >/dev/null"
 
-	executeCommand(config['JAVAH_CMD'], "tmp/include/*.h", cmd)
+	blurb = "\n\t".join(headers)
+
+	executeCommand(config['JAVAH_CMD'], blurb, cmd)
 
 
 def compileCSourceToObject(source, target):
@@ -502,7 +507,7 @@ def compileBindingsObjects():
 
 	
 def linkSharedLibrary():
-	so = "tmp/libgtkjni-4.0.so"
+	so = "tmp/libgtkjni-" + config['VERSION'] +  ".so"
 
 	list = findFiles("tmp/objects/", ".o")
 	pairs = dependsListToSingleTarget(list, so)
@@ -651,7 +656,7 @@ def compileDocumentation():
 
 
 def takeSnapshots():
-	runJavaClass("Harness", "tmp/gtk-4.0.jar:tmp/tests/", "tmp/")
+	runJavaClass("Harness", "tmp/gtk-4.0.jar:tmp/tests/")
 
 
 def generateDocumentation():
@@ -664,10 +669,10 @@ def generateDocumentation():
 #
 
 def runTests():
-	runJavaClass("UnitTests", "tmp/gtk-4.0.jar:tmp/generator/:tmp/tests/:"+config['JUNIT_JARS'], "tmp/")
+	runJavaClass("UnitTests", "tmp/gtk-4.0.jar:tmp/generator/:tmp/tests/:"+config['JUNIT_JARS'])
 
 def runDemo():
-	runJavaClass("Experiment", "tmp/gtk-4.0.jar:tmp/tests/", "tmp/")
+	runJavaClass("button.ExamplePressMe", "tmp/gtk-4.0.jar:tmp/tests/")
 
 
 #

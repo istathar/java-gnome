@@ -69,8 +69,8 @@ public class VerboseTestRunner extends TestRunner
      *            VerboseTestRunner takes one (and only one) argument, the
      *            name of the Test{,Suite} to run. From {@link TestRunner}:
      *            expects the name of a TestCase class as argument. If this
-     *            class defines a static <code>suite</code> method it will
-     *            be invoked and the returned test is run. Otherwise all the
+     *            class defines a static <code>suite</code> method it will be
+     *            invoked and the returned test is run. Otherwise all the
      *            methods starting with "test" having no arguments are run.
      */
     /*

@@ -13,7 +13,9 @@ AfC
 AllAboutJNI
 AltLeft
 AltRight
+ApplySignal
 ArrayList
+AssistantPageType
 AtSign
 AttachOptions
 BackSpace
@@ -38,6 +40,10 @@ ButtonBox
 ButtonBoxStyle
 ButtonBoxes
 ButtonFactory
+ButtonPressEvent
+ButtonPressEventSignal
+ButtonReleaseEvent
+ButtonReleaseEventSignal
 ButtonsType
 CCFLAGS
 CVS
@@ -52,6 +58,7 @@ CalendarDisplayOptions
 CallStaticBooleanMethodA
 CallStaticObjectMethodA
 CallStaticVoidMethodA
+CancelSignal
 CapsLock
 CellEditable
 CellLayout
@@ -74,6 +81,7 @@ ClassLoader's
 ClassName
 ClassNotFoundException
 ClickedSignal
+CloseSignal
 CodeFormat
 CoderMalfunctionError
 Collins's
@@ -134,6 +142,8 @@ EVERSION
 EditedHandler
 Eeek
 Emmanuele
+EnterNotifyEvent
+EnterNotifyEventSignal
 EnumValue
 ErrorMessageDialog
 Esfahbod
@@ -167,6 +177,8 @@ ExampleTreeViewListStore
 ExceptionClear
 ExceptionDescribe
 ExceptionOccurred
+ExposeEvent
+ExposeEventSignal
 FIXME
 FatalError
 FileChooser
@@ -182,6 +194,10 @@ FileNotFoundException
 FilenameFilter
 FillRule
 FindClass
+FocusInEvent
+FocusInEventSignal
+FocusOutEvent
+FocusOutEventSignal
 Formoso
 Fortin
 FreeDesktop
@@ -269,6 +285,7 @@ GtkAdjustment
 GtkAlignment
 GtkAllocation
 GtkApplication
+GtkAssistant
 GtkB
 GtkBin
 GtkBox
@@ -403,6 +420,7 @@ HashMap
 HashSet
 HelpWindow
 Henstridge
+HideSignal
 IDE
 IDE's
 IDEs
@@ -423,6 +441,7 @@ ImageSurface
 ImageType
 IncomingConversation
 IndexError
+IndexOutOfBoundsException
 InfoMessageDialog
 Inkscape
 InputStream
@@ -454,6 +473,10 @@ Katoomba
 Kedzierski
 KeyError
 KeyListener
+KeyPressEvent
+KeyPressEventSignal
+KeyReleaseEvent
+KeyReleaseEventSignal
 KeypadKeyval
 Keyval
 Keyval's
@@ -464,6 +487,8 @@ LDFLAGS
 LHR
 LargeLogo
 Laszlo
+LeaveNotifyEvent
+LeaveNotifyEventSignal
 LibGlade
 Libre
 LinearPattern
@@ -486,6 +511,8 @@ Mancke
 Manish
 Manu
 Manu's
+MapEvent
+MapEventSignal
 MenuBars
 MenuItem
 MenuItem's
@@ -552,10 +579,13 @@ Pixbufs
 PolicyType
 PopulatePopup
 PopulatePopupSignal
+PopupMenu
+PopupMenuSignal
 PositionType
 PowerResponseType
 Preetz
 Prelle
+PrepareSignal
 PressMe
 ProgressBar
 Prugh
@@ -587,6 +617,11 @@ ResponseType
 ResponseTypes
 Rietveld
 Rosenberger
+RowActivated
+RowActivatedSignal
+RowExpanded
+RowExpandedHandler
+RowExpandedSignal
 RuntimeException
 RuntimeExceptions
 SWT
@@ -597,6 +632,8 @@ ScreenshotQuestionMessageDialog
 ScrollLock
 ScrolledWindow
 ScrolledWindow's
+SelectAll
+SelectAllSignal
 SelectionMode
 Sep
 SeparatorMenuItem
@@ -720,6 +757,8 @@ UTC
 UTF
 Ubuntu
 UnitTests
+UnmapEvent
+UnmapEventSignal
 UnsatisfiedLinkError
 UnsupportedOperationException
 VBox
@@ -739,6 +778,8 @@ ValidateReferenceCounting
 VerboseTestRunner
 VersionNumbers
 VirtualHost
+VisibilityNotifyEvent
+VisibilityNotifyEventSignal
 VisibilityState
 Vreixo
 Wallach
@@ -771,6 +812,7 @@ accessors
 activatable
 activateTime
 addAction
+addActionWidget
 addActionWithAccel
 addAttribute
 addButton
@@ -870,6 +912,7 @@ checkInitialized
 checkIter
 checkPixbufFromFile
 checkPixbufFromFileAtScale
+checkReadyForDisplay
 checkState
 checkStatus
 checkpointHashes
@@ -883,6 +926,8 @@ cmd
 codebase
 codegen
 colAlign
+collapseAll
+collapseRow
 color
 commitComment
 committer
@@ -919,6 +964,7 @@ createAction
 createActionGroup
 createAdjustment
 createAlignment
+createAssistant
 createButton
 createButtonWithLabel
 createButtonWithMnemonic
@@ -1084,8 +1130,10 @@ elif
 ellipsized
 else's
 elsif
+emitActivate
 emitChanged
 emitClicked
+emitRowActivated
 emitValueChanged
 emplace
 enclosingGroup
@@ -1168,12 +1216,15 @@ getAlignmentY
 getAllocation
 getAngle
 getArea
+getAtPosPath
 getBlinking
 getBlue
 getBoolean
 getBorderWindowSize
 getBuffer
 getButton
+getCanDefault
+getCanFocus
 getChar
 getCharCount
 getChild
@@ -1182,8 +1233,10 @@ getChildren
 getClass
 getCode
 getColumn
+getColumnAtPos
 getCoronationYear
 getCurrentFolder
+getCurrentPage
 getCursorVisible
 getDate
 getDateDay
@@ -1251,8 +1304,11 @@ getModel
 getModificationDate
 getModified
 getNChannels
+getNPages
 getName
+getNthPage
 getNumChannels
+getNumPages
 getObject
 getOffset
 getOrdinal
@@ -1264,8 +1320,15 @@ getPaddingBottom
 getPaddingLeft
 getPaddingRight
 getPaddingTop
+getPage
+getPageComplete
+getPageHeaderImage
+getPageSideImage
+getPageTitle
+getPageType
 getParent
 getPath
+getPathAtPos
 getPixbuf
 getPixels
 getPointer
@@ -1470,6 +1533,7 @@ knownProxies
 knownStocks
 labelWidget
 lang
+lastPage
 lc
 ld
 leftAttach
@@ -1579,11 +1643,14 @@ odt
 offscreen
 ok
 onActivate
+onApply
 onButtonPressEvent
 onButtonReleaseEvent
+onCancel
 onChangeCurrentPage
 onChanged
 onClicked
+onClose
 onConfigureEvent
 onDaySelected
 onDaySelectedDoubleClick
@@ -1604,9 +1671,11 @@ onLeaveNotifyEvent
 onMapEvent
 onPopulatePopup
 onPopupMenu
+onPrepare
 onResponse
 onRowActivated
 onRowChanged
+onRowExpanded
 onSelectAll
 onSelectionChanged
 onSizeChanged
@@ -1691,6 +1760,7 @@ regexAtoZ
 registerConstant
 registerProxy
 registerType
+removeActionWidget
 removePage
 removeRow
 removeTag
@@ -1710,7 +1780,9 @@ returnType
 revalidate
 revalidation
 rightAttach
+rowActivated
 rowAlign
+rowExpanded
 rowstride
 rpath
 rr
@@ -1760,6 +1832,7 @@ setBlinking
 setBorderWidth
 setBorderWindowSize
 setBuffer
+setCanDefault
 setCanFocus
 setCharAt
 setChildSecondary
@@ -1846,6 +1919,11 @@ setPadding
 setPaddingAboveParagraph
 setPaddingBelowParagraph
 setPaddingInsideParagraph
+setPageComplete
+setPageHeaderImage
+setPageSideImage
+setPageTitle
+setPageType
 setPixbuf
 setPixelsAboveLines
 setPixelsBelowLines
@@ -2048,6 +2126,7 @@ unregisterProxy
 unselect
 unselectAll
 unstick
+updateButtonsState
 updateHash
 uri
 usr

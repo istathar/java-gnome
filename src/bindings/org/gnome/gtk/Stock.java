@@ -49,7 +49,7 @@ import java.util.HashMap;
  * <dl>
  * <dt><b>WARNING</b>
  * <dd>TODO This class may have to be refactored when [if] we introduce
- * coverage of StockItem. </dd>
+ * coverage of StockItem.</dd>
  * </dl>
  * 
  * @author Vreixo Formoso
@@ -128,10 +128,10 @@ public class Stock
     /**
      * Close the current Window or the current document. While meaning of this
      * does vary a bit between applications depending on their purpose, the
-     * one thing close does <b>not</b> mean is to <i>quit</i> the
-     * application (unless the program's behaviour is to terminate when the
-     * last document is closed - that's ok). For outright exiting a program,
-     * see {@link #QUIT QUIT}.
+     * one thing close does <b>not</b> mean is to <i>quit</i> the application
+     * (unless the program's behaviour is to terminate when the last document
+     * is closed - that's ok). For outright exiting a program, see
+     * {@link #QUIT QUIT}.
      * 
      * <p>
      * <img src="file:///usr/share/icons/gnome/22x22/actions/gtk-close.png">

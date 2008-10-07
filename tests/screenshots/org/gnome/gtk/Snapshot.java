@@ -68,12 +68,12 @@ public abstract class Snapshot
          */
         do {
             try {
-                Gtk.mainIterationDo(false);
+                GtkMain.mainIterationDo(false);
                 Thread.sleep(10);
             } catch (InterruptedException e) {
                 // ignore
             }
-        } while (Gtk.eventsPending());
+        } while (GtkMain.eventsPending());
     }
 
     /**

@@ -106,6 +106,7 @@
 )
 
 (define-method set_tooltips
+  (deprecated)
   (of-object "GtkToolbar")
   (c-name "gtk_toolbar_set_tooltips")
   (return-type "none")
@@ -139,6 +140,7 @@
 )
 
 (define-method get_tooltips
+  (deprecated)
   (of-object "GtkToolbar")
   (c-name "gtk_toolbar_get_tooltips")
   (return-type "gboolean")

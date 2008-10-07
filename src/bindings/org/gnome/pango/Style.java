@@ -16,9 +16,9 @@ import org.freedesktop.bindings.Constant;
 /**
  * Constants specifying the style of a font. Style is the typographic term
  * describing whether the slant of the characters. The upright default we're
- * all used to is {@link #NORMAL NORMAL}; when this is tipped over on its
- * side it is the {@link #OBLIQUE OBLIQUE} style, whereas the more fancy
- * script like lettering is {@link #ITALIC ITALIC}s.
+ * all used to is {@link #NORMAL NORMAL}; when this is tipped over on its side
+ * it is the {@link #OBLIQUE OBLIQUE} style, whereas the more fancy script
+ * like lettering is {@link #ITALIC ITALIC}s.
  * 
  * @author Andrew Cowie
  * @since 4.0.9

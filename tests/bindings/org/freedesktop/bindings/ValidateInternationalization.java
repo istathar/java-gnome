@@ -57,9 +57,9 @@ public class ValidateInternationalization extends TestCaseGtk
 
         /*
          * The choice here of en_US is simply because _everyone_ is going to
-         * have that installed, somewhere. We are not testing *changing*
-         * locales here, so if an American is running this, no big deal. We
-         * just need something not the C locale.
+         * have that installed, somewhere. We are not testingchanging locales
+         * here, so if an American is running this, no big deal. We just need
+         * something not the C locale.
          */
         Environment.setEnv("LC_ALL", "en_US.UTF-8");
         Internationalization.init("unittest", "tmp/locale");

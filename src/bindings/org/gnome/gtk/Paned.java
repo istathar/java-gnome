@@ -14,9 +14,9 @@ package org.gnome.gtk;
 
 /**
  * Base type for Containers that dispose child Widgets in two panes, arranged
- * either horizontally ({@link HPaned HPaned}) or vertically ({@link VPaned VPaned}).
- * A Paned will have two children, referred as child <code>1</code> and
- * <code>2</code>.
+ * either horizontally ({@link HPaned HPaned}) or vertically ({@link VPaned
+ * VPaned}). A Paned will have two children, referred as child <code>1</code>
+ * and <code>2</code>.
  * 
  * <p>
  * This Widget is mainly used to divide the Window area in two parts. The user
@@ -51,8 +51,8 @@ public abstract class Paned extends Container
      * case of HPaned) pane.
      * 
      * <p>
-     * This call is equivalent to
-     * {@link #pack1(Widget, boolean, boolean) pack1(child, false, true)}.
+     * This call is equivalent to {@link #pack1(Widget, boolean, boolean)
+     * pack1(child, false, true)}.
      * 
      * @since 4.0.7
      */
@@ -65,8 +65,8 @@ public abstract class Paned extends Container
      * (in case of HPaned) pane.
      * 
      * <p>
-     * This call is equivalent to
-     * {@link #pack2(Widget, boolean, boolean) pack2(child, false, true)}.
+     * This call is equivalent to {@link #pack2(Widget, boolean, boolean)
+     * pack2(child, false, true)}.
      * 
      * @since 4.0.7
      */

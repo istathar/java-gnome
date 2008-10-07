@@ -93,18 +93,18 @@ import static org.gnome.gtk.TextTagTable.getDefaultTable;
  * Although trivial, this raises a pitfall you need to be aware of: lines of
  * text in a TextBuffer are <i>not</i> the same as wrapped visible lines in a
  * TextView. Lines in a TextBuffer are a sequences of characters separated by
- * newlines (you don't need a <code>'\n'</code> at the end of the
- * TextBuffer; the end is an implicit line termination). When presented in a
- * TextView with word wrapping enabled, however, each of these lines may take
- * up more than one line on the screen. The term paragraph is used there; see
+ * newlines (you don't need a <code>'\n'</code> at the end of the TextBuffer;
+ * the end is an implicit line termination). When presented in a TextView with
+ * word wrapping enabled, however, each of these lines may take up more than
+ * one line on the screen. The term paragraph is used there; see
  * {@link TextIter#forwardDisplayLine(TextView) forwardDisplayLine()} to move
  * a TextIter to the next displayed line within a paragraph as shown on screen
  * in a TextView.
  * 
  * <p>
  * Finally, formatting and other properties can be set on ranges of text. See
- * {@link TextTag}. While these are mostly about visual presentation, they
- * are nevertheless set by applying TextTags to text in the TextBuffer via the
+ * {@link TextTag}. While these are mostly about visual presentation, they are
+ * nevertheless set by applying TextTags to text in the TextBuffer via the
  * {@link #applyTag(TextTag, TextIter, TextIter) applyTag()} and
  * {@link #insert(TextIter, String, TextTag) insert()} methods here.
  * 
@@ -146,8 +146,11 @@ public class TextBuffer extends Object
      */
     public static final char OBJECT_REPLACEMENT_CHARACTER = 0xFFFC;
 
+    private final boolean usingDefaultTable;
+
     protected TextBuffer(long pointer) {
         super(pointer);
+        usingDefaultTable = false;
     }
 
     /**
@@ -165,6 +168,7 @@ public class TextBuffer extends Object
      */
     public TextBuffer() {
         super(GtkTextBuffer.createTextBuffer(getDefaultTable()));
+        usingDefaultTable = true;
     }
 
     /**
@@ -175,6 +179,7 @@ public class TextBuffer extends Object
      */
     public TextBuffer(TextTagTable tags) {
         super(GtkTextBuffer.createTextBuffer(tags));
+        usingDefaultTable = false;
     }
 
     /**
@@ -190,9 +195,9 @@ public class TextBuffer extends Object
      * Returns the text in the range <code>start</code> .. <code>end</code>.
      * Excludes undisplayed text (text marked with tags that set the
      * <var>invisibility</var> attribute) if <code>includeHidden</code> is
-     * <code>false</code>. Does not include characters representing
-     * embedded images, so indexes into the returned string do not correspond
-     * to indexes into the TextBuffer.
+     * <code>false</code>. Does not include characters representing embedded
+     * images, so indexes into the returned string do not correspond to
+     * indexes into the TextBuffer.
      * 
      * @since 4.0.9
      */
@@ -214,8 +219,8 @@ public class TextBuffer extends Object
 
     /**
      * Marks the content as changed. This is primarily used to <i>unset</i>
-     * this property, making it <code>false</code>. See
-     * {@link #getModified() getModified()} for details.
+     * this property, making it <code>false</code>. See {@link #getModified()
+     * getModified()} for details.
      * 
      * @since 4.0.9
      */
@@ -280,14 +285,14 @@ public class TextBuffer extends Object
      * Create a new TextMark at the position of the supplied TextIter.
      * 
      * <p>
-     * The <code>gravity</code> parameter is interesting. It specifies
-     * whether you want the TextMark to have left-gravity. If
-     * {@link TextMark#LEFT LEFT} (<code>true</code>), then the TextMark
-     * will remain pointing to the same location if text is inserted at this
-     * point. If {@link TextMark#RIGHT RIGHT} (<code>false</code>), then
-     * as text is inserted at this point the TextMark will move to the right.
-     * The standard behaviour of the blinking cursor we all stare at all day
-     * long following us as we type is an example of right-gravity.
+     * The <code>gravity</code> parameter is interesting. It specifies whether
+     * you want the TextMark to have left-gravity. If {@link TextMark#LEFT
+     * LEFT} (<code>true</code>), then the TextMark will remain pointing to
+     * the same location if text is inserted at this point. If
+     * {@link TextMark#RIGHT RIGHT} (<code>false</code>), then as text is
+     * inserted at this point the TextMark will move to the right. The
+     * standard behaviour of the blinking cursor we all stare at all day long
+     * following us as we type is an example of right-gravity.
      */
     public TextMark createMark(TextIter where, boolean gravity) {
         return GtkTextBuffer.createMark(this, null, where, gravity);
@@ -309,14 +314,15 @@ public class TextBuffer extends Object
 
     /**
      * Insert text as for {@link #insert(TextIter, String) insert()} but
-     * simultaneously apply the formatting described by <code>tag</code>.
-     * You can specify <code>null</code> TextTag if you actually want to
-     * skip applying formatting, but in that case you'd probably rather just
-     * use {@link #insert(TextIter, String) insert()}.
+     * simultaneously apply the formatting described by <code>tag</code>. You
+     * can specify <code>null</code> TextTag if you actually want to skip
+     * applying formatting, but in that case you'd probably rather just use
+     * {@link #insert(TextIter, String) insert()}.
      * 
      * @since 4.0.9
      */
     public void insert(TextIter position, String text, TextTag tag) {
+        checkTag(tag);
         GtkTextBuffer.insertWithTags(this, position, text, -1, tag);
     }
 
@@ -330,10 +336,10 @@ public class TextBuffer extends Object
     }
 
     /**
-     * Like {@link #insert(TextIter, String) insert()}, but the insertion
-     * will not occur if <code>pos</code> points to a non-editable location
-     * in the buffer - meaning that it is enclosed in TextTags that mark the
-     * area non-editable.<br/>
+     * Like {@link #insert(TextIter, String) insert()}, but the insertion will
+     * not occur if <code>pos</code> points to a non-editable location in the
+     * buffer - meaning that it is enclosed in TextTags that mark the area
+     * non-editable.<br/>
      * 
      * @param pos
      *            Position to insert at.
@@ -342,11 +348,10 @@ public class TextBuffer extends Object
      * @param defaultEditability
      *            How shall the area be handled, if there are no tags
      *            affecting the <var>editable</var> property at the given
-     *            location. You probably want to use <code>true</code>
-     *            unless you used TextView's
-     *            {@link TextView#setEditable(boolean) setEditable()} to
-     *            change the default setting in the display Widget you're
-     *            using.
+     *            location. You probably want to use <code>true</code> unless
+     *            you used TextView's {@link TextView#setEditable(boolean)
+     *            setEditable()} to change the default setting in the display
+     *            Widget you're using.
      * @since 4.0.9
      */
     public void insertInteractive(TextIter pos, String text, boolean defaultEditability) {
@@ -410,11 +415,11 @@ public class TextBuffer extends Object
      * the selection use {@link #getInsert() getInsert()}.
      * 
      * <p>
-     * Under ordinary circumstances you could think the <var>selection-bound</var>
-     * TextMark as being the beginning of a selection, and the <var>insert</var>
-     * mark as the end, but if the user (or you, programmatically) has
-     * selected "backwards" then this TextMark will be further ahead in the
-     * TextBuffer than the insertion one.
+     * Under ordinary circumstances you could think the
+     * <var>selection-bound</var> TextMark as being the beginning of a
+     * selection, and the <var>insert</var> mark as the end, but if the user
+     * (or you, programmatically) has selected "backwards" then this TextMark
+     * will be further ahead in the TextBuffer than the insertion one.
      * 
      * <p>
      * You can call {@link #getIter(TextMark) getIter()} to convert the
@@ -436,9 +441,9 @@ public class TextBuffer extends Object
     }
 
     /**
-     * Converts a {@link TextMark TextMark} into a valid
-     * {@link TextIter TextIter} that you can use to point into the TextBuffer
-     * in its current state.
+     * Converts a {@link TextMark TextMark} into a valid {@link TextIter
+     * TextIter} that you can use to point into the TextBuffer in its current
+     * state.
      * 
      * @since 4.0.9
      */
@@ -457,8 +462,8 @@ public class TextBuffer extends Object
     }
 
     /**
-     * Get a TextIter pointing at the position <code>offset</code>
-     * characters into the TextBuffer.
+     * Get a TextIter pointing at the position <code>offset</code> characters
+     * into the TextBuffer.
      * 
      * @since 4.0.9
      */
@@ -472,6 +477,31 @@ public class TextBuffer extends Object
         return iter;
     }
 
+    /*
+     * Validate that the TextTag being submitted for application is legal for
+     * use in this TextBuffer. FUTURE we could cache the table in the
+     * constructors if this becomes a hot spot.
+     */
+    private void checkTag(TextTag tag) {
+        if (tag == null) {
+            return;
+        }
+        if (usingDefaultTable) {
+            if (tag.table != getDefaultTable()) {
+                throw new IllegalArgumentException("\n"
+                        + "You cannot apply a TextTag created with the no-arg TextTag() constructor\n"
+                        + "to a TextBuffer not likewise constructed with the no-arg TextBuffer()\n"
+                        + "constructor.");
+            }
+        } else {
+            if (tag.table != GtkTextBuffer.getTagTable(this)) {
+                throw new IllegalArgumentException("\n"
+                        + "You can only apply a TextTag to a TextBuffer created with the same\n"
+                        + "TextTagTable.");
+            }
+        }
+    }
+
     /**
      * Apply the selected tag on the area in the TextBuffer between the start
      * and end positions.
@@ -479,13 +509,14 @@ public class TextBuffer extends Object
      * @since 4.0.9
      */
     public void applyTag(TextTag tag, TextIter start, TextIter end) {
+        checkTag(tag);
         GtkTextBuffer.applyTag(this, tag, start, end);
     }
 
     /**
      * Select a range of text. The <var>selection-bound</var> mark will be
-     * placed at <code>start</code>, and the <var>insert</var> mark will
-     * be placed at <code>end</code>.
+     * placed at <code>start</code>, and the <var>insert</var> mark will be
+     * placed at <code>end</code>.
      * 
      * <p>
      * Note that this should be used in preference to manually manipulating
@@ -510,8 +541,8 @@ public class TextBuffer extends Object
 
     /**
      * Remove the effect of the supplied <code>tag</code> from across the
-     * range between <code>start</code> and <code>end</code>. The order
-     * of the two TextIters doesn't actually matter; they are just bounds.
+     * range between <code>start</code> and <code>end</code>. The order of the
+     * two TextIters doesn't actually matter; they are just bounds.
      * 
      * @since 4.0.9
      */
@@ -520,8 +551,8 @@ public class TextBuffer extends Object
     }
 
     /**
-     * Create a new TextChildAnchor at <code>location</code>. Once you have
-     * an anchor for where you want the Widget, you use TextView's
+     * Create a new TextChildAnchor at <code>location</code>. Once you have an
+     * anchor for where you want the Widget, you use TextView's
      * {@link TextView#add(Widget, TextChildAnchor) add()} to load a Widget
      * into it.
      * 
@@ -537,8 +568,8 @@ public class TextBuffer extends Object
     }
 
     /**
-     * Move the cursor (ie, the <var>selection-bound</var> and <var>insert</var>
-     * marks) to the given location.
+     * Move the cursor (ie, the <var>selection-bound</var> and
+     * <var>insert</var> marks) to the given location.
      * 
      * <p>
      * This is more than just a convenience function; like
@@ -547,10 +578,9 @@ public class TextBuffer extends Object
      * while the individual TextMarks are being moved.
      * 
      * <p>
-     * See also TextView's
-     * {@link TextView#placeCursorOnscreen() placeCursorOnscreen()} if you
-     * just want to force the cursor into the currently showing section of the
-     * text.
+     * See also TextView's {@link TextView#placeCursorOnscreen()
+     * placeCursorOnscreen()} if you just want to force the cursor into the
+     * currently showing section of the text.
      * 
      * @since 4.0.9
      */
@@ -600,8 +630,8 @@ public class TextBuffer extends Object
      * Signal emitted when text is inserted into the TextBuffer.
      * 
      * <p>
-     * You must leave the TextIter <code>pointer</code> in a valid state;
-     * that is, if you do something in your signal handler that changes the
+     * You must leave the TextIter <code>pointer</code> in a valid state; that
+     * is, if you do something in your signal handler that changes the
      * TextBuffer, you must revalidate <code>pos</code> before returning.
      * 
      * <p>
@@ -620,9 +650,9 @@ public class TextBuffer extends Object
     }
 
     /**
-     * Hook up a handler for <code>TextBuffer.InsertText</code> signals.
-     * This will be invoked before the default handler is run, that is, before
-     * the new text is actually inserted into the TextBuffer.
+     * Hook up a handler for <code>TextBuffer.InsertText</code> signals. This
+     * will be invoked before the default handler is run, that is, before the
+     * new text is actually inserted into the TextBuffer.
      * 
      * @since 4.0.9
      */
@@ -698,9 +728,9 @@ public class TextBuffer extends Object
     }
 
     /**
-     * Delete text between <code>start</code> and <code>end</code>. (The
-     * order of the two TextIters doesn't matter; this method will delete
-     * between the two regardless).
+     * Delete text between <code>start</code> and <code>end</code>. (The order
+     * of the two TextIters doesn't matter; this method will delete between
+     * the two regardless).
      * 
      * <p>
      * The two TextIters passed to <code>delete()</code> will be reset so as

@@ -84,8 +84,8 @@ public class Label extends Misc
      * away. This is useful if you've applied some fancy formatting but just
      * want to find out the actual words that appear to the user. It also
      * strips away any embedded underlines indicating mnemonics. If you need
-     * the raw text including markup, then you want
-     * {@link #getLabel() getLabel()}.
+     * the raw text including markup, then you want {@link #getLabel()
+     * getLabel()}.
      * 
      * @since 4.0.1
      */
@@ -162,13 +162,13 @@ public class Label extends Misc
 
     /**
      * Sets the justification of the text within the Label. The default is
-     * {@link Justification#LEFT LEFT}. Note that this has no effect on
-     * Labels only containing a single line of text.
+     * {@link Justification#LEFT LEFT}. Note that this has no effect on Labels
+     * only containing a single line of text.
      * 
      * <p>
      * If you're trying to control the positioning of the Label within its
-     * parent, see Misc's
-     * {@link Misc#setAlignment(float,float) setAlignment()}.
+     * parent, see Misc's {@link Misc#setAlignment(float,float)
+     * setAlignment()}.
      * 
      * @since 4.0.4
      */
@@ -210,25 +210,23 @@ public class Label extends Misc
 
     /**
      * Set a maximum width for the Label, in characters. This will allow the
-     * Label to dynamically size up to a maximum of <code>width</code> but
-     * not to expand beyond that point. This is useful in conjunction with
-     * turning
-     * {@link Label#setEllipsize(org.gnome.pango.EllipsizeMode) setEllipsize()}
-     * on.
+     * Label to dynamically size up to a maximum of <code>width</code> but not
+     * to expand beyond that point. This is useful in conjunction with turning
+     * {@link Label#setEllipsize(org.gnome.pango.EllipsizeMode)
+     * setEllipsize()} on.
      * 
      * <p>
      * This sets the <var>max-width-chars</var> property.
      * 
      * <p>
      * <b>Warning</b>: If a value greater than <code>-1</code> has been
-     * explicitly set as the width using
-     * {@link #setWidthChars(int) setWidthChars()}, setting this property
-     * will have no effect.
+     * explicitly set as the width using {@link #setWidthChars(int)
+     * setWidthChars()}, setting this property will have no effect.
      * 
      * @param width
      *            The width you wish to truncate the Label at, in characters.
-     *            A value of <code>-1</code> to remove the override and
-     *            return the Label to automatic sizing.
+     *            A value of <code>-1</code> to remove the override and return
+     *            the Label to automatic sizing.
      * @since 4.0.4
      */
     public void setMaxWidthChars(int width) {
@@ -237,9 +235,9 @@ public class Label extends Misc
 
     /**
      * Select a region of the text in this Label. The characters between
-     * <code>start</code> up to <i>but not including</i> <code>end</code>
-     * will be selected. This assumes that the Label has been made selectable
-     * with {@link #setSelectable(boolean) setSelectable(true)}.
+     * <code>start</code> up to <i>but not including</i> <code>end</code> will
+     * be selected. This assumes that the Label has been made selectable with
+     * {@link #setSelectable(boolean) setSelectable(true)}.
      * 
      * @param end
      *            If negative, then the selection will be from

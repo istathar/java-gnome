@@ -15,9 +15,9 @@ import org.freedesktop.bindings.Constant;
 
 /**
  * Constants specifying the compositing operating mode in effect. These are
- * set for a drawing Context using
- * {@link Context#setOperator(Operator) setOperator()}, and take effect when
- * commands like {@link Context#paint() paint()} are invoked.
+ * set for a drawing Context using {@link Context#setOperator(Operator)
+ * setOperator()}, and take effect when commands like {@link Context#paint()
+ * paint()} are invoked.
  * 
  * @author Andrew Cowie
  * @since 4.0.7

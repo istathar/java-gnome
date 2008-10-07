@@ -18,14 +18,15 @@ import org.freedesktop.bindings.Constant;
  * co-ordinates and which point of the Window is positioned at the reference
  * point. This impacts the co-ordinates used when moving Windows with
  * {@link org.gnome.gtk.Window#move(int, int) move()}. The gravity for a
- * Window is set by
- * {@link org.gnome.gtk.Window#setGravity(Gravity) setGravity()}.
+ * Window is set by {@link org.gnome.gtk.Window#setGravity(Gravity)
+ * setGravity()}.
  * 
  * <p>
  * <i>It turns out the whole gravity concept is unreliable; luckily you don't
  * really need it for much. And in any case, if you're trying to move the
  * Window around; what you probably want is</i>
- * {@link org.gnome.gtk.Window#setPosition(org.gnome.gtk.WindowPosition) setPosition()}.
+ * {@link org.gnome.gtk.Window#setPosition(org.gnome.gtk.WindowPosition)
+ * setPosition()}.
  * 
  * @author Andrew Cowie
  * @since 4.0.4
@@ -39,9 +40,8 @@ public final class Gravity extends Constant
     /**
      * Orientation to the top left corner of the screen and co-ordinates
      * running right and down. <b>This is the default</b> gravity and matches
-     * what you'd normally expect <code>x</code>,<code>y</code> to mean
-     * on an X display: horizontal and vertical distance from the top-left
-     * corner.
+     * what you'd normally expect <code>x</code>,<code>y</code> to mean on an
+     * X display: horizontal and vertical distance from the top-left corner.
      */
     public static final Gravity NORTH_WEST = new Gravity(GdkGravity.NORTH_WEST, "NORTH_WEST");
 
@@ -55,9 +55,10 @@ public final class Gravity extends Constant
      * Reference point is with respect to the center of the screen. If you're
      * trying to center your Window on the screen this probably isn't what you
      * want; see Window's
-     * {@link org.gnome.gtk.Window#setPosition(org.gnome.gtk.WindowPosition) setPosition()}
-     * with an argument of {@link org.gnome.gtk.WindowPosition#CENTER CENTER}
-     * or {@link org.gnome.gtk.WindowPosition#CENTER_ALWAYS CENTER_ALWAYS}
+     * {@link org.gnome.gtk.Window#setPosition(org.gnome.gtk.WindowPosition)
+     * setPosition()} with an argument of
+     * {@link org.gnome.gtk.WindowPosition#CENTER CENTER} or
+     * {@link org.gnome.gtk.WindowPosition#CENTER_ALWAYS CENTER_ALWAYS}
      * instead.
      */
     public static final Gravity CENTER = new Gravity(GdkGravity.CENTER, "CENTER");

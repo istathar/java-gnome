@@ -32,9 +32,9 @@ public final class Color extends Boxed
     }
 
     /**
-     * Construct a new Color object. The <code>red</code>,
-     * <code>green</code>, and <code>blue</code> parameters take values
-     * <code>0</code> to <code>65535</code>.
+     * Construct a new Color object. The <code>red</code>, <code>green</code>,
+     * and <code>blue</code> parameters take values <code>0</code> to
+     * <code>65535</code>.
      */
     public Color(int red, int green, int blue) {
         super(GdkColorOverride.createColor(red, green, blue));

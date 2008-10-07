@@ -33,8 +33,8 @@ import org.freedesktop.bindings.Constant;
  * <p>
  * <i>This is principally used to discriminate what kind of concrete Event
  * subclass to create. Note that we are in GDK here; These events refer to the
- * low level constructs delivered to the <code>GdkWindow</code>s that
- * underlie Widgets.</i>
+ * low level constructs delivered to the <code>GdkWindow</code>s that underlie
+ * Widgets.</i>
  * 
  * @author Andrew Cowie
  * @since 4.0.3
@@ -91,9 +91,9 @@ public final class EventType extends Constant
      * regardless this will be handled in higher level semantics.
      * 
      * <p>
-     * <i>Note that this is the constant <code>GDK_2BUTTON_PRESS</code> in
-     * the underlying library; we had to rename it slightly for translation
-     * into a legal Java identifier.</i>
+     * <i>Note that this is the constant <code>GDK_2BUTTON_PRESS</code> in the
+     * underlying library; we had to rename it slightly for translation into a
+     * legal Java identifier.</i>
      */
     public static final EventType BUTTON_PRESS_DOUBLE = new EventType(GdkEventType.BUTTON_PRESS_DOUBLE,
             "BUTTON_PRESS_DOUBLE");
@@ -113,9 +113,9 @@ public final class EventType extends Constant
      * intercepting events along the way.
      * 
      * <p>
-     * <i>Note that this is the constant <code>GDK_3BUTTON_PRESS</code> in
-     * the underlying library; we had to rename it slightly for translation
-     * into a legal Java identifier.</i>
+     * <i>Note that this is the constant <code>GDK_3BUTTON_PRESS</code> in the
+     * underlying library; we had to rename it slightly for translation into a
+     * legal Java identifier.</i>
      */
     /*
      * Thanks to Ryan Lortie for helping document the Event sequence.

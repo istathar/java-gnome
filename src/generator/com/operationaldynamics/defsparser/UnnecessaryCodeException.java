@@ -1,7 +1,7 @@
 /*
  * DeprecatedException.java
  *
- * Copyright (c) 2007 Operational Dynamics Consulting Pty Ltd
+ * Copyright (c) 2007-2008 Operational Dynamics Consulting Pty Ltd
  * 
  * The code in this file, and the program it is a part of, are made available
  * to you by the authors under the terms of the "GNU General Public Licence,
@@ -11,16 +11,16 @@
 package com.operationaldynamics.defsparser;
 
 /**
- * Used to cause the parser to skip a block containing a deprecated
- * declaration.
+ * Used to cause the parser to skip a block containing a (deprecated...) or
+ * (unnecessary...) declaration.
  * 
  * @author Andrew Cowie
  */
-class DeprecatedException extends RuntimeException
+class UnnecessaryCodeException extends RuntimeException
 {
     private static final long serialVersionUID = 1L;
 
-    DeprecatedException(String msg) {
+    UnnecessaryCodeException(String msg) {
         super(msg);
     }
 }

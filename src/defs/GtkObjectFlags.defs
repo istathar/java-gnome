@@ -8,7 +8,7 @@
     '("reserved-2" "GTK_RESERVED_2")
   )
 )
-  
+
 ;; This one is deprecated
 ;;  '("floating" "GTK_FLOATING")
 

@@ -137,23 +137,14 @@ public abstract class Plumbing extends org.freedesktop.bindings.Plumbing
      *        a GBoxed.
      */
     protected static Boxed boxedFor(Class<?> type, final long pointer) {
-        Proxy proxy;
+        Boxed proxy;
 
         if (pointer == 0L) {
             return null;
         }
 
-        proxy = instanceFor(pointer);
-
-        if (proxy != null) {
-            /*
-             * A Proxy exists for this. Great! Simply return it.
-             */
-            return (Boxed) proxy;
-        } else {
-            proxy = createProxy(type, pointer);
-            return (Boxed) proxy;
-        }
+        proxy = (Boxed) createPointer(type, pointer);
+        return proxy;
     }
 
     /**
@@ -194,8 +185,8 @@ public abstract class Plumbing extends org.freedesktop.bindings.Plumbing
      * 
      * @return null if the <code>pointer</code> argument is <code>0x0</code>,
      *         <i>which can happen after looking up a valid GValue which turns
-     *         out to contains a <code>NULL</code> pointer value for a
-     *         GObject it is carrying.</i>
+     *         out to contains a <code>NULL</code> pointer value for a GObject
+     *         it is carrying.</i>
      * @throw UnsupportedOperationException if no Java class has been
      *        registered for this <code>GType</code>.
      * 
@@ -243,13 +234,13 @@ public abstract class Plumbing extends org.freedesktop.bindings.Plumbing
 
             type = lookupType(name);
 
-            proxy = createProxy(type, pointer);
+            proxy = (Proxy) createPointer(type, pointer);
             return (Object) proxy;
         }
     }
 
     /**
-     * Retrieve a Proxy object corresponding to a <code>GValue</code>. This
+     * Retrieve a Pointer object corresponding to a <code>GValue</code>. This
      * should only be needed by the property getter functions.
      * 
      * <p>
@@ -257,9 +248,9 @@ public abstract class Plumbing extends org.freedesktop.bindings.Plumbing
      * Superficially the structure seems like <code>GObject</code> and
      * friends, starting with a <code>GType</code>, but this is misleading
      * because <code>GObject</code> has a <b>pointer</b> to a
-     * <code>GTypeInstance</code> which contains the <code>GType</code>
-     * first. This means that we cannot use the same code path to figure out
-     * what the type name of a pointer is that we do in objectFor() above.</i>
+     * <code>GTypeInstance</code> which contains the <code>GType</code> first.
+     * This means that we cannot use the same code path to figure out what the
+     * type name of a pointer is that we do in objectFor() above.</i>
      */
     protected static Value valueFor(long pointer) {
         Value obj;
@@ -268,18 +259,8 @@ public abstract class Plumbing extends org.freedesktop.bindings.Plumbing
             return null;
         }
 
-        obj = (Value) org.freedesktop.bindings.Plumbing.instanceFor(pointer);
-
-        if (obj != null) {
-            /*
-             * This is somewhat unexpected, but ok, a Proxy already exists.
-             * Return it.
-             */
-            return obj;
-        } else {
-            obj = new Value(pointer, true);
-            return obj;
-        }
+        obj = new Value(pointer, true);
+        return obj;
     }
 
     /**
@@ -353,9 +334,9 @@ public abstract class Plumbing extends org.freedesktop.bindings.Plumbing
      * a GType name.
      */
     /*
-     * At time of writing, this is *only* being used to create GValues
-     * containing enums for use in GObject property setting. For whatever
-     * reason GValue requires something more derived than G_TYPE_ENUM.
+     * At time of writing, this isonly being used to create GValues containing
+     * enums for use in GObject property setting. For whatever reason GValue
+     * requires something more derived than G_TYPE_ENUM.
      * 
      * FUTURE If this becomes a hotspot at all, replace with a Map going the
      * reverse direction as typeMapping does presenty.

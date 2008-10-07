@@ -101,8 +101,8 @@ public final class TextIter extends Boxed
      * If you have a given offset, you can use the TextBuffer
      * {@link TextBuffer#getIter(int) getIter()} method taking an
      * <code>int</code> to convert it into an TreeIter. If you want to move
-     * this TreeIter to a given offset, then call
-     * {@link #setOffset(int) setOffset()}.
+     * this TreeIter to a given offset, then call {@link #setOffset(int)
+     * setOffset()}.
      * 
      * @return A character offset from the start of the TextBuffer.
      * @since 4.0.9
@@ -132,9 +132,8 @@ public final class TextIter extends Boxed
      * will be presented visually as a paragraph (there is no definition of
      * paragraph in TextBuffer terms). If you're wondering about where the
      * position (the cursor, say) is down into a TextView widget, then see
-     * TextView's
-     * {@link TextView#startsDisplayLine(TextIter) startsDisplayLine()} and
-     * related "<code>display</code>" methods.
+     * TextView's {@link TextView#startsDisplayLine(TextIter)
+     * startsDisplayLine()} and related "<code>display</code>" methods.
      * 
      * @since 4.0.9
      */
@@ -162,10 +161,10 @@ public final class TextIter extends Boxed
      * <code>0</code>.
      * 
      * <p>
-     * <i> This is, in essence, a <code>getColumn()</code> method, but
-     * beware that the number of characters you are into a given line in a
-     * TextBuffer will only correspond to the column position on screen if the
-     * presenting TextView is not wrapping lines.</i>
+     * <i> This is, in essence, a <code>getColumn()</code> method, but beware
+     * that the number of characters you are into a given line in a TextBuffer
+     * will only correspond to the column position on screen if the presenting
+     * TextView is not wrapping lines.</i>
      * 
      * @since 4.0.9
      */
@@ -225,10 +224,11 @@ public final class TextIter extends Boxed
      * pointing at.
      * 
      * @return A <code>char</code> value of
-     *         {@link TextBuffer#OBJECT_REPLACEMENT_CHARACTER OBJECT_REPLACEMENT_CHARACTER}
-     *         indicates a non-character element (an embedded Pixbuf or
-     *         Widget). You'll get <code>0</code> (not <code>'0'</code>)
-     *         if this TextIter is already at the TextBuffer's end.
+     *         {@link TextBuffer#OBJECT_REPLACEMENT_CHARACTER
+     *         OBJECT_REPLACEMENT_CHARACTER} indicates a non-character element
+     *         (an embedded Pixbuf or Widget). You'll get <code>0</code> (not
+     *         <code>'0'</code>) if this TextIter is already at the
+     *         TextBuffer's end.
      * @since 4.0.9
      */
     public char getChar() {
@@ -244,8 +244,8 @@ public final class TextIter extends Boxed
      * Keep in mind that a line in the TextBuffer may well be wrapped when
      * displayed onscreen in a TextView as the several lines comprising a
      * paragraph; to move forward such a displayed line (ie <i>within</i> a
-     * paragraph) use
-     * {@link #forwardDisplayLine(TextView) forwardDisplayLine()}.
+     * paragraph) use {@link #forwardDisplayLine(TextView)
+     * forwardDisplayLine()}.
      * 
      * @since 4.0.9
      */
@@ -403,10 +403,10 @@ public final class TextIter extends Boxed
 
     /**
      * Check if text at the current position is editable. This is the case if
-     * the default editability is <code>true</code> or the TextIter is
-     * within or at the start of an editable block. If the TextIter is at the
-     * end of an editable block (which is also the star of a non-editable
-     * area), this method returns <code>false</code>.
+     * the default editability is <code>true</code> or the TextIter is within
+     * or at the start of an editable block. If the TextIter is at the end of
+     * an editable block (which is also the star of a non-editable area), this
+     * method returns <code>false</code>.
      * 
      * @since 4.0.9
      */
@@ -476,8 +476,8 @@ public final class TextIter extends Boxed
     }
 
     /**
-     * Returns <code>true</code> if the TextIter points to the first
-     * character of a sentence.
+     * Returns <code>true</code> if the TextIter points to the first character
+     * of a sentence.
      * 
      * @since 4.0.9
      */
@@ -486,9 +486,9 @@ public final class TextIter extends Boxed
     }
 
     /**
-     * Returns <code>true</code> if the TextIter points to the last sign
-     * that does not belong to the sentence - usually the first whitespace,
-     * since e.g. dots belong to a sentence.
+     * Returns <code>true</code> if the TextIter points to the last sign that
+     * does not belong to the sentence - usually the first whitespace, since
+     * e.g. dots belong to a sentence.
      * 
      * @since 4.0.9
      */
@@ -551,8 +551,8 @@ public final class TextIter extends Boxed
      * remain there.
      * 
      * @return <code>true</code>, if the offset was decreased or
-     *         <code>false</code> if the TextIter already pointed to the
-     *         start of the TextBuffer.
+     *         <code>false</code> if the TextIter already pointed to the start
+     *         of the TextBuffer.
      * 
      * @since 4.0.9
      */
@@ -575,11 +575,10 @@ public final class TextIter extends Boxed
     }
 
     /**
-     * Reduce the character offset by <code>count</code>. If this would
-     * point to a negative offset, point to the start of the TextBuffer.
+     * Reduce the character offset by <code>count</code>. If this would point
+     * to a negative offset, point to the start of the TextBuffer.
      * 
-     * @return <code>true</code> if the position changed because of this
-     *         call.
+     * @return <code>true</code> if the position changed because of this call.
      * 
      * @since 4.0.9
      */
@@ -592,8 +591,7 @@ public final class TextIter extends Boxed
      * point to a position behind the buffers end, point to the end of the
      * TextBuffer.
      * 
-     * @return <code>true</code> if the position changed because of this
-     *         call.
+     * @return <code>true</code> if the position changed because of this call.
      * 
      * @since 4.0.9
      */
@@ -642,8 +640,8 @@ public final class TextIter extends Boxed
      * TextIter.</i>
      * 
      * @return <code>true</code> if the location the TextIter points at was
-     *         changed; that is, if <code>pointer</code> is not yet at the
-     *         end of the underlying TextBuffer.
+     *         changed; that is, if <code>pointer</code> is not yet at the end
+     *         of the underlying TextBuffer.
      * @since 4.0.9
      */
     public boolean forwardDisplayLine(TextView view) {

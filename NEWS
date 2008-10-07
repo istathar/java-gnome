@@ -5,6 +5,17 @@ NEWS
 text-align: right; padding-left: 15px;" /> 
 -->
 
+<a name="4.0.9" id="1222743202" title="Text APIs"></a>
+
+java-gnome 4.0.9-rc1 (29 Sep 2008)
+==================================
+
+The native shared library part of java-gnome is now located detmanistically and loaded automatically. You don't need to `-Djava.library.path` on the command line any more.
+
+TextView/TextBuffer APIs merged.
+
+AfC
+
 <a name="textview" id="1219892996" title="Text rendering"></a>
 
 Lorem ipsum

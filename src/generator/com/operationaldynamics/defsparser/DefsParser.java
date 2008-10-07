@@ -86,10 +86,14 @@ public class DefsParser
         // (define-method get_some
         defineLine = Pattern.compile("^\\(define-(\\w+)\\s+(\\w+)");
 
+        /*
+         * (?:X) is a "non-capturing group".
+         */
         // __(c-name "gtk_button_new_with_label")
         // __(return-type "GtkWidget*")
         // __(return-type "const-gchar")
-        characteristicLine = Pattern.compile("^\\s+\\((\\S+)\\s+\"?([\\w #\\(\\)'/\\.\\-\\*]+)\"?\\)");
+        // __(deprecated)
+        characteristicLine = Pattern.compile("^\\s+\\((\\S+)(?:\\s+\"?([\\w #\\(\\)'/\\.\\-\\*]+)\"?)?\\)");
 
         /*
          * TODO: it's not entirely clear that we actually need to support
@@ -109,11 +113,11 @@ public class DefsParser
         valuesBegin = Pattern.compile("^\\s+\\(values");
 
         /*
-         * FIXME The final .* excludes qualifying information as found in
-         * lines like the second following line; we need to figure out whether
-         * we need to capture and use this information; while defaul values
-         * are meaningless in Java (except in so far as advising that an
-         * overloaded public API method with less parameters and using that
+         * FIXME The final dot-star excludes qualifying information as found
+         * in lines like the second following line; we need to figure out
+         * whether we need to capture and use this information; while defaul
+         * values are meaningless in Java (except in so far as advising that
+         * an overloaded public API method with less parameters and using that
          * default might make sense), we'll need it for others (ie (null-ok),
          * which would allow us to put an assert elsewhere, and (read-write)
          * if we add it to struct fields to indicate that it's ok to create a
@@ -231,17 +235,20 @@ public class DefsParser
                 }
 
                 if (!m.matches()) {
-                    System.out.println(new DefsParseException("Couldn't match characteristics line",
-                            line, source).getMessage());
-                    continue;
+                    throw new DefsParseException("Couldn't match characteristics line", line, source);
                 }
 
-                key = m.group(1).intern();
-                value = m.group(2).intern();
+                key = m.group(1);
+                if (key != null) {
+                    key = key.intern();
+                }
+                value = m.group(2);
+                if (value != null) {
+                    value = value.intern();
+                }
 
-                if ((key == null) || (value == null)) {
-                    throw new DefsParseException("Parsed key or value turned out to be null", line,
-                            source);
+                if (key == null) {
+                    throw new DefsParseException("Parsed key turned out to be null", line, source);
                 }
 
                 /*
@@ -252,13 +259,13 @@ public class DefsParser
                 if (l == parameters) {
                     // TODO could null-ok be present in other than parameters
                     l.add(new String[] {
-                            key.intern(), value.intern(),
+                            key, value,
                             /* 3rd value is used to take null-ok under control */
-                            line.indexOf("(null-ok)") != -1 ? "yes".intern() : "no".intern()
+                            line.indexOf("(null-ok)") != -1 ? "yes" : "no"
                     });
                 } else {
                     l.add(new String[] {
-                            key.intern(), value.intern()
+                            key, value
                     });
                 }
             }
@@ -356,7 +363,7 @@ public class DefsParser
                 System.out.print(source.getFilename() + ", ");
                 System.out.println(pe.getMessage());
                 System.out.println("[continuing next block]\n");
-            } catch (DeprecatedException de) {
+            } catch (UnnecessaryCodeException uce) {
                 // TODO skip to next file?
             } catch (IllegalStateException ise) {
                 System.out.println("Failed parsing (an internal problem? FIXME!):");

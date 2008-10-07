@@ -23,8 +23,8 @@ import org.freedesktop.bindings.Constant;
  */
 /**
  * Constants describing the nature of a motion in <code>MoveCursor</code>
- * signal handlers found in {@link TextView}, {@link TreeView},
- * {@link Entry}, etc.
+ * signal handlers found in {@link TextView}, {@link TreeView}, {@link Entry},
+ * etc.
  * 
  * @author Andrew Cowie
  * @since 4.0.9

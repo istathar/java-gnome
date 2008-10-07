@@ -70,9 +70,9 @@ public final class ButtonsType extends Constant
 
     /**
      * The MessageDialog will have two Buttons, "Yes" and "No". Use this when
-     * the Dialog asks something to the user. Note that the
-     * {@link #OK_CANCEL OK_CANCEL} may be a better alternative if you want a
-     * confirmation to start some task.
+     * the Dialog asks something to the user. Note that the {@link #OK_CANCEL
+     * OK_CANCEL} may be a better alternative if you want a confirmation to
+     * start some task.
      */
     public static final ButtonsType YES_NO = new ButtonsType(GtkButtonsType.YES_NO, "YES_NO");
 

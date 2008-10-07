@@ -19,9 +19,9 @@ import com.operationaldynamics.driver.DefsFile;
 /**
  * Pseudo Block which is to be created when a public field is exposed in a
  * (define-boxed ...) with one or more (fields (...)) subcharacteristics.
- * block is writable. Note that this is <b>not</b> a (define-method ...)
- * block in the source data; we just create these so that we can drive
- * creation of a getter method when the generator runs.
+ * block is writable. Note that this is <b>not</b> a (define-method ...) block
+ * in the source data; we just create these so that we can drive creation of a
+ * getter method when the generator runs.
  * 
  * @author Andrew Cowie
  */

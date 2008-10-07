@@ -47,11 +47,15 @@ public abstract class Block
 
     /**
      * When encountered by the constructor as it calls the reflexive machinery
-     * in processCharacteristics(), this will throw DeprecatedException to
-     * signal DefsParser to skip this Block object and move on to the next.
+     * in processCharacteristics(), this will throw UnnecessaryCodeException
+     * to signal DefsParser to skip this Block object and move on to the next.
      */
     protected final void setDeprecated(final String deprecated) {
-        throw new DeprecatedException(deprecated);
+        throw new UnnecessaryCodeException(deprecated);
+    }
+
+    protected final void setUnnecessary(final String msg) {
+        throw new UnnecessaryCodeException(msg);
     }
 
     /**
@@ -139,8 +143,8 @@ public abstract class Block
                 // in super classes above us.
                 e.printStackTrace();
             } catch (InvocationTargetException e) {
-                if (e.getCause() instanceof DeprecatedException) {
-                    throw (DeprecatedException) e.getCause();
+                if (e.getCause() instanceof UnnecessaryCodeException) {
+                    throw (UnnecessaryCodeException) e.getCause();
                 }
                 // the setter itself threw an exception! Crazy.
                 e.printStackTrace();

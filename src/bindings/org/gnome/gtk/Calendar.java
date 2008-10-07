@@ -140,9 +140,8 @@ public class Calendar extends Widget
      * year.
      * 
      * @param day
-     *            should be in the range of <code>1</code> to
-     *            <code>31</code>. Passing <code>0</code> will unselect
-     *            the day.
+     *            should be in the range of <code>1</code> to <code>31</code>.
+     *            Passing <code>0</code> will unselect the day.
      * @since 4.0.6
      */
     public void selectDay(int day) {

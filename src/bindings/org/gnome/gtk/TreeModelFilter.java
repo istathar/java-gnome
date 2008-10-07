@@ -36,10 +36,9 @@ package org.gnome.gtk;
  * 
  * then instruct the TreeModelFilter how to select the rows from the concrete
  * TreeModel it is proxying to be included in the virtual model it presents
- * via the
- * {@link #setVisibleCallback(org.gnome.gtk.TreeModelFilter.Visible) setVisibleCallback()}.
- * For instance, if you have a list of all mountains and only want to present
- * peaks higher than 8000 meters, you might do:
+ * via the {@link #setVisibleCallback(org.gnome.gtk.TreeModelFilter.Visible)
+ * setVisibleCallback()}. For instance, if you have a list of all mountains
+ * and only want to present peaks higher than 8000 meters, you might do:
  * 
  * <pre>
  * filter.setVisibleCallback(new TreeModelFilter.Visible() {
@@ -63,12 +62,12 @@ package org.gnome.gtk;
  * </pre>
  * 
  * <p>
- * <b>Note:</b><br/> For some reason, TreeModelFilter does <b>not</b>
- * implement TreeSortable. If you plan to sort the filtered model (ie via
- * TreeViewColumn's
- * {@link TreeViewColumn#setSortColumn(DataColumn) setSortColumn()}) make
- * sure you wrap your TreeModelFilter in a {@link TreeModelSort} and add that
- * to the TreeView instead:
+ * <b>Note:</b><br/>
+ * For some reason, TreeModelFilter does <b>not</b> implement TreeSortable. If
+ * you plan to sort the filtered model (ie via TreeViewColumn's
+ * {@link TreeViewColumn#setSortColumn(DataColumn) setSortColumn()}) make sure
+ * you wrap your TreeModelFilter in a {@link TreeModelSort} and add that to
+ * the TreeView instead:
  * 
  * <pre>
  * store = new ListStore(...);
@@ -145,12 +144,13 @@ public class TreeModelFilter extends TreeModel implements TreeDragSource
          * <code>false</code> for the row to be filtered out.
          * 
          * <p>
-         * <b>Warning!</b><br/> <code>row</code> is a valid TreeIter in
-         * <code>base</code>, not <code>source</code>. This makes sense
-         * if you consider that you will need to ask the underlying proxied
-         * TreeModel for information about a row; the only rows you can see in
-         * the <code>source</code> TreeModelFilter are, of course, the ones
-         * that have passed this test.
+         * <b>Warning!</b><br/>
+         * <code>row</code> is a valid TreeIter in <code>base</code>, not
+         * <code>source</code>. This makes sense if you consider that you will
+         * need to ask the underlying proxied TreeModel for information about
+         * a row; the only rows you can see in the <code>source</code>
+         * TreeModelFilter are, of course, the ones that have passed this
+         * test.
          * 
          * @since 4.0.6
          */
@@ -172,9 +172,9 @@ public class TreeModelFilter extends TreeModel implements TreeDragSource
     }
 
     /**
-     * Hookup the <code>Visible</code> callback that will be used to
-     * determine whether rows from the underlying TreeModel are to be included
-     * in the set presented by this TreeModelFilter.
+     * Hookup the <code>Visible</code> callback that will be used to determine
+     * whether rows from the underlying TreeModel are to be included in the
+     * set presented by this TreeModelFilter.
      * 
      * @since 4.0.6
      */
@@ -183,7 +183,7 @@ public class TreeModelFilter extends TreeModel implements TreeDragSource
      * although the underlying function in GTK it actually requires a function
      * pointer. Our implementation registers 'visible' as a custom signal
      * which essentially has the same signature as
-     * (*GtkTreeModelFilterVisibleFunc)</code>.
+     * (GtkTreeModelFilterVisibleFunc)</code>.
      */
     public void setVisibleCallback(TreeModelFilter.Visible callback) {
         GtkTreeModelFilterOverride.setVisibleFunc(this);
@@ -227,5 +227,72 @@ public class TreeModelFilter extends TreeModel implements TreeDragSource
      */
     public void refilter() {
         GtkTreeModelFilter.refilter(this);
+    }
+
+    /**
+     * Convert a TreeIter valid in the underying TreeModel to one usable with
+     * this TreeModelFilter.
+     * 
+     * @return <code>null</code> if the row is not (currently) present in the
+     *         TreeModelFilter.
+     * 
+     * @since 4.0.9
+     */
+    public TreeIter convertIterBaseToFilter(TreeIter row) {
+        final TreeIter result;
+        final boolean valid;
+
+        result = new TreeIter(this);
+
+        valid = GtkTreeModelFilter.convertChildIterToIter(this, result, row);
+
+        if (valid) {
+            return result;
+        } else {
+            return null;
+        }
+    }
+
+    /**
+     * Convert a TreeIter valid in this TreeModelFilter into one usable with
+     * the underying TreeModel.
+     * 
+     * @since 4.0.9
+     */
+    public TreeIter convertIterFilterToBase(TreeIter row) {
+        final TreeModel base;
+        final TreeIter result;
+
+        base = GtkTreeModelFilter.getModel(this);
+        result = new TreeIter(base);
+
+        GtkTreeModelFilter.convertIterToChildIter(this, result, row);
+
+        return result;
+    }
+
+    /**
+     * Convert a TreePath representing a row in the underying TreeModel into
+     * the corresponding locator in this TreeModelFilter.
+     * 
+     * <p>
+     * If the row represented by <code>path</code> isn't (currently) present
+     * in the narrowed representation provided by this TreeModelFilter, then
+     * <code>null</code> is returned.
+     * 
+     * @since 4.0.9
+     */
+    public TreePath convertPathBaseToFilter(TreePath path) {
+        return GtkTreeModelFilter.convertChildPathToPath(this, path);
+    }
+
+    /**
+     * Convert a TreePath representing a row in this TreeModelFilter into one
+     * that points to the corresponding row in the underying TreeModel.
+     * 
+     * @since 4.0.9
+     */
+    public TreePath convertPathFilterToBase(TreePath path) {
+        return GtkTreeModelFilter.convertPathToChildPath(this, path);
     }
 }
