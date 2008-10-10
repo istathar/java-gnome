@@ -1,7 +1,7 @@
 /*
  * EventButton.java
  *
- * Copyright (c) 2008 Operational Dynamics Consulting Pty Ltd
+ * Copyright (c) 2008 Operational Dynamics Consulting Pty Ltd, and Others
  *
  * The code in this file, and the library it is a part of, are made available
  * to you by the authors under the terms of the "GNU General Public Licence,
@@ -18,6 +18,7 @@ package org.gnome.gdk;
  * being held down by the user with {@link #getState() getState()}.
  * 
  * @author Andrew Cowie
+ * @author Srichand Pendyala
  * @since 4.0.6
  */
 public final class EventButton extends Event
@@ -49,19 +50,15 @@ public final class EventButton extends Event
 
     /**
      * Get the horizontal location that this Event occured at, relative to the
-     * <code>[org.gnome.gdk]</code> Window.
+     * <code>[org.gnome.gdk]</code> Window. In most cases you will get an
+     * integral return; in any case, most usages of this return value will
+     * want a whole number of pixels, so cast to <code>int</code> as
+     * necessary.
      * 
      * @since 4.0.9
      */
-    /*
-     * Why on earth are they double? No one has been able to give us a
-     * coherent answer, and all the C code examples I've seen relating to
-     * TreeView selections cast these fields to (gint) so we'll do the same.
-     * FUTURE if anyone does an Override for this, then do this in C so we
-     * save shipping the double across the boundary.
-     */
-    public int getX() {
-        return (int) GdkEventButton.getX(this);
+    public double getX() {
+        return GdkEventButton.getX(this);
     }
 
     /**
@@ -70,7 +67,7 @@ public final class EventButton extends Event
      * 
      * @since 4.0.9
      */
-    public int getY() {
-        return (int) GdkEventButton.getY(this);
+    public double getY() {
+        return GdkEventButton.getY(this);
     }
 }

@@ -829,8 +829,8 @@ public class TreeView extends Container
      *             return false;
      *         }
      * 
-     *         x = event.getX();
-     *         y = event.getY();
+     *         x = (int) event.getX();
+     *         y = (int) event.getY();
      *         path = view.getPathAtPos(x, y);
      * 
      *         selection = view.getSelection();

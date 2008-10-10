@@ -649,6 +649,8 @@ def compileDocumentation():
 	cmd += "-overview src/bindings/overview.html "
 	cmd += "-sourcepath src/bindings "
 	cmd += "-subpackages org "
+	cmd += "-exclude org.freedesktop.bindings "
+	cmd += "src/bindings/org/freedesktop/bindings/Time.java "
 	if not verbose:
 		cmd += " >/dev/null"
 
