@@ -1,18 +1,49 @@
 NEWS
 
-<!--
-<img src="doc/api/org/gnome/gtk/TextView.png" alt="" style="float: right;
-text-align: right; padding-left: 15px;" /> 
--->
+<a name="4.0.9" id="1223606852" title="Text APIs"></a>
 
-<a name="4.0.9" id="1222743202" title="Text APIs"></a>
-
-java-gnome 4.0.9-rc1 (29 Sep 2008)
+java-gnome 4.0.9-rc2 (10 Oct 2008)
 ==================================
 
-The native shared library part of java-gnome is now located detmanistically and loaded automatically. You don't need to `-Djava.library.path` on the command line any more.
+_The pen is mightier than the sword_
 
-TextView/TextBuffer APIs merged.
+New coverage
+------------
+
+<img src="doc/examples/textview/ExampleInstantMessenger.png" alt=""
+style="float: right; text-align: right; padding-left: 15px;" /> 
+
+This is the first release with coverage of GTK's powerful TextView/TextBuffer
+multi-line text display and editing Widget. This has been the result of
+several months of careful effort to present the best API we could while
+remaining faithful to the underlying implementation. This bulk of this work
+was done by Stefan Prelle, with contributions from Kenneth Prugh and testing
+by many people in the `#java-gnome` community.
+
+* **`org.gnome.gtk.TextBuffer`**
+* **`org.gnome.gtk.TextIter`**
+* **`org.gnome.gtk.TextView`**
+
+
+Running java-gnome programs
+---------------------------
+
+The native shared library part of java-gnome is now located detmanistically
+and loaded automatically. You don't need to `-Djava.library.path` on the
+command line any more!
+
+Build system improvements
+-------------------------
+
+Serkan Kaba has contributed a number of internal improvements allowing the top
+level `./configure` script to be precise about the versions of various GNOME
+dependencies. He has also been taking care of our packaging on Gentoo Linux,
+so we much appreciate his contributions!
+
+Since the last RC...
+--------------------
+
+Signature of getX() and getY() on EventButton now return `double`.
 
 AfC
 
