@@ -15,35 +15,107 @@ style="float: right; text-align: right; padding-left: 15px;" />
 
 This is the first release with coverage of GTK's powerful TextView/TextBuffer
 multi-line text display and editing Widget. This has been the result of
-several months of careful effort to present the best API we could while
-remaining faithful to the underlying implementation. This bulk of this work
-was done by Stefan Prelle, with contributions from Kenneth Prugh and testing
-by many people in the `#java-gnome` community.
+several months of careful effort to present a clean and self-consistent API
+while remaining faithful to the underlying implementation. This bulk of this
+work was done by Stefan Prelle and Andrew Cowie, with contributions from
+Kenneth Prugh and testing by many people in the `#java-gnome` community.
 
 * **`org.gnome.gtk.TextBuffer`**
 * **`org.gnome.gtk.TextIter`**
+* **`org.gnome.gtk.TextTags`**
 * **`org.gnome.gtk.TextView`**
 
+Other improvements
+------------------
 
-Running java-gnome programs
----------------------------
+Continuous improvement to various classes, especially in our documentation.
+Incremental changes have occurred in:
 
-The native shared library part of java-gnome is now located detmanistically
-and loaded automatically. You don't need to `-Djava.library.path` on the
-command line any more!
+* **`org.gnome.gdk.EventButton`**
+* **`org.gnome.gtk.TreeModelSort`**	
+* **`org.gnome.gtk.TreeModelFilter`**
+* **`org.gnome.gtk.TreeView`**
+* **`org.gnome.gtk.Widget`**
+
+TODO complete list, and describe notable changes
+
+TODO describe memory pressure improvements
+
+Making it easier to run java-gnome programs
+-------------------------------------------
+
+Because java-gnome is directly binds to underlying system libraries, it has a
+native shared library component. This led to the usual development hassle of
+having to specify where this library is to be found if it were anywhere other
+than `/usr` and of course the nightmare of ensuring a VM used the right
+library in the event you were developing against or hacking on a newer version
+of java-gnome; in Java this meant,
+
+    $ java -classpath /opt/local/share/java/gtk-4.0.jar:. -Djava.library.path=/opt/local/lib com.example.Program
+
+No longer!
+
+The native shared library part of java-gnome is now located deterministically
+and loaded automatically. You don't need to faff about with
+`java.library.path` on the command line or in your IDE any more!
+
+    $ java -classpath /opt/local/share/java/gtk-4.0.jar:. com.example.Program
+
+Our native component is completely coupled to the specific release you are
+using, so sufficient version information is embedded in the `.so` name to
+ensure that the right library (and only the right library) is loaded.
+
+There are _no_ changes if you are simply working against an "in-place"
+development build of java-gnome, be it from command line, or in an IDE like
+Eclipse, things will Just Work&trade;
+
+    $ java -classpath ~/workspace/java-gnome/tmp/gtk-4.0.jar:. com.example.Program
+
+Note to downstream packagers: running `make install` is now **compulsory**.
+This signals a build that it is no longer being used "in-place" but instead is
+to be prepared for installation to a system prefix (Gentoo got bit by this;
+hooray for downstream packagers testing release candidates!). If you need to
+change the install locations, you can specify overrides when you run
+`./configure`:
+
+    $ ./configure prefix=/usr jardir=/usr/share/java-gnome-4.0/lib/gtk-4.0.jar libdir=/usr/lib/java-gnome-4.0
+
+The defaults are all sensible, of course, and are as described in
+[README](README.html).
 
 Build system improvements
 -------------------------
 
 Serkan Kaba has contributed a number of internal improvements allowing the top
 level `./configure` script to be precise about the versions of various GNOME
-dependencies. He has also been taking care of our packaging on Gentoo Linux,
-so we much appreciate his contributions!
+dependencies we require.
+
+With the release of GTK 2.14, various bits of the underlying libraries have
+been deprecated. Thanks to the hard work from Serkan Kaba and new contributor
+George McLachlan, java-gnome correctly builds against GTK 2.14 without any
+problems.
+
+Note that java-gnome releases do _not_ set `GTK_DISABLE_DEPRECATED` (this is a
+change from 4.0.8); thanks to Mart Raudsepp of the Gentoo Linux desktop team
+for pointing out why this would be better. These macros _are_ still enabled
+for builds checked out from version control so hackers working on the bindings
+so will be able to keep up with ensuring we react to future deprecations (it's
+always awesome when downstream is a part of the upstream community; Serkan and
+Kenneth are also Gentoo packagers, and take care of the java-gnome `.ebuild`
+for us).
 
 Since the last RC...
 --------------------
 
-Signature of getX() and getY() on EventButton now return `double`.
+Signature of `getX()` and `getY()` on EventButton now return `double`. Thanks
+Srichand.
+
+Looking ahead
+-------------
+
+TODO Complete
+
+TODO Coverage report
 
 AfC
 
