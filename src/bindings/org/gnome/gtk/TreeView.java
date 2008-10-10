@@ -821,7 +821,7 @@ public class TreeView extends Container
      * <pre>
      * view.connect(new Widget.ButtonPressEvent() {
      *     public boolean onButtonPressEvent(Widget source, EventButton event) {
-     *         final int x, y;
+     *         final double x, y;
      *         final TreePath path;
      *         final TreeSelection selection;
      * 
@@ -831,7 +831,7 @@ public class TreeView extends Container
      * 
      *         x = event.getX();
      *         y = event.getY();
-     *         path = view.getPathAtPos(x, y);
+     *         path = view.getPathAtPos((int)x, (int)y);
      * 
      *         selection = view.getSelection();
      *         selection.selectRow(path);
