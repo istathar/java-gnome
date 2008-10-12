@@ -24,7 +24,7 @@ Building java-gnome
 
 For the impatient:
 
-    $ tar xjf java-gnome-4.0.9.tzr.bz2
+    $ tar xjf java-gnome-4.0.9.tar.bz2
     $ cd java-gnome-4.0.9
     $ ./configure
     $ make
@@ -113,7 +113,7 @@ Perl script -- the places where OS is switched are obvious, and just add what
 you need to add, and send us a patch.
 
 Hopefully in the not to distant future we will be able to switch to Robert
-Collins's new "Buildtool". His approach to configuration and building will
+Collins's new "Fabricate". His approach to configuration and building will
 revolutionize the Free and Open Source Software universe, and we look forward
 to participating in the development of his work.
 
@@ -157,6 +157,17 @@ clean` won't force you to reconfigure (though `make distclean` will). The
 `configure` script runs very quickly, so it's no big deal to switch settings
 by re-running it.
 
+### Dependencies ###
+
+The java-gnome library depends on the GNOME desktop and is intended for people
+wishing to do tight integration with it. In particular, this version of
+java-gnome depends on:
+
+* GTK `>= 2.12.11`
+
+* Cairo `>= 1.6.4`
+
+* libglade `>= 2.6.3`
 
 3. Build
 --------
@@ -185,6 +196,7 @@ That's actually enough to go on -- if you're using an IDE like Eclipse you can
 just tell it about the `.jar` and then jump right to "Using the Bindings". Or
 you can install java-gnome somewhere. Doesn't matter, really.
 
+<a name="install"></a>
 
 4. Install
 ----------
@@ -204,6 +216,11 @@ and you would end up with:
 `~/share/java/gtk-4.0.jar`  
 `~/share/java/gtk.jar`  
 `~/lib/libgtkjni-4.0.9.so`
+
+The default is to send it off to `/usr/local` as you'd expect. 
+
+Using `make install` is **compulsory** if you intend to use java-gnome from
+anywhere other than "in-place" from the temporary location where it was built.
 
 ### Installing to system (for people packaging the library for their distro)
 
@@ -230,8 +247,8 @@ With a prefix of `/usr` you will end up with
 `/usr/share/java/gtk.jar`  
 `/usr/lib/libgtkjni-4.0.9.so`
 
-If you have distro policy issues to deal with, then move things around once
-they've landed in `DESTDIR`.
+If you have distro policy issues to deal with, then pass `jardir` and/or
+`libdir` overrides to `configure`.
 
 <a name="using"></a>
 
@@ -311,7 +328,7 @@ Maintainer,
 [java-gnome](http://java-gnome.sourceforge.net/),  
 opening GTK and GNOME to Java programmers!
 
-_Last modified 12 Sep 08_
+_Last modified 12 Oct 08_
 
 [mirror]: http://ftp.gnome.org/pub/gnome/sources/java-gnome/4.0/
 

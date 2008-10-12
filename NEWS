@@ -22,8 +22,15 @@ Kenneth Prugh and testing by many people in the `#java-gnome` community.
 
 * **`org.gnome.gtk.TextBuffer`**
 * **`org.gnome.gtk.TextIter`**
-* **`org.gnome.gtk.TextTags`**
+* **`org.gnome.gtk.TextTag`**
+* **`org.gnome.gtk.TextTagTable`**
 * **`org.gnome.gtk.TextView`**
+* **`org.gnome.gtk.TextWindowType`**
+
+The snapshot at right is from
+[`ExampleInstantMessenger`](doc/examples/textview/ExampleInstantMessenger.html),
+included with the sources. It is a somewhat detailed example showing the use
+of TextView, TextBuffer, and related classes. Try running it!
 
 Other improvements
 ------------------
@@ -37,9 +44,49 @@ Incremental changes have occurred in:
 * **`org.gnome.gtk.TreeView`**
 * **`org.gnome.gtk.Widget`**
 
-TODO complete list, and describe notable changes
+TODO complete list, and describe other notable changes
 
-TODO describe memory pressure improvements
+The version constants identifying the library are now alongside the rest of
+the infrastructure. Public methods are now available if you want to use the
+API or release version number in a snapshot or example.
+
+* **`org.freedesktop.bindings.Version`**
+
+Reducing memory pressure
+------------------------
+
+Internally, java-gnome maintains a lookup table so that pointers coming from
+the C side can be converted into proxy objects for the case where a proxy has
+already been created. In any library there a great number of transient and
+temporary objects and structures allocated, and we are no different. It turned
+out that registering these temporary objects was putting pressure on the
+lookup table. While these objects _were_ properly weak referenced and being
+garbage collected (and thence freed), there were nevertheless an enormous
+number of temporary objects being inserted and removed from the lookup table
+-- and that sort of thing causes hash tables to grow overly large.
+
+To do something about this we have split the former hierarchy root into two
+classes. Only structures which have a persistent identity (which, in practise,
+means only GObjects and certain Cairo entities) are registered so they can be
+looked up by address later as necessary. These remain subclasses of the former
+root `Proxy`. The rest of the Java side proxies for are now subclasses of
+`Pointer` which is now the new root for our class hierarchy. These _aren't_
+registered, essentially eliminating the transient pressure on the lookup
+table.
+
+* **`org.freedesktop.bindings.Pointer`**
+* **`org.freedesktop.bindings.Proxy`**
+* `org.freedesktop.bindings.Plumbing`
+* `org.freedesktop.cairo.Entity`
+* **`org.gnome.glib.Object`**
+* `org.gnome.glib.Plumbing`
+* **`org.gnome.glib.Boxed`**
+
+This is entirely an internal change. Users of released & packaged versions of
+the library will not notice any difference. Developers and hackers who have a
+checkout of the project source code may need to `make clean` if they haven't
+since `'mainline'` revno 567. Thanks to Vreixo Formoso for doing the bulk of
+the leg-work on this one.
 
 Making it easier to run java-gnome programs
 -------------------------------------------
@@ -49,7 +96,7 @@ native shared library component. This led to the usual development hassle of
 having to specify where this library is to be found if it were anywhere other
 than `/usr` and of course the nightmare of ensuring a VM used the right
 library in the event you were developing against or hacking on a newer version
-of java-gnome; in Java this meant,
+of java-gnome; in Java this meant:
 
     $ java -classpath /opt/local/share/java/gtk-4.0.jar:. -Djava.library.path=/opt/local/lib com.example.Program
 
@@ -67,7 +114,7 @@ ensure that the right library (and only the right library) is loaded.
 
 There are _no_ changes if you are simply working against an "in-place"
 development build of java-gnome, be it from command line, or in an IDE like
-Eclipse, things will Just Work&trade;
+Eclipse, things will Just Work&trade;:
 
     $ java -classpath ~/workspace/java-gnome/tmp/gtk-4.0.jar:. com.example.Program
 
@@ -76,9 +123,9 @@ This signals a build that it is no longer being used "in-place" but instead is
 to be prepared for installation to a system prefix (Gentoo got bit by this;
 hooray for downstream packagers testing release candidates!). If you need to
 change the install locations, you can specify overrides when you run
-`./configure`:
+`./configure`, perhaps:
 
-    $ ./configure prefix=/usr jardir=/usr/share/java-gnome-4.0/lib/gtk-4.0.jar libdir=/usr/lib/java-gnome-4.0
+    $ ./configure prefix=/usr jardir=/usr/share/java libdir=/usr/lib/jni
 
 The defaults are all sensible, of course, and are as described in
 [README](README.html).
