@@ -13,12 +13,6 @@
 #
 
 
-	function debug($msg) {
-		if (0) {
-			echo "$msg"."<BR>";
-		}
-	}
-
 #
 # parse the inbound URI. We have to go to some effort to get the translated
 # path that we're working from.
@@ -27,19 +21,11 @@
 	$filepath = substr($_SERVER["SCRIPT_FILENAME"], 0, -11);
 	$filepath .= $_SERVER["REQUEST_URI"];
 
-	debug($filepath);
-
 	if (substr($filepath, -5) == ".html") {
 		$filepath = substr_replace($filepath, ".txt" ,-5);
 
-		debug($filepath);
-
 		if (!file_exists($filepath)) {
-			debug("Not found");
-
 			$filepath = substr($filepath, 0, -4);
-
-			debug($filepath);
 
 			if (!file_exists($filepath)) {
 				header("HTTP/1.1 404 Not Found");
@@ -47,14 +33,21 @@
 				exit;
 			}
 		}
-		debug("Will render");
 	} else {
 		header("HTTP/1.1 404 Not Found");
 		echo "<h1>404 for real</h1>";
 		exit;
 	}
 
-	header("HTTP/1.1 200 OK");
+#
+# WARNING This is a workaround; we used to send HTTP/1.1 of course, but doing
+# that here now causes SourceForge's web server to prepend garbage. Putting
+# HTTP/1.0 here makes it work. Strangely, even with this, their web server
+# actually sends HTTP/1.1. Morons.
+#
+
+	header("HTTP/1.0 200 OK");
+
 #
 # now, with the filename in hand, shlurp its contents and parse out the first
 # line as title.
