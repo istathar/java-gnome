@@ -496,6 +496,7 @@ ListStore
 ListStore's
 ListStores
 Ljava
+Lorem
 Lorg
 Lortie
 LoveLetter
@@ -513,6 +514,7 @@ Manu
 Manu's
 MapEvent
 MapEventSignal
+McLachlan
 MenuBars
 MenuItem
 MenuItem's
@@ -608,6 +610,7 @@ RadioButtonGroup
 RadioButtonGroup's
 RadioButtons
 Rahn
+Raudsepp
 RcStyle
 RefToJavaProxy
 ReleaseStringUTFChars
@@ -1474,6 +1477,7 @@ instanceFor
 instanceof
 ints
 invalidateRect
+ipsum
 isActive
 isDirectory
 isEmbedded
@@ -1493,6 +1497,7 @@ itse
 jN
 jamvm
 jararrayref
+jardir
 jargs
 javaClass
 javaClassName
@@ -1540,6 +1545,7 @@ leftAttach
 leftGravity
 len
 li
+libdir
 libexec
 libgcj
 libglade
@@ -1779,6 +1785,7 @@ responseId
 returnType
 revalidate
 revalidation
+revno
 rightAttach
 rowActivated
 rowAlign
