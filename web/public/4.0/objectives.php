@@ -35,13 +35,6 @@ h2.goal {
 <h1 class="title">What We Do</h1>
 <div class="bluepanel">Approachability and Consistency</div>
 
-<p>
-Everyone loves a screenshot!
-<center>
-<img src="/4.0/doc/api/org/gnome/gtk/AboutDialog.png">
-</center>
-</p>
-
 <p>We have two objectives in the java-gnome project. First and foremost, we
 seek to achieve:
 

@@ -748,7 +748,7 @@ if ($os eq "gentoo") {
 
 } elsif ($os eq "debian") {
 	check_system_library(@gnomedev_libs,
-			"gtk+-2.0 >= 2.12.11",
+			"gtk+-2.0 >= 2.12.9",
 			"GTK+",
 			"libgtk2.0-dev");
 

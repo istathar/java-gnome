@@ -62,15 +62,6 @@ excellent performance are the hallmarks of the project. We are pleased to
 maintain this effort as a part of the GNOME development platform, and hope
 you'll find our work of interest!
 </p>
-<hr>
-<p>The old libraries are long since abandoned. For historical interest only,
-we have few notes on the previous project:
-
-<p style="padding-left: 50px;">
-<a class="subject" href="/2.x/"><img align="texttop" src="/images/openoffice_ImpressNextSlide.jpg" style="padding-right: 10px;" border="0"></a>
-<a class="subject" href="/2.x/">java-gnome 2.<span class="x" style="padding-left: 3px;">x</span></a>
-</p>
-
 
 </div>
 

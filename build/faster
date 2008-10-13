@@ -651,6 +651,7 @@ def compileDocumentation():
 	cmd += "-subpackages org "
 	cmd += "-exclude org.freedesktop.bindings "
 	cmd += "src/bindings/org/freedesktop/bindings/Time.java "
+	cmd += "src/bindings/org/freedesktop/bindings/Version.java "
 	if not verbose:
 		cmd += " >/dev/null"
 

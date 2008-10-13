@@ -22,11 +22,6 @@
 <meta name="author" content="Andrew Cowie">
 <style>
 div.box {
-	background-color: #DDDDDD;
-	padding: 15px;
-	border: dashed 3px blue;
-	margin-left: 100px;
-	margin-right: 100px;
 	margin-top: 20px;
 	font-size: x-large;
 }
@@ -44,10 +39,12 @@ div.box {
 	<code>NEWS</code> file)</a>
 </div>
 
+<img style="padding: 10px; float: right;" src="/4.0/doc/api/org/gnome/gtk/AboutDialog.png">
+<p>
+<i>Everyone loves a screenshot!</i>
+</p>
+
 <div class="box">
-<span class="mono" style="font-size: xx-large; font-weight: bold;">
-@since 4.0.8
-</span>
 
 <p>These are the Java bindings for GTK and GNOME!  Featuring a robust
 engineering design, completely generated internals, a lovingly crafted layer
