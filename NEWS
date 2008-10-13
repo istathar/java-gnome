@@ -36,21 +36,31 @@ Other improvements
 ------------------
 
 Continuous improvement to various classes, especially in our documentation.
-Incremental changes have occurred in:
+Incremental changes have occurred in a number of places. In the
+TreeView/TreeModel APIs, some useful methods for translating TreeIters from
+one model to another have been added.
 
-* **`org.gnome.gdk.EventButton`**
 * **`org.gnome.gtk.TreeModelSort`**	
 * **`org.gnome.gtk.TreeModelFilter`**
+
+Also thanks to the persistent work of Stefan Prelle, we have nice coverage of
+GTK's Assistant (aka druid, wizard, etc): 
+
+* **`org.gnome.gtk.Assistant`**
+
+Better support for doing popup context menus, including some bug fixes. Thanks
+Srichand Pendyala for taking care of this and to Owen Taylor for having
+explained out some of the underlying implementation details.
+
+* **`org.gnome.gdk.EventButton`**
+* **`org.gnome.gtk.Action`**
 * **`org.gnome.gtk.TreeView`**
 * **`org.gnome.gtk.Widget`**
 
-TODO complete list, and describe other notable changes
-
-The version constants identifying the library are now alongside the rest of
-the infrastructure. Public methods are now available if you want to use the
-API or release version number in a snapshot or example.
-
-* **`org.freedesktop.bindings.Version`**
+And, as usual, incremental improvements to core classes, notably a few new
+signals here and there. Virtually every class has been touched in one way or
+another; most changes are cosmetic but they add up to significant
+contribution.
 
 Reducing memory pressure
 ------------------------
@@ -85,8 +95,9 @@ table.
 This is entirely an internal change. Users of released & packaged versions of
 the library will not notice any difference. Developers and hackers who have a
 checkout of the project source code may need to `make clean` if they haven't
-since `'mainline'` revno 567. Thanks to Vreixo Formoso for doing the bulk of
-the leg-work on this one.
+since `'mainline'` revno 567.
+
+Thanks to Vreixo Formoso for doing the bulk of the leg-work on this one.
 
 Making it easier to run java-gnome programs
 -------------------------------------------
@@ -114,7 +125,7 @@ ensure that the right library (and only the right library) is loaded.
 
 There are _no_ changes if you are simply working against an "in-place"
 development build of java-gnome, be it from command line, or in an IDE like
-Eclipse, things will Just Work&trade;:
+Eclipse, things will Just Work&trade;; again, no `-Djava.library.path`:
 
     $ java -classpath ~/workspace/java-gnome/tmp/gtk-4.0.jar:. com.example.Program
 
@@ -125,7 +136,7 @@ hooray for downstream packagers testing release candidates!). If you need to
 change the install locations, you can specify overrides when you run
 `./configure`, perhaps:
 
-    $ ./configure prefix=/usr jardir=/usr/share/java libdir=/usr/lib/jni
+    $ ./configure prefix=/usr jardir=/opt/share/java libdir=/usr/lib/jni
 
 The defaults are all sensible, of course, and are as described in
 [README](README.html).
@@ -151,18 +162,22 @@ always awesome when downstream is a part of the upstream community; Serkan and
 Kenneth are also Gentoo packagers, and take care of the java-gnome `.ebuild`
 for us).
 
-Since the last RC...
---------------------
+Incidentally, the version constants identifying the library are now alongside
+the rest of the infrastructure. Public methods are now available if you want
+to use the API or release version number in a snapshot or example.
 
-Signature of `getX()` and `getY()` on EventButton now return `double`. Thanks
-Srichand.
+* **`org.freedesktop.bindings.Version`**
 
 Looking ahead
 -------------
 
-TODO Complete
-
-TODO Coverage report
+We're pretty happy with the state of the java-gnome right now. Coverage of the
+most important parts of GTK are in place. Our treatment of the underlying
+drawing library, Cairo, still has a bit to go, but the basics are there and a
+firm foundation to build from. More interesting are the remaining areas; the
+more general GNOME utility libraries and other parts of the Free Desktop stack
+that might be needed by an end-user application. It'll be interesting to see
+how these areas evolve in the coming months.
 
 AfC
 

@@ -241,7 +241,7 @@ example:
 	
 	...
 
-With a prefix of `/usr` you will end up with
+With a prefix of `/usr` you will end up with:
 
 `/usr/share/java/gtk-4.0.jar`  
 `/usr/share/java/gtk.jar`  
@@ -280,8 +280,8 @@ libraries (after all, the whole point is to use the real GTK, not some pseudo
 look alike pathetic attempt of a widget toolkit), but we take care of locating
 it and loading it for you. So all you need to do to run an application is:
 
-    $ java -client -ea                               \
-        -classpath /home/bloggins/share/java/gtk.jar \
+    $ java -client -ea                                   \
+        -classpath /home/bloggins/share/java/gtk-4.0.jar \
         com.example.ComeOnBabyLightMyFire
 
 Oh, the joys of running Java programs by hand. 
