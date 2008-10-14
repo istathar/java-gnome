@@ -180,13 +180,9 @@ public class Assistant extends Window
     }
 
     /**
-     * Sets the title for page. The title is displayed in the header area of
-     * the Assistant when page is the current page.
+     * Sets the title for a given page. The title is displayed in the header
+     * area of the Assistant when page is the current page.
      * 
-     * @param page
-     *            A page of Assistant
-     * @param type
-     *            The new title of the page
      * @since 4.0.9
      */
     public void setPageTitle(Widget page, String title) {

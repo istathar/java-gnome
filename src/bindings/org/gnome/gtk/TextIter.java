@@ -130,10 +130,10 @@ public final class TextIter extends Boxed
      * TextBuffer, where lines are split by newline characters. Most of the
      * time TextViews are set to wrap lines and thus a single very long line
      * will be presented visually as a paragraph (there is no definition of
-     * paragraph in TextBuffer terms). If you're wondering about where the
+     * paragraph in TextBuffer terms). If you're wondering about where a
      * position (the cursor, say) is down into a TextView widget, then see
-     * TextView's {@link TextView#startsDisplayLine(TextIter)
-     * startsDisplayLine()} and related "<code>display</code>" methods.
+     * {@link #startsDisplayLine(TextView) startsDisplayLine()} and other
+     * related "<code>display</code>" methods.
      * 
      * @since 4.0.9
      */
@@ -659,4 +659,15 @@ public final class TextIter extends Boxed
     public boolean backwardDisplayLine(TextView view) {
         return GtkTextView.backwardDisplayLine(view, this);
     }
+
+    /**
+     * Does the position represented by this TextIter start a display line
+     * (within a paragraph) in the given TextView?
+     * 
+     * @since 4.0.9
+     */
+    public boolean startsDisplayLine(TextView view) {
+        return GtkTextView.startsDisplayLine(view, this);
+    }
+
 }
