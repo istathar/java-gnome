@@ -24,12 +24,7 @@ Java_org_gnome_gtk_GtkClipboardOverride_gtk_1clipboard_1get
 {
 	GtkClipboard* result;
 	
-	// call function
-
-	/*
-	 * FIXME
-	 */
+	result = gtk_clipboard_get(GDK_SELECTION_CLIPBOARD);
 	
-	// and finally
 	return (jlong) result;
 }
