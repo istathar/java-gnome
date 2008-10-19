@@ -28,15 +28,15 @@ public class Clipboard extends Object
         super(pointer);
     }
     
-    public static final Clipboard get() {
+    public static Clipboard getDefault() {
         return GtkClipboardOverride.get();
     }
     
-    public final void setText(String text) {
+    public void setText(String text) {
         GtkClipboard.setText(this, text, -1);
     }
     
-    public final void setImage(Pixbuf pixbuf) {
+    public void setImage(Pixbuf pixbuf) {
         GtkClipboard.setImage(this, pixbuf);
     }
 }
