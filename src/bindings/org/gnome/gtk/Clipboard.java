@@ -32,8 +32,8 @@ public class Clipboard extends Object
         return GtkClipboardOverride.get();
     }
     
-    public final void setText(String text, int len) {
-        GtkClipboard.setText(this, text, len);
+    public final void setText(String text) {
+        GtkClipboard.setText(this, text, -1);
     }
     
     public final void setImage(Pixbuf pixbuf) {
