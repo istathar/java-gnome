@@ -15,12 +15,10 @@ import org.gnome.gdk.Pixbuf;
 import org.gnome.glib.Object;
 
 /*
- * FIXME this is a placeholder stub for what will become the public API for
- * this type. Replace this comment with appropriate javadoc including author
- * and since tags. Note that the class may need to be made abstract, implement
- * interfaces, or even have its parent changed. No API stability guarantees
- * are made about this class until it has been reviewed by a hacker and this
- * comment has been replaced.
+ * FIXME: A description of the class is needed here.
+ *
+ * @author Serkan Kaba
+ * @since 4.0.10
  */
 public class Clipboard extends Object
 {
@@ -28,14 +26,33 @@ public class Clipboard extends Object
         super(pointer);
     }
     
+    /**
+     * Returns the default clipboard.
+     *
+     * @since 4.0.10
+     */
     public static Clipboard getDefault() {
         return GtkClipboardOverride.get();
     }
     
+    /**
+     * Copy a text to clipboard.
+     * 
+     * @param text
+     *            Text to be copied.
+     * @since 4.0.10
+     */
     public void setText(String text) {
         GtkClipboard.setText(this, text, -1);
     }
     
+    /**
+     * Copy an image to clipboard.
+     * 
+     * @param pixbuf
+     *            Image to be copied.
+     * @since 4.0.10
+     */
     public void setImage(Pixbuf pixbuf) {
         GtkClipboard.setImage(this, pixbuf);
     }
