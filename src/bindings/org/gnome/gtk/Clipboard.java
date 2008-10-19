@@ -11,6 +11,7 @@
  */
 package org.gnome.gtk;
 
+import org.gnome.gdk.Pixbuf;
 import org.gnome.glib.Object;
 
 /*
@@ -25,5 +26,17 @@ public class Clipboard extends Object
 {
     protected Clipboard(long pointer) {
         super(pointer);
+    }
+    
+    public static final Clipboard get() {
+        return GtkClipboardOverride.get();
+    }
+    
+    public final void setText(String text, int len) {
+        GtkClipboard.setText(this, text, len);
+    }
+    
+    public final void setImage(Pixbuf pixbuf) {
+        GtkClipboard.setImage(this, pixbuf);
     }
 }
