@@ -13,17 +13,40 @@ package org.gnome.gtk;
 
 import org.freedesktop.bindings.Constant;
 
-/*
- * FIXME this is a placeholder stub for what will become the public API for
- * this type. Replace this comment with appropriate javadoc including author
- * and since tags. Note that the class may need to be made abstract, implement
- * interfaces, or even have its parent changed. No API stability guarantees
- * are made about this class until it has been reviewed by a hacker and this
- * comment has been replaced.
+/**
+ * Used to indicate the direction in which a {@link Arrow Arrow} should point.
+ * 
+ * @author Serkan Kaba
+ * @since 4.0.10
  */
 public final class ArrowType extends Constant
 {
     private ArrowType(int ordinal, String nickname) {
         super(ordinal, nickname);
     }
+    
+    /**
+     * Represents an upward pointing arrow.
+     */
+    public static final ArrowType UP = new ArrowType(GtkArrowType.UP, "GTK_ARROW_UP");
+    
+    /**
+     * Represents an downward pointing arrow.
+     */
+    public static final ArrowType DOWN = new ArrowType(GtkArrowType.DOWN, "GTK_ARROW_DOWN");
+    
+    /**
+     * Represents a left pointing arrow.
+     */
+    public static final ArrowType LEFT = new ArrowType(GtkArrowType.LEFT, "GTK_ARROW_LEFT");
+    
+    /**
+     * Represents a left pointing right.
+     */
+    public static final ArrowType RIGHT = new ArrowType(GtkArrowType.RIGHT, "GTK_ARROW_RIGHT");
+    
+    /**
+     * No arrow.
+     */
+    public static final ArrowType NONE = new ArrowType(GtkArrowType.NONE, "GTK_ARROW_NONE");
 }

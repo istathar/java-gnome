@@ -18,10 +18,21 @@ package org.gnome.gtk;
  * interfaces, or even have its parent changed. No API stability guarantees
  * are made about this class until it has been reviewed by a hacker and this
  * comment has been replaced.
+ * 
+ * @author Serkan Kaba
+ * @since 4.0.10
  */
 public class Arrow extends Misc
 {
     protected Arrow(long pointer) {
         super(pointer);
+    }
+    
+    public Arrow(ArrowType arrowType, ShadowType shadowType) {
+        super(GtkArrow.createArrow(arrowType, shadowType));
+    }
+    
+    public void set(ArrowType arrowType, ShadowType shadowType) {
+        GtkArrow.set(this, arrowType, shadowType);
     }
 }
