@@ -38,10 +38,8 @@ public class Clipboard extends Object
     }
     
     /**
-     * Copy a text to clipboard.
-     * 
-     * @param text
-     *            Text to be copied.
+     * Copies given text to clipboard.
+     *
      * @since 4.0.10
      */
     public void setText(String text) {
@@ -49,10 +47,8 @@ public class Clipboard extends Object
     }
     
     /**
-     * Copy an image to clipboard.
-     * 
-     * @param pixbuf
-     *            Image to be copied.
+     * Copies given image to clipboard.
+     *
      * @since 4.0.10
      */
     public void setImage(Pixbuf pixbuf) {
