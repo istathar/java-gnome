@@ -15,7 +15,9 @@ import org.gnome.gdk.Pixbuf;
 import org.gnome.glib.Object;
 
 /*
- * FIXME: A description of the class is needed here.
+ * Clipboard object holds data to be shared between different processes.
+ * The clipboard object covered in java-gnome is the default clipboard
+ * and its data can be later used by being pasted into another application.
  *
  * @author Serkan Kaba
  * @since 4.0.10
@@ -27,7 +29,7 @@ public class Clipboard extends Object
     }
     
     /**
-     * Returns the default clipboard.
+     * Returns the default (GDK_SELECTION_CLIPBOARD) clipboard object.
      *
      * @since 4.0.10
      */
