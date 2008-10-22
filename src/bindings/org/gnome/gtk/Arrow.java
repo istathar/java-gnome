@@ -12,12 +12,11 @@
 package org.gnome.gtk;
 
 /*
- * FIXME this is a placeholder stub for what will become the public API for
- * this type. Replace this comment with appropriate javadoc including author
- * and since tags. Note that the class may need to be made abstract, implement
- * interfaces, or even have its parent changed. No API stability guarantees
- * are made about this class until it has been reviewed by a hacker and this
- * comment has been replaced.
+ * Arrow is a widget to draw simple arrows pointing to
+ * <code>ArrowType.UP</code>, <code>ArrowType.DOWN</code>,
+ *  <code>ArrowType.LEFT</code> or <code>ArrowType.RIGHT</code>.
+ * Its style can be either of <code>ShadowType.IN</code>, <code>ShadowType.OUT</code>,
+ * <code>ShadowType.ETCHED_IN</code> or <code>ShadowType.ETCHED_OUT</code>.
  * 
  * @author Serkan Kaba
  * @since 4.0.10
@@ -28,10 +27,16 @@ public class Arrow extends Misc
         super(pointer);
     }
     
+    /**
+     * Create a new Arrow widget with given direction and style.
+     */
     public Arrow(ArrowType arrowType, ShadowType shadowType) {
         super(GtkArrow.createArrow(arrowType, shadowType));
     }
     
+    /**
+     * Sets the direction and style of Arrow widget.
+     */
     public void set(ArrowType arrowType, ShadowType shadowType) {
         GtkArrow.set(this, arrowType, shadowType);
     }
