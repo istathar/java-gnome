@@ -1,7 +1,7 @@
 /*
  * GtkClipboardOverride.c
  *
- * Copyright (c) 2008 Operational Dynamics Consulting Pty Ltd
+ * Copyright (c) 2008 Operational Dynamics Consulting Pty Ltd, and Others
  *
  * The code in this file, and the library it is a part of, are made available
  * to you by the authors under the terms of the "GNU General Public Licence,
@@ -24,12 +24,7 @@ Java_org_gnome_gtk_GtkClipboardOverride_gtk_1clipboard_1get
 {
 	GtkClipboard* result;
 	
-	// call function
-
-	/*
-	 * FIXME
-	 */
+	result = gtk_clipboard_get(GDK_SELECTION_CLIPBOARD);
 	
-	// and finally
 	return (jlong) result;
 }

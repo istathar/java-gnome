@@ -1,7 +1,7 @@
 /*
  * Clipboard.java
  *
- * Copyright (c) 2007 Operational Dynamics Consulting Pty Ltd
+ * Copyright (c) 2007-2008 Operational Dynamics Consulting Pty Ltd, and Others
  *
  * The code in this file, and the library it is a part of, are made available
  * to you by the authors under the terms of the "GNU General Public Licence,
@@ -11,19 +11,47 @@
  */
 package org.gnome.gtk;
 
+import org.gnome.gdk.Pixbuf;
 import org.gnome.glib.Object;
 
 /*
- * FIXME this is a placeholder stub for what will become the public API for
- * this type. Replace this comment with appropriate javadoc including author
- * and since tags. Note that the class may need to be made abstract, implement
- * interfaces, or even have its parent changed. No API stability guarantees
- * are made about this class until it has been reviewed by a hacker and this
- * comment has been replaced.
+ * Clipboard object holds data to be shared between different processes.
+ * The clipboard object covered in java-gnome is the default clipboard
+ * and its data can be later used by being pasted into another application.
+ *
+ * @author Serkan Kaba
+ * @since 4.0.10
  */
 public class Clipboard extends Object
 {
     protected Clipboard(long pointer) {
         super(pointer);
+    }
+    
+    /**
+     * Returns the default (GDK_SELECTION_CLIPBOARD) clipboard object.
+     *
+     * @since 4.0.10
+     */
+    public static Clipboard getDefault() {
+        return GtkClipboardOverride.get();
+    }
+    
+    /**
+     * Copies given text to clipboard.
+     *
+     * @since 4.0.10
+     */
+    public void setText(String text) {
+        GtkClipboard.setText(this, text, -1);
+    }
+    
+    /**
+     * Copies given image to clipboard.
+     *
+     * @since 4.0.10
+     */
+    public void setImage(Pixbuf pixbuf) {
+        GtkClipboard.setImage(this, pixbuf);
     }
 }
