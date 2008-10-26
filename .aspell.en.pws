@@ -302,6 +302,8 @@ GtkCellRendererText
 GtkCellRendererToggle
 GtkCheckButton
 GtkCheckMenuItem
+GtkClipboard
+GtkClipboardOverride
 GtkComboBox
 GtkComboBoxEntry
 GtkContainer
@@ -620,9 +622,7 @@ ResponseType
 ResponseTypes
 Rietveld
 Rosenberger
-RowActivated
 RowActivatedSignal
-RowExpanded
 RowExpandedHandler
 RowExpandedSignal
 RuntimeException
@@ -731,6 +731,7 @@ TreeIters
 TreeModel
 TreeModel's
 TreeModelFilter
+TreeModelFilter's
 TreeModelFlags
 TreeModelSort
 TreeModels
@@ -1246,6 +1247,7 @@ getDateDay
 getDateMonth
 getDateYear
 getDeclaredConstructor
+getDefault
 getDefaultTable
 getDetail
 getDisplayOptions
@@ -1340,6 +1342,7 @@ getPortrait
 getPosition
 getPositionX
 getPositionY
+getPrimary
 getProperty
 getPropertyBoolean
 getPropertyEnum
