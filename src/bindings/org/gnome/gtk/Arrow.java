@@ -11,7 +11,7 @@
  */
 package org.gnome.gtk;
 
-/*
+/**
  * Arrow is a widget to draw simple arrows pointing to
  * <code>ArrowType.UP</code>, <code>ArrowType.DOWN</code>,
  *  <code>ArrowType.LEFT</code> or <code>ArrowType.RIGHT</code>.
