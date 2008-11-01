@@ -491,6 +491,7 @@ def compileCSourceToObject(source, target):
 	cmd += config['CC'] + " "
 	cmd += "-Isrc/jni -Itmp/include "
 	cmd += config['GNOME_CCFLAGS'] + " "
+	cmd += os.getenv("CFLAGS") + " "
 	cmd += "-o " + target + " -c " + source
 
 	executeCommand(config['CC_CMD'], source, cmd)
@@ -517,10 +518,11 @@ def linkSharedLibrary():
 		return
 
 	cmd = config['LINK'] + " "
+	cmd += os.getenv("LDFLAGS") + " "
 	cmd += "-shared "
-	cmd += config['GNOME_LDFLAGS'] + " "
 	cmd += "-o " + so + " "
-	cmd += " ".join(list)
+	cmd += " ".join(list) + " "
+	cmd += config['GNOME_LDFLAGS'] + " "
 
 	executeCommand(config['LINK_CMD'], so, cmd)
 

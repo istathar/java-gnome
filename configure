@@ -1856,7 +1856,7 @@ if ($cc =~ /gcc/) {
 
 	print CONFIG "CC=$cc -g -Wall -fPIC $jni_include -Wno-int-to-pointer-cast -Wno-pointer-to-int-cast $deprecations -Werror-implicit-function-declaration -Wfatal-errors\n";
 	print CONFIG "CC_CMD=GCC      \n";
-	print CONFIG "LINK=$cc -g -shared -Wall -fPIC\n";
+	print CONFIG "LINK=$cc -g -Wall -fPIC\n";
 	print CONFIG "LINK_CMD=LINK     \n";
 } elsif (($cc) && ($os eq "solaris")) {
 	print CONFIG "CC=$cc -Kpic -I/usr/java/include -I/usr/java/include/solaris\n";
