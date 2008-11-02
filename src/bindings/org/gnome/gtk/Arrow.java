@@ -14,7 +14,7 @@ package org.gnome.gtk;
 /**
  * Arrow is a widget to draw simple arrows pointing to up, down, left, or
  * right. Its style can be either bevelled inwards, bevelled outwards, sunken
- * or raised.
+ * or raised. <img src="Arrow.png" class="snapshot">
  * 
  * @author Serkan Kaba
  * @author Andrew Cowie
@@ -23,8 +23,6 @@ package org.gnome.gtk;
 /*
  * TODO Mention of defaults only makes sense if we have a no-arg constructor
  * using those defaults.
- * 
- * TODO Needs a Snapshot.
  */
 public class Arrow extends Misc
 {
@@ -37,8 +35,8 @@ public class Arrow extends Misc
      * 
      * @since 4.0.10
      */
-    public Arrow(ArrowType arrowType, ShadowType shadowType) {
-        super(GtkArrow.createArrow(arrowType, shadowType));
+    public Arrow(ArrowType direction, ShadowType type) {
+        super(GtkArrow.createArrow(direction, type));
     }
 
     /**

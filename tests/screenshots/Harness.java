@@ -20,6 +20,7 @@ import org.gnome.gdk.PixbufFormat;
 import org.gnome.gtk.Gtk;
 import org.gnome.gtk.Snapshot;
 import org.gnome.gtk.SnapshotAboutDialog;
+import org.gnome.gtk.SnapshotArrow;
 import org.gnome.gtk.SnapshotButton;
 import org.gnome.gtk.SnapshotComboBox;
 import org.gnome.gtk.SnapshotFileChooserDialog;
@@ -143,6 +144,7 @@ public final class Harness
                     SnapshotVScale.class,
                     SnapshotRadioButton.class,
                     SnapshotComboBox.class,
+                    SnapshotArrow.class,
                     SnapshotTextComboBox.class,
                     SnapshotTextComboBoxEntry.class,
                     SnapshotContextLine.class,
