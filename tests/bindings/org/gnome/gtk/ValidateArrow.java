@@ -1,7 +1,7 @@
 /*
  * ValidateArrow.java
  *
- * Copyright (c) 2007-2008 Operational Dynamics Consulting Pty Ltd
+ * Copyright (c) 2008 Operational Dynamics Consulting Pty Ltd, and Others
  * 
  * The code in this file, and the suite it is a part of, are made available
  * to you by the authors under the terms of the "GNU General Public Licence,
@@ -18,13 +18,14 @@ package org.gnome.gtk;
 public class ValidateArrow extends TestCaseGtk
 {
     public final void testArrow() {
-        Arrow arrow=new Arrow(ArrowType.UP,ShadowType.NONE);
-        assertEquals(arrow.getArrowType(),ArrowType.UP);
-        assertEquals(arrow.getShadowType(),ShadowType.NONE);
+        final Arrow arrow;
+
+        arrow = new Arrow(ArrowType.UP, ShadowType.NONE);
+        assertEquals(arrow.getArrowType(), ArrowType.UP);
+        assertEquals(arrow.getShadowType(), ShadowType.NONE);
         arrow.setArrowType(ArrowType.LEFT);
         arrow.setShadowType(ShadowType.ETCHED_IN);
-        assertEquals(arrow.getArrowType(),ArrowType.LEFT);
-        assertEquals(arrow.getShadowType(),ShadowType.ETCHED_IN);
-        
+        assertEquals(arrow.getArrowType(), ArrowType.LEFT);
+        assertEquals(arrow.getShadowType(), ShadowType.ETCHED_IN);
     }
 }

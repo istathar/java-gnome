@@ -1,7 +1,7 @@
 /*
  * ArrowType.java
  *
- * Copyright (c) 2007 Operational Dynamics Consulting Pty Ltd
+ * Copyright (c) 2007-2008 Operational Dynamics Consulting Pty Ltd, and Others
  *
  * The code in this file, and the library it is a part of, are made available
  * to you by the authors under the terms of the "GNU General Public Licence,
@@ -14,9 +14,11 @@ package org.gnome.gtk;
 import org.freedesktop.bindings.Constant;
 
 /**
- * Used to indicate the direction in which a {@link Arrow Arrow} should point.
+ * Used to indicate the direction in which the arrow graphic on an
+ * {@link Arrow} Widget will point.
  * 
  * @author Serkan Kaba
+ * @author Andrew Cowie
  * @since 4.0.10
  */
 public final class ArrowType extends Constant
@@ -24,29 +26,35 @@ public final class ArrowType extends Constant
     private ArrowType(int ordinal, String nickname) {
         super(ordinal, nickname);
     }
-    
+
     /**
      * Represents an upward pointing arrow.
      */
-    public static final ArrowType UP = new ArrowType(GtkArrowType.UP, "GTK_ARROW_UP");
-    
+    public static final ArrowType UP = new ArrowType(GtkArrowType.UP, "UP");
+
     /**
      * Represents an downward pointing arrow.
      */
-    public static final ArrowType DOWN = new ArrowType(GtkArrowType.DOWN, "GTK_ARROW_DOWN");
-    
+    public static final ArrowType DOWN = new ArrowType(GtkArrowType.DOWN, "DOWN");
+
     /**
      * Represents a left pointing arrow.
      */
-    public static final ArrowType LEFT = new ArrowType(GtkArrowType.LEFT, "GTK_ARROW_LEFT");
-    
+    public static final ArrowType LEFT = new ArrowType(GtkArrowType.LEFT, "LEFT");
+
     /**
-     * Represents a left pointing right.
+     * Represents an arrow pointing right.
      */
-    public static final ArrowType RIGHT = new ArrowType(GtkArrowType.RIGHT, "GTK_ARROW_RIGHT");
-    
+    public static final ArrowType RIGHT = new ArrowType(GtkArrowType.RIGHT, "RIGHT");
+
     /**
-     * No arrow.
+     * Don't draw an arrow.
+     * 
+     * <p>
+     * <code>NONE</code> is a special mode which causes an Arrow Widget to
+     * occupies the space that an normal Arrow would, but without having an
+     * arrow graphic drawn in it. This can be useful in cases where you are
+     * trying to normalize the size requests for a series of Widgets.
      */
-    public static final ArrowType NONE = new ArrowType(GtkArrowType.NONE, "GTK_ARROW_NONE");
+    public static final ArrowType NONE = new ArrowType(GtkArrowType.NONE, "NONE");
 }
