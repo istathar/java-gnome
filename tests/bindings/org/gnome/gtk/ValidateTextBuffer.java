@@ -167,6 +167,29 @@ public class ValidateTextBuffer extends TestCaseGtk
         assertEquals(buf.getText(), "This is a test of the " + "Emergency Broadcast System");
     }
 
+    public final void testTextMarkToTextIterConversion() {
+        final TextBuffer buf;
+        TextIter start, end;
+        TextMark selectionBound, insert;
+
+        buf = new TextBuffer(new TextTagTable());
+
+        buf.setText("Hello World");
+        start = buf.getIterStart();
+
+        start.setOffset(5);
+        end = start.copy();
+        end.setOffset(8);
+
+        buf.selectRange(start, end);
+
+        selectionBound = buf.getSelectionBound();
+        insert = buf.getInsert();
+
+        assertEquals(5, selectionBound.getIter().getOffset());
+        assertEquals(8, insert.getIter().getOffset());
+    }
+
     public void testIterFromOffset() {
         final TextBuffer buf;
         TextIter pointer, other;
