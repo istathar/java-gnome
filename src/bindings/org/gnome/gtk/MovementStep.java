@@ -27,7 +27,6 @@ import org.freedesktop.bindings.Constant;
  * etc.
  * 
  * @author Andrew Cowie
- * @since 4.0.9
  */
 /*
  * FIXME Make constants public as necessary. What is the difference between
@@ -51,7 +50,13 @@ public final class MovementStep extends Constant
     static final MovementStep DISPLAY_LINES = new MovementStep(GtkMovementStep.DISPLAY_LINES,
             "DISPLAY_LINES");
 
+    static final MovementStep DISPLAY_LINE_ENDS = new MovementStep(GtkMovementStep.DISPLAY_LINE_ENDS,
+            "DISPLAY_LINE_ENDS");
+
     static final MovementStep PARAGRAPHS = new MovementStep(GtkMovementStep.PARAGRAPHS, "PARAGRAPHS");
+
+    static final MovementStep PARAGRAPH_ENDS = new MovementStep(GtkMovementStep.PARAGRAPH_ENDS,
+            "PARAGRAPH_ENDS");
 
     static final MovementStep PAGES = new MovementStep(GtkMovementStep.PAGES, "PAGES");
 }
