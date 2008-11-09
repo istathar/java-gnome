@@ -136,9 +136,9 @@ following sequence to checkout the source code:
 <a class="nav-black"
 href="bzr://research.operationaldynamics.com/bzr/java-gnome/mainline/">
 <pre style="margin-left: 0px;">
-$ cd ~/src/george/
+$ cd ~/src/
 $ bzr init-repository java-gnome/
-$ cd java-gnome
+$ cd java-gnome/
 $ bzr checkout bzr://research.operationaldynamics.com/bzr/java-gnome/mainline/ mainline/
 $ bzr branch mainline/ working/
 $ cd working/
@@ -148,8 +148,8 @@ $ less README
 This will result in a local copy of '<code>mainline</code>' which you can use
 to track upstream and to diff against, and '<code>working</code>' as new branch
 for you to experiment with. The branch will be at (in this example)
-<code>~/src/george/java-gnome/working/</code>. All branches under
-<code>~/src/george/java-gnome/</code> will share storage of revisions, so
+<code>~/src/java-gnome/working/</code>. All branches under
+<code>~/src/java-gnome/</code> will share storage of revisions, so
 you won't pay any penalty for creating as many branches as you like.</p>
 
 <p>
@@ -159,8 +159,8 @@ change branches while not screwing up all your launchers.
 
 <a class="nav-black" href="/4.0/README.html">
 <pre style="margin-left: 0px;">
-<span class="file">$ cd ~/workspace</span>
-$ bzr checkout ~/src/george/java-gnome/working java-gnome
+<span class="file">$ cd ~/workspace/</span>
+$ bzr checkout ~/src/java-gnome/working java-gnome
 $ cd ~/workspace/java-gnome/
 $ less README
 </pre></a>
@@ -168,7 +168,7 @@ $ less README
 (doing it this way allows you to later do 
 <a class="nav-black" href="/4.0/README.html">
 <pre style="margin-left: 0px;">
-<span class="file">$ bzr switch ~/src/george/java-gnome/some-other-branch</span>
+<span class="file">$ bzr switch ~/src/java-gnome/some-other-branch</span>
 </pre></a>
 to change between branches you have created with different lines of
 development. This works well, but is an advanced layout. Do experiement
