@@ -743,4 +743,19 @@ public class TextBuffer extends Object
     public void delete(TextIter start, TextIter end) {
         GtkTextBuffer.delete(this, start, end);
     }
+
+    /**
+     * Manually move a TextMark to a new location.
+     * 
+     * <p>
+     * Note that if you're trying to move the "cursor", then you are much
+     * better off calling {@link #placeCursor(TextIter) placeCursor()} as that
+     * simultaneously moves both the <var>selection-bound</var> TextMark as
+     * well as the <var>insert</var> one.
+     * 
+     * @since 4.0.10
+     */
+    public void moveMark(TextMark mark, TextIter where) {
+        GtkTextBuffer.moveMark(this, mark, where);
+    }
 }
