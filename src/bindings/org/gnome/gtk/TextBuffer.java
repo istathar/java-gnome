@@ -758,4 +758,52 @@ public class TextBuffer extends Object
     public void moveMark(TextMark mark, TextIter where) {
         GtkTextBuffer.moveMark(this, mark, where);
     }
+
+    /**
+     * Signal emitted when a TextMark is set (or moved) in this TextBuffer.
+     * 
+     * <p>
+     * This can be extremely useful as a way to react to the cursor moving.
+     * The cursor is, of course, represented by the <var>insert</var>
+     * TextMark, and so, doing:
+     * 
+     * <pre>
+     * insert = buffer.getInsert();
+     * 
+     * buffer.connect(new TextBuffer.MarkSet() {
+     *     public void onMarkSet(TextBuffer source, org.gnome.gtk.TextIter location, TextMark mark) {
+     *         if (mark == insert) {
+     *             // react!
+     *         }
+     *     }
+     * });
+     * </pre>
+     * 
+     * will allow you to react to the cursor moving.
+     * 
+     * >
+     * <p>
+     * Somewhat counter-intuitively, however, inserting text does <i>not</i>
+     * "move" a TextMark; the <var>insert</var> TextMark will flow right
+     * according to its gravity as text is added. Using the arrow keys or
+     * mouse to move the cursor will, on the other hand, result in this signal
+     * being emitted.
+     * 
+     * @author Andrew Cowie
+     * @since 4.0.10
+     */
+    public interface MarkSet extends GtkTextBuffer.MarkSetSignal
+    {
+        public void onMarkSet(TextBuffer source, TextIter location, TextMark mark);
+    }
+
+    /**
+     * Hook up a handler for <code>TextBuffer.MarkSet</code> signals on this
+     * TextBuffer.
+     * 
+     * @since 4.0.10
+     */
+    public void connect(TextBuffer.MarkSet handler) {
+        GtkTextBuffer.connect(this, handler, false);
+    }
 }
