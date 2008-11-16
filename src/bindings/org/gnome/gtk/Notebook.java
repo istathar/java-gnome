@@ -15,7 +15,8 @@ package org.gnome.gtk;
  * A tabbed notebook container. These are common sights in web browsers and
  * text editors and are the recommended way to create user interfaces that
  * must manage multiple documents if creating a completely independent window
- * per document (the preferred GNOME approach) is inappropriate.
+ * per document (the preferred GNOME approach) is inappropriate. <img
+ * src="Notebook.png" class="snapshot">
  * 
  * <p>
  * Note that Notebooks are a poor way to organize pages of application
@@ -196,5 +197,38 @@ public class Notebook extends Container
      */
     public Widget getPage(int pageNum) {
         return GtkNotebook.getNthPage(this, pageNum);
+    }
+
+    /**
+     * Should the tabs of the Notebook actually be there?
+     * 
+     * <p>
+     * The default is <code>true</code>, as you'd expect.
+     * 
+     * <p>
+     * Turning this off might be useful if you're trying to create the effect
+     * of toggling user interface from one set of controls to another in the
+     * same space on screen. That might seem nifty, but keep in mind that
+     * you're going to have to come up with a convincingly clear UI for your
+     * users to be able to change modes, else they won't have any clue that
+     * there <i>are</i> any other states to change to.
+     * 
+     * @since 4.0.10
+     */
+    public void setShowTabs(boolean setting) {
+        GtkNotebook.setShowTabs(this, setting);
+    }
+
+    /**
+     * Do you want a border drawn around the Notebook?
+     * 
+     * <p>
+     * The border decoration drawn around the Notebook pages only optional if
+     * you've turned tabs off with {@link #setShowTabs(boolean) setShowTabs()}.
+     * 
+     * @since 4.0.10
+     */
+    public void setShowBorder(boolean setting) {
+        GtkNotebook.setShowBorder(this, setting);
     }
 }
