@@ -1,5 +1,5 @@
 /*
- * SnapshotTreeView.java
+ * SnapshotAssistant.java
  *
  * Copyright (c) 2008 Operational Dynamics Consulting Pty Ltd, and Others
  * 

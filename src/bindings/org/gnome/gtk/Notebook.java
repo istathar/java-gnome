@@ -15,7 +15,8 @@ package org.gnome.gtk;
  * A tabbed notebook container. These are common sights in web browsers and
  * text editors and are the recommended way to create user interfaces that
  * must manage multiple documents if creating a completely independent window
- * per document (the preferred GNOME approach) is inappropriate.
+ * per document (the preferred GNOME approach) is inappropriate. <img
+ * src="Notebook.png" class="snapshot">
  * 
  * <p>
  * Note that Notebooks are a poor way to organize pages of application
