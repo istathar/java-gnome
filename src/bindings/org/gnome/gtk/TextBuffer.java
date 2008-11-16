@@ -551,6 +551,21 @@ public class TextBuffer extends Object
     }
 
     /**
+     * Remove all TextTags that may be present in a range.
+     * 
+     * <p>
+     * Beware that <b>all</b> tags between <code>start</code> and
+     * <code>end</code> will be nuked, not just ones set by the piece of code
+     * you happen to be working in. That should be obvious, but apparently
+     * people often make mistakes with this.
+     * 
+     * @since 4.0.10
+     */
+    public void removeAllTags(TextIter start, TextIter end) {
+        GtkTextBuffer.removeAllTags(this, start, end);
+    }
+
+    /**
      * Create a new TextChildAnchor at <code>location</code>. Once you have an
      * anchor for where you want the Widget, you use TextView's
      * {@link TextView#add(Widget, TextChildAnchor) add()} to load a Widget
