@@ -334,4 +334,33 @@ public class ValidateProperties extends TestCaseGtk
         window.add(button);
         button.grabDefault();
     }
+
+    public final void testNotebookDecorations() {
+        final Notebook book;
+
+        book = new Notebook();
+
+        /*
+         * show tabs
+         */
+        assertEquals(true, GtkNotebook.getShowTabs(book));
+
+        book.setShowTabs(false);
+        assertEquals(false, GtkNotebook.getShowTabs(book));
+
+        book.setShowTabs(true);
+        assertEquals(true, GtkNotebook.getShowTabs(book));
+
+        /*
+         * show border
+         */
+
+        assertEquals(true, GtkNotebook.getShowBorder(book));
+
+        book.setShowBorder(false);
+        assertEquals(false, GtkNotebook.getShowBorder(book));
+
+        book.setShowBorder(true);
+        assertEquals(true, GtkNotebook.getShowBorder(book));
+    }
 }
