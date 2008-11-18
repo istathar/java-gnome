@@ -577,4 +577,35 @@ public class ValidateTextBuffer extends TestCaseGtk
             // good
         }
     }
+
+    public final void testIterationOverCharacters() {
+        final TextBuffer buffer;
+        TextIter pointer;
+        int i;
+        String str;
+
+        /*
+         * Put in 5 characters
+         */
+
+        buffer = new TextBuffer();
+        pointer = buffer.getIterStart();
+        buffer.insert(pointer, "Hello");
+
+        /*
+         * Iterate over it. Should reach a count of 5.
+         */
+
+        pointer = buffer.getIterStart();
+        i = 0;
+        str = "";
+
+        do {
+            i++;
+            str = str + pointer.getChar();
+        } while (pointer.forwardChar());
+
+        assertEquals(5, i);
+        assertEquals("Hello", str);
+    }
 }
