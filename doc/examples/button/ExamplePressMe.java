@@ -10,7 +10,10 @@
  */
 package button;
 
+import java.io.FileNotFoundException;
+
 import org.gnome.gdk.Event;
+import org.gnome.gdk.Pixbuf;
 import org.gnome.gtk.Button;
 import org.gnome.gtk.Gtk;
 import org.gnome.gtk.Label;
@@ -31,11 +34,12 @@ import org.gnome.gtk.Window;
  */
 public class ExamplePressMe
 {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws FileNotFoundException {
         final Window w;
         final VBox x;
         final Label l;
         final Button b;
+        final Pixbuf logo;
 
         /*
          * Initialize GTK. You MUST call this to load the library before
@@ -127,6 +131,13 @@ public class ExamplePressMe
                 return false;
             }
         });
+
+        /*
+         * Just not much of a program if it doesn't have an icon!
+         */
+
+        logo = new Pixbuf("src/bindings/java-gnome_Icon.png");
+        w.setIcon(logo);
 
         /*
          * Now we're ready to run the main loop. The signals we've hooked up

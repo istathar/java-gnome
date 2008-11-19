@@ -137,23 +137,14 @@ public abstract class Plumbing extends org.freedesktop.bindings.Plumbing
      *        a GBoxed.
      */
     protected static Boxed boxedFor(Class<?> type, final long pointer) {
-        Proxy proxy;
+        Boxed proxy;
 
         if (pointer == 0L) {
             return null;
         }
 
-        proxy = instanceFor(pointer);
-
-        if (proxy != null) {
-            /*
-             * A Proxy exists for this. Great! Simply return it.
-             */
-            return (Boxed) proxy;
-        } else {
-            proxy = createProxy(type, pointer);
-            return (Boxed) proxy;
-        }
+        proxy = (Boxed) createPointer(type, pointer);
+        return proxy;
     }
 
     /**
@@ -243,13 +234,13 @@ public abstract class Plumbing extends org.freedesktop.bindings.Plumbing
 
             type = lookupType(name);
 
-            proxy = createProxy(type, pointer);
+            proxy = (Proxy) createPointer(type, pointer);
             return (Object) proxy;
         }
     }
 
     /**
-     * Retrieve a Proxy object corresponding to a <code>GValue</code>. This
+     * Retrieve a Pointer object corresponding to a <code>GValue</code>. This
      * should only be needed by the property getter functions.
      * 
      * <p>
@@ -268,18 +259,8 @@ public abstract class Plumbing extends org.freedesktop.bindings.Plumbing
             return null;
         }
 
-        obj = (Value) org.freedesktop.bindings.Plumbing.instanceFor(pointer);
-
-        if (obj != null) {
-            /*
-             * This is somewhat unexpected, but ok, a Proxy already exists.
-             * Return it.
-             */
-            return obj;
-        } else {
-            obj = new Value(pointer, true);
-            return obj;
-        }
+        obj = new Value(pointer, true);
+        return obj;
     }
 
     /**

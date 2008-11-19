@@ -40,6 +40,10 @@ ButtonBox
 ButtonBoxStyle
 ButtonBoxes
 ButtonFactory
+ButtonPressEvent
+ButtonPressEventSignal
+ButtonReleaseEvent
+ButtonReleaseEventSignal
 ButtonsType
 CCFLAGS
 CVS
@@ -138,6 +142,8 @@ EVERSION
 EditedHandler
 Eeek
 Emmanuele
+EnterNotifyEvent
+EnterNotifyEventSignal
 EnumValue
 ErrorMessageDialog
 Esfahbod
@@ -171,6 +177,8 @@ ExampleTreeViewListStore
 ExceptionClear
 ExceptionDescribe
 ExceptionOccurred
+ExposeEvent
+ExposeEventSignal
 FIXME
 FatalError
 FileChooser
@@ -186,6 +194,10 @@ FileNotFoundException
 FilenameFilter
 FillRule
 FindClass
+FocusInEvent
+FocusInEventSignal
+FocusOutEvent
+FocusOutEventSignal
 Formoso
 Fortin
 FreeDesktop
@@ -290,6 +302,8 @@ GtkCellRendererText
 GtkCellRendererToggle
 GtkCheckButton
 GtkCheckMenuItem
+GtkClipboard
+GtkClipboardOverride
 GtkComboBox
 GtkComboBoxEntry
 GtkContainer
@@ -408,6 +422,7 @@ HashMap
 HashSet
 HelpWindow
 Henstridge
+HideSignal
 IDE
 IDE's
 IDEs
@@ -460,6 +475,10 @@ Katoomba
 Kedzierski
 KeyError
 KeyListener
+KeyPressEvent
+KeyPressEventSignal
+KeyReleaseEvent
+KeyReleaseEventSignal
 KeypadKeyval
 Keyval
 Keyval's
@@ -470,6 +489,8 @@ LDFLAGS
 LHR
 LargeLogo
 Laszlo
+LeaveNotifyEvent
+LeaveNotifyEventSignal
 LibGlade
 Libre
 LinearPattern
@@ -477,6 +498,7 @@ ListStore
 ListStore's
 ListStores
 Ljava
+Lorem
 Lorg
 Lortie
 LoveLetter
@@ -492,6 +514,9 @@ Mancke
 Manish
 Manu
 Manu's
+MapEvent
+MapEventSignal
+McLachlan
 MenuBars
 MenuItem
 MenuItem's
@@ -558,6 +583,8 @@ Pixbufs
 PolicyType
 PopulatePopup
 PopulatePopupSignal
+PopupMenu
+PopupMenuSignal
 PositionType
 PowerResponseType
 Preetz
@@ -585,6 +612,7 @@ RadioButtonGroup
 RadioButtonGroup's
 RadioButtons
 Rahn
+Raudsepp
 RcStyle
 RefToJavaProxy
 ReleaseStringUTFChars
@@ -594,6 +622,9 @@ ResponseType
 ResponseTypes
 Rietveld
 Rosenberger
+RowActivatedSignal
+RowExpandedHandler
+RowExpandedSignal
 RuntimeException
 RuntimeExceptions
 SWT
@@ -604,6 +635,8 @@ ScreenshotQuestionMessageDialog
 ScrollLock
 ScrolledWindow
 ScrolledWindow's
+SelectAll
+SelectAllSignal
 SelectionMode
 Sep
 SeparatorMenuItem
@@ -698,6 +731,7 @@ TreeIters
 TreeModel
 TreeModel's
 TreeModelFilter
+TreeModelFilter's
 TreeModelFlags
 TreeModelSort
 TreeModels
@@ -727,6 +761,8 @@ UTC
 UTF
 Ubuntu
 UnitTests
+UnmapEvent
+UnmapEventSignal
 UnsatisfiedLinkError
 UnsupportedOperationException
 VBox
@@ -746,6 +782,8 @@ ValidateReferenceCounting
 VerboseTestRunner
 VersionNumbers
 VirtualHost
+VisibilityNotifyEvent
+VisibilityNotifyEventSignal
 VisibilityState
 Vreixo
 Wallach
@@ -892,6 +930,8 @@ cmd
 codebase
 codegen
 colAlign
+collapseAll
+collapseRow
 color
 commitComment
 committer
@@ -1094,8 +1134,10 @@ elif
 ellipsized
 else's
 elsif
+emitActivate
 emitChanged
 emitClicked
+emitRowActivated
 emitValueChanged
 emplace
 enclosingGroup
@@ -1178,12 +1220,15 @@ getAlignmentY
 getAllocation
 getAngle
 getArea
+getAtPosPath
 getBlinking
 getBlue
 getBoolean
 getBorderWindowSize
 getBuffer
 getButton
+getCanDefault
+getCanFocus
 getChar
 getCharCount
 getChild
@@ -1192,6 +1237,7 @@ getChildren
 getClass
 getCode
 getColumn
+getColumnAtPos
 getCoronationYear
 getCurrentFolder
 getCurrentPage
@@ -1201,6 +1247,7 @@ getDateDay
 getDateMonth
 getDateYear
 getDeclaredConstructor
+getDefault
 getDefaultTable
 getDetail
 getDisplayOptions
@@ -1286,6 +1333,7 @@ getPageTitle
 getPageType
 getParent
 getPath
+getPathAtPos
 getPixbuf
 getPixels
 getPointer
@@ -1294,6 +1342,7 @@ getPortrait
 getPosition
 getPositionX
 getPositionY
+getPrimary
 getProperty
 getPropertyBoolean
 getPropertyEnum
@@ -1431,6 +1480,7 @@ instanceFor
 instanceof
 ints
 invalidateRect
+ipsum
 isActive
 isDirectory
 isEmbedded
@@ -1450,6 +1500,7 @@ itse
 jN
 jamvm
 jararrayref
+jardir
 jargs
 javaClass
 javaClassName
@@ -1497,6 +1548,7 @@ leftAttach
 leftGravity
 len
 li
+libdir
 libexec
 libgcj
 libglade
@@ -1632,6 +1684,7 @@ onPrepare
 onResponse
 onRowActivated
 onRowChanged
+onRowExpanded
 onSelectAll
 onSelectionChanged
 onSizeChanged
@@ -1735,8 +1788,11 @@ responseId
 returnType
 revalidate
 revalidation
+revno
 rightAttach
+rowActivated
 rowAlign
+rowExpanded
 rowstride
 rpath
 rr
@@ -1786,6 +1842,7 @@ setBlinking
 setBorderWidth
 setBorderWindowSize
 setBuffer
+setCanDefault
 setCanFocus
 setCharAt
 setChildSecondary

@@ -12,7 +12,7 @@
 
 #include <jni.h>
 #include <gdk/gdk.h>
-#include <cairo/cairo.h>
+#include <cairo.h>
 #include "bindings_java.h"
 #include "org_freedesktop_cairo_CairoContextOverride.h"
 

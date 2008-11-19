@@ -1,7 +1,7 @@
 /*
  * Plumbing.java
  *
- * Copyright (c) 2006-2008 Operational Dynamics Consulting Pty Ltd
+ * Copyright (c) 2006-2008 Operational Dynamics Consulting Pty Ltd, and Others
  * 
  * The code in this file, and the library it is a part of, are made available
  * to you by the authors under the terms of the "GNU General Public Licence,
@@ -37,6 +37,7 @@ import static org.freedesktop.bindings.Version.getVersion;
  * appropriate to the type systems in use within those libraries.</i>
  * 
  * @author Andrew Cowie
+ * @author Vreixo Formoso
  * @since 4.0.0
  */
 public abstract class Plumbing
@@ -106,7 +107,7 @@ public abstract class Plumbing
      * as libdir.
      * 
      * The code path to do this is insane, but not to worry - this stuff is
-     * already laoded by the VM so it doesn't cost anything being here.
+     * already loaded by the VM so it doesn't cost anything being here.
      * 
      * Conveniently, this also works if you have tmp/bindings/ as the
      * classpath, as getParent() extracts the URL of that to .../tmp/ which is
@@ -193,7 +194,7 @@ public abstract class Plumbing
 
     /**
      * Get the memory address which is the location of the Object or Structure
-     * that a given Proxy represents. That doesn't mean anything on the Java
+     * that a given Pointer represents. That doesn't mean anything on the Java
      * side so don't try to interpret it - it's for use by the translation
      * layer as they marshal objects through to the native layer.
      * 
@@ -202,21 +203,21 @@ public abstract class Plumbing
     /*
      * We go to considerable effort to keep this method out of the visibility
      * of public users which is why translation layer code subclass this
-     * org.freedesktop.bindings.Pluming which has package visibility of Proxy
-     * and Constant. Even more, there's nothing we can do about this being
-     * protected, so we choose a method name other than getPointer() to keep
-     * it totally of out of view from get<COMPLETE>.
+     * org.freedesktop.bindings.Pluming which has package visibility of
+     * Pointer and Constant. Even more, there's nothing we can do about this
+     * being protected, so we choose a method name other than getPointer() to
+     * keep it totally of out of view from get<COMPLETE>.
      */
-    protected static final long pointerOf(Proxy reference) {
+    protected static final long pointerOf(Pointer reference) {
         return reference == null ? 0L : reference.pointer;
     }
 
     /**
-     * Like {@link #pointerOf(Proxy)}, but acts over an array of Proxys.
+     * Like {@link #pointerOf(Pointer)}, but acts over an array of Pointers.
      * 
      * @return opaque data to be passed to native methods only.
      */
-    protected static final long[] pointersOf(Proxy[] references) {
+    protected static final long[] pointersOf(Pointer[] references) {
         if (references == null) {
             return null;
         }
@@ -292,7 +293,7 @@ public abstract class Plumbing
      * trick of calling JNI (where visibility rules are ignored) to create
      * Proxy instances.
      */
-    protected static native Proxy createProxy(Class<?> type, long pointer);
+    protected static native Pointer createPointer(Class<?> type, long pointer);
 
     /*
      * Constant handling ----------------------------------

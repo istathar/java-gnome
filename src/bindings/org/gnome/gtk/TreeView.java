@@ -418,6 +418,8 @@ public class TreeView extends Container
         GtkTreeView.collapseRow(this, path);
     }
 
+    private TreeSelection selection;
+
     /**
      * Get the TreeSelection object corresponding to this TreeView. Every
      * TreeView has a TreeSelection which is a utility instance allowing you
@@ -425,7 +427,10 @@ public class TreeView extends Container
      * method gives you access to it.
      */
     public TreeSelection getSelection() {
-        return GtkTreeView.getSelection(this);
+        if (selection == null) {
+            selection = GtkTreeView.getSelection(this);
+        }
+        return selection;
     }
 
     /**
@@ -780,5 +785,114 @@ public class TreeView extends Container
      */
     public void setCursor(TreePath path, TreeViewColumn vertical, boolean startEditing) {
         GtkTreeView.setCursor(this, path, vertical, startEditing);
+    }
+
+    /**
+     * Get a TreePath indicating what row in the TreeView a given set of
+     * co-ordinates corresponds to.
+     * 
+     * <p>
+     * The position indicated by (<code>x</code>,<code>y</code>) is in
+     * <var>bin co-ordinates</var>. Usually you are working in the context of
+     * a handler hooked up to an Event and these values should be obtained
+     * from that Event.
+     * 
+     * <p>
+     * See also {@link #getColumnAtPos(int, int) getColumnAtPos()} for the
+     * complementary method to find out what vertical the co-ordinates
+     * correspond to.
+     * 
+     * <h2>Handling right-clicks</h2>
+     * 
+     * <p>
+     * It is common to create a context menu as a result of a right-click on a
+     * TreeView. Ordinarily, you would intercept the
+     * <code>Widget.ButtonPressEvent</code> signal and then prepare your Menu
+     * in the handler there, quite reasonably expecting that the row that you
+     * have right-clicked on would be selected. Unfortunately, if you hook up
+     * to that signal your code will run before the default handler and the
+     * <i>previously</i> selected row will still be selected while your
+     * handler runs. This is annoying. It is the default
+     * <code>Widget.ButtonPressEvent</code> handler which selects the new row,
+     * so you have to manually select it yourself before acting on the
+     * right-click. It is <code>getPathAtPos()</code> which gives you the
+     * ability to do so:
+     * 
+     * <pre>
+     * view.connect(new Widget.ButtonPressEvent() {
+     *     public boolean onButtonPressEvent(Widget source, EventButton event) {
+     *         final int x, y;
+     *         final TreePath path;
+     *         final TreeSelection selection;
+     * 
+     *         if (event.getButton() != MouseButton.RIGHT) {
+     *             return false;
+     *         }
+     * 
+     *         x = (int) event.getX();
+     *         y = (int) event.getY();
+     *         path = view.getPathAtPos(x, y);
+     * 
+     *         selection = view.getSelection();
+     *         selection.selectRow(path);
+     * 
+     *         // and now pop your context menu, doing
+     *         // something with the row as appropriate.
+     * 
+     *         return true;
+     *     }
+     * });
+     * </pre>
+     * 
+     * @return Will return <code>null</code> if the passed in co-ordinates do
+     *         not correspond to a row in the TreeView.
+     * @since 4.0.9
+     */
+    public TreePath getPathAtPos(int x, int y) {
+        final TreePath[] path;
+        final boolean result;
+
+        path = new TreePath[1];
+
+        result = GtkTreeView.getPathAtPos(this, x, y, path, null, null, null);
+
+        if (result) {
+            return path[0];
+        } else {
+            return null;
+        }
+    }
+
+    /**
+     * Figure out which TreeViewColumn a given event's co-ordinates correspond
+     * to. See {@link #getPathAtPos(int, int) getPathAtPos()} for a detailed
+     * discussion.
+     * 
+     * <p>
+     * <i>In native GTK, this is implemented as an out parameter on the same
+     * function that powers <code>getPathAtPos()</code>, but we've given it a
+     * more coherent name here.</i>
+     * 
+     * @since 4.0.9
+     */
+    /*
+     * This does not match the completion style we have elsewhere in
+     * java-gnome where we use the return to differentiate the various
+     * out-parameters. That is bad, but diverging from getPathAtPos() to
+     * getAtPosPath() seems very distasteful. This is the less used code path.
+     */
+    public TreeViewColumn getColumnAtPos(int x, int y) {
+        final TreeViewColumn[] column;
+        final boolean result;
+
+        column = new TreeViewColumn[1];
+
+        result = GtkTreeView.getPathAtPos(this, x, y, null, column, null, null);
+
+        if (result) {
+            return column[0];
+        } else {
+            return null;
+        }
     }
 }

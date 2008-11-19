@@ -9,6 +9,13 @@
   (return-type "none")
 )
 
+(define-method reference
+  (of-object "cairo_pattern_t")
+  (c-name "cairo_pattern_reference")
+  (return-type "cairo_pattern_t*")
+  (caller-owns-return #t)
+)
+
 ;; Have to munge the name of this function so it comes out as
 ;; createForSurface() in the generated translation layer.
 

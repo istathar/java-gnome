@@ -79,20 +79,6 @@ public abstract class Object extends Proxy
     }
 
     /**
-     * Take the actions necessary to release our reference to the underlying
-     * GObject, then carry on to
-     * {@link org.freedesktop.bindings.Proxy#finalize() Proxy's finalize()}.
-     */
-    /*
-     * This is a placeholder to remind us of the cleanup actions that will be
-     * necessary, irrespective of the finalizer technique used.
-     */
-    protected void finalize() {
-        release();
-        super.finalize();
-    }
-
-    /**
      * Drop our reference count to the underlying GObject.
      * 
      * <p>
