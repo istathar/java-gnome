@@ -11,6 +11,7 @@
 package org.gnome.gtk;
 
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
 
 import org.gnome.gdk.Pixbuf;
 import org.gnome.pango.Scale;
@@ -607,5 +608,37 @@ public class ValidateTextBuffer extends TestCaseGtk
 
         assertEquals(5, i);
         assertEquals("Hello", str);
+    }
+
+    public final void testInsertWithMultipleTags() {
+        final TextBuffer buffer;
+        final TextTag italic, bold, mono;
+        TextIter start, end;
+
+        buffer = new TextBuffer();
+
+        italic = new TextTag();
+        bold = new TextTag();
+        mono = new TextTag();
+
+        start = buffer.getIterStart();
+
+        buffer.insert(start, "Hello", new TextTag[] {
+                bold, italic
+        });
+
+        start = buffer.getIterStart();
+        assertEquals(2, start.getTags().length);
+
+        ArrayList<TextTag> list;
+        list = new ArrayList<TextTag>(3);
+        list.add(italic);
+        list.add(bold);
+        list.add(mono);
+
+        buffer.insert(start, "World", list);
+
+        start = buffer.getIterStart();
+        assertEquals(3, start.getTags().length);
     }
 }

@@ -11,6 +11,8 @@
  */
 package org.gnome.gtk;
 
+import java.util.Collection;
+
 import org.gnome.gdk.Pixbuf;
 import org.gnome.glib.Object;
 
@@ -324,6 +326,79 @@ public class TextBuffer extends Object
     public void insert(TextIter position, String text, TextTag tag) {
         checkTag(tag);
         GtkTextBuffer.insertWithTags(this, position, text, -1, tag);
+    }
+
+    /**
+     * Insert text at the given position, applying all of the tags specified.
+     * 
+     * @since 4.0.10
+     */
+    /*
+     * This essentially duplicates the logic in GTK's
+     * gtk_text_buffer_insert_with_tags().
+     */
+    public void insert(TextIter position, String text, TextTag[] tags) {
+        TextIter start;
+        int original;
+
+        original = position.getOffset();
+
+        GtkTextBuffer.insert(this, position, text, -1);
+
+        if (tags == null) {
+            return;
+        }
+
+        start = position.copy();
+        start.setOffset(original);
+
+        for (TextTag tag : tags) {
+            if (tag == null) {
+                continue;
+            }
+            checkTag(tag);
+            GtkTextBuffer.applyTag(this, tag, start, position);
+        }
+    }
+
+    /**
+     * Insert text at the given position, applying all of the tags specified.
+     * 
+     * <p>
+     * <i> Having an overload taking a generic is somewhat unusual in
+     * java-gnome, but people maintain a (fairly rapidly changing) List or Set
+     * with the TextTags they are currently inserting so frequently that we
+     * wanted to support this use case efficiently.</i>
+     * 
+     * @since 4.0.10
+     */
+    /*
+     * Not to mention that Collection to array conversion is one of the uglier
+     * idioms in Java. Yes, this is a copy of the code in other insert()
+     * method above; we want to save gratuitous unnecessary array creation.
+     */
+    public void insert(TextIter position, String text, Collection<TextTag> tags) {
+        final TextIter start;
+        final int original;
+
+        original = position.getOffset();
+
+        GtkTextBuffer.insert(this, position, text, -1);
+
+        if (tags == null) {
+            return;
+        }
+
+        start = position.copy();
+        start.setOffset(original);
+
+        for (TextTag tag : tags) {
+            if (tag == null) {
+                continue;
+            }
+            checkTag(tag);
+            GtkTextBuffer.applyTag(this, tag, start, position);
+        }
     }
 
     /**
