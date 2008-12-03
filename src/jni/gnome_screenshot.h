@@ -25,7 +25,6 @@
 
 extern gboolean screenshot_grab_lock(void);
 extern void screenshot_release_lock(void);
-extern gchar* screenshot_get_window_title(GdkWindow*);
 extern GdkWindow* screenshot_find_current_window(void);
 extern GdkPixbuf* screenshot_get_pixbuf(GdkWindow*, gboolean, gboolean);
 
