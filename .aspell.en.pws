@@ -516,6 +516,8 @@ Manu
 Manu's
 MapEvent
 MapEventSignal
+MarkSet
+MarkSetSignal
 McLachlan
 MenuBars
 MenuItem
@@ -919,6 +921,7 @@ checkPixbufFromFileAtScale
 checkReadyForDisplay
 checkState
 checkStatus
+checkTag
 checkpointHashes
 checksum
 clampPage
@@ -1381,6 +1384,7 @@ getStorageType
 getString
 getSubmenu
 getSurface
+getTagTable
 getTags
 getTarget
 getText
@@ -1678,6 +1682,7 @@ onKeyPressEvent
 onKeyReleaseEvent
 onLeaveNotifyEvent
 onMapEvent
+onMarkSet
 onPopulatePopup
 onPopupMenu
 onPrepare
@@ -2139,6 +2144,7 @@ unstick
 updateButtonsState
 updateHash
 uri
+usingDefaultTable
 usr
 util
 utils

@@ -299,4 +299,24 @@ public class TextTag extends Object
     public void setStyle(Style style) {
         setPropertyInteger("style", GtkTextTagOverride.valueOf(style));
     }
+
+    /**
+     * Specify the font family to be used. This is a family name like
+     * "Bitstream Vera" or "DejaVu" or "Liberation".
+     * 
+     * <p>
+     * In general, it is better to use the standard aliases "Serif", "Sans",
+     * and "Monospaced" than naming a family by hand as this lets the user
+     * assign their own meanings to those terms via the Fonts tab in <b>
+     * <code>gnome-appearance-properties</code></b>.
+     * 
+     * <p>
+     * Note that you need to specify this early; if you set this after setting
+     * other propertes on the TextTag, it may reset them.
+     * 
+     * @since 4.0.10
+     */
+    public void setFamily(String font) {
+        setPropertyString("font", font);
+    }
 }

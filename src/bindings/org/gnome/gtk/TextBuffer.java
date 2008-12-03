@@ -11,6 +11,8 @@
  */
 package org.gnome.gtk;
 
+import java.util.Collection;
+
 import org.gnome.gdk.Pixbuf;
 import org.gnome.glib.Object;
 
@@ -327,6 +329,79 @@ public class TextBuffer extends Object
     }
 
     /**
+     * Insert text at the given position, applying all of the tags specified.
+     * 
+     * @since 4.0.10
+     */
+    /*
+     * This essentially duplicates the logic in GTK's
+     * gtk_text_buffer_insert_with_tags().
+     */
+    public void insert(TextIter position, String text, TextTag[] tags) {
+        TextIter start;
+        int original;
+
+        original = position.getOffset();
+
+        GtkTextBuffer.insert(this, position, text, -1);
+
+        if (tags == null) {
+            return;
+        }
+
+        start = position.copy();
+        start.setOffset(original);
+
+        for (TextTag tag : tags) {
+            if (tag == null) {
+                continue;
+            }
+            checkTag(tag);
+            GtkTextBuffer.applyTag(this, tag, start, position);
+        }
+    }
+
+    /**
+     * Insert text at the given position, applying all of the tags specified.
+     * 
+     * <p>
+     * <i> Having an overload taking a generic is somewhat unusual in
+     * java-gnome, but people maintain a (fairly rapidly changing) List or Set
+     * with the TextTags they are currently inserting so frequently that we
+     * wanted to support this use case efficiently.</i>
+     * 
+     * @since 4.0.10
+     */
+    /*
+     * Not to mention that Collection to array conversion is one of the uglier
+     * idioms in Java. Yes, this is a copy of the code in other insert()
+     * method above; we want to save gratuitous unnecessary array creation.
+     */
+    public void insert(TextIter position, String text, Collection<TextTag> tags) {
+        final TextIter start;
+        final int original;
+
+        original = position.getOffset();
+
+        GtkTextBuffer.insert(this, position, text, -1);
+
+        if (tags == null) {
+            return;
+        }
+
+        start = position.copy();
+        start.setOffset(original);
+
+        for (TextTag tag : tags) {
+            if (tag == null) {
+                continue;
+            }
+            checkTag(tag);
+            GtkTextBuffer.applyTag(this, tag, start, position);
+        }
+    }
+
+    /**
      * Insert the text at the current cursor position.
      * 
      * @since 4.0.9
@@ -551,6 +626,21 @@ public class TextBuffer extends Object
     }
 
     /**
+     * Remove all TextTags that may be present in a range.
+     * 
+     * <p>
+     * Beware that <b>all</b> tags between <code>start</code> and
+     * <code>end</code> will be nuked, not just ones set by the piece of code
+     * you happen to be working in. That should be obvious, but apparently
+     * people often make mistakes with this.
+     * 
+     * @since 4.0.10
+     */
+    public void removeAllTags(TextIter start, TextIter end) {
+        GtkTextBuffer.removeAllTags(this, start, end);
+    }
+
+    /**
      * Create a new TextChildAnchor at <code>location</code>. Once you have an
      * anchor for where you want the Widget, you use TextView's
      * {@link TextView#add(Widget, TextChildAnchor) add()} to load a Widget
@@ -742,5 +832,68 @@ public class TextBuffer extends Object
      */
     public void delete(TextIter start, TextIter end) {
         GtkTextBuffer.delete(this, start, end);
+    }
+
+    /**
+     * Manually move a TextMark to a new location.
+     * 
+     * <p>
+     * Note that if you're trying to move the "cursor", then you are much
+     * better off calling {@link #placeCursor(TextIter) placeCursor()} as that
+     * simultaneously moves both the <var>selection-bound</var> TextMark as
+     * well as the <var>insert</var> one.
+     * 
+     * @since 4.0.10
+     */
+    public void moveMark(TextMark mark, TextIter where) {
+        GtkTextBuffer.moveMark(this, mark, where);
+    }
+
+    /**
+     * Signal emitted when a TextMark is set (or moved) in this TextBuffer.
+     * 
+     * <p>
+     * This can be extremely useful as a way to react to the cursor moving.
+     * The cursor is, of course, represented by the <var>insert</var>
+     * TextMark, and so, doing:
+     * 
+     * <pre>
+     * insert = buffer.getInsert();
+     * 
+     * buffer.connect(new TextBuffer.MarkSet() {
+     *     public void onMarkSet(TextBuffer source, org.gnome.gtk.TextIter location, TextMark mark) {
+     *         if (mark == insert) {
+     *             // react!
+     *         }
+     *     }
+     * });
+     * </pre>
+     * 
+     * will allow you to react to the cursor moving.
+     * 
+     * >
+     * <p>
+     * Somewhat counter-intuitively, however, inserting text does <i>not</i>
+     * "move" a TextMark; the <var>insert</var> TextMark will flow right
+     * according to its gravity as text is added. Using the arrow keys or
+     * mouse to move the cursor will, on the other hand, result in this signal
+     * being emitted.
+     * 
+     * @author Andrew Cowie
+     * @since 4.0.10
+     */
+    public interface MarkSet extends GtkTextBuffer.MarkSetSignal
+    {
+        public void onMarkSet(TextBuffer source, TextIter location, TextMark mark);
+    }
+
+    /**
+     * Hook up a handler for <code>TextBuffer.MarkSet</code> signals on this
+     * TextBuffer.
+     * 
+     * @since 4.0.10
+     */
+    public void connect(TextBuffer.MarkSet handler) {
+        GtkTextBuffer.connect(this, handler, false);
     }
 }
