@@ -256,6 +256,7 @@ GdkEventType
 GdkEventVisibility
 GdkEvents
 GdkGravity
+GdkInterpType
 GdkKeyval
 GdkModifierType
 GdkNotifyType
@@ -453,6 +454,7 @@ InsertTextSignal
 InstantiationException
 IntegerValue
 InternalButtonImplementation
+InterpType
 InterruptedException
 InvocationTargetException
 IsSameObject
@@ -589,6 +591,7 @@ PopulatePopupSignal
 PopupMenu
 PopupMenuSignal
 PositionType
+PostScript's
 PowerResponseType
 Preetz
 Prelle
@@ -802,6 +805,7 @@ WindowType
 WindowTypeHint
 Wl
 Wno
+Wolberg's
 Wouter
 XFree
 XINERAMA
@@ -870,6 +874,7 @@ basename
 baz
 bb
 bdb
+bilinear
 bindtextdomain
 bitkeeper
 bitmask
@@ -1032,6 +1037,7 @@ createPatternForSurface
 createPatternLinear
 createPatternRadial
 createPatternRgba
+createPixbuf
 createPixbufFromFile
 createPixbufFromFileAtScale
 createProgressBar
@@ -1655,6 +1661,8 @@ objectArrayFor
 objectFor
 odt
 offscreen
+offsetX
+offsetY
 ok
 onActivate
 onApply
@@ -1811,6 +1819,9 @@ runtime
 runtimes
 savev
 scalarref
+scaleSimple
+scaleX
+scaleY
 screenshot
 screenshots
 scrollMarkOnscreen

@@ -233,4 +233,37 @@ public class Pixbuf extends org.gnome.glib.Object
     public int getNumChannels() {
         return GdkPixbuf.getNChannels(this);
     }
+
+    /**
+     * Create a new Pixbuf, applying the scaling factors inherent in the
+     * ratios between the size of this Pixbuf and the new image size
+     * specified by <code>width</code> and <code>height</code>.
+     * 
+     * <p>
+     * In general you probably want to use the {@link InterpType#BILINEAR
+     * BILINEAR} interpolation algorithm.
+     * 
+     * @since 4.0.10
+     */
+    public Pixbuf scale(int width, int height, InterpType algorithm) {
+        return GdkPixbuf.scaleSimple(this, width, height, algorithm);
+    }
+
+    /*
+     * TODO we'll want to expose the full gdk_pixbuf_scale() method too. That
+     * will require a (probably package private) no-arg Pixbuf constructor to
+     * pass as the second argument out-parameter of GdkPixbuf.scale(), which
+     * we can then return. The signature and stub here should otherwise be
+     * correct. Good luck explaining all this stuff.
+     */
+    Pixbuf scale(int x, int y, int width, int height, double offsetX, double offsetY, double scaleX,
+            double scaleY, InterpType algorithm) {
+        final Pixbuf result;
+
+        result = null; // FIXME
+
+        GdkPixbuf.scale(this, result, x, y, width, height, offsetX, offsetY, scaleX, scaleY, algorithm);
+
+        return result;
+    }
 }

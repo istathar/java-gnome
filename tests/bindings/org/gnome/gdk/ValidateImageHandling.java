@@ -120,4 +120,23 @@ public class ValidateImageHandling extends TestCaseGtk
 
         assertEquals(C, O);
     }
+
+    /*
+     * Obviously we can't assess quality of transformed image, but we can at
+     * least exercise the code path.
+     */
+    public final void testPixbufScaling() {
+        final Pixbuf original;
+        final Pixbuf result;
+
+        original = Gtk.renderIcon(new Button(), Stock.HELP, IconSize.MENU);
+
+        assertTrue(original.getWidth() < 100);
+        assertTrue(original.getHeight() < 100);
+
+        result = original.scale(300, 500, InterpType.NEAREST);
+
+        assertEquals(300, result.getWidth());
+        assertEquals(500, result.getHeight());
+    }
 }
