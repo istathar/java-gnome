@@ -12,6 +12,10 @@ package org.gnome.gdk;
 
 import java.io.FileNotFoundException;
 
+import org.gnome.gtk.Button;
+import org.gnome.gtk.Gtk;
+import org.gnome.gtk.IconSize;
+import org.gnome.gtk.Stock;
 import org.gnome.gtk.TestCaseGtk;
 
 /**
@@ -89,5 +93,31 @@ public class ValidateImageHandling extends TestCaseGtk
          * performance tests.
          */
         assertEquals(515687, sum);
+    }
+
+    public final void testPixbufCopying() {
+        final Pixbuf original;
+        final Pixbuf copy;
+        byte[] data;
+        int O, C;
+
+        original = Gtk.renderIcon(new Button(), Stock.OK, IconSize.BUTTON);
+        data = original.getPixels();
+        O = 0;
+        for (int i = 0; i < data.length; i++) {
+            O += data[i];
+        }
+
+        copy = original.copy();
+
+        assertNotSame(copy, original);
+
+        data = copy.getPixels();
+        C = 0;
+        for (int i = 0; i < data.length; i++) {
+            C += data[i];
+        }
+
+        assertEquals(C, O);
     }
 }
