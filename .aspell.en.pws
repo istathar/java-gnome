@@ -5,6 +5,7 @@ ARGB
 AUR
 AWT
 AboutDialog
+AboutDialog's
 AccelGroup
 ActionGroup
 ActionGroups
@@ -2004,6 +2005,7 @@ setTooltipMarkup
 setTooltipText
 setTooltips
 setTransientFor
+setTranslatorCredits
 setTypeHint
 setUnderline
 setUp
