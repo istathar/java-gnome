@@ -43,7 +43,7 @@ import org.gnome.gtk.Widget;
  * 
  * @author Vreixo Formoso
  * @author Andrew Cowie
- * @since 4.0.9
+ * @since 4.0.10
  */
 public class Layout extends Object
 {
@@ -83,7 +83,7 @@ public class Layout extends Object
      * TODO If you change the transformation or target surface for context,
      * you need to call pango_cairo_update_layout()
      * 
-     * @since 4.0.9
+     * @since 4.0.10
      */
     public Layout(org.freedesktop.cairo.Context context) {
         super(PangoLayout.createLayout(context));
@@ -96,7 +96,7 @@ public class Layout extends Object
      * If you wish to pass text enhanced with Pango Markup, use
      * {@link #setMarkup(String) setMarkup()} instead.
      * 
-     * @since 4.0.9
+     * @since 4.0.10
      */
     public void setText(String text) {
         /*
@@ -113,7 +113,7 @@ public class Layout extends Object
      * If you're just passing in normal straight-forward unformatted text, use
      * {@link #setText(String) setText()}.
      * 
-     * @since 4.0.9
+     * @since 4.0.10
      */
     public void setMarkup(String markup) {
         /*
@@ -132,7 +132,7 @@ public class Layout extends Object
      * Note that this is not necessarily related with the line wrap width you
      * set with {@link #setWidth(double) setWidth()} method.
      * 
-     * @since 4.0.9
+     * @since 4.0.10
      */
     public double getSizeWidth() {
         int[] width = new int[1];
@@ -145,7 +145,7 @@ public class Layout extends Object
      * taking its format into account (for example, the size of the Font will
      * influence the final size!).
      * 
-     * @since 4.0.9
+     * @since 4.0.10
      */
     public double getSizeHeight() {
         int[] height = new int[1];
@@ -159,7 +159,7 @@ public class Layout extends Object
      * {@link Widget#setSizeRequest(int, int) setSizeRequest()} in order to
      * ensure enough space is available for the text to actually be shown.
      * 
-     * @since 4.0.9
+     * @since 4.0.10
      */
     public int getPixelWidth() {
         int[] width = new int[1];
@@ -171,7 +171,7 @@ public class Layout extends Object
      * Get the height, in pixels, of the Layout. See the corresponding method
      * {@link #getPixelWidth() getPixelWidth()} for details.
      * 
-     * @since 4.0.9
+     * @since 4.0.10
      */
     public int getPixelHeight() {
         int[] height = new int[1];
@@ -180,10 +180,14 @@ public class Layout extends Object
     }
 
     /**
-     * Sets the default FontDescription for the Layout. If no fFontDescription
-     * is set, the FontDescription from the Layout's Context is used.
+     * Sets the default FontDescription for the Layout.
      * 
-     * @since 4.0.9
+     * @since 4.0.10
+     */
+    /*
+     * TODO the upstream documentation says
+     * "If none is set, then the FontDescription from the Layout's Context is used."
+     * This means what, exactly? Where does that get set?
      */
     public void setFontDescription(FontDescription desc) {
         PangoLayout.setFontDescription(this, desc);
@@ -199,7 +203,7 @@ public class Layout extends Object
      * 
      * @param width
      *            The width in Cairo terms (typically pixels).
-     * @since 4.0.9
+     * @since 4.0.10
      */
     public void setWidth(double width) {
         PangoLayout.setWidth(this, (int) (width * PANGO_SCALE));
@@ -214,7 +218,7 @@ public class Layout extends Object
      * scripts (such as Arabic), the justification may be done in more complex
      * ways, like extending the characters.
      * 
-     * @since 4.0.9
+     * @since 4.0.10
      */
     public void setJustify(boolean justify) {
         PangoLayout.setJustify(this, justify);
@@ -224,7 +228,7 @@ public class Layout extends Object
      * Gets whether each complete line should be stretched to fill the entire
      * width of the Layout.
      * 
-     * @since 4.0.9
+     * @since 4.0.10
      */
     public boolean getJustify() {
         return PangoLayout.getJustify(this);
@@ -242,7 +246,7 @@ public class Layout extends Object
      * as it controls where indentation is relative to and what to do with the
      * last line of each paragraph.
      * 
-     * @since 4.0.9
+     * @since 4.0.10
      */
     public void setAlignment(Alignment alignment) {
         PangoLayout.setAlignment(this, alignment);
@@ -251,7 +255,7 @@ public class Layout extends Object
     /**
      * Gets the Alignment for the Layout.
      * 
-     * @since 4.0.9
+     * @since 4.0.10
      */
     public Alignment getAlignment() {
         return PangoLayout.getAlignment(this);
@@ -267,7 +271,7 @@ public class Layout extends Object
      * Note that the indent is relative to the Alignment of the text, if the
      * text is aligned to the right, the indent is computed from there.
      * 
-     * @since 4.0.9
+     * @since 4.0.10
      */
     public void setIndent(double indent) {
         PangoLayout.setIndent(this, (int) (indent * PANGO_SCALE));
@@ -277,7 +281,7 @@ public class Layout extends Object
      * Get the paragraph indent of this Layout. It'll be <code>0</code> unless
      * you called {@link #setIndent(double) setIndent()} to change it.
      * 
-     * @since 4.0.9
+     * @since 4.0.10
      */
     public double getIndent() {
         final int units;

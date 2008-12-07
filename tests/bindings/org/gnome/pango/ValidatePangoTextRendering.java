@@ -40,7 +40,7 @@ public class ValidatePangoTextRendering extends TestCaseGtk
         return layout;
     }
 
-    public final void testWidthAndHeightNormalization() {
+    public final void testPropertyDefaults() {
         final Surface surface;
         final Context cr;
         final Layout layout;
@@ -69,6 +69,18 @@ public class ValidatePangoTextRendering extends TestCaseGtk
         assertEquals(true, layout.getJustify());
         layout.setJustify(false);
         assertEquals(false, layout.getJustify());
+    }
+
+    public final void testWidthAndHeightNormalization() {
+        final Surface surface;
+        final Context cr;
+        final Layout layout;
+        double width;
+
+        surface = new ImageSurface(Format.ARGB32, 150, 150);
+        cr = new Context(surface);
+
+        layout = draw(cr);
 
         layout.setWidth(60.0);
 
