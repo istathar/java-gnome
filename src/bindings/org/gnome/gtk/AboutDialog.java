@@ -124,4 +124,40 @@ public class AboutDialog extends Dialog
     public void setAuthors(String[] authors) {
         GtkAboutDialog.setAuthors(this, authors);
     }
+
+    /**
+     * Add a tab to the AboutDialog's Credit popup listing the people who have
+     * contributed to translating the application into the active language.
+     * 
+     * <p>
+     * This one is a bit different than <var>authors</var>,
+     * <var>artists</var>, and <var>documenters</var> in that it is expected
+     * that you'll pass the result of looking up the translation of the string
+     * <code>"translator-credits"</code> as follows:
+     * 
+     * <pre>
+     * about.setTranslatorCredits(_(&quot;translator-credits&quot;));
+     * </pre>
+     * 
+     * This way, the user of your program will be shown the list of people who
+     * worked on the translation for that particular locale. The translation
+     * for the <code>"translator-credits"</code> string in the PO file should
+     * still be names and email addresses as shown in
+     * {@link #setAuthors(String[]) setAuthors()}.
+     * 
+     * <p>
+     * See {@link org.freedesktop.bindings.Internationalization
+     * Internationalization} for more details about the use of the
+     * <code>_()</code> function.
+     * 
+     * <p>
+     * <i>You could of course use any string as the index for lookup, but
+     * "translator-credits" is the accepted convention, and people doing
+     * translation work will recognize it.</i>
+     * 
+     * @since 4.0.10
+     */
+    public void setTranslatorCredits(String credits) {
+        GtkAboutDialog.setTranslatorCredits(this, credits);
+    }
 }

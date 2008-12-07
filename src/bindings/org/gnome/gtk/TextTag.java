@@ -319,4 +319,28 @@ public class TextTag extends Object
     public void setFamily(String font) {
         setPropertyString("font", font);
     }
+
+    /**
+     * Hide the text formatted with this TextTag.
+     * 
+     * <p>
+     * FIXME what happens when you insert at a point that is marked invisible?
+     * Backspace into it? What is the interaction with the <var>editable</var>
+     * property and <code>insertInteractive()</code>?
+     * 
+     * <p>
+     * <i>GTK further notes there are problems with invisible text and
+     * programmatic navigation of TextBuffers.</i>
+     * 
+     * @since <span style="color: red">Unstable</span>
+     */
+    /*
+     * FIXME The signature is correct, but the implications for the developer
+     * of employing this are not, and that needs fixing. We've exposed it so
+     * that people can play with it and maybe infer some of the answers to
+     * these questions.
+     */
+    public void setInvisible(boolean setting) {
+        setPropertyBoolean("invisible", setting);
+    }
 }

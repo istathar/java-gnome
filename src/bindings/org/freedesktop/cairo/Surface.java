@@ -103,4 +103,40 @@ public abstract class Surface extends Entity
     protected void checkStatus() {
         checkStatus(CairoSurface.status(this));
     }
+
+    /**
+     * Emit the current page and clear the Surface, allowing you to continue
+     * drawing with your Context but to a new blank page.
+     * 
+     * <p>
+     * If you want to render the current page, but keep the page content in
+     * your Context, then call {@link #copyPage() copyPage()} instead.
+     * 
+     * <p>
+     * This method only applies to Surfaces which are paginated, which in
+     * practise means the PDF backend.
+     * 
+     * @since 4.0.10
+     */
+    /*
+     * While Cairo treats these as a no-op for backends which are not
+     * paginated, throwing UnsupportedOperationException is the more
+     * traditional and accepted Java way of dealing with the case of base
+     * classes which expose a method for which many subclasses do not take
+     * action. Obviously this should be overridden by concrete subclasses
+     * representing backends which are actually paginated.
+     */
+    public void showPage() {
+        throw new UnsupportedOperationException();
+    }
+
+    /**
+     * Emit the current page, but keep the content of the Surface as the
+     * starting point for the next page.
+     * 
+     * @since 4.0.10
+     */
+    public void copyPage() {
+        throw new UnsupportedOperationException();
+    }
 }

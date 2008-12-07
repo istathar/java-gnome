@@ -1,7 +1,7 @@
 /*
  * Pixbuf.java
  *
- * Copyright (c) 2006-2007 Operational Dynamics Consulting Pty Ltd and Others
+ * Copyright (c) 2006-2008 Operational Dynamics Consulting Pty Ltd and Others
  * 
  * The code in this file, and the library it is a part of, are made available
  * to you by the authors under the terms of the "GNU General Public Licence,
@@ -96,13 +96,32 @@ public class Pixbuf extends org.gnome.glib.Object
         super(checkPixbufFromFileAtScale(filename, width, height, preserveAspectRatio));
     }
 
+    public Pixbuf(int width, int height) {
+        super(GdkPixbuf.createPixbuf(null, true, 8, width, height));
+        GdkPixbuf.fill(this, 0);
+    }
+
+    /**
+     * Create an identical copy of this Pixbuf.
+     * 
+     * <p>
+     * Since you can happily reuse a Pixbuf instance in multiple places, you
+     * generally won't need this unless doing mutating operations like
+     * rescaling.
+     * 
+     * @since 4.0.10
+     */
+    public Pixbuf copy() {
+        return GdkPixbuf.copy(this);
+    }
+
     private static long checkPixbufFromFileAtScale(String filename, int width, int height,
             boolean preserveAspectRatio) throws FileNotFoundException {
         final File target;
 
         target = new File(filename);
         if (!target.exists()) {
-            throw new FileNotFoundException(target + "not found");
+            throw new FileNotFoundException(target + " not found");
         }
         try {
             return GdkPixbuf.createPixbufFromFileAtScale(filename, width, height, preserveAspectRatio);
@@ -213,5 +232,38 @@ public class Pixbuf extends org.gnome.glib.Object
      */
     public int getNumChannels() {
         return GdkPixbuf.getNChannels(this);
+    }
+
+    /**
+     * Create a new Pixbuf, applying the scaling factors inherent in the
+     * ratios between the size of this Pixbuf and the new image size
+     * specified by <code>width</code> and <code>height</code>.
+     * 
+     * <p>
+     * In general you probably want to use the {@link InterpType#BILINEAR
+     * BILINEAR} interpolation algorithm.
+     * 
+     * @since 4.0.10
+     */
+    public Pixbuf scale(int width, int height, InterpType algorithm) {
+        return GdkPixbuf.scaleSimple(this, width, height, algorithm);
+    }
+
+    /*
+     * TODO we'll want to expose the full gdk_pixbuf_scale() method too. That
+     * will require a (probably package private) no-arg Pixbuf constructor to
+     * pass as the second argument out-parameter of GdkPixbuf.scale(), which
+     * we can then return. The signature and stub here should otherwise be
+     * correct. Good luck explaining all this stuff.
+     */
+    Pixbuf scale(int x, int y, int width, int height, double offsetX, double offsetY, double scaleX,
+            double scaleY, InterpType algorithm) {
+        final Pixbuf result;
+
+        result = null; // FIXME
+
+        GdkPixbuf.scale(this, result, x, y, width, height, offsetX, offsetY, scaleX, scaleY, algorithm);
+
+        return result;
     }
 }

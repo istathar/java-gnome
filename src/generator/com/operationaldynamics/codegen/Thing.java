@@ -11,6 +11,7 @@
 package com.operationaldynamics.codegen;
 
 import java.util.HashMap;
+import java.util.List;
 
 import com.operationaldynamics.driver.DefsFile;
 
@@ -56,7 +57,7 @@ public abstract class Thing
      * custom variation we have made to the .defs files; hopefully there is
      * another way we can derive this information without needing to do that).
      */
-    String importHeader;
+    List<String> importHeaders;
 
     /**
      * This is gType, of course, except for things like "const-gchar*", which
@@ -643,8 +644,8 @@ public abstract class Thing
      * own method because only a very few object really need it, so we can use
      * the setter only in the needed Block.
      */
-    public void setImportHeader(String importHeader) {
-        this.importHeader = importHeader;
+    public void setImportHeader(List<String> importHeader) {
+        this.importHeaders = importHeader;
     }
 
     public String toString() {

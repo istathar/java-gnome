@@ -896,4 +896,59 @@ public class TextBuffer extends Object
     public void connect(TextBuffer.MarkSet handler) {
         GtkTextBuffer.connect(this, handler, false);
     }
+
+    /**
+     * The signal emitted when a TextTag is added to a range of text.
+     * 
+     * <p>
+     * If you're using this then you'll probably also need the complement of
+     * this signal, which is <code>TextBuffer.RemoveTag</code>.
+     * 
+     * <p>
+     * <i>The code to actually carry out the application of the tag is in the
+     * default handler, which will run after you return from yours.</i>
+     * 
+     * @author Andrew Cowie
+     * @since 4.0.10
+     */
+    /*
+     * TODO Which raises some questions: do we need to expose this as a
+     * connectAfter()? Also, if a tag is already present does this signal get
+     * raised anyway? Finally, do we need emitApplyTag()?
+     */
+    public interface ApplyTag extends GtkTextBuffer.ApplyTagSignal
+    {
+        void onApplyTag(TextBuffer source, TextTag tag, TextIter start, TextIter end);
+    }
+
+    /**
+     * Hook up a handler for <code>TextBuffer.ApplyTag</code> signals on this
+     * TextBuffer.
+     * 
+     * @since 4.0.10
+     */
+    public void connect(TextBuffer.ApplyTag handler) {
+        GtkTextBuffer.connect(this, handler, false);
+    }
+
+    /**
+     * The signal emitted when a TextTag is removed from a range of text.
+     * 
+     * @author Andrew Cowie
+     * @since 4.0.10
+     */
+    public interface RemoveTag extends GtkTextBuffer.RemoveTagSignal
+    {
+        void onRemoveTag(TextBuffer source, TextTag tag, TextIter start, TextIter end);
+    }
+
+    /**
+     * Hook up a handler for <code>TextBuffer.RemoveTag</code> signals on this
+     * TextBuffer.
+     * 
+     * @since 4.0.10
+     */
+    public void connect(TextBuffer.RemoveTag handler) {
+        GtkTextBuffer.connect(this, handler, false);
+    }
 }

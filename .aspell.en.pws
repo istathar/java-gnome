@@ -5,6 +5,7 @@ ARGB
 AUR
 AWT
 AboutDialog
+AboutDialog's
 AccelGroup
 ActionGroup
 ActionGroups
@@ -255,6 +256,7 @@ GdkEventType
 GdkEventVisibility
 GdkEvents
 GdkGravity
+GdkInterpType
 GdkKeyval
 GdkModifierType
 GdkNotifyType
@@ -452,6 +454,7 @@ InsertTextSignal
 InstantiationException
 IntegerValue
 InternalButtonImplementation
+InterpType
 InterruptedException
 InvocationTargetException
 IsSameObject
@@ -560,6 +563,8 @@ OpenOffice
 OpenSolaris
 OutOfMemoryError
 Overholt
+PDF
+PDFSurface
 PKGBUILD
 PNGs
 PRELIGHT
@@ -588,6 +593,7 @@ PopulatePopupSignal
 PopupMenu
 PopupMenuSignal
 PositionType
+PostScript's
 PowerResponseType
 Preetz
 Prelle
@@ -801,6 +807,7 @@ WindowType
 WindowTypeHint
 Wl
 Wno
+Wolberg's
 Wouter
 XFree
 XINERAMA
@@ -869,6 +876,7 @@ basename
 baz
 bb
 bdb
+bilinear
 bindtextdomain
 bitkeeper
 bitmask
@@ -960,6 +968,7 @@ convertIterToChildIter
 convertWindowToBufferCoordsX
 convertWindowToBufferCoordsY
 copyMappingFile
+copyPage
 coronatedYear
 coronatedYearColumn
 countryName
@@ -1031,6 +1040,7 @@ createPatternForSurface
 createPatternLinear
 createPatternRadial
 createPatternRgba
+createPixbuf
 createPixbufFromFile
 createPixbufFromFileAtScale
 createProgressBar
@@ -1047,6 +1057,7 @@ createStatusIconFromIconName
 createStatusIconFromPixbuf
 createStatusbar
 createSurface
+createSurfacePdf
 createTable
 createTextBuffer
 createTextIter
@@ -1633,6 +1644,7 @@ namespace
 nativeName
 nav
 nc
+nd
 ne
 neededing
 newInstance
@@ -1654,6 +1666,8 @@ objectArrayFor
 objectFor
 odt
 offscreen
+offsetX
+offsetY
 ok
 onActivate
 onApply
@@ -1810,6 +1824,9 @@ runtime
 runtimes
 savev
 scalarref
+scaleSimple
+scaleX
+scaleY
 screenshot
 screenshots
 scrollMarkOnscreen
@@ -2004,6 +2021,7 @@ setTooltipMarkup
 setTooltipText
 setTooltips
 setTransientFor
+setTranslatorCredits
 setTypeHint
 setUnderline
 setUp
@@ -2028,6 +2046,7 @@ setWidthChars
 setWrapMode
 settingsDaemon
 showAll
+showPage
 shutil
 si
 sizeof
