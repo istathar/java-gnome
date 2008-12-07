@@ -563,6 +563,8 @@ OpenOffice
 OpenSolaris
 OutOfMemoryError
 Overholt
+PDF
+PDFSurface
 PKGBUILD
 PNGs
 PRELIGHT
@@ -966,6 +968,7 @@ convertIterToChildIter
 convertWindowToBufferCoordsX
 convertWindowToBufferCoordsY
 copyMappingFile
+copyPage
 coronatedYear
 coronatedYearColumn
 countryName
@@ -1054,6 +1057,7 @@ createStatusIconFromIconName
 createStatusIconFromPixbuf
 createStatusbar
 createSurface
+createSurfacePdf
 createTable
 createTextBuffer
 createTextIter
@@ -1640,6 +1644,7 @@ namespace
 nativeName
 nav
 nc
+nd
 ne
 neededing
 newInstance
@@ -2041,6 +2046,7 @@ setWidthChars
 setWrapMode
 settingsDaemon
 showAll
+showPage
 shutil
 si
 sizeof

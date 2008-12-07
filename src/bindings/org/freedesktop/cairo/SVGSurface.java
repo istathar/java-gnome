@@ -50,7 +50,7 @@ public class SVGSurface extends Surface
      * @param height
      *            height of the surface, in points (1 point == 1/72.0 inch)
      * @throws IOException
-     *             Id you do not have write permissions on the given file.
+     *             If you do not have write permissions on the given file.
      */
     public SVGSurface(String filename, double width, double height) throws IOException {
         super(CairoSurface.createSurfaceSvg(filename, width, height));

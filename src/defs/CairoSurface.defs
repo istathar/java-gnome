@@ -86,3 +86,16 @@
     '("double" "height_in_points")
   )
 )
+
+(define-method show_page
+  (of-object "cairo_surface_t")
+  (c-name "cairo_surface_show_page")
+  (return-type "none")
+)
+
+(define-method copy_page
+  (of-object "cairo_surface_t")
+  (c-name "cairo_surface_copy_page")
+  (return-type "none")
+)
+
