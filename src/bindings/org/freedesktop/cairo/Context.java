@@ -239,8 +239,8 @@ public class Context extends Entity
         checkStatus();
 
         /*
-         * FIXME If result was already proxied, this adds an extra ref
-         * and will cause a memory leak 
+         * FIXME If result was already proxied, this adds an extra ref and
+         * will cause a memory leak
          */
         return CairoPattern.reference(result);
     }
@@ -345,8 +345,8 @@ public class Context extends Entity
      * direction of the positive <i>x</i> axis. An angle of
      * <code>&pi;/2</code> radians (90&deg;) is in the direction of the
      * positive <i>y</i> axis. Angles increase in the direction from the
-     * positive <i>x</i> axis toward the positive </i> axis, increasing in a
-     * clockwise direction.
+     * positive <i>x</i> axis toward the positive <i>y</i> axis, increasing in
+     * a clockwise direction.
      * 
      * <p>
      * This function gives the arc in the direction of increasing angles; see
