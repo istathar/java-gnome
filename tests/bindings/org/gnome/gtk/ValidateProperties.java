@@ -189,7 +189,16 @@ public class ValidateProperties extends TestCaseGtk
 
         w = new Window();
         w.add(b);
-        w.showAll();
+
+        /*
+         * We call realize instead of show on the window to prevent the Window
+         * from popping onto the screen when the main loop runs in
+         * ValidateScreensAndDisplays. This is likely a weak workaround and
+         * not a fix, but we need the size-allocation to have happened to be
+         * able to complete this test fixture
+         */
+        b.showAll();
+        GtkWidget.realize(b);
 
         /*
          * Now test that the our live reference to the GtkAllocation actually
