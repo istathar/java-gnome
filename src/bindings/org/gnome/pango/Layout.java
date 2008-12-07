@@ -20,10 +20,10 @@ import org.gnome.gtk.Widget;
  * attributes.
  * 
  * <p>
- * Drawing is done in with Cairo; you get a Layout by passing the Cairo
- * drawing Context you're currently working in to the constructor. If you're
- * drawing a Widget, you'll be doing so in a <code>Widget.ExposeEvent</code>
- * handler where you'll typically see:
+ * Drawing is done with Cairo; you get a Layout by passing the Cairo drawing
+ * Context you're currently working in to the constructor. If you're drawing a
+ * Widget, you'll be doing so in a <code>Widget.ExposeEvent</code> handler
+ * where you'll typically see:
  * 
  * <pre>
  * w.connect(new Widget.ExposeEvent() {
@@ -60,7 +60,7 @@ public class Layout extends Object
      * Seeing as how Pango draws on Cairo, it'd be nice if Pango just exposed
      * the doubles and was done with it.
      * 
-     * FIXME retreive from native as this is subject to change in the future.
+     * FUTURE retreive from native as this is subject to change in the future.
      */
     private static final int PANGO_SCALE = 1024;
 
@@ -76,12 +76,16 @@ public class Layout extends Object
      * This Layout can be used to set up the text to draw and its properties.
      * 
      * <p>
-     * To actually draw the text, you will need to call
+     * To actually draw the text, you call the
      * {@link org.freedesktop.cairo.Context#showLayout(Layout) showLayout()}
-     * method on the Cairo Context.
+     * method on the Cairo Context you specified when constructing this
+     * Layout.
      * 
-     * TODO If you change the transformation or target surface for context,
-     * you need to call pango_cairo_update_layout()
+     * <p>
+     * Note that if you change the transformation or target Surface for the
+     * Context, you <b>must</b> call
+     * {@link org.freedesktop.cairo.Context#updateLayout(Layout)
+     * updateLayout()} to signal this Layout that changes have taken place.
      * 
      * @since 4.0.10
      */

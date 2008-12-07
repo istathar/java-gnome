@@ -44,7 +44,6 @@ public class ValidatePangoTextRendering extends TestCaseGtk
         final Surface surface;
         final Context cr;
         final Layout layout;
-        double width;
 
         surface = new ImageSurface(Format.ARGB32, 150, 150);
         cr = new Context(surface);
@@ -71,6 +70,10 @@ public class ValidatePangoTextRendering extends TestCaseGtk
         assertEquals(false, layout.getJustify());
     }
 
+    /*
+     * This verifies our having normalized the co-ordinate spaces to Cairo
+     * units.
+     */
     public final void testWidthAndHeightNormalization() {
         final Surface surface;
         final Context cr;

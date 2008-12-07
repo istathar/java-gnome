@@ -150,6 +150,15 @@
   )
 )
 
+(define-method update_layout
+  (of-object "cairo_t")
+  (c-name "pango_cairo_update_layout")
+  (return-type "none")
+  (parameters
+    '("PangoLayout*" "layout")
+  )
+)
+
 (define-method get_source
   (of-object "cairo_t")
   (c-name "cairo_get_source")

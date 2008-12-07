@@ -413,6 +413,16 @@ public class Context extends Entity
         checkStatus();
     }
 
+    /*
+     * This really doesn't belong here, but we don't have anywhere else for it
+     * right now. showLayout() above is lovely, and this is entirely parallel
+     * and complementary to it. So it'll do for now.
+     */
+    public void updateLayout(Layout layout) {
+        CairoContext.updateLayout(this, layout);
+        checkStatus();
+    }
+
     /**
      * Set a Pattern to be the source of this Context.
      * 
