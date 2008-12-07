@@ -24,9 +24,8 @@ public interface TreeSortable
 
     /**
      * Specify the column from your (underlying) data model which will be used
-     * for sorting this TreeModelSort. Specify
-     * {@link SortType#ASCENDING ASCENDING} or
-     * {@link SortType#DESCENDING DESCENDING} order via the
+     * for sorting this TreeModelSort. Specify {@link SortType#ASCENDING
+     * ASCENDING} or {@link SortType#DESCENDING DESCENDING} order via the
      * <code>ordering</code> parameter.
      * 
      * @since 4.0.7

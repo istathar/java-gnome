@@ -14,7 +14,8 @@ package org.gnome.gtk;
 import org.freedesktop.bindings.Constant;
 
 /**
- * Appearance of the outline shown in some Widgets such as {@link Frame Frame}.
+ * Appearance of the outline shown in some Widgets such as {@link Frame} and
+ * {@link Arrow}.
  * 
  * @author Vreixo Formoso
  * @since 4.0.7
@@ -43,12 +44,12 @@ public final class ShadowType extends Constant
     public static final ShadowType OUT = new ShadowType(GtkShadowType.OUT, "OUT");
 
     /**
-     * The outline has a sunken 3d appearance.
+     * The outline has a sunken 3D appearance.
      */
     public static final ShadowType ETCHED_IN = new ShadowType(GtkShadowType.ETCHED_IN, "ETCHED_IN");
 
     /**
-     * The outline has a raised 3d appearance.
+     * The outline has a raised 3D appearance.
      */
     public static final ShadowType ETCHED_OUT = new ShadowType(GtkShadowType.ETCHED_OUT, "ETCHED_OUT");
 }

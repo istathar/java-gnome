@@ -97,11 +97,12 @@ public class ExampleRadioButton
 
         /*
          * Sometimes you want to be notified each time the selection changes.
-         * The GROUP_TOGGLED signal is an easy way to do so. Alternatively you
-         * can use the TOGGLED signal on each RadioButton.
+         * The RadioButtonGroup.GroupToggled signal is an easy way to do so.
+         * Alternatively you can use the RadioButton.Toggled signal on each
+         * RadioButton.
          */
 
-        group.connect(new RadioButtonGroup.GROUP_TOGGLED() {
+        group.connect(new RadioButtonGroup.GroupToggled() {
             public void onGroupToggled(RadioButton source) {
                 System.out.println("Chosen: " + source.getLabel());
             }
@@ -110,7 +111,7 @@ public class ExampleRadioButton
         /*
          * You can also get the active Button at any time.
          */
-        b.connect(new Button.CLICKED() {
+        b.connect(new Button.Clicked() {
             public void onClicked(Button source) {
 
                 /* this returns the active button in the group */
@@ -135,7 +136,7 @@ public class ExampleRadioButton
         w.setTitle("RadioButton example");
         w.showAll();
 
-        w.connect(new Window.DELETE_EVENT() {
+        w.connect(new Window.DeleteEvent() {
             public boolean onDeleteEvent(Widget source, Event event) {
                 Gtk.mainQuit();
                 return false;

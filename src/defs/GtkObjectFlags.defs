@@ -4,9 +4,11 @@
   (gtype-id "GTK_TYPE_OBJECT_FLAGS")
   (values
     '("in-destruction" "GTK_IN_DESTRUCTION")
-    '("floating" "GTK_FLOATING")
     '("reserved-1" "GTK_RESERVED_1")
     '("reserved-2" "GTK_RESERVED_2")
   )
 )
+
+;; This one is deprecated
+;;  '("floating" "GTK_FLOATING")
 

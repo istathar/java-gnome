@@ -27,15 +27,6 @@
   (return-type "GdkNativeWindow")
 )
 
-(define-method steal
-  (of-object "GtkSocket")
-  (c-name "gtk_socket_steal")
-  (return-type "none")
-  (parameters
-    '("GdkNativeWindow" "wid")
-  )
-)
-
 (define-virtual plug_added
   (of-object "GtkSocket")
   (return-type "none")

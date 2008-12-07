@@ -29,6 +29,7 @@ import com.operationaldynamics.codegen.Thing;
  */
 public abstract class AccessorBlock extends FunctionBlock
 {
+    @SuppressWarnings("unchecked")
     AccessorBlock(final String blockName, final BoxedBlock parent, final List<String[]> parameters) {
         super(blockName, Collections.EMPTY_LIST, parameters);
 

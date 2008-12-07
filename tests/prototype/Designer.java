@@ -1,7 +1,7 @@
 /*
  * Designer.java
  *
- * Copyright (c) 2007 Operational Dynamics Consulting Pty Ltd
+ * Copyright (c) 2007-2008 Operational Dynamics Consulting Pty Ltd
  * 
  * The code in this file, and the program it is a part of, are made available
  * to you by the authors under the terms of the "GNU General Public Licence,
@@ -21,8 +21,8 @@ import org.gnome.gtk.Widget;
 import org.gnome.gtk.Window;
 
 /**
- * A skeleton program to test using the <code>.glade</code> XML output from
- * a GNOME user interface designer translated into live Widgets with
+ * A skeleton program to test using the <code>.glade</code> XML output from a
+ * GNOME user interface designer translated into live Widgets with
  * <code>libglade</code>.
  * 
  * @author Andrew Cowie
@@ -41,21 +41,21 @@ public final class Designer
 
         w = (Window) glade.getWidget("simple");
 
-        w.connect(new Window.DELETE_EVENT() {
+        w.connect(new Window.DeleteEvent() {
             public boolean onDeleteEvent(Widget source, Event event) {
                 Gtk.mainQuit();
                 return false;
             }
         });
 
-        l.connect(new Widget.KEY_PRESS_EVENT() {
+        l.connect(new Widget.KeyPressEvent() {
             public boolean onKeyPressEvent(Widget source, EventKey event) {
                 System.out.println("Pressed:  " + event.getKeyval());
                 return false;
             }
         });
 
-        l.connect(new Widget.KEY_RELEASE_EVENT() {
+        l.connect(new Widget.KeyReleaseEvent() {
             public boolean onKeyReleaseEvent(Widget source, EventKey event) {
                 System.out.println("Released: " + event.getKeyval());
                 return false;

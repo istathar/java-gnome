@@ -17,15 +17,15 @@ import org.freedesktop.bindings.Flag;
  * Constants representing what modifier keys are being held down on a
  * keystroke, if any. You get an object containing flags that are set via the
  * {@link EventKey#getState() getState()} method on the EventKey you receive
- * when hooking up a <code>KEY_PRESS_EVENT</code> or
- * <code>KEY_RELEASE_EVENT</code>.
+ * when hooking up a <code>Widget.KeyPressEvent</code> or
+ * <code>Widget.KeyReleaseEvent</code>.
  * 
  * <p>
  * Try running this fragment if you're confused about the relationship between
  * Keyvals, ModifierTypes, and the keyboard events:
  * 
  * <pre>
- * w.connect(new Widget.KEY_PRESS_EVENT() {
+ * foo.connect(new Widget.KeyPressEvent() {
  *     public boolean onKeyPressEvent(Widget source, EventKey event) {
  *         final Keyval key;
  *         final ModifierType mod;
@@ -175,13 +175,13 @@ public final class ModifierType extends Flag
             "HYPER_MASK");
 
     /**
-     * The <b><code>Window</code></b> modifier key. You will probably also
-     * get <code>SUPER_MASK</code> with this one.
+     * The <b><code>Window</code></b> modifier key. You will probably also get
+     * <code>SUPER_MASK</code> with this one.
      * 
      * <p>
      * <i>Unless your user has changed things of their X server is doing
-     * something weird, it is likely that <code>MOD4_MASK</code> is mapped
-     * to the "key with the Microsoft Windows logo" that is present on modern
+     * something weird, it is likely that <code>MOD4_MASK</code> is mapped to
+     * the "key with the Microsoft Windows logo" that is present on modern
      * PC104 keyboards. Damn monopolists. Anyway, that's what people call it,
      * so that's that's what we've named our constant.</i>
      * 

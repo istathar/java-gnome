@@ -11,6 +11,8 @@
  */
 package org.gnome.gtk;
 
+import java.util.StringTokenizer;
+
 import org.gnome.glib.Boxed;
 
 /**
@@ -31,12 +33,12 @@ import org.gnome.glib.Boxed;
  * 
  * <p>
  * TreePaths are given to you as a row address in signals like
- * {@link TreeView.ROW_ACTIVATED ROW_ACTIVATED}. Usually you need the row
- * expressed as a TreeIter (ie to get a value out of the row);to do that call
- * the underlying TreeModel's {@link TreeModel#getIter(TreePath) getIter()}
- * method.
+ * {@link TreeView.RowActivated}. Usually you need the row expressed as a
+ * TreeIter (ie to get a value out of the row);to do that call the underlying
+ * TreeModel's {@link TreeModel#getIter(TreePath) getIter()} method.
  * 
  * @author Andrew Cowie
+ * @author Stefan Prelle
  * @since 4.0.5
  */
 public final class TreePath extends Boxed
@@ -46,7 +48,8 @@ public final class TreePath extends Boxed
     }
 
     /**
-     * Create an empty TreePath object. <b>For use by bindings hackers only!</b>
+     * Create an empty TreePath object. <b>For use by bindings hackers
+     * only!</b>
      */
     TreePath() {
         super(GtkTreePath.createTreePath());
@@ -104,5 +107,45 @@ public final class TreePath extends Boxed
      */
     public String toString() {
         return GtkTreePath.toString(this);
+    }
+
+    /**
+     * Returns the depth of node identified by this TreePath within the tree.
+     * Or with other words, the number of elements in the TreePath.
+     * 
+     * @since 4.0.9
+     */
+    public int getDepth() {
+        return GtkTreePath.getDepth(this);
+    }
+
+    /**
+     * Returns the indices the path consists of as an array of integer. If for
+     * example the path would be "1:4:2" you would get {1,4,2}.
+     * 
+     * @return The indices of the nodes or <code>null</code> if nothing is
+     *         selected.
+     * 
+     * @since 4.0.9
+     */
+    /*
+     * Calling GtkTreePath.getIndices() always returns a null for me, so I
+     * implemented this workaround. If someone willing to dig deeper in the
+     * native code finds out why, this code can be removed.
+     */
+    public int[] getIndices() {
+        final StringTokenizer tok;
+        final int[] ret;
+
+        try {
+            tok = new StringTokenizer(this.toString(), ":");
+            ret = new int[tok.countTokens()];
+            for (int i = 0; i < ret.length; i++) {
+                ret[i] = Integer.parseInt(tok.nextToken());
+            }
+            return ret;
+        } catch (NumberFormatException e) {
+            return null;
+        }
     }
 }

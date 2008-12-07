@@ -153,16 +153,26 @@ for you to experiment with. The branch will be at (in this example)
 you won't pay any penalty for creating as many branches as you like.</p>
 
 <p>
-If you're using Eclipse, we recommend creating a symlink from your Workspace
-to whichever branch you're working on. This will allow you to relatively easily 
-change branches while not screwing up all your launchers:
+If you're using Eclipse, we recommend creating a branch in your Workspace
+and using that to work on. This will allow you to relatively easily 
+change branches while not screwing up all your launchers.
+
 <a class="nav-black" href="/4.0/README.html">
 <pre style="margin-left: 0px;">
 <span class="file">$ cd ~/workspace</span>
-$ ln -s ~/src/george/java-gnome/working java-gnome
+$ bzr checkout ~/src/george/java-gnome/working java-gnome
 $ cd ~/workspace/java-gnome/
 $ less README
 </pre></a>
+
+(doing it this way allows you to later do 
+<a class="nav-black" href="/4.0/README.html">
+<pre style="margin-left: 0px;">
+<span class="file">$ bzr switch ~/src/george/java-gnome/some-other-branch</span>
+</pre></a>
+to change between branches you have created with different lines of
+development. This works well, but is an advanced layout. Do experiement
+with it to get a feel for it first)
 </p>
 
 <p>

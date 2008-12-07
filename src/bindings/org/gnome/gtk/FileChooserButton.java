@@ -48,10 +48,9 @@ public class FileChooserButton extends HBox implements FileChooser
      * @param action
      *            which style of FileChooser you want. Only
      *            {@link FileChooserAction#OPEN OPEN} (selecting a single
-     *            file), and
-     *            {@link FileChooserAction#SELECT_FOLDER SELECT_FOLDER},
-     *            (selecting a single directory) are enabled for
-     *            FileChooserButton.
+     *            file), and {@link FileChooserAction#SELECT_FOLDER
+     *            SELECT_FOLDER}, (selecting a single directory) are enabled
+     *            for FileChooserButton.
      */
     public FileChooserButton(String title, FileChooserAction action) {
         super(GtkFileChooserButton.createFileChooserButton(title, action));
@@ -97,19 +96,19 @@ public class FileChooserButton extends HBox implements FileChooser
      * @author Andrew Cowie
      * @since 4.0.5
      */
-    public interface FILE_SET extends GtkFileChooserButton.FILE_SET
+    public interface FileSet extends GtkFileChooserButton.FileSetSignal
     {
         public void onFileSet(FileChooserButton source);
     }
 
     /**
-     * Hook up a callback to handle the <code>FILE_SET</code> signal
-     * generated when the file or directory has been selected by the user
-     * using this FileChooserButton.
+     * Hook up a callback to handle the <code>FILE_SET</code> signal generated
+     * when the file or directory has been selected by the user using this
+     * FileChooserButton.
      * 
      * @since 4.0.5
      */
-    public void connect(FILE_SET handler) {
+    public void connect(FileSet handler) {
         GtkFileChooserButton.connect(this, handler, false);
     }
 

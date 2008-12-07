@@ -5,21 +5,26 @@
   (gtype-id "PANGO_TYPE_CONTEXT")
 )
 
-(define-function pango_context_new
-  (is-constructor-of "PangoContext")
-  (c-name "pango_context_new")
-  (caller-owns-return #t)
-  (return-type "PangoContext*")
-)
+;;This function is only used when constructing a new Pango backend which
+;;applications shouldn't do, and relies on a special #define to be present in
+;;the C API. This is not planned to be exposed in java-gnome so it is
+;;commented out and fixes bug #528282
 
-(define-method add_font_map
-  (of-object "PangoContext")
-  (c-name "pango_context_set_font_map")
-  (return-type "none")
-  (parameters
-    '("PangoFontMap*" "font_map")
-  )
-)
+;;(define-function pango_context_new
+;;  (is-constructor-of "PangoContext")
+;;  (c-name "pango_context_new")
+;;  (caller-owns-return #t)
+;;  (return-type "PangoContext*")
+;;)
+
+;;(define-method add_font_map
+;;  (of-object "PangoContext")
+;;  (c-name "pango_context_set_font_map")
+;;  (return-type "none")
+;;  (parameters
+;;    '("PangoFontMap*" "font_map")
+;;  )
+;;)
 
 (define-method get_font_map
   (of-object "PangoContext")

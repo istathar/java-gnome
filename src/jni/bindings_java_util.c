@@ -345,13 +345,13 @@ bindings_java_logging_handler
 		 * 
 		 * So the alternatives open to us are to leave it to flow on
 		 * to the default log handler, or to throw our FatalError.
-		 * During development we're going to have this on. Whether we
-		 * take it out for releases remains to be decided.
+		 *
+		 * In every instance we've observed, seeing a WARNING from GTK
+		 * has immediately indicated serious programmer error. So an
+		 * Exception it is.
 		 */
-#if TRUE
 		level = "WARNING";
 		break;
-#endif
 
 	default:
 		g_log_default_handler(log_domain, log_level, message, user_data);

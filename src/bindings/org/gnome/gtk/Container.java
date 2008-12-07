@@ -1,7 +1,7 @@
 /*
  * Container.java
  *
- * Copyright (c) 2006 Operational Dynamics Consulting Pty Ltd, and Others
+ * Copyright (c) 2006-2008 Operational Dynamics Consulting Pty Ltd, and Others
  * 
  * The code in this file, and the library it is a part of, are made available
  * to you by the authors under the terms of the "GNU General Public Licence,
@@ -41,10 +41,9 @@ package org.gnome.gtk;
  * 
  * <p>
  * For more information about how this works, and on how you can influence it
- * if necessary, see Widget's
- * {@link Widget#setSizeRequest(int, int) setSizeRequest()}. To get an
- * indication of how much space has been (will be) requested by a child, a
- * Container will also find the
+ * if necessary, see Widget's {@link Widget#setSizeRequest(int, int)
+ * setSizeRequest()}. To get an indication of how much space has been (will
+ * be) requested by a child, a Container will also find the
  * {@link Widget#getRequisition() getRequisition()} method useful. The Actual
  * size granted is available at {@link Widget#getAllocation() getAllocation()}
  * once the box packing cycle has been carried out.
@@ -75,9 +74,9 @@ public abstract class Container extends Widget
      * 
      * <p>
      * <i>In native GTK, this often results in the destruction of the Widget.
-     * In java-gnome, that will occur once the last Java reference goes out of
-     * scope and a garbage collection run occurs. So you can, quite safely,
-     * do:</i>
+     * In java-gnome, that will only occur once the last Java reference goes
+     * out of scope and a garbage collection run occurs. So you can, quite
+     * safely, do:</i>
      * 
      * <pre>
      * box1.remove(button);
@@ -119,11 +118,11 @@ public abstract class Container extends Widget
      * 
      * In other situations (wondering just what aggregation of Widgets makes
      * up something that was handed to you by Glade, perhaps),
-     * <code>instanceof</code> is your friend. Indeed sometimes it's the
-     * only way; the box packing composition of GTK elements means that even
-     * things you might take for granted as elementary (Button) are in fact
-     * more complex (an HBox of an Image and a Label) - and often the only way
-     * to find this out is to walk the Widget hierarchy.
+     * <code>instanceof</code> is your friend. Indeed sometimes it's the only
+     * way; the box packing composition of GTK elements means that even things
+     * you might take for granted as elementary (Button) are in fact more
+     * complex (an HBox of an Image and a Label) - and often the only way to
+     * find this out is to walk the Widget hierarchy.
      * 
      * @return an array with the Container's child Widgets. The array will be
      *         empty (zero length) if the Container hasn't got any children.

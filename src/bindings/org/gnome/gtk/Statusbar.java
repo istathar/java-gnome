@@ -29,15 +29,15 @@ package org.gnome.gtk;
  * in fact, this is so much a convention that a Statusbar should be present
  * regardless of whether or not you plan to have messages to display. Make
  * sure you pack it into the top level VBox with <var>expand</var> and
- * <var>fill</var> set to <code>false</code> as shown. Statusbars somewhat
- * by definition should stay narrow; they shouldn't grow thicker if the user
+ * <var>fill</var> set to <code>false</code> as shown. Statusbars somewhat by
+ * definition should stay narrow; they shouldn't grow thicker if the user
  * resizes vertically.
  * 
  * <p>
- * The text in the Statusbar is set with
- * {@link #setMessage(String) setMessage()}. Most applications leave the
- * Statusbar empty as a default state, but if you wish to inform the user of
- * things being in a normal state, you can certainly do so:
+ * The text in the Statusbar is set with {@link #setMessage(String)
+ * setMessage()}. Most applications leave the Statusbar empty as a default
+ * state, but if you wish to inform the user of things being in a normal
+ * state, you can certainly do so:
  * 
  * <pre>
  * status.setMessage(&quot;Ready&quot;);
@@ -47,13 +47,13 @@ package org.gnome.gtk;
  * 
  * <p>
  * Statusbars are excellent for providing hints to the user about what the
- * user can do next (see <b><code>Inkscape</code></b> as a terrific
- * example), or to update the user with what the application is up to when
- * processing. Keep in mind, however, that this is considered only an
- * assistance; people don't necessarily look to the Statusbar when wondering
- * what is going on (and further, many applications allow the user to turn the
- * Statusbar off entirely). If you need to provide urgent information to the
- * user then use a Dialog.
+ * user can do next (see <b><code>Inkscape</code></b> as a terrific example),
+ * or to update the user with what the application is up to when processing.
+ * Keep in mind, however, that this is considered only an assistance; people
+ * don't necessarily look to the Statusbar when wondering what is going on
+ * (and further, many applications allow the user to turn the Statusbar off
+ * entirely). If you need to provide urgent information to the user then use a
+ * Dialog.
  * 
  * <p>
  * As a Box subclass, you can pack other Widgets into the Statusbar. This is a

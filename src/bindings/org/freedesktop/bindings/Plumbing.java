@@ -1,7 +1,7 @@
 /*
  * Plumbing.java
  *
- * Copyright (c) 2006-2008 Operational Dynamics Consulting Pty Ltd
+ * Copyright (c) 2006-2008 Operational Dynamics Consulting Pty Ltd, and Others
  * 
  * The code in this file, and the library it is a part of, are made available
  * to you by the authors under the terms of the "GNU General Public Licence,
@@ -11,8 +11,16 @@
  */
 package org.freedesktop.bindings;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.InputStreamReader;
 import java.lang.ref.WeakReference;
+import java.net.URL;
+import java.security.CodeSource;
+import java.security.ProtectionDomain;
 import java.util.HashMap;
+
+import static org.freedesktop.bindings.Version.getVersion;
 
 /**
  * Parent of all classes in the translation layer of a bindings library. This
@@ -29,6 +37,7 @@ import java.util.HashMap;
  * appropriate to the type systems in use within those libraries.</i>
  * 
  * @author Andrew Cowie
+ * @author Vreixo Formoso
  * @since 4.0.0
  */
 public abstract class Plumbing
@@ -66,15 +75,85 @@ public abstract class Plumbing
     static {
         /*
          * TODO: any particular reason to pick a starting array size?
-         * 
-         * Early on we used WeakHashMap, but that is weak on _keys_ only, and
-         * in fact we definitely do _not_ want that. We need to switch to weak
-         * _values_; we're going to need to wrap and unwrap WeakReference
-         * around the Proxies we put as values to achieve that.
          */
         knownProxies = new HashMap<Long, WeakReference<Proxy>>();
         knownConstants = new HashMap<Class<? extends Constant>, HashMap<Integer, Constant>>();
         loader = Plumbing.class.getClassLoader();
+
+        loadNativeCode();
+    }
+
+    private static final String LIBDIR_FILE = ".libdir";
+
+    /**
+     * Load the native library. The governing assumption is that the .jar
+     * created "in-place" does NOT have the libdir file; it is appended to the
+     * .jar during the `make install` step.
+     * 
+     * <p>
+     * The root name "libgtkjni" is historical. We've left it as is because
+     * there's no burning need to further pollute the system library space
+     * (although we will change it if we ever start constructing different .so
+     * for different dependencies).
+     */
+    /*
+     * We go through quite some hoop jumping in the fallback case. If we were
+     * just concerned with things being run from a java-gnome checkout, then
+     * libdir could hae been set to relative path "tmp" and been done with it.
+     * 
+     * But since an "in-place" build can be used from an arbitrary external
+     * location, we need to work out the URL of the .jar file that was
+     * referenced in the first place and use that to find the directory to use
+     * as libdir.
+     * 
+     * The code path to do this is insane, but not to worry - this stuff is
+     * already loaded by the VM so it doesn't cost anything being here.
+     * 
+     * Conveniently, this also works if you have tmp/bindings/ as the
+     * classpath, as getParent() extracts the URL of that to .../tmp/ which is
+     * what we want.
+     */
+    private static final void loadNativeCode() {
+        final BufferedReader reader;
+        String libdir;
+        final ProtectionDomain domain;
+        final CodeSource source;
+        final URL url;
+        final String jar;
+        final File library;
+        final String path;
+
+        try {
+            /*
+             * Attmept to load the .libdir file and use its contents as the
+             * directory which we will load our shared library from.
+             */
+            reader = new BufferedReader(new InputStreamReader(loader.getResourceAsStream(LIBDIR_FILE)));
+            libdir = reader.readLine();
+            reader.close();
+        } catch (Exception e) {
+            /*
+             * If that fails, it means we're running on an "in-place" (built
+             * but not installed) copy of java-gnome. We need to work out the
+             * path to tmp/ that the .jar file came from in the first place.
+             */
+            domain = Plumbing.class.getProtectionDomain();
+            source = domain.getCodeSource();
+            url = source.getLocation();
+            jar = url.getPath();
+
+            libdir = new File(jar).getParent();
+        }
+
+        library = new File(libdir, "libgtkjni-" + getVersion() + ".so");
+        if (!library.exists()) {
+            throw new UnsatisfiedLinkError("\n\n"
+                    + "We anticipated loading the native portion of java-gnome from:\n" + library + "\n"
+                    + "but didn't find the library there.\n");
+        }
+
+        path = library.getPath();
+        System.load(path);
     }
 
     /*
@@ -115,7 +194,7 @@ public abstract class Plumbing
 
     /**
      * Get the memory address which is the location of the Object or Structure
-     * that a given Proxy represents. That doesn't mean anything on the Java
+     * that a given Pointer represents. That doesn't mean anything on the Java
      * side so don't try to interpret it - it's for use by the translation
      * layer as they marshal objects through to the native layer.
      * 
@@ -124,21 +203,21 @@ public abstract class Plumbing
     /*
      * We go to considerable effort to keep this method out of the visibility
      * of public users which is why translation layer code subclass this
-     * org.freedesktop.bindings.Pluming which has package visibility of Proxy
-     * and Constant. Even more, there's nothing we can do about this being
-     * protected, so we choose a method name other than getPointer() to keep
-     * it totally of out of view from get<COMPLETE>.
+     * org.freedesktop.bindings.Pluming which has package visibility of
+     * Pointer and Constant. Even more, there's nothing we can do about this
+     * being protected, so we choose a method name other than getPointer() to
+     * keep it totally of out of view from get<COMPLETE>.
      */
-    protected static final long pointerOf(Proxy reference) {
+    protected static final long pointerOf(Pointer reference) {
         return reference == null ? 0L : reference.pointer;
     }
 
     /**
-     * Like {@link #pointerOf(Proxy)}, but acts over an array of Proxys.
+     * Like {@link #pointerOf(Pointer)}, but acts over an array of Pointers.
      * 
      * @return opaque data to be passed to native methods only.
      */
-    protected static final long[] pointersOf(Proxy[] references) {
+    protected static final long[] pointersOf(Pointer[] references) {
         if (references == null) {
             return null;
         }
@@ -166,15 +245,16 @@ public abstract class Plumbing
      * register) a new Proxy object.
      * 
      * <p>
-     * Note that under this architecture, denaturation should <b>not</b>
-     * occur because if we created the type, then we will already and always
-     * have a reference to it. Regardless if our type is a much derived
-     * subclass of whatever the native library's equivalent is, any look up of
-     * that pointer will be routed to our Proxy subtype.
+     * Note that under this architecture, denaturation should <b>not</b> occur
+     * because if we created the type, then we will already and always have a
+     * reference to it. Regardless if our type is a much derived subclass of
+     * whatever the native library's equivalent is, any look up of that
+     * pointer will be routed to our Proxy subtype.
      * 
      * <p>
      * <i><b>This must be overridden by any library using these bindings, or
-     * you will only be able to get instances for objects created Java side.</b></i>.
+     * you will only be able to get instances for objects created Java
+     * side.</b></i>.
      * 
      * @param pointer
      *            opaque memory reference as passed from the C side.
@@ -213,7 +293,7 @@ public abstract class Plumbing
      * trick of calling JNI (where visibility rules are ignored) to create
      * Proxy instances.
      */
-    protected static native Proxy createProxy(Class<?> type, long pointer);
+    protected static native Pointer createPointer(Class<?> type, long pointer);
 
     /*
      * Constant handling ----------------------------------
@@ -410,4 +490,11 @@ public abstract class Plumbing
     private static native Flag createFlag(Class<?> type, int ordinal, String nickname);
 
     static final native String toHexString(long pointer);
+
+    /**
+     * Get the value encoded by a DoubleConstant instance.
+     */
+    protected static final double numOf(DoubleConstant reference) {
+        return reference.value;
+    }
 }

@@ -37,9 +37,9 @@ package org.gnome.gtk;
  * 
  * <p>
  * <i>These text-only methods are actually found in GTK on
- * <code>GtkComboBox</code>, but using them collides with the normal
- * ComboBox methods. We have therefore moved them to a custom subclass to make
- * the API safe.</i>
+ * <code>GtkComboBox</code>, but using them collides with the normal ComboBox
+ * methods. We have therefore moved them to a custom subclass to make the API
+ * safe.</i>
  * 
  * @author Andrew Cowie
  * @since 4.0.6

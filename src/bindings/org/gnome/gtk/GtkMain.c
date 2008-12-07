@@ -1,5 +1,5 @@
 /*
- * Gtk.c
+ * GtkMain.c
  *
  * Copyright (c) 2006-2008 Operational Dynamics Consulting Pty Ltd
  * 
@@ -16,7 +16,7 @@
 #include <gtk/gtk.h>
 
 #include "bindings_java.h"
-#include "org_gnome_gtk_Gtk.h"
+#include "org_gnome_gtk_GtkMain.h"
 
 /*
  * Implements
@@ -27,7 +27,7 @@
  * FIXME we still have to handle returning the trimmed args array.
  */ 
 JNIEXPORT void JNICALL
-Java_org_gnome_gtk_Gtk_gtk_1init
+Java_org_gnome_gtk_GtkMain_gtk_1init
 (
 	JNIEnv *env,
 	jclass cls,
@@ -100,7 +100,7 @@ Java_org_gnome_gtk_Gtk_gtk_1init
  * each time the main loop iterates.
  */
 JNIEXPORT void JNICALL
-Java_org_gnome_gtk_Gtk_gtk_1main
+Java_org_gnome_gtk_GtkMain_gtk_1main
 (
 	JNIEnv *env,
 	jclass cls
@@ -117,7 +117,7 @@ Java_org_gnome_gtk_Gtk_gtk_1main
  *   org.gnome.gtk.Gtk.mainQuit()
  */
 JNIEXPORT void JNICALL
-Java_org_gnome_gtk_Gtk_gtk_1main_1quit
+Java_org_gnome_gtk_GtkMain_gtk_1main_1quit
 (
 	JNIEnv *env,
 	jclass cls
@@ -135,7 +135,7 @@ Java_org_gnome_gtk_Gtk_gtk_1main_1quit
  *   org.gnome.gtk.Gtk.eventsPending()
  */
 JNIEXPORT jboolean JNICALL
-Java_org_gnome_gtk_Gtk_gtk_1events_1pending
+Java_org_gnome_gtk_GtkMain_gtk_1events_1pending
 (
 	JNIEnv *env,
 	jclass cls
@@ -158,7 +158,7 @@ Java_org_gnome_gtk_Gtk_gtk_1events_1pending
  *   org.gnome.gtk.Gtk.mainIterationDo()
  */
 JNIEXPORT jboolean JNICALL
-Java_org_gnome_gtk_Gtk_gtk_1main_1iteration_1do
+Java_org_gnome_gtk_GtkMain_gtk_1main_1iteration_1do
 (
 	JNIEnv *env,
 	jclass cls,

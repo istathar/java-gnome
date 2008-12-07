@@ -22,11 +22,6 @@
 <meta name="author" content="Andrew Cowie">
 <style>
 div.box {
-	background-color: #DDDDDD;
-	padding: 15px;
-	border: dashed 3px blue;
-	margin-left: 100px;
-	margin-right: 100px;
 	margin-top: 20px;
 	font-size: x-large;
 }
@@ -44,10 +39,12 @@ div.box {
 	<code>NEWS</code> file)</a>
 </div>
 
+<img style="padding: 10px; float: right;" src="/4.0/doc/api/org/gnome/gtk/AboutDialog.png">
+<p>
+<i>Everyone loves a screenshot!</i>
+</p>
+
 <div class="box">
-<span class="mono" style="font-size: xx-large; font-weight: bold;">
-@since 4.0.7
-</span>
 
 <p>These are the Java bindings for GTK and GNOME!  Featuring a robust
 engineering design, completely generated internals, a lovingly crafted layer
@@ -70,8 +67,8 @@ href="objectives.php">objectives</a> page explains in greater detail.
 href="/4.0/doc/">documentation</a> section for everything you need to get
 started.</p>
 
-<p>The latest release notes are always available in the <code><a
-href="/4.0/NEWS.html">NEWS</a></code> file; if you're already developing
+<p>The latest release notes are always available on the <code><a
+href="/4.0/NEWS.html">NEWS</a></code> page; if you're already developing
 applications that use java-gnome 4.0, that's where you want to look to catch up
 on the latest changes. Other top level meta files include
 
@@ -107,7 +104,7 @@ movement.
 
 <p>java-gnome 4.0 is now a truly global effort with contributors from around
 the world. There is still much work to be done, of course, so please feel
-welcome to join in and contribute!
+welcome to join in!
 
 <h2>Warning</h2>
 

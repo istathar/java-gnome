@@ -5,12 +5,13 @@
  * 
  * The code in this file, and the library it is a part of, are made available
  * to you by the authors under the terms of the "GNU General Public Licence,
- * version 2" See the LICENCE file for the terms governing usage and
- * redistribution.
+ * version 2" plus the "Classpath Exception" (you may link to this code as a
+ * library into other programs provided you don't make a derivation of it).
+ * See the LICENCE file for the terms governing usage and redistribution.
+
  */
 package org.gnome.gdk;
 
-import org.freedesktop.bindings.Proxy;
 import org.gnome.glib.Boxed;
 
 /**
@@ -42,7 +43,7 @@ public abstract class Plumbing extends org.gnome.glib.Plumbing
      * discriminator.
      */
     protected static Boxed boxedFor(Class<? extends Boxed> type, long pointer) {
-        Proxy proxy;
+        Boxed proxy;
 
         if (pointer == 0L) {
             return null;
@@ -57,6 +58,7 @@ public abstract class Plumbing extends org.gnome.glib.Plumbing
 
             // FIXME this must be wrong, but what else should we do with it?
             case GdkEventType.DELETE:
+            case GdkEventType.MAP:
             case GdkEventType.UNMAP:
                 type = EventAny.class;
                 break;

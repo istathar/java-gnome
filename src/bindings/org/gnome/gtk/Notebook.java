@@ -20,11 +20,13 @@ package org.gnome.gtk;
  * <p>
  * Note that Notebooks are a poor way to organize pages of application
  * preferences; if your program has that many options there is probably
- * something very wrong with your design in the first place. Do you <i>really</i>
- * need to present that many different configuration settings to the user?
+ * something very wrong with your design in the first place. Do you
+ * <i>really</i> need to present that many different configuration settings to
+ * the user?
  * 
  * @author Sebastian Mancke
  * @author Andrew Cowie
+ * @author Stefan Prelle
  * @since 4.0.3
  */
 /*
@@ -38,7 +40,9 @@ public class Notebook extends Container
     }
 
     /**
-     * Constructs a new Notebook
+     * Constructs a new Notebook.
+     * 
+     * @since 4.0.3
      */
     public Notebook() {
         super(GtkNotebook.createNotebook());
@@ -51,6 +55,7 @@ public class Notebook extends Container
      *            The Widget to be shown on the new Notebook page.
      * @param tabLabel
      *            The Label Widget you want to use for the tab itself.
+     * @since 4.0.3
      */
     public int appendPage(Widget child, Widget tabLabel) {
         return GtkNotebook.appendPage(this, child, tabLabel);
@@ -64,13 +69,14 @@ public class Notebook extends Container
      * @param tabLabel
      *            The Label Widget for the tab
      * @return the position of the prepended tab.
+     * @since 4.0.3
      */
     public int prependPage(Widget child, Widget tabLabel) {
         return GtkNotebook.prependPage(this, child, tabLabel);
     }
 
     /**
-     * Insert a tab at the supplied position in the Notebook
+     * Insert a tab at the supplied position in the Notebook.
      * 
      * @param child
      *            The Widget shown on the new Notebook page.
@@ -79,35 +85,49 @@ public class Notebook extends Container
      * @param position
      *            The position at which to insert the page.
      * @return the position in the Notebook of the inserted tab.
+     * @since 4.0.3
      */
     public int insertPage(Widget child, Widget tabLabel, int position) {
         return GtkNotebook.insertPage(this, child, tabLabel, position);
     }
 
     /**
-     * Remove a tab
+     * Remove a tab.
      * 
      * @param pageNum
      *            The position number (from 0) of the page to remove.
+     * @since 4.0.3
      */
     public void removePage(int pageNum) {
         GtkNotebook.removePage(this, pageNum);
     }
 
     /**
-     * Activate/show the page at the supplied position
+     * Activate/show the page at the supplied position.
      * 
      * @param pageNum
      *            Position of the page to activate
+     * @since 4.0.3
      */
     public void setCurrentPage(int pageNum) {
         GtkNotebook.setCurrentPage(this, pageNum);
     }
 
     /**
-     * The handler interface for notification of changes in the current page.
+     * Returns the number of the active page
+     * 
+     * @since 4.0.9
      */
-    public interface CHANGE_CURRENT_PAGE extends GtkNotebook.CHANGE_CURRENT_PAGE
+    public int getCurrentPage() {
+        return GtkNotebook.getCurrentPage(this);
+    }
+
+    /**
+     * The handler interface for notification of changes in the current page.
+     * 
+     * @since 4.0.3
+     */
+    public interface ChangeCurrentPage extends GtkNotebook.ChangeCurrentPageSignal
     {
         /**
          * @param offset
@@ -117,9 +137,23 @@ public class Notebook extends Container
     }
 
     /**
-     * Connects a <code>CHANGE_CURRENT_PAGE</code> handler to the Notebook.
+     * Connects a <code>Notebook.ChangeCurrentPage</code> handler to the
+     * Notebook.
+     * 
+     * @since 4.0.3
      */
+    public void connect(Notebook.ChangeCurrentPage handler) {
+        GtkNotebook.connect(this, handler, false);
+    }
+
+    /** @deprecated */
+    public interface CHANGE_CURRENT_PAGE extends GtkNotebook.ChangeCurrentPageSignal
+    {
+    }
+
+    /** @deprecated */
     public void connect(CHANGE_CURRENT_PAGE handler) {
+        assert false : "use Notebook.ChangeCurrentPage instead";
         GtkNotebook.connect(this, handler, false);
     }
 
@@ -131,5 +165,36 @@ public class Notebook extends Container
      */
     public void setTabPosition(PositionType position) {
         GtkNotebook.setTabPos(this, position);
+    }
+
+    /**
+     * Returns the number of pages in the Notebook.
+     * 
+     * @since 4.0.9
+     */
+    public int getPageCount() {
+        return GtkNotebook.getNPages(this);
+    }
+
+    /**
+     * Returns the page number of the given Widget.
+     * 
+     * @return The page number or <code>-1</code> if <code>child</code> is not
+     *         in the Notebook.
+     * 
+     * @since 4.0.9
+     */
+    public int getPageNumber(Widget child) {
+        return GtkNotebook.pageNum(this, child);
+    }
+
+    /**
+     * Get the Widget which is the page at a given index. Page numbers start
+     * at <code>0</code>.
+     * 
+     * @since 4.0.9
+     */
+    public Widget getPage(int pageNum) {
+        return GtkNotebook.getNthPage(this, pageNum);
     }
 }

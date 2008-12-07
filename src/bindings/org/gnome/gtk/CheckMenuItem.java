@@ -1,7 +1,7 @@
 /*
  * CheckMenuItem.java
  *
- * Copyright (c) 2007 Operational Dynamics Consulting Pty Ltd, and Others
+ * Copyright (c) 2007-2008 Operational Dynamics Consulting Pty Ltd, and Others
  *
  * The code in this file, and the library it is a part of, are made available
  * to you by the authors under the terms of the "GNU General Public Licence,
@@ -28,10 +28,10 @@ package org.gnome.gtk;
  * 
  * <p>
  * The active state is switched automatically when the user activates the
- * MenuItem. You can access the current state with the
- * {@link #getActive() getActive()} method. And while you can still connect to
- * the <code>ACTIVATE</code> signal, CheckMenuItem provides the
- * {@link CheckMenuItem.TOGGLED TOGGLED} signal, emitted when the active state
+ * MenuItem. You can access the current state with the {@link #getActive()
+ * getActive()} method. And while you can still connect to the
+ * <code>MenuItem.Active</code> signal, CheckMenuItem provides the
+ * {@link CheckMenuItem.Toggled} signal, emitted when the active state
  * changes.
  * 
  * <p>
@@ -52,6 +52,8 @@ public class CheckMenuItem extends MenuItem
 
     /**
      * Construct a CheckMenuItem
+     * 
+     * @since 4.0.4
      */
     public CheckMenuItem() {
         super(GtkCheckMenuItem.createCheckMenuItem());
@@ -62,6 +64,8 @@ public class CheckMenuItem extends MenuItem
      * underscores (<code>_<code>) which, if present, will indicate the
      * mnemonic which will activate that CheckMenuItem directly if that key is
      * pressed while viewing the Menu.
+     * 
+     * @since 4.0.4
      */
     public CheckMenuItem(String mnemonicLabel) {
         super(GtkCheckMenuItem.createCheckMenuItemWithMnemonic(mnemonicLabel));
@@ -69,17 +73,26 @@ public class CheckMenuItem extends MenuItem
 
     /**
      * Construct a CheckMenuItem with a given text label, and additionally
-     * connect a handler to its <code>TOGGLED</code> signal. This affords
-     * you the convenience of being able to add a MenuItem fairly compactly:
+     * connect a handler to its <code>CheckMenuItem.Toggled</code> signal.
+     * This affords you the convenience of being able to add a MenuItem fairly
+     * compactly:
      * 
      * <pre>
-     * editMenu.append(new MenuItem(&quot;_Paste&quot;, new ACTIVATE() {
-     *     public void onActivate(MenuItem source) {
+     * editMenu.append(new MenuItem(&quot;_Paste&quot;, new CheckMenuItem.Toggled() {
+     *     public void onToggled(MenuItem source) {
      *         ...
      *     }
      * }));
      * </pre>
+     * 
+     * @since 4.0.4
      */
+    public CheckMenuItem(String mnemonicLabel, CheckMenuItem.Toggled handler) {
+        super(GtkCheckMenuItem.createCheckMenuItemWithMnemonic(mnemonicLabel));
+        connect(handler);
+    }
+
+    /** @deprecated */
     public CheckMenuItem(String mnemonicLabel, TOGGLED handler) {
         super(GtkCheckMenuItem.createCheckMenuItemWithMnemonic(mnemonicLabel));
         connect(handler);
@@ -89,6 +102,8 @@ public class CheckMenuItem extends MenuItem
      * Set the active state of the Item. This is switched automatically when
      * the user activates (clicks) the menu item, but in some situations you
      * will want to change it manually.
+     * 
+     * @since 4.0.4
      */
     public void setActive(boolean isActive) {
         GtkCheckMenuItem.setActive(this, isActive);
@@ -96,15 +111,17 @@ public class CheckMenuItem extends MenuItem
 
     /**
      * Retrieve the active state of the item.
+     * 
+     * @since 4.0.4
      */
     public boolean getActive() {
         return GtkCheckMenuItem.getActive(this);
     }
 
     /**
-     * Set the inconsistent state. This refers to an additional third state
-     * meaning that currently it cannot be decided what is the active state of
-     * the item.
+     * Set the <var>inconsistent</var> state. This refers to an additional
+     * third state meaning that currently it cannot be decided what is the
+     * active state of the item.
      * 
      * <p>
      * Think, for example, in a text editor application, in which a
@@ -115,21 +132,23 @@ public class CheckMenuItem extends MenuItem
      * 
      * <p>
      * However, note that, while such property can be really useful in a
-     * {@link ToggleButton}, its utility in a CheckMenuItem is really
-     * unclear.
+     * {@link ToggleButton}, its utility in a CheckMenuItem is really unclear.
      * 
      * <p>
      * Notice also that this property only affects visual appearance, it
      * doesn't affect the semantics of the Widget.
+     * 
+     * @since 4.0.4
      */
     public void setInconsistent(boolean setting) {
         GtkCheckMenuItem.setInconsistent(this, setting);
     }
 
     /**
-     * Get the inconsistent state.
+     * Get the <var>inconsistent</var> state.
      * 
      * @see #setInconsistent(boolean)
+     * @since 4.0.4
      */
     public boolean getInconsistent() {
         return GtkCheckMenuItem.getInconsistent(this);
@@ -141,18 +160,31 @@ public class CheckMenuItem extends MenuItem
      * the MenuItem, or when it is changed with
      * {@link CheckMenuItem#setActive(boolean) setActive()}.
      * 
-     * @see MenuItem.ACTIVATE
+     * @see MenuItem.Activate
+     * @since 4.0.4
      */
-    public interface TOGGLED extends GtkCheckMenuItem.TOGGLED
+    public interface Toggled extends GtkCheckMenuItem.ToggledSignal
     {
         void onToggled(CheckMenuItem source);
     }
 
     /**
-     * Connect a <code>TOGGLED</code> handler to the Widget.
+     * Connect a <code>CheckMenuItem.Toggled</code> handler to the Widget.
+     * 
+     * @since 4.0.4
      */
-    public void connect(TOGGLED handler) {
+    public void connect(CheckMenuItem.Toggled handler) {
         GtkCheckMenuItem.connect(this, handler, false);
     }
 
+    /** @deprecated */
+    public interface TOGGLED extends GtkCheckMenuItem.ToggledSignal
+    {
+    }
+
+    /** @deprecated */
+    public void connect(TOGGLED handler) {
+        assert false : "use CheckMenuItem.Toggled instead";
+        GtkCheckMenuItem.connect(this, handler, false);
+    }
 }

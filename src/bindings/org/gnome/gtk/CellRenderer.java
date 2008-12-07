@@ -33,9 +33,9 @@ package org.gnome.gtk;
  * <p>
  * While the whole point of the CellRenderers is to present the data from a
  * given column of your data model, CellRenderers also offer a considerable
- * number of properties that you <i>don't</i> need to vary row by row but
- * want to set for the TreeViewColumn as a whole. For these you will notice a
- * a setter which takes a conventional type as its argument; setting this
+ * number of properties that you <i>don't</i> need to vary row by row but want
+ * to set for the TreeViewColumn as a whole. For these you will notice a a
+ * setter which takes a conventional type as its argument; setting this
  * property will set it for all rows in that column. (Occasionally you will
  * see the setter for a property overloaded to offer you both a DataColumn
  * driven mode and a fixed value mode for the rare occasions where both styles
@@ -44,15 +44,15 @@ package org.gnome.gtk;
  * 
  * <p>
  * It's easy to be tempted into thinking that CellRenderers are Widgets,
- * especially as they get <code>pack()</code>ed into TreeViewColumns on
- * their way to being used in TreeViews. They are, however, merely utility
- * elements that are used to facilitate drawing, and <i>not</i> full power
- * Widgets.
+ * especially as they get <code>pack()</code>ed into TreeViewColumns on their
+ * way to being used in TreeViews. They are, however, merely utility elements
+ * that are used to facilitate drawing, and <i>not</i> full power Widgets.
  * 
  * <p>
  * Do not try to reuse a CellRenderer between different TreeViewColumns.
  * 
  * @author Andrew Cowie
+ * @author Stefan Prelle
  * @since 4.0.5
  */
 /*
@@ -133,4 +133,18 @@ public abstract class CellRenderer extends Object
     public void setBackground(String colour) {
         setPropertyString("cell-background", colour);
     }
+
+    /**
+     * Indicate if the CellRenderer should be visible, depending on the
+     * content of a DataColumnBoolean. For example, you could set use this
+     * property to control whether or not a {@link CellRendererToggle} was
+     * visible in a TreeView where you want each of the leaf rows to have such
+     * a Button but you do not want the parent node rows to have one.
+     * 
+     * @since 4.0.9
+     */
+    public void setVisible(DataColumnBoolean column) {
+        GtkCellLayout.addAttribute(vertical, this, "visible", column.getOrdinal());
+    }
+
 }

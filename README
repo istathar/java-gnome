@@ -24,8 +24,8 @@ Building java-gnome
 
 For the impatient:
 
-    $ tar xjf java-gnome-4.0.7.tzr.bz2
-    $ cd java-gnome-4.0.7
+    $ tar xjf java-gnome-4.0.9.tar.bz2
+    $ cd java-gnome-4.0.9
     $ ./configure
     $ make
 
@@ -42,8 +42,8 @@ You can download the latest java-gnome release from the GNOME FTP server at:
 
 Once you've downloaded the latest source tarball:
 
-    $ tar xjf java-gnome-4.0.7.tzr.bz2
-    $ cd java-gnome-4.0.7
+    $ tar xjf java-gnome-4.0.9.tzr.bz2
+    $ cd java-gnome-4.0.9
 
 And go on to step 2 for details about options you can pass to the
 configuration command.
@@ -113,7 +113,7 @@ Perl script -- the places where OS is switched are obvious, and just add what
 you need to add, and send us a patch.
 
 Hopefully in the not to distant future we will be able to switch to Robert
-Collins's new "Buildtool". His approach to configuration and building will
+Collins's new "Fabricate". His approach to configuration and building will
 revolutionize the Free and Open Source Software universe, and we look forward
 to participating in the development of his work.
 
@@ -149,7 +149,7 @@ of the following:
 Examples:
 
     $ ./configure
-    $ ./configure jdk=/opt/sun-jdk-bin-1.6.0.06
+    $ ./configure jdk=/opt/sun-jdk-bin-1.6.0.07
     $ ./configure jamvm=/home/joe/custom/bin/jamvm runtime=jamvm
 
 Your configuration is persistent across builds in that checkout, ie, `make
@@ -157,6 +157,17 @@ clean` won't force you to reconfigure (though `make distclean` will). The
 `configure` script runs very quickly, so it's no big deal to switch settings
 by re-running it.
 
+### Dependencies ###
+
+The java-gnome library depends on the GNOME desktop and is intended for people
+wishing to do tight integration with it. In particular, this version of
+java-gnome depends on:
+
+* GTK `>= 2.12.11`
+
+* Cairo `>= 1.6.4`
+
+* libglade `>= 2.6.3`
 
 3. Build
 --------
@@ -179,19 +190,19 @@ variables come from.
 The build products end up in `tmp/`:
 
 `tmp/gtk-4.0.jar`  
-`tmp/libgtkjni-4.0.jar`
+`tmp/libgtkjni-4.0.9.so`
 
 That's actually enough to go on -- if you're using an IDE like Eclipse you can
-just tell it about the `.jar` and indicate that `tmp/` is the native library
-location and you can jump right to "Using the Bindings". Or you can install
-java-gnome somewhere. Doesn't matter, really.
+just tell it about the `.jar` and then jump right to "Using the Bindings". Or
+you can install java-gnome somewhere. Doesn't matter, really.
 
+<a name="install"></a>
 
 4. Install
 ----------
 
 java-gnome 4.0 has the standard `make install` behaviour, and the equally
-standard `--prefix` option to `./configure`.
+standard `prefix` option to `./configure`.
 
 ### Installing locally
 
@@ -204,13 +215,12 @@ and you would end up with:
 
 `~/share/java/gtk-4.0.jar`  
 `~/share/java/gtk.jar`  
-`~/lib/libgtkjni-4.0.so`
+`~/lib/libgtkjni-4.0.9.so`
 
-Of course, if you do that (or install anywhere else off the system shared
-library search path), you'll need to use the `LD_LIBRARY_PATH` environment
-variable or the `java.library.path` Java system property when you run programs
-in order to tell your Virtual Machine where the library is. See below under
-"Using the Bindings"
+The default is to send it off to `/usr/local` as you'd expect. 
+
+Using `make install` is **compulsory** if you intend to use java-gnome from
+anywhere other than "in-place" from the temporary location where it was built.
 
 ### Installing to system (for people packaging the library for their distro)
 
@@ -227,18 +237,18 @@ example:
 	
 	...
 	
-	make DESTDIR=/var/tmp/portage/java-gnome-4.0.7-r2/image install
+	make DESTDIR=/var/tmp/portage/java-gnome-4.0.9-r2/image install
 	
 	...
 
-With a prefix of `/usr` you will end up with
+With a prefix of `/usr` you will end up with:
 
 `/usr/share/java/gtk-4.0.jar`  
 `/usr/share/java/gtk.jar`  
-`/usr/lib/libgtkjni-4.0.so`
+`/usr/lib/libgtkjni-4.0.9.so`
 
-If you have distro policy issues to deal with, then move things around once
-they've landed in `DESTDIR`.
+If you have distro policy issues to deal with, then pass `jardir` and/or
+`libdir` overrides to `configure`.
 
 <a name="using"></a>
 
@@ -247,16 +257,15 @@ Using the bindings
 
 ### Running the "demo"
 
-There is a _tiny_ and _trivial_ demonstration program in the `tests/`
-directory of the bindings. If you would like to see it, you could compile and
+There are a few _tiny_ and _trivial_ example programs in the `doc/examples/`
+directory of the bindings. If you would like to see one, you could compile and
 run it by hand, doing something like:
 
-    $ javac -classpath tmp/gtk-4.0.jar -d tmp/classes tests/prototype/Experiment.java
-    $ java -classpath tmp/gtk-4.0.jar:tmp/classes -Djava.library.path=tmp Experiment
+    $ javac -classpath tmp/gtk-4.0.jar -d tmp/tests doc/examples/button/ExamplePressMe.java
+    $ java -classpath tmp/gtk-4.0.jar:tmp/tests button.ExamplePressMe
 
 This shows you how you can reference and use the library after it is built by
-`make` into `tmp/`. Note the necessity to tell the VM where to find
-java-gnome's JNI library.
+`make` into `tmp/`.
 
 Of course, that was _way_ too much typing. Instead, just do this:
 
@@ -268,45 +277,23 @@ Of course, that was _way_ too much typing. Instead, just do this:
 
 java-gnome has a native component that links tightly against various GNOME
 libraries (after all, the whole point is to use the real GTK, not some pseudo
-look alike pathetic attempt of a widget toolkit). This means that **you need
-to tell Java where to find the native library in addition to the location of
-the `.jar` file**. For instance:
+look alike pathetic attempt of a widget toolkit), but we take care of locating
+it and loading it for you. So all you need to do to run an application is:
 
-    $ java                                           \
-        -classpath /home/bloggins/share/java/gtk.jar \
-        -Djava.library.path=/home/bloggins/lib       \
-        -ea                                          \
+    $ java -client -ea                                   \
+        -classpath /home/bloggins/share/java/gtk-4.0.jar \
         com.example.ComeOnBabyLightMyFire
 
-Oh, the joys of running Java programs by hand. If you get an
-`UnsatisfiedLinkError`, you've stuffed this part up. Go back and check that
-you've actually got the java-gnome JNI library in the directory you specified.
-Tip: for some reason, Java doesn't expand `~` in `java.library.path`. Go
-figure.
+Oh, the joys of running Java programs by hand. 
 
-If you're running programs in Eclipse, you can specify a native library
-location in when you add a `.jar` file under  
-
-> Project `->` Properties `->` Java Build Path
-
-which can simplify your life a great deal. Just expand the entries under that
-`.jar` and you'll see "Native library location: (none)". Enter the path to the
-`lib` directory where you've got the `libgtkjni-4.0.so` file, and you're on
-your way.
 
 Status
 ======
 
-java-gnome 4.0 is now a solid foundation that can be used to develop
+java-gnome 4.0 is now a solid foundation that has been used to develop
 non-trivial applications. The architecture and internal design has been well
 proved, and the coverage level (relative to the full breadth of the underlying
-libraries) is growing rapidly. The code generator which cranks out the project
-internals (based on the shared metadata used by the other GNOME language
-bindings) is in excellent shape.
-
-Remember that java-gnome 2.x is completely deprecated and hasn't had new code
-from anyone in years. You don't want to be programming with it. If it is still
-available in your distribution, that's a bug.
+libraries) is reaching maturity.
 
 Get Involved
 ------------
@@ -341,7 +328,7 @@ Maintainer,
 [java-gnome](http://java-gnome.sourceforge.net/),  
 opening GTK and GNOME to Java programmers!
 
-_Last modified 29 Apr 08_
+_Last modified 12 Oct 08_
 
 [mirror]: http://ftp.gnome.org/pub/gnome/sources/java-gnome/4.0/
 

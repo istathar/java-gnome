@@ -23,9 +23,9 @@ import org.gnome.glib.Glib;
  * original and best known) into live Widgets in your application.
  * 
  * <p>
- * Using <code>libglade</code> is pretty easy. You prepare your user
- * interface in <code>Glade</code>, write some code to load it in, and then
- * extract the particular Widgets that you care about further manipulating.
+ * Using <code>libglade</code> is pretty easy. You prepare your user interface
+ * in <code>Glade</code>, write some code to load it in, and then extract the
+ * particular Widgets that you care about further manipulating.
  * 
  * <p>
  * Since we're stuck with the somewhat stupid name that the underlying library
@@ -45,11 +45,11 @@ import org.gnome.glib.Glib;
  * </pre>
  * 
  * If you're wonder where <code>"window1"</code> and <code>"button4"</code>
- * came from, they are the style of names that the <code>Glade</code>
- * designer generates for its Widgets by default. <b>To improve
- * maintainability, you are highly encouraged to change these automatically
- * generated names to ones which corresponds to the variable names being used
- * in your Java code!</b> In other words, something like:
+ * came from, they are the style of names that the <code>Glade</code> designer
+ * generates for its Widgets by default. <b>To improve maintainability, you
+ * are highly encouraged to change these automatically generated names to ones
+ * which corresponds to the variable names being used in your Java code!</b>
+ * In other words, something like:
  * 
  * <pre>
  * confirm = (Button) glade.getWidget(&quot;confirmButton&quot;);
@@ -60,14 +60,14 @@ import org.gnome.glib.Glib;
  * <ul>
  * <li>it is not type safe. We do our best to check you aren't asking for
  * something that you shouldn't, but you are still at the mercy of
- * <code>ClassCastException</code> (or worse a segmentation fault) if you
- * get it wrong.
+ * <code>ClassCastException</code> (or worse a segmentation fault) if you get
+ * it wrong.
  * <li>the names embedded in your <code>parse()</code> and
  * <code>getWidget()</code> calls are tightly coupled to the textual names
- * created in the <code>Glade</code> program. If you refactor your Java
- * code, sooner or later you will forget to change the corresponding names in
- * the <code>.glade</code> files, which will inevitably lead to confusion
- * down the road.
+ * created in the <code>Glade</code> program. If you refactor your Java code,
+ * sooner or later you will forget to change the corresponding names in the
+ * <code>.glade</code> files, which will inevitably lead to confusion down the
+ * road.
  * </ul>
  * All that said, <code>libglade</code> provides a rapid application
  * development capability par excellence, and is a significant part of almost
@@ -75,10 +75,10 @@ import org.gnome.glib.Glib;
  * 
  * <p>
  * <b>Warning:</b> <i>There has been considerable discussion within GNOME
- * about the state of <code>libglade</code> and it is widely expected that
- * it will be replaced by <code>GtkBuilder</code> within GTK in the very
- * near future. If that occurs before java-gnome 4.2 we will not release Glade
- * to stable. Indeed, that event may well be the trigger to bump to 4.1</i>
+ * about the state of <code>libglade</code> and it is widely expected that it
+ * will be replaced by <code>GtkBuilder</code> within GTK in the very near
+ * future. If that occurs before java-gnome 4.2 we will not release Glade to
+ * stable. Indeed, that event may well be the trigger to bump to 4.1</i>
  * 
  * @author Andrew Cowie
  * @since 4.0.2
@@ -105,8 +105,9 @@ public final class Glade extends Glib
      *            to put the <code>.glade</code> file on your
      *            <code>CLASSPATH</code> and then load the data as an
      *            InputStream with ClassLoader's
-     *            {@link java.lang.ClassLoader#getResourceAsStream(String) getResourceAsStream()},
-     *            passing the InputStream to the other form of parse().
+     *            {@link java.lang.ClassLoader#getResourceAsStream(String)
+     *            getResourceAsStream()}, passing the InputStream to the other
+     *            form of parse().
      * @param root
      *            the name of the Widget whose hierarchy you wish to load. It
      *            turns out you can have several Windows and Dialogs in a
@@ -115,8 +116,8 @@ public final class Glade extends Glib
      *            you renamed it from <code>window1</code> to something more
      *            sensible. You can also specify something lower down such as
      *            a ToolBar or VBox if that is all you need to instantiate. If
-     *            you specify <code>null</code> all Widget hierarchies
-     *            within the file will be loaded.
+     *            you specify <code>null</code> all Widget hierarchies within
+     *            the file will be loaded.
      * @throws FileNotFoundException
      *             if the specified <code>.glade</code> file cannot be found
      *             or read. Unfortunately, this actually happens quite a lot

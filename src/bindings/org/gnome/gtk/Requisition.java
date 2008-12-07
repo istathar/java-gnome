@@ -34,8 +34,8 @@ import org.gnome.glib.Boxed;
  * <ul>
  * <li>directly influence the size of an individual Widget using
  * {@link Widget#setSizeRequest(int, int) setSizeRequest()};
- * <li>use a {@link SizeGroup} to influence a set of related Widgets to have
- * a dimension in common; or
+ * <li>use a {@link SizeGroup} to influence a set of related Widgets to have a
+ * dimension in common; or
  * <li>if all you're trying to do is add padding, call Container's
  * {@link Container#setBorderWidth(int) setBorderWidth()}.
  * </ul>
@@ -43,23 +43,23 @@ import org.gnome.glib.Boxed;
  * <p>
  * GTK's box packing model works on a size-request/size-allocation process.
  * Each Widget is asked by it's parent Container how much space it wants on
- * the screen, in pixels. These <var>requests</var> are aggregated and in
- * turn represented up the tree until the top-level Window is reached. The
- * Window then negotiates with the window manager and with the X server, with
- * the result being that the Window is <var>allocated</var>. The Containers
- * start divvying up the allocation they were given amongst their children
- * according to whatever algorithms and settings are in place. Eventually your
- * Widget will be told how much space it has been given in it's
- * {@link Allocation} object, and it will have to then carry on accordingly.
- * The important point to note here is that requests are just that; a Widget
- * must be able to cope with any size down to <code>1x1</code>. Ideally it
- * will degrade gracefully, although that's not always easy.
+ * the screen, in pixels. These <var>requests</var> are aggregated and in turn
+ * represented up the tree until the top-level Window is reached. The Window
+ * then negotiates with the window manager and with the X server, with the
+ * result being that the Window is <var>allocated</var>. The Containers start
+ * divvying up the allocation they were given amongst their children according
+ * to whatever algorithms and settings are in place. Eventually your Widget
+ * will be told how much space it has been given in it's {@link Allocation}
+ * object, and it will have to then carry on accordingly. The important point
+ * to note here is that requests are just that; a Widget must be able to cope
+ * with any size down to <code>1x1</code>. Ideally it will degrade gracefully,
+ * although that's not always easy.
  * 
  * <p>
- * <i>This object is a live reference to the <code>requisition</code> field
- * in the <code>GtkWidget</code> struct and so calling the getter methods
- * will yield correct current values once you've got the Requisition object
- * for the Widget you are interested in.</i>
+ * <i>This object is a live reference to the <code>requisition</code> field in
+ * the <code>GtkWidget</code> struct and so calling the getter methods will
+ * yield correct current values once you've got the Requisition object for the
+ * Widget you are interested in.</i>
  * 
  * @author Andrew Cowie
  * @since 4.0.6
@@ -88,5 +88,9 @@ public final class Requisition extends Boxed
      */
     public int getHeight() {
         return GtkRequisition.getHeight(this);
+    }
+
+    public String toString() {
+        return this.getClass().getName() + ": " + getWidth() + "x" + getHeight();
     }
 }

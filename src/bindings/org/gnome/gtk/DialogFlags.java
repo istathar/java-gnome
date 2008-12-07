@@ -21,8 +21,8 @@ import org.freedesktop.bindings.Flag;
  */
 /*
  * Only MODAL flag is really useful, we musn't expose DESTROY_WITH_PARENT and
- * NO_SEPARATOR seems also not very useful. So, I plan to not expose this class,
- * and instead of that use a boolean for modal property.
+ * NO_SEPARATOR seems also not very useful. So, I plan to not expose this
+ * class, and instead of that use a boolean for modal property.
  */
 final class DialogFlags extends Flag
 {

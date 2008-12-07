@@ -15,7 +15,7 @@ package org.gnome.gdk;
  * 
  * Information about the (possibly changed) size and position of a Window on
  * screen. This is the object used to convey such data in the
- * {@link org.gnome.gtk.Window.CONFIGURE_EVENT CONFIGURE_EVENT} signal.
+ * {@link org.gnome.gtk.Window.ConfigureEvent Window.ConfigureEvent} signal.
  * 
  * <p>
  * All dimensions are in pixels.

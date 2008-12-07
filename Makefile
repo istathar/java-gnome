@@ -38,24 +38,26 @@ install: build-java install-dirs install-java
 
 install-dirs: $(DESTDIR)$(PREFIX)/.java-gnome-install-dirs
 $(DESTDIR)$(PREFIX)/.java-gnome-install-dirs:
-	@test -d $(DESTDIR)$(PREFIX)/share/java || echo -e "MKDIR\tinstallation directories"
+	@test -d $(DESTDIR)$(JARDIR) || echo -e "MKDIR\tinstallation directories"
 	-mkdir -p $(DESTDIR)$(PREFIX)
 	-touch $@ 2>/dev/null
 	test -w $@ || ( echo -e "\nYou don't seem to have write permissions to $(DESDIR)$(PREFIX)\nPerhaps you need to be root?\n" && exit 7 )
-	mkdir -p $(DESTDIR)$(PREFIX)/share/java
+	mkdir -p $(DESTDIR)$(JARDIR)
 	mkdir -p $(DESTDIR)$(LIBDIR)
 
 install-java: build-java \
-	$(DESTDIR)$(PREFIX)/share/java/gtk-$(APIVERSION).jar \
-	$(DESTDIR)$(LIBDIR)/libgtkjni-$(APIVERSION).so
+	$(DESTDIR)$(JARDIR)/gtk-$(APIVERSION).jar \
+	$(DESTDIR)$(LIBDIR)/libgtkjni-$(VERSION).so
 
-$(DESTDIR)$(PREFIX)/share/java/gtk-$(APIVERSION).jar: tmp/gtk-$(APIVERSION).jar
+$(DESTDIR)$(JARDIR)/gtk-$(APIVERSION).jar: tmp/gtk-$(APIVERSION).jar
 	@echo -e "INSTALL\t$@"
 	cp -f $< $@
+	@echo -e "JAR\t$@"
+	jar uf $@ .libdir
 	@echo -e "SYMLINK\t$(@D)/gtk.jar -> gtk-$(APIVERSION).jar"
 	cd $(@D) && rm -f gtk.jar && ln -s gtk-$(APIVERSION).jar gtk.jar
 	
-$(DESTDIR)$(LIBDIR)/libgtkjni-$(APIVERSION).so: tmp/libgtkjni-$(APIVERSION).so
+$(DESTDIR)$(LIBDIR)/libgtkjni-$(VERSION).so: tmp/libgtkjni-$(VERSION).so
 	@echo -e "INSTALL\t$@"
 	cp -f $< $@
 
@@ -74,34 +76,8 @@ demo:
 # Documentation generation
 # --------------------------------------------------------------------
 
-ifdef V
-else
-JAVADOC:=$(JAVADOC) -quiet
-endif
-
 doc:
-	@echo "$(JAVADOC_CMD) doc/api/*.html"
-	$(JAVADOC) \
-		-d doc/api \
-		-classpath tmp/bindings \
-		-public \
-		-nodeprecated \
-		-source 1.5 \
-		-notree \
-		-noindex \
-		-nohelp \
-		-version \
-		-author \
-		-windowtitle "java-gnome $(APIVERSION) API Documentation" \
-		-doctitle "<h1>java-gnome $(APIVERSION) API Documentation</h1>" \
-		-header "java-gnome version $(VERSION)" \
-		-footer "<img src=\"/images/java-gnome_JavaDocLogo.png\" style=\"padding-right:25px;\"><br> <span style=\"font-family: Arial; font-style: normal; font-size: large;\">java-gnome</span>" \
-		-breakiterator \
-		-stylesheetfile src/bindings/stylesheet.css \
-		-overview src/bindings/overview.html \
-		-sourcepath src/bindings \
-		-subpackages org \
-		$(REDIRECT)
+	build/faster doc
 
 
 #
@@ -135,12 +111,11 @@ clean:
 	rm -f hs_err_*
 	@echo -e "RM\tbuilt .jar and .so"
 	rm -f tmp/gtk-*.jar \
-		tmp/libgtkjni-*.so \
-		tmp/libgtkjava-*.so
+		tmp/libgtkjni-*.so
 
 distclean: clean
 	@echo -e "RM\tbuild configuration information"
-	-rm -f .config .config.tmp
+	-rm -f .config .config.tmp .libdir
 	@echo -e "RM\tgenerated documentation"
 	-rm -rf doc/api/*
 	-rm -f java-gnome-*.tar.bz2
@@ -148,5 +123,32 @@ distclean: clean
 	-rm -rf tmp generated
 	@echo -e "RM\tglade cruft"
 	find . -name '*.glade.bak' -o -name '*.gladep*' -type f | xargs rm -f
+
+#
+# A convenience target to run the code formatter built into Eclipse. This is
+# for people who don't use the Eclipse Java IDE as their editor so they
+# can normalize their code and ensure clean patches are submitted.
+#
+
+ifdef ECLIPSE
+else
+ECLIPSE=/usr/bin/eclipse-3.4
+endif
+
+ifdef V
+ECLIPSE:=$(ECLIPSE) -verbose
+else
+endif
+
+format: all
+	@echo -e "FORMAT\tsrc/ tests/ doc/examples/"
+	touch -r src/bindings/org/gnome/gtk/Version.java tmp/stamp/version
+	$(ECLIPSE) -nosplash \
+		-application org.eclipse.jdt.core.JavaCodeFormatter \
+		-config .settings/org.eclipse.jdt.core.prefs \
+		src/ tests/ doc/examples/ \
+		$(REDIRECT)
+	touch -r tmp/stamp/version src/bindings/org/gnome/gtk/Version.java
+	
 
 # vim: set filetype=make textwidth=78 nowrap:

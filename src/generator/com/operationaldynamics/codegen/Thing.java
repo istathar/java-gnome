@@ -230,20 +230,7 @@ public abstract class Thing
          */
         register(new BlacklistedThing("guchar**"));
 
-        /*
-         * GList/GSList and related typedefs... FIXME change this when we
-         * properly map the list and array returns.
-         */
-        register(new FixmeThing("GList*"));
-        register(new FixmeThing("GSList*"));
         register(new FixmeThing("AtkAttributeSet*"));
-
-        /*
-         * FUTURE no Cairo bindings, yet
-         */
-        register(new BlacklistedThing("cairo_t*"));
-        register(new BlacklistedThing("cairo_surface_t*"));
-        register(new BlacklistedThing("cairo_font_options_t*"));
 
         /*
          * And what on earth are...
@@ -329,7 +316,8 @@ public abstract class Thing
 
             /*
              * we don't support arrays of arrays yet. the !(stored instanceof
-             * ArrayThing) is needed to prevent multiple recursion on *
+             * ArrayThing) is needed to prevent multiple recursion on the
+             * pointer star.
              */
             if ((stored != null) && !(stored instanceof ArrayThing)) {
                 dupe = stored.createArrayVariant();
@@ -338,11 +326,6 @@ public abstract class Thing
                 return dupe;
             }
         }
-
-        /*
-         * TODO if we finally difference between * and [] we need to add more
-         * code here
-         */
 
         /*
          * If we're still stuck, then that is would be fatal, except that we

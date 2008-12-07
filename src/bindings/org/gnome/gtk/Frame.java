@@ -44,8 +44,8 @@ public class Frame extends Bin
      * Construct a new Frame with a simple text label.
      * 
      * @param label
-     *            The desired label, or <code>null</code> if you don't want
-     *            to use any label.
+     *            The desired label, or <code>null</code> if you don't want to
+     *            use any label.
      */
     public Frame(String label) {
         super(GtkFrame.createFrame(label));
@@ -101,9 +101,9 @@ public class Frame extends Bin
      *            value is <code>0.0f</code>
      * @param yalign
      *            The vertical alignment of the label. A value of
-     *            <code>0.0f</code> aligns under the frame;
-     *            <code>1.0f</code> aligns above the frame. The default
-     *            value is <code>0.5f</code>.
+     *            <code>0.0f</code> aligns under the frame; <code>1.0f</code>
+     *            aligns above the frame. The default value is
+     *            <code>0.5f</code>.
      * @since 4.0.7
      */
     public void setLabelAlign(float xalign, float yalign) {

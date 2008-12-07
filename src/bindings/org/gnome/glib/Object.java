@@ -11,7 +11,7 @@
  */
 package org.gnome.glib;
 
-import java.util.HashSet;
+import java.util.ArrayList;
 
 import org.freedesktop.bindings.Constant;
 import org.freedesktop.bindings.Debug;
@@ -27,13 +27,13 @@ import org.freedesktop.bindings.Proxy;
  * 
  * <p>
  * <i>Methods here provide the mechanism to get and set "properties" on the
- * underlying <code>GObject</code>s. As a deliberate design decision to
- * ensure type safety, however, these are not exposed for public use. To offer
- * a getter or setter for a property, a java-gnome subclass must expose an
- * explicitly named method. For example, to set the</i> "<code>righteous</code>"
- * <i>property, (assuming that the <code>GObject</code> in question has such
- * a property, that it is writable, and that it takes a string), create a
- * method like this:</i>
+ * underlying <code>GObject</code>s. As a deliberate design decision to ensure
+ * type safety, however, these are not exposed for public use. To offer a
+ * getter or setter for a property, a java-gnome subclass must expose an
+ * explicitly named method. For example, to set the</i> <var>righteous</var>
+ * <i>property, (assuming that the <code>GObject</code> in question has such a
+ * property, that it is writable, and that it takes a string), create a method
+ * like this:</i>
  * 
  * <pre>
  * public void setRighteous(String value) {
@@ -67,7 +67,7 @@ public abstract class Object extends Proxy
      * a weak Java reference from the BindingsJavaClosure on the JNI side. See
      * bindings_java_signal.c in src/jni.
      */
-    private HashSet<Signal> handlers;
+    private ArrayList<Signal> handlers;
 
     protected Object(long pointer) {
         super(pointer);
@@ -76,20 +76,6 @@ public abstract class Object extends Proxy
             System.err.flush();
         }
         GObject.addToggleRef(this);
-    }
-
-    /**
-     * Take the actions necessary to release our reference to the underlying
-     * GObject, then carry on to
-     * {@link org.freedesktop.bindings.Proxy#finalize() Proxy's finalize()}.
-     */
-    /*
-     * This is a placeholder to remind us of the cleanup actions that will be
-     * necessary, irrespective of the finalizer technique used.
-     */
-    protected void finalize() {
-        release();
-        super.finalize();
     }
 
     /**
@@ -136,6 +122,11 @@ public abstract class Object extends Proxy
         GObject.setProperty(this, name, new Value(value));
     }
 
+    protected int getPropertyInteger(String name) {
+        Value value = GObject.getProperty(this, name);
+        return GValue.getInteger(value);
+    }
+
     /**
      * Set a property that takes a <code>boolean</code> for its value.
      * 
@@ -168,6 +159,15 @@ public abstract class Object extends Proxy
         return GValue.getFloat(value);
     }
 
+    protected void setPropertyDouble(String name, double value) {
+        GObject.setProperty(this, name, new Value(value));
+    }
+
+    protected double getPropertyDouble(String name) {
+        Value value = GObject.getProperty(this, name);
+        return GValue.getDouble(value);
+    }
+
     /**
      * Set a property that takes an Object subclass for its value.
      * 
@@ -180,6 +180,10 @@ public abstract class Object extends Proxy
     protected String getPropertyString(String name) {
         Value value = GObject.getProperty(this, name);
         return GValue.getString(value);
+    }
+
+    protected void setPropertyEnum(String name, Constant value) {
+        GObject.setProperty(this, name, new Value(value));
     }
 
     protected Constant getPropertyEnum(String name) {
@@ -211,12 +215,14 @@ public abstract class Object extends Proxy
     /**
      * When a Signal handler is connected, we maintain a strong reference from
      * here. We don't use it for anything, just memory management. Only called
-     * from {@link Plumbing#connectSignal(Object, Signal, Class, String)}.
+     * from Plumbing.connectSignal().
      */
     void addHandler(Signal handler) {
-        if (handlers == null) {
-            handlers = new HashSet<Signal>();
+        synchronized (this) {
+            if (handlers == null) {
+                handlers = new ArrayList<Signal>(1);
+            }
+            handlers.add(handler);
         }
-        handlers.add(handler);
     }
 }

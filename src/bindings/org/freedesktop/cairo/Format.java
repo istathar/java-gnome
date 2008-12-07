@@ -30,9 +30,9 @@ public class Format extends Constant
     }
 
     /**
-     * 32 bits per pixel, being 8 bits for each of red, green, blue, <i>and</i>
-     * and 8 bit alpha (transparency) channel. This is the standard choice for
-     * most work.
+     * 32 bits per pixel, being 8 bits for each of red, green, blue,
+     * <i>and</i> and 8 bit alpha (transparency) channel. This is the standard
+     * choice for most work.
      */
     public static final Format ARGB32 = new Format(CairoFormat.ARGB32, "ARGB32");
 

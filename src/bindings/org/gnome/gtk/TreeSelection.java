@@ -1,7 +1,7 @@
 /*
  * TreeSelection.java
  *
- * Copyright (c) 2007 Operational Dynamics Consulting Pty Ltd
+ * Copyright (c) 2007-2008 Operational Dynamics Consulting Pty Ltd
  *
  * The code in this file, and the library it is a part of, are made available
  * to you by the authors under the terms of the "GNU General Public Licence,
@@ -36,7 +36,7 @@ import org.gnome.glib.Object;
  * straight forward:
  * 
  * <pre>
- * selection.connect(new TreeSelection.CHANGED() {
+ * selection.connect(new TreeSelection.Changed() {
  *     public void onChanged(TreeSelection source) {
  *         final TreeIter row;
  * 
@@ -49,9 +49,9 @@ import org.gnome.glib.Object;
  * });
  * </pre>
  * 
- * Unfortunately, the <code>CHANGED</code> signal is not entirely
- * deterministic; it is sometimes emitted more than once or for no change at
- * all. You'll need to allow for this in your code.
+ * Unfortunately, the <code>TreeSelection.Changed</code> signal is not
+ * entirely deterministic; it is sometimes emitted more than once or for no
+ * change at all. You'll need to allow for this in your code.
  * 
  * <p>
  * <i>Mostly this is an API helper; the underlying documentation notes that
@@ -113,15 +113,14 @@ public class TreeSelection extends Object
 
     /**
      * Get the rows currently selected from the TreeView. This is specially
-     * useful when the selection mode is
-     * {@link SelectionMode#MULTIPLE MULTIPLE}. Otherwise
-     * {@link #getSelected() getSelected()} offers a more convenient way to
-     * obtain the selected row.
+     * useful when the selection mode is {@link SelectionMode#MULTIPLE
+     * MULTIPLE}. Otherwise {@link #getSelected() getSelected()} offers a more
+     * convenient way to obtain the selected row.
      * 
      * <p>
-     * You can use the TreeModel's
-     * {@link TreeModel#getIter(TreePath) getIter()} method to convert the
-     * returned TreePaths to the more convenient TreeIter:
+     * You can use the TreeModel's {@link TreeModel#getIter(TreePath)
+     * getIter()} method to convert the returned TreePaths to the more
+     * convenient TreeIter:
      * 
      * <pre>
      * TreePath[] rows;
@@ -164,33 +163,43 @@ public class TreeSelection extends Object
      * <p>
      * Beware that this is considered a hint by GTK, so you sometimes get
      * false positives or false negatives relative to how you are interpreting
-     * "change". You'll be calling
-     * {@link TreeSelection#getSelected() getSelected()} anyway, but it's a
-     * good idea to keep in mind that the state may not have changed in quite
-     * the way you think it might have. Have a look at the return from that
-     * method fairly closely to decide for yourself whether the selection has
-     * "changed" or not.
+     * "change". You'll be calling {@link TreeSelection#getSelected()
+     * getSelected()} anyway, but it's a good idea to keep in mind that the
+     * state may not have changed in quite the way you think it might have.
+     * Have a look at the return from that method fairly closely to decide for
+     * yourself whether the selection has "changed" or not.
      * 
      * <p>
-     * <i>The nonsense about the <code>CHANGED</code> signal is supposedly
-     * due to the fact that there are multiple actors in the TreeModel
-     * environment, and both internal actions within GTK and events due to
-     * window manager activity can result in the signal being emitted. What a
-     * load of crap; either the selection changed or it didn't. Sorry we can't
-     * do better for you.</i>
+     * <i>The nonsense about the <code>TreeSelection.Changed</code> signal is
+     * supposedly due to the fact that there are multiple actors in the
+     * TreeModel environment, and both internal actions within GTK and events
+     * due to window manager activity can result in the signal being emitted.
+     * What a load of crap; either the selection changed or it didn't. Sorry
+     * we can't do better for you.</i>
      * 
      * @author Andrew Cowie
      * @since 4.0.5
      */
-    public interface CHANGED extends GtkTreeSelection.CHANGED
+    public interface Changed extends GtkTreeSelection.ChangedSignal
     {
         void onChanged(TreeSelection source);
     }
 
     /**
-     * Hook up a <code>CHANGED</code> signal handler.
+     * Hook up a <code>TreeSelection.Changed</code> signal handler.
      */
+    public void connect(TreeSelection.Changed handler) {
+        GtkTreeSelection.connect(this, handler, false);
+    }
+
+    /** @deprecated */
+    public interface CHANGED extends GtkTreeSelection.ChangedSignal
+    {
+    }
+
+    /** @deprecated */
     public void connect(CHANGED handler) {
+        assert false : "use TreeSelection.Changed instead";
         GtkTreeSelection.connect(this, handler, false);
     }
 

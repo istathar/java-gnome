@@ -2,7 +2,7 @@
 /*
  * gentoo.php
  *
- * Copyright (c) 2006 Operational Dynamics Consulting Pty Ltd
+ * Copyright (c) 2006-2008 Operational Dynamics Consulting Pty Ltd
  * 
  * This file comprises part of the infrastructure and content of the
  * java-gnome project website. As such, it is conveyed alongside the source
@@ -68,32 +68,27 @@ page in case you're curious.
 <p>Somewhat unusually for Gentoo, there is a strict policy in place defining
 the installed locations of Java libraries. Therefore you'll want to use the
 <code>java-config</code> tool as a helper to find the java-gnome
-<code>.jar</code> and <code>.so</code> files, for example:
+<code>.jar</code>. For example:
 
 <pre>
 $ java-config -l java-gnome-4.0
 /usr/share/java-gnome-4.0/lib/gtk-4.0.jar
-
-$ java-config -i java-gnome-4.0
-/usr/lib/java-gnome-4.0
 </pre>
 
 This implies that the prototypical command line to run java-gnome programs on
 Gentoo will look something like:
 
 <pre>
-$ java \
+$ java -client \
 	-classpath `java-config -l java-gnome-4.0` \
-	-Djava.library.path=`java-config -i java-gnome-4.0` \
 	package.ClassName
 </pre>
 
 which should resolve to something like:
 
 <pre>
-$ java \
+$ java -client \
 	-classpath /usr/share/java-gnome-4.0/lib/gtk-4.0.jar \
-	-Djava.library.path=/usr/lib/java-gnome-4.0 \
 	package.ClassName
 </pre>
 

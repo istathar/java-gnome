@@ -18,8 +18,8 @@ package org.gnome.gtk;
  * 
  * <p>
  * All the methods you need to add Widgets to HBoxes are on the parent class;
- * to get started, see Box's {@link Box#packStart(Widget) packStart()}, no
- * pun intended.
+ * to get started, see Box's {@link Box#packStart(Widget) packStart()}, no pun
+ * intended.
  * 
  * @author Andrew Cowie
  * @see VBox
@@ -35,8 +35,8 @@ public class HBox extends Box
      * Creates a new HBox.
      * 
      * @param homogeneous
-     *            If <code>true</code>, all children will be given equal
-     *            space allotments.
+     *            If <code>true</code>, all children will be given equal space
+     *            allotments.
      * @param spacing
      *            the number of pixels to place (by default) between children.
      */

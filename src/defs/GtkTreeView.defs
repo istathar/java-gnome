@@ -247,13 +247,16 @@
   )
 )
 
+;; It is not entirely clear that column being NULL is actually allowed, but
+;; it seems to work.
+
 (define-method row_activated
   (of-object "GtkTreeView")
   (c-name "gtk_tree_view_row_activated")
   (return-type "none")
   (parameters
     '("GtkTreePath*" "path")
-    '("GtkTreeViewColumn*" "column")
+    '("GtkTreeViewColumn*" "column" (null-ok))
   )
 )
 
@@ -377,10 +380,10 @@
   (parameters
     '("gint" "x")
     '("gint" "y")
-    '("GtkTreePath**" "path")
-    '("GtkTreeViewColumn**" "column")
-    '("gint*" "cell_x")
-    '("gint*" "cell_y")
+    '("GtkTreePath**" "path" (null-ok))
+    '("GtkTreeViewColumn**" "column" (null-ok))
+    '("gint*" "cell_x" (null-ok))
+    '("gint*" "cell_y" (null-ok))
   )
 )
 
@@ -412,30 +415,6 @@
   (return-type "none")
   (parameters
     '("GdkRectangle*" "visible_rect")
-  )
-)
-
-(define-method widget_to_tree_coords
-  (of-object "GtkTreeView")
-  (c-name "gtk_tree_view_widget_to_tree_coords")
-  (return-type "none")
-  (parameters
-    '("gint" "wx")
-    '("gint" "wy")
-    '("gint*" "tx")
-    '("gint*" "ty")
-  )
-)
-
-(define-method tree_to_widget_coords
-  (of-object "GtkTreeView")
-  (c-name "gtk_tree_view_tree_to_widget_coords")
-  (return-type "none")
-  (parameters
-    '("gint" "tx")
-    '("gint" "ty")
-    '("gint*" "wx")
-    '("gint*" "wy")
   )
 )
 

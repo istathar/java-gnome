@@ -10,7 +10,10 @@
  */
 package button;
 
+import java.io.FileNotFoundException;
+
 import org.gnome.gdk.Event;
+import org.gnome.gdk.Pixbuf;
 import org.gnome.gtk.Button;
 import org.gnome.gtk.Gtk;
 import org.gnome.gtk.Label;
@@ -31,11 +34,12 @@ import org.gnome.gtk.Window;
  */
 public class ExamplePressMe
 {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws FileNotFoundException {
         final Window w;
         final VBox x;
         final Label l;
         final Button b;
+        final Pixbuf logo;
 
         /*
          * Initialize GTK. You MUST call this to load the library before
@@ -82,22 +86,22 @@ public class ExamplePressMe
          * anything. You need to hook up a "signal handler" to deal with the
          * 'clicked' signal. This is how we do it in java-gnome.
          * 
-         * Button.CLICKED is a Java interface. You create an instance of it to
+         * Button.Clicked is a Java interface. You create an instance of it to
          * do what you want when the callback happens, and then pass it to the
          * Button's connect() method.
          * 
-         * The onClicked() method is what is required by the Button.CLICKED
+         * The onClicked() method is what is required by the Button.Clicked
          * interface. Most IDEs will prompt you asking if you want to "Add
          * unimplemented methods?" You bet! And ta-da! You have exactly the
          * signature you need to implement a 'clicked' signal handler.
          * 
          * Since we declared b as final we can use it in the anonymous nested
-         * class (yet *another* reason that final is worth using). If the
+         * class (yet another reason that final is worth using). If the
          * situation were otherwise, then the source parameter can be used to
          * find out what Button was clicked.
          */
 
-        b.connect(new Button.CLICKED() {
+        b.connect(new Button.Clicked() {
             public void onClicked(Button source) {
                 System.out.println("I was clicked: " + b.getLabel());
             }
@@ -121,12 +125,19 @@ public class ExamplePressMe
          * Again, the method here implements the interface.
          */
 
-        w.connect(new Window.DELETE_EVENT() {
+        w.connect(new Window.DeleteEvent() {
             public boolean onDeleteEvent(Widget source, Event event) {
                 Gtk.mainQuit();
                 return false;
             }
         });
+
+        /*
+         * Just not much of a program if it doesn't have an icon!
+         */
+
+        logo = new Pixbuf("src/bindings/java-gnome_Icon.png");
+        w.setIcon(logo);
 
         /*
          * Now we're ready to run the main loop. The signals we've hooked up

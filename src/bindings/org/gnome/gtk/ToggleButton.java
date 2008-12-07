@@ -1,7 +1,7 @@
 /*
  * ToggleButton.java
  *
- * Copyright (c) 2007 Operational Dynamics Consulting Pty Ltd, and Others
+ * Copyright (c) 2007-2008 Operational Dynamics Consulting Pty Ltd, and Others
  *
  * The code in this file, and the library it is a part of, are made available
  * to you by the authors under the terms of the "GNU General Public Licence,
@@ -26,6 +26,8 @@ public class ToggleButton extends Button
 
     /**
      * Constructs a new ToggleButton
+     * 
+     * @since 4.0.3
      */
     public ToggleButton() {
         super(GtkToggleButton.createToggleButton());
@@ -34,8 +36,11 @@ public class ToggleButton extends Button
     /**
      * Constructs a new ToggleButton with a label.
      * 
+     * <p>
      * The label may contain underscores (<code>_<code>) to indicate
      * the mnemonic for the Button.
+     * 
+     * @since 4.0.3
      */
     public ToggleButton(String label) {
         super(GtkToggleButton.createToggleButtonWithMnemonic(label));
@@ -46,6 +51,7 @@ public class ToggleButton extends Button
      * 
      * @param active
      *            The new state of the ToggleButton
+     * @since 4.0.3
      */
     public void setActive(boolean active) {
         GtkToggleButton.setActive(this, active);
@@ -55,7 +61,8 @@ public class ToggleButton extends Button
      * Returns the current state of the ToggleButton
      * 
      * @return returns <code>true</code> if the ToggleButton is pressed,
-     *         <code>false</code> otherwise
+     *         <code>false</code> otherwise.
+     * @since 4.0.3
      */
     public boolean getActive() {
         return GtkToggleButton.getActive(this);
@@ -63,13 +70,31 @@ public class ToggleButton extends Button
 
     /**
      * Signal indicating the Button has changed state.
+     * 
+     * @since 4.0.3
      */
-    public interface TOGGLED extends GtkToggleButton.TOGGLED
+    public interface Toggled extends GtkToggleButton.ToggledSignal
     {
         public void onToggled(ToggleButton source);
     }
 
+    /**
+     * Hook up a <code>ToggleButton.Toggled</code> signal handler.
+     * 
+     * @since 4.0.3
+     */
+    public void connect(ToggleButton.Toggled handler) {
+        GtkToggleButton.connect(this, handler, false);
+    }
+
+    /** @deprecated */
+    public interface TOGGLED extends GtkToggleButton.ToggledSignal
+    {
+    }
+
+    /** @deprecated */
     public void connect(TOGGLED handler) {
+        assert false : "use ToggleButton.Toggled instead";
         GtkToggleButton.connect(this, handler, false);
     }
 }

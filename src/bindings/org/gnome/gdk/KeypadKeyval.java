@@ -71,8 +71,8 @@ public class KeypadKeyval extends Keyval
 
     /**
      * The middle key (the one labeled <b>5</b>) on a keyboard with a numeric
-     * keypad. This is distinct from {@link #KP5}, which is what is emitted
-     * if <b>NumLock</b> is on.
+     * keypad. This is distinct from {@link #KP5}, which is what is emitted if
+     * <b>NumLock</b> is on.
      * 
      * <p>
      * <i>Why "Begin"? I would have thought "Center". Weird legacy crap, no

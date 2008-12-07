@@ -196,34 +196,6 @@
   )
 )
 
-(define-method set_position
-  (of-object "GtkEntry")
-  (c-name "gtk_entry_set_position")
-  (return-type "none")
-  (parameters
-    '("gint" "position")
-  )
-)
-
-(define-method select_region
-  (of-object "GtkEntry")
-  (c-name "gtk_entry_select_region")
-  (return-type "none")
-  (parameters
-    '("gint" "start")
-    '("gint" "end")
-  )
-)
-
-(define-method set_editable
-  (of-object "GtkEntry")
-  (c-name "gtk_entry_set_editable")
-  (return-type "none")
-  (parameters
-    '("gboolean" "editable")
-  )
-)
-
 (define-method layout_index_to_text_index
   (of-object "GtkEntry")
   (c-name "gtk_entry_layout_index_to_text_index")

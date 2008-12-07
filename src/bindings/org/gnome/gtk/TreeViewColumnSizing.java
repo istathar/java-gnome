@@ -50,8 +50,8 @@ public final class TreeViewColumnSizing extends Constant
 
     /**
      * The column will be a predetemined width. The number of pixels wide is
-     * set with TreeViewColumn's
-     * {@link TreeViewColumn#setFixedWidth(int) setFixedWidth()}.
+     * set with TreeViewColumn's {@link TreeViewColumn#setFixedWidth(int)
+     * setFixedWidth()}.
      */
     public static final TreeViewColumnSizing FIXED = new TreeViewColumnSizing(
             GtkTreeViewColumnSizing.FIXED, "FIXED");

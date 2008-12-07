@@ -121,7 +121,7 @@
     '("GtkTextIter*" "iter")
     '("const-gchar*" "text")
     '("gint" "len")
-    '("GtkTextTag*" "first_tag")
+    '("GtkTextTag*" "first_tag" (null-ok))
   )
   (varargs #t)
 )
@@ -525,8 +525,8 @@
   (c-name "gtk_text_buffer_get_selection_bounds")
   (return-type "gboolean")
   (parameters
-    '("GtkTextIter*" "start")
-    '("GtkTextIter*" "end")
+    '("GtkTextIter*" "start" (null-ok))
+    '("GtkTextIter*" "end" (null-ok))
   )
 )
 

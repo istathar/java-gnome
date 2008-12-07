@@ -1,8 +1,8 @@
 /*
  * ExampleSimpleMenu.java
  *
- * Copyright (c) 2007 Vreixo Formoso
- * Copyright (c) 2007 Operational Dynamics Consulting Pty Ltd
+ * Copyright (c) 2007      Vreixo Formoso
+ * Copyright (c) 2007-2008 Operational Dynamics Consulting Pty Ltd
  *
  * The code in this file, and the program it is a part of, are made available
  * to you by the authors under the terms of the "GNU General Public Licence,
@@ -24,8 +24,6 @@ import org.gnome.gtk.Stock;
 import org.gnome.gtk.VBox;
 import org.gnome.gtk.Widget;
 import org.gnome.gtk.Window;
-import org.gnome.gtk.CheckMenuItem.TOGGLED;
-import org.gnome.gtk.MenuItem.ACTIVATE;
 
 /**
  * How to use {@link Menu} and related Widgets.
@@ -69,22 +67,22 @@ public class ExampleSimpleMenu
         fileMenu.append(fileNew);
 
         /*
-         * Usually you will want to connect to ACTIVATE signal, that is
-         * emitted when the user "activates" the menu by either clicking it
-         * with the mouse or navigating to it with the keyboard and pressing
-         * <ENTER>.
+         * Usually you will want to connect to the MenuItem.Activate signal,
+         * that is emitted when the user "activates" the menu by either
+         * clicking it with the mouse or navigating to it with the keyboard
+         * and pressing <ENTER>.
          */
-        fileNew.connect(new ACTIVATE() {
+        fileNew.connect(new MenuItem.Activate() {
             public void onActivate(MenuItem source) {
                 l.setLabel("You have selected File->New menu.");
             }
         });
 
         /*
-         * Given that in most cases you will connect to the ACTIVATE signal on
-         * MenuItem's, a convenience constructor is provided:
+         * Given that in most cases you will connect to the MenuItem.Activate
+         * signal on MenuItems, a convenience constructor is provided:
          */
-        fileMenu.append(new MenuItem("_Save", new ACTIVATE() {
+        fileMenu.append(new MenuItem("_Save", new MenuItem.Activate() {
             public void onActivate(MenuItem source) {
                 l.setLabel("You have selected File->Save.");
             }
@@ -96,12 +94,12 @@ public class ExampleSimpleMenu
          */
         fileMenu.append(new SeparatorMenuItem());
 
-        fileMenu.append(new ImageMenuItem(Stock.CLOSE, new ACTIVATE() {
+        fileMenu.append(new ImageMenuItem(Stock.CLOSE, new MenuItem.Activate() {
             public void onActivate(MenuItem source) {
                 l.setLabel("You have selected File->Close.");
             }
         }));
-        fileMenu.append(new MenuItem("_Quit", new ACTIVATE() {
+        fileMenu.append(new MenuItem("_Quit", new MenuItem.Activate() {
             public void onActivate(MenuItem source) {
                 Gtk.mainQuit();
             }
@@ -110,12 +108,12 @@ public class ExampleSimpleMenu
         /*
          * And now add the items making up the "edit" Menu.
          */
-        editMenu.append(new MenuItem("_Copy", new ACTIVATE() {
+        editMenu.append(new MenuItem("_Copy", new MenuItem.Activate() {
             public void onActivate(MenuItem source) {
                 l.setLabel("You have selected Edit->Copy.");
             }
         }));
-        editMenu.append(new MenuItem("_Paste", new ACTIVATE() {
+        editMenu.append(new MenuItem("_Paste", new MenuItem.Activate() {
             public void onActivate(MenuItem source) {
                 l.setLabel("You have selected Edit->Paste.");
             }
@@ -126,7 +124,7 @@ public class ExampleSimpleMenu
          * hide some parts of the GUI, as in this example which we put into
          * the "view" Menu:
          */
-        viewMenu.append(new CheckMenuItem("Hide _text", new TOGGLED() {
+        viewMenu.append(new CheckMenuItem("Hide _text", new CheckMenuItem.Toggled() {
             public void onToggled(CheckMenuItem source) {
                 if (source.getActive()) {
                     l.hide();
@@ -177,7 +175,7 @@ public class ExampleSimpleMenu
          * will keep running even after the (sole) Window is closed - because
          * the main loop never returned.
          */
-        w.connect(new Window.DELETE_EVENT() {
+        w.connect(new Window.DeleteEvent() {
             public boolean onDeleteEvent(Widget source, Event event) {
                 Gtk.mainQuit();
                 return false;

@@ -112,14 +112,17 @@ sub check_system_library(\@$$@) {
 	my $str = "";
 	my $tries = "";
 
-	$found = system("pkg-config --exists $pkgconfig");
+	$found = system("pkg-config --exists '$pkgconfig'");
 
 	if ($found) {
+		my $msg;
 
-		$str = "In order to build java-gnome, you will need the GNOME\n";
+		$msg = `pkg-config --modversion --errors-to-stdout '$pkgconfig'`;
+		$str .= "$msg\n" if ($msg =~ /^Requested /);
+		$str .= "In order to build java-gnome, you will need the GNOME\n";
 		$str .= "development libraries. Depending on what you have installed,\n";
 		$str .= "this could be a considerable set of packages, but if you\n";
-		$str .= "want to be a GNOME hacker, that's the way it is].\n\n";
+		$str .= "want to be a GNOME hacker, that's the way it is.\n\n";
 
 		$str .= "On a ".ucfirst($os)." system, you should be able to satisfy this\n";
 		$str .= "requirement by doing:\n\n";
@@ -139,6 +142,8 @@ sub check_system_library(\@$$@) {
 			$str .= "urpmi";
 		} elsif ($os eq "solaris") {
 			$str .= "pkgadd";
+		} elsif ($os eq "slackware") {
+			$str .= "installpkg";
 		} else {
 			$str .= "[FIXME fetch and install command for this OS]"; 
 		}
@@ -195,6 +200,8 @@ sub check_prereq (\@$$@) {
 			$str .= "urpmi";
 		} elsif ($os eq "solaris") {
 			$str .= "pkgadd";
+		} elsif ($os eq "slackware") {
+			$str .= "installpkg";
 		} else {
 			$str .= "[FIXME fetch and install command for this OS]"; 
 		}
@@ -499,6 +506,7 @@ HERE
 
 my $prefix;
 my $libdir;
+my $jardir;
 my $compiler;
 my $runtime;
 my $jdk_home;
@@ -534,6 +542,9 @@ HERE
 	} elsif (($key =~ /^--libdir$/) ||
 		 ($key =~ /^libdir$/)) {
 		$libdir="$value";
+	} elsif (($key =~ /^--jardir$/) ||
+		 ($key =~ /^jardir$/)) {
+		$jardir="$value";
 	} elsif ($key =~ /^runtime/) {
 		$runtime="$value";
 	} elsif ($key =~ /^compiler/) {
@@ -616,6 +627,9 @@ if (( -f "/etc/gentoo-release" ) || ( -f "/etc/make.conf" )) {
 		output "Solaris";
 		$os = "solaris";
 	}
+} elsif ( -f "/etc/slackware-version" ) {
+	output "Slackware";
+	$os = "slackware";
 }
 
 if ($os) {
@@ -705,6 +719,14 @@ if ($os eq "gentoo") {
 		"junit",
 		"/usr/share/lib/java/junit.jar");
 
+} elsif ($os eq "slackware") {
+
+	check_prereq(@junit_jars,
+		"JUnit test framework",
+		"junit",
+		"/usr/share/java/junit.jar");
+
+	
 	
 } else {
 	bail "failed!", "This OS not configured with defaults!\nTHIS IS AN INTERNAL ERROR, PLEASE FILE A BUG.";
@@ -720,13 +742,13 @@ output "\nCheck for required system libraries:\n";
 
 if ($os eq "gentoo") {
 	check_system_library(@gnomedev_libs,
-			"gtk+-2.0 pango atk gdk-2.0 libglade-2.0 gtk+-unix-print-2.0",
+			"gtk+-2.0 >= 2.12.11 pango atk gdk-2.0 libglade-2.0 >= 2.6.3 gtk+-unix-print-2.0 cairo-svg >= 1.6.4",
 			"GNOME",
 			"gnome");
 
 } elsif ($os eq "debian") {
 	check_system_library(@gnomedev_libs,
-			"gtk+-2.0",
+			"gtk+-2.0 >= 2.12.9",
 			"GTK+",
 			"libgtk2.0-dev");
 
@@ -757,7 +779,7 @@ if ($os eq "gentoo") {
 
 } elsif ($os eq "suse") {
 	check_system_library(@gnomedev_libs,
-			"gtk+-2.0 pango atk gdk-2.0 gtk+-unix-print-2.0",
+			"gtk+-2.0 >= 2.12.0 pango atk gdk-2.0 gtk+-unix-print-2.0",
 			"GNOME development libraries",
 			"libgnome-devel");
 	check_system_library(@gnomedev_libs,
@@ -767,7 +789,7 @@ if ($os eq "gentoo") {
 
 } elsif ($os eq "mandriva") {
 	check_system_library(@gnomedev_libs,
-			"gtk+-2.0 pango atk gdk-2.0 gtk+-unix-print-2.0",
+			"gtk+-2.0 >= 2.12.0 pango atk gdk-2.0 gtk+-unix-print-2.0",
 			"GTK development libraries",
 			"libgtk+2.0_0-devel");
 	check_system_library(@gnomedev_libs,
@@ -825,7 +847,8 @@ if ($os eq "gentoo") {
 	}
 
 	# check ecj, the standalone Eclipse compiler.
-	check_compiler($ecj, "Eclipse ecj", "/usr/bin/ecj-3.3", "-g -preserveAllLocals -nowarn -source 1.5 -target 1.5");
+	check_compiler($ecj, "Eclipse ecj", "/usr/bin/ecj-3.4", "-g -preserveAllLocals -nowarn -source 1.5 -target 1.5");
+	check_compiler($ecj, "Eclipse ecj", "/usr/bin/ecj-3.3", "-g -preserveAllLocals -nowarn -source 1.5 -target 1.5") unless $ecj;
 	
 	# check javac (the one specified by Gentoo's java-config tool)
 	# The $vendor business is just some precision prettiness for the
@@ -1142,6 +1165,49 @@ if ($os eq "gentoo") {
 		$gcj_candidate = which("gcj");
 	}
 	check_compiler($gcjC, "GNU gcj -C (bytecode mode)", $gcj_candidate, "-C -g");
+
+	# check for kaffe's compiler
+	check_compiler($kaffec, "Kaffe javac", which("kaffec"), "");
+
+	check_jni_header_generator($javah, "$vendor javah", $javah_candidate, "-jni");
+	check_jar($jar, "$vendor jar", $jar_candidate, "");
+	check_javadoc($javadoc, "$vendor javadoc", $javadoc_candidate, "");
+
+} elsif ($os eq "slackware") {
+	# we can do much better than this, especially for java/javac.
+	# Should we just go with known paths, or...? `which` is so lame
+
+	# check ecj, the standalone Eclipse compiler.
+	check_compiler($ecj, "Eclipse ecj", which("ecj"), "-g -preserveAllLocals -nowarn -source 1.5 -target 1.5");
+
+	my $javac_candidate;
+	my $javah_candidate;
+	my $jar_candidate;
+	my $javadoc_candidate;
+	my $vendor;
+	if ($jdk_home) {
+		$javac_candidate = "$jdk_home/bin/javac";
+		$javah_candidate = "$jdk_home/bin/javah";
+		$jar_candidate = "$jdk_home/bin/jar";
+		$javadoc_candidate = "$jdk_home/bin/javadoc";
+		$vendor = "Specified";
+	} else {
+		$javac_candidate = "/usr/lib/java/bin/javac";
+		$javah_candidate = "/usr/lib/java/bin/javah";
+		$jar_candidate = "/usr/lib/java/bin/jar";
+		$javadoc_candidate = "/usr/lib/java/bin/javadoc";
+		$vendor = "Sun";
+	}
+	check_compiler($javac, "$vendor javac", $javac_candidate, "-g -source 1.5 -target 1.5");
+
+	# check for gcj
+	my $gcj_candidate;
+	if ($gcj_home) {
+		$gcj_candidate = "$gcj_home/bin/gcj";
+	} else {
+		$gcj_candidate = which("gcj");
+	}
+	check_compiler($gcjC, "GNU gcj -C (bytecode mode)", $gcj_candidate, "-C");
 
 	# check for kaffe's compiler
 	check_compiler($kaffec, "Kaffe javac", which("kaffec"), "");
@@ -1503,6 +1569,49 @@ if ($os eq "gentoo") {
 	}
 	check_runtime($cacao, "CACAO VM", $cacao_candidate, "");
 
+} elsif ($os eq "slackware") {
+	# check for a proper JDK/JRE java Virtual Machine. 
+	my $java_candidate;
+	my $vendor;
+	if ($jdk_home) {
+		$java_candidate = "$jdk_home/bin/java";
+		$vendor = "Specified";
+	} else {
+		$java_candidate = "/usr/lib/java/bin/java";
+		$vendor = "Sun";
+	}
+	check_runtime($java, "$vendor java VM", $java_candidate, "-client -ea");
+
+	# check gij (the bytecode interpreter from the GCJ project)
+	my $gij_candidate;
+	if ($gcj_home) {
+		$gij_candidate = "$gcj_home/bin/gij";
+	} else {
+		$gij_candidate = which("gij");
+	}
+	check_runtime($gij, "GNU gij", $gij_candidate, "");
+
+	# check kaffe. See the comment about Kaffe above in the Debian block.
+	check_runtime($kaffe, "Kaffe VM", which("kaffe"), "");
+
+	# check jamvm (an elegant bytecode interpreter used by many in the
+	# CLASSPATH project to test new releases)
+	my $jamvm_candidate;
+	if ($jamvm_bin) {
+		$jamvm_candidate = "$jamvm_bin";
+	} else {
+		$jamvm_candidate = "/usr/bin/jamvm";
+	}
+	check_runtime($jamvm, "JamVM VM", $jamvm_candidate, "");
+
+	my $cacao_candidate;
+	if ($cacao_bin) {
+		$cacao_candidate = "$cacao_bin";
+	} else {
+		$cacao_candidate = "/usr/bin/cacao";
+	}
+	check_runtime($cacao, "CACAO VM", $cacao_candidate, "");
+
 } else {
 	bail "failed!", "This OS not configured with appropriate Java VM checks!\nTHIS IS AN INTERNAL ERROR, PLEASE FILE A BUG.";
 }
@@ -1737,8 +1846,15 @@ if ($cc =~ /gcc/) {
 	if ( -x $ccache) {
 		print CONFIG "CCACHE=$ccache\n";
 	}
-	
-	print CONFIG "CC=$cc -g -Wall -fPIC $jni_include -Wno-int-to-pointer-cast -Wno-pointer-to-int-cast\n";
+
+	my $deprecations;
+	if ( -d ".bzr" ) {
+		$deprecations = "-DGTK_DISABLE_DEPRECATED -DGDK_DISABLE_DEPRECATED -DGDK_PIXBUF_DISABLE_DEPRECATED -DG_DISABLE_DEPRECATED";
+	} else {
+		$deprecations = "";
+	}
+
+	print CONFIG "CC=$cc -g -Wall -fPIC $jni_include -Wno-int-to-pointer-cast -Wno-pointer-to-int-cast $deprecations -Werror-implicit-function-declaration -Wfatal-errors\n";
 	print CONFIG "CC_CMD=GCC      \n";
 	print CONFIG "LINK=$cc -g -shared -Wall -fPIC\n";
 	print CONFIG "LINK_CMD=LINK     \n";
@@ -1770,6 +1886,10 @@ if (!$libdir) {
 	$libdir = "$prefix/lib";
 }
 print CONFIG "LIBDIR=$libdir\n";
+if (!$jardir) {
+	$jardir = "$prefix/share/java";
+}
+print CONFIG "JARDIR=$jardir\n";
 
 # --------------------------------------------------------------------
 # Get version constant
@@ -1778,13 +1898,13 @@ print CONFIG "LIBDIR=$libdir\n";
 my $apiversion;
 my $version;
 
-open SOURCE, "src/bindings/org/gnome/gtk/Version.java";
+open SOURCE, "src/bindings/org/freedesktop/bindings/Version.java";
 while (<SOURCE>) {
 	chomp;
 	if (/.* APIVERSION = \"([\d\.]+)\";/) {
 		$apiversion = $1;
 	}
-	if (/.* VERSION = \"([\d\.]+)\";/) {
+	if (/.* VERSION = \"([\d\.\-rc]+)\";/) {
 		$version = $1;
 	}
 }
@@ -1811,10 +1931,28 @@ print CONFIG "VERSION=$version\n";
 # Done! Create .config file
 # --------------------------------------------------------------------
 
-output "Write .config file:";
+output "\n";
+output "Output:\n";
+output " - configuration data";
 close CONFIG;
 system "mv .config.tmp .config";
 
 output "ok\n";
-output "\n";
 
+
+# --------------------------------------------------------------------
+# Output text file with library location
+# --------------------------------------------------------------------
+
+output " - native library location";
+
+open LIBRARY, ">.libdir";
+
+print LIBRARY <<HERE ;
+$libdir
+HERE
+
+close LIBRARY;
+
+output "ok\n";
+output "\n";

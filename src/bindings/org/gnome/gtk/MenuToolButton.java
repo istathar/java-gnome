@@ -30,9 +30,9 @@ package org.gnome.gtk;
  * <p>
  * A MenuToolButton has a default action, to be executed when user clicks the
  * main Button itself and not the the arrow Button. You can capture that
- * default event with the {@link ToolButton.CLICKED CLICKED} signal. User Menu
- * selections are captured with the usual {@link MenuItem.ACTIVATE ACTIVATE}
- * signal of each <code>MenuItem</code>.
+ * default event with the {@link ToolButton.Clicked} signal. User Menu
+ * selections are captured with the usual {@link MenuItem.Activate} signal of
+ * each <code>MenuItem</code>.
  * 
  * @see Toolbar
  * @see Menu

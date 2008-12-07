@@ -19,9 +19,9 @@ import com.operationaldynamics.driver.DefsFile;
 /**
  * Pseudo Block which is to be created when a public field is exposed in a
  * (define-boxed ...) with one or more (fields (...)) subcharacteristics.
- * block is writable. Note that this is <b>not</b> a (define-method ...)
- * block in the source data; we just create these so that we can drive
- * creation of a getter method when the generator runs.
+ * block is writable. Note that this is <b>not</b> a (define-method ...) block
+ * in the source data; we just create these so that we can drive creation of a
+ * getter method when the generator runs.
  * 
  * @author Andrew Cowie
  */
@@ -40,7 +40,7 @@ public class GetterBlock extends AccessorBlock
      * @param ofObject
      *            the boxed this getter belongs to
      */
-
+    @SuppressWarnings("unchecked")
     GetterBlock(final BoxedBlock parent, final String gType, final String name) {
         super(name, parent, Collections.EMPTY_LIST);
 

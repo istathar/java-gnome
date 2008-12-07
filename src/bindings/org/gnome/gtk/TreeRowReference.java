@@ -66,9 +66,8 @@ public final class TreeRowReference extends Boxed
      * Get a TreePath representing the row that this TreeRowReference is
      * currently pointing at.
      * 
-     * @return You'll get <code>null</code> back if the TreeRowReference is
-     *         no longer valid, which would happen if the row has been
-     *         deleted.
+     * @return You'll get <code>null</code> back if the TreeRowReference is no
+     *         longer valid, which would happen if the row has been deleted.
      * 
      * @since 4.0.6
      */
