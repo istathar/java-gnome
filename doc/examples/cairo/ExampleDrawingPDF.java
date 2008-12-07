@@ -1,5 +1,5 @@
 /*
- * ExampleDrawingPdf.java
+ * ExampleDrawingPDF.java
  *
  * Copyright (c) 2007-2008 Operational Dynamics Consulting Pty Ltd, and Others
  * 
@@ -24,7 +24,7 @@ import org.gnome.gtk.Gtk;
  * 
  * @author Andrew Cowie
  */
-public class ExampleDrawingPdf
+public class ExampleDrawingPDF
 {
     public static void main(String[] args) throws IOException {
         final Context cr;
