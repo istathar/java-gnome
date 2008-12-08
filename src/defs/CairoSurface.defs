@@ -2,6 +2,7 @@
   (in-module "Cairo")
   (c-name "cairo_surface_t")
   (import-header "cairo-svg.h")
+  (import-header "cairo-pdf.h")
 )
 
 (define-method destroy
@@ -73,3 +74,28 @@
     '("double" "height_in_points")
   )
 )
+
+(define-function cairo_surface_new_pdf
+  (is-constructor-of "cairo_surface_t")
+  (c-name "cairo_pdf_surface_create")
+  (caller-owns-return #t)
+  (return-type "cairo_surface_t*")
+  (parameters
+    '("const-char*" "filename")
+    '("double" "width_in_points")
+    '("double" "height_in_points")
+  )
+)
+
+(define-method show_page
+  (of-object "cairo_surface_t")
+  (c-name "cairo_surface_show_page")
+  (return-type "none")
+)
+
+(define-method copy_page
+  (of-object "cairo_surface_t")
+  (c-name "cairo_surface_copy_page")
+  (return-type "none")
+)
+
