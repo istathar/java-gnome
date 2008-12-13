@@ -1,7 +1,7 @@
 /*
  * Unit.java
  *
- * Copyright (c) 2007 Operational Dynamics Consulting Pty Ltd
+ * Copyright (c) 2007-2008 Operational Dynamics Consulting Pty Ltd
  *
  * The code in this file, and the library it is a part of, are made available
  * to you by the authors under the terms of the "GNU General Public Licence,
@@ -13,17 +13,33 @@ package org.gnome.gtk;
 
 import org.freedesktop.bindings.Constant;
 
-/*
- * FIXME this is a placeholder stub for what will become the public API for
- * this type. Replace this comment with appropriate javadoc including author
- * and since tags. Note that the class may need to be made abstract, implement
- * interfaces, or even have its parent changed. No API stability guarantees
- * are made about this class until it has been reviewed by a hacker and this
- * comment has been replaced.
+/**
+ * Constants describing different units which are be used when giving the
+ * dimensions of a piece of paper. Used when getting dimensions from a
+ * {@link PaperSize}.
+ * 
+ * @author Andrew Cowie
+ * @since 4.0.10
  */
 public final class Unit extends Constant
 {
     private Unit(int ordinal, String nickname) {
         super(ordinal, nickname);
     }
+
+    /**
+     * Size in "points", which are defined as 1/72<sup>nd</sup> of an inch,
+     * which works out to 35.2 milimetres.
+     */
+    public static final Unit POINTS = new Unit(GtkUnit.POINTS, "POINTS");
+
+    /**
+     * Size in milimetres, which are 1/10<sup>th</sup> of a centimetre and
+     * 1/1000<sup>th</sup> of a metre.
+     */
+    public static final Unit MM = new Unit(GtkUnit.MM, "MM");
+
+    /*
+     * There are a few others...
+     */
 }
