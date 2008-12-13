@@ -29,17 +29,40 @@ public final class Unit extends Constant
 
     /**
      * Size in "points", which are defined as 1/72<sup>nd</sup> of an inch,
-     * which works out to 35.2 milimetres.
+     * which works out to about 0.35 millimetres.
      */
     public static final Unit POINTS = new Unit(GtkUnit.POINTS, "POINTS");
 
     /**
-     * Size in milimetres, which are 1/10<sup>th</sup> of a centimetre and
+     * Size in millimetres, which are 1/10<sup>th</sup> of a centimetre and
      * 1/1000<sup>th</sup> of a metre.
      */
     public static final Unit MM = new Unit(GtkUnit.MM, "MM");
 
-    /*
-     * There are a few others...
+    /**
+     * Size in "inches", America's pre-industrial age measuring unit. Roughly
+     * corresponds to the size of your big toe (the fact that there are 12
+     * inches to a foot seems a bit strange given that most of us have only 10
+     * toes).
+     * 
+     * <p>
+     * Interestingly, a "two by four" is a common description for a wooden
+     * beam used in construction, stemming from their having originally had a
+     * cross-section of 2 by 4 inches. Successive generations of profiteering
+     * forestry companies and unscrupulous builders have, however, cut margins
+     * and shortchanged customers to the point where a modern "two by four"
+     * you can buy at a lumber yard is barely a miserable 0.79 by 1.57 inches
+     * in cross-section. This, amazingly enough, is exactly 2 by 4
+     * centimetres.
+     * 
+     * <p>
+     * <i>Reports of a conspiracy to force the Americans to switch to metric
+     * are, obviously, completely baseless.</i>
      */
+    public static final Unit INCH = new Unit(GtkUnit.INCH, "INCH");
+
+    /*
+     * What good is this?
+     */
+    public static final Unit PIXEL = new Unit(GtkUnit.PIXEL, "PIXEL");
 }

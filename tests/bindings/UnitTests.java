@@ -32,6 +32,7 @@ import org.gnome.gtk.ValidateFileChoosing;
 import org.gnome.gtk.ValidateIconView;
 import org.gnome.gtk.ValidateOutParameters;
 import org.gnome.gtk.ValidatePacking;
+import org.gnome.gtk.ValidatePrinting;
 import org.gnome.gtk.ValidateProperties;
 import org.gnome.gtk.ValidateResponseType;
 import org.gnome.gtk.ValidateSignalEmission;
@@ -147,6 +148,7 @@ public class UnitTests
         suite.addTestSuite(ValidateTextViewBorderWindows.class);
         suite.addTestSuite(ValidateArrow.class);
         suite.addTestSuite(ValidatePangoTextRendering.class);
+        suite.addTestSuite(ValidatePrinting.class);
 
         return suite;
     }
