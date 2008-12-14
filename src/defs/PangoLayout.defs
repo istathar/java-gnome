@@ -341,8 +341,8 @@
   (c-name "pango_layout_get_extents")
   (return-type "none")
   (parameters
-    '("PangoRectangle*" "ink_rect")
-    '("PangoRectangle*" "logical_rect")
+    '("PangoRectangle*" "ink_rect" (null-ok))
+    '("PangoRectangle*" "logical_rect" (null-ok))
   )
 )
 
@@ -351,8 +351,8 @@
   (c-name "pango_layout_get_pixel_extents")
   (return-type "none")
   (parameters
-    '("PangoRectangle*" "ink_rect")
-    '("PangoRectangle*" "logical_rect")
+    '("PangoRectangle*" "ink_rect" (null-ok))
+    '("PangoRectangle*" "logical_rect" (null-ok))
   )
 )
 
@@ -403,13 +403,13 @@
 (define-method get_lines
   (of-object "PangoLayout")
   (c-name "pango_layout_get_lines")
-  (return-type "GSList*")
+  (return-type "GSList-PangoLayoutLine*")
 )
 
 (define-method get_lines_readonly
   (of-object "PangoLayout")
   (c-name "pango_layout_get_lines_readonly")
-  (return-type "GSList*")
+  (return-type "GSList-PangoLayoutLine*")
 )
 
 (define-method get_iter
