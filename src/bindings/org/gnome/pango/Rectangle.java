@@ -13,13 +13,20 @@ package org.gnome.pango;
 
 import org.gnome.glib.Boxed;
 
-/*
- * FIXME this is a placeholder stub for what will become the public API for
- * this type. Replace this comment with appropriate javadoc including author
- * and since tags. Note that the class may need to be made abstract, implement
- * interfaces, or even have its parent changed. No API stability guarantees
- * are made about this class until it has been reviewed by a hacker and this
- * comment has been replaced.
+/**
+ * Information about the size of an area rendered by Pango. These are returned
+ * by the various extents methods in Layout and related classes. See
+ * LayoutLine's {@link LayoutLine#getExtentsLogical() getExtentsLogical()} for
+ * an example.
+ * 
+ * <p>
+ * The origin of a Rectangle is the base line of the rendered glyphs, with
+ * positive directions being to the right and down. This means that in
+ * left-to-right text, a Rectangle representing a glyph that lies above the
+ * base line (which most do) will have a negative <code>y</code> value.
+ * 
+ * @author Andrew Cowie
+ * @since 4.0.10
  */
 public final class Rectangle extends Boxed
 {
@@ -72,12 +79,36 @@ public final class Rectangle extends Boxed
         return ((double) PangoRectangle.getY(this)) / Pango.SCALE;
     }
 
+    /*
+     * these are a series of conveniences and equate to various C side macros.
+     */
+
+    /**
+     * Get the <var>ascent</var>, which is the distance that this Rectangle
+     * [describing one or more glyphs] rises above the font's base line.
+     * 
+     * @since 4.0.10
+     */
+    public double getAscent() {
+        return -getY();
+    }
+
+    /**
+     * Get the <var>descent</var>, which is the distance that this Rectangle
+     * [describing one or more glyphs] descends below the font's base line.
+     * 
+     * @since 4.0.10
+     */
+    public double getDescent() {
+        return getHeight() + getY();
+    }
+
     private static String oneDecimal(double d) {
-        return String.format("%5.1f", d);
+        return String.format("%1.1f", d);
     }
 
     public String toString() {
-        return this.getClass().getSimpleName() + ": " + oneDecimal(getWidth()) + " x "
-                + oneDecimal(getHeight()) + " at " + oneDecimal(getX()) + ", " + oneDecimal(getY());
+        return this.getClass().getSimpleName() + ": " + oneDecimal(getWidth()) + "x"
+                + oneDecimal(getHeight()) + " at " + oneDecimal(getX()) + "," + oneDecimal(getY());
     }
 }

@@ -276,4 +276,96 @@ public class Layout extends Object
         units = PangoLayout.getIndent(this);
         return ((double) units) / Pango.SCALE;
     }
+
+    /**
+     * Get the LayoutLine representing an individual line of text as have been
+     * laid out by this Layout. The <code>index</code> number is
+     * <code>0</code> origin.
+     * 
+     * @since 4.0.10
+     */
+    public LayoutLine getLine(int index) {
+        return PangoLayout.getLine(this, index);
+    }
+
+    /**
+     * Get the number of lines that this Layout has been laid out into. It
+     * will always be at least <code>1</code> (and indeed will only be
+     * <code>1</code> unless you have called {@link #setWidth(double)
+     * setWidth()} and supplied sufficient text that the Layout has wrapped it
+     * into a multi-line paragraph).
+     * 
+     * @since 4.0.10
+     */
+    /*
+     * TODO verify!
+     */
+    public int getLineCount() {
+        return PangoLayout.getLineCount(this);
+    }
+
+    /**
+     * Get the LayoutLine representing an individual line of text as has been
+     * laid out by this Layout. The <code>index</code> number ranges from
+     * <code>0</code> origin to {@link #getLineCount() getLineCount()}
+     * <code> - 1</code>.
+     * 
+     * <p>
+     * This method is optimized for the common case where you are not changing
+     * the characteristics of the individual glyphs in the line, and should be
+     * used in preference to {@link #getLine(int) getLine()}.
+     * 
+     * @since 4.0.10
+     */
+    public LayoutLine getLineReadonly(int index) {
+        return PangoLayout.getLineReadonly(this, index);
+    }
+
+    /**
+     * Get an array of LayoutLines representing the individual lines of text
+     * as have been laid out by this Layout.
+     * 
+     * @since 4.0.10
+     */
+    public LayoutLine[] getLines() {
+        return PangoLayout.getLines(this);
+    }
+
+    /**
+     * Get an array of LayoutLines representing the individual lines of text
+     * as have been laid out by this Layout. This form of
+     * <code>getLines()</code> uses faster code paths optimized for the usual
+     * case that you are not using Pango to modify the text in the lines, but
+     * are instead planning to go directly to rendering them.
+     * 
+     * @since 4.0.10
+     */
+    public LayoutLine[] getLinesReadonly() {
+        return PangoLayout.getLinesReadonly(this);
+    }
+
+    public Rectangle getExtentsInk() {
+        final Rectangle result;
+
+        result = new Rectangle();
+
+        PangoLayout.getExtents(this, result, null);
+
+        return result;
+    }
+
+    /**
+     * Get the Rectangle enclosing the entire Layout as it will be rendered.
+     * 
+     * @since 4.0.10
+     */
+    public Rectangle getExtentsLogical() {
+        final Rectangle result;
+
+        result = new Rectangle();
+
+        PangoLayout.getExtents(this, null, result);
+
+        return result;
+    }
 }

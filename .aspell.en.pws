@@ -37,6 +37,7 @@ BracketLeft
 BracketRight
 BufferedReader
 Bugzilla
+BusinessCard
 ButtonBox
 ButtonBoxStyle
 ButtonBoxes
@@ -199,6 +200,7 @@ FocusInEvent
 FocusInEventSignal
 FocusOutEvent
 FocusOutEventSignal
+FontDescription
 Formoso
 Fortin
 FreeDesktop
@@ -346,6 +348,7 @@ GtkObject
 GtkObjects
 GtkOrientation
 GtkPaned
+GtkPaperSize
 GtkPolicyType
 GtkPositionType
 GtkProgressBar
@@ -401,6 +404,7 @@ GtkTreeSortable
 GtkTreeStore
 GtkTreeView
 GtkTreeViewColumn
+GtkUnit
 GtkVBox
 GtkVButtonBox
 GtkVScale
@@ -454,6 +458,7 @@ InsertTextSignal
 InstantiationException
 IntegerValue
 InternalButtonImplementation
+InternationalPaperSize
 InterpType
 InterruptedException
 InvocationTargetException
@@ -483,7 +488,6 @@ KeyPressEventSignal
 KeyReleaseEvent
 KeyReleaseEventSignal
 KeypadKeyval
-Keyval
 Keyval's
 Kpic
 Kuehntopf
@@ -492,6 +496,9 @@ LDFLAGS
 LHR
 LargeLogo
 Laszlo
+LayoutLine
+LayoutLine's
+LayoutLines
 LeaveNotifyEvent
 LeaveNotifyEventSignal
 LibGlade
@@ -549,6 +556,7 @@ NewGlobalRef
 NewStringUTF
 NewWeakGlobalRef
 NoSuchMethodException
+NorthAmericanPaperSize
 NotifyType
 NullPointerException
 NumLock
@@ -569,13 +577,19 @@ PKGBUILD
 PNGs
 PRELIGHT
 PTR
+PWG
 PackageNames
 PageDown
 PageUp
 Pango's
+PangoLayout
+PangoLayoutLine
+PangoRectangle
+PangoRectangleOverride
 PangoStyle
 PangoUnderline
 PangoWeight
+PaperSize
 ParenLeft
 ParenRight
 ParsedTree
@@ -801,6 +815,7 @@ WeakHashMap
 WeakReference
 WebKit
 Wikipedia
+Wikipedia's
 WindowPosition
 WindowState
 WindowType
@@ -1036,6 +1051,7 @@ createMenuToolButton
 createMessageDialog
 createNotebook
 createObject
+createPaperSize
 createPatternForSurface
 createPatternLinear
 createPatternRadial
@@ -1046,6 +1062,7 @@ createPixbufFromFileAtScale
 createProgressBar
 createProxy
 createRadioButtonWithMnemonicFromWidget
+createRectangle
 createScrolledWindow
 createSeparatorMenuItem
 createSeparatorToolItem
@@ -1234,6 +1251,7 @@ getAlignmentY
 getAllocation
 getAngle
 getArea
+getAscent
 getAtPosPath
 getBlinking
 getBlue
@@ -1263,7 +1281,9 @@ getDateYear
 getDeclaredConstructor
 getDefault
 getDefaultTable
+getDescent
 getDetail
+getDisplayName
 getDisplayOptions
 getDraw
 getEditable
@@ -1274,6 +1294,9 @@ getEnv
 getEventTypeOrdinal
 getExpand
 getExpanded
+getExtents
+getExtentsInk
+getExtentsLogical
 getFilename
 getFirstIter
 getFixedHeightMode
@@ -1292,6 +1315,7 @@ getHeight
 getHscrollbar
 getImage
 getInconsistent
+getIndent
 getInsert
 getInteger
 getIter
@@ -1310,8 +1334,11 @@ getLine
 getLineCount
 getLineOffset
 getLineRange
+getLineReadonly
 getLineY
 getLineYrange
+getLines
+getLinesReadonly
 getLong
 getMaxLength
 getMaximized
@@ -1349,6 +1376,9 @@ getParent
 getPath
 getPathAtPos
 getPixbuf
+getPixelHeight
+getPixelSize
+getPixelWidth
 getPixels
 getPointer
 getPointerFromHandle
@@ -1384,6 +1414,8 @@ getSelection
 getSelectionBound
 getSensitive
 getSize
+getSizeHeight
+getSizeWidth
 getSource
 getStartIter
 getState
@@ -1499,6 +1531,7 @@ ipsum
 isActive
 isDirectory
 isEmbedded
+isEqual
 isSecondary
 isSensitive
 isVisible
@@ -1506,6 +1539,7 @@ isVisibleChars
 isdir
 isfile
 ish
+iso
 iter
 iterChildren
 iterHasChild
@@ -1561,6 +1595,7 @@ lc
 ld
 leftAttach
 leftGravity
+leftMargin
 len
 li
 libdir
@@ -1573,6 +1608,7 @@ libgnomeui
 libgtk
 libjava
 librarypath
+lineNumber
 lineTo
 linkSharedLibrary
 linux
@@ -1640,6 +1676,7 @@ nTHIS
 nThe
 nUnable
 nYou
+na
 namespace
 nativeName
 nav
@@ -1712,6 +1749,7 @@ onUnmapEvent
 onValueChanged
 onVisibilityNotifyEvent
 onVisible
+oneDecimal
 online
 ool
 orTwoFlags
@@ -1895,6 +1933,7 @@ setFilename
 setFixedHeightMode
 setFixedWidth
 setFocusOnClick
+setFontDescription
 setForeground
 setFraction
 setFrom
@@ -2042,10 +2081,12 @@ setVisibleFunc
 setVisibleLineOffset
 setVisibleWindow
 setWeight
+setWidth
 setWidthChars
 setWrapMode
 settingsDaemon
 showAll
+showLayout
 showPage
 shutil
 si
@@ -2124,6 +2165,7 @@ toolkits
 tooltip
 tooltips
 topAttach
+topMargin
 toplevel
 touchFile
 touples
@@ -2162,6 +2204,7 @@ unselectAll
 unstick
 updateButtonsState
 updateHash
+updateLayout
 uri
 usingDefaultTable
 usr

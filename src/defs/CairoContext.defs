@@ -159,6 +159,15 @@
   )
 )
 
+(define-method show_layout_line
+  (of-object "cairo_t")
+  (c-name "pango_cairo_show_layout_line")
+  (return-type "none")
+  (parameters
+    '("PangoLayoutLine*" "line")
+  )
+)
+
 (define-method get_source
   (of-object "cairo_t")
   (c-name "cairo_get_source")

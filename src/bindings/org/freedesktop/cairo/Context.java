@@ -13,6 +13,7 @@ package org.freedesktop.cairo;
 
 import org.gnome.gdk.Drawable;
 import org.gnome.pango.Layout;
+import org.gnome.pango.LayoutLine;
 
 /**
  * Carry out drawing operations with the Cairo Graphics library. The current
@@ -399,17 +400,34 @@ public class Context extends Entity
     }
 
     /**
-     * Draw a paragraph of text.
+     * Draw a paragraph of text. The top-left corner of the Layout's rendered
+     * extents will be drawn at the current Context point.
      * 
      * <p>
      * The text to draw and its format is specified in a Pango {@link Layout},
-     * previously {@link Layout#Layout(Context) constructed} with this
-     * Context.
+     * previously constructed with this Context.
      * 
      * @since 4.0.10
      */
     public void showLayout(Layout layout) {
         CairoContext.showLayout(this, layout);
+        checkStatus();
+    }
+
+    /**
+     * Draw a single line of text as extracted from a Layout.
+     * 
+     * <p>
+     * Unlike the <code>showLayout()</code> taking a full Layout, this method
+     * draws the base line of the extent (its Rectangle's <code>x</code>,
+     * <code>y</code> origin) at the current Context point. See LayoutLine's
+     * {@link LayoutLine#getExtentsLogical() getExtentsLogical()} method for
+     * details.
+     * 
+     * @since 4.0.10
+     */
+    public void showLayout(LayoutLine line) {
+        CairoContext.showLayoutLine(this, line);
         checkStatus();
     }
 
