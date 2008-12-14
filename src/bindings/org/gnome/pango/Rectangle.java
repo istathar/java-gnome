@@ -1,7 +1,7 @@
 /*
  * Rectangle.java
  *
- * Copyright (c) 2007 Operational Dynamics Consulting Pty Ltd
+ * Copyright (c) 2007-2008 Operational Dynamics Consulting Pty Ltd
  *
  * The code in this file, and the library it is a part of, are made available
  * to you by the authors under the terms of the "GNU General Public Licence,
@@ -27,11 +27,57 @@ public final class Rectangle extends Boxed
         super(pointer);
     }
 
+    Rectangle() {
+        super(PangoRectangleOverride.createRectangle());
+    }
+
     protected void release() {
-        /*
-         * FIXME This class's release() method must be implemented to call the
-         * correct free() or unref() function before it can be used.
-         */
-        throw new UnsupportedOperationException("Not yet implemented");
+        PangoRectangleOverride.free(this);
+    }
+
+    /**
+     * The width of the box described by this Rectangle.
+     * 
+     * @since 4.0.10
+     */
+    public double getWidth() {
+        return ((double) PangoRectangle.getWidth(this)) / Pango.SCALE;
+    }
+
+    /**
+     * The height of the box described by this Rectangle.
+     * 
+     * @since 4.0.10
+     */
+    public double getHeight() {
+        return ((double) PangoRectangle.getHeight(this)) / Pango.SCALE;
+    }
+
+    /**
+     * The horizontal co-ordinate of the top left corner of the box described
+     * by this Rectangle.
+     * 
+     * @since 4.0.10
+     */
+    public double getX() {
+        return ((double) PangoRectangle.getX(this)) / Pango.SCALE;
+    }
+
+    /**
+     * The vertical co-ordinate of the box described by this Rectangle.
+     * 
+     * @since 4.0.10
+     */
+    public double getY() {
+        return ((double) PangoRectangle.getY(this)) / Pango.SCALE;
+    }
+
+    private static String oneDecimal(double d) {
+        return String.format("%5.1f", d);
+    }
+
+    public String toString() {
+        return this.getClass().getSimpleName() + ": " + oneDecimal(getWidth()) + " x "
+                + oneDecimal(getHeight()) + " at " + oneDecimal(getX()) + ", " + oneDecimal(getY());
     }
 }
