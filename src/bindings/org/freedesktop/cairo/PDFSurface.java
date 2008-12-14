@@ -17,6 +17,13 @@ import java.io.IOException;
  * A Surface that will be rendered to a file in the Portable Document Format.
  * 
  * <p>
+ * You specify the size of a PDFSurface in points, and all subsequent
+ * operations on a Context based on this Surface will likewise be in points.
+ * If you are used to using Cairo to draw to screen where a device unit equals
+ * a pixel, be aware that here your a distance of <code>1.0</code> is in
+ * points, not pixels.
+ * 
+ * <p>
  * <i>Cairo's PDF support is still nascent but is improving steadily! Wherever
  * possible graphics drawn in your Context will be rendered in vector form in
  * the PDF; when that is not available the PDF backend will fallback to
@@ -36,6 +43,27 @@ public class PDFSurface extends Surface
      * the size of the page you are creating. The <code>width</code> and
      * <code>height</code> parameters are specified in <i>points</i>, where 1
      * point equals 1/72<sup>nd</sup> of an inch.
+     * 
+     * <p>
+     * A4 paper is 210mm x 297mm, which works out as follows:
+     * 
+     * <pre>
+     * surface = new PDFSurface(&quot;output.pdf&quot;, 595, 841);
+     * </pre>
+     * 
+     * more generally, you can use get paper size information via GTK's
+     * printing support using [<code>org.gnome.gtk</code>] PaperSize's
+     * {@link org.gnome.gtk.PaperSize#getWidth(org.gnome.gtk.Unit) getWidth()}
+     * and {@link org.gnome.gtk.PaperSize#getHeight(org.gnome.gtk.Unit)
+     * getHeight()} methods, for example:
+     * 
+     * <pre>
+     * paper = PaperSize.getDefault();
+     * width = (int) paper.getWidth(Unit.POINTS);
+     * height = (int) paper.getHeight(Unit.POINTS);
+     * 
+     * surface = new PDFSurface(&quot;output.pdf&quot;, width, height);
+     * </pre>
      * 
      * @throws IOException
      *             If you do not have write permissions on the given file.
