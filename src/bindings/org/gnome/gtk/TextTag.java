@@ -343,4 +343,26 @@ public class TextTag extends Object
     public void setInvisible(boolean setting) {
         setPropertyBoolean("invisible", setting);
     }
+
+    public String toString() {
+        final StringBuilder str;
+        final Weight weight;
+
+        str = new StringBuilder(super.toString());
+
+        if (getPropertyBoolean("style-set")) {
+            str.append("\n\tstyle: " + getPropertyEnum("style"));
+        }
+        /*
+         * weight always seems to be set. What's up with that?
+         */
+        if (getPropertyBoolean("weight-set")) {
+            weight = GtkTextTagOverride.weightFor(getPropertyInteger("weight"));
+            if (weight != Weight.NORMAL) {
+                str.append("\n\tweight: " + weight);
+            }
+        }
+
+        return str.toString();
+    }
 }
