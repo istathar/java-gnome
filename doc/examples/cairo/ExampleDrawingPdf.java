@@ -16,6 +16,13 @@ import org.freedesktop.cairo.Context;
 import org.freedesktop.cairo.PDFSurface;
 import org.freedesktop.cairo.Surface;
 import org.gnome.gtk.Gtk;
+import org.gnome.gtk.InternationalPaperSize;
+import org.gnome.gtk.PaperSize;
+import org.gnome.gtk.Unit;
+import org.gnome.pango.FontDescription;
+import org.gnome.pango.Layout;
+import org.gnome.pango.LayoutLine;
+import org.gnome.pango.Rectangle;
 
 /**
  * FIXME This isn't much of an example yet, and won't be really until we can
@@ -29,34 +36,66 @@ public class ExampleDrawingPdf
     public static void main(String[] args) throws IOException {
         final Context cr;
         final Surface surface;
+        final Layout layout;
+        final FontDescription desc;
+        final PaperSize paper;
+        final double width;
+        final double height;
+        int i;
+        Rectangle rect;
+        double y, v, b;
 
         Gtk.init(args);
 
-        surface = new PDFSurface("picture.pdf", 150, 150);
+        paper = InternationalPaperSize.A4;
+        width = paper.getWidth(Unit.POINTS);
+        height = paper.getHeight(Unit.POINTS);
+
+        surface = new PDFSurface("picture.pdf", (int) width, (int) height);
         cr = new Context(surface);
 
+        cr.moveTo(35, 10);
+
+        layout = new Layout(cr);
+        desc = new FontDescription("Liberation Serif 10");
+        layout.setFontDescription(desc);
+
+        layout.setWidth(width * 0.9);
         /*
-         * Do some simple vector drawing.
+         * FIXME instead do something with Pango itself to identify paragraph
+         * ends and then manually add the inter paragraph spacing instead of
+         * just doubling the newline
          */
+        layout.setText(textview.LoremIpsum.text.replace("\n", "\n\n"));
 
-        cr.setSourceRGBA(1.0, 0.1, 0.0, 1.0);
-        cr.moveTo(10, 40);
-        cr.lineTo(120, 145);
-        cr.stroke();
+        i = 0;
 
-        cr.setSourceRGBA(225 / 255.0, 148 / 255.0, 11 / 255.0, 1.0);
-        cr.rectangle(70, 70, 20, 40);
-        cr.fill();
+        for (LayoutLine line : layout.getLinesReadonly()) {
+            rect = line.getExtentsLogical();
+            v = rect.getHeight();
+            b = rect.getAscent();
 
-        surface.showPage();
+            y = 10 + b + (v * i);
 
-        /*
-         * Page 2
-         */
+            cr.moveTo(35, y);
+            cr.showLayout(line);
+
+            cr.moveTo(0, y);
+            cr.lineTo(width, y);
+
+            i++;
+        }
+
+        cr.moveTo(10, 10);
+        String str = "";
+        for (i = 1; i < 88; i++) {
+            str += i + "\n";
+        }
+        layout.setText(str);
+        cr.showLayout(layout);
 
         cr.setSourceRGBA(0, 0, 199 / 255.0, 1.0);
-        cr.moveTo(50, 120);
-        cr.arcNegative(80, 80, 39, 0, -Math.PI / 2);
+        cr.setLineWidth(0.1);
         cr.stroke();
 
         surface.finish();
