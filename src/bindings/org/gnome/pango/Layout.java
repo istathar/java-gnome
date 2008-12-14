@@ -47,23 +47,6 @@ import org.gnome.gtk.Widget;
  */
 public class Layout extends Object
 {
-    /**
-     * Conversion factor to go from "Cairo Units" to "Pango Units".
-     */
-    /*
-     * The Pango library uses a fixed point system, scaled up by this
-     * constant; Cairo on the other hand uses doubles. Since all the drawing
-     * we're doing with Pango will be in the context of a Cairo drawing
-     * operation, we expose our API as doubles to match Cairo, and quietly
-     * convert internally.
-     * 
-     * Seeing as how Pango draws on Cairo, it'd be nice if Pango just exposed
-     * the doubles and was done with it.
-     * 
-     * FUTURE retreive from native as this is subject to change in the future.
-     */
-    private static final int PANGO_SCALE = 1024;
-
     protected Layout(long pointer) {
         super(pointer);
     }
@@ -141,7 +124,7 @@ public class Layout extends Object
     public double getSizeWidth() {
         int[] width = new int[1];
         PangoLayout.getSize(this, width, null);
-        return ((double) width[0]) / PANGO_SCALE;
+        return ((double) width[0]) / Pango.SCALE;
     }
 
     /**
@@ -154,7 +137,7 @@ public class Layout extends Object
     public double getSizeHeight() {
         int[] height = new int[1];
         PangoLayout.getSize(this, null, height);
-        return ((double) height[0]) / PANGO_SCALE;
+        return ((double) height[0]) / Pango.SCALE;
     }
 
     /**
@@ -206,11 +189,12 @@ public class Layout extends Object
      * into several lines.
      * 
      * @param width
-     *            The width in Cairo terms (typically pixels).
+     *            The width in Cairo terms (typically pixels if you're drawing
+     *            a Widget or image, or points if you're drawing a PDF).
      * @since 4.0.10
      */
     public void setWidth(double width) {
-        PangoLayout.setWidth(this, (int) (width * PANGO_SCALE));
+        PangoLayout.setWidth(this, (int) (width * Pango.SCALE));
     }
 
     /**
@@ -278,7 +262,7 @@ public class Layout extends Object
      * @since 4.0.10
      */
     public void setIndent(double indent) {
-        PangoLayout.setIndent(this, (int) (indent * PANGO_SCALE));
+        PangoLayout.setIndent(this, (int) (indent * Pango.SCALE));
     }
 
     /**
@@ -290,6 +274,6 @@ public class Layout extends Object
     public double getIndent() {
         final int units;
         units = PangoLayout.getIndent(this);
-        return ((double) units) / PANGO_SCALE;
+        return ((double) units) / Pango.SCALE;
     }
 }
