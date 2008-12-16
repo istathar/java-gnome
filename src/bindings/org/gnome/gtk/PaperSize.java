@@ -83,6 +83,12 @@ public class PaperSize extends Boxed
      * Returns the PaperSize corresponding to the default in effect for the
      * current locale.
      */
+    /*
+     * FUTURE it would be nice if this returned one of the already initialized
+     * constants above, although Boxeds aren't really something you can
+     * compare by identity, and in any case finding out what the default is
+     * implies creating a boxed anyway.
+     */
     public static PaperSize getDefault() {
         if (platform == null) {
             platform = new PaperSize(null);

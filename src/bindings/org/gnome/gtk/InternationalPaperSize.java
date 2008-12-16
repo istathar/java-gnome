@@ -12,8 +12,8 @@
 package org.gnome.gtk;
 
 /**
- * Constants for the other ISO standard paper types, used everywhere in the
- * world except south, central, and northern North America.
+ * Constants for the ISO standard paper types, used everywhere in the world
+ * except south, central, and northern North America.
  * 
  * @author Andrew Cowie
  * @since 4.0.10

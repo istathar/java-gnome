@@ -1,8 +1,8 @@
 /*
  * FontDescription.java
  *
- * Copyright (c) 2007 Operational Dynamics Consulting Pty Ltd
- * Copyright (c) 2008 Vreixo Formoso
+ * Copyright (c) 2007-2008 Operational Dynamics Consulting Pty Ltd
+ * Copyright (c) 2008      Vreixo Formoso
  *
  * The code in this file, and the library it is a part of, are made available
  * to you by the authors under the terms of the "GNU General Public Licence,
@@ -22,7 +22,8 @@ import org.gnome.gtk.FontSelectionDialog;
  * system and also for specifying the characteristics of a real Font to load.
  * 
  * @author Vreixo Formoso
- * @since 4.0.8
+ * @author Andrew Cowie
+ * @since 4.0.10
  */
 public final class FontDescription extends Boxed
 {
@@ -51,9 +52,9 @@ public final class FontDescription extends Boxed
      * describes one of style, variant, weight, stretch, or gravity, and SIZE
      * is a decimal number (size in points) or optionally followed by the unit
      * modifier "px" for absolute size. Any one of the options may be absent.
-     * If FAMILY-LIST is absent, then the <code>familyName</code> field of
-     * the resulting font description will be initialized to <code>null</code>.
-     * If STYLE-OPTIONS is missing, then all style options will be set to the
+     * If FAMILY-LIST is absent, then the <code>familyName</code> field of the
+     * resulting font description will be initialized to <code>null</code>. If
+     * STYLE-OPTIONS is missing, then all style options will be set to the
      * default values. If SIZE is missing, the size in the resulting font
      * description will be set to 0.
      * 
@@ -141,5 +142,20 @@ public final class FontDescription extends Boxed
      */
     public Weight getWeight() {
         return PangoFontDescription.getWeight(this);
+    }
+
+    /**
+     * Get the size of this Font, in device units.
+     * 
+     * <p>
+     * Note that this does <i>not</i> imply how high a line in this font will
+     * be; that is up to the Layout doing the rendering. To find out the
+     * height of a rendered line, use LayoutLine's
+     * {@link LayoutLine#getExtentsLogical() getExtentsLogical()}.
+     * 
+     * @since 4.0.10
+     */
+    public int getSize() {
+        return PangoFontDescription.getSize(this) / Pango.SCALE;
     }
 }
