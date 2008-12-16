@@ -16,7 +16,6 @@ import org.freedesktop.cairo.Context;
 import org.freedesktop.cairo.PDFSurface;
 import org.freedesktop.cairo.Surface;
 import org.gnome.gtk.Gtk;
-import org.gnome.gtk.InternationalPaperSize;
 import org.gnome.gtk.PaperSize;
 import org.gnome.gtk.Unit;
 import org.gnome.pango.FontDescription;
@@ -39,28 +38,32 @@ public class ExampleDrawingPdf
         final Layout layout;
         final FontDescription desc;
         final PaperSize paper;
-        final double width;
-        final double height;
+        final double pageWidth;
+        final double pageHeight;
+        final double topMargin;
+        final double leftMargin;
         int i;
         Rectangle rect;
         double y, v, b;
 
         Gtk.init(args);
 
-        paper = InternationalPaperSize.A4;
-        width = paper.getWidth(Unit.POINTS);
-        height = paper.getHeight(Unit.POINTS);
+        paper = PaperSize.getDefault();
+        pageWidth = paper.getWidth(Unit.POINTS);
+        pageHeight = paper.getHeight(Unit.POINTS);
+        topMargin = 10;
+        leftMargin = 35;
 
-        surface = new PDFSurface("picture.pdf", (int) width, (int) height);
+        surface = new PDFSurface("picture.pdf", (int) pageWidth, (int) pageHeight);
         cr = new Context(surface);
 
-        cr.moveTo(35, 10);
+        cr.moveTo(leftMargin, topMargin);
 
         layout = new Layout(cr);
         desc = new FontDescription("Liberation Serif 10");
         layout.setFontDescription(desc);
 
-        layout.setWidth(width * 0.9);
+        layout.setWidth(pageWidth * 0.9);
         /*
          * FIXME instead do something with Pango itself to identify paragraph
          * ends and then manually add the inter paragraph spacing instead of
@@ -77,16 +80,16 @@ public class ExampleDrawingPdf
 
             y = 10 + b + (v * i);
 
-            cr.moveTo(35, y);
+            cr.moveTo(leftMargin, y);
             cr.showLayout(line);
 
             cr.moveTo(0, y);
-            cr.lineTo(width, y);
+            cr.lineTo(pageWidth, y);
 
             i++;
         }
 
-        cr.moveTo(10, 10);
+        cr.moveTo(10, topMargin);
         String str = "";
         for (i = 1; i < 88; i++) {
             str += i + "\n";
@@ -96,6 +99,11 @@ public class ExampleDrawingPdf
 
         cr.setSourceRGBA(0, 0, 199 / 255.0, 1.0);
         cr.setLineWidth(0.1);
+        cr.stroke();
+
+        cr.moveTo(leftMargin, 0);
+        cr.lineTo(leftMargin, pageHeight);
+        cr.setSourceRGBA(255.0 / 255.0, 0.0, 0.0, 1.0);
         cr.stroke();
 
         surface.finish();
