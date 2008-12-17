@@ -23,6 +23,9 @@ import org.gnome.pango.Layout;
 import org.gnome.pango.LayoutLine;
 import org.gnome.pango.Rectangle;
 
+import static java.lang.Math.PI;
+import static textview.LoremIpsum.text;
+
 /**
  * Some poor kid sitting through latin class doodling on his lined paper.
  * 
@@ -35,8 +38,8 @@ import org.gnome.pango.Rectangle;
 public class ExampleLinedPaper
 {
     public static void main(String[] args) throws IOException {
-        final Context cr;
         final Surface surface;
+        final Context cr;
         final Layout layout;
         final FontDescription desc;
         final String[] paras;
@@ -44,7 +47,8 @@ public class ExampleLinedPaper
         final PaperSize paper;
         final double pageWidth, pageHeight;
         final double topMargin, leftMargin, rightMargin;
-        Rectangle rect;
+        final Rectangle rect;
+        final double[] holes;
         double y, v, b;
 
         Gtk.init(args);
@@ -67,21 +71,6 @@ public class ExampleLinedPaper
         layout.setFontDescription(desc);
 
         /*
-         * Set a width for the Layouts. This will kick off word wrapping.
-         */
-
-        layout.setWidth(pageWidth - (leftMargin + rightMargin));
-
-        /*
-         * Now, given some source text, split it up into individual
-         * paragraphs. Pango's Layout is capable of doing multiple paragraphs
-         * at once, but this allows us to control the spacing between
-         * paragraphs.
-         */
-
-        paras = textview.LoremIpsum.text.split("\n");
-
-        /*
          * Before we start rendering, we need some information about the line
          * height. Given that all lines are going to be rendered in the same
          * font, we can get the metrics of a piece of arbitrary text and then
@@ -96,9 +85,80 @@ public class ExampleLinedPaper
         b = rect.getAscent();
 
         /*
-         * And now we lay out the text. We go to the trouble of laying out
-         * lines individually; this is then paralleled by drawing the
-         * horizontal rules in a moment.
+         * Draw the horizontal rules in blue. These will cunningly be drawn on
+         * the font baseline, and given that the LayoutLines below will be
+         * drawn with reference to this latitude it will end up looking like
+         * the person writing is very good at staying between the lines.
+         */
+
+        y = topMargin + b;
+        while (y < pageHeight) {
+            cr.moveTo(0, y);
+            cr.lineTo(pageWidth, y);
+
+            y += v;
+        }
+
+        cr.setSourceRGB(0, 0, 199.0 / 255.0);
+        cr.setLineWidth(0.1);
+        cr.stroke();
+
+        /*
+         * Draw a vertical red line as the left margin rule.
+         */
+
+        cr.moveTo(leftMargin, 0);
+        cr.lineTo(leftMargin, pageHeight);
+        cr.setSourceRGB(255.0 / 255.0, 0.0, 0.0);
+        cr.stroke();
+
+        /*
+         * Now draw the "holes" making this three-hole punched lined paper.
+         * The holes array are fractions of the page height which is where we
+         * will draw the circles with arc(). We wil preserve the path so we
+         * can use it again to full with white, making it look like the paper
+         * was punched out.
+         */
+
+        holes = new double[] {
+                1.0 / 7.0, 1.0 / 2.0, 6.0 / 7.0
+        };
+
+        cr.setLineWidth(1.0);
+
+        for (double hole : holes) {
+            cr.arc(leftMargin / 2.0, pageHeight * hole, leftMargin / 4.0, 0.0, 2 * PI);
+
+            cr.setSourceRGB(1.0, 1.0, 1.0);
+            cr.fillPreserve();
+
+            cr.setSourceRGB(0.5, 0.5, 0.5);
+            cr.stroke();
+        }
+
+        /*
+         * And finally we lay out the words. Given some source text, split it
+         * up into individual paragraphs. Pango's Layout is capable of doing
+         * multiple paragraphs at once, but this allows us to control the
+         * spacing between paragraphs.
+         */
+
+        paras = text.split("\n");
+
+        /*
+         * Set a width for the Layouts. This will kick-off word wrapping. And
+         * reset the source colour so that the text will be black.
+         */
+
+        layout.setWidth(pageWidth - (leftMargin + rightMargin));
+
+        cr.setSourceRGB(0.0, 0.0, 0.0);
+
+        /*
+         * We did the lines first so that the typeset text will be over the
+         * ruled lines. We go to the trouble of drawing the lines
+         * individually, making it easier to keep things aligned with the
+         * baselines of the rules that we've already drawn.
          */
 
         y = topMargin + b;
@@ -116,38 +176,10 @@ public class ExampleLinedPaper
         }
 
         /*
-         * Draw the horizontal rules in blue. These will cunningly be drawn on
-         * the font baseline, and given that the LayoutLines are drawn with
-         * reference to this latitude it looks like the person writing is very
-         * good at staying between the lines.
-         */
-
-        y = topMargin + b;
-        while (y < pageHeight) {
-            cr.moveTo(0, y);
-            cr.lineTo(pageWidth, y);
-
-            y += v;
-        }
-
-        cr.setSourceRGBA(0, 0, 199 / 255.0, 1.0);
-        cr.setLineWidth(0.1);
-        cr.stroke();
-
-        /*
-         * Draw the vertical red left margin rule.
-         */
-
-        cr.moveTo(leftMargin, 0);
-        cr.lineTo(leftMargin, pageHeight);
-        cr.setSourceRGBA(255.0 / 255.0, 0.0, 0.0, 1.0);
-        cr.stroke();
-
-        /*
-         * Flush the drawing out to the Surface and through it on out to the
-         * PDF document. This is very important! If you don't reach this point
-         * the file on disk will be incomplete and won't render in a PDF
-         * viewer.
+         * Finally, flush the drawing out to the Surface and through it on out
+         * to the PDF document. This is very important! If you don't reach
+         * this point the file on disk will be incomplete and won't render in
+         * a PDF viewer.
          */
 
         surface.finish();

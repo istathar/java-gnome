@@ -30,6 +30,12 @@
   (return-type "none")
 )
 
+(define-method stroke_preserve
+  (of-object "cairo_t")
+  (c-name "cairo_stroke_preserve")
+  (return-type "none")
+)
+
 (define-method set_source_rgb
   (of-object "cairo_t")
   (c-name "cairo_set_source_rgb")

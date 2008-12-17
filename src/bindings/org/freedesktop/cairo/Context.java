@@ -230,6 +230,21 @@ public class Context extends Entity
     }
 
     /**
+     * Draw the current path as a line, preserving the path such that it can
+     * be used used again. If you have drawn a shape and want to
+     * <code>fill()</code> it, you are better off calling
+     * {@link #fillPreserve() fillPreserve()} and, changing source and then
+     * calling {@link #stroke() stroke()}; otherwise your fill will blot out
+     * the inside of your stroke.
+     * 
+     * @since 4.0.10
+     */
+    public void strokePreserve() {
+        CairoContext.strokePreserve(this);
+        checkStatus();
+    }
+
+    /**
      * Get the current source Pattern for this Context.
      * 
      * @since 4.0.7
@@ -394,6 +409,13 @@ public class Context extends Entity
         checkStatus();
     }
 
+    /**
+     * Fill the current path, preserving the path such that it can be used
+     * used again. This is useful if you have drawn a shape and want to
+     * {@link #stroke() stroke()} it with a different colour as an outline.
+     * 
+     * @since 4.0.7
+     */
     public void fillPreserve() {
         CairoContext.fillPreserve(this);
         checkStatus();
