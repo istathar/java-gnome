@@ -17,7 +17,7 @@ import java.io.IOException;
  * A Surface that will be rendered to a file in the Portable Document Format.
  * 
  * <p>
- * You specify the size of a PDFSurface in points, and all subsequent
+ * You specify the size of a PdfSurface in points, and all subsequent
  * operations on a Context based on this Surface will likewise be in points.
  * If you are used to using Cairo to draw to screen where a device unit equals
  * a pixel, be aware that here your a distance of <code>1.0</code> is in
@@ -32,23 +32,23 @@ import java.io.IOException;
  * @author Andrew Cowie
  * @since 4.0.10
  */
-public class PDFSurface extends Surface
+public class PdfSurface extends Surface
 {
-    protected PDFSurface(long pointer) {
+    protected PdfSurface(long pointer) {
         super(pointer);
     }
 
     /**
-     * Create a new PDFSurface, supplying the file you want to write to and
+     * Create a new PdfSurface, supplying the file you want to write to and
      * the size of the page you are creating. The <code>width</code> and
      * <code>height</code> parameters are specified in <i>points</i>, where 1
      * point equals 1/72<sup>nd</sup> of an inch.
      * 
      * <p>
-     * A4 paper is 210mm x 297mm, which works out as follows:
+     * A4 paper is 210mm x 297mm, which works out as about:
      * 
      * <pre>
-     * surface = new PDFSurface(&quot;output.pdf&quot;, 595, 841);
+     * surface = new PdfSurface(&quot;output.pdf&quot;, 595.275, 841.889);
      * </pre>
      * 
      * more generally, you can use get paper size information via GTK's
@@ -62,14 +62,16 @@ public class PDFSurface extends Surface
      * width = paper.getWidth(Unit.POINTS);
      * height = paper.getHeight(Unit.POINTS);
      * 
-     * surface = new PDFSurface(&quot;output.pdf&quot;, width, height);
+     * surface = new PdfSurface(&quot;output.pdf&quot;, width, height);
      * </pre>
+     * 
+     * saving you having to worry about just how big such paper really is.
      * 
      * @throws IOException
      *             If you do not have write permissions on the given file.
      * @since 4.0.10
      */
-    public PDFSurface(String filename, double width, double height) throws IOException {
+    public PdfSurface(String filename, double width, double height) throws IOException {
         super(CairoSurface.createSurfacePdf(filename, width, height));
         final Status status;
 

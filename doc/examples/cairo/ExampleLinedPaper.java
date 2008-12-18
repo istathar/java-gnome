@@ -13,7 +13,7 @@ package cairo;
 import java.io.IOException;
 
 import org.freedesktop.cairo.Context;
-import org.freedesktop.cairo.PDFSurface;
+import org.freedesktop.cairo.PdfSurface;
 import org.freedesktop.cairo.Surface;
 import org.gnome.gtk.Gtk;
 import org.gnome.gtk.PaperSize;
@@ -30,7 +30,7 @@ import static textview.LoremIpsum.text;
  * Some poor kid sitting through latin class doodling on his lined paper.
  * 
  * This is an example of using Pango to render text along side Cairo drawing
- * primitives, and using Cairo's PDFSurface back end to produce a PDF that can
+ * primitives, and using Cairo's PdfSurface back end to produce a PDF that can
  * subsequently be previewd or printed to paper.
  * 
  * The blue lines actually represent the baseline of the font (the calls to
@@ -67,7 +67,7 @@ public class ExampleLinedPaper
         leftMargin = 45;
         rightMargin = 20;
 
-        surface = new PDFSurface("doc/examples/cairo/ExampleLinedPaper.pdf", pageWidth, pageHeight);
+        surface = new PdfSurface("doc/examples/cairo/ExampleLinedPaper.pdf", pageWidth, pageHeight);
         cr = new Context(surface);
 
         cr.moveTo(leftMargin, topMargin);
