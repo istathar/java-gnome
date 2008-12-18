@@ -59,8 +59,8 @@ public class PDFSurface extends Surface
      * 
      * <pre>
      * paper = PaperSize.getDefault();
-     * width = (int) paper.getWidth(Unit.POINTS);
-     * height = (int) paper.getHeight(Unit.POINTS);
+     * width = paper.getWidth(Unit.POINTS);
+     * height = paper.getHeight(Unit.POINTS);
      * 
      * surface = new PDFSurface(&quot;output.pdf&quot;, width, height);
      * </pre>
@@ -69,7 +69,7 @@ public class PDFSurface extends Surface
      *             If you do not have write permissions on the given file.
      * @since 4.0.10
      */
-    public PDFSurface(String filename, int width, int height) throws IOException {
+    public PDFSurface(String filename, double width, double height) throws IOException {
         super(CairoSurface.createSurfacePdf(filename, width, height));
         final Status status;
 

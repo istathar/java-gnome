@@ -33,6 +33,13 @@ import static textview.LoremIpsum.text;
  * primitives, and using Cairo's PDFSurface back end to produce a PDF that can
  * subsequently be previewd or printed to paper.
  * 
+ * The blue lines actually represent the baseline of the font (the calls to
+ * Context's showLayout() draw LayoutLines with their baseline at the current
+ * Cairo point); if you go to a high level of zoom you'll see the overshoot
+ * that some glyphs are designed with. The red line is the left margin, and
+ * unlike the baseline (which is just an arbitrary point midway into the
+ * font's extents), nothing bleeds left past the margin line.
+ * 
  * @author Andrew Cowie
  */
 public class ExampleLinedPaper
@@ -60,8 +67,7 @@ public class ExampleLinedPaper
         leftMargin = 45;
         rightMargin = 20;
 
-        surface = new PDFSurface("doc/examples/cairo/ExampleLinedPaper.pdf", (int) pageWidth,
-                (int) pageHeight);
+        surface = new PDFSurface("doc/examples/cairo/ExampleLinedPaper.pdf", pageWidth, pageHeight);
         cr = new Context(surface);
 
         cr.moveTo(leftMargin, topMargin);
