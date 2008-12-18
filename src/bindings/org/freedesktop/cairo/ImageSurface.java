@@ -25,6 +25,18 @@ package org.freedesktop.cairo;
  * surface.writeToPNG(filename);
  * </pre>
  * 
+ * <p>
+ * While ImageSurfaces is good for writing images out to disk, they are not
+ * efficient as a back end, nor are they accelerated by your graphics card. So
+ * they are not an appropriate intermediate in drawing operations; don't be
+ * calling <code>setSourceSurface()</code> on one of these.
+ * 
+ * <p>
+ * More importantly, ImageSurface is <b>not</b> an image loader! Remember that
+ * Surfaces are what Cairo draws <i>to</i>. If what you are doing is building
+ * up images for display to the screen, then load your images into
+ * XlibSurfaces and use those as sources.
+ * 
  * @author Andrew Cowie
  * @since 4.0.7
  */
@@ -34,6 +46,11 @@ public class ImageSurface extends Surface
         super(pointer);
     }
 
+    /**
+     * Construct an ImageSurface of the specified visual depth and size.
+     * 
+     * @since 4.0.7
+     */
     public ImageSurface(Format format, int width, int height) {
         super(CairoSurface.createSurface(format, width, height));
         checkStatus();
