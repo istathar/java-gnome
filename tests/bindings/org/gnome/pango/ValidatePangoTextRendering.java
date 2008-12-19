@@ -10,9 +10,12 @@
  */
 package org.gnome.pango;
 
+import java.io.IOException;
+
 import org.freedesktop.cairo.Context;
 import org.freedesktop.cairo.Format;
 import org.freedesktop.cairo.ImageSurface;
+import org.freedesktop.cairo.PdfSurface;
 import org.freedesktop.cairo.Surface;
 import org.gnome.gdk.Event;
 import org.gnome.gdk.EventExpose;
@@ -74,11 +77,11 @@ public class ValidatePangoTextRendering extends TestCaseGtk
      * This verifies our having normalized the co-ordinate spaces to Cairo
      * units.
      */
-    public final void testWidthAndHeightNormalization() {
-        final Surface surface;
-        final Context cr;
-        final Layout layout;
-        double width;
+    public final void testWidthAndHeightNormalization() throws IOException {
+        Surface surface;
+        Context cr;
+        Layout layout;
+        double units, pixels;
 
         surface = new ImageSurface(Format.ARGB32, 150, 150);
         cr = new Context(surface);
@@ -87,8 +90,40 @@ public class ValidatePangoTextRendering extends TestCaseGtk
 
         layout.setWidth(60.0);
 
-        width = layout.getSizeWidth();
-        assertEquals(width, (double) layout.getPixelWidth());
+        units = layout.getSizeWidth();
+        assertEquals(units, layout.getPixelWidth(), 0.001);
+
+        /*
+         * Now test with a Surface whose device units are not integral pixels.
+         */
+
+        surface = new PdfSurface(null, 150, 150);
+        cr = new Context(surface);
+
+        layout = draw(cr);
+
+        units = layout.getSizeWidth();
+        pixels = layout.getPixelWidth();
+        assertTrue(pixels > units);
+
+        // something really wide!
+        layout.setText("Big brother is watching you, though you probably didn't know. In any case, you're not that interesting so really, the shame is on the poor sod who has to stare at the footage all day.");
+
+        units = layout.getSizeWidth();
+        assertTrue(units > 150);
+
+        /*
+         * Does calling setWidth() re-layout the Layout?
+         */
+
+        layout.setWidth(120);
+
+        units = layout.getSizeWidth();
+        assertTrue(units < 120);
+
+        /*
+         * yes, it does. Impressive.
+         */
     }
 
     public static void main(String[] args) {
