@@ -556,6 +556,7 @@ OpenOffice
 OpenSolaris
 OutOfMemoryError
 Overholt
+PDF
 PKGBUILD
 PNGs
 PRELIGHT
@@ -571,6 +572,7 @@ ParenLeft
 ParenRight
 ParsedTree
 PascalCase
+PdfSurface
 Pendyala
 Petteri
 Piechotka
@@ -1710,6 +1712,7 @@ pageSize
 pango
 parallelize
 param
+pdf
 perl
 php
 pixbuf

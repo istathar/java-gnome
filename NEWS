@@ -1,5 +1,37 @@
 NEWS
 
+<a name="pango" id="1229699838" title="Text drawing"></a>
+
+Rendering text
+==============
+
+One thing that was previously missing from our Cairo support was the ability
+to draw text. To that end we have been working on exposing the excellent Pango
+text rendering library. The '`pango`' branch where the effort has been
+underway to polish coverage allowing developers add text when drawing has now
+been merged to '`mainline`'.
+
+Pango is not just about drawing mere words. It also includes a sophisticated
+paragraph layout engine. This in turn represents the essential machinery
+necessary to make effective use of Cairo's PDF backend; you can now generate
+`.pdf` documents with java-gnome, and we've included an fun example showing
+this in action.
+
+Thanks are due to Serkan Kaba and Kenneth Prugh have both been really helpful
+testing; it was Vreixo Formoso who did the original leg work in April that
+identified Layout as the key class that we needed to concentrate on and
+cleaned up much of the underlying infrastructure.
+
+The API documentation for [Layout][] is pretty much the center piece of all
+this work. Improvements to various Cairo backends have also been underway; the
+descriptions at [XlibSurface][] and [PdfSurface][] may also be of interest.
+
+AfC
+
+[Layout]: doc/api/org/gnome/pango/Layout.html
+[XlibSurface]: doc/api/org/freedesktop/cairo/XlibSurface.html
+[PdfSurface]: doc/api/org/freedesktop/cairo/PdfSurface.html
+
 <a name="4.0.9" id="1223889576" title="Text APIs and better running!"></a>
 
 java-gnome 4.0.9 (13 Oct 2008)
