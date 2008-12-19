@@ -88,7 +88,7 @@ public final class Rectangle extends Boxed
     }
 
     public String toString() {
-        return this.getClass().getName() + ": " + getWidth() + "x" + getHeight() + " at " + getX() + ","
-                + getY();
+        return this.getClass().getSimpleName() + ": " + getWidth() + "x" + getHeight() + " at " + getX()
+                + "," + getY();
     }
 }

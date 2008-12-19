@@ -220,7 +220,7 @@
   )
 )
 
-(define-function pango_font_description_from_string
+(define-function font_description_new_from_string
   (is-constructor-of "PangoFontDescription")
   (c-name "pango_font_description_from_string")
   (caller-owns-return #t)

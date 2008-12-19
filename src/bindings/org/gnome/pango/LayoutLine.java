@@ -13,13 +13,37 @@ package org.gnome.pango;
 
 import org.gnome.glib.Boxed;
 
-/*
- * FIXME this is a placeholder stub for what will become the public API for
- * this type. Replace this comment with appropriate javadoc including author
- * and since tags. Note that the class may need to be made abstract, implement
- * interfaces, or even have its parent changed. No API stability guarantees
- * are made about this class until it has been reviewed by a hacker and this
- * comment has been replaced.
+/**
+ * A line within a Layout. Once a Layout has been given text to lay out,
+ * individual lines within it can be accessed via the methods on this class.
+ * 
+ * <pre>
+ * lines = layout.getLinesReadonly();
+ * 
+ * x = leftMargin;
+ * y = topMargin + rect.getAscent();
+ * 
+ * for (i = 0; i &lt; lines.length; i++) {
+ *     rect = lines[i].getExtentsLogical();
+ *     y += rect.getHeight();
+ * 
+ *     cr.moveTo(x, y);
+ *     cr.showLayout(lines[i]);
+ * }
+ * </pre>
+ * 
+ * which of course is the hard way of doing:
+ * 
+ * <pre>
+ * cr.showLayout(layout);
+ * </pre>
+ * 
+ * but gives you control over the individual lines of the paragraph which is
+ * necessary when doing paginated layout and worrying about available vertical
+ * space.
+ * 
+ * @author Andrew Cowie
+ * @since 4.0.10
  */
 public final class LayoutLine extends Boxed
 {
@@ -28,10 +52,69 @@ public final class LayoutLine extends Boxed
     }
 
     protected void release() {
-        /*
-         * FIXME This class's release() method must be implemented to call the
-         * correct free() or unref() function before it can be used.
-         */
-        throw new UnsupportedOperationException("Not yet implemented");
+        PangoLayoutLine.unref(this);
+    }
+
+    public Rectangle getExtentsInk() {
+        final Rectangle result;
+
+        result = new Rectangle();
+
+        PangoLayoutLine.getExtents(this, result, null);
+
+        return result;
+    }
+
+    /**
+     * Get a Rectangle describing the logical extents calculated for this line
+     * of rendered text.
+     * 
+     * <p>
+     * The <code>x</code>, <code>y</code>, and <code>height</code> parameters
+     * of these Rectangles are the same for each LayoutLine in a given Layout;
+     * the <var>width</var> will be variable (unless you have evenly justified
+     * the text, and even then last line of each paragraph will be less than
+     * the <var>width</var> of the others).
+     * 
+     * <p>
+     * <b>Note</b><br>
+     * It is a common mistake to assume that the origin of the Pango
+     * co-ordinate space is the top-right corner of an extents Rectangle. This
+     * is not the case; the vertical origin is at the base line.
+     * 
+     * <p>
+     * The {@link org.freedesktop.cairo.Context#showLayout(LayoutLine)
+     * showLayout()} method that takes a LayoutLine starts its drawing by
+     * placing its Rectangle's origin at the current Context point. So to
+     * render consistently spaced lines of text you will need to move the
+     * Context point <b>down</b> by the value of the ascent (which is the
+     * negative of the <code>y</code> co-ordinate describing top of the
+     * rectangle from the origin):
+     * 
+     * <pre>
+     * rect = line.getExtentsLogical();
+     * 
+     * h = leftMargin;
+     * v = topMargin + rect.getAscent() + lineNumber * rect.getHeight();
+     * 
+     * cr.moveTo(h, v);
+     * cr.showLayout(line);
+     * </pre>
+     * 
+     * @since 4.0.10
+     */
+    /*
+     * TODO are x, y, height actually going to be the same for all LayoutLines
+     * in a given Layout? That's seems to make sense, and is indeed what
+     * testing observed. Could be wrong, of course.
+     */
+    public Rectangle getExtentsLogical() {
+        final Rectangle result;
+
+        result = new Rectangle();
+
+        PangoLayoutLine.getExtents(this, null, result);
+
+        return result;
     }
 }

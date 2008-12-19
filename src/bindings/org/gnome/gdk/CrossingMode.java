@@ -21,7 +21,7 @@ import org.freedesktop.bindings.Constant;
  * @since 4.0.7
  * @see <a
  *      href="http://xorg.freedesktop.org/releases/X11R7.0/doc/PDF/xlib.pdf">The
- *      XLib programming manual</a>, section 10.6
+ *      XLib programming manual, section 10.6</a>
  */
 /*
  * FIXME Improve the explanation of these occurrences.

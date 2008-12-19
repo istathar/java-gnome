@@ -1,13 +1,14 @@
 /*
  * gnome_screenshot_capture.c
  *
- * Copyright (c) 2007 Operational Dynamics Consulting Pty Ltd
+ * Copyright (c) 2007-2008 Operational Dynamics Consulting Pty Ltd
  *
  * The code to capture an X11 Window as a GdkPixbuf is taken from gnome-utils's
  * gnome-screenshot/gnome-screenshot.c,
  *
- * Copyright (C) 2001 Jonathan Blandford
- * Copyright (C) 2006 Emmanuele Bassi
+ * Copyright (C) 2001-2005 Jonathan Blandford
+ * Copyright (C) 2006-2008 Emmanuele Bassi
+ * Copyright (C) 2008      Cosimo Cecchi
  *
  * and licenced under the terms of the "GNU General Public Licence, version
  * 2" only. This code is presented in java-gnome as wrapped in the class
@@ -33,7 +34,7 @@ gnome_screenshot_capture
     	const gchar* border_effect
 )
 {
-    	Window win;
+	GdkWindow* win;
 	GdkPixbuf* result;
 	JNIEnv* env;
 
@@ -44,18 +45,19 @@ gnome_screenshot_capture
 	}
  		
     	if (take_window_shot) {
-		win = screenshot_find_current_window(include_border);
-		if (win == None) {
+		win = screenshot_find_current_window();
+		if (!win) {
 			take_window_shot = FALSE;
-			win = GDK_ROOT_WINDOW();
+			win = gdk_get_default_root_window();
 		}
 	} else {
-		win = GDK_ROOT_WINDOW ();
+		win = gdk_get_default_root_window();
+
 	}
 
-	result = screenshot_get_pixbuf(win);
-
 	if (take_window_shot) {
+		result = screenshot_get_pixbuf(win, FALSE, TRUE);
+
 		switch (border_effect[0]) {
 		case 's': /* shadow */
 			screenshot_add_shadow(&result);
@@ -67,7 +69,11 @@ gnome_screenshot_capture
 		default:
 			break;
 		}
-  	}
+  	} else {
+		result = screenshot_get_pixbuf(win, FALSE, FALSE);
+	}
+
+
 
 	screenshot_release_lock();
 

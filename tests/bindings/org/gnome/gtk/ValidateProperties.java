@@ -189,7 +189,16 @@ public class ValidateProperties extends TestCaseGtk
 
         w = new Window();
         w.add(b);
-        w.showAll();
+
+        /*
+         * We call realize instead of show on the window to prevent the Window
+         * from popping onto the screen when the main loop runs in
+         * ValidateScreensAndDisplays. This is likely a weak workaround and
+         * not a fix, but we need the size-allocation to have happened to be
+         * able to complete this test fixture
+         */
+        b.showAll();
+        GtkWidget.realize(b);
 
         /*
          * Now test that the our live reference to the GtkAllocation actually
@@ -333,5 +342,34 @@ public class ValidateProperties extends TestCaseGtk
         window = new Window();
         window.add(button);
         button.grabDefault();
+    }
+
+    public final void testNotebookDecorations() {
+        final Notebook book;
+
+        book = new Notebook();
+
+        /*
+         * show tabs
+         */
+        assertEquals(true, GtkNotebook.getShowTabs(book));
+
+        book.setShowTabs(false);
+        assertEquals(false, GtkNotebook.getShowTabs(book));
+
+        book.setShowTabs(true);
+        assertEquals(true, GtkNotebook.getShowTabs(book));
+
+        /*
+         * show border
+         */
+
+        assertEquals(true, GtkNotebook.getShowBorder(book));
+
+        book.setShowBorder(false);
+        assertEquals(false, GtkNotebook.getShowBorder(book));
+
+        book.setShowBorder(true);
+        assertEquals(true, GtkNotebook.getShowBorder(book));
     }
 }

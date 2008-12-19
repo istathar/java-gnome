@@ -30,6 +30,12 @@
   (return-type "none")
 )
 
+(define-method stroke_preserve
+  (of-object "cairo_t")
+  (c-name "cairo_stroke_preserve")
+  (return-type "none")
+)
+
 (define-method set_source_rgb
   (of-object "cairo_t")
   (c-name "cairo_set_source_rgb")
@@ -141,7 +147,32 @@
   (return-type "none")
 )
 
+(define-method show_layout
+  (of-object "cairo_t")
+  (c-name "pango_cairo_show_layout")
+  (return-type "none")
+  (parameters
+    '("PangoLayout*" "layout")
+  )
+)
 
+(define-method update_layout
+  (of-object "cairo_t")
+  (c-name "pango_cairo_update_layout")
+  (return-type "none")
+  (parameters
+    '("PangoLayout*" "layout")
+  )
+)
+
+(define-method show_layout_line
+  (of-object "cairo_t")
+  (c-name "pango_cairo_show_layout_line")
+  (return-type "none")
+  (parameters
+    '("PangoLayoutLine*" "line")
+  )
+)
 
 (define-method get_source
   (of-object "cairo_t")

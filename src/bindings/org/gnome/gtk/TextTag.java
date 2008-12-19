@@ -299,4 +299,70 @@ public class TextTag extends Object
     public void setStyle(Style style) {
         setPropertyInteger("style", GtkTextTagOverride.valueOf(style));
     }
+
+    /**
+     * Specify the font family to be used. This is a family name like
+     * "Bitstream Vera" or "DejaVu" or "Liberation".
+     * 
+     * <p>
+     * In general, it is better to use the standard aliases "Serif", "Sans",
+     * and "Monospaced" than naming a family by hand as this lets the user
+     * assign their own meanings to those terms via the Fonts tab in <b>
+     * <code>gnome-appearance-properties</code></b>.
+     * 
+     * <p>
+     * Note that you need to specify this early; if you set this after setting
+     * other propertes on the TextTag, it may reset them.
+     * 
+     * @since 4.0.10
+     */
+    public void setFamily(String font) {
+        setPropertyString("font", font);
+    }
+
+    /**
+     * Hide the text formatted with this TextTag.
+     * 
+     * <p>
+     * FIXME what happens when you insert at a point that is marked invisible?
+     * Backspace into it? What is the interaction with the <var>editable</var>
+     * property and <code>insertInteractive()</code>?
+     * 
+     * <p>
+     * <i>GTK further notes there are problems with invisible text and
+     * programmatic navigation of TextBuffers.</i>
+     * 
+     * @since <span style="color: red">Unstable</span>
+     */
+    /*
+     * FIXME The signature is correct, but the implications for the developer
+     * of employing this are not, and that needs fixing. We've exposed it so
+     * that people can play with it and maybe infer some of the answers to
+     * these questions.
+     */
+    public void setInvisible(boolean setting) {
+        setPropertyBoolean("invisible", setting);
+    }
+
+    public String toString() {
+        final StringBuilder str;
+        final Weight weight;
+
+        str = new StringBuilder(super.toString());
+
+        if (getPropertyBoolean("style-set")) {
+            str.append("\n\tstyle: " + getPropertyEnum("style"));
+        }
+        /*
+         * weight always seems to be set. What's up with that?
+         */
+        if (getPropertyBoolean("weight-set")) {
+            weight = GtkTextTagOverride.weightFor(getPropertyInteger("weight"));
+            if (weight != Weight.NORMAL) {
+                str.append("\n\tweight: " + weight);
+            }
+        }
+
+        return str.toString();
+    }
 }

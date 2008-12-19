@@ -10,6 +10,7 @@
  */
 package com.operationaldynamics.defsparser;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -31,7 +32,7 @@ public abstract class TypeBlock extends Block
 
     protected String cName;
 
-    protected String importHeader;
+    protected List<String> importHeader;
 
     protected TypeBlock(final String blockName, final List<String[]> characteristics) {
         super(blockName, characteristics);
@@ -57,7 +58,10 @@ public abstract class TypeBlock extends Block
      * characteristic, introduced by java-gnome, solves that problem.
      */
     protected final void setImportHeader(final String importHeader) {
-        this.importHeader = importHeader;
+        if (this.importHeader == null) {
+            this.importHeader = new ArrayList<String>(1);
+        }
+        this.importHeader.add(importHeader);
     }
 
     /**

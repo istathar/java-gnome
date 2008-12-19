@@ -14,6 +14,7 @@ package org.gnome.gtk;
 
 import org.freedesktop.bindings.Constant;
 import org.freedesktop.bindings.DoubleConstant;
+import org.gnome.pango.Weight;
 
 final class GtkTextTagOverride extends Plumbing
 {
@@ -29,5 +30,9 @@ final class GtkTextTagOverride extends Plumbing
 
     static final int valueOf(Constant reference) {
         return org.freedesktop.bindings.Plumbing.numOf(reference);
+    }
+
+    static final Weight weightFor(int value) {
+        return (Weight) org.freedesktop.bindings.Plumbing.flagFor(Weight.class, value);
     }
 }

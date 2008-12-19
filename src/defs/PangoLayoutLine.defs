@@ -62,8 +62,8 @@
   (c-name "pango_layout_line_get_extents")
   (return-type "none")
   (parameters
-    '("PangoRectangle*" "ink_rect")
-    '("PangoRectangle*" "logical_rect")
+    '("PangoRectangle*" "ink_rect" (null-ok))
+    '("PangoRectangle*" "logical_rect" (null-ok))
   )
 )
 
@@ -72,8 +72,8 @@
   (c-name "pango_layout_line_get_pixel_extents")
   (return-type "none")
   (parameters
-    '("PangoRectangle*" "ink_rect")
-    '("PangoRectangle*" "logical_rect")
+    '("PangoRectangle*" "ink_rect" (null-ok))
+    '("PangoRectangle*" "logical_rect" (null-ok))
   )
 )
 

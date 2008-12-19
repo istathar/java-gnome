@@ -130,10 +130,10 @@ public final class TextIter extends Boxed
      * TextBuffer, where lines are split by newline characters. Most of the
      * time TextViews are set to wrap lines and thus a single very long line
      * will be presented visually as a paragraph (there is no definition of
-     * paragraph in TextBuffer terms). If you're wondering about where the
+     * paragraph in TextBuffer terms). If you're wondering about where a
      * position (the cursor, say) is down into a TextView widget, then see
-     * TextView's {@link TextView#startsDisplayLine(TextIter)
-     * startsDisplayLine()} and related "<code>display</code>" methods.
+     * {@link #startsDisplayLine(TextView) startsDisplayLine()} and other
+     * related "<code>display</code>" methods.
      * 
      * @since 4.0.9
      */
@@ -226,9 +226,9 @@ public final class TextIter extends Boxed
      * @return A <code>char</code> value of
      *         {@link TextBuffer#OBJECT_REPLACEMENT_CHARACTER
      *         OBJECT_REPLACEMENT_CHARACTER} indicates a non-character element
-     *         (an embedded Pixbuf or Widget). You'll get <code>0</code> (not
-     *         <code>'0'</code>) if this TextIter is already at the
-     *         TextBuffer's end.
+     *         (an embedded Pixbuf or Widget). You'll get <code>0</code> (ie
+     *         <code>'\0'</code>, not <code>'0'</code>) if this TextIter is
+     *         already at the TextBuffer's end.
      * @since 4.0.9
      */
     public char getChar() {
@@ -324,7 +324,18 @@ public final class TextIter extends Boxed
      * points to. If there are none present here then a zero length array will
      * be returned.
      * 
+     * <p>
+     * <i>GTK maintains a number of TextMarks internally in each TextBuffer
+     * for its own purposes (even over and above <var>selection-bound</var>
+     * and <var>insert</var>), proxies of which will get returned along with
+     * any TextMarks you've put there. So this method isn't quite as useful as
+     * one might like it to be.</i>
+     * 
      * @since 4.0.9
+     */
+    /*
+     * TODO wouldn't it be cool if we could filter the internal ones out and
+     * only return user created TextMarks?
      */
     public TextMark[] getMarks() {
         return GtkTextIter.getMarks(this);
@@ -659,4 +670,15 @@ public final class TextIter extends Boxed
     public boolean backwardDisplayLine(TextView view) {
         return GtkTextView.backwardDisplayLine(view, this);
     }
+
+    /**
+     * Does the position represented by this TextIter start a display line
+     * (within a paragraph) in the given TextView?
+     * 
+     * @since 4.0.9
+     */
+    public boolean startsDisplayLine(TextView view) {
+        return GtkTextView.startsDisplayLine(view, this);
+    }
+
 }

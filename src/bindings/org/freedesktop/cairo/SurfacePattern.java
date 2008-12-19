@@ -17,9 +17,10 @@ package org.freedesktop.cairo;
  * "paint" when drawing on a different Surface.
  * 
  * <p>
- * TODO An example of this in use?
+ * These are created internally if you call
+ * {@link Context#setSourceSurface(Surface, double, double)
+ * setSourceSurface()}.
  * 
- * @author Andrew Cowie
  * @since 4.0.7
  */
 public class SurfacePattern extends Pattern

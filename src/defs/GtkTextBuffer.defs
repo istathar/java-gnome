@@ -525,8 +525,8 @@
   (c-name "gtk_text_buffer_get_selection_bounds")
   (return-type "gboolean")
   (parameters
-    '("GtkTextIter*" "start")
-    '("GtkTextIter*" "end")
+    '("GtkTextIter*" "start" (null-ok))
+    '("GtkTextIter*" "end" (null-ok))
   )
 )
 

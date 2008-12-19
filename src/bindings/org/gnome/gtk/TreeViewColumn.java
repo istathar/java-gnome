@@ -48,22 +48,24 @@ public class TreeViewColumn extends Object implements CellLayout
 
     /**
      * Set the title to be used for this TreeViewColumn in the TreeView's
-     * header row. In addition to being descriptive, the title are what you
+     * header row. In addition to being descriptive, this title is what you
      * click to cause this column to be the one that is sorting the TreeView
-     * (assuming you've enabled the columns to be sortable with TreeView's
-     * {@link TreeView#setHeadersClickable(boolean) setHeadersClickable(true)}
-     * and FIXME, and that the titles are visible in the first place, ie the
-     * header row hasn't been turned off via TreeView's
-     * {@link TreeView#setHeadersVisible(boolean) setHeadersVisible(false)}).
+     * [assuming you've enabled the columns to be sortable by calling the
+     * enclosing TreeView's {@link TreeView#setHeadersClickable(boolean)
+     * setHeadersClickable(true)} and this TreeViewColumn's
+     * {@link TreeViewColumn#setSortColumn(DataColumn) setSortColumn()}, and
+     * that the titles are visible in the first place, ie the header row
+     * hasn't been turned off via TreeView's
+     * {@link TreeView#setHeadersVisible(boolean) setHeadersVisible(false)}].
      */
     public void setTitle(String title) {
         GtkTreeViewColumn.setTitle(this, title);
     }
 
     /**
-     * Gets the Title of this TreeViewColumn. Please see
-     * {@link TreeView#setTitle(String) setTitle()} for further information
-     * about TreeViewColumn titles.
+     * Gets the title of this TreeViewColumn. Please see
+     * {@link #setTitle(String) setTitle()} for further information about
+     * TreeViewColumn titles.
      * 
      * @since 4.0.8
      */

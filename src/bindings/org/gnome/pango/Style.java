@@ -2,6 +2,7 @@
  * Style.java
  *
  * Copyright (c) 2007-2008 Operational Dynamics Consulting Pty Ltd
+ * Copyright (c) 2008      Vreixo Formoso
  *
  * The code in this file, and the library it is a part of, are made available
  * to you by the authors under the terms of the "GNU General Public Licence,
@@ -20,6 +21,7 @@ import org.freedesktop.bindings.Constant;
  * it is the {@link #OBLIQUE OBLIQUE} style, whereas the more fancy script
  * like lettering is {@link #ITALIC ITALIC}s.
  * 
+ * @author Vreixo Formoso
  * @author Andrew Cowie
  * @since 4.0.9
  */
@@ -42,7 +44,7 @@ public final class Style extends Constant
 
     /**
      * Normal text slanted over to the side but otherwise appearing the same
-     * as the {@link #NORMAL NORMAL} font style.
+     * as the {@link #NORMAL NORMAL} roman style.
      */
     public static final Style OBLIQUE = new Style(PangoStyle.OBLIQUE, "OBLIQUE");
 }
