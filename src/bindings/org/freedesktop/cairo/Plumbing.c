@@ -28,6 +28,7 @@ Java_org_freedesktop_cairo_Plumbing_createPattern
 )
 {
 	cairo_pattern_t* pattern;
+	jclass found;
 	static jclass SolidPattern = NULL;
 	static jclass SurfacePattern = NULL;	
 	static jclass LinearPattern = NULL;	
@@ -42,28 +43,32 @@ Java_org_freedesktop_cairo_Plumbing_createPattern
 	switch (cairo_pattern_get_type(pattern)) {
 	case CAIRO_PATTERN_TYPE_SOLID:
 		if (SolidPattern == NULL) {
-			SolidPattern = (*env)->FindClass(env, "org/freedesktop/cairo/SolidPattern");
+			found = (*env)->FindClass(env, "org/freedesktop/cairo/SolidPattern");
+			SolidPattern = (*env)->NewGlobalRef(env, found);
 		}
 		type = SolidPattern;
 		break;
 
 	case CAIRO_PATTERN_TYPE_SURFACE:
 		if (SurfacePattern == NULL) {
-			SurfacePattern = (*env)->FindClass(env, "org/freedesktop/cairo/SurfacePattern");
+			found = (*env)->FindClass(env, "org/freedesktop/cairo/SurfacePattern");
+			SurfacePattern = (*env)->NewGlobalRef(env, found);
 		}
 		type = SurfacePattern;
 		break;
 
 	case CAIRO_PATTERN_TYPE_LINEAR:
 		if (LinearPattern == NULL) {
-			LinearPattern = (*env)->FindClass(env, "org/freedesktop/cairo/LinearPattern");
+			found = (*env)->FindClass(env, "org/freedesktop/cairo/LinearPattern");
+			LinearPattern = (*env)->NewGlobalRef(env, found);
 		}
 		type = LinearPattern;
 		break;
 
 	case CAIRO_PATTERN_TYPE_RADIAL:		
 		if (RadialPattern == NULL) {
-			RadialPattern = (*env)->FindClass(env, "org/freedesktop/cairo/RadialPattern");
+			found = (*env)->FindClass(env, "org/freedesktop/cairo/RadialPattern");
+			RadialPattern = (*env)->NewGlobalRef(env, found);
 		}
 		type = RadialPattern;
 		break;
@@ -72,7 +77,11 @@ Java_org_freedesktop_cairo_Plumbing_createPattern
 		g_critical("Unimplemented pattern type");
 		return NULL;
 	}
-	
+	if (type == NULL) {
+		bindings_java_throw(env, "FindClass() failed");
+		return NULL;
+	}
+
 	constructor = (*env)->GetMethodID(env, type, "<init>", "(J)V");
 	if (constructor == NULL) {
 		g_error("Constructor methodID not found");
@@ -97,6 +106,7 @@ Java_org_freedesktop_cairo_Plumbing_createSurface
 )
 {
 	cairo_surface_t* surface;
+	jclass found;
 	static jclass ImageSurface = NULL;
 	static jclass XlibSurface = NULL;
 	static jclass PdfSurface = NULL;
@@ -104,51 +114,55 @@ Java_org_freedesktop_cairo_Plumbing_createSurface
 	jclass type;
 	jmethodID constructor;
 	jobject proxy;
-	
+
 	// convert pointer
 	surface = (cairo_surface_t*) _pointer;
 
 	switch (cairo_surface_get_type(surface)) {
 	case CAIRO_SURFACE_TYPE_IMAGE:
 		if (ImageSurface == NULL) {
-			ImageSurface = (*env)->FindClass(env, "org/freedesktop/cairo/ImageSurface");
+			found = (*env)->FindClass(env, "org/freedesktop/cairo/ImageSurface");
+			ImageSurface = (*env)->NewGlobalRef(env, found);
 		}
 		type = ImageSurface;
 		break;
 		
 	case CAIRO_SURFACE_TYPE_XLIB:
 		if (XlibSurface == NULL) {
-			XlibSurface = (*env)->FindClass(env, "org/freedesktop/cairo/XlibSurface");
+			found = (*env)->FindClass(env, "org/freedesktop/cairo/XlibSurface");
+			XlibSurface = (*env)->NewGlobalRef(env, found);
 		}
 		type = XlibSurface;
 		break;
 
         case CAIRO_SURFACE_TYPE_PDF:
 		if (PdfSurface == NULL) {
-			PdfSurface = (*env)->FindClass(env, "org/freedesktop/cairo/PdfSurface");
+			found = (*env)->FindClass(env, "org/freedesktop/cairo/PdfSurface");
+			PdfSurface = (*env)->NewGlobalRef(env, found);
 		}
 		type = PdfSurface;
 		break;
 
         case CAIRO_SURFACE_TYPE_SVG:
 		if (SvgSurface == NULL) {
-			SvgSurface = (*env)->FindClass(env, "org/freedesktop/cairo/SvgSurface");
+			found = (*env)->FindClass(env, "org/freedesktop/cairo/SvgSurface");
+			SvgSurface = (*env)->NewGlobalRef(env, found);
 		}
 		type = SvgSurface;
 		break;
  
 	default:
-		g_error("Unimplemented surface type %d", cairo_surface_get_type(surface));
+		bindings_java_throw(env, "Unimplemented surface type %d", cairo_surface_get_type(surface));
 		return NULL;
 	}
 	if (type == NULL) {
-		g_error("FindClass() failed");
+		bindings_java_throw(env, "FindClass() failed");
 		return NULL;
 	}
 
 	constructor = (*env)->GetMethodID(env, type, "<init>", "(J)V");
 	if (constructor == NULL) {
-		g_error("Constructor methodID not found");
+		bindings_java_throw(env, "Constructor methodID not found");
 		return NULL;
 	}
 
