@@ -139,4 +139,21 @@ public abstract class Surface extends Entity
     public void copyPage() {
         throw new UnsupportedOperationException();
     }
+
+    /**
+     * Create a new Surface based on this one.
+     * 
+     * <pre>
+     * surface.createSimilar(Content.COLOR_ALPHA, 800, 600);
+     * </pre>
+     * 
+     * <p>
+     * This has enormous application when drawing with image heavy content to
+     * screen.
+     * 
+     * @since 4.0.10
+     */
+    public Surface createSimilar(Content type, int width, int height) {
+        return CairoSurface.createSimilar(this, type, width, height);
+    }
 }

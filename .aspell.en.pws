@@ -210,6 +210,7 @@ GClosure
 GClosureMarshall
 GClosureNotify
 GConf
+GDK's
 GEnumValues
 GError
 GFundamental
@@ -426,6 +427,7 @@ HSeparator
 Harpers
 HashMap
 HashSet
+Hasselman
 HelpWindow
 Henstridge
 HideSignal
@@ -446,6 +448,7 @@ IllegalThreadStateException
 ImageMenuItem
 ImageMenuItems
 ImageSurface
+ImageSurfaces
 ImageType
 IncomingConversation
 IndexError
@@ -897,6 +900,8 @@ bitkeeper
 bitmask
 bjc
 blackdown
+blit
+blitting
 blockquote
 blog
 bloggins
@@ -1066,6 +1071,7 @@ createRectangle
 createScrolledWindow
 createSeparatorMenuItem
 createSeparatorToolItem
+createSimilar
 createSizeGroup
 createSpinButtonWithRange
 createStatusIcon
@@ -1464,6 +1470,7 @@ gettext
 gg
 gij
 gint
+gizmo
 gjdoc
 glibc
 glibj

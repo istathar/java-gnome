@@ -14,7 +14,9 @@ package org.freedesktop.cairo;
 import org.freedesktop.bindings.Flag;
 
 /**
- * FIXME
+ * Constants to specify the colour space that will apply when creating a new
+ * Surface based on an existing one. Used when you call Surface's
+ * {@link Surface#createSimilar(Content, int, int) createSimilar()}.
  * 
  * @author Andrew Cowie
  * @since 4.0.7
