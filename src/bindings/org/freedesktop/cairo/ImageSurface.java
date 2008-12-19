@@ -36,16 +36,16 @@ package org.freedesktop.cairo;
  * More importantly, ImageSurface is <b>not</b> an image loader! Remember that
  * Surfaces are what Cairo draws <i>to</i>. If what you are doing is building
  * up images for display to the screen, then load your images into
- * XlibSurfaces and use those as sources.
+ * {@link XlibSurface}s and use those as sources.
  * 
  * <p>
  * <i>Deep in the guts, Cairo's ImageSurface is like GDK's Pixbuf, a format
  * that C programmers can directly address directly in memory via pointers.
  * That's useful for very low level programming, but not needed for
  * application development. If you're drawing, use Cairo's higher level
- * drawing primatives; if you need to introspect an image, then load it with
+ * drawing primitives; if you need to introspect an image, then load it with
  * Pixbuf and use Pixbuf's</i> {@link org.gnome.gdk.Pixbuf#getPixels()
- * getPixels()} <i>to poke around in its data.</i>
+ * getPixels()} <i>to peek around in its data.</i>
  * 
  * @author Andrew Cowie
  * @since 4.0.7
