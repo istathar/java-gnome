@@ -656,6 +656,7 @@ RowExpandedHandler
 RowExpandedSignal
 RuntimeException
 RuntimeExceptions
+SEMIBOLD
 SWT
 Schmitz
 ScreenshotCapture
@@ -785,6 +786,7 @@ TypeBlock
 UCHAR
 UINT
 ULONG
+ULTRABOLD
 UNMAP
 UTC
 UTF

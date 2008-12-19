@@ -23,10 +23,12 @@ import org.freedesktop.bindings.Flag;
  * A common use of these constants is to make text in a TextView strong; use
  * TextTag's {@link org.gnome.gtk.TextTag#setWeight(Weight) setWeight()} and
  * pass in {@link #BOLD BOLD}.
- *
+ * 
  * <p>
- * <i>Note that many fonts do not implement all the values here, in that case
- * it will be aproximated by the closest one.</i>
+ * <i>Note that most fonts do <b>not</b> implement all the values here. If you
+ * specify a weight that is not directly available, the result should be
+ * approximated by the closest one, but you are somewhat at the mercy of
+ * the</i> $diety <i> as to what you actually get.</i>
  * 
  * @author Andrew Cowie
  * @author Vreixo Formoso
@@ -64,6 +66,8 @@ public class Weight extends Flag
      * 
      * <p>
      * <i>This has a value of <code>400</code>, apparently.</i>
+     * 
+     * @since 4.0.9
      */
     public static final Weight NORMAL = new Weight(PangoWeight.NORMAL, "NORMAL");
 
@@ -73,32 +77,46 @@ public class Weight extends Flag
      * <p>
      * <i>This represents a font weight value of <code>700</code>,
      * apparently.</i>
+     * 
+     * @since 4.0.9
      */
     public static final Weight BOLD = new Weight(PangoWeight.BOLD, "BOLD");
 
     /**
-     * The most tiny weight.
+     * The lightest text weight available. Not much to it. Anorexic, really.
+     * 
+     * @since 4.0.10
      */
-    public static final Weight ULTRALIGHT = new Weight(200, "ULTRALIGHT");
+    public static final Weight ULTRALIGHT = new Weight(PangoWeight.ULTRALIGHT, "ULTRALIGHT");
 
     /**
-     * Light weigth.
+     * Light weight text.
+     * 
+     * @since 4.0.10
      */
-    public static final Weight LIGHT = new Weight(300, "LIGHT");
+    public static final Weight LIGHT = new Weight(PangoWeight.LIGHT, "LIGHT");
 
     /**
-     * A weight intermediate between NORMAL and BOLD.
+     * An intermediate weight between {@link #NORMAL NORMAL} and {@link #BOLD
+     * BOLD}.
+     * 
+     * @since 4.0.10
      */
-    public static final Weight SEMIBOLD = new Weight(600, "SEMIBOLD");
+    public static final Weight SEMIBOLD = new Weight(PangoWeight.SEMIBOLD, "SEMIBOLD");
 
     /**
-     * Ultrabold weight.
+     * Even stronger than {@link #BOLD BOLD}, is <code>ULTRABOLD</code>!
+     * Sounds like a health food product.
+     * 
+     * @since 4.0.10
      */
-    public static final Weight ULTRABOLD = new Weight(800, "ULTRABOLD");
+    public static final Weight ULTRABOLD = new Weight(PangoWeight.ULTRABOLD, "ULTRABOLD");
 
     /**
-     * The heavy weight.
+     * The heavy weight. This is clearly for people who missed out on the
+     * healthier food in the lighter {@link #ULTRABOLD ULTRABOLD} department.
+     * 
+     * @since 4.0.10
      */
-    public static final Weight HEAVY = new Weight(900, "HEAVY");
-
+    public static final Weight HEAVY = new Weight(PangoWeight.HEAVY, "HEAVY");
 }
