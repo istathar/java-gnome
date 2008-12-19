@@ -111,6 +111,7 @@ Java_org_freedesktop_cairo_Plumbing_createSurface
 	static jclass XlibSurface = NULL;
 	static jclass PdfSurface = NULL;
 	static jclass SvgSurface = NULL;
+	static jclass UnknownSurface = NULL;
 	jclass type;
 	jmethodID constructor;
 	jobject proxy;
@@ -152,8 +153,23 @@ Java_org_freedesktop_cairo_Plumbing_createSurface
 		break;
  
 	default:
-		bindings_java_throw(env, "Unimplemented surface type %d", cairo_surface_get_type(surface));
-		return NULL;
+		/*
+		 * This is an unusual scenario. Normally in java-gnome if we
+		 * don't know the type that's a fatal error (and on purpose; if
+		 * we haven't got a concrete Proxy subclass for someone, that's
+		 * it). In Cairo, however, there are a number of cases where
+		 * internal types are exposed (notably MetaSurface, created if
+		 * you call createSimilar() on a vector backend) for which
+		 * there is no publicly available identification. So
+		 * UnknownSurface it is. This, however, obscures the real error
+		 * condition of needing to add a block to this switch statement
+		 * for a newly covered type.
+		 */
+		if (UnknownSurface == NULL) {
+			found = (*env)->FindClass(env, "org/freedesktop/cairo/UnknownSurface");
+			UnknownSurface = (*env)->NewGlobalRef(env, found);
+		}
+		type = UnknownSurface;
 	}
 	if (type == NULL) {
 		bindings_java_throw(env, "FindClass() failed");
