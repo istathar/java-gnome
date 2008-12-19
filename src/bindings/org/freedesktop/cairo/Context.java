@@ -145,7 +145,7 @@ public class Context extends Entity
      * the wrong package. We'll leave that be.
      */
     public Context(Drawable drawable) {
-        super(CairoContextOverride.createContextFromDrawable(drawable));
+        super(GdkCairoSupport.createContextFromDrawable(drawable));
         checkStatus();
     }
 

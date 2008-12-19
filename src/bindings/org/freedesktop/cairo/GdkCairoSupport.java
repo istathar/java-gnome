@@ -1,5 +1,5 @@
 /*
- * CairoContextOverride.java
+ * GdkCairoSupport.java
  *
  * Copyright (c) 2008 Operational Dynamics Consulting Pty Ltd
  * 
@@ -14,13 +14,18 @@ package org.freedesktop.cairo;
 import org.gnome.gdk.Drawable;
 
 /**
- * Hack to allow us to get at gdk_cairo_create() as a constructor of Contexts
+ * Hack to allow us to get at various gdk_cairo_*() functions.
  * 
  * @author Andrew Cowie
  */
-final class CairoContextOverride extends Plumbing
+/*
+ * Playing with an alternate naming pattern, suffix "Support" for the really
+ * weird corner cases. We are not, after all, overriding some capability in
+ * CairoContext's generated layers.
+ */
+final class GdkCairoSupport extends Plumbing
 {
-    private CairoContextOverride() {}
+    private GdkCairoSupport() {}
 
     static final long createContextFromDrawable(Drawable drawable) {
         if (drawable == null) {

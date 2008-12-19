@@ -1,5 +1,5 @@
 /*
- * CairoContextOverride.c
+ * GdkCairoSupport.c
  *
  * Copyright (c) 2008 Operational Dynamics Consulting Pty Ltd
  *
@@ -14,7 +14,7 @@
 #include <gdk/gdk.h>
 #include <cairo.h>
 #include "bindings_java.h"
-#include "org_freedesktop_cairo_CairoContextOverride.h"
+#include "org_freedesktop_cairo_GdkCairoSupport.h"
 
 /**
  * This accesses gdk_cairo_create(), a utility function in GDK allowing you to
@@ -22,7 +22,7 @@
  * bindings as a constructor to Context.
  */
 JNIEXPORT jlong JNICALL
-Java_org_freedesktop_cairo_CairoContextOverride_gdk_1cairo_1create
+Java_org_freedesktop_cairo_GdkCairoSupport_gdk_1cairo_1create
 (
 	JNIEnv* env,
 	jclass cls,
