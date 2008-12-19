@@ -15,6 +15,7 @@ AllAboutJNI
 AltLeft
 AltRight
 ApplySignal
+Arial
 ArrayList
 AssistantPageType
 AtSign
@@ -122,6 +123,7 @@ DataColumns
 Davyd
 DefsFile
 DefsParser
+DejaVu
 DeleteEvent
 DeleteGlobalRef
 DeleteLocalRef
@@ -201,6 +203,7 @@ FocusInEventSignal
 FocusOutEvent
 FocusOutEventSignal
 FontDescription
+FontSelection
 Formoso
 Fortin
 FreeDesktop
@@ -505,7 +508,6 @@ LayoutLines
 LeaveNotifyEvent
 LeaveNotifyEventSignal
 LibGlade
-Libre
 LinearPattern
 ListStore
 ListStore's
@@ -547,6 +549,7 @@ Microsystems
 Misc's
 ModifierType
 ModifierTypes
+Monospace
 Monospaced
 MouseButton
 MyButton
@@ -585,6 +588,7 @@ PackageNames
 PageDown
 PageUp
 Pango's
+PangoFontDescription
 PangoLayout
 PangoLayoutLine
 PangoRectangle
@@ -1031,6 +1035,8 @@ createExpanderWithMnemonic
 createFileChooserButon
 createFileChooserDialog
 createFixed
+createFontDescription
+createFontDescriptionFromString
 createFrame
 createGenerator
 createGladeXml
@@ -1135,6 +1141,7 @@ denaturation
 dependsListToSingleTarget
 dependsMapSourceFilesToTargetFiles
 deref
+desc
 dev
 devel
 devhelp
@@ -1303,6 +1310,7 @@ getExpanded
 getExtents
 getExtentsInk
 getExtentsLogical
+getFamily
 getFilename
 getFirstIter
 getFixedHeightMode
@@ -1431,6 +1439,7 @@ getStock
 getStockId
 getStorageType
 getString
+getStyle
 getSubmenu
 getSurface
 getTagTable
@@ -1450,6 +1459,7 @@ getVScrollbar
 getVadjustment
 getValue
 getValueString
+getVariant
 getView
 getVisibility
 getVisible
@@ -1457,6 +1467,7 @@ getVisibleLineOffset
 getVisibleRect
 getVisibleRectangle
 getVscrollbar
+getWeight
 getWidget
 getWidth
 getWindow
@@ -1482,6 +1493,7 @@ grabDefault
 grabFocus
 gthread
 gtk
+gtkdoc
 gtkjni
 gtkmm
 gtkmm's
@@ -1497,6 +1509,7 @@ handlerInstance
 handlerName
 harddisk
 hasNext
+hashCode
 hashFile
 hexdigest
 hg
@@ -1615,6 +1628,7 @@ libgnomeui
 libgtk
 libjava
 librarypath
+libre
 lineNumber
 lineTo
 linkSharedLibrary
@@ -1936,6 +1950,7 @@ setEnableSearch
 setEventsVisibility
 setExpand
 setExpanded
+setFamily
 setFilename
 setFixedHeightMode
 setFixedWidth
@@ -2055,6 +2070,7 @@ setSourceRgba
 setSourceSurface
 setStick
 setStrikethrough
+setStyle
 setSubmenu
 setTabPos
 setTabPosition
@@ -2078,6 +2094,7 @@ setValue
 setValuePos
 setValuePosition
 setValueString
+setVariant
 setVersion
 setVertical
 setVisibility
@@ -2158,6 +2175,7 @@ testRemovingAfterNoLongerReachableInBothSides
 textview
 textwidth
 th
+that'll
 theming
 throwByName
 timestamp

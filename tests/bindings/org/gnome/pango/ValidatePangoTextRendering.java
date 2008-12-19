@@ -126,6 +126,18 @@ public class ValidatePangoTextRendering extends TestCaseGtk
          */
     }
 
+    public final void testLineCount() {
+        final Surface surface;
+        final Context cr;
+        final Layout layout;
+
+        surface = new ImageSurface(Format.ARGB32, 150, 150);
+        cr = new Context(surface);
+        layout = draw(cr);
+
+        assertEquals(1, layout.getLineCount());
+    }
+
     public static void main(String[] args) {
         final Window w;
         final Image i;

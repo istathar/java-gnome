@@ -65,7 +65,7 @@ public class ExampleDrawingText
                 /*
                  * You can set the default font description.
                  */
-                desc = new FontDescription("Serif, 12");
+                desc = new FontDescription("DejaVu Serif, Book 12");
                 layout.setFontDescription(desc);
 
                 /*

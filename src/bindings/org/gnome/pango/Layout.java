@@ -16,8 +16,7 @@ import org.gnome.glib.Object;
 import org.gnome.gtk.Widget;
 
 /**
- * A Layout represents a paragraph (or paragraphs) of text, together with its
- * attributes.
+ * A Layout represents a paragraph of text, together with its attributes.
  * 
  * <p>
  * Drawing is done with Cairo; you get a Layout by passing the Cairo drawing
@@ -40,6 +39,17 @@ import org.gnome.gtk.Widget;
  *     }
  * });
  * </pre>
+ * 
+ * <p>
+ * Layout can indeed layout multiple paragraphs of text, but usually you need
+ * more control over positioning, so most of the time you have to work a
+ * paragraph at a time. You can, however, avoid creating a new Layout each
+ * time by calling {@link #setText(String) setText()} with the new paragraph
+ * text.
+ * 
+ * <p>
+ * <i>A single paragraph at a time is how PangoLayout was designed and
+ * intended to be used.</i>
  * 
  * @author Vreixo Formoso
  * @author Andrew Cowie
@@ -86,10 +96,6 @@ public class Layout extends Object
      * @since 4.0.10
      */
     public void setText(String text) {
-        /*
-         * we cannot use text.length(), as the length is in bytes, so we use
-         * -1 to make Pango compute it.
-         */
         PangoLayout.setText(this, text, -1);
     }
 
@@ -103,10 +109,6 @@ public class Layout extends Object
      * @since 4.0.10
      */
     public void setMarkup(String markup) {
-        /*
-         * we cannot use text.length(), as the length is in bytes, so we use
-         * -1 to make Pango compute it.
-         */
         PangoLayout.setMarkup(this, markup, -1);
     }
 
@@ -241,7 +243,7 @@ public class Layout extends Object
     }
 
     /**
-     * Gets the Alignment for the Layout.
+     * Get the <var>alignment</var> of the Layout.
      * 
      * @since 4.0.10
      */
@@ -296,9 +298,6 @@ public class Layout extends Object
      * into a multi-line paragraph).
      * 
      * @since 4.0.10
-     */
-    /*
-     * TODO verify!
      */
     public int getLineCount() {
         return PangoLayout.getLineCount(this);
