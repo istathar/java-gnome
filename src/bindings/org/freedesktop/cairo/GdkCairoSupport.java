@@ -12,6 +12,7 @@
 package org.freedesktop.cairo;
 
 import org.gnome.gdk.Drawable;
+import org.gnome.gdk.Pixbuf;
 
 /**
  * Hack to allow us to get at various gdk_cairo_*() functions.
@@ -44,4 +45,17 @@ final class GdkCairoSupport extends Plumbing
     }
 
     private static native final long gdk_cairo_create(long drawable);
+
+    static final void setSourcePixbuf(Context self, Pixbuf pixbuf, double x, double y) {
+        if (pixbuf == null) {
+            throw new IllegalArgumentException("pixbuf can't be null");
+        }
+
+        synchronized (lock) {
+            gdk_cairo_set_source_pixbuf(pointerOf(self), pointerOf(pixbuf), x, y);
+        }
+    }
+
+    private static native final void gdk_cairo_set_source_pixbuf(long context, long pixbuf, double x,
+            double y);
 }

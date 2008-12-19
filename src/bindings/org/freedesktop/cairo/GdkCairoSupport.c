@@ -43,3 +43,44 @@ Java_org_freedesktop_cairo_GdkCairoSupport_gdk_1cairo_1create
 	// and finally
 	return (jlong) result;
 }
+
+
+JNIEXPORT void JNICALL
+Java_org_freedesktop_cairo_GdkCairoSupport_gdk_1cairo_1set_1source_1pixbuf
+(
+        JNIEnv* env,
+        jclass cls,
+        jlong _context,
+        jlong _pixbuf,
+        jdouble _x,
+        jdouble _y
+)
+{
+        cairo_t* context;
+        GdkPixbuf* pixbuf;
+        double x;
+        double y;
+        
+        // convert context
+        context = (cairo_t*) _context;
+        
+        // convert pixbuf
+        pixbuf = (GdkPixbuf*) _pixbuf;
+
+        // convert x
+        x = (double) _x;
+        
+        // convert x
+        y = (double) _y;
+        
+        // call function
+        gdk_cairo_set_source_pixbuf(context, pixbuf, x, y);
+
+        // cleanup parameter context
+
+        // cleanup parameter pixbuf
+
+        // cleanup parameter x
+
+        // cleanup parameter y
+}

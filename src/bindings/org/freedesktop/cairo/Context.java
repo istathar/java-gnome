@@ -12,6 +12,7 @@
 package org.freedesktop.cairo;
 
 import org.gnome.gdk.Drawable;
+import org.gnome.gdk.Pixbuf;
 import org.gnome.pango.Layout;
 import org.gnome.pango.LayoutLine;
 
@@ -484,5 +485,25 @@ public class Context extends Entity
     public void mask(Pattern pattern) {
         CairoContext.mask(this, pattern);
         checkStatus();
+    }
+
+    /**
+     * Given an image already loaded in a Pixbuf, set the current Source to be
+     * that image. For example, to put the image at the bottom right of your
+     * drawing area, you might do something like:
+     * 
+     * <pre>
+     * pixbuf = new Pixbuf(filename);
+     * cr.setSource(pixbuf, pageWidth - pixbuf.getWidth(), pageHeight - pixbuf.getHeight());
+     * cr.paint();
+     * </pre>
+     * 
+     * as <code>paint()</code> paints the current source "everywhere", and so
+     * down goes your image.
+     * 
+     * @since 4.0.10
+     */
+    public void setSource(Pixbuf pixbuf, double x, double y) {
+        GdkCairoSupport.setSourcePixbuf(this, pixbuf, x, y);
     }
 }
