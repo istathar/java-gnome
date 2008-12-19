@@ -15,45 +15,26 @@ package org.freedesktop.cairo;
 import java.io.IOException;
 
 /**
- * A Surface that you can use to write to a <abbr title="Scalable Vector
- * Graphics">SVG</abbr> file. You should use it as in the following example:
- * 
- * <pre>
- * surface = new SVGSurface(filename, 100, 100);
- * cr = new Context(surface);
- * 
- * // do drawing 
- * 
- * // and write to the file
- * surface.finish();
- * </pre>
- * 
- * It is important to call {@link Surface#finish() finish()} at the end, to
- * ensure contents are actually written to the file.
- * 
- * @author Vreixo Formoso
- * @since 4.0.7
+ * @deprecated This class was renamed to match type naming conventions in use
+ *             elsewhere. See {@link SvgSurface} which replaces it.
  */
 public class SVGSurface extends Surface
 {
+    /**
+     * @deprecated
+     */
     protected SVGSurface(long pointer) {
         super(pointer);
     }
 
     /**
-     * Create a new SVGSurface.
-     * 
-     * @param filename
-     *            The file to write to.
-     * @param width
-     *            width of the surface, in points (1 point == 1/72.0 inch)
-     * @param height
-     *            height of the surface, in points (1 point == 1/72.0 inch)
-     * @throws IOException
-     *             If you do not have write permissions on the given file.
+     * @deprecated
      */
     public SVGSurface(String filename, double width, double height) throws IOException {
         super(CairoSurface.createSurfaceSvg(filename, width, height));
+
+        assert false : "Class renamed. Use SvgSurface instead";
+
         Status status = CairoSurface.status(this);
         if (status == Status.WRITE_ERROR) {
             throw new IOException("You cannot write to file " + filename);

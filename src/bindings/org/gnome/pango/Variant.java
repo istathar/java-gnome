@@ -2,6 +2,7 @@
  * Variant.java
  *
  * Copyright (c) 2007 Operational Dynamics Consulting Pty Ltd
+ * Copyright (c) 2008 Vreixo Formoso
  *
  * The code in this file, and the library it is a part of, are made available
  * to you by the authors under the terms of the "GNU General Public Licence,
@@ -13,17 +14,30 @@ package org.gnome.pango;
 
 import org.freedesktop.bindings.Constant;
 
-/*
- * FIXME this is a placeholder stub for what will become the public API for
- * this type. Replace this comment with appropriate javadoc including author
- * and since tags. Note that the class may need to be made abstract, implement
- * interfaces, or even have its parent changed. No API stability guarantees
- * are made about this class until it has been reviewed by a hacker and this
- * comment has been replaced.
+/**
+ * Capitalization variant of the font.
+ * 
+ * <p>
+ * This controls how lower case characters are displayed: either as normal
+ * lowercase characters or as small capital characters.
+ * 
+ * @author Vreixo Formoso
+ * @since 4.0.8
  */
 public final class Variant extends Constant
 {
     private Variant(int ordinal, String nickname) {
         super(ordinal, nickname);
     }
+
+    /**
+     * Normal font.
+     */
+    public final static Variant NORMAL = new Variant(PangoVariant.NORMAL, "NORMAL");
+
+    /**
+     * A font with the lower case characters replaced by smaller variants of
+     * the capital characters.
+     */
+    public final static Variant SMALL_CAPS = new Variant(PangoVariant.SMALL_CAPS, "SMALL_CAPS");
 }

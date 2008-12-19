@@ -32,6 +32,7 @@ import org.gnome.gtk.ValidateFileChoosing;
 import org.gnome.gtk.ValidateIconView;
 import org.gnome.gtk.ValidateOutParameters;
 import org.gnome.gtk.ValidatePacking;
+import org.gnome.gtk.ValidatePrinting;
 import org.gnome.gtk.ValidateProperties;
 import org.gnome.gtk.ValidateResponseType;
 import org.gnome.gtk.ValidateSignalEmission;
@@ -44,6 +45,7 @@ import org.gnome.gtk.ValidateTreeModel;
 import org.gnome.gtk.ValidateTreeModelFilter;
 import org.gnome.gtk.ValidateTreeStore;
 import org.gnome.gtk.ValidateTreeView;
+import org.gnome.pango.ValidatePangoTextRendering;
 
 import com.operationaldynamics.codegen.ValidateThingUsage;
 import com.operationaldynamics.codegen.ValidateUtilityMethods;
@@ -145,6 +147,8 @@ public class UnitTests
         suite.addTestSuite(ValidateTextViewProperties.class);
         suite.addTestSuite(ValidateTextViewBorderWindows.class);
         suite.addTestSuite(ValidateArrow.class);
+        suite.addTestSuite(ValidatePangoTextRendering.class);
+        suite.addTestSuite(ValidatePrinting.class);
 
         return suite;
     }

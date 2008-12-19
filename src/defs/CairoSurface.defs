@@ -81,7 +81,7 @@
   (caller-owns-return #t)
   (return-type "cairo_surface_t*")
   (parameters
-    '("const-char*" "filename")
+    '("const-char*" "filename" (null-ok))
     '("double" "width_in_points")
     '("double" "height_in_points")
   )
