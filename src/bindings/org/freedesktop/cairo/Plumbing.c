@@ -22,7 +22,7 @@
 JNIEXPORT jobject JNICALL
 Java_org_freedesktop_cairo_Plumbing_createPattern
 (
-	JNIEnv *env,
+	JNIEnv* env,
 	jclass cls,
 	jlong _pointer
 )
@@ -46,7 +46,7 @@ Java_org_freedesktop_cairo_Plumbing_createPattern
 		}
 		type = SolidPattern;
 		break;
-		
+
 	case CAIRO_PATTERN_TYPE_SURFACE:
 		if (SurfacePattern == NULL) {
 			SurfacePattern = (*env)->FindClass(env, "org/freedesktop/cairo/SurfacePattern");
@@ -91,21 +91,23 @@ Java_org_freedesktop_cairo_Plumbing_createPattern
 JNIEXPORT jobject JNICALL
 Java_org_freedesktop_cairo_Plumbing_createSurface
 (
-	JNIEnv *env,
+	JNIEnv* env,
 	jclass cls,
 	jlong _pointer
 )
 {
 	cairo_surface_t* surface;
 	static jclass ImageSurface = NULL;
-	static jclass XlibSurface = NULL;	
+	static jclass XlibSurface = NULL;
+	static jclass PdfSurface = NULL;
+	static jclass SvgSurface = NULL;
 	jclass type;
 	jmethodID constructor;
 	jobject proxy;
 	
 	// convert pointer
 	surface = (cairo_surface_t*) _pointer;
-	
+
 	switch (cairo_surface_get_type(surface)) {
 	case CAIRO_SURFACE_TYPE_IMAGE:
 		if (ImageSurface == NULL) {
@@ -121,17 +123,35 @@ Java_org_freedesktop_cairo_Plumbing_createSurface
 		type = XlibSurface;
 		break;
 
+        case CAIRO_SURFACE_TYPE_PDF:
+		if (PdfSurface == NULL) {
+			PdfSurface = (*env)->FindClass(env, "org/freedesktop/cairo/PdfSurface");
+		}
+		type = PdfSurface;
+		break;
+
+        case CAIRO_SURFACE_TYPE_SVG:
+		if (SvgSurface == NULL) {
+			SvgSurface = (*env)->FindClass(env, "org/freedesktop/cairo/SvgSurface");
+		}
+		type = SvgSurface;
+		break;
+ 
 	default:
-		g_critical("Unimplemented surface type");
+		g_error("Unimplemented surface type %d", cairo_surface_get_type(surface));
 		return NULL;
 	}
-	
+	if (type == NULL) {
+		g_error("FindClass() failed");
+		return NULL;
+	}
+
 	constructor = (*env)->GetMethodID(env, type, "<init>", "(J)V");
 	if (constructor == NULL) {
 		g_error("Constructor methodID not found");
 		return NULL;
 	}
-	
+
 	proxy = (*env)->NewObject(env, type, constructor, _pointer);
 	return proxy;
 }

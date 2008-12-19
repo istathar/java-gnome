@@ -501,6 +501,9 @@ public class Context extends Entity
      * as <code>paint()</code> paints the current source "everywhere", and so
      * down goes your image.
      * 
+     * If you are drawing the same image data to screen frequently, consider
+     * caching the image in video memory. See {@link XlibSurface}.
+     * 
      * @since 4.0.10
      */
     public void setSource(Pixbuf pixbuf, double x, double y) {
