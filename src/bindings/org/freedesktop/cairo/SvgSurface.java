@@ -1,5 +1,5 @@
 /*
- * SVGSurface.java
+ * SvgSurface.java
  *
  * Copyright (c) 2007-2008 Operational Dynamics Consulting Pty Ltd
  * Copyright (c) 2008      Vreixo Formoso

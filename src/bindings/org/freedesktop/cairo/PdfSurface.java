@@ -1,5 +1,5 @@
 /*
- * PDFSurface.java
+ * PdfSurface.java
  *
  * Copyright (c) 2008 Operational Dynamics Consulting Pty Ltd
  * 

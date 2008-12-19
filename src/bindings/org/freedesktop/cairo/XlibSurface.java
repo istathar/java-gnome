@@ -1,5 +1,5 @@
 /*
- * ImageSurface.java
+ * XlibSurface.java
  *
  * Copyright (c) 2008 Operational Dynamics Consulting Pty Ltd
  * 
