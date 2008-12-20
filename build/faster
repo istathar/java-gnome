@@ -519,7 +519,6 @@ def linkSharedLibrary():
 
 	cmd = config['LINK'] + " "
 	cmd += os.getenv("LDFLAGS") + " "
-	cmd += "-shared "
 	cmd += "-o " + so + " "
 	cmd += " ".join(list) + " "
 	cmd += config['GNOME_LDFLAGS'] + " "
