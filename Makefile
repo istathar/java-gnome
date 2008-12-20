@@ -38,20 +38,22 @@ install: build-java install-dirs install-java
 
 install-dirs: $(DESTDIR)$(PREFIX)/.java-gnome-install-dirs
 $(DESTDIR)$(PREFIX)/.java-gnome-install-dirs:
-	@test -d $(DESTDIR)$(PREFIX)/share/java || echo -e "MKDIR\tinstallation directories"
+	@test -d $(DESTDIR)$(JARDIR) || echo -e "MKDIR\tinstallation directories"
 	-mkdir -p $(DESTDIR)$(PREFIX)
 	-touch $@ 2>/dev/null
 	test -w $@ || ( echo -e "\nYou don't seem to have write permissions to $(DESDIR)$(PREFIX)\nPerhaps you need to be root?\n" && exit 7 )
-	mkdir -p $(DESTDIR)$(PREFIX)/share/java
+	mkdir -p $(DESTDIR)$(JARDIR)
 	mkdir -p $(DESTDIR)$(LIBDIR)
 
 install-java: build-java \
-	$(DESTDIR)$(PREFIX)/share/java/gtk-$(APIVERSION).jar \
+	$(DESTDIR)$(JARDIR)/gtk-$(APIVERSION).jar \
 	$(DESTDIR)$(LIBDIR)/libgtkjni-$(VERSION).so
 
-$(DESTDIR)$(PREFIX)/share/java/gtk-$(APIVERSION).jar: tmp/gtk-$(APIVERSION).jar
+$(DESTDIR)$(JARDIR)/gtk-$(APIVERSION).jar: tmp/gtk-$(APIVERSION).jar
 	@echo -e "INSTALL\t$@"
 	cp -f $< $@
+	@echo -e "JAR\t$@"
+	jar uf $@ .libdir
 	@echo -e "SYMLINK\t$(@D)/gtk.jar -> gtk-$(APIVERSION).jar"
 	cd $(@D) && rm -f gtk.jar && ln -s gtk-$(APIVERSION).jar gtk.jar
 	
@@ -113,7 +115,7 @@ clean:
 
 distclean: clean
 	@echo -e "RM\tbuild configuration information"
-	-rm -f .config .config.tmp
+	-rm -f .config .config.tmp .libdir
 	@echo -e "RM\tgenerated documentation"
 	-rm -rf doc/api/*
 	-rm -f java-gnome-*.tar.bz2

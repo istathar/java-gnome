@@ -112,14 +112,17 @@ sub check_system_library(\@$$@) {
 	my $str = "";
 	my $tries = "";
 
-	$found = system("pkg-config --exists $pkgconfig");
+	$found = system("pkg-config --exists '$pkgconfig'");
 
 	if ($found) {
+		my $msg;
 
-		$str = "In order to build java-gnome, you will need the GNOME\n";
+		$msg = `pkg-config --modversion --errors-to-stdout '$pkgconfig'`;
+		$str .= "$msg\n" if ($msg =~ /^Requested /);
+		$str .= "In order to build java-gnome, you will need the GNOME\n";
 		$str .= "development libraries. Depending on what you have installed,\n";
 		$str .= "this could be a considerable set of packages, but if you\n";
-		$str .= "want to be a GNOME hacker, that's the way it is].\n\n";
+		$str .= "want to be a GNOME hacker, that's the way it is.\n\n";
 
 		$str .= "On a ".ucfirst($os)." system, you should be able to satisfy this\n";
 		$str .= "requirement by doing:\n\n";
@@ -503,6 +506,7 @@ HERE
 
 my $prefix;
 my $libdir;
+my $jardir;
 my $compiler;
 my $runtime;
 my $jdk_home;
@@ -538,6 +542,9 @@ HERE
 	} elsif (($key =~ /^--libdir$/) ||
 		 ($key =~ /^libdir$/)) {
 		$libdir="$value";
+	} elsif (($key =~ /^--jardir$/) ||
+		 ($key =~ /^jardir$/)) {
+		$jardir="$value";
 	} elsif ($key =~ /^runtime/) {
 		$runtime="$value";
 	} elsif ($key =~ /^compiler/) {
@@ -735,13 +742,13 @@ output "\nCheck for required system libraries:\n";
 
 if ($os eq "gentoo") {
 	check_system_library(@gnomedev_libs,
-			"gtk+-2.0 pango atk gdk-2.0 libglade-2.0 gtk+-unix-print-2.0",
+			"gtk+-2.0 >= 2.12.11 pango atk gdk-2.0 libglade-2.0 >= 2.6.3 gtk+-unix-print-2.0 cairo-svg >= 1.6.4",
 			"GNOME",
 			"gnome");
 
 } elsif ($os eq "debian") {
 	check_system_library(@gnomedev_libs,
-			"gtk+-2.0",
+			"gtk+-2.0 >= 2.12.9",
 			"GTK+",
 			"libgtk2.0-dev");
 
@@ -772,7 +779,7 @@ if ($os eq "gentoo") {
 
 } elsif ($os eq "suse") {
 	check_system_library(@gnomedev_libs,
-			"gtk+-2.0 pango atk gdk-2.0 gtk+-unix-print-2.0",
+			"gtk+-2.0 >= 2.12.0 pango atk gdk-2.0 gtk+-unix-print-2.0",
 			"GNOME development libraries",
 			"libgnome-devel");
 	check_system_library(@gnomedev_libs,
@@ -782,7 +789,7 @@ if ($os eq "gentoo") {
 
 } elsif ($os eq "mandriva") {
 	check_system_library(@gnomedev_libs,
-			"gtk+-2.0 pango atk gdk-2.0 gtk+-unix-print-2.0",
+			"gtk+-2.0 >= 2.12.0 pango atk gdk-2.0 gtk+-unix-print-2.0",
 			"GTK development libraries",
 			"libgtk+2.0_0-devel");
 	check_system_library(@gnomedev_libs,
@@ -840,7 +847,8 @@ if ($os eq "gentoo") {
 	}
 
 	# check ecj, the standalone Eclipse compiler.
-	check_compiler($ecj, "Eclipse ecj", "/usr/bin/ecj-3.3", "-g -preserveAllLocals -nowarn -source 1.5 -target 1.5");
+	check_compiler($ecj, "Eclipse ecj", "/usr/bin/ecj-3.4", "-g -preserveAllLocals -nowarn -source 1.5 -target 1.5");
+	check_compiler($ecj, "Eclipse ecj", "/usr/bin/ecj-3.3", "-g -preserveAllLocals -nowarn -source 1.5 -target 1.5") unless $ecj;
 	
 	# check javac (the one specified by Gentoo's java-config tool)
 	# The $vendor business is just some precision prettiness for the
@@ -1749,6 +1757,8 @@ output "Select runtime:";
 # are better! (Ok, and, frankly, the compliance is obviously better
 # if its a real Java VM). The Free ones are getting there...
 
+$java="$java -Djava.awt.headless=true";
+
 if ($runtime) {
 	# if overridden, check override...
 	if ($runtime eq "java")  {
@@ -1838,8 +1848,15 @@ if ($cc =~ /gcc/) {
 	if ( -x $ccache) {
 		print CONFIG "CCACHE=$ccache\n";
 	}
-	
-	print CONFIG "CC=$cc -g -Wall -fPIC $jni_include -Wno-int-to-pointer-cast -Wno-pointer-to-int-cast -DGTK_DISABLE_DEPRECATED -DGDK_DISABLE_DEPRECATED -DGDK_PIXBUF_DISABLE_DEPRECATED -DG_DISABLE_DEPRECATED -Werror-implicit-function-declaration -Wfatal-errors\n";
+
+	my $deprecations;
+	if ( -d ".bzr" ) {
+		$deprecations = "-DGTK_DISABLE_DEPRECATED -DGDK_DISABLE_DEPRECATED -DGDK_PIXBUF_DISABLE_DEPRECATED -DG_DISABLE_DEPRECATED";
+	} else {
+		$deprecations = "";
+	}
+
+	print CONFIG "CC=$cc -g -Wall -fPIC $jni_include -Wno-int-to-pointer-cast -Wno-pointer-to-int-cast $deprecations -Werror-implicit-function-declaration -Wfatal-errors\n";
 	print CONFIG "CC_CMD=GCC      \n";
 	print CONFIG "LINK=$cc -g -shared -Wall -fPIC\n";
 	print CONFIG "LINK_CMD=LINK     \n";
@@ -1871,6 +1888,10 @@ if (!$libdir) {
 	$libdir = "$prefix/lib";
 }
 print CONFIG "LIBDIR=$libdir\n";
+if (!$jardir) {
+	$jardir = "$prefix/share/java";
+}
+print CONFIG "JARDIR=$jardir\n";
 
 # --------------------------------------------------------------------
 # Get version constant
@@ -1879,13 +1900,13 @@ print CONFIG "LIBDIR=$libdir\n";
 my $apiversion;
 my $version;
 
-open SOURCE, "src/bindings/org/gnome/gtk/Version.java";
+open SOURCE, "src/bindings/org/freedesktop/bindings/Version.java";
 while (<SOURCE>) {
 	chomp;
 	if (/.* APIVERSION = \"([\d\.]+)\";/) {
 		$apiversion = $1;
 	}
-	if (/.* VERSION = \"([\d\.]+)\";/) {
+	if (/.* VERSION = \"([\d\.\-rc]+)\";/) {
 		$version = $1;
 	}
 }
@@ -1912,10 +1933,28 @@ print CONFIG "VERSION=$version\n";
 # Done! Create .config file
 # --------------------------------------------------------------------
 
-output "Write .config file:";
+output "\n";
+output "Output:\n";
+output " - configuration data";
 close CONFIG;
 system "mv .config.tmp .config";
 
 output "ok\n";
-output "\n";
 
+
+# --------------------------------------------------------------------
+# Output text file with library location
+# --------------------------------------------------------------------
+
+output " - native library location";
+
+open LIBRARY, ">.libdir";
+
+print LIBRARY <<HERE ;
+$libdir
+HERE
+
+close LIBRARY;
+
+output "ok\n";
+output "\n";

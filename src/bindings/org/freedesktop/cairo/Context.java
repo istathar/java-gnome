@@ -12,6 +12,9 @@
 package org.freedesktop.cairo;
 
 import org.gnome.gdk.Drawable;
+import org.gnome.gdk.Pixbuf;
+import org.gnome.pango.Layout;
+import org.gnome.pango.LayoutLine;
 
 /**
  * Carry out drawing operations with the Cairo Graphics library. The current
@@ -143,7 +146,7 @@ public class Context extends Entity
      * the wrong package. We'll leave that be.
      */
     public Context(Drawable drawable) {
-        super(CairoContextOverride.createContextFromDrawable(drawable));
+        super(GdkCairoSupport.createContextFromDrawable(drawable));
         checkStatus();
     }
 
@@ -228,6 +231,21 @@ public class Context extends Entity
     }
 
     /**
+     * Draw the current path as a line, preserving the path such that it can
+     * be used used again. If you have drawn a shape and want to
+     * <code>fill()</code> it, you are better off calling
+     * {@link #fillPreserve() fillPreserve()} and, changing source and then
+     * calling {@link #stroke() stroke()}; otherwise your fill will blot out
+     * the inside of your stroke.
+     * 
+     * @since 4.0.10
+     */
+    public void strokePreserve() {
+        CairoContext.strokePreserve(this);
+        checkStatus();
+    }
+
+    /**
      * Get the current source Pattern for this Context.
      * 
      * @since 4.0.7
@@ -238,7 +256,11 @@ public class Context extends Entity
         result = CairoContext.getSource(this);
         checkStatus();
 
-        return result;
+        /*
+         * FIXME If result was already proxied, this adds an extra ref and
+         * will cause a memory leak
+         */
+        return CairoPattern.reference(result);
     }
 
     /**
@@ -341,8 +363,8 @@ public class Context extends Entity
      * direction of the positive <i>x</i> axis. An angle of
      * <code>&pi;/2</code> radians (90&deg;) is in the direction of the
      * positive <i>y</i> axis. Angles increase in the direction from the
-     * positive <i>x</i> axis toward the positive </i> axis, increasing in a
-     * clockwise direction.
+     * positive <i>x</i> axis toward the positive <i>y</i> axis, increasing in
+     * a clockwise direction.
      * 
      * <p>
      * This function gives the arc in the direction of increasing angles; see
@@ -388,8 +410,57 @@ public class Context extends Entity
         checkStatus();
     }
 
+    /**
+     * Fill the current path, preserving the path such that it can be used
+     * used again. This is useful if you have drawn a shape and want to
+     * {@link #stroke() stroke()} it with a different colour as an outline.
+     * 
+     * @since 4.0.7
+     */
     public void fillPreserve() {
         CairoContext.fillPreserve(this);
+        checkStatus();
+    }
+
+    /**
+     * Draw a paragraph of text. The top-left corner of the Layout's rendered
+     * extents will be drawn at the current Context point.
+     * 
+     * <p>
+     * The text to draw and its format is specified in a Pango {@link Layout},
+     * previously constructed with this Context.
+     * 
+     * @since 4.0.10
+     */
+    public void showLayout(Layout layout) {
+        CairoContext.showLayout(this, layout);
+        checkStatus();
+    }
+
+    /**
+     * Draw a single line of text as extracted from a Layout.
+     * 
+     * <p>
+     * Unlike the <code>showLayout()</code> taking a full Layout, this method
+     * draws the base line of the extent (its Rectangle's <code>x</code>,
+     * <code>y</code> origin) at the current Context point. See LayoutLine's
+     * {@link LayoutLine#getExtentsLogical() getExtentsLogical()} method for
+     * details.
+     * 
+     * @since 4.0.10
+     */
+    public void showLayout(LayoutLine line) {
+        CairoContext.showLayoutLine(this, line);
+        checkStatus();
+    }
+
+    /*
+     * This really doesn't belong here, but we don't have anywhere else for it
+     * right now. showLayout() above is lovely, and this is entirely parallel
+     * and complementary to it. So it'll do for now.
+     */
+    public void updateLayout(Layout layout) {
+        CairoContext.updateLayout(this, layout);
         checkStatus();
     }
 
@@ -414,5 +485,28 @@ public class Context extends Entity
     public void mask(Pattern pattern) {
         CairoContext.mask(this, pattern);
         checkStatus();
+    }
+
+    /**
+     * Given an image already loaded in a Pixbuf, set the current Source to be
+     * that image. For example, to put the image at the bottom right of your
+     * drawing area, you might do something like:
+     * 
+     * <pre>
+     * pixbuf = new Pixbuf(filename);
+     * cr.setSource(pixbuf, pageWidth - pixbuf.getWidth(), pageHeight - pixbuf.getHeight());
+     * cr.paint();
+     * </pre>
+     * 
+     * as <code>paint()</code> paints the current source "everywhere", and so
+     * down goes your image.
+     * 
+     * If you are drawing the same image data to screen frequently, consider
+     * caching the image in video memory. See {@link XlibSurface}.
+     * 
+     * @since 4.0.10
+     */
+    public void setSource(Pixbuf pixbuf, double x, double y) {
+        GdkCairoSupport.setSourcePixbuf(this, pixbuf, x, y);
     }
 }

@@ -30,6 +30,7 @@ package org.gnome.gtk;
  * controlling the size allocations via {@link SizeGroup}s.
  * 
  * @author Andrew Cowie
+ * @author Stefan Prelle
  * @since 4.0.6
  */
 /*
@@ -78,10 +79,43 @@ public class Table extends Container
         GtkTable.attachDefaults(this, child, leftAttach, rightAttach, topAttach, bottomAttach);
     }
 
-    /*
-     * TODO document and make public.
+    /**
+     * Like {@link #attach(Widget, int, int, int, int) attach()} but has finer
+     * layout control for the Widget being added, mostly achieved using the
+     * {@link AttachOptions}.
+     * 
+     * <p>
+     * To define that a Widget shall grow on the x-axis, but keep the size on
+     * the y-axis you would do:
+     * 
+     * <pre>
+     * table.attach(child, 3, 4, 1, 2, AttachOptions.EXPAND, AttachOptions.SHRINK, 0, 0);
+     * </pre>
+     * 
+     * <p>
+     * A common problem is that you have Widgets of different sizes (e.g.
+     * labels in a column). If a widget is smaller than the required space
+     * additional padding is added to the sides, so finally the smaller Widget
+     * is centered compared to the larger Widget. To avoid this you a) need to
+     * encapsulate the Widget in an {@link Alignment} Container and b) need to
+     * attach it here using <code>AttachOptions.FILL</code>, so that instead
+     * of additional space being added to the sides, the
+     * <code>Alignment</code> Container may decide how to distribute it.
+     * 
+     * <p>
+     * The following example left-aligns the child Widget within its cell,
+     * while it is vertically centered:
+     * 
+     * <pre>
+     * final Alignment aligned;
+     * 
+     * aligned = new Alignment(Alignment.LEFT, Alignment.CENTER, 1.0f, 1.0f, child);
+     * table.attach(aligned, 3, 4, 1, 2, AttachOptions.FILL, AttachOptions.FILL, 0, 0);
+     * </pre>
+     * 
+     * @since 4.0.9
      */
-    void attach(Widget child, int leftAttach, int rightAttach, int topAttach, int bottomAttach,
+    public void attach(Widget child, int leftAttach, int rightAttach, int topAttach, int bottomAttach,
             AttachOptions xoptions, AttachOptions yoptions, int xpadding, int ypadding) {
         GtkTable.attach(this, child, leftAttach, rightAttach, topAttach, bottomAttach, xoptions,
                 yoptions, xpadding, ypadding);

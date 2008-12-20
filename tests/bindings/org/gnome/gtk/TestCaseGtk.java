@@ -22,7 +22,7 @@ import org.gnome.gdk.Event;
  * @author Andrew Cowie
  * @since 4.0.2
  */
-public class TestCaseGtk extends TestCase
+public abstract class TestCaseGtk extends TestCase
 {
     private static boolean initialized = false;
 
@@ -39,13 +39,21 @@ public class TestCaseGtk extends TestCase
     /**
      * If you try to run a single Test Case (rather than using the top level
      * UnitTests launcher), then you need to initialize Gtk (and GLib along
-     * with it). This will take care of that. If you override this, you'd
-     * probably better call <code>super.setUp()</code>.
+     * with it). This will take care of that as all JUnit test cases are
+     * instantiated once for each text fixture.
      */
-    public void setUp() {
+    protected TestCaseGtk() {
         if (!initialized) {
             init(null);
         }
+        System.out.flush();
+    }
+
+    /*
+     * If you override this and you are debugging, you'd probably better call
+     * <code>super.setUp()</code>.
+     */
+    public void setUp() {
         System.out.flush();
     }
 
@@ -82,14 +90,14 @@ public class TestCaseGtk extends TestCase
             } catch (InterruptedException e) {
                 // 
             }
-            Gtk.mainIterationDo(false);
+            GtkMain.mainIterationDo(false);
             try {
                 Thread.yield();
                 Thread.sleep(25);
             } catch (InterruptedException e) {
                 // 
             }
-        } while (Gtk.eventsPending());
+        } while (GtkMain.eventsPending());
     }
 
     /**

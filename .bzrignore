@@ -1,4 +1,5 @@
 .config
+.libdir
 tmp
 build
 tests/exploration
@@ -7,3 +8,5 @@ java-gnome-*.tar.bz2
 profile
 generated
 tmp/.hashes
+doc/examples/**/*.html
+doc/examples/**/*.png

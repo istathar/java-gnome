@@ -44,7 +44,7 @@ public class ValidateComboBox extends TestCaseGtk
         assertEquals("Three", model.getValue(row, column));
     }
 
-    public void testComboTextSubclass() {
+    public final void testComboTextSubclass() {
         final TextComboBox combo;
         final TreeModel model;
 

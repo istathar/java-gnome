@@ -25,6 +25,28 @@ package org.freedesktop.cairo;
  * surface.writeToPNG(filename);
  * </pre>
  * 
+ * <p>
+ * While ImageSurfaces are good for writing images out to disk, they are not
+ * optimized per se to be efficient as a back end, nor are they accelerated by
+ * your graphics card. So they are not an appropriate intermediate in drawing
+ * operations; don't be calling <code>setSourceSurface()</code> on one of
+ * these.
+ * 
+ * <p>
+ * More importantly, ImageSurface is <b>not</b> an image loader! Remember that
+ * Surfaces are what Cairo draws <i>to</i>. If what you are doing is building
+ * up images for display to the screen, then load your images into
+ * {@link XlibSurface}s and use those as sources.
+ * 
+ * <p>
+ * <i>Deep in the guts, Cairo's ImageSurface is like GDK's Pixbuf, a format
+ * that C programmers can directly address directly in memory via pointers.
+ * That's useful for very low level programming, but not needed for
+ * application development. If you're drawing, use Cairo's higher level
+ * drawing primitives; if you need to introspect an image, then load it with
+ * Pixbuf and use Pixbuf's</i> {@link org.gnome.gdk.Pixbuf#getPixels()
+ * getPixels()} <i>to peek around in its data.</i>
+ * 
  * @author Andrew Cowie
  * @since 4.0.7
  */
@@ -34,6 +56,11 @@ public class ImageSurface extends Surface
         super(pointer);
     }
 
+    /**
+     * Construct an ImageSurface of the specified visual depth and size.
+     * 
+     * @since 4.0.7
+     */
     public ImageSurface(Format format, int width, int height) {
         super(CairoSurface.createSurface(format, width, height));
         checkStatus();

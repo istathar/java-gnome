@@ -11,6 +11,7 @@
 package org.gnome.gtk;
 
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
 
 import org.gnome.gdk.Pixbuf;
 import org.gnome.pango.Scale;
@@ -165,6 +166,29 @@ public class ValidateTextBuffer extends TestCaseGtk
         pointer = buf.getIterEnd();
         buf.insert(pointer, "Emergency Broadcast System");
         assertEquals(buf.getText(), "This is a test of the " + "Emergency Broadcast System");
+    }
+
+    public final void testTextMarkToTextIterConversion() {
+        final TextBuffer buf;
+        TextIter start, end;
+        TextMark selectionBound, insert;
+
+        buf = new TextBuffer(new TextTagTable());
+
+        buf.setText("Hello World");
+        start = buf.getIterStart();
+
+        start.setOffset(5);
+        end = start.copy();
+        end.setOffset(8);
+
+        buf.selectRange(start, end);
+
+        selectionBound = buf.getSelectionBound();
+        insert = buf.getInsert();
+
+        assertEquals(5, selectionBound.getIter().getOffset());
+        assertEquals(8, insert.getIter().getOffset());
     }
 
     public void testIterFromOffset() {
@@ -553,5 +577,68 @@ public class ValidateTextBuffer extends TestCaseGtk
         } catch (IllegalArgumentException iae) {
             // good
         }
+    }
+
+    public final void testIterationOverCharacters() {
+        final TextBuffer buffer;
+        TextIter pointer;
+        int i;
+        String str;
+
+        /*
+         * Put in 5 characters
+         */
+
+        buffer = new TextBuffer();
+        pointer = buffer.getIterStart();
+        buffer.insert(pointer, "Hello");
+
+        /*
+         * Iterate over it. Should reach a count of 5.
+         */
+
+        pointer = buffer.getIterStart();
+        i = 0;
+        str = "";
+
+        do {
+            i++;
+            str = str + pointer.getChar();
+        } while (pointer.forwardChar());
+
+        assertEquals(5, i);
+        assertEquals("Hello", str);
+    }
+
+    public final void testInsertWithMultipleTags() {
+        final TextBuffer buffer;
+        final TextTag italic, bold, mono;
+        TextIter start, end;
+
+        buffer = new TextBuffer();
+
+        italic = new TextTag();
+        bold = new TextTag();
+        mono = new TextTag();
+
+        start = buffer.getIterStart();
+
+        buffer.insert(start, "Hello", new TextTag[] {
+                bold, italic
+        });
+
+        start = buffer.getIterStart();
+        assertEquals(2, start.getTags().length);
+
+        ArrayList<TextTag> list;
+        list = new ArrayList<TextTag>(3);
+        list.add(italic);
+        list.add(bold);
+        list.add(mono);
+
+        buffer.insert(start, "World", list);
+
+        start = buffer.getIterStart();
+        assertEquals(3, start.getTags().length);
     }
 }

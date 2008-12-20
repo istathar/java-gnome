@@ -15,7 +15,8 @@ package org.gnome.gtk;
  * A tabbed notebook container. These are common sights in web browsers and
  * text editors and are the recommended way to create user interfaces that
  * must manage multiple documents if creating a completely independent window
- * per document (the preferred GNOME approach) is inappropriate.
+ * per document (the preferred GNOME approach) is inappropriate. <img
+ * src="Notebook.png" class="snapshot">
  * 
  * <p>
  * Note that Notebooks are a poor way to organize pages of application
@@ -26,6 +27,7 @@ package org.gnome.gtk;
  * 
  * @author Sebastian Mancke
  * @author Andrew Cowie
+ * @author Stefan Prelle
  * @since 4.0.3
  */
 /*
@@ -113,6 +115,15 @@ public class Notebook extends Container
     }
 
     /**
+     * Returns the number of the active page
+     * 
+     * @since 4.0.9
+     */
+    public int getCurrentPage() {
+        return GtkNotebook.getCurrentPage(this);
+    }
+
+    /**
      * The handler interface for notification of changes in the current page.
      * 
      * @since 4.0.3
@@ -155,5 +166,69 @@ public class Notebook extends Container
      */
     public void setTabPosition(PositionType position) {
         GtkNotebook.setTabPos(this, position);
+    }
+
+    /**
+     * Returns the number of pages in the Notebook.
+     * 
+     * @since 4.0.9
+     */
+    public int getPageCount() {
+        return GtkNotebook.getNPages(this);
+    }
+
+    /**
+     * Returns the page number of the given Widget.
+     * 
+     * @return The page number or <code>-1</code> if <code>child</code> is not
+     *         in the Notebook.
+     * 
+     * @since 4.0.9
+     */
+    public int getPageNumber(Widget child) {
+        return GtkNotebook.pageNum(this, child);
+    }
+
+    /**
+     * Get the Widget which is the page at a given index. Page numbers start
+     * at <code>0</code>.
+     * 
+     * @since 4.0.9
+     */
+    public Widget getPage(int pageNum) {
+        return GtkNotebook.getNthPage(this, pageNum);
+    }
+
+    /**
+     * Should the tabs of the Notebook actually be there?
+     * 
+     * <p>
+     * The default is <code>true</code>, as you'd expect.
+     * 
+     * <p>
+     * Turning this off might be useful if you're trying to create the effect
+     * of toggling user interface from one set of controls to another in the
+     * same space on screen. That might seem nifty, but keep in mind that
+     * you're going to have to come up with a convincingly clear UI for your
+     * users to be able to change modes, else they won't have any clue that
+     * there <i>are</i> any other states to change to.
+     * 
+     * @since 4.0.10
+     */
+    public void setShowTabs(boolean setting) {
+        GtkNotebook.setShowTabs(this, setting);
+    }
+
+    /**
+     * Do you want a border drawn around the Notebook?
+     * 
+     * <p>
+     * The border decoration drawn around the Notebook pages only optional if
+     * you've turned tabs off with {@link #setShowTabs(boolean) setShowTabs()}.
+     * 
+     * @since 4.0.10
+     */
+    public void setShowBorder(boolean setting) {
+        GtkNotebook.setShowBorder(this, setting);
     }
 }

@@ -228,4 +228,71 @@ public class TreeModelFilter extends TreeModel implements TreeDragSource
     public void refilter() {
         GtkTreeModelFilter.refilter(this);
     }
+
+    /**
+     * Convert a TreeIter valid in the underying TreeModel to one usable with
+     * this TreeModelFilter.
+     * 
+     * @return <code>null</code> if the row is not (currently) present in the
+     *         TreeModelFilter.
+     * 
+     * @since 4.0.9
+     */
+    public TreeIter convertIterBaseToFilter(TreeIter row) {
+        final TreeIter result;
+        final boolean valid;
+
+        result = new TreeIter(this);
+
+        valid = GtkTreeModelFilter.convertChildIterToIter(this, result, row);
+
+        if (valid) {
+            return result;
+        } else {
+            return null;
+        }
+    }
+
+    /**
+     * Convert a TreeIter valid in this TreeModelFilter into one usable with
+     * the underying TreeModel.
+     * 
+     * @since 4.0.9
+     */
+    public TreeIter convertIterFilterToBase(TreeIter row) {
+        final TreeModel base;
+        final TreeIter result;
+
+        base = GtkTreeModelFilter.getModel(this);
+        result = new TreeIter(base);
+
+        GtkTreeModelFilter.convertIterToChildIter(this, result, row);
+
+        return result;
+    }
+
+    /**
+     * Convert a TreePath representing a row in the underying TreeModel into
+     * the corresponding locator in this TreeModelFilter.
+     * 
+     * <p>
+     * If the row represented by <code>path</code> isn't (currently) present
+     * in the narrowed representation provided by this TreeModelFilter, then
+     * <code>null</code> is returned.
+     * 
+     * @since 4.0.9
+     */
+    public TreePath convertPathBaseToFilter(TreePath path) {
+        return GtkTreeModelFilter.convertChildPathToPath(this, path);
+    }
+
+    /**
+     * Convert a TreePath representing a row in this TreeModelFilter into one
+     * that points to the corresponding row in the underying TreeModel.
+     * 
+     * @since 4.0.9
+     */
+    public TreePath convertPathFilterToBase(TreePath path) {
+        return GtkTreeModelFilter.convertPathToChildPath(this, path);
+    }
 }

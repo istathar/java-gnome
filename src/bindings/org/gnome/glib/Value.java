@@ -13,7 +13,7 @@ package org.gnome.glib;
 
 import org.freedesktop.bindings.Constant;
 import org.freedesktop.bindings.Debug;
-import org.freedesktop.bindings.Proxy;
+import org.freedesktop.bindings.Pointer;
 import org.gnome.gdk.Pixbuf;
 
 /**
@@ -50,7 +50,7 @@ import org.gnome.gdk.Pixbuf;
  * @author Andrew Cowie
  * @since 4.0.0
  */
-public class Value extends Proxy
+public class Value extends Pointer
 {
     /*
      * The second argument is a hack to create a different overload of
@@ -62,19 +62,6 @@ public class Value extends Proxy
             System.err.println("Value.<init>(long)\t\t" + this.toString());
             System.err.flush();
         }
-    }
-
-    /**
-     * Call the release() method to free the GValue, then carry on to
-     * {@link org.freedesktop.bindings.Proxy#finalize() Proxy's finalize()}.
-     */
-    /*
-     * This is a placeholder to remind us of the cleanup actions that will be
-     * necessary, irrespective of the finalizer technique used.
-     */
-    protected void finalize() {
-        release();
-        super.finalize();
     }
 
     /**

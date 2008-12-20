@@ -12,7 +12,6 @@
  */
 package org.gnome.gdk;
 
-import org.freedesktop.bindings.Proxy;
 import org.gnome.glib.Boxed;
 
 /**
@@ -44,7 +43,7 @@ public abstract class Plumbing extends org.gnome.glib.Plumbing
      * discriminator.
      */
     protected static Boxed boxedFor(Class<? extends Boxed> type, long pointer) {
-        Proxy proxy;
+        Boxed proxy;
 
         if (pointer == 0L) {
             return null;

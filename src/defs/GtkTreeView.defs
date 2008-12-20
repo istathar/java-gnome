@@ -380,10 +380,10 @@
   (parameters
     '("gint" "x")
     '("gint" "y")
-    '("GtkTreePath**" "path")
-    '("GtkTreeViewColumn**" "column")
-    '("gint*" "cell_x")
-    '("gint*" "cell_y")
+    '("GtkTreePath**" "path" (null-ok))
+    '("GtkTreeViewColumn**" "column" (null-ok))
+    '("gint*" "cell_x" (null-ok))
+    '("gint*" "cell_y" (null-ok))
   )
 )
 

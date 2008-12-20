@@ -2,7 +2,7 @@
  * gnome_screenshot.h
  *
  * Copyright (C) 2001-2006 Jonathan Blandford
- * Copyright (c) 2007-     Operational Dynamics Consulting Pty Ltd
+ * Copyright (c) 2007-2008 Operational Dynamics Consulting Pty Ltd
  * 
  * and licenced under the terms of the "GNU General Public Licence, version
  * 2" only. This code is presented in java-gnome as wrapped in the class
@@ -25,9 +25,8 @@
 
 extern gboolean screenshot_grab_lock(void);
 extern void screenshot_release_lock(void);
-extern gchar* screenshot_get_window_title(Window);
-extern Window screenshot_find_current_window (gboolean);
-extern GdkPixbuf* screenshot_get_pixbuf(Window);
+extern GdkWindow* screenshot_find_current_window(void);
+extern GdkPixbuf* screenshot_get_pixbuf(GdkWindow*, gboolean, gboolean);
 
 extern void screenshot_add_shadow(GdkPixbuf**);
 extern void screenshot_add_border(GdkPixbuf**);

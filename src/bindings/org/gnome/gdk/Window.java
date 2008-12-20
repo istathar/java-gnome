@@ -173,4 +173,16 @@ public class Window extends Drawable
     public void invalidate(Rectangle area, boolean recursive) {
         GdkWindow.invalidateRect(this, area, recursive);
     }
+
+    /**
+     * Has this underlying resouce been mapped? This will return
+     * <code>true</code> if <code>show()</code> has been called on the Widget
+     * that draws on this [org.gnome.gdk] Window <i>and on all its parents, if
+     * this Window happens to be a sub-Window.</i>
+     * 
+     * @since 4.0.10
+     */
+    public boolean isViewable() {
+        return GdkWindow.isViewable(this);
+    }
 }
