@@ -405,7 +405,7 @@ public class Context extends Entity
      * <code>-3/4&pi</code> radians:
      * 
      * <pre>
-     * cr.arcNegative(50.0, 50.0, 30.0, 0.0, -Math.PI 3.0 / 4.0);
+     * cr.arcNegative(50.0, 50.0, 30.0, 0.0, -Math.PI * 3.0 / 4.0);
      * </pre>
      * 
      * note that in this example the second angle is negative; if
