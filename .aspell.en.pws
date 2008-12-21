@@ -243,6 +243,7 @@ GUADEC
 GUIs
 GValue
 GValues
+GdkCairoSupport
 GdkColor
 GdkColorOverride
 GdkCrossingMode
@@ -1168,6 +1169,8 @@ doxygen
 dpi
 dropUserRef
 dt
+dx
+dy
 ebuild
 ecj
 editMenu
@@ -1288,6 +1291,9 @@ getColumnAtPos
 getCoronationYear
 getCurrentFolder
 getCurrentPage
+getCurrentPoint
+getCurrentPointX
+getCurrentPointY
 getCursorVisible
 getDate
 getDateDay
@@ -1632,6 +1638,7 @@ libjava
 librarypath
 libre
 lineNumber
+lineRelative
 lineTo
 linkSharedLibrary
 linux
@@ -1677,6 +1684,7 @@ monarchNameColumn
 monarchObjectColumn
 moveChild
 moveMark
+moveRelative
 moveTo
 moveWidget
 msg
@@ -1787,9 +1795,11 @@ paddingBottom
 paddingLeft
 paddingRight
 paddingTop
+pageHeight
 pageIncrement
 pageNum
 pageSize
+pageWidth
 pango
 parallelize
 param
@@ -1850,6 +1860,8 @@ regexAtoZ
 registerConstant
 registerProxy
 registerType
+relLineTo
+relMoveTo
 removeActionWidget
 removePage
 removeRow
@@ -2066,6 +2078,7 @@ setSkipTaskbarHint
 setSortColumn
 setSortColumnId
 setSource
+setSourcePixbuf
 setSourceRGB
 setSourceRGBA
 setSourceRgb
@@ -2114,6 +2127,7 @@ setWrapMode
 settingsDaemon
 showAll
 showLayout
+showLayoutLine
 showPage
 shutil
 si
@@ -2139,6 +2153,7 @@ str
 strfreev
 strftime
 strikethrough
+strokePreserve
 strsplit
 struct
 structs

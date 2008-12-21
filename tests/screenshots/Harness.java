@@ -13,6 +13,8 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 
 import org.freedesktop.bindings.Environment;
+import org.freedesktop.cairo.SnapshotContextArc;
+import org.freedesktop.cairo.SnapshotContextArcNegative;
 import org.freedesktop.cairo.SnapshotContextLine;
 import org.freedesktop.cairo.SnapshotContextRectangle;
 import org.gnome.gdk.Pixbuf;
@@ -152,6 +154,8 @@ public final class Harness
                     SnapshotContextLine.class,
                     SnapshotTextView.class,
                     SnapshotTextViewBorderWindows.class,
+                    SnapshotContextArc.class,
+                    SnapshotContextArcNegative.class,
                     SnapshotContextRectangle.class
             };
 

@@ -364,12 +364,25 @@ public class Context extends Entity
      * <code>&pi;/2</code> radians (90&deg;) is in the direction of the
      * positive <i>y</i> axis. Angles increase in the direction from the
      * positive <i>x</i> axis toward the positive <i>y</i> axis, increasing in
-     * a clockwise direction.
+     * a clockwise direction. <img class="snapshot" src="Context-arc.png">
      * 
      * <p>
-     * This function gives the arc in the direction of increasing angles; see
-     * {@link #arcNegative(double, double, double, double, double)
-     * arcNegative()} to go the other direction.
+     * The 60&deg; arc shown is from angle <code>0</code> through
+     * <code>+&pi;/3</code> radians, and was achieved with the following call:
+     * 
+     * <pre>
+     * cr.arc(50.0, 50.0, 30.0, 0.0, Math.PI / 3.0);
+     * </pre>
+     * 
+     * The illustration has its axis centred at position <code>50</code>,
+     * <code>50</code>. The key point to note is that positive <i>y</i> is
+     * towards the <b>bottom</b>, and that increasing angles as drawn by this
+     * function go <b>clockwise</b> which is backwards from the Cartesian or
+     * Polar co-ordinates you're probably used to using in mathematics.
+     * 
+     * <p>
+     * See {@link #arcNegative(double, double, double, double, double)
+     * arcNegative()} to draw arcs that go in the other direction.
      * 
      * @since 4.0.7
      */
@@ -380,15 +393,28 @@ public class Context extends Entity
 
     /**
      * Adds a circular arc of the given radius to the current path. The arc is
-     * centered at <code>xc,yc</code>, begins at <code>angle1</code> and
-     * proceeds in the direction of decreasing angles to end at
-     * <code>angle2</code>. If <code>angle2</code> is greater than
+     * centered at <code>xc</code>,<code>yc</code>, will begin at
+     * <code>angle1</code> and proceeds in the direction of decreasing angles
+     * to end at <code>angle2</code>. If <code>angle2</code> is greater than
      * <code>angle1</code> it will be progressively decreased by
-     * <code>2&pi;</code> until it is less than <code>angle1</code>.
+     * <code>2&pi;</code> until it is less than <code>angle1</code>. <img
+     * class="snapshot" src="Context-arcNegative.png">
+     * 
+     * <p>
+     * This 135&deg; arc shown in the illustration goes from <code>0</code> to
+     * <code>-3/4&pi</code> radians:
+     * 
+     * <pre>
+     * cr.arcNegative(50.0, 50.0, 30.0, 0.0, -Math.PI 3.0 / 4.0);
+     * </pre>
+     * 
+     * note that in this example the second angle is negative; if
+     * <code>3/4&pi</code> had been specified the arc would have continued to
+     * a point 45&deg; below the <code>-</code><i>x</i> axis.
      * 
      * <p>
      * See {@link #arc(double, double, double, double, double) arc()} for
-     * drawing in the positive direction.
+     * drawing arcs in the positive, clockwise direction.
      * 
      * @since 4.0.7
      */
@@ -508,5 +534,97 @@ public class Context extends Entity
      */
     public void setSource(Pixbuf pixbuf, double x, double y) {
         GdkCairoSupport.setSourcePixbuf(this, pixbuf, x, y);
+    }
+
+    /**
+     * Move to a location relative to the current point.
+     * 
+     * <p>
+     * If the point is at <code>x</code>,<code>y</code> then this will move
+     * the point to <code>x+dx</code>,<code>y+dy</code>.
+     * 
+     * <p>
+     * <i>In the underlying native library this is</i>
+     * <code>cairo_rel_move_to()</code>. <i>We have adjusted the name slightly
+     * to provide for better discoverability in the completion space.</i>
+     * 
+     * @since 4.0.10
+     */
+    public void moveRelative(double dx, double dy) {
+        CairoContext.relMoveTo(this, dx, dy);
+    }
+
+    /**
+     * Move to a location relative to the current point.
+     * 
+     * <p>
+     * If the point is at <code>x</code>,<code>y</code> then this will draw a
+     * line from <code>x</code>,<code>y</code> to <code>x+dx</code>,
+     * <code>y+dy</code>, leaving the point at the latter location.
+     * 
+     * <p>
+     * <i>In the underlying native library this is</i>
+     * <code>cairo_rel_line_to()</code>. <i>We have adjusted the name slightly
+     * to provide for better discoverability in the completion space.</i>
+     * 
+     * @since 4.0.10
+     */
+    public void lineRelative(double dx, double dy) {
+        CairoContext.relLineTo(this, dx, dy);
+    }
+
+    /**
+     * Get the x co-ordinate of the current point.
+     * 
+     * <p>
+     * You'll need to call this if you want to resume drawing at that point
+     * after calling <code>stroke()</code> or <code>fill()</code>, as after
+     * doing their work they clear the current path; the current point goes
+     * along with it.
+     * 
+     * <pre>
+     * // do some drawing
+     * 
+     * x = cr.getCurrentPointX();
+     * y = cr.getCurrentPointY();
+     * 
+     * cr.stroke();
+     * 
+     * cr.moveTo(x, y);
+     * 
+     * // carry on drawing
+     * </pre>
+     * 
+     * @since 4.0.10
+     */
+    public double getCurrentPointX() {
+        double[] x;
+        double[] y;
+
+        x = new double[1];
+        y = new double[1];
+
+        CairoContext.getCurrentPoint(this, x, y);
+
+        return x[0];
+    }
+
+    /**
+     * Get the y co-ordinate of the current point. See
+     * {@link #getCurrentPointX() getCurrentPointX()} for discussion of when
+     * you'd need this.
+     * 
+     * @since 4.0.10
+     */
+    public double getCurrentPointY() {
+        double[] x;
+        double[] y;
+
+        x = new double[1];
+        y = new double[1];
+
+        CairoContext.getCurrentPoint(this, x, y);
+
+        return y[0];
     }
 }

@@ -52,4 +52,14 @@ class Status extends Constant
      * Write error, you don't have write permissions to a file.
      */
     public static final Status WRITE_ERROR = new Status(CairoStatus.WRITE_ERROR, "WRITE_ERROR");
+
+    /**
+     * There is no current point; numerous operations (notably moving
+     * relative) require you to have established a current point in the
+     * Context.
+     * 
+     * @since 4.0.10
+     */
+    public static final Status NO_CURRENT_POINT = new Status(CairoStatus.NO_CURRENT_POINT,
+            "NO_CURRENT_POINT");
 }
