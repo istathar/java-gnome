@@ -1,5 +1,5 @@
 /*
- * SnapshotContextArc.java
+ * SnapshotContextArcNegative.java
  *
  * Copyright (c) 2008 Operational Dynamics Consulting Pty Ltd
  * 
@@ -15,10 +15,14 @@ import org.gnome.gtk.Gtk;
 /**
  * @author Andrew Cowie
  */
-public class SnapshotContextArc extends SnapshotContextAxis
+/*
+ * This code is a close copy of SnapshotContextArc (and both inherit from
+ * SnapshotContextAxis). If you change one, change the other.
+ */
+public class SnapshotContextArcNegative extends SnapshotContextAxis
 {
-    public SnapshotContextArc() {
-        super("arc");
+    public SnapshotContextArcNegative() {
+        super("arcNegative");
     }
 
     protected void draw(Context cr) {
@@ -26,12 +30,12 @@ public class SnapshotContextArc extends SnapshotContextAxis
 
         super.drawAxis(cr);
 
-        // arc positive
+        // arc negative
         cr.setSourceRGB(0, 0, 1);
         cr.setLineWidth(2.0);
 
         cr.moveTo(50 + 30, 50);
-        cr.arc(50, 50, 30, 0, Math.PI / 3);
+        cr.arcNegative(50, 50, 30, 0, -(Math.PI * 3.0 / 4.0));
 
         x = cr.getCurrentPointX();
         y = cr.getCurrentPointY();
@@ -45,7 +49,7 @@ public class SnapshotContextArc extends SnapshotContextAxis
 
     public static void main(String[] args) {
         Gtk.init(args);
-        runExample(new SnapshotContextArc());
+        runExample(new SnapshotContextArcNegative());
         Gtk.main();
     }
 }
