@@ -69,6 +69,16 @@
   )
 )
 
+(define-method rel_line_to
+  (of-object "cairo_t")
+  (c-name "cairo_rel_line_to")
+  (return-type "none")
+  (parameters
+    '("double" "x")
+    '("double" "y")
+  )
+)
+
 (define-method set_line_width
   (of-object "cairo_t")
   (c-name "cairo_set_line_width")
@@ -90,6 +100,16 @@
 (define-method move_to
   (of-object "cairo_t")
   (c-name "cairo_move_to")
+  (return-type "none")
+  (parameters
+    '("double" "x")
+    '("double" "y")
+  )
+)
+
+(define-method rel_move_to
+  (of-object "cairo_t")
+  (c-name "cairo_rel_move_to")
   (return-type "none")
   (parameters
     '("double" "x")
@@ -243,6 +263,16 @@
     '("cairo_surface_t*" "surface")
     '("double" "x")
     '("double" "y")
+  )
+)
+
+(define-method get_current_point
+  (of-object "cairo_t")
+  (c-name "cairo_get_current_point")
+  (return-type "none")
+  (parameters
+    '("double*" "x")
+    '("double*" "y")
   )
 )
 
