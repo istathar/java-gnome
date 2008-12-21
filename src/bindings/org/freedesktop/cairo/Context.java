@@ -352,7 +352,8 @@ public class Context extends Entity
      * proceeds in the direction of increasing angles to end at
      * <code>angle2</code>. If <code>angle2</code> is less than
      * <code>angle1</code> it will be progressively increased by
-     * <code>2&pi;</code> until it is greater than <code>angle1</code>.
+     * <code>2&pi;</code> until it is greater than <code>angle1</code>. <img
+     * class="snapshot" src="Context-arc.png">
      * 
      * <p>
      * If there is a current point, an initial line segment will be added to
@@ -367,8 +368,21 @@ public class Context extends Entity
      * a clockwise direction.
      * 
      * <p>
-     * This function gives the arc in the direction of increasing angles; see
-     * {@link #arcNegative(double, double, double, double, double)
+     * The illustration has axis centred at position <code>50</code>,
+     * <code>50</code>. The 60&deg; arc shown is from angle <code>0</code>
+     * through <code>+&pi;/3</code>, and was achieved with the following call:
+     * 
+     * <pre>
+     * cr.arc(50.0, 50.0, 30.0, 0.0, Math.PI / 3.0);
+     * </pre>
+     * 
+     * The key point to note is that positive <i>y</i> is towards the
+     * <b>bottom</b>, and that increasing angles as drawn by this function go
+     * <b>clockwise</b> which is backwards from the Cartesian or Polar
+     * co-ordinates you're used to using in mathematics.
+     * 
+     * <p>
+     * See {@link #arcNegative(double, double, double, double, double)
      * arcNegative()} to go the other direction.
      * 
      * @since 4.0.7
