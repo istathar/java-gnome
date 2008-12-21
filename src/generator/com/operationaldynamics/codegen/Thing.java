@@ -171,6 +171,7 @@ public abstract class Thing
          */
         register(new FundamentalThing("int", "int", "int", "jint"));
         register(new FundamentalThing("double", "double", "double", "jdouble"));
+        register(new FundamentalArrayThing("double*", "double"));
         register(new StringThing("char*"));
         register(new FundamentalArrayThing("int*", "int"));
 

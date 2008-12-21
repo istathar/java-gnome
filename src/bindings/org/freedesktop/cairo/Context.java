@@ -509,4 +509,96 @@ public class Context extends Entity
     public void setSource(Pixbuf pixbuf, double x, double y) {
         GdkCairoSupport.setSourcePixbuf(this, pixbuf, x, y);
     }
+
+    /**
+     * Move to a location relative to the current point.
+     * 
+     * <p>
+     * If the point is at <code>x</code>,<code>y</code> then this will move
+     * the point to <code>x+dx</code>,<code>y+dy</code>.
+     * 
+     * <p>
+     * <i>In the underlying native library this is</i>
+     * <code>cairo_rel_move_to()</code>. <i>We have adjusted the name slightly
+     * to provide for better discoverability in the completion space.</i>
+     * 
+     * @since 4.0.10
+     */
+    public void moveRelative(double dx, double dy) {
+        CairoContext.relMoveTo(this, dx, dy);
+    }
+
+    /**
+     * Move to a location relative to the current point.
+     * 
+     * <p>
+     * If the point is at <code>x</code>,<code>y</code> then this will draw a
+     * line from <code>x</code>,<code>y</code> to <code>x+dx</code>,
+     * <code>y+dy</code>, leaving the point at the latter location.
+     * 
+     * <p>
+     * <i>In the underlying native library this is</i>
+     * <code>cairo_rel_line_to()</code>. <i>We have adjusted the name slightly
+     * to provide for better discoverability in the completion space.</i>
+     * 
+     * @since 4.0.10
+     */
+    public void lineRelative(double dx, double dy) {
+        CairoContext.relLineTo(this, dx, dy);
+    }
+
+    /**
+     * Get the x co-ordinate of the current point.
+     * 
+     * <p>
+     * You'll need to call this if you want to resume drawing at that point
+     * after calling <code>stroke()</code> or <code>fill()</code>, as after
+     * doing their work they clear the current path; the current point goes
+     * along with it.
+     * 
+     * <pre>
+     * // do some drawing
+     * 
+     * x = cr.getCurrentPointX();
+     * y = cr.getCurrentPointY();
+     * 
+     * cr.stroke();
+     * 
+     * cr.moveTo(x, y);
+     * 
+     * // carry on drawing
+     * </pre>
+     * 
+     * @since 4.0.10
+     */
+    public double getCurrentPointX() {
+        double[] x;
+        double[] y;
+
+        x = new double[1];
+        y = new double[1];
+
+        CairoContext.getCurrentPoint(this, x, y);
+
+        return x[0];
+    }
+
+    /**
+     * Get the y co-ordinate of the current point. See
+     * {@link #getCurrentPointX() getCurrentPointX()} for discussion of when
+     * you'd need this.
+     * 
+     * @since 4.0.10
+     */
+    public double getCurrentPointY() {
+        double[] x;
+        double[] y;
+
+        x = new double[1];
+        y = new double[1];
+
+        CairoContext.getCurrentPoint(this, x, y);
+
+        return y[0];
+    }
 }
