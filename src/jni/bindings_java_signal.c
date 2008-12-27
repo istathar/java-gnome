@@ -97,13 +97,14 @@ bindings_java_marshaller
 	
 	jstring _str;
 	gchar* str;
+	GObject* obj;
 	
 	/*
 	 * Begin marshaller by downcasting the GClosure we got.
 	 */
 
 	bjc = (BindingsJavaClosure*) closure;
-	
+
 	/*
 	 * Get the JNIEnv interface pointer
 	 */
@@ -131,12 +132,12 @@ bindings_java_marshaller
 	 */
 
 	jargs = g_newa(jvalue, n_param_values + 1);
-	
+
 	jargs[0].l = bjc->handler;
-	
+
 	for(i = 0; i < n_param_values; i++) {
-  		type = G_VALUE_TYPE(&param_values[i]);
-    		switch(G_TYPE_FUNDAMENTAL(type)) {
+		type = G_VALUE_TYPE(&param_values[i]);
+		switch(G_TYPE_FUNDAMENTAL(type)) {
 		case G_TYPE_CHAR:
 			jargs[i+1].c = g_value_get_char(&param_values[i]);
       			break;
@@ -193,8 +194,10 @@ bindings_java_marshaller
 			 * address across the boundary to be looked up and
 			 * either an existing Proxy returned or a new Proxy
 			 * created. 
-			 */			
-			jargs[i+1].j = (jlong) g_value_get_object(&param_values[i]); 
+			 */
+			obj = g_value_get_object(&param_values[i]); 
+			bindings_java_memory_cleanup(obj, FALSE);
+			jargs[i+1].j = (jlong) obj;
 			break;
 
 		case G_TYPE_BOXED:

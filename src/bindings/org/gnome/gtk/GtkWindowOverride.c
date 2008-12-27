@@ -59,7 +59,7 @@ window_delete_handler
 )
 {
 	if (DEBUG_MEMORY_MANAGEMENT) {
-		g_print("mem: delete caught for\t\t%ld\n", (long) object);
+		g_printerr("mem: delete caught for\t\t%s\n", bindings_java_memory_pointerToString(object));
 	}
 	gtk_widget_hide(object);
 	
@@ -102,7 +102,7 @@ window_hide_handler
 )
 {
 	if (DEBUG_MEMORY_MANAGEMENT) {
-		g_print("mem: hide caught for\t\t%ld\n", (long) widget);
+		g_printerr("mem: hide caught for\t\t%s\n", bindings_java_memory_pointerToString(widget));
 	}
 	gdk_threads_add_timeout_full(G_PRIORITY_LOW, 100, window_hide_deref, widget, NULL);
 }
@@ -123,7 +123,7 @@ window_show_handler
 )
 {
 	if (DEBUG_MEMORY_MANAGEMENT) {
-		g_print("mem: show caught for\t\t%ld\n", (long) widget);
+		g_printerr("mem: show caught for\t\t%s\n", bindings_java_memory_pointerToString(widget));
 	}
 	g_object_ref(widget);
 }
