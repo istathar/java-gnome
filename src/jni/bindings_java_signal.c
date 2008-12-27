@@ -104,7 +104,7 @@ bindings_java_marshaller
 	 */
 
 	bjc = (BindingsJavaClosure*) closure;
-	
+
 	/*
 	 * Get the JNIEnv interface pointer
 	 */
@@ -132,12 +132,12 @@ bindings_java_marshaller
 	 */
 
 	jargs = g_newa(jvalue, n_param_values + 1);
-	
+
 	jargs[0].l = bjc->handler;
-	
+
 	for(i = 0; i < n_param_values; i++) {
-  		type = G_VALUE_TYPE(&param_values[i]);
-    		switch(G_TYPE_FUNDAMENTAL(type)) {
+		type = G_VALUE_TYPE(&param_values[i]);
+		switch(G_TYPE_FUNDAMENTAL(type)) {
 		case G_TYPE_CHAR:
 			jargs[i+1].c = g_value_get_char(&param_values[i]);
       			break;
