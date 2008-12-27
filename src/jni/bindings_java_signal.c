@@ -97,6 +97,7 @@ bindings_java_marshaller
 	
 	jstring _str;
 	gchar* str;
+	GObject* obj;
 	
 	/*
 	 * Begin marshaller by downcasting the GClosure we got.
@@ -193,8 +194,10 @@ bindings_java_marshaller
 			 * address across the boundary to be looked up and
 			 * either an existing Proxy returned or a new Proxy
 			 * created. 
-			 */			
-			jargs[i+1].j = (jlong) g_value_get_object(&param_values[i]); 
+			 */
+			obj = g_value_get_object(&param_values[i]); 
+			bindings_java_memory_cleanup(obj, FALSE);
+			jargs[i+1].j = (jlong) obj;
 			break;
 
 		case G_TYPE_BOXED:

@@ -195,6 +195,17 @@ bindings_java_memory_unref
 	g_object_remove_toggle_ref(object, bindings_java_toggle, NULL);
 }
 
+/**
+ * Ensure we properly own a GObject.
+ *
+ * This is really important. The aggregate result ensures that we own one Ref
+ * count to the object - no more, no less - which we can then turn into a
+ * ToggleRef. It needs to be called anywhere we are preparing to create a
+ * Proxy.
+ */
+/*
+ * TODO This needs a better name
+ */
 void
 bindings_java_memory_cleanup
 (
