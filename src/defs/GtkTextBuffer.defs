@@ -582,8 +582,13 @@
   )
 )
 
+;; As things stand right now we'll never need this. After all, how on earth
+;; could you possibly paste a Widget into a TextBuffer? Text, sure, but a
+;; Widget? Don't think so.
+
 (define-virtual insert_child_anchor
   (of-object "GtkTextBuffer")
+  (unnecessary)
   (return-type "none")
   (parameters
     '("GtkTextIter*" "pos")
