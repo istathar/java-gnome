@@ -255,6 +255,17 @@
   )
 )
 
+(define-method mask_surface
+  (of-object "cairo_t")
+  (c-name "cairo_mask_surface")
+  (return-type "none")
+  (parameters
+    '("cairo_surface_t*" "surface")
+    '("double" "x")
+    '("double" "y")
+  )
+)
+
 (define-method set_source_surface
   (of-object "cairo_t")
   (c-name "cairo_set_source_surface")

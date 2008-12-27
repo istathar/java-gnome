@@ -514,6 +514,17 @@ public class Context extends Entity
     }
 
     /**
+     * Paint the current source using the alpha channel of the given
+     * <code>surface</code> as its mask. The Surface will be offset by
+     * <code>x</code> and <code>y</code> before drawing.
+     * 
+     * @since 4.0.10
+     */
+    public void mask(Surface surface, double x, double y) {
+        CairoContext.maskSurface(this, surface, x, y);
+    }
+
+    /**
      * Given an image already loaded in a Pixbuf, set the current Source to be
      * that image. For example, to put the image at the bottom right of your
      * drawing area, you might do something like:
