@@ -75,7 +75,7 @@ package org.freedesktop.cairo;
  *             target = cr.getTarget();
  *             cache = target.createSimilar(Content.COLOR_ALPHA, pixbuf.getWidth(), pixbuf.getHeight());
  *             cr2 = new Context(cache);
- *             cr2.setSource(pixbuf);
+ *             cr2.setSource(pixbuf, 0.0, 0.0);
  *             cr2.paint();
  *         }
  *         
