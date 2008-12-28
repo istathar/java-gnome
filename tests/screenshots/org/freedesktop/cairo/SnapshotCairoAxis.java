@@ -1,5 +1,5 @@
 /*
- * SnapshotContextAxis.java
+ * SnapshotCairoAxis.java
  *
  * Copyright (c) 2008 Operational Dynamics Consulting Pty Ltd
  * 
@@ -20,10 +20,10 @@ import org.gnome.pango.Rectangle;
  * @author Andrew Cowie
  */
 
-abstract class SnapshotContextAxis extends SnapshotContext
+abstract class SnapshotCairoAxis extends SnapshotCairo
 {
-    public SnapshotContextAxis(String suffix) {
-        super(suffix);
+    SnapshotCairoAxis(Class<?> cls, String suffix) {
+        super(cls, suffix);
     }
 
     protected void drawAxis(Context cr) {

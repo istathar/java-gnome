@@ -1,5 +1,5 @@
 /*
- * SnapshotContextRectangle.java
+ * SnapshotContextArc.java
  *
  * Copyright (c) 2008 Operational Dynamics Consulting Pty Ltd
  * 
@@ -15,21 +15,28 @@ import org.gnome.gtk.Gtk;
 /**
  * @author Andrew Cowie
  */
-public class SnapshotContextRectangle extends SnapshotCairo
+public class SnapshotMatrixRotate extends SnapshotMatrix
 {
-    public SnapshotContextRectangle() {
-        super(Context.class, "rectangle");
+    public SnapshotMatrixRotate() {
+        super("rotate");
     }
 
     protected void draw(Context cr) {
-        cr.setSourceRGBA(0.5, 1.0, 0.0, 0.8);
-        cr.rectangle(30, 20, 60, 60);
-        cr.fill();
+        final Matrix matrix;
+
+        super.drawAxis(cr);
+        super.drawBox(cr, true);
+
+        matrix = new Matrix();
+        matrix.rotate(-Math.PI / 4.0);
+        cr.transform(matrix);
+
+        super.drawBox(cr, false);
     }
 
     public static void main(String[] args) {
         Gtk.init(args);
-        runExample(new SnapshotContextRectangle());
+        runExample(new SnapshotMatrixRotate());
         Gtk.main();
     }
 }

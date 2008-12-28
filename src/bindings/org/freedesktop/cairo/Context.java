@@ -638,4 +638,18 @@ public class Context extends Entity
 
         return y[0];
     }
+
+    /**
+     * Apply the given Matrix to affine transform this Context. See
+     * {@link Matrix} for examples.
+     * 
+     * <p>
+     * Beware that if there is a scaling component, line widths resulting from
+     * <code>stroke()</code> calls will scale too!
+     * 
+     * @since 4.0.10
+     */
+    public void transform(Matrix matrix) {
+        CairoContext.transform(this, matrix);
+    }
 }

@@ -298,3 +298,13 @@
     '("cairo_status_t" "status")
   )
 )
+
+(define-method transform
+  (of-object "cairo_t")
+  (c-name "cairo_transform")
+  (return-type "none")
+  (parameters
+    '("cairo_matrix_t*" "matrix")
+  )
+)
+
