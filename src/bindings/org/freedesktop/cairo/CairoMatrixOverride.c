@@ -50,7 +50,7 @@ Java_org_freedesktop_cairo_CairoMatrixOverride_cairo_1matrix_1free
 	cairo_matrix_t* self;
 
 	// convert self
-	self = (cairo_matrix_t*) self;
+	self = (cairo_matrix_t*) _self;
 	
 	// call function
 	g_slice_free(cairo_matrix_t, self);
