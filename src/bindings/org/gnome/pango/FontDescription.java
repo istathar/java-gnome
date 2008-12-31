@@ -262,7 +262,7 @@ public final class FontDescription extends Boxed
      * 
      * @since 4.0.10
      */
-    public int getSize() {
+    public double getSize() {
         return PangoFontDescription.getSize(this) / Pango.SCALE;
     }
 }

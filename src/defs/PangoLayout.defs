@@ -418,3 +418,9 @@
   (return-type "PangoLayoutIter*")
 )
 
+(define-method get_baseline
+  (of-object "PangoLayout")
+  (c-name "pango_layout_get_baseline")
+  (return-type "int")
+)
+

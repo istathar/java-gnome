@@ -126,7 +126,7 @@ public class Layout extends Object
     public double getSizeWidth() {
         int[] width = new int[1];
         PangoLayout.getSize(this, width, null);
-        return ((double) width[0]) / Pango.SCALE;
+        return width[0] / Pango.SCALE;
     }
 
     /**
@@ -139,7 +139,7 @@ public class Layout extends Object
     public double getSizeHeight() {
         int[] height = new int[1];
         PangoLayout.getSize(this, null, height);
-        return ((double) height[0]) / Pango.SCALE;
+        return height[0] / Pango.SCALE;
     }
 
     /**
@@ -276,7 +276,7 @@ public class Layout extends Object
     public double getIndent() {
         final int units;
         units = PangoLayout.getIndent(this);
-        return ((double) units) / Pango.SCALE;
+        return units / Pango.SCALE;
     }
 
     /**
@@ -366,5 +366,20 @@ public class Layout extends Object
         PangoLayout.getExtents(this, null, result);
 
         return result;
+    }
+
+    /**
+     * Get the vertical position of the baseline in the first line of this
+     * Layout.
+     * 
+     * <p>
+     * If you're laying out lines individually, you almost certainly want to
+     * get the extents of each LayoutLine and then use that Rectangle's
+     * {@link Rectangle#getAscent() getAscent()} instead.
+     * 
+     * @since 4.0.10
+     */
+    public double getBaseline() {
+        return PangoLayout.getBaseline(this) / Pango.SCALE;
     }
 }

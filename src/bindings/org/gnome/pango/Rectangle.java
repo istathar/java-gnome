@@ -48,7 +48,7 @@ public final class Rectangle extends Boxed
      * @since 4.0.10
      */
     public double getWidth() {
-        return ((double) PangoRectangle.getWidth(this)) / Pango.SCALE;
+        return PangoRectangle.getWidth(this) / Pango.SCALE;
     }
 
     /**
@@ -57,7 +57,7 @@ public final class Rectangle extends Boxed
      * @since 4.0.10
      */
     public double getHeight() {
-        return ((double) PangoRectangle.getHeight(this)) / Pango.SCALE;
+        return PangoRectangle.getHeight(this) / Pango.SCALE;
     }
 
     /**
@@ -67,7 +67,7 @@ public final class Rectangle extends Boxed
      * @since 4.0.10
      */
     public double getX() {
-        return ((double) PangoRectangle.getX(this)) / Pango.SCALE;
+        return PangoRectangle.getX(this) / Pango.SCALE;
     }
 
     /**
@@ -76,7 +76,7 @@ public final class Rectangle extends Boxed
      * @since 4.0.10
      */
     public double getY() {
-        return ((double) PangoRectangle.getY(this)) / Pango.SCALE;
+        return PangoRectangle.getY(this) / Pango.SCALE;
     }
 
     /*

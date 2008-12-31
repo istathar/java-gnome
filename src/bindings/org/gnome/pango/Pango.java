@@ -30,7 +30,10 @@ final class Pango extends Glib
      * Seeing as how Pango draws on Cairo, it'd be nice if Pango just exposed
      * the doubles and was done with it.
      * 
+     * Since we divide by this frequently, we keep it here as a double to
+     * reduce the risk of creating divide-by-integer errors.
+     * 
      * FUTURE retreive from native as this is subject to change in the future.
      */
-    static final int SCALE = 1024;
+    static final double SCALE = 1024.0;
 }
