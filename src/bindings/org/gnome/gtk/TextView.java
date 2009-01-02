@@ -1,7 +1,7 @@
 /*
  * TextView.java
  *
- * Copyright (c) 2007-2008 Operational Dynamics Consulting Pty Ltd, and Others
+ * Copyright (c) 2007-2009 Operational Dynamics Consulting Pty Ltd, and Others
  *
  * The code in this file, and the library it is a part of, are made available
  * to you by the authors under the terms of the "GNU General Public Licence,
@@ -151,6 +151,16 @@ import org.gnome.gdk.Rectangle;
  * </pre>
  * 
  * and so on.
+ * 
+ * If you want to change the font of the text being rendered by the TextView
+ * you may need to call the Widget method {@link #modifyFont(FontDescription)
+ * modifyFont()}
+ * 
+ * Note: FontDescription is not a Font but just as it sounds: a font
+ * description
+ * 
+ * For example if you want the font 'Times' with a size of 10 pixels you do:
+ * myTextView.modifyFont (new FontDescription ("Times 10"));
  * 
  * <p>
  * <i>Obviously "internal to GTK" implies that we are second guessing the
