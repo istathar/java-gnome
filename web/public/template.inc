@@ -2,7 +2,7 @@
 /*
  * template.inc
  *
- * Copyright (c) 2006-2008 Operational Dynamics Consulting Pty Ltd
+ * Copyright (c) 2006-2009 Operational Dynamics Consulting Pty Ltd
  * 
  * This file comprises part of the infrastructure and content of the
  * java-gnome project website. As such, it is conveyed alongside the source
@@ -151,7 +151,7 @@ function template_end() {
 
 <div class="bottompanel">
 
-Contents copyright &copy; 2006-2008
+Contents copyright &copy; 2006-2009
 <a class="black" href="http://www.operationaldynamics.com/">Operational Dynamics</a>
 Consulting Pty Ltd, and Others. See <a class="black" href="/4.0/AUTHORS.html">AUTHORS</a>
 file and source code history for the various files comprising this site for
