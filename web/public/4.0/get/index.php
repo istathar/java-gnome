@@ -2,7 +2,7 @@
 /*
  * index.php
  *
- * Copyright (c) 2006-2008 Operational Dynamics Consulting Pty Ltd
+ * Copyright (c) 2006-2009 Operational Dynamics Consulting Pty Ltd
  * 
  * This file comprises part of the infrastructure and content of the
  * java-gnome project website. As such, it is conveyed alongside the source
@@ -137,7 +137,7 @@ following sequence to checkout the source code:
 href="bzr://research.operationaldynamics.com/bzr/java-gnome/mainline/">
 <pre style="margin-left: 0px;">
 $ cd ~/src/
-$ bzr init-repository java-gnome/
+$ bzr init-repository --format=1.6 java-gnome/
 $ cd java-gnome/
 $ bzr checkout bzr://research.operationaldynamics.com/bzr/java-gnome/mainline/ mainline/
 $ bzr branch mainline/ working/
