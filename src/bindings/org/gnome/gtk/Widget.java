@@ -20,6 +20,7 @@ import org.gnome.gdk.EventFocus;
 import org.gnome.gdk.EventKey;
 import org.gnome.gdk.EventVisibility;
 import org.gnome.gdk.VisibilityState;
+import org.gnome.pango.FontDescription;
 
 /**
  * The base class of all GTK Widgets. Graphical user interface toolkits have
@@ -656,6 +657,11 @@ public abstract class Widget extends org.gnome.gtk.Object
      */
     public void modifyText(StateType state, Color color) {
         GtkWidget.modifyText(this, state, color);
+    }
+    
+
+    public void modifyFont(FontDescription desc) {
+        GtkWidget.modifyFont(this, desc);
     }
 
     /**
