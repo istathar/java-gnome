@@ -659,7 +659,16 @@ public abstract class Widget extends org.gnome.gtk.Object
         GtkWidget.modifyText(this, state, color);
     }
     
-
+    /**
+     * Set the font used for text rendered by this Widget.
+     * 
+     * <p>
+     * This is one of a family of "<code>modify</code>" methods; see
+     * {@link #modifyStyle(Widget, RcStyle) modifyStyle()} for further details
+     * about the interaction of the various theming and style mechanisms.
+     * 
+     * @since 4.0.9
+     */
     public void modifyFont(FontDescription desc) {
         GtkWidget.modifyFont(this, desc);
     }
