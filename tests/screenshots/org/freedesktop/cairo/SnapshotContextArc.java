@@ -15,10 +15,10 @@ import org.gnome.gtk.Gtk;
 /**
  * @author Andrew Cowie
  */
-public class SnapshotContextArc extends SnapshotContextAxis
+public class SnapshotContextArc extends SnapshotCairoAxis
 {
     public SnapshotContextArc() {
-        super("arc");
+        super(Context.class, "arc");
     }
 
     protected void draw(Context cr) {

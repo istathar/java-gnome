@@ -15,10 +15,10 @@ import org.gnome.gtk.Gtk;
 /**
  * @author Andrew Cowie
  */
-public class SnapshotContextLine extends SnapshotContext
+public class SnapshotContextLine extends SnapshotCairo
 {
     public SnapshotContextLine() {
-        super("line");
+        super(Context.class, "line");
     }
 
     protected void draw(Context cr) {

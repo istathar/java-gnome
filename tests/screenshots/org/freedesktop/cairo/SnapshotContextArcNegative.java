@@ -19,10 +19,10 @@ import org.gnome.gtk.Gtk;
  * This code is a close copy of SnapshotContextArc (and both inherit from
  * SnapshotContextAxis). If you change one, change the other.
  */
-public class SnapshotContextArcNegative extends SnapshotContextAxis
+public class SnapshotContextArcNegative extends SnapshotCairoAxis
 {
     public SnapshotContextArcNegative() {
-        super("arcNegative");
+        super(Context.class, "arcNegative");
     }
 
     protected void draw(Context cr) {

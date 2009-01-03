@@ -30,7 +30,7 @@ package org.gnome.gtk;
  * ...
  * </pre>
  * 
- * You can still use the{@link ComboBox#getActive() getActive()} from
+ * You can still use the {@link ComboBox#getActive() getActive()} from
  * ComboBox, but for simple lists of Strings being displayed be this Widget,
  * the String specific {@link #getActiveText() getActiveText()} that is
  * introduced here is probably what you want.

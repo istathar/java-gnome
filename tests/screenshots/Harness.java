@@ -17,6 +17,9 @@ import org.freedesktop.cairo.SnapshotContextArc;
 import org.freedesktop.cairo.SnapshotContextArcNegative;
 import org.freedesktop.cairo.SnapshotContextLine;
 import org.freedesktop.cairo.SnapshotContextRectangle;
+import org.freedesktop.cairo.SnapshotMatrixRotate;
+import org.freedesktop.cairo.SnapshotMatrixScale;
+import org.freedesktop.cairo.SnapshotMatrixTranslate;
 import org.gnome.gdk.Pixbuf;
 import org.gnome.gdk.PixbufFormat;
 import org.gnome.gtk.Gtk;
@@ -156,6 +159,9 @@ public final class Harness
                     SnapshotTextViewBorderWindows.class,
                     SnapshotContextArc.class,
                     SnapshotContextArcNegative.class,
+                    SnapshotMatrixRotate.class,
+                    SnapshotMatrixScale.class,
+                    SnapshotMatrixTranslate.class,
                     SnapshotContextRectangle.class
             };
 

@@ -1,7 +1,7 @@
 /*
  * FontDescription.java
  *
- * Copyright (c) 2007-2008 Operational Dynamics Consulting Pty Ltd
+ * Copyright (c) 2007-2009 Operational Dynamics Consulting Pty Ltd
  * Copyright (c) 2008      Vreixo Formoso
  *
  * The code in this file, and the library it is a part of, are made available
@@ -262,7 +262,40 @@ public final class FontDescription extends Boxed
      * 
      * @since 4.0.10
      */
-    public int getSize() {
+    public double getSize() {
         return PangoFontDescription.getSize(this) / Pango.SCALE;
+    }
+
+    /**
+     * Set the size of the font you are requesting. Size is expressed in
+     * points.
+     * 
+     * <p>
+     * Since you can indicate the size you want when constructing with a
+     * textual description, you don't need this too often.
+     * 
+     * @since 4.0.10
+     */
+    public void setSize(double size) {
+        PangoFontDescription.setSize(this, (int) (size * Pango.SCALE));
+    }
+
+    /**
+     * Set the size in raw device units (ie pixels if working on screen).
+     * 
+     * <p>
+     * This corresponds to providing a size in a textual description such as
+     * <code>"Sans, 10px"</code> instead of <code>"Sans, 10"</code>; since you
+     * can specify it there you problably don't need this much.
+     * 
+     * @since <span style="color: red">Unstable</span>
+     */
+    /*
+     * TODO Why WOULD anyone would need this? FIXME what happens in the
+     * presence of scaling? What is the real relationship to setSize() given
+     * that Cairo is doing all the work?
+     */
+    public void setSizeAbsolute(double size) {
+        PangoFontDescription.setAbsoluteSize(this, size * Pango.SCALE);
     }
 }

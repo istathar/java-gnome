@@ -54,6 +54,8 @@ CairoContext
 CairoContextOverride
 CairoFormat
 CairoImageSurface
+CairoMatrix
+CairoMatrixOverride
 CairoOperator
 CairoPattern
 CairoSurface
@@ -1057,6 +1059,7 @@ createLabel
 createLayout
 createListStore
 createMark
+createMatrixIdentity
 createMenu
 createMenuBar
 createMenuItem
@@ -2169,6 +2172,8 @@ sudo
 superclass
 superinterface
 svn
+sx
+sy
 symlink
 symlinks
 sys
@@ -2213,6 +2218,7 @@ touchFile
 touples
 trailHead
 treeview
+tx
 txt
 ty
 typeMapping
