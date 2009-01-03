@@ -1,7 +1,7 @@
 /*
  * SnapshotContextRectangle.java
  *
- * Copyright (c) 2008 Operational Dynamics Consulting Pty Ltd
+ * Copyright (c) 2008-2009 Operational Dynamics Consulting Pty Ltd
  * 
  * The code in this file, and the program it is a part of, are made available
  * to you by the authors under the terms of the "GNU General Public Licence,
@@ -22,7 +22,7 @@ public class SnapshotContextRectangle extends SnapshotCairo
     }
 
     protected void draw(Context cr) {
-        cr.setSourceRGBA(0.5, 1.0, 0.0, 0.8);
+        cr.setSource(0.5, 1.0, 0.0, 0.8);
         cr.rectangle(30, 20, 60, 60);
         cr.fill();
     }

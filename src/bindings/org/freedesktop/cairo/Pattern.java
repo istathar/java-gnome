@@ -1,7 +1,7 @@
 /*
  * Pattern.java
  *
- * Copyright (c) 2007-2008 Operational Dynamics Consulting Pty Ltd
+ * Copyright (c) 2007-2009 Operational Dynamics Consulting Pty Ltd
  * 
  * The code in this file, and the library it is a part of, are made available
  * to you by the authors under the terms of the "GNU General Public Licence,
@@ -41,7 +41,7 @@ public abstract class Pattern extends Entity
      * See {@link #addColorStopRGBA(double, double, double, double, double)
      * addColorStopRGBA()} for documentation of the <code>offset</code>
      * parameter. The colour parameters are the same as for
-     * {@link Context#setSourceRGB(double, double, double) setSourceRGB()}.
+     * {@link Context#setSource(double, double, double) setSource()}.
      * 
      * @since 4.0.7
      */
@@ -63,8 +63,7 @@ public abstract class Pattern extends Entity
      * 
      * <p>
      * Colour stops handle colour arguments the same way as
-     * {@link Context#setSourceRGB(double, double, double) setSourceRGB()}
-     * does.
+     * {@link Context#setSource(double, double, double) setSource()} does.
      * 
      * @since 4.0.7
      */

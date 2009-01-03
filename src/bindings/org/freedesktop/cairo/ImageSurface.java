@@ -1,7 +1,7 @@
 /*
  * ImageSurface.java
  *
- * Copyright (c) 2007-2008 Operational Dynamics Consulting Pty Ltd
+ * Copyright (c) 2007-2009 Operational Dynamics Consulting Pty Ltd
  * 
  * The code in this file, and the library it is a part of, are made available
  * to you by the authors under the terms of the "GNU General Public Licence,
@@ -29,8 +29,7 @@ package org.freedesktop.cairo;
  * While ImageSurfaces are good for writing images out to disk, they are not
  * optimized per se to be efficient as a back end, nor are they accelerated by
  * your graphics card. So they are not an appropriate intermediate in drawing
- * operations; don't be calling <code>setSourceSurface()</code> on one of
- * these.
+ * operations; don't be calling <code>setSource()</code> on one of these.
  * 
  * <p>
  * More importantly, ImageSurface is <b>not</b> an image loader! Remember that

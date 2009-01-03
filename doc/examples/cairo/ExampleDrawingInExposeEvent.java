@@ -1,7 +1,7 @@
 /*
  * ExampleDrawingInExposeEvent.java
  *
- * Copyright (c) 2007-2008 Operational Dynamics Consulting Pty Ltd, and Others
+ * Copyright (c) 2007-2009 Operational Dynamics Consulting Pty Ltd, and Others
  * 
  * The code in this file, and the program it is a part of, are made available
  * to you by the authors under the terms of the "GNU General Public Licence,
@@ -82,7 +82,7 @@ public class ExampleDrawingInExposeEvent
                  * Now, finally do some drawing:
                  */
 
-                cr.setSourceRGBA(1.0, 0.1, 0.0, 1.0);
+                cr.setSource(1.0, 0.1, 0.0, 1.0);
                 cr.moveTo(10, 40);
                 cr.lineTo(120, 145);
                 cr.stroke();
@@ -93,7 +93,7 @@ public class ExampleDrawingInExposeEvent
                  * to Cairo, really.
                  */
 
-                cr.setSourceRGBA(225 / 255.0, 148 / 255.0, 11 / 255.0, 1.0);
+                cr.setSource(225 / 255.0, 148 / 255.0, 11 / 255.0, 1.0);
                 cr.rectangle(70, 70, 20, 40);
                 cr.fill();
 

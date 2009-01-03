@@ -1,7 +1,7 @@
 /*
  * ValidateCairoInternals.java
  *
- * Copyright (c) 2007-2008 Operational Dynamics Consulting Pty Ltd
+ * Copyright (c) 2007-2009 Operational Dynamics Consulting Pty Ltd
  * 
  * The code in this file, and the suite it is a part of, are made available
  * to you by the authors under the terms of the "GNU General Public Licence,
@@ -32,7 +32,7 @@ public class ValidateCairoInternals extends TestCaseGtk
          * Do something arbitrary.
          */
 
-        cr.setSourceRGBA(0.0, 0.0, 1.0, 0.8);
+        cr.setSource(0.0, 0.0, 1.0, 0.8);
 
         /*
          * Call a method that returns an abstract type, in this case a

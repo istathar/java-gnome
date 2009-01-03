@@ -1,7 +1,7 @@
 /*
  * SnapshotContextLine.java
  *
- * Copyright (c) 2008 Operational Dynamics Consulting Pty Ltd
+ * Copyright (c) 2008-2009 Operational Dynamics Consulting Pty Ltd
  * 
  * The code in this file, and the program it is a part of, are made available
  * to you by the authors under the terms of the "GNU General Public Licence,
@@ -22,7 +22,7 @@ public class SnapshotContextLine extends SnapshotCairo
     }
 
     protected void draw(Context cr) {
-        cr.setSourceRGB(1.0, 0.0, 0.0);
+        cr.setSource(1.0, 0.0, 0.0);
         cr.moveTo(10, 10);
         cr.lineTo(90, 50);
         cr.stroke();
