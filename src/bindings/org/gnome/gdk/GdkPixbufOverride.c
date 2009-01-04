@@ -97,3 +97,38 @@ Java_org_gnome_gdk_GdkPixbufOverride_gdk_1pixbuf_1get_1pixels
 	// and finally
 	return result;
 }
+
+
+JNIEXPORT jlong JNICALL
+Java_org_gnome_gdk_GdkPixbufOverride_gdk_1pixbuf_1new_1from_1byte_1array
+(
+	JNIEnv* env,
+	jclass cls,
+	jbyteArray array
+)
+{
+	GInputStream *input_stream;
+	gssize len;
+	void *data;
+	
+	GdkPixbuf* result;
+	GError* error = NULL;
+		
+	// set up the length and input stream parameters.
+	len = (*env)->GetArrayLength(env, array);
+	data = (*env)->GetByteArrayElements(env, array, NULL);
+
+	input_stream = g_memory_input_stream_new_from_data(data, len, NULL);
+	
+	result = gdk_pixbuf_new_from_stream(input_stream, NULL, &error);
+
+	(*env)->ReleaseByteArrayElements(env, array, data, 0);
+
+	// check for error
+	if (error) {
+		bindings_java_throw_gerror(env, error);
+		return  0L;
+	}
+	
+	return (jlong) result;
+}

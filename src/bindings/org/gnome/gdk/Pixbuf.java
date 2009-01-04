@@ -102,6 +102,16 @@ public class Pixbuf extends org.gnome.glib.Object
     }
 
     /**
+     * Construct a new Pixbuf object from the image found in the passed byte
+     * array
+     *
+     * @since 4.0.11
+     */
+    public Pixbuf(byte[] data) {
+        super(GdkPixbufOverride.createPixbufFromByteArray(data));
+    }
+
+    /**
      * Create an identical copy of this Pixbuf.
      * 
      * <p>

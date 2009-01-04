@@ -20,4 +20,18 @@ final class GdkPixbufOverride extends Plumbing
     }
 
     private static native final byte[] gdk_pixbuf_get_pixels(long self);
+
+    static final long createPixbufFromByteArray(byte[] bytes) {
+
+        if (bytes == null) {
+            throw new IllegalArgumentException("byte array can't be null");
+        }
+
+        synchronized (lock) {
+            return gdk_pixbuf_new_from_byte_array(bytes);
+        }
+    }
+
+    private static native final long gdk_pixbuf_new_from_byte_array(byte[] bytes);
+
 }
