@@ -658,7 +658,7 @@ public abstract class Widget extends org.gnome.gtk.Object
     public void modifyText(StateType state, Color color) {
         GtkWidget.modifyText(this, state, color);
     }
-
+    
     /**
      * Set the font used for text rendered by this Widget.
      * 
