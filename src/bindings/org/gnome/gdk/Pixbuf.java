@@ -13,6 +13,7 @@ package org.gnome.gdk;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 
 import org.gnome.glib.GlibException;
 
@@ -103,12 +104,26 @@ public class Pixbuf extends org.gnome.glib.Object
 
     /**
      * Construct a new Pixbuf object from the image found in the passed byte
-     * array
-     *
-     * @since 4.0.11
+     * array. The data needs to be a complete image in a format that will be
+     * recognized by one of the gdk-pixbuf library's loaders (PNG, JPEG, etc).
+     * 
+     * @since 4.0.10
      */
-    public Pixbuf(byte[] data) {
-        super(GdkPixbufOverride.createPixbufFromByteArray(data));
+    public Pixbuf(byte[] data) throws IOException {
+        super(checkPixbufFromArray(data));
+    }
+
+    private static long checkPixbufFromArray(byte[] data) throws IOException {
+        try {
+            return GdkPixbufOverride.createPixbufFromArray(data);
+        } catch (GlibException ge) {
+            /*
+             * FIXME this will need to be more specific when our GError
+             * handling is better! IOException is the usual in stream-ish
+             * cases, but is it really appropriate here?
+             */
+            throw new IOException(ge.getMessage());
+        }
     }
 
     /**
@@ -246,8 +261,8 @@ public class Pixbuf extends org.gnome.glib.Object
 
     /**
      * Create a new Pixbuf, applying the scaling factors inherent in the
-     * ratios between the size of this Pixbuf and the new image size
-     * specified by <code>width</code> and <code>height</code>.
+     * ratios between the size of this Pixbuf and the new image size specified
+     * by <code>width</code> and <code>height</code>.
      * 
      * <p>
      * In general you probably want to use the {@link InterpType#BILINEAR

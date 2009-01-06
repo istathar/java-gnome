@@ -1,7 +1,7 @@
 /*
  * GdkPixbufOverride.c
  *
- * Copyright (c) 2008 Operational Dynamics Consulting Pty Ltd
+ * Copyright (c) 2008-2009 Operational Dynamics Consulting Pty Ltd, and Others
  *
  * The code in this file, and the library it is a part of, are made available
  * to you by the authors under the terms of the "GNU General Public Licence,
@@ -100,35 +100,44 @@ Java_org_gnome_gdk_GdkPixbufOverride_gdk_1pixbuf_1get_1pixels
 
 
 JNIEXPORT jlong JNICALL
-Java_org_gnome_gdk_GdkPixbufOverride_gdk_1pixbuf_1new_1from_1byte_1array
+Java_org_gnome_gdk_GdkPixbufOverride_gdk_1pixbuf_1new_1from_1stream
 (
 	JNIEnv* env,
 	jclass cls,
-	jbyteArray array
+	jbyteArray _data
 )
 {
 	GInputStream *input_stream;
 	gssize len;
 	void *data;
-	
 	GdkPixbuf* result;
 	GError* error = NULL;
-		
+
 	// set up the length and input stream parameters.
-	len = (*env)->GetArrayLength(env, array);
-	data = (*env)->GetByteArrayElements(env, array, NULL);
+	len = (*env)->GetArrayLength(env, _data);
+	data = (*env)->GetByteArrayElements(env, _data, NULL);
+
+	/*
+	 * Jump through the necessary hoops to feed an array of bytes to the
+	 * GdkPixbuf constructor
+	 */
 
 	input_stream = g_memory_input_stream_new_from_data(data, len, NULL);
-	
 	result = gdk_pixbuf_new_from_stream(input_stream, NULL, &error);
 
-	(*env)->ReleaseByteArrayElements(env, array, data, 0);
+	// cleanup parameter data
+	(*env)->ReleaseByteArrayElements(env, _data, data, 0);
 
-	// check for error
+	// cleanup return value
+	if (result != NULL) {
+		bindings_java_memory_cleanup((GObject*)result, TRUE);
+	}
+
+	// check for a GError
 	if (error) {
 		bindings_java_throw_gerror(env, error);
-		return  0L;
+		return 0L;
 	}
-	
+
 	return (jlong) result;
 }

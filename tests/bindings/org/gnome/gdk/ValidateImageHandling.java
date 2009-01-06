@@ -1,7 +1,7 @@
 /*
  * ValidateImageHandling.java
  *
- * Copyright (c) 2007-2008 Operational Dynamics Consulting Pty Ltd
+ * Copyright (c) 2007-2009 Operational Dynamics Consulting Pty Ltd
  * 
  * The code in this file, and the suite it is a part of, are made available
  * to you by the authors under the terms of the "GNU General Public Licence,
@@ -10,7 +10,9 @@
  */
 package org.gnome.gdk;
 
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 
 import org.gnome.gtk.Button;
 import org.gnome.gtk.Gtk;
@@ -138,5 +140,45 @@ public class ValidateImageHandling extends TestCaseGtk
 
         assertEquals(300, result.getWidth());
         assertEquals(500, result.getHeight());
+    }
+
+    public final void testPixbufFromData() throws IOException {
+        Pixbuf target;
+        byte[] data;
+        final FileInputStream png;
+
+        target = null;
+        data = null;
+
+        try {
+            target = new Pixbuf(data);
+            fail("Shouldn't be able to pass a null byte[]");
+        } catch (IllegalArgumentException iae) {
+            // good
+        }
+
+        data = new byte[0];
+        try {
+            target = new Pixbuf(data);
+            fail("Something should break if you pass in an empty byte[]!");
+        } catch (IOException iae) {
+            // good
+        }
+
+        try {
+            target = new Pixbuf(data);
+            fail("The byte[] isn't an image.");
+        } catch (IOException iae) {
+            // good
+        }
+
+        data = new byte[4017];
+        png = new FileInputStream("src/bindings/java-gnome_Icon.png");
+        png.read(data);
+
+        target = new Pixbuf(data);
+
+        assertEquals(48, target.getWidth());
+        assertEquals(48, target.getHeight());
     }
 }
