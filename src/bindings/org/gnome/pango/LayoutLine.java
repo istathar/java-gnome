@@ -49,6 +49,15 @@ public final class LayoutLine extends Boxed
 {
     protected LayoutLine(long pointer) {
         super(pointer);
+        /*
+         * FYI, we changed our .defs data to have the generated code wrapping
+         * pango_layout_line_ref() to return void rather than returning the
+         * PangoLayoutLine pointer. Otherwise we get an endless loop of
+         * init(ling) -> ref() -> boxedFor() -> createPointer() -> init(long)
+         * -> ref() which blows out the stack. The point is to increase the
+         * ref count safely; we don't need the return value.
+         */
+        PangoLayoutLine.ref(this);
     }
 
     protected void release() {

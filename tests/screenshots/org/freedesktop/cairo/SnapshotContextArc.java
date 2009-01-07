@@ -1,7 +1,7 @@
 /*
  * SnapshotContextArc.java
  *
- * Copyright (c) 2008 Operational Dynamics Consulting Pty Ltd
+ * Copyright (c) 2008-2009 Operational Dynamics Consulting Pty Ltd
  * 
  * The code in this file, and the program it is a part of, are made available
  * to you by the authors under the terms of the "GNU General Public Licence,
@@ -15,10 +15,10 @@ import org.gnome.gtk.Gtk;
 /**
  * @author Andrew Cowie
  */
-public class SnapshotContextArc extends SnapshotContextAxis
+public class SnapshotContextArc extends SnapshotCairoAxis
 {
     public SnapshotContextArc() {
-        super("arc");
+        super(Context.class, "arc");
     }
 
     protected void draw(Context cr) {
@@ -27,7 +27,7 @@ public class SnapshotContextArc extends SnapshotContextAxis
         super.drawAxis(cr);
 
         // arc positive
-        cr.setSourceRGB(0, 0, 1);
+        cr.setSource(0, 0, 1);
         cr.setLineWidth(2.0);
 
         cr.moveTo(50 + 30, 50);

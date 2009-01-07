@@ -1,7 +1,7 @@
 /*
  * ExampleLinedPaper.java
  *
- * Copyright (c) 2007-2008 Operational Dynamics Consulting Pty Ltd, and Others
+ * Copyright (c) 2007-2009 Operational Dynamics Consulting Pty Ltd, and Others
  * 
  * The code in this file, and the program it is a part of, are made available
  * to you by the authors under the terms of the "GNU General Public Licence,
@@ -108,7 +108,7 @@ public class ExampleLinedPaper
             y += v;
         }
 
-        cr.setSourceRGB(0, 0, 199.0 / 255.0);
+        cr.setSource(0, 0, 199.0 / 255.0);
         cr.setLineWidth(0.1);
         cr.stroke();
 
@@ -118,7 +118,7 @@ public class ExampleLinedPaper
 
         cr.moveTo(leftMargin, 0);
         cr.lineTo(leftMargin, pageHeight);
-        cr.setSourceRGB(255.0 / 255.0, 0.0, 0.0);
+        cr.setSource(255.0 / 255.0, 0.0, 0.0);
         cr.stroke();
 
         /*
@@ -138,10 +138,10 @@ public class ExampleLinedPaper
         for (double hole : holes) {
             cr.arc(leftMargin / 2.0, pageHeight * hole, leftMargin / 4.0, 0.0, 2 * PI);
 
-            cr.setSourceRGB(1.0, 1.0, 1.0);
+            cr.setSource(1.0, 1.0, 1.0);
             cr.fillPreserve();
 
-            cr.setSourceRGB(0.5, 0.5, 0.5);
+            cr.setSource(0.5, 0.5, 0.5);
             cr.stroke();
         }
 
@@ -161,7 +161,7 @@ public class ExampleLinedPaper
 
         layout.setWidth(pageWidth - (leftMargin + rightMargin));
 
-        cr.setSourceRGB(0.0, 0.0, 0.0);
+        cr.setSource(0.0, 0.0, 0.0);
 
         /*
          * We did the lines first so that the typeset text will be over the

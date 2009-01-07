@@ -1,7 +1,7 @@
 /*
  * ExampleDrawingText.java
  *
- * Copyright (c) 2007-2008 Operational Dynamics Consulting Pty Ltd
+ * Copyright (c) 2007-2009 Operational Dynamics Consulting Pty Ltd
  * Copyright (c) 2008      Vreixo Formoso
  * 
  * The code in this file, and the library it is a part of, are made available
@@ -94,7 +94,7 @@ public class ExampleDrawingText
                  * We can also specify some attributes (such as the color)
                  * with usual Cairo functions.
                  */
-                cr.setSourceRGB(0.1, 0.5, 0.7);
+                cr.setSource(0.1, 0.5, 0.7);
 
                 /*
                  * And finally, we draw the text!

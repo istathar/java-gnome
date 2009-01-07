@@ -1,7 +1,7 @@
 /*
  * Context.java
  *
- * Copyright (c) 2007-2008 Operational Dynamics Consulting Pty Ltd
+ * Copyright (c) 2007-2009 Operational Dynamics Consulting Pty Ltd, and Others
  * 
  * The code in this file, and the library it is a part of, are made available
  * to you by the authors under the terms of the "GNU General Public Licence,
@@ -54,7 +54,7 @@ import org.gnome.pango.LayoutLine;
  * for example:
  * 
  * <pre>
- * cr.setSourceRGB(1.0, 0.0, 0.0);
+ * cr.setSource(1.0, 0.0, 0.0);
  * </pre>
  * 
  * for solid red. In the case of co-ordinates, you can simply specify the
@@ -154,9 +154,16 @@ public class Context extends Entity
      * Set the source pattern within this Context to an opaque colour. The
      * parameters each take the range <code>0.0</code> to <code>1.0</code>.
      * 
-     * @since 4.0.7
+     * @since 4.0.10
      */
+    public void setSource(double red, double green, double blue) {
+        CairoContext.setSourceRgb(this, red, green, blue);
+        checkStatus();
+    }
+
+    /** @deprecated */
     public void setSourceRGB(double red, double green, double blue) {
+        assert false : "use setSource() instead";
         CairoContext.setSourceRgb(this, red, green, blue);
         checkStatus();
     }
@@ -168,9 +175,16 @@ public class Context extends Entity
      * indicates full transparency, and <code>1.0</code> is full opacity (ie,
      * normal).
      * 
-     * @since 4.0.7
+     * @since 4.0.10
      */
+    public void setSource(double red, double green, double blue, double alpha) {
+        CairoContext.setSourceRgba(this, red, green, blue, alpha);
+        checkStatus();
+    }
+
+    /** @deprecated */
     public void setSourceRGBA(double red, double green, double blue, double alpha) {
+        assert false : "use setSource() instead";
         CairoContext.setSourceRgba(this, red, green, blue, alpha);
         checkStatus();
     }
@@ -327,9 +341,16 @@ public class Context extends Entity
      * with {@link #getSource() getSource()} and manipulate it further if you
      * need to change the defaults.
      * 
-     * @since 4.0.7
+     * @since 4.0.10
      */
+    public void setSource(Surface surface, double x, double y) {
+        CairoContext.setSourceSurface(this, surface, x, y);
+        checkStatus();
+    }
+
+    /** @deprecated */
     public void setSourceSurface(Surface surface, double x, double y) {
+        assert false : "use setSource() instead";
         CairoContext.setSourceSurface(this, surface, x, y);
         checkStatus();
     }
@@ -514,6 +535,17 @@ public class Context extends Entity
     }
 
     /**
+     * Paint the current source using the alpha channel of the given
+     * <code>surface</code> as its mask. The Surface will be offset by
+     * <code>x</code> and <code>y</code> before drawing.
+     * 
+     * @since 4.0.10
+     */
+    public void mask(Surface surface, double x, double y) {
+        CairoContext.maskSurface(this, surface, x, y);
+    }
+
+    /**
      * Given an image already loaded in a Pixbuf, set the current Source to be
      * that image. For example, to put the image at the bottom right of your
      * drawing area, you might do something like:
@@ -626,5 +658,19 @@ public class Context extends Entity
         CairoContext.getCurrentPoint(this, x, y);
 
         return y[0];
+    }
+
+    /**
+     * Apply the given Matrix to affine transform this Context. See
+     * {@link Matrix} for examples.
+     * 
+     * <p>
+     * Beware that if there is a scaling component, line widths resulting from
+     * <code>stroke()</code> calls will scale too!
+     * 
+     * @since 4.0.10
+     */
+    public void transform(Matrix matrix) {
+        CairoContext.transform(this, matrix);
     }
 }

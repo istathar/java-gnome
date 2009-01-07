@@ -19,10 +19,10 @@ import org.gnome.gtk.Window;
 /**
  * @author Andrew Cowie
  */
-public abstract class SnapshotContext extends Snapshot
+public abstract class SnapshotCairo extends Snapshot
 {
-    public SnapshotContext(String suffix) {
-        super(Context.class, suffix);
+    public SnapshotCairo(Class<?> cls, String suffix) {
+        super(cls, suffix);
         final Image image;
 
         window = new Window();
@@ -43,7 +43,6 @@ public abstract class SnapshotContext extends Snapshot
                 return false;
             }
         });
-
     }
 
     protected abstract void draw(Context cr);

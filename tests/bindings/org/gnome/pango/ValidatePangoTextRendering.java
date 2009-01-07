@@ -1,7 +1,7 @@
 /*
  * ValidatePangoTextRendering.java
  *
- * Copyright (c) 2008 Operational Dynamics Consulting Pty Ltd, and Others
+ * Copyright (c) 2008-2009 Operational Dynamics Consulting Pty Ltd, and Others
  * 
  * The code in this file, and the suite it is a part of, are made available
  * to you by the authors under the terms of the "GNU General Public Licence,
@@ -33,7 +33,7 @@ public class ValidatePangoTextRendering extends TestCaseGtk
     private static Layout draw(final Context cr) {
         final Layout layout;
 
-        cr.setSourceRGBA(0.1, 0.9, 0.2, 1.0);
+        cr.setSource(0.1, 0.9, 0.2, 1.0);
         cr.moveTo(10, 80);
         layout = new Layout(cr);
         layout.setText("Hello");

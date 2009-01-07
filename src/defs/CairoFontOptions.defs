@@ -1,0 +1,32 @@
+(define-entity FontOptions
+  (in-module "Cairo")
+  (c-name "cairo_font_options_t")
+)
+
+(define-function cairo_font_options_new
+  (is-constructor-of "cairo_font_options_t")
+  (c-name "cairo_font_options_create")
+  (caller-owns-return #t)
+  (return-type "cairo_font_options_t*")
+)
+
+(define-method destroy
+  (of-object "cairo_font_options_t")
+  (c-name "cairo_font_options_destroy")
+  (return-type "none")
+)
+
+(define-method status
+  (of-object "cairo_font_options_t")
+  (c-name "cairo_font_options_status")
+  (return-type "cairo_status_t")
+)
+
+(define-method set_hint_metrics
+  (of-object "cairo_font_options_t")
+  (c-name "cairo_font_options_set_hint_metrics")
+  (return-type "none")
+  (parameters
+    '("cairo_hint_metrics_t" "hint_metrics")
+  )
+)

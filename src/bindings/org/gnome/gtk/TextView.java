@@ -12,6 +12,7 @@
 package org.gnome.gtk;
 
 import org.gnome.gdk.Rectangle;
+import org.gnome.pango.FontDescription;
 
 /**
  * A multi-line text display Widget. <img class="snapshot" src="TextView.png">
@@ -77,6 +78,30 @@ import org.gnome.gdk.Rectangle;
  * <code>TextBuffer.InsertText</code> emission) and then switching over to
  * here and calling TextView methods - and then going back to TextBuffer again
  * a moment later.
+ * 
+ * <h2>Appearance</h2>
+ * 
+ * <p>
+ * {@link TextTag}s are what are use to cause ranges of text within a TextView
+ * to appear with various formatting (bold, italics, colour, etc) over and
+ * above being displayed as normal text. You apply such tags to the TextBuffer
+ * either when <code>insert()</code>ing or with <code>applyTag()</code>. See
+ * TextTag for details and examples.
+ * 
+ * <p>
+ * Incidentally, if you need to change the font of the text being rendered in
+ * this TextView by default use Widget's {@link #modifyFont(FontDescription)
+ * modifyFont()}, for example:
+ * 
+ * <pre>
+ * desc = new FontDescription(&quot;Monospace, 12&quot;);
+ * view.modifyFont(desc);
+ * </pre>
+ * 
+ * see FontDescription for all the gory details. As usual, we recommend that
+ * you do <i>not</i> do this without good cause, instead leaving the
+ * application font to be what the user has selected the system Appearance
+ * Preferences font settings dialog provided by GNOME.
  * 
  * <a name="height"></a>
  * <h2>Line height calculations</h2>
@@ -151,16 +176,6 @@ import org.gnome.gdk.Rectangle;
  * </pre>
  * 
  * and so on.
- * 
- * If you want to change the font of the text being rendered by the TextView
- * you may need to call the Widget method {@link #modifyFont(FontDescription)
- * modifyFont()}
- * 
- * Note: FontDescription is not a Font but just as it sounds: a font
- * description
- * 
- * For example if you want the font 'Times' with a size of 10 pixels you do:
- * myTextView.modifyFont (new FontDescription ("Times 10"));
  * 
  * <p>
  * <i>Obviously "internal to GTK" implies that we are second guessing the
