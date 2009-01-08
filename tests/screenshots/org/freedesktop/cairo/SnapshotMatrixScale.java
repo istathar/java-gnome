@@ -1,7 +1,7 @@
 /*
- * SnapshotContextLine.java
+ * SnapshotMatrixScale.java
  *
- * Copyright (c) 2008-2009 Operational Dynamics Consulting Pty Ltd
+ * Copyright (c) 2008 Operational Dynamics Consulting Pty Ltd
  * 
  * The code in this file, and the program it is a part of, are made available
  * to you by the authors under the terms of the "GNU General Public Licence,
@@ -15,22 +15,28 @@ import org.gnome.gtk.Gtk;
 /**
  * @author Andrew Cowie
  */
-public class SnapshotContextLine extends SnapshotCairo
+public class SnapshotMatrixScale extends SnapshotMatrix
 {
-    public SnapshotContextLine() {
-        super(Context.class, "line");
+    public SnapshotMatrixScale() {
+        super("scale");
     }
 
     protected void draw(Context cr) {
-        cr.setSource(1.0, 0.0, 0.0);
-        cr.moveTo(10, 10);
-        cr.lineTo(90, 50);
-        cr.stroke();
+        final Matrix matrix;
+
+        super.drawAxis(cr);
+        super.drawBox(cr, true);
+
+        matrix = new Matrix();
+        matrix.scale(-0.8, 1.6);
+        cr.transform(matrix);
+
+        super.drawBox(cr, false);
     }
 
     public static void main(String[] args) {
         Gtk.init(args);
-        runExample(new SnapshotContextLine());
+        runExample(new SnapshotMatrixScale());
         Gtk.main();
     }
 }

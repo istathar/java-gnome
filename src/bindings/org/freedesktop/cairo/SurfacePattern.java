@@ -1,7 +1,7 @@
 /*
  * SurfacePattern.java
  *
- * Copyright (c) 2007-2008 Operational Dynamics Consulting Pty Ltd
+ * Copyright (c) 2007-2009 Operational Dynamics Consulting Pty Ltd
  * 
  * The code in this file, and the library it is a part of, are made available
  * to you by the authors under the terms of the "GNU General Public Licence,
@@ -18,8 +18,7 @@ package org.freedesktop.cairo;
  * 
  * <p>
  * These are created internally if you call
- * {@link Context#setSourceSurface(Surface, double, double)
- * setSourceSurface()}.
+ * {@link Context#setSource(Surface, double, double) setSource()}.
  * 
  * @since 4.0.7
  */

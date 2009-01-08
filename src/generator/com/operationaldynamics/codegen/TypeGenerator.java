@@ -1,7 +1,7 @@
 /*
  * TypeGenerator.java
  *
- * Copyright (c) 2007-2008 Operational Dynamics Consulting Pty Ltd
+ * Copyright (c) 2007-2009 Operational Dynamics Consulting Pty Ltd
  * Copyright (c) 2007      Vreixo Formoso
  * 
  * The code in this file, and the program it is a part of, are made available
@@ -80,7 +80,7 @@ abstract class TypeGenerator extends Generator
         out.print(" * ");
         out.print(fileName);
         out.print("\n *\n");
-        out.print(" * Copyright (c) 2006-2008 Operational Dynamics Consulting Pty Ltd, and Others\n");
+        out.print(" * Copyright (c) 2006-2009 Operational Dynamics Consulting Pty Ltd, and Others\n");
         out.print(" *\n");
         out.print(" * The code in this file, and the program it is a part of, are made available\n");
         out.print(" * to you by the authors under the terms of the \"GNU General Public Licence,\n");
