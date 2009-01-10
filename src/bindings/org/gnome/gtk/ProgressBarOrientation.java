@@ -23,6 +23,11 @@ import org.freedesktop.bindings.Constant;
  */
 public final class ProgressBarOrientation extends Constant
 {
+    public static final ProgressBarOrientation LEFT_TO_RIGHT = new ProgressBarOrientation(GtkProgressBarOrientation.LEFT_TO_RIGHT, "LEFT_TO_RIGHT");
+    public static final ProgressBarOrientation RIGHT_TO_LEFT = new ProgressBarOrientation(GtkProgressBarOrientation.RIGHT_TO_LEFT, "RIGHT_TO_LEFT");
+    public static final ProgressBarOrientation TOP_TO_BOTTOM = new ProgressBarOrientation(GtkProgressBarOrientation.TOP_TO_BOTTOM, "TOP_TO_BOTTOM");
+    public static final ProgressBarOrientation BOTTOM_TO_TOP = new ProgressBarOrientation(GtkProgressBarOrientation.BOTTOM_TO_TOP, "BOTTOM_TO_TOP");
+    
     private ProgressBarOrientation(int ordinal, String nickname) {
         super(ordinal, nickname);
     }

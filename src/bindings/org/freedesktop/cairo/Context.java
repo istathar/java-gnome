@@ -15,6 +15,7 @@ import org.gnome.gdk.Drawable;
 import org.gnome.gdk.Pixbuf;
 import org.gnome.pango.Layout;
 import org.gnome.pango.LayoutLine;
+import org.gnome.pango.Matrix;
 
 /**
  * Carry out drawing operations with the Cairo Graphics library. The current

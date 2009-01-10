@@ -105,4 +105,27 @@ public class ProgressBar extends Widget
     public void pulse() {
         GtkProgressBar.pulse(this);
     }
+    
+    public void setOrientation(ProgressBarOrientation orientation) {
+        GtkProgressBar.setOrientation(this, orientation);
+    }
+    
+    public ProgressBarOrientation getOrientation() {
+        return GtkProgressBar.getOrientation(this);
+    }
+    
+    public void setPulseStep(double fraction) {
+        if ((fraction < 0.0) || (fraction > 1.0)) {
+            throw new IllegalArgumentException("fraction must be between 0.0 and 1.0, inclusive.");
+        }
+        GtkProgressBar.setPulseStep(this, fraction);
+    }
+    
+    public double getPulseStep() {
+        return GtkProgressBar.getPulseStep(this);
+    }
+    
+    public double getFraction() {
+        return GtkProgressBar.getFraction(this);
+    }
 }
