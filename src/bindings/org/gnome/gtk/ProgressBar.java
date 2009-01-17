@@ -1,7 +1,7 @@
 /*
  * ProgressBar.java
  *
- * Copyright (c) 2009 Operational Dynamics Consulting Pty Ltd, and Others
+ * Copyright (c) 2007-2009 Operational Dynamics Consulting Pty Ltd, and Others
  * 
  * The code in this file, and the library it is a part of, are made available
  * to you by the authors under the terms of the "GNU General Public Licence,
@@ -105,35 +105,28 @@ public class ProgressBar extends Widget
     public void pulse() {
         GtkProgressBar.pulse(this);
     }
-    
+
     /**
-     * Set the orientation of the progress bar
-     * Four possible values:
+     * Set orientation of this ProgressBar
      * 
-     * LEFT_TO_RIGHT
-     * RIGHT_TO_LEFT
-     * TOP_TO_BOTTOM
-     * BOTTOM_TO_TOP
-     * 
-     * @param orientation
-     *            a ProgressBarOrientation value
      * @since 4.0.10
      */
     public void setOrientation(ProgressBarOrientation orientation) {
         GtkProgressBar.setOrientation(this, orientation);
     }
-   
+
     /**
-     * Get the current progress bar orientation
+     * Get orientation currently in effect in this ProgressBar
+     * 
      * @since 4.0.10
      */
     public ProgressBarOrientation getOrientation() {
         return GtkProgressBar.getOrientation(this);
     }
-    
+
     /**
-     * Set the progress bar pulse step.
-     * That means the amount of progress to perform each time {@link ProgressBar#pulse() pulse()}; is called.
+     * Set the progress bar pulse step. That means the amount of progress to
+     * perform each time {@link ProgressBar#pulse() pulse()}; is called.
      * 
      * @param fraction
      *            a value between 0.0 and 1.0
@@ -147,17 +140,19 @@ public class ProgressBar extends Widget
         }
         GtkProgressBar.setPulseStep(this, fraction);
     }
-    
+
     /**
      * Get the current progress bar pulse step
+     * 
      * @since 4.0.10
      */
     public double getPulseStep() {
         return GtkProgressBar.getPulseStep(this);
     }
-    
+
     /**
      * Get the current progress bar fraction
+     * 
      * @since 4.0.10
      */
     public double getFraction() {
