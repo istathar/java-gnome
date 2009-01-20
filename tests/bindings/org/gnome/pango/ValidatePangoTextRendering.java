@@ -97,7 +97,7 @@ public class ValidatePangoTextRendering extends TestCaseGtk
          * Now test with a Surface whose device units are not integral pixels.
          */
 
-        surface = new PdfSurface(null, 150, 150);
+        surface = new PdfSurface("tmp/tests/org/gnome/pango/ValidatePangoTextRendering.pdf", 150, 150);
         cr = new Context(surface);
 
         layout = draw(cr);
