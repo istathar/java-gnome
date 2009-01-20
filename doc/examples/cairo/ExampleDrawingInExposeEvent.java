@@ -17,8 +17,8 @@ import org.freedesktop.cairo.RadialPattern;
 import org.gnome.gdk.Event;
 import org.gnome.gdk.EventExpose;
 import org.gnome.gdk.Rectangle;
+import org.gnome.gtk.DrawingArea;
 import org.gnome.gtk.Gtk;
-import org.gnome.gtk.Image;
 import org.gnome.gtk.Widget;
 import org.gnome.gtk.Window;
 
@@ -40,7 +40,7 @@ public class ExampleDrawingInExposeEvent
 {
     public static void main(String[] args) {
         final Window w;
-        final Image i;
+        final DrawingArea d;
 
         Gtk.init(args);
 
@@ -48,11 +48,11 @@ public class ExampleDrawingInExposeEvent
         w.setTitle("Expose");
         w.setDefaultSize(150, 150);
 
-        i = new Image();
-        w.add(i);
+        d = new DrawingArea();
+        w.add(d);
         w.showAll();
 
-        i.connect(new Widget.ExposeEvent() {
+        d.connect(new Widget.ExposeEvent() {
             public boolean onExposeEvent(Widget source, EventExpose event) {
                 final Context cr;
                 final Rectangle rect;
@@ -113,7 +113,7 @@ public class ExampleDrawingInExposeEvent
                 cr.setSource(linear);
                 cr.mask(radial);
 
-                return false;
+                return true;
             }
         });
 
