@@ -1,7 +1,7 @@
 /*
  * FontButton.java
  *
- * Copyright (c) 2007 Operational Dynamics Consulting Pty Ltd
+ * Copyright (c) 2007-2009 Operational Dynamics Consulting Pty Ltd
  *
  * The code in this file, and the library it is a part of, are made available
  * to you by the authors under the terms of the "GNU General Public Licence,
@@ -23,5 +23,43 @@ public class FontButton extends Button
 {
     protected FontButton(long pointer) {
         super(pointer);
+    }
+
+    /**
+     * Construct a FontButton.
+     * 
+     * @since 4.0.10
+     */
+    public FontButton() {
+        super(GtkFontButton.createFontButton());
+    }
+
+    /**
+     * The signal emitted when a font is selected.
+     * 
+     * @author Andrew Cowie
+     * @since 4.0.10
+     */
+    public interface FontSet extends GtkFontButton.FontSetSignal
+    {
+        void onFontSet(FontButton source);
+    }
+
+    /**
+     * Hook up a <code>FontButton.FontSet</code> handler.
+     * 
+     * @since 4.0.10
+     */
+    public void connect(FontButton.FontSet handler) {
+        GtkFontButton.connect(this, handler, false);
+    }
+
+    /**
+     * Get the name of the font currently selected by this FontButton.
+     * 
+     * @since 4.0.10
+     */
+    public String getFontName() {
+        return GtkFontButton.getFontName(this);
     }
 }

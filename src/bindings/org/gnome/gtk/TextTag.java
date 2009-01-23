@@ -1,7 +1,7 @@
 /*
  * TextTag.java
  *
- * Copyright (c) 2007-2008 Operational Dynamics Consulting Pty Ltd
+ * Copyright (c) 2007-2009 Operational Dynamics Consulting Pty Ltd
  *
  * The code in this file, and the library it is a part of, are made available
  * to you by the authors under the terms of the "GNU General Public Licence,
@@ -389,5 +389,18 @@ public class TextTag extends Object
      */
     public void setFontDescription(FontDescription desc) {
         setPropertyBoxed("font-desc", desc);
+    }
+
+    /**
+     * Pass a string that describes the font you wish to use. This is
+     * essentially a convenience wrapper around creating a FontDescription
+     * with FontDescription's {@link FontDescription#FontDescription(String)
+     * &lt;init&gt;(String)} constructor; see there for details of the syntax
+     * allowed.
+     * 
+     * @since 4.0.10
+     */
+    public void setFont(String str) {
+        setPropertyString("font", str);
     }
 }

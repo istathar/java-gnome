@@ -1,7 +1,7 @@
 /*
  * Experiment.java
  *
- * Copyright (c) 2006-2008 Operational Dynamics Consulting Pty Ltd
+ * Copyright (c) 2006-2009 Operational Dynamics Consulting Pty Ltd
  *
  * The code in this file, and the program it is a part of, are made available
  * to you by the authors under the terms of the "GNU General Public Licence,
@@ -17,6 +17,7 @@ import org.gnome.gdk.Screen;
 import org.gnome.gtk.Button;
 import org.gnome.gtk.FileChooserAction;
 import org.gnome.gtk.FileChooserButton;
+import org.gnome.gtk.FontButton;
 import org.gnome.gtk.Gtk;
 import org.gnome.gtk.Label;
 import org.gnome.gtk.ReliefStyle;
@@ -47,6 +48,7 @@ public final class Experiment
         final Label l;
         final Button b;
         final FileChooserButton fcb;
+        final FontButton fb;
         final Screen s;
         final Pixbuf logo;
 
@@ -65,6 +67,9 @@ public final class Experiment
 
         fcb = new FileChooserButton("Good to get, a file is", FileChooserAction.OPEN);
         x.packStart(fcb, false, false, 0);
+
+        fb = new FontButton();
+        x.packStart(fb, false, false, 0);
 
         w.add(x);
 
@@ -92,6 +97,12 @@ public final class Experiment
             public void onFileSet(FileChooserButton source) {
                 System.out.println("File selected:   " + source.getURI());
                 System.gc();
+            }
+        });
+
+        fb.connect(new FontButton.FontSet() {
+            public void onFontSet(FontButton source) {
+                System.out.println(fb.getFontName());
             }
         });
 
