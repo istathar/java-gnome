@@ -12,6 +12,7 @@
 package org.gnome.gtk;
 
 import org.gnome.glib.Object;
+import org.gnome.pango.FontDescription;
 import org.gnome.pango.Scale;
 import org.gnome.pango.Style;
 import org.gnome.pango.Underline;
@@ -364,5 +365,13 @@ public class TextTag extends Object
         }
 
         return str.toString();
+    }
+
+    public void setSize(double size) {
+        setPropertyDouble("size-points", size);
+    }
+
+    public void setFontDescription(FontDescription desc) {
+        setPropertyBoxed("font-desc", desc);
     }
 }

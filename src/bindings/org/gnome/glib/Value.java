@@ -15,6 +15,7 @@ import org.freedesktop.bindings.Constant;
 import org.freedesktop.bindings.Debug;
 import org.freedesktop.bindings.Pointer;
 import org.gnome.gdk.Pixbuf;
+import org.gnome.pango.FontDescription;
 
 /**
  * A generic value that can be passed as a parameter to or returned from a
@@ -139,6 +140,10 @@ public class Value extends Pointer
 
     protected Value(Object obj) {
         this(GValue.createValue(obj), true);
+    }
+
+    protected Value(FontDescription desc) {
+        this(GValue.createValue(desc), true);
     }
 
     /*

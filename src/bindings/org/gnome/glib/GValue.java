@@ -14,6 +14,7 @@ package org.gnome.glib;
 import org.freedesktop.bindings.Constant;
 import org.freedesktop.bindings.Flag;
 import org.gnome.gdk.Pixbuf;
+import org.gnome.pango.FontDescription;
 
 /*
  * Crafted: the creation of fundamentals is quite custom.
@@ -47,6 +48,10 @@ final class GValue extends Plumbing
 
     static final long createValue(Pixbuf pixbuf) {
         return g_value_init_pixbuf(pointerOf(pixbuf));
+    }
+
+    static final long createValue(FontDescription desc) {
+        return g_value_init_font_description(pointerOf(desc));
     }
 
     static final long createValue(float f) {
@@ -102,6 +107,8 @@ final class GValue extends Plumbing
     private static native final long g_value_init_object(long obj);
 
     private static native final long g_value_init_pixbuf(long pixbuf);
+
+    private static native final long g_value_init_font_description(long desc);
 
     private static native final long g_value_init_enum(String type, int num);
 
