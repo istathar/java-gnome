@@ -367,10 +367,26 @@ public class TextTag extends Object
         return str.toString();
     }
 
+    /**
+     * Set the font size, in points.
+     * 
+     * @since 4.0.10
+     */
+    /*
+     * Using "size-points" instead of "size" allowed us to keep Pango.SCALE
+     * default instead of public. There is no huge imperative to keep it that
+     * way.
+     */
     public void setSize(double size) {
         setPropertyDouble("size-points", size);
     }
 
+    /**
+     * Pass a FontDescription specifying the metrics and characteristics of
+     * the font you wish to be active when this TextTag is applied.
+     * 
+     * @since 4.0.10
+     */
     public void setFontDescription(FontDescription desc) {
         setPropertyBoxed("font-desc", desc);
     }
