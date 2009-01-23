@@ -1,7 +1,7 @@
 /*
  * SnapshotMatrix.java
  *
- * Copyright (c) 2008 Operational Dynamics Consulting Pty Ltd
+ * Copyright (c) 2008-2009 Operational Dynamics Consulting Pty Ltd
  * 
  * The code in this file, and the program it is a part of, are made available
  * to you by the authors under the terms of the "GNU General Public Licence,
@@ -33,9 +33,9 @@ abstract class SnapshotMatrix extends SnapshotCairoAxis
         cr.setLineWidth(2.0);
 
         if (first) {
-            cr.setSourceRGB(0.7, 0.8, 0.8);
+            cr.setSource(0.7, 0.8, 0.8);
         } else {
-            cr.setSourceRGB(0.0, 0.0, 1.0);
+            cr.setSource(0.0, 0.0, 1.0);
         }
         cr.rectangle(5, 5, 25, 15);
         cr.stroke();

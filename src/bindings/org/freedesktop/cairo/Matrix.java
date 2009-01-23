@@ -1,7 +1,7 @@
 /*
  * Matrix.java
  *
- * Copyright (c) 2008 Operational Dynamics Consulting Pty Ltd
+ * Copyright (c) 2008-2009 Operational Dynamics Consulting Pty Ltd
  * 
  * The code in this file, and the library it is a part of, are made available
  * to you by the authors under the terms of the "GNU General Public Licence,
@@ -42,7 +42,7 @@ package org.freedesktop.cairo;
  * In each of the illustrations below, we draw a box as follows:
  * 
  * <pre>
- * cr.setSourceRGB(0.7, 0.8, 0.8);
+ * cr.setSource(0.7, 0.8, 0.8);
  * cr.rectangle(5, 5, 25, 15);
  * cr.stroke();
  * </pre>
@@ -51,7 +51,7 @@ package org.freedesktop.cairo;
  * exact same rectangle again:
  * 
  * <pre>
- * cr.setSourceRGB(0.0, 0.0, 1.0);
+ * cr.setSource(0.0, 0.0, 1.0);
  * cr.rectangle(5, 5, 25, 15);
  * cr.stroke();
  * </pre>
