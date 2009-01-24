@@ -28,6 +28,8 @@ import org.gnome.pango.Style;
  */
 public final class FontHeights
 {
+    private final int pt = 12;
+
     private FontHeights() {
         final Window w;
         final TextView view;
@@ -40,18 +42,18 @@ public final class FontHeights
 
         view = new TextView();
 
-        desc = new FontDescription("DejaVu Serif, 10");
+        desc = new FontDescription("DejaVu Serif, " + pt);
         view.modifyFont(desc);
 
         buffer = new TextBuffer();
 
         filename = new TextTag();
-        filename.setFamily("DejaVu Sans Mono, 10");
+        filename.setFamily("DejaVu Sans Mono, " + pt);
         filename.setStyle(Style.ITALIC);
         filename.setForeground("darkgreen");
 
         function = new TextTag();
-        function.setFamily("DejaVu Sans Mono, 10");
+        function.setFamily("DejaVu Sans Mono, " + pt);
 
         pointer = buffer.getIterStart();
         buffer.insert(pointer, "The ");
@@ -64,6 +66,8 @@ public final class FontHeights
         view.setWrapMode(WrapMode.WORD);
         view.setSizeRequest(250, -1);
         w.add(view);
+
+        w.setTitle("DejaVu " + pt + "pt");
         w.showAll();
 
         w.connect(new Window.DeleteEvent() {
