@@ -8,6 +8,7 @@
  * version 2" See the LICENCE file for the terms governing usage and
  * redistribution.
  */
+package textview;
 
 import org.gnome.gdk.Event;
 import org.gnome.gtk.Gtk;
@@ -22,20 +23,22 @@ import org.gnome.pango.FontDescription;
 import org.gnome.pango.Style;
 
 /**
- * Are all the characters in the rendered text the same height?
+ * Are all the characters in the rendered text the same height? Not all fonts
+ * behave in this regard, and buggy distros like Ubuntu can fail to get things
+ * right.
  * 
  * @author Andrew Cowie
  */
-public final class FontHeights
+public final class ExampleFontHeights
 {
     private final int pt = 12;
 
-    private FontHeights() {
+    private ExampleFontHeights() {
         final Window w;
         final TextView view;
         final FontDescription desc;
         final TextBuffer buffer;
-        final TextTag filename, function;
+        final TextTag filename, function, classname;
         TextIter pointer;
 
         w = new Window();
@@ -55,12 +58,18 @@ public final class FontHeights
         function = new TextTag();
         function.setFamily("DejaVu Sans Mono, " + pt);
 
+        classname = new TextTag();
+        classname.setFamily("DejaVu Sans, " + pt);
+        classname.setForeground("darkblue");
+
         pointer = buffer.getIterStart();
-        buffer.insert(pointer, "The ");
-        buffer.insert(pointer, "/etc/passwd", filename);
-        buffer.insert(pointer, " file has very important information, but frankly the ");
-        buffer.insert(pointer, "getpwent()", function);
-        buffer.insert(pointer, " function is more useful.");
+        buffer.insert(pointer, "Accessing the ");
+        buffer.insert(pointer, "/tmp", filename);
+        buffer.insert(pointer, " directory directly is fine, but the ");
+        buffer.insert(pointer, "File", classname);
+        buffer.insert(pointer, " class has a ");
+        buffer.insert(pointer, "createTempFile()", function);
+        buffer.insert(pointer, " function that you are often better off using.");
 
         view.setBuffer(buffer);
         view.setWrapMode(WrapMode.WORD);
@@ -81,7 +90,7 @@ public final class FontHeights
     public static void main(String[] args) {
         Gtk.init(args);
 
-        new FontHeights();
+        new ExampleFontHeights();
 
         Gtk.main();
     }
