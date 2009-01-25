@@ -14,8 +14,10 @@ package org.freedesktop.bindings;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.InputStreamReader;
+import java.io.UnsupportedEncodingException;
 import java.lang.ref.WeakReference;
 import java.net.URL;
+import java.net.URLDecoder;
 import java.security.CodeSource;
 import java.security.ProtectionDomain;
 import java.util.HashMap;
@@ -119,7 +121,7 @@ public abstract class Plumbing
         final ProtectionDomain domain;
         final CodeSource source;
         final URL url;
-        final String jar;
+        String jar;
         final File library;
         final String path;
 
@@ -141,6 +143,11 @@ public abstract class Plumbing
             source = domain.getCodeSource();
             url = source.getLocation();
             jar = url.getPath();
+            try {
+                jar=URLDecoder.decode(jar, System.getProperty("file.encoding"));
+            } catch (UnsupportedEncodingException e1) {
+                //Try loading unescaped String
+            }
 
             libdir = new File(jar).getParent();
         }
