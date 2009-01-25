@@ -144,9 +144,9 @@ public abstract class Plumbing
             url = source.getLocation();
             jar = url.getPath();
             try {
-                jar=URLDecoder.decode(jar, System.getProperty("file.encoding"));
+                jar = URLDecoder.decode(jar, System.getProperty("file.encoding"));
             } catch (UnsupportedEncodingException e1) {
-                //Try loading unescaped String
+                // Try loading unescaped String
             }
 
             libdir = new File(jar).getParent();
