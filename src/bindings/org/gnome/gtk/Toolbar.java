@@ -84,9 +84,11 @@ public class Toolbar extends Container
      * specific control. When your application has several Toolbars, however,
      * a vertical orientation can become useful as a technique to make a
      * better usage of the available screen real estate.
+     * 
+     * @deprecated This has been replaced in GTK 2.16
      */
     public void setOrientation(Orientation orientation) {
-        GtkToolbar.setOrientation(this, orientation);
+    // no-op until GTK 2.16 available.
     }
 
     /**
