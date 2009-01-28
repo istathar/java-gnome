@@ -513,6 +513,7 @@ my $jdk_home;
 my $gcj_home;
 my $jamvm_bin;
 my $cacao_bin;
+my $strict = "";
 
 foreach my $arg (@ARGV) {
 	my ($key, $value) = split /=/, "$arg";
@@ -557,6 +558,8 @@ HERE
 		$cacao_bin="$value";
 	} elsif ($key =~ /^jamvm/) {
 		$jamvm_bin="$value";
+	} elsif ($key =~ /^strict/) {
+		$strict="yes";
 	}
 }
 
@@ -1850,7 +1853,7 @@ if ($cc =~ /gcc/) {
 	}
 
 	my $deprecations;
-	if ( -d ".bzr" ) {
+	if ( "$strict" ) {
 		$deprecations = "-DGTK_DISABLE_DEPRECATED -DGDK_DISABLE_DEPRECATED -DGDK_PIXBUF_DISABLE_DEPRECATED -DG_DISABLE_DEPRECATED";
 	} else {
 		$deprecations = "";
