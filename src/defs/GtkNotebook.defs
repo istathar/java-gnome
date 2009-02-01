@@ -366,7 +366,7 @@
 
 (define-virtual change_current_page
   (of-object "GtkNotebook")
-  (return-type "none")
+  (return-type "gboolean")
   (parameters
     '("gint" "offset")
   )

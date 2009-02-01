@@ -134,7 +134,7 @@ public class Notebook extends Container
          * @param offset
          *            the tab which is now the current page.
          */
-        public void onChangeCurrentPage(Notebook source, int offset);
+        public boolean onChangeCurrentPage(Notebook source, int offset);
     }
 
     /**
