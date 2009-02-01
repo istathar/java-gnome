@@ -31,9 +31,7 @@ import org.gnome.pango.Style;
  */
 public final class ExampleFontHeights
 {
-    private final int pt = 12;
-
-    private ExampleFontHeights() {
+    private ExampleFontHeights(int pt) {
         final Window w;
         final TextView view;
         final FontDescription desc;
@@ -88,9 +86,17 @@ public final class ExampleFontHeights
     }
 
     public static void main(String[] args) {
+        final int pt;
+
         Gtk.init(args);
 
-        new ExampleFontHeights();
+        if (args.length == 1) {
+            pt = Integer.parseInt(args[0]);
+        } else {
+            pt = 11;
+        }
+
+        new ExampleFontHeights(pt);
 
         Gtk.main();
     }
