@@ -1,7 +1,7 @@
 /*
  * ValidateTextBuffer.java
  *
- * Copyright (c) 2008 Operational Dynamics Consulting Pty Ltd, and Others
+ * Copyright (c) 2008-2009 Operational Dynamics Consulting Pty Ltd, and Others
  * 
  * The code in this file, and the suite it is a part of, are made available
  * to you by the authors under the terms of the "GNU General Public Licence,
@@ -640,5 +640,29 @@ public class ValidateTextBuffer extends TestCaseGtk
 
         start = buffer.getIterStart();
         assertEquals(3, start.getTags().length);
+    }
+
+    private int offset = -1;
+
+    public final void testReactingToCursorPositionChanges() {
+        final TextBuffer buffer;
+        final TextIter pointer;
+
+        buffer = new TextBuffer();
+
+        assertEquals(-1, offset);
+        offset = buffer.getCursorPosition();
+        assertEquals(0, offset);
+
+        buffer.connect(new TextBuffer.NotifyCursorPosition() {
+            public void onNotifyCursorPosition(TextBuffer source) {
+                offset = buffer.getCursorPosition();
+            }
+        });
+
+        pointer = buffer.getIterStart();
+        buffer.insert(pointer, "Hello World");
+
+        assertEquals(11, offset);
     }
 }
