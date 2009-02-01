@@ -2,7 +2,7 @@
  * bindings_java_signal.c
  *
  * Copyright (c) 1998-2005 The java-gnome Team
- * Copyright (c) 2006-2008 Operational Dynamics Consulting Pty Ltd
+ * Copyright (c) 2006-2009 Operational Dynamics Consulting Pty Ltd
  * 
  * The code in this file, and the library it is a part of, are made available
  * to you by the authors under the terms of the "GNU General Public Licence,

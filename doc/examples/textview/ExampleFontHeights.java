@@ -24,8 +24,16 @@ import org.gnome.pango.Style;
 
 /**
  * Are all the characters in the rendered text the same height? Not all fonts
- * behave in this regard, and buggy distros like Ubuntu can fail to get things
- * right.
+ * behave in this regard.
+ * 
+ * <p>
+ * Run this as:
+ * 
+ * <pre>
+ * $ java -client -ea -classpath tmp/gtk-4.0.jar:tmp/tests textview.ExampleFontHeight 10
+ * </pre>
+ * 
+ * to see the 10pt problem on buggy distros like Ubuntu.
  * 
  * @author Andrew Cowie
  */
