@@ -575,9 +575,15 @@ public final class TextIter extends Boxed
      * Increase the character offset by 1. If already at the last character,
      * remain there.
      * 
-     * @return <code>true</code>, if the offset was increased or
-     *         <code>false</code> if the TextIter already pointed to the end
-     *         of the TextBuffer.
+     * <p>
+     * The method returns <code>true</code>, if the offset was increased or
+     * <code>false</code> if the TextIter already pointed to the end of the
+     * TextBuffer <i>or one character before the end</i>.
+     * 
+     * <p>
+     * If iterating character by character over a TextBuffer, you probably
+     * want to use {@link #isEnd() isEnd()} and if not at the end call this
+     * (and ignore its return value).
      * 
      * @since 4.0.9
      */
