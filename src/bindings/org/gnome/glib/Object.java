@@ -17,6 +17,7 @@ import org.freedesktop.bindings.Constant;
 import org.freedesktop.bindings.Debug;
 import org.freedesktop.bindings.Flag;
 import org.freedesktop.bindings.Proxy;
+import org.gnome.pango.FontDescription;
 
 /**
  * Base class of the object system used by GLib and libraries based on it,
@@ -210,6 +211,10 @@ public abstract class Object extends Proxy
     protected Object getPropertyObject(String name) {
         Value value = GObject.getProperty(this, name);
         return GValue.getObject(value);
+    }
+
+    protected void setPropertyBoxed(String name, FontDescription desc) {
+        GObject.setProperty(this, name, new Value(desc));
     }
 
     /**

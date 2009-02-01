@@ -232,6 +232,10 @@ public class Keyval extends Constant
 
     public static final Keyval ControlRight = new Keyval(0xffe4, "ControlRight");
 
+    public static final Keyval SuperLeft = new Keyval(0xffeb, "SuperLeft");
+
+    public static final Keyval SuperRight = new Keyval(0xffec, "SuperRight");
+
     public static final Keyval CapsLock = new Keyval(0xffe5, "CapsLock");
 
     public static final Keyval AltLeft = new Keyval(0xffe9, "AltLeft");

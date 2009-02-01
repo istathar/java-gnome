@@ -1,7 +1,7 @@
 /*
  * Value.java
  *
- * Copyright (c) 2006-2008 Operational Dynamics Consulting Pty Ltd
+ * Copyright (c) 2006-2009 Operational Dynamics Consulting Pty Ltd
  * 
  * The code in this file, and the library it is a part of, are made available
  * to you by the authors under the terms of the "GNU General Public Licence,
@@ -15,6 +15,7 @@ import org.freedesktop.bindings.Constant;
 import org.freedesktop.bindings.Debug;
 import org.freedesktop.bindings.Pointer;
 import org.gnome.gdk.Pixbuf;
+import org.gnome.pango.FontDescription;
 
 /**
  * A generic value that can be passed as a parameter to or returned from a
@@ -139,6 +140,10 @@ public class Value extends Pointer
 
     protected Value(Object obj) {
         this(GValue.createValue(obj), true);
+    }
+
+    protected Value(FontDescription desc) {
+        this(GValue.createValue(desc), true);
     }
 
     /*

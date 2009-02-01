@@ -1,7 +1,7 @@
 /*
  * GValue.c
  *
- * Copyright (c) 2006-2008 Operational Dynamics Consulting Pty Ltd
+ * Copyright (c) 2006-2009 Operational Dynamics Consulting Pty Ltd
  * 
  * The code in this file, and the library it is a part of, are made available
  * to you by the authors under the terms of the "GNU General Public Licence,
@@ -12,6 +12,7 @@
 
 #include <glib.h>
 #include <glib-object.h>
+#include <pango/pango.h>
 #include <jni.h>
 #include "org_gnome_glib_GValue.h"
 #include "bindings_java.h"
@@ -353,6 +354,43 @@ Java_org_gnome_glib_GValue_g_1value_1init_1object
 
 	// return address
 	return (jlong) value;
+}
+
+
+/**
+ * Implements
+ *   org.gnome.glib.GValue.g_value_init_font_description(long desc)
+ * called from
+ *   org.gnome.glib.GValue.createValue(FontDescription obj)
+ *
+ * Allocate a GValue for a PangoFontDescription with GSlice, then initialize
+ * it and return the pointer.
+ */
+JNIEXPORT jlong JNICALL
+Java_org_gnome_glib_GValue_g_1value_1init_1font_1description
+(
+    JNIEnv *env,
+    jclass cls,
+    jlong _desc
+)
+{
+    PangoFontDescription* desc;
+    GValue* value;
+    
+    // translate desc
+    desc = (PangoFontDescription*) _desc;
+    
+    // allocate and set to zeros, per what g_value_init requires
+    value = g_slice_new0(GValue);
+    g_value_init(value, PANGO_TYPE_FONT_DESCRIPTION);
+
+    // set the value
+    g_value_set_boxed(value, desc);
+
+    // clean up desc
+
+    // return address
+    return (jlong) value;
 }
 
 
