@@ -251,6 +251,7 @@ bindings_java_typeToSignature
 
 	case G_TYPE_OBJECT:
 	case G_TYPE_INTERFACE:
+	case G_TYPE_PARAM:
 		return "J";
 
 	case G_TYPE_INVALID:
