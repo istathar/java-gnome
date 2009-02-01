@@ -259,7 +259,7 @@ HERE
 		close HELLO;
 	}
 
-	`$program $args Hello.java >/dev/null 2>&1`;
+	`$program $args -sourcepath . Hello.java >/dev/null 2>&1`;
 	if ($? != 0) {
 		output "doesn't work\n";
 		$$scalarref = "";
