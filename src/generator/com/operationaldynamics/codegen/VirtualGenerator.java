@@ -58,7 +58,7 @@ public class VirtualGenerator extends FunctionGenerator
         super(data, "connect", gReturnType, null, gParameters, 'f');
 
         this.javaSignalClass = toPascalCase(blockName) + "Signal";
-        this.cSignalName = blockName;
+        this.cSignalName = blockName.replace('_', '-');
         this.receiverMethodName = toCamel("receive_" + blockName);
         this.interfaceMethodName = toCamel("on_" + blockName);
     }
