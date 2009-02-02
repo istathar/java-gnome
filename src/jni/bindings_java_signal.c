@@ -2,7 +2,7 @@
  * bindings_java_signal.c
  *
  * Copyright (c) 1998-2005 The java-gnome Team
- * Copyright (c) 2006-2008 Operational Dynamics Consulting Pty Ltd
+ * Copyright (c) 2006-2009 Operational Dynamics Consulting Pty Ltd
  * 
  * The code in this file, and the library it is a part of, are made available
  * to you by the authors under the terms of the "GNU General Public Licence,
@@ -209,7 +209,16 @@ bindings_java_marshaller
 			 */
 			jargs[i+1].j = (jlong) g_boxed_copy(type, g_value_get_boxed(&param_values[i]));
 			break;
-			
+
+		case G_TYPE_PARAM:
+			/*
+			 * We're ignoring GParamSpec at the moment. They
+			 * normally only show up in 'notify' signals, and we
+			 * don't need them. 
+			 */
+			jargs[i+1].j = (jlong) NULL;
+			break;
+
 		default:
 			/*
 			 * Unrecognized. Probably means we need to add a clause above.
@@ -435,7 +444,7 @@ bindings_java_closure_new
       	case G_TYPE_NONE:
       		bjc->returnType = 'V';
       		break;
-	
+
 	default:
 		g_critical("Don't know what to do with signal return type %s", g_type_name(info.return_type));
 		return NULL;
@@ -447,22 +456,28 @@ bindings_java_closure_new
 	 * where Name is a PascalCase version of the signal name we were
 	 * passed in.
 	 */
-	 
+
 	buf = g_string_new("receive");
-	
-	gchar** tokens = g_strsplit_set(name, "_-", -1);
-	
+
+	gchar** tokens = g_strsplit_set(name, "_-:", -1);
+
 	for (i = 0; i < g_strv_length(tokens); i++) {
 		gchar* token = tokens[i];
+
+		if (token[0] == '\0') {
+			// skip past :: which splits signal name from "detail"
+			continue;
+		}
+
 		gchar first = g_unichar_toupper(token[0]);
 		g_string_append_c(buf, first);
-		
+
 		token++; 
 		g_string_append(buf, token);
 	}
-	
+
 	methodName = buf->str;
-	
+
 	g_string_free(buf, FALSE);
 	g_strfreev(tokens);
 
