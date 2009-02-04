@@ -50,11 +50,13 @@ JNIEnv*
 bindings_java_getEnv()
 {
 	JNIEnv* env = NULL;
+	void* ptr = NULL;
 	JavaVMAttachArgs args = { 0, };
 	static int i = 0; 
 	jint result;
 
-	result = (*cachedJavaVM)->GetEnv(cachedJavaVM, (void **) &env, JNI_VERSION_1_4);
+	result = (*cachedJavaVM)->GetEnv(cachedJavaVM, &ptr, JNI_VERSION_1_4);
+	env = (JNIEnv*) ptr;
 	if (env != NULL) {
 		return env;
 	}
@@ -64,7 +66,8 @@ bindings_java_getEnv()
 		args.version = JNI_VERSION_1_4;
 		args.name = g_strdup_printf("NativeThread%d", i++);
 
-		result = (*cachedJavaVM)->AttachCurrentThreadAsDaemon(cachedJavaVM, (void **) &env, &args);
+		result = (*cachedJavaVM)->AttachCurrentThreadAsDaemon(cachedJavaVM, &ptr, &args);
+		env = (JNIEnv*) ptr;
 		if ((result == JNI_OK) && (env != NULL)) {
 			g_free(args.name);
 			return env;
