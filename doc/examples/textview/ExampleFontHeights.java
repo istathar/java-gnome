@@ -24,16 +24,22 @@ import org.gnome.pango.Style;
 
 /**
  * Are all the characters in the rendered text the same height? Not all fonts
- * behave in this regard, and buggy distros like Ubuntu can fail to get things
- * right.
+ * behave in this regard.
+ * 
+ * <p>
+ * Run this as:
+ * 
+ * <pre>
+ * $ java -client -ea -classpath tmp/gtk-4.0.jar:tmp/tests textview.ExampleFontHeight 10
+ * </pre>
+ * 
+ * to see the 10pt problem on buggy distros like Ubuntu.
  * 
  * @author Andrew Cowie
  */
 public final class ExampleFontHeights
 {
-    private final int pt = 12;
-
-    private ExampleFontHeights() {
+    private ExampleFontHeights(int pt) {
         final Window w;
         final TextView view;
         final FontDescription desc;
@@ -88,9 +94,17 @@ public final class ExampleFontHeights
     }
 
     public static void main(String[] args) {
+        final int pt;
+
         Gtk.init(args);
 
-        new ExampleFontHeights();
+        if (args.length == 1) {
+            pt = Integer.parseInt(args[0]);
+        } else {
+            pt = 11;
+        }
+
+        new ExampleFontHeights(pt);
 
         Gtk.main();
     }
