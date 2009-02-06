@@ -1,0 +1,14 @@
+(define-boxed EventOwnerChange
+  (in-module "Gdk")
+  (c-name "GdkEventOwnerChange")
+  (fields
+    '("GdkEventType" "type")
+    '("GdkWindow*" "window")
+    '("gint8" "send_event")
+    '("GdkNativeWidnow" "owner")
+    '("GdkOwnerChange" "reason")
+    '("GdkAtom" "selection")
+    '("guint32" "time")
+    '("guint32" "selection_time")
+  )
+)
