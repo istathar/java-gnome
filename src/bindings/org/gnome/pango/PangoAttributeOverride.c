@@ -76,3 +76,18 @@ Java_org_gnome_pango_PangoAttributeOverride_pango_1attribute_1set_1indexes
 
 	// local text should not be modified or freed
 }
+
+
+/*
+ * Express shortcut to determine the width of this String in bytes.
+ */
+JNIEXPORT int JNICALL
+Java_org_gnome_pango_PangoAttributeOverride_strlen
+(
+	JNIEnv* env,
+	jclass cls,
+	jstring _str
+)
+{
+	return (*env)->GetStringUTFLength(env, _str);
+}

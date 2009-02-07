@@ -170,7 +170,7 @@ public class ValidatePangoTextRendering extends TestCaseGtk
         Gtk.main();
     }
 
-    public final void testPangoAttributeCreation() {
+    public final void testAttributeCreation() {
         final FontDescription desc;
         Attribute attr;
 
@@ -178,5 +178,41 @@ public class ValidatePangoTextRendering extends TestCaseGtk
         attr = new Attribute(desc);
 
         assertNotNull(attr);
+    }
+
+    public final void testTextBuilderUse() {
+        final TextBuilder text;
+        final Attribute attr;
+        final String str;
+        final AttributeList list;
+        final Surface surface;
+        final Context cr;
+        final Layout layout;
+
+        text = new TextBuilder();
+        text.append("H€llo", null);
+
+        attr = new Attribute(Style.ITALIC);
+        text.append("World", attr);
+
+        assertEquals(7, PangoAttribute.getStartIndex(attr));
+        assertEquals(12, PangoAttribute.getEndIndex(attr));
+        str = text.getText();
+
+        assertEquals(10, str.length());
+        assertEquals("H€lloWorld", str);
+
+        list = text.getAttributes();
+        assertNotNull(list);
+
+        /*
+         * Now make sure that Layout doesn't freak out.
+         */
+
+        surface = new ImageSurface(Format.ARGB32, 150, 150);
+        cr = new Context(surface);
+        layout = new Layout(cr);
+
+        layout.setText(text);
     }
 }

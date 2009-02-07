@@ -26,4 +26,10 @@ final class PangoAttributeOverride extends Plumbing
 
     private static native final void pango_attribute_set_indexes(long self, long layout, int offset,
             int width);
+
+    static int getLengthUTF8(String str) {
+        return strlen(str);
+    }
+
+    private static native final int strlen(String str);
 }

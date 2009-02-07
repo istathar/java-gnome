@@ -13,16 +13,20 @@ package org.gnome.pango;
 
 import org.gnome.glib.Boxed;
 
-/*
- * FIXME this is a placeholder stub for what will become the public API for
- * this type. Replace this comment with appropriate javadoc including author
- * and since tags. Note that the class may need to be made abstract, implement
- * interfaces, or even have its parent changed. No API stability guarantees
- * are made about this class until it has been reviewed by a hacker and this
- * comment has been replaced.
- */
 /**
- * @since 4.0.10
+ * A list of Attributes that will be applied to a piece of text.
+ * 
+ * <p>
+ * Use {@link TextBuilder} to create a piece of text that has a sequence of
+ * Attributes applied to it.
+ * 
+ * <p>
+ * <i>There's nothing wrong with our coverage in this class, per se, but it
+ * turns out that using Attribute and AttributeList in the face of a language
+ * that represents everything as fixed 2 byte Unicode characters introduced
+ * some really tricky encapsulation problems.</i>
+ * 
+ * @since <span style="color: red;">Unstable</span>
  */
 /*
  * AttrList was the original mapping, but since we aren't exposing
@@ -36,7 +40,7 @@ public final class AttributeList extends Boxed
         super(pointer);
     }
 
-    public AttributeList() {
+    AttributeList() {
         super(PangoAttrList.createAttributeList());
     }
 
@@ -49,7 +53,7 @@ public final class AttributeList extends Boxed
      * Attributes already in the list possessing the same <var>start
      * index</var>.
      * 
-     * @since 4.0.10
+     * @since <span style="color: red;">Unstable</span>
      */
     public void insert(Attribute attr) {
         PangoAttrList.insert(this, attr);
@@ -60,7 +64,7 @@ public final class AttributeList extends Boxed
      * insert()} except that the Attribute will come before other Attributes
      * already in the list possessing the same <var>start index</var>.
      * 
-     * @since 4.0.10
+     * @since <span style="color: red;">Unstable</span>
      */
     public void insertBefore(Attribute attr) {
         PangoAttrList.insertBefore(this, attr);

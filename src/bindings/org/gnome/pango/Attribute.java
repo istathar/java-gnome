@@ -13,14 +13,6 @@ package org.gnome.pango;
 
 import org.gnome.glib.Boxed;
 
-/*
- * FIXME this is a placeholder stub for what will become the public API for
- * this type. Replace this comment with appropriate javadoc including author
- * and since tags. Note that the class may need to be made abstract, implement
- * interfaces, or even have its parent changed. No API stability guarantees
- * are made about this class until it has been reviewed by a hacker and this
- * comment has been replaced.
- */
 /**
  * The different text attribute manipulations you can do are analogous to
  * those found on FontDescription and TextTag. Indeed, this is the underlying
@@ -60,44 +52,46 @@ public final class Attribute extends Boxed
     }
 
     /**
-     * @since <span style="color: red;">Unstable</span>
-     */
-    public int getStartIndex() {
-        return PangoAttribute.getStartIndex(this);
-    }
-
-    /**
-     * @since <span style="color: red;">Unstable</span>
-     */
-    public int getEndIndex() {
-        return PangoAttribute.getEndIndex(this);
-    }
-
-    /**
      * Given a String, a starting point, and a width, set the
      * <var>start_index</var> and <var>end_index</var> of this Attribute.
      * 
-     * @since <span style="color: red;">Unstable</span>
+     * @since <span style="color: red;">Not implemented</span>
      */
-    public void setIndexes(String text, int offset, int width) {
+    void setIndexes(String text, int offset, int width) {
         throw new UnsupportedOperationException();
     }
 
     /**
-     * Set the <var>start_index</var> and <var>end_index</var> properties of
-     * the specified Attribute. Unfortunately you need to tell Attributes what
-     * range they cover. So, given the text of a Pango Layout, a starting
-     * offset, and a width, set the indexes.
+     * Given the text already in a Pango Layout, a starting position, and a
+     * width, set the indexes of this Attribute accodringly.
+     * <code>offset</code> and <code>width</code> are in terms of Java
+     * characters. The result of this call is that the <var>start_index</var>
+     * and <var>end_index</var> properties of the specified Attribute will be
+     * set.
      * 
      * <p>
-     * <i>The <code>offset,length</code> pattern follows that found in most of
-     * core Java, and tends to be more useful as you are building a
-     * Layout.</i>
+     * By default an Attribute added to an AttributeList covers all the text
+     * in whatever that AttributeList is applied to. If that's not what you
+     * want, you need to tell each Attribute what range it covers using this
+     * method.
      * 
-     * @since 4.0.10
+     * <p>
+     * When programatically building up a piece of text for rendering since
+     * you tend not to have the entire text of what you're going to render
+     * with this Layout but instead have pieces you're going to build up one
+     * at a time and each piece's respective markup. If that's the case for
+     * you, use our {@link TextBuilder} wrapper class instead.
+     * 
+     * <p>
+     * <i>In fact, that's the only way we support doing this right now.</i>
+     * 
+     * @since <span style="color: red;">Not implemented</span>
      */
-    public void setIndexes(Layout layout, int offset, int width) {
+    /*
+     * This works great, but if we're going to expose this we need to expose
+     * AttributeList publicly as well.
+     */
+    void setIndexes(Layout layout, int offset, int width) {
         PangoAttributeOverride.setIndexes(this, layout, offset, width);
     }
-
 }

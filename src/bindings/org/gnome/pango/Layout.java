@@ -87,7 +87,7 @@ public class Layout extends Object
     }
 
     /**
-     * Sets the text of the Layout. This is the text that will be draw.
+     * Sets the text of the Layout. This is the text that will be drawn.
      * 
      * <p>
      * If you wish to pass text enhanced with Pango Markup, use
@@ -409,7 +409,14 @@ public class Layout extends Object
         return PangoLayout.getContext(this);
     }
 
-    public void setAttributes(AttributeList list) {
-        PangoLayout.setAttributes(this, list);
+    /**
+     * Sets the text of the Layout along with a matching sequence of
+     * Attributes describing the markup you wish to have in play.
+     * 
+     * @since 4.0.10
+     */
+    public void setText(TextBuilder text) {
+        PangoLayout.setText(this, text.getText(), -1);
+        PangoLayout.setAttributes(this, text.getAttributes());
     }
 }
