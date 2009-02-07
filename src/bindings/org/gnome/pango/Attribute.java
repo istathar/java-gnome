@@ -18,6 +18,40 @@ import org.gnome.glib.Boxed;
  * those found on FontDescription and TextTag. Indeed, this is the underlying
  * mechanism which powers TextView's rendering of rich text.
  * 
+ * <p>
+ * Examples of setting up Attributes include:
+ * 
+ * <pre>
+ * desc = new FontDescription(&quot;DejaVu Serif, 9pt&quot;);
+ * attr = new Attribute(desc);
+ * </pre>
+ * 
+ * and
+ * 
+ * <pre>
+ * attr = new Attribute(Style.ITALIC);
+ * </pre>
+ * 
+ * <p>
+ * When rendering a large piece of text with various arbitrary formatting you
+ * tend not to have the entire text of what you're going to render ahead of
+ * time, and instead have pieces you're going to build up one by one along
+ * with each piece's respective markup. This is the use case our
+ * {@link TextBuilder} wrapper class is designed for.
+ * 
+ * <p>
+ * <b>WARNING</b>:<br>
+ * Once you've applied an Attribute to a specific range of text do not attempt
+ * to reuse it.
+ * 
+ * <p>
+ * <i>Pango Attributes have an internal ugliness which is that each one needs
+ * to be told what offsets of text it applies to. The problem is that these
+ * are in terms of UTF-8 bytes, which not something we have access to from
+ * Java (nor would we want to expose such in our public API). We take care of
+ * setting the offsets properly when you add a (String,Attribute) pair to a
+ * TextBuilder.</i>
+ * 
  * @author Andrew Cowie
  * @since 4.0.10
  */
@@ -33,7 +67,7 @@ public final class Attribute extends Boxed
 
     /**
      * Create an Attribute that applies the given FontDescription. This is a
-     * baseline; all the other Attributes will superceed settings established
+     * baseline; all the other Attributes will supersede settings established
      * here.
      * 
      * @since 4.0.10
@@ -63,7 +97,7 @@ public final class Attribute extends Boxed
 
     /**
      * Given the text already in a Pango Layout, a starting position, and a
-     * width, set the indexes of this Attribute accodringly.
+     * width, set the indexes of this Attribute accordingly.
      * <code>offset</code> and <code>width</code> are in terms of Java
      * characters. The result of this call is that the <var>start_index</var>
      * and <var>end_index</var> properties of the specified Attribute will be
@@ -75,17 +109,7 @@ public final class Attribute extends Boxed
      * want, you need to tell each Attribute what range it covers using this
      * method.
      * 
-     * <p>
-     * When programatically building up a piece of text for rendering since
-     * you tend not to have the entire text of what you're going to render
-     * with this Layout but instead have pieces you're going to build up one
-     * at a time and each piece's respective markup. If that's the case for
-     * you, use our {@link TextBuilder} wrapper class instead.
-     * 
-     * <p>
-     * <i>In fact, that's the only way we support doing this right now.</i>
-     * 
-     * @since <span style="color: red;">Not implemented</span>
+     * @since <span style="color: red;">Unstable</span>
      */
     /*
      * This works great, but if we're going to expose this we need to expose

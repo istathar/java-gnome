@@ -20,7 +20,7 @@ package org.gnome.pango;
  * 
  * buf.append(&quot;H€llo &quot;, null);
  * 
- * attr = new Attribute(Style.ITALICS);
+ * attr = new Attribute(Style.ITALIC);
  * buf.append(&quot;world&quot;, attr);
  * 
  * layout.setText(buf);
@@ -56,8 +56,27 @@ public class TextBuilder
 
     private int index;
 
+    /**
+     * Create a TextBuilder.
+     * 
+     * @since 4.0.10
+     */
     public TextBuilder() {
         buf = new StringBuilder();
+        list = new AttributeList();
+        index = 0;
+    }
+
+    /**
+     * Create a TextBuilder with the specified [initial] capacity. If you know
+     * (roughly) how many characters wide the final text is going to be, then
+     * use this constructor - it'll prevent unnecessary allocations and array
+     * copying.
+     * 
+     * @since 4.0.10
+     */
+    public TextBuilder(int capacity) {
+        buf = new StringBuilder(capacity);
         list = new AttributeList();
         index = 0;
     }
@@ -78,6 +97,8 @@ public class TextBuilder
         int i;
 
         len = str.length();
+        buf.ensureCapacity(buf.length() + len);
+
         for (i = 0; i < len; i++) {
             buf.append(str.charAt(i));
         }
@@ -112,10 +133,26 @@ public class TextBuilder
     void apply(Attribute attr, int offset, int width) {
         if ((offset + width) > buf.length()) {
             throw new IllegalArgumentException(
-                    "The text in this TextBuilder is shorter than offset + width");
+                    "The text in this TextBuilder is shorter than offset + width.");
         }
 
         throw new UnsupportedOperationException();
+    }
+
+    /**
+     * Apply the given Attribute to the entire text.
+     * 
+     * <p>
+     * Do not pass in an Attribute you've already used elsewhere for a
+     * specific range of text.
+     * 
+     * @since 4.0.10
+     */
+    public void apply(Attribute attr) {
+        if (PangoAttribute.getStartIndex(attr) != 0) {
+            throw new IllegalStateException();
+        }
+        PangoAttrList.insert(list, attr);
     }
 
     /*
