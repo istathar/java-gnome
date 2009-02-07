@@ -169,4 +169,14 @@ public class ValidatePangoTextRendering extends TestCaseGtk
         w.showAll();
         Gtk.main();
     }
+
+    public final void testPangoAttributeCreation() {
+        final FontDescription desc;
+        Attribute attr;
+
+        desc = new FontDescription("Serif, 12");
+        attr = new Attribute(desc);
+
+        assertNotNull(attr);
+    }
 }
