@@ -175,7 +175,7 @@ public class ValidatePangoTextRendering extends TestCaseGtk
         Attribute attr;
 
         desc = new FontDescription("Serif, 12");
-        attr = new Attribute(desc);
+        attr = new FontDescriptionAttribute(desc);
 
         assertNotNull(attr);
     }
@@ -198,7 +198,7 @@ public class ValidatePangoTextRendering extends TestCaseGtk
          * Now set some Attributes.
          */
 
-        attr = new Attribute(Style.ITALIC);
+        attr = new StyleAttribute(Style.ITALIC);
         attr.setIndices(layout, 5, 5);
 
         assertEquals(7, PangoAttribute.getStartIndex(attr));

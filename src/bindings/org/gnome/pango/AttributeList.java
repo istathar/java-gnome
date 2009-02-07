@@ -34,11 +34,11 @@ import org.gnome.glib.Boxed;
  * <code>4</code> characters wide.
  * 
  * <pre>
- * attr = new Attribute(Style.ITALIC);
+ * attr = new StyleAttribute(Style.ITALIC);
  * attr.setIndexes(layout, 15, 4);
  * list.insert(attr);
  * 
- * attr = new Attribute(0.1, 0.5, 0.9);
+ * attr = new ForegroundColorAttribute(0.1, 0.5, 0.9);
  * attr.setIndexes(layout, 15, 4);
  * list.insert(attr);
  * </pre>
@@ -52,6 +52,7 @@ import org.gnome.glib.Boxed;
  * 
  * and you're on your way.
  * 
+ * @author Andrew Cowie
  * @since 4.0.10
  */
 /*
@@ -66,6 +67,12 @@ public final class AttributeList extends Boxed
         super(pointer);
     }
 
+    /**
+     * Create an AttributeList. You'll want a new one for each paragraph of
+     * text you render.
+     * 
+     * @since 4.0.10
+     */
     public AttributeList() {
         super(PangoAttrList.createAttributeList());
     }

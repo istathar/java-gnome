@@ -14,46 +14,57 @@ package org.gnome.pango;
 import org.gnome.glib.Boxed;
 
 /**
- * The different text attribute manipulations you can do are analogous to
- * those found on FontDescription and TextTag. Indeed, this is the underlying
- * mechanism which powers TextView's rendering of rich text.
+ * A (single) specific formatting or font to be applied to a range of Text.
  * 
  * <p>
  * Examples of setting up Attributes include:
  * 
  * <pre>
- * desc = new FontDescription(&quot;DejaVu Serif, 9pt&quot;);
- * attr = new Attribute(desc);
+ * attr = new StyleAttribute(Style.ITALIC);
  * </pre>
  * 
- * and
+ * although many settings can be compunded by setting a FontDescription:
  * 
  * <pre>
- * attr = new Attribute(Style.ITALIC);
+ * desc = new FontDescription(&quot;DejaVu Serif, 9pt&quot;);
+ * attr = new FontDescriptionAttribute(desc);
  * </pre>
  * 
- * <p>
- * See {@link AttributeList} for an example of using these on discrete parts
- * of the text to be rendered by a Layout.
+ * in general it's one Attribute per characteristic. You then aggregate these
+ * together in an AttributeList and then apply them to a Layout. See
+ * {@link AttributeList} for an example of using these on discrete parts of
+ * text.
  * 
  * <p>
  * <b>WARNING</b>:<br>
- * Once you've applied an Attribute to a specific range of text do not attempt
- * to reuse it.
+ * Once you've assigned an Attribute to a specific range of text in a given
+ * Layout, do not attempt to reuse it.
+ * 
+ * <p>
+ * <i> The different text attribute manipulations you can do are analogous to
+ * those found on FontDescription and TextTag. Indeed, Pango's Attributes are
+ * is the underlying mechanism powering TextView and Label's rendering of rich
+ * markup.</i>
+ * 
  * 
  * <p>
  * <i>Pango Attributes have an internal ugliness which is that each one needs
- * to be told what offsets of text it applies to. The problem is that these
- * are in terms of UTF-8 bytes, which not something we have access to from
- * Java (nor would we want to expose such in our public API). We take care of
+ * to be told the offsets of text it applies to. The problem is that these are
+ * in terms of UTF-8 bytes, which not something we have access to from Java
+ * (nor would we want to expose such in our public API). We take care of
  * setting the offsets properly when you call</i>
- * {@link #setIndices(Layout, int, int) setIndices()}<i>, which is why you
- * have to have already set the text into the Layout.</i>
+ * {@link #setIndices(Layout, int, int) setIndices()}<i>, but you have to have
+ * already set the text into the Layout for us to be able to do so.</i>
  * 
  * @author Andrew Cowie
  * @since 4.0.10
  */
-public final class Attribute extends Boxed
+/*
+ * Apparently there is a facility for developers to extend Attributes, but we
+ * haven't needed to expose that as yet. If someone needs this, then perhaps
+ * the constructor here will need to change back to protected.
+ */
+public abstract class Attribute extends Boxed
 {
     protected Attribute(long pointer) {
         super(pointer);
@@ -61,37 +72,6 @@ public final class Attribute extends Boxed
 
     protected void release() {
         PangoAttribute.destroy(this);
-    }
-
-    /**
-     * Create an Attribute that applies the given FontDescription. This is a
-     * baseline; all the other Attributes will supersede settings established
-     * here.
-     * 
-     * @since 4.0.10
-     */
-    public Attribute(FontDescription desc) {
-        super(PangoAttribute.createAttributeFontDescription(desc));
-    }
-
-    /**
-     * Create an Attribute that modifies Style.
-     * 
-     * @since 4.0.10
-     */
-    public Attribute(Style style) {
-        super(PangoAttribute.createAttributeStyle(style));
-    }
-
-    /**
-     * Set the foreground colour for the text. The colour parameters are in
-     * the same [0,1] range as other Cairo drawing functions use.
-     * 
-     * @since 4.0.10
-     */
-    public Attribute(double red, double green, double blue) {
-        super(PangoAttribute.createAttributeForeground((char) (red * 65535), (char) (green * 65535),
-                (char) (blue * 65535)));
     }
 
     /**
