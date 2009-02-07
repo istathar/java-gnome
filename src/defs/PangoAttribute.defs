@@ -47,35 +47,41 @@
 ;;    '("const-char*" "family")
 ;;  )
 ;;)
-;;
-;;(define-function AttrForeground
-;;  (c-name "pango_attr_foreground_new")
-;;  (return-type "PangoAttribute*")
-;;  (parameters
-;;    '("guint16" "red")
-;;    '("guint16" "green")
-;;    '("guint16" "blue")
-;;  )
-;;)
-;;
-;;(define-function AttrBackground
-;;  (c-name "pango_attr_background_new")
-;;  (return-type "PangoAttribute*")
-;;  (parameters
-;;    '("guint16" "red")
-;;    '("guint16" "green")
-;;    '("guint16" "blue")
-;;  )
-;;)
-;;
-;;(define-function AttrSize
-;;  (c-name "pango_attr_size_new")
-;;  (return-type "PangoAttribute*")
-;;  (parameters
-;;    '("int" "size")
-;;  )
-;;)
-;;
+
+(define-function pango_attribute_new_foreground
+  (c-name "pango_attr_foreground_new")
+  (is-constructor-of "PangoAttribute")
+  (caller-owns-return #t)
+  (return-type "PangoAttribute*")
+  (parameters
+    '("guint16" "red")
+    '("guint16" "green")
+    '("guint16" "blue")
+  )
+)
+
+(define-function pango_attribute_new_background
+  (c-name "pango_attr_background_new")
+  (is-constructor-of "PangoAttribute")
+  (caller-owns-return #t)
+  (return-type "PangoAttribute*")
+  (parameters
+    '("guint16" "red")
+    '("guint16" "green")
+    '("guint16" "blue")
+  )
+)
+
+(define-function pango_attribute_new_size
+  (c-name "pango_attr_size_new")
+  (is-constructor-of "PangoAttribute")
+  (caller-owns-return #t)
+  (return-type "PangoAttribute*")
+  (parameters
+    '("int" "size")
+  )
+)
+
 ;;(define-function AttrSizeAbsolute
 ;;  (c-name "pango_attr_size_new_absolute")
 ;;  (return-type "PangoAttribute*")
@@ -132,24 +138,28 @@
   )
 )
 
-;;(define-function AttrUnderline
-;;  (c-name "pango_attr_underline_new")
-;;  (return-type "PangoAttribute*")
-;;  (parameters
-;;    '("PangoUnderline" "underline")
-;;  )
-;;)
-;;
-;;(define-function AttrUnderlineColor
-;;  (c-name "pango_attr_underline_color_new")
-;;  (return-type "PangoAttribute*")
-;;  (parameters
-;;    '("guint16" "red")
-;;    '("guint16" "green")
-;;    '("guint16" "blue")
-;;  )
-;;)
-;;
+(define-function pango_attribute_new_underline
+  (c-name "pango_attr_underline_new")
+  (is-constructor-of "PangoAttribute")
+  (caller-owns-return #t)
+  (return-type "PangoAttribute*")
+  (parameters
+    '("PangoUnderline" "underline")
+  )
+)
+
+(define-function pango_attribute_new_underline_color
+  (c-name "pango_attr_underline_color_new")
+  (is-constructor-of "PangoAttribute")
+  (caller-owns-return #t)
+  (return-type "PangoAttribute*")
+  (parameters
+    '("guint16" "red")
+    '("guint16" "green")
+    '("guint16" "blue")
+  )
+)
+
 ;;(define-function AttrStrikethrough
 ;;  (c-name "pango_attr_strikethrough_new")
 ;;  (return-type "PangoAttribute*")

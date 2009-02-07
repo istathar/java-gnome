@@ -86,6 +86,17 @@ public final class Attribute extends Boxed
     }
 
     /**
+     * Set the foreground colour for the text. The colour parameters are in
+     * the same [0,1] range as other Cairo drawing functions use.
+     * 
+     * @since 4.0.10
+     */
+    public Attribute(double red, double green, double blue) {
+        super(PangoAttribute.createAttributeForeground((char) (red * 65535), (char) (green * 65535),
+                (char) (blue * 65535)));
+    }
+
+    /**
      * Given a String, a starting point, and a width, set the
      * <var>start_index</var> and <var>end_index</var> of this Attribute.
      * 
