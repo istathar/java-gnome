@@ -33,11 +33,8 @@ import org.gnome.glib.Boxed;
  * </pre>
  * 
  * <p>
- * When rendering a large piece of text with various arbitrary formatting you
- * tend not to have the entire text of what you're going to render ahead of
- * time, and instead have pieces you're going to build up one by one along
- * with each piece's respective markup. This is the use case our
- * {@link TextBuilder} wrapper class is designed for.
+ * See {@link AttributeList} for an example of using these on discrete parts
+ * of the text to be rendered by a Layout.
  * 
  * <p>
  * <b>WARNING</b>:<br>
@@ -49,8 +46,9 @@ import org.gnome.glib.Boxed;
  * to be told what offsets of text it applies to. The problem is that these
  * are in terms of UTF-8 bytes, which not something we have access to from
  * Java (nor would we want to expose such in our public API). We take care of
- * setting the offsets properly when you add a (String,Attribute) pair to a
- * TextBuilder.</i>
+ * setting the offsets properly when you call</i>
+ * {@link #setIndices(Layout, int, int) setIndices()}<i>, which is why you
+ * have to have already set the text into the Layout.</i>
  * 
  * @author Andrew Cowie
  * @since 4.0.10
@@ -97,16 +95,6 @@ public final class Attribute extends Boxed
     }
 
     /**
-     * Given a String, a starting point, and a width, set the
-     * <var>start_index</var> and <var>end_index</var> of this Attribute.
-     * 
-     * @since <span style="color: red;">Not implemented</span>
-     */
-    void setIndexes(String text, int offset, int width) {
-        throw new UnsupportedOperationException();
-    }
-
-    /**
      * Given the text already in a Pango Layout, a starting position, and a
      * width, set the indexes of this Attribute accordingly.
      * <code>offset</code> and <code>width</code> are in terms of Java
@@ -120,13 +108,9 @@ public final class Attribute extends Boxed
      * want, you need to tell each Attribute what range it covers using this
      * method.
      * 
-     * @since <span style="color: red;">Unstable</span>
+     * @since 4.0.10
      */
-    /*
-     * This works great, but if we're going to expose this we need to expose
-     * AttributeList publicly as well.
-     */
-    void setIndexes(Layout layout, int offset, int width) {
+    public void setIndices(Layout layout, int offset, int width) {
         PangoAttributeOverride.setIndexes(this, layout, offset, width);
     }
 }

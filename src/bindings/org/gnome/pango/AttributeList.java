@@ -17,16 +17,42 @@ import org.gnome.glib.Boxed;
  * A list of Attributes that will be applied to a piece of text.
  * 
  * <p>
- * Use {@link TextBuilder} to create a piece of text that has a sequence of
- * Attributes applied to it.
+ * Used as follows. First, build your text up into a String and initialize the
+ * Layout with it. You'll also have to create the wrapper that will hold the
+ * list of Attributes that will be applied to that Layout.
  * 
- * <p>
- * <i>There's nothing wrong with our coverage in this class, per se, but it
- * turns out that using Attribute and AttributeList in the face of a language
- * that represents everything as fixed 2 byte Unicode characters introduced
- * some really tricky encapsulation problems.</i>
+ * <pre>
+ * layout = new Layout(cr);
+ * layout.setText(str);
  * 
- * @since <span style="color: red;">Unstable</span>
+ * list = new AttributeList();
+ * </pre>
+ * 
+ * Then, iterate over your text and for each span where you want formatting,
+ * create one or more Attributes and specify the ranges that each will apply.
+ * For instance, for a word starting at offset <code>15</code> and being
+ * <code>4</code> characters wide.
+ * 
+ * <pre>
+ * attr = new Attribute(Style.ITALIC);
+ * attr.setIndexes(layout, 15, 4);
+ * list.insert(attr);
+ * 
+ * attr = new Attribute(0.1, 0.5, 0.9);
+ * attr.setIndexes(layout, 15, 4);
+ * list.insert(attr);
+ * </pre>
+ * 
+ * etc, adding each one to the AttributeList. Finally, tell the Layout to use
+ * that list:
+ * 
+ * <pre>
+ * layout.setAttributes(list);
+ * </pre>
+ * 
+ * and you're on your way.
+ * 
+ * @since 4.0.10
  */
 /*
  * AttrList was the original mapping, but since we aren't exposing
@@ -40,7 +66,7 @@ public final class AttributeList extends Boxed
         super(pointer);
     }
 
-    AttributeList() {
+    public AttributeList() {
         super(PangoAttrList.createAttributeList());
     }
 
@@ -53,7 +79,7 @@ public final class AttributeList extends Boxed
      * Attributes already in the list possessing the same <var>start
      * index</var>.
      * 
-     * @since <span style="color: red;">Unstable</span>
+     * @since 4.0.10
      */
     public void insert(Attribute attr) {
         PangoAttrList.insert(this, attr);
@@ -64,7 +90,7 @@ public final class AttributeList extends Boxed
      * insert()} except that the Attribute will come before other Attributes
      * already in the list possessing the same <var>start index</var>.
      * 
-     * @since <span style="color: red;">Unstable</span>
+     * @since 4.0.10
      */
     public void insertBefore(Attribute attr) {
         PangoAttrList.insertBefore(this, attr);
