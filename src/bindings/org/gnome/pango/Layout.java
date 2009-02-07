@@ -408,4 +408,8 @@ public class Layout extends Object
     public Context getContext() {
         return PangoLayout.getContext(this);
     }
+
+    public void setAttributes(AttributeList list) {
+        PangoLayout.setAttributes(this, list);
+    }
 }

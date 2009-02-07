@@ -60,18 +60,6 @@ public final class Attribute extends Boxed
     }
 
     /**
-     * 
-     * @since <span style="color: red;">Unstable</span>
-     */
-    public void setStartIndex(int offset) {
-        if (offset < 0) {
-            throw new IllegalArgumentException("offset must by >= 0");
-        }
-
-        PangoAttribute.setStartIndex(this, offset);
-    }
-
-    /**
      * @since <span style="color: red;">Unstable</span>
      */
     public int getStartIndex() {
@@ -81,19 +69,35 @@ public final class Attribute extends Boxed
     /**
      * @since <span style="color: red;">Unstable</span>
      */
-    public void setEndIndex(int offset) {
-        if (offset < 0) {
-            throw new IllegalArgumentException("offset must by >= 0");
-        }
-
-        PangoAttribute.setEndIndex(this, offset);
+    public int getEndIndex() {
+        return PangoAttribute.getEndIndex(this);
     }
 
     /**
+     * Given a String, a starting point, and a width, set the
+     * <var>start_index</var> and <var>end_index</var> of this Attribute.
+     * 
      * @since <span style="color: red;">Unstable</span>
      */
-    public int getEndIndex() {
-        return PangoAttribute.getEndIndex(this);
+    public void setIndexes(String text, int offset, int width) {
+        throw new UnsupportedOperationException();
+    }
+
+    /**
+     * Set the <var>start_index</var> and <var>end_index</var> properties of
+     * the specified Attribute. Unfortunately you need to tell Attributes what
+     * range they cover. So, given the text of a Pango Layout, a starting
+     * offset, and a width, set the indexes.
+     * 
+     * <p>
+     * <i>The <code>offset,length</code> pattern follows that found in most of
+     * core Java, and tends to be more useful as you are building a
+     * Layout.</i>
+     * 
+     * @since 4.0.10
+     */
+    public void setIndexes(Layout layout, int offset, int width) {
+        PangoAttributeOverride.setIndexes(this, layout, offset, width);
     }
 
 }
