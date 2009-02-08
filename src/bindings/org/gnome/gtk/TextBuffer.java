@@ -589,6 +589,28 @@ public class TextBuffer extends Object
     }
 
     /**
+     * Apply an array of TextTags to the given range.
+     * 
+     * @since 4.0.10
+     */
+    /*
+     * Convenience method. This doesn't need to be here, but it lends a
+     * certain elegence when used alongside the insert() overload
+     */
+    public void applyTag(TextTag[] tags, TextIter start, TextIter end) {
+        if (tags == null) {
+            return;
+        }
+        for (TextTag tag : tags) {
+            if (tag == null) {
+                continue;
+            }
+            checkTag(tag);
+            GtkTextBuffer.applyTag(this, tag, start, end);
+        }
+    }
+
+    /**
      * Select a range of text. The <var>selection-bound</var> mark will be
      * placed at <code>start</code>, and the <var>insert</var> mark will be
      * placed at <code>end</code>.

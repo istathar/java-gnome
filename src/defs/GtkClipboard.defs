@@ -219,3 +219,10 @@
   )
 )
 
+(define-virtual owner_change
+  (of-object "GtkClipboard")
+  (return-type "none")
+  (parameters
+    '("GdkEventOwnerChange*" "event")
+  )
+)
