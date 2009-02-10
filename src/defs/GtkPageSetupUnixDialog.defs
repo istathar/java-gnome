@@ -3,7 +3,7 @@
   (parent "GtkDialog")
   (c-name "GtkPageSetupUnixDialog")
   (gtype-id "GTK_TYPE_PAGE_SETUP_UNIX_DIALOG")
-  (import-header "gtk/gtkpagesetupunixdialog.h")
+  (import-header "gtk/gtkunixprint.h")
 )
 
 (define-function gtk_page_setup_unix_dialog_new
