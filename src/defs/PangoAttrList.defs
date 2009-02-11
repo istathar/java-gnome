@@ -1,4 +1,4 @@
-(define-boxed AttrList
+(define-boxed AttributeList
   (in-module "Pango")
   (c-name "PangoAttrList")
   (gtype-id "PANGO_TYPE_ATTR_LIST")

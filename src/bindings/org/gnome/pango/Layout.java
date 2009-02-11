@@ -87,11 +87,19 @@ public class Layout extends Object
     }
 
     /**
-     * Sets the text of the Layout. This is the text that will be draw.
+     * Sets the text of the Layout. This is the text that will be drawn.
      * 
      * <p>
      * If you wish to pass text enhanced with Pango Markup, use
      * {@link #setMarkup(String) setMarkup()} instead.
+     * 
+     * <p>
+     * Alternately, you can use this <code>setText()</code> method to set the
+     * full textual content of the Layout and then build up a set of
+     * Attributes describing which formats you wish to be in effect across
+     * what ranges. You assemble this information in an AttributeList and then
+     * apply it to this Layout by calling
+     * {@link #setAttributes(AttributeList) setAttributes()}.
      * 
      * @since 4.0.10
      */
@@ -407,5 +415,21 @@ public class Layout extends Object
      */
     public Context getContext() {
         return PangoLayout.getContext(this);
+    }
+
+    /**
+     * Sets the sequence of Attributes describing the markup you wish to have
+     * in play. This indices of all the Attributes need to have been set after
+     * the text in this Layout was established via {@link #setText(String)
+     * setText()}.
+     * 
+     * <p>
+     * See {@link AttributeList} for a detailed example of using this method
+     * to indicate formatting.
+     * 
+     * @since 4.0.10
+     */
+    public void setAttributes(AttributeList list) {
+        PangoLayout.setAttributes(this, list);
     }
 }

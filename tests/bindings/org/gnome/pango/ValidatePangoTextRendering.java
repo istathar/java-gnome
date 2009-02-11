@@ -169,4 +169,42 @@ public class ValidatePangoTextRendering extends TestCaseGtk
         w.showAll();
         Gtk.main();
     }
+
+    public final void testAttributeCreation() {
+        final FontDescription desc;
+        Attribute attr;
+
+        desc = new FontDescription("Serif, 12");
+        attr = new FontDescriptionAttribute(desc);
+
+        assertNotNull(attr);
+    }
+
+    public final void testAttributeListUse() {
+        final Attribute attr;
+        final AttributeList list;
+        final Surface surface;
+        final Context cr;
+        final Layout layout;
+
+        surface = new ImageSurface(Format.ARGB32, 150, 150);
+        cr = new Context(surface);
+        layout = new Layout(cr);
+
+        layout.setText("H€lloWorld");
+        list = new AttributeList();
+
+        /*
+         * Now set some Attributes.
+         */
+
+        attr = new StyleAttribute(Style.ITALIC);
+        attr.setIndices(layout, 5, 5);
+
+        assertEquals(7, PangoAttribute.getStartIndex(attr));
+        assertEquals(12, PangoAttribute.getEndIndex(attr));
+
+        list.insert(attr);
+        layout.setAttributes(list);
+    }
 }

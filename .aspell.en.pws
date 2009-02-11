@@ -20,6 +20,9 @@ ArrayList
 AssistantPageType
 AtSign
 AttachOptions
+AttrList
+Attribute's
+AttributeList
 BackSpace
 Bassi
 Behdad
@@ -591,6 +594,10 @@ PackageNames
 PageDown
 PageUp
 Pango's
+PangoAttrList
+PangoAttribute
+PangoAttributeOverride
+PangoAttributes
 PangoFontDescription
 PangoLayout
 PangoLayoutLine
@@ -708,6 +715,7 @@ StockItem
 StockItems
 StorageType
 StringBuffer
+StringBuilder
 StringValue
 SurfacePattern
 SysReq
@@ -721,6 +729,7 @@ TestSuite
 TextBuffer
 TextBuffer's
 TextBuffers
+TextBuilder
 TextChildAnchor
 TextChildAnchors
 TextComboBox
@@ -894,6 +903,7 @@ assertSame
 assertTrue
 atk
 attachDefaults
+attr
 autotools
 backend
 backends
@@ -1010,6 +1020,9 @@ createActionGroup
 createAdjustment
 createAlignment
 createAssistant
+createAttributeFontDescription
+createAttributeList
+createAttributeStyle
 createButton
 createButtonWithLabel
 createButtonWithMnemonic
@@ -1057,6 +1070,7 @@ createImageMenuItemWithMnemonic
 createInstance
 createLabel
 createLayout
+createLayoutFromCairo
 createListStore
 createMark
 createMatrixIdentity
@@ -1274,6 +1288,8 @@ getAngle
 getArea
 getAscent
 getAtPosPath
+getAttributes
+getBaseline
 getBlinking
 getBlue
 getBoolean
@@ -1291,6 +1307,7 @@ getClass
 getCode
 getColumn
 getColumnAtPos
+getContext
 getCoronationYear
 getCurrentFolder
 getCurrentPage
@@ -1355,6 +1372,7 @@ getKeyval
 getLabel
 getLabelWidget
 getLayout
+getLengthUTF
 getLine
 getLineCount
 getLineOffset
@@ -1442,6 +1460,7 @@ getSize
 getSizeHeight
 getSizeWidth
 getSource
+getStartIndex
 getStartIter
 getState
 getStatus
@@ -1646,6 +1665,7 @@ lineTo
 linkSharedLibrary
 linux
 listFiles
+llo
 ln
 loadConfig
 loadHashes
@@ -1934,6 +1954,7 @@ setAlignment
 setAlignmentX
 setAngle
 setAntialias
+setAttributes
 setAuthors
 setBackground
 setBlinking
@@ -1964,6 +1985,7 @@ setDraw
 setEditable
 setEllipsize
 setEnableSearch
+setEndIndex
 setEventsVisibility
 setExpand
 setExpanded
@@ -1992,6 +2014,7 @@ setIcon
 setImage
 setInconsistent
 setIndent
+setIndexes
 setInnerBorder
 setInvisibleChar
 setJustify
@@ -2086,6 +2109,7 @@ setSourceRGBA
 setSourceRgb
 setSourceRgba
 setSourceSurface
+setStartIndex
 setStick
 setStrikethrough
 setStyle
