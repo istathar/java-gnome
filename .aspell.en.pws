@@ -78,6 +78,8 @@ CellRendererTexts
 CellRendererToggle
 CellRendererToggle's
 CellRenderers
+ChangeCurrentPage
+ChangeCurrentPageSignal
 ChangedSignal
 CheckButton
 CheckButtons
@@ -1411,7 +1413,9 @@ getPaddingRight
 getPaddingTop
 getPage
 getPageComplete
+getPageCount
 getPageHeaderImage
+getPageNumber
 getPageSideImage
 getPageTitle
 getPageType
@@ -2095,6 +2099,8 @@ setSecondaryUseMarkup
 setSelectable
 setSensitive
 setShadowType
+setShowBorder
+setShowTabs
 setSize
 setSizeRequest
 setSizing

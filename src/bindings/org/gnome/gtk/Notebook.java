@@ -1,7 +1,7 @@
 /*
  * Notebook.java
  *
- * Copyright (c) 2007-2008 Operational Dynamics Consulting Pty Ltd, and Others
+ * Copyright (c) 2007-2009 Operational Dynamics Consulting Pty Ltd, and Others
  *
  * The code in this file, and the library it is a part of, are made available
  * to you by the authors under the terms of the "GNU General Public Licence,
@@ -126,13 +126,20 @@ public class Notebook extends Container
     /**
      * The handler interface for notification of changes in the current page.
      * 
+     * <p>
+     * Note that this handler is only used when the page is changed with the
+     * keyboard using Ctrl+Page Up/Down. If you want to get informed every
+     * time the page is changed, you should use the
+     * <code>Notebook.SwitchPage</code> signal instead.
+     * 
      * @since 4.0.3
      */
     public interface ChangeCurrentPage extends GtkNotebook.ChangeCurrentPageSignal
     {
         /**
          * @param offset
-         *            the tab which is now the current page.
+         *            The number of pages to move forward/backward (negative
+         *            value for backward)
          */
         public boolean onChangeCurrentPage(Notebook source, int offset);
     }
