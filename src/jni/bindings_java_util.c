@@ -54,7 +54,7 @@ bindings_java_getEnv()
 	static int i = 0; 
 	jint result;
 
-	result = (*cachedJavaVM)->GetEnv(cachedJavaVM, (void **) &env, JNI_VERSION_1_4);
+	result = (*cachedJavaVM)->GetEnv(cachedJavaVM, (void **)(void *)&env, JNI_VERSION_1_4);
 	if (env != NULL) {
 		return env;
 	}
@@ -64,7 +64,7 @@ bindings_java_getEnv()
 		args.version = JNI_VERSION_1_4;
 		args.name = g_strdup_printf("NativeThread%d", i++);
 
-		result = (*cachedJavaVM)->AttachCurrentThreadAsDaemon(cachedJavaVM, (void **) &env, &args);
+		result = (*cachedJavaVM)->AttachCurrentThreadAsDaemon(cachedJavaVM, (void **)(void *)&env, &args);
 		if ((result == JNI_OK) && (env != NULL)) {
 			g_free(args.name);
 			return env;
