@@ -164,6 +164,28 @@ public class Notebook extends Container
         assert false : "use Notebook.ChangeCurrentPage instead";
         GtkNotebook.connect(this, handler, false);
     }
+    
+    public interface SwitchPage
+    {
+        public void onSwitchPage(Notebook source, int pageNum);
+    }
+
+    public void connect(Notebook.SwitchPage handler) {
+        GtkNotebook.connect(this, new SwitchPageHandler(handler), false);
+    }
+
+    private static class SwitchPageHandler implements GtkNotebook.SwitchPageSignal
+    {
+        private final SwitchPage handler;
+
+        private SwitchPageHandler(SwitchPage handler) {
+            this.handler = handler;
+        }
+
+        public void onSwitchPage(Notebook source, long page, int pageNum) {
+            handler.onSwitchPage(source, pageNum);
+        }
+    }
 
     /**
      * Specify where the Notebook tabs will be located.

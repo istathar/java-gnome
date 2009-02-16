@@ -343,7 +343,7 @@
   (of-object "GtkNotebook")
   (return-type "none")
   (parameters
-    '("GtkNotebookPage*" "page")
+    '("glong" "page")
     '("guint" "page_num")
   )
 )
