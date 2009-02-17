@@ -30,7 +30,7 @@ import org.gnome.gtk.ValidateAssistant;
 import org.gnome.gtk.ValidateComboBox;
 import org.gnome.gtk.ValidateFileChoosing;
 import org.gnome.gtk.ValidateIconView;
-import org.gnome.gtk.ValidateNotebook;
+import org.gnome.gtk.ValidateNotebookBehaviour;
 import org.gnome.gtk.ValidateOutParameters;
 import org.gnome.gtk.ValidatePacking;
 import org.gnome.gtk.ValidatePrinting;
@@ -133,6 +133,7 @@ public class UnitTests
         suite.addTestSuite(ValidateDrawingToFile.class);
         suite.addTestSuite(ValidateOutParameters.class);
         suite.addTestSuite(ValidatePacking.class);
+        suite.addTestSuite(ValidateNotebookBehaviour.class);
         suite.addTestSuite(ValidateFileChoosing.class);
         suite.addTestSuite(ValidateStockItems.class);
         suite.addTestSuite(ValidateResponseType.class);
@@ -150,7 +151,6 @@ public class UnitTests
         suite.addTestSuite(ValidateArrow.class);
         suite.addTestSuite(ValidatePangoTextRendering.class);
         suite.addTestSuite(ValidatePrinting.class);
-        suite.addTestSuite(ValidateNotebook.class);
 
         return suite;
     }
