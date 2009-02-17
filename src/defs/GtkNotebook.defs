@@ -339,6 +339,12 @@
   )
 )
 
+
+;; the first parameter, a GtkNotebookPage*, is actually private and internal
+;; to GTK; worse, it marshalls as a gpointer. Quite inconvenient of them to
+;; have made this publicly visible. Our workaround is to make it a long and
+;; trim in on the Java side.
+
 (define-virtual switch_page
   (of-object "GtkNotebook")
   (return-type "none")

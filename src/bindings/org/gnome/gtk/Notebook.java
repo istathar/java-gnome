@@ -164,7 +164,7 @@ public class Notebook extends Container
         assert false : "use Notebook.ChangeCurrentPage instead";
         GtkNotebook.connect(this, handler, false);
     }
-    
+
     public interface SwitchPage
     {
         public void onSwitchPage(Notebook source, int pageNum);
