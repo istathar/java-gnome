@@ -256,7 +256,7 @@ bindings_java_typeToSignature
 
 	case G_TYPE_INVALID:
 	default:
-		g_critical("Don't know how to convert type %s to JNI signature", g_type_name(type));
+		g_printerr("Don't know how to convert type %s to JNI signature\n", g_type_name(type));
 		return NULL;
 	}
 }
