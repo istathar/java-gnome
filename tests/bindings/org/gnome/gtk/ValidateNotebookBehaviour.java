@@ -44,20 +44,25 @@ public class ValidateNotebookBehaviour extends TestCaseGtk
         assertEquals(true, GtkNotebook.getShowBorder(book));
     }
 
+    private int page = -1;
+
     public void testSwitchPage() {
         final Notebook notebook;
 
         notebook = new Notebook();
 
+        notebook.appendPage(new Button(), new Label("Label 1"));
+        notebook.appendPage(new Button(), new Label("Label 2"));
+
         notebook.connect(new Notebook.SwitchPage() {
-            public void onSwitchPage(Notebook source, int pageNum) {}
+            public void onSwitchPage(Notebook source, int pageNum) {
+                page = pageNum;
+            }
         });
 
-        /*
-         * TODO incomplete. The above connection not failing is a good start,
-         * but we need to add some Widgets to form 2 or more pages, then
-         * programmatically switch between them to verify that the signal
-         * connection worked.
-         */
+        notebook.setCurrentPage(0);
+        assertEquals(0, page);
+        notebook.setCurrentPage(1);
+        assertEquals(1, page);
     }
 }

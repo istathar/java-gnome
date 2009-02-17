@@ -165,15 +165,29 @@ public class Notebook extends Container
         GtkNotebook.connect(this, handler, false);
     }
 
+    /**
+     * The SwitchPage signal is emitted when the user or the program switches
+     * to a new page.
+     */
     public interface SwitchPage
     {
+        /**
+         * @param pageNum
+         *            the index of the new current page (starting with 0)
+         */
         public void onSwitchPage(Notebook source, int pageNum);
     }
 
+    /**
+     * Connects a <code>Notebook.SwitchPage</code> handler to the Notebook.
+     */
     public void connect(Notebook.SwitchPage handler) {
         GtkNotebook.connect(this, new SwitchPageHandler(handler), false);
     }
 
+    /*
+     * Eliminate page parameter from handler interface.
+     */
     private static class SwitchPageHandler implements GtkNotebook.SwitchPageSignal
     {
         private final SwitchPage handler;
