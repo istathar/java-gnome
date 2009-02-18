@@ -1,5 +1,155 @@
 NEWS
 
+<a name="4.0.10" id="1234938146" title="Pango, Clipboard"></a>
+
+java-gnome 4.0.10-rc2 (12 Feb 2009)
+===============================
+
+_Sculpting letters_
+
+This release features not just the Pango work but even more Pango work,
+massive improvements to our Cairo coverage, support for writing PDFs, and
+better access to the system Clipboard.
+
+Drawing API improvements
+------------------------
+
+Thanks to Kenneth Prugh for having seen this through and having done the
+lion's share of the testing.
+
+* `doc.examples.cairo.ExampleDrawingText`
+* **`org.freedesktop.cairo.Content`**
+* **`org.freedesktop.cairo.Context`**
+* `org.freedesktop.cairo.Plumbing`
+* `org.freedesktop.cairo.Status`
+* **`org.freedesktop.cairo.Surface`**
+* **`org.freedesktop.cairo.ImageSurface`**
+* **`org.freedesktop.cairo.XlibSurface`**
+* **`org.freedesktop.cairo.SvgSurface`**
+* **`org.freedesktop.cairo.SurfacePattern`**
+
+We've also had a number of improvements in the lower levels of GTK relating to
+image rendering. The gdk-pixbuf library contains a capable image parser and we
+can now feed it directly from a Pixbuf constructor. Thanks to new contributor
+Martin Garton for his hard work getting that tested and accepted.
+
+* **`org.gnome.gdk.InterpType`**
+* **`org.gnome.gdk.Pixbuf`**
+
+As [announced](#pango) previously, we have landed a number of branches
+relating to our coverage of the powerful Pango text rendering library. In
+particular, the [Layout][] class is a powerful paragraph rendering engine and
+gives us a fully capabile solution for drawing text onto Cairo Surfaces.
+
+* **`org.gnome.pango.Alignment`**
+* **`org.gnome.pango.FontDescription`**
+* **`org.gnome.pango.Layout`**
+* **`org.gnome.pango.LayoutLine`**
+* **`org.gnome.pango.Rectangle`**
+* **`org.gnome.pango.Style`**
+* **`org.gnome.pango.Variant`**
+* **`org.gnome.pango.Weight`**
+
+As we were working on this we had occasion to continue the polish in and
+around the TextView / TextBuffer APIs, including a number of convenience
+methods for inserting text while simultaneously applying multiple TextTags,
+and supporting changing default fonts.
+
+* **`org.gnome.gtk.TextBuffer`**
+* **`org.gnome.gtk.TextIter`**
+* **`org.gnome.gtk.TextTag`**
+* **`org.gnome.gtk.TreeViewColumn`**
+* **`org.gnome.gtk.Widget`**
+
+
+Handling cut & paste
+--------------------
+
+The GTK clipboard APIs are fairly complex, in no small part because the
+underlying implementations in X are really rather complex. Our coverage here
+in java-gnome is still fairly basic relative to that, but it's been enough for
+people working on applications like text editors to write text to the system
+clipboard and get notification whenit changes.
+
+* **`org.gnome.gtk.Clipboard`**
+
+Printing support
+----------------
+
+We've started down the road of covering the GNOME printing APIs; a huge step
+in that process was to support writing PDFs via Cairo.
+
+* **`org.freedesktop.cairo.PdfSurface`**
+* **`org.gnome.gtk.PaperSize`**
+* **`org.gnome.gtk.InternationalPaperSize`**
+* **`org.gnome.gtk.NorthAmericanPaperSize`**
+* **`org.gnome.gtk.Unit`**
+* `doc.examples.cairo.ExampleLinedPaper`
+
+Continuing improvement
+----------------------
+
+Thanks to new contributor Stefan Schweizer we now have better coverage of
+signals relating to Notebook style Containers, and to Miloud Bel for numerous
+small improvemets in and around ProgressBar.
+
+* **`org.gnome.gtk.Notebook`**
+* **`org.gnome.gtk.ProgressBar`**
+
+Miscallaneous documentation improvements and minor feature improvements always
+feature in our releases, with minor changes having accrued in many classes.
+
+* **`org.gnome.gtk.ShadowType`**
+* **`org.gnome.gdk.CrossingMode`**
+* **`org.gnome.gdk.NotifyType`**
+* **`org.gnome.gtk.AboutDialog`**
+* **`org.gnome.gtk.Arrow`**
+* **`org.gnome.gtk.ArrowType`**
+* **`org.gnome.gtk.Assistant`**
+* **`org.gnome.gtk.Menu`**
+
+Finally, it's worth noting that java-gnome's test suite is now 40 unit test
+classes with 186 individual test fixtures. Combined with over 30 screenshot
+generating programs and 17 example programs, we actually have surprisingly
+good test coverage of our public API.
+
+Build improvements
+------------------
+
+We have some fixes from new contributor Przemysław Grzegorczyk ensuring we
+include the correct headers in a few corner cases. This came to us via work on
+a GNOME Love bug, which is a first for us. Thanks!
+
+Meanwhile, the ever industrious Serkan Kaba has added some changes to ensure
+that our magically locating the native shared library component of java-gnome
+works properly even under strange and unusual conditions.
+
+Instructions for how to optimally lay out your branches when working with
+java-gnome have been moved to the [`HACKING`](HACKING.html) file. People
+intending to hack on the bindings from Eclipse are _really_ urged to set
+things up this way as it will make their lives much easier. Also, using the
+latest release of Bazaar (ie `bzr >= 1.12`) is definitely recommended -- it's
+getting really fast. We've upgraded our public branches, so you will need
+`1.9` at a minimum.
+
+Looking ahead
+-------------
+
+Coverage of Poppler, GNOME's PDF rendering library is well along, but didn't
+quite make it in time for this release. It could very likely feature in the
+next version of java-gnome, as might coverage of GConf, GNOME's simple store
+for application configuration options. We'll see what gets contributed!
+
+The most exciting part about java-gnome at the moment, though, is the number
+of people working hard on applications using it. It takes a **long** time to
+write a mature, well rounded, robust end-user program, but there are some
+pretty cool projects ticking away out there, and it has been terrific to see
+them joining our community.
+
+Happy developing,
+
+AfC
+
 <a name="pango" id="1229699838" title="Text drawing"></a>
 
 Rendering text
