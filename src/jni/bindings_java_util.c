@@ -254,9 +254,19 @@ bindings_java_typeToSignature
 	case G_TYPE_PARAM:
 		return "J";
 
+	/*
+	 * This is a special case; we don't (and indeed cannot) actually
+	 * handle a raw "pointer" as a type, but by marshalling it as a 
+	 * meaningless long we can at least wrap and ignore it on the Java
+	 * side.
+	 */
+
+	case G_TYPE_POINTER:
+		return "J";
+
 	case G_TYPE_INVALID:
 	default:
-		g_critical("Don't know how to convert type %s to JNI signature", g_type_name(type));
+		g_printerr("Don't know how to convert type %s to JNI signature\n", g_type_name(type));
 		return NULL;
 	}
 }

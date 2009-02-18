@@ -216,6 +216,12 @@ bindings_java_marshaller
 			 * normally only show up in 'notify' signals, and we
 			 * don't need them. 
 			 */
+		case G_TYPE_POINTER:
+			/*
+			 * and, we're ignoring something that gets registered
+			 * as a gpointer, by definition it has no type
+			 * information and there's nothing we can do.
+			 */
 			jargs[i+1].j = (jlong) NULL;
 			break;
 
@@ -223,7 +229,7 @@ bindings_java_marshaller
 			/*
 			 * Unrecognized. Probably means we need to add a clause above.
 			 */
-			g_warning("Don't know how to marshal a %s", g_type_name(type));
+			g_printerr("Don't know how to marshal a %s", g_type_name(type));
 			jargs[i+1].l = 0;
 			break;
 		}
