@@ -54,6 +54,8 @@ public class ValidateNotebookBehaviour extends TestCaseGtk
         notebook.appendPage(new Button(), new Label("Label 1"));
         notebook.appendPage(new Button(), new Label("Label 2"));
 
+        assertEquals(2, notebook.getPageCount());
+
         notebook.connect(new Notebook.SwitchPage() {
             public void onSwitchPage(Notebook source, int pageNum) {
                 page = pageNum;
