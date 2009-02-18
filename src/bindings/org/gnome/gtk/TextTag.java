@@ -1,7 +1,7 @@
 /*
  * TextTag.java
  *
- * Copyright (c) 2007-2008 Operational Dynamics Consulting Pty Ltd
+ * Copyright (c) 2007-2009 Operational Dynamics Consulting Pty Ltd
  *
  * The code in this file, and the library it is a part of, are made available
  * to you by the authors under the terms of the "GNU General Public Licence,
@@ -12,6 +12,7 @@
 package org.gnome.gtk;
 
 import org.gnome.glib.Object;
+import org.gnome.pango.FontDescription;
 import org.gnome.pango.Scale;
 import org.gnome.pango.Style;
 import org.gnome.pango.Underline;
@@ -364,5 +365,42 @@ public class TextTag extends Object
         }
 
         return str.toString();
+    }
+
+    /**
+     * Set the font size, in points.
+     * 
+     * @since 4.0.10
+     */
+    /*
+     * Using "size-points" instead of "size" allowed us to keep Pango.SCALE
+     * default instead of public. There is no huge imperative to keep it that
+     * way.
+     */
+    public void setSize(double size) {
+        setPropertyDouble("size-points", size);
+    }
+
+    /**
+     * Pass a FontDescription specifying the metrics and characteristics of
+     * the font you wish to be active when this TextTag is applied.
+     * 
+     * @since 4.0.10
+     */
+    public void setFontDescription(FontDescription desc) {
+        setPropertyBoxed("font-desc", desc);
+    }
+
+    /**
+     * Pass a string that describes the font you wish to use. This is
+     * essentially a convenience wrapper around creating a FontDescription
+     * with FontDescription's {@link FontDescription#FontDescription(String)
+     * &lt;init&gt;(String)} constructor; see there for details of the syntax
+     * allowed.
+     * 
+     * @since 4.0.10
+     */
+    public void setFont(String str) {
+        setPropertyString("font", str);
     }
 }

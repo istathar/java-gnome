@@ -3,7 +3,7 @@
   (parent "GObject")
   (c-name "GtkPrintJob")
   (gtype-id "GTK_TYPE_PRINT_JOB")
-  (import-header "gtk/gtkprintjob.h")
+  (import-header "gtk/gtkunixprint.h")
 )
 
 (define-function gtk_print_job_new

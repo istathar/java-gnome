@@ -1,7 +1,7 @@
 /*
  * DrawingArea.java
  *
- * Copyright (c) 2007 Operational Dynamics Consulting Pty Ltd
+ * Copyright (c) 2007-2009 Operational Dynamics Consulting Pty Ltd
  *
  * The code in this file, and the library it is a part of, are made available
  * to you by the authors under the terms of the "GNU General Public Licence,
@@ -11,17 +11,35 @@
  */
 package org.gnome.gtk;
 
+/**
+ * A simple blank canvas Widget that you can do arbitrary drawing on.
+ * 
+ * <p>
+ * DrawingArea takes care of handling a number of implementation details
+ * associated with Widget implementations, including basic handling of the
+ * size-request / size-allocation cycle and realizing the necessary underlying
+ * resouces. The end result is blank [<code>org.gnome.gdk</code>] Window that
+ * you can draw on with Cairo in a <code>Widget.ExposeEvent</code>.
+ * 
+ * @author Andrew Cowie
+ * @since 4.0.10
+ */
 /*
- * FIXME this is a placeholder stub for what will become the public API for
- * this type. Replace this comment with appropriate javadoc including author
- * and since tags. Note that the class may need to be made abstract, implement
- * interfaces, or even have its parent changed. No API stability guarantees
- * are made about this class until it has been reviewed by a hacker and this
- * comment has been replaced.
+ * FIXME Explain what assumptions DrawingArea makes, and what requirements it
+ * places on you if you use it, especially as regards event masks.
  */
 public class DrawingArea extends Widget
 {
     protected DrawingArea(long pointer) {
         super(pointer);
+    }
+
+    /**
+     * Create a blank DrawingArea.
+     * 
+     * @since 4.0.10
+     */
+    public DrawingArea() {
+        super(GtkDrawingArea.createDrawingArea());
     }
 }

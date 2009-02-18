@@ -259,7 +259,7 @@ HERE
 		close HELLO;
 	}
 
-	`$program $args Hello.java >/dev/null 2>&1`;
+	`$program $args -sourcepath . Hello.java >/dev/null 2>&1`;
 	if ($? != 0) {
 		output "doesn't work\n";
 		$$scalarref = "";
@@ -513,6 +513,7 @@ my $jdk_home;
 my $gcj_home;
 my $jamvm_bin;
 my $cacao_bin;
+my $strict = "";
 
 foreach my $arg (@ARGV) {
 	my ($key, $value) = split /=/, "$arg";
@@ -557,6 +558,8 @@ HERE
 		$cacao_bin="$value";
 	} elsif ($key =~ /^jamvm/) {
 		$jamvm_bin="$value";
+	} elsif ($key =~ /^strict/) {
+		$strict="yes";
 	}
 }
 
@@ -742,7 +745,7 @@ output "\nCheck for required system libraries:\n";
 
 if ($os eq "gentoo") {
 	check_system_library(@gnomedev_libs,
-			"gtk+-2.0 >= 2.12.11 pango atk gdk-2.0 libglade-2.0 >= 2.6.3 gtk+-unix-print-2.0 cairo-svg >= 1.6.4",
+			"gtk+-2.0 >= 2.12.11 pango >= 1.22 atk gdk-2.0 libglade-2.0 >= 2.6.3 gtk+-unix-print-2.0 cairo-svg >= 1.6.4",
 			"GNOME",
 			"gnome");
 
@@ -753,7 +756,7 @@ if ($os eq "gentoo") {
 			"libgtk2.0-dev");
 
 	check_system_library(@gnomedev_libs,
-			"pango",
+			"pango >= 1.22",
 			"Pango",
 			"pango-devel");
 
@@ -779,7 +782,7 @@ if ($os eq "gentoo") {
 
 } elsif ($os eq "suse") {
 	check_system_library(@gnomedev_libs,
-			"gtk+-2.0 >= 2.12.0 pango atk gdk-2.0 gtk+-unix-print-2.0",
+			"gtk+-2.0 >= 2.12.0 pango >= 1.22 atk gdk-2.0 gtk+-unix-print-2.0",
 			"GNOME development libraries",
 			"libgnome-devel");
 	check_system_library(@gnomedev_libs,
@@ -789,7 +792,7 @@ if ($os eq "gentoo") {
 
 } elsif ($os eq "mandriva") {
 	check_system_library(@gnomedev_libs,
-			"gtk+-2.0 >= 2.12.0 pango atk gdk-2.0 gtk+-unix-print-2.0",
+			"gtk+-2.0 >= 2.12.0 pango >= 1.22 atk gdk-2.0 gtk+-unix-print-2.0",
 			"GTK development libraries",
 			"libgtk+2.0_0-devel");
 	check_system_library(@gnomedev_libs,
@@ -1850,7 +1853,7 @@ if ($cc =~ /gcc/) {
 	}
 
 	my $deprecations;
-	if ( -d ".bzr" ) {
+	if ( "$strict" ) {
 		$deprecations = "-DGTK_DISABLE_DEPRECATED -DGDK_DISABLE_DEPRECATED -DGDK_PIXBUF_DISABLE_DEPRECATED -DG_DISABLE_DEPRECATED";
 	} else {
 		$deprecations = "";

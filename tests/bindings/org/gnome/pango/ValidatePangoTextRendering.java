@@ -1,7 +1,7 @@
 /*
  * ValidatePangoTextRendering.java
  *
- * Copyright (c) 2008 Operational Dynamics Consulting Pty Ltd, and Others
+ * Copyright (c) 2008-2009 Operational Dynamics Consulting Pty Ltd, and Others
  * 
  * The code in this file, and the suite it is a part of, are made available
  * to you by the authors under the terms of the "GNU General Public Licence,
@@ -33,7 +33,7 @@ public class ValidatePangoTextRendering extends TestCaseGtk
     private static Layout draw(final Context cr) {
         final Layout layout;
 
-        cr.setSourceRGBA(0.1, 0.9, 0.2, 1.0);
+        cr.setSource(0.1, 0.9, 0.2, 1.0);
         cr.moveTo(10, 80);
         layout = new Layout(cr);
         layout.setText("Hello");
@@ -97,7 +97,7 @@ public class ValidatePangoTextRendering extends TestCaseGtk
          * Now test with a Surface whose device units are not integral pixels.
          */
 
-        surface = new PdfSurface(null, 150, 150);
+        surface = new PdfSurface("tmp/tests/org/gnome/pango/ValidatePangoTextRendering.pdf", 150, 150);
         cr = new Context(surface);
 
         layout = draw(cr);
@@ -168,5 +168,43 @@ public class ValidatePangoTextRendering extends TestCaseGtk
         });
         w.showAll();
         Gtk.main();
+    }
+
+    public final void testAttributeCreation() {
+        final FontDescription desc;
+        Attribute attr;
+
+        desc = new FontDescription("Serif, 12");
+        attr = new FontDescriptionAttribute(desc);
+
+        assertNotNull(attr);
+    }
+
+    public final void testAttributeListUse() {
+        final Attribute attr;
+        final AttributeList list;
+        final Surface surface;
+        final Context cr;
+        final Layout layout;
+
+        surface = new ImageSurface(Format.ARGB32, 150, 150);
+        cr = new Context(surface);
+        layout = new Layout(cr);
+
+        layout.setText("H€lloWorld");
+        list = new AttributeList();
+
+        /*
+         * Now set some Attributes.
+         */
+
+        attr = new StyleAttribute(Style.ITALIC);
+        attr.setIndices(layout, 5, 5);
+
+        assertEquals(7, PangoAttribute.getStartIndex(attr));
+        assertEquals(12, PangoAttribute.getEndIndex(attr));
+
+        list.insert(attr);
+        layout.setAttributes(list);
     }
 }

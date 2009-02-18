@@ -65,7 +65,7 @@ bindings_java_toggle
 		 * GObject, and remove strong Java reference
 		 */
 		if (DEBUG_MEMORY_MANAGEMENT) {
-			g_print("mem: toggle Java ref to WEAK\t%s\n", bindings_java_memory_pointerToString(object));
+			g_printerr("mem: toggle Java ref to WEAK\t%s\n", bindings_java_memory_pointerToString(object));
 		}
 		weak = (*env)->NewWeakGlobalRef(env, ref);
 		g_object_set_data(object, REFERENCE, weak);
@@ -77,7 +77,7 @@ bindings_java_toggle
 		 * replaced it with a strong one. 
 		 */
 		if (DEBUG_MEMORY_MANAGEMENT) {
-			g_print("mem: toggle Java ref to STRONG\t%s\n", bindings_java_memory_pointerToString(object));
+			g_printerr("mem: toggle Java ref to STRONG\t%s\n", bindings_java_memory_pointerToString(object));
 		}
 
 		strong = (*env)->NewGlobalRef(env, ref);
@@ -109,7 +109,7 @@ bindings_java_memory_deref
         
                 
 	if (DEBUG_MEMORY_MANAGEMENT) {
-		g_print("mem: drop GObject ref\t\t%s\n", bindings_java_memory_pointerToString(object));
+		g_printerr("mem: drop GObject ref\t\t%s\n", bindings_java_memory_pointerToString(object));
 	}
         g_object_unref(object);
         return FALSE;
@@ -145,7 +145,7 @@ bindings_java_memory_ref
 	 */
  
  	if (DEBUG_MEMORY_MANAGEMENT) {
- 		g_print("mem: add STRONG Java ref\t%s\n", bindings_java_memory_pointerToString(object));
+ 		g_printerr("mem: add STRONG Java ref\t%s\n", bindings_java_memory_pointerToString(object));
  	}
 	strong = (*env)->NewGlobalRef(env, target);
 	g_object_set_data(object, REFERENCE, strong);
@@ -189,12 +189,23 @@ bindings_java_memory_unref
 )
 {
 	if (DEBUG_MEMORY_MANAGEMENT) {
-		g_print("mem: remove toggle ref for\t%s\n", bindings_java_memory_pointerToString(object));
+		g_printerr("mem: remove toggle ref for\t%s\n", bindings_java_memory_pointerToString(object));
 	}
 
 	g_object_remove_toggle_ref(object, bindings_java_toggle, NULL);
 }
 
+/**
+ * Ensure we properly own a GObject.
+ *
+ * This is really important. The aggregate result ensures that we own one Ref
+ * count to the object - no more, no less - which we can then turn into a
+ * ToggleRef. It needs to be called anywhere we are preparing to create a
+ * Proxy.
+ */
+/*
+ * TODO This needs a better name
+ */
 void
 bindings_java_memory_cleanup
 (
@@ -217,7 +228,7 @@ bindings_java_memory_cleanup
         if (owner) {
             if (G_IS_INITIALLY_UNOWNED(object) && g_object_is_floating(object)) {
                 if (DEBUG_MEMORY_MANAGEMENT) {
-                    g_print("mem: sink GObject ref\t\t%s\n", bindings_java_memory_pointerToString(object));
+                    g_printerr("mem: sink GObject ref\t\t%s\n", bindings_java_memory_pointerToString(object));
                 }
                 g_object_ref_sink(object);
             }
@@ -227,7 +238,7 @@ bindings_java_memory_cleanup
              * Object constructor assumes we actually own the object.
              */
             if (DEBUG_MEMORY_MANAGEMENT) {
-                g_print("mem: added extra ref for\t%s\n", bindings_java_memory_pointerToString(object));
+                g_printerr("mem: added extra ref for\t%s\n", bindings_java_memory_pointerToString(object));
             }
             g_object_ref(object);
         }
@@ -240,7 +251,7 @@ bindings_java_memory_cleanup
          */
         if (owner) {
             if (DEBUG_MEMORY_MANAGEMENT) {
-                g_print("mem: remove ref for\t%s\n", bindings_java_memory_pointerToString(object));
+                g_printerr("mem: remove ref for\t%s\n", bindings_java_memory_pointerToString(object));
             }
             g_object_unref(object);
         }

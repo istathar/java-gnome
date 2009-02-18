@@ -1,7 +1,7 @@
 /*
  * ExampleDrawingOffscreen.java
  *
- * Copyright (c) 2007-2008 Operational Dynamics Consulting Pty Ltd
+ * Copyright (c) 2007-2009 Operational Dynamics Consulting Pty Ltd
  * 
  * The code in this file, and the program it is a part of, are made available
  * to you by the authors under the terms of the "GNU General Public Licence,
@@ -50,10 +50,10 @@ public class ExampleDrawingOffscreen
 
         // recommended by Carl, but doesn't seem to help
         cr.setOperator(Operator.CLEAR);
-        cr.setSourceRGBA(1.0, 1.0, 1.0, 1.0);
+        cr.setSource(1.0, 1.0, 1.0, 1.0);
         cr.paint();
 
-        cr.setSourceRGBA(0.0, 0.0, 1.0, 0.8);
+        cr.setSource(0.0, 0.0, 1.0, 0.8);
         cr.moveTo(10, 10);
         cr.lineTo(20, 45);
         cr.stroke();

@@ -1,7 +1,7 @@
 /*
  * Layout.java
  *
- * Copyright (c) 2007-2008 Operational Dynamics Consulting Pty Ltd
+ * Copyright (c) 2007-2009 Operational Dynamics Consulting Pty Ltd
  * Copyright (c) 2008      Vreixo Formoso
  *
  * The code in this file, and the library it is a part of, are made available
@@ -83,15 +83,23 @@ public class Layout extends Object
      * @since 4.0.10
      */
     public Layout(org.freedesktop.cairo.Context context) {
-        super(PangoLayout.createLayout(context));
+        super(PangoLayout.createLayoutFromCairo(context));
     }
 
     /**
-     * Sets the text of the Layout. This is the text that will be draw.
+     * Sets the text of the Layout. This is the text that will be drawn.
      * 
      * <p>
      * If you wish to pass text enhanced with Pango Markup, use
      * {@link #setMarkup(String) setMarkup()} instead.
+     * 
+     * <p>
+     * Alternately, you can use this <code>setText()</code> method to set the
+     * full textual content of the Layout and then build up a set of
+     * Attributes describing which formats you wish to be in effect across
+     * what ranges. You assemble this information in an AttributeList and then
+     * apply it to this Layout by calling
+     * {@link #setAttributes(AttributeList) setAttributes()}.
      * 
      * @since 4.0.10
      */
@@ -126,7 +134,7 @@ public class Layout extends Object
     public double getSizeWidth() {
         int[] width = new int[1];
         PangoLayout.getSize(this, width, null);
-        return ((double) width[0]) / Pango.SCALE;
+        return width[0] / Pango.SCALE;
     }
 
     /**
@@ -139,7 +147,7 @@ public class Layout extends Object
     public double getSizeHeight() {
         int[] height = new int[1];
         PangoLayout.getSize(this, null, height);
-        return ((double) height[0]) / Pango.SCALE;
+        return height[0] / Pango.SCALE;
     }
 
     /**
@@ -276,7 +284,7 @@ public class Layout extends Object
     public double getIndent() {
         final int units;
         units = PangoLayout.getIndent(this);
-        return ((double) units) / Pango.SCALE;
+        return units / Pango.SCALE;
     }
 
     /**
@@ -366,5 +374,62 @@ public class Layout extends Object
         PangoLayout.getExtents(this, null, result);
 
         return result;
+    }
+
+    /**
+     * Get the vertical position of the baseline in the first line of this
+     * Layout.
+     * 
+     * <p>
+     * If you're laying out lines individually, you almost certainly want to
+     * get the extents of each LayoutLine and then use that Rectangle's
+     * {@link Rectangle#getAscent() getAscent()} instead.
+     * 
+     * @since 4.0.10
+     */
+    public double getBaseline() {
+        return PangoLayout.getBaseline(this) / Pango.SCALE;
+    }
+
+    /**
+     * Return the <b>Pango</b> Context powering this Layout.
+     * 
+     * <p>
+     * Since you probably constructed this Layout with a <i>Cairo</i> Context,
+     * you're going to end up with some messy fully qualified names if you
+     * need to use this. You might just want to use the type implicitly:
+     * 
+     * <pre>
+     * layout.getContext().setFontOptions(options);
+     * </pre>
+     * 
+     * so that you can keep the rest of the uses of the bare word
+     * <code>Context</code> as the Cairo one already imported.
+     * 
+     * <p>
+     * Note that having made a call like the one shown, you need to either
+     * call <code>contextChanged()</code> or <code>setText()</code> to cause
+     * the Layout to take notice.
+     * 
+     * @since 4.0.10
+     */
+    public Context getContext() {
+        return PangoLayout.getContext(this);
+    }
+
+    /**
+     * Sets the sequence of Attributes describing the markup you wish to have
+     * in play. This indices of all the Attributes need to have been set after
+     * the text in this Layout was established via {@link #setText(String)
+     * setText()}.
+     * 
+     * <p>
+     * See {@link AttributeList} for a detailed example of using this method
+     * to indicate formatting.
+     * 
+     * @since 4.0.10
+     */
+    public void setAttributes(AttributeList list) {
+        PangoLayout.setAttributes(this, list);
     }
 }

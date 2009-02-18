@@ -168,3 +168,14 @@
   (return-type "PangoGravityHint")
 )
 
+;; add Cairo support!
+;;
+(define-method set_font_options
+  (of-object "PangoContext")
+  (c-name "pango_cairo_context_set_font_options")
+  (return-type "none")
+  (parameters
+    '("cairo_font_options_t*" "options")
+  )
+)
+

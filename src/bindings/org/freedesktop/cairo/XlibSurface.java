@@ -1,7 +1,7 @@
 /*
  * XlibSurface.java
  *
- * Copyright (c) 2008 Operational Dynamics Consulting Pty Ltd
+ * Copyright (c) 2008-2009 Operational Dynamics Consulting Pty Ltd, and Others
  * 
  * The code in this file, and the library it is a part of, are made available
  * to you by the authors under the terms of the "GNU General Public Licence,
@@ -48,10 +48,10 @@ package org.freedesktop.cairo;
  * 
  * <p>
  * The best way to do this is to create an XlibSurface with this image in it.
- * You can the <code>setSource()</code> with that Surface and then paint with
- * that onto the Context where you are drawing. The key method involved is
- * <code>createSimilar()</code>, which allows you to create an X resource as a
- * cache:
+ * You set that image to be the source pattern with a call to
+ * <code>setSource()</code> and then paint that onto the Context where you are
+ * drawing. The key method involved is <code>createSimilar()</code>, which
+ * allows you to create an X resource as a cache:
  * 
  * <pre>
  * gizmo.connect(new Widget.ExposeEvent() {
@@ -75,7 +75,7 @@ package org.freedesktop.cairo;
  *             target = cr.getTarget();
  *             cache = target.createSimilar(Content.COLOR_ALPHA, pixbuf.getWidth(), pixbuf.getHeight());
  *             cr2 = new Context(cache);
- *             cr2.setSource(pixbuf);
+ *             cr2.setSource(pixbuf, 0.0, 0.0);
  *             cr2.paint();
  *         }
  *         

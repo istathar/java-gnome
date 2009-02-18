@@ -15,7 +15,7 @@
   )
 )
 
-(define-function pango_cairo_layout_new
+(define-function pango_layout_new_from_cairo
   (is-constructor-of "PangoLayout")
   (c-name "pango_cairo_create_layout")
   (caller-owns-return #t)
@@ -42,7 +42,7 @@
   (c-name "pango_layout_set_attributes")
   (return-type "none")
   (parameters
-    '("PangoAttrList*" "attrs")
+    '("PangoAttrList*" "attrs" (null-ok))
   )
 )
 
@@ -416,5 +416,11 @@
   (of-object "PangoLayout")
   (c-name "pango_layout_get_iter")
   (return-type "PangoLayoutIter*")
+)
+
+(define-method get_baseline
+  (of-object "PangoLayout")
+  (c-name "pango_layout_get_baseline")
+  (return-type "int")
 )
 

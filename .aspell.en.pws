@@ -20,6 +20,9 @@ ArrayList
 AssistantPageType
 AtSign
 AttachOptions
+AttrList
+Attribute's
+AttributeList
 BackSpace
 Bassi
 Behdad
@@ -54,6 +57,8 @@ CairoContext
 CairoContextOverride
 CairoFormat
 CairoImageSurface
+CairoMatrix
+CairoMatrixOverride
 CairoOperator
 CairoPattern
 CairoSurface
@@ -73,6 +78,8 @@ CellRendererTexts
 CellRendererToggle
 CellRendererToggle's
 CellRenderers
+ChangeCurrentPage
+ChangeCurrentPageSignal
 ChangedSignal
 CheckButton
 CheckButtons
@@ -588,6 +595,10 @@ PackageNames
 PageDown
 PageUp
 Pango's
+PangoAttrList
+PangoAttribute
+PangoAttributeOverride
+PangoAttributes
 PangoFontDescription
 PangoLayout
 PangoLayoutLine
@@ -706,6 +717,7 @@ StockItem
 StockItems
 StorageType
 StringBuffer
+StringBuilder
 StringValue
 SurfacePattern
 SysReq
@@ -719,6 +731,7 @@ TestSuite
 TextBuffer
 TextBuffer's
 TextBuffers
+TextBuilder
 TextChildAnchor
 TextChildAnchors
 TextComboBox
@@ -892,6 +905,7 @@ assertSame
 assertTrue
 atk
 attachDefaults
+attr
 autotools
 backend
 backends
@@ -1008,6 +1022,9 @@ createActionGroup
 createAdjustment
 createAlignment
 createAssistant
+createAttributeFontDescription
+createAttributeList
+createAttributeStyle
 createButton
 createButtonWithLabel
 createButtonWithMnemonic
@@ -1055,8 +1072,10 @@ createImageMenuItemWithMnemonic
 createInstance
 createLabel
 createLayout
+createLayoutFromCairo
 createListStore
 createMark
+createMatrixIdentity
 createMenu
 createMenuBar
 createMenuItem
@@ -1271,6 +1290,8 @@ getAngle
 getArea
 getAscent
 getAtPosPath
+getAttributes
+getBaseline
 getBlinking
 getBlue
 getBoolean
@@ -1288,6 +1309,7 @@ getClass
 getCode
 getColumn
 getColumnAtPos
+getContext
 getCoronationYear
 getCurrentFolder
 getCurrentPage
@@ -1352,6 +1374,7 @@ getKeyval
 getLabel
 getLabelWidget
 getLayout
+getLengthUTF
 getLine
 getLineCount
 getLineOffset
@@ -1390,7 +1413,9 @@ getPaddingRight
 getPaddingTop
 getPage
 getPageComplete
+getPageCount
 getPageHeaderImage
+getPageNumber
 getPageSideImage
 getPageTitle
 getPageType
@@ -1439,6 +1464,7 @@ getSize
 getSizeHeight
 getSizeWidth
 getSource
+getStartIndex
 getStartIter
 getState
 getStatus
@@ -1643,6 +1669,7 @@ lineTo
 linkSharedLibrary
 linux
 listFiles
+llo
 ln
 loadConfig
 loadHashes
@@ -1932,6 +1959,7 @@ setAlignment
 setAlignmentX
 setAngle
 setAntialias
+setAttributes
 setAuthors
 setBackground
 setBlinking
@@ -1962,6 +1990,7 @@ setDraw
 setEditable
 setEllipsize
 setEnableSearch
+setEndIndex
 setEventsVisibility
 setExpand
 setExpanded
@@ -1990,6 +2019,7 @@ setIcon
 setImage
 setInconsistent
 setIndent
+setIndexes
 setInnerBorder
 setInvisibleChar
 setJustify
@@ -2070,6 +2100,8 @@ setSecondaryUseMarkup
 setSelectable
 setSensitive
 setShadowType
+setShowBorder
+setShowTabs
 setSize
 setSizeRequest
 setSizing
@@ -2084,6 +2116,7 @@ setSourceRGBA
 setSourceRgb
 setSourceRgba
 setSourceSurface
+setStartIndex
 setStick
 setStrikethrough
 setStyle
@@ -2170,6 +2203,8 @@ sudo
 superclass
 superinterface
 svn
+sx
+sy
 symlink
 symlinks
 sys
@@ -2214,6 +2249,7 @@ touchFile
 touples
 trailHead
 treeview
+tx
 txt
 ty
 typeMapping

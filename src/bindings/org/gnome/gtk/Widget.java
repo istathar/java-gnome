@@ -1,7 +1,7 @@
 /*
  * Widget.java
  *
- * Copyright (c) 2006-2008 Operational Dynamics Consulting Pty Ltd, and Others
+ * Copyright (c) 2006-2009 Operational Dynamics Consulting Pty Ltd, and Others
  * 
  * The code in this file, and the library it is a part of, are made available
  * to you by the authors under the terms of the "GNU General Public Licence,
@@ -20,6 +20,7 @@ import org.gnome.gdk.EventFocus;
 import org.gnome.gdk.EventKey;
 import org.gnome.gdk.EventVisibility;
 import org.gnome.gdk.VisibilityState;
+import org.gnome.pango.FontDescription;
 
 /**
  * The base class of all GTK Widgets. Graphical user interface toolkits have
@@ -656,6 +657,18 @@ public abstract class Widget extends org.gnome.gtk.Object
      */
     public void modifyText(StateType state, Color color) {
         GtkWidget.modifyText(this, state, color);
+    }
+
+    /**
+     * Set the font used for text rendered by this Widget.
+     * 
+     * <p>
+     * This is one of a family of "<code>modify</code>" methods.
+     * 
+     * @since 4.0.10
+     */
+    public void modifyFont(FontDescription desc) {
+        GtkWidget.modifyFont(this, desc);
     }
 
     /**

@@ -43,10 +43,13 @@ public class Image extends Misc
     }
 
     /**
-     * Create a new, but empty, Image Widget. This can be used as a blank
-     * slate upon which you can do arbitrary Cairo drawing in an
-     * <code>Widget.ExposeEvent</code> handler, or you can use the setters on
-     * this class to emplace image data later.
+     * Create a new, but empty, Image Widget. You can use the setters on this
+     * class to emplace image data later.
+     * 
+     * <p>
+     * Although this can be used as a blank slate upon which you can do
+     * arbitrary Cairo drawing in an <code>Widget.ExposeEvent</code> handler,
+     * you are better off using {@link DrawingArea} for that purpose.
      * 
      * @since 4.0.7
      */

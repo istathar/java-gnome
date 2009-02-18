@@ -62,4 +62,12 @@ class Status extends Constant
      */
     public static final Status NO_CURRENT_POINT = new Status(CairoStatus.NO_CURRENT_POINT,
             "NO_CURRENT_POINT");
+
+    /**
+     * The transformation matrix is invalid. This can occur if the matrix
+     * collapses points together (is degenerate) or doesn't have an inverse.
+     * 
+     * @since 4.0.10
+     */
+    public static final Status INVALID_MATRIX = new Status(CairoStatus.INVALID_MATRIX, "INVALID_MATRIX");
 }

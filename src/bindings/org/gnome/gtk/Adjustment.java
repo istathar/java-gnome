@@ -46,10 +46,6 @@ public class Adjustment extends Object
      * lower and upper bounds, the single step increment values, the page
      * increment values and the page size.
      * 
-     * <p>
-     * An Adjustment created without passing any arguments to the constructor
-     * causes all the parameters to be set to 0.
-     * 
      * @param value
      *            the initial setting for the <var>value</var> property of the
      *            Adjustment
@@ -70,6 +66,15 @@ public class Adjustment extends Object
         super(
                 GtkAdjustment.createAdjustment(value, lower, upper, stepIncrement, pageIncrement,
                         pageSize));
+    }
+
+    /**
+     * Create an Adjustment with all parameters set to initial values of 0.
+     * 
+     * @since 4.0.10
+     */
+    public Adjustment() {
+        super(GtkAdjustment.createAdjustment(0, 0, 0, 0, 0, 0));
     }
 
     /**
