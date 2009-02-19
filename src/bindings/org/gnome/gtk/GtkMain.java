@@ -47,14 +47,12 @@ final class GtkMain extends Plumbing
      * functions get hit]. The effect is that the monitor on Gdk.lock is
      * frequently relinquished, which is the behaviour that is expected if a
      * piece of Java code object executes wait() within a monitor block. Which
-     * is exactly what we need! The only tiny hiccup is that the thread dump
-     * [via Ctrl+\] and debugger don't seem to quite realize that this thread
-     * no longer owns the lock.
+     * is exactly what we need!
      */
     static final void main() {
-        synchronized (lock) {
-            gtk_main();
-        }
+        // monitor entry on JNI side
+        gtk_main();
+        // monitor exited
     }
 
     private static native final void gtk_main();
