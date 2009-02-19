@@ -1,7 +1,7 @@
 /*
  * GtkMain.java
  *
- * Copyright (c) 2006-2008 Operational Dynamics Consulting Pty Ltd
+ * Copyright (c) 2006-2009 Operational Dynamics Consulting Pty Ltd
  * 
  * The code in this file, and the library it is a part of, are made available
  * to you by the authors under the terms of the "GNU General Public Licence,
@@ -12,8 +12,6 @@
  * This code originally lived in Gtk.java
  */
 package org.gnome.gtk;
-
-import org.gnome.gdk.Gdk;
 
 /**
  * Crafted to avail ourselves of a dependency on Plumbing, whose ultimate
@@ -58,7 +56,7 @@ final class GtkMain extends Plumbing
     private static native final void gtk_main();
 
     static final void mainQuit() {
-        synchronized (Gdk.lock) {
+        synchronized (lock) {
             gtk_main_quit();
         }
     }
@@ -84,7 +82,7 @@ final class GtkMain extends Plumbing
      * </pre>
      */
     static final boolean eventsPending() {
-        synchronized (Gdk.lock) {
+        synchronized (lock) {
             return gtk_events_pending();
         }
     }
@@ -106,7 +104,7 @@ final class GtkMain extends Plumbing
      *         returned if there <i>is</i> no main loop running.
      */
     static final boolean mainIterationDo(boolean block) {
-        synchronized (Gdk.lock) {
+        synchronized (lock) {
             return gtk_main_iteration_do(block);
         }
     }
