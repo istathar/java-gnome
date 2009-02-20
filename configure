@@ -1633,7 +1633,9 @@ output "Check native compiler:\n";
 my $cc;
 
 if ($os eq "solaris") {
-	check_CC($cc, "Sun cc", which("cc"), "");
+	check_CC($cc, "GNU gcc", "/usr/gnu/bin/cc", "");
+	check_CC($cc, "Sun cc", "/usr/bin/cc", "") unless $cc;
+	check_CC($cc, "Path cc", which("cc"), "") unless $cc;
 } elsif ($os) {
 	my $gcc_candidate;
 
@@ -1840,7 +1842,11 @@ if ($cc =~ /gcc/) {
 	}
 
 	if (-f "$java_home"."/include/jni.h") {
-		$jni_include = "-I$java_home/include -I$java_home/include/linux";
+		if ($os eq "solaris") {
+			$jni_include = "-I$java_home/include -I$java_home/include/solaris";
+		} else {
+			$jni_include = "-I$java_home/include -I$java_home/include/linux";
+		}
 	} elsif (-f "/usr/include/jni.h") {
 		# good, but that's default search path - no -I required.
 	} else {
