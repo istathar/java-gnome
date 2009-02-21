@@ -40,7 +40,7 @@ $(DESTDIR)$(PREFIX)/.java-gnome-install-dirs:
 	@test -d $(DESTDIR)$(JARDIR) || /bin/echo -e "MKDIR\tinstallation directories"
 	-mkdir -p $(DESTDIR)$(PREFIX)
 	-touch $@ 2>/dev/null
-	test -w $@ || ( /bin/echo -e "\nYou don't seem to have write permissions to $(DESDIR)$(PREFIX)\nPerhaps you need to be root?\n" && exit 7 )
+	test -w $@ || ( /bin/echo -e "\nYou don't seem to have write permissions to $(DESTDIR)$(PREFIX)\nPerhaps you need to be root?\n" && exit 7 )
 	mkdir -p $(DESTDIR)$(JARDIR)
 	mkdir -p $(DESTDIR)$(LIBDIR)
 
