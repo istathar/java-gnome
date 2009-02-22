@@ -144,6 +144,7 @@ DialogFlags
 Dialogs
 Display's
 DoubleConstant
+Drawables
 DrawingArea
 Dumay
 EDETACHED
@@ -277,6 +278,7 @@ GdkNotifyType
 GdkPixbuf
 GdkPixbufFormat
 GdkPixbufOverride
+GdkPixmap
 GdkRectangle
 GdkScreen
 GdkVisibilityState
@@ -1092,6 +1094,7 @@ createPatternRgba
 createPixbuf
 createPixbufFromFile
 createPixbufFromFileAtScale
+createPixmap
 createProgressBar
 createProxy
 createRadioButtonWithMnemonicFromWidget
@@ -2292,6 +2295,8 @@ utils's
 va
 vadj
 vadjustment
+validateDepth
+validateDrawable
 validationCheck
 valueChanged
 valueFor
