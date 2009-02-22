@@ -442,13 +442,18 @@
   )
 )
 
+
+;; We expose this as a constructor of Context
+;; and have the native declaration for it there
 (define-method cairo_create
+  (unnecessary)
   (of-object "GdkDrawable")
   (c-name "gdk_cairo_create")
   (return-type "cairo_t*")
 )
 
 (define-virtual create_gc
+  (unnecessary)
   (of-object "GdkDrawable")
   (return-type "GdkGC*")
   (parameters
@@ -458,6 +463,7 @@
 )
 
 (define-virtual draw_rectangle
+  (unnecessary)
   (of-object "GdkDrawable")
   (return-type "none")
   (parameters
@@ -471,6 +477,7 @@
 )
 
 (define-virtual draw_arc
+  (unnecessary)
   (of-object "GdkDrawable")
   (return-type "none")
   (parameters
@@ -486,6 +493,7 @@
 )
 
 (define-virtual draw_polygon
+  (unnecessary)
   (of-object "GdkDrawable")
   (return-type "none")
   (parameters
@@ -497,6 +505,7 @@
 )
 
 (define-virtual draw_text
+  (unnecessary)
   (of-object "GdkDrawable")
   (return-type "none")
   (parameters
@@ -510,6 +519,7 @@
 )
 
 (define-virtual draw_drawable
+  (unnecessary)
   (of-object "GdkDrawable")
   (return-type "none")
   (parameters
@@ -525,6 +535,7 @@
 )
 
 (define-virtual draw_points
+  (unnecessary)
   (of-object "GdkDrawable")
   (return-type "none")
   (parameters
@@ -535,6 +546,7 @@
 )
 
 (define-virtual draw_segments
+  (unnecessary)
   (of-object "GdkDrawable")
   (return-type "none")
   (parameters
@@ -545,6 +557,7 @@
 )
 
 (define-virtual draw_lines
+  (unnecessary)
   (of-object "GdkDrawable")
   (return-type "none")
   (parameters
@@ -555,6 +568,7 @@
 )
 
 (define-virtual draw_glyphs
+  (unnecessary)
   (of-object "GdkDrawable")
   (return-type "none")
   (parameters
@@ -567,6 +581,7 @@
 )
 
 (define-virtual draw_image
+  (unnecessary)
   (of-object "GdkDrawable")
   (return-type "none")
   (parameters
@@ -582,11 +597,13 @@
 )
 
 (define-virtual get_depth
+  (unnecessary)
   (of-object "GdkDrawable")
   (return-type "gint")
 )
 
 (define-virtual get_size
+  (unnecessary)
   (of-object "GdkDrawable")
   (return-type "none")
   (parameters
@@ -596,6 +613,7 @@
 )
 
 (define-virtual set_colormap
+  (unnecessary)
   (of-object "GdkDrawable")
   (return-type "none")
   (parameters
@@ -604,21 +622,25 @@
 )
 
 (define-virtual get_colormap
+  (unnecessary)
   (of-object "GdkDrawable")
   (return-type "GdkColormap*")
 )
 
 (define-virtual get_visual
+  (unnecessary)
   (of-object "GdkDrawable")
   (return-type "GdkVisual*")
 )
 
 (define-virtual get_screen
+  (unnecessary)
   (of-object "GdkDrawable")
   (return-type "GdkScreen*")
 )
 
 (define-virtual get_image
+  (unnecessary)
   (of-object "GdkDrawable")
   (return-type "GdkImage*")
   (parameters
@@ -630,16 +652,19 @@
 )
 
 (define-virtual get_clip_region
+  (unnecessary)
   (of-object "GdkDrawable")
   (return-type "GdkRegion*")
 )
 
 (define-virtual get_visible_region
+  (unnecessary)
   (of-object "GdkDrawable")
   (return-type "GdkRegion*")
 )
 
 (define-virtual get_composite_drawable
+  (unnecessary)
   (of-object "GdkDrawable")
   (return-type "GdkDrawable*")
   (parameters
@@ -653,6 +678,7 @@
 )
 
 (define-virtual draw_pixbuf
+  (unnecessary)
   (of-object "GdkDrawable")
   (return-type "none")
   (parameters
@@ -671,6 +697,7 @@
 )
 
 (define-virtual draw_glyphs_transformed
+  (unnecessary)
   (of-object "GdkDrawable")
   (return-type "none")
   (parameters
@@ -684,6 +711,7 @@
 )
 
 (define-virtual draw_trapezoids
+  (unnecessary)
   (of-object "GdkDrawable")
   (return-type "none")
   (parameters
@@ -694,6 +722,7 @@
 )
 
 (define-virtual ref_cairo_surface
+  (unnecessary)
   (of-object "GdkDrawable")
   (return-type "cairo_surface_t*")
 )
