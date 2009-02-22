@@ -46,8 +46,8 @@ import org.gnome.gtk.ValidateTreeModel;
 import org.gnome.gtk.ValidateTreeModelFilter;
 import org.gnome.gtk.ValidateTreeStore;
 import org.gnome.gtk.ValidateTreeView;
-import org.gnome.gtksourceview.ValidateSourceView;
 import org.gnome.pango.ValidatePangoTextRendering;
+import org.gnome.sourceview.ValidateSourceView;
 
 import com.operationaldynamics.codegen.ValidateThingUsage;
 import com.operationaldynamics.codegen.ValidateUtilityMethods;

@@ -8,7 +8,7 @@
  * version 2" See the LICENCE file for the terms governing usage and
  * redistribution.
  */
-package org.gnome.gtksourceview;
+package org.gnome.sourceview;
 
 import org.gnome.gtk.TestCaseGtk;
 

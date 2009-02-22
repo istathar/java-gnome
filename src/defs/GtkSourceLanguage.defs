@@ -1,5 +1,5 @@
 (define-object SourceLanguage
-  (in-module "Gtksourceview")
+  (in-module "Sourceview")
   (parent "GObject")
   (c-name "GtkSourceLanguage")
   (import-header "gtksourceview/gtksourcelanguage.h")

@@ -9,7 +9,7 @@
  * library into other programs provided you don't make a derivation of it).
  * See the LICENCE file for the terms governing usage and redistribution.
  */
-package org.gnome.gtksourceview;
+package org.gnome.sourceview;
 
 public abstract class Plumbing extends org.gnome.gdk.Plumbing
 {
