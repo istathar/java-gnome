@@ -1,0 +1,24 @@
+(define-object SourceLanguageManager
+  (in-module "Gtksourceview")
+  (parent "GObject")
+  (c-name "GtkSourceLanguageManager")
+  (import-header "gtksourceview/gtksourcelanguage.h")
+  (import-header "gtksourceview/gtksourcelanguagemanager.h")
+  (gtype-id "GTK_TYPE_SOURCE_LANGUAGE_MANAGER")
+)
+
+(define-function get_default
+  (of-object "GtkSourceLanguageManager")
+  (c-name "gtk_source_language_manager_get_default")
+  (return-type "GtkSourceLanguageManager*")
+)
+
+(define-method get_language
+  (of-object "GtkSourceLanguageManager")
+  (c-name "gtk_source_language_manager_get_language")
+  (return-type "GtkSourceLanguage*")
+  (parameters
+    '("const-gchar*" "id")
+  )
+)
+
