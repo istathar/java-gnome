@@ -37,6 +37,36 @@ public class Operator extends Constant
     public static final Operator CLEAR = new Operator(CairoOperator.CLEAR, "CLEAR");
 
     /**
+     * Draws the specified source object over the underlying object as if the
+     * area below the source object did not exist.
+     * 
+     * <img class="snapshot" src="Operator-source.png">
+     * 
+     * <p>
+     * Example:
+     * <p>
+     * Set up the object to be drawn over:
+     * 
+     * <pre>
+     * cr.setSource(0.0, 1.0, 0.0);
+     * cr.rectangle(15, 10, 50, 50);
+     * cr.fill();
+     * </pre>
+     * <p>
+     * Now set up the source object that will draw over the area beneath it:
+     * 
+     * <pre>
+     * cr.setSource(1.0, 0.0, 0.0);
+     * cr.rectangle(35, 35, 50, 50);
+     * cr.setOperator(Operator.SOURCE);
+     * cr.fill();
+     * </pre>
+     * 
+     * @since 4.0.10
+     */
+    public static final Operator SOURCE = new Operator(CairoOperator.SOURCE, "SOURCE");
+
+    /**
      * Default operator: draw over existing pixels.
      * 
      * @since 4.0.10
