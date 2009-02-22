@@ -21,7 +21,7 @@ import org.gnome.glib.Boxed;
  * are made about this class until it has been reviewed by a hacker and this
  * comment has been replaced.
  */
-public final class Trapezoid extends Boxed
+final class Trapezoid extends Boxed
 {
     protected Trapezoid(long pointer) {
         super(pointer);

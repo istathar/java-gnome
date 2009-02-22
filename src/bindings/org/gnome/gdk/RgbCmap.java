@@ -1,7 +1,7 @@
 /*
  * RgbCmap.java
  *
- * Copyright (c) 2007 Operational Dynamics Consulting Pty Ltd
+ * Copyright (c) 2007-2009 Operational Dynamics Consulting Pty Ltd
  *
  * The code in this file, and the library it is a part of, are made available
  * to you by the authors under the terms of the "GNU General Public Licence,
@@ -21,7 +21,7 @@ import org.gnome.glib.Boxed;
  * are made about this class until it has been reviewed by a hacker and this
  * comment has been replaced.
  */
-public final class RgbCmap extends Boxed
+final class RgbCmap extends Boxed
 {
     protected RgbCmap(long pointer) {
         super(pointer);
