@@ -38,19 +38,24 @@ final class GtkMain extends Plumbing
     private static native final void gtk_init(java.lang.Object lock, String[] args);
 
     /*
-     * Note that although this code is marked as being within the Gdk$Lock,
+     * Note that although this code is marked as being within our Gdk$Lock,
      * there is, in effect, a wait() within this call: as the GTK main loop
-     * cycles it releases the lock [via gdk_threads_leave()?] and then
-     * reestablishes [via gdk_threads_enter()? No matter - the custom lock
-     * functions get hit]. The effect is that the monitor on Gdk.lock is
-     * frequently relinquished, which is the behaviour that is expected if a
-     * piece of Java code object executes wait() within a monitor block. Which
-     * is exactly what we need!
+     * cycles it releases the lock. The effect is that the monitor on Gdk.lock
+     * is frequently relinquished, which is the behaviour that is expected if
+     * a piece of Java code object executes wait() within a monitor block.
+     * Which is exactly what we need!
+     * 
+     * We'd rather have a synchronized (lock) {...} block here like we do for
+     * every other translation layer method in java-gnome; ensuring the main
+     * loop is within the GDK lock is critical to our successful thread safety
+     * story. For obscure reasons relating to optimizing Eclipse's debugging
+     * behaviour, for this one method ONLY we enter the monitor on the JNI
+     * side.
      */
     static final void main() {
-        // monitor entry on JNI side
+        // enter synchronized block
         gtk_main();
-        // monitor exited
+        // leave synchronized block
     }
 
     private static native final void gtk_main();
