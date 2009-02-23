@@ -1,5 +1,5 @@
 /*
- * SnapShotOperatorSource.java
+ * SnapshotOperatorSource.java
  *
  * Copyright (c) 2009 Kenneth Prugh
  *
@@ -15,9 +15,9 @@ import org.gnome.gtk.Gtk;
 /**
  * @author Kenneth Prugh
  */
-public class SnapShotOperatorSource extends SnapshotCairo
+public class SnapshotOperatorSource extends SnapshotCairo
 {
-    public SnapShotOperatorSource() {
+    public SnapshotOperatorSource() {
         super(Operator.class, "source");
     }
 
@@ -34,7 +34,7 @@ public class SnapShotOperatorSource extends SnapshotCairo
 
     public static void main(String[] args) {
         Gtk.init(args);
-        runExample(new SnapShotOperatorSource());
+        runExample(new SnapshotOperatorSource());
         Gtk.main();
     }
 }
