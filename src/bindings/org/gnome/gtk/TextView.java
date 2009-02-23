@@ -564,6 +564,31 @@ public class TextView extends Container
     }
 
     /**
+     * Get a Rectangle enclosing the screen position of the given TreeITer.
+     * 
+     * @since <span style="color:red;">Unstable</span>
+     */
+    /*
+     * We will not name this getIterLocation() because all the other methods
+     * in the getIter... completion space are methods that return a TreeIter
+     * based on some argument.
+     * 
+     * It's possible that getVisibleRectanlge() will need to become
+     * getRectangleVisible() and this will be getRectangleFor().
+     * 
+     * Or we could name this getPositionRectangle().
+     */
+    public Rectangle getLocationOf(TextIter pointer) {
+        final Rectangle location;
+
+        location = new Rectangle(0, 0, 0, 0);
+
+        GtkTextView.getIterLocation(this, pointer, location);
+
+        return location;
+    }
+
+    /**
      * Get the underlying resource corresponding with one of the sub elements
      * of this TextView. See {@link TextWindowType} for a detailed discussion.
      * 
