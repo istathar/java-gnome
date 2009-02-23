@@ -23,22 +23,38 @@ public class SourceBuffer extends TextBuffer
         super(pointer);
     }
 
+    /**
+     * Create a new SourceBuffer using the given TextTagTable.
+     */
     public SourceBuffer(TextTagTable tags) {
         super(GtkSourceBuffer.createSourceBuffer(tags));
     }
 
+    /**
+     * Enable/disable syntax higlighting. The SourceLangage is configured with
+     * <code>setLanguage</code>. Highlighting is enabled by default.
+     */
     public void setHighlightSyntax(boolean highlight) {
         GtkSourceBuffer.setHighlightSyntax(this, highlight);
     }
 
+    /**
+     * Return whether syntax highlighting is enabled or not.
+     */
     public boolean getHighlightSyntax() {
         return GtkSourceBuffer.getHighlightSyntax(this);
     }
 
+    /**
+     * Set the SourceLanguage that is used for syntax highlighting.
+     */
     public void setLanguage(SourceLanguage language) {
         GtkSourceBuffer.setLanguage(this, language);
     }
 
+    /**
+     * Get the SourceLanguage that is used for syntax highlighting.
+     */
     public SourceLanguage getLanguage() {
         return GtkSourceBuffer.getLanguage(this);
     }

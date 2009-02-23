@@ -22,6 +22,9 @@ public class SourceView extends TextView
         super(pointer);
     }
 
+    /**
+     * Create a new SourceView that displays the SourceBuffer.
+     */
     public SourceView(SourceBuffer buffer) {
         super(GtkSourceView.createSourceViewWithBuffer(buffer));
     }

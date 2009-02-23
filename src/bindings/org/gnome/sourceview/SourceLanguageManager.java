@@ -14,7 +14,7 @@ package org.gnome.sourceview;
 import org.gnome.gtk.Object;
 
 /**
- * A SourceLanguageManager provides access to {@link SourceLanguage} objects
+ * A SourceLanguageManager is used to obtain {@link SourceLanguage} objects
  * that are used for syntax highlighting in a {@link SourceBuffer}.
  * 
  * @author Stefan Schweizer
@@ -33,8 +33,8 @@ public class SourceLanguageManager extends Object
     }
 
     /**
-     * Return a SourceLanguage identified by its ID or null if the ID is not
-     * known.
+     * Return a SourceLanguage specified by its language ID or null if the ID
+     * is not known.
      */
     public SourceLanguage getLanguage(String id) {
         return GtkSourceLanguageManager.getLanguage(this, id);
