@@ -11,6 +11,7 @@
 package org.gnome.sourceview;
 
 import org.gnome.gtk.TestCaseGtk;
+import org.gnome.gtk.TextTagTable;
 
 /**
  * TestCase for the GtkSourceView library.
@@ -31,5 +32,19 @@ public class ValidateSourceView extends TestCaseGtk
         lang = manager.getLanguage("java");
         assertEquals("java", lang.getID());
         assertEquals("Java", lang.getName());
+    }
+
+    public void testCreateSourceViewWithHighlight() {
+        final SourceView view;
+        final SourceBuffer buffer;
+        final TextTagTable tagTable;
+
+        tagTable = new TextTagTable();
+        buffer = new SourceBuffer(tagTable);
+        buffer.setLanguage(SourceLanguageManager.getDefault().getLanguage("java"));
+        view = new SourceView(buffer);
+
+        assertNotNull(view);
+        assertTrue(buffer.getHighlightSyntax());
     }
 }

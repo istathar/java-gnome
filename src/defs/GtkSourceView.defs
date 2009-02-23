@@ -1,0 +1,19 @@
+(define-object SourceView
+  (in-module "Sourceview")
+  (parent "GtkTextView")
+  (c-name "GtkSourceView")
+  (import-header "gtksourceview/gtksourcebuffer.h")
+  (import-header "gtksourceview/gtksourceview.h")
+  (gtype-id "GTK_TYPE_SOURCE_VIEW")
+)
+
+(define-function gtk_source_view_new_with_buffer
+  (is-constructor-of "GtkSourceView")
+  (c-name "gtk_source_view_new_with_buffer")
+  (caller-owns-return #t)
+  (return-type "GtkWidget*")
+  (parameters
+    '("GtkSourceBuffer*" "buffer")
+  )
+)
+

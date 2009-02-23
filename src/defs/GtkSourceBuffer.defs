@@ -1,0 +1,49 @@
+(define-object SourceBuffer
+  (in-module "Sourceview")
+  (parent "GtkTextBuffer")
+  (c-name "GtkSourceBuffer")
+  (import-header "gtksourceview/gtksourcebuffer.h")
+  (import-header "gtksourceview/gtksourcelanguage.h")
+  (gtype-id "GTK_TYPE_SOURCE_BUFFER")
+)
+
+(define-function gtk_source_buffer_new
+  (is-constructor-of "GtkSourceBuffer")
+  (c-name "gtk_source_buffer_new")
+  (caller-owns-return #t)
+  (return-type "GtkSourceBuffer*")
+  (parameters
+    '("GtkTextTagTable*" "table")
+  )
+)
+
+(define-method set_highlight_syntax
+  (of-object "GtkSourceBuffer")
+  (c-name "gtk_source_buffer_set_highlight_syntax")
+  (return-type "none")
+  (parameters
+    '("gboolean" "highlight")
+  )
+)
+
+(define-method get_highlight_syntax
+  (of-object "GtkSourceBuffer")
+  (c-name "gtk_source_buffer_get_highlight_syntax")
+  (return-type "gboolean")
+)
+
+(define-method set_language
+  (of-object "GtkSourceBuffer")
+  (c-name "gtk_source_buffer_set_language")
+  (return-type "none")
+  (parameters
+    '("GtkSourceLanguage*" "language")
+  )
+)
+
+(define-method get_language
+  (of-object "GtkSourceBuffer")
+  (c-name "gtk_source_buffer_get_language")
+  (return-type "GtkSourceLanguage*")
+)
+
