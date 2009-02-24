@@ -20,6 +20,7 @@ import org.freedesktop.cairo.SnapshotContextRectangle;
 import org.freedesktop.cairo.SnapshotMatrixRotate;
 import org.freedesktop.cairo.SnapshotMatrixScale;
 import org.freedesktop.cairo.SnapshotMatrixTranslate;
+import org.freedesktop.cairo.SnapshotOperatorOver;
 import org.freedesktop.cairo.SnapshotOperatorSource;
 import org.gnome.gdk.Pixbuf;
 import org.gnome.gdk.PixbufFormat;
@@ -164,7 +165,8 @@ public final class Harness
                     SnapshotMatrixScale.class,
                     SnapshotMatrixTranslate.class,
                     SnapshotContextRectangle.class,
-					SnapshotOperatorSource.class
+                    SnapshotOperatorSource.class,
+                    SnapshotOperatorOver.class
             };
 
             /*

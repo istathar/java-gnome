@@ -67,7 +67,16 @@ public class Operator extends Constant
     public static final Operator SOURCE = new Operator(CairoOperator.SOURCE, "SOURCE");
 
     /**
-     * Default operator: draw over existing pixels.
+     * Draws the specified source object over the underlying object as if both
+     * objects were two overlapping panels of transparent glass. <i>This only
+     * applies to objects that have an alpha channel. If the objects do not
+     * have an alpha channel, the source object simply paints over the
+     * underlying object.</i>
+     * 
+     * <img class="snapshot" src="Operator-over.png">
+     * 
+     * <p>
+     * <i>Note: This is the default operator.</i>
      * 
      * @since 4.0.10
      */
