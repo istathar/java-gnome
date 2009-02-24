@@ -631,6 +631,12 @@ public abstract class Widget extends org.gnome.gtk.Object
      * {@link EventBox EventBox} and putting this Widget into it.
      * 
      * <p>
+     * While it is best to wait until the Widget is mapped to screen and user
+     * visible before manipulating underlying properties, there are rare cases
+     * when you need the [org.gnome.gdk] Window to be not-<code>null</code>
+     * before then; if so, you can call {@link #realize() realize()}.
+     * 
+     * <p>
      * <i>If you call this in a class where you're building Windows, then you
      * will probably end up having to use the fully qualified name</i>
      * <code>org.gnome.gdk.Window</code> <i>when declaring variables. That's
@@ -1360,5 +1366,29 @@ public abstract class Widget extends org.gnome.gtk.Object
      */
     public void connect(Widget.PopupMenu handler) {
         GtkWidget.connect(this, handler, false);
+    }
+
+    /**
+     * Cause the resources underlying the Widget to be assigned. Among other
+     * things, this will populate the [org.gnome.gdk] Window that backs this
+     * Widget.
+     * 
+     * <p>
+     * In general you don't want to be calling this. This is largely an
+     * internal method; while you can trigger realization manually you rarely
+     * need to. You <i>do</i> need to show the Widget with {@link #show()
+     * show()} (or better yet {@link #showAll() showAll()} on one of its
+     * parents) once you've built it.
+     * 
+     * <p>
+     * Almost anything that you would do that would invole you needing an
+     * [org.gnome.gdk] Window is best done in a
+     * <code>Widget.ExposeEvent</code> handler, at which point the Widget is
+     * already realized, mapped, and showing.
+     * 
+     * @since 4.0.10
+     */
+    public void realize() {
+        GtkWidget.realize(this);
     }
 }
