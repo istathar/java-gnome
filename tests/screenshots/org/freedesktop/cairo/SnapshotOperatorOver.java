@@ -23,13 +23,13 @@ public class SnapshotOperatorOver extends SnapshotCairo
     }
 
     protected void draw(Context cr) {
-        cr.setSource(0.0, 1.0, 0.0, 0.8);
+        cr.setSource(0.7, 0, 0, 0.8);
         cr.rectangle(15, 10, 50, 50);
         cr.fill();
 
         cr.setOperator(Operator.OVER);
 
-        cr.setSource(1.0, 0.0, 0.0, 0.8);
+        cr.setSource(0, 0, 0.9, 0.4);
         cr.rectangle(35, 35, 50, 50);
         cr.fill();
     }
