@@ -48,7 +48,7 @@ public class Operator extends Constant
      * Set up the object to be drawn over:
      * 
      * <pre>
-     * cr.setSource(0.0, 1.0, 0.0, 0.8);
+     * cr.setSource(0.7, 0, 0, 0.8);
      * cr.rectangle(15, 10, 50, 50);
      * cr.fill();
      * </pre>
@@ -56,7 +56,7 @@ public class Operator extends Constant
      * Now set up the source object that will draw over the area beneath it:
      * 
      * <pre>
-     * cr.setSource(1.0, 0.0, 0.0, 0.8);
+     * cr.setSource(0, 0, 0.9, 0.4);
      * cr.rectangle(35, 35, 50, 50);
      * cr.setOperator(Operator.SOURCE);
      * cr.fill();
