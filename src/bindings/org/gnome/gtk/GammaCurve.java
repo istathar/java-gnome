@@ -1,7 +1,7 @@
 /*
  * GammaCurve.java
  *
- * Copyright (c) 2007 Operational Dynamics Consulting Pty Ltd
+ * Copyright (c) 2007-2009 Operational Dynamics Consulting Pty Ltd
  *
  * The code in this file, and the library it is a part of, are made available
  * to you by the authors under the terms of the "GNU General Public Licence,
@@ -19,7 +19,7 @@ package org.gnome.gtk;
  * are made about this class until it has been reviewed by a hacker and this
  * comment has been replaced.
  */
-public class GammaCurve extends VBox
+class GammaCurve extends VBox
 {
     protected GammaCurve(long pointer) {
         super(pointer);

@@ -1,7 +1,7 @@
 /*
  * Pixmap.java
  *
- * Copyright (c) 2007-2008 Operational Dynamics Consulting Pty Ltd
+ * Copyright (c) 2007-2009 Operational Dynamics Consulting Pty Ltd
  *
  * The code in this file, and the library it is a part of, are made available
  * to you by the authors under the terms of the "GNU General Public Licence,
@@ -11,13 +11,27 @@
  */
 package org.gnome.gdk;
 
-/*
- * FIXME this is a placeholder stub for what will become the public API for
- * this type. Replace this comment with appropriate javadoc including author
- * and since tags. Note that the class may need to be made abstract, implement
- * interfaces, or even have its parent changed. No API stability guarantees
- * are made about this class until it has been reviewed by a hacker and this
- * comment has been replaced.
+/**
+ * An image as stored in the X server's memory.
+ * 
+ * <p>
+ * This class is easily confused with {@link Pixbuf}, which is what you are
+ * probably looking for. Pixbuf is used for representing images on the client
+ * side in your application. Loading images and passing them for use in
+ * Widgets such as Image and MenuItem is done there. Pixmap, on the other
+ * hand, is a wrapper around a resource in the X server.
+ * 
+ * <p>
+ * You should not generally need to use this class. When we do draw Widgets
+ * with Cairo, we do so directly to a Window in the X server which it then
+ * manages for getting on screen. If you really are looking to work directly
+ * with a Pixmap, then see also {@link org.freedesktop.cairo.XlibSurface
+ * XlibSurface}, which ultimately is how we get data into Drawables, though
+ * there too we don't work with them directly but rather let Cairo and GDK do
+ * the heavy lifting.
+ * 
+ * @author Andrew Cowie
+ * @since 4.0.7
  */
 public class Pixmap extends Drawable
 {
