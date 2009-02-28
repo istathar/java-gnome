@@ -10,9 +10,18 @@
   (c-name "gtk_source_buffer_new")
   (caller-owns-return #t)
   (return-type "GtkSourceBuffer*")
-  (properties
-    '("language" (optional))
-    '("tag_table" (optional))
+  (parameters
+    '("GtkTextTagTable*" "table")
+  )
+)
+
+(define-function gtk_source_buffer_new_with_language
+  (is-constructor-of "GtkSourceBuffer")
+  (c-name "gtk_source_buffer_new_with_language")
+  (caller-owns-return #t)
+  (return-type "GtkSourceBuffer*")
+  (parameters
+    '("GtkSourceLanguage*" "language")
   )
 )
 

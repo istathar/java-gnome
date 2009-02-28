@@ -10,8 +10,15 @@
   (c-name "gtk_source_view_new")
   (caller-owns-return #t)
   (return-type "GtkWidget*")
-  (properties
-    '("buffer" (optional))
+)
+
+(define-function gtk_source_view_new_with_buffer
+  (is-constructor-of "GtkSourceView")
+  (c-name "gtk_source_view_new_with_buffer")
+  (caller-owns-return #t)
+  (return-type "GtkWidget*")
+  (parameters
+    '("GtkSourceBuffer*" "buffer")
   )
 )
 
