@@ -1,0 +1,68 @@
+(define-object StyleSchemeManager
+  (in-module "GtkSourceView")
+  (parent "GObject")
+  (c-name "GtkSourceStyleSchemeManager")
+  (gtype-id "GTK_TYPE_SOURCE_STYLE_SCHEME_MANAGER")
+)
+
+(define-function gtk_source_style_scheme_manager_new
+  (is-constructor-of "GtkSourceStyleSchemeManager")
+  (c-name "gtk_source_style_scheme_manager_new")
+  (caller-owns-return #t)
+  (return-type "GtkSourceStyleSchemeManager*")
+)
+
+(define-method set_search_path
+  (of-object "GtkSourceStyleSchemeManager")
+  (c-name "gtk_source_style_scheme_manager_set_search_path")
+  (return-type "none")
+  (parameters
+    '("gchar**" "path")
+  )
+)
+
+(define-method get_search_path
+  (of-object "GtkSourceStyleSchemeManager")
+  (c-name "gtk_source_style_scheme_manager_get_search_path")
+  (return-type "const-gchar**")
+)
+
+(define-method append_search_path
+  (of-object "GtkSourceStyleSchemeManager")
+  (c-name "gtk_source_style_scheme_manager_append_search_path")
+  (return-type "none")
+  (parameters
+    '("const-gchar*" "path")
+  )
+)
+
+(define-method prepend_search_path
+  (of-object "GtkSourceStyleSchemeManager")
+  (c-name "gtk_source_style_scheme_manager_prepend_search_path")
+  (return-type "none")
+  (parameters
+    '("const-gchar*" "path")
+  )
+)
+
+(define-method get_scheme_ids
+  (of-object "GtkSourceStyleSchemeManager")
+  (c-name "gtk_source_style_scheme_manager_get_scheme_ids")
+  (return-type "const-gchar**")
+)
+
+(define-method get_scheme
+  (of-object "GtkSourceStyleSchemeManager")
+  (c-name "gtk_source_style_scheme_manager_get_scheme")
+  (return-type "GtkSourceStyleScheme*")
+  (parameters
+    '("const-gchar*" "scheme_id")
+  )
+)
+
+(define-method force_rescan
+  (of-object "GtkSourceStyleSchemeManager")
+  (c-name "gtk_source_style_scheme_manager_force_rescan")
+  (return-type "none")
+)
+
