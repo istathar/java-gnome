@@ -2,6 +2,7 @@
   (in-module "GtkSourceView")
   (parent "GObject")
   (c-name "GtkSourceStyleScheme")
+  (import-header "gtksourceview/gtksourcestylescheme.h")
   (gtype-id "GTK_TYPE_SOURCE_STYLE_SCHEME")
 )
 

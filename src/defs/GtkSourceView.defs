@@ -1,6 +1,7 @@
 (define-object SourceView
   (in-module "GtkSourceView")
   (parent "GtkTextView")
+  (import-header "gtksourceview/gtksourceview.h")
   (c-name "GtkSourceView")
   (gtype-id "GTK_TYPE_SOURCE_VIEW")
 )

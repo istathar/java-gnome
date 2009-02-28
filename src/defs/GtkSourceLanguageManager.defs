@@ -2,6 +2,7 @@
   (in-module "GtkSourceView")
   (parent "GObject")
   (c-name "GtkSourceLanguageManager")
+  (import-header "gtksourceview/gtksourcelanguagemanager.h")
   (gtype-id "GTK_TYPE_SOURCE_LANGUAGE_MANAGER")
 )
 

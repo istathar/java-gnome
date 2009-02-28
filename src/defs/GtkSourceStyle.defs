@@ -2,14 +2,8 @@
   (in-module "GtkSourceView")
   (parent "GObject")
   (c-name "GtkSourceStyle")
+  (import-header "gtksourceview/gtksourcestyle.h")
   (gtype-id "GTK_TYPE_SOURCE_STYLE")
-)
-
-(define-function gtk_source_style_new
-  (is-constructor-of "GtkSourceStyle")
-  (c-name "gtk_source_style_new")
-  (caller-owns-return #t)
-  (return-type "GtkSourceStyle*")
 )
 
 (define-method copy
