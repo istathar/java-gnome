@@ -551,6 +551,10 @@ public class TextView extends Container
      * correspond to the size of the area of text actually being displayed in
      * the TextView.
      * 
+     * <p>
+     * See {@link #getLocation(TextIter) getLocation()} if you need a
+     * Rectangle enclosing a given TextIter.
+     * 
      * @since 4.0.9
      */
     public Rectangle getVisibleRectangle() {
@@ -564,21 +568,22 @@ public class TextView extends Container
     }
 
     /**
-     * Get a Rectangle enclosing the screen position of the given TreeITer.
+     * Get a Rectangle enclosing the screen position of the given TreeIter.
+     * This will be in <var>buffer co-ordinates</var>.
      * 
-     * @since <span style="color:red;">Unstable</span>
+     * <p>
+     * This is very useful in a <code>TextBuffer.NotifyCursorPosition</code>
+     * if you need to figure out <i>where</i> the cursor is so as to handle
+     * presentation of some external control accordingly.
+     * 
+     * @since 4.0.10
      */
     /*
      * We will not name this getIterLocation() because all the other methods
      * in the getIter... completion space are methods that return a TreeIter
      * based on some argument.
-     * 
-     * It's possible that getVisibleRectanlge() will need to become
-     * getRectangleVisible() and this will be getRectangleFor().
-     * 
-     * Or we could name this getPositionRectangle().
      */
-    public Rectangle getLocationOf(TextIter pointer) {
+    public Rectangle getLocation(TextIter pointer) {
         final Rectangle location;
 
         location = new Rectangle(0, 0, 0, 0);
