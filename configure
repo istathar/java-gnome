@@ -25,6 +25,7 @@
 use strict;
 
 use File::Basename;
+use Cwd 'abs_path';
 
 #
 # Configure java-gnome for building. We:
@@ -74,7 +75,6 @@ sub output {
 }
 
 sub which {
-	use Cwd 'abs_path';
 	my $program = shift;
 	my $path = $ENV{'PATH'};
 	my @path_dirs = split /:+/, $path;
@@ -1630,10 +1630,19 @@ output "Check native compiler:\n";
 
 # these are initialized as, unlike javac which is populated with *something*,
 # even if gcj is not found we still need a variable for it.
+my $gcc;
 my $cc;
 
 if ($os eq "solaris") {
-	check_CC($cc, "Sun cc", which("cc"), "");
+	# this should result in something with gcc in its name
+	check_CC($gcc, "GNU gcc", abs_path("/usr/gnu/bin/cc"), "");
+
+	# otherwise, we use Sun's compiler and linker
+	check_CC($cc, "Sun cc", abs_path("/usr/bin/cc"), "") unless $gcc;
+
+	# and if things are completely out to lunch,
+	check_CC($cc, "Path cc", which("cc"), "") unless $cc;
+
 } elsif ($os) {
 	my $gcc_candidate;
 
@@ -1649,7 +1658,7 @@ if ($os eq "solaris") {
 		}
 	}
 
-	check_CC($cc, "GNU gcc", $gcc_candidate, "");
+	check_CC($gcc, "GNU gcc", $gcc_candidate, "");
 }
 
 output "\n";
@@ -1828,7 +1837,7 @@ print CONFIG <<HERE ;
 
 HERE
 
-if ($cc =~ /gcc/) {
+if ($gcc) {
 	use File::Basename;
 
 	my $jni_include = "";
@@ -1840,7 +1849,11 @@ if ($cc =~ /gcc/) {
 	}
 
 	if (-f "$java_home"."/include/jni.h") {
-		$jni_include = "-I$java_home/include -I$java_home/include/linux";
+		if ($os eq "solaris") {
+			$jni_include = "-I$java_home/include -I$java_home/include/solaris";
+		} else {
+			$jni_include = "-I$java_home/include -I$java_home/include/linux";
+		}
 	} elsif (-f "/usr/include/jni.h") {
 		# good, but that's default search path - no -I required.
 	} else {
@@ -1859,9 +1872,9 @@ if ($cc =~ /gcc/) {
 		$deprecations = "";
 	}
 
-	print CONFIG "CC=$cc -g -Wall -fPIC $jni_include -Wno-int-to-pointer-cast -Wno-pointer-to-int-cast $deprecations -Werror-implicit-function-declaration -Wfatal-errors\n";
+	print CONFIG "CC=$gcc -g -Wall -fPIC $jni_include -Wno-int-to-pointer-cast -Wno-pointer-to-int-cast $deprecations -Werror-implicit-function-declaration -Wfatal-errors\n";
 	print CONFIG "CC_CMD=GCC      \n";
-	print CONFIG "LINK=$cc -g -shared -Wall -fPIC\n";
+	print CONFIG "LINK=$gcc -g -shared -Wall -fPIC\n";
 	print CONFIG "LINK_CMD=LINK     \n";
 } elsif (($cc) && ($os eq "solaris")) {
 	print CONFIG "CC=$cc -Kpic -I/usr/java/include -I/usr/java/include/solaris\n";
