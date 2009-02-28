@@ -12,6 +12,11 @@
   (return-type "GtkSourceLanguageManager*")
 )
 
+(define-function get_default
+  (c-name "gtk_source_language_manager_get_default")
+  (return-type "GtkSourceLanguageManager*")
+)
+
 (define-method get_language_ids
   (of-object "GtkSourceLanguageManager")
   (c-name "gtk_source_language_manager_get_language_ids")
