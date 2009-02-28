@@ -11,7 +11,7 @@
  */
 package org.gnome.sourceview;
 
-import org.gnome.glib.Object;
+import org.freedesktop.bindings.Flag;
 
 /*
  * FIXME this is a placeholder stub for what will become the public API for
@@ -21,9 +21,9 @@ import org.gnome.glib.Object;
  * are made about this class until it has been reviewed by a hacker and this
  * comment has been replaced.
  */
-class DrawSpacesFlags extends Object
+class DrawSpacesFlags extends Flag
 {
-    protected DrawSpacesFlags(long pointer) {
-        super(pointer);
+    private DrawSpacesFlags(int ordinal, String nickname) {
+        super(ordinal, nickname);
     }
 }

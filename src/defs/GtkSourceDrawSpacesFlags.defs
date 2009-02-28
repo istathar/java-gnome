@@ -1,5 +1,5 @@
 (define-flags DrawSpacesFlags
-  (in-module "Gtk")
+  (in-module "GtkSourceView")
   (c-name "GtkSourceDrawSpacesFlags")
   (gtype-id "GTK_TYPE_SOURCE_DRAW_SPACES_FLAGS")
   (values
