@@ -1,32 +1,46 @@
 NEWS
 
-<a name="4.0.10" id="1234938146" title="Pango, Clipboard"></a>
+<a name="4.0.10" id="1235782404" title="Beautiful sculpted text"></a>
 
-java-gnome 4.0.10-rc2 (12 Feb 2009)
-===============================
+java-gnome 4.0.10-rc3 (28 Feb 2009)
+===================================
 
-_Sculpting letters_
+_Sculptures made of letters_
 
-This release features not just the Pango work but even more Pango work,
+This release is a landmark, because it features coverage of the Pango text
+rendering library and so along with our coverage of Cairo, brings us to a
+complete solution for drawing graphics with text -- be they custom Widgets,
+PDF documents, or beautiful vector illustrations.
+
+In addition to merging Pango work from numerous contributors, we have made
 massive improvements to our Cairo coverage, support for writing PDFs, and
 better access to the system Clipboard.
 
 Drawing API improvements
 ------------------------
 
-Thanks to Kenneth Prugh for having seen this through and having done the
-lion's share of the testing.
+We've done a huge amount of refinement to our APIs for the ever fabulous Cairo
+Graphics drawing library, including full coverage of matrix translations,
+rotations, and scaling and more integrated ways of setting the source pattern
+to be used in stroke, paint, and fill operatins. <img
+src="doc/api/org/freedesktop/cairo/Matrix-translate.png" alt="" style="float:
+right; text-align: right; padding-left: 15px;" /> Thanks to Kenneth Prugh for
+having seen this through and having done the lion's share of the testing. <img
+src="doc/api/org/freedesktop/cairo/Context-arcNegative.png" alt=""
+style="float: right; text-align: right; padding-left: 15px; clear: right;" />
 
-* `doc.examples.cairo.ExampleDrawingText`
 * **`org.freedesktop.cairo.Content`**
 * **`org.freedesktop.cairo.Context`**
+* **`org.freedesktop.cairo.Matrix`**
+* **`org.freedesktop.cairo.Operator`**
 * `org.freedesktop.cairo.Plumbing`
 * `org.freedesktop.cairo.Status`
 * **`org.freedesktop.cairo.Surface`**
 * **`org.freedesktop.cairo.ImageSurface`**
-* **`org.freedesktop.cairo.XlibSurface`**
 * **`org.freedesktop.cairo.SvgSurface`**
+* **`org.freedesktop.cairo.XlibSurface`**
 * **`org.freedesktop.cairo.SurfacePattern`**
+* `cairo.ExampleDrawingText`
 
 We've also had a number of improvements in the lower levels of GTK relating to
 image rendering. The gdk-pixbuf library contains a capable image parser and we
@@ -36,10 +50,16 @@ Martin Garton for his hard work getting that tested and accepted.
 * **`org.gnome.gdk.InterpType`**
 * **`org.gnome.gdk.Pixbuf`**
 
-As [announced](#pango) previously, we have landed a number of branches
-relating to our coverage of the powerful Pango text rendering library. In
-particular, the [Layout][] class is a powerful paragraph rendering engine and
-gives us a fully capabile solution for drawing text onto Cairo Surfaces.
+Drawing graphics often also requires drawing text. This release features
+coverage of Pango, GNOME's powerful text rendering library. Pango is not just
+about drawing mere glyphs; it also includes a sophisticated paragraph layout
+engine which gives us a capable solution for drawing text onto Cairo Surfaces.
+
+Thanks are due to Serkan Kaba and Kenneth Prugh have both been really helpful
+testing; it was Vreixo Formoso who did the original leg work in April that
+identified Layout as the key class that we needed to concentrate on and
+cleaned up much of the underlying infrastructure. And thanks to artist Nathan
+Strum for permission to use one of his sketches in the example.
 
 * **`org.gnome.pango.Alignment`**
 * **`org.gnome.pango.FontDescription`**
@@ -49,6 +69,21 @@ gives us a fully capabile solution for drawing text onto Cairo Surfaces.
 * **`org.gnome.pango.Style`**
 * **`org.gnome.pango.Variant`**
 * **`org.gnome.pango.Weight`**
+* **`org.gnome.pango.Context`**
+* **`org.freedesktop.cairo.FontOptions`**
+* **`org.freedesktop.cairo.HintMetrics`**
+* **`org.gnome.pango.Attribute`**
+* **`org.gnome.pango.AttributeList`**
+* **`org.gnome.pango.FontDescriptionAttribute`**
+* **`org.gnome.pango.SizeAttribute`**
+* **`org.gnome.pango.StyleAttribute`**
+* **`org.gnome.pango.VariantAttribute`**
+* **`org.gnome.pango.WeightAttribute`**
+* **`org.gnome.pango.UnderlineAttribute`**
+* **`org.gnome.pango.BackgroundColorAttribute`**
+* **`org.gnome.pango.ForegroundColorAttribute`**
+* **`org.gnome.pango.BackgroundColorAttribute`**
+* **`org.gnome.pango.UnderlineColorAttribute`**
 
 As we were working on this we had occasion to continue the polish in and
 around the TextView / TextBuffer APIs, including a number of convenience
@@ -61,7 +96,6 @@ and supporting changing default fonts.
 * **`org.gnome.gtk.TreeViewColumn`**
 * **`org.gnome.gtk.Widget`**
 
-
 Handling cut & paste
 --------------------
 
@@ -69,22 +103,24 @@ The GTK clipboard APIs are fairly complex, in no small part because the
 underlying implementations in X are really rather complex. Our coverage here
 in java-gnome is still fairly basic relative to that, but it's been enough for
 people working on applications like text editors to write text to the system
-clipboard and get notification whenit changes.
+clipboard, get notification when the clipboard changes, and read text back out again.
 
 * **`org.gnome.gtk.Clipboard`**
 
 Printing support
 ----------------
 
-We've started down the road of covering the GNOME printing APIs; a huge step
-in that process was to support writing PDFs via Cairo.
+We've started down the road of covering the GNOME printing APIs. The work on
+Pango noted above represented the essential machinery necessary to make
+effective use of Cairo's PDF backend; you can now generate `.pdf` documents
+with java-gnome, and we've included an fun example showing this in action.
 
 * **`org.freedesktop.cairo.PdfSurface`**
 * **`org.gnome.gtk.PaperSize`**
 * **`org.gnome.gtk.InternationalPaperSize`**
 * **`org.gnome.gtk.NorthAmericanPaperSize`**
 * **`org.gnome.gtk.Unit`**
-* `doc.examples.cairo.ExampleLinedPaper`
+* `cairo.ExampleLinedPaper`
 
 Continuing improvement
 ----------------------
@@ -124,6 +160,9 @@ Meanwhile, the ever industrious Serkan Kaba has added some changes to ensure
 that our magically locating the native shared library component of java-gnome
 works properly even under strange and unusual conditions.
 
+Configuration and prerequisite detection on Open Solaris is improved thanks to
+reports from new contributor Kamil Szymala.
+
 Instructions for how to optimally lay out your branches when working with
 java-gnome have been moved to the [`HACKING`](HACKING.html) file. People
 intending to hack on the bindings from Eclipse are _really_ urged to set
@@ -131,6 +170,9 @@ things up this way as it will make their lives much easier. Also, using the
 latest release of Bazaar (ie `bzr >= 1.12`) is definitely recommended -- it's
 getting really fast. We've upgraded our public branches, so you will need
 `1.9` at a minimum.
+
+Note to those creating packages for distributions: java-gnome now depends on
+the current stable GTK (ie `gtk+ >= 2.14`).
 
 Looking ahead
 -------------
@@ -144,7 +186,7 @@ The most exciting part about java-gnome at the moment, though, is the number
 of people working hard on applications using it. It takes a **long** time to
 write a mature, well rounded, robust end-user program, but there are some
 pretty cool projects ticking away out there, and it has been terrific to see
-them joining our community.
+the authors of these projects joining our community.
 
 Happy developing,
 
