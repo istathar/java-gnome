@@ -1,5 +1,5 @@
 (define-object PrintCompositor
-  (in-module "Gtk")
+  (in-module "GtkSourceView")
   (parent "GObject")
   (c-name "GtkSourcePrintCompositor")
   (gtype-id "GTK_TYPE_SOURCE_PRINT_COMPOSITOR")

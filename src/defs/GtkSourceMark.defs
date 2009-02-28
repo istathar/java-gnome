@@ -1,5 +1,5 @@
 (define-object Mark
-  (in-module "Gtk")
+  (in-module "GtkSourceView")
   (parent "GtkTextMark")
   (c-name "GtkSourceMark")
   (gtype-id "GTK_TYPE_SOURCE_MARK")
