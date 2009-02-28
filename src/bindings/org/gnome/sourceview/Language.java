@@ -1,5 +1,5 @@
 /*
- * SourceLanguageManager.java
+ * Language.java
  *
  * Copyright (c) 2009 Operational Dynamics Consulting Pty Ltd, and Others
  *
@@ -14,29 +14,30 @@ package org.gnome.sourceview;
 import org.gnome.gtk.Object;
 
 /**
- * A SourceLanguageManager is used to obtain {@link SourceLanguage} objects
- * that are used for syntax highlighting in a {@link SourceBuffer}.
+ * A Language is used for syntax highlighting in a {@link SourceBuffer}.
+ * Instances can be obtained from a {@link LanguageManager} .
  * 
  * @author Stefan Schweizer
  */
-public class SourceLanguageManager extends Object
+public class Language extends Object
 {
-    protected SourceLanguageManager(long pointer) {
+    protected Language(long pointer) {
         super(pointer);
     }
 
     /**
-     * Return the default SourceLanguageManager.
+     * Get the ID of the language. For example, the ID for Java is
+     * <code>java</code>. The ID of a language is defined in the
+     * corresponding language definition file.
      */
-    public static SourceLanguageManager getDefault() {
-        return GtkSourceLanguageManager.getDefault();
+    public String getID() {
+        return GtkSourceLanguage.getId(this);
     }
 
     /**
-     * Return a SourceLanguage specified by its language ID or null if the ID
-     * is not known.
+     * Get the localized name of the language.
      */
-    public SourceLanguage getLanguage(String id) {
-        return GtkSourceLanguageManager.getLanguage(this, id);
+    public String getName() {
+        return GtkSourceLanguage.getName(this);
     }
 }

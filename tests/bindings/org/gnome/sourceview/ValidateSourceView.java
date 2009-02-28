@@ -21,10 +21,10 @@ import org.gnome.gtk.TextTagTable;
 public class ValidateSourceView extends TestCaseGtk
 {
     public void testGetLanguage() {
-        final SourceLanguageManager manager;
-        SourceLanguage lang;
+        final LanguageManager manager;
+        Language lang;
 
-        manager = SourceLanguageManager.getDefault();
+        manager = LanguageManager.getDefault();
 
         lang = manager.getLanguage("unknownID");
         assertNull(lang);
@@ -41,7 +41,7 @@ public class ValidateSourceView extends TestCaseGtk
 
         tagTable = new TextTagTable();
         buffer = new SourceBuffer(tagTable);
-        buffer.setLanguage(SourceLanguageManager.getDefault().getLanguage("java"));
+        buffer.setLanguage(LanguageManager.getDefault().getLanguage("java"));
         view = new SourceView(buffer);
 
         assertNotNull(view);

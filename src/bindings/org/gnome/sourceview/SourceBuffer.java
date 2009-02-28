@@ -46,16 +46,16 @@ public class SourceBuffer extends TextBuffer
     }
 
     /**
-     * Set the SourceLanguage that is used for syntax highlighting.
+     * Set the Language that is used for syntax highlighting.
      */
-    public void setLanguage(SourceLanguage language) {
+    public void setLanguage(Language language) {
         GtkSourceBuffer.setLanguage(this, language);
     }
 
     /**
-     * Get the SourceLanguage that is used for syntax highlighting.
+     * Get the Language that is used for syntax highlighting.
      */
-    public SourceLanguage getLanguage() {
+    public Language getLanguage() {
         return GtkSourceBuffer.getLanguage(this);
     }
 }
