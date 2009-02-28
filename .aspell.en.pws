@@ -146,6 +146,7 @@ Display's
 DoubleConstant
 DrawingArea
 Dumay
+Dusausoy
 EDETACHED
 EOFError
 EOSTR
@@ -180,7 +181,9 @@ EventTypes
 EventVisibility
 EventWindowState
 ExampleCairoDrawingBlends
+ExampleDrawingText
 ExampleInstantMessenger
+ExampleLinedPaper
 ExamplePressMe
 ExampleSimpleMenu
 ExampleTrailHeads
@@ -192,6 +195,7 @@ ExposeEvent
 ExposeEventSignal
 FIXME
 FatalError
+Fenton
 FileChooser
 FileChooser's
 FileChooserAction
@@ -229,6 +233,7 @@ GInterface
 GLib
 GLib's
 GList
+GNOME's
 GObject
 GObjects
 GPL
@@ -250,6 +255,7 @@ GUADEC
 GUIs
 GValue
 GValues
+Garton
 GdkCairoSupport
 GdkColor
 GdkColorOverride
@@ -294,6 +300,7 @@ GlibMisc
 GnomeEntry
 Gruber
 Gruber's
+Grzegorczyk
 GtkAboutDialog
 GtkAction
 GtkActionGroup
@@ -431,6 +438,7 @@ GtkWrapMode
 HBox
 HBoxes
 HButtonBox
+HIG
 HPaned
 HScale
 HScrollbar
@@ -493,6 +501,7 @@ JavaDoc
 JavaVM
 Juma
 Kaba
+Kamil
 Katoomba
 Kedzierski
 KeyError
@@ -554,6 +563,7 @@ MessageFormat
 MessageType
 MessageTypes
 Microsystems
+Miloud
 Misc's
 ModifierType
 ModifierTypes
@@ -586,6 +596,7 @@ OpenSolaris
 OutOfMemoryError
 Overholt
 PDF
+PDFs
 PKGBUILD
 PNGs
 PRELIGHT
@@ -621,6 +632,7 @@ PixbufAnimation
 PixbufFormat
 Pixbufs
 PolicyType
+Poppler
 PopulatePopup
 PopulatePopupSignal
 PopupMenu
@@ -634,6 +646,7 @@ PrepareSignal
 PressMe
 ProgressBar
 Prugh
+Przemys
 Pty
 PyThat
 PyThis
@@ -671,6 +684,7 @@ RuntimeExceptions
 SEMIBOLD
 SWT
 Schmitz
+Schweizer
 ScreenshotCapture
 ScreenshotInfoMessageDialog
 ScreenshotQuestionMessageDialog
@@ -721,6 +735,7 @@ StringBuilder
 StringValue
 SurfacePattern
 SysReq
+Szymala
 TODO
 TZ
 TestCase
@@ -993,6 +1008,7 @@ compileCSourceToObject
 compileGeneratorClasses
 compileJavaCode
 compileTestClasses
+composited
 compositing
 conf
 config

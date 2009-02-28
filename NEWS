@@ -22,7 +22,7 @@ Drawing API improvements
 We've done a huge amount of refinement to our APIs for the ever fabulous Cairo
 Graphics drawing library, including full coverage of matrix translations,
 rotations, and scaling and more integrated ways of setting the source pattern
-to be used in stroke, paint, and fill operatins. <img
+to be used in stroke, paint, and fill operations. <img
 src="doc/api/org/freedesktop/cairo/Matrix-translate.png" alt="" style="float:
 right; text-align: right; padding-left: 15px;" /> Thanks to Kenneth Prugh for
 having seen this through and having done the lion's share of the testing. <img
@@ -32,7 +32,6 @@ style="float: right; text-align: right; padding-left: 15px; clear: right;" />
 * **`org.freedesktop.cairo.Content`**
 * **`org.freedesktop.cairo.Context`**
 * **`org.freedesktop.cairo.Matrix`**
-* **`org.freedesktop.cairo.Operator`**
 * `org.freedesktop.cairo.Plumbing`
 * `org.freedesktop.cairo.Status`
 * **`org.freedesktop.cairo.Surface`**
@@ -41,6 +40,10 @@ style="float: right; text-align: right; padding-left: 15px; clear: right;" />
 * **`org.freedesktop.cairo.XlibSurface`**
 * **`org.freedesktop.cairo.SurfacePattern`**
 * `cairo.ExampleDrawingText`
+
+The various use cases of setting a source pattern for a Context including RGB,
+RGBA, other Surfaces, already existing Pixbufs, etc have been combined into a
+series of `setSource()` method overloads.
 
 We've also had a number of improvements in the lower levels of GTK relating to
 image rendering. The gdk-pixbuf library contains a capable image parser and we
@@ -96,6 +99,17 @@ and supporting changing default fonts.
 * **`org.gnome.gtk.TreeViewColumn`**
 * **`org.gnome.gtk.Widget`**
 
+Finally, thanks to contributions from Zak Fenton and Kamil Szymala we have
+support for applications running in composited window managers to have
+transparent backgrounds -- which is an exceptionally cool effect, even if it
+doesn't have much to do with creating HIG compliant usable applications `:)`.
+
+* **`org.freedesktop.cairo.Operator`**
+* **`org.gnome.gdk.Colormap`**
+* **`org.gnome.gdk.Screen`**
+* **`org.gnome.gdk.Window`**
+* **`org.gnome.gtk.Widget`**
+
 Handling cut & paste
 --------------------
 
@@ -103,7 +117,8 @@ The GTK clipboard APIs are fairly complex, in no small part because the
 underlying implementations in X are really rather complex. Our coverage here
 in java-gnome is still fairly basic relative to that, but it's been enough for
 people working on applications like text editors to write text to the system
-clipboard, get notification when the clipboard changes, and read text back out again.
+clipboard, get notification when the clipboard changes, and read text back out
+again.
 
 * **`org.gnome.gtk.Clipboard`**
 
@@ -126,13 +141,14 @@ Continuing improvement
 ----------------------
 
 Thanks to new contributor Stefan Schweizer we now have better coverage of
-signals relating to Notebook style Containers, and to Miloud Bel for numerous
-small improvemets in and around ProgressBar.
+signals relating to Notebook style Containers, and to new contributors Miloud
+Bel and Bruno Dusausoy for numerous small improvements in and around
+ProgressBar.
 
 * **`org.gnome.gtk.Notebook`**
 * **`org.gnome.gtk.ProgressBar`**
 
-Miscallaneous documentation improvements and minor feature improvements always
+Miscellaneous documentation improvements and minor feature improvements always
 feature in our releases, with minor changes having accrued in many classes.
 
 * **`org.gnome.gtk.ShadowType`**
@@ -144,10 +160,106 @@ feature in our releases, with minor changes having accrued in many classes.
 * **`org.gnome.gtk.Assistant`**
 * **`org.gnome.gtk.Menu`**
 
+Just as important as new coverage is getting rid of cruft that we don't need.
+Libraries like GTK and GDK are, like any other mature project, full of
+deprecated, obsolete, and unnecessary code -- not to mention things that we
+just plain don't need in a Java binding of these underlying native libraries.
+We're already pretty good about not generating translation Java or JNI C code
+for such things; this release continues our refinements in this area with a
+considerable refinement of the `.jar` and `.so` which is ultimately what we
+ship.
+
 Finally, it's worth noting that java-gnome's test suite is now 40 unit test
 classes with 186 individual test fixtures. Combined with over 30 screenshot
 generating programs and 17 example programs, we actually have surprisingly
-good test coverage of our public API.
+good test coverage of our library. It's high time they -- and more to the
+point the people who work hard to create such tests -- got as much credit as
+the visible public APIs do.
+
+* `UnitTests`
+* `com.operationaldynamics.codegen.ValidateUtilityMethods`
+* `com.operationaldynamics.defsparser.ValidateBlockUsage`
+* `com.operationaldynamics.defsparser.ValidateDefsParsing`
+* `com.operationaldynamics.codegen.ValidateThingUsage`
+* `org.freedesktop.bindings.ValidateEnvironment`
+* `org.freedesktop.bindings.ValidateInternationalization`
+* `org.gnome.glib.ValidateReferenceCounting`
+* `org.gnome.glib.ValidateMemoryManagement`
+* `org.gnome.glib.ValidateGListMethods`
+* `org.gnome.glib.ValidateConstants`
+* `org.gnome.gtk.ValidateProperties`
+* `org.gnome.gtk.ValidateSignalEmission`
+* `org.gnome.gdk.ValidateScreensAndDisplays`
+* `org.gnome.gdk.ValidateKeyboardHandling`
+* `org.gnome.gdk.ValidateImageHandling`
+* `org.freedesktop.cairo.ValidateCairoInternals`
+* `org.freedesktop.cairo.ValidateDrawingToFile`
+* `org.gnome.gtk.ValidateOutParameters`
+* `org.gnome.gtk.ValidatePacking`
+* `org.gnome.gtk.ValidateNotebookBehaviour`
+* `org.gnome.gtk.ValidateFileChoosing`
+* `org.gnome.gtk.ValidateStockItems`
+* `org.gnome.gtk.ValidateResponseType`
+* `org.gnome.gtk.ValidateTreeModel`
+* `org.gnome.gtk.ValidateTreeStore`
+* `org.gnome.gtk.ValidateTreeModelFilter`
+* `org.gnome.gtk.ValidateTreeView`
+* `org.gnome.gtk.ValidateIconView`
+* `org.gnome.gtk.ValidateComboBox`
+* `org.gnome.gtk.ValidateSnapshotUtilities`
+* `org.gnome.gtk.ValidateAssistant`
+* `org.gnome.gtk.ValidateTextBuffer`
+* `org.gnome.gtk.ValidateTextViewProperties`
+* `org.gnome.gtk.ValidateTextViewBorderWindows`
+* `org.gnome.gtk.ValidateArrow`
+* `org.gnome.pango.ValidatePangoTextRendering`
+* `org.gnome.gtk.ValidatePrinting`
+* `Harness`
+* `org.freedesktop.cairo.SnapshotMatrixRotate`
+* `org.freedesktop.cairo.SnapshotCairoAxis`
+* `org.freedesktop.cairo.SnapshotCairo`
+* `org.freedesktop.cairo.SnapshotContextLine`
+* `org.freedesktop.cairo.SnapshotMatrixScale`
+* `org.freedesktop.cairo.SnapshotContextArcNegative`
+* `org.freedesktop.cairo.SnapshotMatrixTranslate`
+* `org.freedesktop.cairo.SnapshotContextArc`
+* `org.freedesktop.cairo.SnapshotMatrix`
+* `org.freedesktop.cairo.SnapshotContextRectangle`
+* `org.gnome.gtk.SnapshotCalendar`
+* `org.gnome.gtk.SnapshotTreeView`
+* `org.gnome.gtk.SnapshotButton`
+* `org.gnome.gtk.SnapshotAboutDialog`
+* `org.gnome.gtk.SnapshotArrow`
+* `org.gnome.gtk.SnapshotTextView`
+* `org.gnome.gtk.SnapshotRadioButton`
+* `org.gnome.gtk.SnapshotTextComboBox`
+* `org.gnome.gtk.SnapshotTreeStore`
+* `org.gnome.gtk.SnapshotTextComboBoxEntry`
+* `org.gnome.gtk.SnapshotFileChooserDialog`
+* `org.gnome.gtk.SnapshotTextViewBorderWindows`
+* `org.gnome.gtk.SnapshotVScale`
+* `org.gnome.gtk.SnapshotHScale`
+* `org.gnome.gtk.SnapshotDialog`
+* `org.gnome.gtk.SnapshotEntryRed`
+* `org.gnome.gtk.SnapshotComboBox`
+* `org.gnome.gtk.SnapshotStatusbar`
+* `org.gnome.gtk.SnapshotInfoMessageDialog`
+* `org.gnome.gtk.Snapshot`
+* `org.gnome.gtk.SnapshotAssistant`
+* `org.gnome.gtk.SnapshotWindow`
+* `org.gnome.gtk.SnapshotNotebook`
+* `org.gnome.gtk.SnapshotQuestionMessageDialog`
+
+Anyone can run the tests (and anyone wanting to submit a patch had _better_
+run the tests!); they've been accumulating since java-gnome 4.0.0; it's just:
+
+    $ make test
+
+and
+
+    $ make doc
+
+If you're working in Eclipse launch class UnitTests as a JUnit test suite.
 
 Build improvements
 ------------------
