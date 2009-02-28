@@ -61,8 +61,7 @@ engine which gives us a capable solution for drawing text onto Cairo Surfaces.
 Thanks are due to Serkan Kaba and Kenneth Prugh have both been really helpful
 testing; it was Vreixo Formoso who did the original leg work in April that
 identified Layout as the key class that we needed to concentrate on and
-cleaned up much of the underlying infrastructure. And thanks to artist Nathan
-Strum for permission to use one of his sketches in the example.
+cleaned up much of the underlying infrastructure.
 
 * **`org.gnome.pango.Alignment`**
 * **`org.gnome.pango.FontDescription`**
@@ -72,6 +71,7 @@ Strum for permission to use one of his sketches in the example.
 * **`org.gnome.pango.Style`**
 * **`org.gnome.pango.Variant`**
 * **`org.gnome.pango.Weight`**
+* `org.gnome.pango.Plumbing`
 * **`org.gnome.pango.Context`**
 * **`org.freedesktop.cairo.FontOptions`**
 * **`org.freedesktop.cairo.HintMetrics`**
@@ -96,8 +96,12 @@ and supporting changing default fonts.
 * **`org.gnome.gtk.TextBuffer`**
 * **`org.gnome.gtk.TextIter`**
 * **`org.gnome.gtk.TextTag`**
+* **`org.gnome.gtk.TextView`**
 * **`org.gnome.gtk.TreeViewColumn`**
 * **`org.gnome.gtk.Widget`**
+
+We've also modelled "notify signals" for when a property changes; see the
+`TextBuffer.NotifyCursorPosition` signal for this in action.
 
 Finally, thanks to contributions from Zak Fenton and Kamil Szymala we have
 support for applications running in composited window managers to have
@@ -136,6 +140,12 @@ with java-gnome, and we've included an fun example showing this in action.
 * **`org.gnome.gtk.NorthAmericanPaperSize`**
 * **`org.gnome.gtk.Unit`**
 * `cairo.ExampleLinedPaper`
+
+Thanks to Nathan Strum for permission to use one of his sketches in the
+example (you might find reading the [blog][nathan] where we found this
+interesting -- it's a fascinating expos&eacute; of a graphic artist in action).
+
+[nathan]: http://www.atariage.com/forums/index.php?automodule=blog&blogid=118&showentry=5460
 
 Continuing improvement
 ----------------------
@@ -259,7 +269,7 @@ and
 
     $ make doc
 
-If you're working in Eclipse launch class UnitTests as a JUnit test suite.
+If you're working in Eclipse launch class `UnitTests` as a JUnit test suite.
 
 Build improvements
 ------------------
