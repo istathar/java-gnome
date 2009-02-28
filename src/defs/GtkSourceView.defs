@@ -1,4 +1,4 @@
-(define-object View
+(define-object SourceView
   (in-module "GtkSourceView")
   (parent "GtkTextView")
   (c-name "GtkSourceView")

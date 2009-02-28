@@ -1,4 +1,4 @@
-(define-object Buffer
+(define-object SourceBuffer
   (in-module "GtkSourceView")
   (parent "GtkTextBuffer")
   (c-name "GtkSourceBuffer")
