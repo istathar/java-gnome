@@ -182,6 +182,13 @@ public class TreeView extends Container
     }
 
     /**
+     * Remove a tree view column from this TreeView.
+     */
+    public void removeColumn(TreeViewColumn column) {
+        GtkTreeView.removeColumn(this, column);
+    }
+    
+    /**
      * Set whether this TreeView has a header row at the top of the Widget
      * showing the titles of each of the TreeViewColumns packed into it. The
      * default is <code>true</code>, for headers to be visible.
