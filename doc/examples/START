@@ -48,6 +48,7 @@ Pressed: Keyval.c, Modifier: ModifierType.CONTROL_MASK
 </pre>
 
 ----
+<a name="ExampleTrailHeads"></a>
 <img src="treeview/ExampleTrailHeads.png" class="right"/>
 ### TreeView and TreeModel
 
@@ -66,6 +67,7 @@ available column types in [DataColumn][].
 [DataColumn]: /4.0/doc/api/org/gnome/gtk/DataColumn.html
 
 ----
+<a name="ExampleInstantMessenger"></a>
 <img src="textview/ExampleInstantMessenger.png" class="right"/>
 ### TextView and TextBuffer 
 
@@ -85,6 +87,7 @@ dynamic and the most fun will be had if you _run_ the thing.
 [TextTag]: /4.0/doc/api/org/gnome/gtk/TextTag.html
 
 ----
+<a name="ExampleDrawingInExposeEvent"></a>
 <img src="cairo/ExampleCairoDrawingBlends.png" class="right"/>
 ### Drawing with Cairo 
 
@@ -100,6 +103,7 @@ Widget's [Widget.ExposeEvent][] signal handler.
 [Widget.ExposeEvent]: /4.0/doc/api/org/gnome/gtk/Widget.ExposeEvent.html
 
 ----
+<a name="ExampleLinedPaper"></a>
 <img src="cairo/ExampleLinedPaper.png" class="right"/>
 ### Creating PDFs with Cairo and drawing text with Pango
 
@@ -110,8 +114,9 @@ _lorem ipsum_ typesetting text. To make it more interesting we have drawn
 horizontal rules at the font baseline and a red line at the left margin to
 create the effect of lined three-hole punch paper, all with Cairo of course.
 <br><br>
-In this case we have not used Cairo to draw a Widget -- we have created a PDF
-file using Cairo's [PdfSurface][] and drawn the text there instead!
+In this case we have not used Cairo to draw a Widget -- we have created a
+program that writes out a PDF file using Cairo's [PdfSurface][] and drawn our
+text there instead!
 <br><br>
 Of course, no one has ever sat through Latin class without doodling on their
 notepad...  to create the effect we use a transparent image as the source

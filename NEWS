@@ -8,7 +8,7 @@ java-gnome 4.0.10-rc3 (28 Feb 2009)
 _Sculptures made of letters_
 
 This release is a landmark, because it features coverage of the Pango text
-rendering library and so along with our coverage of Cairo, brings us to a
+rendering library and so, along with our coverage of Cairo, brings us to a
 complete solution for drawing graphics with text -- be they custom Widgets,
 PDF documents, or beautiful vector illustrations.
 
@@ -126,13 +126,16 @@ again.
 
 * **`org.gnome.gtk.Clipboard`**
 
-Printing support
-----------------
+Printed document support
+------------------------
 
-We've started down the road of covering the GNOME printing APIs. The work on
-Pango noted above represented the essential machinery necessary to make
-effective use of Cairo's PDF backend; you can now generate `.pdf` documents
-with java-gnome, and we've included an fun example showing this in action.
+<img src="doc/examples/cairo/ExampleLinedPaper.png" alt="" width="200"
+style="float: right; text-align: right; padding-left: 15px; clear: right;" />
+The work on Pango noted above represented the essential machinery necessary to
+make effective use of Cairo's PDF backend, and this has started us down the
+road of covering the GNOME printing APIs.  You can now generate `.pdf`
+documents with java-gnome, and we've included an fun
+[example](doc/examples/START.html#ExampleLinedPaper) showing this in action.
 
 * **`org.freedesktop.cairo.PdfSurface`**
 * **`org.gnome.gtk.PaperSize`**
@@ -302,7 +305,9 @@ Looking ahead
 Coverage of Poppler, GNOME's PDF rendering library is well along, but didn't
 quite make it in time for this release. It could very likely feature in the
 next version of java-gnome, as might coverage of GConf, GNOME's simple store
-for application configuration options. We'll see what gets contributed!
+for application configuration options. People are also known to be working on
+coverage of GtkSourceView, libwnck, and librsvg. We'll see what gets
+contributed!
 
 The most exciting part about java-gnome at the moment, though, is the number
 of people working hard on applications using it. It takes a **long** time to
