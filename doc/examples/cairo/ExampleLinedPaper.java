@@ -81,7 +81,7 @@ public class ExampleLinedPaper
         cr.moveTo(leftMargin, topMargin);
 
         layout = new Layout(cr);
-        desc = new FontDescription("Liberation Serif 10");
+        desc = new FontDescription("Liberation Serif, 12");
         layout.setFontDescription(desc);
 
         /*
@@ -195,7 +195,7 @@ public class ExampleLinedPaper
          * complete our example we have a doodle at the bottom of the page.
          */
 
-        pixbuf = new Pixbuf("doc/examples/cairo/incoming-sketch.jpg");
+        pixbuf = new Pixbuf("doc/examples/cairo/incoming-sketch.png");
         cr.setSource(pixbuf, pageWidth - pixbuf.getWidth() - 10, pageHeight - pixbuf.getHeight() + 50);
         cr.paint();
 
