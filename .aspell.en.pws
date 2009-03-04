@@ -144,6 +144,7 @@ DialogFlags
 Dialogs
 Display's
 DoubleConstant
+Drawables
 DrawingArea
 Dumay
 Dusausoy
@@ -283,6 +284,7 @@ GdkNotifyType
 GdkPixbuf
 GdkPixbufFormat
 GdkPixbufOverride
+GdkPixmap
 GdkRectangle
 GdkScreen
 GdkVisibilityState
@@ -442,6 +444,7 @@ HIG
 HPaned
 HScale
 HScrollbar
+HScrollbars
 HSeparator
 Harpers
 HashMap
@@ -833,12 +836,15 @@ VM
 VMs
 VPaned
 VScale
+VScrollbar
+VScrollbars
 VSeparator
 ValidateDrawingToFile
 ValidateMemoryManagement
 ValidatePacking
 ValidateProperties
 ValidateReferenceCounting
+ValueChangedSignal
 VerboseTestRunner
 VersionNumbers
 VirtualHost
@@ -1108,6 +1114,7 @@ createPatternRgba
 createPixbuf
 createPixbufFromFile
 createPixbufFromFileAtScale
+createPixmap
 createProgressBar
 createProxy
 createRadioButtonWithMnemonicFromWidget
@@ -1401,6 +1408,7 @@ getLineYrange
 getLines
 getLinesReadonly
 getLong
+getLower
 getMaxLength
 getMaximized
 getMember
@@ -1433,6 +1441,7 @@ getPageCount
 getPageHeaderImage
 getPageNumber
 getPageSideImage
+getPageSize
 getPageTitle
 getPageType
 getParent
@@ -1502,6 +1511,7 @@ getToplevels
 getTreeView
 getType
 getURI
+getUpper
 getUri
 getUseMarkup
 getVAdjustment
@@ -2309,6 +2319,8 @@ utils's
 va
 vadj
 vadjustment
+validateDepth
+validateDrawable
 validationCheck
 valueChanged
 valueFor

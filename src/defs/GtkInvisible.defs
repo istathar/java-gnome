@@ -1,4 +1,5 @@
 (define-object Invisible
+  (unnecessary)
   (in-module "Gtk")
   (parent "GtkWidget")
   (c-name "GtkInvisible")

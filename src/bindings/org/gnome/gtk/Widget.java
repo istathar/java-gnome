@@ -12,6 +12,7 @@
 package org.gnome.gtk;
 
 import org.gnome.gdk.Color;
+import org.gnome.gdk.Colormap;
 import org.gnome.gdk.Event;
 import org.gnome.gdk.EventButton;
 import org.gnome.gdk.EventCrossing;
@@ -132,6 +133,45 @@ public abstract class Widget extends org.gnome.gtk.Object
      */
     public void hide() {
         GtkWidget.hide(this);
+    }
+
+    /**
+     * Request that an area of the Widget to be redrawn. This will eventually
+     * result in an <code>Widget.ExposeEvent</code> being sent to the Widget
+     * asking it to [re]render the area given by the passed in co-ordinates.
+     * 
+     * <p>
+     * You only ever need this if doing your own custom Widget drawing, and
+     * then only sometimes.
+     * 
+     * <p>
+     * The redraw will not happen immediately, but rather during the next
+     * iteration of the main loop. Also, note that several such requests may
+     * be combined into a single <code>Widget.ExposeEvent</code> by the X
+     * server and GDK.
+     * 
+     * <p>
+     * Be aware that this will invalidate both this Widget <i>and</i> all its
+     * children. If you wish to limit your redrawing, you will be better off
+     * with one of the
+     * {@link org.gnome.gdk.Window#invalidate(org.gnome.gdk.Rectangle, boolean)
+     * invalidate()} calls in the underlying native resource.
+     * 
+     * @since 4.0.10
+     */
+    public void queueDrawArea(int x, int y, int width, int height) {
+        GtkWidget.queueDrawArea(this, x, y, width, height);
+    }
+
+    /**
+     * Request that the entire Widget be redrawn. See {@link #queueDrawArea()
+     * queueDrawArea()} for full details, but you only ever need this if doing
+     * your own drawing.
+     * 
+     * @since 4.0.10
+     */
+    public void queueDraw() {
+        GtkWidget.queueDraw(this);
     }
 
     /**
@@ -605,6 +645,21 @@ public abstract class Widget extends org.gnome.gtk.Object
      */
     public org.gnome.gdk.Window getWindow() {
         return GtkWidgetOverride.getWindow(this);
+    }
+
+    /**
+     * Sets the Colormap of this widget.
+     * 
+     * <p>
+     * The only useful application of this is to enable per-pixel translucency
+     * on top level Widgets. This involves getting the RGBA colormap from the
+     * associated screen, and also requires (if using cairo) using the clear
+     * operator to remove the standard background.
+     * 
+     * @since 4.0.10
+     */
+    public void setColormap(Colormap colormap) {
+        GtkWidget.setColormap(this, colormap);
     }
 
     /**

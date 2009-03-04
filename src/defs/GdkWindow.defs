@@ -620,6 +620,7 @@
 )
 
 (define-method set_decorations
+  (unnecessary)
   (of-object "GdkWindow")
   (c-name "gdk_window_set_decorations")
   (return-type "none")
@@ -629,6 +630,7 @@
 )
 
 (define-method get_decorations
+  (unnecessary)
   (of-object "GdkWindow")
   (c-name "gdk_window_get_decorations")
   (return-type "gboolean")
@@ -638,6 +640,7 @@
 )
 
 (define-method set_functions
+  (unnecessary)
   (of-object "GdkWindow")
   (c-name "gdk_window_set_functions")
   (return-type "none")

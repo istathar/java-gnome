@@ -1,7 +1,7 @@
 /*
  * Screen.java
  *
- * Copyright (c) 2007-2008 Operational Dynamics Consulting Pty Ltd
+ * Copyright (c) 2007-2009 Operational Dynamics Consulting Pty Ltd, and Others
  *
  * The code in this file, and the library it is a part of, are made available
  * to you by the authors under the terms of the "GNU General Public Licence,
@@ -85,8 +85,24 @@ public class Screen extends Object
 
     /**
      * Get the default Colormap associated with this Screen.
+     * 
+     * @since 4.0.10
      */
-    Colormap getDefaultColormap() {
+    /*
+     * Method signature adjusted to avoid collision with getDefault() and to
+     * provide completion space for both getColormap...() methods.
+     */
+    public Colormap getColormapDefault() {
         return GdkScreen.getDefaultColormap(this);
+    }
+
+    /**
+     * Get the RGBA Colormap associated with this Screen. This is necessary
+     * for per-pixel translucency in top level Windows.
+     * 
+     * @since 4.0.10
+     */
+    public Colormap getColormapRGBA() {
+        return GdkScreen.getRgbaColormap(this);
     }
 }

@@ -1,7 +1,7 @@
 /*
  * Operator.java
  *
- * Copyright (c) 2008 Operational Dynamics Consulting Pty Ltd
+ * Copyright (c) 2008-2009 Operational Dynamics Consulting Pty Ltd, and Others
  * 
  * The code in this file, and the library it is a part of, are made available
  * to you by the authors under the terms of the "GNU General Public Licence,
@@ -20,6 +20,7 @@ import org.freedesktop.bindings.Constant;
  * paint()} are invoked.
  * 
  * @author Andrew Cowie
+ * @author Zak Fenton
  * @since 4.0.7
  */
 public class Operator extends Constant
@@ -30,6 +31,15 @@ public class Operator extends Constant
 
     /**
      * Clear a surface to all transparent.
+     * 
+     * @since 4.0.7
      */
     public static final Operator CLEAR = new Operator(CairoOperator.CLEAR, "CLEAR");
+
+    /**
+     * Default operator: draw over existing pixels.
+     * 
+     * @since 4.0.10
+     */
+    public static final Operator OVER = new Operator(CairoOperator.OVER, "OVER");
 }

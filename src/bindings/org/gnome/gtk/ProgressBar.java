@@ -28,6 +28,7 @@ package org.gnome.gtk;
  * 
  * @author Andrew Cowie
  * @author Vreixo Formoso
+ * @author Bruno Dusausoy
  * @since 4.0.3
  */
 public class ProgressBar extends Widget
@@ -56,6 +57,15 @@ public class ProgressBar extends Widget
      */
     public void setText(String text) {
         GtkProgressBar.setText(this, text);
+    }
+
+    /**
+     * Getting the text superimposed on the ProgressBar itself.
+     * 
+     * @since 4.0.10
+     */
+    public String getText() {
+        return GtkProgressBar.getText(this);
     }
 
     /**
