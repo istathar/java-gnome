@@ -48,6 +48,7 @@ Pressed: Keyval.c, Modifier: ModifierType.CONTROL_MASK
 </pre>
 
 ----
+<a name="ExampleTrailHeads"></a>
 <img src="treeview/ExampleTrailHeads.png" class="right"/>
 ### TreeView and TreeModel
 
@@ -66,6 +67,7 @@ available column types in [DataColumn][].
 [DataColumn]: /4.0/doc/api/org/gnome/gtk/DataColumn.html
 
 ----
+<a name="ExampleInstantMessenger"></a>
 <img src="textview/ExampleInstantMessenger.png" class="right"/>
 ### TextView and TextBuffer 
 
@@ -85,6 +87,7 @@ dynamic and the most fun will be had if you _run_ the thing.
 [TextTag]: /4.0/doc/api/org/gnome/gtk/TextTag.html
 
 ----
+<a name="ExampleDrawingInExposeEvent"></a>
 <img src="cairo/ExampleCairoDrawingBlends.png" class="right"/>
 ### Drawing with Cairo 
 
@@ -99,6 +102,36 @@ Widget's [Widget.ExposeEvent][] signal handler.
 [Context]: /4.0/doc/api/org/freedesktop/cairo/Context.html
 [Widget.ExposeEvent]: /4.0/doc/api/org/gnome/gtk/Widget.ExposeEvent.html
 
+----
+<a name="ExampleLinedPaper"></a>
+<img src="cairo/ExampleLinedPaper.png" class="right"/>
+### Creating PDFs with Cairo and drawing text with Pango
+
+* [`ExampleLinedPaper.java`](cairo/ExampleLinedPaper.html)  
+All text drawing in java-gnome is done with GNOME's powerful text rendering
+library, Pango. This example uses the [Layout][] class to lay out the standard
+_lorem ipsum_ typesetting text. To make it more interesting we have drawn
+horizontal rules at the font baseline and a red line at the left margin to
+create the effect of lined three-hole punch paper, all with Cairo of course.
+<br><br>
+In this case we have not used Cairo to draw a Widget -- we have created a
+program that writes out a PDF file using Cairo's [PdfSurface][] and drawn our
+text there instead!
+<br><br>
+Of course, no one has ever sat through Latin class without doodling on their
+notepad...  to create the effect we use a transparent image as the source
+pattern and paint it onto the surface.
+<br><br>
+_The resultant_ `.pdf` _is shown here as rendered by Evince, GNOME's excellent
+PDF viewing program._
+<br>
+<span class="bottompanel" style="float:none;">
+The tank sketch is used with the permission of the artist, Nathan Strum.
+</span>
+
+[PdfSurface]: /4.0/doc/api/org/freedesktop/cairo/PdfSurface.html
+[Layout]: /4.0/doc/api/org/gnome/pango/Layout.html
+
 
 <style>
 img.right {
@@ -112,7 +145,7 @@ hr {
 
 <!--
 
-  Copyright (c) 2008 Operational Dynamics Consulting Pty Ltd 
+  Copyright (c) 2008-2009 Operational Dynamics Consulting Pty Ltd 
 
   As project documentation, this file forms an integral part of the source
   code of the library it accompanies, and thus is made available to you by the

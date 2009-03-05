@@ -1,8 +1,8 @@
 /*
  * Internationalization.java
  *
- * Copyright (c) 2008 Vreixo Formoso
- * Copyright (c) 2008 Operational Dynamics Consulting Pty Ltd
+ * Copyright (c) 2008      Vreixo Formoso
+ * Copyright (c) 2008-2009 Operational Dynamics Consulting Pty Ltd
  * 
  * The code in this file, and the library it is a part of, are made available
  * to you by the authors under the terms of the "GNU General Public Licence,
@@ -290,7 +290,7 @@ import java.text.MessageFormat;
  * <pre>
  * public void main(String[] args) {
  *     Gtk.init(args);
- *     Initialization.init(&quot;myapp&quot;, &quot;share/locale/&quot;);
+ *     Internationalization.init(&quot;myapp&quot;, &quot;share/locale/&quot;);
  *     ...
  * }
  * </pre>
