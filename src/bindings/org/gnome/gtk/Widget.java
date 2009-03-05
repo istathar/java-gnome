@@ -164,9 +164,9 @@ public abstract class Widget extends org.gnome.gtk.Object
     }
 
     /**
-     * Request that the entire Widget be redrawn. See {@link #queueDrawArea()
-     * queueDrawArea()} for full details, but you only ever need this if doing
-     * your own drawing.
+     * Request that the entire Widget be redrawn. See
+     * {@link #queueDrawArea(int, int, int, int) queueDrawArea()} for full
+     * details, but you only ever need this if doing your own drawing.
      * 
      * @since 4.0.10
      */
