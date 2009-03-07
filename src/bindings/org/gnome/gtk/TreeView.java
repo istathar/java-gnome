@@ -761,6 +761,15 @@ public class TreeView extends Container
     }
 
     /**
+     * Get all the TreeViewColumns for this TreeView.
+     * 
+     * @since 4.0.11
+     */
+    public TreeViewColumn[] getColumns() {
+        return GtkTreeView.getColumns(this);
+    }
+    
+    /**
      * Get the TreeViewColumn at the given position in the TreeView, with
      * <code>0</code> being the left-most one.
      * 
