@@ -1,7 +1,7 @@
 /*
  * Label.java
  *
- * Copyright (c) 2006 Operational Dynamics Consulting Pty Ltd, and Others
+ * Copyright (c) 2006-2009 Operational Dynamics Consulting Pty Ltd, and Others
  * 
  * The code in this file, and the library it is a part of, are made available
  * to you by the authors under the terms of the "GNU General Public Licence,
@@ -20,9 +20,11 @@ package org.gnome.gtk;
  * blocks that Menus and Buttons are made up of. All the difficult parts about
  * rendering text are taken care of here, such as text direction, fonts. And,
  * of course, you can enable them to allow their text to be copied.
+ * 
  * <p>
  * Labels can display normal text or text that has been formatted with Pango
  * markup. FIXME with a reference to our Pango guide page.
+ * 
  * <p>
  * Although you can pack multiple lines into a Label, there does come a point
  * when the amount of text you're trying to show gets out of hand. At that
@@ -52,6 +54,16 @@ public class Label extends Misc
      */
     public Label(String text) {
         super(GtkLabel.createLabel(text));
+    }
+
+    /**
+     * Create an empty Label. You'll need to call {@link #setLabel(String)
+     * setLabel()} to place some text it.
+     * 
+     * @since 4.0.11
+     */
+    public Label() {
+        super(GtkLabel.createLabel(null));
     }
 
     /**
