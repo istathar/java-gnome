@@ -102,9 +102,10 @@ public class ComboBox extends Bin implements CellEditable, CellLayout
     }
 
     /**
-     * Returns the index of the active item in the ComboBox. This counts from
-     * a zero origin, so a return value of <code>2</code> means the third item
-     * in the list is currently the active item.
+     * Returns the index of the active item in the ComboBox, or -1 if there is
+     * no active item. This counts from a zero origin, so a return value of
+     * <code>2</code> means the third item in the list is currently the active
+     * item.
      * 
      * @since 4.0.6
      */
