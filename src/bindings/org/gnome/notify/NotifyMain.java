@@ -12,7 +12,7 @@
 
 package org.gnome.notify;
 
-class NotifyMain extends Plumbing
+final class NotifyMain extends Plumbing
 {
     private NotifyMain() {}
     
