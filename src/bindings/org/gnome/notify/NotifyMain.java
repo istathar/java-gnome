@@ -15,23 +15,23 @@ package org.gnome.notify;
 final class NotifyMain extends Plumbing
 {
     private NotifyMain() {}
-    
+
     static final boolean init(String applicationName) {
         return notify_init(applicationName);
     }
-    
+
     private static native final boolean notify_init(String applicationName);
-    
+
     static final void uninit() {
         notify_uninit();
     }
-    
+
     private static native final void notify_uninit();
-    
+
     static final boolean isInitted() {
         return notify_is_initted();
     }
-    
+
     private static native final boolean notify_is_initted();
-    
+
 }

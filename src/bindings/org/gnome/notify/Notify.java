@@ -17,7 +17,15 @@ import org.gnome.glib.Glib;
 public final class Notify extends Glib
 {
     private Notify() {}
-    
+
+    /**
+     * Initialize the notification system. <b>This must be called before any
+     * {@link Notification} methods are used.</b>
+     * 
+     * @param applicationName
+     *            Name of the application initializing notification system.
+     * @since 4.0.11
+     */
     public static boolean init(String applicationName) {
         if (isInitted()) {
             throw new IllegalStateException("Notification already initialized");
@@ -28,11 +36,22 @@ public final class Notify extends Glib
          */
         return NotifyMain.init(applicationName);
     }
-    
+
+    /**
+     * Uninitialize the notification system. <b>This should be called when
+     * notification is no longer needed (i.e. upon exist).</b>
+     * 
+     * @since 4.0.11
+     */
     public static void uninit() {
         NotifyMain.uninit();
     }
-    
+
+    /**
+     * Tests whether notification system is initialized or not.
+     * 
+     * @since 4.0.11
+     */
     public static boolean isInitted() {
         return NotifyMain.isInitted();
     }

@@ -13,6 +13,7 @@
 package org.gnome.notify;
 
 import org.gnome.glib.GlibException;
+import org.gnome.gtk.StatusIcon;
 import org.gnome.gtk.Widget;
 
 public class Notification extends org.gnome.glib.Object
@@ -20,11 +21,43 @@ public class Notification extends org.gnome.glib.Object
     protected Notification(long pointer) {
         super(pointer);
     }
-    
+
+    /**
+     * Create a new notification.<br>
+     * Summary appears on the titlebar of notification and body appears as its
+     * text.<br>
+     * Icon may be a string defining a theme icon or the filename identifying
+     * the icon that appears next to text.<br>
+     * Attach identifies the widget that the notification relates to.<br>
+     * Note that all but summary is nullable.
+     * 
+     * @since 4.0.11
+     */
+
     public Notification(String summary, String body, String icon, Widget attach) {
         super(NotifyNotification.createNotification(summary, body, icon, attach));
     }
-    
+
+    /**
+     * Create a new notification attached to a {@link StatusIcon}.<br>
+     * Summary appears on the titlebar of notification and body appears as its
+     * text.<br>
+     * Icon may be a string defining a theme icon or the filename identifying
+     * the icon that appears next to text.<br>
+     * StatusIcon identifies the widget that the notification relates to.<br>
+     * Note that body and icon are nullable.
+     * 
+     * @since 4.0.11
+     */
+    public Notification(String summary, String body, String icon, StatusIcon statusIcon) {
+        super(NotifyNotification.createNotificationWithStatusIcon(summary, body, icon, statusIcon));
+    }
+
+    /**
+     * Display the notification on screen.
+     * 
+     * @since 4.0.11
+     */
     public void show() throws GlibException {
         NotifyNotification.show(this);
     }
