@@ -18,6 +18,16 @@ import org.gnome.gtk.Widget;
 
 public class Notification extends org.gnome.glib.Object
 {
+    /**
+     * Constant for default timeout duration.
+     */
+    public static int NOTIFY_EXPIRES_DEFAULT = -1;
+
+    /**
+     * Constant for infinite timeout duration.
+     */
+    public static int NOTIFY_EXPIRES_NEVER = 0;
+
     protected Notification(long pointer) {
         super(pointer);
     }
@@ -58,8 +68,25 @@ public class Notification extends org.gnome.glib.Object
      * 
      * @since 4.0.11
      */
-    public void show() throws GlibException {
-        NotifyNotification.show(this);
+    public void show() {
+        try {
+            NotifyNotification.show(this);
+        } catch (GlibException e) {
+            new RuntimeException(e.getMessage());
+        }
+    }
+
+    /**
+     * Set the timeout that the notification disappears.<br>
+     * Use {@link Notification#NOTIFY_EXPIRES_DEFAULT NOTIFY_EXPIRES_DEFAULT}
+     * for the default timeout duration.<br>
+     * Use {@link Notification#NOTIFY_EXPIRES_NEVER NOTIFY_EXPIRES_NEVER} for
+     * infinite timeout duration.<br>
+     * 
+     * @since 4.0.11
+     */
+    public void setTimeout(int timeout) {
+        NotifyNotification.setTimeout(this, timeout);
     }
 
 }
