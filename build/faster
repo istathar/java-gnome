@@ -655,6 +655,7 @@ def compileDocumentation():
 	cmd += "-exclude org.freedesktop.bindings "
 	cmd += "src/bindings/org/freedesktop/bindings/Time.java "
 	cmd += "src/bindings/org/freedesktop/bindings/Version.java "
+	cmd += "src/bindings/org/freedesktop/bindings/Internationalization.java "
 	if not verbose:
 		cmd += " >/dev/null"
 
