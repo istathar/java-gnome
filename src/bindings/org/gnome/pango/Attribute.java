@@ -37,8 +37,14 @@ import org.gnome.glib.Boxed;
  * 
  * <p>
  * <b>WARNING</b>:<br>
- * Once you've assigned an Attribute to a specific range of text in a given
- * Layout, do not attempt to reuse it.
+ * When coding with Attributes be aware of the following restrictions:
+ * <ul>
+ * <li>Once you have assigned an Attribute to a specific range of text in a
+ * given Layout you must not attempt to reuse it.
+ * 
+ * <li>Once you have inserted an Attribute into an AttributeList it is
+ * "consumed" by that list and you must not attempt to reuse it.
+ * </ul>
  * 
  * <p>
  * <i> The different text attribute manipulations you can do are analogous to
@@ -61,17 +67,36 @@ import org.gnome.glib.Boxed;
  */
 /*
  * Apparently there is a facility for developers to extend Attributes, but we
- * haven't needed to expose that as yet. If someone needs this, then perhaps
- * the constructor here will need to change back to protected.
+ * haven't needed to expose that as yet.
  */
 public abstract class Attribute extends Boxed
 {
+    boolean inserted;
+
     protected Attribute(long pointer) {
         super(pointer);
+        inserted = false;
     }
 
     protected void release() {
-        PangoAttribute.destroy(this);
+        /*
+         * There is no function in Pango to increment the reference count of a
+         * PangoAttribute. In fact, PangoAttributes do not have reference
+         * counts (which is not surprising; they're just structs). However,
+         * things get ugly because PangoAttrList assumes responsibility for
+         * disposing of a PangoAttribute once you've inserted it into such a
+         * list - but there's no way to tell externally that this has
+         * happened.
+         * 
+         * While we could just ignore this, we don't leak™, and so we go to
+         * the trouble of tracking whether or not this Attribute has been
+         * inserted, and thereby whether we are still responsible for it.
+         * 
+         * There is every possibility that
+         */
+        if (!inserted) {
+            PangoAttribute.destroy(this);
+        }
     }
 
     /**

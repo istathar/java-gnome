@@ -87,9 +87,16 @@ public final class AttributeList extends Boxed
      * index</var>.
      * 
      * @since 4.0.10
+     * @throws IllegalStateException
+     *             If you attempt to reuse an Attribute that is already in an
+     *             AttributeList.
      */
     public void insert(Attribute attr) {
+        if (attr.inserted) {
+            throw new IllegalStateException("Attribute already in AttributeList");
+        }
         PangoAttrList.insert(this, attr);
+        attr.inserted = true;
     }
 
     /**
@@ -98,8 +105,15 @@ public final class AttributeList extends Boxed
      * already in the list possessing the same <var>start index</var>.
      * 
      * @since 4.0.10
+     * @throws IllegalStateException
+     *             If you attempt to reuse an Attribute that is already in an
+     *             AttributeList.
      */
     public void insertBefore(Attribute attr) {
+        if (attr.inserted) {
+            throw new IllegalStateException("Attribute already in AttributeList");
+        }
         PangoAttrList.insertBefore(this, attr);
+        attr.inserted = true;
     }
 }
