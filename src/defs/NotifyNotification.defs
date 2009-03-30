@@ -37,8 +37,8 @@
   (return-type "gboolean")
   (parameters
     '("const-gchar*" "summary")
-    '("const-gchar*" "body")
-    '("const-gchar*" "icon")
+    '("const-gchar*" "body" (null-ok))
+    '("const-gchar*" "icon" (null-ok))
   )
 )
 

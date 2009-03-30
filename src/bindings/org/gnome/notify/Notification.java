@@ -50,17 +50,25 @@ public class Notification extends org.gnome.glib.Object
 
     /**
      * Create a new notification attached to a {@link StatusIcon}.<br>
-     * Summary appears on the titlebar of notification and body appears as its
-     * text.<br>
-     * Icon may be a string defining a theme icon or the filename identifying
-     * the icon that appears next to text.<br>
-     * StatusIcon identifies the widget that the notification relates to.<br>
-     * Note that body and icon are nullable.
+     * see {@link #Notification(String,String,String,Widget) Notification()}
+     * for other parameters.
      * 
      * @since 4.0.11
      */
     public Notification(String summary, String body, String icon, StatusIcon statusIcon) {
         super(NotifyNotification.createNotificationWithStatusIcon(summary, body, icon, statusIcon));
+    }
+
+    /**
+     * Updates the notification with given parameters see
+     * {@link #Notification(String,String,String,Widget) Notification()} for
+     * parameters.
+     * 
+     * @since 4.0.11
+     */
+    public void update(String summary, String body, String icon) {
+        if (!NotifyNotification.update(this, summary, body, icon))
+            throw new RuntimeException("Notification update failed.");
     }
 
     /**
