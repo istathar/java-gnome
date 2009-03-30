@@ -12,6 +12,7 @@
 
 package org.gnome.notify;
 
+import org.gnome.gdk.Pixbuf;
 import org.gnome.glib.GlibException;
 import org.gnome.gtk.StatusIcon;
 import org.gnome.gtk.Widget;
@@ -71,6 +72,14 @@ public class Notification extends org.gnome.glib.Object
             throw new RuntimeException("Notification update failed.");
     }
 
+    public void attach(Widget attach) {
+        NotifyNotification.attachToWidget(this, attach);
+    }
+
+    public void attach(StatusIcon statusIcon) {
+        NotifyNotification.attachToStatusIcon(this, statusIcon);
+    }
+
     /**
      * Display the notification on screen.
      * 
@@ -80,7 +89,7 @@ public class Notification extends org.gnome.glib.Object
         try {
             NotifyNotification.show(this);
         } catch (GlibException e) {
-            new RuntimeException(e.getMessage());
+            throw new RuntimeException(e.getMessage());
         }
     }
 
@@ -97,4 +106,45 @@ public class Notification extends org.gnome.glib.Object
         NotifyNotification.setTimeout(this, timeout);
     }
 
+    /**
+     * Set the category of the notification which may later be used to
+     * displayer or filter out the notification.
+     * 
+     * @since 4.0.11
+     */
+    public void setCategory(String category) {
+        NotifyNotification.setCategory(this, category);
+    }
+
+    /**
+     * Sets the urgency to one of {@link Urgency#LOW LOW},
+     * {@link Urgency#NORMAL NORMAL}, {@link Urgency#CRITICAL CRITICAL}.
+     * 
+     * @since 4.0.11
+     */
+    public void setUrgency(Urgency urgency) {
+        NotifyNotification.setUrgency(this, urgency);
+    }
+
+    /**
+     * Sets the icon of the notification from a {@link Pixbuf}
+     * 
+     * @since 4.0.11
+     */
+    public void setIcon(Pixbuf icon) {
+        NotifyNotification.setIconFromPixbuf(this, icon);
+    }
+
+    /**
+     * Hide the notification on screen.
+     * 
+     * @since 4.0.11
+     */
+    public void close() {
+        try {
+            NotifyNotification.close(this);
+        } catch (GlibException e) {
+            throw new RuntimeException(e.getMessage());
+        }
+    }
 }
