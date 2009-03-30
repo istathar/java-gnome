@@ -1294,6 +1294,26 @@ public abstract class Widget extends org.gnome.gtk.Object
         GtkWidget.grabDefault(this);
     }
 
+	/**
+	 * Make this the current grabbed widget. Interaction with other widgets will
+	 * be prevented. If this widget is not sensitive, this call will do nothing.
+	 * 
+	 * @since 4.0.11
+	 */
+    public void grabAdd() {
+        GtkWidget.grabAdd(this);
+    }
+
+	/**
+	 * Removes the "grab" status from this widget if it is currently grabbed,
+	 * otherwise this does nothing.
+	 * 
+	 * @since 4.0.11
+	 */
+    public void grabRemove() {
+        GtkWidget.grabRemove(this);
+    }
+    
     /**
      * The signal emitted when a Widget becomes visible on the screen.
      * 
