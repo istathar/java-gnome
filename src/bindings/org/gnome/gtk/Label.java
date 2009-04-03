@@ -290,4 +290,22 @@ public class Label extends Misc
         GtkLabel.setLineWrap(this, setting);
 
     }
+
+    /**
+     * Set whether underscores will be interpreted as signifying that the next
+     * character should be drawn with an underline, thereby creating the
+     * visual effect of a mnemonic.
+     * 
+     * For example, with this set to <code>true</code>, text of the form
+     * <code>&quot;Op_en a copy&quot;</code> will result in
+     * <blockquote>Op<u>e</u>n a copy</blockquote>
+     * 
+     * <p>
+     * The default is <code>false</code>.
+     * 
+     * @since 4.0.11
+     */
+    public void setUseUnderline(boolean setting) {
+        GtkLabel.setUseUnderline(this, setting);
+    }
 }
