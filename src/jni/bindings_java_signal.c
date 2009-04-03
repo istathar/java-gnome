@@ -284,7 +284,7 @@ bindings_java_marshaller
 		 * enormous assumption that a string is what we get back.
 		 */
 		_str = (*env)->CallStaticObjectMethodA(env, bjc->receiver, bjc->method, jargs);
-		if (str == NULL) {
+		if (_str == NULL) {
 			g_warning("Invoking string handler returned null. That's probably bad");
 			break;
 		}

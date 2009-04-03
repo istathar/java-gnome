@@ -432,4 +432,33 @@ public class Layout extends Object
     public void setAttributes(AttributeList list) {
         PangoLayout.setAttributes(this, list);
     }
+
+    /**
+     * Get the spacing between lines of a rendered paragraph.
+     * 
+     * @since 4.0.11
+     */
+    public double getSpacing() {
+        return PangoLayout.getSpacing(this) / Pango.SCALE;
+    }
+
+    /**
+     * Set the spacing that will occur between lines of a rendered paragraph.
+     * 
+     * <p>
+     * Obviously this will only have any effect if you are randering complete
+     * Layouts as 2D shapes via
+     * {@link org.freedesktop.cairo.Context#showLayout(Layout) showLayout()}.
+     * If you are working instead with individual LayoutLines then it's up to
+     * you how much spacing you pad between lines as you draw them.
+     * 
+     * <p>
+     * The default is <code>0</code>.
+     * 
+     * @since 4.0.11
+     */
+    public void setSpacing(double between) {
+        PangoLayout.setSpacing(this, (int) (between * Pango.SCALE));
+    }
+
 }

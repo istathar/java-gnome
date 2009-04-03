@@ -59,6 +59,7 @@ public class ValidatePangoTextRendering extends TestCaseGtk
 
         assertEquals(0.0, layout.getIndent());
         assertEquals(false, layout.getJustify());
+        assertEquals(0.0, layout.getSpacing());
 
         /*
          * Round trips
@@ -71,6 +72,9 @@ public class ValidatePangoTextRendering extends TestCaseGtk
         assertEquals(true, layout.getJustify());
         layout.setJustify(false);
         assertEquals(false, layout.getJustify());
+
+        layout.setSpacing(3.5);
+        assertEquals(3.5, layout.getSpacing());
     }
 
     /*
