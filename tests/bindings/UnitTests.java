@@ -1,7 +1,7 @@
 /*
  * UnitTests.java
  *
- * Copyright (c) 2007-2008 Operational Dynamics Consulting Pty Ltd
+ * Copyright (c) 2007-2009 Operational Dynamics Consulting Pty Ltd
  * 
  * The code in this file, and the suite it is a part of, are made available
  * to you by the authors under the terms of the "GNU General Public Licence,
@@ -24,6 +24,7 @@ import org.gnome.glib.ValidateConstants;
 import org.gnome.glib.ValidateGListMethods;
 import org.gnome.glib.ValidateMemoryManagement;
 import org.gnome.glib.ValidateReferenceCounting;
+import org.gnome.glib.ValidateUtilityFunctions;
 import org.gnome.gtk.TestCaseGtk;
 import org.gnome.gtk.ValidateArrow;
 import org.gnome.gtk.ValidateAssistant;
@@ -126,6 +127,7 @@ public class UnitTests
         suite.addTestSuite(ValidateGListMethods.class);
         suite.addTestSuite(ValidateConstants.class);
         suite.addTestSuite(ValidateProperties.class);
+        suite.addTestSuite(ValidateUtilityFunctions.class);
         suite.addTestSuite(ValidateSignalEmission.class);
         suite.addTestSuite(ValidateScreensAndDisplays.class);
         suite.addTestSuite(ValidateKeyboardHandling.class);
