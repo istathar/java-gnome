@@ -48,7 +48,7 @@ public class ValidatePangoAttributeUsage extends TestCaseGtk
         /*
          * You can set the default font description.
          */
-        desc = new FontDescription("DejaVu Serif, Book 12");
+        desc = new FontDescription("DejaVu Serif, 18");
         layout.setFontDescription(desc);
 
         /*
@@ -60,34 +60,34 @@ public class ValidatePangoAttributeUsage extends TestCaseGtk
         layout.setText("H€lloworldPeace");
 
         attr = new StyleAttribute(Style.ITALIC);
-        attr.setIndices(layout, 0, 5);
+        attr.setIndices(0, 5);
         list.insert(attr);
 
         desc = new FontDescription();
         desc.setWeight(Weight.BOLD);
 
         attr = new FontDescriptionAttribute(desc);
-        attr.setIndices(layout, 5, 10);
+        attr.setIndices(5, 10);
         list.insert(attr);
 
         attr = new ForegroundColorAttribute(0.9, 0.1, 0.2);
-        attr.setIndices(layout, 10, 5);
+        attr.setIndices(10, 5);
         list.insert(attr);
 
         attr = new StyleAttribute(Style.NORMAL);
-        attr.setIndices(layout, 10, 5);
+        attr.setIndices(10, 5);
         list.insert(attr);
 
         attr = new BackgroundColorAttribute(1.0, 1.0, 0.0);
-        attr.setIndices(layout, 10, 5);
+        attr.setIndices(10, 5);
         list.insert(attr);
 
         attr = new WeightAttribute(Weight.NORMAL);
-        attr.setIndices(layout, 11, 4);
+        attr.setIndices(11, 4);
         list.insert(attr);
 
         attr = new VariantAttribute(Variant.SMALL_CAPS);
-        attr.setIndices(layout, 11, 4);
+        attr.setIndices(11, 4);
         list.insert(attr);
 
         attr = new ForegroundColorAttribute(0.1, 0.5, 0.7);
@@ -99,7 +99,7 @@ public class ValidatePangoAttributeUsage extends TestCaseGtk
          * You can set the alignment of the Layout. Note that you should set
          * its width too.
          */
-        layout.setWidth(200.0);
+        layout.setWidth(220.0);
         layout.setAlignment(Alignment.CENTER);
 
         /*
@@ -117,7 +117,7 @@ public class ValidatePangoAttributeUsage extends TestCaseGtk
         Gtk.init(args);
 
         w = new Window();
-        w.setDefaultSize(200, 70);
+        w.setDefaultSize(230, 70);
 
         i = new Image();
         w.add(i);
