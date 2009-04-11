@@ -58,9 +58,10 @@ import org.gnome.glib.Boxed;
  * to be told the offsets of text it applies to. The problem is that these are
  * in terms of UTF-8 bytes, which not something we have access to from Java
  * (nor would we want to expose such in our public API). We take care of
- * setting the offsets properly when you call</i>
- * {@link #setIndices(Layout, int, int) setIndices()}<i>, but you have to have
- * already set the text into the Layout for us to be able to do so.</i>
+ * setting the start and end points properly when you call</i>
+ * {@link Layout#setAttributes(AttributeList) setAttributes()}<i>, but you
+ * have to have already set the text into the Layout for us to be able to do
+ * so, obviously.</i>
  * 
  * @author Andrew Cowie
  * @since 4.0.10
@@ -71,7 +72,14 @@ import org.gnome.glib.Boxed;
  */
 public abstract class Attribute extends Boxed
 {
-    boolean inserted;
+    private int offset = 0;
+
+    /*
+     * We convert this to G_MAXUINT in PangoAttributeOverride.
+     */
+    private int width = Integer.MIN_VALUE;
+
+    private boolean inserted;
 
     protected Attribute(long pointer) {
         super(pointer);
@@ -113,9 +121,35 @@ public abstract class Attribute extends Boxed
      * want, you need to tell each Attribute what range it covers using this
      * method.
      * 
-     * @since 4.0.10
+     * @since 4.0.11
+     */
+    public void setIndices(int offset, int width) {
+        this.offset = offset;
+        this.width = width;
+    }
+
+    /**
+     * @deprecated
      */
     public void setIndices(Layout layout, int offset, int width) {
-        PangoAttributeOverride.setIndexes(this, layout, offset, width);
+        assert false : "Use setIndices(int, int) instead";
+        this.offset = offset;
+        this.width = width;
+    }
+
+    final int getOffset() {
+        return offset;
+    }
+
+    final int getWidth() {
+        return width;
+    }
+
+    final boolean isInserted() {
+        return inserted;
+    }
+
+    final void markInserted() {
+        inserted = true;
     }
 }

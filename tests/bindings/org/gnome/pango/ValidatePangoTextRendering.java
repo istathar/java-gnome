@@ -203,12 +203,12 @@ public class ValidatePangoTextRendering extends TestCaseGtk
          */
 
         attr = new StyleAttribute(Style.ITALIC);
-        attr.setIndices(layout, 5, 5);
-
-        assertEquals(7, PangoAttribute.getStartIndex(attr));
-        assertEquals(12, PangoAttribute.getEndIndex(attr));
+        attr.setIndices(5, 5);
 
         list.insert(attr);
         layout.setAttributes(list);
+
+        assertEquals(7, PangoAttribute.getStartIndex(attr));
+        assertEquals(12, PangoAttribute.getEndIndex(attr));
     }
 }

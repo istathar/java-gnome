@@ -430,7 +430,29 @@ public class Layout extends Object
      * @since 4.0.10
      */
     public void setAttributes(AttributeList list) {
+        if (list.isUsed()) {
+            throw new IllegalStateException("AttributeList has already been employed");
+        }
+
+        /*
+         * We now go through the exercise of setting the start and end indexes
+         * of the individual Attributes relative to the actual UTF-8 text
+         * being rendered. Until this point we kept note of character offsets
+         * here on the Java side.
+         */
+
+        for (Attribute attr : list.getAttributes()) {
+            PangoAttributeOverride.setIndexes(attr, this, attr.getOffset(), attr.getWidth());
+            PangoAttrList.insert(list, attr);
+        }
+
+        /*
+         * Now we are caught up to the state that Pango would expect.
+         */
+
         PangoLayout.setAttributes(this, list);
+
+        list.markUsed();
     }
 
     /**
