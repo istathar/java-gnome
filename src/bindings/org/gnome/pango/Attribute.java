@@ -23,7 +23,7 @@ import org.gnome.glib.Boxed;
  * attr = new StyleAttribute(Style.ITALIC);
  * </pre>
  * 
- * although many settings can be compunded by setting a FontDescription:
+ * although many settings can be compounded by setting a FontDescription:
  * 
  * <pre>
  * desc = new FontDescription(&quot;DejaVu Serif, 9pt&quot;);
