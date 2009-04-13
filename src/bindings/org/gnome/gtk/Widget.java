@@ -1311,7 +1311,7 @@ public abstract class Widget extends org.gnome.gtk.Object
 
     /**
      * Removes the "grab" status from this Widget if it is currently grabbed,
-     * otherwise this does nothing.
+     * otherwise this does nothing. See {@link #grabAdd() grabAdd()}.
      * 
      * @since 4.0.11
      */
