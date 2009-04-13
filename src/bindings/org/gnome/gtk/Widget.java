@@ -1299,6 +1299,10 @@ public abstract class Widget extends org.gnome.gtk.Object
      * will be prevented. If this Widget is not sensitive, this call will do
      * nothing.
      * 
+     * <p>
+     * Note that being the current grabbed widget means mouse and keyboard
+     * events will not be delivered to other widgets, so use this with care.
+     * 
      * @since 4.0.11
      */
     public void grabAdd() {
