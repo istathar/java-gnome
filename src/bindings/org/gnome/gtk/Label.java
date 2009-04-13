@@ -69,10 +69,19 @@ public class Label extends Misc
     /**
      * Set the text showing in the Label.
      * 
-     * @param text
-     *            If the Label has been told to interpret Pango markup with
-     *            {@link #setUseMarkup(boolean) setUseMarkup(true)}, then any
-     *            markup included in text will be interpreted as such.
+     * 
+     * If the Label has been told to interpret Pango markup with
+     * {@link #setUseMarkup(boolean) setUseMarkup(true)}, then any markup
+     * included in text will be interpreted as such.
+     * 
+     * <p>
+     * <b>WARNING</b>:<br>
+     * If you have enabled <var>use-markup</var> (as is often the case),
+     * beware that you must escape whatever you to this method (like you would
+     * for feeding user data to any other XML or HTML like target). This
+     * specifically means you need to convert <code>&amp;</code> into
+     * <code>&amp;amp;</code> and likewise for angle brackets.
+     * 
      * @since 4.0.1
      */
     public void setLabel(String text) {
