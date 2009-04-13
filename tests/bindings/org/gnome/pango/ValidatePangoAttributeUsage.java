@@ -57,7 +57,7 @@ public class ValidatePangoAttributeUsage extends TestCaseGtk
 
         list = new AttributeList();
 
-        layout.setText("H€lloworldPeace");
+        layout.setText("H€lloworldPeace武道");
 
         attr = new StyleAttribute(Style.ITALIC);
         attr.setIndices(0, 5);
@@ -90,6 +90,13 @@ public class ValidatePangoAttributeUsage extends TestCaseGtk
         attr.setIndices(11, 4);
         list.insert(attr);
 
+        attr = new ForegroundColorAttribute(0.0, 0.0, 0.0);
+        attr.setIndices(15, 2);
+        list.insert(attr);
+        attr = new FallbackAttribute(false);
+        attr.setIndices(15, 2);
+        list.insert(attr);
+
         attr = new ForegroundColorAttribute(0.1, 0.5, 0.7);
         list.insert(attr);
 
@@ -99,7 +106,7 @@ public class ValidatePangoAttributeUsage extends TestCaseGtk
          * You can set the alignment of the Layout. Note that you should set
          * its width too.
          */
-        layout.setWidth(220.0);
+        layout.setWidth(290.0);
         layout.setAlignment(Alignment.CENTER);
 
         /*
@@ -117,7 +124,7 @@ public class ValidatePangoAttributeUsage extends TestCaseGtk
         Gtk.init(args);
 
         w = new Window();
-        w.setDefaultSize(230, 70);
+        w.setDefaultSize(300, 70);
 
         i = new Image();
         w.add(i);
