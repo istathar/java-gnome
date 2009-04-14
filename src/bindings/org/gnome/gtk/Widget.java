@@ -1295,6 +1295,31 @@ public abstract class Widget extends org.gnome.gtk.Object
     }
 
     /**
+     * Make this the current grabbed Widget. Interaction with other Widgets
+     * will be prevented. If this Widget is not sensitive, this call will do
+     * nothing.
+     * 
+     * <p>
+     * Note that being the current grabbed widget means mouse and keyboard
+     * events will not be delivered to other widgets, so use this with care.
+     * 
+     * @since 4.0.11
+     */
+    public void grabAdd() {
+        GtkWidget.grabAdd(this);
+    }
+
+    /**
+     * Removes the "grab" status from this Widget if it is currently grabbed,
+     * otherwise this does nothing. See {@link #grabAdd() grabAdd()}.
+     * 
+     * @since 4.0.11
+     */
+    public void grabRemove() {
+        GtkWidget.grabRemove(this);
+    }
+
+    /**
      * The signal emitted when a Widget becomes visible on the screen.
      * 
      * <p>
