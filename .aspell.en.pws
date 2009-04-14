@@ -215,6 +215,7 @@ FocusInEventSignal
 FocusOutEvent
 FocusOutEventSignal
 FontDescription
+FontDescriptionAttribute
 FontSelection
 Formoso
 Fortin
@@ -537,6 +538,7 @@ Lorem
 Lorg
 Lortie
 LoveLetter
+MAXUINT
 MVC
 Machame
 Maciej
@@ -598,7 +600,6 @@ OpenOffice
 OpenSolaris
 OutOfMemoryError
 Overholt
-PDF
 PDFs
 PKGBUILD
 PNGs
@@ -621,6 +622,7 @@ PangoRectangleOverride
 PangoStyle
 PangoUnderline
 PangoWeight
+PangoWrapMode
 PaperSize
 ParenLeft
 ParenRight
@@ -736,6 +738,7 @@ StorageType
 StringBuffer
 StringBuilder
 StringValue
+StyleAttribute
 SurfacePattern
 SysReq
 Szymala
@@ -1489,6 +1492,7 @@ getSize
 getSizeHeight
 getSizeWidth
 getSource
+getSpacing
 getStartIndex
 getStartIter
 getState
@@ -1612,8 +1616,10 @@ isActive
 isDirectory
 isEmbedded
 isEqual
+isInserted
 isSecondary
 isSensitive
+isUsed
 isVisible
 isVisibleChars
 isdir
@@ -1713,6 +1719,8 @@ mainQuit
 makeJarFile
 makeTime
 makepkg
+markInserted
+markUsed
 md
 mem
 menuBar
@@ -2046,6 +2054,7 @@ setImage
 setInconsistent
 setIndent
 setIndexes
+setIndices
 setInnerBorder
 setInvisibleChar
 setJustify
@@ -2128,6 +2137,7 @@ setSensitive
 setShadowType
 setShowBorder
 setShowTabs
+setSingleParagraphMode
 setSize
 setSizeRequest
 setSizing
@@ -2142,6 +2152,7 @@ setSourceRGBA
 setSourceRgb
 setSourceRgba
 setSourceSurface
+setSpacing
 setStartIndex
 setStick
 setStrikethrough
@@ -2182,6 +2193,7 @@ setVisibleWindow
 setWeight
 setWidth
 setWidthChars
+setWrap
 setWrapMode
 settingsDaemon
 showAll

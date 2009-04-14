@@ -69,10 +69,19 @@ public class Label extends Misc
     /**
      * Set the text showing in the Label.
      * 
-     * @param text
-     *            If the Label has been told to interpret Pango markup with
-     *            {@link #setUseMarkup(boolean) setUseMarkup(true)}, then any
-     *            markup included in text will be interpreted as such.
+     * 
+     * If the Label has been told to interpret Pango markup with
+     * {@link #setUseMarkup(boolean) setUseMarkup(true)}, then any markup
+     * included in text will be interpreted as such.
+     * 
+     * <p>
+     * <b>WARNING</b>:<br>
+     * If you have enabled <var>use-markup</var> (as is often the case),
+     * beware that you must escape whatever you to this method (like you would
+     * for feeding user data to any other XML or HTML like target). This
+     * specifically means you need to convert <code>&amp;</code> into
+     * <code>&amp;amp;</code> and likewise for angle brackets.
+     * 
      * @since 4.0.1
      */
     public void setLabel(String text) {
@@ -289,5 +298,23 @@ public class Label extends Misc
     public void setLineWrap(boolean setting) {
         GtkLabel.setLineWrap(this, setting);
 
+    }
+
+    /**
+     * Set whether underscores will be interpreted as signifying that the next
+     * character should be drawn with an underline, thereby creating the
+     * visual effect of a mnemonic.
+     * 
+     * For example, with this set to <code>true</code>, text of the form
+     * <code>&quot;Op_en a copy&quot;</code> will result in
+     * <blockquote>Op<u>e</u>n a copy</blockquote>
+     * 
+     * <p>
+     * The default is <code>false</code>.
+     * 
+     * @since 4.0.11
+     */
+    public void setUseUnderline(boolean setting) {
+        GtkLabel.setUseUnderline(this, setting);
     }
 }
