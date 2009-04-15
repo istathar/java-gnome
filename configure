@@ -143,7 +143,7 @@ sub check_system_library(\@$$@) {
 		} elsif ($os eq "solaris") {
 			$str .= "pkgadd";
 		} elsif ($os eq "slackware") {
-			$str .= "installpkg";
+			$str .= "slackpkg install";
 		} else {
 			$str .= "[FIXME fetch and install command for this OS]"; 
 		}
@@ -201,7 +201,7 @@ sub check_prereq (\@$$@) {
 		} elsif ($os eq "solaris") {
 			$str .= "pkgadd";
 		} elsif ($os eq "slackware") {
-			$str .= "installpkg";
+			$str .= "slackpkg install";
 		} else {
 			$str .= "[FIXME fetch and install command for this OS]"; 
 		}
@@ -748,6 +748,29 @@ if ($os eq "gentoo") {
 			"gtk+-2.0 >= 2.14 pango >= 1.22 atk gdk-2.0 libglade-2.0 >= 2.6.3 gtk+-unix-print-2.0 cairo-svg >= 1.6.4",
 			"GNOME",
 			"gnome");
+
+} elsif ($os eq "slackware") {
+	# on slackware gdk-2.0 and gtk+-unix-print-2.0 are part of gtk+-2.0
+	# use http://packages.slackware.it/ for more details. 
+	check_system_library(@gnomedev_libs,
+			"gtk+-2.0 >= 2.14",
+			"GTK+",
+			"gtk+2");
+
+	check_system_library(@gnomedev_libs,
+			"pango >= 1.22",
+			"Pango",
+			"pango");
+
+	check_system_library(@gnomedev_libs,
+			"atk",
+			"ATK",
+			"atk");
+
+	check_system_library(@gnomedev_libs,
+			"libglade-2.0",
+			"LibGlade",
+			"libglade");
 
 } elsif ($os eq "debian") {
 	check_system_library(@gnomedev_libs,
