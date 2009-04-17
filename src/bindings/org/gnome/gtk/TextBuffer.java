@@ -595,7 +595,7 @@ public class TextBuffer extends Object
      */
     /*
      * Convenience method. This doesn't need to be here, but it lends a
-     * certain elegence when used alongside the insert() overload
+     * certain elegance when used alongside the insert() overload
      */
     public void applyTag(TextTag[] tags, TextIter start, TextIter end) {
         if (tags == null) {

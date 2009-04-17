@@ -15,6 +15,7 @@ AllAboutJNI
 AltLeft
 AltRight
 ApplySignal
+ApplyTagSignal
 Arial
 ArrayList
 AssistantPageType
@@ -25,6 +26,7 @@ Attribute's
 AttributeList
 BackSpace
 Bassi
+BeginUserActionSignal
 Behdad
 Bhagat
 BindingsGenerator
@@ -155,6 +157,7 @@ EVERSION
 EditedHandler
 Eeek
 Emmanuele
+EndUserActionSignal
 EnterNotifyEvent
 EnterNotifyEventSignal
 EnumValue
@@ -396,6 +399,7 @@ GtkStatusbar
 GtkStockItem
 GtkTable
 GtkTextBuffer
+GtkTextBufferOverride
 GtkTextIter
 GtkTextIterOverride
 GtkTextMark
@@ -586,6 +590,8 @@ NewStringUTF
 NewWeakGlobalRef
 NoSuchMethodException
 NorthAmericanPaperSize
+NotifyCursorPosition
+NotifyCursorPositionSignal
 NotifyType
 NullPointerException
 NumLock
@@ -676,6 +682,7 @@ RcStyle
 RefToJavaProxy
 ReleaseStringUTFChars
 ReliefStyle
+RemoveTagSignal
 ResponseHandler
 ResponseType
 ResponseTypes
@@ -939,6 +946,7 @@ basename
 baz
 bb
 bdb
+beginUserAction
 bilinear
 bindtextdomain
 bitkeeper
@@ -1235,6 +1243,7 @@ emitRowActivated
 emitValueChanged
 emplace
 enclosingGroup
+endUserAction
 endif
 endingLabel
 endsWith
@@ -1342,6 +1351,7 @@ getCurrentPage
 getCurrentPoint
 getCurrentPointX
 getCurrentPointY
+getCursorPosition
 getCursorVisible
 getDate
 getDateDay
@@ -1467,6 +1477,7 @@ getPropertyBoolean
 getPropertyEnum
 getPropertyFlags
 getPropertyFloat
+getPropertyInteger
 getPropertyObject
 getPropertyString
 getRed
@@ -1601,6 +1612,7 @@ initializers
 inline
 insertAtCursor
 insertBefore
+insertBound
 insertInteractive
 insertPage
 insertPixbuf
@@ -1800,6 +1812,8 @@ offsetY
 ok
 onActivate
 onApply
+onApplyTag
+onBeginUserAction
 onButtonPressEvent
 onButtonReleaseEvent
 onCancel
@@ -1813,6 +1827,7 @@ onDaySelectedDoubleClick
 onDeleteEvent
 onDeleteRange
 onEdited
+onEndUserAction
 onEnterNotifyEvent
 onEvent
 onExposeEvent
@@ -1826,9 +1841,11 @@ onKeyReleaseEvent
 onLeaveNotifyEvent
 onMapEvent
 onMarkSet
+onNotifyCursorPosition
 onPopulatePopup
 onPopupMenu
 onPrepare
+onRemoveTag
 onResponse
 onRowActivated
 onRowChanged
@@ -1924,6 +1941,7 @@ registerType
 relLineTo
 relMoveTo
 removeActionWidget
+removeAllTags
 removePage
 removeRow
 removeTag
