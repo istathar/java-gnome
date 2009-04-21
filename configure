@@ -749,6 +749,12 @@ if ($os eq "gentoo") {
 			"GNOME",
 			"gnome");
 
+	check_system_library(@gnomedev_libs,
+			"libnotify",
+			"Libnotify",
+			"libnotify");
+
+
 } elsif ($os eq "debian") {
 	check_system_library(@gnomedev_libs,
 			"gtk+-2.0 >= 2.14",
@@ -779,6 +785,7 @@ if ($os eq "gentoo") {
 			"gtk+-unix-print-2.0",
 			"GNOME printing (Unix backend)",
 			"unixprint-devel");
+	#TODO: Add libnotify check for Debian.
 
 } elsif ($os eq "suse") {
 	check_system_library(@gnomedev_libs,
@@ -799,6 +806,7 @@ if ($os eq "gentoo") {
 			"libglade-2.0",
 			"Glade development libraries",
 			"libglade2.0_0-devel");
+	#TODO: Add libnotify check for SuSE.
 }
 
 
