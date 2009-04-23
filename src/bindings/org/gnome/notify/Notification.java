@@ -17,6 +17,17 @@ import org.gnome.glib.GlibException;
 import org.gnome.gtk.StatusIcon;
 import org.gnome.gtk.Widget;
 
+/**
+ * Notification represents actual item to be displayed by notification system.
+ * You can simply create and display a Notification after the system is
+ * initialized with {@link Notify#init(String applicationName)
+ * Notify.init(String applicationName)}
+ * 
+ * @see Notify
+ * 
+ * @author Serkan Kaba
+ * @since 4.0.11
+ */
 public class Notification extends org.gnome.glib.Object
 {
     /**

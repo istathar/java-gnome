@@ -15,7 +15,7 @@ package org.gnome.notify;
 import org.freedesktop.bindings.Constant;
 
 /**
- * Used to indicate the urgency level {@link Notification} shown.
+ * Used to indicate the urgency level of {@link Notification} shown.
  * 
  * @author Serkan Kaba
  * @since 4.0.11
@@ -26,20 +26,20 @@ public class Urgency extends Constant
     protected Urgency(int ordinal, String nickname) {
         super(ordinal, nickname);
     }
-    
+
     /**
      * Represents low urgency used for unimportant notifications.
      */
-    public static final Urgency LOW = new Urgency(NotifyUrgency.LOW,"LOW");
-    
+    public static final Urgency LOW = new Urgency(NotifyUrgency.LOW, "LOW");
+
     /**
      * Represents normal urgency used for standard notifications.
      */
-    public static final Urgency NORMAL = new Urgency(NotifyUrgency.NORMAL,"NORMAL");
-    
+    public static final Urgency NORMAL = new Urgency(NotifyUrgency.NORMAL, "NORMAL");
+
     /**
      * Represents critical urgency used for very important notifications.
      */
-    public static final Urgency CRITICAL = new Urgency(NotifyUrgency.CRITICAL,"CRITICAL");
+    public static final Urgency CRITICAL = new Urgency(NotifyUrgency.CRITICAL, "CRITICAL");
 
 }

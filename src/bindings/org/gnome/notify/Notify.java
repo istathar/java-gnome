@@ -14,6 +14,33 @@ package org.gnome.notify;
 
 import org.gnome.glib.Glib;
 
+/**
+ * Notification system initialization point. A notification enabled program
+ * written with java-gnome will boil down to this:
+ * 
+ * <pre>
+ * public class ExampleNotificationApp
+ *   
+ *     public static void main(String[] args) {
+ *         
+ *         Gtk.init(args);
+ *         
+ *         Notify.init(&quot;example-app&quot;);
+ *           
+ *         // build user interface
+ *         
+ *         // create and display notifications for application events
+ *           
+ *         Gtk.main();
+ *     }
+ * }
+ * </pre>
+ * 
+ * @see Notification
+ * 
+ * @author Serkan Kaba
+ * @since 4.0.11
+ */
 public final class Notify extends Glib
 {
     private Notify() {}
