@@ -13,6 +13,7 @@
 package org.gnome.notify;
 
 import org.gnome.gdk.Pixbuf;
+import org.gnome.gdk.Screen;
 import org.gnome.glib.GlibException;
 import org.gnome.gtk.StatusIcon;
 import org.gnome.gtk.Widget;
@@ -83,12 +84,22 @@ public class Notification extends org.gnome.glib.Object
             throw new RuntimeException("Notification update failed.");
     }
 
+    /**
+     * Attaches Notification to a {@link Widget} setting hints to its location.
+     */
     public void attach(Widget attach) {
         NotifyNotification.attachToWidget(this, attach);
     }
 
+    /**
+     * Attaches Notification to a {@link StatusIcon} setting hints to its location.
+     */
     public void attach(StatusIcon statusIcon) {
         NotifyNotification.attachToStatusIcon(this, statusIcon);
+    }
+    
+    public void setGeometryHints(Screen screen, int x, int y) {
+        NotifyNotification.setGeometryHints(this, screen, x, y);
     }
 
     /**
@@ -145,6 +156,24 @@ public class Notification extends org.gnome.glib.Object
     public void setIcon(Pixbuf icon) {
         NotifyNotification.setIconFromPixbuf(this, icon);
     }
+    
+    public void setHint(String key,int value) {
+        NotifyNotification.setHintInt32(this,key,value);
+    }
+    
+    public void setHint(String key,double value) {
+        NotifyNotification.setHintDouble(this,key,value);
+    }
+    
+    public void setHint(String key,String value) {
+        NotifyNotification.setHintString(this,key,value);
+    }
+    
+    public void clearHints() {
+        NotifyNotification.clearHints(this);
+    }
+    
+    //TODO: setHintByte
 
     /**
      * Hide the notification on screen.
