@@ -34,12 +34,12 @@ public class Notification extends org.gnome.glib.Object
     /**
      * Constant for default timeout duration.
      */
-    public static int NOTIFY_EXPIRES_DEFAULT = -1;
+    public static final int NOTIFY_EXPIRES_DEFAULT = -1;
 
     /**
      * Constant for infinite timeout duration.
      */
-    public static int NOTIFY_EXPIRES_NEVER = 0;
+    public static final int NOTIFY_EXPIRES_NEVER = 0;
 
     protected Notification(long pointer) {
         super(pointer);
