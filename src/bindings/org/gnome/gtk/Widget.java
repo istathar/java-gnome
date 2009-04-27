@@ -40,6 +40,37 @@ public abstract class Widget extends org.gnome.gtk.Object
         super(pointer);
     }
 
+	/**
+	 * Widgets are identified by their name. This method will return the name of
+	 * the widget. You will most likely use this method a lot if you are using
+	 * Glade. Every widget there is identified by a name. It is suggested to use
+	 * sensible names.
+	 * 
+	 * @author Thijs Leibbrand
+	 * @since 4.0.11
+	 * 
+	 * @return Returns the name of the Widget.
+	 */
+	public String getName() {
+		return GtkWidget.getName(this);
+	}
+
+	/**
+	 * Every Widget has a name as an identifier. Especially in Glade names are
+	 * used to retrieve widgets from the XML file. With this method you set the
+	 * name.
+	 * 
+	 * <p>
+	 * If you are using Glade then you will most likely never need this method.
+	 * As you should have them defined in Glade.
+	 * 
+	 * @author Thijs Leibbrand
+	 * @since 4.0.11
+	 */
+	public void setName(String name) {
+		GtkWidget.setName(this, name);
+	}
+
     /**
      * Cause this Widget to be activated. This has the same effect as when the
      * user presses the <code>Return</code> key while the Widget is in focus.
