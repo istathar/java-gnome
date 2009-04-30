@@ -1,9 +1,9 @@
 NEWS
 
-<a name="4.0.11-rc" id="1239679394" title="Beautiful sculpted text"></a>
+<a name="4.0.11" id="1241066023" title="Buf fixes"></a>
 
-java-gnome 4.0.11-rc (14 Apr 2009)
-==================================
+java-gnome 4.0.11 (30 Apr 2009)
+===============================
 
 This is a bug fix release.
 
@@ -48,7 +48,7 @@ Looking ahead
 
 This was a brief cycle; as noted we're mostly pushing some bug fixes.
 Meanwhile there are a number of significant branches underway by various
-hackers; which, hopefully, will feature prominently in the next release!
+hackers; which, hopefully, will feature prominently in the next release.
 
 AfC
 
