@@ -651,6 +651,7 @@ def compileDocumentation():
 	cmd += "-stylesheetfile src/bindings/stylesheet.css "
 	cmd += "-overview src/bindings/overview.html "
 	cmd += "-sourcepath src/bindings "
+	cmd += "-encoding UTF-8 "
 	cmd += "-subpackages org "
 	cmd += "-exclude org.freedesktop.bindings "
 	cmd += "src/bindings/org/freedesktop/bindings/Time.java "
