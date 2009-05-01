@@ -340,6 +340,7 @@ def compileJavaCode(outputDir, classpath, sourcepath, sources):
 		cmd += " -classpath " + classpath
 	if sourcepath:
 		cmd += " -sourcepath " + sourcepath
+	cmd += " -encoding UTF-8"
 	cmd += " " + " ".join(sources)
 
 	blurb = "\n\t".join(sources)
