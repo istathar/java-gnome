@@ -136,12 +136,14 @@ public abstract class Box extends Container
      * or {@link VBox#VBox(boolean, int) VBox} constructor.
      * 
      * <p>
-     * The amount of spacing can be below <code>0</code>, this will cause the
-     * buttons to over each other and so this is not recommended.
+     * Allowed values are <code>0</code> or greater.
      * 
      * @since 4.0.11
      */
     public void setSpacing(int spacing) {
+        if (spacing < 0) {
+            throw new IllegalArgumentException("spacing must be >= 0");
+        }
         GtkBox.setSpacing(this, spacing);
     }
 
