@@ -128,4 +128,30 @@ public abstract class Box extends Container
     public void reorderChild(Widget child, int position) {
         GtkBox.reorderChild(this, child, position);
     }
+
+	/**
+	 * Set the amount of spacing between the Widgets in the Box. By default this 
+	 * is <code>0</code>. The spacing is measured in pixels. 
+	 *
+	 * <p>
+	 * The amount of 
+	 * spacing can be below 0. This will cause the buttons to over eachother.
+	 * This is not recommended.
+	 * 
+	 * @since 4.0.11
+	 */
+	public void setSpacing(int spacing) {
+		GtkBox.setSpacing(this, spacing);
+	}
+
+	/**
+	 * Returns the amount of spacing that is set to be places between the Widgets
+	 * that are in the Box. By default this is <code>0</code> unless you have set 
+	 * it different. The amount is measured in pixels.
+	 *
+	 * @since 4.0.11
+	 */
+	public int getSpacing() {
+		return GtkBox.getSpacing(this);
+	}
 }

@@ -40,36 +40,44 @@ public abstract class Widget extends org.gnome.gtk.Object
         super(pointer);
     }
 
-	/**
-	 * Widgets are identified by their name. This method will return the name of
-	 * the widget. You will most likely use this method a lot if you are using
-	 * Glade. Every widget there is identified by a name. It is suggested to use
-	 * sensible names.
-	 * 
-	 * @author Thijs Leibbrand
-	 * @since 4.0.11
-	 * 
-	 * @return Returns the name of the Widget.
-	 */
-	public String getName() {
-		return GtkWidget.getName(this);
-	}
+    /**
+     * Get the name of the Widget, if it has one.
+     * 
+     * <p>
+     * Widgets can be identified by a name. You will most likely use this
+     * method a lot if you are using Glade. Every widget there is identified
+     * by a name. It is suggested to use sensible names; see
+     * {@link org.gnome.glade.Glade Glade} for a discussion of the
+     * implications of different nomenaclatures if that's what you are using,
+     * but in any case once you've retrieved the Widget with
+     * {@link org.gnome.glade.XML#getWidget(String) getWidget()} you won't
+     * really need to know its name anymore.
+     * 
+     * @since 4.0.11
+     */
+    public String getName() {
+        return GtkWidget.getName(this);
+    }
 
-	/**
-	 * Every Widget has a name as an identifier. Especially in Glade names are
-	 * used to retrieve widgets from the XML file. With this method you set the
-	 * name.
-	 * 
-	 * <p>
-	 * If you are using Glade then you will most likely never need this method.
-	 * As you should have them defined in Glade.
-	 * 
-	 * @author Thijs Leibbrand
-	 * @since 4.0.11
-	 */
-	public void setName(String name) {
-		GtkWidget.setName(this, name);
-	}
+    /**
+     * Every Widget has a name as an optional identifier.
+     * 
+     * <p>
+     * If using Glade then these names are used to retrieve widgets from the
+     * XML file. You can use this method you set the name of a Widget after it
+     * is retrieved.
+     * 
+     * <p>
+     * If you are using Glade then you will most likely never need this
+     * method, as you will have them defined in Glade. And if you're not using
+     * Glade, then you probably won't need this method either, since you can
+     * refer to Widgets you create by reference.
+     * 
+     * @since 4.0.11
+     */
+    public void setName(String name) {
+        GtkWidget.setName(this, name);
+    }
 
     /**
      * Cause this Widget to be activated. This has the same effect as when the

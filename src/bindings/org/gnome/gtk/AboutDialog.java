@@ -92,6 +92,17 @@ public class AboutDialog extends Dialog
         GtkAboutDialog.setComments(this, text);
     }
 
+	/**
+	 * Set a link to your website. This link cannot be clicked on or copied 
+	 * by the user. It is just plain text. It is recommended to do in the 
+	 * standard <code>http://www.exmaple.com/</code> format.
+	 * 
+	 * @since 4.0.11
+	 */
+	public void setWebsite(String website) {
+		GtkAboutDialog.setWebsite(this, website);
+	}
+
     /**
      * Set the image to be displayed in the AboutDialog. Most apps just want
      * to use the default icon which was set with
