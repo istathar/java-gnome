@@ -1,7 +1,7 @@
 /*
  * ScreenshotAboutDialog.java
  *
- * Copyright (c) 2008 Operational Dynamics Consulting Pty Ltd
+ * Copyright (c) 2008-2009 Operational Dynamics Consulting Pty Ltd
  * 
  * The code in this file, and the program it is a part of, are made available
  * to you by the authors under the terms of the "GNU General Public Licence,
@@ -33,6 +33,7 @@ public class SnapshotAboutDialog extends SnapshotDialog
                 "Vreixo Formoso Lopes <metalpain2002@yahoo.es>",
                 "Sebastian Mancke <s.mancke@tarent.de>"
         });
+        dialog.setWebsite("http://java-gnome.sourceforge.net/");
 
         window = dialog;
     }
