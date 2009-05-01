@@ -1,7 +1,7 @@
 /*
  * Box.java
  *
- * Copyright (c) 2007-2008 Operational Dynamics Consulting Pty Ltd
+ * Copyright (c) 2007-2009 Operational Dynamics Consulting Pty Ltd, and Others
  * 
  * The code in this file, and the library it is a part of, are made available
  * to you by the authors under the terms of the "GNU General Public Licence,
@@ -129,29 +129,29 @@ public abstract class Box extends Container
         GtkBox.reorderChild(this, child, position);
     }
 
-	/**
-	 * Set the amount of spacing between the Widgets in the Box. By default this 
-	 * is <code>0</code>. The spacing is measured in pixels. 
-	 *
-	 * <p>
-	 * The amount of 
-	 * spacing can be below 0. This will cause the buttons to over eachother.
-	 * This is not recommended.
-	 * 
-	 * @since 4.0.11
-	 */
-	public void setSpacing(int spacing) {
-		GtkBox.setSpacing(this, spacing);
-	}
+    /**
+     * Set the amount of spacing between the Widgets in the Box. The spacing
+     * is measured in pixels. By default this is <code>0</code>, but is
+     * actually whatever was set in the {@link HBox#HBox(boolean, int) HBox}
+     * or {@link VBox#VBox(boolean, int) VBox} constructor.
+     * 
+     * <p>
+     * The amount of spacing can be below <code>0</code>, this will cause the
+     * buttons to over each other and so this is not recommended.
+     * 
+     * @since 4.0.11
+     */
+    public void setSpacing(int spacing) {
+        GtkBox.setSpacing(this, spacing);
+    }
 
-	/**
-	 * Returns the amount of spacing that is set to be places between the Widgets
-	 * that are in the Box. By default this is <code>0</code> unless you have set 
-	 * it different. The amount is measured in pixels.
-	 *
-	 * @since 4.0.11
-	 */
-	public int getSpacing() {
-		return GtkBox.getSpacing(this);
-	}
+    /**
+     * Returns the amount of spacing that is set to be places between the
+     * Widgets that are in the Box. The amount is measured in pixels.
+     * 
+     * @since 4.0.11
+     */
+    public int getSpacing() {
+        return GtkBox.getSpacing(this);
+    }
 }
