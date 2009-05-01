@@ -24,6 +24,7 @@ AttachOptions
 AttrList
 Attribute's
 AttributeList
+AttributeLists
 BackSpace
 Bassi
 BeginUserActionSignal
@@ -392,6 +393,7 @@ GtkShadowType
 GtkSizeGroup
 GtkSizeGroupMode
 GtkSortType
+GtkSourceView
 GtkSpinButton
 GtkStateType
 GtkStatusIcon
@@ -532,6 +534,7 @@ LayoutLine's
 LayoutLines
 LeaveNotifyEvent
 LeaveNotifyEventSignal
+Leibbrand
 LibGlade
 LinearPattern
 ListStore
@@ -694,6 +697,7 @@ RowExpandedSignal
 RuntimeException
 RuntimeExceptions
 SEMIBOLD
+SIGSEGV
 SWT
 Schmitz
 Schweizer
@@ -780,6 +784,7 @@ TextView
 TextView's
 TextViews
 TextWindowType
+Thijs
 ThrowNew
 Timm
 ToggleButon
@@ -1224,6 +1229,7 @@ dropUserRef
 dt
 dx
 dy
+eacute
 ebuild
 ecj
 editMenu
@@ -1707,6 +1713,8 @@ libgtk
 libjava
 librarypath
 libre
+librsvg
+libwnck
 lineNumber
 lineRelative
 lineTo
@@ -1782,6 +1790,7 @@ nUnable
 nYou
 na
 namespace
+nathan
 nativeName
 nav
 nc
