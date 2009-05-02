@@ -9,7 +9,6 @@
  * library into other programs provided you don't make a derivation of it).
  * See the LICENCE file for the terms governing usage and redistribution.
  */
-
 package org.gnome.notify;
 
 import org.gnome.gdk.Pixbuf;
@@ -19,9 +18,9 @@ import org.gnome.gtk.StatusIcon;
 import org.gnome.gtk.Widget;
 
 /**
- * Notification represents actual item to be displayed by notification system.
- * You can simply create and display a Notification after the system is
- * initialized with {@link Notify#init(String applicationName)
+ * Notification represents an actual item to be displayed by notification
+ * system. You can simply create and display a Notification after the system
+ * is initialized with {@link Notify#init(String applicationName)
  * Notify.init(String applicationName)}
  * 
  * @see Notify
@@ -49,12 +48,15 @@ public class Notification extends org.gnome.glib.Object
     }
 
     /**
-     * Create a new notification.<br>
-     * Summary appears on the titlebar of notification and body appears as its
-     * text.<br>
-     * Icon may be a string defining a theme icon or the filename identifying
-     * the icon that appears next to text.<br>
-     * Attach identifies the widget that the notification relates to.<br>
+     * Create a new notification.
+     * 
+     * <p>
+     * The summary appears on the titlebar of notification and body appears as
+     * its text. Icon may be a string defining a theme icon or the filename
+     * identifying the icon that appears next to text. Attach identifies the
+     * widget that the notification relates to.
+     * 
+     * <p>
      * Note that all but summary is nullable.
      * 
      * @since 4.0.12
@@ -65,9 +67,9 @@ public class Notification extends org.gnome.glib.Object
     }
 
     /**
-     * Create a new notification attached to a {@link StatusIcon}.<br>
-     * see {@link #Notification(String,String,String,Widget) Notification()}
-     * for other parameters.
+     * Create a new notification attached to a {@link StatusIcon}. See
+     * {@link #Notification(String,String,String,Widget) Notification()} for
+     * other parameters.
      * 
      * @since 4.0.12
      */
@@ -83,13 +85,16 @@ public class Notification extends org.gnome.glib.Object
      * @since 4.0.12
      */
     public void update(String summary, String body, String icon) {
-        if (!NotifyNotification.update(this, summary, body, icon))
+        if (!NotifyNotification.update(this, summary, body, icon)) {
             throw new RuntimeException("Notification update failed.");
+        }
     }
 
     /**
      * Attaches Notification to a {@link Widget} setting hints to its
      * location.
+     * 
+     * @since 4.0.12
      */
     public void attach(Widget attach) {
         NotifyNotification.attachToWidget(this, attach);
@@ -98,6 +103,8 @@ public class Notification extends org.gnome.glib.Object
     /**
      * Attaches Notification to a {@link StatusIcon} setting hints to its
      * location.
+     * 
+     * @since 4.0.12
      */
     public void attach(StatusIcon statusIcon) {
         NotifyNotification.attachToStatusIcon(this, statusIcon);
@@ -105,6 +112,8 @@ public class Notification extends org.gnome.glib.Object
 
     /**
      * Sets the position of the notification to display on screen.
+     * 
+     * @since 4.0.12
      */
     public void setGeometryHints(Screen screen, int x, int y) {
         NotifyNotification.setGeometryHints(this, screen, x, y);
@@ -137,8 +146,8 @@ public class Notification extends org.gnome.glib.Object
     }
 
     /**
-     * Set the category of the notification which may later be used to
-     * displayer or filter out the notification.<br>
+     * Set the category of the notification which may later be used to display
+     * or filter out the notification.<br>
      * See <em>Hints</em> section for defined categories.
      * 
      * @since 4.0.12
@@ -158,7 +167,7 @@ public class Notification extends org.gnome.glib.Object
     }
 
     /**
-     * Sets the icon of the notification from a {@link Pixbuf}
+     * Sets the icon of the notification from a {@link Pixbuf}.
      * 
      * @since 4.0.12
      */
@@ -177,9 +186,8 @@ public class Notification extends org.gnome.glib.Object
     }
 
     /**
-     * Sets a hint with a integer value.<br>
-     * See <em>Hints</em> section in desktop notifications spec for
-     * standard hints.
+     * Sets a hint with a integer value. See the "Hints" section in <i>Desktop
+     * Notifications Specification</i> for standard hints.
      * 
      * @since 4.0.12
      */

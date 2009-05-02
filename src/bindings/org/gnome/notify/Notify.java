@@ -9,7 +9,6 @@
  * library into other programs provided you don't make a derivation of it).
  * See the LICENCE file for the terms governing usage and redistribution.
  */
-
 package org.gnome.notify;
 
 import org.gnome.glib.Glib;
@@ -22,9 +21,7 @@ import org.gnome.glib.Glib;
  * public class ExampleNotificationApp
  *   
  *     public static void main(String[] args) {
- *         
  *         Gtk.init(args);
- *         
  *         Notify.init(&quot;example-app&quot;);
  *           
  *         // build user interface
@@ -36,7 +33,8 @@ import org.gnome.glib.Glib;
  * }
  * </pre>
  * 
- * @see Notification
+ * <p>
+ * The meat of this library is the {@link Notification} class; see there.
  * 
  * @author Serkan Kaba
  * @since 4.0.12
@@ -85,21 +83,23 @@ public final class Notify extends Glib
     public static boolean isInitted() {
         return NotifyMain.notifyIsInitted();
     }
-    
+
     /**
-     * Returns the registered application name.
+     * Returns the registered application name. This is as passed when you
+     * called {@link #init(String) Notify.init()}.
      * 
-     * @see #init(String)
      * @since 4.0.12
      */
     public static String getApplicationName() {
         return NotifyMain.notifyGetAppName();
     }
-    
+
     /**
-     * Returns a list of features supported by the notification system.<br>
-     * See <em>D-BUS Protocol</em> section in desktop notifications spec for
-     * standard hints.
+     * Returns a list of features supported by the notification system.
+     * 
+     * <p>
+     * See the "D-BUS Protocol" section in <i>Desktop Notifications
+     * Specification</i> for standard hints.
      * 
      * @since 4.0.12
      */

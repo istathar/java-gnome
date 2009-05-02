@@ -9,7 +9,6 @@
  * library into other programs provided you don't make a derivation of it).
  * See the LICENCE file for the terms governing usage and redistribution.
  */
-
 package org.gnome.notify;
 
 import org.freedesktop.bindings.Constant;
@@ -22,7 +21,6 @@ import org.freedesktop.bindings.Constant;
  */
 public class Urgency extends Constant
 {
-
     protected Urgency(int ordinal, String nickname) {
         super(ordinal, nickname);
     }
@@ -41,5 +39,4 @@ public class Urgency extends Constant
      * Represents critical urgency used for very important notifications.
      */
     public static final Urgency CRITICAL = new Urgency(NotifyUrgency.CRITICAL, "CRITICAL");
-
 }
