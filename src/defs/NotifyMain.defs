@@ -1,0 +1,37 @@
+;; This is entirely custom for our wrapper around the internals of
+;; gnome-screenshot as was imported into java-gnome. It's not a Boxed. It's
+;; not anything really. In fact, it's so straight forward that I probably
+;; should have just coded it by hand after all.
+
+(define-boxed Main
+  (in-module "Notify")
+  (c-name "NotifyMain")
+  (import-header "libnotify/notify.h")
+)
+
+(define-function notify_init
+  (of-object "NotifyMain")
+  (c-name "notify_init")
+  (return-type "gboolean")
+  (parameters
+    '("const-char*" "app_name")
+  )
+)
+
+(define-function notify_uninit
+  (of-object "NotifyMain")
+  (c-name "notify_uninit")
+  (return-type "none")
+)
+
+(define-function notify_is_initted
+  (of-object "NotifyMain")
+  (c-name "notify_is_initted")
+  (return-type "gboolean")
+)
+
+(define-function notify_get_app_name
+  (of-object "NotifyMain")
+  (c-name "notify_get_app_name")
+  (return-type "const-gchar*")
+)

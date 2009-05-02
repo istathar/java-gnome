@@ -64,7 +64,7 @@ public final class Notify extends Glib
         /*
          * Initialize notification system.
          */
-        return NotifyMain.init(applicationName);
+        return NotifyMain.notifyInit(applicationName);
     }
 
     /**
@@ -74,7 +74,7 @@ public final class Notify extends Glib
      * @since 4.0.12
      */
     public static void uninit() {
-        NotifyMain.uninit();
+        NotifyMain.notifyUninit();
     }
 
     /**
@@ -83,7 +83,17 @@ public final class Notify extends Glib
      * @since 4.0.12
      */
     public static boolean isInitted() {
-        return NotifyMain.isInitted();
+        return NotifyMain.notifyIsInitted();
+    }
+    
+    /**
+     * Returns the registered application name.
+     * 
+     * @see #init(String)
+     * @since 4.0.12
+     */
+    public static String getApplicationName() {
+        return NotifyMain.notifyGetAppName();
     }
     
     /**
@@ -97,6 +107,6 @@ public final class Notify extends Glib
         if (!isInitted()) {
             throw new IllegalStateException("Notification isn't initialized");
         }
-        return NotifyMain.getServerCapabilities();
+        return NotifyMainOverride.getServerCapabilities();
     }
 }

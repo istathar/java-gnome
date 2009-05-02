@@ -70,7 +70,9 @@ public class BoxedBlock extends TypeBlock
          * wraps this boxed is a org.gnome.gdk.Event.
          */
         String javaType = "EventAny".equals(blockName) ? "Event" : blockName;
-        return new BoxedThing(addPointerSymbol(cName), moduleToJavaPackage(inModule), cName, javaType);
+        BoxedThing t = new BoxedThing(addPointerSymbol(cName), moduleToJavaPackage(inModule), cName, javaType);
+        t.setImportHeader(importHeader);
+        return t;
     }
 
     public Generator createGenerator(final DefsFile data) {

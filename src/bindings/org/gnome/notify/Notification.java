@@ -138,7 +138,8 @@ public class Notification extends org.gnome.glib.Object
 
     /**
      * Set the category of the notification which may later be used to
-     * displayer or filter out the notification.
+     * displayer or filter out the notification.<br>
+     * See <em>Hints</em> section for defined categories.
      * 
      * @since 4.0.12
      */
@@ -168,7 +169,7 @@ public class Notification extends org.gnome.glib.Object
     /**
      * Sets a hint with an integer value.
      * 
-     * @see setHint(String, double)
+     * @see #setHint(String, double)
      * @since 4.0.12
      */
     public void setHint(String key, int value) {
@@ -189,7 +190,7 @@ public class Notification extends org.gnome.glib.Object
     /**
      * Sets a hint with a string value.
      * 
-     * @see setHint(String, double)
+     * @see #setHint(String, double)
      * @since 4.0.12
      */
     public void setHint(String key, String value) {
