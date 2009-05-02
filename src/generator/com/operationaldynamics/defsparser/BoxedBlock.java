@@ -1,7 +1,7 @@
 /*
  * BoxedBlock.java
  *
- * Copyright (c) 2007-2008 Operational Dynamics Consulting Pty Ltd
+ * Copyright (c) 2007-2009 Operational Dynamics Consulting Pty Ltd, and Others
  * Copyright (c) 2007      Vreixo Formoso
  * 
  * The code in this file, and the program it is a part of, are made available
@@ -63,15 +63,19 @@ public class BoxedBlock extends TypeBlock
     }
 
     public Thing createThing() {
+        final String javaType;
+        final BoxedThing t;
 
         /*
          * GdkEventAny is an exception to the usual GBoxeds wrapping, as we
          * don't need to expose it in our public API. Thus, the java type that
          * wraps this boxed is a org.gnome.gdk.Event.
          */
-        String javaType = "EventAny".equals(blockName) ? "Event" : blockName;
-        BoxedThing t = new BoxedThing(addPointerSymbol(cName), moduleToJavaPackage(inModule), cName, javaType);
+        javaType = "EventAny".equals(blockName) ? "Event" : blockName;
+
+        t = new BoxedThing(addPointerSymbol(cName), moduleToJavaPackage(inModule), cName, javaType);
         t.setImportHeader(importHeader);
+
         return t;
     }
 
