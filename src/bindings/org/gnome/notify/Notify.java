@@ -94,6 +94,9 @@ public final class Notify extends Glib
      * @since 4.0.12
      */
     public static String[] getServerCapabilities() {
+        if (!isInitted()) {
+            throw new IllegalStateException("Notification isn't initialized");
+        }
         return NotifyMain.getServerCapabilities();
     }
 }
