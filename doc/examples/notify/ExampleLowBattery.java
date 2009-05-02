@@ -60,6 +60,7 @@ public class ExampleLowBattery
                 quitItem.connect(new org.gnome.gtk.MenuItem.Activate() {
 
                     public void onActivate(MenuItem source) {
+                        Notify.uninit();
                         Gtk.mainQuit();
                     }
 
