@@ -59,7 +59,7 @@ JNIEXPORT jobjectArray JNICALL Java_org_gnome_notify_NotifyMainOverride_notify_1
 		jstring cap=(*env)->NewStringUTF(env, iter->data);
 		(*env)->SetObjectArrayElement(env, _array, i, cap);
 		g_free(iter->data);
-		caps = iter->next;
+		iter = iter->next;
 	}
 
 	if (caps != NULL) {
