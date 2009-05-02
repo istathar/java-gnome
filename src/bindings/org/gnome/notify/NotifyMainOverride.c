@@ -19,17 +19,19 @@
  * called from
  *   org.gnome.notify.Notify.getServerCapabilities()
  */
-JNIEXPORT jobjectArray JNICALL Java_org_gnome_notify_NotifyMainOverride_notify_1get_1server_1caps
+JNIEXPORT jobjectArray JNICALL
+Java_org_gnome_notify_NotifyMainOverride_notify_1get_1server_1caps
 (
-	JNIEnv * env,
+	JNIEnv* env,
 	jclass cls
 )
 {
 	jobjectArray _array;
 	int i, size;
 	jclass stringCls;
-	GList *caps;
-	GList *iter;
+	GList* caps;
+	GList* iter;
+	jstring cap;
 
 	caps=notify_get_server_caps();
 
@@ -52,11 +54,11 @@ JNIEXPORT jobjectArray JNICALL Java_org_gnome_notify_NotifyMainOverride_notify_1
 		g_printerr("Unable to create array?");
 	}
 
-	iter=caps;
+	iter = caps;
 
 	for (i = 0; i < size; ++i) {
 		//Hopefully capability strings are ASCII only.
-		jstring cap=(*env)->NewStringUTF(env, iter->data);
+		cap = (*env)->NewStringUTF(env, iter->data);
 		(*env)->SetObjectArrayElement(env, _array, i, cap);
 		g_free(iter->data);
 		iter = iter->next;

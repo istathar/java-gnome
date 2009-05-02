@@ -1,7 +1,7 @@
 /*
  * ExampleLowBattery.java
  *
- * Copyright (c) 2009 Operational Dynamics Consulting Pty Ltd
+ * Copyright (c) 2009 Operational Dynamics Consulting Pty Ltd, and Others
  *
  * The code in this file, and the program it is a part of, are made available
  * to you by the authors under the terms of the "GNU General Public Licence,
@@ -25,9 +25,7 @@ import org.gnome.notify.Notify;
  */
 public class ExampleLowBattery
 {
-
     public static void main(String[] args) {
-
         final StatusIcon icon;
         final Notification notification;
 
@@ -56,28 +54,23 @@ public class ExampleLowBattery
          */
 
         icon.connect(new org.gnome.gtk.StatusIcon.PopupMenu() {
-
             public void onPopupMenu(StatusIcon source, int button, int activateTime) {
-
                 final Menu trayMenu;
                 final MenuItem quitItem;
 
-                trayMenu = new Menu();
                 quitItem = new MenuItem("Quit");
                 quitItem.connect(new org.gnome.gtk.MenuItem.Activate() {
-
                     public void onActivate(MenuItem source) {
                         Notify.uninit();
                         Gtk.mainQuit();
                     }
-
                 });
+
+                trayMenu = new Menu();
                 trayMenu.add(quitItem);
                 trayMenu.showAll();
                 trayMenu.popup(source);
-
             }
-
         });
 
         /*
@@ -104,5 +97,4 @@ public class ExampleLowBattery
 
         Gtk.main();
     }
-
 }
