@@ -24,7 +24,7 @@ public class ExampleLowBattery
      * A simple program that sits in tray and displays a low battery warning.
      * 
      * @author Serkan Kaba
-     * @since 4.0.11
+     * @since 4.0.12
      */
     public static void main(String[] args) {
 

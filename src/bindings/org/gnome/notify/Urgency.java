@@ -18,7 +18,7 @@ import org.freedesktop.bindings.Constant;
  * Used to indicate the urgency level of {@link Notification} shown.
  * 
  * @author Serkan Kaba
- * @since 4.0.11
+ * @since 4.0.12
  */
 public class Urgency extends Constant
 {

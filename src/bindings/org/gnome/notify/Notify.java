@@ -39,7 +39,7 @@ import org.gnome.glib.Glib;
  * @see Notification
  * 
  * @author Serkan Kaba
- * @since 4.0.11
+ * @since 4.0.12
  */
 public final class Notify extends Glib
 {
@@ -51,7 +51,7 @@ public final class Notify extends Glib
      * 
      * @param applicationName
      *            Name of the application initializing notification system.
-     * @since 4.0.11
+     * @since 4.0.12
      */
     public static boolean init(String applicationName) {
         if (isInitted()) {
@@ -68,7 +68,7 @@ public final class Notify extends Glib
      * Uninitialize the notification system. <b>This should be called when
      * notification is no longer needed (i.e. upon exist).</b>
      * 
-     * @since 4.0.11
+     * @since 4.0.12
      */
     public static void uninit() {
         NotifyMain.uninit();
@@ -77,7 +77,7 @@ public final class Notify extends Glib
     /**
      * Tests whether notification system is initialized or not.
      * 
-     * @since 4.0.11
+     * @since 4.0.12
      */
     public static boolean isInitted() {
         return NotifyMain.isInitted();
