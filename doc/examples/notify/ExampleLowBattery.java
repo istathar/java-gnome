@@ -78,6 +78,11 @@ public class ExampleLowBattery
 
         Notification notification = new Notification("Low Battery Example", "Your battery is low!",
                 "messagebox_warning", icon);
+        
+        /*
+         * Make it play the warning sound from gnome-sound. 
+         */
+        notification.setHint("sound-file", "/usr/share/sounds/warning.wav");
 
         /*
          * Display the notification.
