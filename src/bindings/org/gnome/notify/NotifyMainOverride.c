@@ -1,5 +1,5 @@
 /*
- * NotifyMain.c
+ * NotifyMainOverride.c
  *
  * Copyright (c) 2009 Operational Dynamics Consulting Pty Ltd
  *
