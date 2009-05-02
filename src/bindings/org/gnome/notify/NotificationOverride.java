@@ -15,7 +15,7 @@ package org.gnome.notify;
 final class NotificationOverride extends Plumbing
 {
     private NotificationOverride() {}
-    
+
     static final void setHintByte(Notification self, String key, short value) {
         if (self == null) {
             throw new IllegalArgumentException("self can't be null");
@@ -24,10 +24,10 @@ final class NotificationOverride extends Plumbing
         if (key == null) {
             throw new IllegalArgumentException("key can't be null");
         }
-        
-        if(value < 0 || value > 255)
+
+        if (value < 0 || value > 255)
             throw new IllegalArgumentException("value should be between 0-255 inclusive");
-        
+
         synchronized (lock) {
             notify_notification_set_hint_byte(pointerOf(self), key, value);
         }

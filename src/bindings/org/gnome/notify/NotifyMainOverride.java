@@ -18,14 +18,14 @@ final class NotifyMainOverride extends Plumbing
 
     static final String[] getServerCapabilities() {
         String[] result;
-        
+
         synchronized (lock) {
             result = notify_get_server_caps();
 
             return result;
         }
     }
-    
+
     private static native final String[] notify_get_server_caps();
 
 }
