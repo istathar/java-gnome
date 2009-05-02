@@ -28,6 +28,9 @@ public class ExampleLowBattery
 
     public static void main(String[] args) {
 
+        final StatusIcon icon;
+        final Notification notification;
+
         /*
          * Initialize GTK.
          */
@@ -45,7 +48,7 @@ public class ExampleLowBattery
          * StatusIcon can not be directly constructed with an icon name.
          */
 
-        StatusIcon icon = new StatusIcon();
+        icon = new StatusIcon();
         icon.setFromIconName("gnome-power-manager");
 
         /*
@@ -55,8 +58,12 @@ public class ExampleLowBattery
         icon.connect(new org.gnome.gtk.StatusIcon.PopupMenu() {
 
             public void onPopupMenu(StatusIcon source, int button, int activateTime) {
-                Menu trayMenu = new Menu();
-                MenuItem quitItem = new MenuItem("Quit");
+
+                final Menu trayMenu;
+                final MenuItem quitItem;
+
+                trayMenu = new Menu();
+                quitItem = new MenuItem("Quit");
                 quitItem.connect(new org.gnome.gtk.MenuItem.Activate() {
 
                     public void onActivate(MenuItem source) {
@@ -77,7 +84,7 @@ public class ExampleLowBattery
          * Create a notification with a warning icon, attached to StatusIcon.
          */
 
-        Notification notification = new Notification("Low Battery Example", "Your battery is low!",
+        notification = new Notification("Low Battery Example", "Your battery is low!",
                 "messagebox_warning", icon);
 
         /*
