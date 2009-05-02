@@ -28,6 +28,9 @@ import org.gnome.gtk.Widget;
  * 
  * @author Serkan Kaba
  * @since 4.0.11
+ * 
+ * @see <a href="http://www.galago-project.org/specs/notification/">Desktop
+ *      Notifications Spec</a>
  */
 public class Notification extends org.gnome.glib.Object
 {
@@ -100,6 +103,9 @@ public class Notification extends org.gnome.glib.Object
         NotifyNotification.attachToStatusIcon(this, statusIcon);
     }
 
+    /**
+     * Sets the position of the notification to display on screen.
+     */
     public void setGeometryHints(Screen screen, int x, int y) {
         NotifyNotification.setGeometryHints(this, screen, x, y);
     }
@@ -159,18 +165,36 @@ public class Notification extends org.gnome.glib.Object
         NotifyNotification.setIconFromPixbuf(this, icon);
     }
 
+    /**
+     * Sets a hint with an integer value.
+     * 
+     * @see setHint(String, double)
+     */
     public void setHint(String key, int value) {
         NotifyNotification.setHintInt32(this, key, value);
     }
 
+    /**
+     * Sets a hint with a integer value.<br>
+     * See <em>Hints</em> section in desktop notifications spec for
+     * standard hints.
+     */
     public void setHint(String key, double value) {
         NotifyNotification.setHintDouble(this, key, value);
     }
 
+    /**
+     * Sets a hint with a string value.
+     * 
+     * @see setHint(String, double)
+     */
     public void setHint(String key, String value) {
         NotifyNotification.setHintString(this, key, value);
     }
 
+    /**
+     * Clear hints from the notification.
+     */
     public void clearHints() {
         NotifyNotification.clearHints(this);
     }
