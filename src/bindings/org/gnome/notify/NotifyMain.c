@@ -65,3 +65,62 @@ JNIEXPORT jboolean JNICALL Java_org_gnome_notify_NotifyMain_notify_1is_1initted
 	result=notify_is_initted();
 	return (jboolean)result;
 }
+
+/*
+ * Implements
+ *   org.gnome.notify.NotifyMain.notify_get_server_caps()
+ * called from
+ *   org.gnome.notify.Notify.getServerCapabilities()
+ */
+JNIEXPORT jobjectArray JNICALL Java_org_gnome_notify_NotifyMain_notify_1get_1server_1caps
+(
+	JNIEnv * env,
+	jclass cls
+)
+{
+	jobjectArray _array;
+	int i, size;
+	jclass clazz;
+	jobject empty;
+
+
+	GList *caps=notify_get_server_caps();
+
+	if (caps == NULL) {
+		size = 0;
+	} else {
+		size = g_list_length(caps);
+	}
+
+	clazz = (*env)->FindClass(env, "java/lang/String");
+	if ((*env)->ExceptionCheck(env)) {
+		(*env)->ExceptionDescribe(env);
+		g_error("No jclass?");
+	}
+
+	empty=(*env)->NewStringUTF(env, "");
+	//Do I need to release this?
+	if ((*env)->ExceptionCheck(env)) {
+		(*env)->ExceptionDescribe(env);
+		g_error("Unable to create empty string?");
+	}
+
+	_array = (*env)->NewObjectArray(env, size, clazz, empty);
+
+	if ((*env)->ExceptionCheck(env)) {
+		(*env)->ExceptionDescribe(env);
+		g_error("Unable to create array?");
+	}
+
+	for (i = 0; i < size; ++i) {
+		//Hopefully capability strings are ASCII only.
+		jstring cap=(*env)->NewStringUTF(env, caps->data);
+		(*env)->SetObjectArrayElement(env, _array, i, cap);
+		g_free(caps->data);
+		caps = caps->next;
+	}
+
+	g_list_free(caps);
+
+	return _array;
+}

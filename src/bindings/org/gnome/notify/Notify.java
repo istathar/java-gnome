@@ -40,6 +40,9 @@ import org.gnome.glib.Glib;
  * 
  * @author Serkan Kaba
  * @since 4.0.12
+ * 
+ * @see <a href="http://www.galago-project.org/specs/notification/">Desktop
+ *      Notifications Spec</a>
  */
 public final class Notify extends Glib
 {
@@ -81,5 +84,16 @@ public final class Notify extends Glib
      */
     public static boolean isInitted() {
         return NotifyMain.isInitted();
+    }
+    
+    /**
+     * Returns a list of features supported by the notification system.<br>
+     * See <em>D-BUS Protocol</em> section in desktop notifications spec for
+     * standard hints.
+     * 
+     * @since 4.0.12
+     */
+    public static String[] getServerCapabilities() {
+        return NotifyMain.getServerCapabilities();
     }
 }

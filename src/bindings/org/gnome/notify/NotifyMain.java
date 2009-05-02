@@ -33,5 +33,11 @@ final class NotifyMain extends Plumbing
     }
 
     private static native final boolean notify_is_initted();
+    
+    static final String[] getServerCapabilities() {
+        return notify_get_server_caps();
+    }
+    
+    private static native final String[] notify_get_server_caps();
 
 }
