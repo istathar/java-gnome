@@ -172,7 +172,7 @@
   (c-name "gtk_button_set_image")
   (return-type "none")
   (parameters
-    '("GtkWidget*" "image")
+    '("GtkWidget*" "image" (null-ok))
   )
 )
 

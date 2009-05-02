@@ -1,5 +1,60 @@
 NEWS
 
+<a name="4.0.11" id="1241147383" title="Bug fixes"></a>
+
+java-gnome 4.0.11 (1 May 2009)
+==============================
+
+This is a bug fix release.
+
+We made a few mistakes in our handling of the PangoAttribute structures'
+memory which resulted in VM crashes [unfortunately, the normal GNOME way of
+debugging things is to `SIGSEGV`. That's fine for a C program but Bad™ for
+your average Java Virtual Machine as it takes out the entire process. We
+therefore work rather hard to avoid -- or at least trap -- this sort of
+thing]. Releasing corrections for these bugs was a priority.
+
+Concurrently a significant internal improvement in our handling of
+accumulating Attributes into AttributeLists was made. While this is not user
+visible _per se_, we were able to drop the requirement that the text you were
+formatting already be in the Pango Layout before assigning the range that the
+Attribute would cover. You also no longer need to pass that Layout to
+`setIndices()`. This makes things a great deal easier if you are
+simultaneously aggregating the text and assigning markup.
+
+* **`org.gnome.pango.Attribute`**
+* **`org.gnome.pango.AttributeList`**
+* `org.gnome.pango.PangoAttributeOverride`
+* **`org.gnome.pango.Layout`**
+* **`org.gnome.pango.FontDescription`**
+* **`org.gnome.pango.FallbackAttribute`**
+* `org.gnome.pango.ValidatePangoTextRendering`
+* **`org.gnome.pango.WrapMode`**
+
+Martin Garton contributed some documentation quality improvements and new
+coverage. Serkan Kaba made some minor fixes to ensure the unit tests run in a
+Turkish locale. And as ever there are small incremental improvements to
+various classes, including a number of additional properties exposed care of
+the work of new contributor Thijs Leibbrand. 
+
+* **`org.gnome.gtk.TreeViewColumn`**
+* **`org.gnome.gtk.ComboBox`**
+* **`org.gnome.gtk.Widget`**
+* `org.freedesktop.bindings.ValidateInternationalization`
+* **`org.gnome.gtk.Label`**
+* **`org.gnome.gtk.ScrolledWindow`**
+* **`org.gnome.gtk.Box`**
+* **`org.gnome.gtk.AboutDialog`**
+
+Looking ahead
+-------------
+
+This was a brief cycle; as noted we're mostly pushing some bug fixes.
+Meanwhile there are a number of significant branches underway by various
+hackers; which, hopefully, will feature prominently in the next release.
+
+AfC
+
 <a name="4.0.10" id="1236252051" title="Beautiful sculpted text"></a>
 
 java-gnome 4.0.10 (5 Mar 2009)

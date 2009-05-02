@@ -1,7 +1,7 @@
 /*
  * ValidatePacking.java
  *
- * Copyright (c) 2007 Operational Dynamics Consulting Pty Ltd
+ * Copyright (c) 2007-2009 Operational Dynamics Consulting Pty Ltd
  * 
  * The code in this file, and the suite it is a part of, are made available
  * to you by the authors under the terms of the "GNU General Public Licence,
@@ -68,5 +68,24 @@ public class ValidatePacking extends TestCaseGtk
         assertSame(w, b.getToplevel());
         assertSame(w, x.getToplevel());
         assertSame(w, w.getToplevel());
+    }
+
+    public final void testBoxSpacing() {
+        final VBox box;
+
+        box = new VBox(false, 3);
+
+        assertEquals(3, box.getSpacing());
+        box.setSpacing(1);
+        assertEquals(1, box.getSpacing());
+        box.setSpacing(0);
+        assertEquals(0, box.getSpacing());
+
+        try {
+            box.setSpacing(-1);
+            fail();
+        } catch (IllegalArgumentException iae) {
+            // good
+        }
     }
 }

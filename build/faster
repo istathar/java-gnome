@@ -340,6 +340,7 @@ def compileJavaCode(outputDir, classpath, sourcepath, sources):
 		cmd += " -classpath " + classpath
 	if sourcepath:
 		cmd += " -sourcepath " + sourcepath
+	cmd += " -encoding UTF-8"
 	cmd += " " + " ".join(sources)
 
 	blurb = "\n\t".join(sources)
@@ -651,10 +652,12 @@ def compileDocumentation():
 	cmd += "-stylesheetfile src/bindings/stylesheet.css "
 	cmd += "-overview src/bindings/overview.html "
 	cmd += "-sourcepath src/bindings "
+	cmd += "-encoding UTF-8 "
 	cmd += "-subpackages org "
 	cmd += "-exclude org.freedesktop.bindings "
 	cmd += "src/bindings/org/freedesktop/bindings/Time.java "
 	cmd += "src/bindings/org/freedesktop/bindings/Version.java "
+	cmd += "src/bindings/org/freedesktop/bindings/Internationalization.java "
 	if not verbose:
 		cmd += " >/dev/null"
 
