@@ -11,8 +11,6 @@
 package notify;
 
 import org.gnome.gtk.Gtk;
-import org.gnome.gtk.Menu;
-import org.gnome.gtk.MenuItem;
 import org.gnome.gtk.StatusIcon;
 import org.gnome.notify.Notification;
 import org.gnome.notify.Notify;

@@ -240,9 +240,13 @@ public class Notification extends org.gnome.glib.Object
     }
 
     /**
-     * Signal emmitted when a notification is closed. This can happen either
-     * when the user manually closes it or or it expires after the timeout
-     * set.
+     * Signal emmitted when a notification is closed. This can happen in 3 ways:
+     * <ul>
+     * <li>When notification timeout expires.</li>
+     * <li>When user dismisses it by closing.</li>
+     * <li>When {@link #close()} is called.</li>
+     * </ul>
+     * 
      * 
      * @author Serkan Kaba
      * @since 4.0.12
