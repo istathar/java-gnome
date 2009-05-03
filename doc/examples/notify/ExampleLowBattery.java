@@ -11,8 +11,6 @@
 package notify;
 
 import org.gnome.gtk.Gtk;
-import org.gnome.gtk.Menu;
-import org.gnome.gtk.MenuItem;
 import org.gnome.gtk.StatusIcon;
 import org.gnome.notify.Notification;
 import org.gnome.notify.Notify;
@@ -50,30 +48,6 @@ public class ExampleLowBattery
         icon.setFromIconName("gnome-power-manager");
 
         /*
-         * Attach a popup menu with a single Quit MenuItem to StatusIcon.
-         */
-
-        icon.connect(new org.gnome.gtk.StatusIcon.PopupMenu() {
-            public void onPopupMenu(StatusIcon source, int button, int activateTime) {
-                final Menu trayMenu;
-                final MenuItem quitItem;
-
-                quitItem = new MenuItem("Quit");
-                quitItem.connect(new org.gnome.gtk.MenuItem.Activate() {
-                    public void onActivate(MenuItem source) {
-                        Notify.uninit();
-                        Gtk.mainQuit();
-                    }
-                });
-
-                trayMenu = new Menu();
-                trayMenu.add(quitItem);
-                trayMenu.showAll();
-                trayMenu.popup(source);
-            }
-        });
-
-        /*
          * Create a notification with a warning icon, attached to StatusIcon.
          */
 
@@ -81,8 +55,20 @@ public class ExampleLowBattery
                 "messagebox_warning", icon);
 
         /*
+         * Quit the application after notification disappears.
+         */
+
+        notification.connect(new org.gnome.notify.Notification.Closed() {
+            public void onClosed(Notification source) {
+                Notify.uninit();
+                Gtk.mainQuit();
+            }
+        });
+
+        /*
          * Make it play the warning sound from gnome-sound.
          */
+
         notification.setHint("sound-file", "/usr/share/sounds/warning.wav");
 
         /*

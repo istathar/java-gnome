@@ -200,3 +200,8 @@
     '("GError**" "error")
   )
 )
+
+(define-virtual closed
+  (of-object "NotifyNotification")
+  (return-type "none")
+)

@@ -1,5 +1,5 @@
 /*
- * NotifyMain.c
+ * NotifyMainOverride.c
  *
  * Copyright (c) 2009 Operational Dynamics Consulting Pty Ltd
  *
@@ -12,10 +12,11 @@
 
 #include <libnotify/notify.h>
 #include <jni.h>
+#include "org_gnome_notify_NotifyMainOverride.h"
 
 /*
  * Implements
- *   org.gnome.notify.NotifyMain.notify_get_server_caps()
+ *   org.gnome.notify.NotifyMainOverride.notify_get_server_caps()
  * called from
  *   org.gnome.notify.Notify.getServerCapabilities()
  */

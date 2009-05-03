@@ -1,5 +1,5 @@
 /*
- * NotifyMain.java
+ * NotifyMainOverride.java
  *
  * Copyright (c) 2009 Operational Dynamics Consulting Pty Ltd, and Others
  * 
@@ -17,9 +17,15 @@ final class NotifyMainOverride extends Plumbing
     private NotifyMainOverride() {}
 
     static final String[] getServerCapabilities() {
-        return notify_get_server_caps();
+        String[] result;
+
+        synchronized (lock) {
+            result = notify_get_server_caps();
+
+            return result;
+        }
     }
-    
+
     private static native final String[] notify_get_server_caps();
 
 }
