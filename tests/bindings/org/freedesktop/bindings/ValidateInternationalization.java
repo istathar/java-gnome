@@ -26,7 +26,9 @@ import org.gnome.gtk.TestCaseGtk;
 public class ValidateInternationalization extends TestCaseGtk
 {
     private static String LC_ALL;
+
     private static String LANGUAGE;
+
     private static String LANG;
 
     public final void testInitialization() {

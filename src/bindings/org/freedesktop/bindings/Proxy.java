@@ -12,11 +12,12 @@
 package org.freedesktop.bindings;
 
 /**
- * A proxy object representing a native resource that has a unique
- * identity and can be looked up.
- *
+ * A proxy object representing a native resource that has a unique identity
+ * and can be looked up.
+ * 
  * <p>
- * <i><b>This is implementation, and you will never need to use it directly</b></i>
+ * <i><b>This is implementation, and you will never need to use it
+ * directly</b></i>
  * 
  * @author Andrew Cowie
  * @author Vreixo Formoso
