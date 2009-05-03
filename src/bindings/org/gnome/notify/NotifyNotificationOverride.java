@@ -12,9 +12,9 @@
 
 package org.gnome.notify;
 
-final class NotificationOverride extends Plumbing
+final class NotifyNotificationOverride extends Plumbing
 {
-    private NotificationOverride() {}
+    private NotifyNotificationOverride() {}
 
     static final void setHintByte(Notification self, String key, short value) {
         if (self == null) {

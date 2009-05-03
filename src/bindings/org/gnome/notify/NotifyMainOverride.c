@@ -12,6 +12,7 @@
 
 #include <libnotify/notify.h>
 #include <jni.h>
+#include "org_gnome_notify_NotifyMainOverride.h"
 
 /*
  * Implements

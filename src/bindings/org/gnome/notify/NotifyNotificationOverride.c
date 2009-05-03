@@ -1,5 +1,5 @@
 /*
- * NotificationOverride.c
+ * NotifyNotificationOverride.c
  *
  * Copyright (c) 2009 Operational Dynamics Consulting Pty Ltd
  *
@@ -12,14 +12,15 @@
 
 #include <libnotify/notify.h>
 #include <jni.h>
+#include "org_gnome_notify_NotifyNotificationOverride.h"
 
 /*
  * Implements
- *   org.gnome.notify.NotificationOverride.notify_notification_set_hint_byte()
+ *   org.gnome.notify.NotifyNotificationOverride.notify_notification_set_hint_byte()
  * called from
  *   org.gnome.notify.Notification.setHint(short)
  */
-JNIEXPORT void JNICALL Java_org_gnome_notify_NotificationOverride_notify_1notification_1set_1hint_1byte
+JNIEXPORT void JNICALL Java_org_gnome_notify_NotifyNotificationOverride_notify_1notification_1set_1hint_1byte
 (
 	JNIEnv *env,
 	jclass cls,

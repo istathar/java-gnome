@@ -214,7 +214,7 @@ public class Notification extends org.gnome.glib.Object
      * @since 4.0.12
      */
     public void setHint(String key, short value) {
-        NotificationOverride.setHintByte(this, key, value);
+        NotifyNotificationOverride.setHintByte(this, key, value);
     }
 
     /**
