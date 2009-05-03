@@ -238,4 +238,12 @@ public class Notification extends org.gnome.glib.Object
             throw new RuntimeException(e.getMessage());
         }
     }
+    
+    public interface Closed extends NotifyNotification.ClosedSignal {
+        public void onClosed(Notification source);
+    }
+    
+    public void connect(Closed handler) {
+        NotifyNotification.connect(this, handler, false);
+    }
 }
