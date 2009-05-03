@@ -15,7 +15,7 @@
 
 /*
  * Implements
- *   org.gnome.notify.NotifyMain.notify_get_server_caps()
+ *   org.gnome.notify.NotifyMainOverride.notify_get_server_caps()
  * called from
  *   org.gnome.notify.Notify.getServerCapabilities()
  */

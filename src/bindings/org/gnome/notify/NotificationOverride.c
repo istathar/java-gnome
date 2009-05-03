@@ -15,9 +15,9 @@
 
 /*
  * Implements
- *   org.gnome.notify.NotifyMain.notify_get_server_caps()
+ *   org.gnome.notify.NotificationOverride.notify_notification_set_hint_byte()
  * called from
- *   org.gnome.notify.Notify.getServerCapabilities()
+ *   org.gnome.notify.Notification.setHint(short)
  */
 JNIEXPORT void JNICALL Java_org_gnome_notify_NotificationOverride_notify_1notification_1set_1hint_1byte
 (
