@@ -238,23 +238,25 @@ public class Notification extends org.gnome.glib.Object
             throw new RuntimeException(e.getMessage());
         }
     }
-    
+
     /**
-     * Signal emmitted when a notification is closed. This can happen either when the user manually closes it or or it expires after the timeout set. 
+     * Signal emmitted when a notification is closed. This can happen either
+     * when the user manually closes it or or it expires after the timeout
+     * set.
      * 
      * @author Serkan Kaba
      * @since 4.0.12
      */
-    public interface Closed extends NotifyNotification.ClosedSignal {
+    public interface Closed extends NotifyNotification.ClosedSignal
+    {
         public void onClosed(Notification source);
     }
-    
-    
+
     /**
-     * Hook up a handler to receive <code>Notification.Closed</code> events on this
-     * Notification.
+     * Hook up a handler to receive <code>Notification.Closed</code> events on
+     * this Notification.
      * 
-     * @see #Notification.Closed
+     * @see Notification.Closed
      * @since 4.0.12
      */
     public void connect(Closed handler) {
