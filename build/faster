@@ -37,7 +37,7 @@
 # bring to the process when it lands, so it is a step in the right direction.
 #
 
-import os, md5, subprocess, cPickle, sys
+import os, hashlib, subprocess, cPickle, sys
 from os.path import *
 from shutil import move
 
@@ -233,7 +233,7 @@ def fileNeedsBuilding(source, target, update=True):
 		sys.exit(source + " missing, abort")
 
 	f = open(source)
-	m = md5.new(f.read())
+	m = hashlib.md5(f.read())
 	f.close()
 	hash = m.hexdigest()
 
