@@ -4,7 +4,7 @@
 # faster.py, an abbreviated build script for java-gnome
 # Must be invoked from the project top level directory as [./]build/faster
 #
-# Copyright (c) 2007-2008 Operational Dynamics Consulting Pty Ltd 
+# Copyright (c) 2007-2009 Operational Dynamics Consulting Pty Ltd 
 # 
 # The code in this file, and the library it is a part of, are made available
 # to you by the authors under the terms of the "GNU General Public Licence,
@@ -37,7 +37,7 @@
 # bring to the process when it lands, so it is a step in the right direction.
 #
 
-import os, md5, subprocess, cPickle, sys
+import os, hashlib, subprocess, cPickle, sys
 from os.path import *
 from shutil import move
 
@@ -233,7 +233,7 @@ def fileNeedsBuilding(source, target, update=True):
 		sys.exit(source + " missing, abort")
 
 	f = open(source)
-	m = md5.new(f.read())
+	m = hashlib.md5(f.read())
 	f.close()
 	hash = m.hexdigest()
 
