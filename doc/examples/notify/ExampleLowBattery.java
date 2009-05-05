@@ -14,6 +14,7 @@ import org.gnome.gtk.Gtk;
 import org.gnome.gtk.StatusIcon;
 import org.gnome.notify.Notification;
 import org.gnome.notify.Notify;
+import org.gnome.notify.Urgency;
 
 /**
  * A simple program that sits in tray and displays a low battery warning.
@@ -73,6 +74,11 @@ public class ExampleLowBattery
          * Make it play the warning sound from gnome-sound.
          */
         notification.setHint("sound-file", "/usr/share/sounds/warning.wav");
+        
+        /*
+         * Make the notification critical.
+         */
+        notification.setUrgency(Urgency.CRITICAL);
 
         /*
          * Display the notification.
