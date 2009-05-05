@@ -74,7 +74,7 @@ public class ExampleLowBattery
          * Make it play the warning sound from gnome-sound.
          */
         notification.setHint("sound-file", "/usr/share/sounds/warning.wav");
-        
+
         /*
          * Make the notification critical.
          */
