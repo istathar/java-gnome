@@ -1,7 +1,7 @@
 /*
  * Notebook.java
  *
- * Copyright (c) 2007-2008 Operational Dynamics Consulting Pty Ltd, and Others
+ * Copyright (c) 2007-2009 Operational Dynamics Consulting Pty Ltd, and Others
  *
  * The code in this file, and the library it is a part of, are made available
  * to you by the authors under the terms of the "GNU General Public Licence,
@@ -28,6 +28,7 @@ package org.gnome.gtk;
  * @author Sebastian Mancke
  * @author Andrew Cowie
  * @author Stefan Prelle
+ * @author Stefan Schweizer
  * @since 4.0.3
  */
 /*
@@ -126,15 +127,22 @@ public class Notebook extends Container
     /**
      * The handler interface for notification of changes in the current page.
      * 
+     * <p>
+     * Note that this handler is only used when the page is changed with the
+     * keyboard using Ctrl+Page Up/Down. If you want to get informed every
+     * time the page is changed, you should use the
+     * <code>Notebook.SwitchPage</code> signal instead.
+     * 
      * @since 4.0.3
      */
     public interface ChangeCurrentPage extends GtkNotebook.ChangeCurrentPageSignal
     {
         /**
          * @param offset
-         *            the tab which is now the current page.
+         *            The number of pages to move forward/backward (negative
+         *            value for backward)
          */
-        public void onChangeCurrentPage(Notebook source, int offset);
+        public boolean onChangeCurrentPage(Notebook source, int offset);
     }
 
     /**
@@ -156,6 +164,49 @@ public class Notebook extends Container
     public void connect(CHANGE_CURRENT_PAGE handler) {
         assert false : "use Notebook.ChangeCurrentPage instead";
         GtkNotebook.connect(this, handler, false);
+    }
+
+    /**
+     * The signal emitted when the user or the program switches to a new page.
+     * 
+     * <p>
+     * Use this in preference to <code>Notebook.ChangeCurrentPage</code>.
+     * 
+     * @author Stefan Schweizer
+     * @since 4.0.10
+     */
+    public interface SwitchPage
+    {
+        /**
+         * Callback received when the page showing in the Notebook changes.
+         * Values of the page number parameter start from 0.
+         */
+        public void onSwitchPage(Notebook source, int pageNum);
+    }
+
+    /**
+     * Connects a <code>Notebook.SwitchPage</code> handler to this Notebook.
+     * 
+     * @since 4.0.10
+     */
+    public void connect(Notebook.SwitchPage handler) {
+        GtkNotebook.connect(this, new SwitchPageHandler(handler), false);
+    }
+
+    /*
+     * Eliminate page parameter from handler interface.
+     */
+    private static class SwitchPageHandler implements GtkNotebook.SwitchPageSignal
+    {
+        private final SwitchPage handler;
+
+        private SwitchPageHandler(SwitchPage handler) {
+            this.handler = handler;
+        }
+
+        public void onSwitchPage(Notebook source, long page, int pageNum) {
+            handler.onSwitchPage(source, pageNum);
+        }
     }
 
     /**

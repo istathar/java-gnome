@@ -7,6 +7,11 @@
  * to you by the authors under the terms of the "GNU General Public Licence,
  * version 2" See the LICENCE file for the terms governing usage and
  * redistribution.
+ * 
+ * Copyright (c) 2008      Nathan Strum
+ * 
+ * The image sketch is included with java-gnome with permission of its author
+ * for the express purpose of illustrating this example.
  */
 package cairo;
 
@@ -15,6 +20,7 @@ import java.io.IOException;
 import org.freedesktop.cairo.Context;
 import org.freedesktop.cairo.PdfSurface;
 import org.freedesktop.cairo.Surface;
+import org.gnome.gdk.Pixbuf;
 import org.gnome.gtk.Gtk;
 import org.gnome.gtk.PaperSize;
 import org.gnome.gtk.Unit;
@@ -41,9 +47,7 @@ import static textview.LoremIpsum.text;
  * font's extents), nothing bleeds left past the margin line.
  * 
  * @author Andrew Cowie
- */
-/*
- * TODO need to find a sketch image we can put at the bottom of the page.
+ * @author Nathan Strum
  */
 public class ExampleLinedPaper
 {
@@ -60,6 +64,7 @@ public class ExampleLinedPaper
         final Rectangle rect;
         final double[] holes;
         double y, v, b;
+        final Pixbuf pixbuf;
 
         Gtk.init(args);
 
@@ -76,7 +81,7 @@ public class ExampleLinedPaper
         cr.moveTo(leftMargin, topMargin);
 
         layout = new Layout(cr);
-        desc = new FontDescription("Liberation Serif 10");
+        desc = new FontDescription("Liberation Serif, 12");
         layout.setFontDescription(desc);
 
         /*
@@ -183,6 +188,16 @@ public class ExampleLinedPaper
 
             y += v; // blank line between paras
         }
+
+        /*
+         * Of course, what student in latin class is paying attention? None in
+         * the history of western civilization, we're quite sure. So to
+         * complete our example we have a doodle at the bottom of the page.
+         */
+
+        pixbuf = new Pixbuf("doc/examples/cairo/incoming-sketch.png");
+        cr.setSource(pixbuf, pageWidth - pixbuf.getWidth() - 10, pageHeight - pixbuf.getHeight() + 50);
+        cr.paint();
 
         /*
          * Finally, flush the drawing out to the Surface and through it on out

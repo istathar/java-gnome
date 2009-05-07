@@ -12,6 +12,7 @@
 package org.gnome.gtk;
 
 import org.gnome.gdk.Color;
+import org.gnome.gdk.Colormap;
 import org.gnome.gdk.Event;
 import org.gnome.gdk.EventButton;
 import org.gnome.gdk.EventCrossing;
@@ -37,6 +38,45 @@ public abstract class Widget extends org.gnome.gtk.Object
 {
     protected Widget(long pointer) {
         super(pointer);
+    }
+
+    /**
+     * Get the name of the Widget, if it has one.
+     * 
+     * <p>
+     * Widgets can be identified by a name. You will most likely use this
+     * method a lot if you are using Glade. Every widget there is identified
+     * by a name. It is suggested to use sensible names; see
+     * {@link org.gnome.glade.Glade Glade} for a discussion of the
+     * implications of different nomenaclatures if that's what you are using,
+     * but in any case once you've retrieved the Widget with
+     * {@link org.gnome.glade.XML#getWidget(String) getWidget()} you won't
+     * really need to know its name anymore.
+     * 
+     * @since 4.0.11
+     */
+    public String getName() {
+        return GtkWidget.getName(this);
+    }
+
+    /**
+     * Every Widget has a name as an optional identifier.
+     * 
+     * <p>
+     * If using Glade then these names are used to retrieve widgets from the
+     * XML file. You can use this method you set the name of a Widget after it
+     * is retrieved.
+     * 
+     * <p>
+     * If you are using Glade then you will most likely never need this
+     * method, as you will have them defined in Glade. And if you're not using
+     * Glade, then you probably won't need this method either, since you can
+     * refer to Widgets you create by reference.
+     * 
+     * @since 4.0.11
+     */
+    public void setName(String name) {
+        GtkWidget.setName(this, name);
     }
 
     /**
@@ -132,6 +172,45 @@ public abstract class Widget extends org.gnome.gtk.Object
      */
     public void hide() {
         GtkWidget.hide(this);
+    }
+
+    /**
+     * Request that an area of the Widget to be redrawn. This will eventually
+     * result in an <code>Widget.ExposeEvent</code> being sent to the Widget
+     * asking it to [re]render the area given by the passed in co-ordinates.
+     * 
+     * <p>
+     * You only ever need this if doing your own custom Widget drawing, and
+     * then only sometimes.
+     * 
+     * <p>
+     * The redraw will not happen immediately, but rather during the next
+     * iteration of the main loop. Also, note that several such requests may
+     * be combined into a single <code>Widget.ExposeEvent</code> by the X
+     * server and GDK.
+     * 
+     * <p>
+     * Be aware that this will invalidate both this Widget <i>and</i> all its
+     * children. If you wish to limit your redrawing, you will be better off
+     * with one of the
+     * {@link org.gnome.gdk.Window#invalidate(org.gnome.gdk.Rectangle, boolean)
+     * invalidate()} calls in the underlying native resource.
+     * 
+     * @since 4.0.10
+     */
+    public void queueDrawArea(int x, int y, int width, int height) {
+        GtkWidget.queueDrawArea(this, x, y, width, height);
+    }
+
+    /**
+     * Request that the entire Widget be redrawn. See
+     * {@link #queueDrawArea(int, int, int, int) queueDrawArea()} for full
+     * details, but you only ever need this if doing your own drawing.
+     * 
+     * @since 4.0.10
+     */
+    public void queueDraw() {
+        GtkWidget.queueDraw(this);
     }
 
     /**
@@ -605,6 +684,21 @@ public abstract class Widget extends org.gnome.gtk.Object
      */
     public org.gnome.gdk.Window getWindow() {
         return GtkWidgetOverride.getWindow(this);
+    }
+
+    /**
+     * Sets the Colormap of this widget.
+     * 
+     * <p>
+     * The only useful application of this is to enable per-pixel translucency
+     * on top level Widgets. This involves getting the RGBA colormap from the
+     * associated screen, and also requires (if using cairo) using the clear
+     * operator to remove the standard background.
+     * 
+     * @since 4.0.10
+     */
+    public void setColormap(Colormap colormap) {
+        GtkWidget.setColormap(this, colormap);
     }
 
     /**
@@ -1237,6 +1331,31 @@ public abstract class Widget extends org.gnome.gtk.Object
      */
     public void grabDefault() {
         GtkWidget.grabDefault(this);
+    }
+
+    /**
+     * Make this the current grabbed Widget. Interaction with other Widgets
+     * will be prevented. If this Widget is not sensitive, this call will do
+     * nothing.
+     * 
+     * <p>
+     * Note that being the current grabbed widget means mouse and keyboard
+     * events will not be delivered to other widgets, so use this with care.
+     * 
+     * @since 4.0.11
+     */
+    public void grabAdd() {
+        GtkWidget.grabAdd(this);
+    }
+
+    /**
+     * Removes the "grab" status from this Widget if it is currently grabbed,
+     * otherwise this does nothing. See {@link #grabAdd() grabAdd()}.
+     * 
+     * @since 4.0.11
+     */
+    public void grabRemove() {
+        GtkWidget.grabRemove(this);
     }
 
     /**

@@ -1,7 +1,7 @@
 /*
  * TextBuffer.java
  *
- * Copyright (c) 2007-2008 Operational Dynamics Consulting Pty Ltd, and Others
+ * Copyright (c) 2007-2009 Operational Dynamics Consulting Pty Ltd, and Others
  *
  * The code in this file, and the library it is a part of, are made available
  * to you by the authors under the terms of the "GNU General Public Licence,
@@ -589,6 +589,28 @@ public class TextBuffer extends Object
     }
 
     /**
+     * Apply an array of TextTags to the given range.
+     * 
+     * @since 4.0.10
+     */
+    /*
+     * Convenience method. This doesn't need to be here, but it lends a
+     * certain elegance when used alongside the insert() overload
+     */
+    public void applyTag(TextTag[] tags, TextIter start, TextIter end) {
+        if (tags == null) {
+            return;
+        }
+        for (TextTag tag : tags) {
+            if (tag == null) {
+                continue;
+            }
+            checkTag(tag);
+            GtkTextBuffer.applyTag(this, tag, start, end);
+        }
+    }
+
+    /**
      * Select a range of text. The <var>selection-bound</var> mark will be
      * placed at <code>start</code>, and the <var>insert</var> mark will be
      * placed at <code>end</code>.
@@ -853,9 +875,9 @@ public class TextBuffer extends Object
      * Signal emitted when a TextMark is set (or moved) in this TextBuffer.
      * 
      * <p>
-     * This can be extremely useful as a way to react to the cursor moving.
-     * The cursor is, of course, represented by the <var>insert</var>
-     * TextMark, and so, doing:
+     * This can be used as a way to react to the cursor moving. The cursor is,
+     * of course, represented by the <var>insert</var> TextMark, and so,
+     * doing:
      * 
      * <pre>
      * insert = buffer.getInsert();
@@ -871,13 +893,24 @@ public class TextBuffer extends Object
      * 
      * will allow you to react to the cursor moving.
      * 
-     * >
      * <p>
      * Somewhat counter-intuitively, however, inserting text does <i>not</i>
      * "move" a TextMark; the <var>insert</var> TextMark will flow right
      * according to its gravity as text is added. Using the arrow keys or
      * mouse to move the cursor will, on the other hand, result in this signal
      * being emitted.
+     * 
+     * <p>
+     * While an interesting example, doing this to track the cursor changing
+     * isn't actually a good idea. You get a <code>TextBuffer.MarkSet</code>
+     * callback for <i>every</i> TextMark being set (including ones used
+     * internally by GTK!) which means lots of activity that has nothing to do
+     * with you. Use {@link TextBuffer.NotifyCursorPosition} instead.
+     * 
+     * <p>
+     * <i>Using signal is very inefficient; why this is a signal on TextBuffer
+     * and not a signal coming (only) from individual TextMarks is
+     * mystery.</i>
      * 
      * @author Andrew Cowie
      * @since 4.0.10
@@ -949,6 +982,148 @@ public class TextBuffer extends Object
      * @since 4.0.10
      */
     public void connect(TextBuffer.RemoveTag handler) {
+        GtkTextBuffer.connect(this, handler, false);
+    }
+
+    /**
+     * Signal emitted when the <var>cursor-position</var> property changes.
+     * This is a good way to find out that the cursor has moved.
+     * 
+     * 
+     * <pre>
+     * buffer.connect(new TextBuffer.NotifyCursorPosition()) {
+     *     public void onNotifyCursorPosition(TextBuffer source) {
+     *          final int offset;
+     *          
+     *          offset = buffer.getCursorPosition();
+     *     }
+     * });
+     * </pre>
+     * 
+     * If you've already got the <var>insert</var> TextMark, then you could
+     * instead do:
+     * 
+     * <pre>
+     * buffer.connect(new TextBuffer.NotifyCursorPosition()) {
+     *     public void onNotifyCursorPosition(TextBuffer source) {
+     *          final TextIter pointer;
+     *          final int offset;
+     *          
+     *          pointer = buffer.getIter(insertBound);
+     *          offset = buffer.getOffset();
+     *     }
+     * });
+     * </pre>
+     * 
+     * which amounts to the same thing.
+     * 
+     * <p>
+     * Using the <code>TextBuffer.NotifyCursorPosition</code> signal is much
+     * more efficient than hooking up to <code>TextBuffer.MarkSet</code>
+     * signals.
+     * 
+     * @author Andrew Cowie
+     * @since 4.0.10
+     */
+    public interface NotifyCursorPosition extends GtkTextBufferOverride.NotifyCursorPositionSignal
+    {
+        public void onNotifyCursorPosition(TextBuffer source);
+    }
+
+    /**
+     * Hook up a handler to receive
+     * <code>TextBuffer.NotifyCursorPosition</code> signals emitted when the
+     * <var>cursor-position</var> of this TextBuffer changes.
+     * 
+     * @since 4.0.10
+     */
+    public void connect(TextBuffer.NotifyCursorPosition handler) {
+        GtkTextBufferOverride.connect(this, handler, false);
+    }
+
+    /**
+     * Get the current value of the <var>cursor-position</var> property.
+     * 
+     * <p>
+     * This corresponds to the offset of the <var>insert</var> TextMark; if
+     * you already have a TextIter for that you call it's
+     * {@link TextIter#getOffset() getOffset()} instead.
+     * 
+     * @since 4.0.10
+     */
+    public int getCursorPosition() {
+        return getPropertyInteger("cursor-position");
+    }
+
+    /**
+     * Mark the beginning of a user initiated action. Calls to
+     * <code>beginUserAction()</code> can nest, but they need to be paired
+     * with calls to {@link #endUserAction() endUserAction()}. The outer-most
+     * call to this method will raise <code>TextBuffer.BeginUserAction</code>.
+     * Note that user input into a TextView that is handled by GTK's default
+     * <code>Widget.KeyPressEvent</code> handler will likewise begin a user
+     * action sequence.
+     * 
+     * @since 4.0.11
+     */
+    public void beginUserAction() {
+        GtkTextBuffer.beginUserAction(this);
+    }
+
+    /**
+     * Calls to <code>endUserAction()</code> close off the matching
+     * {@link #beginUserAction() beginUserAction()} call.
+     * <code>TextBuffer.EndUserAction</code> will only be emitted when the
+     * outer most user action is closed.
+     * 
+     * @since 4.0.11
+     */
+    public void endUserAction() {
+        GtkTextBuffer.endUserAction(this);
+    }
+
+    /**
+     * Signal emitted when a "user action" is initiated. This can be fired
+     * programmatically by calling TextBuffer's
+     * {@link TextBuffer#beginUserAction() beginUserAction()}, but is also
+     * raised by the default Input Method handler when the user types into a
+     * TextView.
+     * 
+     * @author Andrew Cowie
+     * @since 4.0.11
+     */
+    public interface BeginUserAction extends GtkTextBuffer.BeginUserActionSignal
+    {
+        public void onBeginUserAction(TextBuffer source);
+    }
+
+    /**
+     * Hookup a <code>TextBuffer.BeginUserAction</code> signal handler.
+     * 
+     * @since 4.0.11
+     */
+    public void connect(BeginUserAction handler) {
+        GtkTextBuffer.connect(this, handler, false);
+    }
+
+    /**
+     * The signal emitted when a "user action" stops. See TextBuffer's
+     * {@link TextBuffer#beginUserAction() beginUserAction()} for details.
+     * 
+     * @author Andrew Cowie
+     * @since 4.0.11
+     */
+    public interface EndUserAction extends GtkTextBuffer.EndUserActionSignal
+    {
+        public void onEndUserAction(TextBuffer source);
+    }
+
+    /**
+     * Hookup a <code>TextBuffer.EndUserAction</code> signal handler.
+     * 
+     * @since 4.0.11
+     */
+    public void connect(EndUserAction handler) {
         GtkTextBuffer.connect(this, handler, false);
     }
 }

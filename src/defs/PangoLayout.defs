@@ -42,7 +42,7 @@
   (c-name "pango_layout_set_attributes")
   (return-type "none")
   (parameters
-    '("PangoAttrList*" "attrs")
+    '("PangoAttrList*" "attrs" (null-ok))
   )
 )
 

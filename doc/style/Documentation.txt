@@ -68,8 +68,12 @@ GTK or {Linux,Solaris}. Therefore, in order to achieve the criterion of
 **Approachability** that we defined as our primary goal, considerable
 massaging and indeed complete rewriting is necessary. Use a friendly, casual,
 and colloquial style... and don't forget an example snippet! Methods like
-Widget's `show()`, the entire Button class, and the signal Window.DELETE are
-all good examples.
+Widget's [`show()`][show], the entire [Button][button] class, and the signal
+[`Window.DeleteEvent`][delete] are all good examples.
+
+[show]: /4.0/doc/api/org/gnome/gtk/Widget.html#show()
+[button]: /4.0/doc/api/org/gnome/gtk/Button.html
+[delete]: /4.0/doc/api/org/gnome/gtk/Window.DeleteEvent.html
 
 Finally, where it is appropriate to discuss how our implementation varies from
 conventional GTK practise, use a paragraph all in _italics_ at the end of the
@@ -99,11 +103,11 @@ try:
     $ cd src/java/org/gnome/gtk
     $ aspell -x -p `bzr root`/.aspell.en.pws -c Button.java
 
-_Originally written by Andrew Cowie 2 Dec 06. Last modified 19 Dec 06._
+_Originally written by Andrew Cowie 2 Dec 06. Last modified 2 Jan 09._
 
 <!--
 
-  Copyright (c) 2006 Operational Dynamics Consulting Pty Ltd 
+  Copyright (c) 2006,2009 Operational Dynamics Consulting Pty Ltd 
 
   As project documentation, this file forms an integral part of the source
   code of the library it accompanies, and thus is made available to you by the

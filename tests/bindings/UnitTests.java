@@ -30,6 +30,7 @@ import org.gnome.gtk.ValidateAssistant;
 import org.gnome.gtk.ValidateComboBox;
 import org.gnome.gtk.ValidateFileChoosing;
 import org.gnome.gtk.ValidateIconView;
+import org.gnome.gtk.ValidateNotebookBehaviour;
 import org.gnome.gtk.ValidateOutParameters;
 import org.gnome.gtk.ValidatePacking;
 import org.gnome.gtk.ValidatePrinting;
@@ -45,6 +46,7 @@ import org.gnome.gtk.ValidateTreeModel;
 import org.gnome.gtk.ValidateTreeModelFilter;
 import org.gnome.gtk.ValidateTreeStore;
 import org.gnome.gtk.ValidateTreeView;
+import org.gnome.pango.ValidatePangoAttributeUsage;
 import org.gnome.pango.ValidatePangoTextRendering;
 
 import com.operationaldynamics.codegen.ValidateThingUsage;
@@ -132,6 +134,7 @@ public class UnitTests
         suite.addTestSuite(ValidateDrawingToFile.class);
         suite.addTestSuite(ValidateOutParameters.class);
         suite.addTestSuite(ValidatePacking.class);
+        suite.addTestSuite(ValidateNotebookBehaviour.class);
         suite.addTestSuite(ValidateFileChoosing.class);
         suite.addTestSuite(ValidateStockItems.class);
         suite.addTestSuite(ValidateResponseType.class);
@@ -148,6 +151,7 @@ public class UnitTests
         suite.addTestSuite(ValidateTextViewBorderWindows.class);
         suite.addTestSuite(ValidateArrow.class);
         suite.addTestSuite(ValidatePangoTextRendering.class);
+        suite.addTestSuite(ValidatePangoAttributeUsage.class);
         suite.addTestSuite(ValidatePrinting.class);
 
         return suite;

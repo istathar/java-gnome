@@ -65,6 +65,82 @@
   )
 )
 
+(define-method get_page_increment
+  (of-object "GtkAdjustment")
+  (c-name "gtk_adjustment_get_page_increment")
+  (return-type "gdouble")
+)
+
+(define-method set_page_increment
+  (of-object "GtkAdjustment")
+  (c-name "gtk_adjustment_set_page_increment")
+  (return-type "none")
+  (parameters
+    '("gdouble" "value")
+  )
+)
+
+(define-method get_step_increment
+  (of-object "GtkAdjustment")
+  (c-name "gtk_adjustment_get_step_increment")
+  (return-type "gdouble")
+)
+
+(define-method set_step_increment
+  (of-object "GtkAdjustment")
+  (c-name "gtk_adjustment_set_step_increment")
+  (return-type "none")
+  (parameters
+    '("gdouble" "value")
+  )
+)
+
+(define-method get_upper
+  (of-object "GtkAdjustment")
+  (c-name "gtk_adjustment_get_upper")
+  (return-type "gdouble")
+)
+
+(define-method set_upper
+  (of-object "GtkAdjustment")
+  (c-name "gtk_adjustment_set_upper")
+  (return-type "none")
+  (parameters
+    '("gdouble" "value")
+  )
+)
+
+(define-method get_lower
+  (of-object "GtkAdjustment")
+  (c-name "gtk_adjustment_get_lower")
+  (return-type "gdouble")
+)
+
+(define-method set_lower
+  (of-object "GtkAdjustment")
+  (c-name "gtk_adjustment_set_lower")
+  (return-type "none")
+  (parameters
+    '("gdouble" "value")
+  )
+)
+
+(define-method get_page_size
+  (of-object "GtkAdjustment")
+  (c-name "gtk_adjustment_get_page_size")
+  (return-type "gdouble")
+)
+
+(define-method set_page_size
+  (of-object "GtkAdjustment")
+  (c-name "gtk_adjustment_set_page_size")
+  (return-type "none")
+  (parameters
+    '("gdouble" "value")
+  )
+)
+
+
 (define-virtual changed
   (of-object "GtkAdjustment")
   (return-type "none")

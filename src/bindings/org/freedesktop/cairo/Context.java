@@ -87,6 +87,7 @@ import org.gnome.pango.LayoutLine;
  * @author Carl Worth
  * @author Behdad Esfahbod
  * @author Vreixo Formoso
+ * @author Zak Fenton
  * @since 4.0.7
  * @see <a href="http://www.cairographics.org/documentation/">Cairo Graphics
  *      documentation</a>
@@ -148,6 +149,75 @@ public class Context extends Entity
     public Context(Drawable drawable) {
         super(GdkCairoSupport.createContextFromDrawable(drawable));
         checkStatus();
+    }
+
+    /**
+     * Save the current state of this Context so it can be restored later.
+     * Calls to <code>save()</code> and <code>restore()</code> can be nested.
+     * 
+     * <p>
+     * This is useful for structured graphics.
+     * 
+     * @since 4.0.10
+     */
+    /*
+     * TODO which means what?
+     */
+    public void save() {
+        CairoContext.save(this);
+        checkStatus();
+    }
+
+    /**
+     * Restores the Context to the last (nested) saved state.
+     * 
+     * @since 4.0.10
+     */
+    public void restore() {
+        CairoContext.restore(this);
+        checkStatus();
+    }
+
+    /**
+     * Applies a translation transformation. What this does is move the point
+     * of origin so that <code>(0, 0)</code> is now at a new position.
+     * 
+     * <pre>
+     * cr.translate(20,50);
+     * cr.moveTo(20,20);    // This is now 40,70
+     *  ...
+     * </pre>
+     * 
+     * <p>
+     * See {@link Matrix} for the full suite of affine transformations
+     * available.
+     * 
+     * @since 4.0.10
+     */
+    public void translate(double tx, double ty) {
+        CairoContext.translate(this, tx, ty);
+    }
+
+    /**
+     * Applies a rotate transformation. This rotates the co-ordinates of
+     * subsequent drawing operations through a given angle (in radians). The
+     * rotation happens around the origin <code>(0, 0)</code>. To rotate
+     * around a different point, try the following:
+     * 
+     * <pre>
+     * cr.translate(x, y);
+     * cr.rotate(r);
+     * cr.translate(-x, -y);
+     * </pre>
+     * 
+     * <p>
+     * See {@link Matrix} for the full suite of affine transformations
+     * available.
+     * 
+     * @since 4.0.10
+     */
+    public void rotate(double r) {
+        CairoContext.rotate(this, r);
     }
 
     /**
@@ -245,6 +315,28 @@ public class Context extends Entity
     }
 
     /**
+     * Confines subsequent drawing operations to the inside area of the
+     * current path.
+     * 
+     * @since 4.0.10
+     */
+    public void clip() {
+        CairoContext.clip(this);
+        checkStatus();
+    }
+
+    /**
+     * Confines subsequent drawing operations to the inside area of the
+     * current path, leaving the path intact for subsequent reuse.
+     * 
+     * @since 4.0.10
+     */
+    public void clipPreserve() {
+        CairoContext.clipPreserve(this);
+        checkStatus();
+    }
+
+    /**
      * Draw the current path as a line, preserving the path such that it can
      * be used used again. If you have drawn a shape and want to
      * <code>fill()</code> it, you are better off calling
@@ -270,11 +362,7 @@ public class Context extends Entity
         result = CairoContext.getSource(this);
         checkStatus();
 
-        /*
-         * FIXME If result was already proxied, this adds an extra ref and
-         * will cause a memory leak
-         */
-        return CairoPattern.reference(result);
+        return result;
     }
 
     /**
@@ -426,7 +514,7 @@ public class Context extends Entity
      * <code>-3/4&pi</code> radians:
      * 
      * <pre>
-     * cr.arcNegative(50.0, 50.0, 30.0, 0.0, -Math.PI 3.0 / 4.0);
+     * cr.arcNegative(50.0, 50.0, 30.0, 0.0, -Math.PI * 3.0 / 4.0);
      * </pre>
      * 
      * note that in this example the second angle is negative; if

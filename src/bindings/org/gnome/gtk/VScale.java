@@ -1,7 +1,7 @@
 /*
  * VScale.java
  *
- * Copyright (c) 2007-2008 Operational Dynamics Consulting Pty Ltd
+ * Copyright (c) 2007-2009 Operational Dynamics Consulting Pty Ltd
  *
  * The code in this file, and the library it is a part of, are made available
  * to you by the authors under the terms of the "GNU General Public Licence,
@@ -18,7 +18,7 @@ package org.gnome.gtk;
  * 
  * <p>
  * Other than orientation, there's nothing different about VScale, so see
- * HScale for full discussion of the details of the constructors.
+ * {@link HScale} for full discussion of the details of the constructors.
  * 
  * @author Andrew Cowie
  * @since 4.0.6

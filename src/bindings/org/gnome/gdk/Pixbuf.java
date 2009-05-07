@@ -1,7 +1,7 @@
 /*
  * Pixbuf.java
  *
- * Copyright (c) 2006-2008 Operational Dynamics Consulting Pty Ltd and Others
+ * Copyright (c) 2006-2009 Operational Dynamics Consulting Pty Ltd and Others
  * 
  * The code in this file, and the library it is a part of, are made available
  * to you by the authors under the terms of the "GNU General Public Licence,
@@ -13,6 +13,7 @@ package org.gnome.gdk;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 
 import org.gnome.glib.GlibException;
 
@@ -99,6 +100,30 @@ public class Pixbuf extends org.gnome.glib.Object
     public Pixbuf(int width, int height) {
         super(GdkPixbuf.createPixbuf(null, true, 8, width, height));
         GdkPixbuf.fill(this, 0);
+    }
+
+    /**
+     * Construct a new Pixbuf object from image data already in memory. The
+     * data needs to be a complete image in a format that will be recognized
+     * by one of the gdk-pixbuf library's loaders (PNG, JPEG, etc).
+     * 
+     * @since 4.0.10
+     */
+    public Pixbuf(byte[] data) throws IOException {
+        super(checkPixbufFromArray(data));
+    }
+
+    private static long checkPixbufFromArray(byte[] data) throws IOException {
+        try {
+            return GdkPixbufOverride.createPixbufFromArray(data);
+        } catch (GlibException ge) {
+            /*
+             * FIXME this will need to be more specific when our GError
+             * handling is better! IOException is the usual in stream-ish
+             * cases, but is it really appropriate here?
+             */
+            throw new IOException(ge.getMessage());
+        }
     }
 
     /**
@@ -236,8 +261,8 @@ public class Pixbuf extends org.gnome.glib.Object
 
     /**
      * Create a new Pixbuf, applying the scaling factors inherent in the
-     * ratios between the size of this Pixbuf and the new image size
-     * specified by <code>width</code> and <code>height</code>.
+     * ratios between the size of this Pixbuf and the new image size specified
+     * by <code>width</code> and <code>height</code>.
      * 
      * <p>
      * In general you probably want to use the {@link InterpType#BILINEAR

@@ -1,7 +1,7 @@
 /*
  * GtkMain.c
  *
- * Copyright (c) 2006-2008 Operational Dynamics Consulting Pty Ltd
+ * Copyright (c) 2006-2009 Operational Dynamics Consulting Pty Ltd
  * 
  * The code in this file, and the library it is a part of, are made available
  * to you by the authors under the terms of the "GNU General Public Licence,
@@ -94,6 +94,11 @@ Java_org_gnome_gtk_GtkMain_gtk_1init
  * called from
  *   org.gnome.gtk.Gtk.main()
  * 
+ * Atypically we do the necessary operations to take and release the GDK lock
+ * here on the JNI side; everywhere else in the library we use a Java side
+ * synchronized block. This works around a strange behaviour in Eclipse and
+ * hopefully results in a better debugging experience.
+ *
  * Note that the main loop implicitly uses the gdk_threads_enter/leave()
  * mechanism while spinning. This means that although the Gdk$Lock monitor is
  * held upon making this call (which blocks), the lock is released briefly
@@ -107,7 +112,9 @@ Java_org_gnome_gtk_GtkMain_gtk_1main
 )
 {
 	// call function
+	gdk_threads_enter();
 	gtk_main();
+	gdk_threads_leave();
 }
 
 /*

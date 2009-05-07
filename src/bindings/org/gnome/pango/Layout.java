@@ -87,11 +87,19 @@ public class Layout extends Object
     }
 
     /**
-     * Sets the text of the Layout. This is the text that will be draw.
+     * Sets the text of the Layout. This is the text that will be drawn.
      * 
      * <p>
      * If you wish to pass text enhanced with Pango Markup, use
      * {@link #setMarkup(String) setMarkup()} instead.
+     * 
+     * <p>
+     * Alternately, you can use this <code>setText()</code> method to set the
+     * full textual content of the Layout and then build up a set of
+     * Attributes describing which formats you wish to be in effect across
+     * what ranges. You assemble this information in an AttributeList and then
+     * apply it to this Layout by calling
+     * {@link #setAttributes(AttributeList) setAttributes()}.
      * 
      * @since 4.0.10
      */
@@ -407,5 +415,110 @@ public class Layout extends Object
      */
     public Context getContext() {
         return PangoLayout.getContext(this);
+    }
+
+    /**
+     * Sets the sequence of Attributes describing the markup you wish to have
+     * in play. This indices of all the Attributes need to have been set after
+     * the text in this Layout was established via {@link #setText(String)
+     * setText()}.
+     * 
+     * <p>
+     * See {@link AttributeList} for a detailed example of using this method
+     * to indicate formatting.
+     * 
+     * @since 4.0.10
+     */
+    public void setAttributes(AttributeList list) {
+        if (list.isUsed()) {
+            throw new IllegalStateException("AttributeList has already been employed");
+        }
+
+        /*
+         * We now go through the exercise of setting the start and end indexes
+         * of the individual Attributes relative to the actual UTF-8 text
+         * being rendered. Until this point we kept note of character offsets
+         * here on the Java side.
+         */
+
+        for (Attribute attr : list.getAttributes()) {
+            PangoAttributeOverride.setIndexes(attr, this, attr.getOffset(), attr.getWidth());
+            PangoAttrList.insert(list, attr);
+        }
+
+        /*
+         * Now we are caught up to the state that Pango would expect.
+         */
+
+        PangoLayout.setAttributes(this, list);
+
+        list.markUsed();
+    }
+
+    /**
+     * Get the spacing between lines of a rendered paragraph.
+     * 
+     * @since 4.0.11
+     */
+    public double getSpacing() {
+        return PangoLayout.getSpacing(this) / Pango.SCALE;
+    }
+
+    /**
+     * Set the spacing that will occur between lines of a rendered paragraph.
+     * 
+     * <p>
+     * Obviously this will only have any effect if you are rendering complete
+     * Layouts as 2D shapes via
+     * {@link org.freedesktop.cairo.Context#showLayout(Layout) showLayout()}.
+     * If you are working instead with individual LayoutLines then it's up to
+     * you how much spacing you pad between lines as you draw them.
+     * 
+     * <p>
+     * The default is <code>0</code>.
+     * 
+     * @since 4.0.11
+     */
+    public void setSpacing(double between) {
+        PangoLayout.setSpacing(this, (int) (between * Pango.SCALE));
+    }
+
+    /**
+     * Set the line wrapping mode (if set, then lines turn into paragraphs).
+     * The <var>width</var> must be set with {@link #setWidth(double)
+     * setWidth()} for this to work.
+     * 
+     * <p>
+     * The default is {@link WrapMode#WORD WORD} so you shouldn't need to call
+     * this. In any case, wrapping is turned on by setting a width greater
+     * than <code>-1</code>, not by this method.
+     * 
+     * @since 4.0.11
+     */
+    public void setWrapMode(WrapMode mode) {
+        PangoLayout.setWrap(this, mode);
+    }
+
+    /**
+     * Indicate that the Layout is not to do paragraph breaks on encountering
+     * LINE_SEPARATOR characters.
+     * 
+     * <p>
+     * If this is turned on then when the Layout encounters newlines they will
+     * be replaced with an symbol marking the position of the newline. This
+     * allows you to create a user interface that edits the newlines
+     * explicitly on a single line.
+     * 
+     * <p>
+     * The default is <code>false</code>, obviously.
+     * 
+     * <p>
+     * Note that word wrapping is not affected by this. This is single
+     * <i>paragraph</i> mode, not single <i>line</i> mode.
+     * 
+     * @since 4.0.11
+     */
+    public void setSingleParagraphMode(boolean setting) {
+        PangoLayout.setSingleParagraphMode(this, setting);
     }
 }

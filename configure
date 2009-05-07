@@ -4,7 +4,7 @@
 # configure
 # part of Equivalence, version 0.2.x
 #
-# Copyright (c) 2005-2008 Operational Dynamics Consulting Pty Ltd, and Others
+# Copyright (c) 2005-2009 Operational Dynamics Consulting Pty Ltd, and Others
 # 
 # The code in this file, and the program it is a part of, are made available
 # to you by the authors under the terms of the "GNU General Public Licence,
@@ -25,6 +25,7 @@
 use strict;
 
 use File::Basename;
+use Cwd 'abs_path';
 
 #
 # Configure java-gnome for building. We:
@@ -74,7 +75,6 @@ sub output {
 }
 
 sub which {
-	use Cwd 'abs_path';
 	my $program = shift;
 	my $path = $ENV{'PATH'};
 	my @path_dirs = split /:+/, $path;
@@ -143,7 +143,7 @@ sub check_system_library(\@$$@) {
 		} elsif ($os eq "solaris") {
 			$str .= "pkgadd";
 		} elsif ($os eq "slackware") {
-			$str .= "installpkg";
+			$str .= "slackpkg install";
 		} else {
 			$str .= "[FIXME fetch and install command for this OS]"; 
 		}
@@ -201,7 +201,7 @@ sub check_prereq (\@$$@) {
 		} elsif ($os eq "solaris") {
 			$str .= "pkgadd";
 		} elsif ($os eq "slackware") {
-			$str .= "installpkg";
+			$str .= "slackpkg install";
 		} else {
 			$str .= "[FIXME fetch and install command for this OS]"; 
 		}
@@ -259,7 +259,7 @@ HERE
 		close HELLO;
 	}
 
-	`$program $args Hello.java >/dev/null 2>&1`;
+	`$program $args -sourcepath . Hello.java >/dev/null 2>&1`;
 	if ($? != 0) {
 		output "doesn't work\n";
 		$$scalarref = "";
@@ -513,6 +513,7 @@ my $jdk_home;
 my $gcj_home;
 my $jamvm_bin;
 my $cacao_bin;
+my $strict = "";
 
 foreach my $arg (@ARGV) {
 	my ($key, $value) = split /=/, "$arg";
@@ -557,6 +558,8 @@ HERE
 		$cacao_bin="$value";
 	} elsif ($key =~ /^jamvm/) {
 		$jamvm_bin="$value";
+	} elsif ($key =~ /^strict/) {
+		$strict="yes";
 	}
 }
 
@@ -742,13 +745,36 @@ output "\nCheck for required system libraries:\n";
 
 if ($os eq "gentoo") {
 	check_system_library(@gnomedev_libs,
-			"gtk+-2.0 >= 2.12.11 pango >= 1.22 atk gdk-2.0 libglade-2.0 >= 2.6.3 gtk+-unix-print-2.0 cairo-svg >= 1.6.4",
+			"gtk+-2.0 >= 2.14 pango >= 1.22 atk gdk-2.0 libglade-2.0 >= 2.6.3 gtk+-unix-print-2.0 cairo-svg >= 1.6.4",
 			"GNOME",
 			"gnome");
 
+} elsif ($os eq "slackware") {
+	# on slackware gdk-2.0 and gtk+-unix-print-2.0 are part of gtk+-2.0
+	# use http://packages.slackware.it/ for more details. 
+	check_system_library(@gnomedev_libs,
+			"gtk+-2.0 >= 2.14",
+			"GTK+",
+			"gtk+2");
+
+	check_system_library(@gnomedev_libs,
+			"pango >= 1.22",
+			"Pango",
+			"pango");
+
+	check_system_library(@gnomedev_libs,
+			"atk",
+			"ATK",
+			"atk");
+
+	check_system_library(@gnomedev_libs,
+			"libglade-2.0",
+			"LibGlade",
+			"libglade");
+
 } elsif ($os eq "debian") {
 	check_system_library(@gnomedev_libs,
-			"gtk+-2.0 >= 2.12.9",
+			"gtk+-2.0 >= 2.14",
 			"GTK+",
 			"libgtk2.0-dev");
 
@@ -779,7 +805,7 @@ if ($os eq "gentoo") {
 
 } elsif ($os eq "suse") {
 	check_system_library(@gnomedev_libs,
-			"gtk+-2.0 >= 2.12.0 pango >= 1.22 atk gdk-2.0 gtk+-unix-print-2.0",
+			"gtk+-2.0 >= 2.14.0 pango >= 1.22 atk gdk-2.0 gtk+-unix-print-2.0",
 			"GNOME development libraries",
 			"libgnome-devel");
 	check_system_library(@gnomedev_libs,
@@ -789,7 +815,7 @@ if ($os eq "gentoo") {
 
 } elsif ($os eq "mandriva") {
 	check_system_library(@gnomedev_libs,
-			"gtk+-2.0 >= 2.12.0 pango >= 1.22 atk gdk-2.0 gtk+-unix-print-2.0",
+			"gtk+-2.0 >= 2.14.0 pango >= 1.22 atk gdk-2.0 gtk+-unix-print-2.0",
 			"GTK development libraries",
 			"libgtk+2.0_0-devel");
 	check_system_library(@gnomedev_libs,
@@ -1627,10 +1653,19 @@ output "Check native compiler:\n";
 
 # these are initialized as, unlike javac which is populated with *something*,
 # even if gcj is not found we still need a variable for it.
+my $gcc;
 my $cc;
 
 if ($os eq "solaris") {
-	check_CC($cc, "Sun cc", which("cc"), "");
+	# this should result in something with gcc in its name
+	check_CC($gcc, "GNU gcc", abs_path("/usr/gnu/bin/cc"), "");
+
+	# otherwise, we use Sun's compiler and linker
+	check_CC($cc, "Sun cc", abs_path("/usr/bin/cc"), "") unless $gcc;
+
+	# and if things are completely out to lunch,
+	check_CC($cc, "Path cc", which("cc"), "") unless $cc;
+
 } elsif ($os) {
 	my $gcc_candidate;
 
@@ -1646,7 +1681,7 @@ if ($os eq "solaris") {
 		}
 	}
 
-	check_CC($cc, "GNU gcc", $gcc_candidate, "");
+	check_CC($gcc, "GNU gcc", $gcc_candidate, "");
 }
 
 output "\n";
@@ -1825,7 +1860,7 @@ print CONFIG <<HERE ;
 
 HERE
 
-if ($cc =~ /gcc/) {
+if ($gcc) {
 	use File::Basename;
 
 	my $jni_include = "";
@@ -1837,7 +1872,11 @@ if ($cc =~ /gcc/) {
 	}
 
 	if (-f "$java_home"."/include/jni.h") {
-		$jni_include = "-I$java_home/include -I$java_home/include/linux";
+		if ($os eq "solaris") {
+			$jni_include = "-I$java_home/include -I$java_home/include/solaris";
+		} else {
+			$jni_include = "-I$java_home/include -I$java_home/include/linux";
+		}
 	} elsif (-f "/usr/include/jni.h") {
 		# good, but that's default search path - no -I required.
 	} else {
@@ -1850,15 +1889,15 @@ if ($cc =~ /gcc/) {
 	}
 
 	my $deprecations;
-	if ( -d ".bzr" ) {
+	if ( "$strict" ) {
 		$deprecations = "-DGTK_DISABLE_DEPRECATED -DGDK_DISABLE_DEPRECATED -DGDK_PIXBUF_DISABLE_DEPRECATED -DG_DISABLE_DEPRECATED";
 	} else {
 		$deprecations = "";
 	}
 
-	print CONFIG "CC=$cc -g -Wall -fPIC $jni_include -Wno-int-to-pointer-cast -Wno-pointer-to-int-cast $deprecations -Werror-implicit-function-declaration -Wfatal-errors\n";
+	print CONFIG "CC=$gcc -g -Wall -fPIC $jni_include -Wno-int-to-pointer-cast -Wno-pointer-to-int-cast $deprecations -Werror-implicit-function-declaration -Wfatal-errors\n";
 	print CONFIG "CC_CMD=GCC      \n";
-	print CONFIG "LINK=$cc -g -shared -Wall -fPIC\n";
+	print CONFIG "LINK=$gcc -g -shared -Wall -fPIC\n";
 	print CONFIG "LINK_CMD=LINK     \n";
 } elsif (($cc) && ($os eq "solaris")) {
 	print CONFIG "CC=$cc -Kpic -I/usr/java/include -I/usr/java/include/solaris\n";
@@ -1906,7 +1945,7 @@ while (<SOURCE>) {
 	if (/.* APIVERSION = \"([\d\.]+)\";/) {
 		$apiversion = $1;
 	}
-	if (/.* VERSION = \"([\d\.\-rc]+)\";/) {
+	if (/.* VERSION = \"([\d\.\-rcdev]+)\";/) {
 		$version = $1;
 	}
 }

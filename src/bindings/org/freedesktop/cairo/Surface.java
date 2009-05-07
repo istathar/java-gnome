@@ -68,7 +68,7 @@ public abstract class Surface extends Entity
      * your own custom Widget in its <code>Widget.ExposeEvent</code> handler.
      * 
      * <p>
-     * See also {@link #finish() finish()} if you're just trying to day "I'm
+     * See also {@link #finish() finish()} if you're just trying to say "I'm
      * done".
      * 
      * <p>

@@ -1,7 +1,7 @@
 /*
  * Plumbing.java
  *
- * Copyright (c) 2007-2008 Operational Dynamics Consulting Pty Ltd
+ * Copyright (c) 2007-2009 Operational Dynamics Consulting Pty Ltd
  * 
  * The code in this file, and the library it is a part of, are made available
  * to you by the authors under the terms of the "GNU General Public Licence,
@@ -129,6 +129,10 @@ public abstract class Plumbing extends org.gnome.glib.Plumbing
                 type = EventProximity.class;
                 break;
 
+            case GdkEventType.OWNER_CHANGE:
+                type = EventOwnerChange.class;
+                break;
+
             case GdkEventType.WINDOW_STATE:
                 type = EventWindowState.class;
                 break;
@@ -149,7 +153,7 @@ public abstract class Plumbing extends org.gnome.glib.Plumbing
         }
 
         proxy = org.gnome.glib.Plumbing.boxedFor(type, pointer);
-        return (Boxed) proxy;
+        return proxy;
     }
 
     private static native final int getEventTypeOrdinal(long pointer);

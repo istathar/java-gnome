@@ -1,7 +1,7 @@
 /*
  * Keyval.java
  *
- * Copyright (c) 2007-2008 Operational Dynamics Consulting Pty Ltd
+ * Copyright (c) 2007-2009 Operational Dynamics Consulting Pty Ltd
  * 
  * The code in this file, and the library it is a part of, are made available
  * to you by the authors under the terms of the "GNU General Public Licence,
@@ -174,6 +174,17 @@ public class Keyval extends Constant
 
     public static final Keyval Delete = new Keyval(0xffff, "Delete");
 
+    /**
+     * The <b><code>Compose</code></b> used to create high order characters
+     * from pressing tis plus certain following key sequences.
+     * 
+     * @since 4.0.11
+     */
+    /*
+     * This is GDK_Multi_key
+     */
+    public static final Keyval Compose = new Keyval(0xff20, "Compose");
+
     public static final Keyval Home = new Keyval(0xff50, "Home");
 
     public static final Keyval Left = new Keyval(0xff51, "Left");
@@ -231,6 +242,10 @@ public class Keyval extends Constant
     public static final Keyval ControlLeft = new Keyval(0xffe3, "ControlLeft");
 
     public static final Keyval ControlRight = new Keyval(0xffe4, "ControlRight");
+
+    public static final Keyval SuperLeft = new Keyval(0xffeb, "SuperLeft");
+
+    public static final Keyval SuperRight = new Keyval(0xffec, "SuperRight");
 
     public static final Keyval CapsLock = new Keyval(0xffe5, "CapsLock");
 

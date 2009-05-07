@@ -3,7 +3,7 @@
   (parent "GObject")
   (c-name "GtkPrinter")
   (gtype-id "GTK_TYPE_PRINTER")
-  (import-header "gtk/gtkprinter.h")
+  (import-header "gtk/gtkunixprint.h")
 )
 
 (define-function gtk_printer_new

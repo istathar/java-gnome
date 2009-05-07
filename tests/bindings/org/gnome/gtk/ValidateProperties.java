@@ -1,7 +1,7 @@
 /*
  * ValidateProperties.java
  *
- * Copyright (c) 2007-2008 Operational Dynamics Consulting Pty Ltd
+ * Copyright (c) 2007-2009 Operational Dynamics Consulting Pty Ltd
  * 
  * The code in this file, and the suite it is a part of, are made available
  * to you by the authors under the terms of the "GNU General Public Licence,
@@ -342,34 +342,5 @@ public class ValidateProperties extends TestCaseGtk
         window = new Window();
         window.add(button);
         button.grabDefault();
-    }
-
-    public final void testNotebookDecorations() {
-        final Notebook book;
-
-        book = new Notebook();
-
-        /*
-         * show tabs
-         */
-        assertEquals(true, GtkNotebook.getShowTabs(book));
-
-        book.setShowTabs(false);
-        assertEquals(false, GtkNotebook.getShowTabs(book));
-
-        book.setShowTabs(true);
-        assertEquals(true, GtkNotebook.getShowTabs(book));
-
-        /*
-         * show border
-         */
-
-        assertEquals(true, GtkNotebook.getShowBorder(book));
-
-        book.setShowBorder(false);
-        assertEquals(false, GtkNotebook.getShowBorder(book));
-
-        book.setShowBorder(true);
-        assertEquals(true, GtkNotebook.getShowBorder(book));
     }
 }

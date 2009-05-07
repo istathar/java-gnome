@@ -59,6 +59,7 @@ public class ValidatePangoTextRendering extends TestCaseGtk
 
         assertEquals(0.0, layout.getIndent());
         assertEquals(false, layout.getJustify());
+        assertEquals(0.0, layout.getSpacing());
 
         /*
          * Round trips
@@ -71,6 +72,9 @@ public class ValidatePangoTextRendering extends TestCaseGtk
         assertEquals(true, layout.getJustify());
         layout.setJustify(false);
         assertEquals(false, layout.getJustify());
+
+        layout.setSpacing(3.5);
+        assertEquals(3.5, layout.getSpacing());
     }
 
     /*
@@ -168,5 +172,43 @@ public class ValidatePangoTextRendering extends TestCaseGtk
         });
         w.showAll();
         Gtk.main();
+    }
+
+    public final void testAttributeCreation() {
+        final FontDescription desc;
+        Attribute attr;
+
+        desc = new FontDescription("Serif, 12");
+        attr = new FontDescriptionAttribute(desc);
+
+        assertNotNull(attr);
+    }
+
+    public final void testAttributeListUse() {
+        final Attribute attr;
+        final AttributeList list;
+        final Surface surface;
+        final Context cr;
+        final Layout layout;
+
+        surface = new ImageSurface(Format.ARGB32, 150, 150);
+        cr = new Context(surface);
+        layout = new Layout(cr);
+
+        layout.setText("H€lloWorld");
+        list = new AttributeList();
+
+        /*
+         * Now set some Attributes.
+         */
+
+        attr = new StyleAttribute(Style.ITALIC);
+        attr.setIndices(5, 5);
+
+        list.insert(attr);
+        layout.setAttributes(list);
+
+        assertEquals(7, PangoAttribute.getStartIndex(attr));
+        assertEquals(12, PangoAttribute.getEndIndex(attr));
     }
 }

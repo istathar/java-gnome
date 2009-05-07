@@ -1,7 +1,7 @@
 /*
  * bindings_java_util.c
  *
- * Copyright (c) 2006-2008 Operational Dynamics Consulting Pty Ltd and Others
+ * Copyright (c) 2006-2009 Operational Dynamics Consulting Pty Ltd and Others
  * 
  * The code in this file, and the library it is a part of, are made available
  * to you by the authors under the terms of the "GNU General Public Licence,
@@ -50,11 +50,13 @@ JNIEnv*
 bindings_java_getEnv()
 {
 	JNIEnv* env = NULL;
+	void* ptr = NULL;
 	JavaVMAttachArgs args = { 0, };
 	static int i = 0; 
 	jint result;
 
-	result = (*cachedJavaVM)->GetEnv(cachedJavaVM, (void **) &env, JNI_VERSION_1_4);
+	result = (*cachedJavaVM)->GetEnv(cachedJavaVM, &ptr, JNI_VERSION_1_4);
+	env = (JNIEnv*) ptr;
 	if (env != NULL) {
 		return env;
 	}
@@ -64,7 +66,8 @@ bindings_java_getEnv()
 		args.version = JNI_VERSION_1_4;
 		args.name = g_strdup_printf("NativeThread%d", i++);
 
-		result = (*cachedJavaVM)->AttachCurrentThreadAsDaemon(cachedJavaVM, (void **) &env, &args);
+		result = (*cachedJavaVM)->AttachCurrentThreadAsDaemon(cachedJavaVM, &ptr, &args);
+		env = (JNIEnv*) ptr;
 		if ((result == JNI_OK) && (env != NULL)) {
 			g_free(args.name);
 			return env;
@@ -251,11 +254,22 @@ bindings_java_typeToSignature
 
 	case G_TYPE_OBJECT:
 	case G_TYPE_INTERFACE:
+	case G_TYPE_PARAM:
+		return "J";
+
+	/*
+	 * This is a special case; we don't (and indeed cannot) actually
+	 * handle a raw "pointer" as a type, but by marshalling it as a 
+	 * meaningless long we can at least wrap and ignore it on the Java
+	 * side.
+	 */
+
+	case G_TYPE_POINTER:
 		return "J";
 
 	case G_TYPE_INVALID:
 	default:
-		g_critical("Don't know how to convert type %s to JNI signature", g_type_name(type));
+		g_printerr("Don't know how to convert type %s to JNI signature\n", g_type_name(type));
 		return NULL;
 	}
 }
