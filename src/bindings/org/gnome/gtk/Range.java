@@ -40,6 +40,8 @@ public abstract class Range extends Widget
     }
 
     /**
+     * Inverts the way the value changes when moving the slider
+     *
      * Ranges normally move from lower to higher values as the slider 
      * moves from top to bottom or left to right. Inverted ranges have 
      * higher values at the top or on the right rather than on the 
