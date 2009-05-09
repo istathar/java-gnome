@@ -33,7 +33,24 @@ public abstract class Range extends Widget
     }
 
     /**
-     * Retreive the value currently indicated by this Range instance.
+     * Retrieve the current value set by setInverted
+     */
+    public boolean getInverted() {
+        return GtkRange.getInverted(this);
+    }
+
+    /**
+     * Ranges normally move from lower to higher values as the slider 
+     * moves from top to bottom or left to right. Inverted ranges have 
+     * higher values at the top or on the right rather than on the 
+     * bottom or left.
+     */
+    public void setInverted(boolean setting){
+        GtkRange.setInverted(this,setting);
+    }
+
+    /**
+     * Retrieve the value currently indicated by this Range instance.
      * 
      * @since 4.0.6
      */
