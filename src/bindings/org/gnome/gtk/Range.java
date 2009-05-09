@@ -33,19 +33,24 @@ public abstract class Range extends Widget
     }
 
     /**
-     * Retrieve the current value set by setInverted
+     * Get whether or not the rate scale of this Range is inverted; 
+     * see {@link #setInverted(boolean) setInverted())}
+     *
+     * @since 4.0.12
      */
     public boolean getInverted() {
         return GtkRange.getInverted(this);
     }
 
     /**
-     * Inverts the way the value changes when moving the slider
-     *
+     * Inverts the way the value changes when moving the slider.
+     * <p>
      * Ranges normally move from lower to higher values as the slider 
      * moves from top to bottom or left to right. Inverted ranges have 
      * higher values at the top or on the right rather than on the 
      * bottom or left.
+     *
+     * @since 4.0.12
      */
     public void setInverted(boolean setting){
         GtkRange.setInverted(this,setting);
