@@ -419,7 +419,7 @@ public final class Internationalization
      * <pre>
      * public void main(String[] args) {
      *     Gtk.init(args);
-     *     Initialization.init(&quot;myapp&quot;, &quot;/usr/share/locale/&quot;);
+     *     Internationalization.init(&quot;myapp&quot;, &quot;/usr/share/locale/&quot;);
      *     ...
      * }
      * </pre>
