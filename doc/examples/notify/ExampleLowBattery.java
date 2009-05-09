@@ -61,7 +61,6 @@ public class ExampleLowBattery
          * Quit the application after notification disappears.
          */
         notification.connect(new org.gnome.notify.Notification.Closed() {
-
             public void onClosed(Notification source) {
                 Notify.uninit();
                 Gtk.mainQuit();
@@ -71,7 +70,8 @@ public class ExampleLowBattery
         });
 
         /*
-         * Make it play the warning sound from gnome-sound.
+         * Make it play the warning sound from gnome-sound. Note that this may
+         * change in distributions.
          */
         notification.setHint("sound-file", "/usr/share/sounds/warning.wav");
 
