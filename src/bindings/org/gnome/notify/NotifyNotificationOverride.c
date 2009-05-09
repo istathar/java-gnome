@@ -13,6 +13,21 @@
 #include <libnotify/notify.h>
 #include <jni.h>
 #include "org_gnome_notify_NotifyNotificationOverride.h"
+//#include <string.h>
+
+static gboolean
+emit_notification
+(
+	NotifyNotification *notification,
+	gchar *action
+)
+{
+	gboolean result;
+
+	g_signal_emit_by_name(NOTIFY_NOTIFICATION(notification), "action", action, &result);
+
+	return result;
+}
 
 /*
  * Implements
@@ -30,28 +45,75 @@ JNIEXPORT void JNICALL Java_org_gnome_notify_NotifyNotificationOverride_notify_1
 )
 {
 	NotifyNotification* self;
-		const gchar* key;
-		gshort value;
+	const gchar* key;
+	gshort value;
 
-		// convert parameter self
-		self = (NotifyNotification*) _self;
+	// convert parameter self
+	self = (NotifyNotification*) _self;
 
-		// convert parameter key
-		key = (const gchar*) (*env)->GetStringUTFChars(env, _key, NULL);
-		if (key == NULL) {
-			return; // Java Exception already thrown
-		}
+	// convert parameter key
+	key = (const gchar*) (*env)->GetStringUTFChars(env, _key, NULL);
+	if (key == NULL) {
+		return; // Java Exception already thrown
+	}
 
-		// convert parameter value
-		value = (gshort) _value;
+	// convert parameter value
+	value = (gshort) _value;
 
-		// call function
-		notify_notification_set_hint_byte(self, key, (guchar)value);
+	// call function
+	notify_notification_set_hint_byte(self, key, (guchar)value);
 
-		// cleanup parameter self
+	// cleanup parameter self
 
-		// cleanup parameter key
-		(*env)->ReleaseStringUTFChars(env, _key, key);
+	// cleanup parameter key
+	(*env)->ReleaseStringUTFChars(env, _key, key);
 
-		// cleanup parameter value
+	// cleanup parameter value
+}
+
+JNIEXPORT void JNICALL Java_org_gnome_notify_NotifyNotificationOverride_notify_1notification_1add_1action
+(
+	JNIEnv *env,
+	jclass cls,
+	jlong _self,
+	jstring _action,
+	jstring _label
+)
+{
+	NotifyNotification* self;
+	const gchar* action;
+	const gchar* label;
+	//guint signalID;
+
+	// convert parameter self
+	self = (NotifyNotification*) _self;
+
+
+	action = (const gchar*) (*env)->GetStringUTFChars(env, _action, NULL);
+	if (action == NULL) {
+		return; // Java Exception already thrown
+	}
+
+	label = (const gchar*) (*env)->GetStringUTFChars(env, _label, NULL);
+	if (label == NULL) {
+		return; // Java Exception already thrown
+	}
+
+	//char signal_name[strlen(action)+13];
+
+	//sprintf(signal_name,"notification-%s",action);
+
+	/*signalID = */g_signal_new("action",
+				NOTIFY_TYPE_NOTIFICATION,
+				G_SIGNAL_ACTION,
+				0,
+				NULL,
+				NULL,
+				NULL, // note 1
+				G_TYPE_BOOLEAN,
+				1,    // note 2
+				G_TYPE_STRING);
+	notify_notification_add_action(self,action,label,NOTIFY_ACTION_CALLBACK(emit_notification),NULL,NULL);
+	//printf("signalID %d",signalID);
+
 }

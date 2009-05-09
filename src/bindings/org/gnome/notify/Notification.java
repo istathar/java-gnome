@@ -266,4 +266,26 @@ public class Notification extends org.gnome.glib.Object
     public void connect(Closed handler) {
         NotifyNotification.connect(this, handler, false);
     }
+    
+    public interface Action {
+        public boolean onAction(Notification source, String action);
+    }
+    
+    private static class ActionHandler implements NotifyNotification.ActionSignal
+    {
+        private final Action handler;
+
+        private ActionHandler(Action handler) {
+            this.handler = handler;
+        }
+
+        public boolean onAction(Notification source, String action) {
+            return handler.onAction(source, action);
+        }
+    }
+    
+    public void addAction(String actionID,String label,Notification.Action action) {
+        NotifyNotificationOverride.addAction(this, actionID, label);
+        NotifyNotification.connect(this, new ActionHandler(action), false);
+    }
 }
