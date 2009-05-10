@@ -236,11 +236,30 @@ public class Notification extends org.gnome.glib.Object
         }
     }
 
+    /**
+     * Signal emmitted when a notification is closed. This can happen in 3 ways:
+     * <ul>
+     * <li>When notification timeout expires.</li>
+     * <li>When user dismisses it by closing.</li>
+     * <li>When {@link #close()} is called.</li>
+     * </ul>
+     * 
+     * 
+     * @author Serkan Kaba
+     * @since 4.0.12
+     */
     public interface Closed extends NotifyNotification.ClosedSignal
     {
         public void onClosed(Notification source);
     }
 
+    /**
+     * Hook up a handler to receive <code>Notification.Closed</code> events on
+     * this Notification.
+     * 
+     * @see Notification.Closed
+     * @since 4.0.12
+     */
     public void connect(Closed handler) {
         NotifyNotification.connect(this, handler, false);
     }
