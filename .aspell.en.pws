@@ -15,6 +15,7 @@ AllAboutJNI
 AltLeft
 AltRight
 ApplySignal
+ApplyTagSignal
 Arial
 ArrayList
 AssistantPageType
@@ -23,8 +24,10 @@ AttachOptions
 AttrList
 Attribute's
 AttributeList
+AttributeLists
 BackSpace
 Bassi
+BeginUserActionSignal
 Behdad
 Bhagat
 BindingsGenerator
@@ -155,6 +158,7 @@ EVERSION
 EditedHandler
 Eeek
 Emmanuele
+EndUserActionSignal
 EnterNotifyEvent
 EnterNotifyEventSignal
 EnumValue
@@ -215,6 +219,7 @@ FocusInEventSignal
 FocusOutEvent
 FocusOutEventSignal
 FontDescription
+FontDescriptionAttribute
 FontSelection
 Formoso
 Fortin
@@ -388,6 +393,7 @@ GtkShadowType
 GtkSizeGroup
 GtkSizeGroupMode
 GtkSortType
+GtkSourceView
 GtkSpinButton
 GtkStateType
 GtkStatusIcon
@@ -395,6 +401,7 @@ GtkStatusbar
 GtkStockItem
 GtkTable
 GtkTextBuffer
+GtkTextBufferOverride
 GtkTextIter
 GtkTextIterOverride
 GtkTextMark
@@ -527,6 +534,7 @@ LayoutLine's
 LayoutLines
 LeaveNotifyEvent
 LeaveNotifyEventSignal
+Leibbrand
 LibGlade
 LinearPattern
 ListStore
@@ -537,6 +545,7 @@ Lorem
 Lorg
 Lortie
 LoveLetter
+MAXUINT
 MVC
 Machame
 Maciej
@@ -584,6 +593,8 @@ NewStringUTF
 NewWeakGlobalRef
 NoSuchMethodException
 NorthAmericanPaperSize
+NotifyCursorPosition
+NotifyCursorPositionSignal
 NotifyType
 NullPointerException
 NumLock
@@ -598,7 +609,6 @@ OpenOffice
 OpenSolaris
 OutOfMemoryError
 Overholt
-PDF
 PDFs
 PKGBUILD
 PNGs
@@ -621,6 +631,7 @@ PangoRectangleOverride
 PangoStyle
 PangoUnderline
 PangoWeight
+PangoWrapMode
 PaperSize
 ParenLeft
 ParenRight
@@ -674,6 +685,7 @@ RcStyle
 RefToJavaProxy
 ReleaseStringUTFChars
 ReliefStyle
+RemoveTagSignal
 ResponseHandler
 ResponseType
 ResponseTypes
@@ -685,6 +697,7 @@ RowExpandedSignal
 RuntimeException
 RuntimeExceptions
 SEMIBOLD
+SIGSEGV
 SWT
 Schmitz
 Schweizer
@@ -736,6 +749,7 @@ StorageType
 StringBuffer
 StringBuilder
 StringValue
+StyleAttribute
 SurfacePattern
 SysReq
 Szymala
@@ -770,6 +784,7 @@ TextView
 TextView's
 TextViews
 TextWindowType
+Thijs
 ThrowNew
 Timm
 ToggleButon
@@ -936,6 +951,7 @@ basename
 baz
 bb
 bdb
+beginUserAction
 bilinear
 bindtextdomain
 bitkeeper
@@ -1213,6 +1229,7 @@ dropUserRef
 dt
 dx
 dy
+eacute
 ebuild
 ecj
 editMenu
@@ -1232,6 +1249,7 @@ emitRowActivated
 emitValueChanged
 emplace
 enclosingGroup
+endUserAction
 endif
 endingLabel
 endsWith
@@ -1339,6 +1357,7 @@ getCurrentPage
 getCurrentPoint
 getCurrentPointX
 getCurrentPointY
+getCursorPosition
 getCursorVisible
 getDate
 getDateDay
@@ -1464,6 +1483,7 @@ getPropertyBoolean
 getPropertyEnum
 getPropertyFlags
 getPropertyFloat
+getPropertyInteger
 getPropertyObject
 getPropertyString
 getRed
@@ -1489,6 +1509,7 @@ getSize
 getSizeHeight
 getSizeWidth
 getSource
+getSpacing
 getStartIndex
 getStartIter
 getState
@@ -1597,6 +1618,7 @@ initializers
 inline
 insertAtCursor
 insertBefore
+insertBound
 insertInteractive
 insertPage
 insertPixbuf
@@ -1612,8 +1634,10 @@ isActive
 isDirectory
 isEmbedded
 isEqual
+isInserted
 isSecondary
 isSensitive
+isUsed
 isVisible
 isVisibleChars
 isdir
@@ -1689,6 +1713,8 @@ libgtk
 libjava
 librarypath
 libre
+librsvg
+libwnck
 lineNumber
 lineRelative
 lineTo
@@ -1713,6 +1739,8 @@ mainQuit
 makeJarFile
 makeTime
 makepkg
+markInserted
+markUsed
 md
 mem
 menuBar
@@ -1762,6 +1790,7 @@ nUnable
 nYou
 na
 namespace
+nathan
 nativeName
 nav
 nc
@@ -1792,6 +1821,8 @@ offsetY
 ok
 onActivate
 onApply
+onApplyTag
+onBeginUserAction
 onButtonPressEvent
 onButtonReleaseEvent
 onCancel
@@ -1805,6 +1836,7 @@ onDaySelectedDoubleClick
 onDeleteEvent
 onDeleteRange
 onEdited
+onEndUserAction
 onEnterNotifyEvent
 onEvent
 onExposeEvent
@@ -1818,9 +1850,11 @@ onKeyReleaseEvent
 onLeaveNotifyEvent
 onMapEvent
 onMarkSet
+onNotifyCursorPosition
 onPopulatePopup
 onPopupMenu
 onPrepare
+onRemoveTag
 onResponse
 onRowActivated
 onRowChanged
@@ -1916,6 +1950,7 @@ registerType
 relLineTo
 relMoveTo
 removeActionWidget
+removeAllTags
 removePage
 removeRow
 removeTag
@@ -2046,6 +2081,7 @@ setImage
 setInconsistent
 setIndent
 setIndexes
+setIndices
 setInnerBorder
 setInvisibleChar
 setJustify
@@ -2128,6 +2164,7 @@ setSensitive
 setShadowType
 setShowBorder
 setShowTabs
+setSingleParagraphMode
 setSize
 setSizeRequest
 setSizing
@@ -2142,6 +2179,7 @@ setSourceRGBA
 setSourceRgb
 setSourceRgba
 setSourceSurface
+setSpacing
 setStartIndex
 setStick
 setStrikethrough
@@ -2179,9 +2217,11 @@ setVisibleChars
 setVisibleFunc
 setVisibleLineOffset
 setVisibleWindow
+setWebsite
 setWeight
 setWidth
 setWidthChars
+setWrap
 setWrapMode
 settingsDaemon
 showAll

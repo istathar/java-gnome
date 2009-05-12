@@ -193,15 +193,17 @@
 ;;    '("double" "scale_factor")
 ;;  )
 ;;)
-;;
-;;(define-function AttrFallback
-;;  (c-name "pango_attr_fallback_new")
-;;  (return-type "PangoAttribute*")
-;;  (parameters
-;;    '("gboolean" "fallback")
-;;  )
-;;)
-;;
+
+(define-function pango_attr_new_fallback
+  (c-name "pango_attr_fallback_new")
+  (is-constructor-of "PangoAttribute")
+  (caller-owns-return #t)
+  (return-type "PangoAttribute*")
+  (parameters
+    '("gboolean" "fallback")
+  )
+)
+
 ;;(define-function AttrLetterSpacing
 ;;  (c-name "pango_attr_letter_spacing_new")
 ;;  (return-type "PangoAttribute*")
