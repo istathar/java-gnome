@@ -20,10 +20,7 @@ import org.gnome.gtk.Widget;
 /**
  * Notification represents an actual item to be displayed by notification
  * system. You can simply create and display a Notification after the system
- * is initialized with {@link Notify#init(String applicationName)
- * Notify.init(String applicationName)}
- * 
- * @see Notify
+ * is initialized with {@link Notify#init(String) Notify.init()}.
  * 
  * @author Serkan Kaba
  * @since 4.0.12

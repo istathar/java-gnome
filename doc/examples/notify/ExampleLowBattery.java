@@ -1,7 +1,7 @@
 /*
  * ExampleLowBattery.java
  *
- * Copyright (c) 2009 Operational Dynamics Consulting Pty Ltd
+ * Copyright (c) 2009 Operational Dynamics Consulting Pty Ltd, and Others
  *
  * The code in this file, and the program it is a part of, are made available
  * to you by the authors under the terms of the "GNU General Public Licence,
@@ -24,9 +24,7 @@ import org.gnome.notify.Urgency;
  */
 public class ExampleLowBattery
 {
-
     public static void main(String[] args) {
-
         final StatusIcon icon;
         final Notification notification;
 
@@ -60,19 +58,19 @@ public class ExampleLowBattery
         /*
          * Quit the application after notification disappears.
          */
+
         notification.connect(new org.gnome.notify.Notification.Closed() {
             public void onClosed(Notification source) {
                 Notify.uninit();
                 Gtk.mainQuit();
-
             }
-
         });
 
         /*
          * Make it play the warning sound from gnome-sound. Note that this may
          * change in distributions.
          */
+
         notification.setHint("sound-file", "/usr/share/sounds/warning.wav");
 
         /*
@@ -92,5 +90,4 @@ public class ExampleLowBattery
 
         Gtk.main();
     }
-
 }
