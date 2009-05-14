@@ -11,6 +11,7 @@
  */
 package org.freedesktop.cairo;
 
+import org.gnome.gdk.Color;
 import org.gnome.gdk.Drawable;
 import org.gnome.gdk.Pixbuf;
 import org.gnome.pango.Layout;
@@ -269,6 +270,17 @@ public class Context extends Entity
      */
     public void rotate(double r) {
         CairoContext.rotate(this, r);
+    }
+    
+    /**
+     * Set the source pattern within this Context to an opaque color.
+     * 
+     * @since 4.0.12
+     */
+    public void setSource(Color color) {
+        CairoContext.setSourceRgb(this, color.getRed() / 65535.0, color.getGreen() / 65535.0,
+                color.getBlue() / 65535.0);
+        checkStatus();
     }
 
     /**
