@@ -157,18 +157,18 @@ public class Context extends Entity
      * 
      * <p>
      * The utility of this function is to preserve a configuration that will
-     * be temporary modified. For example, if you are drawing something with
-     * a given color, line width, etc. and you need to change some of those
-     * properties, draw something else, and then go back to the original 
-     * state. Instead of changing back all properties again, you can just 
-     * invoke <code>save()</code> before modifying them, and then 
+     * be temporary modified. For example, if you are drawing something with a
+     * given color, line width, etc. and you need to change some of those
+     * properties, draw something else, and then go back to the original
+     * state. Instead of changing back all properties again, you can just
+     * invoke <code>save()</code> before modifying them, and then
      * <code>restore()</code> later, once you want to use the original
      * configuration again.
      * 
      * <p>
-     * Multiple calls to <code>save()</code> and <code>restore()</code>
-     * can be nested. Each call to <code>restore()</code> restores the state
-     * from the matching paired <code>save()</code>.
+     * Multiple calls to <code>save()</code> and <code>restore()</code> can be
+     * nested. Each call to <code>restore()</code> restores the state from the
+     * matching paired <code>save()</code>.
      * 
      * @since 4.0.10
      */
@@ -183,7 +183,7 @@ public class Context extends Entity
      * @throws IllegalStateException
      *             If there is no matching previous call to
      *             <code>save()</code>.
-     *
+     * 
      * @since 4.0.10
      */
     public void restore() {
@@ -193,6 +193,40 @@ public class Context extends Entity
             throw new IllegalStateException("No matching call to save()");
         }
         checkStatus(status);
+    }
+
+    /**
+     * Applies a scale transformation. It scales X and Y axis by sx and sy,
+     * respectively.
+     * 
+     * <p>
+     * The effect of this is that the points you submit are scaled by sx, sy.
+     * For example, the following sequence:
+     * 
+     * <pre>
+     * Context cr;
+     * 
+     * cr.scale(2.0, 3.0);
+     * cr.moveTo(1.0, 1.0);
+     * cr.lineTo(2.0, 2.0);
+     * cr.stroke();
+     * </pre>
+     * 
+     * Will actually draw a line from (2.0, 3.0) to (4.0, 6.0) in the target
+     * Surface.
+     * 
+     * <p>
+     * Note that you can also use negative numbers. Do not scale by 0.
+     * 
+     * <p>
+     * See {@link Matrix} for the full suite of affine transformations
+     * available.
+     * 
+     * @since 4.0.12
+     */
+    public void scale(double sx, double sy) {
+        CairoContext.scale(this, sx, sy);
+        checkStatus();
     }
 
     /**
@@ -297,7 +331,7 @@ public class Context extends Entity
         CairoContext.setLineWidth(this, width);
         checkStatus();
     }
-    
+
     /**
      * Get the line width for this Context.
      * 
@@ -570,10 +604,10 @@ public class Context extends Entity
         CairoContext.fill(this);
         checkStatus();
     }
-    
+
     /**
-     * Sets the dash pattern used in lines drawn with
-     * {@link #stroke() stroke()}.
+     * Sets the dash pattern used in lines drawn with {@link #stroke()
+     * stroke()}.
      * 
      * <p>
      * The pattern is specified by an array of double values. Each value
