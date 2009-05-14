@@ -152,16 +152,25 @@ public class Context extends Entity
     }
 
     /**
-     * Save the current state of this Context so it can be restored later.
-     * Calls to <code>save()</code> and <code>restore()</code> can be nested.
+     * Makes a copy of the current state of the Context and saves it on an
+     * internal stack. The saved state is recovered using {@link #restore()}.
      * 
      * <p>
-     * This is useful for structured graphics.
+     * The utility of this function is to preserve a configuration that will
+     * be temporary modified. For example, if you are drawing something with
+     * a given color, line width, etc. and you need to change some of those
+     * properties, draw something else, and then go back to the original 
+     * state. Instead of changing back all properties again, you can just 
+     * invoke <code>save()</code> before modifying them, and then 
+     * <code>restore()</code> later, once you want to use the original
+     * configuration again.
+     * 
+     * <p>
+     * Multiple calls to <code>save()</code> and <code>restore()</code>
+     * can be nested. Each call to <code>restore()</code> restores the state
+     * from the matching paired <code>save()</code>.
      * 
      * @since 4.0.10
-     */
-    /*
-     * TODO which means what?
      */
     public void save() {
         CairoContext.save(this);
