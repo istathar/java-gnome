@@ -180,11 +180,19 @@ public class Context extends Entity
     /**
      * Restores the Context to the last (nested) saved state.
      * 
+     * @throws IllegalStateException
+     *             If there is no matching previous call to
+     *             <code>save()</code>.
+     *
      * @since 4.0.10
      */
     public void restore() {
         CairoContext.restore(this);
-        checkStatus();
+        Status status = CairoContext.status(this);
+        if (status == Status.INVALID_RESTORE) {
+            throw new IllegalStateException("No matching call to save()");
+        }
+        checkStatus(status);
     }
 
     /**
@@ -288,6 +296,15 @@ public class Context extends Entity
     public void setLineWidth(double width) {
         CairoContext.setLineWidth(this, width);
         checkStatus();
+    }
+    
+    /**
+     * Get the line width for this Context.
+     * 
+     * @since 4.0.12
+     */
+    public double getLineWidth() {
+        return CairoContext.getLineWidth(this);
     }
 
     /**

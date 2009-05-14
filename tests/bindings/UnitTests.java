@@ -15,6 +15,7 @@ import junit.framework.TestSuite;
 import org.freedesktop.bindings.Debug;
 import org.freedesktop.bindings.ValidateEnvironment;
 import org.freedesktop.bindings.ValidateInternationalization;
+import org.freedesktop.cairo.ValidateCairoContext;
 import org.freedesktop.cairo.ValidateCairoInternals;
 import org.freedesktop.cairo.ValidateDrawingToFile;
 import org.gnome.gdk.ValidateImageHandling;
@@ -131,6 +132,7 @@ public class UnitTests
         suite.addTestSuite(ValidateKeyboardHandling.class);
         suite.addTestSuite(ValidateImageHandling.class);
         suite.addTestSuite(ValidateCairoInternals.class);
+        suite.addTestSuite(ValidateCairoContext.class);
         suite.addTestSuite(ValidateDrawingToFile.class);
         suite.addTestSuite(ValidateOutParameters.class);
         suite.addTestSuite(ValidatePacking.class);

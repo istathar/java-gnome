@@ -141,6 +141,12 @@
   )
 )
 
+(define-method get_line_width
+  (of-object "cairo_t")
+  (c-name "cairo_get_line_width")
+  (return-type "double")
+)
+
 (define-method set_antialias
   (of-object "cairo_t")
   (c-name "cairo_set_antialias")
