@@ -361,3 +361,16 @@
   )
 )
 
+(define-method set_dash
+  (of-object "cairo_t")
+  (c-name "cairo_set_dash")
+  (return-type "none")
+  (parameters
+    '("const-double*" "dashes")
+    '("int" "num_dashes")
+    '("double" "offset")
+  )
+)
+
+
+

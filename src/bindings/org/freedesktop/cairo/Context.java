@@ -544,6 +544,25 @@ public class Context extends Entity
         CairoContext.fill(this);
         checkStatus();
     }
+    
+    /**
+     * Sets the dash pattern used in lines drawn with
+     * {@link #stroke() stroke()}.
+     * 
+     * <p>
+     * The pattern is specified by an array of double values. Each value
+     * provides the length of alternate "on" and "off" portions of the stroke.
+     * 
+     * @since 4.0.12
+     */
+    /*
+     * TODO the offset seems not very useful, so I always use 0. Later we may
+     * want to expose setDash(double[], double) to allow offset specification
+     */
+    public void setDash(double[] dashes) {
+        CairoContext.setDash(this, dashes, dashes.length, 0);
+        checkStatus();
+    }
 
     /**
      * Fill the current path, preserving the path such that it can be used
