@@ -89,6 +89,18 @@ public class FileChooserButton extends HBox implements FileChooser
         }
     }
 
+    public void addFilter(FileFilter filter) {
+        GtkFileChooser.addFilter(this, filter);
+    }
+
+    public void setFilter(FileFilter filter) {
+        GtkFileChooser.setFilter(this, filter);
+    }
+
+    public FileFilter getFilter() {
+        return GtkFileChooser.getFilter(this);
+    }
+
     /**
      * Signal emitted when the file indicated by this FileChooserButton has
      * been set by the user.

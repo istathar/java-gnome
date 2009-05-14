@@ -30,6 +30,7 @@ import java.net.URI;
  * current signal handler (as the case may be).
  * 
  * @author Andrew Cowie
+ * @author Vreixo Formoso
  * @since 4.0.2
  */
 public interface FileChooser
@@ -142,4 +143,41 @@ public interface FileChooser
      * moment.
      */
     public boolean setFilename(String filename);
+
+    /**
+     * Add a FileFilter to the list of filters that the user can select
+     * between. When a filter is selected, only files that are passed by that
+     * filter are displayed.
+     * 
+     * @see FileFilter
+     * @since 4.0.12
+     */
+    public void addFilter(FileFilter filter);
+
+    /**
+     * Sets the current filter; only the files that pass the filter will be
+     * displayed. If the user-selectable list of filters is non-empty, then
+     * the filter should be one of the filters in that list.
+     * 
+     * <p>
+     * Setting the current filter when the list of filters is empty is useful
+     * if you want to restrict the displayed set of files without letting the
+     * user change it.
+     * 
+     * @see FileFilter
+     * @since 4.0.12
+     */
+    public void setFilter(FileFilter filter);
+
+    /**
+     * Gets the current filter.
+     * 
+     * <p>
+     * This function is specially useful on "Save" FileChoosers, to know the
+     * file type chosen by the user.
+     * 
+     * @see FileFilter
+     * @since 4.0.12
+     */
+    public FileFilter getFilter();
 }

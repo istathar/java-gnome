@@ -119,6 +119,18 @@ public class FileChooserDialog extends Dialog implements FileChooser
         }
     }
 
+    public void addFilter(FileFilter filter) {
+        GtkFileChooser.addFilter(this, filter);
+    }
+
+    public void setFilter(FileFilter filter) {
+        GtkFileChooser.setFilter(this, filter);
+    }
+
+    public FileFilter getFilter() {
+        return GtkFileChooser.getFilter(this);
+    }
+
     public boolean setFilename(String filename) {
         if (filename.charAt(0) == '/') {
             return GtkFileChooser.setFilename(this, filename);
