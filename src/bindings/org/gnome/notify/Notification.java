@@ -237,11 +237,11 @@ public class Notification extends org.gnome.glib.Object
     }
 
     /**
-     * Signal emmitted when a notification is closed. This can happen in 3 ways:
+     * Signal emmitted when a notification is closed. This can happen in 3
+     * ways:
      * <ul>
-     * <li>When notification timeout expires.</li>
-     * <li>When user dismisses it by closing.</li>
-     * <li>When {@link #close()} is called.</li>
+     * <li>When notification timeout expires.</li> <li>When user dismisses it
+     * by closing.</li> <li>When {@link #close()} is called.</li>
      * </ul>
      * 
      * @since 4.0.12
@@ -261,47 +261,50 @@ public class Notification extends org.gnome.glib.Object
     public void connect(Closed handler) {
         NotifyNotification.connect(this, handler, false);
     }
-    
+
     /**
      * Callback invoked when an added action is invoked.
      * 
      * @see Notification#addAction(String, String, Notification.Action)
      * @since 4.0.12
      */
-    public interface Action {
+    public interface Action
+    {
         public void onAction(Notification source, String action);
     }
-    
+
     private static class ActionHandler implements NotifyNotification.ActionSignal
     {
         private final Action handler;
+
         private final String actionID;
 
-        private ActionHandler(String actionID,Action handler) {
+        private ActionHandler(String actionID, Action handler) {
             this.handler = handler;
             this.actionID = actionID;
         }
 
         public void onAction(Notification source, String action) {
-            if(actionID.equals(action))
+            if (actionID.equals(action))
                 handler.onAction(source, action);
         }
     }
-    
+
     /**
      * Add an action to a notification. Notification-daemon displays these as
-     * buttons. Notify-OSD of Ubuntu doesn't support actions at all. To determine
-     * if notification system supports actions look for "actions" in capabilities.
+     * buttons. Notify-OSD of Ubuntu doesn't support actions at all. To
+     * determine if notification system supports actions look for "actions" in
+     * capabilities.
      * 
      * @see Notify#getServerCapabilities()
      * @see Notification.Action
      * @since 4.0.12
      */
-    public void addAction(String actionID,String label,Notification.Action action) {
+    public void addAction(String actionID, String label, Notification.Action action) {
         NotifyNotificationOverride.addAction(this, actionID, label);
-        NotifyNotification.connect(this, new ActionHandler(actionID,action), false);
+        NotifyNotification.connect(this, new ActionHandler(actionID, action), false);
     }
-    
+
     /**
      * Remove all added actions.
      * 

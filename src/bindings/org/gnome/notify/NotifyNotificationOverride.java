@@ -34,13 +34,14 @@ final class NotifyNotificationOverride extends Plumbing
     }
 
     private static native final void notify_notification_set_hint_byte(long self, String key, short value);
-    
+
     /**
      * Manually hookup the function that will emit our custom visible signal.
      */
     static final void addAction(Notification self, String action, String label) {
-        notify_notification_add_action(pointerOf(self),action, label);
+        notify_notification_add_action(pointerOf(self), action, label);
     }
-    
-    private static native final void notify_notification_add_action(long self, String action, String label);
+
+    private static native final void notify_notification_add_action(long self, String action,
+            String label);
 }
