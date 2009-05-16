@@ -130,7 +130,7 @@ public class Notification extends org.gnome.glib.Object
     }
 
     /**
-     * Set the timeout that the notification disappears.<br>
+     * Set the timeout that the notification disappears in milliseconds.<br>
      * Use {@link Notification#NOTIFY_EXPIRES_DEFAULT NOTIFY_EXPIRES_DEFAULT}
      * for the default timeout duration.<br>
      * Use {@link Notification#NOTIFY_EXPIRES_NEVER NOTIFY_EXPIRES_NEVER} for
@@ -303,6 +303,7 @@ public class Notification extends org.gnome.glib.Object
     public void addAction(String actionID, String label, Notification.Action action) {
         NotifyNotificationOverride.addAction(this, actionID, label);
         NotifyNotification.connect(this, new ActionHandler(actionID, action), false);
+        //TODO: Add logic to disconnect signal handler of actionID if there's one already registered.
     }
 
     /**
@@ -312,5 +313,6 @@ public class Notification extends org.gnome.glib.Object
      */
     public void clearActions() {
         NotifyNotification.clearActions(this);
+        //TODO: Add logic to disconnect signal handlers.
     }
 }

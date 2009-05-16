@@ -81,6 +81,45 @@ public class ExampleLowBattery
          * Make the notification critical.
          */
         notification.setUrgency(Urgency.CRITICAL);
+        
+        notification.addAction("a", "Action 1.a", new Notification.Action() {
+
+            public void onAction(Notification source, String action) {
+                System.out.println("1.a");
+                
+            }
+            
+        });
+        
+        notification.addAction("b", "Action 1.b", new Notification.Action() {
+
+            public void onAction(Notification source, String action) {
+                System.out.println("1.b");
+                
+            }
+            
+        });
+        
+        //notification.clearActions();
+        
+        notification.addAction("a", "Action 2.a", new Notification.Action() {
+
+            public void onAction(Notification source, String action) {
+                System.out.println("2.a");
+                
+            }
+            
+        });
+        
+        notification.addAction("b", "Action 2.b", new Notification.Action() {
+
+            public void onAction(Notification source, String action) {
+                System.out.println("2.b");
+                
+            }
+            
+        });
+        
 
         /*
          * Display the notification.
