@@ -68,7 +68,11 @@ public class ExampleLowBattery
 
         /*
          * Make it play the warning sound from gnome-sound. Note that this may
-         * change in distributions.
+         * change in distributions. Normally this hint should be set if the
+         * server supports sounds. But unfortunately notification-daemon
+         * doesn't report its sound capability although it supports sounds.
+         * 
+         * See http://trac.galago-project.org/ticket/187
          */
 
         notification.setHint("sound-file", "/usr/share/sounds/warning.wav");
