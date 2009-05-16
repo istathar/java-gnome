@@ -208,7 +208,7 @@
 
 (define-virtual action
   (of-object "NotifyNotification")
-  (return-type "gboolean")
+  (return-type "none")
   (parameters
     '("gchar*" "action")
   )

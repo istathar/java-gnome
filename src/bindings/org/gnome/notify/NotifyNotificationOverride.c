@@ -13,7 +13,8 @@
 #include <libnotify/notify.h>
 #include <jni.h>
 #include "org_gnome_notify_NotifyNotificationOverride.h"
-//#include <string.h>
+
+static guint signalID = 0;
 
 static gboolean
 emit_notification
@@ -83,7 +84,6 @@ JNIEXPORT void JNICALL Java_org_gnome_notify_NotifyNotificationOverride_notify_1
 	NotifyNotification* self;
 	const gchar* action;
 	const gchar* label;
-	//guint signalID;
 
 	// convert parameter self
 	self = (NotifyNotification*) _self;
@@ -99,21 +99,17 @@ JNIEXPORT void JNICALL Java_org_gnome_notify_NotifyNotificationOverride_notify_1
 		return; // Java Exception already thrown
 	}
 
-	//char signal_name[strlen(action)+13];
-
-	//sprintf(signal_name,"notification-%s",action);
-
-	/*signalID = */g_signal_new("action",
-				NOTIFY_TYPE_NOTIFICATION,
-				G_SIGNAL_ACTION,
-				0,
-				NULL,
-				NULL,
-				NULL, // note 1
-				G_TYPE_BOOLEAN,
-				1,    // note 2
-				G_TYPE_STRING);
+	if(signalID == 0) {
+		signalID = g_signal_new("action",
+					NOTIFY_TYPE_NOTIFICATION,
+					G_SIGNAL_ACTION,
+					0,
+					NULL,
+					NULL,
+					NULL, // note 1
+					G_TYPE_NONE,
+					1,    // note 2
+					G_TYPE_STRING);
+	}
 	notify_notification_add_action(self,action,label,NOTIFY_ACTION_CALLBACK(emit_notification),NULL,NULL);
-	//printf("signalID %d",signalID);
-
 }
