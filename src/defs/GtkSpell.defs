@@ -1,0 +1,35 @@
+;; This is custom written for our wrapper around the GtkSpell library.
+
+(define-boxed Spell
+  (in-module "Gtk")
+  (c-name "GtkSpell")
+  (import-header "gtkspell/gtkspell.h")
+)
+
+(define-function spell_new_attach
+  (is-constructor-of "GtkSpell")
+  (c-name "gtkspell_new_attach")
+  (return-type "GtkSpell*")
+  (parameters
+    '("GtkTextView*" "view")
+    '("const-gchar*" "lang")
+    '("GError**" "error")
+  )
+)
+
+(define-method detach
+  (of-object "GtkSpell")
+  (c-name "gtkspell_detach")
+  (return-type "none")
+)
+
+(define-function set_language
+  (of-object "GtkSpell")
+  (c-name "gtkspell_set_language")
+  (return-type "gboolean")
+  (parameters
+    '("const-gchar*" "lang")
+    '("GError**" "error")
+  )
+)
+
