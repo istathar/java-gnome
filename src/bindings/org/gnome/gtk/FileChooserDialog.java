@@ -1,7 +1,7 @@
 /*
  * FileChooserDialog.java
  *
- * Copyright (c) 2007 Operational Dynamics Consulting Pty Ltd, and Others
+ * Copyright (c) 2007-2009 Operational Dynamics Consulting Pty Ltd, and Others
  *
  * The code in this file, and the library it is a part of, are made available
  * to you by the authors under the terms of the "GNU General Public Licence,
@@ -117,6 +117,18 @@ public class FileChooserDialog extends Dialog implements FileChooser
         } else {
             return null;
         }
+    }
+
+    public void addFilter(FileFilter filter) {
+        GtkFileChooser.addFilter(this, filter);
+    }
+
+    public void setFilter(FileFilter filter) {
+        GtkFileChooser.setFilter(this, filter);
+    }
+
+    public FileFilter getFilter() {
+        return GtkFileChooser.getFilter(this);
     }
 
     public boolean setFilename(String filename) {

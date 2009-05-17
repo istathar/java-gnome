@@ -4,7 +4,7 @@
 # faster.py, an abbreviated build script for java-gnome
 # Must be invoked from the project top level directory as [./]build/faster
 #
-# Copyright (c) 2007-2008 Operational Dynamics Consulting Pty Ltd 
+# Copyright (c) 2007-2009 Operational Dynamics Consulting Pty Ltd 
 # 
 # The code in this file, and the library it is a part of, are made available
 # to you by the authors under the terms of the "GNU General Public Licence,
@@ -37,7 +37,7 @@
 # bring to the process when it lands, so it is a step in the right direction.
 #
 
-import os, md5, subprocess, cPickle, sys
+import os, hashlib, subprocess, cPickle, sys
 from os.path import *
 from shutil import move
 
@@ -233,7 +233,7 @@ def fileNeedsBuilding(source, target, update=True):
 		sys.exit(source + " missing, abort")
 
 	f = open(source)
-	m = md5.new(f.read())
+	m = hashlib.md5(f.read())
 	f.close()
 	hash = m.hexdigest()
 
@@ -340,6 +340,7 @@ def compileJavaCode(outputDir, classpath, sourcepath, sources):
 		cmd += " -classpath " + classpath
 	if sourcepath:
 		cmd += " -sourcepath " + sourcepath
+	cmd += " -encoding UTF-8"
 	cmd += " " + " ".join(sources)
 
 	blurb = "\n\t".join(sources)
@@ -651,6 +652,7 @@ def compileDocumentation():
 	cmd += "-stylesheetfile src/bindings/stylesheet.css "
 	cmd += "-overview src/bindings/overview.html "
 	cmd += "-sourcepath src/bindings "
+	cmd += "-encoding UTF-8 "
 	cmd += "-subpackages org "
 	cmd += "-exclude org.freedesktop.bindings "
 	cmd += "src/bindings/org/freedesktop/bindings/Time.java "

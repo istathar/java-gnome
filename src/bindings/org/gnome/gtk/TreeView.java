@@ -187,7 +187,7 @@ public class TreeView extends Container
     public void removeColumn(TreeViewColumn column) {
         GtkTreeView.removeColumn(this, column);
     }
-    
+
     /**
      * Set whether this TreeView has a header row at the top of the Widget
      * showing the titles of each of the TreeViewColumns packed into it. The
@@ -768,7 +768,7 @@ public class TreeView extends Container
     public TreeViewColumn[] getColumns() {
         return GtkTreeView.getColumns(this);
     }
-    
+
     /**
      * Get the TreeViewColumn at the given position in the TreeView, with
      * <code>0</code> being the left-most one.

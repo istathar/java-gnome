@@ -1,7 +1,8 @@
 /*
  * EventScroll.java
  *
- * Copyright (c) 2007 Operational Dynamics Consulting Pty Ltd
+ * Copyright (c) 2009 Operational Dynamics Consulting Pty Ltd
+ * Copyright (c) 2009 Vreixo Formoso
  *
  * The code in this file, and the library it is a part of, are made available
  * to you by the authors under the terms of the "GNU General Public Licence,
@@ -11,17 +12,37 @@
  */
 package org.gnome.gdk;
 
-/*
- * FIXME this is a placeholder stub for what will become the public API for
- * this type. Replace this comment with appropriate javadoc including author
- * and since tags. Note that the class may need to be made abstract, implement
- * interfaces, or even have its parent changed. No API stability guarantees
- * are made about this class until it has been reviewed by a hacker and this
- * comment has been replaced.
+/**
+ * Event describing a mouse scroll operation. In most cases, it means that the
+ * mouse wheel has been turned.
+ * 
+ * <p>
+ * In fact, this event is related with mouse buttons 4 to 7. In most cases,
+ * buttons 4 and 5 are mapped to the mouse wheel.
+ * 
+ * @author Vreixo Formoso
+ * @since 4.0.12
  */
 public final class EventScroll extends Event
 {
     protected EventScroll(long pointer) {
         super(pointer);
+    }
+
+    /**
+     * Get the state of the modifier keys. This will be
+     * {@link ModifierType#NONE NONE} if no modifiers are being held down. See
+     * EventKey's {@link EventKey#getState() getState()} and
+     * {@link ModifierType} for usage details.
+     */
+    public ModifierType getState() {
+        return GdkKeyvalOverride.flagFor(GdkEventScroll.getState(this));
+    }
+
+    /**
+     * Get the direction of the scroll.
+     */
+    public ScrollDirection getDirection() {
+        return GdkEventScroll.getDirection(this);
     }
 }
