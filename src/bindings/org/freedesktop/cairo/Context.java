@@ -11,6 +11,7 @@
  */
 package org.freedesktop.cairo;
 
+import org.gnome.gdk.Color;
 import org.gnome.gdk.Drawable;
 import org.gnome.gdk.Pixbuf;
 import org.gnome.pango.Layout;
@@ -152,16 +153,25 @@ public class Context extends Entity
     }
 
     /**
-     * Save the current state of this Context so it can be restored later.
-     * Calls to <code>save()</code> and <code>restore()</code> can be nested.
+     * Makes a copy of the current state of the Context and saves it on an
+     * internal stack. The saved state is recovered using {@link #restore()}.
      * 
      * <p>
-     * This is useful for structured graphics.
+     * The utility of this function is to preserve a configuration that will
+     * be temporary modified. For example, if you are drawing something with a
+     * given color, line width, etc. and you need to change some of those
+     * properties, draw something else, and then go back to the original
+     * state. Instead of changing back all properties again, you can just
+     * invoke <code>save()</code> before modifying them, and then
+     * <code>restore()</code> later, once you want to use the original
+     * configuration again.
+     * 
+     * <p>
+     * Multiple calls to <code>save()</code> and <code>restore()</code> can be
+     * nested. Each call to <code>restore()</code> restores the state from the
+     * matching paired <code>save()</code>.
      * 
      * @since 4.0.10
-     */
-    /*
-     * TODO which means what?
      */
     public void save() {
         CairoContext.save(this);
@@ -171,10 +181,52 @@ public class Context extends Entity
     /**
      * Restores the Context to the last (nested) saved state.
      * 
+     * @throws IllegalStateException
+     *             If there is no matching previous call to
+     *             <code>save()</code>.
+     * 
      * @since 4.0.10
      */
     public void restore() {
         CairoContext.restore(this);
+        Status status = CairoContext.status(this);
+        if (status == Status.INVALID_RESTORE) {
+            throw new IllegalStateException("No matching call to save()");
+        }
+        checkStatus(status);
+    }
+
+    /**
+     * Applies a scale transformation. It scales X and Y axis by sx and sy,
+     * respectively.
+     * 
+     * <p>
+     * The effect of this is that the points you submit are scaled by sx, sy.
+     * For example, the following sequence:
+     * 
+     * <pre>
+     * Context cr;
+     * 
+     * cr.scale(2.0, 3.0);
+     * cr.moveTo(1.0, 1.0);
+     * cr.lineTo(2.0, 2.0);
+     * cr.stroke();
+     * </pre>
+     * 
+     * Will actually draw a line from (2.0, 3.0) to (4.0, 6.0) in the target
+     * Surface.
+     * 
+     * <p>
+     * Note that you can also use negative numbers. Do not scale by 0.
+     * 
+     * <p>
+     * See {@link Matrix} for the full suite of affine transformations
+     * available.
+     * 
+     * @since 4.0.12
+     */
+    public void scale(double sx, double sy) {
+        CairoContext.scale(this, sx, sy);
         checkStatus();
     }
 
@@ -218,6 +270,17 @@ public class Context extends Entity
      */
     public void rotate(double r) {
         CairoContext.rotate(this, r);
+    }
+    
+    /**
+     * Set the source pattern within this Context to an opaque color.
+     * 
+     * @since 4.0.12
+     */
+    public void setSource(Color color) {
+        CairoContext.setSourceRgb(this, color.getRed() / 65535.0, color.getGreen() / 65535.0,
+                color.getBlue() / 65535.0);
+        checkStatus();
     }
 
     /**
@@ -279,6 +342,15 @@ public class Context extends Entity
     public void setLineWidth(double width) {
         CairoContext.setLineWidth(this, width);
         checkStatus();
+    }
+
+    /**
+     * Get the line width for this Context.
+     * 
+     * @since 4.0.12
+     */
+    public double getLineWidth() {
+        return CairoContext.getLineWidth(this);
     }
 
     /**
@@ -542,6 +614,25 @@ public class Context extends Entity
      */
     public void fill() {
         CairoContext.fill(this);
+        checkStatus();
+    }
+
+    /**
+     * Sets the dash pattern used in lines drawn with {@link #stroke()
+     * stroke()}.
+     * 
+     * <p>
+     * The pattern is specified by an array of double values. Each value
+     * provides the length of alternate "on" and "off" portions of the stroke.
+     * 
+     * @since 4.0.12
+     */
+    /*
+     * TODO the offset seems not very useful, so I always use 0. Later we may
+     * want to expose setDash(double[], double) to allow offset specification
+     */
+    public void setDash(double[] dashes) {
+        CairoContext.setDash(this, dashes, dashes.length, 0);
         checkStatus();
     }
 

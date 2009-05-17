@@ -2,6 +2,7 @@
  * CursorType.java
  *
  * Copyright (c) 2007 Operational Dynamics Consulting Pty Ltd
+ * Copyright (c) 2009 Vreixo Formoso
  *
  * The code in this file, and the library it is a part of, are made available
  * to you by the authors under the terms of the "GNU General Public Licence,
@@ -37,6 +38,7 @@ import org.freedesktop.bindings.Flag;
  * it.</i>.
  * 
  * @author Andrew Cowie
+ * @author Vreixo Formoso
  * @since 4.0.6
  */
 /*
@@ -76,4 +78,52 @@ public final class CursorType extends Flag
      * @since 4.0.6
      */
     public static final CursorType XTERM = new CursorType(GdkCursorType.XTERM, "XTERM");
+
+    /**
+     * This Cursor is typically used with Widgets whose size can be changed
+     * manually when the mouse pointer is near the top left corner of the
+     * Widget.
+     * 
+     * @since 4.0.12
+     */
+    public static final CursorType TOP_LEFT_CORNER = new CursorType(GdkCursorType.TOP_LEFT_CORNER,
+            "TOP_LEFT_CORNER");
+
+    /**
+     * This Cursor is typically used with Widgets whose size can be changed
+     * manually when the mouse pointer is near the top right corner of the
+     * Widget.
+     * 
+     * @since 4.0.12
+     */
+    public static final CursorType TOP_RIGHT_CORNER = new CursorType(GdkCursorType.TOP_RIGHT_CORNER,
+            "TOP_RIGHT_CORNER");
+
+    /**
+     * This Cursor is typically used with Widgets whose size can be changed
+     * manually when the mouse pointer is near the bottom left corner of the
+     * Widget.
+     * 
+     * @since 4.0.12
+     */
+    public static final CursorType BOTTOM_LEFT_CORNER = new CursorType(GdkCursorType.BOTTOM_LEFT_CORNER,
+            "BOTTOM_LEFT_CORNER");
+
+    /**
+     * This Cursor is typically used with Widgets whose size can be changed
+     * manually when the mouse pointer is near the bottom right corner of the
+     * Widget.
+     * 
+     * @since 4.0.12
+     */
+    public static final CursorType BOTTOM_RIGHT_CORNER = new CursorType(
+            GdkCursorType.BOTTOM_RIGHT_CORNER, "BOTTOM_RIGHT_CORNER");
+
+    /**
+     * The Cursor used to indicate a "move" operation. It is used when moving
+     * the mouse pointer would cause a Widget to be moved.
+     * 
+     * @since 4.0.12
+     */
+    public static final CursorType FLEUR = new CursorType(GdkCursorType.FLEUR, "FLEUR");
 }
