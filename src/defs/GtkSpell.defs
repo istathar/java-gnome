@@ -33,3 +33,18 @@
   )
 )
 
+(define-method recheck_all
+  (of-object "GtkSpell")
+  (c-name "gtkspell_recheck_all")
+  (return-type "none")
+)
+
+(define-function get_from_text_view
+  (of-object "GtkSpell")
+  (c-name "gtkspell_get_from_text_view")
+  (return-type "GtkSpell*")
+  (parameters
+    '("GtkTextView*" "view")
+  )
+)
+
