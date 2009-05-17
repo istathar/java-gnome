@@ -23,7 +23,7 @@
   (return-type "none")
 )
 
-(define-function set_language
+(define-method set_language
   (of-object "GtkSpell")
   (c-name "gtkspell_set_language")
   (return-type "gboolean")
