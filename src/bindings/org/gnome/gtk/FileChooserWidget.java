@@ -1,8 +1,8 @@
 /*
  * FileChooserWidget.java
  *
- * Copyright (c) 2009 Operational Dynamics Consulting Pty Ltd
- * Copyright (c) 2009 Vreixo Formoso
+ * Copyright (c) 2007-2009 Operational Dynamics Consulting Pty Ltd
+ * Copyright (c)      2009 Vreixo Formoso
  *
  * The code in this file, and the library it is a part of, are made available
  * to you by the authors under the terms of the "GNU General Public Licence,
@@ -33,6 +33,8 @@ public class FileChooserWidget extends VBox implements FileChooser
 
     /**
      * Create a new FileChooserWidget.
+     * 
+     * @since 4.0.12
      */
     public FileChooserWidget(FileChooserAction action) {
         super(GtkFileChooserWidget.createFileChooserWidget(action));

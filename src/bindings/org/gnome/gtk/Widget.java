@@ -576,7 +576,7 @@ public abstract class Widget extends org.gnome.gtk.Object
     public void connect(KEY_RELEASE_EVENT handler) {
         GtkWidget.connect(this, handler, false);
     }
-    
+
     /**
      * Signal emitted when the user turns the mouse wheel.
      * 
@@ -622,7 +622,7 @@ public abstract class Widget extends org.gnome.gtk.Object
      * Widget it changes its active item. Of course, this is only useful when
      * the operation can be seen as a scroll in the particular Widget context;
      * it is not a good idea, for example, to close a Window or click a Button
-     * in response to a SCROLL_EVENT.
+     * in response to a <code>Widget.SrollEvent</code>.
      * 
      * @author Vreixo Formoso
      * @since 4.0.12
@@ -633,11 +633,11 @@ public abstract class Widget extends org.gnome.gtk.Object
     }
 
     /**
-     * Connect a ScrollEvent handler.
+     * Connect a <code>Widget.ScrollEvent</code> handler.
      * 
      * @since 4.0.12
      */
-    public void connect(ScrollEvent handler) {
+    public void connect(Widget.ScrollEvent handler) {
         GtkWidget.connect(this, handler, false);
     }
 

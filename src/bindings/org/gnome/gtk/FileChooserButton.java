@@ -1,7 +1,7 @@
 /*
  * FileChooserButton.java
  *
- * Copyright (c) 2007 Operational Dynamics Consulting Pty Ltd and Others
+ * Copyright (c) 2007-2009 Operational Dynamics Consulting Pty Ltd, and Others
  * 
  * The code in this file, and the library it is a part of, are made available
  * to you by the authors under the terms of the "GNU General Public Licence,
@@ -51,6 +51,7 @@ public class FileChooserButton extends HBox implements FileChooser
      *            file), and {@link FileChooserAction#SELECT_FOLDER
      *            SELECT_FOLDER}, (selecting a single directory) are enabled
      *            for FileChooserButton.
+     * @since 4.0.2
      */
     public FileChooserButton(String title, FileChooserAction action) {
         super(GtkFileChooserButton.createFileChooserButton(title, action));
@@ -114,13 +115,13 @@ public class FileChooserButton extends HBox implements FileChooser
     }
 
     /**
-     * Hook up a callback to handle the <code>FILE_SET</code> signal generated
-     * when the file or directory has been selected by the user using this
-     * FileChooserButton.
+     * Hook up a callback to handle the <code>FileChooserButton.FileSet</code>
+     * signal generated when the file or directory has been selected by the
+     * user using this FileChooserButton.
      * 
      * @since 4.0.5
      */
-    public void connect(FileSet handler) {
+    public void connect(FileChooserButton.FileSet handler) {
         GtkFileChooserButton.connect(this, handler, false);
     }
 

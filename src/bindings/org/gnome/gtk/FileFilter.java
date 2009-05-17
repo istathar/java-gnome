@@ -1,8 +1,8 @@
 /*
  * FileFilter.java
  *
- * Copyright (c) 2009 Operational Dynamics Consulting Pty Ltd
- * Copyright (c) 2009 Vreixo Formoso
+ * Copyright (c) 2007-2009 Operational Dynamics Consulting Pty Ltd
+ * Copyright (c)      2009 Vreixo Formoso
  *
  * The code in this file, and the library it is a part of, are made available
  * to you by the authors under the terms of the "GNU General Public Licence,
@@ -81,6 +81,8 @@ public class FileFilter extends Object
 
     /**
      * Create a new FileFilter
+     * 
+     * @since 4.0.12
      */
     public FileFilter() {
         super(GtkFileFilter.createFileFilter());
@@ -90,6 +92,8 @@ public class FileFilter extends Object
      * Create a new FileFilter with the given name. This is equivalent to
      * create a FileFilter and the call {@link #setName(String) setName()}
      * method.
+     * 
+     * @since 4.0.12
      */
     public FileFilter(String name) {
         super(GtkFileFilter.createFileFilter());
@@ -100,6 +104,8 @@ public class FileFilter extends Object
      * Sets the human-readable name of the filter; this is the String that
      * will be displayed in the FileChooser user interface if there is a
      * selectable list of filters.
+     * 
+     * @since 4.0.12
      */
     public void setName(String name) {
         GtkFileFilter.setName(this, name);
@@ -110,10 +116,14 @@ public class FileFilter extends Object
      * 
      * <p>
      * Filtering by MIME types handles aliasing and subclassing of mime types;
-     * e.g. a filter for "text/plain" also matches a file with MIME type
-     * "application/rtf", since "application/rtf" is a subclass of
-     * "text/plain". Note that FileFilter allows wildcards for the subtype of
-     * a MIME type, so you can e.g. filter for "image/*".
+     * e.g. a filter for <code>"text/plain"</code> also matches a file with
+     * MIME type <code>"application/rtf"</code>, since
+     * <code>"application/rtf"</code> is a subclass of
+     * <code>"text/plain"</code>. Note that FileFilter allows wildcards for
+     * the subtype of a MIME type, so you can e.g. filter for
+     * <code>"image/*"</code>.
+     * 
+     * @since 4.0.12
      */
     public void addMimeType(String mimeType) {
         GtkFileFilter.addMimeType(this, mimeType);
@@ -121,6 +131,8 @@ public class FileFilter extends Object
 
     /**
      * Adds a rule allowing a shell style glob to the filter.
+     * 
+     * @since 4.0.12
      */
     public void addPattern(String pattern) {
         GtkFileFilter.addPattern(this, pattern);

@@ -1,7 +1,7 @@
 /*
  * FileChooser.java
  *
- * Copyright (c) 2007-2008 Operational Dynamics Consulting Pty Ltd and Others
+ * Copyright (c) 2007-2009 Operational Dynamics Consulting Pty Ltd, and Others
  * 
  * The code in this file, and the library it is a part of, are made available
  * to you by the authors under the terms of the "GNU General Public Licence,
@@ -43,6 +43,7 @@ public interface FileChooser
      *         filenames will be returned at random. If the FileChooser is in
      *         one of the folder modes, this returns the selected folder's
      *         name.
+     * @since 4.0.2
      */
     public String getFilename();
 
@@ -103,6 +104,7 @@ public interface FileChooser
      *         one of the filenames will be returned at random. If the
      *         FileChooser is in one of the folder modes, this returns the
      *         selected folder's URI.
+     * @since 4.0.2
      */
     /*
      * A direct mapping would be getUri(), but that looks stupid, and

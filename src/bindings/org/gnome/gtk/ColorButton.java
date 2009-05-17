@@ -1,8 +1,8 @@
 /*
  * ColorButton.java
  *
- * Copyright (c) 2009 Operational Dynamics Consulting Pty Ltd
- * Copyright (c) 2009 Vreixo Formoso
+ * Copyright (c) 2007-2009 Operational Dynamics Consulting Pty Ltd
+ * Copyright (c)      2009 Vreixo Formoso
  *
  * The code in this file, and the library it is a part of, are made available
  * to you by the authors under the terms of the "GNU General Public Licence,
@@ -38,6 +38,8 @@ public class ColorButton extends Button
 
     /**
      * Create a new ColorButton.
+     * 
+     * @since 4.0.12
      */
     public ColorButton() {
         super(GtkColorButton.createColorButton());
@@ -45,6 +47,8 @@ public class ColorButton extends Button
 
     /**
      * Create a new ColorButton.
+     * 
+     * @since 4.0.12
      * 
      * @param color
      *            The Color that will be selected.
@@ -55,10 +59,15 @@ public class ColorButton extends Button
 
     /**
      * Get the Color currently selected.
+     * 
+     * @since 4.0.12
      */
     public Color getColor() {
-        Color color = new Color(0, 0, 0);
+        final Color color;
+
+        color = new Color(0, 0, 0);
         GtkColorButton.getColor(this, color);
+
         return color;
     }
 
@@ -70,6 +79,7 @@ public class ColorButton extends Button
      * Color selected by the user.
      * 
      * @author Vreixo Formoso
+     * @since 4.0.12
      */
     public interface ColorSet extends GtkColorButton.ColorSetSignal
     {
@@ -77,9 +87,11 @@ public class ColorButton extends Button
     }
 
     /**
-     * Hook up a handler for ColorSet signal.
+     * Hook up a handler for <code>ColorButton.ColorSet</code> signal.
+     * 
+     * @since 4.0.12
      */
-    public void connect(ColorSet handler) {
+    public void connect(ColorButton.ColorSet handler) {
         GtkColorButton.connect(this, handler, false);
     }
 }
