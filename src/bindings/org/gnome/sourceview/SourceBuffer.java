@@ -16,6 +16,7 @@ import org.gnome.gtk.TextTagTable;
 
 /**
  * @author Stefan Schweizer
+ * @since 4.0.12
  */
 public class SourceBuffer extends TextBuffer
 {
@@ -25,6 +26,8 @@ public class SourceBuffer extends TextBuffer
 
     /**
      * Create a new SourceBuffer using the given TextTagTable.
+     * 
+     * @since 4.0.12
      */
     public SourceBuffer(TextTagTable tags) {
         super(GtkSourceBuffer.createSourceBuffer(tags));
@@ -33,6 +36,8 @@ public class SourceBuffer extends TextBuffer
     /**
      * Enable/disable syntax higlighting. The SourceLangage is configured with
      * <code>setLanguage</code>. Highlighting is enabled by default.
+     * 
+     * @since 4.0.12
      */
     public void setHighlightSyntax(boolean highlight) {
         GtkSourceBuffer.setHighlightSyntax(this, highlight);
@@ -40,6 +45,8 @@ public class SourceBuffer extends TextBuffer
 
     /**
      * Return whether syntax highlighting is enabled or not.
+     * 
+     * @since 4.0.12
      */
     public boolean getHighlightSyntax() {
         return GtkSourceBuffer.getHighlightSyntax(this);
@@ -47,6 +54,8 @@ public class SourceBuffer extends TextBuffer
 
     /**
      * Set the Language that is used for syntax highlighting.
+     * 
+     * @since 4.0.12
      */
     public void setLanguage(Language language) {
         GtkSourceBuffer.setLanguage(this, language);
@@ -54,6 +63,8 @@ public class SourceBuffer extends TextBuffer
 
     /**
      * Get the Language that is used for syntax highlighting.
+     * 
+     * @since 4.0.12
      */
     public Language getLanguage() {
         return GtkSourceBuffer.getLanguage(this);

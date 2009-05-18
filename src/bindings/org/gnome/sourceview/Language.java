@@ -18,6 +18,7 @@ import org.gnome.gtk.Object;
  * Instances can be obtained from a {@link LanguageManager} .
  * 
  * @author Stefan Schweizer
+ * @since 4.0.12
  */
 public class Language extends Object
 {
@@ -29,6 +30,8 @@ public class Language extends Object
      * Get the ID of the language. For example, the ID for Java is
      * <code>java</code>. The ID of a language is defined in the
      * corresponding language definition file.
+     * 
+     * @since 4.0.12
      */
     public String getID() {
         return GtkSourceLanguage.getId(this);
@@ -36,6 +39,8 @@ public class Language extends Object
 
     /**
      * Get the localized name of the language.
+     * 
+     * @since 4.0.12
      */
     public String getName() {
         return GtkSourceLanguage.getName(this);

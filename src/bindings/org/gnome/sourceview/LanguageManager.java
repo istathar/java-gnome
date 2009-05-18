@@ -18,6 +18,7 @@ import org.gnome.gtk.Object;
  * for syntax highlighting in a {@link SourceBuffer}.
  * 
  * @author Stefan Schweizer
+ * @since 4.0.12
  */
 public class LanguageManager extends Object
 {
@@ -27,6 +28,8 @@ public class LanguageManager extends Object
 
     /**
      * Return the default LanguageManager.
+     * 
+     * @since 4.0.12
      */
     public static LanguageManager getDefault() {
         return GtkSourceLanguageManager.getDefault();
@@ -35,6 +38,8 @@ public class LanguageManager extends Object
     /**
      * Return a Language specified by its language ID or null if the ID is not
      * known.
+     * 
+     * @since 4.0.12
      */
     public Language getLanguage(String id) {
         return GtkSourceLanguageManager.getLanguage(this, id);
