@@ -15,6 +15,7 @@ import org.gnome.gtk.TextView;
 
 /**
  * @author Stefan Schweizer
+ * @since 4.0.12
  */
 public class SourceView extends TextView
 {
@@ -24,8 +25,88 @@ public class SourceView extends TextView
 
     /**
      * Create a new SourceView that displays the SourceBuffer.
+     * 
+     * @since 4.0.12
      */
     public SourceView(SourceBuffer buffer) {
         super(GtkSourceView.createSourceViewWithBuffer(buffer));
+    }
+
+    /**
+     * Returns whether line numbers are shown next to the text or not.
+     * 
+     * @since 4.0.12
+     */
+    public boolean getShowLineNumbers() {
+        return GtkSourceView.getShowLineNumbers(this);
+    }
+
+    /**
+     * Enable or disable the display of line numbers next to the text. The
+     * display is disabled by default.
+     * 
+     * @since 4.0.12
+     */
+    public void setShowLineNumbers(boolean show) {
+        GtkSourceView.setShowLineNumbers(this, show);
+    }
+
+    /**
+     * Returns whether the current line is highlighted or not. Disabled by
+     * default.
+     * 
+     * @since 4.0.12
+     */
+    public boolean getHighlightCurrentLine() {
+        return GtkSourceView.getHighlightCurrentLine(this);
+    }
+
+    /**
+     * Enable or disable the highlighting of the current line. Disabled by
+     * default.
+     * 
+     * @since 4.0.12
+     */
+    public void setHighlightCurrentLine(boolean highlight) {
+        GtkSourceView.setHighlightCurrentLine(this, highlight);
+    }
+
+    /**
+     * Returns whether the line indicating the right margin is shown or not.
+     * 
+     * @since 4.0.12
+     */
+    public boolean getShowRightMargin() {
+        return GtkSourceView.getShowRightMargin(this);
+    }
+
+    /**
+     * Show a line that indicates the right margin of the text. Disabled by
+     * default.
+     * 
+     * @since 4.0.12
+     */
+    public void setShowRightMargin(boolean show) {
+        GtkSourceView.setShowRightMargin(this, show);
+    }
+
+    /**
+     * Return the position of the line that indicates the right margin of the
+     * text.
+     * 
+     * @since 4.0.12
+     */
+    public int getRightMarginPosition() {
+        return GtkSourceView.getRightMarginPosition(this);
+    }
+
+    /**
+     * Set the position of the line that indicates the right margin of the
+     * text. The default position is 80.
+     * 
+     * @since 4.0.12
+     */
+    public void setRightMarginPosition(int position) {
+        GtkSourceView.setRightMarginPosition(this, position);
     }
 }

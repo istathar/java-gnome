@@ -52,7 +52,12 @@ public class ExampleEditor
         tagTable = new TextTagTable();
         buffer = new SourceBuffer(tagTable);
         buffer.setLanguage(LanguageManager.getDefault().getLanguage("java"));
+
         view = new SourceView(buffer);
+        view.setShowLineNumbers(true);
+        view.setHighlightCurrentLine(true);
+        view.setShowRightMargin(true);
+        view.setRightMarginPosition(105);
 
         buffer.setText(readFile("doc/examples/sourceview/ExampleEditor.java"));
 
