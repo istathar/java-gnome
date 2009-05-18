@@ -11,9 +11,8 @@
 package sourceview;
 
 import java.io.BufferedReader;
+import java.io.FileReader;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 
 import org.gnome.gdk.Event;
 import org.gnome.gtk.Gtk;
@@ -55,7 +54,7 @@ public class ExampleEditor
         buffer.setLanguage(LanguageManager.getDefault().getLanguage("java"));
         view = new SourceView(buffer);
 
-        buffer.setText(readFile("ExampleEditor.java"));
+        buffer.setText(readFile("doc/examples/sourceview/ExampleEditor.java"));
 
         scroll = new ScrolledWindow();
         scroll.setPolicy(PolicyType.AUTOMATIC, PolicyType.ALWAYS);
@@ -68,14 +67,12 @@ public class ExampleEditor
 
     private String readFile(String filename) {
         final StringBuilder content;
-        final InputStream in;
-        final BufferedReader reader;
+        BufferedReader reader = null;
 
         content = new StringBuilder();
-        in = ExampleEditor.class.getResourceAsStream(filename);
-        reader = new BufferedReader(new InputStreamReader(in));
 
         try {
+            reader = new BufferedReader(new FileReader(filename));
             for (int c = reader.read(); c != -1; c = reader.read()) {
                 content.append((char) c);
             }
@@ -83,7 +80,8 @@ public class ExampleEditor
             content.append(ioe.getMessage());
         } finally {
             try {
-                reader.close();
+                if (reader != null)
+                    reader.close();
             } catch (IOException e) {
             }
         }
