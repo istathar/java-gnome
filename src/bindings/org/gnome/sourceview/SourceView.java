@@ -109,4 +109,59 @@ public class SourceView extends TextView
     public void setRightMarginPosition(int position) {
         GtkSourceView.setRightMarginPosition(this, position);
     }
+
+    /**
+     * Returns whether spaces are used instead of the tab character.
+     * 
+     * @since 4.0.12
+     */
+    public boolean getInsertSpacesInsteadOfTabs() {
+        return GtkSourceView.getInsertSpacesInsteadOfTabs(this);
+    }
+
+    /**
+     * Insert spaces instead of the tab character. Disabled by default.
+     * 
+     * @since 4.0.12
+     */
+    public void setInsertSpacesInsteadOfTabs(boolean enable) {
+        GtkSourceView.setInsertSpacesInsteadOfTabs(this, enable);
+    }
+
+    /**
+     * Return the number of spaces that are used for the tab character.
+     * 
+     * @since 4.0.12
+     */
+    public int getTabWidth() {
+        return GtkSourceView.getTabWidth(this);
+    }
+
+    /**
+     * Set the number of spaces that are used for the tab character.
+     * 
+     * @since 4.0.12
+     */
+    public void setTabWidth(int width) {
+        GtkSourceView.setTabWidth(this, width);
+    }
+
+    /**
+     * Return whether audo-indentation is enabled of not.
+     * 
+     * @since 4.0.12
+     */
+    public boolean getAutoIndent() {
+        return GtkSourceView.getAutoIndent(this);
+    }
+
+    /**
+     * Enable/disable auto-indentation. If enabled, a new line will have the
+     * same indentation as the current line. Disabled by default.
+     * 
+     * @since 4.0.12
+     */
+    public void setAutoIndent(boolean enable) {
+        GtkSourceView.setAutoIndent(this, enable);
+    }
 }

@@ -58,6 +58,9 @@ public class ExampleEditor
         view.setHighlightCurrentLine(true);
         view.setShowRightMargin(true);
         view.setRightMarginPosition(105);
+        view.setTabWidth(4);
+        view.setInsertSpacesInsteadOfTabs(true);
+        view.setAutoIndent(true);
 
         buffer.setText(readFile("doc/examples/sourceview/ExampleEditor.java"));
 
