@@ -164,4 +164,48 @@ public class SourceView extends TextView
     public void setAutoIndent(boolean enable) {
         GtkSourceView.setAutoIndent(this, enable);
     }
+
+    /**
+     * The handler interface used for undo signals.
+     * 
+     * @author Stefan Schweizer
+     * @since 4.0.12
+     */
+    public interface Undo extends GtkSourceView.UndoSignal
+    {
+        public void onUndo(SourceView source);
+    }
+
+    /**
+     * Connect a handler to receive <code>SourceView.Undo</code> signals. It
+     * is emitted whenever something is undone in the editor window, e.g. by
+     * hitting Ctrl+Z.
+     * 
+     * @since 4.0.12
+     */
+    public void connect(SourceView.Undo handler) {
+        GtkSourceView.connect(this, handler, false);
+    }
+
+    /**
+     * The handler interface used for redo signals.
+     * 
+     * @author Stefan Schweizer
+     * @since 4.0.12
+     */
+    public interface Redo extends GtkSourceView.RedoSignal
+    {
+        public void onRedo(SourceView source);
+    }
+
+    /**
+     * Connect a handler to receive <code>SourceView.Redo</code> signals. It
+     * is emitted whenever something is redone in the editor window, e.g. by
+     * hitting Shift+Ctrl+Z.
+     * 
+     * @since 4.0.12
+     */
+    public void connect(SourceView.Redo handler) {
+        GtkSourceView.connect(this, handler, false);
+    }
 }
