@@ -117,15 +117,12 @@ Java_org_gnome_gtk_GtkWidgetOverride_gtk_1widget_1get_1requisition
 	return (jlong) result;
 }
 
-
 /**
- * Connecting the 'visiblity-notify-signal' seems to require that the Widget
- * have a GdkWindow already. While this could be just a quick hack until we
- * have event masks exposed, we streamline things by adding the additional
- * step of realizing the Widget first if necessary.
+ * Get the events that the underlying GdkWindow receives, realizing the
+ * GtkWidget if needed.
  */
-JNIEXPORT void JNICALL
-Java_org_gnome_gtk_GtkWidgetOverride_gtk_1widget_1set_1events_1visibility
+JNIEXPORT jint JNICALL
+Java_org_gnome_gtk_GtkWidgetOverride_gtk_1widget_1get_1events
 (
 	JNIEnv* env,
 	jclass cls,
@@ -143,5 +140,33 @@ Java_org_gnome_gtk_GtkWidgetOverride_gtk_1widget_1set_1events_1visibility
 	}
 
 	mask = gdk_window_get_events(self->window);
-	gdk_window_set_events(self->window, mask | GDK_VISIBILITY_NOTIFY_MASK);
+	return (jint) mask;
 }
+
+/**
+ * Set the events that the underlying GdkWindow will receive, realizing the
+ * GtkWidget if needed.
+ */
+JNIEXPORT void JNICALL
+Java_org_gnome_gtk_GtkWidgetOverride_gtk_1widget_1set_1events
+(
+	JNIEnv* env,
+	jclass cls,
+	jlong _self,
+	jint _mask
+)
+{
+	GtkWidget* self;
+	GdkEventMask mask;
+
+	// convert parameter self
+	self = (GtkWidget*) _self;
+	if (self->window == NULL) {
+		gtk_widget_realize(self);
+		gtk_widget_hide(self);
+	}
+
+	mask = (GdkEventMask) _mask;
+	gdk_window_set_events(self->window, mask);
+}
+

@@ -11,6 +11,8 @@
  */
 package org.gnome.gtk;
 
+import org.gnome.gdk.EventMask;
+
 /**
  * Hand crafted to get at the fields of Widget.
  * 
@@ -61,15 +63,39 @@ final class GtkWidgetOverride extends Plumbing
     private static native final long gtk_widget_get_requisition(long self);
 
     /**
-     * Set the GdkWindow underlying this Widget to receive visibility events!
+     * Set the events that the underlying GdkWindow will receive.
      * As a necessary convenience, the Widget will be realized first if
      * necessary.
      */
-    static final void setEventsVisibility(Widget self) {
+    static final void setEvents(Widget self, EventMask eventMask) {
+        if (self == null) {
+            throw new IllegalArgumentException("self can't be null");
+        }
+
+        if (eventMask == null) {
+            throw new IllegalArgumentException("eventMask can't be null");
+        }
+
         synchronized (lock) {
-            gtk_widget_set_events_visibility(pointerOf(self));
+            gtk_widget_set_events(pointerOf(self), numOf(eventMask));
         }
     }
 
-    private static native final void gtk_widget_set_events_visibility(long self);
+    private static native final void gtk_widget_set_events(long self, int eventMask);
+
+    static final EventMask getEvents(Widget self) {
+        int result;
+
+        if (self == null) {
+            throw new IllegalArgumentException("self can't be null");
+        }
+
+        synchronized (lock) {
+            result = gtk_widget_get_events(pointerOf(self));
+
+            return (EventMask) flagFor(EventMask.class, result);
+        }
+    }
+
+    private static native final int gtk_widget_get_events(long self);
 }

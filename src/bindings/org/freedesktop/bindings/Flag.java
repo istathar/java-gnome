@@ -47,6 +47,20 @@ public abstract class Flag extends Constant
     }
 
     /**
+     * Helper method to enable the implementation of minus() in subclasses.
+     * It returns a Flag with all flags already enabled in a that were not enabled
+     * in b.
+     */
+    protected final static Flag minusTwoFlags(Flag a, Flag b) {
+        if (a.getClass() != b.getClass()) {
+            throw new IllegalArgumentException(
+                    "Both arguments need to be an instances of the same concrete Flags class");
+        }
+
+        return Plumbing.flagFor(a.getClass(), a.ordinal & ~b.ordinal);
+    }
+
+    /**
      * Utility function to determine whether a Flags instance has the bit
      * embodied by <code>setting</code> set. An example of this in action is:
      * 
