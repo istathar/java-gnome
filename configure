@@ -748,6 +748,10 @@ if ($os eq "gentoo") {
 			"gtk+-2.0 >= 2.14 pango >= 1.22 atk gdk-2.0 libglade-2.0 >= 2.6.3 gtk+-unix-print-2.0 cairo-svg >= 1.6.4",
 			"GNOME",
 			"gnome");
+	check_system_library(@gnomedev_libs,
+			"gtkspell-2.0",
+			"GtkSpell",
+			"gtkspell");
 
 } elsif ($os eq "slackware") {
 	# on slackware gdk-2.0 and gtk+-unix-print-2.0 are part of gtk+-2.0
