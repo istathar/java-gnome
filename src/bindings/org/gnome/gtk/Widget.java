@@ -633,7 +633,7 @@ public abstract class Widget extends org.gnome.gtk.Object
     }
 
     /**
-     * Connect a <code>Widget.ScrollEvent</code> handler.
+     * Hook up a <code>Widget.ScrollEvent</code> handler.
      * 
      * @since 4.0.12
      */
