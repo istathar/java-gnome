@@ -15,6 +15,33 @@ import org.gnome.gtk.TextBuffer;
 import org.gnome.gtk.TextTagTable;
 
 /**
+ * SourceBuffer is the model used in a {@link SourceView}. It extends GTK's
+ * {@link TextBuffer} and adds features typical for text editors. SourceBuffer
+ * contains the actual text that is displayed in the view and allows its
+ * manipulation.
+ * 
+ * <h2>Usage</h2>
+ * 
+ * The following example shows how a SourceBuffer is created and its initial
+ * content is set:
+ * 
+ * <pre>
+ * TextTagTable tagTable;
+ * SourceBuffer buffer;
+ * ...
+ * 
+ * tagTable = new TextTagTable();
+ * buffer = new SourceBuffer(tagTable);
+ * buffer.setText(&quot;Insert text here...&quot;);
+ * </pre>
+ * 
+ * The language used for syntax highlighting has to be obtained from the
+ * LanguageManager:
+ * 
+ * <pre>
+ * buffer.setLanguage(LanguageManager.getDefault().getLanguage(&quot;java&quot;));
+ * </pre>
+ * 
  * @author Stefan Schweizer
  * @since 4.0.12
  */

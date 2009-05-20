@@ -14,6 +14,30 @@ package org.gnome.sourceview;
 import org.gnome.gtk.TextView;
 
 /**
+ * A text editor widget.
+ * 
+ * GtkSourceView extends GTK's {@link TextView} and adds features that are
+ * useful for building text or source-code editors. It provides syntax
+ * highlighting for various languages, undo/redo, control over indentation and
+ * more.
+ * 
+ * <p>
+ * SourceView is the view part of the GtkSourceView library and is always used
+ * together with a {@link SourceBuffer} as its model.
+ * 
+ * <h2>Usage</h2>
+ * 
+ * To create a SourceView a previously instantiated SourceBuffer is needed,
+ * that is passed to the constructor:
+ * 
+ * <pre>
+ * SourceBuffer buffer;
+ * SourceView view;
+ * ...
+ * 
+ * view = new SourceView(buffer);
+ * </pre>
+ * 
  * @author Stefan Schweizer
  * @since 4.0.12
  */
