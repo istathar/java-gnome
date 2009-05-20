@@ -69,4 +69,82 @@ public class SourceBuffer extends TextBuffer
     public Language getLanguage() {
         return GtkSourceBuffer.getLanguage(this);
     }
+
+    /**
+     * Enable or disable highlighting of matching brackets. Enabled by
+     * default.
+     * 
+     * @since 4.0.12
+     */
+    public void setHighlightMatchingBrackets(boolean highlight) {
+        GtkSourceBuffer.setHighlightMatchingBrackets(this, highlight);
+    }
+
+    /**
+     * Return whether matching brackets are highlighted.
+     * 
+     * @since 4.0.12
+     */
+    public boolean getHighlightMatchingBrackets() {
+        return GtkSourceBuffer.getHighlightMatchingBrackets(this);
+    }
+
+    /**
+     * Return true if an operation can be undone.
+     * 
+     * @since 4.0.12
+     */
+    public boolean canUndo() {
+        return GtkSourceBuffer.canUndo(this);
+    }
+
+    /**
+     * Return true if an operation can be redone.
+     * 
+     * @since 4.0.12
+     */
+    public boolean canRedo() {
+        return GtkSourceBuffer.canRedo(this);
+    }
+
+    /**
+     * Undo the last operation. You should only call this method if there is
+     * an operation that can be undone. This can be checked with
+     * <code>canUndo</code>.
+     * 
+     * @since 4.0.12
+     */
+    public void undo() {
+        GtkSourceBuffer.undo(this);
+    }
+
+    /**
+     * Redo the last undone operation. You should only call this method if
+     * there is an operation that can be redone. This can be checked with
+     * <code>canRedo</code>.
+     * 
+     * @since 4.0.12
+     */
+    public void redo() {
+        GtkSourceBuffer.redo(this);
+    }
+
+    /**
+     * Indicate the beginning of an action that cannot be undone. This is
+     * especially useful when setting the initial content of the buffer.
+     * 
+     * @since 4.0.12
+     */
+    public void beginNotUndoableAction() {
+        GtkSourceBuffer.beginNotUndoableAction(this);
+    }
+
+    /**
+     * Indicate the end of an action that cannot be undone.
+     * 
+     * @since 4.0.12
+     */
+    public void endNotUndoableAction() {
+        GtkSourceBuffer.endNotUndoableAction(this);
+    }
 }
