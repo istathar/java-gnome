@@ -128,4 +128,23 @@ public class SourceBuffer extends TextBuffer
     public void redo() {
         GtkSourceBuffer.redo(this);
     }
+
+    /**
+     * Indicate the beginning of an action that cannot be undone. This is
+     * especially useful when setting the initial content of the buffer.
+     * 
+     * @since 4.0.12
+     */
+    public void beginNotUndoableAction() {
+        GtkSourceBuffer.beginNotUndoableAction(this);
+    }
+
+    /**
+     * Indicate the end of an action that cannot be undone.
+     * 
+     * @since 4.0.12
+     */
+    public void endNotUndoableAction() {
+        GtkSourceBuffer.endNotUndoableAction(this);
+    }
 }
