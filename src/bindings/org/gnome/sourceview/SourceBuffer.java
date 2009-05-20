@@ -69,4 +69,59 @@ public class SourceBuffer extends TextBuffer
     public Language getLanguage() {
         return GtkSourceBuffer.getLanguage(this);
     }
+
+    /**
+     * Enable or disable highlighting of matching brackets. Enabled by
+     * default.
+     * 
+     * @since 4.0.12
+     */
+    public void setHighlightMatchingBrackets(boolean highlight) {
+        GtkSourceBuffer.setHighlightMatchingBrackets(this, highlight);
+    }
+
+    /**
+     * Return whether matching brackets are highlighted.
+     * 
+     * @since 4.0.12
+     */
+    public boolean getHighlightMatchingBrackets() {
+        return GtkSourceBuffer.getHighlightMatchingBrackets(this);
+    }
+
+    /**
+     * Return true if an operation can be undone.
+     * 
+     * @since 4.0.12
+     */
+    public boolean canUndo() {
+        return GtkSourceBuffer.canUndo(this);
+    }
+
+    /**
+     * Return true if an operation can be redone.
+     * 
+     * @since 4.0.12
+     */
+    public boolean canRedo() {
+        return GtkSourceBuffer.canRedo(this);
+    }
+
+    /**
+     * Undo the last operation.
+     * 
+     * @since 4.0.12
+     */
+    public void undo() {
+        GtkSourceBuffer.undo(this);
+    }
+
+    /**
+     * Redo the last undone operation.
+     * 
+     * @since 4.0.12
+     */
+    public void redo() {
+        GtkSourceBuffer.redo(this);
+    }
 }
