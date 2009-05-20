@@ -108,7 +108,9 @@ public class SourceBuffer extends TextBuffer
     }
 
     /**
-     * Undo the last operation.
+     * Undo the last operation. You should only call this method if there is
+     * an operation that can be undone. This can be checked with
+     * <code>canUndo</code>.
      * 
      * @since 4.0.12
      */
@@ -117,7 +119,9 @@ public class SourceBuffer extends TextBuffer
     }
 
     /**
-     * Redo the last undone operation.
+     * Redo the last undone operation. You should only call this method if
+     * there is an operation that can be redone. This can be checked with
+     * <code>canRedo</code>.
      * 
      * @since 4.0.12
      */
