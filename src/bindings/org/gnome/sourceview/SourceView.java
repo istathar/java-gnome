@@ -38,13 +38,6 @@ import org.gnome.gtk.TextView;
  * view = new SourceView(buffer);
  * </pre>
  * 
- * The language used for syntax highlighting has to be obtained from the
- * LanguageManager:
- * 
- * <pre>
- * buffer.setLanguage(LanguageManager.getDefault().getLanguage(&quot;java&quot;));
- * </pre>
- * 
  * @author Stefan Schweizer
  * @since 4.0.12
  */
