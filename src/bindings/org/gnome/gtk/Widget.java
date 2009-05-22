@@ -11,6 +11,10 @@
  */
 package org.gnome.gtk;
 
+import java.util.Collections;
+import java.util.IdentityHashMap;
+import java.util.Map;
+
 import org.gnome.gdk.Color;
 import org.gnome.gdk.Colormap;
 import org.gnome.gdk.Event;
@@ -648,22 +652,22 @@ public abstract class Widget extends org.gnome.gtk.Object
      * the user moves the mouse over the Widget.
      * 
      * <p>
-     * Note that by default this event is disabled, even if you connect to
-     * it. You will need to {@link Widget#enableEvents(EventMask) enable} it.
-     * If you want to receive all mouse motion events, you will need to supply
+     * Note that by default this event is disabled, even if you connect to it.
+     * You will need to {@link Widget#enableEvents(EventMask) enable} it. If
+     * you want to receive all mouse motion events, you will need to supply
      * the POINTER_MOTION mask. Note that it generates a big amount of events,
-     * typically tens of events per second, when the user moves the mouse
-     * over this Widget. If you only care about this event when a mouse button
-     * is pressed, any of LEFT_BUTTON_MOTION, MIDDLE_BUTTON_MOTION, RIGHT_BUTTON_MOTION
-     * or BUTTON_MOTION masks can be used instead.
+     * typically tens of events per second, when the user moves the mouse over
+     * this Widget. If you only care about this event when a mouse button is
+     * pressed, any of LEFT_BUTTON_MOTION, MIDDLE_BUTTON_MOTION,
+     * RIGHT_BUTTON_MOTION or BUTTON_MOTION masks can be used instead.
      * 
      * <p>
-     * Many times, however, you are only interested on this
-     * events in some specific circunstances. For example, a drawing application
-     * may be interested on this when the user has selected a drawing tool (e.g. a pencil)
-     * and is actually drawing (e.g. by clicking the mouse). In such cases, enabling
-     * the event when needed, and disabling it when no more needed, is the best alternative.
-     * For example:
+     * Many times, however, you are only interested on this events in some
+     * specific circunstances. For example, a drawing application may be
+     * interested on this when the user has selected a drawing tool (e.g. a
+     * pencil) and is actually drawing (e.g. by clicking the mouse). In such
+     * cases, enabling the event when needed, and disabling it when no more
+     * needed, is the best alternative. For example:
      * 
      * <pre>
      * // hook up a handler to mouse button event.
@@ -718,10 +722,44 @@ public abstract class Widget extends org.gnome.gtk.Object
         GtkWidget.connect(this, handler, false);
     }
 
+    /*
+     * Map that stores event masks of enabled and disabled events for Widgets
+     * the user has changed before Widget realizing. We use an static map,
+     * instead of Widget attributes, to reduce memory pressure, as most
+     * Widgets won't use this. Each Widget is associted with a pair of
+     * EventMasks, the first corresponding to the events that have to be
+     * enabled, the second to the events that have to be disabled.
+     */
+    private static final Map<Widget, EventMask[]> events = Collections.synchronizedMap(new IdentityHashMap<Widget, EventMask[]>());
+
+    /*
+     * Handler that enables and disables the pending events when the widget is
+     * realized.
+     */
+    private static final class RealizeHandler implements GtkWidget.RealizeSignal
+    {
+        public void onRealize(Widget source) {
+            EventMask[] em = events.get(source);
+
+            /* em is not null */
+            EventMask currentMask = GtkWidgetOverride.getEvents(source);
+            if (em[0] != null) {
+                /* add enabled events */
+                currentMask = EventMask.or(currentMask, em[0]);
+            }
+            if (em[1] != null) {
+                /* and disable events */
+                currentMask = EventMask.minus(currentMask, em[1]);
+            }
+            GtkWidgetOverride.setEvents(source, currentMask);
+            events.remove(source);
+        }
+    }
+
     /**
-     * Set the events the Widget will receive. When a event is disable, the
-     * corresponding signal is never emitted, so make sure what are you doing
-     * before calling this.
+     * Enable the given events. While most events are enabled by default, some
+     * need to be activated. Corresponding signal will document this
+     * procedure, if needed.
      * 
      * <p>
      * Take care that events are actually received by the underlying GDK
@@ -731,47 +769,26 @@ public abstract class Widget extends org.gnome.gtk.Object
      * EventBox} Widget can be used to ensure only it is affected by this
      * method.
      * 
-     * <p>
-     * Finally, note that this method will disable all events not included in
-     * the given mask. If you just want to disable or enable some events,
-     * usually {@link #enableEvents(EventMask) enableEvents()} and
-     * {@link #disableEvents(EventMask) disableEvents()} methods are a better
-     * alternative.
-     * 
-     * 
-     * @see EventMask
-     * @since 4.0.12
-     */
-    /*
-     * This method will realize the Widget if needed, to have a GdkWindow
-     * available.
-     */
-    public void setEvents(EventMask mask) {
-        GtkWidgetOverride.setEvents(this, mask);
-    }
-
-    /**
-     * Enable the given events.
-     * 
-     * <p>
-     * While most events are enabled by default, some need to be activated.
-     * Take a look at {@link #setEvents(EventMask) setEvents()} documentation
-     * for further details.
-     * 
-     * @see #setEvents(EventMask)
      * @see #disableEvents(EventMask)
      * @since 4.0.12
      */
-    /*
-     * This method will realize the Widget if needed, to have a GdkWindow
-     * available.
-     */
     public void enableEvents(EventMask mask) {
-        final EventMask currentMask, newMask;
-
-        currentMask = GtkWidgetOverride.getEvents(this);
-        newMask = EventMask.or(currentMask, mask);
-        GtkWidgetOverride.setEvents(this, newMask);
+        if (getWindow() == null) {
+            /* widget still not realized */
+            EventMask[] em = events.get(this);
+            if (em == null) {
+                em = new EventMask[2];
+                events.put(this, em);
+                GtkWidget.connect(this, new RealizeHandler(), false);
+            }
+            em[0] = (em[0] == null) ? mask : EventMask.or(em[0], mask);
+            em[1] = (em[1] == null) ? null : EventMask.minus(em[1], mask);
+        } else {
+            final EventMask currentMask, newMask;
+            currentMask = GtkWidgetOverride.getEvents(this);
+            newMask = EventMask.or(currentMask, mask);
+            GtkWidgetOverride.setEvents(this, newMask);
+        }
     }
 
     /**
@@ -780,23 +797,30 @@ public abstract class Widget extends org.gnome.gtk.Object
      * <p>
      * Note that when an event is disabled, the corresponding signal is not
      * received anymore, unless you enable it again. Take a look at
-     * {@link #setEvents(EventMask) setEvents()} documentation for further
-     * details.
+     * {@link #enableEvents(EventMask) enableEvents()} documentation for
+     * further details.
      * 
-     * @see #setEvents(EventMask)
      * @see #enableEvents(EventMask)
      * @since 4.0.12
      */
-    /*
-     * This method will realize the Widget if needed, to have a GdkWindow
-     * available.
-     */
     public void disableEvents(EventMask mask) {
-        final EventMask currentMask, newMask;
+        if (getWindow() == null) {
+            /* widget still not realized */
+            EventMask[] em = events.get(this);
+            if (em == null) {
+                em = new EventMask[2];
+                events.put(this, em);
+                GtkWidget.connect(this, new RealizeHandler(), false);
+            }
+            em[0] = (em[0] == null) ? null : EventMask.minus(em[0], mask);
+            em[1] = (em[1] == null) ? mask : EventMask.or(em[1], mask);
+        } else {
+            final EventMask currentMask, newMask;
 
-        currentMask = GtkWidgetOverride.getEvents(this);
-        newMask = EventMask.minus(currentMask, mask);
-        GtkWidgetOverride.setEvents(this, newMask);
+            currentMask = GtkWidgetOverride.getEvents(this);
+            newMask = EventMask.minus(currentMask, mask);
+            GtkWidgetOverride.setEvents(this, newMask);
+        }
     }
 
     /**

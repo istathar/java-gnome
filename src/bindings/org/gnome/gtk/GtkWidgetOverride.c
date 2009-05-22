@@ -118,8 +118,7 @@ Java_org_gnome_gtk_GtkWidgetOverride_gtk_1widget_1get_1requisition
 }
 
 /**
- * Get the events that the underlying GdkWindow receives, realizing the
- * GtkWidget if needed.
+ * Get the events that the underlying GdkWindow receives.
  */
 JNIEXPORT jint JNICALL
 Java_org_gnome_gtk_GtkWidgetOverride_gtk_1widget_1get_1events
@@ -134,18 +133,13 @@ Java_org_gnome_gtk_GtkWidgetOverride_gtk_1widget_1get_1events
 
 	// convert parameter self
 	self = (GtkWidget*) _self;
-	if (self->window == NULL) {
-		gtk_widget_realize(self);
-		gtk_widget_hide(self);
-	}
 
 	mask = gdk_window_get_events(self->window);
 	return (jint) mask;
 }
 
 /**
- * Set the events that the underlying GdkWindow will receive, realizing the
- * GtkWidget if needed.
+ * Set the events that the underlying GdkWindow will receive.
  */
 JNIEXPORT void JNICALL
 Java_org_gnome_gtk_GtkWidgetOverride_gtk_1widget_1set_1events
@@ -161,10 +155,6 @@ Java_org_gnome_gtk_GtkWidgetOverride_gtk_1widget_1set_1events
 
 	// convert parameter self
 	self = (GtkWidget*) _self;
-	if (self->window == NULL) {
-		gtk_widget_realize(self);
-		gtk_widget_hide(self);
-	}
 
 	mask = (GdkEventMask) _mask;
 	gdk_window_set_events(self->window, mask);
