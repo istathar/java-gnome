@@ -76,8 +76,6 @@ public class ExampleEditor
         toolbar.add(buttonRedo);
         x.packStart(toolbar, false, false, 0);
 
-        updateButtons();
-
         /*
          * Create the SourceBuffer and SourceView. Setup syntax highlighting
          * and configure the view to meet our coding standards.
