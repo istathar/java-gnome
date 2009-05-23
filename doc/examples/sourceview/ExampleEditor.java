@@ -50,7 +50,7 @@ public class ExampleEditor
         final VBox x;
         final Toolbar toolbar;
         final ScrolledWindow scroll;
-        final TextTagTable tagTable;
+        final TextTagTable table;
 
         w = new Window();
         w.setTitle("java-gnome editor");
@@ -69,6 +69,7 @@ public class ExampleEditor
         /*
          * Create a toolbar with buttons for undo and redo.
          */
+
         toolbar = new Toolbar();
         buttonUndo = new ToolButton(Stock.UNDO);
         buttonRedo = new ToolButton(Stock.REDO);
@@ -80,8 +81,9 @@ public class ExampleEditor
          * Create the SourceBuffer and SourceView. Setup syntax highlighting
          * and configure the view to meet our coding standards.
          */
-        tagTable = new TextTagTable();
-        buffer = new SourceBuffer(tagTable);
+
+        table = new TextTagTable();
+        buffer = new SourceBuffer(table);
         buffer.setLanguage(LanguageManager.getDefault().getLanguage("java"));
 
         view = new SourceView(buffer);
@@ -103,6 +105,7 @@ public class ExampleEditor
          * can be undone or redone. Update the sensivity of the buttons
          * accordingly.
          */
+
         buffer.connect(new TextBuffer.Changed() {
             public void onChanged(TextBuffer source) {
                 updateButtons();
@@ -114,20 +117,21 @@ public class ExampleEditor
          * check if there is something to undo first to prevent a Gtk
          * exception.
          */
+
         buttonUndo.connect(new ToolButton.Clicked() {
             public void onClicked(ToolButton source) {
-                if (buffer.canUndo())
+                if (buffer.canUndo()) {
                     buffer.undo();
-
+                }
                 updateButtons();
             }
         });
 
         buttonRedo.connect(new ToolButton.Clicked() {
             public void onClicked(ToolButton source) {
-                if (buffer.canRedo())
+                if (buffer.canRedo()) {
                     buffer.redo();
-
+                }
                 updateButtons();
             }
         });
@@ -136,9 +140,10 @@ public class ExampleEditor
 
         /*
          * Load the source file into the editor. The user should not be able
-         * to undo that, that is why the call to buffer.setText is marked as
-         * an undoable action.
+         * to undo that, that is why the call to setText() is marked as an
+         * undoable action.
          */
+
         buffer.beginNotUndoableAction();
         buffer.setText(readFile("doc/examples/sourceview/ExampleEditor.java"));
         buffer.endNotUndoableAction();
@@ -146,6 +151,7 @@ public class ExampleEditor
         /*
          * Move the cursor to the start of the file.
          */
+
         buffer.placeCursor(buffer.getIter(0));
         view.grabFocus();
     }
@@ -170,8 +176,9 @@ public class ExampleEditor
             content.append(ioe.getMessage());
         } finally {
             try {
-                if (reader != null)
+                if (reader != null) {
                     reader.close();
+                }
             } catch (IOException e) {
             }
         }

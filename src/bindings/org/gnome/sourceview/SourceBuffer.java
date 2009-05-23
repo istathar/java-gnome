@@ -26,12 +26,12 @@ import org.gnome.gtk.TextTagTable;
  * content is set:
  * 
  * <pre>
- * TextTagTable tagTable;
+ * TextTagTable table;
  * SourceBuffer buffer;
  * ...
  * 
- * tagTable = new TextTagTable();
- * buffer = new SourceBuffer(tagTable);
+ * table = new TextTagTable();
+ * buffer = new SourceBuffer(table);
  * buffer.setText(&quot;Insert text here...&quot;);
  * </pre>
  * 
@@ -117,7 +117,7 @@ public class SourceBuffer extends TextBuffer
     }
 
     /**
-     * Return true if an operation can be undone.
+     * Return <code>true</code> if an operation can be undone.
      * 
      * @since 4.0.12
      */
@@ -126,7 +126,7 @@ public class SourceBuffer extends TextBuffer
     }
 
     /**
-     * Return true if an operation can be redone.
+     * Return <code>true</code> if an operation can be redone.
      * 
      * @since 4.0.12
      */
@@ -137,7 +137,7 @@ public class SourceBuffer extends TextBuffer
     /**
      * Undo the last operation. You should only call this method if there is
      * an operation that can be undone. This can be checked with
-     * <code>canUndo</code>.
+     * <code>canUndo()</code>.
      * 
      * @since 4.0.12
      */
@@ -148,7 +148,7 @@ public class SourceBuffer extends TextBuffer
     /**
      * Redo the last undone operation. You should only call this method if
      * there is an operation that can be redone. This can be checked with
-     * <code>canRedo</code>.
+     * <code>canRedo()</code>.
      * 
      * @since 4.0.12
      */
