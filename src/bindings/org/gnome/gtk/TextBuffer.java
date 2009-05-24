@@ -151,8 +151,12 @@ public class TextBuffer extends Object
     private final boolean usingDefaultTable;
 
     protected TextBuffer(long pointer) {
+        this(pointer, false);
+    }
+
+    protected TextBuffer(long pointer, boolean usingDefaultTable) {
         super(pointer);
-        usingDefaultTable = false;
+        this.usingDefaultTable = usingDefaultTable;
     }
 
     /**
