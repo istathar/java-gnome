@@ -14,6 +14,8 @@ package org.gnome.sourceview;
 import org.gnome.gtk.TextBuffer;
 import org.gnome.gtk.TextTagTable;
 
+import static org.gnome.gtk.TextTagTable.getDefaultTable;
+
 /**
  * SourceBuffer is the model used in a {@link SourceView}. It extends GTK's
  * {@link TextBuffer} and adds features typical for text editors. SourceBuffer
@@ -26,12 +28,10 @@ import org.gnome.gtk.TextTagTable;
  * content is set:
  * 
  * <pre>
- * TextTagTable tagTable;
  * SourceBuffer buffer;
  * ...
  * 
- * tagTable = new TextTagTable();
- * buffer = new SourceBuffer(tagTable);
+ * buffer = new SourceBuffer();
  * buffer.setText(&quot;Insert text here...&quot;);
  * </pre>
  * 
@@ -49,6 +49,15 @@ public class SourceBuffer extends TextBuffer
 {
     protected SourceBuffer(long pointer) {
         super(pointer);
+    }
+
+    /**
+     * Create a new SourceBuffer using the default built-in TextTagTable.
+     * 
+     * @since 4.0.12
+     */
+    public SourceBuffer() {
+        super(GtkSourceBuffer.createSourceBuffer(getDefaultTable()), true);
     }
 
     /**

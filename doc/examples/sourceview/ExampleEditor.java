@@ -20,7 +20,6 @@ import org.gnome.gtk.PolicyType;
 import org.gnome.gtk.ScrolledWindow;
 import org.gnome.gtk.Stock;
 import org.gnome.gtk.TextBuffer;
-import org.gnome.gtk.TextTagTable;
 import org.gnome.gtk.ToolButton;
 import org.gnome.gtk.Toolbar;
 import org.gnome.gtk.VBox;
@@ -50,7 +49,6 @@ public class ExampleEditor
         final VBox x;
         final Toolbar toolbar;
         final ScrolledWindow scroll;
-        final TextTagTable tagTable;
 
         w = new Window();
         w.setTitle("java-gnome editor");
@@ -80,8 +78,7 @@ public class ExampleEditor
          * Create the SourceBuffer and SourceView. Setup syntax highlighting
          * and configure the view to meet our coding standards.
          */
-        tagTable = new TextTagTable();
-        buffer = new SourceBuffer(tagTable);
+        buffer = new SourceBuffer();
         buffer.setLanguage(LanguageManager.getDefault().getLanguage("java"));
 
         view = new SourceView(buffer);
