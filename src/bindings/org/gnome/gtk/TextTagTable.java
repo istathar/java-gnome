@@ -54,7 +54,7 @@ public class TextTagTable extends Object
     /*
      * synchronized?
      */
-    static TextTagTable getDefaultTable() {
+    public static TextTagTable getDefaultTable() {
         if (defaultTable == null) {
             defaultTable = new TextTagTable();
         }
