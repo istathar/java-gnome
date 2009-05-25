@@ -1,7 +1,7 @@
 /*
  * TextTagTable.java
  *
- * Copyright (c) 2007-2009 Operational Dynamics Consulting Pty Ltd
+ * Copyright (c) 2007-2009 Operational Dynamics Consulting Pty Ltd, and Others
  *
  * The code in this file, and the library it is a part of, are made available
  * to you by the authors under the terms of the "GNU General Public Licence,
@@ -31,8 +31,6 @@ import org.gnome.glib.Object;
  */
 public class TextTagTable extends Object
 {
-    private static TextTagTable defaultTable;
-
     protected TextTagTable(long pointer) {
         super(pointer);
     }
@@ -44,20 +42,5 @@ public class TextTagTable extends Object
      */
     public TextTagTable() {
         super(GtkTextTagTable.createTextTagTable());
-    }
-
-    /**
-     * We maintain a single default TextTagTable to facilitate no-arg
-     * convenience constructors for TextTag and TextBuffer. Get (and
-     * initialize if necessary) this table.
-     */
-    /*
-     * synchronized?
-     */
-    public static TextTagTable getDefaultTable() {
-        if (defaultTable == null) {
-            defaultTable = new TextTagTable();
-        }
-        return defaultTable;
     }
 }

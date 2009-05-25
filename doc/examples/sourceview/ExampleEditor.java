@@ -25,6 +25,7 @@ import org.gnome.gtk.Toolbar;
 import org.gnome.gtk.VBox;
 import org.gnome.gtk.Widget;
 import org.gnome.gtk.Window;
+import org.gnome.sourceview.Language;
 import org.gnome.sourceview.LanguageManager;
 import org.gnome.sourceview.SourceBuffer;
 import org.gnome.sourceview.SourceView;
@@ -49,7 +50,8 @@ public class ExampleEditor
         final VBox x;
         final Toolbar toolbar;
         final ScrolledWindow scroll;
-        final TextTagTable table;
+        final LanguageManager manager;
+        final Language lang;
 
         w = new Window();
         w.setTitle("java-gnome editor");
@@ -81,9 +83,11 @@ public class ExampleEditor
          * and configure the view to meet our coding standards.
          */
 
-        table = new TextTagTable();
         buffer = new SourceBuffer();
-        buffer.setLanguage(LanguageManager.getDefault().getLanguage("java"));
+
+        manager = LanguageManager.getDefault();
+        lang = manager.getLanguage("java");
+        buffer.setLanguage(lang);
 
         view = new SourceView(buffer);
         view.setShowLineNumbers(true);

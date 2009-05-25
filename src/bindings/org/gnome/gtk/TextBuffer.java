@@ -16,8 +16,6 @@ import java.util.Collection;
 import org.gnome.gdk.Pixbuf;
 import org.gnome.glib.Object;
 
-import static org.gnome.gtk.TextTagTable.getDefaultTable;
-
 /**
  * A TextBuffer is a powerful mechanism for storing and manipulating text. It
  * exists primarily to be the model that backs the view of one or more
@@ -148,6 +146,23 @@ public class TextBuffer extends Object
      */
     public static final char OBJECT_REPLACEMENT_CHARACTER = 0xFFFC;
 
+    private static TextTagTable defaultTable;
+
+    /**
+     * We maintain a single default TextTagTable to facilitate no-arg
+     * convenience constructors for TextTag and TextBuffer. Get (and
+     * initialize if necessary) this table.
+     */
+    /*
+     * synchronized?
+     */
+    protected static TextTagTable getDefaultTable() {
+        if (defaultTable == null) {
+            defaultTable = new TextTagTable();
+        }
+        return defaultTable;
+    }
+
     private final boolean usingDefaultTable;
 
     protected TextBuffer(long pointer) {
@@ -173,8 +188,7 @@ public class TextBuffer extends Object
      * @since 4.0.9
      */
     public TextBuffer() {
-        super(GtkTextBuffer.createTextBuffer(getDefaultTable()));
-        usingDefaultTable = true;
+        this(GtkTextBuffer.createTextBuffer(getDefaultTable()), true);
     }
 
     /**
@@ -184,8 +198,7 @@ public class TextBuffer extends Object
      * @since 4.0.9
      */
     public TextBuffer(TextTagTable tags) {
-        super(GtkTextBuffer.createTextBuffer(tags));
-        usingDefaultTable = false;
+        this(GtkTextBuffer.createTextBuffer(tags), false);
     }
 
     /**

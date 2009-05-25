@@ -14,8 +14,6 @@ package org.gnome.sourceview;
 import org.gnome.gtk.TextBuffer;
 import org.gnome.gtk.TextTagTable;
 
-import static org.gnome.gtk.TextTagTable.getDefaultTable;
-
 /**
  * SourceBuffer is the model used in a {@link SourceView}. It extends GTK's
  * {@link TextBuffer} and adds features typical for text editors. SourceBuffer
@@ -41,7 +39,9 @@ import static org.gnome.gtk.TextTagTable.getDefaultTable;
  * LanguageManager:
  * 
  * <pre>
- * buffer.setLanguage(LanguageManager.getDefault().getLanguage(&quot;java&quot;));
+ * manager = LanguageManager.getDefault();
+ * language = manager.getLanguage(&quot;java&quot;);
+ * buffer.setLanguage(language);
  * </pre>
  * 
  * @author Stefan Schweizer
@@ -54,7 +54,10 @@ public class SourceBuffer extends TextBuffer
     }
 
     /**
-     * Create a new SourceBuffer using the default built-in TextTagTable.
+     * Create a new SourceBuffer. This uses the same default TextTagTable as
+     * used by the no-arg TextTags; see the no-arg TextBuffer
+     * {@link org.gnome.gtk.TextBuffer#TextBuffer() &lt;init&gt;()} for
+     * details.
      * 
      * @since 4.0.12
      */
