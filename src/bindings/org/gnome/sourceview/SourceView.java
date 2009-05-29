@@ -14,8 +14,9 @@ package org.gnome.sourceview;
 import org.gnome.gtk.TextView;
 
 /**
- * A text editor widget.
+ * A text Widget for displaying and editing source code.
  * 
+ * <p>
  * GtkSourceView extends GTK's {@link TextView} and adds features that are
  * useful for building text or source-code editors. It provides syntax
  * highlighting for various languages, undo/redo, control over indentation and
@@ -225,7 +226,7 @@ public class SourceView extends TextView
     /**
      * Connect a handler to receive <code>SourceView.Redo</code> signals. It
      * is emitted whenever something is redone in the editor window, e.g. by
-     * hitting Shift+Ctrl+Z.
+     * hitting <code><b>Shift+Ctrl+Z</b></code>.
      * 
      * @since 4.0.12
      */

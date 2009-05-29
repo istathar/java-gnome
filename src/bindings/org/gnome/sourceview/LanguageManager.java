@@ -14,8 +14,13 @@ package org.gnome.sourceview;
 import org.gnome.gtk.Object;
 
 /**
- * A LanguageManager is used to obtain {@link Language} objects that are used
- * for syntax highlighting in a {@link SourceBuffer}.
+ * A LanguageManager is used to obtain Language objects that are used for
+ * syntax highlighting in a SourceBuffer.
+ * 
+ * <p>
+ * You need to use {@link #getDefault() LangagueManager.getDefault()} to get
+ * the singleton and then use it to request a Language by "id" via it's
+ * {@link #getLanguage(String) getLanguage()} method.
  * 
  * @author Stefan Schweizer
  * @since 4.0.12
@@ -36,8 +41,8 @@ public class LanguageManager extends Object
     }
 
     /**
-     * Return a Language specified by its language ID or null if the ID is not
-     * known.
+     * Return a Language specified by its language ID or <code>null</code> if
+     * the ID is not known.
      * 
      * @since 4.0.12
      */
