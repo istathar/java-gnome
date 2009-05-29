@@ -120,6 +120,38 @@ public final class CursorType extends Flag
             GdkCursorType.BOTTOM_RIGHT_CORNER, "BOTTOM_RIGHT_CORNER");
 
     /**
+     * This Cursor is typically used with Widgets whose size can be changed
+     * manually when the mouse pointer is near the bottom side of the Widget.
+     * 
+     * @since 4.0.12
+     */
+    public static final CursorType BOTTOM_SIDE = new CursorType(GdkCursorType.BOTTOM_SIDE, "BOTTOM_SIDE");
+
+    /**
+     * This Cursor is typically used with Widgets whose size can be changed
+     * manually when the mouse pointer is near the top side of the Widget.
+     * 
+     * @since 4.0.12
+     */
+    public static final CursorType TOP_SIDE = new CursorType(GdkCursorType.TOP_SIDE, "TOP_SIDE");
+
+    /**
+     * This Cursor is typically used with Widgets whose size can be changed
+     * manually when the mouse pointer is near the right side of the Widget.
+     * 
+     * @since 4.0.12
+     */
+    public static final CursorType RIGHT_SIDE = new CursorType(GdkCursorType.RIGHT_SIDE, "RIGHT_SIDE");
+
+    /**
+     * This Cursor is typically used with Widgets whose size can be changed
+     * manually when the mouse pointer is near the left side of the Widget.
+     * 
+     * @since 4.0.12
+     */
+    public static final CursorType LEFT_SIDE = new CursorType(GdkCursorType.LEFT_SIDE, "LEFT_SIDE");
+
+    /**
      * The Cursor used to indicate a "move" operation. It is used when moving
      * the mouse pointer would cause a Widget to be moved.
      * 
