@@ -25,6 +25,7 @@ import org.gnome.gtk.Toolbar;
 import org.gnome.gtk.VBox;
 import org.gnome.gtk.Widget;
 import org.gnome.gtk.Window;
+import org.gnome.pango.FontDescription;
 import org.gnome.sourceview.Language;
 import org.gnome.sourceview.LanguageManager;
 import org.gnome.sourceview.SourceBuffer;
@@ -52,6 +53,7 @@ public class ExampleEditor
         final ScrolledWindow scroll;
         final LanguageManager manager;
         final Language lang;
+        final FontDescription desc;
 
         w = new Window();
         w.setTitle("java-gnome editor");
@@ -97,6 +99,9 @@ public class ExampleEditor
         view.setTabWidth(4);
         view.setInsertSpacesInsteadOfTabs(true);
         view.setAutoIndent(true);
+
+        desc = new FontDescription("Deja Vu Sans Mono, 11");
+        view.modifyFont(desc);
 
         scroll = new ScrolledWindow();
         scroll.setPolicy(PolicyType.AUTOMATIC, PolicyType.ALWAYS);
