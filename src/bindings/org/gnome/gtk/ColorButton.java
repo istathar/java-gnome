@@ -70,6 +70,15 @@ public class ColorButton extends Button
 
         return color;
     }
+    
+    /**
+     * Set the selected Color.
+     * 
+     * @since 4.0.12
+     */
+    public void setColor(Color color) {
+        GtkColorButton.setColor(this, color);
+    }
 
     /**
      * Signal emitted when the user selects a different Color.
