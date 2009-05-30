@@ -1,0 +1,6 @@
+(define-flags SearchFlags
+  (in-module "GtkSourceView")
+  (c-name "GtkSourceSearchFlags")
+  (gtype-id "GTK_TYPE_SOURCE_SEARCH_FLAGS")
+)
+

@@ -15,6 +15,7 @@ import junit.framework.TestSuite;
 import org.freedesktop.bindings.Debug;
 import org.freedesktop.bindings.ValidateEnvironment;
 import org.freedesktop.bindings.ValidateInternationalization;
+import org.freedesktop.cairo.ValidateCairoContext;
 import org.freedesktop.cairo.ValidateCairoInternals;
 import org.freedesktop.cairo.ValidateDrawingToFile;
 import org.gnome.gdk.ValidateImageHandling;
@@ -48,6 +49,7 @@ import org.gnome.gtk.ValidateTreeStore;
 import org.gnome.gtk.ValidateTreeView;
 import org.gnome.pango.ValidatePangoAttributeUsage;
 import org.gnome.pango.ValidatePangoTextRendering;
+import org.gnome.sourceview.ValidateSourceView;
 
 import com.operationaldynamics.codegen.ValidateThingUsage;
 import com.operationaldynamics.codegen.ValidateUtilityMethods;
@@ -131,6 +133,7 @@ public class UnitTests
         suite.addTestSuite(ValidateKeyboardHandling.class);
         suite.addTestSuite(ValidateImageHandling.class);
         suite.addTestSuite(ValidateCairoInternals.class);
+        suite.addTestSuite(ValidateCairoContext.class);
         suite.addTestSuite(ValidateDrawingToFile.class);
         suite.addTestSuite(ValidateOutParameters.class);
         suite.addTestSuite(ValidatePacking.class);
@@ -153,6 +156,7 @@ public class UnitTests
         suite.addTestSuite(ValidatePangoTextRendering.class);
         suite.addTestSuite(ValidatePangoAttributeUsage.class);
         suite.addTestSuite(ValidatePrinting.class);
+        suite.addTestSuite(ValidateSourceView.class);
 
         return suite;
     }

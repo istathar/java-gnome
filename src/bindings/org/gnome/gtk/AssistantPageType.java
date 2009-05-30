@@ -57,8 +57,8 @@ public final class AssistantPageType extends Constant
             "SUMMARY");
 
     /**
-     * Used for tasks that take a long time to complete, blocks the assistant 
-     * until the page is marked as complete with 
+     * Used for tasks that take a long time to complete, blocks the assistant
+     * until the page is marked as complete with
      * {@link Assistant#setPageComplete(Widget, boolean) setPageComplete()}
      */
     public static final AssistantPageType PROGRESS = new AssistantPageType(
