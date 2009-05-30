@@ -68,6 +68,12 @@ JNIEXPORT void JNICALL Java_org_gnome_notify_NotifyNotificationOverride_notify_1
 	// cleanup parameter value
 }
 
+/*
+ * Implements
+ *   org.gnome.notify.NotifyNotificationOverride.notify_notification_add_action()
+ * called from
+ *   org.gnome.notify.Notification.addAction(String, String, Notification.Action)
+ */
 JNIEXPORT void JNICALL Java_org_gnome_notify_NotifyNotificationOverride_notify_1notification_1add_1action
 (
 	JNIEnv *env,
@@ -111,6 +117,12 @@ JNIEXPORT void JNICALL Java_org_gnome_notify_NotifyNotificationOverride_notify_1
 	notify_notification_add_action(self,action,label,NOTIFY_ACTION_CALLBACK(emit_notification),NULL,NULL);
 }
 
+/*
+ * Implements
+ *   org.gnome.notify.NotifyNotificationOverride.notify_notification_disconnect_all_actions()
+ * called from
+ *   org.gnome.notify.Notification.clearActions()
+ */
 JNIEXPORT void JNICALL Java_org_gnome_notify_NotifyNotificationOverride_notify_1notification_1disconnect_1all_1actions
 (
 	JNIEnv *env,
