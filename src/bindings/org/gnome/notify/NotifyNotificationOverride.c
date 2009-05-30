@@ -16,18 +16,14 @@
 
 static guint signalID = 0;
 
-static gboolean
+static void
 emit_notification
 (
 	NotifyNotification *notification,
 	gchar *action
 )
 {
-	gboolean result;
-
-	g_signal_emit_by_name(NOTIFY_NOTIFICATION(notification), "action", action, &result);
-
-	return result;
+	g_signal_emit_by_name(NOTIFY_NOTIFICATION(notification), "action", action);
 }
 
 /*
@@ -88,12 +84,13 @@ JNIEXPORT void JNICALL Java_org_gnome_notify_NotifyNotificationOverride_notify_1
 	// convert parameter self
 	self = (NotifyNotification*) _self;
 
-
+	// convert parameter action
 	action = (const gchar*) (*env)->GetStringUTFChars(env, _action, NULL);
 	if (action == NULL) {
 		return; // Java Exception already thrown
 	}
 
+	// convert parameter label
 	label = (const gchar*) (*env)->GetStringUTFChars(env, _label, NULL);
 	if (label == NULL) {
 		return; // Java Exception already thrown
@@ -112,4 +109,36 @@ JNIEXPORT void JNICALL Java_org_gnome_notify_NotifyNotificationOverride_notify_1
 					G_TYPE_STRING);
 	}
 	notify_notification_add_action(self,action,label,NOTIFY_ACTION_CALLBACK(emit_notification),NULL,NULL);
+}
+
+JNIEXPORT void JNICALL Java_org_gnome_notify_NotifyNotificationOverride_notify_1notification_1disconnect_1all_1actions
+(
+	JNIEnv *env,
+	jclass cls,
+	jlong _self
+)
+{
+	NotifyNotification* self;
+	guint handlerID;
+
+	// convert parameter self
+	self = (NotifyNotification*) _self;
+
+	while(TRUE) {
+		handlerID = g_signal_handler_find(
+			NOTIFY_NOTIFICATION(self),
+			G_SIGNAL_MATCH_ID,
+			signalID,
+			0,
+			NULL,
+			NULL,
+			NULL
+		);
+		if(handlerID > 0) {
+			g_signal_handler_disconnect(NOTIFY_NOTIFICATION(self),handlerID);
+		}
+		else {
+			break;
+		}
+	}
 }

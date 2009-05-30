@@ -11,6 +11,9 @@
  */
 package org.gnome.notify;
 
+/*import java.util.HashMap;
+import java.util.Map;*/
+
 import org.gnome.gdk.Pixbuf;
 import org.gnome.gdk.Screen;
 import org.gnome.glib.GlibException;
@@ -30,6 +33,8 @@ import org.gnome.gtk.Widget;
  */
 public class Notification extends org.gnome.glib.Object
 {
+    //private Map<CompositeKey,Long> handlers = new HashMap<CompositeKey,Long>();
+    
     /**
      * Constant for default timeout duration.
      */
@@ -289,6 +294,54 @@ public class Notification extends org.gnome.glib.Object
                 handler.onAction(source, action);
         }
     }
+    
+    /*
+    private class CompositeKey {
+        String actionID;
+        Notification.Action handler;
+        public CompositeKey(String actionID, Action handler) {
+            super();
+            this.actionID = actionID;
+            this.handler = handler;
+        }
+        @Override
+        public int hashCode() {
+            final int prime = 31;
+            int result = 1;
+            result = prime * result + getOuterType().hashCode();
+            result = prime * result + ((actionID == null) ? 0 : actionID.hashCode());
+            result = prime * result + ((handler == null) ? 0 : handler.hashCode());
+            return result;
+        }
+        @Override
+        public boolean equals(Object obj) {
+            if (this == obj)
+                return true;
+            if (obj == null)
+                return false;
+            if (getClass() != obj.getClass())
+                return false;
+            CompositeKey other = (CompositeKey) obj;
+            if (!getOuterType().equals(other.getOuterType()))
+                return false;
+            if (actionID == null) {
+                if (other.actionID != null)
+                    return false;
+            } else if (!actionID.equals(other.actionID))
+                return false;
+            if (handler == null) {
+                if (other.handler != null)
+                    return false;
+            } else if (!handler.equals(other.handler))
+                return false;
+            return true;
+        }
+        
+        private Notification getOuterType() {
+            return Notification.this;
+        }
+    }
+    */
 
     /**
      * Add an action to a notification. Notification-daemon displays these as
@@ -303,7 +356,15 @@ public class Notification extends org.gnome.glib.Object
     public void addAction(String actionID, String label, Notification.Action action) {
         NotifyNotificationOverride.addAction(this, actionID, label);
         NotifyNotification.connect(this, new ActionHandler(actionID, action), false);
-        //TODO: Add logic to disconnect signal handler of actionID if there's one already registered.
+        /*
+        CompositeKey key=new CompositeKey(actionID,action);
+        Long oldHandlerID = handlers.get(key);
+        if(oldHandlerID != null) {
+            //disconnect
+        }
+        long newHandlerID = NotifyNotification.connect(this, new ActionHandler(actionID, action), false);
+        handlers.put(new CompositeKey(actionID,action), newHandlerID);
+        */
     }
 
     /**
@@ -313,6 +374,6 @@ public class Notification extends org.gnome.glib.Object
      */
     public void clearActions() {
         NotifyNotification.clearActions(this);
-        //TODO: Add logic to disconnect signal handlers.
+        NotifyNotificationOverride.disconnectAllActions(this);
     }
 }
