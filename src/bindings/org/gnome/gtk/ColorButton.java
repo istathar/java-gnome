@@ -46,12 +46,9 @@ public class ColorButton extends Button
     }
 
     /**
-     * Create a new ColorButton.
+     * Create a new ColorButton with the specified Color selected.
      * 
      * @since 4.0.12
-     * 
-     * @param color
-     *            The Color that will be selected.
      */
     public ColorButton(Color color) {
         super(GtkColorButton.createColorButtonWithColor(color));
@@ -69,6 +66,15 @@ public class ColorButton extends Button
         GtkColorButton.getColor(this, color);
 
         return color;
+    }
+
+    /**
+     * Set the selected Color.
+     * 
+     * @since 4.0.12
+     */
+    public void setColor(Color color) {
+        GtkColorButton.setColor(this, color);
     }
 
     /**
