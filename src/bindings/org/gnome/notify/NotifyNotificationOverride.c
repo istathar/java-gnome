@@ -37,7 +37,7 @@ JNIEXPORT void JNICALL Java_org_gnome_notify_NotifyNotificationOverride_notify_1
 	jclass cls,
 	jlong _self,
 	jstring _key,
-	jshort _value
+	jbyte _value
 )
 {
 	NotifyNotification* self;
@@ -54,10 +54,10 @@ JNIEXPORT void JNICALL Java_org_gnome_notify_NotifyNotificationOverride_notify_1
 	}
 
 	// convert parameter value
-	value = (gshort) _value;
+	value = (guchar) _value;
 
 	// call function
-	notify_notification_set_hint_byte(self, key, (guchar)value);
+	notify_notification_set_hint_byte(self, key, value);
 
 	// cleanup parameter key
 	(*env)->ReleaseStringUTFChars(env, _key, key);

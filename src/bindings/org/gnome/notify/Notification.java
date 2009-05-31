@@ -204,13 +204,11 @@ public class Notification extends org.gnome.glib.Object
 
     /**
      * Sets a hint with a byte value.<br>
-     * <b>Although this method accepts a short value, the value must be within
-     * 0-255 limits.</b>
      * 
      * @see #setHint(String, double)
      * @since 4.0.12
      */
-    public void setHint(String key, short value) {
+    public void setHint(String key, byte value) {
         NotifyNotificationOverride.setHintByte(this, key, value);
     }
     

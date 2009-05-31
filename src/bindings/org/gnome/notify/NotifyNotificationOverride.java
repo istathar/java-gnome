@@ -16,7 +16,7 @@ final class NotifyNotificationOverride extends Plumbing
 {
     private NotifyNotificationOverride() {}
 
-    static final void setHintByte(Notification self, String key, short value) {
+    static final void setHintByte(Notification self, String key, byte value) {
         if (self == null) {
             throw new IllegalArgumentException("self can't be null");
         }
@@ -25,15 +25,12 @@ final class NotifyNotificationOverride extends Plumbing
             throw new IllegalArgumentException("key can't be null");
         }
 
-        if (value < 0 || value > 255)
-            throw new IllegalArgumentException("value should be between 0-255 inclusive");
-
         synchronized (lock) {
             notify_notification_set_hint_byte(pointerOf(self), key, value);
         }
     }
 
-    private static native final void notify_notification_set_hint_byte(long self, String key, short value);
+    private static native final void notify_notification_set_hint_byte(long self, String key, byte value);
     
     static final void setHintByteArray(Notification self, String key, byte[] value) {
         if (self == null) {
