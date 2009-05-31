@@ -779,7 +779,7 @@ if ($os eq "gentoo") {
 
 } elsif ($os eq "debian") {
 	check_system_library(@gnomedev_libs,
-			"gtk+-2.0 >= 2.14",
+			"gtk+-2.0 >= 2.14 gdk-2.0 gtk+-unix-print-2.0",
 			"GTK+",
 			"libgtk2.0-dev");
 
@@ -794,19 +794,9 @@ if ($os eq "gentoo") {
 			"libatk1.0-dev");
 
 	check_system_library(@gnomedev_libs,
-			"gdk-2.0",
-			"GDK",
-			"libgtk2.0-dev");
-
-	check_system_library(@gnomedev_libs,
 			"libglade-2.0",
 			"LibGlade",
 			"libglade2-dev");
-
-	check_system_library(@gnomedev_libs,
-			"gtk+-unix-print-2.0",
-			"GNOME printing (Unix backend)",
-			"libgtk2.0-dev");
 
 	check_system_library(@gnomedev_libs,
 			"gtksourceview-2.0",
