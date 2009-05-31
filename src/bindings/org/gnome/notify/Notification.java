@@ -266,6 +266,7 @@ public class Notification extends org.gnome.glib.Object
      * Callback invoked when an added action is invoked.
      * 
      * @see Notification#addAction(String, String, Notification.Action)
+     * @author Serkan Kaba
      * @since 4.0.12
      */
     public interface Action
