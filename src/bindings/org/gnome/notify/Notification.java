@@ -129,10 +129,10 @@ public class Notification extends org.gnome.glib.Object
     }
 
     /**
-     * Set the timeout that the notification disappears in milliseconds.<br>
-     * Use {@link Notification#NOTIFY_EXPIRES_DEFAULT NOTIFY_EXPIRES_DEFAULT}
-     * for the default timeout duration.<br>
-     * Use {@link Notification#NOTIFY_EXPIRES_NEVER NOTIFY_EXPIRES_NEVER} for
+     * Set the timeout that the notification disappears in milliseconds. Use
+     * {@link Notification#NOTIFY_EXPIRES_DEFAULT NOTIFY_EXPIRES_DEFAULT} for
+     * the default timeout duration. Use
+     * {@link Notification#NOTIFY_EXPIRES_NEVER NOTIFY_EXPIRES_NEVER} for
      * infinite timeout duration.
      * 
      * @since 4.0.12
@@ -174,6 +174,7 @@ public class Notification extends org.gnome.glib.Object
     /**
      * Sets a hint with an integer value. See {@link #setHint(String, byte)
      * setHint()} for further details.
+     * 
      * <p>
      * Example: <code>"x"</code> (sets the horizontal position of the
      * notification)
@@ -197,6 +198,7 @@ public class Notification extends org.gnome.glib.Object
     /**
      * Sets a hint with a string value. See {@link #setHint(String, byte)
      * setHint()} for further details.
+     * 
      * <p>
      * Example: <code>"sound-file"</code> (adds sound to the notification)
      * 
@@ -208,6 +210,7 @@ public class Notification extends org.gnome.glib.Object
 
     /**
      * Sets a hint with a byte value.
+     * 
      * <p>
      * Hints are interpreted by the notification system in various ways to
      * modify the notification behavior and/or appearance. See the "Hints"
@@ -255,9 +258,11 @@ public class Notification extends org.gnome.glib.Object
     /**
      * Signal emmitted when a notification is closed. This can happen in three
      * ways:
+     * 
      * <ul>
-     * <li>When notification timeout expires.</li> <li>When user dismisses it
-     * by closing.</li> <li>When {@link #close() close()} is called.</li>
+     * <li>When notification timeout expires.</li>
+     * <li>When user dismisses it by closing.</li>
+     * <li>When {@link #close() close()} is called.</li>
      * </ul>
      * 
      * @author Serkan Kaba
@@ -279,9 +284,10 @@ public class Notification extends org.gnome.glib.Object
     }
 
     /**
-     * Callback invoked when an added action is invoked.
+     * Callback invoked when an added action is invoked. See Notification's
+     * {@link Notification#addAction(String, String, Notification.Action)
+     * addAction()}, which is the where this is used from.
      * 
-     * @see Notification#addAction(String, String, Notification.Action)
      * @author Serkan Kaba
      * @since 4.0.12
      */
@@ -310,12 +316,15 @@ public class Notification extends org.gnome.glib.Object
 
     /**
      * Add an action to a notification. Notification-daemon displays these as
-     * buttons. Notify-OSD of Ubuntu doesn't support actions at all. To
-     * determine if notification system supports actions look for "actions" in
-     * capabilities.
+     * buttons.
+     * 
+     * <p>
+     * <i>Note that for some bizarre reason the new Notify-OSD of Ubuntu Linux
+     * does not support actions at all. To determine if notification system
+     * supports actions look for</i> <code>"actions"</code> <i>in
+     * capabilities.</i>
      * 
      * @see Notify#getServerCapabilities()
-     * @see Notification.Action
      * @since 4.0.12
      */
     public void addAction(String actionID, String label, Notification.Action action) {
