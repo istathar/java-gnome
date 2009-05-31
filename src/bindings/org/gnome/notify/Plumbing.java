@@ -1,7 +1,7 @@
 /*
  * Plumbing.java
  *
- * Copyright (c) 2009 Operational Dynamics Consulting Pty Ltd
+ * Copyright (c) 2009 Operational Dynamics Consulting Pty Ltd, and Others
  * 
  * The code in this file, and the library it is a part of, are made available
  * to you by the authors under the terms of the "GNU General Public Licence,
@@ -12,7 +12,7 @@
  */
 package org.gnome.notify;
 
-public abstract class Plumbing extends org.gnome.gdk.Plumbing
+abstract class Plumbing extends org.gnome.gdk.Plumbing
 {
     protected Plumbing() {}
 }
