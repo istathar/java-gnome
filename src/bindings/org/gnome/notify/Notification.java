@@ -172,8 +172,11 @@ public class Notification extends org.gnome.glib.Object
     }
 
     /**
-     * Sets a hint with an integer value. See {@link #setHint(String, double)
+     * Sets a hint with an integer value. See {@link #setHint(String, byte)
      * setHint()} for further details.
+     * <p>
+     * Example: <code>"x"</code> (sets the horizontal position of the
+     * notification)
      * 
      * @since 4.0.12
      */
@@ -182,8 +185,8 @@ public class Notification extends org.gnome.glib.Object
     }
 
     /**
-     * Sets a hint with a integer value. See the "Hints" section in <i>Desktop
-     * Notifications Specification</i> for standard hints.
+     * Sets a hint with a double value. See {@link #setHint(String, byte)
+     * setHint()} for further details.
      * 
      * @since 4.0.12
      */
@@ -192,8 +195,10 @@ public class Notification extends org.gnome.glib.Object
     }
 
     /**
-     * Sets a hint with a string value. See {@link #setHint(String, double)
+     * Sets a hint with a string value. See {@link #setHint(String, byte)
      * setHint()} for further details.
+     * <p>
+     * Example: <code>"sound-file"</code> (adds sound to the notification)
      * 
      * @since 4.0.12
      */
@@ -202,8 +207,12 @@ public class Notification extends org.gnome.glib.Object
     }
 
     /**
-     * Sets a hint with a byte value. See {@link #setHint(String, double)
-     * setHint()} for further details.
+     * Sets a hint with a byte value.
+     * <p>
+     * Hints are interpreted by the notification system in various ways to
+     * modify the notification behavior and/or appearance. See the "Hints"
+     * section in <i>Desktop Notifications Specification</i> for standard
+     * hints and their interpretations.
      * 
      * @since 4.0.12
      */
@@ -212,8 +221,8 @@ public class Notification extends org.gnome.glib.Object
     }
 
     /**
-     * Sets a hint with a byte array data. See
-     * {@link #setHint(String, double) setHint()} for further details.
+     * Sets a hint with a byte array data. See {@link #setHint(String, byte)
+     * setHint()} for further details.
      * 
      * @since 4.0.12
      */
@@ -247,9 +256,8 @@ public class Notification extends org.gnome.glib.Object
      * Signal emmitted when a notification is closed. This can happen in three
      * ways:
      * <ul>
-     * <li>When notification timeout expires.</li>
-     * <li>When user dismisses it by closing.</li>
-     * <li>When {@link #close() close()} is called.</li>
+     * <li>When notification timeout expires.</li> <li>When user dismisses it
+     * by closing.</li> <li>When {@link #close() close()} is called.</li>
      * </ul>
      * 
      * @author Serkan Kaba
