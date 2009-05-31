@@ -55,7 +55,7 @@ public final class Notify extends Glib
      * @since 4.0.12
      */
     public static boolean init(String applicationName) {
-        if (isInitted()) {
+        if (isInitialized()) {
             throw new IllegalStateException("Notification already initialized");
         }
 
@@ -67,7 +67,7 @@ public final class Notify extends Glib
 
     /**
      * Uninitialize the notification system. <b>This should be called when
-     * notification is no longer needed (i.e. upon exist).</b>
+     * notification is no longer needed (i.e. upon exit).</b>
      * 
      * @since 4.0.12
      */
@@ -80,7 +80,7 @@ public final class Notify extends Glib
      * 
      * @since 4.0.12
      */
-    public static boolean isInitted() {
+    public static boolean isInitialized() {
         return NotifyMain.notifyIsInitted();
     }
 
@@ -104,7 +104,7 @@ public final class Notify extends Glib
      * @since 4.0.12
      */
     public static String[] getServerCapabilities() {
-        if (!isInitted()) {
+        if (!isInitialized()) {
             throw new IllegalStateException("Notification isn't initialized");
         }
         return NotifyMainOverride.getServerCapabilities();
