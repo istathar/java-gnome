@@ -1,8 +1,8 @@
 /*
  * CursorType.java
  *
- * Copyright (c) 2007 Operational Dynamics Consulting Pty Ltd
- * Copyright (c) 2009 Vreixo Formoso
+ * Copyright (c) 2007-2009 Operational Dynamics Consulting Pty Ltd
+ * Copyright (c)      2009 Vreixo Formoso
  *
  * The code in this file, and the library it is a part of, are made available
  * to you by the authors under the terms of the "GNU General Public Licence,
@@ -44,10 +44,7 @@ import org.freedesktop.bindings.Flag;
 /*
  * The underlying enum is a zoo, so this is just a start. Frankly, most of the
  * preexisting Cursor constants are completely unnecessary cruft left over
- * from the early days of X Windows. Yeech! There are some Cursors that still
- * have modern application, but I've skipped things like the Window resizing
- * handles because, yo, your program isn't a window manager. Someone else can
- * add other CursorTypes if they really need one.
+ * from the early days of X Windows. Yeech!
  */
 public final class CursorType extends Flag
 {
