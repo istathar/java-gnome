@@ -807,7 +807,16 @@ if ($os eq "gentoo") {
 			"gtk+-unix-print-2.0",
 			"GNOME printing (Unix backend)",
 			"unixprint-devel");
-	#TODO: Add libnotify check for Debian.
+
+	check_system_library(@gnomedev_libs,
+			"gtksourceview-2.0",
+			"GtkSourceView",
+			"libgtksourceview2.0-dev");
+
+	check_system_library(@gnomedev_libs,
+			"libnotify",
+			"Libnotify",
+			"libnotify-dev");
 
 } elsif ($os eq "suse") {
 	check_system_library(@gnomedev_libs,
