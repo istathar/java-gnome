@@ -81,7 +81,7 @@ public class ExampleLowBattery
          * Make the notification critical.
          */
         notification.setUrgency(Urgency.CRITICAL);
-        
+
         /*
          * Display the notification.
          */

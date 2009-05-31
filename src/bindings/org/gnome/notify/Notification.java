@@ -247,6 +247,7 @@ public class Notification extends org.gnome.glib.Object
      * by closing.</li> <li>When {@link #close()} is called.</li>
      * </ul>
      * 
+     * @author Serkan Kaba
      * @since 4.0.12
      */
     public interface Closed extends NotifyNotification.ClosedSignal
@@ -258,10 +259,9 @@ public class Notification extends org.gnome.glib.Object
      * Hook up a handler to receive <code>Notification.Closed</code> events on
      * this Notification.
      * 
-     * @see Notification.Closed
      * @since 4.0.12
      */
-    public void connect(Closed handler) {
+    public void connect(Notification.Closed handler) {
         NotifyNotification.connect(this, handler, false);
     }
 
