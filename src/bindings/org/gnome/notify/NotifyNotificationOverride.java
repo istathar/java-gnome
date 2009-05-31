@@ -50,8 +50,4 @@ final class NotifyNotificationOverride extends Plumbing
     }
 
     private static native final void notify_notification_disconnect_all_actions(long pointerOf);
-    
-    /*static final void disconnect(Notification self, NotifyNotification.ActionSignal handlerInstance) {
-        disconnectSignal(self, handlerInstance, NotifyNotification.class, "action");
-    }*/
 }
