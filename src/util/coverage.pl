@@ -75,7 +75,7 @@ foreach my $file ( @sources ) {
 print "Number generated:\t\t";
 printf "%5d\n", $num;
 
-print "Number actually relevant:\t 1600?\n";
+print "Number actually relevant:\t 1800?\n";
 
 @sources = split(/\n/, `find src/bindings/ -name '*.java'`);
 $num = 0;

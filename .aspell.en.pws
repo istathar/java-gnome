@@ -189,6 +189,7 @@ ExampleCairoDrawingBlends
 ExampleDrawingText
 ExampleInstantMessenger
 ExampleLinedPaper
+ExampleNotificationApp
 ExamplePressMe
 ExampleSimpleMenu
 ExampleTrailHeads
@@ -595,7 +596,11 @@ NoSuchMethodException
 NorthAmericanPaperSize
 NotifyCursorPosition
 NotifyCursorPositionSignal
+NotifyMain
+NotifyMainOverride
+NotifyNotification
 NotifyType
+NotifyUrgency
 NullPointerException
 NumLock
 NumberSign
@@ -738,7 +743,6 @@ SpinButton
 Srichand
 StateType
 StatusBar
-StatusIcon
 StatusIcon's
 StatusIcons
 Statusbar
@@ -926,6 +930,7 @@ appendMessage
 appendPage
 appendRow
 appendText
+applicationName
 applyTag
 arcNegative
 arg
@@ -941,6 +946,8 @@ assertSame
 assertTrue
 atk
 attachDefaults
+attachToStatusIcon
+attachToWidget
 attr
 autotools
 backend
@@ -1013,6 +1020,7 @@ checksum
 clampPage
 classname
 classpath
+clearHints
 clickable
 cls
 cmd
@@ -1121,6 +1129,8 @@ createMenuItemWithMnemonic
 createMenuToolButton
 createMessageDialog
 createNotebook
+createNotification
+createNotificationWithStatusIcon
 createObject
 createPaperSize
 createPatternForSurface
@@ -1328,6 +1338,7 @@ getAlignmentX
 getAlignmentY
 getAllocation
 getAngle
+getApplicationName
 getArea
 getAscent
 getAtPosPath
@@ -1505,6 +1516,7 @@ getSelected
 getSelection
 getSelectionBound
 getSensitive
+getServerCapabilities
 getSize
 getSizeHeight
 getSizeWidth
@@ -1634,6 +1646,7 @@ isActive
 isDirectory
 isEmbedded
 isEqual
+isInitted
 isInserted
 isSecondary
 isSensitive
@@ -1803,6 +1816,10 @@ newa
 nin
 nis
 nm
+notifyGetAppName
+notifyInit
+notifyIsInitted
+notifyUninit
 nowarn
 nowrap
 nresulted
@@ -2029,6 +2046,7 @@ setBorderWindowSize
 setBuffer
 setCanDefault
 setCanFocus
+setCategory
 setCharAt
 setChildSecondary
 setClickable
@@ -2069,6 +2087,7 @@ setFromIconName
 setFromPixbuf
 setFromStock
 setFullscreen
+setGeometryHints
 setGravity
 setHAdjustment
 setHadjustment
@@ -2076,7 +2095,13 @@ setHasFrame
 setHasResizeGrip
 setHeadersClickable
 setHeadersVisible
+setHint
+setHintByte
+setHintDouble
+setHintInt
+setHintString
 setIcon
+setIconFromPixbuf
 setImage
 setInconsistent
 setIndent
@@ -2189,6 +2214,7 @@ setTabPos
 setTabPosition
 setText
 setTimeZone
+setTimeout
 setTip
 setTitle
 setTooltip
@@ -2200,6 +2226,7 @@ setTranslatorCredits
 setTypeHint
 setUnderline
 setUp
+setUrgency
 setUseMarkup
 setVAdjustment
 setVadjustment
@@ -2245,6 +2272,7 @@ src
 startConversationWith
 startsDisplayLine
 startsWord
+statusIcon
 statusToString
 stepIncrement
 stockId
@@ -2337,6 +2365,7 @@ unfullscreen
 ungrab
 unicode
 unindent
+uninit
 unix
 unixprint
 unmaximize
