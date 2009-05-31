@@ -54,7 +54,7 @@ public class Notification extends org.gnome.glib.Object
      * widget that the notification relates to.
      * 
      * <p>
-     * Note that all but summary is nullable.
+     * Note that all but summary can be <code>null</code>.
      * 
      * @since 4.0.12
      */
@@ -88,8 +88,7 @@ public class Notification extends org.gnome.glib.Object
     }
 
     /**
-     * Attaches Notification to a {@link Widget} setting hints to its
-     * location.
+     * Attaches Notification to a Widget setting hints to its location.
      * 
      * @since 4.0.12
      */
@@ -155,7 +154,7 @@ public class Notification extends org.gnome.glib.Object
 
     /**
      * Sets the urgency to one of {@link Urgency#LOW LOW},
-     * {@link Urgency#NORMAL NORMAL}, {@link Urgency#CRITICAL CRITICAL}.
+     * {@link Urgency#NORMAL NORMAL}, or {@link Urgency#CRITICAL CRITICAL}.
      * 
      * @since 4.0.12
      */
@@ -173,9 +172,9 @@ public class Notification extends org.gnome.glib.Object
     }
 
     /**
-     * Sets a hint with an integer value.
+     * Sets a hint with an integer value. See {@link #setHint(String, double)
+     * setHint()} for further details.
      * 
-     * @see #setHint(String, double)
      * @since 4.0.12
      */
     public void setHint(String key, int value) {
@@ -193,9 +192,9 @@ public class Notification extends org.gnome.glib.Object
     }
 
     /**
-     * Sets a hint with a string value.
+     * Sets a hint with a string value. See {@link #setHint(String, double)
+     * setHint()} for further details.
      * 
-     * @see #setHint(String, double)
      * @since 4.0.12
      */
     public void setHint(String key, String value) {
@@ -203,19 +202,19 @@ public class Notification extends org.gnome.glib.Object
     }
 
     /**
-     * Sets a hint with a byte value.<br>
+     * Sets a hint with a byte value. See {@link #setHint(String, double)
+     * setHint()} for further details.
      * 
-     * @see #setHint(String, double)
      * @since 4.0.12
      */
     public void setHint(String key, byte value) {
         NotifyNotificationOverride.setHintByte(this, key, value);
     }
-    
+
     /**
-     * Sets a hint with a byte array data.
+     * Sets a hint with a byte array data. See
+     * {@link #setHint(String, double) setHint()} for further details.
      * 
-     * @see #setHint(String, double)
      * @since 4.0.12
      */
     public void setHint(String key, byte[] value) {
@@ -245,11 +244,12 @@ public class Notification extends org.gnome.glib.Object
     }
 
     /**
-     * Signal emmitted when a notification is closed. This can happen in 3
+     * Signal emmitted when a notification is closed. This can happen in three
      * ways:
      * <ul>
-     * <li>When notification timeout expires.</li> <li>When user dismisses it
-     * by closing.</li> <li>When {@link #close()} is called.</li>
+     * <li>When notification timeout expires.</li>
+     * <li>When user dismisses it by closing.</li>
+     * <li>When {@link #close() close()} is called.</li>
      * </ul>
      * 
      * @author Serkan Kaba
@@ -294,8 +294,9 @@ public class Notification extends org.gnome.glib.Object
         }
 
         public void onAction(Notification source, String action) {
-            if (actionID.equals(action))
+            if (actionID.equals(action)) {
                 handler.onAction(source, action);
+            }
         }
     }
 
