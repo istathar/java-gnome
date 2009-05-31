@@ -11,9 +11,6 @@
  */
 package org.gnome.notify;
 
-/*import java.util.HashMap;
-import java.util.Map;*/
-
 import org.gnome.gdk.Pixbuf;
 import org.gnome.gdk.Screen;
 import org.gnome.glib.GlibException;

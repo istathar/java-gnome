@@ -44,7 +44,7 @@ final class NotifyNotificationOverride extends Plumbing
 
     private static native final void notify_notification_add_action(long self, String action,
             String label);
-    
+
     static final void disconnectAllActions(Notification self) {
         notify_notification_disconnect_all_actions(pointerOf(self));
     }
