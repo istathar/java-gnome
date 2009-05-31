@@ -745,9 +745,14 @@ output "\nCheck for required system libraries:\n";
 
 if ($os eq "gentoo") {
 	check_system_library(@gnomedev_libs,
-			"gtk+-2.0 >= 2.14 pango >= 1.22 atk gdk-2.0 libglade-2.0 >= 2.6.3 gtk+-unix-print-2.0 cairo-svg >= 1.6.4",
+			"gtk+-2.0 >= 2.14 pango >= 1.22 atk gdk-2.0 libglade-2.0 >= 2.6.3 gtk+-unix-print-2.0 cairo-svg >= 1.6.4 gtksourceview-2.0",
 			"GNOME",
 			"gnome");
+
+	check_system_library(@gnomedev_libs,
+			"libnotify",
+			"Libnotify",
+			"libnotify");
 
 } elsif ($os eq "slackware") {
 	# on slackware gdk-2.0 and gtk+-unix-print-2.0 are part of gtk+-2.0
@@ -802,6 +807,7 @@ if ($os eq "gentoo") {
 			"gtk+-unix-print-2.0",
 			"GNOME printing (Unix backend)",
 			"unixprint-devel");
+	#TODO: Add libnotify check for Debian.
 
 } elsif ($os eq "suse") {
 	check_system_library(@gnomedev_libs,
@@ -822,6 +828,7 @@ if ($os eq "gentoo") {
 			"libglade-2.0",
 			"Glade development libraries",
 			"libglade2.0_0-devel");
+	#TODO: Add libnotify check for SuSE.
 }
 
 

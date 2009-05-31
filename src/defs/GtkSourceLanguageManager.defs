@@ -1,0 +1,60 @@
+(define-object LanguageManager
+  (in-module "GtkSourceView")
+  (parent "GObject")
+  (c-name "GtkSourceLanguageManager")
+  (import-header "gtksourceview/gtksourcelanguagemanager.h")
+  (gtype-id "GTK_TYPE_SOURCE_LANGUAGE_MANAGER")
+)
+
+(define-function gtk_source_language_manager_new
+  (is-constructor-of "GtkSourceLanguageManager")
+  (c-name "gtk_source_language_manager_new")
+  (caller-owns-return #t)
+  (return-type "GtkSourceLanguageManager*")
+)
+
+(define-function get_default
+  (c-name "gtk_source_language_manager_get_default")
+  (return-type "GtkSourceLanguageManager*")
+)
+
+(define-method get_language_ids
+  (of-object "GtkSourceLanguageManager")
+  (c-name "gtk_source_language_manager_get_language_ids")
+  (return-type "const-gchar**")
+)
+
+(define-method get_language
+  (of-object "GtkSourceLanguageManager")
+  (c-name "gtk_source_language_manager_get_language")
+  (return-type "GtkSourceLanguage*")
+  (parameters
+    '("const-gchar*" "id")
+  )
+)
+
+(define-method get_search_path
+  (of-object "GtkSourceLanguageManager")
+  (c-name "gtk_source_language_manager_get_search_path")
+  (return-type "const-gchar**")
+)
+
+(define-method set_search_path
+  (of-object "GtkSourceLanguageManager")
+  (c-name "gtk_source_language_manager_set_search_path")
+  (return-type "none")
+  (parameters
+    '("gchar**" "dirs")
+  )
+)
+
+(define-method guess_language
+  (of-object "GtkSourceLanguageManager")
+  (c-name "gtk_source_language_manager_guess_language")
+  (return-type "GtkSourceLanguage*")
+  (parameters
+    '("const-gchar*" "filename" (default "NULL") (null-ok))
+    '("const-gchar*" "content_type" (default "NULL") (null-ok))
+  )
+)
+
