@@ -59,12 +59,56 @@ JNIEXPORT void JNICALL Java_org_gnome_notify_NotifyNotificationOverride_notify_1
 	// call function
 	notify_notification_set_hint_byte(self, key, (guchar)value);
 
-	// cleanup parameter self
+	// cleanup parameter key
+	(*env)->ReleaseStringUTFChars(env, _key, key);
+}
+
+/*
+ * Implements
+ *   org.gnome.notify.NotifyNotificationOverride.notify_notification_set_hint_byte_array()
+ * called from
+ *   org.gnome.notify.Notification.setHint(byte[])
+ */
+JNIEXPORT void JNICALL Java_org_gnome_notify_NotifyNotificationOverride_notify_1notification_1set_1hint_1byte_1array
+(
+	JNIEnv *env,
+	jclass cls,
+	jlong _self,
+	jstring _key,
+	jbyteArray _value
+)
+{
+	NotifyNotification* self;
+	const gchar* key;
+	guchar* value;
+	int size;
+
+	// convert parameter self
+	self = (NotifyNotification*) _self;
+
+	// convert parameter key
+	key = (const gchar*) (*env)->GetStringUTFChars(env, _key, NULL);
+	if (key == NULL) {
+		return; // Java Exception already thrown
+	}
+
+	// convert parameter value
+	value = (guchar*)(*env)->GetByteArrayElements(env, _value, NULL);
+	if (value == NULL) {
+		return; // Java Exception already thrown
+	}
+
+	// determine array size
+	size = (*env)->GetArrayLength(env, _value);
+
+	// call function
+	notify_notification_set_hint_byte_array(self, key, value, size);
 
 	// cleanup parameter key
 	(*env)->ReleaseStringUTFChars(env, _key, key);
 
 	// cleanup parameter value
+	(*env)->ReleaseByteArrayElements(env, _value, (jbyte*)value, 0);
 }
 
 /*
@@ -114,6 +158,12 @@ JNIEXPORT void JNICALL Java_org_gnome_notify_NotifyNotificationOverride_notify_1
 					G_TYPE_STRING);
 	}
 	notify_notification_add_action(self,action,label,NOTIFY_ACTION_CALLBACK(emit_notification),NULL,NULL);
+
+	// cleanup parameter action
+	(*env)->ReleaseStringUTFChars(env, _action, action);
+
+	// cleanup parameter label
+	(*env)->ReleaseStringUTFChars(env, _label, label);
 }
 
 /*

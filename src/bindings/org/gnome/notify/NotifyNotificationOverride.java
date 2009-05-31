@@ -34,9 +34,33 @@ final class NotifyNotificationOverride extends Plumbing
     }
 
     private static native final void notify_notification_set_hint_byte(long self, String key, short value);
+    
+    static final void setHintByteArray(Notification self, String key, byte[] value) {
+        if (self == null) {
+            throw new IllegalArgumentException("self can't be null");
+        }
+
+        if (key == null) {
+            throw new IllegalArgumentException("key can't be null");
+        }
+
+        if (value == null) {
+            throw new IllegalArgumentException("value can't be null");
+        }
+        
+        if(value.length == 0) {
+            throw new IllegalArgumentException("array lenght should be greater than 0");
+        }
+
+        synchronized (lock) {
+            notify_notification_set_hint_byte_array(pointerOf(self), key, value);
+        }
+    }
+
+    private static native final void notify_notification_set_hint_byte_array(long self, String key, byte[] value);
 
     /**
-     * Manually hookup the function that will emit our custom visible signal.
+     * Manually hookup the function that will emit our custom action signal.
      */
     static final void addAction(Notification self, String action, String label) {
         notify_notification_add_action(pointerOf(self), action, label);
