@@ -786,17 +786,17 @@ if ($os eq "gentoo") {
 	check_system_library(@gnomedev_libs,
 			"pango >= 1.22",
 			"Pango",
-			"pango-devel");
+			"libpango1.0-dev");
 
 	check_system_library(@gnomedev_libs,
 			"atk",
 			"ATK",
-			"atk-devel");
+			"libatk1.0-dev");
 
 	check_system_library(@gnomedev_libs,
 			"gdk-2.0",
 			"GDK",
-			"gdk-devel");
+			"libgtk2.0-dev");
 
 	check_system_library(@gnomedev_libs,
 			"libglade-2.0",
@@ -806,7 +806,7 @@ if ($os eq "gentoo") {
 	check_system_library(@gnomedev_libs,
 			"gtk+-unix-print-2.0",
 			"GNOME printing (Unix backend)",
-			"unixprint-devel");
+			"libgtk2.0-dev");
 
 	check_system_library(@gnomedev_libs,
 			"gtksourceview-2.0",
