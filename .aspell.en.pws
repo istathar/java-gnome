@@ -189,7 +189,6 @@ ExampleCairoDrawingBlends
 ExampleDrawingText
 ExampleInstantMessenger
 ExampleLinedPaper
-ExampleNotificationApp
 ExamplePressMe
 ExampleSimpleMenu
 ExampleTrailHeads
@@ -546,6 +545,7 @@ Lorem
 Lorg
 Lortie
 LoveLetter
+LowBatteryExample
 MAXUINT
 MVC
 Machame
