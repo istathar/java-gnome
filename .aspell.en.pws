@@ -189,7 +189,6 @@ ExampleCairoDrawingBlends
 ExampleDrawingText
 ExampleInstantMessenger
 ExampleLinedPaper
-ExampleNotificationApp
 ExamplePressMe
 ExampleSimpleMenu
 ExampleTrailHeads
@@ -545,6 +544,7 @@ Ljava
 Lorem
 Lorg
 Lortie
+LowBatteryExample
 LoveLetter
 MAXUINT
 MVC
