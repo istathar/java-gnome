@@ -779,24 +779,19 @@ if ($os eq "gentoo") {
 
 } elsif ($os eq "debian") {
 	check_system_library(@gnomedev_libs,
-			"gtk+-2.0 >= 2.14",
+			"gtk+-2.0 >= 2.14 gdk-2.0 gtk+-unix-print-2.0",
 			"GTK+",
 			"libgtk2.0-dev");
 
 	check_system_library(@gnomedev_libs,
 			"pango >= 1.22",
 			"Pango",
-			"pango-devel");
+			"libpango1.0-dev");
 
 	check_system_library(@gnomedev_libs,
 			"atk",
 			"ATK",
-			"atk-devel");
-
-	check_system_library(@gnomedev_libs,
-			"gdk-2.0",
-			"GDK",
-			"gdk-devel");
+			"libatk1.0-dev");
 
 	check_system_library(@gnomedev_libs,
 			"libglade-2.0",
@@ -804,10 +799,14 @@ if ($os eq "gentoo") {
 			"libglade2-dev");
 
 	check_system_library(@gnomedev_libs,
-			"gtk+-unix-print-2.0",
-			"GNOME printing (Unix backend)",
-			"unixprint-devel");
-	#TODO: Add libnotify check for Debian.
+			"gtksourceview-2.0",
+			"GtkSourceView",
+			"libgtksourceview2.0-dev");
+
+	check_system_library(@gnomedev_libs,
+			"libnotify",
+			"Libnotify",
+			"libnotify-dev");
 
 } elsif ($os eq "suse") {
 	check_system_library(@gnomedev_libs,
