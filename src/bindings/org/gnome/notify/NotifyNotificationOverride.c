@@ -29,7 +29,7 @@ emit_notification
  * Implements
  *   org.gnome.notify.NotifyNotificationOverride.notify_notification_set_hint_byte()
  * called from
- *   org.gnome.notify.Notification.setHint(short)
+ *   org.gnome.notify.Notification.setHint(byte)
  */
 JNIEXPORT void JNICALL Java_org_gnome_notify_NotifyNotificationOverride_notify_1notification_1set_1hint_1byte
 (
