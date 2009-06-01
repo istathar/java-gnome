@@ -144,9 +144,8 @@ public class Notification extends org.gnome.glib.Object
     /**
      * Set the category of the notification which may later be used to display
      * or filter out the notification.<br>
-     * See the "Categories"
-     * section in <i>Desktop Notifications Specification</i> for predefined
-     * categories and their meanings.
+     * See the "Categories" section in <i>Desktop Notifications
+     * Specification</i> for predefined categories and their meanings.
      * 
      * @since 4.0.12
      */
