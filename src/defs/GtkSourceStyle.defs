@@ -1,0 +1,14 @@
+(define-object Style
+  (in-module "GtkSourceView")
+  (parent "GObject")
+  (c-name "GtkSourceStyle")
+  (import-header "gtksourceview/gtksourcestyle.h")
+  (gtype-id "GTK_TYPE_SOURCE_STYLE")
+)
+
+(define-method copy
+  (of-object "GtkSourceStyle")
+  (c-name "gtk_source_style_copy")
+  (return-type "GtkSourceStyle*")
+)
+

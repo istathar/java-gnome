@@ -446,7 +446,7 @@ public class ValidateTextBuffer extends TestCaseGtk
          * Well, did it?
          */
 
-        assertSame(TextTagTable.getDefaultTable(), GtkTextBuffer.getTagTable(buf));
+        assertSame(TextBuffer.getDefaultTable(), GtkTextBuffer.getTagTable(buf));
 
         /*
          * Does no-arg TextTag constructor exist and work?
@@ -613,7 +613,7 @@ public class ValidateTextBuffer extends TestCaseGtk
     public final void testInsertWithMultipleTags() {
         final TextBuffer buffer;
         final TextTag italic, bold, mono;
-        TextIter start, end;
+        TextIter start;
 
         buffer = new TextBuffer();
 

@@ -1,0 +1,6 @@
+(define-enum SmartHomeEndType
+  (in-module "GtkSourceView")
+  (c-name "GtkSourceSmartHomeEndType")
+  (gtype-id "GTK_TYPE_SOURCE_SMART_HOME_END_TYPE")
+)
+

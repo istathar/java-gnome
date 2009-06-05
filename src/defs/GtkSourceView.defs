@@ -1,0 +1,273 @@
+(define-object SourceView
+  (in-module "GtkSourceView")
+  (parent "GtkTextView")
+  (import-header "gtksourceview/gtksourceview.h")
+  (c-name "GtkSourceView")
+  (gtype-id "GTK_TYPE_SOURCE_VIEW")
+)
+
+(define-function gtk_source_view_new
+  (is-constructor-of "GtkSourceView")
+  (c-name "gtk_source_view_new")
+  (caller-owns-return #t)
+  (return-type "GtkWidget*")
+)
+
+(define-function gtk_source_view_new_with_buffer
+  (is-constructor-of "GtkSourceView")
+  (c-name "gtk_source_view_new_with_buffer")
+  (caller-owns-return #t)
+  (return-type "GtkWidget*")
+  (parameters
+    '("GtkSourceBuffer*" "buffer")
+  )
+)
+
+(define-method set_show_line_numbers
+  (of-object "GtkSourceView")
+  (c-name "gtk_source_view_set_show_line_numbers")
+  (return-type "none")
+  (parameters
+    '("gboolean" "show")
+  )
+)
+
+(define-method get_show_line_numbers
+  (of-object "GtkSourceView")
+  (c-name "gtk_source_view_get_show_line_numbers")
+  (return-type "gboolean")
+)
+
+(define-method set_indent_width
+  (of-object "GtkSourceView")
+  (c-name "gtk_source_view_set_indent_width")
+  (return-type "none")
+  (parameters
+    '("guint" "width")
+  )
+)
+
+(define-method get_indent_width
+  (of-object "GtkSourceView")
+  (c-name "gtk_source_view_get_indent_width")
+  (return-type "guint")
+)
+
+(define-method set_tab_width
+  (of-object "GtkSourceView")
+  (c-name "gtk_source_view_set_tab_width")
+  (return-type "none")
+  (parameters
+    '("guint" "width")
+  )
+)
+
+(define-method get_tab_width
+  (of-object "GtkSourceView")
+  (c-name "gtk_source_view_get_tab_width")
+  (return-type "guint")
+)
+
+(define-method set_auto_indent
+  (of-object "GtkSourceView")
+  (c-name "gtk_source_view_set_auto_indent")
+  (return-type "none")
+  (parameters
+    '("gboolean" "enable")
+  )
+)
+
+(define-method get_auto_indent
+  (of-object "GtkSourceView")
+  (c-name "gtk_source_view_get_auto_indent")
+  (return-type "gboolean")
+)
+
+(define-method set_insert_spaces_instead_of_tabs
+  (of-object "GtkSourceView")
+  (c-name "gtk_source_view_set_insert_spaces_instead_of_tabs")
+  (return-type "none")
+  (parameters
+    '("gboolean" "enable")
+  )
+)
+
+(define-method get_insert_spaces_instead_of_tabs
+  (of-object "GtkSourceView")
+  (c-name "gtk_source_view_get_insert_spaces_instead_of_tabs")
+  (return-type "gboolean")
+)
+
+(define-method set_indent_on_tab
+  (of-object "GtkSourceView")
+  (c-name "gtk_source_view_set_indent_on_tab")
+  (return-type "none")
+  (parameters
+    '("gboolean" "enable")
+  )
+)
+
+(define-method get_indent_on_tab
+  (of-object "GtkSourceView")
+  (c-name "gtk_source_view_get_indent_on_tab")
+  (return-type "gboolean")
+)
+
+(define-method set_highlight_current_line
+  (of-object "GtkSourceView")
+  (c-name "gtk_source_view_set_highlight_current_line")
+  (return-type "none")
+  (parameters
+    '("gboolean" "show")
+  )
+)
+
+(define-method get_highlight_current_line
+  (of-object "GtkSourceView")
+  (c-name "gtk_source_view_get_highlight_current_line")
+  (return-type "gboolean")
+)
+
+(define-method set_show_right_margin
+  (of-object "GtkSourceView")
+  (c-name "gtk_source_view_set_show_right_margin")
+  (return-type "none")
+  (parameters
+    '("gboolean" "show")
+  )
+)
+
+(define-method get_show_right_margin
+  (of-object "GtkSourceView")
+  (c-name "gtk_source_view_get_show_right_margin")
+  (return-type "gboolean")
+)
+
+(define-method set_right_margin_position
+  (of-object "GtkSourceView")
+  (c-name "gtk_source_view_set_right_margin_position")
+  (return-type "none")
+  (parameters
+    '("guint" "pos")
+  )
+)
+
+(define-method get_right_margin_position
+  (of-object "GtkSourceView")
+  (c-name "gtk_source_view_get_right_margin_position")
+  (return-type "guint")
+)
+
+(define-method set_show_line_marks
+  (of-object "GtkSourceView")
+  (c-name "gtk_source_view_set_show_line_marks")
+  (return-type "none")
+  (parameters
+    '("gboolean" "show")
+  )
+)
+
+(define-method get_show_line_marks
+  (of-object "GtkSourceView")
+  (c-name "gtk_source_view_get_show_line_marks")
+  (return-type "gboolean")
+)
+
+(define-method set_mark_category_pixbuf
+  (of-object "GtkSourceView")
+  (c-name "gtk_source_view_set_mark_category_pixbuf")
+  (return-type "none")
+  (parameters
+    '("const-gchar*" "category")
+    '("GdkPixbuf*" "pixbuf" (null-ok))
+  )
+)
+
+(define-method get_mark_category_pixbuf
+  (of-object "GtkSourceView")
+  (c-name "gtk_source_view_get_mark_category_pixbuf")
+  (return-type "GdkPixbuf*")
+  (parameters
+    '("const-gchar*" "category")
+  )
+)
+
+(define-method set_mark_category_priority
+  (of-object "GtkSourceView")
+  (c-name "gtk_source_view_set_mark_category_priority")
+  (return-type "none")
+  (parameters
+    '("const-gchar*" "category")
+    '("gint" "priority")
+  )
+)
+
+(define-method get_mark_category_priority
+  (of-object "GtkSourceView")
+  (c-name "gtk_source_view_get_mark_category_priority")
+  (return-type "gint")
+  (parameters
+    '("const-gchar*" "category")
+  )
+)
+
+(define-method set_smart_home_end
+  (of-object "GtkSourceView")
+  (c-name "gtk_source_view_set_smart_home_end")
+  (return-type "none")
+  (parameters
+    '("GtkSourceSmartHomeEndType" "smart_he")
+  )
+)
+
+(define-method get_smart_home_end
+  (of-object "GtkSourceView")
+  (c-name "gtk_source_view_get_smart_home_end")
+  (return-type "GtkSourceSmartHomeEndType")
+)
+
+(define-method set_draw_spaces
+  (of-object "GtkSourceView")
+  (c-name "gtk_source_view_set_draw_spaces")
+  (return-type "none")
+  (parameters
+    '("GtkSourceDrawSpacesFlags" "flags")
+  )
+)
+
+(define-method get_draw_spaces
+  (of-object "GtkSourceView")
+  (c-name "gtk_source_view_get_draw_spaces")
+  (return-type "GtkSourceDrawSpacesFlags")
+)
+
+(define-method set_mark_category_background
+  (of-object "GtkSourceView")
+  (c-name "gtk_source_view_set_mark_category_background")
+  (return-type "none")
+  (parameters
+    '("const-gchar*" "category")
+    '("const-GdkColor*" "color" (null-ok))
+  )
+)
+
+(define-method get_mark_category_background
+  (of-object "GtkSourceView")
+  (c-name "gtk_source_view_get_mark_category_background")
+  (return-type "gboolean")
+  (parameters
+    '("const-gchar*" "category")
+    '("GdkColor*" "dest")
+  )
+)
+
+(define-virtual undo
+  (of-object "GtkSourceView")
+  (return-type "none")
+)
+
+(define-virtual redo
+  (of-object "GtkSourceView")
+  (return-type "none")
+)
+
