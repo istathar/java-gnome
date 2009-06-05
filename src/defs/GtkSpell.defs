@@ -12,7 +12,7 @@
   (return-type "GtkSpell*")
   (parameters
     '("GtkTextView*" "view")
-    '("const-gchar*" "lang")
+    '("const-gchar*" "lang" (null-ok))
     '("GError**" "error")
   )
 )
@@ -28,7 +28,7 @@
   (c-name "gtkspell_set_language")
   (return-type "gboolean")
   (parameters
-    '("const-gchar*" "lang")
+    '("const-gchar*" "lang" (null-ok))
     '("GError**" "error")
   )
 )
