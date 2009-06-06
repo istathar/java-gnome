@@ -190,6 +190,8 @@ import org.gnome.pango.FontDescription;
  */
 public class TextView extends Container
 {
+    private Spell spell;
+    
     protected TextView(long pointer) {
         super(pointer);
     }
@@ -982,5 +984,37 @@ public class TextView extends Container
      */
     public void setLeftMargin(int pixels) {
         GtkTextView.setLeftMargin(this, pixels);
+    }
+    
+    /**
+     * Create and attach a {@link Spell} object to the view to add spellchecking capability.
+     * <p>
+     * The language is set to the value of <code>LANG</code> environment variable if that's set,
+     * if not the language defaults to English.
+     * 
+     * @since 4.0.12
+     */
+    public Spell attachSpell() {
+        spell = new Spell(this, null);
+        return spell;
+    }
+    
+    /**
+     * Create and attach a {@link Spell} object to the view to add spellchecking capability in the given language.
+     * 
+     * @since 4.0.12
+     */
+    public Spell attachSpell(String lang) {
+        spell = new Spell(this, lang);
+        return spell;
+    }
+    
+    /**
+     * Returns the {@link Spell} attached to the view.
+     * 
+     * @since 4.0.12
+     */
+    public Spell getSpell() {
+        return GtkSpell.getFromTextView(this);
     }
 }

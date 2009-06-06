@@ -36,8 +36,7 @@ public final class Spell extends Boxed
         try {
             return GtkSpell.createSpellAttach(view, lang);
         } catch (GlibException ge) {
-            throw new IllegalArgumentException("The GtkSpell backend reported an error:\n"
-                    + ge.getMessage());
+            throw new RuntimeException("The GtkSpell backend reported an error:\n" + ge.getMessage());
         }
     }
 
@@ -47,5 +46,30 @@ public final class Spell extends Boxed
      */
     protected void release() {
         GtkSpell.detach(this);
+    }
+
+    /**
+     * Change the language of the spellchecker.
+     * <p>
+     * <code>lang</code> can be <code>null</code>. See
+     * {@link TextView#attachSpell() attachSpell()} for its interpretation.
+     * 
+     * @since 4.0.12
+     */
+    public void setLanguage(String lang) {
+        try {
+            GtkSpell.setLanguage(this, lang);
+        } catch (GlibException ge) {
+            throw new RuntimeException("The GtkSpell backend reported an error:\n" + ge.getMessage());
+        }
+    }
+
+    /**
+     * Run spellchecking on the entire text.
+     * 
+     * @since 4.0.12
+     */
+    public void recheckAll() {
+        GtkSpell.recheckAll(this);
     }
 }
