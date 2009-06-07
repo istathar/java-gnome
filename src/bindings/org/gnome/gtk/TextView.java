@@ -184,8 +184,18 @@ import org.gnome.pango.FontDescription;
  * in Open Source, Your Mileage May Vary. Perhaps GTK will improve this aspect
  * of the library in the future.</i>
  * 
+ * <h2>Spellchecking</h2>
+ * <img class="snapshot" src="TextView-Spelling.png">
+ * You can add spellchecking capability to the TextView with a single line of code.
+ * <pre>
+ *      view.attachSpell()
+ * </pre>
+ * The given code will determine the spellchecker language based on <code>LANG</code>
+ * environment variable and fall back to English if it can't.
+ * 
  * @author Stefan Prelle
  * @author Andrew Cowie
+ * @author Serkan Kaba
  * @since 4.0.9
  */
 public class TextView extends Container
