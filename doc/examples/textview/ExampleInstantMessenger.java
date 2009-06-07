@@ -1,7 +1,7 @@
 /*
  * ExampleInstantMessenger.java
  *
- * Copyright (c) 2008 Operational Dynamics Consulting Pty Ltd, and Others
+ * Copyright (c) 2008-2009 Operational Dynamics Consulting Pty Ltd, and Others
  * 
  * The code in this file, and the program it is a part of, are made available
  * to you by the authors under the terms of the "GNU General Public Licence,
@@ -17,8 +17,9 @@ package textview;
 import java.io.FileNotFoundException;
 
 import org.gnome.gdk.Event;
+import org.gnome.gdk.EventKey;
+import org.gnome.gdk.Keyval;
 import org.gnome.gdk.Pixbuf;
-import org.gnome.gtk.Entry;
 import org.gnome.gtk.Gtk;
 import org.gnome.gtk.IconSize;
 import org.gnome.gtk.ScrolledWindow;
@@ -57,12 +58,15 @@ import static org.gnome.gtk.WrapMode.WORD;
  * 
  * @author Andrew Cowie
  * @author Stefan Prelle
+ * @author Serkan Kaba
  */
 public class ExampleInstantMessenger
 {
     private final TextBuffer buffer;
 
     private final TextView incoming;
+
+    private final TextView outgoing;
 
     private final Pixbuf smiley;
 
@@ -71,7 +75,6 @@ public class ExampleInstantMessenger
     private ExampleInstantMessenger() {
         final Window window;
         final VBox top;
-        final Entry outgoing;
         final ScrolledWindow scroll;
         final Thread other;
         Pixbuf tmp;
@@ -128,37 +131,52 @@ public class ExampleInstantMessenger
         /*
          * Create the place for the user to enter messages they want to send.
          * 
-         * The interesting part here is not that there is an Entry (a real
-         * Instant Messenger would have a TextView supporting rich content
-         * area for the user to write messages to) but that when the user
-         * presses Enter in the Entry it "sends" a message and appends it to
-         * the log in the incoming TextView.
+         * The interesting part here is that when the user presses Enter in
+         * the TextView it "sends" a message and appends it to the log in the
+         * incoming TextView.
          */
 
-        outgoing = new Entry();
+        outgoing = new TextView();
+        outgoing.setAcceptsTab(false);
+
         top.packStart(outgoing, false, false, 0);
 
-        outgoing.connect(new Entry.Activate() {
-            public void onActivate(Entry source) {
-                final String str;
+        outgoing.connect(new Widget.KeyPressEvent() {
+            public boolean onKeyPressEvent(Widget source, EventKey event) {
+                if (event.getKeyval() == Keyval.Return) {
+                    final TextBuffer buffer;
+                    final String str;
 
-                str = outgoing.getText();
+                    buffer = outgoing.getBuffer();
+                    str = buffer.getText();
 
-                /*
-                 * Append the text in the Entry to the TextBuffer backing the
-                 * incoming display.
-                 */
+                    /*
+                     * Append the text in the TextView to the TextBuffer
+                     * backing the incoming display.
+                     */
 
-                appendMessage(str, true);
+                    appendMessage(str, true);
 
-                /*
-                 * And now clear the Entry so that we can enter another
-                 * message.
-                 */
+                    /*
+                     * But now clear the TextView so that we can enter another
+                     * message.
+                     */
 
-                outgoing.setText("");
+                    buffer.setText("");
+
+                    /*
+                     * And don't process the keystroke further.
+                     */
+                    return true;
+                }
+                return false;
             }
         });
+
+        /*
+         * Add English spellchecking to input TextView.
+         */
+        outgoing.attachSpell("en");
 
         /*
          * TextTags are how you apply formatting to content. We'll create a
@@ -221,7 +239,7 @@ public class ExampleInstantMessenger
      * For fun, we translate the smile emoticon into an image, giving us an
      * opportunity to demonstrate adding non-text elements to a TextBuffer.
      */
-    private void appendMessage(String msg, boolean outgoing) {
+    private void appendMessage(String msg, boolean outbound) {
         final TextIter end;
         final long now;
         final String timestamp;
@@ -252,7 +270,7 @@ public class ExampleInstantMessenger
          * make it blue but if incoming we'll leave it black.
          */
 
-        if (outgoing) {
+        if (outbound) {
             colour = blue;
         } else {
             colour = null;

@@ -190,6 +190,8 @@ import org.gnome.pango.FontDescription;
  */
 public class TextView extends Container
 {
+    private Spell spell;
+
     protected TextView(long pointer) {
         super(pointer);
     }
@@ -982,5 +984,65 @@ public class TextView extends Container
      */
     public void setLeftMargin(int pixels) {
         GtkTextView.setLeftMargin(this, pixels);
+    }
+
+    /**
+     * Create and attach a {@link Spell} object to the view to add
+     * spellchecking capability.
+     * 
+     * <p>
+     * The language is chosen based on the value of <code>LANG</code>
+     * environment variable.
+     * 
+     * @since 4.0.12
+     */
+    public void attachSpell() {
+        if (spell == null) {
+            spell = new Spell(this, null);
+        } else {
+            throw new IllegalStateException("Sorry, you've already attached a Spell to this TextView");
+        }
+    }
+
+    /**
+     * Create and attach a {@link Spell} object to the view to add
+     * spellchecking capability in the given language.
+     * 
+     * <p>
+     * You're probably just as well to call {@link #attachSpell()
+     * attachSpell()} and accept the default.
+     * 
+     * @since 4.0.12
+     */
+    public void attachSpell(String lang) {
+        if (spell == null) {
+            spell = new Spell(this, lang);
+        } else {
+            throw new IllegalStateException("Sorry, you've already attached a Spell to this TextView");
+        }
+    }
+
+    /**
+     * Get the Spell helper object attached to the view.
+     * 
+     * <p>
+     * Reasons you might need to use this are if you have to programatically
+     * change the language being used to spell check against with Spell's
+     * {@link Spell#setLanguage(String) setLanguage()}, or to force the
+     * checker to run again with its {@link Spell#recheckAll() recheckAll()}.
+     * You probably won't ever need either.
+     * 
+     * <p>
+     * Obviously there isn't much point in asking for the Spell helper object
+     * if you haven't called {@link #attachSpell() attachSpell()} to create
+     * one yet.
+     * 
+     * @since 4.0.12
+     */
+    public Spell getSpell() {
+        if (spell == null) {
+            throw new IllegalStateException("You haven't attached a Spell to this TextView yet.");
+        }
+        return spell;
     }
 }
