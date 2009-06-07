@@ -1,7 +1,7 @@
 /*
  * ExampleInstantMessenger.java
  *
- * Copyright (c) 2008 Operational Dynamics Consulting Pty Ltd, and Others
+ * Copyright (c) 2008-2009 Operational Dynamics Consulting Pty Ltd, and Others
  * 
  * The code in this file, and the program it is a part of, are made available
  * to you by the authors under the terms of the "GNU General Public Licence,
@@ -38,6 +38,8 @@ import static org.freedesktop.bindings.Time.formatTime;
 import static org.gnome.gtk.PolicyType.ALWAYS;
 import static org.gnome.gtk.PolicyType.NEVER;
 import static org.gnome.gtk.WrapMode.WORD;
+import static org.gnome.gtk.WrapMode.NONE;
+import static org.gnome.gtk.ShadowType.IN;
 
 /**
  * An example of rendering multi-line text in an application.
@@ -58,6 +60,7 @@ import static org.gnome.gtk.WrapMode.WORD;
  * 
  * @author Andrew Cowie
  * @author Stefan Prelle
+ * @author Serkan Kaba
  */
 public class ExampleInstantMessenger
 {
@@ -75,6 +78,7 @@ public class ExampleInstantMessenger
         final TextView outgoing;
         final ScrolledWindow scroll;
         final Thread other;
+        final ScrolledWindow scroll2;
         Pixbuf tmp;
 
         /*
@@ -122,6 +126,7 @@ public class ExampleInstantMessenger
 
         scroll = new ScrolledWindow();
         scroll.setPolicy(NEVER, ALWAYS);
+        scroll.setShadowType(IN);
         scroll.add(incoming);
 
         top.packStart(scroll, true, true, 0);
@@ -137,9 +142,16 @@ public class ExampleInstantMessenger
          */
 
         outgoing = new TextView();
+        outgoing.setSizeRequest(0, 20);
         outgoing.setAcceptsTab(false);
+        outgoing.setWrapMode(NONE);
 
-        top.packStart(outgoing, false, false, 0);
+        scroll2 = new ScrolledWindow();
+        scroll2.setPolicy(NEVER, NEVER);
+        scroll2.setShadowType(IN);
+        scroll2.add(outgoing);
+
+        top.packStart(scroll2, false, false, 0);
 
         outgoing.connect(new Widget.KeyPressEvent() {
 
