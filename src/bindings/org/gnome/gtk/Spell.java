@@ -50,11 +50,15 @@ public final class Spell extends Boxed
     }
 
     /*
-     * The detach() function is how you free a GtkSpell, so it has to be here.
-     * We probably should not expose it publicly.
+     * DANGER WARNING DANGER The detach() function is how you free a GtkSpell,
+     * so normally it would be here. It seems, however, that the current
+     * implementation in the GtkSpell library's gtkspell.c has a signal
+     * handler connected to the GtkTextView 'destroy' signal calling its
+     * internal gtkspell_free() function. If we call gtkspell_detach() it
+     * results in a segmentation fault.
      */
     protected void release() {
-        GtkSpell.detach(this);
+    // GtkSpell.detach(this);
     }
 
     /**
