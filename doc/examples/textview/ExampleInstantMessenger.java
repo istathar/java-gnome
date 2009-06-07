@@ -17,8 +17,9 @@ package textview;
 import java.io.FileNotFoundException;
 
 import org.gnome.gdk.Event;
+import org.gnome.gdk.EventKey;
+import org.gnome.gdk.Keyval;
 import org.gnome.gdk.Pixbuf;
-import org.gnome.gtk.Entry;
 import org.gnome.gtk.Gtk;
 import org.gnome.gtk.IconSize;
 import org.gnome.gtk.ScrolledWindow;
@@ -71,7 +72,7 @@ public class ExampleInstantMessenger
     private ExampleInstantMessenger() {
         final Window window;
         final VBox top;
-        final Entry outgoing;
+        final TextView outgoing;
         final ScrolledWindow scroll;
         final Thread other;
         Pixbuf tmp;
@@ -135,30 +136,43 @@ public class ExampleInstantMessenger
          * the log in the incoming TextView.
          */
 
-        outgoing = new Entry();
+        outgoing = new TextView();
+        outgoing.setAcceptsTab(false);
+        
         top.packStart(outgoing, false, false, 0);
 
-        outgoing.connect(new Entry.Activate() {
-            public void onActivate(Entry source) {
-                final String str;
+        outgoing.connect(new Widget.KeyPressEvent() {
 
-                str = outgoing.getText();
+            public boolean onKeyPressEvent(Widget source, EventKey event) {
+                if (event.getKeyval() == Keyval.Return) {
+                    final String str;
 
-                /*
-                 * Append the text in the Entry to the TextBuffer backing the
-                 * incoming display.
-                 */
+                    str = outgoing.getBuffer().getText();
 
-                appendMessage(str, true);
+                    /*
+                     * Append the text in the TextView to the TextBuffer backing
+                     * the incoming display.
+                     */
 
-                /*
-                 * And now clear the Entry so that we can enter another
-                 * message.
-                 */
+                    appendMessage(str, true);
 
-                outgoing.setText("");
+                    /*
+                     * And now clear the TextView so that we can enter another
+                     * message.
+                     */
+
+                    outgoing.getBuffer().setText("");
+                    return true;
+                }
+                return false;
             }
+
         });
+
+        /*
+         * Add English spellchecking to input TextView.
+         */
+        outgoing.attachSpell("en");
 
         /*
          * TextTags are how you apply formatting to content. We'll create a
