@@ -191,7 +191,7 @@ import org.gnome.pango.FontDescription;
 public class TextView extends Container
 {
     private Spell spell;
-    
+
     protected TextView(long pointer) {
         super(pointer);
     }
@@ -985,12 +985,14 @@ public class TextView extends Container
     public void setLeftMargin(int pixels) {
         GtkTextView.setLeftMargin(this, pixels);
     }
-    
+
     /**
-     * Create and attach a {@link Spell} object to the view to add spellchecking capability.
+     * Create and attach a {@link Spell} object to the view to add
+     * spellchecking capability.
+     * 
      * <p>
-     * The language is set to the value of <code>LANG</code> environment variable if that's set,
-     * if not the language defaults to English.
+     * The language is chosen based on the value of <code>LANG</code>
+     * environment variable.
      * 
      * @since 4.0.12
      */
@@ -998,9 +1000,14 @@ public class TextView extends Container
         spell = new Spell(this, null);
         return spell;
     }
-    
+
     /**
-     * Create and attach a {@link Spell} object to the view to add spellchecking capability in the given language.
+     * Create and attach a {@link Spell} object to the view to add
+     * spellchecking capability in the given language.
+     * 
+     * <p>
+     * You're probably just as well to call {@link #attachSpell()
+     * attachSpell()} and accept the default.
      * 
      * @since 4.0.12
      */
@@ -1008,9 +1015,9 @@ public class TextView extends Container
         spell = new Spell(this, lang);
         return spell;
     }
-    
+
     /**
-     * Returns the {@link Spell} attached to the view.
+     * Get the Spell helper object attached to the view.
      * 
      * @since 4.0.12
      */
