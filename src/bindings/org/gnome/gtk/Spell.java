@@ -15,6 +15,15 @@ import org.gnome.glib.Boxed;
 import org.gnome.glib.GlibException;
 
 /**
+ * Helper class which manages spell checking in TextViews. Convert a TextView
+ * to one that is doing spelling by calling TextView's
+ * {@link TextView#attachSpell() attachSpell()}.
+ * 
+ * <p>
+ * <i>Augmenting a TextView to provide spell checking is provided by the
+ * GtkSpell library, which in turn leverages Enchant to connect to a spell
+ * checking backend.</i>
+ * 
  * @author Andrew Cowie
  * @author Serkan Kaba
  * @since 4.0.12
@@ -41,18 +50,36 @@ public final class Spell extends Boxed
     }
 
     /*
-     * The detach() function is how you free a GtkSpell, so it has to be here.
-     * We probably should not expose it publicly.
+     * DANGER WARNING DANGER The detach() function is how you free a GtkSpell,
+     * so normally it would be here. It seems, however, that the current
+     * implementation in the GtkSpell library's gtkspell.c has a signal
+     * handler connected to the GtkTextView 'destroy' signal calling its
+     * internal gtkspell_free() function. If we call gtkspell_detach() it
+     * results in a segmentation fault.
      */
     protected void release() {
-        GtkSpell.detach(this);
+    // GtkSpell.detach(this);
     }
 
     /**
-     * Change the language of the spellchecker.
+     * Change the language that spellings are being checked against.
+     * 
      * <p>
-     * <code>lang</code> can be <code>null</code>. See
-     * {@link TextView#attachSpell() attachSpell()} for its interpretation.
+     * The default language selected when you call TextView's
+     * {@link TextView#attachSpell() attachSpell()} is based on the
+     * <code>LANG</code> environment variable, so normally you don't need to
+     * call this.
+     * 
+     * <p>
+     * Otherwise, you can attach with the other
+     * {@link TextView#attachSpell(String) attachSpell()} method, specifying a
+     * language there.
+     * 
+     * <p>
+     * <i>Interestingly, if for some strange reason that environment variable
+     * is not set, the language selection will fall back to English. But as it
+     * is essentially impossible to log into a GNOME system without</i>
+     * <code>LANG</code> <i>being set, you shouldn't ever encounter this.</i>
      * 
      * @since 4.0.12
      */
@@ -60,12 +87,13 @@ public final class Spell extends Boxed
         try {
             GtkSpell.setLanguage(this, lang);
         } catch (GlibException ge) {
-            throw new RuntimeException("The GtkSpell backend reported an error:\n" + ge.getMessage());
+            throw new IllegalArgumentException("The GtkSpell backend reported an error:\n"
+                    + ge.getMessage());
         }
     }
 
     /**
-     * Run spellchecking on the entire text.
+     * Re-run the spell checker over the entire text.
      * 
      * @since 4.0.12
      */

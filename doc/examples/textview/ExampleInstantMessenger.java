@@ -37,9 +37,9 @@ import org.gnome.pango.Weight;
 import static org.freedesktop.bindings.Time.formatTime;
 import static org.gnome.gtk.PolicyType.ALWAYS;
 import static org.gnome.gtk.PolicyType.NEVER;
-import static org.gnome.gtk.WrapMode.WORD;
-import static org.gnome.gtk.WrapMode.NONE;
 import static org.gnome.gtk.ShadowType.IN;
+import static org.gnome.gtk.WrapMode.NONE;
+import static org.gnome.gtk.WrapMode.WORD;
 
 /**
  * An example of rendering multi-line text in an application.
@@ -68,6 +68,8 @@ public class ExampleInstantMessenger
 
     private final TextView incoming;
 
+    private final TextView outgoing;
+
     private final Pixbuf smiley;
 
     private final TextTag grey, italics, blue;
@@ -75,10 +77,8 @@ public class ExampleInstantMessenger
     private ExampleInstantMessenger() {
         final Window window;
         final VBox top;
-        final TextView outgoing;
-        final ScrolledWindow scroll;
+        final ScrolledWindow scroll1, scroll2;
         final Thread other;
-        final ScrolledWindow scroll2;
         Pixbuf tmp;
 
         /*
@@ -124,21 +124,19 @@ public class ExampleInstantMessenger
 
         incoming.setWrapMode(WORD);
 
-        scroll = new ScrolledWindow();
-        scroll.setPolicy(NEVER, ALWAYS);
-        scroll.setShadowType(IN);
-        scroll.add(incoming);
+        scroll1 = new ScrolledWindow();
+        scroll1.setPolicy(NEVER, ALWAYS);
+        scroll1.setShadowType(IN);
+        scroll1.add(incoming);
 
-        top.packStart(scroll, true, true, 0);
+        top.packStart(scroll1, true, true, 0);
 
         /*
          * Create the place for the user to enter messages they want to send.
          * 
-         * The interesting part here is not that there is an Entry (a real
-         * Instant Messenger would have a TextView supporting rich content
-         * area for the user to write messages to) but that when the user
-         * presses Enter in the Entry it "sends" a message and appends it to
-         * the log in the incoming TextView.
+         * The interesting part here is that when the user presses Enter in
+         * the TextView it "sends" a message and appends it to the log in the
+         * incoming TextView.
          */
 
         outgoing = new TextView();
@@ -154,12 +152,13 @@ public class ExampleInstantMessenger
         top.packStart(scroll2, false, false, 0);
 
         outgoing.connect(new Widget.KeyPressEvent() {
-
             public boolean onKeyPressEvent(Widget source, EventKey event) {
                 if (event.getKeyval() == Keyval.Return) {
+                    final TextBuffer buffer;
                     final String str;
 
-                    str = outgoing.getBuffer().getText();
+                    buffer = outgoing.getBuffer();
+                    str = buffer.getText();
 
                     /*
                      * Append the text in the TextView to the TextBuffer
@@ -169,24 +168,19 @@ public class ExampleInstantMessenger
                     appendMessage(str, true);
 
                     /*
-                     * And now clear the TextView so that we can enter another
+                     * But now clear the TextView so that we can enter another
                      * message.
                      */
 
-                    outgoing.getBuffer().setText("");
+                    buffer.setText("");
 
                     /*
-                     * Don't process the return chracter further.
+                     * And don't process the keystroke further.
                      */
                     return true;
                 }
-
-                /*
-                 * Process any other chracters.
-                 */
                 return false;
             }
-
         });
 
         /*
@@ -255,7 +249,7 @@ public class ExampleInstantMessenger
      * For fun, we translate the smile emoticon into an image, giving us an
      * opportunity to demonstrate adding non-text elements to a TextBuffer.
      */
-    private void appendMessage(String msg, boolean outgoing) {
+    private void appendMessage(String msg, boolean outbound) {
         final TextIter end;
         final long now;
         final String timestamp;
@@ -286,7 +280,7 @@ public class ExampleInstantMessenger
          * make it blue but if incoming we'll leave it black.
          */
 
-        if (outgoing) {
+        if (outbound) {
             colour = blue;
         } else {
             colour = null;

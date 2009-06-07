@@ -11,8 +11,8 @@
   (caller-owns-return #t)
   (return-type "GtkToolItem*")
   (parameters
-    '("GtkWidget*" "icon_widget")
-    '("const-gchar*" "label")
+    '("GtkWidget*" "icon_widget" (null-ok))
+    '("const-gchar*" "label" (null-ok))
   )
 )
 
@@ -31,7 +31,7 @@
   (c-name "gtk_menu_tool_button_set_menu")
   (return-type "none")
   (parameters
-    '("GtkWidget*" "menu")
+    '("GtkWidget*" "menu" (null-ok))
   )
 )
 

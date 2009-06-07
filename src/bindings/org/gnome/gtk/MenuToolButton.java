@@ -1,7 +1,7 @@
 /*
  * MenuToolButton.java
  *
- * Copyright (c) 2007 Operational Dynamics Consulting Pty Ltd, and Others
+ * Copyright (c) 2007-2009 Operational Dynamics Consulting Pty Ltd, and Others
  *
  * The code in this file, and the library it is a part of, are made available
  * to you by the authors under the terms of the "GNU General Public Licence,
@@ -52,9 +52,11 @@ public class MenuToolButton extends ToolButton
      * @param iconWidget
      *            The Widget to be used as the icon for the MenuToolButton.
      *            Usually you will want to use a Widget display an image, such
-     *            as {@link Image}.
+     *            as {@link Image}. Use <code>null</code> if you do not want
+     *            an icon.
      * @param label
-     *            The Label for the MenuToolButton.
+     *            The Label for the MenuToolButton, or <code>null</code> to
+     *            provide not Label.
      */
     public MenuToolButton(Widget iconWidget, String label) {
         super(GtkMenuToolButton.createMenuToolButton(iconWidget, label));
@@ -78,10 +80,9 @@ public class MenuToolButton extends ToolButton
 
     /**
      * Sets the Menu to be popped up when the user clicks the arrow Button.
-     */
-    /*
-     * FIXME: you can pass null to make arrow insensitive, but this is not
-     * supported until we complete the 'null-ok' branch.
+     * 
+     * <p>
+     * You can pass <code>null</code> to make arrow insensitive.
      */
     public void setMenu(Menu menu) {
         GtkMenuToolButton.setMenu(this, menu);
