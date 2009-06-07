@@ -138,7 +138,7 @@ public class ExampleInstantMessenger
 
         outgoing = new TextView();
         outgoing.setAcceptsTab(false);
-        
+
         top.packStart(outgoing, false, false, 0);
 
         outgoing.connect(new Widget.KeyPressEvent() {
@@ -150,8 +150,8 @@ public class ExampleInstantMessenger
                     str = outgoing.getBuffer().getText();
 
                     /*
-                     * Append the text in the TextView to the TextBuffer backing
-                     * the incoming display.
+                     * Append the text in the TextView to the TextBuffer
+                     * backing the incoming display.
                      */
 
                     appendMessage(str, true);
@@ -162,8 +162,16 @@ public class ExampleInstantMessenger
                      */
 
                     outgoing.getBuffer().setText("");
+
+                    /*
+                     * Don't process the return chracter further.
+                     */
                     return true;
                 }
+
+                /*
+                 * Process any other chracters.
+                 */
                 return false;
             }
 
