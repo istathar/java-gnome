@@ -37,6 +37,8 @@ import org.gnome.pango.Weight;
 import static org.freedesktop.bindings.Time.formatTime;
 import static org.gnome.gtk.PolicyType.ALWAYS;
 import static org.gnome.gtk.PolicyType.NEVER;
+import static org.gnome.gtk.ShadowType.IN;
+import static org.gnome.gtk.WrapMode.NONE;
 import static org.gnome.gtk.WrapMode.WORD;
 
 /**
@@ -75,7 +77,7 @@ public class ExampleInstantMessenger
     private ExampleInstantMessenger() {
         final Window window;
         final VBox top;
-        final ScrolledWindow scroll;
+        final ScrolledWindow scroll1, scroll2;
         final Thread other;
         Pixbuf tmp;
 
@@ -122,11 +124,12 @@ public class ExampleInstantMessenger
 
         incoming.setWrapMode(WORD);
 
-        scroll = new ScrolledWindow();
-        scroll.setPolicy(NEVER, ALWAYS);
-        scroll.add(incoming);
+        scroll1 = new ScrolledWindow();
+        scroll1.setPolicy(NEVER, ALWAYS);
+        scroll1.setShadowType(IN);
+        scroll1.add(incoming);
 
-        top.packStart(scroll, true, true, 0);
+        top.packStart(scroll1, true, true, 0);
 
         /*
          * Create the place for the user to enter messages they want to send.
@@ -137,9 +140,16 @@ public class ExampleInstantMessenger
          */
 
         outgoing = new TextView();
+        outgoing.setSizeRequest(0, 20);
         outgoing.setAcceptsTab(false);
+        outgoing.setWrapMode(NONE);
 
-        top.packStart(outgoing, false, false, 0);
+        scroll2 = new ScrolledWindow();
+        scroll2.setPolicy(NEVER, NEVER);
+        scroll2.setShadowType(IN);
+        scroll2.add(outgoing);
+
+        top.packStart(scroll2, false, false, 0);
 
         outgoing.connect(new Widget.KeyPressEvent() {
             public boolean onKeyPressEvent(Widget source, EventKey event) {
