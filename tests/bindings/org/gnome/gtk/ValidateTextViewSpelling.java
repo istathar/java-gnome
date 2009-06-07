@@ -67,7 +67,7 @@ public class ValidateTextViewSpelling extends TestCaseGtk
         try {
             helper.setLanguage("zu_LU");
             fail("Enchant should have failed for an obviously unknown language");
-        } catch (IllegalArgumentException iae) {
+        } catch (RuntimeException iae) {
             // good
         }
     }

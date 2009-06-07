@@ -87,8 +87,7 @@ public final class Spell extends Boxed
         try {
             GtkSpell.setLanguage(this, lang);
         } catch (GlibException ge) {
-            throw new IllegalArgumentException("The GtkSpell backend reported an error:\n"
-                    + ge.getMessage());
+            throw new RuntimeException("The GtkSpell backend reported an error:\n" + ge.getMessage());
         }
     }
 
