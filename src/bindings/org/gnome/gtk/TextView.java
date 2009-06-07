@@ -996,9 +996,12 @@ public class TextView extends Container
      * 
      * @since 4.0.12
      */
-    public Spell attachSpell() {
-        spell = new Spell(this, null);
-        return spell;
+    public void attachSpell() {
+        if (spell == null) {
+            spell = new Spell(this, null);
+        } else {
+            throw new IllegalStateException("Sorry, you've already attached a Spell to this TextView");
+        }
     }
 
     /**
@@ -1011,17 +1014,35 @@ public class TextView extends Container
      * 
      * @since 4.0.12
      */
-    public Spell attachSpell(String lang) {
-        spell = new Spell(this, lang);
-        return spell;
+    public void attachSpell(String lang) {
+        if (spell == null) {
+            spell = new Spell(this, lang);
+        } else {
+            throw new IllegalStateException("Sorry, you've already attached a Spell to this TextView");
+        }
     }
 
     /**
      * Get the Spell helper object attached to the view.
      * 
+     * <p>
+     * Reasons you might need to use this are if you have to programatically
+     * change the language being used to spell check against with Spell's
+     * {@link Spell#setLanguage(String) setLanguage()}, or to force the
+     * checker to run again with its {@link Spell#recheckAll() recheckAll()}.
+     * You probably won't ever need either.
+     * 
+     * <p>
+     * Obviously there isn't much point in asking for the Spell helper object
+     * if you haven't called {@link #attachSpell() attachSpell()} to create
+     * one yet.
+     * 
      * @since 4.0.12
      */
     public Spell getSpell() {
-        return GtkSpell.getFromTextView(this);
+        if (spell == null) {
+            throw new IllegalStateException("You haven't attached a Spell to this TextView yet.");
+        }
+        return spell;
     }
 }
