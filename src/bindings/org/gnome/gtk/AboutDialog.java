@@ -93,6 +93,29 @@ public class AboutDialog extends Dialog
     }
 
     /**
+     * Add a "license" button to the AboutDialog's button. The license of the program will
+     * be displayed by clicking on it.
+     * 
+     * <p>
+     * If <var>license</i> is <var>null</var> the license button is hidden.
+     * 
+     * @since 4.0.12
+     */
+    public void setLicense(String license) {
+        GtkAboutDialog.setLicense(this, license);
+    }
+
+    /**
+     * Wrap the license text. If <var>wrap</var> is <var>true</var>, the license text
+     * should be automatically wrapped and the initial dialog size will be preserved.
+     * 
+     * @since 4.0.12
+     */
+    public void setWrapLicense(boolean wrap) {
+        GtkAboutDialog.setWrapLicense(this, wrap);
+    }
+
+    /**
      * Set a link to your website. It is recommended to do in the standard
      * <code>http://www.example.com/</code> format.
      * 
@@ -136,6 +159,44 @@ public class AboutDialog extends Dialog
      */
     public void setAuthors(String[] authors) {
         GtkAboutDialog.setAuthors(this, authors);
+    }
+
+    /**
+     * Add a list of documenters to the AboutDialog. You pass in an array of
+     * Strings, with one documenter listed per String, for example:
+     * 
+     * <pre>
+     * about.setDocumenters(new String[] {
+     *         &quot;Andrew Cowie &lt;andrew@operationaldynamics.com&gt;&quot;,
+     *         &quot;Srichand Pendyala &lt;srichand.pendyala@gmail.com&gt;&quot;,
+     *         &quot;Vreixo Formoso Lopes &lt;metalpain2002@yahoo.es&gt;&quot;,
+     *         &quot;Sebastian Mancke &lt;s.mancke@tarent.de&gt;&quot;
+     * });
+     * </pre>
+     * 
+     * @since 4.0.12
+     */
+    public void setDocumenters(String[] documenters) {
+        GtkAboutDialog.setDocumenters(this, documenters);
+    }
+
+    /**
+     * Add a list of artists to the AboutDialog. You pass in an array of
+     * Strings, with one artist listed per String, for example:
+     * 
+     * <pre>
+     * about.setArtists(new String[] {
+     *         &quot;Andrew Cowie &lt;andrew@operationaldynamics.com&gt;&quot;,
+     *         &quot;Srichand Pendyala &lt;srichand.pendyala@gmail.com&gt;&quot;,
+     *         &quot;Vreixo Formoso Lopes &lt;metalpain2002@yahoo.es&gt;&quot;,
+     *         &quot;Sebastian Mancke &lt;s.mancke@tarent.de&gt;&quot;
+     * });
+     * </pre>
+     * 
+     * @since 4.0.12
+     */
+    public void setArtists(String[] artists) {
+        GtkAboutDialog.setArtists(this, artists);
     }
 
     /**
