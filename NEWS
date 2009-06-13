@@ -1,11 +1,21 @@
 NEWS
 
+java-gnome 4.0.12-rc1 (13 Jun 2009)
+===================================
+
+_Spell checking is good for the soul._
+
+Work exposing GtkSourceView, LibNotify, and GtkSpell has been merged to
+'mainline' so it looks like it's time to start getting ready for a release.
+
+AfC
+
 <a name="4.0.11" id="1241147383" title="Bug fixes"></a>
 
 java-gnome 4.0.11 (1 May 2009)
 ==============================
 
-This is a bug fix release.
+_This is a bug fix release._
 
 We made a few mistakes in our handling of the PangoAttribute structures'
 memory which resulted in VM crashes [unfortunately, the normal GNOME way of
