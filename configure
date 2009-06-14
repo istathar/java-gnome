@@ -818,7 +818,7 @@ if ($os eq "gentoo") {
 			"libglade2-dev");
 
 	check_system_library(@gnomedev_libs,
-			"gtksourceview-2.0 >= 2.6.2",
+			"gtksourceview-2.0 >= 2.6.1",
 			"GtkSourceView",
 			"libgtksourceview2.0-dev");
 
