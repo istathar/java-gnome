@@ -745,16 +745,16 @@ output "\nCheck for required system libraries:\n";
 
 if ($os eq "gentoo") {
 	check_system_library(@gnomedev_libs,
-			"gtk+-2.0 >= 2.14 pango >= 1.22 atk gdk-2.0 libglade-2.0 >= 2.6.3 gtk+-unix-print-2.0 cairo-svg >= 1.6.4 gtksourceview-2.0",
+			"gtk+-2.0 >= 2.14 pango >= 1.22 atk gdk-2.0 libglade-2.0 >= 2.6.3 gtk+-unix-print-2.0 cairo-svg >= 1.6.4 gtksourceview-2.0 >= 2.6.2",
 			"GNOME",
 			"gnome");
 	check_system_library(@gnomedev_libs,
-			"gtkspell-2.0",
+			"gtkspell-2.0 >= 2.0.15",
 			"GtkSpell",
 			"gtkspell");
 
 	check_system_library(@gnomedev_libs,
-			"libnotify",
+			"libnotify >= 0.4.5",
 			"Libnotify",
 			"libnotify");
 
@@ -803,12 +803,12 @@ if ($os eq "gentoo") {
 			"libglade2-dev");
 
 	check_system_library(@gnomedev_libs,
-			"gtksourceview-2.0",
+			"gtksourceview-2.0 >= 2.6.2",
 			"GtkSourceView",
 			"libgtksourceview2.0-dev");
 
 	check_system_library(@gnomedev_libs,
-			"libnotify",
+			"libnotify >= 0.4.5",
 			"Libnotify",
 			"libnotify-dev");
 
