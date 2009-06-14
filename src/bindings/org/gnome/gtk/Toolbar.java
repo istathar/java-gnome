@@ -1,8 +1,8 @@
 /*
  * Toolbar.java
  *
- * Copyright (c) 2007 Operational Dynamics Consulting Pty Ltd
- * Copyright (c) 2007 Vreixo Formoso
+ * Copyright (c) 2007-2009 Operational Dynamics Consulting Pty Ltd
+ * Copyright (c) 2007-2009 Vreixo Formoso
  *
  * The code in this file, and the library it is a part of, are made available
  * to you by the authors under the terms of the "GNU General Public Licence,
@@ -87,6 +87,35 @@ public class Toolbar extends Container
      */
     public void setOrientation(Orientation orientation) {
         GtkToolbar.setOrientation(this, orientation);
+    }
+
+    /**
+     * Set the appearance of a Toolbar.
+     * 
+     * <p>
+     * Toolbars buttons can be customized to display either an icon, a text
+     * label, or both. As explained above, in the documentation for this
+     * class, the appearance of Toolbars is configured by the user as a
+     * desktop setting. This method will override those settings, so in most
+     * cases <b>you should not use this method</b>, and just let the user
+     * choose the appearance (s)he prefers.
+     * 
+     * <p>
+     * However, some really complex applications might need several Toolbars
+     * and many buttons on each one, so configuring a compact Toolbar style
+     * can help to save screen space. In such cases this method may be useful,
+     * but the general advice is to use this with care, and avoid overriding
+     * of user settings unless you have a strong reason.
+     * 
+     * <p>
+     * Finally, note that if you choose for example an <code>ICONS</code> only
+     * appearance, and a given ToolButton has no icon, its Label will be shown
+     * instead, so GTK engine will do its best to keep Toolbar usable.
+     * 
+     * @since 4.0.12
+     */
+    public void setStyle(ToolbarStyle style) {
+        GtkToolbar.setStyle(this, style);
     }
 
     /**

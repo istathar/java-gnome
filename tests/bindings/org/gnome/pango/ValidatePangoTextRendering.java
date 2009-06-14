@@ -59,6 +59,7 @@ public class ValidatePangoTextRendering extends TestCaseGtk
 
         assertEquals(0.0, layout.getIndent());
         assertEquals(false, layout.getJustify());
+        assertEquals(0.0, layout.getSpacing());
 
         /*
          * Round trips
@@ -71,6 +72,9 @@ public class ValidatePangoTextRendering extends TestCaseGtk
         assertEquals(true, layout.getJustify());
         layout.setJustify(false);
         assertEquals(false, layout.getJustify());
+
+        layout.setSpacing(3.5);
+        assertEquals(3.5, layout.getSpacing());
     }
 
     /*
@@ -199,12 +203,12 @@ public class ValidatePangoTextRendering extends TestCaseGtk
          */
 
         attr = new StyleAttribute(Style.ITALIC);
-        attr.setIndices(layout, 5, 5);
-
-        assertEquals(7, PangoAttribute.getStartIndex(attr));
-        assertEquals(12, PangoAttribute.getEndIndex(attr));
+        attr.setIndices(5, 5);
 
         list.insert(attr);
         layout.setAttributes(list);
+
+        assertEquals(7, PangoAttribute.getStartIndex(attr));
+        assertEquals(12, PangoAttribute.getEndIndex(attr));
     }
 }

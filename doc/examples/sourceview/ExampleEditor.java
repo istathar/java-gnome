@@ -1,7 +1,7 @@
 /*
  * ExampleEditor.java
  *
- * Copyright (c) 2009 Operational Dynamics Consulting Pty Ltd
+ * Copyright (c) 2009 Operational Dynamics Consulting Pty Ltd, and Others
  *
  * The code in this file, and the program it is a part of, are made available
  * to you by the authors under the terms of the "GNU General Public Licence,
@@ -18,25 +18,42 @@ import org.gnome.gdk.Event;
 import org.gnome.gtk.Gtk;
 import org.gnome.gtk.PolicyType;
 import org.gnome.gtk.ScrolledWindow;
-import org.gnome.gtk.TextTagTable;
+import org.gnome.gtk.Stock;
+import org.gnome.gtk.TextBuffer;
+import org.gnome.gtk.ToolButton;
+import org.gnome.gtk.Toolbar;
+import org.gnome.gtk.VBox;
 import org.gnome.gtk.Widget;
 import org.gnome.gtk.Window;
+import org.gnome.pango.FontDescription;
+import org.gnome.sourceview.Language;
 import org.gnome.sourceview.LanguageManager;
 import org.gnome.sourceview.SourceBuffer;
 import org.gnome.sourceview.SourceView;
 
 /**
+ * A simple text editor demonstrating the GtkSourceView API.
+ * 
  * @author Stefan Schweizer
  */
-// TODO Showcase more GtkSourceView features, documentation
 public class ExampleEditor
 {
+    private final SourceView view;
+
+    private final SourceBuffer buffer;
+
+    private final ToolButton buttonUndo;
+
+    private final ToolButton buttonRedo;
+
     private ExampleEditor() {
         final Window w;
+        final VBox x;
+        final Toolbar toolbar;
         final ScrolledWindow scroll;
-        final SourceView view;
-        final SourceBuffer buffer;
-        final TextTagTable tagTable;
+        final LanguageManager manager;
+        final Language lang;
+        final FontDescription desc;
 
         w = new Window();
         w.setTitle("java-gnome editor");
@@ -49,20 +66,107 @@ public class ExampleEditor
             }
         });
 
-        tagTable = new TextTagTable();
-        buffer = new SourceBuffer(tagTable);
-        buffer.setLanguage(LanguageManager.getDefault().getLanguage("java"));
-        view = new SourceView(buffer);
+        x = new VBox(false, 3);
+        w.add(x);
 
-        buffer.setText(readFile("doc/examples/sourceview/ExampleEditor.java"));
+        /*
+         * Create a toolbar with buttons for undo and redo.
+         */
+
+        toolbar = new Toolbar();
+        buttonUndo = new ToolButton(Stock.UNDO);
+        buttonRedo = new ToolButton(Stock.REDO);
+        toolbar.add(buttonUndo);
+        toolbar.add(buttonRedo);
+        x.packStart(toolbar, false, false, 0);
+
+        /*
+         * Create the SourceBuffer and SourceView. Setup syntax highlighting
+         * and configure the view to meet our coding standards.
+         */
+
+        buffer = new SourceBuffer();
+
+        manager = LanguageManager.getDefault();
+        lang = manager.getLanguage("java");
+        buffer.setLanguage(lang);
+
+        view = new SourceView(buffer);
+        view.setShowLineNumbers(true);
+        view.setHighlightCurrentLine(true);
+        view.setShowRightMargin(true);
+        view.setRightMarginPosition(105);
+        view.setTabWidth(4);
+        view.setInsertSpacesInsteadOfTabs(true);
+        view.setAutoIndent(true);
+
+        desc = new FontDescription("Deja Vu Sans Mono, 11");
+        view.modifyFont(desc);
 
         scroll = new ScrolledWindow();
         scroll.setPolicy(PolicyType.AUTOMATIC, PolicyType.ALWAYS);
         scroll.add(view);
+        x.add(scroll);
 
-        w.add(scroll);
+        /*
+         * Whenever the buffer is changed, recheck if there are actions that
+         * can be undone or redone. Update the sensivity of the buttons
+         * accordingly.
+         */
+
+        buffer.connect(new TextBuffer.Changed() {
+            public void onChanged(TextBuffer source) {
+                updateButtons();
+            }
+        });
+
+        /*
+         * Connect handlers for undo and redo buttons. It is important to
+         * check if there is something to undo first to prevent a Gtk
+         * exception.
+         */
+
+        buttonUndo.connect(new ToolButton.Clicked() {
+            public void onClicked(ToolButton source) {
+                if (buffer.canUndo()) {
+                    buffer.undo();
+                }
+                updateButtons();
+            }
+        });
+
+        buttonRedo.connect(new ToolButton.Clicked() {
+            public void onClicked(ToolButton source) {
+                if (buffer.canRedo()) {
+                    buffer.redo();
+                }
+                updateButtons();
+            }
+        });
+
         w.showAll();
 
+        /*
+         * Load the source file into the editor. The user should not be able
+         * to undo that, that is why the call to setText() is marked as an
+         * undoable action.
+         */
+
+        buffer.beginNotUndoableAction();
+        buffer.setText(readFile("doc/examples/sourceview/ExampleEditor.java"));
+        buffer.endNotUndoableAction();
+
+        /*
+         * Move the cursor to the start of the file.
+         */
+
+        buffer.placeCursor(buffer.getIter(0));
+        view.grabFocus();
+    }
+
+    private void updateButtons() {
+        buttonUndo.setSensitive(buffer.canUndo());
+        buttonRedo.setSensitive(buffer.canRedo());
     }
 
     private String readFile(String filename) {
@@ -80,8 +184,9 @@ public class ExampleEditor
             content.append(ioe.getMessage());
         } finally {
             try {
-                if (reader != null)
+                if (reader != null) {
                     reader.close();
+                }
             } catch (IOException e) {
             }
         }

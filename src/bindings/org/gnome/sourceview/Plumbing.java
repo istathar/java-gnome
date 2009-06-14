@@ -11,7 +11,7 @@
  */
 package org.gnome.sourceview;
 
-public abstract class Plumbing extends org.gnome.gdk.Plumbing
+abstract class Plumbing extends org.gnome.gdk.Plumbing
 {
     protected Plumbing() {}
 }

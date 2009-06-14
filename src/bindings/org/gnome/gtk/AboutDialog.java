@@ -1,7 +1,7 @@
 /*
  * AboutDialog.java
  *
- * Copyright (c) 2007-2008 Operational Dynamics Consulting Pty Ltd
+ * Copyright (c) 2007-2009 Operational Dynamics Consulting Pty Ltd, and Others
  *
  * The code in this file, and the library it is a part of, are made available
  * to you by the authors under the terms of the "GNU General Public Licence,
@@ -19,14 +19,17 @@ import org.gnome.gdk.Pixbuf;
  * meta information including program {@link #setProgramName(String) name}, a
  * short {@link #setComments(String) description},
  * {@link #setCopyright(String) copyright} info, and then lists of
- * {@link #setAuthors(String[]) authors}, documenters, and translators of
- * responsible for the program.
+ * {@link #setAuthors(String[]) authors}, {@link #setDocumenters(String[])
+ * documenters}, {@link #setArtists(String[]) artists} responsible for the
+ * program. Those who contributed by {@link #setTranslatorCredits(String)
+ * translating} the application can also be listed.
  * 
  * <p>
  * As a convention, every GNOME application has a MenuItem labelled "About" in
  * the main "Help" menu.
  * 
  * @author Andrew Cowie
+ * @author Guillaume Mazoyer
  * @since 4.0.6
  */
 public class AboutDialog extends Dialog
@@ -93,6 +96,42 @@ public class AboutDialog extends Dialog
     }
 
     /**
+     * Add a "licence" Button to the AboutDialog. The String set by this
+     * method will be displayed if the user clicks on this Button.
+     * 
+     * <p>
+     * If <code>null</code> the licence Button is hidden.
+     * 
+     * @since 4.0.12
+     */
+    public void setLicense(String text) {
+        GtkAboutDialog.setLicense(this, text);
+    }
+
+    /**
+     * Wrap the licence text. If <code>true</code>, the licence text will be
+     * automatically wrapped and the initial dialog size will be preserved.
+     * 
+     * @since 4.0.12
+     */
+    public void setWrapLicense(boolean setting) {
+        GtkAboutDialog.setWrapLicense(this, setting);
+    }
+
+    /**
+     * Set a link to your website. It is recommended to do in the standard
+     * <code>http://www.example.com/</code> format.
+     * 
+     * <p>
+     * <i>At the moment this "link" is just plain text and not live.</i>
+     * 
+     * @since 4.0.11
+     */
+    public void setWebsite(String website) {
+        GtkAboutDialog.setWebsite(this, website);
+    }
+
+    /**
      * Set the image to be displayed in the AboutDialog. Most apps just want
      * to use the default icon which was set with
      * {@link Gtk#setDefaultIcon(Pixbuf) Gtk.setDefaultIcon()}.
@@ -121,8 +160,42 @@ public class AboutDialog extends Dialog
      * 
      * @since 4.0.6
      */
-    public void setAuthors(String[] authors) {
-        GtkAboutDialog.setAuthors(this, authors);
+    public void setAuthors(String[] people) {
+        GtkAboutDialog.setAuthors(this, people);
+    }
+
+    /**
+     * Add a list of documenters to the AboutDialog. You pass in an array of
+     * Strings, with one person per String, for example:
+     * 
+     * <pre>
+     * about.setDocumenters(new String[] {
+     *         &quot;Guillaume Mazoyer &lt;respawneral@gmail.com&gt;&quot;,
+     *         &quot;Stefan Prelle &lt;stefan@prelle.org&gt;&quot;,
+     *         &quot;Serkan Kaba &lt;serkan@gentoo.org&gt;&quot;
+     * });
+     * </pre>
+     * 
+     * @since 4.0.12
+     */
+    public void setDocumenters(String[] people) {
+        GtkAboutDialog.setDocumenters(this, people);
+    }
+
+    /**
+     * Add a list of artists to the AboutDialog. You pass in an array of
+     * Strings, with one artist per String, for example:
+     * 
+     * <pre>
+     * about.setArtists(new String[] {
+     *     &quot;Joao Victor &lt;jvital@gmail.com&gt;&quot;
+     * });
+     * </pre>
+     * 
+     * @since 4.0.12
+     */
+    public void setArtists(String[] people) {
+        GtkAboutDialog.setArtists(this, people);
     }
 
     /**

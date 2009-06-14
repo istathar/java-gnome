@@ -15,6 +15,7 @@ AllAboutJNI
 AltLeft
 AltRight
 ApplySignal
+ApplyTagSignal
 Arial
 ArrayList
 AssistantPageType
@@ -23,8 +24,10 @@ AttachOptions
 AttrList
 Attribute's
 AttributeList
+AttributeLists
 BackSpace
 Bassi
+BeginUserActionSignal
 Behdad
 Bhagat
 BindingsGenerator
@@ -155,6 +158,7 @@ EVERSION
 EditedHandler
 Eeek
 Emmanuele
+EndUserActionSignal
 EnterNotifyEvent
 EnterNotifyEventSignal
 EnumValue
@@ -215,6 +219,7 @@ FocusInEventSignal
 FocusOutEvent
 FocusOutEventSignal
 FontDescription
+FontDescriptionAttribute
 FontSelection
 Formoso
 Fortin
@@ -388,6 +393,7 @@ GtkShadowType
 GtkSizeGroup
 GtkSizeGroupMode
 GtkSortType
+GtkSourceView
 GtkSpinButton
 GtkStateType
 GtkStatusIcon
@@ -395,6 +401,7 @@ GtkStatusbar
 GtkStockItem
 GtkTable
 GtkTextBuffer
+GtkTextBufferOverride
 GtkTextIter
 GtkTextIterOverride
 GtkTextMark
@@ -502,6 +509,7 @@ JVMs
 JamVM
 JavaDoc
 JavaVM
+Joao
 Juma
 Kaba
 Kamil
@@ -527,6 +535,7 @@ LayoutLine's
 LayoutLines
 LeaveNotifyEvent
 LeaveNotifyEventSignal
+Leibbrand
 LibGlade
 LinearPattern
 ListStore
@@ -537,6 +546,8 @@ Lorem
 Lorg
 Lortie
 LoveLetter
+LowBatteryExample
+MAXUINT
 MVC
 Machame
 Maciej
@@ -553,6 +564,7 @@ MapEvent
 MapEventSignal
 MarkSet
 MarkSetSignal
+Mazoyer
 McLachlan
 MenuBars
 MenuItem
@@ -584,7 +596,13 @@ NewStringUTF
 NewWeakGlobalRef
 NoSuchMethodException
 NorthAmericanPaperSize
+NotifyCursorPosition
+NotifyCursorPositionSignal
+NotifyMain
+NotifyMainOverride
+NotifyNotification
 NotifyType
+NotifyUrgency
 NullPointerException
 NumLock
 NumberSign
@@ -598,7 +616,6 @@ OpenOffice
 OpenSolaris
 OutOfMemoryError
 Overholt
-PDF
 PDFs
 PKGBUILD
 PNGs
@@ -621,6 +638,7 @@ PangoRectangleOverride
 PangoStyle
 PangoUnderline
 PangoWeight
+PangoWrapMode
 PaperSize
 ParenLeft
 ParenRight
@@ -674,6 +692,7 @@ RcStyle
 RefToJavaProxy
 ReleaseStringUTFChars
 ReliefStyle
+RemoveTagSignal
 ResponseHandler
 ResponseType
 ResponseTypes
@@ -685,6 +704,7 @@ RowExpandedSignal
 RuntimeException
 RuntimeExceptions
 SEMIBOLD
+SIGSEGV
 SWT
 Schmitz
 Schweizer
@@ -725,7 +745,6 @@ SpinButton
 Srichand
 StateType
 StatusBar
-StatusIcon
 StatusIcon's
 StatusIcons
 Statusbar
@@ -736,6 +755,7 @@ StorageType
 StringBuffer
 StringBuilder
 StringValue
+StyleAttribute
 SurfacePattern
 SysReq
 Szymala
@@ -770,6 +790,7 @@ TextView
 TextView's
 TextViews
 TextWindowType
+Thijs
 ThrowNew
 Timm
 ToggleButon
@@ -911,6 +932,7 @@ appendMessage
 appendPage
 appendRow
 appendText
+applicationName
 applyTag
 arcNegative
 arg
@@ -926,6 +948,8 @@ assertSame
 assertTrue
 atk
 attachDefaults
+attachToStatusIcon
+attachToWidget
 attr
 autotools
 backend
@@ -936,6 +960,7 @@ basename
 baz
 bb
 bdb
+beginUserAction
 bilinear
 bindtextdomain
 bitkeeper
@@ -997,6 +1022,7 @@ checksum
 clampPage
 classname
 classpath
+clearHints
 clickable
 cls
 cmd
@@ -1105,6 +1131,8 @@ createMenuItemWithMnemonic
 createMenuToolButton
 createMessageDialog
 createNotebook
+createNotification
+createNotificationWithStatusIcon
 createObject
 createPaperSize
 createPatternForSurface
@@ -1213,6 +1241,7 @@ dropUserRef
 dt
 dx
 dy
+eacute
 ebuild
 ecj
 editMenu
@@ -1232,6 +1261,7 @@ emitRowActivated
 emitValueChanged
 emplace
 enclosingGroup
+endUserAction
 endif
 endingLabel
 endsWith
@@ -1310,6 +1340,7 @@ getAlignmentX
 getAlignmentY
 getAllocation
 getAngle
+getApplicationName
 getArea
 getAscent
 getAtPosPath
@@ -1339,6 +1370,7 @@ getCurrentPage
 getCurrentPoint
 getCurrentPointX
 getCurrentPointY
+getCursorPosition
 getCursorVisible
 getDate
 getDateDay
@@ -1464,6 +1496,7 @@ getPropertyBoolean
 getPropertyEnum
 getPropertyFlags
 getPropertyFloat
+getPropertyInteger
 getPropertyObject
 getPropertyString
 getRed
@@ -1485,10 +1518,12 @@ getSelected
 getSelection
 getSelectionBound
 getSensitive
+getServerCapabilities
 getSize
 getSizeHeight
 getSizeWidth
 getSource
+getSpacing
 getStartIndex
 getStartIter
 getState
@@ -1597,6 +1632,7 @@ initializers
 inline
 insertAtCursor
 insertBefore
+insertBound
 insertInteractive
 insertPage
 insertPixbuf
@@ -1612,8 +1648,11 @@ isActive
 isDirectory
 isEmbedded
 isEqual
+isInitted
+isInserted
 isSecondary
 isSensitive
+isUsed
 isVisible
 isVisibleChars
 isdir
@@ -1689,6 +1728,8 @@ libgtk
 libjava
 librarypath
 libre
+librsvg
+libwnck
 lineNumber
 lineRelative
 lineTo
@@ -1713,6 +1754,8 @@ mainQuit
 makeJarFile
 makeTime
 makepkg
+markInserted
+markUsed
 md
 mem
 menuBar
@@ -1762,6 +1805,7 @@ nUnable
 nYou
 na
 namespace
+nathan
 nativeName
 nav
 nc
@@ -1774,6 +1818,10 @@ newa
 nin
 nis
 nm
+notifyGetAppName
+notifyInit
+notifyIsInitted
+notifyUninit
 nowarn
 nowrap
 nresulted
@@ -1792,6 +1840,8 @@ offsetY
 ok
 onActivate
 onApply
+onApplyTag
+onBeginUserAction
 onButtonPressEvent
 onButtonReleaseEvent
 onCancel
@@ -1805,6 +1855,7 @@ onDaySelectedDoubleClick
 onDeleteEvent
 onDeleteRange
 onEdited
+onEndUserAction
 onEnterNotifyEvent
 onEvent
 onExposeEvent
@@ -1818,9 +1869,11 @@ onKeyReleaseEvent
 onLeaveNotifyEvent
 onMapEvent
 onMarkSet
+onNotifyCursorPosition
 onPopulatePopup
 onPopupMenu
 onPrepare
+onRemoveTag
 onResponse
 onRowActivated
 onRowChanged
@@ -1916,6 +1969,7 @@ registerType
 relLineTo
 relMoveTo
 removeActionWidget
+removeAllTags
 removePage
 removeRow
 removeTag
@@ -1985,6 +2039,7 @@ setAlignment
 setAlignmentX
 setAngle
 setAntialias
+setArtists
 setAttributes
 setAuthors
 setBackground
@@ -1994,6 +2049,7 @@ setBorderWindowSize
 setBuffer
 setCanDefault
 setCanFocus
+setCategory
 setCharAt
 setChildSecondary
 setClickable
@@ -2012,6 +2068,7 @@ setDefaultSize
 setDigits
 setDirection
 setDisplayOptions
+setDocumenters
 setDraw
 setEditable
 setEllipsize
@@ -2034,6 +2091,7 @@ setFromIconName
 setFromPixbuf
 setFromStock
 setFullscreen
+setGeometryHints
 setGravity
 setHAdjustment
 setHadjustment
@@ -2041,11 +2099,18 @@ setHasFrame
 setHasResizeGrip
 setHeadersClickable
 setHeadersVisible
+setHint
+setHintByte
+setHintDouble
+setHintInt
+setHintString
 setIcon
+setIconFromPixbuf
 setImage
 setInconsistent
 setIndent
 setIndexes
+setIndices
 setInnerBorder
 setInvisibleChar
 setJustify
@@ -2056,6 +2121,7 @@ setLabelAlign
 setLabelWidget
 setLayout
 setLeftMargin
+setLicense
 setLine
 setLineOffset
 setLineWidth
@@ -2128,6 +2194,7 @@ setSensitive
 setShadowType
 setShowBorder
 setShowTabs
+setSingleParagraphMode
 setSize
 setSizeRequest
 setSizing
@@ -2142,6 +2209,7 @@ setSourceRGBA
 setSourceRgb
 setSourceRgba
 setSourceSurface
+setSpacing
 setStartIndex
 setStick
 setStrikethrough
@@ -2151,6 +2219,7 @@ setTabPos
 setTabPosition
 setText
 setTimeZone
+setTimeout
 setTip
 setTitle
 setTooltip
@@ -2162,6 +2231,7 @@ setTranslatorCredits
 setTypeHint
 setUnderline
 setUp
+setUrgency
 setUseMarkup
 setVAdjustment
 setVadjustment
@@ -2179,9 +2249,12 @@ setVisibleChars
 setVisibleFunc
 setVisibleLineOffset
 setVisibleWindow
+setWebsite
 setWeight
 setWidth
 setWidthChars
+setWrap
+setWrapLicense
 setWrapMode
 settingsDaemon
 showAll
@@ -2205,6 +2278,7 @@ src
 startConversationWith
 startsDisplayLine
 startsWord
+statusIcon
 statusToString
 stepIncrement
 stockId
@@ -2297,6 +2371,7 @@ unfullscreen
 ungrab
 unicode
 unindent
+uninit
 unix
 unixprint
 unmaximize

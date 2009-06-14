@@ -39,6 +39,7 @@ import org.gnome.gtk.SnapshotTextComboBox;
 import org.gnome.gtk.SnapshotTextComboBoxEntry;
 import org.gnome.gtk.SnapshotTextView;
 import org.gnome.gtk.SnapshotTextViewBorderWindows;
+import org.gnome.gtk.SnapshotTextViewSpelling;
 import org.gnome.gtk.SnapshotTreeStore;
 import org.gnome.gtk.SnapshotTreeView;
 import org.gnome.gtk.SnapshotVScale;
@@ -157,6 +158,7 @@ public final class Harness
                     SnapshotContextLine.class,
                     SnapshotTextView.class,
                     SnapshotTextViewBorderWindows.class,
+                    SnapshotTextViewSpelling.class,
                     SnapshotContextArc.class,
                     SnapshotContextArcNegative.class,
                     SnapshotMatrixRotate.class,
