@@ -6,7 +6,7 @@ java-gnome 4.0.12-rc1 (13 Jun 2009)
 _Spell checking is good for the soul._
 
 Work exposing GtkSourceView, LibNotify, and GtkSpell has been merged to
-'mainline' so it looks like it's time to start getting ready for a release.
+'`mainline`' so it looks like it's time to start getting ready for a release.
 
 AfC
 
