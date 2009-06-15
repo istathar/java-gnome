@@ -272,6 +272,23 @@ public class Entry extends Widget implements Editable, CellEditable
     }
 
     /**
+     * The method sets the <code>EntryCompletion<code> specified by
+     * <code>completion<code> to be the completion object to use with
+     * the Entry.
+     * 
+     * <p>
+     * All configuration of the completion mechanism is done using
+     * <code>completion<code> and its methods.
+     * 
+     * @param completion
+     *            the completion object to use with the Entry.
+     * @since 4.0.12
+     */
+    public void setCompletion(EntryCompletion completion) {
+        GtkEntry.setCompletion(this, completion);
+    }
+
+    /**
      * Set whether the Entry has a bevelled frame around it or not. The
      * default (as you will be well accustomed to seeing) is <code>true</code>
      * .
