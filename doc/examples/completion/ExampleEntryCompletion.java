@@ -20,7 +20,6 @@ import org.gnome.gtk.ListStore;
 import org.gnome.gtk.TreeModel;
 import org.gnome.gtk.TreeIter;
 import org.gnome.gtk.VBox;
-import org.gnome.gtk.Widget;
 import org.gnome.gtk.Window;
 
 /**
