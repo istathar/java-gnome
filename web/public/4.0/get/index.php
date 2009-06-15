@@ -101,6 +101,7 @@ the library on your system.</p>
 <li><p><a class="subject" href="gentoo.php">Gentoo Linux</a><br></p>
 <li><p><a class="subject" href="arch.php">Arch Linux</a><br></p>
 <li><p><a class="subject" href="debian.php">Debian Linux</a><br></p>
+<li><p><a class="subject" href="ubuntu.php">Ubuntu Linux</a><br></p>
 </ul>
 
 <p>
@@ -111,7 +112,6 @@ it is certainly time to file a bug report!</p>
 <i>And forthcoming,</i>
 
 <ul>
-<li><p><a class="subject" href="ubuntu.php">Ubuntu Linux</a><br></p>
 <li><p><a class="subject" href="solaris.php">Open Solaris</a><br></p>
 <li><p><a class="subject" href="fedora.php">Fedora Core Linux</a><br></p>
 </ul>
