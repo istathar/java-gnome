@@ -98,6 +98,16 @@ public class EntryCompletion extends Object implements CellLayout
     }
 
     /**
+     * Request a completion operation, for example a refiltering of the current list with
+     * completions, using the current key. The completion list view will be updated accordingly.
+     * 
+     * @since 4.0.12
+     */
+    public void complete() {
+        GtkEntryCompletion.complete(this);
+    }
+
+    /**
      * Insert an action in the action item list of the EntryCompletion at the position
      * specified by <code>index</code> with the text specified by <code>text</code>.
      * 
