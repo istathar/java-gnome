@@ -1,7 +1,8 @@
 /*
  * ToolbarStyle.java
  *
- * Copyright (c) 2007 Operational Dynamics Consulting Pty Ltd
+ * Copyright (c) 2007-2009 Operational Dynamics Consulting Pty Ltd
+ * Copyright (c)      2009 Vreixo Formoso
  *
  * The code in this file, and the library it is a part of, are made available
  * to you by the authors under the terms of the "GNU General Public Licence,
@@ -13,17 +14,39 @@ package org.gnome.gtk;
 
 import org.freedesktop.bindings.Constant;
 
-/*
- * FIXME this is a placeholder stub for what will become the public API for
- * this type. Replace this comment with appropriate javadoc including author
- * and since tags. Note that the class may need to be made abstract, implement
- * interfaces, or even have its parent changed. No API stability guarantees
- * are made about this class until it has been reviewed by a hacker and this
- * comment has been replaced.
+/**
+ * Constants that can be used to customize the look-and-feel of a Toolbar, by
+ * calling its {@link Toolbar#setStyle(ToolbarStyle) setStyle()} method.
+ * 
+ * @author Vreixo Formoso
+ * @since 4.0.12
  */
 public final class ToolbarStyle extends Constant
 {
     private ToolbarStyle(int ordinal, String nickname) {
         super(ordinal, nickname);
     }
+
+    /**
+     * Toolbar buttons will only display an icon.
+     */
+    public static ToolbarStyle ICONS = new ToolbarStyle(GtkToolbarStyle.ICONS, "ICONS");
+
+    /**
+     * Toolbar buttons will only display a text label.
+     */
+    public static ToolbarStyle TEXT = new ToolbarStyle(GtkToolbarStyle.TEXT, "TEXT");
+
+    /**
+     * Toolbar buttons will display both an icon and text label. The text will
+     * appear below the icon.
+     */
+    public static ToolbarStyle BOTH = new ToolbarStyle(GtkToolbarStyle.BOTH, "BOTH");
+
+    /**
+     * Toolbar buttons will display both an icon and text label. The text will
+     * appear alongside the icon.
+     */
+    public static ToolbarStyle BOTH_HORIZ = new ToolbarStyle(GtkToolbarStyle.BOTH_HORIZ, "BOTH_HORIZ");
+
 }
