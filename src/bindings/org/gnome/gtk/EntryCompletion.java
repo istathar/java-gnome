@@ -1,7 +1,7 @@
 /*
  * EntryCompletion.java
  *
- * Copyright (c) 2009 Operational Dynamics Consulting Pty Ltd
+ * Copyright (c) 2007-2009 Operational Dynamics Consulting Pty Ltd, and Others
  *
  * The code in this file, and the library it is a part of, are made available
  * to you by the authors under the terms of the "GNU General Public Licence,
@@ -14,11 +14,12 @@ package org.gnome.gtk;
 import org.gnome.glib.Object;
 
 /**
- * An object to use in conjunction with {@link Entry} to provide completion functionality.
- *
+ * An object to use in conjunction with {@link Entry} to provide completion
+ * functionality.
+ * 
  * <p>
- * To add completion functionality to an entry, use the Entry's
- * {@link Entry.setCompletion(EntryCompletion) setCompletion} method.
+ * To add completion functionality to an Entry, use its
+ * {@link Entry#setCompletion(EntryCompletion) setCompletion()} method.
  * 
  * @author Guillaume Mazoyer
  * @since 4.0.12
@@ -39,7 +40,7 @@ public class EntryCompletion extends Object implements CellLayout
     }
 
     /**
-     * Retrieve the <code>Entry</code> that the entry completion is attached to.
+     * Retrieve the Entry that this EntryCompletion is attached to.
      * 
      * @since 4.0.12
      */
@@ -53,7 +54,8 @@ public class EntryCompletion extends Object implements CellLayout
      * 
      * @param store
      *            a value of <code>null</code> will remove the data model
-     *            underlying this EntryCompletion, leaving it unset for the present.
+     *            underlying this EntryCompletion, leaving it unset for the
+     *            present.
      * @since 4.0.12
      */
     public void setModel(TreeModel store) {
@@ -61,8 +63,8 @@ public class EntryCompletion extends Object implements CellLayout
     }
 
     /**
-     * Get the TreeModel currently providing the data powering this EntryCompletion,
-     * or null if not yet set.
+     * Get the TreeModel currently providing the data powering this
+     * EntryCompletion, or <code>null</code> if not yet set.
      * 
      * @since 4.0.12
      */
@@ -71,16 +73,15 @@ public class EntryCompletion extends Object implements CellLayout
     }
 
     /**
-     * Set the minimum length of the search key to the value specified by <code>length<code>.
-     * This means that the key string (which is in the Entry) must be at least length characters
-     * before a completion list will be displayed.
+     * Set the minimum length of the search key to the value specified by
+     * <code>length</code>. This means that the key string (which is in the
+     * Entry) must be at least length characters before a completion list will
+     * be displayed.
      * 
      * <p>
-     * This is useful for long lists, where completing using a small key will take too much
-     * time and will return a too large dataset.
+     * This is useful for long lists, where completing using a small key will
+     * take too much time and will return a too large dataset.
      * 
-     * @param length
-     *            the minimum length of the key string in order to start completing.
      * @since 4.0.12
      */
     public void setMinimumKeyLength(int length) {
@@ -88,8 +89,9 @@ public class EntryCompletion extends Object implements CellLayout
     }
 
     /**
-     * Return the minimum key length set for the entry completion.
-     * See the {@link setMinimumKeyLength(int) setMinimumKeyLength()} method for more information.
+     * Return the minimum key length set for the entry completion. See
+     * {@link #setMinimumKeyLength(int) setMinimumKeyLength()} for more
+     * information.
      * 
      * @since 4.0.12
      */
@@ -98,8 +100,9 @@ public class EntryCompletion extends Object implements CellLayout
     }
 
     /**
-     * Request a completion operation, for example a refiltering of the current list with
-     * completions, using the current key. The completion list view will be updated accordingly.
+     * Request a completion operation, for example a refiltering of the
+     * current list with completions, using the current key. The completion
+     * list view will be updated accordingly.
      * 
      * @since 4.0.12
      */
@@ -108,12 +111,13 @@ public class EntryCompletion extends Object implements CellLayout
     }
 
     /**
-     * Insert an action in the action item list of the EntryCompletion at the position
-     * specified by <code>index</code> with the text specified by <code>text</code>.
+     * Insert an action in the action item list of the EntryCompletion at the
+     * position specified by <code>index</code> with the text specified by
+     * <code>text</code>.
      * 
      * <p>
-     * If you want the action item to have markup, use the
-     * {@link insertActionMarkup(int, String) insertActionMarkup()} method.
+     * If you want the action item to have markup, use
+     * {@link #insertActionMarkup(int, String) insertActionMarkup()} instead.
      * 
      * @since 4.0.12
      */
@@ -122,8 +126,9 @@ public class EntryCompletion extends Object implements CellLayout
     }
 
     /**
-     * Insert an action item in the action item list of the EntryCompletion at the position
-     * specified by <code>index</code> with the markup specified by <code>markup</code>.
+     * Insert an action item in the action item list of the EntryCompletion at
+     * the position specified by <code>index</code> with the markup specified
+     * by <code>markup</code>.
      * 
      * @since 4.0.12
      */
@@ -132,7 +137,8 @@ public class EntryCompletion extends Object implements CellLayout
     }
 
     /**
-     * Delete the item at the position in the action item list specified by <code>index</code>.
+     * Delete the item at the position in the action item list specified by
+     * <code>index</code>.
      * 
      * @since 4.0.12
      */
@@ -141,25 +147,13 @@ public class EntryCompletion extends Object implements CellLayout
     }
 
     /**
-     * Create and adds a {@link CellRendererText} using the column specified by <code>column</code>
-     * as the source for completion strings
+     * Create and adds a {@link CellRendererText} using the specified
+     * DataColumn in your TreeModel as the source for completion strings
      * 
      * @since 4.0.12
      */
-    public void setTextColumn(int column) {
-        GtkEntryCompletion.setTextColumn(this, column);
-    }
-
-    /**
-     * Return the index of the column in the completion model to get strings from.
-     * 
-     * <p>
-     * See the {@link setTextColumn(int) setTextColumn()} method for more information.
-     * 
-     * @since 4.0.12
-     */
-    public int getTextColumn() {
-        return GtkEntryCompletion.getTextColumn(this);
+    public void setTextColumn(DataColumn column) {
+        GtkEntryCompletion.setTextColumn(this, column.getOrdinal());
     }
 
     /**
@@ -175,8 +169,8 @@ public class EntryCompletion extends Object implements CellLayout
      * Enable or disable the automatic inline completion.
      * 
      * <p>
-     * If <code>setting</code> is <code>true</code>, the common prefix of the possible
-     * completions should be automatically inserted in the Entry.
+     * If <code>setting</code> is <code>true</code>, the common prefix of the
+     * possible completions should be automatically inserted in the Entry.
      * 
      * @since 4.0.12
      */
@@ -195,10 +189,10 @@ public class EntryCompletion extends Object implements CellLayout
 
     /**
      * Enable or disable completion popup.
-     *
+     * 
      * <p>
-     * If <code>setting</code> is <code>true</code> the completions should
-     * be presented in a popup window.
+     * If <code>setting</code> is <code>true</code> the completions should be
+     * presented in a popup window.
      * 
      * @since 4.0.12
      */
@@ -241,8 +235,8 @@ public class EntryCompletion extends Object implements CellLayout
      * Enable or disable the popup when there is only a single match.
      * 
      * <p>
-     * If <code>setting</code> is <code>true</code> the popup will appear
-     * even if there is a single match.
+     * If <code>setting</code> is <code>true</code> the popup will appear even
+     * if there is a single match.
      * 
      * @since 4.0.12
      */
@@ -251,8 +245,8 @@ public class EntryCompletion extends Object implements CellLayout
     }
 
     /**
-     * Return <code>true</code> if completion popup appears when there is
-     * a single match.
+     * Return <code>true</code> if completion popup appears when there is a
+     * single match.
      * 
      * @since 4.0.12
      */
@@ -280,8 +274,8 @@ public class EntryCompletion extends Object implements CellLayout
     }
 
     /**
-     * Enable or disable the possibility of cycle through the possible completions
-     * inside the entry.
+     * Enable or disable the possibility of cycle through the possible
+     * completions inside the entry.
      * 
      * @since 4.0.12
      */
@@ -315,8 +309,9 @@ public class EntryCompletion extends Object implements CellLayout
      * Emitted when a completion string was selected from the completion list.
      * 
      * <p>
-     * Generally, this signal is enough to handle a completion selection and it just
-     * used to complete the entry according to the selected completion string.
+     * Generally, this signal is enough to handle a completion selection and
+     * it just used to complete the entry according to the selected completion
+     * string.
      * 
      * <pre>
      * final DataColumnString column;
@@ -330,7 +325,6 @@ public class EntryCompletion extends Object implements CellLayout
      *     text = model.getValue(iter, column);
      * 
      *     entry.setText(text);
-     *
      *     ...
      * });
      * </pre>
@@ -341,9 +335,11 @@ public class EntryCompletion extends Object implements CellLayout
     public interface MatchSelected extends GtkEntryCompletion.MatchSelectedSignal
     {
         /**
-         * The useful parameter are <code>model</code> and <code>iter</code> which will
-         * make you able to get the value of the selected completion using the TreeModel's
-         * {@link TreeModel#getValue(TreeIter, DataColumnString) getValue() method.
+         * The useful parameter are <code>model</code> and <code>iter</code>
+         * which will make you able to get the value of the selected
+         * completion using the TreeModel's
+         * {@link TreeModel#getValue(TreeIter, DataColumnString) getValue()}
+         * method.
          * 
          * @since 4.0.12
          */
@@ -363,19 +359,20 @@ public class EntryCompletion extends Object implements CellLayout
      * Emitted when an action item is selected from the popup action list.
      * 
      * <p>
-     * In this way, you can do something different from the {@link MatchSelected} signal.
+     * In this way, you can do something different from the
+     * {@link MatchSelected} signal.
      * 
      * <pre>
      * final EntryCompletion completion;
      * 
      * ...
      * 
-     * completion.insertActionText(0, "complete");
-     * completion.insertActionText(1, "another");
+     * completion.insertActionText(0, &quot;complete&quot;);
+     * completion.insertActionText(1, &quot;another&quot;);
      * 
      * completion.connect(new EntryCompletion.ActionActivated() {
      *     public void onActionActivated(EntryCompletion source, int index) {
-     *         System.out.println("Action " + index + " activated.");
+     *         System.out.println(&quot;Action &quot; + index + &quot; activated.&quot;);
      *     }
      * });
      * </pre>
@@ -385,8 +382,9 @@ public class EntryCompletion extends Object implements CellLayout
     public interface ActionActivated extends GtkEntryCompletion.ActionActivatedSignal
     {
         /**
-         * The only two parameters give references to the EntryCompletion <code>source</code>
-         * which has emitted the signal and the activated action <code>index</code>.
+         * The only two parameters give references to the EntryCompletion
+         * <code>source</code> which has emitted the signal and the activated
+         * action <code>index</code>.
          * 
          * @since 4.0.12
          */
@@ -403,8 +401,9 @@ public class EntryCompletion extends Object implements CellLayout
     }
 
     /**
-     * Emitted when the inline auto-completion is triggered. The default behavior
-     * is to make the entry display the whole prefix and select the newly inserted part.
+     * Emitted when the inline auto-completion is triggered. The default
+     * behavior is to make the entry display the whole prefix and select the
+     * newly inserted part.
      * 
      * <pre>
      * final EntryCompletion completion;
@@ -428,8 +427,9 @@ public class EntryCompletion extends Object implements CellLayout
     public interface InsertPrefix extends GtkEntryCompletion.InsertPrefixSignal
     {
         /**
-         * The only two parameters give references to the EntryCompletion <code>source</code>
-         * which has emitted the signal and the selected <code>prefix</code>.
+         * The only two parameters give references to the EntryCompletion
+         * <code>source</code> which has emitted the signal and the selected
+         * <code>prefix</code>.
          * 
          * @since 4.0.12
          */

@@ -17,8 +17,8 @@ import org.gnome.gtk.EntryCompletion;
 import org.gnome.gtk.Gtk;
 import org.gnome.gtk.Label;
 import org.gnome.gtk.ListStore;
-import org.gnome.gtk.TreeModel;
 import org.gnome.gtk.TreeIter;
+import org.gnome.gtk.TreeModel;
 import org.gnome.gtk.VBox;
 import org.gnome.gtk.Window;
 
@@ -83,14 +83,18 @@ public class ExampleEntryCompletion
          * The completion will use a ListStore as model.
          */
 
-        model = new ListStore(new DataColumn[] { column = new DataColumnString() });
+        model = new ListStore(new DataColumn[] {
+            column = new DataColumnString()
+        });
         completion.setModel(model);
 
         /*
          * Fill the model with words.
          */
 
-        String[] words = { "abc", "def", "ghi", "jkl", "mno", "pqr", "stu", "vwx", "yz" };
+        String[] words = {
+                "abc", "def", "ghi", "jkl", "mno", "pqr", "stu", "vwx", "yz"
+        };
         TreeIter row;
         for (String word : words) {
             /*
@@ -107,11 +111,11 @@ public class ExampleEntryCompletion
         }
 
         /*
-         * Indicate the column which contains the text in the model.
-         * 0 is for the first.
+         * Indicate the column which contains the text in the model. 0 is for
+         * the first.
          */
 
-        completion.setTextColumn(0);
+        completion.setTextColumn(column);
 
         /*
          * Finally, indicate to the entry which completion it has to use.
@@ -120,8 +124,8 @@ public class ExampleEntryCompletion
         entry.setCompletion(completion);
 
         /*
-         * When the MatchSelected signal is emitted, it means the user
-         * has selected a text in the list, so we display it in the Entry.
+         * When the MatchSelected signal is emitted, it means the user has
+         * selected a text in the list, so we display it in the Entry.
          */
 
         completion.connect(new EntryCompletion.MatchSelected() {
