@@ -33,3 +33,14 @@
     '("UniqueMessageData*" "message_data" (null-ok))
   )
 )
+
+(define-virtual message_received
+  (of-object "UniqueApp")
+  (return-type "UniqueResponse")
+  (parameters
+    '("gint" "command_id")
+    '("UniqueMessageData*" "message_data")
+    '("guint" "time")
+  )
+)
+

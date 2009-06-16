@@ -14,6 +14,8 @@ package org.gnome.unique;
 import org.gnome.glib.Object;
 
 /**
+ * Facilities for ensuring that only one unique instance of an application is
+ * running.
  * 
  * <h2>If you're not the first, go away</h2>
  * 
@@ -60,7 +62,9 @@ public class Application extends Object
     }
 
     /**
+     * Construct an Application object for the specified unique service.
      * 
+     * <p>
      * By convention, the name chosen to identify a unique application should
      * follow the application naming conventions used by DBus (these are
      * similar to the domain name -esque conventions used in Java package
@@ -143,5 +147,61 @@ public class Application extends Object
      */
     public Response sendMessage(Command cmd, MessageData data) {
         return UniqueApp.sendMessage(this, cmd.getCommandId(), data);
+    }
+
+    /**
+     * The signal emitted when another instance sends a message to the unique
+     * instance.
+     * 
+     * @author Andrew Cowie
+     * @since 4.0.12
+     */
+    public interface MessageReceived
+    {
+        /**
+         * You can compare the Command by reference with the constants in that
+         * class.
+         * 
+         * <p>
+         * <code>data</code> will be <code>null</code> if that was what was
+         * passed by the calling instance. The <code>time</code> paramter is a
+         * timestamp.
+         * 
+         * <p>
+         * In ordinary circumstances you should return {@link Response#OK OK}.
+         * 
+         * <p>
+         * If (for whatever reason) you chose not to handle the message, you
+         * can return {@link Response#PASSTHROUGH PASSTHROUGH} which will
+         * cause emission of this signal to continue, letting another handler
+         * (in this application instance) deal with the event.
+         */
+        public Response onMessageReceived(Application source, Command cmd, MessageData data, int time);
+    }
+
+    /*
+     * Wrap the command id into a strong Command constant.
+     */
+    private static class MessageReceivedHandler implements UniqueApp.MessageReceivedSignal
+    {
+        private MessageReceived handler;
+
+        private MessageReceivedHandler(MessageReceived handler) {
+            this.handler = handler;
+        }
+
+        public Response onMessageReceived(Application source, int commandId, MessageData messageData,
+                int time) {
+            return handler.onMessageReceived(source, Command.constantFor(commandId), messageData, time);
+        }
+    }
+
+    /**
+     * Hookup a <code>Application.MessageReceived</code> handler.
+     * 
+     * @since 4.0.12
+     */
+    public void connect(Application.MessageReceived handler) {
+        UniqueApp.connect(this, new MessageReceivedHandler(handler), false);
     }
 }

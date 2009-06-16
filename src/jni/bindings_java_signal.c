@@ -273,8 +273,7 @@ bindings_java_marshaller
 		
 		g_value_set_enum(return_value, _e);
 		break;
-		
-		
+
 	case 'L':
 		/*
 		 * String return signals
