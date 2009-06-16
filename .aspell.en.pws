@@ -509,6 +509,7 @@ JVMs
 JamVM
 JavaDoc
 JavaVM
+Joao
 Juma
 Kaba
 Kamil
@@ -563,6 +564,7 @@ MapEvent
 MapEventSignal
 MarkSet
 MarkSetSignal
+Mazoyer
 McLachlan
 MenuBars
 MenuItem
@@ -2037,6 +2039,7 @@ setAlignment
 setAlignmentX
 setAngle
 setAntialias
+setArtists
 setAttributes
 setAuthors
 setBackground
@@ -2065,6 +2068,7 @@ setDefaultSize
 setDigits
 setDirection
 setDisplayOptions
+setDocumenters
 setDraw
 setEditable
 setEllipsize
@@ -2117,6 +2121,7 @@ setLabelAlign
 setLabelWidget
 setLayout
 setLeftMargin
+setLicense
 setLine
 setLineOffset
 setLineWidth
@@ -2249,6 +2254,7 @@ setWeight
 setWidth
 setWidthChars
 setWrap
+setWrapLicense
 setWrapMode
 settingsDaemon
 showAll
