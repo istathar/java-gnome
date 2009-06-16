@@ -15,6 +15,26 @@ import org.gnome.glib.Object;
 
 /**
  * 
+ * <p>
+ * The basic algorithm is to create an Application instance with the unique
+ * name corresponding to your prgram, and then check to see if there is
+ * another already running. If so, then there is no need for this instance and
+ * it should terminate.
+ * 
+ * <pre>
+ * app = new Application(&quot;com.example.Program&quot;, null);
+ * 
+ * if (app.isRunning()) {
+ *     System.exit(1);
+ * }
+ * </pre>
+ * 
+ * <p>
+ * <i>There is a message-passing facility built into LibUnique which allows
+ * you to send basic commands to the other running instance before you
+ * terminate this instance. We expect to expose that capabiliy in a future
+ * version of java-gnome.</i>
+ * 
  * @author Andrew Cowie
  * @since 4.0.12
  */
@@ -42,6 +62,9 @@ public class Application extends Object
      * 
      * @since 4.0.12
      */
+    /*
+     * TODO describe the use of the startup notification id string
+     */
     public Application(String name, String id) {
         super(UniqueApp.createApplication(basicValidation(name), id));
     }
@@ -62,6 +85,11 @@ public class Application extends Object
     /**
      * Is some <i>other</i> instance of this program (ie the application with
      * this name) already running?
+     * 
+     * <p>
+     * If so, then really you probably want to be terminating this program. If
+     * not, then carry on with your normal application initialization and
+     * start-up.
      * 
      * @since 4.0.12
      */
