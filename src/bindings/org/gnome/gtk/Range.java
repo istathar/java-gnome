@@ -1,7 +1,7 @@
 /*
  * Range.java
  *
- * Copyright (c) 2007-2008 Operational Dynamics Consulting Pty Ltd
+ * Copyright (c) 2007-2009 Operational Dynamics Consulting Pty Ltd, and Others
  *
  * The code in this file, and the library it is a part of, are made available
  * to you by the authors under the terms of the "GNU General Public Licence,
@@ -33,7 +33,31 @@ public abstract class Range extends Widget
     }
 
     /**
-     * Retreive the value currently indicated by this Range instance.
+     * Get whether or not the rate scale of this Range is inverted; see
+     * {@link #setInverted(boolean) setInverted()}.
+     * 
+     * @since 4.0.12
+     */
+    public boolean getInverted() {
+        return GtkRange.getInverted(this);
+    }
+
+    /**
+     * Inverts the way the value changes when moving the slider.
+     * 
+     * <p>
+     * Ranges normally move from lower to higher values as the slider moves
+     * from top to bottom or left to right. Inverted ranges have higher values
+     * at the top or on the right rather than on the bottom or left.
+     * 
+     * @since 4.0.12
+     */
+    public void setInverted(boolean setting) {
+        GtkRange.setInverted(this, setting);
+    }
+
+    /**
+     * Retrieve the value currently indicated by this Range instance.
      * 
      * @since 4.0.6
      */

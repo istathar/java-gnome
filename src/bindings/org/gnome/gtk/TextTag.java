@@ -18,7 +18,7 @@ import org.gnome.pango.Style;
 import org.gnome.pango.Underline;
 import org.gnome.pango.Weight;
 
-import static org.gnome.gtk.TextTagTable.getDefaultTable;
+import static org.gnome.gtk.TextBuffer.getDefaultTable;
 
 /**
  * TextTags are used to apply markup and formatting for regions of text in a

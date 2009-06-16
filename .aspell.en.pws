@@ -509,6 +509,7 @@ JVMs
 JamVM
 JavaDoc
 JavaVM
+Joao
 Juma
 Kaba
 Kamil
@@ -545,6 +546,7 @@ Lorem
 Lorg
 Lortie
 LoveLetter
+LowBatteryExample
 MAXUINT
 MVC
 Machame
@@ -562,6 +564,7 @@ MapEvent
 MapEventSignal
 MarkSet
 MarkSetSignal
+Mazoyer
 McLachlan
 MenuBars
 MenuItem
@@ -595,7 +598,11 @@ NoSuchMethodException
 NorthAmericanPaperSize
 NotifyCursorPosition
 NotifyCursorPositionSignal
+NotifyMain
+NotifyMainOverride
+NotifyNotification
 NotifyType
+NotifyUrgency
 NullPointerException
 NumLock
 NumberSign
@@ -738,7 +745,6 @@ SpinButton
 Srichand
 StateType
 StatusBar
-StatusIcon
 StatusIcon's
 StatusIcons
 Statusbar
@@ -926,6 +932,7 @@ appendMessage
 appendPage
 appendRow
 appendText
+applicationName
 applyTag
 arcNegative
 arg
@@ -941,6 +948,8 @@ assertSame
 assertTrue
 atk
 attachDefaults
+attachToStatusIcon
+attachToWidget
 attr
 autotools
 backend
@@ -1013,6 +1022,7 @@ checksum
 clampPage
 classname
 classpath
+clearHints
 clickable
 cls
 cmd
@@ -1121,6 +1131,8 @@ createMenuItemWithMnemonic
 createMenuToolButton
 createMessageDialog
 createNotebook
+createNotification
+createNotificationWithStatusIcon
 createObject
 createPaperSize
 createPatternForSurface
@@ -1328,6 +1340,7 @@ getAlignmentX
 getAlignmentY
 getAllocation
 getAngle
+getApplicationName
 getArea
 getAscent
 getAtPosPath
@@ -1505,6 +1518,7 @@ getSelected
 getSelection
 getSelectionBound
 getSensitive
+getServerCapabilities
 getSize
 getSizeHeight
 getSizeWidth
@@ -1634,6 +1648,7 @@ isActive
 isDirectory
 isEmbedded
 isEqual
+isInitted
 isInserted
 isSecondary
 isSensitive
@@ -1803,6 +1818,10 @@ newa
 nin
 nis
 nm
+notifyGetAppName
+notifyInit
+notifyIsInitted
+notifyUninit
 nowarn
 nowrap
 nresulted
@@ -2020,6 +2039,7 @@ setAlignment
 setAlignmentX
 setAngle
 setAntialias
+setArtists
 setAttributes
 setAuthors
 setBackground
@@ -2029,6 +2049,7 @@ setBorderWindowSize
 setBuffer
 setCanDefault
 setCanFocus
+setCategory
 setCharAt
 setChildSecondary
 setClickable
@@ -2047,6 +2068,7 @@ setDefaultSize
 setDigits
 setDirection
 setDisplayOptions
+setDocumenters
 setDraw
 setEditable
 setEllipsize
@@ -2069,6 +2091,7 @@ setFromIconName
 setFromPixbuf
 setFromStock
 setFullscreen
+setGeometryHints
 setGravity
 setHAdjustment
 setHadjustment
@@ -2076,7 +2099,13 @@ setHasFrame
 setHasResizeGrip
 setHeadersClickable
 setHeadersVisible
+setHint
+setHintByte
+setHintDouble
+setHintInt
+setHintString
 setIcon
+setIconFromPixbuf
 setImage
 setInconsistent
 setIndent
@@ -2092,6 +2121,7 @@ setLabelAlign
 setLabelWidget
 setLayout
 setLeftMargin
+setLicense
 setLine
 setLineOffset
 setLineWidth
@@ -2189,6 +2219,7 @@ setTabPos
 setTabPosition
 setText
 setTimeZone
+setTimeout
 setTip
 setTitle
 setTooltip
@@ -2200,6 +2231,7 @@ setTranslatorCredits
 setTypeHint
 setUnderline
 setUp
+setUrgency
 setUseMarkup
 setVAdjustment
 setVadjustment
@@ -2222,6 +2254,7 @@ setWeight
 setWidth
 setWidthChars
 setWrap
+setWrapLicense
 setWrapMode
 settingsDaemon
 showAll
@@ -2245,6 +2278,7 @@ src
 startConversationWith
 startsDisplayLine
 startsWord
+statusIcon
 statusToString
 stepIncrement
 stockId
@@ -2337,6 +2371,7 @@ unfullscreen
 ungrab
 unicode
 unindent
+uninit
 unix
 unixprint
 unmaximize

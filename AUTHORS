@@ -1,25 +1,31 @@
 AUTHORS
 
-Principal authors
----------------
+Principal architects
+--------------------
 
 	Andrew Cowie <andrew@operationaldynamics.com>
 	Srichand Pendyala <srichand.pendyala@gmail.com>
 	Vreixo Formoso Lopes <metalpain2002@yahoo.es>
 
-Casual contributors
+Significant authors
 -------------------
 
 	Sebastian Mancke <s.mancke@tarent.de>
+	Stefan Prelle <stefan@prelle.org>
+	Serkan Kaba <serkan@gentoo.org>
+
+Casual contributors
+-------------------
+
 	Wouter Bolsterlee <uws@xs4all.nl>
 	Nat Pryce <npryce@users.sourceforge.net>
 	Remy Suen <remy.suen@gmail.com>
 	Thomas Schmitz <t.schmitz@tarent.de>
 	Mario Torre <neugens@limasoftware.net>
 	Manu Mahajan <manu@knowyourraga.com>
-	Stefan Prelle <stefan@prelle.org>
 	Andreas Kühntopf <andreas@kuehntopf.org>
 	Zak Fenton <zak.fenton@gmail.com>
+	Stefan Schweizer <steve.schweizer@gmail.com>
 
 Mentoring and design review
 ---------------------------
@@ -38,7 +44,6 @@ Build system improvements
 	Timm Preetz <timm@preetz.us>
 	Colin Walters <walters@verbum.org>
 	Rob Taylor <rob.taylor@codethink.co.uk>
-	Serkan Kaba <serkan_kaba@yahoo.com>
 	Kenneth Prugh <ken69267@gmail.com>
 
 --

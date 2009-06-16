@@ -1,0 +1,47 @@
+(define-object StyleScheme
+  (in-module "GtkSourceView")
+  (parent "GObject")
+  (c-name "GtkSourceStyleScheme")
+  (import-header "gtksourceview/gtksourcestylescheme.h")
+  (gtype-id "GTK_TYPE_SOURCE_STYLE_SCHEME")
+)
+
+(define-method get_id
+  (of-object "GtkSourceStyleScheme")
+  (c-name "gtk_source_style_scheme_get_id")
+  (return-type "const-gchar*")
+)
+
+(define-method get_name
+  (of-object "GtkSourceStyleScheme")
+  (c-name "gtk_source_style_scheme_get_name")
+  (return-type "const-gchar*")
+)
+
+(define-method get_description
+  (of-object "GtkSourceStyleScheme")
+  (c-name "gtk_source_style_scheme_get_description")
+  (return-type "const-gchar*")
+)
+
+(define-method get_authors
+  (of-object "GtkSourceStyleScheme")
+  (c-name "gtk_source_style_scheme_get_authors")
+  (return-type "const-gchar**")
+)
+
+(define-method get_filename
+  (of-object "GtkSourceStyleScheme")
+  (c-name "gtk_source_style_scheme_get_filename")
+  (return-type "const-gchar*")
+)
+
+(define-method get_style
+  (of-object "GtkSourceStyleScheme")
+  (c-name "gtk_source_style_scheme_get_style")
+  (return-type "GtkSourceStyle*")
+  (parameters
+    '("const-gchar*" "style_name")
+  )
+)
+

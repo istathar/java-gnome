@@ -1,0 +1,68 @@
+(define-object Language
+  (in-module "GtkSourceView")
+  (parent "GObject")
+  (c-name "GtkSourceLanguage")
+  (import-header "gtksourceview/gtksourcelanguage.h")
+  (gtype-id "GTK_TYPE_SOURCE_LANGUAGE")
+)
+
+(define-method get_id
+  (of-object "GtkSourceLanguage")
+  (c-name "gtk_source_language_get_id")
+  (return-type "const-gchar*")
+)
+
+(define-method get_name
+  (of-object "GtkSourceLanguage")
+  (c-name "gtk_source_language_get_name")
+  (return-type "const-gchar*")
+)
+
+(define-method get_section
+  (of-object "GtkSourceLanguage")
+  (c-name "gtk_source_language_get_section")
+  (return-type "const-gchar*")
+)
+
+(define-method get_hidden
+  (of-object "GtkSourceLanguage")
+  (c-name "gtk_source_language_get_hidden")
+  (return-type "gboolean")
+)
+
+(define-method get_metadata
+  (of-object "GtkSourceLanguage")
+  (c-name "gtk_source_language_get_metadata")
+  (return-type "const-gchar*")
+  (parameters
+    '("const-gchar*" "name")
+  )
+)
+
+(define-method get_mime_types
+  (of-object "GtkSourceLanguage")
+  (c-name "gtk_source_language_get_mime_types")
+  (return-type "gchar**")
+)
+
+(define-method get_globs
+  (of-object "GtkSourceLanguage")
+  (c-name "gtk_source_language_get_globs")
+  (return-type "gchar**")
+)
+
+(define-method get_style_ids
+  (of-object "GtkSourceLanguage")
+  (c-name "gtk_source_language_get_style_ids")
+  (return-type "gchar**")
+)
+
+(define-method get_style_name
+  (of-object "GtkSourceLanguage")
+  (c-name "gtk_source_language_get_style_name")
+  (return-type "const-char*")
+  (parameters
+    '("const-char*" "style_id")
+  )
+)
+
