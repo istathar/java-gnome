@@ -26,18 +26,56 @@ public class Application extends Object
 
     /**
      * 
+     * By convention, the name chosen to identify a unique application should
+     * follow the application naming conventions used by DBus (these are
+     * similar to the domain name -esque conventions used in Java package
+     * space). Some examples are:
+     * 
+     * <ul>
+     * <li><code>"org.gnome.Nautilus"</code><br>
+     * (used by the Nautilus file manager)
+     * <li><code>"org.gnome.Vino.Preferences"</code><br>
+     * (used by the Vino VNC server's preferences &amp; configuration utility)
+     * <li><code>"com.operationaldynamics.Slashtime"</code><br>
+     * (used by the Slashtime timezone viewer program).
+     * </ul>
+     * 
      * @since 4.0.12
      */
     public Application(String name, String id) {
-        super(UniqueApp.createApplication(name, id));
+        super(UniqueApp.createApplication(basicValidation(name), id));
+    }
+
+    private static String basicValidation(final String name) {
+        if (name.equals("")) {
+            throw new IllegalArgumentException("name cannot be emtpy.");
+        }
+        if (name.indexOf('.') == -1) {
+            throw new IllegalArgumentException("name needs follow DBus application naming conventions.");
+        }
+        if (name.indexOf('$') != -1) {
+            throw new IllegalArgumentException("name cannot contain '$'.");
+        }
+        return name;
     }
 
     /**
-     * Is the application with this name already running?
+     * Is some <i>other</i> instance of this program (ie the application with
+     * this name) already running?
      * 
      * @since 4.0.12
      */
     public boolean isRunning() {
         return UniqueApp.isRunning(this);
+    }
+
+    /**
+     * Get the application name that was used when this Application was
+     * constructed.
+     * 
+     * @since 4.0.12
+     */
+    public String getName() {
+        return getPropertyString("name");
     }
 }
