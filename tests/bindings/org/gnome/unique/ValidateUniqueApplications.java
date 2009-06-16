@@ -17,9 +17,8 @@ import org.gnome.gtk.TestCaseGtk;
  */
 public class ValidateUniqueApplications extends TestCaseGtk
 {
-    public final void testInstantiateApplicationObject() throws InterruptedException {
+    public final void testNameValidation() {
         Application app;
-        final String name;
 
         try {
             app = new Application("", null);
@@ -45,17 +44,42 @@ public class ValidateUniqueApplications extends TestCaseGtk
             // good
         }
 
-        /*
-         * This is tricky. If we didn't ensure a unique name, and you've
-         * managed to get another one of these test cases running, and wedged,
-         * then this would fail. So we do some minimal effort to come up with
-         * a more-or-less likely-to-be-unique name.
-         */
+        if (false) {
+            app.getClass(); // avoid warning
+        }
+    }
+
+    /*
+     * This is tricky. If we didn't ensure a unique name, and you've managed
+     * to get another one of these test cases running, and wedged, then this
+     * would fail. So we do some minimal effort to come up with a more-or-less
+     * likely-to-be-unique name.
+     */
+    public final void testInstantiateApplicationObject() {
+        final Application app;
+        final String name;
 
         name = "test.java-gnome.InstantiateApplicationObject" + this.hashCode();
         app = new Application(name, null);
 
         assertEquals(name, app.getName());
         assertFalse(app.isRunning());
+    }
+
+    /*
+     * Here's an interesting one. Since we've long said that GNOME is a
+     * prerequisite for java-gnome, and in any event we encourage people
+     * developing GNOME applications to be actually using GNOME, we "know"
+     * Nautilus is running. :)
+     * 
+     * FUTURE This won't work in headless build environment, and really our
+     * tests should pass in such. But it's this or we'd have to fire off
+     * another process. This will do nicely for now.
+     */
+    public final void testIsNautilusRunning() {
+        final Application app;
+
+        app = new Application("org.gnome.Nautilus", null);
+        assertTrue(app.isRunning());
     }
 }
