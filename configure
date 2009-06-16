@@ -755,8 +755,13 @@ if ($os eq "gentoo") {
 
 	check_system_library(@gnomedev_libs,
 			"libnotify >= 0.4.5",
-			"Libnotify",
+			"LibNotify",
 			"libnotify");
+
+	check_system_library(@gnomedev_libs,
+			"unique-1.0 >= 1.0.8",
+			"LibUnique",
+			"libunique");
 
 } elsif ($os eq "slackware") {
 	# on slackware gdk-2.0 and gtk+-unix-print-2.0 are part of gtk+-2.0
