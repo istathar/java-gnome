@@ -14,7 +14,7 @@
   (return-type "UniqueApp*")
   (parameters
     '("const-gchar*" "name")
-    '("const-gchar*" "startup_id")
+    '("const-gchar*" "startup_id" (null-ok))
   )
 )
 
