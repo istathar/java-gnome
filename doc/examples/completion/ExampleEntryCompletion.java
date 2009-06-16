@@ -10,6 +10,7 @@
  */
 package completion;
 
+import org.gnome.gdk.Event;
 import org.gnome.gtk.DataColumn;
 import org.gnome.gtk.DataColumnString;
 import org.gnome.gtk.Entry;
@@ -20,6 +21,7 @@ import org.gnome.gtk.ListStore;
 import org.gnome.gtk.TreeIter;
 import org.gnome.gtk.TreeModel;
 import org.gnome.gtk.VBox;
+import org.gnome.gtk.Widget;
 import org.gnome.gtk.Window;
 
 /**
@@ -51,6 +53,16 @@ public class ExampleEntryCompletion
          */
 
         window = new Window();
+
+        /*
+         * Connect the signal to close the window
+         */
+        window.connect(new Window.DeleteEvent() {
+            public boolean onDeleteEvent(Widget source, Event event) {
+                Gtk.mainQuit();
+                return false;
+            }
+        });
 
         /*
          * Create a VBox which will contains a label and an entry completion.

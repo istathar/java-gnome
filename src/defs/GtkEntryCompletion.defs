@@ -222,3 +222,12 @@
   )
 )
 
+(define-virtual cursor_on_match
+  (of-object "GtkEntryCompletion")
+  (return-type "gboolean")
+  (parameters
+    '("GtkTreeModel*" "model")
+    '("GtkTreeIter*" "iter")
+  )
+)
+

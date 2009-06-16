@@ -15,7 +15,7 @@ import org.gnome.glib.Object;
 
 /**
  * An object to use in conjunction with {@link Entry} to provide completion
- * functionality.
+ * functionality. <img src="EntryCompletion.png" class="snapshot" />
  * 
  * <p>
  * To add completion functionality to an Entry, use its
@@ -442,6 +442,57 @@ public class EntryCompletion extends Object implements CellLayout
      * @since 4.0.12
      */
     public void connect(EntryCompletion.InsertPrefix handler) {
+        GtkEntryCompletion.connect(this, handler, false);
+    }
+
+    /**
+     * Emitted when the cursor is on a completion string without select it.
+     * The default behavior is to make the entry display the contents of the
+     * row column pointed by <code>iter</code>.
+     * 
+     * <pre>
+     * final DataColumnString column;
+     * final EntryCompletion completion;
+     * 
+     * ...
+     * 
+     * completion.connect(new CursorOnMatch.InsertPrefix() {
+     *     public boolean onCursorOnMatch(EntryCompletion source, TreeModel model, TreeIter iter) {
+     *         final Entry entry;
+     *         final String content;
+     * 
+     *         entry = source.getEntry();
+     *         content = model.getValue(iter, column);
+     * 
+     *         entry.setText(content);
+     * 
+     *         return true;
+     *     }
+     * });
+     * </pre>
+     * 
+     * @since 4.0.12
+     */
+    public interface CursorOnMatch extends GtkEntryCompletion.CursorOnMatchSignal
+    {
+        /**
+         * The useful parameter are <code>model</code> and <code>iter</code>
+         * which will make you able to get the value of the selected
+         * completion using the TreeModel's
+         * {@link TreeModel#getValue(TreeIter, DataColumnString) getValue()}
+         * method.
+         * 
+         * @since 4.0.12
+         */
+        public boolean onCursorOnMatch(EntryCompletion source, TreeModel model, TreeIter iter);
+    }
+
+    /**
+     * Hook up the <code>EntryCompletion.CursorOnMatch</code> handler.
+     * 
+     * @since 4.0.12
+     */
+    public void connect(EntryCompletion.CursorOnMatch handler) {
         GtkEntryCompletion.connect(this, handler, false);
     }
 }
