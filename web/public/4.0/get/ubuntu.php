@@ -2,7 +2,7 @@
 /*
  * ubuntu.php
  *
- * Copyright (c) 2006 Operational Dynamics Consulting Pty Ltd
+ * Copyright (c) 2006-2009 Operational Dynamics Consulting Pty Ltd, and Others
  * 
  * This file comprises part of the infrastructure and content of the
  * java-gnome project website. As such, it is conveyed alongside the source
@@ -27,18 +27,16 @@
 ?>
 <h1 class="title">Installing java-gnome on Ubuntu</h1>
 
-<p><span class="highlight">
-TODO: This will work once someone actually packages java-gnome 4.0 for Ubuntu
-</span></p>
-
 <p>java-gnome is part of the official GNOME language bindings suite, and as
-such should be present in any recent Ubuntu system.</p>
+such should be present in any recent Ubuntu system. Here is a 
+<a href="http://packages.ubuntu.com/search?keywords=libjava-gnome-java&searchon=names&exact=1&suite=all&section=all">list</a> 
+of Ubuntu releases and the java-gnome versions they provide.</p>
 
 <p>The following command will install the latest released version of the
 bindings library:
 
 <pre>
-# apt-get install java-gnome
+# sudo apt-get install libjava-gnome-java
 </pre>
 
 <p>As java-gnome 4.0 is a completely new from-the-ground-up implementation, it
