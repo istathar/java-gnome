@@ -23,3 +23,13 @@
   (c-name "unique_app_is_running")
   (return-type "gboolean")
 )
+
+(define-method send_message
+  (of-object "UniqueApp")
+  (c-name "unique_app_send_message")
+  (return-type "UniqueResponse")
+  (parameters
+    '("gint" "command_id")
+    '("UniqueMessageData*" "message_data" (null-ok))
+  )
+)

@@ -1,0 +1,27 @@
+(define-boxed MessageData
+  (in-module "Unique")
+  (c-name "UniqueMessageData")
+  (import-header "unique/unique.h")
+)
+
+(define-function unique_message_data_new
+  (is-constructor-of "UniqueMessageData")
+  (c-name "unique_message_data_new")
+  (caller-owns-return #t)
+  (return-type "UniqueMessageData*")
+)
+
+
+(define-method copy
+  (of-object "UniqueMessageData")
+  (c-name "unique_message_data_copy")
+  (return-type "UniqueMessageData*")
+)
+
+(define-method free
+  (of-object "UniqueMessageData")
+  (c-name "unique_message_data_free")
+  (return-type "none")
+)
+
+

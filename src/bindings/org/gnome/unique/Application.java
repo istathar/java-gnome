@@ -15,6 +15,8 @@ import org.gnome.glib.Object;
 
 /**
  * 
+ * <h2>If you're not the first, go away</h2>
+ * 
  * <p>
  * The basic algorithm is to create an Application instance with the unique
  * name corresponding to your prgram, and then check to see if there is
@@ -29,11 +31,24 @@ import org.gnome.glib.Object;
  * }
  * </pre>
  * 
+ * <h2>Sending commands</h2>
+ * 
  * <p>
- * <i>There is a message-passing facility built into LibUnique which allows
- * you to send basic commands to the other running instance before you
- * terminate this instance. We expect to expose that capabiliy in a future
- * version of java-gnome.</i>
+ * There is a message-passing facility built into LibUnique which allows you
+ * to send basic commands to the other running instance before you terminate
+ * this one.
+ * 
+ * <pre>
+ * app.sendMessage(Command.ACTIVATE, null);
+ * </pre>
+ * 
+ * <p>
+ * Keep in mind that this is not really meant as a generic all-powerful
+ * <i>n</i> to <i>m</i> interprocess communication mechanism. In fact, the
+ * entire LibUnique library is mostly about ensuring you only have one master
+ * copy of an application running. But once you've established that, the
+ * messaging subsystem can be used to convey simple requests to of that unique
+ * instance.
  * 
  * @author Andrew Cowie
  * @since 4.0.12
@@ -105,5 +120,28 @@ public class Application extends Object
      */
     public String getName() {
         return getPropertyString("name");
+    }
+
+    /**
+     * Send a message to the other instance (assuming there is one).
+     * 
+     * <p>
+     * <b>This method blocks</b>.
+     * 
+     * <p>
+     * If you have specific information to convey to the other instance, you
+     * can create a MessageData object and set its payload accordingly. You
+     * can also create custom Commands through subclassing, although that's
+     * rarely necessary.
+     * 
+     * <p>
+     * You can get a number of reponses back from the other instance. You
+     * should reasonably expect {@link Response#OK OK}. Indeed, if it's not ok
+     * there isn't much you can do about it.
+     * 
+     * @since 4.0.12
+     */
+    public Response sendMessage(Command cmd, MessageData data) {
+        return UniqueApp.sendMessage(this, cmd.getCommandId(), data);
     }
 }

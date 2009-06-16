@@ -82,4 +82,22 @@ public class ValidateUniqueApplications extends TestCaseGtk
         app = new Application("org.gnome.Nautilus", null);
         assertTrue(app.isRunning());
     }
+
+    /*
+     * We, of course, know nothing of Nautilus's responses to internally
+     * designated commands. They're "internal". But sending it Command.OPEN
+     * results in your home directory coming up (so awesome), and CLOSE
+     * results in it restarting (!). ACTIVATE seems harmless, and in testing
+     * this I got an OK back.
+     */
+    public final void testSendToNautilus() {
+        final Application app;
+        final Response result;
+
+        app = new Application("org.gnome.Nautilus", null);
+        assertTrue(app.isRunning());
+
+        result = app.sendMessage(Command.ACTIVATE, null);
+        assertSame(Response.OK, result);
+    }
 }
