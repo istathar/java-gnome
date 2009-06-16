@@ -1,7 +1,7 @@
 /*
  * Entry.java
  *
- * Copyright (c) 2007-2008 Operational Dynamics Consulting Pty Ltd, and Others
+ * Copyright (c) 2007-2009 Operational Dynamics Consulting Pty Ltd, and Others
  *
  * The code in this file, and the library it is a part of, are made available
  * to you by the authors under the terms of the "GNU General Public Licence,
@@ -272,16 +272,18 @@ public class Entry extends Widget implements Editable, CellEditable
     }
 
     /**
-     * The method sets the <code>EntryCompletion<code> specified by
-     * <code>completion<code> to be the completion object to use with
-     * the Entry.
+     * Set the completion object to use with this Entry.
+     * 
+     * <p>
+     * Completion is a mechanism whereby pre-populated suggestions can be
+     * offered to the user, allowing for faster data entry in some
+     * circumstances.
      * 
      * <p>
      * All configuration of the completion mechanism is done using
-     * <code>completion<code> and its methods.
+     * {@link EntryCompletion}'s methods, so see there for details.
      * 
-     * @param completion
-     *            the completion object to use with the Entry.
+     * 
      * @since 4.0.12
      */
     public void setCompletion(EntryCompletion completion) {
