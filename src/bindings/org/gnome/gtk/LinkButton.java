@@ -1,7 +1,7 @@
 /*
  * LinkButton.java
  *
- * Copyright (c) 2007 Operational Dynamics Consulting Pty Ltd
+ * Copyright (c) 2009 Operational Dynamics Consulting Pty Ltd and Others
  *
  * The code in this file, and the library it is a part of, are made available
  * to you by the authors under the terms of the "GNU General Public Licence,
@@ -23,5 +23,21 @@ public class LinkButton extends Button
 {
     protected LinkButton(long pointer) {
         super(pointer);
+    }
+    
+    public LinkButton(String uri) {
+        super(GtkLinkButton.createLinkButton(uri));
+    }
+    
+    public LinkButton(String uri,String label) {
+        super(GtkLinkButton.createLinkButtonWithLabel(uri,label));
+    }
+    
+    public String getUri() {
+        return GtkLinkButton.getUri(this);
+    }
+    
+    public void setUri(String uri) {
+        GtkLinkButton.setUri(this,uri);
     }
 }
