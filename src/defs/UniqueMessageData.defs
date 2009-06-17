@@ -24,4 +24,19 @@
   (return-type "none")
 )
 
+(define-method set_text
+  (of-object "UniqueMessageData")
+  (c-name "unique_message_data_set_text")
+  (return-type "none")
+  (parameters
+    '("const-gchar*" "text")
+    '("gssize" "length")
+  )
+)
+
+(define-method get_text
+  (of-object "UniqueMessageData")
+  (c-name "unique_message_data_get_text")
+  (return-type "gchar*")
+)
 

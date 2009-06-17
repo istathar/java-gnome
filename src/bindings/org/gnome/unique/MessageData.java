@@ -14,6 +14,7 @@ package org.gnome.unique;
 import org.gnome.glib.Boxed;
 
 /**
+ * Wrapper around a payload you can send from one Application to another.
  * 
  * @author Andrew Cowie
  * @since 4.0.12
@@ -24,7 +25,36 @@ public final class MessageData extends Boxed
         super(pointer);
     }
 
-    protected void release() {
+    /**
+     * Construct a carrier object.
+     * 
+     * @since 4.0.12
+     */
+    public MessageData() {
+        super(UniqueMessageData.createMessageData());
+    }
+
+    protected final void release() {
         UniqueMessageData.free(this);
     }
+
+    /**
+     * Specify a String to be this MessageData's payload.
+     * 
+     * @since 4.0.12
+     */
+    public void setText(String text) {
+        UniqueMessageData.setText(this, text, -1);
+    }
+
+    /**
+     * If an application receiving a message with text as its payload, extract
+     * that String.
+     * 
+     * @since 4.0.12
+     */
+    public String getText() {
+        return UniqueMessageData.getText(this);
+    }
+
 }

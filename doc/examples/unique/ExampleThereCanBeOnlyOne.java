@@ -16,6 +16,9 @@ import org.gnome.unique.Command;
 import org.gnome.unique.MessageData;
 import org.gnome.unique.Response;
 
+import static java.lang.System.currentTimeMillis;
+import static org.freedesktop.bindings.Time.formatTime;
+
 /**
  * Attempt to demonstrate LibUnique in action.
  * 
@@ -26,6 +29,9 @@ public class ExampleThereCanBeOnlyOne
 {
     public static void main(String[] args) {
         final Application app;
+        final MessageData data;
+        final long when;
+        final String str;
 
         Gtk.init(args);
 
@@ -37,11 +43,18 @@ public class ExampleThereCanBeOnlyOne
 
         /*
          * Find out if there is already one running. If there is, send it a
-         * message, and then terminate.
+         * message, then terminate. Sending a payload with the message is
+         * optional; we'll send along the time.
          */
 
         if (app.isRunning()) {
-            app.sendMessage(Command.ACTIVATE, null);
+            when = currentTimeMillis() / 1000;
+            str = formatTime("%H:%M:%S", when);
+
+            data = new MessageData();
+            data.setText("At " + str + ", all is well");
+
+            app.sendMessage(Command.ACTIVATE, data);
             return;
         }
 
@@ -60,7 +73,7 @@ public class ExampleThereCanBeOnlyOne
                      * Do something trivial in reaction to the activation
                      * request.
                      */
-                    System.out.println("It's " + time + " O'Clock, and all is well");
+                    System.out.println(data.getText());
 
                     return Response.OK;
                 } else if (cmd == Command.CLOSE) {
