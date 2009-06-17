@@ -445,6 +445,28 @@ public class EntryCompletion extends Object implements CellLayout
         GtkEntryCompletion.connect(this, handler, false);
     }
 
+    /*
+     * This internal class is needed because the TreeIter passed to the
+     * handler does not have the model field properly set, so we need to set
+     * it before passing the TreeIter to the user.
+     */
+    private static class CursorOnMatchHandler implements GtkEntryCompletion.CursorOnMatchSignal
+    {
+        private final EntryCompletion.CursorOnMatch handler;
+
+        private CursorOnMatchHandler(EntryCompletion.CursorOnMatch handler) {
+            super();
+            this.handler = handler;
+        }
+
+        public boolean onCursorOnMatch(EntryCompletion source, TreeModel model, TreeIter iter) {
+            iter.setModel(model);
+            handler.onCursorOnMatch(source, model, iter);
+
+            return true;
+        }
+    }
+
     /**
      * Emitted when the cursor is on a completion string without select it.
      * The default behavior is to make the entry display the contents of the
@@ -493,6 +515,6 @@ public class EntryCompletion extends Object implements CellLayout
      * @since 4.0.12
      */
     public void connect(EntryCompletion.CursorOnMatch handler) {
-        GtkEntryCompletion.connect(this, handler, false);
+        GtkEntryCompletion.connect(this, new CursorOnMatchHandler(handler), false);
     }
 }
