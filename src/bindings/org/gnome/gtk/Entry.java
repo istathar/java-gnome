@@ -132,12 +132,13 @@ public class Entry extends Widget implements Editable, CellEditable
 
     /**
      * Change the character used to obscure text when
-     * {@link #setVisibleChars(boolean) setVisibleChars()} is false.
+     * {@link #setVisibility(boolean) visibility} is <code>false</code>.
      * 
      * @param replacement
      *            The new character to be used to obscure text. A value of
      *            <code>0</code> will cause no feedback to displayed at all
      *            when the user is typing in the Entry.
+     * @since 4.0.3
      */
     public void setInvisibleChar(char replacement) {
         GtkEntry.setInvisibleChar(this, replacement);
