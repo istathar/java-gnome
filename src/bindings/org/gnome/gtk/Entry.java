@@ -95,33 +95,50 @@ public class Entry extends Widget implements Editable, CellEditable
      * {@link #setInvisibleChar(char) setInvisibleChar()}.
      * 
      * @param visible
-     *            true for showing, false for hiding
-     * @since 4.0.3
+     *            <code>true</code> for showing, <code>false</code> for
+     *            hiding.
+     * @since 4.0.12
      */
-    public void setVisibleChars(boolean visible) {
-        GtkEntry.setVisibility(this, visible);
+    public void setVisibility(boolean setting) {
+        GtkEntry.setVisibility(this, setting);
     }
 
     /**
-     * Returns the state of whether text in the Entry are visible or hidden by
-     * an obscuring character.
+     * @deprecated
+     */
+    public void setVisibleChars(boolean setting) {
+        assert false : "use setVisibility() instead";
+        GtkEntry.setVisibility(this, setting);
+    }
+
+    /**
+     * Is text in the Entry are visible, or hidden by an obscuring character?
      * 
      * @return <code>true</code> if characters entered are visible,
      *         <code>false</code> if obscured.
-     * @since 4.0.3
+     * @since 4.0.12
+     */
+    public boolean getVisibility() {
+        return GtkEntry.getVisibility(this);
+    }
+
+    /**
+     * @deprecated
      */
     public boolean isVisibleChars() {
+        assert false : "use getVisibility() instead";
         return GtkEntry.getVisibility(this);
     }
 
     /**
      * Change the character used to obscure text when
-     * {@link #setVisibleChars(boolean) setVisibleChars()} is false.
+     * {@link #setVisibility(boolean) visibility} is <code>false</code>.
      * 
      * @param replacement
      *            The new character to be used to obscure text. A value of
      *            <code>0</code> will cause no feedback to displayed at all
      *            when the user is typing in the Entry.
+     * @since 4.0.3
      */
     public void setInvisibleChar(char replacement) {
         GtkEntry.setInvisibleChar(this, replacement);
