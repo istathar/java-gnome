@@ -11,33 +11,53 @@
  */
 package org.gnome.gtk;
 
-/*
- * FIXME this is a placeholder stub for what will become the public API for
- * this type. Replace this comment with appropriate javadoc including author
- * and since tags. Note that the class may need to be made abstract, implement
- * interfaces, or even have its parent changed. No API stability guarantees
- * are made about this class until it has been reviewed by a hacker and this
- * comment has been replaced.
+import java.net.URI;
+import java.net.URISyntaxException;
+
+/**
+ * LinkButton is a specialized subclass of {@link Button} for linking to
+ * {@link URI}'s. The default action is to open the {@link URI} with its
+ * default viewer determined by the desktop environment.
+ * 
+ * @author Serkan Kaba
  */
 public class LinkButton extends Button
 {
     protected LinkButton(long pointer) {
         super(pointer);
     }
-    
-    public LinkButton(String uri) {
-        super(GtkLinkButton.createLinkButton(uri));
+
+    /**
+     * Create a button pointing to given {@link URI}. The <code>uri</code>
+     * will also be used as the label.
+     */
+    public LinkButton(URI uri) {
+        super(GtkLinkButton.createLinkButton(uri.toString()));
     }
-    
-    public LinkButton(String uri,String label) {
-        super(GtkLinkButton.createLinkButtonWithLabel(uri,label));
+
+    /**
+     * Create a button pointing to given {@link URI}. and labeled as
+     * <code>label</code>.
+     */
+    public LinkButton(URI uri, String label) {
+        super(GtkLinkButton.createLinkButtonWithLabel(uri.toString(), label));
     }
-    
-    public String getUri() {
-        return GtkLinkButton.getUri(this);
+
+    /**
+     * Returns the button's {@link URI}.
+     */
+    public URI getUri() {
+        try {
+            return new URI(GtkLinkButton.getUri(this));
+        } catch (URISyntaxException e) {
+            throw new RuntimeException("We shouldn't be throwing this exception", e);
+        }
     }
-    
-    public void setUri(String uri) {
-        GtkLinkButton.setUri(this,uri);
+
+    /**
+     * Alters the button's {@link URI}.
+     */
+    public void setUri(URI uri) {
+        GtkLinkButton.setUri(this, uri.toString());
     }
 }
