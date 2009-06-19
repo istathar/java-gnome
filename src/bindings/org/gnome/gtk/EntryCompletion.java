@@ -299,9 +299,8 @@ public class EntryCompletion extends Object implements CellLayout
 
         public boolean onMatchSelected(EntryCompletion source, TreeModel model, TreeIter iter) {
             iter.setModel(model);
-            handler.onMatchSelected(source, model, iter);
 
-            return true;
+            return handler.onMatchSelected(source, model, iter);
         }
     }
 
@@ -461,9 +460,8 @@ public class EntryCompletion extends Object implements CellLayout
 
         public boolean onCursorOnMatch(EntryCompletion source, TreeModel model, TreeIter iter) {
             iter.setModel(model);
-            handler.onCursorOnMatch(source, model, iter);
 
-            return true;
+            return handler.onCursorOnMatch(source, model, iter);
         }
     }
 
