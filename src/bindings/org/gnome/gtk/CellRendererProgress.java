@@ -12,7 +12,7 @@
 package org.gnome.gtk;
 
 /**
- * Renderer a ProgressBar in a TreeViewColumn. TODO
+ * Renderer a ProgressBar in a TreeViewColumn.
  * 
  * @author Andrew Cowie
  * @author Serkan Kaba
@@ -31,7 +31,7 @@ public class CellRendererProgress extends CellRenderer
     
     /**
      * Indicate the DataColumn containing the plain text to render on the {@link ProgressBar}.
-     * See {@link ProgressBar#setText(String)}.
+     * See ProgressBar's {@link ProgressBar#setText(String) setText()}.
      * 
      * @since 4.0.12
      */
