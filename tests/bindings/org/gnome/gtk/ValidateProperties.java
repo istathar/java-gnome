@@ -343,4 +343,20 @@ public class ValidateProperties extends TestCaseGtk
         window.add(button);
         button.grabDefault();
     }
+
+    /*
+     * Check the default visibility of Entry and then cycle the property.
+     */
+    public final void testVisibility() {
+        final Entry entry;
+
+        entry = new Entry();
+        assertTrue(entry.getVisibility());
+
+        entry.setVisibility(false);
+        assertFalse(entry.getVisibility());
+
+        entry.setVisibility(true);
+        assertTrue(entry.getVisibility());
+    }
 }
