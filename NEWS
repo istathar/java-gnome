@@ -1,12 +1,29 @@
 NEWS
 
-java-gnome 4.0.12-rc1 (13 Jun 2009)
+java-gnome 4.0.12-rc2 (forthcoming)
 ===================================
 
-_Spell checking is good for the soul._
+_Being Uniquely Notified while Spelling the Sources you are Viewing is good
+for the soul._
 
-Work exposing GtkSourceView, LibNotify, and GtkSpell has been merged to
-'`mainline`' so it looks like it's time to start getting ready for a release.
+The next release will at last realize our vision of java-gnome to being
+language bindings for the GNOME desktop.
+
+New Coverage
+------------
+
+The TextView text editing Widget has received two significant capability
+boosts. With the work of Stefan Schweizer, we now have coverage of the
+powerful GtkSourceView library with its impressive built-in multi
+[programming] language source highlighting features. And with the contribution
+of GtkSpell coverage by Serkan Kaba, we can now offer spell checking in
+TextViews as well.
+
+Two other GNOME libraries feature in this release. Serkan contributed
+excellent coverage of LibNotify, enabling an application to create and send
+popups to be displayed by the desktop notification mechanism. And we also
+expose LibUnique, which offers machinery enabling a developer to ensure only
+one instance of their application is running.
 
 AfC
 
