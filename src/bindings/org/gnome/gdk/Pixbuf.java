@@ -116,7 +116,8 @@ public class Pixbuf extends org.gnome.glib.Object
 
     private static long checkPixbufFromArray(byte[] data) throws IOException {
         try {
-            return GdkPixbufOverride.createPixbufFromArray(data);
+            // Parameters 2-4 have no meaning when we're not scaling
+            return GdkPixbufOverride.createPixbufFromArray(data, 0, 0, true, false);
         } catch (GlibException ge) {
             /*
              * FIXME this will need to be more specific when our GError
@@ -128,8 +129,9 @@ public class Pixbuf extends org.gnome.glib.Object
     }
 
     /**
-     * Construct a new Pixbuf from in-memory data and scale it. See
-     * {@link #Pixbuf(byte[])} for info on in-memory data.<br>
+     * Construct a new Pixbuf from in-memory data and scale it.
+     * <p>
+     * See {@link #Pixbuf(byte[])} for info on in-memory data.<br>
      * See {@link #Pixbuf(String, int, int, boolean)} for info on scaling.
      * 
      * @since 4.0.12
@@ -141,8 +143,8 @@ public class Pixbuf extends org.gnome.glib.Object
     private static long checkPixbufFromArrayAtScale(byte[] data, int width, int height,
             boolean preserveAspectRatio) throws IOException {
         try {
-            return GdkPixbufOverride.createPixbufFromArrayAtScale(data, width, height,
-                    preserveAspectRatio);
+            return GdkPixbufOverride.createPixbufFromArray(data, width, height, preserveAspectRatio,
+                    true);
         } catch (GlibException ge) {
             /*
              * FIXME this will need to be more specific when our GError

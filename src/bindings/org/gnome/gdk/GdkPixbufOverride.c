@@ -98,63 +98,15 @@ Java_org_gnome_gdk_GdkPixbufOverride_gdk_1pixbuf_1get_1pixels
 	return result;
 }
 
-
-JNIEXPORT jlong JNICALL
-Java_org_gnome_gdk_GdkPixbufOverride_gdk_1pixbuf_1new_1from_1stream
-(
-	JNIEnv* env,
-	jclass cls,
-	jbyteArray _data
-)
-{
-	GInputStream *input_stream;
-	gssize len;
-	void *data;
-	GdkPixbuf* result;
-	GError* error = NULL;
-
-	// set up the length and input stream parameters.
-	len = (*env)->GetArrayLength(env, _data);
-	data = (*env)->GetByteArrayElements(env, _data, NULL);
-
-	/*
-	 * Jump through the necessary hoops to feed an array of bytes to the
-	 * GdkPixbuf constructor
-	 */
-
-	input_stream = g_memory_input_stream_new_from_data(data, len, NULL);
-
-	result = gdk_pixbuf_new_from_stream(input_stream, NULL, &error);
-
-	g_input_stream_close(input_stream, NULL, NULL);
-	g_object_unref(input_stream);
-
-	// cleanup parameter data
-	(*env)->ReleaseByteArrayElements(env, _data, data, 0);
-
-	// cleanup return value
-	if (result != NULL) {
-		bindings_java_memory_cleanup((GObject*)result, TRUE);
-	}
-
-	// check for a GError
-	if (error) {
-		bindings_java_throw_gerror(env, error);
-		return 0L;
-	}
-
-	return (jlong) result;
-}
-
-//FIXME: Duplicate code.
-JNIEXPORT jlong JNICALL Java_org_gnome_gdk_GdkPixbufOverride_gdk_1pixbuf_1new_1from_1stream_1at_1scale
+JNIEXPORT jlong JNICALL Java_org_gnome_gdk_GdkPixbufOverride_gdk_1pixbuf_1new_1from_1stream
 (
 	JNIEnv* env,
 	jclass cls,
 	jbyteArray _data,
 	jint _width,
 	jint _height,
-	jboolean _preserveAspectRatio
+	jboolean _preserveAspectRatio,
+	jboolean _scale
 )
 {
 	GInputStream *input_stream;
@@ -173,8 +125,10 @@ JNIEXPORT jlong JNICALL Java_org_gnome_gdk_GdkPixbufOverride_gdk_1pixbuf_1new_1f
 	 */
 
 	input_stream = g_memory_input_stream_new_from_data(data, len, NULL);
-
-	result = gdk_pixbuf_new_from_stream_at_scale(input_stream, _width, _height, _preserveAspectRatio, NULL, &error);
+	if(_scale)
+		result = gdk_pixbuf_new_from_stream_at_scale(input_stream, _width, _height, _preserveAspectRatio, NULL, &error);
+	else
+		result = gdk_pixbuf_new_from_stream(input_stream, NULL, &error);
 
 	g_input_stream_close(input_stream, NULL, NULL);
 	g_object_unref(input_stream);
