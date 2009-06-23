@@ -98,7 +98,8 @@ Java_org_gnome_gdk_GdkPixbufOverride_gdk_1pixbuf_1get_1pixels
 	return result;
 }
 
-JNIEXPORT jlong JNICALL Java_org_gnome_gdk_GdkPixbufOverride_gdk_1pixbuf_1new_1from_1stream
+JNIEXPORT jlong JNICALL
+Java_org_gnome_gdk_GdkPixbufOverride_gdk_1pixbuf_1new_1from_1stream
 (
 	JNIEnv* env,
 	jclass cls,
@@ -112,23 +113,32 @@ JNIEXPORT jlong JNICALL Java_org_gnome_gdk_GdkPixbufOverride_gdk_1pixbuf_1new_1f
 	GInputStream *input_stream;
 	gssize len;
 	void *data;
+	int width;
+	int height;
+	gboolean preserveAspectRatio;
 	GdkPixbuf* result;
 	GError* error = NULL;
 
 	// set up the length and input stream parameters.
 	len = (*env)->GetArrayLength(env, _data);
 	data = (*env)->GetByteArrayElements(env, _data, NULL);
+	width = (int) _width;
+	height = (int) _height;
+	preserveAspectRatio = (gboolean) _preserveAspectRatio;
 
 	/*
 	 * Jump through the necessary hoops to feed an array of bytes to the
-	 * GdkPixbuf constructor
+	 * GdkPixbuf constructor. This code a wrapper around two native
+	 * functions; we use the last boolean across the function call stack to
+	 * decide which to call.
 	 */
 
 	input_stream = g_memory_input_stream_new_from_data(data, len, NULL);
-	if(_scale)
-		result = gdk_pixbuf_new_from_stream_at_scale(input_stream, _width, _height, _preserveAspectRatio, NULL, &error);
-	else
+	if (_scale) {
+		result = gdk_pixbuf_new_from_stream_at_scale(input_stream, width, height, preserveAspectRatio, NULL, &error);
+	} else {
 		result = gdk_pixbuf_new_from_stream(input_stream, NULL, &error);
+	}
 
 	g_input_stream_close(input_stream, NULL, NULL);
 	g_object_unref(input_stream);
