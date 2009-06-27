@@ -56,3 +56,10 @@
   )
 )
 
+(define-virtual uri_clicked
+  (of-object "GtkLinkButton")
+  (return-type "none")
+  (parameters
+    '("gchar*" "link")
+  )
+)
