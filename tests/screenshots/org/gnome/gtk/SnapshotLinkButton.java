@@ -22,20 +22,27 @@ public class SnapshotLinkButton extends Snapshot
         super(LinkButton.class);
 
         final VBox x;
-        final LinkButton l1, l2;
+        final LinkButton link1, link2;
+        final Label label1, label2;
 
         window = new Window();
         window.setDecorated(false);
         window.setBorderWidth(6);
 
         x = new VBox(true, 6);
-
-        l1 = new LinkButton(new URI("http://java-gnome.sourceforge.net"));
-        x.packStart(l1, false, false, 0);
         
-        l2 = new LinkButton(new URI("http://java-gnome.sourceforge.net"),"Java-Gnome");
-        l2.setVisited(true);
-        x.packStart(l2, false, false, 0);
+        label1 = new Label("LinkButton with URI as label");
+        x.packStart(label1, false, false, 0);
+
+        link1 = new LinkButton(new URI("http://java-gnome.sourceforge.net"));
+        x.packStart(link1, false, false, 0);
+        
+        label2 = new Label("A visited LinkButton with a custom label");
+        x.packStart(label2, false, false, 0);
+        
+        link2 = new LinkButton(new URI("http://java-gnome.sourceforge.net"),"Java-Gnome");
+        link2.setVisited(true);
+        x.packStart(link2, false, false, 0);
 
         window.add(x);
     }
