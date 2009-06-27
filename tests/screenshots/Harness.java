@@ -31,6 +31,7 @@ import org.gnome.gtk.SnapshotComboBox;
 import org.gnome.gtk.SnapshotFileChooserDialog;
 import org.gnome.gtk.SnapshotHScale;
 import org.gnome.gtk.SnapshotInfoMessageDialog;
+import org.gnome.gtk.SnapshotLinkButton;
 import org.gnome.gtk.SnapshotNotebook;
 import org.gnome.gtk.SnapshotQuestionMessageDialog;
 import org.gnome.gtk.SnapshotRadioButton;
@@ -164,7 +165,8 @@ public final class Harness
                     SnapshotMatrixRotate.class,
                     SnapshotMatrixScale.class,
                     SnapshotMatrixTranslate.class,
-                    SnapshotContextRectangle.class
+                    SnapshotContextRectangle.class,
+                    SnapshotLinkButton.class
             };
 
             /*

@@ -17,7 +17,8 @@ import java.net.URISyntaxException;
 /**
  * LinkButton is a specialized subclass of {@link Button} for linking to
  * {@link URI}'s. The default action is to open the {@link URI} with its
- * default viewer determined by the desktop environment.
+ * associated application determined by the desktop environment. <img
+ * src="LinkButton.png" class="snapshot">
  * 
  * @author Serkan Kaba
  */
@@ -60,32 +61,35 @@ public class LinkButton extends Button
     public void setUri(URI uri) {
         GtkLinkButton.setUri(this, uri.toString());
     }
-    
+
     /**
-     * Returns the buttons visited state. Note that this might be modified programatically
-     * by {@link #setVisited(boolean)}. 
+     * Returns the buttons visited state. Note that this might be modified
+     * programatically by {@link #setVisited(boolean)}.
      */
     public boolean getVisited() {
         return GtkLinkButton.getVisited(this);
     }
-    
+
     /**
      * Modifies the button's visited state.
      */
     public void setVisited(boolean visited) {
-        GtkLinkButton.setVisited(this,visited);
+        GtkLinkButton.setVisited(this, visited);
     }
-    
+
     /**
      * Callback invoked when the LinkButton is clicked.
+     * 
      * @author Serkan Kaba
      */
-    public interface UriHook {
+    public interface UriHook
+    {
         public void onUriClicked(LinkButton source, URI uri);
     }
-    
-    private static class UriClickHandler implements GtkLinkButton.UriClickedSignal {
-        
+
+    private static class UriClickHandler implements GtkLinkButton.UriClickedSignal
+    {
+
         private final UriHook uriHook;
 
         public UriClickHandler(UriHook uriHook) {
@@ -98,13 +102,13 @@ public class LinkButton extends Button
             } catch (URISyntaxException e) {
                 throw new RuntimeException("We shouldn't be throwing this exception", e);
             }
-            
+
         }
     }
-    
+
     /**
-     * Hookup a custom <code>UriHook</code> to override the default behavior of the LinkButton.
-     * The default behavior is to open the {@link URI} with its associated application.
+     * Hookup a custom <code>UriHook</code> to override the default behavior
+     * of the LinkButton.
      */
     public void setUriHook(UriHook uriHook) {
         GtkLinkButtonOverride.setUriHook(this);
