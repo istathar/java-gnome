@@ -1,5 +1,5 @@
 /*
- * SnapshotArrow.java
+ * SnapshotLinkButton.java
  *
  * Copyright (c) 2009 Operational Dynamics Consulting Pty Ltd and Others
  * 
