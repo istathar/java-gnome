@@ -14,7 +14,8 @@ package org.gnome.gtk;
 final class GtkLinkButtonOverride extends Plumbing
 {
     /**
-     * Manually hookup the function that will emit our custom uri-clicked signal.
+     * Manually hookup the function that will emit our custom uri-clicked
+     * signal.
      */
     static final void setUriHook(LinkButton self) {
         gtk_link_button_set_uri_hook(pointerOf(self));
