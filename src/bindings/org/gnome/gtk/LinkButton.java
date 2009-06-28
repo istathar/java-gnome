@@ -21,6 +21,7 @@ import java.net.URISyntaxException;
  * src="LinkButton.png" class="snapshot">
  * 
  * @author Serkan Kaba
+ * @since 4.0.12
  */
 public class LinkButton extends Button
 {
@@ -31,6 +32,8 @@ public class LinkButton extends Button
     /**
      * Create a button pointing to given {@link URI}. The <code>uri</code>
      * will also be used as the label.
+     * 
+     * @since 4.0.12
      */
     public LinkButton(URI uri) {
         super(GtkLinkButton.createLinkButton(uri.toString()));
@@ -39,6 +42,8 @@ public class LinkButton extends Button
     /**
      * Create a button pointing to given {@link URI}. and labeled as
      * <code>label</code>.
+     * 
+     * @since 4.0.12
      */
     public LinkButton(URI uri, String label) {
         super(GtkLinkButton.createLinkButtonWithLabel(uri.toString(), label));
@@ -46,6 +51,8 @@ public class LinkButton extends Button
 
     /**
      * Returns the button's {@link URI}.
+     * 
+     * @since 4.0.12
      */
     public URI getUri() {
         try {
@@ -57,6 +64,8 @@ public class LinkButton extends Button
 
     /**
      * Modifies the button's {@link URI}.
+     * 
+     * @since 4.0.12
      */
     public void setUri(URI uri) {
         GtkLinkButton.setUri(this, uri.toString());
@@ -65,6 +74,8 @@ public class LinkButton extends Button
     /**
      * Returns the buttons visited state. Note that this might be modified
      * programatically by {@link #setVisited(boolean)}.
+     * 
+     * @since 4.0.12
      */
     public boolean getVisited() {
         return GtkLinkButton.getVisited(this);
@@ -72,6 +83,8 @@ public class LinkButton extends Button
 
     /**
      * Modifies the button's visited state.
+     * 
+     * @since 4.0.12
      */
     public void setVisited(boolean visited) {
         GtkLinkButton.setVisited(this, visited);
@@ -81,6 +94,7 @@ public class LinkButton extends Button
      * Callback invoked when the LinkButton is clicked.
      * 
      * @author Serkan Kaba
+     * @since 4.0.12
      */
     public interface UriHook
     {
@@ -109,6 +123,8 @@ public class LinkButton extends Button
     /**
      * Hookup a custom <code>UriHook</code> to override the default behavior
      * of the LinkButton.
+     * 
+     * @since 4.0.12
      */
     public void setUriHook(UriHook uriHook) {
         GtkLinkButtonOverride.setUriHook(this);
