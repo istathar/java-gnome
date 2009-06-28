@@ -25,15 +25,18 @@ final class GdkPixbufOverride extends Plumbing
 
     private static native final byte[] gdk_pixbuf_get_pixels(long self);
 
-    static final long createPixbufFromArray(byte[] data) throws GlibException {
+    static final long createPixbufFromArray(byte[] data, int width, int height,
+            boolean preserveAspectRatio, boolean scale) throws GlibException {
         if (data == null) {
             throw new IllegalArgumentException("byte array can't be null");
         }
 
         synchronized (lock) {
-            return gdk_pixbuf_new_from_stream(data);
+            return gdk_pixbuf_new_from_stream(data, width, height, preserveAspectRatio, scale);
         }
     }
 
-    private static native final long gdk_pixbuf_new_from_stream(byte[] data) throws GlibException;
+    private static native final long gdk_pixbuf_new_from_stream(byte[] data, int width,
+            int height, boolean preserveAspectRatio, boolean scale) throws GlibException;
+
 }

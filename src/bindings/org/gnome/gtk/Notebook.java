@@ -282,4 +282,22 @@ public class Notebook extends Container
     public void setShowBorder(boolean setting) {
         GtkNotebook.setShowBorder(this, setting);
     }
+
+    /**
+     * Sets whether all the tabs will be visible, thus increasing the size the
+     * Notebook takes, or instead only show as many tabs as the current size
+     * of the Notebook allows. In this later case, an pair of arrows for
+     * scrolling among all tabs will be show in the tab label area.
+     * 
+     * <p>
+     * It is desirable to call this with a <code>true</code> value if the
+     * Notebook has many pages. Otherwise, the tabs will artificially increase
+     * the size of the Notebook, sometimes even leading to a Window that
+     * cannot fit in the screen space.
+     * 
+     * @since 4.0.12
+     */
+    public void setScrollable(boolean setting) {
+        GtkNotebook.setScrollable(this, setting);
+    }
 }
