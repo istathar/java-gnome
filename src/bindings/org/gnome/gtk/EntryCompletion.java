@@ -299,7 +299,6 @@ public class EntryCompletion extends Object implements CellLayout
 
         public boolean onMatchSelected(EntryCompletion source, TreeModel model, TreeIter iter) {
             iter.setModel(model);
-
             return handler.onMatchSelected(source, model, iter);
         }
     }
@@ -460,7 +459,6 @@ public class EntryCompletion extends Object implements CellLayout
 
         public boolean onCursorOnMatch(EntryCompletion source, TreeModel model, TreeIter iter) {
             iter.setModel(model);
-
             return handler.onCursorOnMatch(source, model, iter);
         }
     }
@@ -514,5 +512,86 @@ public class EntryCompletion extends Object implements CellLayout
      */
     public void connect(EntryCompletion.CursorOnMatch handler) {
         GtkEntryCompletion.connect(this, new CursorOnMatchHandler(handler), false);
+    }
+
+    /*
+     * This internal class is needed because the TreeIter passed to the
+     * handler does not have the model field properly set, so we need to set
+     * it before passing the TreeIter to the user.
+     */
+    private static class MatchHandler implements GtkEntryCompletion.MatchSignal
+    {
+        private final Match handler;
+
+        private MatchHandler(Match handler) {
+            this.handler = handler;
+        }
+
+        public boolean onMatch(EntryCompletion source, String key, TreeIter iter) {
+            iter.setModel(source.getModel());
+            return handler.onMatch(source, key, iter);
+        }
+    }
+
+    /**
+     * The callback invoked when a EntryCompletion wants to ask if a given row
+     * in the TreeModel should be in the completion list.
+     * 
+     * Generally, when you will receive the callback you will reach into the
+     * source's {@link #getModel() model} and query a column by which you will
+     * determine whether or not to include this row. It allows you to a create
+     * a more complex completion behavior into the
+     * <code>EntryCompletion.Match</code> callback. The behavior of a default
+     * EntryCompletion can be written like that:
+     * 
+     * <pre>
+     * final DataColumnString column;
+     * final EntryCompletion completion;
+     * 
+     * ...
+     * 
+     * completion.setMatchCallback(new EntryCompletion.Match() {
+     *     public boolean onMatch(EntryCompletion source, String key, TreeIter iter) {
+     *         final TreeModel model;
+     *         final String text;
+     * 
+     *         model = source.getModel();
+     *         text = model.getValue(iter, column);
+     * 
+     *         return text.startsWith(key);
+     *     }
+     * });
+     * </pre>
+     * 
+     * <p>
+     * <i>If you are researching the GTK API documentation, see
+     * <code>(*GtkEntryCompletionMatchFunc)</code>. Creating and invoking this
+     * "match" signal is how java-gnome has implemented the function pointer
+     * expected by <code>gtk_entry_completion_set_match_func()</code>.</i>
+     * 
+     * @since 4.0.12
+     */
+    public interface Match
+    {
+        /**
+         * Tell if a row should be in the completion list or not. Return
+         * <code>true</code> for the row to be included in the list, or
+         * <code>false</code> for the row to be excluded.
+         * 
+         * @since 4.0.12
+         */
+        public boolean onMatch(EntryCompletion source, String key, TreeIter iter);
+    }
+
+    /**
+     * Hookup the <code>EntryCompletion.Match</code> callback that will be
+     * used to determine if a row of the associated TreeModel should be in the
+     * completion list.
+     * 
+     * @since 4.0.12
+     */
+    public void setMatchCallback(EntryCompletion.Match callback) {
+        GtkEntryCompletionOverride.setMatchFunc(this);
+        GtkEntryCompletion.connect(this, new MatchHandler(callback), false);
     }
 }
