@@ -15,10 +15,10 @@ import java.net.URI;
 import java.net.URISyntaxException;
 
 /**
- * LinkButton is a specialized subclass of {@link Button} for linking to
- * {@link URI}'s. The default action is to open the {@link URI} with its
- * associated application determined by the desktop environment. <img
- * src="LinkButton.png" class="snapshot">
+ * LinkButton is a specialized subclass of Button for linking to URIs. The
+ * default action is to open the URI with its associated application
+ * determined by the desktop environment. <img src="LinkButton.png"
+ * class="snapshot">
  * 
  * @author Serkan Kaba
  * @since 4.0.12
@@ -30,8 +30,8 @@ public class LinkButton extends Button
     }
 
     /**
-     * Create a button pointing to given {@link URI}. The <code>uri</code>
-     * will also be used as the label.
+     * Create a button pointing to given URI. The <code>uri</code> will also
+     * be used as the label.
      * 
      * @since 4.0.12
      */
@@ -40,8 +40,8 @@ public class LinkButton extends Button
     }
 
     /**
-     * Create a button pointing to given {@link URI}. and labeled as
-     * <code>label</code>.
+     * Create a button pointing to given URI, but showing the text in
+     * <code>label</code> as you would expect from a normal hyperlink.
      * 
      * @since 4.0.12
      */
@@ -50,7 +50,7 @@ public class LinkButton extends Button
     }
 
     /**
-     * Returns the button's {@link URI}.
+     * Returns the button's URI.
      * 
      * @since 4.0.12
      */
@@ -121,12 +121,12 @@ public class LinkButton extends Button
     }
 
     /**
-     * Hookup a custom <code>UriHook</code> to override the default behavior
+     * Hookup a custom <code>LinkButton.UriHook</code> to override the default behavior
      * of the LinkButton.
      * 
      * @since 4.0.12
      */
-    public void setUriHook(UriHook uriHook) {
+    public void setUriHook(LinkButton.UriHook uriHook) {
         GtkLinkButtonOverride.setUriHook(this);
         GtkLinkButton.connect(this, new UriClickHandler(uriHook), false);
     }

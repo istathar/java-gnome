@@ -30,17 +30,17 @@ public class SnapshotLinkButton extends Snapshot
         window.setBorderWidth(6);
 
         x = new VBox(true, 6);
-        
-        label1 = new Label("LinkButton with URI as label");
+
+        label1 = new Label("LinkButton with only a URI as its label");
         x.packStart(label1, false, false, 0);
 
-        link1 = new LinkButton(new URI("http://java-gnome.sourceforge.net"));
+        link1 = new LinkButton(new URI("http://java-gnome.sourceforge.net/"));
         x.packStart(link1, false, false, 0);
-        
-        label2 = new Label("A visited LinkButton with a custom label");
+
+        label2 = new Label("A visited LinkButton with a text label");
         x.packStart(label2, false, false, 0);
-        
-        link2 = new LinkButton(new URI("http://java-gnome.sourceforge.net"),"Java-Gnome");
+
+        link2 = new LinkButton(new URI("http://java-gnome.sourceforge.net/"), "The java-gnome website");
         link2.setVisited(true);
         x.packStart(link2, false, false, 0);
 
