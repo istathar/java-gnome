@@ -112,11 +112,6 @@ identifying the location of a few things. Better yet, look in the `configure`
 Perl script -- the places where OS is switched are obvious, and just add what
 you need to add, and send us a patch.
 
-Hopefully in the not to distant future we will be able to switch to Robert
-Collins's new "Fabricate". His approach to configuration and building will
-revolutionize the Free and Open Source Software universe, and we look forward
-to participating in the development of his work.
-
 Meanwhile...
 
 ### Customizing build options ###
@@ -174,6 +169,17 @@ java-gnome depends on:
 * gtksourceview `>= 2.6.2`
 
 * libnotify `>= 0.4.5`
+
+* gtkspell `>= 2.0.15`  
+_WARNING: GtkSpell has
+[bug](https://sourceforge.net/tracker/?func=detail&aid=2793202&group_id=7896&atid=107896)
+which causes a_ `CRITICAL` _to be thrown when there are no suggestions for a
+misspelt word. This crasher is known to be fixed in the Gentoo Linux package
+of GtkSpell; users of other distros will likewise need to patch their GtkSpell
+packages until this is fixed upstream. If you're not attempting to use spell
+checking this bug will not affect you._
+
+* libnotify `>= 1.0.8`
 
 3. Build
 --------

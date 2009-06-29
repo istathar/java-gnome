@@ -43,6 +43,7 @@ import org.gnome.gtk.ValidateStockItems;
 import org.gnome.gtk.ValidateTextBuffer;
 import org.gnome.gtk.ValidateTextViewBorderWindows;
 import org.gnome.gtk.ValidateTextViewProperties;
+import org.gnome.gtk.ValidateTextViewSpelling;
 import org.gnome.gtk.ValidateTreeModel;
 import org.gnome.gtk.ValidateTreeModelFilter;
 import org.gnome.gtk.ValidateTreeStore;
@@ -50,6 +51,7 @@ import org.gnome.gtk.ValidateTreeView;
 import org.gnome.pango.ValidatePangoAttributeUsage;
 import org.gnome.pango.ValidatePangoTextRendering;
 import org.gnome.sourceview.ValidateSourceView;
+import org.gnome.unique.ValidateUniqueApplications;
 
 import com.operationaldynamics.codegen.ValidateThingUsage;
 import com.operationaldynamics.codegen.ValidateUtilityMethods;
@@ -152,11 +154,13 @@ public class UnitTests
         suite.addTestSuite(ValidateTextBuffer.class);
         suite.addTestSuite(ValidateTextViewProperties.class);
         suite.addTestSuite(ValidateTextViewBorderWindows.class);
+        suite.addTestSuite(ValidateTextViewSpelling.class);
         suite.addTestSuite(ValidateArrow.class);
         suite.addTestSuite(ValidatePangoTextRendering.class);
         suite.addTestSuite(ValidatePangoAttributeUsage.class);
         suite.addTestSuite(ValidatePrinting.class);
         suite.addTestSuite(ValidateSourceView.class);
+        suite.addTestSuite(ValidateUniqueApplications.class);
 
         return suite;
     }

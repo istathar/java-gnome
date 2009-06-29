@@ -75,6 +75,7 @@ CellEditable
 CellLayout
 CellRenderer
 CellRendererPixbuf
+CellRendererProgress
 CellRendererText
 CellRendererText's
 CellRendererTexts
@@ -328,6 +329,7 @@ GtkCalendar
 GtkCalendarDisplayOptions
 GtkCellLayout
 GtkCellRendererPixbuf
+GtkCellRendererProgress
 GtkCellRendererText
 GtkCellRendererToggle
 GtkCheckButton
@@ -509,6 +511,7 @@ JVMs
 JamVM
 JavaDoc
 JavaVM
+Joao
 Juma
 Kaba
 Kamil
@@ -544,8 +547,8 @@ Ljava
 Lorem
 Lorg
 Lortie
-LowBatteryExample
 LoveLetter
+LowBatteryExample
 MAXUINT
 MVC
 Machame
@@ -563,6 +566,7 @@ MapEvent
 MapEventSignal
 MarkSet
 MarkSetSignal
+Mazoyer
 McLachlan
 MenuBars
 MenuItem
@@ -664,6 +668,7 @@ Prelle
 PrepareSignal
 PressMe
 ProgressBar
+ProgressBar's
 Prugh
 Przemys
 Pty
@@ -1076,6 +1081,7 @@ createButtonWithLabel
 createButtonWithMnemonic
 createCalendar
 createCellRendererPixbuf
+createCellRendererProgress
 createCellRendererText
 createCellRendererToggle
 createCheckButton
@@ -2037,6 +2043,7 @@ setAlignment
 setAlignmentX
 setAngle
 setAntialias
+setArtists
 setAttributes
 setAuthors
 setBackground
@@ -2065,6 +2072,7 @@ setDefaultSize
 setDigits
 setDirection
 setDisplayOptions
+setDocumenters
 setDraw
 setEditable
 setEllipsize
@@ -2117,6 +2125,7 @@ setLabelAlign
 setLabelWidget
 setLayout
 setLeftMargin
+setLicense
 setLine
 setLineOffset
 setLineWidth
@@ -2249,6 +2258,7 @@ setWeight
 setWidth
 setWidthChars
 setWrap
+setWrapLicense
 setWrapMode
 settingsDaemon
 showAll
