@@ -107,15 +107,15 @@ public class LinkButton extends Button
     private static class UriClickHandler implements GtkLinkButton.UriClickedSignal
     {
 
-        private final UriHook uriHook;
+        private final UriHook handler;
 
         public UriClickHandler(UriHook uriHook) {
-            this.uriHook = uriHook;
+            this.handler = uriHook;
         }
 
         public void onUriClicked(LinkButton source, String link) {
             try {
-                uriHook.onUriClicked(source, new URI(link));
+                handler.onUriClicked(source, new URI(link));
             } catch (URISyntaxException e) {
                 throw new RuntimeException("We shouldn't be throwing this exception", e);
             }
@@ -129,8 +129,8 @@ public class LinkButton extends Button
      * 
      * @since 4.0.12
      */
-    public void setUriHook(LinkButton.UriHook uriHook) {
+    public void setUriHook(LinkButton.UriHook handler) {
         GtkLinkButtonOverride.setUriHook(this);
-        GtkLinkButton.connect(this, new UriClickHandler(uriHook), false);
+        GtkLinkButton.connect(this, new UriClickHandler(handler), false);
     }
 }
