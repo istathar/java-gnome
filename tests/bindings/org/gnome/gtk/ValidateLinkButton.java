@@ -44,7 +44,7 @@ public class ValidateLinkButton extends TestCaseGtk
         assertTrue(link.getVisited());
         link.setVisited(false);
         assertFalse(link.getVisited());
-        assertEquals(java_gnome, link.getUri());
+        assertEquals(java_gnome, link.getURI());
     }
 
     private boolean first;

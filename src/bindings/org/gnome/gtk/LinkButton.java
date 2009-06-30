@@ -1,7 +1,7 @@
 /*
  * LinkButton.java
  *
- * Copyright (c) 2009 Operational Dynamics Consulting Pty Ltd and Others
+ * Copyright (c) 2009 Operational Dynamics Consulting Pty Ltd, and Others
  *
  * The code in this file, and the library it is a part of, are made available
  * to you by the authors under the terms of the "GNU General Public Licence,
@@ -54,7 +54,10 @@ public class LinkButton extends Button
      * 
      * @since 4.0.12
      */
-    public URI getUri() {
+    /*
+     * Naming convention same as FileChooser's getURI().
+     */
+    public URI getURI() {
         try {
             return new URI(GtkLinkButton.getUri(this));
         } catch (URISyntaxException e) {
@@ -67,7 +70,7 @@ public class LinkButton extends Button
      * 
      * @since 4.0.12
      */
-    public void setUri(URI uri) {
+    public void setURI(URI uri) {
         GtkLinkButton.setUri(this, uri.toString());
     }
 
@@ -121,8 +124,8 @@ public class LinkButton extends Button
     }
 
     /**
-     * Hookup a custom <code>LinkButton.UriHook</code> to override the default behavior
-     * of the LinkButton.
+     * Hookup a custom <code>LinkButton.UriHook</code> to override the default
+     * behavior of the LinkButton.
      * 
      * @since 4.0.12
      */
