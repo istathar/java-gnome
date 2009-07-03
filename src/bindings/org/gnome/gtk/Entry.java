@@ -313,7 +313,7 @@ public class Entry extends Widget implements Editable, CellEditable
      * @since 4.0.12
      */
     public EntryCompletion getCompletion() {
-        GtkEntry.getCompletion(this);
+        return GtkEntry.getCompletion(this);
     }
 
     /**
