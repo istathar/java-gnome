@@ -308,6 +308,15 @@ public class Entry extends Widget implements Editable, CellEditable
     }
 
     /**
+     * Returns the current {@link EntryCompletion} object which is currently used by the <code>Entry</code>.
+     * 
+     * @since 4.0.12
+     */
+    public EntryCompletion getCompletion() {
+        GtkEntry.getCompletion(this);
+    }
+
+    /**
      * Set whether the Entry has a bevelled frame around it or not. The
      * default (as you will be well accustomed to seeing) is <code>true</code>
      * .
