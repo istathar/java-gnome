@@ -11,13 +11,18 @@
 package completion;
 
 import org.gnome.gdk.Event;
+import org.gnome.gtk.Button;
 import org.gnome.gtk.DataColumn;
 import org.gnome.gtk.DataColumnString;
+import org.gnome.gtk.Dialog;
 import org.gnome.gtk.Entry;
 import org.gnome.gtk.EntryCompletion;
 import org.gnome.gtk.Gtk;
+import org.gnome.gtk.InfoMessageDialog;
 import org.gnome.gtk.Label;
 import org.gnome.gtk.ListStore;
+import org.gnome.gtk.ResponseType;
+import org.gnome.gtk.Stock;
 import org.gnome.gtk.TreeIter;
 import org.gnome.gtk.TreeModel;
 import org.gnome.gtk.VBox;
@@ -35,8 +40,14 @@ public class ExampleEntryCompletion
     public static void main(String[] args) {
         final Window window;
         final VBox vbox;
-        final Label label;
-        final Entry entry;
+
+        final Button button;
+
+        final Label loginLabel;
+        final Label passwordLabel;
+
+        final Entry loginEntry;
+        final Entry passwordEntry;
         final EntryCompletion completion;
 
         final ListStore model;
@@ -71,19 +82,24 @@ public class ExampleEntryCompletion
         vbox = new VBox(false, 3);
 
         /*
-         * Create a Label with some text describing the Button that will
-         * follow, then add it to the VBox.
+         * Create Labels with some text describing what the entries are here.
          */
 
-        label = new Label("Go ahead: try me!");
-        vbox.add(label);
+        loginLabel = new Label("Login");
+        passwordLabel = new Label("Password");
 
         /*
-         * Create the Entry which will display the text.
+         * Create the Entries which will display the text.
          */
 
-        entry = new Entry();
-        vbox.add(entry);
+        loginEntry = new Entry();
+        passwordEntry = new Entry();
+
+        /*
+         * The password Entry should hide its text.
+         */
+
+        passwordEntry.setVisibility(false);
 
         /*
          * Create the EntryCompletion.
@@ -105,7 +121,7 @@ public class ExampleEntryCompletion
          */
 
         String[] words = {
-                "abc", "def", "ghi", "jkl", "mno", "pqr", "stu", "vwx", "yz"
+                "respawneral@gmail.com", "java-gnome@gnome.org"
         };
         TreeIter row;
         for (String word : words) {
@@ -133,7 +149,7 @@ public class ExampleEntryCompletion
          * Finally, indicate to the entry which completion it has to use.
          */
 
-        entry.setCompletion(completion);
+        loginEntry.setCompletion(completion);
 
         /*
          * When the MatchSelected signal is emitted, it means the user has
@@ -169,7 +185,99 @@ public class ExampleEntryCompletion
 
                 entry.setPosition(-1);
 
+                /*
+                 * Use a fake password
+                 */
+
+                passwordEntry.setText("abcdefgh");
+
                 return true;
+            }
+        });
+
+        /*
+         * Pack everything in the box.
+         */
+
+        vbox.add(loginLabel);
+        vbox.add(loginEntry);
+        vbox.add(passwordLabel);
+        vbox.add(passwordEntry);
+
+        /*
+         * Now we create the "connection" button.
+         */
+
+        button = new Button(Stock.CONNECT);
+        vbox.add(button);
+
+        /*
+         * Connect the button to a signal.
+         */
+
+        button.connect(new Button.Clicked() {
+            public void onClicked(Button source) {
+                /*
+                 * Get the address which was entered in the login Entry.
+                 */
+
+                final String address = loginEntry.getText();
+
+                /*
+                 * Don't do anything if there's no address.
+                 */
+
+                if (address.isEmpty())
+                    return;
+
+                /*
+                 * Display a little message in the dialog.
+                 */
+
+                InfoMessageDialog dialog = new InfoMessageDialog(window, "Login successful",
+                        "You tryed to get login with '" + address
+                                + "' address. Try it again with the same address.");
+
+                /*
+                 * Just close the dialog if we click on its button.
+                 */
+
+                dialog.connect(new Dialog.Response() {
+                    public void onResponse(Dialog source, ResponseType response) {
+                        source.hide();
+                    }
+                });
+
+                dialog.run();
+
+                /*
+                 * Search if the address has already been use.
+                 */
+
+                boolean add = true;
+                TreeIter row = model.getIterFirst();
+                do {
+                    final String text = model.getValue(row, column);
+
+                    if (text.equals(address))
+                        add = false;
+                } while (row.iterNext() && add);
+
+                /*
+                 * If not, we add it to the completion list.
+                 */
+
+                if (add) {
+                    row = model.appendRow();
+                    model.setValue(row, column, address);
+                }
+
+                /*
+                 * And we reset Entries.
+                 */
+
+                loginEntry.setText("");
+                passwordEntry.setText("");
             }
         });
 
@@ -178,7 +286,7 @@ public class ExampleEntryCompletion
          */
 
         window.add(vbox);
-        window.setTitle("ExampleEntryCompletion");
+        window.setTitle("Login");
         window.showAll();
 
         /*
