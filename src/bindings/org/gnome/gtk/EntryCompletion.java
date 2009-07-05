@@ -494,7 +494,7 @@ public class EntryCompletion extends Object implements CellLayout
     public interface CursorOnMatch extends GtkEntryCompletion.CursorOnMatchSignal
     {
         /**
-         * The useful parameter are <code>model</code> and <code>iter</code>
+         * The useful parameters are <code>model</code> and <code>iter</code>
          * which will make you able to get the value of the selected
          * completion using the TreeModel's
          * {@link TreeModel#getValue(TreeIter, DataColumnString) getValue()}
