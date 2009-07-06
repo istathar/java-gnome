@@ -426,7 +426,7 @@ public class Entry extends Widget implements Editable, CellEditable
      * 
      * @param position
      *            The icon {@link EntryIconPosition position}.
-     * @param stock
+     * @param name
      *            If <code>null</code>, no icon will be shown. If the icon
      *            doesn't exist, a &quot;broken image&quot; icon will be used
      *            instead.
