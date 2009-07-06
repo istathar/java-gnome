@@ -15,7 +15,7 @@ import org.freedesktop.bindings.Constant;
 
 /**
  * Constants used to specify where an icon will be placed in an {@link Entry}.
- * <img src="SnapshotEntryIcon.png" class="snapshot" />
+ * <img src="Entry.png" class="snapshot" />
  * 
  * @author Guillaume Mazoyer
  * @since 4.0.13
