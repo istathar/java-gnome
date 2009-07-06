@@ -587,17 +587,6 @@ public class Entry extends Widget implements Editable, CellEditable
     /**
      * Emitted when an activatable icon is clicked.
      * 
-     * <pre>
-     * final Entry entry;
-     * 
-     * ...
-     * 
-     * entry.connect(new Entry.IconPress() {
-     *     public void onIconPress(Entry source, EntryIconPosition position, Event event) {
-     *         doStuff();
-     *     }
-     * });
-     * 
      * @since 4.0.13
      */
     public interface IconPress extends GtkEntry.IconPressSignal
@@ -617,17 +606,6 @@ public class Entry extends Widget implements Editable, CellEditable
     /**
      * Emitted on the button release from a mouse click over an activatable
      * icon.
-     * 
-     * <pre>
-     * final Entry entry;
-     * 
-     * ...
-     * 
-     * entry.connect(new Entry.IconRelease() {
-     *     public void onIconRelease(Entry source, EntryIconPosition position, Event event) {
-     *         doStuff();
-     *     }
-     * });
      * 
      * @since 4.0.13
      */
