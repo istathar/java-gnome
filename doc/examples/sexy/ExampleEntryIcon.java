@@ -11,10 +11,8 @@
 package sexy;
 
 import org.gnome.gdk.Event;
-import org.gnome.gtk.CellRendererPixbuf;
 import org.gnome.gtk.CellRendererText;
 import org.gnome.gtk.DataColumn;
-import org.gnome.gtk.DataColumnStock;
 import org.gnome.gtk.DataColumnString;
 import org.gnome.gtk.Editable;
 import org.gnome.gtk.Entry;
@@ -44,7 +42,6 @@ public class ExampleEntryIcon
 
         final Entry entry;
 
-        final DataColumnStock iconColumn;
         final DataColumnString textColumn;
         final ListStore model;
         final TreeView treeview;
@@ -106,7 +103,7 @@ public class ExampleEntryIcon
          */
 
         model = new ListStore(new DataColumn[] {
-                iconColumn = new DataColumnStock(), textColumn = new DataColumnString()
+            textColumn = new DataColumnString()
         });
 
         /*
@@ -124,12 +121,7 @@ public class ExampleEntryIcon
          */
 
         TreeViewColumn vertical;
-        CellRendererPixbuf iconRenderer;
         CellRendererText textRenderer;
-
-        vertical = treeview.appendColumn();
-        iconRenderer = new CellRendererPixbuf(vertical);
-        iconRenderer.setStock(iconColumn);
 
         vertical = treeview.appendColumn();
         textRenderer = new CellRendererText(vertical);
@@ -151,7 +143,6 @@ public class ExampleEntryIcon
              * Set row values for each column.
              */
 
-            model.setValue(row, iconColumn, Stock.HOME);
             model.setValue(row, textColumn, contact);
         }
 
@@ -181,7 +172,6 @@ public class ExampleEntryIcon
 
                     if (values[0].startsWith(entry.getText()) || values[1].startsWith(entry.getText())) {
                         row = model.appendRow();
-                        model.setValue(row, iconColumn, Stock.HOME);
                         model.setValue(row, textColumn, contact);
                     }
                 }
