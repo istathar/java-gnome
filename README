@@ -179,6 +179,8 @@ of GtkSpell; users of other distros will likewise need to patch their GtkSpell
 packages until this is fixed upstream. If you're not attempting to use spell
 checking this bug will not affect you._
 
+* libnotify `>= 1.0.8`
+
 3. Build
 --------
 
