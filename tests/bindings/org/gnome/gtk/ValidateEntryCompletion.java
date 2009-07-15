@@ -1,7 +1,7 @@
 /*
  * ValidateEntryCompletion.java
  *
- * Copyright (c) 2009 Operational Dynamics Consulting Pty Ltd
+ * Copyright (c) 2009 Operational Dynamics Consulting Pty Ltd, and Others
  * 
  * The code in this file, and the suite it is a part of, are made available
  * to you by the authors under the terms of the "GNU General Public Licence,
@@ -52,17 +52,19 @@ public class ValidateEntryCompletion extends TestCaseGtk
         final EntryCompletion completion;
         final TreeModel extracted;
 
+        completion = new EntryCompletion();
+        assertNull(completion.getModel());
+
         model = new ListStore(new DataColumn[] {
             new DataColumnString()
         });
-        completion = new EntryCompletion();
 
         completion.setModel(model);
 
         extracted = completion.getModel();
-
-        assertTrue(extracted instanceof TreeModel);
-        assertTrue(model == extracted);
+        assertNotNull(extracted);
+        assertTrue(extracted instanceof ListStore);
+        assertSame(model, extracted);
     }
 
     public final void testExtractEntry() {
@@ -76,9 +78,7 @@ public class ValidateEntryCompletion extends TestCaseGtk
         entry.setCompletion(completion);
 
         extracted = completion.getEntry();
-
-        assertTrue(extracted instanceof Entry);
-        assertTrue(entry == extracted);
+        assertSame(entry, extracted);
     }
 
     public final void testCompleteEntry() {
@@ -86,6 +86,7 @@ public class ValidateEntryCompletion extends TestCaseGtk
         final EntryCompletion completion;
         final DataColumnString column;
         final ListStore model;
+        final String[] words;
         TreeIter row = null;
 
         entry = new Entry();
@@ -99,7 +100,7 @@ public class ValidateEntryCompletion extends TestCaseGtk
         completion.setTextColumn(column);
         entry.setCompletion(completion);
 
-        String[] words = {
+        words = new String[] {
                 "abc", "def", "ghi", "jkl", "mno", "pqr", "stu", "vwx", "yz"
         };
 
@@ -108,9 +109,30 @@ public class ValidateEntryCompletion extends TestCaseGtk
             model.setValue(row, column, word);
         }
 
-        entry.setText("a");
-        completion.complete();
+        assertTrue(completion.getPopupCompletion());
+        completion.setPopupCompletion(false);
+        assertFalse(completion.getPopupCompletion());
 
+        assertTrue(completion.getPopupSingleMatch());
+        completion.setPopupSingleMatch(false);
+        assertFalse(completion.getPopupSingleMatch());
+
+        assertFalse(completion.getInlineCompletion());
+        completion.setInlineCompletion(true);
+        assertTrue(completion.getInlineCompletion());
+
+        assertFalse(completion.getInlineSelection());
+        completion.setInlineSelection(true);
+        assertTrue(completion.getInlineSelection());
+        completion.setInlineSelection(false);
+        assertFalse(completion.getInlineSelection());
+
+        entry.setText("a");
+        completion.insertPrefix();
+        assertEquals("a", entry.getText());
+
+        completion.complete();
+        completion.insertPrefix();
         assertEquals("abc", entry.getText());
     }
 }

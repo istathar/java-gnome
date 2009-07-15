@@ -157,7 +157,7 @@ public class EntryCompletion extends Object implements CellLayout
     }
 
     /**
-     * Request a prefix insertion.
+     * FIXME what is this?
      * 
      * @since 4.0.12
      */
@@ -170,7 +170,10 @@ public class EntryCompletion extends Object implements CellLayout
      * 
      * <p>
      * If <code>setting</code> is <code>true</code>, the common prefix of the
-     * possible completions should be automatically inserted in the Entry.
+     * possible completions will be automatically inserted in the Entry.
+     * 
+     * <p>
+     * The default is <code>false</code>.
      * 
      * @since 4.0.12
      */
@@ -179,7 +182,7 @@ public class EntryCompletion extends Object implements CellLayout
     }
 
     /**
-     * Return <code>true</code> if automatic inline completion is enabled.
+     * Has automatic inline completion been enabled?
      * 
      * @since 4.0.12
      */
@@ -191,7 +194,7 @@ public class EntryCompletion extends Object implements CellLayout
      * Enable or disable completion popup.
      * 
      * <p>
-     * If <code>setting</code> is <code>true</code> the completions should be
+     * The default is <code>true</code>, which is that completions will be
      * presented in a popup window.
      * 
      * @since 4.0.12
@@ -236,7 +239,7 @@ public class EntryCompletion extends Object implements CellLayout
      * 
      * <p>
      * If <code>setting</code> is <code>true</code> the popup will appear even
-     * if there is a single match.
+     * if there is a single match. The default is that this is the case.
      * 
      * @since 4.0.12
      */
@@ -276,6 +279,9 @@ public class EntryCompletion extends Object implements CellLayout
     /**
      * Enable or disable the possibility of cycle through the possible
      * completions inside the entry.
+     * 
+     * <p>
+     * This is ordinarily unset.
      * 
      * @since 4.0.12
      */

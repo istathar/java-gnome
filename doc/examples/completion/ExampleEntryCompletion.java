@@ -40,18 +40,16 @@ public class ExampleEntryCompletion
     public static void main(String[] args) {
         final Window window;
         final VBox vbox;
-
         final Button button;
-
         final Label loginLabel;
         final Label passwordLabel;
-
         final Entry loginEntry;
         final Entry passwordEntry;
         final EntryCompletion completion;
-
         final ListStore model;
         final DataColumnString column;
+        final String[] words;
+        TreeIter row;
 
         /*
          * Initialize GTK.
@@ -120,10 +118,10 @@ public class ExampleEntryCompletion
          * Fill the model with words.
          */
 
-        String[] words = {
-                "respawneral@gmail.com", "java-gnome@gnome.org"
+        words = new String[] {
+                "respawneral@gmail.com", "joe@example.org"
         };
-        TreeIter row;
+
         for (String word : words) {
             /*
              * Append a new row for a new word.
@@ -227,8 +225,9 @@ public class ExampleEntryCompletion
                  * Don't do anything if there's no address.
                  */
 
-                if (address.isEmpty())
+                if (address.isEmpty()) {
                     return;
+                }
 
                 /*
                  * Display a little message in the dialog.
@@ -259,8 +258,9 @@ public class ExampleEntryCompletion
                 do {
                     final String text = model.getValue(row, column);
 
-                    if (text.equals(address))
+                    if (text.equals(address)) {
                         add = false;
+                    }
                 } while (row.iterNext() && add);
 
                 /*
