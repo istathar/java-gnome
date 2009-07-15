@@ -33,9 +33,11 @@ emit_match
 )
 {
 	gboolean result;
-	
+
+    /*
+     * This signal is emitted (2 * size_of_list).
+     */	
 	g_signal_emit_by_name(GTK_ENTRY_COMPLETION(instance), "match", source, key, iter, &result);
-	printf("Key: %s\n", key);
 	
 	return result;
 }

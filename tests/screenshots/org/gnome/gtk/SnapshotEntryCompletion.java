@@ -1,7 +1,7 @@
 /*
  * SnapshotEntryCompletion.java
  *
- * Copyright (c) 2009 Operational Dynamics Consulting Pty Ltd
+ * Copyright (c) 2009 Operational Dynamics Consulting Pty Ltd, and Others
  * 
  * The code in this file, and the program it is a part of, are made available
  * to you by the authors under the terms of the "GNU General Public Licence,
@@ -22,10 +22,8 @@ public class SnapshotEntryCompletion extends Snapshot
 
         final ListStore model;
         final DataColumnString column;
-
         final Entry entry;
         final EntryCompletion completion;
-
         final VBox vbox;
         final Label label;
 
