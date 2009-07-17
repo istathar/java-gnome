@@ -47,6 +47,12 @@ public class ValidateEntryCompletion extends TestCaseGtk
         }
 
         assertEquals("yz", model.getValue(row, column));
+
+        /*
+         * FIXME This code sets up a ListStore but it doesn't do anything with
+         * it to test the EntryCompletion.
+         */
+        fail("This fixture doesn't test anything");
     }
 
     public final void testExtractModel() {
