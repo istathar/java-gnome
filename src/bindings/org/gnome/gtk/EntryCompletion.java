@@ -158,9 +158,9 @@ public class EntryCompletion extends Object implements CellLayout
 
     /**
      * Complete the Entry if it is possible. It is, generally, used with the
-     * {@link #complete()} method which will request a prefix insertion. Be
-     * careful! This is the insertPrefix() method which will do the
-     * completion.
+     * {@link #complete() complete()} method which will request a prefix
+     * insertion. Be careful! This is the insertPrefix() method which will do
+     * the completion.
      * 
      * @since 4.0.12
      */

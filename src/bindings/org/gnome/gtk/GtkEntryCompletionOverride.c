@@ -1,7 +1,7 @@
 /*
  * GtkEntryCompletionOverride.c
  *
- * Copyright (c) 2009 Operational Dynamics Consulting Pty Ltd
+ * Copyright (c) 2009 Operational Dynamics Consulting Pty Ltd, and Others
  *
  * The code in this file, and the library it is a part of, are made available
  * to you by the authors under the terms of the "GNU General Public Licence,
@@ -26,18 +26,15 @@ static guint signalID = 0;
 static gboolean
 emit_match
 (
-	GtkEntryCompletion *source,
-	const gchar *key,
-	GtkTreeIter *iter,
-	gpointer instance
+	GtkEntryCompletion* completion,
+	const gchar* key,
+	GtkTreeIter* iter,
+	gpointer user_data
 )
 {
 	gboolean result;
 
-    /*
-     * This signal is emitted (2 * size_of_list).
-     */	
-	g_signal_emit_by_name(GTK_ENTRY_COMPLETION(instance), "match", source, key, iter, &result);
+	g_signal_emit_by_name(completion, "match", key, iter, &result);
 	
 	return result;
 }
@@ -71,7 +68,7 @@ Java_org_gnome_gtk_GtkEntryCompletionOverride_gtk_1entry_1completion_1set_1match
 					NULL,
 					G_TYPE_BOOLEAN,
 					2,
-					GTK_TYPE_STRING,
+					G_TYPE_STRING,
 					GTK_TYPE_TREE_ITER);
 	}
 
