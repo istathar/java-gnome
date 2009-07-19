@@ -18,6 +18,8 @@ import org.gnome.gtk.Dialog;
 import org.gnome.gtk.Entry;
 import org.gnome.gtk.EntryCompletion;
 import org.gnome.gtk.Gtk;
+import org.gnome.gtk.IconSize;
+import org.gnome.gtk.Image;
 import org.gnome.gtk.InfoMessageDialog;
 import org.gnome.gtk.Label;
 import org.gnome.gtk.ListStore;
@@ -41,6 +43,7 @@ public class ExampleEntryCompletion
         final Window window;
         final VBox vbox;
         final Button button;
+        final Image image;
         final Label loginLabel;
         final Label passwordLabel;
         final Entry loginEntry;
@@ -66,6 +69,7 @@ public class ExampleEntryCompletion
         /*
          * Connect the signal to close the window
          */
+
         window.connect(new Window.DeleteEvent() {
             public boolean onDeleteEvent(Widget source, Event event) {
                 Gtk.mainQuit();
@@ -83,6 +87,7 @@ public class ExampleEntryCompletion
          * Create Labels with some text describing what the entries are here.
          */
 
+        image = new Image(Stock.NETWORK, IconSize.DIALOG);
         loginLabel = new Label("Login");
         passwordLabel = new Label("Password");
 
@@ -197,6 +202,7 @@ public class ExampleEntryCompletion
          * Pack everything in the box.
          */
 
+        vbox.add(image);
         vbox.add(loginLabel);
         vbox.add(loginEntry);
         vbox.add(passwordLabel);
