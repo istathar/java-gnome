@@ -20,6 +20,16 @@ package org.gnome.gtk;
 final class GtkEntryCompletionOverride extends Plumbing
 {
     /**
+     * Custom method to emit MatchSelected signal and force entry to be
+     * completed.
+     */
+    static final boolean emitMatchSelected(EntryCompletion self, TreeIter iter) {
+        return gtk_entry_completion_emit_match_selected(pointerOf(self), pointerOf(iter));
+    }
+
+    private static native final boolean gtk_entry_completion_emit_match_selected(long self, long iter);
+
+    /**
      * Manually hookup the function that will emit our custom visible signal.
      */
     static final void setMatchFunc(EntryCompletion self) {

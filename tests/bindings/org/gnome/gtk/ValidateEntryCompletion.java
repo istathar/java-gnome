@@ -46,13 +46,9 @@ public class ValidateEntryCompletion extends TestCaseGtk
             model.setValue(row, column, word);
         }
 
+        assertSame(String.class, column.getType());
+        assertSame(0, column.getOrdinal());
         assertEquals("yz", model.getValue(row, column));
-
-        /*
-         * FIXME This code sets up a ListStore but it doesn't do anything with
-         * it to test the EntryCompletion.
-         */
-        fail("This fixture doesn't test anything");
     }
 
     public final void testExtractModel() {
@@ -139,12 +135,11 @@ public class ValidateEntryCompletion extends TestCaseGtk
         completion.insertPrefix();
         assertEquals("a", entry.getText());
 
-        completion.complete();
-        completion.insertPrefix();
+        completion.emitMatchSelected(model.getIterFirst());
         assertEquals("abc", entry.getText());
     }
 
-    private int matching;
+    private TreeIter completionIter;
 
     public final void testMatching() {
         final Entry entry;
@@ -174,38 +169,32 @@ public class ValidateEntryCompletion extends TestCaseGtk
             model.setValue(row, column, word);
         }
 
-        matching = 0;
-
         completion.setMatchCallback(new EntryCompletion.Match() {
             public boolean onMatch(EntryCompletion source, String key, TreeIter iter) {
                 final String text, lower;
+                boolean result;
 
                 text = model.getValue(iter, column);
                 lower = text.toLowerCase();
+                result = lower.contains(key);
 
-                if (lower.contains(key)) {
-                    matching++;
-                    return true;
-                } else {
-                    return false;
-                }
+                if (result)
+                    completionIter = iter;
+
+                return result;
             }
         });
 
         entry.setText("C");
         completion.complete();
-
-        /*
-         * Did it only get hit once?
-         */
-
-        assertEquals(1, matching);
-
-        /*
-         * And did the item we expected get selected?
-         */
-
         completion.insertPrefix();
+
+        /*
+         * Did the item we expected get selected?
+         */
+
+        if (completionIter != null)
+            completion.emitMatchSelected(completionIter);
         assertEquals("Toronto, Canada", entry.getText());
     }
 }

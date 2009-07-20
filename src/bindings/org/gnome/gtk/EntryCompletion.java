@@ -102,12 +102,28 @@ public class EntryCompletion extends Object implements CellLayout
     /**
      * Request a completion operation, for example a refiltering of the
      * current list with completions, using the current key. The completion
-     * list view will be updated accordingly.
+     * list view will be updated accordingly. Be careful! This method will not
+     * complete the entry.
      * 
      * @since 4.0.12
      */
     public void complete() {
         GtkEntryCompletion.complete(this);
+    }
+
+    /**
+     * Force the {@link EntryCompletion.MatchSelected} signal to be emitted.
+     * This action will result by the completion of the associated entry using
+     * the completion string pointed by the given {@link TreeIter}.
+     * 
+     * @since 4.0.12
+     */
+    public boolean emitMatchSelected(TreeIter row) {
+        if (row == null)
+            throw new IllegalArgumentException(
+                    "TreeIter passed to EntryCompletion emitMatchSelected(TreeIter) must not be null");
+
+        return GtkEntryCompletionOverride.emitMatchSelected(this, row);
     }
 
     /**
@@ -157,10 +173,9 @@ public class EntryCompletion extends Object implements CellLayout
     }
 
     /**
-     * Complete the Entry if it is possible. It is, generally, used with the
-     * {@link #complete() complete()} method which will request a prefix
-     * insertion. Be careful! This is the insertPrefix() method which will do
-     * the completion.
+     * Request a prefix insertion. The prefix is the string that will trigger
+     * the completion. For example, the prefix for &quot;Alice&quot; and
+     * &quot;Albert&quot; is &quot;Al&quot;.
      * 
      * @since 4.0.12
      */

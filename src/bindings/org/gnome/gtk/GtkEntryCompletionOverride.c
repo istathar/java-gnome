@@ -18,6 +18,42 @@
 
 static guint signalID = 0;
 
+/**
+ * called from
+ *   org.gnome.gtk.GtkEntryCompletionOverride.emitMatchSelected()
+ * called from
+ *   org.gnome.gtk.EntryCompletion.emitMatchSelected()
+ */
+JNIEXPORT jboolean JNICALL
+Java_org_gnome_gtk_GtkEntryCompletionOverride_gtk_1entry_1completion_1emit_1match_1selected
+(
+	JNIEnv* env,
+	jclass cls,
+	jlong _self,
+	jlong _iter
+)
+{
+	GtkEntryCompletion* self;
+	GtkTreeModel* model;
+	GtkTreeIter* iter;
+	gboolean result;
+	jboolean _result;
+
+	// convert parameters
+	self = (GtkEntryCompletion*) _self;
+	model = gtk_entry_completion_get_model(self);
+	iter = (GtkTreeIter*) _iter;
+
+	// emit the signal
+	g_signal_emit_by_name(self, "match_selected", model, iter, &result);
+
+	// translate return value to JNI type
+	_result = (jboolean) result;
+
+	// finally, return signal result
+	return _result;
+}
+
 /*
  * Meets the signature requirement of (*GtkEntryCompletionMatchFunc) in
  * order to be the second parameter to the call to 
