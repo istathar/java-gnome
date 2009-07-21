@@ -1,0 +1,46 @@
+;; Hand crafted pending someone supplying better data.
+
+(define-object Application
+  (in-module "Unique")
+  (parent "GObject")
+  (c-name "UniqueApp")
+  (import-header "unique/unique.h")
+)
+
+(define-function unique_app_new
+  (is-constructor-of "UniqueApp")
+  (c-name "unique_app_new")
+  (caller-owns-return #t)
+  (return-type "UniqueApp*")
+  (parameters
+    '("const-gchar*" "name")
+    '("const-gchar*" "startup_id" (null-ok))
+  )
+)
+
+(define-method is_running
+  (of-object "UniqueApp")
+  (c-name "unique_app_is_running")
+  (return-type "gboolean")
+)
+
+(define-method send_message
+  (of-object "UniqueApp")
+  (c-name "unique_app_send_message")
+  (return-type "UniqueResponse")
+  (parameters
+    '("gint" "command_id")
+    '("UniqueMessageData*" "message_data" (null-ok))
+  )
+)
+
+(define-virtual message_received
+  (of-object "UniqueApp")
+  (return-type "UniqueResponse")
+  (parameters
+    '("gint" "command_id")
+    '("UniqueMessageData*" "message_data")
+    '("guint" "time")
+  )
+)
+
