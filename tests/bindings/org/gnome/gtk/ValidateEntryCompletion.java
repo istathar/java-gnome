@@ -178,8 +178,9 @@ public class ValidateEntryCompletion extends TestCaseGtk
                 lower = text.toLowerCase();
                 result = lower.contains(key);
 
-                if (result)
+                if (result) {
                     completionIter = iter;
+                }
 
                 return result;
             }
@@ -193,8 +194,9 @@ public class ValidateEntryCompletion extends TestCaseGtk
          * Did the item we expected get selected?
          */
 
-        if (completionIter != null)
-            completion.emitMatchSelected(completionIter);
+        assertNotNull(completionIter);
+        completion.emitMatchSelected(completionIter);
+
         assertEquals("Toronto, Canada", entry.getText());
     }
 }

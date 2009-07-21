@@ -100,10 +100,14 @@ public class EntryCompletion extends Object implements CellLayout
     }
 
     /**
-     * Request a completion operation, for example a refiltering of the
-     * current list with completions, using the current key. The completion
-     * list view will be updated accordingly. Be careful! This method will not
-     * complete the entry.
+     * Refilter the current list of completions based on the current key. Be
+     * aware that this method will <i>not</i> put the completion in the Entry;
+     * this is just a command to update completion popup.
+     * 
+     * <p>
+     * If you are looking to duplicate the effect of a line in the completion
+     * list being selected by the user see
+     * {@link #emitMatchSelected(TreeIter) emitMatchSelected()} instead.
      * 
      * @since 4.0.12
      */
@@ -113,15 +117,16 @@ public class EntryCompletion extends Object implements CellLayout
 
     /**
      * Force the {@link EntryCompletion.MatchSelected} signal to be emitted.
-     * This action will result by the completion of the associated entry using
-     * the completion string pointed by the given {@link TreeIter}.
+     * This action will result in the completion of the associated Entry using
+     * the completion string pointed at by the given TreeIter.
      * 
      * @since 4.0.12
      */
     public boolean emitMatchSelected(TreeIter row) {
-        if (row == null)
+        if (row == null) {
             throw new IllegalArgumentException(
                     "TreeIter passed to EntryCompletion emitMatchSelected(TreeIter) must not be null");
+        }
 
         return GtkEntryCompletionOverride.emitMatchSelected(this, row);
     }
