@@ -28,6 +28,7 @@ import org.gnome.gtk.SnapshotAboutDialog;
 import org.gnome.gtk.SnapshotArrow;
 import org.gnome.gtk.SnapshotButton;
 import org.gnome.gtk.SnapshotComboBox;
+import org.gnome.gtk.SnapshotEntryCompletion;
 import org.gnome.gtk.SnapshotEntryIcon;
 import org.gnome.gtk.SnapshotFileChooserDialog;
 import org.gnome.gtk.SnapshotHScale;
@@ -166,6 +167,7 @@ public final class Harness
                     SnapshotMatrixScale.class,
                     SnapshotMatrixTranslate.class,
                     SnapshotContextRectangle.class,
+                    SnapshotEntryCompletion.class,
                     SnapshotEntryIcon.class
             };
 

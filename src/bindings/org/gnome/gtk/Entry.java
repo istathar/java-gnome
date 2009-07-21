@@ -304,6 +304,34 @@ public class Entry extends Widget implements Editable, CellEditable
     }
 
     /**
+     * Set the completion object to use with this Entry.
+     * 
+     * <p>
+     * Completion is a mechanism whereby pre-populated suggestions can be
+     * offered to the user, allowing for faster data entry in some
+     * circumstances.
+     * 
+     * <p>
+     * All configuration of the completion mechanism is done using
+     * {@link EntryCompletion}'s methods, so see there for details.
+     * 
+     * 
+     * @since 4.0.12
+     */
+    public void setCompletion(EntryCompletion completion) {
+        GtkEntry.setCompletion(this, completion);
+    }
+
+    /**
+     * Returns the current {@link EntryCompletion} object which is currently used by the <code>Entry</code>.
+     * 
+     * @since 4.0.12
+     */
+    public EntryCompletion getCompletion() {
+        return GtkEntry.getCompletion(this);
+    }
+
+    /**
      * Set whether the Entry has a bevelled frame around it or not. The
      * default (as you will be well accustomed to seeing) is <code>true</code>
      * .
