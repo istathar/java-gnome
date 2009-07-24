@@ -1,6 +1,6 @@
 NEWS
 
-java-gnome 4.0.12-rc2 (22 Jun 2009)
+java-gnome 4.0.12-rc3 (21 Jul 2009)
 ===================================
 
 _Being Uniquely Notified while Spelling the Sources you are Viewing is good
@@ -23,8 +23,8 @@ powerful GtkSourceView library with its impressive built-in multi
 * `org.gnome.sourceview.Plumbing`
 * **`org.gnome.sourceview.SourceBuffer`**
 * **`org.gnome.sourceview.SourceView`**
-* `sourceview.ExampleEditor`
 * `org.gnome.sourceview.ValidateSourceView`
+* `sourceview.ExampleEditor`
 
 And with the contribution of GtkSpell coverage by Serkan Kaba, we can now
 offer spell checking in TextViews as well.
@@ -45,8 +45,8 @@ popups to be displayed by the desktop notification mechanism.
 * `org.gnome.notify.Plumbing`
 * `notify.ExampleLowBattery`
 
-And finally, we expose LibUnique, which offers machinery enabling a developer
-to ensure only one instance of their application is running.
+We also expose LibUnique, which offers DBus-powered machinery enabling a
+developer to ensure only one instance of their application is running.
 
 * **`org.gnome.unique.Application`**
 * **`org.gnome.unique.Command`**
@@ -62,7 +62,7 @@ Continuing improvement
 Lots of minor changes and enhancements throughout the core GTK libraries.
 Highlights include improved mouse button handling, filtering when choosing
 files, and further refinement to Pixbuf. Thanks to Peter Mossveld, Kenneth
-Prugh, Vreixo Formoso, Serkan Kaba, and Guillaume Mazoyer.
+Prugh, Vreixo Formoso, Serkan Kaba.
 
 * **`org.freedesktop.cairo.Context`**
 * `org.freedesktop.cairo.Status`
@@ -90,11 +90,24 @@ Prugh, Vreixo Formoso, Serkan Kaba, and Guillaume Mazoyer.
 * `org.gnome.gtk.ValidateProperties`
 * `org.gnome.gtk.ValidateTextBuffer`
 
+Finally, thanks to Guillaume Mazoyer we now have coverage of EntryCompletion,
+the feature of Entry Widgets whereby available possible completions are
+offered to the based on characters the user has typed so far.
+
+* **`org.gnome.gtk.EntryCompletion`**
+* `org.gnome.gtk.ValidateEntryCompletion`
+* `org.gnome.gtk.SnapshotEntryCompletion`
+
 Looking ahead
 -------------
 
-Lengthy sunny periods, except for heavy morning showers, afternoon fog
-patches, chance of an evening thunderstorm. Possible snow overnight.
+There are a number of people working on various branches -- some small feature
+extensions, and some major coverage additions that add signifant capabilies --
+but which haven't quite made it to the point where they can be merged into
+java-gnome. We'll see how these pieces of work fare in the coming months, but
+nevertheless the Java bindings for GNOME have reached a significant level of
+maturity and we are pleased to see people starting to use them in serious
+applications.
 
 AfC
 
@@ -2269,7 +2282,7 @@ AfC
 
 <!--
 
-  Copyright (c) 2006-2008 Operational Dynamics Consulting Pty Ltd 
+  Copyright (c) 2006-2009 Operational Dynamics Consulting Pty Ltd 
 
   As project documentation, this file forms an integral part of the source
   code of the library it accompanies, and thus is made available to you by the
