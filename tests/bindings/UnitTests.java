@@ -1,7 +1,7 @@
 /*
  * UnitTests.java
  *
- * Copyright (c) 2007-2008 Operational Dynamics Consulting Pty Ltd
+ * Copyright (c) 2007-2009 Operational Dynamics Consulting Pty Ltd, and Others
  * 
  * The code in this file, and the suite it is a part of, are made available
  * to you by the authors under the terms of the "GNU General Public Licence,
@@ -29,6 +29,7 @@ import org.gnome.gtk.TestCaseGtk;
 import org.gnome.gtk.ValidateArrow;
 import org.gnome.gtk.ValidateAssistant;
 import org.gnome.gtk.ValidateComboBox;
+import org.gnome.gtk.ValidateEntryCompletion;
 import org.gnome.gtk.ValidateFileChoosing;
 import org.gnome.gtk.ValidateIconView;
 import org.gnome.gtk.ValidateNotebookBehaviour;
@@ -149,6 +150,7 @@ public class UnitTests
         suite.addTestSuite(ValidateTreeView.class);
         suite.addTestSuite(ValidateIconView.class);
         suite.addTestSuite(ValidateComboBox.class);
+        suite.addTestSuite(ValidateEntryCompletion.class);
         suite.addTestSuite(ValidateSnapshotUtilities.class);
         suite.addTestSuite(ValidateAssistant.class);
         suite.addTestSuite(ValidateTextBuffer.class);
