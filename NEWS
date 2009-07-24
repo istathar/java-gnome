@@ -1,7 +1,9 @@
 NEWS
 
-java-gnome 4.0.12-rc3 (21 Jul 2009)
-===================================
+<a name="4.0.12" id="1248418784" title="Unique, Notify, Sourceview, Spelling"></a>
+
+java-gnome 4.0.12 (24 Jul 2009)
+===============================
 
 _Being Uniquely Notified while Spelling the Sources you are Viewing is good
 for the soul._
@@ -45,7 +47,7 @@ popups to be displayed by the desktop notification mechanism.
 * `org.gnome.notify.Plumbing`
 * `notify.ExampleLowBattery`
 
-We also expose LibUnique, which offers DBus-powered machinery enabling a
+And, we expose LibUnique, which offers DBus-powered machinery enabling a
 developer to ensure only one instance of their application is running.
 
 * **`org.gnome.unique.Application`**
