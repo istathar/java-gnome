@@ -37,7 +37,7 @@ import org.gnome.gtk.Window;
  * @author Guillaume Mazoyer
  * @since 4.0.12
  */
-public class ExampleEntryCompletion
+public class ExampleLoginPrompt
 {
     public static void main(String[] args) {
         final Window window;
