@@ -1,7 +1,7 @@
 /*
  * FunctionGenerator.java
  *
- * Copyright (c) 2007-2008 Operational Dynamics Consulting Pty Ltd
+ * Copyright (c) 2007-2009 Operational Dynamics Consulting Pty Ltd
  * Copyright (c) 2007-2008 Vreixo Formoso
  * 
  * The code in this file, and the program it is a part of, are made available
