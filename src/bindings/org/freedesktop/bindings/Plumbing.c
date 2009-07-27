@@ -84,5 +84,5 @@ Java_org_freedesktop_bindings_Plumbing_toHexString
 	
 	result = bindings_java_memory_pointerToString((gpointer) _pointer);
 	
-	return (*env)->NewStringUTF(env, result);
+	return bindings_java_newString(env, result);
 }

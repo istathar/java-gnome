@@ -283,8 +283,8 @@ bindings_java_debug
 {
 	jclass cls;
 	jmethodID mid = NULL;
-	jobject str;
-	gchar* name;
+	jobject _name;
+	const gchar* name;
 
 	cls = (*env)->FindClass(env, "java/lang/Object");
 	if ((*env)->ExceptionCheck(env)) {
@@ -298,8 +298,8 @@ bindings_java_debug
 		g_error("No methodID?");
 	}
 
-	str = (*env)->CallObjectMethod(env, obj, mid);
-	if (str == NULL) {
+	_name = (*env)->CallObjectMethod(env, obj, mid);
+	if (_name == NULL) {
 		(*env)->ExceptionDescribe(env);
 		g_error("null?");
 	}
@@ -308,7 +308,7 @@ bindings_java_debug
 		g_error("No String");
 	}
 
-	name = (gchar*) (*env)->GetStringUTFChars(env, str, NULL);
+	name = bindings_java_getString(env, _name);
 	if (name == NULL) {
 		(*env)->ExceptionDescribe(env);
 		g_error("OOM?");
@@ -319,6 +319,7 @@ bindings_java_debug
 	}
 
 	g_debug("obj.toString(): %s", name);
+	bindings_java_releaseString(name);
 }
 
 
