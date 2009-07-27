@@ -468,6 +468,10 @@ bindings_java_newString
 	glong num;
 	GError* error = NULL;
 
+	if (str == NULL) {
+		return NULL;
+	}
+
 	// call conversion function
 	pointer = g_utf8_to_utf16(str, -1, NULL, &num, &error);
 
