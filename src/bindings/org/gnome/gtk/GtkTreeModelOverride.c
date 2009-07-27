@@ -47,7 +47,7 @@ Java_org_gnome_gtk_GtkTreeModelOverride_gtk_1list_1store_1new
 	for (i = 0; i < num_columns; i++) {
 		_name = (jstring) (*env)->GetObjectArrayElement(env, _columns, i);
 
-		name = (const gchar*) (*env)->GetStringUTFChars(env, _name, NULL);
+		name = bindings_java_getString(env, _name);
 		if (name == NULL) {
 			return 0L; // OutOfMemory already thrown
 		}
@@ -59,7 +59,7 @@ Java_org_gnome_gtk_GtkTreeModelOverride_gtk_1list_1store_1new
 			return 0L;
 		}
 
-		(*env)->ReleaseStringUTFChars(env, _name, name);
+		bindings_java_releaseString(name);
 		(*env)->DeleteLocalRef(env, _name);
 	}
 
@@ -104,7 +104,7 @@ Java_org_gnome_gtk_GtkTreeModelOverride_gtk_1tree_1store_1new
     for (i = 0; i < num_columns; i++) {
         _name = (jstring) (*env)->GetObjectArrayElement(env, _columns, i);
 
-        name = (const gchar*) (*env)->GetStringUTFChars(env, _name, NULL);
+	name = bindings_java_getString(env, _name);
         if (name == NULL) {
             return 0L; // OutOfMemory already thrown
         }
@@ -116,7 +116,7 @@ Java_org_gnome_gtk_GtkTreeModelOverride_gtk_1tree_1store_1new
             return 0L;
         }
 
-        (*env)->ReleaseStringUTFChars(env, _name, name);
+	bindings_java_releaseString(name);
         (*env)->DeleteLocalRef(env, _name);
     }
 
