@@ -394,7 +394,7 @@ bindings_java_logging_init
  * UTF-16 to UTF-8 conversion function, which theoretically is a compliant
  * implementation, unlike Java's.
  *
- * You must call g_free() on the returned gchar*.
+ * You must call bindings_java_releaseString() on the returned gchar*!
  */
 const gchar*
 bindings_java_getString
@@ -486,3 +486,18 @@ bindings_java_newString
 	return _result;
 }
 
+/*
+ * Free a String as created by bindings_java_getString().
+ *
+ * This is largely just an exercise in getting us around the const qualifier in
+ * const-gchar* types, but it has the benefit of keeping our String conversion
+ * utilities symmetric with the JNI API.
+ */
+void
+bindings_java_releaseString
+(
+	const gchar* str
+)
+{
+	g_free((gpointer) str);
+}

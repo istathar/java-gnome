@@ -33,7 +33,7 @@ public class StringThing extends Thing
     }
 
     String jniConversionCleanup(String name) {
-        return "g_free((gchar*) " + name + ")";
+        return "bindings_java_releaseString(" + name + ")";
     }
 
     String jniReturnEncode(String name) {

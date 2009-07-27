@@ -32,8 +32,9 @@ extern const gchar* bindings_java_typeToSignature(GType);
 
 extern void bindings_java_logging_init();
 
-extern const char* bindings_java_getString(JNIEnv*, jstring);
+extern const gchar* bindings_java_getString(JNIEnv*, jstring);
 extern jstring bindings_java_newString(JNIEnv*, const gchar*);
+extern void bindings_java_releaseString(const gchar*);
 
 /*
  *  bindings_java_signal.c
