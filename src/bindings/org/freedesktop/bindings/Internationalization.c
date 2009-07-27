@@ -35,7 +35,7 @@ Java_org_freedesktop_bindings_Internationalization_gettext
 	char* result;
 
 	// convert parameter msg
-	msg = (const char*) (*env)->GetStringUTFChars(env, _msg, NULL);
+	msg = bindings_java_getString(env, _msg);
 	if (msg == NULL) {
 		return NULL; // expeption already thrown
 	}
@@ -54,11 +54,11 @@ Java_org_freedesktop_bindings_Internationalization_gettext
 
 	// convert and return
 	if (result == msg) {
-		(*env)->ReleaseStringUTFChars(env, _msg, msg);		
+		bindings_java_releaseString(msg);
 		return _msg;
 	} else {
-		(*env)->ReleaseStringUTFChars(env, _msg, msg);
-		return (*env)->NewStringUTF(env, result);
+		bindings_java_releaseString(msg);
+		return bindings_java_newString(env, result);
 	}
 }
 
@@ -75,13 +75,13 @@ Java_org_freedesktop_bindings_Internationalization_bindtextdomain
 	const char* localeDir;
 
 	// convert parameter packageName
-	packageName = (const char*) (*env)->GetStringUTFChars(env, _packageName, NULL);
+	packageName = bindings_java_getString(env, _packageName);
 	if (packageName == NULL) {
 		return; // expeption already throw
 	}
 
 	// convert parameter localeDir
-	localeDir = (const char*) (*env)->GetStringUTFChars(env, _localeDir, NULL);
+	localeDir = bindings_java_getString(env, _localeDir);
 	if (localeDir == NULL) {
 		return; // expeption already throw
 	}
@@ -110,8 +110,8 @@ Java_org_freedesktop_bindings_Internationalization_bindtextdomain
 	}
 
 	// cleanup parameter packageName
-	(*env)->ReleaseStringUTFChars(env, _packageName, packageName);
+	bindings_java_releaseString(packageName);
 
 	// cleanup parameter localeDir
-	(*env)->ReleaseStringUTFChars(env, _localeDir, localeDir);
+	bindings_java_releaseString(localeDir);
 }
