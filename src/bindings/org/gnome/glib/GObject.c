@@ -55,7 +55,7 @@ Java_org_gnome_glib_GObject_g_1type_1name
 	
 	// return name. Guard against NullPointerException by returning an
 	// empty string instead of null
-	return (*env)->NewStringUTF(env, (name != NULL ? name : "\0"));
+	return bindings_java_newString(env, (name != NULL ? name : "\0"));
 }
 
 
@@ -76,14 +76,14 @@ Java_org_gnome_glib_GObject_g_1object_1set_1property
 )
 {
 	GObject* instance;
-	gchar* name;
-	GValue* value;
+	const gchar* name;
+	const GValue* value;
 	
 	// translate instance
 	instance = (GObject*) _instance;
 	
 	// translate name
-	name = (gchar*) (*env)->GetStringUTFChars(env, _name, NULL);
+	name = bindings_java_getString(env, _name);
 	if (name == NULL) {
 		return; /* OutOfMemoryError already thrown */
 	}
@@ -95,7 +95,7 @@ Java_org_gnome_glib_GObject_g_1object_1set_1property
 	g_object_set_property(instance, name, value);
 
 	// clean up name
-	(*env)->ReleaseStringUTFChars(env, _name, name);
+	bindings_java_releaseString(name);
 }
 
 /**
@@ -117,7 +117,7 @@ JNIEXPORT jlong JNICALL Java_org_gnome_glib_GObject_g_1object_1get_1property
 )
 {
 	GObject* instance;
-	gchar* name;
+	const gchar* name;
 	GValue* value;
 	GParamSpec* spec;
 	
@@ -125,7 +125,7 @@ JNIEXPORT jlong JNICALL Java_org_gnome_glib_GObject_g_1object_1get_1property
 	instance = (GObject*) _instance;
 	
 	// translate name
-	name = (gchar*) (*env)->GetStringUTFChars(env, _name, NULL);
+	name = bindings_java_getString(env, _name);
 	if (name == NULL) {
 		return 0L; /* OutOfMemoryError already thrown */
 	}
@@ -144,7 +144,7 @@ JNIEXPORT jlong JNICALL Java_org_gnome_glib_GObject_g_1object_1get_1property
 	g_object_get_property(instance, name, value);
 
 	// clean up name
-	(*env)->ReleaseStringUTFChars(env, _name, name);
+	bindings_java_releaseString(name);
 	
 	/*
 	 * we do not need to clean up value; it will eventually be underneath a
@@ -181,7 +181,7 @@ Java_org_gnome_glib_GObject_g_1signal_1connect
 )
 {
 	GObject* instance;
-  	gchar* name;
+  	const gchar* name;
   	gboolean after;
 
   	guint id;
@@ -193,7 +193,7 @@ Java_org_gnome_glib_GObject_g_1signal_1connect
   	instance = (GObject*) _instance;
 
 	// translate the signal name
-	name = (gchar*) (*env)->GetStringUTFChars(env, _name, NULL);	
+	name = bindings_java_getString(env, _name);
 
 	// translate after  	
   	after = (gboolean) _after;
@@ -220,7 +220,7 @@ Java_org_gnome_glib_GObject_g_1signal_1connect
 	g_signal_connect_closure_by_id(instance, id, detail, closure, after);
 	
 	// cleanup. Not really necessary as will happen automatically in a moment.
-	(*env)->ReleaseStringUTFChars(env, _name, name);
+	bindings_java_releaseString(name);
 }
 
 /**
