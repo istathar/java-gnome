@@ -86,47 +86,47 @@ Java_org_gnome_gtk_GtkTreeModelOverride_gtk_1list_1store_1new
 JNIEXPORT jlong JNICALL
 Java_org_gnome_gtk_GtkTreeModelOverride_gtk_1tree_1store_1new
 (
-    JNIEnv* env,
-    jclass cls,
-    jobjectArray _columns
+	JNIEnv* env,
+	jclass cls,
+	jobjectArray _columns
 )
 {
-    GtkTreeStore* result;
-    gint num_columns;
-    GType* columns; // GType[]
-    gint i;
-    jstring _name;
-    const gchar* name;
-    
-    num_columns = (gint) (*env)->GetArrayLength(env, _columns);
-    columns = g_newa(GType, num_columns);
-        
-    for (i = 0; i < num_columns; i++) {
-        _name = (jstring) (*env)->GetObjectArrayElement(env, _columns, i);
+	GtkTreeStore* result;
+	gint num_columns;
+	GType* columns; // GType[]
+	gint i;
+	jstring _name;
+	const gchar* name;
 
-	name = bindings_java_getString(env, _name);
-        if (name == NULL) {
-            return 0L; // OutOfMemory already thrown
-        }
+	num_columns = (gint) (*env)->GetArrayLength(env, _columns);
+	columns = g_newa(GType, num_columns);
 
-        columns[i] = bindings_java_type_lookup(name);
-        
-        if (columns[i] == G_TYPE_INVALID) {
-            bindings_java_throw(env, "Don't know how to map %s into a GType", name);
-            return 0L;
-        }
+	for (i = 0; i < num_columns; i++) {
+		_name = (jstring) (*env)->GetObjectArrayElement(env, _columns, i);
 
-	bindings_java_releaseString(name);
-        (*env)->DeleteLocalRef(env, _name);
-    }
+		name = bindings_java_getString(env, _name);
+		if (name == NULL) {
+			return 0L; // OutOfMemory already thrown
+		}
 
-    // call constructor
-    result = gtk_tree_store_newv(num_columns, columns);
+		columns[i] = bindings_java_type_lookup(name);
 
-    // clean up of columns is automatic
+		if (columns[i] == G_TYPE_INVALID) {
+			bindings_java_throw(env, "Don't know how to map %s into a GType", name);
+			return 0L;
+		}
 
-    // and finally
-    return (jlong) result;
+		bindings_java_releaseString(name);
+		(*env)->DeleteLocalRef(env, _name);
+	}
+
+	// call constructor
+	result = gtk_tree_store_newv(num_columns, columns);
+
+	// clean up of columns is automatic
+
+	// and finally
+	return (jlong) result;
 }
 
 /*
