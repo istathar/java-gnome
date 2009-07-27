@@ -11,6 +11,7 @@
  */
 
 #include <libnotify/notify.h>
+#include "bindings_java.h"
 #include "org_gnome_notify_NotifyNotificationOverride.h"
 
 static guint signalID = 0;
@@ -48,7 +49,7 @@ JNIEXPORT void JNICALL Java_org_gnome_notify_NotifyNotificationOverride_notify_1
 	self = (NotifyNotification*) _self;
 
 	// convert parameter key
-	key = (const gchar*) (*env)->GetStringUTFChars(env, _key, NULL);
+	key = bindings_java_getString(env, _key);
 	if (key == NULL) {
 		return; // Java Exception already thrown
 	}
@@ -60,7 +61,7 @@ JNIEXPORT void JNICALL Java_org_gnome_notify_NotifyNotificationOverride_notify_1
 	notify_notification_set_hint_byte(self, key, value);
 
 	// cleanup parameter key
-	(*env)->ReleaseStringUTFChars(env, _key, key);
+	bindings_java_releaseString(key);
 }
 
 /*
@@ -87,7 +88,7 @@ JNIEXPORT void JNICALL Java_org_gnome_notify_NotifyNotificationOverride_notify_1
 	self = (NotifyNotification*) _self;
 
 	// convert parameter key
-	key = (const gchar*) (*env)->GetStringUTFChars(env, _key, NULL);
+	key = bindings_java_getString(env, _key);
 	if (key == NULL) {
 		return; // Java Exception already thrown
 	}
@@ -105,7 +106,7 @@ JNIEXPORT void JNICALL Java_org_gnome_notify_NotifyNotificationOverride_notify_1
 	notify_notification_set_hint_byte_array(self, key, value, size);
 
 	// cleanup parameter key
-	(*env)->ReleaseStringUTFChars(env, _key, key);
+	bindings_java_releaseString(key);
 
 	// cleanup parameter value
 	(*env)->ReleaseByteArrayElements(env, _value, (jbyte*)value, 0);
@@ -134,13 +135,13 @@ JNIEXPORT void JNICALL Java_org_gnome_notify_NotifyNotificationOverride_notify_1
 	self = (NotifyNotification*) _self;
 
 	// convert parameter action
-	action = (const gchar*) (*env)->GetStringUTFChars(env, _action, NULL);
+	action = bindings_java_getString(env, _action);
 	if (action == NULL) {
 		return; // Java Exception already thrown
 	}
 
 	// convert parameter label
-	label = (const gchar*) (*env)->GetStringUTFChars(env, _label, NULL);
+	label = bindings_java_getString(env, _label);
 	if (label == NULL) {
 		return; // Java Exception already thrown
 	}
@@ -160,10 +161,10 @@ JNIEXPORT void JNICALL Java_org_gnome_notify_NotifyNotificationOverride_notify_1
 	notify_notification_add_action(self,action,label,NOTIFY_ACTION_CALLBACK(emit_notification),NULL,NULL);
 
 	// cleanup parameter action
-	(*env)->ReleaseStringUTFChars(env, _action, action);
+	bindings_java_releaseString(action);
 
 	// cleanup parameter label
-	(*env)->ReleaseStringUTFChars(env, _label, label);
+	bindings_java_releaseString(label);
 }
 
 /*
