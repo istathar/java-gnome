@@ -21,7 +21,7 @@ public class StringThing extends Thing
     protected StringThing() {}
 
     String jniConversionDecode(String name) {
-        return "(*env)->GetStringUTFChars(env, _" + name + ", NULL)";
+        return "bindings_java_getString(env, _" + name + ")";
     }
 
     boolean jniConversionCanFail() {
@@ -33,11 +33,11 @@ public class StringThing extends Thing
     }
 
     String jniConversionCleanup(String name) {
-        return "(*env)->ReleaseStringUTFChars(env, _" + name + ", " + name + ")";
+        return "g_free((gchar*) " + name + ")";
     }
 
     String jniReturnEncode(String name) {
-        return "(*env)->NewStringUTF(env, " + name + ")";
+        return "bindings_java_newString(env, " + name + ")";
     }
 
     String jniReturnErrorValue() {
