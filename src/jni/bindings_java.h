@@ -26,11 +26,14 @@ extern JNIEnv* bindings_java_getEnv();
 
 extern void bindings_java_throwByName(JNIEnv*, const char*, const char*);
 extern void bindings_java_throw(JNIEnv*, const char*, ...);
-extern void bindings_java_throw_gerror(JNIEnv*, GError*);
+extern void bindings_java_throwGlibException(JNIEnv*, GError*);
 
 extern const gchar* bindings_java_typeToSignature(GType);
 
 extern void bindings_java_logging_init();
+
+extern const char* bindings_java_getString(JNIEnv*, jstring);
+extern jstring bindings_java_newString(JNIEnv*, const gchar*);
 
 /*
  *  bindings_java_signal.c

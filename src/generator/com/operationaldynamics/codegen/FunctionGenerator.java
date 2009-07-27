@@ -571,7 +571,7 @@ public class FunctionGenerator extends Generator
 
             out.print("\tif (" + paramGError + ") {\n");
 
-            out.print("\t\tbindings_java_throw_gerror(env, ");
+            out.print("\t\tbindings_java_throwGlibException(env, ");
             out.print(paramGError);
             out.print(");\n");
             out.print("\t\treturn");
