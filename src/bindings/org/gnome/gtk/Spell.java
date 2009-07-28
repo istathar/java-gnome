@@ -18,6 +18,7 @@ import org.gnome.glib.GlibException;
  * Helper class which manages spell checking in TextViews. Convert a TextView
  * to one that is doing spelling by calling TextView's
  * {@link TextView#attachSpell() attachSpell()}.
+ * <img class="snapshot" src="TextView-Spelling.png">
  * 
  * <p>
  * <i>Augmenting a TextView to provide spell checking is provided by the
