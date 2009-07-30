@@ -8,7 +8,7 @@
  * version 2" See the LICENCE file for the terms governing usage and
  * redistribution.
  */
-package sexy;
+package entry;
 
 import org.gnome.gdk.Event;
 import org.gnome.gtk.CellRendererText;
