@@ -1,7 +1,7 @@
 /*
  * bindings_java_convert.c
  *
- * Copyright (c) 2007 Operational Dynamics Consulting Pty Ltd, and Others
+ * Copyright (c) 2007-2009 Operational Dynamics Consulting Pty Ltd, and Others
  * 
  * The code in this file, and the library it is a part of, are made available
  * to you by the authors under the terms of the "GNU General Public Licence,
@@ -270,7 +270,7 @@ bindings_java_convert_gchararray_to_jarray
 	}
 	
 	for (i = 0; i < size; ++i) {
-		jstring str = (*env)->NewStringUTF(env, array[i]);
+		jstring str = bindings_java_newString(env, array[i]);
 		(*env)->SetObjectArrayElement(env, _array, i, (jobject) str);
 		(*env)->DeleteLocalRef(env, str);
 	}
@@ -307,9 +307,9 @@ bindings_java_convert_strarray_to_gchararray
 	
 	for (i = 0; i < size; ++i) {
 		jstring str = (jstring) (*env)->GetObjectArrayElement(env, _array, i);
-		const gchar* cstr = (const gchar*) (*env)->GetStringUTFChars(env, str, NULL);
+		const gchar* cstr = bindings_java_getString(env, str);
 		array[i] = g_strdup(cstr);
-		(*env)->ReleaseStringUTFChars(env, str, cstr);
+		bindings_java_releaseString(cstr);
 		(*env)->DeleteLocalRef(env, str);
 	}
 	array[size] = NULL;
