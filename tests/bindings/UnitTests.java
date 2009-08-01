@@ -49,6 +49,7 @@ import org.gnome.gtk.ValidateTreeModel;
 import org.gnome.gtk.ValidateTreeModelFilter;
 import org.gnome.gtk.ValidateTreeStore;
 import org.gnome.gtk.ValidateTreeView;
+import org.gnome.gtk.ValidateUnicode;
 import org.gnome.pango.ValidatePangoAttributeUsage;
 import org.gnome.pango.ValidatePangoTextRendering;
 import org.gnome.sourceview.ValidateSourceView;
@@ -154,6 +155,7 @@ public class UnitTests
         suite.addTestSuite(ValidateSnapshotUtilities.class);
         suite.addTestSuite(ValidateAssistant.class);
         suite.addTestSuite(ValidateTextBuffer.class);
+        suite.addTestSuite(ValidateUnicode.class);
         suite.addTestSuite(ValidateTextViewProperties.class);
         suite.addTestSuite(ValidateTextViewBorderWindows.class);
         suite.addTestSuite(ValidateTextViewSpelling.class);

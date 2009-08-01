@@ -1,7 +1,7 @@
 /*
- * GTime.c
+ * Time.c
  * 
- * Copyright (c) 2006-2007 Operational Dynamics Consulting Pty Ltd
+ * Copyright (c) 2006-2009 Operational Dynamics Consulting Pty Ltd
  * 
  * The code in this file, and the library it is a part of, are made available
  * to you by the authors under the terms of the "GNU General Public Licence,
@@ -19,6 +19,7 @@
 #include <stdlib.h>
 #include <time.h>
 #include <glib.h>
+#include "bindings_java.h"
 #include "org_freedesktop_bindings_Time.h"
 
 #define MAXWIDTH 64
@@ -40,14 +41,14 @@ Java_org_freedesktop_bindings_Time_tzset
 	const char *zoneinfo;
 	int ok;
 
-	zoneinfo = (*env)->GetStringUTFChars(env, _zoneinfo, NULL);
+	zoneinfo = bindings_java_getString(env, _zoneinfo);
 	if (zoneinfo == NULL) {
 		return; /* OutOfMemoryError already thrown */
 	}
 
 	ok = setenv("TZ", zoneinfo, 1);
 
-	(*env)->ReleaseStringUTFChars(env, _zoneinfo, zoneinfo);
+	bindings_java_releaseString(zoneinfo);
 	if (ok != 0) {
 		// throw exception
 		return;
@@ -79,7 +80,7 @@ Java_org_freedesktop_bindings_Time_strftime
 
 	size = MAXWIDTH;
 
-	format = (*env)->GetStringUTFChars(env, _format, NULL);
+	format = bindings_java_getString(env, _format);
 	if (format == NULL) {
 		return NULL; /* OutOfMemoryError already thrown */
 	}
@@ -90,13 +91,13 @@ Java_org_freedesktop_bindings_Time_strftime
 
 	size = strftime(buf, size, format, brokendown);
 
-	(*env)->ReleaseStringUTFChars(env, _format, format);
+	bindings_java_releaseString(format);
 	if (size == 0) {
 		// throw exception instead!
-		return (*env)->NewStringUTF(env, "Nothing returned!\0");
+		return bindings_java_newString(env, "Nothing returned!\0");
 	}
 
-	return (*env)->NewStringUTF(env, buf);
+	return bindings_java_newString(env, buf);
 }
 
 JNIEXPORT jlong JNICALL

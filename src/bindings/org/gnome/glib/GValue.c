@@ -47,7 +47,7 @@ Java_org_gnome_glib_GValue_g_1type_1name
 
 	// return name. Guard against NullPointerException by returning an
 	// empty string instead of null
-	return (*env)->NewStringUTF(env, (name != NULL ? name : "\0"));
+	return bindings_java_newString(env, (name != NULL ? name : "\0"));
 }
 
 /**
@@ -296,11 +296,11 @@ Java_org_gnome_glib_GValue_g_1value_1init__Ljava_lang_String_2
 	jstring _str
 )
 {
-	gchar* str;
+	const gchar* str;
 	GValue* value;
 
 	// translate
-	str = (gchar*) (*env)->GetStringUTFChars(env, _str, NULL);
+	str = bindings_java_getString(env, _str);
 	if (str == NULL) {
 		return 0; /* OutOfMemoryError already thrown */
 	}
@@ -313,7 +313,7 @@ Java_org_gnome_glib_GValue_g_1value_1init__Ljava_lang_String_2
 	g_value_set_string(value, str);
 
 	// clean up
-	(*env)->ReleaseStringUTFChars(env, _str, str);
+	bindings_java_releaseString(str);
 
 	// return address
 	return (jlong) value;
@@ -449,20 +449,20 @@ Java_org_gnome_glib_GValue_g_1value_1init_1enum
 	jint _num
 )
 {
-	gchar* name;
+	const gchar* name;
 	GType type;
 	gint num;
 	GValue* value;
 	
 	// translate type;
-	name = (gchar*) (*env)->GetStringUTFChars(env, _name, NULL);
+	name = bindings_java_getString(env, _name);
 	if (name == NULL) {
 		return 0; /* OutOfMemoryError already thrown */
 	}
 
 	type = g_type_from_name(name);
 
-	(*env)->ReleaseStringUTFChars(env, _name, name);
+	bindings_java_releaseString(name);
 	
 	// translate obj
 	num = (gint) _num;
@@ -661,7 +661,7 @@ Java_org_gnome_glib_GValue_g_1value_1get_1string
 	str = g_value_get_string(value);
 
 	// and return	
-	return (*env)->NewStringUTF(env, str);
+	return bindings_java_newString(env, str);
 }
 
 /**
