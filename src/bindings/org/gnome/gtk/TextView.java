@@ -991,12 +991,10 @@ public class TextView extends Container
     }
 
     /**
-     * Set the number of pixels that will be between the left hand edge of the
-     * TextView and the left hand edge of the paragraphs of text.
-     * 
-     * @since 4.0.10
+     * @deprecated
      */
     public void setLeftMargin(int pixels) {
+        assert false : "use setMarginLeft() instead";
         GtkTextView.setLeftMargin(this, pixels);
     }
 
