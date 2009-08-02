@@ -88,15 +88,14 @@ public class Entry extends Widget implements Editable, CellEditable
 
     /**
      * Set whether the text in the entry is visible or obscured. This is
-     * typically used for password fields.
+     * typically used for password fields. Use <code>true</code> for showing
+     * and <code>false</code> for hiding input characters.
      * 
+     * <p>
      * When set to be not visible, characters entered are shown with a
-     * <code>*</code> instead. This default can be changed with
+     * <code>'*'</code> instead. This default can be changed with
      * {@link #setInvisibleChar(char) setInvisibleChar()}.
      * 
-     * @param visible
-     *            <code>true</code> for showing, <code>false</code> for
-     *            hiding.
      * @since 4.0.12
      */
     public void setVisibility(boolean setting) {
@@ -113,9 +112,9 @@ public class Entry extends Widget implements Editable, CellEditable
 
     /**
      * Is text in the Entry are visible, or hidden by an obscuring character?
+     * Returns <code>true</code> if characters entered are visible,
+     * <code>false</code> if obscured.
      * 
-     * @return <code>true</code> if characters entered are visible,
-     *         <code>false</code> if obscured.
      * @since 4.0.12
      */
     public boolean getVisibility() {
@@ -286,6 +285,34 @@ public class Entry extends Widget implements Editable, CellEditable
             throw new IllegalArgumentException("xalign must be between 0.0 and 1.0");
         }
         GtkEntry.setAlignment(this, xalign);
+    }
+
+    /**
+     * Set the completion object to use with this Entry.
+     * 
+     * <p>
+     * Completion is a mechanism whereby pre-populated suggestions can be
+     * offered to the user, allowing for faster data entry in some
+     * circumstances.
+     * 
+     * <p>
+     * All configuration of the completion mechanism is done using
+     * {@link EntryCompletion}'s methods, so see there for details.
+     * 
+     * 
+     * @since 4.0.12
+     */
+    public void setCompletion(EntryCompletion completion) {
+        GtkEntry.setCompletion(this, completion);
+    }
+
+    /**
+     * Returns the current {@link EntryCompletion} object which is currently used by the <code>Entry</code>.
+     * 
+     * @since 4.0.12
+     */
+    public EntryCompletion getCompletion() {
+        return GtkEntry.getCompletion(this);
     }
 
     /**

@@ -153,7 +153,7 @@ Java_org_gnome_gdk_GdkPixbufOverride_gdk_1pixbuf_1new_1from_1stream
 
 	// check for a GError
 	if (error) {
-		bindings_java_throw_gerror(env, error);
+		bindings_java_throwGlibException(env, error);
 		return 0L;
 	}
 

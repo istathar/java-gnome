@@ -1,7 +1,7 @@
 /*
  * Plumbing.c
  *
- * Copyright (c) 2007-2008 Operational Dynamics Consulting Pty Ltd and Others
+ * Copyright (c) 2007-2009 Operational Dynamics Consulting Pty Ltd and Others
  * 
  * The code in this file, and the library it is a part of, are made available
  * to you by the authors under the terms of the "GNU General Public Licence,
@@ -84,5 +84,5 @@ Java_org_freedesktop_bindings_Plumbing_toHexString
 	
 	result = bindings_java_memory_pointerToString((gpointer) _pointer);
 	
-	return (*env)->NewStringUTF(env, result);
+	return bindings_java_newString(env, result);
 }

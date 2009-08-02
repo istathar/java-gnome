@@ -1,7 +1,7 @@
 /*
  * FunctionGenerator.java
  *
- * Copyright (c) 2007-2008 Operational Dynamics Consulting Pty Ltd
+ * Copyright (c) 2007-2009 Operational Dynamics Consulting Pty Ltd
  * Copyright (c) 2007-2008 Vreixo Formoso
  * 
  * The code in this file, and the program it is a part of, are made available
@@ -571,7 +571,7 @@ public class FunctionGenerator extends Generator
 
             out.print("\tif (" + paramGError + ") {\n");
 
-            out.print("\t\tbindings_java_throw_gerror(env, ");
+            out.print("\t\tbindings_java_throwGlibException(env, ");
             out.print(paramGError);
             out.print(");\n");
             out.print("\t\treturn");
