@@ -35,6 +35,7 @@ import org.gnome.pango.EllipsizeMode;
  * @author Andrew Cowie
  * @author Srichand Pendyala
  * @author Wouter Bolsterlee
+ * @author Guillaume Mazoyer
  * @since 4.0.1
  */
 public class Label extends Misc
