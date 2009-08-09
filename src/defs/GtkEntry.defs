@@ -130,6 +130,12 @@
   (return-type "const-gchar*")
 )
 
+(define-method get_text_length
+  (of-object "GtkEntry")
+  (c-name "gtk_entry_get_text_length")
+  (return-type "guint16")
+)
+
 (define-method get_layout
   (of-object "GtkEntry")
   (c-name "gtk_entry_get_layout")
@@ -212,6 +218,21 @@
   (parameters
     '("gint" "text_index")
   )
+)
+
+(define-method set_overwrite_mode
+  (of-object "GtkEntry")
+  (c-name "gtk_entry_set_overwrite_mode")
+  (return-type "none")
+  (parameters
+    '("gboolean" "overwrite")
+  )
+)
+
+(define-method get_overwrite_mode
+  (of-object "GtkEntry")
+  (c-name "gtk_entry_get_overwrite_mode")
+  (return-type "gboolean")
 )
 
 (define-virtual populate_popup

@@ -68,6 +68,15 @@ public class Entry extends Widget implements Editable, CellEditable
     }
 
     /**
+     * Get the length of the text currently showing in the Entry.
+     * 
+     * @since 4.0.13
+     */
+    public char getTextLength() {
+        return GtkEntry.getTextLength(this);
+    }
+
+    /**
      * Specify the maximum number of characters the user is allowed to enter.
      * Note that if the current text in the Entry is longer than the specified
      * length, the contents will be truncated!
@@ -165,6 +174,25 @@ public class Entry extends Widget implements Editable, CellEditable
      */
     public void setEditable(boolean editable) {
         GtkEditable.setEditable(this, editable);
+    }
+
+    /**
+     * Set whether the text should be overwritten when typing in the Entry.
+     * 
+     * @since 4.0.13
+     */
+    public void setOverwriteMode(boolean setting) {
+        GtkEntry.setOverwriteMode(this, setting);
+    }
+
+    /**
+     * Get the value previously set with {@link #setOverwriteMode(boolean)
+     * setOverwriteMode()}.
+     * 
+     * @since 4.0.13
+     */
+    public boolean getOverwriteMode() {
+        return GtkEntry.getOverwriteMode(this);
     }
 
     /**
@@ -322,7 +350,8 @@ public class Entry extends Widget implements Editable, CellEditable
     }
 
     /**
-     * Returns the current {@link EntryCompletion} object which is currently used by the <code>Entry</code>.
+     * Returns the current {@link EntryCompletion} object which is currently
+     * used by the <code>Entry</code>.
      * 
      * @since 4.0.12
      */
