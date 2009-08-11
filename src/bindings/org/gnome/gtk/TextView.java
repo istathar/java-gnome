@@ -184,6 +184,7 @@ import org.gnome.pango.FontDescription;
  * in Open Source, Your Mileage May Vary. Perhaps GTK will improve this aspect
  * of the library in the future.</i>
  * 
+ * <a name="spelling"></a>
  * <h2>Spellchecking</h2>
  * 
  * <img class="snapshot" src="TextView-Spelling.png"> You can add
