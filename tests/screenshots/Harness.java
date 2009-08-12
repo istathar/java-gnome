@@ -27,6 +27,7 @@ import org.gnome.gtk.Snapshot;
 import org.gnome.gtk.SnapshotAboutDialog;
 import org.gnome.gtk.SnapshotArrow;
 import org.gnome.gtk.SnapshotButton;
+import org.gnome.gtk.SnapshotCalendar;
 import org.gnome.gtk.SnapshotComboBox;
 import org.gnome.gtk.SnapshotEntryCompletion;
 import org.gnome.gtk.SnapshotEntryIcon;
@@ -155,6 +156,7 @@ public final class Harness
                     SnapshotComboBox.class,
                     SnapshotArrow.class,
                     SnapshotNotebook.class,
+                    SnapshotCalendar.class,
                     SnapshotTextComboBox.class,
                     SnapshotTextComboBoxEntry.class,
                     SnapshotContextLine.class,

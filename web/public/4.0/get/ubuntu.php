@@ -43,7 +43,7 @@ latest release as shown above. You can check the available packages at <a
 href="http://packages.ubuntu.com/search?keywords=libjava-gnome-java&searchon=names&exact=1&suite=all&section=all">list</a>
 of Ubuntu releases and the java-gnome versions they provide. If out of date,
 you may prefer to get java-gnome from a <a
-href="https://launchpad.net/~respawneral/+archive/ppa/+build/982951">PPA</a>
+href="https://launchpad.net/~respawneral/+archive/ppa/+build/1131323">PPA</a>
 or build it from <a href="/4.0/README.html">source</a>.</p>
 
 <p>As java-gnome 4.0 is a completely new from-the-ground-up implementation, it
