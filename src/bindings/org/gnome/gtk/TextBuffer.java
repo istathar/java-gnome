@@ -1170,4 +1170,29 @@ public class TextBuffer extends Object
     public void connect(EndUserAction handler) {
         GtkTextBuffer.connect(this, handler, false);
     }
+
+    /**
+     * Tell a currently active <code>TextBuffer.InsertText</code> signal
+     * emission to stop.
+     * 
+     * <p>
+     * Calling this only makes sense within the scope of a normal handler of
+     * that signal; the effect is to prevent insertion by GTK's default
+     * handler.
+     * 
+     * @since 4.0.13
+     */
+    public void stopInsertText() {
+        GtkTextBufferOverride.stopInsertText(this);
+    }
+
+    /**
+     * Tell a currently active <code>TextBuffer.DeleteRange</code> signal
+     * emission to stop.
+     * 
+     * @since 4.0.13
+     */
+    public void stopDeleteRange() {
+        GtkTextBufferOverride.stopDeleteRange(this);
+    }
 }
