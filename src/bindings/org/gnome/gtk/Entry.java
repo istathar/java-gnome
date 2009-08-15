@@ -157,17 +157,6 @@ public class Entry extends Widget implements Editable, CellEditable
     }
 
     /**
-     * Unset the previous invisible character set with the
-     * {@link #setInvisibleChar(char) setInvisibleChar()} method. In this way,
-     * the default invisible character will be used again.
-     * 
-     * @since 4.0.13
-     */
-    public void unsetInvisibleChar() {
-        GtkEntry.unsetInvisibleChar(this);
-    }
-
-    /**
      * Set whether the text in the Entry can be change by the user.
      * 
      * @since 4.0.3
@@ -451,11 +440,8 @@ public class Entry extends Widget implements Editable, CellEditable
 
     /**
      * Set the icon to a given <code>position</code> using a {@link Pixbuf}.
+     * If <code>pixbuf</code> is <code>null</code>, no icon will be shown.
      * 
-     * @param position
-     *            The icon {@link EntryIconPosition position}.
-     * @param pixbuf
-     *            If <code>null</code>, no icon will be shown.
      * @since 4.0.13
      */
     public void setIconFromPixbuf(EntryIconPosition position, Pixbuf pixbuf) {
@@ -464,12 +450,9 @@ public class Entry extends Widget implements Editable, CellEditable
 
     /**
      * Set the icon to a given <code>position</code> using a {@link Stock}
-     * item.
+     * item. If <code>stock</code> is <code>null</code>, no icon will be
+     * shown.
      * 
-     * @param position
-     *            The icon {@link EntryIconPosition position}.
-     * @param stock
-     *            If <code>null</code>, no icon will be shown.
      * @since 4.0.13
      */
     public void setIconFromStock(EntryIconPosition position, Stock stock) {
@@ -478,14 +461,10 @@ public class Entry extends Widget implements Editable, CellEditable
 
     /**
      * Set the icon to a given <code>position</code> using an icon name from
-     * the current icon theme.
+     * the current icon theme. If <code>name</code> is <code>null</code>, no
+     * icon will be shown. If the icon doesn't exist, a &quot;broken
+     * image&quot; icon will be used instead.
      * 
-     * @param position
-     *            The icon {@link EntryIconPosition position}.
-     * @param name
-     *            If <code>null</code>, no icon will be shown. If the icon
-     *            doesn't exist, a &quot;broken image&quot; icon will be used
-     *            instead.
      * @since 4.0.13
      */
     public void setIconFromIconName(EntryIconPosition position, String name) {
@@ -596,11 +575,9 @@ public class Entry extends Widget implements Editable, CellEditable
 
     /**
      * Set the note (without Pango markup) that will be displayed when the
-     * mouse pointer will be over the icon.
+     * mouse pointer will be over the icon. The <code>text</code> string
+     * should be in plain text (without any Pango markup).
      * 
-     * @param text
-     *            The string of plain text (i.e. without any Pango markup) you
-     *            wish to be displayed when if the tooltip is popped up.
      * @since 4.0.13
      */
     public void setIconTooltipText(EntryIconPosition position, String text) {
@@ -621,9 +598,6 @@ public class Entry extends Widget implements Editable, CellEditable
      * Set the note (with Pango markup) that will be displayed when the mouse
      * pointer will be over the icon.
      * 
-     * @param markup
-     *            The string with Pango markup you wish to be displayed when
-     *            if the tooltip is popped up.
      * @since 4.0.13
      */
     public void setIconTooltipMarkup(EntryIconPosition position, String markup) {

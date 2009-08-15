@@ -1,5 +1,5 @@
 /*
- * ExampleEntryIcon.java
+ * ExampleSearchSomeone.java
  *
  * Copyright (c) 2009 Operational Dynamics Consulting Pty Ltd, and Others
  *
@@ -33,7 +33,7 @@ import org.gnome.gtk.Window;
  * @author Guillaume Mazoyer
  * @since 4.0.13
  */
-public class ExampleEntryIcon
+public class ExampleSearchSomeone
 {
     public static void main(String[] args) {
         final Window window;
@@ -54,6 +54,10 @@ public class ExampleEntryIcon
                 "Guillaume Mazoyer\n  respawneral@gmail.com"
         };
 
+        TreeViewColumn vertical;
+        CellRendererText textRenderer;
+        TreeIter row;
+
         /*
          * Initialize GTK.
          */
@@ -69,6 +73,7 @@ public class ExampleEntryIcon
         /*
          * Connect the signal to close the window
          */
+
         window.connect(new Window.DeleteEvent() {
             public boolean onDeleteEvent(Widget source, Event event) {
                 Gtk.mainQuit();
@@ -120,9 +125,6 @@ public class ExampleEntryIcon
          * Add columns to the TreeView.
          */
 
-        TreeViewColumn vertical;
-        CellRendererText textRenderer;
-
         vertical = treeview.appendColumn();
         textRenderer = new CellRendererText(vertical);
         textRenderer.setText(textColumn);
@@ -131,7 +133,6 @@ public class ExampleEntryIcon
          * Add contacts in the TreeView.
          */
 
-        TreeIter row;
         for (String contact : contacts) {
             /*
              * Append a new row.
