@@ -13,7 +13,8 @@
 #include <gtk/gtk.h>
 #include "org_gnome_gtk_GtkAboutDialogOverride.h"
 
-static guint signalID = 0;
+static guint emailSignalID = 0;
+static guint urlSignalID = 0;
 
 /*
  * Meets the signature requirement of (*GtkAboutDialogActivateLinkFunc).
@@ -48,8 +49,8 @@ JNIEXPORT void JNICALL Java_org_gnome_gtk_GtkAboutDialogOverride_gtk_1about_1dia
 	// convert parameter self
 	self = (GtkAboutDialog*) _self;
 
-	if (signalID == 0) {
-		signalID = g_signal_new("email-clicked",
+	if (emailSignalID == 0) {
+		emailSignalID = g_signal_new("email-clicked",
 			GTK_TYPE_ABOUT_DIALOG,
 			G_SIGNAL_ACTION,
 			0,
@@ -99,8 +100,8 @@ JNIEXPORT void JNICALL Java_org_gnome_gtk_GtkAboutDialogOverride_gtk_1about_1dia
 	// convert parameter self
 	self = (GtkAboutDialog*) _self;
 
-	if (signalID == 0) {
-		signalID = g_signal_new("url-clicked",
+	if (urlSignalID == 0) {
+		urlSignalID = g_signal_new("url-clicked",
 			GTK_TYPE_ABOUT_DIALOG,
 			G_SIGNAL_ACTION,
 			0,
