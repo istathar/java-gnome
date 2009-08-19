@@ -431,7 +431,13 @@ public class TextBuffer extends Object
      * Like {@link #insert(TextIter, String) insert()}, but the insertion will
      * not occur if <code>pos</code> points to a non-editable location in the
      * buffer - meaning that it is enclosed in TextTags that mark the area
-     * non-editable.<br/>
+     * non-editable.
+     * 
+     * <p>
+     * This method is conducted as a user action, so the
+     * <code>TextBuffer.BeginUserAction</code> and
+     * <code>TextBuffer.EndUserAction</code> signals will be raised before and
+     * after carrying out the insertion, respectively.
      * 
      * @param pos
      *            Position to insert at.
@@ -448,6 +454,27 @@ public class TextBuffer extends Object
      */
     public void insertInteractive(TextIter pos, String text, boolean defaultEditability) {
         GtkTextBuffer.insertInteractive(this, pos, text, -1, defaultEditability);
+    }
+
+    /**
+     * Delete text like {@link #delete(TextIter, TextIter) delete()}, but only
+     * if the range given is editable.
+     * 
+     * <p>
+     * See {@link #insertInteractive(TextIter, String, boolean)
+     * insertInteractive()} for a discussion of the
+     * <code>defaultEditability</code> parameter.
+     * 
+     * <p>
+     * This method is conducted as a user action, so the
+     * <code>TextBuffer.BeginUserAction</code> and
+     * <code>TextBuffer.EndUserAction</code> signals will be raised before and
+     * after carrying out the deletion.
+     * 
+     * @since 4.0.13
+     */
+    public void deleteInteractive(TextIter start, TextIter end, boolean defaultEditability) {
+        GtkTextBuffer.deleteInteractive(this, start, end, defaultEditability);
     }
 
     /**
@@ -1142,5 +1169,30 @@ public class TextBuffer extends Object
      */
     public void connect(EndUserAction handler) {
         GtkTextBuffer.connect(this, handler, false);
+    }
+
+    /**
+     * Tell a currently active <code>TextBuffer.InsertText</code> signal
+     * emission to stop.
+     * 
+     * <p>
+     * Calling this only makes sense within the scope of a normal handler of
+     * that signal; the effect is to prevent insertion by GTK's default
+     * handler.
+     * 
+     * @since 4.0.13
+     */
+    public void stopInsertText() {
+        GtkTextBufferOverride.stopInsertText(this);
+    }
+
+    /**
+     * Tell a currently active <code>TextBuffer.DeleteRange</code> signal
+     * emission to stop.
+     * 
+     * @since 4.0.13
+     */
+    public void stopDeleteRange() {
+        GtkTextBufferOverride.stopDeleteRange(this);
     }
 }
