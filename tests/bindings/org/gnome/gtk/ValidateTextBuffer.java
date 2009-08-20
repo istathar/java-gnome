@@ -583,7 +583,7 @@ public class ValidateTextBuffer extends TestCaseGtk
         final TextBuffer buffer;
         TextIter pointer;
         int i;
-        String str;
+        StringBuilder str;
 
         /*
          * Put in 5 characters
@@ -599,15 +599,15 @@ public class ValidateTextBuffer extends TestCaseGtk
 
         pointer = buffer.getIterStart();
         i = 0;
-        str = "";
+        str = new StringBuilder();
 
         do {
             i++;
-            str = str + pointer.getChar();
+            str = str.appendCodePoint(pointer.getChar());
         } while (pointer.forwardChar());
 
         assertEquals(5, i);
-        assertEquals("Hello", str);
+        assertEquals("Hello", str.toString());
     }
 
     public final void testInsertWithMultipleTags() {
