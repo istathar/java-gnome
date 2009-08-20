@@ -223,15 +223,23 @@ public final class TextIter extends Boxed
      * Get the character immediately following the position this TextIter is
      * pointing at.
      * 
-     * @return A <code>char</code> value of
-     *         {@link TextBuffer#OBJECT_REPLACEMENT_CHARACTER
-     *         OBJECT_REPLACEMENT_CHARACTER} indicates a non-character element
-     *         (an embedded Pixbuf or Widget). You'll get <code>0</code> (ie
-     *         <code>'\0'</code>, not <code>'0'</code>) if this TextIter is
-     *         already at the TextBuffer's end.
-     * @since 4.0.9
+     * <p>
+     * TextBuffers work in characters, and so this method too returns a
+     * Unicode codepoint. Beware, of course if you are used to working with
+     * Java's 2-byte <code>char</code> type that you have to use
+     * StringBuffer's appendCodePoint(int) instead of append(char).
+     * 
+     * <p>
+     * An <code>int</code> value of
+     * {@link TextBuffer#OBJECT_REPLACEMENT_CHARACTER
+     * OBJECT_REPLACEMENT_CHARACTER} indicates a non-character element (an
+     * embedded Pixbuf or Widget). You'll get <code>0</code> (ie
+     * <code>'\0'</code>, not <code>'0'</code>) if this TextIter is already at
+     * the TextBuffer's end.
+     * 
+     * @since 4.0.13
      */
-    public char getChar() {
+    public int getChar() {
         return GtkTextIter.getChar(this);
     }
 
