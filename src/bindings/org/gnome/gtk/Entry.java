@@ -15,7 +15,8 @@ import org.gnome.gdk.Event;
 import org.gnome.gdk.Pixbuf;
 
 /**
- * A data entry field allowing the user to input a single line of text.
+ * A data entry field allowing the user to input a single line of text. <img
+ * src="Entry.png" class="snapshot" />
  * 
  * @author Sebastian Mancke
  * @author Andrew Cowie
