@@ -19,6 +19,7 @@ import org.gnome.gtk.Entry;
 import org.gnome.gtk.EntryIconPosition;
 import org.gnome.gtk.Gtk;
 import org.gnome.gtk.ListStore;
+import org.gnome.gtk.SelectionMode;
 import org.gnome.gtk.Stock;
 import org.gnome.gtk.TreeIter;
 import org.gnome.gtk.TreeView;
@@ -33,18 +34,21 @@ import org.gnome.gtk.Window;
  * @author Guillaume Mazoyer
  * @since 4.0.13
  */
+/*
+ * FIXME this would be far better done with a TreeModelFilter.
+ */
 public class ExampleSearchSomeone
 {
     public static void main(String[] args) {
         final Window window;
-
         final VBox vbox;
-
         final Entry entry;
-
         final DataColumnString textColumn;
         final ListStore model;
-        final TreeView treeview;
+        final TreeView view;
+        TreeViewColumn vertical;
+        CellRendererText renderer;
+        TreeIter row;
 
         final String[] contacts = {
                 "Andrew Cowie\n  andrew@operationaldynamics.com",
@@ -53,10 +57,6 @@ public class ExampleSearchSomeone
                 "Stefan Schweizer\n  steve.schweizer@gmail.com",
                 "Guillaume Mazoyer\n  respawneral@gmail.com"
         };
-
-        TreeViewColumn vertical;
-        CellRendererText textRenderer;
-        TreeIter row;
 
         /*
          * Initialize GTK.
@@ -115,35 +115,28 @@ public class ExampleSearchSomeone
          * Then, we build the TreeView.
          */
 
-        treeview = new TreeView(model);
-        treeview.setHeadersVisible(false);
-        treeview.setEnableSearch(false);
-        treeview.setSizeRequest(300, 200);
-        vbox.add(treeview);
+        view = new TreeView(model);
+        view.setHeadersVisible(false);
+        view.setEnableSearch(false);
+        view.getSelection().setMode(SelectionMode.NONE);
+        view.setCanFocus(false);
+        view.setSizeRequest(300, 200);
+        vbox.add(view);
 
         /*
-         * Add columns to the TreeView.
+         * Setup visual display of the contact data
          */
 
-        vertical = treeview.appendColumn();
-        textRenderer = new CellRendererText(vertical);
-        textRenderer.setText(textColumn);
+        vertical = view.appendColumn();
+        renderer = new CellRendererText(vertical);
+        renderer.setText(textColumn);
 
         /*
-         * Add contacts in the TreeView.
+         * Add each "contact" to the underlying ListStore
          */
 
         for (String contact : contacts) {
-            /*
-             * Append a new row.
-             */
-
             row = model.appendRow();
-
-            /*
-             * Set row values for each column.
-             */
-
             model.setValue(row, textColumn, contact);
         }
 
@@ -180,21 +173,17 @@ public class ExampleSearchSomeone
         });
 
         /*
-         * Then connect the signal to the icon.
+         * Then connect the signal to the icon to clear the entry.
          */
 
         entry.connect(new Entry.IconPress() {
             public void onIconPress(Entry source, EntryIconPosition position, Event event) {
-                /*
-                 * Clear the entry.
-                 */
-
                 source.setText("");
             }
         });
 
         /*
-         * Now we pack the VBox into our Window and set the Window's title.
+         * Finally pack the VBox into our Window and set a title.
          */
 
         window.add(vbox);
