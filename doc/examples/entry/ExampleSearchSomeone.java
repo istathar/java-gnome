@@ -22,6 +22,8 @@ import org.gnome.gtk.ListStore;
 import org.gnome.gtk.SelectionMode;
 import org.gnome.gtk.Stock;
 import org.gnome.gtk.TreeIter;
+import org.gnome.gtk.TreeModel;
+import org.gnome.gtk.TreeModelFilter;
 import org.gnome.gtk.TreeView;
 import org.gnome.gtk.TreeViewColumn;
 import org.gnome.gtk.VBox;
@@ -34,9 +36,6 @@ import org.gnome.gtk.Window;
  * @author Guillaume Mazoyer
  * @since 4.0.13
  */
-/*
- * FIXME this would be far better done with a TreeModelFilter.
- */
 public class ExampleSearchSomeone
 {
     public static void main(String[] args) {
@@ -46,6 +45,7 @@ public class ExampleSearchSomeone
         final DataColumnString textColumn;
         final ListStore model;
         final TreeView view;
+        final TreeModelFilter filter;
         TreeViewColumn vertical;
         CellRendererText renderer;
         TreeIter row;
@@ -112,10 +112,40 @@ public class ExampleSearchSomeone
         });
 
         /*
+         * Add each "contact" to the underlying ListStore
+         */
+
+        for (String contact : contacts) {
+            row = model.appendRow();
+            model.setValue(row, textColumn, contact);
+        }
+
+        /*
+         * Use a filter to display only the good results
+         */
+
+        filter = new TreeModelFilter(model, null);
+        filter.setVisibleCallback(new TreeModelFilter.Visible() {
+            public boolean onVisible(TreeModelFilter source, TreeModel base, TreeIter row) {
+                final String[] contact = base.getValue(row, textColumn).split(" ");
+                final String search = entry.getText();
+
+                for (String s : contact) {
+                    if (s.startsWith(search)) {
+                        System.out.println(s);
+                        System.out.println("Show contact");
+                        return true;
+                    }
+                }
+                return false;
+            }
+        });
+
+        /*
          * Then, we build the TreeView.
          */
 
-        view = new TreeView(model);
+        view = new TreeView(filter);
         view.setHeadersVisible(false);
         view.setEnableSearch(false);
         view.getSelection().setMode(SelectionMode.NONE);
@@ -132,43 +162,16 @@ public class ExampleSearchSomeone
         renderer.setText(textColumn);
 
         /*
-         * Add each "contact" to the underlying ListStore
-         */
-
-        for (String contact : contacts) {
-            row = model.appendRow();
-            model.setValue(row, textColumn, contact);
-        }
-
-        /*
          * Connect the signal to enable search when we type.
          */
 
         entry.connect(new Entry.Changed() {
             public void onChanged(Editable source) {
                 /*
-                 * Clear the treeview.
+                 * Refilter the view
                  */
 
-                model.clear();
-
-                /*
-                 * Add contacts matching with the Entry text.
-                 */
-
-                TreeIter row;
-                for (String contact : contacts) {
-                    String[] values = contact.split("\n  ");
-
-                    /*
-                     * Search by name *and* by email.
-                     */
-
-                    if (values[0].startsWith(entry.getText()) || values[1].startsWith(entry.getText())) {
-                        row = model.appendRow();
-                        model.setValue(row, textColumn, contact);
-                    }
-                }
+                filter.refilter();
             }
         });
 
