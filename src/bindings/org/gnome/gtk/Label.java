@@ -11,6 +11,8 @@
  */
 package org.gnome.gtk;
 
+import org.gnome.pango.EllipsizeMode;
+
 /**
  * A Widget that displays a small amount of text.
  * 
@@ -33,6 +35,7 @@ package org.gnome.gtk;
  * @author Andrew Cowie
  * @author Srichand Pendyala
  * @author Wouter Bolsterlee
+ * @author Guillaume Mazoyer
  * @since 4.0.1
  */
 public class Label extends Misc
@@ -140,6 +143,25 @@ public class Label extends Misc
      */
     public boolean getUseMarkup() {
         return GtkLabel.getUseMarkup(this);
+    }
+
+    /**
+     * Set the {@link EllipsizeMode ellipsization mode} to use to make the
+     * text fits the label width.
+     * 
+     * @since 4.0.13
+     */
+    public void setEllipsize(EllipsizeMode setting) {
+        GtkLabel.setEllipsize(this, setting);
+    }
+
+    /**
+     * Get the current ellipsization used.
+     * 
+     * @since 4.0.13
+     */
+    public EllipsizeMode getEllipsizeMode() {
+        return GtkLabel.getEllipsize(this);
     }
 
     /**
