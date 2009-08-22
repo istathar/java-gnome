@@ -51,11 +51,11 @@ public class ExampleSearchSomeone
         TreeIter row;
 
         final String[] contacts = {
-                "Andrew Cowie\n  andrew@operationaldynamics.com",
-                "Vreixo Formoso Lopes\n  metalpain2002@yahoo.es",
-                "Serkan Kaba\n  serkan@gentoo.org",
-                "Stefan Schweizer\n  steve.schweizer@gmail.com",
-                "Guillaume Mazoyer\n  respawneral@gmail.com"
+                "Andrew Cowie\nandrew@operationaldynamics.com",
+                "Vreixo Formoso Lopes\nmetalpain2002@yahoo.es",
+                "Serkan Kaba\nserkan@gentoo.org",
+                "Stefan Schweizer\nsteve.schweizer@gmail.com",
+                "Guillaume Mazoyer\nrespawneral@gmail.com"
         };
 
         /*
@@ -127,17 +127,17 @@ public class ExampleSearchSomeone
         filter = new TreeModelFilter(model, null);
         filter.setVisibleCallback(new TreeModelFilter.Visible() {
             public boolean onVisible(TreeModelFilter source, TreeModel base, TreeIter row) {
-                final String[] contact = base.getValue(row, textColumn).split(" ");
-                final String search = entry.getText();
+                final String contact;
+                final String search;
 
-                for (String s : contact) {
-                    if (s.startsWith(search)) {
-                        System.out.println(s);
-                        System.out.println("Show contact");
-                        return true;
-                    }
+                contact = base.getValue(row, textColumn);
+                search = entry.getText();
+
+                if (contact.contains(search)) {
+                    return true;
+                } else {
+                    return false;
                 }
-                return false;
             }
         });
 
