@@ -50,7 +50,7 @@ public class LinkButton extends Button
     }
 
     /**
-     * Returns the button's {@link URI}.
+     * Return the button's {@link URI}.
      * 
      * @since 4.0.13
      */
@@ -63,7 +63,7 @@ public class LinkButton extends Button
     }
 
     /**
-     * Modifies the button's {@link URI}.
+     * Modify the button's {@link URI}.
      * 
      * @since 4.0.13
      */
@@ -72,7 +72,7 @@ public class LinkButton extends Button
     }
 
     /**
-     * Returns the buttons visited state. Note that this might be modified
+     * Return the buttons visited state. Note that this might be modified
      * programatically by {@link #setVisited(boolean)}.
      * 
      * @since 4.0.13
@@ -82,7 +82,7 @@ public class LinkButton extends Button
     }
 
     /**
-     * Modifies the button's visited state.
+     * Modify the button's visited state.
      * 
      * @since 4.0.13
      */
