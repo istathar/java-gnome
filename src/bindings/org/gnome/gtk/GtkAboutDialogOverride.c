@@ -26,9 +26,7 @@ emit_email_hook
 	const gchar *email
 )
 {
-	gboolean result;
-
-	g_signal_emit_by_name(GTK_ABOUT_DIALOG(about), "email-clicked", email, &result);
+	g_signal_emit_by_name(GTK_ABOUT_DIALOG(about), "email-clicked", email);
 }
 
 /**
@@ -77,9 +75,7 @@ emit_url_hook
 	const gchar *link
 )
 {
-	gboolean result;
-
-	g_signal_emit_by_name(GTK_ABOUT_DIALOG(about), "url-clicked", link, &result);
+	g_signal_emit_by_name(GTK_ABOUT_DIALOG(about), "url-clicked", link);
 }
 
 /**

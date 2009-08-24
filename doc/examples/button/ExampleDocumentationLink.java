@@ -1,5 +1,5 @@
 /*
- * ExampleDocLink.java
+ * ExampleDocumentationLink.java
  *
  * Copyright (c) 2009 Operational Dynamics Consulting Pty Ltd, and Others
  *
@@ -21,7 +21,7 @@ import org.gnome.gtk.VBox;
 import org.gnome.gtk.Widget;
 import org.gnome.gtk.Window;
 
-public class ExampleDocLink
+public class ExampleDocumentationLink
 {
     public static void main(String[] args) {
         final Window window;

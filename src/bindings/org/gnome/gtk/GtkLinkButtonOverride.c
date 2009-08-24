@@ -22,9 +22,7 @@ emit_uri_hook
 	const gchar *link
 )
 {
-	gboolean result;
-
-	g_signal_emit_by_name(GTK_LINK_BUTTON(source), "uri-clicked", link, &result);
+	g_signal_emit_by_name(GTK_LINK_BUTTON(source), "uri-clicked", link);
 }
 
 /*
@@ -60,5 +58,5 @@ JNIEXPORT void JNICALL Java_org_gnome_gtk_GtkLinkButtonOverride_gtk_1link_1butto
 	}
 
 	// call function
-	gtk_link_button_set_uri_hook((GtkLinkButtonUriFunc)emit_uri_hook, NULL, NULL);
+	gtk_link_button_set_uri_hook((GtkLinkButtonUriFunc) emit_uri_hook, NULL, NULL);
 }
