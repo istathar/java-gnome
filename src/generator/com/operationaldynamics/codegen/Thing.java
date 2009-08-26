@@ -1,7 +1,7 @@
 /*
  * Thing.java
  *
- * Copyright (c) 2007-2008 Operational Dynamics Consulting Pty Ltd
+ * Copyright (c) 2007-2009 Operational Dynamics Consulting Pty Ltd
  * 
  * The code in this file, and the program it is a part of, are made available
  * to you by the authors under the terms of the "GNU General Public Licence,
@@ -106,7 +106,7 @@ public abstract class Thing
         register(new FundamentalThing("none", "void", "void", "void"));
         register(new FundamentalThing("gchar", "char", "char", "jchar"));
         register(new FundamentalThing("guchar", "char", "char", "jchar"));
-        register(new FundamentalThing("gunichar", "char", "char", "jchar"));
+        register(new FundamentalThing("gunichar", "int", "int", "jint"));
         register(new StringThing("gchar*"));
 
         /*

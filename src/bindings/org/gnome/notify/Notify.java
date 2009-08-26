@@ -99,7 +99,7 @@ public final class Notify extends Glib
      * 
      * <p>
      * See the "D-BUS Protocol" section in <i>Desktop Notifications
-     * Specification</i> for standard hints.
+     * Specification</i> for standard capabilities.
      * 
      * @since 4.0.12
      */

@@ -1,7 +1,7 @@
 /*
- * ExampleTreeViewListStore.java
+ * ExampleTrailHeads.java
  *
- * Copyright (c) 2007-2008 Operational Dynamics Consulting Pty Ltd, and Others
+ * Copyright (c) 2007-2009 Operational Dynamics Consulting Pty Ltd, and Others
  *
  * The code in this file, and the program it is a part of, are made available
  * to you by the authors under the terms of the "GNU General Public Licence,
@@ -166,6 +166,7 @@ public class ExampleTrailHeads
          * you've defined sorting for more than one vertical column, but if
          * you want sorting on from the start, you need to call it.
          */
+
         vertical.setSortColumn(elevationSort);
         vertical.emitClicked();
 
@@ -178,6 +179,7 @@ public class ExampleTrailHeads
          * up a handler to the TreeView.RowActivated signal. The TreePath it
          * gives you is the useful bit.
          */
+
         view.connect(new TreeView.RowActivated() {
             public void onRowActivated(TreeView source, TreePath path, TreeViewColumn vertical) {
                 final TreeIter row;
