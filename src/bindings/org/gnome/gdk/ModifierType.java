@@ -1,7 +1,7 @@
 /*
  * ModifierType.java
  *
- * Copyright (c) 2007-2008 Operational Dynamics Consulting Pty Ltd
+ * Copyright (c) 2007-2009 Operational Dynamics Consulting Pty Ltd
  *
  * The code in this file, and the library it is a part of, are made available
  * to you by the authors under the terms of the "GNU General Public Licence,
@@ -135,6 +135,14 @@ public final class ModifierType extends Flag
      * 0 so you don't need much of a constant for that.
      */
     public static final ModifierType NONE = new ModifierType(0, "NONE");
+
+    /**
+     * The ModifierType associated with the <b><code>CapsLock</code></b> key.
+     * A bit strange that this is also treated as a modifier.
+     * 
+     * @since 4.0.13
+     */
+    public static final ModifierType LOCK_MASK = new ModifierType(GdkModifierType.LOCK_MASK, "LOCK_MASK");
 
     /**
      * The <b><code>Shift</code></b> key modifier.

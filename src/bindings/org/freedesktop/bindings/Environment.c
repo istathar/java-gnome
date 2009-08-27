@@ -1,7 +1,7 @@
 /*
  * Environment.c
  *
- * Copyright (c) 2007-2008 Operational Dynamics Consulting Pty Ltd and Others
+ * Copyright (c) 2007-2009 Operational Dynamics Consulting Pty Ltd and Others
  * 
  * The code in this file, and the library it is a part of, are made available
  * to you by the authors under the terms of the "GNU General Public Licence,
@@ -29,11 +29,11 @@ Java_org_freedesktop_bindings_Environment_getenv
 	jstring _name
 )
 {
-	gchar* name;
+	const gchar* name;
 	gchar* result;
 
 	// convert parameter name
-	name = (gchar*) (*env)->GetStringUTFChars(env, _name, NULL);
+	name = bindings_java_getString(env, _name);
 	if (name == NULL) {
 		return NULL; /* OutOfMemoryError already thrown */
 	}
@@ -42,10 +42,10 @@ Java_org_freedesktop_bindings_Environment_getenv
 	result = (gchar*) getenv(name); 
 
 	// clean up name
-	(*env)->ReleaseStringUTFChars(env, _name, name);
+	bindings_java_releaseString(name);
 
 	// and return	
-	return (*env)->NewStringUTF(env, result);
+	return bindings_java_newString(env, result);
 }
 
 
@@ -62,17 +62,17 @@ Java_org_freedesktop_bindings_Environment_setenv
 	jstring _value
 )
 {
-	gchar* name;
-	gchar* value;
+	const gchar* name;
+	const gchar* value;
 
 	// convert parameter name
-	name = (gchar*) (*env)->GetStringUTFChars(env, _name, NULL);
+	name = bindings_java_getString(env, _name);
 	if (name == NULL) {
 		return; /* OutOfMemoryError already thrown */
 	}
 
 	// convert parameter value
-	value = (gchar*) (*env)->GetStringUTFChars(env, _value, NULL);
+	value =  bindings_java_getString(env, _value);
 	if (value == NULL) {
 		return; /* OutOfMemoryError already thrown */
 	}
@@ -83,10 +83,10 @@ Java_org_freedesktop_bindings_Environment_setenv
 	}
 	
 	// clean up name
-	(*env)->ReleaseStringUTFChars(env, _name, name);
+	bindings_java_releaseString(name);
 
 	// clean up name
-	(*env)->ReleaseStringUTFChars(env, _value, value);
+	bindings_java_releaseString(value);
 }
 
 
@@ -102,10 +102,10 @@ Java_org_freedesktop_bindings_Environment_unsetenv
 	jstring _name
 )
 {
-	gchar* name;
+	const gchar* name;
 
 	// convert parameter name
-	name = (gchar*) (*env)->GetStringUTFChars(env, _name, NULL);
+	name = bindings_java_getString(env, _name);
 	if (name == NULL) {
 		return; /* OutOfMemoryError already thrown */
 	}
@@ -116,7 +116,7 @@ Java_org_freedesktop_bindings_Environment_unsetenv
 	}
 
 	// clean up name
-	(*env)->ReleaseStringUTFChars(env, _name, name);
+	bindings_java_releaseString(name);
 }
 
 

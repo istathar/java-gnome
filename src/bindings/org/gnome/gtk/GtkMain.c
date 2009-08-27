@@ -60,7 +60,7 @@ Java_org_gnome_gtk_GtkMain_gtk_1init
 
 	for (i = 0; i < argc; i++) {
 		_arg = (jstring) (*env)->GetObjectArrayElement(env, _args, i);
-		arg = (gchar*)(*env)->GetStringUTFChars(env, _arg, NULL);
+		arg = (gchar*) bindings_java_getString(env, _arg);
 		argv[i+1] = arg;
 	}
 
@@ -74,6 +74,10 @@ Java_org_gnome_gtk_GtkMain_gtk_1init
 
 	// call function
 	gtk_init(&argc, &argv);
+
+ 	/*
+	 * TODO can we release argv elements?
+	 */
  
 	/*
 	 * Work around for what may be bug #85715. It appears that the root

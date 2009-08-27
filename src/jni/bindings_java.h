@@ -1,7 +1,7 @@
 /*
  * bindings_java.h
  *
- * Copyright (c) 2006-2008 Operational Dynamics Consulting Pty Ltd
+ * Copyright (c) 2006-2009 Operational Dynamics Consulting Pty Ltd
  * 
  * The code in this file, and the library it is a part of, are made available
  * to you by the authors under the terms of the "GNU General Public Licence,
@@ -26,11 +26,15 @@ extern JNIEnv* bindings_java_getEnv();
 
 extern void bindings_java_throwByName(JNIEnv*, const char*, const char*);
 extern void bindings_java_throw(JNIEnv*, const char*, ...);
-extern void bindings_java_throw_gerror(JNIEnv*, GError*);
+extern void bindings_java_throwGlibException(JNIEnv*, GError*);
 
 extern const gchar* bindings_java_typeToSignature(GType);
 
 extern void bindings_java_logging_init();
+
+extern const gchar* bindings_java_getString(JNIEnv*, jstring);
+extern jstring bindings_java_newString(JNIEnv*, const gchar*);
+extern void bindings_java_releaseString(const gchar*);
 
 /*
  *  bindings_java_signal.c

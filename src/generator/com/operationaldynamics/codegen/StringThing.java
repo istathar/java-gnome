@@ -1,7 +1,7 @@
 /*
  * StringThing.java
  *
- * Copyright (c) 2007-2008 Operational Dynamics Consulting Pty Ltd, and Others
+ * Copyright (c) 2007-2009 Operational Dynamics Consulting Pty Ltd, and Others
  * 
  * The code in this file, and the program it is a part of, are made available
  * to you by the authors under the terms of the "GNU General Public Licence,
@@ -21,7 +21,7 @@ public class StringThing extends Thing
     protected StringThing() {}
 
     String jniConversionDecode(String name) {
-        return "(*env)->GetStringUTFChars(env, _" + name + ", NULL)";
+        return "bindings_java_getString(env, _" + name + ")";
     }
 
     boolean jniConversionCanFail() {
@@ -33,11 +33,11 @@ public class StringThing extends Thing
     }
 
     String jniConversionCleanup(String name) {
-        return "(*env)->ReleaseStringUTFChars(env, _" + name + ", " + name + ")";
+        return "bindings_java_releaseString(" + name + ")";
     }
 
     String jniReturnEncode(String name) {
-        return "(*env)->NewStringUTF(env, " + name + ")";
+        return "bindings_java_newString(env, " + name + ")";
     }
 
     String jniReturnErrorValue() {
