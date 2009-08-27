@@ -13,13 +13,13 @@ Unicode characters.
 Unicode handling
 ----------------
 
-It tuns out that Java's chars are **not** pure Unicode codepoints. Most people
-know that Java String objects are arrays of Java chars, but in aggregate they
-are encoded in UTF-16 in order to deal with the fact that there are Unicode
-characters whose index is higher than `0xFFFF` and which need more than two
-bytes to identify them. It's a problem that an application developer has to
-deal with if they're using high-range "supplementary" Unicode characters, but
-wasn't something that would break java-gnome...
+It turns out that Java's chars are **not** pure Unicode codepoints. Most
+people know that Java String objects are arrays of Java chars, but in
+aggregate they are encoded in UTF-16 in order to deal with the fact that there
+are Unicode characters whose index is higher than `0xFFFF` and which need more
+than two bytes to identify them. It's a problem that an application developer
+has to deal with if they're using high-range "supplementary" Unicode
+characters, but wasn't something that would break java-gnome...
 
 Except it turns out that the Java VM does not do UTF-8 translation properly.
 It has a hard wired limitation preventing it from writing out UTF-8 sequences
@@ -45,9 +45,11 @@ Java char.
 New coverage
 ------------
 
-This release also features the work of Guillaume Mazoyer exposing some of the
-new features available in Entry Widgets, including displaying icons and
-showing progress bars in the background.
+<img src="doc/api/org/gnome/gtk/Entry.png" alt="" style="float: right;
+text-align: right; padding-left: 15px;" /> This release also features the work
+of Guillaume Mazoyer exposing some of the new features available in Entry
+Widgets, including displaying icons and showing progress bars in the
+background.
 
 * **`org.gnome.gtk.Entry`**
 * **`org.gnome.gtk.EntryIconPosition`**
