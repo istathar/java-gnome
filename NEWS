@@ -1,5 +1,71 @@
 NEWS
 
+<a name="4.0.13" id="1251341992" title="Fix unicode handling"></a>
+
+java-gnome 4.0.13 (27 Aug 2009)
+===============================
+
+_Unicode. It's bigger than you think._
+
+This is a bug fix release to address a serious weakness in Java's handling of
+Unicode characters.
+
+Unicode handling
+----------------
+
+It tuns out that Java's chars are **not** pure Unicode codepoints. Most people
+know that Java String objects are arrays of Java chars, but in aggregate they
+are encoded in UTF-16 in order to deal with the fact that there are Unicode
+characters whose index is higher than `0xFFFF` and which need more than two
+bytes to identify them. It's a problem that an application developer has to
+deal with if they're using high-range "supplementary" Unicode characters, but
+wasn't something that would break java-gnome...
+
+Except it turns out that the Java VM does not do UTF-8 translation properly.
+It has a hard wired limitation preventing it from writing out UTF-8 sequences
+longer than 3 bytes. Who knows what crack they were smoking when they decided
+that one. But things like TextView / TextBuffer work in characters, so we need
+characters. (actually, they work in UTF-8 bytes, but the offsets in our public
+API are the characters variants).
+
+Luckily, we can get at the raw UTF-16 arrays backing Strings, and so in
+combination with GLib's character set conversion functions, we've been able to
+redo our string handling internally so as to have correct treatment of Unicode
+codepoints. Lots of testing.
+
+* `org.gnome.gtk.ValidateUnicode`
+* `org.gnome.gtk.ValidateTextBuffer`
+* **`org.gnome.gtk.TextIter`**
+
+This surgery was almost entirely internal; Strings returned by java-gnome
+methods are of course still Java String objects. There was only one signature
+change in the public API: TextIter's `getChar()` now returns Java int, not
+Java char.
+
+New coverage
+------------
+
+This release also features the work of Guillaume Mazoyer exposing some of the
+new features available in Entry Widgets, including displaying icons and
+showing progress bars in the background.
+
+* **`org.gnome.gtk.Entry`**
+* **`org.gnome.gtk.EntryIconPosition`**
+* `org.gnome.gtk.ValidateEntry`
+* `org.gnome.gtk.SnapshotEntryIcon`
+* `entry.ExampleSearchSomeone`
+
+Along with minor enhancements to various miscellaneous classes.
+
+* **`org.gnome.gdk.ModifierType`**
+* **`org.gnome.gtk.Label`**
+* **`org.gnome.pango.EllipsizeMode`**
+* **`org.gnome.pango.RiseAttribute`**
+
+With this release, java-gnome now requires GTK `2.16` or newer.
+
+AfC
+
 <a name="4.0.12" id="1248418784" title="Unique, Notify, Sourceview, Spelling"></a>
 
 java-gnome 4.0.12 (24 Jul 2009)
@@ -2292,6 +2358,6 @@ AfC
   authors under the terms of the "GNU General Public Licence, version 2". See
   the LICENCE file for the terms governing usage, copying and redistribution.
 
-  vim: set textwidth=78 nowrap:
+  vim: set textwidth=78:
 
 -->
