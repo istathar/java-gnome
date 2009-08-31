@@ -1,7 +1,7 @@
 /*
  * IMContext.java
  *
- * Copyright (c) 2007 Operational Dynamics Consulting Pty Ltd
+ * Copyright (c) 2007-2009 Operational Dynamics Consulting Pty Ltd
  *
  * The code in this file, and the library it is a part of, are made available
  * to you by the authors under the terms of the "GNU General Public Licence,
@@ -19,7 +19,19 @@ package org.gnome.gtk;
  * are made about this class until it has been reviewed by a hacker and this
  * comment has been replaced.
  */
-public class IMContext extends Object
+/**
+ * Complex input handling.
+ * 
+ * @author Andrew Cowie
+ * @since 4.0.14
+ */
+/*
+ * We are not exposing this as an application programming interface for you to
+ * implement your own input methods; if you need to create a custom input
+ * method it needs to be done in C and via GTK's dynamic module loading
+ * machinery.
+ */
+public abstract class IMContext extends Object
 {
     protected IMContext(long pointer) {
         super(pointer);

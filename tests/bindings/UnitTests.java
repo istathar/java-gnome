@@ -33,6 +33,7 @@ import org.gnome.gtk.ValidateEntry;
 import org.gnome.gtk.ValidateEntryCompletion;
 import org.gnome.gtk.ValidateFileChoosing;
 import org.gnome.gtk.ValidateIconView;
+import org.gnome.gtk.ValidateInputMethods;
 import org.gnome.gtk.ValidateNotebookBehaviour;
 import org.gnome.gtk.ValidateOutParameters;
 import org.gnome.gtk.ValidatePacking;
@@ -158,6 +159,7 @@ public class UnitTests
         suite.addTestSuite(ValidateAssistant.class);
         suite.addTestSuite(ValidateTextBuffer.class);
         suite.addTestSuite(ValidateUnicode.class);
+        suite.addTestSuite(ValidateInputMethods.class);
         suite.addTestSuite(ValidateTextViewProperties.class);
         suite.addTestSuite(ValidateTextViewBorderWindows.class);
         suite.addTestSuite(ValidateTextViewSpelling.class);
