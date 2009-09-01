@@ -12,6 +12,7 @@
 package org.gnome.gtk;
 
 import org.gnome.gdk.EventKey;
+import org.gnome.glib.Object;
 
 /*
  * FIXME this is a placeholder stub for what will become the public API for

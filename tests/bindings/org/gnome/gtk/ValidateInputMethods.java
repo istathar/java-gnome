@@ -15,13 +15,20 @@ package org.gnome.gtk;
  * 
  * @author Andrew Cowie
  */
+/*
+ * This really isn't much of a test class yet. In order to exercise the any of
+ * the real input method API we will likely need to be able to simulate GDK
+ * Events, specifically EventKey. That's not possible as things stand now.
+ */
 public class ValidateInputMethods extends TestCaseGtk
 {
-    public final void testLatin1Supplement() {
-        InputMethod context;
+    public final void testConstructors() {
+        InputMethod im;
 
-        context = new SimpleInputMethod();
+        im = new SimpleInputMethod();
+        assertTrue(im instanceof SimpleInputMethod);
 
-        assertTrue(context instanceof SimpleInputMethod);
+        im = new MulticontextInputMethod();
+        assertTrue(im instanceof MulticontextInputMethod);
     }
 }
