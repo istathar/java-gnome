@@ -1669,4 +1669,17 @@ public abstract class Widget extends org.gnome.gtk.Object
     public void connect(Widget.PopupMenu handler) {
         GtkWidget.connect(this, handler, false);
     }
+
+    /*
+     * FIXME These would be conformant to the underlying library's API, and in
+     * place of the enableEvents() disableEvents() above. To be considered.
+     */
+
+    public void addEvents(EventMask events) {
+        GtkWidget.addEvents(this, events);
+    }
+
+    public void setEvents(EventMask events) {
+        GtkWidget.setEvents(this, events);
+    }
 }
