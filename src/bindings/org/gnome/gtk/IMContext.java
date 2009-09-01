@@ -11,6 +11,8 @@
  */
 package org.gnome.gtk;
 
+import org.gnome.gdk.EventKey;
+
 /*
  * FIXME this is a placeholder stub for what will become the public API for
  * this type. Replace this comment with appropriate javadoc including author
@@ -35,5 +37,60 @@ public abstract class IMContext extends Object
 {
     protected IMContext(long pointer) {
         super(pointer);
+    }
+
+    /**
+     * Signal emitted when the input method completes its composition.
+     * 
+     * @author Andrew Cowie
+     * @since 4.0.14
+     */
+    public interface Commit extends GtkIMContext.CommitSignal
+    {
+        public void onCommit(IMContext source, String str);
+    }
+
+    /**
+     * Hookup a <code>IMContext.Commit</code> handler.
+     * 
+     * @since 4.0.14
+     */
+    public void connect(IMContext.Commit handler) {
+        GtkIMContext.connect(this, handler, false);
+    }
+
+    /**
+     * Find out whether the input method has handled a keystroke, or whether
+     * it needs to be further handled or propegated.
+     * <p>
+     * This is for use in <code>Widget.KeyPressEvent</code> and
+     * <code>Widget.KeyReleaseEvent</code> handlers when hooking up an input
+     * method to a Widget, where the code will look something like:
+     * 
+     * <pre>
+     * drawing.connect(new Widget.KeyPressEvent() {
+     *     public boolean onKeyPressEvent(Widget source, EventKey event) {
+     *         if (input.filterKeypress(event)) {
+     *             return true;
+     *         }
+     * 
+     *         // or carry on with your logic,
+     *         if (doSomething()) {
+     *             return true;
+     *         }
+     * 
+     *         // otherwise progegate the keystroke up to the default handler
+     *         return false;
+     *     }
+     * });
+     * </pre>
+     * 
+     * You need to do call this for both key presses and releases (at least,
+     * for the default input method to work right, anyway).
+     * 
+     * @since 4.0.14
+     */
+    public boolean filterKeypress(EventKey event) {
+        return GtkIMContext.filterKeypress(this, event);
     }
 }
