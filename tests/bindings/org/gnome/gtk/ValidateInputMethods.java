@@ -18,10 +18,10 @@ package org.gnome.gtk;
 public class ValidateInputMethods extends TestCaseGtk
 {
     public final void testLatin1Supplement() {
-        IMContext context;
+        InputMethod context;
 
-        context = new IMContextSimple();
+        context = new SimpleInputMethod();
 
-        assertTrue(context instanceof IMContextSimple);
+        assertTrue(context instanceof SimpleInputMethod);
     }
 }

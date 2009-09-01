@@ -1,5 +1,5 @@
 /*
- * IMContextSimple.java
+ * SimpleInputMethod.java
  *
  * Copyright (c) 2007-2009 Operational Dynamics Consulting Pty Ltd
  *
@@ -24,24 +24,24 @@ package org.gnome.gtk;
  * 
  * <p>
  * By all accounts you do <b>not</b> want to use this. Instead, call the
- * constructor of Multicontext . If ther is no input method set, then GTK's
- * default fallback is to use a simple context.
+ * constructor of {@link MulticontextInputMethod}. If ther is no input method
+ * set, then GTK's default fallback is to use a simple context.
  * 
  * @author Andrew Cowie
  * @since 4.0.14
  */
-public class IMContextSimple extends IMContext
+public class SimpleInputMethod extends InputMethod
 {
-    protected IMContextSimple(long pointer) {
+    protected SimpleInputMethod(long pointer) {
         super(pointer);
     }
 
     /**
-     * Construct an IMContext using the GTK's default "simple" backend.
+     * Construct an InputMethod using the GTK's default "simple" backend.
      * 
      * @since 4.0.14
      */
-    public IMContextSimple() {
-        super(GtkIMContextSimple.createIMContextSimple());
+    public SimpleInputMethod() {
+        super(GtkIMContextSimple.createSimpleInputMethod());
     }
 }

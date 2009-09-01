@@ -1,5 +1,5 @@
 /*
- * IMContext.java
+ * InputMethod.java
  *
  * Copyright (c) 2007-2009 Operational Dynamics Consulting Pty Ltd
  *
@@ -24,6 +24,11 @@ import org.gnome.gdk.EventKey;
 /**
  * Complex input handling.
  * 
+ * <p>
+ * <i>In GTK, these are <code>GtkIMContext</code> objects. This class and its
+ * concrete subclasses are presented here according to the Java naming
+ * conventions.</i>
+ * 
  * @author Andrew Cowie
  * @since 4.0.14
  */
@@ -33,9 +38,9 @@ import org.gnome.gdk.EventKey;
  * method it needs to be done in C and via GTK's dynamic module loading
  * machinery.
  */
-public abstract class IMContext extends Object
+public abstract class InputMethod extends Object
 {
-    protected IMContext(long pointer) {
+    protected InputMethod(long pointer) {
         super(pointer);
     }
 
@@ -47,15 +52,15 @@ public abstract class IMContext extends Object
      */
     public interface Commit extends GtkIMContext.CommitSignal
     {
-        public void onCommit(IMContext source, String str);
+        public void onCommit(InputMethod source, String str);
     }
 
     /**
-     * Hookup a <code>IMContext.Commit</code> handler.
+     * Hookup a <code>InputMethod.Commit</code> handler.
      * 
      * @since 4.0.14
      */
-    public void connect(IMContext.Commit handler) {
+    public void connect(InputMethod.Commit handler) {
         GtkIMContext.connect(this, handler, false);
     }
 

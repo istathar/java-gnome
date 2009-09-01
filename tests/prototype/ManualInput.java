@@ -15,8 +15,8 @@ import org.gnome.gdk.EventExpose;
 import org.gnome.gdk.EventKey;
 import org.gnome.gtk.DrawingArea;
 import org.gnome.gtk.Gtk;
-import org.gnome.gtk.IMContext;
-import org.gnome.gtk.IMContextSimple;
+import org.gnome.gtk.InputMethod;
+import org.gnome.gtk.SimpleInputMethod;
 import org.gnome.gtk.Widget;
 import org.gnome.gtk.Window;
 import org.gnome.pango.FontDescription;
@@ -32,7 +32,7 @@ public class ManualInput
     public static void main(String[] args) {
         final Window w;
         final DrawingArea d;
-        final IMContext i;
+        final InputMethod i;
         final StringBuilder buf;
 
         Gtk.init(args);
@@ -46,7 +46,7 @@ public class ManualInput
 
         w.add(d);
 
-        i = new IMContextSimple();
+        i = new SimpleInputMethod();
         buf = new StringBuilder("Hello");
 
         d.connect(new Widget.ExposeEvent() {
@@ -89,8 +89,8 @@ public class ManualInput
             }
         });
 
-        i.connect(new IMContext.Commit() {
-            public void onCommit(IMContext source, String str) {
+        i.connect(new InputMethod.Commit() {
+            public void onCommit(InputMethod source, String str) {
                 buf.append(str);
                 d.queueDraw();
             }

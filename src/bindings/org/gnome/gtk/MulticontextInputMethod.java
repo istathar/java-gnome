@@ -1,5 +1,5 @@
 /*
- * IMMulticontext.java
+ * MulticontextInputMethod.java
  *
  * Copyright (c) 2007-2009 Operational Dynamics Consulting Pty Ltd
  *
@@ -26,14 +26,14 @@ package org.gnome.gtk;
  * <p>
  * Apparently you should use this in preference to "simple", although if using
  * this without having specified a different input method you'll get GTK's
- * default which seems to be a (the?) IMContextSimple.
+ * default which seems to be a (the?) SimpleInputMethod.
  * 
  * @author Andrew Cowie
  * @since 4.0.14
  */
-public class IMMulticontext extends IMContext
+public class MulticontextInputMethod extends InputMethod
 {
-    protected IMMulticontext(long pointer) {
+    protected MulticontextInputMethod(long pointer) {
         super(pointer);
     }
 
@@ -42,7 +42,7 @@ public class IMMulticontext extends IMContext
      * 
      * @since 4.0.14
      */
-    public IMMulticontext() {
-        super(GtkIMMulticontext.createIMMulticontext());
+    public MulticontextInputMethod() {
+        super(GtkIMMulticontext.createMulticontextInputMethod());
     }
 }
