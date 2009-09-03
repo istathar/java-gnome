@@ -15,7 +15,7 @@ package org.gnome.gtk;
  * 
  * @author Stefan Prelle
  */
-public class ValidateAssistant extends TestCaseGtk
+public class ValidateAssistant extends GraphicalTestCase
 {
     public final void testAddingPages() {
         final Assistant druid;

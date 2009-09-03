@@ -18,7 +18,7 @@ import org.gnome.gdk.Pixbuf;
 /**
  * @author Andrew Cowie
  */
-public class ValidateTreeModel extends TestCaseGtk
+public class ValidateTreeModel extends GraphicalTestCase
 {
     public final void testListStoreConstructorArguments() {
         try {

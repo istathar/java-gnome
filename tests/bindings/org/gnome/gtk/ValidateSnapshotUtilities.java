@@ -10,7 +10,7 @@
  */
 package org.gnome.gtk;
 
-public class ValidateSnapshotUtilities extends TestCaseGtk
+public class ValidateSnapshotUtilities extends GraphicalTestCase
 {
     public void testClassToTargetFilename() {
         assertEquals("doc/api/org/gnome/gtk/QuestionMessageDialog.png",

@@ -15,7 +15,7 @@ package org.gnome.gtk;
  * 
  * @author Andrew Cowie
  */
-public class ValidateTextViewProperties extends TestCaseGtk
+public class ValidateTextViewProperties extends GraphicalTestCase
 {
     public final void testTabCharacter() {
         final TextView view;

@@ -12,7 +12,7 @@ package org.gnome.gtk;
 
 import org.gnome.gtk.Button;
 
-public class ValidateOutParameters extends TestCaseGtk
+public class ValidateOutParameters extends GraphicalTestCase
 {
     public final void testButtonAlignment() {
         final Button b;

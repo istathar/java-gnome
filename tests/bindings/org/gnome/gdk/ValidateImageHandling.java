@@ -18,12 +18,12 @@ import org.gnome.gtk.Button;
 import org.gnome.gtk.Gtk;
 import org.gnome.gtk.IconSize;
 import org.gnome.gtk.Stock;
-import org.gnome.gtk.TestCaseGtk;
+import org.gnome.gtk.GraphicalTestCase;
 
 /**
  * @author Andrew Cowie
  */
-public class ValidateImageHandling extends TestCaseGtk
+public class ValidateImageHandling extends GraphicalTestCase
 {
     public final void testPixbufFromFile() {
         try {

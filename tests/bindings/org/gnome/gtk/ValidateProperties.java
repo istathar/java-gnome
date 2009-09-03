@@ -20,7 +20,7 @@ import org.gnome.gdk.Pixbuf;
  * 
  * @author Andrew Cowie
  */
-public class ValidateProperties extends TestCaseGtk
+public class ValidateProperties extends GraphicalTestCase
 {
     public final void testStringValues() {
         final Value v = new Value("Hello");

@@ -20,7 +20,7 @@ import org.gnome.gdk.EventExpose;
 import org.gnome.gdk.EventFocus;
 import org.gnome.gtk.Gtk;
 import org.gnome.gtk.Image;
-import org.gnome.gtk.TestCaseGtk;
+import org.gnome.gtk.GraphicalTestCase;
 import org.gnome.gtk.Widget;
 import org.gnome.gtk.Window;
 
@@ -30,7 +30,7 @@ import org.gnome.gtk.Window;
  * @author Vreixo Formoso
  * @author Andrew Cowie
  */
-public class ValidatePangoAttributeUsage extends TestCaseGtk
+public class ValidatePangoAttributeUsage extends GraphicalTestCase
 {
     private static Layout draw(Context cr) {
         final Layout layout;

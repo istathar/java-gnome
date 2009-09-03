@@ -15,7 +15,7 @@ package org.gnome.gtk;
  * 
  * @author Andrew Cowie
  */
-public class ValidateSignalEmission extends TestCaseGtk
+public class ValidateSignalEmission extends GraphicalTestCase
 {
     private boolean result;
 

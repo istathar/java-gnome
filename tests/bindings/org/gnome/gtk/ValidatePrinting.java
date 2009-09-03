@@ -15,7 +15,7 @@ package org.gnome.gtk;
  * 
  * @author Andrew Cowie
  */
-public class ValidatePrinting extends TestCaseGtk
+public class ValidatePrinting extends GraphicalTestCase
 {
     public final void testPaperSizeConstants() {
         assertNotSame(PaperSize.A4, PaperSize.LETTER);

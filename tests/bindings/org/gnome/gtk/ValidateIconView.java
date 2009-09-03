@@ -13,7 +13,7 @@ package org.gnome.gtk;
 /**
  * @author Andrew Cowie
  */
-public class ValidateIconView extends TestCaseGtk
+public class ValidateIconView extends GraphicalTestCase
 {
     public final void testValidateAutomaticProperties() {
         final ListStore model;

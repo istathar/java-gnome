@@ -18,7 +18,7 @@ package org.gnome.gtk;
 /*
  * Some are copy/adapted from ValidateTreeModel
  */
-public class ValidateTreeStore extends TestCaseGtk
+public class ValidateTreeStore extends GraphicalTestCase
 {
     public final void testTreeStoreConstructorArguments() {
         try {

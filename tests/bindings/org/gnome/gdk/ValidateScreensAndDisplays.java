@@ -10,13 +10,13 @@
  */
 package org.gnome.gdk;
 
-import org.gnome.gtk.TestCaseGtk;
+import org.gnome.gtk.GraphicalTestCase;
 import org.gnome.gtk.Window;
 
 /**
  * @author Andrew Cowie
  */
-public class ValidateScreensAndDisplays extends TestCaseGtk
+public class ValidateScreensAndDisplays extends GraphicalTestCase
 {
     /*
      * This tests the workaround employed in Gdk.c to manually increase the

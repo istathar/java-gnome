@@ -1,5 +1,5 @@
 /*
- * TestCaseGtk.java
+ * GraphicalTestCase.java
  *
  * Copyright (c) 2007-2008 Operational Dynamics Consulting Pty Ltd and Others
  * 
@@ -22,7 +22,7 @@ import org.gnome.gdk.Event;
  * @author Andrew Cowie
  * @since 4.0.2
  */
-public abstract class TestCaseGtk extends TestCase
+public abstract class GraphicalTestCase extends TestCase
 {
     private static boolean initialized = false;
 
@@ -42,7 +42,7 @@ public abstract class TestCaseGtk extends TestCase
      * with it). This will take care of that as all JUnit test cases are
      * instantiated once for each text fixture.
      */
-    protected TestCaseGtk() {
+    protected GraphicalTestCase() {
         if (!initialized) {
             init(null);
         }
@@ -87,11 +87,9 @@ public abstract class TestCaseGtk extends TestCase
             try {
                 Thread.yield();
                 Thread.sleep(25);
-            } catch (InterruptedException e) {
-                // 
-            }
-            GtkMain.mainIterationDo(false);
-            try {
+
+                GtkMain.mainIterationDo(false);
+
                 Thread.yield();
                 Thread.sleep(25);
             } catch (InterruptedException e) {

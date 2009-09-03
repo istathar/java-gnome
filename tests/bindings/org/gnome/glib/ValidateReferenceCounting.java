@@ -11,7 +11,7 @@
 package org.gnome.glib;
 
 import org.gnome.gtk.Button;
-import org.gnome.gtk.TestCaseGtk;
+import org.gnome.gtk.GraphicalTestCase;
 import org.gnome.gtk.VBox;
 
 /**
@@ -22,7 +22,7 @@ import org.gnome.gtk.VBox;
  * debugging this test I uncovered a MASSIVE bug in the GObject code path, so
  * it was worth something :)
  */
-public class ValidateReferenceCounting extends TestCaseGtk
+public class ValidateReferenceCounting extends GraphicalTestCase
 {
     public final void testManuallyTwistingRefCount() {
         Button b;

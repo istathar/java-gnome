@@ -11,7 +11,7 @@
 package org.gnome.glib;
 
 import org.gnome.gtk.Button;
-import org.gnome.gtk.TestCaseGtk;
+import org.gnome.gtk.GraphicalTestCase;
 import org.gnome.gtk.VBox;
 import org.gnome.gtk.Widget;
 
@@ -22,7 +22,7 @@ import org.gnome.gtk.Widget;
  * 
  * @author Vreixo Formoso
  */
-public class ValidateGListMethods extends TestCaseGtk
+public class ValidateGListMethods extends GraphicalTestCase
 {
     public final void testGetSingleGObjectChild() {
         Button b;

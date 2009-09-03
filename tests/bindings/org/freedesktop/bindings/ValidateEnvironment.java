@@ -10,14 +10,14 @@
  */
 package org.freedesktop.bindings;
 
-import org.gnome.gtk.TestCaseGtk;
+import org.gnome.gtk.GraphicalTestCase;
 
 /**
  * Make sure our reimplementaiton of fetching environment variables works.
  * 
  * @author Andrew Cowie
  */
-public class ValidateEnvironment extends TestCaseGtk
+public class ValidateEnvironment extends GraphicalTestCase
 {
     public final void testGetEnvironmentVariable() {
         final String home;

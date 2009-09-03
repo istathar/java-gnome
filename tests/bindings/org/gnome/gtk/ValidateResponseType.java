@@ -18,7 +18,7 @@ package org.gnome.gtk;
  * 
  * @author Andrew Cowie
  */
-public class ValidateResponseType extends TestCaseGtk
+public class ValidateResponseType extends GraphicalTestCase
 {
     public final void testPlumbingMethodsExposedInOverride() {
         assertEquals(-1, GtkResponseTypeOverride.numOf(ResponseType.NONE));

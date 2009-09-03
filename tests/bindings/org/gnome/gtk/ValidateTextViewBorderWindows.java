@@ -19,7 +19,7 @@ import static org.gnome.gtk.WrapMode.WORD;
  * 
  * @author Andrew Cowie
  */
-public class ValidateTextViewBorderWindows extends TestCaseGtk
+public class ValidateTextViewBorderWindows extends GraphicalTestCase
 {
     public final void testDontAllowAddWithViewport() {
         final TextView view;

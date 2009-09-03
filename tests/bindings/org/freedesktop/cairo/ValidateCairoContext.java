@@ -11,14 +11,14 @@
  */
 package org.freedesktop.cairo;
 
-import org.gnome.gtk.TestCaseGtk;
+import org.gnome.gtk.GraphicalTestCase;
 
 /**
  * Unit tests for org.freedesktop.cairo.Context functions.
  * 
  * @author Vreixo Formoso
  */
-public class ValidateCairoContext extends TestCaseGtk
+public class ValidateCairoContext extends GraphicalTestCase
 {
     public final void testSaveRestore() {
         final Context cr;

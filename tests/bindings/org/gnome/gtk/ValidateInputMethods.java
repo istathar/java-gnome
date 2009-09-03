@@ -20,7 +20,7 @@ package org.gnome.gtk;
  * the real input method API we will likely need to be able to simulate GDK
  * Events, specifically EventKey. That's not possible as things stand now.
  */
-public class ValidateInputMethods extends TestCaseGtk
+public class ValidateInputMethods extends GraphicalTestCase
 {
     public final void testConstructors() {
         InputMethod im;

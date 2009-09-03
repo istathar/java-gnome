@@ -13,7 +13,7 @@ package org.gnome.gtk;
 /**
  * @author Andrew Cowie
  */
-public class ValidateTreeModelFilter extends TestCaseGtk
+public class ValidateTreeModelFilter extends GraphicalTestCase
 {
     private final DataColumnString name;
 

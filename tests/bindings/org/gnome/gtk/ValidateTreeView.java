@@ -13,7 +13,7 @@ package org.gnome.gtk;
 /**
  * @author Andrew Cowie
  */
-public class ValidateTreeView extends TestCaseGtk
+public class ValidateTreeView extends GraphicalTestCase
 {
     /*
      * This is only here to validate the comments we've made in our API

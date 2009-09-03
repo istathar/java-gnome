@@ -13,7 +13,7 @@ package org.freedesktop.bindings;
 import static org.freedesktop.bindings.Internationalization.N_;
 import static org.freedesktop.bindings.Internationalization._;
 
-import org.gnome.gtk.TestCaseGtk;
+import org.gnome.gtk.GraphicalTestCase;
 
 /**
  * Exercise the Internationalization setup code.
@@ -23,7 +23,7 @@ import org.gnome.gtk.TestCaseGtk;
 /*
  * Extends TestCaseGtk to ensure Gtk.init() has been called.
  */
-public class ValidateInternationalization extends TestCaseGtk
+public class ValidateInternationalization extends GraphicalTestCase
 {
     private static String LC_ALL;
 

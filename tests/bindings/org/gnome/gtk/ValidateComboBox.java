@@ -15,7 +15,7 @@ package org.gnome.gtk;
  * 
  * @author Andrew Cowie
  */
-public class ValidateComboBox extends TestCaseGtk
+public class ValidateComboBox extends GraphicalTestCase
 {
     public final void testConstructor() {
         final ListStore model;

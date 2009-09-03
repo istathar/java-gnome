@@ -10,12 +10,12 @@
  */
 package org.gnome.gdk;
 
-import org.gnome.gtk.TestCaseGtk;
+import org.gnome.gtk.GraphicalTestCase;
 
 /**
  * @author Andrew Cowie
  */
-public class ValidateKeyboardHandling extends TestCaseGtk
+public class ValidateKeyboardHandling extends GraphicalTestCase
 {
     public final void testTheLetterA() {
         assertNotNull(Keyval.a);

@@ -15,7 +15,7 @@ package org.gnome.gtk;
  * 
  * @author Serkan Kaba
  */
-public class ValidateArrow extends TestCaseGtk
+public class ValidateArrow extends GraphicalTestCase
 {
     public final void testArrow() {
         final Arrow arrow;

@@ -14,7 +14,7 @@ package org.gnome.glib;
 import java.util.HashSet;
 
 import org.gnome.gtk.Button;
-import org.gnome.gtk.TestCaseGtk;
+import org.gnome.gtk.GraphicalTestCase;
 import org.gnome.gtk.TreeSelection;
 import org.gnome.gtk.TreeView;
 import org.gnome.gtk.VBox;
@@ -33,7 +33,7 @@ import org.gnome.gtk.Window;
  * @author Vreixo Formoso
  * @author Andrew Cowie
  */
-public class ValidateMemoryManagement extends TestCaseGtk
+public class ValidateMemoryManagement extends GraphicalTestCase
 {
 
     /**

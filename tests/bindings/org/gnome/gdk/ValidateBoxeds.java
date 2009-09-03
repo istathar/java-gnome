@@ -10,12 +10,12 @@
  */
 package org.gnome.gdk;
 
-import org.gnome.gtk.TestCaseGtk;
+import org.gnome.gtk.GraphicalTestCase;
 
 /**
  * @author Andrew Cowie
  */
-public class ValidateBoxeds extends TestCaseGtk
+public class ValidateBoxeds extends GraphicalTestCase
 {
     /*
      * Given that we have a few public constants in Color, chances are that if

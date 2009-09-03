@@ -18,7 +18,7 @@ import java.io.IOException;
  * 
  * @author Andrew Cowie
  */
-public class ValidateFileChoosing extends TestCaseGtk
+public class ValidateFileChoosing extends GraphicalTestCase
 {
     public final void testCurrentFolder() {
         final FileChooserButton fcb;

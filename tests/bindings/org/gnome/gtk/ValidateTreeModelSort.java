@@ -13,7 +13,7 @@ package org.gnome.gtk;
 /**
  * @author Andrew Cowie
  */
-public class ValidateTreeModelSort extends TestCaseGtk
+public class ValidateTreeModelSort extends GraphicalTestCase
 {
     private final DataColumnString nameOfBeach;
 
