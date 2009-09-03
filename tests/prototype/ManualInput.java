@@ -32,7 +32,7 @@ public class ManualInput
     public static void main(String[] args) {
         final Window w;
         final DrawingArea d;
-        final InputMethod i;
+        final InputMethod im;
         final StringBuilder buf;
 
         Gtk.init(args);
@@ -46,7 +46,9 @@ public class ManualInput
 
         w.add(d);
 
-        i = new SimpleInputMethod();
+        im = new SimpleInputMethod();
+        im.setUsePreedit(true);
+
         buf = new StringBuilder("Hello");
 
         d.connect(new Widget.ExposeEvent() {
@@ -73,7 +75,7 @@ public class ManualInput
 
         d.connect(new Widget.KeyPressEvent() {
             public boolean onKeyPressEvent(Widget source, EventKey event) {
-                if (i.filterKeypress(event)) {
+                if (im.filterKeypress(event)) {
                     return true;
                 }
                 return false;
@@ -82,14 +84,14 @@ public class ManualInput
 
         d.connect(new Widget.KeyReleaseEvent() {
             public boolean onKeyReleaseEvent(Widget source, EventKey event) {
-                if (i.filterKeypress(event)) {
+                if (im.filterKeypress(event)) {
                     return true;
                 }
                 return false;
             }
         });
 
-        i.connect(new InputMethod.Commit() {
+        im.connect(new InputMethod.Commit() {
             public void onCommit(InputMethod source, String str) {
                 buf.append(str);
                 d.queueDraw();

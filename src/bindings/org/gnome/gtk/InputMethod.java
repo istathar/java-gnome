@@ -99,4 +99,16 @@ public abstract class InputMethod extends Object
     public boolean filterKeypress(EventKey event) {
         return GtkIMContext.filterKeypress(this, event);
     }
+
+    /**
+     * How hould the InputMethod provide feedback to the user? The default is
+     * <code>true</code>, which is to ask the Widget to display in-line,
+     * communicating the preedit string via the signal handlers. Otherwise,
+     * the InputMethod can attempt to use some alternative (internal) means.
+     * 
+     * @since 4.0.14
+     */
+    public void setUsePreedit(boolean setting) {
+        GtkIMContext.setUsePreedit(this, setting);
+    }
 }
