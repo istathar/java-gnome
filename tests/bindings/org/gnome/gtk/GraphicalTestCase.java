@@ -14,13 +14,14 @@ import junit.framework.TestCase;
 
 import org.freedesktop.bindings.Debug;
 import org.gnome.gdk.Event;
+import org.gnome.gdk.Keyval;
+import org.gnome.gdk.ModifierType;
 
 /**
  * Ensure that GTK has already been initialized so that things like
  * <code>new Button()</code> don't throw <code>UnsatisfiedLinkError</code>.
  * 
  * @author Andrew Cowie
- * @since 4.0.2
  */
 public abstract class GraphicalTestCase extends TestCase
 {
@@ -122,7 +123,7 @@ public abstract class GraphicalTestCase extends TestCase
      * its qualities. TODO; this is a bit weak, and is very close to the edge
      * whereby really unit tests should be running in a virtual X server.
      */
-    protected void runMainLoop(Window w) {
+    protected static void runMainLoop(Window w) {
         w.connect(new Window.DeleteEvent() {
             public boolean onDeleteEvent(Widget source, Event event) {
                 Gtk.mainQuit();
@@ -131,5 +132,20 @@ public abstract class GraphicalTestCase extends TestCase
         });
         Gtk.main();
         System.exit(0);
+    }
+
+    /**
+     * Send a keystroke to the given Widget. It has to be packed in a Window,
+     * show()n and not minimized.
+     */
+    /*
+     * Exposing these on Test is not yet a given, so use our own direct call
+     * to the functions on GtkTest, and while we're at it throw in a few
+     * sanity checks.
+     */
+    protected static boolean sendKeystroke(Widget widget, Keyval keyval, ModifierType modifiers) {
+        assertTrue(widget.getToplevel() instanceof Window);
+        assertTrue(widget.getAllocation().getWidth() > 0);
+        return GtkTest.widgetSendKey(widget, keyval, modifiers);
     }
 }
