@@ -138,7 +138,7 @@ public class ValidateInputMethods extends GraphicalTestCase
         received = null;
 
         result = sendKeystroke(da, Keyval.Compose, ModifierType.NONE);
-        assertTrue(result);
+        assertTrue("Why didn't sending Compose work?", result);
         assertFalse(composed);
         assertNull(received);
 

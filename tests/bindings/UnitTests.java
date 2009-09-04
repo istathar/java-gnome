@@ -25,7 +25,6 @@ import org.gnome.glib.ValidateConstants;
 import org.gnome.glib.ValidateGListMethods;
 import org.gnome.glib.ValidateMemoryManagement;
 import org.gnome.glib.ValidateReferenceCounting;
-import org.gnome.gtk.GraphicalTestCase;
 import org.gnome.gtk.ValidateArrow;
 import org.gnome.gtk.ValidateAssistant;
 import org.gnome.gtk.ValidateComboBox;
@@ -118,8 +117,6 @@ public class UnitTests
      */
     private static Test suite(String[] args) {
         ClassLoader.getSystemClassLoader().setDefaultAssertionStatus(true);
-
-        GraphicalTestCase.init(args);
 
         TestSuite suite = new TestSuite("All Unit Tests for java-gnome 4.0");
 
