@@ -45,6 +45,10 @@ public abstract class GraphicalTestCase extends TestCase
 
     private static Process virtual;
 
+    static {
+        initialized = false;
+    }
+
     /**
      * If you try to run a single Test Case (rather than using the top level
      * UnitTests launcher), then you need to initialize GTK (and GLib along

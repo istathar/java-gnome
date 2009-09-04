@@ -95,7 +95,7 @@ public class ValidateInputMethods extends GraphicalTestCase
          */
 
         result = Test.sendKey(da, Keyval.a, ModifierType.NONE);
-        assertTrue(result);
+        assertTrue("Sending 'a' didn't work", result);
 
         // but since
         assertFalse(composed);
@@ -119,7 +119,7 @@ public class ValidateInputMethods extends GraphicalTestCase
         received = null;
 
         result = sendKeystroke(da, Keyval.A, ModifierType.SHIFT_MASK);
-        assertTrue(result);
+        assertTrue("Sending 'A' didn't work", result);
         assertFalse(composed);
         assertNull(received);
 
@@ -138,7 +138,7 @@ public class ValidateInputMethods extends GraphicalTestCase
         received = null;
 
         result = sendKeystroke(da, Keyval.Compose, ModifierType.NONE);
-        assertTrue("Why didn't sending Compose work?", result);
+        assertTrue("Sending 'Compose' didn't work", result);
         assertFalse(composed);
         assertNull(received);
 
@@ -149,7 +149,7 @@ public class ValidateInputMethods extends GraphicalTestCase
 
         // ok, good. Now the first of the specifying keystrokes
         result = sendKeystroke(da, Keyval.e, ModifierType.NONE);
-        assertTrue(result);
+        assertTrue("Sending 'e' didn't work", result);
         assertFalse(composed);
         assertNull(received);
         cycleMainLoop();
@@ -160,7 +160,7 @@ public class ValidateInputMethods extends GraphicalTestCase
 
         // ok, still good. Send the second keystroke in the sequence
         result = sendKeystroke(da, Keyval.Equal, ModifierType.NONE);
-        assertTrue(result);
+        assertTrue("Sending '=' didn't work", result);
         assertFalse(composed);
         assertNull(received);
 
