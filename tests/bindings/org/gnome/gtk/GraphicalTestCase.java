@@ -139,7 +139,7 @@ public abstract class GraphicalTestCase extends TestCase
              * seems like a bad idea, but what else can we do?
              */
 
-            // System.err.close();
+            System.err.close();
 
             Gtk.init(new String[] {
                 "--display=" + DISPLAY
