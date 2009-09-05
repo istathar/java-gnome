@@ -10,12 +10,12 @@
  */
 package org.gnome.unique;
 
-import org.gnome.gtk.TestCaseGtk;
+import org.gnome.gtk.GraphicalTestCase;
 
 /**
  * Evaluate the behaviour of LibUnique
  */
-public class ValidateUniqueApplications extends TestCaseGtk
+public class ValidateUniqueApplications extends GraphicalTestCase
 {
     public final void testNameValidation() {
         Application app;

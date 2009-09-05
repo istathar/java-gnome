@@ -10,7 +10,7 @@
  */
 package org.freedesktop.cairo;
 
-import org.gnome.gtk.TestCaseGtk;
+import org.gnome.gtk.GraphicalTestCase;
 
 /**
  * Exercise the handling of the internals of our Plumbing infrastructure for
@@ -18,7 +18,7 @@ import org.gnome.gtk.TestCaseGtk;
  * 
  * @author Andrew Cowie
  */
-public class ValidateCairoInternals extends TestCaseGtk
+public class ValidateCairoInternals extends GraphicalTestCase
 {
     public final void testPatternProxyCreation() {
         final Context cr;

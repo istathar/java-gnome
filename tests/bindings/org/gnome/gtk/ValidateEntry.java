@@ -15,7 +15,7 @@ package org.gnome.gtk;
  * 
  * @author Guillaume Mazoyer
  */
-public class ValidateEntry extends TestCaseGtk
+public class ValidateEntry extends GraphicalTestCase
 {
     public final void testEntryIcon() {
         final Entry entry = new Entry();

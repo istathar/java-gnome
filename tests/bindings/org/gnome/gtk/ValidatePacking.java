@@ -15,7 +15,7 @@ package org.gnome.gtk;
  * 
  * @author Andrew Cowie
  */
-public class ValidatePacking extends TestCaseGtk
+public class ValidatePacking extends GraphicalTestCase
 {
 
     /**

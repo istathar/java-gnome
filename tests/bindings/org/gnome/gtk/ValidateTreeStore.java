@@ -1,7 +1,7 @@
 /*
  * ValidateTreeStore.java
  *
- * Copyright (c) 2007-2008 Operational Dynamics Consulting Pty Ltd, and Others
+ * Copyright (c) 2007-2009 Operational Dynamics Consulting Pty Ltd, and Others
  * 
  * The code in this file, and the suite it is a part of, are made available
  * to you by the authors under the terms of the "GNU General Public Licence,
@@ -18,7 +18,7 @@ package org.gnome.gtk;
 /*
  * Some are copy/adapted from ValidateTreeModel
  */
-public class ValidateTreeStore extends TestCaseGtk
+public class ValidateTreeStore extends GraphicalTestCase
 {
     public final void testTreeStoreConstructorArguments() {
         try {

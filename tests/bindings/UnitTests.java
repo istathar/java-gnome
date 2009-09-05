@@ -25,7 +25,6 @@ import org.gnome.glib.ValidateConstants;
 import org.gnome.glib.ValidateGListMethods;
 import org.gnome.glib.ValidateMemoryManagement;
 import org.gnome.glib.ValidateReferenceCounting;
-import org.gnome.gtk.TestCaseGtk;
 import org.gnome.gtk.ValidateArrow;
 import org.gnome.gtk.ValidateAssistant;
 import org.gnome.gtk.ValidateComboBox;
@@ -33,6 +32,7 @@ import org.gnome.gtk.ValidateEntry;
 import org.gnome.gtk.ValidateEntryCompletion;
 import org.gnome.gtk.ValidateFileChoosing;
 import org.gnome.gtk.ValidateIconView;
+import org.gnome.gtk.ValidateInputMethods;
 import org.gnome.gtk.ValidateNotebookBehaviour;
 import org.gnome.gtk.ValidateOutParameters;
 import org.gnome.gtk.ValidatePacking;
@@ -118,8 +118,6 @@ public class UnitTests
     private static Test suite(String[] args) {
         ClassLoader.getSystemClassLoader().setDefaultAssertionStatus(true);
 
-        TestCaseGtk.init(args);
-
         TestSuite suite = new TestSuite("All Unit Tests for java-gnome 4.0");
 
         suite.addTestSuite(ValidateUtilityMethods.class);
@@ -158,6 +156,7 @@ public class UnitTests
         suite.addTestSuite(ValidateAssistant.class);
         suite.addTestSuite(ValidateTextBuffer.class);
         suite.addTestSuite(ValidateUnicode.class);
+        suite.addTestSuite(ValidateInputMethods.class);
         suite.addTestSuite(ValidateTextViewProperties.class);
         suite.addTestSuite(ValidateTextViewBorderWindows.class);
         suite.addTestSuite(ValidateTextViewSpelling.class);

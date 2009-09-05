@@ -1,7 +1,7 @@
 /*
  * ValidateTreeModel.java
  *
- * Copyright (c) 2008 Operational Dynamics Consulting Pty Ltd, and Others
+ * Copyright (c) 2008-2009 Operational Dynamics Consulting Pty Ltd, and Others
  * 
  * The code in this file, and the suite it is a part of, are made available
  * to you by the authors under the terms of the "GNU General Public Licence,
@@ -15,7 +15,7 @@ package org.gnome.gtk;
  * 
  * @author Stefan Prelle
  */
-public class ValidateAssistant extends TestCaseGtk
+public class ValidateAssistant extends GraphicalTestCase
 {
     public final void testAddingPages() {
         final Assistant druid;

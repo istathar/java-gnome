@@ -1,7 +1,7 @@
 /*
  * ValidateConstants.java
  *
- * Copyright (c) 2007-2008 Operational Dynamics Consulting Pty Ltd, and Others
+ * Copyright (c) 2007-2009 Operational Dynamics Consulting Pty Ltd, and Others
  * Copyright (c) 2007      Vreixo Formoso
  * 
  * The code in this file, and the suite it is a part of, are made available
@@ -17,7 +17,7 @@ import org.gnome.gtk.CalendarDisplayOptions;
 import org.gnome.gtk.FileChooser;
 import org.gnome.gtk.FileChooserAction;
 import org.gnome.gtk.FileChooserButton;
-import org.gnome.gtk.TestCaseGtk;
+import org.gnome.gtk.GraphicalTestCase;
 
 /**
  * Validate the handling of enums and flags.
@@ -27,7 +27,7 @@ import org.gnome.gtk.TestCaseGtk;
 /*
  * FIXME add validator for flags
  */
-public class ValidateConstants extends TestCaseGtk
+public class ValidateConstants extends GraphicalTestCase
 {
     public final void testEnumHandling() {
         FileChooser fc;

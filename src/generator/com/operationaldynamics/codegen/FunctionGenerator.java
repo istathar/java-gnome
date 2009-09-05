@@ -31,7 +31,7 @@ public class FunctionGenerator extends Generator
     /**
      * The Thing describing the object we are generating code relative to.
      */
-    protected final ProxiedThing proxyType;
+    protected final Thing proxyType;
 
     /**
      * The name of the method that is exposed package visible to bindings
@@ -100,7 +100,7 @@ public class FunctionGenerator extends Generator
         super(data);
         final int len;
 
-        this.proxyType = (ProxiedThing) data.getType();
+        this.proxyType = data.getType();
 
         this.translationMethodName = toCamel(blockName);
 

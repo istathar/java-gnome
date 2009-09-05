@@ -24,7 +24,7 @@ package org.gnome.gtk;
  * making the assumption that String.length() == number of displayed
  * characters.
  */
-public class ValidateUnicode extends TestCaseGtk
+public class ValidateUnicode extends GraphicalTestCase
 {
     public final void testLatin1Supplement() {
         final TextBuffer buffer;

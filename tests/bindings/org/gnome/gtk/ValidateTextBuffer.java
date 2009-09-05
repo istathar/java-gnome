@@ -22,7 +22,7 @@ import org.gnome.pango.Weight;
  * @author Andrew Cowie
  * @author Stefan Prelle
  */
-public class ValidateTextBuffer extends TestCaseGtk
+public class ValidateTextBuffer extends GraphicalTestCase
 {
     public final void testTagsAddedToTextTagTableAutomatically() {
         final TextTagTable table;

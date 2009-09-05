@@ -1,7 +1,7 @@
 /*
  * ValidateGListMethods.java
  *
- * Copyright (c) 2007 Operational Dynamics Consulting Pty Ltd, and Others
+ * Copyright (c) 2007-2009 Operational Dynamics Consulting Pty Ltd, and Others
  * 
  * The code in this file, and the suite it is a part of, are made available
  * to you by the authors under the terms of the "GNU General Public Licence,
@@ -11,7 +11,7 @@
 package org.gnome.glib;
 
 import org.gnome.gtk.Button;
-import org.gnome.gtk.TestCaseGtk;
+import org.gnome.gtk.GraphicalTestCase;
 import org.gnome.gtk.VBox;
 import org.gnome.gtk.Widget;
 
@@ -22,7 +22,7 @@ import org.gnome.gtk.Widget;
  * 
  * @author Vreixo Formoso
  */
-public class ValidateGListMethods extends TestCaseGtk
+public class ValidateGListMethods extends GraphicalTestCase
 {
     public final void testGetSingleGObjectChild() {
         Button b;
