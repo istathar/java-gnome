@@ -216,6 +216,8 @@ public abstract class Thing
         register(new FixmeThing("GdkAtom*"));
 
         register(new TypedefEnumThing("GdkKeyval", "guint", "org.gnome.gdk", "GdkKeyval", "Keyval"));
+        register(new TypedefEnumThing("GdkMouseButton", "guint", "org.gnome.gdk", "GdkMouseButton",
+                "MouseButton"));
 
         /*
          * Typedefs of fundamental type

@@ -13,6 +13,7 @@ package org.gnome.gtk;
 
 import org.gnome.gdk.Keyval;
 import org.gnome.gdk.ModifierType;
+import org.gnome.gdk.MouseButton;
 
 /**
  * Support for testing GTK programs.
@@ -63,9 +64,26 @@ public final class Test
      *             If sending the keystroke fails.
      */
     public static void sendKey(Widget widget, Keyval keyval, ModifierType modifiers) {
-        boolean result;
+        final boolean result;
 
         result = GtkTest.widgetSendKey(widget, keyval, modifiers);
+
+        if (!result) {
+            throw new IllegalStateException();
+        }
+    }
+
+    /**
+     * Send a mouse button click to a Widget.
+     * 
+     * @since <span style="color: red">unstable</span>
+     * @throws IllegalStateException
+     *             If sending the button click fails.
+     */
+    public static void sendClick(Widget widget, MouseButton button, ModifierType modifiers) {
+        final boolean result;
+
+        result = GtkTest.widgetClick(widget, button, modifiers);
 
         if (!result) {
             throw new IllegalStateException();

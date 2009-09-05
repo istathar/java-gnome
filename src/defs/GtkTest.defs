@@ -6,6 +6,16 @@
   (c-name "GtkTest")
 )
 
+(define-method widget_click
+  (of-object "GtkWidget")
+  (c-name "gtk_test_widget_click")
+  (return-type "gboolean")
+  (parameters
+    '("GdkMouseButton" "button")
+    '("GdkModifierType" "modifiers")
+  )
+)
+
 (define-method widget_send_key
   (of-object "GtkWidget")
   (c-name "gtk_test_widget_send_key")
