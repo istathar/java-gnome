@@ -26,6 +26,13 @@ import org.gnome.gdk.ModifierType;
  * not with a live display.
  * 
  * <p>
+ * Using <code>sendKey()</code> and <code>sendClick()</code> will inevitably
+ * cause actions to occur that are not compatible with simultaneous human user
+ * driven input. Obviously these are here to allow you to attempt to simulate
+ * user actions, but if you need to click a button programmatically in a
+ * normal application, call Button's <code>emitClicked()</code>.
+ * 
+ * <p>
  * <i>This is not a JUnit TestCase; using that, or any other test framework,
  * is your problem.</i>
  * 
@@ -33,7 +40,7 @@ import org.gnome.gdk.ModifierType;
  * @since <span style="color: red">unstable</span>
  */
 /*
- * It was very tempting to make these methods on Widget.
+ * It was very tempting to make these methods on Widget. Alas.
  */
 public final class Test
 {
@@ -43,13 +50,57 @@ public final class Test
      * Send a keystroke to a Widget.
      * 
      * <p>
+     * This should result in <code>Widget.KeyPressEvent</code> and
+     * <code>Widget.KeyReleaseEvent</code> being emitted.
+     * 
+     * <p>
      * The Widget needs to be in a Window that is <code>show()</code>n on
      * screen for the X server's event system to work and for the keystroke to
      * go anywhere. Which makes sense; you can't type in a minimized Window.
      * 
      * @since <span style="color: red">unstable</span>
+     * @throws IllegalStateException
+     *             If sending the keystroke fails.
      */
-    public static boolean sendKey(Widget widget, Keyval keyval, ModifierType modifiers) {
-        return GtkTest.widgetSendKey(widget, keyval, modifiers);
+    public static void sendKey(Widget widget, Keyval keyval, ModifierType modifiers) {
+        boolean result;
+
+        result = GtkTest.widgetSendKey(widget, keyval, modifiers);
+
+        if (!result) {
+            throw new IllegalStateException();
+        }
+    }
+
+    /**
+     * Cause the GTK main loop to cycle sufficiently to consume and action any
+     * pending events.
+     * 
+     * <p>
+     * 
+     * <p>
+     * Sometimes when writing procedural test code you call GTK methods whose
+     * logic will not be executed until their idle handlers have a chance to
+     * run, which will be sometime after the main loop finishes propegating
+     * the current round of event signals. This allows you to stimulate the
+     * main loop to iterate over pending events and run its idle handlers as
+     * well.
+     * 
+     * <p>
+     * <b>Do not call this within a signal handler callback!</b>
+     * 
+     * <p>
+     * <b>WARNING</b><br>
+     * This is a utility function for use in a test harness only. Don't even
+     * think about using this in a normal GUI program. This function is
+     * <i>not</i> a way to workaround the imperatives of event-driven
+     * programming.
+     * 
+     * @since <span style="color: red">unstable</span>
+     */
+    public static void cycleMainLoop() {
+        while (GtkMain.eventsPending()) {
+            GtkMain.mainIterationDo(false);
+        }
     }
 }
