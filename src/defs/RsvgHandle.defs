@@ -90,6 +90,8 @@
   )
 )
 
+;; these are called from the Cairo .defs file
+
 (define-method render_cairo
   (of-object "RsvgHandle")
   (c-name "rsvg_handle_render_cairo")
@@ -97,6 +99,7 @@
   (parameters
     '("cairo_t*" "cr")
   )
+  (unnecessary)
 )
 
 (define-method render_cairo_sub
@@ -107,5 +110,6 @@
     '("cairo_t*" "cr")
     '("const-char*" "id")
   )
+  (unnecessary)
 )
 

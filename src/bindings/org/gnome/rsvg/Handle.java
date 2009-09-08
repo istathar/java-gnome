@@ -30,6 +30,11 @@ public class Handle extends org.gnome.glib.Object
         super(RsvgHandle.createHandle());
     }
 
+    /**
+     * Construct a handle to an SVG image sourced from the given filename.
+     * 
+     * @since 4.0.14
+     */
     public Handle(String filename) throws FileNotFoundException {
         super(checkHandleFromFile(filename));
     }
@@ -48,6 +53,25 @@ public class Handle extends org.gnome.glib.Object
         }
         try {
             return RsvgHandle.createHandleFromFile(filename);
+        } catch (GlibException ge) {
+            throw new RuntimeException(ge.getMessage());
+        }
+    }
+
+    /**
+     * 
+     * <p>
+     * Returns <code>true</code> assuming the nothing went wrong.
+     * 
+     * @since 4.0.14
+     */
+    /*
+     * Should this be a checked exception instead of a boolean return? Seems
+     * that way.
+     */
+    public boolean close() {
+        try {
+            return RsvgHandle.close(this);
         } catch (GlibException ge) {
             throw new RuntimeException(ge.getMessage());
         }

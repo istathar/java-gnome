@@ -16,6 +16,7 @@ import org.gnome.gdk.Drawable;
 import org.gnome.gdk.Pixbuf;
 import org.gnome.pango.Layout;
 import org.gnome.pango.LayoutLine;
+import org.gnome.rsvg.Handle;
 
 /**
  * Carry out drawing operations with the Cairo Graphics library. The current
@@ -271,7 +272,7 @@ public class Context extends Entity
     public void rotate(double r) {
         CairoContext.rotate(this, r);
     }
-    
+
     /**
      * Set the source pattern within this Context to an opaque color.
      * 
@@ -851,5 +852,20 @@ public class Context extends Entity
      */
     public void transform(Matrix matrix) {
         CairoContext.transform(this, matrix);
+    }
+
+    /**
+     * Render an SVG image to this Cairo surface.
+     * 
+     * <p>
+     * <i>In the underlying native library this is</i>
+     * <code>rsvg_handle_render_cairo()</code>. <i>We have placed the call
+     * here to align with other Cairo baesd image and text rendering
+     * methods.</i>
+     * 
+     * @since 4.0.14
+     */
+    public void showHandle(Handle handle) {
+        CairoContext.showHandle(handle, this);
     }
 }

@@ -48,4 +48,12 @@ public class ValidateVectorIllustrations extends GraphicalTestCase
             fail("Target file should exist. Did someone move the test image?");
         }
     }
+
+    public final void testHandleMethods() throws FileNotFoundException {
+        final Handle handle;
+
+        handle = new Handle("tests/bindings/org/gnome/rsvg/Linux_Tux.svg");
+
+        handle.close();
+    }
 }
