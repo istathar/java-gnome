@@ -51,7 +51,7 @@ versionFile = "src/bindings/org/freedesktop/bindings/Version.java"
 hashFile = "tmp/.hashes"
 lockFile = "tmp/.build"
 
-GNOME_MODULES = "gthread-2.0 glib-2.0 gtk+-2.0 gtk+-unix-print-2.0 libglade-2.0 gtksourceview-2.0 libnotify gtkspell-2.0 unique-1.0"
+GNOME_MODULES = "gthread-2.0 glib-2.0 gtk+-2.0 gtk+-unix-print-2.0 libglade-2.0 gtksourceview-2.0 libnotify gtkspell-2.0 unique-1.0 librsvg-2.0"
 
 #
 # Armour against multiple simultaneous invocations.

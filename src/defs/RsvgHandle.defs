@@ -3,6 +3,7 @@
   (parent "GObject")
   (c-name "RsvgHandle")
   (import-header "librsvg/rsvg.h")
+  (import-header "librsvg/rsvg-cairo.h")
 )
 
 (define-method set_dpi
@@ -31,7 +32,8 @@
   (return-type "RsvgHandle*")
 )
 
-(define-function handle_new_from_file
+(define-function rsvg_handle_new_from_file
+  (is-constructor-of "RsvgHandle")
   (c-name "rsvg_handle_new_from_file")
   (return-type "RsvgHandle*")
   (caller-owns-return #t)
@@ -41,7 +43,8 @@
   )
 )
 
-(define-function handle_new_from_data
+(define-function rsvg_handle_new_from_data
+  (is-constructor-of "RsvgHandle")
   (c-name "rsvg_handle_new_from_data")
   (return-type "RsvgHandle*")
   (caller-owns-return #t)

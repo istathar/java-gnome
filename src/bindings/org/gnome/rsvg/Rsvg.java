@@ -24,6 +24,8 @@ public final class Rsvg extends Glib
     private Rsvg() {}
 
     /**
+     * Initialize librsvg's subsystems.
+     * 
      * @since 4.0.14
      */
     public static void init() {
