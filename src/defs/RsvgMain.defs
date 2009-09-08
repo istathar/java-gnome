@@ -1,0 +1,33 @@
+;; Custom wrapper for functions in librsvg
+
+(define-boxed Main
+  (in-module "Rsvg")
+  (c-name "RsvgMain")
+  (import-header "librsvg/rsvg.h")
+)
+
+(define-function init
+  (of-object "RsvgMain")
+  (c-name "rsvg_init")
+  (return-type "none")
+)
+
+(define-function set_default_dpi
+  (of-object "RsvgMain")
+  (c-name "rsvg_set_default_dpi")
+  (return-type "none")
+  (parameters
+    '("double" "dpi")
+  )
+)
+
+(define-function set_default_dpi_x_y
+  (of-object "RsvgMain")
+  (c-name "rsvg_set_default_dpi_x_y")
+  (return-type "none")
+  (parameters
+    '("double" "dpi_x")
+    '("double" "dpi_y")
+  )
+)
+
