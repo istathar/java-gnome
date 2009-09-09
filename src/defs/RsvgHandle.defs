@@ -55,6 +55,25 @@
   )
 )
 
+(define-method get_dimensions
+  (of-object "RsvgHandle")
+  (c-name "rsvg_handle_get_dimensions")
+  (return-type "none")
+  (parameters
+    '("RsvgDimensionData*" "data")
+  )
+)
+
+(define-method get_dimensions_sub
+  (of-object "RsvgHandle")
+  (c-name "rsvg_handle_get_dimensions_sub")
+  (return-type "none")
+  (parameters
+    '("RsvgDimensionData*" "data")
+    '("const-char*" "id" (null-ok))
+  )
+)
+
 (define-method write
   (of-object "RsvgHandle")
   (c-name "rsvg_handle_write")

@@ -59,6 +59,7 @@ public class Handle extends org.gnome.glib.Object
     }
 
     /**
+     * Indicate you have finished loading data into the Handle.
      * 
      * <p>
      * Returns <code>true</code> assuming the nothing went wrong.
@@ -77,4 +78,37 @@ public class Handle extends org.gnome.glib.Object
         }
     }
 
+    /**
+     * Get the size of the SVG image represented by this Handle.
+     * 
+     * @since 4.0.14
+     */
+    public DimensionData getDimensions() {
+        final DimensionData size;
+
+        size = new DimensionData();
+
+        RsvgHandle.getDimensions(this, size);
+
+        return size;
+    }
+
+    /**
+     * Get the size of a named sub-element of the SVG image represented by
+     * this Handle.
+     * 
+     * <p>
+     * You can pass <code>null<code> to get the size of the entire graphic.
+     * 
+     * @since 4.0.14
+     */
+    public DimensionData getDimensionsSub(String id) {
+        final DimensionData size;
+
+        size = new DimensionData();
+
+        RsvgHandle.getDimensionsSub(this, size, id);
+
+        return size;
+    }
 }

@@ -1,0 +1,12 @@
+(define-boxed DimensionData
+  (in-module "Rsvg")
+  (c-name "RsvgDimensionData")
+  (import-header "librsvg/rsvg.h")
+  (fields
+    '("int" "width")
+    '("int" "height")
+    '("gdouble" "em")
+    '("gdouble" "ex")
+  )
+)
+
