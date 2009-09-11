@@ -72,6 +72,7 @@ main
 	im = gtk_im_context_simple_new();
 
 	g_signal_connect(area, "key-press-event", G_CALLBACK(keystroke_cb), im);
+	g_signal_connect(area, "key-release-event", G_CALLBACK(keystroke_cb), im);
 	g_signal_connect(im, "commit", G_CALLBACK(commit_cb), NULL);
 
 	gtk_widget_show_all((GtkWidget*) window);
