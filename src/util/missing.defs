@@ -372,15 +372,6 @@
   (return-type "GType")
 )
 
-(define-function cursor_new_from_name
-  (c-name "gdk_cursor_new_from_name")
-  (return-type "GdkCursor*")
-  (parameters
-    '("GdkDisplay*" "display")
-    '("const-gchar*" "name")
-  )
-)
-
 (define-function gdk_display_get_type
   (c-name "gdk_display_get_type")
   (return-type "GType")
