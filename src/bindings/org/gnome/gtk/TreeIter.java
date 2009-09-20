@@ -116,4 +116,13 @@ public final class TreeIter extends Boxed
         }
         return GtkTreeModel.iterNext(model, this);
     }
+
+    /**
+     * Create a copy of this TreeIter.
+     * 
+     * @since 4.0.14
+     */
+    public TreeIter copy() {
+        return GtkTreeIter.copy(this);
+    }
 }
