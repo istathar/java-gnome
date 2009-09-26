@@ -17,9 +17,31 @@ import org.gnome.gtk.GraphicalTestCase;
  */
 public class ValidateEnchantInternals extends GraphicalTestCase
 {
-    public final void testDictionaryCreation() {
+    public final void testLibraryInitialization() {
         Enchant.init();
 
         assertNotNull(Enchant.getDefault());
+    }
+
+    public final void testDictionaryCreation() {
+        final Dictionary dict;
+
+        assertNotNull(Enchant.getDefault());
+
+        dict = Enchant.requestDictionary("en");
+        assertNotNull(dict);
+    }
+
+    public final void testCheckWord() {
+        final Dictionary dict;
+        int result;
+
+        dict = Enchant.requestDictionary("en");
+
+        result = dict.check("hello");
+        assertTrue(result == 0);
+
+        result = dict.check("insain");
+        assertTrue(result > 0);
     }
 }

@@ -43,4 +43,21 @@ public final class Enchant extends Glib
         return defaultBroker;
     }
 
+    /**
+     * Get a Dictionary for the specified language.
+     * 
+     * <p>
+     * Languages are indicated in a locale-like form; while you can use just
+     * the langage code <code>en</code>, specifiying a specific language
+     * variant such as <code>en_UK</code> or <code>fr_CA</code> is preferred.
+     * 
+     * <p>
+     * Returns <code>null</code> if no suitable dictionary was found.
+     * 
+     * @since 4.0.14
+     */
+    public static Dictionary requestDictionary(String lang) {
+        return EnchantBroker.requestDict(defaultBroker, lang);
+    }
+
 }
