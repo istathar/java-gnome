@@ -32,8 +32,22 @@ public class EntityBlock extends TypeBlock
     }
 
     public Thing createThing() {
-        EntityThing t = new EntityThing(addPointerSymbol(cName), moduleToJavaPackage(inModule), inModule
-                + blockName, blockName);
+        final String bindingsPackage;
+        final EntityThing t;
+
+        bindingsPackage = moduleToJavaPackage(inModule);
+
+        if (bindingsPackage.equals("org.freedesktop.enchant")) {
+            t = new EntityThing(addPointerSymbol(cName), bindingsPackage, cName, blockName);
+        } else {
+            /*
+             * Note that we're not using cName here; it's cairo_t and not
+             * suitable as a generated bindings layer class name.
+             */
+            t = new EntityThing(addPointerSymbol(cName), bindingsPackage, inModule + blockName,
+                    blockName);
+        }
+
         t.setImportHeader(importHeader);
         return t;
     }
