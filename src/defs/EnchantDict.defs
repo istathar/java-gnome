@@ -1,0 +1,15 @@
+(define-entity Dictionary
+  (in-module "Enchant")
+  (c-name "EnchantDict")
+  (import-header "enchant.h")
+)
+
+(define-method check
+  (of-object "EnchantDict")
+  (c-name "enchant_dict_check")
+  (return-type "int")
+  (parameters
+    '("const-char*" "word")
+    '("gssize" "len")
+  )
+)
