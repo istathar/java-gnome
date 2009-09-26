@@ -41,4 +41,23 @@ class Dictionary extends Entity
     public int check(String word) {
         return EnchantDict.check(this, word, -1);
     }
+
+    /**
+     * Offer alternate suggestions of how to spell a word.
+     * 
+     * <p>
+     * Beware that you can get suggestions even from a word that is correctly
+     * spelled! This means that you need to call {@link #check(String)
+     * check()} first to find out whether or not to offer a list of
+     * corrections.
+     * 
+     * @since 4.0.14
+     */
+    /*
+     * FIXME leak! We need to call enchant_dict_free_suggestions(), and
+     * there's no way for the generated code to know that.
+     */
+    public String[] suggest(String word) {
+        return EnchantDict.suggest(this, word, -1, null);
+    }
 }

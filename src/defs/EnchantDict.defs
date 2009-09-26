@@ -13,3 +13,14 @@
     '("gssize" "len")
   )
 )
+
+(define-method suggest
+  (of-object "EnchantDict")
+  (c-name "enchant_dict_suggest")
+  (return-type "char**")
+  (parameters
+    '("const-char*" "word")
+    '("gssize" "len")
+    '("gsize*" "out_n_suggs" (null-ok))
+  )
+)
