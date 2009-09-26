@@ -18,6 +18,7 @@
   (of-object "EnchantDict")
   (c-name "enchant_dict_suggest")
   (return-type "char**")
+  (caller-owns-return #t)
   (parameters
     '("const-char*" "word")
     '("gssize" "len")
