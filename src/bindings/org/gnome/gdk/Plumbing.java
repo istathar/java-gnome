@@ -34,6 +34,7 @@ public abstract class Plumbing extends org.gnome.glib.Plumbing
          * back that are subtypes we don't know about.
          */
         registerType("GdkScreenX11", org.gnome.gdk.Screen.class);
+        registerType("GdkDisplayX11", org.gnome.gdk.Display.class);
     }
 
     /**
