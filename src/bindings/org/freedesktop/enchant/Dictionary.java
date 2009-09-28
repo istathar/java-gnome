@@ -56,12 +56,30 @@ class Dictionary extends Entity
     /*
      * FIXME we need to call enchant_dict_free_string_list() on the C side
      * char**, but there's no way for the code generator to do that for us. By
-     * having declared caller-owns-return as false in the .defs data we
+     * having declared caller-owns-return as true in the .defs data we
      * generate a call to g_strfreev() which is what the enchant code does
      * internally, so this is not a leak. But we should replace this with an
      * Override that calls the Enchant function properly.
      */
     public String[] suggest(String word) {
         return EnchantDict.suggest(this, word, -1, null);
+    }
+
+    /**
+     * Add a word to the personal dictionary.
+     * 
+     * @since 4.0.14
+     */
+    public void add(String word) {
+        EnchantDict.add(this, word, -1);
+    }
+
+    /**
+     * Remove a word from the personal dictionary.
+     * 
+     * @since 4.0.14
+     */
+    public void remove(String word) {
+        EnchantDict.remove(this, word, -1);
     }
 }

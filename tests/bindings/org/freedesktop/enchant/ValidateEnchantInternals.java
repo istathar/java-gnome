@@ -114,4 +114,31 @@ public class ValidateEnchantInternals extends GraphicalTestCase
         list = dict.suggest(bogus);
         assertNull(list);
     }
+
+    public final void testAddingPersonalWord() {
+        final String bogus;
+        final Dictionary dict;
+        int result;
+
+        dict = Enchant.requestDictionary("en");
+
+        /*
+         * Something surely not in anyone's word list:
+         */
+
+        bogus = "bindings_java_spell_checking_test";
+
+        result = dict.check(bogus);
+        assertTrue(result > 0);
+
+        dict.add(bogus);
+
+        result = dict.check(bogus);
+        assertTrue(result == 0);
+
+        dict.remove(bogus);
+
+        result = dict.check(bogus);
+        assertTrue(result > 0);
+    }
 }
