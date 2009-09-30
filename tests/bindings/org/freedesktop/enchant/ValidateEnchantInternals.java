@@ -34,15 +34,15 @@ public class ValidateEnchantInternals extends GraphicalTestCase
 
     public final void testCheckWord() {
         final Dictionary dict;
-        int result;
+        boolean result;
 
         dict = Enchant.requestDictionary("en");
 
         result = dict.check("hello");
-        assertTrue(result == 0);
+        assertTrue(result);
 
         result = dict.check("insain");
-        assertTrue(result > 0);
+        assertFalse(result);
     }
 
     public final void testSuggestionsWordCorrect() {
@@ -92,7 +92,7 @@ public class ValidateEnchantInternals extends GraphicalTestCase
         final String bogus;
         final Dictionary dict;
         String[] list;
-        int result;
+        boolean result;
 
         dict = Enchant.requestDictionary("en");
 
@@ -107,7 +107,7 @@ public class ValidateEnchantInternals extends GraphicalTestCase
 
         result = dict.check(bogus);
 
-        if (result == 0) {
+        if (result) {
             fail("Need a better word to use, one known not to result in any suggestions");
         }
 
@@ -118,7 +118,7 @@ public class ValidateEnchantInternals extends GraphicalTestCase
     public final void testAddingPersonalWord() {
         final String bogus;
         final Dictionary dict;
-        int result;
+        boolean result;
 
         dict = Enchant.requestDictionary("en");
 
@@ -129,16 +129,16 @@ public class ValidateEnchantInternals extends GraphicalTestCase
         bogus = "bindings_java_spell_checking_test";
 
         result = dict.check(bogus);
-        assertTrue(result > 0);
+        assertFalse(result);
 
         dict.add(bogus);
 
         result = dict.check(bogus);
-        assertTrue(result == 0);
+        assertTrue(result);
 
         dict.remove(bogus);
 
         result = dict.check(bogus);
-        assertTrue(result > 0);
+        assertFalse(result);
     }
 }

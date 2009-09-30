@@ -33,13 +33,25 @@ class Dictionary extends Entity
      * Check the spelling of the given word.
      * 
      * <p>
-     * Returns <code>0</code> if the word is deemed to be spelled correctly,
-     * positive if incorrect, and negative if there was an error.
+     * Returns <code>true</code> if the word is deemed to be spelled
+     * correctly, <code>false</code> if incorrect.
+     * 
+     * <p>
+     * <i>The underlying library documentation also notes an error state;
+     * should it be encountered we throw an IllegalStateException.</i>
      * 
      * @since 4.0.14
      */
-    public int check(String word) {
-        return EnchantDict.check(this, word, -1);
+    public boolean check(String word) {
+        final int result;
+        result = EnchantDict.check(this, word, -1);
+        if (result == 0) {
+            return true;
+        } else if (result > 0) {
+            return false;
+        } else {
+            throw new IllegalStateException("Internal problem in Enchant wrapper library");
+        }
     }
 
     /**

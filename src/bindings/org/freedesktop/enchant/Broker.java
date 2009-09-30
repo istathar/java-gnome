@@ -12,12 +12,15 @@
 package org.freedesktop.enchant;
 
 /**
+ * Mechanism used by the Enchant library to manage getting handles to spelling
+ * backends. We present its functionality on the {@link Enchant} class static.
+ * 
  * @author Andrew Cowie
  * @since 4.0.14
- * 
  */
 class Broker extends Entity
 {
+    // this is enchant_broker_init()
     Broker() {
         super(EnchantBroker.createBroker());
     }
