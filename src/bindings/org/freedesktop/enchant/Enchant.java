@@ -16,6 +16,41 @@ import org.gnome.glib.Glib;
 /**
  * Get a handle to an Enchant dictionary for spell checking.
  * 
+ * <p>
+ * Enchant is not itself a spell checking library; it is, rather a facade to
+ * various common spelling mechanisms. It provides a simple and sufficient API
+ * for doing spelling operations. Which actual back-end provider will be
+ * employed depends on the system and user "ordering" files.
+ * 
+ * <h2>Usage</h2>
+ * 
+ * <p>
+ * Enchant is straight-forward to use. For possibly mispelled
+ * <code>word</code>, you can do
+ * 
+ * <pre>
+ * Enchant.init();
+ * 
+ * dict = Enchant.requestDictionary(&quot;en_CA&quot;);
+ * 
+ * if (dict.check(word)) {
+ *     return &quot;Spelled correctly!&quot;;
+ * } else {
+ *     possibles = dict.suggest(word);
+ *     
+ *     str.append(&quot;The word &quot;);
+ *     str.append(word);
+ *     str.append(&quot; was misspelled. You could correct it with one of:\n&quot;
+ *     
+ *     for (i = 0; i &lt; possibles.length; i++) {
+ *         str.append(possibles[i]);
+ *         str.append('\n');
+ *     }
+ *     
+ *     return str.toString();
+ * }
+ * </pre>
+ * 
  * @author Andrew Cowie
  * @since 4.0.14
  * @see <a href="http://www.abisource.com/projects/enchant/">Enchant home
@@ -59,5 +94,4 @@ public final class Enchant extends Glib
     public static Dictionary requestDictionary(String lang) {
         return EnchantBroker.requestDict(defaultBroker, lang);
     }
-
 }

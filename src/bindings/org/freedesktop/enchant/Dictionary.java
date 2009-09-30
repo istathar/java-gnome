@@ -89,6 +89,12 @@ class Dictionary extends Entity
     /**
      * Remove a word from the personal dictionary.
      * 
+     * <p>
+     * <b>FIXME</b><br>
+     * This does remove the word from the Enchant personal word list, but it
+     * then <i>adds</i> it to something called the "exclude" list. What is
+     * that all about?
+     * 
      * @since 4.0.14
      */
     public void remove(String word) {
