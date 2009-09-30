@@ -10,6 +10,10 @@
  */
 package org.freedesktop.enchant;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+
 import org.gnome.gtk.GraphicalTestCase;
 
 /**
@@ -115,7 +119,7 @@ public class ValidateEnchantInternals extends GraphicalTestCase
         assertNull(list);
     }
 
-    public final void testAddingPersonalWord() {
+    public final void testAddingCustomWord() {
         final String bogus;
         final Dictionary dict;
         boolean result;
@@ -140,5 +144,41 @@ public class ValidateEnchantInternals extends GraphicalTestCase
 
         result = dict.check(bogus);
         assertFalse(result);
+    }
+
+    public final void testPersonalWordList() throws IOException {
+        File target;
+        Dictionary dict;
+
+        Enchant.init();
+
+        dict = null;
+        try {
+            dict = Enchant.requestPersonalWordList("");
+            fail("Should have thrown FileNotFoundException");
+            return;
+        } catch (FileNotFoundException fnfe) {
+            // good
+        }
+
+        target = new File("tmp/personalWordList.dic");
+        if (target.exists()) {
+            target.delete();
+        }
+        target.createNewFile();
+
+        try {
+            dict = Enchant.requestPersonalWordList(target.getAbsolutePath());
+        } catch (FileNotFoundException fnfe) {
+            fail("Why not found?");
+        }
+
+        assertFalse(dict.check("jazz"));
+
+        dict.add("jazz");
+        assertTrue(dict.check("jazz"));
+
+        dict.remove("jazz");
+        assertFalse(dict.check("jazz"));
     }
 }

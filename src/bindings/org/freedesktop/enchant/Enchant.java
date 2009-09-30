@@ -59,6 +59,11 @@ import org.gnome.glib.Glib;
  * @see <a href="http://www.abisource.com/projects/enchant/">Enchant home
  *      page</a>
  */
+/*
+ * This API could have been exposed as an init function returning a Broker,
+ * and then calling the Broker method to get a Dictionary, but that doesn't
+ * really seem to add anything to the experience.
+ */
 public final class Enchant extends Glib
 {
     private Enchant() {}
@@ -102,9 +107,15 @@ public final class Enchant extends Glib
      * Get a Dictionary for the specified personal word list.
      * 
      * <p>
-     * Word lists are simple files with one word per line.
+     * Word lists are simple files with one word per line. By creating a
+     * Dictionary of a personal word list you can add words to a file that is
+     * independent of a normal spelling engine back-end.
      * 
-     * @since <span style="color:red;>unstable</span>
+     * @since 4.0.14
+     */
+    /*
+     * TODO Enchant has its own idea of error reporting, which we should check
+     * as well.
      */
     public static Dictionary requestPersonalWordList(String filename) throws FileNotFoundException {
         final File target;
