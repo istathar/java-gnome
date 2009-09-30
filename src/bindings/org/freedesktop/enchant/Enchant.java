@@ -11,6 +11,9 @@
  */
 package org.freedesktop.enchant;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+
 import org.gnome.glib.Glib;
 
 /**
@@ -93,5 +96,23 @@ public final class Enchant extends Glib
      */
     public static Dictionary requestDictionary(String lang) {
         return EnchantBroker.requestDict(defaultBroker, lang);
+    }
+
+    /**
+     * Get a Dictionary for the specified personal word list.
+     * 
+     * <p>
+     * Word lists are simple files with one word per line.
+     * 
+     * @since <span style="color:red;>unstable</span>
+     */
+    public static Dictionary requestPersonalWordList(String filename) throws FileNotFoundException {
+        final File target;
+
+        target = new File(filename);
+        if (!target.exists()) {
+            throw new FileNotFoundException(filename);
+        }
+        return EnchantBroker.requestPwlDict(defaultBroker, filename);
     }
 }
