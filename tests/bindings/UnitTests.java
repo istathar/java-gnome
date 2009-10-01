@@ -18,6 +18,7 @@ import org.freedesktop.bindings.ValidateInternationalization;
 import org.freedesktop.cairo.ValidateCairoContext;
 import org.freedesktop.cairo.ValidateCairoInternals;
 import org.freedesktop.cairo.ValidateDrawingToFile;
+import org.freedesktop.enchant.ValidateEnchantInternals;
 import org.gnome.gdk.ValidateImageHandling;
 import org.gnome.gdk.ValidateKeyboardHandling;
 import org.gnome.gdk.ValidateScreensAndDisplays;
@@ -163,6 +164,7 @@ public class UnitTests
         suite.addTestSuite(ValidateArrow.class);
         suite.addTestSuite(ValidatePangoTextRendering.class);
         suite.addTestSuite(ValidatePangoAttributeUsage.class);
+        suite.addTestSuite(ValidateEnchantInternals.class);
         suite.addTestSuite(ValidatePrinting.class);
         suite.addTestSuite(ValidateSourceView.class);
         suite.addTestSuite(ValidateUniqueApplications.class);
