@@ -33,7 +33,7 @@ class Dictionary extends Entity
      * Check the spelling of the given word.
      * 
      * <p>
-     * Returns <code>true</code> if the word is deemed to be spelled
+     * Returns <code>true</code> if the word is deemed to be spelt
      * correctly, <code>false</code> if incorrect.
      * 
      * <p>
@@ -59,7 +59,7 @@ class Dictionary extends Entity
      * 
      * <p>
      * Beware that you can get suggestions even from a word that is correctly
-     * spelled! This means that you need to call {@link #check(String)
+     * spelt! This means that you need to call {@link #check(String)
      * check()} first to find out whether or not to offer a list of
      * corrections.
      * 

@@ -28,7 +28,7 @@ import org.gnome.glib.Glib;
  * <h2>Usage</h2>
  * 
  * <p>
- * Enchant is straight-forward to use. For possibly mispelled
+ * Enchant is straight-forward to use. For possibly misspelled
  * <code>word</code>, you can do
  * 
  * <pre>
@@ -91,7 +91,7 @@ public final class Enchant extends Glib
      * 
      * <p>
      * Languages are indicated in a locale-like form; while you can use just
-     * the langage code <code>en</code>, specifiying a specific language
+     * the language code <code>en</code>, specifying a specific language
      * variant such as <code>en_UK</code> or <code>fr_CA</code> is preferred.
      * 
      * <p>
