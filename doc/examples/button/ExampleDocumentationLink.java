@@ -27,7 +27,7 @@ import org.gnome.gtk.Window;
  * @author Guillaume Mazoyer
  * @since 4.0.14
  */
-public class ExampleDocLink
+public class ExampleDocumentationLink
 {
     public static void main(String[] args) {
         final Window window;
