@@ -41,7 +41,8 @@ public class LinkButton extends Button
     }
 
     /**
-     * <code>label</code> as you would expect from a normal hyperlink.
+     * Create a button pointing to given URI and the given <code>label</code>
+     * as you would expect from a normal hyperlink.
      * 
      * @since 4.0.14
      */
@@ -50,7 +51,7 @@ public class LinkButton extends Button
     }
 
     /**
-     * Returns the button's URI.
+     * Return the button's URI.
      * 
      * @since 4.0.14
      */
@@ -66,7 +67,7 @@ public class LinkButton extends Button
     }
 
     /**
-     * Modifies the button's {@link URI}.
+     * Modify the button's {@link URI}.
      * 
      * @since 4.0.14
      */
@@ -75,7 +76,7 @@ public class LinkButton extends Button
     }
 
     /**
-     * Returns the button's visited state. Note that this might be modified
+     * Return the button's visited state. Note that this might be modified
      * programatically by {@link #setVisited(boolean)}.
      * 
      * @since 4.0.14
