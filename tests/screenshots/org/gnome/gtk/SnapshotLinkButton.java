@@ -44,19 +44,6 @@ public class SnapshotLinkButton extends Snapshot
         link2.setVisited(true);
         x.packStart(link2, false, false, 0);
 
-        link2.setUriHook(new LinkButton.UriHook() {
-            public void onUriClicked(LinkButton source, URI uri) {
-                final Dialog dialog;
-
-                dialog = new InfoMessageDialog(window, "Correct",
-                        "This dialog should appear [only] when testing "
-                                + "(it is not part of the Snapshot), " + "and more importantly, "
-                                + "gtk_show_uri() should not be called.");
-                dialog.run();
-                dialog.hide();
-            }
-        });
-
         window.add(x);
     }
 

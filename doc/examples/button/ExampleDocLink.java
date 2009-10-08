@@ -25,7 +25,7 @@ import org.gnome.gtk.Window;
  * Example to show the interest of using a LinkButton widget.
  * 
  * @author Guillaume Mazoyer
- * @since 4.0.13
+ * @since 4.0.14
  */
 public class ExampleDocLink
 {
