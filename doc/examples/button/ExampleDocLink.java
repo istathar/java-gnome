@@ -21,6 +21,12 @@ import org.gnome.gtk.VBox;
 import org.gnome.gtk.Widget;
 import org.gnome.gtk.Window;
 
+/**
+ * Example to show the interest of using a LinkButton widget.
+ * 
+ * @author Guillaume Mazoyer
+ * @since 4.0.13
+ */
 public class ExampleDocLink
 {
     public static void main(String[] args) {
@@ -64,7 +70,8 @@ public class ExampleDocLink
          */
 
         label = new Label(
-                "This window has been made with the java-gnome project.\nTo get more information, you should check out the\ndocumentation by clicking on the following button.");
+                "This window has been made with the <b>java-gnome</b> project.\nTo get more information, you should check out the\ndocumentation by clicking on the following button.");
+        label.setUseMarkup(true);
         vbox.add(label);
 
         /*
@@ -81,8 +88,8 @@ public class ExampleDocLink
          * Create the LinkButton. The setLabel(String) method will hide the
          * link and display friendlier word(s).
          * 
-         * Click on this button will automatically open the web browser using
-         * the previously given link.
+         * A click on this button will automatically open the web browser
+         * using the previously given link.
          */
 
         button = new LinkButton(link);
@@ -94,6 +101,7 @@ public class ExampleDocLink
          */
 
         window.setTitle("Online documentation");
+        window.setBorderWidth(6);
         window.add(vbox);
         window.showAll();
 

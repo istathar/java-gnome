@@ -1,7 +1,7 @@
 /*
  * SnapshotLinkButton.java
  *
- * Copyright (c) 2009 Operational Dynamics Consulting Pty Ltd and Others
+ * Copyright (c) 2009 Operational Dynamics Consulting Pty Ltd, and Others
  * 
  * The code in this file, and the program it is a part of, are made available
  * to you by the authors under the terms of the "GNU General Public Licence,
@@ -30,19 +30,32 @@ public class SnapshotLinkButton extends Snapshot
         window.setBorderWidth(6);
 
         x = new VBox(true, 6);
-        
-        label1 = new Label("LinkButton with URI as label");
+
+        label1 = new Label("LinkButton with only a URI as its label");
         x.packStart(label1, false, false, 0);
 
-        link1 = new LinkButton(new URI("http://java-gnome.sourceforge.net"));
+        link1 = new LinkButton(new URI("http://java-gnome.sourceforge.net/"));
         x.packStart(link1, false, false, 0);
-        
-        label2 = new Label("A visited LinkButton with a custom label");
+
+        label2 = new Label("A visited LinkButton with a text label");
         x.packStart(label2, false, false, 0);
-        
-        link2 = new LinkButton(new URI("http://java-gnome.sourceforge.net"),"Java-Gnome");
+
+        link2 = new LinkButton(new URI("http://java-gnome.sourceforge.net/"), "The java-gnome website");
         link2.setVisited(true);
         x.packStart(link2, false, false, 0);
+
+        link2.setUriHook(new LinkButton.UriHook() {
+            public void onUriClicked(LinkButton source, URI uri) {
+                final Dialog dialog;
+
+                dialog = new InfoMessageDialog(window, "Correct",
+                        "This dialog should appear [only] when testing "
+                                + "(it is not part of the Snapshot), " + "and more importantly, "
+                                + "gtk_show_uri() should not be called.");
+                dialog.run();
+                dialog.hide();
+            }
+        });
 
         window.add(x);
     }

@@ -34,6 +34,7 @@ import org.gnome.gtk.ValidateEntryCompletion;
 import org.gnome.gtk.ValidateFileChoosing;
 import org.gnome.gtk.ValidateIconView;
 import org.gnome.gtk.ValidateInputMethods;
+import org.gnome.gtk.ValidateLinkButton;
 import org.gnome.gtk.ValidateNotebookBehaviour;
 import org.gnome.gtk.ValidateOutParameters;
 import org.gnome.gtk.ValidatePacking;
@@ -151,6 +152,7 @@ public class UnitTests
         suite.addTestSuite(ValidateTreeView.class);
         suite.addTestSuite(ValidateIconView.class);
         suite.addTestSuite(ValidateComboBox.class);
+        suite.addTestSuite(ValidateLinkButton.class);
         suite.addTestSuite(ValidateEntry.class);
         suite.addTestSuite(ValidateEntryCompletion.class);
         suite.addTestSuite(ValidateSnapshotUtilities.class);

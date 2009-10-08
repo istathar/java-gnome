@@ -1,7 +1,7 @@
 /*
  * LinkButton.java
  *
- * Copyright (c) 2009 Operational Dynamics Consulting Pty Ltd and Others
+ * Copyright (c) 2009 Operational Dynamics Consulting Pty Ltd, and Others
  *
  * The code in this file, and the library it is a part of, are made available
  * to you by the authors under the terms of the "GNU General Public Licence,
@@ -15,10 +15,10 @@ import java.net.URI;
 import java.net.URISyntaxException;
 
 /**
- * LinkButton is a specialized subclass of {@link Button} for linking to
- * {@link URI}'s. The default action is to open the {@link URI} with its
- * associated application determined by the desktop environment. <img
- * src="LinkButton.png" class="snapshot">
+ * LinkButton is a specialized subclass of Button for linking to URIs. The
+ * default action is to open the URI with its associated application
+ * determined by the desktop environment. <img src="LinkButton.png"
+ * class="snapshot">
  * 
  * @author Serkan Kaba
  * @since 4.0.13
@@ -30,8 +30,8 @@ public class LinkButton extends Button
     }
 
     /**
-     * Create a button pointing to given {@link URI}. The <code>uri</code>
-     * will also be used as the label.
+     * Create a button pointing to given URI. The <code>uri</code> will also
+     * be used as the label.
      * 
      * @since 4.0.13
      */
@@ -40,8 +40,7 @@ public class LinkButton extends Button
     }
 
     /**
-     * Create a button pointing to given {@link URI}. and labeled as
-     * <code>label</code>.
+     * <code>label</code> as you would expect from a normal hyperlink.
      * 
      * @since 4.0.13
      */
@@ -50,11 +49,14 @@ public class LinkButton extends Button
     }
 
     /**
-     * Return the button's {@link URI}.
+     * Returns the button's URI.
      * 
      * @since 4.0.13
      */
-    public URI getUri() {
+    /*
+     * Naming convention same as FileChooser's getURI().
+     */
+    public URI getURI() {
         try {
             return new URI(GtkLinkButton.getUri(this));
         } catch (URISyntaxException e) {
@@ -63,16 +65,16 @@ public class LinkButton extends Button
     }
 
     /**
-     * Modify the button's {@link URI}.
+     * Modifies the button's {@link URI}.
      * 
      * @since 4.0.13
      */
-    public void setUri(URI uri) {
+    public void setURI(URI uri) {
         GtkLinkButton.setUri(this, uri.toString());
     }
 
     /**
-     * Return the buttons visited state. Note that this might be modified
+     * Returns the button's visited state. Note that this might be modified
      * programatically by {@link #setVisited(boolean)}.
      * 
      * @since 4.0.13
@@ -83,7 +85,7 @@ public class LinkButton extends Button
 
     /**
      * Modify the button's visited state.
-     * 
+	  *
      * @since 4.0.13
      */
     public void setVisited(boolean visited) {
@@ -103,15 +105,16 @@ public class LinkButton extends Button
 
     private static class UriClickHandler implements GtkLinkButton.UriClickedSignal
     {
-        private final UriHook uriHook;
+
+        private final UriHook handler;
 
         public UriClickHandler(UriHook uriHook) {
-            this.uriHook = uriHook;
+            this.handler = uriHook;
         }
 
         public void onUriClicked(LinkButton source, String link) {
             try {
-                uriHook.onUriClicked(source, new URI(link));
+                handler.onUriClicked(source, new URI(link));
             } catch (URISyntaxException e) {
                 throw new RuntimeException("We shouldn't be throwing this exception", e);
             }
@@ -119,13 +122,13 @@ public class LinkButton extends Button
     }
 
     /**
-     * Hookup a custom <code>UriHook</code> to override the default behavior
-     * of the LinkButton.
+     * Hookup a custom <code>LinkButton.UriHook</code> to override the default
+     * behavior of the LinkButton.
      * 
      * @since 4.0.13
      */
-    public void setUriHook(UriHook uriHook) {
+    public void setUriHook(LinkButton.UriHook handler) {
         GtkLinkButtonOverride.setUriHook(this);
-        GtkLinkButton.connect(this, new UriClickHandler(uriHook), false);
+        GtkLinkButton.connect(this, new UriClickHandler(handler), false);
     }
 }

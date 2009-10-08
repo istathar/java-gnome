@@ -20,29 +20,30 @@ import java.net.URISyntaxException;
  */
 public class ValidateLinkButton extends TestCaseGtk
 {
-    public final void testLinkButton() {
-        URI java_gnome = null; 
+    public final void testVisited() {
+        URI java_gnome = null;
         final LinkButton link;
-        
+
         try {
             java_gnome = new URI("http://java-gnome.sourceforge.net");
         } catch (URISyntaxException e) {
             fail("The URI should be valid");
         }
-        
+
         link = new LinkButton(java_gnome);
-        
+
         link.setUriHook(new LinkButton.UriHook() {
 
             public void onUriClicked(LinkButton source, URI uri) {
-                //No-op
+            // No-op
             }
         });
-        
+
+        assertFalse(link.getVisited());
         link.emitClicked();
         assertTrue(link.getVisited());
         link.setVisited(false);
         assertFalse(link.getVisited());
-        assertEquals(java_gnome,link.getUri());
+        assertEquals(java_gnome, link.getURI());
     }
 }
