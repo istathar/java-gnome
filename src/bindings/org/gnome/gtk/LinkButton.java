@@ -103,7 +103,6 @@ public class LinkButton extends Button
 
     private static class UriClickHandler implements GtkLinkButton.UriClickedSignal
     {
-
         private final UriHook uriHook;
 
         public UriClickHandler(UriHook uriHook) {
@@ -116,7 +115,6 @@ public class LinkButton extends Button
             } catch (URISyntaxException e) {
                 throw new RuntimeException("We shouldn't be throwing this exception", e);
             }
-
         }
     }
 
