@@ -2,7 +2,7 @@
  * ValidateMemoryManagement.java
  *
  * Copyright (c) 2007      Vreixo Formoso Lopes
- * Copyright (c) 2007-2008 Operational Dynamics Consulting Pty Ltd
+ * Copyright (c) 2007-2009 Operational Dynamics Consulting Pty Ltd
  * 
  * The code in this file, and the suite it is a part of, are made available
  * to you by the authors under the terms of the "GNU General Public Licence,
@@ -14,7 +14,7 @@ package org.gnome.glib;
 import java.util.HashSet;
 
 import org.gnome.gtk.Button;
-import org.gnome.gtk.TestCaseGtk;
+import org.gnome.gtk.GraphicalTestCase;
 import org.gnome.gtk.TreeSelection;
 import org.gnome.gtk.TreeView;
 import org.gnome.gtk.VBox;
@@ -33,7 +33,7 @@ import org.gnome.gtk.Window;
  * @author Vreixo Formoso
  * @author Andrew Cowie
  */
-public class ValidateMemoryManagement extends TestCaseGtk
+public class ValidateMemoryManagement extends GraphicalTestCase
 {
 
     /**

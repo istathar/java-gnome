@@ -21,6 +21,8 @@
     '("bottom-side" "GDK_BOTTOM_SIDE")
     '("fleur" "GDK_FLEUR")
     '("cursor-is-pixmap" "GDK_CURSOR_IS_PIXMAP")
+    '("hand1" "GDK_HAND1")
+    '("hand2" "GDK_HAND2")
   )
 )
 

@@ -18,7 +18,7 @@ import java.net.URISyntaxException;
  * 
  * @author Serkan Kaba
  */
-public class ValidateLinkButton extends TestCaseGtk
+public class ValidateLinkButton extends GraphicalTestCase
 {
     public final void testVisited() {
         URI java_gnome = null;

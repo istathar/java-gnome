@@ -16,7 +16,7 @@ package org.gnome.gtk;
  * @author Guillaume Mazoyer
  * @author Andrew Cowie
  */
-public class ValidateEntryCompletion extends TestCaseGtk
+public class ValidateEntryCompletion extends GraphicalTestCase
 {
     public final void testConstructor() {
         final Entry entry;

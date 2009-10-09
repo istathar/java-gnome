@@ -18,6 +18,7 @@ import org.freedesktop.bindings.ValidateInternationalization;
 import org.freedesktop.cairo.ValidateCairoContext;
 import org.freedesktop.cairo.ValidateCairoInternals;
 import org.freedesktop.cairo.ValidateDrawingToFile;
+import org.freedesktop.enchant.ValidateEnchantInternals;
 import org.gnome.gdk.ValidateImageHandling;
 import org.gnome.gdk.ValidateKeyboardHandling;
 import org.gnome.gdk.ValidateScreensAndDisplays;
@@ -25,7 +26,6 @@ import org.gnome.glib.ValidateConstants;
 import org.gnome.glib.ValidateGListMethods;
 import org.gnome.glib.ValidateMemoryManagement;
 import org.gnome.glib.ValidateReferenceCounting;
-import org.gnome.gtk.TestCaseGtk;
 import org.gnome.gtk.ValidateArrow;
 import org.gnome.gtk.ValidateAssistant;
 import org.gnome.gtk.ValidateComboBox;
@@ -34,6 +34,7 @@ import org.gnome.gtk.ValidateEntryCompletion;
 import org.gnome.gtk.ValidateFileChoosing;
 import org.gnome.gtk.ValidateIconView;
 import org.gnome.gtk.ValidateLinkButton;
+import org.gnome.gtk.ValidateInputMethods;
 import org.gnome.gtk.ValidateNotebookBehaviour;
 import org.gnome.gtk.ValidateOutParameters;
 import org.gnome.gtk.ValidatePacking;
@@ -119,8 +120,6 @@ public class UnitTests
     private static Test suite(String[] args) {
         ClassLoader.getSystemClassLoader().setDefaultAssertionStatus(true);
 
-        TestCaseGtk.init(args);
-
         TestSuite suite = new TestSuite("All Unit Tests for java-gnome 4.0");
 
         suite.addTestSuite(ValidateUtilityMethods.class);
@@ -160,12 +159,14 @@ public class UnitTests
         suite.addTestSuite(ValidateAssistant.class);
         suite.addTestSuite(ValidateTextBuffer.class);
         suite.addTestSuite(ValidateUnicode.class);
+        suite.addTestSuite(ValidateInputMethods.class);
         suite.addTestSuite(ValidateTextViewProperties.class);
         suite.addTestSuite(ValidateTextViewBorderWindows.class);
         suite.addTestSuite(ValidateTextViewSpelling.class);
         suite.addTestSuite(ValidateArrow.class);
         suite.addTestSuite(ValidatePangoTextRendering.class);
         suite.addTestSuite(ValidatePangoAttributeUsage.class);
+        suite.addTestSuite(ValidateEnchantInternals.class);
         suite.addTestSuite(ValidatePrinting.class);
         suite.addTestSuite(ValidateSourceView.class);
         suite.addTestSuite(ValidateUniqueApplications.class);

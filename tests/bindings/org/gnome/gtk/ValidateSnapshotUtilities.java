@@ -1,7 +1,7 @@
 /*
  * ValidateSnapUtilities.java
  *
- * Copyright (c) 2007-2008 Operational Dynamics Consulting Pty Ltd
+ * Copyright (c) 2007-2009 Operational Dynamics Consulting Pty Ltd
  * 
  * The code in this file, and the suite it is a part of, are made available
  * to you by the authors under the terms of the "GNU General Public Licence,
@@ -10,7 +10,7 @@
  */
 package org.gnome.gtk;
 
-public class ValidateSnapshotUtilities extends TestCaseGtk
+public class ValidateSnapshotUtilities extends GraphicalTestCase
 {
     public void testClassToTargetFilename() {
         assertEquals("doc/api/org/gnome/gtk/QuestionMessageDialog.png",
