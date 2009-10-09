@@ -16,7 +16,7 @@ package org.gnome.gtk;
  * it were a signal.
  * 
  * @author Guillaume Mazoyer
- * @since 4.0.13
+ * @since 4.0.14
  */
 public class GtkAboutDialogOverride extends Plumbing
 {

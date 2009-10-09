@@ -32,60 +32,11 @@ public class ValidateLinkButton extends GraphicalTestCase
 
         link = new LinkButton(java_gnome);
 
-        link.setUriHook(new LinkButton.UriHook() {
-
-            public void onUriClicked(LinkButton source, URI uri) {
-            // No-op
-            }
-        });
-
         assertFalse(link.getVisited());
         link.emitClicked();
         assertTrue(link.getVisited());
         link.setVisited(false);
         assertFalse(link.getVisited());
         assertEquals(java_gnome, link.getURI());
-    }
-
-    private boolean first;
-
-    private boolean second;
-
-    public final void testCallback() {
-        URI uri = null;
-        final LinkButton link;
-
-        first = false;
-        second = false;
-
-        try {
-            uri = new URI("http://java-gnome.sourceforge.net/");
-        } catch (URISyntaxException e) {
-            fail("The URI should be valid");
-        }
-
-        link = new LinkButton(uri);
-
-        link.setUriHook(new LinkButton.UriHook() {
-            public void onUriClicked(LinkButton source, URI uri) {
-                first = true;
-            }
-        });
-
-        /*
-         * This should replace the first URL hook
-         */
-
-        link.setUriHook(new LinkButton.UriHook() {
-            public void onUriClicked(LinkButton source, URI uri) {
-                second = true;
-            }
-        });
-
-        assertFalse(first);
-        assertFalse(second);
-        link.emitClicked();
-        assertFalse(first);
-        assertTrue(second);
     }
 }

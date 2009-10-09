@@ -264,7 +264,7 @@ public class AboutDialog extends Dialog
      * Callback invoked when a email address is clicked.
      * 
      * @author Guillaume Mazoyer
-     * @since 4.0.13
+     * @since 4.0.14
      */
     public interface EmailHook
     {
@@ -275,7 +275,7 @@ public class AboutDialog extends Dialog
      * Hookup the <code>AboutDialog.EmailHook</code> callback that will be
      * used to handle email clicked actions.
      * 
-     * @since 4.0.13
+     * @since 4.0.14
      */
     public void setEmailCallback(EmailHook handler) {
         GtkAboutDialogOverride.setEmailHook(this);
@@ -303,7 +303,7 @@ public class AboutDialog extends Dialog
      * Callback invoked when the website is clicked.
      * 
      * @author Guillaume Mazoyer
-     * @since 4.0.13
+     * @since 4.0.14
      */
     public interface UrlHook
     {
@@ -314,7 +314,7 @@ public class AboutDialog extends Dialog
      * Hookup the <code>AboutDialog.UrlHook</code> callback that will be used
      * to handle website button click actions.
      * 
-     * @since 4.0.13
+     * @since 4.0.14
      */
     public void setUrlCallback(UrlHook handler) {
         GtkAboutDialogOverride.setUrlHook(this);

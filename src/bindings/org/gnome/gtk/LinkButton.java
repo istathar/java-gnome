@@ -21,7 +21,8 @@ import java.net.URISyntaxException;
  * class="snapshot">
  * 
  * @author Serkan Kaba
- * @since 4.0.13
+ * @author Guillaume Mazoyer
+ * @since 4.0.14
  */
 public class LinkButton extends Button
 {
@@ -33,25 +34,26 @@ public class LinkButton extends Button
      * Create a button pointing to given URI. The <code>uri</code> will also
      * be used as the label.
      * 
-     * @since 4.0.13
+     * @since 4.0.14
      */
     public LinkButton(URI uri) {
         super(GtkLinkButton.createLinkButton(uri.toString()));
     }
 
     /**
-     * <code>label</code> as you would expect from a normal hyperlink.
+     * Create a button pointing to given URI and the given <code>label</code>
+     * as you would expect from a normal hyperlink.
      * 
-     * @since 4.0.13
+     * @since 4.0.14
      */
     public LinkButton(URI uri, String label) {
         super(GtkLinkButton.createLinkButtonWithLabel(uri.toString(), label));
     }
 
     /**
-     * Returns the button's URI.
+     * Return the button's URI.
      * 
-     * @since 4.0.13
+     * @since 4.0.14
      */
     /*
      * Naming convention same as FileChooser's getURI().
@@ -65,19 +67,19 @@ public class LinkButton extends Button
     }
 
     /**
-     * Modifies the button's {@link URI}.
+     * Modify the button's {@link URI}.
      * 
-     * @since 4.0.13
+     * @since 4.0.14
      */
     public void setURI(URI uri) {
         GtkLinkButton.setUri(this, uri.toString());
     }
 
     /**
-     * Returns the button's visited state. Note that this might be modified
+     * Return the button's visited state. Note that this might be modified
      * programatically by {@link #setVisited(boolean)}.
      * 
-     * @since 4.0.13
+     * @since 4.0.14
      */
     public boolean getVisited() {
         return GtkLinkButton.getVisited(this);
@@ -85,50 +87,10 @@ public class LinkButton extends Button
 
     /**
      * Modify the button's visited state.
-	  *
-     * @since 4.0.13
+     * 
+     * @since 4.0.14
      */
     public void setVisited(boolean visited) {
         GtkLinkButton.setVisited(this, visited);
-    }
-
-    /**
-     * Callback invoked when the LinkButton is clicked.
-     * 
-     * @author Serkan Kaba
-     * @since 4.0.13
-     */
-    public interface UriHook
-    {
-        public void onUriClicked(LinkButton source, URI uri);
-    }
-
-    private static class UriClickHandler implements GtkLinkButton.UriClickedSignal
-    {
-
-        private final UriHook handler;
-
-        public UriClickHandler(UriHook uriHook) {
-            this.handler = uriHook;
-        }
-
-        public void onUriClicked(LinkButton source, String link) {
-            try {
-                handler.onUriClicked(source, new URI(link));
-            } catch (URISyntaxException e) {
-                throw new RuntimeException("We shouldn't be throwing this exception", e);
-            }
-        }
-    }
-
-    /**
-     * Hookup a custom <code>LinkButton.UriHook</code> to override the default
-     * behavior of the LinkButton.
-     * 
-     * @since 4.0.13
-     */
-    public void setUriHook(LinkButton.UriHook handler) {
-        GtkLinkButtonOverride.setUriHook(this);
-        GtkLinkButton.connect(this, new UriClickHandler(handler), false);
     }
 }
