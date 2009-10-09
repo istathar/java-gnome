@@ -17,26 +17,38 @@ import java.net.URISyntaxException;
  * Test LinkButton's visited and uri properties.
  * 
  * @author Serkan Kaba
+ * @author Andrew Cowie
  */
 public class ValidateLinkButton extends GraphicalTestCase
 {
-    public final void testVisited() {
-        URI java_gnome = null;
+    public final void testVisited() throws URISyntaxException {
+        final URI uri;
         final LinkButton link;
 
-        try {
-            java_gnome = new URI("http://java-gnome.sourceforge.net");
-        } catch (URISyntaxException e) {
-            fail("The URI should be valid");
-        }
+        uri = new URI("http://java-gnome.sourceforge.net");
+        link = new LinkButton(uri);
 
-        link = new LinkButton(java_gnome);
+        assertFalse(link.getVisited());
+        link.setVisited(true);
+        assertTrue(link.getVisited());
+        link.setVisited(false);
+        assertFalse(link.getVisited());
+        assertEquals(uri, link.getURI());
+    }
+
+    /*
+     * TODO Actually calling emitClicked() results in gtk_show_uri() popping
+     * up a web browser! That's not quite going to work, is it.
+     */
+    public final void skipClicked() throws URISyntaxException {
+        final URI uri;
+        final LinkButton link;
+
+        uri = new URI("http://java-gnome.sourceforge.net");
+        link = new LinkButton(uri);
 
         assertFalse(link.getVisited());
         link.emitClicked();
         assertTrue(link.getVisited());
-        link.setVisited(false);
-        assertFalse(link.getVisited());
-        assertEquals(java_gnome, link.getURI());
     }
 }
