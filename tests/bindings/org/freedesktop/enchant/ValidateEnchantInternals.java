@@ -181,4 +181,28 @@ public class ValidateEnchantInternals extends GraphicalTestCase
         dict.remove("jazz");
         assertFalse(dict.check("jazz"));
     }
+
+    public final void testWordsWithPunctuation() {
+        final String bogus;
+        final Dictionary dict;
+        boolean result;
+
+        dict = Enchant.requestDictionary("en");
+
+        /*
+         * Something surely not in anyone's word list:
+         */
+
+        result = dict.check("system");
+        assertTrue(result);
+
+        result = dict.check("system.");
+        assertTrue(result);
+
+        result = dict.check("systematic");
+        assertTrue(result);
+
+        result = dict.check("system.atic");
+        assertFalse(result);
+    }
 }
