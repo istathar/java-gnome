@@ -183,7 +183,6 @@ public class ValidateEnchantInternals extends GraphicalTestCase
     }
 
     public final void testWordsWithPunctuation() {
-        final String bogus;
         final Dictionary dict;
         boolean result;
 
@@ -203,6 +202,37 @@ public class ValidateEnchantInternals extends GraphicalTestCase
         assertTrue(result);
 
         result = dict.check("system.atic");
+        assertFalse(result);
+    }
+
+    /*
+     * It's nice that . is accepted [see above] but other punctuation and
+     * symbolic characters seem to be taken as a spelling mistake. Would have
+     * preferred that it could have been smarter about this.
+     */
+    public final void testWordsWithSymbols() {
+        final Dictionary dict;
+        boolean result;
+
+        dict = Enchant.requestDictionary("en");
+
+        /*
+         * Something surely not in anyone's word list:
+         */
+
+        result = dict.check("correct");
+        assertTrue(result);
+
+        result = dict.check("correct)");
+        assertFalse(result);
+
+        result = dict.check("(correct");
+        assertFalse(result);
+
+        result = dict.check("(correct)");
+        assertFalse(result);
+
+        result = dict.check("correct,");
         assertFalse(result);
     }
 }
