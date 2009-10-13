@@ -216,10 +216,6 @@ public class ValidateEnchantInternals extends GraphicalTestCase
 
         dict = Enchant.requestDictionary("en");
 
-        /*
-         * Something surely not in anyone's word list:
-         */
-
         result = dict.check("correct");
         assertTrue(result);
 
@@ -234,5 +230,24 @@ public class ValidateEnchantInternals extends GraphicalTestCase
 
         result = dict.check("correct,");
         assertFalse(result);
+    }
+
+    public final void testContractions() {
+        final Dictionary dict;
+        boolean result;
+
+        dict = Enchant.requestDictionary("en");
+
+        result = dict.check("do");
+        assertTrue(result);
+
+        result = dict.check("not");
+        assertTrue(result);
+
+        result = dict.check("do not");
+        assertFalse(result);
+
+        result = dict.check("don't");
+        assertTrue(result);
     }
 }
