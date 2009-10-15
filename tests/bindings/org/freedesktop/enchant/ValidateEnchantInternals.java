@@ -250,4 +250,14 @@ public class ValidateEnchantInternals extends GraphicalTestCase
         result = dict.check("don't");
         assertTrue(result);
     }
+
+    public final void testEmpty() {
+        final Dictionary dict;
+        boolean result;
+
+        dict = Enchant.requestDictionary("en");
+
+        result = dict.check("");
+        assertTrue(result);
+    }
 }

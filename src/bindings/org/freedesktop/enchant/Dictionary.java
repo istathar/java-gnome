@@ -44,7 +44,17 @@ public class Dictionary extends Entity
      */
     public boolean check(String word) {
         final int result;
+
+        if (word.length() == 0) {
+            /*
+             * Enchant crashes if you try to spell check a zero width string.
+             * So we'll define an empty String to be correctly spelled.
+             */
+            return true;
+        }
+
         result = EnchantDict.check(this, word, -1);
+
         if (result == 0) {
             return true;
         } else if (result > 0) {
