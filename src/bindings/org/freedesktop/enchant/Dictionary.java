@@ -16,7 +16,7 @@ package org.freedesktop.enchant;
  * @since 4.0.14
  * 
  */
-class Dictionary extends Entity
+public class Dictionary extends Entity
 {
     protected Dictionary(long pointer) {
         super(pointer);
@@ -33,8 +33,8 @@ class Dictionary extends Entity
      * Check the spelling of the given word.
      * 
      * <p>
-     * Returns <code>true</code> if the word is deemed to be spelt
-     * correctly, <code>false</code> if incorrect.
+     * Returns <code>true</code> if the word is deemed to be spelt correctly,
+     * <code>false</code> if incorrect.
      * 
      * <p>
      * <i>The underlying library documentation also notes an error state;
@@ -44,7 +44,17 @@ class Dictionary extends Entity
      */
     public boolean check(String word) {
         final int result;
+
+        if (word.length() == 0) {
+            /*
+             * Enchant crashes if you try to spell check a zero width string.
+             * So we'll define an empty String to be correctly spelled.
+             */
+            return true;
+        }
+
         result = EnchantDict.check(this, word, -1);
+
         if (result == 0) {
             return true;
         } else if (result > 0) {
@@ -59,9 +69,8 @@ class Dictionary extends Entity
      * 
      * <p>
      * Beware that you can get suggestions even from a word that is correctly
-     * spelt! This means that you need to call {@link #check(String)
-     * check()} first to find out whether or not to offer a list of
-     * corrections.
+     * spelt! This means that you need to call {@link #check(String) check()}
+     * first to find out whether or not to offer a list of corrections.
      * 
      * @since 4.0.14
      */
