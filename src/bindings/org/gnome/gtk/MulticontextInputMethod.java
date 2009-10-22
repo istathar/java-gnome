@@ -1,7 +1,7 @@
 /*
- * IMContext.java
+ * MulticontextInputMethod.java
  *
- * Copyright (c) 2007 Operational Dynamics Consulting Pty Ltd
+ * Copyright (c) 2007-2009 Operational Dynamics Consulting Pty Ltd
  *
  * The code in this file, and the library it is a part of, are made available
  * to you by the authors under the terms of the "GNU General Public Licence,
@@ -19,9 +19,30 @@ package org.gnome.gtk;
  * are made about this class until it has been reviewed by a hacker and this
  * comment has been replaced.
  */
-public class IMContext extends Object
+/**
+ * A dynamic input method that enables the user to switch between input
+ * methods.
+ * 
+ * <p>
+ * Apparently you should use this in preference to "simple", although if using
+ * this without having specified a different input method you'll get GTK's
+ * default which seems to be a (the?) SimpleInputMethod.
+ * 
+ * @author Andrew Cowie
+ * @since 4.0.14
+ */
+public class MulticontextInputMethod extends InputMethod
 {
-    protected IMContext(long pointer) {
+    protected MulticontextInputMethod(long pointer) {
         super(pointer);
+    }
+
+    /**
+     * Create an input method.
+     * 
+     * @since 4.0.14
+     */
+    public MulticontextInputMethod() {
+        super(GtkIMMulticontext.createMulticontextInputMethod());
     }
 }

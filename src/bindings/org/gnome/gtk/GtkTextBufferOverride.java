@@ -39,4 +39,18 @@ final class GtkTextBufferOverride extends Plumbing
     protected static final void receiveNotifyCursorPosition(Signal handler, long source, long pspec) {
         ((GtkTextBufferOverride.NotifyCursorPositionSignal) handler).onNotifyCursorPosition((TextBuffer) objectFor(source));
     }
+
+    static final void stopInsertText(TextBuffer self) {
+        synchronized (lock) {
+            g_signal_stop_emission(pointerOf(self), "insert-text");
+        }
+    }
+
+    static final void stopDeleteRange(TextBuffer self) {
+        synchronized (lock) {
+            g_signal_stop_emission(pointerOf(self), "delete-range");
+        }
+    }
+
+    private static native final void g_signal_stop_emission(long self, String name);
 }

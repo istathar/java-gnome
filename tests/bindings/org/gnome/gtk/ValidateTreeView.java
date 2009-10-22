@@ -1,7 +1,7 @@
 /*
  * ValidateTreeView.java
  *
- * Copyright (c) 2007 Operational Dynamics Consulting Pty Ltd
+ * Copyright (c) 2007-2009 Operational Dynamics Consulting Pty Ltd
  * 
  * The code in this file, and the suite it is a part of, are made available
  * to you by the authors under the terms of the "GNU General Public Licence,
@@ -13,7 +13,7 @@ package org.gnome.gtk;
 /**
  * @author Andrew Cowie
  */
-public class ValidateTreeView extends TestCaseGtk
+public class ValidateTreeView extends GraphicalTestCase
 {
     /*
      * This is only here to validate the comments we've made in our API

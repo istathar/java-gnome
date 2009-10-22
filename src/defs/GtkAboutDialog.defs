@@ -221,3 +221,18 @@
   (return-type "const-gchar*")
 )
 
+(define-virtual email_clicked
+  (of-object "GtkAboutDialog")
+  (return-type "none")
+  (parameters
+    '("const-gchar*" "email")
+  )
+)
+
+(define-virtual url_clicked
+  (of-object "GtkAboutDialog")
+  (return-type "none")
+  (parameters
+    '("const-gchar*" "link")
+  )
+)

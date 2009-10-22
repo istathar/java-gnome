@@ -21,14 +21,14 @@ import org.gnome.gdk.Event;
 import org.gnome.gdk.EventExpose;
 import org.gnome.gtk.Gtk;
 import org.gnome.gtk.Image;
-import org.gnome.gtk.TestCaseGtk;
+import org.gnome.gtk.GraphicalTestCase;
 import org.gnome.gtk.Widget;
 import org.gnome.gtk.Window;
 
 /**
  * @author Andrew Cowie
  */
-public class ValidatePangoTextRendering extends TestCaseGtk
+public class ValidatePangoTextRendering extends GraphicalTestCase
 {
     private static Layout draw(final Context cr) {
         final Layout layout;

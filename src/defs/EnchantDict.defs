@@ -1,0 +1,49 @@
+;; hand written based on studying Enchant's src/enchant.h and src/enchant.c
+
+(define-entity Dictionary
+  (in-module "Enchant")
+  (c-name "EnchantDict")
+  (import-header "enchant.h")
+)
+
+(define-method check
+  (of-object "EnchantDict")
+  (c-name "enchant_dict_check")
+  (return-type "int")
+  (parameters
+    '("const-char*" "word")
+    '("gssize" "len")
+  )
+)
+
+(define-method suggest
+  (of-object "EnchantDict")
+  (c-name "enchant_dict_suggest")
+  (return-type "char**")
+  (caller-owns-return #t)
+  (parameters
+    '("const-char*" "word")
+    '("gssize" "len")
+    '("gsize*" "out_n_suggs" (null-ok))
+  )
+)
+
+(define-method add
+  (of-object "EnchantDict")
+  (c-name "enchant_dict_add")
+  (return-type "none")
+  (parameters
+    '("const-char*" "word")
+    '("gssize" "len")
+  )
+)
+
+(define-method remove
+  (of-object "EnchantDict")
+  (c-name "enchant_dict_remove")
+  (return-type "none")
+  (parameters
+    '("const-char*" "word")
+    '("gssize" "len")
+  )
+)

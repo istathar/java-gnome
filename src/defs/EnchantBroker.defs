@@ -1,0 +1,47 @@
+;; hand written based on studying Enchant's src/enchant.h and src/enchant.c
+
+(define-entity Broker
+  (in-module "Enchant")
+  (c-name "EnchantBroker")
+  (import-header "enchant.h")
+)
+
+(define-function enchant_broker_new
+  (is-constructor-of "EnchantBroker")
+  (c-name "enchant_broker_init")
+  (return-type "EnchantBroker*")
+  (caller-owns-return #t)
+)
+
+(define-method free
+  (of-object "EnchantBroker")
+  (c-name "enchant_broker_free")
+  (return-type "none")
+)
+
+(define-method free_dict
+  (of-object "EnchantBroker")
+  (c-name "enchant_broker_free_dict")
+  (return-type "none")
+  (parameters
+    '("EnchantDict*" "dict")
+  )
+)
+
+(define-method request_dict
+  (of-object "EnchantBroker")
+  (c-name "enchant_broker_request_dict")
+  (return-type "EnchantDict*")
+  (parameters
+    '("const-char*" "tag")
+  )
+)
+
+(define-method request_pwl_dict
+  (of-object "EnchantBroker")
+  (c-name "enchant_broker_request_pwl_dict")
+  (return-type "EnchantDict*")
+  (parameters
+    '("const-char*" "pwl")
+  )
+)

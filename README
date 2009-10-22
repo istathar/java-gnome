@@ -24,8 +24,8 @@ Building java-gnome
 
 For the impatient:
 
-    $ tar xjf java-gnome-4.0.11.tar.bz2
-    $ cd java-gnome-4.0.11
+    $ tar xjf java-gnome-4.0.13.tar.bz2
+    $ cd java-gnome-4.0.13
     $ ./configure
     $ make
 
@@ -42,8 +42,8 @@ You can download the latest java-gnome release from the GNOME FTP server at:
 
 Once you've downloaded the latest source tarball:
 
-    $ tar xjf java-gnome-4.0.11.tzr.bz2
-    $ cd java-gnome-4.0.11
+    $ tar xjf java-gnome-4.0.13.tzr.bz2
+    $ cd java-gnome-4.0.13
 
 And go on to step 2 for details about options you can pass to the
 configuration command.
@@ -158,9 +158,9 @@ The java-gnome library depends on the GNOME desktop and is intended for people
 wishing to do tight integration with it. In particular, this version of
 java-gnome depends on:
 
-* GTK `>= 2.14.7`
+* GTK `>= 2.16.6`
 
-* Cairo `>= 1.8.6`
+* Cairo `>= 1.8.8`
 
 * Pango `>= 1.22.4`
 
@@ -178,6 +178,8 @@ misspelt word. This crasher is known to be fixed in the Gentoo Linux package
 of GtkSpell; users of other distros will likewise need to patch their GtkSpell
 packages until this is fixed upstream. If you're not attempting to use spell
 checking this bug will not affect you._
+
+* libunique `>= 1.0.8`
 
 3. Build
 --------
@@ -200,7 +202,7 @@ variables come from.
 The build products end up in `tmp/`:
 
 `tmp/gtk-4.0.jar`  
-`tmp/libgtkjni-4.0.11.so`
+`tmp/libgtkjni-4.0.13.so`
 
 That's actually enough to go on -- if you're using an IDE like Eclipse you can
 just tell it about the `.jar` and then jump right to "Using the Bindings". Or
@@ -225,7 +227,7 @@ and you would end up with:
 
 `~/share/java/gtk-4.0.jar`  
 `~/share/java/gtk.jar`  
-`~/lib/libgtkjni-4.0.11.so`
+`~/lib/libgtkjni-4.0.13.so`
 
 The default is to send it off to `/usr/local` as you'd expect. 
 
@@ -247,7 +249,7 @@ example:
 	
 	...
 	
-	make DESTDIR=/var/tmp/portage/java-gnome-4.0.11-r2/image install
+	make DESTDIR=/var/tmp/portage/java-gnome-4.0.13-r2/image install
 	
 	...
 
@@ -255,7 +257,7 @@ With a prefix of `/usr` you will end up with:
 
 `/usr/share/java/gtk-4.0.jar`  
 `/usr/share/java/gtk.jar`  
-`/usr/lib/libgtkjni-4.0.11.so`
+`/usr/lib/libgtkjni-4.0.13.so`
 
 If you have distro policy issues to deal with, then pass `jardir` and/or
 `libdir` overrides to `configure`.

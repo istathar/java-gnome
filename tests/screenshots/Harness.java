@@ -27,10 +27,14 @@ import org.gnome.gtk.Snapshot;
 import org.gnome.gtk.SnapshotAboutDialog;
 import org.gnome.gtk.SnapshotArrow;
 import org.gnome.gtk.SnapshotButton;
+import org.gnome.gtk.SnapshotCalendar;
 import org.gnome.gtk.SnapshotComboBox;
+import org.gnome.gtk.SnapshotEntryCompletion;
+import org.gnome.gtk.SnapshotEntryIcon;
 import org.gnome.gtk.SnapshotFileChooserDialog;
 import org.gnome.gtk.SnapshotHScale;
 import org.gnome.gtk.SnapshotInfoMessageDialog;
+import org.gnome.gtk.SnapshotLinkButton;
 import org.gnome.gtk.SnapshotNotebook;
 import org.gnome.gtk.SnapshotQuestionMessageDialog;
 import org.gnome.gtk.SnapshotRadioButton;
@@ -153,6 +157,7 @@ public final class Harness
                     SnapshotComboBox.class,
                     SnapshotArrow.class,
                     SnapshotNotebook.class,
+                    SnapshotCalendar.class,
                     SnapshotTextComboBox.class,
                     SnapshotTextComboBoxEntry.class,
                     SnapshotContextLine.class,
@@ -164,7 +169,10 @@ public final class Harness
                     SnapshotMatrixRotate.class,
                     SnapshotMatrixScale.class,
                     SnapshotMatrixTranslate.class,
-                    SnapshotContextRectangle.class
+                    SnapshotContextRectangle.class,
+                    SnapshotEntryCompletion.class,
+                    SnapshotEntryIcon.class,
+                    SnapshotLinkButton.class
             };
 
             /*

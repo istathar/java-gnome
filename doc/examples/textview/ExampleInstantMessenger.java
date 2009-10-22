@@ -52,7 +52,7 @@ import static org.gnome.gtk.WrapMode.WORD;
  * This program creates the conversation window you might see in a typical
  * graphical instant messenger. It has a TextView displaying the conversation
  * above, and uses various formatting to differentiate between incoming
- * messages and outgoing ones. There is a small Entry at the bottom is where
+ * messages and outgoing ones. There is a second TextView at the bottom where
  * the user can write the messages and "send" them. Finally, a tiny worker
  * thread is kicked off to simulate incoming conversation.
  * 

@@ -51,7 +51,7 @@ versionFile = "src/bindings/org/freedesktop/bindings/Version.java"
 hashFile = "tmp/.hashes"
 lockFile = "tmp/.build"
 
-GNOME_MODULES = "gthread-2.0 glib-2.0 gtk+-2.0 gtk+-unix-print-2.0 libglade-2.0 gtksourceview-2.0 libnotify gtkspell-2.0"
+GNOME_MODULES = "gthread-2.0 glib-2.0 gtk+-2.0 gtk+-unix-print-2.0 libglade-2.0 gtksourceview-2.0 libnotify gtkspell-2.0 unique-1.0 enchant"
 
 #
 # Armour against multiple simultaneous invocations.
@@ -655,6 +655,7 @@ def compileDocumentation():
 	cmd += "-encoding UTF-8 "
 	cmd += "-subpackages org "
 	cmd += "-exclude org.freedesktop.bindings "
+	cmd += "-noqualifier java.*:com.sun.* "
 	cmd += "src/bindings/org/freedesktop/bindings/Time.java "
 	cmd += "src/bindings/org/freedesktop/bindings/Version.java "
 	cmd += "src/bindings/org/freedesktop/bindings/Internationalization.java "

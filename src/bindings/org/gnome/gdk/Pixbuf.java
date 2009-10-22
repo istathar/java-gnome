@@ -1,7 +1,7 @@
 /*
  * Pixbuf.java
  *
- * Copyright (c) 2006-2009 Operational Dynamics Consulting Pty Ltd and Others
+ * Copyright (c) 2006-2009 Operational Dynamics Consulting Pty Ltd, and Others
  * 
  * The code in this file, and the library it is a part of, are made available
  * to you by the authors under the terms of the "GNU General Public Licence,
@@ -29,6 +29,7 @@ import org.gnome.glib.GlibException;
  * will facilitate.</i>
  * 
  * @author Andrew Cowie
+ * @author Serkan Kaba
  * @since 4.0.0
  */
 public class Pixbuf extends org.gnome.glib.Object
@@ -115,7 +116,35 @@ public class Pixbuf extends org.gnome.glib.Object
 
     private static long checkPixbufFromArray(byte[] data) throws IOException {
         try {
-            return GdkPixbufOverride.createPixbufFromArray(data);
+            // Parameters 2-4 have no meaning when we're not scaling
+            return GdkPixbufOverride.createPixbufFromArray(data, 0, 0, true, false);
+        } catch (GlibException ge) {
+            /*
+             * FIXME this will need to be more specific when our GError
+             * handling is better! IOException is the usual in stream-ish
+             * cases, but is it really appropriate here?
+             */
+            throw new IOException(ge.getMessage());
+        }
+    }
+
+    /**
+     * Construct a new Pixbuf from in-memory data and scale it.
+     * <p>
+     * See {@link #Pixbuf(byte[])} for info on in-memory data.<br>
+     * See {@link #Pixbuf(String, int, int, boolean)} for info on scaling.
+     * 
+     * @since 4.0.12
+     */
+    public Pixbuf(byte[] data, int width, int height, boolean preserveAspectRatio) throws IOException {
+        super(checkPixbufFromArrayAtScale(data, width, height, preserveAspectRatio));
+    }
+
+    private static long checkPixbufFromArrayAtScale(byte[] data, int width, int height,
+            boolean preserveAspectRatio) throws IOException {
+        try {
+            return GdkPixbufOverride.createPixbufFromArray(data, width, height, preserveAspectRatio,
+                    true);
         } catch (GlibException ge) {
             /*
              * FIXME this will need to be more specific when our GError

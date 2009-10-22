@@ -12,7 +12,7 @@
  */
 package org.gnome.notify;
 
-abstract class Plumbing extends org.gnome.gdk.Plumbing
+abstract class Plumbing extends org.gnome.glib.Plumbing
 {
     protected Plumbing() {}
 }

@@ -12,6 +12,7 @@
 
 #include <libnotify/notify.h>
 #include <jni.h>
+#include "bindings_java.h"
 #include "org_gnome_notify_NotifyMainOverride.h"
 
 /*
@@ -59,7 +60,7 @@ Java_org_gnome_notify_NotifyMainOverride_notify_1get_1server_1caps
 
 	for (i = 0; i < size; ++i) {
 		//Hopefully capability strings are ASCII only.
-		cap = (*env)->NewStringUTF(env, iter->data);
+		cap = bindings_java_newString(env, iter->data);
 		(*env)->SetObjectArrayElement(env, _array, i, cap);
 		g_free(iter->data);
 		iter = iter->next;

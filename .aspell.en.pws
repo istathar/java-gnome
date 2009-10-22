@@ -75,6 +75,7 @@ CellEditable
 CellLayout
 CellRenderer
 CellRendererPixbuf
+CellRendererProgress
 CellRendererText
 CellRendererText's
 CellRendererTexts
@@ -158,6 +159,8 @@ EVERSION
 EditedHandler
 Eeek
 Emmanuele
+EnchantBroker
+EnchantDict
 EndUserActionSignal
 EnterNotifyEvent
 EnterNotifyEventSignal
@@ -328,6 +331,7 @@ GtkCalendar
 GtkCalendarDisplayOptions
 GtkCellLayout
 GtkCellRendererPixbuf
+GtkCellRendererProgress
 GtkCellRendererText
 GtkCellRendererToggle
 GtkCheckButton
@@ -666,6 +670,7 @@ Prelle
 PrepareSignal
 PressMe
 ProgressBar
+ProgressBar's
 Prugh
 Przemys
 Pty
@@ -1078,6 +1083,7 @@ createButtonWithLabel
 createButtonWithMnemonic
 createCalendar
 createCellRendererPixbuf
+createCellRendererProgress
 createCellRendererText
 createCellRendererToggle
 createCheckButton
@@ -1202,6 +1208,7 @@ darkgreen
 dbm
 de
 debian
+defaultBroker
 defaultEditability
 defaultEditable
 defaultTable
@@ -1251,6 +1258,7 @@ eg
 elevationFormatted
 elevationSort
 elif
+ellipsization
 ellipsized
 else's
 elsif
@@ -1308,6 +1316,7 @@ formatter
 forwardDisplayLine
 forwardLine
 foss
+freeDict
 freedesktop
 fromName
 fullscreen
@@ -1980,6 +1989,10 @@ renderable
 renderer
 reorderChild
 repo
+requestDict
+requestDictionary
+requestPersonalWordList
+requestPwlDict
 resizable
 resize
 resized

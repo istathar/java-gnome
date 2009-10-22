@@ -178,14 +178,17 @@
 ;;  )
 ;;)
 ;;
-;;(define-function AttrRise
-;;  (c-name "pango_attr_rise_new")
-;;  (return-type "PangoAttribute*")
-;;  (parameters
-;;    '("int" "rise")
-;;  )
-;;)
-;;
+
+(define-function pango_attribute_new_rise
+  (is-constructor-of "PangoAttribute")
+  (c-name "pango_attr_rise_new")
+  (caller-owns-return #t)
+  (return-type "PangoAttribute*")
+  (parameters
+    '("int" "rise")
+  )
+)
+
 ;;(define-function AttrScale
 ;;  (c-name "pango_attr_scale_new")
 ;;  (return-type "PangoAttribute*")
