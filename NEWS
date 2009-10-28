@@ -1,5 +1,30 @@
 NEWS
 
+Enchanting
+----------
+
+Coverage of the Enchant spell checking facade (which was already an implicit
+dependency arising from our GtkSpell coverage) is now included in java-gnome.
+It's a lovely library with a simple to use API which in turn fronts for
+various back end spelling providers.
+
+* **`org.freedesktop.enchant.Enchant`**
+* **`org.freedesktop.enchant.Dictionary`**
+* `org.freedesktop.enchant.Broker`
+* `org.freedesktop.enchant.ValidateEnchantInternals`
+
+Looking ahead
+-------------
+
+What's ahead for java-gnome?
+
+_Lengthy sunny periods, except for heavy morning showers, afternoon fog
+patches, chance of an evening thunderstorm. Possible snow overnight._
+
+What do you think I am, a gypsy fortune teller?
+
+AfC
+
 <a name="4.0.13" id="1251341992" title="Fix unicode handling"></a>
 
 java-gnome 4.0.13 (27 Aug 2009)
