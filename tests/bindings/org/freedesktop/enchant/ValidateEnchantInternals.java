@@ -181,4 +181,83 @@ public class ValidateEnchantInternals extends GraphicalTestCase
         dict.remove("jazz");
         assertFalse(dict.check("jazz"));
     }
+
+    public final void testWordsWithPunctuation() {
+        final Dictionary dict;
+        boolean result;
+
+        dict = Enchant.requestDictionary("en");
+
+        /*
+         * Something surely not in anyone's word list:
+         */
+
+        result = dict.check("system");
+        assertTrue(result);
+
+        result = dict.check("system.");
+        assertTrue(result);
+
+        result = dict.check("systematic");
+        assertTrue(result);
+
+        result = dict.check("system.atic");
+        assertFalse(result);
+    }
+
+    /*
+     * It's nice that . is accepted [see above] but other punctuation and
+     * symbolic characters seem to be taken as a spelling mistake. Would have
+     * preferred that it could have been smarter about this.
+     */
+    public final void testWordsWithSymbols() {
+        final Dictionary dict;
+        boolean result;
+
+        dict = Enchant.requestDictionary("en");
+
+        result = dict.check("correct");
+        assertTrue(result);
+
+        result = dict.check("correct)");
+        assertFalse(result);
+
+        result = dict.check("(correct");
+        assertFalse(result);
+
+        result = dict.check("(correct)");
+        assertFalse(result);
+
+        result = dict.check("correct,");
+        assertFalse(result);
+    }
+
+    public final void testContractions() {
+        final Dictionary dict;
+        boolean result;
+
+        dict = Enchant.requestDictionary("en");
+
+        result = dict.check("do");
+        assertTrue(result);
+
+        result = dict.check("not");
+        assertTrue(result);
+
+        result = dict.check("do not");
+        assertFalse(result);
+
+        result = dict.check("don't");
+        assertTrue(result);
+    }
+
+    public final void testEmpty() {
+        final Dictionary dict;
+        boolean result;
+
+        dict = Enchant.requestDictionary("en");
+
+        result = dict.check("");
+        assertTrue(result);
+    }
 }
