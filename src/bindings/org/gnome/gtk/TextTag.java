@@ -354,6 +354,9 @@ public class TextTag extends Object
         if (getPropertyBoolean("style-set")) {
             str.append("\n\tstyle: " + getPropertyEnum("style"));
         }
+        if (getPropertyBoolean("underline-set")) {
+            str.append("\n\tunderline: " + getPropertyEnum("underline"));
+        }
         /*
          * weight always seems to be set. What's up with that?
          */
