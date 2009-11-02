@@ -13,7 +13,7 @@ package org.gnome.gtk;
 /**
  * Evaluate the behaviour of Notebook Containers.
  */
-public class ValidateNotebookBehaviour extends TestCaseGtk
+public class ValidateNotebookBehaviour extends GraphicalTestCase
 {
     public final void testNotebookDecorations() {
         final Notebook book;

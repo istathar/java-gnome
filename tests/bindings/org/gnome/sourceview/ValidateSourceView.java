@@ -10,7 +10,7 @@
  */
 package org.gnome.sourceview;
 
-import org.gnome.gtk.TestCaseGtk;
+import org.gnome.gtk.GraphicalTestCase;
 import org.gnome.gtk.TextTagTable;
 
 /**
@@ -18,7 +18,7 @@ import org.gnome.gtk.TextTagTable;
  * 
  * @author Stefan Schweizer
  */
-public class ValidateSourceView extends TestCaseGtk
+public class ValidateSourceView extends GraphicalTestCase
 {
     public void testGetLanguage() {
         final LanguageManager manager;

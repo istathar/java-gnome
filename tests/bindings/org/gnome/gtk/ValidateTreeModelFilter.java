@@ -1,7 +1,7 @@
 /*
  * ValidateTreeModelFilter.java
  *
- * Copyright (c) 2008 Operational Dynamics Consulting Pty Ltd
+ * Copyright (c) 2008-2009 Operational Dynamics Consulting Pty Ltd
  * 
  * The code in this file, and the suite it is a part of, are made available
  * to you by the authors under the terms of the "GNU General Public Licence,
@@ -13,7 +13,7 @@ package org.gnome.gtk;
 /**
  * @author Andrew Cowie
  */
-public class ValidateTreeModelFilter extends TestCaseGtk
+public class ValidateTreeModelFilter extends GraphicalTestCase
 {
     private final DataColumnString name;
 

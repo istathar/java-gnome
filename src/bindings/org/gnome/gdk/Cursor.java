@@ -1,7 +1,7 @@
 /*
  * Cursor.java
  *
- * Copyright (c) 2007 Operational Dynamics Consulting Pty Ltd
+ * Copyright (c) 2007-2009 Operational Dynamics Consulting Pty Ltd
  *
  * The code in this file, and the library it is a part of, are made available
  * to you by the authors under the terms of the "GNU General Public Licence,
@@ -13,14 +13,6 @@ package org.gnome.gdk;
 
 import org.gnome.glib.Boxed;
 
-/*
- * FIXME this is a placeholder stub for what will become the public API for
- * this type. Replace this comment with appropriate javadoc including author
- * and since tags. Note that the class may need to be made abstract, implement
- * interfaces, or even have its parent changed. No API stability guarantees
- * are made about this class until it has been reviewed by a hacker and this
- * comment has been replaced.
- */
 /**
  * That which indicateth where your mouse is pointing!
  * 
@@ -46,10 +38,10 @@ import org.gnome.glib.Boxed;
  * maintaining a list of "major" Windows for other purposes, so it can serve.
  * 
  * <p>
- * Almost inevitably the Cursor your want is {@link CursorType#WATCH WATCH}
- * which is the "busy" pointer. You can revert to "normal" by setting
- * {@link CursorType#LEFT_PTR LEFT_PTR} directly (which is the default cursor
- * you spend most of your time looking at), or by passing <code>null</code> to
+ * Almost inevitably the Cursor your want is {@link Cursor#BUSY BUSY} which is
+ * the spinning "busy" pointer. You can revert to "normal" by setting
+ * {@link Cursor#NORMAL NORMAL} directly (which is the default cursor you
+ * spend most of your time looking at), or by passing <code>null</code> to
  * <code>setCursor()</code>.
  * 
  * <p>
@@ -80,7 +72,81 @@ public final class Cursor extends Boxed
         super(GdkCursor.createCursor(type));
     }
 
+    private static Display getDefaultDisplay() {
+        final Screen screen;
+        final Display display;
+
+        screen = GdkScreen.getDefault();
+        display = GdkScreen.getDisplay(screen);
+
+        return display;
+    }
+
+    /**
+     * Create a new Cursor from the one so named in the cursor theme.
+     * 
+     * @since 4.0.14
+     */
+    private Cursor(String name) {
+        super(GdkCursor.createCursorFromName(getDefaultDisplay(), name));
+    }
+
     protected void release() {
         GdkCursor.unref(this);
     }
+
+    /**
+     * The normal left-hand pointer.
+     * 
+     * <p>
+     * This is a type {@link CursorType#LEFT_PTR LEFT_PTR}.
+     * 
+     * @since 4.0.14
+     */
+    public static Cursor NORMAL = new Cursor(CursorType.LEFT_PTR);
+
+    /**
+     * The spinning cursor showing that the application is busy (and unable to
+     * be responsive to user input).
+     * 
+     * <p>
+     * This is type {@link CursorType#WATCH WATCH}.
+     * 
+     * @since 4.0.14
+     */
+    public static Cursor BUSY = new Cursor(CursorType.WATCH);
+
+    /**
+     * A pointer indicating that a hyperlink can be clicked and followed. Not
+     * used for Buttons.
+     * 
+     * <p>
+     * This is type {@link CursorType#HAND2 HAND2}.
+     * 
+     * @since 4.0.14
+     */
+    public static Cursor LINK = new Cursor(CursorType.HAND2);
+
+    /**
+     * A pointer that also has a busy spinner. This is used to indicate that
+     * the application is working, but that the user can still carry out
+     * actions.
+     * 
+     * <p>
+     * This is <code>"left_ptr_watch"</code> from the cursor theme.
+     * 
+     * @since 4.0.14
+     */
+    public static Cursor WORKING = new Cursor("left_ptr_watch");
+
+    /**
+     * The vertical bar pointer used in text entry Widgets such as Entry and
+     * TextView.
+     * 
+     * <p>
+     * This is type {@link CursorType#XTERM XTERM}.
+     * 
+     * @since 4.0.14
+     */
+    public static Cursor TEXT = new Cursor(CursorType.XTERM);
 }

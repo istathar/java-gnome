@@ -1,4 +1,4 @@
-(define-object IMContextSimple
+(define-object SimpleInputMethod
   (in-module "Gtk")
   (parent "GtkIMContext")
   (c-name "GtkIMContextSimple")

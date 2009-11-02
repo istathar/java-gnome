@@ -15,7 +15,7 @@ package org.gnome.gtk;
  * 
  * @author Andrew Cowie
  */
-public class ValidateTextViewSpelling extends TestCaseGtk
+public class ValidateTextViewSpelling extends GraphicalTestCase
 {
     public final void testAttachingDefault() {
         final TextView view;
