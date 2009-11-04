@@ -411,6 +411,9 @@ bindings_java_getString
 	glong len;
 	GError* error = NULL;
 
+	if (_str == NULL) {
+		return NULL;
+	}
 
 	/*
 	 * This is strange; it's tempting to assume that we can wait for the
