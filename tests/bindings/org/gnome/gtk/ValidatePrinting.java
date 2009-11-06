@@ -42,4 +42,44 @@ public class ValidatePrinting extends GraphicalTestCase
         assertEquals(8.5, PaperSize.LETTER.getWidth(Unit.INCH), 0.001);
         assertEquals(11.0, PaperSize.LETTER.getHeight(Unit.INCH), 0.001);
     }
+
+    public final void testCustomPaperDefinition() {
+        PaperSize paper, another;
+
+        try {
+            paper = new CustomPaperSize(null, 400, 300, Unit.INCH);
+            fail("guard failed");
+            return;
+        } catch (IllegalArgumentException iae) {
+            // good
+        }
+
+        paper = new CustomPaperSize("Blah", 400, 300, Unit.INCH);
+        assertEquals("Blah", paper.getDisplayName());
+
+        try {
+            paper = new CustomPaperSize("Failure", 400, 300, Unit.PIXEL);
+            fail("Cannot accept pixels");
+            return;
+        } catch (IllegalArgumentException iae) {
+            // good
+        }
+
+        paper = new CustomPaperSize("Custom", 400, 300, Unit.POINTS);
+        assertEquals(400.0, paper.getWidth(Unit.POINTS), 0.001);
+        assertEquals(300.0, paper.getHeight(Unit.POINTS), 0.001);
+        assertEquals("Custom", paper.getDisplayName());
+
+        /*
+         * What happens if we attempt to reuse a name?
+         */
+
+        another = new CustomPaperSize("Custom", 500, 600, Unit.MM);
+        assertEquals(500.0, another.getWidth(Unit.MM), 0.001);
+        assertEquals(600.0, another.getHeight(Unit.MM), 0.001);
+        assertNotSame(paper, another);
+        assertEquals("Custom", paper.getDisplayName());
+
+        // it's ok, apparently
+    }
 }

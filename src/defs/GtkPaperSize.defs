@@ -14,6 +14,20 @@
   )
 )
 
+(define-function paper_size_new_custom
+  (is-constructor-of "GtkPaperSize")
+  (c-name "gtk_paper_size_new_custom")
+  (caller-owns-return #t)
+  (return-type "GtkPaperSize*")
+  (parameters
+    '("const-gchar*" "name")
+    '("const-gchar*" "display_name")
+    '("gdouble" "width")
+    '("gdouble" "height")
+    '("GtkUnit" "unit")
+  )
+)
+
 (define-method copy
   (of-object "GtkPaperSize")
   (c-name "gtk_paper_size_copy")
