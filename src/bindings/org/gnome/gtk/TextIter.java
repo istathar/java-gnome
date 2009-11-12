@@ -1,7 +1,7 @@
 /*
  * TextIter.java
  *
- * Copyright (c) 2007-2008 Operational Dynamics Consulting Pty Ltd, and Others
+ * Copyright (c) 2007-2009 Operational Dynamics Consulting Pty Ltd, and Others
  *
  * The code in this file, and the library it is a part of, are made available
  * to you by the authors under the terms of the "GNU General Public Licence,
@@ -674,6 +674,15 @@ public final class TextIter extends Boxed
     }
 
     /**
+     * Move forward to the end of this <i>display</i> line.
+     * 
+     * @since 4.0.14
+     */
+    public boolean forwardDisplayLineEnd(TextView view) {
+        return GtkTextView.forwardDisplayLineEnd(view, this);
+    }
+
+    /**
      * Move backward one <i>display</i> line within a paragraph as displayed
      * in this TextView. This is the complement of
      * {@link #forwardDisplayLine(TextView) forwardDisplayLine()}; see there
@@ -686,6 +695,15 @@ public final class TextIter extends Boxed
     }
 
     /**
+     * Move backward to the start of this <i>display</i> line.
+     * 
+     * @since 4.0.14
+     */
+    public boolean backwardDisplayLineStart(TextView view) {
+        return GtkTextView.backwardDisplayLineStart(view, this);
+    }
+
+    /**
      * Does the position represented by this TextIter start a display line
      * (within a paragraph) in the given TextView?
      * 
@@ -694,5 +712,4 @@ public final class TextIter extends Boxed
     public boolean startsDisplayLine(TextView view) {
         return GtkTextView.startsDisplayLine(view, this);
     }
-
 }
