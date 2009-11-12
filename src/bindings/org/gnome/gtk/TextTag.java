@@ -11,6 +11,8 @@
  */
 package org.gnome.gtk;
 
+import java.lang.reflect.Field;
+
 import org.gnome.glib.Object;
 import org.gnome.pango.FontDescription;
 import org.gnome.pango.Scale;
@@ -405,5 +407,55 @@ public class TextTag extends Object
      */
     public void setFont(String str) {
         setPropertyString("font", str);
+    }
+
+    /*
+     * This is allows us to keep the Pango.SCALE constant restricted
+     * visibility while still having the actual value only in one place.
+     */
+
+    private static final double SCALE;
+
+    static {
+        final Class<?> cls;
+        final Field field;
+
+        try {
+            cls = Class.forName("org.gnome.pango.Pango");
+
+            field = cls.getDeclaredField("SCALE");
+            field.setAccessible(true);
+
+            SCALE = field.getDouble(cls);
+        } catch (Exception e) {
+            throw new Error(e);
+        }
+    }
+
+    /**
+     * Indicate that a span of characters is to be positioned at other than
+     * the baseline. This is typically used to create superscripts and
+     * subscripts, although you want to be careful because you are likely also
+     * changing font sizes when doing so.
+     * 
+     * <p>
+     * The measurement is in points. A negative number will take you below the
+     * baseline.
+     * 
+     * <p>
+     * Be aware that whenever non-uniform sizing is used on a line, the
+     * TextView will render that line as higher than the other lines in a
+     * document. This can often be an unwanted (but hard to trivially avoid)
+     * side-effect.
+     * 
+     * 
+     * <p>
+     * See also {@link org.gnome.pango.RiseAttribute RiseAttribute} which is
+     * the underlying mechanism which powers this in Pango.
+     * 
+     * @since 4.0.14
+     */
+    public void setRise(double rise) {
+        setPropertyDouble("rise", (int) (rise * SCALE));
     }
 }
