@@ -37,6 +37,18 @@
   )
 )
 
+(define-function cursor_new_from_name
+  (is-constructor-of "GdkCursor")
+  (c-name "gdk_cursor_new_from_name")
+  (return-type "GdkCursor*")
+  (caller-owns-return #t)
+  (parameters
+    '("GdkDisplay*" "display")
+    '("const-gchar*" "name")
+  )
+)
+
+
 (define-function cursor_new_for_display
   (is-constructor-of "GdkCursor")
   (c-name "gdk_cursor_new_for_display")

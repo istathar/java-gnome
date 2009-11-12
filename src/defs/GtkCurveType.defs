@@ -7,5 +7,6 @@
     '("spline" "GTK_CURVE_TYPE_SPLINE")
     '("free" "GTK_CURVE_TYPE_FREE")
   )
+  (deprecated "2.90")
 )
 

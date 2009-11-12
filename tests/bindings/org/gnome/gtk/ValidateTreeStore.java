@@ -118,7 +118,7 @@ public class ValidateTreeStore extends GraphicalTestCase
 
     public void testAppendRow() {
         final TreeStore model;
-        TreeIter iter1, iter2;
+        TreeIter iter1, iter2, iter3;
 
         model = new TreeStore(new DataColumn[] {
             new DataColumnString(),
@@ -141,14 +141,15 @@ public class ValidateTreeStore extends GraphicalTestCase
         iter1 = model.getIterFirst();
         assertNotNull(iter1);
         assertTrue(iter1.iterNext());
-        assertFalse(iter1.iterNext());
 
         iter2 = model.appendChild(iter1);
-        assertFalse(iter2.iterNext());
+        iter3 = iter2.copy();
 
-        model.appendChild(iter1);
+        assertFalse(iter3.iterNext());
+
+        iter3 = model.appendChild(iter1);
         assertTrue(iter2.iterNext());
-        assertFalse(iter2.iterNext());
+        assertFalse(iter3.iterNext());
 
         iter1 = model.getIterFirst();
         assertNotNull(iter1);
