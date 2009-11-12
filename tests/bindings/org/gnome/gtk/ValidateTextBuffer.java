@@ -11,6 +11,7 @@
 package org.gnome.gtk;
 
 import java.io.FileNotFoundException;
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 
 import org.gnome.gdk.Pixbuf;
@@ -664,5 +665,32 @@ public class ValidateTextBuffer extends GraphicalTestCase
         buffer.insert(pointer, "Hello World");
 
         assertEquals(11, offset);
+    }
+
+    /*
+     * Not much of a test, but at least it exercises the code path to ensure
+     * that Pango.SCALE is correctly accessed by TextTag.
+     */
+    public final void testCrossPackageConstantAccess() throws ClassNotFoundException, SecurityException,
+            NoSuchFieldException, IllegalArgumentException, IllegalAccessException {
+        final TextTag tag;
+        Class<?> cls;
+        Field fld;
+        double scale1, scale2;
+
+        tag = new TextTag();
+        tag.setRise(4.5);
+
+        cls = Class.forName("org.gnome.gtk.TextTag");
+        fld = cls.getDeclaredField("SCALE");
+        fld.setAccessible(true);
+        scale1 = fld.getDouble(tag);
+
+        cls = Class.forName("org.gnome.pango.Pango");
+        fld = cls.getDeclaredField("SCALE");
+        fld.setAccessible(true);
+        scale2 = fld.getDouble(tag);
+
+        assertEquals(scale2, scale1);
     }
 }
