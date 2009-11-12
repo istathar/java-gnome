@@ -298,6 +298,7 @@
     '("gboolean*" "fill")
     '("GtkPackType*" "pack_type")
   )
+  (deprecated "2.90")
 )
 
 (define-method set_tab_label_packing
@@ -310,6 +311,7 @@
     '("gboolean" "fill")
     '("GtkPackType" "pack_type")
   )
+  (deprecated "2.90")
 )
 
 (define-method reorder_child
