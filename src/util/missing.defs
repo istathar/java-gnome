@@ -5098,18 +5098,6 @@
   )
 )
 
-(define-function paper_size_new_custom
-  (c-name "gtk_paper_size_new_custom")
-  (return-type "GtkPaperSize*")
-  (parameters
-    '("const-gchar*" "name")
-    '("const-gchar*" "display_name")
-    '("gdouble" "width")
-    '("gdouble" "height")
-    '("GtkUnit" "unit")
-  )
-)
-
 (define-function paper_size_get_default
   (c-name "gtk_paper_size_get_default")
   (return-type "const-gchar*")
