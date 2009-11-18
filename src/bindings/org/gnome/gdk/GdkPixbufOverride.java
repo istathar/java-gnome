@@ -50,4 +50,16 @@ final class GdkPixbufOverride extends Plumbing
     }
 
     private static native final int gdk_pixbuf_get_file_info_X(String filename);
+
+    static final int getFileInfoY(String filename) {
+        if (filename == null) {
+            throw new IllegalArgumentException("filename can't be null");
+        }
+
+        synchronized (lock) {
+            return gdk_pixbuf_get_file_info_Y(filename);
+        }
+    }
+
+    private static native final int gdk_pixbuf_get_file_info_Y(String filename);
 }
