@@ -159,3 +159,34 @@ Java_org_gnome_gdk_GdkPixbufOverride_gdk_1pixbuf_1new_1from_1stream
 
 	return (jlong) result;
 }
+
+JNIEXPORT jint JNICALL
+Java_org_gnome_gdk_GdkPixbufOverride_gdk_1pixbuf_1get_1file_1info_1X
+(
+	JNIEnv* env,
+	jclass cls,
+	jstring _filename
+)
+{
+	const GdkPixbufFormat* format;
+	const gchar* filename;
+	int x;
+
+	// convert parameter filename
+	filename = (const gchar*) bindings_java_getString(env, _filename);
+	if (filename == NULL) {
+		return 0; // Java Exception already thrown
+	}
+
+	// call function
+	format = gdk_pixbuf_get_file_info(filename, &x, NULL);
+	if (format == NULL) {
+		x = -1;
+	}
+
+	// cleanup parameter filename
+	bindings_java_releaseString(filename);
+
+	// translate return value to JNI type
+	return (jint) x;
+}

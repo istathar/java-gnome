@@ -36,7 +36,18 @@ final class GdkPixbufOverride extends Plumbing
         }
     }
 
-    private static native final long gdk_pixbuf_new_from_stream(byte[] data, int width,
-            int height, boolean preserveAspectRatio, boolean scale) throws GlibException;
+    private static native final long gdk_pixbuf_new_from_stream(byte[] data, int width, int height,
+            boolean preserveAspectRatio, boolean scale) throws GlibException;
 
+    static final int getFileInfoX(String filename) {
+        if (filename == null) {
+            throw new IllegalArgumentException("filename can't be null");
+        }
+
+        synchronized (lock) {
+            return gdk_pixbuf_get_file_info_X(filename);
+        }
+    }
+
+    private static native final int gdk_pixbuf_get_file_info_X(String filename);
 }

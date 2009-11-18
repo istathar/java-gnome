@@ -320,4 +320,23 @@ public class Pixbuf extends org.gnome.glib.Object
 
         return result;
     }
+
+    /**
+     * Query an image file for its width.
+     * 
+     * @since 4.0.14
+     * @throws IOException
+     *             if the image format is not recognized.
+     */
+    public static int getFileInfoX(String filename) throws IOException {
+        int result;
+
+        result = GdkPixbufOverride.getFileInfoX(filename);
+
+        if (result == -1) {
+            throw new IOException("Image format not recognized");
+        }
+
+        return result;
+    }
 }
