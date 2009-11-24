@@ -1,7 +1,7 @@
 /*
  * Dialog.java
  *
- * Copyright (c) 2007-2008 Operational Dynamics Consulting Pty Ltd, and Others
+ * Copyright (c) 2007-2009 Operational Dynamics Consulting Pty Ltd, and Others
  *
  * The code in this file, and the library it is a part of, are made available
  * to you by the authors under the terms of the "GNU General Public Licence,
@@ -76,6 +76,8 @@ public class Dialog extends Window
      * the rest of the Dialog setup manually yourself, including calling
      * {@link Window#setTransientFor(Window) setTransientFor()} and
      * {@link Window#setTitle(String) setTitle()}.
+     * 
+     * @since 4.0.5
      */
     public Dialog() {
         super(GtkDialog.createDialog());
@@ -108,6 +110,7 @@ public class Dialog extends Window
      *            blocks interaction with the other parts of the application.
      *            Note that you can also get a similar behaviour using the
      *            {@link #run() run()} method.
+     * @since 4.0.5
      */
     public Dialog(String title, Window parent, boolean modal) {
         super(GtkDialog.createDialogWithButtons(title, parent, modal ? DialogFlags.MODAL
@@ -116,6 +119,8 @@ public class Dialog extends Window
 
     /**
      * Add a Widget to the <var>main area</var> of the Dialog.
+     * 
+     * @since 4.0.5
      */
     public void add(Widget widget) {
         final VBox box;
@@ -132,6 +137,7 @@ public class Dialog extends Window
      * 
      * @return the added Button. This is a convenience allowing you to hook up
      *         further handlers to the Button if necessary.
+     * @since 4.0.5
      */
     public Button addButton(String text, ResponseType response) {
         return (Button) GtkDialog.addButton(this, text, response.getResponseId());
@@ -141,9 +147,41 @@ public class Dialog extends Window
      * Add a Button whose icon and label are taken from a given Stock. It is,
      * as ever, recommended to use a Stock Button for common actions. See
      * {@link #addButton(String, ResponseType) addButton()}.
+     * 
+     * @since 4.0.5
      */
     public Button addButton(Stock stock, ResponseType response) {
         return (Button) GtkDialog.addButton(this, stock.getStockId(), response.getResponseId());
+    }
+
+    /**
+     * Add a Button Widget you've already constructed to the action area of
+     * this Dialog.
+     * 
+     * <p>
+     * It is, as ever, recommended to use a Stock Button for common actions.
+     * See {@link #addButton(String, ResponseType) addButton()}.
+     * 
+     * <p>
+     * <i>You can pass any Activatable as the <code>widget</code>
+     * parameter.</i>
+     * 
+     * @since 4.0.14
+     */
+    public Button addButton(Widget widget, ResponseType response) {
+        GtkDialog.addActionWidget(this, widget, response.getResponseId());
+
+        /*
+         * The other addButton() signature returns Button, though the native
+         * code here actually takes a GtkActivatable. So workaround in this
+         * overload by returning Button if possible.
+         */
+
+        if (widget instanceof Button) {
+            return (Button) widget;
+        } else {
+            return null;
+        }
     }
 
     /**
@@ -176,6 +214,7 @@ public class Dialog extends Window
      * @return the emitted response constant. If asking a question, you should
      *         check this against the various constants in the ResponseType
      *         class. Don't forget to <code>hide()</code> afterwards.
+     * @since 4.0.5
      */
     public ResponseType run() {
         final int value;
