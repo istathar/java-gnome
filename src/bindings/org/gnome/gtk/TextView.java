@@ -1058,4 +1058,16 @@ public class TextView extends Container
         }
         return spell;
     }
+
+    /**
+     * Tell this TextView to adopt the given justification.
+     * 
+     * @since 4.0.14
+     */
+    /*
+     * Method name adjusted to match Label's setJustify().
+     */
+    public void setJustify(Justification setting) {
+        GtkTextView.setJustification(this, setting);
+    }
 }
