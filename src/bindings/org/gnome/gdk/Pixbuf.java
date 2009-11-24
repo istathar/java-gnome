@@ -374,5 +374,4 @@ public class Pixbuf extends org.gnome.glib.Object
 
         return result;
     }
-
 }
