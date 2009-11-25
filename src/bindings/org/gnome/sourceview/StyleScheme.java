@@ -1,7 +1,7 @@
 /*
- * IMMulticontext.java
+ * StyleScheme.java
  *
- * Copyright (c) 2007 Operational Dynamics Consulting Pty Ltd
+ * Copyright (c) 2009 Operational Dynamics Consulting Pty Ltd, and Others
  *
  * The code in this file, and the library it is a part of, are made available
  * to you by the authors under the terms of the "GNU General Public Licence,
@@ -9,7 +9,9 @@
  * library into other programs provided you don't make a derivation of it).
  * See the LICENCE file for the terms governing usage and redistribution.
  */
-package org.gnome.gtk;
+package org.gnome.sourceview;
+
+import org.gnome.glib.Object;
 
 /*
  * FIXME this is a placeholder stub for what will become the public API for
@@ -19,9 +21,9 @@ package org.gnome.gtk;
  * are made about this class until it has been reviewed by a hacker and this
  * comment has been replaced.
  */
-public class IMMulticontext extends IMContext
+class StyleScheme extends Object
 {
-    protected IMMulticontext(long pointer) {
+    protected StyleScheme(long pointer) {
         super(pointer);
     }
 }

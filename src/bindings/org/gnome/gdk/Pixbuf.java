@@ -1,7 +1,7 @@
 /*
  * Pixbuf.java
  *
- * Copyright (c) 2006-2009 Operational Dynamics Consulting Pty Ltd and Others
+ * Copyright (c) 2006-2009 Operational Dynamics Consulting Pty Ltd, and Others
  * 
  * The code in this file, and the library it is a part of, are made available
  * to you by the authors under the terms of the "GNU General Public Licence,
@@ -29,6 +29,7 @@ import org.gnome.glib.GlibException;
  * will facilitate.</i>
  * 
  * @author Andrew Cowie
+ * @author Serkan Kaba
  * @since 4.0.0
  */
 public class Pixbuf extends org.gnome.glib.Object
@@ -115,7 +116,35 @@ public class Pixbuf extends org.gnome.glib.Object
 
     private static long checkPixbufFromArray(byte[] data) throws IOException {
         try {
-            return GdkPixbufOverride.createPixbufFromArray(data);
+            // Parameters 2-4 have no meaning when we're not scaling
+            return GdkPixbufOverride.createPixbufFromArray(data, 0, 0, true, false);
+        } catch (GlibException ge) {
+            /*
+             * FIXME this will need to be more specific when our GError
+             * handling is better! IOException is the usual in stream-ish
+             * cases, but is it really appropriate here?
+             */
+            throw new IOException(ge.getMessage());
+        }
+    }
+
+    /**
+     * Construct a new Pixbuf from in-memory data and scale it.
+     * <p>
+     * See {@link #Pixbuf(byte[])} for info on in-memory data.<br>
+     * See {@link #Pixbuf(String, int, int, boolean)} for info on scaling.
+     * 
+     * @since 4.0.12
+     */
+    public Pixbuf(byte[] data, int width, int height, boolean preserveAspectRatio) throws IOException {
+        super(checkPixbufFromArrayAtScale(data, width, height, preserveAspectRatio));
+    }
+
+    private static long checkPixbufFromArrayAtScale(byte[] data, int width, int height,
+            boolean preserveAspectRatio) throws IOException {
+        try {
+            return GdkPixbufOverride.createPixbufFromArray(data, width, height, preserveAspectRatio,
+                    true);
         } catch (GlibException ge) {
             /*
              * FIXME this will need to be more specific when our GError
@@ -288,6 +317,60 @@ public class Pixbuf extends org.gnome.glib.Object
         result = null; // FIXME
 
         GdkPixbuf.scale(this, result, x, y, width, height, offsetX, offsetY, scaleX, scaleY, algorithm);
+
+        return result;
+    }
+
+    /*
+     * TODO to expose the gdk_pixbuf_get_file_info() function properly, we'll
+     * have to fix the engineering of PixbufFormat which is presently a dogs
+     * breakfast. Luckily, given the two out parameter accessors below, we
+     * don't seem to need this.
+     */
+    PixbufFormat getFileInfo(String filename) throws IOException {
+        throw new UnsupportedOperationException("Not yet implemented");
+    }
+
+    /**
+     * Query an image on disk for its width.
+     * 
+     * <p>
+     * This is a utility function where the minimum amount is read in order to
+     * determine metadata about the file in question. You'll get an
+     * IOException if the gdk-pixbuf library's image loaders can't figure out
+     * the format of the file.
+     * 
+     * @since 4.0.14
+     */
+    public static int getFileInfoWidth(String filename) throws IOException {
+        int result;
+
+        result = GdkPixbufOverride.getFileInfoX(filename);
+
+        if (result == -1) {
+            throw new IOException("Image format not recognized");
+        }
+
+        return result;
+    }
+
+    /**
+     * Query an image on disk for its height.
+     * 
+     * <p>
+     * This function is the compliment of {@link #getFileInfoWidth(String)
+     * getFileInfoWidth()}; see there.
+     * 
+     * @since 4.0.14
+     */
+    public static int getFileInfoHeight(String filename) throws IOException {
+        int result;
+
+        result = GdkPixbufOverride.getFileInfoY(filename);
+
+        if (result == -1) {
+            throw new IOException("Image format not recognized");
+        }
 
         return result;
     }

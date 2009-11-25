@@ -11,6 +11,7 @@
 package org.gnome.gtk;
 
 import java.io.FileNotFoundException;
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 
 import org.gnome.gdk.Pixbuf;
@@ -22,7 +23,7 @@ import org.gnome.pango.Weight;
  * @author Andrew Cowie
  * @author Stefan Prelle
  */
-public class ValidateTextBuffer extends TestCaseGtk
+public class ValidateTextBuffer extends GraphicalTestCase
 {
     public final void testTagsAddedToTextTagTableAutomatically() {
         final TextTagTable table;
@@ -446,7 +447,7 @@ public class ValidateTextBuffer extends TestCaseGtk
          * Well, did it?
          */
 
-        assertSame(TextTagTable.getDefaultTable(), GtkTextBuffer.getTagTable(buf));
+        assertSame(TextBuffer.getDefaultTable(), GtkTextBuffer.getTagTable(buf));
 
         /*
          * Does no-arg TextTag constructor exist and work?
@@ -583,7 +584,7 @@ public class ValidateTextBuffer extends TestCaseGtk
         final TextBuffer buffer;
         TextIter pointer;
         int i;
-        String str;
+        StringBuilder str;
 
         /*
          * Put in 5 characters
@@ -599,21 +600,21 @@ public class ValidateTextBuffer extends TestCaseGtk
 
         pointer = buffer.getIterStart();
         i = 0;
-        str = "";
+        str = new StringBuilder();
 
         do {
             i++;
-            str = str + pointer.getChar();
+            str = str.appendCodePoint(pointer.getChar());
         } while (pointer.forwardChar());
 
         assertEquals(5, i);
-        assertEquals("Hello", str);
+        assertEquals("Hello", str.toString());
     }
 
     public final void testInsertWithMultipleTags() {
         final TextBuffer buffer;
         final TextTag italic, bold, mono;
-        TextIter start, end;
+        TextIter start;
 
         buffer = new TextBuffer();
 
@@ -664,5 +665,32 @@ public class ValidateTextBuffer extends TestCaseGtk
         buffer.insert(pointer, "Hello World");
 
         assertEquals(11, offset);
+    }
+
+    /*
+     * Not much of a test, but at least it exercises the code path to ensure
+     * that Pango.SCALE is correctly accessed by TextTag.
+     */
+    public final void testCrossPackageConstantAccess() throws ClassNotFoundException, SecurityException,
+            NoSuchFieldException, IllegalArgumentException, IllegalAccessException {
+        final TextTag tag;
+        Class<?> cls;
+        Field fld;
+        double scale1, scale2;
+
+        tag = new TextTag();
+        tag.setRise(4.5);
+
+        cls = Class.forName("org.gnome.gtk.TextTag");
+        fld = cls.getDeclaredField("SCALE");
+        fld.setAccessible(true);
+        scale1 = fld.getDouble(tag);
+
+        cls = Class.forName("org.gnome.pango.Pango");
+        fld = cls.getDeclaredField("SCALE");
+        fld.setAccessible(true);
+        scale2 = fld.getDouble(tag);
+
+        assertEquals(scale2, scale1);
     }
 }

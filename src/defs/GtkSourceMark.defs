@@ -1,0 +1,43 @@
+(define-object Mark
+  (in-module "GtkSourceView")
+  (parent "GtkTextMark")
+  (c-name "GtkSourceMark")
+  (import-header "gtksourceview/gtksourcemark.h")
+  (gtype-id "GTK_TYPE_SOURCE_MARK")
+)
+
+(define-function gtk_source_mark_new
+  (is-constructor-of "GtkSourceMark")
+  (c-name "gtk_source_mark_new")
+  (caller-owns-return #t)
+  (return-type "GtkSourceMark*")
+  (parameters
+    '("const-gchar*" "name" (null-ok))
+    '("const-gchar*" "category")
+  )
+)
+
+(define-method get_category
+  (of-object "GtkSourceMark")
+  (c-name "gtk_source_mark_get_category")
+  (return-type "const-gchar*")
+)
+
+(define-method next
+  (of-object "GtkSourceMark")
+  (c-name "gtk_source_mark_next")
+  (return-type "GtkSourceMark*")
+  (parameters
+    '("const-gchar*" "category" (null-ok))
+  )
+)
+
+(define-method prev
+  (of-object "GtkSourceMark")
+  (c-name "gtk_source_mark_prev")
+  (return-type "GtkSourceMark*")
+  (parameters
+    '("const-gchar*" "category" (null-ok))
+  )
+)
+

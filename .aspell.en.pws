@@ -15,6 +15,7 @@ AllAboutJNI
 AltLeft
 AltRight
 ApplySignal
+ApplyTagSignal
 Arial
 ArrayList
 AssistantPageType
@@ -23,8 +24,10 @@ AttachOptions
 AttrList
 Attribute's
 AttributeList
+AttributeLists
 BackSpace
 Bassi
+BeginUserActionSignal
 Behdad
 Bhagat
 BindingsGenerator
@@ -72,6 +75,7 @@ CellEditable
 CellLayout
 CellRenderer
 CellRendererPixbuf
+CellRendererProgress
 CellRendererText
 CellRendererText's
 CellRendererTexts
@@ -147,6 +151,7 @@ DoubleConstant
 Drawables
 DrawingArea
 Dumay
+Dusausoy
 EDETACHED
 EOFError
 EOSTR
@@ -154,6 +159,9 @@ EVERSION
 EditedHandler
 Eeek
 Emmanuele
+EnchantBroker
+EnchantDict
+EndUserActionSignal
 EnterNotifyEvent
 EnterNotifyEventSignal
 EnumValue
@@ -181,7 +189,9 @@ EventTypes
 EventVisibility
 EventWindowState
 ExampleCairoDrawingBlends
+ExampleDrawingText
 ExampleInstantMessenger
+ExampleLinedPaper
 ExamplePressMe
 ExampleSimpleMenu
 ExampleTrailHeads
@@ -193,6 +203,7 @@ ExposeEvent
 ExposeEventSignal
 FIXME
 FatalError
+Fenton
 FileChooser
 FileChooser's
 FileChooserAction
@@ -211,6 +222,7 @@ FocusInEventSignal
 FocusOutEvent
 FocusOutEventSignal
 FontDescription
+FontDescriptionAttribute
 FontSelection
 Formoso
 Fortin
@@ -230,6 +242,7 @@ GInterface
 GLib
 GLib's
 GList
+GNOME's
 GObject
 GObjects
 GPL
@@ -251,6 +264,7 @@ GUADEC
 GUIs
 GValue
 GValues
+Garton
 GdkCairoSupport
 GdkColor
 GdkColorOverride
@@ -296,6 +310,7 @@ GlibMisc
 GnomeEntry
 Gruber
 Gruber's
+Grzegorczyk
 GtkAboutDialog
 GtkAction
 GtkActionGroup
@@ -316,6 +331,7 @@ GtkCalendar
 GtkCalendarDisplayOptions
 GtkCellLayout
 GtkCellRendererPixbuf
+GtkCellRendererProgress
 GtkCellRendererText
 GtkCellRendererToggle
 GtkCheckButton
@@ -381,6 +397,7 @@ GtkShadowType
 GtkSizeGroup
 GtkSizeGroupMode
 GtkSortType
+GtkSourceView
 GtkSpinButton
 GtkStateType
 GtkStatusIcon
@@ -388,6 +405,7 @@ GtkStatusbar
 GtkStockItem
 GtkTable
 GtkTextBuffer
+GtkTextBufferOverride
 GtkTextIter
 GtkTextIterOverride
 GtkTextMark
@@ -433,9 +451,11 @@ GtkWrapMode
 HBox
 HBoxes
 HButtonBox
+HIG
 HPaned
 HScale
 HScrollbar
+HScrollbars
 HSeparator
 Harpers
 HashMap
@@ -493,8 +513,10 @@ JVMs
 JamVM
 JavaDoc
 JavaVM
+Joao
 Juma
 Kaba
+Kamil
 Katoomba
 Kedzierski
 KeyError
@@ -517,6 +539,7 @@ LayoutLine's
 LayoutLines
 LeaveNotifyEvent
 LeaveNotifyEventSignal
+Leibbrand
 LibGlade
 LinearPattern
 ListStore
@@ -527,6 +550,8 @@ Lorem
 Lorg
 Lortie
 LoveLetter
+LowBatteryExample
+MAXUINT
 MVC
 Machame
 Maciej
@@ -543,6 +568,7 @@ MapEvent
 MapEventSignal
 MarkSet
 MarkSetSignal
+Mazoyer
 McLachlan
 MenuBars
 MenuItem
@@ -556,6 +582,7 @@ MessageFormat
 MessageType
 MessageTypes
 Microsystems
+Miloud
 Misc's
 ModifierType
 ModifierTypes
@@ -573,7 +600,13 @@ NewStringUTF
 NewWeakGlobalRef
 NoSuchMethodException
 NorthAmericanPaperSize
+NotifyCursorPosition
+NotifyCursorPositionSignal
+NotifyMain
+NotifyMainOverride
+NotifyNotification
 NotifyType
+NotifyUrgency
 NullPointerException
 NumLock
 NumberSign
@@ -587,8 +620,7 @@ OpenOffice
 OpenSolaris
 OutOfMemoryError
 Overholt
-PDF
-PDFSurface
+PDFs
 PKGBUILD
 PNGs
 PRELIGHT
@@ -610,11 +642,13 @@ PangoRectangleOverride
 PangoStyle
 PangoUnderline
 PangoWeight
+PangoWrapMode
 PaperSize
 ParenLeft
 ParenRight
 ParsedTree
 PascalCase
+PdfSurface
 Pendyala
 Petteri
 Piechotka
@@ -623,6 +657,7 @@ PixbufAnimation
 PixbufFormat
 Pixbufs
 PolicyType
+Poppler
 PopulatePopup
 PopulatePopupSignal
 PopupMenu
@@ -635,7 +670,9 @@ Prelle
 PrepareSignal
 PressMe
 ProgressBar
+ProgressBar's
 Prugh
+Przemys
 Pty
 PyThat
 PyThis
@@ -660,6 +697,7 @@ RcStyle
 RefToJavaProxy
 ReleaseStringUTFChars
 ReliefStyle
+RemoveTagSignal
 ResponseHandler
 ResponseType
 ResponseTypes
@@ -671,8 +709,10 @@ RowExpandedSignal
 RuntimeException
 RuntimeExceptions
 SEMIBOLD
+SIGSEGV
 SWT
 Schmitz
+Schweizer
 ScreenshotCapture
 ScreenshotInfoMessageDialog
 ScreenshotQuestionMessageDialog
@@ -710,7 +750,6 @@ SpinButton
 Srichand
 StateType
 StatusBar
-StatusIcon
 StatusIcon's
 StatusIcons
 Statusbar
@@ -721,8 +760,10 @@ StorageType
 StringBuffer
 StringBuilder
 StringValue
+StyleAttribute
 SurfacePattern
 SysReq
+Szymala
 TODO
 TZ
 TestCase
@@ -754,6 +795,7 @@ TextView
 TextView's
 TextViews
 TextWindowType
+Thijs
 ThrowNew
 Timm
 ToggleButon
@@ -820,12 +862,15 @@ VM
 VMs
 VPaned
 VScale
+VScrollbar
+VScrollbars
 VSeparator
 ValidateDrawingToFile
 ValidateMemoryManagement
 ValidatePacking
 ValidateProperties
 ValidateReferenceCounting
+ValueChangedSignal
 VerboseTestRunner
 VersionNumbers
 VirtualHost
@@ -892,6 +937,7 @@ appendMessage
 appendPage
 appendRow
 appendText
+applicationName
 applyTag
 arcNegative
 arg
@@ -907,6 +953,8 @@ assertSame
 assertTrue
 atk
 attachDefaults
+attachToStatusIcon
+attachToWidget
 attr
 autotools
 backend
@@ -917,6 +965,7 @@ basename
 baz
 bb
 bdb
+beginUserAction
 bilinear
 bindtextdomain
 bitkeeper
@@ -978,6 +1027,7 @@ checksum
 clampPage
 classname
 classpath
+clearHints
 clickable
 cls
 cmd
@@ -995,6 +1045,7 @@ compileCSourceToObject
 compileGeneratorClasses
 compileJavaCode
 compileTestClasses
+composited
 compositing
 conf
 config
@@ -1032,6 +1083,7 @@ createButtonWithLabel
 createButtonWithMnemonic
 createCalendar
 createCellRendererPixbuf
+createCellRendererProgress
 createCellRendererText
 createCellRendererToggle
 createCheckButton
@@ -1085,6 +1137,8 @@ createMenuItemWithMnemonic
 createMenuToolButton
 createMessageDialog
 createNotebook
+createNotification
+createNotificationWithStatusIcon
 createObject
 createPaperSize
 createPatternForSurface
@@ -1154,6 +1208,7 @@ darkgreen
 dbm
 de
 debian
+defaultBroker
 defaultEditability
 defaultEditable
 defaultTable
@@ -1193,6 +1248,7 @@ dropUserRef
 dt
 dx
 dy
+eacute
 ebuild
 ecj
 editMenu
@@ -1202,6 +1258,7 @@ eg
 elevationFormatted
 elevationSort
 elif
+ellipsization
 ellipsized
 else's
 elsif
@@ -1212,6 +1269,7 @@ emitRowActivated
 emitValueChanged
 emplace
 enclosingGroup
+endUserAction
 endif
 endingLabel
 endsWith
@@ -1258,6 +1316,7 @@ formatter
 forwardDisplayLine
 forwardLine
 foss
+freeDict
 freedesktop
 fromName
 fullscreen
@@ -1290,6 +1349,7 @@ getAlignmentX
 getAlignmentY
 getAllocation
 getAngle
+getApplicationName
 getArea
 getAscent
 getAtPosPath
@@ -1319,6 +1379,7 @@ getCurrentPage
 getCurrentPoint
 getCurrentPointX
 getCurrentPointY
+getCursorPosition
 getCursorVisible
 getDate
 getDateDay
@@ -1388,6 +1449,7 @@ getLineYrange
 getLines
 getLinesReadonly
 getLong
+getLower
 getMaxLength
 getMaximized
 getMember
@@ -1420,6 +1482,7 @@ getPageCount
 getPageHeaderImage
 getPageNumber
 getPageSideImage
+getPageSize
 getPageTitle
 getPageType
 getParent
@@ -1442,6 +1505,7 @@ getPropertyBoolean
 getPropertyEnum
 getPropertyFlags
 getPropertyFloat
+getPropertyInteger
 getPropertyObject
 getPropertyString
 getRed
@@ -1463,10 +1527,12 @@ getSelected
 getSelection
 getSelectionBound
 getSensitive
+getServerCapabilities
 getSize
 getSizeHeight
 getSizeWidth
 getSource
+getSpacing
 getStartIndex
 getStartIter
 getState
@@ -1489,6 +1555,7 @@ getToplevels
 getTreeView
 getType
 getURI
+getUpper
 getUri
 getUseMarkup
 getVAdjustment
@@ -1574,6 +1641,7 @@ initializers
 inline
 insertAtCursor
 insertBefore
+insertBound
 insertInteractive
 insertPage
 insertPixbuf
@@ -1589,8 +1657,11 @@ isActive
 isDirectory
 isEmbedded
 isEqual
+isInitted
+isInserted
 isSecondary
 isSensitive
+isUsed
 isVisible
 isVisibleChars
 isdir
@@ -1666,6 +1737,8 @@ libgtk
 libjava
 librarypath
 libre
+librsvg
+libwnck
 lineNumber
 lineRelative
 lineTo
@@ -1690,6 +1763,8 @@ mainQuit
 makeJarFile
 makeTime
 makepkg
+markInserted
+markUsed
 md
 mem
 menuBar
@@ -1739,6 +1814,7 @@ nUnable
 nYou
 na
 namespace
+nathan
 nativeName
 nav
 nc
@@ -1751,6 +1827,10 @@ newa
 nin
 nis
 nm
+notifyGetAppName
+notifyInit
+notifyIsInitted
+notifyUninit
 nowarn
 nowrap
 nresulted
@@ -1769,6 +1849,8 @@ offsetY
 ok
 onActivate
 onApply
+onApplyTag
+onBeginUserAction
 onButtonPressEvent
 onButtonReleaseEvent
 onCancel
@@ -1782,6 +1864,7 @@ onDaySelectedDoubleClick
 onDeleteEvent
 onDeleteRange
 onEdited
+onEndUserAction
 onEnterNotifyEvent
 onEvent
 onExposeEvent
@@ -1795,9 +1878,11 @@ onKeyReleaseEvent
 onLeaveNotifyEvent
 onMapEvent
 onMarkSet
+onNotifyCursorPosition
 onPopulatePopup
 onPopupMenu
 onPrepare
+onRemoveTag
 onResponse
 onRowActivated
 onRowChanged
@@ -1833,6 +1918,7 @@ pageWidth
 pango
 parallelize
 param
+pdf
 perl
 php
 pixbuf
@@ -1892,6 +1978,7 @@ registerType
 relLineTo
 relMoveTo
 removeActionWidget
+removeAllTags
 removePage
 removeRow
 removeTag
@@ -1902,6 +1989,10 @@ renderable
 renderer
 reorderChild
 repo
+requestDict
+requestDictionary
+requestPersonalWordList
+requestPwlDict
 resizable
 resize
 resized
@@ -1961,6 +2052,7 @@ setAlignment
 setAlignmentX
 setAngle
 setAntialias
+setArtists
 setAttributes
 setAuthors
 setBackground
@@ -1970,6 +2062,7 @@ setBorderWindowSize
 setBuffer
 setCanDefault
 setCanFocus
+setCategory
 setCharAt
 setChildSecondary
 setClickable
@@ -1988,6 +2081,7 @@ setDefaultSize
 setDigits
 setDirection
 setDisplayOptions
+setDocumenters
 setDraw
 setEditable
 setEllipsize
@@ -2010,6 +2104,7 @@ setFromIconName
 setFromPixbuf
 setFromStock
 setFullscreen
+setGeometryHints
 setGravity
 setHAdjustment
 setHadjustment
@@ -2017,11 +2112,18 @@ setHasFrame
 setHasResizeGrip
 setHeadersClickable
 setHeadersVisible
+setHint
+setHintByte
+setHintDouble
+setHintInt
+setHintString
 setIcon
+setIconFromPixbuf
 setImage
 setInconsistent
 setIndent
 setIndexes
+setIndices
 setInnerBorder
 setInvisibleChar
 setJustify
@@ -2032,6 +2134,7 @@ setLabelAlign
 setLabelWidget
 setLayout
 setLeftMargin
+setLicense
 setLine
 setLineOffset
 setLineWidth
@@ -2104,6 +2207,7 @@ setSensitive
 setShadowType
 setShowBorder
 setShowTabs
+setSingleParagraphMode
 setSize
 setSizeRequest
 setSizing
@@ -2118,6 +2222,7 @@ setSourceRGBA
 setSourceRgb
 setSourceRgba
 setSourceSurface
+setSpacing
 setStartIndex
 setStick
 setStrikethrough
@@ -2127,6 +2232,7 @@ setTabPos
 setTabPosition
 setText
 setTimeZone
+setTimeout
 setTip
 setTitle
 setTooltip
@@ -2138,6 +2244,7 @@ setTranslatorCredits
 setTypeHint
 setUnderline
 setUp
+setUrgency
 setUseMarkup
 setVAdjustment
 setVadjustment
@@ -2155,9 +2262,12 @@ setVisibleChars
 setVisibleFunc
 setVisibleLineOffset
 setVisibleWindow
+setWebsite
 setWeight
 setWidth
 setWidthChars
+setWrap
+setWrapLicense
 setWrapMode
 settingsDaemon
 showAll
@@ -2181,6 +2291,7 @@ src
 startConversationWith
 startsDisplayLine
 startsWord
+statusIcon
 statusToString
 stepIncrement
 stockId
@@ -2273,6 +2384,7 @@ unfullscreen
 ungrab
 unicode
 unindent
+uninit
 unix
 unixprint
 unmaximize

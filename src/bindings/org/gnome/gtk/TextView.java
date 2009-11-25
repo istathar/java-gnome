@@ -184,12 +184,29 @@ import org.gnome.pango.FontDescription;
  * in Open Source, Your Mileage May Vary. Perhaps GTK will improve this aspect
  * of the library in the future.</i>
  * 
+ * <a name="spelling"></a>
+ * <h2>Spellchecking</h2>
+ * 
+ * <img class="snapshot" src="TextView-Spelling.png"> You can add
+ * spellchecking capability to the TextView with a single line of code.
+ * 
+ * <pre>
+ * view.attachSpell()
+ * </pre>
+ * 
+ * The given code will determine the spellchecker language based on
+ * <code>LANG</code> environment variable and fall back to English if it
+ * can't.
+ * 
  * @author Stefan Prelle
  * @author Andrew Cowie
+ * @author Serkan Kaba
  * @since 4.0.9
  */
 public class TextView extends Container
 {
+    private Spell spell;
+
     protected TextView(long pointer) {
         super(pointer);
     }
@@ -238,8 +255,8 @@ public class TextView extends Container
      * 
      * @since 4.0.9
      */
-    public void setWrapMode(WrapMode wrapMode) {
-        GtkTextView.setWrapMode(this, wrapMode);
+    public void setWrapMode(WrapMode mode) {
+        GtkTextView.setWrapMode(this, mode);
     }
 
     /**
@@ -551,6 +568,10 @@ public class TextView extends Container
      * correspond to the size of the area of text actually being displayed in
      * the TextView.
      * 
+     * <p>
+     * See {@link #getLocation(TextIter) getLocation()} if you need a
+     * Rectangle enclosing a given TextIter.
+     * 
      * @since 4.0.9
      */
     public Rectangle getVisibleRectangle() {
@@ -561,6 +582,32 @@ public class TextView extends Container
         GtkTextView.getVisibleRect(this, visible);
 
         return visible;
+    }
+
+    /**
+     * Get a Rectangle enclosing the screen position of the given TreeIter.
+     * This will be in <var>buffer co-ordinates</var>.
+     * 
+     * <p>
+     * This is very useful in a <code>TextBuffer.NotifyCursorPosition</code>
+     * if you need to figure out <i>where</i> the cursor is so as to handle
+     * presentation of some external control accordingly.
+     * 
+     * @since 4.0.10
+     */
+    /*
+     * We will not name this getIterLocation() because all the other methods
+     * in the getIter... completion space are methods that return a TreeIter
+     * based on some argument.
+     */
+    public Rectangle getLocation(TextIter pointer) {
+        final Rectangle location;
+
+        location = new Rectangle(0, 0, 0, 0);
+
+        GtkTextView.getIterLocation(this, pointer, location);
+
+        return location;
     }
 
     /**
@@ -945,12 +992,82 @@ public class TextView extends Container
     }
 
     /**
-     * Set the number of pixels that will be between the left hand edge of the
-     * TextView and the left hand edge of the paragraphs of text.
-     * 
-     * @since 4.0.10
+     * @deprecated
      */
     public void setLeftMargin(int pixels) {
+        assert false : "use setMarginLeft() instead";
         GtkTextView.setLeftMargin(this, pixels);
+    }
+
+    /**
+     * Create and attach a {@link Spell} object to the view to add
+     * spellchecking capability.
+     * 
+     * <p>
+     * The language is chosen based on the value of <code>LANG</code>
+     * environment variable.
+     * 
+     * @since 4.0.12
+     */
+    public void attachSpell() {
+        if (spell == null) {
+            spell = new Spell(this, null);
+        } else {
+            throw new IllegalStateException("Sorry, you've already attached a Spell to this TextView");
+        }
+    }
+
+    /**
+     * Create and attach a {@link Spell} object to the view to add
+     * spellchecking capability in the given language.
+     * 
+     * <p>
+     * You're probably just as well to call {@link #attachSpell()
+     * attachSpell()} and accept the default.
+     * 
+     * @since 4.0.12
+     */
+    public void attachSpell(String lang) {
+        if (spell == null) {
+            spell = new Spell(this, lang);
+        } else {
+            throw new IllegalStateException("Sorry, you've already attached a Spell to this TextView");
+        }
+    }
+
+    /**
+     * Get the Spell helper object attached to the view.
+     * 
+     * <p>
+     * Reasons you might need to use this are if you have to programatically
+     * change the language being used to spell check against with Spell's
+     * {@link Spell#setLanguage(String) setLanguage()}, or to force the
+     * checker to run again with its {@link Spell#recheckAll() recheckAll()}.
+     * You probably won't ever need either.
+     * 
+     * <p>
+     * Obviously there isn't much point in asking for the Spell helper object
+     * if you haven't called {@link #attachSpell() attachSpell()} to create
+     * one yet.
+     * 
+     * @since 4.0.12
+     */
+    public Spell getSpell() {
+        if (spell == null) {
+            throw new IllegalStateException("You haven't attached a Spell to this TextView yet.");
+        }
+        return spell;
+    }
+
+    /**
+     * Tell this TextView to adopt the given justification.
+     * 
+     * @since 4.0.14
+     */
+    /*
+     * Method name adjusted to match Label's setJustify().
+     */
+    public void setJustify(Justification setting) {
+        GtkTextView.setJustification(this, setting);
     }
 }

@@ -1,7 +1,7 @@
 /*
  * MenuShell.java
  *
- * Copyright (c) 2007 Operational Dynamics Consulting Pty Ltd, and Others
+ * Copyright (c) 2007-2009 Operational Dynamics Consulting Pty Ltd, and Others
  *
  * The code in this file, and the library it is a part of, are made available
  * to you by the authors under the terms of the "GNU General Public Licence,
@@ -15,6 +15,7 @@ package org.gnome.gtk;
  * The MenuShell is the abstract super class of {@link Menu} and
  * {@link MenuBar}. It provides the common methods for adding and organizing
  * {@link MenuItem}s.
+ * 
  * <p>
  * The following example creates one simple menu with a submenu and adds it to
  * a menu bar:
@@ -50,13 +51,17 @@ public abstract class MenuShell extends Container
 
     /**
      * Append one Widget to the MenuShell.
+     * 
+     * @since 4.0.3
      */
     public void append(Widget child) {
         GtkMenuShell.append(this, child);
     }
 
     /**
-     * Prepend one Widget to the MenuShell
+     * Prepend one Widget to the MenuShell.
+     * 
+     * @since 4.0.3
      */
     public void prepend(Widget child) {
         GtkMenuShell.prepend(this, child);
@@ -64,15 +69,22 @@ public abstract class MenuShell extends Container
 
     /**
      * Insert one Widget to the MenuShell at the specified position.
+     * 
+     * @since 4.0.3
      */
     public void insert(Widget child, int position) {
         GtkMenuShell.insert(this, child, position);
     }
 
     /**
-     * Deactivate the MenuShell. <i>According to the GTK API documentation,
-     * this "typically" results in the Menu being erased from the screen. TODO
-     * what other effect could it have?</i>
+     * Deactivate the MenuShell.
+     * 
+     * <p>
+     * <i>According to the GTK API documentation, this "typically" results in
+     * the Menu being erased from the screen. TODO what other effect could it
+     * have?</i>
+     * 
+     * @since 4.0.3
      */
     public void deactivate() {
         GtkMenuShell.deactivate(this);

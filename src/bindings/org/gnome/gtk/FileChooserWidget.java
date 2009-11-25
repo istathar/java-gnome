@@ -1,7 +1,8 @@
 /*
  * FileChooserWidget.java
  *
- * Copyright (c) 2007 Operational Dynamics Consulting Pty Ltd
+ * Copyright (c) 2007-2009 Operational Dynamics Consulting Pty Ltd
+ * Copyright (c)      2009 Vreixo Formoso
  *
  * The code in this file, and the library it is a part of, are made available
  * to you by the authors under the terms of the "GNU General Public Licence,
@@ -13,13 +14,16 @@ package org.gnome.gtk;
 
 import java.net.URI;
 
-/*
- * FIXME this is a placeholder stub for what will become the public API for
- * this type. Replace this comment with appropriate javadoc including author
- * and since tags. Note that the class may need to be made abstract, implement
- * interfaces, or even have its parent changed. No API stability guarantees
- * are made about this class until it has been reviewed by a hacker and this
- * comment has been replaced.
+/**
+ * A Widget used to select files.
+ * 
+ * <p>
+ * Note that in most cases you don't need this at all! If you only want to
+ * provide a way to let user select a file, {@link FileChooserDialog} or
+ * {@link FileChooserButton} are much better alternatives.
+ * 
+ * @author Vreixo Formoso
+ * @since 4.0.12
  */
 public class FileChooserWidget extends VBox implements FileChooser
 {
@@ -27,37 +31,61 @@ public class FileChooserWidget extends VBox implements FileChooser
         super(pointer);
     }
 
+    /**
+     * Create a new FileChooserWidget.
+     * 
+     * @since 4.0.12
+     */
+    public FileChooserWidget(FileChooserAction action) {
+        super(GtkFileChooserWidget.createFileChooserWidget(action));
+    }
+
     public String getCurrentFolder() {
-        // TODO method stub to satisfy interface to permit compilation.
-        return null;
+        return GtkFileChooser.getCurrentFolder(this);
     }
 
     public boolean setCurrentFolder(String directory) {
-        // TODO method stub to satisfy interface to permit compilation.
-        return false;
+        return GtkFileChooser.setCurrentFolder(this, directory);
     }
 
     public String getFilename() {
-        // TODO method stub to satisfy interface to permit compilation.
-        return null;
+        return GtkFileChooser.getFilename(this);
     }
 
     public void setAction(FileChooserAction action) {
-    // TODO method stub to satisfy interface to permit compilation.
+        GtkFileChooser.setAction(this, action);
     }
 
     public FileChooserAction getAction() {
-        // TODO method stub to satisfy interface to permit compilation.
-        return null;
+        return GtkFileChooser.getAction(this);
     }
 
     public URI getURI() {
-        // TODO method stub to satisfy interface to permit compilation.
-        return null;
+        String uri = GtkFileChooser.getUri(this);
+        if (uri != null) {
+            return URI.create(uri);
+        } else {
+            return null;
+        }
+    }
+
+    public void addFilter(FileFilter filter) {
+        GtkFileChooser.addFilter(this, filter);
+    }
+
+    public void setFilter(FileFilter filter) {
+        GtkFileChooser.setFilter(this, filter);
+    }
+
+    public FileFilter getFilter() {
+        return GtkFileChooser.getFilter(this);
     }
 
     public boolean setFilename(String filename) {
-        // TODO method stub to satisfy interface to permit compilation.
-        return false;
+        if (filename.charAt(0) == '/') {
+            return GtkFileChooser.setFilename(this, filename);
+        } else {
+            throw new IllegalArgumentException("The filename argument must be an absolute path");
+        }
     }
 }

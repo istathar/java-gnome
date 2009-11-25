@@ -27,10 +27,14 @@ import org.gnome.gtk.Snapshot;
 import org.gnome.gtk.SnapshotAboutDialog;
 import org.gnome.gtk.SnapshotArrow;
 import org.gnome.gtk.SnapshotButton;
+import org.gnome.gtk.SnapshotCalendar;
 import org.gnome.gtk.SnapshotComboBox;
+import org.gnome.gtk.SnapshotEntryCompletion;
+import org.gnome.gtk.SnapshotEntryIcon;
 import org.gnome.gtk.SnapshotFileChooserDialog;
 import org.gnome.gtk.SnapshotHScale;
 import org.gnome.gtk.SnapshotInfoMessageDialog;
+import org.gnome.gtk.SnapshotLinkButton;
 import org.gnome.gtk.SnapshotNotebook;
 import org.gnome.gtk.SnapshotQuestionMessageDialog;
 import org.gnome.gtk.SnapshotRadioButton;
@@ -39,6 +43,7 @@ import org.gnome.gtk.SnapshotTextComboBox;
 import org.gnome.gtk.SnapshotTextComboBoxEntry;
 import org.gnome.gtk.SnapshotTextView;
 import org.gnome.gtk.SnapshotTextViewBorderWindows;
+import org.gnome.gtk.SnapshotTextViewSpelling;
 import org.gnome.gtk.SnapshotTreeStore;
 import org.gnome.gtk.SnapshotTreeView;
 import org.gnome.gtk.SnapshotVScale;
@@ -152,17 +157,22 @@ public final class Harness
                     SnapshotComboBox.class,
                     SnapshotArrow.class,
                     SnapshotNotebook.class,
+                    SnapshotCalendar.class,
                     SnapshotTextComboBox.class,
                     SnapshotTextComboBoxEntry.class,
                     SnapshotContextLine.class,
                     SnapshotTextView.class,
                     SnapshotTextViewBorderWindows.class,
+                    SnapshotTextViewSpelling.class,
                     SnapshotContextArc.class,
                     SnapshotContextArcNegative.class,
                     SnapshotMatrixRotate.class,
                     SnapshotMatrixScale.class,
                     SnapshotMatrixTranslate.class,
-                    SnapshotContextRectangle.class
+                    SnapshotContextRectangle.class,
+                    SnapshotEntryCompletion.class,
+                    SnapshotEntryIcon.class,
+                    SnapshotLinkButton.class
             };
 
             /*

@@ -62,6 +62,8 @@ public class Menu extends MenuShell
      * {@link Widget#showAll() showAll()} called on them once you're done
      * building them to allocate their resources (otherwise you end up with a
      * 1x1 pixel sized menu with nothing in it).
+     * 
+     * @since 4.0.3
      */
     public void popup() {
         GtkMenuOverride.popup(this);
@@ -70,15 +72,15 @@ public class Menu extends MenuShell
     /**
      * A special case for popping up the context menu associated with a
      * StatusIcon. Having constructed a Menu to be used as the context menu,
-     * you then call this from the <code>POPUP_MENU</code> signal callback as
-     * follows:
+     * you then call this from the <code>StatusIcon.PopupMenu</code> signal
+     * callback as follows:
      * 
      * <pre>
      * StatusIcon si;
      * Menu context;
      * ...
      * 
-     * si.connect(new StatusIcon.POPUP_MENU() {
+     * si.connect(new StatusIcon.PopupMenu() {
      *     public void onPopupMenu(StatusIcon source, int button, int activateTime) {
      *         context.popup(source);
      *     }
@@ -88,6 +90,8 @@ public class Menu extends MenuShell
      * Don't forget to call {@link Widget#showAll() showAll()} on the Menu
      * when you're done constructing it before trying to use it the first
      * time.
+     * 
+     * @since 4.0.3
      */
     public void popup(StatusIcon status) {
         GtkMenuOverride.popupStatusIcon(this, status);

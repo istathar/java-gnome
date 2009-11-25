@@ -33,8 +33,8 @@ Java_org_gnome_gdk_GdkPixbufOverride_gdk_1pixbuf_1get_1pixels
 	jbyteArray result;
 	int size;
 	int j, p;
-	
-	
+
+
 	// convert parameter self
 	self = (GdkPixbuf*) _self;
 
@@ -44,17 +44,17 @@ Java_org_gnome_gdk_GdkPixbufOverride_gdk_1pixbuf_1get_1pixels
 	 * formula is in the GDK docs [and more to the point, in the source
 	 * code of gdk_pixbuf_new()] but, as finally implemented, we don't
 	 * need it since we're extracting the rows individually, thereby
-	 * jettisoning the padding. 
+	 * jettisoning the padding.
 	 */
-	
+
 	width = gdk_pixbuf_get_width(self);
 	height = gdk_pixbuf_get_height(self);
 	rowstride = gdk_pixbuf_get_rowstride(self);
 	n_channels = gdk_pixbuf_get_n_channels(self);
 	bits_per_sample = gdk_pixbuf_get_bits_per_sample(self);
-	
+
 	// length =  ((height - 1) * rowstride) + (width * ((n_channels * bits_per_sample + 7) / 8));
-	
+
 	if (bits_per_sample != 8) {
 		bindings_java_throw(env, "This algorithm only supports 8 bits per channel");
 		/*
@@ -64,14 +64,14 @@ Java_org_gnome_gdk_GdkPixbufOverride_gdk_1pixbuf_1get_1pixels
 		 */
 		return NULL;
 	}
-	
+
 	/*
 	 * Now we can extract the image data, and return it.
 	 */
 
 	// call function
 	data = gdk_pixbuf_get_pixels(self);
-	
+
 
 	/*
 	 * Now copy the bytes of each pixel out row by row. Most of the time
@@ -80,51 +80,65 @@ Java_org_gnome_gdk_GdkPixbufOverride_gdk_1pixbuf_1get_1pixels
 	 * dangling last row. We orginally had this in Pixbuf.java, but this
 	 * turns out to be 20% faster under heavy load.
 	 */
-	
+
 	size = width * n_channels;
-	
+
 	result = (*env)->NewByteArray(env, height * size);
-	
+
 	p = 0;
-	
+
 	for (j = 0; j < height; j++) {
 		(*env)->SetByteArrayRegion(env, result, p, size, (jbyte*) data);
-		
+
 		data += rowstride;
 		p += size;
 	}
-	
+
 	// and finally
 	return result;
 }
-
 
 JNIEXPORT jlong JNICALL
 Java_org_gnome_gdk_GdkPixbufOverride_gdk_1pixbuf_1new_1from_1stream
 (
 	JNIEnv* env,
 	jclass cls,
-	jbyteArray _data
+	jbyteArray _data,
+	jint _width,
+	jint _height,
+	jboolean _preserveAspectRatio,
+	jboolean _scale
 )
 {
 	GInputStream *input_stream;
 	gssize len;
 	void *data;
+	int width;
+	int height;
+	gboolean preserveAspectRatio;
 	GdkPixbuf* result;
 	GError* error = NULL;
 
 	// set up the length and input stream parameters.
 	len = (*env)->GetArrayLength(env, _data);
 	data = (*env)->GetByteArrayElements(env, _data, NULL);
+	width = (int) _width;
+	height = (int) _height;
+	preserveAspectRatio = (gboolean) _preserveAspectRatio;
 
 	/*
 	 * Jump through the necessary hoops to feed an array of bytes to the
-	 * GdkPixbuf constructor
+	 * GdkPixbuf constructor. This code a wrapper around two native
+	 * functions; we use the last boolean across the function call stack to
+	 * decide which to call.
 	 */
 
 	input_stream = g_memory_input_stream_new_from_data(data, len, NULL);
-
-	result = gdk_pixbuf_new_from_stream(input_stream, NULL, &error);
+	if (_scale) {
+		result = gdk_pixbuf_new_from_stream_at_scale(input_stream, width, height, preserveAspectRatio, NULL, &error);
+	} else {
+		result = gdk_pixbuf_new_from_stream(input_stream, NULL, &error);
+	}
 
 	g_input_stream_close(input_stream, NULL, NULL);
 	g_object_unref(input_stream);
@@ -139,9 +153,72 @@ Java_org_gnome_gdk_GdkPixbufOverride_gdk_1pixbuf_1new_1from_1stream
 
 	// check for a GError
 	if (error) {
-		bindings_java_throw_gerror(env, error);
+		bindings_java_throwGlibException(env, error);
 		return 0L;
 	}
 
 	return (jlong) result;
 }
+
+JNIEXPORT jint JNICALL
+Java_org_gnome_gdk_GdkPixbufOverride_gdk_1pixbuf_1get_1file_1info_1X
+(
+	JNIEnv* env,
+	jclass cls,
+	jstring _filename
+)
+{
+	const GdkPixbufFormat* format;
+	const gchar* filename;
+	int x;
+
+	// convert parameter filename
+	filename = (const gchar*) bindings_java_getString(env, _filename);
+	if (filename == NULL) {
+		return 0; // Java Exception already thrown
+	}
+
+	// call function
+	format = gdk_pixbuf_get_file_info(filename, &x, NULL);
+	if (format == NULL) {
+		x = -1;
+	}
+
+	// cleanup parameter filename
+	bindings_java_releaseString(filename);
+
+	// translate return value to JNI type
+	return (jint) x;
+}
+
+JNIEXPORT jint JNICALL
+Java_org_gnome_gdk_GdkPixbufOverride_gdk_1pixbuf_1get_1file_1info_1Y
+(
+	JNIEnv* env,
+	jclass cls,
+	jstring _filename
+)
+{
+	const GdkPixbufFormat* format;
+	const gchar* filename;
+	int y;
+
+	// convert parameter filename
+	filename = (const gchar*) bindings_java_getString(env, _filename);
+	if (filename == NULL) {
+		return 0; // Java Exception already thrown
+	}
+
+	// call function
+	format = gdk_pixbuf_get_file_info(filename, NULL, &y);
+	if (format == NULL) {
+		y = -1;
+	}
+
+	// cleanup parameter filename
+	bindings_java_releaseString(filename);
+
+	// translate return value to JNI type
+	return (jint) y;
+}
+

@@ -1,7 +1,7 @@
 /*
  * Adjustment.java
  *
- * Copyright (c) 2007-2008 Operational Dynamics Consulting Pty Ltd
+ * Copyright (c) 2007-2009 Operational Dynamics Consulting Pty Ltd
  * Copyright (c) 2007      Srichand Pendyala
  * 
  * The code in this file, and the library it is a part of, are made available
@@ -13,26 +13,29 @@
 package org.gnome.gtk;
 
 /**
- * An Adjustment object contains an adjustment value with a pair of associated
- * values that determine its lower and upper bound. Also, step and page
- * increments as well as a page size are available. The Adjustment is not a
- * Widget itself, but rather is used in conjunction with other Widgets such as
- * {@link SpinButton}, {@link Viewport}, {@link Range}, {@link HScrollbar},
- * {@link HScale}, {@link VScale} and {@link TreeView}.
+ * Data concerning a value with a pair of associated values that determine its
+ * lower and upper limits. Also, step and page increments as well as a page
+ * size are available. Adjustment is not a Widget itself; Adjustments are used
+ * by certain Widgets such as SpinButton, VScale and HScale, etc. More
+ * commonly, though, you encounter Adjustment objects as the mechanism
+ * controlling the position of VScrollbars and HScrollbars as seen in
+ * TreeView, TextView, and other Containers packed into a
+ * {@link ScrolledWindow}.
  * 
  * <p>
  * A single Adjustment object can be shared by more than one Widget. Thus if
- * you need to have more than one Widget behave similarly with respect to
- * horizontal and vertical aspects, a single Adjustment object will do.
+ * you need to have multiple Widgets behave similarly with respect to say
+ * vertical scrolling, a single Adjustment object will do.
  * 
  * <p>
- * An Adjustment object does not update its own values. The associated Widgets
- * that use the Adjustment are free to change its values though. Associated
- * Widgets that use an Adjustment call the <code>emitValueChanged()</code>
- * method on the widget, causing a <code>Adjustment.ValueChanged</code>
- * signal.
+ * An Adjustment does <i>not</i> update its own values. Associated Widgets
+ * that use an Adjustment call the <code>emitValueChanged()</code> method on
+ * the widget, causing a <code>Adjustment.ValueChanged</code> signal which in
+ * turn is what drives GTK's internal scrolling behaviours. You can react to
+ * it too.
  * 
  * @author Srichand Pendyala
+ * @author Andrew Cowie
  * @since 4.0.5
  */
 public class Adjustment extends Object
@@ -42,23 +45,16 @@ public class Adjustment extends Object
     }
 
     /**
-     * Create a new Adjustment, with given values for the initial value, the
-     * lower and upper bounds, the single step increment values, the page
-     * increment values and the page size.
+     * Create a new Adjustment, with given values for the initial
+     * <var>value</var> value, the <var>lower</var> and <var>upper</var>
+     * bounds, the single <var>step increment</var>, <var>page increment</var>
+     * and the <var>page size</var> properties.
      * 
-     * @param value
-     *            the initial setting for the <var>value</var> property of the
-     *            Adjustment
-     * @param lower
-     *            the lower bound of the Adjustment
-     * @param upper
-     *            the upper bound of the Adjustment
-     * @param stepIncrement
-     *            the single step increment value of the Adjustment
-     * @param pageIncrement
-     *            the page increment value of the Adjustment
-     * @param pageSize
-     *            the size of the page of the Adjustment
+     * <p>
+     * Be aware that <code>pageSize</code> <b>must</b> be set to zero if this
+     * Adjustment is representing a single scalar value (ie, if it is going to
+     * be the Adjustment backing a SpinButton or Scale).
+     * 
      * @since 4.0.5
      */
     public Adjustment(double value, double lower, double upper, double stepIncrement,
@@ -227,5 +223,40 @@ public class Adjustment extends Object
     public void connect(VALUE_CHANGED handler) {
         assert false : "use Adjustment.ValueChanged instead";
         GtkAdjustment.connect(this, handler, false);
+    }
+
+    /**
+     * Get the <var>lower</var> bound of the Adjustment. This is the minimum
+     * value that the <var>value</var> property can range to. In a VScrollbar,
+     * it is the top end of the scrollbar trough, which you can reasonably
+     * expect to be <code>0</code>.
+     * 
+     * @since 4.0.10
+     */
+    public double getLower() {
+        return GtkAdjustment.getLower(this);
+    }
+
+    /**
+     * Get the <var>upper</var> bound of the Adjustment. This is the maximum
+     * value that the <var>value</var> property can range to. In a VScrollbar,
+     * it is the (maximum) height that is represents the value at the bottom
+     * end of the scrollbar trough.
+     * 
+     * @since 4.0.10
+     */
+    public double getUpper() {
+        return GtkAdjustment.getUpper(this);
+    }
+
+    /**
+     * Get the current value of the <var>page size</var> property of this
+     * Adjustment. For a VScrollbar, this is the (vertical) height of the
+     * slider control.
+     * 
+     * @since 4.0.10
+     */
+    public double getPageSize() {
+        return GtkAdjustment.getPageSize(this);
     }
 }

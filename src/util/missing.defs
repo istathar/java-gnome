@@ -372,15 +372,6 @@
   (return-type "GType")
 )
 
-(define-function cursor_new_from_name
-  (c-name "gdk_cursor_new_from_name")
-  (return-type "GdkCursor*")
-  (parameters
-    '("GdkDisplay*" "display")
-    '("const-gchar*" "name")
-  )
-)
-
 (define-function gdk_display_get_type
   (c-name "gdk_display_get_type")
   (return-type "GType")
@@ -5107,18 +5098,6 @@
   )
 )
 
-(define-function paper_size_new_custom
-  (c-name "gtk_paper_size_new_custom")
-  (return-type "GtkPaperSize*")
-  (parameters
-    '("const-gchar*" "name")
-    '("const-gchar*" "display_name")
-    '("gdouble" "width")
-    '("gdouble" "height")
-    '("GtkUnit" "unit")
-  )
-)
-
 (define-function paper_size_get_default
   (c-name "gtk_paper_size_get_default")
   (return-type "const-gchar*")
@@ -6399,6 +6378,55 @@
   (return-type "AtkRole")
   (parameters
     '("const-gchar*" "name")
+  )
+)
+
+(define-function iter_forward_search
+  (c-name "gtk_source_iter_forward_search")
+  (return-type "gboolean")
+  (parameters
+    '("const-GtkTextIter*" "iter")
+    '("const-gchar*" "str")
+    '("GtkSourceSearchFlags" "flags")
+    '("GtkTextIter*" "match_start")
+    '("GtkTextIter*" "match_end")
+    '("const-GtkTextIter*" "limit")
+  )
+)
+
+(define-function iter_backward_search
+  (c-name "gtk_source_iter_backward_search")
+  (return-type "gboolean")
+  (parameters
+    '("const-GtkTextIter*" "iter")
+    '("const-gchar*" "str")
+    '("GtkSourceSearchFlags" "flags")
+    '("GtkTextIter*" "match_start")
+    '("GtkTextIter*" "match_end")
+    '("const-GtkTextIter*" "limit")
+  )
+)
+
+(define-function language_manager_get_default
+  (c-name "gtk_source_language_manager_get_default")
+  (return-type "GtkSourceLanguageManager*")
+)
+
+(define-function style_scheme_manager_get_default
+  (c-name "gtk_source_style_scheme_manager_get_default")
+  (return-type "GtkSourceStyleSchemeManager*")
+)
+
+(define-function gtk_source_print_compositor_get_type
+  (c-name "gtk_source_print_compositor_get_type")
+  (return-type "GType")
+)
+
+(define-function print_compositor_new_from_view
+  (c-name "gtk_source_print_compositor_new_from_view")
+  (return-type "GtkSourcePrintCompositor*")
+  (parameters
+    '("GtkSourceView*" "view")
   )
 )
 

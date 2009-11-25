@@ -1,7 +1,7 @@
 /*
  * Label.java
  *
- * Copyright (c) 2006 Operational Dynamics Consulting Pty Ltd, and Others
+ * Copyright (c) 2006-2009 Operational Dynamics Consulting Pty Ltd, and Others
  * 
  * The code in this file, and the library it is a part of, are made available
  * to you by the authors under the terms of the "GNU General Public Licence,
@@ -10,6 +10,8 @@
  * See the LICENCE file for the terms governing usage and redistribution.
  */
 package org.gnome.gtk;
+
+import org.gnome.pango.EllipsizeMode;
 
 /**
  * A Widget that displays a small amount of text.
@@ -20,9 +22,11 @@ package org.gnome.gtk;
  * blocks that Menus and Buttons are made up of. All the difficult parts about
  * rendering text are taken care of here, such as text direction, fonts. And,
  * of course, you can enable them to allow their text to be copied.
+ * 
  * <p>
  * Labels can display normal text or text that has been formatted with Pango
  * markup. FIXME with a reference to our Pango guide page.
+ * 
  * <p>
  * Although you can pack multiple lines into a Label, there does come a point
  * when the amount of text you're trying to show gets out of hand. At that
@@ -31,6 +35,7 @@ package org.gnome.gtk;
  * @author Andrew Cowie
  * @author Srichand Pendyala
  * @author Wouter Bolsterlee
+ * @author Guillaume Mazoyer
  * @since 4.0.1
  */
 public class Label extends Misc
@@ -55,12 +60,31 @@ public class Label extends Misc
     }
 
     /**
+     * Create an empty Label. You'll need to call {@link #setLabel(String)
+     * setLabel()} to place some text it.
+     * 
+     * @since 4.0.11
+     */
+    public Label() {
+        super(GtkLabel.createLabel(null));
+    }
+
+    /**
      * Set the text showing in the Label.
      * 
-     * @param text
-     *            If the Label has been told to interpret Pango markup with
-     *            {@link #setUseMarkup(boolean) setUseMarkup(true)}, then any
-     *            markup included in text will be interpreted as such.
+     * 
+     * If the Label has been told to interpret Pango markup with
+     * {@link #setUseMarkup(boolean) setUseMarkup(true)}, then any markup
+     * included in text will be interpreted as such.
+     * 
+     * <p>
+     * <b>WARNING</b>:<br>
+     * If you have enabled <var>use-markup</var> (as is often the case),
+     * beware that you must escape whatever you to this method (like you would
+     * for feeding user data to any other XML or HTML like target). This
+     * specifically means you need to convert <code>&amp;</code> into
+     * <code>&amp;amp;</code> and likewise for angle brackets.
+     * 
      * @since 4.0.1
      */
     public void setLabel(String text) {
@@ -122,6 +146,25 @@ public class Label extends Misc
     }
 
     /**
+     * Set the {@link EllipsizeMode ellipsization mode} to use to make the
+     * text fits the label width.
+     * 
+     * @since 4.0.13
+     */
+    public void setEllipsize(EllipsizeMode setting) {
+        GtkLabel.setEllipsize(this, setting);
+    }
+
+    /**
+     * Get the current ellipsization used.
+     * 
+     * @since 4.0.13
+     */
+    public EllipsizeMode getEllipsizeMode() {
+        return GtkLabel.getEllipsize(this);
+    }
+
+    /**
      * Sets the angle of rotation for the Label. The angle is measured in
      * degrees from the horizontal, going counter-clockwise. An angle of
      * 90&#176; reads from bottom to top, an angle of 270&#176; from top to
@@ -175,8 +218,8 @@ public class Label extends Misc
     /*
      * TODO Advise developer to setLineWrap(true)?
      */
-    public void setJustify(Justification justification) {
-        GtkLabel.setJustify(this, justification);
+    public void setJustify(Justification setting) {
+        GtkLabel.setJustify(this, setting);
     }
 
     /**
@@ -277,5 +320,23 @@ public class Label extends Misc
     public void setLineWrap(boolean setting) {
         GtkLabel.setLineWrap(this, setting);
 
+    }
+
+    /**
+     * Set whether underscores will be interpreted as signifying that the next
+     * character should be drawn with an underline, thereby creating the
+     * visual effect of a mnemonic.
+     * 
+     * For example, with this set to <code>true</code>, text of the form
+     * <code>&quot;Op_en a copy&quot;</code> will result in
+     * <blockquote>Op<u>e</u>n a copy</blockquote>
+     * 
+     * <p>
+     * The default is <code>false</code>.
+     * 
+     * @since 4.0.11
+     */
+    public void setUseUnderline(boolean setting) {
+        GtkLabel.setUseUnderline(this, setting);
     }
 }

@@ -1,5 +1,593 @@
 NEWS
 
+<a name="4.0.13" id="1251341992" title="Fix unicode handling"></a>
+
+java-gnome 4.0.13 (27 Aug 2009)
+===============================
+
+_Unicode. It's bigger than you think._
+
+This is a bug fix release to address a serious weakness in Java's handling of
+Unicode characters.
+
+Unicode handling
+----------------
+
+It turns out that Java's chars are **not** pure Unicode codepoints. Most
+people know that Java String objects are arrays of Java chars, but in
+aggregate they are encoded in UTF-16 in order to deal with the fact that there
+are Unicode characters whose index is higher than `0xFFFF` and which need more
+than two bytes to identify them. It's a problem that an application developer
+has to deal with if they're using high-range "supplementary" Unicode
+characters, but wasn't something that would break java-gnome...
+
+Except it turns out that the Java VM does not do UTF-8 translation properly.
+It has a hard wired limitation preventing it from writing out UTF-8 sequences
+longer than 3 bytes. Who knows what crack they were smoking when they decided
+that one. But things like TextView / TextBuffer work in characters, so we need
+characters. (actually, they work in UTF-8 bytes, but the offsets in our public
+API are the characters variants).
+
+Luckily, we can get at the raw UTF-16 arrays backing Strings, and so in
+combination with GLib's character set conversion functions, we've been able to
+redo our string handling internally so as to have correct treatment of Unicode
+codepoints. Lots of testing.
+
+* `org.gnome.gtk.ValidateUnicode`
+* `org.gnome.gtk.ValidateTextBuffer`
+* **`org.gnome.gtk.TextIter`**
+
+This surgery was almost entirely internal; Strings returned by java-gnome
+methods are of course still Java String objects. There was only one signature
+change in the public API: TextIter's `getChar()` now returns Java int, not
+Java char.
+
+New coverage
+------------
+
+<img src="doc/api/org/gnome/gtk/Entry.png" alt="" style="float: right;
+text-align: right; padding-left: 15px;" /> This release also features the work
+of Guillaume Mazoyer exposing some of the new features available in Entry
+Widgets, including displaying icons and showing progress bars in the
+background.
+
+* **`org.gnome.gtk.Entry`**
+* **`org.gnome.gtk.EntryIconPosition`**
+* `org.gnome.gtk.ValidateEntry`
+* `org.gnome.gtk.SnapshotEntryIcon`
+* `entry.ExampleSearchSomeone`
+
+Along with minor enhancements to various miscellaneous classes.
+
+* **`org.gnome.gdk.ModifierType`**
+* **`org.gnome.gtk.Label`**
+* **`org.gnome.pango.EllipsizeMode`**
+* **`org.gnome.pango.RiseAttribute`**
+
+With this release, java-gnome now requires GTK `2.16` or newer.
+
+AfC
+
+<a name="4.0.12" id="1248418784" title="Unique, Notify, Sourceview, Spelling"></a>
+
+java-gnome 4.0.12 (24 Jul 2009)
+===============================
+
+_Being Uniquely Notified while Spelling the Sources you are Viewing is good
+for the soul._
+
+In addition to ongoing improvement in our coverage of the GTK widget toolkit,
+the next release of java-gnome begins to realize our vision to offer
+coverage of the broad suite of libraries making up the GNOME desktop.
+
+New Coverage
+------------
+
+The TextView text editing Widget has received two significant capability
+boosts. With the work of Stefan Schweizer, we now have coverage of the
+powerful GtkSourceView library with its impressive built-in multi
+\[programming\] language source highlighting features.
+
+* **`org.gnome.sourceview.Language`**
+* **`org.gnome.sourceview.LanguageManager`**
+* `org.gnome.sourceview.Plumbing`
+* **`org.gnome.sourceview.SourceBuffer`**
+* **`org.gnome.sourceview.SourceView`**
+* `org.gnome.sourceview.ValidateSourceView`
+* `sourceview.ExampleEditor`
+
+And with the contribution of GtkSpell coverage by Serkan Kaba, we can now
+offer spell checking in TextViews as well.
+
+* **`org.gnome.gtk.Spell`**
+* **`org.gnome.gtk.TextView`**
+* `org.gnome.gtk.ValidateTextViewSpelling`
+* `org.gnome.gtk.SnapshotTextViewSpelling`
+* `textview.ExampleInstantMessenger`
+
+Two other GNOME libraries feature in this release. Serkan also contributed
+excellent coverage of LibNotify, enabling an application to create and send
+popups to be displayed by the desktop notification mechanism.
+
+* **`org.gnome.notify.Notification`**
+* **`org.gnome.notify.Notify`**
+* **`org.gnome.notify.Urgency`**
+* `org.gnome.notify.Plumbing`
+* `notify.ExampleLowBattery`
+
+And, we expose LibUnique, which offers DBus-powered machinery enabling a
+developer to ensure only one instance of their application is running.
+
+* **`org.gnome.unique.Application`**
+* **`org.gnome.unique.Command`**
+* **`org.gnome.unique.MessageData`**
+* `org.gnome.unique.Plumbing`
+* **`org.gnome.unique.Response`**
+* `org.gnome.unique.ValidateUniqueApplications`
+* `unique.ExampleThereCanBeOnlyOne`
+
+Continuing improvement
+----------------------
+
+Lots of minor changes and enhancements throughout the core GTK libraries.
+Highlights include improved mouse button handling, filtering when choosing
+files, and further refinement to Pixbuf. Thanks to Peter Mossveld, Kenneth
+Prugh, Vreixo Formoso, Serkan Kaba.
+
+* **`org.freedesktop.cairo.Context`**
+* `org.freedesktop.cairo.Status`
+* `org.freedesktop.cairo.ValidateCairoContext`
+* **`org.gnome.gdk.CursorType`**
+* **`org.gnome.gdk.EventScroll`**
+* **`org.gnome.gdk.MouseButton`**
+* **`org.gnome.gdk.Pixbuf`**
+* **`org.gnome.gdk.ScrollDirection`**
+* **`org.gnome.gtk.AboutDialog`**
+* **`org.gnome.gtk.CellRendererProgress`**
+* **`org.gnome.gtk.ColorButton`**
+* **`org.gnome.gtk.Entry`**
+* **`org.gnome.gtk.FileChooser`**
+* **`org.gnome.gtk.FileChooserButton`**
+* **`org.gnome.gtk.FileChooserDialog`**
+* **`org.gnome.gtk.FileChooserWidget`**
+* **`org.gnome.gtk.FileFilter`**
+* **`org.gnome.gtk.Notebook`**
+* **`org.gnome.gtk.Range`**
+* **`org.gnome.gtk.Toolbar`**
+* **`org.gnome.gtk.ToolbarStyle`**
+* **`org.gnome.gtk.Widget`**
+* `org.freedesktop.bindings.ValidateInternationalization`
+* `org.gnome.gtk.ValidateProperties`
+* `org.gnome.gtk.ValidateTextBuffer`
+
+Finally, thanks to Guillaume Mazoyer we now have coverage of EntryCompletion,
+the feature of Entry Widgets whereby available possible completions are
+offered to the based on characters the user has typed so far.
+
+* **`org.gnome.gtk.EntryCompletion`**
+* `org.gnome.gtk.ValidateEntryCompletion`
+* `org.gnome.gtk.SnapshotEntryCompletion`
+* `completion.ExampleLoginPrompt`
+
+Looking ahead
+-------------
+
+There are a number of people working on various branches -- some small feature
+extensions, and some major coverage additions that add signifant capabilies --
+but which haven't quite made it to the point where they can be merged into
+java-gnome. We'll see how these pieces of work fare in the coming months, but
+nevertheless the Java bindings for GNOME have reached a significant level of
+maturity and we are pleased to see people starting to use them in serious
+applications.
+
+AfC
+
+<a name="4.0.11" id="1241147383" title="Bug fixes"></a>
+
+java-gnome 4.0.11 (1 May 2009)
+==============================
+
+_This is a bug fix release._
+
+We made a few mistakes in our handling of the PangoAttribute structures'
+memory which resulted in VM crashes [unfortunately, the normal GNOME way of
+debugging things is to `SIGSEGV`. That's fine for a C program but Bad™ for
+your average Java Virtual Machine as it takes out the entire process. We
+therefore work rather hard to avoid -- or at least trap -- this sort of
+thing]. Releasing corrections for these bugs was a priority.
+
+Concurrently a significant internal improvement in our handling of
+accumulating Attributes into AttributeLists was made. While this is not user
+visible _per se_, we were able to drop the requirement that the text you were
+formatting already be in the Pango Layout before assigning the range that the
+Attribute would cover. You also no longer need to pass that Layout to
+`setIndices()`. This makes things a great deal easier if you are
+simultaneously aggregating the text and assigning markup.
+
+* **`org.gnome.pango.Attribute`**
+* **`org.gnome.pango.AttributeList`**
+* `org.gnome.pango.PangoAttributeOverride`
+* **`org.gnome.pango.Layout`**
+* **`org.gnome.pango.FontDescription`**
+* **`org.gnome.pango.FallbackAttribute`**
+* `org.gnome.pango.ValidatePangoTextRendering`
+* **`org.gnome.pango.WrapMode`**
+
+Martin Garton contributed some documentation quality improvements and new
+coverage. Serkan Kaba made some minor fixes to ensure the unit tests run in a
+Turkish locale. And as ever there are small incremental improvements to
+various classes, including a number of additional properties exposed care of
+the work of new contributor Thijs Leibbrand. 
+
+* **`org.gnome.gtk.TreeViewColumn`**
+* **`org.gnome.gtk.ComboBox`**
+* **`org.gnome.gtk.Widget`**
+* `org.freedesktop.bindings.ValidateInternationalization`
+* **`org.gnome.gtk.Label`**
+* **`org.gnome.gtk.ScrolledWindow`**
+* **`org.gnome.gtk.Box`**
+* **`org.gnome.gtk.AboutDialog`**
+
+Looking ahead
+-------------
+
+This was a brief cycle; as noted we're mostly pushing some bug fixes.
+Meanwhile there are a number of significant branches underway by various
+hackers; which, hopefully, will feature prominently in the next release.
+
+AfC
+
+<a name="4.0.10" id="1236252051" title="Beautiful sculpted text"></a>
+
+java-gnome 4.0.10 (5 Mar 2009)
+==============================
+
+_Sculptures made of letters_
+
+This release is a landmark, because it features coverage of the Pango text
+rendering library and so, along with our coverage of Cairo, brings us to a
+complete solution for drawing graphics with text -- be they custom Widgets,
+PDF documents, or beautiful vector illustrations.
+
+In addition to merging Pango work from numerous contributors, we have made
+massive improvements to our Cairo coverage, support for writing PDFs, and
+better access to the system Clipboard.
+
+Drawing API improvements
+------------------------
+
+We've done a huge amount of refinement to our APIs for the ever fabulous Cairo
+Graphics drawing library, including full coverage of matrix translations,
+rotations, and scaling and more integrated ways of setting the source pattern
+to be used in stroke, paint, and fill operations. <img
+src="doc/api/org/freedesktop/cairo/Matrix-translate.png" alt="" style="float:
+right; text-align: right; padding-left: 15px;" /> Thanks to Kenneth Prugh for
+having seen this through and having done the lion's share of the testing. <img
+src="doc/api/org/freedesktop/cairo/Context-arcNegative.png" alt=""
+style="float: right; text-align: right; padding-left: 15px; clear: right;" />
+
+* **`org.freedesktop.cairo.Content`**
+* **`org.freedesktop.cairo.Context`**
+* **`org.freedesktop.cairo.Matrix`**
+* `org.freedesktop.cairo.Plumbing`
+* `org.freedesktop.cairo.Status`
+* **`org.freedesktop.cairo.Surface`**
+* **`org.freedesktop.cairo.ImageSurface`**
+* **`org.freedesktop.cairo.SvgSurface`**
+* **`org.freedesktop.cairo.XlibSurface`**
+* **`org.freedesktop.cairo.SurfacePattern`**
+* `cairo.ExampleDrawingText`
+
+The various use cases of setting a source pattern for a Context including RGB,
+RGBA, other Surfaces, already existing Pixbufs, etc have been combined into a
+series of `setSource()` method overloads.
+
+We've also had a number of improvements in the lower levels of GTK relating to
+image rendering. The gdk-pixbuf library contains a capable image parser and we
+can now feed it directly from a Pixbuf constructor. Thanks to new contributor
+Martin Garton for his hard work getting that tested and accepted.
+
+* **`org.gnome.gdk.InterpType`**
+* **`org.gnome.gdk.Pixbuf`**
+
+Drawing graphics often also requires drawing text. This release features
+coverage of Pango, GNOME's powerful text rendering library. Pango is not just
+about drawing mere glyphs; it also includes a sophisticated paragraph layout
+engine which gives us a capable solution for drawing text onto Cairo Surfaces.
+
+Thanks are due to Serkan Kaba and Kenneth Prugh have both been really helpful
+testing; it was Vreixo Formoso who did the original leg work in April that
+identified Layout as the key class that we needed to concentrate on and
+cleaned up much of the underlying infrastructure.
+
+* **`org.gnome.pango.Alignment`**
+* **`org.gnome.pango.FontDescription`**
+* **`org.gnome.pango.Layout`**
+* **`org.gnome.pango.LayoutLine`**
+* **`org.gnome.pango.Rectangle`**
+* **`org.gnome.pango.Style`**
+* **`org.gnome.pango.Variant`**
+* **`org.gnome.pango.Weight`**
+* `org.gnome.pango.Plumbing`
+* **`org.gnome.pango.Context`**
+* **`org.freedesktop.cairo.FontOptions`**
+* **`org.freedesktop.cairo.HintMetrics`**
+* **`org.gnome.pango.Attribute`**
+* **`org.gnome.pango.AttributeList`**
+* **`org.gnome.pango.FontDescriptionAttribute`**
+* **`org.gnome.pango.SizeAttribute`**
+* **`org.gnome.pango.StyleAttribute`**
+* **`org.gnome.pango.VariantAttribute`**
+* **`org.gnome.pango.WeightAttribute`**
+* **`org.gnome.pango.UnderlineAttribute`**
+* **`org.gnome.pango.BackgroundColorAttribute`**
+* **`org.gnome.pango.ForegroundColorAttribute`**
+* **`org.gnome.pango.BackgroundColorAttribute`**
+* **`org.gnome.pango.UnderlineColorAttribute`**
+
+As we were working on this we had occasion to continue the polish in and
+around the TextView / TextBuffer APIs, including a number of convenience
+methods for inserting text while simultaneously applying multiple TextTags,
+and supporting changing default fonts.
+
+* **`org.gnome.gtk.TextBuffer`**
+* **`org.gnome.gtk.TextIter`**
+* **`org.gnome.gtk.TextTag`**
+* **`org.gnome.gtk.TextView`**
+* **`org.gnome.gtk.TreeViewColumn`**
+* **`org.gnome.gtk.Widget`**
+
+We've also modelled "notify signals" for when a property changes; see the
+`TextBuffer.NotifyCursorPosition` signal for this in action.
+
+Finally, thanks to contributions from Zak Fenton and Kamil Szymala we have
+support for applications running in composited window managers to have
+transparent backgrounds -- which is an exceptionally cool effect, even if it
+doesn't have much to do with creating HIG compliant usable applications `:)`.
+
+* **`org.freedesktop.cairo.Operator`**
+* **`org.gnome.gdk.Colormap`**
+* **`org.gnome.gdk.Screen`**
+* **`org.gnome.gdk.Window`**
+* **`org.gnome.gtk.Widget`**
+
+Handling cut & paste
+--------------------
+
+The GTK clipboard APIs are fairly complex, in no small part because the
+underlying implementations in X are really rather complex. Our coverage here
+in java-gnome is still fairly basic relative to that, but it's been enough for
+people working on applications like text editors to write text to the system
+clipboard, get notification when the clipboard changes, and read text back out
+again.
+
+* **`org.gnome.gtk.Clipboard`**
+
+Printed document support
+------------------------
+
+<img src="doc/examples/cairo/ExampleLinedPaper.png" alt="" width="200"
+style="float: right; text-align: right; padding-left: 15px; clear: right;" />
+The work on Pango noted above represented the essential machinery necessary to
+make effective use of Cairo's PDF backend, and this has started us down the
+road of covering the GNOME printing APIs.  You can now generate `.pdf`
+documents with java-gnome, and we've included an fun
+[example](doc/examples/START.html#ExampleLinedPaper) showing this in action.
+
+* **`org.freedesktop.cairo.PdfSurface`**
+* **`org.gnome.gtk.PaperSize`**
+* **`org.gnome.gtk.InternationalPaperSize`**
+* **`org.gnome.gtk.NorthAmericanPaperSize`**
+* **`org.gnome.gtk.Unit`**
+* `cairo.ExampleLinedPaper`
+
+Thanks to Nathan Strum for permission to use one of his sketches in the
+example (you might find reading the [blog][nathan] where we found this
+interesting -- it's a fascinating expos&eacute; of a graphic artist in action).
+
+[nathan]: http://www.atariage.com/forums/index.php?automodule=blog&blogid=118&showentry=5460
+
+Continuing improvement
+----------------------
+
+Thanks to new contributor Stefan Schweizer we now have better coverage of
+signals relating to Notebook style Containers, and to new contributors Miloud
+Bel and Bruno Dusausoy for numerous small improvements in and around
+ProgressBar.
+
+* **`org.gnome.gtk.Notebook`**
+* **`org.gnome.gtk.ProgressBar`**
+
+Miscellaneous documentation improvements and minor feature improvements always
+feature in our releases, with minor changes having accrued in many classes.
+
+* **`org.gnome.gtk.ShadowType`**
+* **`org.gnome.gdk.CrossingMode`**
+* **`org.gnome.gdk.NotifyType`**
+* **`org.gnome.gtk.AboutDialog`**
+* **`org.gnome.gtk.Arrow`**
+* **`org.gnome.gtk.ArrowType`**
+* **`org.gnome.gtk.Assistant`**
+* **`org.gnome.gtk.Menu`**
+
+Just as important as new coverage is getting rid of cruft that we don't need.
+Libraries like GTK and GDK are, like any other mature project, full of
+deprecated, obsolete, and unnecessary code -- not to mention things that we
+just plain don't need in a Java binding of these underlying native libraries.
+We're already pretty good about not generating translation Java or JNI C code
+for such things; this release continues our refinements in this area with a
+considerable refinement of the `.jar` and `.so` which is ultimately what we
+ship.
+
+Finally, it's worth noting that java-gnome's test suite is now 40 unit test
+classes with 186 individual test fixtures. Combined with over 30 screenshot
+generating programs and 17 example programs, we actually have surprisingly
+good test coverage of our library. It's high time they -- and more to the
+point the people who work hard to create such tests -- got as much credit as
+the visible public APIs do.
+
+* `UnitTests`
+* `com.operationaldynamics.codegen.ValidateUtilityMethods`
+* `com.operationaldynamics.defsparser.ValidateBlockUsage`
+* `com.operationaldynamics.defsparser.ValidateDefsParsing`
+* `com.operationaldynamics.codegen.ValidateThingUsage`
+* `org.freedesktop.bindings.ValidateEnvironment`
+* `org.freedesktop.bindings.ValidateInternationalization`
+* `org.gnome.glib.ValidateReferenceCounting`
+* `org.gnome.glib.ValidateMemoryManagement`
+* `org.gnome.glib.ValidateGListMethods`
+* `org.gnome.glib.ValidateConstants`
+* `org.gnome.gtk.ValidateProperties`
+* `org.gnome.gtk.ValidateSignalEmission`
+* `org.gnome.gdk.ValidateScreensAndDisplays`
+* `org.gnome.gdk.ValidateKeyboardHandling`
+* `org.gnome.gdk.ValidateImageHandling`
+* `org.freedesktop.cairo.ValidateCairoInternals`
+* `org.freedesktop.cairo.ValidateDrawingToFile`
+* `org.gnome.gtk.ValidateOutParameters`
+* `org.gnome.gtk.ValidatePacking`
+* `org.gnome.gtk.ValidateNotebookBehaviour`
+* `org.gnome.gtk.ValidateFileChoosing`
+* `org.gnome.gtk.ValidateStockItems`
+* `org.gnome.gtk.ValidateResponseType`
+* `org.gnome.gtk.ValidateTreeModel`
+* `org.gnome.gtk.ValidateTreeStore`
+* `org.gnome.gtk.ValidateTreeModelFilter`
+* `org.gnome.gtk.ValidateTreeView`
+* `org.gnome.gtk.ValidateIconView`
+* `org.gnome.gtk.ValidateComboBox`
+* `org.gnome.gtk.ValidateSnapshotUtilities`
+* `org.gnome.gtk.ValidateAssistant`
+* `org.gnome.gtk.ValidateTextBuffer`
+* `org.gnome.gtk.ValidateTextViewProperties`
+* `org.gnome.gtk.ValidateTextViewBorderWindows`
+* `org.gnome.gtk.ValidateArrow`
+* `org.gnome.pango.ValidatePangoTextRendering`
+* `org.gnome.gtk.ValidatePrinting`
+* `Harness`
+* `org.freedesktop.cairo.SnapshotMatrixRotate`
+* `org.freedesktop.cairo.SnapshotCairoAxis`
+* `org.freedesktop.cairo.SnapshotCairo`
+* `org.freedesktop.cairo.SnapshotContextLine`
+* `org.freedesktop.cairo.SnapshotMatrixScale`
+* `org.freedesktop.cairo.SnapshotContextArcNegative`
+* `org.freedesktop.cairo.SnapshotMatrixTranslate`
+* `org.freedesktop.cairo.SnapshotContextArc`
+* `org.freedesktop.cairo.SnapshotMatrix`
+* `org.freedesktop.cairo.SnapshotContextRectangle`
+* `org.gnome.gtk.SnapshotCalendar`
+* `org.gnome.gtk.SnapshotTreeView`
+* `org.gnome.gtk.SnapshotButton`
+* `org.gnome.gtk.SnapshotAboutDialog`
+* `org.gnome.gtk.SnapshotArrow`
+* `org.gnome.gtk.SnapshotTextView`
+* `org.gnome.gtk.SnapshotRadioButton`
+* `org.gnome.gtk.SnapshotTextComboBox`
+* `org.gnome.gtk.SnapshotTreeStore`
+* `org.gnome.gtk.SnapshotTextComboBoxEntry`
+* `org.gnome.gtk.SnapshotFileChooserDialog`
+* `org.gnome.gtk.SnapshotTextViewBorderWindows`
+* `org.gnome.gtk.SnapshotVScale`
+* `org.gnome.gtk.SnapshotHScale`
+* `org.gnome.gtk.SnapshotDialog`
+* `org.gnome.gtk.SnapshotEntryRed`
+* `org.gnome.gtk.SnapshotComboBox`
+* `org.gnome.gtk.SnapshotStatusbar`
+* `org.gnome.gtk.SnapshotInfoMessageDialog`
+* `org.gnome.gtk.Snapshot`
+* `org.gnome.gtk.SnapshotAssistant`
+* `org.gnome.gtk.SnapshotWindow`
+* `org.gnome.gtk.SnapshotNotebook`
+* `org.gnome.gtk.SnapshotQuestionMessageDialog`
+
+Anyone can run the tests (and anyone wanting to submit a patch had _better_
+run the tests!); they've been accumulating since java-gnome 4.0.0; it's just:
+
+    $ make test
+
+and
+
+    $ make doc
+
+If you're working in Eclipse launch class `UnitTests` as a JUnit test suite.
+
+Build improvements
+------------------
+
+We have some fixes from new contributor Przemysław Grzegorczyk ensuring we
+include the correct headers in a few corner cases. This came to us via work on
+a GNOME Love bug, which is a first for us. Thanks!
+
+Meanwhile, the ever industrious Serkan Kaba has added some changes to ensure
+that our magically locating the native shared library component of java-gnome
+works properly even under strange and unusual conditions.
+
+Configuration and prerequisite detection on Open Solaris is improved thanks to
+reports from new contributor Kamil Szymala.
+
+Instructions for how to optimally lay out your branches when working with
+java-gnome have been moved to the [`HACKING`](HACKING.html) file. People
+intending to hack on the bindings from Eclipse are _really_ urged to set
+things up this way as it will make their lives much easier. Also, using the
+latest release of Bazaar (ie `bzr >= 1.12`) is definitely recommended -- it's
+getting really fast. We've upgraded our public branches, so you will need
+`1.9` at a minimum.
+
+Note to those creating packages for distributions: java-gnome now depends on
+the current stable GTK (ie `gtk+ >= 2.14`).
+
+Looking ahead
+-------------
+
+Coverage of Poppler, GNOME's PDF rendering library is well along, but didn't
+quite make it in time for this release. It could very likely feature in the
+next version of java-gnome, as might coverage of GConf, GNOME's simple store
+for application configuration options. People are also known to be working on
+coverage of GtkSourceView, libwnck, and librsvg. We'll see what gets
+contributed!
+
+The most exciting part about java-gnome at the moment, though, is the number
+of people working hard on applications using it. It takes a **long** time to
+write a mature, well rounded, robust end-user program, but there are some
+pretty cool projects ticking away out there, and it has been terrific to see
+the authors of these projects joining our community.
+
+Happy developing,
+
+AfC
+
+<a name="pango" id="1229699838" title="Text drawing"></a>
+
+Rendering text
+==============
+
+One thing that was previously missing from our Cairo support was the ability
+to draw text. To that end we have been working on exposing the excellent Pango
+text rendering library. The '`pango`' branch where the effort has been
+underway to polish coverage allowing developers add text when drawing has now
+been merged to '`mainline`'.
+
+Pango is not just about drawing mere words. It also includes a sophisticated
+paragraph layout engine. This in turn represents the essential machinery
+necessary to make effective use of Cairo's PDF backend; you can now generate
+`.pdf` documents with java-gnome, and we've included an fun example showing
+this in action.
+
+Thanks are due to Serkan Kaba and Kenneth Prugh have both been really helpful
+testing; it was Vreixo Formoso who did the original leg work in April that
+identified Layout as the key class that we needed to concentrate on and
+cleaned up much of the underlying infrastructure.
+
+The API documentation for [Layout][] is pretty much the center piece of all
+this work. Improvements to various Cairo backends have also been underway; the
+descriptions at [XlibSurface][] and [PdfSurface][] may also be of interest.
+
+AfC
+
+[Layout]: doc/api/org/gnome/pango/Layout.html
+[XlibSurface]: doc/api/org/freedesktop/cairo/XlibSurface.html
+[PdfSurface]: doc/api/org/freedesktop/cairo/PdfSurface.html
+
 <a name="4.0.9" id="1223889576" title="Text APIs and better running!"></a>
 
 java-gnome 4.0.9 (13 Oct 2008)
@@ -1765,13 +2353,13 @@ AfC
 
 <!--
 
-  Copyright (c) 2006-2008 Operational Dynamics Consulting Pty Ltd 
+  Copyright (c) 2006-2009 Operational Dynamics Consulting Pty Ltd 
 
   As project documentation, this file forms an integral part of the source
   code of the library it accompanies, and thus is made available to you by the
   authors under the terms of the "GNU General Public Licence, version 2". See
   the LICENCE file for the terms governing usage, copying and redistribution.
 
-  vim: set textwidth=78 nowrap:
+  vim: set textwidth=78:
 
 -->

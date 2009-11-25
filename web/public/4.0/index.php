@@ -113,10 +113,10 @@ GNOME release definitions inevitably means "frozen forever") until java-gnome
 4.2.0; method signatures are subject to change. This gives us an opportunity to
 learn from mistakes and to ensure the bindings reach the extreme quality and
 usability standards we aspire to.  That said, we do our best to keep things
-stable. We have large bodies of software that use java-gnome so don't worry; we
-aren't gratuitously breaking things. But if we have a bug which needs a
-signature change, we <b>will</b> fix it, and not attempt to paper over the
-problem.</i></p>
+stable. The people hacking on the library have large bodies of software that
+use java-gnome so don't worry; we aren't gratuitously breaking things. But if
+we have a bug which needs a signature change, we <b>will</b> fix it, and not
+attempt to paper over the problem.</i></p>
 
 <?
 	template_end();

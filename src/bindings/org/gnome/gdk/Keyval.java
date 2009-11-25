@@ -1,7 +1,7 @@
 /*
  * Keyval.java
  *
- * Copyright (c) 2007-2008 Operational Dynamics Consulting Pty Ltd
+ * Copyright (c) 2007-2009 Operational Dynamics Consulting Pty Ltd
  * 
  * The code in this file, and the library it is a part of, are made available
  * to you by the authors under the terms of the "GNU General Public Licence,
@@ -160,7 +160,41 @@ public class Keyval extends Constant
 
     public static final Keyval BackSpace = new Keyval(0xff08, "BackSpace");
 
+    /**
+     * Normal indentation key.
+     * 
+     * <p>
+     * In normal GNOME user interface usage, this is used to move the keyboard
+     * focus forwards from one Widget to the next. In text documents, however,
+     * <b><code>Tab</code></b> is typically used to insert a <code>'\t'</code>
+     * character.
+     * 
+     * <p>
+     * Be aware that on a standard GNOME desktop, <b><code>Alt+Tab</code></b>
+     * is captured by the window manager used to change between applications,
+     * so you likely won't receive it.
+     */
     public static final Keyval Tab = new Keyval(0xff09, "Tab");
+
+    /**
+     * Reverse indentation key.
+     * 
+     * <p>
+     * This occurs on when you type <b> <code>Shift+Tab</code></b>. Normal
+     * (forward) indentation keystrokes are the {@link #Tab Tab} Keyval.
+     * 
+     * <p>
+     * Backwards movement by an indent is a legacy from the age of
+     * typewriters, and not used in text entry today. The <b>
+     * <code>Shift+Tab</code></b> sequence is, however, used in GNOME to move
+     * the keyboard focus one Widget back.
+     * 
+     * @since 4.0.14
+     */
+    /*
+     * This is ISO_Left_Tab
+     */
+    public static final Keyval BackTab = new Keyval(0xfe20, "BackTab");
 
     public static final Keyval Return = new Keyval(0xff0d, "Return");
 
@@ -173,6 +207,17 @@ public class Keyval extends Constant
     public static final Keyval Escape = new Keyval(0xff1b, "Escape");
 
     public static final Keyval Delete = new Keyval(0xffff, "Delete");
+
+    /**
+     * The <b><code>Compose</code></b> used to create high order characters
+     * from pressing tis plus certain following key sequences.
+     * 
+     * @since 4.0.11
+     */
+    /*
+     * This is GDK_Multi_key
+     */
+    public static final Keyval Compose = new Keyval(0xff20, "Compose");
 
     public static final Keyval Home = new Keyval(0xff50, "Home");
 

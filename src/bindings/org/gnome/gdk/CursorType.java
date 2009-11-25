@@ -1,7 +1,8 @@
 /*
  * CursorType.java
  *
- * Copyright (c) 2007 Operational Dynamics Consulting Pty Ltd
+ * Copyright (c) 2007-2009 Operational Dynamics Consulting Pty Ltd
+ * Copyright (c)      2009 Vreixo Formoso
  *
  * The code in this file, and the library it is a part of, are made available
  * to you by the authors under the terms of the "GNU General Public Licence,
@@ -37,15 +38,13 @@ import org.freedesktop.bindings.Flag;
  * it.</i>.
  * 
  * @author Andrew Cowie
+ * @author Vreixo Formoso
  * @since 4.0.6
  */
 /*
  * The underlying enum is a zoo, so this is just a start. Frankly, most of the
  * preexisting Cursor constants are completely unnecessary cruft left over
- * from the early days of X Windows. Yeech! There are some Cursors that still
- * have modern application, but I've skipped things like the Window resizing
- * handles because, yo, your program isn't a window manager. Someone else can
- * add other CursorTypes if they really need one.
+ * from the early days of X Windows. Yeech!
  */
 public final class CursorType extends Flag
 {
@@ -76,4 +75,102 @@ public final class CursorType extends Flag
      * @since 4.0.6
      */
     public static final CursorType XTERM = new CursorType(GdkCursorType.XTERM, "XTERM");
+
+    /**
+     * This Cursor is typically used with Widgets whose size can be changed
+     * manually when the mouse pointer is near the top left corner of the
+     * Widget.
+     * 
+     * @since 4.0.12
+     */
+    public static final CursorType TOP_LEFT_CORNER = new CursorType(GdkCursorType.TOP_LEFT_CORNER,
+            "TOP_LEFT_CORNER");
+
+    /**
+     * This Cursor is typically used with Widgets whose size can be changed
+     * manually when the mouse pointer is near the top right corner of the
+     * Widget.
+     * 
+     * @since 4.0.12
+     */
+    public static final CursorType TOP_RIGHT_CORNER = new CursorType(GdkCursorType.TOP_RIGHT_CORNER,
+            "TOP_RIGHT_CORNER");
+
+    /**
+     * This Cursor is typically used with Widgets whose size can be changed
+     * manually when the mouse pointer is near the bottom left corner of the
+     * Widget.
+     * 
+     * @since 4.0.12
+     */
+    public static final CursorType BOTTOM_LEFT_CORNER = new CursorType(GdkCursorType.BOTTOM_LEFT_CORNER,
+            "BOTTOM_LEFT_CORNER");
+
+    /**
+     * This Cursor is typically used with Widgets whose size can be changed
+     * manually when the mouse pointer is near the bottom right corner of the
+     * Widget.
+     * 
+     * @since 4.0.12
+     */
+    public static final CursorType BOTTOM_RIGHT_CORNER = new CursorType(
+            GdkCursorType.BOTTOM_RIGHT_CORNER, "BOTTOM_RIGHT_CORNER");
+
+    /**
+     * This Cursor is typically used with Widgets whose size can be changed
+     * manually when the mouse pointer is near the bottom side of the Widget.
+     * 
+     * @since 4.0.12
+     */
+    public static final CursorType BOTTOM_SIDE = new CursorType(GdkCursorType.BOTTOM_SIDE, "BOTTOM_SIDE");
+
+    /**
+     * This Cursor is typically used with Widgets whose size can be changed
+     * manually when the mouse pointer is near the top side of the Widget.
+     * 
+     * @since 4.0.12
+     */
+    public static final CursorType TOP_SIDE = new CursorType(GdkCursorType.TOP_SIDE, "TOP_SIDE");
+
+    /**
+     * This Cursor is typically used with Widgets whose size can be changed
+     * manually when the mouse pointer is near the right side of the Widget.
+     * 
+     * @since 4.0.12
+     */
+    public static final CursorType RIGHT_SIDE = new CursorType(GdkCursorType.RIGHT_SIDE, "RIGHT_SIDE");
+
+    /**
+     * This Cursor is typically used with Widgets whose size can be changed
+     * manually when the mouse pointer is near the left side of the Widget.
+     * 
+     * @since 4.0.12
+     */
+    public static final CursorType LEFT_SIDE = new CursorType(GdkCursorType.LEFT_SIDE, "LEFT_SIDE");
+
+    /**
+     * The Cursor used to indicate a "move" operation. It is used when moving
+     * the mouse pointer would cause a Widget to be moved.
+     * 
+     * @since 4.0.12
+     */
+    public static final CursorType FLEUR = new CursorType(GdkCursorType.FLEUR, "FLEUR");
+
+    /**
+     * The hand, open. Suggests something that can be grabbed.
+     * 
+     * @since 4.0.14
+     */
+    public static final CursorType HAND1 = new CursorType(GdkCursorType.HAND1, "HAND1");
+
+    /**
+     * The hand, index finger pointing. Typically used to suggest a clickable
+     * link.
+     * 
+     * @since 4.0.14
+     */
+    public static final CursorType HAND2 = new CursorType(GdkCursorType.HAND2, "HAND2");
+
+    static final CursorType CURSOR_IS_PIXMAP = new CursorType(GdkCursorType.CURSOR_IS_PIXMAP,
+            "CURSOR_IS_PIXMAP");
 }

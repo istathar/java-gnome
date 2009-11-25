@@ -25,15 +25,41 @@ final class GdkPixbufOverride extends Plumbing
 
     private static native final byte[] gdk_pixbuf_get_pixels(long self);
 
-    static final long createPixbufFromArray(byte[] data) throws GlibException {
+    static final long createPixbufFromArray(byte[] data, int width, int height,
+            boolean preserveAspectRatio, boolean scale) throws GlibException {
         if (data == null) {
             throw new IllegalArgumentException("byte array can't be null");
         }
 
         synchronized (lock) {
-            return gdk_pixbuf_new_from_stream(data);
+            return gdk_pixbuf_new_from_stream(data, width, height, preserveAspectRatio, scale);
         }
     }
 
-    private static native final long gdk_pixbuf_new_from_stream(byte[] data) throws GlibException;
+    private static native final long gdk_pixbuf_new_from_stream(byte[] data, int width, int height,
+            boolean preserveAspectRatio, boolean scale) throws GlibException;
+
+    static final int getFileInfoX(String filename) {
+        if (filename == null) {
+            throw new IllegalArgumentException("filename can't be null");
+        }
+
+        synchronized (lock) {
+            return gdk_pixbuf_get_file_info_X(filename);
+        }
+    }
+
+    private static native final int gdk_pixbuf_get_file_info_X(String filename);
+
+    static final int getFileInfoY(String filename) {
+        if (filename == null) {
+            throw new IllegalArgumentException("filename can't be null");
+        }
+
+        synchronized (lock) {
+            return gdk_pixbuf_get_file_info_Y(filename);
+        }
+    }
+
+    private static native final int gdk_pixbuf_get_file_info_Y(String filename);
 }

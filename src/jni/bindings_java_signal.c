@@ -184,7 +184,7 @@ bindings_java_marshaller
 			break;
 
 		case G_TYPE_STRING:
-			jargs[i+1].l = (*env)->NewStringUTF(env, g_value_get_string(&param_values[i]));
+			jargs[i+1].l = bindings_java_newString(env, g_value_get_string(&param_values[i]));
       			break;
 
 		case G_TYPE_OBJECT:
@@ -273,8 +273,7 @@ bindings_java_marshaller
 		
 		g_value_set_enum(return_value, _e);
 		break;
-		
-		
+
 	case 'L':
 		/*
 		 * String return signals
@@ -284,12 +283,12 @@ bindings_java_marshaller
 		 * enormous assumption that a string is what we get back.
 		 */
 		_str = (*env)->CallStaticObjectMethodA(env, bjc->receiver, bjc->method, jargs);
-		if (str == NULL) {
+		if (_str == NULL) {
 			g_warning("Invoking string handler returned null. That's probably bad");
 			break;
 		}
 		
-		str = (gchar*) (*env)->GetStringUTFChars(env, _str, NULL);
+		str = (gchar*) bindings_java_getString(env, _str);
 		if (str == NULL) {
 			/* OutOfMemoryError already thrown */
 			return;
@@ -299,7 +298,7 @@ bindings_java_marshaller
 		g_value_set_string(return_value, str);
 		
 		// ... so we can release str
-		(*env)->ReleaseStringUTFChars(env, _str, str);	 
+		bindings_java_releaseString(str);	 
 		break;
 
 	default:

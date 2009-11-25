@@ -14,7 +14,7 @@ import java.io.File;
 import java.io.IOException;
 
 import org.gnome.gtk.Gtk;
-import org.gnome.gtk.TestCaseGtk;
+import org.gnome.gtk.GraphicalTestCase;
 
 /**
  * Started life as the Cairo drawing example; evolved to a unit test. This
@@ -33,7 +33,7 @@ import org.gnome.gtk.TestCaseGtk;
 /*
  * TODO Actually do the comaprison!
  */
-public class ValidateDrawingToFile extends TestCaseGtk
+public class ValidateDrawingToFile extends GraphicalTestCase
 {
     private static String OUTPUT_FILENAME = "tmp/tests/ValidateDrawingToFile.png";
 

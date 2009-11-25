@@ -1,0 +1,11 @@
+(define-enum Urgency
+  (in-module "Notify")
+  (c-name "NotifyUrgency")
+  (gtype-id "NOTIFY_TYPE_URGENCY")
+  (values
+    '("low" "NOTIFY_URGENCY_LOW")
+    '("normal" "NOTIFY_URGENCY_NORMAL")
+    '("critical" "NOTIFY_URGENCY_CRITICAL")
+  )
+)
+

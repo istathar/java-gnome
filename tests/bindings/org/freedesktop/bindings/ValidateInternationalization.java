@@ -1,7 +1,7 @@
 /*
  * ValidateInternationalization.java
  *
- * Copyright (c) 2008 Operational Dynamics Consulting Pty Ltd
+ * Copyright (c) 2008-2009 Operational Dynamics Consulting Pty Ltd
  * 
  * The code in this file, and the suite it is a part of, are made available
  * to you by the authors under the terms of the "GNU General Public Licence,
@@ -13,7 +13,7 @@ package org.freedesktop.bindings;
 import static org.freedesktop.bindings.Internationalization.N_;
 import static org.freedesktop.bindings.Internationalization._;
 
-import org.gnome.gtk.TestCaseGtk;
+import org.gnome.gtk.GraphicalTestCase;
 
 /**
  * Exercise the Internationalization setup code.
@@ -23,12 +23,18 @@ import org.gnome.gtk.TestCaseGtk;
 /*
  * Extends TestCaseGtk to ensure Gtk.init() has been called.
  */
-public class ValidateInternationalization extends TestCaseGtk
+public class ValidateInternationalization extends GraphicalTestCase
 {
     private static String LC_ALL;
 
+    private static String LANGUAGE;
+
+    private static String LANG;
+
     public final void testInitialization() {
         LC_ALL = Environment.getEnv("LC_ALL");
+        LANGUAGE = Environment.getEnv("LANGUAGE");
+        LANG = Environment.getEnv("LANG");
 
         try {
             Internationalization.init(null, "/usr/share/locale");
@@ -62,6 +68,8 @@ public class ValidateInternationalization extends TestCaseGtk
          * something not the C locale.
          */
         Environment.setEnv("LC_ALL", "en_US.UTF-8");
+        Environment.setEnv("LANGUAGE", "en_US.UTF-8");
+        Environment.setEnv("LANG", "en_US.UTF-8");
         Internationalization.init("unittest", "tmp/locale");
     }
 
@@ -96,5 +104,7 @@ public class ValidateInternationalization extends TestCaseGtk
 
     public final void testRestoreEnvironment() {
         Environment.setEnv("LC_ALL", LC_ALL);
+        Environment.setEnv("LANGUAGE", LANGUAGE);
+        Environment.setEnv("LANG", LANG);
     }
 }

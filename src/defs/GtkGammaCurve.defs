@@ -10,6 +10,7 @@
     '("GtkWidget*" "gamma_dialog")
     '("GtkWidget*" "gamma_text")
   )
+  (deprecated "2.90")
 )
 
 (define-function gtk_gamma_curve_new

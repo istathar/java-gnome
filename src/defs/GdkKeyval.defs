@@ -1,3 +1,6 @@
+;; This is somewhat faked; we'd prefer it to be define-enum but in any event
+;; we've registered it manually as a TypedefEnumThing.
+
 (define-boxed Keyval
   (in-module "Gdk")
   (c-name "GdkKeyval")
