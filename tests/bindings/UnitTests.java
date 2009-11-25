@@ -54,6 +54,7 @@ import org.gnome.gtk.ValidateTreeStore;
 import org.gnome.gtk.ValidateTreeView;
 import org.gnome.gtk.ValidateUnicode;
 import org.gnome.pango.ValidatePangoAttributeUsage;
+import org.gnome.pango.ValidatePangoLayoutLines;
 import org.gnome.pango.ValidatePangoTextRendering;
 import org.gnome.sourceview.ValidateSourceView;
 import org.gnome.unique.ValidateUniqueApplications;
@@ -166,6 +167,7 @@ public class UnitTests
         suite.addTestSuite(ValidateArrow.class);
         suite.addTestSuite(ValidatePangoTextRendering.class);
         suite.addTestSuite(ValidatePangoAttributeUsage.class);
+        suite.addTestSuite(ValidatePangoLayoutLines.class);
         suite.addTestSuite(ValidateEnchantInternals.class);
         suite.addTestSuite(ValidatePrinting.class);
         suite.addTestSuite(ValidateSourceView.class);

@@ -126,4 +126,27 @@ public final class LayoutLine extends Boxed
 
         return result;
     }
+
+    /**
+     * Get the character position into the parent Layout that this LayoutLine
+     * begins at.
+     * 
+     * <p>
+     * <i>The underlying PangoLayout and PangoLayoutLine structures work in
+     * byte widths; we convert to character offsets.</i>
+     * 
+     * @since 4.0.14
+     */
+    public int getStartIndex() {
+        return PangoLayoutLineOverride.getStartIndex(this);
+    }
+
+    /**
+     * Get the width of this LayoutLine, in characters.
+     * 
+     * @since 4.0.14
+     */
+    public int getLength() {
+        return PangoLayoutLineOverride.getLength(this);
+    }
 }
