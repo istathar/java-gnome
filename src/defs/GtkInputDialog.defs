@@ -3,6 +3,7 @@
   (parent "GtkDialog")
   (c-name "GtkInputDialog")
   (gtype-id "GTK_TYPE_INPUT_DIALOG")
+  (unnecessary)
 )
 
 (define-function gtk_input_dialog_new
