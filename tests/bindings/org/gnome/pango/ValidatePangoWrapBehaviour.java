@@ -1,5 +1,5 @@
 /*
- * ValidateLayoutLines.java
+ * ValidatePangoWrapBehaviour.java
  *
  * Copyright (c) 2009 Operational Dynamics Consulting Pty Ltd
  * 
@@ -28,7 +28,7 @@ import org.gnome.gtk.Window;
  * 
  * @author Andrew Cowie
  */
-public class ValidatePangoLayoutLines extends GraphicalTestCase
+public class ValidatePangoWrapBehaviour extends GraphicalTestCase
 {
     private static Layout draw(Context cr) {
         final Layout layout;
