@@ -155,4 +155,22 @@ public final class CursorType extends Flag
      * @since 4.0.12
      */
     public static final CursorType FLEUR = new CursorType(GdkCursorType.FLEUR, "FLEUR");
+
+    /**
+     * The hand, open. Suggests something that can be grabbed.
+     * 
+     * @since 4.0.14
+     */
+    public static final CursorType HAND1 = new CursorType(GdkCursorType.HAND1, "HAND1");
+
+    /**
+     * The hand, index finger pointing. Typically used to suggest a clickable
+     * link.
+     * 
+     * @since 4.0.14
+     */
+    public static final CursorType HAND2 = new CursorType(GdkCursorType.HAND2, "HAND2");
+
+    static final CursorType CURSOR_IS_PIXMAP = new CursorType(GdkCursorType.CURSOR_IS_PIXMAP,
+            "CURSOR_IS_PIXMAP");
 }

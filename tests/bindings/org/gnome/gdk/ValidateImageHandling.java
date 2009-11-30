@@ -15,10 +15,10 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 
 import org.gnome.gtk.Button;
+import org.gnome.gtk.GraphicalTestCase;
 import org.gnome.gtk.Gtk;
 import org.gnome.gtk.IconSize;
 import org.gnome.gtk.Stock;
-import org.gnome.gtk.GraphicalTestCase;
 
 /**
  * @author Andrew Cowie
@@ -180,5 +180,36 @@ public class ValidateImageHandling extends GraphicalTestCase
 
         assertEquals(48, target.getWidth());
         assertEquals(48, target.getHeight());
+    }
+
+    public final void testPixbufInfoFromDisk() throws IOException {
+        final Pixbuf pixbuf;
+        final int loadedWidth, loadedHeight;
+        final int infoWidth, infoHeight;
+
+        /*
+         * This file specifically picked to be a non-square image.
+         */
+
+        pixbuf = new Pixbuf("tests/prototype/MapleSyrup.jpg");
+
+        loadedWidth = pixbuf.getWidth();
+        loadedHeight = pixbuf.getHeight();
+
+        assertEquals("Expecting a 200x398 image", 200, loadedWidth);
+        assertEquals("Expecting a 200x398 image", 398, loadedHeight);
+
+        /*
+         * Now test the static functions used for probing a file on disk. It's
+         * hard to imagine that this would come up with different answers than
+         * loading an image, but the point is to exercise these code paths,
+         * not validate gdk-pixbuf as such.
+         */
+
+        infoWidth = Pixbuf.getFileInfoWidth("tests/prototype/MapleSyrup.jpg");
+        infoHeight = Pixbuf.getFileInfoHeight("tests/prototype/MapleSyrup.jpg");
+
+        assertEquals("File info width should be 200", 200, infoWidth);
+        assertEquals("File info height should be 398", 398, infoHeight);
     }
 }

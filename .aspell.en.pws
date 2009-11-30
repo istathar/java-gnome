@@ -159,6 +159,8 @@ EVERSION
 EditedHandler
 Eeek
 Emmanuele
+EnchantBroker
+EnchantDict
 EndUserActionSignal
 EnterNotifyEvent
 EnterNotifyEventSignal
@@ -1206,6 +1208,7 @@ darkgreen
 dbm
 de
 debian
+defaultBroker
 defaultEditability
 defaultEditable
 defaultTable
@@ -1313,6 +1316,7 @@ formatter
 forwardDisplayLine
 forwardLine
 foss
+freeDict
 freedesktop
 fromName
 fullscreen
@@ -1927,6 +1931,7 @@ plugin
 png
 po
 pointerOf
+popdown
 popen
 popup
 popupStatusIcon
@@ -1985,6 +1990,10 @@ renderable
 renderer
 reorderChild
 repo
+requestDict
+requestDictionary
+requestPersonalWordList
+requestPwlDict
 resizable
 resize
 resized

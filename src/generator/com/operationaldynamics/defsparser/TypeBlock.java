@@ -76,6 +76,8 @@ public abstract class TypeBlock extends Block
 
         if (module.equals("Cairo")) {
             return "org.freedesktop.cairo";
+        } else if (module.equals("Enchant")) {
+            return "org.freedesktop.enchant";
         } else if (module.equals("GtkSourceView")) {
             return "org.gnome.sourceview";
         }

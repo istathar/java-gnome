@@ -49,7 +49,7 @@ import org.gnome.glib.Boxed;
  * <p>
  * <i> The different text attribute manipulations you can do are analogous to
  * those found on FontDescription and TextTag. Indeed, Pango's Attributes are
- * is the underlying mechanism powering TextView and Label's rendering of rich
+ * the underlying mechanism powering TextView and Label's rendering of rich
  * markup.</i>
  * 
  * 

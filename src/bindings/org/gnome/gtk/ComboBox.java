@@ -170,6 +170,15 @@ public class ComboBox extends Bin implements CellEditable, CellLayout
         GtkComboBox.popup(this);
     }
 
+    /**
+     * Programmatically tell the ComboBox popup to go away.
+     * 
+     * @since 4.0.14
+     */
+    public void popdown() {
+        GtkComboBox.popdown(this);
+    }
+
     TreeModel getModel() {
         return GtkComboBox.getModel(this);
     }
