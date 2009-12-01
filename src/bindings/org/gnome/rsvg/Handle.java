@@ -15,6 +15,7 @@ package org.gnome.rsvg;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 
 import org.gnome.glib.GlibException;
 
@@ -59,20 +60,39 @@ public class Handle extends org.gnome.glib.Object
     }
 
     /**
+     * Write data <i>into</i> this Handle.
+     * 
+     * @since <span style="color: red;">Unstable</span>
+     * @throws IOException
+     *             if there is a problem loading the data
+     */
+    /*
+     * Except that it's not actually an IO problem; it'd be a data formatting
+     * error. Still, it's a checked exception for sure.
+     */
+    public void write(byte[] data) throws IOException {
+        try {
+            // FIXME second argument needs work.
+            RsvgHandle.write(this, null, data.length);
+        } catch (Exception ge) {
+            // FIXME actually GlibException.
+            throw new IOException(ge.getMessage());
+        }
+    }
+
+    /**
      * Indicate you have finished loading data into the Handle.
      * 
      * <p>
-     * Returns <code>true</code> assuming the nothing went wrong.
+     * This method is the compliment of the {@link #write(byte[]) write()}
+     * method, and should be called when you have passed in all the data for
+     * the image you are loading.
      * 
-     * @since 4.0.14
+     * @since <span style="color: red;">Unstable</span>
      */
-    /*
-     * Should this be a checked exception instead of a boolean return? Seems
-     * that way.
-     */
-    public boolean close() {
+    public void close() throws IOException {
         try {
-            return RsvgHandle.close(this);
+            RsvgHandle.close(this);
         } catch (GlibException ge) {
             throw new RuntimeException(ge.getMessage());
         }

@@ -56,6 +56,7 @@ import org.gnome.gtk.ValidateUnicode;
 import org.gnome.pango.ValidatePangoAttributeUsage;
 import org.gnome.pango.ValidatePangoLayoutLines;
 import org.gnome.pango.ValidatePangoTextRendering;
+import org.gnome.rsvg.ValidateVectorIllustrations;
 import org.gnome.sourceview.ValidateSourceView;
 import org.gnome.unique.ValidateUniqueApplications;
 
@@ -172,6 +173,7 @@ public class UnitTests
         suite.addTestSuite(ValidatePrinting.class);
         suite.addTestSuite(ValidateSourceView.class);
         suite.addTestSuite(ValidateUniqueApplications.class);
+        suite.addTestSuite(ValidateVectorIllustrations.class);
 
         return suite;
     }

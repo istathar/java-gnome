@@ -13,7 +13,12 @@
 package org.gnome.rsvg;
 
 import java.io.FileNotFoundException;
+import java.io.IOException;
 
+import org.freedesktop.cairo.Context;
+import org.freedesktop.cairo.Format;
+import org.freedesktop.cairo.ImageSurface;
+import org.freedesktop.cairo.Surface;
 import org.gnome.gtk.GraphicalTestCase;
 
 /**
@@ -21,6 +26,9 @@ import org.gnome.gtk.GraphicalTestCase;
  */
 public class ValidateVectorIllustrations extends GraphicalTestCase
 {
+    /*
+     * Is this actually necessary?
+     */
     public final void testInitializing() {
         Rsvg.init();
     }
@@ -49,11 +57,23 @@ public class ValidateVectorIllustrations extends GraphicalTestCase
         }
     }
 
-    public final void testHandleMethods() throws FileNotFoundException {
+    public final void testHandleMethods() throws IOException {
         final Handle handle;
+        final Surface surface;
+        final Context cr;
+        final DimensionData dim;
+
+        surface = new ImageSurface(Format.ARGB32, 400, 500);
+        cr = new Context(surface);
 
         handle = new Handle("tests/bindings/org/gnome/rsvg/Linux_Tux.svg");
+        dim = handle.getDimensions();
+        assertEquals(334, dim.getWidth());
+        assertEquals(393, dim.getHeight());
 
-        handle.close();
+        cr.showHandle(handle);
+
+        surface.writeToPNG("tmp/tests/org/gnome/rsvg/Linux_Tux.png");
+        surface.finish();
     }
 }
