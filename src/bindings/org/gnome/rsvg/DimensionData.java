@@ -17,6 +17,11 @@ import org.gnome.glib.Boxed;
  * The size of an SVG image.
  * 
  * @author Andrew Cowie
+ * @since 4.0.15
+ */
+/*
+ * Stupid name! Just call it Dimensions... or howabout Rectangle, like every
+ * other bloody GNOME library?
  */
 public class DimensionData extends Boxed
 {
@@ -35,7 +40,7 @@ public class DimensionData extends Boxed
     /**
      * Get the width of the SVG, in pixels.
      * 
-     * @since 4.0.14
+     * @since 4.0.15
      */
     public int getWidth() {
         return RsvgDimensionData.getWidth(this);
@@ -44,7 +49,7 @@ public class DimensionData extends Boxed
     /**
      * Get the height of the SVG, in pixels.
      * 
-     * @since 4.0.14
+     * @since 4.0.15
      */
     public int getHeight() {
         return RsvgDimensionData.getHeight(this);

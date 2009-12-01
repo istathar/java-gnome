@@ -17,7 +17,7 @@ import org.gnome.glib.Glib;
  * The GNOME SVG Library.
  * 
  * @author Andrew Cowie
- * @since 4.0.14
+ * @since 4.0.15
  */
 public final class Rsvg extends Glib
 {
@@ -26,7 +26,7 @@ public final class Rsvg extends Glib
     /**
      * Initialize librsvg's subsystems.
      * 
-     * @since 4.0.14
+     * @since 4.0.15
      */
     public static void init() {
         RsvgMain.init();

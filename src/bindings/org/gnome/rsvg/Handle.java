@@ -23,7 +23,7 @@ import org.gnome.glib.GlibException;
  * Handle to an SVG image in memory.
  * 
  * @author Andrew Cowie
- * @since 4.0.14
+ * @since 4.0.15
  */
 public class Handle extends org.gnome.glib.Object
 {
@@ -34,7 +34,7 @@ public class Handle extends org.gnome.glib.Object
     /**
      * Construct a handle to an SVG image sourced from the given filename.
      * 
-     * @since 4.0.14
+     * @since 4.0.15
      */
     public Handle(String filename) throws FileNotFoundException {
         super(checkHandleFromFile(filename));
@@ -101,7 +101,7 @@ public class Handle extends org.gnome.glib.Object
     /**
      * Get the size of the SVG image represented by this Handle.
      * 
-     * @since 4.0.14
+     * @since 4.0.15
      */
     public DimensionData getDimensions() {
         final DimensionData size;
@@ -120,7 +120,7 @@ public class Handle extends org.gnome.glib.Object
      * <p>
      * You can pass <code>null<code> to get the size of the entire graphic.
      * 
-     * @since 4.0.14
+     * @since 4.0.15
      */
     public DimensionData getDimensionsSub(String id) {
         final DimensionData size;
