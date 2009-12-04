@@ -48,8 +48,6 @@ Java_org_gnome_gtk_GtkMain_gtk_1init
 	g_thread_init(NULL);
 	gdk_threads_init();
 
-	g_set_prgname("java");
-
 	// convert args
 	if (_args == NULL) {
 		argc = 0;
