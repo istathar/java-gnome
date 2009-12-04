@@ -45,8 +45,6 @@ public abstract class Plumbing extends org.freedesktop.bindings.Plumbing
         final InputStream is;
         final Properties p;
 
-        Glib.checkInitialized();
-
         lock = Gdk.lock;
 
         typeMapping = new IdentityHashMap<String, String>(470);

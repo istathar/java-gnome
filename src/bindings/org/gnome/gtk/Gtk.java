@@ -42,6 +42,10 @@ import org.gnome.glib.Glib;
  */
 public final class Gtk extends Glib
 {
+    static boolean isInitialized() {
+        return initialized;
+    }
+
     /**
      * No instantiation. Static methods only!
      */
@@ -66,18 +70,12 @@ public final class Gtk extends Glib
         if (initialized) {
             throw new IllegalStateException("Gtk already initialized");
         }
-
-        /*
-         * Notify org.gnome.glib.Glib that we don't need it to do anything
-         */
-        Glib.skipInit();
+        initialized = true;
 
         /*
          * Initialize GTK and along with it GLib, GObject, etc.
          */
         GtkMain.init(args);
-
-        initialized = true;
     }
 
     /**
