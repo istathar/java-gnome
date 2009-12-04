@@ -78,8 +78,8 @@ public class ExampleSnooping
     }
 
     public static void main(String[] args) {
-        Gtk.init(args);
         Glib.setProgramName("snooping");
+        Gtk.init(args);
 
         new ExampleSnooping();
 

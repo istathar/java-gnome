@@ -1,7 +1,7 @@
 /*
  * Glib.java
  *
- * Copyright (c) 2006-2008 Operational Dynamics Consulting Pty Ltd
+ * Copyright (c) 2006-2009 Operational Dynamics Consulting Pty Ltd
  * 
  * The code in this file, and the library it is a part of, are made available
  * to you by the authors under the terms of the "GNU General Public Licence,
@@ -20,76 +20,9 @@ package org.gnome.glib;
 public class Glib
 {
     /**
-     * A guard against someone calling init() twice
-     */
-    private static boolean initialized = false;
-
-    static {
-        // FIXME: call g_type_init()
-    }
-
-    /**
      * No instantiation. Static methods only!
      */
     protected Glib() {}
-
-    /**
-     * Initialize GLib's internal subsystems. To simplify things, this is
-     * called automatically by
-     * {@link org.gnome.gtk.Gtk#init(java.lang.String[]) Gtk.init()}, so the
-     * occasions to call this directly should be pretty rare.
-     * 
-     * @throws IllegalStateException
-     *             if GLib has already been initialized, ie you either called
-     *             this twice by accident, or you already initialized GLib by
-     *             calling Gtk.init() or Program.init().
-     * @since 4.0.0
-     */
-    protected static void init(String[] args) {
-        if (initialized) {
-            throw new IllegalStateException("Glib already initialized");
-        }
-
-        // TODO: other initializations?
-
-        /*
-         * Prevent subsequent manual initialization.
-         */
-        initialized = true;
-    }
-
-    /**
-     * Notify org.gnome.glib.Glib that it will be initialized care of a sub
-     * library's initialization. <i>This is so Gtk or Gnome can just carry on
-     * calling gtk_init() or gnome_program_init(), both of which initialize
-     * <code>GLib</code>, <code>GType</code>, etc</i>
-     * 
-     * @since 4.0.1
-     */
-    protected static void skipInit() {
-        /*
-         * Prevent subsequent manual initialization.
-         */
-        initialized = true;
-    }
-
-    /**
-     * Check if GLib and GTK have been initialized; abort if not.
-     */
-    /*
-     * TODO make it possible for non GTK libraries to initialize java-gnome.
-     * This will involve moving the System.loadLibrary() call here, and more
-     * importantly adding a JNI call here to do the GThreads and related
-     * setup. For now, keeping the requirement as Gtk.init() [and hence the
-     * JNI code in src/bindings/org/gnome/gtk/Gtk.c] is fine; running it
-     * doesn't hurt very much.
-     */
-    static void checkInitialized() {
-        if (!initialized) {
-            throw new FatalError(
-                    "\n\nYou *must* call Gtk.init() before using anything else in java-gnome!\n");
-        }
-    }
 
     /**
      * Change the internal program name used by GLib and GTK for internal
@@ -114,10 +47,15 @@ public class Glib
      * <p>
      * You don't really need to call this, but it's here if you want to make
      * it clearer in the <code>.xsession-errors</code> log what the culprit
-     * application is. The default name is "java", which is fine until you
-     * deploy for production use.
+     * application is.
      * 
-     * @since 4.0.6
+     * <p>
+     * <b>Warning</b><br>
+     * If you wish to use this, it <b>must</b> be called before anything else.
+     * This is the <i>only</i> method in java-gnome that can be called before
+     * {@link org.gnome.gtk.Gtk#init(String[]) Gtk.init()}.
+     * 
+     * @since 4.0.14
      */
     /*
      * Another one to potentially move to a GtkApplication class.
