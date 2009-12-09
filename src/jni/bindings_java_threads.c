@@ -43,8 +43,8 @@ bindings_java_threads_init
 	// now get about setting up GDK's threads
 	lock = (*env)->NewGlobalRef(env, obj);
 
-	gdk_threads_init();
 	gdk_threads_set_lock_functions(bindings_java_threads_lock, bindings_java_threads_unlock);
+	gdk_threads_init();
 }
 
 /**
