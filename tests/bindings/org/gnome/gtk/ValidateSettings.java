@@ -52,7 +52,7 @@ public class ValidateSettings extends GraphicalTestCase
         assertSame(s1, s2);
     }
 
-    public final void testSetShowImage() {
+    public final void testSetShowImagesOnButtons() {
         final Settings settings;
 
         settings = Settings.getDefault();
@@ -64,4 +64,30 @@ public class ValidateSettings extends GraphicalTestCase
         assertTrue(settings.getButtonImages());
     }
 
+    public final void testSetShowImagesInMenus() {
+        final Settings settings;
+        final ImageMenuItem quit;
+
+        settings = Settings.getDefault();
+
+        /*
+         * Amazingly, GtkSettings properties are dynamic at runtime; it's
+         * GtkImageMenuItem's gtk_image_menu_item_class_init() that installs
+         * the required property.
+         */
+
+        quit = new ImageMenuItem(Stock.QUIT);
+        quit.getName();
+
+        /*
+         * So hooray, now we should be able to call the getter and setter and
+         * not have GLib die for lack of a GParamSpec.
+         */
+
+        assertTrue(settings.getMenuImages());
+        settings.setMenuImages(false);
+        assertFalse(settings.getMenuImages());
+        settings.setMenuImages(true);
+        assertTrue(settings.getMenuImages());
+    }
 }

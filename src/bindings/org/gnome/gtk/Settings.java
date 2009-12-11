@@ -76,4 +76,42 @@ public class Settings extends Object
     public boolean getButtonImages() {
         return this.getPropertyBoolean("gtk-button-images");
     }
+
+    /**
+     * Set whether MenuItems should have images (notably stock icons) showing
+     * on them by default.
+     * 
+     * <pre>
+     * settings.setMenuImages(true);
+     * </pre>
+     * 
+     * <p>
+     * <i>Somewhat amazingly, GtkSettings properties are dynamic at runtime;
+     * this property does not even exist until the underlying GtkImageMenuItem
+     * class has initialized and installed the required property. So if wish
+     * to call this you need to do so after you've built some menus.</i>
+     * </p>
+     * 
+     * <p>
+     * <i>The underlying GtkSetting is the "<var>gtk-menu-images</var>"
+     * property.</i>
+     * 
+     * @since 4.0.14
+     */
+    /*
+     * The function that needs to have run appears to be
+     * gtk_image_menu_item_class_init() in gtk/gtkimagemenuitem.c
+     */
+    public void setMenuImages(boolean setting) {
+        this.setPropertyBoolean("gtk-menu-images", setting);
+    }
+
+    /**
+     * Are images (icons) being shown in menus by default?
+     * 
+     * @since 4.0.14
+     */
+    public boolean getMenuImages() {
+        return this.getPropertyBoolean("gtk-menu-images");
+    }
 }
