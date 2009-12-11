@@ -11,36 +11,30 @@
  */
 package org.gnome.gtk;
 
-import org.gnome.gdk.Screen;
 import org.gnome.glib.Object;
 
 /**
- * Global settings for a GTK application.
+ * Global settings for a GTK application. Get this object by calling the
+ * factory function {@link Gtk#getSettings() Gtk.getSettings()}.
+ * 
+ * <pre>
+ * settings = Gtk.getSettings();
+ * settings.setButtonImages(true);
+ * </pre>
  * 
  * @since 4.0.14
+ */
+/*
+ * The functions to get the GtkSettings objects aren't here for a couple
+ * reasons. One is aesthetic; we've concentrated other functions on the
+ * package class rather than having them as local static methods. The other
+ * reason is completion space; there are property getters on this class, and
+ * getDefault() just doesn't make sense alongside them.
  */
 public class Settings extends Object
 {
     protected Settings(long pointer) {
         super(pointer);
-    }
-
-    /**
-     * Get the Settings object for the default Screen.
-     * 
-     * @since 4.0.14
-     */
-    public static Settings getDefault() {
-        return GtkSettings.getDefault();
-    }
-
-    /**
-     * Get the Settings object for the given Screen
-     * 
-     * @since 4.0.14
-     */
-    public static Settings getForScreen(Screen screen) {
-        return GtkSettings.getForScreen(screen);
     }
 
     /**

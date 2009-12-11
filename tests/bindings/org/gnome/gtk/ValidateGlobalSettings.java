@@ -19,7 +19,7 @@ import org.gnome.gdk.Screen;
  * 
  * @author Andrew Cowie
  */
-public class ValidateSettings extends GraphicalTestCase
+public class ValidateGlobalSettings extends GraphicalTestCase
 {
     /*
      * Screen.getDefault() isn't public [will it ever be?].
@@ -44,10 +44,10 @@ public class ValidateSettings extends GraphicalTestCase
         final Settings s1, s2;
         final Screen screen;
 
-        s1 = Settings.getDefault();
+        s1 = Gtk.getSettings();
 
         screen = introspectDefaultScreen();
-        s2 = Settings.getForScreen(screen);
+        s2 = GtkSettings.getForScreen(screen);
 
         assertSame(s1, s2);
     }
@@ -55,7 +55,7 @@ public class ValidateSettings extends GraphicalTestCase
     public final void testSetShowImagesOnButtons() {
         final Settings settings;
 
-        settings = Settings.getDefault();
+        settings = Gtk.getSettings();
 
         assertTrue(settings.getButtonImages());
         settings.setButtonImages(false);
@@ -68,7 +68,7 @@ public class ValidateSettings extends GraphicalTestCase
         final Settings settings;
         final ImageMenuItem quit;
 
-        settings = Settings.getDefault();
+        settings = Gtk.getSettings();
 
         /*
          * Amazingly, GtkSettings properties are dynamic at runtime; it's

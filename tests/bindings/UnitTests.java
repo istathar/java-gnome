@@ -32,6 +32,7 @@ import org.gnome.gtk.ValidateComboBox;
 import org.gnome.gtk.ValidateEntry;
 import org.gnome.gtk.ValidateEntryCompletion;
 import org.gnome.gtk.ValidateFileChoosing;
+import org.gnome.gtk.ValidateGlobalSettings;
 import org.gnome.gtk.ValidateIconView;
 import org.gnome.gtk.ValidateInputMethods;
 import org.gnome.gtk.ValidateLinkBehaviour;
@@ -54,8 +55,8 @@ import org.gnome.gtk.ValidateTreeStore;
 import org.gnome.gtk.ValidateTreeView;
 import org.gnome.gtk.ValidateUnicode;
 import org.gnome.pango.ValidatePangoAttributeUsage;
-import org.gnome.pango.ValidatePangoWrapBehaviour;
 import org.gnome.pango.ValidatePangoTextRendering;
+import org.gnome.pango.ValidatePangoWrapBehaviour;
 import org.gnome.sourceview.ValidateSourceView;
 import org.gnome.unique.ValidateUniqueApplications;
 
@@ -138,6 +139,7 @@ public class UnitTests
         suite.addTestSuite(ValidateScreensAndDisplays.class);
         suite.addTestSuite(ValidateKeyboardHandling.class);
         suite.addTestSuite(ValidateImageHandling.class);
+        suite.addTestSuite(ValidateGlobalSettings.class);
         suite.addTestSuite(ValidateCairoInternals.class);
         suite.addTestSuite(ValidateCairoContext.class);
         suite.addTestSuite(ValidateDrawingToFile.class);
