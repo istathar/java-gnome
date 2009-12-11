@@ -1,7 +1,7 @@
 /*
  * Object.java
  *
- * Copyright (c) 2006-2008 Operational Dynamics Consulting Pty Ltd
+ * Copyright (c) 2006-2009 Operational Dynamics Consulting Pty Ltd
  * 
  * The code in this file, and the library it is a part of, are made available
  * to you by the authors under the terms of the "GNU General Public Licence,
@@ -124,7 +124,9 @@ public abstract class Object extends Proxy
     }
 
     protected int getPropertyInteger(String name) {
-        Value value = GObject.getProperty(this, name);
+        final Value value;
+
+        value = GObject.getProperty(this, name);
         return GValue.getInteger(value);
     }
 
@@ -142,7 +144,9 @@ public abstract class Object extends Proxy
     }
 
     protected boolean getPropertyBoolean(String name) {
-        Value value = GObject.getProperty(this, name);
+        final Value value;
+
+        value = GObject.getProperty(this, name);
         return GValue.getBoolean(value);
     }
 
@@ -156,7 +160,9 @@ public abstract class Object extends Proxy
     }
 
     protected float getPropertyFloat(String name) {
-        Value value = GObject.getProperty(this, name);
+        final Value value;
+
+        value = GObject.getProperty(this, name);
         return GValue.getFloat(value);
     }
 
@@ -165,7 +171,9 @@ public abstract class Object extends Proxy
     }
 
     protected double getPropertyDouble(String name) {
-        Value value = GObject.getProperty(this, name);
+        final Value value;
+
+        value = GObject.getProperty(this, name);
         return GValue.getDouble(value);
     }
 
@@ -179,7 +187,9 @@ public abstract class Object extends Proxy
     }
 
     protected String getPropertyString(String name) {
-        Value value = GObject.getProperty(this, name);
+        final Value value;
+
+        value = GObject.getProperty(this, name);
         return GValue.getString(value);
     }
 
@@ -188,12 +198,16 @@ public abstract class Object extends Proxy
     }
 
     protected Constant getPropertyEnum(String name) {
-        Value value = GObject.getProperty(this, name);
+        final Value value;
+
+        value = GObject.getProperty(this, name);
         return GValue.getEnum(value);
     }
 
     protected Flag getPropertyFlags(String name) {
-        Value value = GObject.getProperty(this, name);
+        final Value value;
+
+        value = GObject.getProperty(this, name);
         return GValue.getFlags(value);
     }
 
@@ -209,7 +223,9 @@ public abstract class Object extends Proxy
      * @since 4.0.1
      */
     protected Object getPropertyObject(String name) {
-        Value value = GObject.getProperty(this, name);
+        final Value value;
+
+        value = GObject.getProperty(this, name);
         return GValue.getObject(value);
     }
 

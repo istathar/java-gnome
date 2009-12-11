@@ -3764,19 +3764,6 @@
   (return-type "GType")
 )
 
-(define-function settings_get_default
-  (c-name "gtk_settings_get_default")
-  (return-type "GtkSettings*")
-)
-
-(define-function settings_get_for_screen
-  (c-name "gtk_settings_get_for_screen")
-  (return-type "GtkSettings*")
-  (parameters
-    '("GdkScreen*" "screen")
-  )
-)
-
 (define-function settings_install_property
   (c-name "gtk_settings_install_property")
   (return-type "none")
