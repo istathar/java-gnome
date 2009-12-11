@@ -42,4 +42,38 @@ public class Settings extends Object
     public static Settings getForScreen(Screen screen) {
         return GtkSettings.getForScreen(screen);
     }
+
+    /**
+     * Set whether Buttons should have images (ie stock icons) showing on them
+     * by default.
+     * 
+     * <pre>
+     * settings.setButtonImages(true);
+     * </pre>
+     * 
+     * <p>
+     * <i>The default was</i> <code>true</code> <i>before GNOME 2.28, but it
+     * seems to have been changed as a result of changing the default value of
+     * GConf key</i> <code>/desktop/gnome/interface/buttons_have_icons</code>
+     * <i>. This allows you to return that setting to normal for your
+     * application.</i>
+     * 
+     * <p>
+     * <i>The underlying GtkSetting is the "<var>gtk-button-images</var>"
+     * property.</i>
+     * 
+     * @since 4.0.14
+     */
+    public void setButtonImages(boolean setting) {
+        this.setPropertyBoolean("gtk-button-images", setting);
+    }
+
+    /**
+     * Are images (icons) being shown on Buttons by default?
+     * 
+     * @since 4.0.14
+     */
+    public boolean getButtonImages() {
+        return this.getPropertyBoolean("gtk-button-images");
+    }
 }

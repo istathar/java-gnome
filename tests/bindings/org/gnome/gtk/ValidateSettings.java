@@ -51,4 +51,17 @@ public class ValidateSettings extends GraphicalTestCase
 
         assertSame(s1, s2);
     }
+
+    public final void testSetShowImage() {
+        final Settings settings;
+
+        settings = Settings.getDefault();
+
+        assertTrue(settings.getButtonImages());
+        settings.setButtonImages(false);
+        assertFalse(settings.getButtonImages());
+        settings.setButtonImages(true);
+        assertTrue(settings.getButtonImages());
+    }
+
 }
