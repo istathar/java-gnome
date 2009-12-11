@@ -1,7 +1,7 @@
 /*
  * Settings.java
  *
- * Copyright (c) 2007 Operational Dynamics Consulting Pty Ltd
+ * Copyright (c) 2007-2009 Operational Dynamics Consulting Pty Ltd
  *
  * The code in this file, and the library it is a part of, are made available
  * to you by the authors under the terms of the "GNU General Public Licence,
@@ -11,19 +11,35 @@
  */
 package org.gnome.gtk;
 
+import org.gnome.gdk.Screen;
 import org.gnome.glib.Object;
 
-/*
- * FIXME this is a placeholder stub for what will become the public API for
- * this type. Replace this comment with appropriate javadoc including author
- * and since tags. Note that the class may need to be made abstract, implement
- * interfaces, or even have its parent changed. No API stability guarantees
- * are made about this class until it has been reviewed by a hacker and this
- * comment has been replaced.
+/**
+ * Global settings for a GTK application.
+ * 
+ * @since 4.0.14
  */
 public class Settings extends Object
 {
     protected Settings(long pointer) {
         super(pointer);
+    }
+
+    /**
+     * Get the Settings object for the default Screen.
+     * 
+     * @since 4.0.14
+     */
+    public static Settings getDefault() {
+        return GtkSettings.getDefault();
+    }
+
+    /**
+     * Get the Settings object for the given Screen
+     * 
+     * @since 4.0.14
+     */
+    public static Settings getForScreen(Screen screen) {
+        return GtkSettings.getForScreen(screen);
     }
 }
