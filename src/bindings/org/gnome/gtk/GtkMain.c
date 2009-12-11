@@ -41,12 +41,11 @@ Java_org_gnome_gtk_GtkMain_gtk_1init
 	jstring _arg;
 	gchar* arg;
 
-	bindings_java_logging_init();
-
-	bindings_java_threads_init(env, _lock);
-	
-	g_thread_init(NULL);
-	gdk_threads_init();
+	/*
+	 * The call to g_threads_init() needs to be be the very first thing
+	 * that happens in our use of GLib; it will have happened care of
+	 * the static initializer in [org.gnome.gib] Plumbing.
+	 */
 
 	// convert args
 	if (_args == NULL) {

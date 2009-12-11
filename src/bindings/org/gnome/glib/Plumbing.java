@@ -45,7 +45,14 @@ public abstract class Plumbing extends org.freedesktop.bindings.Plumbing
         final InputStream is;
         final Properties p;
 
+        /*
+         * A call to g_threads_init() has to be the first thing done with
+         * GLib. This call makes it so, along with the lock object that will
+         * be used for GDK.
+         */
+
         lock = Gdk.lock;
+        initializeNative(lock);
 
         typeMapping = new IdentityHashMap<String, String>(470);
 
@@ -71,6 +78,8 @@ public abstract class Plumbing extends org.freedesktop.bindings.Plumbing
             registerType(gType, javaClass);
         }
     }
+
+    private static native final void initializeNative(java.lang.Object lock);
 
     /**
      * Register a GType name as corresponding to the given Proxy subclass.
