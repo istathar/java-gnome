@@ -114,7 +114,7 @@ public class Settings extends Object
      * offering to let you change the InputMethod?
      * 
      * <p>
-     * By default they do, <code>true</code>
+     * Normally they do, so <code>true</code> is the default.
      * 
      * @since 4.0.14
      */
@@ -130,5 +130,28 @@ public class Settings extends Object
      */
     public boolean getShowInputMethodMenu() {
         return this.getPropertyBoolean("gtk-show-input-method-menu");
+    }
+
+    /**
+     * Should the context menus of TextViews and Entries have a menu item
+     * offering to let you input unusual Unicode control sequences?
+     * 
+     * <p>
+     * By default they do, so you can expect this to be <code>true</code>.
+     * 
+     * @since 4.0.14
+     */
+    public void setShowUnicodeMenu(boolean setting) {
+        this.setPropertyBoolean("gtk-show-unicode-menu", setting);
+    }
+
+    /**
+     * Are Entry and TextView popup context menus showing a menu item allowing
+     * you to enter Unicode control characters?
+     * 
+     * @since 4.0.14
+     */
+    public boolean getShowUnicodeMenu() {
+        return this.getPropertyBoolean("gtk-show-unicode-menu");
     }
 }

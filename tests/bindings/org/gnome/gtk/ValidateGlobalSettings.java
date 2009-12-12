@@ -104,4 +104,18 @@ public class ValidateGlobalSettings extends GraphicalTestCase
         settings.setShowInputMethodMenu(true);
         assertTrue(settings.getShowInputMethodMenu());
     }
+
+    public final void testShowUnicodeMenu() {
+        final Settings settings;
+
+        settings = Gtk.getSettings();
+
+        assertTrue(settings.getShowUnicodeMenu());
+
+        settings.setShowUnicodeMenu(false);
+        assertFalse(settings.getShowUnicodeMenu());
+
+        settings.setShowUnicodeMenu(true);
+        assertTrue(settings.getShowUnicodeMenu());
+    }
 }
