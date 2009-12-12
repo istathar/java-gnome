@@ -108,4 +108,27 @@ public class Settings extends Object
     public boolean getMenuImages() {
         return this.getPropertyBoolean("gtk-menu-images");
     }
+
+    /**
+     * Should the context menus of TextViews and Entries have a menu item
+     * offering to let you change the InputMethod?
+     * 
+     * <p>
+     * By default they do, <code>true</code>
+     * 
+     * @since 4.0.14
+     */
+    public void setShowInputMethodMenu(boolean setting) {
+        this.setPropertyBoolean("gtk-show-input-method-menu", setting);
+    }
+
+    /**
+     * Do Entry and TextView popup context menus have a menu item allowing you
+     * to change the InputMethod?
+     * 
+     * @since 4.0.14
+     */
+    public boolean getShowInputMethodMenu() {
+        return this.getPropertyBoolean("gtk-show-input-method-menu");
+    }
 }
