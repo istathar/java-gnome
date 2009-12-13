@@ -15,7 +15,6 @@ import java.io.IOException;
 import java.net.URI;
 
 import org.gnome.gdk.Pixbuf;
-import org.gnome.gdk.Screen;
 import org.gnome.glib.Glib;
 
 /**
@@ -212,14 +211,11 @@ public final class Gtk extends Glib
 
     /**
      * Get the Settings object for the given Screen.
-     * 
-     * @since 4.0.14
      */
     /*
      * We still haven't really exposed Screen. Do we need this?
      */
-    static Settings getSettings(Screen screen) {
-        return GtkSettings.getForScreen(screen);
-    }
-
+    // static Settings getSettings(Screen screen) {
+    // return GtkSettings.getForScreen(screen);
+    // }
 }

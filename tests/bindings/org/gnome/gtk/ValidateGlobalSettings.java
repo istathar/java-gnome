@@ -52,7 +52,7 @@ public class ValidateGlobalSettings extends GraphicalTestCase
         assertSame(s1, s2);
     }
 
-    public final void testSetShowImagesOnButtons() {
+    public final void testShowImagesOnButtons() {
         final Settings settings;
 
         settings = Gtk.getSettings();
@@ -64,7 +64,7 @@ public class ValidateGlobalSettings extends GraphicalTestCase
         assertTrue(settings.getButtonImages());
     }
 
-    public final void testSetShowImagesInMenus() {
+    public final void testShowImagesInMenus() {
         final Settings settings;
         final ImageMenuItem quit;
 
@@ -89,5 +89,33 @@ public class ValidateGlobalSettings extends GraphicalTestCase
         assertFalse(settings.getMenuImages());
         settings.setMenuImages(true);
         assertTrue(settings.getMenuImages());
+    }
+
+    public final void testShowInputMethodMenu() {
+        final Settings settings;
+
+        settings = Gtk.getSettings();
+
+        assertTrue(settings.getShowInputMethodMenu());
+
+        settings.setShowInputMethodMenu(false);
+        assertFalse(settings.getShowInputMethodMenu());
+
+        settings.setShowInputMethodMenu(true);
+        assertTrue(settings.getShowInputMethodMenu());
+    }
+
+    public final void testShowUnicodeMenu() {
+        final Settings settings;
+
+        settings = Gtk.getSettings();
+
+        assertTrue(settings.getShowUnicodeMenu());
+
+        settings.setShowUnicodeMenu(false);
+        assertFalse(settings.getShowUnicodeMenu());
+
+        settings.setShowUnicodeMenu(true);
+        assertTrue(settings.getShowUnicodeMenu());
     }
 }
