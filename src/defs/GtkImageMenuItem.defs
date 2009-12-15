@@ -58,3 +58,12 @@
   (return-type "GtkWidget*")
 )
 
+(define-method set_always_show_image
+  (of-object "GtkImageMenuItem")
+  (c-name "gtk_image_menu_item_set_always_show_image")
+  (return-type "none")
+  (parameters
+    '("gboolean" "always_show")
+  )
+)
+

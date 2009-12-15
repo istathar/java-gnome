@@ -1,15 +1,15 @@
 (define-boxed LayoutLine
   (in-module "Pango")
   (c-name "PangoLayoutLine")
-  (gtype-id "PANGO_TYPE_LAYOUT_LINE")
-  (fields
-    '("gint" "start_index")
-    '("gint" "length")
-    '("GSList*" "runs")
-    '("guint" "is_paragraph_start")
-    '("guint" "resolved_dir")
-  )
 )
+;; manually remove fields; we have to an override to make sense of these
+;;(fields
+;;  '("gint" "start_index")
+;;  '("gint" "length")
+;;  '("guint" "is_paragraph_start")
+;;  '("GSList*" "runs")
+;;  '("guint" "resolved_dir")
+;;)
 
 ;; manually hacked to return void avoid creating lookup loops
 (define-method ref

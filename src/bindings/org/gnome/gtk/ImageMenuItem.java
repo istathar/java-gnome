@@ -1,7 +1,7 @@
 /*
  * ImageMenuItem.java
  *
- * Copyright (c) 2007-2008 Operational Dynamics Consulting Pty Ltd
+ * Copyright (c) 2007-2009 Operational Dynamics Consulting Pty Ltd
  *
  * The code in this file, and the library it is a part of, are made available
  * to you by the authors under the terms of the "GNU General Public Licence,
@@ -121,5 +121,20 @@ public class ImageMenuItem extends MenuItem
      */
     public void setImage(Image image) {
         GtkImageMenuItem.setImage(this, image);
+    }
+
+    /**
+     * Force the icon accompanying this ImageMenuItem to always be shown,
+     * overriding the setting inherited from GtkSettings and GNOME.
+     * 
+     * <p>
+     * <i>As at GNOME 2.28, the default was changed by the `control-center`
+     * hackers to not show menu and button icons. This is very inconvenient,
+     * so you'll find yourself needing to call this frequently.</i>
+     * 
+     * @since 4.0.14
+     */
+    public void setAlwaysShowImage(boolean setting) {
+        GtkImageMenuItem.setAlwaysShowImage(this, setting);
     }
 }

@@ -32,9 +32,10 @@ import org.gnome.gtk.ValidateComboBox;
 import org.gnome.gtk.ValidateEntry;
 import org.gnome.gtk.ValidateEntryCompletion;
 import org.gnome.gtk.ValidateFileChoosing;
+import org.gnome.gtk.ValidateGlobalSettings;
 import org.gnome.gtk.ValidateIconView;
 import org.gnome.gtk.ValidateInputMethods;
-import org.gnome.gtk.ValidateLinkButton;
+import org.gnome.gtk.ValidateLinkBehaviour;
 import org.gnome.gtk.ValidateNotebookBehaviour;
 import org.gnome.gtk.ValidateOutParameters;
 import org.gnome.gtk.ValidatePacking;
@@ -55,6 +56,7 @@ import org.gnome.gtk.ValidateTreeView;
 import org.gnome.gtk.ValidateUnicode;
 import org.gnome.pango.ValidatePangoAttributeUsage;
 import org.gnome.pango.ValidatePangoTextRendering;
+import org.gnome.pango.ValidatePangoWrapBehaviour;
 import org.gnome.sourceview.ValidateSourceView;
 import org.gnome.unique.ValidateUniqueApplications;
 
@@ -137,6 +139,7 @@ public class UnitTests
         suite.addTestSuite(ValidateScreensAndDisplays.class);
         suite.addTestSuite(ValidateKeyboardHandling.class);
         suite.addTestSuite(ValidateImageHandling.class);
+        suite.addTestSuite(ValidateGlobalSettings.class);
         suite.addTestSuite(ValidateCairoInternals.class);
         suite.addTestSuite(ValidateCairoContext.class);
         suite.addTestSuite(ValidateDrawingToFile.class);
@@ -152,7 +155,7 @@ public class UnitTests
         suite.addTestSuite(ValidateTreeView.class);
         suite.addTestSuite(ValidateIconView.class);
         suite.addTestSuite(ValidateComboBox.class);
-        suite.addTestSuite(ValidateLinkButton.class);
+        suite.addTestSuite(ValidateLinkBehaviour.class);
         suite.addTestSuite(ValidateEntry.class);
         suite.addTestSuite(ValidateEntryCompletion.class);
         suite.addTestSuite(ValidateSnapshotUtilities.class);
@@ -166,6 +169,7 @@ public class UnitTests
         suite.addTestSuite(ValidateArrow.class);
         suite.addTestSuite(ValidatePangoTextRendering.class);
         suite.addTestSuite(ValidatePangoAttributeUsage.class);
+        suite.addTestSuite(ValidatePangoWrapBehaviour.class);
         suite.addTestSuite(ValidateEnchantInternals.class);
         suite.addTestSuite(ValidatePrinting.class);
         suite.addTestSuite(ValidateSourceView.class);

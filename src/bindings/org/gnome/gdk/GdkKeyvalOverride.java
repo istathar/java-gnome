@@ -41,7 +41,7 @@ final class GdkKeyvalOverride extends Plumbing
         try {
             return (ModifierType) Plumbing.flagFor(ModifierType.class, state);
         } catch (IllegalArgumentException iae) {
-            return new ModifierType(state, "DYNAMIC");
+            return new ModifierType(state, "UNKNOWN_" + state);
         }
     }
 

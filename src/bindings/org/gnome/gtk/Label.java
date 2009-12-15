@@ -218,8 +218,8 @@ public class Label extends Misc
     /*
      * TODO Advise developer to setLineWrap(true)?
      */
-    public void setJustify(Justification justification) {
-        GtkLabel.setJustify(this, justification);
+    public void setJustify(Justification setting) {
+        GtkLabel.setJustify(this, setting);
     }
 
     /**

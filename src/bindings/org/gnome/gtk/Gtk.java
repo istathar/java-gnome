@@ -1,7 +1,7 @@
 /*
  * Gtk.java
  *
- * Copyright (c) 2006-2008 Operational Dynamics Consulting Pty Ltd, and Others
+ * Copyright (c) 2006-2009 Operational Dynamics Consulting Pty Ltd, and Others
  * 
  * The code in this file, and the library it is a part of, are made available
  * to you by the authors under the terms of the "GNU General Public Licence,
@@ -42,6 +42,10 @@ import org.gnome.glib.Glib;
  */
 public final class Gtk extends Glib
 {
+    static boolean isInitialized() {
+        return initialized;
+    }
+
     /**
      * No instantiation. Static methods only!
      */
@@ -66,18 +70,12 @@ public final class Gtk extends Glib
         if (initialized) {
             throw new IllegalStateException("Gtk already initialized");
         }
-
-        /*
-         * Notify org.gnome.glib.Glib that we don't need it to do anything
-         */
-        Glib.skipInit();
+        initialized = true;
 
         /*
          * Initialize GTK and along with it GLib, GObject, etc.
          */
         GtkMain.init(args);
-
-        initialized = true;
     }
 
     /**
@@ -201,4 +199,23 @@ public final class Gtk extends Glib
 
         return false;
     }
+
+    /**
+     * Get the Settings object for the default Screen.
+     * 
+     * @since 4.0.14
+     */
+    public static Settings getSettings() {
+        return GtkSettings.getDefault();
+    }
+
+    /**
+     * Get the Settings object for the given Screen.
+     */
+    /*
+     * We still haven't really exposed Screen. Do we need this?
+     */
+    // static Settings getSettings(Screen screen) {
+    // return GtkSettings.getForScreen(screen);
+    // }
 }

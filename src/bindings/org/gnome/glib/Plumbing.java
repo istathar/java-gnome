@@ -1,7 +1,7 @@
 /*
  * Plumbing.java
  *
- * Copyright (c) 2006-2008 Operational Dynamics Consulting Pty Ltd, and Others
+ * Copyright (c) 2006-2009 Operational Dynamics Consulting Pty Ltd, and Others
  * 
  * The code in this file, and the library it is a part of, are made available
  * to you by the authors under the terms of the "GNU General Public Licence,
@@ -45,9 +45,14 @@ public abstract class Plumbing extends org.freedesktop.bindings.Plumbing
         final InputStream is;
         final Properties p;
 
-        Glib.checkInitialized();
+        /*
+         * A call to g_threads_init() has to be the first thing done with
+         * GLib. This call makes it so, along with the lock object that will
+         * be used for GDK.
+         */
 
         lock = Gdk.lock;
+        initializeNative(lock);
 
         typeMapping = new IdentityHashMap<String, String>(470);
 
@@ -73,6 +78,8 @@ public abstract class Plumbing extends org.freedesktop.bindings.Plumbing
             registerType(gType, javaClass);
         }
     }
+
+    private static native final void initializeNative(java.lang.Object lock);
 
     /**
      * Register a GType name as corresponding to the given Proxy subclass.

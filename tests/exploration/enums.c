@@ -50,6 +50,10 @@ int main(int argc, char **argv) {
 	printf("%d\n", 1 << 1);
 	printf("%d\n", 1 << 2);
 	printf("%d\n", 1 << 3);
+	printf("%d\n", 1 << 4);
+	printf("%d\n", 1 << 8);
+	printf("%d\n", 1 << 14);
+	printf("%d\n", 1 << 30);
 
 	return 0;
 }

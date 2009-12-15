@@ -1,5 +1,5 @@
 /*
- * ValidateLinkButton.java
+ * ValidateLinkBehaviour.java
  *
  * Copyright (c) 2009 Operational Dynamics Consulting Pty Ltd, and Others
  * 
@@ -19,7 +19,7 @@ import java.net.URISyntaxException;
  * @author Serkan Kaba
  * @author Andrew Cowie
  */
-public class ValidateLinkButton extends GraphicalTestCase
+public class ValidateLinkBehaviour extends GraphicalTestCase
 {
     public final void testVisited() throws URISyntaxException {
         final URI uri;

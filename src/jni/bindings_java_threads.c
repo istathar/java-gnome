@@ -1,7 +1,7 @@
 /*
  * bindings_java_threads.c
  *
- * Copyright (c) 2007 Operational Dynamics Consulting Pty Ltd and Others
+ * Copyright (c) 2007-2009 Operational Dynamics Consulting Pty Ltd and Others
  * 
  * The code in this file, and the library it is a part of, are made available
  * to you by the authors under the terms of the "GNU General Public Licence,
@@ -25,8 +25,10 @@
 static jobject lock;
 
 /**
- * Save a reference to the lock object on the Java side, and then register
- * our custom lock functions. 
+ * Save a reference to the lock object on the Java side, and then register our
+ * custom lock functions. This function also initializes  GLib's thread
+ * mechanism; which call needs to be the _very_ first thing in a GLib program
+ * these days.
  */
 void
 bindings_java_threads_init
@@ -35,9 +37,14 @@ bindings_java_threads_init
 	jobject obj
 )
 {
+	// must be first GLib call!
+	g_thread_init(NULL);
+
+	// now get about setting up GDK's threads
 	lock = (*env)->NewGlobalRef(env, obj);
 
 	gdk_threads_set_lock_functions(bindings_java_threads_lock, bindings_java_threads_unlock);
+	gdk_threads_init();
 }
 
 /**

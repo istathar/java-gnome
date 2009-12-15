@@ -748,6 +748,12 @@ if ($os eq "gentoo") {
 			"gtk+-2.0 >= 2.16 pango >= 1.22 atk gdk-2.0 libglade-2.0 >= 2.6.3 gtk+-unix-print-2.0 cairo-svg >= 1.6.4 gtksourceview-2.0 >= 2.6.2",
 			"GNOME",
 			"gnome");
+
+	check_system_library(@gnomedev_libs,
+			"enchant",
+			"Enchant",
+			"app-text/enchant");
+
 	check_system_library(@gnomedev_libs,
 			"gtkspell-2.0 >= 2.0.15",
 			"GtkSpell",
@@ -793,7 +799,7 @@ if ($os eq "gentoo") {
 
 	check_system_library(@gnomedev_libs,
 			"libnotify >= 0.4.5",
-			"Libnotify",
+			"LibNotify",
 			"FIXME");
 
 	check_system_library(@gnomedev_libs,
@@ -804,6 +810,11 @@ if ($os eq "gentoo") {
 	check_system_library(@gnomedev_libs,
 			"unique-1.0 >= 1.0.8",
 			"LibUnique",
+			"FIXME");
+
+	check_system_library(@gnomedev_libs,
+			"enchant",
+			"Enchant",
 			"FIXME");
 
 
@@ -835,8 +846,13 @@ if ($os eq "gentoo") {
 
 	check_system_library(@gnomedev_libs,
 			"libnotify >= 0.4.5",
-			"Libnotify",
+			"LibNotify",
 			"libnotify-dev");
+
+	check_system_library(@gnomedev_libs,
+			"enchant",
+			"Enchant",
+			"libenchant-dev");
 
 # FIXME: there is no 2.0.15 in Debian, but on the other hand, a GtkSpell that
 # is 2 versions old doubtless suffers from all sorts of problems. This will
@@ -871,7 +887,7 @@ if ($os eq "gentoo") {
 
 	check_system_library(@gnomedev_libs,
 			"libnotify >= 0.4.5",
-			"Libnotify",
+			"LibNotify",
 			"FIXME");
 
 	check_system_library(@gnomedev_libs,
@@ -882,6 +898,11 @@ if ($os eq "gentoo") {
 	check_system_library(@gnomedev_libs,
 			"unique-1.0 >= 1.0.8",
 			"LibUnique",
+			"FIXME");
+
+	check_system_library(@gnomedev_libs,
+			"enchant",
+			"Enchant",
 			"FIXME");
 
 } elsif ($os eq "mandriva") {
@@ -901,7 +922,7 @@ if ($os eq "gentoo") {
 
 	check_system_library(@gnomedev_libs,
 			"libnotify >= 0.4.5",
-			"Libnotify",
+			"LibNotify",
 			"FIXME");
 
 	check_system_library(@gnomedev_libs,
@@ -913,6 +934,12 @@ if ($os eq "gentoo") {
 			"unique-1.0 >= 1.0.8",
 			"LibUnique",
 			"FIXME");
+
+	check_system_library(@gnomedev_libs,
+			"enchant",
+			"Enchant",
+			"FIXME");
+
 }
 
 

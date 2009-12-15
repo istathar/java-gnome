@@ -320,4 +320,58 @@ public class Pixbuf extends org.gnome.glib.Object
 
         return result;
     }
+
+    /*
+     * TODO to expose the gdk_pixbuf_get_file_info() function properly, we'll
+     * have to fix the engineering of PixbufFormat which is presently a dogs
+     * breakfast. Luckily, given the two out parameter accessors below, we
+     * don't seem to need this.
+     */
+    PixbufFormat getFileInfo(String filename) throws IOException {
+        throw new UnsupportedOperationException("Not yet implemented");
+    }
+
+    /**
+     * Query an image on disk for its width.
+     * 
+     * <p>
+     * This is a utility function where the minimum amount is read in order to
+     * determine metadata about the file in question. You'll get an
+     * IOException if the gdk-pixbuf library's image loaders can't figure out
+     * the format of the file.
+     * 
+     * @since 4.0.14
+     */
+    public static int getFileInfoWidth(String filename) throws IOException {
+        int result;
+
+        result = GdkPixbufOverride.getFileInfoX(filename);
+
+        if (result == -1) {
+            throw new IOException("Image format not recognized");
+        }
+
+        return result;
+    }
+
+    /**
+     * Query an image on disk for its height.
+     * 
+     * <p>
+     * This function is the compliment of {@link #getFileInfoWidth(String)
+     * getFileInfoWidth()}; see there.
+     * 
+     * @since 4.0.14
+     */
+    public static int getFileInfoHeight(String filename) throws IOException {
+        int result;
+
+        result = GdkPixbufOverride.getFileInfoY(filename);
+
+        if (result == -1) {
+            throw new IOException("Image format not recognized");
+        }
+
+        return result;
+    }
 }

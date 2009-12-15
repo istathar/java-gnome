@@ -1,7 +1,7 @@
 /*
  * Justification.java
  *
- * Copyright (c) 2007 Operational Dynamics Consulting Pty Ltd, and Others
+ * Copyright (c) 2007-2009 Operational Dynamics Consulting Pty Ltd, and Others
  *
  * The code in this file, and the library it is a part of, are made available
  * to you by the authors under the terms of the "GNU General Public Licence,
@@ -16,14 +16,12 @@ import org.freedesktop.bindings.Constant;
 /**
  * Constants that represent the justification of text. Most notably, this is
  * used by Label; see its {@link Label#setJustify(Justification) setJustify()}
- * .
+ * as well as TextView's {@link TextView#setJustification(Justification)
+ * setJustify()}.
  * 
  * @author Nat Pryce
  * @author Andrew Cowie
  * @since 4.0.4
- */
-/*
- * TODO turns up in TextView too; perhaps add mention if significant.
  */
 public final class Justification extends Constant
 {

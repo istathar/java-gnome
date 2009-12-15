@@ -1,7 +1,7 @@
 /*
  * ExampleSnooping.java
  *
- * Copyright (c) 2008 Operational Dynamics Consulting Pty Ltd
+ * Copyright (c) 2008-2009 Operational Dynamics Consulting Pty Ltd
  *
  * The code in this file, and the program it is a part of, are made available
  * to you by the authors under the terms of the "GNU General Public Licence,
@@ -78,8 +78,8 @@ public class ExampleSnooping
     }
 
     public static void main(String[] args) {
-        Gtk.init(args);
         Glib.setProgramName("snooping");
+        Gtk.init(args);
 
         new ExampleSnooping();
 

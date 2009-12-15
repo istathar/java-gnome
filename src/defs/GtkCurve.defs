@@ -3,6 +3,7 @@
   (parent "GtkDrawingArea")
   (c-name "GtkCurve")
   (gtype-id "GTK_TYPE_CURVE")
+  (deprecated "2.90")
 )
 
 (define-function gtk_curve_new

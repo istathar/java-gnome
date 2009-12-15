@@ -197,4 +197,40 @@ public final class ModifierType extends Flag
      */
     public static final ModifierType WINDOW_MASK = new ModifierType(GdkModifierType.MOD4_MASK,
             "WINDOW_MASK");
+
+    /*
+     * These names correspond to the ones we exposed in MouseButton.
+     */
+
+    /**
+     * The left mouse button was held while the key was pressed. GNOME user
+     * interface conventions don't have us using mouse buttons as modifiers,
+     * so you won't need this in normal usage.
+     * 
+     * <p>
+     * If hooking up a handler for <code>Widget.ButtonPressEvent</code> you
+     * will instead be using the {@link MouseButton#LEFT LEFT} MouseButton
+     * constant.
+     * 
+     * 
+     * @since 4.0.14
+     */
+    public static final ModifierType BUTTON_LEFT_MASK = new ModifierType(GdkModifierType.BUTTON1_MASK,
+            "BUTTON_LEFT_MASK");
+
+    /**
+     * The middle mouse button was held while the key was pressed.
+     * 
+     * @since 4.0.14
+     */
+    public static final ModifierType BUTTON_MIDDLE_MASK = new ModifierType(GdkModifierType.BUTTON2_MASK,
+            "BUTTON_MIDDLE_MASK");
+
+    /**
+     * The right mouse button was held while the key was pressed.
+     * 
+     * @since 4.0.14
+     */
+    public static final ModifierType BUTTON_RIGHT_MASK = new ModifierType(GdkModifierType.BUTTON3_MASK,
+            "BUTTON_RIGHT_MASK");
 }
