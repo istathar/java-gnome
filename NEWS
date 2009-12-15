@@ -1,6 +1,6 @@
 NEWS
 
-java-gnome 4.0.14-rc1
+java-gnome 4.0.14-rc2
 =====================
 
 _You have to compose in order to enchant_
@@ -90,6 +90,16 @@ core classes, mostly fixing typos.
 * **`org.gnome.gtk.Window`**
 * **`org.gnome.pango.Attribute`**
 
+We now have the methods necessary to have ImageMenuItems actually show images
+(there's a bug whereby suddenly icons are not showing in menus by default. So
+you need to either explicitly tell an ImageMenuItem that it should always show
+its image, or use the global Settings to say that Menus and Buttons should
+always have their icons showing).
+
+* **`org.gnome.gtk.ImageMenuItem`**
+* **`org.gnome.gtk.Settings`**
+* `org.gnome.gtk.ValidateGlobalSettings`
+
 Headless testing
 ----------------
 
@@ -108,19 +118,22 @@ environment.
 Looking ahead
 -------------
 
-What's ahead for java-gnome? That's always a good question. Development of the
-library has been continued pretty steadily, driven by people finding they need
-unusual features from some of the underlying GNOME and FreeDesktop libraries
-we already expose. As a community we also work to fine-tune the performance
-and quality of the library through continuous improvement of the code base and
-its algorithms.
+What's ahead for java-gnome? That's always a good question. At this point
+java-gnome provides a comprehensive API for development of user interfaces
+suitable for the GNOME desktop, and it's incredibly rewarding to see people
+using the library for their own programs.
+
+Development of the library has continued pretty steadily, driven by people
+finding they need additional features from some of the underlying GNOME and
+FreeDesktop libraries we already expose. As a community we also work to
+fine-tune the performance and quality of the library through continuous
+improvement of the code base and its algorithms.
 
 There are also people quietly working on experimental coverage of more unusual
 libraries such as GStreamer and Clutter which is pretty exciting to see.
 
-At this point, however, java-gnome provides a comprehensive API for
-development of user interfaces suitable for the GNOME desktop, and it's
-incredibly rewarding to see people using the library for their own programs.
+People using java-gnome are always welcome to join us in #java-gnome to ask
+questions or just hang out! So happy hacking, and see you soon.
 
 AfC
 
