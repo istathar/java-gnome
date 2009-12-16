@@ -22,6 +22,7 @@ import org.gnome.glib.Object;
  * settings.setButtonImages(true);
  * </pre>
  * 
+ * @author Andrew Cowie
  * @since 4.0.14
  */
 /*
