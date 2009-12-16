@@ -67,7 +67,7 @@ href="http://research.operationaldynamics.com/bzr/java-gnome/mainline/">
 
 <p>If you're going to hack seriously with, or on, java-gnome, we recommend the
 following sequence to checkout the source code described in the 
-<a href="/4.0/HACKING.html"><code>HACKING<code></a> file.
+<a href="/4.0/HACKING.html"><code>HACKING</code></a> file.
 
 
 <p>We try our best to keep '<code>mainline</code>' in a buildable state, and
