@@ -720,7 +720,7 @@ public class Window extends Bin
     }
 
     /**
-     * Set whether the user can resize this Window. Windows are realizable by
+     * Set whether the user can resize this Window. Windows are resizable by
      * default.
      * 
      * <p>

@@ -1,5 +1,149 @@
 NEWS
 
+<a name="4.0.14" id="1260921997" title="Enchanting input methods"></a>
+
+java-gnome 4.0.14 (16 Dec 2009)
+===============================
+
+_You have to compose in order to enchant_
+
+Access to Enchant spell checking API
+------------------------------------
+
+Coverage of the Enchant spell checking facade (which was already an implicit
+dependency arising from our GtkSpell coverage) is now included in java-gnome.
+It's a lovely library with a simple to use API which in turn fronts for
+various back end spelling providers.
+
+* **`org.freedesktop.enchant.Enchant`**
+* **`org.freedesktop.enchant.Dictionary`**
+* `org.freedesktop.enchant.Broker`
+* `org.freedesktop.enchant.ValidateEnchantInternals`
+
+More detailed input handling
+----------------------------
+
+GTK's handling of complex input methods is extraordinarily powerful, and of
+course present by default in the Entry and TextView text entry Widgets. If
+you're doing your own text based work, however, you might need to capture the
+results of an input method being used to compose characters or words.
+`InputMethod.Commit` is where the result of a compose sequence is captured and
+delivered to the application.
+
+* **`org.gnome.gtk.InputMethod`**
+* **`org.gnome.gtk.SimpleInputMethod`**
+* **`org.gnome.gtk.MulticontextInputMethod`**
+* `org.gnome.gtk.ValidateInputMethods`
+
+We've also made numerous improvements down in GDK where events are processed;
+as a Java library we represent many naked low-level native entities with
+strongly-typed classes, and have improved our coverage here, notably with new
+Cursor constants representing the common use cases of changing the pointer.
+
+* **`org.gnome.gdk.Keyval`**
+* **`org.gnome.gdk.ModifierType`**
+* **`org.gnome.gdk.Cursor`**
+* **`org.gnome.gdk.CursorType`**
+
+Improved text rendering
+-----------------------
+
+Other minor improvements are present across the text rendering stack, notably
+with the ability to introspect where a Pango Layout has made its line breaks
+when wrapping via LayoutLine's `getStartIndex()` and `getLength()` methods.
+
+* **`org.gnome.gtk.TextIter`**
+* **`org.gnome.gtk.TextTag`**
+* `org.gnome.pango.ValidateTextBuffer`
+* **`org.gnome.pango.LayoutLine`**
+* `org.gnome.pango.ValidatePangoWrapBehaviour`
+
+Guillaume Mazoyer finished up a work by Serkan Kaba resulting in us having
+coverage of the special LinkButton subclass of Button which can be used to
+present clickable URLs.
+
+* **`org.gnome.gtk.LinkButton`**
+* `org.gnome.gtk.ValidateLinkBehaviour`
+* `button.ExampleDocumentationLink`
+
+You can now create custom PaperSize objects, which is handy if you need to use
+Cairo to output PDF documents with a non-standard paper format.
+
+* **`org.gnome.gtk.CustomPaperSize`**
+* `org.gnome.gtk.ValidatePrinting`
+
+Other changes
+-------------
+
+You can now use gdk-pixbuf to query an image on disk for its dimensions via
+Pixbuf `getFileInfo()` function calls.
+
+* **`org.gnome.gdk.Pixbuf`**
+* `org.gnome.gdk.ValidateImageHandling`
+
+There were of course miscellaneous improvements to various long established
+core classes, mostly fixing typos.
+
+* **`org.gnome.gtk.Dialog`**
+* **`org.gnome.gtk.AboutDialog`**
+* **`org.gnome.gtk.TreeIter`**
+* **`org.gnome.gtk.TreeModelFilter`**
+* `org.gnome.gtk.ValidateTreeStore`
+* **`org.gnome.gtk.Window`**
+* **`org.gnome.pango.Attribute`**
+
+We now have the methods necessary to have ImageMenuItems actually show images
+(there's a GNOME bug whereby suddenly icons are not showing in menus. So you
+need to either explicitly tell an ImageMenuItem that it should always show its
+image, or use the global Settings to say that Menus and Buttons should always
+have their icons showing).
+
+* **`org.gnome.gtk.ImageMenuItem`**
+* **`org.gnome.gtk.Settings`**
+* `org.gnome.gtk.ValidateGlobalSettings`
+
+The internal initialization sequence has been tweaked to ensure that GLib's
+threads are initialized before anything else. This means java-gnome apps will
+work if `glib 2.22.3` is installed; this is a workaround for bug
+[603774](https://bugzilla.gnome.org/show_bug.cgi?id=603774).
+
+Headless testing
+----------------
+
+For a long time we've had to be careful in our test suite not to do anything
+that would cause a Window to appear or otherwise popup while the tests were
+running. But some for some test cases this is unavoidable, especially if the
+main loop needs to cycle. We now run the java-gnome test suite within a
+virtual X server (ie `Xvfb`), and as a result distros packaging the library
+can run the test suite on their headless build servers if they wish.
+
+There's a new base class for java-gnome TestCases needing to run in this
+environment.
+
+* `org.gnome.gtk.GraphicalTestCase`
+
+Looking ahead
+-------------
+
+What's ahead for java-gnome? That's always a good question. At this point
+java-gnome provides a comprehensive API for development of user interfaces
+suitable for the GNOME desktop, and it's incredibly rewarding to see people
+using the library for their own programs.
+
+Development of java-gnome has continued pretty steadily, driven by people
+finding they need additional features from some of the underlying GNOME and
+FreeDesktop libraries we already expose. As a community we also work to
+fine-tune the performance and quality of the library through continuous
+improvement of the code base and its algorithms.
+
+There are also people quietly working on experimental coverage of more unusual
+libraries such as GStreamer and Clutter which is pretty exciting to see.
+
+People using java-gnome are always welcome to join us in `#java-gnome` to ask
+questions or just hang out! So happy hacking, and see you soon.
+
+AfC
+
 <a name="4.0.13" id="1251341992" title="Fix unicode handling"></a>
 
 java-gnome 4.0.13 (27 Aug 2009)

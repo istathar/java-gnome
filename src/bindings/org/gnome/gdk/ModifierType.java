@@ -57,14 +57,14 @@ import org.freedesktop.bindings.Flag;
  * <dd>
  * 
  * <pre>
- * Pressed: Keyval.a, Modifier: ModifierType.UNSET
+ * Pressed: Keyval.a, Modifier: ModifierType.NONE
  * </pre>
  * 
  * <dt><b><code>Shift+A</code></b>
  * <dd>
  * 
  * <pre>
- * Pressed: Keyval.ShiftRight, Modifier: ModifierType.UNSET 
+ * Pressed: Keyval.ShiftRight, Modifier: ModifierType.NONE 
  * Pressed: Keyval.A, Modifier: ModifierType.SHIFT_MASK That's Shifty!
  * </pre>
  * 
@@ -72,7 +72,7 @@ import org.freedesktop.bindings.Flag;
  * <dd>
  * 
  * <pre>
- * Pressed: Keyval.ControlRight, Modifier: ModifierType.UNSET 
+ * Pressed: Keyval.ControlRight, Modifier: ModifierType.NONE 
  * Pressed: Keyval.a, Modifier: ModifierType.CONTROL_MASK
  * </pre>
  * 
@@ -80,7 +80,7 @@ import org.freedesktop.bindings.Flag;
  * <dd>
  * 
  * <pre>
- * Pressed: Keyval.ControlRight, Modifier: ModifierType.UNSET  
+ * Pressed: Keyval.ControlRight, Modifier: ModifierType.NONE  
  * Pressed: Keyval.ShiftRight, Modifier: ModifierType.CONTROL_MASK 
  * Pressed: Keyval.A, Modifier: ModifierType.SHIFT_MASK|CONTROL_MASK
  * </pre>
@@ -89,7 +89,7 @@ import org.freedesktop.bindings.Flag;
  * <dd>
  * 
  * <pre>
- * Pressed: Keyval.AltRight, Modifier: ModifierType.UNSET 
+ * Pressed: Keyval.AltRight, Modifier: ModifierType.NONE 
  * Pressed: Keyval.a, Modifier: ModifierType.ALT_MASK Hooray for Alt!
  * </pre>
  * 
@@ -97,7 +97,7 @@ import org.freedesktop.bindings.Flag;
  * <dd>
  * 
  * <pre>
- * Pressed: Keyval.ControlLeft, Modifier: ModifierType.UNSET 
+ * Pressed: Keyval.ControlLeft, Modifier: ModifierType.NONE 
  * Pressed: Keyval.AltLeft, Modifier: ModifierType.CONTROL_MASK 
  * Pressed: Keyval.a, Modifier: ModifierType.CONTROL_MASK|ALT_MASK Hooray for Alt!
  * </pre>
