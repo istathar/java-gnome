@@ -355,4 +355,14 @@ public class IconView extends Container implements CellLayout
     public void unselectAll() {
         GtkIconView.unselectAll(this);
     }
+
+    /**
+     * Return <code>true</code> if the currently selected icon is pointed by
+     * <code>path</code>.
+     * 
+     * @since 4.0.15
+     */
+    public boolean pathIsSelected(TreePath path) {
+        return GtkIconView.pathIsSelected(this, path);
+    }
 }
