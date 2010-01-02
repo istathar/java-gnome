@@ -84,9 +84,9 @@ public class ValidateIconView extends GraphicalTestCase
         view.selectPath(path);
 
         assertEquals(1, view.getSelectedItems().length);
-        assertEquals(true, view.pathIsSelected(path));
+        assertTrue(view.isSelected(path));
 
         view.unselectPath(path);
-        assertEquals(false, view.pathIsSelected(path));
+        assertFalse(view.isSelected(path));
     }
 }

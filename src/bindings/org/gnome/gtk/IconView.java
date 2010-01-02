@@ -1,7 +1,7 @@
 /*
  * IconView.java
  *
- * Copyright (c) 2007-2009 Operational Dynamics Consulting Pty Ltd, and Others
+ * Copyright (c) 2007-2009-2010 Operational Dynamics Consulting Pty Ltd, and Others
  * Copyright (c) 2008      Vreixo Formoso
  *
  * The code in this file, and the library it is a part of, are made available
@@ -362,7 +362,11 @@ public class IconView extends Container implements CellLayout
      * 
      * @since 4.0.15
      */
-    public boolean pathIsSelected(TreePath path) {
+    public boolean isSelected(TreePath path) {
+        /*
+         * The name should be pathIsSelected but it looks prettier with the
+         * current name.
+         */
         return GtkIconView.pathIsSelected(this, path);
     }
 }
