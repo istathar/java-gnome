@@ -1,7 +1,7 @@
 /*
  * IconView.java
  *
- * Copyright (c) 2007-2008 Operational Dynamics Consulting Pty Ltd
+ * Copyright (c) 2007-2010 Operational Dynamics Consulting Pty Ltd, and Others
  * Copyright (c) 2008      Vreixo Formoso
  *
  * The code in this file, and the library it is a part of, are made available
@@ -69,6 +69,7 @@ package org.gnome.gtk;
  * 
  * @author Vreixo Formoso
  * @author Andrew Cowie
+ * @author Guillaume Mazoyer
  * @since 4.0.7
  */
 public class IconView extends Container implements CellLayout
@@ -316,5 +317,56 @@ public class IconView extends Container implements CellLayout
             throw new IllegalArgumentException("width must be positive, or -1 to indicate automatic");
         }
         GtkIconView.setItemWidth(this, width);
+    }
+
+    /**
+     * Select the row at <code>path</code>.
+     * 
+     * @since 4.0.15
+     */
+    public void selectPath(TreePath path) {
+        GtkIconView.selectPath(this, path);
+    }
+
+    /**
+     * Unselect the row at <code>path</code>.
+     * 
+     * @since 4.0.15
+     */
+    public void unselectPath(TreePath path) {
+        GtkIconView.unselectPath(this, path);
+    }
+
+    /**
+     * Select all the icons, in order to work, you must have set the
+     * {@link SelectionMode} to {@link SelectionMode#MULTIPLE MULTIPLE}.
+     * 
+     * @since 4.0.15
+     */
+    public void selectAll() {
+        GtkIconView.selectAll(this);
+    }
+
+    /**
+     * Unselect all the icons.
+     * 
+     * @since 4.0.15
+     */
+    public void unselectAll() {
+        GtkIconView.unselectAll(this);
+    }
+
+    /**
+     * Return <code>true</code> if the currently selected icon is pointed by
+     * <code>path</code>.
+     * 
+     * @since 4.0.15
+     */
+    public boolean isSelected(TreePath path) {
+        /*
+         * The name should be pathIsSelected but it looks prettier with the
+         * current name.
+         */
+        return GtkIconView.pathIsSelected(this, path);
     }
 }

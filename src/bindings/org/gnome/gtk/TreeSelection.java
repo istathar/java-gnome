@@ -1,7 +1,7 @@
 /*
  * TreeSelection.java
  *
- * Copyright (c) 2007-2008 Operational Dynamics Consulting Pty Ltd
+ * Copyright (c) 2007-2010 Operational Dynamics Consulting Pty Ltd, and Others
  *
  * The code in this file, and the library it is a part of, are made available
  * to you by the authors under the terms of the "GNU General Public Licence,
@@ -58,6 +58,7 @@ import org.gnome.glib.Object;
  * these could have all been methods on <code>GtkTreeView</code>.</i>
  * 
  * @author Andrew Cowie
+ * @author Guillaume Mazoyer
  * @since 4.0.5
  */
 public class TreeSelection extends Object
@@ -230,5 +231,19 @@ public class TreeSelection extends Object
      */
     public void unselectAll() {
         GtkTreeSelection.unselectAll(this);
+    }
+
+    /**
+     * Return <code>true</code> if the currently selected row is pointed by
+     * <code>path</code>.
+     * 
+     * @since 4.0.15
+     */
+    public boolean isSelected(TreePath path) {
+        /*
+         * The name should be pathIsSelected but it looks prettier with the
+         * current name.
+         */
+        return GtkTreeSelection.pathIsSelected(this, path);
     }
 }
