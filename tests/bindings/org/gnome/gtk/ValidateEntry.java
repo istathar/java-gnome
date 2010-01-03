@@ -27,7 +27,7 @@ public class ValidateEntry extends GraphicalTestCase
         entry.setIconFromStock(EntryIconPosition.SECONDARY, Stock.CLEAR);
         assertSame(Stock.CLEAR, entry.getIconStock(EntryIconPosition.SECONDARY));
         assertSame(ImageType.STOCK, entry.getIconStorageType(EntryIconPosition.SECONDARY));
-        
+
         entry.setIconFromPixbuf(EntryIconPosition.PRIMARY, null);
         assertSame(null, entry.getIconPixbuf(EntryIconPosition.PRIMARY));
         assertSame(ImageType.EMPTY, entry.getIconStorageType(EntryIconPosition.PRIMARY));

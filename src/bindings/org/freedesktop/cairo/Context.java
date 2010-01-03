@@ -271,7 +271,7 @@ public class Context extends Entity
     public void rotate(double r) {
         CairoContext.rotate(this, r);
     }
-    
+
     /**
      * Set the source pattern within this Context to an opaque color.
      * 

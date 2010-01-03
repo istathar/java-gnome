@@ -131,7 +131,7 @@ distclean: clean
 
 ifdef ECLIPSE
 else
-ECLIPSE=/usr/bin/eclipse-3.4
+ECLIPSE=/usr/bin/eclipse
 endif
 
 ifdef V
@@ -141,13 +141,13 @@ endif
 
 format: all
 	@/bin/echo -e "FORMAT\tsrc/ tests/ doc/examples/"
-	touch -r src/bindings/org/gnome/gtk/Version.java tmp/stamp/version
+	touch -r src/bindings/org/freedesktop/bindings/Version.java tmp/stamp/version
 	$(ECLIPSE) -nosplash \
 		-application org.eclipse.jdt.core.JavaCodeFormatter \
 		-config .settings/org.eclipse.jdt.core.prefs \
 		src/ tests/ doc/examples/ \
 		$(REDIRECT)
-	touch -r tmp/stamp/version src/bindings/org/gnome/gtk/Version.java
+	touch -r tmp/stamp/version src/bindings/org/freedesktop/bindings/Version.java
 	
 
 # vim: set filetype=make textwidth=78 nowrap:

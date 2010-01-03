@@ -15,9 +15,9 @@ package org.gnome.gdk;
 import org.freedesktop.bindings.Constant;
 
 /**
- * The direction of an {@link EventScroll}. With traditional wheel mice you will
- * only receive UP and DOWN directions. Most recent mice also allow to move the
- * wheel right and left, so RIGHT and LEFT directions refer to that. 
+ * The direction of an {@link EventScroll}. With traditional wheel mice you
+ * will only receive UP and DOWN directions. Most recent mice also allow to
+ * move the wheel right and left, so RIGHT and LEFT directions refer to that.
  * 
  * @author Vreixo Formoso
  * @since 4.0.12

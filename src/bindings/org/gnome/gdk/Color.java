@@ -85,7 +85,7 @@ public final class Color extends Boxed
 
         return GdkColor.equal(this, other);
     }
-    
+
     public int hashCode() {
         return GdkColor.hash(this);
     }

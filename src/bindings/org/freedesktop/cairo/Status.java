@@ -70,11 +70,12 @@ class Status extends Constant
      * @since 4.0.10
      */
     public static final Status INVALID_MATRIX = new Status(CairoStatus.INVALID_MATRIX, "INVALID_MATRIX");
-    
+
     /**
      * Context.restore() misses a previous Context.save() call
      * 
      * @since 4.0.12
      */
-    public static final Status INVALID_RESTORE = new Status(CairoStatus.INVALID_RESTORE, "INVALID_RESTORE");
+    public static final Status INVALID_RESTORE = new Status(CairoStatus.INVALID_RESTORE,
+            "INVALID_RESTORE");
 }
