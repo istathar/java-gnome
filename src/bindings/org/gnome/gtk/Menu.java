@@ -11,6 +11,7 @@
  */
 package org.gnome.gtk;
 
+
 /**
  * A drop-down set of Widgets creating a menu. Menus consist of other
  * {@link MenuItem}s. Menus are either placed inside a {@link MenuBar} or
@@ -67,6 +68,10 @@ public class Menu extends MenuShell
      */
     public void popup() {
         GtkMenuOverride.popup(this);
+    }
+
+    public void popup(int x, int y) {
+        GtkMenuOverride.popupAtPosition(this, x, y);
     }
 
     /**
