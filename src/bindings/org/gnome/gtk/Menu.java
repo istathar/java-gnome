@@ -1,7 +1,7 @@
 /*
  * Menu.java
  *
- * Copyright (c) 2007 Operational Dynamics Consulting Pty Ltd, and Others
+ * Copyright (c) 2007-2010 Operational Dynamics Consulting Pty Ltd, and Others
  *
  * The code in this file, and the library it is a part of, are made available
  * to you by the authors under the terms of the "GNU General Public Licence,
@@ -46,6 +46,8 @@ public class Menu extends MenuShell
 
     /**
      * Construct a new Menu.
+     * 
+     * @since 4.0.3
      */
     public Menu() {
         super(GtkMenu.createMenu());
@@ -53,8 +55,8 @@ public class Menu extends MenuShell
 
     /**
      * Popup a context menu. Use this when you create a Menu that will be used
-     * for the popup context menu in response to a right-click somewhere. TODO
-     * add example code showing hooking up a mouse button click handler.
+     * for the popup context menu in response to a right-click somewhere. The
+     * menu will appear where the mouse pointer is.
      * 
      * <p>
      * Unlike normal Menus that are part of an application's MenuBar, context
@@ -67,6 +69,19 @@ public class Menu extends MenuShell
      */
     public void popup() {
         GtkMenuOverride.popup(this);
+    }
+
+    /**
+     * Having constructed a Menu to be used as the context menu, present it at
+     * the specified location. This is useful in conjunction with TextView's
+     * {@link TextView#getLocation(TextIter) getLocation()} if you wish to
+     * place the menu at the "cursor position" rather than where the mouse
+     * pointer is.
+     * 
+     * @since 4.0.15
+     */
+    public void popup(int x, int y) {
+        GtkMenuOverride.popupAtPosition(this, x, y);
     }
 
     /**

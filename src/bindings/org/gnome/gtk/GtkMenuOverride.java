@@ -1,7 +1,7 @@
 /*
  * GtkMenuOverride.java
  *
- * Copyright (c) 2007 Operational Dynamics Consulting Pty Ltd
+ * Copyright (c) 2007-2010 Operational Dynamics Consulting Pty Ltd
  * 
  * The code in this file, and the library it is a part of, are made available
  * to you by the authors under the terms of the "GNU General Public Licence,
@@ -40,4 +40,15 @@ final class GtkMenuOverride extends Plumbing
     }
 
     private static native final void gtk_menu_popup_status_icon(long self, long status);
+
+    /**
+     * Call gtk_menu_popup(), with native code taking care of composing a
+     * one-time (*GtkMenuPositionFunc) to place the menu at x,y.
+     */
+    static final void popupAtPosition(Menu self, int x, int y) {
+        gtk_menu_popup_at_position(pointerOf(self), x, y);
+    }
+
+    private static native final void gtk_menu_popup_at_position(long self, int x, int y);
+
 }
