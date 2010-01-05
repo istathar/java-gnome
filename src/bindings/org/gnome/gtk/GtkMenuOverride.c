@@ -72,10 +72,14 @@ typedef struct {
 } Pair;
 
 /**
- * Return the x and y variables passed when this was constructed.
+ * Return the x and y variables passed when this was constructed. This is
+ * just some hoop jumping to get around a) not really wanting to create a
+ * custom menu position function callback signal, and b) there not being a
+ * straight forward "position at location" call in GtkMenu.
  */
 /*
- * Meets the signature requirements of (*GtkMenuPositionFunc)
+ * Matches the signature of (*GtkMenuPositionFunc) as required by the fourth
+ * parameter of gtk_menu_popup().
  */
 static void
 fixed_position
@@ -98,6 +102,11 @@ fixed_position
 /**
  * A special case of popup() where we specifiy x,y [ie, in response to a Menu 
  * key press.
+ */
+/*
+ * DANGER is it acceptable to use a stack allocated Pair struct? I think so;
+ * the call to popup appears to be straight ahead (and this doesn't crash).
+ * Otherwise we need to heap allocate and somehow clean up afterwards.
  */
 JNIEXPORT void JNICALL
 Java_org_gnome_gtk_GtkMenuOverride_gtk_1menu_1popup_1at_1position
