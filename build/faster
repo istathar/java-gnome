@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+# vim: set fileencoding=UTF-8
 #
 # java-gnome, a UI library for writing GTK and GNOME programs from Java!
 #
@@ -579,6 +580,7 @@ def extractInternationalizationTemplates():
 	ensureDirectory(dirname(template))
 
 	cmd = "xgettext "
+	cmd += "--from-code=UTF-8 "
 	cmd += "-o " + template + " "
 	cmd += "--omit-header --keyword=_ --keyword=N_ "
 	cmd += " ".join(list)
