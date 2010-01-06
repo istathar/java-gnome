@@ -21,6 +21,7 @@ package com.operationaldynamics.codegen;
 
 import java.io.PrintWriter;
 
+import com.operationaldynamics.defsparser.FlagsBlock;
 import com.operationaldynamics.driver.DefsFile;
 
 /**
@@ -87,7 +88,7 @@ public class FlagsGenerator extends EnumGenerator
          * write file header and includes care of the code up in abstract
          * parent class TypeGenerator
          */
-        commonFileHeader(out, objectType.bindingsClass + ".c", false);
+        commonFileHeader(out, objectType.bindingsClass + ".c");
         hashIncludeStatements(out);
 
         /*

@@ -51,20 +51,20 @@ abstract class TypeGenerator extends Generator
     }
 
     public void writePublicCode(final PrintWriter out) {
-        commonFileHeader(out, objectType.javaType + ".java", true);
+        commonFileHeader(out, objectType.javaType + ".java");
         publicPackageAndImports(out);
         publicClassJavadocComment(out);
         publicClassDeclaration(out);
     }
 
     public void writeTranslationCode(final PrintWriter out) {
-        commonFileHeader(out, objectType.bindingsClass + ".java", false);
+        commonFileHeader(out, objectType.bindingsClass + ".java");
         packageStatementAndImports(out);
         translationClassDeclaration(out);
     }
 
     public void writeJniCode(final PrintWriter out) {
-        commonFileHeader(out, objectType.bindingsClass + ".c", false);
+        commonFileHeader(out, objectType.bindingsClass + ".c");
         hashIncludeStatements(out);
     }
 
@@ -83,7 +83,7 @@ abstract class TypeGenerator extends Generator
      * of single line strings with \n at the end of each. Oh well, it's done
      * now, and this was really the only long block of text.
      */
-    protected static void commonFileHeader(PrintWriter out, String fileName, boolean stub) {
+    protected static void commonFileHeader(PrintWriter out, String fileName) {
         out.print("/*\n");
         out.print(" * java-gnome, a UI library for writing GTK and GNOME programs from Java!\n");
         out.print(" *\n");
@@ -115,14 +115,12 @@ abstract class TypeGenerator extends Generator
         out.print(" * you modify this library, you may extend the Classpath Exception to your\n");
         out.print(" * version of the library, but you are not obligated to do so. If you do not\n");
         out.print(" * wish to do so, delete this exception statement from your version.\n");
+        out.print(" */\n");
+    }
 
-        if (stub) {
-            out.print(" */\n");
-            return;
-        }
-
-        out.print(" *\n");
-        out.print(" *                      THIS FILE IS GENERATED CODE!\n");
+    protected void generatedFileWarning(final PrintWriter out) {
+        out.print("/*\n");
+        out.print(" * THIS FILE IS GENERATED CODE!\n");
         out.print(" *\n");
         out.print(" * To modify its contents or behaviour, either update the generation program,\n");
         out.print(" * change the information in the source defs file, or implement an override for\n");
@@ -136,6 +134,8 @@ abstract class TypeGenerator extends Generator
         out.print("package ");
         out.print(objectType.bindingsPackage);
         out.print(";\n\n");
+        generatedFileWarning(out);
+        out.print("\n");
 
         types = new ArrayList<String>();
         types.add(objectType.bindingsPackage + ".Plumbing");
@@ -169,6 +169,9 @@ abstract class TypeGenerator extends Generator
 
     protected void hashIncludeStatements(final PrintWriter out) {
         out.print("\n");
+        generatedFileWarning(out);
+        out.print("\n");
+
         out.print("#include <jni.h>\n");
         out.print("#include <gtk/gtk.h>\n");
 
