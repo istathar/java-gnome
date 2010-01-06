@@ -1,14 +1,29 @@
 /*
- * gnome_screenshot_utils.c
+ * java-gnome, a UI library for writing GTK and GNOME programs from Java!
+ *
+ * Copyright © 2007-2010  Operational Dynamics Consulting, Pty Ltd
  *
  * This is ripped almost verbatim (we dropped a few functions) from
- * gnome-utils's gnome-screenshot/screenshot-utils.c
- * 
- * Copyright (C) 2001-2006  Jonathan Blandford
- * Copyright (c) 2007-      Operational Dynamics Consulting Pty Ltd
+ * gnome-utils's gnome-screenshot/screenshot-utils.c,
  *
- * and licenced under the terms of the "GNU General Public Licence, version
- * 2" only. This code is presented in java-gnome as wrapped in the class
+ * Copyright © 2001-2006  Jonathan Blandford
+ *
+ * The code in this file, and the program it is a part of, is made available
+ * to you by its authors as open source software: you can redistribute it
+ * and/or modify it under the terms of the GNU General Public License version
+ * 2 ("GPL") as published by the Free Software Foundation.
+ *
+ * This program is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+ * FITNESS FOR A PARTICULAR PURPOSE. See the GPL for more details.
+ *
+ * You should have received a copy of the GPL along with this program. If not,
+ * see http://www.gnu.org/licenses/. The authors of this program may be
+ * contacted through http://java-gnome.sourceforge.net/.
+ */
+
+/*
+ * This code is presented in java-gnome as wrapped in the class
  * org.gnome.screeshot.Screenshot; making use of this code path require you
  * to make your entire application available under a GPL compatible licence.
  */
