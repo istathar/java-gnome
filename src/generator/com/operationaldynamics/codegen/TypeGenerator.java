@@ -85,16 +85,36 @@ abstract class TypeGenerator extends Generator
      */
     protected static void commonFileHeader(PrintWriter out, String fileName, boolean stub) {
         out.print("/*\n");
-        out.print(" * ");
-        out.print(fileName);
-        out.print("\n *\n");
-        out.print(" * Copyright (c) 2006-2009 Operational Dynamics Consulting Pty Ltd, and Others\n");
+        out.print(" * java-gnome, a UI library for writing GTK and GNOME programs from Java!\n");
         out.print(" *\n");
-        out.print(" * The code in this file, and the program it is a part of, are made available\n");
-        out.print(" * to you by the authors under the terms of the \"GNU General Public Licence,\n");
-        out.print(" * version 2\" plus the \"Classpath Exception\" (you may link to this code as a\n");
-        out.print(" * library into other programs provided you don't make a derivation of it).\n");
-        out.print(" * See the LICENCE file for the terms governing usage and redistribution.\n");
+        out.print(" * Copyright © 2006-2010 Operational Dynamics Consulting, Pty Ltd and Others\n");
+        out.print(" *\n");
+        out.print(" * The code in this file, and the program it is a part of, is made available\n");
+        out.print(" * to you by its authors as open source software: you can redistribute it\n");
+        out.print(" * and/or modify it under the terms of the GNU General Public License version\n");
+        out.print(" * 2 (\"GPL\") as published by the Free Software Foundation.\n");
+        out.print(" *\n");
+        out.print(" * This program is distributed in the hope that it will be useful, but WITHOUT\n");
+        out.print(" * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or\n");
+        out.print(" * FITNESS FOR A PARTICULAR PURPOSE. See the GPL for more details.\n");
+        out.print(" *\n");
+        out.print(" * You should have received a copy of the GPL along with this program. If not,\n");
+        out.print(" * see http://www.gnu.org/licenses/. The authors of this program may be\n");
+        out.print(" * contacted through http://java-gnome.sourceforge.net/.\n");
+        out.print(" *\n");
+        out.print(" * Linking this library statically or dynamically with other modules is making\n");
+        out.print(" * a combined work based on this library. Thus, the terms and conditions of\n");
+        out.print(" * the GPL cover the whole combination. As a special exception (the\n");
+        out.print(" * \"Claspath Exception\"), the copyright holders of this library give you\n");
+        out.print(" * permission to link this library with independent modules to produce an\n");
+        out.print(" * executable, regardless of the license terms of these independent modules,\n");
+        out.print(" * and to copy and distribute the resulting executable under terms of your\n");
+        out.print(" * choice, provided that you also meet, for each linked independent module,\n");
+        out.print(" * the terms and conditions of the license of that module. An independent\n");
+        out.print(" * module is a module which is not derived from or based on this library. If\n");
+        out.print(" * you modify this library, you may extend the Classpath Exception to your\n");
+        out.print(" * version of the library, but you are not obligated to do so. If you do not\n");
+        out.print(" * wish to do so, delete this exception statement from your version.\n");
 
         if (stub) {
             out.print(" */\n");
