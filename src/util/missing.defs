@@ -372,15 +372,6 @@
   (return-type "GType")
 )
 
-(define-function cursor_new_from_name
-  (c-name "gdk_cursor_new_from_name")
-  (return-type "GdkCursor*")
-  (parameters
-    '("GdkDisplay*" "display")
-    '("const-gchar*" "name")
-  )
-)
-
 (define-function gdk_display_get_type
   (c-name "gdk_display_get_type")
   (return-type "GType")
@@ -3773,19 +3764,6 @@
   (return-type "GType")
 )
 
-(define-function settings_get_default
-  (c-name "gtk_settings_get_default")
-  (return-type "GtkSettings*")
-)
-
-(define-function settings_get_for_screen
-  (c-name "gtk_settings_get_for_screen")
-  (return-type "GtkSettings*")
-  (parameters
-    '("GdkScreen*" "screen")
-  )
-)
-
 (define-function settings_install_property
   (c-name "gtk_settings_install_property")
   (return-type "none")
@@ -5104,18 +5082,6 @@
     '("const-gchar*" "ppd_display_name")
     '("gdouble" "width")
     '("gdouble" "height")
-  )
-)
-
-(define-function paper_size_new_custom
-  (c-name "gtk_paper_size_new_custom")
-  (return-type "GtkPaperSize*")
-  (parameters
-    '("const-gchar*" "name")
-    '("const-gchar*" "display_name")
-    '("gdouble" "width")
-    '("gdouble" "height")
-    '("GtkUnit" "unit")
   )
 )
 

@@ -1,11 +1,337 @@
 NEWS
 
+<a name="4.0.14" id="1260921997" title="Enchanting input methods"></a>
+
+java-gnome 4.0.14 (16 Dec 2009)
+===============================
+
+_You have to compose in order to enchant_
+
+Access to Enchant spell checking API
+------------------------------------
+
+Coverage of the Enchant spell checking facade (which was already an implicit
+dependency arising from our GtkSpell coverage) is now included in java-gnome.
+It's a lovely library with a simple to use API which in turn fronts for
+various back end spelling providers.
+
+* **`org.freedesktop.enchant.Enchant`**
+* **`org.freedesktop.enchant.Dictionary`**
+* `org.freedesktop.enchant.Broker`
+* `org.freedesktop.enchant.ValidateEnchantInternals`
+
+More detailed input handling
+----------------------------
+
+GTK's handling of complex input methods is extraordinarily powerful, and of
+course present by default in the Entry and TextView text entry Widgets. If
+you're doing your own text based work, however, you might need to capture the
+results of an input method being used to compose characters or words.
+`InputMethod.Commit` is where the result of a compose sequence is captured and
+delivered to the application.
+
+* **`org.gnome.gtk.InputMethod`**
+* **`org.gnome.gtk.SimpleInputMethod`**
+* **`org.gnome.gtk.MulticontextInputMethod`**
+* `org.gnome.gtk.ValidateInputMethods`
+
+We've also made numerous improvements down in GDK where events are processed;
+as a Java library we represent many naked low-level native entities with
+strongly-typed classes, and have improved our coverage here, notably with new
+Cursor constants representing the common use cases of changing the pointer.
+
+* **`org.gnome.gdk.Keyval`**
+* **`org.gnome.gdk.ModifierType`**
+* **`org.gnome.gdk.Cursor`**
+* **`org.gnome.gdk.CursorType`**
+
+Improved text rendering
+-----------------------
+
+Other minor improvements are present across the text rendering stack, notably
+with the ability to introspect where a Pango Layout has made its line breaks
+when wrapping via LayoutLine's `getStartIndex()` and `getLength()` methods.
+
+* **`org.gnome.gtk.TextIter`**
+* **`org.gnome.gtk.TextTag`**
+* `org.gnome.pango.ValidateTextBuffer`
+* **`org.gnome.pango.LayoutLine`**
+* `org.gnome.pango.ValidatePangoWrapBehaviour`
+
+Guillaume Mazoyer finished up a work by Serkan Kaba resulting in us having
+coverage of the special LinkButton subclass of Button which can be used to
+present clickable URLs.
+
+* **`org.gnome.gtk.LinkButton`**
+* `org.gnome.gtk.ValidateLinkBehaviour`
+* `button.ExampleDocumentationLink`
+
+You can now create custom PaperSize objects, which is handy if you need to use
+Cairo to output PDF documents with a non-standard paper format.
+
+* **`org.gnome.gtk.CustomPaperSize`**
+* `org.gnome.gtk.ValidatePrinting`
+
+Other changes
+-------------
+
+You can now use gdk-pixbuf to query an image on disk for its dimensions via
+Pixbuf `getFileInfo()` function calls.
+
+* **`org.gnome.gdk.Pixbuf`**
+* `org.gnome.gdk.ValidateImageHandling`
+
+There were of course miscellaneous improvements to various long established
+core classes, mostly fixing typos.
+
+* **`org.gnome.gtk.Dialog`**
+* **`org.gnome.gtk.AboutDialog`**
+* **`org.gnome.gtk.TreeIter`**
+* **`org.gnome.gtk.TreeModelFilter`**
+* `org.gnome.gtk.ValidateTreeStore`
+* **`org.gnome.gtk.Window`**
+* **`org.gnome.pango.Attribute`**
+
+We now have the methods necessary to have ImageMenuItems actually show images
+(there's a GNOME bug whereby suddenly icons are not showing in menus. So you
+need to either explicitly tell an ImageMenuItem that it should always show its
+image, or use the global Settings to say that Menus and Buttons should always
+have their icons showing).
+
+* **`org.gnome.gtk.ImageMenuItem`**
+* **`org.gnome.gtk.Settings`**
+* `org.gnome.gtk.ValidateGlobalSettings`
+
+The internal initialization sequence has been tweaked to ensure that GLib's
+threads are initialized before anything else. This means java-gnome apps will
+work if `glib 2.22.3` is installed; this is a workaround for bug
+[603774](https://bugzilla.gnome.org/show_bug.cgi?id=603774).
+
+Headless testing
+----------------
+
+For a long time we've had to be careful in our test suite not to do anything
+that would cause a Window to appear or otherwise popup while the tests were
+running. But some for some test cases this is unavoidable, especially if the
+main loop needs to cycle. We now run the java-gnome test suite within a
+virtual X server (ie `Xvfb`), and as a result distros packaging the library
+can run the test suite on their headless build servers if they wish.
+
+There's a new base class for java-gnome TestCases needing to run in this
+environment.
+
+* `org.gnome.gtk.GraphicalTestCase`
+
+Looking ahead
+-------------
+
+What's ahead for java-gnome? That's always a good question. At this point
+java-gnome provides a comprehensive API for development of user interfaces
+suitable for the GNOME desktop, and it's incredibly rewarding to see people
+using the library for their own programs.
+
+Development of java-gnome has continued pretty steadily, driven by people
+finding they need additional features from some of the underlying GNOME and
+FreeDesktop libraries we already expose. As a community we also work to
+fine-tune the performance and quality of the library through continuous
+improvement of the code base and its algorithms.
+
+There are also people quietly working on experimental coverage of more unusual
+libraries such as GStreamer and Clutter which is pretty exciting to see.
+
+People using java-gnome are always welcome to join us in `#java-gnome` to ask
+questions or just hang out! So happy hacking, and see you soon.
+
+AfC
+
+<a name="4.0.13" id="1251341992" title="Fix unicode handling"></a>
+
+java-gnome 4.0.13 (27 Aug 2009)
+===============================
+
+_Unicode. It's bigger than you think._
+
+This is a bug fix release to address a serious weakness in Java's handling of
+Unicode characters.
+
+Unicode handling
+----------------
+
+It turns out that Java's chars are **not** pure Unicode codepoints. Most
+people know that Java String objects are arrays of Java chars, but in
+aggregate they are encoded in UTF-16 in order to deal with the fact that there
+are Unicode characters whose index is higher than `0xFFFF` and which need more
+than two bytes to identify them. It's a problem that an application developer
+has to deal with if they're using high-range "supplementary" Unicode
+characters, but wasn't something that would break java-gnome...
+
+Except it turns out that the Java VM does not do UTF-8 translation properly.
+It has a hard wired limitation preventing it from writing out UTF-8 sequences
+longer than 3 bytes. Who knows what crack they were smoking when they decided
+that one. But things like TextView / TextBuffer work in characters, so we need
+characters. (actually, they work in UTF-8 bytes, but the offsets in our public
+API are the characters variants).
+
+Luckily, we can get at the raw UTF-16 arrays backing Strings, and so in
+combination with GLib's character set conversion functions, we've been able to
+redo our string handling internally so as to have correct treatment of Unicode
+codepoints. Lots of testing.
+
+* `org.gnome.gtk.ValidateUnicode`
+* `org.gnome.gtk.ValidateTextBuffer`
+* **`org.gnome.gtk.TextIter`**
+
+This surgery was almost entirely internal; Strings returned by java-gnome
+methods are of course still Java String objects. There was only one signature
+change in the public API: TextIter's `getChar()` now returns Java int, not
+Java char.
+
+New coverage
+------------
+
+<img src="doc/api/org/gnome/gtk/Entry.png" alt="" style="float: right;
+text-align: right; padding-left: 15px;" /> This release also features the work
+of Guillaume Mazoyer exposing some of the new features available in Entry
+Widgets, including displaying icons and showing progress bars in the
+background.
+
+* **`org.gnome.gtk.Entry`**
+* **`org.gnome.gtk.EntryIconPosition`**
+* `org.gnome.gtk.ValidateEntry`
+* `org.gnome.gtk.SnapshotEntryIcon`
+* `entry.ExampleSearchSomeone`
+
+Along with minor enhancements to various miscellaneous classes.
+
+* **`org.gnome.gdk.ModifierType`**
+* **`org.gnome.gtk.Label`**
+* **`org.gnome.pango.EllipsizeMode`**
+* **`org.gnome.pango.RiseAttribute`**
+
+With this release, java-gnome now requires GTK `2.16` or newer.
+
+AfC
+
+<a name="4.0.12" id="1248418784" title="Unique, Notify, Sourceview, Spelling"></a>
+
+java-gnome 4.0.12 (24 Jul 2009)
+===============================
+
+_Being Uniquely Notified while Spelling the Sources you are Viewing is good
+for the soul._
+
+In addition to ongoing improvement in our coverage of the GTK widget toolkit,
+the next release of java-gnome begins to realize our vision to offer
+coverage of the broad suite of libraries making up the GNOME desktop.
+
+New Coverage
+------------
+
+The TextView text editing Widget has received two significant capability
+boosts. With the work of Stefan Schweizer, we now have coverage of the
+powerful GtkSourceView library with its impressive built-in multi
+\[programming\] language source highlighting features.
+
+* **`org.gnome.sourceview.Language`**
+* **`org.gnome.sourceview.LanguageManager`**
+* `org.gnome.sourceview.Plumbing`
+* **`org.gnome.sourceview.SourceBuffer`**
+* **`org.gnome.sourceview.SourceView`**
+* `org.gnome.sourceview.ValidateSourceView`
+* `sourceview.ExampleEditor`
+
+And with the contribution of GtkSpell coverage by Serkan Kaba, we can now
+offer spell checking in TextViews as well.
+
+* **`org.gnome.gtk.Spell`**
+* **`org.gnome.gtk.TextView`**
+* `org.gnome.gtk.ValidateTextViewSpelling`
+* `org.gnome.gtk.SnapshotTextViewSpelling`
+* `textview.ExampleInstantMessenger`
+
+Two other GNOME libraries feature in this release. Serkan also contributed
+excellent coverage of LibNotify, enabling an application to create and send
+popups to be displayed by the desktop notification mechanism.
+
+* **`org.gnome.notify.Notification`**
+* **`org.gnome.notify.Notify`**
+* **`org.gnome.notify.Urgency`**
+* `org.gnome.notify.Plumbing`
+* `notify.ExampleLowBattery`
+
+And, we expose LibUnique, which offers DBus-powered machinery enabling a
+developer to ensure only one instance of their application is running.
+
+* **`org.gnome.unique.Application`**
+* **`org.gnome.unique.Command`**
+* **`org.gnome.unique.MessageData`**
+* `org.gnome.unique.Plumbing`
+* **`org.gnome.unique.Response`**
+* `org.gnome.unique.ValidateUniqueApplications`
+* `unique.ExampleThereCanBeOnlyOne`
+
+Continuing improvement
+----------------------
+
+Lots of minor changes and enhancements throughout the core GTK libraries.
+Highlights include improved mouse button handling, filtering when choosing
+files, and further refinement to Pixbuf. Thanks to Peter Mossveld, Kenneth
+Prugh, Vreixo Formoso, Serkan Kaba.
+
+* **`org.freedesktop.cairo.Context`**
+* `org.freedesktop.cairo.Status`
+* `org.freedesktop.cairo.ValidateCairoContext`
+* **`org.gnome.gdk.CursorType`**
+* **`org.gnome.gdk.EventScroll`**
+* **`org.gnome.gdk.MouseButton`**
+* **`org.gnome.gdk.Pixbuf`**
+* **`org.gnome.gdk.ScrollDirection`**
+* **`org.gnome.gtk.AboutDialog`**
+* **`org.gnome.gtk.CellRendererProgress`**
+* **`org.gnome.gtk.ColorButton`**
+* **`org.gnome.gtk.Entry`**
+* **`org.gnome.gtk.FileChooser`**
+* **`org.gnome.gtk.FileChooserButton`**
+* **`org.gnome.gtk.FileChooserDialog`**
+* **`org.gnome.gtk.FileChooserWidget`**
+* **`org.gnome.gtk.FileFilter`**
+* **`org.gnome.gtk.Notebook`**
+* **`org.gnome.gtk.Range`**
+* **`org.gnome.gtk.Toolbar`**
+* **`org.gnome.gtk.ToolbarStyle`**
+* **`org.gnome.gtk.Widget`**
+* `org.freedesktop.bindings.ValidateInternationalization`
+* `org.gnome.gtk.ValidateProperties`
+* `org.gnome.gtk.ValidateTextBuffer`
+
+Finally, thanks to Guillaume Mazoyer we now have coverage of EntryCompletion,
+the feature of Entry Widgets whereby available possible completions are
+offered to the based on characters the user has typed so far.
+
+* **`org.gnome.gtk.EntryCompletion`**
+* `org.gnome.gtk.ValidateEntryCompletion`
+* `org.gnome.gtk.SnapshotEntryCompletion`
+* `completion.ExampleLoginPrompt`
+
+Looking ahead
+-------------
+
+There are a number of people working on various branches -- some small feature
+extensions, and some major coverage additions that add signifant capabilies --
+but which haven't quite made it to the point where they can be merged into
+java-gnome. We'll see how these pieces of work fare in the coming months, but
+nevertheless the Java bindings for GNOME have reached a significant level of
+maturity and we are pleased to see people starting to use them in serious
+applications.
+
+AfC
+
 <a name="4.0.11" id="1241147383" title="Bug fixes"></a>
 
 java-gnome 4.0.11 (1 May 2009)
 ==============================
 
-This is a bug fix release.
+_This is a bug fix release._
 
 We made a few mistakes in our handling of the PangoAttribute structures'
 memory which resulted in VM crashes [unfortunately, the normal GNOME way of
@@ -2170,14 +2496,23 @@ The source code is available via `bzr`. Again, see `README`.
 AfC
 
 <!--
-
-  Copyright (c) 2006-2008 Operational Dynamics Consulting Pty Ltd 
+ 
+  Copyright © 2006-2010 Operational Dynamics Consulting, Pty Ltd and Others
 
   As project documentation, this file forms an integral part of the source
-  code of the library it accompanies, and thus is made available to you by the
-  authors under the terms of the "GNU General Public Licence, version 2". See
-  the LICENCE file for the terms governing usage, copying and redistribution.
+  code of the library it accompanies, and thus is made available to you by its
+  authors as open source software: you can redistribute it and/or modify it
+  under the terms of the GNU General Public License version 2 ("GPL") as
+  published by the Free Software Foundation.
 
-  vim: set textwidth=78 nowrap:
+  This program is distributed in the hope that it will be useful, but WITHOUT
+  ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+  FITNESS FOR A PARTICULAR PURPOSE. See the GPL for more details.
+
+  You should have received a copy of the GPL along with this program. If not,
+  see http://www.gnu.org/licenses/. The authors of this program may be
+  contacted through http://java-gnome.sourceforge.net/.
+
+  vim: set textwidth=78:
 
 -->

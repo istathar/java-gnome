@@ -123,6 +123,7 @@
     '("gint" "position")
   )
   (varargs #t)
+  (unnecessary)
 )
 
 (define-method insert_with_valuesv
@@ -136,6 +137,7 @@
     '("GValue*" "values")
     '("gint" "n_values")
   )
+  (unnecessary)
 )
 
 (define-method prepend

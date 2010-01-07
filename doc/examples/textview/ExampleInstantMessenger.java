@@ -1,18 +1,28 @@
 /*
- * ExampleInstantMessenger.java
+ * java-gnome, a UI library for writing GTK and GNOME programs from Java!
  *
- * Copyright (c) 2008-2009 Operational Dynamics Consulting Pty Ltd, and Others
- * 
- * The code in this file, and the program it is a part of, are made available
- * to you by the authors under the terms of the "GNU General Public Licence,
- * version 2" See the LICENCE file for the terms governing usage and
- * redistribution.
- * 
- * The smiley image used in this program is from the Tango Icon Theme, whose
- * authors make available under the Creative Commons Attribution Share-Alike
- * licence version 2.5. See http://tango-project.org/ for more details.  
+ * Copyright © 2008-2010 Operational Dynamics Consulting, Pty Ltd and Others
+ *
+ * The code in this file, and the program it is a part of, is made available
+ * to you by its authors as open source software: you can redistribute it
+ * and/or modify it under the terms of the GNU General Public License version
+ * 2 ("GPL") as published by the Free Software Foundation.
+ *
+ * This program is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+ * FITNESS FOR A PARTICULAR PURPOSE. See the GPL for more details.
+ *
+ * You should have received a copy of the GPL along with this program. If not,
+ * see http://www.gnu.org/licenses/. The authors of this program may be
+ * contacted through http://java-gnome.sourceforge.net/.
  */
 package textview;
+
+/*
+ * The smiley image used in this program is from the Tango Icon Theme, whose
+ * authors make available under the Creative Commons Attribution Share-Alike
+ * licence version 2.5. See http://tango-project.org/ for more details.
+ */
 
 import java.io.FileNotFoundException;
 
@@ -52,7 +62,7 @@ import static org.gnome.gtk.WrapMode.WORD;
  * This program creates the conversation window you might see in a typical
  * graphical instant messenger. It has a TextView displaying the conversation
  * above, and uses various formatting to differentiate between incoming
- * messages and outgoing ones. There is a small Entry at the bottom is where
+ * messages and outgoing ones. There is a second TextView at the bottom where
  * the user can write the messages and "send" them. Finally, a tiny worker
  * thread is kicked off to simulate incoming conversation.
  * 

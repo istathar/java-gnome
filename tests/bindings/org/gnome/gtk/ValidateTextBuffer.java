@@ -1,16 +1,25 @@
 /*
- * ValidateTextBuffer.java
+ * java-gnome, a UI library for writing GTK and GNOME programs from Java!
  *
- * Copyright (c) 2008-2009 Operational Dynamics Consulting Pty Ltd, and Others
- * 
- * The code in this file, and the suite it is a part of, are made available
- * to you by the authors under the terms of the "GNU General Public Licence,
- * version 2" See the LICENCE file for the terms governing usage and
- * redistribution.
+ * Copyright © 2008-2010 Operational Dynamics Consulting, Pty Ltd and Others
+ *
+ * The code in this file, and the program it is a part of, is made available
+ * to you by its authors as open source software: you can redistribute it
+ * and/or modify it under the terms of the GNU General Public License version
+ * 2 ("GPL") as published by the Free Software Foundation.
+ *
+ * This program is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+ * FITNESS FOR A PARTICULAR PURPOSE. See the GPL for more details.
+ *
+ * You should have received a copy of the GPL along with this program. If not,
+ * see http://www.gnu.org/licenses/. The authors of this program may be
+ * contacted through http://java-gnome.sourceforge.net/.
  */
 package org.gnome.gtk;
 
 import java.io.FileNotFoundException;
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 
 import org.gnome.gdk.Pixbuf;
@@ -22,7 +31,7 @@ import org.gnome.pango.Weight;
  * @author Andrew Cowie
  * @author Stefan Prelle
  */
-public class ValidateTextBuffer extends TestCaseGtk
+public class ValidateTextBuffer extends GraphicalTestCase
 {
     public final void testTagsAddedToTextTagTableAutomatically() {
         final TextTagTable table;
@@ -583,7 +592,7 @@ public class ValidateTextBuffer extends TestCaseGtk
         final TextBuffer buffer;
         TextIter pointer;
         int i;
-        String str;
+        StringBuilder str;
 
         /*
          * Put in 5 characters
@@ -599,15 +608,15 @@ public class ValidateTextBuffer extends TestCaseGtk
 
         pointer = buffer.getIterStart();
         i = 0;
-        str = "";
+        str = new StringBuilder();
 
         do {
             i++;
-            str = str + pointer.getChar();
+            str = str.appendCodePoint(pointer.getChar());
         } while (pointer.forwardChar());
 
         assertEquals(5, i);
-        assertEquals("Hello", str);
+        assertEquals("Hello", str.toString());
     }
 
     public final void testInsertWithMultipleTags() {
@@ -664,5 +673,32 @@ public class ValidateTextBuffer extends TestCaseGtk
         buffer.insert(pointer, "Hello World");
 
         assertEquals(11, offset);
+    }
+
+    /*
+     * Not much of a test, but at least it exercises the code path to ensure
+     * that Pango.SCALE is correctly accessed by TextTag.
+     */
+    public final void testCrossPackageConstantAccess() throws ClassNotFoundException, SecurityException,
+            NoSuchFieldException, IllegalArgumentException, IllegalAccessException {
+        final TextTag tag;
+        Class<?> cls;
+        Field fld;
+        double scale1, scale2;
+
+        tag = new TextTag();
+        tag.setRise(4.5);
+
+        cls = Class.forName("org.gnome.gtk.TextTag");
+        fld = cls.getDeclaredField("SCALE");
+        fld.setAccessible(true);
+        scale1 = fld.getDouble(tag);
+
+        cls = Class.forName("org.gnome.pango.Pango");
+        fld = cls.getDeclaredField("SCALE");
+        fld.setAccessible(true);
+        scale2 = fld.getDouble(tag);
+
+        assertEquals(scale2, scale1);
     }
 }

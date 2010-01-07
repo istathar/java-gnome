@@ -1,17 +1,26 @@
 #!/usr/bin/perl -w
+#
+# java-gnome, a UI library for writing GTK and GNOME programs from Java!
+#
+# Copyright © 2005-2010 Operational Dynamics Consulting, Pty Ltd and Others 
+# 
+# The code in this file, and the program it is a part of, is made available
+# to you by its authors as open source software: you can redistribute it
+# and/or modify it under the terms of the GNU General Public License version
+# 2 ("GPL") as published by the Free Software Foundation.
+#
+# This program is distributed in the hope that it will be useful, but WITHOUT
+# ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+# FITNESS FOR A PARTICULAR PURPOSE. See the GPL for more details.
+#
+# You should have received a copy of the GPL along with this program. If not,
+# see http://www.gnu.org/licenses/. The authors of this program may be
+# contacted through http://java-gnome.sourceforge.net/.
+#
 
 #
 # configure
 # part of Equivalence, version 0.2.x
-#
-# Copyright (c) 2005-2009 Operational Dynamics Consulting Pty Ltd, and Others
-# 
-# The code in this file, and the program it is a part of, are made available
-# to you by the authors under the terms of the "GNU General Public Licence,
-# version 2". See the LICENCE file for the terms governing usage and
-# redistribution.
-#
-
 #
 # THIS IS A PROTOTYPE. Although functional enough, this has grown to the point
 # of being a somewhat embarrassing and monolithic piece of code. Patches are
@@ -745,9 +754,15 @@ output "\nCheck for required system libraries:\n";
 
 if ($os eq "gentoo") {
 	check_system_library(@gnomedev_libs,
-			"gtk+-2.0 >= 2.14 pango >= 1.22 atk gdk-2.0 libglade-2.0 >= 2.6.3 gtk+-unix-print-2.0 cairo-svg >= 1.6.4 gtksourceview-2.0 >= 2.6.2",
+			"gtk+-2.0 >= 2.16 pango >= 1.22 atk gdk-2.0 libglade-2.0 >= 2.6.3 gtk+-unix-print-2.0 cairo-svg >= 1.6.4 gtksourceview-2.0 >= 2.6.2",
 			"GNOME",
 			"gnome");
+
+	check_system_library(@gnomedev_libs,
+			"enchant",
+			"Enchant",
+			"app-text/enchant");
+
 	check_system_library(@gnomedev_libs,
 			"gtkspell-2.0 >= 2.0.15",
 			"GtkSpell",
@@ -755,14 +770,19 @@ if ($os eq "gentoo") {
 
 	check_system_library(@gnomedev_libs,
 			"libnotify >= 0.4.5",
-			"Libnotify",
+			"LibNotify",
 			"libnotify");
+
+	check_system_library(@gnomedev_libs,
+			"unique-1.0 >= 1.0.8",
+			"LibUnique",
+			"libunique");
 
 } elsif ($os eq "slackware") {
 	# on slackware gdk-2.0 and gtk+-unix-print-2.0 are part of gtk+-2.0
 	# use http://packages.slackware.it/ for more details. 
 	check_system_library(@gnomedev_libs,
-			"gtk+-2.0 >= 2.14",
+			"gtk+-2.0 >= 2.16",
 			"GTK+",
 			"gtk+2");
 
@@ -788,7 +808,7 @@ if ($os eq "gentoo") {
 
 	check_system_library(@gnomedev_libs,
 			"libnotify >= 0.4.5",
-			"Libnotify",
+			"LibNotify",
 			"FIXME");
 
 	check_system_library(@gnomedev_libs,
@@ -796,9 +816,20 @@ if ($os eq "gentoo") {
 			"GtkSpell",
 			"FIXME");
 
+	check_system_library(@gnomedev_libs,
+			"unique-1.0 >= 1.0.8",
+			"LibUnique",
+			"FIXME");
+
+	check_system_library(@gnomedev_libs,
+			"enchant",
+			"Enchant",
+			"FIXME");
+
+
 } elsif ($os eq "debian") {
 	check_system_library(@gnomedev_libs,
-			"gtk+-2.0 >= 2.14 gdk-2.0 gtk+-unix-print-2.0",
+			"gtk+-2.0 >= 2.16 gdk-2.0 gtk+-unix-print-2.0",
 			"GTK+",
 			"libgtk2.0-dev");
 
@@ -824,8 +855,13 @@ if ($os eq "gentoo") {
 
 	check_system_library(@gnomedev_libs,
 			"libnotify >= 0.4.5",
-			"Libnotify",
+			"LibNotify",
 			"libnotify-dev");
+
+	check_system_library(@gnomedev_libs,
+			"enchant",
+			"Enchant",
+			"libenchant-dev");
 
 # FIXME: there is no 2.0.15 in Debian, but on the other hand, a GtkSpell that
 # is 2 versions old doubtless suffers from all sorts of problems. This will
@@ -837,9 +873,14 @@ if ($os eq "gentoo") {
 			"GtkSpell",
 			"libgtkspell-dev");
 
+	check_system_library(@gnomedev_libs,
+			"unique-1.0 >= 1.0.8",
+			"LibUnique",
+			"libunique-dev");
+
 } elsif ($os eq "suse") {
 	check_system_library(@gnomedev_libs,
-			"gtk+-2.0 >= 2.14.0 pango >= 1.22 atk gdk-2.0 gtk+-unix-print-2.0",
+			"gtk+-2.0 >= 2.16.0 pango >= 1.22 atk gdk-2.0 gtk+-unix-print-2.0",
 			"GNOME development libraries",
 			"libgnome-devel");
 
@@ -855,7 +896,7 @@ if ($os eq "gentoo") {
 
 	check_system_library(@gnomedev_libs,
 			"libnotify >= 0.4.5",
-			"Libnotify",
+			"LibNotify",
 			"FIXME");
 
 	check_system_library(@gnomedev_libs,
@@ -863,10 +904,19 @@ if ($os eq "gentoo") {
 			"GtkSpell",
 			"FIXME");
 
+	check_system_library(@gnomedev_libs,
+			"unique-1.0 >= 1.0.8",
+			"LibUnique",
+			"FIXME");
+
+	check_system_library(@gnomedev_libs,
+			"enchant",
+			"Enchant",
+			"FIXME");
 
 } elsif ($os eq "mandriva") {
 	check_system_library(@gnomedev_libs,
-			"gtk+-2.0 >= 2.14.0 pango >= 1.22 atk gdk-2.0 gtk+-unix-print-2.0",
+			"gtk+-2.0 >= 2.16.0 pango >= 1.22 atk gdk-2.0 gtk+-unix-print-2.0",
 			"GTK development libraries",
 			"libgtk+2.0_0-devel");
 	check_system_library(@gnomedev_libs,
@@ -881,12 +931,22 @@ if ($os eq "gentoo") {
 
 	check_system_library(@gnomedev_libs,
 			"libnotify >= 0.4.5",
-			"Libnotify",
+			"LibNotify",
 			"FIXME");
 
 	check_system_library(@gnomedev_libs,
 			"gtkspell-2.0 >= 2.0.15",
 			"GtkSpell",
+			"FIXME");
+
+	check_system_library(@gnomedev_libs,
+			"unique-1.0 >= 1.0.8",
+			"LibUnique",
+			"FIXME");
+
+	check_system_library(@gnomedev_libs,
+			"enchant",
+			"Enchant",
 			"FIXME");
 
 }
