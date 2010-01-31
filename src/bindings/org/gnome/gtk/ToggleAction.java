@@ -72,7 +72,7 @@ public class ToggleAction extends Action
      */
     public ToggleAction(String name, String label, String tooltip, Stock stock,
             ToggleAction.Toggled handler) {
-        this(GtkToggleAction.createToggleAction(name, label, tooltip, stock.getStockId()));
+        super(GtkToggleAction.createToggleAction(name, label, tooltip, stock.getStockId()));
         connect(handler);
     }
 
