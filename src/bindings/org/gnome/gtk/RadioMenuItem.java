@@ -1,7 +1,7 @@
 /*
  * java-gnome, a UI library for writing GTK and GNOME programs from Java!
  *
- * Copyright © 2007-2010 Operational Dynamics Consulting, Pty Ltd
+ * Copyright © 2007-2010 Operational Dynamics Consulting, Pty Ltd and Others
  *
  * The code in this file, and the program it is a part of, is made available
  * to you by its authors as open source software: you can redistribute it
@@ -32,17 +32,59 @@
  */
 package org.gnome.gtk;
 
-/*
- * FIXME this is a placeholder stub for what will become the public API for
- * this type. Replace this comment with appropriate javadoc including author
- * and since tags. Note that the class may need to be made abstract, implement
- * interfaces, or even have its parent changed. No API stability guarantees
- * are made about this class until it has been reviewed by a hacker and this
- * comment has been replaced.
+/**
+ * A special kind of CheckMenuItem used to select from a mutually exclusive
+ * set of options.
+ * 
+ * <p>
+ * A RadioMenuItem is somewhat similar to a CheckMenuItem, but it is shown as
+ * an empty circle (rather than an empty square) and the selected MenuItem in
+ * the group us shown with a dot inside (rather than a check mark).
+ * 
+ * <p>
+ * However, while a CheckMenuItem can be used alone to choose between two
+ * states, a RadioMenuItem is used together in a group of other (related)
+ * RadioMenuItems to offer a choice of one of those MenuItems. Only a single
+ * MenuItem in a group can the active at any one time.
+ * 
+ * @author Guillaume Mazoyer
+ * @since 4.0.15
  */
 public class RadioMenuItem extends CheckMenuItem
 {
+    /*
+     * Reference keeps our group mechanism in scope, and powers getGroup()
+     */
+    private RadioMenuItemGroup enclosingGroup;
+
     protected RadioMenuItem(long pointer) {
         super(pointer);
+    }
+
+    /**
+     * Create a new RadioMenuItem with the given label. It will be placed in
+     * its own group, you submit it later to the constructors of other
+     * MenuItems that should be in the same group.
+     * 
+     * @param label
+     *            The label that will be placed near the RadioMenuItem. If the
+     *            text contains an underscore (<code>_</code>) it will be
+     *            taken to be the mnemonic for the Widget.
+     * @since 4.0.15
+     */
+    public RadioMenuItem(RadioMenuItemGroup group, String label) {
+        this(GtkRadioMenuItem.createRadioMenuItemWithLabelFromWidget(group.getMember(), label));
+        group.setMember(this);
+        enclosingGroup = group;
+    }
+
+    /**
+     * Get the RadioMenuItemGroup that encloses this RadioMenuItem and the
+     * others that belonging to the same mutual exclusion group.
+     * 
+     * @since 4.0.15
+     */
+    public RadioMenuItemGroup getGroup() {
+        return enclosingGroup;
     }
 }
