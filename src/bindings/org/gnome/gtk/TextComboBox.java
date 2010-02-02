@@ -64,6 +64,7 @@ package org.gnome.gtk;
  * safe.</i>
  * 
  * @author Andrew Cowie
+ * @author Serkan Kaba
  * @since 4.0.6
  */
 public class TextComboBox extends ComboBox
@@ -136,5 +137,14 @@ public class TextComboBox extends ComboBox
      */
     public String getActiveText() {
         return GtkComboBox.getActiveText(this);
+    }
+    
+    /**
+     * Removes the item at given position from the list.
+     * 
+     * @since 4.0.15
+     */
+    public void removeText(int position) {
+        GtkComboBox.removeText(this, position);
     }
 }
