@@ -21,3 +21,9 @@
   (c-name "g_get_user_config_dir")
   (return-type "const-gchar*")
 )
+
+(define-function get_user_name
+  (of-object "GlibMisc")
+  (c-name "g_get_user_name")
+  (return-type "const-gchar*")
+)
