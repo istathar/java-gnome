@@ -82,6 +82,10 @@ public class Layout extends Object
         super(pointer);
     }
 
+    public String toString() {
+        return PangoLayout.getText(this);
+    }
+
     /**
      * Create a new Layout configured to draw using the given Cairo Context
      * backend.
