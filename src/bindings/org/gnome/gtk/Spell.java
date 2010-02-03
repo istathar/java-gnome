@@ -46,6 +46,13 @@ import org.gnome.glib.GlibException;
  * GtkSpell library, which in turn leverages Enchant to connect to a spell
  * checking backend.</i>
  * 
+ * <p>
+ * <i>If GtkSpell doesn't meet your needs, then you may try using the
+ * underlying checking API directly. We have coverage of it starting at</i>
+ * {@link org.freedesktop.enchant.Enchant Enchant}.
+ * 
+ * 
+ * 
  * @author Andrew Cowie
  * @author Serkan Kaba
  * @since 4.0.12
