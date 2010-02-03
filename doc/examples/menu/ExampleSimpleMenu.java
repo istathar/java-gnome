@@ -171,8 +171,8 @@ public class ExampleSimpleMenu
         /*
          * Finally, pack the Widgets into the VBox, and present:
          */
-        x.packStart(menuBar);
-        x.packStart(l);
+        x.packStart(menuBar, false, false, 0);
+        x.packStart(l, false, false, 0);
 
         w.showAll();
 

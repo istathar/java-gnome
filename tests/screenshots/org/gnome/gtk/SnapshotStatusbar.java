@@ -46,7 +46,7 @@ public class SnapshotStatusbar extends Snapshot
         spacer.setSizeRequest(200, 100);
         spacer.setPadding(2, 1);
         window.modifyBackground(StateType.NORMAL, Color.WHITE);
-        box.packStart(spacer);
+        box.packStart(spacer, false, false, 0);
 
         status = new Statusbar();
         status.setMessage("Ready");

@@ -71,7 +71,7 @@ public final class Experiment
         b = new Button("Change Me?");
         b.setLabel("Press Me!");
         b.setRelief(ReliefStyle.NORMAL);
-        x.packStart(b);
+        x.packStart(b, false, false, 0);
 
         fcb = new FileChooserButton("Good to get, a file is", FileChooserAction.OPEN);
         x.packStart(fcb, false, false, 0);

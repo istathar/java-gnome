@@ -43,7 +43,7 @@ public class ValidatePacking extends GraphicalTestCase
 
         assertNull(b.getParent());
 
-        x.packStart(b);
+        x.packStart(b, false, false, 0);
 
         w.add(x);
 
