@@ -5406,17 +5406,6 @@
   (return-type "GType")
 )
 
-(define-function xml_new_from_buffer
-  (c-name "glade_xml_new_from_buffer")
-  (return-type "GladeXML*")
-  (parameters
-    '("const-char*" "buffer")
-    '("int" "size")
-    '("const-char*" "root" (default "NULL") (null-ok))
-    '("const-char*" "domain" (default "NULL") (null-ok))
-  )
-)
-
 (define-function get_widget_name
   (c-name "glade_get_widget_name")
   (return-type "const-char*")

@@ -18,6 +18,18 @@
   )
 )
 
+(define-function xml_new_from_buffer
+  (c-name "glade_xml_new_from_buffer")
+  (return-type "GladeXML*")
+  (parameters
+    '("const-char*" "buffer")
+    '("int" "size")
+    '("const-char*" "root" (default "NULL") (null-ok))
+    '("const-char*" "domain" (default "NULL") (null-ok))
+  )
+)
+
+
 (define-method construct
   (of-object "GladeXML")
   (c-name "glade_xml_construct")
@@ -27,6 +39,7 @@
     '("const-char*" "root" (default "NULL") (null-ok))
     '("const-char*" "domain" (default "NULL") (null-ok))
   )
+  (unnecessary)
 )
 
 (define-method signal_connect
@@ -48,12 +61,14 @@
     '("GtkSignalFunc" "func")
     '("gpointer" "user_data")
   )
+  (unnecessary)
 )
 
 (define-method signal_autoconnect
   (of-object "GladeXML")
   (c-name "glade_xml_signal_autoconnect")
   (return-type "none")
+  (unnecessary)
 )
 
 (define-method signal_connect_full
@@ -65,6 +80,7 @@
     '("GladeXMLConnectFunc" "func")
     '("gpointer" "user_data")
   )
+  (unnecessary)
 )
 
 (define-method signal_autoconnect_full
@@ -75,6 +91,7 @@
     '("GladeXMLConnectFunc" "func")
     '("gpointer" "user_data")
   )
+  (unnecessary)
 )
 
 (define-method get_widget
