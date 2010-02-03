@@ -1,7 +1,7 @@
 /*
  * java-gnome, a UI library for writing GTK and GNOME programs from Java!
  *
- * Copyright © 2006-2010 Operational Dynamics Consulting, Pty Ltd
+ * Copyright © 2006-2010 Operational Dynamics Consulting, Pty Ltd and Others
  *
  * The code in this file, and the program it is a part of, is made available
  * to you by its authors as open source software: you can redistribute it
@@ -36,6 +36,7 @@ package org.gnome.glib;
  * Static methods to initialize the Java bindings around GLib
  * 
  * @author Andrew Cowie
+ * @author Serkan Kaba
  * @since 4.0.0
  */
 public class Glib
@@ -83,5 +84,24 @@ public class Glib
      */
     public static void setProgramName(String name) {
         GlibMisc.setPrgname(name);
+    }
+
+    /**
+     * Get the XDG user specific configuration directory. In all likelihood
+     * this will be <code>~/.config</code>.
+     * 
+     * @since 4.0.15
+     */
+    public static String getUserConfigDir() {
+        return GlibMisc.getUserConfigDir();
+    }     
+
+    /**
+     * Returns the username (i.e Linux login name) running the application.
+     * 
+     * @since 4.0.15
+     */
+    public static String getUserName() {
+        return GlibMisc.getUserName();
     }
 }
