@@ -1,13 +1,34 @@
 /*
- * TextView.java
+ * java-gnome, a UI library for writing GTK and GNOME programs from Java!
  *
- * Copyright (c) 2007-2009 Operational Dynamics Consulting Pty Ltd, and Others
+ * Copyright © 2007-2010 Operational Dynamics Consulting, Pty Ltd and Others
  *
- * The code in this file, and the library it is a part of, are made available
- * to you by the authors under the terms of the "GNU General Public Licence,
- * version 2" plus the "Classpath Exception" (you may link to this code as a
- * library into other programs provided you don't make a derivation of it).
- * See the LICENCE file for the terms governing usage and redistribution.
+ * The code in this file, and the program it is a part of, is made available
+ * to you by its authors as open source software: you can redistribute it
+ * and/or modify it under the terms of the GNU General Public License version
+ * 2 ("GPL") as published by the Free Software Foundation.
+ *
+ * This program is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+ * FITNESS FOR A PARTICULAR PURPOSE. See the GPL for more details.
+ *
+ * You should have received a copy of the GPL along with this program. If not,
+ * see http://www.gnu.org/licenses/. The authors of this program may be
+ * contacted through http://java-gnome.sourceforge.net/.
+ *
+ * Linking this library statically or dynamically with other modules is making
+ * a combined work based on this library. Thus, the terms and conditions of
+ * the GPL cover the whole combination. As a special exception (the
+ * "Claspath Exception"), the copyright holders of this library give you
+ * permission to link this library with independent modules to produce an
+ * executable, regardless of the license terms of these independent modules,
+ * and to copy and distribute the resulting executable under terms of your
+ * choice, provided that you also meet, for each linked independent module,
+ * the terms and conditions of the license of that module. An independent
+ * module is a module which is not derived from or based on this library. If
+ * you modify this library, you may extend the Classpath Exception to your
+ * version of the library, but you are not obligated to do so. If you do not
+ * wish to do so, delete this exception statement from your version.
  */
 package org.gnome.gtk;
 
@@ -184,12 +205,29 @@ import org.gnome.pango.FontDescription;
  * in Open Source, Your Mileage May Vary. Perhaps GTK will improve this aspect
  * of the library in the future.</i>
  * 
+ * <a name="spelling"></a>
+ * <h2>Spellchecking</h2>
+ * 
+ * <img class="snapshot" src="TextView-Spelling.png"> You can add
+ * spellchecking capability to the TextView with a single line of code.
+ * 
+ * <pre>
+ * view.attachSpell()
+ * </pre>
+ * 
+ * The given code will determine the spellchecker language based on
+ * <code>LANG</code> environment variable and fall back to English if it
+ * can't.
+ * 
  * @author Stefan Prelle
  * @author Andrew Cowie
+ * @author Serkan Kaba
  * @since 4.0.9
  */
 public class TextView extends Container
 {
+    private Spell spell;
+
     protected TextView(long pointer) {
         super(pointer);
     }
@@ -238,8 +276,8 @@ public class TextView extends Container
      * 
      * @since 4.0.9
      */
-    public void setWrapMode(WrapMode wrapMode) {
-        GtkTextView.setWrapMode(this, wrapMode);
+    public void setWrapMode(WrapMode mode) {
+        GtkTextView.setWrapMode(this, mode);
     }
 
     /**
@@ -975,12 +1013,82 @@ public class TextView extends Container
     }
 
     /**
-     * Set the number of pixels that will be between the left hand edge of the
-     * TextView and the left hand edge of the paragraphs of text.
-     * 
-     * @since 4.0.10
+     * @deprecated
      */
     public void setLeftMargin(int pixels) {
+        assert false : "use setMarginLeft() instead";
         GtkTextView.setLeftMargin(this, pixels);
+    }
+
+    /**
+     * Create and attach a {@link Spell} object to the view to add
+     * spellchecking capability.
+     * 
+     * <p>
+     * The language is chosen based on the value of <code>LANG</code>
+     * environment variable.
+     * 
+     * @since 4.0.12
+     */
+    public void attachSpell() {
+        if (spell == null) {
+            spell = new Spell(this, null);
+        } else {
+            throw new IllegalStateException("Sorry, you've already attached a Spell to this TextView");
+        }
+    }
+
+    /**
+     * Create and attach a {@link Spell} object to the view to add
+     * spellchecking capability in the given language.
+     * 
+     * <p>
+     * You're probably just as well to call {@link #attachSpell()
+     * attachSpell()} and accept the default.
+     * 
+     * @since 4.0.12
+     */
+    public void attachSpell(String lang) {
+        if (spell == null) {
+            spell = new Spell(this, lang);
+        } else {
+            throw new IllegalStateException("Sorry, you've already attached a Spell to this TextView");
+        }
+    }
+
+    /**
+     * Get the Spell helper object attached to the view.
+     * 
+     * <p>
+     * Reasons you might need to use this are if you have to programatically
+     * change the language being used to spell check against with Spell's
+     * {@link Spell#setLanguage(String) setLanguage()}, or to force the
+     * checker to run again with its {@link Spell#recheckAll() recheckAll()}.
+     * You probably won't ever need either.
+     * 
+     * <p>
+     * Obviously there isn't much point in asking for the Spell helper object
+     * if you haven't called {@link #attachSpell() attachSpell()} to create
+     * one yet.
+     * 
+     * @since 4.0.12
+     */
+    public Spell getSpell() {
+        if (spell == null) {
+            throw new IllegalStateException("You haven't attached a Spell to this TextView yet.");
+        }
+        return spell;
+    }
+
+    /**
+     * Tell this TextView to adopt the given justification.
+     * 
+     * @since 4.0.14
+     */
+    /*
+     * Method name adjusted to match Label's setJustify().
+     */
+    public void setJustify(Justification setting) {
+        GtkTextView.setJustification(this, setting);
     }
 }

@@ -1,13 +1,34 @@
 /*
- * Widget.java
+ * java-gnome, a UI library for writing GTK and GNOME programs from Java!
  *
- * Copyright (c) 2006-2009 Operational Dynamics Consulting Pty Ltd, and Others
- * 
- * The code in this file, and the library it is a part of, are made available
- * to you by the authors under the terms of the "GNU General Public Licence,
- * version 2" plus the "Classpath Exception" (you may link to this code as a
- * library into other programs provided you don't make a derivation of it).
- * See the LICENCE file for the terms governing usage and redistribution.
+ * Copyright © 2006-2010 Operational Dynamics Consulting, Pty Ltd and Others
+ *
+ * The code in this file, and the program it is a part of, is made available
+ * to you by its authors as open source software: you can redistribute it
+ * and/or modify it under the terms of the GNU General Public License version
+ * 2 ("GPL") as published by the Free Software Foundation.
+ *
+ * This program is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+ * FITNESS FOR A PARTICULAR PURPOSE. See the GPL for more details.
+ *
+ * You should have received a copy of the GPL along with this program. If not,
+ * see http://www.gnu.org/licenses/. The authors of this program may be
+ * contacted through http://java-gnome.sourceforge.net/.
+ *
+ * Linking this library statically or dynamically with other modules is making
+ * a combined work based on this library. Thus, the terms and conditions of
+ * the GPL cover the whole combination. As a special exception (the
+ * "Claspath Exception"), the copyright holders of this library give you
+ * permission to link this library with independent modules to produce an
+ * executable, regardless of the license terms of these independent modules,
+ * and to copy and distribute the resulting executable under terms of your
+ * choice, provided that you also meet, for each linked independent module,
+ * the terms and conditions of the license of that module. An independent
+ * module is a module which is not derived from or based on this library. If
+ * you modify this library, you may extend the Classpath Exception to your
+ * version of the library, but you are not obligated to do so. If you do not
+ * wish to do so, delete this exception statement from your version.
  */
 package org.gnome.gtk;
 
@@ -19,6 +40,7 @@ import org.gnome.gdk.EventCrossing;
 import org.gnome.gdk.EventExpose;
 import org.gnome.gdk.EventFocus;
 import org.gnome.gdk.EventKey;
+import org.gnome.gdk.EventScroll;
 import org.gnome.gdk.EventVisibility;
 import org.gnome.gdk.VisibilityState;
 import org.gnome.pango.FontDescription;
@@ -38,6 +60,45 @@ public abstract class Widget extends org.gnome.gtk.Object
 {
     protected Widget(long pointer) {
         super(pointer);
+    }
+
+    /**
+     * Get the name of the Widget, if it has one.
+     * 
+     * <p>
+     * Widgets can be identified by a name. You will most likely use this
+     * method a lot if you are using Glade. Every widget there is identified
+     * by a name. It is suggested to use sensible names; see
+     * {@link org.gnome.glade.Glade Glade} for a discussion of the
+     * implications of different nomenaclatures if that's what you are using,
+     * but in any case once you've retrieved the Widget with
+     * {@link org.gnome.glade.XML#getWidget(String) getWidget()} you won't
+     * really need to know its name anymore.
+     * 
+     * @since 4.0.11
+     */
+    public String getName() {
+        return GtkWidget.getName(this);
+    }
+
+    /**
+     * Every Widget has a name as an optional identifier.
+     * 
+     * <p>
+     * If using Glade then these names are used to retrieve widgets from the
+     * XML file. You can use this method you set the name of a Widget after it
+     * is retrieved.
+     * 
+     * <p>
+     * If you are using Glade then you will most likely never need this
+     * method, as you will have them defined in Glade. And if you're not using
+     * Glade, then you probably won't need this method either, since you can
+     * refer to Widgets you create by reference.
+     * 
+     * @since 4.0.11
+     */
+    public void setName(String name) {
+        GtkWidget.setName(this, name);
     }
 
     /**
@@ -534,6 +595,70 @@ public abstract class Widget extends org.gnome.gtk.Object
 
     /** @deprecated */
     public void connect(KEY_RELEASE_EVENT handler) {
+        GtkWidget.connect(this, handler, false);
+    }
+
+    /**
+     * Signal emitted when the user turns the mouse wheel.
+     * 
+     * <p>
+     * In most cases you are not interested in this Signal. If you only want
+     * to provide a Scrolling surface for a big Widget, {@link ScrolledWindow}
+     * is what you are looking for.
+     * 
+     * <p>
+     * This event can be useful, however, when you want to have more control
+     * of the scroll operations, specially when implemented custom Widgets.
+     * 
+     * <p>
+     * For example, to implement a zoom operation when the user turns the
+     * mouse wheel while pressing the <code>Ctrl</code> key, as many drawing
+     * applications do:
+     * 
+     * <pre>
+     * MyCustomWidget w;
+     * 
+     * w.connect(new Widget.ScrollEvent() {
+     *     public boolean onScrollEvent(Widget source, EventScroll event) {
+     *         // check if Ctrl key is pressed
+     *         if (event.getState().contains(ModifierType.CONTROL_MASK)) {
+     *             ScrollDirection dir = event.getDirection();
+     *             if (dir == ScrollDirection.UP) {
+     *                 // increment zoom
+     *             } else if (dir == ScrollDirection.DOWN) {
+     *                 // decrement zoom
+     *             }
+     *             // prevent the default scrolling if the Widget is added
+     *             // to a ScrolledWindow 
+     *             return true;
+     *         }
+     *         return false;
+     *     }
+     * });
+     * </pre>
+     * 
+     * <p>
+     * It is also useful when your custom Widget can use the scroll events to
+     * perform some related operation. For example, when you scroll a ComboBox
+     * Widget it changes its active item. Of course, this is only useful when
+     * the operation can be seen as a scroll in the particular Widget context;
+     * it is not a good idea, for example, to close a Window or click a Button
+     * in response to a <code>Widget.SrollEvent</code>.
+     * 
+     * @author Vreixo Formoso
+     * @since 4.0.12
+     */
+    public interface ScrollEvent extends GtkWidget.ScrollEventSignal
+    {
+        public boolean onScrollEvent(Widget source, EventScroll event);
+    }
+
+    /**
+     * Hook up a <code>Widget.ScrollEvent</code> handler.
+     * 
+     * @since 4.0.12
+     */
+    public void connect(Widget.ScrollEvent handler) {
         GtkWidget.connect(this, handler, false);
     }
 
@@ -1292,6 +1417,31 @@ public abstract class Widget extends org.gnome.gtk.Object
      */
     public void grabDefault() {
         GtkWidget.grabDefault(this);
+    }
+
+    /**
+     * Make this the current grabbed Widget. Interaction with other Widgets
+     * will be prevented. If this Widget is not sensitive, this call will do
+     * nothing.
+     * 
+     * <p>
+     * Note that being the current grabbed widget means mouse and keyboard
+     * events will not be delivered to other widgets, so use this with care.
+     * 
+     * @since 4.0.11
+     */
+    public void grabAdd() {
+        GtkWidget.grabAdd(this);
+    }
+
+    /**
+     * Removes the "grab" status from this Widget if it is currently grabbed,
+     * otherwise this does nothing. See {@link #grabAdd() grabAdd()}.
+     * 
+     * @since 4.0.11
+     */
+    public void grabRemove() {
+        GtkWidget.grabRemove(this);
     }
 
     /**

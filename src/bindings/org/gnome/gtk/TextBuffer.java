@@ -1,13 +1,34 @@
 /*
- * TextBuffer.java
+ * java-gnome, a UI library for writing GTK and GNOME programs from Java!
  *
- * Copyright (c) 2007-2009 Operational Dynamics Consulting Pty Ltd, and Others
+ * Copyright © 2007-2010 Operational Dynamics Consulting, Pty Ltd and Others
  *
- * The code in this file, and the library it is a part of, are made available
- * to you by the authors under the terms of the "GNU General Public Licence,
- * version 2" plus the "Classpath Exception" (you may link to this code as a
- * library into other programs provided you don't make a derivation of it).
- * See the LICENCE file for the terms governing usage and redistribution.
+ * The code in this file, and the program it is a part of, is made available
+ * to you by its authors as open source software: you can redistribute it
+ * and/or modify it under the terms of the GNU General Public License version
+ * 2 ("GPL") as published by the Free Software Foundation.
+ *
+ * This program is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+ * FITNESS FOR A PARTICULAR PURPOSE. See the GPL for more details.
+ *
+ * You should have received a copy of the GPL along with this program. If not,
+ * see http://www.gnu.org/licenses/. The authors of this program may be
+ * contacted through http://java-gnome.sourceforge.net/.
+ *
+ * Linking this library statically or dynamically with other modules is making
+ * a combined work based on this library. Thus, the terms and conditions of
+ * the GPL cover the whole combination. As a special exception (the
+ * "Claspath Exception"), the copyright holders of this library give you
+ * permission to link this library with independent modules to produce an
+ * executable, regardless of the license terms of these independent modules,
+ * and to copy and distribute the resulting executable under terms of your
+ * choice, provided that you also meet, for each linked independent module,
+ * the terms and conditions of the license of that module. An independent
+ * module is a module which is not derived from or based on this library. If
+ * you modify this library, you may extend the Classpath Exception to your
+ * version of the library, but you are not obligated to do so. If you do not
+ * wish to do so, delete this exception statement from your version.
  */
 package org.gnome.gtk;
 
@@ -15,8 +36,6 @@ import java.util.Collection;
 
 import org.gnome.gdk.Pixbuf;
 import org.gnome.glib.Object;
-
-import static org.gnome.gtk.TextTagTable.getDefaultTable;
 
 /**
  * A TextBuffer is a powerful mechanism for storing and manipulating text. It
@@ -148,11 +167,32 @@ public class TextBuffer extends Object
      */
     public static final char OBJECT_REPLACEMENT_CHARACTER = 0xFFFC;
 
+    private static TextTagTable defaultTable;
+
+    /**
+     * We maintain a single default TextTagTable to facilitate no-arg
+     * convenience constructors for TextTag and TextBuffer. Get (and
+     * initialize if necessary) this table.
+     */
+    /*
+     * synchronized?
+     */
+    protected static TextTagTable getDefaultTable() {
+        if (defaultTable == null) {
+            defaultTable = new TextTagTable();
+        }
+        return defaultTable;
+    }
+
     private final boolean usingDefaultTable;
 
     protected TextBuffer(long pointer) {
+        this(pointer, false);
+    }
+
+    protected TextBuffer(long pointer, boolean usingDefaultTable) {
         super(pointer);
-        usingDefaultTable = false;
+        this.usingDefaultTable = usingDefaultTable;
     }
 
     /**
@@ -169,8 +209,7 @@ public class TextBuffer extends Object
      * @since 4.0.9
      */
     public TextBuffer() {
-        super(GtkTextBuffer.createTextBuffer(getDefaultTable()));
-        usingDefaultTable = true;
+        this(GtkTextBuffer.createTextBuffer(getDefaultTable()), true);
     }
 
     /**
@@ -180,8 +219,7 @@ public class TextBuffer extends Object
      * @since 4.0.9
      */
     public TextBuffer(TextTagTable tags) {
-        super(GtkTextBuffer.createTextBuffer(tags));
-        usingDefaultTable = false;
+        this(GtkTextBuffer.createTextBuffer(tags), false);
     }
 
     /**
@@ -414,7 +452,13 @@ public class TextBuffer extends Object
      * Like {@link #insert(TextIter, String) insert()}, but the insertion will
      * not occur if <code>pos</code> points to a non-editable location in the
      * buffer - meaning that it is enclosed in TextTags that mark the area
-     * non-editable.<br/>
+     * non-editable.
+     * 
+     * <p>
+     * This method is conducted as a user action, so the
+     * <code>TextBuffer.BeginUserAction</code> and
+     * <code>TextBuffer.EndUserAction</code> signals will be raised before and
+     * after carrying out the insertion, respectively.
      * 
      * @param pos
      *            Position to insert at.
@@ -431,6 +475,27 @@ public class TextBuffer extends Object
      */
     public void insertInteractive(TextIter pos, String text, boolean defaultEditability) {
         GtkTextBuffer.insertInteractive(this, pos, text, -1, defaultEditability);
+    }
+
+    /**
+     * Delete text like {@link #delete(TextIter, TextIter) delete()}, but only
+     * if the range given is editable.
+     * 
+     * <p>
+     * See {@link #insertInteractive(TextIter, String, boolean)
+     * insertInteractive()} for a discussion of the
+     * <code>defaultEditability</code> parameter.
+     * 
+     * <p>
+     * This method is conducted as a user action, so the
+     * <code>TextBuffer.BeginUserAction</code> and
+     * <code>TextBuffer.EndUserAction</code> signals will be raised before and
+     * after carrying out the deletion.
+     * 
+     * @since 4.0.13
+     */
+    public void deleteInteractive(TextIter start, TextIter end, boolean defaultEditability) {
+        GtkTextBuffer.deleteInteractive(this, start, end, defaultEditability);
     }
 
     /**
@@ -595,7 +660,7 @@ public class TextBuffer extends Object
      */
     /*
      * Convenience method. This doesn't need to be here, but it lends a
-     * certain elegence when used alongside the insert() overload
+     * certain elegance when used alongside the insert() overload
      */
     public void applyTag(TextTag[] tags, TextIter start, TextIter end) {
         if (tags == null) {
@@ -1053,5 +1118,102 @@ public class TextBuffer extends Object
      */
     public int getCursorPosition() {
         return getPropertyInteger("cursor-position");
+    }
+
+    /**
+     * Mark the beginning of a user initiated action. Calls to
+     * <code>beginUserAction()</code> can nest, but they need to be paired
+     * with calls to {@link #endUserAction() endUserAction()}. The outer-most
+     * call to this method will raise <code>TextBuffer.BeginUserAction</code>.
+     * Note that user input into a TextView that is handled by GTK's default
+     * <code>Widget.KeyPressEvent</code> handler will likewise begin a user
+     * action sequence.
+     * 
+     * @since 4.0.11
+     */
+    public void beginUserAction() {
+        GtkTextBuffer.beginUserAction(this);
+    }
+
+    /**
+     * Calls to <code>endUserAction()</code> close off the matching
+     * {@link #beginUserAction() beginUserAction()} call.
+     * <code>TextBuffer.EndUserAction</code> will only be emitted when the
+     * outer most user action is closed.
+     * 
+     * @since 4.0.11
+     */
+    public void endUserAction() {
+        GtkTextBuffer.endUserAction(this);
+    }
+
+    /**
+     * Signal emitted when a "user action" is initiated. This can be fired
+     * programmatically by calling TextBuffer's
+     * {@link TextBuffer#beginUserAction() beginUserAction()}, but is also
+     * raised by the default Input Method handler when the user types into a
+     * TextView.
+     * 
+     * @author Andrew Cowie
+     * @since 4.0.11
+     */
+    public interface BeginUserAction extends GtkTextBuffer.BeginUserActionSignal
+    {
+        public void onBeginUserAction(TextBuffer source);
+    }
+
+    /**
+     * Hookup a <code>TextBuffer.BeginUserAction</code> signal handler.
+     * 
+     * @since 4.0.11
+     */
+    public void connect(BeginUserAction handler) {
+        GtkTextBuffer.connect(this, handler, false);
+    }
+
+    /**
+     * The signal emitted when a "user action" stops. See TextBuffer's
+     * {@link TextBuffer#beginUserAction() beginUserAction()} for details.
+     * 
+     * @author Andrew Cowie
+     * @since 4.0.11
+     */
+    public interface EndUserAction extends GtkTextBuffer.EndUserActionSignal
+    {
+        public void onEndUserAction(TextBuffer source);
+    }
+
+    /**
+     * Hookup a <code>TextBuffer.EndUserAction</code> signal handler.
+     * 
+     * @since 4.0.11
+     */
+    public void connect(EndUserAction handler) {
+        GtkTextBuffer.connect(this, handler, false);
+    }
+
+    /**
+     * Tell a currently active <code>TextBuffer.InsertText</code> signal
+     * emission to stop.
+     * 
+     * <p>
+     * Calling this only makes sense within the scope of a normal handler of
+     * that signal; the effect is to prevent insertion by GTK's default
+     * handler.
+     * 
+     * @since 4.0.13
+     */
+    public void stopInsertText() {
+        GtkTextBufferOverride.stopInsertText(this);
+    }
+
+    /**
+     * Tell a currently active <code>TextBuffer.DeleteRange</code> signal
+     * emission to stop.
+     * 
+     * @since 4.0.13
+     */
+    public void stopDeleteRange() {
+        GtkTextBufferOverride.stopDeleteRange(this);
     }
 }

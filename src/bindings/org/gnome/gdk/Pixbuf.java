@@ -1,13 +1,34 @@
 /*
- * Pixbuf.java
+ * java-gnome, a UI library for writing GTK and GNOME programs from Java!
  *
- * Copyright (c) 2006-2009 Operational Dynamics Consulting Pty Ltd and Others
- * 
- * The code in this file, and the library it is a part of, are made available
- * to you by the authors under the terms of the "GNU General Public Licence,
- * version 2" plus the "Classpath Exception" (you may link to this code as a
- * library into other programs provided you don't make a derivation of it).
- * See the LICENCE file for the terms governing usage and redistribution.
+ * Copyright © 2006-2010 Operational Dynamics Consulting, Pty Ltd and Others
+ *
+ * The code in this file, and the program it is a part of, is made available
+ * to you by its authors as open source software: you can redistribute it
+ * and/or modify it under the terms of the GNU General Public License version
+ * 2 ("GPL") as published by the Free Software Foundation.
+ *
+ * This program is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+ * FITNESS FOR A PARTICULAR PURPOSE. See the GPL for more details.
+ *
+ * You should have received a copy of the GPL along with this program. If not,
+ * see http://www.gnu.org/licenses/. The authors of this program may be
+ * contacted through http://java-gnome.sourceforge.net/.
+ *
+ * Linking this library statically or dynamically with other modules is making
+ * a combined work based on this library. Thus, the terms and conditions of
+ * the GPL cover the whole combination. As a special exception (the
+ * "Claspath Exception"), the copyright holders of this library give you
+ * permission to link this library with independent modules to produce an
+ * executable, regardless of the license terms of these independent modules,
+ * and to copy and distribute the resulting executable under terms of your
+ * choice, provided that you also meet, for each linked independent module,
+ * the terms and conditions of the license of that module. An independent
+ * module is a module which is not derived from or based on this library. If
+ * you modify this library, you may extend the Classpath Exception to your
+ * version of the library, but you are not obligated to do so. If you do not
+ * wish to do so, delete this exception statement from your version.
  */
 package org.gnome.gdk;
 
@@ -29,6 +50,7 @@ import org.gnome.glib.GlibException;
  * will facilitate.</i>
  * 
  * @author Andrew Cowie
+ * @author Serkan Kaba
  * @since 4.0.0
  */
 public class Pixbuf extends org.gnome.glib.Object
@@ -115,7 +137,35 @@ public class Pixbuf extends org.gnome.glib.Object
 
     private static long checkPixbufFromArray(byte[] data) throws IOException {
         try {
-            return GdkPixbufOverride.createPixbufFromArray(data);
+            // Parameters 2-4 have no meaning when we're not scaling
+            return GdkPixbufOverride.createPixbufFromArray(data, 0, 0, true, false);
+        } catch (GlibException ge) {
+            /*
+             * FIXME this will need to be more specific when our GError
+             * handling is better! IOException is the usual in stream-ish
+             * cases, but is it really appropriate here?
+             */
+            throw new IOException(ge.getMessage());
+        }
+    }
+
+    /**
+     * Construct a new Pixbuf from in-memory data and scale it.
+     * <p>
+     * See {@link #Pixbuf(byte[])} for info on in-memory data.<br>
+     * See {@link #Pixbuf(String, int, int, boolean)} for info on scaling.
+     * 
+     * @since 4.0.12
+     */
+    public Pixbuf(byte[] data, int width, int height, boolean preserveAspectRatio) throws IOException {
+        super(checkPixbufFromArrayAtScale(data, width, height, preserveAspectRatio));
+    }
+
+    private static long checkPixbufFromArrayAtScale(byte[] data, int width, int height,
+            boolean preserveAspectRatio) throws IOException {
+        try {
+            return GdkPixbufOverride.createPixbufFromArray(data, width, height, preserveAspectRatio,
+                    true);
         } catch (GlibException ge) {
             /*
              * FIXME this will need to be more specific when our GError
@@ -288,6 +338,60 @@ public class Pixbuf extends org.gnome.glib.Object
         result = null; // FIXME
 
         GdkPixbuf.scale(this, result, x, y, width, height, offsetX, offsetY, scaleX, scaleY, algorithm);
+
+        return result;
+    }
+
+    /*
+     * TODO to expose the gdk_pixbuf_get_file_info() function properly, we'll
+     * have to fix the engineering of PixbufFormat which is presently a dogs
+     * breakfast. Luckily, given the two out parameter accessors below, we
+     * don't seem to need this.
+     */
+    PixbufFormat getFileInfo(String filename) throws IOException {
+        throw new UnsupportedOperationException("Not yet implemented");
+    }
+
+    /**
+     * Query an image on disk for its width.
+     * 
+     * <p>
+     * This is a utility function where the minimum amount is read in order to
+     * determine metadata about the file in question. You'll get an
+     * IOException if the gdk-pixbuf library's image loaders can't figure out
+     * the format of the file.
+     * 
+     * @since 4.0.14
+     */
+    public static int getFileInfoWidth(String filename) throws IOException {
+        int result;
+
+        result = GdkPixbufOverride.getFileInfoX(filename);
+
+        if (result == -1) {
+            throw new IOException("Image format not recognized");
+        }
+
+        return result;
+    }
+
+    /**
+     * Query an image on disk for its height.
+     * 
+     * <p>
+     * This function is the compliment of {@link #getFileInfoWidth(String)
+     * getFileInfoWidth()}; see there.
+     * 
+     * @since 4.0.14
+     */
+    public static int getFileInfoHeight(String filename) throws IOException {
+        int result;
+
+        result = GdkPixbufOverride.getFileInfoY(filename);
+
+        if (result == -1) {
+            throw new IOException("Image format not recognized");
+        }
 
         return result;
     }

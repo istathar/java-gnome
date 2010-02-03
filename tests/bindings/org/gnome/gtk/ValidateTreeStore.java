@@ -1,12 +1,20 @@
 /*
- * ValidateTreeStore.java
+ * java-gnome, a UI library for writing GTK and GNOME programs from Java!
  *
- * Copyright (c) 2007-2008 Operational Dynamics Consulting Pty Ltd, and Others
- * 
- * The code in this file, and the suite it is a part of, are made available
- * to you by the authors under the terms of the "GNU General Public Licence,
- * version 2" See the LICENCE file for the terms governing usage and
- * redistribution.
+ * Copyright © 2007-2010 Operational Dynamics Consulting, Pty Ltd and Others
+ *
+ * The code in this file, and the program it is a part of, is made available
+ * to you by its authors as open source software: you can redistribute it
+ * and/or modify it under the terms of the GNU General Public License version
+ * 2 ("GPL") as published by the Free Software Foundation.
+ *
+ * This program is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+ * FITNESS FOR A PARTICULAR PURPOSE. See the GPL for more details.
+ *
+ * You should have received a copy of the GPL along with this program. If not,
+ * see http://www.gnu.org/licenses/. The authors of this program may be
+ * contacted through http://java-gnome.sourceforge.net/.
  */
 package org.gnome.gtk;
 
@@ -18,7 +26,7 @@ package org.gnome.gtk;
 /*
  * Some are copy/adapted from ValidateTreeModel
  */
-public class ValidateTreeStore extends TestCaseGtk
+public class ValidateTreeStore extends GraphicalTestCase
 {
     public final void testTreeStoreConstructorArguments() {
         try {
@@ -118,7 +126,7 @@ public class ValidateTreeStore extends TestCaseGtk
 
     public void testAppendRow() {
         final TreeStore model;
-        TreeIter iter1, iter2;
+        TreeIter iter1, iter2, iter3;
 
         model = new TreeStore(new DataColumn[] {
             new DataColumnString(),
@@ -141,14 +149,15 @@ public class ValidateTreeStore extends TestCaseGtk
         iter1 = model.getIterFirst();
         assertNotNull(iter1);
         assertTrue(iter1.iterNext());
-        assertFalse(iter1.iterNext());
 
         iter2 = model.appendChild(iter1);
-        assertFalse(iter2.iterNext());
+        iter3 = iter2.copy();
 
-        model.appendChild(iter1);
+        assertFalse(iter3.iterNext());
+
+        iter3 = model.appendChild(iter1);
         assertTrue(iter2.iterNext());
-        assertFalse(iter2.iterNext());
+        assertFalse(iter3.iterNext());
 
         iter1 = model.getIterFirst();
         assertNotNull(iter1);

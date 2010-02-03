@@ -5,6 +5,21 @@
   (gtype-id "GTK_TYPE_SETTINGS")
 )
 
+(define-function get_default
+  (of-object "GtkSettings")
+  (c-name "gtk_settings_get_default")
+  (return-type "GtkSettings*")
+)
+
+(define-function get_for_screen
+  (of-object "GtkSettings")
+  (c-name "gtk_settings_get_for_screen")
+  (return-type "GtkSettings*")
+  (parameters
+    '("GdkScreen*" "screen")
+  )
+)
+
 (define-method set_property_value
   (of-object "GtkSettings")
   (c-name "gtk_settings_set_property_value")

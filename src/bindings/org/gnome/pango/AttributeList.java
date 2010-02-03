@@ -1,15 +1,39 @@
 /*
- * AttributeList.java
+ * java-gnome, a UI library for writing GTK and GNOME programs from Java!
  *
- * Copyright (c) 2007-2009 Operational Dynamics Consulting Pty Ltd
+ * Copyright © 2007-2010 Operational Dynamics Consulting, Pty Ltd
  *
- * The code in this file, and the library it is a part of, are made available
- * to you by the authors under the terms of the "GNU General Public Licence,
- * version 2" plus the "Classpath Exception" (you may link to this code as a
- * library into other programs provided you don't make a derivation of it).
- * See the LICENCE file for the terms governing usage and redistribution.
+ * The code in this file, and the program it is a part of, is made available
+ * to you by its authors as open source software: you can redistribute it
+ * and/or modify it under the terms of the GNU General Public License version
+ * 2 ("GPL") as published by the Free Software Foundation.
+ *
+ * This program is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+ * FITNESS FOR A PARTICULAR PURPOSE. See the GPL for more details.
+ *
+ * You should have received a copy of the GPL along with this program. If not,
+ * see http://www.gnu.org/licenses/. The authors of this program may be
+ * contacted through http://java-gnome.sourceforge.net/.
+ *
+ * Linking this library statically or dynamically with other modules is making
+ * a combined work based on this library. Thus, the terms and conditions of
+ * the GPL cover the whole combination. As a special exception (the
+ * "Claspath Exception"), the copyright holders of this library give you
+ * permission to link this library with independent modules to produce an
+ * executable, regardless of the license terms of these independent modules,
+ * and to copy and distribute the resulting executable under terms of your
+ * choice, provided that you also meet, for each linked independent module,
+ * the terms and conditions of the license of that module. An independent
+ * module is a module which is not derived from or based on this library. If
+ * you modify this library, you may extend the Classpath Exception to your
+ * version of the library, but you are not obligated to do so. If you do not
+ * wish to do so, delete this exception statement from your version.
  */
 package org.gnome.pango;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import org.gnome.glib.Boxed;
 
@@ -35,11 +59,11 @@ import org.gnome.glib.Boxed;
  * 
  * <pre>
  * attr = new StyleAttribute(Style.ITALIC);
- * attr.setIndexes(layout, 15, 4);
+ * attr.setIndexes(15, 4);
  * list.insert(attr);
  * 
  * attr = new ForegroundColorAttribute(0.1, 0.5, 0.9);
- * attr.setIndexes(layout, 15, 4);
+ * attr.setIndexes(15, 4);
  * list.insert(attr);
  * </pre>
  * 
@@ -63,8 +87,18 @@ import org.gnome.glib.Boxed;
  */
 public final class AttributeList extends Boxed
 {
+    final ArrayList<Attribute> attributes;
+
+    private boolean used;
+
+    /*
+     * This is probably broken, but there isn't anything is actually exposing
+     * a getAttributes() type functionality at the moment.
+     */
     protected AttributeList(long pointer) {
         super(pointer);
+        attributes = null;
+        used = true;
     }
 
     /**
@@ -75,10 +109,16 @@ public final class AttributeList extends Boxed
      */
     public AttributeList() {
         super(PangoAttrList.createAttributeList());
+        attributes = new ArrayList<Attribute>(4);
+        used = false;
     }
 
     protected void release() {
         PangoAttrList.unref(this);
+    }
+
+    final List<Attribute> getAttributes() {
+        return attributes;
     }
 
     /**
@@ -91,12 +131,17 @@ public final class AttributeList extends Boxed
      *             If you attempt to reuse an Attribute that is already in an
      *             AttributeList.
      */
+    /*
+     * Actual native insertion is carried out in Layout's setAttributes().
+     */
     public void insert(Attribute attr) {
-        if (attr.inserted) {
-            throw new IllegalStateException("Attribute already in AttributeList");
+        if (attr.isInserted()) {
+            throw new IllegalStateException("Attribute already in an AttributeList");
         }
-        PangoAttrList.insert(this, attr);
-        attr.inserted = true;
+
+        attributes.add(attr);
+
+        attr.markInserted();
     }
 
     /**
@@ -109,11 +154,41 @@ public final class AttributeList extends Boxed
      *             If you attempt to reuse an Attribute that is already in an
      *             AttributeList.
      */
+    /*
+     * The logic below is a somewhat cumbersome attempt to preserve the order
+     * of insertion to correspond to what the actual native behaviour is
+     * supposed to be, given our constraint of not being able to set the
+     * actual offsets until Layout's setAttributes().
+     */
     public void insertBefore(Attribute attr) {
-        if (attr.inserted) {
-            throw new IllegalStateException("Attribute already in AttributeList");
+        final int len;
+        int i;
+        Attribute existing;
+
+        if (attr.isInserted()) {
+            throw new IllegalStateException("Attribute already in an AttributeList");
         }
-        PangoAttrList.insertBefore(this, attr);
-        attr.inserted = true;
+
+        len = attributes.size();
+
+        for (i = 0; i < len; i++) {
+            existing = attributes.get(i);
+            if (existing.getOffset() >= attr.getOffset()) {
+                attributes.add(i, attr);
+                attr.markInserted();
+                return;
+            }
+        }
+
+        attributes.add(attr);
+        attr.markInserted();
+    }
+
+    final boolean isUsed() {
+        return used;
+    }
+
+    final void markUsed() {
+        used = true;
     }
 }

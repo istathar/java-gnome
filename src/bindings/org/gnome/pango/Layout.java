@@ -1,14 +1,35 @@
 /*
- * Layout.java
+ * java-gnome, a UI library for writing GTK and GNOME programs from Java!
  *
- * Copyright (c) 2007-2009 Operational Dynamics Consulting Pty Ltd
- * Copyright (c) 2008      Vreixo Formoso
+ * Copyright © 2007-2010 Operational Dynamics Consulting, Pty Ltd
+ * Copyright © 2008      Vreixo Formoso
  *
- * The code in this file, and the library it is a part of, are made available
- * to you by the authors under the terms of the "GNU General Public Licence,
- * version 2" plus the "Classpath Exception" (you may link to this code as a
- * library into other programs provided you don't make a derivation of it).
- * See the LICENCE file for the terms governing usage and redistribution.
+ * The code in this file, and the program it is a part of, is made available
+ * to you by its authors as open source software: you can redistribute it
+ * and/or modify it under the terms of the GNU General Public License version
+ * 2 ("GPL") as published by the Free Software Foundation.
+ *
+ * This program is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+ * FITNESS FOR A PARTICULAR PURPOSE. See the GPL for more details.
+ *
+ * You should have received a copy of the GPL along with this program. If not,
+ * see http://www.gnu.org/licenses/. The authors of this program may be
+ * contacted through http://java-gnome.sourceforge.net/.
+ *
+ * Linking this library statically or dynamically with other modules is making
+ * a combined work based on this library. Thus, the terms and conditions of
+ * the GPL cover the whole combination. As a special exception (the
+ * "Claspath Exception"), the copyright holders of this library give you
+ * permission to link this library with independent modules to produce an
+ * executable, regardless of the license terms of these independent modules,
+ * and to copy and distribute the resulting executable under terms of your
+ * choice, provided that you also meet, for each linked independent module,
+ * the terms and conditions of the license of that module. An independent
+ * module is a module which is not derived from or based on this library. If
+ * you modify this library, you may extend the Classpath Exception to your
+ * version of the library, but you are not obligated to do so. If you do not
+ * wish to do so, delete this exception statement from your version.
  */
 package org.gnome.pango;
 
@@ -430,7 +451,29 @@ public class Layout extends Object
      * @since 4.0.10
      */
     public void setAttributes(AttributeList list) {
+        if (list.isUsed()) {
+            throw new IllegalStateException("AttributeList has already been employed");
+        }
+
+        /*
+         * We now go through the exercise of setting the start and end indexes
+         * of the individual Attributes relative to the actual UTF-8 text
+         * being rendered. Until this point we kept note of character offsets
+         * here on the Java side.
+         */
+
+        for (Attribute attr : list.getAttributes()) {
+            PangoAttributeOverride.setIndexes(attr, this, attr.getOffset(), attr.getWidth());
+            PangoAttrList.insert(list, attr);
+        }
+
+        /*
+         * Now we are caught up to the state that Pango would expect.
+         */
+
         PangoLayout.setAttributes(this, list);
+
+        list.markUsed();
     }
 
     /**
@@ -446,7 +489,7 @@ public class Layout extends Object
      * Set the spacing that will occur between lines of a rendered paragraph.
      * 
      * <p>
-     * Obviously this will only have any effect if you are randering complete
+     * Obviously this will only have any effect if you are rendering complete
      * Layouts as 2D shapes via
      * {@link org.freedesktop.cairo.Context#showLayout(Layout) showLayout()}.
      * If you are working instead with individual LayoutLines then it's up to
@@ -461,4 +504,42 @@ public class Layout extends Object
         PangoLayout.setSpacing(this, (int) (between * Pango.SCALE));
     }
 
+    /**
+     * Set the line wrapping mode (if set, then lines turn into paragraphs).
+     * The <var>width</var> must be set with {@link #setWidth(double)
+     * setWidth()} for this to work.
+     * 
+     * <p>
+     * The default is {@link WrapMode#WORD WORD} so you shouldn't need to call
+     * this. In any case, wrapping is turned on by setting a width greater
+     * than <code>-1</code>, not by this method.
+     * 
+     * @since 4.0.11
+     */
+    public void setWrapMode(WrapMode mode) {
+        PangoLayout.setWrap(this, mode);
+    }
+
+    /**
+     * Indicate that the Layout is not to do paragraph breaks on encountering
+     * LINE_SEPARATOR characters.
+     * 
+     * <p>
+     * If this is turned on then when the Layout encounters newlines they will
+     * be replaced with an symbol marking the position of the newline. This
+     * allows you to create a user interface that edits the newlines
+     * explicitly on a single line.
+     * 
+     * <p>
+     * The default is <code>false</code>, obviously.
+     * 
+     * <p>
+     * Note that word wrapping is not affected by this. This is single
+     * <i>paragraph</i> mode, not single <i>line</i> mode.
+     * 
+     * @since 4.0.11
+     */
+    public void setSingleParagraphMode(boolean setting) {
+        PangoLayout.setSingleParagraphMode(this, setting);
+    }
 }

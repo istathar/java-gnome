@@ -1,13 +1,21 @@
 /*
- * ValidatePangoAttributeUsage.java
+ * java-gnome, a UI library for writing GTK and GNOME programs from Java!
  *
- * Copyright (c) 2007-2009 Operational Dynamics Consulting Pty Ltd
- * Copyright (c) 2008      Vreixo Formoso
- * 
- * The code in this file, and the library it is a part of, are made available
- * to you by the authors under the terms of the "GNU General Public Licence,
- * version 2" See the LICENCE file for the terms governing usage and
- * redistribution.
+ * Copyright © 2007-2010 Operational Dynamics Consulting, Pty Ltd
+ * Copyright © 2008      Vreixo Formoso
+ *
+ * The code in this file, and the program it is a part of, is made available
+ * to you by its authors as open source software: you can redistribute it
+ * and/or modify it under the terms of the GNU General Public License version
+ * 2 ("GPL") as published by the Free Software Foundation.
+ *
+ * This program is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+ * FITNESS FOR A PARTICULAR PURPOSE. See the GPL for more details.
+ *
+ * You should have received a copy of the GPL along with this program. If not,
+ * see http://www.gnu.org/licenses/. The authors of this program may be
+ * contacted through http://java-gnome.sourceforge.net/.
  */
 package org.gnome.pango;
 
@@ -20,7 +28,7 @@ import org.gnome.gdk.EventExpose;
 import org.gnome.gdk.EventFocus;
 import org.gnome.gtk.Gtk;
 import org.gnome.gtk.Image;
-import org.gnome.gtk.TestCaseGtk;
+import org.gnome.gtk.GraphicalTestCase;
 import org.gnome.gtk.Widget;
 import org.gnome.gtk.Window;
 
@@ -30,7 +38,7 @@ import org.gnome.gtk.Window;
  * @author Vreixo Formoso
  * @author Andrew Cowie
  */
-public class ValidatePangoAttributeUsage extends TestCaseGtk
+public class ValidatePangoAttributeUsage extends GraphicalTestCase
 {
     private static Layout draw(Context cr) {
         final Layout layout;
@@ -48,7 +56,7 @@ public class ValidatePangoAttributeUsage extends TestCaseGtk
         /*
          * You can set the default font description.
          */
-        desc = new FontDescription("DejaVu Serif, Book 12");
+        desc = new FontDescription("DejaVu Serif, 18");
         layout.setFontDescription(desc);
 
         /*
@@ -57,37 +65,44 @@ public class ValidatePangoAttributeUsage extends TestCaseGtk
 
         list = new AttributeList();
 
-        layout.setText("H€lloworldPeace");
+        layout.setText("H€lloworldPeace武道");
 
         attr = new StyleAttribute(Style.ITALIC);
-        attr.setIndices(layout, 0, 5);
+        attr.setIndices(0, 5);
         list.insert(attr);
 
         desc = new FontDescription();
         desc.setWeight(Weight.BOLD);
 
         attr = new FontDescriptionAttribute(desc);
-        attr.setIndices(layout, 5, 10);
+        attr.setIndices(5, 10);
         list.insert(attr);
 
         attr = new ForegroundColorAttribute(0.9, 0.1, 0.2);
-        attr.setIndices(layout, 10, 5);
+        attr.setIndices(10, 5);
         list.insert(attr);
 
         attr = new StyleAttribute(Style.NORMAL);
-        attr.setIndices(layout, 10, 5);
+        attr.setIndices(10, 5);
         list.insert(attr);
 
         attr = new BackgroundColorAttribute(1.0, 1.0, 0.0);
-        attr.setIndices(layout, 10, 5);
+        attr.setIndices(10, 5);
         list.insert(attr);
 
         attr = new WeightAttribute(Weight.NORMAL);
-        attr.setIndices(layout, 11, 4);
+        attr.setIndices(11, 4);
         list.insert(attr);
 
         attr = new VariantAttribute(Variant.SMALL_CAPS);
-        attr.setIndices(layout, 11, 4);
+        attr.setIndices(11, 4);
+        list.insert(attr);
+
+        attr = new ForegroundColorAttribute(0.0, 0.0, 0.0);
+        attr.setIndices(15, 2);
+        list.insert(attr);
+        attr = new FallbackAttribute(false);
+        attr.setIndices(15, 2);
         list.insert(attr);
 
         attr = new ForegroundColorAttribute(0.1, 0.5, 0.7);
@@ -99,7 +114,7 @@ public class ValidatePangoAttributeUsage extends TestCaseGtk
          * You can set the alignment of the Layout. Note that you should set
          * its width too.
          */
-        layout.setWidth(200.0);
+        layout.setWidth(290.0);
         layout.setAlignment(Alignment.CENTER);
 
         /*
@@ -117,7 +132,7 @@ public class ValidatePangoAttributeUsage extends TestCaseGtk
         Gtk.init(args);
 
         w = new Window();
-        w.setDefaultSize(200, 70);
+        w.setDefaultSize(300, 70);
 
         i = new Image();
         w.add(i);

@@ -1,24 +1,35 @@
 /*
- * ExampleInstantMessenger.java
+ * java-gnome, a UI library for writing GTK and GNOME programs from Java!
  *
- * Copyright (c) 2008 Operational Dynamics Consulting Pty Ltd, and Others
- * 
- * The code in this file, and the program it is a part of, are made available
- * to you by the authors under the terms of the "GNU General Public Licence,
- * version 2" See the LICENCE file for the terms governing usage and
- * redistribution.
- * 
- * The smiley image used in this program is from the Tango Icon Theme, whose
- * authors make available under the Creative Commons Attribution Share-Alike
- * licence version 2.5. See http://tango-project.org/ for more details.  
+ * Copyright © 2008-2010 Operational Dynamics Consulting, Pty Ltd and Others
+ *
+ * The code in this file, and the program it is a part of, is made available
+ * to you by its authors as open source software: you can redistribute it
+ * and/or modify it under the terms of the GNU General Public License version
+ * 2 ("GPL") as published by the Free Software Foundation.
+ *
+ * This program is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+ * FITNESS FOR A PARTICULAR PURPOSE. See the GPL for more details.
+ *
+ * You should have received a copy of the GPL along with this program. If not,
+ * see http://www.gnu.org/licenses/. The authors of this program may be
+ * contacted through http://java-gnome.sourceforge.net/.
  */
 package textview;
+
+/*
+ * The smiley image used in this program is from the Tango Icon Theme, whose
+ * authors make available under the Creative Commons Attribution Share-Alike
+ * licence version 2.5. See http://tango-project.org/ for more details.
+ */
 
 import java.io.FileNotFoundException;
 
 import org.gnome.gdk.Event;
+import org.gnome.gdk.EventKey;
+import org.gnome.gdk.Keyval;
 import org.gnome.gdk.Pixbuf;
-import org.gnome.gtk.Entry;
 import org.gnome.gtk.Gtk;
 import org.gnome.gtk.IconSize;
 import org.gnome.gtk.ScrolledWindow;
@@ -36,6 +47,8 @@ import org.gnome.pango.Weight;
 import static org.freedesktop.bindings.Time.formatTime;
 import static org.gnome.gtk.PolicyType.ALWAYS;
 import static org.gnome.gtk.PolicyType.NEVER;
+import static org.gnome.gtk.ShadowType.IN;
+import static org.gnome.gtk.WrapMode.NONE;
 import static org.gnome.gtk.WrapMode.WORD;
 
 /**
@@ -49,7 +62,7 @@ import static org.gnome.gtk.WrapMode.WORD;
  * This program creates the conversation window you might see in a typical
  * graphical instant messenger. It has a TextView displaying the conversation
  * above, and uses various formatting to differentiate between incoming
- * messages and outgoing ones. There is a small Entry at the bottom is where
+ * messages and outgoing ones. There is a second TextView at the bottom where
  * the user can write the messages and "send" them. Finally, a tiny worker
  * thread is kicked off to simulate incoming conversation.
  * 
@@ -57,12 +70,15 @@ import static org.gnome.gtk.WrapMode.WORD;
  * 
  * @author Andrew Cowie
  * @author Stefan Prelle
+ * @author Serkan Kaba
  */
 public class ExampleInstantMessenger
 {
     private final TextBuffer buffer;
 
     private final TextView incoming;
+
+    private final TextView outgoing;
 
     private final Pixbuf smiley;
 
@@ -71,8 +87,7 @@ public class ExampleInstantMessenger
     private ExampleInstantMessenger() {
         final Window window;
         final VBox top;
-        final Entry outgoing;
-        final ScrolledWindow scroll;
+        final ScrolledWindow scroll1, scroll2;
         final Thread other;
         Pixbuf tmp;
 
@@ -119,46 +134,69 @@ public class ExampleInstantMessenger
 
         incoming.setWrapMode(WORD);
 
-        scroll = new ScrolledWindow();
-        scroll.setPolicy(NEVER, ALWAYS);
-        scroll.add(incoming);
+        scroll1 = new ScrolledWindow();
+        scroll1.setPolicy(NEVER, ALWAYS);
+        scroll1.setShadowType(IN);
+        scroll1.add(incoming);
 
-        top.packStart(scroll, true, true, 0);
+        top.packStart(scroll1, true, true, 0);
 
         /*
          * Create the place for the user to enter messages they want to send.
          * 
-         * The interesting part here is not that there is an Entry (a real
-         * Instant Messenger would have a TextView supporting rich content
-         * area for the user to write messages to) but that when the user
-         * presses Enter in the Entry it "sends" a message and appends it to
-         * the log in the incoming TextView.
+         * The interesting part here is that when the user presses Enter in
+         * the TextView it "sends" a message and appends it to the log in the
+         * incoming TextView.
          */
 
-        outgoing = new Entry();
-        top.packStart(outgoing, false, false, 0);
+        outgoing = new TextView();
+        outgoing.setSizeRequest(0, 20);
+        outgoing.setAcceptsTab(false);
+        outgoing.setWrapMode(NONE);
 
-        outgoing.connect(new Entry.Activate() {
-            public void onActivate(Entry source) {
-                final String str;
+        scroll2 = new ScrolledWindow();
+        scroll2.setPolicy(NEVER, NEVER);
+        scroll2.setShadowType(IN);
+        scroll2.add(outgoing);
 
-                str = outgoing.getText();
+        top.packStart(scroll2, false, false, 0);
 
-                /*
-                 * Append the text in the Entry to the TextBuffer backing the
-                 * incoming display.
-                 */
+        outgoing.connect(new Widget.KeyPressEvent() {
+            public boolean onKeyPressEvent(Widget source, EventKey event) {
+                if (event.getKeyval() == Keyval.Return) {
+                    final TextBuffer buffer;
+                    final String str;
 
-                appendMessage(str, true);
+                    buffer = outgoing.getBuffer();
+                    str = buffer.getText();
 
-                /*
-                 * And now clear the Entry so that we can enter another
-                 * message.
-                 */
+                    /*
+                     * Append the text in the TextView to the TextBuffer
+                     * backing the incoming display.
+                     */
 
-                outgoing.setText("");
+                    appendMessage(str, true);
+
+                    /*
+                     * But now clear the TextView so that we can enter another
+                     * message.
+                     */
+
+                    buffer.setText("");
+
+                    /*
+                     * And don't process the keystroke further.
+                     */
+                    return true;
+                }
+                return false;
             }
         });
+
+        /*
+         * Add English spellchecking to input TextView.
+         */
+        outgoing.attachSpell("en");
 
         /*
          * TextTags are how you apply formatting to content. We'll create a
@@ -221,7 +259,7 @@ public class ExampleInstantMessenger
      * For fun, we translate the smile emoticon into an image, giving us an
      * opportunity to demonstrate adding non-text elements to a TextBuffer.
      */
-    private void appendMessage(String msg, boolean outgoing) {
+    private void appendMessage(String msg, boolean outbound) {
         final TextIter end;
         final long now;
         final String timestamp;
@@ -252,7 +290,7 @@ public class ExampleInstantMessenger
          * make it blue but if incoming we'll leave it black.
          */
 
-        if (outgoing) {
+        if (outbound) {
             colour = blue;
         } else {
             colour = null;

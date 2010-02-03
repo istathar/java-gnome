@@ -1,15 +1,39 @@
 /*
- * AboutDialog.java
+ * java-gnome, a UI library for writing GTK and GNOME programs from Java!
  *
- * Copyright (c) 2007-2008 Operational Dynamics Consulting Pty Ltd
+ * Copyright © 2007-2010 Operational Dynamics Consulting, Pty Ltd and Others
  *
- * The code in this file, and the library it is a part of, are made available
- * to you by the authors under the terms of the "GNU General Public Licence,
- * version 2" plus the "Classpath Exception" (you may link to this code as a
- * library into other programs provided you don't make a derivation of it).
- * See the LICENCE file for the terms governing usage and redistribution.
+ * The code in this file, and the program it is a part of, is made available
+ * to you by its authors as open source software: you can redistribute it
+ * and/or modify it under the terms of the GNU General Public License version
+ * 2 ("GPL") as published by the Free Software Foundation.
+ *
+ * This program is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+ * FITNESS FOR A PARTICULAR PURPOSE. See the GPL for more details.
+ *
+ * You should have received a copy of the GPL along with this program. If not,
+ * see http://www.gnu.org/licenses/. The authors of this program may be
+ * contacted through http://java-gnome.sourceforge.net/.
+ *
+ * Linking this library statically or dynamically with other modules is making
+ * a combined work based on this library. Thus, the terms and conditions of
+ * the GPL cover the whole combination. As a special exception (the
+ * "Claspath Exception"), the copyright holders of this library give you
+ * permission to link this library with independent modules to produce an
+ * executable, regardless of the license terms of these independent modules,
+ * and to copy and distribute the resulting executable under terms of your
+ * choice, provided that you also meet, for each linked independent module,
+ * the terms and conditions of the license of that module. An independent
+ * module is a module which is not derived from or based on this library. If
+ * you modify this library, you may extend the Classpath Exception to your
+ * version of the library, but you are not obligated to do so. If you do not
+ * wish to do so, delete this exception statement from your version.
  */
 package org.gnome.gtk;
+
+import java.net.URI;
+import java.net.URISyntaxException;
 
 import org.gnome.gdk.Pixbuf;
 
@@ -19,14 +43,17 @@ import org.gnome.gdk.Pixbuf;
  * meta information including program {@link #setProgramName(String) name}, a
  * short {@link #setComments(String) description},
  * {@link #setCopyright(String) copyright} info, and then lists of
- * {@link #setAuthors(String[]) authors}, documenters, and translators of
- * responsible for the program.
+ * {@link #setAuthors(String[]) authors}, {@link #setDocumenters(String[])
+ * documenters}, {@link #setArtists(String[]) artists} responsible for the
+ * program. Those who contributed by {@link #setTranslatorCredits(String)
+ * translating} the application can also be listed.
  * 
  * <p>
  * As a convention, every GNOME application has a MenuItem labelled "About" in
  * the main "Help" menu.
  * 
  * @author Andrew Cowie
+ * @author Guillaume Mazoyer
  * @since 4.0.6
  */
 public class AboutDialog extends Dialog
@@ -93,6 +120,52 @@ public class AboutDialog extends Dialog
     }
 
     /**
+     * Add a "licence" Button to the AboutDialog. The String set by this
+     * method will be displayed if the user clicks on this Button.
+     * 
+     * <p>
+     * If <code>null</code> the licence Button is hidden.
+     * 
+     * @since 4.0.12
+     */
+    public void setLicense(String text) {
+        GtkAboutDialog.setLicense(this, text);
+    }
+
+    /**
+     * Wrap the licence text. If <code>true</code>, the licence text will be
+     * automatically wrapped and the initial dialog size will be preserved.
+     * 
+     * @since 4.0.12
+     */
+    public void setWrapLicense(boolean setting) {
+        GtkAboutDialog.setWrapLicense(this, setting);
+    }
+
+    /**
+     * Set a link to your website. It is recommended to do in the standard
+     * <code>http://www.example.com/</code> format.
+     * 
+     * <p>
+     * <i>At the moment this "link" is just plain text and not live.</i>
+     * 
+     * @since 4.0.11
+     */
+    public void setWebsite(String website) {
+        GtkAboutDialog.setWebsite(this, website);
+    }
+
+    /**
+     * Set a label to modify the website link previously set by something more
+     * friendly.
+     * 
+     * @since 4.0.13
+     */
+    public void setWebsiteLabel(String label) {
+        GtkAboutDialog.setWebsiteLabel(this, label);
+    }
+
+    /**
      * Set the image to be displayed in the AboutDialog. Most apps just want
      * to use the default icon which was set with
      * {@link Gtk#setDefaultIcon(Pixbuf) Gtk.setDefaultIcon()}.
@@ -121,8 +194,42 @@ public class AboutDialog extends Dialog
      * 
      * @since 4.0.6
      */
-    public void setAuthors(String[] authors) {
-        GtkAboutDialog.setAuthors(this, authors);
+    public void setAuthors(String[] people) {
+        GtkAboutDialog.setAuthors(this, people);
+    }
+
+    /**
+     * Add a list of documenters to the AboutDialog. You pass in an array of
+     * Strings, with one person per String, for example:
+     * 
+     * <pre>
+     * about.setDocumenters(new String[] {
+     *         &quot;Guillaume Mazoyer &lt;respawneral@gmail.com&gt;&quot;,
+     *         &quot;Stefan Prelle &lt;stefan@prelle.org&gt;&quot;,
+     *         &quot;Serkan Kaba &lt;serkan@gentoo.org&gt;&quot;
+     * });
+     * </pre>
+     * 
+     * @since 4.0.12
+     */
+    public void setDocumenters(String[] people) {
+        GtkAboutDialog.setDocumenters(this, people);
+    }
+
+    /**
+     * Add a list of artists to the AboutDialog. You pass in an array of
+     * Strings, with one artist per String, for example:
+     * 
+     * <pre>
+     * about.setArtists(new String[] {
+     *     &quot;Joao Victor &lt;jvital@gmail.com&gt;&quot;
+     * });
+     * </pre>
+     * 
+     * @since 4.0.12
+     */
+    public void setArtists(String[] people) {
+        GtkAboutDialog.setArtists(this, people);
     }
 
     /**
@@ -159,5 +266,79 @@ public class AboutDialog extends Dialog
      */
     public void setTranslatorCredits(String credits) {
         GtkAboutDialog.setTranslatorCredits(this, credits);
+    }
+
+    private static class EmailClickHandler implements GtkAboutDialog.EmailClickedSignal
+    {
+        private final EmailHook emailHook;
+
+        public EmailClickHandler(EmailHook emailHook) {
+            this.emailHook = emailHook;
+        }
+
+        public void onEmailClicked(AboutDialog source, String email) {
+            emailHook.onEmailClicked(source, email);
+        }
+    }
+
+    /**
+     * Callback invoked when a email address is clicked.
+     * 
+     * @author Guillaume Mazoyer
+     * @since 4.0.14
+     */
+    public interface EmailHook
+    {
+        public void onEmailClicked(AboutDialog source, String email);
+    }
+
+    /**
+     * Hookup the <code>AboutDialog.EmailHook</code> callback that will be
+     * used to handle email clicked actions.
+     * 
+     * @since 4.0.14
+     */
+    public void setEmailCallback(EmailHook handler) {
+        GtkAboutDialogOverride.setEmailHook(this);
+        GtkAboutDialog.connect(this, new EmailClickHandler(handler), false);
+    }
+
+    private static class UrlClickHandler implements GtkAboutDialog.UrlClickedSignal
+    {
+        private final UrlHook urlHook;
+
+        public UrlClickHandler(UrlHook urlHook) {
+            this.urlHook = urlHook;
+        }
+
+        public void onUrlClicked(AboutDialog source, String link) {
+            try {
+                urlHook.onUrlClicked(source, new URI(link));
+            } catch (URISyntaxException e) {
+                throw new RuntimeException("We shouldn't be throwing this exception", e);
+            }
+        }
+    }
+
+    /**
+     * Callback invoked when the website is clicked.
+     * 
+     * @author Guillaume Mazoyer
+     * @since 4.0.14
+     */
+    public interface UrlHook
+    {
+        public void onUrlClicked(AboutDialog source, URI link);
+    }
+
+    /**
+     * Hookup the <code>AboutDialog.UrlHook</code> callback that will be used
+     * to handle website button click actions.
+     * 
+     * @since 4.0.14
+     */
+    public void setUrlCallback(UrlHook handler) {
+        GtkAboutDialogOverride.setUrlHook(this);
+        GtkAboutDialog.connect(this, new UrlClickHandler(handler), false);
     }
 }

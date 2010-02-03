@@ -1,12 +1,20 @@
 /*
- * ValidatePangoTextRendering.java
+ * java-gnome, a UI library for writing GTK and GNOME programs from Java!
  *
- * Copyright (c) 2008-2009 Operational Dynamics Consulting Pty Ltd, and Others
- * 
- * The code in this file, and the suite it is a part of, are made available
- * to you by the authors under the terms of the "GNU General Public Licence,
- * version 2" See the LICENCE file for the terms governing usage and
- * redistribution.
+ * Copyright © 2008-2010 Operational Dynamics Consulting, Pty Ltd and Others
+ *
+ * The code in this file, and the program it is a part of, is made available
+ * to you by its authors as open source software: you can redistribute it
+ * and/or modify it under the terms of the GNU General Public License version
+ * 2 ("GPL") as published by the Free Software Foundation.
+ *
+ * This program is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+ * FITNESS FOR A PARTICULAR PURPOSE. See the GPL for more details.
+ *
+ * You should have received a copy of the GPL along with this program. If not,
+ * see http://www.gnu.org/licenses/. The authors of this program may be
+ * contacted through http://java-gnome.sourceforge.net/.
  */
 package org.gnome.pango;
 
@@ -21,14 +29,14 @@ import org.gnome.gdk.Event;
 import org.gnome.gdk.EventExpose;
 import org.gnome.gtk.Gtk;
 import org.gnome.gtk.Image;
-import org.gnome.gtk.TestCaseGtk;
+import org.gnome.gtk.GraphicalTestCase;
 import org.gnome.gtk.Widget;
 import org.gnome.gtk.Window;
 
 /**
  * @author Andrew Cowie
  */
-public class ValidatePangoTextRendering extends TestCaseGtk
+public class ValidatePangoTextRendering extends GraphicalTestCase
 {
     private static Layout draw(final Context cr) {
         final Layout layout;
@@ -203,12 +211,12 @@ public class ValidatePangoTextRendering extends TestCaseGtk
          */
 
         attr = new StyleAttribute(Style.ITALIC);
-        attr.setIndices(layout, 5, 5);
-
-        assertEquals(7, PangoAttribute.getStartIndex(attr));
-        assertEquals(12, PangoAttribute.getEndIndex(attr));
+        attr.setIndices(5, 5);
 
         list.insert(attr);
         layout.setAttributes(list);
+
+        assertEquals(7, PangoAttribute.getStartIndex(attr));
+        assertEquals(12, PangoAttribute.getEndIndex(attr));
     }
 }

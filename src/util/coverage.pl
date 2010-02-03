@@ -4,14 +4,21 @@
 # provided by java-gnome. This works releative to the project top level
 # directory, so you need to invoke it as [./]src/util/coverage.pl
 #
-# Copyright (c) 2008 Operational Dynamics Consulting Pty Ltd 
+# Copyright © 2008-2010 Operational Dynamics Consulting, Pty Ltd
 # 
-# The code in this file, and the library it is a part of, are made available
-# to you by the authors under the terms of the "GNU General Public Licence,
-# version 2". See the LICENCE file for the terms governing usage and
-# redistribution.
+# The code in this file, and the program it is a part of, is made available
+# to you by its authors as open source software: you can redistribute it
+# and/or modify it under the terms of the GNU General Public License version
+# 2 ("GPL") as published by the Free Software Foundation.
 #
-
+# This program is distributed in the hope that it will be useful, but WITHOUT
+# ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+# FITNESS FOR A PARTICULAR PURPOSE. See the GPL for more details.
+#
+# You should have received a copy of the GPL along with this program. If not,
+# see http://www.gnu.org/licenses/. The authors of this program may be
+# contacted through http://java-gnome.sourceforge.net/.
+#
 
 use strict;
 
@@ -75,7 +82,7 @@ foreach my $file ( @sources ) {
 print "Number generated:\t\t";
 printf "%5d\n", $num;
 
-print "Number actually relevant:\t 1600?\n";
+print "Number actually relevant:\t 1800?\n";
 
 @sources = split(/\n/, `find src/bindings/ -name '*.java'`);
 $num = 0;

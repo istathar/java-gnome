@@ -1,15 +1,38 @@
 /*
- * TextTag.java
+ * java-gnome, a UI library for writing GTK and GNOME programs from Java!
  *
- * Copyright (c) 2007-2009 Operational Dynamics Consulting Pty Ltd
+ * Copyright © 2007-2010 Operational Dynamics Consulting, Pty Ltd
  *
- * The code in this file, and the library it is a part of, are made available
- * to you by the authors under the terms of the "GNU General Public Licence,
- * version 2" plus the "Classpath Exception" (you may link to this code as a
- * library into other programs provided you don't make a derivation of it).
- * See the LICENCE file for the terms governing usage and redistribution.
+ * The code in this file, and the program it is a part of, is made available
+ * to you by its authors as open source software: you can redistribute it
+ * and/or modify it under the terms of the GNU General Public License version
+ * 2 ("GPL") as published by the Free Software Foundation.
+ *
+ * This program is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+ * FITNESS FOR A PARTICULAR PURPOSE. See the GPL for more details.
+ *
+ * You should have received a copy of the GPL along with this program. If not,
+ * see http://www.gnu.org/licenses/. The authors of this program may be
+ * contacted through http://java-gnome.sourceforge.net/.
+ *
+ * Linking this library statically or dynamically with other modules is making
+ * a combined work based on this library. Thus, the terms and conditions of
+ * the GPL cover the whole combination. As a special exception (the
+ * "Claspath Exception"), the copyright holders of this library give you
+ * permission to link this library with independent modules to produce an
+ * executable, regardless of the license terms of these independent modules,
+ * and to copy and distribute the resulting executable under terms of your
+ * choice, provided that you also meet, for each linked independent module,
+ * the terms and conditions of the license of that module. An independent
+ * module is a module which is not derived from or based on this library. If
+ * you modify this library, you may extend the Classpath Exception to your
+ * version of the library, but you are not obligated to do so. If you do not
+ * wish to do so, delete this exception statement from your version.
  */
 package org.gnome.gtk;
+
+import java.lang.reflect.Field;
 
 import org.gnome.glib.Object;
 import org.gnome.pango.FontDescription;
@@ -18,7 +41,7 @@ import org.gnome.pango.Style;
 import org.gnome.pango.Underline;
 import org.gnome.pango.Weight;
 
-import static org.gnome.gtk.TextTagTable.getDefaultTable;
+import static org.gnome.gtk.TextBuffer.getDefaultTable;
 
 /**
  * TextTags are used to apply markup and formatting for regions of text in a
@@ -354,6 +377,9 @@ public class TextTag extends Object
         if (getPropertyBoolean("style-set")) {
             str.append("\n\tstyle: " + getPropertyEnum("style"));
         }
+        if (getPropertyBoolean("underline-set")) {
+            str.append("\n\tunderline: " + getPropertyEnum("underline"));
+        }
         /*
          * weight always seems to be set. What's up with that?
          */
@@ -402,5 +428,55 @@ public class TextTag extends Object
      */
     public void setFont(String str) {
         setPropertyString("font", str);
+    }
+
+    /*
+     * This is allows us to keep the Pango.SCALE constant restricted
+     * visibility while still having the actual value only in one place.
+     */
+
+    private static final double SCALE;
+
+    static {
+        final Class<?> cls;
+        final Field field;
+
+        try {
+            cls = Class.forName("org.gnome.pango.Pango");
+
+            field = cls.getDeclaredField("SCALE");
+            field.setAccessible(true);
+
+            SCALE = field.getDouble(cls);
+        } catch (Exception e) {
+            throw new Error(e);
+        }
+    }
+
+    /**
+     * Indicate that a span of characters is to be positioned at other than
+     * the baseline. This is typically used to create superscripts and
+     * subscripts, although you want to be careful because you are likely also
+     * changing font sizes when doing so.
+     * 
+     * <p>
+     * The measurement is in points. A negative number will take you below the
+     * baseline.
+     * 
+     * <p>
+     * Be aware that whenever non-uniform sizing is used on a line, the
+     * TextView will render that line as higher than the other lines in a
+     * document. This can often be an unwanted (but hard to trivially avoid)
+     * side-effect.
+     * 
+     * 
+     * <p>
+     * See also {@link org.gnome.pango.RiseAttribute RiseAttribute} which is
+     * the underlying mechanism which powers this in Pango.
+     * 
+     * @since 4.0.14
+     */
+    public void setRise(double rise) {
+        setPropertyDouble("rise", (int) (rise * SCALE));
     }
 }

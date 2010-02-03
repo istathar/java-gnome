@@ -1,13 +1,34 @@
 /*
- * Attribute.java
+ * java-gnome, a UI library for writing GTK and GNOME programs from Java!
  *
- * Copyright (c) 2007-2009 Operational Dynamics Consulting Pty Ltd
+ * Copyright © 2007-2010 Operational Dynamics Consulting, Pty Ltd
  *
- * The code in this file, and the library it is a part of, are made available
- * to you by the authors under the terms of the "GNU General Public Licence,
- * version 2" plus the "Classpath Exception" (you may link to this code as a
- * library into other programs provided you don't make a derivation of it).
- * See the LICENCE file for the terms governing usage and redistribution.
+ * The code in this file, and the program it is a part of, is made available
+ * to you by its authors as open source software: you can redistribute it
+ * and/or modify it under the terms of the GNU General Public License version
+ * 2 ("GPL") as published by the Free Software Foundation.
+ *
+ * This program is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+ * FITNESS FOR A PARTICULAR PURPOSE. See the GPL for more details.
+ *
+ * You should have received a copy of the GPL along with this program. If not,
+ * see http://www.gnu.org/licenses/. The authors of this program may be
+ * contacted through http://java-gnome.sourceforge.net/.
+ *
+ * Linking this library statically or dynamically with other modules is making
+ * a combined work based on this library. Thus, the terms and conditions of
+ * the GPL cover the whole combination. As a special exception (the
+ * "Claspath Exception"), the copyright holders of this library give you
+ * permission to link this library with independent modules to produce an
+ * executable, regardless of the license terms of these independent modules,
+ * and to copy and distribute the resulting executable under terms of your
+ * choice, provided that you also meet, for each linked independent module,
+ * the terms and conditions of the license of that module. An independent
+ * module is a module which is not derived from or based on this library. If
+ * you modify this library, you may extend the Classpath Exception to your
+ * version of the library, but you are not obligated to do so. If you do not
+ * wish to do so, delete this exception statement from your version.
  */
 package org.gnome.pango;
 
@@ -23,7 +44,7 @@ import org.gnome.glib.Boxed;
  * attr = new StyleAttribute(Style.ITALIC);
  * </pre>
  * 
- * although many settings can be compunded by setting a FontDescription:
+ * although many settings can be compounded by setting a FontDescription:
  * 
  * <pre>
  * desc = new FontDescription(&quot;DejaVu Serif, 9pt&quot;);
@@ -49,7 +70,7 @@ import org.gnome.glib.Boxed;
  * <p>
  * <i> The different text attribute manipulations you can do are analogous to
  * those found on FontDescription and TextTag. Indeed, Pango's Attributes are
- * is the underlying mechanism powering TextView and Label's rendering of rich
+ * the underlying mechanism powering TextView and Label's rendering of rich
  * markup.</i>
  * 
  * 
@@ -58,9 +79,10 @@ import org.gnome.glib.Boxed;
  * to be told the offsets of text it applies to. The problem is that these are
  * in terms of UTF-8 bytes, which not something we have access to from Java
  * (nor would we want to expose such in our public API). We take care of
- * setting the offsets properly when you call</i>
- * {@link #setIndices(Layout, int, int) setIndices()}<i>, but you have to have
- * already set the text into the Layout for us to be able to do so.</i>
+ * setting the start and end points properly when you call</i>
+ * {@link Layout#setAttributes(AttributeList) setAttributes()}<i>, but you
+ * have to have already set the text into the Layout for us to be able to do
+ * so, obviously.</i>
  * 
  * @author Andrew Cowie
  * @since 4.0.10
@@ -71,7 +93,14 @@ import org.gnome.glib.Boxed;
  */
 public abstract class Attribute extends Boxed
 {
-    boolean inserted;
+    private int offset = 0;
+
+    /*
+     * We convert this to G_MAXUINT in PangoAttributeOverride.
+     */
+    private int width = Integer.MIN_VALUE;
+
+    private boolean inserted;
 
     protected Attribute(long pointer) {
         super(pointer);
@@ -113,9 +142,35 @@ public abstract class Attribute extends Boxed
      * want, you need to tell each Attribute what range it covers using this
      * method.
      * 
-     * @since 4.0.10
+     * @since 4.0.11
+     */
+    public void setIndices(int offset, int width) {
+        this.offset = offset;
+        this.width = width;
+    }
+
+    /**
+     * @deprecated
      */
     public void setIndices(Layout layout, int offset, int width) {
-        PangoAttributeOverride.setIndexes(this, layout, offset, width);
+        assert false : "Use setIndices(int, int) instead";
+        this.offset = offset;
+        this.width = width;
+    }
+
+    final int getOffset() {
+        return offset;
+    }
+
+    final int getWidth() {
+        return width;
+    }
+
+    final boolean isInserted() {
+        return inserted;
+    }
+
+    final void markInserted() {
+        inserted = true;
     }
 }
