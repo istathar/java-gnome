@@ -87,6 +87,16 @@ public class Glib
     }
 
     /**
+     * Get the XDG user specific configuration directory. In all likelihood
+     * this will be <code>~/.config</code>.
+     * 
+     * @since 4.0.15
+     */
+    public static String getUserConfigDir() {
+        return GlibMisc.getUserConfigDir();
+    }     
+
+    /**
      * Returns the username (i.e Linux login name) running the application.
      * 
      * @since 4.0.15
