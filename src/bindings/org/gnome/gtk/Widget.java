@@ -40,6 +40,8 @@ import org.gnome.gdk.EventCrossing;
 import org.gnome.gdk.EventExpose;
 import org.gnome.gdk.EventFocus;
 import org.gnome.gdk.EventKey;
+import org.gnome.gdk.EventMask;
+import org.gnome.gdk.EventMotion;
 import org.gnome.gdk.EventScroll;
 import org.gnome.gdk.EventVisibility;
 import org.gnome.gdk.VisibilityState;
@@ -663,6 +665,65 @@ public abstract class Widget extends org.gnome.gtk.Object
     }
 
     /**
+     * Handler interface for mouse motion events. This event is emitted when
+     * the user moves the mouse over the Widget.
+     * 
+     * <p>
+     * Note that by default this event is disabled, even if you connect to it.
+     * You will need to {@link Widget#enableEvents(EventMask) enable} it. If
+     * you want to receive all mouse motion events, you will need to supply
+     * the POINTER_MOTION mask. Note that it generates a big amount of events,
+     * typically tens of events per second, when the user moves the mouse over
+     * this Widget. If you only care about this event when a mouse button is
+     * pressed, any of LEFT_BUTTON_MOTION, MIDDLE_BUTTON_MOTION,
+     * RIGHT_BUTTON_MOTION or BUTTON_MOTION masks can be used instead.
+     * 
+     * <p>
+     * Many times, however, you are only interested on this events in some
+     * specific circunstances. For example, a drawing application may be
+     * interested on this when the user has selected a drawing tool (e.g. a
+     * pencil) and is actually drawing (e.g. by clicking the mouse). In such
+     * cases, enabling the event when needed, and disabling it when no more
+     * needed, is the best alternative. For example:
+     * 
+     * <pre>
+     * // hook up a handler to mouse button event.
+     * drawarea.connect(new Widget.MotionNotifyEvent() {
+     *     public boolean onMotionNotifyEvent(Widget source, EventMotion event) {
+     *         double x, y;
+     * 
+     *         x = event.getX();
+     *         y = event.getY();
+     * 
+     *         // draw something, x and y hold the mouse position
+     *     }
+     * });
+     * </pre>
+     * 
+     * @author Vreixo Formoso
+     * @since 4.0.15
+     */
+    /*
+     * FUTURE Hint motion events seem interesting, but more research is
+     * needed. FIXME Removed the enableEvents(),disableEvent() discussion
+     * pending more research, but the signature here is correct so this is now
+     * exposed.
+     */
+    public interface MotionNotifyEvent extends GtkWidget.MotionNotifyEventSignal
+    {
+        public boolean onMotionNotifyEvent(Widget source, EventMotion event);
+    }
+
+    /**
+     * Hook up a <code>Widget.MotionNotifyEvent</code> handler.
+     * 
+     * @since 4.0.15
+     */
+    public void connect(MotionNotifyEvent handler) {
+        GtkWidget.connect(this, handler, false);
+    }
+
+    /**
      * Return the Container that this Widget is packed into. If the Widget
      * doesn't have a parent, or you're already at a top level Widget (ie, a
      * Window) then expect <code>null</code>.
@@ -897,13 +958,10 @@ public abstract class Widget extends org.gnome.gtk.Object
      * @since 4.0.5
      */
     /*
-     * It turns out that two things are necessary for this signal to work: 1)
-     * GDK_VISIBILITY_NOTIFY_MASK must be set, and to do that 2) the GDK
-     * window must have been assigned. by realize. We do these two steps in
-     * the override.
+     * VISIBILITY_NOTIFY is automatically set to receive this event.
      */
     public void connect(Widget.VisibilityNotifyEvent handler) {
-        GtkWidgetOverride.setEventsVisibility(this);
+        GtkWidget.addEvents(this, EventMask.VISIBILITY_NOTIFY);
         GtkWidget.connect(this, handler, false);
     }
 
@@ -915,7 +973,7 @@ public abstract class Widget extends org.gnome.gtk.Object
     /** @deprecated */
     public void connect(VISIBILITY_NOTIFY_EVENT handler) {
         assert false : "use Widget.VisibilityNotifyEvent instead";
-        GtkWidgetOverride.setEventsVisibility(this);
+        GtkWidget.addEvents(this, EventMask.VISIBILITY_NOTIFY);
         GtkWidget.connect(this, handler, false);
     }
 
@@ -1510,5 +1568,36 @@ public abstract class Widget extends org.gnome.gtk.Object
      */
     public void connect(Widget.PopupMenu handler) {
         GtkWidget.connect(this, handler, false);
+    }
+
+    /**
+     * Enable the given events. While most events are enabled by default, some
+     * need to be activated. Corresponding signal will document this
+     * procedure, if needed.
+     * 
+     * <p>
+     * Take care that events are actually received by the underlying GDK
+     * Window resource being used. Such resource is in many cases shared by
+     * several Widgets, so enabling or disabling an event on one of these can
+     * affect all Widgets. If that is a problem for you, {@link EventBox
+     * EventBox} Widget can be used to ensure only it is affected by this
+     * method.
+     * 
+     * @since 4.0.15
+     */
+    public void addEvents(EventMask events) {
+        GtkWidget.addEvents(this, events);
+    }
+
+    /**
+     * Reset the list of events for this Widget. You probably want
+     * {@link #addEvents(EventMask) addEvents()}. If you use this, you'll need
+     * to <code>or()</code> together all the events that this Widget needs to
+     * function.
+     * 
+     * @since 4.0.15
+     */
+    public void setEvents(EventMask events) {
+        GtkWidget.setEvents(this, events);
     }
 }

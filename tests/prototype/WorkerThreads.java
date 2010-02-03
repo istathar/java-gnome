@@ -63,10 +63,10 @@ public final class WorkerThreads implements Runnable
         w = new Window();
         x = new VBox(false, 3);
         l = new Label("Ready");
-        x.packStart(l);
+        x.packStart(l, false, false, 0);
 
         b = new Button("Start");
-        x.packStart(b);
+        x.packStart(b, false, false, 0);
 
         w.add(x);
 

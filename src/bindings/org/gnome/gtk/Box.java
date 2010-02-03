@@ -72,6 +72,8 @@ public abstract class Box extends Container
      * <code>packStart(child, true, true, 0)</code>; see the full
      * {@link #packStart(Widget, boolean, boolean, int) packStart()} for
      * details.</i>
+     * 
+     * @deprecated Use packStart(Widget, boolean, boolean, int) instead.
      */
     public void packStart(Widget child) {
         GtkBox.packStart(this, child, true, true, 0);
@@ -103,6 +105,7 @@ public abstract class Box extends Container
      *            <code>child</code> is the Widget at one of the start of the
      *            Box, then <code>padding</code> pixels are also put between
      *            the Widget and the leading edge.
+     * @since 4.0.1
      */
     public void packStart(Widget child, boolean expand, boolean fill, int padding) {
         GtkBox.packStart(this, child, expand, fill, padding);
@@ -117,6 +120,7 @@ public abstract class Box extends Container
      * {@link #packEnd(Widget, boolean, boolean, int) packEnd()} method for
      * details.</i>
      * 
+     * @deprecated Use packEnd(Widget, boolean, boolean, int) instead.
      * @since 4.0.6
      */
     public void packEnd(Widget child) {

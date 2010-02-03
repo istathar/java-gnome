@@ -46,7 +46,7 @@ public class SnapshotTextViewBorderWindows extends Snapshot
 
         left2 = new Label("LEFT");
         left = new HBox(true, 0);
-        left.packStart(left2);
+        left.packStart(left2, false, false, 0);
 
         right = new Label("RIGHT");
         top = new Label("TOP");

@@ -32,17 +32,39 @@
  */
 package org.gnome.gdk;
 
-/*
- * FIXME this is a placeholder stub for what will become the public API for
- * this type. Replace this comment with appropriate javadoc including author
- * and since tags. Note that the class may need to be made abstract, implement
- * interfaces, or even have its parent changed. No API stability guarantees
- * are made about this class until it has been reviewed by a hacker and this
- * comment has been replaced.
+/**
+ * Event data describing the position of the mouse in the screen, when it is
+ * moved over a Widget.
+ * 
+ * @author Vreixo Formoso
+ * @since 4.0.15
  */
 public final class EventMotion extends Event
 {
     protected EventMotion(long pointer) {
         super(pointer);
+    }
+
+    /**
+     * Get the horizontal location that this Event occured at, relative to the
+     * <code>[org.gnome.gdk]</code> Window. In most cases you will get an
+     * integral return; in any case, most usages of this return value will
+     * want a whole number of pixels, so cast to <code>int</code> as
+     * necessary.
+     * 
+     * @since 4.0.15
+     */
+    public double getX() {
+        return GdkEventMotion.getX(this);
+    }
+
+    /**
+     * Get the vertical location that this Event occured at, relative to the
+     * <code>[org.gnome.gdk]</code> Window.
+     * 
+     * @since 4.0.15
+     */
+    public double getY() {
+        return GdkEventMotion.getY(this);
     }
 }
