@@ -10,14 +10,14 @@
  */
 package org.gnome.glib;
 
-import org.gnome.gtk.TestCaseGtk;
+import org.gnome.gtk.GraphicalTestCase;
 
 /**
  * Investigate returns from XDG utility functions
  * 
  * @author Andrew Cowie
  */
-public class ValidateUtilityFunctions extends TestCaseGtk
+public class ValidateUtilityFunctions extends GraphicalTestCase
 {
     /*
      * This is probably fragile; after all, the idea is that this is variable
