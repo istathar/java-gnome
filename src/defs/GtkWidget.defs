@@ -816,7 +816,7 @@
   (c-name "gtk_widget_set_events")
   (return-type "none")
   (parameters
-    '("gint" "events")
+    '("GdkEventMask" "events")
   )
 )
 
@@ -825,7 +825,7 @@
   (c-name "gtk_widget_add_events")
   (return-type "none")
   (parameters
-    '("gint" "events")
+    '("GdkEventMask" "events")
   )
 )
 
