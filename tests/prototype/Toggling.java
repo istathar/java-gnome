@@ -66,10 +66,10 @@ public final class Toggling
         x = new VBox(false, 3);
 
         b = new Button("New window");
-        x.packStart(b);
+        x.packStart(b, false, false, 0);
 
         res = new Button("Ressurect");
-        x.packStart(res);
+        x.packStart(res, false, false, 0);
         res.connect(new Button.Clicked() {
             public void onClicked(Button source) {
                 for (Window w : set) {
@@ -79,7 +79,7 @@ public final class Toggling
         });
 
         gc = new Button("Run gc()");
-        x.packStart(gc);
+        x.packStart(gc, false, false, 0);
         gc.connect(new Button.Clicked() {
             public void onClicked(Button source) {
                 System.err.println("Run Java garbage collector");
@@ -104,7 +104,7 @@ public final class Toggling
         });
 
         Button zero = new Button("Drop extra refs");
-        x.packStart(zero);
+        x.packStart(zero, false, false, 0);
         zero.connect(new Button.Clicked() {
             public void onClicked(Button source) {
                 System.err.println("Drop refs");

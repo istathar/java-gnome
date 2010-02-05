@@ -32,9 +32,10 @@ public class SnapshotAssistant extends Snapshot
 
         final VBox page2 = new VBox(false, 3);
         id_tf = new Entry();
-        page2.packStart(new Label("Enter any data"));
-        page2.packStart(new Label("The 'next' button will be enabled after\nyou hit return."));
-        page2.packEnd(id_tf);
+        page2.packStart(new Label("Enter any data"), false, false, 0);
+        page2.packStart(new Label("The 'next' button will be enabled after\nyou hit return."), false,
+                false, 0);
+        page2.packEnd(id_tf, false, false, 0);
         assi.appendPage(page2);
         assi.setPageComplete(page2, true);
         assi.setPageType(page2, AssistantPageType.CONTENT);
