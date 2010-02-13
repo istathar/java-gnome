@@ -97,6 +97,15 @@ public class ScrolledWindow extends Bin
         GtkScrolledWindow.setPolicy(this, hscrollbarPolicy, vscrollbarPolicy);
     }
 
+    public void add(Widget child) {
+        if (!((child instanceof TextView) || (child instanceof TreeView) || (child instanceof Layout) || (child instanceof Viewport))) {
+            throw new IllegalArgumentException(
+                    "You can't directly add() a Widget that doesn't have scrolling support built in.\n"
+                            + "Use ScrolledWindow's addWithViewport() instead, or create your own Viewport.");
+        }
+        GtkContainer.add(this, child);
+    }
+
     /**
      * Create a new Viewport and embeds the child Widget in it before adding
      * it to the ScrolledWindow. This is a convenience function; you could
@@ -104,6 +113,8 @@ public class ScrolledWindow extends Bin
      * this method is only for Widgets which do not support scrolling directly
      * themselves; use {@link Container#add(Widget) add()} directly for those
      * Widgets that do.
+     * 
+     * @since 4.0.3
      */
     public void addWithViewport(Widget child) {
         if ((child instanceof TextView) || (child instanceof TreeView) || (child instanceof Layout)) {
