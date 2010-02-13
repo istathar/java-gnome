@@ -37,21 +37,6 @@ public class ValidateTreeView extends GraphicalTestCase
         assertEquals(SelectionMode.SINGLE, selection.getMode());
     }
 
-    public final void testDontAllowAddWithViewport() {
-        final TreeView view;
-        final ScrolledWindow scroll;
-
-        view = new TreeView();
-        scroll = new ScrolledWindow();
-
-        try {
-            scroll.addWithViewport(view);
-            fail("Should have been prevented");
-        } catch (IllegalArgumentException iae) {
-            // good
-        }
-    }
-
     public final void testCellRendererToggleProperties() {
         final TreeView view;
         final TreeViewColumn vertical;
