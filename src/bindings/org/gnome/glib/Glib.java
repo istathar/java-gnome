@@ -33,11 +33,14 @@
 package org.gnome.glib;
 
 /**
- * Static methods to initialize the Java bindings around GLib
+ * Static methods to initialize the Java bindings around GLib.
  * 
  * @author Andrew Cowie
  * @author Serkan Kaba
  * @since 4.0.0
+ * 
+ * @see <a href="http://www.freedesktop.org/wiki/Specifications/basedir-spec?action=show&redirect=Standards%2Fbasedir-spec">
+ *      XDG Base Directory Specification</a>
  */
 public class Glib
 {
@@ -166,5 +169,23 @@ public class Glib
      */
     public static void reloadUserSpecialDirsCache() {
         GlibMisc.reloadUserSpecialDirsCache();
+    }
+
+    /**
+     * Get a list of system-wide XDG data directories.
+     * 
+     * @since 4.0.15
+     */
+    public static String[] getSystemDataDirs() {
+        return GlibMisc.getSystemDataDirs();
+    }
+
+    /**
+     * Get a list of system-wide XDG configuration directories.
+     * 
+     * @since 4.0.15
+     */
+    public static String[] getSystemConfigDirs() {
+        return GlibMisc.getSystemConfigDirs();
     }
 }
