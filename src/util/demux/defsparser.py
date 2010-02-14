@@ -1,3 +1,4 @@
+# vim: set fileencoding=UTF-8
 #
 # defsparser.py
 #
