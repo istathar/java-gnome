@@ -144,11 +144,27 @@ public class Glib
      * Get the XDG user specific special directory. Directory constants are
      * defined in {@link UserDirectory} System wide defaults are defined in
      * <code>/etc/xdg/user-dirs.defaults</code> and can be overridden in
-     * <code>~/.config/user-dir.dirs</code>
+     * <code>~/.config/user-dir.dirs</code>.<br>
+     * If you want to make sure to have up to date information you may call
+     * {@link #reloadUserSpecialDirsCache()}, but this is unlikely to change
+     * between calls.
+     * 
      * 
      * @since 4.0.15
      */
     public static String getUserSpecialDir(UserDirectory directory) {
         return GlibMisc.getUserSpecialDir(directory);
+    }
+
+    /**
+     * Reset the cache used for {@link #getUserSpecialDir(UserDirectory)}.
+     * 
+     * <b>WARNING: This may cause memory leaks if the return values change
+     * between calls.</b>
+     * 
+     * @since 4.0.15
+     */
+    public static void reloadUserSpecialDirsCache() {
+        GlibMisc.reloadUserSpecialDirsCache();
     }
 }

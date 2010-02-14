@@ -54,3 +54,9 @@
   (c-name "g_get_real_name")
   (return-type "const-gchar*")
 )
+
+(define-function reload_user_special_dirs_cache
+  (of-object "GlibMisc")
+  (c-name "g_reload_user_special_dirs_cache")
+  (return-type "none")
+)
