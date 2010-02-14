@@ -46,7 +46,7 @@
  *   org.gnome.gtk.Gtk.init(String[] args)
  *
  * FIXME we still have to handle returning the trimmed args array.
- */ 
+ */
 JNIEXPORT void JNICALL
 Java_org_gnome_gtk_GtkMain_gtk_1init
 (
@@ -84,7 +84,7 @@ Java_org_gnome_gtk_GtkMain_gtk_1init
 
 	/*
 	 * In C, the first element in the argv is the program name from the
-	 * command line. Java skips this, so we need to re-introduce a dummy 
+	 * command line. Java skips this, so we need to re-introduce a dummy
 	 * value here. This is also why it was [i+1] above.
 	 */
 	argv[0] = "";
@@ -96,7 +96,7 @@ Java_org_gnome_gtk_GtkMain_gtk_1init
  	/*
 	 * TODO can we release argv elements?
 	 */
- 
+
 	/*
 	 * Work around for what may be bug #85715. It appears that the root
 	 * window is not given an initial Ref by GDK; if you call Window's
@@ -115,7 +115,7 @@ Java_org_gnome_gtk_GtkMain_gtk_1init
  *   org.gnome.gtk.Gtk.gtk_main()
  * called from
  *   org.gnome.gtk.Gtk.main()
- * 
+ *
  * Atypically we do the necessary operations to take and release the GDK lock
  * here on the JNI side; everywhere else in the library we use a Java side
  * synchronized block. This works around a strange behaviour in Eclipse and
@@ -171,12 +171,12 @@ Java_org_gnome_gtk_GtkMain_gtk_1events_1pending
 )
 {
 	gboolean result;
-	
+
 	// call function
 	result = gtk_events_pending();
-	
+
 	// return result
-	return (jboolean) result;	
+	return (jboolean) result;
 }
 
 
@@ -196,15 +196,56 @@ Java_org_gnome_gtk_GtkMain_gtk_1main_1iteration_1do
 {
 	gboolean blocking;
 	gboolean result;
-	
+
 	// translate blocking
 	blocking = (gboolean) _blocking;
-	
+
 	// call function
 	result = gtk_main_iteration_do(blocking);
-	
+
 	// clean up blocking
-	
+
 	// return result
-	return (jboolean) result;	
+	return (jboolean) result;
 }
+
+/*
+ * Implements
+ *   org.gnome.gtk.Gtk.gtk_show_uri()
+ * called from
+ *   org.gnome.gtk.Gtk.showURI()
+ */
+JNIEXPORT jboolean JNICALL
+Java_org_gnome_gtk_GtkMain_gtk_1show_1uri
+(
+	JNIEnv *env,
+	jclass cls,
+	jstring _uri
+)
+{
+	const gchar* uri;
+	gboolean result;
+	GError* error = NULL;
+
+	// convert parameter uri
+	uri = bindings_java_getString(env, _uri);
+	if (uri == NULL) {
+		return FALSE; // Java Exception already thrown
+	}
+
+	// call function
+	result = gtk_show_uri(NULL, uri, GDK_CURRENT_TIME, &error);
+
+	// cleanup parameter uri
+	bindings_java_releaseString(uri);
+
+	// check for error
+	if (error) {
+		bindings_java_throwGlibException(env, error);
+		return FALSE;
+	}
+
+	// return result
+	return (jboolean) result;
+}
+

@@ -37,6 +37,7 @@ import java.net.URI;
 
 import org.gnome.gdk.Pixbuf;
 import org.gnome.glib.Glib;
+import org.gnome.glib.GlibException;
 
 /**
  * The GTK widget toolkit initialization and main loop entry point. A typical
@@ -190,31 +191,10 @@ public final class Gtk extends Glib
      * 
      * @since 4.0.9
      */
-    /*
-     * Please note that this function wraps an exec call to `gnome-open` at
-     * the moment, but in the near future this will be replaced by a call to
-     * gtk_show_uri() newly available in GTK 2.14.
-     */
     public static boolean showURI(URI uri) {
-        Process proc;
-        int retCode;
-
         try {
-            proc = Runtime.getRuntime().exec("gnome-open " + uri.toString());
-
-            /*
-             * Run process and wait until it terminates. While not
-             * instantaneous, this is expected to return relatively quickly.
-             */
-            retCode = proc.waitFor();
-
-            if (retCode == 0) {
-                return true;
-            }
-
-        } catch (IOException e) {
-            // This will fall through to return false
-        } catch (InterruptedException e) {
+            return GtkMain.showURI(uri.toString());
+        } catch (GlibException e) {
             // This will fall through to return false
         }
 
