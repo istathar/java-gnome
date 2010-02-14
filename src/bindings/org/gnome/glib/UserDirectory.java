@@ -35,7 +35,9 @@ package org.gnome.glib;
 import org.freedesktop.bindings.Constant;
 
 /**
- * Used to indicate a special user directory type.
+ * Used to indicate the types of "special" user directory (as defined by the
+ * XDG standard) that you can query with
+ * {@link Glib#getUserSpecialDir(UserDirectory) Glib.getUserSpecialDir()}.
  * 
  * @author Serkan Kaba
  * @since 4.0.15

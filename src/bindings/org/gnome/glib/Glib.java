@@ -39,7 +39,8 @@ package org.gnome.glib;
  * @author Serkan Kaba
  * @since 4.0.0
  * 
- * @see <a href="http://www.freedesktop.org/wiki/Specifications/basedir-spec?action=show&redirect=Standards%2Fbasedir-spec">
+ * @see <a
+ *      href="http://www.freedesktop.org/wiki/Specifications/basedir-spec?action=show&redirect=Standards%2Fbasedir-spec">
  *      XDG Base Directory Specification</a>
  */
 public class Glib
@@ -145,13 +146,17 @@ public class Glib
 
     /**
      * Get the XDG user specific special directory. Directory constants are
-     * defined in {@link UserDirectory} System wide defaults are defined in
+     * defined in {@link UserDirectory}. System wide defaults are defined in
      * <code>/etc/xdg/user-dirs.defaults</code> and can be overridden in
-     * <code>~/.config/user-dir.dirs</code>.<br>
-     * If you want to make sure to have up to date information you may call
-     * {@link #reloadUserSpecialDirsCache()}, but this is unlikely to change
-     * between calls.
+     * <code>~/.config/user-dir.dirs</code>.
      * 
+     * <p>
+     * If you've already queried the "special" directories then those values
+     * are cached; they certainly don't change often. If you're writing a
+     * program that absolutely needs to be aware if those settings have
+     * changed after you're already used this, then you can force up to date
+     * information by calling {@link #reloadUserSpecialDirsCache()
+     * Glib.reloadUserSpecialDirsCache()}.
      * 
      * @since 4.0.15
      */
@@ -160,10 +165,12 @@ public class Glib
     }
 
     /**
-     * Reset the cache used for {@link #getUserSpecialDir(UserDirectory)}.
+     * Reset the cache used for {@link #getUserSpecialDir(UserDirectory)
+     * getUserSpecialDir()}.
      * 
-     * <b>WARNING: This may cause memory leaks if the return values change
-     * between calls.</b>
+     * <p>
+     * <b>WARNING:</b><br>
+     * This may cause memory leaks if the return values change between calls.
      * 
      * @since 4.0.15
      */
