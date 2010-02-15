@@ -73,9 +73,21 @@ public class RadioMenuItem extends CheckMenuItem
      * @since 4.0.15
      */
     public RadioMenuItem(RadioMenuItemGroup group, String label) {
-        this(GtkRadioMenuItem.createRadioMenuItemWithLabelFromWidget(group.getMember(), label));
+        super(createFirstOrNext(group, label));
         group.setMember(this);
         enclosingGroup = group;
+    }
+
+    private static long createFirstOrNext(RadioMenuItemGroup group, String label) {
+        final RadioMenuItem first;
+
+        first = group.getMember();
+
+        if (first == null) {
+            return GtkRadioMenuItem.createRadioMenuItemWithMnemonic(null, label);
+        } else {
+            return GtkRadioMenuItem.createRadioMenuItemWithMnemonicFromWidget(first, label);
+        }
     }
 
     /**

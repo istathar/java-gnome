@@ -20,23 +20,20 @@ package org.gnome.gtk;
 
 /**
  * @author Guillaume Mazoyer
+ * @author Andrew Cowie
  */
 public class ValidateRadioMenuItem extends GraphicalTestCase
 {
     public final void testRadioMenuItemGroup() {
         final RadioMenuItemGroup group;
         final RadioMenuItem first, second;
+        Label child;
 
         // Create a group
         group = new RadioMenuItemGroup();
 
         // Here, there is no member so it should be 'null'
         assertNull(group.getMember());
-
-        // A member of a group is always a RadioMenuItem
-        if (!(group.getMember() instanceof RadioMenuItem)) {
-            fail("The member of a group must be a RadioMenuItem.");
-        }
 
         // Create a first item - shouldn't crash but it does
         first = new RadioMenuItem(group, "First");
@@ -47,8 +44,11 @@ public class ValidateRadioMenuItem extends GraphicalTestCase
         // So we can create a second item
         second = new RadioMenuItem(group, "Second");
 
-        // Avoid warnings
-        first.getClass();
-        second.getClass();
+        // Check content
+        child = (Label) first.getChild();
+        assertEquals("First", child.getText());
+
+        child = (Label) second.getChild();
+        assertEquals("Second", child.getText());
     }
 }
