@@ -45,6 +45,8 @@ public abstract class Plumbing extends org.gnome.glib.Plumbing
     protected Plumbing() {}
 
     static {
+        isLibraryReady();
+
         /*
          * When you call getScreen(), the object returned appears to be a
          * sublcass of GdkScreen, in this case GdkScreenX11. It doesn't seem
