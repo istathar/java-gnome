@@ -115,7 +115,7 @@ public class Glib
     /**
      * Returns the real name of the user running the application from
      * <code>/etc/passwd</code> file. If it can't be determined
-     * <code>"Unknown" is returned.</code><br>
+     * <code>"Unknown"</code> is returned.<br>
      * See the warning in {@link #getUserName()}.
      * 
      * @since 4.0.15
