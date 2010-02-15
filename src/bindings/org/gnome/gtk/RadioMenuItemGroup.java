@@ -40,6 +40,9 @@ package org.gnome.gtk;
  * This is the mechanism by which you indicate a series of RadioMenuItems will
  * be associated:
  * 
+ * <p>
+ * This class in an adapted copy of {@link RadioButtonGroup}.
+ * 
  * <pre>
  * RadioMenuItemGroup group;
  * RadioMenuItem one, two, three, ...;
