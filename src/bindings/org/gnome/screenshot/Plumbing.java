@@ -34,5 +34,9 @@ package org.gnome.screenshot;
 
 class Plumbing extends org.gnome.gtk.Plumbing
 {
+    static {
+        isLibraryReady();
+    }
+
     protected Plumbing() {}
 }

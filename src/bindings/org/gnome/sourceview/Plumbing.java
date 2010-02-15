@@ -34,5 +34,9 @@ package org.gnome.sourceview;
 
 abstract class Plumbing extends org.gnome.gdk.Plumbing
 {
+    static {
+        isLibraryReady();
+    }
+
     protected Plumbing() {}
 }
