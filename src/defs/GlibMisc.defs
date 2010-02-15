@@ -72,3 +72,4 @@
   (c-name "g_get_system_config_dirs")
   (return-type "const-gchar**")
 )
+
