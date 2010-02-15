@@ -27,3 +27,49 @@
   (c-name "g_get_user_name")
   (return-type "const-gchar*")
 )
+
+(define-function get_user_cache_dir
+  (of-object "GlibMisc")
+  (c-name "g_get_user_cache_dir")
+  (return-type "const-gchar*")
+)
+
+(define-function get_user_data_dir
+  (of-object "GlibMisc")
+  (c-name "g_get_user_data_dir")
+  (return-type "const-gchar*")
+)
+
+(define-function get_user_special_dir
+  (of-object "GlibMisc")
+  (c-name "g_get_user_special_dir")
+  (return-type "const-gchar*")
+  (parameters
+    '("GUserDirectory" "directory")
+  )
+)
+
+(define-function get_real_name
+  (of-object "GlibMisc")
+  (c-name "g_get_real_name")
+  (return-type "const-gchar*")
+)
+
+(define-function reload_user_special_dirs_cache
+  (of-object "GlibMisc")
+  (c-name "g_reload_user_special_dirs_cache")
+  (return-type "none")
+)
+
+(define-function get_system_data_dirs
+  (of-object "GlibMisc")
+  (c-name "g_get_system_data_dirs")
+  (return-type "const-gchar**")
+)
+
+(define-function get_system_config_dirs
+  (of-object "GlibMisc")
+  (c-name "g_get_system_config_dirs")
+  (return-type "const-gchar**")
+)
+

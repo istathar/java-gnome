@@ -75,6 +75,12 @@ public abstract class Plumbing extends org.freedesktop.bindings.Plumbing
         lock = Gdk.lock;
         initializeNative(lock);
 
+        /*
+         * Not that this code does NOT call isLibraryReady(). That is because
+         * g_set_prgname() is allowed to (and must) be called before other
+         * code if it is being used.
+         */
+
         typeMapping = new IdentityHashMap<String, String>(470);
 
         p = new Properties();

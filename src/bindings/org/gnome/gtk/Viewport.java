@@ -81,14 +81,31 @@ public class Viewport extends Bin
     }
 
     /**
-     * Set the type of decoration you want around the Viewport. If you're
-     * using a ScrolledWindow, you can get at this via its
-     * {@link ScrolledWindow#setShadowType(ShadowType) setShadowType()}; it
-     * does the same thing.
+     * Set the type of decoration you want around the Viewport.
      * 
-     * @since 4.0.8
+     * <p>
+     * The default value is {@link ShadowType#IN IN}. This is quite unheplful,
+     * since you're usually using these transparently care of ScrolledWindow's
+     * <code>addWithViewport()</code> and ScrolledWindow's <i>also</i> have a
+     * ShadowType setting. So, as a convenience, if you created this Viewport
+     * that way, it will set this Viewport's ShadowType to
+     * {@link ShadowType#NONE NONE} to hide it, and you can just use a single
+     * call to ScrolledWindow's
+     * {@link ScrolledWindow#setShadowType(ShadowType) setShadowType()} on the
+     * local variable of that type you'll already have.
+     * 
+     * @since 4.0.15
      */
     public void setShadowType(ShadowType type) {
         GtkViewport.setShadowType(this, type);
+    }
+
+    /**
+     * Get the decorationc currently set for this Viewport.
+     * 
+     * @since 4.0.15
+     */
+    public ShadowType getShadowType() {
+        return GtkViewport.getShadowType(this);
     }
 }

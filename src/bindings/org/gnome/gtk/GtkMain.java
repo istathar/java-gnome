@@ -32,6 +32,8 @@
  */
 package org.gnome.gtk;
 
+import org.gnome.glib.GlibException;
+
 /*
  * This code originally lived in Gtk.java
  */
@@ -138,4 +140,19 @@ final class GtkMain extends Plumbing
     }
 
     private static native final boolean gtk_main_iteration_do(boolean blocking);
+
+    static final boolean showURI(String uri) throws GlibException {
+        boolean result;
+
+        if (uri == null) {
+            throw new IllegalArgumentException("uri can't be null");
+        }
+
+        synchronized (lock) {
+            result = gtk_show_uri(uri);
+            return result;
+        }
+    }
+
+    private static native final boolean gtk_show_uri(String uri) throws GlibException;
 }

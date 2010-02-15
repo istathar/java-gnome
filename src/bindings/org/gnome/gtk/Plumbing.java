@@ -34,13 +34,5 @@ package org.gnome.gtk;
 
 public abstract class Plumbing extends org.gnome.gdk.Plumbing
 {
-    static {
-        if (!Gtk.isInitialized()) {
-            throw new FatalError(
-                    "\n\nYou *must* call Gtk.init() before using anything else in java-gnome!\n");
-
-        }
-    }
-
     protected Plumbing() {}
 }

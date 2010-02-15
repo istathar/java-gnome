@@ -34,5 +34,9 @@ package org.gnome.unixprint;
 
 abstract class Plumbing extends org.gnome.glib.Plumbing
 {
+    static {
+        isLibraryReady();
+    }
+
     protected Plumbing() {}
 }
