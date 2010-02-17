@@ -50,7 +50,7 @@ import org.gnome.gtk.ValidateOutParameters;
 import org.gnome.gtk.ValidatePacking;
 import org.gnome.gtk.ValidatePrinting;
 import org.gnome.gtk.ValidateProperties;
-import org.gnome.gtk.ValidateRadioMenuItem;
+import org.gnome.gtk.ValidateRadioThing;
 import org.gnome.gtk.ValidateResponseType;
 import org.gnome.gtk.ValidateScrolling;
 import org.gnome.gtk.ValidateSignalEmission;
@@ -187,7 +187,7 @@ public class UnitTests
         suite.addTestSuite(ValidatePrinting.class);
         suite.addTestSuite(ValidateSourceView.class);
         suite.addTestSuite(ValidateUniqueApplications.class);
-        suite.addTestSuite(ValidateRadioMenuItem.class);
+        suite.addTestSuite(ValidateRadioThing.class);
 
         return suite;
     }
