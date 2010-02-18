@@ -26,7 +26,7 @@ public class SnapshotRadioButton extends Snapshot
     public SnapshotRadioButton() {
         super(RadioButton.class);
 
-        final RadioButtonGroup muppets;
+        final RadioGroup muppets;
         final RadioButton kermit, animal, gonzo, fozzie;
         final VBox x;
 
@@ -35,7 +35,7 @@ public class SnapshotRadioButton extends Snapshot
 
         x = new VBox(false, 3);
 
-        muppets = new RadioButtonGroup();
+        muppets = new RadioGroup();
 
         kermit = new RadioButton(muppets, "Kermit");
         x.add(kermit);

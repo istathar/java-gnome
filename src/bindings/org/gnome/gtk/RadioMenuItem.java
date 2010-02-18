@@ -55,7 +55,7 @@ public class RadioMenuItem extends CheckMenuItem
     /*
      * Reference keeps our group mechanism in scope, and powers getGroup()
      */
-    private RadioMenuItemGroup enclosingGroup;
+    private RadioGroup enclosingGroup;
 
     protected RadioMenuItem(long pointer) {
         super(pointer);
@@ -72,16 +72,16 @@ public class RadioMenuItem extends CheckMenuItem
      *            taken to be the mnemonic for the Widget.
      * @since 4.0.15
      */
-    public RadioMenuItem(RadioMenuItemGroup group, String label) {
+    public RadioMenuItem(RadioGroup group, String label) {
         super(createFirstOrNext(group, label));
         group.setMember(this);
         enclosingGroup = group;
     }
 
-    private static long createFirstOrNext(RadioMenuItemGroup group, String label) {
+    private static long createFirstOrNext(RadioGroup group, String label) {
         final RadioMenuItem first;
 
-        first = group.getMember();
+        first = (RadioMenuItem) group.getMember();
 
         if (first == null) {
             return GtkRadioMenuItem.createRadioMenuItemWithMnemonic(null, label);
@@ -96,7 +96,7 @@ public class RadioMenuItem extends CheckMenuItem
      * 
      * @since 4.0.15
      */
-    public RadioMenuItemGroup getGroup() {
+    public RadioGroup getGroup() {
         return enclosingGroup;
     }
 }

@@ -25,12 +25,12 @@ package org.gnome.gtk;
 public class ValidateRadioThing extends GraphicalTestCase
 {
     public final void testRadioMenuItemGroup() {
-        final RadioMenuItemGroup group;
+        final RadioGroup group;
         final RadioMenuItem first, second;
         Label child;
 
         // Create a group
-        group = new RadioMenuItemGroup();
+        group = new RadioGroup();
 
         // Here, there is no member so it should be 'null'
         assertNull(group.getMember());
@@ -53,13 +53,13 @@ public class ValidateRadioThing extends GraphicalTestCase
     }
 
     public final void testRadioActionGroup() {
-        final RadioActionGroup group;
+        final RadioGroup group;
         final RadioAction first, second;
         final MenuItem one, two;
         Label child;
 
         // Create a group
-        group = new RadioActionGroup();
+        group = new RadioGroup();
 
         // Here, there is no member so it should be 'null'
         assertNull(group.getMember());

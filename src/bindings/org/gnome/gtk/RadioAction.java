@@ -45,7 +45,7 @@ public class RadioAction extends ToggleAction
     /*
      * Reference keeps our group mechanism in scope, and powers getGroup()
      */
-    private RadioActionGroup enclosingGroup;
+    private RadioGroup enclosingGroup;
 
     protected RadioAction(long pointer) {
         super(pointer);
@@ -74,7 +74,7 @@ public class RadioAction extends ToggleAction
     /*
      * FIXME describe the implications of different choices for name.
      */
-    public RadioAction(RadioActionGroup group, String name, String label, String tooltip, Stock stock) {
+    public RadioAction(RadioGroup group, String name, String label, String tooltip, Stock stock) {
         this(GtkRadioAction.createRadioAction(name, label, tooltip, stock.getStockId(), 0));
         setGroup(group);
     }
@@ -85,7 +85,7 @@ public class RadioAction extends ToggleAction
      * 
      * @since 4.0.15
      */
-    public RadioAction(RadioActionGroup group, String name, Stock stock) {
+    public RadioAction(RadioGroup group, String name, Stock stock) {
         this(GtkRadioAction.createRadioAction(name, null, null, stock.getStockId(), 0));
         setGroup(group);
     }
@@ -97,7 +97,7 @@ public class RadioAction extends ToggleAction
      * 
      * @since 4.0.15
      */
-    public RadioAction(RadioActionGroup group, String name, Stock stock, RadioAction.Toggled handler) {
+    public RadioAction(RadioGroup group, String name, Stock stock, RadioAction.Toggled handler) {
         this(GtkRadioAction.createRadioAction(name, null, null, stock.getStockId(), 0));
         setGroup(group);
         connect(handler);
@@ -118,7 +118,7 @@ public class RadioAction extends ToggleAction
      *            related to the Action.
      * @since 4.0.15
      */
-    public RadioAction(RadioActionGroup group, String name, String label, RadioAction.Toggled handler) {
+    public RadioAction(RadioGroup group, String name, String label, RadioAction.Toggled handler) {
         this(GtkRadioAction.createRadioAction(name, label, null, null, 0));
         setGroup(group);
         connect(handler);
@@ -134,7 +134,7 @@ public class RadioAction extends ToggleAction
      *            usually will want to localize it to the user language.
      * @since 4.0.15
      */
-    public RadioAction(RadioActionGroup group, String name, String label) {
+    public RadioAction(RadioGroup group, String name, String label) {
         this(GtkRadioAction.createRadioAction(name, label, null, null, 0));
         setGroup(group);
     }
@@ -144,10 +144,10 @@ public class RadioAction extends ToggleAction
      * RadioThings, the current way to manage a group sucks. So, again we made
      * our own magic.
      */
-    private void setGroup(RadioActionGroup group) {
+    private void setGroup(RadioGroup group) {
         final RadioAction first;
 
-        first = group.getMember();
+        first = (RadioAction) group.getMember();
 
         /*
          * Add the action to our group
@@ -174,7 +174,7 @@ public class RadioAction extends ToggleAction
      * 
      * @since 4.0.15
      */
-    public RadioActionGroup getGroup() {
+    public RadioGroup getGroup() {
         return enclosingGroup;
     }
 }
