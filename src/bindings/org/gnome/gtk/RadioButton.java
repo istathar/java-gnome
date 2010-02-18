@@ -142,8 +142,8 @@ public class RadioButton extends CheckButton
     }
 
     /**
-     * Get the RadioButtonGroup that encloses this RadioButton and the others
-     * that belonging to the same mutual exclusion group.
+     * Get the RadioGroup that encloses this RadioButton and the others that
+     * belonging to the same mutual exclusion group.
      * 
      * @since 4.0.7
      */

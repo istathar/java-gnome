@@ -1,7 +1,7 @@
 /*
  * java-gnome, a UI library for writing GTK and GNOME programs from Java!
  *
- * Copyright © 2007-2010 Operational Dynamics Consulting, Pty Ltd
+ * Copyright © 2007-2010 Operational Dynamics Consulting, Pty Ltd and Others
  *
  * The code in this file, and the program it is a part of, is made available
  * to you by its authors as open source software: you can redistribute it
@@ -32,17 +32,79 @@
  */
 package org.gnome.gtk;
 
-/*
- * FIXME this is a placeholder stub for what will become the public API for
- * this type. Replace this comment with appropriate javadoc including author
- * and since tags. Note that the class may need to be made abstract, implement
- * interfaces, or even have its parent changed. No API stability guarantees
- * are made about this class until it has been reviewed by a hacker and this
- * comment has been replaced.
+/**
+ * A <code>RadioToolButton</code> is a {@link ToolItem} that contains a
+ * {@link RadioButton}. It is a part of a group of {@link ToggleButton
+ * ToggleButtons} where only one button can be active at a time.
+ * 
+ * @author Guillaume Mazoyer
+ * @since 4.0.15
  */
 public class RadioToolButton extends ToggleToolButton
 {
+    /*
+     * Reference keeps our group mechanism in scope, and powers getGroup()
+     */
+    private RadioGroup enclosingGroup;
+
     protected RadioToolButton(long pointer) {
         super(pointer);
+    }
+
+    /**
+     * Create a new RadioToolButton and add it to a RadioGroup.
+     * 
+     * @since 4.0.15
+     */
+    public RadioToolButton(RadioGroup group) {
+        super(createFirstOrNext(group));
+        group.setMember(this);
+        enclosingGroup = group;
+    }
+
+    /**
+     * Create a new RadioToolButton using a {@link Stock Stock item} and add
+     * it to a RadioGroup.
+     * 
+     * @since 4.0.15
+     */
+    public RadioToolButton(RadioGroup group, Stock stock) {
+        super(createFirstOrNext(group, stock));
+        group.setMember(this);
+        enclosingGroup = group;
+    }
+
+    private static long createFirstOrNext(RadioGroup group) {
+        final RadioToolButton first;
+
+        first = (RadioToolButton) group.getMember();
+
+        if (first == null) {
+            return GtkRadioToolButton.createRadioToolButton(null);
+        } else {
+            return GtkRadioToolButton.createRadioToolButtonFromWidget(first);
+        }
+    }
+
+    private static long createFirstOrNext(RadioGroup group, Stock stock) {
+        final RadioToolButton first;
+
+        first = (RadioToolButton) group.getMember();
+
+        if (first == null) {
+            return GtkRadioToolButton.createRadioToolButtonFromStock(null, stock.getStockId());
+        } else {
+            return GtkRadioToolButton.createRadioToolButtonWithStockFromWidget(first, stock.getStockId());
+        }
+    }
+
+    /**
+     * Get the RadioGroup that encloses this RadioToolButton and the others
+     * that belonging to the same mutual exclusion group.
+     * 
+     * @since 4.0.15
+     */
+    public RadioGroup getGroup() {
+        return enclosingGroup;
     }
 }
