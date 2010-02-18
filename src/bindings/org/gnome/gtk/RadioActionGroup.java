@@ -55,8 +55,6 @@ public class RadioActionGroup
 {
     RadioAction member;
 
-    int value;
-
     /**
      * Create a new group of related RadioActions.
      * 
@@ -64,7 +62,6 @@ public class RadioActionGroup
      */
     public RadioActionGroup() {
         member = null;
-        value = -1;
     }
 
     RadioAction getMember() {
@@ -73,10 +70,6 @@ public class RadioActionGroup
 
     void setMember(RadioAction item) {
         member = item;
-    }
-
-    int getNextValue() {
-        return ++value;
     }
 
     private void checkState() {

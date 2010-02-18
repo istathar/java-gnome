@@ -75,8 +75,7 @@ public class RadioAction extends ToggleAction
      * FIXME describe the implications of different choices for name.
      */
     public RadioAction(RadioActionGroup group, String name, String label, String tooltip, Stock stock) {
-        this(GtkRadioAction.createRadioAction(name, label, tooltip, stock.getStockId(),
-                group.getNextValue()));
+        this(GtkRadioAction.createRadioAction(name, label, tooltip, stock.getStockId(), 0));
         setGroup(group);
     }
 
@@ -87,9 +86,7 @@ public class RadioAction extends ToggleAction
      * @since 4.0.15
      */
     public RadioAction(RadioActionGroup group, String name, Stock stock) {
-        this(
-                GtkRadioAction.createRadioAction(name, null, null, stock.getStockId(),
-                        group.getNextValue()));
+        this(GtkRadioAction.createRadioAction(name, null, null, stock.getStockId(), 0));
         setGroup(group);
     }
 
@@ -101,9 +98,7 @@ public class RadioAction extends ToggleAction
      * @since 4.0.15
      */
     public RadioAction(RadioActionGroup group, String name, Stock stock, RadioAction.Toggled handler) {
-        this(
-                GtkRadioAction.createRadioAction(name, null, null, stock.getStockId(),
-                        group.getNextValue()));
+        this(GtkRadioAction.createRadioAction(name, null, null, stock.getStockId(), 0));
         setGroup(group);
         connect(handler);
     }
@@ -124,7 +119,7 @@ public class RadioAction extends ToggleAction
      * @since 4.0.15
      */
     public RadioAction(RadioActionGroup group, String name, String label, RadioAction.Toggled handler) {
-        this(GtkRadioAction.createRadioAction(name, label, null, null, group.getNextValue()));
+        this(GtkRadioAction.createRadioAction(name, label, null, null, 0));
         setGroup(group);
         connect(handler);
     }
@@ -140,7 +135,7 @@ public class RadioAction extends ToggleAction
      * @since 4.0.15
      */
     public RadioAction(RadioActionGroup group, String name, String label) {
-        this(GtkRadioAction.createRadioAction(name, label, null, null, group.getNextValue()));
+        this(GtkRadioAction.createRadioAction(name, label, null, null, 0));
         setGroup(group);
     }
 
