@@ -83,6 +83,10 @@ public class RadioGroup
      */
     public Object getActive() {
         Object[] group;
+        RadioAction action;
+        RadioButton button;
+        RadioMenuItem item;
+
         checkState();
 
         group = null;
@@ -97,16 +101,22 @@ public class RadioGroup
 
         for (Object object : group) {
             if (object instanceof RadioAction) {
-                if (((RadioAction) object).getActive()) {
-                    return object;
+                action = (RadioAction) object;
+
+                if (action.getActive()) {
+                    return action;
                 }
             } else if (object instanceof RadioButton) {
-                if (((RadioButton) object).getActive()) {
-                    return object;
+                button = (RadioButton) object;
+
+                if (button.getActive()) {
+                    return button;
                 }
             } else if (object instanceof RadioMenuItem) {
-                if (((RadioMenuItem) object).getActive()) {
-                    return object;
+                item = (RadioMenuItem) object;
+
+                if (item.getActive()) {
+                    return item;
                 }
             }
         }
