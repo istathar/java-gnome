@@ -20,6 +20,7 @@
 package button;
 
 import org.gnome.gdk.Event;
+import org.gnome.glib.Object;
 import org.gnome.gtk.Button;
 import org.gnome.gtk.Frame;
 import org.gnome.gtk.Gtk;
@@ -102,6 +103,20 @@ public class ExampleRadioButton
 
         b = new Button("Execute action");
         x.add(b);
+
+        /*
+         * Sometimes you want to be notified each time the selection changes.
+         * The RadioGroup.GroupToggled signal is an easy way to do so.
+         * Alternatively you can use the RadioButton.Toggled signal on each
+         * RadioButton.
+         */
+
+        group.connect(new RadioGroup.GroupToggled() {
+            public void onGroupToggled(Object source) {
+                RadioButton button = (RadioButton) source;
+                System.out.println("Chosen: " + button.getLabel());
+            }
+        });
 
         /*
          * You can also get the active Button at any time.
