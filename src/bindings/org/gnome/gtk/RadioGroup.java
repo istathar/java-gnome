@@ -38,6 +38,11 @@ import org.gnome.glib.Object;
  * A group of RadioActions or Radio widgets sharing the mutually exclusive
  * relationship that only one of the group member can be selected at a time.
  * 
+ * <p>
+ * A group can contain <b>only one</b> type of object. It must be
+ * {@link RadioAction}, {@link RadioButton}, {@link RadioMenuItem} or
+ * {@link RadioToolButton}.
+ * 
  * @author Guillaume Mazoyer
  * @since 4.0.15
  */
