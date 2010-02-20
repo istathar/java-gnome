@@ -102,9 +102,11 @@ public class Glib
 
     /**
      * Returns the username (i.e Linux login name) running the application.<br>
-     * <b>WARNING: This method assumes that your system uses UTF-8 as
-     * encoding. Please file a bug if this assumption is not valid for your
-     * system.</b>
+     * 
+     * <p>
+     * <b>WARNING:</b><br>
+     * This method assumes that your system uses UTF-8 as encoding. Please
+     * file a bug if this assumption is not valid for your system.</b>
      * 
      * @since 4.0.15
      */
@@ -115,8 +117,11 @@ public class Glib
     /**
      * Returns the real name of the user running the application from
      * <code>/etc/passwd</code> file. If it can't be determined
-     * <code>"Unknown" is returned.</code><br>
-     * See the warning in {@link #getUserName()}.
+     * <code>"Unknown"</code> is returned.
+     * 
+     * <p>
+     * The warning about encoding in {@link #getUserName() getUserName()} also
+     * applies.
      * 
      * @since 4.0.15
      */
