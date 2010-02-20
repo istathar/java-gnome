@@ -38,6 +38,11 @@ import org.gnome.glib.Object;
  * A group of RadioActions or Radio widgets sharing the mutually exclusive
  * relationship that only one of the group member can be selected at a time.
  * 
+ * <p>
+ * A group can contain <b>only one</b> type of object. It must be
+ * {@link RadioAction}, {@link RadioButton}, {@link RadioMenuItem} or
+ * {@link RadioToolButton}.
+ * 
  * @author Guillaume Mazoyer
  * @since 4.0.15
  */
@@ -70,6 +75,111 @@ public class RadioGroup
     }
 
     /**
+     * Signal that is emitted each time the active action or widget of the
+     * group is changed.
+     * 
+     * @author Guillaume Mazoyer
+     * @since 4.0.15
+     */
+    public interface GroupToggled
+    {
+        /**
+         * Called when user changes the active action or widget in a group.
+         * 
+         * @param source
+         *            The action or widget that is now active.
+         */
+        public void onGroupToggled(Object source);
+    }
+
+    /**
+     * Hook up a handler to the <code>RadioGroup.GroupToggled</code> signal.
+     * 
+     * @since 4.0.15
+     */
+    public void connect(RadioGroup.GroupToggled handler) {
+        if (member instanceof RadioAction) {
+            ToggleActionHandler toggleHandler = new ToggleActionHandler(handler);
+            RadioAction[] group = GtkRadioAction.getGroup((RadioAction) member);
+
+            for (RadioAction action : group) {
+                action.connect(toggleHandler);
+            }
+        } else if (member instanceof RadioButton) {
+            ToggleButtonHandler toggleHandler = new ToggleButtonHandler(handler);
+            RadioButton[] group = GtkRadioButton.getGroup((RadioButton) member);
+
+            for (RadioButton button : group) {
+                button.connect(toggleHandler);
+            }
+        } else if (member instanceof RadioMenuItem) {
+            ToggleMenuItemHandler toggleHandler = new ToggleMenuItemHandler(handler);
+            RadioMenuItem[] group = GtkRadioMenuItem.getGroup((RadioMenuItem) member);
+
+            for (RadioMenuItem item : group) {
+                item.connect(toggleHandler);
+            }
+        }
+    }
+
+    /*
+     * Custom handler needed to implement RadioGroup.GroupToggled custom
+     * signal for RadioAction.
+     */
+    private static final class ToggleActionHandler implements ToggleAction.Toggled
+    {
+        private final RadioGroup.GroupToggled handler;
+
+        private ToggleActionHandler(RadioGroup.GroupToggled handler) {
+            this.handler = handler;
+        }
+
+        public void onToggled(ToggleAction source) {
+            if (source.getActive()) {
+                handler.onGroupToggled((RadioAction) source);
+            }
+        }
+    }
+
+    /*
+     * Custom handler needed to implement RadioGroup.GroupToggled custom
+     * signal for RadioButton.
+     */
+    private static final class ToggleButtonHandler implements ToggleButton.Toggled
+    {
+        private final RadioGroup.GroupToggled handler;
+
+        private ToggleButtonHandler(RadioGroup.GroupToggled handler) {
+            this.handler = handler;
+        }
+
+        public void onToggled(ToggleButton source) {
+            if (source.getActive()) {
+                handler.onGroupToggled((RadioButton) source);
+            }
+        }
+    }
+
+    /*
+     * Custom handler needed to implement RadioGroup.GroupToggled custom
+     * signal for CheckMenuItem.
+     */
+    private static final class ToggleMenuItemHandler implements CheckMenuItem.Toggled
+    {
+        private final RadioGroup.GroupToggled handler;
+
+        private ToggleMenuItemHandler(RadioGroup.GroupToggled handler) {
+            this.handler = handler;
+        }
+
+        public void onToggled(CheckMenuItem source) {
+            if (source.getActive()) {
+                handler.onGroupToggled((RadioMenuItem) source);
+            }
+        }
+    }
+
+    /**
      * Indicate which RadioAction or Radio widget in this RadioGroup is
      * currently selected active.
      * 
@@ -83,6 +193,10 @@ public class RadioGroup
      */
     public Object getActive() {
         Object[] group;
+        RadioAction action;
+        RadioButton button;
+        RadioMenuItem item;
+
         checkState();
 
         group = null;
@@ -97,16 +211,22 @@ public class RadioGroup
 
         for (Object object : group) {
             if (object instanceof RadioAction) {
-                if (((RadioAction) object).getActive()) {
-                    return object;
+                action = (RadioAction) object;
+
+                if (action.getActive()) {
+                    return action;
                 }
             } else if (object instanceof RadioButton) {
-                if (((RadioButton) object).getActive()) {
-                    return object;
+                button = (RadioButton) object;
+
+                if (button.getActive()) {
+                    return button;
                 }
             } else if (object instanceof RadioMenuItem) {
-                if (((RadioMenuItem) object).getActive()) {
-                    return object;
+                item = (RadioMenuItem) object;
+
+                if (item.getActive()) {
+                    return item;
                 }
             }
         }
