@@ -32,6 +32,12 @@
  */
 package org.gnome.gtk;
 
+/*
+ * This class was originally RadioButtonGroup and specifically for instances
+ * of RadioButton only, it is now extended to everything that displays
+ * "radio" behaviour.
+ */
+
 import org.gnome.glib.Object;
 
 /**
@@ -43,6 +49,8 @@ import org.gnome.glib.Object;
  * {@link RadioAction}, {@link RadioButton}, {@link RadioMenuItem} or
  * {@link RadioToolButton}.
  * 
+ * @author Andrew Cowie
+ * @author Mario Torre
  * @author Guillaume Mazoyer
  * @since 4.0.15
  */
@@ -136,7 +144,7 @@ public class RadioGroup
 
         public void onToggled(ToggleAction source) {
             if (source.getActive()) {
-                handler.onGroupToggled((RadioAction) source);
+                handler.onGroupToggled(source);
             }
         }
     }
@@ -155,7 +163,7 @@ public class RadioGroup
 
         public void onToggled(ToggleButton source) {
             if (source.getActive()) {
-                handler.onGroupToggled((RadioButton) source);
+                handler.onGroupToggled(source);
             }
         }
     }
@@ -174,7 +182,7 @@ public class RadioGroup
 
         public void onToggled(CheckMenuItem source) {
             if (source.getActive()) {
-                handler.onGroupToggled((RadioMenuItem) source);
+                handler.onGroupToggled(source);
             }
         }
     }
@@ -202,11 +210,14 @@ public class RadioGroup
         group = null;
 
         if (member instanceof RadioAction) {
-            group = GtkRadioAction.getGroup((RadioAction) member);
+            action = (RadioAction) member;
+            group = GtkRadioAction.getGroup(action);
         } else if (member instanceof RadioButton) {
-            group = GtkRadioButton.getGroup((RadioButton) member);
+            button = (RadioButton) member;
+            group = GtkRadioButton.getGroup(button);
         } else if (member instanceof RadioMenuItem) {
-            group = GtkRadioMenuItem.getGroup((RadioMenuItem) member);
+            item = (RadioMenuItem) member;
+            group = GtkRadioMenuItem.getGroup(item);
         }
 
         for (Object object : group) {
