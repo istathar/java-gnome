@@ -116,7 +116,7 @@ public class RadioButton extends CheckButton
     /*
      * Reference keeps our group mechanism in scope, and powers getGroup()
      */
-    private RadioButtonGroup enclosingGroup;
+    private RadioGroup enclosingGroup;
 
     protected RadioButton(long pointer) {
         super(pointer);
@@ -133,19 +133,21 @@ public class RadioButton extends CheckButton
      *            to be the mnemonic for the Widget.
      * @since 4.0.7
      */
-    public RadioButton(RadioButtonGroup group, String label) {
-        super(GtkRadioButton.createRadioButtonWithLabelFromWidget(group.getMember(), label));
+    public RadioButton(RadioGroup group, String label) {
+        super(
+                GtkRadioButton.createRadioButtonWithLabelFromWidget((RadioButton) group.getMember(),
+                        label));
         group.setMember(this);
         enclosingGroup = group;
     }
 
     /**
-     * Get the RadioButtonGroup that encloses this RadioButton and the others
-     * that belonging to the same mutual exclusion group.
+     * Get the RadioGroup that encloses this RadioButton and the others that
+     * belonging to the same mutual exclusion group.
      * 
      * @since 4.0.7
      */
-    public RadioButtonGroup getGroup() {
+    public RadioGroup getGroup() {
         return enclosingGroup;
     }
 }

@@ -11,7 +11,7 @@
   (caller-owns-return #t)
   (return-type "GtkToolItem*")
   (parameters
-    '("GSList-GtkRadioToolButton*" "group")
+    '("GSList-GtkRadioToolButton*" "group" (null-ok))
   )
 )
 
@@ -21,7 +21,7 @@
   (caller-owns-return #t)
   (return-type "GtkToolItem*")
   (parameters
-    '("GSList-GtkRadioToolButton*" "group")
+    '("GSList-GtkRadioToolButton*" "group" (null-ok))
     '("const-gchar*" "stock_id")
   )
 )
@@ -32,7 +32,7 @@
   (caller-owns-return #t)
   (return-type "GtkToolItem*")
   (parameters
-    '("GtkRadioToolButton*" "group")
+    '("GtkRadioToolButton*" "group" (null-ok))
   )
 )
 
@@ -42,7 +42,7 @@
   (caller-owns-return #t)
   (return-type "GtkToolItem*")
   (parameters
-    '("GtkRadioToolButton*" "group")
+    '("GtkRadioToolButton*" "group" (null-ok))
     '("const-gchar*" "stock_id")
   )
 )
