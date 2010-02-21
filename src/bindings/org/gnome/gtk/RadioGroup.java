@@ -68,7 +68,13 @@ public class RadioGroup
     }
 
     void setMember(Object object) {
-        member = object;
+        if ((object instanceof RadioAction) || (object instanceof RadioButton)
+                || (object instanceof RadioMenuItem) || (object instanceof RadioToolButton)) {
+            member = object;
+        } else {
+            throw new IllegalArgumentException("object not a RadioThing");
+        }
+
     }
 
     Object getMember() {
