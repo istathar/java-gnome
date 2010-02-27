@@ -39,7 +39,7 @@ package org.gnome.gtk;
  * @author Guillaume Mazoyer
  * @since 4.0.14
  */
-public class GtkAboutDialogOverride extends Plumbing
+final class GtkAboutDialogOverride extends Plumbing
 {
     static final void setEmailHook(AboutDialog self) {
         gtk_about_dialog_set_email_hook(pointerOf(self));
