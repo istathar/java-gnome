@@ -97,6 +97,15 @@ public class ScrolledWindow extends Bin
         GtkScrolledWindow.setPolicy(this, hscrollbarPolicy, vscrollbarPolicy);
     }
 
+    public void add(Widget child) {
+        if (!((child instanceof TextView) || (child instanceof TreeView) || (child instanceof Layout) || (child instanceof Viewport))) {
+            throw new IllegalArgumentException(
+                    "You can't directly add() a Widget that doesn't have scrolling support built in.\n"
+                            + "Use ScrolledWindow's addWithViewport() instead, or create your own Viewport.");
+        }
+        GtkContainer.add(this, child);
+    }
+
     /**
      * Create a new Viewport and embeds the child Widget in it before adding
      * it to the ScrolledWindow. This is a convenience function; you could
@@ -104,14 +113,27 @@ public class ScrolledWindow extends Bin
      * this method is only for Widgets which do not support scrolling directly
      * themselves; use {@link Container#add(Widget) add()} directly for those
      * Widgets that do.
+     * 
+     * <p>
+     * As a convienience, calling this method will set the ShadowType of the
+     * created Viewport to <code>NONE</code>, meaning that if you do want a
+     * decoration, you can achieve it in a single place here with a call to
+     * ScrolledWindow's {@link #setShadowType(ShadowType) setShadowType()}.
+     * 
+     * @since 4.0.15
      */
     public void addWithViewport(Widget child) {
+        final Viewport port;
+
         if ((child instanceof TextView) || (child instanceof TreeView) || (child instanceof Layout)) {
             // any others?
             throw new IllegalArgumentException(
                     "You must not addWithViewport() a Widget that already has scrolling support built in. Use Container's add() instead.");
         }
         GtkScrolledWindow.addWithViewport(this, child);
+
+        port = (Viewport) GtkBin.getChild(this);
+        port.setShadowType(ShadowType.NONE);
     }
 
     /**
@@ -156,11 +178,21 @@ public class ScrolledWindow extends Bin
 
     /**
      * Set the type of decoration you want around the child Widget in the
-     * ScrolledWindow. You probably don't need this.
+     * ScrolledWindow. You probably don't need this, since the default is
+     * {@link ShadowType#NONE NONE}.
      * 
-     * @since 4.0.11
+     * @since 4.0.15
      */
     public void setShadowType(ShadowType type) {
         GtkScrolledWindow.setShadowType(this, type);
+    }
+
+    /**
+     * Get the decoration currently set for this ScrolledWindow.
+     * 
+     * @since 4.0.15
+     */
+    public ShadowType getShadowType() {
+        return GtkScrolledWindow.getShadowType(this);
     }
 }

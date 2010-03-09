@@ -50,7 +50,9 @@ import org.gnome.gtk.ValidateOutParameters;
 import org.gnome.gtk.ValidatePacking;
 import org.gnome.gtk.ValidatePrinting;
 import org.gnome.gtk.ValidateProperties;
+import org.gnome.gtk.ValidateRadioThing;
 import org.gnome.gtk.ValidateResponseType;
+import org.gnome.gtk.ValidateScrolling;
 import org.gnome.gtk.ValidateSignalEmission;
 import org.gnome.gtk.ValidateSnapshotUtilities;
 import org.gnome.gtk.ValidateStockItems;
@@ -164,6 +166,7 @@ public class UnitTests
         suite.addTestSuite(ValidateTreeModelFilter.class);
         suite.addTestSuite(ValidateTreeView.class);
         suite.addTestSuite(ValidateIconView.class);
+        suite.addTestSuite(ValidateScrolling.class);
         suite.addTestSuite(ValidateComboBox.class);
         suite.addTestSuite(ValidateLinkBehaviour.class);
         suite.addTestSuite(ValidateEntry.class);
@@ -184,6 +187,7 @@ public class UnitTests
         suite.addTestSuite(ValidatePrinting.class);
         suite.addTestSuite(ValidateSourceView.class);
         suite.addTestSuite(ValidateUniqueApplications.class);
+        suite.addTestSuite(ValidateRadioThing.class);
 
         return suite;
     }

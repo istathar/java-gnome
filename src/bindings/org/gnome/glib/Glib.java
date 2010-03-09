@@ -33,11 +33,15 @@
 package org.gnome.glib;
 
 /**
- * Static methods to initialize the Java bindings around GLib
+ * Static methods to initialize the Java bindings around GLib.
  * 
  * @author Andrew Cowie
  * @author Serkan Kaba
  * @since 4.0.0
+ * 
+ * @see <a
+ *      href="http://www.freedesktop.org/wiki/Specifications/basedir-spec?action=show&redirect=Standards%2Fbasedir-spec">
+ *      XDG Base Directory Specification</a>
  */
 public class Glib
 {
@@ -94,14 +98,106 @@ public class Glib
      */
     public static String getUserConfigDir() {
         return GlibMisc.getUserConfigDir();
-    }     
+    }
 
     /**
-     * Returns the username (i.e Linux login name) running the application.
+     * Returns the username (i.e Linux login name) running the application.<br>
+     * 
+     * <p>
+     * <b>WARNING:</b><br>
+     * This method assumes that your system uses UTF-8 as encoding. Please
+     * file a bug if this assumption is not valid for your system.</b>
      * 
      * @since 4.0.15
      */
     public static String getUserName() {
         return GlibMisc.getUserName();
+    }
+
+    /**
+     * Returns the real name of the user running the application from
+     * <code>/etc/passwd</code> file. If it can't be determined
+     * <code>"Unknown"</code> is returned.
+     * 
+     * <p>
+     * The warning about encoding in {@link #getUserName() getUserName()} also
+     * applies.
+     * 
+     * @since 4.0.15
+     */
+    public static String getRealName() {
+        return GlibMisc.getRealName();
+    }
+
+    /**
+     * Get the XDG user specific cache directory. In all likelihood this will
+     * be <code>~/.cache</code>.
+     * 
+     * @since 4.0.15
+     */
+    public static String getUserCacheDir() {
+        return GlibMisc.getUserCacheDir();
+    }
+
+    /**
+     * Get the XDG user specific data directory. In all likelihood this will
+     * be <code>~/.local/share</code>.
+     * 
+     * @since 4.0.15
+     */
+    public static String getUserDataDir() {
+        return GlibMisc.getUserDataDir();
+    }
+
+    /**
+     * Get the XDG user specific special directory. Directory constants are
+     * defined in {@link UserDirectory}. System wide defaults are defined in
+     * <code>/etc/xdg/user-dirs.defaults</code> and can be overridden in
+     * <code>~/.config/user-dir.dirs</code>.
+     * 
+     * <p>
+     * If you've already queried the "special" directories then those values
+     * are cached; they certainly don't change often. If you're writing a
+     * program that absolutely needs to be aware if those settings have
+     * changed after you're already used this, then you can force up to date
+     * information by calling {@link #reloadUserSpecialDirsCache()
+     * Glib.reloadUserSpecialDirsCache()}.
+     * 
+     * @since 4.0.15
+     */
+    public static String getUserSpecialDir(UserDirectory directory) {
+        return GlibMisc.getUserSpecialDir(directory);
+    }
+
+    /**
+     * Reset the cache used for {@link #getUserSpecialDir(UserDirectory)
+     * getUserSpecialDir()}.
+     * 
+     * <p>
+     * <b>WARNING:</b><br>
+     * This may cause memory leaks if the return values change between calls.
+     * 
+     * @since 4.0.15
+     */
+    public static void reloadUserSpecialDirsCache() {
+        GlibMisc.reloadUserSpecialDirsCache();
+    }
+
+    /**
+     * Get a list of system-wide XDG data directories.
+     * 
+     * @since 4.0.15
+     */
+    public static String[] getSystemDataDirs() {
+        return GlibMisc.getSystemDataDirs();
+    }
+
+    /**
+     * Get a list of system-wide XDG configuration directories.
+     * 
+     * @since 4.0.15
+     */
+    public static String[] getSystemConfigDirs() {
+        return GlibMisc.getSystemConfigDirs();
     }
 }

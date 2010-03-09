@@ -49,6 +49,8 @@ public abstract class Plumbing extends org.freedesktop.bindings.Plumbing
     protected static final java.lang.Object lock;
 
     static {
+        isLibraryReady();
+
         lock = Gdk.lock;
 
         assert (Status.SUCCESS != null);

@@ -12,9 +12,9 @@
   (return-type "GtkRadioAction*")
   (parameters
     '("const-gchar*" "name")
-    '("const-gchar*" "label")
-    '("const-gchar*" "tooltip")
-    '("const-gchar*" "stock_id")
+    '("const-gchar*" "label" (null-ok))
+    '("const-gchar*" "tooltip" (null-ok))
+    '("const-gchar*" "stock_id" (null-ok))
     '("gint" "value")
   )
 )
@@ -24,7 +24,7 @@
   (c-name "gtk_radio_action_set_group")
   (return-type "none")
   (parameters
-    '("GSList-GtkRadioAction*" "group")
+    '("GSList-GtkRadioAction*" "group" (null-ok))
   )
 )
 

@@ -43,6 +43,8 @@ import java.security.CodeSource;
 import java.security.ProtectionDomain;
 import java.util.HashMap;
 
+import org.gnome.gtk.Gtk;
+
 import static org.freedesktop.bindings.Version.getVersion;
 
 /**
@@ -104,6 +106,24 @@ public abstract class Plumbing
         loader = Plumbing.class.getClassLoader();
 
         loadNativeCode();
+    }
+
+    /**
+     * Was java-gnome safely initialized by properly calling Gtk.init()?
+     */
+    /*
+     * This class does NOT call this, and nor dies Glib's Plumbing; there are
+     * methods there that are allowed on the pre-init code path. And the
+     * boolean being checked here is set BEFORE the call to GtkMain.init()
+     * fires off the static initializers in the Plumbing classes, which is it
+     * will be set if Gtk.init() has been called.
+     */
+    protected static void isLibraryReady() {
+        if (!Gtk.isInitialized()) {
+            throw new FatalError(
+                    "\n\nYou *must* call Gtk.init() before using anything else in java-gnome!\n");
+
+        }
     }
 
     private static final String LIBDIR_FILE = ".libdir";

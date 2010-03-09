@@ -20,12 +20,13 @@
 package button;
 
 import org.gnome.gdk.Event;
+import org.gnome.glib.Object;
 import org.gnome.gtk.Button;
 import org.gnome.gtk.Frame;
 import org.gnome.gtk.Gtk;
 import org.gnome.gtk.HBox;
 import org.gnome.gtk.RadioButton;
-import org.gnome.gtk.RadioButtonGroup;
+import org.gnome.gtk.RadioGroup;
 import org.gnome.gtk.ShadowType;
 import org.gnome.gtk.VBox;
 import org.gnome.gtk.Widget;
@@ -45,7 +46,7 @@ public class ExampleRadioButton
         final VBox vb;
         final Frame frame;
         final Button b;
-        final RadioButtonGroup group;
+        final RadioGroup group;
         final RadioButton opt1, opt2, opt3;
 
         Gtk.init(args);
@@ -87,7 +88,7 @@ public class ExampleRadioButton
          * from the keyboard.
          */
 
-        group = new RadioButtonGroup();
+        group = new RadioGroup();
         opt1 = new RadioButton(group, "_Exit");
         opt2 = new RadioButton(group, "_Move Window");
         opt3 = new RadioButton(group, "_Print message");
@@ -105,14 +106,15 @@ public class ExampleRadioButton
 
         /*
          * Sometimes you want to be notified each time the selection changes.
-         * The RadioButtonGroup.GroupToggled signal is an easy way to do so.
+         * The RadioGroup.GroupToggled signal is an easy way to do so.
          * Alternatively you can use the RadioButton.Toggled signal on each
          * RadioButton.
          */
 
-        group.connect(new RadioButtonGroup.GroupToggled() {
-            public void onGroupToggled(RadioButton source) {
-                System.out.println("Chosen: " + source.getLabel());
+        group.connect(new RadioGroup.GroupToggled() {
+            public void onGroupToggled(Object source) {
+                RadioButton button = (RadioButton) source;
+                System.out.println("Chosen: " + button.getLabel());
             }
         });
 
@@ -123,7 +125,7 @@ public class ExampleRadioButton
             public void onClicked(Button source) {
 
                 /* this returns the active button in the group */
-                RadioButton active = group.getActive();
+                RadioButton active = (RadioButton) group.getActive();
                 if (active == opt1) {
                     /* exit */
                     Gtk.mainQuit();

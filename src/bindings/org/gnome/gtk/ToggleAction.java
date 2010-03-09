@@ -1,7 +1,7 @@
 /*
  * java-gnome, a UI library for writing GTK and GNOME programs from Java!
  *
- * Copyright © 2007-2010 Operational Dynamics Consulting, Pty Ltd
+ * Copyright © 2007-2010 Operational Dynamics Consulting, Pty Ltd and Others
  *
  * The code in this file, and the program it is a part of, is made available
  * to you by its authors as open source software: you can redistribute it
@@ -32,17 +32,192 @@
  */
 package org.gnome.gtk;
 
-/*
- * FIXME this is a placeholder stub for what will become the public API for
- * this type. Replace this comment with appropriate javadoc including author
- * and since tags. Note that the class may need to be made abstract, implement
- * interfaces, or even have its parent changed. No API stability guarantees
- * are made about this class until it has been reviewed by a hacker and this
- * comment has been replaced.
+/**
+ * A <code>ToggleAction</code> is an equivalent of a {@link Action} but used
+ * in general to create {@link CheckMenuItem}. It has an &quot;active&quot;
+ * state which indicates whether the action has been checked or not.
+ * 
+ * @author Guillaume Mazoyer
+ * @since 4.0.15
  */
 public class ToggleAction extends Action
 {
     protected ToggleAction(long pointer) {
         super(pointer);
+    }
+
+    /**
+     * Create a new ToggleAction, and connect a handler to its
+     * <code>ToggleAction.Toggled</code> signal.
+     * 
+     * @param name
+     *            A unique name for the ToggleAction.
+     * @param label
+     *            The text that will be displayed in the proxy Widgets. You
+     *            usually will want to localize it to the user language.
+     * @param tooltip
+     *            A Tooltip or little help message for the ToggleAction. Also
+     *            localized.
+     * @param stock
+     *            The stock icon to display in proxy Widgets.
+     * @param handler
+     *            A handler to connect to the
+     *            <code>ToggleAction.Toggled</code> signal. Typically this
+     *            will be used to actually start the operation related to this
+     *            ToggleAction.
+     * @since 4.0.15
+     */
+    /*
+     * FIXME describe the implications of different choices for name.
+     */
+    public ToggleAction(String name, String label, String tooltip, Stock stock,
+            ToggleAction.Toggled handler) {
+        super(GtkToggleAction.createToggleAction(name, label, tooltip, stock.getStockId()));
+        connect(handler);
+    }
+
+    /**
+     * Create a new ToggleAction.
+     * 
+     * @param name
+     *            A unique name for the ToggleAction.
+     * @param label
+     *            The text that will be displayed in the proxy Widgets. You
+     *            usually will want to localize it to the user language.
+     * @param tooltip
+     *            A Tooltip or little help message for the ToggleAction. Also
+     *            localized.
+     * @param stock
+     *            The Stock icon to display in proxy Widgets.
+     * @since 4.0.15
+     */
+    public ToggleAction(String name, String label, String tooltip, Stock stock) {
+        super(GtkToggleAction.createToggleAction(name, label, tooltip, stock.getStockId()));
+    }
+
+    /**
+     * Create a new ToggleAction from a Stock item. The message and tooltip
+     * will be supplied by GTK automatically.
+     * 
+     * @since 4.0.15
+     */
+    public ToggleAction(String name, Stock stock) {
+        super(GtkToggleAction.createToggleAction(name, null, null, stock.getStockId()));
+    }
+
+    /**
+     * Create a new ToggleAction based on a Stock item, and connect a handler
+     * to its <code>ToggleAction.Toggled</code> signal. Complements the
+     * {@link #Action(String, Stock) &lt;init&gt;(String, Stock)} constructor.
+     * 
+     * @since 4.0.15
+     */
+    public ToggleAction(String name, Stock stock, ToggleAction.Toggled handler) {
+        super(GtkToggleAction.createToggleAction(name, null, null, stock.getStockId()));
+        connect(handler);
+    }
+
+    /**
+     * Create a new ToggleAction, and connect a handler to its
+     * <code>ToggleAction.Toggled</code> signal.
+     * 
+     * @param name
+     *            A unique name for the ToggleAction.
+     * @param label
+     *            The label that will be displayed in the proxy Widgets. You
+     *            usually will want to localize it to the user language.
+     * @param handler
+     *            A handler to connect to the
+     *            <code>ToggleAction.Toggled</code> signal. Usually will will
+     *            start from here the operation related to the Action.
+     * @since 4.0.15
+     */
+    public ToggleAction(String name, String label, ToggleAction.Toggled handler) {
+        super(GtkToggleAction.createToggleAction(name, label, null, null));
+        connect(handler);
+    }
+
+    /**
+     * Create a new ToggleAction.
+     * 
+     * @param name
+     *            A unique name for the ToggleAction.
+     * @param label
+     *            The text that will be displayed in the proxy Widgets. You
+     *            usually will want to localize it to the user language.
+     * @since 4.0.15
+     */
+    public ToggleAction(String name, String label) {
+        super(GtkToggleAction.createToggleAction(name, label, null, null));
+    }
+
+    /**
+     * Emit the <code>ToggleAction.Toggled</code> signal.
+     * 
+     * @since 4.0.15
+     */
+    public void toggled() {
+        GtkToggleAction.toggled(this);
+    }
+
+    /**
+     * Set the checked state of the <code>ToggleAction</code>.
+     * 
+     * @since 4.0.15
+     */
+    public void setActive(boolean setting) {
+        GtkToggleAction.setActive(this, setting);
+    }
+
+    /**
+     * Return the checked state of the <code>ToggleAction</code>.
+     * 
+     * @since 4.0.15
+     */
+    public boolean getActive() {
+        return GtkToggleAction.getActive(this);
+    }
+
+    /**
+     * Set whether the action may have proxies like a {@link RadioAction}.
+     * 
+     * @since 4.0.15
+     */
+    public void setDrawAsRadio(boolean setting) {
+        GtkToggleAction.setDrawAsRadio(this, setting);
+    }
+
+    /**
+     * Return whether the action may have proxies like a {@link RadioAction}.
+     * 
+     * @since 4.0.15
+     */
+    public boolean getDrawAsRadio() {
+        return GtkToggleAction.getDrawAsRadio(this);
+    }
+
+    /**
+     * Signal emitted when the <code>ToggleAction</code> is toggled
+     * 
+     * <p>
+     * A <code>ToggleAction</code> is activated when the user clicks a
+     * ToolButton proxy, when (s)he activates an associated MenuItem or when
+     * {@link ToggleAction#toggled() toggled()} is called.
+     * 
+     * @author Guillaume Mazoyer
+     * @since 4.0.15
+     */
+    public interface Toggled extends GtkToggleAction.ToggledSignal
+    {
+        public void onToggled(ToggleAction source);
+    }
+
+    /**
+     * Connect a handler to the <code>ToggleAction.Toggled</code> signal.
+     * 
+     * @since 4.0.15
+     */
+    public void connect(ToggleAction.Toggled handler) {
+        GtkToggleAction.connect(this, handler, false);
     }
 }
