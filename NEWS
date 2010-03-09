@@ -1,5 +1,61 @@
 NEWS
 
+<a name="4.0.15" id="" title=""></a>
+
+java-gnome 4.0.15-rc1 (9 Mar 2010)
+==================================
+
+_Radio things_
+
+This has mostly been a bug fix cycle with numerous internal quality
+improvements being made. A few developer visible API additions have been made,
+summarized below.
+
+Unified radio handling
+----------------------
+
+There are a number of controls in GTK that exhibit the "radio" behaviour of
+being in a group of which only one can be selected: RadioButton,
+RadioMenuItem, RadioToolButton and RadioAction. We originally had a class
+called RadioButtonGroup which was used when constructing RadioButtons to
+indicate which group they were a member of. In introducing overage of the
+other radio types, Guillaume Mazoyer implemented a generic grouping class
+called RadioGroup which is now used for all the radio types.
+
+* **`org.gnome.gtk.RadioGroup`**
+* **`org.gnome.gtk.RadioButton`**
+* **`org.gnome.gtk.RadioMenuItem`**
+* **`org.gnome.gtk.RadioToolButton`**
+* **`org.gnome.gtk.RadioAction`**
+
+XDG utility functions
+---------------------
+
+A number of utility functions (ie static methods) were added to Glib allowing
+you to access the various user and systems directories as specified by the XDG
+specification.
+
+* **`org.gnome.glib.UserDirectory`**
+* **`org.gnome.glib.Glib`**
+
+Miscellaneous improvements
+--------------------------
+
+Better control of positioning when popping up context menus.
+
+* **`org.gnome.gtk.Menu`**
+* `org.gnome.gtk.GtkMenuOverride`
+
+Better initialization checking
+------------------------------
+
+Logic checking that the library has been properly initialized has been
+refactored, making it harder to accidentally misuse java-gnome when getting
+started [or when starting a new program after you've been using the library
+for years and forgotten the basics `:)`].
+
+AfC
+
 <a name="4.0.14" id="1260921997" title="Enchanting input methods"></a>
 
 java-gnome 4.0.14 (16 Dec 2009)
