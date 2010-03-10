@@ -44,6 +44,15 @@ public class ValidateEnchantInternals extends GraphicalTestCase
         assertNotNull(dict);
     }
 
+    public final void testNoDictionarySpecified() {
+        final Dictionary dict;
+
+        assertNotNull(Enchant.getDefault());
+
+        dict = Enchant.requestDictionary("klingon");
+        assertNull(dict);
+    }
+
     public final void testCheckWord() {
         final Dictionary dict;
         boolean result;
