@@ -55,6 +55,9 @@ abstract class Plumbing extends org.freedesktop.bindings.Plumbing
     }
 
     protected static Entity entityFor(Class<?> type, long pointer) {
+        if (pointer == 0L) {
+            return null;
+        }
         Entity obj;
 
         obj = (Entity) org.freedesktop.bindings.Plumbing.instanceFor(pointer);
