@@ -1,9 +1,9 @@
 NEWS
 
-<a name="4.0.15" id="" title=""></a>
+<a name="4.0.15" id="1268692532" title="Radio thang"></a>
 
-java-gnome 4.0.15-rc1 (9 Mar 2010)
-==================================
+java-gnome 4.0.15 (16 Mar 2010)
+===============================
 
 _Radio things_
 
@@ -31,9 +31,10 @@ called RadioGroup which is now used for all the radio types.
 XDG utility functions
 ---------------------
 
-A number of utility functions (ie static methods) were added to Glib allowing
+A number of utility functions (aka static methods) were added to Glib allowing
 you to access the various user and systems directories as specified by the XDG
-specification.
+specification. These are `Glib.getUserConfigDir()`, `Glib.getUserDataDir()`
+and friends.
 
 * **`org.gnome.glib.UserDirectory`**
 * **`org.gnome.glib.Glib`**
@@ -41,18 +42,67 @@ specification.
 Miscellaneous improvements
 --------------------------
 
-Better control of positioning when popping up context menus.
+Better control of positioning when popping up context menus; you can specify
+co-ordinates when calling Menu's `popup()`.
 
 * **`org.gnome.gtk.Menu`**
 * `org.gnome.gtk.GtkMenuOverride`
+
+The no-arg "convenience" packing methods we invented for HBox and VBox were
+causing more trouble than they were worth because people we not understanding
+the implications of the "default" packing values. So these are deprecated; the
+full four-argument `packStart()` and `packEnd()` have been present for a long
+time and are to be used in preference.
+
+* **`org.gnome.gtk.Box`**
+
+Serkan Kaba spent a bit of time working with the text version of the ComboBox
+API. Apparently no one had needed `removeText()` so he added that.
+
+* **`org.gnome.gtk.TextComboBox`**
+
+A number of improvements to the coverage of GDK's event masks were merged.
+This is work originally by Vreixo Formoso necessary to support the
+`Widget.MotionNotifyEvent` signal, though it has use in other applications.
+Widget now has `addEvents()` and `setEvents()` to this end.
+
+* **`org.gnome.gtk.Widget`**
+* `org.gnome.gtk.GtkWidgetOverride`
+* **`org.gnome.gdk.EventMotion`**
+* **`org.gnome.gdk.EventMask`**
+
+Finally, Guillaume needed to handle selections in IconViews. The API is
+similiar to that in TreeView, but doesn't use the same TreeSelection helper
+class; the methods are directly on IconView. Boo for asymmetry. Anyway, we've
+exposed isSelected() on both TreeSelection and IconView so you can find out if
+a given TreePath is currently selected.
+
+* **`org.gnome.gtk.IconView`**
+* **`org.gnome.gtk.TreeSelection`**
+* `org.gnome.gtk.ValidateIconView`
 
 Better initialization checking
 ------------------------------
 
 Logic checking that the library has been properly initialized has been
 refactored, making it harder to accidentally misuse java-gnome when getting
-started [or when starting a new program after you've been using the library
-for years and forgotten the basics `:)`].
+started \[or when starting a new program after you've been using the library
+for years and forgotten the basics `:)`\].
+
+Last but not least, a number of bug fixes; one was developer-visible;
+`Enchant.requestDictionary()` now returns `null` like it claimed to if you
+request an unknown dictionary. Nice catch, Serkan.
+
+* **`org.freedesktop.enchant.Enchant`**
+* `org.freedesktop.enchant.Plumbing`
+* `org.freedesktop.enchant.ValidateEnchantInternals`
+
+All the source files have the full (ie traditional) GPL v2 header text now;
+the files comprising the library as used at run-time have GPL headers text +
+the Classpath Exception text. Needed to be done. Makes for a large diff this
+release, but makes the
+[Ohloh](http://www.ohloh.net/p/java-gnome/analyses/latest)'s page for
+java-gnome happy too `:)`.
 
 AfC
 
