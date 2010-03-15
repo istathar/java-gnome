@@ -65,10 +65,6 @@ public class RadioAction extends ToggleAction
      *            localized.
      * @param stock
      *            The stock icon to display in proxy Widgets.
-     * @param handler
-     *            A handler to connect to the <code>RadioAction.Toggled</code>
-     *            signal. Typically this will be used to actually start the
-     *            operation related to this RadioAction.
      * @since 4.0.15
      */
     /*
