@@ -76,6 +76,7 @@
 (define-function format_size_for_display
   (of-object "GlibMisc")
   (c-name "g_format_size_for_display")
+  (caller-owns-return #t)
   (return-type "char*")
   (parameters
     '("goffset" "size")
