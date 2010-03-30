@@ -73,3 +73,11 @@
   (return-type "const-gchar**")
 )
 
+(define-function format_size_for_display
+  (of-object "GlibMisc")
+  (c-name "g_format_size_for_display")
+  (return-type "char*")
+  (parameters
+    '("goffset" "size")
+  )
+)
