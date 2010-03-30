@@ -211,8 +211,8 @@ public class Glib
      * 
      * <p>
      * Note that the returned <code>String</code> depends of the localization.
-     * E.g. if the system is configured to use french, the formatted size will
-     * use french size prefix.
+     * E.g. if the system is configured to use French, the formatted size will
+     * use French size prefix.
      * 
      * @since 4.0.16
      */
