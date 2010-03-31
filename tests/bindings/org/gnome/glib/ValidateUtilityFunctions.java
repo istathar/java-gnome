@@ -26,6 +26,7 @@ import org.gnome.gtk.GraphicalTestCase;
  * 
  * @author Serkan Kaba
  * @author Andrew Cowie
+ * @author Guillaume Mazoyer
  */
 public class ValidateUtilityFunctions extends GraphicalTestCase
 {
@@ -52,5 +53,18 @@ public class ValidateUtilityFunctions extends GraphicalTestCase
 
         assertNotNull(conf);
         assertEquals(home + "/.config", conf);
+    }
+
+    public final void testSizeFormatForDisplay() {
+        String result;
+
+        result = Glib.formatSizeForDisplay(1024);
+        assertEquals("1.0 KB", result);
+
+        result = Glib.formatSizeForDisplay(1024 * 1024);
+        assertEquals("1.0 MB", result);
+
+        result = Glib.formatSizeForDisplay(1024 * 1024 * 1024);
+        assertEquals("1.0 GB", result);
     }
 }
