@@ -140,6 +140,7 @@ public abstract class Thing
         register(new FundamentalThing("gboolean", "boolean", "boolean", "jboolean"));
         register(new FundamentalThing("gfloat", "float", "float", "jfloat"));
         register(new FundamentalThing("gdouble", "double", "double", "jdouble"));
+        register(new FundamentalThing("goffset", "long", "long", "jlong"));
 
         /*
          * Types for array parameters
