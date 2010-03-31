@@ -203,16 +203,17 @@ public class Glib
     }
 
     /**
-     * Format a size into a human readable <code>String</code>.
+     * Format a size into a human readable String. This is useful when
+     * representing file sizes and data transfer rates.
      * 
      * <p>
-     * Sizes use the nearest prefix (KB, MB, GB). The prefix units base is
-     * 1024 so 1 MB is 1024 * 1024 bytes.
+     * Sizes use the nearest prefix (KB, MB, GB). The prefix units are base 2
+     * so 1 MB is 1024 * 1024 bytes.
      * 
      * <p>
-     * Note that the returned <code>String</code> depends of the localization.
-     * E.g. if the system is configured to use French, the formatted size will
-     * use French size prefix.
+     * Note that the returned String depends on the localization. E.g. if the
+     * system is configured to use French, the formatted size will use French
+     * size prefix.
      * 
      * @since 4.0.16
      */

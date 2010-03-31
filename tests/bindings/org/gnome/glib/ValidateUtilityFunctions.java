@@ -55,7 +55,7 @@ public class ValidateUtilityFunctions extends GraphicalTestCase
         assertEquals(home + "/.config", conf);
     }
 
-    public final void testSizeFormatForDisplay() {
+    public final void testFormatSizeForDisplay() {
         String result;
 
         result = Glib.formatSizeForDisplay(1024);
