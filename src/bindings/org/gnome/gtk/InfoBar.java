@@ -122,6 +122,10 @@ public class InfoBar extends HBox
      * of this InfoBar. Pressing &quot;Enter&quot; activates the default
      * widget.
      * 
+     * <p>
+     * Be careful! The InfoBar must be in a widget hierarchy to use this
+     * method.
+     * 
      * @since 4.0.16
      */
     public void setDefaultResponse(ResponseType response) {

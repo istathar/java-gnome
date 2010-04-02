@@ -61,6 +61,7 @@ public class MessageUsingInfoBar
          */
 
         x = new VBox(false, 3);
+        w.add(x);
 
         /*
          * Create a Label.
@@ -76,6 +77,13 @@ public class MessageUsingInfoBar
         i = new InfoBar();
         i.add(new Label("Sure! java-gnome rocks!"));
         i.addButton(Stock.CLOSE, ResponseType.CLOSE);
+        x.add(i);
+
+        /*
+         * Set the default action.
+         */
+
+        i.setDefaultResponse(ResponseType.CLOSE);
 
         /*
          * Handle the Escape button.
@@ -97,9 +105,6 @@ public class MessageUsingInfoBar
             }
         });
 
-        x.add(i);
-
-        w.add(x);
         w.setTitle("java-gnome");
         w.setBorderWidth(6);
         w.showAll();
