@@ -85,6 +85,21 @@
   (return-type "gdouble")
 )
 
+(define-method set_flippable
+  (of-object "GtkRange")
+  (c-name "gtk_range_set_flippable")
+  (return-type "none")
+  (parameters
+    '("gboolean" "flippable")
+  )
+)
+
+(define-method get_flippable
+  (of-object "GtkRange")
+  (c-name "gtk_range_get_flippable")
+  (return-type "gboolean")
+)
+
 (define-virtual value_changed
   (of-object "GtkRange")
   (return-type "none")
