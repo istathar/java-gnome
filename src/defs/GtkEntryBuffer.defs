@@ -99,3 +99,22 @@
     '("guint" "n_chars")
   )
 )
+
+(define-virtual deleted-text
+  (of-object "GtkEntryBuffer")
+  (return-type "none")
+  (parameters
+    '("guint" "position")
+    '("guint" "n_chars")
+  )
+)
+
+(define-method inserted-text
+  (of-object "GtkEntryBuffer")
+  (return-type "none")
+  (parameters
+    '("guint" "position")
+    '("gchar*" "chars")
+    '("guint" "n_chars")
+  )
+)

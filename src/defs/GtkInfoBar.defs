@@ -12,17 +12,6 @@
   (return-type "GtkWidget*")
 )
 
-(define-function gtk_info_bar_new_with_buttons
-  (c-name "gtk_info_bar_new_with_buttons")
-  (is-constructor-of "GtkInfoBar")
-  (caller-owns-return #t)
-  (return-type "GtkWidget*")
-  (parameters
-    '("const-gchar*" "first_button_text")
-  )
-  (varargs #t)
-)
-
 (define-method get_action_area
   (of-object "GtkInfoBar")
   (c-name "gtk_info_bar_get_action_area")
@@ -53,16 +42,6 @@
     '("const-gchar*" "button_text")
     '("gint" "response_id")
   )
-)
-
-(define-method add_buttons
-  (of-object "GtkInfoBar")
-  (c-name "gtk_info_bar_add_buttons")
-  (return-type "none")
-  (parameters
-    '("const-gchar*" "first_button_text")
-  )
-  (varargs #t)
 )
 
 (define-method set_response_sensitive
@@ -106,4 +85,17 @@
   (of-object "GtkInfoBar")
   (c-name "gtk_info_bar_get_message_type")
   (return-type "GtkMessageType")
+)
+
+(define-virtual close
+  (of-object "GtkInfoBar")
+  (return-type "none")
+)
+
+(define-virtual response
+  (of-object "GtkInfoBar")
+  (return-type "none")
+  (parameters
+    '("gint" "response_id")
+  )
 )
