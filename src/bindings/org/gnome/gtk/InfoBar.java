@@ -38,7 +38,7 @@ package org.gnome.gtk;
  * {@link Dialog}.
  * 
  * <p>
- * The style of the <code>InfoBar</code> can be change using the
+ * The style of the <code>InfoBar</code> can be changed using the
  * {@link MessageType type} of the message to show to the user. It is possible
  * to control the sensitivity of the action widgets by using the
  * {@link #setResponseSensitive(ResponseType, boolean) setResponseSensitive()}
@@ -198,7 +198,7 @@ public class InfoBar extends HBox
     }
 
     /*
-     * Needed for emit the InfoBar.Response signal with a type-safe
+     * Needed to emit the InfoBar.Response signal with a type-safe
      * ResponseType instead of the underlying int ordinal.
      */
     private static class ResponseHandler implements GtkInfoBar.ResponseSignal
