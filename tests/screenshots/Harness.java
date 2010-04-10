@@ -41,6 +41,7 @@ import org.gnome.gtk.SnapshotEntryCompletion;
 import org.gnome.gtk.SnapshotEntryIcon;
 import org.gnome.gtk.SnapshotFileChooserDialog;
 import org.gnome.gtk.SnapshotHScale;
+import org.gnome.gtk.SnapshotInfoBar;
 import org.gnome.gtk.SnapshotInfoMessageDialog;
 import org.gnome.gtk.SnapshotLinkButton;
 import org.gnome.gtk.SnapshotNotebook;
@@ -180,7 +181,8 @@ public final class Harness
                     SnapshotContextRectangle.class,
                     SnapshotEntryCompletion.class,
                     SnapshotEntryIcon.class,
-                    SnapshotLinkButton.class
+                    SnapshotLinkButton.class,
+                    SnapshotInfoBar.class
             };
 
             /*

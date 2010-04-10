@@ -35,7 +35,7 @@ package org.gnome.gtk;
 /**
  * A <code>InfoBar</code> is a widget that can be used to show messages to a
  * user without showing a dialog. You can add buttons and widgets like in a
- * {@link Dialog}.
+ * {@link Dialog}. <img src="InfoBar.png" class="snapshot">
  * 
  * <p>
  * The style of the <code>InfoBar</code> can be changed using the
