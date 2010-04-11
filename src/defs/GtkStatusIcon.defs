@@ -174,6 +174,21 @@
   )
 )
 
+(define-method set_title
+  (of-object "GtkStatusIcon")
+  (c-name "gtk_status_icon_set_title")
+  (return-type "none")
+  (parameters
+    '("const-gchar*" "title")
+  )
+)
+
+(define-method get_title
+  (of-object "GtkStatusIcon")
+  (c-name "gtk_status_icon_get_title")
+  (return-type "const-gchar*")
+)
+
 (define-virtual activate
   (of-object "GtkStatusIcon")
   (return-type "none")

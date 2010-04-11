@@ -1,0 +1,120 @@
+(define-object EntryBuffer
+  (in-module "Gtk")
+  (parent "GObject")
+  (c-name "GtkEntryBuffer")
+  (gtype-id "GTK_TYPE_ENTRY_BUFFER")
+)
+
+(define-function gtk_entry_buffer_new
+  (c-name "gtk_entry_buffer_new")
+  (is-constructor-of "GtkEntryBuffer")
+  (return-type "GtkEntryBuffer*")
+  (parameters
+    '("const-gchar*" "initial_chars")
+    '("gint" "n_initial_chars")
+  )
+)
+
+(define-method get_bytes
+  (of-object "GtkEntryBuffer")
+  (c-name "gtk_entry_buffer_get_bytes")
+  (return-type "gsize")
+)
+
+(define-method get_length
+  (of-object "GtkEntryBuffer")
+  (c-name "gtk_entry_buffer_get_length")
+  (return-type "guint")
+)
+
+(define-method get_text
+  (of-object "GtkEntryBuffer")
+  (c-name "gtk_entry_buffer_get_text")
+  (return-type "const-gchar*")
+)
+
+(define-method set_text
+  (of-object "GtkEntryBuffer")
+  (c-name "gtk_entry_buffer_set_text")
+  (return-type "none")
+  (parameters
+    '("const-gchar*" "chars")
+    '("gint" "n_chars")
+  )
+)
+
+(define-method set_max_length
+  (of-object "GtkEntryBuffer")
+  (c-name "gtk_entry_buffer_set_max_length")
+  (return-type "none")
+  (parameters
+    '("gint" "max_length")
+  )
+)
+
+(define-method get_max_length
+  (of-object "GtkEntryBuffer")
+  (c-name "gtk_entry_buffer_get_max_length")
+  (return-type "gint")
+)
+
+(define-method insert_text
+  (of-object "GtkEntryBuffer")
+  (c-name "gtk_entry_buffer_insert_text")
+  (return-type "guint")
+  (parameters
+    '("guint" "position")
+    '("const-gchar*" "chars")
+    '("gint" "n_chars")
+  )
+)
+
+(define-method delete_text
+  (of-object "GtkEntryBuffer")
+  (c-name "gtk_entry_buffer_delete_text")
+  (return-type "guint")
+  (parameters
+    '("guint" "position")
+    '("gint" "n_chars")
+  )
+)
+
+(define-method emit_inserted_text
+  (of-object "GtkEntryBuffer")
+  (c-name "gtk_entry_buffer_emit_inserted_text")
+  (return-type "none")
+  (parameters
+    '("guint" "position")
+    '("const-gchar*" "chars")
+    '("guint" "n_chars")
+  )
+)
+
+(define-method emit_deleted_text
+  (of-object "GtkEntryBuffer")
+  (c-name "gtk_entry_buffer_emit_deleted_text")
+  (return-type "none")
+  (parameters
+    '("guint" "position")
+    '("guint" "n_chars")
+  )
+)
+
+(define-virtual deleted-text
+  (of-object "GtkEntryBuffer")
+  (return-type "none")
+  (parameters
+    '("guint" "position")
+    '("guint" "n_chars")
+  )
+)
+
+(define-method inserted-text
+  (of-object "GtkEntryBuffer")
+  (return-type "none")
+  (parameters
+    '("guint" "position")
+    '("gchar*" "chars")
+    '("guint" "n_chars")
+  )
+)

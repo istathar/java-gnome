@@ -185,6 +185,57 @@
   )
 )
 
+(define-method set_support_selection
+  (of-object "GtkPrintOperation")
+  (c-name "gtk_print_operation_set_support_selection")
+  (return-type "none")
+  (parameters
+    '("gboolean" "support_selection")
+  )
+)
+
+(define-method get_support_selection
+  (of-object "GtkPrintOperation")
+  (c-name "gtk_print_operation_get_support_selection")
+  (return-type "gboolean")
+)
+
+(define-method set_has_selection
+  (of-object "GtkPrintOperation")
+  (c-name "gtk_print_operation_set_has_selection")
+  (return-type "none")
+  (parameters
+    '("gboolean" "has_selection")
+  )
+)
+
+(define-method get_has_selection
+  (of-object "GtkPrintOperation")
+  (c-name "gtk_print_operation_get_has_selection")
+  (return-type "gboolean")
+)
+
+(define-method set_embed_page_setup
+  (of-object "GtkPrintOperation")
+  (c-name "gtk_print_operation_set_embed_page_setup")
+  (return-type "none")
+  (parameters
+    '("gboolean" "embed")
+  )
+)
+
+(define-method get_embed_page_setup
+  (of-object "GtkPrintOperation")
+  (c-name "gtk_print_operation_get_embed_page_setup")
+  (return-type "gboolean")
+)
+
+(define-method get_n_pages_to_print
+  (of-object "GtkPrintOperation")
+  (c-name "gtk_print_operation_get_n_pages_to_print")
+  (return-type "gint")
+)
+
 (define-virtual begin_print
   (of-object "GtkPrintOperation")
   (return-type "none")
