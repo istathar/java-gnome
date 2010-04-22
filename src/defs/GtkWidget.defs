@@ -1883,6 +1883,7 @@
   (of-object "GtkWidget")
   (c-name "gtk_widget_get_action")
   (return-type "GtkAction*")
+  (deprecated)
 )
 
 (define-method drag_dest_set_track_motion
