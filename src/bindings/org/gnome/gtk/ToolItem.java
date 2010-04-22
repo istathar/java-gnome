@@ -47,7 +47,7 @@ package org.gnome.gtk;
  * @author Vreixo Formoso
  * @since 4.0.4
  */
-public class ToolItem extends Bin
+public class ToolItem extends Bin implements Activatable
 {
     protected ToolItem(long pointer) {
         super(pointer);
@@ -74,5 +74,13 @@ public class ToolItem extends Bin
      */
     public boolean getExpand() {
         return GtkToolItem.getExpand(this);
+    }
+
+    public void setRelatedAction(Action action) {
+        GtkActivatable.setRelatedAction(this, action);
+    }
+
+    public Action getRelatedAction() {
+        return GtkActivatable.getRelatedAction(this);
     }
 }
