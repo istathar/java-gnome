@@ -1,0 +1,71 @@
+(define-interface Activatable
+  (in-module "Gtk")
+  (c-name "GtkActivatable")
+)
+
+(define-method sync_action_properties
+  (of-object "GtkActivatable")
+  (c-name "gtk_activatable_sync_action_properties")
+  (return-type "none")
+  (parameters
+    '("GtkAction*" "action" (null-ok) (default "NULL"))
+  )
+)
+
+(define-method set_related_action
+  (of-object "GtkActivatable")
+  (c-name "gtk_activatable_set_related_action")
+  (return-type "none")
+  (parameters
+    '("GtkAction*" "action")
+  )
+)
+
+(define-method get_related_action
+  (of-object "GtkActivatable")
+  (c-name "gtk_activatable_get_related_action")
+  (return-type "GtkAction*")
+)
+
+(define-method set_use_action_appearance
+  (of-object "GtkActivatable")
+  (c-name "gtk_activatable_set_use_action_appearance")
+  (return-type "none")
+  (parameters
+    '("gboolean" "use_appearance")
+  )
+)
+
+(define-method get_use_action_appearance
+  (of-object "GtkActivatable")
+  (c-name "gtk_activatable_get_use_action_appearance")
+  (return-type "gboolean")
+)
+
+(define-method do_set_related_action
+  (of-object "GtkActivatable")
+  (c-name "gtk_activatable_do_set_related_action")
+  (return-type "none")
+  (parameters
+    '("GtkAction*" "action")
+  )
+)
+
+(define-virtual update
+  (of-object "GtkActivatable")
+  (return-type "none")
+  (parameters
+    '("GtkAction*" "action")
+    '("const-gchar*" "property_name")
+  )
+)
+
+(define-virtual sync_action_properties
+  (of-object "GtkActivatable")
+  (return-type "none")
+  (parameters
+    '("GtkAction*" "action")
+  )
+)
+
+

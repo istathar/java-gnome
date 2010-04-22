@@ -55,7 +55,7 @@ package org.gnome.gtk;
  * @author Vreixo Formoso
  * @since 4.0.3
  */
-public class MenuItem extends Item
+public class MenuItem extends Item implements Activatable
 {
     protected MenuItem(long pointer) {
         super(pointer);
@@ -172,5 +172,13 @@ public class MenuItem extends Item
     public MenuItem(String mnemonicLabel, ACTIVATE handler) {
         super(GtkMenuItem.createMenuItemWithMnemonic(mnemonicLabel));
         connect(handler);
+    }
+
+    public void setRelatedAction(Action action) {
+        GtkActivatable.setRelatedAction(this, action);
+    }
+
+    public Action getRelatedAction() {
+        return GtkActivatable.getRelatedAction(this);
     }
 }

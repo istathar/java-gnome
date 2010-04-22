@@ -209,9 +209,18 @@ public class StatusIcon extends org.gnome.glib.Object
      * @param text
      *            a value of <code>null</code> will remove the tooltip if
      *            there is one presently set.
+     * @since 4.0.16
+     */
+    public void setTooltipText(String text) {
+        GtkStatusIcon.setTooltipText(this, text);
+    }
+
+    /**
+     * @deprecated
      */
     public void setTooltip(String text) {
-        GtkStatusIcon.setTooltip(this, text);
+        assert false : "Use setTooltipText() instead";
+        GtkStatusIcon.setTooltipText(this, text);
     }
 
     /**

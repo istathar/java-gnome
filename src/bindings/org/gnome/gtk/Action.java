@@ -471,8 +471,14 @@ public class Action extends Object
      * <code>nifty</code>'s <code>Action.Activate</code> signal being called.
      * 
      * @since 4.0.6
+     * @deprecated
      */
     public void connectProxy(Widget proxy) {
-        GtkAction.connectProxy(this, proxy);
+        Activatable activatable;
+
+        assert false : "Use the Activatable's setRelatedAction() instead";
+
+        activatable = (Activatable) proxy;
+        activatable.setRelatedAction(this);
     }
 }
