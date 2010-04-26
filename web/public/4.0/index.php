@@ -2,7 +2,7 @@
 /*
  * index.php
  *
- * Copyright (c) 2006-2008 Operational Dynamics Consulting Pty Ltd
+ * Copyright (c) 2006-2010 Operational Dynamics Consulting, Pty Ltd
  * 
  * This file comprises part of the infrastructure and content of the
  * java-gnome project website. As such, it is conveyed alongside the source
@@ -39,7 +39,7 @@ div.box {
 	<code>NEWS</code> file)</a>
 </div>
 
-<img style="padding: 10px; float: right;" src="/4.0/doc/api/org/gnome/gtk/AboutDialog.png">
+<img style="padding: 10px; float: right;" src="/doc/api/4.0/org/gnome/gtk/AboutDialog.png">
 <p>
 <i>Everyone loves a screenshot!</i>
 </p>
@@ -64,18 +64,18 @@ confused? <code>:)</code> No problem; the <a
 href="objectives.php">objectives</a> page explains in greater detail.
 
 <p>If you're new to java-gnome, then you want to jump straight to the <a
-href="/4.0/doc/">documentation</a> section for everything you need to get
+href="/doc/">documentation</a> section for everything you need to get
 started.</p>
 
 <p>The latest release notes are always available on the <code><a
-href="/4.0/NEWS.html">NEWS</a></code> page; if you're already developing
+href="/NEWS.html">NEWS</a></code> page; if you're already developing
 applications that use java-gnome 4.0, that's where you want to look to catch up
 on the latest changes. Other top level meta files include
 
-<code><a href="/4.0/README.html">README</a></code>,
-<code><a href="/4.0/HACKING.html">HACKING</a></code>,
-<code><a href="/4.0/AUTHORS.html">AUTHORS</a></code>, and
-<code><a href="/4.0/LICENCE.html">LICENCE</a></code>.
+<code><a href="README.html">README</a></code>,
+<code><a href="HACKING.html">HACKING</a></code>,
+<code><a href="AUTHORS.html">AUTHORS</a></code>, and
+<code><a href="LICENCE.html">LICENCE</a></code>.
 
 
 <h2>Rationale</h2>
