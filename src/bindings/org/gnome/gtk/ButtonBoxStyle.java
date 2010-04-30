@@ -74,6 +74,11 @@ public final class ButtonBoxStyle extends Constant
      * a HButtonBox, or the bottom for a VButtonBox).
      */
     public static final ButtonBoxStyle END = new ButtonBoxStyle(GtkButtonBoxStyle.END, "END");
+    
+    /**
+     * Buttons are to be grouped in the center of the box.
+     */
+    public static final ButtonBoxStyle CENTER = new ButtonBoxStyle(GtkButtonBoxStyle.CENTER, "CENTER");
 
     private ButtonBoxStyle(int ordinal, String nickname) {
         super(ordinal, nickname);
