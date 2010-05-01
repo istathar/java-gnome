@@ -1,13 +1,34 @@
 /*
- * TreeView.java
+ * java-gnome, a UI library for writing GTK and GNOME programs from Java!
  *
- * Copyright (c) 2007-2008 Operational Dynamics Consulting Pty Ltd, and Others
+ * Copyright © 2007-2010 Operational Dynamics Consulting, Pty Ltd and Others
  *
- * The code in this file, and the library it is a part of, are made available
- * to you by the authors under the terms of the "GNU General Public Licence,
- * version 2" plus the "Classpath Exception" (you may link to this code as a
- * library into other programs provided you don't make a derivation of it).
- * See the LICENCE file for the terms governing usage and redistribution.
+ * The code in this file, and the program it is a part of, is made available
+ * to you by its authors as open source software: you can redistribute it
+ * and/or modify it under the terms of the GNU General Public License version
+ * 2 ("GPL") as published by the Free Software Foundation.
+ *
+ * This program is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+ * FITNESS FOR A PARTICULAR PURPOSE. See the GPL for more details.
+ *
+ * You should have received a copy of the GPL along with this program. If not,
+ * see http://www.gnu.org/licenses/. The authors of this program may be
+ * contacted through http://java-gnome.sourceforge.net/.
+ *
+ * Linking this library statically or dynamically with other modules is making
+ * a combined work based on this library. Thus, the terms and conditions of
+ * the GPL cover the whole combination. As a special exception (the
+ * "Claspath Exception"), the copyright holders of this library give you
+ * permission to link this library with independent modules to produce an
+ * executable, regardless of the license terms of these independent modules,
+ * and to copy and distribute the resulting executable under terms of your
+ * choice, provided that you also meet, for each linked independent module,
+ * the terms and conditions of the license of that module. An independent
+ * module is a module which is not derived from or based on this library. If
+ * you modify this library, you may extend the Classpath Exception to your
+ * version of the library, but you are not obligated to do so. If you do not
+ * wish to do so, delete this exception statement from your version.
  */
 package org.gnome.gtk;
 
@@ -182,6 +203,13 @@ public class TreeView extends Container
     }
 
     /**
+     * Remove a tree view column from this TreeView.
+     */
+    public void removeColumn(TreeViewColumn column) {
+        GtkTreeView.removeColumn(this, column);
+    }
+
+    /**
      * Set whether this TreeView has a header row at the top of the Widget
      * showing the titles of each of the TreeViewColumns packed into it. The
      * default is <code>true</code>, for headers to be visible.
@@ -193,9 +221,9 @@ public class TreeView extends Container
     /**
      * Set whether the column titles in the header row can be clicked to
      * change the sorting of the displayed data. While the default is
-     * <code>false</code> (since you frequently have the rows ordered the
-     * way they are for a reason and don't want to let the user be reordering
-     * the display and getting lost in the process), calling TreeViewColumn's
+     * <code>false</code> (since you frequently have the rows ordered the way
+     * they are for a reason and don't want to let the user be reordering the
+     * display and getting lost in the process), calling TreeViewColumn's
      * {@link TreeViewColumn#setSortColumn(DataColumn) setSortColumn()} will
      * make the headers clickable. Use this method after your column setup to
      * turn it off [again].
@@ -206,8 +234,9 @@ public class TreeView extends Container
 
     /**
      * Emitted when a row in the TreeView has been activated. Activation
-     * occurs when a row in the view is double-clicked, or when <b><code>Space</code></b>
-     * or <b><code>Enter</code></b> are pressed while a row is selected.
+     * occurs when a row in the view is double-clicked, or when <b>
+     * <code>Space</code></b> or <b><code>Enter</code></b> are pressed while a
+     * row is selected.
      * 
      * <p>
      * In general, you've got the TreeModel and especially its DataColumns
@@ -247,8 +276,8 @@ public class TreeView extends Container
          * converted into a TreeIter with your TreeModel's
          * {@link TreeModel#getIter(TreePath) getIter()} allowing you to then
          * lookup a particular value from the data model. You rarely need
-         * <code>vertical</code> but it can give you some indication in
-         * which column the click happened.
+         * <code>vertical</code> but it can give you some indication in which
+         * column the click happened.
          */
         public void onRowActivated(TreeView source, TreePath path, TreeViewColumn vertical);
     }
@@ -258,6 +287,17 @@ public class TreeView extends Container
      */
     public void connect(TreeView.RowActivated handler) {
         GtkTreeView.connect(this, handler, false);
+    }
+
+    /**
+     * Cause a <code>TreeView.RowActivated</code> signal to be emitted for the
+     * given TreePath. The TreeViewColumn is optional; use <code>null</code>
+     * if you don't want to specify it.
+     * 
+     * @since 4.0.9
+     */
+    public void emitRowActivated(TreePath path, TreeViewColumn vertical) {
+        GtkTreeView.rowActivated(this, path, vertical);
     }
 
     /** @deprecated */
@@ -274,10 +314,10 @@ public class TreeView extends Container
     /**
      * Emitted when a row in the TreeView has been expanded, i.e. when its
      * child nodes are shown. A row is expanded either by clicking in the
-     * little arrow near it, or by pressing the <code>+</code> key when a
-     * row is selected. Of course, a row can be only expanded when it has
-     * child rows, and so it can be only emitted when the TreeView is used
-     * with a hierarchical model such as {@link TreeStore}.
+     * little arrow near it, or by pressing the <code>+</code> key when a row
+     * is selected. Of course, a row can be only expanded when it has child
+     * rows, and so it can be only emitted when the TreeView is used with a
+     * hierarchical model such as {@link TreeStore}.
      * 
      * <p>
      * In general, you've got the TreeModel and especially its DataColumns
@@ -368,8 +408,8 @@ public class TreeView extends Container
      * 
      * @param path
      *            The row we want to check.
-     * @return <code>true</code> if the row is expanded, <code>false</code>
-     *         if not.
+     * @return <code>true</code> if the row is expanded, <code>false</code> if
+     *         not.
      * @since 4.0.7
      */
     public boolean rowExpanded(TreePath path) {
@@ -386,8 +426,8 @@ public class TreeView extends Container
      * @param openAll
      *            <code>true</code> to recursively expand all children,
      *            <code>false</code> to expand only the given row.
-     * @return <code>true</code> if the path refers to a valid row, and it
-     *         has child nodes. <code>false</code> otherwise.
+     * @return <code>true</code> if the path refers to a valid row, and it has
+     *         child nodes. <code>false</code> otherwise.
      * @since 4.0.7
      */
     public boolean expandRow(TreePath path, boolean openAll) {
@@ -406,6 +446,8 @@ public class TreeView extends Container
         GtkTreeView.collapseRow(this, path);
     }
 
+    private TreeSelection selection;
+
     /**
      * Get the TreeSelection object corresponding to this TreeView. Every
      * TreeView has a TreeSelection which is a utility instance allowing you
@@ -413,7 +455,10 @@ public class TreeView extends Container
      * method gives you access to it.
      */
     public TreeSelection getSelection() {
-        return GtkTreeView.getSelection(this);
+        if (selection == null) {
+            selection = GtkTreeView.getSelection(this);
+        }
+        return selection;
     }
 
     /**
@@ -557,8 +602,8 @@ public class TreeView extends Container
      * application.
      * 
      * <p>
-     * To fetch the current height mode, see
-     * {@link #getFixedHeightMode() getFixedHeightMode()}.
+     * To fetch the current height mode, see {@link #getFixedHeightMode()
+     * getFixedHeightMode()}.
      * 
      * @param enable
      *            <code>true</code> if all rows in the TreeView are to be of
@@ -635,8 +680,7 @@ public class TreeView extends Container
      * request.
      * 
      * <p>
-     * The default is <code>false</code>, not drawing alternating row
-     * colours.
+     * The default is <code>false</code>, not drawing alternating row colours.
      */
     public void setRulesHint(boolean setting) {
         GtkTreeView.setRulesHint(this, setting);
@@ -661,13 +705,13 @@ public class TreeView extends Container
      * @param rowAlign
      *            Determines where in the view the row specified by
      *            <code>path</code> is placed, with <code>0.0f</code>
-     *            representing top, and <code>1.0f</code> representing
-     *            bottom, as usual. The constants in Alignment such as
+     *            representing top, and <code>1.0f</code> representing bottom,
+     *            as usual. The constants in Alignment such as
      *            {@link Alignment#CENTER CENTER} can be used.
      * @param colAlign
      *            Determines where in the view the column specified by
-     *            <code>vertical</code> will be placed; <code>0.0f</code>
-     *            is fully left, <code>1.0f</code> is fully right.
+     *            <code>vertical</code> will be placed; <code>0.0f</code> is
+     *            fully left, <code>1.0f</code> is fully right.
      * @since 4.0.6
      */
     public void scrollToCell(TreePath path, TreeViewColumn vertical, float rowAlign, float colAlign) {
@@ -676,17 +720,16 @@ public class TreeView extends Container
 
     /**
      * Scroll the TreeView so that the cell specified by <code>path</code>,
-     * <code>vertical</code> is visible. This variant ignores alignment
-     * values and just scrolls the TreeView so that the cell specified is
-     * visible, closest to whichever edge it came in from, and doing nothing
-     * if the cell is already on screen.
+     * <code>vertical</code> is visible. This variant ignores alignment values
+     * and just scrolls the TreeView so that the cell specified is visible,
+     * closest to whichever edge it came in from, and doing nothing if the
+     * cell is already on screen.
      * 
      * <p>
-     * See the discussion about <code>path</code> or <code>vertical</code>
-     * in the other
-     * {@link #scrollToCell(TreePath, TreeViewColumn, float, float) scrollToCell()}
-     * method to learn how you can scroll in a single direction only if
-     * desired.
+     * See the discussion about <code>path</code> or <code>vertical</code> in
+     * the other {@link #scrollToCell(TreePath, TreeViewColumn, float, float)
+     * scrollToCell()} method to learn how you can scroll in a single
+     * direction only if desired.
      * 
      * @since 4.0.6
      */
@@ -705,8 +748,7 @@ public class TreeView extends Container
      * 
      * <p>
      * Incidentally, you can observe these changes by connecting to
-     * <code>TreeView.RowInserted</code> and
-     * <code>TreeView.RowDeleted</code>.
+     * <code>TreeView.RowInserted</code> and <code>TreeView.RowDeleted</code>.
      * 
      * @since 4.0.6
      */
@@ -720,8 +762,8 @@ public class TreeView extends Container
     }
 
     /**
-     * Expand all the rows in this TreeStore backed TreeView, making <i>all</i>
-     * children visible.
+     * Expand all the rows in this TreeStore backed TreeView, making
+     * <i>all</i> children visible.
      * 
      * @since 4.0.7
      */
@@ -737,6 +779,15 @@ public class TreeView extends Container
      */
     public void collapseAll() {
         GtkTreeView.collapseAll(this);
+    }
+
+    /**
+     * Get all the TreeViewColumns for this TreeView.
+     * 
+     * @since 4.0.11
+     */
+    public TreeViewColumn[] getColumns() {
+        return GtkTreeView.getColumns(this);
     }
 
     /**
@@ -764,8 +815,8 @@ public class TreeView extends Container
      * <code>startEditing</code> to <code>true</code> which causes the
      * TreeView to immediately start editing at the the specified row and
      * column (assuming, of course, that that CellRenderer has been made
-     * mutable. See
-     * {@link CellRendererText#setEditable(boolean) setEditable()}).
+     * mutable. See {@link CellRendererText#setEditable(boolean)
+     * setEditable()}).
      * 
      * @since 4.0.8
      */
@@ -773,4 +824,112 @@ public class TreeView extends Container
         GtkTreeView.setCursor(this, path, vertical, startEditing);
     }
 
+    /**
+     * Get a TreePath indicating what row in the TreeView a given set of
+     * co-ordinates corresponds to.
+     * 
+     * <p>
+     * The position indicated by (<code>x</code>,<code>y</code>) is in
+     * <var>bin co-ordinates</var>. Usually you are working in the context of
+     * a handler hooked up to an Event and these values should be obtained
+     * from that Event.
+     * 
+     * <p>
+     * See also {@link #getColumnAtPos(int, int) getColumnAtPos()} for the
+     * complementary method to find out what vertical the co-ordinates
+     * correspond to.
+     * 
+     * <h2>Handling right-clicks</h2>
+     * 
+     * <p>
+     * It is common to create a context menu as a result of a right-click on a
+     * TreeView. Ordinarily, you would intercept the
+     * <code>Widget.ButtonPressEvent</code> signal and then prepare your Menu
+     * in the handler there, quite reasonably expecting that the row that you
+     * have right-clicked on would be selected. Unfortunately, if you hook up
+     * to that signal your code will run before the default handler and the
+     * <i>previously</i> selected row will still be selected while your
+     * handler runs. This is annoying. It is the default
+     * <code>Widget.ButtonPressEvent</code> handler which selects the new row,
+     * so you have to manually select it yourself before acting on the
+     * right-click. It is <code>getPathAtPos()</code> which gives you the
+     * ability to do so:
+     * 
+     * <pre>
+     * view.connect(new Widget.ButtonPressEvent() {
+     *     public boolean onButtonPressEvent(Widget source, EventButton event) {
+     *         final int x, y;
+     *         final TreePath path;
+     *         final TreeSelection selection;
+     * 
+     *         if (event.getButton() != MouseButton.RIGHT) {
+     *             return false;
+     *         }
+     * 
+     *         x = (int) event.getX();
+     *         y = (int) event.getY();
+     *         path = view.getPathAtPos(x, y);
+     * 
+     *         selection = view.getSelection();
+     *         selection.selectRow(path);
+     * 
+     *         // and now pop your context menu, doing
+     *         // something with the row as appropriate.
+     * 
+     *         return true;
+     *     }
+     * });
+     * </pre>
+     * 
+     * @return Will return <code>null</code> if the passed in co-ordinates do
+     *         not correspond to a row in the TreeView.
+     * @since 4.0.9
+     */
+    public TreePath getPathAtPos(int x, int y) {
+        final TreePath[] path;
+        final boolean result;
+
+        path = new TreePath[1];
+
+        result = GtkTreeView.getPathAtPos(this, x, y, path, null, null, null);
+
+        if (result) {
+            return path[0];
+        } else {
+            return null;
+        }
+    }
+
+    /**
+     * Figure out which TreeViewColumn a given event's co-ordinates correspond
+     * to. See {@link #getPathAtPos(int, int) getPathAtPos()} for a detailed
+     * discussion.
+     * 
+     * <p>
+     * <i>In native GTK, this is implemented as an out parameter on the same
+     * function that powers <code>getPathAtPos()</code>, but we've given it a
+     * more coherent name here.</i>
+     * 
+     * @since 4.0.9
+     */
+    /*
+     * This does not match the completion style we have elsewhere in
+     * java-gnome where we use the return to differentiate the various
+     * out-parameters. That is bad, but diverging from getPathAtPos() to
+     * getAtPosPath() seems very distasteful. This is the less used code path.
+     */
+    public TreeViewColumn getColumnAtPos(int x, int y) {
+        final TreeViewColumn[] column;
+        final boolean result;
+
+        column = new TreeViewColumn[1];
+
+        result = GtkTreeView.getPathAtPos(this, x, y, null, column, null, null);
+
+        if (result) {
+            return column[0];
+        } else {
+            return null;
+        }
+    }
 }

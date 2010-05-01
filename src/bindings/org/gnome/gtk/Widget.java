@@ -1,25 +1,51 @@
 /*
- * Widget.java
+ * java-gnome, a UI library for writing GTK and GNOME programs from Java!
  *
- * Copyright (c) 2006-2008 Operational Dynamics Consulting Pty Ltd, and Others
- * 
- * The code in this file, and the library it is a part of, are made available
- * to you by the authors under the terms of the "GNU General Public Licence,
- * version 2" plus the "Classpath Exception" (you may link to this code as a
- * library into other programs provided you don't make a derivation of it).
- * See the LICENCE file for the terms governing usage and redistribution.
+ * Copyright © 2006-2010 Operational Dynamics Consulting, Pty Ltd and Others
+ *
+ * The code in this file, and the program it is a part of, is made available
+ * to you by its authors as open source software: you can redistribute it
+ * and/or modify it under the terms of the GNU General Public License version
+ * 2 ("GPL") as published by the Free Software Foundation.
+ *
+ * This program is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+ * FITNESS FOR A PARTICULAR PURPOSE. See the GPL for more details.
+ *
+ * You should have received a copy of the GPL along with this program. If not,
+ * see http://www.gnu.org/licenses/. The authors of this program may be
+ * contacted through http://java-gnome.sourceforge.net/.
+ *
+ * Linking this library statically or dynamically with other modules is making
+ * a combined work based on this library. Thus, the terms and conditions of
+ * the GPL cover the whole combination. As a special exception (the
+ * "Claspath Exception"), the copyright holders of this library give you
+ * permission to link this library with independent modules to produce an
+ * executable, regardless of the license terms of these independent modules,
+ * and to copy and distribute the resulting executable under terms of your
+ * choice, provided that you also meet, for each linked independent module,
+ * the terms and conditions of the license of that module. An independent
+ * module is a module which is not derived from or based on this library. If
+ * you modify this library, you may extend the Classpath Exception to your
+ * version of the library, but you are not obligated to do so. If you do not
+ * wish to do so, delete this exception statement from your version.
  */
 package org.gnome.gtk;
 
 import org.gnome.gdk.Color;
+import org.gnome.gdk.Colormap;
 import org.gnome.gdk.Event;
 import org.gnome.gdk.EventButton;
 import org.gnome.gdk.EventCrossing;
 import org.gnome.gdk.EventExpose;
 import org.gnome.gdk.EventFocus;
 import org.gnome.gdk.EventKey;
+import org.gnome.gdk.EventMask;
+import org.gnome.gdk.EventMotion;
+import org.gnome.gdk.EventScroll;
 import org.gnome.gdk.EventVisibility;
 import org.gnome.gdk.VisibilityState;
+import org.gnome.pango.FontDescription;
 
 /**
  * The base class of all GTK Widgets. Graphical user interface toolkits have
@@ -39,16 +65,55 @@ public abstract class Widget extends org.gnome.gtk.Object
     }
 
     /**
-     * Cause this Widget to be activated. This has the same effect as when the
-     * user presses the <code>Return</code> key while the Widget is in
-     * focus. Calling this method on a {@link ToggleButton} will toggle its
-     * state, for example. Whatever signals would normally result from the
-     * user activating this Widget by hand will be emitted.
+     * Get the name of the Widget, if it has one.
      * 
      * <p>
-     * Note that this method only works if this Widget is <var>activatable</var>;
-     * not all are, making this more an optional characteristic that some, but
-     * not all Widgets share.
+     * Widgets can be identified by a name. You will most likely use this
+     * method a lot if you are using Glade. Every widget there is identified
+     * by a name. It is suggested to use sensible names; see
+     * {@link org.gnome.glade.Glade Glade} for a discussion of the
+     * implications of different nomenaclatures if that's what you are using,
+     * but in any case once you've retrieved the Widget with
+     * {@link org.gnome.glade.XML#getWidget(String) getWidget()} you won't
+     * really need to know its name anymore.
+     * 
+     * @since 4.0.11
+     */
+    public String getName() {
+        return GtkWidget.getName(this);
+    }
+
+    /**
+     * Every Widget has a name as an optional identifier.
+     * 
+     * <p>
+     * If using Glade then these names are used to retrieve widgets from the
+     * XML file. You can use this method you set the name of a Widget after it
+     * is retrieved.
+     * 
+     * <p>
+     * If you are using Glade then you will most likely never need this
+     * method, as you will have them defined in Glade. And if you're not using
+     * Glade, then you probably won't need this method either, since you can
+     * refer to Widgets you create by reference.
+     * 
+     * @since 4.0.11
+     */
+    public void setName(String name) {
+        GtkWidget.setName(this, name);
+    }
+
+    /**
+     * Cause this Widget to be activated. This has the same effect as when the
+     * user presses the <code>Return</code> key while the Widget is in focus.
+     * Calling this method on a {@link ToggleButton} will toggle its state,
+     * for example. Whatever signals would normally result from the user
+     * activating this Widget by hand will be emitted.
+     * 
+     * <p>
+     * Note that this method only works if this Widget is
+     * <var>activatable</var>; not all are, making this more an optional
+     * characteristic that some, but not all Widgets share.
      * 
      * <p>
      * The Widget must already be showing on the screen for this method to
@@ -74,11 +139,11 @@ public abstract class Widget extends org.gnome.gtk.Object
      * There are a bunch of quirks you need to be aware of:
      * 
      * <ul>
-     * <li>You have to show the Containers containing a Widget, in addition
-     * to the Widget itself, before it will appear on the display.
-     * <li>When a toplevel Container is shown (ie, your {@link Window Window}),
-     * it is immediately realized and mapped, and any Widgets within it that
-     * are shown are then realized and mapped.
+     * <li>You have to show the Containers containing a Widget, in addition to
+     * the Widget itself, before it will appear on the display.
+     * <li>When a toplevel Container is shown (ie, your {@link Window Window}
+     * ), it is immediately realized and mapped, and any Widgets within it
+     * that are shown are then realized and mapped.
      * <li>You can't get information about the actual size that has been
      * allocated to a Widget until it gets mapped to the screen.
      * </ul>
@@ -101,8 +166,8 @@ public abstract class Widget extends org.gnome.gtk.Object
      * <p>
      * Quite frequently you also want to cause a Window to appear on the
      * screen as well (ie, not be buried under a whole bunch of other
-     * applications' Windows), so calling Window's
-     * {@link Window#present() present()} is usually next.
+     * applications' Windows), so calling Window's {@link Window#present()
+     * present()} is usually next.
      * 
      * <p>
      * <i>Don't be surprised if this takes a few hundred milliseconds.
@@ -131,6 +196,45 @@ public abstract class Widget extends org.gnome.gtk.Object
      */
     public void hide() {
         GtkWidget.hide(this);
+    }
+
+    /**
+     * Request that an area of the Widget to be redrawn. This will eventually
+     * result in an <code>Widget.ExposeEvent</code> being sent to the Widget
+     * asking it to [re]render the area given by the passed in co-ordinates.
+     * 
+     * <p>
+     * You only ever need this if doing your own custom Widget drawing, and
+     * then only sometimes.
+     * 
+     * <p>
+     * The redraw will not happen immediately, but rather during the next
+     * iteration of the main loop. Also, note that several such requests may
+     * be combined into a single <code>Widget.ExposeEvent</code> by the X
+     * server and GDK.
+     * 
+     * <p>
+     * Be aware that this will invalidate both this Widget <i>and</i> all its
+     * children. If you wish to limit your redrawing, you will be better off
+     * with one of the
+     * {@link org.gnome.gdk.Window#invalidate(org.gnome.gdk.Rectangle, boolean)
+     * invalidate()} calls in the underlying native resource.
+     * 
+     * @since 4.0.10
+     */
+    public void queueDrawArea(int x, int y, int width, int height) {
+        GtkWidget.queueDrawArea(this, x, y, width, height);
+    }
+
+    /**
+     * Request that the entire Widget be redrawn. See
+     * {@link #queueDrawArea(int, int, int, int) queueDrawArea()} for full
+     * details, but you only ever need this if doing your own drawing.
+     * 
+     * @since 4.0.10
+     */
+    public void queueDraw() {
+        GtkWidget.queueDraw(this);
     }
 
     /**
@@ -202,9 +306,9 @@ public abstract class Widget extends org.gnome.gtk.Object
     }
 
     /**
-     * Signal emitted when the <i>keyboard</i> focus leaves this Widget.
-     * Focus is a concept that is shared evenly between the widget toolkit and
-     * the window manager - which often becomes apparent if you're wondering
+     * Signal emitted when the <i>keyboard</i> focus leaves this Widget. Focus
+     * is a concept that is shared evenly between the widget toolkit and the
+     * window manager - which often becomes apparent if you're wondering
      * <i>why</i> you have lost focus or regained it.
      * 
      * @author Andrew Cowie
@@ -249,8 +353,7 @@ public abstract class Widget extends org.gnome.gtk.Object
     }
 
     /**
-     * Hook up a handler to receive <code>Widget.FocusInEvent</code>
-     * signals.
+     * Hook up a handler to receive <code>Widget.FocusInEvent</code> signals.
      * 
      * @since 4.0.6
      */
@@ -296,12 +399,12 @@ public abstract class Widget extends org.gnome.gtk.Object
      *         
      *         System.out.println(width + &quot;x&quot; + height + &quot; at &quot; + x + &quot;,&quot; + y);
      *     }
-     * } 
+     * }
      * </pre>
      * 
      * <p>
-     * The real purpose of <code>Widget.ExposeEvent</code>, however, is to
-     * be the the gateway to drawing. GNOME uses the excellent <a
+     * The real purpose of <code>Widget.ExposeEvent</code>, however, is to be
+     * the the gateway to drawing. GNOME uses the excellent <a
      * href="http://www.cairographics.org/">Cairo 2D graphics library</a> to
      * draw its user interfaces, which we make available in java-gnome in
      * package <code>org.freedesktop.cairo</code>.
@@ -337,8 +440,8 @@ public abstract class Widget extends org.gnome.gtk.Object
      * </pre>
      * 
      * Obviously from here you can carry on using the Cairo Graphics library
-     * to do your custom drawing. See
-     * {@link org.freedesktop.cairo.Context Context} for further details.
+     * to do your custom drawing. See {@link org.freedesktop.cairo.Context
+     * Context} for further details.
      * 
      * @author Andrew Cowie
      * @since 4.0.7
@@ -359,8 +462,8 @@ public abstract class Widget extends org.gnome.gtk.Object
     }
 
     /**
-     * Hook up a handler to receive <code>Widget.ExposeEvent</code> signals
-     * on this Widget.
+     * Hook up a handler to receive <code>Widget.ExposeEvent</code> signals on
+     * this Widget.
      * 
      * @since 4.0.7
      */
@@ -383,10 +486,10 @@ public abstract class Widget extends org.gnome.gtk.Object
      * Handler interface for key press events. While ordinarily the user
      * <i>pressing</i> a key is generally more interesting (in terms of "what
      * key stroke did we get"), it should be noted that by the conventions of
-     * modern graphical user interfaces, them <i>releasing</i> a key is when
-     * a program should take action if action is called for. For example, if
-     * they press and hold the <b><code>Enter</code></b> key while the
-     * pointer is over a Button, but then move the mouse off of that Button,
+     * modern graphical user interfaces, them <i>releasing</i> a key is when a
+     * program should take action if action is called for. For example, if
+     * they press and hold the <b><code>Enter</code></b> key while the pointer
+     * is over a Button, but then move the mouse off of that Button,
      * subsequently releasing won't cause that Button to activate).
      * 
      * <p>
@@ -426,21 +529,21 @@ public abstract class Widget extends org.gnome.gtk.Object
     public interface KeyPressEvent extends GtkWidget.KeyPressEventSignal
     {
         /**
-         * As with other event signals, returning <code>false</code> means
-         * "I didn't [fully] handle this signal, so proceed with the next (ie,
+         * As with other event signals, returning <code>false</code> means "I
+         * didn't [fully] handle this signal, so proceed with the next (ie,
          * usually the default) handler" whereas if you return
-         * <code>true</code> you mean "I have handled this event, and wish
-         * to stop further emission of the signal".
+         * <code>true</code> you mean "I have handled this event, and wish to
+         * stop further emission of the signal".
          */
         public boolean onKeyPressEvent(Widget source, EventKey event);
     }
 
     /**
-     * Hook up a handler to receive <code>Widget.KeyPressEvent</code>
-     * signals on this Widget. For general typing this is the one you want,
-     * but for critical events (like pressing <b><code>Enter</code></b> to
-     * activate a Button that is going to delete things, you might want to
-     * postpone action until <code>Widget.KeyReleaseEvent</code>.
+     * Hook up a handler to receive <code>Widget.KeyPressEvent</code> signals
+     * on this Widget. For general typing this is the one you want, but for
+     * critical events (like pressing <b><code>Enter</code></b> to activate a
+     * Button that is going to delete things, you might want to postpone
+     * action until <code>Widget.KeyReleaseEvent</code>.
      * 
      * @since 4.0.3
      */
@@ -471,8 +574,8 @@ public abstract class Widget extends org.gnome.gtk.Object
     {
         /**
          * (See the comment at
-         * {@link Widget.KeyPressEvent#onKeyPressEvent(Widget, EventKey) Widget.KeyReleaseEvent}
-         * to understand the return value)
+         * {@link Widget.KeyPressEvent#onKeyPressEvent(Widget, EventKey)
+         * Widget.KeyReleaseEvent} to understand the return value)
          */
         public boolean onKeyReleaseEvent(Widget source, EventKey event);
     }
@@ -498,6 +601,129 @@ public abstract class Widget extends org.gnome.gtk.Object
     }
 
     /**
+     * Signal emitted when the user turns the mouse wheel.
+     * 
+     * <p>
+     * In most cases you are not interested in this Signal. If you only want
+     * to provide a Scrolling surface for a big Widget, {@link ScrolledWindow}
+     * is what you are looking for.
+     * 
+     * <p>
+     * This event can be useful, however, when you want to have more control
+     * of the scroll operations, specially when implemented custom Widgets.
+     * 
+     * <p>
+     * For example, to implement a zoom operation when the user turns the
+     * mouse wheel while pressing the <code>Ctrl</code> key, as many drawing
+     * applications do:
+     * 
+     * <pre>
+     * MyCustomWidget w;
+     * 
+     * w.connect(new Widget.ScrollEvent() {
+     *     public boolean onScrollEvent(Widget source, EventScroll event) {
+     *         // check if Ctrl key is pressed
+     *         if (event.getState().contains(ModifierType.CONTROL_MASK)) {
+     *             ScrollDirection dir = event.getDirection();
+     *             if (dir == ScrollDirection.UP) {
+     *                 // increment zoom
+     *             } else if (dir == ScrollDirection.DOWN) {
+     *                 // decrement zoom
+     *             }
+     *             // prevent the default scrolling if the Widget is added
+     *             // to a ScrolledWindow 
+     *             return true;
+     *         }
+     *         return false;
+     *     }
+     * });
+     * </pre>
+     * 
+     * <p>
+     * It is also useful when your custom Widget can use the scroll events to
+     * perform some related operation. For example, when you scroll a ComboBox
+     * Widget it changes its active item. Of course, this is only useful when
+     * the operation can be seen as a scroll in the particular Widget context;
+     * it is not a good idea, for example, to close a Window or click a Button
+     * in response to a <code>Widget.SrollEvent</code>.
+     * 
+     * @author Vreixo Formoso
+     * @since 4.0.12
+     */
+    public interface ScrollEvent extends GtkWidget.ScrollEventSignal
+    {
+        public boolean onScrollEvent(Widget source, EventScroll event);
+    }
+
+    /**
+     * Hook up a <code>Widget.ScrollEvent</code> handler.
+     * 
+     * @since 4.0.12
+     */
+    public void connect(Widget.ScrollEvent handler) {
+        GtkWidget.connect(this, handler, false);
+    }
+
+    /**
+     * Handler interface for mouse motion events. This event is emitted when
+     * the user moves the mouse over the Widget.
+     * 
+     * <p>
+     * Note that by default this event is disabled, even if you connect to it.
+     * You will need to {@link Widget#addEvents(EventMask) enable} it. If
+     * you want to receive all mouse motion events, you will need to supply
+     * the POINTER_MOTION mask. Note that it generates a big amount of events,
+     * typically tens of events per second, when the user moves the mouse over
+     * this Widget. If you only care about this event when a mouse button is
+     * pressed, any of LEFT_BUTTON_MOTION, MIDDLE_BUTTON_MOTION,
+     * RIGHT_BUTTON_MOTION or BUTTON_MOTION masks can be used instead.
+     * 
+     * <p>
+     * Many times, however, you are only interested on this events in some
+     * specific circunstances. For example, a drawing application may be
+     * interested on this when the user has selected a drawing tool (e.g. a
+     * pencil) and is actually drawing (e.g. by clicking the mouse). In such
+     * cases, enabling the event when needed, and disabling it when no more
+     * needed, is the best alternative. For example:
+     * 
+     * <pre>
+     * // hook up a handler to mouse button event.
+     * drawarea.connect(new Widget.MotionNotifyEvent() {
+     *     public boolean onMotionNotifyEvent(Widget source, EventMotion event) {
+     *         double x, y;
+     * 
+     *         x = event.getX();
+     *         y = event.getY();
+     * 
+     *         // draw something, x and y hold the mouse position
+     *     }
+     * });
+     * </pre>
+     * 
+     * @author Vreixo Formoso
+     * @since 4.0.15
+     */
+    /*
+     * FUTURE Hint motion events seem interesting, but more research is
+     * needed. FIXME Removed the enableEvents(),disableEvent() discussion
+     * pending more research, but the signature here is correct so this is now
+     * exposed.
+     */
+    public interface MotionNotifyEvent extends GtkWidget.MotionNotifyEventSignal
+    {
+        public boolean onMotionNotifyEvent(Widget source, EventMotion event);
+    }
+
+    /**
+     * Hook up a <code>Widget.MotionNotifyEvent</code> handler.
+     * 
+     * @since 4.0.15
+     */
+    public void connect(MotionNotifyEvent handler) {
+        GtkWidget.connect(this, handler, false);
+    }
+
+    /**
      * Return the Container that this Widget is packed into. If the Widget
      * doesn't have a parent, or you're already at a top level Widget (ie, a
      * Window) then expect <code>null</code>.
@@ -516,20 +742,20 @@ public abstract class Widget extends org.gnome.gtk.Object
      * 
      * <p>
      * This is frequently used on Buttons and MenuItems to show that a given
-     * course of action is not currently available, but <i>would</i> be if
-     * the user did something different to the application. This can be a
-     * terrific hint to assist with discovery, but can be overdone; having
-     * everything insensitive and leaving the user no idea what to do next
-     * doesn't really help much.
+     * course of action is not currently available, but <i>would</i> be if the
+     * user did something different to the application. This can be a terrific
+     * hint to assist with discovery, but can be overdone; having everything
+     * insensitive and leaving the user no idea what to do next doesn't really
+     * help much.
      * 
      * <p>
      * Beware that setting the sensitive property cascades down through the
      * hierarchy of any children packed into this Widget in the same way that
      * {@link #showAll() showAll()} is recursive. While this is usually great
      * for <i>de</i>sensitizing an entire Window, the catch is that if you
-     * <i>re</i>sensitize that same Window <b>every</b> Widget within it
-     * will return to being sensitive; there's no "memory" of which might have
-     * been insensitive before. Thus if you heavily use a mix of sensitive and
+     * <i>re</i>sensitize that same Window <b>every</b> Widget within it will
+     * return to being sensitive; there's no "memory" of which might have been
+     * insensitive before. Thus if you heavily use a mix of sensitive and
      * insensitive states in a Window and desensitize the whole thing while
      * carrying out input validation in a worker thread, you will be left with
      * the task of manually restoring the sensitive state of the various sub
@@ -537,9 +763,9 @@ public abstract class Widget extends org.gnome.gtk.Object
      * have the user re-enter something.
      * 
      * @param sensitive
-     *            <code>true</code> to have the Widget respond as normal,
-     *            and <code>false</code> to de-activate the Widget and have
-     *            it "grey out".
+     *            <code>true</code> to have the Widget respond as normal, and
+     *            <code>false</code> to de-activate the Widget and have it
+     *            "grey out".
      * @since 4.0.4
      */
     public void setSensitive(boolean sensitive) {
@@ -580,10 +806,10 @@ public abstract class Widget extends org.gnome.gtk.Object
      * 
      * <p>
      * <b>If you're looking for the top Window in a Widget hierarchy, see</b>
-     * {@link #getToplevel() getToplevel()}. This method is to get a
-     * reference to the lower level GDK mechanisms used by this Widget, not to
-     * navigate up a hierarchy of Widgets to find the top-level Window they
-     * are packed into.
+     * {@link #getToplevel() getToplevel()}. This method is to get a reference
+     * to the lower level GDK mechanisms used by this Widget, not to navigate
+     * up a hierarchy of Widgets to find the top-level Window they are packed
+     * into.
      * 
      * <p>
      * If what you need are the event handling facilities that go with Widgets
@@ -599,12 +825,27 @@ public abstract class Widget extends org.gnome.gtk.Object
      * returned, and so Window it is.</i>
      * 
      * @return the <code>org.gnome.gdk.Window</code> associated with this
-     *         Widget, or <code>null</code> if this Widget is (as yet)
-     *         without one.
+     *         Widget, or <code>null</code> if this Widget is (as yet) without
+     *         one.
      * @since 4.0.4
      */
     public org.gnome.gdk.Window getWindow() {
         return GtkWidgetOverride.getWindow(this);
+    }
+
+    /**
+     * Sets the Colormap of this widget.
+     * 
+     * <p>
+     * The only useful application of this is to enable per-pixel translucency
+     * on top level Widgets. This involves getting the RGBA colormap from the
+     * associated screen, and also requires (if using cairo) using the clear
+     * operator to remove the standard background.
+     * 
+     * @since 4.0.10
+     */
+    public void setColormap(Colormap colormap) {
+        GtkWidget.setColormap(this, colormap);
     }
 
     /**
@@ -613,8 +854,8 @@ public abstract class Widget extends org.gnome.gtk.Object
      * 
      * <p>
      * If you need to change the background colour behind the text in an Entry
-     * or TextView, see
-     * {@link #modifyBase(Widget, StateType Color) modifyBase()}.
+     * or TextView, see {@link #modifyBase(Widget, StateType Color)
+     * modifyBase()}.
      * 
      * <p>
      * This is one of a family of "<code>modify</code>" methods; see
@@ -629,7 +870,7 @@ public abstract class Widget extends org.gnome.gtk.Object
 
     /**
      * Set the colour used for text background on this Widget. To change the
-     * foregorund colour of the text, use
+     * foreground colour of the text, use
      * {@link #modifyText(StateType, Color) modifyText()}.
      * 
      * <p>
@@ -657,6 +898,18 @@ public abstract class Widget extends org.gnome.gtk.Object
      */
     public void modifyText(StateType state, Color color) {
         GtkWidget.modifyText(this, state, color);
+    }
+
+    /**
+     * Set the font used for text rendered by this Widget.
+     * 
+     * <p>
+     * This is one of a family of "<code>modify</code>" methods.
+     * 
+     * @since 4.0.10
+     */
+    public void modifyFont(FontDescription desc) {
+        GtkWidget.modifyFont(this, desc);
     }
 
     /**
@@ -705,13 +958,10 @@ public abstract class Widget extends org.gnome.gtk.Object
      * @since 4.0.5
      */
     /*
-     * It turns out that two things are necessary for this signal to work: 1)
-     * GDK_VISIBILITY_NOTIFY_MASK must be set, and to do that 2) the GDK
-     * window must have been assigned. by realize. We do these two steps in
-     * the override.
+     * VISIBILITY_NOTIFY is automatically set to receive this event.
      */
     public void connect(Widget.VisibilityNotifyEvent handler) {
-        GtkWidgetOverride.setEventsVisibility(this);
+        GtkWidget.addEvents(this, EventMask.VISIBILITY_NOTIFY);
         GtkWidget.connect(this, handler, false);
     }
 
@@ -723,7 +973,7 @@ public abstract class Widget extends org.gnome.gtk.Object
     /** @deprecated */
     public void connect(VISIBILITY_NOTIFY_EVENT handler) {
         assert false : "use Widget.VisibilityNotifyEvent instead";
-        GtkWidgetOverride.setEventsVisibility(this);
+        GtkWidget.addEvents(this, EventMask.VISIBILITY_NOTIFY);
         GtkWidget.connect(this, handler, false);
     }
 
@@ -781,9 +1031,9 @@ public abstract class Widget extends org.gnome.gtk.Object
      * to intelligently toggle the visibility of the Window.
      * 
      * <p>
-     * Note that you don't need <code>Widget.MapEvent</code> here because
-     * the the <code>Widget.VisibilityNotifyEvent</code> will be tripped if
-     * you come back to the workspace the Window is already on.
+     * Note that you don't need <code>Widget.MapEvent</code> here because the
+     * the <code>Widget.VisibilityNotifyEvent</code> will be tripped if you
+     * come back to the workspace the Window is already on.
      * 
      * @author Andrew Cowie
      * @author Ryan Lortie
@@ -906,10 +1156,10 @@ public abstract class Widget extends org.gnome.gtk.Object
      * 
      * <p>
      * Obviously, if this is going to actually have affect, this Widget needs
-     * to be <i>in</i> a Window. Furthermore, the Widget needs to be <i>able</i>
-     * to take input focus, that is, it must have the <var>can-focus</var>
-     * property set (which is inherent to the particular Widget subclass, not
-     * something you can change).
+     * to be <i>in</i> a Window. Furthermore, the Widget needs to be
+     * <i>able</i> to take input focus, that is, it must have the
+     * <var>can-focus</var> property set (which is inherent to the particular
+     * Widget subclass, not something you can change).
      * 
      * @since 4.0.6
      */
@@ -959,10 +1209,9 @@ public abstract class Widget extends org.gnome.gtk.Object
      * much effect.
      * 
      * <p>
-     * Incidentally, use
-     * {@link Window#setDefaultSize(int, int) setDefaultSize()} for top level
-     * Windows, as that method still allows a user to make the Window smaller
-     * than the specified default.
+     * Incidentally, use {@link Window#setDefaultSize(int, int)
+     * setDefaultSize()} for top level Windows, as that method still allows a
+     * user to make the Window smaller than the specified default.
      * 
      * @since 4.0.6
      */
@@ -973,30 +1222,43 @@ public abstract class Widget extends org.gnome.gtk.Object
         GtkWidget.setSizeRequest(this, width, height);
     }
 
+    /*
+     * We cache our wrappers for the GtkRequisition and GtkAllocation structs
+     * so that we get the same Pointer object back if multiple calls are made
+     * to getRequisition() and getAllocation(), thus creating a Proxy like
+     * behaviour even though these are Boxeds. This avoids allocating
+     * duplicates but the real point is that these objects are "live" and so
+     * we want to refer to the real structs in GtkWidget.
+     */
+
+    private Requisition requisition;
+
+    private Allocation allocation;
+
     /**
      * Get the details of the rectangle that represents the size that the
      * windowing system down to GTK on down to the parent containers of this
      * Widget have allocated to it. Note that the Widget must already have
      * been realized for the request-allocation cycle to have taken place (ie,
      * the top level Window and all its children must have been
-     * <code>show()</code>n. In some circumstances the main loop may need
-     * to have iterated).
+     * <code>show()</code>n. In some circumstances the main loop may need to
+     * have iterated).
      * 
      * @since 4.0.6
      */
     public Allocation getAllocation() {
-        final Allocation result;
+        if (allocation == null) {
+            allocation = GtkWidgetOverride.getAllocation(this);
 
-        result = GtkWidgetOverride.getAllocation(this);
-        /*
-         * We are making a live reference to the GtkAllocation struct member
-         * in the GtkWidget class, so we need to make sure that our Allocation
-         * Proxy does not survive longer than the Widget. We use this back
-         * reference for this purpose.
-         */
-        result.widget = this;
-
-        return result;
+            /*
+             * We are making a live reference to the GtkAllocation struct
+             * member in the GtkWidget class, so we need to make sure that our
+             * Allocation Proxy does not survive longer than the Widget. We
+             * use this back reference for this purpose.
+             */
+            allocation.widget = this;
+        }
+        return allocation;
     }
 
     /**
@@ -1012,25 +1274,25 @@ public abstract class Widget extends org.gnome.gtk.Object
      * 
      * <p>
      * <i>Implementation note: calling this method will invoke
-     * <code>gtk_widget_size_request()</code>. The returned Requisition
-     * object is "live" however, so once you've got it you can use its getter
-     * methods freely without needing to keep calling this method.</i>
+     * <code>gtk_widget_size_request()</code>. The returned Requisition object
+     * is "live" however, so once you've got it you can use its getter methods
+     * freely without needing to keep calling this method.</i>
      * 
      * @since 4.0.6
      */
     public Requisition getRequisition() {
-        final Requisition result;
+        if (requisition == null) {
+            requisition = GtkWidgetOverride.getRequisition(this);
 
-        result = GtkWidgetOverride.getRequisition(this);
-        /*
-         * We are making a live reference to the GtkRequisition struct member
-         * in the GtkWidget class, so we need to make sure that our
-         * Requisition Proxy does not survive longer than the Widget. We use
-         * this back reference for this purpose.
-         */
-        result.widget = this;
-
-        return result;
+            /*
+             * We are making a live reference to the GtkRequisition struct
+             * member in the GtkWidget class, so we need to make sure that our
+             * Requisition Proxy does not survive longer than the Widget. We
+             * use this back reference for this purpose.
+             */
+            requisition.widget = this;
+        }
+        return requisition;
     }
 
     /**
@@ -1150,8 +1412,8 @@ public abstract class Widget extends org.gnome.gtk.Object
 
     /**
      * Get the value of the <var>can-focus</var> property. See
-     * {@link #setCanFocus(boolean) setCanFocus()} and
-     * {@link #grabFocus() grabFocus()} for details.
+     * {@link #setCanFocus(boolean) setCanFocus()} and {@link #grabFocus()
+     * grabFocus()} for details.
      * 
      * @since 4.0.8
      */
@@ -1163,10 +1425,10 @@ public abstract class Widget extends org.gnome.gtk.Object
      * Whether this Widget is willing to be the default Widget. The
      * <var>can-default</var> property, like <var>can-focus</var>, is mostly
      * internal; while telling GTK that this Widget isn't the one that should
-     * activated on <b><code>Enter</code></b> isn't that useful, setting
-     * this <i>sometimes</i> has an effect on whether or not the theme will
-     * draw a dotted line (or other markup) around a Button to indicate that
-     * the Widget is the current default Widget.
+     * activated on <b><code>Enter</code></b> isn't that useful, setting this
+     * <i>sometimes</i> has an effect on whether or not the theme will draw a
+     * dotted line (or other markup) around a Button to indicate that the
+     * Widget is the current default Widget.
      * 
      * <p>
      * Normally, this setting is <code>false</code>, though
@@ -1193,7 +1455,8 @@ public abstract class Widget extends org.gnome.gtk.Object
 
     /**
      * Make this Widget attempt to become the default. The default Widget is
-     * the one which is activated when the user presses <b><code>Enter</code></b>.
+     * the one which is activated when the user presses <b><code>Enter</code>
+     * </b>.
      * 
      * <p>
      * This will only work if the Widget is <var>activatable</var> (see
@@ -1215,21 +1478,47 @@ public abstract class Widget extends org.gnome.gtk.Object
     }
 
     /**
+     * Make this the current grabbed Widget. Interaction with other Widgets
+     * will be prevented. If this Widget is not sensitive, this call will do
+     * nothing.
+     * 
+     * <p>
+     * Note that being the current grabbed widget means mouse and keyboard
+     * events will not be delivered to other widgets, so use this with care.
+     * 
+     * @since 4.0.11
+     */
+    public void grabAdd() {
+        GtkWidget.grabAdd(this);
+    }
+
+    /**
+     * Removes the "grab" status from this Widget if it is currently grabbed,
+     * otherwise this does nothing. See {@link #grabAdd() grabAdd()}.
+     * 
+     * @since 4.0.11
+     */
+    public void grabRemove() {
+        GtkWidget.grabRemove(this);
+    }
+
+    /**
      * The signal emitted when a Widget becomes visible on the screen.
      * 
      * <p>
      * This can be used as an indication that your Window is no longer
      * minimized. Connecting to {@link Widget.ExposeEvent} would probably tell
      * you what you need to know, but if all you want to do is find out your
-     * app is [back] onscreen then <code>Widget.ExposeEvent</code> would be
-     * a bit heavy handed. Of course, if you are drawing anyway, then it's
-     * fine. See {@link Widget.UnmapEvent} for examples of other variations on
-     * the theme of tracking the state of your application.
+     * app is [back] onscreen then <code>Widget.ExposeEvent</code> would be a
+     * bit heavy handed. Of course, if you are drawing anyway, then it's fine.
+     * See {@link Widget.UnmapEvent} for examples of other variations on the
+     * theme of tracking the state of your application.
      * 
      * <p>
      * <i>The interaction between the GTK library we use, its underlying GDK
      * resource management layer, and the the X windowing system which GDK
-     * wraps, is complex. Sometimes there is more than one way to do things.</i>
+     * wraps, is complex. Sometimes there is more than one way to do
+     * things.</i>
      * 
      * @author Andrew Cowie
      * @since 4.0.8
@@ -1252,5 +1541,63 @@ public abstract class Widget extends org.gnome.gtk.Object
      */
     public void connect(Widget.MapEvent handler) {
         GtkWidget.connect(this, handler, false);
+    }
+
+    /**
+     * The signal emitted when the user presses the <b><code>Menu</code></b>
+     * key.
+     * 
+     * <p>
+     * This is usually used in conjunction with a
+     * <code>Widget.ButtonPressEvent</code> handler set up to intercept a
+     * right-click, with both handlers being written to call common code to
+     * populate and present a context menu.
+     * 
+     * @author Andrew Cowie
+     * @since 4.0.9
+     */
+    public interface PopupMenu extends GtkWidget.PopupMenuSignal
+    {
+        public boolean onPopupMenu(Widget source);
+    }
+
+    /**
+     * Hookup a <code>Widget.PopupMenu</code> handler.
+     * 
+     * @since 4.0.9
+     */
+    public void connect(Widget.PopupMenu handler) {
+        GtkWidget.connect(this, handler, false);
+    }
+
+    /**
+     * Enable the given events. While most events are enabled by default, some
+     * need to be activated. Corresponding signal will document this
+     * procedure, if needed.
+     * 
+     * <p>
+     * Take care that events are actually received by the underlying GDK
+     * Window resource being used. Such resource is in many cases shared by
+     * several Widgets, so enabling or disabling an event on one of these can
+     * affect all Widgets. If that is a problem for you, {@link EventBox
+     * EventBox} Widget can be used to ensure only it is affected by this
+     * method.
+     * 
+     * @since 4.0.15
+     */
+    public void addEvents(EventMask events) {
+        GtkWidget.addEvents(this, events);
+    }
+
+    /**
+     * Reset the list of events for this Widget. You probably want
+     * {@link #addEvents(EventMask) addEvents()}. If you use this, you'll need
+     * to <code>or()</code> together all the events that this Widget needs to
+     * function.
+     * 
+     * @since 4.0.15
+     */
+    public void setEvents(EventMask events) {
+        GtkWidget.setEvents(this, events);
     }
 }

@@ -1,17 +1,26 @@
 #!/usr/bin/perl -w
+#
+# java-gnome, a UI library for writing GTK and GNOME programs from Java!
+#
+# Copyright © 2005-2010 Operational Dynamics Consulting, Pty Ltd and Others 
+# 
+# The code in this file, and the program it is a part of, is made available
+# to you by its authors as open source software: you can redistribute it
+# and/or modify it under the terms of the GNU General Public License version
+# 2 ("GPL") as published by the Free Software Foundation.
+#
+# This program is distributed in the hope that it will be useful, but WITHOUT
+# ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+# FITNESS FOR A PARTICULAR PURPOSE. See the GPL for more details.
+#
+# You should have received a copy of the GPL along with this program. If not,
+# see http://www.gnu.org/licenses/. The authors of this program may be
+# contacted through http://java-gnome.sourceforge.net/.
+#
 
 #
 # configure
 # part of Equivalence, version 0.2.x
-#
-# Copyright (c) 2005-2008 Operational Dynamics Consulting Pty Ltd, and Others
-# 
-# The code in this file, and the program it is a part of, are made available
-# to you by the authors under the terms of the "GNU General Public Licence,
-# version 2". See the LICENCE file for the terms governing usage and
-# redistribution.
-#
-
 #
 # THIS IS A PROTOTYPE. Although functional enough, this has grown to the point
 # of being a somewhat embarrassing and monolithic piece of code. Patches are
@@ -25,6 +34,7 @@
 use strict;
 
 use File::Basename;
+use Cwd 'abs_path';
 
 #
 # Configure java-gnome for building. We:
@@ -74,7 +84,6 @@ sub output {
 }
 
 sub which {
-	use Cwd 'abs_path';
 	my $program = shift;
 	my $path = $ENV{'PATH'};
 	my @path_dirs = split /:+/, $path;
@@ -112,14 +121,17 @@ sub check_system_library(\@$$@) {
 	my $str = "";
 	my $tries = "";
 
-	$found = system("pkg-config --exists $pkgconfig");
+	$found = system("pkg-config --exists '$pkgconfig'");
 
 	if ($found) {
+		my $msg;
 
-		$str = "In order to build java-gnome, you will need the GNOME\n";
+		$msg = `pkg-config --modversion --errors-to-stdout '$pkgconfig'`;
+		$str .= "$msg\n" if ($msg =~ /^Requested /);
+		$str .= "In order to build java-gnome, you will need the GNOME\n";
 		$str .= "development libraries. Depending on what you have installed,\n";
 		$str .= "this could be a considerable set of packages, but if you\n";
-		$str .= "want to be a GNOME hacker, that's the way it is].\n\n";
+		$str .= "want to be a GNOME hacker, that's the way it is.\n\n";
 
 		$str .= "On a ".ucfirst($os)." system, you should be able to satisfy this\n";
 		$str .= "requirement by doing:\n\n";
@@ -140,7 +152,7 @@ sub check_system_library(\@$$@) {
 		} elsif ($os eq "solaris") {
 			$str .= "pkgadd";
 		} elsif ($os eq "slackware") {
-			$str .= "installpkg";
+			$str .= "slackpkg install";
 		} else {
 			$str .= "[FIXME fetch and install command for this OS]"; 
 		}
@@ -198,7 +210,7 @@ sub check_prereq (\@$$@) {
 		} elsif ($os eq "solaris") {
 			$str .= "pkgadd";
 		} elsif ($os eq "slackware") {
-			$str .= "installpkg";
+			$str .= "slackpkg install";
 		} else {
 			$str .= "[FIXME fetch and install command for this OS]"; 
 		}
@@ -256,7 +268,7 @@ HERE
 		close HELLO;
 	}
 
-	`$program $args Hello.java >/dev/null 2>&1`;
+	`$program $args -sourcepath . Hello.java >/dev/null 2>&1`;
 	if ($? != 0) {
 		output "doesn't work\n";
 		$$scalarref = "";
@@ -503,12 +515,14 @@ HERE
 
 my $prefix;
 my $libdir;
+my $jardir;
 my $compiler;
 my $runtime;
 my $jdk_home;
 my $gcj_home;
 my $jamvm_bin;
 my $cacao_bin;
+my $strict = "";
 
 foreach my $arg (@ARGV) {
 	my ($key, $value) = split /=/, "$arg";
@@ -538,6 +552,9 @@ HERE
 	} elsif (($key =~ /^--libdir$/) ||
 		 ($key =~ /^libdir$/)) {
 		$libdir="$value";
+	} elsif (($key =~ /^--jardir$/) ||
+		 ($key =~ /^jardir$/)) {
+		$jardir="$value";
 	} elsif ($key =~ /^runtime/) {
 		$runtime="$value";
 	} elsif ($key =~ /^compiler/) {
@@ -550,6 +567,8 @@ HERE
 		$cacao_bin="$value";
 	} elsif ($key =~ /^jamvm/) {
 		$jamvm_bin="$value";
+	} elsif ($key =~ /^strict/) {
+		$strict="yes";
 	}
 }
 
@@ -735,30 +754,104 @@ output "\nCheck for required system libraries:\n";
 
 if ($os eq "gentoo") {
 	check_system_library(@gnomedev_libs,
-			"gtk+-2.0 pango atk gdk-2.0 libglade-2.0 gtk+-unix-print-2.0",
+			"glib-2.0 >= 2.22 gtk+-2.0 >= 2.18 pango >= 1.22 atk gdk-2.0 libglade-2.0 >= 2.6.3 gtk+-unix-print-2.0 cairo-svg >= 1.6.4 gtksourceview-2.0 >= 2.6.2",
 			"GNOME",
 			"gnome");
 
-} elsif ($os eq "debian") {
 	check_system_library(@gnomedev_libs,
-			"gtk+-2.0",
-			"GTK+",
-			"libgtk2.0-dev");
+			"enchant",
+			"Enchant",
+			"app-text/enchant");
 
 	check_system_library(@gnomedev_libs,
-			"pango",
+			"gtkspell-2.0 >= 2.0.15",
+			"GtkSpell",
+			"gtkspell");
+
+	check_system_library(@gnomedev_libs,
+			"libnotify >= 0.4.5",
+			"LibNotify",
+			"libnotify");
+
+	check_system_library(@gnomedev_libs,
+			"unique-1.0 >= 1.0.8",
+			"LibUnique",
+			"libunique");
+
+} elsif ($os eq "slackware") {
+	# on slackware gdk-2.0 and gtk+-unix-print-2.0 are part of gtk+-2.0
+	# use http://packages.slackware.it/ for more details. 
+	check_system_library(@gnomedev_libs,
+			"glib-2.0 >= 2.22",
+			"GLib",
+			"FIXME");
+
+	check_system_library(@gnomedev_libs,
+			"gtk+-2.0 >= 2.18",
+			"GTK+",
+			"gtk+2");
+
+	check_system_library(@gnomedev_libs,
+			"pango >= 1.22",
 			"Pango",
-			"pango-devel");
+			"pango");
 
 	check_system_library(@gnomedev_libs,
 			"atk",
 			"ATK",
-			"atk-devel");
+			"atk");
 
 	check_system_library(@gnomedev_libs,
-			"gdk-2.0",
-			"GDK",
-			"gdk-devel");
+			"libglade-2.0",
+			"LibGlade",
+			"libglade");
+
+	check_system_library(@gnomedev_libs,
+			"gtksourceview-2.0 >= 2.6.2",
+			"GtkSourceView",
+			"FIXME");
+
+	check_system_library(@gnomedev_libs,
+			"libnotify >= 0.4.5",
+			"LibNotify",
+			"FIXME");
+
+	check_system_library(@gnomedev_libs,
+			"gtkspell-2.0 >= 2.0.15",
+			"GtkSpell",
+			"FIXME");
+
+	check_system_library(@gnomedev_libs,
+			"unique-1.0 >= 1.0.8",
+			"LibUnique",
+			"FIXME");
+
+	check_system_library(@gnomedev_libs,
+			"enchant",
+			"Enchant",
+			"FIXME");
+
+
+} elsif ($os eq "debian") {
+	check_system_library(@gnomedev_libs,
+			"glib-2.0 >= 2.22",
+			"GLib",
+			"libglib2.0-dev");
+
+	check_system_library(@gnomedev_libs,
+			"gtk+-2.0 >= 2.18 gdk-2.0 gtk+-unix-print-2.0",
+			"GTK+",
+			"libgtk2.0-dev");
+
+	check_system_library(@gnomedev_libs,
+			"pango >= 1.22",
+			"Pango",
+			"libpango1.0-dev");
+
+	check_system_library(@gnomedev_libs,
+			"atk",
+			"ATK",
+			"libatk1.0-dev");
 
 	check_system_library(@gnomedev_libs,
 			"libglade-2.0",
@@ -766,29 +859,106 @@ if ($os eq "gentoo") {
 			"libglade2-dev");
 
 	check_system_library(@gnomedev_libs,
-			"gtk+-unix-print-2.0",
-			"GNOME printing (Unix backend)",
-			"unixprint-devel");
+			"gtksourceview-2.0 >= 2.6.1",
+			"GtkSourceView",
+			"libgtksourceview2.0-dev");
+
+	check_system_library(@gnomedev_libs,
+			"libnotify >= 0.4.5",
+			"LibNotify",
+			"libnotify-dev");
+
+	check_system_library(@gnomedev_libs,
+			"enchant",
+			"Enchant",
+			"libenchant-dev");
+
+# FIXME: there is no 2.0.15 in Debian, but on the other hand, a GtkSpell that
+# is 2 versions old doubtless suffers from all sorts of problems. This will
+# allow the check to pass and java-gnome to build, but there is no expectation
+# that spelling will work, or that the CRITICAL bug is fixed.
+
+	check_system_library(@gnomedev_libs,
+			"gtkspell-2.0 >= 2.0.13",
+			"GtkSpell",
+			"libgtkspell-dev");
+
+	check_system_library(@gnomedev_libs,
+			"unique-1.0 >= 1.0.8",
+			"LibUnique",
+			"libunique-dev");
 
 } elsif ($os eq "suse") {
 	check_system_library(@gnomedev_libs,
-			"gtk+-2.0 pango atk gdk-2.0 gtk+-unix-print-2.0",
+			"glib-2.0 >= 2.22 gtk+-2.0 >= 2.18.0 pango >= 1.22 atk gdk-2.0 gtk+-unix-print-2.0",
 			"GNOME development libraries",
 			"libgnome-devel");
+
 	check_system_library(@gnomedev_libs,
 			"libglade-2.0",
 			"Glade development libraries",
 			"libglade2-devel");
 
+	check_system_library(@gnomedev_libs,
+			"gtksourceview-2.0 >= 2.6.2",
+			"GtkSourceView",
+			"FIXME");
+
+	check_system_library(@gnomedev_libs,
+			"libnotify >= 0.4.5",
+			"LibNotify",
+			"FIXME");
+
+	check_system_library(@gnomedev_libs,
+			"gtkspell-2.0 >= 2.0.15",
+			"GtkSpell",
+			"FIXME");
+
+	check_system_library(@gnomedev_libs,
+			"unique-1.0 >= 1.0.8",
+			"LibUnique",
+			"FIXME");
+
+	check_system_library(@gnomedev_libs,
+			"enchant",
+			"Enchant",
+			"FIXME");
+
 } elsif ($os eq "mandriva") {
 	check_system_library(@gnomedev_libs,
-			"gtk+-2.0 pango atk gdk-2.0 gtk+-unix-print-2.0",
+			"glib-2.0 > 2.22 gtk+-2.0 >= 2.18.0 pango >= 1.22 atk gdk-2.0 gtk+-unix-print-2.0",
 			"GTK development libraries",
 			"libgtk+2.0_0-devel");
 	check_system_library(@gnomedev_libs,
 			"libglade-2.0",
 			"Glade development libraries",
 			"libglade2.0_0-devel");
+
+	check_system_library(@gnomedev_libs,
+			"gtksourceview-2.0 >= 2.6.2",
+			"GtkSourceView",
+			"FIXME");
+
+	check_system_library(@gnomedev_libs,
+			"libnotify >= 0.4.5",
+			"LibNotify",
+			"FIXME");
+
+	check_system_library(@gnomedev_libs,
+			"gtkspell-2.0 >= 2.0.15",
+			"GtkSpell",
+			"FIXME");
+
+	check_system_library(@gnomedev_libs,
+			"unique-1.0 >= 1.0.8",
+			"LibUnique",
+			"FIXME");
+
+	check_system_library(@gnomedev_libs,
+			"enchant",
+			"Enchant",
+			"FIXME");
+
 }
 
 
@@ -840,7 +1010,8 @@ if ($os eq "gentoo") {
 	}
 
 	# check ecj, the standalone Eclipse compiler.
-	check_compiler($ecj, "Eclipse ecj", "/usr/bin/ecj-3.3", "-g -preserveAllLocals -nowarn -source 1.5 -target 1.5");
+	check_compiler($ecj, "Eclipse ecj", "/usr/bin/ecj-3.4", "-g -preserveAllLocals -nowarn -source 1.5 -target 1.5");
+	check_compiler($ecj, "Eclipse ecj", "/usr/bin/ecj-3.3", "-g -preserveAllLocals -nowarn -source 1.5 -target 1.5") unless $ecj;
 	
 	# check javac (the one specified by Gentoo's java-config tool)
 	# The $vendor business is just some precision prettiness for the
@@ -1619,10 +1790,19 @@ output "Check native compiler:\n";
 
 # these are initialized as, unlike javac which is populated with *something*,
 # even if gcj is not found we still need a variable for it.
+my $gcc;
 my $cc;
 
 if ($os eq "solaris") {
-	check_CC($cc, "Sun cc", which("cc"), "");
+	# this should result in something with gcc in its name
+	check_CC($gcc, "GNU gcc", abs_path("/usr/gnu/bin/cc"), "");
+
+	# otherwise, we use Sun's compiler and linker
+	check_CC($cc, "Sun cc", abs_path("/usr/bin/cc"), "") unless $gcc;
+
+	# and if things are completely out to lunch,
+	check_CC($cc, "Path cc", which("cc"), "") unless $cc;
+
 } elsif ($os) {
 	my $gcc_candidate;
 
@@ -1638,7 +1818,7 @@ if ($os eq "solaris") {
 		}
 	}
 
-	check_CC($cc, "GNU gcc", $gcc_candidate, "");
+	check_CC($gcc, "GNU gcc", $gcc_candidate, "");
 }
 
 output "\n";
@@ -1749,6 +1929,8 @@ output "Select runtime:";
 # are better! (Ok, and, frankly, the compliance is obviously better
 # if its a real Java VM). The Free ones are getting there...
 
+$java="$java -Djava.awt.headless=true";
+
 if ($runtime) {
 	# if overridden, check override...
 	if ($runtime eq "java")  {
@@ -1815,7 +1997,7 @@ print CONFIG <<HERE ;
 
 HERE
 
-if ($cc =~ /gcc/) {
+if ($gcc) {
 	use File::Basename;
 
 	my $jni_include = "";
@@ -1827,7 +2009,11 @@ if ($cc =~ /gcc/) {
 	}
 
 	if (-f "$java_home"."/include/jni.h") {
-		$jni_include = "-I$java_home/include -I$java_home/include/linux";
+		if ($os eq "solaris") {
+			$jni_include = "-I$java_home/include -I$java_home/include/solaris";
+		} else {
+			$jni_include = "-I$java_home/include -I$java_home/include/linux";
+		}
 	} elsif (-f "/usr/include/jni.h") {
 		# good, but that's default search path - no -I required.
 	} else {
@@ -1838,10 +2024,17 @@ if ($cc =~ /gcc/) {
 	if ( -x $ccache) {
 		print CONFIG "CCACHE=$ccache\n";
 	}
-	
-	print CONFIG "CC=$cc -g -Wall -fPIC $jni_include -Wno-int-to-pointer-cast -Wno-pointer-to-int-cast -DGTK_DISABLE_DEPRECATED -DGDK_DISABLE_DEPRECATED -DGDK_PIXBUF_DISABLE_DEPRECATED -DG_DISABLE_DEPRECATED -Werror-implicit-function-declaration -Wfatal-errors\n";
+
+	my $deprecations;
+	if ( "$strict" ) {
+		$deprecations = "-DGTK_DISABLE_DEPRECATED -DGDK_DISABLE_DEPRECATED -DGDK_PIXBUF_DISABLE_DEPRECATED -DG_DISABLE_DEPRECATED";
+	} else {
+		$deprecations = "";
+	}
+
+	print CONFIG "CC=$gcc -g -Wall -fPIC $jni_include -Wno-int-to-pointer-cast -Wno-pointer-to-int-cast $deprecations -Werror-implicit-function-declaration -Wfatal-errors\n";
 	print CONFIG "CC_CMD=GCC      \n";
-	print CONFIG "LINK=$cc -g -shared -Wall -fPIC\n";
+	print CONFIG "LINK=$gcc -g -shared -Wall -fPIC\n";
 	print CONFIG "LINK_CMD=LINK     \n";
 } elsif (($cc) && ($os eq "solaris")) {
 	print CONFIG "CC=$cc -Kpic -I/usr/java/include -I/usr/java/include/solaris\n";
@@ -1871,6 +2064,10 @@ if (!$libdir) {
 	$libdir = "$prefix/lib";
 }
 print CONFIG "LIBDIR=$libdir\n";
+if (!$jardir) {
+	$jardir = "$prefix/share/java";
+}
+print CONFIG "JARDIR=$jardir\n";
 
 # --------------------------------------------------------------------
 # Get version constant
@@ -1879,13 +2076,13 @@ print CONFIG "LIBDIR=$libdir\n";
 my $apiversion;
 my $version;
 
-open SOURCE, "src/bindings/org/gnome/gtk/Version.java";
+open SOURCE, "src/bindings/org/freedesktop/bindings/Version.java";
 while (<SOURCE>) {
 	chomp;
 	if (/.* APIVERSION = \"([\d\.]+)\";/) {
 		$apiversion = $1;
 	}
-	if (/.* VERSION = \"([\d\.]+)\";/) {
+	if (/.* VERSION = \"([\d\.\-rcdev]+)\";/) {
 		$version = $1;
 	}
 }
@@ -1912,10 +2109,28 @@ print CONFIG "VERSION=$version\n";
 # Done! Create .config file
 # --------------------------------------------------------------------
 
-output "Write .config file:";
+output "\n";
+output "Output:\n";
+output " - configuration data";
 close CONFIG;
 system "mv .config.tmp .config";
 
 output "ok\n";
-output "\n";
 
+
+# --------------------------------------------------------------------
+# Output text file with library location
+# --------------------------------------------------------------------
+
+output " - native library location";
+
+open LIBRARY, ">.libdir";
+
+print LIBRARY <<HERE ;
+$libdir
+HERE
+
+close LIBRARY;
+
+output "ok\n";
+output "\n";

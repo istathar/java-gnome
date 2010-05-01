@@ -1,13 +1,34 @@
 /*
- * FileChooser.java
+ * java-gnome, a UI library for writing GTK and GNOME programs from Java!
  *
- * Copyright (c) 2007-2008 Operational Dynamics Consulting Pty Ltd and Others
- * 
- * The code in this file, and the library it is a part of, are made available
- * to you by the authors under the terms of the "GNU General Public Licence,
- * version 2" plus the "Classpath Exception" (you may link to this code as a
- * library into other programs provided you don't make a derivation of it).
- * See the LICENCE file for the terms governing usage and redistribution.
+ * Copyright © 2007-2010 Operational Dynamics Consulting, Pty Ltd and Others
+ *
+ * The code in this file, and the program it is a part of, is made available
+ * to you by its authors as open source software: you can redistribute it
+ * and/or modify it under the terms of the GNU General Public License version
+ * 2 ("GPL") as published by the Free Software Foundation.
+ *
+ * This program is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+ * FITNESS FOR A PARTICULAR PURPOSE. See the GPL for more details.
+ *
+ * You should have received a copy of the GPL along with this program. If not,
+ * see http://www.gnu.org/licenses/. The authors of this program may be
+ * contacted through http://java-gnome.sourceforge.net/.
+ *
+ * Linking this library statically or dynamically with other modules is making
+ * a combined work based on this library. Thus, the terms and conditions of
+ * the GPL cover the whole combination. As a special exception (the
+ * "Claspath Exception"), the copyright holders of this library give you
+ * permission to link this library with independent modules to produce an
+ * executable, regardless of the license terms of these independent modules,
+ * and to copy and distribute the resulting executable under terms of your
+ * choice, provided that you also meet, for each linked independent module,
+ * the terms and conditions of the license of that module. An independent
+ * module is a module which is not derived from or based on this library. If
+ * you modify this library, you may extend the Classpath Exception to your
+ * version of the library, but you are not obligated to do so. If you do not
+ * wish to do so, delete this exception statement from your version.
  */
 package org.gnome.gtk;
 
@@ -24,13 +45,13 @@ import java.net.URI;
  * 
  * <p>
  * Be aware that much of FileChooser's internal behaviour depends on the main
- * loop cycling; calls to methods like
- * {@link #setCurrentFolder(String) setCurrentFolder()} and
- * {@link #setFilename(String) setFilename()} will not actually take effect
- * until you start the main loop or return from the current signal handler (as
- * the case may be).
+ * loop cycling; calls to methods like {@link #setCurrentFolder(String)
+ * setCurrentFolder()} and {@link #setFilename(String) setFilename()} will not
+ * actually take effect until you start the main loop or return from the
+ * current signal handler (as the case may be).
  * 
  * @author Andrew Cowie
+ * @author Vreixo Formoso
  * @since 4.0.2
  */
 public interface FileChooser
@@ -39,10 +60,11 @@ public interface FileChooser
      * Get the filename currently selected by this FileChooser.
      * 
      * @return The filename, or if no file is selected then this will return
-     *         <code>null</code>. If multiple files are selected, one of
-     *         the filenames will be returned at random. If the FileChooser is
-     *         in one of the folder modes, this returns the selected folder's
+     *         <code>null</code>. If multiple files are selected, one of the
+     *         filenames will be returned at random. If the FileChooser is in
+     *         one of the folder modes, this returns the selected folder's
      *         name.
+     * @since 4.0.2
      */
     public String getFilename();
 
@@ -53,10 +75,10 @@ public interface FileChooser
      * mode. To get the currently-selected folder in that mode, you can use
      * {@link #getURI()} instead.
      * 
-     * @return The current folder, or <code>null</code> if if the
-     *         FileChooser was unable to load the last folder that was
-     *         requested of it (as would happen if calling
-     *         {@link #setCurrentFolder(String)} on a nonexistent directory).
+     * @return The current folder, or <code>null</code> if if the FileChooser
+     *         was unable to load the last folder that was requested of it (as
+     *         would happen if calling {@link #setCurrentFolder(String)} on a
+     *         nonexistent directory).
      * @see #getFilename()
      * @since 4.0.2
      */
@@ -69,8 +91,8 @@ public interface FileChooser
      * 
      * @param directory
      *            the full path of the new current folder
-     * @return <code>true</code> if the folder could be changed
-     *         successfully, <code>false</code> otherwise.
+     * @return <code>true</code> if the folder could be changed successfully,
+     *         <code>false</code> otherwise.
      * @since 4.0.2
      */
     public boolean setCurrentFolder(String directory);
@@ -99,10 +121,11 @@ public interface FileChooser
      * this FileChooser.
      * 
      * @return The selected file's URI, or if no file is selected then this
-     *         will return <code>null</code>. If multiple files are
-     *         selected, one of the filenames will be returned at random. If
-     *         the FileChooser is in one of the folder modes, this returns the
+     *         will return <code>null</code>. If multiple files are selected,
+     *         one of the filenames will be returned at random. If the
+     *         FileChooser is in one of the folder modes, this returns the
      *         selected folder's URI.
+     * @since 4.0.2
      */
     /*
      * A direct mapping would be getUri(), but that looks stupid, and
@@ -143,4 +166,41 @@ public interface FileChooser
      * moment.
      */
     public boolean setFilename(String filename);
+
+    /**
+     * Add a FileFilter to the list of filters that the user can select
+     * between. When a filter is selected, only files that are passed by that
+     * filter are displayed.
+     * 
+     * @see FileFilter
+     * @since 4.0.12
+     */
+    public void addFilter(FileFilter filter);
+
+    /**
+     * Sets the current filter; only the files that pass the filter will be
+     * displayed. If the user-selectable list of filters is non-empty, then
+     * the filter should be one of the filters in that list.
+     * 
+     * <p>
+     * Setting the current filter when the list of filters is empty is useful
+     * if you want to restrict the displayed set of files without letting the
+     * user change it.
+     * 
+     * @see FileFilter
+     * @since 4.0.12
+     */
+    public void setFilter(FileFilter filter);
+
+    /**
+     * Gets the current filter.
+     * 
+     * <p>
+     * This function is specially useful on "Save" FileChoosers, to know the
+     * file type chosen by the user.
+     * 
+     * @see FileFilter
+     * @since 4.0.12
+     */
+    public FileFilter getFilter();
 }

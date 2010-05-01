@@ -1,13 +1,34 @@
 /*
- * Menu.java
+ * java-gnome, a UI library for writing GTK and GNOME programs from Java!
  *
- * Copyright (c) 2007 Operational Dynamics Consulting Pty Ltd, and Others
+ * Copyright © 2007-2010 Operational Dynamics Consulting, Pty Ltd and Others
  *
- * The code in this file, and the library it is a part of, are made available
- * to you by the authors under the terms of the "GNU General Public Licence,
- * version 2" plus the "Classpath Exception" (you may link to this code as a
- * library into other programs provided you don't make a derivation of it).
- * See the LICENCE file for the terms governing usage and redistribution.
+ * The code in this file, and the program it is a part of, is made available
+ * to you by its authors as open source software: you can redistribute it
+ * and/or modify it under the terms of the GNU General Public License version
+ * 2 ("GPL") as published by the Free Software Foundation.
+ *
+ * This program is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+ * FITNESS FOR A PARTICULAR PURPOSE. See the GPL for more details.
+ *
+ * You should have received a copy of the GPL along with this program. If not,
+ * see http://www.gnu.org/licenses/. The authors of this program may be
+ * contacted through http://java-gnome.sourceforge.net/.
+ *
+ * Linking this library statically or dynamically with other modules is making
+ * a combined work based on this library. Thus, the terms and conditions of
+ * the GPL cover the whole combination. As a special exception (the
+ * "Claspath Exception"), the copyright holders of this library give you
+ * permission to link this library with independent modules to produce an
+ * executable, regardless of the license terms of these independent modules,
+ * and to copy and distribute the resulting executable under terms of your
+ * choice, provided that you also meet, for each linked independent module,
+ * the terms and conditions of the license of that module. An independent
+ * module is a module which is not derived from or based on this library. If
+ * you modify this library, you may extend the Classpath Exception to your
+ * version of the library, but you are not obligated to do so. If you do not
+ * wish to do so, delete this exception statement from your version.
  */
 package org.gnome.gtk;
 
@@ -46,6 +67,8 @@ public class Menu extends MenuShell
 
     /**
      * Construct a new Menu.
+     * 
+     * @since 4.0.3
      */
     public Menu() {
         super(GtkMenu.createMenu());
@@ -53,8 +76,8 @@ public class Menu extends MenuShell
 
     /**
      * Popup a context menu. Use this when you create a Menu that will be used
-     * for the popup context menu in response to a right-click somewhere. TODO
-     * add example code showing hooking up a mouse button click handler.
+     * for the popup context menu in response to a right-click somewhere. The
+     * menu will appear where the mouse pointer is.
      * 
      * <p>
      * Unlike normal Menus that are part of an application's MenuBar, context
@@ -62,23 +85,38 @@ public class Menu extends MenuShell
      * {@link Widget#showAll() showAll()} called on them once you're done
      * building them to allocate their resources (otherwise you end up with a
      * 1x1 pixel sized menu with nothing in it).
+     * 
+     * @since 4.0.3
      */
     public void popup() {
         GtkMenuOverride.popup(this);
     }
 
     /**
+     * Having constructed a Menu to be used as the context menu, present it at
+     * the specified location. This is useful in conjunction with TextView's
+     * {@link TextView#getLocation(TextIter) getLocation()} if you wish to
+     * place the menu at the "cursor position" rather than where the mouse
+     * pointer is.
+     * 
+     * @since 4.0.15
+     */
+    public void popup(int x, int y) {
+        GtkMenuOverride.popupAtPosition(this, x, y);
+    }
+
+    /**
      * A special case for popping up the context menu associated with a
      * StatusIcon. Having constructed a Menu to be used as the context menu,
-     * you then call this from the <code>POPUP_MENU</code> signal callback
-     * as follows:
+     * you then call this from the <code>StatusIcon.PopupMenu</code> signal
+     * callback as follows:
      * 
      * <pre>
      * StatusIcon si;
      * Menu context;
      * ...
      * 
-     * si.connect(new StatusIcon.POPUP_MENU() {
+     * si.connect(new StatusIcon.PopupMenu() {
      *     public void onPopupMenu(StatusIcon source, int button, int activateTime) {
      *         context.popup(source);
      *     }
@@ -88,6 +126,8 @@ public class Menu extends MenuShell
      * Don't forget to call {@link Widget#showAll() showAll()} on the Menu
      * when you're done constructing it before trying to use it the first
      * time.
+     * 
+     * @since 4.0.3
      */
     public void popup(StatusIcon status) {
         GtkMenuOverride.popupStatusIcon(this, status);

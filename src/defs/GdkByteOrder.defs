@@ -1,4 +1,5 @@
 (define-enum ByteOrder
+  (unnecessary)
   (in-module "Gdk")
   (c-name "GdkByteOrder")
   (gtype-id "GDK_TYPE_BYTE_ORDER")

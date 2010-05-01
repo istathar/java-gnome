@@ -1,13 +1,34 @@
 /*
- * TreeSelection.java
+ * java-gnome, a UI library for writing GTK and GNOME programs from Java!
  *
- * Copyright (c) 2007-2008 Operational Dynamics Consulting Pty Ltd
+ * Copyright © 2007-2010 Operational Dynamics Consulting, Pty Ltd and Others
  *
- * The code in this file, and the library it is a part of, are made available
- * to you by the authors under the terms of the "GNU General Public Licence,
- * version 2" plus the "Classpath Exception" (you may link to this code as a
- * library into other programs provided you don't make a derivation of it).
- * See the LICENCE file for the terms governing usage and redistribution.
+ * The code in this file, and the program it is a part of, is made available
+ * to you by its authors as open source software: you can redistribute it
+ * and/or modify it under the terms of the GNU General Public License version
+ * 2 ("GPL") as published by the Free Software Foundation.
+ *
+ * This program is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+ * FITNESS FOR A PARTICULAR PURPOSE. See the GPL for more details.
+ *
+ * You should have received a copy of the GPL along with this program. If not,
+ * see http://www.gnu.org/licenses/. The authors of this program may be
+ * contacted through http://java-gnome.sourceforge.net/.
+ *
+ * Linking this library statically or dynamically with other modules is making
+ * a combined work based on this library. Thus, the terms and conditions of
+ * the GPL cover the whole combination. As a special exception (the
+ * "Claspath Exception"), the copyright holders of this library give you
+ * permission to link this library with independent modules to produce an
+ * executable, regardless of the license terms of these independent modules,
+ * and to copy and distribute the resulting executable under terms of your
+ * choice, provided that you also meet, for each linked independent module,
+ * the terms and conditions of the license of that module. An independent
+ * module is a module which is not derived from or based on this library. If
+ * you modify this library, you may extend the Classpath Exception to your
+ * version of the library, but you are not obligated to do so. If you do not
+ * wish to do so, delete this exception statement from your version.
  */
 package org.gnome.gtk;
 
@@ -58,6 +79,7 @@ import org.gnome.glib.Object;
  * these could have all been methods on <code>GtkTreeView</code>.</i>
  * 
  * @author Andrew Cowie
+ * @author Guillaume Mazoyer
  * @since 4.0.5
  */
 public class TreeSelection extends Object
@@ -113,15 +135,14 @@ public class TreeSelection extends Object
 
     /**
      * Get the rows currently selected from the TreeView. This is specially
-     * useful when the selection mode is
-     * {@link SelectionMode#MULTIPLE MULTIPLE}. Otherwise
-     * {@link #getSelected() getSelected()} offers a more convenient way to
-     * obtain the selected row.
+     * useful when the selection mode is {@link SelectionMode#MULTIPLE
+     * MULTIPLE}. Otherwise {@link #getSelected() getSelected()} offers a more
+     * convenient way to obtain the selected row.
      * 
      * <p>
-     * You can use the TreeModel's
-     * {@link TreeModel#getIter(TreePath) getIter()} method to convert the
-     * returned TreePaths to the more convenient TreeIter:
+     * You can use the TreeModel's {@link TreeModel#getIter(TreePath)
+     * getIter()} method to convert the returned TreePaths to the more
+     * convenient TreeIter:
      * 
      * <pre>
      * TreePath[] rows;
@@ -164,16 +185,15 @@ public class TreeSelection extends Object
      * <p>
      * Beware that this is considered a hint by GTK, so you sometimes get
      * false positives or false negatives relative to how you are interpreting
-     * "change". You'll be calling
-     * {@link TreeSelection#getSelected() getSelected()} anyway, but it's a
-     * good idea to keep in mind that the state may not have changed in quite
-     * the way you think it might have. Have a look at the return from that
-     * method fairly closely to decide for yourself whether the selection has
-     * "changed" or not.
+     * "change". You'll be calling {@link TreeSelection#getSelected()
+     * getSelected()} anyway, but it's a good idea to keep in mind that the
+     * state may not have changed in quite the way you think it might have.
+     * Have a look at the return from that method fairly closely to decide for
+     * yourself whether the selection has "changed" or not.
      * 
      * <p>
-     * <i>The nonsense about the <code>TreeSelection.Changed</code> signal
-     * is supposedly due to the fact that there are multiple actors in the
+     * <i>The nonsense about the <code>TreeSelection.Changed</code> signal is
+     * supposedly due to the fact that there are multiple actors in the
      * TreeModel environment, and both internal actions within GTK and events
      * due to window manager activity can result in the signal being emitted.
      * What a load of crap; either the selection changed or it didn't. Sorry
@@ -232,5 +252,19 @@ public class TreeSelection extends Object
      */
     public void unselectAll() {
         GtkTreeSelection.unselectAll(this);
+    }
+
+    /**
+     * Return <code>true</code> if the currently selected row is pointed by
+     * <code>path</code>.
+     * 
+     * @since 4.0.15
+     */
+    public boolean isSelected(TreePath path) {
+        /*
+         * The name should be pathIsSelected but it looks prettier with the
+         * current name.
+         */
+        return GtkTreeSelection.pathIsSelected(this, path);
     }
 }

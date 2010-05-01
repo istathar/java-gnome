@@ -24,8 +24,8 @@ Building java-gnome
 
 For the impatient:
 
-    $ tar xjf java-gnome-4.0.8.tzr.bz2
-    $ cd java-gnome-4.0.8
+    $ tar xjf java-gnome-4.0.15.tar.bz2
+    $ cd java-gnome-4.0.15
     $ ./configure
     $ make
 
@@ -42,8 +42,8 @@ You can download the latest java-gnome release from the GNOME FTP server at:
 
 Once you've downloaded the latest source tarball:
 
-    $ tar xjf java-gnome-4.0.8.tzr.bz2
-    $ cd java-gnome-4.0.8
+    $ tar xjf java-gnome-4.0.15.tzr.bz2
+    $ cd java-gnome-4.0.15
 
 And go on to step 2 for details about options you can pass to the
 configuration command.
@@ -112,11 +112,6 @@ identifying the location of a few things. Better yet, look in the `configure`
 Perl script -- the places where OS is switched are obvious, and just add what
 you need to add, and send us a patch.
 
-Hopefully in the not to distant future we will be able to switch to Robert
-Collins's new "Buildtool". His approach to configuration and building will
-revolutionize the Free and Open Source Software universe, and we look forward
-to participating in the development of his work.
-
 Meanwhile...
 
 ### Customizing build options ###
@@ -129,7 +124,7 @@ command line, like this:
 This facilitates easily switching between runtimes and compilers for testing.
 At the moment, the available selections are:
 
-* `compiler` `-->` javac, ecj, and gcj -C
+* `compiler` `-->` javac, ecj
 
 * `runtime`  `-->` java, cacao, jamvm, cacao, gij, and kaffe
 
@@ -140,8 +135,6 @@ of the following:
 
 * `jdk` -- where to find a traditional Java Development Kit, ie `JAVA_HOME`
 
-* `gcj` -- prefix of an alternate GCC install
-
 * `jamvm` -- path to the JamVM executable
 
 * `cacao` -- path to the CACAO executable
@@ -149,7 +142,7 @@ of the following:
 Examples:
 
     $ ./configure
-    $ ./configure jdk=/opt/sun-jdk-bin-1.6.0.06
+    $ ./configure jdk=/opt/sun-jdk
     $ ./configure jamvm=/home/joe/custom/bin/jamvm runtime=jamvm
 
 Your configuration is persistent across builds in that checkout, ie, `make
@@ -157,6 +150,38 @@ clean` won't force you to reconfigure (though `make distclean` will). The
 `configure` script runs very quickly, so it's no big deal to switch settings
 by re-running it.
 
+### Dependencies ###
+
+The java-gnome library depends on the GNOME desktop and is intended for people
+wishing to do tight integration with it. In particular, this version of
+java-gnome depends on:
+
+* GLib `>= 2.22.0`
+
+* GTK `>= 2.18.3`
+
+* Cairo `>= 1.8.8`
+
+* Pango `>= 1.22.4`
+
+* libglade `>= 2.6.4`
+
+* gtksourceview `>= 2.6.2`
+
+* libnotify `>= 0.4.5`
+
+* gtkspell `>= 2.0.15`  
+_WARNING: GtkSpell has
+[bug](https://sourceforge.net/tracker/?func=detail&aid=2793202&group_id=7896&atid=107896)
+which causes a_ `CRITICAL` _to be thrown when there are no suggestions for a
+misspelt word. This crasher is known to be fixed in the Gentoo Linux package
+of GtkSpell; users of other distros will likewise need to patch their GtkSpell
+packages until this is fixed upstream. If you're not attempting to use spell
+checking this bug will not affect you._
+
+* libunique `>= 1.0.8`
+
+* Enchant `>= 1.4.2`
 
 3. Build
 --------
@@ -179,19 +204,19 @@ variables come from.
 The build products end up in `tmp/`:
 
 `tmp/gtk-4.0.jar`  
-`tmp/libgtkjni-4.0.jar`
+`tmp/libgtkjni-4.0.15.so`
 
 That's actually enough to go on -- if you're using an IDE like Eclipse you can
-just tell it about the `.jar` and indicate that `tmp/` is the native library
-location and you can jump right to "Using the Bindings". Or you can install
-java-gnome somewhere. Doesn't matter, really.
+just tell it about the `.jar` and then jump right to "Using the Bindings". Or
+you can install java-gnome somewhere. Doesn't matter, really.
 
+<a name="install"></a>
 
 4. Install
 ----------
 
 java-gnome 4.0 has the standard `make install` behaviour, and the equally
-standard `--prefix` option to `./configure`.
+standard `prefix` option to `./configure`.
 
 ### Installing locally
 
@@ -204,13 +229,12 @@ and you would end up with:
 
 `~/share/java/gtk-4.0.jar`  
 `~/share/java/gtk.jar`  
-`~/lib/libgtkjni-4.0.so`
+`~/lib/libgtkjni-4.0.15.so`
 
-Of course, if you do that (or install anywhere else off the system shared
-library search path), you'll need to use the `LD_LIBRARY_PATH` environment
-variable or the `java.library.path` Java system property when you run programs
-in order to tell your Virtual Machine where the library is. See below under
-"Using the Bindings"
+The default is to send it off to `/usr/local` as you'd expect. 
+
+Using `make install` is **compulsory** if you intend to use java-gnome from
+anywhere other than "in-place" from the temporary location where it was built.
 
 ### Installing to system (for people packaging the library for their distro)
 
@@ -227,18 +251,18 @@ example:
 	
 	...
 	
-	make DESTDIR=/var/tmp/portage/java-gnome-4.0.8-r2/image install
+	make DESTDIR=/var/tmp/portage/java-gnome-4.0.15-r2/image install
 	
 	...
 
-With a prefix of `/usr` you will end up with
+With a prefix of `/usr` you will end up with:
 
 `/usr/share/java/gtk-4.0.jar`  
 `/usr/share/java/gtk.jar`  
-`/usr/lib/libgtkjni-4.0.so`
+`/usr/lib/libgtkjni-4.0.15.so`
 
-If you have distro policy issues to deal with, then move things around once
-they've landed in `DESTDIR`.
+If you have distro policy issues to deal with, then pass `jardir` and/or
+`libdir` overrides to `configure`.
 
 <a name="using"></a>
 
@@ -247,16 +271,15 @@ Using the bindings
 
 ### Running the "demo"
 
-There is a _tiny_ and _trivial_ demonstration program in the `tests/`
-directory of the bindings. If you would like to see it, you could compile and
+There are a few _tiny_ and _trivial_ example programs in the `doc/examples/`
+directory of the bindings. If you would like to see one, you could compile and
 run it by hand, doing something like:
 
-    $ javac -classpath tmp/gtk-4.0.jar -d tmp/classes tests/prototype/Experiment.java
-    $ java -classpath tmp/gtk-4.0.jar:tmp/classes -Djava.library.path=tmp Experiment
+    $ javac -classpath tmp/gtk-4.0.jar -d tmp/tests doc/examples/button/ExamplePressMe.java
+    $ java -classpath tmp/gtk-4.0.jar:tmp/tests button.ExamplePressMe
 
 This shows you how you can reference and use the library after it is built by
-`make` into `tmp/`. Note the necessity to tell the VM where to find
-java-gnome's JNI library.
+`make` into `tmp/`.
 
 Of course, that was _way_ too much typing. Instead, just do this:
 
@@ -268,45 +291,23 @@ Of course, that was _way_ too much typing. Instead, just do this:
 
 java-gnome has a native component that links tightly against various GNOME
 libraries (after all, the whole point is to use the real GTK, not some pseudo
-look alike pathetic attempt of a widget toolkit). This means that **you need
-to tell Java where to find the native library in addition to the location of
-the `.jar` file**. For instance:
+look alike pathetic attempt of a widget toolkit), but we take care of locating
+it and loading it for you. So all you need to do to run an application is:
 
-    $ java                                           \
-        -classpath /home/bloggins/share/java/gtk.jar \
-        -Djava.library.path=/home/bloggins/lib       \
-        -ea                                          \
+    $ java -client -ea                                   \
+        -classpath /home/bloggins/share/java/gtk-4.0.jar \
         com.example.ComeOnBabyLightMyFire
 
-Oh, the joys of running Java programs by hand. If you get an
-`UnsatisfiedLinkError`, you've stuffed this part up. Go back and check that
-you've actually got the java-gnome JNI library in the directory you specified.
-Tip: for some reason, Java doesn't expand `~` in `java.library.path`. Go
-figure.
+Oh, the joys of running Java programs by hand. 
 
-If you're running programs in Eclipse, you can specify a native library
-location in when you add a `.jar` file under  
-
-> Project `->` Properties `->` Java Build Path
-
-which can simplify your life a great deal. Just expand the entries under that
-`.jar` and you'll see "Native library location: (none)". Enter the path to the
-`lib` directory where you've got the `libgtkjni-4.0.so` file, and you're on
-your way.
 
 Status
 ======
 
-java-gnome 4.0 is now a solid foundation that can be used to develop
+java-gnome 4.0 is now a solid foundation that has been used to develop
 non-trivial applications. The architecture and internal design has been well
 proved, and the coverage level (relative to the full breadth of the underlying
-libraries) is growing rapidly. The code generator which cranks out the project
-internals (based on the shared metadata used by the other GNOME language
-bindings) is in excellent shape.
-
-Remember that java-gnome 2.x is completely deprecated and hasn't had new code
-from anyone in years. You don't want to be programming with it. If it is still
-available in your distribution, that's a bug.
+libraries) is reaching maturity.
 
 Get Involved
 ------------
@@ -341,19 +342,28 @@ Maintainer,
 [java-gnome](http://java-gnome.sourceforge.net/),  
 opening GTK and GNOME to Java programmers!
 
-_Last modified 15 Aug 08_
+_Last modified 15 Dec 09_
 
 [mirror]: http://ftp.gnome.org/pub/gnome/sources/java-gnome/4.0/
 
 <!--
-
-  Copyright (c) 2006-2008 Operational Dynamics Consulting Pty Ltd 
+ 
+  Copyright © 2006-2010 Operational Dynamics Consulting, Pty Ltd and Others
 
   As project documentation, this file forms an integral part of the source
-  code of the library it accompanies, and thus is made available to you by the
-  authors under the terms of the "GNU General Public Licence, version 2". See
-  the LICENCE file for the terms governing usage, copying and redistribution.
+  code of the library it accompanies, and thus is made available to you by its
+  authors as open source software: you can redistribute it and/or modify it
+  under the terms of the GNU General Public License version 2 ("GPL") as
+  published by the Free Software Foundation.
 
-  vim: set textwidth=78 nowrap:
+  This program is distributed in the hope that it will be useful, but WITHOUT
+  ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+  FITNESS FOR A PARTICULAR PURPOSE. See the GPL for more details.
+
+  You should have received a copy of the GPL along with this program. If not,
+  see http://www.gnu.org/licenses/. The authors of this program may be
+  contacted through http://java-gnome.sourceforge.net/.
+
+  vim: set textwidth=78:
 
 -->

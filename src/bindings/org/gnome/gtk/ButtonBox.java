@@ -1,13 +1,34 @@
 /*
- * ButtonBox.java
+ * java-gnome, a UI library for writing GTK and GNOME programs from Java!
  *
- * Copyright (c) 2007 Operational Dynamics Consulting Pty Ltd, and Others
+ * Copyright © 2007-2010 Operational Dynamics Consulting, Pty Ltd and Others
  *
- * The code in this file, and the library it is a part of, are made available
- * to you by the authors under the terms of the "GNU General Public Licence,
- * version 2" plus the "Classpath Exception" (you may link to this code as a
- * library into other programs provided you don't make a derivation of it).
- * See the LICENCE file for the terms governing usage and redistribution.
+ * The code in this file, and the program it is a part of, is made available
+ * to you by its authors as open source software: you can redistribute it
+ * and/or modify it under the terms of the GNU General Public License version
+ * 2 ("GPL") as published by the Free Software Foundation.
+ *
+ * This program is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+ * FITNESS FOR A PARTICULAR PURPOSE. See the GPL for more details.
+ *
+ * You should have received a copy of the GPL along with this program. If not,
+ * see http://www.gnu.org/licenses/. The authors of this program may be
+ * contacted through http://java-gnome.sourceforge.net/.
+ *
+ * Linking this library statically or dynamically with other modules is making
+ * a combined work based on this library. Thus, the terms and conditions of
+ * the GPL cover the whole combination. As a special exception (the
+ * "Claspath Exception"), the copyright holders of this library give you
+ * permission to link this library with independent modules to produce an
+ * executable, regardless of the license terms of these independent modules,
+ * and to copy and distribute the resulting executable under terms of your
+ * choice, provided that you also meet, for each linked independent module,
+ * the terms and conditions of the license of that module. An independent
+ * module is a module which is not derived from or based on this library. If
+ * you modify this library, you may extend the Classpath Exception to your
+ * version of the library, but you are not obligated to do so. If you do not
+ * wish to do so, delete this exception statement from your version.
  */
 package org.gnome.gtk;
 
@@ -21,11 +42,10 @@ package org.gnome.gtk;
  * other Container, using {@link Container#add(Widget) add()}. You can also
  * use Box's {@link Box#packStart(Widget) packStart()} or
  * {@link Box#packEnd(Widget) packEnd()}, but for ButtonBoxes both these
- * functions work just like <code>add()</code>, ie., they pack the button
- * in a way that depends on the current layout style and on whether the button
- * has had
- * {@link ButtonBox#setChildSecondary(Widget, boolean) setChildSecondary()}
- * called for it.
+ * functions work just like <code>add()</code>, ie., they pack the button in a
+ * way that depends on the current layout style and on whether the button has
+ * had {@link ButtonBox#setChildSecondary(Widget, boolean)
+ * setChildSecondary()} called for it.
  * 
  * <p>
  * The layout/spacing can be altered in a programmatic way in order to alter
@@ -64,29 +84,29 @@ public abstract class ButtonBox extends Box
     }
 
     /**
-     * Sets whether <code>child</code> should appear in the "secondary"
-     * group of children. A typical use of the secondary child mechanism is to
-     * place the 'Help' Button in a Dialog; placing it on the far left side
-     * while the 'Ok' and 'Cancel' Buttons are on the far right.
+     * Sets whether <code>child</code> should appear in the "secondary" group
+     * of children. A typical use of the secondary child mechanism is to place
+     * the 'Help' Button in a Dialog; placing it on the far left side while
+     * the 'Ok' and 'Cancel' Buttons are on the far right.
      * 
      * <p>
      * The secondary group appears after the other children if the
      * ButtonBoxStyle is {@link ButtonBoxStyle#START START},
-     * {@link ButtonBoxStyle#SPREAD SPREAD}, or
-     * {@link ButtonBoxStyle#EDGE EDGE}, and before the other children if the
-     * it is {@link ButtonBoxStyle#END END}. For horizontal ButtonBoxes, the
+     * {@link ButtonBoxStyle#SPREAD SPREAD}, or {@link ButtonBoxStyle#EDGE
+     * EDGE}, and before the other children if the it is
+     * {@link ButtonBoxStyle#END END}. For horizontal ButtonBoxes, the
      * definition of before/after depends on direction in place (see
      * {@link Widget#setDirection(TextDirection) setDirection()} on Widget).
      * If the style is {@link ButtonBoxStyle#START START} or
-     * {@link ButtonBoxStyle#END END}, then the secondary children are
-     * aligned at the other end of the ButtonBox from the main children. For
-     * the other styles, they appear immediately next to the main children.
+     * {@link ButtonBoxStyle#END END}, then the secondary children are aligned
+     * at the other end of the ButtonBox from the main children. For the other
+     * styles, they appear immediately next to the main children.
      * 
      * @param child
      *            a Widget that is a child of this ButtonBox
      * @param isSecondary
-     *            if <code>true</code>, the child appears in a secondary
-     *            group of the ButtonBox
+     *            if <code>true</code>, the child appears in a secondary group
+     *            of the ButtonBox
      */
     /*
      * TODO what happens if child is not already added to this Box? If that is

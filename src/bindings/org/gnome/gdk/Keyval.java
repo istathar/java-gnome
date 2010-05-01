@@ -1,13 +1,34 @@
 /*
- * Keyval.java
+ * java-gnome, a UI library for writing GTK and GNOME programs from Java!
  *
- * Copyright (c) 2007-2008 Operational Dynamics Consulting Pty Ltd
- * 
- * The code in this file, and the library it is a part of, are made available
- * to you by the authors under the terms of the "GNU General Public Licence,
- * version 2" plus the "Classpath Exception" (you may link to this code as a
- * library into other programs provided you don't make a derivation of it).
- * See the LICENCE file for the terms governing usage and redistribution.
+ * Copyright © 2007-2010 Operational Dynamics Consulting, Pty Ltd
+ *
+ * The code in this file, and the program it is a part of, is made available
+ * to you by its authors as open source software: you can redistribute it
+ * and/or modify it under the terms of the GNU General Public License version
+ * 2 ("GPL") as published by the Free Software Foundation.
+ *
+ * This program is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+ * FITNESS FOR A PARTICULAR PURPOSE. See the GPL for more details.
+ *
+ * You should have received a copy of the GPL along with this program. If not,
+ * see http://www.gnu.org/licenses/. The authors of this program may be
+ * contacted through http://java-gnome.sourceforge.net/.
+ *
+ * Linking this library statically or dynamically with other modules is making
+ * a combined work based on this library. Thus, the terms and conditions of
+ * the GPL cover the whole combination. As a special exception (the
+ * "Claspath Exception"), the copyright holders of this library give you
+ * permission to link this library with independent modules to produce an
+ * executable, regardless of the license terms of these independent modules,
+ * and to copy and distribute the resulting executable under terms of your
+ * choice, provided that you also meet, for each linked independent module,
+ * the terms and conditions of the license of that module. An independent
+ * module is a module which is not derived from or based on this library. If
+ * you modify this library, you may extend the Classpath Exception to your
+ * version of the library, but you are not obligated to do so. If you do not
+ * wish to do so, delete this exception statement from your version.
  */
 package org.gnome.gdk;
 
@@ -25,38 +46,39 @@ import org.freedesktop.bindings.Constant;
  * It is important to note that lower case and upper case letters are
  * considered different keys even though most keyboards present but a single
  * physical button with an <b><code>A</code></b> showing. Think of that
- * physical key as having both an <b><code>a</code></b> and an <b><code>A</code></b>
- * printed on it, with the second being the key reached if the <b><code>Shift</code></b>
- * modifier is held down. Have a look at the {@link ModifierType} class for a
- * discussion of how to deal with the modifying keys and for a better
- * understanding of the sequence in which key events occur.
+ * physical key as having both an <b><code>a</code></b> and an <b>
+ * <code>A</code></b> printed on it, with the second being the key reached if
+ * the <b><code>Shift</code></b> modifier is held down. Have a look at the
+ * {@link ModifierType} class for a discussion of how to deal with the
+ * modifying keys and for a better understanding of the sequence in which key
+ * events occur.
  * 
  * <p>
- * Looking for <b><code>1</code></b> through <b><code>9</code></b>?
- * See {@link #Num0 Num0} to {@link #Num0 Num9}.
+ * Looking for <b><code>1</code></b> through <b><code>9</code></b>? See
+ * {@link #Num0 Num0} to {@link #Num0 Num9}.
  * 
  * <p>
  * The correlation between keys and Unicode characters is a complex one. For
  * basic western ISO Latin letters the keys we press and the characters we get
  * are, to all intents and purposes, one and the same. But there are many
  * thousands of additional characters for which you probably don't have keys
- * for, even if you have (or have mapped something to be) the <b><code>Compose</code></b>
- * key for taking the composite of several keystrokes to generate special
- * characters. Just remember that Keyvals are <i>key</i> constants, not
- * constants for every <i>unicode</i> character and you'll keep things
- * straight.
+ * for, even if you have (or have mapped something to be) the <b>
+ * <code>Compose</code></b> key for taking the composite of several keystrokes
+ * to generate special characters. Just remember that Keyvals are <i>key</i>
+ * constants, not constants for every <i>unicode</i> character and you'll keep
+ * things straight.
  * 
  * <p>
- * <i>GDK deals with keyvals exclusively as <code>int</code>s, and there
- * are over 1700 of them. Most of these "keys" are ridiculous or apply to
- * hardware that has long since ceased to exist. We've deliberately
- * constrained this class to a narrow range; experience in 2.x showed that
- * even mighty Eclipse chokes when asked to complete from a list that big.
- * This leads us to two consequences. 1) Constants will be registered for
- * keyvals encountered that haven't been explicitly created here, so you don't
- * have to worry about some nasty RuntimeException kicking your ass. 2) You
- * can extend this Keyval class as necessary to create your own constants if
- * you need to. See</i> {@link KeypadKeyval} <i>for an example.</i>
+ * <i>GDK deals with keyvals exclusively as <code>int</code>s, and there are
+ * over 1700 of them. Most of these "keys" are ridiculous or apply to hardware
+ * that has long since ceased to exist. We've deliberately constrained this
+ * class to a narrow range; experience in 2.x showed that even mighty Eclipse
+ * chokes when asked to complete from a list that big. This leads us to two
+ * consequences. 1) Constants will be registered for keyvals encountered that
+ * haven't been explicitly created here, so you don't have to worry about some
+ * nasty RuntimeException kicking your ass. 2) You can extend this Keyval
+ * class as necessary to create your own constants if you need to. See</i>
+ * {@link KeypadKeyval} <i>for an example.</i>
  * 
  * @author Andrew Cowie
  * @since 4.0.6
@@ -159,7 +181,41 @@ public class Keyval extends Constant
 
     public static final Keyval BackSpace = new Keyval(0xff08, "BackSpace");
 
+    /**
+     * Normal indentation key.
+     * 
+     * <p>
+     * In normal GNOME user interface usage, this is used to move the keyboard
+     * focus forwards from one Widget to the next. In text documents, however,
+     * <b><code>Tab</code></b> is typically used to insert a <code>'\t'</code>
+     * character.
+     * 
+     * <p>
+     * Be aware that on a standard GNOME desktop, <b><code>Alt+Tab</code></b>
+     * is captured by the window manager used to change between applications,
+     * so you likely won't receive it.
+     */
     public static final Keyval Tab = new Keyval(0xff09, "Tab");
+
+    /**
+     * Reverse indentation key.
+     * 
+     * <p>
+     * This occurs on when you type <b> <code>Shift+Tab</code></b>. Normal
+     * (forward) indentation keystrokes are the {@link #Tab Tab} Keyval.
+     * 
+     * <p>
+     * Backwards movement by an indent is a legacy from the age of
+     * typewriters, and not used in text entry today. The <b>
+     * <code>Shift+Tab</code></b> sequence is, however, used in GNOME to move
+     * the keyboard focus one Widget back.
+     * 
+     * @since 4.0.14
+     */
+    /*
+     * This is ISO_Left_Tab
+     */
+    public static final Keyval BackTab = new Keyval(0xfe20, "BackTab");
 
     public static final Keyval Return = new Keyval(0xff0d, "Return");
 
@@ -172,6 +228,17 @@ public class Keyval extends Constant
     public static final Keyval Escape = new Keyval(0xff1b, "Escape");
 
     public static final Keyval Delete = new Keyval(0xffff, "Delete");
+
+    /**
+     * The <b><code>Compose</code></b> used to create high order characters
+     * from pressing tis plus certain following key sequences.
+     * 
+     * @since 4.0.11
+     */
+    /*
+     * This is GDK_Multi_key
+     */
+    public static final Keyval Compose = new Keyval(0xff20, "Compose");
 
     public static final Keyval Home = new Keyval(0xff50, "Home");
 
@@ -230,6 +297,10 @@ public class Keyval extends Constant
     public static final Keyval ControlLeft = new Keyval(0xffe3, "ControlLeft");
 
     public static final Keyval ControlRight = new Keyval(0xffe4, "ControlRight");
+
+    public static final Keyval SuperLeft = new Keyval(0xffeb, "SuperLeft");
+
+    public static final Keyval SuperRight = new Keyval(0xffec, "SuperRight");
 
     public static final Keyval CapsLock = new Keyval(0xffe5, "CapsLock");
 

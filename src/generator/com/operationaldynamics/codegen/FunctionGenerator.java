@@ -1,13 +1,21 @@
 /*
- * FunctionGenerator.java
+ * java-gnome, a UI library for writing GTK and GNOME programs from Java!
  *
- * Copyright (c) 2007-2008 Operational Dynamics Consulting Pty Ltd
- * Copyright (c) 2007-2008 Vreixo Formoso
- * 
- * The code in this file, and the program it is a part of, are made available
- * to you by the authors under the terms of the "GNU General Public Licence,
- * version 2" See the LICENCE file for the terms governing usage and
- * redistribution.
+ * Copyright © 2007-2010 Operational Dynamics Consulting, Pty Ltd
+ * Copyright © 2007-2008 Vreixo Formoso
+ *
+ * The code in this file, and the program it is a part of, is made available
+ * to you by its authors as open source software: you can redistribute it
+ * and/or modify it under the terms of the GNU General Public License version
+ * 2 ("GPL") as published by the Free Software Foundation.
+ *
+ * This program is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+ * FITNESS FOR A PARTICULAR PURPOSE. See the GPL for more details.
+ *
+ * You should have received a copy of the GPL along with this program. If not,
+ * see http://www.gnu.org/licenses/. The authors of this program may be
+ * contacted through http://java-gnome.sourceforge.net/.
  */
 package com.operationaldynamics.codegen;
 
@@ -31,7 +39,7 @@ public class FunctionGenerator extends Generator
     /**
      * The Thing describing the object we are generating code relative to.
      */
-    protected final ProxiedThing proxyType;
+    protected final Thing proxyType;
 
     /**
      * The name of the method that is exposed package visible to bindings
@@ -100,7 +108,7 @@ public class FunctionGenerator extends Generator
         super(data);
         final int len;
 
-        this.proxyType = (ProxiedThing) data.getType();
+        this.proxyType = data.getType();
 
         this.translationMethodName = toCamel(blockName);
 
@@ -115,8 +123,8 @@ public class FunctionGenerator extends Generator
          * have a varargs and will need to a) add a NULL sentinel to the arg
          * list, and b) chop this pseudo-parameter off the end of the array.
          * This is a bit ugly, but the alternative was adding a boolean to
-         * *every* Generator constructor. This is better: varargs *is* a
-         * parameter type, and one we may someday choose to deal with.
+         * every Generator constructor. This is better: varargs is a parameter
+         * type, and one we may someday choose to deal with.
          */
 
         if ((gParameters.length > 0) && ("...".equals(gParameters[gParameters.length - 1][0]))) {
@@ -560,10 +568,10 @@ public class FunctionGenerator extends Generator
         }
 
         /*
-         * When the function takes a GError** as a parameter, we need to check
-         * if the function has efectivelly thrown an error. After doing the
-         * needed clean-up, we check for that situation and throw an exception
-         * from JNI side.
+         * When the function takes a GError pointer as an out-parameter, we
+         * need to check if the function has efectivelly thrown an error.
+         * After doing the needed clean-up, we check for that situation and
+         * throw an exception from JNI side.
          */
         if (paramGError != null) {
             out.print("\n");
@@ -571,7 +579,7 @@ public class FunctionGenerator extends Generator
 
             out.print("\tif (" + paramGError + ") {\n");
 
-            out.print("\t\tbindings_java_throw_gerror(env, ");
+            out.print("\t\tbindings_java_throwGlibException(env, ");
             out.print(paramGError);
             out.print(");\n");
             out.print("\t\treturn");

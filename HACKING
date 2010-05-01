@@ -10,22 +10,50 @@ GETTING STARTED
 
 We are using Bazaar to manage our source code. More commonly known as `bzr`,
 it is an advanced third-generation Distributed Version [or Revision] Control
-System. It's a good idea to have a recent version (ie `bzr >= 1.6`).
+System. It's a good idea to have a recent version (ie `bzr >= 2.0`).
 
-If you're going to hack on the bindings, we recommend that you do the
-following:
+If you're going to hack seriously with, or on, java-gnome, we recommend the
+following sequence to checkout the source code:
 
-    $ bzr init-repo java-gnome
-    $ cd java-gnome
-    $ bzr checkout bzr://research.operationaldynamics.com/bzr/java-gnome/mainline
-    $ bzr branch mainline working
-    $ cd working
-    $ ./configure
-    $ make
+<a class="nav-white"
+href="bzr://research.operationaldynamics.com/bzr/java-gnome/mainline/">
 
-This will create two branches, a `java-gnome/mainline/`, which is a checkout
-that you can use to track upstream, and a `java-gnome/working/`, which is a
-full power branch. This second one is your playground. `:)`
+    $ cd ~/src/
+    $ bzr init-repository java-gnome/
+    $ cd java-gnome/
+    $ bzr checkout bzr://research.operationaldynamics.com/bzr/java-gnome/mainline/ mainline/
+    $ bzr branch mainline/ working/
+    $ cd working/
+    $ less README
+
+</a> 
+
+This will result in a local copy of '`mainline`' which you can use to track
+upstream and to diff against, and '`working`' as new branch for you to play
+with. `:)` The branch will be at (in this example)
+`~/src/java-gnome/working/`. All branches under `~/src/java-gnome/` will share
+storage of revisions, so you won't pay any penalty for creating as many
+branches as you like.
+
+If you are using Eclipse, we recommend creating a branch in your Workspace and
+using that to work on. This will allow you to relatively easily change
+branches while not screwing up all your launchers.
+
+    $ cd ~/workspace/
+    $ bzr checkout ~/src/java-gnome/working java-gnome
+    $ cd ~/workspace/java-gnome/
+    $ less README
+
+Doing it this way allows you to later do 
+
+    $ bzr switch some-other-branch
+
+to change between branches you have created with different lines of
+development. This works well, but is an advanced layout, so do experiement
+with it a bit if you aren't well versed in distributed version control
+practises.
+
+### And build!
 
 If you haven't already read them, see the instructions in the top level
 [`README`](README.html) for how to install from a source tarball and what
@@ -33,25 +61,26 @@ options you can supply to the `./configure` script.
 
 ### Why `bzr`?
 
-We chose Bazaar (Bazaar-NG, as it was briefly known) as the VCS for the
-Java bindings for GNOME because of its relative straight-forwardness and
-because of our faith in the ethos and extreme competence of its developers.
-Anyone experienced with the old world 1st generation centralized VCS tools like
-CVS or Subversion will be able to make sense of it and you can learn from
-there. Bazaar is constantly improving in performance terms, has a vibrant
-developer community, is widely portable. Most of all, the fact that the people
-hacking on `bzr` itself actually follow test-driven-development practises
-(their unit test suite has over 10,000 tests!) keeps them honest and
-conclusively biases in their favour.
+We chose Bazaar (Bazaar-NG, as it was briefly known) as the VCS for the Java
+bindings for GNOME because of its relative straight-forwardness and because of
+our faith in the ethos and extreme competence of its developers.  Anyone
+experienced with the old world 1st generation centralized VCS tools like CVS
+or Subversion will be able to make sense of it and you can learn from there.
+Bazaar is constantly improving in performance terms, has a vibrant developer
+community, is widely portable. Most of all, the fact that the people hacking
+on `bzr` itself actually follow test-driven-development practises (their unit
+test suite has over 15,000 tests!) keeps them honest and conclusively biases
+in their favour.
 
-In production use for the last two years, we have found Bazaar to be reliable,
+In production use for the last three years, we have found Bazaar to be reliable,
 amazingly easy for newcomers to the Open Source world to learn, and a
 significant element in our effort to reduce barriers to entry.
 
 We reiterate that you must use a recent version of Bazaar. There is nothing
 intrinsically better about older software; bug fixes and performance
-improvements are not back-ported. If your operating system does not provide
-`>= 1.6` then you would do well to install `bzr` manually.
+improvements are not back-ported by the people who write the code; they
+release a new version instead. If your operating system does not provide `>=
+2.0` then you would do well to install `bzr` manually.
 
 2. Do your own thing!
 ---------------------
@@ -217,17 +246,26 @@ Maintainer,
 [java-gnome](http://java-gnome.sourceforge.net/4.0/),  
 opening GTK and GNOME to Java programmers!
 
-_Last modified 15 Aug 08_
+_Last modified 5 Feb 2010_
 
 <!--
-
-  Copyright (c) 2006-2008 Operational Dynamics Consulting Pty Ltd 
+ 
+  Copyright © 2006-2010 Operational Dynamics Consulting, Pty Ltd and Others
 
   As project documentation, this file forms an integral part of the source
-  code of the library it accompanies, and thus is made available to you by the
-  authors under the terms of the "GNU General Public Licence, version 2". See
-  the LICENCE file for the terms governing usage, copying and redistribution.
+  code of the library it accompanies, and thus is made available to you by its
+  authors as open source software: you can redistribute it and/or modify it
+  under the terms of the GNU General Public License version 2 ("GPL") as
+  published by the Free Software Foundation.
 
-  vim: set textwidth=78 nowrap:
+  This program is distributed in the hope that it will be useful, but WITHOUT
+  ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+  FITNESS FOR A PARTICULAR PURPOSE. See the GPL for more details.
+
+  You should have received a copy of the GPL along with this program. If not,
+  see http://www.gnu.org/licenses/. The authors of this program may be
+  contacted through http://java-gnome.sourceforge.net/.
+
+  vim: set textwidth=78:
 
 -->

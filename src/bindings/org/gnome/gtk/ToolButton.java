@@ -1,13 +1,34 @@
 /*
- * ToolButton.java
+ * java-gnome, a UI library for writing GTK and GNOME programs from Java!
  *
- * Copyright (c) 2007-2008 Operational Dynamics Consulting Pty Ltd, and Others
+ * Copyright © 2007-2010 Operational Dynamics Consulting, Pty Ltd and Others
  *
- * The code in this file, and the library it is a part of, are made available
- * to you by the authors under the terms of the "GNU General Public Licence,
- * version 2" plus the "Classpath Exception" (you may link to this code as a
- * library into other programs provided you don't make a derivation of it).
- * See the LICENCE file for the terms governing usage and redistribution.
+ * The code in this file, and the program it is a part of, is made available
+ * to you by its authors as open source software: you can redistribute it
+ * and/or modify it under the terms of the GNU General Public License version
+ * 2 ("GPL") as published by the Free Software Foundation.
+ *
+ * This program is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+ * FITNESS FOR A PARTICULAR PURPOSE. See the GPL for more details.
+ *
+ * You should have received a copy of the GPL along with this program. If not,
+ * see http://www.gnu.org/licenses/. The authors of this program may be
+ * contacted through http://java-gnome.sourceforge.net/.
+ *
+ * Linking this library statically or dynamically with other modules is making
+ * a combined work based on this library. Thus, the terms and conditions of
+ * the GPL cover the whole combination. As a special exception (the
+ * "Claspath Exception"), the copyright holders of this library give you
+ * permission to link this library with independent modules to produce an
+ * executable, regardless of the license terms of these independent modules,
+ * and to copy and distribute the resulting executable under terms of your
+ * choice, provided that you also meet, for each linked independent module,
+ * the terms and conditions of the license of that module. An independent
+ * module is a module which is not derived from or based on this library. If
+ * you modify this library, you may extend the Classpath Exception to your
+ * version of the library, but you are not obligated to do so. If you do not
+ * wish to do so, delete this exception statement from your version.
  */
 package org.gnome.gtk;
 
@@ -84,13 +105,13 @@ public class ToolButton extends ToolItem
     }
 
     /**
-     * Get the text Label previously set with
-     * {@link #setLabel(String) setLabel()}.
+     * Get the text Label previously set with {@link #setLabel(String)
+     * setLabel()}.
      * 
-     * @return The Label or <code>null</code> if not Label has been set.
-     *         Note that a <code>null</code> return value doesn't mean that
-     *         the ToolButton doesn't have a Label, as it can have a Widget
-     *         Label or a Label taken from a stock item.
+     * @return The Label or <code>null</code> if not Label has been set. Note
+     *         that a <code>null</code> return value doesn't mean that the
+     *         ToolButton doesn't have a Label, as it can have a Widget Label
+     *         or a Label taken from a stock item.
      */
     public String getLabel() {
         return GtkToolButton.getLabel(this);
@@ -110,15 +131,15 @@ public class ToolButton extends ToolItem
      * Widget as the label, and this method is how.
      * 
      * @param labelWidget
-     *            A Widget to be used as a Label, or <code>null</code> to
-     *            not use the Widget Label (in this case, the text Label will
-     *            be used. If the text Label is also <code>null</code>, the
+     *            A Widget to be used as a Label, or <code>null</code> to not
+     *            use the Widget Label (in this case, the text Label will be
+     *            used. If the text Label is also <code>null</code>, the
      *            default stock item label is used. In this later case, if
      *            this ToolButton has no stock item, then no Label will be
-     *            used at all). Note that if you <i>do</i> pass a non-<code>null</code>
-     *            Widget here, this argument will be used as the label despite
-     *            the text in the normal Label or one generated as a result of
-     *            using a stock item.
+     *            used at all). Note that if you <i>do</i> pass a non-
+     *            <code>null</code> Widget here, this argument will be used as
+     *            the label despite the text in the normal Label or one
+     *            generated as a result of using a stock item.
      */
     public void setLabelWidget(Widget labelWidget) {
         GtkToolButton.setLabelWidget(this, labelWidget);

@@ -1,15 +1,38 @@
 /*
- * Label.java
+ * java-gnome, a UI library for writing GTK and GNOME programs from Java!
  *
- * Copyright (c) 2006 Operational Dynamics Consulting Pty Ltd, and Others
- * 
- * The code in this file, and the library it is a part of, are made available
- * to you by the authors under the terms of the "GNU General Public Licence,
- * version 2" plus the "Classpath Exception" (you may link to this code as a
- * library into other programs provided you don't make a derivation of it).
- * See the LICENCE file for the terms governing usage and redistribution.
+ * Copyright © 2006-2010 Operational Dynamics Consulting, Pty Ltd and Others
+ *
+ * The code in this file, and the program it is a part of, is made available
+ * to you by its authors as open source software: you can redistribute it
+ * and/or modify it under the terms of the GNU General Public License version
+ * 2 ("GPL") as published by the Free Software Foundation.
+ *
+ * This program is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+ * FITNESS FOR A PARTICULAR PURPOSE. See the GPL for more details.
+ *
+ * You should have received a copy of the GPL along with this program. If not,
+ * see http://www.gnu.org/licenses/. The authors of this program may be
+ * contacted through http://java-gnome.sourceforge.net/.
+ *
+ * Linking this library statically or dynamically with other modules is making
+ * a combined work based on this library. Thus, the terms and conditions of
+ * the GPL cover the whole combination. As a special exception (the
+ * "Claspath Exception"), the copyright holders of this library give you
+ * permission to link this library with independent modules to produce an
+ * executable, regardless of the license terms of these independent modules,
+ * and to copy and distribute the resulting executable under terms of your
+ * choice, provided that you also meet, for each linked independent module,
+ * the terms and conditions of the license of that module. An independent
+ * module is a module which is not derived from or based on this library. If
+ * you modify this library, you may extend the Classpath Exception to your
+ * version of the library, but you are not obligated to do so. If you do not
+ * wish to do so, delete this exception statement from your version.
  */
 package org.gnome.gtk;
+
+import org.gnome.pango.EllipsizeMode;
 
 /**
  * A Widget that displays a small amount of text.
@@ -20,9 +43,11 @@ package org.gnome.gtk;
  * blocks that Menus and Buttons are made up of. All the difficult parts about
  * rendering text are taken care of here, such as text direction, fonts. And,
  * of course, you can enable them to allow their text to be copied.
+ * 
  * <p>
  * Labels can display normal text or text that has been formatted with Pango
  * markup. FIXME with a reference to our Pango guide page.
+ * 
  * <p>
  * Although you can pack multiple lines into a Label, there does come a point
  * when the amount of text you're trying to show gets out of hand. At that
@@ -31,6 +56,7 @@ package org.gnome.gtk;
  * @author Andrew Cowie
  * @author Srichand Pendyala
  * @author Wouter Bolsterlee
+ * @author Guillaume Mazoyer
  * @since 4.0.1
  */
 public class Label extends Misc
@@ -55,12 +81,31 @@ public class Label extends Misc
     }
 
     /**
+     * Create an empty Label. You'll need to call {@link #setLabel(String)
+     * setLabel()} to place some text it.
+     * 
+     * @since 4.0.11
+     */
+    public Label() {
+        super(GtkLabel.createLabel(null));
+    }
+
+    /**
      * Set the text showing in the Label.
      * 
-     * @param text
-     *            If the Label has been told to interpret Pango markup with
-     *            {@link #setUseMarkup(boolean) setUseMarkup(true)}, then any
-     *            markup included in text will be interpreted as such.
+     * 
+     * If the Label has been told to interpret Pango markup with
+     * {@link #setUseMarkup(boolean) setUseMarkup(true)}, then any markup
+     * included in text will be interpreted as such.
+     * 
+     * <p>
+     * <b>WARNING</b>:<br>
+     * If you have enabled <var>use-markup</var> (as is often the case),
+     * beware that you must escape whatever you to this method (like you would
+     * for feeding user data to any other XML or HTML like target). This
+     * specifically means you need to convert <code>&amp;</code> into
+     * <code>&amp;amp;</code> and likewise for angle brackets.
+     * 
      * @since 4.0.1
      */
     public void setLabel(String text) {
@@ -84,8 +129,8 @@ public class Label extends Misc
      * away. This is useful if you've applied some fancy formatting but just
      * want to find out the actual words that appear to the user. It also
      * strips away any embedded underlines indicating mnemonics. If you need
-     * the raw text including markup, then you want
-     * {@link #getLabel() getLabel()}.
+     * the raw text including markup, then you want {@link #getLabel()
+     * getLabel()}.
      * 
      * @since 4.0.1
      */
@@ -119,6 +164,25 @@ public class Label extends Misc
      */
     public boolean getUseMarkup() {
         return GtkLabel.getUseMarkup(this);
+    }
+
+    /**
+     * Set the {@link EllipsizeMode ellipsization mode} to use to make the
+     * text fits the label width.
+     * 
+     * @since 4.0.13
+     */
+    public void setEllipsize(EllipsizeMode setting) {
+        GtkLabel.setEllipsize(this, setting);
+    }
+
+    /**
+     * Get the current ellipsization used.
+     * 
+     * @since 4.0.13
+     */
+    public EllipsizeMode getEllipsizeMode() {
+        return GtkLabel.getEllipsize(this);
     }
 
     /**
@@ -162,21 +226,21 @@ public class Label extends Misc
 
     /**
      * Sets the justification of the text within the Label. The default is
-     * {@link Justification#LEFT LEFT}. Note that this has no effect on
-     * Labels only containing a single line of text.
+     * {@link Justification#LEFT LEFT}. Note that this has no effect on Labels
+     * only containing a single line of text.
      * 
      * <p>
      * If you're trying to control the positioning of the Label within its
-     * parent, see Misc's
-     * {@link Misc#setAlignment(float,float) setAlignment()}.
+     * parent, see Misc's {@link Misc#setAlignment(float,float)
+     * setAlignment()}.
      * 
      * @since 4.0.4
      */
     /*
      * TODO Advise developer to setLineWrap(true)?
      */
-    public void setJustify(Justification justification) {
-        GtkLabel.setJustify(this, justification);
+    public void setJustify(Justification setting) {
+        GtkLabel.setJustify(this, setting);
     }
 
     /**
@@ -210,25 +274,23 @@ public class Label extends Misc
 
     /**
      * Set a maximum width for the Label, in characters. This will allow the
-     * Label to dynamically size up to a maximum of <code>width</code> but
-     * not to expand beyond that point. This is useful in conjunction with
-     * turning
-     * {@link Label#setEllipsize(org.gnome.pango.EllipsizeMode) setEllipsize()}
-     * on.
+     * Label to dynamically size up to a maximum of <code>width</code> but not
+     * to expand beyond that point. This is useful in conjunction with turning
+     * {@link Label#setEllipsize(org.gnome.pango.EllipsizeMode)
+     * setEllipsize()} on.
      * 
      * <p>
      * This sets the <var>max-width-chars</var> property.
      * 
      * <p>
      * <b>Warning</b>: If a value greater than <code>-1</code> has been
-     * explicitly set as the width using
-     * {@link #setWidthChars(int) setWidthChars()}, setting this property
-     * will have no effect.
+     * explicitly set as the width using {@link #setWidthChars(int)
+     * setWidthChars()}, setting this property will have no effect.
      * 
      * @param width
      *            The width you wish to truncate the Label at, in characters.
-     *            A value of <code>-1</code> to remove the override and
-     *            return the Label to automatic sizing.
+     *            A value of <code>-1</code> to remove the override and return
+     *            the Label to automatic sizing.
      * @since 4.0.4
      */
     public void setMaxWidthChars(int width) {
@@ -237,9 +299,9 @@ public class Label extends Misc
 
     /**
      * Select a region of the text in this Label. The characters between
-     * <code>start</code> up to <i>but not including</i> <code>end</code>
-     * will be selected. This assumes that the Label has been made selectable
-     * with {@link #setSelectable(boolean) setSelectable(true)}.
+     * <code>start</code> up to <i>but not including</i> <code>end</code> will
+     * be selected. This assumes that the Label has been made selectable with
+     * {@link #setSelectable(boolean) setSelectable(true)}.
      * 
      * @param end
      *            If negative, then the selection will be from
@@ -279,5 +341,23 @@ public class Label extends Misc
     public void setLineWrap(boolean setting) {
         GtkLabel.setLineWrap(this, setting);
 
+    }
+
+    /**
+     * Set whether underscores will be interpreted as signifying that the next
+     * character should be drawn with an underline, thereby creating the
+     * visual effect of a mnemonic.
+     * 
+     * For example, with this set to <code>true</code>, text of the form
+     * <code>&quot;Op_en a copy&quot;</code> will result in
+     * <blockquote>Op<u>e</u>n a copy</blockquote>
+     * 
+     * <p>
+     * The default is <code>false</code>.
+     * 
+     * @since 4.0.11
+     */
+    public void setUseUnderline(boolean setting) {
+        GtkLabel.setUseUnderline(this, setting);
     }
 }

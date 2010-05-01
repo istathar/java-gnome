@@ -1,13 +1,34 @@
 /*
- * Button.java
+ * java-gnome, a UI library for writing GTK and GNOME programs from Java!
  *
- * Copyright (c) 2006-2008 Operational Dynamics Consulting Pty Ltd, and Others
- * 
- * The code in this file, and the library it is a part of, are made available
- * to you by the authors under the terms of the "GNU General Public Licence,
- * version 2" plus the "Classpath Exception" (you may link to this code as a
- * library into other programs provided you don't make a derivation of it).
- * See the LICENCE file for the terms governing usage and redistribution.
+ * Copyright © 2006-2010 Operational Dynamics Consulting, Pty Ltd and Others
+ *
+ * The code in this file, and the program it is a part of, is made available
+ * to you by its authors as open source software: you can redistribute it
+ * and/or modify it under the terms of the GNU General Public License version
+ * 2 ("GPL") as published by the Free Software Foundation.
+ *
+ * This program is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+ * FITNESS FOR A PARTICULAR PURPOSE. See the GPL for more details.
+ *
+ * You should have received a copy of the GPL along with this program. If not,
+ * see http://www.gnu.org/licenses/. The authors of this program may be
+ * contacted through http://java-gnome.sourceforge.net/.
+ *
+ * Linking this library statically or dynamically with other modules is making
+ * a combined work based on this library. Thus, the terms and conditions of
+ * the GPL cover the whole combination. As a special exception (the
+ * "Claspath Exception"), the copyright holders of this library give you
+ * permission to link this library with independent modules to produce an
+ * executable, regardless of the license terms of these independent modules,
+ * and to copy and distribute the resulting executable under terms of your
+ * choice, provided that you also meet, for each linked independent module,
+ * the terms and conditions of the license of that module. An independent
+ * module is a module which is not derived from or based on this library. If
+ * you modify this library, you may extend the Classpath Exception to your
+ * version of the library, but you are not obligated to do so. If you do not
+ * wish to do so, delete this exception statement from your version.
  */
 package org.gnome.gtk;
 
@@ -23,17 +44,17 @@ package org.gnome.gtk;
  * Since Button is a Bin it strictly only has one child. Internally, however,
  * it may have both an icon image and some text (which is the look commonly
  * seen in the action buttons in Dialog boxes). You can add such an image to a
- * Button by calling {@link #setImage(Image) setImage()}; this works
- * alongside and with {@link #setLabel(String) setLabel()}. The machinery
- * within Button will manage creating the necessary internal structure
- * (HBoxes, Alignments, etc).
+ * Button by calling {@link #setImage(Image) setImage()}; this works alongside
+ * and with {@link #setLabel(String) setLabel()}. The machinery within Button
+ * will manage creating the necessary internal structure (HBoxes, Alignments,
+ * etc).
  * 
  * @author Andrew Cowie
  * @author Vreixo Formoso
  * @author Mario Torre
  * @since 4.0.0
  */
-public class Button extends Bin
+public class Button extends Bin implements Activatable
 {
     protected Button(long pointer) {
         super(pointer);
@@ -95,12 +116,11 @@ public class Button extends Bin
      * Set the text showing in the Button.
      * 
      * <p>
-     * If you created an empty Button without a Label using
-     * {@link #Button() Button()}, this will create a Label nested in an
-     * Alignment for you. That <i>won't</i> work if you create an empty
-     * Button then put a custom Widget in place with
-     * {@link Container#add(Widget) add()} instead of employing this method
-     * and/or {@link #setImage(Image) setImage()}).
+     * If you created an empty Button without a Label using {@link #Button()
+     * Button()}, this will create a Label nested in an Alignment for you.
+     * That <i>won't</i> work if you create an empty Button then put a custom
+     * Widget in place with {@link Container#add(Widget) add()} instead of
+     * employing this method and/or {@link #setImage(Image) setImage()}).
      * 
      * @since 4.0.0
      */
@@ -227,24 +247,24 @@ public class Button extends Bin
      * <p>
      * In general, the way that java-gnome is intended to be used is for you
      * to create an anonymous inner class right where you call the
-     * <code>connect()</code> method to hook up the signal. A typical
-     * example is as follows:
+     * <code>connect()</code> method to hook up the signal. A typical example
+     * is as follows:
      * 
      * <pre>
      * final Button b;
-     *              
+     * 
      * b.connect(new Button.Clicked() {
      *     public void onClicked(Button source) {
-     *         // do something!
+     *         doSomething();
      *     }
      * }
      * </pre>
      * 
      * This is the form we recommend; it has the advantage that your handler
      * code is close to the code that declares and configures the Widget.
-     * Also, if variables are declared <code>final</code> then you can
-     * access them from within the nested anonymous class, and that makes
-     * things easy indeed.
+     * Also, if variables are declared <code>final</code> then you can access
+     * them from within the nested anonymous class, and that makes things easy
+     * indeed.
      * 
      * <h3>Using a concrete instance</h3>
      * 
@@ -264,7 +284,7 @@ public class Button extends Bin
      *     }
      * 
      *     public void onClicked(Button source) {
-     *     // do something very complex with field!
+     *         doSomethingVeryComplicatedWith(field);
      *     }
      * }
      * </pre>
@@ -322,9 +342,9 @@ public class Button extends Bin
     }
 
     /**
-     * Hook up a handler to receive <code>Button.Clicked</code> events on
-     * this Button. See {@link Button.Clicked} for a detailed discussion of
-     * how to connect signals.
+     * Hook up a handler to receive <code>Button.Clicked</code> events on this
+     * Button. See {@link Button.Clicked} for a detailed discussion of how to
+     * connect signals.
      * 
      * @since 4.0.0
      */
@@ -374,5 +394,13 @@ public class Button extends Bin
      */
     public void setFocusOnClick(boolean setting) {
         GtkButton.setFocusOnClick(this, setting);
+    }
+
+    public void setRelatedAction(Action action) {
+        GtkActivatable.setRelatedAction(this, action);
+    }
+
+    public Action getRelatedAction() {
+        return GtkActivatable.getRelatedAction(this);
     }
 }

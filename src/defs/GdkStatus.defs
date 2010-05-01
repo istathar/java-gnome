@@ -1,4 +1,5 @@
 (define-enum Status
+  (unnecessary)
   (in-module "Gdk")
   (c-name "GdkStatus")
   (gtype-id "GDK_TYPE_STATUS")

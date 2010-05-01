@@ -1,13 +1,34 @@
 /*
- * TextIter.java
+ * java-gnome, a UI library for writing GTK and GNOME programs from Java!
  *
- * Copyright (c) 2007-2008 Operational Dynamics Consulting Pty Ltd, and Others
+ * Copyright © 2007-2010 Operational Dynamics Consulting, Pty Ltd and Others
  *
- * The code in this file, and the library it is a part of, are made available
- * to you by the authors under the terms of the "GNU General Public Licence,
- * version 2" plus the "Classpath Exception" (you may link to this code as a
- * library into other programs provided you don't make a derivation of it).
- * See the LICENCE file for the terms governing usage and redistribution.
+ * The code in this file, and the program it is a part of, is made available
+ * to you by its authors as open source software: you can redistribute it
+ * and/or modify it under the terms of the GNU General Public License version
+ * 2 ("GPL") as published by the Free Software Foundation.
+ *
+ * This program is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+ * FITNESS FOR A PARTICULAR PURPOSE. See the GPL for more details.
+ *
+ * You should have received a copy of the GPL along with this program. If not,
+ * see http://www.gnu.org/licenses/. The authors of this program may be
+ * contacted through http://java-gnome.sourceforge.net/.
+ *
+ * Linking this library statically or dynamically with other modules is making
+ * a combined work based on this library. Thus, the terms and conditions of
+ * the GPL cover the whole combination. As a special exception (the
+ * "Claspath Exception"), the copyright holders of this library give you
+ * permission to link this library with independent modules to produce an
+ * executable, regardless of the license terms of these independent modules,
+ * and to copy and distribute the resulting executable under terms of your
+ * choice, provided that you also meet, for each linked independent module,
+ * the terms and conditions of the license of that module. An independent
+ * module is a module which is not derived from or based on this library. If
+ * you modify this library, you may extend the Classpath Exception to your
+ * version of the library, but you are not obligated to do so. If you do not
+ * wish to do so, delete this exception statement from your version.
  */
 package org.gnome.gtk;
 
@@ -101,8 +122,8 @@ public final class TextIter extends Boxed
      * If you have a given offset, you can use the TextBuffer
      * {@link TextBuffer#getIter(int) getIter()} method taking an
      * <code>int</code> to convert it into an TreeIter. If you want to move
-     * this TreeIter to a given offset, then call
-     * {@link #setOffset(int) setOffset()}.
+     * this TreeIter to a given offset, then call {@link #setOffset(int)
+     * setOffset()}.
      * 
      * @return A character offset from the start of the TextBuffer.
      * @since 4.0.9
@@ -130,10 +151,9 @@ public final class TextIter extends Boxed
      * TextBuffer, where lines are split by newline characters. Most of the
      * time TextViews are set to wrap lines and thus a single very long line
      * will be presented visually as a paragraph (there is no definition of
-     * paragraph in TextBuffer terms). If you're wondering about where the
+     * paragraph in TextBuffer terms). If you're wondering about where a
      * position (the cursor, say) is down into a TextView widget, then see
-     * TextView's
-     * {@link TextView#startsDisplayLine(TextIter) startsDisplayLine()} and
+     * {@link #startsDisplayLine(TextView) startsDisplayLine()} and other
      * related "<code>display</code>" methods.
      * 
      * @since 4.0.9
@@ -162,10 +182,10 @@ public final class TextIter extends Boxed
      * <code>0</code>.
      * 
      * <p>
-     * <i> This is, in essence, a <code>getColumn()</code> method, but
-     * beware that the number of characters you are into a given line in a
-     * TextBuffer will only correspond to the column position on screen if the
-     * presenting TextView is not wrapping lines.</i>
+     * <i> This is, in essence, a <code>getColumn()</code> method, but beware
+     * that the number of characters you are into a given line in a TextBuffer
+     * will only correspond to the column position on screen if the presenting
+     * TextView is not wrapping lines.</i>
      * 
      * @since 4.0.9
      */
@@ -224,14 +244,23 @@ public final class TextIter extends Boxed
      * Get the character immediately following the position this TextIter is
      * pointing at.
      * 
-     * @return A <code>char</code> value of
-     *         {@link TextBuffer#OBJECT_REPLACEMENT_CHARACTER OBJECT_REPLACEMENT_CHARACTER}
-     *         indicates a non-character element (an embedded Pixbuf or
-     *         Widget). You'll get <code>0</code> (not <code>'0'</code>)
-     *         if this TextIter is already at the TextBuffer's end.
-     * @since 4.0.9
+     * <p>
+     * TextBuffers work in characters, and so this method too returns a
+     * Unicode codepoint. Beware, of course if you are used to working with
+     * Java's 2-byte <code>char</code> type that you have to use
+     * StringBuffer's appendCodePoint(int) instead of append(char).
+     * 
+     * <p>
+     * An <code>int</code> value of
+     * {@link TextBuffer#OBJECT_REPLACEMENT_CHARACTER
+     * OBJECT_REPLACEMENT_CHARACTER} indicates a non-character element (an
+     * embedded Pixbuf or Widget). You'll get <code>0</code> (ie
+     * <code>'\0'</code>, not <code>'0'</code>) if this TextIter is already at
+     * the TextBuffer's end.
+     * 
+     * @since 4.0.13
      */
-    public char getChar() {
+    public int getChar() {
         return GtkTextIter.getChar(this);
     }
 
@@ -244,8 +273,8 @@ public final class TextIter extends Boxed
      * Keep in mind that a line in the TextBuffer may well be wrapped when
      * displayed onscreen in a TextView as the several lines comprising a
      * paragraph; to move forward such a displayed line (ie <i>within</i> a
-     * paragraph) use
-     * {@link #forwardDisplayLine(TextView) forwardDisplayLine()}.
+     * paragraph) use {@link #forwardDisplayLine(TextView)
+     * forwardDisplayLine()}.
      * 
      * @since 4.0.9
      */
@@ -324,7 +353,18 @@ public final class TextIter extends Boxed
      * points to. If there are none present here then a zero length array will
      * be returned.
      * 
+     * <p>
+     * <i>GTK maintains a number of TextMarks internally in each TextBuffer
+     * for its own purposes (even over and above <var>selection-bound</var>
+     * and <var>insert</var>), proxies of which will get returned along with
+     * any TextMarks you've put there. So this method isn't quite as useful as
+     * one might like it to be.</i>
+     * 
      * @since 4.0.9
+     */
+    /*
+     * TODO wouldn't it be cool if we could filter the internal ones out and
+     * only return user created TextMarks?
      */
     public TextMark[] getMarks() {
         return GtkTextIter.getMarks(this);
@@ -403,10 +443,10 @@ public final class TextIter extends Boxed
 
     /**
      * Check if text at the current position is editable. This is the case if
-     * the default editability is <code>true</code> or the TextIter is
-     * within or at the start of an editable block. If the TextIter is at the
-     * end of an editable block (which is also the star of a non-editable
-     * area), this method returns <code>false</code>.
+     * the default editability is <code>true</code> or the TextIter is within
+     * or at the start of an editable block. If the TextIter is at the end of
+     * an editable block (which is also the star of a non-editable area), this
+     * method returns <code>false</code>.
      * 
      * @since 4.0.9
      */
@@ -476,8 +516,8 @@ public final class TextIter extends Boxed
     }
 
     /**
-     * Returns <code>true</code> if the TextIter points to the first
-     * character of a sentence.
+     * Returns <code>true</code> if the TextIter points to the first character
+     * of a sentence.
      * 
      * @since 4.0.9
      */
@@ -486,9 +526,9 @@ public final class TextIter extends Boxed
     }
 
     /**
-     * Returns <code>true</code> if the TextIter points to the last sign
-     * that does not belong to the sentence - usually the first whitespace,
-     * since e.g. dots belong to a sentence.
+     * Returns <code>true</code> if the TextIter points to the last sign that
+     * does not belong to the sentence - usually the first whitespace, since
+     * e.g. dots belong to a sentence.
      * 
      * @since 4.0.9
      */
@@ -551,8 +591,8 @@ public final class TextIter extends Boxed
      * remain there.
      * 
      * @return <code>true</code>, if the offset was decreased or
-     *         <code>false</code> if the TextIter already pointed to the
-     *         start of the TextBuffer.
+     *         <code>false</code> if the TextIter already pointed to the start
+     *         of the TextBuffer.
      * 
      * @since 4.0.9
      */
@@ -564,9 +604,15 @@ public final class TextIter extends Boxed
      * Increase the character offset by 1. If already at the last character,
      * remain there.
      * 
-     * @return <code>true</code>, if the offset was increased or
-     *         <code>false</code> if the TextIter already pointed to the end
-     *         of the TextBuffer.
+     * <p>
+     * The method returns <code>true</code>, if the offset was increased or
+     * <code>false</code> if the TextIter already pointed to the end of the
+     * TextBuffer <i>or one character before the end</i>.
+     * 
+     * <p>
+     * If iterating character by character over a TextBuffer, you probably
+     * want to use {@link #isEnd() isEnd()} and if not at the end call this
+     * (and ignore its return value).
      * 
      * @since 4.0.9
      */
@@ -575,11 +621,10 @@ public final class TextIter extends Boxed
     }
 
     /**
-     * Reduce the character offset by <code>count</code>. If this would
-     * point to a negative offset, point to the start of the TextBuffer.
+     * Reduce the character offset by <code>count</code>. If this would point
+     * to a negative offset, point to the start of the TextBuffer.
      * 
-     * @return <code>true</code> if the position changed because of this
-     *         call.
+     * @return <code>true</code> if the position changed because of this call.
      * 
      * @since 4.0.9
      */
@@ -592,8 +637,7 @@ public final class TextIter extends Boxed
      * point to a position behind the buffers end, point to the end of the
      * TextBuffer.
      * 
-     * @return <code>true</code> if the position changed because of this
-     *         call.
+     * @return <code>true</code> if the position changed because of this call.
      * 
      * @since 4.0.9
      */
@@ -642,12 +686,21 @@ public final class TextIter extends Boxed
      * TextIter.</i>
      * 
      * @return <code>true</code> if the location the TextIter points at was
-     *         changed; that is, if <code>pointer</code> is not yet at the
-     *         end of the underlying TextBuffer.
+     *         changed; that is, if <code>pointer</code> is not yet at the end
+     *         of the underlying TextBuffer.
      * @since 4.0.9
      */
     public boolean forwardDisplayLine(TextView view) {
         return GtkTextView.forwardDisplayLine(view, this);
+    }
+
+    /**
+     * Move forward to the end of this <i>display</i> line.
+     * 
+     * @since 4.0.14
+     */
+    public boolean forwardDisplayLineEnd(TextView view) {
+        return GtkTextView.forwardDisplayLineEnd(view, this);
     }
 
     /**
@@ -660,5 +713,24 @@ public final class TextIter extends Boxed
      */
     public boolean backwardDisplayLine(TextView view) {
         return GtkTextView.backwardDisplayLine(view, this);
+    }
+
+    /**
+     * Move backward to the start of this <i>display</i> line.
+     * 
+     * @since 4.0.14
+     */
+    public boolean backwardDisplayLineStart(TextView view) {
+        return GtkTextView.backwardDisplayLineStart(view, this);
+    }
+
+    /**
+     * Does the position represented by this TextIter start a display line
+     * (within a paragraph) in the given TextView?
+     * 
+     * @since 4.0.9
+     */
+    public boolean startsDisplayLine(TextView view) {
+        return GtkTextView.startsDisplayLine(view, this);
     }
 }

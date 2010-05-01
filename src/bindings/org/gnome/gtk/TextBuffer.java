@@ -1,20 +1,41 @@
 /*
- * TextBuffer.java
+ * java-gnome, a UI library for writing GTK and GNOME programs from Java!
  *
- * Copyright (c) 2007-2008 Operational Dynamics Consulting Pty Ltd, and Others
+ * Copyright © 2007-2010 Operational Dynamics Consulting, Pty Ltd and Others
  *
- * The code in this file, and the library it is a part of, are made available
- * to you by the authors under the terms of the "GNU General Public Licence,
- * version 2" plus the "Classpath Exception" (you may link to this code as a
- * library into other programs provided you don't make a derivation of it).
- * See the LICENCE file for the terms governing usage and redistribution.
+ * The code in this file, and the program it is a part of, is made available
+ * to you by its authors as open source software: you can redistribute it
+ * and/or modify it under the terms of the GNU General Public License version
+ * 2 ("GPL") as published by the Free Software Foundation.
+ *
+ * This program is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+ * FITNESS FOR A PARTICULAR PURPOSE. See the GPL for more details.
+ *
+ * You should have received a copy of the GPL along with this program. If not,
+ * see http://www.gnu.org/licenses/. The authors of this program may be
+ * contacted through http://java-gnome.sourceforge.net/.
+ *
+ * Linking this library statically or dynamically with other modules is making
+ * a combined work based on this library. Thus, the terms and conditions of
+ * the GPL cover the whole combination. As a special exception (the
+ * "Claspath Exception"), the copyright holders of this library give you
+ * permission to link this library with independent modules to produce an
+ * executable, regardless of the license terms of these independent modules,
+ * and to copy and distribute the resulting executable under terms of your
+ * choice, provided that you also meet, for each linked independent module,
+ * the terms and conditions of the license of that module. An independent
+ * module is a module which is not derived from or based on this library. If
+ * you modify this library, you may extend the Classpath Exception to your
+ * version of the library, but you are not obligated to do so. If you do not
+ * wish to do so, delete this exception statement from your version.
  */
 package org.gnome.gtk;
 
+import java.util.Collection;
+
 import org.gnome.gdk.Pixbuf;
 import org.gnome.glib.Object;
-
-import static org.gnome.gtk.TextTagTable.getDefaultTable;
 
 /**
  * A TextBuffer is a powerful mechanism for storing and manipulating text. It
@@ -93,18 +114,18 @@ import static org.gnome.gtk.TextTagTable.getDefaultTable;
  * Although trivial, this raises a pitfall you need to be aware of: lines of
  * text in a TextBuffer are <i>not</i> the same as wrapped visible lines in a
  * TextView. Lines in a TextBuffer are a sequences of characters separated by
- * newlines (you don't need a <code>'\n'</code> at the end of the
- * TextBuffer; the end is an implicit line termination). When presented in a
- * TextView with word wrapping enabled, however, each of these lines may take
- * up more than one line on the screen. The term paragraph is used there; see
+ * newlines (you don't need a <code>'\n'</code> at the end of the TextBuffer;
+ * the end is an implicit line termination). When presented in a TextView with
+ * word wrapping enabled, however, each of these lines may take up more than
+ * one line on the screen. The term paragraph is used there; see
  * {@link TextIter#forwardDisplayLine(TextView) forwardDisplayLine()} to move
  * a TextIter to the next displayed line within a paragraph as shown on screen
  * in a TextView.
  * 
  * <p>
  * Finally, formatting and other properties can be set on ranges of text. See
- * {@link TextTag}. While these are mostly about visual presentation, they
- * are nevertheless set by applying TextTags to text in the TextBuffer via the
+ * {@link TextTag}. While these are mostly about visual presentation, they are
+ * nevertheless set by applying TextTags to text in the TextBuffer via the
  * {@link #applyTag(TextTag, TextIter, TextIter) applyTag()} and
  * {@link #insert(TextIter, String, TextTag) insert()} methods here.
  * 
@@ -146,8 +167,32 @@ public class TextBuffer extends Object
      */
     public static final char OBJECT_REPLACEMENT_CHARACTER = 0xFFFC;
 
+    private static TextTagTable defaultTable;
+
+    /**
+     * We maintain a single default TextTagTable to facilitate no-arg
+     * convenience constructors for TextTag and TextBuffer. Get (and
+     * initialize if necessary) this table.
+     */
+    /*
+     * synchronized?
+     */
+    protected static TextTagTable getDefaultTable() {
+        if (defaultTable == null) {
+            defaultTable = new TextTagTable();
+        }
+        return defaultTable;
+    }
+
+    private final boolean usingDefaultTable;
+
     protected TextBuffer(long pointer) {
+        this(pointer, false);
+    }
+
+    protected TextBuffer(long pointer, boolean usingDefaultTable) {
         super(pointer);
+        this.usingDefaultTable = usingDefaultTable;
     }
 
     /**
@@ -164,7 +209,7 @@ public class TextBuffer extends Object
      * @since 4.0.9
      */
     public TextBuffer() {
-        super(GtkTextBuffer.createTextBuffer(getDefaultTable()));
+        this(GtkTextBuffer.createTextBuffer(getDefaultTable()), true);
     }
 
     /**
@@ -174,7 +219,7 @@ public class TextBuffer extends Object
      * @since 4.0.9
      */
     public TextBuffer(TextTagTable tags) {
-        super(GtkTextBuffer.createTextBuffer(tags));
+        this(GtkTextBuffer.createTextBuffer(tags), false);
     }
 
     /**
@@ -190,9 +235,9 @@ public class TextBuffer extends Object
      * Returns the text in the range <code>start</code> .. <code>end</code>.
      * Excludes undisplayed text (text marked with tags that set the
      * <var>invisibility</var> attribute) if <code>includeHidden</code> is
-     * <code>false</code>. Does not include characters representing
-     * embedded images, so indexes into the returned string do not correspond
-     * to indexes into the TextBuffer.
+     * <code>false</code>. Does not include characters representing embedded
+     * images, so indexes into the returned string do not correspond to
+     * indexes into the TextBuffer.
      * 
      * @since 4.0.9
      */
@@ -214,8 +259,8 @@ public class TextBuffer extends Object
 
     /**
      * Marks the content as changed. This is primarily used to <i>unset</i>
-     * this property, making it <code>false</code>. See
-     * {@link #getModified() getModified()} for details.
+     * this property, making it <code>false</code>. See {@link #getModified()
+     * getModified()} for details.
      * 
      * @since 4.0.9
      */
@@ -280,14 +325,14 @@ public class TextBuffer extends Object
      * Create a new TextMark at the position of the supplied TextIter.
      * 
      * <p>
-     * The <code>gravity</code> parameter is interesting. It specifies
-     * whether you want the TextMark to have left-gravity. If
-     * {@link TextMark#LEFT LEFT} (<code>true</code>), then the TextMark
-     * will remain pointing to the same location if text is inserted at this
-     * point. If {@link TextMark#RIGHT RIGHT} (<code>false</code>), then
-     * as text is inserted at this point the TextMark will move to the right.
-     * The standard behaviour of the blinking cursor we all stare at all day
-     * long following us as we type is an example of right-gravity.
+     * The <code>gravity</code> parameter is interesting. It specifies whether
+     * you want the TextMark to have left-gravity. If {@link TextMark#LEFT
+     * LEFT} (<code>true</code>), then the TextMark will remain pointing to
+     * the same location if text is inserted at this point. If
+     * {@link TextMark#RIGHT RIGHT} (<code>false</code>), then as text is
+     * inserted at this point the TextMark will move to the right. The
+     * standard behaviour of the blinking cursor we all stare at all day long
+     * following us as we type is an example of right-gravity.
      */
     public TextMark createMark(TextIter where, boolean gravity) {
         return GtkTextBuffer.createMark(this, null, where, gravity);
@@ -309,15 +354,89 @@ public class TextBuffer extends Object
 
     /**
      * Insert text as for {@link #insert(TextIter, String) insert()} but
-     * simultaneously apply the formatting described by <code>tag</code>.
-     * You can specify <code>null</code> TextTag if you actually want to
-     * skip applying formatting, but in that case you'd probably rather just
-     * use {@link #insert(TextIter, String) insert()}.
+     * simultaneously apply the formatting described by <code>tag</code>. You
+     * can specify <code>null</code> TextTag if you actually want to skip
+     * applying formatting, but in that case you'd probably rather just use
+     * {@link #insert(TextIter, String) insert()}.
      * 
      * @since 4.0.9
      */
     public void insert(TextIter position, String text, TextTag tag) {
+        checkTag(tag);
         GtkTextBuffer.insertWithTags(this, position, text, -1, tag);
+    }
+
+    /**
+     * Insert text at the given position, applying all of the tags specified.
+     * 
+     * @since 4.0.10
+     */
+    /*
+     * This essentially duplicates the logic in GTK's
+     * gtk_text_buffer_insert_with_tags().
+     */
+    public void insert(TextIter position, String text, TextTag[] tags) {
+        TextIter start;
+        int original;
+
+        original = position.getOffset();
+
+        GtkTextBuffer.insert(this, position, text, -1);
+
+        if (tags == null) {
+            return;
+        }
+
+        start = position.copy();
+        start.setOffset(original);
+
+        for (TextTag tag : tags) {
+            if (tag == null) {
+                continue;
+            }
+            checkTag(tag);
+            GtkTextBuffer.applyTag(this, tag, start, position);
+        }
+    }
+
+    /**
+     * Insert text at the given position, applying all of the tags specified.
+     * 
+     * <p>
+     * <i> Having an overload taking a generic is somewhat unusual in
+     * java-gnome, but people maintain a (fairly rapidly changing) List or Set
+     * with the TextTags they are currently inserting so frequently that we
+     * wanted to support this use case efficiently.</i>
+     * 
+     * @since 4.0.10
+     */
+    /*
+     * Not to mention that Collection to array conversion is one of the uglier
+     * idioms in Java. Yes, this is a copy of the code in other insert()
+     * method above; we want to save gratuitous unnecessary array creation.
+     */
+    public void insert(TextIter position, String text, Collection<TextTag> tags) {
+        final TextIter start;
+        final int original;
+
+        original = position.getOffset();
+
+        GtkTextBuffer.insert(this, position, text, -1);
+
+        if (tags == null) {
+            return;
+        }
+
+        start = position.copy();
+        start.setOffset(original);
+
+        for (TextTag tag : tags) {
+            if (tag == null) {
+                continue;
+            }
+            checkTag(tag);
+            GtkTextBuffer.applyTag(this, tag, start, position);
+        }
     }
 
     /**
@@ -330,10 +449,16 @@ public class TextBuffer extends Object
     }
 
     /**
-     * Like {@link #insert(TextIter, String) insert()}, but the insertion
-     * will not occur if <code>pos</code> points to a non-editable location
-     * in the buffer - meaning that it is enclosed in TextTags that mark the
-     * area non-editable.<br/>
+     * Like {@link #insert(TextIter, String) insert()}, but the insertion will
+     * not occur if <code>pos</code> points to a non-editable location in the
+     * buffer - meaning that it is enclosed in TextTags that mark the area
+     * non-editable.
+     * 
+     * <p>
+     * This method is conducted as a user action, so the
+     * <code>TextBuffer.BeginUserAction</code> and
+     * <code>TextBuffer.EndUserAction</code> signals will be raised before and
+     * after carrying out the insertion, respectively.
      * 
      * @param pos
      *            Position to insert at.
@@ -342,15 +467,35 @@ public class TextBuffer extends Object
      * @param defaultEditability
      *            How shall the area be handled, if there are no tags
      *            affecting the <var>editable</var> property at the given
-     *            location. You probably want to use <code>true</code>
-     *            unless you used TextView's
-     *            {@link TextView#setEditable(boolean) setEditable()} to
-     *            change the default setting in the display Widget you're
-     *            using.
+     *            location. You probably want to use <code>true</code> unless
+     *            you used TextView's {@link TextView#setEditable(boolean)
+     *            setEditable()} to change the default setting in the display
+     *            Widget you're using.
      * @since 4.0.9
      */
     public void insertInteractive(TextIter pos, String text, boolean defaultEditability) {
         GtkTextBuffer.insertInteractive(this, pos, text, -1, defaultEditability);
+    }
+
+    /**
+     * Delete text like {@link #delete(TextIter, TextIter) delete()}, but only
+     * if the range given is editable.
+     * 
+     * <p>
+     * See {@link #insertInteractive(TextIter, String, boolean)
+     * insertInteractive()} for a discussion of the
+     * <code>defaultEditability</code> parameter.
+     * 
+     * <p>
+     * This method is conducted as a user action, so the
+     * <code>TextBuffer.BeginUserAction</code> and
+     * <code>TextBuffer.EndUserAction</code> signals will be raised before and
+     * after carrying out the deletion.
+     * 
+     * @since 4.0.13
+     */
+    public void deleteInteractive(TextIter start, TextIter end, boolean defaultEditability) {
+        GtkTextBuffer.deleteInteractive(this, start, end, defaultEditability);
     }
 
     /**
@@ -379,7 +524,7 @@ public class TextBuffer extends Object
      * function of TextView. All the other methods that conceptually insert
      * things into a TextBuffer are here, however, so we include this as a
      * convenience. This is just a wrapper around TextView's</i>
-     * <code>add()</code>.
+     * {@link TextView#add(Widget, TextIter) add()}.
      * 
      * @since 4.0.9
      */
@@ -410,11 +555,11 @@ public class TextBuffer extends Object
      * the selection use {@link #getInsert() getInsert()}.
      * 
      * <p>
-     * Under ordinary circumstances you could think the <var>selection-bound</var>
-     * TextMark as being the beginning of a selection, and the <var>insert</var>
-     * mark as the end, but if the user (or you, programmatically) has
-     * selected "backwards" then this TextMark will be further ahead in the
-     * TextBuffer than the insertion one.
+     * Under ordinary circumstances you could think the
+     * <var>selection-bound</var> TextMark as being the beginning of a
+     * selection, and the <var>insert</var> mark as the end, but if the user
+     * (or you, programmatically) has selected "backwards" then this TextMark
+     * will be further ahead in the TextBuffer than the insertion one.
      * 
      * <p>
      * You can call {@link #getIter(TextMark) getIter()} to convert the
@@ -436,9 +581,9 @@ public class TextBuffer extends Object
     }
 
     /**
-     * Converts a {@link TextMark TextMark} into a valid
-     * {@link TextIter TextIter} that you can use to point into the TextBuffer
-     * in its current state.
+     * Converts a {@link TextMark TextMark} into a valid {@link TextIter
+     * TextIter} that you can use to point into the TextBuffer in its current
+     * state.
      * 
      * @since 4.0.9
      */
@@ -457,8 +602,8 @@ public class TextBuffer extends Object
     }
 
     /**
-     * Get a TextIter pointing at the position <code>offset</code>
-     * characters into the TextBuffer.
+     * Get a TextIter pointing at the position <code>offset</code> characters
+     * into the TextBuffer.
      * 
      * @since 4.0.9
      */
@@ -472,6 +617,31 @@ public class TextBuffer extends Object
         return iter;
     }
 
+    /*
+     * Validate that the TextTag being submitted for application is legal for
+     * use in this TextBuffer. FUTURE we could cache the table in the
+     * constructors if this becomes a hot spot.
+     */
+    private void checkTag(TextTag tag) {
+        if (tag == null) {
+            return;
+        }
+        if (usingDefaultTable) {
+            if (tag.table != getDefaultTable()) {
+                throw new IllegalArgumentException("\n"
+                        + "You cannot apply a TextTag created with the no-arg TextTag() constructor\n"
+                        + "to a TextBuffer not likewise constructed with the no-arg TextBuffer()\n"
+                        + "constructor.");
+            }
+        } else {
+            if (tag.table != GtkTextBuffer.getTagTable(this)) {
+                throw new IllegalArgumentException("\n"
+                        + "You can only apply a TextTag to a TextBuffer created with the same\n"
+                        + "TextTagTable.");
+            }
+        }
+    }
+
     /**
      * Apply the selected tag on the area in the TextBuffer between the start
      * and end positions.
@@ -479,13 +649,36 @@ public class TextBuffer extends Object
      * @since 4.0.9
      */
     public void applyTag(TextTag tag, TextIter start, TextIter end) {
+        checkTag(tag);
         GtkTextBuffer.applyTag(this, tag, start, end);
     }
 
     /**
+     * Apply an array of TextTags to the given range.
+     * 
+     * @since 4.0.10
+     */
+    /*
+     * Convenience method. This doesn't need to be here, but it lends a
+     * certain elegance when used alongside the insert() overload
+     */
+    public void applyTag(TextTag[] tags, TextIter start, TextIter end) {
+        if (tags == null) {
+            return;
+        }
+        for (TextTag tag : tags) {
+            if (tag == null) {
+                continue;
+            }
+            checkTag(tag);
+            GtkTextBuffer.applyTag(this, tag, start, end);
+        }
+    }
+
+    /**
      * Select a range of text. The <var>selection-bound</var> mark will be
-     * placed at <code>start</code>, and the <var>insert</var> mark will
-     * be placed at <code>end</code>.
+     * placed at <code>start</code>, and the <var>insert</var> mark will be
+     * placed at <code>end</code>.
      * 
      * <p>
      * Note that this should be used in preference to manually manipulating
@@ -510,8 +703,8 @@ public class TextBuffer extends Object
 
     /**
      * Remove the effect of the supplied <code>tag</code> from across the
-     * range between <code>start</code> and <code>end</code>. The order
-     * of the two TextIters doesn't actually matter; they are just bounds.
+     * range between <code>start</code> and <code>end</code>. The order of the
+     * two TextIters doesn't actually matter; they are just bounds.
      * 
      * @since 4.0.9
      */
@@ -520,8 +713,23 @@ public class TextBuffer extends Object
     }
 
     /**
-     * Create a new TextChildAnchor at <code>location</code>. Once you have
-     * an anchor for where you want the Widget, you use TextView's
+     * Remove all TextTags that may be present in a range.
+     * 
+     * <p>
+     * Beware that <b>all</b> tags between <code>start</code> and
+     * <code>end</code> will be nuked, not just ones set by the piece of code
+     * you happen to be working in. That should be obvious, but apparently
+     * people often make mistakes with this.
+     * 
+     * @since 4.0.10
+     */
+    public void removeAllTags(TextIter start, TextIter end) {
+        GtkTextBuffer.removeAllTags(this, start, end);
+    }
+
+    /**
+     * Create a new TextChildAnchor at <code>location</code>. Once you have an
+     * anchor for where you want the Widget, you use TextView's
      * {@link TextView#add(Widget, TextChildAnchor) add()} to load a Widget
      * into it.
      * 
@@ -537,8 +745,8 @@ public class TextBuffer extends Object
     }
 
     /**
-     * Move the cursor (ie, the <var>selection-bound</var> and <var>insert</var>
-     * marks) to the given location.
+     * Move the cursor (ie, the <var>selection-bound</var> and
+     * <var>insert</var> marks) to the given location.
      * 
      * <p>
      * This is more than just a convenience function; like
@@ -547,10 +755,9 @@ public class TextBuffer extends Object
      * while the individual TextMarks are being moved.
      * 
      * <p>
-     * See also TextView's
-     * {@link TextView#placeCursorOnscreen() placeCursorOnscreen()} if you
-     * just want to force the cursor into the currently showing section of the
-     * text.
+     * See also TextView's {@link TextView#placeCursorOnscreen()
+     * placeCursorOnscreen()} if you just want to force the cursor into the
+     * currently showing section of the text.
      * 
      * @since 4.0.9
      */
@@ -600,8 +807,8 @@ public class TextBuffer extends Object
      * Signal emitted when text is inserted into the TextBuffer.
      * 
      * <p>
-     * You must leave the TextIter <code>pointer</code> in a valid state;
-     * that is, if you do something in your signal handler that changes the
+     * You must leave the TextIter <code>pointer</code> in a valid state; that
+     * is, if you do something in your signal handler that changes the
      * TextBuffer, you must revalidate <code>pos</code> before returning.
      * 
      * <p>
@@ -620,9 +827,9 @@ public class TextBuffer extends Object
     }
 
     /**
-     * Hook up a handler for <code>TextBuffer.InsertText</code> signals.
-     * This will be invoked before the default handler is run, that is, before
-     * the new text is actually inserted into the TextBuffer.
+     * Hook up a handler for <code>TextBuffer.InsertText</code> signals. This
+     * will be invoked before the default handler is run, that is, before the
+     * new text is actually inserted into the TextBuffer.
      * 
      * @since 4.0.9
      */
@@ -698,9 +905,9 @@ public class TextBuffer extends Object
     }
 
     /**
-     * Delete text between <code>start</code> and <code>end</code>. (The
-     * order of the two TextIters doesn't matter; this method will delete
-     * between the two regardless).
+     * Delete text between <code>start</code> and <code>end</code>. (The order
+     * of the two TextIters doesn't matter; this method will delete between
+     * the two regardless).
      * 
      * <p>
      * The two TextIters passed to <code>delete()</code> will be reset so as
@@ -712,5 +919,301 @@ public class TextBuffer extends Object
      */
     public void delete(TextIter start, TextIter end) {
         GtkTextBuffer.delete(this, start, end);
+    }
+
+    /**
+     * Manually move a TextMark to a new location.
+     * 
+     * <p>
+     * Note that if you're trying to move the "cursor", then you are much
+     * better off calling {@link #placeCursor(TextIter) placeCursor()} as that
+     * simultaneously moves both the <var>selection-bound</var> TextMark as
+     * well as the <var>insert</var> one.
+     * 
+     * @since 4.0.10
+     */
+    public void moveMark(TextMark mark, TextIter where) {
+        GtkTextBuffer.moveMark(this, mark, where);
+    }
+
+    /**
+     * Signal emitted when a TextMark is set (or moved) in this TextBuffer.
+     * 
+     * <p>
+     * This can be used as a way to react to the cursor moving. The cursor is,
+     * of course, represented by the <var>insert</var> TextMark, and so,
+     * doing:
+     * 
+     * <pre>
+     * insert = buffer.getInsert();
+     * 
+     * buffer.connect(new TextBuffer.MarkSet() {
+     *     public void onMarkSet(TextBuffer source, org.gnome.gtk.TextIter location, TextMark mark) {
+     *         if (mark == insert) {
+     *             // react!
+     *         }
+     *     }
+     * });
+     * </pre>
+     * 
+     * will allow you to react to the cursor moving.
+     * 
+     * <p>
+     * Somewhat counter-intuitively, however, inserting text does <i>not</i>
+     * "move" a TextMark; the <var>insert</var> TextMark will flow right
+     * according to its gravity as text is added. Using the arrow keys or
+     * mouse to move the cursor will, on the other hand, result in this signal
+     * being emitted.
+     * 
+     * <p>
+     * While an interesting example, doing this to track the cursor changing
+     * isn't actually a good idea. You get a <code>TextBuffer.MarkSet</code>
+     * callback for <i>every</i> TextMark being set (including ones used
+     * internally by GTK!) which means lots of activity that has nothing to do
+     * with you. Use {@link TextBuffer.NotifyCursorPosition} instead.
+     * 
+     * <p>
+     * <i>Using signal is very inefficient; why this is a signal on TextBuffer
+     * and not a signal coming (only) from individual TextMarks is
+     * mystery.</i>
+     * 
+     * @author Andrew Cowie
+     * @since 4.0.10
+     */
+    public interface MarkSet extends GtkTextBuffer.MarkSetSignal
+    {
+        public void onMarkSet(TextBuffer source, TextIter location, TextMark mark);
+    }
+
+    /**
+     * Hook up a handler for <code>TextBuffer.MarkSet</code> signals on this
+     * TextBuffer.
+     * 
+     * @since 4.0.10
+     */
+    public void connect(TextBuffer.MarkSet handler) {
+        GtkTextBuffer.connect(this, handler, false);
+    }
+
+    /**
+     * The signal emitted when a TextTag is added to a range of text.
+     * 
+     * <p>
+     * If you're using this then you'll probably also need the complement of
+     * this signal, which is <code>TextBuffer.RemoveTag</code>.
+     * 
+     * <p>
+     * <i>The code to actually carry out the application of the tag is in the
+     * default handler, which will run after you return from yours.</i>
+     * 
+     * @author Andrew Cowie
+     * @since 4.0.10
+     */
+    /*
+     * TODO Which raises some questions: do we need to expose this as a
+     * connectAfter()? Also, if a tag is already present does this signal get
+     * raised anyway? Finally, do we need emitApplyTag()?
+     */
+    public interface ApplyTag extends GtkTextBuffer.ApplyTagSignal
+    {
+        void onApplyTag(TextBuffer source, TextTag tag, TextIter start, TextIter end);
+    }
+
+    /**
+     * Hook up a handler for <code>TextBuffer.ApplyTag</code> signals on this
+     * TextBuffer.
+     * 
+     * @since 4.0.10
+     */
+    public void connect(TextBuffer.ApplyTag handler) {
+        GtkTextBuffer.connect(this, handler, false);
+    }
+
+    /**
+     * The signal emitted when a TextTag is removed from a range of text.
+     * 
+     * @author Andrew Cowie
+     * @since 4.0.10
+     */
+    public interface RemoveTag extends GtkTextBuffer.RemoveTagSignal
+    {
+        void onRemoveTag(TextBuffer source, TextTag tag, TextIter start, TextIter end);
+    }
+
+    /**
+     * Hook up a handler for <code>TextBuffer.RemoveTag</code> signals on this
+     * TextBuffer.
+     * 
+     * @since 4.0.10
+     */
+    public void connect(TextBuffer.RemoveTag handler) {
+        GtkTextBuffer.connect(this, handler, false);
+    }
+
+    /**
+     * Signal emitted when the <var>cursor-position</var> property changes.
+     * This is a good way to find out that the cursor has moved.
+     * 
+     * 
+     * <pre>
+     * buffer.connect(new TextBuffer.NotifyCursorPosition()) {
+     *     public void onNotifyCursorPosition(TextBuffer source) {
+     *          final int offset;
+     *          
+     *          offset = buffer.getCursorPosition();
+     *     }
+     * });
+     * </pre>
+     * 
+     * If you've already got the <var>insert</var> TextMark, then you could
+     * instead do:
+     * 
+     * <pre>
+     * buffer.connect(new TextBuffer.NotifyCursorPosition()) {
+     *     public void onNotifyCursorPosition(TextBuffer source) {
+     *          final TextIter pointer;
+     *          final int offset;
+     *          
+     *          pointer = buffer.getIter(insertBound);
+     *          offset = buffer.getOffset();
+     *     }
+     * });
+     * </pre>
+     * 
+     * which amounts to the same thing.
+     * 
+     * <p>
+     * Using the <code>TextBuffer.NotifyCursorPosition</code> signal is much
+     * more efficient than hooking up to <code>TextBuffer.MarkSet</code>
+     * signals.
+     * 
+     * @author Andrew Cowie
+     * @since 4.0.10
+     */
+    public interface NotifyCursorPosition extends GtkTextBufferOverride.NotifyCursorPositionSignal
+    {
+        public void onNotifyCursorPosition(TextBuffer source);
+    }
+
+    /**
+     * Hook up a handler to receive
+     * <code>TextBuffer.NotifyCursorPosition</code> signals emitted when the
+     * <var>cursor-position</var> of this TextBuffer changes.
+     * 
+     * @since 4.0.10
+     */
+    public void connect(TextBuffer.NotifyCursorPosition handler) {
+        GtkTextBufferOverride.connect(this, handler, false);
+    }
+
+    /**
+     * Get the current value of the <var>cursor-position</var> property.
+     * 
+     * <p>
+     * This corresponds to the offset of the <var>insert</var> TextMark; if
+     * you already have a TextIter for that you call it's
+     * {@link TextIter#getOffset() getOffset()} instead.
+     * 
+     * @since 4.0.10
+     */
+    public int getCursorPosition() {
+        return getPropertyInteger("cursor-position");
+    }
+
+    /**
+     * Mark the beginning of a user initiated action. Calls to
+     * <code>beginUserAction()</code> can nest, but they need to be paired
+     * with calls to {@link #endUserAction() endUserAction()}. The outer-most
+     * call to this method will raise <code>TextBuffer.BeginUserAction</code>.
+     * Note that user input into a TextView that is handled by GTK's default
+     * <code>Widget.KeyPressEvent</code> handler will likewise begin a user
+     * action sequence.
+     * 
+     * @since 4.0.11
+     */
+    public void beginUserAction() {
+        GtkTextBuffer.beginUserAction(this);
+    }
+
+    /**
+     * Calls to <code>endUserAction()</code> close off the matching
+     * {@link #beginUserAction() beginUserAction()} call.
+     * <code>TextBuffer.EndUserAction</code> will only be emitted when the
+     * outer most user action is closed.
+     * 
+     * @since 4.0.11
+     */
+    public void endUserAction() {
+        GtkTextBuffer.endUserAction(this);
+    }
+
+    /**
+     * Signal emitted when a "user action" is initiated. This can be fired
+     * programmatically by calling TextBuffer's
+     * {@link TextBuffer#beginUserAction() beginUserAction()}, but is also
+     * raised by the default Input Method handler when the user types into a
+     * TextView.
+     * 
+     * @author Andrew Cowie
+     * @since 4.0.11
+     */
+    public interface BeginUserAction extends GtkTextBuffer.BeginUserActionSignal
+    {
+        public void onBeginUserAction(TextBuffer source);
+    }
+
+    /**
+     * Hookup a <code>TextBuffer.BeginUserAction</code> signal handler.
+     * 
+     * @since 4.0.11
+     */
+    public void connect(BeginUserAction handler) {
+        GtkTextBuffer.connect(this, handler, false);
+    }
+
+    /**
+     * The signal emitted when a "user action" stops. See TextBuffer's
+     * {@link TextBuffer#beginUserAction() beginUserAction()} for details.
+     * 
+     * @author Andrew Cowie
+     * @since 4.0.11
+     */
+    public interface EndUserAction extends GtkTextBuffer.EndUserActionSignal
+    {
+        public void onEndUserAction(TextBuffer source);
+    }
+
+    /**
+     * Hookup a <code>TextBuffer.EndUserAction</code> signal handler.
+     * 
+     * @since 4.0.11
+     */
+    public void connect(EndUserAction handler) {
+        GtkTextBuffer.connect(this, handler, false);
+    }
+
+    /**
+     * Tell a currently active <code>TextBuffer.InsertText</code> signal
+     * emission to stop.
+     * 
+     * <p>
+     * Calling this only makes sense within the scope of a normal handler of
+     * that signal; the effect is to prevent insertion by GTK's default
+     * handler.
+     * 
+     * @since 4.0.13
+     */
+    public void stopInsertText() {
+        GtkTextBufferOverride.stopInsertText(this);
+    }
+
+    /**
+     * Tell a currently active <code>TextBuffer.DeleteRange</code> signal
+     * emission to stop.
+     * 
+     * @since 4.0.13
+     */
+    public void stopDeleteRange() {
+        GtkTextBufferOverride.stopDeleteRange(this);
     }
 }

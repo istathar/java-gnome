@@ -2,7 +2,7 @@
 /*
  * index.php
  *
- * Copyright (c) 2006-2008 Operational Dynamics Consulting Pty Ltd
+ * Copyright (c) 2006-2009 Operational Dynamics Consulting Pty Ltd, and Others
  * 
  * This file comprises part of the infrastructure and content of the
  * java-gnome project website. As such, it is conveyed alongside the source
@@ -63,6 +63,12 @@ href="http://research.operationaldynamics.com/bzr/java-gnome/mainline/">
 <pre style="margin-left: 0px;">$ bzr checkout URL</pre></a>
 </p>
 
+<a name="source" title="Source will always be better than binary"></a>
+
+<p>If you're going to hack seriously with, or on, java-gnome, we recommend the
+following sequence to checkout the source code described in the 
+<a href="/4.0/HACKING.html"><code>HACKING</code></a> file.
+
 
 <p>We try our best to keep '<code>mainline</code>' in a buildable state, and
 certainly the latest bugfixes and improvements will be present there, but we
@@ -95,6 +101,7 @@ the library on your system.</p>
 <li><p><a class="subject" href="gentoo.php">Gentoo Linux</a><br></p>
 <li><p><a class="subject" href="arch.php">Arch Linux</a><br></p>
 <li><p><a class="subject" href="debian.php">Debian Linux</a><br></p>
+<li><p><a class="subject" href="ubuntu.php">Ubuntu Linux</a><br></p>
 </ul>
 
 <p>
@@ -105,7 +112,6 @@ it is certainly time to file a bug report!</p>
 <i>And forthcoming,</i>
 
 <ul>
-<li><p><a class="subject" href="ubuntu.php">Ubuntu Linux</a><br></p>
 <li><p><a class="subject" href="solaris.php">Open Solaris</a><br></p>
 <li><p><a class="subject" href="fedora.php">Fedora Core Linux</a><br></p>
 </ul>
@@ -126,59 +132,6 @@ operating system!</i></p>
 </td>
 </tr>
 </table>
-
-<a name="source" title="Source will always be better than binary"></a>
-<h2>Detailed Source setup</h2>
-
-<p>If you're going to hack seriously with, or on, java-gnome, we recommend the
-following sequence to checkout the source code:
-
-<a class="nav-black"
-href="bzr://research.operationaldynamics.com/bzr/java-gnome/mainline/">
-<pre style="margin-left: 0px;">
-$ cd ~/src/george/
-$ bzr init-repository java-gnome/
-$ cd java-gnome
-$ bzr checkout bzr://research.operationaldynamics.com/bzr/java-gnome/mainline/ mainline/
-$ bzr branch mainline/ working/
-$ cd working/
-$ less README
-</pre></a> 
-
-This will result in a local copy of '<code>mainline</code>' which you can use
-to track upstream and to diff against, and '<code>working</code>' as new branch
-for you to experiment with. The branch will be at (in this example)
-<code>~/src/george/java-gnome/working/</code>. All branches under
-<code>~/src/george/java-gnome/</code> will share storage of revisions, so
-you won't pay any penalty for creating as many branches as you like.</p>
-
-<p>
-If you're using Eclipse, we recommend creating a branch in your Workspace
-and using that to work on. This will allow you to relatively easily 
-change branches while not screwing up all your launchers.
-
-<a class="nav-black" href="/4.0/README.html">
-<pre style="margin-left: 0px;">
-<span class="file">$ cd ~/workspace</span>
-$ bzr checkout ~/src/george/java-gnome/working java-gnome
-$ cd ~/workspace/java-gnome/
-$ less README
-</pre></a>
-
-(doing it this way allows you to later do 
-<a class="nav-black" href="/4.0/README.html">
-<pre style="margin-left: 0px;">
-<span class="file">$ bzr switch ~/src/george/java-gnome/some-other-branch</span>
-</pre></a>
-to change between branches you have created with different lines of
-development. This works well, but is an advanced layout. Do experiement
-with it to get a feel for it first)
-</p>
-
-<p>
-From here you can easily create an Eclipse project called
-<b><code>java-gnome</code></b> at <code>~/workspace/java-gnome</code>, and then
-use this as a dependency in your own projects.
 
 <h1>Browse source</h1>
 

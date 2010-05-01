@@ -18,6 +18,7 @@
     '("gint" "n_columns")
   )
   (varargs #t)
+  (unnecessary "GtkTreeModelOverride")
 )
 
 (define-function gtk_list_store_newv
@@ -29,6 +30,7 @@
     '("gint" "n_columns")
     '("GType*" "value")
   )
+  (unnecessary "GtkTreeModelOverride")
 )
 
 (define-method set_column_types
@@ -39,7 +41,6 @@
     '("gint" "n_columns")
     '("GType*" "types")
   )
-)
 
 (define-method set_value
   (of-object "GtkListStore")
@@ -60,6 +61,7 @@
     '("GtkTreeIter*" "iter")
   )
   (varargs #t)
+  (unnecessary)
 )
 
 (define-method set_valist
@@ -70,6 +72,7 @@
     '("GtkTreeIter*" "iter")
     '("va_list" "var_args")
   )
+  (unnecessary)
 )
 
 (define-method remove
@@ -120,6 +123,7 @@
     '("gint" "position")
   )
   (varargs #t)
+  (unnecessary)
 )
 
 (define-method insert_with_valuesv
@@ -133,6 +137,7 @@
     '("GValue*" "values")
     '("gint" "n_values")
   )
+  (unnecessary)
 )
 
 (define-method prepend

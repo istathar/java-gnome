@@ -298,6 +298,7 @@
     '("gboolean*" "fill")
     '("GtkPackType*" "pack_type")
   )
+  (deprecated "2.90")
 )
 
 (define-method set_tab_label_packing
@@ -310,6 +311,7 @@
     '("gboolean" "fill")
     '("GtkPackType" "pack_type")
   )
+  (deprecated "2.90")
 )
 
 (define-method reorder_child
@@ -339,11 +341,17 @@
   )
 )
 
+
+;; the first parameter, a GtkNotebookPage*, is actually private and internal
+;; to GTK; worse, it marshalls as a gpointer. Quite inconvenient of them to
+;; have made this publicly visible. Our workaround is to make it a long and
+;; trim in on the Java side.
+
 (define-virtual switch_page
   (of-object "GtkNotebook")
   (return-type "none")
   (parameters
-    '("GtkNotebookPage*" "page")
+    '("glong" "page")
     '("guint" "page_num")
   )
 )
@@ -366,7 +374,7 @@
 
 (define-virtual change_current_page
   (of-object "GtkNotebook")
-  (return-type "none")
+  (return-type "gboolean")
   (parameters
     '("gint" "offset")
   )

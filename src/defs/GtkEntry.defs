@@ -14,6 +14,16 @@
   (return-type "GtkWidget*")
 )
 
+(define-function new_with_buffer
+  (is-constructor-of "GtkEntry")
+  (c-name "gtk_entry_new_with_buffer")
+  (caller-owns-return #t)
+  (return-type "GtkWidget*")
+  (parameters
+    '("GtkEntryBuffer*" "buffer")
+  )
+)
+
 (define-function gtk_entry_new_with_max_length
   (is-constructor-of "GtkEntry")
   (c-name "gtk_entry_new_with_max_length")
@@ -130,6 +140,12 @@
   (return-type "const-gchar*")
 )
 
+(define-method get_text_length
+  (of-object "GtkEntry")
+  (c-name "gtk_entry_get_text_length")
+  (return-type "guint16")
+)
+
 (define-method get_layout
   (of-object "GtkEntry")
   (c-name "gtk_entry_get_layout")
@@ -176,6 +192,21 @@
   (return-type "GtkEntryCompletion*")
 )
 
+(define-method set_buffer
+  (of-object "GtkEntry")
+  (c-name "gtk_entry_set_buffer")
+  (return-type "none")
+  (parameters
+    '("GtkEntryBuffer*" "buffer")
+  )
+)
+
+(define-method get_buffer
+  (of-object "GtkEntry")
+  (c-name "gtk_entry_get_buffer")
+  (return-type "GtkEntryBuffer*")
+)
+
 (define-method append_text
   (of-object "GtkEntry")
   (c-name "gtk_entry_append_text")
@@ -212,6 +243,21 @@
   (parameters
     '("gint" "text_index")
   )
+)
+
+(define-method set_overwrite_mode
+  (of-object "GtkEntry")
+  (c-name "gtk_entry_set_overwrite_mode")
+  (return-type "none")
+  (parameters
+    '("gboolean" "overwrite")
+  )
+)
+
+(define-method get_overwrite_mode
+  (of-object "GtkEntry")
+  (c-name "gtk_entry_get_overwrite_mode")
+  (return-type "gboolean")
 )
 
 (define-virtual populate_popup
@@ -307,5 +353,236 @@
   (of-object "GtkEntry")
   (c-name "gtk_entry_get_cursor_hadjustment")
   (return-type "GtkAdjustment*")
+)
+
+(define-method set_progress_fraction
+  (of-object "GtkEntry")
+  (c-name "gtk_entry_set_progress_fraction")
+  (return-type "none")
+  (parameters
+    '("gdouble" "fraction")
+  )
+)
+
+(define-method get_progress_fraction
+  (of-object "GtkEntry")
+  (c-name "gtk_entry_get_progress_fraction")
+  (return-type "gdouble")
+)
+
+(define-method set_progress_pulse_step
+  (of-object "GtkEntry")
+  (c-name "gtk_entry_set_progress_pulse_step")
+  (return-type "none")
+  (parameters
+    '("gdouble" "fraction")
+  )
+)
+
+(define-method get_progress_pulse_step
+  (of-object "GtkEntry")
+  (c-name "gtk_entry_get_progress_pulse_step")
+  (return-type "gdouble")
+)
+
+(define-method progress_pulse
+  (of-object "GtkEntry")
+  (c-name "gtk_entry_progress_pulse")
+  (return-type "none")
+)
+
+(define-method set_icon_from_pixbuf
+  (of-object "GtkEntry")
+  (c-name "gtk_entry_set_icon_from_pixbuf")
+  (return-type "none")
+  (parameters
+    '("GtkEntryIconPosition" "icon_pos")
+    '("GdkPixbuf*" "pixbuf" (null-ok))
+  )
+)
+
+(define-method set_icon_from_stock
+  (of-object "GtkEntry")
+  (c-name "gtk_entry_set_icon_from_stock")
+  (return-type "none")
+  (parameters
+    '("GtkEntryIconPosition" "icon_pos")
+    '("const-gchar*" "stock_id" (null-ok))
+  )
+)
+
+(define-method set_icon_from_icon_name
+  (of-object "GtkEntry")
+  (c-name "gtk_entry_set_icon_from_icon_name")
+  (return-type "none")
+  (parameters
+    '("GtkEntryIconPosition" "icon_pos")
+    '("const-gchar*" "icon_name" (null-ok))
+  )
+)
+
+(define-method set_icon_from_gicon
+  (of-object "GtkEntry")
+  (c-name "gtk_entry_set_icon_from_gicon")
+  (return-type "none")
+  (parameters
+    '("GtkEntryIconPosition" "icon_pos")
+    '("GIcon*" "icon" (null-ok))
+  )
+)
+
+(define-method get_icon_storage_type
+  (of-object "GtkEntry")
+  (c-name "gtk_entry_get_icon_storage_type")
+  (return-type "GtkImageType")
+  (parameters
+    '("GtkEntryIconPosition" "icon_pos")
+  )
+)
+
+(define-method get_icon_pixbuf
+  (of-object "GtkEntry")
+  (c-name "gtk_entry_get_icon_pixbuf")
+  (return-type "GdkPixbuf*")
+  (parameters
+    '("GtkEntryIconPosition" "icon_pos")
+  )
+)
+
+(define-method get_icon_stock
+  (of-object "GtkEntry")
+  (c-name "gtk_entry_get_icon_stock")
+  (return-type "const-gchar*")
+  (parameters
+    '("GtkEntryIconPosition" "icon_pos")
+  )
+)
+
+(define-method get_icon_name
+  (of-object "GtkEntry")
+  (c-name "gtk_entry_get_icon_name")
+  (return-type "const-gchar*")
+  (parameters
+    '("GtkEntryIconPosition" "icon_pos")
+  )
+)
+
+(define-method get_icon_gicon
+  (of-object "GtkEntry")
+  (c-name "gtk_entry_get_icon_gicon")
+  (return-type "GIcon*")
+  (parameters
+    '("GtkEntryIconPosition" "icon_pos")
+  )
+)
+
+(define-method set_icon_activatable
+  (of-object "GtkEntry")
+  (c-name "gtk_entry_set_icon_activatable")
+  (return-type "none")
+  (parameters
+    '("GtkEntryIconPosition" "icon_pos")
+    '("gboolean" "activatable")
+  )
+)
+
+(define-method get_icon_activatable
+  (of-object "GtkEntry")
+  (c-name "gtk_entry_get_icon_activatable")
+  (return-type "gboolean")
+  (parameters
+    '("GtkEntryIconPosition" "icon_pos")
+  )
+)
+
+(define-method set_icon_sensitive
+  (of-object "GtkEntry")
+  (c-name "gtk_entry_set_icon_sensitive")
+  (return-type "none")
+  (parameters
+    '("GtkEntryIconPosition" "icon_pos")
+    '("gboolean" "sensitive")
+  )
+)
+
+(define-method get_icon_sensitive
+  (of-object "GtkEntry")
+  (c-name "gtk_entry_get_icon_sensitive")
+  (return-type "gboolean")
+  (parameters
+    '("GtkEntryIconPosition" "icon_pos")
+  )
+)
+
+(define-method get_icon_at_pos
+  (of-object "GtkEntry")
+  (c-name "gtk_entry_get_icon_at_pos")
+  (return-type "gint")
+  (parameters
+    '("gint" "x")
+    '("gint" "y")
+  )
+)
+
+(define-method set_icon_tooltip_text
+  (of-object "GtkEntry")
+  (c-name "gtk_entry_set_icon_tooltip_text")
+  (return-type "none")
+  (parameters
+    '("GtkEntryIconPosition" "icon_pos")
+    '("const-gchar*" "tooltip" (null-ok))
+  )
+)
+
+(define-method get_icon_tooltip_text
+  (of-object "GtkEntry")
+  (c-name "gtk_entry_get_icon_tooltip_text")
+  (return-type "gchar*")
+  (parameters
+    '("GtkEntryIconPosition" "icon_pos")
+  )
+)
+
+(define-method set_icon_tooltip_markup
+  (of-object "GtkEntry")
+  (c-name "gtk_entry_set_icon_tooltip_markup")
+  (return-type "none")
+  (parameters
+    '("GtkEntryIconPosition" "icon_pos")
+    '("const-gchar*" "tooltip" (null-ok))
+  )
+)
+
+(define-method get_icon_tooltip_markup
+  (of-object "GtkEntry")
+  (c-name "gtk_entry_get_icon_tooltip_markup")
+  (return-type "gchar*")
+  (parameters
+    '("GtkEntryIconPosition" "icon_pos")
+  )
+)
+
+(define-method unset_invisible_char
+  (of-object "GtkEntry")
+  (c-name "gtk_entry_unset_invisible_char")
+  (return-type "none")
+)
+
+(define-virtual icon_press
+  (of-object "GtkEntry")
+  (return-type "none")
+  (parameters
+    '("GtkEntryIconPosition" "icon_pos")
+    '("GdkEvent*" "event")
+  )
+)
+
+(define-virtual icon_release
+  (of-object "GtkEntry")
+  (return-type "none")
+  (parameters
+    '("GtkEntryIconPosition" "icon_pos")
+    '("GdkEvent*" "event")
+  )
 )
 

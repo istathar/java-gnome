@@ -1,16 +1,25 @@
 /*
- * Thing.java
+ * java-gnome, a UI library for writing GTK and GNOME programs from Java!
  *
- * Copyright (c) 2007-2008 Operational Dynamics Consulting Pty Ltd
- * 
- * The code in this file, and the program it is a part of, are made available
- * to you by the authors under the terms of the "GNU General Public Licence,
- * version 2" See the LICENCE file for the terms governing usage and
- * redistribution.
+ * Copyright © 2007-2010 Operational Dynamics Consulting, Pty Ltd
+ *
+ * The code in this file, and the program it is a part of, is made available
+ * to you by its authors as open source software: you can redistribute it
+ * and/or modify it under the terms of the GNU General Public License version
+ * 2 ("GPL") as published by the Free Software Foundation.
+ *
+ * This program is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+ * FITNESS FOR A PARTICULAR PURPOSE. See the GPL for more details.
+ *
+ * You should have received a copy of the GPL along with this program. If not,
+ * see http://www.gnu.org/licenses/. The authors of this program may be
+ * contacted through http://java-gnome.sourceforge.net/.
  */
 package com.operationaldynamics.codegen;
 
 import java.util.HashMap;
+import java.util.List;
 
 import com.operationaldynamics.driver.DefsFile;
 
@@ -56,7 +65,7 @@ public abstract class Thing
      * custom variation we have made to the .defs files; hopefully there is
      * another way we can derive this information without needing to do that).
      */
-    String importHeader;
+    List<String> importHeaders;
 
     /**
      * This is gType, of course, except for things like "const-gchar*", which
@@ -105,7 +114,7 @@ public abstract class Thing
         register(new FundamentalThing("none", "void", "void", "void"));
         register(new FundamentalThing("gchar", "char", "char", "jchar"));
         register(new FundamentalThing("guchar", "char", "char", "jchar"));
-        register(new FundamentalThing("gunichar", "char", "char", "jchar"));
+        register(new FundamentalThing("gunichar", "int", "int", "jint"));
         register(new StringThing("gchar*"));
 
         /*
@@ -131,6 +140,7 @@ public abstract class Thing
         register(new FundamentalThing("gboolean", "boolean", "boolean", "jboolean"));
         register(new FundamentalThing("gfloat", "float", "float", "jfloat"));
         register(new FundamentalThing("gdouble", "double", "double", "jdouble"));
+        register(new FundamentalThing("goffset", "long", "long", "jlong"));
 
         /*
          * Types for array parameters
@@ -170,6 +180,7 @@ public abstract class Thing
          */
         register(new FundamentalThing("int", "int", "int", "jint"));
         register(new FundamentalThing("double", "double", "double", "jdouble"));
+        register(new FundamentalArrayThing("double*", "double"));
         register(new StringThing("char*"));
         register(new FundamentalArrayThing("int*", "int"));
 
@@ -212,6 +223,15 @@ public abstract class Thing
         register(new FixmeThing("gpointer*"));
         register(new FixmeThing("GdkAtom"));
         register(new FixmeThing("GdkAtom*"));
+
+        register(new TypedefEnumThing("GdkKeyval", "guint", "org.gnome.gdk", "GdkKeyval", "Keyval"));
+        register(new TypedefEnumThing("GdkMouseButton", "guint", "org.gnome.gdk", "GdkMouseButton",
+                "MouseButton"));
+
+        /*
+         * Typedefs of fundamental type
+         */
+        register(new TypedefFundamentalThing("PangoGlyphUnit", "int", "int", "jint"));
 
         /*
          * These seem to be motif-isms.
@@ -315,7 +335,8 @@ public abstract class Thing
 
             /*
              * we don't support arrays of arrays yet. the !(stored instanceof
-             * ArrayThing) is needed to prevent multiple recursion on *
+             * ArrayThing) is needed to prevent multiple recursion on the
+             * pointer star.
              */
             if ((stored != null) && !(stored instanceof ArrayThing)) {
                 dupe = stored.createArrayVariant();
@@ -324,11 +345,6 @@ public abstract class Thing
                 return dupe;
             }
         }
-
-        /*
-         * TODO if we finally difference between * and [] we need to add more
-         * code here
-         */
 
         /*
          * If we're still stuck, then that is would be fatal, except that we
@@ -637,8 +653,8 @@ public abstract class Thing
      * own method because only a very few object really need it, so we can use
      * the setter only in the needed Block.
      */
-    public void setImportHeader(String importHeader) {
-        this.importHeader = importHeader;
+    public void setImportHeader(List<String> importHeader) {
+        this.importHeaders = importHeader;
     }
 
     public String toString() {

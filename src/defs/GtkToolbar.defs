@@ -94,6 +94,7 @@
   (parameters
     '("GtkOrientation" "orientation")
   )
+  (deprecated "GtkOrientable")
 )
 
 (define-method set_style
@@ -106,6 +107,7 @@
 )
 
 (define-method set_tooltips
+  (deprecated)
   (of-object "GtkToolbar")
   (c-name "gtk_toolbar_set_tooltips")
   (return-type "none")
@@ -124,6 +126,7 @@
   (of-object "GtkToolbar")
   (c-name "gtk_toolbar_get_orientation")
   (return-type "GtkOrientation")
+  (deprecated "GtkOrientable")
 )
 
 (define-method get_style
@@ -139,6 +142,7 @@
 )
 
 (define-method get_tooltips
+  (deprecated)
   (of-object "GtkToolbar")
   (c-name "gtk_toolbar_get_tooltips")
   (return-type "gboolean")

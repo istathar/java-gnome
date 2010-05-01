@@ -88,6 +88,7 @@
   (parameters
     '("GtkWidget*" "proxy")
   )
+  (deprecated)
 )
 
 (define-method disconnect_proxy
@@ -97,12 +98,14 @@
   (parameters
     '("GtkWidget*" "proxy")
   )
+  (deprecated)
 )
 
 (define-method get_proxies
   (of-object "GtkAction")
   (c-name "gtk_action_get_proxies")
   (return-type "GSList-GtkWidget*")
+  (deprecated)
 )
 
 (define-method connect_accelerator
@@ -130,6 +133,7 @@
   (parameters
     '("GtkWidget*" "proxy")
   )
+  (deprecated)
 )
 
 (define-method unblock_activate_from
@@ -139,6 +143,7 @@
   (parameters
     '("GtkWidget*" "proxy")
   )
+  (deprecated)
 )
 
 (define-method set_accel_path

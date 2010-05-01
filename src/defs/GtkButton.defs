@@ -172,7 +172,7 @@
   (c-name "gtk_button_set_image")
   (return-type "none")
   (parameters
-    '("GtkWidget*" "image")
+    '("GtkWidget*" "image" (null-ok))
   )
 )
 
@@ -185,11 +185,13 @@
 (define-virtual pressed
   (of-object "GtkButton")
   (return-type "none")
+  (deprecated)
 )
 
 (define-virtual released
   (of-object "GtkButton")
   (return-type "none")
+  (deprecated)
 )
 
 (define-virtual clicked
@@ -200,16 +202,19 @@
 (define-virtual enter
   (of-object "GtkButton")
   (return-type "none")
+  (deprecated)
 )
 
 (define-virtual leave
   (of-object "GtkButton")
   (return-type "none")
+  (deprecated)
 )
 
 (define-virtual activate
   (of-object "GtkButton")
   (return-type "none")
+  (deprecated)
 )
 
 (define-method set_image_position

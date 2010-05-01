@@ -372,15 +372,6 @@
   (return-type "GType")
 )
 
-(define-function cursor_new_from_name
-  (c-name "gdk_cursor_new_from_name")
-  (return-type "GdkCursor*")
-  (parameters
-    '("GdkDisplay*" "display")
-    '("const-gchar*" "name")
-  )
-)
-
 (define-function gdk_display_get_type
   (c-name "gdk_display_get_type")
   (return-type "GType")
@@ -3773,19 +3764,6 @@
   (return-type "GType")
 )
 
-(define-function settings_get_default
-  (c-name "gtk_settings_get_default")
-  (return-type "GtkSettings*")
-)
-
-(define-function settings_get_for_screen
-  (c-name "gtk_settings_get_for_screen")
-  (return-type "GtkSettings*")
-  (parameters
-    '("GdkScreen*" "screen")
-  )
-)
-
 (define-function settings_install_property
   (c-name "gtk_settings_install_property")
   (return-type "none")
@@ -5107,18 +5085,6 @@
   )
 )
 
-(define-function paper_size_new_custom
-  (c-name "gtk_paper_size_new_custom")
-  (return-type "GtkPaperSize*")
-  (parameters
-    '("const-gchar*" "name")
-    '("const-gchar*" "display_name")
-    '("gdouble" "width")
-    '("gdouble" "height")
-    '("GtkUnit" "unit")
-  )
-)
-
 (define-function paper_size_get_default
   (c-name "gtk_paper_size_get_default")
   (return-type "const-gchar*")
@@ -5440,17 +5406,6 @@
   (return-type "GType")
 )
 
-(define-function xml_new_from_buffer
-  (c-name "glade_xml_new_from_buffer")
-  (return-type "GladeXML*")
-  (parameters
-    '("const-char*" "buffer")
-    '("int" "size")
-    '("const-char*" "root" (default "NULL") (null-ok))
-    '("const-char*" "domain" (default "NULL") (null-ok))
-  )
-)
-
 (define-function get_widget_name
   (c-name "glade_get_widget_name")
   (return-type "const-char*")
@@ -5546,187 +5501,6 @@
   (return-type "PangoAttrType")
   (parameters
     '("const-gchar*" "name")
-  )
-)
-
-(define-function AttrLanguage
-  (c-name "pango_attr_language_new")
-  (return-type "PangoAttribute*")
-  (parameters
-    '("PangoLanguage*" "language")
-  )
-)
-
-(define-function AttrFamily
-  (c-name "pango_attr_family_new")
-  (return-type "PangoAttribute*")
-  (parameters
-    '("const-char*" "family")
-  )
-)
-
-(define-function AttrForeground
-  (c-name "pango_attr_foreground_new")
-  (return-type "PangoAttribute*")
-  (parameters
-    '("guint16" "red")
-    '("guint16" "green")
-    '("guint16" "blue")
-  )
-)
-
-(define-function AttrBackground
-  (c-name "pango_attr_background_new")
-  (return-type "PangoAttribute*")
-  (parameters
-    '("guint16" "red")
-    '("guint16" "green")
-    '("guint16" "blue")
-  )
-)
-
-(define-function AttrSize
-  (c-name "pango_attr_size_new")
-  (return-type "PangoAttribute*")
-  (parameters
-    '("int" "size")
-  )
-)
-
-(define-function AttrSizeAbsolute
-  (c-name "pango_attr_size_new_absolute")
-  (return-type "PangoAttribute*")
-  (parameters
-    '("int" "size")
-  )
-)
-
-(define-function AttrStyle
-  (c-name "pango_attr_style_new")
-  (return-type "PangoAttribute*")
-  (parameters
-    '("PangoStyle" "style")
-  )
-)
-
-(define-function AttrWeight
-  (c-name "pango_attr_weight_new")
-  (return-type "PangoAttribute*")
-  (parameters
-    '("PangoWeight" "weight")
-  )
-)
-
-(define-function AttrVariant
-  (c-name "pango_attr_variant_new")
-  (return-type "PangoAttribute*")
-  (parameters
-    '("PangoVariant" "variant")
-  )
-)
-
-(define-function AttrStretch
-  (c-name "pango_attr_stretch_new")
-  (return-type "PangoAttribute*")
-  (parameters
-    '("PangoStretch" "stretch")
-  )
-)
-
-(define-function AttrFontDesc
-  (c-name "pango_attr_font_desc_new")
-  (return-type "PangoAttribute*")
-  (parameters
-    '("const-PangoFontDescription*" "desc")
-  )
-)
-
-(define-function AttrUnderline
-  (c-name "pango_attr_underline_new")
-  (return-type "PangoAttribute*")
-  (parameters
-    '("PangoUnderline" "underline")
-  )
-)
-
-(define-function AttrUnderlineColor
-  (c-name "pango_attr_underline_color_new")
-  (return-type "PangoAttribute*")
-  (parameters
-    '("guint16" "red")
-    '("guint16" "green")
-    '("guint16" "blue")
-  )
-)
-
-(define-function AttrStrikethrough
-  (c-name "pango_attr_strikethrough_new")
-  (return-type "PangoAttribute*")
-  (parameters
-    '("gboolean" "strikethrough")
-  )
-)
-
-(define-function AttrStrikethroughColor
-  (c-name "pango_attr_strikethrough_color_new")
-  (return-type "PangoAttribute*")
-  (parameters
-    '("guint16" "red")
-    '("guint16" "green")
-    '("guint16" "blue")
-  )
-)
-
-(define-function AttrRise
-  (c-name "pango_attr_rise_new")
-  (return-type "PangoAttribute*")
-  (parameters
-    '("int" "rise")
-  )
-)
-
-(define-function AttrScale
-  (c-name "pango_attr_scale_new")
-  (return-type "PangoAttribute*")
-  (parameters
-    '("double" "scale_factor")
-  )
-)
-
-(define-function AttrFallback
-  (c-name "pango_attr_fallback_new")
-  (return-type "PangoAttribute*")
-  (parameters
-    '("gboolean" "fallback")
-  )
-)
-
-(define-function AttrLetterSpacing
-  (c-name "pango_attr_letter_spacing_new")
-  (return-type "PangoAttribute*")
-  (parameters
-    '("int" "letter_spacing")
-  )
-)
-
-(define-function AttrShape
-  (c-name "pango_attr_shape_new")
-  (return-type "PangoAttribute*")
-  (parameters
-    '("const-PangoRectangle*" "ink_rect")
-    '("const-PangoRectangle*" "logical_rect")
-  )
-)
-
-(define-function attr_shape_new_with_data
-  (c-name "pango_attr_shape_new_with_data")
-  (return-type "PangoAttribute*")
-  (parameters
-    '("const-PangoRectangle*" "ink_rect")
-    '("const-PangoRectangle*" "logical_rect")
-    '("gpointer" "data")
-    '("PangoAttrDataCopyFunc" "copy_func")
-    '("GDestroyNotify" "destroy_func")
   )
 )
 
@@ -6580,6 +6354,55 @@
   (return-type "AtkRole")
   (parameters
     '("const-gchar*" "name")
+  )
+)
+
+(define-function iter_forward_search
+  (c-name "gtk_source_iter_forward_search")
+  (return-type "gboolean")
+  (parameters
+    '("const-GtkTextIter*" "iter")
+    '("const-gchar*" "str")
+    '("GtkSourceSearchFlags" "flags")
+    '("GtkTextIter*" "match_start")
+    '("GtkTextIter*" "match_end")
+    '("const-GtkTextIter*" "limit")
+  )
+)
+
+(define-function iter_backward_search
+  (c-name "gtk_source_iter_backward_search")
+  (return-type "gboolean")
+  (parameters
+    '("const-GtkTextIter*" "iter")
+    '("const-gchar*" "str")
+    '("GtkSourceSearchFlags" "flags")
+    '("GtkTextIter*" "match_start")
+    '("GtkTextIter*" "match_end")
+    '("const-GtkTextIter*" "limit")
+  )
+)
+
+(define-function language_manager_get_default
+  (c-name "gtk_source_language_manager_get_default")
+  (return-type "GtkSourceLanguageManager*")
+)
+
+(define-function style_scheme_manager_get_default
+  (c-name "gtk_source_style_scheme_manager_get_default")
+  (return-type "GtkSourceStyleSchemeManager*")
+)
+
+(define-function gtk_source_print_compositor_get_type
+  (c-name "gtk_source_print_compositor_get_type")
+  (return-type "GType")
+)
+
+(define-function print_compositor_new_from_view
+  (c-name "gtk_source_print_compositor_new_from_view")
+  (return-type "GtkSourcePrintCompositor*")
+  (parameters
+    '("GtkSourceView*" "view")
   )
 )
 

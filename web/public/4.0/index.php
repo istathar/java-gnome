@@ -22,11 +22,6 @@
 <meta name="author" content="Andrew Cowie">
 <style>
 div.box {
-	background-color: #DDDDDD;
-	padding: 15px;
-	border: dashed 3px blue;
-	margin-left: 100px;
-	margin-right: 100px;
 	margin-top: 20px;
 	font-size: x-large;
 }
@@ -44,10 +39,12 @@ div.box {
 	<code>NEWS</code> file)</a>
 </div>
 
+<img style="padding: 10px; float: right;" src="/4.0/doc/api/org/gnome/gtk/AboutDialog.png">
+<p>
+<i>Everyone loves a screenshot!</i>
+</p>
+
 <div class="box">
-<span class="mono" style="font-size: xx-large; font-weight: bold;">
-@since 4.0.8
-</span>
 
 <p>These are the Java bindings for GTK and GNOME!  Featuring a robust
 engineering design, completely generated internals, a lovingly crafted layer
@@ -116,10 +113,10 @@ GNOME release definitions inevitably means "frozen forever") until java-gnome
 4.2.0; method signatures are subject to change. This gives us an opportunity to
 learn from mistakes and to ensure the bindings reach the extreme quality and
 usability standards we aspire to.  That said, we do our best to keep things
-stable. We have large bodies of software that use java-gnome so don't worry; we
-aren't gratuitously breaking things. But if we have a bug which needs a
-signature change, we <b>will</b> fix it, and not attempt to paper over the
-problem.</i></p>
+stable. The people hacking on the library have large bodies of software that
+use java-gnome so don't worry; we aren't gratuitously breaking things. But if
+we have a bug which needs a signature change, we <b>will</b> fix it, and not
+attempt to paper over the problem.</i></p>
 
 <?
 	template_end();

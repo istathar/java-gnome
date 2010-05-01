@@ -378,6 +378,21 @@
   (return-type "GSList*")
 )
 
+(define-method set_create_folders
+  (of-object "GtkFileChooser")
+  (c-name "gtk_file_chooser_set_create_folders")
+  (return-type "none")
+  (parameters
+    '("gboolean" "create_folders")
+  )
+)
+
+(define-method get_create_folders
+  (of-object "GtkFileChooser")
+  (c-name "gtk_file_chooser_get_create_folders")
+  (return-type "gboolean")
+)
+
 (define-signal confirm_overwrite
   (of-object "GtkFileChooser")
   (return-type "GtkFileChooserConfirmation")

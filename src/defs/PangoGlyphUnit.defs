@@ -1,5 +1,0 @@
-(define-boxed GlyphUnit
-  (in-module "Pango")
-  (c-name "PangoGlyphUnit")
-)
-

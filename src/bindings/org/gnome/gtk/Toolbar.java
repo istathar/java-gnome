@@ -1,14 +1,35 @@
 /*
- * Toolbar.java
+ * java-gnome, a UI library for writing GTK and GNOME programs from Java!
  *
- * Copyright (c) 2007 Operational Dynamics Consulting Pty Ltd
- * Copyright (c) 2007 Vreixo Formoso
+ * Copyright © 2007-2010 Operational Dynamics Consulting, Pty Ltd
+ * Copyright © 2007-2009 Vreixo Formoso
  *
- * The code in this file, and the library it is a part of, are made available
- * to you by the authors under the terms of the "GNU General Public Licence,
- * version 2" plus the "Classpath Exception" (you may link to this code as a
- * library into other programs provided you don't make a derivation of it).
- * See the LICENCE file for the terms governing usage and redistribution.
+ * The code in this file, and the program it is a part of, is made available
+ * to you by its authors as open source software: you can redistribute it
+ * and/or modify it under the terms of the GNU General Public License version
+ * 2 ("GPL") as published by the Free Software Foundation.
+ *
+ * This program is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+ * FITNESS FOR A PARTICULAR PURPOSE. See the GPL for more details.
+ *
+ * You should have received a copy of the GPL along with this program. If not,
+ * see http://www.gnu.org/licenses/. The authors of this program may be
+ * contacted through http://java-gnome.sourceforge.net/.
+ *
+ * Linking this library statically or dynamically with other modules is making
+ * a combined work based on this library. Thus, the terms and conditions of
+ * the GPL cover the whole combination. As a special exception (the
+ * "Claspath Exception"), the copyright holders of this library give you
+ * permission to link this library with independent modules to produce an
+ * executable, regardless of the license terms of these independent modules,
+ * and to copy and distribute the resulting executable under terms of your
+ * choice, provided that you also meet, for each linked independent module,
+ * the terms and conditions of the license of that module. An independent
+ * module is a module which is not derived from or based on this library. If
+ * you modify this library, you may extend the Classpath Exception to your
+ * version of the library, but you are not obligated to do so. If you do not
+ * wish to do so, delete this exception statement from your version.
  */
 package org.gnome.gtk;
 
@@ -34,8 +55,7 @@ package org.gnome.gtk;
  * of "<var>Text below Icons</var>" (the usual default), "<var>Text beside
  * Icons</var>", "<var>Icons only</var>", and "<var>Text only</var>" are
  * available from the GNOME panel menu at <b>System <code>&gt;</code> Menus
- * &amp; Toolbars</b> which runs the <code>gnome-ui-properties</code>
- * program.
+ * &amp; Toolbars</b> which runs the <code>gnome-ui-properties</code> program.
  * 
  * @author Vreixo Formoso
  * @author Andrew Cowie
@@ -85,18 +105,51 @@ public class Toolbar extends Container
      * specific control. When your application has several Toolbars, however,
      * a vertical orientation can become useful as a technique to make a
      * better usage of the available screen real estate.
+     * 
+     * @deprecated This has been replaced in GTK 2.16
      */
     public void setOrientation(Orientation orientation) {
-        GtkToolbar.setOrientation(this, orientation);
+    // no-op until GTK 2.16 available.
     }
 
     /**
-     * Set whether the Tooltips of the items in the Toolbar should be enabled
-     * or not. When enabled, a little help message will be shown when user
-     * puts the mouse cursor over a toolbar item (if that item has a tooltip,
-     * of course).
+     * Set the appearance of a Toolbar.
+     * 
+     * <p>
+     * Toolbars buttons can be customized to display either an icon, a text
+     * label, or both. As explained above, in the documentation for this
+     * class, the appearance of Toolbars is configured by the user as a
+     * desktop setting. This method will override those settings, so in most
+     * cases <b>you should not use this method</b>, and just let the user
+     * choose the appearance (s)he prefers.
+     * 
+     * <p>
+     * However, some really complex applications might need several Toolbars
+     * and many buttons on each one, so configuring a compact Toolbar style
+     * can help to save screen space. In such cases this method may be useful,
+     * but the general advice is to use this with care, and avoid overriding
+     * of user settings unless you have a strong reason.
+     * 
+     * <p>
+     * Finally, note that if you choose for example an <code>ICONS</code> only
+     * appearance, and a given ToolButton has no icon, its Label will be shown
+     * instead, so GTK engine will do its best to keep Toolbar usable.
+     * 
+     * @since 4.0.12
      */
-    public void setTooltips(boolean enable) {
-        GtkToolbar.setTooltips(this, enable);
+    public void setStyle(ToolbarStyle style) {
+        GtkToolbar.setStyle(this, style);
     }
+
+    /**
+     * @deprecated This is now a toolkit wide policy setting, and no longer
+     *             individually controllable via this method. We've made this
+     *             a no-op.
+     */
+    /*
+     * As of GTK 2.14, gtk_toolbar_set_tooltips() is deprecated, and replaced
+     * by "gtk-enable-tooltips" via GtkSettings. We don't need to expose this
+     * here anymore.
+     */
+    public void setTooltips(boolean enable) {}
 }

@@ -1,19 +1,42 @@
 /*
- * Gtk.java
+ * java-gnome, a UI library for writing GTK and GNOME programs from Java!
  *
- * Copyright (c) 2006-2007 Operational Dynamics Consulting Pty Ltd
- * 
- * The code in this file, and the library it is a part of, are made available
- * to you by the authors under the terms of the "GNU General Public Licence,
- * version 2" plus the "Classpath Exception" (you may link to this code as a
- * library into other programs provided you don't make a derivation of it).
- * See the LICENCE file for the terms governing usage and redistribution.
+ * Copyright © 2006-2010 Operational Dynamics Consulting, Pty Ltd and Others
+ *
+ * The code in this file, and the program it is a part of, is made available
+ * to you by its authors as open source software: you can redistribute it
+ * and/or modify it under the terms of the GNU General Public License version
+ * 2 ("GPL") as published by the Free Software Foundation.
+ *
+ * This program is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+ * FITNESS FOR A PARTICULAR PURPOSE. See the GPL for more details.
+ *
+ * You should have received a copy of the GPL along with this program. If not,
+ * see http://www.gnu.org/licenses/. The authors of this program may be
+ * contacted through http://java-gnome.sourceforge.net/.
+ *
+ * Linking this library statically or dynamically with other modules is making
+ * a combined work based on this library. Thus, the terms and conditions of
+ * the GPL cover the whole combination. As a special exception (the
+ * "Claspath Exception"), the copyright holders of this library give you
+ * permission to link this library with independent modules to produce an
+ * executable, regardless of the license terms of these independent modules,
+ * and to copy and distribute the resulting executable under terms of your
+ * choice, provided that you also meet, for each linked independent module,
+ * the terms and conditions of the license of that module. An independent
+ * module is a module which is not derived from or based on this library. If
+ * you modify this library, you may extend the Classpath Exception to your
+ * version of the library, but you are not obligated to do so. If you do not
+ * wish to do so, delete this exception statement from your version.
  */
 package org.gnome.gtk;
 
-import org.gnome.gdk.Gdk;
+import java.net.URI;
+
 import org.gnome.gdk.Pixbuf;
 import org.gnome.glib.Glib;
+import org.gnome.glib.GlibException;
 
 /**
  * The GTK widget toolkit initialization and main loop entry point. A typical
@@ -21,12 +44,12 @@ import org.gnome.glib.Glib;
  * 
  * <pre>
  * public class ComeOnBabyLightMyFire
- *   
+ * {
  *     public static void main(String[] args) {
  *         Gtk.init(args);
- *           
+ * 
  *         // build user interface
- *           
+ * 
  *         Gtk.main();
  *     }
  * }
@@ -38,18 +61,8 @@ import org.gnome.glib.Glib;
  * @author Andrew Cowie
  * @since 4.0.0
  */
-/*
- * Extremely atypically, this class contains native declarations because a)
- * There's nothing left if you strip off the Gtk prefix from Gtk, b) no reason
- * to use a static class GtkMain or whatever as none of these methods need
- * access to Plumbing.
- */
 public final class Gtk extends Glib
 {
-    static {
-        System.loadLibrary("gtkjni-" + Version.APIVERSION);
-    }
-
     /**
      * No instantiation. Static methods only!
      */
@@ -74,126 +87,51 @@ public final class Gtk extends Glib
         if (initialized) {
             throw new IllegalStateException("Gtk already initialized");
         }
-
-        /*
-         * Notify org.gnome.glib.Glib that we don't need it to do anything
-         */
-        Glib.skipInit();
+        initialized = true;
 
         /*
          * Initialize GTK and along with it GLib, GObject, etc.
          */
-        gtk_init(Gdk.lock, args);
-
-        initialized = true;
+        GtkMain.init(args);
     }
 
-    /*
-     * This is one of the rarer cases where the arguments we pass to the JNI
-     * side have little relation to the signature of the actual target
-     * function. In this case, the first argument is a reference to the GDK
-     * lock used to permit multithreaded access to the GTK library.
+    /**
+     * Has GTK been initialized yet?
+     * 
+     * @since 4.0.15
      */
-    private static native final void gtk_init(java.lang.Object lock, String[] args);
+    public static boolean isInitialized() {
+        return initialized;
+    }
 
     /**
      * This method blocks, ie, it does not return until the GTK main loop is
      * terminated.
      * <p>
-     * You can nest calls to <code>Gtk.main()</code>! If you do, then
-     * calling {@link #mainQuit() mainQuit()} will make the innermost
-     * invocation of the main loop return. (This is how modal Dialog boxes run
-     * and block the rest of the application while still accepting events
-     * themselves)
+     * You can nest calls to <code>Gtk.main()</code>! If you do, then calling
+     * {@link #mainQuit() mainQuit()} will make the innermost invocation of
+     * the main loop return. (This is how modal Dialog boxes run and block the
+     * rest of the application while still accepting events themselves)
      * 
      * @since 4.0.0
      */
-    /*
-     * Note that although this code is marked as being within the Gdk$Lock,
-     * there is, in effect, a wait() within this call: as the GTK main loop
-     * cycles it releases the lock [via gdk_threads_leave()?] and then
-     * reestablishes [via gdk_threads_enter()? No matter - the custom lock
-     * functions get hit]. The effect is that the monitor on Gdk.lock is
-     * frequently relinquished, which is the behaviour that is expected if a
-     * piece of Java code object executes wait() within a monitor block. Which
-     * is exactly what we need! The only tiny hiccup is that the thread dump
-     * [via Ctrl+\] and debugger don't seem to quite realize that this thread
-     * no longer owns the lock.
-     */
     public static void main() {
-        synchronized (Gdk.lock) {
-            gtk_main();
-        }
+        GtkMain.main();
     }
-
-    private static native final void gtk_main();
 
     /**
      * Exit the main loop. Since main loops can be nested, this does not
      * necessarily imply application termination, but if you have a typical
-     * GTK program with a single call to <code>Gtk.main()</code> at the end
-     * of your Java <code>main()</code> function, then calling
+     * GTK program with a single call to <code>Gtk.main()</code> at the end of
+     * your Java <code>main()</code> function, then calling
      * <code>Gtk.mainQuit()</code> in a signal handler somewhere will return
      * the program flow to <code>main()</code> on your way exiting.
      * 
      * @since 4.0.0
      */
     public static void mainQuit() {
-        synchronized (Gdk.lock) {
-            gtk_main_quit();
-        }
+        GtkMain.mainQuit();
     }
-
-    private static native final void gtk_main_quit();
-
-    /**
-     * Are there any events pending for the main loop to process?
-     * 
-     * <p>
-     * <b>This is not for general use! Do not expose this and do not encourage
-     * anyone to use this to hack into the main loop.</b>
-     * 
-     * <p>
-     * In a test case, this could be used as follows; see
-     * <code>TestCaseGtk.cycleMainLoop()</codde> in the <code>tests/</code> tree for
-     * details:
-     * 
-     * <pre>
-     * while (Gtk.eventsPending()) {
-     *     Gtk.mainIterationDo(false);
-     * }
-     * </pre>
-     */
-    static final boolean eventsPending() {
-        synchronized (Gdk.lock) {
-            return gtk_events_pending();
-        }
-    }
-
-    private static native final boolean gtk_events_pending();
-
-    /**
-     * Run a single iteration of the main loop.
-     * 
-     * <p>
-     * Not public! This is for internal use only, notably by test cases.
-     * 
-     * @param block
-     *            Whether to block or not. If <code>true</code>, this
-     *            method will block until an event is processed.
-     * @return Will result in <code>true</code> if
-     *         <code>Gtk.mainQuit()</code> (aka <code>gtk_main_quit()</code>)
-     *         has been called on the innermost active main loop.
-     *         <code>true</code> will also be returned if there <i>is</i>
-     *         no main loop running.
-     */
-    static final boolean mainIterationDo(boolean block) {
-        synchronized (Gdk.lock) {
-            return gtk_main_iteration_do(block);
-        }
-    }
-
-    private static native final boolean gtk_main_iteration_do(boolean blocking);
 
     /**
      * Set the icon that will be used for all Windows in this application that
@@ -226,10 +164,63 @@ public final class Gtk extends Glib
      */
     /*
      * YES this is a function on GtkWidget, but it really has nothing to do
-     * with Widgets (and *certainly* is not a method that every single Widget
+     * with Widgets (and certainly is not a method that every single Widget
      * subclass needs to inherit or have visible).
      */
     public static Pixbuf renderIcon(Widget source, Stock stock, IconSize size) {
         return GtkWidget.renderIcon(source, stock.getStockId(), size, null);
     }
+
+    /**
+     * Launch the user's preferred application to handle (display) the the
+     * supplied URI. This is most commonly used for raising URLs in the user's
+     * web browser, but the capability is more general than that; any URI
+     * conveying a MIME type that the desktop knows how to interpret will be
+     * handled.
+     * 
+     * <p>
+     * Typical examples for URIs understood by GNOME are:<br>
+     * <br>
+     * <code>file:///home/george/Desktop/image.png</code><br>
+     * <code>http://java-gnome.sourceforge.net/</code><br>
+     * <code>mailto:george@example.com</code><br>
+     * 
+     * <p>
+     * The launching will take appreciable real time, but this call does not
+     * block on the application being launched terminating. Think fork+exec.
+     * 
+     * <p>
+     * This function will return <code>true</code> if the call succeeds, and
+     * <code>false</code> otherwise.
+     * 
+     * @since 4.0.9
+     */
+    public static boolean showURI(URI uri) {
+        try {
+            return GtkMain.showURI(uri.toString());
+        } catch (GlibException e) {
+            // This will fall through to return false
+        }
+
+        return false;
+    }
+
+    /**
+     * Get the Settings object for the default Screen.
+     * 
+     * @since 4.0.14
+     */
+    public static Settings getSettings() {
+        return GtkSettings.getDefault();
+    }
+
+    /**
+     * Get the Settings object for the given Screen.
+     */
+    /*
+     * We still haven't really exposed Screen. Do we need this?
+     */
+    // static Settings getSettings(Screen screen) {
+    // return GtkSettings.getForScreen(screen);
+    // }
 }

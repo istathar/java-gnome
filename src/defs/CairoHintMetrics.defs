@@ -1,0 +1,10 @@
+(define-enum HintMetrics
+  (in-module "Cairo")
+  (c-name "cairo_hint_metrics_t")
+  (values
+    '("DEFAULT" "CAIRO_HINT_METRICS_DEFAULT")
+    '("OFF" "CAIRO_HINT_METRICS_OFF")
+    '("ON" "CAIRO_HINT_METRICS_ON")
+  )
+)
+

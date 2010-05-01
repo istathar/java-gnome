@@ -1,23 +1,47 @@
 /*
- * TextTag.java
+ * java-gnome, a UI library for writing GTK and GNOME programs from Java!
  *
- * Copyright (c) 2007-2008 Operational Dynamics Consulting Pty Ltd
+ * Copyright © 2007-2010 Operational Dynamics Consulting, Pty Ltd
  *
- * The code in this file, and the library it is a part of, are made available
- * to you by the authors under the terms of the "GNU General Public Licence,
- * version 2" plus the "Classpath Exception" (you may link to this code as a
- * library into other programs provided you don't make a derivation of it).
- * See the LICENCE file for the terms governing usage and redistribution.
+ * The code in this file, and the program it is a part of, is made available
+ * to you by its authors as open source software: you can redistribute it
+ * and/or modify it under the terms of the GNU General Public License version
+ * 2 ("GPL") as published by the Free Software Foundation.
+ *
+ * This program is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+ * FITNESS FOR A PARTICULAR PURPOSE. See the GPL for more details.
+ *
+ * You should have received a copy of the GPL along with this program. If not,
+ * see http://www.gnu.org/licenses/. The authors of this program may be
+ * contacted through http://java-gnome.sourceforge.net/.
+ *
+ * Linking this library statically or dynamically with other modules is making
+ * a combined work based on this library. Thus, the terms and conditions of
+ * the GPL cover the whole combination. As a special exception (the
+ * "Claspath Exception"), the copyright holders of this library give you
+ * permission to link this library with independent modules to produce an
+ * executable, regardless of the license terms of these independent modules,
+ * and to copy and distribute the resulting executable under terms of your
+ * choice, provided that you also meet, for each linked independent module,
+ * the terms and conditions of the license of that module. An independent
+ * module is a module which is not derived from or based on this library. If
+ * you modify this library, you may extend the Classpath Exception to your
+ * version of the library, but you are not obligated to do so. If you do not
+ * wish to do so, delete this exception statement from your version.
  */
 package org.gnome.gtk;
 
+import java.lang.reflect.Field;
+
 import org.gnome.glib.Object;
+import org.gnome.pango.FontDescription;
 import org.gnome.pango.Scale;
 import org.gnome.pango.Style;
 import org.gnome.pango.Underline;
 import org.gnome.pango.Weight;
 
-import static org.gnome.gtk.TextTagTable.getDefaultTable;
+import static org.gnome.gtk.TextBuffer.getDefaultTable;
 
 /**
  * TextTags are used to apply markup and formatting for regions of text in a
@@ -90,7 +114,8 @@ import static org.gnome.gtk.TextTagTable.getDefaultTable;
  * <p>
  * <i>All TextTags created in java-gnome are "anonymous"; the underlying
  * library has a notion of named tags but we have no need of this and have not
- * exposed it. In order to reuse a TextTag later just keep a reference to it.</i>
+ * exposed it. In order to reuse a TextTag later just keep a reference to
+ * it.</i>
  * 
  * @author Andrew Cowie
  * @since 4.0.9
@@ -102,8 +127,21 @@ import static org.gnome.gtk.TextTagTable.getDefaultTable;
  */
 public class TextTag extends Object
 {
+    /**
+     * An internal reference to the TextTagTable that this TextTag was
+     * constructed with. This is used for validation by TextBuffer's
+     * checkTag() to protect against misuse of our no-arg conveniences.
+     */
+    final TextTagTable table;
+
     protected TextTag(long pointer) {
         super(pointer);
+        /*
+         * FIXME Does this ever actually get hit? If so, we're in trouble; how
+         * can we find out what table it is actually in? Probably means
+         * changing the logic in checkTag().
+         */
+        this.table = null;
     }
 
     /**
@@ -115,7 +153,8 @@ public class TextTag extends Object
      */
     public TextTag() {
         super(GtkTextTag.createTextTag(null));
-        GtkTextTagTable.add(getDefaultTable(), this);
+        this.table = getDefaultTable();
+        GtkTextTagTable.add(table, this);
     }
 
     /**
@@ -130,6 +169,7 @@ public class TextTag extends Object
      */
     public TextTag(TextTagTable table) {
         super(GtkTextTag.createTextTag(null));
+        this.table = table;
         GtkTextTagTable.add(table, this);
     }
 
@@ -240,11 +280,11 @@ public class TextTag extends Object
      * <li>as hex, in the form <code>"#<i>rrggbb</i>"</code> where
      * <code><i>rr</i></code>, <code><i>gg</i></code>, and
      * <code><i>bb</i></code> are two hexadecimal characters expressing a
-     * values between <code>0x00</code> and <code>0xFF</code> for red,
-     * green, and blue respectively; or
+     * values between <code>0x00</code> and <code>0xFF</code> for red, green,
+     * and blue respectively; or
      * <li>as a symbolic name, such as <code>"blue"</code> and
-     * <code>"medium sea green"</code>, depending on what constants have
-     * been built into your X server. You can likely see a list at
+     * <code>"medium sea green"</code>, depending on what constants have been
+     * built into your X server. You can likely see a list at
      * <code>/usr/share/X11/rgb.txt</code>. Obviously these are unreliable
      * between different systems, but they are undeniably easy to use.
      * </ul>
@@ -273,7 +313,8 @@ public class TextTag extends Object
     }
 
     /**
-     * Specify the font <i>style</i> to be used ({@link org.gnome.pango.Style#NORMAL NORMAL},
+     * Specify the font <i>style</i> to be used (
+     * {@link org.gnome.pango.Style#NORMAL NORMAL},
      * {@link org.gnome.pango.Style#OBLIQUE OBLIQUE} and
      * {@link org.gnome.pango.Style#ITALIC ITALIC}s).
      * 
@@ -281,5 +322,161 @@ public class TextTag extends Object
      */
     public void setStyle(Style style) {
         setPropertyInteger("style", GtkTextTagOverride.valueOf(style));
+    }
+
+    /**
+     * Specify the font family to be used. This is a family name like
+     * "Bitstream Vera" or "DejaVu" or "Liberation".
+     * 
+     * <p>
+     * In general, it is better to use the standard aliases "Serif", "Sans",
+     * and "Monospaced" than naming a family by hand as this lets the user
+     * assign their own meanings to those terms via the Fonts tab in <b>
+     * <code>gnome-appearance-properties</code></b>.
+     * 
+     * <p>
+     * Note that you need to specify this early; if you set this after setting
+     * other propertes on the TextTag, it may reset them.
+     * 
+     * @since 4.0.10
+     */
+    public void setFamily(String font) {
+        setPropertyString("font", font);
+    }
+
+    /**
+     * Hide the text formatted with this TextTag.
+     * 
+     * <p>
+     * FIXME what happens when you insert at a point that is marked invisible?
+     * Backspace into it? What is the interaction with the <var>editable</var>
+     * property and <code>insertInteractive()</code>?
+     * 
+     * <p>
+     * <i>GTK further notes there are problems with invisible text and
+     * programmatic navigation of TextBuffers.</i>
+     * 
+     * @since <span style="color: red">Unstable</span>
+     */
+    /*
+     * FIXME The signature is correct, but the implications for the developer
+     * of employing this are not, and that needs fixing. We've exposed it so
+     * that people can play with it and maybe infer some of the answers to
+     * these questions.
+     */
+    public void setInvisible(boolean setting) {
+        setPropertyBoolean("invisible", setting);
+    }
+
+    public String toString() {
+        final StringBuilder str;
+        final Weight weight;
+
+        str = new StringBuilder(super.toString());
+
+        if (getPropertyBoolean("style-set")) {
+            str.append("\n\tstyle: " + getPropertyEnum("style"));
+        }
+        if (getPropertyBoolean("underline-set")) {
+            str.append("\n\tunderline: " + getPropertyEnum("underline"));
+        }
+        /*
+         * weight always seems to be set. What's up with that?
+         */
+        if (getPropertyBoolean("weight-set")) {
+            weight = GtkTextTagOverride.weightFor(getPropertyInteger("weight"));
+            if (weight != Weight.NORMAL) {
+                str.append("\n\tweight: " + weight);
+            }
+        }
+
+        return str.toString();
+    }
+
+    /**
+     * Set the font size, in points.
+     * 
+     * @since 4.0.10
+     */
+    /*
+     * Using "size-points" instead of "size" allowed us to keep Pango.SCALE
+     * default instead of public. There is no huge imperative to keep it that
+     * way.
+     */
+    public void setSize(double size) {
+        setPropertyDouble("size-points", size);
+    }
+
+    /**
+     * Pass a FontDescription specifying the metrics and characteristics of
+     * the font you wish to be active when this TextTag is applied.
+     * 
+     * @since 4.0.10
+     */
+    public void setFontDescription(FontDescription desc) {
+        setPropertyBoxed("font-desc", desc);
+    }
+
+    /**
+     * Pass a string that describes the font you wish to use. This is
+     * essentially a convenience wrapper around creating a FontDescription
+     * with FontDescription's {@link FontDescription#FontDescription(String)
+     * &lt;init&gt;(String)} constructor; see there for details of the syntax
+     * allowed.
+     * 
+     * @since 4.0.10
+     */
+    public void setFont(String str) {
+        setPropertyString("font", str);
+    }
+
+    /*
+     * This is allows us to keep the Pango.SCALE constant restricted
+     * visibility while still having the actual value only in one place.
+     */
+
+    private static final double SCALE;
+
+    static {
+        final Class<?> cls;
+        final Field field;
+
+        try {
+            cls = Class.forName("org.gnome.pango.Pango");
+
+            field = cls.getDeclaredField("SCALE");
+            field.setAccessible(true);
+
+            SCALE = field.getDouble(cls);
+        } catch (Exception e) {
+            throw new Error(e);
+        }
+    }
+
+    /**
+     * Indicate that a span of characters is to be positioned at other than
+     * the baseline. This is typically used to create superscripts and
+     * subscripts, although you want to be careful because you are likely also
+     * changing font sizes when doing so.
+     * 
+     * <p>
+     * The measurement is in points. A negative number will take you below the
+     * baseline.
+     * 
+     * <p>
+     * Be aware that whenever non-uniform sizing is used on a line, the
+     * TextView will render that line as higher than the other lines in a
+     * document. This can often be an unwanted (but hard to trivially avoid)
+     * side-effect.
+     * 
+     * 
+     * <p>
+     * See also {@link org.gnome.pango.RiseAttribute RiseAttribute} which is
+     * the underlying mechanism which powers this in Pango.
+     * 
+     * @since 4.0.14
+     */
+    public void setRise(double rise) {
+        setPropertyDouble("rise", (int) (rise * SCALE));
     }
 }

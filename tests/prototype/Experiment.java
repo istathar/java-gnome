@@ -1,12 +1,20 @@
 /*
- * Experiment.java
+ * java-gnome, a UI library for writing GTK and GNOME programs from Java!
  *
- * Copyright (c) 2006-2008 Operational Dynamics Consulting Pty Ltd
+ * Copyright © 2006-2010 Operational Dynamics Consulting, Pty Ltd
  *
- * The code in this file, and the program it is a part of, are made available
- * to you by the authors under the terms of the "GNU General Public Licence,
- * version 2" See the LICENCE file for the terms governing usage and
- * redistribution.
+ * The code in this file, and the program it is a part of, is made available
+ * to you by its authors as open source software: you can redistribute it
+ * and/or modify it under the terms of the GNU General Public License version
+ * 2 ("GPL") as published by the Free Software Foundation.
+ *
+ * This program is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+ * FITNESS FOR A PARTICULAR PURPOSE. See the GPL for more details.
+ *
+ * You should have received a copy of the GPL along with this program. If not,
+ * see http://www.gnu.org/licenses/. The authors of this program may be
+ * contacted through http://java-gnome.sourceforge.net/.
  */
 
 import java.io.FileNotFoundException;
@@ -17,6 +25,7 @@ import org.gnome.gdk.Screen;
 import org.gnome.gtk.Button;
 import org.gnome.gtk.FileChooserAction;
 import org.gnome.gtk.FileChooserButton;
+import org.gnome.gtk.FontButton;
 import org.gnome.gtk.Gtk;
 import org.gnome.gtk.Label;
 import org.gnome.gtk.ReliefStyle;
@@ -47,6 +56,7 @@ public final class Experiment
         final Label l;
         final Button b;
         final FileChooserButton fcb;
+        final FontButton fb;
         final Screen s;
         final Pixbuf logo;
 
@@ -61,10 +71,13 @@ public final class Experiment
         b = new Button("Change Me?");
         b.setLabel("Press Me!");
         b.setRelief(ReliefStyle.NORMAL);
-        x.packStart(b);
+        x.packStart(b, false, false, 0);
 
         fcb = new FileChooserButton("Good to get, a file is", FileChooserAction.OPEN);
         x.packStart(fcb, false, false, 0);
+
+        fb = new FontButton();
+        x.packStart(fb, false, false, 0);
 
         w.add(x);
 
@@ -92,6 +105,12 @@ public final class Experiment
             public void onFileSet(FileChooserButton source) {
                 System.out.println("File selected:   " + source.getURI());
                 System.gc();
+            }
+        });
+
+        fb.connect(new FontButton.FontSet() {
+            public void onFontSet(FontButton source) {
+                System.out.println(fb.getFontName());
             }
         });
 

@@ -11,7 +11,7 @@
   (caller-owns-return #t)
   (return-type "GtkWidget*")
   (parameters
-    '("GSList-GtkRadioMenuItem*" "group")
+    '("GSList-GtkRadioMenuItem*" "group" (null-ok))
   )
 )
 
@@ -21,7 +21,7 @@
   (caller-owns-return #t)
   (return-type "GtkWidget*")
   (parameters
-    '("GSList-GtkRadioMenuItem*" "group")
+    '("GSList-GtkRadioMenuItem*" "group" (null-ok))
     '("const-gchar*" "label")
   )
 )
@@ -32,34 +32,39 @@
   (caller-owns-return #t)
   (return-type "GtkWidget*")
   (parameters
-    '("GSList-GtkRadioMenuItem*" "group")
+    '("GSList-GtkRadioMenuItem*" "group" (null-ok))
     '("const-gchar*" "label")
   )
 )
 
-(define-method new_from_widget
-  (of-object "GtkRadioMenuItem")
+(define-function gtk_radio_menu_item_new_from_widget
+  (is-constructor-of "GtkRadioMenuItem")
   (c-name "gtk_radio_menu_item_new_from_widget")
   (caller-owns-return #t)
   (return-type "GtkWidget*")
+  (parameters
+    '("GtkRadioMenuItem*" "radio_group_member" (null-ok))
+  )
 )
 
-(define-method new_with_mnemonic_from_widget
-  (of-object "GtkRadioMenuItem")
+(define-function gtk_radio_menu_item_new_with_mnemonic_from_widget
+  (is-constructor-of "GtkRadioMenuItem")
   (c-name "gtk_radio_menu_item_new_with_mnemonic_from_widget")
   (caller-owns-return #t)
   (return-type "GtkWidget*")
   (parameters
+    '("GtkRadioMenuItem*" "radio_group_member" (null-ok))
     '("const-gchar*" "label")
   )
 )
 
-(define-method new_with_label_from_widget
-  (of-object "GtkRadioMenuItem")
+(define-function gtk_radio_menu_item_new_with_label_from_widget
+  (is-constructor-of "GtkRadioMenuItem")
   (c-name "gtk_radio_menu_item_new_with_label_from_widget")
   (caller-owns-return #t)
   (return-type "GtkWidget*")
   (parameters
+    '("GtkRadioMenuItem*" "radio_group_member" (null-ok))
     '("const-gchar*" "label")
   )
 )

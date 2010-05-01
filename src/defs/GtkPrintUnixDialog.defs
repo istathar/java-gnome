@@ -3,7 +3,7 @@
   (parent "GtkDialog")
   (c-name "GtkPrintUnixDialog")
   (gtype-id "GTK_TYPE_PRINT_UNIX_DIALOG")
-  (import-header "gtk/gtkprintunixdialog.h")
+  (import-header "gtk/gtkunixprint.h")
 )
 
 (define-function gtk_print_unix_dialog_new

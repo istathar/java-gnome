@@ -1,4 +1,5 @@
 (define-flags WMFunction
+  (unnecessary)
   (in-module "Gdk")
   (c-name "GdkWMFunction")
   (gtype-id "GDK_TYPE_WM_FUNCTION")

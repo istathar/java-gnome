@@ -1,20 +1,21 @@
 (define-boxed LayoutLine
   (in-module "Pango")
   (c-name "PangoLayoutLine")
-  (gtype-id "PANGO_TYPE_LAYOUT_LINE")
-  (fields
-    '("gint" "start_index")
-    '("gint" "length")
-    '("GSList*" "runs")
-    '("guint" "is_paragraph_start")
-    '("guint" "resolved_dir")
-  )
 )
+;; manually remove fields; we have to an override to make sense of these
+;;(fields
+;;  '("gint" "start_index")
+;;  '("gint" "length")
+;;  '("guint" "is_paragraph_start")
+;;  '("GSList*" "runs")
+;;  '("guint" "resolved_dir")
+;;)
 
+;; manually hacked to return void avoid creating lookup loops
 (define-method ref
   (of-object "PangoLayoutLine")
   (c-name "pango_layout_line_ref")
-  (return-type "PangoLayoutLine*")
+  (return-type "none")
 )
 
 (define-method unref
@@ -62,8 +63,8 @@
   (c-name "pango_layout_line_get_extents")
   (return-type "none")
   (parameters
-    '("PangoRectangle*" "ink_rect")
-    '("PangoRectangle*" "logical_rect")
+    '("PangoRectangle*" "ink_rect" (null-ok))
+    '("PangoRectangle*" "logical_rect" (null-ok))
   )
 )
 
@@ -72,8 +73,8 @@
   (c-name "pango_layout_line_get_pixel_extents")
   (return-type "none")
   (parameters
-    '("PangoRectangle*" "ink_rect")
-    '("PangoRectangle*" "logical_rect")
+    '("PangoRectangle*" "ink_rect" (null-ok))
+    '("PangoRectangle*" "logical_rect" (null-ok))
   )
 )
 

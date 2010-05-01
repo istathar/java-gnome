@@ -1,13 +1,34 @@
 /*
- * Gdk.java
+ * java-gnome, a UI library for writing GTK and GNOME programs from Java!
  *
- * Copyright (c) 2007 Operational Dynamics Consulting Pty Ltd
- * 
- * The code in this file, and the library it is a part of, are made available
- * to you by the authors under the terms of the "GNU General Public Licence,
- * version 2" plus the "Classpath Exception" (you may link to this code as a
- * library into other programs provided you don't make a derivation of it).
- * See the LICENCE file for the terms governing usage and redistribution.
+ * Copyright © 2007-2010 Operational Dynamics Consulting, Pty Ltd
+ *
+ * The code in this file, and the program it is a part of, is made available
+ * to you by its authors as open source software: you can redistribute it
+ * and/or modify it under the terms of the GNU General Public License version
+ * 2 ("GPL") as published by the Free Software Foundation.
+ *
+ * This program is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+ * FITNESS FOR A PARTICULAR PURPOSE. See the GPL for more details.
+ *
+ * You should have received a copy of the GPL along with this program. If not,
+ * see http://www.gnu.org/licenses/. The authors of this program may be
+ * contacted through http://java-gnome.sourceforge.net/.
+ *
+ * Linking this library statically or dynamically with other modules is making
+ * a combined work based on this library. Thus, the terms and conditions of
+ * the GPL cover the whole combination. As a special exception (the
+ * "Claspath Exception"), the copyright holders of this library give you
+ * permission to link this library with independent modules to produce an
+ * executable, regardless of the license terms of these independent modules,
+ * and to copy and distribute the resulting executable under terms of your
+ * choice, provided that you also meet, for each linked independent module,
+ * the terms and conditions of the license of that module. An independent
+ * module is a module which is not derived from or based on this library. If
+ * you modify this library, you may extend the Classpath Exception to your
+ * version of the library, but you are not obligated to do so. If you do not
+ * wish to do so, delete this exception statement from your version.
  */
 package org.gnome.gdk;
 
@@ -31,9 +52,9 @@ package org.gnome.gdk;
  * validation in the background after the user presses "OK", you have to jump
  * through horrific contortions to do so safely, resulting in cumbersome,
  * clunky code. By contrast, the java-gnome 4.0 bindings of GTK are
- * <b>transparently thread safe</b>. We integrate properly with the
- * underlying GDK thread lock and as a result you can safely make calls to
- * various GTK methods from worker threads.
+ * <b>transparently thread safe</b>. We integrate properly with the underlying
+ * GDK thread lock and as a result you can safely make calls to various GTK
+ * methods from worker threads.
  * 
  * <p>
  * <i>Threading and GNOME is tricky. This class mostly exists for the purpose
@@ -79,8 +100,8 @@ public class Gdk
      * access it via this field.
      */
     /*
-     * If you're not a java-gnome bindings hacker who **really** knows what
-     * they're doing, DO NOT TOUCH THIS.
+     * If you're not a java-gnome bindings hacker whoreally knows what they're
+     * doing, DO NOT TOUCH THIS.
      */
     public static final Lock lock;
 

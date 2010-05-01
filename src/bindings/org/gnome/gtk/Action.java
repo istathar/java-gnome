@@ -1,14 +1,35 @@
 /*
- * Action.java
+ * java-gnome, a UI library for writing GTK and GNOME programs from Java!
  *
- * Copyright (c) 2007-2008 Operational Dynamics Consulting Pty Ltd
- * Copyright (c) 2007      Vreixo Formoso
+ * Copyright © 2007-2010 Operational Dynamics Consulting, Pty Ltd
+ * Copyright © 2007      Vreixo Formoso
  *
- * The code in this file, and the library it is a part of, are made available
- * to you by the authors under the terms of the "GNU General Public Licence,
- * version 2" plus the "Classpath Exception" (you may link to this code as a
- * library into other programs provided you don't make a derivation of it).
- * See the LICENCE file for the terms governing usage and redistribution.
+ * The code in this file, and the program it is a part of, is made available
+ * to you by its authors as open source software: you can redistribute it
+ * and/or modify it under the terms of the GNU General Public License version
+ * 2 ("GPL") as published by the Free Software Foundation.
+ *
+ * This program is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+ * FITNESS FOR A PARTICULAR PURPOSE. See the GPL for more details.
+ *
+ * You should have received a copy of the GPL along with this program. If not,
+ * see http://www.gnu.org/licenses/. The authors of this program may be
+ * contacted through http://java-gnome.sourceforge.net/.
+ *
+ * Linking this library statically or dynamically with other modules is making
+ * a combined work based on this library. Thus, the terms and conditions of
+ * the GPL cover the whole combination. As a special exception (the
+ * "Claspath Exception"), the copyright holders of this library give you
+ * permission to link this library with independent modules to produce an
+ * executable, regardless of the license terms of these independent modules,
+ * and to copy and distribute the resulting executable under terms of your
+ * choice, provided that you also meet, for each linked independent module,
+ * the terms and conditions of the license of that module. An independent
+ * module is a module which is not derived from or based on this library. If
+ * you modify this library, you may extend the Classpath Exception to your
+ * version of the library, but you are not obligated to do so. If you do not
+ * wish to do so, delete this exception statement from your version.
  */
 package org.gnome.gtk;
 
@@ -48,8 +69,8 @@ import org.gnome.glib.Object;
  * 
  * <p>
  * Once you have created an Action, you can get proxies for it with the
- * {@link #createMenuItem() createMenuItem()} and
- * {@link #createToolItem() createToolItem()} methods.
+ * {@link #createMenuItem() createMenuItem()} and {@link #createToolItem()
+ * createToolItem()} methods.
  * 
  * <p>
  * Incidentally, you can still use Actions even if you only plan to let the
@@ -86,6 +107,7 @@ public class Action extends Object
      *            A handler to connect to the <code>Action.Activate</code>
      *            signal. Typically this will be used to actually start the
      *            operation related to this Action.
+     * @since 4.0.4
      */
     /*
      * FIXME describe the implications of different choices for name.
@@ -114,6 +136,7 @@ public class Action extends Object
      *            localized.
      * @param stock
      *            The Stock icon to display in proxy Widgets.
+     * @since 4.0.4
      */
     public Action(String name, String label, String tooltip, Stock stock) {
         super(GtkAction.createAction(name, label, tooltip, stock.getStockId()));
@@ -130,6 +153,18 @@ public class Action extends Object
     }
 
     /**
+     * Create a new Action based on a Stock item, and connect a handler to its
+     * <code>Action.Activate</code> signal. Complements the
+     * {@link #Action(String, Stock) &lt;init&gt;(String, Stock)} constructor.
+     * 
+     * @since 4.0.9
+     */
+    public Action(String name, Stock stock, Action.Activate handler) {
+        super(GtkAction.createAction(name, null, null, stock.getStockId()));
+        connect(handler);
+    }
+
+    /**
      * Create a new Action, and connect a handler to its
      * <code>Action.Activate</code> signal.
      * 
@@ -142,6 +177,7 @@ public class Action extends Object
      *            A handler to connect to the <code>Action.Activate</code>
      *            signal. Usually will will start from here the operation
      *            related to the Action.
+     * @since 4.0.4
      */
     public Action(String name, String label, Action.Activate handler) {
         super(GtkAction.createAction(name, label, null, null));
@@ -162,6 +198,7 @@ public class Action extends Object
      * @param label
      *            The text that will be displayed in the proxy Widgets. You
      *            usually will want to localize it to the user language.
+     * @since 4.0.4
      */
     public Action(String name, String label) {
         super(GtkAction.createAction(name, label, null, null));
@@ -175,6 +212,8 @@ public class Action extends Object
      * have the same label, icon or accelerator of this Action, and when the
      * user activates the MenuItem, this Action will
      * <code>Action.Activate</code> too.
+     * 
+     * @since 4.0.4
      */
     public MenuItem createMenuItem() {
         return (MenuItem) GtkAction.createMenuItem(this);
@@ -187,7 +226,9 @@ public class Action extends Object
      * You can add the returned ToolItem to a {@link Toolbar}. The ToolItem
      * will have the same Label, icon, tooltips or accelerator of this Action,
      * and when the user clicks it, this Action will be
-     * <code>Action.Activate</code>D.
+     * <code>Action.Activate</code>d.
+     * 
+     * @since 4.0.4
      */
     public ToolItem createToolItem() {
         return (ToolItem) GtkAction.createToolItem(this);
@@ -218,6 +259,11 @@ public class Action extends Object
      * Finally, note that setting an Action sensitive doesn't always mean it
      * will be actually sensitive, as you also need to make sensitive the
      * ActionGroup the Action belongs to (see {@link #isSensitive()}).
+     * 
+     * <p>
+     * An Action starts life sensitive (ie, <code>true</code>).
+     * 
+     * @since 4.0.4
      */
     public void setSensitive(boolean sensitive) {
         GtkAction.setSensitive(this, sensitive);
@@ -228,6 +274,8 @@ public class Action extends Object
      * user. Note that this doesn't necessarily mean effective sensitivity due
      * to the effect of ActionGroups; see {@link #isSensitive() isSensitive()}
      * for that.
+     * 
+     * @since 4.0.4
      */
     public boolean getSensitive() {
         return GtkAction.getSensitive(this);
@@ -236,6 +284,8 @@ public class Action extends Object
     /**
      * Returns whether the action is effectively sensitive, i.e., if both the
      * Action and the ActionGroup it belongs to are enabled.
+     * 
+     * @since 4.0.4
      */
     public boolean isSensitive() {
         return GtkAction.isSensitive(this);
@@ -249,11 +299,10 @@ public class Action extends Object
      * MenuItems or ToolItems are hidden to the used.
      * 
      * <p>
-     * In most cases, it's a better idea to
-     * {@link #setSensitive(boolean) setSensitive(false)} an Action instead of
-     * make it not visible. That way, users can see that such operation exists
-     * in the application, but they need to do some operations before it
-     * becomes available.
+     * In most cases, it's a better idea to {@link #setSensitive(boolean)
+     * setSensitive(false)} an Action instead of make it not visible. That
+     * way, users can see that such operation exists in the application, but
+     * they need to do some operations before it becomes available.
      * 
      * <p>
      * However, when a full Menu is disabled, this could be a good option. For
@@ -263,7 +312,10 @@ public class Action extends Object
      * <p>
      * Finally, note that setting an Action visible doesn't always mean it
      * will be actually displayed, as you also need to make visible the
-     * ActionGroup the Action belongs to (see {@link #isVisible() isVisible()}).
+     * ActionGroup the Action belongs to (see {@link #isVisible() isVisible()}
+     * for details).
+     * 
+     * @since 4.0.4
      */
     public void setVisible(boolean visible) {
         GtkAction.setVisible(this, visible);
@@ -275,6 +327,7 @@ public class Action extends Object
      * 
      * @see #isVisible()
      * @see #setVisible(boolean)
+     * @since 4.0.4
      */
     public boolean getVisible() {
         return GtkAction.getVisible(this);
@@ -286,6 +339,7 @@ public class Action extends Object
      * @return <code>true</code> when both the Action and the ActionGroup it
      *         belongs to are visible, <code>false</code> otherwise.
      * @see #setVisible(boolean)
+     * @since 4.0.4
      */
     public boolean isVisible() {
         return GtkAction.isVisible(this);
@@ -302,10 +356,10 @@ public class Action extends Object
      * <p>
      * Since the Action is automatically activated when user activates one of
      * its proxies (selecting the specific MenuItem or clicking the ToolButton
-     * that goes with this Action), so in most cases <b>you don't need this.</b>
+     * that goes with this Action), normally <b>you don't need this</b>.
      * However, in some cases you want to activate the Action in your
      * application code. Use this there.
-     *
+     * 
      * @since 4.0.8
      */
     public void emitActivate() {
@@ -321,6 +375,8 @@ public class Action extends Object
     /**
      * Set a tooltip (little help message appearing in a hover) for the
      * Action.
+     * 
+     * @since 4.0.4
      */
     public void setTooltip(String tooltip) {
         setPropertyString("tooltip", tooltip);
@@ -328,6 +384,8 @@ public class Action extends Object
 
     /**
      * Get the tooltip for the Action.
+     * 
+     * @since 4.0.4
      */
     public String getTooltip() {
         return getPropertyString("tooltip");
@@ -340,6 +398,8 @@ public class Action extends Object
      * An Action is activated when the user clicks a ToolButton proxy, when
      * (s)he activates an associated MenuItem or when
      * {@link Action#activate() activate()} is called.
+     * 
+     * @since 4.0.4
      */
     public interface Activate extends GtkAction.ActivateSignal
     {
@@ -348,6 +408,8 @@ public class Action extends Object
 
     /**
      * Connect a handler to the <code>Action.Activate</code> signal.
+     * 
+     * @since 4.0.4
      */
     public void connect(Action.Activate handler) {
         GtkAction.connect(this, handler, false);
@@ -373,9 +435,8 @@ public class Action extends Object
      * <p>
      * You use this when you want to use an Action to centralize activity
      * being launched by various different UI controls, but for which the
-     * existing <code>create*</code> proxies are not sufficient. So you
-     * create your Widget separately, then tie it to this Action with this
-     * method.
+     * existing <code>create*</code> proxies are not sufficient. So you create
+     * your Widget separately, then tie it to this Action with this method.
      * 
      * <p>
      * GTK will attempt to "synchronize" the tooltips, labels, and icons in
@@ -404,14 +465,20 @@ public class Action extends Object
      * nifty.connectProxy(item);
      * </pre>
      * 
-     * will cause the MenuItem's text label to become "<code>Do nifty things!</code>",
-     * and for selecting that MenuItem from the menu to result in the handler
-     * you hooked up to <code>nifty</code>'s <code>Action.Activate</code>
-     * signal being called.
+     * will cause the MenuItem's text label to become
+     * <code>&quot;Do nifty things!&quot;</code>, and for selecting that
+     * MenuItem from the menu to result in the handler you hooked up to
+     * <code>nifty</code>'s <code>Action.Activate</code> signal being called.
      * 
      * @since 4.0.6
+     * @deprecated
      */
     public void connectProxy(Widget proxy) {
-        GtkAction.connectProxy(this, proxy);
+        Activatable activatable;
+
+        assert false : "Use the Activatable's setRelatedAction() instead";
+
+        activatable = (Activatable) proxy;
+        activatable.setRelatedAction(this);
     }
 }

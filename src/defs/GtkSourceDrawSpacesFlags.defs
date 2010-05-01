@@ -1,0 +1,15 @@
+(define-flags DrawSpacesFlags
+  (in-module "GtkSourceView")
+  (c-name "GtkSourceDrawSpacesFlags")
+  (import-header "gtksourceview/gtksourceview-typebuiltins.h")
+  (gtype-id "GTK_TYPE_SOURCE_DRAW_SPACES_FLAGS")
+  (values
+    '("space" "GTK_SOURCE_DRAW_SPACES_SPACE")
+    '("tab" "GTK_SOURCE_DRAW_SPACES_TAB")
+    '("newline" "GTK_SOURCE_DRAW_SPACES_NEWLINE")
+; added later?
+;    '("nbsp" "GTK_SOURCE_DRAW_SPACES_NBSP")
+    '("all" "GTK_SOURCE_DRAW_SPACES_ALL")
+  )
+)
+

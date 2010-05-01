@@ -1,12 +1,20 @@
 /*
- * ExampleDrawingInExposeEvent.java
+ * java-gnome, a UI library for writing GTK and GNOME programs from Java!
  *
- * Copyright (c) 2007-2008 Operational Dynamics Consulting Pty Ltd, and Others
- * 
- * The code in this file, and the program it is a part of, are made available
- * to you by the authors under the terms of the "GNU General Public Licence,
- * version 2" See the LICENCE file for the terms governing usage and
- * redistribution.
+ * Copyright © 2007-2010 Operational Dynamics Consulting, Pty Ltd and Others
+ *
+ * The code in this file, and the program it is a part of, is made available
+ * to you by its authors as open source software: you can redistribute it
+ * and/or modify it under the terms of the GNU General Public License version
+ * 2 ("GPL") as published by the Free Software Foundation.
+ *
+ * This program is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+ * FITNESS FOR A PARTICULAR PURPOSE. See the GPL for more details.
+ *
+ * You should have received a copy of the GPL along with this program. If not,
+ * see http://www.gnu.org/licenses/. The authors of this program may be
+ * contacted through http://java-gnome.sourceforge.net/.
  */
 package cairo;
 
@@ -17,8 +25,8 @@ import org.freedesktop.cairo.RadialPattern;
 import org.gnome.gdk.Event;
 import org.gnome.gdk.EventExpose;
 import org.gnome.gdk.Rectangle;
+import org.gnome.gtk.DrawingArea;
 import org.gnome.gtk.Gtk;
-import org.gnome.gtk.Image;
 import org.gnome.gtk.Widget;
 import org.gnome.gtk.Window;
 
@@ -40,7 +48,7 @@ public class ExampleDrawingInExposeEvent
 {
     public static void main(String[] args) {
         final Window w;
-        final Image i;
+        final DrawingArea d;
 
         Gtk.init(args);
 
@@ -48,11 +56,11 @@ public class ExampleDrawingInExposeEvent
         w.setTitle("Expose");
         w.setDefaultSize(150, 150);
 
-        i = new Image();
-        w.add(i);
+        d = new DrawingArea();
+        w.add(d);
         w.showAll();
 
-        i.connect(new Widget.ExposeEvent() {
+        d.connect(new Widget.ExposeEvent() {
             public boolean onExposeEvent(Widget source, EventExpose event) {
                 final Context cr;
                 final Rectangle rect;
@@ -82,7 +90,7 @@ public class ExampleDrawingInExposeEvent
                  * Now, finally do some drawing:
                  */
 
-                cr.setSourceRGBA(1.0, 0.1, 0.0, 1.0);
+                cr.setSource(1.0, 0.1, 0.0, 1.0);
                 cr.moveTo(10, 40);
                 cr.lineTo(120, 145);
                 cr.stroke();
@@ -93,7 +101,7 @@ public class ExampleDrawingInExposeEvent
                  * to Cairo, really.
                  */
 
-                cr.setSourceRGBA(225 / 255.0, 148 / 255.0, 11 / 255.0, 1.0);
+                cr.setSource(225 / 255.0, 148 / 255.0, 11 / 255.0, 1.0);
                 cr.rectangle(70, 70, 20, 40);
                 cr.fill();
 
@@ -113,7 +121,7 @@ public class ExampleDrawingInExposeEvent
                 cr.setSource(linear);
                 cr.mask(radial);
 
-                return false;
+                return true;
             }
         });
 

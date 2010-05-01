@@ -1,17 +1,39 @@
 /*
- * TextView.java
+ * java-gnome, a UI library for writing GTK and GNOME programs from Java!
  *
- * Copyright (c) 2007-2008 Operational Dynamics Consulting Pty Ltd, and Others
+ * Copyright © 2007-2010 Operational Dynamics Consulting, Pty Ltd and Others
  *
- * The code in this file, and the library it is a part of, are made available
- * to you by the authors under the terms of the "GNU General Public Licence,
- * version 2" plus the "Classpath Exception" (you may link to this code as a
- * library into other programs provided you don't make a derivation of it).
- * See the LICENCE file for the terms governing usage and redistribution.
+ * The code in this file, and the program it is a part of, is made available
+ * to you by its authors as open source software: you can redistribute it
+ * and/or modify it under the terms of the GNU General Public License version
+ * 2 ("GPL") as published by the Free Software Foundation.
+ *
+ * This program is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+ * FITNESS FOR A PARTICULAR PURPOSE. See the GPL for more details.
+ *
+ * You should have received a copy of the GPL along with this program. If not,
+ * see http://www.gnu.org/licenses/. The authors of this program may be
+ * contacted through http://java-gnome.sourceforge.net/.
+ *
+ * Linking this library statically or dynamically with other modules is making
+ * a combined work based on this library. Thus, the terms and conditions of
+ * the GPL cover the whole combination. As a special exception (the
+ * "Claspath Exception"), the copyright holders of this library give you
+ * permission to link this library with independent modules to produce an
+ * executable, regardless of the license terms of these independent modules,
+ * and to copy and distribute the resulting executable under terms of your
+ * choice, provided that you also meet, for each linked independent module,
+ * the terms and conditions of the license of that module. An independent
+ * module is a module which is not derived from or based on this library. If
+ * you modify this library, you may extend the Classpath Exception to your
+ * version of the library, but you are not obligated to do so. If you do not
+ * wish to do so, delete this exception statement from your version.
  */
 package org.gnome.gtk;
 
 import org.gnome.gdk.Rectangle;
+import org.gnome.pango.FontDescription;
 
 /**
  * A multi-line text display Widget. <img class="snapshot" src="TextView.png">
@@ -24,9 +46,9 @@ import org.gnome.gdk.Rectangle;
  * 
  * <p>
  * TextView can be used for passive display of multiple lines of text by
- * disabling the <var>editable</var> property. Usually, however, a text
- * canvas is used for entering or editing text and the TextView/TextBuffer
- * APIs combine to provide a powerful editing capability.
+ * disabling the <var>editable</var> property. Usually, however, a text canvas
+ * is used for entering or editing text and the TextView/TextBuffer APIs
+ * combine to provide a powerful editing capability.
  * 
  * <h2>Usage</h2>
  * 
@@ -68,15 +90,39 @@ import org.gnome.gdk.Rectangle;
  * As with TextBuffer, TextIters are the mechanism used to point to locations
  * within the displayed text. There are numerous methods here on TextView
  * which manipulate the displayed view (for example
- * {@link #scrollTo(TextIter) scrollTo()}) many of which take a TextIter as
- * an indicator of position. Don't be confused that the TextIters are somehow
- * different depending on their source; they <i>always</i> refer to a
- * position in a TextBuffer but are often translated to also identify a screen
- * position in the TextView. You will often find yourself getting a TextIter
- * from the TextBuffer (perhaps in response to a
- * <code>TextBuffer.Changed</code> or <code>TextBuffer.InsertText</code>
- * emission) and then switching over to here and calling TextView methods -
- * and then going back to TextBuffer again a moment later.
+ * {@link #scrollTo(TextIter) scrollTo()}) many of which take a TextIter as an
+ * indicator of position. Don't be confused that the TextIters are somehow
+ * different depending on their source; they <i>always</i> refer to a position
+ * in a TextBuffer but are often translated to also identify a screen position
+ * in the TextView. You will often find yourself getting a TextIter from the
+ * TextBuffer (perhaps in response to a <code>TextBuffer.Changed</code> or
+ * <code>TextBuffer.InsertText</code> emission) and then switching over to
+ * here and calling TextView methods - and then going back to TextBuffer again
+ * a moment later.
+ * 
+ * <h2>Appearance</h2>
+ * 
+ * <p>
+ * {@link TextTag}s are what are use to cause ranges of text within a TextView
+ * to appear with various formatting (bold, italics, colour, etc) over and
+ * above being displayed as normal text. You apply such tags to the TextBuffer
+ * either when <code>insert()</code>ing or with <code>applyTag()</code>. See
+ * TextTag for details and examples.
+ * 
+ * <p>
+ * Incidentally, if you need to change the font of the text being rendered in
+ * this TextView by default use Widget's {@link #modifyFont(FontDescription)
+ * modifyFont()}, for example:
+ * 
+ * <pre>
+ * desc = new FontDescription(&quot;Monospace, 12&quot;);
+ * view.modifyFont(desc);
+ * </pre>
+ * 
+ * see FontDescription for all the gory details. As usual, we recommend that
+ * you do <i>not</i> do this without good cause, instead leaving the
+ * application font to be what the user has selected the system Appearance
+ * Preferences font settings dialog provided by GNOME.
  * 
  * <a name="height"></a>
  * <h2>Line height calculations</h2>
@@ -90,14 +136,13 @@ import org.gnome.gdk.Rectangle;
  * Ordinarily you don't have to worry about this, but methods like
  * {@link #getLineY(TextIter) getLineY()} will not report correct information
  * until this has happened. If you are doing drawing based on the co-ordinates
- * of a given line in the <code>TEXT</code> Window of the TextView, it is
- * easy to be trapped by this: you hook up to the
- * <code>TextBuffer.Changed</code> thinking that you can use this as an
- * indication of when the TextView has changed, but unfortunately this turns
- * out not to be the case. <code>TextBuffer.Changed</code> is indeed
- * emitted, but the information returned by <code>getLineY()</code> will not
- * have been updated until after the current signal handlers finish and the
- * high-priority idle task can run.
+ * of a given line in the <code>TEXT</code> Window of the TextView, it is easy
+ * to be trapped by this: you hook up to the <code>TextBuffer.Changed</code>
+ * thinking that you can use this as an indication of when the TextView has
+ * changed, but unfortunately this turns out not to be the case.
+ * <code>TextBuffer.Changed</code> is indeed emitted, but the information
+ * returned by <code>getLineY()</code> will not have been updated until after
+ * the current signal handlers finish and the high-priority idle task can run.
  * 
  * <p>
  * Studying the internal implementation of this logic in GTK, it turns out
@@ -160,12 +205,29 @@ import org.gnome.gdk.Rectangle;
  * in Open Source, Your Mileage May Vary. Perhaps GTK will improve this aspect
  * of the library in the future.</i>
  * 
+ * <a name="spelling"></a>
+ * <h2>Spellchecking</h2>
+ * 
+ * <img class="snapshot" src="TextView-Spelling.png"> You can add
+ * spellchecking capability to the TextView with a single line of code.
+ * 
+ * <pre>
+ * view.attachSpell()
+ * </pre>
+ * 
+ * The given code will determine the spellchecker language based on
+ * <code>LANG</code> environment variable and fall back to English if it
+ * can't.
+ * 
  * @author Stefan Prelle
  * @author Andrew Cowie
+ * @author Serkan Kaba
  * @since 4.0.9
  */
 public class TextView extends Container
 {
+    private Spell spell;
+
     protected TextView(long pointer) {
         super(pointer);
     }
@@ -214,8 +276,8 @@ public class TextView extends Container
      * 
      * @since 4.0.9
      */
-    public void setWrapMode(WrapMode wrapMode) {
-        GtkTextView.setWrapMode(this, wrapMode);
+    public void setWrapMode(WrapMode mode) {
+        GtkTextView.setWrapMode(this, mode);
     }
 
     /**
@@ -284,10 +346,9 @@ public class TextView extends Container
      * you're adding or it won't appear.
      * 
      * <p>
-     * There is an
-     * {@link TextBuffer#insert(TextIter, Widget, TextView) insert()} method
-     * available on TextBuffer which wraps this; you may find it more
-     * convenient.
+     * There is an {@link TextBuffer#insert(TextIter, Widget, TextView)
+     * insert()} method available on TextBuffer which wraps this; you may find
+     * it more convenient.
      * 
      * <p>
      * <i>The underlying library is somewhat convoluted about this due to the
@@ -341,9 +402,9 @@ public class TextView extends Container
      * 
      * <p>
      * The Widget <code>child</code> will be placed at the coordinates
-     * <code>x</code>,<code>y</code> in the [org.gnome.gdk] Window
-     * specified by which. You can get that Window by calling TextView's
-     * variant of {@link #getWindow(TextWindowType) getWindow()}.
+     * <code>x</code>,<code>y</code> in the [org.gnome.gdk] Window specified
+     * by which. You can get that Window by calling TextView's variant of
+     * {@link #getWindow(TextWindowType) getWindow()}.
      * 
      * <p>
      * This cannot be used unless <code>which</code> has been initialized to
@@ -371,6 +432,13 @@ public class TextView extends Container
         GtkTextView.addChildInWindow(this, child, which, x, y);
     }
 
+    /**
+     * @deprecated Despite TextView inherheriting from Container, add(Widget)
+     *             doesn't work. Use TextView's add(Widget,TextIter) instead.
+     */
+    /*
+     * This is marked deprecated just to keep it out of the API documentation.
+     */
     public void add(Widget child) {
         throw new UnsupportedOperationException("Use add(Widget,TextIter) instead");
     }
@@ -389,8 +457,8 @@ public class TextView extends Container
     /**
      * Convert <code>X</code> from <var>buffer co-ordinates</var> to
      * <var>window co-ordinates</var>. See
-     * {@link #convertBufferToWindowCoordsY(TextWindowType, int) convertBufferToWindowCoordsY()}
-     * for a detailed discussion.
+     * {@link #convertBufferToWindowCoordsY(TextWindowType, int)
+     * convertBufferToWindowCoordsY()} for a detailed discussion.
      * 
      * @since 4.0.9
      */
@@ -412,10 +480,10 @@ public class TextView extends Container
 
     /**
      * The canvas that is used to present the text in a TextView has an origin
-     * at <code>0</code>,<code>0</code> that is at the top left corner.
-     * and extends for as many pixels as would be necessary to present the
-     * entire TextBuffer if it were shown on an arbitrarily large screen
-     * without scrolling.
+     * at <code>0</code>,<code>0</code> that is at the top left corner. and
+     * extends for as many pixels as would be necessary to present the entire
+     * TextBuffer if it were shown on an arbitrarily large screen without
+     * scrolling.
      * 
      * <p>
      * In most cases, the text shown will require an area larger than the
@@ -423,9 +491,9 @@ public class TextView extends Container
      * scrollbars (which can be added by putting the TextView into a
      * ScrolledWindow), the viewport showing the text will slide when the
      * cursor is moved down from the start position and into the body of text.
-     * Thus you can be at a position in <var>buffer co-ordinates</var> that
-     * is far "greater" than the size of the [org.gnome.gdk] Window that
-     * displays it.
+     * Thus you can be at a position in <var>buffer co-ordinates</var> that is
+     * far "greater" than the size of the [org.gnome.gdk] Window that displays
+     * it.
      * 
      * <p>
      * Numerous methods, notably {@link #getLineY(TextIter) getLineY()},
@@ -434,9 +502,9 @@ public class TextView extends Container
      * to <var>window co-ordinates</var> which are relative to the top left
      * corner of the [org.gnome.gdk] Window being used to present the text on
      * screen. This method will carry out that conversion for the vertical
-     * axis. See
-     * {@link #convertBufferToWindowCoordsX(TextWindowType, int) convertBufferToWindowCoordsX()}
-     * for the corresponding horizontal conversion.
+     * axis. See {@link #convertBufferToWindowCoordsX(TextWindowType, int)
+     * convertBufferToWindowCoordsX()} for the corresponding horizontal
+     * conversion.
      * 
      * @since 4.0.9
      */
@@ -455,8 +523,8 @@ public class TextView extends Container
      * on screen position) to <var>buffer co-ordinates</var> (the pixel
      * distance into the canvas used to describe the entire text being
      * displayed). See
-     * {@link #convertBufferToWindowCoordsY(TextWindowType, int) convertBufferToWindowCoordsY()}
-     * for a detailed discussion.
+     * {@link #convertBufferToWindowCoordsY(TextWindowType, int)
+     * convertBufferToWindowCoordsY()} for a detailed discussion.
      * 
      * @since 4.0.9
      */
@@ -473,8 +541,8 @@ public class TextView extends Container
     /**
      * Convert a vertical position from <var>window co-ordinates</var> to
      * <var>buffer co-ordinates</var>. See
-     * {@link #convertBufferToWindowCoordsY(TextWindowType, int) convertBufferToWindowCoordsY()}
-     * for a detailed discussion.
+     * {@link #convertBufferToWindowCoordsY(TextWindowType, int)
+     * convertBufferToWindowCoordsY()} for a detailed discussion.
      * 
      * @since 4.0.9
      */
@@ -497,9 +565,9 @@ public class TextView extends Container
      * If you consider the text being displayed as a canvas of a fixed size,
      * but have turned on scrolling and only have a limited portion of that
      * canvas displayed due to the Widget being sized smaller than that
-     * canvas, then the <code>x</code>,<code>y</code> co-ordinates
-     * returned in the Rectangle represent the current <i>offset</i> into
-     * that canvas that the viewport is showing.
+     * canvas, then the <code>x</code>,<code>y</code> co-ordinates returned in
+     * the Rectangle represent the current <i>offset</i> into that canvas that
+     * the viewport is showing.
      * 
      * <p>
      * If, for example, you only have vertical scrolling enabled,
@@ -511,8 +579,8 @@ public class TextView extends Container
      * scroll.add(view);
      * </pre>
      * 
-     * then you can expect <code>getVisibleRectangle()</code> to always
-     * return Rectangles with an {@link Rectangle#getX() x} offset value of
+     * then you can expect <code>getVisibleRectangle()</code> to always return
+     * Rectangles with an {@link Rectangle#getX() x} offset value of
      * <code>0</code> - the viewport is never scrolled horizontally into the
      * text canvas.
      * 
@@ -520,6 +588,10 @@ public class TextView extends Container
      * The <code>width</code> and <code>height</code> will, more or less,
      * correspond to the size of the area of text actually being displayed in
      * the TextView.
+     * 
+     * <p>
+     * See {@link #getLocation(TextIter) getLocation()} if you need a
+     * Rectangle enclosing a given TextIter.
      * 
      * @since 4.0.9
      */
@@ -531,6 +603,32 @@ public class TextView extends Container
         GtkTextView.getVisibleRect(this, visible);
 
         return visible;
+    }
+
+    /**
+     * Get a Rectangle enclosing the screen position of the given TreeIter.
+     * This will be in <var>buffer co-ordinates</var>.
+     * 
+     * <p>
+     * This is very useful in a <code>TextBuffer.NotifyCursorPosition</code>
+     * if you need to figure out <i>where</i> the cursor is so as to handle
+     * presentation of some external control accordingly.
+     * 
+     * @since 4.0.10
+     */
+    /*
+     * We will not name this getIterLocation() because all the other methods
+     * in the getIter... completion space are methods that return a TreeIter
+     * based on some argument.
+     */
+    public Rectangle getLocation(TextIter pointer) {
+        final Rectangle location;
+
+        location = new Rectangle(0, 0, 0, 0);
+
+        GtkTextView.getIterLocation(this, pointer, location);
+
+        return location;
     }
 
     /**
@@ -548,8 +646,8 @@ public class TextView extends Container
      * displayed by the TextView. <code>X</code>,<code>Y</code> are in
      * <var>buffer co-ordinates</var>; if you have a position into the
      * [org.gnome.gdk] Window then use
-     * {@link #convertWindowToBufferCoordsY(TextWindowType, int) convertWindowToBufferCoordsY()}
-     * to convert.
+     * {@link #convertWindowToBufferCoordsY(TextWindowType, int)
+     * convertWindowToBufferCoordsY()} to convert.
      * 
      * @since 4.0.9
      */
@@ -573,9 +671,9 @@ public class TextView extends Container
      * <b>WARNING</b><br>
      * The co-ordinates of the start of each line height are cached are not
      * immediately updated when the underlying TextBuffer changes; see the
-     * comment titled "<a href="#height">Line Height Calculations</a>" in
-     * the documentation for this class for discussion of when you can safely
-     * use this method.
+     * comment titled "<a href="#height">Line Height Calculations</a>" in the
+     * documentation for this class for discussion of when you can safely use
+     * this method.
      * 
      * @since 4.0.9
      */
@@ -625,8 +723,8 @@ public class TextView extends Container
     }
 
     /**
-     * Scroll the viewport so that <code>pointer</code> is visible. This
-     * will get the location specified onto the screen with as little scroll
+     * Scroll the viewport so that <code>pointer</code> is visible. This will
+     * get the location specified onto the screen with as little scroll
      * movement as possible. If you need finer grained control, use one of the
      * other <code>scrollTo()</code> variants. variant.
      * 
@@ -637,8 +735,8 @@ public class TextView extends Container
     }
 
     /**
-     * Scroll the viewport so that <code>pointer</code> is visible,
-     * attempting to fine tune the result of the scrolling. See the
+     * Scroll the viewport so that <code>pointer</code> is visible, attempting
+     * to fine tune the result of the scrolling. See the
      * {@link #scrollTo(TextMark, double, double, double) scrollTo()} method
      * taking a TextMark and the same parameters for a detailed discussion of
      * their use.
@@ -670,10 +768,9 @@ public class TextView extends Container
      * location specified by the TextMark onto the screen.
      * 
      * <p>
-     * See also the full
-     * {@link #scrollTo(TextMark, double, double, double) scrollTo()} which
-     * takes additional parameters which may allow you to fine tune the result
-     * of the scrolling.
+     * See also the full {@link #scrollTo(TextMark, double, double, double)
+     * scrollTo()} which takes additional parameters which may allow you to
+     * fine tune the result of the scrolling.
      * 
      * @since 4.0.9
      */
@@ -687,9 +784,9 @@ public class TextView extends Container
      * <p>
      * The GTK documentation states that the <i>the effective screen will be
      * reduced by</i> <code>withinMargin</code>. The acceptable range is
-     * <code>0.0</code> to <code>0.5</code>. TODO It would be cool if
-     * someone could figure out what that actually means; the allowed range is
-     * clearly not a multiplier, so what is it?
+     * <code>0.0</code> to <code>0.5</code>. TODO It would be cool if someone
+     * could figure out what that actually means; the allowed range is clearly
+     * not a multiplier, so what is it?
      * 
      * <p>
      * The alignment parameters have the same meaning as elsewhere in GTK:
@@ -756,8 +853,8 @@ public class TextView extends Container
      * 
      * <p>
      * The signal has a parameter of type Menu and populating the popup menu
-     * is done by adding items to it with Menu's <code>append()</code>,
-     * etc. After constructing your menu one <i>must</i> call
+     * is done by adding items to it with Menu's <code>append()</code>, etc.
+     * After constructing your menu one <i>must</i> call
      * <code>showAll()</code> on the Menu or your newly added MenuItems will
      * <i>not</i> appear in the popup menu.
      * 
@@ -794,9 +891,9 @@ public class TextView extends Container
     /**
      * Hook up a handler to receive <code>TextView.PopulatePopup</code>
      * signals on this TextView. This will be emitted each time the user
-     * right-clicks or presses the <b><code>Menu</code></b> key, and
-     * allows you to populate the popup menu according to the current
-     * circumstances - in other words, making it a context menu.
+     * right-clicks or presses the <b><code>Menu</code></b> key, and allows
+     * you to populate the popup menu according to the current circumstances -
+     * in other words, making it a context menu.
      * 
      * @since 4.0.9
      */
@@ -810,9 +907,9 @@ public class TextView extends Container
      * with normal line spacing as specified by the current font metrics.
      * 
      * <p>
-     * See also
-     * {@link #setPaddingAboveParagraph(int) setPaddingAboveParagraph()} and
-     * {@link #setPaddingInsideParagraph(int) setPaddingInsideParagraph()}.
+     * See also {@link #setPaddingAboveParagraph(int)
+     * setPaddingAboveParagraph()} and {@link #setPaddingInsideParagraph(int)
+     * setPaddingInsideParagraph()}.
      * 
      * <p>
      * <i>This sets the <var>pixels-below-lines</var> property in GTK.</i>
@@ -829,9 +926,9 @@ public class TextView extends Container
      * first line will be offset from the top edge of the TextView.
      * 
      * <p>
-     * See also
-     * {@link #setPaddingBelowParagraph(int) setPaddingBelowParagraph()} and
-     * {@link #setPaddingInsideParagraph(int) setPaddingInsideParagraph()}.
+     * See also {@link #setPaddingBelowParagraph(int)
+     * setPaddingBelowParagraph()} and {@link #setPaddingInsideParagraph(int)
+     * setPaddingInsideParagraph()}.
      * 
      * <p>
      * <i>This sets the <var>pixels-above-lines</var> property in GTK.</i>
@@ -852,15 +949,14 @@ public class TextView extends Container
      * in the TextView displaying it.
      * 
      * <p>
-     * The default is <code>0</code>, ie to leave the line spacing alone.
-     * If nothing is causing lines to wrap then this setting will have no
-     * effect.
+     * The default is <code>0</code>, ie to leave the line spacing alone. If
+     * nothing is causing lines to wrap then this setting will have no effect.
      * 
      * <p>
-     * See also
-     * {@link #setPaddingAboveParagraph(int) setPaddingAboveParagraph()} and
-     * {@link #setPaddingBelowParagraph(int) setPaddingBelowParagraph()} for
-     * the spacing before and after each paragraph (wrapped or not).
+     * See also {@link #setPaddingAboveParagraph(int)
+     * setPaddingAboveParagraph()} and {@link #setPaddingBelowParagraph(int)
+     * setPaddingBelowParagraph()} for the spacing before and after each
+     * paragraph (wrapped or not).
      * 
      * <p>
      * <i>This sets the <var>pixels-inside-wrap</var> property in GTK.</i>
@@ -872,12 +968,11 @@ public class TextView extends Container
     }
 
     /**
-     * Set the behaviour when the <b><code>Tab</code></b> key is pressed.
-     * The default is <code>true</code>, that a <code>'\t'</code>
-     * character will be inserted into the underlying TextBuffer. If you would
-     * rather that <b><code>Tab</code></b> causes the focus to change to
-     * the next Widget rather than inserting a tab, then set this to
-     * <code>false</code>.
+     * Set the behaviour when the <b><code>Tab</code></b> key is pressed. The
+     * default is <code>true</code>, that a <code>'\t'</code> character will
+     * be inserted into the underlying TextBuffer. If you would rather that
+     * <b><code>Tab</code></b> causes the focus to change to the next Widget
+     * rather than inserting a tab, then set this to <code>false</code>.
      * 
      * @since 4.0.9
      */
@@ -915,5 +1010,85 @@ public class TextView extends Container
             throw new IllegalArgumentException("Margin must be >= 0 pixels");
         }
         GtkTextView.setRightMargin(this, pixels);
+    }
+
+    /**
+     * @deprecated
+     */
+    public void setLeftMargin(int pixels) {
+        assert false : "use setMarginLeft() instead";
+        GtkTextView.setLeftMargin(this, pixels);
+    }
+
+    /**
+     * Create and attach a {@link Spell} object to the view to add
+     * spellchecking capability.
+     * 
+     * <p>
+     * The language is chosen based on the value of <code>LANG</code>
+     * environment variable.
+     * 
+     * @since 4.0.12
+     */
+    public void attachSpell() {
+        if (spell == null) {
+            spell = new Spell(this, null);
+        } else {
+            throw new IllegalStateException("Sorry, you've already attached a Spell to this TextView");
+        }
+    }
+
+    /**
+     * Create and attach a {@link Spell} object to the view to add
+     * spellchecking capability in the given language.
+     * 
+     * <p>
+     * You're probably just as well to call {@link #attachSpell()
+     * attachSpell()} and accept the default.
+     * 
+     * @since 4.0.12
+     */
+    public void attachSpell(String lang) {
+        if (spell == null) {
+            spell = new Spell(this, lang);
+        } else {
+            throw new IllegalStateException("Sorry, you've already attached a Spell to this TextView");
+        }
+    }
+
+    /**
+     * Get the Spell helper object attached to the view.
+     * 
+     * <p>
+     * Reasons you might need to use this are if you have to programatically
+     * change the language being used to spell check against with Spell's
+     * {@link Spell#setLanguage(String) setLanguage()}, or to force the
+     * checker to run again with its {@link Spell#recheckAll() recheckAll()}.
+     * You probably won't ever need either.
+     * 
+     * <p>
+     * Obviously there isn't much point in asking for the Spell helper object
+     * if you haven't called {@link #attachSpell() attachSpell()} to create
+     * one yet.
+     * 
+     * @since 4.0.12
+     */
+    public Spell getSpell() {
+        if (spell == null) {
+            throw new IllegalStateException("You haven't attached a Spell to this TextView yet.");
+        }
+        return spell;
+    }
+
+    /**
+     * Tell this TextView to adopt the given justification.
+     * 
+     * @since 4.0.14
+     */
+    /*
+     * Method name adjusted to match Label's setJustify().
+     */
+    public void setJustify(Justification setting) {
+        GtkTextView.setJustification(this, setting);
     }
 }

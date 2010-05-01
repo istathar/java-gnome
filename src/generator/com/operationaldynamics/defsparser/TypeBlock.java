@@ -1,15 +1,24 @@
 /*
- * TypeBlock.java
+ * java-gnome, a UI library for writing GTK and GNOME programs from Java!
  *
- * Copyright (c) 2007-2008 Operational Dynamics Consulting Pty Ltd
- * 
- * The code in this file, and the program it is a part of, are made available
- * to you by the authors under the terms of the "GNU General Public Licence,
- * version 2" See the LICENCE file for the terms governing usage and
- * redistribution.
+ * Copyright © 2007-2010 Operational Dynamics Consulting, Pty Ltd
+ *
+ * The code in this file, and the program it is a part of, is made available
+ * to you by its authors as open source software: you can redistribute it
+ * and/or modify it under the terms of the GNU General Public License version
+ * 2 ("GPL") as published by the Free Software Foundation.
+ *
+ * This program is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+ * FITNESS FOR A PARTICULAR PURPOSE. See the GPL for more details.
+ *
+ * You should have received a copy of the GPL along with this program. If not,
+ * see http://www.gnu.org/licenses/. The authors of this program may be
+ * contacted through http://java-gnome.sourceforge.net/.
  */
 package com.operationaldynamics.defsparser;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -20,8 +29,8 @@ import com.operationaldynamics.driver.DefsFile;
  * Base class for blocks that declare type information. <b>Note that TypeBlock
  * does not imply total information for what will become an entire Java
  * compilation unit; it's just the information that allows us to know that the
- * type exists in the first place.</b> The context that this block lives in
- * is represented in this program by the {@link DefsFile} class.
+ * type exists in the first place.</b> The context that this block lives in is
+ * represented in this program by the {@link DefsFile} class.
  * 
  * @author Andrew Cowie
  */
@@ -31,7 +40,7 @@ public abstract class TypeBlock extends Block
 
     protected String cName;
 
-    protected String importHeader;
+    protected List<String> importHeader;
 
     protected TypeBlock(final String blockName, final List<String[]> characteristics) {
         super(blockName, characteristics);
@@ -57,7 +66,10 @@ public abstract class TypeBlock extends Block
      * characteristic, introduced by java-gnome, solves that problem.
      */
     protected final void setImportHeader(final String importHeader) {
-        this.importHeader = importHeader;
+        if (this.importHeader == null) {
+            this.importHeader = new ArrayList<String>(1);
+        }
+        this.importHeader.add(importHeader);
     }
 
     /**
@@ -72,6 +84,10 @@ public abstract class TypeBlock extends Block
 
         if (module.equals("Cairo")) {
             return "org.freedesktop.cairo";
+        } else if (module.equals("Enchant")) {
+            return "org.freedesktop.enchant";
+        } else if (module.equals("GtkSourceView")) {
+            return "org.gnome.sourceview";
         }
 
         buf = new StringBuffer(module);

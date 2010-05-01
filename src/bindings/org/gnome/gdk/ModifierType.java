@@ -1,13 +1,34 @@
 /*
- * ModifierType.java
+ * java-gnome, a UI library for writing GTK and GNOME programs from Java!
  *
- * Copyright (c) 2007-2008 Operational Dynamics Consulting Pty Ltd
+ * Copyright © 2007-2010 Operational Dynamics Consulting, Pty Ltd
  *
- * The code in this file, and the library it is a part of, are made available
- * to you by the authors under the terms of the "GNU General Public Licence,
- * version 2" plus the "Classpath Exception" (you may link to this code as a
- * library into other programs provided you don't make a derivation of it).
- * See the LICENCE file for the terms governing usage and redistribution.
+ * The code in this file, and the program it is a part of, is made available
+ * to you by its authors as open source software: you can redistribute it
+ * and/or modify it under the terms of the GNU General Public License version
+ * 2 ("GPL") as published by the Free Software Foundation.
+ *
+ * This program is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+ * FITNESS FOR A PARTICULAR PURPOSE. See the GPL for more details.
+ *
+ * You should have received a copy of the GPL along with this program. If not,
+ * see http://www.gnu.org/licenses/. The authors of this program may be
+ * contacted through http://java-gnome.sourceforge.net/.
+ *
+ * Linking this library statically or dynamically with other modules is making
+ * a combined work based on this library. Thus, the terms and conditions of
+ * the GPL cover the whole combination. As a special exception (the
+ * "Claspath Exception"), the copyright holders of this library give you
+ * permission to link this library with independent modules to produce an
+ * executable, regardless of the license terms of these independent modules,
+ * and to copy and distribute the resulting executable under terms of your
+ * choice, provided that you also meet, for each linked independent module,
+ * the terms and conditions of the license of that module. An independent
+ * module is a module which is not derived from or based on this library. If
+ * you modify this library, you may extend the Classpath Exception to your
+ * version of the library, but you are not obligated to do so. If you do not
+ * wish to do so, delete this exception statement from your version.
  */
 package org.gnome.gdk;
 
@@ -57,14 +78,14 @@ import org.freedesktop.bindings.Flag;
  * <dd>
  * 
  * <pre>
- * Pressed: Keyval.a, Modifier: ModifierType.UNSET
+ * Pressed: Keyval.a, Modifier: ModifierType.NONE
  * </pre>
  * 
  * <dt><b><code>Shift+A</code></b>
  * <dd>
  * 
  * <pre>
- * Pressed: Keyval.ShiftRight, Modifier: ModifierType.UNSET 
+ * Pressed: Keyval.ShiftRight, Modifier: ModifierType.NONE 
  * Pressed: Keyval.A, Modifier: ModifierType.SHIFT_MASK That's Shifty!
  * </pre>
  * 
@@ -72,7 +93,7 @@ import org.freedesktop.bindings.Flag;
  * <dd>
  * 
  * <pre>
- * Pressed: Keyval.ControlRight, Modifier: ModifierType.UNSET 
+ * Pressed: Keyval.ControlRight, Modifier: ModifierType.NONE 
  * Pressed: Keyval.a, Modifier: ModifierType.CONTROL_MASK
  * </pre>
  * 
@@ -80,7 +101,7 @@ import org.freedesktop.bindings.Flag;
  * <dd>
  * 
  * <pre>
- * Pressed: Keyval.ControlRight, Modifier: ModifierType.UNSET  
+ * Pressed: Keyval.ControlRight, Modifier: ModifierType.NONE  
  * Pressed: Keyval.ShiftRight, Modifier: ModifierType.CONTROL_MASK 
  * Pressed: Keyval.A, Modifier: ModifierType.SHIFT_MASK|CONTROL_MASK
  * </pre>
@@ -89,7 +110,7 @@ import org.freedesktop.bindings.Flag;
  * <dd>
  * 
  * <pre>
- * Pressed: Keyval.AltRight, Modifier: ModifierType.UNSET 
+ * Pressed: Keyval.AltRight, Modifier: ModifierType.NONE 
  * Pressed: Keyval.a, Modifier: ModifierType.ALT_MASK Hooray for Alt!
  * </pre>
  * 
@@ -97,7 +118,7 @@ import org.freedesktop.bindings.Flag;
  * <dd>
  * 
  * <pre>
- * Pressed: Keyval.ControlLeft, Modifier: ModifierType.UNSET 
+ * Pressed: Keyval.ControlLeft, Modifier: ModifierType.NONE 
  * Pressed: Keyval.AltLeft, Modifier: ModifierType.CONTROL_MASK 
  * Pressed: Keyval.a, Modifier: ModifierType.CONTROL_MASK|ALT_MASK Hooray for Alt!
  * </pre>
@@ -135,6 +156,14 @@ public final class ModifierType extends Flag
      * 0 so you don't need much of a constant for that.
      */
     public static final ModifierType NONE = new ModifierType(0, "NONE");
+
+    /**
+     * The ModifierType associated with the <b><code>CapsLock</code></b> key.
+     * A bit strange that this is also treated as a modifier.
+     * 
+     * @since 4.0.13
+     */
+    public static final ModifierType LOCK_MASK = new ModifierType(GdkModifierType.LOCK_MASK, "LOCK_MASK");
 
     /**
      * The <b><code>Shift</code></b> key modifier.
@@ -175,13 +204,13 @@ public final class ModifierType extends Flag
             "HYPER_MASK");
 
     /**
-     * The <b><code>Window</code></b> modifier key. You will probably also
-     * get <code>SUPER_MASK</code> with this one.
+     * The <b><code>Window</code></b> modifier key. You will probably also get
+     * <code>SUPER_MASK</code> with this one.
      * 
      * <p>
      * <i>Unless your user has changed things of their X server is doing
-     * something weird, it is likely that <code>MOD4_MASK</code> is mapped
-     * to the "key with the Microsoft Windows logo" that is present on modern
+     * something weird, it is likely that <code>MOD4_MASK</code> is mapped to
+     * the "key with the Microsoft Windows logo" that is present on modern
      * PC104 keyboards. Damn monopolists. Anyway, that's what people call it,
      * so that's that's what we've named our constant.</i>
      * 
@@ -189,4 +218,40 @@ public final class ModifierType extends Flag
      */
     public static final ModifierType WINDOW_MASK = new ModifierType(GdkModifierType.MOD4_MASK,
             "WINDOW_MASK");
+
+    /*
+     * These names correspond to the ones we exposed in MouseButton.
+     */
+
+    /**
+     * The left mouse button was held while the key was pressed. GNOME user
+     * interface conventions don't have us using mouse buttons as modifiers,
+     * so you won't need this in normal usage.
+     * 
+     * <p>
+     * If hooking up a handler for <code>Widget.ButtonPressEvent</code> you
+     * will instead be using the {@link MouseButton#LEFT LEFT} MouseButton
+     * constant.
+     * 
+     * 
+     * @since 4.0.14
+     */
+    public static final ModifierType BUTTON_LEFT_MASK = new ModifierType(GdkModifierType.BUTTON1_MASK,
+            "BUTTON_LEFT_MASK");
+
+    /**
+     * The middle mouse button was held while the key was pressed.
+     * 
+     * @since 4.0.14
+     */
+    public static final ModifierType BUTTON_MIDDLE_MASK = new ModifierType(GdkModifierType.BUTTON2_MASK,
+            "BUTTON_MIDDLE_MASK");
+
+    /**
+     * The right mouse button was held while the key was pressed.
+     * 
+     * @since 4.0.14
+     */
+    public static final ModifierType BUTTON_RIGHT_MASK = new ModifierType(GdkModifierType.BUTTON3_MASK,
+            "BUTTON_RIGHT_MASK");
 }

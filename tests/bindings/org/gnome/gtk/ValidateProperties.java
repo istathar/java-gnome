@@ -1,12 +1,20 @@
 /*
- * ValidateProperties.java
+ * java-gnome, a UI library for writing GTK and GNOME programs from Java!
  *
- * Copyright (c) 2007-2008 Operational Dynamics Consulting Pty Ltd
- * 
- * The code in this file, and the suite it is a part of, are made available
- * to you by the authors under the terms of the "GNU General Public Licence,
- * version 2" See the LICENCE file for the terms governing usage and
- * redistribution.
+ * Copyright © 2007-2010 Operational Dynamics Consulting, Pty Ltd
+ *
+ * The code in this file, and the program it is a part of, is made available
+ * to you by its authors as open source software: you can redistribute it
+ * and/or modify it under the terms of the GNU General Public License version
+ * 2 ("GPL") as published by the Free Software Foundation.
+ *
+ * This program is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+ * FITNESS FOR A PARTICULAR PURPOSE. See the GPL for more details.
+ *
+ * You should have received a copy of the GPL along with this program. If not,
+ * see http://www.gnu.org/licenses/. The authors of this program may be
+ * contacted through http://java-gnome.sourceforge.net/.
  */
 package org.gnome.gtk;
 
@@ -20,7 +28,7 @@ import org.gnome.gdk.Pixbuf;
  * 
  * @author Andrew Cowie
  */
-public class ValidateProperties extends TestCaseGtk
+public class ValidateProperties extends GraphicalTestCase
 {
     public final void testStringValues() {
         final Value v = new Value("Hello");
@@ -189,7 +197,16 @@ public class ValidateProperties extends TestCaseGtk
 
         w = new Window();
         w.add(b);
-        w.showAll();
+
+        /*
+         * We call realize instead of show on the window to prevent the Window
+         * from popping onto the screen when the main loop runs in
+         * ValidateScreensAndDisplays. This is likely a weak workaround and
+         * not a fix, but we need the size-allocation to have happened to be
+         * able to complete this test fixture
+         */
+        b.showAll();
+        GtkWidget.realize(b);
 
         /*
          * Now test that the our live reference to the GtkAllocation actually
@@ -333,5 +350,21 @@ public class ValidateProperties extends TestCaseGtk
         window = new Window();
         window.add(button);
         button.grabDefault();
+    }
+
+    /*
+     * Check the default visibility of Entry and then cycle the property.
+     */
+    public final void testVisibility() {
+        final Entry entry;
+
+        entry = new Entry();
+        assertTrue(entry.getVisibility());
+
+        entry.setVisibility(false);
+        assertFalse(entry.getVisibility());
+
+        entry.setVisibility(true);
+        assertTrue(entry.getVisibility());
     }
 }

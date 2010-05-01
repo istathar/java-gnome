@@ -1,0 +1,33 @@
+(define-entity Matrix
+  (in-module "Cairo")
+  (c-name "cairo_matrix_t")
+)
+
+(define-method rotate
+  (of-object "cairo_matrix_t")
+  (c-name "cairo_matrix_rotate")
+  (return-type "none")
+  (parameters
+    '("double" "angle")
+  )
+)
+
+(define-method translate
+  (of-object "cairo_matrix_t")
+  (c-name "cairo_matrix_translate")
+  (return-type "none")
+  (parameters
+    '("double" "tx")
+    '("double" "ty")
+  )
+)
+
+(define-method scale
+  (of-object "cairo_matrix_t")
+  (c-name "cairo_matrix_scale")
+  (return-type "none")
+  (parameters
+    '("double" "sx")
+    '("double" "sy")
+  )
+)

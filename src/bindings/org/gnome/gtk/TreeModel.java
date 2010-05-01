@@ -1,13 +1,34 @@
 /*
- * TreeModel.java
+ * java-gnome, a UI library for writing GTK and GNOME programs from Java!
  *
- * Copyright (c) 2007-2008 Operational Dynamics Consulting Pty Ltd
+ * Copyright © 2007-2010 Operational Dynamics Consulting, Pty Ltd
  *
- * The code in this file, and the library it is a part of, are made available
- * to you by the authors under the terms of the "GNU General Public Licence,
- * version 2" plus the "Classpath Exception" (you may link to this code as a
- * library into other programs provided you don't make a derivation of it).
- * See the LICENCE file for the terms governing usage and redistribution.
+ * The code in this file, and the program it is a part of, is made available
+ * to you by its authors as open source software: you can redistribute it
+ * and/or modify it under the terms of the GNU General Public License version
+ * 2 ("GPL") as published by the Free Software Foundation.
+ *
+ * This program is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+ * FITNESS FOR A PARTICULAR PURPOSE. See the GPL for more details.
+ *
+ * You should have received a copy of the GPL along with this program. If not,
+ * see http://www.gnu.org/licenses/. The authors of this program may be
+ * contacted through http://java-gnome.sourceforge.net/.
+ *
+ * Linking this library statically or dynamically with other modules is making
+ * a combined work based on this library. Thus, the terms and conditions of
+ * the GPL cover the whole combination. As a special exception (the
+ * "Claspath Exception"), the copyright holders of this library give you
+ * permission to link this library with independent modules to produce an
+ * executable, regardless of the license terms of these independent modules,
+ * and to copy and distribute the resulting executable under terms of your
+ * choice, provided that you also meet, for each linked independent module,
+ * the terms and conditions of the license of that module. An independent
+ * module is a module which is not derived from or based on this library. If
+ * you modify this library, you may extend the Classpath Exception to your
+ * version of the library, but you are not obligated to do so. If you do not
+ * wish to do so, delete this exception statement from your version.
  */
 package org.gnome.gtk;
 
@@ -16,8 +37,8 @@ import org.gnome.gdk.Pixbuf;
 /**
  * The data use as the model backing a {@link TreeView}. TreeModel comes in
  * two flavours which actually store data: {@link ListStore}, for a list of
- * rows, and {@link TreeStore}, for data which has a hierarchical
- * relationship between the rows.
+ * rows, and {@link TreeStore}, for data which has a hierarchical relationship
+ * between the rows.
  * 
  * <p>
  * TreeModels are tabular, and as such have "columns", each of which is
@@ -38,13 +59,13 @@ import org.gnome.gdk.Pixbuf;
  * <h2>Populating TreeModels</h2>
  * 
  * <p>
- * You add data to a TreeModel by first calling <code>appendRow()</code>
- * which returns a TreeIter pointing to the new row, and then using the
- * <code>setValue()</code> method appropriate to the data type of each
- * column [<code>setValue()</code> has an overload for each concrete
- * DataColumn type, so if you've declared the columns as fully derived
- * DataColumnString or DataColumnInteger or whatever (as recommended), the
- * following will Just Work]:
+ * You add data to a TreeModel by first calling <code>appendRow()</code> which
+ * returns a TreeIter pointing to the new row, and then using the
+ * <code>setValue()</code> method appropriate to the data type of each column
+ * [<code>setValue()</code> has an overload for each concrete DataColumn type,
+ * so if you've declared the columns as fully derived DataColumnString or
+ * DataColumnInteger or whatever (as recommended), the following will Just
+ * Work]:
  * 
  * <pre>
  * final DataColumnString column;
@@ -59,8 +80,8 @@ import org.gnome.gdk.Pixbuf;
  * and the DataColumn <code>column</code>; doing so made the first two
  * arguments of each of the <code>setValue()</code> methods make sense: you
  * are setting a <var>value</var> in the ListStore or TreeStore at the
- * co-ordinates <var>row</var>, <var>column</var>. In practise, of course,
- * you have many DataColumns,
+ * co-ordinates <var>row</var>, <var>column</var>. In practise, of course, you
+ * have many DataColumns,
  * 
  * <pre>
  * final DataColumnString monarchNameColumn;
@@ -112,8 +133,8 @@ import org.gnome.gdk.Pixbuf;
  * The <code>row</code> TreeIter in this case usually comes from a TreeView
  * {@link TreeView.RowActivated} signal or a TreeSelection
  * {@link TreeSelection.Changed} signal. You can also get a TreeIter for a
- * specific row via <code>getIter()</code>. Less frequently you will want
- * to iterate over all the rows in the model, which is possible as follows:
+ * specific row via <code>getIter()</code>. Less frequently you will want to
+ * iterate over all the rows in the model, which is possible as follows:
  * 
  * <pre>
  * row = model.getIterFirst();
@@ -140,10 +161,10 @@ import org.gnome.gdk.Pixbuf;
  * them as the means to drive what is being displayed by a TreeView; there's
  * no reason to try and store a complex domain model in a GTK TreeModel. [By
  * analogy, the String you pass to Label's <code>setLabel()</code> is merely
- * setting the <var>label</var> property which is the "data store" backing
- * the text displayed by the Label. You only push down what you want
- * displayed; the rest of your data model stays in Java, of course. It's the
- * same with TreeView]
+ * setting the <var>label</var> property which is the "data store" backing the
+ * text displayed by the Label. You only push down what you want displayed;
+ * the rest of your data model stays in Java, of course. It's the same with
+ * TreeView]
  * 
  * @author Andrew Cowie
  * @author Peter Miller
@@ -208,14 +229,17 @@ public abstract class TreeModel extends org.gnome.glib.Object
      * IllegalArgumentException if it is not valid.
      */
     protected void checkIter(TreeIter iter) {
+        if (iter == null) {
+            throw new IllegalArgumentException("TreeIter can't be null");
+        }
         if (this != iter.getModel()) {
             throw new IllegalArgumentException("TreeIter not valid for this TreeModel");
         }
     }
 
     /**
-     * Store a String in this TreeModel at the specified <code>row</code>
-     * and <code>column</code>.
+     * Store a String in this TreeModel at the specified <code>row</code> and
+     * <code>column</code>.
      */
     public void setValue(TreeIter row, DataColumnString column, String value) {
         checkIter(row);
@@ -356,9 +380,9 @@ public abstract class TreeModel extends org.gnome.glib.Object
 
     /**
      * Get a reference to the Java object stored in this TreeModel at the
-     * specified <code>row</code> and <code>column</code>. You'll have to
-     * cast the return value to whatever type you put in there in the first
-     * place, obviously.
+     * specified <code>row</code> and <code>column</code>. You'll have to cast
+     * the return value to whatever type you put in there in the first place,
+     * obviously.
      */
     /*
      * TODO would making this generic help?
@@ -370,9 +394,9 @@ public abstract class TreeModel extends org.gnome.glib.Object
 
     /**
      * Store a reference to a Java object in the TreeModel at the specified
-     * <code>row</code> and <code>column</code>. This is used so you can
-     * get <i>back</i> to your Java side domain object model in response to
-     * an event on the TreeView.
+     * <code>row</code> and <code>column</code>. This is used so you can get
+     * <i>back</i> to your Java side domain object model in response to an
+     * event on the TreeView.
      */
     /*
      * Calls a custom override as we manually manage a global reference to the
@@ -386,10 +410,10 @@ public abstract class TreeModel extends org.gnome.glib.Object
     }
 
     /**
-     * Store a Pixbuf in this TreeModel at the specified <code>row</code>
-     * and <code>column</code>. This is used to provide the image data
-     * needed by a TreeViewColumn with a
-     * {@link CellRendererPixbuf CellRendererPixbuf} in it.
+     * Store a Pixbuf in this TreeModel at the specified <code>row</code> and
+     * <code>column</code>. This is used to provide the image data needed by a
+     * TreeViewColumn with a {@link CellRendererPixbuf CellRendererPixbuf} in
+     * it.
      */
     public void setValue(TreeIter row, DataColumnPixbuf column, Pixbuf value) {
         checkIter(row);
@@ -471,8 +495,8 @@ public abstract class TreeModel extends org.gnome.glib.Object
     public interface RowChanged extends GtkTreeModel.RowChangedSignal
     {
         /**
-         * The <code>path</code> and <code>row</code> arguments give you
-         * valid a TreePath and TreeIter respectively pointing at the row that
+         * The <code>path</code> and <code>row</code> arguments give you valid
+         * a TreePath and TreeIter respectively pointing at the row that
          * changed. Be wary, though, that these are not going to be stable
          * beyond the invocation of this callback; if one row has changed, you
          * can bet others are changing too. Do what you need to do and leave
@@ -480,8 +504,8 @@ public abstract class TreeModel extends org.gnome.glib.Object
          * 
          * <p>
          * For subtle implementation reasons, you can't iterate using the
-         * <code>row</code> TreeIter. If you need to cycle over the model,
-         * get a TreeIter pointing to the beginning of the model as follows:
+         * <code>row</code> TreeIter. If you need to cycle over the model, get
+         * a TreeIter pointing to the beginning of the model as follows:
          * 
          * <pre>
          * row = source.getIterFirst();

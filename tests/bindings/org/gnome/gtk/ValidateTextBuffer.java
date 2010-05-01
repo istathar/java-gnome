@@ -1,16 +1,26 @@
 /*
- * ValidateTextBuffer.java
+ * java-gnome, a UI library for writing GTK and GNOME programs from Java!
  *
- * Copyright (c) 2008 Operational Dynamics Consulting Pty Ltd, and Others
- * 
- * The code in this file, and the suite it is a part of, are made available
- * to you by the authors under the terms of the "GNU General Public Licence,
- * version 2" See the LICENCE file for the terms governing usage and
- * redistribution.
+ * Copyright © 2008-2010 Operational Dynamics Consulting, Pty Ltd and Others
+ *
+ * The code in this file, and the program it is a part of, is made available
+ * to you by its authors as open source software: you can redistribute it
+ * and/or modify it under the terms of the GNU General Public License version
+ * 2 ("GPL") as published by the Free Software Foundation.
+ *
+ * This program is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+ * FITNESS FOR A PARTICULAR PURPOSE. See the GPL for more details.
+ *
+ * You should have received a copy of the GPL along with this program. If not,
+ * see http://www.gnu.org/licenses/. The authors of this program may be
+ * contacted through http://java-gnome.sourceforge.net/.
  */
 package org.gnome.gtk;
 
 import java.io.FileNotFoundException;
+import java.lang.reflect.Field;
+import java.util.ArrayList;
 
 import org.gnome.gdk.Pixbuf;
 import org.gnome.pango.Scale;
@@ -21,7 +31,7 @@ import org.gnome.pango.Weight;
  * @author Andrew Cowie
  * @author Stefan Prelle
  */
-public class ValidateTextBuffer extends TestCaseGtk
+public class ValidateTextBuffer extends GraphicalTestCase
 {
     public final void testTagsAddedToTextTagTableAutomatically() {
         final TextTagTable table;
@@ -165,6 +175,29 @@ public class ValidateTextBuffer extends TestCaseGtk
         pointer = buf.getIterEnd();
         buf.insert(pointer, "Emergency Broadcast System");
         assertEquals(buf.getText(), "This is a test of the " + "Emergency Broadcast System");
+    }
+
+    public final void testTextMarkToTextIterConversion() {
+        final TextBuffer buf;
+        TextIter start, end;
+        TextMark selectionBound, insert;
+
+        buf = new TextBuffer(new TextTagTable());
+
+        buf.setText("Hello World");
+        start = buf.getIterStart();
+
+        start.setOffset(5);
+        end = start.copy();
+        end.setOffset(8);
+
+        buf.selectRange(start, end);
+
+        selectionBound = buf.getSelectionBound();
+        insert = buf.getInsert();
+
+        assertEquals(5, selectionBound.getIter().getOffset());
+        assertEquals(8, insert.getIter().getOffset());
     }
 
     public void testIterFromOffset() {
@@ -422,7 +455,7 @@ public class ValidateTextBuffer extends TestCaseGtk
          * Well, did it?
          */
 
-        assertSame(TextTagTable.getDefaultTable(), GtkTextBuffer.getTagTable(buf));
+        assertSame(TextBuffer.getDefaultTable(), GtkTextBuffer.getTagTable(buf));
 
         /*
          * Does no-arg TextTag constructor exist and work?
@@ -472,5 +505,200 @@ public class ValidateTextBuffer extends TestCaseGtk
     public final void testPangoWeight() {
         assertEquals(400, GtkTextTagOverride.valueOf(Weight.NORMAL));
         assertEquals(700, GtkTextTagOverride.valueOf(Weight.BOLD));
+    }
+
+    /**
+     * Verify that the checkTag() method in TextBuffer works.
+     */
+    public final void testApplyTextTagCheckTable() {
+        final TextTagTable table;
+        final TextBuffer buffer;
+        final TextTag noarg, legal;
+        final TextIter pointer;
+
+        table = new TextTagTable();
+        buffer = new TextBuffer(table);
+
+        noarg = new TextTag();
+        legal = new TextTag(table);
+
+        pointer = buffer.getIterStart();
+
+        buffer.insert(pointer, "Hello");
+
+        try {
+            buffer.insert(pointer, " World", noarg);
+            fail();
+        } catch (IllegalArgumentException iae) {
+            // good
+        }
+
+        buffer.insert(pointer, " World", legal);
+        // good
+
+        try {
+            buffer.applyTag(noarg, buffer.getIterStart(), buffer.getIterEnd());
+            fail();
+        } catch (IllegalArgumentException iae) {
+            // good
+        }
+        buffer.applyTag(legal, buffer.getIterStart(), buffer.getIterEnd());
+        // good
+    }
+
+    /**
+     * Verify that the checkTag() method in TextBuffer works, this time with
+     * TextTags using our default table.
+     */
+    public final void testApplyTextTagCheckNoArg() {
+        final TextTagTable table;
+        final TextBuffer buffer;
+        final TextTag noarg, illegal;
+        final TextIter pointer;
+
+        /*
+         * Now the reverse - we construct without a TextTagTable.
+         */
+
+        buffer = new TextBuffer();
+
+        noarg = new TextTag();
+
+        table = new TextTagTable();
+        illegal = new TextTag(table);
+
+        pointer = buffer.getIterStart();
+
+        buffer.insert(pointer, "Hello");
+
+        buffer.insert(pointer, " World", noarg);
+        try {
+            buffer.insert(pointer, " World", illegal);
+            fail();
+        } catch (IllegalArgumentException iae) {
+            // good
+        }
+
+        buffer.applyTag(noarg, buffer.getIterStart(), buffer.getIterEnd());
+        try {
+            buffer.applyTag(illegal, buffer.getIterStart(), buffer.getIterEnd());
+            fail();
+        } catch (IllegalArgumentException iae) {
+            // good
+        }
+    }
+
+    public final void testIterationOverCharacters() {
+        final TextBuffer buffer;
+        TextIter pointer;
+        int i;
+        StringBuilder str;
+
+        /*
+         * Put in 5 characters
+         */
+
+        buffer = new TextBuffer();
+        pointer = buffer.getIterStart();
+        buffer.insert(pointer, "Hello");
+
+        /*
+         * Iterate over it. Should reach a count of 5.
+         */
+
+        pointer = buffer.getIterStart();
+        i = 0;
+        str = new StringBuilder();
+
+        do {
+            i++;
+            str = str.appendCodePoint(pointer.getChar());
+        } while (pointer.forwardChar());
+
+        assertEquals(5, i);
+        assertEquals("Hello", str.toString());
+    }
+
+    public final void testInsertWithMultipleTags() {
+        final TextBuffer buffer;
+        final TextTag italic, bold, mono;
+        TextIter start;
+
+        buffer = new TextBuffer();
+
+        italic = new TextTag();
+        bold = new TextTag();
+        mono = new TextTag();
+
+        start = buffer.getIterStart();
+
+        buffer.insert(start, "Hello", new TextTag[] {
+                bold, italic
+        });
+
+        start = buffer.getIterStart();
+        assertEquals(2, start.getTags().length);
+
+        ArrayList<TextTag> list;
+        list = new ArrayList<TextTag>(3);
+        list.add(italic);
+        list.add(bold);
+        list.add(mono);
+
+        buffer.insert(start, "World", list);
+
+        start = buffer.getIterStart();
+        assertEquals(3, start.getTags().length);
+    }
+
+    private int offset = -1;
+
+    public final void testReactingToCursorPositionChanges() {
+        final TextBuffer buffer;
+        final TextIter pointer;
+
+        buffer = new TextBuffer();
+
+        assertEquals(-1, offset);
+        offset = buffer.getCursorPosition();
+        assertEquals(0, offset);
+
+        buffer.connect(new TextBuffer.NotifyCursorPosition() {
+            public void onNotifyCursorPosition(TextBuffer source) {
+                offset = buffer.getCursorPosition();
+            }
+        });
+
+        pointer = buffer.getIterStart();
+        buffer.insert(pointer, "Hello World");
+
+        assertEquals(11, offset);
+    }
+
+    /*
+     * Not much of a test, but at least it exercises the code path to ensure
+     * that Pango.SCALE is correctly accessed by TextTag.
+     */
+    public final void testCrossPackageConstantAccess() throws ClassNotFoundException, SecurityException,
+            NoSuchFieldException, IllegalArgumentException, IllegalAccessException {
+        final TextTag tag;
+        Class<?> cls;
+        Field fld;
+        double scale1, scale2;
+
+        tag = new TextTag();
+        tag.setRise(4.5);
+
+        cls = Class.forName("org.gnome.gtk.TextTag");
+        fld = cls.getDeclaredField("SCALE");
+        fld.setAccessible(true);
+        scale1 = fld.getDouble(tag);
+
+        cls = Class.forName("org.gnome.pango.Pango");
+        fld = cls.getDeclaredField("SCALE");
+        fld.setAccessible(true);
+        scale2 = fld.getDouble(tag);
+
+        assertEquals(scale2, scale1);
     }
 }

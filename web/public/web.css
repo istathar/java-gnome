@@ -13,7 +13,8 @@
 
 
 body {
-	font-family: Arial, sans-serif;
+	font-family: "Deja Vu Sans", Arial, sans-serif;
+	font-size: 11pt;
 	background-color: #FFFFFF;
 	margin: 0px;
 	padding: 0px;
@@ -82,7 +83,7 @@ body {
 
 h1, h2, h3 {
 	color: #333366;
-	font-family: "Times New Roman", Arial, sans-serif;
+	font-family: "Liberation Sans", "Arial", sans-serif;
 }
 h1 {
 	background-color: #DDDDDD;
@@ -93,7 +94,7 @@ h1.title {
 	background-color: #FFFFFF;
 	border-bottom: 0px none;
 	color: green;
-	font-family: "Arial", sans-serif;
+	font-family: "Deja Vu Sans", "Arial", sans-serif;
 	font-size: 40px;
 	margin: 0px;
 	margin-top: 5px;
@@ -124,11 +125,11 @@ blockquote {
 	background-color: yellow;
 }
 .mono {
-	font-family: "Bitstream Vera Sans Mono", "Monospaced", "Courier New", mono;
+	font-family: "Deja Vu Sans Mono", "Bitstream Vera Sans Mono", "Monospaced", "Courier New", mono;
 }
 .x {
 	font-style: italic;
-	font-family: "Times New Roman", Serif;
+	font-family: "Deja Vu Serif", "Times New Roman", serif;
 }
 
 .rightnavpanel {
@@ -193,7 +194,7 @@ hr {
 .bottompanel {
 	text-align: right;
 	color: gray;
-	font-family: Arial, Helvetica, sans-serif;
+	font-family: "Deja Vu Sans", "Arial", "Helvetica", sans-serif;
 	font-size: x-small;
 	padding-top: 0px;
 	margin-top: 20px;

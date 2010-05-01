@@ -1,0 +1,27 @@
+;; another hand written .defs file. GtkTest isn't a GBoxed, in fact, it isn't
+;; anything. No need to declare an Object.
+
+(define-boxed Test
+  (in-module "Gtk")
+  (c-name "GtkTest")
+)
+
+(define-method widget_click
+  (of-object "GtkWidget")
+  (c-name "gtk_test_widget_click")
+  (return-type "gboolean")
+  (parameters
+    '("GdkMouseButton" "button")
+    '("GdkModifierType" "modifiers")
+  )
+)
+
+(define-method widget_send_key
+  (of-object "GtkWidget")
+  (c-name "gtk_test_widget_send_key")
+  (return-type "gboolean")
+  (parameters
+    '("GdkKeyval" "keyval")
+    '("GdkModifierType" "modifiers")
+  )
+)

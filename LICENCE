@@ -3,7 +3,7 @@ LICENCE
 This is the java-gnome user interface library allowing you to write GTK and
 GNOME programs from Java!
 
-    Copyright (c) 2006-2008 Operational Dynamics Consulting Pty Ltd, and Others
+    Copyright © 2006-2010 Operational Dynamics Consulting, Pty Ltd and Others
 
 See [`AUTHORS`](AUTHORS.html) file for contributors.
 
@@ -45,8 +45,8 @@ of Open Source. See [`BUGS`](/4.0/lists/#bugs) and [`HACKING`](HACKING.html)
 files for details.
 
 You should have a copy of the GPL somewhere on your system. If you don't, see
-[`http://www.gnu.org/copyleft/gpl.html`][GPL] or write to the Free Software
-Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA.
+[`http://www.gnu.org/licenses/`][GPL] or write to the Free Software
+Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
 
 2) prerequisites and dependencies
 ---------------------------------
@@ -93,6 +93,6 @@ that code as it becomes available. Java Libre!
 Java is a trademark of Sun Microsystems, Inc.
 GNOME is a trademark of the GNOME Foundation.
 
-[GPL]: http://www.gnu.org/copyleft/gpl.html
+[GPL]: http://www.gnu.org/licenses/
 
 <!-- vim: set textwidth=78 nowrap: -->

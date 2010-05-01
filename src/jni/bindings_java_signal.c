@@ -1,14 +1,35 @@
 /*
- * bindings_java_signal.c
+ * java-gnome, a UI library for writing GTK and GNOME programs from Java!
  *
- * Copyright (c) 1998-2005 The java-gnome Team
- * Copyright (c) 2006-2008 Operational Dynamics Consulting Pty Ltd
- * 
- * The code in this file, and the library it is a part of, are made available
- * to you by the authors under the terms of the "GNU General Public Licence,
- * version 2" plus the "Classpath Exception" (you may link to this code as a
- * library into other programs provided you don't make a derivation of it).
- * See the LICENCE file for the terms governing usage and redistribution.
+ * Copyright © 1998-2005 The java-gnome Team
+ * Copyright © 2006-2010 Operational Dynamics Consulting, Pty Ltd
+ *
+ * The code in this file, and the program it is a part of, is made available
+ * to you by its authors as open source software: you can redistribute it
+ * and/or modify it under the terms of the GNU General Public License version
+ * 2 ("GPL") as published by the Free Software Foundation.
+ *
+ * This program is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+ * FITNESS FOR A PARTICULAR PURPOSE. See the GPL for more details.
+ *
+ * You should have received a copy of the GPL along with this program. If not,
+ * see http://www.gnu.org/licenses/. The authors of this program may be
+ * contacted through http://java-gnome.sourceforge.net/.
+ *
+ * Linking this library statically or dynamically with other modules is making
+ * a combined work based on this library. Thus, the terms and conditions of
+ * the GPL cover the whole combination. As a special exception (the
+ * "Claspath Exception"), the copyright holders of this library give you
+ * permission to link this library with independent modules to produce an
+ * executable, regardless of the license terms of these independent modules,
+ * and to copy and distribute the resulting executable under terms of your
+ * choice, provided that you also meet, for each linked independent module,
+ * the terms and conditions of the license of that module. An independent
+ * module is a module which is not derived from or based on this library. If
+ * you modify this library, you may extend the Classpath Exception to your
+ * version of the library, but you are not obligated to do so. If you do not
+ * wish to do so, delete this exception statement from your version.
  */
 
 /*
@@ -97,13 +118,14 @@ bindings_java_marshaller
 	
 	jstring _str;
 	gchar* str;
+	GObject* obj;
 	
 	/*
 	 * Begin marshaller by downcasting the GClosure we got.
 	 */
 
 	bjc = (BindingsJavaClosure*) closure;
-	
+
 	/*
 	 * Get the JNIEnv interface pointer
 	 */
@@ -131,12 +153,12 @@ bindings_java_marshaller
 	 */
 
 	jargs = g_newa(jvalue, n_param_values + 1);
-	
+
 	jargs[0].l = bjc->handler;
-	
+
 	for(i = 0; i < n_param_values; i++) {
-  		type = G_VALUE_TYPE(&param_values[i]);
-    		switch(G_TYPE_FUNDAMENTAL(type)) {
+		type = G_VALUE_TYPE(&param_values[i]);
+		switch(G_TYPE_FUNDAMENTAL(type)) {
 		case G_TYPE_CHAR:
 			jargs[i+1].c = g_value_get_char(&param_values[i]);
       			break;
@@ -183,7 +205,7 @@ bindings_java_marshaller
 			break;
 
 		case G_TYPE_STRING:
-			jargs[i+1].l = (*env)->NewStringUTF(env, g_value_get_string(&param_values[i]));
+			jargs[i+1].l = bindings_java_newString(env, g_value_get_string(&param_values[i]));
       			break;
 
 		case G_TYPE_OBJECT:
@@ -193,8 +215,10 @@ bindings_java_marshaller
 			 * address across the boundary to be looked up and
 			 * either an existing Proxy returned or a new Proxy
 			 * created. 
-			 */			
-			jargs[i+1].j = (jlong) g_value_get_object(&param_values[i]); 
+			 */
+			obj = g_value_get_object(&param_values[i]); 
+			bindings_java_memory_cleanup(obj, FALSE);
+			jargs[i+1].j = (jlong) obj;
 			break;
 
 		case G_TYPE_BOXED:
@@ -206,12 +230,27 @@ bindings_java_marshaller
 			 */
 			jargs[i+1].j = (jlong) g_boxed_copy(type, g_value_get_boxed(&param_values[i]));
 			break;
-			
+
+		case G_TYPE_PARAM:
+			/*
+			 * We're ignoring GParamSpec at the moment. They
+			 * normally only show up in 'notify' signals, and we
+			 * don't need them. 
+			 */
+		case G_TYPE_POINTER:
+			/*
+			 * and, we're ignoring something that gets registered
+			 * as a gpointer, by definition it has no type
+			 * information and there's nothing we can do.
+			 */
+			jargs[i+1].j = (jlong) NULL;
+			break;
+
 		default:
 			/*
 			 * Unrecognized. Probably means we need to add a clause above.
 			 */
-			g_warning("Don't know how to marshal a %s", g_type_name(type));
+			g_printerr("Don't know how to marshal a %s", g_type_name(type));
 			jargs[i+1].l = 0;
 			break;
 		}
@@ -255,8 +294,7 @@ bindings_java_marshaller
 		
 		g_value_set_enum(return_value, _e);
 		break;
-		
-		
+
 	case 'L':
 		/*
 		 * String return signals
@@ -266,12 +304,12 @@ bindings_java_marshaller
 		 * enormous assumption that a string is what we get back.
 		 */
 		_str = (*env)->CallStaticObjectMethodA(env, bjc->receiver, bjc->method, jargs);
-		if (str == NULL) {
+		if (_str == NULL) {
 			g_warning("Invoking string handler returned null. That's probably bad");
 			break;
 		}
 		
-		str = (gchar*) (*env)->GetStringUTFChars(env, _str, NULL);
+		str = (gchar*) bindings_java_getString(env, _str);
 		if (str == NULL) {
 			/* OutOfMemoryError already thrown */
 			return;
@@ -281,7 +319,7 @@ bindings_java_marshaller
 		g_value_set_string(return_value, str);
 		
 		// ... so we can release str
-		(*env)->ReleaseStringUTFChars(env, _str, str);	 
+		bindings_java_releaseString(str);	 
 		break;
 
 	default:
@@ -432,7 +470,7 @@ bindings_java_closure_new
       	case G_TYPE_NONE:
       		bjc->returnType = 'V';
       		break;
-	
+
 	default:
 		g_critical("Don't know what to do with signal return type %s", g_type_name(info.return_type));
 		return NULL;
@@ -444,22 +482,28 @@ bindings_java_closure_new
 	 * where Name is a PascalCase version of the signal name we were
 	 * passed in.
 	 */
-	 
+
 	buf = g_string_new("receive");
-	
-	gchar** tokens = g_strsplit_set(name, "_-", -1);
-	
+
+	gchar** tokens = g_strsplit_set(name, "_-:", -1);
+
 	for (i = 0; i < g_strv_length(tokens); i++) {
 		gchar* token = tokens[i];
+
+		if (token[0] == '\0') {
+			// skip past :: which splits signal name from "detail"
+			continue;
+		}
+
 		gchar first = g_unichar_toupper(token[0]);
 		g_string_append_c(buf, first);
-		
+
 		token++; 
 		g_string_append(buf, token);
 	}
-	
+
 	methodName = buf->str;
-	
+
 	g_string_free(buf, FALSE);
 	g_strfreev(tokens);
 

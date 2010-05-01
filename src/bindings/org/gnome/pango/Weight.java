@@ -1,13 +1,35 @@
 /*
- * Weight.java
+ * java-gnome, a UI library for writing GTK and GNOME programs from Java!
  *
- * Copyright (c) 2007-2008 Operational Dynamics Consulting Pty Ltd
+ * Copyright © 2007-2010 Operational Dynamics Consulting, Pty Ltd
+ * Copyright © 2008      Vreixo Formoso
  *
- * The code in this file, and the library it is a part of, are made available
- * to you by the authors under the terms of the "GNU General Public Licence,
- * version 2" plus the "Classpath Exception" (you may link to this code as a
- * library into other programs provided you don't make a derivation of it).
- * See the LICENCE file for the terms governing usage and redistribution.
+ * The code in this file, and the program it is a part of, is made available
+ * to you by its authors as open source software: you can redistribute it
+ * and/or modify it under the terms of the GNU General Public License version
+ * 2 ("GPL") as published by the Free Software Foundation.
+ *
+ * This program is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+ * FITNESS FOR A PARTICULAR PURPOSE. See the GPL for more details.
+ *
+ * You should have received a copy of the GPL along with this program. If not,
+ * see http://www.gnu.org/licenses/. The authors of this program may be
+ * contacted through http://java-gnome.sourceforge.net/.
+ *
+ * Linking this library statically or dynamically with other modules is making
+ * a combined work based on this library. Thus, the terms and conditions of
+ * the GPL cover the whole combination. As a special exception (the
+ * "Claspath Exception"), the copyright holders of this library give you
+ * permission to link this library with independent modules to produce an
+ * executable, regardless of the license terms of these independent modules,
+ * and to copy and distribute the resulting executable under terms of your
+ * choice, provided that you also meet, for each linked independent module,
+ * the terms and conditions of the license of that module. An independent
+ * module is a module which is not derived from or based on this library. If
+ * you modify this library, you may extend the Classpath Exception to your
+ * version of the library, but you are not obligated to do so. If you do not
+ * wish to do so, delete this exception statement from your version.
  */
 package org.gnome.pango;
 
@@ -23,8 +45,14 @@ import org.freedesktop.bindings.Flag;
  * TextTag's {@link org.gnome.gtk.TextTag#setWeight(Weight) setWeight()} and
  * pass in {@link #BOLD BOLD}.
  * 
+ * <p>
+ * <i>Note that most fonts do <b>not</b> implement all the values here. If you
+ * specify a weight that is not directly available, the result should be
+ * approximated by the closest one, but you are somewhat at the mercy of
+ * the</i> $diety <i> as to what you actually get.</i>
  * 
  * @author Andrew Cowie
+ * @author Vreixo Formoso
  * @since 4.0.9
  */
 /*
@@ -59,6 +87,8 @@ public class Weight extends Flag
      * 
      * <p>
      * <i>This has a value of <code>400</code>, apparently.</i>
+     * 
+     * @since 4.0.9
      */
     public static final Weight NORMAL = new Weight(PangoWeight.NORMAL, "NORMAL");
 
@@ -68,6 +98,46 @@ public class Weight extends Flag
      * <p>
      * <i>This represents a font weight value of <code>700</code>,
      * apparently.</i>
+     * 
+     * @since 4.0.9
      */
     public static final Weight BOLD = new Weight(PangoWeight.BOLD, "BOLD");
+
+    /**
+     * The lightest text weight available. Not much to it. Anorexic, really.
+     * 
+     * @since 4.0.10
+     */
+    public static final Weight ULTRALIGHT = new Weight(PangoWeight.ULTRALIGHT, "ULTRALIGHT");
+
+    /**
+     * Light weight text.
+     * 
+     * @since 4.0.10
+     */
+    public static final Weight LIGHT = new Weight(PangoWeight.LIGHT, "LIGHT");
+
+    /**
+     * An intermediate weight between {@link #NORMAL NORMAL} and {@link #BOLD
+     * BOLD}.
+     * 
+     * @since 4.0.10
+     */
+    public static final Weight SEMIBOLD = new Weight(PangoWeight.SEMIBOLD, "SEMIBOLD");
+
+    /**
+     * Even stronger than {@link #BOLD BOLD}, is <code>ULTRABOLD</code>!
+     * Sounds like a health food product.
+     * 
+     * @since 4.0.10
+     */
+    public static final Weight ULTRABOLD = new Weight(PangoWeight.ULTRABOLD, "ULTRABOLD");
+
+    /**
+     * The heavy weight. This is clearly for people who missed out on the
+     * healthier food in the lighter {@link #ULTRABOLD ULTRABOLD} department.
+     * 
+     * @since 4.0.10
+     */
+    public static final Weight HEAVY = new Weight(PangoWeight.HEAVY, "HEAVY");
 }
