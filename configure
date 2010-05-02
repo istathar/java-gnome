@@ -873,13 +873,8 @@ if ($os eq "gentoo") {
 			"Enchant",
 			"libenchant-dev");
 
-# FIXME: there is no 2.0.15 in Debian, but on the other hand, a GtkSpell that
-# is 2 versions old doubtless suffers from all sorts of problems. This will
-# allow the check to pass and java-gnome to build, but there is no expectation
-# that spelling will work, or that the CRITICAL bug is fixed.
-
 	check_system_library(@gnomedev_libs,
-			"gtkspell-2.0 >= 2.0.13",
+			"gtkspell-2.0 >= 2.0.15",
 			"GtkSpell",
 			"libgtkspell-dev");
 
