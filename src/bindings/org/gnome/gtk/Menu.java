@@ -132,4 +132,13 @@ public class Menu extends MenuShell
     public void popup(StatusIcon status) {
         GtkMenuOverride.popupStatusIcon(this, status);
     }
+    
+    /**
+     * This method must be called and set in order to have the MenuItem's with keybindings in it work.
+     * 
+     * @since 4.0.16
+     */
+    public void setAccelerator(Accelerator accelerator) {
+        GtkMenu.setAccelGroup(this, accelerator);
+    }
 }

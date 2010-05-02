@@ -65,6 +65,9 @@ public class ImageMenuItem extends MenuItem
      * want. You can change the AccelGroup separately, but that's available to
      * support overriding the default accelerators. All in all this will need
      * updating.
+     * 
+     * From Azania: this should no longer need any updating unless you want to
+     * force the user to use the accelerator keybindings from the stock icon.
      */
     public ImageMenuItem(Stock stock) {
         super(GtkImageMenuItem.createImageMenuItemFromStock(stock.getStockId(), null));
@@ -157,5 +160,15 @@ public class ImageMenuItem extends MenuItem
      */
     public void setAlwaysShowImage(boolean setting) {
         GtkImageMenuItem.setAlwaysShowImage(this, setting);
+    }
+
+    /**
+     * For use with stock icon image this method can used to use the key
+     * binding that comes with the stock icon.
+     * 
+     * @since 4.0.16
+     */
+    public void setAccelerator(Accelerator accelerator) {
+        GtkImageMenuItem.setAccelGroup(this, accelerator);
     }
 }

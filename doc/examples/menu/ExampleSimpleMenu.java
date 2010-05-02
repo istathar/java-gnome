@@ -20,6 +20,9 @@
 package menu;
 
 import org.gnome.gdk.Event;
+import org.gnome.gdk.Keyval;
+import org.gnome.gdk.ModifierType;
+import org.gnome.gtk.Accelerator;
 import org.gnome.gtk.CheckMenuItem;
 import org.gnome.gtk.Gtk;
 import org.gnome.gtk.ImageMenuItem;
@@ -46,7 +49,9 @@ public class ExampleSimpleMenu
         final VBox x;
         final Label l;
         final Menu fileMenu, editMenu, viewMenu;
-        final MenuItem fileNew, fileMenuItem, editMenuItem, viewMenuItem;
+        final MenuItem fileMenuItem, editMenuItem, viewMenuItem;
+        final MenuItem fileSave, editCopy, editPaste;
+        final ImageMenuItem fileNew, fileClose;
         final MenuBar menuBar;
 
         /*
@@ -69,10 +74,69 @@ public class ExampleSimpleMenu
         viewMenu = new Menu();
 
         /*
+         * Create all of MenuItems that will be used:
+         */
+        fileNew = new ImageMenuItem(Stock.NEW);
+        fileSave = new MenuItem("_Save");
+        fileClose = new ImageMenuItem(Stock.CLOSE);
+        editCopy = new MenuItem("_Edit");
+        editPaste = new MenuItem("_Paste");
+        
+        /*
+         * Now we add the keybindings for the menu items.
+         * 
+         * This has to be done before you append them to their Menus.
+         */
+        Accelerator a = w.getAccelerator();
+        fileSave.setAccelerator(a, Keyval.S, ModifierType.CONTROL_MASK);
+        editCopy.setAccelerator(a, Keyval.C, ModifierType.CONTROL_MASK);
+        editPaste.setAccelerator(a, Keyval.V, ModifierType.CONTROL_MASK);
+
+        /*
+         * For ImageMenuItem you can set the keybinding that comes with the
+         * Stock item instead.
+         */
+        fileNew.setAccelerator(a);
+
+        /*
+         * Despite fileClose also being an ImageMenuItem we could use the
+         * keybinding that is set for Stock.CLOSE. But since we have already
+         * set Control + C for editCopy we set this one manually to another
+         * keybinding:
+         */
+        fileClose.setAccelerator(a, Keyval.X, ModifierType.CONTROL_MASK);
+
+        /*
+         * To ensure keybindings will work we also have set the Accelerator to
+         * the menus containing the MenuItems with the keybindings.
+         * 
+         * Since we have not set a keybinding for hide text MenuItem we also
+         * do need to set the Accelerator of the Menu containing this menu
+         * item. Also if a Menu only contains MenuItems with keybindings set
+         * from Stock Items (and not set a keybinding manually) it is also not
+         * needed.
+         */
+        fileMenu.setAccelerator(a);
+        editMenu.setAccelerator(a);
+
+        /*
          * Now you can add MenuItems to the "file" Menu.
          */
-        fileNew = new MenuItem("_New");
         fileMenu.append(fileNew);
+        fileMenu.append(fileSave);
+
+        /*
+         * A SeparatorMenuItem can be used to differentiate between unrelated
+         * menu options; in practise, though, only use sparingly.
+         */
+        fileMenu.append(new SeparatorMenuItem());
+
+        /*
+         * And add the rest of the menu items.
+         */
+        fileMenu.append(fileClose);
+        editMenu.append(editCopy);
+        editMenu.append(editPaste);
 
         /*
          * Usually you will want to connect to the MenuItem.Activate signal,
@@ -85,28 +149,22 @@ public class ExampleSimpleMenu
                 l.setLabel("You have selected File->New menu.");
             }
         });
+        fileSave.connect(new MenuItem.Activate() {
+            public void onActivate(MenuItem source) {
+                l.setLabel("You have selected File->Save.");
+            }
+        });
+
+        fileClose.connect(new MenuItem.Activate() {
+            public void onActivate(MenuItem source) {
+                l.setLabel("You have selected File->Close.");
+            }
+        });
 
         /*
          * Given that in most cases you will connect to the MenuItem.Activate
          * signal on MenuItems, a convenience constructor is provided:
          */
-        fileMenu.append(new MenuItem("_Save", new MenuItem.Activate() {
-            public void onActivate(MenuItem source) {
-                l.setLabel("You have selected File->Save.");
-            }
-        }));
-
-        /*
-         * A SeparatorMenuItem can be used to differentiate between unrelated
-         * menu options; in practise, though, only use sparingly.
-         */
-        fileMenu.append(new SeparatorMenuItem());
-
-        fileMenu.append(new ImageMenuItem(Stock.CLOSE, new MenuItem.Activate() {
-            public void onActivate(MenuItem source) {
-                l.setLabel("You have selected File->Close.");
-            }
-        }));
         fileMenu.append(new MenuItem("_Quit", new MenuItem.Activate() {
             public void onActivate(MenuItem source) {
                 Gtk.mainQuit();
@@ -114,18 +172,18 @@ public class ExampleSimpleMenu
         }));
 
         /*
-         * And now add the items making up the "edit" Menu.
+         * And now add the actions for the items making up the "edit" Menu.
          */
-        editMenu.append(new MenuItem("_Copy", new MenuItem.Activate() {
+        editCopy.connect(new MenuItem.Activate() {
             public void onActivate(MenuItem source) {
                 l.setLabel("You have selected Edit->Copy.");
             }
-        }));
-        editMenu.append(new MenuItem("_Paste", new MenuItem.Activate() {
+        });
+        editPaste.connect(new MenuItem.Activate() {
             public void onActivate(MenuItem source) {
                 l.setLabel("You have selected Edit->Paste.");
             }
-        }));
+        });
 
         /*
          * CheckMenuItems hold a boolean state. One use is to allow users to
