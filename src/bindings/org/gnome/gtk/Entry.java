@@ -250,6 +250,10 @@ public class Entry extends Widget implements Editable, CellEditable
         GtkEditable.setPosition(this, position);
     }
 
+    public int getPosition() {
+        return GtkEditable.getPosition(this);
+    }
+
     /**
      * Request that the width of this Entry be wide enough for a given number
      * of characters.
@@ -316,6 +320,24 @@ public class Entry extends Widget implements Editable, CellEditable
 
     public void selectRegion(int start, int end) {
         GtkEditable.selectRegion(this, start, end);
+    }
+
+    public int getSelectionBoundsStart() {
+        int[] start = new int[1];
+        int[] end = new int[1];
+
+        GtkEditable.getSelectionBounds(this, start, end);
+
+        return start[0];
+    }
+
+    public int getSelectionBoundsEnd() {
+        int[] start = new int[1];
+        int[] end = new int[1];
+
+        GtkEditable.getSelectionBounds(this, start, end);
+
+        return end[0];
     }
 
     /**
