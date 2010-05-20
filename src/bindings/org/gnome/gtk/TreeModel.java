@@ -525,16 +525,4 @@ public abstract class TreeModel extends org.gnome.glib.Object
     public void connect(TreeModel.RowChanged handler) {
         GtkTreeModel.connect(this, handler, false);
     }
-
-    /** @deprecated */
-    public interface ROW_CHANGED extends GtkTreeModel.RowChangedSignal
-    {
-    }
-
-    /** @deprecated */
-    public void connect(ROW_CHANGED handler) {
-        assert false : "use TreeModel.RowChanged instead";
-        GtkTreeModel.connect(this, handler, false);
-    }
-
 }

@@ -211,34 +211,6 @@ public class TreeModelFilter extends TreeModel implements TreeDragSource
         GtkTreeModelFilter.connect(this, new VisibleHandler(handler), false);
     }
 
-    /** @deprecated */
-    public interface VISIBLE extends GtkTreeModelFilter.VisibleSignal
-    {
-    }
-
-    /** @deprecated */
-    private static class VisibleHandler0 implements GtkTreeModelFilter.VisibleSignal
-    {
-        private final VISIBLE handler;
-
-        /** @deprecated */
-        private VisibleHandler0(VISIBLE handler) {
-            this.handler = handler;
-        }
-
-        public boolean onVisible(TreeModelFilter source, TreeModel base, TreeIter row) {
-            row.setModel(base);
-            return handler.onVisible(source, base, row);
-        }
-    }
-
-    /** @deprecated */
-    public void setVisibleCallback(VISIBLE callback) {
-        assert false : "use TreeModelFilter.Visible instead";
-        GtkTreeModelFilterOverride.setVisibleFunc(this);
-        GtkTreeModelFilter.connect(this, new VisibleHandler0(callback), false);
-    }
-
     /**
      * Cause the TreeModelFilter to re-calculate whether rows are visible.
      * This will cause your <code>Visible</code> callback to be hit for each

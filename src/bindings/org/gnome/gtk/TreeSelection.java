@@ -214,17 +214,6 @@ public class TreeSelection extends Object
         GtkTreeSelection.connect(this, handler, false);
     }
 
-    /** @deprecated */
-    public interface CHANGED extends GtkTreeSelection.ChangedSignal
-    {
-    }
-
-    /** @deprecated */
-    public void connect(CHANGED handler) {
-        assert false : "use TreeSelection.Changed instead";
-        GtkTreeSelection.connect(this, handler, false);
-    }
-
     /**
      * Select a row in the TreeView. We offer two forms; this one which takes
      * a TreePath and one which takes a TreeIter; see

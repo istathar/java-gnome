@@ -149,12 +149,6 @@ public class TreeViewColumn extends Object implements CellLayout
         GtkTreeViewColumn.clicked(this);
     }
 
-    /** @deprecated */
-    public void clicked() {
-        assert false : "use emitClicked() instead";
-        GtkTreeViewColumn.clicked(this);
-    }
-
     /**
      * Set whether this TreeViewColumn will share in additional space
      * available to the parent TreeView. Like Widgets packed into Containers,
