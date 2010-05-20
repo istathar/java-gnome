@@ -149,15 +149,6 @@ public abstract class Attribute extends Boxed
         this.width = width;
     }
 
-    /**
-     * @deprecated
-     */
-    public void setIndices(Layout layout, int offset, int width) {
-        assert false : "Use setIndices(int, int) instead";
-        this.offset = offset;
-        this.width = width;
-    }
-
     final int getOffset() {
         return offset;
     }
