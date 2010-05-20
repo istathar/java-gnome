@@ -262,17 +262,6 @@ public abstract class Widget extends org.gnome.gtk.Object
         GtkWidget.connect(this, handler, false);
     }
 
-    /** @deprecated */
-    public interface ENTER_NOTIFY_EVENT extends GtkWidget.EnterNotifyEventSignal
-    {
-    }
-
-    /** @deprecated */
-    public void connect(ENTER_NOTIFY_EVENT handler) {
-        assert false : "use Widget.EnterNotifyEvent instead";
-        GtkWidget.connect(this, handler, false);
-    }
-
     /**
      * Signal emitted when the mouse pointer leaves the Widget.
      * 
@@ -291,17 +280,6 @@ public abstract class Widget extends org.gnome.gtk.Object
      * @since 4.0.7
      */
     public void connect(Widget.LeaveNotifyEvent handler) {
-        GtkWidget.connect(this, handler, false);
-    }
-
-    /** @deprecated */
-    public interface LEAVE_NOTIFY_EVENT extends GtkWidget.LeaveNotifyEventSignal
-    {
-    }
-
-    /** @deprecated */
-    public void connect(LEAVE_NOTIFY_EVENT handler) {
-        assert false : "use Widget.LeaveNotifyEvent instead";
         GtkWidget.connect(this, handler, false);
     }
 
@@ -329,17 +307,6 @@ public abstract class Widget extends org.gnome.gtk.Object
         GtkWidget.connect(this, handler, false);
     }
 
-    /** @deprecated */
-    public interface FOCUS_OUT_EVENT extends GtkWidget.FocusOutEventSignal
-    {
-    }
-
-    /** @deprecated */
-    public void connect(FOCUS_OUT_EVENT handler) {
-        assert false : "use Widget.FocusOutEvent instead";
-        GtkWidget.connect(this, handler, false);
-    }
-
     /**
      * Signal emitted when focus enters this Widget. See
      * {@link Widget.FocusOutEvent}.
@@ -358,17 +325,6 @@ public abstract class Widget extends org.gnome.gtk.Object
      * @since 4.0.6
      */
     public void connect(Widget.FocusInEvent handler) {
-        GtkWidget.connect(this, handler, false);
-    }
-
-    /** @deprecated */
-    public interface FOCUS_IN_EVENT extends GtkWidget.FocusInEventSignal
-    {
-    }
-
-    /** @deprecated */
-    public void connect(FOCUS_IN_EVENT handler) {
-        assert false : "use Widget.FocusInEvent instead";
         GtkWidget.connect(this, handler, false);
     }
 
@@ -471,17 +427,6 @@ public abstract class Widget extends org.gnome.gtk.Object
         GtkWidget.connect(this, handler, false);
     }
 
-    /** @deprecated */
-    public interface EXPOSE_EVENT extends GtkWidget.ExposeEventSignal
-    {
-    }
-
-    /** @deprecated */
-    public void connect(EXPOSE_EVENT handler) {
-        assert false : "use Widget.ExposeEvent instead";
-        GtkWidget.connect(this, handler, false);
-    }
-
     /**
      * Handler interface for key press events. While ordinarily the user
      * <i>pressing</i> a key is generally more interesting (in terms of "what
@@ -551,17 +496,6 @@ public abstract class Widget extends org.gnome.gtk.Object
         GtkWidget.connect(this, handler, false);
     }
 
-    /** @deprecated */
-    public interface KEY_PRESS_EVENT extends GtkWidget.KeyPressEventSignal
-    {
-    }
-
-    /** @deprecated */
-    public void connect(KEY_PRESS_EVENT handler) {
-        assert false : "use Widget.KeyPressEvent instead";
-        GtkWidget.connect(this, handler, false);
-    }
-
     /**
      * Handler interface for key release events. Calling
      * {@link EventKey#getKeyval() getKeyval()} on the <code>event</code>
@@ -587,16 +521,6 @@ public abstract class Widget extends org.gnome.gtk.Object
      * @since 4.0.3
      */
     public void connect(Widget.KeyReleaseEvent handler) {
-        GtkWidget.connect(this, handler, false);
-    }
-
-    /** @deprecated */
-    public interface KEY_RELEASE_EVENT extends GtkWidget.KeyReleaseEventSignal
-    {
-    }
-
-    /** @deprecated */
-    public void connect(KEY_RELEASE_EVENT handler) {
         GtkWidget.connect(this, handler, false);
     }
 
@@ -965,18 +889,6 @@ public abstract class Widget extends org.gnome.gtk.Object
         GtkWidget.connect(this, handler, false);
     }
 
-    /** @deprecated */
-    public interface VISIBILITY_NOTIFY_EVENT extends GtkWidget.VisibilityNotifyEventSignal
-    {
-    }
-
-    /** @deprecated */
-    public void connect(VISIBILITY_NOTIFY_EVENT handler) {
-        assert false : "use Widget.VisibilityNotifyEvent instead";
-        GtkWidget.addEvents(this, EventMask.VISIBILITY_NOTIFY);
-        GtkWidget.connect(this, handler, false);
-    }
-
     /**
      * The signal emitted when a Window becomes invisible. This happens in a
      * variety of scenarios, notably when the Window is minimized, when you
@@ -1059,17 +971,6 @@ public abstract class Widget extends org.gnome.gtk.Object
         GtkWidget.connect(this, handler, false);
     }
 
-    /** @deprecated */
-    public interface UNMAP_EVENT extends GtkWidget.UnmapEventSignal
-    {
-    }
-
-    /** @deprecated */
-    public void connect(UNMAP_EVENT handler) {
-        assert false : "use Widget.UnmapEvent instead";
-        GtkWidget.connect(this, handler, false);
-    }
-
     /**
      * Does this Widget currently have the keyboard focus?
      * 
@@ -1137,17 +1038,6 @@ public abstract class Widget extends org.gnome.gtk.Object
      * @since 4.0.6
      */
     public void connect(Widget.Hide handler) {
-        GtkWidget.connect(this, handler, false);
-    }
-
-    /** @deprecated */
-    public interface HIDE extends GtkWidget.HideSignal
-    {
-    }
-
-    /** @deprecated */
-    public void connect(HIDE handler) {
-        assert false : "use Widget.Hide instead";
         GtkWidget.connect(this, handler, false);
     }
 
@@ -1350,17 +1240,6 @@ public abstract class Widget extends org.gnome.gtk.Object
         GtkWidget.connect(this, handler, false);
     }
 
-    /** @deprecated */
-    public interface BUTTON_PRESS_EVENT extends GtkWidget.ButtonPressEventSignal
-    {
-    }
-
-    /** @deprecated */
-    public void connect(Widget.BUTTON_PRESS_EVENT handler) {
-        assert false : "use Widget.ButtonPressEvent instead";
-        GtkWidget.connect(this, handler, false);
-    }
-
     /**
      * The signal emitted when the user releases a pressed mouse button. See
      * {@link Widget.ButtonPressEvent} for discussion of this set of event
@@ -1380,18 +1259,6 @@ public abstract class Widget extends org.gnome.gtk.Object
      * @since 4.0.6
      */
     public void connect(Widget.ButtonReleaseEvent handler) {
-        GtkWidget.connect(this, handler, false);
-    }
-
-    /** @deprecated */
-    public interface BUTTON_RELEASE_EVENT extends GtkWidget.ButtonReleaseEventSignal
-    {
-        public boolean onButtonReleaseEvent(Widget source, EventButton event);
-    }
-
-    /** @deprecated */
-    public void connect(Widget.BUTTON_RELEASE_EVENT handler) {
-        assert false : "use Widget.ButtonReleaseEvent instead";
         GtkWidget.connect(this, handler, false);
     }
 

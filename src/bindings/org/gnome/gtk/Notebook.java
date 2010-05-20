@@ -176,17 +176,6 @@ public class Notebook extends Container
         GtkNotebook.connect(this, handler, false);
     }
 
-    /** @deprecated */
-    public interface CHANGE_CURRENT_PAGE extends GtkNotebook.ChangeCurrentPageSignal
-    {
-    }
-
-    /** @deprecated */
-    public void connect(CHANGE_CURRENT_PAGE handler) {
-        assert false : "use Notebook.ChangeCurrentPage instead";
-        GtkNotebook.connect(this, handler, false);
-    }
-
     /**
      * The signal emitted when the user or the program switches to a new page.
      * 

@@ -289,21 +289,6 @@ public class Window extends Bin
     }
 
     /**
-     * @deprecated
-     */
-    public interface DELETE_EVENT extends GtkWidget.DeleteEventSignal
-    {
-    }
-
-    /**
-     * @deprecated
-     */
-    public void connect(DELETE_EVENT handler) {
-        assert false : "use Window.DeleteEvent instead";
-        GtkWidget.connect(this, handler, false);
-    }
-
-    /**
      * Request that the Window be moved to the specified co-ordinates. As with
      * other Window operations, the window manager running on the display may
      * or may not service the request; in particular you sometimes find that
