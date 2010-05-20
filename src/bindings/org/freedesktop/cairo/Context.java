@@ -315,13 +315,6 @@ public class Context extends Entity
         checkStatus();
     }
 
-    /** @deprecated */
-    public void setSourceRGB(double red, double green, double blue) {
-        assert false : "use setSource() instead";
-        CairoContext.setSourceRgb(this, red, green, blue);
-        checkStatus();
-    }
-
     /**
      * Set the source pattern within this Context to a translucent colour. The
      * parameters each take the range <code>0.0</code> to <code>1.0</code>.
@@ -332,13 +325,6 @@ public class Context extends Entity
      * @since 4.0.10
      */
     public void setSource(double red, double green, double blue, double alpha) {
-        CairoContext.setSourceRgba(this, red, green, blue, alpha);
-        checkStatus();
-    }
-
-    /** @deprecated */
-    public void setSourceRGBA(double red, double green, double blue, double alpha) {
-        assert false : "use setSource() instead";
         CairoContext.setSourceRgba(this, red, green, blue, alpha);
         checkStatus();
     }
@@ -525,13 +511,6 @@ public class Context extends Entity
      * @since 4.0.10
      */
     public void setSource(Surface surface, double x, double y) {
-        CairoContext.setSourceSurface(this, surface, x, y);
-        checkStatus();
-    }
-
-    /** @deprecated */
-    public void setSourceSurface(Surface surface, double x, double y) {
-        assert false : "use setSource() instead";
         CairoContext.setSourceSurface(this, surface, x, y);
         checkStatus();
     }
