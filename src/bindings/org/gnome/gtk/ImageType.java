@@ -60,7 +60,7 @@ public final class ImageType extends Constant
      */
     /*
      * We only keep this here for debugging purposes; GdkImage has been
-     * removed from java-gnome.
+     * removed from java-gnome. This may not be needed anymore.
      */
     static final ImageType IMAGE = new ImageType(GtkImageType.IMAGE, "IMAGE");
 
