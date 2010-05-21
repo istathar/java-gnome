@@ -216,14 +216,6 @@ public class StatusIcon extends org.gnome.glib.Object
     }
 
     /**
-     * @deprecated
-     */
-    public void setTooltip(String text) {
-        assert false : "Use setTooltipText() instead";
-        GtkStatusIcon.setTooltipText(this, text);
-    }
-
-    /**
      * Reports if the StatusIcon is visible. Note that being visible does not
      * guarantee that the user can actually see the Status, there must also be
      * a Notification Area applet running to display it; see
