@@ -1,8 +1,7 @@
 /*
  * java-gnome, a UI library for writing GTK and GNOME programs from Java!
  *
- * Copyright © 2007-2010 Operational Dynamics Consulting, Pty Ltd
- * Copyright © 2007      Vreixo Formoso
+ * Copyright © 2010 Operational Dynamics Consulting, Pty Ltd
  *
  * The code in this file, and the program it is a part of, is made available
  * to you by its authors as open source software: you can redistribute it
@@ -34,53 +33,28 @@
 package org.gnome.gtk;
 
 /**
- * ToolItems are the items that can be added to a {@link Toolbar}.
+ * Widgets which have a notion of being activated.
  * 
- * <p>
- * Usually you will prefer to use a subtype of this class, such as
- * {@link ToolButton}, in your Toolbars. However, if you want to add another
- * kind of Widget, you have to create a new ToolItem and {@link #add(Widget)
- * add()} the desired Widget to it.
- * 
- * @see Toolbar
- * 
- * @author Vreixo Formoso
- * @since 4.0.4
+ * @author Andrew Cowie
+ * @since 4.0.16
  */
-public class ToolItem extends Bin implements Activatable
+public interface Activatable
 {
-    protected ToolItem(long pointer) {
-        super(pointer);
-    }
+    /**
+     * Set the Action that is triggered when this Activatable is activated.
+     * 
+     * <p>
+     * <i>This replaced Action's connectProxy().</i>
+     * 
+     * @since 4.0.16
+     */
+    public void setRelatedAction(Action action);
 
     /**
-     * Create a new ToolItem.
+     * Get the Action that is triggered when this Activatable is activated, if
+     * any.
+     * 
+     * @since 4.0.16
      */
-    public ToolItem() {
-        super(GtkToolItem.createToolItem());
-    }
-
-    /**
-     * Set whether this ToolItem will be expanded when there is available
-     * space on the Toolbar.
-     */
-    public void setExpand(boolean expand) {
-        GtkToolItem.setExpand(this, expand);
-    }
-
-    /**
-     * Get if this ToolItem will be [is] expanded in the presence of extra
-     * available space on the Toolbar.
-     */
-    public boolean getExpand() {
-        return GtkToolItem.getExpand(this);
-    }
-
-    public void setRelatedAction(Action action) {
-        GtkActivatable.setRelatedAction(this, action);
-    }
-
-    public Action getRelatedAction() {
-        return GtkActivatable.getRelatedAction(this);
-    }
+    public Action getRelatedAction();
 }

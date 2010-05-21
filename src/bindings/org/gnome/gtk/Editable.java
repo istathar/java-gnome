@@ -37,6 +37,7 @@ package org.gnome.gtk;
  * edited.
  * 
  * @author Andrew Cowie
+ * @author Douglas Goulart
  * @since 4.0.6
  */
 public interface Editable
@@ -54,6 +55,17 @@ public interface Editable
      * @since 4.0.6
      */
     public void setPosition(int position);
+
+    /**
+     * Retrieves the current cursor position.
+     * 
+     * Returns the position of the cursor. The cursor is displayed before the
+     * character with the given (base 0) index in the widget. The value will
+     * be less than or equal to the number of characters in the widget.
+     * 
+     * @since 4.0.16
+     */
+    public int getPosition();
 
     /**
      * The signal emitted when the text in the Editable has changed.
@@ -90,4 +102,22 @@ public interface Editable
      * @since 4.0.6
      */
     public void selectRegion(int start, int end);
+
+    /**
+     * Retrieves the selection start position of the Editable. If no text was
+     * selected both <code>getSelectionBoundsStart()</code> and
+     * <code>getSelectionBoundsEnd()</code> will be identical.
+     * 
+     * @since 4.0.16
+     */
+    public int getSelectionBoundsStart();
+
+    /**
+     * Retrieves the selection end position of the Editable. If no text was
+     * selected both <code>getSelectionBoundsStart()</code> and
+     * <code>getSelectionBoundsEnd()</code> will be identical.
+     * 
+     * @since 4.0.16
+     */
+    public int getSelectionBoundsEnd();
 }

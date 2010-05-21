@@ -61,5 +61,6 @@
   (c-name "gtk_cell_view_get_cell_renderers")
   (caller-owns-return #l)
   (return-type "GList-GtkCellRenderer*")
+  (deprecated)
 )
 

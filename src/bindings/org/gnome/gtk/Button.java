@@ -54,7 +54,7 @@ package org.gnome.gtk;
  * @author Mario Torre
  * @since 4.0.0
  */
-public class Button extends Bin
+public class Button extends Bin implements Activatable
 {
     protected Button(long pointer) {
         super(pointer);
@@ -372,5 +372,13 @@ public class Button extends Bin
      */
     public void setFocusOnClick(boolean setting) {
         GtkButton.setFocusOnClick(this, setting);
+    }
+
+    public void setRelatedAction(Action action) {
+        GtkActivatable.setRelatedAction(this, action);
+    }
+
+    public Action getRelatedAction() {
+        return GtkActivatable.getRelatedAction(this);
     }
 }
