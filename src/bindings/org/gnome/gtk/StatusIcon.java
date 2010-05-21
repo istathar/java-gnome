@@ -321,17 +321,6 @@ public class StatusIcon extends org.gnome.glib.Object
         GtkStatusIcon.connect(this, handler, false);
     }
 
-    /** @deprecated */
-    public interface ACTIVATE extends GtkStatusIcon.ActivateSignal
-    {
-    }
-
-    /** @deprecated */
-    public void connect(ACTIVATE handler) {
-        assert false : "use StatusIcon.Activate instead";
-        GtkStatusIcon.connect(this, handler, false);
-    }
-
     /**
      * The signal emitted when the user brings up the context menu of the
      * StatusIcon.
@@ -367,17 +356,6 @@ public class StatusIcon extends org.gnome.glib.Object
         GtkStatusIcon.connect(this, handler, false);
     }
 
-    /** @deprecated */
-    public interface POPUP_MENU extends GtkStatusIcon.PopupMenuSignal
-    {
-    }
-
-    /** @deprecated */
-    public void connect(POPUP_MENU handler) {
-        assert false : "use StatusIcon.PopupMenu instead";
-        GtkStatusIcon.connect(this, handler, false);
-    }
-
     /**
      * Signal emitted when the size available for the StatusIcon's image
      * changes. This happens if the panel the Notification Area applet is
@@ -397,17 +375,6 @@ public class StatusIcon extends org.gnome.glib.Object
     }
 
     public void connect(StatusIcon.SizeChanged handler) {
-        GtkStatusIcon.connect(this, handler, false);
-    }
-
-    /** @deprecated */
-    public interface SIZE_CHANGED extends GtkStatusIcon.SizeChangedSignal
-    {
-    }
-
-    /** @deprecated */
-    public void connect(SIZE_CHANGED handler) {
-        assert false : "use StatusIcon.SizeChanged instead";
         GtkStatusIcon.connect(this, handler, false);
     }
 }

@@ -97,22 +97,6 @@ public class Toolbar extends Container
     }
 
     /**
-     * Sets the orientation of the Toolbar on screen.
-     * 
-     * <p>
-     * Horizontal Toolbars are commonly used. Usually you shouldn't use a
-     * vertical Toolbar it is more difficult to search for the user to find a
-     * specific control. When your application has several Toolbars, however,
-     * a vertical orientation can become useful as a technique to make a
-     * better usage of the available screen real estate.
-     * 
-     * @deprecated This has been replaced in GTK 2.16
-     */
-    public void setOrientation(Orientation orientation) {
-    // no-op until GTK 2.16 available.
-    }
-
-    /**
      * Set the appearance of a Toolbar.
      * 
      * <p>
@@ -140,16 +124,4 @@ public class Toolbar extends Container
     public void setStyle(ToolbarStyle style) {
         GtkToolbar.setStyle(this, style);
     }
-
-    /**
-     * @deprecated This is now a toolkit wide policy setting, and no longer
-     *             individually controllable via this method. We've made this
-     *             a no-op.
-     */
-    /*
-     * As of GTK 2.14, gtk_toolbar_set_tooltips() is deprecated, and replaced
-     * by "gtk-enable-tooltips" via GtkSettings. We don't need to expose this
-     * here anymore.
-     */
-    public void setTooltips(boolean enable) {}
 }

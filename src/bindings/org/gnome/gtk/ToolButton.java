@@ -172,15 +172,4 @@ public class ToolButton extends ToolItem
     public void connect(ToolButton.Clicked handler) {
         GtkToolButton.connect(this, handler, false);
     }
-
-    /** @deprecated */
-    public interface CLICKED extends GtkToolButton.ClickedSignal
-    {
-    }
-
-    /** @deprecated */
-    public void connect(CLICKED handler) {
-        assert false : "use ToolButton.Clicked instead";
-        GtkToolButton.connect(this, handler, false);
-    }
 }

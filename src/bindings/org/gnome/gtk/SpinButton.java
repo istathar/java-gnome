@@ -152,16 +152,4 @@ public class SpinButton extends Entry
     public void connect(SpinButton.ValueChanged handler) {
         GtkSpinButton.connect(this, handler, false);
     }
-
-    /** @deprecated */
-    public interface VALUE_CHANGED extends GtkSpinButton.ValueChangedSignal
-    {
-        public void onValueChanged(SpinButton source);
-    }
-
-    /** @deprecated */
-    public void connect(VALUE_CHANGED handler) {
-        assert false : "use SpinButton.ValueChanged instead";
-        GtkSpinButton.connect(this, handler, false);
-    }
 }

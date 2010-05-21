@@ -117,12 +117,6 @@ public class Action extends Object
         connect(handler);
     }
 
-    /** @deprecated */
-    public Action(String name, String label, String tooltip, Stock stock, ACTIVATE handler) {
-        super(GtkAction.createAction(name, label, tooltip, stock.getStockId()));
-        connect(handler);
-    }
-
     /**
      * Create a new Action.
      * 
@@ -180,12 +174,6 @@ public class Action extends Object
      * @since 4.0.4
      */
     public Action(String name, String label, Action.Activate handler) {
-        super(GtkAction.createAction(name, label, null, null));
-        connect(handler);
-    }
-
-    /** @deprecated */
-    public Action(String name, String label, ACTIVATE handler) {
         super(GtkAction.createAction(name, label, null, null));
         connect(handler);
     }
@@ -366,12 +354,6 @@ public class Action extends Object
         GtkAction.activate(this);
     }
 
-    /** @deprecated */
-    public void activate() {
-        assert false : "use emitActivate() instead";
-        GtkAction.activate(this);
-    }
-
     /**
      * Set a tooltip (little help message appearing in a hover) for the
      * Action.
@@ -412,17 +394,6 @@ public class Action extends Object
      * @since 4.0.4
      */
     public void connect(Action.Activate handler) {
-        GtkAction.connect(this, handler, false);
-    }
-
-    /** @deprecated */
-    public interface ACTIVATE extends GtkAction.ActivateSignal
-    {
-    }
-
-    /** @deprecated */
-    public void connect(ACTIVATE handler) {
-        assert false : "use Action.Activate instead";
         GtkAction.connect(this, handler, false);
     }
 

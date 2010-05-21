@@ -156,21 +156,4 @@ public class MenuItem extends Item
     public void connect(MenuItem.Activate handler) {
         GtkMenuItem.connect(this, handler, false);
     }
-
-    /** @deprecated */
-    public interface ACTIVATE extends GtkMenuItem.ActivateSignal
-    {
-    }
-
-    /** @deprecated */
-    public void connect(ACTIVATE handler) {
-        assert false : "use MenuItem.Activate instead";
-        GtkMenuItem.connect(this, handler, false);
-    }
-
-    /** @deprecated */
-    public MenuItem(String mnemonicLabel, ACTIVATE handler) {
-        super(GtkMenuItem.createMenuItemWithMnemonic(mnemonicLabel));
-        connect(handler);
-    }
 }

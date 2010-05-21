@@ -138,14 +138,6 @@ public class Entry extends Widget implements Editable, CellEditable
     }
 
     /**
-     * @deprecated
-     */
-    public void setVisibleChars(boolean setting) {
-        assert false : "use setVisibility() instead";
-        GtkEntry.setVisibility(this, setting);
-    }
-
-    /**
      * Is text in the Entry are visible, or hidden by an obscuring character?
      * Returns <code>true</code> if characters entered are visible,
      * <code>false</code> if obscured.
@@ -153,14 +145,6 @@ public class Entry extends Widget implements Editable, CellEditable
      * @since 4.0.12
      */
     public boolean getVisibility() {
-        return GtkEntry.getVisibility(this);
-    }
-
-    /**
-     * @deprecated
-     */
-    public boolean isVisibleChars() {
-        assert false : "use getVisibility() instead";
         return GtkEntry.getVisibility(this);
     }
 
@@ -231,17 +215,6 @@ public class Entry extends Widget implements Editable, CellEditable
         GtkEntry.connect(this, handler, false);
     }
 
-    /** @deprecated */
-    public interface ACTIVATE extends GtkEntry.ActivateSignal
-    {
-    }
-
-    /** @deprecated */
-    public void connect(ACTIVATE handler) {
-        assert false : "use Entry.Activate instead";
-        GtkEntry.connect(this, handler, false);
-    }
-
     public void setPosition(int position) {
         if (position < -1) {
             throw new IllegalArgumentException(
@@ -305,12 +278,6 @@ public class Entry extends Widget implements Editable, CellEditable
      * @since 4.0.6
      */
     public void connect(Editable.Changed handler) {
-        GtkEditable.connect(this, handler, false);
-    }
-
-    /** @deprecated */
-    public void connect(CHANGED handler) {
-        assert false : "use Editable.Changed instead";
         GtkEditable.connect(this, handler, false);
     }
 

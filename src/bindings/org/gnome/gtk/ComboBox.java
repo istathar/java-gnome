@@ -168,17 +168,6 @@ public class ComboBox extends Bin implements CellEditable, CellLayout
         GtkComboBox.connect(this, handler, false);
     }
 
-    /** @deprecated */
-    public interface CHANGED extends GtkComboBox.ChangedSignal
-    {
-    }
-
-    /** @deprecated */
-    public void connect(CHANGED handler) {
-        assert false : "use ComboBox.Changed instead";
-        GtkComboBox.connect(this, handler, false);
-    }
-
     /**
      * Cause the popup part of the ComboBox to raise and present itself. You
      * don't tend to need this (after all it's the user who clicks on the

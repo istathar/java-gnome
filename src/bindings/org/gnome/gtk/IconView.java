@@ -222,17 +222,6 @@ public class IconView extends Container implements CellLayout
         GtkIconView.connect(this, handler, false);
     }
 
-    /** @deprecated */
-    public interface ITEM_ACTIVATED extends GtkIconView.ItemActivatedSignal
-    {
-    }
-
-    /** @deprecated */
-    public void connect(ITEM_ACTIVATED handler) {
-        assert false : "use IconView.ItemActivated instead";
-        GtkIconView.connect(this, handler, false);
-    }
-
     /**
      * Set what kinds of selections are allowed. The interesting constants
      * you'll use most often are {@link SelectionMode#NONE NONE} and
@@ -298,17 +287,6 @@ public class IconView extends Container implements CellLayout
      * @since 4.0.7
      */
     public void connect(IconView.SelectionChanged handler) {
-        GtkIconView.connect(this, handler, false);
-    }
-
-    /** @deprecated */
-    public interface SELECTION_CHANGED extends GtkIconView.SelectionChangedSignal
-    {
-    }
-
-    /** @deprecated */
-    public void connect(SELECTION_CHANGED handler) {
-        assert false : "use IconView.SelectionChanged instead";
         GtkIconView.connect(this, handler, false);
     }
 

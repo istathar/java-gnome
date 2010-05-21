@@ -117,17 +117,4 @@ public abstract class Range extends Widget
     public void connect(Range.ValueChanged handler) {
         GtkRange.connect(this, handler, false);
     }
-
-    /** @deprecated */
-    public interface VALUE_CHANGED extends GtkRange.ValueChangedSignal
-    {
-        public void onValueChanged(Range source);
-    }
-
-    /** @deprecated */
-    public void connect(Range.VALUE_CHANGED handler) {
-        assert false : "use Range.ValueChanged instead";
-        GtkRange.connect(this, handler, false);
-    }
-
 }
