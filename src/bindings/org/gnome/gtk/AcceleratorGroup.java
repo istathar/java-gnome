@@ -96,25 +96,27 @@ public class AcceleratorGroup extends Object
     }
 
     boolean addMenuItemKeyBinding(MenuItem item, Keyval key, ModifierType modifier) {
-        final String path;
+        String path;
 
         /*
          * Check whether it has already has a path and whether it is known, if
          * so then change it.
          */
 
-        if (item.getPath() != null) {
-            if (!GtkAccelMap.lookupEntry(item.getPath(), null)) {
-                return GtkAccelMap.changeEntry(item.getPath(), key, modifier, true);
+        path = GtkMenuItem.getAccelPath(item);
+
+        if (path != null) {
+            if (!GtkAccelMap.lookupEntry(path, null)) {
+                return GtkAccelMap.changeEntry(path, key, modifier, true);
             }
         }
 
         /*
-         * Generate the path, set it and add it the map to be registered.
+         * Generate a path, set it and add it the map to be registered.
          */
 
         path = "<" + root + ">/" + generateRandomString();
-        item.setPath(path);
+        GtkMenuItem.setAccelPath(item, path);
         GtkAccelMap.addEntry(path, key, modifier);
         return true;
     }
@@ -124,7 +126,7 @@ public class AcceleratorGroup extends Object
      * This string is used for path's of menu items and the root for the
      * Accelerator.
      */
-    private static String generateRandomString() {
+    static String generateRandomString() {
         final char[] generated;
         int i;
 

@@ -850,8 +850,9 @@ public class Window extends Bin
     }
 
     /**
-     * Get the Accelerator object to set keybindings for Menu's. See
-     * {@link AcceleratorGroup} on how to set keybindings.
+     * Get the AcceleratorGroup object for this top level Window. You'll need
+     * this to set key bindings for Menus and Actions. See
+     * {@link AcceleratorGroup} for help on how to set key bindings.
      * 
      * @since 4.0.16
      */

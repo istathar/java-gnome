@@ -191,15 +191,7 @@ public class MenuItem extends Item implements Activatable
      * @return <code>false</code> on failure.
      * @since 4.0.16
      */
-    public boolean setAccelerator(AcceleratorGroup accelerator, Keyval keyval, ModifierType modifier) {
-        return accelerator.addMenuItemKeyBinding(this, keyval, modifier);
-    }
-
-    protected void setPath(String path) {
-        GtkMenuItem.setAccelPath(this, path);
-    }
-
-    protected String getPath() {
-        return GtkMenuItem.getAccelPath(this);
+    public boolean setAccelerator(AcceleratorGroup group, Keyval keyval, ModifierType modifier) {
+        return group.addMenuItemKeyBinding(this, keyval, modifier);
     }
 }
