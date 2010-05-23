@@ -32,7 +32,6 @@
  */
 package org.gnome.gtk;
 
-import org.gnome.gdk.Keyval;
 import org.gnome.gdk.ModifierType;
 import org.gnome.glib.Object;
 
@@ -83,42 +82,16 @@ import org.gnome.glib.Object;
  */
 public class AcceleratorGroup extends Object
 {
-    private String root;
-
     protected AcceleratorGroup(long pointer) {
         super(pointer);
-        // BUG?
     }
 
-    AcceleratorGroup() {
+    public AcceleratorGroup() {
         super(GtkAccelGroup.createAcceleratorGroup());
-        root = generateRandomString();
     }
 
-    boolean addMenuItemKeyBinding(MenuItem item, Keyval key, ModifierType modifier) {
-        String path;
-
-        /*
-         * Check whether it has already has a path and whether it is known, if
-         * so then change it.
-         */
-
-        path = GtkMenuItem.getAccelPath(item);
-
-        if (path != null) {
-            if (!GtkAccelMap.lookupEntry(path, null)) {
-                return GtkAccelMap.changeEntry(path, key, modifier, true);
-            }
-        }
-
-        /*
-         * Generate a path, set it and add it the map to be registered.
-         */
-
-        path = "<" + root + ">/" + generateRandomString();
-        GtkMenuItem.setAccelPath(item, path);
-        GtkAccelMap.addEntry(path, key, modifier);
-        return true;
+    static String generateRandomPath() {
+        return "<" + generateRandomString() + ">/" + generateRandomString();
     }
 
     /**
@@ -126,7 +99,7 @@ public class AcceleratorGroup extends Object
      * This string is used for path's of menu items and the root for the
      * Accelerator.
      */
-    static String generateRandomString() {
+    private static String generateRandomString() {
         final char[] generated;
         int i;
 

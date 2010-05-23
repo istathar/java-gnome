@@ -163,8 +163,8 @@ public class ImageMenuItem extends MenuItem
     }
 
     /**
-     * When using Stock icon images, this method will activate the key binding
-     * that comes with the stock icon.
+     * Activate the key binding that comes with the stock configuration, for
+     * the case that this ImageMenuItem was constructed using a Stock item.
      * 
      * @since 4.0.16
      */

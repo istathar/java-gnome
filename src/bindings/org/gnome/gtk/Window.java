@@ -865,6 +865,17 @@ public class Window extends Bin
     }
 
     /**
+     * Set the AcceleratorGroup object for this top level Window. You'll need
+     * this to set key bindings for Menus and Actions. See
+     * {@link AcceleratorGroup} for help on how to set key bindings.
+     * 
+     * @since 4.0.16
+     */
+    public void addAcceleratorGroup(AcceleratorGroup group) {
+        GtkWindow.addAccelGroup(this, group);
+    }
+
+    /**
      * Event emitted when the Window's size or position changes. The
      * {@link EventConfigure EventConfigure} object has the position and size
      * information.

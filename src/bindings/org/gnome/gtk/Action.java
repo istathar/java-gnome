@@ -37,8 +37,6 @@ import org.gnome.gdk.Keyval;
 import org.gnome.gdk.ModifierType;
 import org.gnome.glib.Object;
 
-import static org.gnome.gtk.AcceleratorGroup.generateRandomString;
-
 /**
  * Actions represent an operation that the user can perform from one of
  * several GUI places.
@@ -502,24 +500,29 @@ public class Action extends Object
      * 
      * @since 4.0.16
      */
-    public void setAccelerator(AcceleratorGroup group, Keyval keyval, ModifierType modifier) {
+    public void setAccelerator(Keyval keyval, ModifierType modifier) {
         String path;
-        boolean result;
+        boolean exists, result;
 
         path = GtkAction.getAccelPath(this);
 
-        if ((path != null) && (GtkAccelMap.lookupEntry(path, null))) {
+        if (path == null) {
+            exists = false;
+            path = AcceleratorGroup.generateRandomPath();
+            GtkAction.setAccelPath(this, path);
+            GtkAction.connectAccelerator(this);
+        } else {
+            exists = GtkAccelMap.lookupEntry(path, null);
+        }
+
+        if (exists) {
             result = GtkAccelMap.changeEntry(path, keyval, modifier, true);
 
             if (!result) {
-                throw new IllegalStateException("Unable to change existing accelerator map entry");
+                throw new IllegalStateException("Can't change exising accelerator");
             }
         } else {
-            path = "<" + generateRandomString() + ">/" + generateRandomString();
-
             GtkAccelMap.addEntry(path, keyval, modifier);
-            GtkAction.setAccelPath(this, path);
-            GtkAction.connectAccelerator(this);
         }
     }
 }
