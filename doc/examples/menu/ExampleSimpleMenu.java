@@ -53,6 +53,7 @@ public class ExampleSimpleMenu
         final MenuItem fileSave, editCopy, editPaste;
         final ImageMenuItem fileNew, fileClose;
         final MenuBar menuBar;
+        final Accelerator a;
 
         /*
          * Begin with the standard VBox in a Window setup:
@@ -81,13 +82,13 @@ public class ExampleSimpleMenu
         fileClose = new ImageMenuItem(Stock.CLOSE);
         editCopy = new MenuItem("_Edit");
         editPaste = new MenuItem("_Paste");
-        
+
         /*
          * Now we add the keybindings for the menu items.
          * 
          * This has to be done before you append them to their Menus.
          */
-        Accelerator a = w.getAccelerator();
+        a = w.getAccelerator();
         fileSave.setAccelerator(a, Keyval.S, ModifierType.CONTROL_MASK);
         editCopy.setAccelerator(a, Keyval.C, ModifierType.CONTROL_MASK);
         editPaste.setAccelerator(a, Keyval.V, ModifierType.CONTROL_MASK);
@@ -104,7 +105,7 @@ public class ExampleSimpleMenu
          * set Control + C for editCopy we set this one manually to another
          * keybinding:
          */
-        fileClose.setAccelerator(a, Keyval.X, ModifierType.CONTROL_MASK);
+        fileClose.setAccelerator(a, Keyval.W, ModifierType.CONTROL_MASK);
 
         /*
          * To ensure keybindings will work we also have set the Accelerator to

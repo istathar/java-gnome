@@ -184,21 +184,21 @@ public class MenuItem extends Item implements Activatable
     public Action getRelatedAction() {
         return GtkActivatable.getRelatedAction(this);
     }
-    
+
     /**
      * Set a key binding for the MenuItem.
      * 
-     * @return True on success and False on failure.
+     * @return <code>false</code> on failure.
      * @since 4.0.16
      */
     public boolean setAccelerator(Accelerator accelerator, Keyval key, ModifierType modifier) {
         return accelerator.addMenuItemKeyBinding(this, key, modifier);
     }
-    
+
     protected void setPath(String path) {
         GtkMenuItem.setAccelPath(this, path);
     }
-    
+
     protected String getPath() {
         return GtkMenuItem.getAccelPath(this);
     }

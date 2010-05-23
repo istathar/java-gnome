@@ -37,22 +37,18 @@ import org.gnome.gdk.ModifierType;
 import org.gnome.glib.Object;
 
 /**
- * <p>
- * Accelerator are for keybindings for windows. For example Control + O would
- * be for opening a file. Accelerator in this case refers to holding these
- * keybindings.
- * </p>
+ * Accelerator are for keybindings for windows. For example <b>
+ * <code>Ctrl+O</code></b> would be for opening a file. Accelerator in this
+ * case refers to holding these keybindings.
  * 
  * <p>
  * When a keybinding is pressed the action related to the widget is being
  * activated. Therefor keybindings are directly bound the widgets. There can
  * be however only 1 Accelerator object per window. This object is therefor
  * retrieved by calling {@link Window#getAccelerator()}.
- * </p>
  * 
  * <p>
  * Keybindings are only bound to menuitems. Below is an example:
- * </p>
  * 
  * <pre>
  * Window window = new Window();
@@ -80,19 +76,15 @@ import org.gnome.glib.Object;
  * imageitem.setAccelerator(window.getAccelerator(), Keyval.N, ModifierType.CONTROL_MASK);
  * </pre>
  * 
- * </p>
- * 
  * <p>
  * In order to set multiple Modifier Types you can use the static method
- * {@link ModifierType#or(ModifierType, ModifierType)}
- * </p>
+ * {@link ModifierType#or(ModifierType, ModifierType) or()}
  * 
- * @author azania
+ * @author Thijs Leibbrand
  * @since 4.0.16
  */
 public class Accelerator extends Object
 {
-
     private String root;
 
     protected Accelerator(long pointer) {
@@ -107,9 +99,11 @@ public class Accelerator extends Object
     protected boolean addMenuItemKeyBinding(MenuItem item, Keyval key, ModifierType modifier) {
         // check whether it has already has a path and whether it is known, if
         // so then change it.
-        if (item.getPath() != null)
-            if (!GtkAccelMap.lookupEntry(item.getPath(), null))
+        if (item.getPath() != null) {
+            if (!GtkAccelMap.lookupEntry(item.getPath(), null)) {
                 return GtkAccelMap.changeEntry(item.getPath(), key, modifier, true);
+            }
+        }
 
         // generate the path, set it and add it the map to be registered.
         String path = "<" + root + ">/" + stringGenerator();
