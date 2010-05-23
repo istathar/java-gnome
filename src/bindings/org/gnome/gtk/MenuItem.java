@@ -186,13 +186,13 @@ public class MenuItem extends Item implements Activatable
     }
 
     /**
-     * Set a key binding for the MenuItem.
+     * Set a key binding for this MenuItem.
      * 
      * @return <code>false</code> on failure.
      * @since 4.0.16
      */
-    public boolean setAccelerator(Accelerator accelerator, Keyval key, ModifierType modifier) {
-        return accelerator.addMenuItemKeyBinding(this, key, modifier);
+    public boolean setAccelerator(AcceleratorGroup accelerator, Keyval keyval, ModifierType modifier) {
+        return accelerator.addMenuItemKeyBinding(this, keyval, modifier);
     }
 
     protected void setPath(String path) {

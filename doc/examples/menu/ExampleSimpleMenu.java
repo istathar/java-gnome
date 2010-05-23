@@ -22,7 +22,7 @@ package menu;
 import org.gnome.gdk.Event;
 import org.gnome.gdk.Keyval;
 import org.gnome.gdk.ModifierType;
-import org.gnome.gtk.Accelerator;
+import org.gnome.gtk.AcceleratorGroup;
 import org.gnome.gtk.CheckMenuItem;
 import org.gnome.gtk.Gtk;
 import org.gnome.gtk.ImageMenuItem;
@@ -52,8 +52,8 @@ public class ExampleSimpleMenu
         final MenuItem fileMenuItem, editMenuItem, viewMenuItem;
         final MenuItem fileSave, editCopy, editPaste;
         final ImageMenuItem fileNew, fileClose;
+        final AcceleratorGroup group;
         final MenuBar menuBar;
-        final Accelerator a;
 
         /*
          * Begin with the standard VBox in a Window setup:
@@ -84,20 +84,19 @@ public class ExampleSimpleMenu
         editPaste = new MenuItem("_Paste");
 
         /*
-         * Now we add the keybindings for the menu items.
-         * 
-         * This has to be done before you append them to their Menus.
+         * Now we add the keybindings for the menu items. This has to be done
+         * before you append them to their Menus.
          */
-        a = w.getAccelerator();
-        fileSave.setAccelerator(a, Keyval.S, ModifierType.CONTROL_MASK);
-        editCopy.setAccelerator(a, Keyval.C, ModifierType.CONTROL_MASK);
-        editPaste.setAccelerator(a, Keyval.V, ModifierType.CONTROL_MASK);
+        group = w.getAcceleratorGroup();
+        fileSave.setAccelerator(group, Keyval.S, ModifierType.CONTROL_MASK);
+        editCopy.setAccelerator(group, Keyval.C, ModifierType.CONTROL_MASK);
+        editPaste.setAccelerator(group, Keyval.V, ModifierType.CONTROL_MASK);
 
         /*
-         * For ImageMenuItem you can set the keybinding that comes with the
-         * Stock item instead.
+         * For ImageMenuItems you can activate the keybinding that comes with
+         * the Stock item instead.
          */
-        fileNew.setAccelerator(a);
+        fileNew.setAccelerator(group);
 
         /*
          * Despite fileClose also being an ImageMenuItem we could use the
@@ -105,20 +104,21 @@ public class ExampleSimpleMenu
          * set Control + C for editCopy we set this one manually to another
          * keybinding:
          */
-        fileClose.setAccelerator(a, Keyval.W, ModifierType.CONTROL_MASK);
+        fileClose.setAccelerator(group, Keyval.W, ModifierType.CONTROL_MASK);
 
         /*
-         * To ensure keybindings will work we also have set the Accelerator to
-         * the menus containing the MenuItems with the keybindings.
+         * To ensure keybindings will work we also have set the
+         * AcceleratorGroup to the menus containing the MenuItems with the
+         * keybindings.
          * 
          * Since we have not set a keybinding for hide text MenuItem we also
-         * do need to set the Accelerator of the Menu containing this menu
-         * item. Also if a Menu only contains MenuItems with keybindings set
-         * from Stock Items (and not set a keybinding manually) it is also not
-         * needed.
+         * do not need to set the AcceleratorGroup of the Menu containing this
+         * menu item. Also if a Menu only contains MenuItems with keybindings
+         * set from Stock Items (and not set a keybinding manually) it is also
+         * not needed.
          */
-        fileMenu.setAccelerator(a);
-        editMenu.setAccelerator(a);
+        fileMenu.setAcceleratorGroup(group);
+        editMenu.setAcceleratorGroup(group);
 
         /*
          * Now you can add MenuItems to the "file" Menu.

@@ -74,7 +74,7 @@ import org.gnome.gdk.WindowTypeHint;
  */
 public class Window extends Bin
 {
-    private Accelerator accelerator = null;
+    private AcceleratorGroup accelerators = null;
 
     protected Window(long pointer) {
         super(pointer);
@@ -851,16 +851,16 @@ public class Window extends Bin
 
     /**
      * Get the Accelerator object to set keybindings for Menu's. See
-     * {@link Accelerator} on how to set keybindings.
+     * {@link AcceleratorGroup} on how to set keybindings.
      * 
      * @since 4.0.16
      */
-    public Accelerator getAccelerator() {
-        if (accelerator == null) {
-            accelerator = new Accelerator();
-            GtkWindow.addAccelGroup(this, accelerator);
+    public AcceleratorGroup getAcceleratorGroup() {
+        if (accelerators == null) {
+            accelerators = new AcceleratorGroup();
+            GtkWindow.addAccelGroup(this, accelerators);
         }
-        return accelerator;
+        return accelerators;
     }
 
     /**

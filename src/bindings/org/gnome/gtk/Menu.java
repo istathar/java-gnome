@@ -138,7 +138,7 @@ public class Menu extends MenuShell
      * 
      * @since 4.0.16
      */
-    public void setAccelerator(Accelerator accelerator) {
+    public void setAcceleratorGroup(AcceleratorGroup accelerator) {
         GtkMenu.setAccelGroup(this, accelerator);
     }
 }

@@ -163,12 +163,12 @@ public class ImageMenuItem extends MenuItem
     }
 
     /**
-     * For use with stock icon image this method can used to use the key
-     * binding that comes with the stock icon.
+     * When using Stock icon images, this method will activate the key binding
+     * that comes with the stock icon.
      * 
      * @since 4.0.16
      */
-    public void setAccelerator(Accelerator accelerator) {
+    public void setAccelerator(AcceleratorGroup accelerator) {
         GtkImageMenuItem.setAccelGroup(this, accelerator);
     }
 }
