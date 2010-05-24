@@ -18,8 +18,10 @@
  */
 package org.freedesktop.cairo;
 
+import org.gnome.gdk.Colormap;
 import org.gnome.gdk.EventExpose;
 import org.gnome.gtk.Image;
+import org.gnome.gdk.Screen;
 import org.gnome.gtk.Snapshot;
 import org.gnome.gtk.Widget;
 import org.gnome.gtk.Window;
@@ -31,9 +33,27 @@ public abstract class SnapshotCairo extends Snapshot
 {
     public SnapshotCairo(Class<?> cls, String suffix) {
         super(cls, suffix);
-        final Image image;
 
         window = new Window();
+
+        initWindow(window);
+    }
+
+    public SnapshotCairo(Class<?> cls, String suffix, boolean transparent) {
+        super(cls, suffix);
+
+        window = new Window();
+
+        Screen screen = window.getScreen();
+        Colormap colormap = screen.getColormapRGBA();
+        window.setColormap(colormap);
+
+        initWindow(window);
+    }
+
+    private void initWindow(Window window) {
+        final Image image;
+
         window.setDefaultSize(100, 100);
         window.setDecorated(false);
 
