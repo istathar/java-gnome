@@ -60,7 +60,7 @@ public class Operator extends Constant
 
     /**
      * Draw over existing pixels as if they were not present.
-     *
+     * 
      */
     public static final Operator SOURCE = new Operator(CairoOperator.SOURCE, "SOURCE");
 
@@ -70,4 +70,11 @@ public class Operator extends Constant
      * @since 4.0.10
      */
     public static final Operator OVER = new Operator(CairoOperator.OVER, "OVER");
+
+    /**
+     * Draw only where a previous drawing was and clears the rest of the
+     * surface
+     * 
+     */
+    public static final Operator IN = new Operator(CairoOperator.IN, "IN");
 }
