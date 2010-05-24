@@ -44,9 +44,11 @@ public abstract class SnapshotCairo extends Snapshot
 
         window = new Window();
 
-        Screen screen = window.getScreen();
-        Colormap colormap = screen.getColormapRGBA();
-        window.setColormap(colormap);
+        if (transparent) {
+            Screen screen = window.getScreen();
+            Colormap colormap = screen.getColormapRGBA();
+            window.setColormap(colormap);
+        }
 
         initWindow(window);
     }
