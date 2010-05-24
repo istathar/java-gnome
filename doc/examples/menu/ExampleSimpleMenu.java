@@ -22,7 +22,7 @@ package menu;
 import org.gnome.gdk.Event;
 import org.gnome.gdk.Keyval;
 import org.gnome.gdk.ModifierType;
-import org.gnome.gtk.Accelerator;
+import org.gnome.gtk.AcceleratorGroup;
 import org.gnome.gtk.CheckMenuItem;
 import org.gnome.gtk.Gtk;
 import org.gnome.gtk.ImageMenuItem;
@@ -41,30 +41,32 @@ import org.gnome.gtk.Window;
  * 
  * @author Vreixo Formoso
  * @author Andrew Cowie
+ * @author Thijs Leibbrand
  */
 public class ExampleSimpleMenu
 {
     public ExampleSimpleMenu() {
-        final Window w;
-        final VBox x;
-        final Label l;
+        final Window window;
+        final VBox box;
+        final Label label;
         final Menu fileMenu, editMenu, viewMenu;
-        final MenuItem fileMenuItem, editMenuItem, viewMenuItem;
-        final MenuItem fileSave, editCopy, editPaste;
-        final ImageMenuItem fileNew, fileClose;
-        final MenuBar menuBar;
+        final MenuItem file, edit, view;
+        final MenuItem save, copy, paste;
+        final ImageMenuItem nouveau, close;
+        final AcceleratorGroup group;
+        final MenuBar bar;
 
         /*
          * Begin with the standard VBox in a Window setup:
          */
 
-        w = new Window();
-        x = new VBox(false, 3);
-        w.add(x);
+        window = new Window();
+        box = new VBox(false, 3);
+        window.add(box);
 
-        l = new Label("Select an action in a menu");
-        l.setWidthChars(30);
-        l.setAlignment(0.0f, 0.5f);
+        label = new Label("Select an action in a menu");
+        label.setWidthChars(30);
+        label.setAlignment(0.0f, 0.5f);
 
         /*
          * Most applications will use several Menus in a MenuBar:
@@ -76,27 +78,26 @@ public class ExampleSimpleMenu
         /*
          * Create all of MenuItems that will be used:
          */
-        fileNew = new ImageMenuItem(Stock.NEW);
-        fileSave = new MenuItem("_Save");
-        fileClose = new ImageMenuItem(Stock.CLOSE);
-        editCopy = new MenuItem("_Edit");
-        editPaste = new MenuItem("_Paste");
-        
-        /*
-         * Now we add the keybindings for the menu items.
-         * 
-         * This has to be done before you append them to their Menus.
-         */
-        Accelerator a = w.getAccelerator();
-        fileSave.setAccelerator(a, Keyval.S, ModifierType.CONTROL_MASK);
-        editCopy.setAccelerator(a, Keyval.C, ModifierType.CONTROL_MASK);
-        editPaste.setAccelerator(a, Keyval.V, ModifierType.CONTROL_MASK);
+        nouveau = new ImageMenuItem(Stock.NEW);
+        save = new MenuItem("_Save");
+        close = new ImageMenuItem(Stock.CLOSE);
+        copy = new MenuItem("_Edit");
+        paste = new MenuItem("_Paste");
 
         /*
-         * For ImageMenuItem you can set the keybinding that comes with the
-         * Stock item instead.
+         * Now we add the keybindings for the menu items. This has to be done
+         * before you append them to their Menus.
          */
-        fileNew.setAccelerator(a);
+        group = window.getAcceleratorGroup();
+        save.setAccelerator(Keyval.s, ModifierType.CONTROL_MASK);
+        copy.setAccelerator(Keyval.c, ModifierType.CONTROL_MASK);
+        paste.setAccelerator(Keyval.v, ModifierType.CONTROL_MASK);
+
+        /*
+         * For ImageMenuItems you can activate the keybinding that comes with
+         * the Stock item instead.
+         */
+        nouveau.setAccelerator(group);
 
         /*
          * Despite fileClose also being an ImageMenuItem we could use the
@@ -104,26 +105,27 @@ public class ExampleSimpleMenu
          * set Control + C for editCopy we set this one manually to another
          * keybinding:
          */
-        fileClose.setAccelerator(a, Keyval.X, ModifierType.CONTROL_MASK);
+        close.setAccelerator(Keyval.w, ModifierType.CONTROL_MASK);
 
         /*
-         * To ensure keybindings will work we also have set the Accelerator to
-         * the menus containing the MenuItems with the keybindings.
+         * To ensure keybindings will work we also have set the
+         * AcceleratorGroup to the menus containing the MenuItems with the
+         * keybindings.
          * 
          * Since we have not set a keybinding for hide text MenuItem we also
-         * do need to set the Accelerator of the Menu containing this menu
-         * item. Also if a Menu only contains MenuItems with keybindings set
-         * from Stock Items (and not set a keybinding manually) it is also not
-         * needed.
+         * do not need to set the AcceleratorGroup of the Menu containing this
+         * menu item. Also if a Menu only contains MenuItems with keybindings
+         * set from Stock Items (and not set a keybinding manually) it is also
+         * not needed.
          */
-        fileMenu.setAccelerator(a);
-        editMenu.setAccelerator(a);
+        fileMenu.setAcceleratorGroup(group);
+        editMenu.setAcceleratorGroup(group);
 
         /*
          * Now you can add MenuItems to the "file" Menu.
          */
-        fileMenu.append(fileNew);
-        fileMenu.append(fileSave);
+        fileMenu.append(nouveau);
+        fileMenu.append(save);
 
         /*
          * A SeparatorMenuItem can be used to differentiate between unrelated
@@ -134,9 +136,9 @@ public class ExampleSimpleMenu
         /*
          * And add the rest of the menu items.
          */
-        fileMenu.append(fileClose);
-        editMenu.append(editCopy);
-        editMenu.append(editPaste);
+        fileMenu.append(close);
+        editMenu.append(copy);
+        editMenu.append(paste);
 
         /*
          * Usually you will want to connect to the MenuItem.Activate signal,
@@ -144,20 +146,20 @@ public class ExampleSimpleMenu
          * clicking it with the mouse or navigating to it with the keyboard
          * and pressing <ENTER>.
          */
-        fileNew.connect(new MenuItem.Activate() {
+        nouveau.connect(new MenuItem.Activate() {
             public void onActivate(MenuItem source) {
-                l.setLabel("You have selected File->New menu.");
+                label.setLabel("You have selected File->New menu.");
             }
         });
-        fileSave.connect(new MenuItem.Activate() {
+        save.connect(new MenuItem.Activate() {
             public void onActivate(MenuItem source) {
-                l.setLabel("You have selected File->Save.");
+                label.setLabel("You have selected File->Save.");
             }
         });
 
-        fileClose.connect(new MenuItem.Activate() {
+        close.connect(new MenuItem.Activate() {
             public void onActivate(MenuItem source) {
-                l.setLabel("You have selected File->Close.");
+                label.setLabel("You have selected File->Close.");
             }
         });
 
@@ -174,14 +176,14 @@ public class ExampleSimpleMenu
         /*
          * And now add the actions for the items making up the "edit" Menu.
          */
-        editCopy.connect(new MenuItem.Activate() {
+        copy.connect(new MenuItem.Activate() {
             public void onActivate(MenuItem source) {
-                l.setLabel("You have selected Edit->Copy.");
+                label.setLabel("You have selected Edit->Copy.");
             }
         });
-        editPaste.connect(new MenuItem.Activate() {
+        paste.connect(new MenuItem.Activate() {
             public void onActivate(MenuItem source) {
-                l.setLabel("You have selected Edit->Paste.");
+                label.setLabel("You have selected Edit->Paste.");
             }
         });
 
@@ -193,9 +195,9 @@ public class ExampleSimpleMenu
         viewMenu.append(new CheckMenuItem("Hide _text", new CheckMenuItem.Toggled() {
             public void onToggled(CheckMenuItem source) {
                 if (source.getActive()) {
-                    l.hide();
+                    label.hide();
                 } else {
-                    l.show();
+                    label.show();
                 }
             }
         }));
@@ -209,30 +211,30 @@ public class ExampleSimpleMenu
          * hierarchy to find out what options are available to them, rather
          * than seeing them at first glance.
          */
-        fileMenuItem = new MenuItem("_File");
-        fileMenuItem.setSubmenu(fileMenu);
-        editMenuItem = new MenuItem("_Edit");
-        editMenuItem.setSubmenu(editMenu);
-        viewMenuItem = new MenuItem("_View");
-        viewMenuItem.setSubmenu(viewMenu);
+        file = new MenuItem("_File");
+        file.setSubmenu(fileMenu);
+        edit = new MenuItem("_Edit");
+        edit.setSubmenu(editMenu);
+        view = new MenuItem("_View");
+        view.setSubmenu(viewMenu);
 
         /*
          * Finally, most applications make use of a MenuBar that is by
          * convention located at the top of the application Window. It
          * contains the top-level MenuItems.
          */
-        menuBar = new MenuBar();
-        menuBar.append(fileMenuItem);
-        menuBar.append(editMenuItem);
-        menuBar.append(viewMenuItem);
+        bar = new MenuBar();
+        bar.append(file);
+        bar.append(edit);
+        bar.append(view);
 
         /*
-         * Finally, pack the Widgets into the VBox, and present:
+         * Finally, pack the Widgets into the VBox, and present.
          */
-        x.packStart(menuBar, false, false, 0);
-        x.packStart(l, false, false, 0);
+        box.packStart(bar, false, false, 0);
+        box.packStart(label, false, false, 0);
 
-        w.showAll();
+        window.showAll();
 
         /*
          * And that's it! One last piece of house keeping, though: it is
@@ -241,7 +243,7 @@ public class ExampleSimpleMenu
          * will keep running even after the (sole) Window is closed - because
          * the main loop never returned.
          */
-        w.connect(new Window.DeleteEvent() {
+        window.connect(new Window.DeleteEvent() {
             public boolean onDeleteEvent(Widget source, Event event) {
                 Gtk.mainQuit();
                 return false;

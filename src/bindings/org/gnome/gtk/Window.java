@@ -1,7 +1,7 @@
 /*
  * java-gnome, a UI library for writing GTK and GNOME programs from Java!
  *
- * Copyright �� 2006-2010 Operational Dynamics Consulting, Pty Ltd and Others
+ * Copyright © 2006-2010 Operational Dynamics Consulting, Pty Ltd and Others
  *
  * The code in this file, and the program it is a part of, is made available
  * to you by its authors as open source software: you can redistribute it
@@ -74,9 +74,8 @@ import org.gnome.gdk.WindowTypeHint;
  */
 public class Window extends Bin
 {
-    
-    private Accelerator accelerator = null;
-    
+    private AcceleratorGroup accelerators = null;
+
     protected Window(long pointer) {
         super(pointer);
         GtkWindowOverride.dropUserRef(this);
@@ -849,25 +848,32 @@ public class Window extends Bin
     public void setTypeHint(WindowTypeHint hint) {
         GtkWindow.setTypeHint(this, hint);
     }
-    
+
     /**
-     * Get the Accelerator object to set keybindings for Menu's.
-     * See {@link Accelerator} on how to set keybindings.
+     * Get the AcceleratorGroup object for this top level Window. You'll need
+     * this to set key bindings for Menus and Actions. See
+     * {@link AcceleratorGroup} for help on how to set key bindings.
      * 
-     * @return The accelerator object
      * @since 4.0.16
      */
-    public Accelerator getAccelerator() {
-        if(accelerator == null) {
-            accelerator = new Accelerator();
-            GtkWindow.addAccelGroup(this, accelerator);
+    public AcceleratorGroup getAcceleratorGroup() {
+        if (accelerators == null) {
+            accelerators = new AcceleratorGroup();
+            GtkWindow.addAccelGroup(this, accelerators);
         }
-        return accelerator;
+        return accelerators;
     }
-    
-//    public void setAccelerator(Accelerator acc) {
-//        GtkWindow.addAccelGroup(this, acc);
-//    }
+
+    /**
+     * Set the AcceleratorGroup object for this top level Window. You'll need
+     * this to set key bindings for Menus and Actions. See
+     * {@link AcceleratorGroup} for help on how to set key bindings.
+     * 
+     * @since 4.0.16
+     */
+    public void addAcceleratorGroup(AcceleratorGroup group) {
+        GtkWindow.addAccelGroup(this, group);
+    }
 
     /**
      * Event emitted when the Window's size or position changes. The

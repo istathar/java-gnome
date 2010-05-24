@@ -1,4 +1,4 @@
-(define-object Accelerator
+(define-object AcceleratorGroup
   (in-module "Gtk")
   (parent "GObject")
   (c-name "GtkAccelGroup")

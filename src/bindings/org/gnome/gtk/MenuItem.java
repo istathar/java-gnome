@@ -184,22 +184,40 @@ public class MenuItem extends Item implements Activatable
     public Action getRelatedAction() {
         return GtkActivatable.getRelatedAction(this);
     }
-    
+
     /**
-     * Set a key binding for the MenuItem.
+     * Set a key binding for this MenuItem.
      * 
-     * @return True on success and False on failure.
      * @since 4.0.16
      */
-    public boolean setAccelerator(Accelerator accelerator, Keyval key, ModifierType modifier) {
-        return accelerator.addMenuItemKeyBinding(this, key, modifier);
-    }
-    
-    protected void setPath(String path) {
-        GtkMenuItem.setAccelPath(this, path);
-    }
-    
-    protected String getPath() {
-        return GtkMenuItem.getAccelPath(this);
+    public void setAccelerator(Keyval keyval, ModifierType modifier) {
+        String path;
+        boolean exists, result;
+
+        /*
+         * Check whether it has already has a path and whether it is known, if
+         * so then change it. If not, generate a path, set it and add it the
+         * map to be registered.
+         */
+
+        path = GtkMenuItem.getAccelPath(this);
+
+        if (path == null) {
+            exists = false;
+            path = AcceleratorGroup.generateRandomPath();
+            GtkMenuItem.setAccelPath(this, path);
+        } else {
+            exists = GtkAccelMap.lookupEntry(path, null);
+        }
+
+        if (exists) {
+            result = GtkAccelMap.changeEntry(path, keyval, modifier, true);
+
+            if (!result) {
+                throw new IllegalStateException("Can't change exising accelerator");
+            }
+        } else {
+            GtkAccelMap.addEntry(path, keyval, modifier);
+        }
     }
 }

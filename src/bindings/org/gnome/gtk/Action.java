@@ -33,6 +33,8 @@
  */
 package org.gnome.gtk;
 
+import org.gnome.gdk.Keyval;
+import org.gnome.gdk.ModifierType;
 import org.gnome.glib.Object;
 
 /**
@@ -480,5 +482,47 @@ public class Action extends Object
 
         activatable = (Activatable) proxy;
         activatable.setRelatedAction(this);
+    }
+
+    /**
+     * Specify the AcceleratorGroup that this Action's accelerator key binding
+     * will be stored in. You get the relevant group object from Window's
+     * {@link Window#getAcceleratorGroup() getAcceleratorGroup()}.
+     * 
+     * @since 4.0.16
+     */
+    public void setAcceleratorGroup(AcceleratorGroup group) {
+        GtkAction.setAccelGroup(this, group);
+    }
+
+    /**
+     * Specify a key binding to trigger this Action.
+     * 
+     * @since 4.0.16
+     */
+    public void setAccelerator(Keyval keyval, ModifierType modifier) {
+        String path;
+        boolean exists, result;
+
+        path = GtkAction.getAccelPath(this);
+
+        if (path == null) {
+            exists = false;
+            path = AcceleratorGroup.generateRandomPath();
+            GtkAction.setAccelPath(this, path);
+            GtkAction.connectAccelerator(this);
+        } else {
+            exists = GtkAccelMap.lookupEntry(path, null);
+        }
+
+        if (exists) {
+            result = GtkAccelMap.changeEntry(path, keyval, modifier, true);
+
+            if (!result) {
+                throw new IllegalStateException("Can't change exising accelerator");
+            }
+        } else {
+            GtkAccelMap.addEntry(path, keyval, modifier);
+        }
     }
 }

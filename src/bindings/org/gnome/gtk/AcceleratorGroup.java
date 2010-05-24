@@ -1,7 +1,7 @@
 /*
  * java-gnome, a UI library for writing GTK and GNOME programs from Java!
  *
- * Copyright ?? 2007-2010 Operational Dynamics Consulting, Pty Ltd
+ * Copyright © 2007-2010 Operational Dynamics Consulting, Pty Ltd
  *
  * The code in this file, and the program it is a part of, is made available
  * to you by its authors as open source software: you can redistribute it
@@ -32,104 +32,83 @@
  */
 package org.gnome.gtk;
 
-import org.gnome.gdk.Keyval;
 import org.gnome.gdk.ModifierType;
 import org.gnome.glib.Object;
 
 /**
- * <p>
- * Accelerator are for keybindings for windows. For example Control + O would
- * be for opening a file. Accelerator in this case refers to holding these
- * keybindings.
- * </p>
+ * Accelerator are for key bindings for windows. For example, <b>
+ * <code>Ctrl+O</code></b> is the typical accelerator for opening a file.
+ * Accelerator in this case refers to pressing these keys together and the
+ * action that results.
  * 
  * <p>
- * When a keybinding is pressed the action related to the widget is being
- * activated. Therefor keybindings are directly bound the widgets. There can
- * be however only 1 Accelerator object per window. This object is therefor
- * retrieved by calling {@link Window#getAccelerator()}.
- * </p>
+ * When a key binding is pressed the action related to the Widget is being
+ * activated. Therefore each key binding is directly tied to the Widget in
+ * question. There is only one AcceleratorGroup object per Window, and this
+ * object is therefore retrieved by calling
+ * {@link Window#getAcceleratorGroup() getAcceleratorGroup()}.
  * 
  * <p>
- * Keybindings are only bound to menuitems. Below is an example:
- * </p>
+ * Key bindings are only bound to MenuItems. For example, given a Window,
+ * Menu, and a MenuItem,
  * 
  * <pre>
- * Window window = new Window();
- * Menu menu = new Menu();
- * MenuItem item = new MenuItem();
- * ImageMenuItem imageitem = new ImageMenuItem(Stock.NEW);
- * 
- * ....
- * 
- * menu.setAccelerator(window.getAccelerator());
- * item.setAccelerator(window.getAccelerator(), Keyval.O, ModifierType.CONTROL_MASK);
+ * group = window.getAcceleratorGroup()
+ * menu.setAcceleratorGroup(group);
+ * item.setAccelerator(group, Keyval.O, ModifierType.CONTROL_MASK);
  * </pre>
  * 
  * <p>
- * For ImageMenuItem you can either use the keybinding that is associated with
- * it trough the stock and only invoke:
+ * For ImageMenuItem you can either use the key binding that is associated
+ * with it through the Stock item and only invoke:
  * 
  * <pre>
- * imageitem.setAccelerator(window.getAccelerator());
+ * imageitem.setAccelerator(group);
  * </pre>
  * 
- * Or set a custom keybinding trough the method from the parent MenuItem:
+ * or you can set a custom key binding through the method from parent class
+ * MenuItem:
  * 
  * <pre>
- * imageitem.setAccelerator(window.getAccelerator(), Keyval.N, ModifierType.CONTROL_MASK);
+ * imageitem.setAccelerator(group, Keyval.N, ModifierType.CONTROL_MASK);
  * </pre>
- * 
- * </p>
  * 
  * <p>
  * In order to set multiple Modifier Types you can use the static method
- * {@link ModifierType#or(ModifierType, ModifierType)}
- * </p>
+ * {@link ModifierType#or(ModifierType, ModifierType) or()}
  * 
- * @author azania
+ * @author Thijs Leibbrand
  * @since 4.0.16
  */
-public class Accelerator extends Object
+public class AcceleratorGroup extends Object
 {
-
-    private String root;
-
-    protected Accelerator(long pointer) {
+    protected AcceleratorGroup(long pointer) {
         super(pointer);
     }
 
-    protected Accelerator() {
-        super(GtkAccelGroup.createAccelerator());
-        root = stringGenerator();
+    public AcceleratorGroup() {
+        super(GtkAccelGroup.createAcceleratorGroup());
     }
 
-    protected boolean addMenuItemKeyBinding(MenuItem item, Keyval key, ModifierType modifier) {
-        // check whether it has already has a path and whether it is known, if
-        // so then change it.
-        if (item.getPath() != null)
-            if (!GtkAccelMap.lookupEntry(item.getPath(), null))
-                return GtkAccelMap.changeEntry(item.getPath(), key, modifier, true);
-
-        // generate the path, set it and add it the map to be registered.
-        String path = "<" + root + ">/" + stringGenerator();
-        item.setPath(path);
-        GtkAccelMap.addEntry(path, key, modifier);
-        return true;
+    static String generateRandomPath() {
+        return "<" + generateRandomString() + ">/" + generateRandomString();
     }
 
     /**
      * Internal method to used to create a random 8 character long string.
      * This string is used for path's of menu items and the root for the
      * Accelerator.
-     * 
-     * @return String A random generated string of 8 characters.
      */
-    private String stringGenerator() {
-        char[] generated = new char[8];
-        for (int i = 0; i < 8; i++) {
+    private static String generateRandomString() {
+        final char[] generated;
+        int i;
+
+        generated = new char[8];
+
+        for (i = 0; i < 8; i++) {
             generated[i] = (char) ((int) (Math.random() * 26) + 97);
         }
+
         return String.valueOf(generated);
     }
 }
