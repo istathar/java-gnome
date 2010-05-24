@@ -72,9 +72,16 @@ public class Operator extends Constant
     public static final Operator OVER = new Operator(CairoOperator.OVER, "OVER");
 
     /**
-     * Draw only where a previous drawing was and clears the rest of the
+     * Draw only where a previous drawing is and clears the rest of the
      * surface
      * 
      */
     public static final Operator IN = new Operator(CairoOperator.IN, "IN");
+
+    /**
+     * Draw only where a previous drawing is not present, a shadow is left
+     * behind where the two overlap.
+     * 
+     */
+    public static final Operator OUT = new Operator(CairoOperator.OUT, "OUT");
 }
