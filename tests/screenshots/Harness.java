@@ -28,6 +28,8 @@ import org.freedesktop.cairo.SnapshotContextRectangle;
 import org.freedesktop.cairo.SnapshotMatrixRotate;
 import org.freedesktop.cairo.SnapshotMatrixScale;
 import org.freedesktop.cairo.SnapshotMatrixTranslate;
+import org.freedesktop.cairo.SnapshotOperatorClear;
+import org.freedesktop.cairo.SnapshotOperatorOver;
 import org.gnome.gdk.Pixbuf;
 import org.gnome.gdk.PixbufFormat;
 import org.gnome.gtk.Gtk;
@@ -182,7 +184,9 @@ public final class Harness
                     SnapshotEntryCompletion.class,
                     SnapshotEntryIcon.class,
                     SnapshotLinkButton.class,
-                    SnapshotInfoBar.class
+                    SnapshotInfoBar.class,
+                    SnapshotOperatorClear.class,
+                    SnapshotOperatorOver.class
             };
 
             /*
