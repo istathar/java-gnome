@@ -44,16 +44,17 @@ import org.gnome.glib.Object;
  * <p>
  * When a key binding is pressed the action related to the Widget is being
  * activated. Therefore each key binding is directly tied to the Widget in
- * question. There is only one AcceleratorGroup object per Window, and this
- * object is therefore retrieved by calling
- * {@link Window#getAcceleratorGroup() getAcceleratorGroup()}.
+ * question. You generally only need one AcceleratorGroup object per Window.
+ * Create one, then tell the toplevel about it with Window's
+ * {@link Window#addAcceleratorGroup(AcceleratorGroup) addAcceleratorGroup()}.
  * 
  * <p>
  * Key bindings are only bound to MenuItems. For example, given a Window,
  * Menu, and a MenuItem,
  * 
  * <pre>
- * group = window.getAcceleratorGroup()
+ * group = new AcceleratorGroup();
+ * window.addAcceleratorGroup(group);
  * menu.setAcceleratorGroup(group);
  * item.setAccelerator(group, Keyval.O, ModifierType.CONTROL_MASK);
  * </pre>

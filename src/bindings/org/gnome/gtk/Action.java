@@ -486,8 +486,9 @@ public class Action extends Object
 
     /**
      * Specify the AcceleratorGroup that this Action's accelerator key binding
-     * will be stored in. You get the relevant group object from Window's
-     * {@link Window#getAcceleratorGroup() getAcceleratorGroup()}.
+     * will be stored in. You need to use the same group object as was passed
+     * to Window's {@link Window#addAcceleratorGroup(AcceleratorGroup)
+     * addAcceleratorGroup()}.
      * 
      * @since 4.0.16
      */

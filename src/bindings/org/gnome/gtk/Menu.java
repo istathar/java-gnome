@@ -135,8 +135,11 @@ public class Menu extends MenuShell
 
     /**
      * This method must be called in order to have the key bindings in
-     * MenuItems work. You get the AcceleratorGroup with Window's
-     * {@link Window#getAcceleratorGroup() getAcceleratorGroup()}.
+     * MenuItems work. It has to be the same AcceleratorGroup that was
+     * specified for the enclosing top level Window that this Menu will be a
+     * part of via Window's
+     * {@link Window#addAcceleratorGroup(AcceleratorGroup)
+     * addAcceleratorGroup()}.
      * 
      * @since 4.0.16
      */
