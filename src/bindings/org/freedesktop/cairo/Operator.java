@@ -42,6 +42,7 @@ import org.freedesktop.bindings.Constant;
  * 
  * @author Andrew Cowie
  * @author Zak Fenton
+ * @author Kenneth Prugh
  * @since 4.0.7
  */
 public class Operator extends Constant
@@ -56,6 +57,12 @@ public class Operator extends Constant
      * @since 4.0.7
      */
     public static final Operator CLEAR = new Operator(CairoOperator.CLEAR, "CLEAR");
+
+    /**
+     * Draw over existing pixels as if they were not present.
+     *
+     */
+    public static final Operator SOURCE = new Operator(CairoOperator.SOURCE, "SOURCE");
 
     /**
      * Default operator: draw over existing pixels.
