@@ -73,7 +73,7 @@ public class Operator extends Constant
 
     /**
      * Draw only where a previous drawing is and clears the rest of the
-     * surface
+     * surface.
      * 
      */
     public static final Operator IN = new Operator(CairoOperator.IN, "IN");
@@ -84,4 +84,11 @@ public class Operator extends Constant
      * 
      */
     public static final Operator OUT = new Operator(CairoOperator.OUT, "OUT");
+
+    /**
+     * Draw only where a previous drawing is and the colors of the overlapping
+     * area are mixed.
+     * 
+     */
+    public static final Operator ATOP = new Operator(CairoOperator.ATOP, "ATOP");
 }

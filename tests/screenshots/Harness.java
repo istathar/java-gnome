@@ -27,6 +27,7 @@ import org.freedesktop.cairo.SnapshotContextRectangle;
 import org.freedesktop.cairo.SnapshotMatrixRotate;
 import org.freedesktop.cairo.SnapshotMatrixScale;
 import org.freedesktop.cairo.SnapshotMatrixTranslate;
+import org.freedesktop.cairo.SnapshotOperatorAtop;
 import org.freedesktop.cairo.SnapshotOperatorClear;
 import org.freedesktop.cairo.SnapshotOperatorIn;
 import org.freedesktop.cairo.SnapshotOperatorOut;
@@ -191,7 +192,8 @@ public final class Harness
                     SnapshotOperatorSource.class,
                     SnapshotOperatorOver.class,
                     SnapshotOperatorIn.class,
-                    SnapshotOperatorOut.class
+                    SnapshotOperatorOut.class,
+                    SnapshotOperatorAtop.class
             };
 
             /*
