@@ -1,7 +1,7 @@
 /*
  * java-gnome, a UI library for writing GTK and GNOME programs from Java!
  *
- * Copyright © 2008-2010 Operational Dynamics Consulting, Pty Ltd
+ * Copyright © 2010 Operational Dynamics Consulting, Pty Ltd
  *
  * The code in this file, and the program it is a part of, is made available
  * to you by its authors as open source software: you can redistribute it
@@ -21,24 +21,13 @@ package org.freedesktop.cairo;
 /**
  * @author Kenneth Prugh
  */
-abstract class SnapshotOperator extends SnapshotCairo
+public class IllustrationOperatorSource extends IllustrationOperator
 {
-    SnapshotOperator(Class<?> cls, String suffix) {
-        super(Operator.class, suffix, true);
+    public IllustrationOperatorSource() {
+        super(Operator.class, "source");
     }
 
-    protected void drawOperator(Context cr, Operator op) {
-        /* Draw the Destination rectangle */
-        cr.rectangle(0, 0, 75, 75);
-        cr.setSource(0.7, 0, 0, 0.8);
-        cr.fill();
-
-        /* Set the Operator */
-        cr.setOperator(op);
-
-        /* Draw the Source Rectangle */
-        cr.rectangle(40, 40, 75, 75);
-        cr.setSource(0, 0, 0.9, 0.4);
-        cr.fill();
+    public void illustrate() {
+        super.drawOperator(Operator.SOURCE);
     }
 }

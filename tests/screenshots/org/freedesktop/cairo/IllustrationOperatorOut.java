@@ -1,7 +1,7 @@
 /*
  * java-gnome, a UI library for writing GTK and GNOME programs from Java!
  *
- * Copyright © 2008-2010 Operational Dynamics Consulting, Pty Ltd
+ * Copyright © 2010 Operational Dynamics Consulting, Pty Ltd
  *
  * The code in this file, and the program it is a part of, is made available
  * to you by its authors as open source software: you can redistribute it
@@ -18,24 +18,16 @@
  */
 package org.freedesktop.cairo;
 
-import org.gnome.gtk.Gtk;
-
 /**
  * @author Kenneth Prugh
  */
-public class SnapshotOperatorSource extends SnapshotOperator
+public class IllustrationOperatorOut extends IllustrationOperator
 {
-    public SnapshotOperatorSource() {
-        super(Operator.class, "source");
+    public IllustrationOperatorOut() {
+        super(Operator.class, "out");
     }
 
-    protected void draw(Context cr) {
-        super.drawOperator(cr, Operator.SOURCE);
-    }
-
-    public static void main(String[] args) {
-        Gtk.init(args);
-        runExample(new SnapshotOperatorSource());
-        Gtk.main();
+    public void illustrate() {
+        super.drawOperator(Operator.OUT);
     }
 }
