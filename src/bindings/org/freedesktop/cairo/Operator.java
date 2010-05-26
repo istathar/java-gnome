@@ -42,8 +42,9 @@ import org.freedesktop.bindings.Constant;
  * 
  * <p>
  * The Context should be created using a cairo {@link Surface}. <i>The
- * operators don't seem to work correctly when a cairo Surface is substituted
- * for a {@link org.gnome.gdk.Drawable Drawable}</i>.
+ * operators don't seem to work correctly when a
+ * {@link org.gnome.gdk.Drawable Drawable}</i> is used instead of a cairo
+ * Surface.
  * 
  * <p>
  * The example images shown below were generated with the following code:
