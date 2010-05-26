@@ -80,33 +80,58 @@ public class Operator extends Constant
     public static final Operator IN = new Operator(CairoOperator.IN, "IN");
 
     /**
-     * Draw only where existing pixels are not present, leaving a shadow behind
-     * where the two overlapped due to transparency.
+     * Draw only where existing pixels are not present, leaving a shadow
+     * behind where the two overlapped due to transparency.
      * 
      * @since 4.0.16
      */
     public static final Operator OUT = new Operator(CairoOperator.OUT, "OUT");
 
     /**
-     * Draw only where existing pixels are, mixing the color of the overlapping
-     * region.
+     * Draw only where existing pixels are, mixing the color of the
+     * overlapping region.
      * 
      * @since 4.0.16
      */
     public static final Operator ATOP = new Operator(CairoOperator.ATOP, "ATOP");
 
     /**
-     * Any existing pixels are left untouched, while the current drawing is discarded.
+     * Any existing pixels are left untouched, while the current drawing is
+     * discarded.
      * 
      * @since 4.0.16
      */
     public static final Operator DEST = new Operator(CairoOperator.DEST, "DEST");
 
     /**
-     * Draw below any existing pixels with similar results as the OVER
-     * operator.
+     * Draw below any existing pixels with similar results to the
+     * {@link #OVER OVER} operator.
      * 
      * @since 4.0.16
      */
     public static final Operator DEST_OVER = new Operator(CairoOperator.DEST_OVER, "DEST_OVER");
+
+    /**
+     * Draw below the overlapping region, clearing everything outside the
+     * region similar to the {@link #IN IN} Operator.
+     * 
+     * @since 4.0.16
+     */
+    public static final Operator DEST_IN = new Operator(CairoOperator.DEST_IN, "DEST_IN");
+
+    /**
+     * Reduce the visibility of the overlapping region.
+     * 
+     * @since 4.0.16
+     */
+    public static final Operator DEST_OUT = new Operator(CairoOperator.DEST_OUT, "DEST_OUT");
+
+    /**
+     * Draw and clear any existing pixels outside the overlapping region, the
+     * color of the overlapping region are mixed similar to the {@link #ATOP
+     * ATOP} Operator.
+     * 
+     * @since 4.0.16
+     */
+    public static final Operator DEST_ATOP = new Operator(CairoOperator.DEST_ATOP, "DEST_ATOP");
 }
