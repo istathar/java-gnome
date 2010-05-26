@@ -21,6 +21,7 @@ import java.io.IOException;
 
 import org.freedesktop.bindings.Environment;
 import org.freedesktop.cairo.Illustration;
+import org.freedesktop.cairo.IllustrationOperatorAdd;
 import org.freedesktop.cairo.IllustrationOperatorAtop;
 import org.freedesktop.cairo.IllustrationOperatorClear;
 import org.freedesktop.cairo.IllustrationOperatorDest;
@@ -31,7 +32,9 @@ import org.freedesktop.cairo.IllustrationOperatorDestOver;
 import org.freedesktop.cairo.IllustrationOperatorIn;
 import org.freedesktop.cairo.IllustrationOperatorOut;
 import org.freedesktop.cairo.IllustrationOperatorOver;
+import org.freedesktop.cairo.IllustrationOperatorSaturate;
 import org.freedesktop.cairo.IllustrationOperatorSource;
+import org.freedesktop.cairo.IllustrationOperatorXOR;
 import org.freedesktop.cairo.Surface;
 import org.freedesktop.cairo.SnapshotContextArc;
 import org.freedesktop.cairo.SnapshotContextArcNegative;
@@ -209,7 +212,10 @@ public final class Harness
                     IllustrationOperatorDestOver.class,
                     IllustrationOperatorDestIn.class,
                     IllustrationOperatorDestOut.class,
-                    IllustrationOperatorDestAtop.class
+                    IllustrationOperatorDestAtop.class,
+                    IllustrationOperatorXOR.class,
+                    IllustrationOperatorAdd.class,
+                    IllustrationOperatorSaturate.class
             };
 
             /*

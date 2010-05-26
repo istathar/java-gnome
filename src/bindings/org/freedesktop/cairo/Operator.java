@@ -134,4 +134,25 @@ public class Operator extends Constant
      * @since 4.0.16
      */
     public static final Operator DEST_ATOP = new Operator(CairoOperator.DEST_ATOP, "DEST_ATOP");
+
+    /**
+     * XOR the colors of the overlapping region.
+     * 
+     * @since 4.0.16
+     */
+    public static final Operator XOR = new Operator(CairoOperator.XOR, "XOR");
+
+    /**
+     * Add the colors of the overlapping region.
+     * 
+     * @since 4.0.16
+     */
+    public static final Operator ADD = new Operator(CairoOperator.ADD, "ADD");
+
+    /**
+     * Saturate the colors of the overlapping region.
+     * 
+     * @since 4.0.16
+     */
+    public static final Operator SATURATE = new Operator(CairoOperator.SATURATE, "SATURATE");
 }
