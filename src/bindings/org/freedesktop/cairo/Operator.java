@@ -40,9 +40,42 @@ import org.freedesktop.bindings.Constant;
  * setOperator()}, and take effect when commands like {@link Context#paint()
  * paint()} are invoked.
  * 
+ * <p>
+ * The Context should be created using a cairo {@link Surface}. <i>The
+ * operators don't seem to work correctly when a cairo Surface is substituted
+ * for a {@link org.gnome.gdk.Drawable Drawable}</i>.
+ * 
+ * <p>
+ * The example images shown below were generated with the following code:
+ * 
+ * <pre>
+ * cr.rectangle(0, 0, 75, 75);
+ * cr.setSource(0.7, 0, 0, 0.8);
+ * cr.fill();
+ * 
+ * cr.setOperator(Operator.FOO);
+ * 
+ * cr.rectangle(40, 40, 75, 75);
+ * cr.setSource(0, 0, 0.9, 0.4);
+ * cr.fill();
+ * </pre>
+ * 
+ * <p>
+ * The drawing operations in cairo are said to be <b>bounded</b> and
+ * <b>unbounded</b> with reguards to the Surface to be drawn to.
+ * 
+ * <p>
+ * When an operator is said to be bounded any cairo mask present determines
+ * where the operation is applied.
+ * 
+ * <p>
+ * When an operator is said to be unbounded the operation is applied ignoring
+ * any present mask. <i>Note: Clipping can still limit an unbounded
+ * operator.</i>
+ * 
  * @author Andrew Cowie
- * @author Zak Fenton
  * @author Kenneth Prugh
+ * @author Zak Fenton
  * @since 4.0.7
  */
 public class Operator extends Constant
@@ -52,21 +85,33 @@ public class Operator extends Constant
     }
 
     /**
-     * Clear a surface to all transparent.
+     * Clear a surface to all transparent. <img src="Operator-clear.png"
+     * class="snapshot">
+     * 
+     * <p>
+     * This operator is bounded.
      * 
      * @since 4.0.7
      */
     public static final Operator CLEAR = new Operator(CairoOperator.CLEAR, "CLEAR");
 
     /**
-     * Draw over existing pixels as if they were not present.
+     * Draw over existing pixels as if they were not present. <img
+     * src="Operator-source.png" class="snapshot">
+     * 
+     * <p>
+     * This operator is bounded.
      * 
      * @since 4.0.16
      */
     public static final Operator SOURCE = new Operator(CairoOperator.SOURCE, "SOURCE");
 
     /**
-     * Default operator: draw over existing pixels.
+     * Default operator: draw over existing pixels. <img
+     * src="Operator-over.png" class="snapshot">
+     * 
+     * <p>
+     * This operator has the same effect for bounded and unbounded.
      * 
      * @since 4.0.10
      */
@@ -74,6 +119,10 @@ public class Operator extends Constant
 
     /**
      * Draw only where existing pixels are, clearing the rest of the surface.
+     * <img src="Operator-in.png" class="snapshot">
+     * 
+     * <p>
+     * This operator is unbounded.
      * 
      * @since 4.0.16
      */
@@ -81,7 +130,11 @@ public class Operator extends Constant
 
     /**
      * Draw only where existing pixels are not present, leaving a shadow
-     * behind where the two overlapped due to transparency.
+     * behind where the two overlapped due to transparency. <img
+     * src="Operator-out.png" class="snapshot">
+     * 
+     * <p>
+     * This operator is unbounded.
      * 
      * @since 4.0.16
      */
@@ -89,7 +142,10 @@ public class Operator extends Constant
 
     /**
      * Draw only where existing pixels are, mixing the color of the
-     * overlapping region.
+     * overlapping region. <img src="Operator-atop.png" class="snapshot">
+     * 
+     * <p>
+     * This operator has the same effect for bounded and unbounded.
      * 
      * @since 4.0.16
      */
@@ -97,7 +153,10 @@ public class Operator extends Constant
 
     /**
      * Any existing pixels are left untouched, while the current drawing is
-     * discarded.
+     * discarded. <img src="Operator-dest.png" class="snapshot">
+     * 
+     * <p>
+     * This operator has the same effect for bounded and unbounded.
      * 
      * @since 4.0.16
      */
@@ -105,7 +164,11 @@ public class Operator extends Constant
 
     /**
      * Draw below any existing pixels with similar results to the
-     * {@link #OVER OVER} operator.
+     * {@link #OVER OVER} operator. <img src="Operator-dest_over.png"
+     * class="snapshot">
+     * 
+     * <p>
+     * This operator has the same effect for bounded and unbounded.
      * 
      * @since 4.0.16
      */
@@ -113,14 +176,22 @@ public class Operator extends Constant
 
     /**
      * Draw below the overlapping region, clearing everything outside the
-     * region similar to the {@link #IN IN} Operator.
+     * region similar to the {@link #IN IN} Operator. <img
+     * src="Operator-dest_in.png" class="snapshot">
+     * 
+     * <p>
+     * This operator is unbounded.
      * 
      * @since 4.0.16
      */
     public static final Operator DEST_IN = new Operator(CairoOperator.DEST_IN, "DEST_IN");
 
     /**
-     * Reduce the visibility of the overlapping region.
+     * Reduce the visibility of the overlapping region. <img
+     * src="Operator-dest_out.png" class="snapshot">
+     * 
+     * <p>
+     * This operator has the same effect for bounded and unbounded.
      * 
      * @since 4.0.16
      */
@@ -129,28 +200,43 @@ public class Operator extends Constant
     /**
      * Draw and clear any existing pixels outside the overlapping region, the
      * color of the overlapping region are mixed similar to the {@link #ATOP
-     * ATOP} Operator.
+     * ATOP} Operator. <img src="Operator-dest_atop.png" class="snapshot">
+     * 
+     * <p>
+     * This operator is unbounded.
      * 
      * @since 4.0.16
      */
     public static final Operator DEST_ATOP = new Operator(CairoOperator.DEST_ATOP, "DEST_ATOP");
 
     /**
-     * XOR the colors of the overlapping region.
+     * XOR the colors of the overlapping region. <img src="Operator-xor.png"
+     * class="snapshot">
+     * 
+     * <p>
+     * This operator has the same effect for bounded and unbounded.
      * 
      * @since 4.0.16
      */
     public static final Operator XOR = new Operator(CairoOperator.XOR, "XOR");
 
     /**
-     * Add the colors of the overlapping region.
+     * Add the colors of the overlapping region. <img src="Operator-add.png"
+     * class="snapshot">
+     * 
+     * <p>
+     * This operator has the same effect for bounded and unbounded.
      * 
      * @since 4.0.16
      */
     public static final Operator ADD = new Operator(CairoOperator.ADD, "ADD");
 
     /**
-     * Saturate the colors of the overlapping region.
+     * Saturate the colors of the overlapping region. <img
+     * src="Operator-saturate.png" class="snapshot">
+     * 
+     * <p>
+     * This operator has the same effect for bounded and unbounded.
      * 
      * @since 4.0.16
      */
