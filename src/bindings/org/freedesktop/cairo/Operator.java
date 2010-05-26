@@ -103,4 +103,12 @@ public class Operator extends Constant
      * @since 4.0.16
      */
     public static final Operator DEST = new Operator(CairoOperator.DEST, "DEST");
+
+    /**
+     * Draw below any previous drawing with the similar results as the OVER
+     * operator.
+     * 
+     * @since 4.0.16
+     */
+    public static final Operator DEST_OVER = new Operator(CairoOperator.DEST_OVER, "DEST_OVER");
 }

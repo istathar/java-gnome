@@ -24,6 +24,7 @@ import org.freedesktop.cairo.Illustration;
 import org.freedesktop.cairo.IllustrationOperatorAtop;
 import org.freedesktop.cairo.IllustrationOperatorClear;
 import org.freedesktop.cairo.IllustrationOperatorDest;
+import org.freedesktop.cairo.IllustrationOperatorDestOver;
 import org.freedesktop.cairo.IllustrationOperatorIn;
 import org.freedesktop.cairo.IllustrationOperatorOut;
 import org.freedesktop.cairo.IllustrationOperatorOver;
@@ -201,7 +202,8 @@ public final class Harness
                     IllustrationOperatorOver.class,
                     IllustrationOperatorOut.class,
                     IllustrationOperatorAtop.class,
-                    IllustrationOperatorDest.class
+                    IllustrationOperatorDest.class,
+                    IllustrationOperatorDestOver.class
             };
 
             /*
