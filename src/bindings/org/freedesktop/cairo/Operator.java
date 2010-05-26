@@ -200,7 +200,7 @@ public class Operator extends Constant
 
     /**
      * Draw and clear any existing pixels outside the overlapping region, the
-     * color of the overlapping region are mixed similar to the {@link #ATOP
+     * color of the overlapping region is mixed similar to the {@link #ATOP
      * ATOP} Operator. <img src="Operator-dest_atop.png" class="snapshot">
      * 
      * <p>
