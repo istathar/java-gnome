@@ -61,6 +61,7 @@ public class Operator extends Constant
     /**
      * Draw over existing pixels as if they were not present.
      * 
+     * @since 4.0.16
      */
     public static final Operator SOURCE = new Operator(CairoOperator.SOURCE, "SOURCE");
 
@@ -75,6 +76,7 @@ public class Operator extends Constant
      * Draw only where a previous drawing is and clears the rest of the
      * surface.
      * 
+     * @since 4.0.16
      */
     public static final Operator IN = new Operator(CairoOperator.IN, "IN");
 
@@ -82,6 +84,7 @@ public class Operator extends Constant
      * Draw only where a previous drawing is not present, a shadow is left
      * behind where the two overlap.
      * 
+     * @since 4.0.16
      */
     public static final Operator OUT = new Operator(CairoOperator.OUT, "OUT");
 
@@ -89,6 +92,15 @@ public class Operator extends Constant
      * Draw only where a previous drawing is and the colors of the overlapping
      * area are mixed.
      * 
+     * @since 4.0.16
      */
     public static final Operator ATOP = new Operator(CairoOperator.ATOP, "ATOP");
+
+    /**
+     * The previous drawing is left untouched, and the current one is
+     * discarded.
+     * 
+     * @since 4.0.16
+     */
+    public static final Operator DEST = new Operator(CairoOperator.DEST, "DEST");
 }
