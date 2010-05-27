@@ -49,12 +49,14 @@ import org.gnome.glib.Object;
  * {@link Window#addAcceleratorGroup(AcceleratorGroup) addAcceleratorGroup()}.
  * 
  * <p>
- * Key bindings are only bound to MenuItems. For example, given a Window,
- * Menu, and a MenuItem,
+ * Key bindings are only bound to MenuItems or Actions. For example, given a
+ * Window, a Menu, and a MenuItem, we setup an AcceleratorGroup for the
+ * toplevel and then assign a key binding to the MenuItem:
  * 
  * <pre>
  * group = new AcceleratorGroup();
  * window.addAcceleratorGroup(group);
+ * ..
  * menu.setAcceleratorGroup(group);
  * item.setAccelerator(group, Keyval.O, ModifierType.CONTROL_MASK);
  * </pre>
@@ -83,16 +85,20 @@ import org.gnome.glib.Object;
  */
 public class AcceleratorGroup extends Object
 {
+    private String root;
+
     protected AcceleratorGroup(long pointer) {
         super(pointer);
     }
 
     public AcceleratorGroup() {
         super(GtkAccelGroup.createAcceleratorGroup());
+
+        root = generateRandomString();
     }
 
-    static String generateRandomPath() {
-        return "<" + generateRandomString() + ">/" + generateRandomString();
+    protected String generateRandomPath() {
+        return "<" + root + ">/" + generateRandomString();
     }
 
     /**

@@ -1,7 +1,7 @@
 /*
  * java-gnome, a UI library for writing GTK and GNOME programs from Java!
  *
- * Copyright © 2006-2010 Operational Dynamics Consulting, Pty Ltd and Others
+ * Copyright �� 2006-2010 Operational Dynamics Consulting, Pty Ltd and Others
  *
  * The code in this file, and the program it is a part of, is made available
  * to you by its authors as open source software: you can redistribute it
@@ -74,7 +74,6 @@ import org.gnome.gdk.WindowTypeHint;
  */
 public class Window extends Bin
 {
-    private AcceleratorGroup accelerators = null;
 
     protected Window(long pointer) {
         super(pointer);
@@ -847,21 +846,6 @@ public class Window extends Bin
      */
     public void setTypeHint(WindowTypeHint hint) {
         GtkWindow.setTypeHint(this, hint);
-    }
-
-    /**
-     * Get the AcceleratorGroup object for this top level Window. You'll need
-     * this to set key bindings for Menus and Actions. See
-     * {@link AcceleratorGroup} for help on how to set key bindings.
-     * 
-     * @since 4.0.16
-     */
-    public AcceleratorGroup getAcceleratorGroup() {
-        if (accelerators == null) {
-            accelerators = new AcceleratorGroup();
-            GtkWindow.addAccelGroup(this, accelerators);
-        }
-        return accelerators;
     }
 
     /**

@@ -85,13 +85,19 @@ public class ExampleSimpleMenu
         paste = new MenuItem("_Paste");
 
         /*
+         * Create the AcceleratorGroup object and add it to the window.
+         */
+
+        group = new AcceleratorGroup();
+        window.addAcceleratorGroup(group);
+
+        /*
          * Now we add the keybindings for the menu items. This has to be done
          * before you append them to their Menus.
          */
-        group = window.getAcceleratorGroup();
-        save.setAccelerator(Keyval.s, ModifierType.CONTROL_MASK);
-        copy.setAccelerator(Keyval.c, ModifierType.CONTROL_MASK);
-        paste.setAccelerator(Keyval.v, ModifierType.CONTROL_MASK);
+        save.setAccelerator(group, Keyval.s, ModifierType.CONTROL_MASK);
+        copy.setAccelerator(group, Keyval.c, ModifierType.CONTROL_MASK);
+        paste.setAccelerator(group, Keyval.v, ModifierType.CONTROL_MASK);
 
         /*
          * For ImageMenuItems you can activate the keybinding that comes with
@@ -100,12 +106,12 @@ public class ExampleSimpleMenu
         nouveau.setAccelerator(group);
 
         /*
-         * Despite fileClose also being an ImageMenuItem we could use the
+         * Despite 'close' also being an ImageMenuItem we could use the
          * keybinding that is set for Stock.CLOSE. But since we have already
          * set Control + C for editCopy we set this one manually to another
          * keybinding:
          */
-        close.setAccelerator(Keyval.w, ModifierType.CONTROL_MASK);
+        close.setAccelerator(group, Keyval.w, ModifierType.CONTROL_MASK);
 
         /*
          * To ensure keybindings will work we also have set the
