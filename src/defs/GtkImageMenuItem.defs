@@ -67,3 +67,11 @@
   )
 )
 
+(define-method set_accel_group
+  (of-object "GtkImageMenuItem")
+  (c-name "gtk_image_menu_item_set_accel_group")
+  (return-type "none")
+  (parameters
+    '("GtkAccelGroup*" "accel_group")
+  )
+)
