@@ -190,7 +190,7 @@ public class MenuItem extends Item implements Activatable
      * 
      * @since 4.0.16
      */
-    public void setAccelerator(AcceleratorGroup accelerator, Keyval keyval, ModifierType modifier) {
+    public void setAccelerator(AcceleratorGroup group, Keyval keyval, ModifierType modifier) {
         String path;
         boolean exists, result;
 
@@ -204,7 +204,7 @@ public class MenuItem extends Item implements Activatable
 
         if (path == null) {
             exists = false;
-            path = accelerator.generateRandomPath();
+            path = group.generateRandomPath();
             GtkMenuItem.setAccelPath(this, path);
         } else {
             exists = GtkAccelMap.lookupEntry(path, null);
