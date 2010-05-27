@@ -22,11 +22,14 @@ package org.gnome.gtk;
  * Test coverage of Entry icon and progress methods.
  * 
  * @author Guillaume Mazoyer
+ * @author Andrew Cowie
  */
 public class ValidateEntry extends GraphicalTestCase
 {
     public final void testEntryIcon() {
-        final Entry entry = new Entry();
+        final Entry entry;
+
+        entry = new Entry();
 
         entry.setIconFromStock(EntryIconPosition.PRIMARY, Stock.FIND);
         assertSame(Stock.FIND, entry.getIconStock(EntryIconPosition.PRIMARY));
@@ -42,12 +45,34 @@ public class ValidateEntry extends GraphicalTestCase
     }
 
     public final void testEntryProgress() {
-        final Entry entry = new Entry();
+        final Entry entry;
+
+        entry = new Entry();
 
         entry.setProgressFraction(0.5);
         assertEquals(0.5, entry.getProgressFraction());
 
         entry.setProgressPulseStep(0.1);
         assertEquals(0.1, entry.getProgressPulseStep());
+    }
+
+    public final void testEntryPosition() {
+        final Entry entry;
+        final int result, start, end;
+
+        entry = new Entry();
+
+        entry.setText("Hello world");
+        entry.setPosition(6);
+
+        result = entry.getPosition();
+        assertEquals(6, result);
+
+        entry.selectRegion(6, 10);
+
+        start = entry.getSelectionBoundsStart();
+        end = entry.getSelectionBoundsEnd();
+        assertEquals(6, start);
+        assertEquals(10, end);
     }
 }
