@@ -209,6 +209,7 @@ public class Window extends Drawable
 
     /**
      * Change the background of the Window.
+     * 
      * <p>
      * TODO describe relative parameter.
      * 
@@ -222,9 +223,9 @@ public class Window extends Drawable
      * </pre>
      * 
      * but transparency is a complex topic and requres other measures as well.
-     * See TODO.
+     * TODO describe or link!
      * 
-     * @since 4.0.10
+     * @since <span style="color:red">unstable</span>
      */
     public void setBackingPixmap(Pixmap pixmap, boolean relative) {
         GdkWindow.setBackPixmap(this, pixmap, relative);

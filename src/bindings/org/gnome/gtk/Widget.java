@@ -670,9 +670,9 @@ public abstract class Widget extends org.gnome.gtk.Object
      * 
      * <p>
      * Note that by default this event is disabled, even if you connect to it.
-     * You will need to {@link Widget#addEvents(EventMask) enable} it. If
-     * you want to receive all mouse motion events, you will need to supply
-     * the POINTER_MOTION mask. Note that it generates a big amount of events,
+     * You will need to {@link Widget#addEvents(EventMask) enable} it. If you
+     * want to receive all mouse motion events, you will need to supply the
+     * POINTER_MOTION mask. Note that it generates a big amount of events,
      * typically tens of events per second, when the user moves the mouse over
      * this Widget. If you only care about this event when a mouse button is
      * pressed, any of LEFT_BUTTON_MOTION, MIDDLE_BUTTON_MOTION,

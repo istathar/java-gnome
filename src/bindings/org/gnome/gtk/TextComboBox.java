@@ -138,7 +138,7 @@ public class TextComboBox extends ComboBox
     public String getActiveText() {
         return GtkComboBox.getActiveText(this);
     }
-    
+
     /**
      * Removes the item at given position from the list.
      * 
