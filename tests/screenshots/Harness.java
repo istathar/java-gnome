@@ -35,7 +35,6 @@ import org.freedesktop.cairo.IllustrationOperatorOver;
 import org.freedesktop.cairo.IllustrationOperatorSaturate;
 import org.freedesktop.cairo.IllustrationOperatorSource;
 import org.freedesktop.cairo.IllustrationOperatorXOR;
-import org.freedesktop.cairo.Surface;
 import org.freedesktop.cairo.SnapshotContextArc;
 import org.freedesktop.cairo.SnapshotContextArcNegative;
 import org.freedesktop.cairo.SnapshotContextLine;
@@ -43,8 +42,7 @@ import org.freedesktop.cairo.SnapshotContextRectangle;
 import org.freedesktop.cairo.SnapshotMatrixRotate;
 import org.freedesktop.cairo.SnapshotMatrixScale;
 import org.freedesktop.cairo.SnapshotMatrixTranslate;
-import org.freedesktop.cairo.SnapshotOperatorOver;
-import org.freedesktop.cairo.SnapshotOperatorSource;
+import org.freedesktop.cairo.Surface;
 import org.gnome.gdk.Pixbuf;
 import org.gnome.gdk.PixbufFormat;
 import org.gnome.gtk.Gtk;
@@ -289,7 +287,7 @@ public final class Harness
                 s = demo.getSurface();
                 f = demo.getFilename();
 
-                System.out.println("ILLUSTRATE\t" + f);
+                System.out.println("WRITE\t" + f);
 
                 s.writeToPNG(f);
             }
