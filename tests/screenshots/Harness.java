@@ -16,11 +16,25 @@
  * see http://www.gnu.org/licenses/. The authors of this program may be
  * contacted through http://java-gnome.sourceforge.net/.
  */
-
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
 import org.freedesktop.bindings.Environment;
+import org.freedesktop.cairo.Illustration;
+import org.freedesktop.cairo.IllustrationOperatorAdd;
+import org.freedesktop.cairo.IllustrationOperatorAtop;
+import org.freedesktop.cairo.IllustrationOperatorClear;
+import org.freedesktop.cairo.IllustrationOperatorDest;
+import org.freedesktop.cairo.IllustrationOperatorDestAtop;
+import org.freedesktop.cairo.IllustrationOperatorDestIn;
+import org.freedesktop.cairo.IllustrationOperatorDestOut;
+import org.freedesktop.cairo.IllustrationOperatorDestOver;
+import org.freedesktop.cairo.IllustrationOperatorIn;
+import org.freedesktop.cairo.IllustrationOperatorOut;
+import org.freedesktop.cairo.IllustrationOperatorOver;
+import org.freedesktop.cairo.IllustrationOperatorSaturate;
+import org.freedesktop.cairo.IllustrationOperatorSource;
+import org.freedesktop.cairo.IllustrationOperatorXOR;
 import org.freedesktop.cairo.SnapshotContextArc;
 import org.freedesktop.cairo.SnapshotContextArcNegative;
 import org.freedesktop.cairo.SnapshotContextLine;
@@ -28,6 +42,7 @@ import org.freedesktop.cairo.SnapshotContextRectangle;
 import org.freedesktop.cairo.SnapshotMatrixRotate;
 import org.freedesktop.cairo.SnapshotMatrixScale;
 import org.freedesktop.cairo.SnapshotMatrixTranslate;
+import org.freedesktop.cairo.Surface;
 import org.gnome.gdk.Pixbuf;
 import org.gnome.gdk.PixbufFormat;
 import org.gnome.gtk.Gtk;
@@ -86,6 +101,7 @@ public final class Harness
         Process settingsDaemon = null;
         final Pixbuf logo;
         final Class<?>[] demos;
+        final Class<?>[] illustrationdemos;
 
         try {
             r = Runtime.getRuntime();
@@ -185,6 +201,23 @@ public final class Harness
                     SnapshotInfoBar.class
             };
 
+            illustrationdemos = new Class[] {
+                    IllustrationOperatorIn.class,
+                    IllustrationOperatorClear.class,
+                    IllustrationOperatorSource.class,
+                    IllustrationOperatorOver.class,
+                    IllustrationOperatorOut.class,
+                    IllustrationOperatorAtop.class,
+                    IllustrationOperatorDest.class,
+                    IllustrationOperatorDestOver.class,
+                    IllustrationOperatorDestIn.class,
+                    IllustrationOperatorDestOut.class,
+                    IllustrationOperatorDestAtop.class,
+                    IllustrationOperatorXOR.class,
+                    IllustrationOperatorAdd.class,
+                    IllustrationOperatorSaturate.class
+            };
+
             /*
              * And now the hard part. Take screenshots! This thread runs
              * asynchronously to the main loop; even though Gtk.main() below
@@ -226,6 +259,37 @@ public final class Harness
                 image.save(f, PixbufFormat.PNG);
 
                 w.hide();
+            }
+            /* Now for the Illustrations */
+            for (int i = 0; i < illustrationdemos.length; i++) {
+                final Illustration demo;
+                final String f;
+                final Surface s;
+
+                /*
+                 * Instantiate here (as opposed to above when specifying the
+                 * array) so that each one takes its resources in turn. We ran
+                 * into problems with all sorts of cruft being on the display
+                 * when doing it otherwise.
+                 */
+                try {
+                    demo = (Illustration) illustrationdemos[i].newInstance();
+                } catch (InstantiationException e) {
+                    e.printStackTrace();
+                    continue;
+                } catch (IllegalAccessException e) {
+                    e.printStackTrace();
+                    continue;
+                }
+
+                demo.illustrate();
+
+                s = demo.getSurface();
+                f = demo.getFilename();
+
+                System.out.println("WRITE\t" + f);
+
+                s.writeToPNG(f);
             }
         } finally {
             /*
