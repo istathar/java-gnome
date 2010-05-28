@@ -103,13 +103,37 @@ public class Operator extends Constant
      * <p>
      * This operator is bounded.
      * 
+     * <p>
+     * As an example, you could set up the object to be drawn over:
+     * 
+     * <pre>
+     * cr.setSource(0.7, 0, 0, 0.8);
+     * cr.rectangle(15, 10, 50, 50);
+     * cr.fill();
+     * </pre>
+     * 
+     * Now set up the source object that will draw over the area beneath it:
+     * 
+     * <pre>
+     * cr.setSource(0, 0, 0.9, 0.4);
+     * cr.rectangle(35, 35, 50, 50);
+     * cr.setOperator(Operator.SOURCE);
+     * cr.fill();
+     * </pre>
+     * 
      * @since 4.0.16
      */
     public static final Operator SOURCE = new Operator(CairoOperator.SOURCE, "SOURCE");
 
     /**
-     * Default operator: draw over existing pixels. <img
-     * src="Operator-over.png" class="snapshot">
+     * Draws the specified source object over the underlying object as if both
+     * objects were two overlapping panels of transparent glass. This only
+     * applies to objects that have an alpha channel; if the objects do not
+     * have an alpha channel, the source object simply paints over the
+     * underlying object. <img class="snapshot" src="Operator-over.png">
+     * 
+     * <p>
+     * This is the default operator.
      * 
      * <p>
      * This operator has the same effect for bounded and unbounded.

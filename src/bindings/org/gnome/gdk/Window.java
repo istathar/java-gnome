@@ -206,4 +206,27 @@ public class Window extends Drawable
     public boolean isViewable() {
         return GdkWindow.isViewable(this);
     }
+
+    /**
+     * Change the background of the Window.
+     * <p>
+     * TODO describe relative parameter.
+     * 
+     * <p>
+     * This really is only necessary if trying to do irregularly shaped user
+     * interfaces (ie, not standard rectangular applications) and need a
+     * transparent background. You get that via:
+     * 
+     * <pre>
+     * underlying.setBackingPixmap(null, false);
+     * </pre>
+     * 
+     * but transparency is a complex topic and requres other measures as well.
+     * See TODO.
+     * 
+     * @since 4.0.10
+     */
+    public void setBackingPixmap(Pixmap pixmap, boolean relative) {
+        GdkWindow.setBackPixmap(this, pixmap, relative);
+    }
 }

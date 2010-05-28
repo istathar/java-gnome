@@ -43,6 +43,8 @@ import org.freedesktop.cairo.SnapshotContextRectangle;
 import org.freedesktop.cairo.SnapshotMatrixRotate;
 import org.freedesktop.cairo.SnapshotMatrixScale;
 import org.freedesktop.cairo.SnapshotMatrixTranslate;
+import org.freedesktop.cairo.SnapshotOperatorOver;
+import org.freedesktop.cairo.SnapshotOperatorSource;
 import org.gnome.gdk.Pixbuf;
 import org.gnome.gdk.PixbufFormat;
 import org.gnome.gtk.Gtk;
