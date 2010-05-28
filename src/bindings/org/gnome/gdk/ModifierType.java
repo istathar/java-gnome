@@ -254,7 +254,7 @@ public final class ModifierType extends Flag
      */
     public static final ModifierType BUTTON_RIGHT_MASK = new ModifierType(GdkModifierType.BUTTON3_MASK,
             "BUTTON_RIGHT_MASK");
-    
+
     public static ModifierType or(ModifierType one, ModifierType two) {
         return (ModifierType) ModifierType.orTwoFlags(one, two);
     }
