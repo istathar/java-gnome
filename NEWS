@@ -19,20 +19,24 @@ incomprehensible native API and figured out how we could best add coverage for
 Java programs.
 
 * **`org.gnome.gtk.AcceleratorGroup`**
+* **`org.gnome.gtk.Menu`**
 * **`org.gnome.gtk.MenuItem`**
 * **`org.gnome.gtk.ImageMenuItem`**
 * **`org.gnome.gtk.Window`**
+* **`org.gnome.gtk.Action`**
 * `menu.ExampleSimpleMenu`
 
 Cairo Operations
 ----------------
 
-Though we've had support for Cairo's operators for some time, we didn't really
-know what we were doing. Thanks to the careful work of Kenneth Prugh, we've
-now got full coverage in the [Operator][] class along with a magnificent
-series of illustrations. These are the same pictures as are in the underlying
-Cairo documentation, but like our screenshots, ours are generated automatically
-by java-gnome programs whenever you build the documentation.
+Though we've had support for Cairo's various "operators" (different modes for
+combining what's being drawn with what's already on the surface) for some
+time, we didn't really know what we were doing. Thanks to the careful work of
+Kenneth Prugh, we've now got full coverage in the [Operator][] class along
+with a magnificent series of illustrations. These are the same pictures as are
+in the underlying Cairo documentation, but like our screenshots, ours are
+generated automatically by java-gnome programs whenever you build the
+documentation.
 
 * **`org.freedesktop.cairo.Operator`**
 * `Harness`
@@ -66,8 +70,13 @@ human readable byte sizes...
 * **`org.gnome.gtk.Activatable`**
 * **`org.gnome.gtk.Editable`**
 * **`org.gnome.gtk.Entry`**
+* **`org.gnome.gtk.EntryBuffer`**
 * **`org.gnome.gtk.InfoBar`**
 * **`org.gnome.glib.Glib`**
+* **`org.gnome.gtk.Widget`**
+* **`org.gnome.gtk.StatusIcon`**
+* `org.gnome.glib.ValidateUtilityFunctions`
+* `org.gnome.gtk.ValidateEntry`
 
 AfC
 
