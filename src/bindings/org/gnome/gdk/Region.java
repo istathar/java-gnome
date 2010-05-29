@@ -42,6 +42,9 @@ import org.gnome.glib.Boxed;
  * are made about this class until it has been reviewed by a hacker and this
  * comment has been replaced.
  */
+/**
+ * @deprecated
+ */
 public final class Region extends Boxed
 {
     protected Region(long pointer) {

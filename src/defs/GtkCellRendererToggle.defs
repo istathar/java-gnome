@@ -42,6 +42,21 @@
   )
 )
 
+(define-method get_activatable
+  (of-object "GtkCellRendererToggle")
+  (c-name "gtk_cell_renderer_toggle_get_activatable")
+  (return-type "gboolean")
+)
+
+(define-method set_activatable
+  (of-object "GtkCellRendererToggle")
+  (c-name "gtk_cell_renderer_toggle_set_activatable")
+  (return-type "none")
+  (parameters
+    '("gboolean" "setting")
+  )
+)
+
 (define-virtual toggled
   (of-object "GtkCellRendererToggle")
   (return-type "none")

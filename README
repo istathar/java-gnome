@@ -156,7 +156,9 @@ The java-gnome library depends on the GNOME desktop and is intended for people
 wishing to do tight integration with it. In particular, this version of
 java-gnome depends on:
 
-* GTK `>= 2.16.6`
+* GLib `>= 2.22.0`
+
+* GTK `>= 2.18.3`
 
 * Cairo `>= 1.8.8`
 

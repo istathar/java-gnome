@@ -1,5 +1,79 @@
 NEWS
 
+<a name="4.0.16" id="" title="Accelerating operations"></a>
+
+java-gnome 4.0.16-rc1 (28 Mar 2010)
+===================================
+
+_Accelerating is good for you_
+
+Accelerators
+------------
+
+java-gnome now has full support for accelerators, the key bindings (such as
+**`Ctrl+Q`** for "quit") typically used to activate MenuItems and Actions. The
+heart of the API is in the [AcceleratorGroup][] class, although you actually
+use it care of MenuItem's `setAccelerator()` and Action's `setAccelerator()`.
+Huge thanks are due to Thijs Leibbrand for having navigating the almost
+incomprehensible native API and figured out how we could best add coverage for
+Java programs.
+
+* **`org.gnome.gtk.AcceleratorGroup`**
+* **`org.gnome.gtk.MenuItem`**
+* **`org.gnome.gtk.ImageMenuItem`**
+* **`org.gnome.gtk.Window`**
+* `menu.ExampleSimpleMenu`
+
+Cairo Operations
+----------------
+
+Though we've had support for Cairo's operators for some time, we didn't really
+know what we were doing. Thanks to the careful work of Kenneth Prugh, we've
+now got full coverage in the [Operator][] class along with a magnificent
+series of illustrations. These are the same pictures as are in the underlying
+Cairo documentation, but like our screenshots, ours are generated automatically
+by java-gnome programs whenever you build the documentation.
+
+* **`org.freedesktop.cairo.Operator`**
+* `Harness`
+* `org.freedesktop.cairo.IllustrationOperatorOver`
+* `org.freedesktop.cairo.IllustrationOperatorDestOver`
+* `org.freedesktop.cairo.IllustrationOperatorSaturate`
+* `org.freedesktop.cairo.IllustrationOperatorDestIn`
+* `org.freedesktop.cairo.IllustrationOperatorDestAtop`
+* `org.freedesktop.cairo.Illustration`
+* `org.freedesktop.cairo.IllustrationOperatorAdd`
+* `org.freedesktop.cairo.IllustrationOperatorDest`
+* `org.freedesktop.cairo.IllustrationOperatorAtop`
+* `org.freedesktop.cairo.IllustrationOperatorSource`
+* `org.freedesktop.cairo.IllustrationOperatorClear`
+* `org.freedesktop.cairo.IllustrationOperatorDestOut`
+* `org.freedesktop.cairo.IllustrationOperatorOut`
+* `org.freedesktop.cairo.IllustrationOperator`
+* `org.freedesktop.cairo.IllustrationOperatorXOR`
+* `org.freedesktop.cairo.IllustrationOperatorIn`
+
+Miscellaneous improvements
+--------------------------
+
+TODO
+
+InfoBar...
+Activatable...
+Editable...
+human readable byte sizes...
+
+* **`org.gnome.gtk.Activatable`**
+* **`org.gnome.gtk.Editable`**
+* **`org.gnome.gtk.Entry`**
+* **`org.gnome.gtk.InfoBar`**
+* **`org.gnome.glib.Glib`**
+
+AfC
+
+[AcceleratorGroup]: doc/api/org/gnome/gtk/AcceleratorGroup.html
+[Operator]: doc/api/org/freedesktop/cairo/Operator.html
+
 <a name="4.0.15" id="1268692532" title="Radio thang"></a>
 
 java-gnome 4.0.15 (16 Mar 2010)

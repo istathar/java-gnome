@@ -333,6 +333,42 @@
   (return-type "gboolean")
 )
 
+(define-method set_line_wrap_mode
+  (of-object "GtkLabel")
+  (c-name "gtk_label_set_line_wrap_mode")
+  (return-type "none")
+  (parameters
+    '("PangoWrapMode" "wrap_mode")
+  )
+)
+
+(define-method get_line_wrap_mode
+  (of-object "GtkLabel")
+  (c-name "gtk_label_get_line_wrap_mode")
+  (return-type "PangoWrapMode")
+)
+
+(define-method get_current_uri
+  (of-object "GtkLabel")
+  (c-name "gtk_label_get_current_uri")
+  (return-type "const-gchar*")
+)
+
+(define-method set_track_visited_links
+  (of-object "GtkLabel")
+  (c-name "gtk_label_set_track_visited_links")
+  (return-type "none")
+  (parameters
+    '("gboolean" "track_links")
+  )
+)
+
+(define-method get_track_visited_links
+  (of-object "GtkLabel")
+  (c-name "gtk_label_get_track_visited_links")
+  (return-type "gboolean")
+)
+
 (define-virtual move_cursor
   (of-object "GtkLabel")
   (return-type "none")
@@ -356,18 +392,15 @@
   )
 )
 
-(define-method set_line_wrap_mode
+(define-virtual activate-current-link
   (of-object "GtkLabel")
-  (c-name "gtk_label_set_line_wrap_mode")
   (return-type "none")
+)
+
+(define-virtual activate-link
+  (of-object "GtkLabel")
+  (return-type "gboolean")
   (parameters
-    '("PangoWrapMode" "wrap_mode")
+    '("gchar*" "menu")
   )
 )
-
-(define-method get_line_wrap_mode
-  (of-object "GtkLabel")
-  (c-name "gtk_label_get_line_wrap_mode")
-  (return-type "PangoWrapMode")
-)
-

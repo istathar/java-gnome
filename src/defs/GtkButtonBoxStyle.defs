@@ -8,6 +8,7 @@
     '("edge" "GTK_BUTTONBOX_EDGE")
     '("start" "GTK_BUTTONBOX_START")
     '("end" "GTK_BUTTONBOX_END")
+    '("center" "GTK_BUTTONBOX_CENTER")
   )
 )
 

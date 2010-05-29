@@ -89,7 +89,8 @@ public class RadioAction extends ToggleAction
     /**
      * Create a new RadioAction based on a Stock item, and connect a handler
      * to its <code>RadioAction.Toggled</code> signal. Complements the
-     * {@link #Action(String, Stock) &lt;init&gt;(String, Stock)} constructor.
+     * {@link #RadioAction(RadioGroup, String, Stock) &lt;init&gt;(RadioGroup,
+     * String, Stock)} constructor.
      * 
      * @since 4.0.15
      */

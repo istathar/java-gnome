@@ -90,6 +90,76 @@
   )
 )
 
+(define-method set_alignment
+  (of-object "GtkCellRenderer")
+  (c-name "gtk_cell_renderer_set_alignment")
+  (return-type "none")
+  (parameters
+    '("gfloat" "xalign")
+    '("gfloat" "yalign")
+  )
+)
+
+(define-method get_alignment
+  (of-object "GtkCellRenderer")
+  (c-name "gtk_cell_renderer_get_alignment")
+  (return-type "none")
+  (parameters
+    '("gfloat*" "xalign")
+    '("gfloat*" "yalign")
+  )
+)
+
+(define-method set_padding
+  (of-object "GtkCellRenderer")
+  (c-name "gtk_cell_renderer_set_padding")
+  (return-type "none")
+  (parameters
+    '("gint" "xpad")
+    '("gint" "ypad")
+  )
+)
+
+(define-method get_padding
+  (of-object "GtkCellRenderer")
+  (c-name "gtk_cell_renderer_get_padding")
+  (return-type "none")
+  (parameters
+    '("gint*" "xpad")
+    '("gint*" "ypad")
+  )
+)
+
+(define-method set_visible
+  (of-object "GtkCellRenderer")
+  (c-name "gtk_cell_renderer_set_visible")
+  (return-type "none")
+  (parameters
+    '("gboolean" "visible")
+  )
+)
+
+(define-method get_visible
+  (of-object "GtkCellRenderer")
+  (c-name "gtk_cell_renderer_get_visible")
+  (return-type "gboolean")
+)
+
+(define-method set_sensitive
+  (of-object "GtkCellRenderer")
+  (c-name "gtk_cell_renderer_set_sensitive")
+  (return-type "none")
+  (parameters
+    '("gboolean" "sensitive")
+  )
+)
+
+(define-method get_sensitive
+  (of-object "GtkCellRenderer")
+  (c-name "gtk_cell_renderer_get_sensitive")
+  (return-type "gboolean")
+)
+
 (define-virtual get_size
   (of-object "GtkCellRenderer")
   (return-type "none")

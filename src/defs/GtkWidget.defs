@@ -1219,6 +1219,168 @@
   )
 )
 
+(define-method get_allocation
+  (of-object "GtkWidget")
+  (c-name "gtk_widget_get_allocation")
+  (return-type "none")
+  (parameters
+    '("GtkAllocation*" "allocation")
+  )
+)
+
+(define-method set_allocation
+  (of-object "GtkWidget")
+  (c-name "gtk_widget_set_allocation")
+  (return-type "none")
+  (parameters
+    '("const-GtkAllocation*" "allocation")
+  )
+)
+
+(define-method get_app_paintable
+  (of-object "GtkWidget")
+  (c-name "gtk_widget_get_app_paintable")
+  (return-type "gboolean")
+)
+
+(define-method set_can_default
+  (of-object "GtkWidget")
+  (c-name "gtk_widget_set_can_default")
+  (return-type "none")
+  (parameters
+    '("gboolean" "can_default")
+  )
+)
+
+(define-method get_can_default
+  (of-object "GtkWidget")
+  (c-name "gtk_widget_get_can_default")
+  (return-type "gboolean")
+)
+
+(define-method set_can_focus
+  (of-object "GtkWidget")
+  (c-name "gtk_widget_set_can_focus")
+  (return-type "none")
+  (parameters
+    '("gboolean" "can_focus")
+  )
+)
+
+(define-method get_can_focus
+  (of-object "GtkWidget")
+  (c-name "gtk_widget_get_can_focus")
+  (return-type "gboolean")
+)
+
+(define-method get_double_buffered
+  (of-object "GtkWidget")
+  (c-name "gtk_widget_get_double_buffered")
+  (return-type "gboolean")
+)
+
+(define-method set_has_window
+  (of-object "GtkWidget")
+  (c-name "gtk_widget_set_has_window")
+  (return-type "none")
+  (parameters
+    '("gboolean" "has_window")
+  )
+)
+
+(define-method get_has_window
+  (of-object "GtkWidget")
+  (c-name "gtk_widget_get_has_window")
+  (return-type "gboolean")
+)
+
+(define-method set_receives_default
+  (of-object "GtkWidget")
+  (c-name "gtk_widget_set_receives_default")
+  (return-type "none")
+  (parameters
+    '("gboolean" "receives_default")
+  )
+)
+
+(define-method get_receives_default
+  (of-object "GtkWidget")
+  (c-name "gtk_widget_get_receives_default")
+  (return-type "gboolean")
+)
+
+(define-method get_sensitive
+  (of-object "GtkWidget")
+  (c-name "gtk_widget_get_sensitive")
+  (return-type "gboolean")
+)
+
+(define-method get_state
+  (of-object "GtkWidget")
+  (c-name "gtk_widget_get_state")
+  (return-type "GtkStateType")
+)
+
+(define-method set_visible
+  (of-object "GtkWidget")
+  (c-name "gtk_widget_set_visible")
+  (return-type "none")
+  (parameters
+    '("gboolean" "visible")
+  )
+)
+
+(define-method get_visible
+  (of-object "GtkWidget")
+  (c-name "gtk_widget_get_visible")
+  (return-type "gboolean")
+)
+
+(define-method set_window
+  (of-object "GtkWidget")
+  (c-name "gtk_widget_set_window")
+  (return-type "none")
+  (parameters
+    '("GdkWindow*" "window")
+  )
+)
+
+(define-method has_default
+  (of-object "GtkWidget")
+  (c-name "gtk_widget_has_default")
+  (return-type "gboolean")
+)
+
+(define-method has_focus
+  (of-object "GtkWidget")
+  (c-name "gtk_widget_has_focus")
+  (return-type "gboolean")
+)
+
+(define-method has_grab
+  (of-object "GtkWidget")
+  (c-name "gtk_widget_has_grab")
+  (return-type "gboolean")
+)
+
+(define-method is_sensitive
+  (of-object "GtkWidget")
+  (c-name "gtk_widget_is_sensitive")
+  (return-type "gboolean")
+)
+
+(define-method is_toplevel
+  (of-object "GtkWidget")
+  (c-name "gtk_widget_is_toplevel")
+  (return-type "gboolean")
+)
+
+(define-method is_drawable
+  (of-object "GtkWidget")
+  (c-name "gtk_widget_is_drawable")
+  (return-type "gboolean")
+)
+
 (define-virtual dispatch_child_properties_changed
   (of-object "GtkWidget")
   (return-type "none")
@@ -1721,6 +1883,7 @@
   (of-object "GtkWidget")
   (c-name "gtk_widget_get_action")
   (return-type "GtkAction*")
+  (deprecated)
 )
 
 (define-method drag_dest_set_track_motion

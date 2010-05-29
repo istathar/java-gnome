@@ -32,6 +32,9 @@
  */
 package org.gnome.gtk;
 
+import org.gnome.gdk.Keyval;
+import org.gnome.gdk.ModifierType;
+
 /**
  * MenuItems are the basic elements that form a Menu.
  * 
@@ -55,7 +58,7 @@ package org.gnome.gtk;
  * @author Vreixo Formoso
  * @since 4.0.3
  */
-public class MenuItem extends Item
+public class MenuItem extends Item implements Activatable
 {
     protected MenuItem(long pointer) {
         super(pointer);
@@ -172,5 +175,49 @@ public class MenuItem extends Item
     public MenuItem(String mnemonicLabel, ACTIVATE handler) {
         super(GtkMenuItem.createMenuItemWithMnemonic(mnemonicLabel));
         connect(handler);
+    }
+
+    public void setRelatedAction(Action action) {
+        GtkActivatable.setRelatedAction(this, action);
+    }
+
+    public Action getRelatedAction() {
+        return GtkActivatable.getRelatedAction(this);
+    }
+
+    /**
+     * Set a key binding for this MenuItem.
+     * 
+     * @since 4.0.16
+     */
+    public void setAccelerator(AcceleratorGroup group, Keyval keyval, ModifierType modifier) {
+        String path;
+        boolean exists, result;
+
+        /*
+         * Check whether it has already has a path and whether it is known, if
+         * so then change it. If not, generate a path, set it and add it the
+         * map to be registered.
+         */
+
+        path = GtkMenuItem.getAccelPath(this);
+
+        if (path == null) {
+            exists = false;
+            path = group.generateRandomPath();
+            GtkMenuItem.setAccelPath(this, path);
+        } else {
+            exists = GtkAccelMap.lookupEntry(path, null);
+        }
+
+        if (exists) {
+            result = GtkAccelMap.changeEntry(path, keyval, modifier, true);
+
+            if (!result) {
+                throw new IllegalStateException("Can't change exising accelerator");
+            }
+        } else {
+            GtkAccelMap.addEntry(path, keyval, modifier);
+        }
     }
 }

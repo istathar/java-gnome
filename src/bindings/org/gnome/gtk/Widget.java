@@ -670,9 +670,9 @@ public abstract class Widget extends org.gnome.gtk.Object
      * 
      * <p>
      * Note that by default this event is disabled, even if you connect to it.
-     * You will need to {@link Widget#addEvents(EventMask) enable} it. If
-     * you want to receive all mouse motion events, you will need to supply
-     * the POINTER_MOTION mask. Note that it generates a big amount of events,
+     * You will need to {@link Widget#addEvents(EventMask) enable} it. If you
+     * want to receive all mouse motion events, you will need to supply the
+     * POINTER_MOTION mask. Note that it generates a big amount of events,
      * typically tens of events per second, when the user moves the mouse over
      * this Widget. If you only care about this event when a mouse button is
      * pressed, any of LEFT_BUTTON_MOTION, MIDDLE_BUTTON_MOTION,
@@ -815,6 +815,12 @@ public abstract class Widget extends org.gnome.gtk.Object
      * If what you need are the event handling facilities that go with Widgets
      * that have their own native resources, consider creating an
      * {@link EventBox EventBox} and putting this Widget into it.
+     * 
+     * <p>
+     * While it is best to wait until the Widget is mapped to screen and user
+     * visible before manipulating underlying properties, there are rare cases
+     * when you need the [org.gnome.gdk] Window to be not-<code>null</code>
+     * before then; if so, you can call {@link #realize() realize()}.
      * 
      * <p>
      * <i>If you call this in a class where you're building Windows, then you
@@ -1599,5 +1605,29 @@ public abstract class Widget extends org.gnome.gtk.Object
      */
     public void setEvents(EventMask events) {
         GtkWidget.setEvents(this, events);
+    }
+
+    /**
+     * Cause the resources underlying the Widget to be assigned. Among other
+     * things, this will populate the [org.gnome.gdk] Window that backs this
+     * Widget.
+     * 
+     * <p>
+     * In general you don't want to be calling this. This is largely an
+     * internal method; while you can trigger realization manually you rarely
+     * need to. You <i>do</i> need to show the Widget with {@link #show()
+     * show()} (or better yet {@link #showAll() showAll()} on one of its
+     * parents) once you've built it.
+     * 
+     * <p>
+     * Almost anything that you would do that would invole you needing an
+     * [org.gnome.gdk] Window is best done in a
+     * <code>Widget.ExposeEvent</code> handler, at which point the Widget is
+     * already realized, mapped, and showing.
+     * 
+     * @since 4.0.16
+     */
+    public void realize() {
+        GtkWidget.realize(this);
     }
 }

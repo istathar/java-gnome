@@ -37,6 +37,7 @@ package org.gnome.glib;
  * 
  * @author Andrew Cowie
  * @author Serkan Kaba
+ * @author Guillaume Mazoyer
  * @since 4.0.0
  * 
  * @see <a
@@ -199,5 +200,24 @@ public class Glib
      */
     public static String[] getSystemConfigDirs() {
         return GlibMisc.getSystemConfigDirs();
+    }
+
+    /**
+     * Format a size into a human readable String. This is useful when
+     * representing file sizes and data transfer rates.
+     * 
+     * <p>
+     * Sizes use the nearest prefix (KB, MB, GB). The prefix units are base 2
+     * so 1 MB is 1024 * 1024 bytes.
+     * 
+     * <p>
+     * Note that the returned String depends on the localization. E.g. if the
+     * system is configured to use French, the formatted size will use French
+     * size prefix.
+     * 
+     * @since 4.0.16
+     */
+    public static String formatSizeForDisplay(long size) {
+        return GlibMisc.formatSizeForDisplay(size);
     }
 }

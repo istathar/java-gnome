@@ -84,9 +84,8 @@ final class GtkWidgetOverride extends Plumbing
     private static native final long gtk_widget_get_requisition(long self);
 
     /**
-     * Set the events that the underlying GdkWindow will receive.
-     * As a necessary convenience, the Widget will be realized first if
-     * necessary.
+     * Set the events that the underlying GdkWindow will receive. As a
+     * necessary convenience, the Widget will be realized first if necessary.
      */
     static final void setEvents(Widget self, EventMask eventMask) {
         if (self == null) {

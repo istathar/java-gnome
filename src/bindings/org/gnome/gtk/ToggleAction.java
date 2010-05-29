@@ -108,7 +108,8 @@ public class ToggleAction extends Action
     /**
      * Create a new ToggleAction based on a Stock item, and connect a handler
      * to its <code>ToggleAction.Toggled</code> signal. Complements the
-     * {@link #Action(String, Stock) &lt;init&gt;(String, Stock)} constructor.
+     * {@link #ToggleAction(String, Stock) &lt;init&gt;(String, Stock)}
+     * constructor.
      * 
      * @since 4.0.15
      */
