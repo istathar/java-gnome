@@ -60,6 +60,10 @@ documentation.
 Miscellaneous improvements
 --------------------------
 
+The style 'CENTER' has been added in ButtonBoxStyle.
+
+* **`org.gnome.gtk.ButtonBoxStyle`**
+
 TODO
 
 InfoBar...

@@ -77,6 +77,8 @@ public final class ButtonBoxStyle extends Constant
 
     /**
      * Buttons are to be grouped in the center of the box.
+     *
+     * @since 4.0.16
      */
     public static final ButtonBoxStyle CENTER = new ButtonBoxStyle(GtkButtonBoxStyle.CENTER, "CENTER");
 
