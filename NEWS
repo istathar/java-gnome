@@ -60,16 +60,14 @@ documentation.
 Miscellaneous improvements
 --------------------------
 
-The style 'CENTER' has been added in ButtonBoxStyle.
+The style `CENTER` has been added in ButtonBoxStyle.
 
 * **`org.gnome.gtk.ButtonBoxStyle`**
 
-TODO
-
-InfoBar...
-Activatable...
-Editable...
-human readable byte sizes...
+Coverage of GTK's new [InfoBar][] Widget was added by Guillaume Mazoyer, who
+also made numerous touch ups to various core classes. The Activatable and
+Editable interfaces got some love. Finally, methods to get "human readable"
+byte sizes have been added to the [Glib][] utility class.
 
 * **`org.gnome.gtk.Activatable`**
 * **`org.gnome.gtk.Editable`**
@@ -84,8 +82,10 @@ human readable byte sizes...
 
 AfC
 
+[InfoBar]: doc/api/org/gnome/gtk/InfoBar.html
 [AcceleratorGroup]: doc/api/org/gnome/gtk/AcceleratorGroup.html
 [Operator]: doc/api/org/freedesktop/cairo/Operator.html
+[Glib]: doc/api/org/gnome/glib/Glib.html
 
 <a name="4.0.15" id="1268692532" title="Radio thang"></a>
 
