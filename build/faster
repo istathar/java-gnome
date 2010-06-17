@@ -657,8 +657,8 @@ def compileDocumentation():
 	cmd += "-nohelp "
 	cmd += "-version "
 	cmd += "-author "
-	cmd += "-windowtitle 'java-gnome %s API Documentation' " % config['APIVERSION']
-	cmd += "-doctitle '<h1>java-gnome %s API Documentation</h1>' " % config['APIVERSION']
+	cmd += "-windowtitle 'java-gnome %s API Documentation' " % config['VERSION']
+	cmd += "-doctitle '<h1>java-gnome %s API Documentation</h1>' " % config['VERSION']
 	cmd += "-header 'java-gnome version %s' " % config['VERSION']
 	cmd += "-footer '<img src=\"/images/java-gnome_JavaDocLogo.png\" style=\"padding-right:25px;\"><br> <span style=\"font-family: Arial; font-style: normal; font-size: large;\">java-gnome</span>' "
 	cmd += "-breakiterator "

@@ -1,5 +1,102 @@
 NEWS
 
+<a name="4.0.16" id="1276732981" title="Accelerating operations"></a>
+
+java-gnome 4.0.16 (17 Jun 2010)
+===============================
+
+_Accelerating is good for you_
+
+Accelerators
+------------
+
+java-gnome now has full support for accelerators, the key bindings (such as
+**`Ctrl+Q`** for "quit") typically used to activate MenuItems and Actions. The
+heart of the API is in the [AcceleratorGroup][] class, although you actually
+use it care of MenuItem's `setAccelerator()` and Action's `setAccelerator()`.
+Huge thanks are due to Thijs Leibbrand for having navigating the almost
+incomprehensible native API and figured out how we could best add coverage for
+Java programs.
+
+* **`org.gnome.gtk.AcceleratorGroup`**
+* **`org.gnome.gtk.Menu`**
+* **`org.gnome.gtk.MenuItem`**
+* **`org.gnome.gtk.ImageMenuItem`**
+* **`org.gnome.gtk.Window`**
+* **`org.gnome.gtk.Action`**
+* `menu.ExampleSimpleMenu`
+
+Cairo Operations
+----------------
+
+Though we've had support for Cairo's various "operators" (different modes for
+combining what's being drawn with what's already on the surface) for some
+time, we didn't really know what we were doing. Thanks to the careful work of
+Kenneth Prugh, we've now got full coverage in the [Operator][] class along
+with a magnificent series of illustrations. These are the same pictures as are
+in the underlying Cairo documentation, but like our screenshots, ours are
+generated automatically by java-gnome programs whenever you build the
+documentation.
+
+* **`org.freedesktop.cairo.Operator`**
+* `Harness`
+* `org.freedesktop.cairo.IllustrationOperatorOver`
+* `org.freedesktop.cairo.IllustrationOperatorDestOver`
+* `org.freedesktop.cairo.IllustrationOperatorSaturate`
+* `org.freedesktop.cairo.IllustrationOperatorDestIn`
+* `org.freedesktop.cairo.IllustrationOperatorDestAtop`
+* `org.freedesktop.cairo.Illustration`
+* `org.freedesktop.cairo.IllustrationOperatorAdd`
+* `org.freedesktop.cairo.IllustrationOperatorDest`
+* `org.freedesktop.cairo.IllustrationOperatorAtop`
+* `org.freedesktop.cairo.IllustrationOperatorSource`
+* `org.freedesktop.cairo.IllustrationOperatorClear`
+* `org.freedesktop.cairo.IllustrationOperatorDestOut`
+* `org.freedesktop.cairo.IllustrationOperatorOut`
+* `org.freedesktop.cairo.IllustrationOperator`
+* `org.freedesktop.cairo.IllustrationOperatorXOR`
+* `org.freedesktop.cairo.IllustrationOperatorIn`
+
+Miscellaneous improvements
+--------------------------
+
+The style `CENTER` has been added in ButtonBoxStyle.
+
+* **`org.gnome.gtk.ButtonBoxStyle`**
+
+Coverage of GTK's new [InfoBar][] Widget was added by Guillaume Mazoyer, who
+also made numerous touch ups to various core classes. The Activatable and
+Editable interfaces got some love. And methods to get "human readable" byte
+sizes have been added to the [Glib][] utility class.
+
+* **`org.gnome.gtk.Activatable`**
+* **`org.gnome.gtk.Editable`**
+* **`org.gnome.gtk.Entry`**
+* **`org.gnome.gtk.EntryBuffer`**
+* **`org.gnome.gtk.InfoBar`**
+* **`org.gnome.glib.Glib`**
+* **`org.gnome.gtk.Widget`**
+* **`org.gnome.gtk.StatusIcon`**
+* `org.gnome.glib.ValidateUtilityFunctions`
+* `org.gnome.gtk.ValidateEntry`
+
+Finally, we exposed the code needed to force GDK to revert to the pre GTK 2.18
+behaviour of using native X Windows for every Widget. This shouldn't be
+necessary -- the whole point of major changes like the "client-side windows"
+branch are is that they are supposed to Just Work (and more to the point Just
+Work better, over time) -- but it does give a workaround for unusual corner
+cases where either GTK, java-gnome, or the developer is constrained and needs
+some help.
+
+* **`org.gnome.gdk.Window`**
+
+AfC
+
+[InfoBar]: doc/api/org/gnome/gtk/InfoBar.html
+[AcceleratorGroup]: doc/api/org/gnome/gtk/AcceleratorGroup.html
+[Operator]: doc/api/org/freedesktop/cairo/Operator.html
+[Glib]: doc/api/org/gnome/glib/Glib.html
+
 <a name="4.0.15" id="1268692532" title="Radio thang"></a>
 
 java-gnome 4.0.15 (16 Mar 2010)
