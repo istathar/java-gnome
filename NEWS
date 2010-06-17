@@ -1,9 +1,9 @@
 NEWS
 
-<a name="4.0.16" id="" title="Accelerating operations"></a>
+<a name="4.0.16" id="1276732981" title="Accelerating operations"></a>
 
-java-gnome 4.0.16-rc1 (28 Mar 2010)
-===================================
+java-gnome 4.0.16 (17 Jun 2010)
+===============================
 
 _Accelerating is good for you_
 
@@ -66,8 +66,8 @@ The style `CENTER` has been added in ButtonBoxStyle.
 
 Coverage of GTK's new [InfoBar][] Widget was added by Guillaume Mazoyer, who
 also made numerous touch ups to various core classes. The Activatable and
-Editable interfaces got some love. Finally, methods to get "human readable"
-byte sizes have been added to the [Glib][] utility class.
+Editable interfaces got some love. And methods to get "human readable" byte
+sizes have been added to the [Glib][] utility class.
 
 * **`org.gnome.gtk.Activatable`**
 * **`org.gnome.gtk.Editable`**
@@ -79,6 +79,16 @@ byte sizes have been added to the [Glib][] utility class.
 * **`org.gnome.gtk.StatusIcon`**
 * `org.gnome.glib.ValidateUtilityFunctions`
 * `org.gnome.gtk.ValidateEntry`
+
+Finally, we exposed the code needed to force GDK to revert to the pre GTK 2.18
+behaviour of using native X Windows for every Widget. This shouldn't be
+necessary -- the whole point of major changes like the "client-side windows"
+branch are is that they are supposed to Just Work (and more to the point Just
+Work better, over time) -- but it does give a workaround for unusual corner
+cases where either GTK, java-gnome, or the developer is constrained and needs
+some help.
+
+* **`org.gnome.gdk.Window`**
 
 AfC
 
