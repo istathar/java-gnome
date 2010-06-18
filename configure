@@ -1924,8 +1924,6 @@ output "Select runtime:";
 # are better! (Ok, and, frankly, the compliance is obviously better
 # if its a real Java VM). The Free ones are getting there...
 
-$java="$java -Djava.awt.headless=true";
-
 if ($runtime) {
 	# if overridden, check override...
 	if ($runtime eq "java")  {
@@ -1961,6 +1959,8 @@ HERE
 		bail "failed", "No usable Java runtime environment was detected.";
 	}
 }
+
+$java="$java -Djava.awt.headless=true";
 
 if ($runtime eq "java") {
 	print CONFIG "JAVA=$java\n";
