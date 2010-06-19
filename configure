@@ -623,7 +623,7 @@ if (( -f "/etc/gentoo-release" ) || ( -f "/etc/make.conf" )) {
 	# and Ubuntu
 	$os = "debian";
 } elsif ( -f "/etc/fedora-release" ) {
-	output "Fedora Core";
+	output "Fedora";
 	$os = "fedora";
 } elsif ( -f "/etc/SuSE-release" ) {
 	output "Open SuSE";
