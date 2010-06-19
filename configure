@@ -645,6 +645,15 @@ if (( -f "/etc/gentoo-release" ) || ( -f "/etc/make.conf" )) {
 } elsif ( -f "/usr/bin/cygwin1.dll" ) {
 	output "Cygwin";
 	$os = "cygwin";
+} elsif ( -f "/etc/centos-release" ) {
+	output "centos";
+	$os = "fedora";
+} elsif ( -f "/etc/redhat-release" ) {
+	output "redhat";
+	$os = "fedora";
+} elsif ( -f "/etc/java/jpackage-release" ) {
+	output "JPackage";
+	$os = "fedora";
 }
 
 if ($os) {
