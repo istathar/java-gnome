@@ -623,7 +623,7 @@ if (( -f "/etc/gentoo-release" ) || ( -f "/etc/make.conf" )) {
 	# and Ubuntu
 	$os = "debian";
 } elsif ( -f "/etc/fedora-release" ) {
-	output "Fedora Core";
+	output "Fedora";
 	$os = "fedora";
 } elsif ( -f "/etc/SuSE-release" ) {
 	output "Open SuSE";
@@ -645,6 +645,15 @@ if (( -f "/etc/gentoo-release" ) || ( -f "/etc/make.conf" )) {
 } elsif ( -f "/usr/bin/cygwin1.dll" ) {
 	output "Cygwin";
 	$os = "cygwin";
+} elsif ( -f "/etc/centos-release" ) {
+	output "CentOS";
+	$os = "fedora";
+} elsif ( -f "/etc/redhat-release" ) {
+	output "RedHat";
+	$os = "fedora";
+} elsif ( -f "/etc/java/jpackage-release" ) {
+	output "JPackage";
+	$os = "fedora";
 }
 
 if ($os) {
@@ -1155,11 +1164,11 @@ if ($os eq "gentoo") {
 		$javadoc_candidate = "$jdk_home/bin/javadoc";
 		$vendor = "Specified";
 	} else {
-		$javac_candidate = "/usr/lib/jvm/java-ibm/bin/javac";
-		$javah_candidate = "/usr/lib/jvm/java-ibm/bin/javah";
-		$jar_candidate = "/usr/lib/jvm/java-ibm/bin/jar";
-		$javadoc_candidate = "/usr/lib/jvm/java-ibm/bin/javadoc";
-		$vendor = "IBM";
+		$javac_candidate = "/usr/bin/javac";
+		$javah_candidate = "/usr/bin/javah";
+		$jar_candidate = "/usr/bin/jar";
+		$javadoc_candidate = "/usr/bin/javadoc";
+		$vendor = "System Default";
 	}
 	check_compiler($javac, "$vendor javac", $javac_candidate, "-g -source 1.5 -target 1.5");
 
@@ -1564,8 +1573,8 @@ if ($os eq "gentoo") {
 		$java_candidate = "$jdk_home/bin/java";
 		$vendor = "Specified";
 	} else {
-		$java_candidate = "/usr/lib/jvm/jre-ibm/bin/java";
-		$vendor = "IBM";
+		$java_candidate = "/usr/bin/java";
+		$vendor = "System Default";
 	}
 	check_runtime($java, "$vendor java VM", $java_candidate, "-client -ea");
 
@@ -2090,6 +2099,9 @@ if ($gcc) {
 	my $jni_include = "";
 	my $java_home = dirname($java);
 	$java_home =~ s/\/bin$//;
+	if ($os eq "fedora" && $java_home eq "/usr") {
+	    $java_home = "/usr/lib/jvm/java";
+	}
 
 	if (!-d "$java_home"."/include") {
 		$java_home =~ s/\/jre//;
