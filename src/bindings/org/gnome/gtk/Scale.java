@@ -79,4 +79,19 @@ public abstract class Scale extends Range
     public void setValuePosition(PositionType position) {
         GtkScale.setValuePos(this, position);
     }
+
+    /**
+     * Specify if the text displaying the value will be shown. True is
+     * the default.
+     */
+    public void setDrawValue(boolean draw){
+	GtkScale.setDrawValue(this, false);
+    }
+
+    /**
+     *
+     */	
+    public boolean getDrawValue(){
+	return GtkScale.getDrawValue(this);
+   }
 }
