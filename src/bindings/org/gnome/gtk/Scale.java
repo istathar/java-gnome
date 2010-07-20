@@ -81,17 +81,21 @@ public abstract class Scale extends Range
     }
 
     /**
-     * Specify if the text displaying the value will be shown. True is
-     * the default.
+     * Specify if the text displaying the value will be shown. The default is
+     * <code>true</code>.
+     * 
+     * @since 4.0.17
      */
-    public void setDrawValue(boolean draw){
-	GtkScale.setDrawValue(this, false);
+    public void setDrawValue(boolean draw) {
+        GtkScale.setDrawValue(this, false);
     }
 
     /**
-     *
-     */	
-    public boolean getDrawValue(){
-	return GtkScale.getDrawValue(this);
-   }
+     * Is the Scale presently displaying text indicating its value?
+     * 
+     * @since 4.0.17
+     */
+    public boolean getDrawValue() {
+        return GtkScale.getDrawValue(this);
+    }
 }
