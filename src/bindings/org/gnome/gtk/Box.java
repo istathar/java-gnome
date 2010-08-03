@@ -144,8 +144,8 @@ public abstract class Box extends Container
      * Change the position of a Widget in the Box. The child will still be
      * packed with respect to the beginning (if
      * {@link #packStart(Widget, boolean, boolean, int) packStart()} was used)
-     * or end (if {@link #packEnd(Widget, boolean, boolean, int) packEnd() was
-     * used}) of the Box, and will be placed just after the Widget at
+     * or end (if {@link #packEnd(Widget, boolean, boolean, int) packEnd()}
+     * was used) of the Box, and will be placed just after the Widget at
      * <code>position</code>.
      * 
      * @since 4.0.8
