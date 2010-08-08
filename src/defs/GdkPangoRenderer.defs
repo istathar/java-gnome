@@ -31,6 +31,7 @@
   (parameters
     '("GdkGC*" "gc" (null-ok))
   )
+  (deprecated)
 )
 
 (define-method set_stipple
