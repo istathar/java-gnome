@@ -477,7 +477,6 @@
   (c-name "gtk_paint_spinner")
   (return-type "none")
   (parameters
-    '("GtkStyle*" "style")
     '("GdkWindow*" "window")
     '("GtkStateType" "state_type")
     '("const-GdkRectangle*" "area")
