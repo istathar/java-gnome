@@ -100,6 +100,55 @@
   (return-type "gboolean")
 )
 
+(define-method get_min_slider_size
+  (of-object "GtkRange")
+  (c-name "gtk_range_get_min_slider_size")
+  (return-type "gint")
+)
+
+(define-method get_range_rect
+  (of-object "GtkRange")
+  (c-name "gtk_range_get_range_rect")
+  (return-type "none")
+  (parameters
+    '("GdkRectangle*" "range_rect")
+  )
+)
+
+(define-method get_slider_range
+  (of-object "GtkRange")
+  (c-name "gtk_range_get_slider_range")
+  (return-type "none")
+  (parameters
+    '("gint*" "slider_start")
+    '("gint*" "slider_end")
+  )
+)
+
+(define-method get_slider_size_fixed
+  (of-object "GtkRange")
+  (c-name "gtk_range_get_slider_size_fixed")
+  (return-type "gboolean")
+)
+
+(define-method set_min_slider_size
+  (of-object "GtkRange")
+  (c-name "gtk_range_set_min_slider_size")
+  (return-type "none")
+  (parameters
+    '("gboolean" "min_size")
+  )
+)
+
+(define-method set_slider_size_fixed
+  (of-object "GtkRange")
+  (c-name "gtk_range_set_slider_size_fixed")
+  (return-type "none")
+  (parameters
+    '("gboolean" "size_fixed")
+  )
+)
+
 (define-virtual value_changed
   (of-object "GtkRange")
   (return-type "none")

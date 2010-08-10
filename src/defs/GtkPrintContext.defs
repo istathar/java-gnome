@@ -70,3 +70,15 @@
   )
 )
 
+(define-method get_hard_margins
+  (of-object "GtkPrintContext")
+  (c-name "gtk_print_context_get_hard_margins")
+  (return-type "gboolean")
+  (parameters
+    '("gdouble*" "top")
+    '("gdouble*" "bottom")
+    '("gdouble*" "left")
+    '("gdouble*" "right")
+  )
+)
+

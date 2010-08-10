@@ -1,0 +1,185 @@
+(define-object ToolPalette
+  (in-module "Gtk")
+  (parent "GtkContainer")
+  (c-name "GtkToolPalette")
+  (gtype-id "GTK_TYPE_TOOL_PALETTE")
+)
+
+(define-function gtk_tool_palette_new
+  (c-name "gtk_tool_palette_new")
+  (is-constructor-of "GtkToolPalette")
+  (caller-owns-return #t)
+  (return-type "GtkWidget*")
+)
+
+(define-method set_group_position
+  (of-object "GtkToolPalette")
+  (c-name "gtk_tool_palette_set_group_position")
+  (return-type "none")
+  (parameters
+    '("GtkToolItemGroup*" "group")
+    '("gint" "position")
+  )
+)
+
+(define-method set_exclusive
+  (of-object "GtkToolPalette")
+  (c-name "gtk_tool_palette_set_exclusive")
+  (return-type "none")
+  (parameters
+    '("GtkToolItemGroup*" "group")
+    '("gboolean" "exclusive")
+  )
+)
+
+(define-method set_expand
+  (of-object "GtkToolPalette")
+  (c-name "gtk_tool_palette_set_expand")
+  (return-type "none")
+  (parameters
+    '("GtkToolItemGroup*" "group")
+    '("gboolean" "expand")
+  )
+)
+
+(define-method get_group_position
+  (of-object "GtkToolPalette")
+  (c-name "gtk_tool_palette_get_group_position")
+  (return-type "gint")
+  (parameters
+    '("GtkToolItemGroup*" "group")
+  )
+)
+
+(define-method get_exclusive
+  (of-object "GtkToolPalette")
+  (c-name "gtk_tool_palette_get_exclusive")
+  (return-type "gboolean")
+  (parameters
+    '("GtkToolItemGroup*" "group")
+  )
+)
+
+(define-method get_expand
+  (of-object "GtkToolPalette")
+  (c-name "gtk_tool_palette_get_expand")
+  (return-type "gboolean")
+  (parameters
+    '("GtkToolItemGroup*" "group")
+  )
+)
+
+(define-method set_icon_size
+  (of-object "GtkToolPalette")
+  (c-name "gtk_tool_palette_set_icon_size")
+  (return-type "none")
+  (parameters
+    '("GtkIconSize" "icon_size")
+  )
+)
+
+(define-method unset_icon_size
+  (of-object "GtkToolPalette")
+  (c-name "gtk_tool_palette_unset_icon_size")
+  (return-type "none")
+)
+
+(define-method set_style
+  (of-object "GtkToolPalette")
+  (c-name "gtk_tool_palette_set_style")
+  (return-type "none")
+  (parameters
+    '("GtkToolbarStyle" "style")
+  )
+)
+
+(define-method unset_style
+  (of-object "GtkToolPalette")
+  (c-name "gtk_tool_palette_unset_style")
+  (return-type "none")
+)
+
+(define-method get_icon_size
+  (of-object "GtkToolPalette")
+  (c-name "gtk_tool_palette_get_icon_size")
+  (return-type "GtkIconSize")
+)
+
+(define-method get_style
+  (of-object "GtkToolPalette")
+  (c-name "gtk_tool_palette_get_style")
+  (return-type "GtkToolbarStyle")
+)
+
+(define-method get_drop_item
+  (of-object "GtkToolPalette")
+  (c-name "gtk_tool_palette_get_drop_item")
+  (return-type "GtkToolItem*")
+  (parameters
+    '("gint" "x")
+    '("gint" "y")
+  )
+)
+
+(define-method get_drop_group
+  (of-object "GtkToolPalette")
+  (c-name "gtk_tool_palette_get_drop_group")
+  (return-type "GtkToolItemGroup*")
+  (parameters
+    '("gint" "x")
+    '("gint" "y")
+  )
+)
+
+(define-method get_drag_item
+  (of-object "GtkToolPalette")
+  (c-name "gtk_tool_palette_get_drag_item")
+  (return-type "GtkWidget*")
+  (parameters
+    '("const-GtkSelectionData*" "selection")
+  )
+)
+
+(define-method set_drag_source
+  (of-object "GtkToolPalette")
+  (c-name "gtk_tool_palette_set_drag_source")
+  (return-type "none")
+  (parameters
+    '("GtkToolPaletteDragTargets" "targets")
+  )
+)
+
+(define-method add_drag_dest
+  (of-object "GtkToolPalette")
+  (c-name "gtk_tool_palette_add_drag_dest")
+  (return-type "none")
+  (parameters
+    '("GtkWidget*" "widget")
+    '("GtkDestDefaults" "flags")
+    '("GtkToolPaletteDragTargets" "targets")
+    '("GdkDragAction" "actions")
+  )
+)
+
+(define-method get_hadjustment
+  (of-object "GtkToolPalette")
+  (c-name "gtk_tool_palette_get_hadjustment")
+  (return-type "GtkAdjustment*")
+)
+
+(define-method get_vadjustment
+  (of-object "GtkToolPalette")
+  (c-name "gtk_tool_palette_get_vadjustment")
+  (return-type "GtkAdjustment*")
+)
+
+(define-function gtk_tool_palette_get_drag_target_item
+  (c-name "gtk_tool_palette_get_drag_target_item")
+  (return-type "const-GtkTargetEntry*")
+)
+
+(define-function gtk_tool_palette_get_drag_target_group
+  (c-name "gtk_tool_palette_get_drag_target_group")
+  (return-type "const-GtkTargetEntry*")
+)
+

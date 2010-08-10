@@ -750,6 +750,27 @@
   (return-type "const-gchar*")
 )
 
+(define-method set_mnemonics_visible
+  (of-object "GtkWindow")
+  (c-name "gtk_window_set_mnemonics_visible")
+  (return-type "none")
+  (parameters
+    '("gboolean" "setting")
+  )
+)
+
+(define-method get_mnemonics_visible
+  (of-object "GtkWindow")
+  (c-name "gtk_window_get_mnemonics_visible")
+  (return-type "gboolean")
+)
+
+(define-method get_window_type
+  (of-object "GtkWindow")
+  (c-name "gtk_window_get_window_type")
+  (return-type "GtkWindowType")
+)
+
 (define-virtual set_focus
   (of-object "GtkWindow")
   (return-type "none")

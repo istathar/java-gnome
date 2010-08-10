@@ -1,0 +1,10 @@
+(define-enum ToolPaletteDragTargets
+  (in-module "Gtk")
+  (c-name "GtkToolPaletteDragTargets")
+  (gtype-id "GTK_TYPE_TOOL_PALETTE_DRAG_TARGETS")
+  (values
+    '("items" "GTK_TOOL_PALETTE_DRAG_ITEMS")
+    '("groups" "GTK_TOOL_PALETTE_DRAG_GROUPS")
+  )
+)
+

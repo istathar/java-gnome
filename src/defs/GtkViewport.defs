@@ -61,6 +61,12 @@
   (return-type "GtkShadowType")
 )
 
+(define-method get_bin_window
+  (of-object "GtkViewport")
+  (c-name "gtk_viewport_get_bin_window")
+  (return-type "GdkWindow*")
+)
+
 (define-virtual set_scroll_adjustments
   (of-object "GtkViewport")
   (return-type "none")

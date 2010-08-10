@@ -118,6 +118,15 @@
   (return-type "gint")
 )
 
+(define-method set_name
+  (of-object "GtkStatusIcon")
+  (c-name "gtk_status_icon_set_name")
+  (return-type "none")
+  (parameters
+    '("const-gchar*" "name")
+  )
+)
+
 (define-method set_tooltip
   (of-object "GtkStatusIcon")
   (c-name "gtk_status_icon_set_tooltip")
