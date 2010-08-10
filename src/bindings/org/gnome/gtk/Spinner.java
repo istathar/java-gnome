@@ -1,7 +1,7 @@
 /*
  * java-gnome, a UI library for writing GTK and GNOME programs from Java!
  *
- * Copyright © 2010 Operational Dynamics Consulting, Pty Ltd
+ * Copyright © 2010 Operational Dynamics Consulting, Pty Ltd and Others
  *
  * The code in this file, and the program it is a part of, is made available
  * to you by its authors as open source software: you can redistribute it
@@ -32,15 +32,44 @@
  */
 package org.gnome.gtk;
 
-/*
- * FIXME this is a placeholder stub for what will become the public API for
- * this type. Replace this comment with appropriate javadoc including author
- * and since tags. Note that the class may need to be made abstract, implement
- * interfaces, or even have its parent changed. No API stability guarantees
- * are made about this class until it has been reviewed by a hacker and this
- * comment has been replaced.
+/**
+ * A Spinner is a widget that displays an icon-size animation. It is generally
+ * used as an alternative to a {@link ProgressBar} to display indefinite
+ * activity.
+ * 
+ * @author Guillaume Mazoyer
+ * @since 4.0.17
  */
 public class Spinner extends DrawingArea
 {
+    protected Spinner(long pointer) {
+        super(pointer);
+    }
 
+    /**
+     * Create a new Spinner which is not yet started.
+     * 
+     * @since 4.0.17
+     */
+    public Spinner() {
+        super(GtkSpinner.createSpinner());
+    }
+
+    /**
+     * Start the animation of the Spinner.
+     * 
+     * @since 4.0.17
+     */
+    public void start() {
+        GtkSpinner.start(this);
+    }
+
+    /**
+     * Stop the animation of the Spinner.
+     * 
+     * @since 4.0.17
+     */
+    public void stop() {
+        GtkSpinner.stop(this);
+    }
 }
