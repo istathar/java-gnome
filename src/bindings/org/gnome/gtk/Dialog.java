@@ -328,4 +328,25 @@ public class Dialog extends Window
     public void emitResponse(ResponseType response) {
         GtkDialog.response(this, response.getResponseId());
     }
+
+    /**
+     * Tell the Dialog which Button (which ResponseType) is to be activated
+     * when the user presses <b><code>Enter</code></b>.
+     * 
+     * <p>
+     * If you're calling this because you've created a custom Button with
+     * {@link #addButton(Widget, ResponseType) addButton()}, you'll probably
+     * need to call Widget's {@link Widget#setCanDefault(boolean)
+     * setCanDefault()} on that Button first, before using this.
+     * 
+     * <p>
+     * Note that calling Widget's {@link Widget#grabDefault() grabDefault()}
+     * is insufficient; Dialogs have some fairly tricky internal wiring, and
+     * you need to use this method instead.
+     * 
+     * @since 4.0.17
+     */
+    public void setDefaultResponse(ResponseType response) {
+        GtkDialog.setDefaultResponse(this, response.getResponseId());
+    }
 }
