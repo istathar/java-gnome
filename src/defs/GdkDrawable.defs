@@ -22,6 +22,7 @@
     '("gint" "width")
     '("gint" "height")
   )
+  (deprecated)
 )
 
 (define-method set_data
@@ -102,6 +103,7 @@
     '("gint" "x")
     '("gint" "y")
   )
+  (deprecated)
 )
 
 (define-method draw_line
@@ -115,6 +117,7 @@
     '("gint" "x2")
     '("gint" "y2")
   )
+  (deprecated)
 )
 
 (define-method draw_rectangle
@@ -129,6 +132,7 @@
     '("gint" "width")
     '("gint" "height")
   )
+  (deprecated)
 )
 
 (define-method draw_arc
@@ -145,6 +149,7 @@
     '("gint" "angle1")
     '("gint" "angle2")
   )
+  (deprecated)
 )
 
 (define-method draw_polygon
@@ -157,6 +162,7 @@
     '("GdkPoint*" "points")
     '("gint" "npoints")
   )
+  (deprecated)
 )
 
 (define-method draw_string
@@ -171,6 +177,7 @@
     '("gint" "y")
     '("const-gchar*" "string")
   )
+  (deprecated)
 )
 
 (define-method draw_text
@@ -186,6 +193,7 @@
     '("const-gchar*" "text")
     '("gint" "text_length")
   )
+  (deprecated)
 )
 
 (define-method draw_drawable
@@ -202,6 +210,7 @@
     '("gint" "width")
     '("gint" "height")
   )
+  (deprecated)
 )
 
 (define-method draw_image
@@ -218,6 +227,7 @@
     '("gint" "width")
     '("gint" "height")
   )
+  (deprecated)
 )
 
 (define-method draw_points
@@ -229,6 +239,7 @@
     '("GdkPoint*" "points")
     '("gint" "npoints")
   )
+  (deprecated)
 )
 
 (define-method draw_segments
@@ -240,6 +251,7 @@
     '("GdkSegment*" "segs")
     '("gint" "nsegs")
   )
+  (deprecated)
 )
 
 (define-method draw_lines
@@ -251,6 +263,7 @@
     '("GdkPoint*" "points")
     '("gint" "npoints")
   )
+  (deprecated)
 )
 
 (define-method draw_pixbuf
@@ -270,6 +283,7 @@
     '("gint" "x_dither" (default "0"))
     '("gint" "y_dither" (default "0"))
   )
+  (deprecated)
 )
 
 (define-method draw_glyphs
@@ -283,6 +297,7 @@
     '("gint" "y")
     '("PangoGlyphString*" "glyphs")
   )
+  (deprecated)
 )
 
 (define-method draw_layout_line
@@ -295,6 +310,7 @@
     '("gint" "y")
     '("PangoLayoutLine*" "line")
   )
+  (deprecated)
 )
 
 (define-method draw_layout
@@ -307,6 +323,7 @@
     '("gint" "y")
     '("PangoLayout*" "layout")
   )
+  (deprecated)
 )
 
 (define-method get_image
@@ -320,6 +337,7 @@
     '("gint" "width")
     '("gint" "height")
   )
+  (deprecated)
 )
 
 (define-method get_clip_region
@@ -344,6 +362,7 @@
     '("GdkGCValues*" "values")
     '("GdkGCValuesMask" "values_mask")
   )
+  (deprecated)
 )
 
 (define-method image_get
@@ -373,6 +392,7 @@
     '("guchar*" "rgb_buf")
     '("gint" "rowstride")
   )
+  (deprecated)
 )
 
 (define-method draw_rgb_image_dithalign
@@ -391,6 +411,7 @@
     '("gint" "xdith")
     '("gint" "ydith")
   )
+  (deprecated)
 )
 
 (define-method draw_rgb_32_image
@@ -407,6 +428,7 @@
     '("guchar*" "buf")
     '("gint" "rowstride")
   )
+  (deprecated)
 )
 
 (define-method draw_gray_image
@@ -423,6 +445,7 @@
     '("guchar*" "buf")
     '("gint" "rowstride")
   )
+  (deprecated)
 )
 
 (define-method draw_indexed_image
@@ -440,6 +463,7 @@
     '("gint" "rowstride")
     '("GdkRgbCmap*" "cmap")
   )
+  (deprecated)
 )
 
 
@@ -460,6 +484,7 @@
     '("GdkGCValues*" "values")
     '("GdkGCValuesMask" "mask")
   )
+  (deprecated)
 )
 
 (define-virtual draw_rectangle
@@ -474,6 +499,7 @@
     '("gint" "width")
     '("gint" "height")
   )
+  (deprecated)
 )
 
 (define-virtual draw_arc
@@ -490,6 +516,7 @@
     '("gint" "angle1")
     '("gint" "angle2")
   )
+  (deprecated)
 )
 
 (define-virtual draw_polygon
@@ -502,6 +529,7 @@
     '("GdkPoint*" "points")
     '("gint" "npoints")
   )
+  (deprecated)
 )
 
 (define-virtual draw_text
@@ -516,6 +544,7 @@
     '("const-gchar*" "text")
     '("gint" "text_length")
   )
+  (deprecated)
 )
 
 (define-virtual draw_drawable
@@ -532,6 +561,7 @@
     '("gint" "width")
     '("gint" "height")
   )
+  (deprecated)
 )
 
 (define-virtual draw_points
@@ -543,6 +573,7 @@
     '("GdkPoint*" "points")
     '("gint" "npoints")
   )
+  (deprecated)
 )
 
 (define-virtual draw_segments
@@ -554,6 +585,7 @@
     '("GdkSegment*" "segs")
     '("gint" "nsegs")
   )
+  (deprecated)
 )
 
 (define-virtual draw_lines
@@ -565,6 +597,7 @@
     '("GdkPoint*" "points")
     '("gint" "npoints")
   )
+  (deprecated)
 )
 
 (define-virtual draw_glyphs
@@ -578,6 +611,7 @@
     '("gint" "y")
     '("PangoGlyphString*" "glyphs")
   )
+  (deprecated)
 )
 
 (define-virtual draw_image
@@ -594,6 +628,7 @@
     '("gint" "width")
     '("gint" "height")
   )
+  (deprecated)
 )
 
 (define-virtual get_depth
@@ -694,6 +729,7 @@
     '("gint" "x_dither")
     '("gint" "y_dither")
   )
+  (deprecated)
 )
 
 (define-virtual draw_glyphs_transformed
@@ -708,6 +744,7 @@
     '("gint" "y")
     '("PangoGlyphString*" "glyphs")
   )
+  (deprecated)
 )
 
 (define-virtual draw_trapezoids
@@ -719,6 +756,7 @@
     '("GdkTrapezoid*" "trapezoids")
     '("gint" "n_trapezoids")
   )
+  (deprecated)
 )
 
 (define-virtual ref_cairo_surface
