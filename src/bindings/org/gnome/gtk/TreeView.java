@@ -946,9 +946,12 @@ public class TreeView extends Container
      *
      * @since 4.0.17
      */
-    public org.gnome.gdk.Rectangle getCellArea(TreePath path, TreeViewColumn treeViewColumn) {
-        org.gnome.gdk.Rectangle rectangle = new org.gnome.gdk.Rectangle(0, 0, 0, 0);
-        GtkTreeView.getCellArea(this, path, treeViewColumn, rectangle);
+    public org.gnome.gdk.Rectangle getCellArea(TreePath path, TreeViewColumn column) {
+        final org.gnome.gdk.Rectangle rectangle;
+
+        rectangle = new org.gnome.gdk.Rectangle(0, 0, 0, 0);
+        GtkTreeView.getCellArea(this, path, column, rectangle);
+
         return rectangle;
     }
 }
