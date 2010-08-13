@@ -932,4 +932,23 @@ public class TreeView extends Container
             return null;
         }
     }
+
+    /**
+     * Returns the area used to render a given Cell. The get_cell_area() method
+     * returns the bounding gtk.gdk.Rectangle in tree window coordinates for
+     * the cell at the row specified by path and the column specified by
+     * column. If path points to a path not currently displayed, the y and 
+     * height attributes of the rectangle will be 0. The sum of all cell rects
+     * does not cover the entire tree; there are extra pixels in between rows,
+     * for example. The returned rectangle is equivalent to the cell_area
+     * passed to the gtk.CellRenderer.render() method. This method is only
+     * valid if the treeview is realized.
+     *
+     * @since 4.0.17
+     */
+    public org.gnome.gdk.Rectangle getCellArea(TreePath path, TreeViewColumn treeViewColumn) {
+        org.gnome.gdk.Rectangle rectangle = new org.gnome.gdk.Rectangle(0, 0, 0, 0);
+        GtkTreeView.getCellArea(this, path, treeViewColumn, rectangle);
+        return rectangle;
+    }
 }
