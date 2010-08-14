@@ -32,6 +32,8 @@
  */
 package org.gnome.gtk;
 
+import org.gnome.gdk.Rectangle;
+
 /**
  * Display the data from a {@link TreeModel} in a tabular form. TreeViews are
  * ubiquitous in most applications, being used to both output data in list
@@ -934,22 +936,30 @@ public class TreeView extends Container
     }
 
     /**
-     * Returns the area used to render a given Cell. The get_cell_area() method
-     * returns the bounding gtk.gdk.Rectangle in tree window coordinates for
-     * the cell at the row specified by path and the column specified by
-     * column. If path points to a path not currently displayed, the y and 
-     * height attributes of the rectangle will be 0. The sum of all cell rects
-     * does not cover the entire tree; there are extra pixels in between rows,
-     * for example. The returned rectangle is equivalent to the cell_area
-     * passed to the gtk.CellRenderer.render() method. This method is only
-     * valid if the treeview is realized.
-     *
+     * Get a Rectangle describing the area used by the CellRenderer to draw
+     * the cell at the position described by the row <code>path</code> in the
+     * column <code>column</code>. The Rectangle will be in tree coordinates.
+     * 
+     * <p>
+     * If path points to a row not currently being displayed, the
+     * <code>y</code> and <code>height</code> attributes of the rectangle will
+     * be <code>0</code>.
+     * 
+     * <p>
+     * Note that taking the over a row's Rectangles widths, or over all rows'
+     * heights, would not cover the entire tree; there can be extra pixels of
+     * padding in between rows, etc.
+     * 
+     * <p>
+     * <i>This method is only works if the TreeView has already been
+     * realized.</i>
+     * 
      * @since 4.0.17
      */
-    public org.gnome.gdk.Rectangle getCellArea(TreePath path, TreeViewColumn column) {
-        final org.gnome.gdk.Rectangle rectangle;
+    public Rectangle getCellArea(TreePath path, TreeViewColumn column) {
+        final Rectangle rectangle;
 
-        rectangle = new org.gnome.gdk.Rectangle(0, 0, 0, 0);
+        rectangle = new Rectangle(0, 0, 0, 0);
         GtkTreeView.getCellArea(this, path, column, rectangle);
 
         return rectangle;
