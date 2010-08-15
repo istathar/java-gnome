@@ -95,6 +95,43 @@ public class TreeViewColumn extends Object implements CellLayout
     }
 
     /**
+     * Sets the visibility of the TreeViewColumn.
+     */
+    public void setVisible(boolean visible) {
+        GtkTreeViewColumn.setVisible(this, visible);
+    }
+
+    /**
+     * Returns whether the TreeViewColumn is visible or not. If it is visible,
+     * then the TreeView will show the column. 
+     *
+     * @since 4.0.17
+     */
+    public boolean getVisible() {
+        return GtkTreeViewColumn.getVisible(this);
+    }
+
+    /**
+     * Sets the widget in the header to be widget. If widget is null, then the
+     * header button is set with a Label set to the title of tree_column.
+     *
+     * @since 4.0.17
+     */
+    public void setWidget(Widget widget) {
+        GtkTreeViewColumn.setWidget(this, widget);
+    }
+
+    /**
+     * Returns the Widget in the button on the column header. If a custom
+     * widget has not been set then null is returned.
+     *
+     * @since 4.0.17
+     */
+    public Widget getWidget() {
+        return GtkTreeViewColumn.getWidget(this);
+    }
+
+    /**
      * Set whether the column header allows itself to be clicked. The default
      * is <code>false</code>, not to be clickable, also meaning that header
      * won't take the keyboard focus either. Since calling
