@@ -60,7 +60,7 @@ Java_org_freedesktop_bindings_Environment_getenv
 	}
 
 	// call function
-	result = (gchar*) getenv(name); 
+	result = (gchar*) g_getenv(name); 
 
 	// clean up name
 	bindings_java_releaseString(name);
@@ -99,7 +99,7 @@ Java_org_freedesktop_bindings_Environment_setenv
 	}
 
 	// call function
-	if (setenv(name, value, 1) == -1) {
+	if (g_setenv(name, value, 1) == -1) {
 		bindings_java_throw(env, "\nsetenv() failed: Insufficient space in environment");
 	}
 	
@@ -132,9 +132,7 @@ Java_org_freedesktop_bindings_Environment_unsetenv
 	}
 
 	// call function
-	if (unsetenv(name) == -1) {
-		bindings_java_throw(env, "\nunsetenv() failed: %s", g_strerror(errno));
-	}
+	g_unsetenv(name);
 
 	// clean up name
 	bindings_java_releaseString(name);
