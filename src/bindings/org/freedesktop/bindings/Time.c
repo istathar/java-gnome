@@ -67,7 +67,7 @@ Java_org_freedesktop_bindings_Time_tzset
 		return; /* OutOfMemoryError already thrown */
 	}
 
-	ok = setenv("TZ", zoneinfo, 1);
+	ok = g_setenv("TZ", zoneinfo, 1);
 
 	bindings_java_releaseString(zoneinfo);
 	if (ok != 0) {
@@ -147,7 +147,7 @@ Java_org_freedesktop_bindings_Time_mktime
 	timestamp = mktime(&brokendown);
 
 #ifdef DEBUG
-	fprintf(stderr, "JNI: %s\n", getenv("TZ"));
+	fprintf(stderr, "JNI: %s\n", g_getenv("TZ"));
 	size_t size;
 	char buf[MAXWIDTH];
 	strftime(buf, size, "%a, %d %b %Y %H:%M:%S %z %Z", localtime(&timestamp));
