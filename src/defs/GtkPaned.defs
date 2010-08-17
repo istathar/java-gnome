@@ -83,6 +83,12 @@
 ;;  )
 ;;)
 
+(define-method get_handle_window
+  (of-object "GtkPaned")
+  (c-name "gtk_paned_get_handle_window")
+  (return-type "GdkWindow*")
+)
+
 (define-virtual cycle_child_focus
   (of-object "GtkPaned")
   (return-type "gboolean")

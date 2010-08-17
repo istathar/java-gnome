@@ -18,7 +18,6 @@
  */
 package org.freedesktop.cairo;
 
-
 /**
  * @author Kenneth Prugh
  */

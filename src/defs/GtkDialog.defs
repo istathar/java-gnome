@@ -86,6 +86,15 @@
   )
 )
 
+(define-method get_widget_for_response
+  (of-object "GtkDialog")
+  (c-name "gtk_dialog_get_widget_for_response")
+  (return-type "GtkWidget*")
+  (parameters
+    '("gint" "response_id")
+  )
+)
+
 (define-method set_has_separator
   (of-object "GtkDialog")
   (c-name "gtk_dialog_set_has_separator")

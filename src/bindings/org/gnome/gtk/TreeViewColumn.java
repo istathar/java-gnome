@@ -103,8 +103,8 @@ public class TreeViewColumn extends Object implements CellLayout
 
     /**
      * Returns whether the TreeViewColumn is visible or not. If it is visible,
-     * then the TreeView will show the column. 
-     *
+     * then the TreeView will show the column.
+     * 
      * @since 4.0.17
      */
     public boolean getVisible() {
@@ -114,7 +114,7 @@ public class TreeViewColumn extends Object implements CellLayout
     /**
      * Sets the widget in the header to be widget. If widget is null, then the
      * header button is set with a Label set to the title of tree_column.
-     *
+     * 
      * @since 4.0.17
      */
     public void setWidget(Widget widget) {
@@ -124,7 +124,7 @@ public class TreeViewColumn extends Object implements CellLayout
     /**
      * Returns the Widget in the button on the column header. If a custom
      * widget has not been set then null is returned.
-     *
+     * 
      * @since 4.0.17
      */
     public Widget getWidget() {
