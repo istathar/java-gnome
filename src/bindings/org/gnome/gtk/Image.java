@@ -41,6 +41,7 @@ import org.gnome.gdk.Pixmap;
  * 
  * @author Sebastian Mancke
  * @author Andrew Cowie
+ * @author Guillaume Mazoyer
  * @since 4.0.3
  */
 public class Image extends Misc
@@ -115,6 +116,17 @@ public class Image extends Misc
      */
     public Image(Pixmap pixmap, Bitmap mask) {
         super(GtkImage.createImageFromPixmap(pixmap, mask));
+    }
+
+    /**
+     * Construct a new Image based on the name of an icon which is in the
+     * icons theme. As each one actually comes in various sizes, you have to
+     * say which variant you want.
+     * 
+     * @since 4.0.17
+     */
+    public Image(String name, IconSize size) {
+        super(GtkImage.createImageFromIconName(name, size));
     }
 
     /**
