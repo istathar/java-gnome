@@ -119,14 +119,15 @@ public class Image extends Misc
     }
 
     /**
-     * Construct a new Image based on the name of an icon which is in the
-     * icons theme. As each one actually comes in various sizes, you have to
-     * say which variant you want.
+     * Construct a new Image based on an icon which is in the icons theme. As
+     * each one actually comes in various sizes, you have to say which variant
+     * you want. If, for a reason or another, the icon is not in the theme, a
+     * broken icon will be used.
      * 
      * @since 4.0.17
      */
-    public Image(String name, IconSize size) {
-        super(GtkImage.createImageFromIconName(name, size));
+    public Image(Icon icon, IconSize size) {
+        super(GtkImage.createImageFromIconName(icon.getName(), size));
     }
 
     /**
