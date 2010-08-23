@@ -166,6 +166,16 @@ public class Image extends Misc
     }
 
     /**
+     * Specify the icon to be displayed by this Image. See the
+     * {@link #Image(Icon, IconSize) constructor} taking an Icon instance.
+     * 
+     * @since 4.0.17
+     */
+    public void setImage(Icon icon, IconSize size) {
+        GtkImage.setFromIconName(this, icon.getName(), size);
+    }
+
+    /**
      * Reset this Image to be empty.
      * 
      * @since 4.0.8
