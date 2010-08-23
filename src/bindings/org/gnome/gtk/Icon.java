@@ -40,7 +40,7 @@ package org.gnome.gtk;
  * @author Guillaume Mazoyer
  * @since 4.0.17
  */
-public final class Icon
+public class Icon
 {
     /**
      * The name used to identify the icon in the theme.
