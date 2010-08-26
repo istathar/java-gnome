@@ -246,6 +246,21 @@ public class TextBuffer extends Object
     }
 
     /**
+     * Returns the text in the range <code>start</code> .. <code>finish</code>
+     * with the {@link #OBJECT_REPLACEMENT_CHARACTER} marking any positions
+     * that are actually anchors for Widgets or Images.
+     * 
+     * <p>
+     * Compare to {@link #getText(TextIter, TextIter, boolean) getText()},
+     * which skips over those meta positions.
+     * 
+     * @since 4.0.17
+     */
+    public String getSlice(TextIter start, TextIter finish, boolean includeHidden) {
+        return GtkTextBuffer.getSlice(this, start, finish, includeHidden);
+    }
+
+    /**
      * Returns the text in the TextBuffer in its entirety. This is merely a
      * convenience function that calls
      * {@link #getText(TextIter, TextIter, boolean)} from buffer start to end
