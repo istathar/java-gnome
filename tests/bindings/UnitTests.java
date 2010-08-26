@@ -42,6 +42,7 @@ import org.gnome.gtk.ValidateEntry;
 import org.gnome.gtk.ValidateEntryCompletion;
 import org.gnome.gtk.ValidateFileChoosing;
 import org.gnome.gtk.ValidateGlobalSettings;
+import org.gnome.gtk.ValidateIconItems;
 import org.gnome.gtk.ValidateIconView;
 import org.gnome.gtk.ValidateInputMethods;
 import org.gnome.gtk.ValidateLinkBehaviour;
@@ -160,6 +161,7 @@ public class UnitTests
         suite.addTestSuite(ValidateNotebookBehaviour.class);
         suite.addTestSuite(ValidateFileChoosing.class);
         suite.addTestSuite(ValidateStockItems.class);
+        suite.addTestSuite(ValidateIconItems.class);
         suite.addTestSuite(ValidateResponseType.class);
         suite.addTestSuite(ValidateTreeModel.class);
         suite.addTestSuite(ValidateTreeStore.class);
