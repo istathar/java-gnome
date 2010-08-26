@@ -35,7 +35,7 @@ package org.gnome.gtk;
 /**
  * Identify the icons that should be in the icons theme. These constants can
  * be used to create an {@link Image image} using the constructor
- * {@link Image#Image(String, IconSize) Image(Icon, IconSize)}.
+ * {@link Image#Image(Icon, IconSize) Image(Icon, IconSize)}.
  * 
  * @author Guillaume Mazoyer
  * @since 4.0.17
