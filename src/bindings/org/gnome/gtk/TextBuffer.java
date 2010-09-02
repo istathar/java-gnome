@@ -232,8 +232,8 @@ public class TextBuffer extends Object
     }
 
     /**
-     * Returns the text in the range <code>start</code> .. <code>end</code>.
-     * Excludes undisplayed text (text marked with tags that set the
+     * Returns the text in the range <code>start</code> .. <code>finish</code>
+     * . Excludes undisplayed text (text marked with tags that set the
      * <var>invisibility</var> attribute) if <code>includeHidden</code> is
      * <code>false</code>. Does not include characters representing embedded
      * images, so indexes into the returned string do not correspond to
@@ -241,8 +241,23 @@ public class TextBuffer extends Object
      * 
      * @since 4.0.9
      */
-    public String getText(TextIter start, TextIter end, boolean includeHidden) {
-        return GtkTextBuffer.getText(this, start, end, includeHidden);
+    public String getText(TextIter start, TextIter finish, boolean includeHidden) {
+        return GtkTextBuffer.getText(this, start, finish, includeHidden);
+    }
+
+    /**
+     * Returns the text in the range <code>start</code> .. <code>finish</code>
+     * with the {@link #OBJECT_REPLACEMENT_CHARACTER} marking any positions
+     * that are actually anchors for Widgets or Images.
+     * 
+     * <p>
+     * Compare to {@link #getText(TextIter, TextIter, boolean) getText()},
+     * which skips over those meta positions.
+     * 
+     * @since 4.0.17
+     */
+    public String getSlice(TextIter start, TextIter finish, boolean includeHidden) {
+        return GtkTextBuffer.getSlice(this, start, finish, includeHidden);
     }
 
     /**
@@ -494,8 +509,8 @@ public class TextBuffer extends Object
      * 
      * @since 4.0.13
      */
-    public void deleteInteractive(TextIter start, TextIter end, boolean defaultEditability) {
-        GtkTextBuffer.deleteInteractive(this, start, end, defaultEditability);
+    public void deleteInteractive(TextIter start, TextIter finish, boolean defaultEditability) {
+        GtkTextBuffer.deleteInteractive(this, start, finish, defaultEditability);
     }
 
     /**
@@ -644,13 +659,13 @@ public class TextBuffer extends Object
 
     /**
      * Apply the selected tag on the area in the TextBuffer between the start
-     * and end positions.
+     * and finish positions.
      * 
      * @since 4.0.9
      */
-    public void applyTag(TextTag tag, TextIter start, TextIter end) {
+    public void applyTag(TextTag tag, TextIter start, TextIter finish) {
         checkTag(tag);
-        GtkTextBuffer.applyTag(this, tag, start, end);
+        GtkTextBuffer.applyTag(this, tag, start, finish);
     }
 
     /**
@@ -662,7 +677,7 @@ public class TextBuffer extends Object
      * Convenience method. This doesn't need to be here, but it lends a
      * certain elegance when used alongside the insert() overload
      */
-    public void applyTag(TextTag[] tags, TextIter start, TextIter end) {
+    public void applyTag(TextTag[] tags, TextIter start, TextIter finish) {
         if (tags == null) {
             return;
         }
@@ -671,7 +686,7 @@ public class TextBuffer extends Object
                 continue;
             }
             checkTag(tag);
-            GtkTextBuffer.applyTag(this, tag, start, end);
+            GtkTextBuffer.applyTag(this, tag, start, finish);
         }
     }
 
@@ -693,12 +708,12 @@ public class TextBuffer extends Object
      * 
      * <p>
      * <i>The native GTK function has these arguments reversed but start and
-     * end make more sense in consecutive order.</i>
+     * finish make more sense in consecutive order.</i>
      * 
      * @since 4.0.9
      */
-    public void selectRange(TextIter start, TextIter end) {
-        GtkTextBuffer.selectRange(this, end, start);
+    public void selectRange(TextIter start, TextIter finish) {
+        GtkTextBuffer.selectRange(this, finish, start);
     }
 
     /**
@@ -708,8 +723,8 @@ public class TextBuffer extends Object
      * 
      * @since 4.0.9
      */
-    public void removeTag(TextTag tag, TextIter start, TextIter end) {
-        GtkTextBuffer.removeTag(this, tag, start, end);
+    public void removeTag(TextTag tag, TextIter start, TextIter finish) {
+        GtkTextBuffer.removeTag(this, tag, start, finish);
     }
 
     /**
@@ -723,8 +738,8 @@ public class TextBuffer extends Object
      * 
      * @since 4.0.10
      */
-    public void removeAllTags(TextIter start, TextIter end) {
-        GtkTextBuffer.removeAllTags(this, start, end);
+    public void removeAllTags(TextIter start, TextIter finish) {
+        GtkTextBuffer.removeAllTags(this, start, finish);
     }
 
     /**
@@ -871,7 +886,7 @@ public class TextBuffer extends Object
      * calling:
      * 
      * <pre>
-     * deleted = buffer.getText(start, end, false);
+     * deleted = buffer.getText(start, finish, false);
      * </pre>
      * 
      * <p>
@@ -886,12 +901,12 @@ public class TextBuffer extends Object
      */
     /*
      * TODO Can anyone explain how to stop a deletion from occurring in
-     * response to the value of the text between start and end? The default
+     * response to the value of the text between start and finish? The default
      * handler will nuke the text.
      */
     public interface DeleteRange extends GtkTextBuffer.DeleteRangeSignal
     {
-        public void onDeleteRange(TextBuffer source, TextIter start, TextIter end);
+        public void onDeleteRange(TextBuffer source, TextIter start, TextIter finish);
     }
 
     /**
@@ -905,9 +920,9 @@ public class TextBuffer extends Object
     }
 
     /**
-     * Delete text between <code>start</code> and <code>end</code>. (The order
-     * of the two TextIters doesn't matter; this method will delete between
-     * the two regardless).
+     * Delete text between <code>start</code> and <code>finish</code>. (The
+     * order of the two TextIters doesn't matter; this method will delete
+     * between the two regardless).
      * 
      * <p>
      * The two TextIters passed to <code>delete()</code> will be reset so as
@@ -917,8 +932,8 @@ public class TextBuffer extends Object
      * 
      * @since 4.0.9
      */
-    public void delete(TextIter start, TextIter end) {
-        GtkTextBuffer.delete(this, start, end);
+    public void delete(TextIter start, TextIter finish) {
+        GtkTextBuffer.delete(this, start, finish);
     }
 
     /**
@@ -1016,7 +1031,7 @@ public class TextBuffer extends Object
      */
     public interface ApplyTag extends GtkTextBuffer.ApplyTagSignal
     {
-        void onApplyTag(TextBuffer source, TextTag tag, TextIter start, TextIter end);
+        void onApplyTag(TextBuffer source, TextTag tag, TextIter start, TextIter finish);
     }
 
     /**
@@ -1037,7 +1052,7 @@ public class TextBuffer extends Object
      */
     public interface RemoveTag extends GtkTextBuffer.RemoveTagSignal
     {
-        void onRemoveTag(TextBuffer source, TextTag tag, TextIter start, TextIter end);
+        void onRemoveTag(TextBuffer source, TextTag tag, TextIter start, TextIter finish);
     }
 
     /**

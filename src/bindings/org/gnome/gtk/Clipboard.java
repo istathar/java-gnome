@@ -174,4 +174,15 @@ public class Clipboard extends Object
     public String getText() {
         return GtkClipboard.waitForText(this);
     }
+
+    /**
+     * Request that the clipboard be copied somewhere outside your process's
+     * memory so that it will remain accessible to other applications after
+     * your process has terminated.
+     * 
+     * @since 4.0.17
+     */
+    public void store() {
+        GtkClipboard.store(this);
+    }
 }
