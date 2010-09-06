@@ -33,6 +33,7 @@
 package org.freedesktop.cairo;
 
 import org.gnome.gdk.Drawable;
+import org.gnome.gdk.EventExpose;
 import org.gnome.gdk.Pixbuf;
 
 /**
@@ -66,6 +67,14 @@ final class GdkCairoSupport extends Plumbing
     }
 
     private static native final long gdk_cairo_create(long drawable);
+
+    static final long createContextFromExposeEvent(EventExpose event) {
+        synchronized (lock) {
+            return gdk_cairo_create_and_clip(pointerOf(event));
+        }
+    }
+
+    private static native final long gdk_cairo_create_and_clip(long event);
 
     static final void setSourcePixbuf(Context self, Pixbuf pixbuf, double x, double y) {
         if (pixbuf == null) {

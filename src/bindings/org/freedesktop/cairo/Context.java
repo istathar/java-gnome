@@ -34,6 +34,7 @@ package org.freedesktop.cairo;
 
 import org.gnome.gdk.Color;
 import org.gnome.gdk.Drawable;
+import org.gnome.gdk.EventExpose;
 import org.gnome.gdk.Pixbuf;
 import org.gnome.pango.Layout;
 import org.gnome.pango.LayoutLine;
@@ -170,6 +171,29 @@ public class Context extends Entity
      */
     public Context(Drawable drawable) {
         super(GdkCairoSupport.createContextFromDrawable(drawable));
+        checkStatus();
+    }
+
+    /**
+     * Construct a new "Cairo Context" during an ExposeEvent. This is the
+     * magic glue which allows you to link between GTK's Widgets and Cairo's
+     * drawing operations.
+     * 
+     * <p>
+     * This constructor takes the [org.gnome.gdk] EventExpose structure and
+     * passes is directly to some native code which constructs the Context,
+     * then clips it to the Region contained in the ExposeEvent. This isn't
+     * enough to save you running you drawing code, but it is enough to tell
+     * Cairo very early on to only actually render the part that has been
+     * damaged or exposed. This can save a lot of cycles deep down.
+     * 
+     * @since 4.0.17
+     */
+    /*
+     * Amazingly, GdkEventExpose has enough in it to construct a cairo_t.
+     */
+    public Context(EventExpose event) {
+        super(GdkCairoSupport.createContextFromExposeEvent(event));
         checkStatus();
     }
 

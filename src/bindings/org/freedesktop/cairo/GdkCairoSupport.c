@@ -65,6 +65,45 @@ Java_org_freedesktop_cairo_GdkCairoSupport_gdk_1cairo_1create
 	return (jlong) result;
 }
 
+/**
+ * This accesses gdk_cairo_create(), then gdk_cairo_region(), and then
+ * cairo_clip it() before returning the constructed Context, all driven by
+ * the passed in GdkEventExpose. Thanks to Benjamin Otte for advice about
+ * doing this properly. 
+ */
+JNIEXPORT jlong JNICALL
+Java_org_freedesktop_cairo_GdkCairoSupport_gdk_1cairo_1create_1and_1clip
+(
+        JNIEnv* env,
+        jclass cls,
+        jlong _event
+)
+{
+        GdkEventExpose* event;
+        cairo_t* result;
+        
+        // convert event
+        event = (GdkEventExpose*) _event;
+        
+        // call constructor function
+        result = gdk_cairo_create(event->window);
+        
+        // get region
+        gdk_cairo_region(result, event->region);
+        
+        // and constrain
+        cairo_clip(result);
+
+        // cleanup parameter source
+        
+        // cleanup parameter event
+
+        // and finally
+        return (jlong) result;
+}
+
+
+
 
 JNIEXPORT void JNICALL
 Java_org_freedesktop_cairo_GdkCairoSupport_gdk_1cairo_1set_1source_1pixbuf
