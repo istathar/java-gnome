@@ -773,6 +773,39 @@ public abstract class Widget extends org.gnome.gtk.Object
     }
 
     /**
+     * Is this Widget set to be sensitive?
+     * 
+     * <p>
+     * The default is <code>true</code> of course.
+     * 
+     * <p>
+     * The utility of this is somewhat limited, since it only returns the
+     * boolean value of this Widget's <var>sensitive</var> property, whereas
+     * whether a Widget is displayed sensitive (normal) or insensitive (grayed
+     * out) depends on both this property and the settings in the parent
+     * Widgets.
+     * 
+     * @since 4.0.17
+     */
+    public boolean getSensitive() {
+        return GtkWidget.getSensitive(this);
+    }
+
+    /**
+     * Will this Widget be shown as sensitive or insensitive? This is based on
+     * both its <var>sensitive</var> property, and that of all its parents.
+     * 
+     * <p>
+     * You don't need to use this ordinarily (it's GTK that needs to know!)
+     * but if you're curious, well, here you go.
+     * 
+     * @since 4.0.17
+     */
+    public boolean isSensitive() {
+        return GtkWidget.isSensitive(this);
+    }
+
+    /**
      * Tooltips are notes that will be displayed if a user hovers the mouse
      * pointer over a Widget. They are usually used with controls such as
      * Buttons and Entries to brief the user about that Widget's function.
