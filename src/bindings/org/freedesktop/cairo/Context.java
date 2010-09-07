@@ -897,4 +897,21 @@ public class Context extends Entity
     public void transform(Matrix matrix) {
         CairoContext.transform(this, matrix);
     }
+
+    /**
+     * Close the current path.
+     * 
+     * <p>
+     * This makes the path a closed loop, rather than it being a line with
+     * caps at each end. Call this when you're trying to close a shape.
+     * 
+     * <p>
+     * The current path begins at the point given to the last moveTo() call.
+     * If there's no current point, then this has no effect.
+     * 
+     * @since 4.0.17
+     */
+    public void closePath() {
+        CairoContext.closePath(this);
+    }
 }
