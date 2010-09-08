@@ -1663,4 +1663,14 @@ public abstract class Widget extends org.gnome.gtk.Object
     public void realize() {
         GtkWidget.realize(this);
     }
+
+    protected int getStylePropertyInteger(String name) {
+        final Value value;
+
+        value = new Value(0);
+
+        GtkWidget.styleGetProperty(this, name, value);
+
+        return value.getInteger();
+    }
 }

@@ -32,13 +32,16 @@
  */
 package org.gnome.gtk;
 
-/*
- * FIXME this is a placeholder stub for what will become the public API for
- * this type. Replace this comment with appropriate javadoc including author
- * and since tags. Note that the class may need to be made abstract, implement
- * interfaces, or even have its parent changed. No API stability guarantees
- * are made about this class until it has been reviewed by a hacker and this
- * comment has been replaced.
+/**
+ * A scroll bar. This is largely an internal Widget used by GTK and theme
+ * engines for drawing; to actually manipulate a Scrollbar you instead want to
+ * get at the Adjsutment objects being used by the enclosing ScrolledWindow's
+ * {@link ScrolledWindow#getHAdjustment() getHAdjustment()} and
+ * {@link ScrolledWindow#getVAdjustment() getVAdjustment()} to then specify
+ * what positions are shown.
+ * 
+ * @since 4.0.8
+ * @see ScrolledWindow
  */
 public abstract class Scrollbar extends Range
 {

@@ -1129,6 +1129,7 @@
     '("const-gchar*" "first_property_name")
     '("va_list" "var_args")
   )
+  (unnecessary)
 )
 
 (define-method style_get
@@ -1139,6 +1140,7 @@
     '("const-gchar*" "first_property_name")
   )
   (varargs #t)
+  (unnecessary)
 )
 
 (define-method set_direction
