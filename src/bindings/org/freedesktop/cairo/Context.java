@@ -53,9 +53,8 @@ import org.gnome.pango.LayoutLine;
  * {@link ImageSurface}, do your drawing, and then use Surface's writeToPNG()
  * to output your image.
  * <li>If drawing to the screen in a user interface application, construct a
- * Context using the underlying GDK Window in your Widget's
- * {@link org.gnome.gtk.Widget.ExposeEvent Widget.ExposeEvent}, and do your
- * drawing there.
+ * Context in your Widget's {@link org.gnome.gtk.Widget.ExposeEvent
+ * Widget.ExposeEvent}, and do your drawing there.
  * </ul>
  * 
  * See the links above for examples of each use case.
@@ -158,6 +157,11 @@ public class Context extends Entity
      * on. Use {@link #getTarget() getTarget()}.
      * 
      * <p>
+     * If you're drawing in an <code>Widget.ExposeEvent</code> then you're
+     * better off using the {@link Context#Context(EventExpose)
+     * Context(EventExpose)} constructor.
+     * 
+     * <p>
      * <i>Strictly speaking, this method is a part of GDK. We expose it here
      * as we are, from the Java bindings' perspective, constructing a Cairo
      * Context. So a constructor it is.</i>
@@ -182,10 +186,11 @@ public class Context extends Entity
      * <p>
      * This constructor takes the [org.gnome.gdk] EventExpose structure and
      * passes is directly to some native code which constructs the Context,
-     * then clips it to the Region contained in the ExposeEvent. This isn't
-     * enough to save you running you drawing code, but it is enough to tell
-     * Cairo very early on to only actually render the part that has been
-     * damaged or exposed. This can save a lot of cycles deep down.
+     * then <code>clip()</code>s it to the Region contained in the
+     * ExposeEvent. This isn't enough to save you running your drawing code,
+     * but it is enough to tell Cairo very early on to only actually render
+     * the part that has been damaged or exposed. This can save a lot of
+     * cycles deep down.
      * 
      * @since 4.0.17
      */

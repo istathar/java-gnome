@@ -424,15 +424,14 @@ public abstract class Widget extends org.gnome.gtk.Object
      * 
      * <p>
      * To do drawing with Cairo you need a Context. You can instantiate one by
-     * asking for the underlying GDK Window backing your Widget and passing it
-     * to the Context constructor:
+     * passing the EventExpose object to the Context constructor:
      * 
      * <pre>
      * foo.connect(new Widget.ExposeEvent() {
      *     public boolean onExposeEvent(Widget source, EventExpose event) {
      *         Context cr;
      *         
-     *         cr = new Context(source.getWindow());
+     *         cr = new Context(event);
      *         
      *         // start drawing
      *     }
