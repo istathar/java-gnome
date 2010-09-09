@@ -67,6 +67,8 @@ public final class Color extends Boxed
 
     /**
      * Get the red component of this Color.
+     * 
+     * @since 4.0.5
      */
     public int getRed() {
         return GdkColor.getRed(this);
@@ -74,6 +76,8 @@ public final class Color extends Boxed
 
     /**
      * Get the green component of this Color.
+     * 
+     * @since 4.0.5
      */
     public int getGreen() {
         return GdkColor.getGreen(this);
@@ -81,16 +85,37 @@ public final class Color extends Boxed
 
     /**
      * Get the blue component of this Color.
+     * 
+     * @since 4.0.5
      */
     public int getBlue() {
         return GdkColor.getBlue(this);
     }
 
+    /**
+     * @since 4.0.5
+     */
     public static final Color BLACK = new Color(0, 0, 0);
 
+    /**
+     * @since 4.0.5
+     */
     public static final Color WHITE = new Color(65535, 65535, 65535);
 
+    /**
+     * @since 4.0.5
+     */
     public static final Color RED = new Color(65535, 0, 0);
+
+    /**
+     * @since 4.0.17
+     */
+    public static final Color GREEN = new Color(0, 65535, 0);
+
+    /**
+     * @since 4.0.17
+     */
+    public static final Color BLUE = new Color(0, 0, 65535);
 
     public boolean equals(Object obj) {
         final Color other;

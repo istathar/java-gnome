@@ -84,7 +84,7 @@ public class ExampleDrawingInExposeEvent
                  * when it is triggered.
                  */
 
-                cr = new Context(source.getWindow());
+                cr = new Context(event);
 
                 /*
                  * Now, finally do some drawing:

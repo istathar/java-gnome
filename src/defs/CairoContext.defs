@@ -378,3 +378,8 @@
   )
 )
 
+(define-method close_path
+  (of-object "cairo_t")
+  (c-name "cairo_close_path")
+  (return-type "none")
+)

@@ -424,15 +424,14 @@ public abstract class Widget extends org.gnome.gtk.Object
      * 
      * <p>
      * To do drawing with Cairo you need a Context. You can instantiate one by
-     * asking for the underlying GDK Window backing your Widget and passing it
-     * to the Context constructor:
+     * passing the EventExpose object to the Context constructor:
      * 
      * <pre>
      * foo.connect(new Widget.ExposeEvent() {
      *     public boolean onExposeEvent(Widget source, EventExpose event) {
      *         Context cr;
      *         
-     *         cr = new Context(source.getWindow());
+     *         cr = new Context(event);
      *         
      *         // start drawing
      *     }
@@ -770,6 +769,39 @@ public abstract class Widget extends org.gnome.gtk.Object
      */
     public void setSensitive(boolean sensitive) {
         GtkWidget.setSensitive(this, sensitive);
+    }
+
+    /**
+     * Is this Widget set to be sensitive?
+     * 
+     * <p>
+     * The default is <code>true</code> of course.
+     * 
+     * <p>
+     * The utility of this is somewhat limited, since it only returns the
+     * boolean value of this Widget's <var>sensitive</var> property, whereas
+     * whether a Widget is displayed sensitive (normal) or insensitive (grayed
+     * out) depends on both this property and the settings in the parent
+     * Widgets.
+     * 
+     * @since 4.0.17
+     */
+    public boolean getSensitive() {
+        return GtkWidget.getSensitive(this);
+    }
+
+    /**
+     * Will this Widget be shown as sensitive or insensitive? This is based on
+     * both its <var>sensitive</var> property, and that of all its parents.
+     * 
+     * <p>
+     * You don't need to use this ordinarily (it's GTK that needs to know!)
+     * but if you're curious, well, here you go.
+     * 
+     * @since 4.0.17
+     */
+    public boolean isSensitive() {
+        return GtkWidget.isSensitive(this);
     }
 
     /**
@@ -1629,5 +1661,102 @@ public abstract class Widget extends org.gnome.gtk.Object
      */
     public void realize() {
         GtkWidget.realize(this);
+    }
+
+    /*
+     * Accessors for style properties. The primitive types are fairly straight
+     * forward, but the more complex derived types will take a bit of work.
+     * The underlying function takes a Value as an out-parameter, but you have
+     * to have initialized it to the right "type" first. Tricky.
+     */
+
+    /**
+     * Access a "style property" with an integral value.
+     * 
+     * @since 4.0.17
+     */
+    protected int getStylePropertyInteger(String name) {
+        final Value value;
+
+        value = new Value(0);
+
+        GtkWidget.styleGetProperty(this, name, value);
+
+        return value.getInteger();
+    }
+
+    /**
+     * Access a "style property" with a String value.
+     * 
+     * @since 4.0.17
+     */
+    protected String getStylePropertyString(String name) {
+        final Value value;
+
+        value = new Value("");
+
+        GtkWidget.styleGetProperty(this, name, value);
+
+        return value.getString();
+    }
+
+    /**
+     * Access a "style property" with a boolean value.
+     * 
+     * @since 4.0.17
+     */
+    protected boolean getStylePropertyBoolean(String name) {
+        final Value value;
+
+        value = new Value(true);
+
+        GtkWidget.styleGetProperty(this, name, value);
+
+        return value.getBoolean();
+    }
+
+    /**
+     * Access a "style property" with a float value.
+     * 
+     * @since 4.0.17
+     */
+    protected float getStylePropertyFloat(String name) {
+        final Value value;
+
+        value = new Value(0.0f);
+
+        GtkWidget.styleGetProperty(this, name, value);
+
+        return value.getFloat();
+    }
+
+    /**
+     * Access a "style property" with a double value.
+     * 
+     * @since 4.0.17
+     */
+    protected double getStylePropertyDouble(String name) {
+        final Value value;
+
+        value = new Value(0.0);
+
+        GtkWidget.styleGetProperty(this, name, value);
+
+        return value.getDouble();
+    }
+
+    /**
+     * Access a "style property" with a long value.
+     * 
+     * @since 4.0.17
+     */
+    protected long getStylePropertyLong(String name) {
+        final Value value;
+
+        value = new Value(0L);
+
+        GtkWidget.styleGetProperty(this, name, value);
+
+        return value.getLong();
     }
 }

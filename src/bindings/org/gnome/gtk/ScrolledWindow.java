@@ -195,4 +195,21 @@ public class ScrolledWindow extends Bin
     public ShadowType getShadowType() {
         return GtkScrolledWindow.getShadowType(this);
     }
+
+    /**
+     * Get the amount of spacing being drawn between the Viewport and the
+     * Scrollbars.
+     * 
+     * <p>
+     * This is the <var>scrollbar-spacing</var> style property.
+     * 
+     * @since 4.0.17
+     */
+    /*
+     * This is a prototype of exercising the ability to access style
+     * properties.
+     */
+    public int getScrollbarSpacing() {
+        return super.getStylePropertyInteger("scrollbar-spacing");
+    }
 }
