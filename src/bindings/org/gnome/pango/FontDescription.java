@@ -328,4 +328,8 @@ public final class FontDescription extends Boxed
     public FontDescription copy() {
         return PangoFontDescription.copy(this);
     }
+
+    public String toString() {
+        return PangoFontDescription.toString(this);
+    }
 }
