@@ -93,23 +93,28 @@ public final class Cursor extends Boxed
         super(GdkCursor.createCursor(type));
     }
 
-    private static Display getDefaultDisplay() {
+    /**
+     * Create a new Cursor from the one so named in the cursor theme.
+     */
+    /*
+     * Returns null for the case where no such named cursor exists. Apparently
+     * this is a problem in some cursor themes.
+     */
+    private static Cursor createFromName(String name) {
+        final long pointer;
         final Screen screen;
         final Display display;
 
         screen = GdkScreen.getDefault();
         display = GdkScreen.getDisplay(screen);
 
-        return display;
-    }
+        pointer = GdkCursor.createCursorFromName(display, name);
 
-    /**
-     * Create a new Cursor from the one so named in the cursor theme.
-     * 
-     * @since 4.0.14
-     */
-    private Cursor(String name) {
-        super(GdkCursor.createCursorFromName(getDefaultDisplay(), name));
+        if (pointer != 0) {
+            return new Cursor(pointer);
+        } else {
+            return null;
+        }
     }
 
     protected void release() {
@@ -124,7 +129,7 @@ public final class Cursor extends Boxed
      * 
      * @since 4.0.14
      */
-    public static Cursor NORMAL = new Cursor(CursorType.LEFT_PTR);
+    public final static Cursor NORMAL;
 
     /**
      * The spinning cursor showing that the application is busy (and unable to
@@ -135,7 +140,7 @@ public final class Cursor extends Boxed
      * 
      * @since 4.0.14
      */
-    public static Cursor BUSY = new Cursor(CursorType.WATCH);
+    public final static Cursor BUSY;
 
     /**
      * A pointer indicating that a hyperlink can be clicked and followed. Not
@@ -146,7 +151,7 @@ public final class Cursor extends Boxed
      * 
      * @since 4.0.14
      */
-    public static Cursor LINK = new Cursor(CursorType.HAND2);
+    public final static Cursor LINK;
 
     /**
      * A pointer that also has a busy spinner. This is used to indicate that
@@ -158,7 +163,7 @@ public final class Cursor extends Boxed
      * 
      * @since 4.0.14
      */
-    public static Cursor WORKING = new Cursor("left_ptr_watch");
+    public final static Cursor WORKING;
 
     /**
      * The vertical bar pointer used in text entry Widgets such as Entry and
@@ -169,5 +174,15 @@ public final class Cursor extends Boxed
      * 
      * @since 4.0.14
      */
-    public static Cursor TEXT = new Cursor(CursorType.XTERM);
+    public final static Cursor TEXT;
+
+    static {
+        NORMAL = new Cursor(CursorType.LEFT_PTR);
+        BUSY = new Cursor(CursorType.WATCH);
+        LINK = new Cursor(CursorType.HAND2);
+
+        WORKING = createFromName("left_ptr_watch");
+
+        TEXT = new Cursor(CursorType.XTERM);
+    }
 }
