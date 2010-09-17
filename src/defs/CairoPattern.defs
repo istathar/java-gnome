@@ -104,3 +104,12 @@
   (c-name "cairo_pattern_status")
   (return-type "cairo_status_t")
 )
+
+(define-method set_extend
+  (of-object "cairo_pattern_t")
+  (c-name "cairo_pattern_set_extend")
+  (return-type "none")
+  (parameters
+    '("cairo_extend_t" "extend")
+  )
+)
