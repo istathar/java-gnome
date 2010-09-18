@@ -93,6 +93,10 @@ public final class Cursor extends Boxed
         super(GdkCursor.createCursor(type));
     }
 
+    private static Cursor createFromType(CursorType type) {
+        return new Cursor(type);
+    }
+
     /**
      * Create a new Cursor from the one so named in the cursor theme.
      */
@@ -177,12 +181,10 @@ public final class Cursor extends Boxed
     public final static Cursor TEXT;
 
     static {
-        NORMAL = new Cursor(CursorType.LEFT_PTR);
-        BUSY = new Cursor(CursorType.WATCH);
-        LINK = new Cursor(CursorType.HAND2);
-
+        NORMAL = createFromType(CursorType.LEFT_PTR);
+        BUSY = createFromType(CursorType.WATCH);
+        LINK = createFromType(CursorType.HAND2);
         WORKING = createFromName("left_ptr_watch");
-
-        TEXT = new Cursor(CursorType.XTERM);
+        TEXT = createFromType(CursorType.XTERM);
     }
 }
