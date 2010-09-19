@@ -919,4 +919,25 @@ public class Context extends Entity
     public void closePath() {
         CairoContext.closePath(this);
     }
+
+    /**
+     * Create a new path within the current one. Although
+     * {@link #moveTo(double, double) moveTo()} also creates a new sub-path,
+     * this allows you to do so without needing destination co-ordinates.
+     * 
+     * @since 4.0.17
+     */
+    public void newSubPath() {
+        CairoContext.newSubPath(this);
+    }
+
+    /**
+     * Change the fill algorithm. The default is {@link FillRule#WINDING
+     * WINDING}.
+     * 
+     * @since 4.0.17
+     */
+    public void setFillRule(FillRule setting) {
+        CairoContext.setFillRule(this, setting);
+    }
 }

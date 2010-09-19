@@ -1,0 +1,9 @@
+(define-enum FillRule
+  (in-module "Cairo")
+  (c-name "cairo_fill_rule_t")
+  (values
+    '("WINDING" "CAIRO_FILL_RULE_WINDING")
+    '("EVEN_ODD" "CAIRO_FILL_RULE_EVEN_ODD")
+  )
+)
+

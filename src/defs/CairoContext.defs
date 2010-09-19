@@ -383,3 +383,18 @@
   (c-name "cairo_close_path")
   (return-type "none")
 )
+
+(define-method new_sub_path
+  (of-object "cairo_t")
+  (c-name "cairo_new_sub_path")
+  (return-type "none")
+)
+
+(define-method set_fill_rule
+  (of-object "cairo_t")
+  (c-name "cairo_set_fill_rule")
+  (return-type "none")
+  (parameters
+    '("cairo_fill_rule_t" "fill_rule")
+  )
+)
