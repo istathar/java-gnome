@@ -1,0 +1,11 @@
+(define-enum Extend
+  (in-module "Cairo")
+  (c-name "cairo_extend_t")
+  (values
+    '("NONE" "CAIRO_EXTEND_NONE")
+    '("REPEAT" "CAIRO_EXTEND_REPEAT")
+    '("REFLECT" "CAIRO_EXTEND_REFLECT")
+    '("PAD" "CAIRO_EXTEND_PAD")
+  )
+)
+

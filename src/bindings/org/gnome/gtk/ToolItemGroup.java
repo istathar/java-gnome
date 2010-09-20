@@ -1,7 +1,7 @@
 /*
  * java-gnome, a UI library for writing GTK and GNOME programs from Java!
  *
- * Copyright © 2007-2010 Operational Dynamics Consulting, Pty Ltd
+ * Copyright © 2010 Operational Dynamics Consulting, Pty Ltd and Others
  *
  * The code in this file, and the program it is a part of, is made available
  * to you by its authors as open source software: you can redistribute it
@@ -30,9 +30,7 @@
  * version of the library, but you are not obligated to do so. If you do not
  * wish to do so, delete this exception statement from your version.
  */
-package org.gnome.gdk;
-
-import org.gnome.glib.Object;
+package org.gnome.gtk;
 
 /*
  * FIXME this is a placeholder stub for what will become the public API for
@@ -42,9 +40,9 @@ import org.gnome.glib.Object;
  * are made about this class until it has been reviewed by a hacker and this
  * comment has been replaced.
  */
-class GC extends Object
+public class ToolItemGroup extends Container
 {
-    protected GC(long pointer) {
+    protected ToolItemGroup(long pointer) {
         super(pointer);
     }
 }

@@ -380,15 +380,14 @@ public abstract class Widget extends org.gnome.gtk.Object
      * 
      * <p>
      * To do drawing with Cairo you need a Context. You can instantiate one by
-     * asking for the underlying GDK Window backing your Widget and passing it
-     * to the Context constructor:
+     * passing the EventExpose object to the Context constructor:
      * 
      * <pre>
      * foo.connect(new Widget.ExposeEvent() {
      *     public boolean onExposeEvent(Widget source, EventExpose event) {
      *         Context cr;
      *         
-     *         cr = new Context(source.getWindow());
+     *         cr = new Context(event);
      *         
      *         // start drawing
      *     }
@@ -594,9 +593,9 @@ public abstract class Widget extends org.gnome.gtk.Object
      * 
      * <p>
      * Note that by default this event is disabled, even if you connect to it.
-     * You will need to {@link Widget#addEvents(EventMask) enable} it. If
-     * you want to receive all mouse motion events, you will need to supply
-     * the POINTER_MOTION mask. Note that it generates a big amount of events,
+     * You will need to {@link Widget#addEvents(EventMask) enable} it. If you
+     * want to receive all mouse motion events, you will need to supply the
+     * POINTER_MOTION mask. Note that it generates a big amount of events,
      * typically tens of events per second, when the user moves the mouse over
      * this Widget. If you only care about this event when a mouse button is
      * pressed, any of LEFT_BUTTON_MOTION, MIDDLE_BUTTON_MOTION,
@@ -697,6 +696,39 @@ public abstract class Widget extends org.gnome.gtk.Object
     }
 
     /**
+     * Is this Widget set to be sensitive?
+     * 
+     * <p>
+     * The default is <code>true</code> of course.
+     * 
+     * <p>
+     * The utility of this is somewhat limited, since it only returns the
+     * boolean value of this Widget's <var>sensitive</var> property, whereas
+     * whether a Widget is displayed sensitive (normal) or insensitive (grayed
+     * out) depends on both this property and the settings in the parent
+     * Widgets.
+     * 
+     * @since 4.0.17
+     */
+    public boolean getSensitive() {
+        return GtkWidget.getSensitive(this);
+    }
+
+    /**
+     * Will this Widget be shown as sensitive or insensitive? This is based on
+     * both its <var>sensitive</var> property, and that of all its parents.
+     * 
+     * <p>
+     * You don't need to use this ordinarily (it's GTK that needs to know!)
+     * but if you're curious, well, here you go.
+     * 
+     * @since 4.0.17
+     */
+    public boolean isSensitive() {
+        return GtkWidget.isSensitive(this);
+    }
+
+    /**
      * Tooltips are notes that will be displayed if a user hovers the mouse
      * pointer over a Widget. They are usually used with controls such as
      * Buttons and Entries to brief the user about that Widget's function.
@@ -739,6 +771,12 @@ public abstract class Widget extends org.gnome.gtk.Object
      * If what you need are the event handling facilities that go with Widgets
      * that have their own native resources, consider creating an
      * {@link EventBox EventBox} and putting this Widget into it.
+     * 
+     * <p>
+     * While it is best to wait until the Widget is mapped to screen and user
+     * visible before manipulating underlying properties, there are rare cases
+     * when you need the [org.gnome.gdk] Window to be not-<code>null</code>
+     * before then; if so, you can call {@link #realize() realize()}.
      * 
      * <p>
      * <i>If you call this in a class where you're building Windows, then you
@@ -1466,5 +1504,126 @@ public abstract class Widget extends org.gnome.gtk.Object
      */
     public void setEvents(EventMask events) {
         GtkWidget.setEvents(this, events);
+    }
+
+    /**
+     * Cause the resources underlying the Widget to be assigned. Among other
+     * things, this will populate the [org.gnome.gdk] Window that backs this
+     * Widget.
+     * 
+     * <p>
+     * In general you don't want to be calling this. This is largely an
+     * internal method; while you can trigger realization manually you rarely
+     * need to. You <i>do</i> need to show the Widget with {@link #show()
+     * show()} (or better yet {@link #showAll() showAll()} on one of its
+     * parents) once you've built it.
+     * 
+     * <p>
+     * Almost anything that you would do that would invole you needing an
+     * [org.gnome.gdk] Window is best done in a
+     * <code>Widget.ExposeEvent</code> handler, at which point the Widget is
+     * already realized, mapped, and showing.
+     * 
+     * @since 4.0.16
+     */
+    public void realize() {
+        GtkWidget.realize(this);
+    }
+
+    /*
+     * Accessors for style properties. The primitive types are fairly straight
+     * forward, but the more complex derived types will take a bit of work.
+     * The underlying function takes a Value as an out-parameter, but you have
+     * to have initialized it to the right "type" first. Tricky.
+     */
+
+    /**
+     * Access a "style property" with an integral value.
+     * 
+     * @since 4.0.17
+     */
+    protected int getStylePropertyInteger(String name) {
+        final Value value;
+
+        value = new Value(0);
+
+        GtkWidget.styleGetProperty(this, name, value);
+
+        return value.getInteger();
+    }
+
+    /**
+     * Access a "style property" with a String value.
+     * 
+     * @since 4.0.17
+     */
+    protected String getStylePropertyString(String name) {
+        final Value value;
+
+        value = new Value("");
+
+        GtkWidget.styleGetProperty(this, name, value);
+
+        return value.getString();
+    }
+
+    /**
+     * Access a "style property" with a boolean value.
+     * 
+     * @since 4.0.17
+     */
+    protected boolean getStylePropertyBoolean(String name) {
+        final Value value;
+
+        value = new Value(true);
+
+        GtkWidget.styleGetProperty(this, name, value);
+
+        return value.getBoolean();
+    }
+
+    /**
+     * Access a "style property" with a float value.
+     * 
+     * @since 4.0.17
+     */
+    protected float getStylePropertyFloat(String name) {
+        final Value value;
+
+        value = new Value(0.0f);
+
+        GtkWidget.styleGetProperty(this, name, value);
+
+        return value.getFloat();
+    }
+
+    /**
+     * Access a "style property" with a double value.
+     * 
+     * @since 4.0.17
+     */
+    protected double getStylePropertyDouble(String name) {
+        final Value value;
+
+        value = new Value(0.0);
+
+        GtkWidget.styleGetProperty(this, name, value);
+
+        return value.getDouble();
+    }
+
+    /**
+     * Access a "style property" with a long value.
+     * 
+     * @since 4.0.17
+     */
+    protected long getStylePropertyLong(String name) {
+        final Value value;
+
+        value = new Value(0L);
+
+        GtkWidget.styleGetProperty(this, name, value);
+
+        return value.getLong();
     }
 }

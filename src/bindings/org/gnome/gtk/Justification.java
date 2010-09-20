@@ -37,7 +37,7 @@ import org.freedesktop.bindings.Constant;
 /**
  * Constants that represent the justification of text. Most notably, this is
  * used by Label; see its {@link Label#setJustify(Justification) setJustify()}
- * as well as TextView's {@link TextView#setJustification(Justification)
+ * as well as TextView's {@link TextView#setJustify(Justification)
  * setJustify()}.
  * 
  * @author Nat Pryce

@@ -182,6 +182,21 @@
   )
 )
 
+(define-method get_always_show_image
+  (of-object "GtkAction")
+  (c-name "gtk_action_get_always_show_image")
+  (return-type "gboolean")
+)
+
+(define-method set_always_show_image
+  (of-object "GtkAction")
+  (c-name "gtk_action_set_always_show_image")
+  (return-type "none")
+  (parameters
+    '("gboolean" "always_show")
+  )
+)
+
 (define-virtual activate
   (of-object "GtkAction")
   (return-type "none")

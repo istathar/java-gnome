@@ -32,6 +32,8 @@
  */
 package org.gnome.gtk;
 
+import org.gnome.pango.EllipsizeMode;
+
 /**
  * Render textual data into a TreeViewColumn. This is the most commonly used
  * CellRenderer, used to present Strings. The fundamental mapping method is
@@ -136,6 +138,25 @@ public class CellRendererText extends CellRenderer
      */
     public void setEditable(DataColumnBoolean column) {
         GtkCellLayout.addAttribute(vertical, this, "editable", column.getOrdinal());
+    }
+
+    /**
+     * Set the {@link EllipsizeMode ellipsization mode} to use to make the
+     * text fits the cell width.
+     * 
+     * @since 4.0.17
+     */
+    public void setEllipsize(EllipsizeMode setting) {
+        setPropertyEnum("ellipsize", setting);
+    }
+
+    /**
+     * Get the current ellipsization used.
+     * 
+     * @since 4.0.17
+     */
+    public EllipsizeMode getEllipsizeMode() {
+        return (EllipsizeMode) getPropertyEnum("ellipsize");
     }
 
     /**

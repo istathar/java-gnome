@@ -92,4 +92,19 @@ public abstract class Pattern extends Entity
         CairoPattern.addColorStopRgba(this, offset, red, green, blue, alpha);
         checkStatus();
     }
+
+    /**
+     * Specify the strategy to be used when drawing the pattern outside of the
+     * area implicit in the how the Pattern itself is described.
+     * 
+     * <p>
+     * If you're looking at this, it's probably because you're wondering why
+     * your Pattern isn't extending. Call this with {@link Extend#REPEAT
+     * REPEAT}.
+     * 
+     * @since 4.0.17
+     */
+    public void setExtend(Extend extend) {
+        CairoPattern.setExtend(this, extend);
+    }
 }

@@ -467,7 +467,7 @@ public class Entry extends Widget implements Editable, CellEditable
      * @since 4.0.13
      */
     public void setIconFromStock(EntryIconPosition position, Stock stock) {
-        GtkEntry.setIconFromStock(this, position, stock.getStockId());
+        GtkEntry.setIconFromStock(this, position, stock == null ? null : stock.getStockId());
     }
 
     /**

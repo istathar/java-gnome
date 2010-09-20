@@ -34,6 +34,7 @@ package org.freedesktop.cairo;
 
 import org.gnome.gdk.Color;
 import org.gnome.gdk.Drawable;
+import org.gnome.gdk.EventExpose;
 import org.gnome.gdk.Pixbuf;
 import org.gnome.pango.Layout;
 import org.gnome.pango.LayoutLine;
@@ -52,9 +53,8 @@ import org.gnome.pango.LayoutLine;
  * {@link ImageSurface}, do your drawing, and then use Surface's writeToPNG()
  * to output your image.
  * <li>If drawing to the screen in a user interface application, construct a
- * Context using the underlying GDK Window in your Widget's
- * {@link org.gnome.gtk.Widget.ExposeEvent Widget.ExposeEvent}, and do your
- * drawing there.
+ * Context in your Widget's {@link org.gnome.gtk.Widget.ExposeEvent
+ * Widget.ExposeEvent}, and do your drawing there.
  * </ul>
  * 
  * See the links above for examples of each use case.
@@ -157,6 +157,11 @@ public class Context extends Entity
      * on. Use {@link #getTarget() getTarget()}.
      * 
      * <p>
+     * If you're drawing in an <code>Widget.ExposeEvent</code> then you're
+     * better off using the {@link Context#Context(EventExpose)
+     * Context(EventExpose)} constructor.
+     * 
+     * <p>
      * <i>Strictly speaking, this method is a part of GDK. We expose it here
      * as we are, from the Java bindings' perspective, constructing a Cairo
      * Context. So a constructor it is.</i>
@@ -170,6 +175,30 @@ public class Context extends Entity
      */
     public Context(Drawable drawable) {
         super(GdkCairoSupport.createContextFromDrawable(drawable));
+        checkStatus();
+    }
+
+    /**
+     * Construct a new "Cairo Context" during an ExposeEvent. This is the
+     * magic glue which allows you to link between GTK's Widgets and Cairo's
+     * drawing operations.
+     * 
+     * <p>
+     * This constructor takes the [org.gnome.gdk] EventExpose structure and
+     * passes is directly to some native code which constructs the Context,
+     * then <code>clip()</code>s it to the Region contained in the
+     * ExposeEvent. This isn't enough to save you running your drawing code,
+     * but it is enough to tell Cairo very early on to only actually render
+     * the part that has been damaged or exposed. This can save a lot of
+     * cycles deep down.
+     * 
+     * @since 4.0.17
+     */
+    /*
+     * Amazingly, GdkEventExpose has enough in it to construct a cairo_t.
+     */
+    public Context(EventExpose event) {
+        super(GdkCairoSupport.createContextFromExposeEvent(event));
         checkStatus();
     }
 
@@ -851,5 +880,43 @@ public class Context extends Entity
      */
     public void transform(Matrix matrix) {
         CairoContext.transform(this, matrix);
+    }
+
+    /**
+     * Close the current path.
+     * 
+     * <p>
+     * This makes the path a closed loop, rather than it being a line with
+     * caps at each end. Call this when you're trying to close a shape.
+     * 
+     * <p>
+     * The current path begins at the point given to the last moveTo() call.
+     * If there's no current point, then this has no effect.
+     * 
+     * @since 4.0.17
+     */
+    public void closePath() {
+        CairoContext.closePath(this);
+    }
+
+    /**
+     * Create a new path within the current one. Although
+     * {@link #moveTo(double, double) moveTo()} also creates a new sub-path,
+     * this allows you to do so without needing destination co-ordinates.
+     * 
+     * @since 4.0.17
+     */
+    public void newSubPath() {
+        CairoContext.newSubPath(this);
+    }
+
+    /**
+     * Change the fill algorithm. The default is {@link FillRule#WINDING
+     * WINDING}.
+     * 
+     * @since 4.0.17
+     */
+    public void setFillRule(FillRule setting) {
+        CairoContext.setFillRule(this, setting);
     }
 }

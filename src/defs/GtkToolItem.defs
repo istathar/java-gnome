@@ -175,6 +175,30 @@
   (return-type "none")
 )
 
+(define-method get_ellipsize_mode
+  (of-object "GtkToolItem")
+  (c-name "gtk_tool_item_get_ellipsize_mode")
+  (return-type "PangoEllipsizeMode")
+)
+
+(define-method get_text_alignment
+  (of-object "GtkToolItem")
+  (c-name "gtk_tool_item_get_text_alignment")
+  (return-type "gfloat")
+)
+
+(define-method get_text_orientation
+  (of-object "GtkToolItem")
+  (c-name "gtk_tool_item_get_text_orientation")
+  (return-type "GtkOrientation")
+)
+
+(define-method get_text_size_group
+  (of-object "GtkToolItem")
+  (c-name "gtk_tool_item_get_text_size_group")
+  (return-type "GtkSizeGroup*")
+)
+
 (define-virtual create_menu_proxy
   (of-object "GtkToolItem")
   (return-type "gboolean")

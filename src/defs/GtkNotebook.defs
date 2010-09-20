@@ -418,6 +418,25 @@
   )
 )
 
+(define-method get_action_widget
+  (of-object "GtkNotebook")
+  (c-name "gtk_notebook_get_action_widget")
+  (return-type "GtkWidget*")
+  (parameters
+    '("GtkPackType" "pack_type")
+  )
+)
+
+(define-method set_action_widget
+  (of-object "GtkNotebook")
+  (c-name "gtk_notebook_set_action_widget")
+  (return-type "none")
+  (parameters
+    '("GtkWidget*" "widget")
+    '("GtkPackType" "pack_type")
+  )
+)
+
 (define-virtual reorder_tab
   (of-object "GtkNotebook")
   (return-type "none")

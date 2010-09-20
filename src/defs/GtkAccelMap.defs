@@ -10,7 +10,7 @@
   (return-type "none")
   (parameters
     '("const-gchar*" "accel_path")
-    '("guint" "accel_key")
+    '("GdkKeyval" "accel_key")
     '("GdkModifierType" "accel_mods")
   )
 )
@@ -29,7 +29,7 @@
   (return-type "gboolean")
   (parameters
     '("const-gchar*" "accel_path")
-    '("guint" "accel_key")
+    '("GdkKeyval" "accel_key")
     '("GdkModifierType" "accel_mods")
     '("gboolean" "replace")
   )

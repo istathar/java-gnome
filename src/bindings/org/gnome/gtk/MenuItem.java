@@ -32,6 +32,9 @@
  */
 package org.gnome.gtk;
 
+import org.gnome.gdk.Keyval;
+import org.gnome.gdk.ModifierType;
+
 /**
  * MenuItems are the basic elements that form a Menu.
  * 
@@ -163,5 +166,41 @@ public class MenuItem extends Item implements Activatable
 
     public Action getRelatedAction() {
         return GtkActivatable.getRelatedAction(this);
+    }
+
+    /**
+     * Set a key binding for this MenuItem.
+     * 
+     * @since 4.0.16
+     */
+    public void setAccelerator(AcceleratorGroup group, Keyval keyval, ModifierType modifier) {
+        String path;
+        boolean exists, result;
+
+        /*
+         * Check whether it has already has a path and whether it is known, if
+         * so then change it. If not, generate a path, set it and add it the
+         * map to be registered.
+         */
+
+        path = GtkMenuItem.getAccelPath(this);
+
+        if (path == null) {
+            exists = false;
+            path = group.generateRandomPath();
+            GtkMenuItem.setAccelPath(this, path);
+        } else {
+            exists = GtkAccelMap.lookupEntry(path, null);
+        }
+
+        if (exists) {
+            result = GtkAccelMap.changeEntry(path, keyval, modifier, true);
+
+            if (!result) {
+                throw new IllegalStateException("Can't change exising accelerator");
+            }
+        } else {
+            GtkAccelMap.addEntry(path, keyval, modifier);
+        }
     }
 }

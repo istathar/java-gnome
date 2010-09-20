@@ -1,0 +1,146 @@
+(define-object ToolItemGroup
+  (in-module "Gtk")
+  (parent "GtkContainer")
+  (c-name "GtkToolItemGroup")
+  (gtype-id "GTK_TYPE_TOOL_ITEM_GROUP")
+)
+
+(define-function gtk_tool_item_group_new
+  (c-name "gtk_tool_item_group_new")
+  (is-constructor-of "GtkToolItemGroup")
+  (caller-owns-return #t)
+  (return-type "GtkWidget*")
+  (parameters
+    '("const-gchar*" "label")
+  )
+)
+
+(define-method set_label
+  (of-object "GtkToolItemGroup")
+  (c-name "gtk_tool_item_group_set_label")
+  (return-type "none")
+  (parameters
+    '("const-gchar*" "label")
+  )
+)
+
+(define-method set_label_widget
+  (of-object "GtkToolItemGroup")
+  (c-name "gtk_tool_item_group_set_label_widget")
+  (return-type "none")
+  (parameters
+    '("GtkWidget*" "label_widget")
+  )
+)
+
+(define-method set_collapsed
+  (of-object "GtkToolItemGroup")
+  (c-name "gtk_tool_item_group_set_collapsed")
+  (return-type "none")
+  (parameters
+    '("gboolean" "collapsed")
+  )
+)
+
+(define-method set_ellipsize
+  (of-object "GtkToolItemGroup")
+  (c-name "gtk_tool_item_group_set_ellipsize")
+  (return-type "none")
+  (parameters
+    '("PangoEllipsizeMode" "ellipsize")
+  )
+)
+
+(define-method set_header_relief
+  (of-object "GtkToolItemGroup")
+  (c-name "gtk_tool_item_group_set_header_relief")
+  (return-type "none")
+  (parameters
+    '("GtkReliefStyle" "style")
+  )
+)
+
+(define-method get_label
+  (of-object "GtkToolItemGroup")
+  (c-name "gtk_tool_item_group_get_label")
+  (return-type "const-gchar*")
+)
+
+(define-method get_label_widget
+  (of-object "GtkToolItemGroup")
+  (c-name "gtk_tool_item_group_get_label_widget")
+  (return-type "GtkWidget*")
+)
+
+(define-method get_collapsed
+  (of-object "GtkToolItemGroup")
+  (c-name "gtk_tool_item_group_get_collapsed")
+  (return-type "gboolean")
+)
+
+(define-method get_ellipsize
+  (of-object "GtkToolItemGroup")
+  (c-name "gtk_tool_item_group_get_ellipsize")
+  (return-type "PangoEllipsizeMode")
+)
+
+(define-method get_header_relief
+  (of-object "GtkToolItemGroup")
+  (c-name "gtk_tool_item_group_get_header_relief")
+  (return-type "GtkReliefStyle")
+)
+
+(define-method insert
+  (of-object "GtkToolItemGroup")
+  (c-name "gtk_tool_item_group_insert")
+  (return-type "none")
+  (parameters
+    '("GtkToolItem*" "item")
+    '("gint" "position")
+  )
+)
+
+(define-method set_item_position
+  (of-object "GtkToolItemGroup")
+  (c-name "gtk_tool_item_group_set_item_position")
+  (return-type "none")
+  (parameters
+    '("GtkToolItem*" "item")
+    '("gint" "position")
+  )
+)
+
+(define-method get_item_position
+  (of-object "GtkToolItemGroup")
+  (c-name "gtk_tool_item_group_get_item_position")
+  (return-type "gint")
+  (parameters
+    '("GtkToolItem*" "item")
+  )
+)
+
+(define-method get_n_items
+  (of-object "GtkToolItemGroup")
+  (c-name "gtk_tool_item_group_get_n_items")
+  (return-type "guint")
+)
+
+(define-method get_nth_item
+  (of-object "GtkToolItemGroup")
+  (c-name "gtk_tool_item_group_get_nth_item")
+  (return-type "GtkToolItem*")
+  (parameters
+    '("guint" "index")
+  )
+)
+
+(define-method get_drop_item
+  (of-object "GtkToolItemGroup")
+  (c-name "gtk_tool_item_group_get_drop_item")
+  (return-type "GtkToolItem*")
+  (parameters
+    '("gint" "x")
+    '("gint" "y")
+  )
+)
+

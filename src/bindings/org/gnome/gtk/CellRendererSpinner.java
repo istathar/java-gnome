@@ -1,7 +1,7 @@
 /*
  * java-gnome, a UI library for writing GTK and GNOME programs from Java!
  *
- * Copyright © 2007-2010 Operational Dynamics Consulting, Pty Ltd
+ * Copyright © 2010 Operational Dynamics Consulting, Pty Ltd and Others
  *
  * The code in this file, and the program it is a part of, is made available
  * to you by its authors as open source software: you can redistribute it
@@ -32,8 +32,6 @@
  */
 package org.gnome.gtk;
 
-import org.gnome.glib.Object;
-
 /*
  * FIXME this is a placeholder stub for what will become the public API for
  * this type. Replace this comment with appropriate javadoc including author
@@ -42,9 +40,9 @@ import org.gnome.glib.Object;
  * are made about this class until it has been reviewed by a hacker and this
  * comment has been replaced.
  */
-public class AccelGroup extends Object
+public class CellRendererSpinner extends CellRenderer
 {
-    protected AccelGroup(long pointer) {
-        super(pointer);
+    protected CellRendererSpinner(long pointer, CellLayout vertical, boolean expand) {
+        super(pointer, vertical, expand);
     }
 }

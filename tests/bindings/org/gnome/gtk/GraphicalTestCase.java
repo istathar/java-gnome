@@ -15,7 +15,7 @@
  * You should have received a copy of the GPL along with this program. If not,
  * see http://www.gnu.org/licenses/. The authors of this program may be
  * contacted through http://java-gnome.sourceforge.net/.
- */ 
+ */
 package org.gnome.gtk;
 
 /*

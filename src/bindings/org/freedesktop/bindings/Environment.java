@@ -1,7 +1,7 @@
 /*
  * java-gnome, a UI library for writing GTK and GNOME programs from Java!
  *
- * Copyright © 2005,2007-2008 Operational Dynamics Consulting, Pty Ltd
+ * Copyright © 2005-2010 Operational Dynamics Consulting, Pty Ltd and Others
  *
  * The code in this file, and the program it is a part of, is made available
  * to you by its authors as open source software: you can redistribute it
@@ -36,6 +36,7 @@ package org.freedesktop.bindings;
  * Retrieve values from environment.
  * 
  * @author Andrew Cowie
+ * @author Michael Culbertson
  * @since 4.0.2
  */
 public class Environment
@@ -106,5 +107,4 @@ public class Environment
     private static native final void setenv(String variableName, String value);
 
     private static native final void unsetenv(String variableName);
-
 }
