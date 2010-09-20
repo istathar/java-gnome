@@ -23,5 +23,6 @@
     '("double-buffered" "GTK_DOUBLE_BUFFERED")
     '("no-show-all" "GTK_NO_SHOW_ALL")
   )
+  (deprecated)
 )
 
