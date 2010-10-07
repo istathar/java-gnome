@@ -1,7 +1,7 @@
 /*
  * java-gnome, a UI library for writing GTK and GNOME programs from Java!
  *
- * Copyright © 2009-2010 Operational Dynamics Consulting, Pty Ltd
+ * Copyright © 2010 Operational Dynamics Consulting, Pty Ltd
  *
  * The code in this file, and the program it is a part of, is made available
  * to you by its authors as open source software: you can redistribute it
@@ -32,67 +32,63 @@
  */
 package org.freedesktop.cairo;
 
+import org.freedesktop.bindings.Constant;
+
 /**
- * Configuration of how hinting will be employed (by Pango, actually) when
- * rendering text.
+ * What style of hinting to apply. Note that not all styles are supported by
+ * all back ends, which is why you probably want {@link #DEFAULT DEFAULT}.
+ * Like HintMetrics, you can generally leave this alone.
  * 
  * <p>
- * This is mostly used to achieve clean linear scaling by chosing
- * {@link HintMetrics#OFF}. See
- * {@link org.gnome.pango.Context#setFontOptions(FontOptions)
- * setFontOptions()} for an example of using this in practice.
+ * Worse, vendors like Canonical patch their distribution's Cairo package in
+ * ways that have voided their support from the upstream Cairo and Pango
+ * authors. So setting {@link #SLIGHT SLIGHT} will unfortunately have varying
+ * and unpredictable effects, depending on what Linux your users are on.
  * 
  * @author Andrew Cowie
  * @since 4.0.17
  */
-/*
- * Thanks to Behdad Esfahbod for explaining the need for turning hinting off.
- */
-public class FontOptions extends Entity
+public class HintStyle extends Constant
 {
-    protected FontOptions(long pointer) {
-        super(pointer);
+    private HintStyle(int ordinal, String nickname) {
+        super(ordinal, nickname);
     }
 
     /**
-     * Create a FontOptions instance allowing you to get at various font
-     * rendering configuration parameters.
-     * 
-     * @since 4.0.10
-     */
-    public FontOptions() {
-        super(CairoFontOptions.createFontOptions());
-        checkStatus();
-    }
-
-    protected final void release() {
-        CairoFontOptions.destroy(this);
-    }
-
-    protected void checkStatus() {
-        checkStatus(CairoFontOptions.status(this));
-    }
-
-    /**
-     * Whether or not you want hinting. For normal rendering you certainly do
-     * (and this is likely the default) but for the rare case where you need
-     * multiple versions of the same text to be identical across linear
-     * scaling, then you'll need this {@link HintMetrics#OFF OFF}.
-     * 
-     * @since 4.0.10
-     */
-    public void setHintMetrics(HintMetrics hinting) {
-        CairoFontOptions.setHintMetrics(this, hinting);
-        checkStatus();
-    }
-
-    /**
-     * Which style of hinting to employ.
+     * Default is like "unset"; the existing value from the surrounding
+     * environment (Context, Surface, Font in use, Font rendering back end,
+     * etc) will be used.
      * 
      * @since 4.0.17
      */
-    public void setHintStyle(HintStyle hinting) {
-        CairoFontOptions.setHintStyle(this, hinting);
-        checkStatus();
-    }
+    public static final HintStyle DEFAULT = new HintStyle(CairoHintStyle.DEFAULT, "DEFAULT");
+
+    /**
+     * Turn hinting off, being most faithful to the actual outlines in the
+     * font.
+     * 
+     * @since 4.0.17
+     */
+    public static final HintStyle NONE = new HintStyle(CairoHintStyle.NONE, "NONE");
+
+    /**
+     * Slight hinting.
+     * 
+     * @since 4.0.17
+     */
+    public static final HintStyle SLIGHT = new HintStyle(CairoHintStyle.SLIGHT, "SLIGHT");
+
+    /**
+     * Medium hinting.
+     * 
+     * @since 4.0.17
+     */
+    public static final HintStyle MEDIUM = new HintStyle(CairoHintStyle.MEDIUM, "MEDIUM");
+
+    /**
+     * Full hinting, maximizing contrast.
+     * 
+     * @since 4.0.17
+     */
+    public static final HintStyle FULL = new HintStyle(CairoHintStyle.FULL, "FULL");
 }

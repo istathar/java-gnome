@@ -30,3 +30,12 @@
     '("cairo_hint_metrics_t" "hint_metrics")
   )
 )
+
+(define-method set_hint_style
+  (of-object "cairo_font_options_t")
+  (c-name "cairo_font_options_set_hint_style")
+  (return-type "none")
+  (parameters
+    '("cairo_hint_style_t" "hint_style")
+  )
+)
