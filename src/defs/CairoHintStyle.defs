@@ -1,0 +1,12 @@
+(define-enum HintStyle
+  (in-module "Cairo")
+  (c-name "cairo_hint_style_t")
+  (values
+    '("DEFAULT" "CAIRO_HINT_STYLE_DEFAULT")
+    '("NONE" "CAIRO_HINT_STYLE_NONE")
+    '("SLIGHT" "CAIRO_HINT_STYLE_SLIGHT")
+    '("MEDIUM" "CAIRO_HINT_STYLE_MEDIUM")
+    '("FULL" "CAIRO_HINT_STYLE_FULL")
+  )
+)
+

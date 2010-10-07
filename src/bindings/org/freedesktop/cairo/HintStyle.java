@@ -1,7 +1,7 @@
 /*
  * java-gnome, a UI library for writing GTK and GNOME programs from Java!
  *
- * Copyright © 2007-2010 Operational Dynamics Consulting, Pty Ltd
+ * Copyright © 2010 Operational Dynamics Consulting, Pty Ltd
  *
  * The code in this file, and the program it is a part of, is made available
  * to you by its authors as open source software: you can redistribute it
@@ -30,37 +30,65 @@
  * version of the library, but you are not obligated to do so. If you do not
  * wish to do so, delete this exception statement from your version.
  */
-package org.gnome.gtk;
+package org.freedesktop.cairo;
 
-import org.freedesktop.bindings.Flag;
+import org.freedesktop.bindings.Constant;
 
 /**
- * Flags in {@link Object}s.
+ * What style of hinting to apply. Note that not all styles are supported by
+ * all back ends, which is why you probably want {@link #DEFAULT DEFAULT}.
+ * Like HintMetrics, you can generally leave this alone.
  * 
  * <p>
- * <i>At time of writing, this contained only internals to Gtk, none of which
- * need exposure.</i>
+ * Worse, vendors like Canonical patch their distribution's Cairo package in
+ * ways that have voided their support from the upstream Cairo and Pango
+ * authors. So setting {@link #SLIGHT SLIGHT} will unfortunately have varying
+ * and unpredictable effects, depending on what Linux your users are on.
  * 
  * @author Andrew Cowie
- * @since 4.0.3
- * @see WidgetFlags
+ * @since 4.0.17
  */
-/*
- * FIXME this is a placeholder stub for what will become the public API for
- * this type. Replace this comment with appropriate javadoc including author
- * and since tags. Note that the class may need to be made abstract, implement
- * interfaces, or even have its parent changed. No API stability guarantees
- * are made about this class until it has been reviewed by a hacker and this
- * comment has been replaced.
- */
-/*
- * See the comment in WidgetFlags at the class declaration for further
- * details. This class is not really be necessary, but seems right for
- * consistency.
- */
-abstract class ObjectFlags extends Flag
+public class HintStyle extends Constant
 {
-    protected ObjectFlags(int ordinal, String nickname) {
+    private HintStyle(int ordinal, String nickname) {
         super(ordinal, nickname);
     }
+
+    /**
+     * Default is like "unset"; the existing value from the surrounding
+     * environment (Context, Surface, Font in use, Font rendering back end,
+     * etc) will be used.
+     * 
+     * @since 4.0.17
+     */
+    public static final HintStyle DEFAULT = new HintStyle(CairoHintStyle.DEFAULT, "DEFAULT");
+
+    /**
+     * Turn hinting off, being most faithful to the actual outlines in the
+     * font.
+     * 
+     * @since 4.0.17
+     */
+    public static final HintStyle NONE = new HintStyle(CairoHintStyle.NONE, "NONE");
+
+    /**
+     * Slight hinting.
+     * 
+     * @since 4.0.17
+     */
+    public static final HintStyle SLIGHT = new HintStyle(CairoHintStyle.SLIGHT, "SLIGHT");
+
+    /**
+     * Medium hinting.
+     * 
+     * @since 4.0.17
+     */
+    public static final HintStyle MEDIUM = new HintStyle(CairoHintStyle.MEDIUM, "MEDIUM");
+
+    /**
+     * Full hinting, maximizing contrast.
+     * 
+     * @since 4.0.17
+     */
+    public static final HintStyle FULL = new HintStyle(CairoHintStyle.FULL, "FULL");
 }
