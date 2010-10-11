@@ -390,6 +390,26 @@
   (return-type "none")
 )
 
+(define-method in_fill
+  (of-object "cairo_t")
+  (c-name "cairo_in_fill")
+  (return-type "cairo_bool_t")
+  (parameters
+    '("double" "x")
+    '("double" "y")
+  )
+)
+
+(define-method in_stroke
+  (of-object "cairo_t")
+  (c-name "cairo_in_stroke")
+  (return-type "cairo_bool_t")
+  (parameters
+    '("double" "x")
+    '("double" "y")
+  )
+)
+
 (define-method set_fill_rule
   (of-object "cairo_t")
   (c-name "cairo_set_fill_rule")
