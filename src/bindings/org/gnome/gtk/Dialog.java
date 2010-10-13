@@ -213,6 +213,28 @@ public class Dialog extends Window
      * prevented from interacting with the rest of the application.
      * 
      * <p>
+     * Using this method will prevent other threads that use GTK from running.
+     * It's a bug! So if the goal is to display a dialog without blocking
+     * other threads that use GTK, it is better, for now, to call
+     * {@link Window#present() Window's present()} and the
+     * {@link #connect(Response) connect()} to {@link Dialog.Response} signal.
+     * 
+     * <pre>
+     * dialog.connect(new Dialog.Response() {
+     *     public void onResponse(Dialog source, ResponseType response) {
+     *         if (response == ResponseType.CLOSE) {
+     *             // You would probably hide the dialog and
+     *             // do some other stuffs before
+     *         } else {
+     *             // Do something else
+     *         }
+     *     }
+     * });
+     * 
+     * dialog.present();
+     * </pre>
+     * 
+     * <p>
      * While there are legitimate uses of modal Dialogs, it is a feature that
      * tends to be badly abused. Therefore, before you call this method,
      * please consider carefully if it is wise to prevent the rest of the user
@@ -236,6 +258,8 @@ public class Dialog extends Window
      *         check this against the various constants in the ResponseType
      *         class. Don't forget to <code>hide()</code> afterwards.
      * @since 4.0.5
+     * @see <a href="https://bugzilla.gnome.org/show_bug.cgi?id=606796">the
+     *      bug report</a>
      */
     public ResponseType run() {
         final int value;
