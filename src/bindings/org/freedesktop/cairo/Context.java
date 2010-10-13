@@ -940,4 +940,24 @@ public class Context extends Entity
     public void setFillRule(FillRule setting) {
         CairoContext.setFillRule(this, setting);
     }
+
+    /**
+     * Is the supplied point in the area that would be filled if
+     * {@link #fill() fill()} was called with the current path?
+     * 
+     * @since 4.0.17
+     */
+    public boolean inFill(double x, double y) {
+        return CairoContext.inFill(this, x, y);
+    }
+
+    /**
+     * Is the supplied point in the thickness that would be drawn if
+     * {@link #stroke() stroke()} was called with the current path?
+     * 
+     * @since 4.0.17
+     */
+    public boolean inStroke(double x, double y) {
+        return CairoContext.inStroke(this, x, y);
+    }
 }
