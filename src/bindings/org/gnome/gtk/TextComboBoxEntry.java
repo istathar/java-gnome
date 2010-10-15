@@ -47,7 +47,7 @@ package org.gnome.gtk;
  * <p>
  * <i> These are indeed the same convenience methods as found in the text-only
  * API of <code>GtkComboBox</code>, which we have split into
- * <code>ComboBox</code> and <code>TextComboBox</code>.
+ * <code>ComboBox</code> and <code>TextComboBox</code>.</i>
  * 
  * @author Andrew Cowie
  * @since 4.0.6
