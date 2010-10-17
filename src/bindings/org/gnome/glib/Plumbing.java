@@ -368,9 +368,9 @@ public abstract class Plumbing extends org.freedesktop.bindings.Plumbing
      * a GType name.
      */
     /*
-     * At time of writing, this isonly being used to create GValues containing
-     * enums for use in GObject property setting. For whatever reason GValue
-     * requires something more derived than G_TYPE_ENUM.
+     * At time of writing, this is only being used to create GValues
+     * containing enums for use in GObject property setting. For whatever
+     * reason GValue requires something more derived than G_TYPE_ENUM.
      * 
      * FUTURE If this becomes a hotspot at all, replace with a Map going the
      * reverse direction as typeMapping does presenty.
@@ -378,6 +378,7 @@ public abstract class Plumbing extends org.freedesktop.bindings.Plumbing
     protected static String typeOf(Class<? extends Constant> cls) {
         final String name;
         final Collection<String> values;
+        String jType;
 
         name = cls.getName();
 
@@ -388,11 +389,12 @@ public abstract class Plumbing extends org.freedesktop.bindings.Plumbing
         }
 
         for (String gType : typeMapping.keySet()) {
-            if (typeMapping.get(gType) == name) {
+            jType = typeMapping.get(gType);
+            if (jType.equals(name)) {
                 return gType;
             }
         }
 
-        throw new IllegalStateException("Reverse type lookup failed");
+        throw new IllegalStateException("Reverse type lookup of " + name + " failed");
     }
 }
