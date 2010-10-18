@@ -23,6 +23,10 @@ package org.gnome.gtk;
  * 
  * @author Andrew Cowie
  */
+/*
+ * Originally this tested Adjustment's emitValueChanged() and emitChanged(),
+ * but I have a feeling those predate proper setters on that class.
+ */
 public class ValidateSignalEmission extends GraphicalTestCase
 {
     private boolean result;
@@ -65,7 +69,7 @@ public class ValidateSignalEmission extends GraphicalTestCase
         assertTrue("Adjustment.ValueChanged wasn't handled", result);
     }
 
-    public final void testAdjustmentChanged() {
+    public final void testAdjustmentOtherChanged() {
         final Adjustment adj;
 
         assertFalse(result);
@@ -79,5 +83,37 @@ public class ValidateSignalEmission extends GraphicalTestCase
         adj.emitChanged();
 
         assertTrue("Adjustment.Changed wasn't handled", result);
+    }
+
+    public final void testAdjustmentValueChangedBySetter() {
+        final Adjustment adj;
+
+        assertFalse(result);
+
+        adj = new Adjustment(5, 0, 100, 2, 5, 10);
+        adj.connect(new Adjustment.ValueChanged() {
+            public void onValueChanged(Adjustment source) {
+                result = true;
+            }
+        });
+        adj.setValue(99.0);
+
+        assertTrue("Adjustment.ValueChanged wasn't emitted", result);
+    }
+
+    public final void testAdjustmentOtherChangedBySetter() {
+        final Adjustment adj;
+
+        assertFalse(result);
+
+        adj = new Adjustment(5, 0, 100, 2, 5, 10);
+        adj.connect(new Adjustment.Changed() {
+            public void onChanged(Adjustment source) {
+                result = true;
+            }
+        });
+        adj.setUpper(250.0);
+
+        assertTrue("Adjustment.Changed wasn't emitted", result);
     }
 }
