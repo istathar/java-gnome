@@ -367,4 +367,43 @@ public class ValidateProperties extends GraphicalTestCase
         entry.setVisibility(true);
         assertTrue(entry.getVisibility());
     }
+
+    public final void testAdjustmentBounds() {
+        final Adjustment adj;
+
+        adj = new Adjustment(3.14, 0.0, 10.0, 0.1, 2.0, 1.0);
+        assertEquals(3.14, adj.getValue(), 0.001);
+        assertEquals(0.0, adj.getLower(), 0.001);
+        assertEquals(10.0, adj.getUpper(), 0.001);
+        assertEquals(1.0, adj.getPageSize(), 0.001);
+
+        adj.configure(1.42, 1.0, 2.0, 0.1, 1.0, 0.5);
+        assertEquals(1.42, adj.getValue(), 0.001);
+        assertEquals(1.0, adj.getLower(), 0.001);
+        assertEquals(2.0, adj.getUpper(), 0.001);
+        assertEquals(0.5, adj.getPageSize(), 0.001);
+
+        adj.setValue(1.52);
+        assertEquals(1.52, adj.getValue(), 0.001);
+
+        /*
+         * Test clamping
+         */
+
+        adj.setValue(2.52);
+        assertEquals(2.0, adj.getValue(), 0.001);
+
+        adj.setValue(0.0);
+        assertEquals(1.0, adj.getValue(), 0.001);
+
+        /*
+         * Test individual setters
+         */
+
+        adj.setLower(0.0);
+        assertEquals(0.0, adj.getLower(), 0.001);
+
+        adj.setUpper(10.0);
+        assertEquals(10.0, adj.getUpper(), 0.001);
+    }
 }
