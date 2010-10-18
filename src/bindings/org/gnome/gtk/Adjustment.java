@@ -141,8 +141,8 @@ public class Adjustment extends Object
      * in the current page.
      * 
      * <p>
-     * As always, a <code>Adjustment.Changed</code> signal is emitted if the
-     * value is changed.
+     * As always, a <code>Adjustment.ValueChanged</code> signal is emitted if
+     * the value is changed.
      * 
      * @since 4.0.5
      */
@@ -158,7 +158,7 @@ public class Adjustment extends Object
      * 
      * <p>
      * If you have changed <var>value</var>, then {@link #emitValueChanged()
-     * emitValueChanged()} is the method you want to change instead. instead.
+     * emitValueChanged()} is the method you want to change instead.
      * 
      * @since 4.0.8
      */
@@ -174,9 +174,9 @@ public class Adjustment extends Object
 
     /**
      * Emits a <code>Adjustment.ValueChanged</code> signal on the Adjustment.
-     * This method will typically be called by the Widget with which the
-     * Adjustment is associated, when it changes the Adjustment's
-     * <var>value</var>.
+     * This method is probably unnecessary, since calling
+     * {@link #setValue(double) setValue()} will result in the signal being
+     * raised.
      * 
      * @since 4.0.8
      */
