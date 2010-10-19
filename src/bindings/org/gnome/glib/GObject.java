@@ -76,7 +76,9 @@ final class GObject extends Plumbing
         if (pointer == 0) {
             return;
         }
-        g_object_add_toggle_ref(pointer, reference);
+        synchronized (lock) {
+            g_object_add_toggle_ref(pointer, reference);
+        }
     }
 
     /**
@@ -90,7 +92,9 @@ final class GObject extends Plumbing
         if (pointer == 0) {
             return;
         }
-        g_object_remove_toggle_ref(pointer);
+        synchronized (lock) {
+            g_object_remove_toggle_ref(pointer);
+        }
     }
 
     /**
