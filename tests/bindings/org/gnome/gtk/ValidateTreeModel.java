@@ -355,12 +355,12 @@ public class ValidateTreeModel extends GraphicalTestCase
 
     public final void testSettingValueReferenceColumn() {
         final ListStore model;
-        final DataColumnReference column;
+        final DataColumnReference<File> column;
         final TreeIter row;
         final File target;
 
         model = new ListStore(new DataColumn[] {
-            column = new DataColumnReference(),
+            column = new DataColumnReference<File>(),
         });
 
         row = model.appendRow();

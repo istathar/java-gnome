@@ -384,12 +384,10 @@ public abstract class TreeModel extends org.gnome.glib.Object
      * the return value to whatever type you put in there in the first place,
      * obviously.
      */
-    /*
-     * TODO would making this generic help?
-     */
-    public java.lang.Object getValue(TreeIter row, DataColumnReference column) {
+    @SuppressWarnings("unchecked")
+    public <T> T getValue(TreeIter row, DataColumnReference<T> column) {
         checkIter(row);
-        return GtkTreeModelOverride.getReference(this, row, column.getOrdinal());
+        return (T) GtkTreeModelOverride.getReference(this, row, column.getOrdinal());
     }
 
     /**
@@ -404,7 +402,7 @@ public abstract class TreeModel extends org.gnome.glib.Object
      * in the signatures of Value(org.gnome.glib.Object) and
      * Value(java.lang.Object) that otherwise arose and prevented compilation.
      */
-    public void setValue(TreeIter row, DataColumnReference column, java.lang.Object value) {
+    public <T> void setValue(TreeIter row, DataColumnReference<T> column, T value) {
         checkIter(row);
         GtkTreeModelOverride.setReference(this, row, column.getOrdinal(), value);
     }
