@@ -132,4 +132,48 @@ public class ValidateAssistant extends GraphicalTestCase
             // OK
         }
     }
+
+    private int next;
+
+    public void testForwardPageSignal() {
+        final Assistant druid;
+
+        druid = new Assistant();
+        Label page1 = new Label("Page1");
+        Label page2 = new Label("Page2");
+        Label page3 = new Label("Page3");
+        Label page4 = new Label("Page4");
+        druid.appendPage(page1);
+        druid.appendPage(page2);
+        druid.appendPage(page3);
+        druid.appendPage(page4);
+
+        druid.setPageType(page1, AssistantPageType.INTRO);
+        druid.setPageType(page2, AssistantPageType.CONTENT);
+        druid.setPageType(page3, AssistantPageType.CONTENT);
+        druid.setPageType(page4, AssistantPageType.SUMMARY);
+
+        druid.setForwardPageCallback(new Assistant.ForwardPage() {
+            public int onForward(Assistant source, int currentPage) {
+                switch (currentPage) {
+                case 1:
+                    next = 3;
+                    break;
+                case 2:
+                    next = 1;
+                    break;
+                default:
+                    next = (currentPage + 1);
+                    break;
+                }
+                return next;
+            }
+        });
+
+        druid.setCurrentPage(1);
+        assertEquals(3, next);
+
+        druid.setCurrentPage(2);
+        assertEquals(1, next);
+    }
 }
