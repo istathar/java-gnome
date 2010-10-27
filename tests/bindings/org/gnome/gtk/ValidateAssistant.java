@@ -27,11 +27,14 @@ public class ValidateAssistant extends GraphicalTestCase
 {
     public final void testAddingPages() {
         final Assistant druid;
+        final Label page1;
+        final Label page2;
+        final Label page3;
 
         druid = new Assistant();
-        Label page1 = new Label("Page1");
-        Label page2 = new Label("Page1");
-        Label page3 = new Label("Page1");
+        page1 = new Label("Page1");
+        page2 = new Label("Page1");
+        page3 = new Label("Page1");
         druid.appendPage(page1);
         druid.appendPage(page2);
         druid.appendPage(page3);
@@ -52,11 +55,14 @@ public class ValidateAssistant extends GraphicalTestCase
 
     public final void testInsertingPages() {
         final Assistant druid;
+        final Label page1;
+        final Label page2;
+        final Label page3;
 
         druid = new Assistant();
-        Label page1 = new Label("Page1");
-        Label page2 = new Label("Page1");
-        Label page3 = new Label("Page1");
+        page1 = new Label("Page1");
+        page2 = new Label("Page1");
+        page3 = new Label("Page1");
         druid.appendPage(page1);
         druid.appendPage(page2);
         druid.insertPage(page3, 1);
@@ -77,11 +83,14 @@ public class ValidateAssistant extends GraphicalTestCase
 
     public final void testPrependingPages() {
         final Assistant druid;
+        final Label page1;
+        final Label page2;
+        final Label page3;
 
         druid = new Assistant();
-        Label page1 = new Label("Page1");
-        Label page2 = new Label("Page1");
-        Label page3 = new Label("Page1");
+        page1 = new Label("Page1");
+        page2 = new Label("Page1");
+        page3 = new Label("Page1");
         druid.prependPage(page1);
         druid.prependPage(page2);
         druid.prependPage(page3);
@@ -102,11 +111,14 @@ public class ValidateAssistant extends GraphicalTestCase
 
     public void testPrepareForDisplay() {
         final Assistant druid;
+        final Label page1;
+        final Label page2;
+        final Label page3;
 
         druid = new Assistant();
-        Label page1 = new Label("Page1");
-        Label page2 = new Label("Page1");
-        Label page3 = new Label("Page1");
+        page1 = new Label("Page1");
+        page2 = new Label("Page1");
+        page3 = new Label("Page1");
         druid.appendPage(page1);
         druid.appendPage(page2);
         druid.appendPage(page3);
@@ -137,12 +149,16 @@ public class ValidateAssistant extends GraphicalTestCase
 
     public void testForwardPageSignal() {
         final Assistant druid;
+        final Label page1;
+        final Label page2;
+        final Label page3;
+        final Label page4;
 
         druid = new Assistant();
-        Label page1 = new Label("Page1");
-        Label page2 = new Label("Page2");
-        Label page3 = new Label("Page3");
-        Label page4 = new Label("Page4");
+        page1 = new Label("Page1");
+        page2 = new Label("Page2");
+        page3 = new Label("Page3");
+        page4 = new Label("Page4");
         druid.appendPage(page1);
         druid.appendPage(page2);
         druid.appendPage(page3);
