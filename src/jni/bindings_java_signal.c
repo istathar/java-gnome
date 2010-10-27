@@ -461,7 +461,7 @@ bindings_java_closure_new
 
 	case G_TYPE_INT:
 		bjc->returnType = 'I';
-			break;
+		break;
 
 	case G_TYPE_ENUM:
 		bjc->returnType = 'E';
@@ -477,7 +477,7 @@ bindings_java_closure_new
       		
 	case G_TYPE_NONE:
 		bjc->returnType = 'V';
-			break;
+		break;
 
 	default:
 		g_critical("Don't know what to do with signal return type %s", g_type_name(info.return_type));
