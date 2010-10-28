@@ -111,9 +111,9 @@ public final class Enchant extends Glib
      * Get a Dictionary for the specified language.
      * 
      * <p>
-     * Languages are indicated in a locale-like form; while you can use just
-     * the language code <code>en</code>, specifying a specific language
-     * variant such as <code>en_UK</code> or <code>fr_CA</code> is preferred.
+     * See {@link Enchant#existsDictionary(String) existsDictionary()} for
+     * discussion of valid language values. You probably want to call that if
+     * you're considering user input values.
      * 
      * <p>
      * Returns <code>null</code> if no suitable dictionary was found.
@@ -146,5 +146,28 @@ public final class Enchant extends Glib
             throw new FileNotFoundException(filename);
         }
         return EnchantBroker.requestPwlDict(defaultBroker, filename);
+    }
+
+    /**
+     * Does a dictionary exist for the given "language"?
+     * 
+     * <p>
+     * Languages are indicated in a locale-like form; while you can use just
+     * the language code <code>en</code>, specifying a specific language
+     * variant such as <code>"en_UK"</code> or <code>"fr_CA"</code> is
+     * preferred.
+     * 
+     * @since 4.0.17
+     */
+    public static boolean existsDictionary(String lang) {
+        final int result;
+
+        result = EnchantBroker.dictExists(defaultBroker, lang);
+
+        if (result == 0) {
+            return false;
+        } else {
+            return true;
+        }
     }
 }
