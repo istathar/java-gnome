@@ -23,6 +23,7 @@ import junit.framework.TestSuite;
 import org.freedesktop.bindings.Debug;
 import org.freedesktop.bindings.ValidateEnvironment;
 import org.freedesktop.bindings.ValidateInternationalization;
+import org.freedesktop.bindings.Version;
 import org.freedesktop.cairo.ValidateCairoContext;
 import org.freedesktop.cairo.ValidateCairoInternals;
 import org.freedesktop.cairo.ValidateDrawingToFile;
@@ -134,7 +135,7 @@ public class UnitTests
     private static Test suite(String[] args) {
         ClassLoader.getSystemClassLoader().setDefaultAssertionStatus(true);
 
-        TestSuite suite = new TestSuite("All Unit Tests for java-gnome 4.0");
+        TestSuite suite = new TestSuite("All Unit Tests for java-gnome " + Version.getAPI());
 
         suite.addTestSuite(ValidateUtilityMethods.class);
         suite.addTestSuite(ValidateBlockUsage.class);

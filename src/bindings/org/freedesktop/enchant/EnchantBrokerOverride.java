@@ -1,7 +1,7 @@
 /*
  * java-gnome, a UI library for writing GTK and GNOME programs from Java!
  *
- * Copyright © 2009-2010 Operational Dynamics Consulting, Pty Ltd
+ * Copyright © 2010 Operational Dynamics Consulting, Pty Ltd
  *
  * The code in this file, and the program it is a part of, is made available
  * to you by its authors as open source software: you can redistribute it
@@ -30,66 +30,28 @@
  * version of the library, but you are not obligated to do so. If you do not
  * wish to do so, delete this exception statement from your version.
  */
+package org.freedesktop.enchant;
 
-#include <libnotify/notify.h>
-#include <jni.h>
-#include "bindings_java.h"
-#include "org_gnome_notify_NotifyMainOverride.h"
-
-/*
- * Implements
- *   org.gnome.notify.NotifyMainOverride.notify_get_server_caps()
- * called from
- *   org.gnome.notify.Notify.getServerCapabilities()
+/**
+ * Deal with the function pointer for enumerating available dictionaries.
+ * 
+ * @author Andrew Cowie
  */
-JNIEXPORT jobjectArray JNICALL
-Java_org_gnome_notify_NotifyMainOverride_notify_1get_1server_1caps
-(
-	JNIEnv* env,
-	jclass cls
-)
+final class EnchantBrokerOverride extends Plumbing
 {
-	jobjectArray _array;
-	int i, size;
-	jclass stringCls;
-	GList* caps;
-	GList* iter;
-	jstring cap;
+    static final String[] listDicts(Broker self) {
+        String[] result;
 
-	caps = notify_get_server_caps();
+        if (self == null) {
+            throw new IllegalArgumentException("self can't be null");
+        }
 
-	if (caps == NULL) {
-		size = 0;
-	} else {
-		size = g_list_length(caps);
-	}
+        synchronized (lock) {
+            result = enchant_broker_list_dicts(pointerOf(self));
 
-	stringCls = (*env)->FindClass(env, "java/lang/String");
-	if ((*env)->ExceptionCheck(env)) {
-		(*env)->ExceptionDescribe(env);
-		g_printerr("No jclass?");
-	}
+            return result;
+        }
+    }
 
-	_array = (*env)->NewObjectArray(env, size, stringCls, NULL);
-
-	if ((*env)->ExceptionCheck(env)) {
-		(*env)->ExceptionDescribe(env);
-		g_printerr("Unable to create array?");
-	}
-
-	iter = caps;
-
-	for (i = 0; i < size; ++i) {
-		//Hopefully capability strings are ASCII only.
-		cap = bindings_java_newString(env, iter->data);
-		(*env)->SetObjectArrayElement(env, _array, i, cap);
-		g_free(iter->data);
-		iter = iter->next;
-	}
-
-	if (caps != NULL) {
-		g_list_free(caps);
-	}
-
-	return _array;
+    private static native final String[] enchant_broker_list_dicts(long self);
 }

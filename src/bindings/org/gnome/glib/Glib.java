@@ -220,4 +220,24 @@ public class Glib
     public static String formatSizeForDisplay(long size) {
         return GlibMisc.formatSizeForDisplay(size);
     }
+
+    /**
+     * Perform basic escaping on a String so that it can be safely passed to
+     * XML.
+     * 
+     * <p>
+     * This will escape <code>&amp;</code>, <code>&gt;</code>,
+     * <code>&lt;</code>, etc which is necessary when passing arbitrary input
+     * to methods which use Pango Markup such as Labels with markup enabled
+     * via {@link org.gnome.gtk.Label#setUseMarkup(boolean) setUseMarkup()}
+     * and directly with CellRendererText's
+     * {@link org.gnome.gtk.CellRendererText#setMarkup(org.gnome.gtk.DataColumnString)
+     * setMarkup()} or Layout's
+     * {@link org.gnome.pango.Layout#setMarkup(String) setMarkup()}
+     * 
+     * @since 4.0.17
+     */
+    public static String markupEscapeText(String str) {
+        return GlibMisc.markupEscapeText(str, -1);
+    }
 }

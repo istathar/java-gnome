@@ -83,6 +83,56 @@ Java_org_freedesktop_bindings_Internationalization_gettext
 	}
 }
 
+/**
+ * Implements
+ *   org.freedesktop.bindings.Internationalization.dgettext(String domain, String name)
+ * called from
+ *   org.freedesktop.bindings.Internationalization._country(String name)
+ * and
+ *   org.freedesktop.bindings.Internationalization._language(String name)
+ */
+JNIEXPORT jstring JNICALL
+Java_org_freedesktop_bindings_Internationalization_dgettext
+(
+	JNIEnv *env,
+	jclass cls,
+	jstring _domain,
+	jstring _name
+)
+{	
+	const char* domain;
+	const char* name;
+	char* result;
+
+	// convert parameter name
+	domain = bindings_java_getString(env, _domain);
+	if (domain == NULL) {
+		return NULL; // expeption already thrown
+	}
+
+	// convert parameter name
+	name = bindings_java_getString(env, _name);
+	if (name == NULL) {
+		return NULL; // expeption already thrown
+	}
+
+	// call function
+	result = dgettext(domain, name);
+        
+	/*
+	 * See comment in gettext() above
+	 */
+
+	// convert and return
+	if (result == name) {
+		bindings_java_releaseString(name);
+		return _name;
+	} else {
+		bindings_java_releaseString(name);
+		return bindings_java_newString(env, result);
+	}
+}
+
 JNIEXPORT void JNICALL 
 Java_org_freedesktop_bindings_Internationalization_bindtextdomain
 (

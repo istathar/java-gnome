@@ -25,6 +25,8 @@ import java.io.IOException;
 import org.gnome.gtk.GraphicalTestCase;
 
 /**
+ * Exercise the Enchant spelling facade API.
+ * 
  * @author Andrew Cowie
  */
 public class ValidateEnchantInternals extends GraphicalTestCase
@@ -33,6 +35,55 @@ public class ValidateEnchantInternals extends GraphicalTestCase
         Enchant.init();
 
         assertNotNull(Enchant.getDefault());
+    }
+
+    /*
+     * This is probably the worst test in here. How can we know what
+     * dictionaries are installed? In any event, this at least ensures the
+     * code path in the Override is exercised.
+     */
+    public final void testListAllDictionaries() {
+        final String[] list;
+
+        list = Enchant.listDictionaries();
+
+        assertTrue(list.length > 0);
+
+        for (String tag : list) {
+            if (tag.equals("en")) {
+                return;
+            }
+        }
+        fail("Needed to find at least \"en\" as a dictionary!");
+    }
+
+    public final void testDictionaryKnownToExist() {
+        final boolean result;
+
+        result = Enchant.existsDictionary("en");
+        assertTrue(result);
+    }
+
+    public final void testDictionaryKnownNotToExist() {
+        final boolean result;
+
+        result = Enchant.existsDictionary("klingon");
+        assertFalse(result);
+    }
+
+    /*
+     * Bit silly, but do all dictionaries actually exist?
+     */
+    public final void testAllDictionariesExist() {
+        final String[] list;
+        boolean result;
+
+        list = Enchant.listDictionaries();
+
+        for (String tag : list) {
+            result = Enchant.existsDictionary(tag);
+            assertTrue(result);
+        }
     }
 
     public final void testDictionaryCreation() {
@@ -44,7 +95,18 @@ public class ValidateEnchantInternals extends GraphicalTestCase
         assertNotNull(dict);
     }
 
-    public final void testNoDictionarySpecified() {
+    public final void testCreateDictionaryUnspecified() {
+        assertNotNull(Enchant.getDefault());
+
+        try {
+            Enchant.requestDictionary("");
+            fail("Can't request a Dictionary with an empty language tag");
+        } catch (IllegalArgumentException iae) {
+            // good
+        }
+    }
+
+    public final void testCreateInvalidDictionary() {
         final Dictionary dict;
 
         assertNotNull(Enchant.getDefault());
