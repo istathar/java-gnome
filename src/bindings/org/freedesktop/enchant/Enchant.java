@@ -121,6 +121,9 @@ public final class Enchant extends Glib
      * @since 4.0.14
      */
     public static Dictionary requestDictionary(String lang) {
+        if (lang.equals("")) {
+            throw new IllegalArgumentException();
+        }
         return EnchantBroker.requestDict(defaultBroker, lang);
     }
 
