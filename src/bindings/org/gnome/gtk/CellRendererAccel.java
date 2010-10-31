@@ -49,11 +49,18 @@ package org.gnome.gtk;
  */
 public class CellRendererAccel extends CellRendererText
 {
+    /**
+     * @deprecated
+     */
+    public CellRendererAccel(TreeViewColumn vertical) {
+        super(GtkCellRendererAccel.createCellRendererAccel(), vertical);
+    }
+
     /*
      * FIXME constructor stub to permit compilation, although this should be
      * correct.
      */
-    public CellRendererAccel(TreeViewColumn vertical) {
+    public CellRendererAccel(CellLayout vertical) {
         super(GtkCellRendererAccel.createCellRendererAccel(), vertical);
     }
 }

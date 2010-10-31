@@ -45,8 +45,19 @@ public class CellRendererProgress extends CellRenderer
      * Construct a new CellRendererPixbuf.
      * 
      * @since 4.0.12
+     * @deprecated Use
+     *             {@link CellRendererProgress#CellRendererProgress(CellLayout)}
      */
     public CellRendererProgress(TreeViewColumn vertical) {
+        super(GtkCellRendererProgress.createCellRendererProgress(), vertical, true);
+    }
+
+    /**
+     * Construct a new CellRendererPixbuf.
+     * 
+     * @since 4.0.17
+     */
+    public CellRendererProgress(CellLayout vertical) {
         super(GtkCellRendererProgress.createCellRendererProgress(), vertical, true);
     }
 
