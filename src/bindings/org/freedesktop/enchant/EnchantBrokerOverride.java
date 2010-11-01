@@ -1,7 +1,7 @@
 /*
  * java-gnome, a UI library for writing GTK and GNOME programs from Java!
  *
- * Copyright © 2007-2010 Operational Dynamics Consulting, Pty Ltd
+ * Copyright © 2010 Operational Dynamics Consulting, Pty Ltd
  *
  * The code in this file, and the program it is a part of, is made available
  * to you by its authors as open source software: you can redistribute it
@@ -30,30 +30,28 @@
  * version of the library, but you are not obligated to do so. If you do not
  * wish to do so, delete this exception statement from your version.
  */
-package org.gnome.gtk;
+package org.freedesktop.enchant;
 
 /**
- * A horizontal Scrollbar. These are just constituent parts of
- * ScrolledWindows; you rarely if ever will need to talk to this Widget
- * directly, but if you need access to it call ScrolledWindow's
- * {@link ScrolledWindow#getHScrollbar() getHScrollbar()}.
+ * Deal with the function pointer for enumerating available dictionaries.
  * 
- * @since 4.0.8
+ * @author Andrew Cowie
  */
-public class HScrollbar extends Scrollbar
+final class EnchantBrokerOverride extends Plumbing
 {
-    protected HScrollbar(long pointer) {
-        super(pointer);
+    static final String[] listDicts(Broker self) {
+        String[] result;
+
+        if (self == null) {
+            throw new IllegalArgumentException("self can't be null");
+        }
+
+        synchronized (lock) {
+            result = enchant_broker_list_dicts(pointerOf(self));
+
+            return result;
+        }
     }
 
-    /**
-     * Create a new HScrollbar. Ordinarily you pass in the Adjustment object
-     * you plan to control this Scrollbar with, but if you pass
-     * <code>null</code> one will be created.
-     * 
-     * @since 4.0.17
-     */
-    public HScrollbar(Adjustment adj) {
-        super(GtkHScrollbar.createHScrollbar(adj));
-    }
+    private static native final String[] enchant_broker_list_dicts(long self);
 }

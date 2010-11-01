@@ -97,10 +97,6 @@ public class ValidateMemoryManagement extends GraphicalTestCase
             this.code = code;
         }
 
-        public int getCode() {
-            return code;
-        }
-
         protected void finalize() {
             finalized.add(new Integer(code));
         }
@@ -386,6 +382,7 @@ public class ValidateMemoryManagement extends GraphicalTestCase
      */
     public final void testCorrectHandlingOfGtkCreatedObjects() {
         TreeView t;
+        @SuppressWarnings("unused")
         TreeSelection s;
 
         t = new TreeView();

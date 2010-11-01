@@ -67,4 +67,27 @@ public class ValidateUtilityFunctions extends GraphicalTestCase
         result = Glib.formatSizeForDisplay(1024 * 1024 * 1024);
         assertEquals("1.0 GB", result);
     }
+
+    public final void testMarkupEscapeText() {
+        String result;
+
+        result = Glib.markupEscapeText("Hello");
+        assertEquals("Hello", result);
+
+        result = Glib.markupEscapeText("& World");
+        assertEquals("&amp; World", result);
+
+        result = Glib.markupEscapeText("Team > Me");
+        assertEquals("Team &gt; Me", result);
+
+        result = Glib.markupEscapeText("I < Team");
+        assertEquals("I &lt; Team", result);
+    }
+
+    public final void testMarkupEscapeWhitespace() {
+        String result;
+
+        result = Glib.markupEscapeText("Goodbye\tCruel\nWorld");
+        assertEquals("Goodbye\tCruel\nWorld", result);
+    }
 }

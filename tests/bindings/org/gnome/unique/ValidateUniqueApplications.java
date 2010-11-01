@@ -26,6 +26,7 @@ import org.gnome.gtk.GraphicalTestCase;
 public class ValidateUniqueApplications extends GraphicalTestCase
 {
     public final void testNameValidation() {
+        @SuppressWarnings("unused")
         Application app;
 
         try {
@@ -50,10 +51,6 @@ public class ValidateUniqueApplications extends GraphicalTestCase
             return;
         } catch (IllegalArgumentException iae) {
             // good
-        }
-
-        if (false) {
-            app.getClass(); // avoid warning
         }
     }
 

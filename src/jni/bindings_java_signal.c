@@ -288,6 +288,15 @@ bindings_java_marshaller
 
 	case 'I':
 		/*
+		 * integer return signals
+		 */
+		_e = (*env)->CallStaticIntMethodA(env, bjc->receiver, bjc->method, jargs);
+		
+		g_value_set_int(return_value, _e);
+		break;
+
+	case 'E':
+		/*
 		 * enum return signals
 		 */
 		_e = (*env)->CallStaticIntMethodA(env, bjc->receiver, bjc->method, jargs);		
@@ -450,13 +459,12 @@ bindings_java_closure_new
 		bjc->returnType = 'Z';
       		break;
 
-	case G_TYPE_ENUM:
-		/*
-		 * If we run into a signal prototype that really does return
-		 * gint etc or a Flags this will need fixing. Until then, use
-		 * the integer type marker for enums (only).  
-		 */
+	case G_TYPE_INT:
 		bjc->returnType = 'I';
+		break;
+
+	case G_TYPE_ENUM:
+		bjc->returnType = 'E';
       		break;
       		
 	case G_TYPE_STRING:
@@ -467,9 +475,9 @@ bindings_java_closure_new
 		bjc->returnType = 'L';
       		break;
       		
-      	case G_TYPE_NONE:
-      		bjc->returnType = 'V';
-      		break;
+	case G_TYPE_NONE:
+		bjc->returnType = 'V';
+		break;
 
 	default:
 		g_critical("Don't know what to do with signal return type %s", g_type_name(info.return_type));

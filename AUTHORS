@@ -13,6 +13,7 @@ Significant authors
 	Sebastian Mancke <s.mancke@tarent.de>
 	Stefan Prelle <stefan@prelle.org>
 	Serkan Kaba <serkan@gentoo.org>
+	Guillaume Mazoyer <respawneral@gmail.com>
 
 Casual contributors
 -------------------
@@ -26,7 +27,8 @@ Casual contributors
 	Andreas Kühntopf <andreas@kuehntopf.org>
 	Zak Fenton <zak.fenton@gmail.com>
 	Stefan Schweizer <steve.schweizer@gmail.com>
-	Guillaume Mazoyer <respawneral@gmail.com>
+	Kenneth Prugh <ken69267@gmail.com>
+	Thijs Leibbrand <xavalia@gmail.com>
 
 Mentoring and design review
 ---------------------------
@@ -45,7 +47,8 @@ Build system improvements
 	Timm Preetz <timm@preetz.us>
 	Colin Walters <walters@verbum.org>
 	Rob Taylor <rob.taylor@codethink.co.uk>
-	Kenneth Prugh <ken69267@gmail.com>
+	Yaakov Selkowitz <yselkowitz@users.sourceforge.net>
+	Alexander Boström <abo@root.snowtree.se>
 
 --
 

@@ -104,7 +104,9 @@ public class Label extends Misc
      * beware that you must escape whatever you to this method (like you would
      * for feeding user data to any other XML or HTML like target). This
      * specifically means you need to convert <code>&amp;</code> into
-     * <code>&amp;amp;</code> and likewise for angle brackets.
+     * <code>&amp;amp;</code> and likewise for angle brackets. Use
+     * {@link org.gnome.glib.Glib#markupEscapeText(String)
+     * Glib.markupEscapeText()}.
      * 
      * @since 4.0.1
      */

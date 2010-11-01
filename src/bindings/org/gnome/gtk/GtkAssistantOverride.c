@@ -1,7 +1,7 @@
 /*
  * java-gnome, a UI library for writing GTK and GNOME programs from Java!
  *
- * Copyright © 2009-2010 Operational Dynamics Consulting, Pty Ltd
+ * Copyright © 2010 Operational Dynamics Consulting, Pty Ltd and Others
  *
  * The code in this file, and the program it is a part of, is made available
  * to you by its authors as open source software: you can redistribute it
@@ -31,65 +31,98 @@
  * wish to do so, delete this exception statement from your version.
  */
 
-#include <libnotify/notify.h>
 #include <jni.h>
+#include <gtk/gtk.h>
 #include "bindings_java.h"
-#include "org_gnome_notify_NotifyMainOverride.h"
+#include "org_gnome_gtk_GtkAssistantOverride.h"
+#include <gtk/gtkmarshal.h>
+
+static guint signalID = 0;
+static GtkAssistant* source;
 
 /*
- * Implements
- *   org.gnome.notify.NotifyMainOverride.notify_get_server_caps()
- * called from
- *   org.gnome.notify.Notify.getServerCapabilities()
+ * Meets the signature requirement of (*GtkAssistantPageFunc) in
+ * order to be the second parameter to the call to 
+ * gtk_assistant_set_forward_page_func() below.
  */
-JNIEXPORT jobjectArray JNICALL
-Java_org_gnome_notify_NotifyMainOverride_notify_1get_1server_1caps
+static gint
+emit_forward
 (
-	JNIEnv* env,
-	jclass cls
+	const gint current_page,
+	gpointer user_data
 )
 {
-	jobjectArray _array;
-	int i, size;
-	jclass stringCls;
-	GList* caps;
-	GList* iter;
-	jstring cap;
+	gint result;
 
-	caps = notify_get_server_caps();
+	g_signal_emit_by_name(source, "forward", current_page, &result);
 
-	if (caps == NULL) {
-		size = 0;
-	} else {
-		size = g_list_length(caps);
+	return result;
+}
+
+/**
+ * called from
+ *   org.gnome.gtk.GtkAssistantOverride.emitForward()
+ * called from
+ *   org.gnome.gtk.Assistant.emitForwardPage()
+ */
+JNIEXPORT jint JNICALL
+Java_org_gnome_gtk_GtkAssistantOverride_gtk_1assistant_1emit_1forward
+(
+	JNIEnv* env,
+	jclass cls,
+	jlong _self,
+	jint _current
+)
+{
+	GtkAssistant* self;
+	jint current;
+	gint result;
+	jint _result;
+
+	// convert parameters
+	self = (GtkAssistant*) _self;
+	current = (gint) _current;
+
+	// emit the signal
+	g_signal_emit_by_name(self, "forward", current, &result);
+
+	// translate return value to JNI type
+	_result = (jint) result;
+
+	// finally, return signal result
+	return _result;
+}
+
+/**
+ * called from
+ *   org.gnome.gtk.GtkAssistantOverride.setForwardFunc()
+ * called from
+ *   org.gnome.gtk.Assistant.setForwardPageCallback()
+ */
+JNIEXPORT void JNICALL
+Java_org_gnome_gtk_GtkAssistantOverride_gtk_1assistant_1set_1forward_1page_1func
+(
+	JNIEnv* env,
+	jclass cls,
+	jlong _self
+)
+{
+	// convert parameter self
+	source = (GtkAssistant*) _self;
+
+	if (signalID == 0) {
+		signalID = g_signal_new("forward",
+					GTK_TYPE_ASSISTANT,
+					G_SIGNAL_ACTION,
+					0,
+					NULL,
+					NULL, 
+					NULL,
+					G_TYPE_INT,
+					1,
+					G_TYPE_INT);
 	}
 
-	stringCls = (*env)->FindClass(env, "java/lang/String");
-	if ((*env)->ExceptionCheck(env)) {
-		(*env)->ExceptionDescribe(env);
-		g_printerr("No jclass?");
-	}
-
-	_array = (*env)->NewObjectArray(env, size, stringCls, NULL);
-
-	if ((*env)->ExceptionCheck(env)) {
-		(*env)->ExceptionDescribe(env);
-		g_printerr("Unable to create array?");
-	}
-
-	iter = caps;
-
-	for (i = 0; i < size; ++i) {
-		//Hopefully capability strings are ASCII only.
-		cap = bindings_java_newString(env, iter->data);
-		(*env)->SetObjectArrayElement(env, _array, i, cap);
-		g_free(iter->data);
-		iter = iter->next;
-	}
-
-	if (caps != NULL) {
-		g_list_free(caps);
-	}
-
-	return _array;
+	// call function
+	gtk_assistant_set_forward_page_func(source, emit_forward, NULL, NULL);
 }
