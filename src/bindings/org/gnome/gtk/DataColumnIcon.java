@@ -1,7 +1,8 @@
 /*
  * java-gnome, a UI library for writing GTK and GNOME programs from Java!
  *
- * Copyright © 2007-2010 Operational Dynamics Consulting, Pty Ltd and Others
+ * Copyright © 2008-2010 Operational Dynamics Consulting, Pty Ltd
+ * Copyright © 2008      Vreixo Formoso
  *
  * The code in this file, and the program it is a part of, is made available
  * to you by its authors as open source software: you can redistribute it
@@ -33,48 +34,19 @@
 package org.gnome.gtk;
 
 /**
- * Display an image in a TreeView. The image data is sourced either from a
- * DataColumn of type {@link DataColumnPixbuf DataColumnPixbuf} in your
- * TreeModel, or from a DataColumn of type {@link DataColumnStock
- * DataColumnStock}.
+ * A column representing a named Icon in a TreeModel. See {@link DataColumn}
+ * for the full discussion of the role of how to employ these. This column
+ * type is primarily used as an alternate way to supply an image to be
+ * rendered in a TreeView using {@link CellRendererPixbuf CellRendererPixbuf}.
  * 
- * @author Andrew Cowie
  * @author Vreixo Formoso
- * @since 4.0.5
+ * @author Andrew Cowie
+ * @since 4.0.17
+ * @see DataColumnStock
  */
-public class CellRendererPixbuf extends CellRenderer
+public final class DataColumnIcon extends DataColumn
 {
-    /**
-     * Construct a new CellRendererPixbuf.
-     */
-    public CellRendererPixbuf(CellLayout vertical) {
-        super(GtkCellRendererPixbuf.createCellRendererPixbuf(), vertical, false);
-    }
-
-    /**
-     * Indicate the DataColumn containing the Pixbuf to render as an image.
-     */
-    public void setPixbuf(DataColumnPixbuf column) {
-        GtkCellLayout.addAttribute(vertical, this, "pixbuf", column.getOrdinal());
-    }
-
-    /**
-     * Indicate the DataColumn containing a Stock icon which you want to have
-     * this CellRendererPixbuf render as an image.
-     * 
-     * @since 4.0.7
-     */
-    public void setStock(DataColumnStock column) {
-        GtkCellLayout.addAttribute(vertical, this, "stock-id", column.getOrdinal());
-    }
-
-    /**
-     * Indicate the DataColumn containing a named Icon which you want to have
-     * this CellRendererPixbuf render as an image.
-     * 
-     * @since 4.0.17
-     */
-    public void setIcon(DataColumnIcon column) {
-        GtkCellLayout.addAttribute(vertical, this, "icon-name", column.getOrdinal());
+    public DataColumnIcon() {
+        super(String.class);
     }
 }

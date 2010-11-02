@@ -32,6 +32,8 @@
  */
 package org.gnome.gtk;
 
+import java.util.HashMap;
+
 /**
  * Identify the icons that should be in the icons theme. These constants can
  * be used to create an {@link Image image} using the constructor
@@ -46,6 +48,12 @@ public class Icon
      * The name used to identify the icon in the theme.
      */
     private final String name;
+
+    private static final HashMap<String, Icon> knownIcons;
+
+    static {
+        knownIcons = new HashMap<String, Icon>(300, 0.999999f);
+    }
 
     /**
      * Construct a new Icon constant from a given string. This is provided so
@@ -71,6 +79,14 @@ public class Icon
      */
     protected String getName() {
         return name;
+    }
+
+    /**
+     * Look up a Stock object for the supplied String id as used in the
+     * underlying library. Returns <code>null</code> if not found.
+     */
+    static Icon instanceFor(String name) {
+        return knownIcons.get(name);
     }
 
     public static final Icon EMBLEM_DOWNLOADS = new Icon("emblem-downloads");
