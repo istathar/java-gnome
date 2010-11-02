@@ -15,6 +15,13 @@ default icons. If you need a custom name, you just have to subclass Icon.
 * **`org.gnome.gtk.Image`**
 * `org.gnome.gtk.ValidateIconItems`
 
+We've also introduce a new signal in the [Assistant][]. You can now define the
+behavior of an Assistant using the `ForwardPage` signal with the `setForwardPageCallback()` method.
+
+* **`org.gnome.gtk.Assistant`**
+* `org.gnome.gtk.GtkAssistantOverride`
+* `org.gnome.gtk.ValidateAssistant`
+
 AfC
 
 
