@@ -1,13 +1,41 @@
 NEWS
 
-<a name="4.0.16" id="" title=""></a>
+<a name="4.0.17" id="" title=""></a>
 
-java-gnome 4.0.17-rc1 (15 Oct 2010)
+java-gnome 4.0.17-rc3 (3 Nov 2010)
 ===================================
 
 _placeholder_
 
+Improve the utility of the Enchant library by exposing functionality to test
+wither a dictionary [exists][Enchant.existsDictionary()] for a given "language
+tag", and to [list][Enchant.listDictionaries()] all available dictionaries.
+Add speciality functions to the Internationalization class facilitating the
+translation of [language][Internationalization.translateLangageName()] and
+[country][Internationalization.translateCountryName()] names so you can
+present the list of available languages properly translated in the user's
+language.
+
+* **`org.freedesktop.enchant.Enchant`**
+* `org.freedesktop.enchant.EnchantBrokerOverride`
+* `org.freedesktop.enchant.ValidateEnchantInternals`
+
+Introduce a Icon as a strongly typed class to wrap "named icons" available in
+an icon theme. Add methods to DataColumn, TreeModel, Image, and Entry making
+these available.
+
+* **`org.gnome.gtk.Icon`**
+* **`org.gnome.gtk.DataColumnIcon`**
+* **`org.gnome.gtk.TreeModel`**
+* **`org.gnome.gtk.Image`**
+* **`org.gnome.gtk.Entry`**
+
 AfC
+
+[Enchant.existsDictionary()]: http://java-gnome.sourceforge.net/4.0/doc/api/org/freedesktop/enchant/Enchant.html#existsDictionary(java.lang.String)
+[Enchant.listDictionaries()]: http://java-gnome.sourceforge.net/4.0/doc/api/org/freedesktop/enchant/Enchant.html#listDictionaries()
+[Internationalization.translateLangageName()]: http://java-gnome.sourceforge.net/4.0/doc/api/org/freedesktop/bindings/Internationalization.html#translateLanguageName(java.lang.String)
+[Internationalization.translateCountryName()]: http://java-gnome.sourceforge.net/4.0/doc/api/org/freedesktop/bindings/Internationalization.html#translateCountryName(java.lang.String)
 
 
 <a name="4.0.16" id="1276732981" title="Accelerating operations"></a>
