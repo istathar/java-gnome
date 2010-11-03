@@ -218,6 +218,10 @@ public abstract class TreeModel extends org.gnome.glib.Object
      * from here so they can call their specific translation method
      * accordingly. Putting it here avoids recursive overload problems we ran
      * into.
+     * 
+     * @param row
+     * @param column
+     * @param value
      */
     protected void dispatch(TreeIter row, DataColumn column, Value value) {
         throw new UnsupportedOperationException(
@@ -361,6 +365,17 @@ public abstract class TreeModel extends org.gnome.glib.Object
     }
 
     /**
+     * Store a Stock icon in this TreeModel at the specified <code>row</code>
+     * and <code>column</code>.
+     * 
+     * @since 4.0.17
+     */
+    public void setValue(TreeIter row, DataColumnIcon column, Icon value) {
+        checkIter(row);
+        dispatch(row, column, new Value(value.getName()));
+    }
+
+    /**
      * Get the Stock icon stored in this TreeModel at the specified
      * <code>row</code> and <code>column</code>.
      * 
@@ -376,6 +391,24 @@ public abstract class TreeModel extends org.gnome.glib.Object
         GtkTreeModel.getValue(this, row, column.getOrdinal(), result);
 
         return Stock.instanceFor(result.getString());
+    }
+
+    /**
+     * Get the named Icon stored in this TreeModel at the specified
+     * <code>row</code> and <code>column</code>.
+     * 
+     * @since 4.0.7
+     */
+    public Icon getValue(TreeIter row, DataColumnIcon column) {
+        final Value result;
+
+        checkIter(row);
+
+        result = new Value();
+
+        GtkTreeModel.getValue(this, row, column.getOrdinal(), result);
+
+        return Icon.instanceFor(result.getString());
     }
 
     /**
