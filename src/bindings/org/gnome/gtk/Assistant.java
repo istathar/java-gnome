@@ -77,6 +77,7 @@ import org.gnome.gdk.Pixbuf;
  * 
  * @author Stefan Prelle
  * @author Andrew Cowie
+ * @author Guillaume Mazoyer
  * @since 4.0.9
  */
 public class Assistant extends Window
@@ -315,7 +316,7 @@ public class Assistant extends Window
     /**
      * Force the Assistant.ForwardPage signal to be emitted.
      * 
-     * 4.0.17
+     * @since 4.0.17
      */
     public int emitForwardPage(int currentPage) {
         return GtkAssistantOverride.emitForward(this, currentPage);
@@ -410,7 +411,7 @@ public class Assistant extends Window
     }
 
     /**
-     * The callback invoked when an Assistant wants to display a another page.
+     * The callback invoked when an Assistant wants to display another page.
      * It helps you to determine what page to display after another one.
      * 
      * Generally, when you will receive the callback, you will check the
