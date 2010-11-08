@@ -20,8 +20,8 @@ language.
 * `org.freedesktop.enchant.EnchantBrokerOverride`
 * `org.freedesktop.enchant.ValidateEnchantInternals`
 
-Introduce a Icon as a strongly typed class to wrap "named icons" available in
-an icon theme. Add methods to DataColumn, TreeModel, Image, and Entry making
+Introduce Icon as a strongly typed class to wrap "named icons" available in an
+icon theme. Add methods to DataColumn, TreeModel, Image, and Entry making
 these available.
 
 * **`org.gnome.gtk.Icon`**
@@ -30,8 +30,8 @@ these available.
 * **`org.gnome.gtk.Image`**
 * **`org.gnome.gtk.Entry`**
 
-We've also introduced a new signal in the [Assistant][]. You can now define the
-behavior of an Assistant using the `ForwardPage` signal with the
+We've also introduced a new signal in the [Assistant][]. You can now define
+the behaviour of an Assistant using the `ForwardPage` signal with the
 `setForwardPageCallback()` method. It can help you to skip pages when you need
 to. When going back, the Assistant will also skip the previously skipped page.
 
@@ -39,13 +39,12 @@ to. When going back, the Assistant will also skip the previously skipped page.
 * `org.gnome.gtk.GtkAssistantOverride`
 * `org.gnome.gtk.ValidateAssistant`
 
-java-gnome now supports GTK+ 2.20 and introduces the new [Spinner][] widget that
-can be used to display an unknown progress.
+java-gnome now supports GTK+ 2.20 and introduces the new [Spinner][] widget
+that can be used to display an unknown progress.
 
 * **`org.gnome.gtk.Spinner`**
 
-
-AfC
+AfC, GM
 
 [Enchant.existsDictionary()]: http://java-gnome.sourceforge.net/4.0/doc/api/org/freedesktop/enchant/Enchant.html#existsDictionary(java.lang.String)
 [Enchant.listDictionaries()]: http://java-gnome.sourceforge.net/4.0/doc/api/org/freedesktop/enchant/Enchant.html#listDictionaries()
