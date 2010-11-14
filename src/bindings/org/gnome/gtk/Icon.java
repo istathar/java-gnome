@@ -89,121 +89,7 @@ public class Icon
         return knownIcons.get(name);
     }
 
-    public static final Icon EMBLEM_DOWNLOADS = new Icon("emblem-downloads");
-
-    public static final Icon EMBLEM_PACKAGE = new Icon("emblem-package");
-
-    public static final Icon EMBLEM_GENERIC = new Icon("emblem-generic");
-
-    public static final Icon EMBLEM_MAIL = new Icon("emblem-mail");
-
-    public static final Icon EMBLEM_IMPORTANT = new Icon("emblem-important");
-
-    public static final Icon EMBLEM_SHARED = new Icon("emblem-shared");
-
-    public static final Icon EMBLEM_DEFAULT = new Icon("emblem-default");
-
-    public static final Icon EMBLEM_FAVORITE = new Icon("emblem-favorite");
-
-    public static final Icon EMBLEM_WEB = new Icon("emblem-web");
-
-    public static final Icon EMBLEM_UNREADABLE = new Icon("emblem-unreadable");
-
-    public static final Icon EMBLEM_SYMBOLIC_LINK = new Icon("emblem-symbolic-link");
-
-    public static final Icon EMBLEM_SYSTEM = new Icon("emblem-system");
-
-    public static final Icon EMBLEM_DESKTOP = new Icon("emblem-desktop");
-
-    public static final Icon EMBLEM_DOCUMENTS = new Icon("emblem-documents");
-
-    public static final Icon EMBLEM_NEW = new Icon("emblem-new");
-
-    public static final Icon EMBLEM_READONLY = new Icon("emblem-readonly");
-
-    public static final Icon EMBLEM_URGENT = new Icon("emblem-urgent");
-
-    public static final Icon EMBLEM_PHOTOS = new Icon("emblem-photos");
-
     public static final Icon STOCK_PERSON = new Icon("stock_person");
-
-    public static final Icon TEXT_X_SCRIPT = new Icon("text-x-script");
-
-    public static final Icon X_OFFICE_SPREADSHEET = new Icon("x-office-spreadsheet");
-
-    public static final Icon X_OFFICE_DOCUMENT = new Icon("x-office-document");
-
-    public static final Icon APPLICATION_X_EXECUTABLE = new Icon("application-x-executable");
-
-    public static final Icon VIDEO_X_GENERIC = new Icon("video-x-generic");
-
-    public static final Icon X_OFFICE_PRESENTATION = new Icon("x-office-presentation");
-
-    public static final Icon IMAGE_X_GENERIC = new Icon("image-x-generic");
-
-    public static final Icon X_OFFICE_DRAWING = new Icon("x-office-drawing");
-
-    public static final Icon X_OFFICE_CALENDAR = new Icon("x-office-calendar");
-
-    public static final Icon TEXT_X_GENERIC_TEMPLATE = new Icon("text-x-generic-template");
-
-    public static final Icon APPLICATION_CERTIFICATE = new Icon("application-certificate");
-
-    public static final Icon AUDIO_X_GENERIC = new Icon("audio-x-generic");
-
-    public static final Icon X_OFFICE_ADDRESS_BOOK = new Icon("x-office-address-book");
-
-    public static final Icon TEXT_X_PREVIEW = new Icon("text-x-preview");
-
-    public static final Icon PACKAGE_X_GENERIC = new Icon("package-x-generic");
-
-    public static final Icon TEXT_X_GENERIC = new Icon("text-x-generic");
-
-    public static final Icon FONT_X_GENERIC = new Icon("font-x-generic");
-
-    public static final Icon TEXT_HTML = new Icon("text-html");
-
-    public static final Icon FACE_SMILE_BIG = new Icon("face-smile-big");
-
-    public static final Icon FACE_ANGRY = new Icon("face-angry");
-
-    public static final Icon FACE_WORRIED = new Icon("face-worried");
-
-    public static final Icon FACE_ANGEL = new Icon("face-angel");
-
-    public static final Icon FACE_SMILE = new Icon("face-smile");
-
-    public static final Icon FACE_TIRED = new Icon("face-tired");
-
-    public static final Icon FACE_CRYING = new Icon("face-crying");
-
-    public static final Icon FACE_SAD = new Icon("face-sad");
-
-    public static final Icon FACE_SURPRISE = new Icon("face-surprise");
-
-    public static final Icon FACE_SICK = new Icon("face-sick");
-
-    public static final Icon FACE_EMBARRASSED = new Icon("face-embarrassed");
-
-    public static final Icon FACE_SMIRK = new Icon("face-smirk");
-
-    public static final Icon FACE_MONKEY = new Icon("face-monkey");
-
-    public static final Icon FACE_COOL = new Icon("face-cool");
-
-    public static final Icon FACE_KISS = new Icon("face-kiss");
-
-    public static final Icon FACE_PLAIN = new Icon("face-plain");
-
-    public static final Icon FACE_WINK = new Icon("face-wink");
-
-    public static final Icon FACE_RASPBERRY = new Icon("face-raspberry");
-
-    public static final Icon FACE_DEVILISH = new Icon("face-devilish");
-
-    public static final Icon FACE_LAUGH = new Icon("face-laugh");
-
-    public static final Icon FACE_UNCERTAIN = new Icon("face-uncertain");
 
     public static final Icon UTILITIES_SYSTEM_MONITOR = new Icon("utilities-system-monitor");
 
@@ -375,28 +261,10 @@ public class Icon
 
     public static final Icon APPLICATIONS_MULTIMEDIA = new Icon("applications-multimedia");
 
-    public static final Icon APPLICATIONS_OTHER = new Icon("applications-other");
-
-    public static final Icon APPLICATIONS_ACCESSORIES = new Icon("applications-accessories");
-
-    public static final Icon APPLICATIONS_OFFICE = new Icon("applications-office");
-
     public static final Icon PREFERENCES_DESKTOP_PERIPHERALS = new Icon(
             "preferences-desktop-peripherals");
 
     public static final Icon SYSTEM_HELP = new Icon("system-help");
-
-    public static final Icon APPLICATIONS_UTILITIES = new Icon("applications-utilities");
-
-    public static final Icon APPLICATIONS_GRAPHICS = new Icon("applications-graphics");
-
-    public static final Icon APPLICATIONS_SYSTEM = new Icon("applications-system");
-
-    public static final Icon APPLICATIONS_GAMES = new Icon("applications-games");
-
-    public static final Icon APPLICATIONS_INTERNET = new Icon("applications-internet");
-
-    public static final Icon APPLICATIONS_DEVELOPMENT = new Icon("applications-development");
 
     public static final Icon PREFERENCES_OTHER = new Icon("preferences-other");
 
@@ -404,11 +272,7 @@ public class Icon
 
     public static final Icon PREFERENCES_SYSTEM = new Icon("preferences-system");
 
-    public static final Icon APPLICATIONS_SCIENCE = new Icon("applications-science");
-
     public static final Icon PREFERENCES_SYSTEM_NETWORK = new Icon("preferences-system-network");
-
-    public static final Icon APPLICATIONS_ENGINEERING = new Icon("applications-engineering");
 
     public static final Icon PREFERENCES_DESKTOP_PERSONAL = new Icon("preferences-desktop-personal");
 
