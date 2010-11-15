@@ -32,61 +32,61 @@
  */
 package org.gnome.gtk;
 
-import java.util.HashMap;
-
 /**
- * Identify the icons that should be in the icons theme. These constants can
- * be used to create an {@link Image image} using the constructor
- * {@link Image#Image(Icon, IconSize) Image(Icon, IconSize)}.
+ * Named icons with "smiley faces". Not all of them are smiling
+ * <code>:)</code>
  * 
  * @author Guillaume Mazoyer
  * @author Andrew Cowie
  * @since 4.0.17
  */
-public class Icon
+public class FaceIcon extends Icon
 {
-    /**
-     * The name used to identify the icon in the theme.
-     */
-    private final String name;
-
-    private static final HashMap<String, Icon> knownIcons;
-
-    static {
-        knownIcons = new HashMap<String, Icon>(300, 0.999999f);
+    protected FaceIcon(String name) {
+        super(name);
     }
 
-    /**
-     * Construct a new Icon constant from a given string. This is provided so
-     * that if we missed a name that you desperately need, you can subclass
-     * and create it. Ideally, though, we'd appreciate it if you'd point out
-     * what it is about that name that you needed, and if appropriate submit a
-     * patch adding it to this class instead.
-     * 
-     * @since 4.0.17
-     */
-    protected Icon(String name) {
-        this.name = name;
-    }
+    public static final Icon FACE_ANGEL = new FaceIcon("face-angel");
 
-    /**
-     * Get the name of the icon expected by GTK.
-     * 
-     * @since 4.0.17
-     */
-    /*
-     * For the moment, keep this with restricted visibility because it's
-     * internal.
-     */
-    protected String getName() {
-        return name;
-    }
+    public static final Icon FACE_ANGRY = new FaceIcon("face-angry");
 
-    /**
-     * Look up a Stock object for the supplied String id as used in the
-     * underlying library. Returns <code>null</code> if not found.
-     */
-    static Icon instanceFor(String name) {
-        return knownIcons.get(name);
-    }
+    public static final Icon FACE_COOL = new FaceIcon("face-cool");
+
+    public static final Icon FACE_CRYING = new FaceIcon("face-crying");
+
+    public static final Icon FACE_DEVILISH = new FaceIcon("face-devilish");
+
+    public static final Icon FACE_EMBARRASSED = new FaceIcon("face-embarrassed");
+
+    public static final Icon FACE_GLASSES = new FaceIcon("face-glasses");
+
+    public static final Icon FACE_KISS = new FaceIcon("face-kiss");
+
+    public static final Icon FACE_LAUGH = new FaceIcon("face-laugh");
+
+    public static final Icon FACE_MONKEY = new FaceIcon("face-monkey");
+
+    public static final Icon FACE_PLAIN = new FaceIcon("face-plain");
+
+    public static final Icon FACE_RASPBERRY = new FaceIcon("face-raspberry");
+
+    public static final Icon FACE_SAD = new FaceIcon("face-sad");
+
+    public static final Icon FACE_SICK = new FaceIcon("face-sick");
+
+    public static final Icon FACE_SMILE_BIG = new FaceIcon("face-smile-big");
+
+    public static final Icon FACE_SMILE = new FaceIcon("face-smile");
+
+    public static final Icon FACE_SMIRK = new FaceIcon("face-smirk");
+
+    public static final Icon FACE_SURPRISE = new FaceIcon("face-surprise");
+
+    public static final Icon FACE_TIRED = new FaceIcon("face-tired");
+
+    public static final Icon FACE_UNCERTAIN = new FaceIcon("face-uncertain");
+
+    public static final Icon FACE_WINK = new FaceIcon("face-wink");
+
+    public static final Icon FACE_WORRIED = new FaceIcon("face-worried");
 }
