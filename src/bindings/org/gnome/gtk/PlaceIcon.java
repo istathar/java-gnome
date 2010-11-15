@@ -32,71 +32,50 @@
  */
 package org.gnome.gtk;
 
-import java.util.HashMap;
-
 /**
- * Identify the icons that should be in the icons theme.
- * 
- * <p>
- * These constants can be used to create an Image using the constructor
- * {@link Image#Image(Icon, IconSize) Image()} taking an Icon.
- * 
- * <p>
- * You can also use named icons in TreeViews; DataColumnIcon and a setValue()
- * taking an Icon are for specifying a named icon in a TreeModel and
- * CellRendererPixbuf has a {@link CellRendererPixbuf#setIcon(DataColumnIcon)
- * setIcon()} where you can specify the column.
+ * Named icons representing folders.
  * 
  * @author Guillaume Mazoyer
  * @author Andrew Cowie
  * @since 4.0.17
  */
-public class Icon
+public class PlaceIcon extends Icon
 {
-    /**
-     * The name used to identify the icon in the theme.
-     */
-    private final String name;
-
-    private static final HashMap<String, Icon> knownIcons;
-
-    static {
-        knownIcons = new HashMap<String, Icon>(300, 0.999999f);
+    protected PlaceIcon(String name) {
+        super(name);
     }
 
-    /**
-     * Construct a new Icon constant from a given string.
-     * 
-     * <p>
-     * This is provided so that if we missed a name that you desperately need,
-     * you can subclass and create it. Ideally, though, we'd appreciate it if
-     * you'd point out what it is about that name that you needed, and if
-     * appropriate submit a patch adding it to one of the appropriate Icon
-     * subclasses instead.
-     * 
-     * @since 4.0.17
-     */
-    protected Icon(String name) {
-        this.name = name;
-    }
+    public static final Icon FOLDER_DOCUMENTS = new PlaceIcon("folder-documents");
 
-    /**
-     * Get the name of the icon expected by GTK.
-     * 
-     * @since 4.0.17
-     */
-    /*
-     * Keep this with restricted visibility because it's internal.
-     */
-    protected String getName() {
-        return name;
-    }
+    public static final Icon FOLDER_DOWNLOAD = new PlaceIcon("folder-download");
 
-    /**
-     * Look up a Stock object for the supplied String id as used in the
-     * underlying library. Returns <code>null</code> if not found.
-     */
-    static Icon instanceFor(String name) {
-        return knownIcons.get(name);
-    }
+    public static final Icon FOLDER_MUSIC = new PlaceIcon("folder-music");
+
+    public static final Icon FOLDER_PICTURES = new PlaceIcon("folder-pictures");
+
+    public static final Icon FOLDER = new PlaceIcon("folder");
+
+    public static final Icon FOLDER_PUBLICSHARE = new PlaceIcon("folder-publicshare");
+
+    public static final Icon FOLDER_REMOTE = new PlaceIcon("folder-remote");
+
+    public static final Icon FOLDER_SAVED_SEARCH = new PlaceIcon("folder-saved-search");
+
+    public static final Icon FOLDER_TEMPLATES = new PlaceIcon("folder-templates");
+
+    public static final Icon FOLDER_VIDEOS = new PlaceIcon("folder-videos");
+
+    public static final Icon NETWORK_SERVER = new PlaceIcon("network-server");
+
+    public static final Icon NETWORK_WORKGROUP = new PlaceIcon("network-workgroup");
+
+    public static final Icon START_HERE = new PlaceIcon("start-here");
+
+    public static final Icon USER_BOOKMARKS = new PlaceIcon("user-bookmarks");
+
+    public static final Icon USER_DESKTOP = new PlaceIcon("user-desktop");
+
+    public static final Icon USER_HOME = new PlaceIcon("user-home");
+
+    public static final Icon USER_TRASH = new PlaceIcon("user-trash");
 }

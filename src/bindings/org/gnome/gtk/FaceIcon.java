@@ -46,45 +46,47 @@ public class FaceIcon extends Icon
         super(name);
     }
 
-    public static final Icon FACE_SMILE_BIG = new FaceIcon("face-smile-big");
+    public static final Icon FACE_ANGEL = new FaceIcon("face-angel");
 
     public static final Icon FACE_ANGRY = new FaceIcon("face-angry");
 
-    public static final Icon FACE_WORRIED = new FaceIcon("face-worried");
-
-    public static final Icon FACE_ANGEL = new FaceIcon("face-angel");
-
-    public static final Icon FACE_SMILE = new FaceIcon("face-smile");
-
-    public static final Icon FACE_TIRED = new FaceIcon("face-tired");
+    public static final Icon FACE_COOL = new FaceIcon("face-cool");
 
     public static final Icon FACE_CRYING = new FaceIcon("face-crying");
 
-    public static final Icon FACE_SAD = new FaceIcon("face-sad");
-
-    public static final Icon FACE_SURPRISE = new FaceIcon("face-surprise");
-
-    public static final Icon FACE_SICK = new FaceIcon("face-sick");
+    public static final Icon FACE_DEVILISH = new FaceIcon("face-devilish");
 
     public static final Icon FACE_EMBARRASSED = new FaceIcon("face-embarrassed");
 
-    public static final Icon FACE_SMIRK = new FaceIcon("face-smirk");
-
-    public static final Icon FACE_MONKEY = new FaceIcon("face-monkey");
-
-    public static final Icon FACE_COOL = new FaceIcon("face-cool");
+    public static final Icon FACE_GLASSES = new FaceIcon("face-glasses");
 
     public static final Icon FACE_KISS = new FaceIcon("face-kiss");
 
-    public static final Icon FACE_PLAIN = new FaceIcon("face-plain");
+    public static final Icon FACE_LAUGH = new FaceIcon("face-laugh");
 
-    public static final Icon FACE_WINK = new FaceIcon("face-wink");
+    public static final Icon FACE_MONKEY = new FaceIcon("face-monkey");
+
+    public static final Icon FACE_PLAIN = new FaceIcon("face-plain");
 
     public static final Icon FACE_RASPBERRY = new FaceIcon("face-raspberry");
 
-    public static final Icon FACE_DEVILISH = new FaceIcon("face-devilish");
+    public static final Icon FACE_SAD = new FaceIcon("face-sad");
 
-    public static final Icon FACE_LAUGH = new FaceIcon("face-laugh");
+    public static final Icon FACE_SICK = new FaceIcon("face-sick");
+
+    public static final Icon FACE_SMILE_BIG = new FaceIcon("face-smile-big");
+
+    public static final Icon FACE_SMILE = new FaceIcon("face-smile");
+
+    public static final Icon FACE_SMIRK = new FaceIcon("face-smirk");
+
+    public static final Icon FACE_SURPRISE = new FaceIcon("face-surprise");
+
+    public static final Icon FACE_TIRED = new FaceIcon("face-tired");
 
     public static final Icon FACE_UNCERTAIN = new FaceIcon("face-uncertain");
+
+    public static final Icon FACE_WINK = new FaceIcon("face-wink");
+
+    public static final Icon FACE_WORRIED = new FaceIcon("face-worried");
 }

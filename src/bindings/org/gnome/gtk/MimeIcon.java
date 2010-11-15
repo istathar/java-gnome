@@ -45,39 +45,49 @@ public class MimeIcon extends Icon
         super(name);
     }
 
-    public static final Icon TEXT_X_SCRIPT = new MimeIcon("text-x-script");
-
-    public static final Icon X_OFFICE_SPREADSHEET = new MimeIcon("x-office-spreadsheet");
-
-    public static final Icon X_OFFICE_DOCUMENT = new MimeIcon("x-office-document");
+    public static final Icon APPLICATION_CERTIFICATE = new MimeIcon("application-certificate");
 
     public static final Icon APPLICATION_X_EXECUTABLE = new MimeIcon("application-x-executable");
 
-    public static final Icon VIDEO_X_GENERIC = new MimeIcon("video-x-generic");
-
-    public static final Icon X_OFFICE_PRESENTATION = new MimeIcon("x-office-presentation");
-
-    public static final Icon IMAGE_X_GENERIC = new MimeIcon("image-x-generic");
-
-    public static final Icon X_OFFICE_DRAWING = new MimeIcon("x-office-drawing");
-
-    public static final Icon X_OFFICE_CALENDAR = new MimeIcon("x-office-calendar");
-
-    public static final Icon TEXT_X_GENERIC_TEMPLATE = new MimeIcon("text-x-generic-template");
-
-    public static final Icon APPLICATION_CERTIFICATE = new MimeIcon("application-certificate");
-
     public static final Icon AUDIO_X_GENERIC = new MimeIcon("audio-x-generic");
-
-    public static final Icon X_OFFICE_ADDRESS_BOOK = new MimeIcon("x-office-address-book");
-
-    public static final Icon TEXT_X_PREVIEW = new MimeIcon("text-x-preview");
-
-    public static final Icon PACKAGE_X_GENERIC = new MimeIcon("package-x-generic");
-
-    public static final Icon TEXT_X_GENERIC = new MimeIcon("text-x-generic");
 
     public static final Icon FONT_X_GENERIC = new MimeIcon("font-x-generic");
 
+    public static final Icon IMAGE_X_GENERIC = new MimeIcon("image-x-generic");
+
+    public static final Icon PACKAGE_X_GENERIC = new MimeIcon("package-x-generic");
+
     public static final Icon TEXT_HTML = new MimeIcon("text-html");
+
+    public static final Icon TEXT_X_GENERIC = new MimeIcon("text-x-generic");
+
+    public static final Icon TEXT_X_GENERIC_TEMPLATE = new MimeIcon("text-x-generic-template");
+
+    public static final Icon TEXT_X_PREVIEW = new MimeIcon("text-x-preview");
+
+    public static final Icon TEXT_X_SCRIPT = new MimeIcon("text-x-script");
+
+    public static final Icon VIDEO_X_GENERIC = new MimeIcon("video-x-generic");
+
+    public static final Icon X_OFFICE_ADDRESS_BOOK = new MimeIcon("x-office-address-book");
+
+    public static final Icon X_OFFICE_CALENDAR = new MimeIcon("x-office-calendar");
+
+    public static final Icon X_OFFICE_DOCUMENT = new MimeIcon("x-office-document");
+
+    public static final Icon X_OFFICE_DOCUMENT_TEMPLATE = new MimeIcon("x-office-document-template");
+
+    public static final Icon X_OFFICE_DRAWING = new MimeIcon("x-office-drawing");
+
+    public static final Icon X_OFFICE_DRAWING_TEMPLATE = new MimeIcon("x-office-drawing-template");
+
+    public static final Icon X_OFFICE_PRESENTATION = new MimeIcon("x-office-presentation");
+
+    public static final Icon X_OFFICE_PRESENTATION_TEMPLATE = new MimeIcon(
+            "x-office-presentation-template");
+
+    public static final Icon X_OFFICE_SPREADSHEET = new MimeIcon("x-office-spreadsheet");
+
+    public static final Icon X_OFFICE_SPREADSHEET_TEMPLATE = new MimeIcon(
+            "x-office-spreadsheet-template");
 }

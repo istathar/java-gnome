@@ -33,8 +33,7 @@
 package org.gnome.gtk;
 
 /**
- * Named icons representing individual applications and application
- * categories.
+ * Named icons representing individual applications.
  * 
  * @author Guillaume Mazoyer
  * @author Andrew Cowie
@@ -46,26 +45,66 @@ public class ApplicationIcon extends Icon
         super(name);
     }
 
-    public static final Icon APPLICATIONS_UTILITIES = new ApplicationIcon("applications-utilities");
+    public static final Icon ACCESSORIES_CALCULATOR = new ApplicationIcon("accessories-calculator");
 
-    public static final Icon APPLICATIONS_GRAPHICS = new ApplicationIcon("applications-graphics");
+    public static final Icon ACCESSORIES_CHARACTER_MAP = new ApplicationIcon("accessories-character-map");
 
-    public static final Icon APPLICATIONS_SYSTEM = new ApplicationIcon("applications-system");
+    public static final Icon ACCESSORIES_DICTIONARY = new ApplicationIcon("accessories-dictionary");
 
-    public static final Icon APPLICATIONS_GAMES = new ApplicationIcon("applications-games");
+    public static final Icon ACCESSORIES_TEXT_EDITOR = new ApplicationIcon("accessories-text-editor");
 
-    public static final Icon APPLICATIONS_INTERNET = new ApplicationIcon("applications-internet");
+    public static final Icon APPLETS_SCREENSHOOTER = new ApplicationIcon("applets-screenshooter");
 
-    public static final Icon APPLICATIONS_DEVELOPMENT = new ApplicationIcon("applications-development");
+    public static final Icon HELP_BROWSER = new ApplicationIcon("help-browser");
 
-    public static final Icon APPLICATIONS_SCIENCE = new Icon("applications-science");
+    public static final Icon LOGVIEWER = new ApplicationIcon("logviewer");
 
-    public static final Icon APPLICATIONS_ENGINEERING = new Icon("applications-engineering");
+    public static final Icon MULTIMEDIA_VOLUME_CONTROL = new ApplicationIcon("multimedia-volume-control");
 
-    public static final Icon APPLICATIONS_OTHER = new Icon("applications-other");
+    public static final Icon PREFERENCES_DESKTOP_ACCESSIBILITY = new ApplicationIcon(
+            "preferences-desktop-accessibility");
 
-    public static final Icon APPLICATIONS_ACCESSORIES = new Icon("applications-accessories");
+    public static final Icon PREFERENCES_DESKTOP_DISPLAY = new ApplicationIcon(
+            "preferences-desktop-display");
 
-    public static final Icon APPLICATIONS_OFFICE = new Icon("applications-office");
+    public static final Icon PREFERENCES_DESKTOP_FONT = new ApplicationIcon("preferences-desktop-font");
 
+    public static final Icon PREFERENCES_DESKTOP_KEYBOARD = new ApplicationIcon(
+            "preferences-desktop-keyboard");
+
+    public static final Icon PREFERENCES_DESKTOP_KEYBOARD_SHORTCUTS = new ApplicationIcon(
+            "preferences-desktop-keyboard-shortcuts");
+
+    public static final Icon PREFERENCES_DESKTOP_LOCALE = new ApplicationIcon(
+            "preferences-desktop-locale");
+
+    public static final Icon PREFERENCES_DESKTOP_REMOTE_DESKTOP = new ApplicationIcon(
+            "preferences-desktop-remote-desktop");
+
+    public static final Icon PREFERENCES_DESKTOP_SCREENSAVER = new ApplicationIcon(
+            "preferences-desktop-screensaver");
+
+    public static final Icon PREFERENCES_DESKTOP_THEME = new ApplicationIcon("preferences-desktop-theme");
+
+    public static final Icon PREFERENCES_DESKTOP_WALLPAPER = new ApplicationIcon(
+            "preferences-desktop-wallpaper");
+
+    public static final Icon PREFERENCES_SYSTEM_WINDOWS = new ApplicationIcon(
+            "preferences-system-windows");
+
+    public static final Icon SYSTEM_FILE_MANAGER = new ApplicationIcon("system-file-manager");
+
+    public static final Icon SYSTEM_SOFTWARE_INSTALL = new ApplicationIcon("system-software-install");
+
+    public static final Icon SYSTEM_SOFTWARE_UPDATE = new ApplicationIcon("system-software-update");
+
+    public static final Icon SYSTEM_USERS = new ApplicationIcon("system-users");
+
+    public static final Icon USER_INFO = new ApplicationIcon("user-info");
+
+    public static final Icon UTILITIES_SYSTEM_MONITOR = new ApplicationIcon("utilities-system-monitor");
+
+    public static final Icon UTILITIES_TERMINAL = new ApplicationIcon("utilities-terminal");
+
+    public static final Icon WEB_BROWSER = new ApplicationIcon("web-browser");
 }

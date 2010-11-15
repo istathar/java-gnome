@@ -33,50 +33,55 @@
 package org.gnome.gtk;
 
 /**
- * Named icons with "emblems". These are small images that can be used to
- * annotate an icon (you might have used these for files in Nautilus).
+ * Named icons representing application categories.
  * 
  * @author Guillaume Mazoyer
  * @author Andrew Cowie
  * @since 4.0.17
  */
-public class EmblemIcon extends Icon
+public class CategoryIcon extends Icon
 {
-    protected EmblemIcon(String name) {
+    protected CategoryIcon(String name) {
         super(name);
     }
 
-    public static final Icon EMBLEM_DEFAULT = new EmblemIcon("emblem-default");
+    public static final Icon APPLICATIONS_ACCESSORIES = new CategoryIcon("applications-accessories");
 
-    public static final Icon EMBLEM_DOCUMENTS = new EmblemIcon("emblem-documents");
+    public static final Icon APPLICATIONS_DEVELOPMENT = new CategoryIcon("applications-development");
 
-    public static final Icon EMBLEM_DOWNLOADS = new EmblemIcon("emblem-downloads");
+    public static final Icon APPLICATIONS_ENGINEERING = new CategoryIcon("applications-engineering");
 
-    public static final Icon EMBLEM_FAVORITE = new EmblemIcon("emblem-favorite");
+    public static final Icon APPLICATIONS_GAMES = new CategoryIcon("applications-games");
 
-    public static final Icon EMBLEM_GENERIC = new EmblemIcon("emblem-generic");
+    public static final Icon APPLICATIONS_GRAPHICS = new CategoryIcon("applications-graphics");
 
-    public static final Icon EMBLEM_IMPORTANT = new EmblemIcon("emblem-important");
+    public static final Icon APPLICATIONS_INTERNET = new CategoryIcon("applications-internet");
 
-    public static final Icon EMBLEM_MAIL = new EmblemIcon("emblem-mail");
+    public static final Icon APPLICATIONS_MULTIMEDIA = new CategoryIcon("applications-multimedia");
 
-    public static final Icon EMBLEM_NEW = new EmblemIcon("emblem-new");
+    public static final Icon APPLICATIONS_OFFICE = new CategoryIcon("applications-office");
 
-    public static final Icon EMBLEM_PACKAGE = new EmblemIcon("emblem-package");
+    public static final Icon APPLICATIONS_OTHER = new CategoryIcon("applications-other");
 
-    public static final Icon EMBLEM_PHOTOS = new EmblemIcon("emblem-photos");
+    public static final Icon APPLICATIONS_SCIENCE = new CategoryIcon("applications-science");
 
-    public static final Icon EMBLEM_READONLY = new EmblemIcon("emblem-readonly");
+    public static final Icon APPLICATIONS_SYSTEM = new CategoryIcon("applications-system");
 
-    public static final Icon EMBLEM_SHARED = new EmblemIcon("emblem-shared");
+    public static final Icon APPLICATIONS_UTILITIES = new CategoryIcon("applications-utilities");
 
-    public static final Icon EMBLEM_SYMBOLIC_LINK = new EmblemIcon("emblem-symbolic-link");
+    public static final Icon PREFERENCES_DESKTOP_PERIPHERALS = new CategoryIcon(
+            "preferences-desktop-peripherals");
 
-    public static final Icon EMBLEM_SYSTEM = new EmblemIcon("emblem-system");
+    public static final Icon PREFERENCES_DESKTOP_PERSONAL = new CategoryIcon(
+            "preferences-desktop-personal");
 
-    public static final Icon EMBLEM_UNREADABLE = new EmblemIcon("emblem-unreadable");
+    public static final Icon PREFERENCES_DESKTOP = new CategoryIcon("preferences-desktop");
 
-    public static final Icon EMBLEM_URGENT = new EmblemIcon("emblem-urgent");
+    public static final Icon PREFERENCES_OTHER = new CategoryIcon("preferences-other");
 
-    public static final Icon EMBLEM_WEB = new EmblemIcon("emblem-web");
+    public static final Icon PREFERENCES_SYSTEM_NETWORK = new CategoryIcon("preferences-system-network");
+
+    public static final Icon PREFERENCES_SYSTEM = new CategoryIcon("preferences-system");
+
+    public static final Icon SYSTEM_HELP = new CategoryIcon("system-help");
 }
