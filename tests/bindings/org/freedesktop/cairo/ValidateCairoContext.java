@@ -89,12 +89,8 @@ public class ValidateCairoContext extends GraphicalTestCase
 
         assertFalse(cr.inFill(0.0, 0.0));
         assertFalse(cr.inFill(9.9, 9.9));
-        assertFalse(cr.inFill(9.9999, 9.9999));
         assertTrue(cr.inFill(10.1, 10.1));
         assertTrue(cr.inFill(10.01, 10.01));
-
-        // but,
-        assertFalse(cr.inFill(10.0, 10.0)); // false! rounding?
 
         assertTrue(cr.inFill(90.0, 90.0));
         assertFalse(cr.inFill(90.1, 90.1));
