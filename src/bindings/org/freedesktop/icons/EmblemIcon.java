@@ -30,73 +30,54 @@
  * version of the library, but you are not obligated to do so. If you do not
  * wish to do so, delete this exception statement from your version.
  */
-package org.gnome.gtk;
+package org.freedesktop.icons;
 
-import java.util.HashMap;
 
 /**
- * Identify the icons that should be in the icons theme.
- * 
- * <p>
- * These constants can be used to create an Image using the constructor
- * {@link Image#Image(Icon, IconSize) Image()} taking an Icon.
- * 
- * <p>
- * You can also use named icons in TreeViews; DataColumnIcon and a setValue()
- * taking an Icon are for specifying a named icon in a TreeModel and
- * CellRendererPixbuf has a {@link CellRendererPixbuf#setIcon(DataColumnIcon)
- * setIcon()} where you can specify the column.
+ * Named icons with "emblems". These are small images that can be used to
+ * annotate an icon (you might have used these for files in Nautilus).
  * 
  * @author Guillaume Mazoyer
  * @author Andrew Cowie
  * @since 4.0.17
  */
-public class Icon
+public class EmblemIcon extends Icon
 {
-    /**
-     * The name used to identify the icon in the theme.
-     */
-    private final String name;
-
-    private static final HashMap<String, Icon> knownIcons;
-
-    static {
-        knownIcons = new HashMap<String, Icon>(300, 0.999999f);
+    protected EmblemIcon(String name) {
+        super(name);
     }
 
-    /**
-     * Construct a new Icon constant from a given string.
-     * 
-     * <p>
-     * This is provided so that if we missed a name that you desperately need,
-     * you can subclass and create it. Ideally, though, we'd appreciate it if
-     * you'd point out what it is about that name that you needed, and if
-     * appropriate submit a patch adding it to one of the appropriate Icon
-     * subclasses instead.
-     * 
-     * @since 4.0.17
-     */
-    protected Icon(String name) {
-        this.name = name;
-    }
+    public static final Icon EMBLEM_DEFAULT = new EmblemIcon("emblem-default");
 
-    /**
-     * Get the name of the icon expected by GTK.
-     * 
-     * @since 4.0.17
-     */
-    /*
-     * Keep this with restricted visibility because it's internal.
-     */
-    protected String getName() {
-        return name;
-    }
+    public static final Icon EMBLEM_DOCUMENTS = new EmblemIcon("emblem-documents");
 
-    /**
-     * Look up a Stock object for the supplied String id as used in the
-     * underlying library. Returns <code>null</code> if not found.
-     */
-    static Icon instanceFor(String name) {
-        return knownIcons.get(name);
-    }
+    public static final Icon EMBLEM_DOWNLOADS = new EmblemIcon("emblem-downloads");
+
+    public static final Icon EMBLEM_FAVORITE = new EmblemIcon("emblem-favorite");
+
+    public static final Icon EMBLEM_GENERIC = new EmblemIcon("emblem-generic");
+
+    public static final Icon EMBLEM_IMPORTANT = new EmblemIcon("emblem-important");
+
+    public static final Icon EMBLEM_MAIL = new EmblemIcon("emblem-mail");
+
+    public static final Icon EMBLEM_NEW = new EmblemIcon("emblem-new");
+
+    public static final Icon EMBLEM_PACKAGE = new EmblemIcon("emblem-package");
+
+    public static final Icon EMBLEM_PHOTOS = new EmblemIcon("emblem-photos");
+
+    public static final Icon EMBLEM_READONLY = new EmblemIcon("emblem-readonly");
+
+    public static final Icon EMBLEM_SHARED = new EmblemIcon("emblem-shared");
+
+    public static final Icon EMBLEM_SYMBOLIC_LINK = new EmblemIcon("emblem-symbolic-link");
+
+    public static final Icon EMBLEM_SYSTEM = new EmblemIcon("emblem-system");
+
+    public static final Icon EMBLEM_UNREADABLE = new EmblemIcon("emblem-unreadable");
+
+    public static final Icon EMBLEM_URGENT = new EmblemIcon("emblem-urgent");
+
+    public static final Icon EMBLEM_WEB = new EmblemIcon("emblem-web");
 }

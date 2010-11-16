@@ -16,7 +16,7 @@
  * see http://www.gnu.org/licenses/. The authors of this program may be
  * contacted through http://java-gnome.sourceforge.net/.
  */
-package org.gnome.gtk;
+package org.freedesktop.icons;
 
 import junit.framework.TestCase;
 
@@ -27,11 +27,26 @@ import junit.framework.TestCase;
  */
 public class ValidateIconItems extends TestCase
 {
-    public final void testIconRegistry() {
-        assertEquals("user-trash", PlaceIcon.USER_TRASH.getName());
-        assertEquals("document-save", ActionIcon.DOCUMENT_SAVE.getName());
+    public final void testIconNames() {
+        String name;
+
+        name = Helper.getName(PlaceIcon.USER_TRASH);
+        assertEquals("user-trash", name);
+
+        name = Helper.getName(ActionIcon.DOCUMENT_SAVE);
+        assertEquals("document-save", name);
 
         assertFalse(PlaceIcon.USER_TRASH == ActionIcon.DOCUMENT_SAVE);
+    }
+
+    public final void testIconRegistry() {
+        Icon icon;
+
+        icon = Helper.instanceFor("user-trash");
+        assertSame(PlaceIcon.USER_TRASH, icon);
+
+        icon = Helper.instanceFor("document-save");
+        assertSame(ActionIcon.DOCUMENT_SAVE, icon);
     }
 
     public final void testIconEquals() {

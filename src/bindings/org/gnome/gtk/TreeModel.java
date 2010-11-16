@@ -32,6 +32,8 @@
  */
 package org.gnome.gtk;
 
+import org.freedesktop.icons.Helper;
+import org.freedesktop.icons.Icon;
 import org.gnome.gdk.Pixbuf;
 
 /**
@@ -372,7 +374,7 @@ public abstract class TreeModel extends org.gnome.glib.Object
      */
     public void setValue(TreeIter row, DataColumnIcon column, Icon value) {
         checkIter(row);
-        dispatch(row, column, new Value(value.getName()));
+        dispatch(row, column, new Value(Helper.getName(value)));
     }
 
     /**
@@ -408,7 +410,7 @@ public abstract class TreeModel extends org.gnome.glib.Object
 
         GtkTreeModel.getValue(this, row, column.getOrdinal(), result);
 
-        return Icon.instanceFor(result.getString());
+        return Helper.instanceFor(result.getString());
     }
 
     /**

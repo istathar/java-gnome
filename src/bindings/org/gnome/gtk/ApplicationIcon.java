@@ -32,6 +32,8 @@
  */
 package org.gnome.gtk;
 
+import org.freedesktop.icons.Icon;
+
 /**
  * Named icons representing individual applications.
  * 

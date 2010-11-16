@@ -30,53 +30,47 @@
  * version of the library, but you are not obligated to do so. If you do not
  * wish to do so, delete this exception statement from your version.
  */
-package org.gnome.gtk;
+package org.freedesktop.icons;
+
+import java.util.HashMap;
 
 /**
- * Named icons with "emblems". These are small images that can be used to
- * annotate an icon (you might have used these for files in Nautilus).
+ * Internal infrastructure supporting named icons.
  * 
- * @author Guillaume Mazoyer
+ * @since <span style="color: red">Not public</span>
  * @author Andrew Cowie
- * @since 4.0.17
  */
-public class EmblemIcon extends Icon
+/*
+ * Nothing we can do about visibility because GTK methods need these. But it's
+ * hidden from normal use of the Icon class. Best we can do. We really need a
+ * "library" visibility.
+ */
+public class Helper
 {
-    protected EmblemIcon(String name) {
-        super(name);
+    private Helper() {}
+
+    private static final HashMap<String, Icon> knownIcons;
+
+    static {
+        knownIcons = new HashMap<String, Icon>(128, 1.0f);
     }
 
-    public static final Icon EMBLEM_DEFAULT = new EmblemIcon("emblem-default");
+    /**
+     * Get the name of the icon expected by GTK.
+     */
+    public static String getName(Icon icon) {
+        return icon.name;
+    }
 
-    public static final Icon EMBLEM_DOCUMENTS = new EmblemIcon("emblem-documents");
+    /**
+     * Look up the constant object Icon wrapper for the supplied String id as
+     * used in the underlying library. Returns <code>null</code> if not found.
+     */
+    public static Icon instanceFor(String name) {
+        return knownIcons.get(name);
+    }
 
-    public static final Icon EMBLEM_DOWNLOADS = new EmblemIcon("emblem-downloads");
-
-    public static final Icon EMBLEM_FAVORITE = new EmblemIcon("emblem-favorite");
-
-    public static final Icon EMBLEM_GENERIC = new EmblemIcon("emblem-generic");
-
-    public static final Icon EMBLEM_IMPORTANT = new EmblemIcon("emblem-important");
-
-    public static final Icon EMBLEM_MAIL = new EmblemIcon("emblem-mail");
-
-    public static final Icon EMBLEM_NEW = new EmblemIcon("emblem-new");
-
-    public static final Icon EMBLEM_PACKAGE = new EmblemIcon("emblem-package");
-
-    public static final Icon EMBLEM_PHOTOS = new EmblemIcon("emblem-photos");
-
-    public static final Icon EMBLEM_READONLY = new EmblemIcon("emblem-readonly");
-
-    public static final Icon EMBLEM_SHARED = new EmblemIcon("emblem-shared");
-
-    public static final Icon EMBLEM_SYMBOLIC_LINK = new EmblemIcon("emblem-symbolic-link");
-
-    public static final Icon EMBLEM_SYSTEM = new EmblemIcon("emblem-system");
-
-    public static final Icon EMBLEM_UNREADABLE = new EmblemIcon("emblem-unreadable");
-
-    public static final Icon EMBLEM_URGENT = new EmblemIcon("emblem-urgent");
-
-    public static final Icon EMBLEM_WEB = new EmblemIcon("emblem-web");
+    static void registerIcon(Icon icon) {
+        knownIcons.put(icon.name, icon);
+    }
 }

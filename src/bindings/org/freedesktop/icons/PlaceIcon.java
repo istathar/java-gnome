@@ -30,63 +30,53 @@
  * version of the library, but you are not obligated to do so. If you do not
  * wish to do so, delete this exception statement from your version.
  */
-package org.gnome.gtk;
+package org.freedesktop.icons;
+
 
 /**
- * Named icons with "smiley faces". Not all of them are smiling
- * <code>:)</code>
+ * Named icons representing folders.
  * 
  * @author Guillaume Mazoyer
  * @author Andrew Cowie
  * @since 4.0.17
  */
-public class FaceIcon extends Icon
+public class PlaceIcon extends Icon
 {
-    protected FaceIcon(String name) {
+    protected PlaceIcon(String name) {
         super(name);
     }
 
-    public static final Icon FACE_ANGEL = new FaceIcon("face-angel");
+    public static final Icon FOLDER_DOCUMENTS = new PlaceIcon("folder-documents");
 
-    public static final Icon FACE_ANGRY = new FaceIcon("face-angry");
+    public static final Icon FOLDER_DOWNLOAD = new PlaceIcon("folder-download");
 
-    public static final Icon FACE_COOL = new FaceIcon("face-cool");
+    public static final Icon FOLDER_MUSIC = new PlaceIcon("folder-music");
 
-    public static final Icon FACE_CRYING = new FaceIcon("face-crying");
+    public static final Icon FOLDER_PICTURES = new PlaceIcon("folder-pictures");
 
-    public static final Icon FACE_DEVILISH = new FaceIcon("face-devilish");
+    public static final Icon FOLDER = new PlaceIcon("folder");
 
-    public static final Icon FACE_EMBARRASSED = new FaceIcon("face-embarrassed");
+    public static final Icon FOLDER_PUBLICSHARE = new PlaceIcon("folder-publicshare");
 
-    public static final Icon FACE_GLASSES = new FaceIcon("face-glasses");
+    public static final Icon FOLDER_REMOTE = new PlaceIcon("folder-remote");
 
-    public static final Icon FACE_KISS = new FaceIcon("face-kiss");
+    public static final Icon FOLDER_SAVED_SEARCH = new PlaceIcon("folder-saved-search");
 
-    public static final Icon FACE_LAUGH = new FaceIcon("face-laugh");
+    public static final Icon FOLDER_TEMPLATES = new PlaceIcon("folder-templates");
 
-    public static final Icon FACE_MONKEY = new FaceIcon("face-monkey");
+    public static final Icon FOLDER_VIDEOS = new PlaceIcon("folder-videos");
 
-    public static final Icon FACE_PLAIN = new FaceIcon("face-plain");
+    public static final Icon NETWORK_SERVER = new PlaceIcon("network-server");
 
-    public static final Icon FACE_RASPBERRY = new FaceIcon("face-raspberry");
+    public static final Icon NETWORK_WORKGROUP = new PlaceIcon("network-workgroup");
 
-    public static final Icon FACE_SAD = new FaceIcon("face-sad");
+    public static final Icon START_HERE = new PlaceIcon("start-here");
 
-    public static final Icon FACE_SICK = new FaceIcon("face-sick");
+    public static final Icon USER_BOOKMARKS = new PlaceIcon("user-bookmarks");
 
-    public static final Icon FACE_SMILE_BIG = new FaceIcon("face-smile-big");
+    public static final Icon USER_DESKTOP = new PlaceIcon("user-desktop");
 
-    public static final Icon FACE_SMILE = new FaceIcon("face-smile");
+    public static final Icon USER_HOME = new PlaceIcon("user-home");
 
-    public static final Icon FACE_SMIRK = new FaceIcon("face-smirk");
-
-    public static final Icon FACE_SURPRISE = new FaceIcon("face-surprise");
-
-    public static final Icon FACE_TIRED = new FaceIcon("face-tired");
-
-    public static final Icon FACE_UNCERTAIN = new FaceIcon("face-uncertain");
-
-    public static final Icon FACE_WINK = new FaceIcon("face-wink");
-
-    public static final Icon FACE_WORRIED = new FaceIcon("face-worried");
+    public static final Icon USER_TRASH = new PlaceIcon("user-trash");
 }
