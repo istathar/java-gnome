@@ -28,14 +28,14 @@ import junit.framework.TestCase;
 public class ValidateIconItems extends TestCase
 {
     public final void testIconRegistry() {
-        assertEquals("user-trash", Icon.USER_TRASH.getName());
-        assertEquals("document-save", Icon.DOCUMENT_SAVE.getName());
+        assertEquals("user-trash", PlaceIcon.USER_TRASH.getName());
+        assertEquals("document-save", ActionIcon.DOCUMENT_SAVE.getName());
 
-        assertFalse(Icon.USER_TRASH == Icon.DOCUMENT_SAVE);
+        assertFalse(PlaceIcon.USER_TRASH == ActionIcon.DOCUMENT_SAVE);
     }
 
     public final void testIconEquals() {
-        assertTrue(Icon.APPLICATION_EXIT.equals(Icon.APPLICATION_EXIT));
-        assertFalse(Icon.APPLICATION_EXIT.equals(Icon.ZOOM_ORIGINAL));
+        assertTrue(ActionIcon.APPLICATION_EXIT.equals(ActionIcon.APPLICATION_EXIT));
+        assertFalse(ActionIcon.APPLICATION_EXIT.equals(ActionIcon.ZOOM_ORIGINAL));
     }
 }
