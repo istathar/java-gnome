@@ -30,52 +30,47 @@
  * version of the library, but you are not obligated to do so. If you do not
  * wish to do so, delete this exception statement from your version.
  */
-package org.gnome.gtk;
+package org.freedesktop.icons;
+
+import java.util.HashMap;
 
 /**
- * Named icons representing folders.
+ * Internal infrastructure supporting named icons.
  * 
- * @author Guillaume Mazoyer
+ * @since <span style="color: red">Not public</span>
  * @author Andrew Cowie
- * @since 4.0.17
  */
-public class PlaceIcon extends Icon
+/*
+ * Nothing we can do about visibility because GTK methods need these. But it's
+ * hidden from normal use of the Icon class. Best we can do. We really need a
+ * "library" visibility.
+ */
+public class Helper
 {
-    protected PlaceIcon(String name) {
-        super(name);
+    private Helper() {}
+
+    private static final HashMap<String, Icon> knownIcons;
+
+    static {
+        knownIcons = new HashMap<String, Icon>(128, 1.0f);
     }
 
-    public static final Icon FOLDER_DOCUMENTS = new PlaceIcon("folder-documents");
+    /**
+     * Get the name of the icon expected by GTK.
+     */
+    public static String getName(Icon icon) {
+        return icon.name;
+    }
 
-    public static final Icon FOLDER_DOWNLOAD = new PlaceIcon("folder-download");
+    /**
+     * Look up the constant object Icon wrapper for the supplied String id as
+     * used in the underlying library. Returns <code>null</code> if not found.
+     */
+    public static Icon instanceFor(String name) {
+        return knownIcons.get(name);
+    }
 
-    public static final Icon FOLDER_MUSIC = new PlaceIcon("folder-music");
-
-    public static final Icon FOLDER_PICTURES = new PlaceIcon("folder-pictures");
-
-    public static final Icon FOLDER = new PlaceIcon("folder");
-
-    public static final Icon FOLDER_PUBLICSHARE = new PlaceIcon("folder-publicshare");
-
-    public static final Icon FOLDER_REMOTE = new PlaceIcon("folder-remote");
-
-    public static final Icon FOLDER_SAVED_SEARCH = new PlaceIcon("folder-saved-search");
-
-    public static final Icon FOLDER_TEMPLATES = new PlaceIcon("folder-templates");
-
-    public static final Icon FOLDER_VIDEOS = new PlaceIcon("folder-videos");
-
-    public static final Icon NETWORK_SERVER = new PlaceIcon("network-server");
-
-    public static final Icon NETWORK_WORKGROUP = new PlaceIcon("network-workgroup");
-
-    public static final Icon START_HERE = new PlaceIcon("start-here");
-
-    public static final Icon USER_BOOKMARKS = new PlaceIcon("user-bookmarks");
-
-    public static final Icon USER_DESKTOP = new PlaceIcon("user-desktop");
-
-    public static final Icon USER_HOME = new PlaceIcon("user-home");
-
-    public static final Icon USER_TRASH = new PlaceIcon("user-trash");
+    static void registerIcon(Icon icon) {
+        knownIcons.put(icon.name, icon);
+    }
 }

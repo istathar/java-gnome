@@ -30,53 +30,53 @@
  * version of the library, but you are not obligated to do so. If you do not
  * wish to do so, delete this exception statement from your version.
  */
-package org.gnome.gtk;
+package org.freedesktop.icons;
+
 
 /**
- * Named icons with "emblems". These are small images that can be used to
- * annotate an icon (you might have used these for files in Nautilus).
+ * Named icons representing folders.
  * 
  * @author Guillaume Mazoyer
  * @author Andrew Cowie
  * @since 4.0.17
  */
-public class EmblemIcon extends Icon
+public class PlaceIcon extends Icon
 {
-    protected EmblemIcon(String name) {
+    protected PlaceIcon(String name) {
         super(name);
     }
 
-    public static final Icon EMBLEM_DEFAULT = new EmblemIcon("emblem-default");
+    public static final Icon FOLDER_DOCUMENTS = new PlaceIcon("folder-documents");
 
-    public static final Icon EMBLEM_DOCUMENTS = new EmblemIcon("emblem-documents");
+    public static final Icon FOLDER_DOWNLOAD = new PlaceIcon("folder-download");
 
-    public static final Icon EMBLEM_DOWNLOADS = new EmblemIcon("emblem-downloads");
+    public static final Icon FOLDER_MUSIC = new PlaceIcon("folder-music");
 
-    public static final Icon EMBLEM_FAVORITE = new EmblemIcon("emblem-favorite");
+    public static final Icon FOLDER_PICTURES = new PlaceIcon("folder-pictures");
 
-    public static final Icon EMBLEM_GENERIC = new EmblemIcon("emblem-generic");
+    public static final Icon FOLDER = new PlaceIcon("folder");
 
-    public static final Icon EMBLEM_IMPORTANT = new EmblemIcon("emblem-important");
+    public static final Icon FOLDER_PUBLICSHARE = new PlaceIcon("folder-publicshare");
 
-    public static final Icon EMBLEM_MAIL = new EmblemIcon("emblem-mail");
+    public static final Icon FOLDER_REMOTE = new PlaceIcon("folder-remote");
 
-    public static final Icon EMBLEM_NEW = new EmblemIcon("emblem-new");
+    public static final Icon FOLDER_SAVED_SEARCH = new PlaceIcon("folder-saved-search");
 
-    public static final Icon EMBLEM_PACKAGE = new EmblemIcon("emblem-package");
+    public static final Icon FOLDER_TEMPLATES = new PlaceIcon("folder-templates");
 
-    public static final Icon EMBLEM_PHOTOS = new EmblemIcon("emblem-photos");
+    public static final Icon FOLDER_VIDEOS = new PlaceIcon("folder-videos");
 
-    public static final Icon EMBLEM_READONLY = new EmblemIcon("emblem-readonly");
+    public static final Icon NETWORK_SERVER = new PlaceIcon("network-server");
 
-    public static final Icon EMBLEM_SHARED = new EmblemIcon("emblem-shared");
+    public static final Icon NETWORK_WORKGROUP = new PlaceIcon("network-workgroup");
 
-    public static final Icon EMBLEM_SYMBOLIC_LINK = new EmblemIcon("emblem-symbolic-link");
+    public static final Icon START_HERE = new PlaceIcon("start-here");
 
-    public static final Icon EMBLEM_SYSTEM = new EmblemIcon("emblem-system");
+    public static final Icon USER_BOOKMARKS = new PlaceIcon("user-bookmarks");
 
-    public static final Icon EMBLEM_UNREADABLE = new EmblemIcon("emblem-unreadable");
+    public static final Icon USER_DESKTOP = new PlaceIcon("user-desktop");
 
-    public static final Icon EMBLEM_URGENT = new EmblemIcon("emblem-urgent");
+    public static final Icon USER_HOME = new PlaceIcon("user-home");
 
-    public static final Icon EMBLEM_WEB = new EmblemIcon("emblem-web");
+    public static final Icon USER_TRASH = new PlaceIcon("user-trash");
 }

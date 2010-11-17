@@ -32,6 +32,8 @@
  */
 package org.gnome.gtk;
 
+import org.freedesktop.icons.Helper;
+import org.freedesktop.icons.Icon;
 import org.gnome.gdk.Event;
 import org.gnome.gdk.Pixbuf;
 
@@ -527,7 +529,7 @@ public class Entry extends Widget implements Editable, CellEditable
      * @since 4.0.17
      */
     public void setIconFromIcon(EntryIconPosition position, Icon icon) {
-        GtkEntry.setIconFromIconName(this, position, icon.getName());
+        GtkEntry.setIconFromIconName(this, position, Helper.getName(icon));
     }
 
     /**
@@ -596,7 +598,7 @@ public class Entry extends Widget implements Editable, CellEditable
         final Icon result;
 
         name = GtkEntry.getIconName(this, position);
-        result = Icon.instanceFor(name);
+        result = Helper.instanceFor(name);
 
         return result;
     }

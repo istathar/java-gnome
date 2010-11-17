@@ -158,7 +158,7 @@ java-gnome depends on:
 
 * GLib `>= 2.22.0`
 
-* GTK `>= 2.18.3`
+* GTK `>= 2.20.0`
 
 * Cairo `>= 1.8.8`
 
