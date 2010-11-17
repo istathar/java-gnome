@@ -356,8 +356,8 @@ public abstract class TreeModel extends org.gnome.glib.Object
     }
 
     /**
-     * Store a Stock icon in this TreeModel at the specified <code>row</code>
-     * and <code>column</code>.
+     * Store a {@link Stock Stock} constant in this TreeModel at the specified
+     * <code>row</code> and <code>column</code>.
      * 
      * @since 4.0.7
      */
@@ -367,8 +367,8 @@ public abstract class TreeModel extends org.gnome.glib.Object
     }
 
     /**
-     * Store a Stock icon in this TreeModel at the specified <code>row</code>
-     * and <code>column</code>.
+     * Store a named {@link org.freedesktop.icons.Icon Icon} constant in this
+     * TreeModel at the specified <code>row</code> and <code>column</code>.
      * 
      * @since 4.0.17
      */

@@ -33,19 +33,42 @@
 package org.freedesktop.icons;
 
 /**
- * Identify the icons that should be in the icons theme.
+ * Named icons. These constants represent icons that should be availalbe in
+ * the current icon theme.
+ * 
+ * <p>
+ * The named icon standard groups icons in different categories. There is a
+ * subclass of Icon for each of these divisions: common {@link ActionIcon
+ * action}s that can be taken by users, {@link ApplicationIcon applications},
+ * main menu {@link CategoryIcon categoies}, {@link DeviceIcon devices} and
+ * more importantly {@link MimeIcon MIME types}, {@link EmblemIcon emblems}
+ * used to annotate other icons, the all important smiley {@link FaceIcon
+ * faces}, XDG defined {@link PlaceIcon places}, and a list of common
+ * {@link StateIcon states} for various application features.
+ * 
+ * <h2>Usage</h2>
  * 
  * <p>
  * These constants can be used to create an Image using the constructor
  * {@link org.gnome.gtk.Image#Image(Icon, org.gnome.gtk.IconSize) Image()}
- * taking an Icon.
+ * taking an Icon:
+ * 
+ * <pre>
+ * image = new Image(FaceIcon.FACE_SMILE);
+ * </pre>
+ * 
+ * You can also use named icons in TreeViews; DataColumnIcon and a
+ * {@link org.gnome.gtk.TreeModel#setValue(org.gnome.gtk.TreeIter, org.gnome.gtk.DataColumnIcon, Icon)
+ * setValue()} taking an Icon are for specifying a named icon in a TreeModel
+ * and CellRendererPixbuf has a
+ * {@link org.gnome.gtk.CellRendererPixbuf#setIcon(org.gnome.gtk.DataColumnIcon)
+ * setIcon()} where you can specify the column to pull the image from.
  * 
  * <p>
- * You can also use named icons in TreeViews; DataColumnIcon and a setValue()
- * taking an Icon are for specifying a named icon in a TreeModel and
- * CellRendererPixbuf has a
- * {@link org.gnome.gtk.CellRendererPixbuf#setIcon(org.gnome.gtk.DataColumnIcon)
- * setIcon()} where you can specify the column.
+ * Ideally you should always get an icon back when requesting an Image with
+ * one of these constants. There is a fallback mechanism if an image isn't
+ * found, but that is somewhat vague and certainly up to the overall desktop
+ * theme you're using. Worst case you'll get the "broken missing image" icon.
  * 
  * @author Guillaume Mazoyer
  * @author Andrew Cowie
@@ -65,11 +88,14 @@ public class Icon
      * Construct a new Icon constant from a given string.
      * 
      * <p>
-     * This is provided so that if we missed a name that you desperately need,
-     * you can subclass and create it. Ideally, though, we'd appreciate it if
-     * you'd point out what it is about that name that you needed, and if
-     * appropriate submit a patch adding it to one of the appropriate Icon
-     * subclasses instead.
+     * This is provided so that if we missed a name that you desperately need
+     * a named icon for which isn't in the standardized named icon set, you
+     * can subclass and create a constant of your own for it.
+     * 
+     * <p>
+     * <i>If you find yourself doing this, we'd appreciate it if you'd point
+     * out what it is about that name that you needed, and if appropriate
+     * submit a patch adding it to one of the Icon subclasses instead.</i>
      * 
      * @since 4.0.17
      */
