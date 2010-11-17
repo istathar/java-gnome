@@ -1,7 +1,8 @@
 /*
  * java-gnome, a UI library for writing GTK and GNOME programs from Java!
  *
- * Copyright © 2007-2010 Operational Dynamics Consulting, Pty Ltd and Others
+ * Copyright © 2008-2010 Operational Dynamics Consulting, Pty Ltd
+ * Copyright © 2008      Vreixo Formoso
  *
  * The code in this file, and the program it is a part of, is made available
  * to you by its authors as open source software: you can redistribute it
@@ -33,62 +34,19 @@
 package org.gnome.gtk;
 
 /**
- * Renderer a progress indicator similar to a ProgressBar in a TreeViewColumn.
+ * A column representing a named Icon in a TreeModel. See {@link DataColumn}
+ * for the full discussion of the role of how to employ these. This column
+ * type is primarily used as an alternate way to supply an image to be
+ * rendered in a TreeView using {@link CellRendererPixbuf CellRendererPixbuf}.
  * 
+ * @author Vreixo Formoso
  * @author Andrew Cowie
- * @author Serkan Kaba
- * @since 4.0.12
+ * @since 4.0.17
+ * @see DataColumnStock
  */
-public class CellRendererProgress extends CellRenderer
+public final class DataColumnIcon extends DataColumn
 {
-    /**
-     * Construct a new CellRendererPixbuf.
-     * 
-     * @since 4.0.12
-     * @deprecated Use
-     *             {@link CellRendererProgress#CellRendererProgress(CellLayout)}
-     */
-    public CellRendererProgress(TreeViewColumn vertical) {
-        super(GtkCellRendererProgress.createCellRendererProgress(), vertical, true);
-    }
-
-    /**
-     * Construct a new CellRendererPixbuf.
-     * 
-     * @since 4.0.17
-     */
-    public CellRendererProgress(CellLayout vertical) {
-        super(GtkCellRendererProgress.createCellRendererProgress(), vertical, true);
-    }
-
-    /**
-     * Indicate the DataColumn containing the plain text to render on the
-     * progress indicator. See ProgressBar's
-     * {@link ProgressBar#setText(String) setText()}.
-     * 
-     * @since 4.0.12
-     */
-    public void setText(DataColumnString column) {
-        GtkCellLayout.addAttribute(vertical, this, "text", column.getOrdinal());
-    }
-
-    /**
-     * Indicate the DataColumn containing the percentage complete to show in
-     * the indicator.
-     * 
-     * <p>
-     * Percentage complete is expressed in the range of <code>0</code> to
-     * <code>100</code>.
-     * 
-     * <p>
-     * <i>Note that for some reason this was not implemented in GTK like
-     * ProgressBar's <var>fraction</var> property, where percentage complete
-     * is expressed as a double between <code>0.0</code> and <code>1.0</code>
-     * !</i>
-     * 
-     * @since 4.0.12
-     */
-    public void setValue(DataColumnInteger column) {
-        GtkCellLayout.addAttribute(vertical, this, "value", column.getOrdinal());
+    public DataColumnIcon() {
+        super(String.class);
     }
 }

@@ -1,7 +1,7 @@
 /*
  * java-gnome, a UI library for writing GTK and GNOME programs from Java!
  *
- * Copyright © 2007-2010 Operational Dynamics Consulting, Pty Ltd and Others
+ * Copyright © 2010 Operational Dynamics Consulting, Pty Ltd and Others
  *
  * The code in this file, and the program it is a part of, is made available
  * to you by its authors as open source software: you can redistribute it
@@ -30,65 +30,47 @@
  * version of the library, but you are not obligated to do so. If you do not
  * wish to do so, delete this exception statement from your version.
  */
-package org.gnome.gtk;
+package org.freedesktop.icons;
+
+import java.util.HashMap;
 
 /**
- * Renderer a progress indicator similar to a ProgressBar in a TreeViewColumn.
+ * Internal infrastructure supporting named icons.
  * 
+ * @since <span style="color: red">Not public</span>
  * @author Andrew Cowie
- * @author Serkan Kaba
- * @since 4.0.12
  */
-public class CellRendererProgress extends CellRenderer
+/*
+ * Nothing we can do about visibility because GTK methods need these. But it's
+ * hidden from normal use of the Icon class. Best we can do. We really need a
+ * "library" visibility.
+ */
+public class Helper
 {
-    /**
-     * Construct a new CellRendererPixbuf.
-     * 
-     * @since 4.0.12
-     * @deprecated Use
-     *             {@link CellRendererProgress#CellRendererProgress(CellLayout)}
-     */
-    public CellRendererProgress(TreeViewColumn vertical) {
-        super(GtkCellRendererProgress.createCellRendererProgress(), vertical, true);
+    private Helper() {}
+
+    private static final HashMap<String, Icon> knownIcons;
+
+    static {
+        knownIcons = new HashMap<String, Icon>(128, 1.0f);
     }
 
     /**
-     * Construct a new CellRendererPixbuf.
-     * 
-     * @since 4.0.17
+     * Get the name of the icon expected by GTK.
      */
-    public CellRendererProgress(CellLayout vertical) {
-        super(GtkCellRendererProgress.createCellRendererProgress(), vertical, true);
+    public static String getName(Icon icon) {
+        return icon.name;
     }
 
     /**
-     * Indicate the DataColumn containing the plain text to render on the
-     * progress indicator. See ProgressBar's
-     * {@link ProgressBar#setText(String) setText()}.
-     * 
-     * @since 4.0.12
+     * Look up the constant object Icon wrapper for the supplied String id as
+     * used in the underlying library. Returns <code>null</code> if not found.
      */
-    public void setText(DataColumnString column) {
-        GtkCellLayout.addAttribute(vertical, this, "text", column.getOrdinal());
+    public static Icon instanceFor(String name) {
+        return knownIcons.get(name);
     }
 
-    /**
-     * Indicate the DataColumn containing the percentage complete to show in
-     * the indicator.
-     * 
-     * <p>
-     * Percentage complete is expressed in the range of <code>0</code> to
-     * <code>100</code>.
-     * 
-     * <p>
-     * <i>Note that for some reason this was not implemented in GTK like
-     * ProgressBar's <var>fraction</var> property, where percentage complete
-     * is expressed as a double between <code>0.0</code> and <code>1.0</code>
-     * !</i>
-     * 
-     * @since 4.0.12
-     */
-    public void setValue(DataColumnInteger column) {
-        GtkCellLayout.addAttribute(vertical, this, "value", column.getOrdinal());
+    static void registerIcon(Icon icon) {
+        knownIcons.put(icon.name, icon);
     }
 }

@@ -1,7 +1,7 @@
 /*
  * java-gnome, a UI library for writing GTK and GNOME programs from Java!
  *
- * Copyright © 2007-2010 Operational Dynamics Consulting, Pty Ltd and Others
+ * Copyright © 2010 Operational Dynamics Consulting, Pty Ltd and Others
  *
  * The code in this file, and the program it is a part of, is made available
  * to you by its authors as open source software: you can redistribute it
@@ -30,51 +30,54 @@
  * version of the library, but you are not obligated to do so. If you do not
  * wish to do so, delete this exception statement from your version.
  */
-package org.gnome.gtk;
+package org.freedesktop.icons;
+
 
 /**
- * Display an image in a TreeView. The image data is sourced either from a
- * DataColumn of type {@link DataColumnPixbuf DataColumnPixbuf} in your
- * TreeModel, or from a DataColumn of type {@link DataColumnStock
- * DataColumnStock}.
+ * Named icons with "emblems". These are small images that can be used to
+ * annotate an icon (you might have used these for files in Nautilus).
  * 
+ * @author Guillaume Mazoyer
  * @author Andrew Cowie
- * @author Vreixo Formoso
- * @since 4.0.5
+ * @since 4.0.17
  */
-public class CellRendererPixbuf extends CellRenderer
+public class EmblemIcon extends Icon
 {
-    /**
-     * Construct a new CellRendererPixbuf.
-     */
-    public CellRendererPixbuf(CellLayout vertical) {
-        super(GtkCellRendererPixbuf.createCellRendererPixbuf(), vertical, false);
+    protected EmblemIcon(String name) {
+        super(name);
     }
 
-    /**
-     * Indicate the DataColumn containing the Pixbuf to render as an image.
-     */
-    public void setPixbuf(DataColumnPixbuf column) {
-        GtkCellLayout.addAttribute(vertical, this, "pixbuf", column.getOrdinal());
-    }
+    public static final Icon EMBLEM_DEFAULT = new EmblemIcon("emblem-default");
 
-    /**
-     * Indicate the DataColumn containing a Stock icon which you want to have
-     * this CellRendererPixbuf render as an image.
-     * 
-     * @since 4.0.7
-     */
-    public void setStock(DataColumnStock column) {
-        GtkCellLayout.addAttribute(vertical, this, "stock-id", column.getOrdinal());
-    }
+    public static final Icon EMBLEM_DOCUMENTS = new EmblemIcon("emblem-documents");
 
-    /**
-     * Indicate the DataColumn containing a named Icon which you want to have
-     * this CellRendererPixbuf render as an image.
-     * 
-     * @since 4.0.17
-     */
-    public void setIcon(DataColumnIcon column) {
-        GtkCellLayout.addAttribute(vertical, this, "icon-name", column.getOrdinal());
-    }
+    public static final Icon EMBLEM_DOWNLOADS = new EmblemIcon("emblem-downloads");
+
+    public static final Icon EMBLEM_FAVORITE = new EmblemIcon("emblem-favorite");
+
+    public static final Icon EMBLEM_GENERIC = new EmblemIcon("emblem-generic");
+
+    public static final Icon EMBLEM_IMPORTANT = new EmblemIcon("emblem-important");
+
+    public static final Icon EMBLEM_MAIL = new EmblemIcon("emblem-mail");
+
+    public static final Icon EMBLEM_NEW = new EmblemIcon("emblem-new");
+
+    public static final Icon EMBLEM_PACKAGE = new EmblemIcon("emblem-package");
+
+    public static final Icon EMBLEM_PHOTOS = new EmblemIcon("emblem-photos");
+
+    public static final Icon EMBLEM_READONLY = new EmblemIcon("emblem-readonly");
+
+    public static final Icon EMBLEM_SHARED = new EmblemIcon("emblem-shared");
+
+    public static final Icon EMBLEM_SYMBOLIC_LINK = new EmblemIcon("emblem-symbolic-link");
+
+    public static final Icon EMBLEM_SYSTEM = new EmblemIcon("emblem-system");
+
+    public static final Icon EMBLEM_UNREADABLE = new EmblemIcon("emblem-unreadable");
+
+    public static final Icon EMBLEM_URGENT = new EmblemIcon("emblem-urgent");
+
+    public static final Icon EMBLEM_WEB = new EmblemIcon("emblem-web");
 }

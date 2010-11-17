@@ -32,6 +32,8 @@
  */
 package org.gnome.gtk;
 
+import org.freedesktop.icons.Helper;
+import org.freedesktop.icons.Icon;
 import org.gnome.gdk.Pixbuf;
 
 /**
@@ -218,6 +220,10 @@ public abstract class TreeModel extends org.gnome.glib.Object
      * from here so they can call their specific translation method
      * accordingly. Putting it here avoids recursive overload problems we ran
      * into.
+     * 
+     * @param row
+     * @param column
+     * @param value
      */
     protected void dispatch(TreeIter row, DataColumn column, Value value) {
         throw new UnsupportedOperationException(
@@ -350,14 +356,25 @@ public abstract class TreeModel extends org.gnome.glib.Object
     }
 
     /**
-     * Store a Stock icon in this TreeModel at the specified <code>row</code>
-     * and <code>column</code>.
+     * Store a {@link Stock Stock} constant in this TreeModel at the specified
+     * <code>row</code> and <code>column</code>.
      * 
      * @since 4.0.7
      */
     public void setValue(TreeIter row, DataColumnStock column, Stock value) {
         checkIter(row);
         dispatch(row, column, new Value(value.getStockId()));
+    }
+
+    /**
+     * Store a named {@link org.freedesktop.icons.Icon Icon} constant in this
+     * TreeModel at the specified <code>row</code> and <code>column</code>.
+     * 
+     * @since 4.0.17
+     */
+    public void setValue(TreeIter row, DataColumnIcon column, Icon value) {
+        checkIter(row);
+        dispatch(row, column, new Value(Helper.getName(value)));
     }
 
     /**
@@ -376,6 +393,24 @@ public abstract class TreeModel extends org.gnome.glib.Object
         GtkTreeModel.getValue(this, row, column.getOrdinal(), result);
 
         return Stock.instanceFor(result.getString());
+    }
+
+    /**
+     * Get the named Icon stored in this TreeModel at the specified
+     * <code>row</code> and <code>column</code>.
+     * 
+     * @since 4.0.7
+     */
+    public Icon getValue(TreeIter row, DataColumnIcon column) {
+        final Value result;
+
+        checkIter(row);
+
+        result = new Value();
+
+        GtkTreeModel.getValue(this, row, column.getOrdinal(), result);
+
+        return Helper.instanceFor(result.getString());
     }
 
     /**
