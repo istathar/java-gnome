@@ -49,15 +49,14 @@ package org.gnome.gtk;
  * Button in a group can the active at any one time.
  * 
  * <p>
- * To create a group of RadioButtons, you first create a
- * {@link RadioButtonGroup} and then construct the RadioButtons passing them
- * that group object.
+ * To create a group of RadioButtons, you first create a {@link RadioGroup}
+ * and then construct the RadioButtons passing them that group object.
  * 
  * <pre>
- * RadioButtonGroup group;
+ * RadioGroup group;
  * RadioButton opt1, opt2, opt3;
  * 
- * group = new RadioButtonGroup();
+ * group = new RadioGroup();
  * 
  * opt1 = new RadioButton(group, &quot;Option _1&quot;);
  * opt2 = new RadioButton(group, &quot;Option _2&quot;);
@@ -65,10 +64,10 @@ package org.gnome.gtk;
  * </pre>
  * 
  * You can get the active option at any time with RadioButtonGroup's
- * {@link RadioButtonGroup#getActive() getActive()} method. And while you can
- * still connect a handler to the ToggleButton's
+ * {@link RadioGroup#getActive() getActive()} method. And while you can still
+ * connect a handler to the ToggleButton's
  * {@link org.gnome.gtk.ToggleButton.TOGGLED TOGGLED} signal, the
- * {@link org.gnome.gtk.RadioButtonGroup.GroupToggled GROUP_TOGGLED} signal is
+ * {@link org.gnome.gtk.RadioGroup.GroupToggled GROUP_TOGGLED} signal is
  * provided as a convenience.
  * 
  * <p>

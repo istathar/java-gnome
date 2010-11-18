@@ -1,5 +1,166 @@
 NEWS
 
+<a name="4.0.17" id="1290043843" title="Dictionaries exist"></a>
+
+java-gnome 4.0.17 (18 Nov 2010)
+===============================
+
+_All dictionaries are equal. But some dictionaries are more equal than
+others._
+
+After some 6 months of development, this release includes substantial
+improvements across the library. Thanks to Guillaume Mazoyer, Michael
+Culbertson, Douglas Goulart, Vreixo Formoso, Mauro Galli, Thijs Leibbrand, and
+Andrew Cowie for their contributions to the library, and also to Yaakov
+Selkowitz, and Alexander Boström for their updates to the build system.
+
+Enchant Dictionaries
+--------------------
+
+Improve the utility of the Enchant library by exposing functionality to test
+wither a dictionary [exists][Enchant.existsDictionary()] for a given "language
+tag", and to [list][Enchant.listDictionaries()] all available dictionaries.
+Add speciality functions to the Internationalization class facilitating the
+translation of [language][Internationalization.translateLangageName()] and
+[country][Internationalization.translateCountryName()] names so you can
+present the list of available languages properly translated in the user's
+language.
+
+* **`org.freedesktop.enchant.Enchant`**
+* **`org.freedesktop.bindings.Internationalization`**
+* `org.freedesktop.enchant.EnchantBrokerOverride`
+* `org.freedesktop.enchant.ValidateEnchantInternals`
+* `org.freedesktop.bindings.ValidateInternationalization`
+
+GTK improvements
+----------------
+
+Introduce Icon as a strongly typed class to wrap "named icons" available in an
+icon theme, complementing the previous coverage of "stock icons" provided by
+the Stock class. Add methods to DataColumn, TreeModel, Image, and Entry making
+these available.
+
+* **`org.freedesktop.icons.Icon`**
+* `org.freedesktop.icons.Helper`
+* **`org.freedesktop.icons.ActionIcon`**
+* **`org.freedesktop.icons.ApplicationIcon`**
+* **`org.freedesktop.icons.CategoryIcon`**
+* **`org.freedesktop.icons.DeviceIcon`**
+* **`org.freedesktop.icons.EmblemIcon`**
+* **`org.freedesktop.icons.FaceIcon`**
+* **`org.freedesktop.icons.MimeIcon`**
+* **`org.freedesktop.icons.PlaceIcon`**
+* **`org.freedesktop.icons.StateIcon`**
+* **`org.gnome.gtk.DataColumnIcon`**
+* **`org.gnome.gtk.TreeModel`**
+* **`org.gnome.gtk.Image`**
+* **`org.gnome.gtk.Entry`**
+* `org.freedesktop.icons.ValidateIconItems`
+
+Also in TreeView land, Vreixo Foromso contributed a change to make
+DataColumnReference generic, noting that this was his "one great irritation"
+with java-gnome. Itch scratched, apparently. `:)`
+
+* **`org.gnome.gtk.TreeModel`**
+* **`org.gnome.gtk.DataColumnReference`**
+* `org.gnome.gtk.ValidateTreeModel`
+
+A fair bit of work went into polishing coverage in various classes. We now
+have coverage for Adjustment's various properties (necessary if you want to
+drive a scroll bar around yourself without using one built into a
+ScrolledWindow).
+
+* **`org.gnome.gtk.Adjustment`**
+* **`org.gnome.gtk.HScrollbar`**
+* **`org.gnome.gtk.VScrollbar`**
+* `org.gnome.gtk.ValidateAssistant`
+* `org.gnome.gtk.ValidateProperties`
+* `org.gnome.gtk.ValidateSignalEmission`
+
+We've also introduced a new signal in the [Assistant][]. You can now define
+the behaviour of an Assistant using the `ForwardPage` signal with the
+`setForwardPageCallback()` method. It can help you to skip pages when you need
+to. When going back, the Assistant will also skip the previously skipped page.
+
+* **`org.gnome.gtk.Assistant`**
+* `org.gnome.gtk.GtkAssistantOverride`
+* `org.gnome.gtk.ValidateAssistant`
+
+java-gnome now supports GTK+ 2.20 and introduces the new [Spinner][] widget
+that can be used to display an unknown progress.
+
+* **`org.gnome.gtk.Spinner`**
+* **`org.gnome.gtk.CellRendererSpinner`**
+
+Added coverage for another utility function, this time the one that
+[escapes][Glib.markupEscapeText()] text in strings so that it can be safely
+included when Pango markup is being used.
+
+* **`org.gnome.glib.Glib`**
+
+If you need to ensure whatever has been copied to the clipboard is available
+after your application terminates, you can call Clipboard's `store()`.
+
+* **`org.gnome.gtk.Clipboard`**
+
+Thread safety
+-------------
+
+Fixed a fairly serious bug in the interaction between the memory management
+code and the thread safety mechanism. Amazing we got away with this one so
+long, really. Thanks to Vreixo Formoso for helping with analysis of the crash
+dumps, confirming the diagnosis, and double checking the proposed solution.
+The problem only showed up if you were making extensive use of something like
+TextViews which (internal to GTK) did its drawing in a background idle
+handler.
+
+* `org.gnome.glib.GObject`
+
+Also fixed a crasher that turned up if your cursor theme didn't have a certain
+named cursor. `ENOTGNOME`, but anyway.
+
+* **`org.gnome.gdk.Cursor`**
+
+More drawing
+------------
+
+The Cairo graphics library continues to be a joy to use and we continue to
+make minor improvements to our coverage as people use it more. In particular,
+based on help from Benjamin Otte and others we've refined the way you create a
+[Context][] in a `Widget.ExposeEvent`, improving efficiency and taking
+advantage of some of the underlying support functions more effectively.
+
+* **`org.freedesktop.cairo.Extend`**
+* **`org.freedesktop.cairo.FillRule`**
+* **`org.freedesktop.cairo.HintStyle`**
+* **`org.freedesktop.cairo.Context`**
+* **`org.freedesktop.cairo.FontOptions`**
+* **`org.freedesktop.cairo.Pattern`**
+* **`org.gnome.gdk.Color`**
+* **`org.gnome.pango.Layout`**
+* **`org.gnome.pango.Underline`**
+* `org.freedesktop.cairo.GdkCairoSupport`
+* `org.freedesktop.cairo.ValidateCairoContext`
+
+Looking ahead
+-------------
+
+With GTK 3.0 coming closer to reality, we're keeping close track of the
+activity there. GTK 3.0 is a pretty vast API and ABI break from 2.x with some
+fairly major changes to the way Widget sizing works, along with an overhaul of
+the drawing system. We'll be updating java-gnome to meet these changes in the
+months to come.
+
+AfC, GM
+
+[Enchant.existsDictionary()]: doc/api/org/freedesktop/enchant/Enchant.html#existsDictionary(java.lang.String)
+[Enchant.listDictionaries()]: doc/api/org/freedesktop/enchant/Enchant.html#listDictionaries()
+[Internationalization.translateLangageName()]: doc/api/org/freedesktop/bindings/Internationalization.html#translateLanguageName(java.lang.String)
+[Internationalization.translateCountryName()]: doc/api/org/freedesktop/bindings/Internationalization.html#translateCountryName(java.lang.String)
+[Assistant]: doc/api/org/gnome/gtk/Assistant.html
+[Spinner]: doc/api/org/gnome/gtk/Spinner.html
+[Glib.markupEscapeText()]: doc/api/org/gnome/glib/Glib.html#markupEscapeText(java.lang.String)
+
 <a name="4.0.16" id="1276732981" title="Accelerating operations"></a>
 
 java-gnome 4.0.16 (17 Jun 2010)
