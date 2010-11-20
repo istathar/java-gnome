@@ -44,7 +44,8 @@ public class SnapshotComboBox extends Snapshot
         window.setDecorated(false);
 
         model = new ListStore(new DataColumn[] {
-                cityColumn = new DataColumnString(), codeColumn = new DataColumnString(),
+                cityColumn = new DataColumnString(),
+                codeColumn = new DataColumnString(),
         });
 
         populate("Sydney", "Australia", "SYD");

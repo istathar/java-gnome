@@ -36,7 +36,9 @@ public class SetterBlock extends AccessorBlock
     SetterBlock(final BoxedBlock parent, final String gType, final String name) {
         // TODO mmm, how can we know if a field can be null?
         super(name, parent, Collections.singletonList(new String[] {
-                gType, name, "no"
+                gType,
+                name,
+                "no"
         }));
 
         this.returnType = gType;

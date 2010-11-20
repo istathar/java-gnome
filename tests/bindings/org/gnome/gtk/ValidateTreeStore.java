@@ -85,7 +85,8 @@ public class ValidateTreeStore extends GraphicalTestCase
         column = new DataColumnString();
 
         types = new DataColumn[] {
-                column, column
+                column,
+                column
         };
 
         try {

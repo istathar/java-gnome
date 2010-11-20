@@ -32,7 +32,6 @@
  */
 package org.freedesktop.icons;
 
-
 /**
  * Named icons with "smiley faces". Not all of them are smiling
  * <code>:)</code>

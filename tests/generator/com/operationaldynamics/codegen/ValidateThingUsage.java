@@ -44,13 +44,16 @@ public final class ValidateThingUsage extends ValidateDefsParsing
 
         characteristics = new ArrayList<String[]>();
         characteristics.add(new String[] {
-                "in-module", "Gtk"
+                "in-module",
+                "Gtk"
         });
         characteristics.add(new String[] {
-                "parent", "GtkBin"
+                "parent",
+                "GtkBin"
         });
         characteristics.add(new String[] {
-                "c-name", "GtkButton"
+                "c-name",
+                "GtkButton"
         });
 
         b = new ObjectBlock("Button", characteristics, null);

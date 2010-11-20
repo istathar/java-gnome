@@ -46,7 +46,15 @@ public class ValidateEntryCompletion extends GraphicalTestCase
         entry.setCompletion(completion);
 
         words = new String[] {
-                "abc", "def", "ghi", "jkl", "mno", "pqr", "stu", "vwx", "yz"
+                "abc",
+                "def",
+                "ghi",
+                "jkl",
+                "mno",
+                "pqr",
+                "stu",
+                "vwx",
+                "yz"
         };
 
         for (String word : words) {
@@ -113,7 +121,15 @@ public class ValidateEntryCompletion extends GraphicalTestCase
         entry.setCompletion(completion);
 
         words = new String[] {
-                "abc", "def", "ghi", "jkl", "mno", "pqr", "stu", "vwx", "yz"
+                "abc",
+                "def",
+                "ghi",
+                "jkl",
+                "mno",
+                "pqr",
+                "stu",
+                "vwx",
+                "yz"
         };
 
         for (String word : words) {
@@ -169,7 +185,10 @@ public class ValidateEntryCompletion extends GraphicalTestCase
         entry.setCompletion(completion);
 
         words = new String[] {
-                "Sydney, Australia", "Toronto, Canada", "New York, USA", "London, UK"
+                "Sydney, Australia",
+                "Toronto, Canada",
+                "New York, USA",
+                "London, UK"
         };
 
         for (String word : words) {

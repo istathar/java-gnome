@@ -32,7 +32,6 @@
  */
 package org.freedesktop.icons;
 
-
 /**
  * Named icons with "emblems". These are small images that can be used to
  * annotate an icon (you might have used these for files in Nautilus).
