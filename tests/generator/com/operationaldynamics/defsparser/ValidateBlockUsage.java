@@ -45,8 +45,8 @@ public final class ValidateBlockUsage extends TestCase
 
         characteristics = new ArrayList<String[]>();
         characteristics.add(new String[] {
-                "in-module",
-                "Atk"
+            "in-module",
+            "Atk"
         });
 
         b = new ObjectBlock("AtkFoo", characteristics, null);
@@ -60,8 +60,8 @@ public final class ValidateBlockUsage extends TestCase
 
         characteristics = new ArrayList<String[]>();
         characteristics.add(new String[] {
-                "bee-bop",
-                "is_a_cowboy"
+            "bee-bop",
+            "is_a_cowboy"
         });
 
         b = null;

@@ -37,9 +37,9 @@ public class ValidateTreeModelFilter extends GraphicalTestCase
         TreeIter row;
 
         base = new ListStore(new DataColumn[] {
-                name = new DataColumnString(),
-                age = new DataColumnInteger(),
-                useful = new DataColumnBoolean()
+            name = new DataColumnString(),
+            age = new DataColumnInteger(),
+            useful = new DataColumnBoolean()
         });
 
         row = base.appendRow();

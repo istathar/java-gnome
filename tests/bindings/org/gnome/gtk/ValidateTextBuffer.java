@@ -633,8 +633,8 @@ public class ValidateTextBuffer extends GraphicalTestCase
         start = buffer.getIterStart();
 
         buffer.insert(start, "Hello", new TextTag[] {
-                bold,
-                italic
+            bold,
+            italic
         });
 
         start = buffer.getIterStart();

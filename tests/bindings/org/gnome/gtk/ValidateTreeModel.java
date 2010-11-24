@@ -52,9 +52,9 @@ public class ValidateTreeModel extends GraphicalTestCase
         final ListStore model;
 
         types = new DataColumn[] {
-                name = new DataColumnString(),
-                age = new DataColumnInteger(),
-                useful = new DataColumnBoolean()
+            name = new DataColumnString(),
+            age = new DataColumnInteger(),
+            useful = new DataColumnBoolean()
         };
 
         try {
@@ -85,8 +85,8 @@ public class ValidateTreeModel extends GraphicalTestCase
         column = new DataColumnString();
 
         types = new DataColumn[] {
-                column,
-                column
+            column,
+            column
         };
 
         try {
@@ -412,8 +412,8 @@ public class ValidateTreeModel extends GraphicalTestCase
         TreeRowReference ref;
 
         model = new ListStore(new DataColumn[] {
-                text = new DataColumnString(),
-                sort = new DataColumnInteger(),
+            text = new DataColumnString(),
+            sort = new DataColumnInteger(),
         });
 
         /*

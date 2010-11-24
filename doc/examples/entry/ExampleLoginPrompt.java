@@ -132,8 +132,8 @@ public class ExampleLoginPrompt
          */
 
         words = new String[] {
-                "respawneral@gmail.com",
-                "joe@example.org"
+            "respawneral@gmail.com",
+            "joe@example.org"
         };
 
         for (String word : words) {

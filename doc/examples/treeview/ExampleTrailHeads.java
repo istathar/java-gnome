@@ -72,11 +72,11 @@ public class ExampleTrailHeads
          */
 
         model = new ListStore(new DataColumn[] {
-                placeName = new DataColumnString(),
-                trailHead = new DataColumnString(),
-                elevationFormatted = new DataColumnString(),
-                elevationSort = new DataColumnInteger(),
-                accessibleByTrain = new DataColumnBoolean()
+            placeName = new DataColumnString(),
+            trailHead = new DataColumnString(),
+            elevationFormatted = new DataColumnString(),
+            elevationSort = new DataColumnInteger(),
+            accessibleByTrain = new DataColumnBoolean()
         });
 
         /*
