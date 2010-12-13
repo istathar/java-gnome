@@ -22,6 +22,7 @@ package org.gnome.rsvg;
  * Inspired by org.gnome.gdk.ValidateImageHandling
  */
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
@@ -29,6 +30,7 @@ import org.freedesktop.cairo.Context;
 import org.freedesktop.cairo.Format;
 import org.freedesktop.cairo.ImageSurface;
 import org.freedesktop.cairo.Surface;
+import org.gnome.gdk.Pixbuf;
 import org.gnome.gtk.GraphicalTestCase;
 
 /**
@@ -84,6 +86,8 @@ public class ValidateVectorIllustrations extends GraphicalTestCase
         final Handle handle;
         final Surface surface;
         final Context cr;
+        final File target;
+        final int width;
 
         surface = new ImageSurface(Format.ARGB32, 400, 500);
         cr = new Context(surface);
@@ -91,7 +95,23 @@ public class ValidateVectorIllustrations extends GraphicalTestCase
         handle = new Handle("tests/bindings/org/gnome/rsvg/Linux_Tux.svg");
         cr.showHandle(handle);
 
+        /*
+         * Ok, so we've exercised the code paths. How can we actually validate
+         * it? TODO This isn't much of a test; as written it just traverses
+         * the Cairo ImageSurface logic which isn't anything to do with
+         * whether or not our graphic got rendered to it.
+         */
+
+        target = new File("tmp/tests/org/gnome/rsvg/Linux_Tux.png");
+        if (target.exists()) {
+            target.delete();
+        }
+
         surface.writeToPNG("tmp/tests/org/gnome/rsvg/Linux_Tux.png");
         surface.finish();
+
+        assertTrue(target.exists());
+        width = Pixbuf.getFileInfoWidth("tmp/tests/org/gnome/rsvg/Linux_Tux.png");
+        assertEquals(400, width);
     }
 }
