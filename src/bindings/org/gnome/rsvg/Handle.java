@@ -167,4 +167,36 @@ public class Handle extends org.gnome.glib.Object
 
         return size;
     }
+
+    /**
+     * Get the horizontal resolution of this graphic.
+     * 
+     * <p>
+     * Resolution and SVG is a bit of a weird topic. The default unts in an
+     * SVG file are "pixels", <code>px</code> as defined in the CSS
+     * specification, and the default resolution turns out to be 90 pixels per
+     * inch. So unless the program writing the graphic you are loading has
+     * gone to extraordinary lengths, the value of this property will be
+     * <code>90.0</code> <i>regardless of the user space units in use inside
+     * the graphic</i>.
+     * 
+     * <p>
+     * Under ordinary circumstances it will be the same as the vertical
+     * resolution so you probably don't have to query both.
+     * 
+     * @since 4.0.18
+     */
+    public double getDPIX() {
+        return super.getPropertyDouble("dpi-x");
+    }
+
+    /**
+     * Get the vertical resolution of this graphic. See {@link #getDPIX()
+     * getDPIX()} for details.
+     * 
+     * @since 4.0.18
+     */
+    public double getDPIY() {
+        return super.getPropertyDouble("dpi-y");
+    }
 }

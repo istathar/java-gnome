@@ -69,18 +69,26 @@ public class ValidateVectorIllustrations extends GraphicalTestCase
 
     public final void testHandleMethods() throws IOException {
         final Handle handle;
-        final Surface surface;
-        final Context cr;
         final DimensionData dim;
-
-        surface = new ImageSurface(Format.ARGB32, 400, 500);
-        cr = new Context(surface);
 
         handle = new Handle("tests/bindings/org/gnome/rsvg/Linux_Tux.svg");
         dim = handle.getDimensions();
         assertEquals(334, dim.getWidth());
         assertEquals(393, dim.getHeight());
 
+        assertEquals(90.0, handle.getDPIX());
+        assertEquals(90.0, handle.getDPIY());
+    }
+
+    public final void testHandleRendering() throws IOException {
+        final Handle handle;
+        final Surface surface;
+        final Context cr;
+
+        surface = new ImageSurface(Format.ARGB32, 400, 500);
+        cr = new Context(surface);
+
+        handle = new Handle("tests/bindings/org/gnome/rsvg/Linux_Tux.svg");
         cr.showHandle(handle);
 
         surface.writeToPNG("tmp/tests/org/gnome/rsvg/Linux_Tux.png");
