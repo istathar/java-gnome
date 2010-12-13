@@ -1,6 +1,8 @@
 (define-entity Context
   (in-module "Cairo")
   (c-name "cairo_t")
+  (import-header "librsvg/rsvg.h")
+  (import-header "librsvg/rsvg-cairo.h")
 )
 
 ;; the block name is contrived to match the pattern used in GTK so that
@@ -375,6 +377,16 @@
     '("const-double*" "dashes")
     '("int" "num_dashes")
     '("double" "offset")
+  )
+)
+
+(define-function show_handle
+  (of-object "cairo_t")
+  (c-name "rsvg_handle_render_cairo")
+  (return-type "none")
+  (parameters
+    '("RsvgHandle*" "handle")
+    '("cairo_t*" "cr")
   )
 )
 
