@@ -170,3 +170,17 @@
   )
 )
 
+(define-method set_reserve_toggle_size
+  (of-object "GtkMenu")
+  (c-name "gtk_menu_set_reserve_toggle_size")
+  (return-type "none")
+  (parameters
+    '("gboolean" "reserve_toggle_size")
+  )
+)
+
+(define-method get_reserve_toggle_size
+  (of-object "GtkMenu")
+  (c-name "gtk_menu_get_reserve_toggle_size")
+  (return-type "gboolean")
+)

@@ -1,12 +1,20 @@
 /*
- * UnitTests.java
+ * java-gnome, a UI library for writing GTK and GNOME programs from Java!
  *
- * Copyright (c) 2007-2009 Operational Dynamics Consulting Pty Ltd, and Others
- * 
- * The code in this file, and the suite it is a part of, are made available
- * to you by the authors under the terms of the "GNU General Public Licence,
- * version 2" See the LICENCE file for the terms governing usage and
- * redistribution.
+ * Copyright © 2007-2010 Operational Dynamics Consulting, Pty Ltd and Others
+ *
+ * The code in this file, and the program it is a part of, is made available
+ * to you by its authors as open source software: you can redistribute it
+ * and/or modify it under the terms of the GNU General Public License version
+ * 2 ("GPL") as published by the Free Software Foundation.
+ *
+ * This program is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+ * FITNESS FOR A PARTICULAR PURPOSE. See the GPL for more details.
+ *
+ * You should have received a copy of the GPL along with this program. If not,
+ * see http://www.gnu.org/licenses/. The authors of this program may be
+ * contacted through http://java-gnome.sourceforge.net/.
  */
 
 import junit.framework.Test;
@@ -15,10 +23,12 @@ import junit.framework.TestSuite;
 import org.freedesktop.bindings.Debug;
 import org.freedesktop.bindings.ValidateEnvironment;
 import org.freedesktop.bindings.ValidateInternationalization;
+import org.freedesktop.bindings.Version;
 import org.freedesktop.cairo.ValidateCairoContext;
 import org.freedesktop.cairo.ValidateCairoInternals;
 import org.freedesktop.cairo.ValidateDrawingToFile;
 import org.freedesktop.enchant.ValidateEnchantInternals;
+import org.freedesktop.icons.ValidateIconItems;
 import org.gnome.gdk.ValidateImageHandling;
 import org.gnome.gdk.ValidateKeyboardHandling;
 import org.gnome.gdk.ValidateScreensAndDisplays;
@@ -26,21 +36,25 @@ import org.gnome.glib.ValidateConstants;
 import org.gnome.glib.ValidateGListMethods;
 import org.gnome.glib.ValidateMemoryManagement;
 import org.gnome.glib.ValidateReferenceCounting;
+import org.gnome.glib.ValidateUtilityFunctions;
 import org.gnome.gtk.ValidateArrow;
 import org.gnome.gtk.ValidateAssistant;
 import org.gnome.gtk.ValidateComboBox;
 import org.gnome.gtk.ValidateEntry;
 import org.gnome.gtk.ValidateEntryCompletion;
 import org.gnome.gtk.ValidateFileChoosing;
+import org.gnome.gtk.ValidateGlobalSettings;
 import org.gnome.gtk.ValidateIconView;
 import org.gnome.gtk.ValidateInputMethods;
-import org.gnome.gtk.ValidateLinkButton;
+import org.gnome.gtk.ValidateLinkBehaviour;
 import org.gnome.gtk.ValidateNotebookBehaviour;
 import org.gnome.gtk.ValidateOutParameters;
 import org.gnome.gtk.ValidatePacking;
 import org.gnome.gtk.ValidatePrinting;
 import org.gnome.gtk.ValidateProperties;
+import org.gnome.gtk.ValidateRadioThing;
 import org.gnome.gtk.ValidateResponseType;
+import org.gnome.gtk.ValidateScrolling;
 import org.gnome.gtk.ValidateSignalEmission;
 import org.gnome.gtk.ValidateSnapshotUtilities;
 import org.gnome.gtk.ValidateStockItems;
@@ -54,8 +68,8 @@ import org.gnome.gtk.ValidateTreeStore;
 import org.gnome.gtk.ValidateTreeView;
 import org.gnome.gtk.ValidateUnicode;
 import org.gnome.pango.ValidatePangoAttributeUsage;
-import org.gnome.pango.ValidatePangoLayoutLines;
 import org.gnome.pango.ValidatePangoTextRendering;
+import org.gnome.pango.ValidatePangoWrapBehaviour;
 import org.gnome.rsvg.ValidateVectorIllustrations;
 import org.gnome.sourceview.ValidateSourceView;
 import org.gnome.unique.ValidateUniqueApplications;
@@ -122,7 +136,7 @@ public class UnitTests
     private static Test suite(String[] args) {
         ClassLoader.getSystemClassLoader().setDefaultAssertionStatus(true);
 
-        TestSuite suite = new TestSuite("All Unit Tests for java-gnome 4.0");
+        TestSuite suite = new TestSuite("All Unit Tests for java-gnome " + Version.getAPI());
 
         suite.addTestSuite(ValidateUtilityMethods.class);
         suite.addTestSuite(ValidateBlockUsage.class);
@@ -135,10 +149,12 @@ public class UnitTests
         suite.addTestSuite(ValidateGListMethods.class);
         suite.addTestSuite(ValidateConstants.class);
         suite.addTestSuite(ValidateProperties.class);
+        suite.addTestSuite(ValidateUtilityFunctions.class);
         suite.addTestSuite(ValidateSignalEmission.class);
         suite.addTestSuite(ValidateScreensAndDisplays.class);
         suite.addTestSuite(ValidateKeyboardHandling.class);
         suite.addTestSuite(ValidateImageHandling.class);
+        suite.addTestSuite(ValidateGlobalSettings.class);
         suite.addTestSuite(ValidateCairoInternals.class);
         suite.addTestSuite(ValidateCairoContext.class);
         suite.addTestSuite(ValidateDrawingToFile.class);
@@ -147,14 +163,16 @@ public class UnitTests
         suite.addTestSuite(ValidateNotebookBehaviour.class);
         suite.addTestSuite(ValidateFileChoosing.class);
         suite.addTestSuite(ValidateStockItems.class);
+        suite.addTestSuite(ValidateIconItems.class);
         suite.addTestSuite(ValidateResponseType.class);
         suite.addTestSuite(ValidateTreeModel.class);
         suite.addTestSuite(ValidateTreeStore.class);
         suite.addTestSuite(ValidateTreeModelFilter.class);
         suite.addTestSuite(ValidateTreeView.class);
         suite.addTestSuite(ValidateIconView.class);
+        suite.addTestSuite(ValidateScrolling.class);
         suite.addTestSuite(ValidateComboBox.class);
-        suite.addTestSuite(ValidateLinkButton.class);
+        suite.addTestSuite(ValidateLinkBehaviour.class);
         suite.addTestSuite(ValidateEntry.class);
         suite.addTestSuite(ValidateEntryCompletion.class);
         suite.addTestSuite(ValidateSnapshotUtilities.class);
@@ -168,12 +186,13 @@ public class UnitTests
         suite.addTestSuite(ValidateArrow.class);
         suite.addTestSuite(ValidatePangoTextRendering.class);
         suite.addTestSuite(ValidatePangoAttributeUsage.class);
-        suite.addTestSuite(ValidatePangoLayoutLines.class);
+        suite.addTestSuite(ValidatePangoWrapBehaviour.class);
         suite.addTestSuite(ValidateEnchantInternals.class);
         suite.addTestSuite(ValidatePrinting.class);
         suite.addTestSuite(ValidateSourceView.class);
         suite.addTestSuite(ValidateUniqueApplications.class);
         suite.addTestSuite(ValidateVectorIllustrations.class);
+        suite.addTestSuite(ValidateRadioThing.class);
 
         return suite;
     }

@@ -1,17 +1,26 @@
 #!/usr/bin/perl -w
+#
+# java-gnome, a UI library for writing GTK and GNOME programs from Java!
+#
+# Copyright © 2005-2010 Operational Dynamics Consulting, Pty Ltd and Others 
+# 
+# The code in this file, and the program it is a part of, is made available
+# to you by its authors as open source software: you can redistribute it
+# and/or modify it under the terms of the GNU General Public License version
+# 2 ("GPL") as published by the Free Software Foundation.
+#
+# This program is distributed in the hope that it will be useful, but WITHOUT
+# ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+# FITNESS FOR A PARTICULAR PURPOSE. See the GPL for more details.
+#
+# You should have received a copy of the GPL along with this program. If not,
+# see http://www.gnu.org/licenses/. The authors of this program may be
+# contacted through http://java-gnome.sourceforge.net/.
+#
 
 #
 # configure
 # part of Equivalence, version 0.2.x
-#
-# Copyright (c) 2005-2009 Operational Dynamics Consulting Pty Ltd, and Others
-# 
-# The code in this file, and the program it is a part of, are made available
-# to you by the authors under the terms of the "GNU General Public Licence,
-# version 2". See the LICENCE file for the terms governing usage and
-# redistribution.
-#
-
 #
 # THIS IS A PROTOTYPE. Although functional enough, this has grown to the point
 # of being a somewhat embarrassing and monolithic piece of code. Patches are
@@ -614,7 +623,7 @@ if (( -f "/etc/gentoo-release" ) || ( -f "/etc/make.conf" )) {
 	# and Ubuntu
 	$os = "debian";
 } elsif ( -f "/etc/fedora-release" ) {
-	output "Fedora Core";
+	output "Fedora";
 	$os = "fedora";
 } elsif ( -f "/etc/SuSE-release" ) {
 	output "Open SuSE";
@@ -633,6 +642,18 @@ if (( -f "/etc/gentoo-release" ) || ( -f "/etc/make.conf" )) {
 } elsif ( -f "/etc/slackware-version" ) {
 	output "Slackware";
 	$os = "slackware";
+} elsif ( -f "/usr/bin/cygwin1.dll" ) {
+	output "Cygwin";
+	$os = "cygwin";
+} elsif ( -f "/etc/centos-release" ) {
+	output "CentOS";
+	$os = "fedora";
+} elsif ( -f "/etc/redhat-release" ) {
+	output "RedHat";
+	$os = "fedora";
+} elsif ( -f "/etc/java/jpackage-release" ) {
+	output "JPackage";
+	$os = "fedora";
 }
 
 if ($os) {
@@ -729,6 +750,12 @@ if ($os eq "gentoo") {
 		"junit",
 		"/usr/share/java/junit.jar");
 
+} elsif ($os eq "cygwin") {
+
+	check_prereq(@junit_jars,
+		"JUnit test framework",
+		"junit",
+		"/usr/share/java/junit.jar");
 	
 	
 } else {
@@ -745,7 +772,7 @@ output "\nCheck for required system libraries:\n";
 
 if ($os eq "gentoo") {
 	check_system_library(@gnomedev_libs,
-			"gtk+-2.0 >= 2.16 pango >= 1.22 atk gdk-2.0 libglade-2.0 >= 2.6.3 gtk+-unix-print-2.0 cairo-svg >= 1.6.4 gtksourceview-2.0 >= 2.6.2",
+			"glib-2.0 >= 2.22 gtk+-2.0 >= 2.22 pango >= 1.28 atk gdk-2.0 libglade-2.0 >= 2.6.4 gtk+-unix-print-2.0 cairo-svg >= 1.10.0 gtksourceview-2.0 >= 2.6.2",
 			"GNOME",
 			"gnome");
 
@@ -773,12 +800,17 @@ if ($os eq "gentoo") {
 	# on slackware gdk-2.0 and gtk+-unix-print-2.0 are part of gtk+-2.0
 	# use http://packages.slackware.it/ for more details. 
 	check_system_library(@gnomedev_libs,
-			"gtk+-2.0 >= 2.16",
+			"glib-2.0 >= 2.22",
+			"GLib",
+			"FIXME");
+
+	check_system_library(@gnomedev_libs,
+			"gtk+-2.0 >= 2.22",
 			"GTK+",
 			"gtk+2");
 
 	check_system_library(@gnomedev_libs,
-			"pango >= 1.22",
+			"pango >= 1.28",
 			"Pango",
 			"pango");
 
@@ -820,12 +852,22 @@ if ($os eq "gentoo") {
 
 } elsif ($os eq "debian") {
 	check_system_library(@gnomedev_libs,
-			"gtk+-2.0 >= 2.16 gdk-2.0 gtk+-unix-print-2.0",
+			"cairo-svg >= 1.10",
+			"Cairo",
+			"libcairo2-dev");
+
+	check_system_library(@gnomedev_libs,
+			"glib-2.0 >= 2.22",
+			"GLib",
+			"libglib2.0-dev");
+
+	check_system_library(@gnomedev_libs,
+			"gtk+-2.0 >= 2.22 gdk-2.0 gtk+-unix-print-2.0",
 			"GTK+",
 			"libgtk2.0-dev");
 
 	check_system_library(@gnomedev_libs,
-			"pango >= 1.22",
+			"pango >= 1.28",
 			"Pango",
 			"libpango1.0-dev");
 
@@ -854,13 +896,8 @@ if ($os eq "gentoo") {
 			"Enchant",
 			"libenchant-dev");
 
-# FIXME: there is no 2.0.15 in Debian, but on the other hand, a GtkSpell that
-# is 2 versions old doubtless suffers from all sorts of problems. This will
-# allow the check to pass and java-gnome to build, but there is no expectation
-# that spelling will work, or that the CRITICAL bug is fixed.
-
 	check_system_library(@gnomedev_libs,
-			"gtkspell-2.0 >= 2.0.13",
+			"gtkspell-2.0 >= 2.0.15",
 			"GtkSpell",
 			"libgtkspell-dev");
 
@@ -871,7 +908,12 @@ if ($os eq "gentoo") {
 
 } elsif ($os eq "suse") {
 	check_system_library(@gnomedev_libs,
-			"gtk+-2.0 >= 2.16.0 pango >= 1.22 atk gdk-2.0 gtk+-unix-print-2.0",
+			"cairo-svg >= 1.10",
+			"Cairo",
+			"libcairo2-dev");
+
+	check_system_library(@gnomedev_libs,
+			"glib-2.0 >= 2.22 gtk+-2.0 >= 2.22.0 pango >= 1.22 atk gdk-2.0 gtk+-unix-print-2.0",
 			"GNOME development libraries",
 			"libgnome-devel");
 
@@ -907,7 +949,12 @@ if ($os eq "gentoo") {
 
 } elsif ($os eq "mandriva") {
 	check_system_library(@gnomedev_libs,
-			"gtk+-2.0 >= 2.16.0 pango >= 1.22 atk gdk-2.0 gtk+-unix-print-2.0",
+			"cairo-svg >= 1.10",
+			"Cairo",
+			"libcairo2-dev");
+
+	check_system_library(@gnomedev_libs,
+			"glib-2.0 > 2.22 gtk+-2.0 >= 2.22.0 pango >= 1.22 atk gdk-2.0 gtk+-unix-print-2.0",
 			"GTK development libraries",
 			"libgtk+2.0_0-devel");
 	check_system_library(@gnomedev_libs,
@@ -938,6 +985,62 @@ if ($os eq "gentoo") {
 	check_system_library(@gnomedev_libs,
 			"enchant",
 			"Enchant",
+			"FIXME");
+
+} elsif ($os eq "fedora") {
+	check_system_library(@gnomedev_libs,
+			"cairo-svg >= 1.10",
+			"Cairo",
+			"FIXME");
+
+	check_system_library(@gnomedev_libs,
+			"glib-2.0 >= 2.22",
+			"GLib",
+			"FIXME");
+
+	check_system_library(@gnomedev_libs,
+			"gtk+-2.0 >= 2.22 gdk-2.0 gtk+-unix-print-2.0",
+			"GTK+",
+			"FIXME");
+
+	check_system_library(@gnomedev_libs,
+			"pango >= 1.28",
+			"Pango",
+			"FIXME");
+
+	check_system_library(@gnomedev_libs,
+			"atk",
+			"ATK",
+			"FIXME");
+
+	check_system_library(@gnomedev_libs,
+			"libglade-2.0",
+			"LibGlade",
+			"FIXME");
+
+	check_system_library(@gnomedev_libs,
+			"gtksourceview-2.0 >= 2.6.1",
+			"GtkSourceView",
+			"FIXME");
+
+	check_system_library(@gnomedev_libs,
+			"libnotify >= 0.4.5",
+			"LibNotify",
+			"FIXME");
+
+	check_system_library(@gnomedev_libs,
+			"enchant",
+			"Enchant",
+			"FIXME");
+
+	check_system_library(@gnomedev_libs,
+			"gtkspell-2.0 >= 2.0.15",
+			"GtkSpell",
+			"FIXME");
+
+	check_system_library(@gnomedev_libs,
+			"unique-1.0 >= 1.0.8",
+			"LibUnique",
 			"FIXME");
 
 }
@@ -1132,11 +1235,11 @@ if ($os eq "gentoo") {
 		$javadoc_candidate = "$jdk_home/bin/javadoc";
 		$vendor = "Specified";
 	} else {
-		$javac_candidate = "/usr/lib/jvm/java-ibm/bin/javac";
-		$javah_candidate = "/usr/lib/jvm/java-ibm/bin/javah";
-		$jar_candidate = "/usr/lib/jvm/java-ibm/bin/jar";
-		$javadoc_candidate = "/usr/lib/jvm/java-ibm/bin/javadoc";
-		$vendor = "IBM";
+		$javac_candidate = "/usr/bin/javac";
+		$javah_candidate = "/usr/bin/javah";
+		$jar_candidate = "/usr/bin/jar";
+		$javadoc_candidate = "/usr/bin/javadoc";
+		$vendor = "System Default";
 	}
 	check_compiler($javac, "$vendor javac", $javac_candidate, "-g -source 1.5 -target 1.5");
 
@@ -1360,6 +1463,46 @@ if ($os eq "gentoo") {
 	check_jar($jar, "$vendor jar", $jar_candidate, "");
 	check_javadoc($javadoc, "$vendor javadoc", $javadoc_candidate, "");
 
+} elsif ($os eq "cygwin") {
+	# check ecj, the standalone Eclipse compiler.
+	check_compiler($ecj, "Eclipse ecj", which("ecj"), "-g -preserveAllLocals -nowarn -source 1.5 -target 1.5");
+
+	my $javac_candidate;
+	my $javah_candidate;
+	my $jar_candidate;
+	my $javadoc_candidate;
+	my $vendor;
+	if ($jdk_home) {
+		$javac_candidate = "$jdk_home/bin/javac";
+		$javah_candidate = "$jdk_home/bin/javah";
+		$jar_candidate = "$jdk_home/bin/jar";
+		$javadoc_candidate = "$jdk_home/bin/javadoc";
+		$vendor = "Specified";
+	} else {
+		$javac_candidate = "/usr/bin/javac";
+		$javah_candidate = "/usr/bin/javah";
+		$jar_candidate = "/usr/bin/jar";
+		$javadoc_candidate = "/usr/bin/javadoc";
+		$vendor = "GNU Classpath";
+	}
+	check_compiler($javac, "$vendor javac", $javac_candidate, "-g -source 1.5 -target 1.5");
+
+	# check for gcj
+	my $gcj_candidate;
+	if ($gcj_home) {
+		$gcj_candidate = "$gcj_home/bin/gcj";
+	} else {
+		$gcj_candidate = which("gcj");
+	}
+	check_compiler($gcjC, "GNU gcj -C (bytecode mode)", $gcj_candidate, "-C");
+
+	# check for kaffe's compiler
+	check_compiler($kaffec, "Kaffe javac", which("kaffec"), "");
+
+	check_jni_header_generator($javah, "$vendor javah", $javah_candidate, "-jni");
+	check_jar($jar, "$vendor jar", $jar_candidate, "");
+	check_javadoc($javadoc, "$vendor javadoc", $javadoc_candidate, "");
+
 } else {
 	bail "failed!", "This OS not configured with a workable Java compiler checks!\nTHIS IS AN INTERNAL ERROR, PLEASE FILE A BUG.";
 }
@@ -1501,8 +1644,8 @@ if ($os eq "gentoo") {
 		$java_candidate = "$jdk_home/bin/java";
 		$vendor = "Specified";
 	} else {
-		$java_candidate = "/usr/lib/jvm/jre-ibm/bin/java";
-		$vendor = "IBM";
+		$java_candidate = "/usr/bin/java";
+		$vendor = "System Default";
 	}
 	check_runtime($java, "$vendor java VM", $java_candidate, "-client -ea");
 
@@ -1756,6 +1899,49 @@ if ($os eq "gentoo") {
 	}
 	check_runtime($cacao, "CACAO VM", $cacao_candidate, "");
 
+} elsif ($os eq "cygwin") {
+	# check for a proper JDK/JRE java Virtual Machine. 
+	my $java_candidate;
+	my $vendor;
+	if ($jdk_home) {
+		$java_candidate = "$jdk_home/bin/java";
+		$vendor = "Specified";
+	} else {
+		$java_candidate = "/usr/bin/java";
+		$vendor = "Sun";
+	}
+	check_runtime($java, "$vendor java VM", $java_candidate, "-client -ea");
+
+	# check gij (the bytecode interpreter from the GCJ project)
+	my $gij_candidate;
+	if ($gcj_home) {
+		$gij_candidate = "$gcj_home/bin/gij";
+	} else {
+		$gij_candidate = which("gij");
+	}
+	check_runtime($gij, "GNU gij", $gij_candidate, "");
+
+	# check kaffe. See the comment about Kaffe above in the Debian block.
+	check_runtime($kaffe, "Kaffe VM", which("kaffe"), "");
+
+	# check jamvm (an elegant bytecode interpreter used by many in the
+	# CLASSPATH project to test new releases)
+	my $jamvm_candidate;
+	if ($jamvm_bin) {
+		$jamvm_candidate = "$jamvm_bin";
+	} else {
+		$jamvm_candidate = "/usr/bin/jamvm";
+	}
+	check_runtime($jamvm, "JamVM VM", $jamvm_candidate, "");
+
+	my $cacao_candidate;
+	if ($cacao_bin) {
+		$cacao_candidate = "$cacao_bin";
+	} else {
+		$cacao_candidate = "/usr/bin/cacao";
+	}
+	check_runtime($cacao, "CACAO VM", $cacao_candidate, "");
+
 } else {
 	bail "failed!", "This OS not configured with appropriate Java VM checks!\nTHIS IS AN INTERNAL ERROR, PLEASE FILE A BUG.";
 }
@@ -1910,8 +2096,6 @@ output "Select runtime:";
 # are better! (Ok, and, frankly, the compliance is obviously better
 # if its a real Java VM). The Free ones are getting there...
 
-$java="$java -Djava.awt.headless=true";
-
 if ($runtime) {
 	# if overridden, check override...
 	if ($runtime eq "java")  {
@@ -1947,6 +2131,8 @@ HERE
 		bail "failed", "No usable Java runtime environment was detected.";
 	}
 }
+
+$java="$java -Djava.awt.headless=true";
 
 if ($runtime eq "java") {
 	print CONFIG "JAVA=$java\n";
@@ -1984,6 +2170,9 @@ if ($gcc) {
 	my $jni_include = "";
 	my $java_home = dirname($java);
 	$java_home =~ s/\/bin$//;
+	if ($os eq "fedora" && $java_home eq "/usr") {
+	    $java_home = "/usr/lib/jvm/java";
+	}
 
 	if (!-d "$java_home"."/include") {
 		$java_home =~ s/\/jre//;
@@ -2013,9 +2202,16 @@ if ($gcc) {
 		$deprecations = "";
 	}
 
-	print CONFIG "CC=$gcc -g -Wall -fPIC $jni_include -Wno-int-to-pointer-cast -Wno-pointer-to-int-cast $deprecations -Werror-implicit-function-declaration -Wfatal-errors\n";
+	my $pic_flag;
+	if ($os eq "cygwin") {
+		$pic_flag = "-DPIC";
+	} else {
+		$pic_flag = "-fPIC";
+	}
+
+	print CONFIG "CC=$gcc -g -Wall $pic_flag $jni_include -Wno-int-to-pointer-cast -Wno-pointer-to-int-cast $deprecations -Werror-implicit-function-declaration -Wfatal-errors\n";
 	print CONFIG "CC_CMD=GCC      \n";
-	print CONFIG "LINK=$gcc -g -shared -Wall -fPIC\n";
+	print CONFIG "LINK=$gcc -g -shared -Wall $pic_flag\n";
 	print CONFIG "LINK_CMD=LINK     \n";
 } elsif (($cc) && ($os eq "solaris")) {
 	print CONFIG "CC=$cc -Kpic -I/usr/java/include -I/usr/java/include/solaris\n";

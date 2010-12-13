@@ -1,16 +1,39 @@
 /*
- * TreeModel.java
+ * java-gnome, a UI library for writing GTK and GNOME programs from Java!
  *
- * Copyright (c) 2007-2008 Operational Dynamics Consulting Pty Ltd
+ * Copyright © 2007-2010 Operational Dynamics Consulting, Pty Ltd
  *
- * The code in this file, and the library it is a part of, are made available
- * to you by the authors under the terms of the "GNU General Public Licence,
- * version 2" plus the "Classpath Exception" (you may link to this code as a
- * library into other programs provided you don't make a derivation of it).
- * See the LICENCE file for the terms governing usage and redistribution.
+ * The code in this file, and the program it is a part of, is made available
+ * to you by its authors as open source software: you can redistribute it
+ * and/or modify it under the terms of the GNU General Public License version
+ * 2 ("GPL") as published by the Free Software Foundation.
+ *
+ * This program is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+ * FITNESS FOR A PARTICULAR PURPOSE. See the GPL for more details.
+ *
+ * You should have received a copy of the GPL along with this program. If not,
+ * see http://www.gnu.org/licenses/. The authors of this program may be
+ * contacted through http://java-gnome.sourceforge.net/.
+ *
+ * Linking this library statically or dynamically with other modules is making
+ * a combined work based on this library. Thus, the terms and conditions of
+ * the GPL cover the whole combination. As a special exception (the
+ * "Claspath Exception"), the copyright holders of this library give you
+ * permission to link this library with independent modules to produce an
+ * executable, regardless of the license terms of these independent modules,
+ * and to copy and distribute the resulting executable under terms of your
+ * choice, provided that you also meet, for each linked independent module,
+ * the terms and conditions of the license of that module. An independent
+ * module is a module which is not derived from or based on this library. If
+ * you modify this library, you may extend the Classpath Exception to your
+ * version of the library, but you are not obligated to do so. If you do not
+ * wish to do so, delete this exception statement from your version.
  */
 package org.gnome.gtk;
 
+import org.freedesktop.icons.Helper;
+import org.freedesktop.icons.Icon;
 import org.gnome.gdk.Pixbuf;
 
 /**
@@ -197,6 +220,10 @@ public abstract class TreeModel extends org.gnome.glib.Object
      * from here so they can call their specific translation method
      * accordingly. Putting it here avoids recursive overload problems we ran
      * into.
+     * 
+     * @param row
+     * @param column
+     * @param value
      */
     protected void dispatch(TreeIter row, DataColumn column, Value value) {
         throw new UnsupportedOperationException(
@@ -329,14 +356,25 @@ public abstract class TreeModel extends org.gnome.glib.Object
     }
 
     /**
-     * Store a Stock icon in this TreeModel at the specified <code>row</code>
-     * and <code>column</code>.
+     * Store a {@link Stock Stock} constant in this TreeModel at the specified
+     * <code>row</code> and <code>column</code>.
      * 
      * @since 4.0.7
      */
     public void setValue(TreeIter row, DataColumnStock column, Stock value) {
         checkIter(row);
         dispatch(row, column, new Value(value.getStockId()));
+    }
+
+    /**
+     * Store a named {@link org.freedesktop.icons.Icon Icon} constant in this
+     * TreeModel at the specified <code>row</code> and <code>column</code>.
+     * 
+     * @since 4.0.17
+     */
+    public void setValue(TreeIter row, DataColumnIcon column, Icon value) {
+        checkIter(row);
+        dispatch(row, column, new Value(Helper.getName(value)));
     }
 
     /**
@@ -358,17 +396,33 @@ public abstract class TreeModel extends org.gnome.glib.Object
     }
 
     /**
+     * Get the named Icon stored in this TreeModel at the specified
+     * <code>row</code> and <code>column</code>.
+     * 
+     * @since 4.0.7
+     */
+    public Icon getValue(TreeIter row, DataColumnIcon column) {
+        final Value result;
+
+        checkIter(row);
+
+        result = new Value();
+
+        GtkTreeModel.getValue(this, row, column.getOrdinal(), result);
+
+        return Helper.instanceFor(result.getString());
+    }
+
+    /**
      * Get a reference to the Java object stored in this TreeModel at the
      * specified <code>row</code> and <code>column</code>. You'll have to cast
      * the return value to whatever type you put in there in the first place,
      * obviously.
      */
-    /*
-     * TODO would making this generic help?
-     */
-    public java.lang.Object getValue(TreeIter row, DataColumnReference column) {
+    @SuppressWarnings("unchecked")
+    public <T> T getValue(TreeIter row, DataColumnReference<T> column) {
         checkIter(row);
-        return GtkTreeModelOverride.getReference(this, row, column.getOrdinal());
+        return (T) GtkTreeModelOverride.getReference(this, row, column.getOrdinal());
     }
 
     /**
@@ -383,7 +437,7 @@ public abstract class TreeModel extends org.gnome.glib.Object
      * in the signatures of Value(org.gnome.glib.Object) and
      * Value(java.lang.Object) that otherwise arose and prevented compilation.
      */
-    public void setValue(TreeIter row, DataColumnReference column, java.lang.Object value) {
+    public <T> void setValue(TreeIter row, DataColumnReference<T> column, T value) {
         checkIter(row);
         GtkTreeModelOverride.setReference(this, row, column.getOrdinal(), value);
     }

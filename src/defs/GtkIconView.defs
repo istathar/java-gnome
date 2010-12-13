@@ -486,6 +486,21 @@
   )
 )
 
+(define-method set_item_padding
+  (of-object "GtkIconView")
+  (c-name "gtk_icon_view_set_item_padding")
+  (return-type "none")
+  (parameters
+    '("gint" "item_padding")
+  )
+)
+
+(define-method get_item_padding
+  (of-object "GtkIconView")
+  (c-name "gtk_icon_view_get_item_padding")
+  (return-type "gint")
+)
+
 (define-virtual set_scroll_adjustments
   (of-object "GtkIconView")
   (return-type "none")

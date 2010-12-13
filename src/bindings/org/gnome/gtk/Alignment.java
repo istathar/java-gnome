@@ -1,13 +1,34 @@
 /*
- * Alignment.java
+ * java-gnome, a UI library for writing GTK and GNOME programs from Java!
  *
- * Copyright (c) 2007 Operational Dynamics Consulting Pty Ltd, and Others
+ * Copyright © 2007-2010 Operational Dynamics Consulting, Pty Ltd and Others
  *
- * The code in this file, and the library it is a part of, are made available
- * to you by the authors under the terms of the "GNU General Public Licence,
- * version 2" plus the "Classpath Exception" (you may link to this code as a
- * library into other programs provided you don't make a derivation of it).
- * See the LICENCE file for the terms governing usage and redistribution.
+ * The code in this file, and the program it is a part of, is made available
+ * to you by its authors as open source software: you can redistribute it
+ * and/or modify it under the terms of the GNU General Public License version
+ * 2 ("GPL") as published by the Free Software Foundation.
+ *
+ * This program is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+ * FITNESS FOR A PARTICULAR PURPOSE. See the GPL for more details.
+ *
+ * You should have received a copy of the GPL along with this program. If not,
+ * see http://www.gnu.org/licenses/. The authors of this program may be
+ * contacted through http://java-gnome.sourceforge.net/.
+ *
+ * Linking this library statically or dynamically with other modules is making
+ * a combined work based on this library. Thus, the terms and conditions of
+ * the GPL cover the whole combination. As a special exception (the
+ * "Claspath Exception"), the copyright holders of this library give you
+ * permission to link this library with independent modules to produce an
+ * executable, regardless of the license terms of these independent modules,
+ * and to copy and distribute the resulting executable under terms of your
+ * choice, provided that you also meet, for each linked independent module,
+ * the terms and conditions of the license of that module. An independent
+ * module is a module which is not derived from or based on this library. If
+ * you modify this library, you may extend the Classpath Exception to your
+ * version of the library, but you are not obligated to do so. If you do not
+ * wish to do so, delete this exception statement from your version.
  */
 package org.gnome.gtk;
 
@@ -85,13 +106,34 @@ public class Alignment extends Bin
     /**
      * Creates an empty Alignment. The child Widget can later be added by
      * calling the {@link Container#add(Widget) add()} method.
+     * 
+     * @since 4.0.4
      */
     public Alignment(float xalign, float yalign, float xscale, float yscale) {
         this(GtkAlignment.createAlignment(check(xalign), check(yalign), check(xscale), check(yscale)));
     }
 
     /**
+     * Creates an empty Alignment. This is essentially a no-op; the Widget
+     * will be top/left which may well be what would have happened if you had
+     * not used an Alignment in the first place.
+     * 
+     * <p>
+     * This is here so that calling
+     * {@link #setAlignment(float, float, float, float) setAlignment()} after
+     * constructing looks a little cleaner. It's not more "efficient" to use
+     * this.
+     * 
+     * @since 4.0.17
+     */
+    public Alignment() {
+        this(GtkAlignment.createAlignment(Alignment.LEFT, Alignment.TOP, 0.0f, 0.0f));
+    }
+
+    /**
      * Creates an Alignment wrapping an existing Widget.
+     * 
+     * @since 4.0.4
      */
     public Alignment(float xalign, float yalign, float xscale, float yscale, Widget child) {
         this(GtkAlignment.createAlignment(check(xalign), check(yalign), check(xscale), check(yscale)));
@@ -102,6 +144,13 @@ public class Alignment extends Bin
      * Set the padding on the different sides of the Widget. The padding adds
      * blank space to the sides of the Widget. For instance, this can be used
      * to indent the child towards the right by adding padding on the left.
+     * 
+     * <p>
+     * <b>WARNING</b><br>
+     * Pay close attention to the order of the sides; it might be different
+     * than you are expecting.
+     * 
+     * @since 4.0.4
      */
     public void setPadding(int paddingTop, int paddingBottom, int paddingLeft, int paddingRight) {
         GtkAlignment.setPadding(this, paddingTop, paddingBottom, paddingLeft, paddingRight);
@@ -109,6 +158,8 @@ public class Alignment extends Bin
 
     /**
      * Returns the padding being added to the top of the child.
+     * 
+     * @since 4.0.4
      */
     public int getPaddingTop() {
         int[] paddingTop = new int[1];
@@ -135,6 +186,8 @@ public class Alignment extends Bin
 
     /**
      * Returns the padding being added to the left of the child.
+     * 
+     * @since 4.0.4
      */
     public int getPaddingLeft() {
         int[] paddingTop = new int[1];
@@ -148,6 +201,8 @@ public class Alignment extends Bin
 
     /**
      * Returns the padding being added to the right of the child.
+     * 
+     * @since 4.0.4
      */
     public int getPaddingRight() {
         int[] paddingTop = new int[1];
@@ -171,6 +226,8 @@ public class Alignment extends Bin
 
     /**
      * Get the <var>xalign</var> value.
+     * 
+     * @since 4.0.4
      */
     public float getAlignmentX() {
         return getPropertyFloat("xalign");
@@ -178,6 +235,8 @@ public class Alignment extends Bin
 
     /**
      * Get the <var>yalign</var> value.
+     * 
+     * @since 4.0.4
      */
     public float getAlignmentY() {
         return getPropertyFloat("yalign");
@@ -185,6 +244,8 @@ public class Alignment extends Bin
 
     /**
      * Get the <var>xscale</var> value.
+     * 
+     * @since 4.0.4
      */
     public float getScaleX() {
         return getPropertyFloat("xscale");
@@ -192,6 +253,8 @@ public class Alignment extends Bin
 
     /**
      * Get the <var>yscale</var> value.
+     * 
+     * @since 4.0.4
      */
     public float getScaleY() {
         return getPropertyFloat("yscale");

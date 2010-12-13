@@ -1,14 +1,35 @@
 /*
- * RadioButton.java
+ * java-gnome, a UI library for writing GTK and GNOME programs from Java!
  *
- * Copyright (c) 2007-2008 Operational Dynamics Consulting Pty Ltd
- * Copyright (c) 2008      Vreixo Formoso
+ * Copyright © 2007-2010 Operational Dynamics Consulting, Pty Ltd
+ * Copyright © 2008      Vreixo Formoso
  *
- * The code in this file, and the library it is a part of, are made available
- * to you by the authors under the terms of the "GNU General Public Licence,
- * version 2" plus the "Classpath Exception" (you may link to this code as a
- * library into other programs provided you don't make a derivation of it).
- * See the LICENCE file for the terms governing usage and redistribution.
+ * The code in this file, and the program it is a part of, is made available
+ * to you by its authors as open source software: you can redistribute it
+ * and/or modify it under the terms of the GNU General Public License version
+ * 2 ("GPL") as published by the Free Software Foundation.
+ *
+ * This program is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+ * FITNESS FOR A PARTICULAR PURPOSE. See the GPL for more details.
+ *
+ * You should have received a copy of the GPL along with this program. If not,
+ * see http://www.gnu.org/licenses/. The authors of this program may be
+ * contacted through http://java-gnome.sourceforge.net/.
+ *
+ * Linking this library statically or dynamically with other modules is making
+ * a combined work based on this library. Thus, the terms and conditions of
+ * the GPL cover the whole combination. As a special exception (the
+ * "Claspath Exception"), the copyright holders of this library give you
+ * permission to link this library with independent modules to produce an
+ * executable, regardless of the license terms of these independent modules,
+ * and to copy and distribute the resulting executable under terms of your
+ * choice, provided that you also meet, for each linked independent module,
+ * the terms and conditions of the license of that module. An independent
+ * module is a module which is not derived from or based on this library. If
+ * you modify this library, you may extend the Classpath Exception to your
+ * version of the library, but you are not obligated to do so. If you do not
+ * wish to do so, delete this exception statement from your version.
  */
 package org.gnome.gtk;
 
@@ -28,15 +49,14 @@ package org.gnome.gtk;
  * Button in a group can the active at any one time.
  * 
  * <p>
- * To create a group of RadioButtons, you first create a
- * {@link RadioButtonGroup} and then construct the RadioButtons passing them
- * that group object.
+ * To create a group of RadioButtons, you first create a {@link RadioGroup}
+ * and then construct the RadioButtons passing them that group object.
  * 
  * <pre>
- * RadioButtonGroup group;
+ * RadioGroup group;
  * RadioButton opt1, opt2, opt3;
  * 
- * group = new RadioButtonGroup();
+ * group = new RadioGroup();
  * 
  * opt1 = new RadioButton(group, &quot;Option _1&quot;);
  * opt2 = new RadioButton(group, &quot;Option _2&quot;);
@@ -44,10 +64,10 @@ package org.gnome.gtk;
  * </pre>
  * 
  * You can get the active option at any time with RadioButtonGroup's
- * {@link RadioButtonGroup#getActive() getActive()} method. And while you can
- * still connect a handler to the ToggleButton's
+ * {@link RadioGroup#getActive() getActive()} method. And while you can still
+ * connect a handler to the ToggleButton's
  * {@link org.gnome.gtk.ToggleButton.TOGGLED TOGGLED} signal, the
- * {@link org.gnome.gtk.RadioButtonGroup.GroupToggled GROUP_TOGGLED} signal is
+ * {@link org.gnome.gtk.RadioGroup.GroupToggled GROUP_TOGGLED} signal is
  * provided as a convenience.
  * 
  * <p>
@@ -95,7 +115,7 @@ public class RadioButton extends CheckButton
     /*
      * Reference keeps our group mechanism in scope, and powers getGroup()
      */
-    private RadioButtonGroup enclosingGroup;
+    private RadioGroup enclosingGroup;
 
     protected RadioButton(long pointer) {
         super(pointer);
@@ -112,19 +132,21 @@ public class RadioButton extends CheckButton
      *            to be the mnemonic for the Widget.
      * @since 4.0.7
      */
-    public RadioButton(RadioButtonGroup group, String label) {
-        super(GtkRadioButton.createRadioButtonWithLabelFromWidget(group.getMember(), label));
+    public RadioButton(RadioGroup group, String label) {
+        super(
+                GtkRadioButton.createRadioButtonWithLabelFromWidget((RadioButton) group.getMember(),
+                        label));
         group.setMember(this);
         enclosingGroup = group;
     }
 
     /**
-     * Get the RadioButtonGroup that encloses this RadioButton and the others
-     * that belonging to the same mutual exclusion group.
+     * Get the RadioGroup that encloses this RadioButton and the others that
+     * belonging to the same mutual exclusion group.
      * 
      * @since 4.0.7
      */
-    public RadioButtonGroup getGroup() {
+    public RadioGroup getGroup() {
         return enclosingGroup;
     }
 }

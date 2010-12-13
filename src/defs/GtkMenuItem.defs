@@ -107,6 +107,12 @@
   )
 )
 
+(define-method get_accel_path
+  (of-object "GtkMenuItem")
+  (c-name "gtk_menu_item_get_accel_path")
+  (return-type "const-gchar*")
+)
+
 (define-virtual activate
   (of-object "GtkMenuItem")
   (return-type "none")

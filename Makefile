@@ -1,12 +1,20 @@
 #
-# Makefile, part of Equivalence
+# java-gnome, a UI library for writing GTK and GNOME programs from Java!
 #
-# Copyright (c) 2006-2008 Operational Dynamics Consulting Pty Ltd, and Others 
+# Copyright © 2006-2010 Operational Dynamics Consulting, Pty Ltd and Others 
 # 
-# The code in this file, and the library it is a part of, are made available
-# to you by the authors under the terms of the "GNU General Public Licence,
-# version 2". See the LICENCE file for the terms governing usage and
-# redistribution.
+# The code in this file, and the program it is a part of, is made available
+# to you by its authors as open source software: you can redistribute it
+# and/or modify it under the terms of the GNU General Public License version
+# 2 ("GPL") as published by the Free Software Foundation.
+#
+# This program is distributed in the hope that it will be useful, but WITHOUT
+# ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+# FITNESS FOR A PARTICULAR PURPOSE. See the GPL for more details.
+#
+# You should have received a copy of the GPL along with this program. If not,
+# see http://www.gnu.org/licenses/. The authors of this program may be
+# contacted through http://java-gnome.sourceforge.net/.
 #
 
 ifdef V
@@ -131,7 +139,7 @@ distclean: clean
 
 ifdef ECLIPSE
 else
-ECLIPSE=/usr/bin/eclipse-3.4
+ECLIPSE=/usr/bin/eclipse
 endif
 
 ifdef V
@@ -141,13 +149,13 @@ endif
 
 format: all
 	@/bin/echo -e "FORMAT\tsrc/ tests/ doc/examples/"
-	touch -r src/bindings/org/gnome/gtk/Version.java tmp/stamp/version
+	touch -r src/bindings/org/freedesktop/bindings/Version.java tmp/stamp/version
 	$(ECLIPSE) -nosplash \
 		-application org.eclipse.jdt.core.JavaCodeFormatter \
 		-config .settings/org.eclipse.jdt.core.prefs \
 		src/ tests/ doc/examples/ \
 		$(REDIRECT)
-	touch -r tmp/stamp/version src/bindings/org/gnome/gtk/Version.java
+	touch -r tmp/stamp/version src/bindings/org/freedesktop/bindings/Version.java
 	
 
 # vim: set filetype=make textwidth=78 nowrap:

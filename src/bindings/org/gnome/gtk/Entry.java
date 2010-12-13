@@ -1,16 +1,39 @@
 /*
- * Entry.java
+ * java-gnome, a UI library for writing GTK and GNOME programs from Java!
  *
- * Copyright (c) 2007-2009 Operational Dynamics Consulting Pty Ltd, and Others
+ * Copyright © 2007-2010 Operational Dynamics Consulting, Pty Ltd and Others
  *
- * The code in this file, and the library it is a part of, are made available
- * to you by the authors under the terms of the "GNU General Public Licence,
- * version 2" plus the "Classpath Exception" (you may link to this code as a
- * library into other programs provided you don't make a derivation of it).
- * See the LICENCE file for the terms governing usage and redistribution.
+ * The code in this file, and the program it is a part of, is made available
+ * to you by its authors as open source software: you can redistribute it
+ * and/or modify it under the terms of the GNU General Public License version
+ * 2 ("GPL") as published by the Free Software Foundation.
+ *
+ * This program is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+ * FITNESS FOR A PARTICULAR PURPOSE. See the GPL for more details.
+ *
+ * You should have received a copy of the GPL along with this program. If not,
+ * see http://www.gnu.org/licenses/. The authors of this program may be
+ * contacted through http://java-gnome.sourceforge.net/.
+ *
+ * Linking this library statically or dynamically with other modules is making
+ * a combined work based on this library. Thus, the terms and conditions of
+ * the GPL cover the whole combination. As a special exception (the
+ * "Claspath Exception"), the copyright holders of this library give you
+ * permission to link this library with independent modules to produce an
+ * executable, regardless of the license terms of these independent modules,
+ * and to copy and distribute the resulting executable under terms of your
+ * choice, provided that you also meet, for each linked independent module,
+ * the terms and conditions of the license of that module. An independent
+ * module is a module which is not derived from or based on this library. If
+ * you modify this library, you may extend the Classpath Exception to your
+ * version of the library, but you are not obligated to do so. If you do not
+ * wish to do so, delete this exception statement from your version.
  */
 package org.gnome.gtk;
 
+import org.freedesktop.icons.Helper;
+import org.freedesktop.icons.Icon;
 import org.gnome.gdk.Event;
 import org.gnome.gdk.Pixbuf;
 
@@ -229,6 +252,10 @@ public class Entry extends Widget implements Editable, CellEditable
         GtkEditable.setPosition(this, position);
     }
 
+    public int getPosition() {
+        return GtkEditable.getPosition(this);
+    }
+
     /**
      * Request that the width of this Entry be wide enough for a given number
      * of characters.
@@ -295,6 +322,24 @@ public class Entry extends Widget implements Editable, CellEditable
 
     public void selectRegion(int start, int end) {
         GtkEditable.selectRegion(this, start, end);
+    }
+
+    public int getSelectionBoundsStart() {
+        int[] start = new int[1];
+        int[] end = new int[1];
+
+        GtkEditable.getSelectionBounds(this, start, end);
+
+        return start[0];
+    }
+
+    public int getSelectionBoundsEnd() {
+        int[] start = new int[1];
+        int[] end = new int[1];
+
+        GtkEditable.getSelectionBounds(this, start, end);
+
+        return end[0];
     }
 
     /**
@@ -457,7 +502,7 @@ public class Entry extends Widget implements Editable, CellEditable
      * @since 4.0.13
      */
     public void setIconFromStock(EntryIconPosition position, Stock stock) {
-        GtkEntry.setIconFromStock(this, position, stock.getStockId());
+        GtkEntry.setIconFromStock(this, position, stock == null ? null : stock.getStockId());
     }
 
     /**
@@ -467,9 +512,24 @@ public class Entry extends Widget implements Editable, CellEditable
      * image&quot; icon will be used instead.
      * 
      * @since 4.0.13
+     * @deprecated
      */
     public void setIconFromIconName(EntryIconPosition position, String name) {
+        assert false : "Use setIconFromIcon() instead";
         GtkEntry.setIconFromIconName(this, position, name);
+    }
+
+    /**
+     * Cause the Entry to have an icon at the given <code>position</code>
+     * using an Icon from the current icon theme. If <code>name</code> is
+     * <code>null</code>, no icon will be shown. If for whatever reason the
+     * icon lookup fails, a &quot;broken image&quot; icon will be used
+     * instead.
+     * 
+     * @since 4.0.17
+     */
+    public void setIconFromIcon(EntryIconPosition position, Icon icon) {
+        GtkEntry.setIconFromIconName(this, position, Helper.getName(icon));
     }
 
     /**
@@ -516,9 +576,31 @@ public class Entry extends Widget implements Editable, CellEditable
      * an icon name.
      * 
      * @since 4.0.13
+     * @deprecated
      */
     public String getIconName(EntryIconPosition position) {
+        assert false : "use getIconFor() instead";
         return GtkEntry.getIconName(this, position);
+    }
+
+    /**
+     * Retrieves the named Icon used for illustrating icon at
+     * <code>position</code> on this Entry.
+     * 
+     * <p>
+     * A <code>null</code> value will be returned if the icon was not set from
+     * an named Icon.
+     * 
+     * @since 4.0.17
+     */
+    public Icon getIconIcon(EntryIconPosition position) {
+        final String name;
+        final Icon result;
+
+        name = GtkEntry.getIconName(this, position);
+        result = Helper.instanceFor(name);
+
+        return result;
     }
 
     /**

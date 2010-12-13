@@ -1,14 +1,35 @@
 /*
- * Internationalization.java
+ * java-gnome, a UI library for writing GTK and GNOME programs from Java!
  *
- * Copyright (c) 2008      Vreixo Formoso
- * Copyright (c) 2008-2009 Operational Dynamics Consulting Pty Ltd, and Others
- * 
- * The code in this file, and the library it is a part of, are made available
- * to you by the authors under the terms of the "GNU General Public Licence,
- * version 2" plus the "Classpath Exception" (you may link to this code as a
- * library into other programs provided you don't make a derivation of it).
- * See the LICENCE file for the terms governing usage and redistribution.
+ * Copyright © 2008      Vreixo Formoso
+ * Copyright © 2008-2010 Operational Dynamics Consulting, Pty Ltd and Others
+ *
+ * The code in this file, and the program it is a part of, is made available
+ * to you by its authors as open source software: you can redistribute it
+ * and/or modify it under the terms of the GNU General Public License version
+ * 2 ("GPL") as published by the Free Software Foundation.
+ *
+ * This program is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+ * FITNESS FOR A PARTICULAR PURPOSE. See the GPL for more details.
+ *
+ * You should have received a copy of the GPL along with this program. If not,
+ * see http://www.gnu.org/licenses/. The authors of this program may be
+ * contacted through http://java-gnome.sourceforge.net/.
+ *
+ * Linking this library statically or dynamically with other modules is making
+ * a combined work based on this library. Thus, the terms and conditions of
+ * the GPL cover the whole combination. As a special exception (the
+ * "Claspath Exception"), the copyright holders of this library give you
+ * permission to link this library with independent modules to produce an
+ * executable, regardless of the license terms of these independent modules,
+ * and to copy and distribute the resulting executable under terms of your
+ * choice, provided that you also meet, for each linked independent module,
+ * the terms and conditions of the license of that module. An independent
+ * module is a module which is not derived from or based on this library. If
+ * you modify this library, you may extend the Classpath Exception to your
+ * version of the library, but you are not obligated to do so. If you do not
+ * wish to do so, delete this exception statement from your version.
  */
 package org.freedesktop.bindings;
 
@@ -373,7 +394,82 @@ public final class Internationalization
         }
     }
 
+    /**
+     * Translate a language name. For example, if you are in
+     * <code>LANG="es_ES.UTF-8"</code> and do:
+     * 
+     * <pre>
+     * lang = translateCountryName(&quot;Japanese&quot;);
+     * </pre>
+     * 
+     * you will get <code>"Japonés"</code>.
+     * 
+     * <p>
+     * In order to use this function, you must already have done the lookup of
+     * the ISO 639 language code (<code>jp</code> in this case to what the
+     * standard has the name in English as. Unfortunately there's no automated
+     * way to do this, however the <code>iso-codes</code> package countains an
+     * XML file at <code>/usr/share/xml/iso-codes/iso_639.xml</code> with this
+     * data.
+     * 
+     * <p>
+     * Beware that you really need to use the proper name; <code>es</code>
+     * (which is Spanish to mere mortals) is <code>"Spanish; Castilian"</code>
+     * in the XML data [and hence in the message catalogues].
+     * 
+     * <p>
+     * <i>This function uses</i> <code>dgetttext()</code> <i>and the</i>
+     * <code>"iso_639"</code> <i>translation domain. Translations for
+     * languages in this standard should already be available on your
+     * system.</i>
+     * 
+     * @since 4.0.17
+     */
+    public static final String translateLanguageName(String name) {
+        if (name == null) {
+            throw new IllegalArgumentException();
+        }
+
+        return dgettext("iso_639", name);
+    }
+
+    /**
+     * Translate a country name. For example, if you are in
+     * <code>LANG="fr_CA"</code>,
+     * 
+     * <pre>
+     * lang = translateCountryName(&quot;United Kingdom&quot;);
+     * </pre>
+     * 
+     * will get you <code>"Royaume-Uni"</code>.
+     * 
+     * <p>
+     * To use this function you must already have done the lookup of the ISO
+     * 3166 country code to its name in English. Unfortunately there's no
+     * automated way to do this. The <code>iso-codes</code> package, however,
+     * countains an XML file at
+     * <code>/usr/share/xml/iso-codes/iso_3166.xml</code> with the necessary
+     * data.
+     * 
+     * <p>
+     * <i>This function uses</i> <code>dgetttext()</code> <i>and the</i>
+     * <code>"iso_3166"</code> <i>translation domain. Translations for
+     * countries in this standard should already be available on your
+     * system.</i>
+     * 
+     * @since 4.0.17
+     */
+    public static final String translateCountryName(String name) {
+        if (name == null) {
+            throw new IllegalArgumentException();
+        }
+
+        return dgettext("iso_3166", name);
+    }
+
     private static native final String gettext(String msg);
+
+    private static native final String dgettext(String domain, String msg);
 
     /**
      * Mark the given message as translatable, without actually translating

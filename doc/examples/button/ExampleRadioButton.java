@@ -1,23 +1,32 @@
 /*
- * ExampleRadioButton.java
+ * java-gnome, a UI library for writing GTK and GNOME programs from Java!
  *
- * Copyright (c) 2008 Operational Dynamics Consulting Pty Ltd
- * Copyright (c) 2008 Vreixo Formoso
+ * Copyright © 2008-2010 Operational Dynamics Consulting, Pty Ltd
+ * Copyright © 2008      Vreixo Formoso
  *
- * The code in this file, and the library it is a part of, are made available
- * to you by the authors under the terms of the "GNU General Public Licence,
- * version 2" See the LICENCE file for the terms governing usage and
- * redistribution.
+ * The code in this file, and the program it is a part of, is made available
+ * to you by its authors as open source software: you can redistribute it
+ * and/or modify it under the terms of the GNU General Public License version
+ * 2 ("GPL") as published by the Free Software Foundation.
+ *
+ * This program is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+ * FITNESS FOR A PARTICULAR PURPOSE. See the GPL for more details.
+ *
+ * You should have received a copy of the GPL along with this program. If not,
+ * see http://www.gnu.org/licenses/. The authors of this program may be
+ * contacted through http://java-gnome.sourceforge.net/.
  */
 package button;
 
 import org.gnome.gdk.Event;
+import org.gnome.glib.Object;
 import org.gnome.gtk.Button;
 import org.gnome.gtk.Frame;
 import org.gnome.gtk.Gtk;
 import org.gnome.gtk.HBox;
 import org.gnome.gtk.RadioButton;
-import org.gnome.gtk.RadioButtonGroup;
+import org.gnome.gtk.RadioGroup;
 import org.gnome.gtk.ShadowType;
 import org.gnome.gtk.VBox;
 import org.gnome.gtk.Widget;
@@ -37,7 +46,7 @@ public class ExampleRadioButton
         final VBox vb;
         final Frame frame;
         final Button b;
-        final RadioButtonGroup group;
+        final RadioGroup group;
         final RadioButton opt1, opt2, opt3;
 
         Gtk.init(args);
@@ -79,7 +88,7 @@ public class ExampleRadioButton
          * from the keyboard.
          */
 
-        group = new RadioButtonGroup();
+        group = new RadioGroup();
         opt1 = new RadioButton(group, "_Exit");
         opt2 = new RadioButton(group, "_Move Window");
         opt3 = new RadioButton(group, "_Print message");
@@ -97,14 +106,15 @@ public class ExampleRadioButton
 
         /*
          * Sometimes you want to be notified each time the selection changes.
-         * The RadioButtonGroup.GroupToggled signal is an easy way to do so.
+         * The RadioGroup.GroupToggled signal is an easy way to do so.
          * Alternatively you can use the RadioButton.Toggled signal on each
          * RadioButton.
          */
 
-        group.connect(new RadioButtonGroup.GroupToggled() {
-            public void onGroupToggled(RadioButton source) {
-                System.out.println("Chosen: " + source.getLabel());
+        group.connect(new RadioGroup.GroupToggled() {
+            public void onGroupToggled(Object source) {
+                RadioButton button = (RadioButton) source;
+                System.out.println("Chosen: " + button.getLabel());
             }
         });
 
@@ -115,7 +125,7 @@ public class ExampleRadioButton
             public void onClicked(Button source) {
 
                 /* this returns the active button in the group */
-                RadioButton active = group.getActive();
+                RadioButton active = (RadioButton) group.getActive();
                 if (active == opt1) {
                     /* exit */
                     Gtk.mainQuit();

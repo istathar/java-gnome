@@ -1,95 +1,55 @@
 /*
- * Glib.java
+ * java-gnome, a UI library for writing GTK and GNOME programs from Java!
  *
- * Copyright (c) 2006-2008 Operational Dynamics Consulting Pty Ltd
- * 
- * The code in this file, and the library it is a part of, are made available
- * to you by the authors under the terms of the "GNU General Public Licence,
- * version 2" plus the "Classpath Exception" (you may link to this code as a
- * library into other programs provided you don't make a derivation of it).
- * See the LICENCE file for the terms governing usage and redistribution.
+ * Copyright © 2006-2010 Operational Dynamics Consulting, Pty Ltd and Others
+ *
+ * The code in this file, and the program it is a part of, is made available
+ * to you by its authors as open source software: you can redistribute it
+ * and/or modify it under the terms of the GNU General Public License version
+ * 2 ("GPL") as published by the Free Software Foundation.
+ *
+ * This program is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+ * FITNESS FOR A PARTICULAR PURPOSE. See the GPL for more details.
+ *
+ * You should have received a copy of the GPL along with this program. If not,
+ * see http://www.gnu.org/licenses/. The authors of this program may be
+ * contacted through http://java-gnome.sourceforge.net/.
+ *
+ * Linking this library statically or dynamically with other modules is making
+ * a combined work based on this library. Thus, the terms and conditions of
+ * the GPL cover the whole combination. As a special exception (the
+ * "Claspath Exception"), the copyright holders of this library give you
+ * permission to link this library with independent modules to produce an
+ * executable, regardless of the license terms of these independent modules,
+ * and to copy and distribute the resulting executable under terms of your
+ * choice, provided that you also meet, for each linked independent module,
+ * the terms and conditions of the license of that module. An independent
+ * module is a module which is not derived from or based on this library. If
+ * you modify this library, you may extend the Classpath Exception to your
+ * version of the library, but you are not obligated to do so. If you do not
+ * wish to do so, delete this exception statement from your version.
  */
 package org.gnome.glib;
 
 /**
- * Static methods to initialize the Java bindings around GLib
+ * Static methods to initialize the Java bindings around GLib.
  * 
  * @author Andrew Cowie
+ * @author Serkan Kaba
+ * @author Guillaume Mazoyer
  * @since 4.0.0
+ * 
+ * @see <a
+ *      href="http://www.freedesktop.org/wiki/Specifications/basedir-spec?action=show&redirect=Standards%2Fbasedir-spec">
+ *      XDG Base Directory Specification</a>
  */
 public class Glib
 {
     /**
-     * A guard against someone calling init() twice
-     */
-    private static boolean initialized = false;
-
-    static {
-        // FIXME: call g_type_init()
-    }
-
-    /**
      * No instantiation. Static methods only!
      */
     protected Glib() {}
-
-    /**
-     * Initialize GLib's internal subsystems. To simplify things, this is
-     * called automatically by
-     * {@link org.gnome.gtk.Gtk#init(java.lang.String[]) Gtk.init()}, so the
-     * occasions to call this directly should be pretty rare.
-     * 
-     * @throws IllegalStateException
-     *             if GLib has already been initialized, ie you either called
-     *             this twice by accident, or you already initialized GLib by
-     *             calling Gtk.init() or Program.init().
-     * @since 4.0.0
-     */
-    protected static void init(String[] args) {
-        if (initialized) {
-            throw new IllegalStateException("Glib already initialized");
-        }
-
-        // TODO: other initializations?
-
-        /*
-         * Prevent subsequent manual initialization.
-         */
-        initialized = true;
-    }
-
-    /**
-     * Notify org.gnome.glib.Glib that it will be initialized care of a sub
-     * library's initialization. <i>This is so Gtk or Gnome can just carry on
-     * calling gtk_init() or gnome_program_init(), both of which initialize
-     * <code>GLib</code>, <code>GType</code>, etc</i>
-     * 
-     * @since 4.0.1
-     */
-    protected static void skipInit() {
-        /*
-         * Prevent subsequent manual initialization.
-         */
-        initialized = true;
-    }
-
-    /**
-     * Check if GLib and GTK have been initialized; abort if not.
-     */
-    /*
-     * TODO make it possible for non GTK libraries to initialize java-gnome.
-     * This will involve moving the System.loadLibrary() call here, and more
-     * importantly adding a JNI call here to do the GThreads and related
-     * setup. For now, keeping the requirement as Gtk.init() [and hence the
-     * JNI code in src/bindings/org/gnome/gtk/Gtk.c] is fine; running it
-     * doesn't hurt very much.
-     */
-    static void checkInitialized() {
-        if (!initialized) {
-            throw new FatalError(
-                    "\n\nYou *must* call Gtk.init() before using anything else in java-gnome!\n");
-        }
-    }
 
     /**
      * Change the internal program name used by GLib and GTK for internal
@@ -114,15 +74,170 @@ public class Glib
      * <p>
      * You don't really need to call this, but it's here if you want to make
      * it clearer in the <code>.xsession-errors</code> log what the culprit
-     * application is. The default name is "java", which is fine until you
-     * deploy for production use.
+     * application is.
      * 
-     * @since 4.0.6
+     * <p>
+     * <b>Warning</b><br>
+     * If you wish to use this, it <b>must</b> be called before anything else.
+     * This is the <i>only</i> method in java-gnome that can be called before
+     * {@link org.gnome.gtk.Gtk#init(String[]) Gtk.init()}.
+     * 
+     * @since 4.0.14
      */
     /*
      * Another one to potentially move to a GtkApplication class.
      */
     public static void setProgramName(String name) {
         GlibMisc.setPrgname(name);
+    }
+
+    /**
+     * Get the XDG user specific configuration directory. In all likelihood
+     * this will be <code>~/.config</code>.
+     * 
+     * @since 4.0.15
+     */
+    public static String getUserConfigDir() {
+        return GlibMisc.getUserConfigDir();
+    }
+
+    /**
+     * Returns the username (i.e Linux login name) running the application.<br>
+     * 
+     * <p>
+     * <b>WARNING:</b><br>
+     * This method assumes that your system uses UTF-8 as encoding. Please
+     * file a bug if this assumption is not valid for your system.</b>
+     * 
+     * @since 4.0.15
+     */
+    public static String getUserName() {
+        return GlibMisc.getUserName();
+    }
+
+    /**
+     * Returns the real name of the user running the application from
+     * <code>/etc/passwd</code> file. If it can't be determined
+     * <code>"Unknown"</code> is returned.
+     * 
+     * <p>
+     * The warning about encoding in {@link #getUserName() getUserName()} also
+     * applies.
+     * 
+     * @since 4.0.15
+     */
+    public static String getRealName() {
+        return GlibMisc.getRealName();
+    }
+
+    /**
+     * Get the XDG user specific cache directory. In all likelihood this will
+     * be <code>~/.cache</code>.
+     * 
+     * @since 4.0.15
+     */
+    public static String getUserCacheDir() {
+        return GlibMisc.getUserCacheDir();
+    }
+
+    /**
+     * Get the XDG user specific data directory. In all likelihood this will
+     * be <code>~/.local/share</code>.
+     * 
+     * @since 4.0.15
+     */
+    public static String getUserDataDir() {
+        return GlibMisc.getUserDataDir();
+    }
+
+    /**
+     * Get the XDG user specific special directory. Directory constants are
+     * defined in {@link UserDirectory}. System wide defaults are defined in
+     * <code>/etc/xdg/user-dirs.defaults</code> and can be overridden in
+     * <code>~/.config/user-dir.dirs</code>.
+     * 
+     * <p>
+     * If you've already queried the "special" directories then those values
+     * are cached; they certainly don't change often. If you're writing a
+     * program that absolutely needs to be aware if those settings have
+     * changed after you're already used this, then you can force up to date
+     * information by calling {@link #reloadUserSpecialDirsCache()
+     * Glib.reloadUserSpecialDirsCache()}.
+     * 
+     * @since 4.0.15
+     */
+    public static String getUserSpecialDir(UserDirectory directory) {
+        return GlibMisc.getUserSpecialDir(directory);
+    }
+
+    /**
+     * Reset the cache used for {@link #getUserSpecialDir(UserDirectory)
+     * getUserSpecialDir()}.
+     * 
+     * <p>
+     * <b>WARNING:</b><br>
+     * This may cause memory leaks if the return values change between calls.
+     * 
+     * @since 4.0.15
+     */
+    public static void reloadUserSpecialDirsCache() {
+        GlibMisc.reloadUserSpecialDirsCache();
+    }
+
+    /**
+     * Get a list of system-wide XDG data directories.
+     * 
+     * @since 4.0.15
+     */
+    public static String[] getSystemDataDirs() {
+        return GlibMisc.getSystemDataDirs();
+    }
+
+    /**
+     * Get a list of system-wide XDG configuration directories.
+     * 
+     * @since 4.0.15
+     */
+    public static String[] getSystemConfigDirs() {
+        return GlibMisc.getSystemConfigDirs();
+    }
+
+    /**
+     * Format a size into a human readable String. This is useful when
+     * representing file sizes and data transfer rates.
+     * 
+     * <p>
+     * Sizes use the nearest prefix (KB, MB, GB). The prefix units are base 2
+     * so 1 MB is 1024 * 1024 bytes.
+     * 
+     * <p>
+     * Note that the returned String depends on the localization. E.g. if the
+     * system is configured to use French, the formatted size will use French
+     * size prefix.
+     * 
+     * @since 4.0.16
+     */
+    public static String formatSizeForDisplay(long size) {
+        return GlibMisc.formatSizeForDisplay(size);
+    }
+
+    /**
+     * Perform basic escaping on a String so that it can be safely passed to
+     * XML.
+     * 
+     * <p>
+     * This will escape <code>&amp;</code>, <code>&gt;</code>,
+     * <code>&lt;</code>, etc which is necessary when passing arbitrary input
+     * to methods which use Pango Markup such as Labels with markup enabled
+     * via {@link org.gnome.gtk.Label#setUseMarkup(boolean) setUseMarkup()}
+     * and directly with CellRendererText's
+     * {@link org.gnome.gtk.CellRendererText#setMarkup(org.gnome.gtk.DataColumnString)
+     * setMarkup()} or Layout's
+     * {@link org.gnome.pango.Layout#setMarkup(String) setMarkup()}
+     * 
+     * @since 4.0.17
+     */
+    public static String markupEscapeText(String str) {
+        return GlibMisc.markupEscapeText(str, -1);
     }
 }

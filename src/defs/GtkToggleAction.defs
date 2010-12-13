@@ -12,9 +12,9 @@
   (return-type "GtkToggleAction*")
   (parameters
     '("const-gchar*" "name")
-    '("const-gchar*" "label")
-    '("const-gchar*" "tooltip")
-    '("const-gchar*" "stock_id")
+    '("const-gchar*" "label" (null-ok))
+    '("const-gchar*" "tooltip" (null-ok))
+    '("const-gchar*" "stock_id" (null-ok))
   )
 )
 

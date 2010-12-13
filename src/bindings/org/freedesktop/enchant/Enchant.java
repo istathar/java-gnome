@@ -1,13 +1,34 @@
 /*
- * Enchant.java
+ * java-gnome, a UI library for writing GTK and GNOME programs from Java!
  *
- * Copyright (c) 2009 Operational Dynamics Consulting Pty Ltd
- * 
- * The code in this file, and the library it is a part of, are made available
- * to you by the authors under the terms of the "GNU General Public Licence,
- * version 2" plus the "Classpath Exception" (you may link to this code as a
- * library into other programs provided you don't make a derivation of it).
- * See the LICENCE file for the terms governing usage and redistribution.
+ * Copyright © 2009-2010 Operational Dynamics Consulting, Pty Ltd
+ *
+ * The code in this file, and the program it is a part of, is made available
+ * to you by its authors as open source software: you can redistribute it
+ * and/or modify it under the terms of the GNU General Public License version
+ * 2 ("GPL") as published by the Free Software Foundation.
+ *
+ * This program is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+ * FITNESS FOR A PARTICULAR PURPOSE. See the GPL for more details.
+ *
+ * You should have received a copy of the GPL along with this program. If not,
+ * see http://www.gnu.org/licenses/. The authors of this program may be
+ * contacted through http://java-gnome.sourceforge.net/.
+ *
+ * Linking this library statically or dynamically with other modules is making
+ * a combined work based on this library. Thus, the terms and conditions of
+ * the GPL cover the whole combination. As a special exception (the
+ * "Claspath Exception"), the copyright holders of this library give you
+ * permission to link this library with independent modules to produce an
+ * executable, regardless of the license terms of these independent modules,
+ * and to copy and distribute the resulting executable under terms of your
+ * choice, provided that you also meet, for each linked independent module,
+ * the terms and conditions of the license of that module. An independent
+ * module is a module which is not derived from or based on this library. If
+ * you modify this library, you may extend the Classpath Exception to your
+ * version of the library, but you are not obligated to do so. If you do not
+ * wish to do so, delete this exception statement from your version.
  */
 package org.freedesktop.enchant;
 
@@ -90,9 +111,9 @@ public final class Enchant extends Glib
      * Get a Dictionary for the specified language.
      * 
      * <p>
-     * Languages are indicated in a locale-like form; while you can use just
-     * the language code <code>en</code>, specifying a specific language
-     * variant such as <code>en_UK</code> or <code>fr_CA</code> is preferred.
+     * See {@link Enchant#existsDictionary(String) existsDictionary()} for
+     * discussion of valid language values. You probably want to call that if
+     * you're considering user input values.
      * 
      * <p>
      * Returns <code>null</code> if no suitable dictionary was found.
@@ -100,6 +121,9 @@ public final class Enchant extends Glib
      * @since 4.0.14
      */
     public static Dictionary requestDictionary(String lang) {
+        if (lang.equals("")) {
+            throw new IllegalArgumentException();
+        }
         return EnchantBroker.requestDict(defaultBroker, lang);
     }
 
@@ -125,5 +149,77 @@ public final class Enchant extends Glib
             throw new FileNotFoundException(filename);
         }
         return EnchantBroker.requestPwlDict(defaultBroker, filename);
+    }
+
+    /**
+     * Does a dictionary exist for the given "language"?
+     * 
+     * <p>
+     * Languages are indicated in a locale-like form; while you can use just
+     * the language code <code>en</code>, specifying a specific language
+     * variant such as <code>"en_UK"</code> or <code>"fr_CA"</code> is
+     * preferred.
+     * 
+     * @since 4.0.17
+     */
+    public static boolean existsDictionary(String lang) {
+        final int result;
+
+        result = EnchantBroker.dictExists(defaultBroker, lang);
+
+        if (result == 0) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    /**
+     * Get a list of available dictionaries as known to Enchant. This returns
+     * an unsorted array of Strings of the form:
+     * 
+     * <pre>
+     * en
+     * en_AU
+     * en_CA
+     * en_GB
+     * en_US
+     * en_ZA
+     * es
+     * fr_BE
+     * fr_CA
+     * fr_CH
+     * fr_FR
+     * fr_LU
+     * fr_MC
+     * </pre>
+     * 
+     * (that was the list on a computer with English, French, and Spanish
+     * dictionaries installed via packages <code>language-support-en</code>,
+     * <code>language-support-fr</code>, <code>language-support-es</code>
+     * respectively on, in this case, Ubuntu Linux).
+     * 
+     * <p>
+     * You don't necessarily need to callt this function. You can test for the
+     * existance of a dictionary with {@link #existsDictionary(String)
+     * Enchant.existsDictionary()}, or even just get on directly with loading
+     * a dictionary with {@link #requestDictionary(String)
+     * requestDictionary()}.
+     * 
+     * <p>
+     * If you are using the results of this funciton to create a list in a
+     * user interface, you'll probably want to present the language and
+     * country names translated. Use
+     * {@link org.freedesktop.bindings.Internationalization#translateLanguageName(String)
+     * Internationalization.translateLanguageName()} and
+     * {@link org.freedesktop.bindings.Internationalization#translateCountryName(String)
+     * Internationalization.translateCountryName()} although you'll have to
+     * look up the proper ISO 639 and ISO 3166 names in
+     * <code>/usr/share/xml/iso-codes/iso_{639,3166}.xml</code> first.
+     * 
+     * @since 4.0.17
+     */
+    public static String[] listDictionaries() {
+        return EnchantBrokerOverride.listDicts(defaultBroker);
     }
 }

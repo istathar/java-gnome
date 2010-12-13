@@ -1,21 +1,42 @@
 /*
- * Gtk.java
+ * java-gnome, a UI library for writing GTK and GNOME programs from Java!
  *
- * Copyright (c) 2006-2008 Operational Dynamics Consulting Pty Ltd, and Others
- * 
- * The code in this file, and the library it is a part of, are made available
- * to you by the authors under the terms of the "GNU General Public Licence,
- * version 2" plus the "Classpath Exception" (you may link to this code as a
- * library into other programs provided you don't make a derivation of it).
- * See the LICENCE file for the terms governing usage and redistribution.
+ * Copyright © 2006-2010 Operational Dynamics Consulting, Pty Ltd and Others
+ *
+ * The code in this file, and the program it is a part of, is made available
+ * to you by its authors as open source software: you can redistribute it
+ * and/or modify it under the terms of the GNU General Public License version
+ * 2 ("GPL") as published by the Free Software Foundation.
+ *
+ * This program is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+ * FITNESS FOR A PARTICULAR PURPOSE. See the GPL for more details.
+ *
+ * You should have received a copy of the GPL along with this program. If not,
+ * see http://www.gnu.org/licenses/. The authors of this program may be
+ * contacted through http://java-gnome.sourceforge.net/.
+ *
+ * Linking this library statically or dynamically with other modules is making
+ * a combined work based on this library. Thus, the terms and conditions of
+ * the GPL cover the whole combination. As a special exception (the
+ * "Claspath Exception"), the copyright holders of this library give you
+ * permission to link this library with independent modules to produce an
+ * executable, regardless of the license terms of these independent modules,
+ * and to copy and distribute the resulting executable under terms of your
+ * choice, provided that you also meet, for each linked independent module,
+ * the terms and conditions of the license of that module. An independent
+ * module is a module which is not derived from or based on this library. If
+ * you modify this library, you may extend the Classpath Exception to your
+ * version of the library, but you are not obligated to do so. If you do not
+ * wish to do so, delete this exception statement from your version.
  */
 package org.gnome.gtk;
 
-import java.io.IOException;
 import java.net.URI;
 
 import org.gnome.gdk.Pixbuf;
 import org.gnome.glib.Glib;
+import org.gnome.glib.GlibException;
 
 /**
  * The GTK widget toolkit initialization and main loop entry point. A typical
@@ -23,12 +44,12 @@ import org.gnome.glib.Glib;
  * 
  * <pre>
  * public class ComeOnBabyLightMyFire
- *   
+ * {
  *     public static void main(String[] args) {
  *         Gtk.init(args);
- *           
+ * 
  *         // build user interface
- *           
+ * 
  *         Gtk.main();
  *     }
  * }
@@ -66,18 +87,21 @@ public final class Gtk extends Glib
         if (initialized) {
             throw new IllegalStateException("Gtk already initialized");
         }
-
-        /*
-         * Notify org.gnome.glib.Glib that we don't need it to do anything
-         */
-        Glib.skipInit();
+        initialized = true;
 
         /*
          * Initialize GTK and along with it GLib, GObject, etc.
          */
         GtkMain.init(args);
+    }
 
-        initialized = true;
+    /**
+     * Has GTK been initialized yet?
+     * 
+     * @since 4.0.15
+     */
+    public static boolean isInitialized() {
+        return initialized;
     }
 
     /**
@@ -171,34 +195,32 @@ public final class Gtk extends Glib
      * 
      * @since 4.0.9
      */
-    /*
-     * Please note that this function wraps an exec call to `gnome-open` at
-     * the moment, but in the near future this will be replaced by a call to
-     * gtk_show_uri() newly available in GTK 2.14.
-     */
     public static boolean showURI(URI uri) {
-        Process proc;
-        int retCode;
-
         try {
-            proc = Runtime.getRuntime().exec("gnome-open " + uri.toString());
-
-            /*
-             * Run process and wait until it terminates. While not
-             * instantaneous, this is expected to return relatively quickly.
-             */
-            retCode = proc.waitFor();
-
-            if (retCode == 0) {
-                return true;
-            }
-
-        } catch (IOException e) {
-            // This will fall through to return false
-        } catch (InterruptedException e) {
+            return GtkMain.showURI(uri.toString());
+        } catch (GlibException e) {
             // This will fall through to return false
         }
 
         return false;
     }
+
+    /**
+     * Get the Settings object for the default Screen.
+     * 
+     * @since 4.0.14
+     */
+    public static Settings getSettings() {
+        return GtkSettings.getDefault();
+    }
+
+    /**
+     * Get the Settings object for the given Screen.
+     */
+    /*
+     * We still haven't really exposed Screen. Do we need this?
+     */
+    // static Settings getSettings(Screen screen) {
+    // return GtkSettings.getForScreen(screen);
+    // }
 }

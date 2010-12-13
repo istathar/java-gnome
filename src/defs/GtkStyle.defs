@@ -472,6 +472,24 @@
   )
 )
 
+(define-method paint_spinner
+  (of-object "GtkStyle")
+  (c-name "gtk_paint_spinner")
+  (return-type "none")
+  (parameters
+    '("GdkWindow*" "window")
+    '("GtkStateType" "state_type")
+    '("const-GdkRectangle*" "area")
+    '("GtkWidget*" "widget")
+    '("const-gchar*" "detail")
+    '("guint" "step")
+    '("gint" "x")
+    '("gint" "y")
+    '("gint" "width")
+    '("gint" "height")
+  )
+)
+
 (define-virtual realize
   (of-object "GtkStyle")
   (return-type "none")

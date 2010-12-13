@@ -1,17 +1,40 @@
 /*
- * Action.java
+ * java-gnome, a UI library for writing GTK and GNOME programs from Java!
  *
- * Copyright (c) 2007-2008 Operational Dynamics Consulting Pty Ltd
- * Copyright (c) 2007      Vreixo Formoso
+ * Copyright © 2007-2010 Operational Dynamics Consulting, Pty Ltd
+ * Copyright © 2007      Vreixo Formoso
  *
- * The code in this file, and the library it is a part of, are made available
- * to you by the authors under the terms of the "GNU General Public Licence,
- * version 2" plus the "Classpath Exception" (you may link to this code as a
- * library into other programs provided you don't make a derivation of it).
- * See the LICENCE file for the terms governing usage and redistribution.
+ * The code in this file, and the program it is a part of, is made available
+ * to you by its authors as open source software: you can redistribute it
+ * and/or modify it under the terms of the GNU General Public License version
+ * 2 ("GPL") as published by the Free Software Foundation.
+ *
+ * This program is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+ * FITNESS FOR A PARTICULAR PURPOSE. See the GPL for more details.
+ *
+ * You should have received a copy of the GPL along with this program. If not,
+ * see http://www.gnu.org/licenses/. The authors of this program may be
+ * contacted through http://java-gnome.sourceforge.net/.
+ *
+ * Linking this library statically or dynamically with other modules is making
+ * a combined work based on this library. Thus, the terms and conditions of
+ * the GPL cover the whole combination. As a special exception (the
+ * "Claspath Exception"), the copyright holders of this library give you
+ * permission to link this library with independent modules to produce an
+ * executable, regardless of the license terms of these independent modules,
+ * and to copy and distribute the resulting executable under terms of your
+ * choice, provided that you also meet, for each linked independent module,
+ * the terms and conditions of the license of that module. An independent
+ * module is a module which is not derived from or based on this library. If
+ * you modify this library, you may extend the Classpath Exception to your
+ * version of the library, but you are not obligated to do so. If you do not
+ * wish to do so, delete this exception statement from your version.
  */
 package org.gnome.gtk;
 
+import org.gnome.gdk.Keyval;
+import org.gnome.gdk.ModifierType;
 import org.gnome.glib.Object;
 
 /**
@@ -450,8 +473,72 @@ public class Action extends Object
      * <code>nifty</code>'s <code>Action.Activate</code> signal being called.
      * 
      * @since 4.0.6
+     * @deprecated
      */
     public void connectProxy(Widget proxy) {
-        GtkAction.connectProxy(this, proxy);
+        Activatable activatable;
+
+        assert false : "Use the Activatable's setRelatedAction() instead";
+
+        activatable = (Activatable) proxy;
+        activatable.setRelatedAction(this);
+    }
+
+    /**
+     * Specify a key binding to trigger this Action, as actually specified by
+     * the Stock item being used. This assumes, of course that you
+     * instantiated this Action using one of the Stock constructors, ie
+     * {@link #Action(String, Stock) &lt;init&gt;(Stock)}.
+     */
+    /*
+     * TODO this appears to be parallel to ImageMenuItem's setAccelerator(),
+     * but testing couldn't show it to actually have any effect. It would be
+     * nice if we could figure it out, but for now the convenience in the
+     * other setAccelerator() takes care of things.
+     */
+    void setAccelerator(AcceleratorGroup group) {
+        GtkAction.setAccelGroup(this, group);
+    }
+
+    /**
+     * Specify a key binding to trigger this Action. You need to use the same
+     * group object as was (or will be) passed to Window's
+     * {@link Window#addAcceleratorGroup(AcceleratorGroup)
+     * addAcceleratorGroup()}.
+     * 
+     * @since 4.0.16
+     */
+    /*
+     * This call also sets the AcceleratorGroup for this Action as a
+     * convenience allowing us to avoid having to make an otherwise
+     * unnecessary additional public API call and makes this parallel with
+     * MenuItem and ImageMenuItem.
+     */
+    public void setAccelerator(AcceleratorGroup group, Keyval keyval, ModifierType modifier) {
+        String path;
+        boolean exists, result;
+
+        GtkAction.setAccelGroup(this, group);
+
+        path = GtkAction.getAccelPath(this);
+
+        if (path == null) {
+            exists = false;
+            path = group.generateRandomPath();
+            GtkAction.setAccelPath(this, path);
+            GtkAction.connectAccelerator(this);
+        } else {
+            exists = GtkAccelMap.lookupEntry(path, null);
+        }
+
+        if (exists) {
+            result = GtkAccelMap.changeEntry(path, keyval, modifier, true);
+
+            if (!result) {
+                throw new IllegalStateException("Can't change exising accelerator");
+            }
+        } else {
+            GtkAccelMap.addEntry(path, keyval, modifier);
+        }
     }
 }

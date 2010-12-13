@@ -1,13 +1,34 @@
 /*
- * Plumbing.java
+ * java-gnome, a UI library for writing GTK and GNOME programs from Java!
  *
- * Copyright (c) 2006-2008 Operational Dynamics Consulting Pty Ltd, and Others
- * 
- * The code in this file, and the library it is a part of, are made available
- * to you by the authors under the terms of the "GNU General Public Licence,
- * version 2" plus the "Classpath Exception" (you may link to this code as a
- * library into other programs provided you don't make a derivation of it).
- * See the LICENCE file for the terms governing usage and redistribution.
+ * Copyright © 2006-2010 Operational Dynamics Consulting, Pty Ltd and Others
+ *
+ * The code in this file, and the program it is a part of, is made available
+ * to you by its authors as open source software: you can redistribute it
+ * and/or modify it under the terms of the GNU General Public License version
+ * 2 ("GPL") as published by the Free Software Foundation.
+ *
+ * This program is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+ * FITNESS FOR A PARTICULAR PURPOSE. See the GPL for more details.
+ *
+ * You should have received a copy of the GPL along with this program. If not,
+ * see http://www.gnu.org/licenses/. The authors of this program may be
+ * contacted through http://java-gnome.sourceforge.net/.
+ *
+ * Linking this library statically or dynamically with other modules is making
+ * a combined work based on this library. Thus, the terms and conditions of
+ * the GPL cover the whole combination. As a special exception (the
+ * "Claspath Exception"), the copyright holders of this library give you
+ * permission to link this library with independent modules to produce an
+ * executable, regardless of the license terms of these independent modules,
+ * and to copy and distribute the resulting executable under terms of your
+ * choice, provided that you also meet, for each linked independent module,
+ * the terms and conditions of the license of that module. An independent
+ * module is a module which is not derived from or based on this library. If
+ * you modify this library, you may extend the Classpath Exception to your
+ * version of the library, but you are not obligated to do so. If you do not
+ * wish to do so, delete this exception statement from your version.
  */
 package org.gnome.glib;
 
@@ -45,9 +66,20 @@ public abstract class Plumbing extends org.freedesktop.bindings.Plumbing
         final InputStream is;
         final Properties p;
 
-        Glib.checkInitialized();
+        /*
+         * A call to g_threads_init() has to be the first thing done with
+         * GLib. This call makes it so, along with the lock object that will
+         * be used for GDK.
+         */
 
         lock = Gdk.lock;
+        initializeNative(lock);
+
+        /*
+         * Not that this code does NOT call isLibraryReady(). That is because
+         * g_set_prgname() is allowed to (and must) be called before other
+         * code if it is being used.
+         */
 
         typeMapping = new IdentityHashMap<String, String>(470);
 
@@ -73,6 +105,8 @@ public abstract class Plumbing extends org.freedesktop.bindings.Plumbing
             registerType(gType, javaClass);
         }
     }
+
+    private static native final void initializeNative(java.lang.Object lock);
 
     /**
      * Register a GType name as corresponding to the given Proxy subclass.
@@ -334,9 +368,9 @@ public abstract class Plumbing extends org.freedesktop.bindings.Plumbing
      * a GType name.
      */
     /*
-     * At time of writing, this isonly being used to create GValues containing
-     * enums for use in GObject property setting. For whatever reason GValue
-     * requires something more derived than G_TYPE_ENUM.
+     * At time of writing, this is only being used to create GValues
+     * containing enums for use in GObject property setting. For whatever
+     * reason GValue requires something more derived than G_TYPE_ENUM.
      * 
      * FUTURE If this becomes a hotspot at all, replace with a Map going the
      * reverse direction as typeMapping does presenty.
@@ -344,6 +378,7 @@ public abstract class Plumbing extends org.freedesktop.bindings.Plumbing
     protected static String typeOf(Class<? extends Constant> cls) {
         final String name;
         final Collection<String> values;
+        String jType;
 
         name = cls.getName();
 
@@ -354,11 +389,12 @@ public abstract class Plumbing extends org.freedesktop.bindings.Plumbing
         }
 
         for (String gType : typeMapping.keySet()) {
-            if (typeMapping.get(gType) == name) {
+            jType = typeMapping.get(gType);
+            if (jType.equals(name)) {
                 return gType;
             }
         }
 
-        throw new IllegalStateException("Reverse type lookup failed");
+        throw new IllegalStateException("Reverse type lookup of " + name + " failed");
     }
 }

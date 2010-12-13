@@ -1,14 +1,35 @@
 /*
- * Adjustment.java
+ * java-gnome, a UI library for writing GTK and GNOME programs from Java!
  *
- * Copyright (c) 2007-2009 Operational Dynamics Consulting Pty Ltd
- * Copyright (c) 2007      Srichand Pendyala
- * 
- * The code in this file, and the library it is a part of, are made available
- * to you by the authors under the terms of the "GNU General Public Licence,
- * version 2" plus the "Classpath Exception" (you may link to this code as a
- * library into other programs provided you don't make a derivation of it).
- * See the LICENCE file for the terms governing usage and redistribution.
+ * Copyright © 2007-2010 Operational Dynamics Consulting, Pty Ltd
+ * Copyright © 2007      Srichand Pendyala
+ *
+ * The code in this file, and the program it is a part of, is made available
+ * to you by its authors as open source software: you can redistribute it
+ * and/or modify it under the terms of the GNU General Public License version
+ * 2 ("GPL") as published by the Free Software Foundation.
+ *
+ * This program is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+ * FITNESS FOR A PARTICULAR PURPOSE. See the GPL for more details.
+ *
+ * You should have received a copy of the GPL along with this program. If not,
+ * see http://www.gnu.org/licenses/. The authors of this program may be
+ * contacted through http://java-gnome.sourceforge.net/.
+ *
+ * Linking this library statically or dynamically with other modules is making
+ * a combined work based on this library. Thus, the terms and conditions of
+ * the GPL cover the whole combination. As a special exception (the
+ * "Claspath Exception"), the copyright holders of this library give you
+ * permission to link this library with independent modules to produce an
+ * executable, regardless of the license terms of these independent modules,
+ * and to copy and distribute the resulting executable under terms of your
+ * choice, provided that you also meet, for each linked independent module,
+ * the terms and conditions of the license of that module. An independent
+ * module is a module which is not derived from or based on this library. If
+ * you modify this library, you may extend the Classpath Exception to your
+ * version of the library, but you are not obligated to do so. If you do not
+ * wish to do so, delete this exception statement from your version.
  */
 package org.gnome.gtk;
 
@@ -86,13 +107,29 @@ public class Adjustment extends Object
 
     /**
      * Set the value of the Adjustment. This value is bounded between the
-     * upper and lower values of the Adjustment. Any attempt to set the value
-     * outside of the bound is ignored.
+     * <var>upper</var> and <var>lower</var> properties of the Adjustment. Any
+     * attempt to set the value outside of these bounds is ignored.
      * 
      * @since 4.0.5
      */
     public void setValue(double value) {
         GtkAdjustment.setValue(this, value);
+    }
+
+    /**
+     * Change all the configuration values and the data value.
+     * 
+     * <p>
+     * This is available as as a single method rather than a series of
+     * individual setters because each invocation of a setter causes
+     * <code>Adjustment.Changed</code> to be emitted, and generally you'd only
+     * want one per sequence of property changes.
+     * 
+     * @since 4.0.17
+     */
+    public void configure(double value, double lower, double upper, double stepIncrement,
+            double pageIncrement, double pageSize) {
+        GtkAdjustment.configure(this, value, lower, upper, stepIncrement, pageIncrement, pageSize);
     }
 
     /**
@@ -104,8 +141,8 @@ public class Adjustment extends Object
      * in the current page.
      * 
      * <p>
-     * As always, a <code>Adjustment.Changed</code> signal is emitted if the
-     * value is changed.
+     * As always, a <code>Adjustment.ValueChanged</code> signal is emitted if
+     * the value is changed.
      * 
      * @since 4.0.5
      */
@@ -121,7 +158,7 @@ public class Adjustment extends Object
      * 
      * <p>
      * If you have changed <var>value</var>, then {@link #emitValueChanged()
-     * emitValueChanged()} is the method you want to change instead. instead.
+     * emitValueChanged()} is the method you want to change instead.
      * 
      * @since 4.0.8
      */
@@ -137,9 +174,9 @@ public class Adjustment extends Object
 
     /**
      * Emits a <code>Adjustment.ValueChanged</code> signal on the Adjustment.
-     * This method will typically be called by the Widget with which the
-     * Adjustment is associated, when it changes the Adjustment's
-     * <var>value</var>.
+     * This method is probably unnecessary, since calling
+     * {@link #setValue(double) setValue()} will result in the signal being
+     * raised.
      * 
      * @since 4.0.8
      */
@@ -238,6 +275,21 @@ public class Adjustment extends Object
     }
 
     /**
+     * Set the <var>lower</var> bound of this Adjustment. Most of the time
+     * people start their ranges at <code>0.0</code> and leave it that way, so
+     * you probably won't need this much.
+     * 
+     * <p>
+     * Use {@link #configure(double, double, double, double, double, double)
+     * configure()} if changing more than one property at a time.
+     * 
+     * @since 4.0.17
+     */
+    public void setLower(double lower) {
+        GtkAdjustment.setLower(this, lower);
+    }
+
+    /**
      * Get the <var>upper</var> bound of the Adjustment. This is the maximum
      * value that the <var>value</var> property can range to. In a VScrollbar,
      * it is the (maximum) height that is represents the value at the bottom
@@ -250,7 +302,20 @@ public class Adjustment extends Object
     }
 
     /**
-     * Get the current value of the <var>page size</var> property of this
+     * Set the <var>upper</var> bound of this Adjustment.
+     * 
+     * <p>
+     * Use {@link #configure(double, double, double, double, double, double)
+     * configure()} if changing more than one property at a time.
+     * 
+     * @since 4.0.17
+     */
+    public void setUpper(double upper) {
+        GtkAdjustment.setUpper(this, upper);
+    }
+
+    /**
+     * Get the current value of the <var>page-size</var> property of this
      * Adjustment. For a VScrollbar, this is the (vertical) height of the
      * slider control.
      * 

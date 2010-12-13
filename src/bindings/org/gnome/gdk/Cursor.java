@@ -1,13 +1,34 @@
 /*
- * Cursor.java
+ * java-gnome, a UI library for writing GTK and GNOME programs from Java!
  *
- * Copyright (c) 2007-2009 Operational Dynamics Consulting Pty Ltd
+ * Copyright © 2007-2010 Operational Dynamics Consulting, Pty Ltd
  *
- * The code in this file, and the library it is a part of, are made available
- * to you by the authors under the terms of the "GNU General Public Licence,
- * version 2" plus the "Classpath Exception" (you may link to this code as a
- * library into other programs provided you don't make a derivation of it).
- * See the LICENCE file for the terms governing usage and redistribution.
+ * The code in this file, and the program it is a part of, is made available
+ * to you by its authors as open source software: you can redistribute it
+ * and/or modify it under the terms of the GNU General Public License version
+ * 2 ("GPL") as published by the Free Software Foundation.
+ *
+ * This program is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+ * FITNESS FOR A PARTICULAR PURPOSE. See the GPL for more details.
+ *
+ * You should have received a copy of the GPL along with this program. If not,
+ * see http://www.gnu.org/licenses/. The authors of this program may be
+ * contacted through http://java-gnome.sourceforge.net/.
+ *
+ * Linking this library statically or dynamically with other modules is making
+ * a combined work based on this library. Thus, the terms and conditions of
+ * the GPL cover the whole combination. As a special exception (the
+ * "Claspath Exception"), the copyright holders of this library give you
+ * permission to link this library with independent modules to produce an
+ * executable, regardless of the license terms of these independent modules,
+ * and to copy and distribute the resulting executable under terms of your
+ * choice, provided that you also meet, for each linked independent module,
+ * the terms and conditions of the license of that module. An independent
+ * module is a module which is not derived from or based on this library. If
+ * you modify this library, you may extend the Classpath Exception to your
+ * version of the library, but you are not obligated to do so. If you do not
+ * wish to do so, delete this exception statement from your version.
  */
 package org.gnome.gdk;
 
@@ -72,23 +93,32 @@ public final class Cursor extends Boxed
         super(GdkCursor.createCursor(type));
     }
 
-    private static Display getDefaultDisplay() {
+    private static Cursor createFromType(CursorType type) {
+        return new Cursor(type);
+    }
+
+    /**
+     * Create a new Cursor from the one so named in the cursor theme.
+     */
+    /*
+     * Returns null for the case where no such named cursor exists. Apparently
+     * this is a problem in some cursor themes.
+     */
+    private static Cursor createFromName(String name) {
+        final long pointer;
         final Screen screen;
         final Display display;
 
         screen = GdkScreen.getDefault();
         display = GdkScreen.getDisplay(screen);
 
-        return display;
-    }
+        pointer = GdkCursor.createCursorFromName(display, name);
 
-    /**
-     * Create a new Cursor from the one so named in the cursor theme.
-     * 
-     * @since 4.0.14
-     */
-    private Cursor(String name) {
-        super(GdkCursor.createCursorFromName(getDefaultDisplay(), name));
+        if (pointer != 0) {
+            return new Cursor(pointer);
+        } else {
+            return null;
+        }
     }
 
     protected void release() {
@@ -103,7 +133,7 @@ public final class Cursor extends Boxed
      * 
      * @since 4.0.14
      */
-    public static Cursor NORMAL = new Cursor(CursorType.LEFT_PTR);
+    public final static Cursor NORMAL;
 
     /**
      * The spinning cursor showing that the application is busy (and unable to
@@ -114,7 +144,7 @@ public final class Cursor extends Boxed
      * 
      * @since 4.0.14
      */
-    public static Cursor BUSY = new Cursor(CursorType.WATCH);
+    public final static Cursor BUSY;
 
     /**
      * A pointer indicating that a hyperlink can be clicked and followed. Not
@@ -125,7 +155,7 @@ public final class Cursor extends Boxed
      * 
      * @since 4.0.14
      */
-    public static Cursor LINK = new Cursor(CursorType.HAND2);
+    public final static Cursor LINK;
 
     /**
      * A pointer that also has a busy spinner. This is used to indicate that
@@ -137,7 +167,7 @@ public final class Cursor extends Boxed
      * 
      * @since 4.0.14
      */
-    public static Cursor WORKING = new Cursor("left_ptr_watch");
+    public final static Cursor WORKING;
 
     /**
      * The vertical bar pointer used in text entry Widgets such as Entry and
@@ -148,5 +178,13 @@ public final class Cursor extends Boxed
      * 
      * @since 4.0.14
      */
-    public static Cursor TEXT = new Cursor(CursorType.XTERM);
+    public final static Cursor TEXT;
+
+    static {
+        NORMAL = createFromType(CursorType.LEFT_PTR);
+        BUSY = createFromType(CursorType.WATCH);
+        LINK = createFromType(CursorType.HAND2);
+        WORKING = createFromName("left_ptr_watch");
+        TEXT = createFromType(CursorType.XTERM);
+    }
 }

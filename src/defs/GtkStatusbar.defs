@@ -65,6 +65,12 @@
   (return-type "gboolean")
 )
 
+(define-method get_message_area
+  (of-object "GtkStatusbar")
+  (c-name "gtk_statusbar_get_message_area")
+  (return-type "GtkWidget*")
+)
+
 (define-virtual text_pushed
   (of-object "GtkStatusbar")
   (return-type "none")

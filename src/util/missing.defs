@@ -3764,19 +3764,6 @@
   (return-type "GType")
 )
 
-(define-function settings_get_default
-  (c-name "gtk_settings_get_default")
-  (return-type "GtkSettings*")
-)
-
-(define-function settings_get_for_screen
-  (c-name "gtk_settings_get_for_screen")
-  (return-type "GtkSettings*")
-  (parameters
-    '("GdkScreen*" "screen")
-  )
-)
-
 (define-function settings_install_property
   (c-name "gtk_settings_install_property")
   (return-type "none")
@@ -5417,17 +5404,6 @@
 (define-function glade_xml_get_type
   (c-name "glade_xml_get_type")
   (return-type "GType")
-)
-
-(define-function xml_new_from_buffer
-  (c-name "glade_xml_new_from_buffer")
-  (return-type "GladeXML*")
-  (parameters
-    '("const-char*" "buffer")
-    '("int" "size")
-    '("const-char*" "root" (default "NULL") (null-ok))
-    '("const-char*" "domain" (default "NULL") (null-ok))
-  )
 )
 
 (define-function get_widget_name

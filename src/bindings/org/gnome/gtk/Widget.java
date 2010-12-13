@@ -1,13 +1,34 @@
 /*
- * Widget.java
+ * java-gnome, a UI library for writing GTK and GNOME programs from Java!
  *
- * Copyright (c) 2006-2009 Operational Dynamics Consulting Pty Ltd, and Others
- * 
- * The code in this file, and the library it is a part of, are made available
- * to you by the authors under the terms of the "GNU General Public Licence,
- * version 2" plus the "Classpath Exception" (you may link to this code as a
- * library into other programs provided you don't make a derivation of it).
- * See the LICENCE file for the terms governing usage and redistribution.
+ * Copyright © 2006-2010 Operational Dynamics Consulting, Pty Ltd and Others
+ *
+ * The code in this file, and the program it is a part of, is made available
+ * to you by its authors as open source software: you can redistribute it
+ * and/or modify it under the terms of the GNU General Public License version
+ * 2 ("GPL") as published by the Free Software Foundation.
+ *
+ * This program is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+ * FITNESS FOR A PARTICULAR PURPOSE. See the GPL for more details.
+ *
+ * You should have received a copy of the GPL along with this program. If not,
+ * see http://www.gnu.org/licenses/. The authors of this program may be
+ * contacted through http://java-gnome.sourceforge.net/.
+ *
+ * Linking this library statically or dynamically with other modules is making
+ * a combined work based on this library. Thus, the terms and conditions of
+ * the GPL cover the whole combination. As a special exception (the
+ * "Claspath Exception"), the copyright holders of this library give you
+ * permission to link this library with independent modules to produce an
+ * executable, regardless of the license terms of these independent modules,
+ * and to copy and distribute the resulting executable under terms of your
+ * choice, provided that you also meet, for each linked independent module,
+ * the terms and conditions of the license of that module. An independent
+ * module is a module which is not derived from or based on this library. If
+ * you modify this library, you may extend the Classpath Exception to your
+ * version of the library, but you are not obligated to do so. If you do not
+ * wish to do so, delete this exception statement from your version.
  */
 package org.gnome.gtk;
 
@@ -19,6 +40,8 @@ import org.gnome.gdk.EventCrossing;
 import org.gnome.gdk.EventExpose;
 import org.gnome.gdk.EventFocus;
 import org.gnome.gdk.EventKey;
+import org.gnome.gdk.EventMask;
+import org.gnome.gdk.EventMotion;
 import org.gnome.gdk.EventScroll;
 import org.gnome.gdk.EventVisibility;
 import org.gnome.gdk.VisibilityState;
@@ -401,15 +424,14 @@ public abstract class Widget extends org.gnome.gtk.Object
      * 
      * <p>
      * To do drawing with Cairo you need a Context. You can instantiate one by
-     * asking for the underlying GDK Window backing your Widget and passing it
-     * to the Context constructor:
+     * passing the EventExpose object to the Context constructor:
      * 
      * <pre>
      * foo.connect(new Widget.ExposeEvent() {
      *     public boolean onExposeEvent(Widget source, EventExpose event) {
      *         Context cr;
      *         
-     *         cr = new Context(source.getWindow());
+     *         cr = new Context(event);
      *         
      *         // start drawing
      *     }
@@ -642,6 +664,65 @@ public abstract class Widget extends org.gnome.gtk.Object
     }
 
     /**
+     * Handler interface for mouse motion events. This event is emitted when
+     * the user moves the mouse over the Widget.
+     * 
+     * <p>
+     * Note that by default this event is disabled, even if you connect to it.
+     * You will need to {@link Widget#addEvents(EventMask) enable} it. If you
+     * want to receive all mouse motion events, you will need to supply the
+     * POINTER_MOTION mask. Note that it generates a big amount of events,
+     * typically tens of events per second, when the user moves the mouse over
+     * this Widget. If you only care about this event when a mouse button is
+     * pressed, any of LEFT_BUTTON_MOTION, MIDDLE_BUTTON_MOTION,
+     * RIGHT_BUTTON_MOTION or BUTTON_MOTION masks can be used instead.
+     * 
+     * <p>
+     * Many times, however, you are only interested on this events in some
+     * specific circunstances. For example, a drawing application may be
+     * interested on this when the user has selected a drawing tool (e.g. a
+     * pencil) and is actually drawing (e.g. by clicking the mouse). In such
+     * cases, enabling the event when needed, and disabling it when no more
+     * needed, is the best alternative. For example:
+     * 
+     * <pre>
+     * // hook up a handler to mouse button event.
+     * drawarea.connect(new Widget.MotionNotifyEvent() {
+     *     public boolean onMotionNotifyEvent(Widget source, EventMotion event) {
+     *         double x, y;
+     * 
+     *         x = event.getX();
+     *         y = event.getY();
+     * 
+     *         // draw something, x and y hold the mouse position
+     *     }
+     * });
+     * </pre>
+     * 
+     * @author Vreixo Formoso
+     * @since 4.0.15
+     */
+    /*
+     * FUTURE Hint motion events seem interesting, but more research is
+     * needed. FIXME Removed the enableEvents(),disableEvent() discussion
+     * pending more research, but the signature here is correct so this is now
+     * exposed.
+     */
+    public interface MotionNotifyEvent extends GtkWidget.MotionNotifyEventSignal
+    {
+        public boolean onMotionNotifyEvent(Widget source, EventMotion event);
+    }
+
+    /**
+     * Hook up a <code>Widget.MotionNotifyEvent</code> handler.
+     * 
+     * @since 4.0.15
+     */
+    public void connect(MotionNotifyEvent handler) {
+        GtkWidget.connect(this, handler, false);
+    }
+
+    /**
      * Return the Container that this Widget is packed into. If the Widget
      * doesn't have a parent, or you're already at a top level Widget (ie, a
      * Window) then expect <code>null</code>.
@@ -691,6 +772,39 @@ public abstract class Widget extends org.gnome.gtk.Object
     }
 
     /**
+     * Is this Widget set to be sensitive?
+     * 
+     * <p>
+     * The default is <code>true</code> of course.
+     * 
+     * <p>
+     * The utility of this is somewhat limited, since it only returns the
+     * boolean value of this Widget's <var>sensitive</var> property, whereas
+     * whether a Widget is displayed sensitive (normal) or insensitive (grayed
+     * out) depends on both this property and the settings in the parent
+     * Widgets.
+     * 
+     * @since 4.0.17
+     */
+    public boolean getSensitive() {
+        return GtkWidget.getSensitive(this);
+    }
+
+    /**
+     * Will this Widget be shown as sensitive or insensitive? This is based on
+     * both its <var>sensitive</var> property, and that of all its parents.
+     * 
+     * <p>
+     * You don't need to use this ordinarily (it's GTK that needs to know!)
+     * but if you're curious, well, here you go.
+     * 
+     * @since 4.0.17
+     */
+    public boolean isSensitive() {
+        return GtkWidget.isSensitive(this);
+    }
+
+    /**
      * Tooltips are notes that will be displayed if a user hovers the mouse
      * pointer over a Widget. They are usually used with controls such as
      * Buttons and Entries to brief the user about that Widget's function.
@@ -733,6 +847,12 @@ public abstract class Widget extends org.gnome.gtk.Object
      * If what you need are the event handling facilities that go with Widgets
      * that have their own native resources, consider creating an
      * {@link EventBox EventBox} and putting this Widget into it.
+     * 
+     * <p>
+     * While it is best to wait until the Widget is mapped to screen and user
+     * visible before manipulating underlying properties, there are rare cases
+     * when you need the [org.gnome.gdk] Window to be not-<code>null</code>
+     * before then; if so, you can call {@link #realize() realize()}.
      * 
      * <p>
      * <i>If you call this in a class where you're building Windows, then you
@@ -876,13 +996,10 @@ public abstract class Widget extends org.gnome.gtk.Object
      * @since 4.0.5
      */
     /*
-     * It turns out that two things are necessary for this signal to work: 1)
-     * GDK_VISIBILITY_NOTIFY_MASK must be set, and to do that 2) the GDK
-     * window must have been assigned. by realize. We do these two steps in
-     * the override.
+     * VISIBILITY_NOTIFY is automatically set to receive this event.
      */
     public void connect(Widget.VisibilityNotifyEvent handler) {
-        GtkWidgetOverride.setEventsVisibility(this);
+        GtkWidget.addEvents(this, EventMask.VISIBILITY_NOTIFY);
         GtkWidget.connect(this, handler, false);
     }
 
@@ -894,7 +1011,7 @@ public abstract class Widget extends org.gnome.gtk.Object
     /** @deprecated */
     public void connect(VISIBILITY_NOTIFY_EVENT handler) {
         assert false : "use Widget.VisibilityNotifyEvent instead";
-        GtkWidgetOverride.setEventsVisibility(this);
+        GtkWidget.addEvents(this, EventMask.VISIBILITY_NOTIFY);
         GtkWidget.connect(this, handler, false);
     }
 
@@ -1489,5 +1606,157 @@ public abstract class Widget extends org.gnome.gtk.Object
      */
     public void connect(Widget.PopupMenu handler) {
         GtkWidget.connect(this, handler, false);
+    }
+
+    /**
+     * Enable the given events. While most events are enabled by default, some
+     * need to be activated. Corresponding signal will document this
+     * procedure, if needed.
+     * 
+     * <p>
+     * Take care that events are actually received by the underlying GDK
+     * Window resource being used. Such resource is in many cases shared by
+     * several Widgets, so enabling or disabling an event on one of these can
+     * affect all Widgets. If that is a problem for you, {@link EventBox
+     * EventBox} Widget can be used to ensure only it is affected by this
+     * method.
+     * 
+     * @since 4.0.15
+     */
+    public void addEvents(EventMask events) {
+        GtkWidget.addEvents(this, events);
+    }
+
+    /**
+     * Reset the list of events for this Widget. You probably want
+     * {@link #addEvents(EventMask) addEvents()}. If you use this, you'll need
+     * to <code>or()</code> together all the events that this Widget needs to
+     * function.
+     * 
+     * @since 4.0.15
+     */
+    public void setEvents(EventMask events) {
+        GtkWidget.setEvents(this, events);
+    }
+
+    /**
+     * Cause the resources underlying the Widget to be assigned. Among other
+     * things, this will populate the [org.gnome.gdk] Window that backs this
+     * Widget.
+     * 
+     * <p>
+     * In general you don't want to be calling this. This is largely an
+     * internal method; while you can trigger realization manually you rarely
+     * need to. You <i>do</i> need to show the Widget with {@link #show()
+     * show()} (or better yet {@link #showAll() showAll()} on one of its
+     * parents) once you've built it.
+     * 
+     * <p>
+     * Almost anything that you would do that would invole you needing an
+     * [org.gnome.gdk] Window is best done in a
+     * <code>Widget.ExposeEvent</code> handler, at which point the Widget is
+     * already realized, mapped, and showing.
+     * 
+     * @since 4.0.16
+     */
+    public void realize() {
+        GtkWidget.realize(this);
+    }
+
+    /*
+     * Accessors for style properties. The primitive types are fairly straight
+     * forward, but the more complex derived types will take a bit of work.
+     * The underlying function takes a Value as an out-parameter, but you have
+     * to have initialized it to the right "type" first. Tricky.
+     */
+
+    /**
+     * Access a "style property" with an integral value.
+     * 
+     * @since 4.0.17
+     */
+    protected int getStylePropertyInteger(String name) {
+        final Value value;
+
+        value = new Value(0);
+
+        GtkWidget.styleGetProperty(this, name, value);
+
+        return value.getInteger();
+    }
+
+    /**
+     * Access a "style property" with a String value.
+     * 
+     * @since 4.0.17
+     */
+    protected String getStylePropertyString(String name) {
+        final Value value;
+
+        value = new Value("");
+
+        GtkWidget.styleGetProperty(this, name, value);
+
+        return value.getString();
+    }
+
+    /**
+     * Access a "style property" with a boolean value.
+     * 
+     * @since 4.0.17
+     */
+    protected boolean getStylePropertyBoolean(String name) {
+        final Value value;
+
+        value = new Value(true);
+
+        GtkWidget.styleGetProperty(this, name, value);
+
+        return value.getBoolean();
+    }
+
+    /**
+     * Access a "style property" with a float value.
+     * 
+     * @since 4.0.17
+     */
+    protected float getStylePropertyFloat(String name) {
+        final Value value;
+
+        value = new Value(0.0f);
+
+        GtkWidget.styleGetProperty(this, name, value);
+
+        return value.getFloat();
+    }
+
+    /**
+     * Access a "style property" with a double value.
+     * 
+     * @since 4.0.17
+     */
+    protected double getStylePropertyDouble(String name) {
+        final Value value;
+
+        value = new Value(0.0);
+
+        GtkWidget.styleGetProperty(this, name, value);
+
+        return value.getDouble();
+    }
+
+    /**
+     * Access a "style property" with a long value.
+     * 
+     * @since 4.0.17
+     */
+    protected long getStylePropertyLong(String name) {
+        final Value value;
+
+        value = new Value(0L);
+
+        GtkWidget.styleGetProperty(this, name, value);
+
+        return value.getLong();
     }
 }

@@ -1,13 +1,34 @@
 /*
- * Assistant.java
+ * java-gnome, a UI library for writing GTK and GNOME programs from Java!
  *
- * Copyright (c) 2007-2008 Operational Dynamics Consulting Pty Ltd, and Others
+ * Copyright © 2007-2010 Operational Dynamics Consulting, Pty Ltd and Others
  *
- * The code in this file, and the library it is a part of, are made available
- * to you by the authors under the terms of the "GNU General Public Licence,
- * version 2" plus the "Classpath Exception" (you may link to this code as a
- * library into other programs provided you don't make a derivation of it).
- * See the LICENCE file for the terms governing usage and redistribution.
+ * The code in this file, and the program it is a part of, is made available
+ * to you by its authors as open source software: you can redistribute it
+ * and/or modify it under the terms of the GNU General Public License version
+ * 2 ("GPL") as published by the Free Software Foundation.
+ *
+ * This program is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+ * FITNESS FOR A PARTICULAR PURPOSE. See the GPL for more details.
+ *
+ * You should have received a copy of the GPL along with this program. If not,
+ * see http://www.gnu.org/licenses/. The authors of this program may be
+ * contacted through http://java-gnome.sourceforge.net/.
+ *
+ * Linking this library statically or dynamically with other modules is making
+ * a combined work based on this library. Thus, the terms and conditions of
+ * the GPL cover the whole combination. As a special exception (the
+ * "Claspath Exception"), the copyright holders of this library give you
+ * permission to link this library with independent modules to produce an
+ * executable, regardless of the license terms of these independent modules,
+ * and to copy and distribute the resulting executable under terms of your
+ * choice, provided that you also meet, for each linked independent module,
+ * the terms and conditions of the license of that module. An independent
+ * module is a module which is not derived from or based on this library. If
+ * you modify this library, you may extend the Classpath Exception to your
+ * version of the library, but you are not obligated to do so. If you do not
+ * wish to do so, delete this exception statement from your version.
  */
 package org.gnome.gtk;
 
@@ -56,6 +77,7 @@ import org.gnome.gdk.Pixbuf;
  * 
  * @author Stefan Prelle
  * @author Andrew Cowie
+ * @author Guillaume Mazoyer
  * @since 4.0.9
  */
 public class Assistant extends Window
@@ -292,6 +314,15 @@ public class Assistant extends Window
     }
 
     /**
+     * Force the Assistant.ForwardPage signal to be emitted.
+     * 
+     * @since 4.0.17
+     */
+    public int emitForwardPage(int currentPage) {
+        return GtkAssistantOverride.emitForward(this, currentPage);
+    }
+
+    /**
      * The signal emitted every time a page inside the assistant is displayed.
      * This includes the first page as well as every page when flipping
      * forward and backward through the Assistant's pages.
@@ -377,6 +408,51 @@ public class Assistant extends Window
      */
     public void connect(Assistant.Cancel handler) {
         GtkAssistant.connect(this, handler, false);
+    }
+
+    /**
+     * The callback invoked when an Assistant wants to display another page.
+     * It helps you to determine what page to display after another one.
+     * 
+     * Generally, when you will receive the callback, you will check the
+     * number of the current page and then display the next page according to
+     * the previously found number.The behavior of a default Assistant can be
+     * written like that:
+     * 
+     * <pre>
+     * final Assistant assistant;
+     * 
+     * ...
+     * 
+     * assistant.setForwardPageCallback(new Assistant.ForwardPage() {
+     *     public int onForward(Assistant source, int current) {
+     *         return (current + 1);
+     *     }
+     * });
+     * </pre>
+     * 
+     * <p>
+     * <i>If you are researching the GTK API documentation, see
+     * <code>(*GtkAssistantPageFunc)</code>. Creating and invoking this
+     * "forward" signal is how java-gnome has implemented the function pointer
+     * expected by <code>gtk_assistant_set_forward_page_func()</code>.</i>
+     * 
+     * @since 4.0.17
+     */
+    public interface ForwardPage extends GtkAssistant.ForwardSignal
+    {
+        public int onForward(Assistant source, int currentPage);
+    }
+
+    /**
+     * Hookup the <code>Assistant.ForwardPage</code> callback that will be
+     * used to determine what page should be displayed.
+     * 
+     * @since 4.0.17
+     */
+    public void setForwardPageCallback(Assistant.ForwardPage callback) {
+        GtkAssistantOverride.setForwardFunc(this);
+        GtkAssistant.connect(this, callback, false);
     }
 
     /*

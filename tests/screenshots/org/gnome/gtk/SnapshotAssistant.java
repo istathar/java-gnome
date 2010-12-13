@@ -1,12 +1,20 @@
 /*
- * SnapshotAssistant.java
+ * java-gnome, a UI library for writing GTK and GNOME programs from Java!
  *
- * Copyright (c) 2008 Operational Dynamics Consulting Pty Ltd, and Others
- * 
- * The code in this file, and the program it is a part of, are made available
- * to you by the authors under the terms of the "GNU General Public Licence,
- * version 2" See the LICENCE file for the terms governing usage and
- * redistribution.
+ * Copyright © 2008-2010 Operational Dynamics Consulting, Pty Ltd and Others
+ *
+ * The code in this file, and the program it is a part of, is made available
+ * to you by its authors as open source software: you can redistribute it
+ * and/or modify it under the terms of the GNU General Public License version
+ * 2 ("GPL") as published by the Free Software Foundation.
+ *
+ * This program is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+ * FITNESS FOR A PARTICULAR PURPOSE. See the GPL for more details.
+ *
+ * You should have received a copy of the GPL along with this program. If not,
+ * see http://www.gnu.org/licenses/. The authors of this program may be
+ * contacted through http://java-gnome.sourceforge.net/.
  */
 package org.gnome.gtk;
 
@@ -24,9 +32,10 @@ public class SnapshotAssistant extends Snapshot
 
         final VBox page2 = new VBox(false, 3);
         id_tf = new Entry();
-        page2.packStart(new Label("Enter any data"));
-        page2.packStart(new Label("The 'next' button will be enabled after\nyou hit return."));
-        page2.packEnd(id_tf);
+        page2.packStart(new Label("Enter any data"), false, false, 0);
+        page2.packStart(new Label("The 'next' button will be enabled after\nyou hit return."), false,
+                false, 0);
+        page2.packEnd(id_tf, false, false, 0);
         assi.appendPage(page2);
         assi.setPageComplete(page2, true);
         assi.setPageType(page2, AssistantPageType.CONTENT);
