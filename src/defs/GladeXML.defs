@@ -18,8 +18,10 @@
   )
 )
 
-(define-function xml_new_from_buffer
+(define-function glade_xml_new_from_buffer
+  (is-constructor-of "GladeXML")
   (c-name "glade_xml_new_from_buffer")
+  (caller-owns-return #t)
   (return-type "GladeXML*")
   (parameters
     '("const-char*" "buffer")
@@ -28,7 +30,6 @@
     '("const-char*" "domain" (default "NULL") (null-ok))
   )
 )
-
 
 (define-method construct
   (of-object "GladeXML")
