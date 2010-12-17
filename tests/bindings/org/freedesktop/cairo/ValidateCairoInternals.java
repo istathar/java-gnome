@@ -18,6 +18,10 @@
  */
 package org.freedesktop.cairo;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+
 import org.gnome.gtk.GraphicalTestCase;
 
 /**
@@ -59,5 +63,66 @@ public class ValidateCairoInternals extends GraphicalTestCase
          * point clearly that we got something out of it that we didn't have
          * on the Java side before.
          */
+    }
+
+    private static byte[] readFileIntoArray(String filename) throws IOException {
+        final File source;
+        final int length;
+        final FileInputStream fis;
+        final byte[] data, overflow;
+        int actual;
+
+        source = new File(filename);
+        length = (int) source.length();
+
+        data = new byte[length];
+
+        /*
+         * Read the entire file in one go.
+         */
+
+        fis = new FileInputStream(source);
+        actual = fis.read(data, 0, length);
+
+        /*
+         * Make sure we really read the whole file; if there are any bytes
+         * left that's bad.
+         */
+
+        if (actual != length) {
+            fail();
+        }
+
+        overflow = new byte[2];
+        actual = fis.read(overflow, 0, 2);
+        if (actual != -1) {
+            fail();
+        }
+
+        /*
+         * Return file contents
+         */
+
+        return data;
+    }
+
+    public final void testUsingMimeData() throws IOException {
+        final Surface s1;
+        final Context cr;
+        final byte[] data;
+        final Surface s2;
+
+        s1 = new SvgSurface("tmp/tests/org/freedesktop/cairo/MimeType.svg", 100, 100);
+        cr = new Context(s1);
+
+        s2 = s1.createSimilar(Content.COLOR_ALPHA, 100, 100);
+
+        data = readFileIntoArray("tests/prototype/MapleSyrup.jpg");
+        s2.setMimeData(MimeType.JPEG, data);
+
+        cr.setSource(s2, 0, 0);
+        cr.paint();
+
+        s1.finish();
     }
 }

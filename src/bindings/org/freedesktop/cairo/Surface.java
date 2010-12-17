@@ -177,4 +177,16 @@ public abstract class Surface extends Entity
     public Surface createSimilar(Content type, int width, int height) {
         return CairoSurface.createSimilar(this, type, width, height);
     }
+
+    public void setMimeData(MimeType type, byte[] data) {
+        CairoSurfaceOverride.setMimeData(this, type, data);
+    }
+
+    public void setMimeData(MimeType type, String filename) {
+        final byte[] data;
+
+        data = filename.getBytes();
+
+        CairoSurfaceOverride.setMimeData(this, type, data);
+    }
 }
