@@ -169,6 +169,15 @@ public class ValidateCairoInternals extends GraphicalTestCase
         assertFileContains("image/jpeg", "tmp/tests/org/freedesktop/cairo/MimeType1.svg");
     }
 
+    /*
+     * Try and excercise the cairo_destroy_func_t callback. No promises, of
+     * course, but with this we were getting crashes until we fixed it.
+     */
+    public final void testImageDataCleanup() {
+        cycleMainLoop();
+        cycleGarbageCollector();
+    }
+
     /**
      * Thanks for the help of Adrian Johnson. In trying this pattern.
      */

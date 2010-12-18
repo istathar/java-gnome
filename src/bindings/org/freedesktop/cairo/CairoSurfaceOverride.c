@@ -36,6 +36,49 @@
 #include "bindings_java.h"
 #include "org_freedesktop_cairo_CairoSurfaceOverride.h"
 
+/*
+ * Transfer struct to carry two parameters needed for the call to
+ * ReleaseByteArrayElements to cleanup our mess.
+ */
+
+typedef struct
+{
+	jbyteArray array;
+	jbyte* data;
+} ImageCleanup;
+
+/*
+ * Signature is (*cairo_destroy_funct_t) meeting the requirements of the
+ * fifth parameter of cairo_surface_set_mime_data() below.
+ */
+static void
+release_image_data
+(
+	void* pointer
+)
+{
+	ImageCleanup* cleanup;
+	JNIEnv* env;
+	jbyteArray array;
+	jbyte* data;
+
+	cleanup = (ImageCleanup*) pointer;
+	array = (jbyteArray) cleanup->array;
+	data = (jbyte*) cleanup->data;
+
+	env = bindings_java_getEnv();
+
+	// call function to free image data
+	(*env)->ReleaseByteArrayElements(env, array, data, JNI_ABORT);
+
+	// drop reference
+ 	(*env)->DeleteGlobalRef(env, array);
+
+	// cleanup transfer struct
+	g_free(cleanup);
+}
+
+
 JNIEXPORT void JNICALL
 Java_org_freedesktop_cairo_CairoSurfaceOverride_cairo_1surface_1set_1mime_1data
 (
@@ -51,6 +94,7 @@ Java_org_freedesktop_cairo_CairoSurfaceOverride_cairo_1surface_1set_1mime_1data
 	const char* mimeType;
 	unsigned char* data;
 	long length;
+	ImageCleanup* cleanup;
 
 	// convert parameter self
 	self = (cairo_surface_t*) _self;
@@ -69,8 +113,16 @@ Java_org_freedesktop_cairo_CairoSurfaceOverride_cairo_1surface_1set_1mime_1data
 		return; // Java Exception already thrown
 	}
 
+	/*
+	 * Setup transfer object
+	 */
+
+	cleanup = g_malloc(sizeof(ImageCleanup));
+	cleanup->array = (jbyteArray) (*env)->NewGlobalRef(env, _data);
+	cleanup->data = (jbyte*) data;
+
 	// call function
-	result = cairo_surface_set_mime_data(self, mimeType, data, length, NULL, NULL);
+	result = cairo_surface_set_mime_data(self, mimeType, data, length, release_image_data, cleanup);
 
 	// cleanup parameter self
 
@@ -78,7 +130,7 @@ Java_org_freedesktop_cairo_CairoSurfaceOverride_cairo_1surface_1set_1mime_1data
 	bindings_java_releaseString(mimeType);
 
 	// cleanup parameter data
-	(*env)->ReleaseByteArrayElements(env, _data, (void*) data, 0);
+	// done in callback
 
 	/*
 	 * Check return value
