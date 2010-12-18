@@ -178,10 +178,72 @@ public abstract class Surface extends Entity
         return CairoSurface.createSimilar(this, type, width, height);
     }
 
+    /**
+     * Attach original image data to a surface. When drawing an image into a
+     * vector Surface such as PDF or SVG, Cairo will draw the decoded image as
+     * a bitmap. Which is <i>hugely</i> inefficient. This method allows you to
+     * add the original image to the surface, and when drawing out Cairo will
+     * use this if it can.
+     * 
+     * <p>
+     * Keep in mind that you attach the data to the <b>intermediate</b>
+     * Surface which is painted onto the target, not the final target Surface
+     * itself.
+     * 
+     * <pre>
+     * pixbuf = new Pixbuf(data);
+     * 
+     * intermediate = new ImageSurface(Format.ARGB32, width, height);
+     * second = new Context(intermediate);
+     * 
+     * second.setSource(pixbuf, 0, 0);
+     * second.paint();
+     * second.setMimeData(MimeType.JPEG, data);
+     * 
+     * cr.setSource(intermediate, 0, 0);
+     * cr.paint();
+     * </pre>
+     * 
+     * or you can go through the implicitly created Pattern:
+     * 
+     * <pre>
+     * pixbuf = new Pixbuf(data);
+     * 
+     * cr.setSource(pixbuf, 0, 0);
+     * pattern = cr.getSource();
+     * implicit = pattern.getSource();
+     * implicit.setMimeData(MimeType.JPEG, data);
+     * 
+     * cr.paint();
+     * </pre>
+     * 
+     * which seems a bit easier.
+     * 
+     * <p>
+     * <b>NOTE:</b><br/>
+     * You must not make any changes to the intermediate surface after setting
+     * the image data or you will lose the effect of this call.
+     * 
+     * <p>
+     * <i>It would be nice if gdk_cairo_set_source_pixbuf() just did this for
+     * us.</i>
+     * 
+     * 
+     * @since 4.0.18
+     */
     public void setMimeData(MimeType type, byte[] data) {
         CairoSurfaceOverride.setMimeData(this, type, data);
     }
 
+    /**
+     * Set a filename as the MIME data for this surface.
+     * 
+     * @since <span style="color:red">Unstable</span>
+     */
+    /*
+     * FIXME How does this work? Are you supposed to use URI, or the actual
+     * file type, or?
+     */
     public void setMimeData(MimeType type, String filename) {
         final byte[] data;
 

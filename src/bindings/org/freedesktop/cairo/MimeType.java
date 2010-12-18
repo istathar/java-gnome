@@ -53,10 +53,26 @@ public class MimeType
         this.mime = mime;
     }
 
+    /**
+     * Normal JPEG format photographic images. ISO/IEC 10918-1.
+     * 
+     * @since 4.0.18
+     */
     public static final MimeType JPEG = new MimeType("JPEG", "image/jpeg");
 
+    /**
+     * The newer JPEG 2000 format images using wavelet compression. ISO/IEC
+     * 15444-1.
+     * 
+     * @since 4.0.18
+     */
     public static final MimeType JP2 = new MimeType("JP2", "image/jp2");
 
+    /**
+     * Portable Network Graphic.
+     * 
+     * @since 4.0.18
+     */
     public static final MimeType PNG = new MimeType("PNG", "image/png");
 
     public static final MimeType URI = new MimeType("URI", "image/x-uri");
