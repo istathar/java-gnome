@@ -114,7 +114,7 @@ public abstract class Pattern extends Entity
      * 
      * @since 4.0.18
      */
-    public Surface getSource() {
+    public Surface getSurface() {
         return CairoPatternOverride.getSurface(this);
     }
 }

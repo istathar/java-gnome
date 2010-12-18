@@ -210,7 +210,7 @@ public class ValidateCairoInternals extends GraphicalTestCase
          */
 
         pattern = cr.getSource();
-        implicit = pattern.getSource();
+        implicit = pattern.getSurface();
         implicit.setMimeData(MimeType.JPEG, data);
 
         /*

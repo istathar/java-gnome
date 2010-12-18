@@ -186,7 +186,7 @@ public abstract class Surface extends Entity
      * use this if it can.
      * 
      * <p>
-     * Keep in mind that you attach the data to the <b>intermediate</b>
+     * Keep in mind that you attach the data to the <i>intermediate</i>
      * Surface which is painted onto the target, not the final target Surface
      * itself.
      * 
@@ -194,11 +194,11 @@ public abstract class Surface extends Entity
      * pixbuf = new Pixbuf(data);
      * 
      * intermediate = new ImageSurface(Format.ARGB32, width, height);
-     * second = new Context(intermediate);
      * 
+     * second = new Context(intermediate);
      * second.setSource(pixbuf, 0, 0);
      * second.paint();
-     * second.setMimeData(MimeType.JPEG, data);
+     * intermediate.setMimeData(MimeType.JPEG, data);
      * 
      * cr.setSource(intermediate, 0, 0);
      * cr.paint();
@@ -211,7 +211,7 @@ public abstract class Surface extends Entity
      * 
      * cr.setSource(pixbuf, 0, 0);
      * pattern = cr.getSource();
-     * implicit = pattern.getSource();
+     * implicit = pattern.getSurface();
      * implicit.setMimeData(MimeType.JPEG, data);
      * 
      * cr.paint();
