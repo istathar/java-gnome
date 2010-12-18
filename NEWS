@@ -153,13 +153,15 @@ months to come.
 
 AfC, GM
 
-[Enchant.existsDictionary()]: doc/api/org/freedesktop/enchant/Enchant.html#existsDictionary(java.lang.String)
-[Enchant.listDictionaries()]: doc/api/org/freedesktop/enchant/Enchant.html#listDictionaries()
-[Internationalization.translateLangageName()]: doc/api/org/freedesktop/bindings/Internationalization.html#translateLanguageName(java.lang.String)
-[Internationalization.translateCountryName()]: doc/api/org/freedesktop/bindings/Internationalization.html#translateCountryName(java.lang.String)
-[Assistant]: doc/api/org/gnome/gtk/Assistant.html
-[Spinner]: doc/api/org/gnome/gtk/Spinner.html
-[Glib.markupEscapeText()]: doc/api/org/gnome/glib/Glib.html#markupEscapeText(java.lang.String)
+[Enchant.existsDictionary()]: <http://java-gnome.sourceforge.net/4.0/doc/api/org/freedesktop/enchant/Enchant.html#existsDictionary(java.lang.String)>
+[Enchant.listDictionaries()]: <http://java-gnome.sourceforge.net/4.0/doc/api/org/freedesktop/enchant/Enchant.html#listDictionaries()>
+[Internationalization.translateLangageName()]: <http://java-gnome.sourceforge.net/4.0/doc/api/org/freedesktop/bindings/Internationalization.html#translateLanguageName(java.lang.String)>
+[Internationalization.translateCountryName()]: <http://java-gnome.sourceforge.net/4.0/doc/api/org/freedesktop/bindings/Internationalization.html#translateCountryName(java.lang.String)>
+[Assistant]: <http://java-gnome.sourceforge.net/4.0/doc/api/org/gnome/gtk/Assistant.html>
+[Spinner]: <http://java-gnome.sourceforge.net/4.0/doc/api/org/gnome/gtk/Spinner.html>
+[Glib.markupEscapeText()]: <http://java-gnome.sourceforge.net/4.0/doc/api/org/gnome/glib/Glib.html#markupEscapeText(java.lang.String)>
+[Context]: <http://java-gnome.sourceforge.net/4.0/doc/api/org/freedesktop/cairo/Context.html#Context(org.gnome.gdk.EventExpose)>
+
 
 <a name="4.0.16" id="1276732981" title="Accelerating operations"></a>
 
