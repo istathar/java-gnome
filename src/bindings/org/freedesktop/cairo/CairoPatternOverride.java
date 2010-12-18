@@ -1,7 +1,7 @@
 /*
  * java-gnome, a UI library for writing GTK and GNOME programs from Java!
  *
- * Copyright © 2010 Operational Dynamics Consulting, Pty Ltd and Others
+ * Copyright © 2010 Operational Dynamics Consulting, Pty Ltd
  *
  * The code in this file, and the program it is a part of, is made available
  * to you by its authors as open source software: you can redistribute it
@@ -30,53 +30,35 @@
  * version of the library, but you are not obligated to do so. If you do not
  * wish to do so, delete this exception statement from your version.
  */
-package org.freedesktop.icons;
+package org.freedesktop.cairo;
 
 /**
- * Named icons with "emblems". These are small images that can be used to
- * annotate an icon (you might have used these for files in Nautilus).
+ * cairo_pattern_get_surface() uses an out parameter. Annoying, and better to
+ * use this than misusing the .defs data.
  * 
- * @author Guillaume Mazoyer
  * @author Andrew Cowie
- * @since 4.0.17
  */
-public class EmblemIcon extends Icon
+class CairoPatternOverride extends Plumbing
 {
-    protected EmblemIcon(String name) {
-        super(name);
+    /*
+     * Implementation inspired by CairoContext.getTarget().
+     */
+    static final Surface getSurface(Pattern self) {
+        long result;
+
+        if (self == null) {
+            throw new IllegalArgumentException("self can't be null");
+        }
+
+        synchronized (lock) {
+            result = cairo_pattern_get_surface(pointerOf(self));
+
+            return (Surface) entityFor(Surface.class, result);
+        }
     }
 
-    public static final Icon EMBLEM_DEFAULT = new EmblemIcon("emblem-default");
-
-    public static final Icon EMBLEM_DOCUMENTS = new EmblemIcon("emblem-documents");
-
-    public static final Icon EMBLEM_DOWNLOADS = new EmblemIcon("emblem-downloads");
-
-    public static final Icon EMBLEM_FAVORITE = new EmblemIcon("emblem-favorite");
-
-    public static final Icon EMBLEM_GENERIC = new EmblemIcon("emblem-generic");
-
-    public static final Icon EMBLEM_IMPORTANT = new EmblemIcon("emblem-important");
-
-    public static final Icon EMBLEM_MAIL = new EmblemIcon("emblem-mail");
-
-    public static final Icon EMBLEM_NEW = new EmblemIcon("emblem-new");
-
-    public static final Icon EMBLEM_PACKAGE = new EmblemIcon("emblem-package");
-
-    public static final Icon EMBLEM_PHOTOS = new EmblemIcon("emblem-photos");
-
-    public static final Icon EMBLEM_READONLY = new EmblemIcon("emblem-readonly");
-
-    public static final Icon EMBLEM_SHARED = new EmblemIcon("emblem-shared");
-
-    public static final Icon EMBLEM_SYMBOLIC_LINK = new EmblemIcon("emblem-symbolic-link");
-
-    public static final Icon EMBLEM_SYSTEM = new EmblemIcon("emblem-system");
-
-    public static final Icon EMBLEM_UNREADABLE = new EmblemIcon("emblem-unreadable");
-
-    public static final Icon EMBLEM_URGENT = new EmblemIcon("emblem-urgent");
-
-    public static final Icon EMBLEM_WEB = new EmblemIcon("emblem-web");
+    /**
+     * @throws org.freedesktop.cairo.FatalError
+     */
+    private static native final long cairo_pattern_get_surface(long self);
 }

@@ -1,7 +1,7 @@
 /*
  * java-gnome, a UI library for writing GTK and GNOME programs from Java!
  *
- * Copyright © 2010 Operational Dynamics Consulting, Pty Ltd and Others
+ * Copyright © 2010 Operational Dynamics Consulting, Pty Ltd
  *
  * The code in this file, and the program it is a part of, is made available
  * to you by its authors as open source software: you can redistribute it
@@ -30,52 +30,39 @@
  * version of the library, but you are not obligated to do so. If you do not
  * wish to do so, delete this exception statement from your version.
  */
-package org.freedesktop.icons;
 
-/**
- * Named icons representing folders.
- * 
- * @author Guillaume Mazoyer
- * @author Andrew Cowie
- * @since 4.0.17
- */
-public class PlaceIcon extends Icon
+#include <jni.h>
+#include <gtk/gtk.h>
+#include "bindings_java.h"
+#include "org_freedesktop_cairo_CairoPatternOverride.h"
+
+JNIEXPORT jlong JNICALL
+Java_org_freedesktop_cairo_CairoPatternOverride_cairo_1pattern_1get_1surface
+(
+	JNIEnv* env,
+	jclass cls,
+	jlong _self
+)
 {
-    protected PlaceIcon(String name) {
-        super(name);
-    }
+	cairo_status_t result;
+	cairo_pattern_t* self;
+	cairo_surface_t* surface;
 
-    public static final Icon FOLDER_DOCUMENTS = new PlaceIcon("folder-documents");
+	// convert parameter self
+	self = (cairo_pattern_t*) _self;
 
-    public static final Icon FOLDER_DOWNLOAD = new PlaceIcon("folder-download");
+	// call function
+	result = cairo_pattern_get_surface(self, &surface);
 
-    public static final Icon FOLDER_MUSIC = new PlaceIcon("folder-music");
+	// cleanup parameter self
 
-    public static final Icon FOLDER_PICTURES = new PlaceIcon("folder-pictures");
+	/*
+	 * Check return value
+	 */
+	if (result != CAIRO_STATUS_SUCCESS) {
+		bindings_java_throwByName(env, "org/freedesktop/cairo/FatalError", "Not a SurfacePatten!");
+		return 0L;
+	}
 
-    public static final Icon FOLDER = new PlaceIcon("folder");
-
-    public static final Icon FOLDER_PUBLICSHARE = new PlaceIcon("folder-publicshare");
-
-    public static final Icon FOLDER_REMOTE = new PlaceIcon("folder-remote");
-
-    public static final Icon FOLDER_SAVED_SEARCH = new PlaceIcon("folder-saved-search");
-
-    public static final Icon FOLDER_TEMPLATES = new PlaceIcon("folder-templates");
-
-    public static final Icon FOLDER_VIDEOS = new PlaceIcon("folder-videos");
-
-    public static final Icon NETWORK_SERVER = new PlaceIcon("network-server");
-
-    public static final Icon NETWORK_WORKGROUP = new PlaceIcon("network-workgroup");
-
-    public static final Icon START_HERE = new PlaceIcon("start-here");
-
-    public static final Icon USER_BOOKMARKS = new PlaceIcon("user-bookmarks");
-
-    public static final Icon USER_DESKTOP = new PlaceIcon("user-desktop");
-
-    public static final Icon USER_HOME = new PlaceIcon("user-home");
-
-    public static final Icon USER_TRASH = new PlaceIcon("user-trash");
+	return (jlong) surface;
 }

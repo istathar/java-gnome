@@ -70,6 +70,7 @@ import org.gnome.gtk.ValidateUnicode;
 import org.gnome.pango.ValidatePangoAttributeUsage;
 import org.gnome.pango.ValidatePangoTextRendering;
 import org.gnome.pango.ValidatePangoWrapBehaviour;
+import org.gnome.rsvg.ValidateVectorIllustrations;
 import org.gnome.sourceview.ValidateSourceView;
 import org.gnome.unique.ValidateUniqueApplications;
 
@@ -190,6 +191,7 @@ public class UnitTests
         suite.addTestSuite(ValidatePrinting.class);
         suite.addTestSuite(ValidateSourceView.class);
         suite.addTestSuite(ValidateUniqueApplications.class);
+        suite.addTestSuite(ValidateVectorIllustrations.class);
         suite.addTestSuite(ValidateRadioThing.class);
 
         return suite;

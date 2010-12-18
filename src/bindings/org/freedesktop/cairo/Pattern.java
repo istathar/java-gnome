@@ -107,4 +107,14 @@ public abstract class Pattern extends Entity
     public void setExtend(Extend extend) {
         CairoPattern.setExtend(this, extend);
     }
+
+    /**
+     * Get the Surface backing this Pattern. Obviously this only works with
+     * SurfacePatterns.
+     * 
+     * @since 4.0.18
+     */
+    public Surface getSurface() {
+        return CairoPatternOverride.getSurface(this);
+    }
 }

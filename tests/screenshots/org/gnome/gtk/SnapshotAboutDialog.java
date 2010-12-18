@@ -36,10 +36,10 @@ public class SnapshotAboutDialog extends SnapshotDialog
         dialog.setComments("The library allowing you to write outstanding GNOME applications with the GTK widget toolkit, from Java!");
         dialog.setCopyright("Copyright \u00A9 2006-2010 Operational Dynamics Consulting Pty Ltd, and Others");
         dialog.setAuthors(new String[] {
-                "Andrew Cowie <andrew@operationaldynamics.com>",
-                "Srichand Pendyala <srichand.pendyala@gmail.com>",
-                "Vreixo Formoso Lopes <metalpain2002@yahoo.es>",
-                "Sebastian Mancke <s.mancke@tarent.de>"
+            "Andrew Cowie <andrew@operationaldynamics.com>",
+            "Srichand Pendyala <srichand.pendyala@gmail.com>",
+            "Vreixo Formoso Lopes <metalpain2002@yahoo.es>",
+            "Sebastian Mancke <s.mancke@tarent.de>"
         });
         dialog.setWebsite("http://java-gnome.sourceforge.net/");
 

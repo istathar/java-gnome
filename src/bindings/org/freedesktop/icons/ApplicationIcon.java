@@ -32,7 +32,6 @@
  */
 package org.freedesktop.icons;
 
-
 /**
  * Named icons representing individual applications.
  * 

@@ -55,9 +55,9 @@ package org.gnome.gtk;
  * 
  * <pre>
  * model = new ListStore(new DataColumn[] {
- *         monarchName = new DataColumnString(),
- *         coronatedYear = new DataColumnInteger(),
- *         portrait = new DataColumnPixbuf()
+ *     monarchName = new DataColumnString(),
+ *     coronatedYear = new DataColumnInteger(),
+ *     portrait = new DataColumnPixbuf()
  * });
  * </pre>
  * 

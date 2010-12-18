@@ -35,7 +35,8 @@ public class ValidateTreeModelSort extends GraphicalTestCase
         TreeIter row;
 
         base = new ListStore(new DataColumn[] {
-                nameOfBeach = new DataColumnString(), lengthOfBeach = new DataColumnInteger(),
+            nameOfBeach = new DataColumnString(),
+            lengthOfBeach = new DataColumnInteger(),
         });
 
         row = base.appendRow();
