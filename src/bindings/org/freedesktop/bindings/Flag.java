@@ -89,4 +89,20 @@ public abstract class Flag extends Constant
 
         return (this.ordinal & setting.ordinal) != 0;
     }
+
+    protected final static Flag andTwoFlags(Flag a, Flag b) {
+        if (a.getClass() != b.getClass()) {
+            throw new IllegalArgumentException(
+                    "Both arguments need to be an instances of the same concrete Flags class");
+        }
+
+        return Plumbing.flagFor(a.getClass(), a.ordinal & b.ordinal);
+    }
+
+    /**
+     * Remove b from a
+     */
+    protected final static Flag maskTwoFlags(Flag a, Flag b) {
+        return Plumbing.flagFor(a.getClass(), a.ordinal & (a.ordinal ^ b.ordinal));
+    }
 }
