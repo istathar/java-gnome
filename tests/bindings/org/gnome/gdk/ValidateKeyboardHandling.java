@@ -63,4 +63,27 @@ public class ValidateKeyboardHandling extends GraphicalTestCase
         assertEquals("Hello\0World", terminated.toString());
         assertEquals(11, terminated.length());
     }
+
+    public final void testMaskingModifierType() {
+        ModifierType one, two, three, four, five;
+
+        one = ModifierType.CONTROL_MASK;
+        two = ModifierType.or(one, ModifierType.ALT_MASK);
+
+        assertTrue(two.contains(ModifierType.CONTROL_MASK));
+        assertTrue(two.contains(ModifierType.ALT_MASK));
+
+        three = ModifierType.mask(two, ModifierType.CONTROL_MASK);
+
+        assertFalse(three.contains(ModifierType.CONTROL_MASK));
+        assertTrue(three.contains(ModifierType.ALT_MASK));
+        assertTrue(three == ModifierType.ALT_MASK);
+
+        four = ModifierType.mask(three, ModifierType.ALT_MASK);
+        assertFalse(four.contains(ModifierType.ALT_MASK));
+        assertTrue(four == ModifierType.NONE);
+
+        five = ModifierType.mask(four, ModifierType.ALT_MASK);
+        assertTrue(five == ModifierType.NONE);
+    }
 }
