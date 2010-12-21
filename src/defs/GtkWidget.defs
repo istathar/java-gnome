@@ -692,6 +692,12 @@
   (return-type "const-gchar*")
 )
 
+(define-method get_window
+  (of-object "GtkWidget")
+  (c-name "gtk_widget_get_window")
+  (return-type "GdkWindow*")
+)
+
 (define-method set_state
   (of-object "GtkWidget")
   (c-name "gtk_widget_set_state")

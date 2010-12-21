@@ -868,7 +868,7 @@ public abstract class Widget extends org.gnome.gtk.Object
      * @since 4.0.4
      */
     public org.gnome.gdk.Window getWindow() {
-        return GtkWidgetOverride.getWindow(this);
+        return GtkWidget.getWindow(this);
     }
 
     /**

@@ -36,29 +36,6 @@
 #include "bindings_java.h"
 #include "org_gnome_gtk_GtkWidgetOverride.h"
 
-JNIEXPORT jlong JNICALL
-Java_org_gnome_gtk_GtkWidgetOverride_gtk_1widget_1get_1window
-(
-	JNIEnv* env,
-	jclass cls,
-	jlong _self
-)
-{
-	GdkWindow* result;
-	GtkWidget* self;
-
-	// convert parameter self
-	self = (GtkWidget*) _self;
-
-	result = self->window;
-
-	// cleanup parameter self
-
-	// and finally
-	return (jlong) result;
-}
-
-
 /**
  * Access GtkWidget's allocation field, a GtkAllocation struct. Note that we
  * return a pointer to the live struct, not a copy. This is a bit of a
