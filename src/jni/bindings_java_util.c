@@ -362,6 +362,20 @@ bindings_java_logging_handler
 	gchar* msg;
 	
 	env = bindings_java_getEnv();
+
+	/*
+	 * Whether or not to throw on WARNING here is an open question.
+	 * Although the "--g-fatal-warnings" GTK option allows people to tell
+	 * GLib to make warnings fatal, their idea of fatal is to print the
+	 * WARNING and then to abort!
+	 * 
+	 * So the alternatives open to us are to leave it to flow on to the
+	 * default log handler, or to throw our FatalError.
+	 *
+	 * In every instance we've observed, seeing a WARNING from GTK has
+	 * immediately indicated serious programmer error. So an Exception it
+	 * is.
+	 */
 	
 	switch (log_level) {
 	case G_LOG_LEVEL_ERROR:
@@ -373,19 +387,6 @@ bindings_java_logging_handler
 		break;
 
 	case G_LOG_LEVEL_WARNING:
-		/*
-		 * Whether or not to throw on WARNING here is an open
-		 * question. Although the "--g-fatal-warnings" GTK option
-		 * allows people to tell GLib to make warnings fatal, their
-		 * idea of fatal is to print the WARNING and then to abort!
-		 * 
-		 * So the alternatives open to us are to leave it to flow on
-		 * to the default log handler, or to throw our FatalError.
-		 *
-		 * In every instance we've observed, seeing a WARNING from GTK
-		 * has immediately indicated serious programmer error. So an
-		 * Exception it is.
-		 */
 		level = "WARNING";
 		break;
 
@@ -399,6 +400,18 @@ bindings_java_logging_handler
 	bindings_java_throwByName(env, "org/gnome/glib/FatalError", msg);
 
 	g_free(msg);
+
+	/*
+	 * We would happily throw our exception and be done with it, except
+	 * that the Java VM messes with our good intentions: Exceptions which
+	 * occur during finalizing are ignored.
+	 *
+	 * Since these messages are often the root cause problem, it's
+	 * important to hear about them. So we output an alert.
+ 	 */
+
+	g_printerr("DANGER: %s-%s, %s\n", log_domain, level, message);
+	fflush(stderr);
 }
 
 void
