@@ -21,6 +21,7 @@
   (c-name "gdk_drag_context_new")
   (caller-owns-return #t)
   (return-type "GdkDragContext*")
+  (deprecated)
 )
 
 (define-method drag_status
@@ -70,6 +71,7 @@
     '("GdkWindow**" "dest_window")
     '("GdkDragProtocol*" "protocol")
   )
+  (deprecated)
 )
 
 (define-method drag_find_window_for_screen

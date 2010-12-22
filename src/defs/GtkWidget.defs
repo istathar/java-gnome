@@ -1173,6 +1173,7 @@
   (of-object "GtkWidget")
   (c-name "gtk_widget_reset_shapes")
   (return-type "none")
+  (deprecated)
 )
 
 (define-method path
