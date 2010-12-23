@@ -107,4 +107,19 @@ public class Environment
     private static native final void setenv(String variableName, String value);
 
     private static native final void unsetenv(String variableName);
+
+    /**
+     * Get the system PID of this program. This is useful for forming
+     * temporary filenames.
+     * 
+     * @since 4.0.18
+     */
+    /*
+     * Got tired of Java not providing this
+     */
+    public static int getProcessID() {
+        return getpid();
+    }
+
+    private static native final int getpid();
 }

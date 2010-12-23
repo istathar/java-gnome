@@ -155,3 +155,17 @@ Java_org_freedesktop_bindings_Environment_getWidth
 	// TODO how can we do this?
 	return (jint) 0;
 }
+
+/*
+ * Will implement
+ *   org.freedesktop.bindings.Environment.getWidth()
+ */
+JNIEXPORT jint JNICALL
+Java_org_freedesktop_bindings_Environment_getpid
+(
+	JNIEnv *env,
+	jclass cls
+)
+{
+	return getpid();
+}
