@@ -1,5 +1,34 @@
 NEWS
 
+<a name="4.0.18" id="1290043843" title="Fix GDK_IS_WINDOW crash"></a>
+
+java-gnome 4.0.18 (23 Dec 2010)
+===============================
+
+This is a bug fix release. A serious crasher was occurring when you requested
+a the underlying [org.gnome.gdk] Window backing a Widget. Thanks to Kenneth
+Prugh and Guillaume Mazoyer for their help in duplicating and isolating the
+problem.
+
+Better image rendering
+----------------------
+
+While we're at it, though, we've merged work in progress on offering coverage
+of the librsvg Scalable Vector Graphics loader. This allows you to draw an SVG
+image as a vector graphic to Cairo which itself works in vector form, and is a
+substantial improvement over just loading with gdk-pixbuf (which rasterizes
+the graphic first).
+
+We've also added coverage of Cairo Surface's setMimeType(), which allows you
+to embed the the original [ie jpeg, or to a lesser extent png] image in PDF
+output rather than just the decoded, rastered, and very huge bitmap image that
+Cairo uses on screen and would otherwise have used in PDF and SVG output. So
+JPEGs stay JPEGs instead of turning into 12 MB bitmaps. Yeay.
+
+java-gnome now depends on Cairo 1.10.
+
+AfC
+
 <a name="4.0.17" id="1290043843" title="Dictionaries exist"></a>
 
 java-gnome 4.0.17 (18 Nov 2010)
