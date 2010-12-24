@@ -1,33 +1,42 @@
 NEWS
 
-<a name="4.0.18" id="1290043843" title="Fix GDK_IS_WINDOW crash"></a>
+<a name="4.0.18" id="1293156906" title="Fix GDK_IS_WINDOW crash"></a>
 
 java-gnome 4.0.18 (23 Dec 2010)
 ===============================
 
+_My compressed original is better than your uncompressed copy_
+
 This is a bug fix release. A serious crasher was occurring when you requested
-a the underlying [org.gnome.gdk] Window backing a Widget. Thanks to Kenneth
-Prugh and Guillaume Mazoyer for their help in duplicating and isolating the
-problem.
+a the underlying [org.gnome.gdk] Window backing a Widget, as is often
+necessary before popping up context menus. Thanks to Kenneth Prugh and
+Guillaume Mazoyer for their help in duplicating and isolating the problem.
 
 Better image rendering
 ----------------------
 
-While we're at it, though, we've merged work in progress on offering coverage
-of the librsvg Scalable Vector Graphics loader. This allows you to draw an SVG
-image as a vector graphic to Cairo which itself works in vector form, and is a
-substantial improvement over just loading with gdk-pixbuf (which rasterizes
-the graphic first).
+While we're at it, we've merged work in progress offering coverage of the
+librsvg Scalable Vector Graphics loader. This allows you to draw an SVG image
+as a vector graphic to Cairo (which itself works in vector form, of course),
+and is a substantial improvement over just loading the `.svg` with gdk-pixbuf
+(which rasterizes the graphic to a bitmap first, of course). Load the image
+with [Handle][], then draw it with Context's
+[`showHandle()`][Context.showHandle()].
 
-We've also added coverage of Cairo Surface's setMimeType(), which allows you
-to embed the the original [ie jpeg, or to a lesser extent png] image in PDF
-output rather than just the decoded, rastered, and very huge bitmap image that
-Cairo uses on screen and would otherwise have used in PDF and SVG output. So
-JPEGs stay JPEGs instead of turning into 12 MB bitmaps. Yeay.
+We've also added coverage of Cairo Surface's new
+[`setMimeType()`][Surface.setMimeType()], which allows you to embed the the
+original [ie JPEG, or to a lesser extent PNG] image in PDF output rather than
+just the decoded, rasterized, and very huge bitmap image that Cairo uses on
+screen and would otherwise have used in PDF and SVG output. So 100 kB JPEGs
+stay JPEGs instead of turning into 12 MB bitmaps. Yeay.
 
-java-gnome now depends on Cairo 1.10.
+java-gnome now depends on Cairo 1.10 and librsvg 2.32.
 
 AfC
+
+[Handle]: http://java-gnome.sourceforge.net/4.0/doc/api/org/gnome/rsvg/Handle.html
+[Context.showHandle()]: <http://java-gnome.sourceforge.net/4.0/doc/api/org/freedesktop/cairo/Context.html#showHandle(org.gnome.rsvg.Handle)>
+[Surface.setMimeType()]: <http://java-gnome.sourceforge.net/4.0/doc/api/org/freedesktop/cairo/Surface.html#setMimeData(org.freedesktop.cairo.MimeType,%20byte[])>
 
 <a name="4.0.17" id="1290043843" title="Dictionaries exist"></a>
 
