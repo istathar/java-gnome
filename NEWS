@@ -23,12 +23,26 @@ and is a substantial improvement over just loading the `.svg` with gdk-pixbuf
 with [Handle][], then draw it with Context's
 [`showHandle()`][Context.showHandle()].
 
+* **`org.freedesktop.cairo.Context`**
+* **`org.gnome.rsvg.Handle`**
+* **`org.gnome.rsvg.DimensionData`**
+* `org.gnome.rsvg.Plumbing`
+* `org.gnome.rsvg.RsvgDimensionDataOverride`
+* `org.gnome.rsvg.ValidateVectorIllustrations`
+* `cairo.ExampleDrawingPenguins`
+
 We've also added coverage of Cairo Surface's new
 [`setMimeType()`][Surface.setMimeType()], which allows you to embed the the
 original [ie JPEG, or to a lesser extent PNG] image in PDF output rather than
 just the decoded, rasterized, and very huge bitmap image that Cairo uses on
 screen and would otherwise have used in PDF and SVG output. So 100 kB JPEGs
 stay JPEGs instead of turning into 12 MB bitmaps. Yeay.
+
+* **`org.freedesktop.cairo.Surface`**
+* **`org.freedesktop.cairo.RecordingSurface`**
+* **`org.freedesktop.cairo.MimeType`**
+* `org.freedesktop.cairo.CairoSurfaceOverride`
+* `org.freedesktop.cairo.ValidateCairoInternals`
 
 java-gnome now depends on Cairo 1.10 and librsvg 2.32.
 
