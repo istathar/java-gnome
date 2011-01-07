@@ -1,0 +1,134 @@
+(define-object Handle
+  (in-module "Rsvg")
+  (parent "GObject")
+  (c-name "RsvgHandle")
+  (import-header "librsvg/rsvg.h")
+  (import-header "librsvg/rsvg-cairo.h")
+)
+
+(define-method set_dpi
+  (of-object "RsvgHandle")
+  (c-name "rsvg_handle_set_dpi")
+  (return-type "none")
+  (parameters
+    '("double" "dpi")
+  )
+)
+
+(define-method set_dpi_x_y
+  (of-object "RsvgHandle")
+  (c-name "rsvg_handle_set_dpi_x_y")
+  (return-type "none")
+  (parameters
+    '("double" "dpi_x")
+    '("double" "dpi_y")
+  )
+)
+
+(define-function rsvg_handle_new
+  (c-name "rsvg_handle_new")
+  (is-constructor-of "RsvgHandle")
+  (caller-owns-return #t)
+  (return-type "RsvgHandle*")
+)
+
+(define-function rsvg_handle_new_from_file
+  (is-constructor-of "RsvgHandle")
+  (c-name "rsvg_handle_new_from_file")
+  (return-type "RsvgHandle*")
+  (caller-owns-return #t)
+  (parameters
+    '("const-gchar*" "file_name")
+    '("GError**" "error")
+  )
+)
+
+(define-function rsvg_handle_new_from_data
+  (is-constructor-of "RsvgHandle")
+  (c-name "rsvg_handle_new_from_data")
+  (return-type "RsvgHandle*")
+  (caller-owns-return #t)
+  (parameters
+    '("const-guint8*" "data")
+    '("gsize" "data_len")
+    '("GError**" "error")
+  )
+)
+
+(define-method get_dimensions
+  (of-object "RsvgHandle")
+  (c-name "rsvg_handle_get_dimensions")
+  (return-type "none")
+  (parameters
+    '("RsvgDimensionData*" "data")
+  )
+)
+
+(define-method get_dimensions_sub
+  (of-object "RsvgHandle")
+  (c-name "rsvg_handle_get_dimensions_sub")
+  (return-type "none")
+  (parameters
+    '("RsvgDimensionData*" "data")
+    '("const-char*" "id" (null-ok))
+  )
+)
+
+(define-method write
+  (of-object "RsvgHandle")
+  (c-name "rsvg_handle_write")
+  (return-type "gboolean")
+  (parameters
+    '("const-guchar*" "buf")
+    '("gsize" "count")
+    '("GError**" "error")
+  )
+)
+
+(define-method close
+  (of-object "RsvgHandle")
+  (c-name "rsvg_handle_close")
+  (return-type "gboolean")
+  (parameters
+    '("GError**" "error")
+  )
+)
+
+(define-method get_pixbuf
+  (of-object "RsvgHandle")
+  (c-name "rsvg_handle_get_pixbuf")
+  (return-type "GdkPixbuf*")
+)
+
+(define-method get_pixbuf_sub
+  (of-object "RsvgHandle")
+  (c-name "rsvg_handle_get_pixbuf_sub")
+  (return-type "GdkPixbuf*")
+  (parameters
+    '("const-char*" "id")
+  )
+)
+
+;; these are called from the Cairo .defs file
+
+(define-method render_cairo
+  (of-object "RsvgHandle")
+  (c-name "rsvg_handle_render_cairo")
+  (return-type "none")
+  (parameters
+    '("cairo_t*" "cr")
+  )
+  (unnecessary)
+)
+
+(define-method render_cairo_sub
+  (of-object "RsvgHandle")
+  (c-name "rsvg_handle_render_cairo_sub")
+  (return-type "none")
+  (parameters
+    '("cairo_t*" "cr")
+    '("const-char*" "id")
+  )
+  (unnecessary)
+)
+

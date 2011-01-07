@@ -52,9 +52,9 @@ public class ValidateTreeStore extends GraphicalTestCase
         final TreeStore model;
 
         types = new DataColumn[] {
-                name = new DataColumnString(),
-                age = new DataColumnInteger(),
-                useful = new DataColumnBoolean()
+            name = new DataColumnString(),
+            age = new DataColumnInteger(),
+            useful = new DataColumnBoolean()
         };
 
         try {
@@ -85,7 +85,8 @@ public class ValidateTreeStore extends GraphicalTestCase
         column = new DataColumnString();
 
         types = new DataColumn[] {
-                column, column
+            column,
+            column
         };
 
         try {

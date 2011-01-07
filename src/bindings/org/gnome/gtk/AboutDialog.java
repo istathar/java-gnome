@@ -182,10 +182,10 @@ public class AboutDialog extends Dialog
      * 
      * <pre>
      * about.setAuthors(new String[] {
-     *         &quot;Andrew Cowie &lt;andrew@operationaldynamics.com&gt;&quot;,
-     *         &quot;Srichand Pendyala &lt;srichand.pendyala@gmail.com&gt;&quot;,
-     *         &quot;Vreixo Formoso Lopes &lt;metalpain2002@yahoo.es&gt;&quot;,
-     *         &quot;Sebastian Mancke &lt;s.mancke@tarent.de&gt;&quot;
+     *     &quot;Andrew Cowie &lt;andrew@operationaldynamics.com&gt;&quot;,
+     *     &quot;Srichand Pendyala &lt;srichand.pendyala@gmail.com&gt;&quot;,
+     *     &quot;Vreixo Formoso Lopes &lt;metalpain2002@yahoo.es&gt;&quot;,
+     *     &quot;Sebastian Mancke &lt;s.mancke@tarent.de&gt;&quot;
      * });
      * </pre>
      * 
@@ -204,9 +204,9 @@ public class AboutDialog extends Dialog
      * 
      * <pre>
      * about.setDocumenters(new String[] {
-     *         &quot;Guillaume Mazoyer &lt;respawneral@gmail.com&gt;&quot;,
-     *         &quot;Stefan Prelle &lt;stefan@prelle.org&gt;&quot;,
-     *         &quot;Serkan Kaba &lt;serkan@gentoo.org&gt;&quot;
+     *     &quot;Guillaume Mazoyer &lt;respawneral@gmail.com&gt;&quot;,
+     *     &quot;Stefan Prelle &lt;stefan@prelle.org&gt;&quot;,
+     *     &quot;Serkan Kaba &lt;serkan@gentoo.org&gt;&quot;
      * });
      * </pre>
      * 

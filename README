@@ -24,8 +24,8 @@ Building java-gnome
 
 For the impatient:
 
-    $ tar xjf java-gnome-4.0.16.tar.bz2
-    $ cd java-gnome-4.0.16
+    $ tar xjf java-gnome-4.0.18.tar.bz2
+    $ cd java-gnome-4.0.18
     $ ./configure
     $ make
 
@@ -42,8 +42,8 @@ You can download the latest java-gnome release from the GNOME FTP server at:
 
 Once you've downloaded the latest source tarball:
 
-    $ tar xjf java-gnome-4.0.16.tzr.bz2
-    $ cd java-gnome-4.0.16
+    $ tar xjf java-gnome-4.0.18.tzr.bz2
+    $ cd java-gnome-4.0.18
 
 And go on to step 2 for details about options you can pass to the
 configuration command.
@@ -158,11 +158,11 @@ java-gnome depends on:
 
 * GLib `>= 2.22.0`
 
-* GTK `>= 2.18.3`
+* GTK `>= 2.22.0`
 
-* Cairo `>= 1.8.8`
+* Cairo `>= 1.10.0`
 
-* Pango `>= 1.22.4`
+* Pango `>= 1.28.0`
 
 * libglade `>= 2.6.4`
 
@@ -182,6 +182,8 @@ checking this bug will not affect you._
 * libunique `>= 1.0.8`
 
 * Enchant `>= 1.4.2`
+
+* librsvg `>= 2.32.0`
 
 3. Build
 --------
@@ -204,7 +206,7 @@ variables come from.
 The build products end up in `tmp/`:
 
 `tmp/gtk-4.0.jar`  
-`tmp/libgtkjni-4.0.16.so`
+`tmp/libgtkjni-4.0.18.so`
 
 That's actually enough to go on -- if you're using an IDE like Eclipse you can
 just tell it about the `.jar` and then jump right to "Using the Bindings". Or
@@ -229,7 +231,7 @@ and you would end up with:
 
 `~/share/java/gtk-4.0.jar`  
 `~/share/java/gtk.jar`  
-`~/lib/libgtkjni-4.0.16.so`
+`~/lib/libgtkjni-4.0.18.so`
 
 The default is to send it off to `/usr/local` as you'd expect. 
 
@@ -251,7 +253,7 @@ example:
 	
 	...
 	
-	make DESTDIR=/var/tmp/portage/java-gnome-4.0.16-r2/image install
+	make DESTDIR=/var/tmp/portage/java-gnome-4.0.18-r2/image install
 	
 	...
 
@@ -259,7 +261,7 @@ With a prefix of `/usr` you will end up with:
 
 `/usr/share/java/gtk-4.0.jar`  
 `/usr/share/java/gtk.jar`  
-`/usr/lib/libgtkjni-4.0.16.so`
+`/usr/lib/libgtkjni-4.0.18.so`
 
 If you have distro policy issues to deal with, then pass `jardir` and/or
 `libdir` overrides to `configure`.

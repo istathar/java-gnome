@@ -38,6 +38,7 @@ import org.gnome.gdk.EventExpose;
 import org.gnome.gdk.Pixbuf;
 import org.gnome.pango.Layout;
 import org.gnome.pango.LayoutLine;
+import org.gnome.rsvg.Handle;
 
 /**
  * Carry out drawing operations with the Cairo Graphics library. The current
@@ -883,6 +884,21 @@ public class Context extends Entity
     }
 
     /**
+     * Render an SVG image to this Cairo surface.
+     * 
+     * <p>
+     * <i>In the underlying native library this is</i>
+     * <code>rsvg_handle_render_cairo()</code>. <i>We have placed the call
+     * here to align with other Cairo baesd image and text rendering
+     * methods.</i>
+     * 
+     * @since 4.0.18
+     */
+    public void showHandle(Handle graphic) {
+        CairoContext.showHandle(graphic, this);
+    }
+
+    /**
      * Close the current path.
      * 
      * <p>
@@ -918,5 +934,25 @@ public class Context extends Entity
      */
     public void setFillRule(FillRule setting) {
         CairoContext.setFillRule(this, setting);
+    }
+
+    /**
+     * Is the supplied point in the area that would be filled if
+     * {@link #fill() fill()} was called with the current path?
+     * 
+     * @since 4.0.17
+     */
+    public boolean inFill(double x, double y) {
+        return CairoContext.inFill(this, x, y);
+    }
+
+    /**
+     * Is the supplied point in the thickness that would be drawn if
+     * {@link #stroke() stroke()} was called with the current path?
+     * 
+     * @since 4.0.17
+     */
+    public boolean inStroke(double x, double y) {
+        return CairoContext.inStroke(this, x, y);
     }
 }

@@ -60,4 +60,63 @@ public abstract class Object extends org.gnome.glib.Object
     protected Object(long pointer) {
         super(pointer);
     }
+
+    /**
+     * Ask everything connected to this object to release its references. Use
+     * this in preference to Container's {@link Container#remove(Widget)
+     * remove()} if you don't need the Widget any more.
+     * 
+     * <p>
+     * <i>We didn't expose this for a long time in java-gnome; after all,
+     * memory management of both Java references and GObject Ref counts is
+     * handled automatically by the diabolical cunning of this most excellent
+     * library. It turns out, however, that this does not <code>free()</code>
+     * the GtkObject's memory; it really only does what it says: ask other
+     * GtkObjects to drop whatever Refs they may be holding to this object.
+     * Thus if this GtkWidget is in a GtkContainer and you call</i>
+     * <code>destroy()</code> <i>the GtkContainer will drop its Refs to this
+     * GtkWidget thereby breaking its parent-child relationship.</i>
+     * 
+     * <p>
+     * <i>Note that Java's references remain, so the object will <b>not</b>,
+     * in fact, be eligable for finalizing until you drop all your references;
+     * ie, the Java side Proxy Object goes out of scope. Nevertheless calling
+     * this will speed up release of resources associated with a Widget, so
+     * it's a good idea. Once you've done so,</i> <code>finalize()</code>
+     * <i>will be traversed a short time later and the GObject will be
+     * released.</i>
+     * 
+     * @since 4.0.18
+     */
+    public void destroy() {
+        GtkObject.destroy(this);
+    }
+
+    /**
+     * Signal handler for when an Object requests that all other code holding
+     * references to it release those references. In Java-speak, that means if
+     * you have this object in a variable or structure of some kind,
+     * <code>null</code> it out to to release the strong reference to the
+     * object.
+     * 
+     * @author Andrew Cowie
+     * @since 4.0.18
+     */
+    public interface Destroy extends GtkObject.DestroySignal
+    {
+        /**
+         * Release any references you hold to the given <code>source</code>
+         * Object.
+         */
+        public void onDestroy(Object source);
+    }
+
+    /**
+     * Hook up a <code>Object.Destroy</code> handler.
+     * 
+     * @since 4.0.18
+     */
+    public void connect(Object.Destroy handler) {
+        GtkObject.connect(this, handler, false);
+    }
 }

@@ -77,6 +77,7 @@ import org.gnome.gdk.Pixbuf;
  * 
  * @author Stefan Prelle
  * @author Andrew Cowie
+ * @author Guillaume Mazoyer
  * @since 4.0.9
  */
 public class Assistant extends Window
@@ -313,6 +314,15 @@ public class Assistant extends Window
     }
 
     /**
+     * Force the Assistant.ForwardPage signal to be emitted.
+     * 
+     * @since 4.0.17
+     */
+    public int emitForwardPage(int currentPage) {
+        return GtkAssistantOverride.emitForward(this, currentPage);
+    }
+
+    /**
      * The signal emitted every time a page inside the assistant is displayed.
      * This includes the first page as well as every page when flipping
      * forward and backward through the Assistant's pages.
@@ -398,6 +408,51 @@ public class Assistant extends Window
      */
     public void connect(Assistant.Cancel handler) {
         GtkAssistant.connect(this, handler, false);
+    }
+
+    /**
+     * The callback invoked when an Assistant wants to display another page.
+     * It helps you to determine what page to display after another one.
+     * 
+     * Generally, when you will receive the callback, you will check the
+     * number of the current page and then display the next page according to
+     * the previously found number.The behavior of a default Assistant can be
+     * written like that:
+     * 
+     * <pre>
+     * final Assistant assistant;
+     * 
+     * ...
+     * 
+     * assistant.setForwardPageCallback(new Assistant.ForwardPage() {
+     *     public int onForward(Assistant source, int current) {
+     *         return (current + 1);
+     *     }
+     * });
+     * </pre>
+     * 
+     * <p>
+     * <i>If you are researching the GTK API documentation, see
+     * <code>(*GtkAssistantPageFunc)</code>. Creating and invoking this
+     * "forward" signal is how java-gnome has implemented the function pointer
+     * expected by <code>gtk_assistant_set_forward_page_func()</code>.</i>
+     * 
+     * @since 4.0.17
+     */
+    public interface ForwardPage extends GtkAssistant.ForwardSignal
+    {
+        public int onForward(Assistant source, int currentPage);
+    }
+
+    /**
+     * Hookup the <code>Assistant.ForwardPage</code> callback that will be
+     * used to determine what page should be displayed.
+     * 
+     * @since 4.0.17
+     */
+    public void setForwardPageCallback(Assistant.ForwardPage callback) {
+        GtkAssistantOverride.setForwardFunc(this);
+        GtkAssistant.connect(this, callback, false);
     }
 
     /*

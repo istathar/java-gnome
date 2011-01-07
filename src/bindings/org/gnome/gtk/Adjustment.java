@@ -107,13 +107,29 @@ public class Adjustment extends Object
 
     /**
      * Set the value of the Adjustment. This value is bounded between the
-     * upper and lower values of the Adjustment. Any attempt to set the value
-     * outside of the bound is ignored.
+     * <var>upper</var> and <var>lower</var> properties of the Adjustment. Any
+     * attempt to set the value outside of these bounds is ignored.
      * 
      * @since 4.0.5
      */
     public void setValue(double value) {
         GtkAdjustment.setValue(this, value);
+    }
+
+    /**
+     * Change all the configuration values and the data value.
+     * 
+     * <p>
+     * This is available as as a single method rather than a series of
+     * individual setters because each invocation of a setter causes
+     * <code>Adjustment.Changed</code> to be emitted, and generally you'd only
+     * want one per sequence of property changes.
+     * 
+     * @since 4.0.17
+     */
+    public void configure(double value, double lower, double upper, double stepIncrement,
+            double pageIncrement, double pageSize) {
+        GtkAdjustment.configure(this, value, lower, upper, stepIncrement, pageIncrement, pageSize);
     }
 
     /**
@@ -125,8 +141,8 @@ public class Adjustment extends Object
      * in the current page.
      * 
      * <p>
-     * As always, a <code>Adjustment.Changed</code> signal is emitted if the
-     * value is changed.
+     * As always, a <code>Adjustment.ValueChanged</code> signal is emitted if
+     * the value is changed.
      * 
      * @since 4.0.5
      */
@@ -142,7 +158,7 @@ public class Adjustment extends Object
      * 
      * <p>
      * If you have changed <var>value</var>, then {@link #emitValueChanged()
-     * emitValueChanged()} is the method you want to change instead. instead.
+     * emitValueChanged()} is the method you want to change instead.
      * 
      * @since 4.0.8
      */
@@ -152,9 +168,9 @@ public class Adjustment extends Object
 
     /**
      * Emits a <code>Adjustment.ValueChanged</code> signal on the Adjustment.
-     * This method will typically be called by the Widget with which the
-     * Adjustment is associated, when it changes the Adjustment's
-     * <var>value</var>.
+     * This method is probably unnecessary, since calling
+     * {@link #setValue(double) setValue()} will result in the signal being
+     * raised.
      * 
      * @since 4.0.8
      */
@@ -221,6 +237,21 @@ public class Adjustment extends Object
     }
 
     /**
+     * Set the <var>lower</var> bound of this Adjustment. Most of the time
+     * people start their ranges at <code>0.0</code> and leave it that way, so
+     * you probably won't need this much.
+     * 
+     * <p>
+     * Use {@link #configure(double, double, double, double, double, double)
+     * configure()} if changing more than one property at a time.
+     * 
+     * @since 4.0.17
+     */
+    public void setLower(double lower) {
+        GtkAdjustment.setLower(this, lower);
+    }
+
+    /**
      * Get the <var>upper</var> bound of the Adjustment. This is the maximum
      * value that the <var>value</var> property can range to. In a VScrollbar,
      * it is the (maximum) height that is represents the value at the bottom
@@ -233,7 +264,20 @@ public class Adjustment extends Object
     }
 
     /**
-     * Get the current value of the <var>page size</var> property of this
+     * Set the <var>upper</var> bound of this Adjustment.
+     * 
+     * <p>
+     * Use {@link #configure(double, double, double, double, double, double)
+     * configure()} if changing more than one property at a time.
+     * 
+     * @since 4.0.17
+     */
+    public void setUpper(double upper) {
+        GtkAdjustment.setUpper(this, upper);
+    }
+
+    /**
+     * Get the current value of the <var>page-size</var> property of this
      * Adjustment. For a VScrollbar, this is the (vertical) height of the
      * slider control.
      * 

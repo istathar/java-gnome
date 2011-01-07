@@ -128,7 +128,7 @@ class ObjectDef(Definition):
         fp.write('(define-object ' + self.name + '\n')
         if self.module:
             fp.write('  (in-module "' + self.module + '")\n')
-        if self.parent != (None, None):
+        if self.parent:
             fp.write('  (parent "' + self.parent + '")\n')
         for interface in self.implements:
             fp.write('  (implements "' + interface + '")\n')

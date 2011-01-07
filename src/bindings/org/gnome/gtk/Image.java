@@ -32,6 +32,8 @@
  */
 package org.gnome.gtk;
 
+import org.freedesktop.icons.Helper;
+import org.freedesktop.icons.Icon;
 import org.gnome.gdk.Bitmap;
 import org.gnome.gdk.Pixbuf;
 import org.gnome.gdk.Pixmap;
@@ -127,7 +129,7 @@ public class Image extends Misc
      * @since 4.0.17
      */
     public Image(Icon icon, IconSize size) {
-        super(GtkImage.createImageFromIconName(icon.getName(), size));
+        super(GtkImage.createImageFromIconName(Helper.getName(icon), size));
     }
 
     /**
@@ -172,7 +174,7 @@ public class Image extends Misc
      * @since 4.0.17
      */
     public void setImage(Icon icon, IconSize size) {
-        GtkImage.setFromIconName(this, icon.getName(), size);
+        GtkImage.setFromIconName(this, Helper.getName(icon), size);
     }
 
     /**

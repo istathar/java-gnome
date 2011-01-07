@@ -87,5 +87,4 @@ public final class IconSize extends Constant
     public static final IconSize DIALOG = new IconSize(GtkIconSize.DIALOG, "DIALOG");
 
     public static final IconSize DND = new IconSize(GtkIconSize.DND, "DND");
-
 }

@@ -152,6 +152,12 @@ public class FunctionGenerator extends Generator
         boolean hasGError = false;
 
         out.print("\n");
+
+        if (blockContainsBlacklistedThings()) {
+            out.print("    ");
+            out.print("@SuppressWarnings(\"unused\")\n");
+        }
+
         out.print("    ");
         out.print("static final ");
         out.print(returnType.javaTypeInContext(data));

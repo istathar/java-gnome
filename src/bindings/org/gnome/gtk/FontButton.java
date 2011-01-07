@@ -83,4 +83,22 @@ public class FontButton extends Button
     public String getFontName() {
         return GtkFontButton.getFontName(this);
     }
+
+    /**
+     * Set the font name to be show in this FontButton.
+     * 
+     * @since 4.0.17
+     */
+    public void setFontName(String name) {
+        GtkFontButton.setFontName(this, name);
+    }
+
+    /**
+     * Whether the font size is to be shown on the FontButton.
+     * 
+     * @since 4.0.17
+     */
+    public void setShowSize(boolean setting) {
+        GtkFontButton.setShowSize(this, setting);
+    }
 }

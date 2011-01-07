@@ -369,12 +369,12 @@ public class ExampleInstantMessenger
              */
 
             messages = new String[] {
-                    "Hello there!",
-                    "Will you be my friend? :)",
-                    "I live in Kenya. " + "It's nice here because it is so warm.",
-                    "Someday, though, I want to see snow. " + "Perhaps I will go climb Kilimanjaro.",
-                    "Did you see the marathon on the last day of the Olympics? "
-                            + "What a run by Samuel Wanjiru! " + "We are all so proud."
+                "Hello there!",
+                "Will you be my friend? :)",
+                "I live in Kenya. " + "It's nice here because it is so warm.",
+                "Someday, though, I want to see snow. " + "Perhaps I will go climb Kilimanjaro.",
+                "Did you see the marathon on the last day of the Olympics? "
+                        + "What a run by Samuel Wanjiru! " + "We are all so proud."
             };
 
             startConversationWith("Catherine Ojiambo");

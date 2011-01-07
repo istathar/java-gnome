@@ -39,9 +39,9 @@ public class SnapshotTreeView extends Snapshot
         window.setTitle("Sovereigns of Canada");
 
         model = new ListStore(new DataColumn[] {
-                countryName = new DataColumnString(),
-                monarchName = new DataColumnString(),
-                ascendedYear = new DataColumnString(),
+            countryName = new DataColumnString(),
+            monarchName = new DataColumnString(),
+            ascendedYear = new DataColumnString(),
         });
 
         row = model.appendRow();

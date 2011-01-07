@@ -19,6 +19,15 @@
   (return-type "none")
 )
 
+(define-method dict_exists
+  (of-object "EnchantBroker")
+  (c-name "enchant_broker_dict_exists")
+  (return-type "int")
+  (parameters
+    '("const-char*" "tag")
+  )
+)
+
 (define-method free_dict
   (of-object "EnchantBroker")
   (c-name "enchant_broker_free_dict")

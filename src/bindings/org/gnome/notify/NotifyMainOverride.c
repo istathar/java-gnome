@@ -56,7 +56,7 @@ Java_org_gnome_notify_NotifyMainOverride_notify_1get_1server_1caps
 	GList* iter;
 	jstring cap;
 
-	caps=notify_get_server_caps();
+	caps = notify_get_server_caps();
 
 	if (caps == NULL) {
 		size = 0;

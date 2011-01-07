@@ -111,9 +111,9 @@ public final class Enchant extends Glib
      * Get a Dictionary for the specified language.
      * 
      * <p>
-     * Languages are indicated in a locale-like form; while you can use just
-     * the language code <code>en</code>, specifying a specific language
-     * variant such as <code>en_UK</code> or <code>fr_CA</code> is preferred.
+     * See {@link Enchant#existsDictionary(String) existsDictionary()} for
+     * discussion of valid language values. You probably want to call that if
+     * you're considering user input values.
      * 
      * <p>
      * Returns <code>null</code> if no suitable dictionary was found.
@@ -121,6 +121,9 @@ public final class Enchant extends Glib
      * @since 4.0.14
      */
     public static Dictionary requestDictionary(String lang) {
+        if (lang.equals("")) {
+            throw new IllegalArgumentException();
+        }
         return EnchantBroker.requestDict(defaultBroker, lang);
     }
 
@@ -146,5 +149,77 @@ public final class Enchant extends Glib
             throw new FileNotFoundException(filename);
         }
         return EnchantBroker.requestPwlDict(defaultBroker, filename);
+    }
+
+    /**
+     * Does a dictionary exist for the given "language"?
+     * 
+     * <p>
+     * Languages are indicated in a locale-like form; while you can use just
+     * the language code <code>en</code>, specifying a specific language
+     * variant such as <code>"en_UK"</code> or <code>"fr_CA"</code> is
+     * preferred.
+     * 
+     * @since 4.0.17
+     */
+    public static boolean existsDictionary(String lang) {
+        final int result;
+
+        result = EnchantBroker.dictExists(defaultBroker, lang);
+
+        if (result == 0) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    /**
+     * Get a list of available dictionaries as known to Enchant. This returns
+     * an unsorted array of Strings of the form:
+     * 
+     * <pre>
+     * en
+     * en_AU
+     * en_CA
+     * en_GB
+     * en_US
+     * en_ZA
+     * es
+     * fr_BE
+     * fr_CA
+     * fr_CH
+     * fr_FR
+     * fr_LU
+     * fr_MC
+     * </pre>
+     * 
+     * (that was the list on a computer with English, French, and Spanish
+     * dictionaries installed via packages <code>language-support-en</code>,
+     * <code>language-support-fr</code>, <code>language-support-es</code>
+     * respectively on, in this case, Ubuntu Linux).
+     * 
+     * <p>
+     * You don't necessarily need to callt this function. You can test for the
+     * existance of a dictionary with {@link #existsDictionary(String)
+     * Enchant.existsDictionary()}, or even just get on directly with loading
+     * a dictionary with {@link #requestDictionary(String)
+     * requestDictionary()}.
+     * 
+     * <p>
+     * If you are using the results of this funciton to create a list in a
+     * user interface, you'll probably want to present the language and
+     * country names translated. Use
+     * {@link org.freedesktop.bindings.Internationalization#translateLanguageName(String)
+     * Internationalization.translateLanguageName()} and
+     * {@link org.freedesktop.bindings.Internationalization#translateCountryName(String)
+     * Internationalization.translateCountryName()} although you'll have to
+     * look up the proper ISO 639 and ISO 3166 names in
+     * <code>/usr/share/xml/iso-codes/iso_{639,3166}.xml</code> first.
+     * 
+     * @since 4.0.17
+     */
+    public static String[] listDictionaries() {
+        return EnchantBrokerOverride.listDicts(defaultBroker);
     }
 }

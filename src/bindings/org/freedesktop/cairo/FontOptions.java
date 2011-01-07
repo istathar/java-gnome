@@ -33,10 +33,17 @@
 package org.freedesktop.cairo;
 
 /**
- * FIXME Work in progress
+ * Configuration of how hinting will be employed (by Pango, actually) when
+ * rendering text.
+ * 
+ * <p>
+ * This is mostly used to achieve clean linear scaling by chosing
+ * {@link HintMetrics#OFF}. See
+ * {@link org.gnome.pango.Context#setFontOptions(FontOptions)
+ * setFontOptions()} for an example of using this in practice.
  * 
  * @author Andrew Cowie
- * @since <span style="color: red">Unstable</span>
+ * @since 4.0.17
  */
 /*
  * Thanks to Behdad Esfahbod for explaining the need for turning hinting off.
@@ -76,6 +83,16 @@ public class FontOptions extends Entity
      */
     public void setHintMetrics(HintMetrics hinting) {
         CairoFontOptions.setHintMetrics(this, hinting);
+        checkStatus();
+    }
+
+    /**
+     * Which style of hinting to employ.
+     * 
+     * @since 4.0.17
+     */
+    public void setHintStyle(HintStyle hinting) {
+        CairoFontOptions.setHintStyle(this, hinting);
         checkStatus();
     }
 }

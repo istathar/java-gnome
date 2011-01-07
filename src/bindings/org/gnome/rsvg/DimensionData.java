@@ -1,7 +1,7 @@
 /*
  * java-gnome, a UI library for writing GTK and GNOME programs from Java!
  *
- * Copyright © 2007-2010 Operational Dynamics Consulting, Pty Ltd
+ * Copyright © 2009-2010 Operational Dynamics Consulting, Pty Ltd
  *
  * The code in this file, and the program it is a part of, is made available
  * to you by its authors as open source software: you can redistribute it
@@ -30,27 +30,49 @@
  * version of the library, but you are not obligated to do so. If you do not
  * wish to do so, delete this exception statement from your version.
  */
-package org.gnome.gtk;
+package org.gnome.rsvg;
 
-/*
- * FIXME this is a placeholder stub for what will become the public API for
- * this type. Replace this comment with appropriate javadoc including author
- * and since tags. Note that the class may need to be made abstract, implement
- * interfaces, or even have its parent changed. No API stability guarantees
- * are made about this class until it has been reviewed by a hacker and this
- * comment has been replaced.
+import org.gnome.glib.Boxed;
+
+/**
+ * The size of an SVG image.
+ * 
+ * @author Andrew Cowie
+ * @since 4.0.18
  */
 /*
- * This is a strange one. The GtkWidgetFlags definition starts at 1 << 4, and
- * the macros which expose it are #defined to call GTK_OBJECT_FLAGS(), etc.
- * The .defs data inherited from pygtk has GtkObject.flags() returning
- * WidgetFlags, not ObjectFlags. Ultimately, that's what we want (no point in
- * trying to override in Widget and having return type collisions), but we
- * tweak the modelling somewhat by making this class extend ObjectFlags.
+ * Stupid name! Just call it Dimensions... or howabout Rectangle, like every
+ * other bloody GNOME library?
  */
-public final class WidgetFlags extends ObjectFlags
+public class DimensionData extends Boxed
 {
-    private WidgetFlags(int ordinal, String nickname) {
-        super(ordinal, nickname);
+    protected DimensionData(long pointer) {
+        super(pointer);
+    }
+
+    DimensionData() {
+        super(RsvgDimensionDataOverride.createDimensionData());
+    }
+
+    protected void release() {
+        RsvgDimensionDataOverride.free(this);
+    }
+
+    /**
+     * Get the width of the SVG, in pixels.
+     * 
+     * @since 4.0.18
+     */
+    public int getWidth() {
+        return RsvgDimensionData.getWidth(this);
+    }
+
+    /**
+     * Get the height of the SVG, in pixels.
+     * 
+     * @since 4.0.18
+     */
+    public int getHeight() {
+        return RsvgDimensionData.getHeight(this);
     }
 }

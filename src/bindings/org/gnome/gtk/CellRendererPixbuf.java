@@ -67,4 +67,14 @@ public class CellRendererPixbuf extends CellRenderer
     public void setStock(DataColumnStock column) {
         GtkCellLayout.addAttribute(vertical, this, "stock-id", column.getOrdinal());
     }
+
+    /**
+     * Indicate the DataColumn containing a named Icon which you want to have
+     * this CellRendererPixbuf render as an image.
+     * 
+     * @since 4.0.17
+     */
+    public void setIcon(DataColumnIcon column) {
+        GtkCellLayout.addAttribute(vertical, this, "icon-name", column.getOrdinal());
+    }
 }
