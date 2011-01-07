@@ -269,7 +269,7 @@ find_wm_window (Window xid)
 
   do
     {
-      if (XQueryTree (GDK_DISPLAY (), xid, &root,
+      if (XQueryTree (GDK_DISPLAY_XDISPLAY(gdk_display_get_default()), xid, &root,
 		      &parent, &children, &nchildren) == 0)
 	{
 	  g_warning ("Couldn't find window manager window");
@@ -353,7 +353,7 @@ screenshot_get_pixbuf (GdkWindow *window,
        * of the WM decoration.
        */
 
-      rectangles = XShapeGetRectangles (GDK_DISPLAY (),
+      rectangles = XShapeGetRectangles (GDK_DISPLAY_XDISPLAY(gdk_display_get_default()),
                                         GDK_WINDOW_XWINDOW (window),
                                         ShapeBounding,
                                         &rectangle_count,
