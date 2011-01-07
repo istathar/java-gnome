@@ -245,31 +245,6 @@ public class StatusIcon extends org.gnome.glib.Object
     }
 
     /**
-     * Reports if the StatusIcon is blinking.
-     */
-    public boolean getBlinking() {
-        return GtkStatusIcon.getBlinking(this);
-    }
-
-    /**
-     * Make the StatusIcon start [or stop] blinking.
-     * 
-     * <p>
-     * Note that blinking user interface elements may be problematic for some
-     * users and may be turned off on a desktop wide level, in which case this
-     * setting would have no effect. Even ignoring the accessibility question,
-     * many people find blinking StatusIcons annoying in general. Use
-     * sparingly, if at all.
-     * 
-     * @param setting
-     *            <code>true</code> to start the StatusIcon blinking,
-     *            <code>false</code> to stop it blinking.
-     */
-    public void setBlinking(boolean setting) {
-        GtkStatusIcon.setBlinking(this, setting);
-    }
-
-    /**
      * Gets the size available for the image, in pixels. Stock icons adapt
      * their size automatically if the size of the notification area changes.
      * For other storage types, the {@link StatusIcon.SizeChanged} signal can
