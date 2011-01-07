@@ -86,16 +86,6 @@
   )
 )
 
-(define-method shrink
-  (of-object "GdkRegion")
-  (c-name "gdk_region_shrink")
-  (return-type "none")
-  (parameters
-    '("gint" "dx")
-    '("gint" "dy")
-  )
-)
-
 (define-method union_with_rect
   (of-object "GdkRegion")
   (c-name "gdk_region_union_with_rect")
@@ -138,19 +128,6 @@
   (return-type "none")
   (parameters
     '("GdkRegion*" "source2")
-  )
-)
-
-(define-method spans_intersect_foreach
-  (of-object "GdkRegion")
-  (c-name "gdk_region_spans_intersect_foreach")
-  (return-type "none")
-  (parameters
-    '("GdkSpan*" "spans")
-    '("int" "n_spans")
-    '("gboolean" "sorted")
-    '("GdkSpanFunc" "function")
-    '("gpointer" "data")
   )
 )
 
