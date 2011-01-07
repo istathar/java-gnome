@@ -95,21 +95,6 @@
   )
 )
 
-(define-method set_has_separator
-  (of-object "GtkDialog")
-  (c-name "gtk_dialog_set_has_separator")
-  (return-type "none")
-  (parameters
-    '("gboolean" "setting")
-  )
-)
-
-(define-method get_has_separator
-  (of-object "GtkDialog")
-  (c-name "gtk_dialog_get_has_separator")
-  (return-type "gboolean")
-)
-
 (define-method response
   (of-object "GtkDialog")
   (c-name "gtk_dialog_response")
