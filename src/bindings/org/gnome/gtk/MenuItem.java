@@ -58,7 +58,7 @@ import org.gnome.gdk.ModifierType;
  * @author Vreixo Formoso
  * @since 4.0.3
  */
-public class MenuItem extends Item implements Activatable
+public class MenuItem extends Bin implements Activatable
 {
     protected MenuItem(long pointer) {
         super(pointer);
