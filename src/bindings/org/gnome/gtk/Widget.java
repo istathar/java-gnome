@@ -1,7 +1,7 @@
 /*
  * java-gnome, a UI library for writing GTK and GNOME programs from Java!
  *
- * Copyright © 2006-2010 Operational Dynamics Consulting, Pty Ltd and Others
+ * Copyright © 2006-2011 Operational Dynamics Consulting, Pty Ltd and Others
  *
  * The code in this file, and the program it is a part of, is made available
  * to you by its authors as open source software: you can redistribute it
@@ -554,7 +554,7 @@ public abstract class Widget extends org.gnome.gtk.Object
      *                 // decrement zoom
      *             }
      *             // prevent the default scrolling if the Widget is added
-     *             // to a ScrolledWindow 
+     *             // to a ScrolledWindow
      *             return true;
      *         }
      *         return false;
@@ -1161,8 +1161,6 @@ public abstract class Widget extends org.gnome.gtk.Object
 
     private Requisition requisition;
 
-    private Allocation allocation;
-
     /**
      * Get the details of the rectangle that represents the size that the
      * windowing system down to GTK on down to the parent containers of this
@@ -1175,17 +1173,14 @@ public abstract class Widget extends org.gnome.gtk.Object
      * @since 4.0.6
      */
     public Allocation getAllocation() {
-        if (allocation == null) {
-            allocation = GtkWidgetOverride.getAllocation(this);
+        final Allocation allocation;
 
-            /*
-             * We are making a live reference to the GtkAllocation struct
-             * member in the GtkWidget class, so we need to make sure that our
-             * Allocation Proxy does not survive longer than the Widget. We
-             * use this back reference for this purpose.
-             */
-            allocation.widget = this;
-        }
+        allocation = new Allocation();
+
+        GtkWidgetOverride.getAllocation(this, allocation);
+
+        allocation.widget = this;
+
         return allocation;
     }
 

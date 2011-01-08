@@ -1,7 +1,7 @@
 /*
  * java-gnome, a UI library for writing GTK and GNOME programs from Java!
  *
- * Copyright © 2007-2010 Operational Dynamics Consulting, Pty Ltd
+ * Copyright © 2007-2011 Operational Dynamics Consulting, Pty Ltd
  *
  * The code in this file, and the program it is a part of, is made available
  * to you by its authors as open source software: you can redistribute it
@@ -49,20 +49,8 @@ import org.gnome.glib.Boxed;
  * <code>-1</code>,<code>-1</code>. You probably don't want to rely on those
  * numbers; but that's what the initial values are.
  * 
- * <p>
- * <i>This object is a live reference to the <code>allocation</code> field in
- * the <code>GtkWidget</code> struct and so calling the getter methods will
- * yield correct current values once you've got the Allocation object for the
- * Widget in question.</i>
- * 
  * @author Andrew Cowie
  * @since 4.0.6
- */
-/*
- * Our Allocation is a direct reference to the live GtkAllocation struct in
- * the GtkWidget, and not a dynamically allocated copy that will become out of
- * date. I don't know how well this will hold up but the back reference should
- * keep things safe.
  */
 public final class Allocation extends Boxed
 {
@@ -83,7 +71,12 @@ public final class Allocation extends Boxed
         super(pointer);
     }
 
+    Allocation() {
+        super(GtkAllocationOverride.createAllocation());
+    }
+
     protected void release() {
+        GtkAllocationOverride.free(this);
         widget = null;
     }
 
