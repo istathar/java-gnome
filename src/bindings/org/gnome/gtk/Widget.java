@@ -1155,8 +1155,7 @@ public abstract class Widget extends org.gnome.gtk.Object
      * so that we get the same Pointer object back if multiple calls are made
      * to getRequisition() and getAllocation(), thus creating a Proxy like
      * behaviour even though these are Boxeds. This avoids allocating
-     * duplicates but the real point is that these objects are "live" and so
-     * we want to refer to the real structs in GtkWidget.
+     * duplicates.
      */
 
     private Requisition requisition;

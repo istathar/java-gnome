@@ -54,19 +54,6 @@ import org.gnome.glib.Boxed;
  */
 public final class Allocation extends Boxed
 {
-    /**
-     * Hold a reference to the parent Widget so that the Allocation doesn't
-     * survive longer than the Widget (ie, is collected first or at the same
-     * time).
-     */
-    /*
-     * If the Allocation came from GTK originally, then this won't be
-     * populated, but there's not much we can do about that. FIXME, if you
-     * expose Allocation in a signal handler, see about populating this field
-     * in an override of the handler (like we do in Dialog for ResponseType).
-     */
-    Widget widget;
-
     protected Allocation(long pointer) {
         super(pointer);
     }
@@ -77,7 +64,6 @@ public final class Allocation extends Boxed
 
     protected void release() {
         GtkAllocationOverride.free(this);
-        widget = null;
     }
 
     /**
