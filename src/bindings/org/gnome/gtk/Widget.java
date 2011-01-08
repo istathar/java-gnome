@@ -1176,16 +1176,11 @@ public abstract class Widget extends org.gnome.gtk.Object
      */
     public Allocation getAllocation() {
         if (allocation == null) {
-            allocation = GtkWidgetOverride.getAllocation(this);
-
-            /*
-             * We are making a live reference to the GtkAllocation struct
-             * member in the GtkWidget class, so we need to make sure that our
-             * Allocation Proxy does not survive longer than the Widget. We
-             * use this back reference for this purpose.
-             */
-            allocation.widget = this;
+            allocation = new Allocation();
         }
+
+        GtkWidgetOverride.getAllocation(this, allocation);
+
         return allocation;
     }
 

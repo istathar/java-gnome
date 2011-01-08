@@ -1,7 +1,7 @@
 /*
  * java-gnome, a UI library for writing GTK and GNOME programs from Java!
  *
- * Copyright © 2007-2010 Operational Dynamics Consulting, Pty Ltd
+ * Copyright © 2007-2011 Operational Dynamics Consulting, Pty Ltd and Others
  *
  * The code in this file, and the program it is a part of, is made available
  * to you by its authors as open source software: you can redistribute it
@@ -37,36 +37,31 @@
 #include "org_gnome_gtk_GtkWidgetOverride.h"
 
 /**
- * Access GtkWidget's allocation field, a GtkAllocation struct. Note that we
- * return a pointer to the live struct, not a copy. This is a bit of a
- * novelty, but it seems safe so long as we ensure the Widget Proxy is not
- * collected before the Allocation Proxy, which we enforce with a back
- * reference Java side.  
+ * Access GtkWidget's allocation field, a GtkAllocation struct.
  */
-JNIEXPORT jlong JNICALL
+JNIEXPORT void JNICALL
 Java_org_gnome_gtk_GtkWidgetOverride_gtk_1widget_1get_1allocation
 (
 	JNIEnv* env,
 	jclass cls,
-	jlong _self
+	jlong _self,
+	jlong _allocation
 )
 {
-	GtkAllocation* result;
 	GtkWidget* self;
+	GtkAllocation* allocation;
 
 	// convert parameter self
 	self = (GtkWidget*) _self;
+
+	// convert parameter allocation
+	allocation = (GtkAllocation*) _allocation;
 	
-	/*
-	 * This is NOT a dynamic allocation, but rather a live reference to
-	 * the GtkAllocation struct in the GtkWidget instance struct.
-	 */	
-	result = &self->allocation;
+	gtk_widget_get_allocation(self, allocation);
 
 	// cleanup parameter self
 
-	// and finally
-	return (jlong) result;
+	// cleanup parameter allocation
 }
 
 /**

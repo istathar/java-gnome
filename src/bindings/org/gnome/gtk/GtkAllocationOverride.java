@@ -1,7 +1,7 @@
 /*
  * java-gnome, a UI library for writing GTK and GNOME programs from Java!
  *
- * Copyright © 2007-2011 Operational Dynamics Consulting, Pty Ltd and Others
+ * Copyright © 2011 Operational Dynamics Consulting, Pty Ltd and Others
  *
  * The code in this file, and the program it is a part of, is made available
  * to you by its authors as open source software: you can redistribute it
@@ -32,70 +32,26 @@
  */
 package org.gnome.gtk;
 
-import org.gnome.gdk.EventMask;
-
 /**
- * Hand crafted to get at the fields of Widget.
- * 
- * @author Andrew Cowie
+ * @author Kenneth Prugh
  */
-final class GtkWidgetOverride extends Plumbing
+final class GtkAllocationOverride extends Plumbing
 {
-    private GtkWidgetOverride() {}
+    private GtkAllocationOverride() {}
 
-    static final void getAllocation(Widget self, Allocation allocation) {
+    static final long createAllocation() {
         synchronized (lock) {
-            gtk_widget_get_allocation(pointerOf(self), pointerOf(allocation));
+            return gtk_allocation_new();
         }
     }
 
-    private static native final void gtk_widget_get_allocation(long self, long allocation);
+    private static native final long gtk_allocation_new();
 
-    static final Requisition getRequisition(Widget self) {
-        long result;
-
+    static final void free(Allocation self) {
         synchronized (lock) {
-            result = gtk_widget_get_requisition(pointerOf(self));
-
-            return (Requisition) boxedFor(Requisition.class, result);
+            gtk_allocation_free(pointerOf(self));
         }
     }
 
-    private static native final long gtk_widget_get_requisition(long self);
-
-    /**
-     * Set the events that the underlying GdkWindow will receive. As a
-     * necessary convenience, the Widget will be realized first if necessary.
-     */
-    static final void setEvents(Widget self, EventMask eventMask) {
-        if (self == null) {
-            throw new IllegalArgumentException("self can't be null");
-        }
-
-        if (eventMask == null) {
-            throw new IllegalArgumentException("eventMask can't be null");
-        }
-
-        synchronized (lock) {
-            gtk_widget_set_events(pointerOf(self), numOf(eventMask));
-        }
-    }
-
-    private static native final void gtk_widget_set_events(long self, int eventMask);
-
-    static final EventMask getEvents(Widget self) {
-        int result;
-
-        if (self == null) {
-            throw new IllegalArgumentException("self can't be null");
-        }
-
-        synchronized (lock) {
-            result = gtk_widget_get_events(pointerOf(self));
-
-            return (EventMask) flagFor(EventMask.class, result);
-        }
-    }
-
-    private static native final int gtk_widget_get_events(long self);
+    private static native final void gtk_allocation_free(long self);
 }
