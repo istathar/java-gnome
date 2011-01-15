@@ -1,7 +1,7 @@
 /*
  * java-gnome, a UI library for writing GTK and GNOME programs from Java!
  *
- * Copyright © 2007-2010 Operational Dynamics Consulting, Pty Ltd
+ * Copyright © 2007-2011 Operational Dynamics Consulting, Pty Ltd
  * Copyright © 2009      Vreixo Formoso
  *
  * The code in this file, and the program it is a part of, is made available
@@ -66,8 +66,8 @@ public final class ToolbarStyle extends Constant
 
     /**
      * Toolbar buttons will display both an icon and text label. The text will
-     * appear alongside the icon.
+     * appear alongside the icon. This has been the default in GNOME since
+     * about 2009.
      */
     public static ToolbarStyle BOTH_HORIZ = new ToolbarStyle(GtkToolbarStyle.BOTH_HORIZ, "BOTH_HORIZ");
-
 }
