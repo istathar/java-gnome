@@ -64,6 +64,24 @@ public class Notification extends org.gnome.glib.Object
     protected Notification(long pointer) {
         super(pointer);
     }
+    
+    /**
+     * Create a new notification.
+     * 
+     * <p>
+     * The summary appears on the titlebar of notification and body appears as
+     * its text. Icon may be a string defining a theme icon or the filename
+     * identifying the icon that appears next to text.
+     * 
+     * <p>
+     * Note that all but summary can be <code>null</code>.
+     * 
+     * @since 4.0.19
+     */
+
+    public Notification(String summary, String body, String icon) {
+        super(NotifyNotification.createNotification(summary, body, icon, null));
+    }
 
     /**
      * Create a new notification.
@@ -78,6 +96,8 @@ public class Notification extends org.gnome.glib.Object
      * Note that all but summary can be <code>null</code>.
      * 
      * @since 4.0.12
+     * @deprecated In GNOME 3, notifications will be independent of widgets and status icons.
+     * See http://live.gnome.org/GnomeShell/Design/Guidelines/MessageTray/Compatibility
      */
 
     public Notification(String summary, String body, String icon, Widget attach) {
@@ -90,6 +110,8 @@ public class Notification extends org.gnome.glib.Object
      * other parameters.
      * 
      * @since 4.0.12
+     * @deprecated In GNOME 3, notifications will be independent of widgets and status icons.
+     * See http://live.gnome.org/GnomeShell/Design/Guidelines/MessageTray/Compatibility
      */
     public Notification(String summary, String body, String icon, StatusIcon statusIcon) {
         super(NotifyNotification.createNotificationWithStatusIcon(summary, body, icon, statusIcon));
@@ -112,6 +134,8 @@ public class Notification extends org.gnome.glib.Object
      * Attaches Notification to a Widget setting hints to its location.
      * 
      * @since 4.0.12
+     * @deprecated In GNOME 3, notifications will be independent of widgets and status icons.
+     * See http://live.gnome.org/GnomeShell/Design/Guidelines/MessageTray/Compatibility
      */
     public void attach(Widget attach) {
         NotifyNotification.attachToWidget(this, attach);
@@ -122,6 +146,8 @@ public class Notification extends org.gnome.glib.Object
      * location.
      * 
      * @since 4.0.12
+     * @deprecated In GNOME 3, notifications will be independent of widgets and status icons.
+     * See http://live.gnome.org/GnomeShell/Design/Guidelines/MessageTray/Compatibility
      */
     public void attach(StatusIcon statusIcon) {
         NotifyNotification.attachToStatusIcon(this, statusIcon);
