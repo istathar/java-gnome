@@ -157,6 +157,7 @@ public class Notification extends org.gnome.glib.Object
      * Sets the position of the notification to display on screen.
      * 
      * @since 4.0.12
+     * @deprecated In GNOME 3
      */
     public void setGeometryHints(Screen screen, int x, int y) {
         NotifyNotification.setGeometryHints(this, screen, x, y);
