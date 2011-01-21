@@ -34,17 +34,59 @@ package org.gnome.pango;
 
 import org.gnome.glib.Object;
 
-/*
- * FIXME this is a placeholder stub for what will become the public API for
- * this type. Replace this comment with appropriate javadoc including author
- * and since tags. Note that the class may need to be made abstract, implement
- * interfaces, or even have its parent changed. No API stability guarantees
- * are made about this class until it has been reviewed by a hacker and this
- * comment has been replaced.
+/**
+ * An abstract rendering-system-independent representation of a font, used by
+ * Pango to manage font backends. While internal to Pango, it has various uses
+ * when trying to manage font selections.
+ * 
+ * <p>
+ * You get a Font object by calling Context's
+ * {@link Context#loadFont(FontDescription) loadFont()}.
+ * 
+ * @author Andrew Cowie
+ * @since 4.0.19
  */
-public class Font extends Object
+public abstract class Font extends Object
 {
     protected Font(long pointer) {
+        super(pointer);
+    }
+
+    /**
+     * Given a calculated Pango Font object, get a description of it. Size
+     * will be in points.
+     * 
+     * @since 4.0.19
+     */
+    public FontDescription describe() {
+        return PangoFont.describe(this);
+    }
+
+    /**
+     * Given a calculated Pango Font object, get a description of it. Size
+     * will be in device units.
+     * 
+     * @since 4.0.19
+     */
+    public FontDescription describeWithAbsoluteSize() {
+        return PangoFont.describeWithAbsoluteSize(this);
+    }
+}
+
+abstract class FcFont extends Font
+{
+    protected FcFont(long pointer) {
+        super(pointer);
+    }
+}
+
+/*
+ * PangoCairoFcFont is what is actually getting passed back by loadFont(). Is
+ * that always the case?
+ */
+final class CairoFcFont extends FcFont
+{
+    protected CairoFcFont(long pointer) {
         super(pointer);
     }
 }

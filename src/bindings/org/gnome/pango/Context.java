@@ -93,4 +93,18 @@ public class Context extends Object
     public void setFontOptions(FontOptions options) {
         PangoContext.setFontOptions(this, options);
     }
+
+    /**
+     * Given a description, ask the back end to load the font which is the
+     * closest match to the request.
+     * 
+     * <p>
+     * This is the code path used by {@link Layout Layout}, so you can use
+     * this find out what font has actually been selected for rendering.
+     * 
+     * @since 4.0.19
+     */
+    public Font loadFont(FontDescription desc) {
+        return PangoContext.loadFont(this, desc);
+    }
 }
