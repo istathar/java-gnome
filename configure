@@ -787,7 +787,7 @@ if ($os eq "gentoo") {
 			"gtkspell");
 
 	check_system_library(@gnomedev_libs,
-			"libnotify >= 0.4.5",
+			"libnotify >= 0.7.0",
 			"LibNotify",
 			"libnotify");
 
@@ -835,7 +835,7 @@ if ($os eq "gentoo") {
 			"FIXME");
 
 	check_system_library(@gnomedev_libs,
-			"libnotify >= 0.4.5",
+			"libnotify >= 0.7.0",
 			"LibNotify",
 			"FIXME");
 
@@ -897,7 +897,7 @@ if ($os eq "gentoo") {
 			"libgtksourceview2.0-dev");
 
 	check_system_library(@gnomedev_libs,
-			"libnotify >= 0.4.5",
+			"libnotify >= 0.7.0",
 			"LibNotify",
 			"libnotify-dev");
 
@@ -943,7 +943,7 @@ if ($os eq "gentoo") {
 			"FIXME");
 
 	check_system_library(@gnomedev_libs,
-			"libnotify >= 0.4.5",
+			"libnotify >= 0.7.0",
 			"LibNotify",
 			"FIXME");
 
@@ -989,7 +989,7 @@ if ($os eq "gentoo") {
 			"FIXME");
 
 	check_system_library(@gnomedev_libs,
-			"libnotify >= 0.4.5",
+			"libnotify >= 0.7.0",
 			"LibNotify",
 			"FIXME");
 
@@ -1050,7 +1050,7 @@ if ($os eq "gentoo") {
 			"FIXME");
 
 	check_system_library(@gnomedev_libs,
-			"libnotify >= 0.4.5",
+			"libnotify >= 0.7.0",
 			"LibNotify",
 			"FIXME");
 
