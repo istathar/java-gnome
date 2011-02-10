@@ -157,8 +157,8 @@ Java_org_freedesktop_bindings_Environment_getWidth
 }
 
 /*
- * Will implement
- *   org.freedesktop.bindings.Environment.getWidth()
+ * Implements
+ *   org.freedesktop.bindings.Environment.getpid()
  */
 JNIEXPORT jint JNICALL
 Java_org_freedesktop_bindings_Environment_getpid
@@ -168,4 +168,19 @@ Java_org_freedesktop_bindings_Environment_getpid
 )
 {
 	return getpid();
+}
+
+/*
+ * Implements
+ *   org.freedesktop.bindings.Environment.isatty(int fd)
+ */
+JNIEXPORT jint JNICALL
+Java_org_freedesktop_bindings_Environment_isatty
+(
+        JNIEnv *env,
+        jclass cls,
+        jint _fd
+)
+{
+        return isatty(_fd);
 }
