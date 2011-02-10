@@ -168,7 +168,7 @@ public class ImageMenuItem extends MenuItem
      * 
      * @since 4.0.16
      */
-    public void setAccelerator(AcceleratorGroup accelerator) {
-        GtkImageMenuItem.setAccelGroup(this, accelerator);
+    public void setAccelerator(AcceleratorGroup group) {
+        GtkImageMenuItem.setAccelGroup(this, group);
     }
 }
