@@ -1,7 +1,7 @@
 /*
  * java-gnome, a UI library for writing GTK and GNOME programs from Java!
  *
- * Copyright © 2007-2010 Operational Dynamics Consulting, Pty Ltd and Others
+ * Copyright © 2007-2011 Operational Dynamics Consulting, Pty Ltd and Others
  *
  * The code in this file, and the program it is a part of, is made available
  * to you by its authors as open source software: you can redistribute it
@@ -256,35 +256,51 @@ public class Entry extends Widget implements Editable, CellEditable
      * The signal emitted when the text in the Entry has changed.
      * 
      * @author Andrew Cowie
-     * @since 4.0.8
+     * @since 4.1.1
      */
     /*
-     * This signal is inherited from Editable which is implemented by Entry,
-     * but some IDEs did not show Entry.Changed it as an option beside
-     * Editable.Activate when doing code completion. We have therefore exposed
-     * it (again) here to force the issue.
+     * This signal is a mashup so that we can have Entry in the signature.
      */
-    public interface Changed extends Editable.Changed
+    public interface Changed
     {
+        public void onChanged(Entry source);
+    }
+
+    private static class EntryChangedHandler implements Editable.Changed
+    {
+        private final Entry.Changed handler;
+
+        private EntryChangedHandler(Entry.Changed handler) {
+            this.handler = handler;
+        }
+
+        public void onChanged(Editable source) {
+            final Entry entry;
+
+            entry = (Entry) source;
+            handler.onChanged(entry);
+        }
     }
 
     /**
-     * Connect a <code>Editable.Changed</code> handler. Note that you can say:
-     * 
-     * <pre>
-     * e.connect(new Entry.Changed() {
-     *     public void onChanged(Editable source) {
-     *         doStuff();
-     *     }
-     * });
-     * </pre>
-     * 
-     * as the Editable.Changed interface is [re]exposed here.
+     * Connect a <code>Editable.Changed</code> handler. Use
+     * {@link #connect(org.gnome.gtk.Entry.Changed) connect(Entry.Changed)}
+     * instead, as it saves you having to cast the <code>source</code>
+     * parameter.
      * 
      * @since 4.0.6
      */
     public void connect(Editable.Changed handler) {
         GtkEditable.connect(this, handler, false);
+    }
+
+    /**
+     * Connect a <code>Entry.Changed</code> handler.
+     * 
+     * @since 4.1.1
+     */
+    public void connect(Entry.Changed handler) {
+        GtkEditable.connect(this, new EntryChangedHandler(handler), false);
     }
 
     public void selectRegion(int start, int end) {
