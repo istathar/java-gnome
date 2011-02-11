@@ -119,12 +119,15 @@ Java_org_gnome_gtk_GtkWidgetOverride_gtk_1widget_1get_1events
 )
 {
 	GtkWidget* self;
+	GdkWindow* window;
 	GdkEventMask mask;
 
 	// convert parameter self
 	self = (GtkWidget*) _self;
 
-	mask = gdk_window_get_events(self->window);
+	window = gtk_widget_get_window(self);
+
+	mask = gdk_window_get_events(window);
 	return (jint) mask;
 }
 
@@ -141,12 +144,15 @@ Java_org_gnome_gtk_GtkWidgetOverride_gtk_1widget_1set_1events
 )
 {
 	GtkWidget* self;
+	GdkWindow* window;
 	GdkEventMask mask;
 
 	// convert parameter self
 	self = (GtkWidget*) _self;
 
 	mask = (GdkEventMask) _mask;
-	gdk_window_set_events(self->window, mask);
+
+	window = gtk_widget_get_window(self);
+	gdk_window_set_events(window, mask);
 }
 
