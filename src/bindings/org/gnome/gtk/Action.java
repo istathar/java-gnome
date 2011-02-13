@@ -1,7 +1,7 @@
 /*
  * java-gnome, a UI library for writing GTK and GNOME programs from Java!
  *
- * Copyright © 2007-2010 Operational Dynamics Consulting, Pty Ltd
+ * Copyright © 2007-2011 Operational Dynamics Consulting, Pty Ltd
  * Copyright © 2007      Vreixo Formoso
  *
  * The code in this file, and the program it is a part of, is made available
@@ -117,7 +117,7 @@ public class Action extends Object
      * FIXME describe the implications of different choices for name.
      */
     public Action(String name, String label, String tooltip, Stock stock, Action.Activate handler) {
-        super(GtkAction.createAction(name, label, tooltip, stock.getStockId()));
+        super(GtkAction.createAction(name, label, tooltip, (stock == null ? null : stock.getStockId())));
         connect(handler);
     }
 
@@ -169,7 +169,7 @@ public class Action extends Object
      * @since 4.0.4
      */
     public Action(String name, String label, String tooltip, Stock stock) {
-        super(GtkAction.createAction(name, label, tooltip, stock.getStockId()));
+        super(GtkAction.createAction(name, label, tooltip, (stock == null ? null : stock.getStockId())));
     }
 
     /**
@@ -199,7 +199,7 @@ public class Action extends Object
      * @since 4.0.7
      */
     public Action(String name, Stock stock) {
-        super(GtkAction.createAction(name, null, null, stock.getStockId()));
+        super(GtkAction.createAction(name, null, null, (stock == null ? null : stock.getStockId())));
     }
 
     /**
