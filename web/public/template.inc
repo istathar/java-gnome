@@ -152,7 +152,7 @@ function template_end() {
 
 <div class="bottompanel">
 
-Contents copyright &copy; 2006-2010
+Contents copyright &copy; 2006-2011
 <a class="black" href="http://www.operationaldynamics.com/">Operational Dynamics</a>
 Consulting Pty Ltd, and Others. See <a class="black" href="/4.0/AUTHORS.html">AUTHORS</a>
 file and source code history for the various files comprising this site for
