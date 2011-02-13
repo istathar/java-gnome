@@ -1,7 +1,7 @@
 /*
  * java-gnome, a UI library for writing GTK and GNOME programs from Java!
  *
- * Copyright © 2007-2010 Operational Dynamics Consulting, Pty Ltd
+ * Copyright © 2007-2011 Operational Dynamics Consulting, Pty Ltd
  *
  * The code in this file, and the program it is a part of, is made available
  * to you by its authors as open source software: you can redistribute it
@@ -140,7 +140,7 @@ import org.freedesktop.bindings.Flag;
  * @author Andrew Cowie
  * @since 4.0.6
  */
-public final class ModifierType extends Flag
+public class ModifierType extends Flag
 {
     protected ModifierType(int ordinal, String nickname) {
         super(ordinal, nickname);
