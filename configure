@@ -1403,27 +1403,19 @@ if ($os eq "gentoo") {
 	my $vendor;
 
 	if ($jdk_home) {
+		$javac_candidate = "$jdk_home/bin/javac";
+		$javah_candidate = "$jdk_home/bin/javah";
+		$jar_candidate = "$jdk_home/bin/jar";
+		$javadoc_candidate = "$jdk_home/bin/javadoc";
 		$vendor = "Specified";
 	} else {
-		foreach my $possible (
-		"/usr/lib/jvm/jdk-1.6.0-sun",
-		"/usr/lib/jvm/jdk-1.5.0-sun", 
-		"/usr/lib/jvm/jre-1.6.0-sun",
-		"/usr/lib/jvm/jre-1.5.0-sun" ) {
-			if ( -d "$possible/" ) {
-				$jdk_home = $possible;
-				last;
-			}
-		}
-		if (!$jdk_home) {
-			bail("failed", "No suitable JDK home found. Try the jdk=/path/to/java on the ./configure line.");
-		}
-		$vendor = "Sun";
+		$javac_candidate = "/usr/bin/javac";
+		$javah_candidate = "/usr/bin/javah";
+		$jar_candidate = "/usr/bin/jar";
+		$javadoc_candidate = "/usr/bin/javadoc";
+		$vendor = "System";
 	}
-	$javac_candidate = "$jdk_home/bin/javac";
-	$javah_candidate = "$jdk_home/bin/javah";
-	$jar_candidate = "$jdk_home/bin/jar";
-	$javadoc_candidate = "$jdk_home/bin/javadoc";
+
 	check_compiler($javac, "$vendor javac", $javac_candidate, "-g -source 1.5 -target 1.5");
 
 	check_jni_header_generator($javah, "$vendor javah", $javah_candidate, "-jni");
@@ -1823,24 +1815,12 @@ if ($os eq "gentoo") {
 	my $vendor;
 
 	if ($jdk_home) {
+		$java_candidate = "$jdk_home/bin/java";
 		$vendor = "Specified";
 	} else {
-		foreach my $possible (
-		"/usr/lib/jvm/jdk-1.6.0-sun",
-		"/usr/lib/jvm/jdk-1.5.0-sun", 
-		"/usr/lib/jvm/jre-1.6.0-sun",
-		"/usr/lib/jvm/jre-1.5.0-sun" ) {
-			if ( -d "$possible/" ) {
-				$jdk_home = $possible;
-				last;
-			}
-		}
-		if (!$jdk_home) {
-			bail("failed", "No suitable JDK home found. Try the jdk=/path/to/java on the ./configure line.");
-		}
-		$vendor = "Sun";
+		$java_candidate = "/usr/bin/java";
+		$vendor = "System";
 	}
-	$java_candidate = "$jdk_home/bin/java";
 
 	check_runtime($java, "$vendor java VM", $java_candidate, "-client -ea");
 
