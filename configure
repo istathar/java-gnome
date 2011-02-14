@@ -52,6 +52,7 @@ use Cwd 'abs_path';
 #
 
 my $os;
+my $cpu_arch = ""; # set only when needed
 my $quiet;
 
 # There's nothing worse than having an old config file, getting half way
@@ -634,6 +635,14 @@ if (( -f "/etc/gentoo-release" ) || ( -f "/etc/make.conf" )) {
 } elsif ( -f "/etc/mandriva-release" ) {
 	output "Mandriva";
 	$os = "mandriva";
+	# Mandriva Linux has different package names
+	# for 64-bit CPU architectures
+	if (-x "/bin/arch") {
+	    my $arch = `/bin/arch`;
+	    if ($arch =~ m/_64/) { # 64-bit OS
+		$cpu_arch = "64";
+	    }
+	}
 } elsif ( -f "/etc/release" ) {
 	if (`grep Solaris /etc/release`) {
 		output "Solaris";
@@ -982,7 +991,8 @@ if ($os eq "gentoo") {
 	check_system_library(@gnomedev_libs,
 			"cairo-svg >= 1.10",
 			"Cairo",
-			"libcairo2-dev");
+			"lib{$cpu_arch}cairo-devel");
+		    # lib64cairo-devel-1.10.2-2-mdv2011.0.x86_64
 
 	check_system_library(@gnomedev_libs,
 			"glib-2.0 > 2.22 
@@ -992,42 +1002,42 @@ if ($os eq "gentoo") {
 					gdk-2.0 
 					gtk+-unix-print-2.0",
 			"GTK development libraries",
-			"libgtk+2.0_0-devel");
+			"lib${cpu_arch}gtk+2.0-devel");
 
 	check_system_library(@gnomedev_libs,
 			"librsvg-2.0",
 			"RSVG",
-			"librsvg-devel");
+			"lib${cpu_arch}rsvg2-devel");
 
 	check_system_library(@gnomedev_libs,
 			"libglade-2.0",
 			"Glade development libraries",
-			"libglade2.0_0-devel");
+			"lib${cpu_arch}glade2.0_0_devel");
 
 	check_system_library(@gnomedev_libs,
 			"gtksourceview-2.0 >= 2.6.2",
 			"GtkSourceView",
-			"FIXME");
+			"lib${cpu_arch}gtksourceview-2.0-devel");
 
 	check_system_library(@gnomedev_libs,
 			"libnotify >= 0.4.5 libnotify < 0.7.0",
 			"LibNotify",
-			"FIXME");
+			"lib${cpu_arch}notify-devel");
 
 	check_system_library(@gnomedev_libs,
 			"gtkspell-2.0 >= 2.0.15",
 			"GtkSpell",
-			"FIXME");
+			"lib${cpu_arch}gtkspell-devel");
 
 	check_system_library(@gnomedev_libs,
 			"unique-1.0 >= 1.0.8",
 			"LibUnique",
-			"FIXME");
+			"lib${cpu_arch}unique-devel");
 
 	check_system_library(@gnomedev_libs,
 			"enchant",
 			"Enchant",
-			"FIXME");
+			"lib${cpu_arch}enchant-devel");
 
 } elsif ($os eq "fedora") {
 	check_system_library(@gnomedev_libs,
@@ -1403,27 +1413,19 @@ if ($os eq "gentoo") {
 	my $vendor;
 
 	if ($jdk_home) {
+		$javac_candidate = "$jdk_home/bin/javac";
+		$javah_candidate = "$jdk_home/bin/javah";
+		$jar_candidate = "$jdk_home/bin/jar";
+		$javadoc_candidate = "$jdk_home/bin/javadoc";
 		$vendor = "Specified";
 	} else {
-		foreach my $possible (
-		"/usr/lib/jvm/jdk-1.6.0-sun",
-		"/usr/lib/jvm/jdk-1.5.0-sun", 
-		"/usr/lib/jvm/jre-1.6.0-sun",
-		"/usr/lib/jvm/jre-1.5.0-sun" ) {
-			if ( -d "$possible/" ) {
-				$jdk_home = $possible;
-				last;
-			}
-		}
-		if (!$jdk_home) {
-			bail("failed", "No suitable JDK home found. Try the jdk=/path/to/java on the ./configure line.");
-		}
-		$vendor = "Sun";
+		$javac_candidate = which("javac");
+		$javah_candidate = which("javah");
+		$jar_candidate = which("jar");
+		$javadoc_candidate = which("javadoc");
+		$vendor = "System";
 	}
-	$javac_candidate = "$jdk_home/bin/javac";
-	$javah_candidate = "$jdk_home/bin/javah";
-	$jar_candidate = "$jdk_home/bin/jar";
-	$javadoc_candidate = "$jdk_home/bin/javadoc";
+
 	check_compiler($javac, "$vendor javac", $javac_candidate, "-g -source 1.5 -target 1.5");
 
 	check_jni_header_generator($javah, "$vendor javah", $javah_candidate, "-jni");
@@ -1823,24 +1825,12 @@ if ($os eq "gentoo") {
 	my $vendor;
 
 	if ($jdk_home) {
+		$java_candidate = "$jdk_home/bin/java";
 		$vendor = "Specified";
 	} else {
-		foreach my $possible (
-		"/usr/lib/jvm/jdk-1.6.0-sun",
-		"/usr/lib/jvm/jdk-1.5.0-sun", 
-		"/usr/lib/jvm/jre-1.6.0-sun",
-		"/usr/lib/jvm/jre-1.5.0-sun" ) {
-			if ( -d "$possible/" ) {
-				$jdk_home = $possible;
-				last;
-			}
-		}
-		if (!$jdk_home) {
-			bail("failed", "No suitable JDK home found. Try the jdk=/path/to/java on the ./configure line.");
-		}
-		$vendor = "Sun";
+		$java_candidate = which("java");
+		$vendor = "System";
 	}
-	$java_candidate = "$jdk_home/bin/java";
 
 	check_runtime($java, "$vendor java VM", $java_candidate, "-client -ea");
 
@@ -1850,7 +1840,7 @@ if ($os eq "gentoo") {
 	if ($jamvm_bin) {
 		$jamvm_candidate = "$jamvm_bin";
 	} else {
-		$jamvm_candidate = "/usr/bin/jamvm"; # FIXME
+		$jamvm_candidate = "/usr/bin/jamvm";
 	}
 	check_runtime($jamvm, "JamVM VM", $jamvm_candidate, "");
 
@@ -1858,7 +1848,7 @@ if ($os eq "gentoo") {
 	if ($cacao_bin) {
 		$cacao_candidate = "$cacao_bin";
 	} else {
-		$cacao_candidate = "/usr/bin/cacao"; # FIXME
+		$cacao_candidate = "/usr/bin/cacao";
 	}
 	check_runtime($cacao, "CACAO VM", $cacao_candidate, "");
 
