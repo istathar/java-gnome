@@ -2,7 +2,7 @@
 #
 # java-gnome, a UI library for writing GTK and GNOME programs from Java!
 #
-# Copyright © 2005-2010 Operational Dynamics Consulting, Pty Ltd and Others 
+# Copyright © 2005-2011 Operational Dynamics Consulting, Pty Ltd and Others 
 # 
 # The code in this file, and the program it is a part of, is made available
 # to you by its authors as open source software: you can redistribute it
@@ -772,7 +772,16 @@ output "\nCheck for required system libraries:\n";
 
 if ($os eq "gentoo") {
 	check_system_library(@gnomedev_libs,
-			"glib-2.0 >= 2.22 gtk+-2.0 >= 2.22 pango >= 1.28 librsvg-2.0atk gdk-2.0 libglade-2.0 >= 2.6.4 gtk+-unix-print-2.0 cairo-svg >= 1.10.0 gtksourceview-2.0 >= 2.6.2",
+			"glib-2.0 >= 2.22 
+					gtk+-2.0 >= 2.22 
+					pango >= 1.28 
+					librsvg-2.0 
+					atk 
+					gdk-2.0 
+					libglade-2.0 >= 2.6.4 
+					gtk+-unix-print-2.0 
+					cairo-svg >= 1.10.0 
+					gtksourceview-2.0 >= 2.6.2",
 			"GNOME",
 			"gnome");
 
@@ -787,7 +796,7 @@ if ($os eq "gentoo") {
 			"gtkspell");
 
 	check_system_library(@gnomedev_libs,
-			"libnotify >= 0.4.5",
+			"libnotify >= 0.4.5 libnotify < 0.7.0",
 			"LibNotify",
 			"libnotify");
 
@@ -835,7 +844,7 @@ if ($os eq "gentoo") {
 			"FIXME");
 
 	check_system_library(@gnomedev_libs,
-			"libnotify >= 0.4.5",
+			"libnotify >= 0.4.5 libnotify < 0.7.0",
 			"LibNotify",
 			"FIXME");
 
@@ -867,7 +876,9 @@ if ($os eq "gentoo") {
 			"libglib2.0-dev");
 
 	check_system_library(@gnomedev_libs,
-			"gtk+-2.0 >= 2.22 gdk-2.0 gtk+-unix-print-2.0",
+			"gtk+-2.0 >= 2.22 
+					gdk-2.0 
+					gtk+-unix-print-2.0",
 			"GTK+",
 			"libgtk2.0-dev");
 
@@ -897,7 +908,7 @@ if ($os eq "gentoo") {
 			"libgtksourceview2.0-dev");
 
 	check_system_library(@gnomedev_libs,
-			"libnotify >= 0.4.5",
+			"libnotify >= 0.4.5 libnotify < 0.7.0",
 			"LibNotify",
 			"libnotify-dev");
 
@@ -923,7 +934,12 @@ if ($os eq "gentoo") {
 			"libcairo2-dev");
 
 	check_system_library(@gnomedev_libs,
-			"glib-2.0 >= 2.22 gtk+-2.0 >= 2.22.0 pango >= 1.22 atk gdk-2.0 gtk+-unix-print-2.0",
+			"glib-2.0 >= 2.22 
+					gtk+-2.0 >= 2.22.0 
+					pango >= 1.22 
+					atk 
+					gdk-2.0 
+					gtk+-unix-print-2.0",
 			"GNOME development libraries",
 			"libgnome-devel");
 
@@ -943,7 +959,7 @@ if ($os eq "gentoo") {
 			"FIXME");
 
 	check_system_library(@gnomedev_libs,
-			"libnotify >= 0.4.5",
+			"libnotify >= 0.4.5 libnotify < 0.7.0",
 			"LibNotify",
 			"FIXME");
 
@@ -969,7 +985,12 @@ if ($os eq "gentoo") {
 			"libcairo2-dev");
 
 	check_system_library(@gnomedev_libs,
-			"glib-2.0 > 2.22 gtk+-2.0 >= 2.22.0 pango >= 1.22 atk gdk-2.0 gtk+-unix-print-2.0",
+			"glib-2.0 > 2.22 
+					gtk+-2.0 >= 2.22.0 
+					pango >= 1.22 
+					atk 
+					gdk-2.0 
+					gtk+-unix-print-2.0",
 			"GTK development libraries",
 			"libgtk+2.0_0-devel");
 
@@ -989,7 +1010,7 @@ if ($os eq "gentoo") {
 			"FIXME");
 
 	check_system_library(@gnomedev_libs,
-			"libnotify >= 0.4.5",
+			"libnotify >= 0.4.5 libnotify < 0.7.0",
 			"LibNotify",
 			"FIXME");
 
@@ -1020,7 +1041,9 @@ if ($os eq "gentoo") {
 			"FIXME");
 
 	check_system_library(@gnomedev_libs,
-			"gtk+-2.0 >= 2.22 gdk-2.0 gtk+-unix-print-2.0",
+			"gtk+-2.0 >= 2.22 
+					gdk-2.0 
+					gtk+-unix-print-2.0",
 			"GTK+",
 			"FIXME");
 
@@ -1050,7 +1073,7 @@ if ($os eq "gentoo") {
 			"FIXME");
 
 	check_system_library(@gnomedev_libs,
-			"libnotify >= 0.4.5",
+			"libnotify >= 0.4.5 libnotify < 0.7.0",
 			"LibNotify",
 			"FIXME");
 

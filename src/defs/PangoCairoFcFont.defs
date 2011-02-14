@@ -1,0 +1,5 @@
+(define-object CairoFcFont
+  (in-module "Pango")
+  (parent "PangoFcFont")
+  (c-name "PangoCairoFcFont")
+)

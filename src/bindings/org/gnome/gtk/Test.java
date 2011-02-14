@@ -1,7 +1,7 @@
 /*
  * java-gnome, a UI library for writing GTK and GNOME programs from Java!
  *
- * Copyright © 2009-2010 Operational Dynamics Consulting, Pty Ltd
+ * Copyright © 2009-2011 Operational Dynamics Consulting, Pty Ltd
  *
  * The code in this file, and the program it is a part of, is made available
  * to you by its authors as open source software: you can redistribute it
@@ -116,17 +116,12 @@ public final class Test
      * pending events.
      * 
      * <p>
-     * 
-     * <p>
      * Sometimes when writing procedural test code you call GTK methods whose
      * logic will not be executed until their idle handlers have a chance to
      * run, which will be sometime after the main loop finishes propegating
      * the current round of event signals. This allows you to stimulate the
      * main loop to iterate over pending events and run its idle handlers as
      * well.
-     * 
-     * <p>
-     * <b>Do not call this within a signal handler callback!</b>
      * 
      * <p>
      * <b>WARNING</b><br>
@@ -136,6 +131,7 @@ public final class Test
      * programming.
      * 
      * @since <span style="color: red">unstable</span>
+     * @deprecated Use Gtk.mainIterationDo() directly.
      */
     public static void cycleMainLoop() {
         while (GtkMain.eventsPending()) {

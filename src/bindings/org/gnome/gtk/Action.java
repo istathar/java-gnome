@@ -1,7 +1,7 @@
 /*
  * java-gnome, a UI library for writing GTK and GNOME programs from Java!
  *
- * Copyright © 2007-2010 Operational Dynamics Consulting, Pty Ltd
+ * Copyright © 2007-2011 Operational Dynamics Consulting, Pty Ltd
  * Copyright © 2007      Vreixo Formoso
  *
  * The code in this file, and the program it is a part of, is made available
@@ -33,6 +33,8 @@
  */
 package org.gnome.gtk;
 
+import org.freedesktop.icons.Helper;
+import org.freedesktop.icons.Icon;
 import org.gnome.gdk.Keyval;
 import org.gnome.gdk.ModifierType;
 import org.gnome.glib.Object;
@@ -115,7 +117,33 @@ public class Action extends Object
      * FIXME describe the implications of different choices for name.
      */
     public Action(String name, String label, String tooltip, Stock stock, Action.Activate handler) {
-        super(GtkAction.createAction(name, label, tooltip, stock.getStockId()));
+        super(GtkAction.createAction(name, label, tooltip, (stock == null ? null : stock.getStockId())));
+        connect(handler);
+    }
+
+    /**
+     * Create a new Action, and connect a handler to its
+     * <code>Action.Activate</code> signal.
+     * 
+     * @param name
+     *            A unique name for the Action.
+     * @param label
+     *            The text that will be displayed in the proxy Widgets. You
+     *            usually will want to localize it to the user language.
+     * @param tooltip
+     *            A Tooltip or little help message for the Action. Also
+     *            localized.
+     * @param icon
+     *            The Icon to display in proxy Widgets.
+     * @param handler
+     *            A handler to connect to the <code>Action.Activate</code>
+     *            signal. Typically this will be used to actually start the
+     *            operation related to this Action.
+     * @since 4.0.19
+     */
+    public Action(String name, String label, String tooltip, Icon icon, Action.Activate handler) {
+        super(GtkAction.createAction(name, label, tooltip, null));
+        GtkAction.setIconName(this, Helper.getName(icon));
         connect(handler);
     }
 
@@ -141,7 +169,27 @@ public class Action extends Object
      * @since 4.0.4
      */
     public Action(String name, String label, String tooltip, Stock stock) {
-        super(GtkAction.createAction(name, label, tooltip, stock.getStockId()));
+        super(GtkAction.createAction(name, label, tooltip, (stock == null ? null : stock.getStockId())));
+    }
+
+    /**
+     * Create a new Action.
+     * 
+     * @param name
+     *            A unique name for the Action.
+     * @param label
+     *            The text that will be displayed in the proxy Widgets. You
+     *            usually will want to localize it to the user language.
+     * @param tooltip
+     *            A Tooltip or little help message for the Action. Also
+     *            localized.
+     * @param icon
+     *            The Icon to display in proxy Widgets.
+     * @since 4.0.19
+     */
+    public Action(String name, String label, String tooltip, Icon icon) {
+        super(GtkAction.createAction(name, label, tooltip, null));
+        GtkAction.setIconName(this, Helper.getName(icon));
     }
 
     /**
@@ -151,7 +199,7 @@ public class Action extends Object
      * @since 4.0.7
      */
     public Action(String name, Stock stock) {
-        super(GtkAction.createAction(name, null, null, stock.getStockId()));
+        super(GtkAction.createAction(name, null, null, (stock == null ? null : stock.getStockId())));
     }
 
     /**
@@ -452,7 +500,7 @@ public class Action extends Object
      * nifty.setTooltip(&quot;This will result in amazingly nifty things happening&quot;);
      * nifty.connect(new Action.Activate() {
      *     public void onActivate(Action source) {
-     *     // do something cool
+     *         // do something cool
      *     }
      * });
      * 

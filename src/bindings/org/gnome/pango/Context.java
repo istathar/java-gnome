@@ -1,7 +1,7 @@
 /*
  * java-gnome, a UI library for writing GTK and GNOME programs from Java!
  *
- * Copyright © 2007-2010 Operational Dynamics Consulting, Pty Ltd
+ * Copyright © 2007-2011 Operational Dynamics Consulting, Pty Ltd
  *
  * The code in this file, and the program it is a part of, is made available
  * to you by its authors as open source software: you can redistribute it
@@ -92,5 +92,19 @@ public class Context extends Object
      */
     public void setFontOptions(FontOptions options) {
         PangoContext.setFontOptions(this, options);
+    }
+
+    /**
+     * Given a description, ask the back end to load the font which is the
+     * closest match to the request.
+     * 
+     * <p>
+     * This is the code path used by {@link Layout Layout}, so you can use
+     * this find out what font has actually been selected for rendering.
+     * 
+     * @since 4.0.19
+     */
+    public Font loadFont(FontDescription desc) {
+        return PangoContext.loadFont(this, desc);
     }
 }

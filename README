@@ -183,6 +183,8 @@ checking this bug will not affect you._
 
 * Enchant `>= 1.4.2`
 
+* librsvg `>= 2.32.0`
+
 3. Build
 --------
 
