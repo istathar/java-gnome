@@ -1,7 +1,7 @@
 /*
  * java-gnome, a UI library for writing GTK and GNOME programs from Java!
  *
- * Copyright © 2009-2010 Operational Dynamics Consulting, Pty Ltd and Others
+ * Copyright © 2009-2011 Operational Dynamics Consulting, Pty Ltd and Others
  *
  * The code in this file, and the program it is a part of, is made available
  * to you by its authors as open source software: you can redistribute it
@@ -64,6 +64,24 @@ public class Notification extends org.gnome.glib.Object
     protected Notification(long pointer) {
         super(pointer);
     }
+    
+    /**
+     * Create a new notification.
+     * 
+     * <p>
+     * The summary appears on the titlebar of notification and body appears as
+     * its text. Icon may be a string defining a theme icon or the filename
+     * identifying the icon that appears next to text.
+     * 
+     * <p>
+     * Note that all but summary can be <code>null</code>.
+     * 
+     * @since 4.0.19
+     */
+
+    public Notification(String summary, String body, String icon) {
+        super(NotifyNotification.createNotification(summary, body, icon, null));
+    }
 
     /**
      * Create a new notification.
@@ -77,6 +95,8 @@ public class Notification extends org.gnome.glib.Object
      * Note that all but summary can be <code>null</code>.
      * 
      * @since 4.0.12
+     * @deprecated In GNOME 3, notifications will be independent of widgets and status icons.
+     * See http://live.gnome.org/GnomeShell/Design/Guidelines/MessageTray/Compatibility
      */
 
     public Notification(String summary, String body, String icon) {

@@ -1,7 +1,7 @@
 /*
  * java-gnome, a UI library for writing GTK and GNOME programs from Java!
  *
- * Copyright © 2008-2010 Operational Dynamics Consulting, Pty Ltd
+ * Copyright © 2008-20l1 Operational Dynamics Consulting, Pty Ltd
  *
  * The code in this file, and the program it is a part of, is made available
  * to you by its authors as open source software: you can redistribute it
@@ -34,7 +34,7 @@ public class SnapshotAboutDialog extends SnapshotDialog
         dialog.setProgramName("java-gnome");
         dialog.setVersion(Version.getVersion());
         dialog.setComments("The library allowing you to write outstanding GNOME applications with the GTK widget toolkit, from Java!");
-        dialog.setCopyright("Copyright \u00A9 2006-2010 Operational Dynamics Consulting Pty Ltd, and Others");
+        dialog.setCopyright("Copyright \u00A9 2006-2011 Operational Dynamics Consulting, Pty Ltd and Others");
         dialog.setAuthors(new String[] {
             "Andrew Cowie <andrew@operationaldynamics.com>",
             "Srichand Pendyala <srichand.pendyala@gmail.com>",

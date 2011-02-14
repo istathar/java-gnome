@@ -1,7 +1,7 @@
 /*
  * java-gnome, a UI library for writing GTK and GNOME programs from Java!
  *
- * Copyright © 2007-2010 Operational Dynamics Consulting, Pty Ltd and Others
+ * Copyright © 2007-2011 Operational Dynamics Consulting, Pty Ltd and Others
  *
  * The code in this file, and the program it is a part of, is made available
  * to you by its authors as open source software: you can redistribute it
@@ -157,8 +157,8 @@ Java_org_freedesktop_bindings_Environment_getWidth
 }
 
 /*
- * Will implement
- *   org.freedesktop.bindings.Environment.getWidth()
+ * Implements
+ *   org.freedesktop.bindings.Environment.getpid()
  */
 JNIEXPORT jint JNICALL
 Java_org_freedesktop_bindings_Environment_getpid
@@ -168,4 +168,19 @@ Java_org_freedesktop_bindings_Environment_getpid
 )
 {
 	return getpid();
+}
+
+/*
+ * Implements
+ *   org.freedesktop.bindings.Environment.isatty(int fd)
+ */
+JNIEXPORT jint JNICALL
+Java_org_freedesktop_bindings_Environment_isatty
+(
+        JNIEnv *env,
+        jclass cls,
+        jint _fd
+)
+{
+        return isatty(_fd);
 }
