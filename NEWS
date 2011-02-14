@@ -1,5 +1,59 @@
 NEWS
 
+<a name="4.0.19" id="1297659945" title="Which Font?"></a>
+
+java-gnome 4.0.19 (14 Feb 2011)
+===============================
+
+_What do you mean that's not the font I asked for?_
+
+This release includes some minor feature enhancements.
+
+Preliminary coverage of Pango's Font object. Font is Pango's abstraction
+describing a typeface, and is what is actually loaded. We've exposed the
+methods that allow you to find out what was _actually_ loaded for a given
+FontDescription request. You do this with Context's
+[`loadFont()`][Context.loadFont()] and then Font's
+[`describe()`][Font.describe()]. Thanks to Behdad Esfahbod for explaining how
+all this works.
+
+* **`org.gnome.pango.Font`**
+* **`org.gnome.pango.FontDescription`**
+
+Exposed a few utility functions, including one to find out if your program is
+running in a terminal or from the Desktop directly.
+
+* **`org.freedesktop.bindings.Environment`**
+
+GTK improvements
+----------------
+
+Further improved some corner cases involved in using Actions, and now you can
+make them with named Icons.
+
+* **`org.gnome.gtk.Action`**
+* **`org.gnome.gtk.ToolItem`**
+
+There are some odd corner cases, especially with TextView, where idle handlers
+need to run before you have the calculations you need ready to query. One
+workaround appears to be letting the main loop cycle, so we've exposed
+[`Gtk.mainIterationDo()`][Gtk.mainIterationDo()] and the `Gtk.eventsPending()`
+which wraps it.
+
+* **`org.gnome.gtk.Gtk`**
+
+Build improvements
+------------------
+
+Building java-gnome on Mandriva now works! Thanks to Liam Quin for helping QA
+the top level `configure` script.
+
+AfC
+
+[Gtk.mainIterationDo()]: <http://java-gnome.sourceforge.net/4.0/doc/api/org/gnome/gtk/Gtk.html#mainIterationDo(boolean)>
+[Context.loadFont()]: <http://java-gnome.sourceforge.net/4.0/doc/api/org/gnome/pango/Context.html#loadFont(org.gnome.pango.FontDescription)>
+[Font.describe()]: <http://java-gnome.sourceforge.net/4.0/doc/api/org/gnome/pango/Font.html#describe()>
+
 <a name="4.0.18" id="1293156906" title="Fix GDK_IS_WINDOW crash"></a>
 
 java-gnome 4.0.18 (23 Dec 2010)
