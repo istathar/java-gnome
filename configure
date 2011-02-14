@@ -2,7 +2,7 @@
 #
 # java-gnome, a UI library for writing GTK and GNOME programs from Java!
 #
-# Copyright © 2005-2010 Operational Dynamics Consulting, Pty Ltd and Others 
+# Copyright © 2005-2011 Operational Dynamics Consulting, Pty Ltd and Others 
 # 
 # The code in this file, and the program it is a part of, is made available
 # to you by its authors as open source software: you can redistribute it
@@ -1409,10 +1409,10 @@ if ($os eq "gentoo") {
 		$javadoc_candidate = "$jdk_home/bin/javadoc";
 		$vendor = "Specified";
 	} else {
-		$javac_candidate = "/usr/bin/javac";
-		$javah_candidate = "/usr/bin/javah";
-		$jar_candidate = "/usr/bin/jar";
-		$javadoc_candidate = "/usr/bin/javadoc";
+		$javac_candidate = which("javac");
+		$javah_candidate = which("javah");
+		$jar_candidate = which("jar");
+		$javadoc_candidate = which("javadoc");
 		$vendor = "System";
 	}
 
@@ -1818,7 +1818,7 @@ if ($os eq "gentoo") {
 		$java_candidate = "$jdk_home/bin/java";
 		$vendor = "Specified";
 	} else {
-		$java_candidate = "/usr/bin/java";
+		$java_candidate = which("java");
 		$vendor = "System";
 	}
 
