@@ -1,7 +1,7 @@
 /*
  * java-gnome, a UI library for writing GTK and GNOME programs from Java!
  *
- * Copyright © 2005-2010 Operational Dynamics Consulting, Pty Ltd and Others
+ * Copyright © 2005-2011 Operational Dynamics Consulting, Pty Ltd and Others
  *
  * The code in this file, and the program it is a part of, is made available
  * to you by its authors as open source software: you can redistribute it
@@ -122,4 +122,30 @@ public class Environment
     }
 
     private static native final int getpid();
+
+    /**
+     * Is this program running in a terminal or was it launched by the user
+     * from the desktop? If it was launched from the GNOME system menu or by
+     * Nautilus then this will return <code>false</code>.
+     * 
+     * <p>
+     * <i>This calls</i> <code>isatty()</code> <i>on the file descriptor for
+     * stdin, so obviously if you've closed</i> <code>System.in</code> <i>this
+     * will return false regardless.</i>
+     * 
+     * @since 4.0.19
+     */
+    public static boolean isTTY() {
+        final int result;
+
+        result = isatty(0);
+
+        if (result == 1) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    private static native final int isatty(int fd);
 }

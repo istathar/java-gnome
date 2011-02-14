@@ -1,0 +1,5 @@
+(define-object FcFont
+  (in-module "Pango")
+  (parent "PangoFont")
+  (c-name "PangoFcFont")
+)

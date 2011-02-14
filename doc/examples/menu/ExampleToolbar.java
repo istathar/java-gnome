@@ -1,7 +1,7 @@
 /*
  * java-gnome, a UI library for writing GTK and GNOME programs from Java!
  *
- * Copyright © 2007-2010 Operational Dynamics Consulting, Pty Ltd
+ * Copyright © 2007-2011 Operational Dynamics Consulting, Pty Ltd
  * Copyright © 2007      Vreixo Formoso
  *
  * The code in this file, and the program it is a part of, is made available
@@ -54,6 +54,7 @@ public class ExampleToolbar
         final ToggleToolButton boldButton, italicButton;
 
         w = new Window();
+        w.setDefaultSize(400, 150);
 
         x = new VBox(false, 3);
         w.add(x);
