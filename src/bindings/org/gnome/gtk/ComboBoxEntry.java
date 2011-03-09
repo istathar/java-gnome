@@ -90,4 +90,31 @@ public class ComboBoxEntry extends ComboBox implements CellEditable, CellLayout
     public ComboBoxEntry(TreeModel model, DataColumnString column) {
         super(GtkComboBoxEntry.createComboBoxEntryWithModel(model, column.getOrdinal()));
     }
+
+    /**
+     * Construct a new ComboBoxEntry. You'll need to call
+     * {@link ComboBox#setModel(TreeModel) setModel()} to set the underlying
+     * data source, and {@link #setTextColumn(DataColumnString)
+     * setTextColumn()} to say where the strings are coming from, or this
+     * won't do much.
+     * 
+     * <p>
+     * This is best used if you're subclassing; otherwise the other
+     * constructor will be easier.
+     * 
+     * @since 4.0.20
+     */
+    public ComboBoxEntry() {
+        super(GtkComboBoxEntry.createComboBoxEntry());
+    }
+
+    /**
+     * Specify the DataColumn in the TreeModel that will provide the list of
+     * options for the Widget to display.
+     * 
+     * @since 4.0.20
+     */
+    public void setTextColumn(DataColumnString column) {
+        GtkComboBoxEntry.setTextColumn(this, column.getOrdinal());
+    }
 }
