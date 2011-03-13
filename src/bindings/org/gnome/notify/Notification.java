@@ -80,26 +80,6 @@ public class Notification extends org.gnome.glib.Object
      */
 
     public Notification(String summary, String body, String icon) {
-        super(NotifyNotification.createNotification(summary, body, icon, null));
-    }
-
-    /**
-     * Create a new notification.
-     * 
-     * <p>
-     * The summary appears on the titlebar of notification and body appears as
-     * its text. Icon may be a string defining a theme icon or the filename
-     * identifying the icon that appears next to text.
-     * 
-     * <p>
-     * Note that all but summary can be <code>null</code>.
-     * 
-     * @since 4.0.12
-     * @deprecated In GNOME 3, notifications will be independent of widgets and status icons.
-     * See http://live.gnome.org/GnomeShell/Design/Guidelines/MessageTray/Compatibility
-     */
-
-    public Notification(String summary, String body, String icon) {
         super(NotifyNotification.createNotification(summary, body, icon));
     }
 
