@@ -1,7 +1,7 @@
 /*
  * java-gnome, a UI library for writing GTK and GNOME programs from Java!
  *
- * Copyright © 2010 Operational Dynamics Consulting, Pty Ltd and Others
+ * Copyright © 2010-2011 Operational Dynamics Consulting, Pty Ltd and Others
  *
  * The code in this file, and the program it is a part of, is made available
  * to you by its authors as open source software: you can redistribute it
@@ -31,9 +31,21 @@ import org.gnome.gtk.GraphicalTestCase;
 public class ValidateUtilityFunctions extends GraphicalTestCase
 {
     public final void testGetUserName() {
+        String str;
         final String userNameEnvironment, userNameGlib;
 
-        userNameEnvironment = Environment.getEnv("USERNAME");
+        str = Environment.getEnv("USERNAME");
+        if (str == null) {
+            str = Environment.getEnv("USER");
+        }
+        if (str == null) {
+            str = Environment.getEnv("LOGNAME");
+        }
+        if (str == null) {
+            fail("No USERNAME or USER in environment?");
+        }
+
+        userNameEnvironment = str;
         userNameGlib = Glib.getUserName();
 
         assertEquals(userNameEnvironment, userNameGlib);

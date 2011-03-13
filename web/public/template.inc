@@ -2,7 +2,7 @@
 /*
  * template.inc
  *
- * Copyright (c) 2006-2010 Operational Dynamics Consulting Pty Ltd
+ * Copyright (c) 2006-2011 Operational Dynamics Consulting Pty Ltd
  * 
  * This file comprises part of the infrastructure and content of the
  * java-gnome project website. As such, it is conveyed alongside the source
@@ -77,8 +77,8 @@ function template_begin() {
 	<a href="/"><img id="logo" src="/images/java-gnome_HeaderLogo.png" width="85" height="92" border="0" alt=""></a>
 	<div align="right" style="padding:10px; padding-top:12px">
 	<a class="nav-black"
-	href="http://ftp.gnome.org/pub/gnome/sources/java-gnome/4.0/java-gnome-4.0.18.tar.bz2">java-gnome 4.0.18</a>,
-	<a class="nav-black" href="/4.0/NEWS.html#4.0.18">released 23 Dec 2010</a>
+	href="http://ftp.gnome.org/pub/gnome/sources/java-gnome/4.0/java-gnome-4.0.19.tar.bz2">java-gnome 4.0.19</a>,
+	<a class="nav-black" href="/4.0/NEWS.html#4.0.19">released 14 Feb 2011</a>
 	</div>
 </div>
 
@@ -152,7 +152,7 @@ function template_end() {
 
 <div class="bottompanel">
 
-Contents copyright &copy; 2006-2010
+Contents copyright &copy; 2006-2011
 <a class="black" href="http://www.operationaldynamics.com/">Operational Dynamics</a>
 Consulting Pty Ltd, and Others. See <a class="black" href="/4.0/AUTHORS.html">AUTHORS</a>
 file and source code history for the various files comprising this site for

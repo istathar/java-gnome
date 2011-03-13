@@ -631,7 +631,7 @@ public class Entry extends Widget implements Editable, CellEditable
      * 
      * <p>
      * If <code>x</code> or <code>y</code> are not inside an icon,
-     * <code>-1<code> will be returned.
+     * <code>-1</code> will be returned.
      * 
      * @since 4.0.13
      */
