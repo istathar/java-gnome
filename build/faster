@@ -654,6 +654,7 @@ def compileDocumentation():
 	cmd += "-source 1.5 "
 	cmd += "-notree "
 	cmd += "-noindex "
+	cmd += "-notimestamp "
 	cmd += "-nohelp "
 	cmd += "-version "
 	cmd += "-author "
