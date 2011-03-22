@@ -1,7 +1,7 @@
 /*
  * java-gnome, a UI library for writing GTK and GNOME programs from Java!
  *
- * Copyright © 2007-2010 Operational Dynamics Consulting, Pty Ltd and Others
+ * Copyright © 2007-2011 Operational Dynamics Consulting, Pty Ltd and Others
  *
  * The code in this file, and the program it is a part of, is made available
  * to you by its authors as open source software: you can redistribute it
@@ -268,52 +268,17 @@ public class AboutDialog extends Dialog
         GtkAboutDialog.setTranslatorCredits(this, credits);
     }
 
-    private static class EmailClickHandler implements GtkAboutDialog.EmailClickedSignal
+    private static class ActivateLinkHandler implements GtkAboutDialog.ActivateLinkSignal
     {
-        private final EmailHook emailHook;
+        private final ActivateLink handler;
 
-        public EmailClickHandler(EmailHook emailHook) {
-            this.emailHook = emailHook;
+        public ActivateLinkHandler(ActivateLink handler) {
+            this.handler = handler;
         }
 
-        public void onEmailClicked(AboutDialog source, String email) {
-            emailHook.onEmailClicked(source, email);
-        }
-    }
-
-    /**
-     * Callback invoked when a email address is clicked.
-     * 
-     * @author Guillaume Mazoyer
-     * @since 4.0.14
-     */
-    public interface EmailHook
-    {
-        public void onEmailClicked(AboutDialog source, String email);
-    }
-
-    /**
-     * Hookup the <code>AboutDialog.EmailHook</code> callback that will be
-     * used to handle email clicked actions.
-     * 
-     * @since 4.0.14
-     */
-    public void setEmailCallback(EmailHook handler) {
-        GtkAboutDialogOverride.setEmailHook(this);
-        GtkAboutDialog.connect(this, new EmailClickHandler(handler), false);
-    }
-
-    private static class UrlClickHandler implements GtkAboutDialog.UrlClickedSignal
-    {
-        private final UrlHook urlHook;
-
-        public UrlClickHandler(UrlHook urlHook) {
-            this.urlHook = urlHook;
-        }
-
-        public void onUrlClicked(AboutDialog source, String link) {
+        public boolean onActivateLink(AboutDialog source, String link) {
             try {
-                urlHook.onUrlClicked(source, new URI(link));
+                return handler.onActivateLink(source, new URI(link));
             } catch (URISyntaxException e) {
                 throw new RuntimeException("We shouldn't be throwing this exception", e);
             }
@@ -324,21 +289,21 @@ public class AboutDialog extends Dialog
      * Callback invoked when the website is clicked.
      * 
      * @author Guillaume Mazoyer
-     * @since 4.0.14
+     * @author Andrew Cowie
+     * @since 4.1.1
      */
-    public interface UrlHook
+    public interface ActivateLink
     {
-        public void onUrlClicked(AboutDialog source, URI link);
+        public boolean onActivateLink(AboutDialog source, URI link);
     }
 
     /**
-     * Hookup the <code>AboutDialog.UrlHook</code> callback that will be used
-     * to handle website button click actions.
+     * Hookup the <code>AboutDialog.ActivateLink</code> callback that will be
+     * used to handle website button click actions.
      * 
-     * @since 4.0.14
+     * @since 4.1.1
      */
-    public void setUrlCallback(UrlHook handler) {
-        GtkAboutDialogOverride.setUrlHook(this);
-        GtkAboutDialog.connect(this, new UrlClickHandler(handler), false);
+    public void connect(AboutDialog.ActivateLink handler) {
+        GtkAboutDialog.connect(this, new ActivateLinkHandler(handler), false);
     }
 }
