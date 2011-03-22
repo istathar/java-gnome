@@ -65,30 +65,31 @@ Java_org_gnome_gtk_GtkWidgetOverride_gtk_1widget_1get_1allocation
 }
 
 /**
- * Access GtkWidget's requisition field, a GtkRequisition struct. Note that
- * we return a pointer to the live struct, not a copy. This may cause
- * problems if we expose other methods which take a blank Requisition to be
- * passed by reference.
- * 
+ * Access GtkWidget's requisition field, a GtkRequisition struct.
+ *
  * This implementation also [is forced to] get on with calling
  * gtk_widget_size_request() on the assumption that the Requisition isn't
  * much use without data in it. 
  */
-JNIEXPORT jlong JNICALL
+JNIEXPORT void JNICALL
 Java_org_gnome_gtk_GtkWidgetOverride_gtk_1widget_1get_1requisition
 (
 	JNIEnv* env,
 	jclass cls,
-	jlong _self
+	jlong _self,
+	jlong _requisition
 )
 {
 	GtkRequisition temp = { 0, };
-	GtkRequisition* result;
+	GtkRequisition* requisition;
 	GtkWidget* self;
 
 	// convert parameter self
 	self = (GtkWidget*) _self;
-	
+
+	// convert parameter requisition
+	requisition = (GtkRequisition*) _requisition;
+
 	/*
 	 * To avoid the necessity to instantiate the silly GtkRequisition
 	 * struct as a complete object Java side (along with attendant
@@ -96,18 +97,14 @@ Java_org_gnome_gtk_GtkWidgetOverride_gtk_1widget_1get_1requisition
 	 * sharp shortcut here: we will programatically get on with it and
 	 * call size_request() here.  
 	 */
+
 	gtk_widget_size_request(self, &temp);
 	
-	/*
-	 * This is NOT a dynamic allocation, but rather a live reference to
-	 * the GtkAllocation struct in the GtkWidget instance struct.
-	 */	
-	result = &self->requisition;
+	gtk_widget_get_requisition(self, requisition);
 
 	// cleanup parameter self
-
-	// and finally
-	return (jlong) result;
+	
+	// cleanup parameter requisition
 }
 
 /**
@@ -122,12 +119,15 @@ Java_org_gnome_gtk_GtkWidgetOverride_gtk_1widget_1get_1events
 )
 {
 	GtkWidget* self;
+	GdkWindow* window;
 	GdkEventMask mask;
 
 	// convert parameter self
 	self = (GtkWidget*) _self;
 
-	mask = gdk_window_get_events(self->window);
+	window = gtk_widget_get_window(self);
+
+	mask = gdk_window_get_events(window);
 	return (jint) mask;
 }
 
@@ -144,12 +144,15 @@ Java_org_gnome_gtk_GtkWidgetOverride_gtk_1widget_1set_1events
 )
 {
 	GtkWidget* self;
+	GdkWindow* window;
 	GdkEventMask mask;
 
 	// convert parameter self
 	self = (GtkWidget*) _self;
 
 	mask = (GdkEventMask) _mask;
-	gdk_window_set_events(self->window, mask);
+
+	window = gtk_widget_get_window(self);
+	gdk_window_set_events(window, mask);
 }
 

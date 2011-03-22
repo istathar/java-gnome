@@ -179,7 +179,7 @@ public class ValidateProperties extends GraphicalTestCase
         assertEquals(i, b.getImage());
     }
 
-    public final void testAllocationLive() {
+    public final void testAllocation() {
         final Window w;
         final Button b;
         Allocation size;
@@ -209,9 +209,10 @@ public class ValidateProperties extends GraphicalTestCase
         GtkWidget.realize(b);
 
         /*
-         * Now test that the our live reference to the GtkAllocation actually
-         * changed. Note that we did NOT get a new Allocation object.
+         * Obtain the current values of the Allocation and test that they changed.
          */
+        size = b.getAllocation();
+
         assertTrue(size.getWidth() > 1);
         assertTrue(size.getHeight() > 1);
         assertTrue(size.getX() >= 0);

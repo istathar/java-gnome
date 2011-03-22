@@ -1,7 +1,7 @@
 /*
  * java-gnome, a UI library for writing GTK and GNOME programs from Java!
  *
- * Copyright © 2006-2010 Operational Dynamics Consulting, Pty Ltd and Others
+ * Copyright © 2006-2011 Operational Dynamics Consulting, Pty Ltd and Others
  *
  * The code in this file, and the program it is a part of, is made available
  * to you by its authors as open source software: you can redistribute it
@@ -1158,6 +1158,9 @@ public abstract class Widget extends org.gnome.gtk.Object
      * duplicates.
      */
 
+    /*
+     * This requisition will need to be removed when GTK3 arrives
+     */
     private Requisition requisition;
 
     private Allocation allocation;
@@ -1194,26 +1197,15 @@ public abstract class Widget extends org.gnome.gtk.Object
      * implies that the request calculation won't have any effect if the
      * Widget is not yet been FIXME to a Screen).
      * 
-     * <p>
-     * <i>Implementation note: calling this method will invoke
-     * <code>gtk_widget_size_request()</code>. The returned Requisition object
-     * is "live" however, so once you've got it you can use its getter methods
-     * freely without needing to keep calling this method.</i>
-     * 
      * @since 4.0.6
      */
     public Requisition getRequisition() {
         if (requisition == null) {
-            requisition = GtkWidgetOverride.getRequisition(this);
-
-            /*
-             * We are making a live reference to the GtkRequisition struct
-             * member in the GtkWidget class, so we need to make sure that our
-             * Requisition Proxy does not survive longer than the Widget. We
-             * use this back reference for this purpose.
-             */
-            requisition.widget = this;
+            requisition = new Requisition();
         }
+
+        GtkWidgetOverride.getRequisition(this, requisition);
+
         return requisition;
     }
 
