@@ -32,7 +32,7 @@
  */
 package org.freedesktop.cairo;
 
-import org.gnome.gdk.Drawable;
+import org.gnome.gdk.Window;
 import org.gnome.gdk.EventExpose;
 import org.gnome.gdk.Pixbuf;
 
@@ -50,23 +50,23 @@ final class GdkCairoSupport extends Plumbing
 {
     private GdkCairoSupport() {}
 
-    static final long createContextFromDrawable(Drawable drawable) {
-        if (drawable == null) {
+    static final long createContextFromWindow(Window window) {
+        if (window == null) {
             /*
              * This check is, unfortunately, particularly important. If you've
-             * gotten this far with a null Drawable, that means that the state
+             * gotten this far with a null Window, that means that the state
              * you think you're in isn't what it should be - in otherwords,
-             * you don't _really_ have a Drawable yet.
+             * you don't _really_ have a Window yet.
              */
-            throw new IllegalArgumentException("drawable can't be null");
+            throw new IllegalArgumentException("window can't be null");
         }
 
         synchronized (lock) {
-            return gdk_cairo_create(pointerOf(drawable));
+            return gdk_cairo_create(pointerOf(window));
         }
     }
 
-    private static native final long gdk_cairo_create(long drawable);
+    private static native final long gdk_cairo_create(long window);
 
     static final long createContextFromExposeEvent(EventExpose event) {
         synchronized (lock) {

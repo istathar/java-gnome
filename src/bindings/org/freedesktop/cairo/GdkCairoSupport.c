@@ -39,7 +39,7 @@
 
 /**
  * This accesses gdk_cairo_create(), a utility function in GDK allowing you to
- * get the Cairo cairo_t for a given GdkDrawable. We have exposed this in our
+ * get the Cairo cairo_t for a given GdkWindow. We have exposed this in our
  * bindings as a constructor to Context.
  */
 JNIEXPORT jlong JNICALL
@@ -47,19 +47,19 @@ Java_org_freedesktop_cairo_GdkCairoSupport_gdk_1cairo_1create
 (
 	JNIEnv* env,
 	jclass cls,
-	jlong _drawable
+	jlong _window
 )
 {
-	GdkDrawable* drawable;
+	GdkWindow* window;
 	cairo_t* result;
 
-	// convert drawable
-	drawable = (GdkDrawable*) _drawable;
+	// convert window
+	window = (GdkWindow*) _window;
 
 	// call function
-	result = gdk_cairo_create(drawable);
+	result = gdk_cairo_create(window);
 
-	// cleanup parameter drawable
+	// cleanup parameter window
 
 	// and finally
 	return (jlong) result;
