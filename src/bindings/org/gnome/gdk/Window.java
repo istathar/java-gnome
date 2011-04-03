@@ -1,7 +1,7 @@
 /*
  * java-gnome, a UI library for writing GTK and GNOME programs from Java!
  *
- * Copyright © 2007-2010 Operational Dynamics Consulting, Pty Ltd
+ * Copyright © 2007-2011 Operational Dynamics Consulting, Pty Ltd
  *
  * The code in this file, and the program it is a part of, is made available
  * to you by its authors as open source software: you can redistribute it
@@ -230,5 +230,27 @@ public class Window extends Object
      */
     public boolean ensureNative() {
         return GdkWindow.ensureNative(this);
+    }
+
+    /**
+     * Get the width of this Window.
+     * 
+     * @since 4.1.1
+     */
+    /*
+     * TODO document the impact of this reporting the most recent
+     * CONFIGURE_EVENT, not necesarily live X server information.
+     */
+    public int getWidth() {
+        return GdkWindow.getWidth(this);
+    }
+
+    /**
+     * Get the height of this Window.
+     * 
+     * @since 4.1.1
+     */
+    public int getHeight() {
+        return GdkWindow.getHeight(this);
     }
 }

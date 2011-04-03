@@ -61,38 +61,4 @@ public abstract class Drawable extends Object
     Colormap getColormap() {
         return GdkDrawable.getColormap(this);
     }
-
-    /**
-     * Get the width of this Drawable.
-     * 
-     * @since 4.0.9
-     */
-    /*
-     * TODO document the impact of this reporting the most recent
-     * CONFIGURE_EVENT, not necesarily live X server information.
-     */
-    public int getWidth() {
-        int[] width;
-
-        width = new int[1];
-
-        GdkDrawable.getSize(this, width, null);
-
-        return width[0];
-    }
-
-    /**
-     * Get the height of this Drawable.
-     * 
-     * @since 4.0.9
-     */
-    public int getHeight() {
-        int[] height;
-
-        height = new int[1];
-
-        GdkDrawable.getSize(this, null, height);
-
-        return height[0];
-    }
 }

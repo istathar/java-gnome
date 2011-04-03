@@ -811,3 +811,15 @@
   (return-type "gboolean")
 )
 
+(define-method get_width
+  (of-object "GdkWindow")
+  (c-name "gdk_window_get_width")
+  (return-type "int")
+)
+
+(define-method get_height
+  (of-object "GdkWindow")
+  (c-name "gdk_window_get_height")
+  (return-type "int")
+)
+
