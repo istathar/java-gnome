@@ -15,15 +15,6 @@
   )
 )
 
-(define-method set_source
-  (of-object "GdkDevice")
-  (c-name "gdk_device_set_source")
-  (return-type "none")
-  (parameters
-    '("GdkInputSource" "source")
-  )
-)
-
 (define-method set_mode
   (of-object "GdkDevice")
   (c-name "gdk_device_set_mode")
