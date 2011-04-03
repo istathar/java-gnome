@@ -61,18 +61,6 @@
   )
 )
 
-(define-method render_pixmap_and_mask_for_colormap
-  (of-object "GdkPixbuf")
-  (c-name "gdk_pixbuf_render_pixmap_and_mask_for_colormap")
-  (return-type "none")
-  (parameters
-    '("GdkColormap*" "colormap")
-    '("GdkPixmap**" "pixmap_return")
-    '("GdkBitmap**" "mask_return")
-    '("int" "alpha_threshold")
-  )
-)
-
 (define-method rotate_simple
   (of-object "GdkPixbuf")
   (c-name "gdk_pixbuf_rotate_simple")

@@ -33,7 +33,6 @@
 package org.gnome.gtk;
 
 import org.gnome.gdk.Color;
-import org.gnome.gdk.Colormap;
 import org.gnome.gdk.Event;
 import org.gnome.gdk.EventButton;
 import org.gnome.gdk.EventCrossing;
@@ -793,21 +792,6 @@ public abstract class Widget extends org.gnome.gtk.Object
      */
     public org.gnome.gdk.Window getWindow() {
         return GtkWidget.getWindow(this);
-    }
-
-    /**
-     * Sets the Colormap of this widget.
-     * 
-     * <p>
-     * The only useful application of this is to enable per-pixel translucency
-     * on top level Widgets. This involves getting the RGBA colormap from the
-     * associated screen, and also requires (if using cairo) using the clear
-     * operator to remove the standard background.
-     * 
-     * @since 4.0.10
-     */
-    public void setColormap(Colormap colormap) {
-        GtkWidget.setColormap(this, colormap);
     }
 
     /**

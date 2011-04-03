@@ -103,27 +103,4 @@ public class Screen extends Object
     static Screen getDefault() {
         return GdkScreen.getDefault();
     }
-
-    /**
-     * Get the default Colormap associated with this Screen.
-     * 
-     * @since 4.0.10
-     */
-    /*
-     * Method signature adjusted to avoid collision with getDefault() and to
-     * provide completion space for both getColormap...() methods.
-     */
-    public Colormap getColormapDefault() {
-        return GdkScreen.getDefaultColormap(this);
-    }
-
-    /**
-     * Get the RGBA Colormap associated with this Screen. This is necessary
-     * for per-pixel translucency in top level Windows.
-     * 
-     * @since 4.0.10
-     */
-    public Colormap getColormapRGBA() {
-        return GdkScreen.getRgbaColormap(this);
-    }
 }
