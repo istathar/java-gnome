@@ -5,43 +5,10 @@
   (gtype-id "GDK_TYPE_SCREEN")
 )
 
-(define-method get_default_colormap
-  (of-object "GdkScreen")
-  (c-name "gdk_screen_get_default_colormap")
-  (return-type "GdkColormap*")
-)
-
-(define-method set_default_colormap
-  (of-object "GdkScreen")
-  (c-name "gdk_screen_set_default_colormap")
-  (return-type "none")
-  (parameters
-    '("GdkColormap*" "colormap")
-  )
-)
-
-(define-method get_system_colormap
-  (of-object "GdkScreen")
-  (c-name "gdk_screen_get_system_colormap")
-  (return-type "GdkColormap*")
-)
-
 (define-method get_system_visual
   (of-object "GdkScreen")
   (c-name "gdk_screen_get_system_visual")
   (return-type "GdkVisual*")
-)
-
-(define-method get_rgb_colormap
-  (of-object "GdkScreen")
-  (c-name "gdk_screen_get_rgb_colormap")
-  (return-type "GdkColormap*")
-)
-
-(define-method get_rgba_colormap
-  (of-object "GdkScreen")
-  (c-name "gdk_screen_get_rgba_colormap")
-  (return-type "GdkColormap*")
 )
 
 (define-method get_rgb_visual

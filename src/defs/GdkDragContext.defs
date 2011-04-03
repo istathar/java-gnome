@@ -155,19 +155,6 @@
   )
 )
 
-(define-method set_icon_pixmap
-  (of-object "GdkDragContext")
-  (c-name "gtk_drag_set_icon_pixmap")
-  (return-type "none")
-  (parameters
-    '("GdkColormap*" "colormap")
-    '("GdkPixmap*" "pixmap")
-    '("GdkBitmap*" "mask")
-    '("gint" "hot_x")
-    '("gint" "hot_y")
-  )
-)
-
 (define-method set_icon_pixbuf
   (of-object "GdkDragContext")
   (c-name "gtk_drag_set_icon_pixbuf")

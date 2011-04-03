@@ -127,17 +127,6 @@
   (return-type "none")
 )
 
-(define-method drag_source_set_icon
-  (of-object "GtkWidget")
-  (c-name "gtk_drag_source_set_icon")
-  (return-type "none")
-  (parameters
-    '("GdkColormap*" "colormap")
-    '("GdkPixmap*" "pixmap")
-    '("GdkBitmap*" "mask" (default "NULL") (null-ok))
-  )
-)
-
 (define-method drag_source_set_icon_pixbuf
   (of-object "GtkWidget")
   (c-name "gtk_drag_source_set_icon_pixbuf")
@@ -865,12 +854,6 @@
   )
 )
 
-(define-method get_colormap
-  (of-object "GtkWidget")
-  (c-name "gtk_widget_get_colormap")
-  (return-type "GdkColormap*")
-)
-
 (define-method get_visual
   (of-object "GtkWidget")
   (c-name "gtk_widget_get_visual")
@@ -920,15 +903,6 @@
   (of-object "GtkWidget")
   (c-name "gtk_widget_get_accessible")
   (return-type "AtkObject*")
-)
-
-(define-method set_colormap
-  (of-object "GtkWidget")
-  (c-name "gtk_widget_set_colormap")
-  (return-type "none")
-  (parameters
-    '("GdkColormap*" "colormap")
-  )
 )
 
 (define-method get_events
