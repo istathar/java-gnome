@@ -1,6 +1,6 @@
 (define-object Widget
   (in-module "Gtk")
-  (parent "GtkObject")
+  (parent "GObject")
   (c-name "GtkWidget")
   (gtype-id "GTK_TYPE_WIDGET")
   (fields
@@ -1578,6 +1578,11 @@
   (parameters
     '("GdkEvent*" "event")
   )
+)
+
+(define-virtual destroy
+  (of-object "GtkObject")
+  (return-type "none")
 )
 
 (define-virtual destroy_event
