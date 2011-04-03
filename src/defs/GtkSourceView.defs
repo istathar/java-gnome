@@ -173,44 +173,6 @@
   (return-type "gboolean")
 )
 
-(define-method set_mark_category_pixbuf
-  (of-object "GtkSourceView")
-  (c-name "gtk_source_view_set_mark_category_pixbuf")
-  (return-type "none")
-  (parameters
-    '("const-gchar*" "category")
-    '("GdkPixbuf*" "pixbuf" (null-ok))
-  )
-)
-
-(define-method get_mark_category_pixbuf
-  (of-object "GtkSourceView")
-  (c-name "gtk_source_view_get_mark_category_pixbuf")
-  (return-type "GdkPixbuf*")
-  (parameters
-    '("const-gchar*" "category")
-  )
-)
-
-(define-method set_mark_category_priority
-  (of-object "GtkSourceView")
-  (c-name "gtk_source_view_set_mark_category_priority")
-  (return-type "none")
-  (parameters
-    '("const-gchar*" "category")
-    '("gint" "priority")
-  )
-)
-
-(define-method get_mark_category_priority
-  (of-object "GtkSourceView")
-  (c-name "gtk_source_view_get_mark_category_priority")
-  (return-type "gint")
-  (parameters
-    '("const-gchar*" "category")
-  )
-)
-
 (define-method set_smart_home_end
   (of-object "GtkSourceView")
   (c-name "gtk_source_view_set_smart_home_end")
@@ -239,26 +201,6 @@
   (of-object "GtkSourceView")
   (c-name "gtk_source_view_get_draw_spaces")
   (return-type "GtkSourceDrawSpacesFlags")
-)
-
-(define-method set_mark_category_background
-  (of-object "GtkSourceView")
-  (c-name "gtk_source_view_set_mark_category_background")
-  (return-type "none")
-  (parameters
-    '("const-gchar*" "category")
-    '("const-GdkColor*" "color" (null-ok))
-  )
-)
-
-(define-method get_mark_category_background
-  (of-object "GtkSourceView")
-  (c-name "gtk_source_view_get_mark_category_background")
-  (return-type "gboolean")
-  (parameters
-    '("const-gchar*" "category")
-    '("GdkColor*" "dest")
-  )
 )
 
 (define-virtual undo
