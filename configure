@@ -782,15 +782,15 @@ output "\nCheck for required system libraries:\n";
 if ($os eq "gentoo") {
 	check_system_library(@gnomedev_libs,
 			"glib-2.0 >= 2.22 
-					gtk+-2.0 >= 2.22 
+					gtk+-3.0 >= 3.0.0
 					pango >= 1.28 
 					librsvg-2.0 
 					atk 
-					gdk-2.0 
+					gdk-3.0 
 					libglade-2.0 >= 2.6.4 
-					gtk+-unix-print-2.0 
+					gtk+-unix-print-3.0 
 					cairo-svg >= 1.10.0 
-					gtksourceview-2.0 >= 2.6.2",
+					gtksourceview-3.0",
 			"GNOME",
 			"gnome");
 
@@ -823,7 +823,7 @@ if ($os eq "gentoo") {
 			"FIXME");
 
 	check_system_library(@gnomedev_libs,
-			"gtk+-2.0 >= 2.22",
+			"gtk+-3.0 >= 3.0.0",
 			"GTK+",
 			"gtk+2");
 
@@ -848,7 +848,7 @@ if ($os eq "gentoo") {
 			"libglade");
 
 	check_system_library(@gnomedev_libs,
-			"gtksourceview-2.0 >= 2.6.2",
+			"gtksourceview-3.0",
 			"GtkSourceView",
 			"FIXME");
 
@@ -885,11 +885,11 @@ if ($os eq "gentoo") {
 			"libglib2.0-dev");
 
 	check_system_library(@gnomedev_libs,
-			"gtk+-2.0 >= 2.22 
-					gdk-2.0 
-					gtk+-unix-print-2.0",
+			"gtk+-3.0 >= 3.0 
+					gdk-3.0 
+					gtk+-unix-print-3.0",
 			"GTK+",
-			"libgtk2.0-dev");
+			"libgtk3.0-dev");
 
 	check_system_library(@gnomedev_libs,
 			"pango >= 1.28",
@@ -912,9 +912,9 @@ if ($os eq "gentoo") {
 			"libglade2-dev");
 
 	check_system_library(@gnomedev_libs,
-			"gtksourceview-2.0 >= 2.6.1",
+			"gtksourceview-3.0",
 			"GtkSourceView",
-			"libgtksourceview2.0-dev");
+			"libgtksourceview3.0-dev");
 
 	check_system_library(@gnomedev_libs,
 			"libnotify >= 0.7.0",
@@ -944,11 +944,11 @@ if ($os eq "gentoo") {
 
 	check_system_library(@gnomedev_libs,
 			"glib-2.0 >= 2.22 
-					gtk+-2.0 >= 2.22.0 
+					gtk+-3.0 >= 3.0.0
 					pango >= 1.22 
 					atk 
-					gdk-2.0 
-					gtk+-unix-print-2.0",
+					gdk-3.0 
+					gtk+-unix-print-3.0",
 			"GNOME development libraries",
 			"libgnome-devel");
 
@@ -963,7 +963,7 @@ if ($os eq "gentoo") {
 			"libglade2-devel");
 
 	check_system_library(@gnomedev_libs,
-			"gtksourceview-2.0 >= 2.6.2",
+			"gtksourceview-3.0",
 			"GtkSourceView",
 			"FIXME");
 
@@ -996,13 +996,13 @@ if ($os eq "gentoo") {
 
 	check_system_library(@gnomedev_libs,
 			"glib-2.0 > 2.22 
-					gtk+-2.0 >= 2.22.0 
+					gtk+-3.0
 					pango >= 1.22 
 					atk 
-					gdk-2.0 
-					gtk+-unix-print-2.0",
+					gdk-3.0 
+					gtk+-unix-print-3.0",
 			"GTK development libraries",
-			"lib${cpu_arch}gtk+2.0-devel");
+			"lib${cpu_arch}gtk+3.0-devel");
 
 	check_system_library(@gnomedev_libs,
 			"librsvg-2.0",
@@ -1015,9 +1015,9 @@ if ($os eq "gentoo") {
 			"lib${cpu_arch}glade2.0_0_devel");
 
 	check_system_library(@gnomedev_libs,
-			"gtksourceview-2.0 >= 2.6.2",
+			"gtksourceview-3.0",
 			"GtkSourceView",
-			"lib${cpu_arch}gtksourceview-2.0-devel");
+			"lib${cpu_arch}gtksourceview-3.0-devel");
 
 	check_system_library(@gnomedev_libs,
 			"libnotify >= 0.7.0",
@@ -1051,9 +1051,9 @@ if ($os eq "gentoo") {
 			"FIXME");
 
 	check_system_library(@gnomedev_libs,
-			"gtk+-2.0 >= 2.22 
-					gdk-2.0 
-					gtk+-unix-print-2.0",
+			"gtk+-3.0 >= 3.0
+					gdk-3.0 
+					gtk+-unix-print-3.0",
 			"GTK+",
 			"FIXME");
 
@@ -1078,7 +1078,7 @@ if ($os eq "gentoo") {
 			"FIXME");
 
 	check_system_library(@gnomedev_libs,
-			"gtksourceview-2.0 >= 2.6.1",
+			"gtksourceview-3.0",
 			"GtkSourceView",
 			"FIXME");
 
