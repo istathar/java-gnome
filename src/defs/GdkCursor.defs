@@ -4,9 +4,6 @@
   (gtype-id "GDK_TYPE_CURSOR")
   (copy-func "gdk_cursor_ref")
   (release-func "gdk_cursor_unref")
-  (fields
-    '("GdkCursorType" "type")
-  )
 )
 
 (define-method ref
@@ -60,21 +57,6 @@
   )
 )
 
-(define-function cursor_new_from_pixmap
-  (is-constructor-of "GdkCursor")
-  (c-name "gdk_cursor_new_from_pixmap")
-  (caller-owns-return #t)
-  (return-type "GdkCursor*")
-  (parameters
-    '("GdkPixmap*" "source")
-    '("GdkPixmap*" "mask")
-    '("GdkColor*" "fg")
-    '("GdkColor*" "bg")
-    '("gint" "x")
-    '("gint" "y")
-  )
-)
-
 (define-function cursor_new_from_pixbuf
   (is-constructor-of "GdkCursor")
   (c-name "gdk_cursor_new_from_pixbuf")
@@ -92,5 +74,11 @@
   (of-object "GdkCursor")
   (c-name "gdk_cursor_get_display")
   (return-type "GdkDisplay*")
+)
+
+(define-method get_cursor_type
+  (of-object "GdkCursor")
+  (c-name "gdk_cursor_get_cursor_type")
+  (return-type "GdkCursorType")
 )
 

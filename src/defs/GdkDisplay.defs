@@ -131,12 +131,6 @@
   )
 )
 
-(define-method get_core_pointer
-  (of-object "GdkDisplay")
-  (c-name "gdk_display_get_core_pointer")
-  (return-type "GdkDevice*")
-)
-
 (define-method get_pointer
   (of-object "GdkDisplay")
   (c-name "gdk_display_get_pointer")
