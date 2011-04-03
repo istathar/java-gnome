@@ -4,13 +4,6 @@
   (gtype-id "GTK_TYPE_SELECTION_DATA")
   (copy-func "gtk_selection_data_copy")
   (release-func "gtk_selection_data_free")
-  (fields
-    '("GdkAtom" "selection")
-    '("GdkAtom" "target")
-    '("GdkAtom" "type")
-    '("gint" "format")
-    '("guchar*" "data")
-  )
 )
 
 (define-method set
