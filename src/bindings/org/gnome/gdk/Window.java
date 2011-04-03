@@ -32,6 +32,8 @@
  */
 package org.gnome.gdk;
 
+import org.gnome.glib.Object;
+
 /**
  * The underlying native resource driving a rectangular region on a screen.
  * These are notable as being what powers the display of Widgets, being both
@@ -66,7 +68,7 @@ package org.gnome.gdk;
  * @author Andrew Cowie
  * @since 4.0.4
  */
-public class Window extends Drawable
+public class Window extends Object
 {
     protected Window(long pointer) {
         super(pointer);
@@ -86,7 +88,7 @@ public class Window extends Drawable
 
     /**
      * Set the Cursor that will be shown when the pointer hovers over this
-     * Drawable Window.
+     * Window.
      * 
      * @param cursor
      *            Passing <code>null</code> will cause this Window to [revert
@@ -205,30 +207,6 @@ public class Window extends Drawable
      */
     public boolean isViewable() {
         return GdkWindow.isViewable(this);
-    }
-
-    /**
-     * Change the background of the Window.
-     * 
-     * <p>
-     * TODO describe relative parameter.
-     * 
-     * <p>
-     * This really is only necessary if trying to do irregularly shaped user
-     * interfaces (ie, not standard rectangular applications) and need a
-     * transparent background. You get that via:
-     * 
-     * <pre>
-     * underlying.setBackingPixmap(null, false);
-     * </pre>
-     * 
-     * but transparency is a complex topic and requres other measures as well.
-     * TODO describe or link!
-     * 
-     * @since <span style="color:red">unstable</span>
-     */
-    public void setBackingPixmap(Pixmap pixmap, boolean relative) {
-        GdkWindow.setBackPixmap(this, pixmap, relative);
     }
 
     /**

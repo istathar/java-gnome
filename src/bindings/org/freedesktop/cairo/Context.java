@@ -33,7 +33,7 @@
 package org.freedesktop.cairo;
 
 import org.gnome.gdk.Color;
-import org.gnome.gdk.Drawable;
+import org.gnome.gdk.Window;
 import org.gnome.gdk.EventExpose;
 import org.gnome.gdk.Pixbuf;
 import org.gnome.pango.Layout;
@@ -149,7 +149,7 @@ public class Context extends Entity
     }
 
     /**
-     * Construct a new "Cairo Context" related to a Drawable. This is the
+     * Construct a new "Cairo Context" related to a Window. This is the
      * magic glue which allows you to link between GTK's Widgets and Cairo's
      * drawing operations.
      * 
@@ -167,15 +167,10 @@ public class Context extends Entity
      * as we are, from the Java bindings' perspective, constructing a Cairo
      * Context. So a constructor it is.</i>
      * 
-     * @since 4.0.7
+     * @since 4.1.1
      */
-    /*
-     * The function in GdkDrawable is tempting, but since it is not marked as
-     * a constructor, it wants to return an object, not a long. It's also in
-     * the wrong package. We'll leave that be.
-     */
-    public Context(Drawable drawable) {
-        super(GdkCairoSupport.createContextFromDrawable(drawable));
+    public Context(Window window) {
+        super(GdkCairoSupport.createContextFromWindow(window));
         checkStatus();
     }
 
