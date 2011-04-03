@@ -61,7 +61,7 @@ public class ExampleLowBattery
          */
 
         notification = new Notification("Low Battery Example", "Your battery is low!",
-                "messagebox_warning", icon);
+                "messagebox_warning");
 
         /*
          * Quit the application after notification disappears.
