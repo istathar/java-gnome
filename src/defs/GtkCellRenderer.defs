@@ -177,7 +177,7 @@
   (of-object "GtkCellRenderer")
   (return-type "none")
   (parameters
-    '("GdkDrawable*" "window")
+    '("GdkWindow*" "window")
     '("GtkWidget*" "widget")
     '("GdkRectangle*" "background_area")
     '("GdkRectangle*" "cell_area")
