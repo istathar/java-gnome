@@ -11,12 +11,6 @@
   (return-type "GdkVisual*")
 )
 
-(define-method get_rgb_visual
-  (of-object "GdkScreen")
-  (c-name "gdk_screen_get_rgb_visual")
-  (return-type "GdkVisual*")
-)
-
 (define-method get_rgba_visual
   (of-object "GdkScreen")
   (c-name "gdk_screen_get_rgba_visual")
@@ -118,15 +112,6 @@
   (return-type "gint")
   (parameters
     '("GdkWindow*" "window")
-  )
-)
-
-(define-method broadcast_client_message
-  (of-object "GdkScreen")
-  (c-name "gdk_screen_broadcast_client_message")
-  (return-type "none")
-  (parameters
-    '("GdkEvent*" "event")
   )
 )
 
