@@ -82,6 +82,9 @@ package org.gnome.gtk;
  */
 public class ComboBox extends Bin implements CellEditable, CellLayout
 {
+    
+    //TODO: Add combo_box_with_entry constructors
+    
     protected ComboBox(long pointer) {
         super(pointer);
     }
