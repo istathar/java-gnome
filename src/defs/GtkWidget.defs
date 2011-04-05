@@ -374,12 +374,6 @@
   (return-type "none")
 )
 
-(define-method hide_all
-  (of-object "GtkWidget")
-  (c-name "gtk_widget_hide_all")
-  (return-type "none")
-)
-
 (define-method set_no_show_all
   (of-object "GtkWidget")
   (c-name "gtk_widget_set_no_show_all")
@@ -597,16 +591,6 @@
   (return-type "gboolean")
 )
 
-(define-method set_scroll_adjustments
-  (of-object "GtkWidget")
-  (c-name "gtk_widget_set_scroll_adjustments")
-  (return-type "gboolean")
-  (parameters
-    '("GtkAdjustment*" "hadjustment" (null-ok))
-    '("GtkAdjustment*" "vadjustment" (null-ok))
-  )
-)
-
 (define-method reparent
   (of-object "GtkWidget")
   (c-name "gtk_widget_reparent")
@@ -821,21 +805,6 @@
   (parameters
     '("GdkEventMask" "events")
   )
-)
-
-(define-method set_extension_events
-  (of-object "GtkWidget")
-  (c-name "gtk_widget_set_extension_events")
-  (return-type "none")
-  (parameters
-    '("GdkExtensionMode" "mode")
-  )
-)
-
-(define-method get_extension_events
-  (of-object "GtkWidget")
-  (c-name "gtk_widget_get_extension_events")
-  (return-type "GdkExtensionMode")
 )
 
 (define-method get_toplevel
