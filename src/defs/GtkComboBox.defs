@@ -14,13 +14,6 @@
   (return-type "GtkWidget*")
 )
 
-(define-function gtk_combo_box_new_text
-  (is-constructor-of "GtkComboBox")
-  (c-name "gtk_combo_box_new_text")
-  (caller-owns-return #t)
-  (return-type "GtkWidget*")
-)
-
 (define-function gtk_combo_box_new_with_model
   (is-constructor-of "GtkComboBox")
   (c-name "gtk_combo_box_new_with_model")
@@ -106,43 +99,6 @@
   (return-type "GtkTreeModel*")
 )
 
-(define-method append_text
-  (of-object "GtkComboBox")
-  (c-name "gtk_combo_box_append_text")
-  (return-type "none")
-  (parameters
-    '("const-gchar*" "text")
-  )
-)
-
-(define-method insert_text
-  (of-object "GtkComboBox")
-  (c-name "gtk_combo_box_insert_text")
-  (return-type "none")
-  (parameters
-    '("gint" "position")
-    '("const-gchar*" "text")
-  )
-)
-
-(define-method prepend_text
-  (of-object "GtkComboBox")
-  (c-name "gtk_combo_box_prepend_text")
-  (return-type "none")
-  (parameters
-    '("const-gchar*" "text")
-  )
-)
-
-(define-method remove_text
-  (of-object "GtkComboBox")
-  (c-name "gtk_combo_box_remove_text")
-  (return-type "none")
-  (parameters
-    '("gint" "position")
-  )
-)
-
 (define-method popup
   (of-object "GtkComboBox")
   (c-name "gtk_combo_box_popup")
@@ -220,13 +176,6 @@
   (return-type "GtkTreeViewRowSeparatorFunc")
 )
 
-(define-method get_active_text
-  (of-object "GtkComboBox")
-  (c-name "gtk_combo_box_get_active_text")
-  (caller-owns-return #t)
-  (return-type "gchar*")
-)
-
 (define-method get_popup_accessible
   (of-object "GtkComboBox")
   (c-name "gtk_combo_box_get_popup_accessible")
@@ -236,12 +185,6 @@
 (define-virtual changed
   (of-object "GtkComboBox")
   (return-type "none")
-)
-
-(define-virtual get_active_text
-  (of-object "GtkComboBox")
-  (caller-owns-return #t)
-  (return-type "char*")
 )
 
 (define-method get_title
