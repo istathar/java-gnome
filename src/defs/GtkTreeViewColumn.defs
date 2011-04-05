@@ -1,6 +1,6 @@
 (define-object TreeViewColumn
   (in-module "Gtk")
-  (parent "GtkObject")
+  (parent "GObject")
   (implements "GtkCellLayout")
   (c-name "GtkTreeViewColumn")
   (gtype-id "GTK_TYPE_TREE_VIEW_COLUMN")

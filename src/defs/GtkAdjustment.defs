@@ -1,6 +1,6 @@
 (define-object Adjustment
   (in-module "Gtk")
-  (parent "GtkObject")
+  (parent "GObject")
   (c-name "GtkAdjustment")
   (gtype-id "GTK_TYPE_ADJUSTMENT")
   (fields
@@ -17,7 +17,7 @@
   (is-constructor-of "GtkAdjustment")
   (c-name "gtk_adjustment_new")
   (caller-owns-return #t)
-  (return-type "GtkObject*")
+  (return-type "GtkAdjustment*")
   (parameters
     '("gdouble" "value")
     '("gdouble" "lower")

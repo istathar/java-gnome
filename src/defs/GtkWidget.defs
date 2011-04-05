@@ -1581,7 +1581,7 @@
 )
 
 (define-virtual destroy
-  (of-object "GtkObject")
+  (of-object "GtkWidget")
   (return-type "none")
 )
 
