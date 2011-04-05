@@ -51,6 +51,8 @@ package org.gnome.gtk;
  * 
  * @author Andrew Cowie
  * @since 4.0.6
+ * @deprecated Replaced in 4.1; you can use the new ComboBoxText widget along
+ *             with an Entry directly.
  */
 public class TextComboBoxEntry extends ComboBoxEntry
 {

@@ -74,6 +74,9 @@ package org.gnome.gtk;
  * 
  * @since 4.0.6
  * @author Andrew Cowie
+ * @deprecated This Widget has been remodelled in GTK 3 as a property of
+ *             ComboBox, where you can now specify an Entry when constructing.
+ *             Thus this Widget is not available in 4.1
  */
 public class ComboBoxEntry extends ComboBox implements CellEditable, CellLayout
 {

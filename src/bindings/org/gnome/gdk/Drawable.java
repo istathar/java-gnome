@@ -42,6 +42,7 @@ import org.gnome.glib.Object;
  * 
  * @author Andrew Cowie
  * @since 4.0.6
+ * @deprecated
  */
 public abstract class Drawable extends Object
 {

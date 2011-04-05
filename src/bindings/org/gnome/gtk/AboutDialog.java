@@ -1,7 +1,7 @@
 /*
  * java-gnome, a UI library for writing GTK and GNOME programs from Java!
  *
- * Copyright © 2007-2010 Operational Dynamics Consulting, Pty Ltd and Others
+ * Copyright © 2007-2011 Operational Dynamics Consulting, Pty Ltd and Others
  *
  * The code in this file, and the program it is a part of, is made available
  * to you by its authors as open source software: you can redistribute it
@@ -286,6 +286,7 @@ public class AboutDialog extends Dialog
      * 
      * @author Guillaume Mazoyer
      * @since 4.0.14
+     * @deprecated Replaced by AboutDialog.ActivateLink
      */
     public interface EmailHook
     {
@@ -297,6 +298,7 @@ public class AboutDialog extends Dialog
      * used to handle email clicked actions.
      * 
      * @since 4.0.14
+     * @deprecated Replaced by connect(AboutDialog.ActivateLink)
      */
     public void setEmailCallback(EmailHook handler) {
         GtkAboutDialogOverride.setEmailHook(this);
@@ -325,6 +327,7 @@ public class AboutDialog extends Dialog
      * 
      * @author Guillaume Mazoyer
      * @since 4.0.14
+     * @deprecated Replaced by AboutDialog.ActivateLink
      */
     public interface UrlHook
     {
@@ -336,6 +339,7 @@ public class AboutDialog extends Dialog
      * to handle website button click actions.
      * 
      * @since 4.0.14
+     * @deprecated Replaced by connect(AboutDialog.ActivateLink)
      */
     public void setUrlCallback(UrlHook handler) {
         GtkAboutDialogOverride.setUrlHook(this);

@@ -49,6 +49,7 @@ package org.gnome.gtk;
  * 
  * @author Andrew Cowie
  * @since 4.0.0
+ * @deprecated
  */
 /*
  * Once upon a time we had a few additional property accessors that were
@@ -87,6 +88,7 @@ public abstract class Object extends org.gnome.glib.Object
      * released.</i>
      * 
      * @since 4.0.18
+     * @deprecated This has moved to Widget's destroy() in 4.1
      */
     public void destroy() {
         GtkObject.destroy(this);

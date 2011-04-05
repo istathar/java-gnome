@@ -1,7 +1,7 @@
 /*
  * java-gnome, a UI library for writing GTK and GNOME programs from Java!
  *
- * Copyright © 2006-2010 Operational Dynamics Consulting, Pty Ltd and Others
+ * Copyright © 2006-2011 Operational Dynamics Consulting, Pty Ltd and Others
  *
  * The code in this file, and the program it is a part of, is made available
  * to you by its authors as open source software: you can redistribute it
@@ -32,6 +32,7 @@
  */
 package org.gnome.gtk;
 
+import org.freedesktop.cairo.Context;
 import org.gnome.gdk.Color;
 import org.gnome.gdk.Colormap;
 import org.gnome.gdk.Event;
@@ -444,6 +445,8 @@ public abstract class Widget extends org.gnome.gtk.Object
      * 
      * @author Andrew Cowie
      * @since 4.0.7
+     * @deprecated GTK 3 has replaced the <code>Widget.ExposeEvent</code>
+     *             signal with a new <code>Widget.Draw</code> instead.
      */
     /*
      * FIXME when we figure out offscreen drawing, then we can change "cannot
@@ -468,6 +471,70 @@ public abstract class Widget extends org.gnome.gtk.Object
      */
     public void connect(Widget.ExposeEvent handler) {
         GtkWidget.connect(this, handler, false);
+    }
+
+    /**
+     * <p>
+     * To do drawing with Cairo you need a Context, and GTK 3 conveniently
+     * provides you with one all ready to go:
+     * 
+     * <pre>
+     * foo.connect(new Widget.Draw() {
+     *     public boolean onDraw(Widget source, Context cr) {
+     *        // start drawing
+     *     }
+     * }
+     * </pre>
+     * 
+     * GTK makes calls to Context's <code>save()</code> and
+     * <code>restore()</code> around the <code>Widget.Draw</code> signal so
+     * you don't worry about having to reset the Context to its initial state.
+     * 
+     * <p>
+     * <i>This simulates GTK 3's 'draw' signal as an aide to porting.</i>
+     * 
+     * 
+     * @author Andrew Cowie
+     * @since 4.0.20
+     */
+    public interface Draw
+    {
+        public boolean onDraw(Widget source, Context cr);
+    }
+
+    /*
+     * Temporary workaround. Remove on '4.1' branch
+     */
+    private static class DrawAdapter implements GtkWidget.ExposeEventSignal
+    {
+        private Widget.Draw handler;
+
+        private DrawAdapter(Widget.Draw handler) {
+            this.handler = handler;
+        }
+
+        public boolean onExposeEvent(Widget source, EventExpose event) {
+            final Context cr;
+            final boolean result;
+
+            cr = new Context(event);
+
+            cr.save();
+            result = handler.onDraw(source, cr);
+            cr.restore();
+
+            return result;
+        }
+    }
+
+    /**
+     * Hook up a handler to receive <code>Widget.Draw</code> signals on this
+     * Widget.
+     * 
+     * @since 4.0.20
+     */
+    public void connect(Widget.Draw handler) {
+        GtkWidget.connect(this, new DrawAdapter(handler), false);
     }
 
     /** @deprecated */
@@ -881,6 +948,7 @@ public abstract class Widget extends org.gnome.gtk.Object
      * operator to remove the standard background.
      * 
      * @since 4.0.10
+     * @deprecated Removed from GTK 3.
      */
     public void setColormap(Colormap colormap) {
         GtkWidget.setColormap(this, colormap);
