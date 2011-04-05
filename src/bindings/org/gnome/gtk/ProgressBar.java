@@ -52,7 +52,7 @@ package org.gnome.gtk;
  * @author Bruno Dusausoy
  * @since 4.0.3
  */
-public class ProgressBar extends Widget
+public class ProgressBar extends Widget implements Orientable
 {
 
     protected ProgressBar(long pointer) {
@@ -140,19 +140,19 @@ public class ProgressBar extends Widget
     /**
      * Set orientation of this ProgressBar
      * 
-     * @since 4.0.10
+     * @since 4.1.1
      */
-    public void setOrientation(ProgressBarOrientation orientation) {
-        GtkProgressBar.setOrientation(this, orientation);
+    public void setOrientation(Orientation orientation) {
+        GtkOrientable.setOrientation(this, orientation);
     }
 
     /**
      * Get orientation currently in effect in this ProgressBar
      * 
-     * @since 4.0.10
+     * @since 4.1.1
      */
-    public ProgressBarOrientation getOrientation() {
-        return GtkProgressBar.getOrientation(this);
+    public Orientation getOrientation() {
+        return GtkOrientable.getOrientation(this);
     }
 
     /**

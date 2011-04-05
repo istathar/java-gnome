@@ -1,0 +1,19 @@
+(define-interface Orientable
+  (in-module "Gtk")
+  (c-name "GtkOrientable")
+)
+
+(define-method set_orientation
+  (of-object "GtkOrientable")
+  (c-name "gtk_orientable_set_orientation")
+  (return-type "none")
+  (parameters
+    '("GtkOrientation" "orientation")
+  )
+)
+
+(define-method get_orientation
+  (of-object "GtkOrientable")
+  (c-name "gtk_orientable_get_orientation")
+  (return-type "GtkOrientation")
+)
