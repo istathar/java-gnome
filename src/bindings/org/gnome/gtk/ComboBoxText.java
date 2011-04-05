@@ -67,15 +67,15 @@ package org.gnome.gtk;
  * @author Serkan Kaba
  * @since 4.0.6
  */
-public class TextComboBox extends ComboBox
+public class ComboBoxText extends ComboBox
 {
     /**
      * Construct a new text-only ComboBox.
      * 
      * @since 4.0.6
      */
-    public TextComboBox() {
-        super(GtkComboBox.createComboBoxText());
+    public ComboBoxText() {
+        super(GtkComboBoxText.createComboBoxText());
     }
 
     /**
@@ -109,7 +109,7 @@ public class TextComboBox extends ComboBox
      * @since 4.0.6
      */
     public void appendText(String text) {
-        GtkComboBox.appendText(this, text);
+        GtkComboBoxText.appendText(this, text);
     }
 
     /**
@@ -118,7 +118,7 @@ public class TextComboBox extends ComboBox
      * @since 4.0.6
      */
     public void insertText(int position, String text) {
-        GtkComboBox.insertText(this, position, text);
+        GtkComboBoxText.insertText(this, position, text);
     }
 
     /**
@@ -127,7 +127,7 @@ public class TextComboBox extends ComboBox
      * @since 4.0.6
      */
     public void prependText(String text) {
-        GtkComboBox.prependText(this, text);
+        GtkComboBoxText.prependText(this, text);
     }
 
     /**
@@ -136,7 +136,7 @@ public class TextComboBox extends ComboBox
      * @since 4.0.6
      */
     public String getActiveText() {
-        return GtkComboBox.getActiveText(this);
+        return GtkComboBoxText.getActiveText(this);
     }
 
     /**
@@ -145,6 +145,6 @@ public class TextComboBox extends ComboBox
      * @since 4.0.15
      */
     public void removeText(int position) {
-        GtkComboBox.removeText(this, position);
+        GtkComboBoxText.remove(this, position);
     }
 }
