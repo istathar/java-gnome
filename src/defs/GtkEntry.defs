@@ -260,21 +260,6 @@
   (return-type "gboolean")
 )
 
-(define-method get_icon_window
-  (of-object "GtkEntry")
-  (c-name "gtk_entry_get_icon_window")
-  (return-type "GdkWindow*")
-  (parameters
-    '("GtkEntryIconPosition" "icon_pos")
-  )
-)
-
-(define-method get_text_window
-  (of-object "GtkEntry")
-  (c-name "gtk_entry_get_text_window")
-  (return-type "GdkWindow*")
-)
-
 (define-virtual populate_popup
   (of-object "GtkEntry")
   (return-type "none")
