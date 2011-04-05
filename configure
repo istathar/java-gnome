@@ -781,7 +781,7 @@ output "\nCheck for required system libraries:\n";
 
 if ($os eq "gentoo") {
 	check_system_library(@gnomedev_libs,
-			"glib-2.0 >= 2.22 
+			"glib-2.0 >= 2.28 
 					gtk+-3.0 >= 3.0.0
 					pango >= 1.28 
 					librsvg-2.0 
@@ -818,7 +818,7 @@ if ($os eq "gentoo") {
 	# on slackware gdk-2.0 and gtk+-unix-print-2.0 are part of gtk+-2.0
 	# use http://packages.slackware.it/ for more details. 
 	check_system_library(@gnomedev_libs,
-			"glib-2.0 >= 2.22",
+			"glib-2.0 >= 2.28",
 			"GLib",
 			"FIXME");
 
@@ -880,7 +880,7 @@ if ($os eq "gentoo") {
 			"libcairo2-dev");
 
 	check_system_library(@gnomedev_libs,
-			"glib-2.0 >= 2.22",
+			"glib-2.0 >= 2.28",
 			"GLib",
 			"libglib2.0-dev");
 
@@ -943,7 +943,7 @@ if ($os eq "gentoo") {
 			"libcairo2-dev");
 
 	check_system_library(@gnomedev_libs,
-			"glib-2.0 >= 2.22 
+			"glib-2.0 >= 2.28 
 					gtk+-3.0 >= 3.0.0
 					pango >= 1.22 
 					atk 
@@ -995,7 +995,7 @@ if ($os eq "gentoo") {
 		    # lib64cairo-devel-1.10.2-2-mdv2011.0.x86_64
 
 	check_system_library(@gnomedev_libs,
-			"glib-2.0 > 2.22 
+			"glib-2.0 >= 2.28 
 					gtk+-3.0
 					pango >= 1.22 
 					atk 
@@ -1046,7 +1046,7 @@ if ($os eq "gentoo") {
 			"FIXME");
 
 	check_system_library(@gnomedev_libs,
-			"glib-2.0 >= 2.22",
+			"glib-2.0 >= 2.28",
 			"GLib",
 			"FIXME");
 

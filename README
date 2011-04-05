@@ -156,7 +156,7 @@ The java-gnome library depends on the GNOME desktop and is intended for people
 wishing to do tight integration with it. In particular, this version of
 java-gnome depends on:
 
-* GLib `>= 2.22.0`
+* GLib `>= 2.28.0`
 
 * GTK `>= 3.0.4`
 
@@ -166,9 +166,9 @@ java-gnome depends on:
 
 * libglade `>= 2.6.4`
 
-* gtksourceview `>= 2.6.2`
+* gtksourceview `>= 2.91.9`
 
-* libnotify `>= 0.4.5`
+* libnotify `>= 0.7.0`
 
 * gtkspell `>= 2.0.15`  
 _WARNING: GtkSpell has
