@@ -3,6 +3,7 @@
   (parent "GtkContainer")
   (c-name "GtkSocket")
   (gtype-id "GTK_TYPE_SOCKET")
+  (import-header "gtk/gtkx.h")
 )
 
 (define-function gtk_socket_new
@@ -12,19 +13,20 @@
   (return-type "GtkWidget*")
 )
 
+;; That's an X Window* there. We have no binding of that.
 (define-method add_id
   (of-object "GtkSocket")
   (c-name "gtk_socket_add_id")
   (return-type "none")
   (parameters
-    '("GdkNativeWindow" "window_id")
+    '("Window*" "window_id")
   )
 )
 
 (define-method get_id
   (of-object "GtkSocket")
   (c-name "gtk_socket_get_id")
-  (return-type "GdkNativeWindow")
+  (return-type "Window")
 )
 
 (define-virtual plug_added
