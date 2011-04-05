@@ -19,7 +19,7 @@
   (c-name "gtk_socket_add_id")
   (return-type "none")
   (parameters
-    '("Window*" "window_id")
+    '("Window" "window_id")
   )
 )
 

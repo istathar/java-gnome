@@ -5,7 +5,6 @@
   (values
     '("modal" "GTK_DIALOG_MODAL")
     '("destroy-with-parent" "GTK_DIALOG_DESTROY_WITH_PARENT")
-    '("no-separator" "GTK_DIALOG_NO_SEPARATOR")
   )
 )
 
