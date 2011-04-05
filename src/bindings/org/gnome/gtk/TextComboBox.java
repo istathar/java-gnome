@@ -66,6 +66,7 @@ package org.gnome.gtk;
  * @author Andrew Cowie
  * @author Serkan Kaba
  * @since 4.0.6
+ * @deprecated replaced in 4.1 with ComboBoxText
  */
 public class TextComboBox extends ComboBox
 {

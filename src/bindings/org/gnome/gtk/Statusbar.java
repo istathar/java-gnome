@@ -158,6 +158,7 @@ public class Statusbar extends HBox
      * that just happen to have a Statusbar can do without them.
      * 
      * @since 4.0.6
+     * @deprecated removed in GTK 3
      */
     public void setHasResizeGrip(boolean setting) {
         GtkStatusbar.setHasResizeGrip(this, setting);

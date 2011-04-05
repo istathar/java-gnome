@@ -948,6 +948,7 @@ public abstract class Widget extends org.gnome.gtk.Object
      * operator to remove the standard background.
      * 
      * @since 4.0.10
+     * @deprecated Removed from GTK 3.
      */
     public void setColormap(Colormap colormap) {
         GtkWidget.setColormap(this, colormap);

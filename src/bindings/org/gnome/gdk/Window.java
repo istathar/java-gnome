@@ -226,6 +226,7 @@ public class Window extends Drawable
      * TODO describe or link!
      * 
      * @since <span style="color:red">unstable</span>
+     * @deprecated Removed from GTK 3.
      */
     public void setBackingPixmap(Pixmap pixmap, boolean relative) {
         GdkWindow.setBackPixmap(this, pixmap, relative);
