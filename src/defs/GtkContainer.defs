@@ -96,16 +96,6 @@
   (return-type "GList-GtkWidget*")
 )
 
-(define-method propagate_expose
-  (of-object "GtkContainer")
-  (c-name "gtk_container_propagate_expose")
-  (return-type "none")
-  (parameters
-    '("GtkWidget*" "child")
-    '("GdkEventExpose*" "event")
-  )
-)
-
 (define-method set_focus_chain
   (of-object "GtkContainer")
   (c-name "gtk_container_set_focus_chain")
