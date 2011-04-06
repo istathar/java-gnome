@@ -141,29 +141,6 @@ public class Statusbar extends HBox
     }
 
     /**
-     * Set whether or not the Statusbar has a visual marking at its right hand
-     * side indicating whether or not it can be resized and acting as a
-     * convenient target to click on.
-     * 
-     * <p>
-     * As the default for this is <code>true</code>, you only need to call
-     * this if you want to suppress the resize handle from being drawn. Note
-     * that this is just a visual cue; the actual resize behaviour is governed
-     * by the window manager in concert with the Window's <var>resizable</var>
-     * property. See {@link Window#setResizable(boolean) setResizable()}.
-     * 
-     * <p>
-     * As a very rough guide, main application Windows really ought to have
-     * the resize grip; fancy custom popups filling some transient purpose
-     * that just happen to have a Statusbar can do without them.
-     * 
-     * @since 4.0.6
-     */
-    public void setHasResizeGrip(boolean setting) {
-        GtkStatusbar.setHasResizeGrip(this, setting);
-    }
-
-    /**
      * Set the message showing in the Statusbar. You can call this frequently
      * with whatever indication you wish to display to the user; the last
      * message will be discarded.

@@ -137,20 +137,10 @@ public class ProgressBar extends Widget implements Orientable
         GtkProgressBar.pulse(this);
     }
 
-    /**
-     * Set orientation of this ProgressBar
-     * 
-     * @since 4.1.1
-     */
     public void setOrientation(Orientation orientation) {
         GtkOrientable.setOrientation(this, orientation);
     }
 
-    /**
-     * Get orientation currently in effect in this ProgressBar
-     * 
-     * @since 4.1.1
-     */
     public Orientation getOrientation() {
         return GtkOrientable.getOrientation(this);
     }
