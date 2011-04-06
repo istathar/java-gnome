@@ -2,16 +2,6 @@
   (in-module "Gtk")
   (parent "GObject")
   (c-name "GtkWidget")
-  (gtype-id "GTK_TYPE_WIDGET")
-  (fields
-    '("guint8" "state")
-    '("guint8" "saved_state")
-    '("gchar*" "name")
-    '("GtkStyle*" "style")
-    '("GdkRectangle" "allocation")
-    '("GdkWindow*" "window")
-    '("GtkWidget*" "parent")
-  )
 )
 
 (define-method get_allocation
@@ -242,12 +232,6 @@
   (of-object "GtkWidget")
   (c-name "gtk_menu_get_for_attach_widget")
   (return-type "GList-GtkMenu*")
-)
-
-(define-method rc_get_style
-  (of-object "GtkWidget")
-  (c-name "gtk_rc_get_style")
-  (return-type "GtkStyle*")
 )
 
 (define-method selection_owner_set
@@ -917,42 +901,6 @@
   (return-type "gboolean")
 )
 
-(define-method set_style
-  (of-object "GtkWidget")
-  (c-name "gtk_widget_set_style")
-  (return-type "none")
-  (parameters
-    '("GtkStyle*" "style" (null-ok))
-  )
-)
-
-(define-method ensure_style
-  (of-object "GtkWidget")
-  (c-name "gtk_widget_ensure_style")
-  (return-type "none")
-)
-
-(define-method get_style
-  (of-object "GtkWidget")
-  (c-name "gtk_widget_get_style")
-  (return-type "GtkStyle*")
-)
-
-(define-method modify_style
-  (of-object "GtkWidget")
-  (c-name "gtk_widget_modify_style")
-  (return-type "none")
-  (parameters
-    '("GtkRcStyle*" "style")
-  )
-)
-
-(define-method get_modifier_style
-  (of-object "GtkWidget")
-  (c-name "gtk_widget_get_modifier_style")
-  (return-type "GtkRcStyle*")
-)
-
 (define-method modify_fg
   (of-object "GtkWidget")
   (c-name "gtk_widget_modify_fg")
@@ -1053,12 +1001,6 @@
   (return-type "gchar*")
 )
 
-(define-method reset_rc_styles
-  (of-object "GtkWidget")
-  (c-name "gtk_widget_reset_rc_styles")
-  (return-type "none")
-)
-
 (define-method style_get_property
   (of-object "GtkWidget")
   (c-name "gtk_widget_style_get_property")
@@ -1067,28 +1009,6 @@
     '("const-gchar*" "property_name")
     '("GValue*" "value")
   )
-)
-
-(define-method style_get_valist
-  (of-object "GtkWidget")
-  (c-name "gtk_widget_style_get_valist")
-  (return-type "none")
-  (parameters
-    '("const-gchar*" "first_property_name")
-    '("va_list" "var_args")
-  )
-  (unnecessary)
-)
-
-(define-method style_get
-  (of-object "GtkWidget")
-  (c-name "gtk_widget_style_get")
-  (return-type "none")
-  (parameters
-    '("const-gchar*" "first_property_name")
-  )
-  (varargs #t)
-  (unnecessary)
 )
 
 (define-method set_direction
@@ -1347,18 +1267,6 @@
   )
 )
 
-(define-method style_attach
-  (of-object "GtkWidget")
-  (c-name "gtk_widget_style_attach")
-  (return-type "none")
-)
-
-(define-method has_rc_style
-  (of-object "GtkWidget")
-  (c-name "gtk_widget_has_rc_style")
-  (return-type "gboolean")
-)
-
 (define-virtual dispatch_child_properties_changed
   (of-object "GtkWidget")
   (return-type "none")
@@ -1445,14 +1353,6 @@
   (return-type "none")
   (parameters
     '("GtkWidget*" "previous_toplevel")
-  )
-)
-
-(define-virtual style_set
-  (of-object "GtkWidget")
-  (return-type "none")
-  (parameters
-    '("GtkStyle*" "previous_style" (null-ok))
   )
 )
 
