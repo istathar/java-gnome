@@ -39,26 +39,6 @@
   )
 )
 
-(define-method pack_start_defaults
-  (of-object "GtkBox")
-  (c-name "gtk_box_pack_start_defaults")
-  (return-type "none")
-  (deprecated "use pack_start instead")
-  (parameters
-    '("GtkWidget*" "widget")
-  )
-)
-
-(define-method pack_end_defaults
-  (of-object "GtkBox")
-  (c-name "gtk_box_pack_end_defaults")
-  (return-type "none")
-  (deprecated "use pack_end instead")
-  (parameters
-    '("GtkWidget*" "widget")
-  )
-)
-
 (define-method set_homogeneous
   (of-object "GtkBox")
   (c-name "gtk_box_set_homogeneous")

@@ -424,26 +424,6 @@
   )
 )
 
-(define-method queue_clear
-  (of-object "GtkWidget")
-  (c-name "gtk_widget_queue_clear")
-  (return-type "none")
-  (deprecated "use GtkWidget.queue_draw")
-)
-
-(define-method queue_clear_area
-  (of-object "GtkWidget")
-  (c-name "gtk_widget_queue_clear_area")
-  (return-type "none")
-  (deprecated "use GtkWidget.queue_draw_area")
-  (parameters
-    '("gint" "x")
-    '("gint" "y")
-    '("gint" "width")
-    '("gint" "height")
-  )
-)
-
 (define-method queue_resize
   (of-object "GtkWidget")
   (c-name "gtk_widget_queue_resize")
@@ -454,16 +434,6 @@
   (of-object "GtkWidget")
   (c-name "gtk_widget_queue_resize_no_redraw")
   (return-type "none")
-)
-
-(define-method draw
-  (of-object "GtkWidget")
-  (c-name "gtk_widget_draw")
-  (return-type "none")
-  (deprecated "use GtkWidget.queue_draw_area")
-  (parameters
-    '("GdkRectangle*" "area")
-  )
 )
 
 (define-method size_request
@@ -1033,13 +1003,6 @@
   (parameters
     '("cairo_region_t*" "region")
   )
-)
-
-(define-method reset_shapes
-  (of-object "GtkWidget")
-  (c-name "gtk_widget_reset_shapes")
-  (return-type "none")
-  (deprecated)
 )
 
 (define-method list_mnemonic_labels
@@ -1760,13 +1723,6 @@
   (parameters
     '("GdkEventGrabBroken*" "event")
   )
-)
-
-(define-method get_action
-  (of-object "GtkWidget")
-  (c-name "gtk_widget_get_action")
-  (return-type "GtkAction*")
-  (deprecated)
 )
 
 (define-method drag_dest_set_track_motion

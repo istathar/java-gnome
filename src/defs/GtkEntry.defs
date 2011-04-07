@@ -24,17 +24,6 @@
   )
 )
 
-(define-function gtk_entry_new_with_max_length
-  (is-constructor-of "GtkEntry")
-  (c-name "gtk_entry_new_with_max_length")
-  (caller-owns-return #t)
-  (return-type "GtkWidget*")
-  (deprecated "use gtk.Entry() instead")
-  (parameters
-    '("guint16" "max" (default "0"))
-  )
-)
-
 (define-method set_visibility
   (of-object "GtkEntry")
   (c-name "gtk_entry_set_visibility")
@@ -205,26 +194,6 @@
   (of-object "GtkEntry")
   (c-name "gtk_entry_get_buffer")
   (return-type "GtkEntryBuffer*")
-)
-
-(define-method append_text
-  (of-object "GtkEntry")
-  (c-name "gtk_entry_append_text")
-  (return-type "none")
-  (deprecated "use GtkEditable.insert_text")
-  (parameters
-    '("const-gchar*" "text")
-  )
-)
-
-(define-method prepend_text
-  (of-object "GtkEntry")
-  (c-name "gtk_entry_prepend_text")
-  (return-type "none")
-  (deprecated "use GtkEditable.insert_text")
-  (parameters
-    '("const-gchar*" "text")
-  )
 )
 
 (define-method layout_index_to_text_index

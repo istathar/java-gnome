@@ -19,18 +19,3 @@
   (varargs #t)
 )
 
-(define-function file_chooser_dialog_new_with_backend
-  (deprecated)
-  (is-constructor-of "GtkFileChooserDialog")
-  (c-name "gtk_file_chooser_dialog_new_with_backend")
-  (return-type "GtkWidget*")
-  (parameters
-    '("const-gchar*" "title" (null-ok))
-    '("GtkWindow*" "parent" (null-ok))
-    '("GtkFileChooserAction" "action")
-    '("const-gchar*" "backend")
-    '("const-gchar*" "first_button_text" (null-ok))
-  )
-  (varargs #t)
-)
-
