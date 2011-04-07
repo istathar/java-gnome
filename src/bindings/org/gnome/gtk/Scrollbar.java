@@ -1,7 +1,7 @@
 /*
  * java-gnome, a UI library for writing GTK and GNOME programs from Java!
  *
- * Copyright © 2007-2010 Operational Dynamics Consulting, Pty Ltd
+ * Copyright © 2007-2011 Operational Dynamics Consulting, Pty Ltd
  *
  * The code in this file, and the program it is a part of, is made available
  * to you by its authors as open source software: you can redistribute it
@@ -47,5 +47,16 @@ public abstract class Scrollbar extends Range
 {
     protected Scrollbar(long pointer) {
         super(pointer);
+    }
+
+    /**
+     * Construct a Scrollbar of the given orientation and supplying an
+     * Adjustment. See also the original Widgets {@link HScrollbar} and
+     * {@link VScrollBar}.
+     *
+     * @since 4.1.1
+     */
+    public Scrollbar(Orientation orientation, Adjustment adjustment) {
+        super(GtkScrollbar.createScrollbar(orientation, adjustment));
     }
 }

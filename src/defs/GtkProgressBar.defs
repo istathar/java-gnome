@@ -45,15 +45,6 @@
   )
 )
 
-(define-method set_orientation
-  (of-object "GtkProgressBar")
-  (c-name "gtk_progress_bar_set_orientation")
-  (return-type "none")
-  (parameters
-    '("GtkProgressBarOrientation" "orientation")
-  )
-)
-
 (define-method get_text
   (of-object "GtkProgressBar")
   (c-name "gtk_progress_bar_get_text")
@@ -70,12 +61,6 @@
   (of-object "GtkProgressBar")
   (c-name "gtk_progress_bar_get_pulse_step")
   (return-type "gdouble")
-)
-
-(define-method get_orientation
-  (of-object "GtkProgressBar")
-  (c-name "gtk_progress_bar_get_orientation")
-  (return-type "GtkProgressBarOrientation")
 )
 
 (define-method set_ellipsize

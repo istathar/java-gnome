@@ -127,16 +127,6 @@
   )
 )
 
-(define-method set_tooltip
-  (of-object "GtkStatusIcon")
-  (c-name "gtk_status_icon_set_tooltip")
-  (return-type "none")
-  (parameters
-    '("const-gchar*" "tooltip_text" (null-ok))
-  )
-  (deprecated)
-)
-
 (define-method set_tooltip_text
   (of-object "GtkStatusIcon")
   (c-name "gtk_status_icon_set_tooltip_text")

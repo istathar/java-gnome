@@ -2,6 +2,15 @@
   (in-module "Gtk")
   (parent "GtkWidget")
   (c-name "GtkSeparator")
-  (gtype-id "GTK_TYPE_SEPARATOR")
+)
+
+(define-function gtk_separator_new
+  (is-constructor-of "GtkSeparator")
+  (c-name "gtk_separator_new")
+  (caller-owns-return #t)
+  (return-type "GtkWidget*")
+  (parameters
+    '("GtkOrientation" "orientation")
+  )
 )
 

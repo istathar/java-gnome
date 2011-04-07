@@ -1,6 +1,6 @@
 (define-object CellRenderer
   (in-module "Gtk")
-  (parent "GtkObject")
+  (parent "GObject")
   (c-name "GtkCellRenderer")
   (gtype-id "GTK_TYPE_CELL_RENDERER")
 )
@@ -24,11 +24,10 @@
   (c-name "gtk_cell_renderer_render")
   (return-type "none")
   (parameters
-    '("GdkWindow*" "window")
+    '("cairo_t*" "cr")
     '("GtkWidget*" "widget")
     '("GdkRectangle*" "background_area")
     '("GdkRectangle*" "cell_area")
-    '("GdkRectangle*" "expose_area")
     '("GtkCellRendererState" "flags")
   )
 )
@@ -177,11 +176,10 @@
   (of-object "GtkCellRenderer")
   (return-type "none")
   (parameters
-    '("GdkWindow*" "window")
+    '("cairo_t*" "cr")
     '("GtkWidget*" "widget")
     '("GdkRectangle*" "background_area")
     '("GdkRectangle*" "cell_area")
-    '("GdkRectangle*" "expose_area")
     '("GtkCellRendererState" "flags")
   )
 )

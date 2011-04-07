@@ -1,7 +1,7 @@
 /*
  * java-gnome, a UI library for writing GTK and GNOME programs from Java!
  *
- * Copyright © 2008-2010 Operational Dynamics Consulting, Pty Ltd
+ * Copyright © 2007-2010 Operational Dynamics Consulting, Pty Ltd
  *
  * The code in this file, and the program it is a part of, is made available
  * to you by its authors as open source software: you can redistribute it
@@ -19,23 +19,26 @@
 package org.gnome.gtk;
 
 /**
+ * FIXME Same problem as SnapshotComboBox, which is where this code originally
+ * lived.
+ * 
  * @author Andrew Cowie
  */
-public class SnapshotTextComboBoxEntry extends Snapshot
+public class SnapshotComboBoxText extends Snapshot
 {
-    public SnapshotTextComboBoxEntry() {
-        super(TextComboBoxEntry.class);
+    public SnapshotComboBoxText() {
+        super(ComboBoxText.class);
 
-        final TextComboBoxEntry combo;
+        final ComboBoxText combo;
 
         window = new Window();
         window.setDecorated(false);
 
-        combo = new TextComboBoxEntry();
-        combo.appendText("Sydney");
-        combo.appendText("Toronto");
-        combo.appendText("New York");
-        combo.appendText("London");
+        combo = new ComboBoxText();
+        combo.appendText("SYD");
+        combo.appendText("YYZ");
+        combo.appendText("JFK");
+        combo.appendText("LHR");
         window.add(combo);
 
         window.showAll();
@@ -46,7 +49,7 @@ public class SnapshotTextComboBoxEntry extends Snapshot
 
     public static void main(String[] args) {
         Gtk.init(args);
-        runExample(new SnapshotTextComboBoxEntry());
+        runExample(new SnapshotComboBoxText());
         Gtk.main();
     }
 }

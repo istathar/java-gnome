@@ -3,6 +3,7 @@
   (parent "GtkWindow")
   (c-name "GtkPlug")
   (gtype-id "GTK_TYPE_PLUG")
+  (import-header "gtk/gtkx.h")
 )
 
 (define-method construct
@@ -10,7 +11,7 @@
   (c-name "gtk_plug_construct")
   (return-type "none")
   (parameters
-    '("GdkNativeWindow" "socket_id")
+    '("Window" "socket_id")
   )
 )
 
@@ -19,7 +20,7 @@
   (c-name "gtk_plug_new")
   (return-type "GtkWidget*")
   (parameters
-    '("GdkNativeWindow" "socket_id")
+    '("Window*" "socket_id")
   )
 )
 
@@ -29,14 +30,14 @@
   (return-type "none")
   (parameters
     '("GdkDisplay*" "display")
-    '("GdkNativeWindow" "socket_id")
+    '("Window" "socket_id")
   )
 )
 
 (define-method get_id
   (of-object "GtkPlug")
   (c-name "gtk_plug_get_id")
-  (return-type "GdkNativeWindow")
+  (return-type "Window")
 )
 
 (define-virtual embedded

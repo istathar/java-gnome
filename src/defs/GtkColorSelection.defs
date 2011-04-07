@@ -114,26 +114,6 @@
   (return-type "gboolean")
 )
 
-(define-method set_color
-  (of-object "GtkColorSelection")
-  (c-name "gtk_color_selection_set_color")
-  (return-type "none")
-  (deprecated "use GtkColorSelection.set_current_color")
-  (parameters
-    '("gdouble*" "color")
-  )
-)
-
-(define-method get_color
-  (of-object "GtkColorSelection")
-  (c-name "gtk_color_selection_get_color")
-  (return-type "none")
-  (deprecated "use GtkColorSelection.get_current_color")
-  (parameters
-    '("gdouble*" "color")
-  )
-)
-
 (define-virtual color_changed
   (of-object "GtkColorSelection")
   (return-type "none")

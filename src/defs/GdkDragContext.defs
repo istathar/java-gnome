@@ -16,14 +16,6 @@
   )
 )
 
-(define-function drag_context_new
-  (is-constructor-of "GdkDragContext")
-  (c-name "gdk_drag_context_new")
-  (caller-owns-return #t)
-  (return-type "GdkDragContext*")
-  (deprecated)
-)
-
 (define-method drag_status
   (of-object "GdkDragContext")
   (c-name "gdk_drag_status")
@@ -58,20 +50,6 @@
   (of-object "GdkDragContext")
   (c-name "gdk_drag_get_selection")
   (return-type "GdkAtom")
-)
-
-(define-method drag_find_window
-  (of-object "GdkDragContext")
-  (c-name "gdk_drag_find_window")
-  (return-type "none")
-  (parameters
-    '("GdkWindow*" "drag_window")
-    '("gint" "x_root")
-    '("gint" "y_root")
-    '("GdkWindow**" "dest_window")
-    '("GdkDragProtocol*" "protocol")
-  )
-  (deprecated)
 )
 
 (define-method drag_find_window_for_screen

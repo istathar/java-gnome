@@ -1,7 +1,7 @@
 /*
  * java-gnome, a UI library for writing GTK and GNOME programs from Java!
  *
- * Copyright © 2007-2010 Operational Dynamics Consulting, Pty Ltd
+ * Copyright © 2011 Operational Dynamics Consulting, Pty Ltd
  *
  * The code in this file, and the program it is a part of, is made available
  * to you by its authors as open source software: you can redistribute it
@@ -32,19 +32,25 @@
  */
 package org.gnome.gtk;
 
-import org.freedesktop.bindings.Constant;
-
-/*
- * FIXME this is a placeholder stub for what will become the public API for
- * this type. Replace this comment with appropriate javadoc including author
- * and since tags. Note that the class may need to be made abstract, implement
- * interfaces, or even have its parent changed. No API stability guarantees
- * are made about this class until it has been reviewed by a hacker and this
- * comment has been replaced.
+/**
+ * Widgets which allow you to make them horizontal or vertical.
+ * 
+ * @author Andrew Cowie
+ * @since 4.1.1
  */
-public final class UpdateType extends Constant
+public interface Orientable
 {
-    private UpdateType(int ordinal, String nickname) {
-        super(ordinal, nickname);
-    }
+    /**
+     * Get the orientation of this Orientable.
+     *
+     * @since 4.1.1
+     */
+    public Orientation getOrientation();
+
+    /**
+     * Set the orientation of this Orientable.
+     *
+     * @since 4.1.1
+     */
+    public void setOrientation(Orientation orientation);
 }

@@ -81,33 +81,6 @@
   (return-type "GtkWidget*")
 )
 
-(define-method connect_proxy
-  (of-object "GtkAction")
-  (c-name "gtk_action_connect_proxy")
-  (return-type "none")
-  (parameters
-    '("GtkWidget*" "proxy")
-  )
-  (deprecated)
-)
-
-(define-method disconnect_proxy
-  (of-object "GtkAction")
-  (c-name "gtk_action_disconnect_proxy")
-  (return-type "none")
-  (parameters
-    '("GtkWidget*" "proxy")
-  )
-  (deprecated)
-)
-
-(define-method get_proxies
-  (of-object "GtkAction")
-  (c-name "gtk_action_get_proxies")
-  (return-type "GSList-GtkWidget*")
-  (deprecated)
-)
-
 (define-method connect_accelerator
   (of-object "GtkAction")
   (c-name "gtk_action_connect_accelerator")
@@ -124,26 +97,6 @@
   (of-object "GtkAction")
   (c-name "gtk_action_get_accel_path")
   (return-type "const-gchar*")
-)
-
-(define-method block_activate_from
-  (of-object "GtkAction")
-  (c-name "gtk_action_block_activate_from")
-  (return-type "none")
-  (parameters
-    '("GtkWidget*" "proxy")
-  )
-  (deprecated)
-)
-
-(define-method unblock_activate_from
-  (of-object "GtkAction")
-  (c-name "gtk_action_unblock_activate_from")
-  (return-type "none")
-  (parameters
-    '("GtkWidget*" "proxy")
-  )
-  (deprecated)
 )
 
 (define-method set_accel_path

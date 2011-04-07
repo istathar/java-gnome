@@ -1,6 +1,6 @@
 (define-object FileFilter
   (in-module "Gtk")
-  (parent "GtkObject")
+  (parent "GObject")
   (c-name "GtkFileFilter")
   (gtype-id "GTK_TYPE_FILE_FILTER")
 )

@@ -1,7 +1,7 @@
 /*
  * java-gnome, a UI library for writing GTK and GNOME programs from Java!
  *
- * Copyright © 2007-2010  Operational Dynamics Consulting, Pty Ltd
+ * Copyright © 2007-2011  Operational Dynamics Consulting, Pty Ltd
  *
  * This is ripped almost verbatim (we dropped a few functions) from
  * gnome-utils's gnome-screenshot/screenshot-utils.c,
@@ -300,19 +300,22 @@ screenshot_get_pixbuf (GdkWindow *window,
   if (include_border)
     {
       Window xid, wm;
+      GdkDisplay* display;
 
-      xid = GDK_WINDOW_XWINDOW (window);
+      xid = gdk_x11_window_get_xid (window);
       wm = find_wm_window (xid);
 
-      if (wm != None)
-        window = gdk_window_foreign_new (wm);
+      if (wm != None) {
+        display = gdk_display_get_default();
+        window = gdk_x11_window_foreign_new_for_display (display, wm);
+      }
 
       /* fallback to no border if we can't find the WM window. */
     }
 
   root = gdk_get_default_root_window ();
 
-  gdk_drawable_get_size (window, &real_width, &real_height);      
+  gdk_window_get_geometry (window, NULL, NULL, &real_width, &real_height);      
   gdk_window_get_origin (window, &x_real_orig, &y_real_orig);
 
   x_orig = x_real_orig;
@@ -338,8 +341,8 @@ screenshot_get_pixbuf (GdkWindow *window,
   if (y_orig + height > gdk_screen_height ())
     height = gdk_screen_height () - y_orig;
   
-  screenshot = gdk_pixbuf_get_from_drawable (NULL, root, NULL,
-                                             x_orig, y_orig, 0, 0,
+  screenshot = gdk_pixbuf_get_from_window (root, 
+                                             x_orig, y_orig, 
                                              width, height);
 
 #ifdef HAVE_X11_EXTENSIONS_SHAPE_H
@@ -354,7 +357,7 @@ screenshot_get_pixbuf (GdkWindow *window,
        */
 
       rectangles = XShapeGetRectangles (GDK_DISPLAY_XDISPLAY(gdk_display_get_default()),
-                                        GDK_WINDOW_XWINDOW (window),
+                                        gdk_x11_window_get_xid (window),
                                         ShapeBounding,
                                         &rectangle_count,
                                         &rectangle_order);

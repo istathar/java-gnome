@@ -1,6 +1,6 @@
 (define-object Tooltip
   (in-module "Gtk")
-  (parent "GtkObject")
+  (parent "GObject")
   (c-name "GtkTooltip")
   (gtype-id "GTK_TYPE_TOOLTIP")
 )

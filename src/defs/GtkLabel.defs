@@ -238,26 +238,6 @@
   )
 )
 
-(define-method set
-  (of-object "GtkLabel")
-  (c-name "gtk_label_set")
-  (return-type "none")
-  (deprecated "use GtkLabel.set_text")
-  (parameters
-    '("const-char*" "str")
-  )
-)
-
-(define-method get
-  (of-object "GtkLabel")
-  (c-name "gtk_label_get")
-  (return-type "none")
-  (deprecated "use GtkLabel.get_text")
-  (parameters
-    '("char**" "str")
-  )
-)
-
 (define-method set_ellipsize
   (of-object "GtkLabel")
   (c-name "gtk_label_set_ellipsize")

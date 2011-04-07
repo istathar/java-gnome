@@ -803,11 +803,6 @@ public abstract class Widget extends org.gnome.glib.Object
      * or TextView, see {@link #modifyBase(Widget, StateType Color)
      * modifyBase()}.
      * 
-     * <p>
-     * This is one of a family of "<code>modify</code>" methods; see
-     * {@link #modifyStyle(Widget, RcStyle) modifyStyle()} for further details
-     * about the interaction of the various theming and style mechanisms.
-     * 
      * @since 4.0.5
      */
     public void modifyBackground(StateType state, Color color) {
@@ -819,11 +814,6 @@ public abstract class Widget extends org.gnome.glib.Object
      * foreground colour of the text, use
      * {@link #modifyText(StateType, Color) modifyText()}.
      * 
-     * <p>
-     * This is one of a family of "<code>modify</code>" methods; see
-     * {@link #modifyStyle(Widget, RcStyle) modifyStyle()} for further details
-     * about the interaction of the various theming and style mechanisms.
-     * 
      * @since 4.0.8
      */
     public void modifyBase(StateType state, Color color) {
@@ -834,11 +824,6 @@ public abstract class Widget extends org.gnome.glib.Object
      * Set the colour used for text rendered by this Widget. This is the
      * foreground colour; to change the background colour behind text use
      * {@link #modifyBase(StateType, Color) modifyBase()}.
-     * 
-     * <p>
-     * This is one of a family of "<code>modify</code>" methods; see
-     * {@link #modifyStyle(Widget, RcStyle) modifyStyle()} for further details
-     * about the interaction of the various theming and style mechanisms.
      * 
      * @since 4.0.6
      */

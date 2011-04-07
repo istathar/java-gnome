@@ -2,7 +2,17 @@
   (in-module "Gtk")
   (parent "GtkContainer")
   (c-name "GtkBox")
-  (gtype-id "GTK_TYPE_BOX")
+)
+
+(define-function gtk_box_new
+  (is-constructor-of "GtkBox")
+  (c-name "gtk_box_new")
+  (caller-owns-return #t)
+  (return-type "GtkWidget*")
+  (parameters
+    '("GtkOrientation" "orientation")
+    '("gint" "spacing")
+  )
 )
 
 (define-method pack_start
@@ -26,26 +36,6 @@
     '("gboolean" "expand" (default "TRUE"))
     '("gboolean" "fill" (default "TRUE"))
     '("guint" "padding" (default "0"))
-  )
-)
-
-(define-method pack_start_defaults
-  (of-object "GtkBox")
-  (c-name "gtk_box_pack_start_defaults")
-  (return-type "none")
-  (deprecated "use pack_start instead")
-  (parameters
-    '("GtkWidget*" "widget")
-  )
-)
-
-(define-method pack_end_defaults
-  (of-object "GtkBox")
-  (c-name "gtk_box_pack_end_defaults")
-  (return-type "none")
-  (deprecated "use pack_end instead")
-  (parameters
-    '("GtkWidget*" "widget")
   )
 )
 

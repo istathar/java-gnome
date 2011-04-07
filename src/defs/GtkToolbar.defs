@@ -87,16 +87,6 @@
   (return-type "GtkReliefStyle")
 )
 
-(define-method set_orientation
-  (of-object "GtkToolbar")
-  (c-name "gtk_toolbar_set_orientation")
-  (return-type "none")
-  (parameters
-    '("GtkOrientation" "orientation")
-  )
-  (deprecated "GtkOrientable")
-)
-
 (define-method set_style
   (of-object "GtkToolbar")
   (c-name "gtk_toolbar_set_style")
@@ -106,27 +96,10 @@
   )
 )
 
-(define-method set_tooltips
-  (deprecated)
-  (of-object "GtkToolbar")
-  (c-name "gtk_toolbar_set_tooltips")
-  (return-type "none")
-  (parameters
-    '("gboolean" "enable")
-  )
-)
-
 (define-method unset_style
   (of-object "GtkToolbar")
   (c-name "gtk_toolbar_unset_style")
   (return-type "none")
-)
-
-(define-method get_orientation
-  (of-object "GtkToolbar")
-  (c-name "gtk_toolbar_get_orientation")
-  (return-type "GtkOrientation")
-  (deprecated "GtkOrientable")
 )
 
 (define-method get_style
@@ -139,13 +112,6 @@
   (of-object "GtkToolbar")
   (c-name "gtk_toolbar_get_icon_size")
   (return-type "GtkIconSize")
-)
-
-(define-method get_tooltips
-  (deprecated)
-  (of-object "GtkToolbar")
-  (c-name "gtk_toolbar_get_tooltips")
-  (return-type "gboolean")
 )
 
 (define-virtual orientation_changed

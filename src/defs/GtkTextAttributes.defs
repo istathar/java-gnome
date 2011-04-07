@@ -20,7 +20,6 @@
     '("guint" "invisible")
     '("guint" "bg_full_height")
     '("guint" "editable")
-    '("guint" "realized")
   )
 )
 

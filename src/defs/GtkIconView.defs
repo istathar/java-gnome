@@ -83,18 +83,18 @@
   (return-type "gint")
 )
 
-(define-method set_orientation
+(define-method set_item_orientation
   (of-object "GtkIconView")
-  (c-name "gtk_icon_view_set_orientation")
+  (c-name "gtk_icon_view_set_item_orientation")
   (return-type "none")
   (parameters
     '("GtkOrientation" "orientation")
   )
 )
 
-(define-method get_orientation
+(define-method get_item_orientation
   (of-object "GtkIconView")
-  (c-name "gtk_icon_view_get_orientation")
+  (c-name "gtk_icon_view_get_item_orientation")
   (return-type "GtkOrientation")
 )
 

@@ -2,7 +2,16 @@
   (in-module "Gtk")
   (parent "GtkContainer")
   (c-name "GtkPaned")
-  (gtype-id "GTK_TYPE_PANED")
+)
+
+(define-function gtk_paned_new
+  (is-constructor-of "GtkPaned")
+  (c-name "gtk_paned_new")
+  (caller-owns-return #t)
+  (return-type "GtkWidget*")
+  (parameters
+    '("GtkOrientation" "orientation")
+  )
 )
 
 (define-method add1
