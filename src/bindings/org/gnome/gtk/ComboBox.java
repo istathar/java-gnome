@@ -100,15 +100,15 @@ public class ComboBox extends Bin implements CellEditable, CellLayout
     }
 
     /**
-     * Construct a new ComboBox with an embedded Entry. This allows the user to
-     * add values not already in the backing model.
-     *
+     * Construct a new ComboBox with an embedded Entry. This allows the user
+     * to add values not already in the backing model.
+     * 
      * <p>
-     * <i>In java-gnome 4.0 we had a ComboBoxEntry class, corresponding to
-     * a GTK 2.x widget. This widget was removed in GTK 3.0, however, and
+     * <i>In java-gnome 4.0 we had a ComboBoxEntry class, corresponding to a
+     * GTK 2.x widget. This widget was removed in GTK 3.0, however, and
      * replaced with a construct-only property</i> <var>has-entry</var>. <i>We
      * present this mode here.</i>
-     *
+     * 
      * @since 4.1.1
      */
     /*
@@ -120,7 +120,6 @@ public class ComboBox extends Bin implements CellEditable, CellLayout
         super(GtkComboBox.createComboBoxWithEntry());
         GtkContainer.add(this, entry);
     }
-
 
     /**
      * Construct a new full-power TreeModel-backed ComboBox.
@@ -146,7 +145,6 @@ public class ComboBox extends Bin implements CellEditable, CellLayout
         super(GtkComboBox.createComboBoxWithModelAndEntry(model));
         GtkContainer.add(this, entry);
     }
-
 
     /**
      * Set or change the TreeModel from which this ComboBox draws its data.

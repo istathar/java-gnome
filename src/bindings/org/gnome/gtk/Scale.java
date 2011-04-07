@@ -62,12 +62,13 @@ public class Scale extends Range
     /**
      * Construct a Scale of the given orientation and supplying an Adjustment.
      * See also {@link HScale} and {@link VScale}.
+     * 
      * @since 4.1.1
      */
     public Scale(Orientation orientation, Adjustment adjustment) {
         super(GtkScale.createScale(orientation, adjustment));
     }
-    
+
     /**
      * Specify the number of decimal places that will be shown in the value.
      * This also rounds the value so that when it is retrieved it will match

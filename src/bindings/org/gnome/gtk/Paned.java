@@ -68,9 +68,9 @@ public class Paned extends Container implements Orientable
     }
 
     /**
-     * Construct a new Paned of the given orientation. See also the original 
+     * Construct a new Paned of the given orientation. See also the original
      * Widgets {@link HPaned} and {@link VPaned}.
-     *
+     * 
      * @since 4.1.1
      */
     public Paned(Orientation orientation) {

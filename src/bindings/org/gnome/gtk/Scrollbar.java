@@ -53,7 +53,7 @@ public abstract class Scrollbar extends Range
      * Construct a Scrollbar of the given orientation and supplying an
      * Adjustment. See also the original Widgets {@link HScrollbar} and
      * {@link VScrollBar}.
-     *
+     * 
      * @since 4.1.1
      */
     public Scrollbar(Orientation orientation, Adjustment adjustment) {

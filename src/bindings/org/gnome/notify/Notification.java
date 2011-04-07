@@ -64,7 +64,7 @@ public class Notification extends org.gnome.glib.Object
     protected Notification(long pointer) {
         super(pointer);
     }
-    
+
     /**
      * Create a new notification.
      * 

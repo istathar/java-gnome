@@ -65,7 +65,7 @@ public abstract class Box extends Container implements Orientable
     /**
      * Construct a new Box of the given orientation and specifying a default
      * spacing. See also the original Widgets {@link HBox} and {@link VBox}.
-     *
+     * 
      * @since 4.1.1
      */
     public Box(Orientation orientation, int spacing) {

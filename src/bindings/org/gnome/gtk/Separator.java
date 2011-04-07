@@ -48,7 +48,7 @@ public class Separator extends Widget implements Orientable
     /**
      * Construct a new Separator of the given orientation. You can also use
      * the original Widgets {@link HSeparator} and {@link VSeparator}.
-     *
+     * 
      * @since 4.1.1
      */
     public Separator(Orientation orientation) {

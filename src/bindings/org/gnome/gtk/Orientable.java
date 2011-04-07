@@ -42,14 +42,14 @@ public interface Orientable
 {
     /**
      * Get the orientation of this Orientable.
-     *
+     * 
      * @since 4.1.1
      */
     public Orientation getOrientation();
 
     /**
      * Set the orientation of this Orientable.
-     *
+     * 
      * @since 4.1.1
      */
     public void setOrientation(Orientation orientation);

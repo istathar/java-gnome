@@ -149,9 +149,9 @@ public class Context extends Entity
     }
 
     /**
-     * Construct a new "Cairo Context" related to a Window. This is the
-     * magic glue which allows you to link between GTK's Widgets and Cairo's
-     * drawing operations.
+     * Construct a new "Cairo Context" related to a Window. This is the magic
+     * glue which allows you to link between GTK's Widgets and Cairo's drawing
+     * operations.
      * 
      * <p>
      * You may find yourself needing to get at the Surface that is being drawn

@@ -209,7 +209,8 @@ public class ValidateProperties extends GraphicalTestCase
         GtkWidget.realize(b);
 
         /*
-         * Obtain the current values of the Allocation and test that they changed.
+         * Obtain the current values of the Allocation and test that they
+         * changed.
          */
         size = b.getAllocation();
 

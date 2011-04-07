@@ -86,7 +86,7 @@ public final class Requisition extends Boxed
     }
 
     Requisition() {
-        super(GtkRequisitionOverride.createRequisition());	
+        super(GtkRequisitionOverride.createRequisition());
     }
 
     protected void release() {
