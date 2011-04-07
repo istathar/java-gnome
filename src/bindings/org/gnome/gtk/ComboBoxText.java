@@ -33,7 +33,7 @@
 package org.gnome.gtk;
 
 /**
- * A ComboBox for displaying simple Strings. <img src="TextComboBox.png"
+ * A ComboBox for displaying simple Strings. <img src="ComboBoxText.png"
  * class="snapshot" /> A common use case for ComboBoxes is to just choose from
  * a list of textual options. This subclass of ComboBox takes care of the
  * mechanics of setting up a the ListStore and the appropriate CellRenderers

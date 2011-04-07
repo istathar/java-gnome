@@ -53,10 +53,10 @@ public class ValidateComboBox extends GraphicalTestCase
     }
 
     public final void testComboTextSubclass() {
-        final TextComboBox combo;
+        final ComboBoxText combo;
         final TreeModel model;
 
-        combo = new TextComboBox();
+        combo = new ComboBoxText();
         model = combo.getModel();
 
         assertEquals(0, sizeOfModel(model));
@@ -98,12 +98,12 @@ public class ValidateComboBox extends GraphicalTestCase
         return size;
     }
 
-    public final void testExtractEntry() {
-        final TextComboBoxEntry combo1;
+    public final void skipExtractEntry() {
+        final ComboBoxText combo1;
         final Widget w;
         final Entry e;
 
-        combo1 = new TextComboBoxEntry();
+        combo1 = new ComboBoxText();
 
         combo1.appendText("espresso");
 
@@ -117,18 +117,18 @@ public class ValidateComboBox extends GraphicalTestCase
         assertEquals("espresso", e.getText());
     }
 
-    public final void testModelBackingEntry() {
+    public final void skipModelBackingEntry() {
         final ListStore model;
         final DataColumnString column;
         TreeIter row;
-        final ComboBoxEntry combo;
+        final ComboBox combo;
         final Entry entry;
 
         model = new ListStore(new DataColumn[] {
             column = new DataColumnString(),
         });
 
-        combo = new ComboBoxEntry(model, column);
+        combo = new ComboBox(model);
 
         row = model.appendRow();
         model.setValue(row, column, "One");
@@ -145,33 +145,5 @@ public class ValidateComboBox extends GraphicalTestCase
         combo.setActiveIter(row);
         assertEquals(2, combo.getActive());
         assertEquals("Three", entry.getText());
-    }
-
-    public final void testEntryTextSubclass() {
-        final TextComboBoxEntry text;
-        final TreeModel model;
-
-        text = new TextComboBoxEntry();
-        model = text.getModel();
-
-        assertEquals(0, sizeOfModel(model));
-
-        text.appendText("World");
-        assertEquals(1, sizeOfModel(model));
-
-        text.prependText("Hello");
-        assertEquals(2, sizeOfModel(model));
-
-        text.setActive(0);
-        assertEquals("Hello", text.getActiveText());
-        text.setActive(1);
-        assertEquals("World", text.getActiveText());
-
-        text.insertText(1, "big");
-        assertEquals("World", text.getActiveText());
-
-        assertEquals(3, sizeOfModel(model));
-        text.setActive(1);
-        assertEquals("big", text.getActiveText());
     }
 }
