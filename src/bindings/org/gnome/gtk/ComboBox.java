@@ -1,7 +1,7 @@
 /*
  * java-gnome, a UI library for writing GTK and GNOME programs from Java!
  *
- * Copyright © 2007-2010 Operational Dynamics Consulting, Pty Ltd and Others
+ * Copyright © 2007-2011 Operational Dynamics Consulting, Pty Ltd and Others
  *
  * The code in this file, and the program it is a part of, is made available
  * to you by its authors as open source software: you can redistribute it
@@ -82,9 +82,6 @@ package org.gnome.gtk;
  */
 public class ComboBox extends Bin implements CellEditable, CellLayout
 {
-    
-    //TODO: Add combo_box_with_entry constructors
-    
     protected ComboBox(long pointer) {
         super(pointer);
     }
@@ -103,6 +100,29 @@ public class ComboBox extends Bin implements CellEditable, CellLayout
     }
 
     /**
+     * Construct a new ComboBox with an embedded Entry. This allows the user to
+     * add values not already in the backing model.
+     *
+     * <p>
+     * <i>In java-gnome 4.0 we had a ComboBoxEntry class, corresponding to
+     * a GTK 2.x widget. This widget was removed in GTK 3.0, however, and
+     * replaced with a construct-only property</i> <var>has-entry</var>. <i>We
+     * present this mode here.</i>
+     *
+     * @since 4.1.1
+     */
+    /*
+     * The source code in gtk/gtkcombobox.c indicates that the child widget
+     * must be a GtkEntry and that when it is added is when the appropriate
+     * signals are connected.
+     */
+    protected ComboBox(Entry entry) {
+        super(GtkComboBox.createComboBoxWithEntry());
+        GtkContainer.add(this, entry);
+    }
+
+
+    /**
      * Construct a new full-power TreeModel-backed ComboBox.
      * 
      * <p>
@@ -115,6 +135,18 @@ public class ComboBox extends Bin implements CellEditable, CellLayout
     public ComboBox(TreeModel model) {
         super(GtkComboBox.createComboBoxWithModel(model));
     }
+
+    /**
+     * Construct a new full-power TreeModel-backed ComboBox which also has a
+     * supporting Entry.
+     * 
+     * @since 4.1.1
+     */
+    public ComboBox(TreeModel model, Entry entry) {
+        super(GtkComboBox.createComboBoxWithModelAndEntry(model));
+        GtkContainer.add(this, entry);
+    }
+
 
     /**
      * Set or change the TreeModel from which this ComboBox draws its data.

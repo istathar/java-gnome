@@ -33,7 +33,7 @@
 
 (define-function gtk_combo_box_new_with_model_and_entry
   (is-constructor-of "GtkComboBox")
-  (c-name "gtk_combo_box_new_with_model"_and_entry)
+  (c-name "gtk_combo_box_new_with_model_and_entry")
   (caller-owns-return #t)
   (return-type "GtkWidget*")
   (parameters
