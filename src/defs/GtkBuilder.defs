@@ -1,0 +1,43 @@
+(define-object Builder
+  (in-module "Gtk")
+  (parent "GObject")
+  (c-name "GtkBuilder")
+)
+
+(define-function gtk_builder_new
+  (is-constructor-of "GtkBuilder")
+  (c-name "gtk_builder_new")
+  (caller-owns-return #t)
+  (return-type "GtkBuilder*")
+)
+
+(define-method add_from_file
+  (of-object "GtkBuilder")
+  (c-name "gtk_builder_add_from_file")
+  (return-type "guint")
+  (parameters
+    '("const-char*" "filename")
+    '("GError**" "error")
+  )
+)
+
+(define-method add_from_string
+  (of-object "GtkBuilder")
+  (c-name "gtk_builder_add_from_string")
+  (return-type "guint")
+  (parameters
+    '("const-char*" "buffer")
+    '("gsize" "length")
+    '("GError**" "error")
+  )
+)
+
+(define-method get_object
+  (of-object "GtkBuilder")
+  (c-name "gtk_builder_get_object")
+  (return-type "GObject*")
+  (parameters
+    '("const-char*" "name")
+  )
+)
+
