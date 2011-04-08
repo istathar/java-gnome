@@ -63,8 +63,8 @@ import org.gnome.gtk.SnapshotNotebook;
 import org.gnome.gtk.SnapshotQuestionMessageDialog;
 import org.gnome.gtk.SnapshotRadioButton;
 import org.gnome.gtk.SnapshotStatusbar;
-import org.gnome.gtk.SnapshotTextComboBox;
-import org.gnome.gtk.SnapshotTextComboBoxEntry;
+import org.gnome.gtk.SnapshotComboBoxText;
+import org.gnome.gtk.SnapshotComboBoxTextEntry;
 import org.gnome.gtk.SnapshotTextView;
 import org.gnome.gtk.SnapshotTextViewBorderWindows;
 import org.gnome.gtk.SnapshotTextViewSpelling;
@@ -183,8 +183,8 @@ public final class Harness
                 SnapshotArrow.class,
                 SnapshotNotebook.class,
                 SnapshotCalendar.class,
-                SnapshotTextComboBox.class,
-                SnapshotTextComboBoxEntry.class,
+                SnapshotComboBoxText.class,
+                SnapshotComboBoxTextEntry.class,
                 SnapshotContextLine.class,
                 SnapshotTextView.class,
                 SnapshotTextViewBorderWindows.class,
