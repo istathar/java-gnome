@@ -969,6 +969,8 @@ public abstract class Widget extends org.gnome.gtk.Object
      * about the interaction of the various theming and style mechanisms.
      * 
      * @since 4.0.5
+     * @deprecated This has been replaced in 4.1 with
+     *             <code>overrideBackgroundColor()</code>.
      */
     public void modifyBackground(StateType state, Color color) {
         GtkWidget.modifyBg(this, state, color);
@@ -985,6 +987,8 @@ public abstract class Widget extends org.gnome.gtk.Object
      * about the interaction of the various theming and style mechanisms.
      * 
      * @since 4.0.8
+     * @deprecated This has been replaced in 4.1 with
+     *             <code>overrideFont()</code>.
      */
     public void modifyBase(StateType state, Color color) {
         GtkWidget.modifyBase(this, state, color);
@@ -1001,6 +1005,8 @@ public abstract class Widget extends org.gnome.gtk.Object
      * about the interaction of the various theming and style mechanisms.
      * 
      * @since 4.0.6
+     * @deprecated This has been replaced in 4.1 with
+     *             <code>overrideColor()</code>.
      */
     public void modifyText(StateType state, Color color) {
         GtkWidget.modifyText(this, state, color);
@@ -1013,6 +1019,8 @@ public abstract class Widget extends org.gnome.gtk.Object
      * This is one of a family of "<code>modify</code>" methods.
      * 
      * @since 4.0.10
+     * @deprecated This has been replaced in 4.1 with
+     *             <code>overrideFont()</code>.
      */
     public void modifyFont(FontDescription desc) {
         GtkWidget.modifyFont(this, desc);
