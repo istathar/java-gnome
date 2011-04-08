@@ -164,8 +164,6 @@ java-gnome depends on:
 
 * Pango `>= 1.28.0`
 
-* libglade `>= 2.6.4`
-
 * gtksourceview `>= 2.91.9`
 
 * libnotify `>= 0.7.0`

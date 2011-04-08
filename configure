@@ -787,7 +787,6 @@ if ($os eq "gentoo") {
 					librsvg-2.0 
 					atk 
 					gdk-3.0 
-					libglade-2.0 >= 2.6.4 
 					gtk+-unix-print-3.0 
 					cairo-svg >= 1.10.0 
 					gtksourceview-3.0",
@@ -841,11 +840,6 @@ if ($os eq "gentoo") {
 			"atk",
 			"ATK",
 			"atk");
-
-	check_system_library(@gnomedev_libs,
-			"libglade-2.0",
-			"LibGlade",
-			"libglade");
 
 	check_system_library(@gnomedev_libs,
 			"gtksourceview-3.0",
@@ -907,11 +901,6 @@ if ($os eq "gentoo") {
 			"libatk1.0-dev");
 
 	check_system_library(@gnomedev_libs,
-			"libglade-2.0",
-			"LibGlade",
-			"libglade2-dev");
-
-	check_system_library(@gnomedev_libs,
 			"gtksourceview-3.0",
 			"GtkSourceView",
 			"libgtksourceview3.0-dev");
@@ -956,11 +945,6 @@ if ($os eq "gentoo") {
 			"librsvg-2.0",
 			"RSVG",
 			"librsvg-devel");
-
-	check_system_library(@gnomedev_libs,
-			"libglade-2.0",
-			"Glade development libraries",
-			"libglade2-devel");
 
 	check_system_library(@gnomedev_libs,
 			"gtksourceview-3.0",
@@ -1008,11 +992,6 @@ if ($os eq "gentoo") {
 			"librsvg-2.0",
 			"RSVG",
 			"lib${cpu_arch}rsvg2-devel");
-
-	check_system_library(@gnomedev_libs,
-			"libglade-2.0",
-			"Glade development libraries",
-			"lib${cpu_arch}glade2.0_0_devel");
 
 	check_system_library(@gnomedev_libs,
 			"gtksourceview-3.0",
@@ -1070,11 +1049,6 @@ if ($os eq "gentoo") {
 	check_system_library(@gnomedev_libs,
 			"atk",
 			"ATK",
-			"FIXME");
-
-	check_system_library(@gnomedev_libs,
-			"libglade-2.0",
-			"LibGlade",
 			"FIXME");
 
 	check_system_library(@gnomedev_libs,
