@@ -32,6 +32,7 @@
  */
 package org.gnome.gtk;
 
+import org.gnome.pango.Alignment;
 import org.gnome.pango.EllipsizeMode;
 
 /**
@@ -157,6 +158,18 @@ public class CellRendererText extends CellRenderer
      */
     public EllipsizeMode getEllipsizeMode() {
         return (EllipsizeMode) getPropertyEnum("ellipsize");
+    }
+
+    /**
+     * Set the Alignment used when multiple lines of text appear <i>within</i>
+     * the cell. This is specific to CellRendererText; for the position of any
+     * CellRenderer within its enclosing TreeViewColumn, see CellRenderer's
+     * {@link CellRenderer#setAlignment(float, float) setAlignment()}.
+     * 
+     * @since 4.0.20
+     */
+    public void setAlignment(Alignment align) {
+        setPropertyEnum("alignment", align);
     }
 
     /**

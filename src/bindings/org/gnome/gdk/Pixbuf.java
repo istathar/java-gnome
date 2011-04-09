@@ -342,6 +342,9 @@ public class Pixbuf extends org.gnome.glib.Object
         return result;
     }
 
+    /**
+     * @param filename
+     */
     /*
      * TODO to expose the gdk_pixbuf_get_file_info() function properly, we'll
      * have to fix the engineering of PixbufFormat which is presently a dogs

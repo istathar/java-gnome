@@ -170,4 +170,12 @@ public abstract class CellRenderer extends Object
         GtkCellLayout.addAttribute(vertical, this, "visible", column.getOrdinal());
     }
 
+    /**
+     * Fix the width of this CellRenderer, specified in pixels.
+     * 
+     * @since 4.0.20
+     */
+    public void setWidth(int width) {
+        setPropertyInteger("width", width);
+    }
 }

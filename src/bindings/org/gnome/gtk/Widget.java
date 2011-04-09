@@ -32,11 +32,11 @@
  */
 package org.gnome.gtk;
 
+import org.freedesktop.cairo.Context;
 import org.gnome.gdk.Color;
 import org.gnome.gdk.Event;
 import org.gnome.gdk.EventButton;
 import org.gnome.gdk.EventCrossing;
-import org.gnome.gdk.EventExpose;
 import org.gnome.gdk.EventFocus;
 import org.gnome.gdk.EventKey;
 import org.gnome.gdk.EventMask;
@@ -334,35 +334,9 @@ public abstract class Widget extends org.gnome.glib.Object
      * another Window or because it was offscreen).
      * 
      * <p>
-     * The <code>event</code> parameter to the callback contains information
-     * about the size of the region that was damaged or otherwise needs
-     * redrawing. For instance, if you just wanted to know what area was
-     * exposed, you could do:
-     * 
-     * <pre>
-     * foo.connect(new Widget.ExposeEvent() {
-     *     public boolean onExposeEvent(Widget source, EventExpose event) {
-     *         Rectangle rect;
-     *         int width, height, x, y;
-     *         
-     *         rect = event.getArea();
-     *         
-     *         width = rect.getWidth();
-     *         height = rect.getHeight();
-     *         x = rect.getX();
-     *         y = rect.getY();
-     *         
-     *         System.out.println(width + &quot;x&quot; + height + &quot; at &quot; + x + &quot;,&quot; + y);
-     *     }
-     * }
-     * </pre>
-     * 
-     * <p>
-     * The real purpose of <code>Widget.ExposeEvent</code>, however, is to be
-     * the the gateway to drawing. GNOME uses the excellent <a
-     * href="http://www.cairographics.org/">Cairo 2D graphics library</a> to
-     * draw its user interfaces, which we make available in java-gnome in
-     * package <code>org.freedesktop.cairo</code>.
+     * GNOME uses the excellent <a href="http://www.cairographics.org/">Cairo
+     * 2D graphics library</a> to draw its user interfaces, which we make
+     * available in java-gnome in package <code>org.freedesktop.cairo</code>.
      * 
      * <p>
      * Code that does drawing needs to be written a little differently than
@@ -373,55 +347,40 @@ public abstract class Widget extends org.gnome.glib.Object
      * for drawing operations, Cairo needs the details of the [org.gnome.gdk]
      * Display, Screen and Window it will be drawing to, and these are not
      * available until the Widget has been realized and mapped. The
-     * <code>Widget.ExposeEvent</code> signal is emitted exactly at this
-     * point, and so that's when we have the environment we need to do our
-     * drawing.
+     * <code>Widget.Draw</code> signal is emitted exactly at this point, and
+     * so that's when we have the environment we need to do our drawing.
      * 
      * <p>
-     * To do drawing with Cairo you need a Context. You can instantiate one by
-     * passing the EventExpose object to the Context constructor:
+     * To do drawing with Cairo you need a Context, and GTK 3 conveniently
+     * provides you with one all ready to go:
      * 
      * <pre>
-     * foo.connect(new Widget.ExposeEvent() {
-     *     public boolean onExposeEvent(Widget source, EventExpose event) {
-     *         Context cr;
-     *         
-     *         cr = new Context(event);
-     *         
-     *         // start drawing
+     * foo.connect(new Widget.Draw() {
+     *     public boolean onDraw(Widget source, Context cr) {
+     *        // start drawing
      *     }
      * }
      * </pre>
      * 
-     * Obviously from here you can carry on using the Cairo Graphics library
-     * to do your custom drawing. See {@link org.freedesktop.cairo.Context
-     * Context} for further details.
+     * GTK makes calls to Context's <code>save()</code> and
+     * <code>restore()</code> around the <code>Widget.Draw</code> signal so
+     * you don't worry about having to reset the Context to its initial state.
      * 
      * @author Andrew Cowie
-     * @since 4.0.7
+     * @since 4.0.20
      */
-    /*
-     * FIXME when we figure out offscreen drawing, then we can change "cannot
-     * easily do".
-     */
-    public interface ExposeEvent extends GtkWidget.ExposeEventSignal
+    public interface Draw
     {
-        /**
-         * As with other event signals, the boolean return value indicates
-         * whether or not you wish to block further emission of the signal. In
-         * general you want to leave the default handlers alone; let them run
-         * as well. Return <code>false</code>.
-         */
-        public boolean onExposeEvent(Widget source, EventExpose event);
+        public boolean onDraw(Widget source, Context cr);
     }
 
     /**
-     * Hook up a handler to receive <code>Widget.ExposeEvent</code> signals on
-     * this Widget.
+     * Hook up a handler to receive <code>Widget.Draw</code> signals on this
+     * Widget.
      * 
-     * @since 4.0.7
+     * @since 4.0.20
      */
-    public void connect(Widget.ExposeEvent handler) {
+    public void connect(Widget.Draw handler) {
         GtkWidget.connect(this, handler, false);
     }
 
@@ -1367,12 +1326,12 @@ public abstract class Widget extends org.gnome.glib.Object
      * 
      * <p>
      * This can be used as an indication that your Window is no longer
-     * minimized. Connecting to {@link Widget.ExposeEvent} would probably tell
-     * you what you need to know, but if all you want to do is find out your
-     * app is [back] onscreen then <code>Widget.ExposeEvent</code> would be a
-     * bit heavy handed. Of course, if you are drawing anyway, then it's fine.
-     * See {@link Widget.UnmapEvent} for examples of other variations on the
-     * theme of tracking the state of your application.
+     * minimized. Connecting to {@link Widget.Draw} would probably tell you
+     * what you need to know, but if all you want to do is find out your app
+     * is [back] onscreen then <code>Widget.Draw</code> would be a bit heavy
+     * handed. Of course, if you are drawing anyway, then it's fine. See
+     * {@link Widget.UnmapEvent} for examples of other variations on the theme
+     * of tracking the state of your application.
      * 
      * <p>
      * <i>The interaction between the GTK library we use, its underlying GDK
@@ -1475,9 +1434,9 @@ public abstract class Widget extends org.gnome.glib.Object
      * 
      * <p>
      * Almost anything that you would do that would invole you needing an
-     * [org.gnome.gdk] Window is best done in a
-     * <code>Widget.ExposeEvent</code> handler, at which point the Widget is
-     * already realized, mapped, and showing.
+     * [org.gnome.gdk] Window is best done in a <code>Widget.Draw</code>
+     * handler, at which point the Widget is already realized, mapped, and
+     * showing.
      * 
      * @since 4.0.16
      */
@@ -1607,7 +1566,7 @@ public abstract class Widget extends org.gnome.glib.Object
      * <i>will be traversed a short time later and the GObject will be
      * released.</i>
      * 
-     * @since 4.1.1
+     * @since 4.0.20
      */
     public void destroy() {
         GtkWidget.destroy(this);
@@ -1621,7 +1580,7 @@ public abstract class Widget extends org.gnome.glib.Object
      * object.
      * 
      * @author Andrew Cowie
-     * @since 4.1.1
+     * @since 4.0.20
      */
     public interface Destroy extends GtkWidget.DestroySignal
     {
@@ -1635,7 +1594,7 @@ public abstract class Widget extends org.gnome.glib.Object
     /**
      * Hook up a <code>Widget.Destroy</code> handler.
      * 
-     * @since 4.1.1
+     * @since 4.0.20
      */
     public void connect(Widget.Destroy handler) {
         GtkWidget.connect(this, handler, false);
