@@ -57,22 +57,16 @@ package org.gnome.gtk;
  * the String specific {@link #getActiveText() getActiveText()} that is
  * introduced here is probably what you want.
  * 
- * <p>
- * <i>These text-only methods are actually found in GTK on
- * <code>GtkComboBox</code>, but using them collides with the normal ComboBox
- * methods. We have therefore moved them to a custom subclass to make the API
- * safe.</i>
- * 
  * @author Andrew Cowie
  * @author Serkan Kaba
- * @since 4.1.1
+ * @since 4.0.20
  */
 public class ComboBoxText extends ComboBox
 {
     /**
      * Construct a new text-only ComboBox.
      * 
-     * @since 4.1.1
+     * @since 4.0.20
      */
     public ComboBoxText() {
         super(GtkComboBoxText.createComboBoxText());
@@ -106,7 +100,7 @@ public class ComboBoxText extends ComboBox
     /**
      * Append an item to the list.
      * 
-     * @since 4.1.1
+     * @since 4.0.20
      */
     public void appendText(String text) {
         GtkComboBoxText.appendText(this, text);
@@ -115,7 +109,7 @@ public class ComboBoxText extends ComboBox
     /**
      * Append an item at the supplied position. Positions are zero origin.
      * 
-     * @since 4.1.1
+     * @since 4.0.20
      */
     public void insertText(int position, String text) {
         GtkComboBoxText.insertText(this, position, text);
@@ -124,7 +118,7 @@ public class ComboBoxText extends ComboBox
     /**
      * Prepend an item to the beginning of the list.
      * 
-     * @since 4.1.1
+     * @since 4.0.20
      */
     public void prependText(String text) {
         GtkComboBoxText.prependText(this, text);
@@ -133,7 +127,7 @@ public class ComboBoxText extends ComboBox
     /**
      * Returns the text of the active item.
      * 
-     * @since 4.1.1
+     * @since 4.0.20
      */
     public String getActiveText() {
         return GtkComboBoxText.getActiveText(this);
@@ -142,7 +136,7 @@ public class ComboBoxText extends ComboBox
     /**
      * Removes the item at given position from the list.
      * 
-     * @since 4.1.1
+     * @since 4.0.20
      */
     public void removeText(int position) {
         GtkComboBoxText.remove(this, position);
