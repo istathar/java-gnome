@@ -38,11 +38,11 @@ final class GdkRGBAOverride extends Plumbing
      * Create a GdkRGBA via gdk_rgba_copy() to support subsequent release
      * via gdk_rgba_free().
      */
-    static final long createRGBA(int red, int green, int blue) {
+    static final long createRGBA(double red, double green, double blue, double alpha) {
         synchronized (lock) {
-            return gdk_rgba_new(red, green, blue);
+            return gdk_rgba_new(red, green, blue, alpha);
         }
     }
 
-    private static native final long gdk_rgba_new(int red, int green, int blue);
+    private static native final long gdk_rgba_new(double red, double green, double blue, double alpha);
 }

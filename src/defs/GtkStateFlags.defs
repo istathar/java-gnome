@@ -1,0 +1,14 @@
+(define-flags StateFlags
+  (in-module "Gtk")
+  (c-name "GtkStateFlags")
+  (values
+    '("normal" "GTK_STATE_NORMAL")
+    '("active" "GTK_STATE_ACTIVE")
+    '("prelight" "GTK_STATE_PRELIGHT")
+    '("selected" "GTK_STATE_SELECTED")
+    '("insensitive" "GTK_STATE_INSENSITIVE")
+    '("inconsistent" "GTK_STATE_INCONSISTENT")
+    '("focused" "GTK_STATE_FOCUSED")
+  )
+)
+

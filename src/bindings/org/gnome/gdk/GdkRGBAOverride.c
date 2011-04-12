@@ -46,10 +46,10 @@ Java_org_gnome_gdk_GdkRGBAOverride_gdk_1rgba_1new
 (
 	JNIEnv* env,
 	jclass cls,
-	jint _red,
-	jint _green,
-	jint _blue,
-	jint _alpha
+	jdouble _red,
+	jdouble _green,
+	jdouble _blue,
+	jdouble _alpha
 )
 {
 	GdkColor blank = { 0, };
@@ -57,10 +57,10 @@ Java_org_gnome_gdk_GdkRGBAOverride_gdk_1rgba_1new
 	
 	// blank is allocated locally on the stack
 	
-	blank.red = (gint) _red;
-	blank.green = (gint) _green;
-	blank.blue = (gint) _blue;
-	blank.alpha = (gint) _alpha;
+	blank.red = (gdouble) _red;
+	blank.green = (gdouble) _green;
+	blank.blue = (gdouble) _blue;
+	blank.alpha = (gdouble) _alpha;
 
 	// copy blank
 	result = gdk_color_copy(&blank);

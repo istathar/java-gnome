@@ -869,54 +869,35 @@
   (of-object "GtkWidget")
   (c-name "gtk_widget_hide_on_delete")
   (return-type "gboolean")
+  (unnecessary)
 )
 
-(define-method modify_fg
+(define-method override_color
   (of-object "GtkWidget")
-  (c-name "gtk_widget_modify_fg")
+  (c-name "gtk_widget_override_color")
   (return-type "none")
   (parameters
-    '("GtkStateType" "state")
-    '("GdkColor*" "color" (null-ok))
+    '("GtkStateFlags" "state")
+    '("GdkRGBA*" "color" (null-ok))
   )
 )
 
-(define-method modify_bg
+(define-method override_background_color
   (of-object "GtkWidget")
-  (c-name "gtk_widget_modify_bg")
+  (c-name "gtk_widget_override_background_color")
   (return-type "none")
   (parameters
-    '("GtkStateType" "state")
-    '("GdkColor*" "color" (null-ok))
+    '("GtkStateFlags" "state")
+    '("const-GdkRGBA*" "color" (null-ok))
   )
 )
 
-(define-method modify_text
+(define-method override_font
   (of-object "GtkWidget")
-  (c-name "gtk_widget_modify_text")
+  (c-name "gtk_widget_override_font")
   (return-type "none")
   (parameters
-    '("GtkStateType" "state")
-    '("GdkColor*" "color" (null-ok))
-  )
-)
-
-(define-method modify_base
-  (of-object "GtkWidget")
-  (c-name "gtk_widget_modify_base")
-  (return-type "none")
-  (parameters
-    '("GtkStateType" "state")
-    '("GdkColor*" "color" (null-ok))
-  )
-)
-
-(define-method modify_font
-  (of-object "GtkWidget")
-  (c-name "gtk_widget_modify_font")
-  (return-type "none")
-  (parameters
-    '("PangoFontDescription*" "font_desc" (null-ok))
+    '("const-PangoFontDescription*" "font_desc" (null-ok))
   )
 )
 

@@ -32,6 +32,8 @@
  */
 package org.gnome.gdk;
 
+import org.gnome.glib.Boxed;
+
 /**
  * Representation of an RGB colour. Used by GDK in drawing Widgets and related
  * elements.
@@ -42,8 +44,6 @@ package org.gnome.gdk;
 // cloned from Color
 public final class RGBA extends Boxed
 {
-    private Color actual;
-
     protected RGBA(long pointer) {
         super(pointer);
     }
@@ -56,7 +56,7 @@ public final class RGBA extends Boxed
      * @since 4.0.20
      */
     public RGBA(double red, double green, double blue, double alpha) {
-        super(GdkRGBA.createRGBA(red, green, blue, alpha));
+        super(GdkRGBAOverride.createRGBA(red, green, blue, alpha));
     }
 
     protected void release() {
@@ -68,8 +68,8 @@ public final class RGBA extends Boxed
      * 
      * @since 4.0.20
      */
-    public int getRed() {
-        return GdkRGBA.getRed(actual);
+    public double getRed() {
+        return GdkRGBA.getRed(this);
     }
 
     /**
@@ -77,8 +77,8 @@ public final class RGBA extends Boxed
      * 
      * @since 4.0.20
      */
-    public int getGreen() {
-        return GdkRGBA.getGreen(actual);
+    public double getGreen() {
+        return GdkRGBA.getGreen(this);
     }
 
     /**
@@ -86,8 +86,8 @@ public final class RGBA extends Boxed
      * 
      * @since 4.0.20
      */
-    public int getBlue() {
-        return GdkRGBA.getBlue(actual);
+    public double getBlue() {
+        return GdkRGBA.getBlue(this);
     }
 
     /**
@@ -95,8 +95,8 @@ public final class RGBA extends Boxed
      * 
      * @since 4.1.1
      */
-    public int getAlpha() {
-        return GdkRGBA.getBlue(actual);
+    public double getAlpha() {
+        return GdkRGBA.getBlue(this);
     }
 
     /**
@@ -136,10 +136,10 @@ public final class RGBA extends Boxed
 
         other = (RGBA) obj;
 
-        return GdkColor.equal(this.actual, other.actual);
+        return GdkRGBA.equal(this, other);
     }
 
     public int hashCode() {
-        return GdkColor.hash(this.actual);
+        return GdkRGBA.hash(this);
     }
 }

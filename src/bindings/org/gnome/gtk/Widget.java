@@ -772,7 +772,7 @@ public abstract class Widget extends org.gnome.glib.Object
      * @since 4.0.20
      */
     public void overrideColor(StateFlags state, RGBA color) {
-        GtkWidget.overrideColor(this, type, color);
+        GtkWidget.overrideColor(this, state, color);
     }
 
     /**
