@@ -1,0 +1,40 @@
+(define-boxed RGBA
+  (in-module "Gdk")
+  (c-name "GdkRGBA")
+  (copy-func "gdk_rgba_copy")
+  (release-func "gdk_rgba_free")
+  (fields
+    '("gdouble" "red")
+    '("gdouble" "green")
+    '("gdouble" "blue")
+    '("gdouble" "alpha")
+  )
+)
+
+(define-method copy
+  (of-object "GdkRGBA")
+  (c-name "gdk_rgba_copy")
+  (return-type "GdkRGBA*")
+)
+
+(define-method free
+  (of-object "GdkRGBA")
+  (c-name "gdk_rgba_free")
+  (return-type "none")
+)
+
+(define-method hash
+  (of-object "GdkRGBA")
+  (c-name "gdk_rgba_hash")
+  (return-type "guint")
+)
+
+(define-method equal
+  (of-object "GdkRGBA")
+  (c-name "gdk_rgba_equal")
+  (return-type "gboolean")
+  (parameters
+    '("const-GdkRGBA*" "other")
+  )
+)
+
