@@ -1,7 +1,7 @@
 /*
  * java-gnome, a UI library for writing GTK and GNOME programs from Java!
  *
- * Copyright © 2007-2010 Operational Dynamics Consulting, Pty Ltd
+ * Copyright © 2007-2011 Operational Dynamics Consulting, Pty Ltd
  *
  * The code in this file, and the program it is a part of, is made available
  * to you by its authors as open source software: you can redistribute it
@@ -18,36 +18,37 @@
  */
 
 import java.io.FileNotFoundException;
+import java.text.ParseException;
 
 import org.gnome.gdk.Event;
 import org.gnome.gdk.EventKey;
-import org.gnome.glade.Glade;
-import org.gnome.glade.XML;
+import org.gnome.gtk.Builder;
 import org.gnome.gtk.Gtk;
 import org.gnome.gtk.Label;
 import org.gnome.gtk.Widget;
 import org.gnome.gtk.Window;
 
 /**
- * A skeleton program to test using the <code>.glade</code> XML output from a
+ * A skeleton program to test using the <code>.ui</code> XML output from a
  * GNOME user interface designer translated into live Widgets with
- * <code>libglade</code>.
+ * <code>GtkBuilder</code>.
  * 
  * @author Andrew Cowie
  */
 public final class Designer
 {
-    private Designer() throws FileNotFoundException {
-        final XML glade;
+    private static void setupUserInterface() throws FileNotFoundException, ParseException {
+        final Builder builder;
         final Window w;
         final Label l;
 
-        glade = Glade.parse("tests/prototype/simple.glade", "simple");
+        builder = new Builder();
+        builder.addFromFile("tests/prototype/simple.ui");
 
-        l = (Label) glade.getWidget("label1");
+        l = (Label) builder.getObject("label1");
         System.out.println("Extracted label text: \n\"" + l.getText() + "\"");
 
-        w = (Window) glade.getWidget("simple");
+        w = (Window) builder.getObject("simple");
 
         w.connect(new Window.DeleteEvent() {
             public boolean onDeleteEvent(Widget source, Event event) {
@@ -73,10 +74,10 @@ public final class Designer
         l.selectRegion(0, 0);
     }
 
-    public static void main(String[] args) throws FileNotFoundException {
+    public static void main(String[] args) throws FileNotFoundException, ParseException {
         Gtk.init(args);
 
-        new Designer();
+        setupUserInterface();
 
         Gtk.main();
 
