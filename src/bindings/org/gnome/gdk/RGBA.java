@@ -55,6 +55,8 @@ public final class RGBA // extends Boxed
      * Construct a new RGBA object. The <code>red</code>, <code>green</code>,
      * <code>blue</code> and <code>alpha</code> parameters take values
      * <code>0.0</code> to <code>1.0</code>.
+     * 
+     * @since 4.0.20
      */
     public RGBA(double red, double green, double blue, double alpha) {
         actual = new Color((int) (red * 65535), (int) (green * 65535), (int) (blue * 65535));
@@ -74,7 +76,7 @@ public final class RGBA // extends Boxed
     /**
      * Get the red component of this Color.
      * 
-     * @since 4.0.5
+     * @since 4.0.20
      */
     public int getRed() {
         return GdkColor.getRed(actual);
@@ -83,7 +85,7 @@ public final class RGBA // extends Boxed
     /**
      * Get the green component of this Color.
      * 
-     * @since 4.0.5
+     * @since 4.0.20
      */
     public int getGreen() {
         return GdkColor.getGreen(actual);
@@ -92,34 +94,34 @@ public final class RGBA // extends Boxed
     /**
      * Get the blue component of this Color.
      * 
-     * @since 4.0.5
+     * @since 4.0.20
      */
     public int getBlue() {
         return GdkColor.getBlue(actual);
     }
 
     /**
-     * @since 4.0.5
+     * @since 4.0.20
      */
     public static final RGBA BLACK = new RGBA(0.0, 0.0, 0.0, 1.0);
 
     /**
-     * @since 4.0.5
+     * @since 4.0.20
      */
     public static final RGBA WHITE = new RGBA(1.0, 1.0, 1.0, 1.0);
 
     /**
-     * @since 4.0.5
+     * @since 4.0.20
      */
     public static final RGBA RED = new RGBA(1.0, 0.0, 0.0, 1.0);
 
     /**
-     * @since 4.0.17
+     * @since 4.0.20
      */
     public static final RGBA GREEN = new RGBA(0.0, 1.0, 0.0, 1.0);
 
     /**
-     * @since 4.0.17
+     * @since 4.0.20
      */
     public static final RGBA BLUE = new RGBA(0.0, 0.0, 1.0, 1.0);
 

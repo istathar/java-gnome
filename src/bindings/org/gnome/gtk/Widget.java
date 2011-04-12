@@ -977,6 +977,9 @@ public abstract class Widget extends org.gnome.gtk.Object
         GtkWidget.modifyBg(this, state, color);
     }
 
+    /**
+     * @since 4.0.20
+     */
     public void overrideBackground(StateFlags state, RGBA color) {
         final StateType type;
 
@@ -1033,6 +1036,9 @@ public abstract class Widget extends org.gnome.gtk.Object
         GtkWidget.modifyText(this, state, color);
     }
 
+    /**
+     * @since 4.0.20
+     */
     public void overrideColor(StateFlags state, RGBA color) {
         final StateType type;
 
@@ -1068,6 +1074,9 @@ public abstract class Widget extends org.gnome.gtk.Object
         GtkWidget.modifyFont(this, desc);
     }
 
+    /**
+     * @since 4.0.20
+     */
     public void overrideFont(FontDescription desc) {
         GtkWidget.modifyFont(this, desc);
     }
