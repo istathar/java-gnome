@@ -52,11 +52,11 @@ public final class RGBA extends Boxed
      * Construct a new RGBA object. The <code>red</code>, <code>green</code>,
      * <code>blue</code> and <code>alpha</code> parameters take values
      * <code>0.0</code> to <code>1.0</code>.
-     *
+     * 
      * @since 4.0.20
      */
     public RGBA(double red, double green, double blue, double alpha) {
-        super(GdkRGBA.createRGBA(red, green, blue, alpha);
+        super(GdkRGBA.createRGBA(red, green, blue, alpha));
     }
 
     protected void release() {
