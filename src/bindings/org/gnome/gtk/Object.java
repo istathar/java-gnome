@@ -88,7 +88,8 @@ public abstract class Object extends org.gnome.glib.Object
      * released.</i>
      * 
      * @since 4.0.18
-     * @deprecated This has moved to Widget's destroy() in 4.1
+     * @deprecated This has moved to Widget's {@link Widget#destroy()
+     *             destroy()} in 4.1
      */
     public void destroy() {
         GtkObject.destroy(this);
@@ -103,6 +104,7 @@ public abstract class Object extends org.gnome.glib.Object
      * 
      * @author Andrew Cowie
      * @since 4.0.18
+     * @deprecated Moved to <code>Widget.Destroy</code> in 4.1
      */
     public interface Destroy extends GtkObject.DestroySignal
     {
@@ -117,6 +119,8 @@ public abstract class Object extends org.gnome.glib.Object
      * Hook up a <code>Object.Destroy</code> handler.
      * 
      * @since 4.0.18
+     * @deprecated This has moved to Widget's
+     *             {@link Widget#connect(Widget.Destroy) connect()} in 4.1
      */
     public void connect(Object.Destroy handler) {
         GtkObject.connect(this, handler, false);

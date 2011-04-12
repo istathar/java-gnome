@@ -45,6 +45,7 @@ import org.gnome.gdk.EventMask;
 import org.gnome.gdk.EventMotion;
 import org.gnome.gdk.EventScroll;
 import org.gnome.gdk.EventVisibility;
+import org.gnome.gdk.RGBA;
 import org.gnome.gdk.VisibilityState;
 import org.gnome.pango.FontDescription;
 
@@ -969,9 +970,34 @@ public abstract class Widget extends org.gnome.gtk.Object
      * about the interaction of the various theming and style mechanisms.
      * 
      * @since 4.0.5
+     * @deprecated This has been replaced in 4.1 with
+     *             <code>overrideBackground()</code>.
      */
     public void modifyBackground(StateType state, Color color) {
         GtkWidget.modifyBg(this, state, color);
+    }
+
+    /**
+     * @since 4.0.20
+     */
+    public void overrideBackground(StateFlags state, RGBA color) {
+        final StateType type;
+
+        if (state == StateFlags.ACTIVE) {
+            type = StateType.ACTIVE;
+        } else if (state == StateFlags.INSENSITIVE) {
+            type = StateType.INSENSITIVE;
+        } else if (state == StateFlags.NORMAL) {
+            type = StateType.NORMAL;
+        } else if (state == StateFlags.PRELIGHT) {
+            type = StateType.PRELIGHT;
+        } else if (state == StateFlags.SELECTED) {
+            type = StateType.SELECTED;
+        } else {
+            throw new AssertionError();
+        }
+
+        GtkWidget.modifyBg(this, type, color.getActual());
     }
 
     /**
@@ -985,6 +1011,8 @@ public abstract class Widget extends org.gnome.gtk.Object
      * about the interaction of the various theming and style mechanisms.
      * 
      * @since 4.0.8
+     * @deprecated This has been replaced in 4.1 with
+     *             <code>overrideFont()</code>.
      */
     public void modifyBase(StateType state, Color color) {
         GtkWidget.modifyBase(this, state, color);
@@ -1001,9 +1029,34 @@ public abstract class Widget extends org.gnome.gtk.Object
      * about the interaction of the various theming and style mechanisms.
      * 
      * @since 4.0.6
+     * @deprecated This has been replaced in 4.1 with
+     *             <code>overrideColor()</code>.
      */
     public void modifyText(StateType state, Color color) {
         GtkWidget.modifyText(this, state, color);
+    }
+
+    /**
+     * @since 4.0.20
+     */
+    public void overrideColor(StateFlags state, RGBA color) {
+        final StateType type;
+
+        if (state == StateFlags.ACTIVE) {
+            type = StateType.ACTIVE;
+        } else if (state == StateFlags.INSENSITIVE) {
+            type = StateType.INSENSITIVE;
+        } else if (state == StateFlags.NORMAL) {
+            type = StateType.NORMAL;
+        } else if (state == StateFlags.PRELIGHT) {
+            type = StateType.PRELIGHT;
+        } else if (state == StateFlags.SELECTED) {
+            type = StateType.SELECTED;
+        } else {
+            throw new AssertionError();
+        }
+
+        GtkWidget.modifyText(this, type, color.getActual());
     }
 
     /**
@@ -1013,8 +1066,18 @@ public abstract class Widget extends org.gnome.gtk.Object
      * This is one of a family of "<code>modify</code>" methods.
      * 
      * @since 4.0.10
+     * @deprecated This has been replaced in 4.1 with
+     *             {@link #overrideFont(FontDescription) overrideFont()}
+     *             </code>.
      */
     public void modifyFont(FontDescription desc) {
+        GtkWidget.modifyFont(this, desc);
+    }
+
+    /**
+     * @since 4.0.20
+     */
+    public void overrideFont(FontDescription desc) {
         GtkWidget.modifyFont(this, desc);
     }
 
@@ -1826,5 +1889,81 @@ public abstract class Widget extends org.gnome.gtk.Object
         GtkWidget.styleGetProperty(this, name, value);
 
         return value.getLong();
+    }
+
+    /**
+     * Ask everything connected to this object to release its references. Use
+     * this in preference to Container's {@link Container#remove(Widget)
+     * remove()} if you don't need the Widget any more.
+     * 
+     * <p>
+     * <i>We didn't expose this for a long time in java-gnome; after all,
+     * memory management of both Java references and GObject Ref counts is
+     * handled automatically by the diabolical cunning of this most excellent
+     * library. It turns out, however, that this does not <code>free()</code>
+     * the GtkWidget's memory; it really only does what it says: ask other
+     * GtkWidget to drop whatever Refs they may be holding to this object.
+     * Thus if this GtkWidget is in a GtkContainer and you call</i>
+     * <code>destroy()</code> <i>the GtkContainer will drop its Refs to this
+     * GtkWidget thereby breaking its parent-child relationship.</i>
+     * 
+     * <p>
+     * <i>Note that Java's references remain, so the object will <b>not</b>,
+     * in fact, be eligable for finalizing until you drop all your references;
+     * ie, the Java side Proxy Object goes out of scope. Nevertheless calling
+     * this will speed up release of resources associated with a Widget, so
+     * it's a good idea. Once you've done so,</i> <code>finalize()</code>
+     * <i>will be traversed a short time later and the GObject will be
+     * released.</i>
+     * 
+     * @since 4.0.20
+     */
+    public void destroy() {
+        GtkWidget.destroy(this);
+    }
+
+    /**
+     * Signal handler for when a Widget requests that all other code holding
+     * references to it release those references. In Java-speak, that means if
+     * you have this object in a variable or structure of some kind,
+     * <code>null</code> it out to to release the strong reference to the
+     * object.
+     * 
+     * <p>
+     * <i>This is a GTK 3.0 signal, we've presented it here as aide to
+     * porting</i>
+     * 
+     * @author Andrew Cowie
+     * @since 4.0.20
+     */
+    public interface Destroy
+    {
+        /**
+         * Release any references you hold to the given <code>source</code>
+         * Widget.
+         */
+        public void onDestroy(Widget source);
+    }
+
+    private static class DestroyAdapter implements GtkObject.DestroySignal
+    {
+        private Widget.Destroy handler;
+
+        private DestroyAdapter(Widget.Destroy handler) {
+            this.handler = handler;
+        }
+
+        public void onDestroy(Object source) {
+            handler.onDestroy((Widget) source);
+        }
+    }
+
+    /**
+     * Hook up a <code>Widget.Destroy</code> handler.
+     * 
+     * @since 4.0.20
+     */
+    public void connect(Widget.Destroy handler) {
+        GtkObject.connect(this, new DestroyAdapter(handler), false);
     }
 }
