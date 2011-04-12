@@ -1,7 +1,7 @@
 /*
  * java-gnome, a UI library for writing GTK and GNOME programs from Java!
  *
- * Copyright © 2007-2010 Operational Dynamics Consulting, Pty Ltd and Others
+ * Copyright © 2007-2011 Operational Dynamics Consulting, Pty Ltd and Others
  *
  * The code in this file, and the program it is a part of, is made available
  * to you by its authors as open source software: you can redistribute it
@@ -44,17 +44,6 @@ package org.gnome.gtk;
  */
 public class CellRendererToggle extends CellRenderer
 {
-    /**
-     * @since 4.0.8
-     * @deprecated Use
-     *             {@link CellRendererToggle#CellRendererToggle(CellLayout)}
-     *             instead.
-     */
-    public CellRendererToggle(TreeViewColumn vertical) {
-        // FIXME does expand to false actually make sense?
-        super(GtkCellRendererToggle.createCellRendererToggle(), vertical, false);
-    }
-
     /**
      * Construct a new CellRendererToggle. Specify the TreeViewColumn it will
      * belong to.

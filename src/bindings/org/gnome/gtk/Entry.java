@@ -489,20 +489,6 @@ public class Entry extends Widget implements Editable, CellEditable
     }
 
     /**
-     * Set the icon to a given <code>position</code> using an icon name from
-     * the current icon theme. If <code>name</code> is <code>null</code>, no
-     * icon will be shown. If the icon doesn't exist, a &quot;broken
-     * image&quot; icon will be used instead.
-     * 
-     * @since 4.0.13
-     * @deprecated
-     */
-    public void setIconFromIconName(EntryIconPosition position, String name) {
-        assert false : "Use setIconFromIcon() instead";
-        GtkEntry.setIconFromIconName(this, position, name);
-    }
-
-    /**
      * Cause the Entry to have an icon at the given <code>position</code>
      * using an Icon from the current icon theme. If <code>name</code> is
      * <code>null</code>, no icon will be shown. If for whatever reason the
@@ -548,22 +534,6 @@ public class Entry extends Widget implements Editable, CellEditable
      */
     public Stock getIconStock(EntryIconPosition position) {
         return Stock.instanceFor(GtkEntry.getIconStock(this, position));
-    }
-
-    /**
-     * Retrieves the image used for the icon as an icon name of the current
-     * theme.
-     * 
-     * <p>
-     * A <code>null</code> value will be returned if the icon was not set from
-     * an icon name.
-     * 
-     * @since 4.0.13
-     * @deprecated
-     */
-    public String getIconName(EntryIconPosition position) {
-        assert false : "use getIconFor() instead";
-        return GtkEntry.getIconName(this, position);
     }
 
     /**
