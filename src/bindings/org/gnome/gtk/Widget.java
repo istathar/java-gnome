@@ -45,6 +45,7 @@ import org.gnome.gdk.EventMask;
 import org.gnome.gdk.EventMotion;
 import org.gnome.gdk.EventScroll;
 import org.gnome.gdk.EventVisibility;
+import org.gnome.gdk.RGBA;
 import org.gnome.gdk.VisibilityState;
 import org.gnome.pango.FontDescription;
 
@@ -970,10 +971,30 @@ public abstract class Widget extends org.gnome.gtk.Object
      * 
      * @since 4.0.5
      * @deprecated This has been replaced in 4.1 with
-     *             <code>overrideBackgroundColor()</code>.
+     *             <code>overrideBackground()</code>.
      */
     public void modifyBackground(StateType state, Color color) {
         GtkWidget.modifyBg(this, state, color);
+    }
+
+    public void overrideBackground(StateFlags state, RGBA color) {
+        final StateType type;
+
+        if (state == StateFlags.ACTIVE) {
+            type = StateType.ACTIVE;
+        } else if (state == StateFlags.INSENSITIVE) {
+            type = StateType.INSENSITIVE;
+        } else if (state == StateFlags.NORMAL) {
+            type = StateType.NORMAL;
+        } else if (state == StateFlags.PRELIGHT) {
+            type = StateType.PRELIGHT;
+        } else if (state == StateFlags.SELECTED) {
+            type = StateType.SELECTED;
+        } else {
+            throw new AssertionError();
+        }
+
+        GtkWidget.modifyBg(this, type, color.getActual());
     }
 
     /**
@@ -1012,6 +1033,26 @@ public abstract class Widget extends org.gnome.gtk.Object
         GtkWidget.modifyText(this, state, color);
     }
 
+    public void overrideColor(StateFlags state, RGBA color) {
+        final StateType type;
+
+        if (state == StateFlags.ACTIVE) {
+            type = StateType.ACTIVE;
+        } else if (state == StateFlags.INSENSITIVE) {
+            type = StateType.INSENSITIVE;
+        } else if (state == StateFlags.NORMAL) {
+            type = StateType.NORMAL;
+        } else if (state == StateFlags.PRELIGHT) {
+            type = StateType.PRELIGHT;
+        } else if (state == StateFlags.SELECTED) {
+            type = StateType.SELECTED;
+        } else {
+            throw new AssertionError();
+        }
+
+        GtkWidget.modifyText(this, type, color.getActual());
+    }
+
     /**
      * Set the font used for text rendered by this Widget.
      * 
@@ -1020,9 +1061,14 @@ public abstract class Widget extends org.gnome.gtk.Object
      * 
      * @since 4.0.10
      * @deprecated This has been replaced in 4.1 with
-     *             <code>overrideFont()</code>.
+     *             {@link #overrideFont(FontDescription) overrideFont()}
+     *             </code>.
      */
     public void modifyFont(FontDescription desc) {
+        GtkWidget.modifyFont(this, desc);
+    }
+
+    public void overrideFont(FontDescription desc) {
         GtkWidget.modifyFont(this, desc);
     }
 
