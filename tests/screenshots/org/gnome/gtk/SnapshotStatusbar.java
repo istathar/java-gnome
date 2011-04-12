@@ -1,7 +1,7 @@
 /*
  * java-gnome, a UI library for writing GTK and GNOME programs from Java!
  *
- * Copyright © 2008-2010 Operational Dynamics Consulting, Pty Ltd
+ * Copyright © 2008-2011 Operational Dynamics Consulting, Pty Ltd
  *
  * The code in this file, and the program it is a part of, is made available
  * to you by its authors as open source software: you can redistribute it
@@ -18,7 +18,7 @@
  */
 package org.gnome.gtk;
 
-import org.gnome.gdk.Color;
+import org.gnome.gdk.RGBA;
 
 /**
  * @author Andrew Cowie
@@ -45,7 +45,7 @@ public class SnapshotStatusbar extends Snapshot
         spacer.setAlignment(0.0f, 0.0f);
         spacer.setSizeRequest(200, 100);
         spacer.setPadding(2, 1);
-        window.modifyBackground(StateType.NORMAL, Color.WHITE);
+        window.overrideBackground(StateFlags.NORMAL, RGBA.WHITE);
         box.packStart(spacer, false, false, 0);
 
         status = new Statusbar();

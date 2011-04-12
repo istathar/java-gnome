@@ -1,7 +1,7 @@
 /*
  * java-gnome, a UI library for writing GTK and GNOME programs from Java!
  *
- * Copyright © 2008-2010 Operational Dynamics Consulting, Pty Ltd and Others
+ * Copyright © 2008-2011 Operational Dynamics Consulting, Pty Ltd and Others
  *
  * The code in this file, and the program it is a part of, is made available
  * to you by its authors as open source software: you can redistribute it
@@ -26,7 +26,6 @@ import org.freedesktop.cairo.ImageSurface;
 import org.freedesktop.cairo.PdfSurface;
 import org.freedesktop.cairo.Surface;
 import org.gnome.gdk.Event;
-import org.gnome.gdk.EventExpose;
 import org.gnome.gtk.Gtk;
 import org.gnome.gtk.Image;
 import org.gnome.gtk.GraphicalTestCase;
@@ -160,14 +159,9 @@ public class ValidatePangoTextRendering extends GraphicalTestCase
         i = new Image();
         w.add(i);
 
-        i.connect(new Widget.ExposeEvent() {
-            public boolean onExposeEvent(Widget source, EventExpose event) {
-                final Context cr;
-
-                cr = new Context(source.getWindow());
-
+        i.connect(new Widget.Draw() {
+            public boolean onDraw(Widget source, Context cr) {
                 draw(cr);
-
                 return false;
             }
         });

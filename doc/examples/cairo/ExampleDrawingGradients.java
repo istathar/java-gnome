@@ -1,7 +1,7 @@
 /*
  * java-gnome, a UI library for writing GTK and GNOME programs from Java!
  *
- * Copyright © 2007-2010 Operational Dynamics Consulting, Pty Ltd and Others
+ * Copyright © 2007-2011 Operational Dynamics Consulting, Pty Ltd and Others
  *
  * The code in this file, and the program it is a part of, is made available
  * to you by its authors as open source software: you can redistribute it
@@ -23,7 +23,6 @@ import org.freedesktop.cairo.LinearPattern;
 import org.freedesktop.cairo.Pattern;
 import org.freedesktop.cairo.RadialPattern;
 import org.gnome.gdk.Event;
-import org.gnome.gdk.EventExpose;
 import org.gnome.gdk.Rectangle;
 import org.gnome.gtk.DrawingArea;
 import org.gnome.gtk.Gtk;
@@ -44,7 +43,7 @@ import org.gnome.gtk.Window;
 /*
  * Gradient example from the Cairo Tutorial.
  */
-public class ExampleDrawingInExposeEvent
+public class ExampleDrawingGradients
 {
     public static void main(String[] args) {
         final Window w;
@@ -53,41 +52,20 @@ public class ExampleDrawingInExposeEvent
         Gtk.init(args);
 
         w = new Window();
-        w.setTitle("Expose");
+        w.setTitle("Drawing");
         w.setDefaultSize(150, 150);
 
         d = new DrawingArea();
         w.add(d);
         w.showAll();
 
-        d.connect(new Widget.ExposeEvent() {
-            public boolean onExposeEvent(Widget source, EventExpose event) {
-                final Context cr;
+        d.connect(new Widget.Draw() {
+            public boolean onDraw(Widget source, Context cr) {
                 final Rectangle rect;
                 final Pattern linear, radial;
 
                 /*
-                 * Out of interest, where is this occuring?
-                 */
-
-                rect = event.getArea();
-                System.out.println("Widget.ExposeEvent bounded by " + rect.getWidth() + "x"
-                        + rect.getHeight() + " at " + rect.getX() + "," + rect.getY());
-
-                /*
-                 * With that out of the way, we get to the heart of the
-                 * matter: creating a Cairo Context based on (and mapped to)
-                 * the Drawable underlying the Widget. The key here is that
-                 * the Widget is mapped unlike earlier when we were
-                 * constructing it. The first Widget.ExposeEvent does not
-                 * occur until after the Widget is realized; indeed, that is
-                 * when it is triggered.
-                 */
-
-                cr = new Context(event);
-
-                /*
-                 * Now, finally do some drawing:
+                 * Do some drawing:
                  */
 
                 cr.setSource(1.0, 0.1, 0.0, 1.0);

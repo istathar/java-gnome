@@ -1,7 +1,7 @@
 /*
  * java-gnome, a UI library for writing GTK and GNOME programs from Java!
  *
- * Copyright © 2009-2010 Operational Dynamics Consulting, Pty Ltd
+ * Copyright © 2009-2011 Operational Dynamics Consulting, Pty Ltd
  *
  * The code in this file, and the program it is a part of, is made available
  * to you by its authors as open source software: you can redistribute it
@@ -19,7 +19,6 @@
 
 import org.freedesktop.cairo.Context;
 import org.gnome.gdk.Event;
-import org.gnome.gdk.EventExpose;
 import org.gnome.gdk.EventKey;
 import org.gnome.gtk.DrawingArea;
 import org.gnome.gtk.Gtk;
@@ -59,13 +58,10 @@ public class ManualInput
 
         buf = new StringBuilder("Hello");
 
-        d.connect(new Widget.ExposeEvent() {
-            public boolean onExposeEvent(Widget source, EventExpose event) {
-                final Context cr;
+        d.connect(new Widget.Draw() {
+            public boolean onDraw(Widget source, Context cr) {
                 final Layout layout;
                 final FontDescription desc;
-
-                cr = new Context(source.getWindow());
 
                 layout = new Layout(cr);
 
