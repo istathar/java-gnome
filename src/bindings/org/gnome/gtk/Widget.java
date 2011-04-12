@@ -370,7 +370,7 @@ public abstract class Widget extends org.gnome.glib.Object
      * @author Andrew Cowie
      * @since 4.0.20
      */
-    public interface Draw
+    public interface Draw extends GtkWidget.DrawSignal
     {
         public boolean onDraw(Widget source, Context cr);
     }

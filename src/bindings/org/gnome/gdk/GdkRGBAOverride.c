@@ -52,8 +52,8 @@ Java_org_gnome_gdk_GdkRGBAOverride_gdk_1rgba_1new
 	jdouble _alpha
 )
 {
-	GdkColor blank = { 0, };
-	GdkColor* result;
+	GdkRGBA blank = { 0, };
+	GdkRGBA* result;
 	
 	// blank is allocated locally on the stack
 	
@@ -63,7 +63,7 @@ Java_org_gnome_gdk_GdkRGBAOverride_gdk_1rgba_1new
 	blank.alpha = (gdouble) _alpha;
 
 	// copy blank
-	result = gdk_color_copy(&blank);
+	result = gdk_rgba_copy(&blank);
 
 	// and finally
 	return (jlong) result;

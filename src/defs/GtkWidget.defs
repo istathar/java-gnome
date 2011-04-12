@@ -1406,11 +1406,11 @@
   )
 )
 
-(define-virtual expose_event
+(define-virtual draw
   (of-object "GtkWidget")
   (return-type "gboolean")
   (parameters
-    '("GdkEventExpose*" "event")
+    '("cairo_t*" "cr")
   )
 )
 
