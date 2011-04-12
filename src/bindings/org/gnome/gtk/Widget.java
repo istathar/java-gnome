@@ -43,6 +43,7 @@ import org.gnome.gdk.EventMask;
 import org.gnome.gdk.EventMotion;
 import org.gnome.gdk.EventScroll;
 import org.gnome.gdk.EventVisibility;
+import org.gnome.gdk.RGBA;
 import org.gnome.gdk.VisibilityState;
 import org.gnome.pango.FontDescription;
 
@@ -757,49 +758,30 @@ public abstract class Widget extends org.gnome.glib.Object
      * Adjust the background colour being used when drawing this Widget. This
      * leaves all other style properties unchanged.
      * 
-     * <p>
-     * If you need to change the background colour behind the text in an Entry
-     * or TextView, see {@link #modifyBase(Widget, StateType Color)
-     * modifyBase()}.
-     * 
-     * @since 4.0.5
+     * @since 4.0.20
      */
-    public void modifyBackground(StateType state, Color color) {
-        GtkWidget.modifyBg(this, state, color);
-    }
-
-    /**
-     * Set the colour used for text background on this Widget. To change the
-     * foreground colour of the text, use
-     * {@link #modifyText(StateType, Color) modifyText()}.
-     * 
-     * @since 4.0.8
-     */
-    public void modifyBase(StateType state, Color color) {
-        GtkWidget.modifyBase(this, state, color);
+     public void overrideBackground(StateFlags state, RGBA color) {
+       GtkWidget.overrideBackgroundColor(this, state, color);
     }
 
     /**
      * Set the colour used for text rendered by this Widget. This is the
      * foreground colour; to change the background colour behind text use
-     * {@link #modifyBase(StateType, Color) modifyBase()}.
+     * {@link #overrideBackground(StateFlags, RGBA) overrideBackground()}.
      * 
-     * @since 4.0.6
+     * @since 4.0.20
      */
-    public void modifyText(StateType state, Color color) {
-        GtkWidget.modifyText(this, state, color);
+    public void overrideColor(StateFlags state, RGBA color) {
+        GtkWidget.overrideColor(this, type, color);
     }
 
     /**
      * Set the font used for text rendered by this Widget.
      * 
-     * <p>
-     * This is one of a family of "<code>modify</code>" methods.
-     * 
-     * @since 4.0.10
+     * @since 4.0.20
      */
-    public void modifyFont(FontDescription desc) {
-        GtkWidget.modifyFont(this, desc);
+    public void overrideFont(FontDescription desc) {
+        GtkWidget.overrideFont(this, desc);
     }
 
     /**
