@@ -52,10 +52,9 @@ import org.gnome.glib.Object;
  * </pre>
  * 
  * etc, you might be well off to do something like this in a
- * <code>Widget.ExposeEvent</code>:
+ * <code>Widget.Draw</code> signal handler:
  * 
  * <pre>
- * final Context cr;
  * final Layout layout;
  * final FontOptions config;
  * 

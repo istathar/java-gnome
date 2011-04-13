@@ -1,7 +1,7 @@
 /*
  * java-gnome, a UI library for writing GTK and GNOME programs from Java!
  *
- * Copyright © 2007-2010 Operational Dynamics Consulting, Pty Ltd
+ * Copyright © 2007-2011 Operational Dynamics Consulting, Pty Ltd
  *
  * The code in this file, and the program it is a part of, is made available
  * to you by its authors as open source software: you can redistribute it
@@ -40,7 +40,7 @@ package org.gnome.gtk;
  * associated with Widget implementations, including basic handling of the
  * size-request / size-allocation cycle and realizing the necessary underlying
  * resouces. The end result is blank [<code>org.gnome.gdk</code>] Window that
- * you can draw on with Cairo in a <code>Widget.ExposeEvent</code>.
+ * you can draw on with Cairo in a <code>Widget.Draw</code> signal handler.
  * 
  * @author Andrew Cowie
  * @since 4.0.10

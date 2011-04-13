@@ -70,7 +70,7 @@ public class Image extends Misc
      * 
      * <p>
      * Although this can be used as a blank slate upon which you can do
-     * arbitrary Cairo drawing in an <code>Widget.ExposeEvent</code> handler,
+     * arbitrary Cairo drawing in an <code>Widget.Draw</code> signal handler,
      * you are better off using {@link DrawingArea} for that purpose.
      * 
      * @since 4.0.7

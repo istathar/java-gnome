@@ -200,7 +200,7 @@ public abstract class Widget extends org.gnome.glib.Object
 
     /**
      * Request that an area of the Widget to be redrawn. This will eventually
-     * result in an <code>Widget.ExposeEvent</code> being sent to the Widget
+     * result in an <code>Widget.Draw</code> signal being sent to the Widget
      * asking it to [re]render the area given by the passed in co-ordinates.
      * 
      * <p>
@@ -210,7 +210,7 @@ public abstract class Widget extends org.gnome.glib.Object
      * <p>
      * The redraw will not happen immediately, but rather during the next
      * iteration of the main loop. Also, note that several such requests may
-     * be combined into a single <code>Widget.ExposeEvent</code> by the X
+     * be combined into a single <code>Widget.Draw</code> signal by the X
      * server and GDK.
      * 
      * <p>
