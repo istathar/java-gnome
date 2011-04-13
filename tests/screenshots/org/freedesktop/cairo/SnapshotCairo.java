@@ -18,7 +18,6 @@
  */
 package org.freedesktop.cairo;
 
-import org.gnome.gdk.EventExpose;
 import org.gnome.gtk.Image;
 import org.gnome.gtk.Snapshot;
 import org.gnome.gtk.Widget;

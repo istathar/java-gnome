@@ -24,7 +24,6 @@ import org.freedesktop.cairo.Format;
 import org.freedesktop.cairo.ImageSurface;
 import org.freedesktop.cairo.Surface;
 import org.gnome.gdk.Event;
-import org.gnome.gdk.EventExpose;
 import org.gnome.gdk.EventFocus;
 import org.gnome.gtk.Gtk;
 import org.gnome.gtk.Image;
