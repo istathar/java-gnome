@@ -33,7 +33,6 @@
 package org.freedesktop.cairo;
 
 import org.gnome.gdk.Window;
-import org.gnome.gdk.EventExpose;
 import org.gnome.gdk.Pixbuf;
 
 /**
@@ -50,7 +49,7 @@ final class GdkCairoSupport extends Plumbing
 {
     private GdkCairoSupport() {}
 
-    static final long createContextFromWindow(Window window) {
+    static final long createContext(Window window) {
         if (window == null) {
             /*
              * This check is, unfortunately, particularly important. If you've
@@ -67,14 +66,6 @@ final class GdkCairoSupport extends Plumbing
     }
 
     private static native final long gdk_cairo_create(long window);
-
-    static final long createContextFromExposeEvent(EventExpose event) {
-        synchronized (lock) {
-            return gdk_cairo_create_and_clip(pointerOf(event));
-        }
-    }
-
-    private static native final long gdk_cairo_create_and_clip(long event);
 
     static final void setSourcePixbuf(Context self, Pixbuf pixbuf, double x, double y) {
         if (pixbuf == null) {
