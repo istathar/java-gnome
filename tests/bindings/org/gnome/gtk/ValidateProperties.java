@@ -386,14 +386,14 @@ public class ValidateProperties extends GraphicalTestCase
         assertEquals(0.5, adj.getPageSize(), 0.001);
 
         adj.setValue(1.52);
-        assertEquals(1.52, adj.getValue(), 0.001);
+        assertEquals(1.5, adj.getValue(), 0.001);
 
         /*
          * Test clamping
          */
 
         adj.setValue(2.52);
-        assertEquals(2.0, adj.getValue(), 0.001);
+        assertEquals(1.5, adj.getValue(), 0.001);
 
         adj.setValue(0.0);
         assertEquals(1.0, adj.getValue(), 0.001);
