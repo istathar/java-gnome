@@ -107,10 +107,6 @@ public abstract class Plumbing extends org.gnome.glib.Plumbing
                 type = EventMotion.class;
                 break;
 
-            case GdkEventType.EXPOSE:
-                type = EventExpose.class;
-                break;
-
             case GdkEventType.VISIBILITY_NOTIFY:
                 type = EventVisibility.class;
                 break;

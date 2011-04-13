@@ -21,7 +21,6 @@ package cairo;
 
 import org.freedesktop.cairo.Context;
 import org.gnome.gdk.Event;
-import org.gnome.gdk.EventExpose;
 import org.gnome.gtk.Gtk;
 import org.gnome.gtk.Image;
 import org.gnome.gtk.Widget;

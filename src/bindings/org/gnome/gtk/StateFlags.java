@@ -60,32 +60,32 @@ public final class StateFlags extends Flag
     /**
      * The ordinary state of a Widget
      */
-    public static final StateFlags NORMAL = new StateFlags(GtkStateType.NORMAL, "NORMAL");
+    public static final StateFlags NORMAL = new StateFlags(GtkStateFlags.NORMAL, "NORMAL");
 
     /**
      * A Widget that is currently active. The definition of this will vary
      * from Widget to Widget, but a Button, for example, is active while it is
      * depressed.
      */
-    public static final StateFlags ACTIVE = new StateFlags(GtkStateType.ACTIVE, "ACTIVE");
+    public static final StateFlags ACTIVE = new StateFlags(GtkStateFlags.ACTIVE, "ACTIVE");
 
     /**
      * The mouse pointer is currently hovering over the Widget, and the Widget
      * will be responding to mouse clicks.
      */
-    public static final StateFlags PRELIGHT = new StateFlags(GtkStateType.PRELIGHT, "PRELIGHT");
+    public static final StateFlags PRELIGHT = new StateFlags(GtkStateFlags.PRELIGHT, "PRELIGHT");
 
     /**
      * The element is selected. The canonical example is a row in a TreeView
      * which has been selected; most themes show this by doing a form of
      * reverse video, swapping foreground and background colours, etc.
      */
-    public static final StateFlags SELECTED = new StateFlags(GtkStateType.SELECTED, "SELECTED");
+    public static final StateFlags SELECTED = new StateFlags(GtkStateFlags.SELECTED, "SELECTED");
 
     /**
      * The Widget is not responding to events. See
      * {@link Window#setSensitive(boolean) setSensitive()} on Window for more
      * information about this state.
      */
-    public static final StateFlags INSENSITIVE = new StateFlags(GtkStateType.INSENSITIVE, "INSENSITIVE");
+    public static final StateFlags INSENSITIVE = new StateFlags(GtkStateFlags.INSENSITIVE, "INSENSITIVE");
 }
