@@ -56,7 +56,7 @@ public abstract class Plumbing extends org.freedesktop.bindings.Plumbing
         assert (Status.SUCCESS != null);
     }
 
-    protected static Entity entityFor(Class<?> type, long pointer) {
+    public static Entity entityFor(Class<?> type, long pointer) {
         Entity obj;
 
         obj = (Entity) org.freedesktop.bindings.Plumbing.instanceFor(pointer);
@@ -64,13 +64,21 @@ public abstract class Plumbing extends org.freedesktop.bindings.Plumbing
         if (obj != null) {
             return obj;
         } else {
-            if (type == Surface.class) {
+            if (type == Context.class) {
+                obj = createContext(pointer);
+            } else if (type == Surface.class) {
                 obj = createSurface(pointer);
             } else if (type == Pattern.class) {
                 obj = createPattern(pointer);
+            } else {
+		throw new UnsupportedOperationException("Unhandled type " + type.getName());
             }
             return obj;
         }
+    }
+
+    private static Context createContext(long pointer) {
+        return new Context(pointer);
     }
 
     /*

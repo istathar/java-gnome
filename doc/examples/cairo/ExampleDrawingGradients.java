@@ -38,9 +38,6 @@ import org.gnome.gtk.Window;
  * @author Carl Worth
  */
 /*
- * TODO rename this once we actually draw something interesting!
- */
-/*
  * Gradient example from the Cairo Tutorial.
  */
 public class ExampleDrawingGradients
