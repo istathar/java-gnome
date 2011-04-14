@@ -49,14 +49,14 @@ public abstract class Plumbing extends org.gnome.glib.Plumbing
 
         /*
          * When you call getScreen(), the object returned appears to be a
-         * sublcass of GdkScreen, in this case GdkScreenX11. It doesn't seem
+         * sublcass of GdkScreen, in this case GdkX11Screen. It doesn't seem
          * to be public, thus making GdkScreen the "concrete interface" to it
          * anyway. This actually reflects the fact that we don't have an
          * architectural treatment for dealing with getting GObject instances
          * back that are subtypes we don't know about.
          */
-        registerType("GdkScreenX11", org.gnome.gdk.Screen.class);
-        registerType("GdkDisplayX11", org.gnome.gdk.Display.class);
+        registerType("GdkX11Screen", org.gnome.gdk.Screen.class);
+        registerType("GdkX11Display", org.gnome.gdk.Display.class);
     }
 
     /**
