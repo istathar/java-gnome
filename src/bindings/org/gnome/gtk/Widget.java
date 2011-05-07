@@ -447,7 +447,7 @@ public abstract class Widget extends org.gnome.gtk.Object
      * @author Andrew Cowie
      * @since 4.0.7
      * @deprecated GTK 3 has replaced the <code>Widget.ExposeEvent</code>
-     *             signal with a new <code>Widget.Draw</code> instead.
+     *             signal with a new {@link Widget.Draw} instead.
      */
     /*
      * FIXME when we figure out offscreen drawing, then we can change "cannot

@@ -1,7 +1,7 @@
 /*
  * java-gnome, a UI library for writing GTK and GNOME programs from Java!
  *
- * Copyright © 2007-2010 Operational Dynamics Consulting, Pty Ltd
+ * Copyright © 2007-2011 Operational Dynamics Consulting, Pty Ltd
  *
  * The code in this file, and the program it is a part of, is made available
  * to you by its authors as open source software: you can redistribute it
@@ -46,6 +46,7 @@ import org.freedesktop.bindings.Constant;
  * 
  * @author Andrew Cowie
  * @since 4.0.5
+ * @deprecated In 4.1 this is replaced by {@link StateFlags}.
  */
 public final class StateType extends Constant
 {
