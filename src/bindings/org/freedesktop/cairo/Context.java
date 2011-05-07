@@ -36,6 +36,7 @@ import org.gnome.gdk.Color;
 import org.gnome.gdk.Drawable;
 import org.gnome.gdk.EventExpose;
 import org.gnome.gdk.Pixbuf;
+import org.gnome.gdk.Window;
 import org.gnome.pango.Layout;
 import org.gnome.pango.LayoutLine;
 import org.gnome.rsvg.Handle;
@@ -168,6 +169,9 @@ public class Context extends Entity
      * Context. So a constructor it is.</i>
      * 
      * @since 4.0.7
+     * @deprecated There's now a Context constructor that takes Window
+     *             directly, though really you'll be better off with the
+     *             Widget.Draw signal.
      */
     /*
      * The function in GdkDrawable is tempting, but since it is not marked as
@@ -176,6 +180,14 @@ public class Context extends Entity
      */
     public Context(Drawable drawable) {
         super(GdkCairoSupport.createContextFromDrawable(drawable));
+        checkStatus();
+    }
+
+    /**
+     * @since 4.0.20
+     */
+    public Context(Window window) {
+        super(GdkCairoSupport.createContextFromDrawable(window));
         checkStatus();
     }
 

@@ -78,8 +78,8 @@ public final class RGBA // extends Boxed
      * 
      * @since 4.0.20
      */
-    public int getRed() {
-        return GdkColor.getRed(actual);
+    public double getRed() {
+        return GdkColor.getRed(actual) / 65535.0;
     }
 
     /**
@@ -87,8 +87,8 @@ public final class RGBA // extends Boxed
      * 
      * @since 4.0.20
      */
-    public int getGreen() {
-        return GdkColor.getGreen(actual);
+    public double getGreen() {
+        return GdkColor.getGreen(actual) / 65535.0;
     }
 
     /**
@@ -96,8 +96,8 @@ public final class RGBA // extends Boxed
      * 
      * @since 4.0.20
      */
-    public int getBlue() {
-        return GdkColor.getBlue(actual);
+    public double getBlue() {
+        return GdkColor.getBlue(actual) / 65535.0;
     }
 
     /**
