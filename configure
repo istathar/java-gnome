@@ -903,7 +903,7 @@ if ($os eq "gentoo") {
 	check_system_library(@gnomedev_libs,
 			"gtksourceview-3.0",
 			"GtkSourceView",
-			"libgtksourceview3.0-dev");
+			"libgtksourceview-3.0-dev");
 
 	check_system_library(@gnomedev_libs,
 			"libnotify >= 0.7.0",

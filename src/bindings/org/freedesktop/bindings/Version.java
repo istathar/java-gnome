@@ -53,7 +53,7 @@ package org.freedesktop.bindings;
  */
 public final class Version
 {
-    private static final String APIVERSION = "4.2";
+    private static final String APIVERSION = "4.1";
 
     private static final String VERSION = "4.1.1-dev";
 
