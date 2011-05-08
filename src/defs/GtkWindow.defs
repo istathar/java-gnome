@@ -39,6 +39,21 @@
   (return-type "const-gchar*")
 )
 
+(define-method set_has_resize_grip
+  (of-object "GtkWindow")
+  (c-name "gtk_window_set_has_resize_grip")
+  (return-type "none")
+  (parameters
+    '("gboolean" "value")
+  )
+)
+
+(define-method get_has_resize_grip
+  (of-object "GtkWindow")
+  (c-name "gtk_window_get_has_resize_grip")
+  (return-type "gboolean")
+)
+
 (define-method set_wmclass
   (of-object "GtkWindow")
   (c-name "gtk_window_set_wmclass")

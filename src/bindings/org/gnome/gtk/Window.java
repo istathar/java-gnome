@@ -747,6 +747,19 @@ public class Window extends Bin
     }
 
     /**
+     * Toggle whether or not this Window is showing a resize grip at the
+     * bottom right of the drawn Window. While ordinarily you'd want to leave
+     * this alone, a resize grip will displace a right-hand Scrollbar and may
+     * need to be removed for visual consistency. Note that when maximized,
+     * windows will not have resize grips.
+     * 
+     * @since 4.1.1
+     */
+    public void setHasResizeGrip(boolean setting) {
+        GtkWindow.setHasResizeGrip(this, setting);
+    }
+
+    /**
      * Resize the Window to the given <code>width</code> and
      * <code>height</code>.
      * 
