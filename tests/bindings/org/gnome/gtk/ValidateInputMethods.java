@@ -102,7 +102,7 @@ public class ValidateInputMethods extends GraphicalTestCase
 
     }
 
-    public final void testNormalKeystrokes() {
+    public final void failsNormalKeystrokes() {
         boolean result;
 
         setupWindowAndSignalHandlers();

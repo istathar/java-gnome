@@ -56,7 +56,7 @@ package org.gnome.gtk;
  * @author Andrew Cowie
  * @since 4.0.1
  */
-public abstract class Box extends Container implements Orientable
+public class Box extends Container implements Orientable
 {
     protected Box(long pointer) {
         super(pointer);

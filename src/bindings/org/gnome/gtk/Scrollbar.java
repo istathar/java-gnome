@@ -43,7 +43,7 @@ package org.gnome.gtk;
  * @since 4.0.8
  * @see ScrolledWindow
  */
-public abstract class Scrollbar extends Range
+public class Scrollbar extends Range
 {
     protected Scrollbar(long pointer) {
         super(pointer);
