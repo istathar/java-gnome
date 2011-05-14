@@ -32,8 +32,9 @@
  */
 package org.freedesktop.cairo;
 
-import org.gnome.gdk.Window;
 import org.gnome.gdk.Pixbuf;
+import org.gnome.gdk.RGBA;
+import org.gnome.gdk.Window;
 
 /**
  * Hack to allow us to get at various gdk_cairo_*() functions.
@@ -79,4 +80,17 @@ final class GdkCairoSupport extends Plumbing
 
     private static native final void gdk_cairo_set_source_pixbuf(long context, long pixbuf, double x,
             double y);
+
+    static final void setSourceRgba(Context self, RGBA color) {
+        if (color == null) {
+            throw new IllegalArgumentException("color can't be null");
+        }
+
+        synchronized (lock) {
+            gdk_cairo_set_source_rgba(pointerOf(self), pointerOf(color));
+        }
+    }
+
+    private static native final void gdk_cairo_set_source_rgba(long context, long color);
+
 }

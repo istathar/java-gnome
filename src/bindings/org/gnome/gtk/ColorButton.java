@@ -1,7 +1,7 @@
 /*
  * java-gnome, a UI library for writing GTK and GNOME programs from Java!
  *
- * Copyright © 2007-2010 Operational Dynamics Consulting, Pty Ltd
+ * Copyright © 2007-2011 Operational Dynamics Consulting, Pty Ltd
  * Copyright © 2009      Vreixo Formoso
  *
  * The code in this file, and the program it is a part of, is made available
@@ -33,22 +33,23 @@
  */
 package org.gnome.gtk;
 
-import org.gnome.gdk.Color;
+import org.gnome.gdk.RGBA;
 
 /**
- * A Button used to select a {@link Color Color}.
+ * A Button used to select a {@link RGBA RGBA} colour.
  * 
  * <p>
  * This is a Button that presents a little rectangle filled with the currently
- * selected Color. When pressed, it opens a ColorSelectionDialog where the
- * user can select a Color.
+ * selected RGBA colour. When pressed, it opens a ColorSelectionDialog where
+ * the user can select a colour.
  * 
  * <p>
- * You will usually want to connect to the {@link ColorSet} signal, that is
- * emitted each time the user changes the Color. You can get the currently
- * selected Color with the {@link #getColor() getColor()} method.
+ * You will usually want to connect to the <code>ColorButton.ColorSet</code>
+ * signal, that is emitted each time the user changes the colour. You can get
+ * the currently selected colour with the {@link #getRGBA() getRGBA()} method.
  * 
  * @author Vreixo Formoso
+ * @author Andrew Cowie
  * @since 4.0.12
  */
 public class ColorButton extends Button
@@ -69,41 +70,41 @@ public class ColorButton extends Button
     /**
      * Create a new ColorButton with the specified Color selected.
      * 
-     * @since 4.0.12
+     * @since 4.1.1
      */
-    public ColorButton(Color color) {
-        super(GtkColorButton.createColorButtonWithColor(color));
+    public ColorButton(RGBA color) {
+        super(GtkColorButton.createColorButtonWithRgba(color));
     }
 
     /**
-     * Get the Color currently selected.
+     * Get the colour currently selected.
      * 
-     * @since 4.0.12
+     * @since 4.1.1
      */
-    public Color getColor() {
-        final Color color;
+    public RGBA getRGBA() {
+        final RGBA color;
 
-        color = new Color(0, 0, 0);
-        GtkColorButton.getColor(this, color);
+        color = new RGBA(0, 0, 0, 0);
+        GtkColorButton.getRgba(this, color);
 
         return color;
     }
 
     /**
-     * Set the selected Color.
+     * Set the selected colour.
      * 
-     * @since 4.0.12
+     * @since 4.1.1
      */
-    public void setColor(Color color) {
-        GtkColorButton.setColor(this, color);
+    public void setRGBA(RGBA color) {
+        GtkColorButton.setRgba(this, color);
     }
 
     /**
-     * Signal emitted when the user selects a different Color.
+     * Signal emitted when the user selects a different RGBA colour.
      * 
      * <p>
-     * You can use the {@link ColorButton#getColor() getColor()} to get the
-     * Color selected by the user.
+     * You can use the {@link ColorButton#getRGBA() getRGBA()} to get the
+     * colour selected by the user.
      * 
      * @author Vreixo Formoso
      * @since 4.0.12

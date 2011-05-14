@@ -32,9 +32,9 @@
  */
 package org.freedesktop.cairo;
 
-import org.gnome.gdk.Color;
-import org.gnome.gdk.Window;
 import org.gnome.gdk.Pixbuf;
+import org.gnome.gdk.RGBA;
+import org.gnome.gdk.Window;
 import org.gnome.pango.Layout;
 import org.gnome.pango.LayoutLine;
 import org.gnome.rsvg.Handle;
@@ -53,8 +53,8 @@ import org.gnome.rsvg.Handle;
  * {@link ImageSurface}, do your drawing, and then use Surface's writeToPNG()
  * to output your image.
  * <li>If drawing to the screen in a user interface application, you get a
- * Context in your Widget's {@link org.gnome.gtk.Widget.Draw
- * Widget.Draw} signal, and do your drawing there.
+ * Context in your Widget's {@link org.gnome.gtk.Widget.Draw Widget.Draw}
+ * signal, and do your drawing there.
  * </ul>
  * 
  * See the links above for examples of each use case.
@@ -289,13 +289,12 @@ public class Context extends Entity
     }
 
     /**
-     * Set the source pattern within this Context to an opaque color.
+     * Set the source pattern within this Context to the given RGBA colour.
      * 
-     * @since 4.0.12
+     * @since 4.1.1
      */
-    public void setSource(Color color) {
-        CairoContext.setSourceRgb(this, color.getRed() / 65535.0, color.getGreen() / 65535.0,
-                color.getBlue() / 65535.0);
+    public void setSource(RGBA color) {
+        GdkCairoSupport.setSourceRgba(this, color);
         checkStatus();
     }
 
