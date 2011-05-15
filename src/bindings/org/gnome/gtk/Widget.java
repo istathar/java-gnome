@@ -33,7 +33,6 @@
 package org.gnome.gtk;
 
 import org.freedesktop.cairo.Context;
-import org.gnome.gdk.Color;
 import org.gnome.gdk.Event;
 import org.gnome.gdk.EventButton;
 import org.gnome.gdk.EventCrossing;
@@ -44,6 +43,7 @@ import org.gnome.gdk.EventMotion;
 import org.gnome.gdk.EventScroll;
 import org.gnome.gdk.EventVisibility;
 import org.gnome.gdk.RGBA;
+import org.gnome.gdk.Rectangle;
 import org.gnome.gdk.VisibilityState;
 import org.gnome.pango.FontDescription;
 
@@ -760,8 +760,8 @@ public abstract class Widget extends org.gnome.glib.Object
      * 
      * @since 4.0.20
      */
-     public void overrideBackground(StateFlags state, RGBA color) {
-       GtkWidget.overrideBackgroundColor(this, state, color);
+    public void overrideBackground(StateFlags state, RGBA color) {
+        GtkWidget.overrideBackgroundColor(this, state, color);
     }
 
     /**
@@ -1117,6 +1117,131 @@ public abstract class Widget extends org.gnome.glib.Object
         GtkWidgetOverride.getRequisition(this, requisition);
 
         return requisition;
+    }
+
+    /**
+     * Retreive the width that has been allocated to this Widget, in pixels.
+     * This is meant to be used by <code>Widget.Draw</code> handlers when they
+     * need to know their canvas size.
+     * 
+     * @since 4.1.1
+     */
+    public int getAllocatedWidth() {
+        return GtkWidget.getAllocatedWidth(this);
+    }
+
+    /**
+     * Retreive the height that has been allocated to this Widget. See also
+     * {@link #getAllocatedWidth() getAllocatedWidth()}.
+     * 
+     * @since 4.1.1
+     */
+    public int getAllocatedHeight() {
+        return GtkWidget.getAllocatedHeight(this);
+    }
+
+    /**
+     * @since 4.1.1
+     */
+    public int getPreferredWidthNatural() {
+        final int[] natural;
+
+        natural = new int[1];
+
+        GtkWidget.getPreferredWidth(this, null, natural);
+
+        return natural[0];
+    }
+
+    /**
+     * @since 4.1.1
+     */
+    public int getPreferredWidthMinimum() {
+        final int[] minimum;
+
+        minimum = new int[1];
+
+        GtkWidget.getPreferredWidth(this, minimum, null);
+
+        return minimum[0];
+    }
+
+    /**
+     * @since 4.1.1
+     */
+    public int getPreferredHeightMinimum() {
+        final int[] minimum;
+
+        minimum = new int[1];
+
+        GtkWidget.getPreferredHeight(this, minimum, null);
+
+        return minimum[0];
+    }
+
+    /**
+     * @since 4.1.1
+     */
+    public int getPreferredHeightNatural() {
+        final int[] natural;
+
+        natural = new int[1];
+
+        GtkWidget.getPreferredHeight(this, null, natural);
+
+        return natural[0];
+    }
+
+    /**
+     * @since 4.1.1
+     */
+    public int getPreferredHeightForWidthMinimum(int width) {
+        final int[] minimum;
+
+        minimum = new int[1];
+
+        GtkWidget.getPreferredHeightForWidth(this, width, minimum, null);
+
+        return minimum[0];
+    }
+
+    /**
+     * @since 4.1.1
+     */
+    public int getPreferredHeightForWidthNatural(int width) {
+        final int[] natural;
+
+        natural = new int[1];
+
+        GtkWidget.getPreferredHeightForWidth(this, width, null, natural);
+
+        return natural[0];
+    }
+
+    /**
+     * @since 4.1.1
+     */
+    public int getPreferredWidthForHeightMinimum(int height) {
+        final int[] minimum;
+
+        minimum = new int[1];
+
+        GtkWidget.getPreferredWidthForHeight(this, height, minimum, null);
+
+        return minimum[0];
+    }
+
+    /**
+     * @since 4.1.1
+     */
+    public int getPreferredWidthForHeightNatural(int height) {
+        final int[] natural;
+
+        natural = new int[1];
+
+        GtkWidget.getPreferredWidthForHeight(this, height, null, natural);
+
+        return natural[0];
     }
 
     /**
@@ -1580,5 +1705,78 @@ public abstract class Widget extends org.gnome.glib.Object
      */
     public void connect(Widget.Destroy handler) {
         GtkWidget.connect(this, handler, false);
+    }
+
+    /**
+     * Signal fired when a Widget is given its size allocation.
+     * 
+     * @author Andrew Cowie
+     * @since 4.1.1
+     */
+    public interface SizeAllocate extends GtkWidget.SizeAllocateSignal
+    {
+        void onSizeAllocate(Widget source, Rectangle allocation);
+    }
+
+    /**
+     * Hook up a <code>Widget.SizeAllocate</code> handler.
+     * 
+     * @since 4.1.1
+     */
+    public void connect(Widget.SizeAllocate handler) {
+        GtkWidget.connect(this, handler, false);
+    }
+
+    /**
+     * Does the Widget prefer that it be given height for a given width, or
+     * vice versa?
+     * 
+     * <p>
+     * Part of GTK 3's height-for-width geometry management system.
+     * 
+     * @return
+     */
+    public SizeRequestMode getRequestMode() {
+        return GtkWidget.getRequestMode(this);
+    }
+
+    /**
+     * Will this Widget be given any additional space that it's parent
+     * Container has? The default is <code>false</code> which means that as a
+     * child this Widget will be allocated its natural size reqeust, but not
+     * more.
+     * 
+     * @since 4.1.1
+     */
+    public void setExpandHorizontal(boolean setting) {
+        GtkWidget.setHexpand(this, setting);
+    }
+
+    /**
+     * @since 4.1.1
+     */
+    public void setExpandVertical(boolean setting) {
+        GtkWidget.setVexpand(this, setting);
+    }
+
+    /**
+     * Set the horizontal positioning of a Widget in its parent Container.
+     * <p>
+     * <i>This is part of how the GTK 2.x Alignment Widget has been
+     * replaced.</i>
+     * 
+     * @since 4.1.1
+     */
+    public void setAlignHorizontal(Align align) {
+        GtkWidget.setHalign(this, align);
+    }
+
+    /**
+     * Set the vertical positioning of a Widget in its parent Container.
+     * 
+     * @since 4.1.1
+     */
+    public void setAlignVertical(Align align) {
+        GtkWidget.setValign(this, align);
     }
 }

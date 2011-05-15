@@ -1,0 +1,11 @@
+(define-enum Align
+  (in-module "Gtk")
+  (c-name "GtkAlign")
+  (values
+    '("fill" "GTK_ALIGN_FILL")
+    '("start" "GTK_ALIGN_START")
+    '("end" "GTK_ALIGN_END")
+    '("center" "GTK_ALIGN_CENTER")
+  )
+)
+

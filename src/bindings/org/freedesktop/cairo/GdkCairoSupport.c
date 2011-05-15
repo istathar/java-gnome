@@ -105,3 +105,29 @@ Java_org_freedesktop_cairo_GdkCairoSupport_gdk_1cairo_1set_1source_1pixbuf
 
         // cleanup parameter y
 }
+
+JNIEXPORT void JNICALL
+Java_org_freedesktop_cairo_GdkCairoSupport_gdk_1cairo_1set_1source_1rgba
+(
+        JNIEnv* env,
+        jclass cls,
+        jlong _context,
+        jlong _rgba
+)
+{
+        cairo_t* context;
+        GdkRGBA* rgba;
+        
+        // convert context
+        context = (cairo_t*) _context;
+        
+        // convert rgba
+        rgba = (GdkRGBA*) _rgba;
+
+        // call function
+        gdk_cairo_set_source_rgba(context, rgba);
+
+        // cleanup parameter context
+
+        // cleanup parameter pixbuf
+}
