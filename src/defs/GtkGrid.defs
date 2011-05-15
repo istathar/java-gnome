@@ -1,0 +1,99 @@
+(define-object Grid
+  (in-module "Gtk")
+  (parent "GtkContainer")
+  (c-name "GtkGrid")
+)
+
+(define-function gtk_grid_new
+  (is-constructor-of "GtkGrid")
+  (c-name "gtk_grid_new")
+  (caller-owns-return #t)
+  (return-type "GtkWidget*")
+)
+
+(define-method attach
+  (of-object "GtkGrid")
+  (c-name "gtk_grid_attach")
+  (return-type "none")
+  (parameters
+    '("GtkWidget*" "child")
+    '("gint" "left")
+    '("gint" "top")
+    '("gint" "width")
+    '("gint" "height")
+  )
+)
+
+(define-method attach_next_to
+  (of-object "GtkGrid")
+  (c-name "gtk_grid_attach_next_to")
+  (return-type "none")
+  (parameters
+    '("GtkWidget*" "child")
+    '("GtkWidget*" "sibling")
+    '("GtkPositionType" "side")
+    '("gint" "width")
+    '("gint" "height")
+  )
+)
+
+(define-method set_row_spacing
+  (of-object "GtkGrid")
+  (c-name "gtk_grid_set_row_spacing")
+  (return-type "none")
+  (parameters
+    '("guint" "spacing")
+  )
+)
+
+(define-method get_row_spacing
+  (of-object "GtkGrid")
+  (c-name "gtk_grid_get_row_spacing")
+  (return-type "guint")
+)
+
+(define-method set_column_spacing
+  (of-object "GtkGrid")
+  (c-name "gtk_grid_set_column_spacing")
+  (return-type "none")
+  (parameters
+    '("guint" "spacing")
+  )
+)
+
+(define-method get_column_spacing
+  (of-object "GtkGrid")
+  (c-name "gtk_grid_get_column_spacing")
+  (return-type "guint")
+)
+
+(define-method set_row_homogeneous
+  (of-object "GtkGrid")
+  (c-name "gtk_grid_set_row_homogeneous")
+  (return-type "none")
+  (parameters
+    '("gboolean" "homogeneous")
+  )
+)
+
+(define-method get_row_homogeneous
+  (of-object "GtkGrid")
+  (c-name "gtk_grid_get_row_homogeneous")
+  (return-type "gboolean")
+)
+
+(define-method set_column_homogeneous
+  (of-object "GtkGrid")
+  (c-name "gtk_grid_set_column_homogeneous")
+  (return-type "none")
+  (parameters
+    '("gboolean" "homogeneous")
+  )
+)
+
+(define-method get_column_homogeneous
+  (of-object "GtkGrid")
+  (c-name "gtk_grid_get_column_homogeneous")
+  (return-type "gboolean")
+)
+
