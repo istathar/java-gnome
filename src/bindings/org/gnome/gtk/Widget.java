@@ -1746,6 +1746,9 @@ public abstract class Widget extends org.gnome.glib.Object
      * child this Widget will be allocated its natural size reqeust, but not
      * more.
      * 
+     * <p>
+     * This is the <var>hexpand</var> property.
+     * 
      * @since 4.1.1
      */
     public void setExpandHorizontal(boolean setting) {
@@ -1753,6 +1756,9 @@ public abstract class Widget extends org.gnome.glib.Object
     }
 
     /**
+     * <p>
+     * This is the <var>vexpand</var> property.
+     * 
      * @since 4.1.1
      */
     public void setExpandVertical(boolean setting) {
@@ -1761,6 +1767,10 @@ public abstract class Widget extends org.gnome.glib.Object
 
     /**
      * Set the horizontal positioning of a Widget in its parent Container.
+     * 
+     * <p>
+     * This is the <var>halign</var> property.
+     * 
      * <p>
      * <i>This is part of how the GTK 2.x Alignment Widget has been
      * replaced.</i>
@@ -1773,6 +1783,9 @@ public abstract class Widget extends org.gnome.glib.Object
 
     /**
      * Set the vertical positioning of a Widget in its parent Container.
+     * 
+     * <p>
+     * This is the <var>valign</var> property.
      * 
      * @since 4.1.1
      */
