@@ -32,17 +32,28 @@
  */
 package org.gnome.gtk;
 
-/*
- * FIXME this is a placeholder stub for what will become the public API for
- * this type. Replace this comment with appropriate javadoc including author
- * and since tags. Note that the class may need to be made abstract, implement
- * interfaces, or even have its parent changed. No API stability guarantees
- * are made about this class until it has been reviewed by a hacker and this
- * comment has been replaced.
+/**
+ * A vertical Scrollbar. These are just constituent parts of ScrolledWindows;
+ * you rarely if ever will need to talk to this Widget directly, but if you
+ * need access to it call ScrolledWindow's
+ * {@link ScrolledWindow#getVScrollbar() getVScrollbar()}.
+ * 
+ * @since 4.0.8
  */
 public class VScrollbar extends Scrollbar
 {
     protected VScrollbar(long pointer) {
         super(pointer);
+    }
+
+    /**
+     * Create a new VScrollbar. Ordinarily you pass in the Adjustment object
+     * you plan to control this Scrollbar with, but if you pass
+     * <code>null</code> one will be created.
+     * 
+     * @since 4.0.17
+     */
+    public VScrollbar(Adjustment adj) {
+        super(GtkVScrollbar.createVScrollbar(adj));
     }
 }

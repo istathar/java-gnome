@@ -171,12 +171,6 @@ public final class Glade extends Glib
 
         glade = new XML(filename, root);
 
-        if (glade == null) {
-            // TODO replace with proper log handling.
-            throw new IllegalStateException("\nParsing the specified Glade XML file,\n"
-                    + target.getAbsolutePath() + "\nresulted in a null return. That's a show stopper.");
-        }
-
         return glade;
     }
 }

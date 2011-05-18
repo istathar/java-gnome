@@ -1,7 +1,7 @@
 /*
  * java-gnome, a UI library for writing GTK and GNOME programs from Java!
  *
- * Copyright © 2007-2010 Operational Dynamics Consulting, Pty Ltd
+ * Copyright © 2007-2011 Operational Dynamics Consulting, Pty Ltd
  *
  * The code in this file, and the program it is a part of, is made available
  * to you by its authors as open source software: you can redistribute it
@@ -140,7 +140,7 @@ import org.freedesktop.bindings.Flag;
  * @author Andrew Cowie
  * @since 4.0.6
  */
-public final class ModifierType extends Flag
+public class ModifierType extends Flag
 {
     protected ModifierType(int ordinal, String nickname) {
         super(ordinal, nickname);
@@ -164,6 +164,18 @@ public final class ModifierType extends Flag
      * @since 4.0.13
      */
     public static final ModifierType LOCK_MASK = new ModifierType(GdkModifierType.LOCK_MASK, "LOCK_MASK");
+
+    /**
+     * The ModifierType associated with the <b><code>NumLock</code></b> key. A
+     * bit strange that this is also treated as a modifier.
+     * 
+     * <p>
+     * <i>Even worse is that this appears to actually be state
+     * <code>0x10</code>, which is <code>GDK_MOD2_MASK</code>!</i>
+     * 
+     * @since 4.0.18
+     */
+    public static final ModifierType NUM_MASK = new ModifierType(GdkModifierType.MOD2_MASK, "NUM_MASK");
 
     /**
      * The <b><code>Shift</code></b> key modifier.
@@ -254,4 +266,30 @@ public final class ModifierType extends Flag
      */
     public static final ModifierType BUTTON_RIGHT_MASK = new ModifierType(GdkModifierType.BUTTON3_MASK,
             "BUTTON_RIGHT_MASK");
+
+    /**
+     * Combine two ModifierType instances.
+     */
+    public static ModifierType or(ModifierType one, ModifierType two) {
+        return (ModifierType) Flag.orTwoFlags(one, two);
+    }
+
+    /**
+     * Find the union of two ModifierType instances.
+     * 
+     * @since 4.0.18
+     */
+    public static ModifierType and(ModifierType one, ModifierType two) {
+        return (ModifierType) Flag.andTwoFlags(one, two);
+    }
+
+    /**
+     * Remove the second Flag's fields from the first. This is especially
+     * useful for screening out <b><code>NumLock</code></b>
+     * 
+     * @since 4.0.18
+     */
+    public static ModifierType mask(ModifierType one, ModifierType two) {
+        return (ModifierType) Flag.maskTwoFlags(one, two);
+    }
 }

@@ -1,7 +1,7 @@
 /*
  * java-gnome, a UI library for writing GTK and GNOME programs from Java!
  *
- * Copyright © 2007-2010 Operational Dynamics Consulting, Pty Ltd and Others
+ * Copyright © 2007-2011 Operational Dynamics Consulting, Pty Ltd and Others
  *
  * The code in this file, and the program it is a part of, is made available
  * to you by its authors as open source software: you can redistribute it
@@ -32,6 +32,8 @@
  */
 package org.gnome.gtk;
 
+import org.freedesktop.icons.Helper;
+import org.freedesktop.icons.Icon;
 import org.gnome.gdk.Event;
 import org.gnome.gdk.Pixbuf;
 
@@ -250,6 +252,10 @@ public class Entry extends Widget implements Editable, CellEditable
         GtkEditable.setPosition(this, position);
     }
 
+    public int getPosition() {
+        return GtkEditable.getPosition(this);
+    }
+
     /**
      * Request that the width of this Entry be wide enough for a given number
      * of characters.
@@ -316,6 +322,24 @@ public class Entry extends Widget implements Editable, CellEditable
 
     public void selectRegion(int start, int end) {
         GtkEditable.selectRegion(this, start, end);
+    }
+
+    public int getSelectionBoundsStart() {
+        int[] start = new int[1];
+        int[] end = new int[1];
+
+        GtkEditable.getSelectionBounds(this, start, end);
+
+        return start[0];
+    }
+
+    public int getSelectionBoundsEnd() {
+        int[] start = new int[1];
+        int[] end = new int[1];
+
+        GtkEditable.getSelectionBounds(this, start, end);
+
+        return end[0];
     }
 
     /**
@@ -478,7 +502,7 @@ public class Entry extends Widget implements Editable, CellEditable
      * @since 4.0.13
      */
     public void setIconFromStock(EntryIconPosition position, Stock stock) {
-        GtkEntry.setIconFromStock(this, position, stock.getStockId());
+        GtkEntry.setIconFromStock(this, position, stock == null ? null : stock.getStockId());
     }
 
     /**
@@ -488,9 +512,24 @@ public class Entry extends Widget implements Editable, CellEditable
      * image&quot; icon will be used instead.
      * 
      * @since 4.0.13
+     * @deprecated
      */
     public void setIconFromIconName(EntryIconPosition position, String name) {
+        assert false : "Use setIconFromIcon() instead";
         GtkEntry.setIconFromIconName(this, position, name);
+    }
+
+    /**
+     * Cause the Entry to have an icon at the given <code>position</code>
+     * using an Icon from the current icon theme. If <code>name</code> is
+     * <code>null</code>, no icon will be shown. If for whatever reason the
+     * icon lookup fails, a &quot;broken image&quot; icon will be used
+     * instead.
+     * 
+     * @since 4.0.17
+     */
+    public void setIconFromIcon(EntryIconPosition position, Icon icon) {
+        GtkEntry.setIconFromIconName(this, position, Helper.getName(icon));
     }
 
     /**
@@ -537,9 +576,31 @@ public class Entry extends Widget implements Editable, CellEditable
      * an icon name.
      * 
      * @since 4.0.13
+     * @deprecated
      */
     public String getIconName(EntryIconPosition position) {
+        assert false : "use getIconFor() instead";
         return GtkEntry.getIconName(this, position);
+    }
+
+    /**
+     * Retrieves the named Icon used for illustrating icon at
+     * <code>position</code> on this Entry.
+     * 
+     * <p>
+     * A <code>null</code> value will be returned if the icon was not set from
+     * an named Icon.
+     * 
+     * @since 4.0.17
+     */
+    public Icon getIconIcon(EntryIconPosition position) {
+        final String name;
+        final Icon result;
+
+        name = GtkEntry.getIconName(this, position);
+        result = Helper.instanceFor(name);
+
+        return result;
     }
 
     /**
@@ -587,7 +648,7 @@ public class Entry extends Widget implements Editable, CellEditable
      * 
      * <p>
      * If <code>x</code> or <code>y</code> are not inside an icon,
-     * <code>-1<code> will be returned.
+     * <code>-1</code> will be returned.
      * 
      * @since 4.0.13
      */

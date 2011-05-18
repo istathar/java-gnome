@@ -1,0 +1,26 @@
+(define-object Spinner
+  (in-module "Gtk")
+  (parent "GtkDrawingArea")
+  (c-name "GtkSpinner")
+  (gtype-id "GTK_TYPE_SPINNER")
+)
+
+(define-function gtk_spinner_new
+  (c-name "gtk_spinner_new")
+  (is-constructor-of "GtkSpinner")
+  (caller-owns-return #t)
+  (return-type "GtkWidget*")
+)
+
+(define-method start
+  (of-object "GtkSpinner")
+  (c-name "gtk_spinner_start")
+  (return-type "none")
+)
+
+(define-method stop
+  (of-object "GtkSpinner")
+  (c-name "gtk_spinner_stop")
+  (return-type "none")
+)
+

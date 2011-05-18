@@ -1,7 +1,7 @@
 /*
  * java-gnome, a UI library for writing GTK and GNOME programs from Java!
  *
- * Copyright © 2007-2010 Operational Dynamics Consulting, Pty Ltd and Others
+ * Copyright © 2007-2011 Operational Dynamics Consulting, Pty Ltd and Others
  *
  * The code in this file, and the program it is a part of, is made available
  * to you by its authors as open source software: you can redistribute it
@@ -108,7 +108,8 @@ public class ToggleAction extends Action
     /**
      * Create a new ToggleAction based on a Stock item, and connect a handler
      * to its <code>ToggleAction.Toggled</code> signal. Complements the
-     * {@link #Action(String, Stock) &lt;init&gt;(String, Stock)} constructor.
+     * {@link #ToggleAction(String, Stock) &lt;init&gt;(String, Stock)}
+     * constructor.
      * 
      * @since 4.0.15
      */
@@ -152,11 +153,19 @@ public class ToggleAction extends Action
     }
 
     /**
-     * Emit the <code>ToggleAction.Toggled</code> signal.
-     * 
-     * @since 4.0.15
+     * @deprecated
      */
     public void toggled() {
+        assert false : "Use emitToggled() instead";
+        GtkToggleAction.toggled(this);
+    }
+
+    /**
+     * Emit the <code>ToggleAction.Toggled</code> signal.
+     * 
+     * @since 4.0.19
+     */
+    public void emitToggled() {
         GtkToggleAction.toggled(this);
     }
 

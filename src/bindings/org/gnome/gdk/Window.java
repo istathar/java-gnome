@@ -206,4 +206,51 @@ public class Window extends Drawable
     public boolean isViewable() {
         return GdkWindow.isViewable(this);
     }
+
+    /**
+     * Change the background of the Window.
+     * 
+     * <p>
+     * TODO describe relative parameter.
+     * 
+     * <p>
+     * This really is only necessary if trying to do irregularly shaped user
+     * interfaces (ie, not standard rectangular applications) and need a
+     * transparent background. You get that via:
+     * 
+     * <pre>
+     * underlying.setBackingPixmap(null, false);
+     * </pre>
+     * 
+     * but transparency is a complex topic and requres other measures as well.
+     * TODO describe or link!
+     * 
+     * @since <span style="color:red">unstable</span>
+     */
+    public void setBackingPixmap(Pixmap pixmap, boolean relative) {
+        GdkWindow.setBackPixmap(this, pixmap, relative);
+    }
+
+    /**
+     * Force GDK to use the old X Window allocation behaviour for this Window.
+     * This reverts the GDK Window backing a GTK Widget to the pre-2.18
+     * behaviour, analogous to setting the <code>GDK_NATIVE_WINDOW</code>
+     * environment variable but not nearly as invasive.
+     * 
+     * <p>
+     * Theoretically you should not need to use this; the whole idea of the
+     * "client-side windows" patch to GTK was to avoid having to use
+     * unnecesssary intermediate X Windows, and calling this method
+     * circumvents this optimization. Most GTK Widgets should perform just
+     * fine without reverting to the old behaviour, but in isolated corner
+     * cases it may be necessary to workaround obscure bugs.
+     * 
+     * @return This will return <code>false</code> should GDK be unable to
+     *         allocate native resources as requested. The consequences of
+     *         that are unclear.
+     * @since 4.0.16
+     */
+    public boolean ensureNative() {
+        return GdkWindow.ensureNative(this);
+    }
 }

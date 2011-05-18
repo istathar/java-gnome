@@ -267,13 +267,15 @@ public class DefsParser
                 if (l == parameters) {
                     // TODO could null-ok be present in other than parameters
                     l.add(new String[] {
-                            key, value,
-                            /* 3rd value is used to take null-ok under control */
-                            line.indexOf("(null-ok)") != -1 ? "yes" : "no"
+                        key,
+                        value,
+                        /* 3rd value is used to take null-ok under control */
+                        line.indexOf("(null-ok)") != -1 ? "yes" : "no"
                     });
                 } else {
                     l.add(new String[] {
-                            key, value
+                        key,
+                        value
                     });
                 }
             }

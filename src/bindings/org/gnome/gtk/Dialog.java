@@ -1,7 +1,7 @@
 /*
  * java-gnome, a UI library for writing GTK and GNOME programs from Java!
  *
- * Copyright © 2007-2010 Operational Dynamics Consulting, Pty Ltd and Others
+ * Copyright © 2007-2011 Operational Dynamics Consulting, Pty Ltd and Others
  *
  * The code in this file, and the program it is a part of, is made available
  * to you by its authors as open source software: you can redistribute it
@@ -66,12 +66,18 @@ package org.gnome.gtk;
  * 
  * <p>
  * To open the Dialog as a normal non-blocking Window you use the
- * {@link Widget#show() show()} method after you have packed the various child
- * elements into it. On the other hand, for occasions where you are using a
- * Dialog to get information required for the further progress of the main
- * application, the {@link Dialog#run() run()} method can be used to open the
- * Dialog. This method blocks the application and waits for response from the
- * user.
+ * {@link Window#present() present()} method after you have packed the various
+ * child elements into it. On the other hand, for occasions where you are
+ * using a Dialog to get information required for the further progress of the
+ * main application, the {@link Dialog#run() run()} method can be used to open
+ * the Dialog. This method blocks the application and waits for response from
+ * the user.
+ * 
+ * <p>
+ * Like any Window that you are finished with, you have to
+ * {@link Window#hide() hide()} when you receive a
+ * <code>Dialog.Response</code> callback, or after {@link Dialog#run() run()}
+ * returns.
  * 
  * <p>
  * GTK comes with a number of standard Dialogs which can be used for typical
@@ -212,6 +218,25 @@ public class Dialog extends Window
      * is known as a 'modal' Dialog. While this loop is running the user is
      * prevented from interacting with the rest of the application.
      * 
+     * <pre>
+     * response = dialog.run();
+     * 
+     * dialog.hide();
+     * if (response == ResponseType.CANCEL) {
+     *     return;
+     * }
+     * // take action!
+     * </pre>
+     * 
+     * If you don't care about the response, just go ahead and
+     * <code>hide()</code> right away as soon as <code>run()</code> returns.
+     * 
+     * <pre>
+     * dialog = new AboutDialog();
+     * dialog.run();
+     * dialog.hide();
+     * </pre>
+     * 
      * <p>
      * While there are legitimate uses of modal Dialogs, it is a feature that
      * tends to be badly abused. Therefore, before you call this method,
@@ -222,20 +247,45 @@ public class Dialog extends Window
      * A common bug is for people to neglect to {@link Widget#hide() hide()}
      * the Dialog after this method returns. If you don't, then the Dialog
      * will remain on screen despite repeated clicking of (for example) the
-     * "Close" Button. [The Window is not hidden automatically because of
-     * cases like "Apply" in preferences Dialogs and "Open" in FileChoosers
-     * when a folder is selected and activation will change directory rather
-     * than finishing the Dialog]
+     * "Close" Button [the Window is not hidden automatically because of cases
+     * like "Apply" in preferences Dialogs and "Open" in FileChoosers when a
+     * folder is selected and activation will change directory rather than
+     * finishing the Dialog].
      * 
      * <p>
      * While <code>run()</code> can be very useful in callbacks when popping
      * up a quick question, you may find hooking up to the
      * {@link Dialog.Response} signal more flexible.
      * 
+     * <p>
+     * <b>Warning</b><br>
+     * <i>Using this method will prevent other threads that use GTK from
+     * running. That's a bug as far as we're concerned, but if the goal is to
+     * display a dialog without blocking other threads that use GTK, it is
+     * better (for now) to call Window's</i> {@link Window#present()
+     * present()} <i>and the</i> {@link #connect(Response) connect()} <i>to
+     * the </i> {@link Dialog.Response} <i>signal.</i>
+     * 
+     * <pre>
+     * dialog.connect(new Dialog.Response() {
+     *     public void onResponse(Dialog source, ResponseType response) {
+     *         dialog.hide();
+     *         if (response == ResponseType.CLOSE) {
+     *             return;
+     *         }
+     *         // take action!
+     *     }
+     * });
+     * 
+     * dialog.present();
+     * </pre>
+     * 
      * @return the emitted response constant. If asking a question, you should
      *         check this against the various constants in the ResponseType
      *         class. Don't forget to <code>hide()</code> afterwards.
      * @since 4.0.5
+     * @see <a href="https://bugzilla.gnome.org/show_bug.cgi?id=606796">the
+     *      bug report</a>
      */
     public ResponseType run() {
         final int value;
@@ -327,5 +377,26 @@ public class Dialog extends Window
      */
     public void emitResponse(ResponseType response) {
         GtkDialog.response(this, response.getResponseId());
+    }
+
+    /**
+     * Tell the Dialog which Button (which ResponseType) is to be activated
+     * when the user presses <b><code>Enter</code></b>.
+     * 
+     * <p>
+     * If you're calling this because you've created a custom Button with
+     * {@link #addButton(Widget, ResponseType) addButton()}, you'll probably
+     * need to call Widget's {@link Widget#setCanDefault(boolean)
+     * setCanDefault()} on that Button first, before using this.
+     * 
+     * <p>
+     * Note that calling Widget's {@link Widget#grabDefault() grabDefault()}
+     * is insufficient; Dialogs have some fairly tricky internal wiring, and
+     * you need to use this method instead.
+     * 
+     * @since 4.0.17
+     */
+    public void setDefaultResponse(ResponseType response) {
+        GtkDialog.setDefaultResponse(this, response.getResponseId());
     }
 }

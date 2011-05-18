@@ -116,10 +116,5 @@ public class ValidateTextViewBorderWindows extends GraphicalTestCase
         assertEquals(0, Y);
         assertTrue(y < 0);
         assertEquals(Y, view.convertWindowToBufferCoordsY(LEFT, y));
-
-        if (false) {
-            window.showAll();
-            runMainLoop(window);
-        }
     }
 }

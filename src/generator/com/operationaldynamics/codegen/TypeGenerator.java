@@ -1,7 +1,7 @@
 /*
  * java-gnome, a UI library for writing GTK and GNOME programs from Java!
  *
- * Copyright © 2007-2010 Operational Dynamics Consulting, Pty Ltd
+ * Copyright © 2007-2011 Operational Dynamics Consulting, Pty Ltd
  * Copyright © 2007      Vreixo Formoso
  *
  * The code in this file, and the program it is a part of, is made available
@@ -87,7 +87,7 @@ abstract class TypeGenerator extends Generator
         out.print("/*\n");
         out.print(" * java-gnome, a UI library for writing GTK and GNOME programs from Java!\n");
         out.print(" *\n");
-        out.print(" * Copyright © 2006-2010 Operational Dynamics Consulting, Pty Ltd and Others\n");
+        out.print(" * Copyright © 2006-2011 Operational Dynamics Consulting, Pty Ltd and Others\n");
         out.print(" *\n");
         out.print(" * The code in this file, and the program it is a part of, is made available\n");
         out.print(" * to you by its authors as open source software: you can redistribute it\n");

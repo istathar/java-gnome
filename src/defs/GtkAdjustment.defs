@@ -28,6 +28,20 @@
   )
 )
 
+(define-method configure
+  (of-object "GtkAdjustment")
+  (c-name "gtk_adjustment_configure")
+  (return-type "none")
+  (parameters
+    '("gdouble" "value")
+    '("gdouble" "lower")
+    '("gdouble" "upper")
+    '("gdouble" "step_increment")
+    '("gdouble" "page_increment")
+    '("gdouble" "page_size")
+  )
+)
+
 (define-method changed
   (of-object "GtkAdjustment")
   (c-name "gtk_adjustment_changed")

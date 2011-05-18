@@ -394,7 +394,82 @@ public final class Internationalization
         }
     }
 
+    /**
+     * Translate a language name. For example, if you are in
+     * <code>LANG="es_ES.UTF-8"</code> and do:
+     * 
+     * <pre>
+     * lang = translateCountryName(&quot;Japanese&quot;);
+     * </pre>
+     * 
+     * you will get <code>"Japonés"</code>.
+     * 
+     * <p>
+     * In order to use this function, you must already have done the lookup of
+     * the ISO 639 language code (<code>jp</code> in this case to what the
+     * standard has the name in English as. Unfortunately there's no automated
+     * way to do this, however the <code>iso-codes</code> package countains an
+     * XML file at <code>/usr/share/xml/iso-codes/iso_639.xml</code> with this
+     * data.
+     * 
+     * <p>
+     * Beware that you really need to use the proper name; <code>es</code>
+     * (which is Spanish to mere mortals) is <code>"Spanish; Castilian"</code>
+     * in the XML data [and hence in the message catalogues].
+     * 
+     * <p>
+     * <i>This function uses</i> <code>dgetttext()</code> <i>and the</i>
+     * <code>"iso_639"</code> <i>translation domain. Translations for
+     * languages in this standard should already be available on your
+     * system.</i>
+     * 
+     * @since 4.0.17
+     */
+    public static final String translateLanguageName(String name) {
+        if (name == null) {
+            throw new IllegalArgumentException();
+        }
+
+        return dgettext("iso_639", name);
+    }
+
+    /**
+     * Translate a country name. For example, if you are in
+     * <code>LANG="fr_CA"</code>,
+     * 
+     * <pre>
+     * lang = translateCountryName(&quot;United Kingdom&quot;);
+     * </pre>
+     * 
+     * will get you <code>"Royaume-Uni"</code>.
+     * 
+     * <p>
+     * To use this function you must already have done the lookup of the ISO
+     * 3166 country code to its name in English. Unfortunately there's no
+     * automated way to do this. The <code>iso-codes</code> package, however,
+     * countains an XML file at
+     * <code>/usr/share/xml/iso-codes/iso_3166.xml</code> with the necessary
+     * data.
+     * 
+     * <p>
+     * <i>This function uses</i> <code>dgetttext()</code> <i>and the</i>
+     * <code>"iso_3166"</code> <i>translation domain. Translations for
+     * countries in this standard should already be available on your
+     * system.</i>
+     * 
+     * @since 4.0.17
+     */
+    public static final String translateCountryName(String name) {
+        if (name == null) {
+            throw new IllegalArgumentException();
+        }
+
+        return dgettext("iso_3166", name);
+    }
+
     private static native final String gettext(String msg);
+
+    private static native final String dgettext(String domain, String msg);
 
     /**
      * Mark the given message as translatable, without actually translating

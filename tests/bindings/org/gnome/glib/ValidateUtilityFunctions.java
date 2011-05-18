@@ -1,7 +1,7 @@
 /*
  * java-gnome, a UI library for writing GTK and GNOME programs from Java!
  *
- * Copyright © 2010 Operational Dynamics Consulting, Pty Ltd and Others
+ * Copyright © 2010-2011 Operational Dynamics Consulting, Pty Ltd and Others
  *
  * The code in this file, and the program it is a part of, is made available
  * to you by its authors as open source software: you can redistribute it
@@ -26,13 +26,26 @@ import org.gnome.gtk.GraphicalTestCase;
  * 
  * @author Serkan Kaba
  * @author Andrew Cowie
+ * @author Guillaume Mazoyer
  */
 public class ValidateUtilityFunctions extends GraphicalTestCase
 {
     public final void testGetUserName() {
+        String str;
         final String userNameEnvironment, userNameGlib;
 
-        userNameEnvironment = Environment.getEnv("USERNAME");
+        str = Environment.getEnv("USERNAME");
+        if (str == null) {
+            str = Environment.getEnv("USER");
+        }
+        if (str == null) {
+            str = Environment.getEnv("LOGNAME");
+        }
+        if (str == null) {
+            fail("No USERNAME or USER in environment?");
+        }
+
+        userNameEnvironment = str;
         userNameGlib = Glib.getUserName();
 
         assertEquals(userNameEnvironment, userNameGlib);
@@ -52,5 +65,41 @@ public class ValidateUtilityFunctions extends GraphicalTestCase
 
         assertNotNull(conf);
         assertEquals(home + "/.config", conf);
+    }
+
+    public final void testFormatSizeForDisplay() {
+        String result;
+
+        result = Glib.formatSizeForDisplay(1024);
+        assertEquals("1.0 KB", result);
+
+        result = Glib.formatSizeForDisplay(1024 * 1024);
+        assertEquals("1.0 MB", result);
+
+        result = Glib.formatSizeForDisplay(1024 * 1024 * 1024);
+        assertEquals("1.0 GB", result);
+    }
+
+    public final void testMarkupEscapeText() {
+        String result;
+
+        result = Glib.markupEscapeText("Hello");
+        assertEquals("Hello", result);
+
+        result = Glib.markupEscapeText("& World");
+        assertEquals("&amp; World", result);
+
+        result = Glib.markupEscapeText("Team > Me");
+        assertEquals("Team &gt; Me", result);
+
+        result = Glib.markupEscapeText("I < Team");
+        assertEquals("I &lt; Team", result);
+    }
+
+    public final void testMarkupEscapeWhitespace() {
+        String result;
+
+        result = Glib.markupEscapeText("Goodbye\tCruel\nWorld");
+        assertEquals("Goodbye\tCruel\nWorld", result);
     }
 }

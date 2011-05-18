@@ -1,5 +1,371 @@
 NEWS
 
+<a name="4.0.19" id="1297659945" title="Which Font?"></a>
+
+java-gnome 4.0.19 (14 Feb 2011)
+===============================
+
+_What do you mean that's not the font I asked for?_
+
+This release includes some minor feature enhancements.
+
+Preliminary coverage of Pango's Font object. Font is Pango's abstraction
+describing a typeface, and is what is actually loaded. We've exposed the
+methods that allow you to find out what was _actually_ loaded for a given
+FontDescription request. You do this with Context's
+[`loadFont()`][Context.loadFont()] and then Font's
+[`describe()`][Font.describe()]. Thanks to Behdad Esfahbod for explaining how
+all this works.
+
+* **`org.gnome.pango.Font`**
+* **`org.gnome.pango.Context`**
+
+Exposed a few utility functions, including one to find out if your program is
+running in a terminal or from the Desktop directly.
+
+* **`org.freedesktop.bindings.Environment`**
+
+GTK improvements
+----------------
+
+Further improved some corner cases involved in using Actions, and now you can
+make them with named Icons.
+
+* **`org.gnome.gtk.Action`**
+* **`org.gnome.gtk.ToolItem`**
+
+There are some odd corner cases, especially with TextView, where idle handlers
+need to run before you have the calculations you need ready to query. One
+workaround appears to be letting the main loop cycle, so we've exposed
+[`Gtk.mainIterationDo()`][Gtk.mainIterationDo()] and the `Gtk.eventsPending()`
+which wraps it.
+
+* **`org.gnome.gtk.Gtk`**
+
+Build improvements
+------------------
+
+Building java-gnome on Mandriva now works! Thanks to Liam Quin for helping QA
+the top level `configure` script.
+
+AfC
+
+[Gtk.mainIterationDo()]: <http://java-gnome.sourceforge.net/4.0/doc/api/org/gnome/gtk/Gtk.html#mainIterationDo(boolean)>
+[Context.loadFont()]: <http://java-gnome.sourceforge.net/4.0/doc/api/org/gnome/pango/Context.html#loadFont(org.gnome.pango.FontDescription)>
+[Font.describe()]: <http://java-gnome.sourceforge.net/4.0/doc/api/org/gnome/pango/Font.html#describe()>
+
+<a name="4.0.18" id="1293156906" title="Fix GDK_IS_WINDOW crash"></a>
+
+java-gnome 4.0.18 (23 Dec 2010)
+===============================
+
+_My compressed original is better than your uncompressed copy_
+
+This is a bug fix release. A serious crasher was occurring when you requested
+a the underlying [org.gnome.gdk] Window backing a Widget, as is often
+necessary before popping up context menus. Thanks to Kenneth Prugh and
+Guillaume Mazoyer for their help in duplicating and isolating the problem.
+
+Better image rendering
+----------------------
+
+While we're at it, we've merged work in progress offering coverage of the
+librsvg Scalable Vector Graphics loader. This allows you to draw an SVG image
+as a vector graphic to Cairo (which itself works in vector form, of course),
+and is a substantial improvement over just loading the `.svg` with gdk-pixbuf
+(which rasterizes the graphic to a bitmap first, of course). Load the image
+with [Handle][], then draw it with Context's
+[`showHandle()`][Context.showHandle()].
+
+* **`org.freedesktop.cairo.Context`**
+* **`org.gnome.rsvg.Handle`**
+* **`org.gnome.rsvg.DimensionData`**
+* `org.gnome.rsvg.Plumbing`
+* `org.gnome.rsvg.RsvgDimensionDataOverride`
+* `org.gnome.rsvg.ValidateVectorIllustrations`
+* `cairo.ExampleDrawingPenguins`
+
+We've also added coverage of Cairo Surface's new
+[`setMimeType()`][Surface.setMimeType()], which allows you to embed the the
+original [ie JPEG, or to a lesser extent PNG] image in PDF output rather than
+just the decoded, rasterized, and very huge bitmap image that Cairo uses on
+screen and would otherwise have used in PDF and SVG output. So 100 kB JPEGs
+stay JPEGs instead of turning into 12 MB bitmaps. Yeay.
+
+* **`org.freedesktop.cairo.Surface`**
+* **`org.freedesktop.cairo.RecordingSurface`**
+* **`org.freedesktop.cairo.MimeType`**
+* `org.freedesktop.cairo.CairoSurfaceOverride`
+* `org.freedesktop.cairo.ValidateCairoInternals`
+
+java-gnome now depends on Cairo 1.10 and librsvg 2.32.
+
+AfC
+
+[Handle]: http://java-gnome.sourceforge.net/4.0/doc/api/org/gnome/rsvg/Handle.html
+[Context.showHandle()]: <http://java-gnome.sourceforge.net/4.0/doc/api/org/freedesktop/cairo/Context.html#showHandle(org.gnome.rsvg.Handle)>
+[Surface.setMimeType()]: <http://java-gnome.sourceforge.net/4.0/doc/api/org/freedesktop/cairo/Surface.html#setMimeData(org.freedesktop.cairo.MimeType,%20byte[])>
+
+<a name="4.0.17" id="1290043843" title="Dictionaries exist"></a>
+
+java-gnome 4.0.17 (18 Nov 2010)
+===============================
+
+_All dictionaries are equal. But some dictionaries are more equal than
+others._
+
+After some 6 months of development, this release includes substantial
+improvements across the library. Thanks to Guillaume Mazoyer, Michael
+Culbertson, Douglas Goulart, Vreixo Formoso, Mauro Galli, Thijs Leibbrand, and
+Andrew Cowie for their contributions to the library, and also to Yaakov
+Selkowitz, and Alexander Boström for their updates to the build system.
+
+Enchant Dictionaries
+--------------------
+
+Improve the utility of the Enchant library by exposing functionality to test
+wither a dictionary [exists][Enchant.existsDictionary()] for a given "language
+tag", and to [list][Enchant.listDictionaries()] all available dictionaries.
+Add speciality functions to the Internationalization class facilitating the
+translation of [language][Internationalization.translateLangageName()] and
+[country][Internationalization.translateCountryName()] names so you can
+present the list of available languages properly translated in the user's
+language.
+
+* **`org.freedesktop.enchant.Enchant`**
+* **`org.freedesktop.bindings.Internationalization`**
+* `org.freedesktop.enchant.EnchantBrokerOverride`
+* `org.freedesktop.enchant.ValidateEnchantInternals`
+* `org.freedesktop.bindings.ValidateInternationalization`
+
+GTK improvements
+----------------
+
+Introduce Icon as a strongly typed class to wrap "named icons" available in an
+icon theme, complementing the previous coverage of "stock icons" provided by
+the Stock class. Add methods to DataColumn, TreeModel, Image, and Entry making
+these available.
+
+* **`org.freedesktop.icons.Icon`**
+* `org.freedesktop.icons.Helper`
+* **`org.freedesktop.icons.ActionIcon`**
+* **`org.freedesktop.icons.ApplicationIcon`**
+* **`org.freedesktop.icons.CategoryIcon`**
+* **`org.freedesktop.icons.DeviceIcon`**
+* **`org.freedesktop.icons.EmblemIcon`**
+* **`org.freedesktop.icons.FaceIcon`**
+* **`org.freedesktop.icons.MimeIcon`**
+* **`org.freedesktop.icons.PlaceIcon`**
+* **`org.freedesktop.icons.StateIcon`**
+* **`org.gnome.gtk.DataColumnIcon`**
+* **`org.gnome.gtk.TreeModel`**
+* **`org.gnome.gtk.Image`**
+* **`org.gnome.gtk.Entry`**
+* `org.freedesktop.icons.ValidateIconItems`
+
+Also in TreeView land, Vreixo Foromso contributed a change to make
+DataColumnReference generic, noting that this was his "one great irritation"
+with java-gnome. Itch scratched, apparently. `:)`
+
+* **`org.gnome.gtk.TreeModel`**
+* **`org.gnome.gtk.DataColumnReference`**
+* `org.gnome.gtk.ValidateTreeModel`
+
+A fair bit of work went into polishing coverage in various classes. We now
+have coverage for Adjustment's various properties (necessary if you want to
+drive a scroll bar around yourself without using one built into a
+ScrolledWindow).
+
+* **`org.gnome.gtk.Adjustment`**
+* **`org.gnome.gtk.HScrollbar`**
+* **`org.gnome.gtk.VScrollbar`**
+* `org.gnome.gtk.ValidateAssistant`
+* `org.gnome.gtk.ValidateProperties`
+* `org.gnome.gtk.ValidateSignalEmission`
+
+We've also introduced a new signal in the [Assistant][]. You can now define
+the behaviour of an Assistant using the `ForwardPage` signal with the
+`setForwardPageCallback()` method. It can help you to skip pages when you need
+to. When going back, the Assistant will also skip the previously skipped page.
+
+* **`org.gnome.gtk.Assistant`**
+* `org.gnome.gtk.GtkAssistantOverride`
+* `org.gnome.gtk.ValidateAssistant`
+
+java-gnome now supports GTK+ 2.20 and introduces the new [Spinner][] widget
+that can be used to display an unknown progress.
+
+* **`org.gnome.gtk.Spinner`**
+* **`org.gnome.gtk.CellRendererSpinner`**
+
+Added coverage for another utility function, this time the one that
+[escapes][Glib.markupEscapeText()] text in strings so that it can be safely
+included when Pango markup is being used.
+
+* **`org.gnome.glib.Glib`**
+
+If you need to ensure whatever has been copied to the clipboard is available
+after your application terminates, you can call Clipboard's `store()`.
+
+* **`org.gnome.gtk.Clipboard`**
+
+Thread safety
+-------------
+
+Fixed a fairly serious bug in the interaction between the memory management
+code and the thread safety mechanism. Amazing we got away with this one so
+long, really. Thanks to Vreixo Formoso for helping with analysis of the crash
+dumps, confirming the diagnosis, and double checking the proposed solution.
+The problem only showed up if you were making extensive use of something like
+TextViews which (internal to GTK) did its drawing in a background idle
+handler.
+
+* `org.gnome.glib.GObject`
+
+Also fixed a crasher that turned up if your cursor theme didn't have a certain
+named cursor. `ENOTGNOME`, but anyway.
+
+* **`org.gnome.gdk.Cursor`**
+
+More drawing
+------------
+
+The Cairo graphics library continues to be a joy to use and we continue to
+make minor improvements to our coverage as people use it more. In particular,
+based on help from Benjamin Otte and others we've refined the way you create a
+[Context][] in a `Widget.ExposeEvent`, improving efficiency and taking
+advantage of some of the underlying support functions more effectively.
+
+* **`org.freedesktop.cairo.Extend`**
+* **`org.freedesktop.cairo.FillRule`**
+* **`org.freedesktop.cairo.HintStyle`**
+* **`org.freedesktop.cairo.Context`**
+* **`org.freedesktop.cairo.FontOptions`**
+* **`org.freedesktop.cairo.Pattern`**
+* **`org.gnome.gdk.Color`**
+* **`org.gnome.pango.Layout`**
+* **`org.gnome.pango.Underline`**
+* `org.freedesktop.cairo.GdkCairoSupport`
+* `org.freedesktop.cairo.ValidateCairoContext`
+
+Looking ahead
+-------------
+
+With GTK 3.0 coming closer to reality, we're keeping close track of the
+activity there. GTK 3.0 is a pretty vast API and ABI break from 2.x with some
+fairly major changes to the way Widget sizing works, along with an overhaul of
+the drawing system. We'll be updating java-gnome to meet these changes in the
+months to come.
+
+AfC, GM
+
+[Enchant.existsDictionary()]: <http://java-gnome.sourceforge.net/4.0/doc/api/org/freedesktop/enchant/Enchant.html#existsDictionary(java.lang.String)>
+[Enchant.listDictionaries()]: <http://java-gnome.sourceforge.net/4.0/doc/api/org/freedesktop/enchant/Enchant.html#listDictionaries()>
+[Internationalization.translateLangageName()]: <http://java-gnome.sourceforge.net/4.0/doc/api/org/freedesktop/bindings/Internationalization.html#translateLanguageName(java.lang.String)>
+[Internationalization.translateCountryName()]: <http://java-gnome.sourceforge.net/4.0/doc/api/org/freedesktop/bindings/Internationalization.html#translateCountryName(java.lang.String)>
+[Assistant]: <http://java-gnome.sourceforge.net/4.0/doc/api/org/gnome/gtk/Assistant.html>
+[Spinner]: <http://java-gnome.sourceforge.net/4.0/doc/api/org/gnome/gtk/Spinner.html>
+[Glib.markupEscapeText()]: <http://java-gnome.sourceforge.net/4.0/doc/api/org/gnome/glib/Glib.html#markupEscapeText(java.lang.String)>
+[Context]: <http://java-gnome.sourceforge.net/4.0/doc/api/org/freedesktop/cairo/Context.html#Context(org.gnome.gdk.EventExpose)>
+
+
+<a name="4.0.16" id="1276732981" title="Accelerating operations"></a>
+
+java-gnome 4.0.16 (17 Jun 2010)
+===============================
+
+_Accelerating is good for you_
+
+Accelerators
+------------
+
+java-gnome now has full support for accelerators, the key bindings (such as
+**`Ctrl+Q`** for "quit") typically used to activate MenuItems and Actions. The
+heart of the API is in the [AcceleratorGroup][] class, although you actually
+use it care of MenuItem's `setAccelerator()` and Action's `setAccelerator()`.
+Huge thanks are due to Thijs Leibbrand for having navigating the almost
+incomprehensible native API and figured out how we could best add coverage for
+Java programs.
+
+* **`org.gnome.gtk.AcceleratorGroup`**
+* **`org.gnome.gtk.Menu`**
+* **`org.gnome.gtk.MenuItem`**
+* **`org.gnome.gtk.ImageMenuItem`**
+* **`org.gnome.gtk.Window`**
+* **`org.gnome.gtk.Action`**
+* `menu.ExampleSimpleMenu`
+
+Cairo Operations
+----------------
+
+Though we've had support for Cairo's various "operators" (different modes for
+combining what's being drawn with what's already on the surface) for some
+time, we didn't really know what we were doing. Thanks to the careful work of
+Kenneth Prugh, we've now got full coverage in the [Operator][] class along
+with a magnificent series of illustrations. These are the same pictures as are
+in the underlying Cairo documentation, but like our screenshots, ours are
+generated automatically by java-gnome programs whenever you build the
+documentation.
+
+* **`org.freedesktop.cairo.Operator`**
+* `Harness`
+* `org.freedesktop.cairo.IllustrationOperatorOver`
+* `org.freedesktop.cairo.IllustrationOperatorDestOver`
+* `org.freedesktop.cairo.IllustrationOperatorSaturate`
+* `org.freedesktop.cairo.IllustrationOperatorDestIn`
+* `org.freedesktop.cairo.IllustrationOperatorDestAtop`
+* `org.freedesktop.cairo.Illustration`
+* `org.freedesktop.cairo.IllustrationOperatorAdd`
+* `org.freedesktop.cairo.IllustrationOperatorDest`
+* `org.freedesktop.cairo.IllustrationOperatorAtop`
+* `org.freedesktop.cairo.IllustrationOperatorSource`
+* `org.freedesktop.cairo.IllustrationOperatorClear`
+* `org.freedesktop.cairo.IllustrationOperatorDestOut`
+* `org.freedesktop.cairo.IllustrationOperatorOut`
+* `org.freedesktop.cairo.IllustrationOperator`
+* `org.freedesktop.cairo.IllustrationOperatorXOR`
+* `org.freedesktop.cairo.IllustrationOperatorIn`
+
+Miscellaneous improvements
+--------------------------
+
+The style `CENTER` has been added in ButtonBoxStyle.
+
+* **`org.gnome.gtk.ButtonBoxStyle`**
+
+Coverage of GTK's new [InfoBar][] Widget was added by Guillaume Mazoyer, who
+also made numerous touch ups to various core classes. The Activatable and
+Editable interfaces got some love. And methods to get "human readable" byte
+sizes have been added to the [Glib][] utility class.
+
+* **`org.gnome.gtk.Activatable`**
+* **`org.gnome.gtk.Editable`**
+* **`org.gnome.gtk.Entry`**
+* **`org.gnome.gtk.EntryBuffer`**
+* **`org.gnome.gtk.InfoBar`**
+* **`org.gnome.glib.Glib`**
+* **`org.gnome.gtk.Widget`**
+* **`org.gnome.gtk.StatusIcon`**
+* `org.gnome.glib.ValidateUtilityFunctions`
+* `org.gnome.gtk.ValidateEntry`
+
+Finally, we exposed the code needed to force GDK to revert to the pre GTK 2.18
+behaviour of using native X Windows for every Widget. This shouldn't be
+necessary -- the whole point of major changes like the "client-side windows"
+branch are is that they are supposed to Just Work (and more to the point Just
+Work better, over time) -- but it does give a workaround for unusual corner
+cases where either GTK, java-gnome, or the developer is constrained and needs
+some help.
+
+* **`org.gnome.gdk.Window`**
+
+AfC
+
+[InfoBar]: doc/api/org/gnome/gtk/InfoBar.html
+[AcceleratorGroup]: doc/api/org/gnome/gtk/AcceleratorGroup.html
+[Operator]: doc/api/org/freedesktop/cairo/Operator.html
+[Glib]: doc/api/org/gnome/glib/Glib.html
+
 <a name="4.0.15" id="1268692532" title="Radio thang"></a>
 
 java-gnome 4.0.15 (16 Mar 2010)

@@ -136,6 +136,7 @@ Java_org_freedesktop_cairo_Plumbing_createSurface
 	static jclass XlibSurface = NULL;
 	static jclass PdfSurface = NULL;
 	static jclass SvgSurface = NULL;
+	static jclass RecordingSurface = NULL;
 	static jclass UnknownSurface = NULL;
 	jclass type;
 	jmethodID constructor;
@@ -179,6 +180,14 @@ Java_org_freedesktop_cairo_Plumbing_createSurface
 			SvgSurface = (*env)->NewGlobalRef(env, found);
 		}
 		type = SvgSurface;
+		break;
+ 
+        case CAIRO_SURFACE_TYPE_RECORDING:
+		if (RecordingSurface == NULL) {
+			found = (*env)->FindClass(env, "org/freedesktop/cairo/RecordingSurface");
+			RecordingSurface = (*env)->NewGlobalRef(env, found);
+		}
+		type = RecordingSurface;
 		break;
  
 	default:

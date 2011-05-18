@@ -29,7 +29,8 @@ public class ValidateIconView extends GraphicalTestCase
         final IconView view;
 
         model = new ListStore(new DataColumn[] {
-                new DataColumnPixbuf(), new DataColumnString()
+            new DataColumnPixbuf(),
+            new DataColumnString()
         });
 
         view = new IconView(model);
@@ -79,7 +80,8 @@ public class ValidateIconView extends GraphicalTestCase
         TreePath path;
 
         model = new ListStore(new DataColumn[] {
-                pixbuf = new DataColumnPixbuf(), text = new DataColumnString()
+            pixbuf = new DataColumnPixbuf(),
+            text = new DataColumnString()
         });
 
         view = new IconView(model);

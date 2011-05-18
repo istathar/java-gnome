@@ -1,7 +1,7 @@
 /*
  * java-gnome, a UI library for writing GTK and GNOME programs from Java!
  *
- * Copyright © 2007-2010 Operational Dynamics Consulting, Pty Ltd and Others
+ * Copyright © 2007-2011 Operational Dynamics Consulting, Pty Ltd and Others
  *
  * The code in this file, and the program it is a part of, is made available
  * to you by its authors as open source software: you can redistribute it
@@ -60,7 +60,7 @@ Java_org_freedesktop_bindings_Environment_getenv
 	}
 
 	// call function
-	result = (gchar*) getenv(name); 
+	result = (gchar*) g_getenv(name); 
 
 	// clean up name
 	bindings_java_releaseString(name);
@@ -99,7 +99,7 @@ Java_org_freedesktop_bindings_Environment_setenv
 	}
 
 	// call function
-	if (setenv(name, value, 1) == -1) {
+	if (g_setenv(name, value, 1) == -1) {
 		bindings_java_throw(env, "\nsetenv() failed: Insufficient space in environment");
 	}
 	
@@ -132,9 +132,7 @@ Java_org_freedesktop_bindings_Environment_unsetenv
 	}
 
 	// call function
-	if (unsetenv(name) == -1) {
-		bindings_java_throw(env, "\nunsetenv() failed: %s", g_strerror(errno));
-	}
+	g_unsetenv(name);
 
 	// clean up name
 	bindings_java_releaseString(name);
@@ -156,4 +154,33 @@ Java_org_freedesktop_bindings_Environment_getWidth
 {
 	// TODO how can we do this?
 	return (jint) 0;
+}
+
+/*
+ * Implements
+ *   org.freedesktop.bindings.Environment.getpid()
+ */
+JNIEXPORT jint JNICALL
+Java_org_freedesktop_bindings_Environment_getpid
+(
+	JNIEnv *env,
+	jclass cls
+)
+{
+	return getpid();
+}
+
+/*
+ * Implements
+ *   org.freedesktop.bindings.Environment.isatty(int fd)
+ */
+JNIEXPORT jint JNICALL
+Java_org_freedesktop_bindings_Environment_isatty
+(
+        JNIEnv *env,
+        jclass cls,
+        jint _fd
+)
+{
+        return isatty(_fd);
 }

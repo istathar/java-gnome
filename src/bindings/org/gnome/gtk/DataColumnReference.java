@@ -66,7 +66,7 @@ package org.gnome.gtk;
  * @author Andrew Cowie
  * @since 4.0.5
  */
-public final class DataColumnReference extends DataColumn
+public final class DataColumnReference<T> extends DataColumn
 {
     public DataColumnReference() {
         super(java.lang.Object.class);

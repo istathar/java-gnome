@@ -14,6 +14,16 @@
   (return-type "GtkWidget*")
 )
 
+(define-function new_with_buffer
+  (is-constructor-of "GtkEntry")
+  (c-name "gtk_entry_new_with_buffer")
+  (caller-owns-return #t)
+  (return-type "GtkWidget*")
+  (parameters
+    '("GtkEntryBuffer*" "buffer")
+  )
+)
+
 (define-function gtk_entry_new_with_max_length
   (is-constructor-of "GtkEntry")
   (c-name "gtk_entry_new_with_max_length")
@@ -182,6 +192,21 @@
   (return-type "GtkEntryCompletion*")
 )
 
+(define-method set_buffer
+  (of-object "GtkEntry")
+  (c-name "gtk_entry_set_buffer")
+  (return-type "none")
+  (parameters
+    '("GtkEntryBuffer*" "buffer")
+  )
+)
+
+(define-method get_buffer
+  (of-object "GtkEntry")
+  (c-name "gtk_entry_get_buffer")
+  (return-type "GtkEntryBuffer*")
+)
+
 (define-method append_text
   (of-object "GtkEntry")
   (c-name "gtk_entry_append_text")
@@ -233,6 +258,21 @@
   (of-object "GtkEntry")
   (c-name "gtk_entry_get_overwrite_mode")
   (return-type "gboolean")
+)
+
+(define-method get_icon_window
+  (of-object "GtkEntry")
+  (c-name "gtk_entry_get_icon_window")
+  (return-type "GdkWindow*")
+  (parameters
+    '("GtkEntryIconPosition" "icon_pos")
+  )
+)
+
+(define-method get_text_window
+  (of-object "GtkEntry")
+  (c-name "gtk_entry_get_text_window")
+  (return-type "GdkWindow*")
 )
 
 (define-virtual populate_popup

@@ -118,12 +118,31 @@
   (return-type "gint")
 )
 
+(define-method set_name
+  (of-object "GtkStatusIcon")
+  (c-name "gtk_status_icon_set_name")
+  (return-type "none")
+  (parameters
+    '("const-gchar*" "name")
+  )
+)
+
 (define-method set_tooltip
   (of-object "GtkStatusIcon")
   (c-name "gtk_status_icon_set_tooltip")
   (return-type "none")
   (parameters
     '("const-gchar*" "tooltip_text" (null-ok))
+  )
+  (deprecated)
+)
+
+(define-method set_tooltip_text
+  (of-object "GtkStatusIcon")
+  (c-name "gtk_status_icon_set_tooltip_text")
+  (return-type "none")
+  (parameters
+    '("const-gchar*" "text" (null-ok))
   )
 )
 
@@ -172,6 +191,21 @@
     '("GdkRectangle*" "area")
     '("GtkOrientation*" "orientation")
   )
+)
+
+(define-method set_title
+  (of-object "GtkStatusIcon")
+  (c-name "gtk_status_icon_set_title")
+  (return-type "none")
+  (parameters
+    '("const-gchar*" "title")
+  )
+)
+
+(define-method get_title
+  (of-object "GtkStatusIcon")
+  (c-name "gtk_status_icon_get_title")
+  (return-type "const-gchar*")
 )
 
 (define-virtual activate

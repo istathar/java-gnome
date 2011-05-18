@@ -1,7 +1,7 @@
 /*
  * java-gnome, a UI library for writing GTK and GNOME programs from Java!
  *
- * Copyright © 2007-2010 Operational Dynamics Consulting, Pty Ltd
+ * Copyright © 2007-2011 Operational Dynamics Consulting, Pty Ltd
  * Copyright © 2007      Vreixo Formoso
  *
  * The code in this file, and the program it is a part of, is made available
@@ -47,7 +47,7 @@ package org.gnome.gtk;
  * @author Vreixo Formoso
  * @since 4.0.4
  */
-public class ToolItem extends Bin
+public class ToolItem extends Bin implements Activatable
 {
     protected ToolItem(long pointer) {
         super(pointer);
@@ -74,5 +74,27 @@ public class ToolItem extends Bin
      */
     public boolean getExpand() {
         return GtkToolItem.getExpand(this);
+    }
+
+    public void setRelatedAction(Action action) {
+        GtkActivatable.setRelatedAction(this, action);
+    }
+
+    public Action getRelatedAction() {
+        return GtkActivatable.getRelatedAction(this);
+    }
+
+    /**
+     * Indicate that this ToolItem is to be considered to have
+     * "priority text". When the ToolbarStyle is
+     * {@link ToolbarStyle#BOTH_HORIZ BOTH_HORIZ} (which is the default in
+     * GNOME these days) only ToolItems with this property set will have their
+     * labels showing. For example, browsers often have the label "Back" but
+     * not "Forward" or "Up" marked important and thus showing.
+     * 
+     * @since 4.0.19
+     */
+    public void setIsImportant(boolean setting) {
+        GtkToolItem.setIsImportant(this, setting);
     }
 }

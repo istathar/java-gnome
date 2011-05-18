@@ -78,4 +78,12 @@ public class ValidateEnvironment extends GraphicalTestCase
         blah = Environment.getEnv(SOMETHING_UNIQUE);
         assertNull(blah);
     }
+
+    public final void testProcessID() {
+        int pid;
+
+        pid = Environment.getProcessID();
+
+        assertTrue(pid > 1);
+    }
 }

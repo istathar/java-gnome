@@ -59,11 +59,11 @@ public class ExampleSearchSomeone
         TreeIter row;
 
         final String[] contacts = {
-                "Andrew Cowie\nandrew@operationaldynamics.com",
-                "Vreixo Formoso Lopes\nmetalpain2002@yahoo.es",
-                "Serkan Kaba\nserkan@gentoo.org",
-                "Stefan Schweizer\nsteve.schweizer@gmail.com",
-                "Guillaume Mazoyer\nrespawneral@gmail.com"
+            "Andrew Cowie\nandrew@operationaldynamics.com",
+            "Vreixo Formoso Lopes\nmetalpain2002@yahoo.es",
+            "Serkan Kaba\nserkan@gentoo.org",
+            "Stefan Schweizer\nsteve.schweizer@gmail.com",
+            "Guillaume Mazoyer\nrespawneral@gmail.com"
         };
 
         /*

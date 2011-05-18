@@ -51,6 +51,16 @@
   )
 )
 
+(define-method set_icon_from_gicon
+  (of-object "GtkTooltip")
+  (c-name "gtk_tooltip_set_icon_from_gicon")
+  (return-type "none")
+  (parameters
+    '("GIcon*" "gicon")
+    '("GtkIconSize" "size")
+  )
+)
+
 (define-function trigger_tooltip_query
   (c-name "gtk_tooltip_trigger_tooltip_query")
   (return-type "none")

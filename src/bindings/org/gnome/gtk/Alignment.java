@@ -106,13 +106,34 @@ public class Alignment extends Bin
     /**
      * Creates an empty Alignment. The child Widget can later be added by
      * calling the {@link Container#add(Widget) add()} method.
+     * 
+     * @since 4.0.4
      */
     public Alignment(float xalign, float yalign, float xscale, float yscale) {
         this(GtkAlignment.createAlignment(check(xalign), check(yalign), check(xscale), check(yscale)));
     }
 
     /**
+     * Creates an empty Alignment. This is essentially a no-op; the Widget
+     * will be top/left which may well be what would have happened if you had
+     * not used an Alignment in the first place.
+     * 
+     * <p>
+     * This is here so that calling
+     * {@link #setAlignment(float, float, float, float) setAlignment()} after
+     * constructing looks a little cleaner. It's not more "efficient" to use
+     * this.
+     * 
+     * @since 4.0.17
+     */
+    public Alignment() {
+        this(GtkAlignment.createAlignment(Alignment.LEFT, Alignment.TOP, 0.0f, 0.0f));
+    }
+
+    /**
      * Creates an Alignment wrapping an existing Widget.
+     * 
+     * @since 4.0.4
      */
     public Alignment(float xalign, float yalign, float xscale, float yscale, Widget child) {
         this(GtkAlignment.createAlignment(check(xalign), check(yalign), check(xscale), check(yscale)));
@@ -123,6 +144,13 @@ public class Alignment extends Bin
      * Set the padding on the different sides of the Widget. The padding adds
      * blank space to the sides of the Widget. For instance, this can be used
      * to indent the child towards the right by adding padding on the left.
+     * 
+     * <p>
+     * <b>WARNING</b><br>
+     * Pay close attention to the order of the sides; it might be different
+     * than you are expecting.
+     * 
+     * @since 4.0.4
      */
     public void setPadding(int paddingTop, int paddingBottom, int paddingLeft, int paddingRight) {
         GtkAlignment.setPadding(this, paddingTop, paddingBottom, paddingLeft, paddingRight);
@@ -130,6 +158,8 @@ public class Alignment extends Bin
 
     /**
      * Returns the padding being added to the top of the child.
+     * 
+     * @since 4.0.4
      */
     public int getPaddingTop() {
         int[] paddingTop = new int[1];
@@ -156,6 +186,8 @@ public class Alignment extends Bin
 
     /**
      * Returns the padding being added to the left of the child.
+     * 
+     * @since 4.0.4
      */
     public int getPaddingLeft() {
         int[] paddingTop = new int[1];
@@ -169,6 +201,8 @@ public class Alignment extends Bin
 
     /**
      * Returns the padding being added to the right of the child.
+     * 
+     * @since 4.0.4
      */
     public int getPaddingRight() {
         int[] paddingTop = new int[1];
@@ -192,6 +226,8 @@ public class Alignment extends Bin
 
     /**
      * Get the <var>xalign</var> value.
+     * 
+     * @since 4.0.4
      */
     public float getAlignmentX() {
         return getPropertyFloat("xalign");
@@ -199,6 +235,8 @@ public class Alignment extends Bin
 
     /**
      * Get the <var>yalign</var> value.
+     * 
+     * @since 4.0.4
      */
     public float getAlignmentY() {
         return getPropertyFloat("yalign");
@@ -206,6 +244,8 @@ public class Alignment extends Bin
 
     /**
      * Get the <var>xscale</var> value.
+     * 
+     * @since 4.0.4
      */
     public float getScaleX() {
         return getPropertyFloat("xscale");
@@ -213,6 +253,8 @@ public class Alignment extends Bin
 
     /**
      * Get the <var>yscale</var> value.
+     * 
+     * @since 4.0.4
      */
     public float getScaleY() {
         return getPropertyFloat("yscale");

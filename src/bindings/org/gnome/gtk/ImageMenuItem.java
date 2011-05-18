@@ -1,7 +1,7 @@
 /*
  * java-gnome, a UI library for writing GTK and GNOME programs from Java!
  *
- * Copyright © 2007-2010 Operational Dynamics Consulting, Pty Ltd
+ * Copyright © 2007-2011 Operational Dynamics Consulting, Pty Ltd
  *
  * The code in this file, and the program it is a part of, is made available
  * to you by its authors as open source software: you can redistribute it
@@ -65,6 +65,9 @@ public class ImageMenuItem extends MenuItem
      * want. You can change the AccelGroup separately, but that's available to
      * support overriding the default accelerators. All in all this will need
      * updating.
+     * 
+     * From Azania: this should no longer need any updating unless you want to
+     * force the user to use the accelerator keybindings from the stock icon.
      */
     public ImageMenuItem(Stock stock) {
         super(GtkImageMenuItem.createImageMenuItemFromStock(stock.getStockId(), null));
@@ -157,5 +160,15 @@ public class ImageMenuItem extends MenuItem
      */
     public void setAlwaysShowImage(boolean setting) {
         GtkImageMenuItem.setAlwaysShowImage(this, setting);
+    }
+
+    /**
+     * Activate the key binding that comes with the stock configuration, for
+     * the case that this ImageMenuItem was constructed using a Stock item.
+     * 
+     * @since 4.0.16
+     */
+    public void setAccelerator(AcceleratorGroup group) {
+        GtkImageMenuItem.setAccelGroup(this, group);
     }
 }

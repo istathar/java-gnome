@@ -67,7 +67,21 @@ public class XML extends Object
      * to wrap this.
      */
     XML(String filename, String root) {
-        super(GladeXML.createXML(filename, root, null));
+        super(createXML(filename, root));
+    }
+
+    private static long createXML(String fname, String root) {
+        long ptr;
+
+        ptr = GladeXML.createXML(fname, root, null);
+
+        if (ptr == 0L) {
+            // TODO replace with proper log handling.
+            throw new IllegalStateException("\nParsing the specified Glade XML file,\n" + fname
+                    + "\nresulted in a null return. That's a show stopper.");
+        }
+
+        return ptr;
     }
 
     /**

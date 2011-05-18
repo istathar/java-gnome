@@ -11,6 +11,12 @@
   (return-type "PangoFontDescription*")
 )
 
+(define-method describe_with_absolute_size
+  (of-object "PangoFont")
+  (c-name "pango_font_describe_with_absolute_size")
+  (return-type "PangoFontDescription*")
+)
+
 (define-method get_coverage
   (of-object "PangoFont")
   (c-name "pango_font_get_coverage")
@@ -59,6 +65,7 @@
 (define-virtual describe
   (of-object "PangoFont")
   (return-type "PangoFontDescription*")
+  (unnecessary)
 )
 
 (define-virtual get_coverage
@@ -67,6 +74,7 @@
   (parameters
     '("PangoLanguage*" "lang")
   )
+  (unnecessary)
 )
 
 (define-virtual find_shaper
@@ -76,6 +84,7 @@
     '("PangoLanguage*" "lang")
     '("guint32" "ch")
   )
+  (unnecessary)
 )
 
 (define-virtual get_glyph_extents
@@ -86,6 +95,7 @@
     '("PangoRectangle*" "ink_rect")
     '("PangoRectangle*" "logical_rect")
   )
+  (unnecessary)
 )
 
 (define-virtual get_metrics
@@ -94,10 +104,12 @@
   (parameters
     '("PangoLanguage*" "language")
   )
+  (unnecessary)
 )
 
 (define-virtual get_font_map
   (of-object "PangoFont")
   (return-type "PangoFontMap*")
+  (unnecessary)
 )
 

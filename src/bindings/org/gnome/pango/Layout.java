@@ -134,12 +134,22 @@ public class Layout extends Object
 
     /**
      * Set the text of this Layout. Its format is specified using Pango Markup
-     * format [TODO we need to document pango markup somewhere].
+     * format.
      * 
+     * <p>
      * If you're just passing in normal straight-forward unformatted text, use
      * {@link #setText(String) setText()}.
      * 
+     * <p>
+     * <b>WARNING</b>:<br>
+     * Use {@link org.gnome.glib.Glib#markupEscapeText(String)
+     * Glib.markupEscapeText()} unless you are certain that your input does
+     * not contain any characters thatare invalid XML.
+     * 
      * @since 4.0.10
+     * @see <a
+     *      href="http://library.gnome.org/devel/pango/stable/PangoMarkupFormat.html">Pango
+     *      Markup format</a>
      */
     public void setMarkup(String markup) {
         PangoLayout.setMarkup(this, markup, -1);

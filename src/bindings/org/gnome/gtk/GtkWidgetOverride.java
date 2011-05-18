@@ -43,18 +43,6 @@ final class GtkWidgetOverride extends Plumbing
 {
     private GtkWidgetOverride() {}
 
-    static final org.gnome.gdk.Window getWindow(Widget self) {
-        long result;
-
-        synchronized (lock) {
-            result = gtk_widget_get_window(pointerOf(self));
-
-            return (org.gnome.gdk.Window) objectFor(result);
-        }
-    }
-
-    private static native final long gtk_widget_get_window(long self);
-
     /**
      * Allocation is yet another accessible GObject field. We really need to
      * deal with this into the code generator.
@@ -84,9 +72,8 @@ final class GtkWidgetOverride extends Plumbing
     private static native final long gtk_widget_get_requisition(long self);
 
     /**
-     * Set the events that the underlying GdkWindow will receive.
-     * As a necessary convenience, the Widget will be realized first if
-     * necessary.
+     * Set the events that the underlying GdkWindow will receive. As a
+     * necessary convenience, the Widget will be realized first if necessary.
      */
     static final void setEvents(Widget self, EventMask eventMask) {
         if (self == null) {

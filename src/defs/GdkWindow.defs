@@ -910,3 +910,10 @@
   (c-name "gdk_get_default_root_window")
   (return-type "GdkWindow*")
 )
+
+(define-method ensure_native
+  (of-object "GdkWindow")
+  (c-name "gdk_window_ensure_native")
+  (return-type "gboolean")
+)
+

@@ -1,6 +1,8 @@
 (define-entity Context
   (in-module "Cairo")
   (c-name "cairo_t")
+  (import-header "librsvg/rsvg.h")
+  (import-header "librsvg/rsvg-cairo.h")
 )
 
 ;; the block name is contrived to match the pattern used in GTK so that
@@ -378,3 +380,53 @@
   )
 )
 
+(define-function show_handle
+  (of-object "cairo_t")
+  (c-name "rsvg_handle_render_cairo")
+  (return-type "none")
+  (parameters
+    '("RsvgHandle*" "handle")
+    '("cairo_t*" "cr")
+  )
+)
+
+(define-method close_path
+  (of-object "cairo_t")
+  (c-name "cairo_close_path")
+  (return-type "none")
+)
+
+(define-method new_sub_path
+  (of-object "cairo_t")
+  (c-name "cairo_new_sub_path")
+  (return-type "none")
+)
+
+(define-method in_fill
+  (of-object "cairo_t")
+  (c-name "cairo_in_fill")
+  (return-type "cairo_bool_t")
+  (parameters
+    '("double" "x")
+    '("double" "y")
+  )
+)
+
+(define-method in_stroke
+  (of-object "cairo_t")
+  (c-name "cairo_in_stroke")
+  (return-type "cairo_bool_t")
+  (parameters
+    '("double" "x")
+    '("double" "y")
+  )
+)
+
+(define-method set_fill_rule
+  (of-object "cairo_t")
+  (c-name "cairo_set_fill_rule")
+  (return-type "none")
+  (parameters
+    '("cairo_fill_rule_t" "fill_rule")
+  )
+)

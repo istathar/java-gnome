@@ -45,12 +45,23 @@ package org.gnome.gtk;
 public class CellRendererToggle extends CellRenderer
 {
     /**
+     * @since 4.0.8
+     * @deprecated Use
+     *             {@link CellRendererToggle#CellRendererToggle(CellLayout)}
+     *             instead.
+     */
+    public CellRendererToggle(TreeViewColumn vertical) {
+        // FIXME does expand to false actually make sense?
+        super(GtkCellRendererToggle.createCellRendererToggle(), vertical, false);
+    }
+
+    /**
      * Construct a new CellRendererToggle. Specify the TreeViewColumn it will
      * belong to.
      * 
-     * @since 4.0.8
+     * @since 4.0.17
      */
-    public CellRendererToggle(TreeViewColumn vertical) {
+    public CellRendererToggle(CellLayout vertical) {
         // FIXME does expand to false actually make sense?
         super(GtkCellRendererToggle.createCellRendererToggle(), vertical, false);
     }

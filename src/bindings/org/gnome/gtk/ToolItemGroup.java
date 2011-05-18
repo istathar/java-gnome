@@ -1,7 +1,7 @@
 /*
  * java-gnome, a UI library for writing GTK and GNOME programs from Java!
  *
- * Copyright © 2007-2010 Operational Dynamics Consulting, Pty Ltd
+ * Copyright © 2010 Operational Dynamics Consulting, Pty Ltd and Others
  *
  * The code in this file, and the program it is a part of, is made available
  * to you by its authors as open source software: you can redistribute it
@@ -32,19 +32,6 @@
  */
 package org.gnome.gtk;
 
-import org.freedesktop.bindings.Flag;
-
-/**
- * Flags in {@link Object}s.
- * 
- * <p>
- * <i>At time of writing, this contained only internals to Gtk, none of which
- * need exposure.</i>
- * 
- * @author Andrew Cowie
- * @since 4.0.3
- * @see WidgetFlags
- */
 /*
  * FIXME this is a placeholder stub for what will become the public API for
  * this type. Replace this comment with appropriate javadoc including author
@@ -53,14 +40,9 @@ import org.freedesktop.bindings.Flag;
  * are made about this class until it has been reviewed by a hacker and this
  * comment has been replaced.
  */
-/*
- * See the comment in WidgetFlags at the class declaration for further
- * details. This class is not really be necessary, but seems right for
- * consistency.
- */
-abstract class ObjectFlags extends Flag
+public class ToolItemGroup extends Container
 {
-    protected ObjectFlags(int ordinal, String nickname) {
-        super(ordinal, nickname);
+    protected ToolItemGroup(long pointer) {
+        super(pointer);
     }
 }

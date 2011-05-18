@@ -63,7 +63,7 @@ versionFile = "src/bindings/org/freedesktop/bindings/Version.java"
 hashFile = "tmp/.hashes"
 lockFile = "tmp/.build"
 
-GNOME_MODULES = "gthread-2.0 glib-2.0 gtk+-2.0 gtk+-unix-print-2.0 libglade-2.0 gtksourceview-2.0 libnotify gtkspell-2.0 unique-1.0 enchant"
+GNOME_MODULES = "gthread-2.0 glib-2.0 gtk+-2.0 gtk+-unix-print-2.0 libglade-2.0 gtksourceview-2.0 libnotify gtkspell-2.0 unique-1.0 enchant librsvg-2.0"
 
 #
 # Armour against multiple simultaneous invocations.
@@ -654,11 +654,12 @@ def compileDocumentation():
 	cmd += "-source 1.5 "
 	cmd += "-notree "
 	cmd += "-noindex "
+	cmd += "-notimestamp "
 	cmd += "-nohelp "
 	cmd += "-version "
 	cmd += "-author "
-	cmd += "-windowtitle 'java-gnome %s API Documentation' " % config['APIVERSION']
-	cmd += "-doctitle '<h1>java-gnome %s API Documentation</h1>' " % config['APIVERSION']
+	cmd += "-windowtitle 'java-gnome %s API Documentation' " % config['VERSION']
+	cmd += "-doctitle '<h1>java-gnome %s API Documentation</h1>' " % config['VERSION']
 	cmd += "-header 'java-gnome version %s' " % config['VERSION']
 	cmd += "-footer '<img src=\"/images/java-gnome_JavaDocLogo.png\" style=\"padding-right:25px;\"><br> <span style=\"font-family: Arial; font-style: normal; font-size: large;\">java-gnome</span>' "
 	cmd += "-breakiterator "

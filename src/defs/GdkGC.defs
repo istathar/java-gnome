@@ -3,6 +3,7 @@
   (parent "GObject")
   (c-name "GdkGC")
   (gtype-id "GDK_TYPE_GC")
+  (deprecated)
 )
 
 (define-function gc_new

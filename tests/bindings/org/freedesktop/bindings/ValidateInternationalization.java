@@ -18,10 +18,12 @@
  */
 package org.freedesktop.bindings;
 
+import org.gnome.gtk.GraphicalTestCase;
+
 import static org.freedesktop.bindings.Internationalization.N_;
 import static org.freedesktop.bindings.Internationalization._;
-
-import org.gnome.gtk.GraphicalTestCase;
+import static org.freedesktop.bindings.Internationalization.translateCountryName;
+import static org.freedesktop.bindings.Internationalization.translateLanguageName;
 
 /**
  * Exercise the Internationalization setup code.
@@ -71,7 +73,7 @@ public class ValidateInternationalization extends GraphicalTestCase
 
         /*
          * The choice here of en_US is simply because _everyone_ is going to
-         * have that installed, somewhere. We are not testingchanging locales
+         * have that installed, somewhere. We are not testing changing locales
          * here, so if an American is running this, no big deal. We just need
          * something not the C locale.
          */
@@ -108,6 +110,19 @@ public class ValidateInternationalization extends GraphicalTestCase
         // *NOT* marked with the N_ wrapper!
         insult = "Yo mamma";
         assertSame(insult, _(insult));
+    }
+
+    /*
+     * Without changing to another locale, this doesn't test very much!
+     */
+    public final void testLanguageAndCountryTranslation() {
+        String language, country;
+
+        language = translateLanguageName("Spanish; Castilian");
+        country = translateCountryName("Spain");
+
+        assertEquals("Spanish; Castilian", language);
+        assertEquals("Spain", country);
     }
 
     public final void testRestoreEnvironment() {

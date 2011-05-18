@@ -32,6 +32,8 @@
  */
 package org.gnome.gtk;
 
+import org.freedesktop.icons.Helper;
+import org.freedesktop.icons.Icon;
 import org.gnome.gdk.Bitmap;
 import org.gnome.gdk.Pixbuf;
 import org.gnome.gdk.Pixmap;
@@ -41,6 +43,7 @@ import org.gnome.gdk.Pixmap;
  * 
  * @author Sebastian Mancke
  * @author Andrew Cowie
+ * @author Guillaume Mazoyer
  * @since 4.0.3
  */
 public class Image extends Misc
@@ -118,6 +121,18 @@ public class Image extends Misc
     }
 
     /**
+     * Construct a new Image based on an icon which is in the icons theme. As
+     * each one actually comes in various sizes, you have to say which variant
+     * you want. If, for a reason or another, the icon is not in the theme, a
+     * broken icon will be used.
+     * 
+     * @since 4.0.17
+     */
+    public Image(Icon icon, IconSize size) {
+        super(GtkImage.createImageFromIconName(Helper.getName(icon), size));
+    }
+
+    /**
      * Specify the Pixbuf to be presented by this Image.
      * 
      * @since 4.0.8
@@ -150,6 +165,16 @@ public class Image extends Misc
      */
     public void setImage(String filename) {
         GtkImage.setFromFile(this, filename);
+    }
+
+    /**
+     * Specify the icon to be displayed by this Image. See the
+     * {@link #Image(Icon, IconSize) constructor} taking an Icon instance.
+     * 
+     * @since 4.0.17
+     */
+    public void setImage(Icon icon, IconSize size) {
+        GtkImage.setFromIconName(this, Helper.getName(icon), size);
     }
 
     /**

@@ -1,7 +1,7 @@
 /*
  * java-gnome, a UI library for writing GTK and GNOME programs from Java!
  *
- * Copyright © 2006-2010 Operational Dynamics Consulting, Pty Ltd and Others
+ * Copyright © 2006-2011 Operational Dynamics Consulting, Pty Ltd and Others
  *
  * The code in this file, and the program it is a part of, is made available
  * to you by its authors as open source software: you can redistribute it
@@ -131,6 +131,56 @@ public final class Gtk extends Glib
      */
     public static void mainQuit() {
         GtkMain.mainQuit();
+    }
+
+    /**
+     * Are there any internal Events queued up waiting to be processed? Use
+     * this in conjunction with {@link #mainIterationDo(boolean)
+     * Gtk.mainIterationDo()}.
+     * 
+     * @since 4.0.19
+     */
+    public static boolean eventsPending() {
+        return GtkMain.eventsPending();
+    }
+
+    /**
+     * Run a single iteration of the GTK main loop.
+     * 
+     * <p>
+     * In GUI programming we work extremely hard <i>not</i> to block the main
+     * loop since this will cause the user interface to "freeze"; ordinarily
+     * we do intensive computations in a worker thread and since java-gnome is
+     * thread safe you can simply call your GUI updates from there.
+     * 
+     * <p>
+     * Occasionally, however, there is a circumstance where you are in the
+     * midst of a busy computation and need to explicitly let the GUI update
+     * itself and to let other idle handlers run. If so you can use the
+     * following idiom:
+     * 
+     * <pre>
+     * while (Gtk.eventsPending()) {
+     *     Gtk.mainIterationDo(false);
+     * }
+     * </pre>
+     * 
+     * <p>
+     * This function is <b>not</b> a replacement for using {@link #main()
+     * Gtk.main()} to initiate event handling in your program.
+     * 
+     * <p>
+     * <i>Because we have worker threads you really should not need it in
+     * normal work. We have exposed it as we found it a workaround for
+     * TextView not doing its vertical size allocation until after the current
+     * signal handlers have run.</i>
+     * 
+     * @since 4.0.19
+     * @return <code>true</code> if {@link Gtk#mainQuit() Gtk.mainQuit()} was
+     *         called inside the inner-most main loop.
+     */
+    public static boolean mainIterationDo(boolean block) {
+        return GtkMain.mainIterationDo(block);
     }
 
     /**
