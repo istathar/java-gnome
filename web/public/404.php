@@ -78,7 +78,8 @@ targets are as follows
 
 <ul>
 <li><p>API documentation root<br>
-<a href="http://java-gnome.sourceforge.net/4.0/doc/api/overview-summary.html"><code>http://java-gnome.sourceforge.net/4.0/doc/api/</code></a>
+<a
+href="http://java-gnome.sourceforge.net/doc/api/4.1/overview-summary.html"><code>http://java-gnome.sourceforge.net/doc/api/4.1/</code></a>
 </p></li>
 
 <li><p>Source code<br>
@@ -86,7 +87,7 @@ targets are as follows
 </p></li>
 
 <li><p>Download tarballs<br>
-<a href="http://ftp.gnome.org/pub/gnome/sources/java-gnome/4.0/"><code>http://ftp.gnome.org/pub/gnome/sources/java-gnome/4.0/</code></a>
+<a href="http://ftp.gnome.org/pub/gnome/sources/java-gnome/4.1/"><code>http://ftp.gnome.org/pub/gnome/sources/java-gnome/4.1/</code></a>
 </p></li>
 
 </ul>
@@ -98,7 +99,7 @@ targets are as follows
 
 <p>Fixes or contributions to the java-gnome website proper can be accomplished
 by checking out the source code and sending a patch. See <a class="download"
-href="/4.0/HACKING.html">HACKING</a>.</p>
+href="/HACKING.html">HACKING</a>.</p>
 
 <?
 

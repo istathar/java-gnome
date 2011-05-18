@@ -2,7 +2,7 @@
 /*
  * index.php
  *
- * Copyright (c) 2006-2010 Operational Dynamics Consulting, Pty Ltd
+ * Copyright (c) 2006-2011 Operational Dynamics Consulting, Pty Ltd
  * 
  * This file comprises part of the infrastructure and content of the
  * java-gnome project website. As such, it is conveyed alongside the source
@@ -49,7 +49,7 @@ div.box {
 <center>
 	<img src="/images/cross-product.png" width="450" height="120">
 
-<p>These are the Java bindings for GTK and GNOME!  Featuring a robust
+<p>These are the Java bindings for GTK and GNOME. Featuring a robust
 engineering design, completely generated internals, a lovingly crafted layer
 presenting the public API, and steadily increasing coverage of the underlying
 libraries.</p>
@@ -58,24 +58,9 @@ libraries.</p>
 applications so that they richly integrate with the GNOME Desktop while
 leveraging the power of the Java language and your expertise with it.</p>
 
-<img style="padding: 10px;" src="/doc/api/4.0/org/gnome/gtk/AboutDialog.png">
+<img style="padding: 10px;" src="/doc/api/4.1/org/gnome/gtk/AboutDialog.png">
 
 </center>
-</div>
-
-<div>
-
-<p>
-Since 1998, the java-gnome project has been offering Java bindings for the GTK
-widget toolkit and for the rich family of libraries making up the GNOME
-desktop. In 2006, a complete re-engineering of the bindings was initiated, and
-that work resulted in java-gnome 4.0; an outstanding experience for developers
-using the library along with high standards for internal quality, steadily
-increasing breadth of coverage, and excellent performance are the hallmarks of
-the project. We are pleased to maintain this effort as a part of the GNOME
-development platform, and hope you'll find our work of interest!
-</p>
-
 </div>
 
 

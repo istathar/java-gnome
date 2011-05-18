@@ -1,5 +1,13 @@
 NEWS
 
+Website update
+==============
+
+In preparation for the upcoming API bump, we've reorganized the java-gnome
+website.
+
+AfC
+
 <a name="4.0.19" id="1297659945" title="Which Font?"></a>
 
 java-gnome 4.0.19 (14 Feb 2011)
@@ -50,9 +58,9 @@ the top level `configure` script.
 
 AfC
 
-[Gtk.mainIterationDo()]: <http://java-gnome.sourceforge.net/4.0/doc/api/org/gnome/gtk/Gtk.html#mainIterationDo(boolean)>
-[Context.loadFont()]: <http://java-gnome.sourceforge.net/4.0/doc/api/org/gnome/pango/Context.html#loadFont(org.gnome.pango.FontDescription)>
-[Font.describe()]: <http://java-gnome.sourceforge.net/4.0/doc/api/org/gnome/pango/Font.html#describe()>
+[Gtk.mainIterationDo()]: <http://java-gnome.sourceforge.net/doc/api/4.1/org/gnome/gtk/Gtk.html#mainIterationDo(boolean)>
+[Context.loadFont()]: <http://java-gnome.sourceforge.net/doc/api/4.1/org/gnome/pango/Context.html#loadFont(org.gnome.pango.FontDescription)>
+[Font.describe()]: <http://java-gnome.sourceforge.net/doc/api/4.1/org/gnome/pango/Font.html#describe()>
 
 <a name="4.0.18" id="1293156906" title="Fix GDK_IS_WINDOW crash"></a>
 
@@ -102,9 +110,9 @@ java-gnome now depends on Cairo 1.10 and librsvg 2.32.
 
 AfC
 
-[Handle]: http://java-gnome.sourceforge.net/4.0/doc/api/org/gnome/rsvg/Handle.html
-[Context.showHandle()]: <http://java-gnome.sourceforge.net/4.0/doc/api/org/freedesktop/cairo/Context.html#showHandle(org.gnome.rsvg.Handle)>
-[Surface.setMimeType()]: <http://java-gnome.sourceforge.net/4.0/doc/api/org/freedesktop/cairo/Surface.html#setMimeData(org.freedesktop.cairo.MimeType,%20byte[])>
+[Handle]: http://java-gnome.sourceforge.net/doc/api/4.1/org/gnome/rsvg/Handle.html
+[Context.showHandle()]: <http://java-gnome.sourceforge.net/doc/api/4.1/org/freedesktop/cairo/Context.html#showHandle(org.gnome.rsvg.Handle)>
+[Surface.setMimeType()]: <http://java-gnome.sourceforge.net/doc/api/4.1/org/freedesktop/cairo/Surface.html#setMimeData(org.freedesktop.cairo.MimeType,%20byte[])>
 
 <a name="4.0.17" id="1290043843" title="Dictionaries exist"></a>
 
@@ -259,14 +267,14 @@ months to come.
 
 AfC, GM
 
-[Enchant.existsDictionary()]: <http://java-gnome.sourceforge.net/4.0/doc/api/org/freedesktop/enchant/Enchant.html#existsDictionary(java.lang.String)>
-[Enchant.listDictionaries()]: <http://java-gnome.sourceforge.net/4.0/doc/api/org/freedesktop/enchant/Enchant.html#listDictionaries()>
-[Internationalization.translateLangageName()]: <http://java-gnome.sourceforge.net/4.0/doc/api/org/freedesktop/bindings/Internationalization.html#translateLanguageName(java.lang.String)>
-[Internationalization.translateCountryName()]: <http://java-gnome.sourceforge.net/4.0/doc/api/org/freedesktop/bindings/Internationalization.html#translateCountryName(java.lang.String)>
-[Assistant]: <http://java-gnome.sourceforge.net/4.0/doc/api/org/gnome/gtk/Assistant.html>
-[Spinner]: <http://java-gnome.sourceforge.net/4.0/doc/api/org/gnome/gtk/Spinner.html>
-[Glib.markupEscapeText()]: <http://java-gnome.sourceforge.net/4.0/doc/api/org/gnome/glib/Glib.html#markupEscapeText(java.lang.String)>
-[Context]: <http://java-gnome.sourceforge.net/4.0/doc/api/org/freedesktop/cairo/Context.html#Context(org.gnome.gdk.EventExpose)>
+[Enchant.existsDictionary()]: <http://java-gnome.sourceforge.net/doc/api/4.1/org/freedesktop/enchant/Enchant.html#existsDictionary(java.lang.String)>
+[Enchant.listDictionaries()]: <http://java-gnome.sourceforge.net/doc/api/4.1/org/freedesktop/enchant/Enchant.html#listDictionaries()>
+[Internationalization.translateLangageName()]: <http://java-gnome.sourceforge.net/doc/api/4.1/org/freedesktop/bindings/Internationalization.html#translateLanguageName(java.lang.String)>
+[Internationalization.translateCountryName()]: <http://java-gnome.sourceforge.net/doc/api/4.1/org/freedesktop/bindings/Internationalization.html#translateCountryName(java.lang.String)>
+[Assistant]: <http://java-gnome.sourceforge.net/doc/api/4.1/org/gnome/gtk/Assistant.html>
+[Spinner]: <http://java-gnome.sourceforge.net/doc/api/4.1/org/gnome/gtk/Spinner.html>
+[Glib.markupEscapeText()]: <http://java-gnome.sourceforge.net/doc/api/4.1/org/gnome/glib/Glib.html#markupEscapeText(java.lang.String)>
+[Context]: <http://java-gnome.sourceforge.net/doc/api/4.1/org/freedesktop/cairo/Context.html#Context(org.gnome.gdk.EventExpose)>
 
 
 <a name="4.0.16" id="1276732981" title="Accelerating operations"></a>
@@ -361,10 +369,10 @@ some help.
 
 AfC
 
-[InfoBar]: doc/api/org/gnome/gtk/InfoBar.html
-[AcceleratorGroup]: doc/api/org/gnome/gtk/AcceleratorGroup.html
-[Operator]: doc/api/org/freedesktop/cairo/Operator.html
-[Glib]: doc/api/org/gnome/glib/Glib.html
+[InfoBar]: doc/api/4.1/org/gnome/gtk/InfoBar.html
+[AcceleratorGroup]: doc/api/4.1/org/gnome/gtk/AcceleratorGroup.html
+[Operator]: doc/api/4.1/org/freedesktop/cairo/Operator.html
+[Glib]: doc/api/4.1/org/gnome/glib/Glib.html
 
 <a name="4.0.15" id="1268692532" title="Radio thang"></a>
 
@@ -661,7 +669,7 @@ Java char.
 New coverage
 ------------
 
-<img src="doc/api/org/gnome/gtk/Entry.png" alt="" style="float: right;
+<img src="doc/api/4.1/org/gnome/gtk/Entry.png" alt="" style="float: right;
 text-align: right; padding-left: 15px;" /> This release also features the work
 of Guillaume Mazoyer exposing some of the new features available in Entry
 Widgets, including displaying icons and showing progress bars in the
@@ -876,10 +884,10 @@ We've done a huge amount of refinement to our APIs for the ever fabulous Cairo
 Graphics drawing library, including full coverage of matrix translations,
 rotations, and scaling and more integrated ways of setting the source pattern
 to be used in stroke, paint, and fill operations. <img
-src="doc/api/org/freedesktop/cairo/Matrix-translate.png" alt="" style="float:
+src="doc/api/4.1/org/freedesktop/cairo/Matrix-translate.png" alt="" style="float:
 right; text-align: right; padding-left: 15px;" /> Thanks to Kenneth Prugh for
 having seen this through and having done the lion's share of the testing. <img
-src="doc/api/org/freedesktop/cairo/Context-arcNegative.png" alt=""
+src="doc/api/4.1/org/freedesktop/cairo/Context-arcNegative.png" alt=""
 style="float: right; text-align: right; padding-left: 15px; clear: right;" />
 
 * **`org.freedesktop.cairo.Content`**
@@ -1200,9 +1208,9 @@ descriptions at [XlibSurface][] and [PdfSurface][] may also be of interest.
 
 AfC
 
-[Layout]: doc/api/org/gnome/pango/Layout.html
-[XlibSurface]: doc/api/org/freedesktop/cairo/XlibSurface.html
-[PdfSurface]: doc/api/org/freedesktop/cairo/PdfSurface.html
+[Layout]: doc/api/4.1/org/gnome/pango/Layout.html
+[XlibSurface]: doc/api/4.1/org/freedesktop/cairo/XlibSurface.html
+[PdfSurface]: doc/api/4.1/org/freedesktop/cairo/PdfSurface.html
 
 <a name="4.0.9" id="1223889576" title="Text APIs and better running!"></a>
 
@@ -1321,7 +1329,7 @@ The native shared library part of java-gnome is now located deterministically
 and loaded automatically. You don't need to faff about with
 `java.library.path` on the command line or in your IDE any more!
 
-    $ java -classpath /opt/local/share/java/gtk-4.0.jar:. com.example.Program
+    $ java -classpath /opt/local/share/java/gtk-4.1.jar:. com.example.Program
 
 Our native component is completely coupled to the specific release you are
 using, so sufficient version information is embedded in the `.so` name to
@@ -1331,7 +1339,7 @@ There are _no_ changes if you are simply working against an "in-place"
 development build of java-gnome, be it from command line, or in an IDE like
 Eclipse, things will Just Work&trade;; again, no `-Djava.library.path`:
 
-    $ java -classpath ~/workspace/java-gnome/tmp/gtk-4.0.jar:. com.example.Program
+    $ java -classpath ~/workspace/java-gnome/tmp/gtk-4.1.jar:. com.example.Program
 
 Note to downstream packagers: running `make install` is now **compulsory**.
 This signals a build that it is no longer being used "in-place" but instead is
@@ -1408,8 +1416,8 @@ you're interested in how things are shaping up.
 
 AfC
 
-[TextBuffer]: doc/api/org/gnome/gtk/TextBuffer.html
-[TextView]: doc/api/org/gnome/gtk/TextView.html
+[TextBuffer]: doc/api/4.1/org/gnome/gtk/TextBuffer.html
+[TextView]: doc/api/4.1/org/gnome/gtk/TextView.html
 
 <a name="4.0.8" id="1218770492" title="Cleanups and signals naming revised"></a>
 
@@ -1511,7 +1519,7 @@ one hasn't finished.
 Documentation, examples, and testing
 ------------------------------------
 
-Our [API documentation](doc/api/overview-summary.html) and the growing set of
+Our [API documentation](doc/api/4.1/overview-summary.html) and the growing set of
 [example code](doc/examples/START.html) have all been updated to reflect the
 new signal interface names. Doing so forced us to review a wide swath of the
 documentation, and so along the way a huge number of minor improvements were
@@ -1590,7 +1598,7 @@ present in the library (marked `@deprecated`, of course, and with assertions
 to encourage developers to migrate their code) so the upcoming release will
 preserve ABI compatibility.
 
-The [documentation](/4.0/doc/api/overview-summary.html) posted here has been
+The [documentation](doc/api/4.1/overview-summary.html) posted here has been
 updated and a release candidate has been uploaded.
 
 AfC
@@ -1613,7 +1621,7 @@ Drawing with Cairo
 
 The trusty Cairo context, traditionally declared as a variable named `cr` in
 code, is mapped as class
-[`Context`](doc/api/org/freedesktop/cairo/Context.html). Various Cairo types
+[`Context`](doc/api/4.1/org/freedesktop/cairo/Context.html). Various Cairo types
 such as different surfaces and patterns are mapped as an abstract base class
 (`Surface`, `Pattern`) along with various concrete subclasses (`ImageSurface`,
 `XlibSurface`, and `SolidPattern`, `RadialPattern`, etc). Error checking is
@@ -1636,7 +1644,7 @@ Exception thrown if there is a failure.
 * **`org.freedesktop.cairo.FatalError`**
 
 The gateway to custom Widgets is the
-[`EXPOSE_EVENT`](doc/api/org/gnome/gtk/Widget.EXPOSE_EVENT.html) signal; this
+[`EXPOSE_EVENT`](doc/api/4.1/org/gnome/gtk/Widget.EXPOSE_EVENT.html) signal; this
 is where you can transition from the GDK `Window` to a Cairo `Context` and
 then begin drawing.
 
@@ -1659,7 +1667,7 @@ been exposed. When using them you need to indicate the other buttons they are
 sharing a mutually exclusive relationship with, and this is expressed by
 adding them to a `RadioButtonGroup`.
 
-![RadioButton](doc/api/org/gnome/gtk/RadioButton.png)
+![RadioButton](doc/api/4.1/org/gnome/gtk/RadioButton.png)
 
 
 * **`org.gnome.gtk.RadioButton`**
@@ -1708,7 +1716,7 @@ Internationalization support
 java-gnome now has full support for the GNOME translation and localization
 infrastructure, including the standard `_("Hello")` idiom for marking strings
 for extraction and translation. There's a fairly detailed explanation in the
-[`Internationalization`](/4.0/doc/api/org/freedesktop/bindings/Internationalization.html)
+[`Internationalization`](doc/api/4.1/org/freedesktop/bindings/Internationalization.html)
 utility class.
 
 * **`org.freedesktop.bindings.Internationalization`**
@@ -1797,7 +1805,7 @@ Linux](http://www.debian.org/) as
  * `libjava-gnome-java`
 
 If you need help installing it, see the the Debian page in the
-[download](/4.0/get/debian.php) section here.
+[download](/get/debian.php) section here.
 
 Compliments to Manu Mahajan for having done the research to develop the Debian
 package, and thanks to Thomas Girard for having refined Manu's start and for
@@ -1827,7 +1835,7 @@ at the GTK hackfest in Berlin, Carl Worth was awesome for having checked our
 preliminary APIs and for having helped sorted us out as we were working our
 way through create some examples.
 
-[Context]: doc/api/org/freedesktop/cairo/Context.html
+[Context]: doc/api/4.1/org/freedesktop/cairo/Context.html
 
 AfC
 
@@ -1863,12 +1871,12 @@ mouse button handling:
 
 Rather than exposing the `int` keyvals that bubble up out of the X server, we
 have wrapped these as  constants of type
-[Keyval](doc/api/org/gnome/gdk/Keyval.html) (thereby being consistent with the
+[Keyval](doc/api/4.1/org/gnome/gdk/Keyval.html) (thereby being consistent with the
 rest of java-gnome in our working to the strengths of Java as a strongly-typed
 language; MouseButton was created for the same reason, helping developers
 understand just what on earth mouse button
-"[1](doc/api/org/gnome/gdk/MouseButton#LEFT)" is, anyway). Along with
-[ModifierType](doc/api/org/gnome/gdk/ModifierType.html), this gives enough to
+"[1](doc/api/4.1/org/gnome/gdk/MouseButton#LEFT)" is, anyway). Along with
+[ModifierType](doc/api/4.1/org/gnome/gdk/ModifierType.html), this gives enough to
 deal with the `KEY_PRESS_EVENT` and `KEY_RELEASE_EVENT` signals when the
 developer wishes to deal with key strokes.
 
@@ -1876,7 +1884,7 @@ We've finally gotten around to providing proper coverage of the box packing
 model which underlies every aspect of how GTK presents user interfaces. To
 understand the size-request/size-allocation process, you might start with
 Widget's
-[`setSizeRequest()`](doc/api/org/gnome/gtk/Widget.html#setSizeRequest\(int,%20int\)).
+[`setSizeRequest()`](doc/api/4.1/org/gnome/gtk/Widget.html#setSizeRequest\(int,%20int\)).
 
 * **`org.gnome.gtk.Requisition`**
 * **`org.gnome.gtk.Allocation`**
@@ -1975,23 +1983,21 @@ Documentation
 -------------
 
 We've always had HTML JavaDoc for the current stable release at
-[`doc/api/`](/4.0/doc/api/overview-summary.html) on the java-gnome website.
+[`doc/api/`](doc/api/4.1/overview-summary.html) on the java-gnome website.
 We're going to change that a bit, though. As fixes to the explanatory
 documentation happen quite frequently to classes and methods all over the
 place, we've decided to generate the JavaDoc from '`mainline`' periodically and
 upload that instead. This means that there will, of course, be descriptions of
 some methods which aren't yet available in a released version of the library,
 but they will clearly identifiable by virtue of having a `@since` tag showing
-a version number greater than the most recent release. We'll revert back to
-more traditional behaviour once we hit 4.2.0, but in the mean time we can give
-people access to the best information we can online.
+a version number greater than the most recent release.
 
 The idea of having up-to-date illustrations of the various Widgets has proved
 popular, and we've continued to update the suite of snapshots. Doing that 
 is _also_ tedious, but it does provide a good opportunity to test APIs we are
 exposing especially where unit tests are less suitable.
 
-![Statusbar](/4.0/doc/api/org/gnome/gtk/Statusbar.png)
+![Statusbar](doc/api/4.1/org/gnome/gtk/Statusbar.png)
 
 Looking ahead
 -------------
@@ -2125,7 +2131,7 @@ to see the complete code delta.
 Screenshots
 -----------
 
-<img src="doc/api/org/gnome/gtk/Window.png" alt="" style="float: right;
+<img src="doc/api/4.1/org/gnome/gtk/Window.png" alt="" style="float: right;
 text-align: right; padding-left: 15px;" /> For fun we built in a capability to
 create demonstrations to be captured as screenshots to illustrate various
 things. It doesn't get more basic than the example on the
@@ -2157,7 +2163,7 @@ continue to grow the fun things you can do with java-gnome.
 AfC
 
 [example-treeview]: http://research.operationaldynamics.com/bzr/java-gnome/mainline/doc/examples/treeview/ExampleTrailHeads.java
-[api-window]: doc/api/org/gnome/gtk/Window.html
+[api-window]: doc/api/4.1/org/gnome/gtk/Window.html
 
 <a name="arch" id="1195662600" title="Packaged in Arch Linux"></a>
 
@@ -2326,7 +2332,7 @@ Portage in
  * `dev-java/java-gnome`
 
 If you need help installing it, see the the Gentoo page in the 
-[download](/4.0/get/gentoo.php) section here.
+[download](/get/gentoo.php) section here.
 
 Thanks to the people who pushed this through: Xerces MC for having submitted an
 initial `.ebuild`, Petteri R&#228;ty (Gentoo dev and Java team lead) for having
@@ -2547,9 +2553,9 @@ It'll be a good challenge.
 
 AfC
 
-[architecture]: /4.0/doc/design/5a-Architecture.html
+[architecture]: /doc/design/5a-Architecture.html
 [codegen]: http://research.operationaldynamics.com/blogs/andrew/software/java-gnome/code-generator-cometh.html
-[objectives]: /4.0/objectives.php
+[objectives]: /objectives.php
 [gtk-thread-awareness]: http://research.operationaldynamics.com/blogs/andrew/software/gnome-desktop/gtk-thread-awareness.html
 [java-gnome-thread]: http://research.operationaldynamics.com/blogs/andrew/software/java-gnome/thread-safety-for-java.html
 
@@ -2798,14 +2804,11 @@ Project website
 ---------------
 
 Create an entirely new website for <http://java-gnome.sourceforge.net/>,
-introducing sections "[About](/4.0/)", "[Documentation](/4.0/doc/)",
-"[Download](/4.0/get/)" and "[Interact](/4.0/lists/)" to discuss the the
+introducing sections "[About](/about/)", "[Documentation](/doc/)",
+"[Download](/get/)" and "[Interact](/lists/)" to discuss the the
 project as a whole, to be a home for the documentation, to provide
 instructions on how to get java-gnome, and information about the mailing lists
-and IRC channel, respectively. Also include a page thanking the previous
-generations of maintainers for their hard work and noting that the
-[2.x](/2.x/) bindings have been unmaintained for some time now and are
-formally deprecated.
+and IRC channel, respectively.
 
 The website is no longer a wiki but is entirely within the source code of
 java-gnome itself. See the `web/public/` directory; improvements welcome.

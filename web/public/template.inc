@@ -78,7 +78,7 @@ function template_begin() {
 	<div align="right" style="padding:10px; padding-top:12px">
 	<a class="nav-black"
 	href="http://ftp.gnome.org/pub/gnome/sources/java-gnome/4.0/java-gnome-4.0.19.tar.bz2">java-gnome 4.0.19</a>,
-	<a class="nav-black" href="/4.0/NEWS.html#4.0.19">released 14 Feb 2011</a>
+	<a class="nav-black" href="/NEWS.html#4.0.19">released 14 Feb 2011</a>
 	</div>
 </div>
 
@@ -86,22 +86,22 @@ function template_begin() {
 <table class="topnavpanel" cellpadding="0" cellspacing="0">
 <tr>
 	<td class="block">
-	<a class="nav-black" href="/4.0/">About<br>
-	<span class="tiny">Overview, News</span></a>
+	<a class="nav-black" href="/NEWS.html">About<br>
+	<span class="tiny">News</span></a>
 	</td>
 
 	<td class="block">
-	<a class="nav-black" href="/4.0/doc/">Documentation<br>
+	<a class="nav-black" href="/doc/">Documentation<br>
 	<span class="tiny">Tutorials, API, and Hacking</span></a>
 	</td>
 
 	<td class="block">
-	<a class="nav-black" href="/4.0/get/">Download<br>
+	<a class="nav-black" href="/get/">Download<br>
 	<span class="tiny">Binaries and Source</span></a>
 	</td>
 
 	<td class="block" style="border:none">
-	<a class="nav-black" href="/4.0/lists/">Interact<br>
+	<a class="nav-black" href="/lists/">Interact<br>
 	<span class="tiny">Mailing Lists, IRC, and Reporting Bugs</span></a>
 	</td>
 </tr>
