@@ -86,8 +86,8 @@ function template_begin() {
 <table class="topnavpanel" cellpadding="0" cellspacing="0">
 <tr>
 	<td class="block">
-	<a class="nav-black" href="/NEWS.html">About<br>
-	<span class="tiny">News</span></a>
+	<a class="nav-black" href="/about/">About<br>
+	<span class="tiny">Overview, News</span></a>
 	</td>
 
 	<td class="block">
@@ -154,7 +154,7 @@ function template_end() {
 
 Contents copyright &copy; 2006-2011
 <a class="black" href="http://www.operationaldynamics.com/">Operational Dynamics</a>
-Consulting Pty Ltd, and Others. See <a class="black" href="/4.0/AUTHORS.html">AUTHORS</a>
+Consulting Pty Ltd, and Others. See <a class="black" href="/AUTHORS.html">AUTHORS</a>
 file and source code history for the various files comprising this site for
 full details<?
 	if ($valid) {

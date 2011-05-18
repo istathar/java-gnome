@@ -19,11 +19,11 @@ your application terminates when the Window is [deleted][Window.DeleteEvent].
 Incidentally, this is what runs if you type `make demo` in a fresh java-gnome
 build.
 
-[Button]: /4.0/doc/api/org/gnome/gtk/Button.html
-[Label]: /4.0/doc/api/org/gnome/gtk/Label.html
-[Window]: /4.0/doc/api/org/gnome/gtk/Window.html
-[Button.Clicked]: /4.0/doc/api/org/gnome/gtk/Button.Clicked.html
-[Window.DeleteEvent]: /4.0/doc/api/org/gnome/gtk/Window.DeleteEvent.html
+[Button]: /doc/api/4.1/org/gnome/gtk/Button.html
+[Label]: /doc/api/4.1/org/gnome/gtk/Label.html
+[Window]: /doc/api/4.1/org/gnome/gtk/Window.html
+[Button.Clicked]: /doc/api/4.1/org/gnome/gtk/Button.Clicked.html
+[Window.DeleteEvent]: /doc/api/4.1/org/gnome/gtk/Window.DeleteEvent.html
 
 ----
 <img src="keyboard/ExampleSnooping.png" class="right"/>
@@ -38,9 +38,9 @@ do something special, then you need to work with the [Keyval][] and
 [ModifierType][] classes in response to the
 [`Widget.KeyPressEvent`][Widget.KeyPressEvent] signal. This is how.
 
-[Keyval]: /4.0/doc/api/org/gnome/gdk/Keyval.html
-[ModifierType]: /4.0/doc/api/org/gnome/gdk/ModifierType.html
-[Widget.KeyPressEvent]: /4.0/doc/api/org/gnome/gtk/Widget.KeyPressEvent.html
+[Keyval]: /doc/api/4.1/org/gnome/gdk/Keyval.html
+[ModifierType]: /doc/api/4.1/org/gnome/gdk/ModifierType.html
+[Widget.KeyPressEvent]: /doc/api/4.1/org/gnome/gtk/Widget.KeyPressEvent.html
 
 <pre style="max-width:600px;">
 Pressed: Keyval.ControlLeft, Modifier: ModifierType.NONE 
@@ -61,10 +61,10 @@ read in conjunction with the API documentation for these types. You'll also
 want to read about how to setup a [ListStore][] and the explanation of
 available column types in [DataColumn][].
 
-[TreeView]: /4.0/doc/api/org/gnome/gtk/TreeView.html
-[TreeModel]: /4.0/doc/api/org/gnome/gtk/TreeModel.html
-[ListStore]: /4.0/doc/api/org/gnome/gtk/ListStore.html
-[DataColumn]: /4.0/doc/api/org/gnome/gtk/DataColumn.html
+[TreeView]: /doc/api/4.1/org/gnome/gtk/TreeView.html
+[TreeModel]: /doc/api/4.1/org/gnome/gtk/TreeModel.html
+[ListStore]: /doc/api/4.1/org/gnome/gtk/ListStore.html
+[DataColumn]: /doc/api/4.1/org/gnome/gtk/DataColumn.html
 
 ----
 <a name="ExampleInstantMessenger"></a>
@@ -81,10 +81,10 @@ well as more advanced features like managing text formatting via [TextTag][]s.
 The example is more or less readable from the top, but the program is quite
 dynamic and the most fun will be had if you _run_ the thing.
 
-[TextView]: /4.0/doc/api/org/gnome/gtk/TextView.html
-[TextBuffer]: /4.0/doc/api/org/gnome/gtk/TextBuffer.html
-[TextIter]: /4.0/doc/api/org/gnome/gtk/TextIter.html
-[TextTag]: /4.0/doc/api/org/gnome/gtk/TextTag.html
+[TextView]: /doc/api/4.1/org/gnome/gtk/TextView.html
+[TextBuffer]: /doc/api/4.1/org/gnome/gtk/TextBuffer.html
+[TextIter]: /doc/api/4.1/org/gnome/gtk/TextIter.html
+[TextTag]: /doc/api/4.1/org/gnome/gtk/TextTag.html
 
 ----
 <a name="ExampleDrawingInExposeEvent"></a>
@@ -99,8 +99,8 @@ the idiom shown in this example. This program demonstrates drawing lines,
 rectangles, and gradients using a drawing [Context][] as obtained within a
 Widget's [Widget.ExposeEvent][] signal handler.
 
-[Context]: /4.0/doc/api/org/freedesktop/cairo/Context.html
-[Widget.ExposeEvent]: /4.0/doc/api/org/gnome/gtk/Widget.ExposeEvent.html
+[Context]: /doc/api/4.1/org/freedesktop/cairo/Context.html
+[Widget.ExposeEvent]: /doc/api/4.1/org/gnome/gtk/Widget.ExposeEvent.html
 
 ----
 <a name="ExampleLinedPaper"></a>
@@ -129,8 +129,8 @@ PDF viewing program._
 The tank sketch is used with the permission of the artist, Nathan Strum.
 </span>
 
-[PdfSurface]: /4.0/doc/api/org/freedesktop/cairo/PdfSurface.html
-[Layout]: /4.0/doc/api/org/gnome/pango/Layout.html
+[PdfSurface]: /doc/api/4.1/org/freedesktop/cairo/PdfSurface.html
+[Layout]: /doc/api/4.1/org/gnome/pango/Layout.html
 
 
 <style>

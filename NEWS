@@ -3,8 +3,9 @@ NEWS
 Website update
 ==============
 
-In preparation for the upcoming API bump, we've reorganized the java-gnome
-website.
+We've reorganized the java-gnome website. API Documentation is now found at
+[`doc/api/4.1/`](/doc/api/4.1/overview-summary.html). This prepares us for the
+upcoming API bump.
 
 AfC
 

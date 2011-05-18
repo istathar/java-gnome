@@ -34,6 +34,11 @@
 div.box {
 	margin-top: 20px;
 	font-size: x-large;
+		
+	max-width: 1200px;
+	margin-left: auto;
+	margin-right: auto;
+
 }
 </style>
 </head>
