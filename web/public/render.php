@@ -95,7 +95,7 @@
 
 	$bottom_message = "This page was generated from a text document! We use
 	John Gruber's Markdown syntax as ported to PHP by Michel Fortin. See <a
-	class=\"black\" href=\"/4.0/doc/style/MARKUP.html\">MARKUP</a> for
+	class=\"black\" href=\"/doc/style/MARKUP.html\">MARKUP</a> for
 	details";
 
 	template_end();

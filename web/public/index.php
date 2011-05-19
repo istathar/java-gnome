@@ -2,7 +2,7 @@
 /*
  * index.php
  *
- * Copyright (c) 2006-2008 Operational Dynamics Consulting Pty Ltd
+ * Copyright (c) 2006-2011 Operational Dynamics Consulting, Pty Ltd
  * 
  * This file comprises part of the infrastructure and content of the
  * java-gnome project website. As such, it is conveyed alongside the source
@@ -31,6 +31,15 @@
 	font-family: "Arial", sans-serif;
 	font-style: normal;
 }
+div.box {
+	margin-top: 20px;
+	font-size: x-large;
+		
+	max-width: 1200px;
+	margin-left: auto;
+	margin-right: auto;
+
+}
 </style>
 </head>
 <body>
@@ -40,42 +49,25 @@
 <h1 class="title">The java-gnome User Interface Library</h1>
 <div class="bluepanel"></div>
 
-<div style="float:right; width: 40%; padding-right: 50px; padding-bottom:
+<div class="box" style="width: 70%; padding-right: 50px; padding-bottom:
 50px; padding-left: 50px;">
-
-<p>Since 1998, the java-gnome project has been offering Java bindings for the
-GTK widget toolkit and for the rich family of libraries making up the GNOME
-desktop.</p>
-
-<p>In 2006, a complete re-engineering of the bindings was initiated, and
-that work has resulted in:
-
-<p style="padding-left: 50px;">
-<a class="subject" href="/4.0/"><img align="texttop" src="/images/openoffice_ImpressNextSlide.jpg" style="padding-right: 10px;" border="0"></a>
-<a class="subject" href="/4.0/">java-gnome 4.0</a>
-</p>
-
-<p>
-An outstanding experience for developers using the library along with high
-standards for internal quality, steadily increasing breadth of coverage, and
-excellent performance are the hallmarks of the project. We are pleased to
-maintain this effort as a part of the GNOME development platform, and hope
-you'll find our work of interest!
-</p>
-
-</div>
-
-<div style="font-size: 30px; padding-left: 10px;
-padding-top: 80px; padding-right: 80px;">
 <center>
-	<img src="/images/cross-product.png" width="450" height="120"><br><br>
-	<span class="italics">Write outstanding</span>
-	<span style="font-size: 24px; font-weight: bold">GTK</span>
-	<span class="italics">based</span>
-	<span style="font-size: 24px; font-weight: bold">GNOME</span>
-	<span class="italics">programs ... from Java!</span>
+	<img src="/images/cross-product.png" width="450" height="120">
+
+<p>These are the Java bindings for GTK and GNOME. Featuring a robust
+engineering design, completely generated internals, a lovingly crafted layer
+presenting the public API, and steadily increasing coverage of the underlying
+libraries.</p>
+
+<p>You can use java-gnome to develop sophisticated user interfaces for Linux
+applications so that they richly integrate with the GNOME Desktop while
+leveraging the power of the Java language and your expertise with it.</p>
+
+<img style="padding: 10px;" src="/doc/api/4.1/org/gnome/gtk/AboutDialog.png">
+
 </center>
 </div>
+
 
 <div style="padding-top:50px;"></div>
 
