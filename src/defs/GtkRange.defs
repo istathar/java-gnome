@@ -5,21 +5,6 @@
   (gtype-id "GTK_TYPE_RANGE")
 )
 
-(define-method set_update_policy
-  (of-object "GtkRange")
-  (c-name "gtk_range_set_update_policy")
-  (return-type "none")
-  (parameters
-    '("GtkUpdateType" "policy")
-  )
-)
-
-(define-method get_update_policy
-  (of-object "GtkRange")
-  (c-name "gtk_range_get_update_policy")
-  (return-type "GtkUpdateType")
-)
-
 (define-method set_adjustment
   (of-object "GtkRange")
   (c-name "gtk_range_set_adjustment")

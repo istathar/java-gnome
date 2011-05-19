@@ -1,7 +1,7 @@
 /*
  * java-gnome, a UI library for writing GTK and GNOME programs from Java!
  *
- * Copyright © 2007-2010 Operational Dynamics Consulting, Pty Ltd
+ * Copyright © 2007-2011 Operational Dynamics Consulting, Pty Ltd
  *
  * The code in this file, and the program it is a part of, is made available
  * to you by its authors as open source software: you can redistribute it
@@ -179,7 +179,7 @@ public class ValidateProperties extends GraphicalTestCase
         assertEquals(i, b.getImage());
     }
 
-    public final void testAllocationLive() {
+    public final void testAllocation() {
         final Window w;
         final Button b;
         Allocation size;
@@ -209,9 +209,11 @@ public class ValidateProperties extends GraphicalTestCase
         GtkWidget.realize(b);
 
         /*
-         * Now test that the our live reference to the GtkAllocation actually
-         * changed. Note that we did NOT get a new Allocation object.
+         * Obtain the current values of the Allocation and test that they
+         * changed.
          */
+        size = b.getAllocation();
+
         assertTrue(size.getWidth() > 1);
         assertTrue(size.getHeight() > 1);
         assertTrue(size.getX() >= 0);
@@ -384,14 +386,14 @@ public class ValidateProperties extends GraphicalTestCase
         assertEquals(0.5, adj.getPageSize(), 0.001);
 
         adj.setValue(1.52);
-        assertEquals(1.52, adj.getValue(), 0.001);
+        assertEquals(1.5, adj.getValue(), 0.001);
 
         /*
          * Test clamping
          */
 
         adj.setValue(2.52);
-        assertEquals(2.0, adj.getValue(), 0.001);
+        assertEquals(1.5, adj.getValue(), 0.001);
 
         adj.setValue(0.0);
         assertEquals(1.0, adj.getValue(), 0.001);

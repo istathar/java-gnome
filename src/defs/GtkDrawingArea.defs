@@ -12,14 +12,3 @@
   (return-type "GtkWidget*")
 )
 
-(define-method size
-  (of-object "GtkDrawingArea")
-  (c-name "gtk_drawing_area_size")
-  (return-type "none")
-  (deprecated "use GtkWidget.set_size_request")
-  (parameters
-    '("gint" "width")
-    '("gint" "height")
-  )
-)
-

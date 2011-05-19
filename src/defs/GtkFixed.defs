@@ -33,19 +33,3 @@
     '("gint" "y")
   )
 )
-
-(define-method set_has_window
-  (of-object "GtkFixed")
-  (c-name "gtk_fixed_set_has_window")
-  (return-type "none")
-  (parameters
-    '("gboolean" "has_window")
-  )
-)
-
-(define-method get_has_window
-  (of-object "GtkFixed")
-  (c-name "gtk_fixed_get_has_window")
-  (return-type "gboolean")
-)
-

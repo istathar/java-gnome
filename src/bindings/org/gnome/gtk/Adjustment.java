@@ -1,7 +1,7 @@
 /*
  * java-gnome, a UI library for writing GTK and GNOME programs from Java!
  *
- * Copyright © 2007-2010 Operational Dynamics Consulting, Pty Ltd
+ * Copyright © 2007-2011 Operational Dynamics Consulting, Pty Ltd
  * Copyright © 2007      Srichand Pendyala
  *
  * The code in this file, and the program it is a part of, is made available
@@ -32,6 +32,8 @@
  * wish to do so, delete this exception statement from your version.
  */
 package org.gnome.gtk;
+
+import org.gnome.glib.Object;
 
 /**
  * Data concerning a value with a pair of associated values that determine its
@@ -166,12 +168,6 @@ public class Adjustment extends Object
         GtkAdjustment.changed(this);
     }
 
-    /** @deprecated */
-    public void changed() {
-        assert false : "use emitChanged() instead";
-        GtkAdjustment.changed(this);
-    }
-
     /**
      * Emits a <code>Adjustment.ValueChanged</code> signal on the Adjustment.
      * This method is probably unnecessary, since calling
@@ -181,12 +177,6 @@ public class Adjustment extends Object
      * @since 4.0.8
      */
     public void emitValueChanged() {
-        GtkAdjustment.valueChanged(this);
-    }
-
-    /** @deprecated */
-    public void valueChanged() {
-        assert false : "use emitValueChanged() instead";
         GtkAdjustment.valueChanged(this);
     }
 
@@ -212,20 +202,6 @@ public class Adjustment extends Object
         GtkAdjustment.connect(this, handler, false);
     }
 
-    /** @deprecated */
-    public interface CHANGED extends GtkAdjustment.ChangedSignal
-    {
-        public void onChanged(Adjustment source);
-    }
-
-    /**
-     * @deprecated
-     */
-    public void connect(CHANGED handler) {
-        assert false : "use Adjustment.Changed instead";
-        GtkAdjustment.connect(this, handler, false);
-    }
-
     /**
      * This signal is emitted when Adjustment's <var>value</var> field has
      * been changed. This signal will be emitted if you call the
@@ -247,18 +223,6 @@ public class Adjustment extends Object
      * @since 4.0.5
      */
     public void connect(ValueChanged handler) {
-        GtkAdjustment.connect(this, handler, false);
-    }
-
-    /** @deprecated */
-    public interface VALUE_CHANGED extends GtkAdjustment.ValueChangedSignal
-    {
-        public void onValueChanged(Adjustment source);
-    }
-
-    /** @deprecated */
-    public void connect(VALUE_CHANGED handler) {
-        assert false : "use Adjustment.ValueChanged instead";
         GtkAdjustment.connect(this, handler, false);
     }
 

@@ -1,5 +1,0 @@
-(define-object Bitmap
-  (in-module "Gdk")
-  (parent "GdkDrawable")
-  (c-name "GdkBitmap")
-)

@@ -1,7 +1,7 @@
 /*
  * java-gnome, a UI library for writing GTK and GNOME programs from Java!
  *
- * Copyright © 2009-2010 Operational Dynamics Consulting, Pty Ltd and Others
+ * Copyright © 2009-2011 Operational Dynamics Consulting, Pty Ltd and Others
  *
  * The code in this file, and the program it is a part of, is made available
  * to you by its authors as open source software: you can redistribute it
@@ -61,7 +61,7 @@ public class ExampleLowBattery
          */
 
         notification = new Notification("Low Battery Example", "Your battery is low!",
-                "messagebox_warning", icon);
+                "messagebox_warning");
 
         /*
          * Quit the application after notification disappears.

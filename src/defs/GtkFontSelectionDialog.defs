@@ -29,13 +29,6 @@
   (return-type "gchar*")
 )
 
-(define-method get_font
-  (of-object "GtkFontSelectionDialog")
-  (c-name "gtk_font_selection_dialog_get_font")
-  (return-type "GdkFont*")
-  (deprecated "use GtkFontSelectionDialog.get_font_name")
-)
-
 (define-method set_font_name
   (of-object "GtkFontSelectionDialog")
   (c-name "gtk_font_selection_dialog_set_font_name")

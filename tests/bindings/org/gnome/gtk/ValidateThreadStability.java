@@ -1,7 +1,7 @@
 /*
  * java-gnome, a UI library for writing GTK and GNOME programs from Java!
  *
- * Copyright © 2007-2010 Operational Dynamics Consulting, Pty Ltd
+ * Copyright © 2007-2011 Operational Dynamics Consulting, Pty Ltd
  * Copyright © 2007      Vreixo Formoso
  *
  * The code in this file, and the program it is a part of, is made available
@@ -19,8 +19,8 @@
  */
 package org.gnome.gtk;
 
+import org.freedesktop.cairo.Context;
 import org.gnome.gdk.Event;
-import org.gnome.gdk.EventExpose;
 
 /**
  * Verify concurrent behaviour is correct. We briefly had a tentative
@@ -62,8 +62,8 @@ public final class ValidateThreadStability
             }
         });
 
-        x2.connect(new Widget.ExposeEvent() {
-            public boolean onExposeEvent(Widget source, EventExpose event) {
+        x2.connect(new Widget.Draw() {
+            public boolean onDraw(Widget source, Context cr) {
                 System.out.println("Expose event. VBOX");
                 Thread.yield();
                 return false;

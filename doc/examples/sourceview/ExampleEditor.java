@@ -1,7 +1,7 @@
 /*
  * java-gnome, a UI library for writing GTK and GNOME programs from Java!
  *
- * Copyright © 2009-2010 Operational Dynamics Consulting, Pty Ltd and Others
+ * Copyright © 2009-2011 Operational Dynamics Consulting, Pty Ltd and Others
  *
  * The code in this file, and the program it is a part of, is made available
  * to you by its authors as open source software: you can redistribute it
@@ -109,7 +109,7 @@ public class ExampleEditor
         view.setAutoIndent(true);
 
         desc = new FontDescription("Deja Vu Sans Mono, 11");
-        view.modifyFont(desc);
+        view.overrideFont(desc);
 
         scroll = new ScrolledWindow();
         scroll.setPolicy(PolicyType.AUTOMATIC, PolicyType.ALWAYS);

@@ -47,20 +47,12 @@
   )
 )
 
-(define-method set_background_color
+(define-method set_background_rgba
   (of-object "GtkCellView")
-  (c-name "gtk_cell_view_set_background_color")
+  (c-name "gtk_cell_view_set_background_rgba")
   (return-type "none")
   (parameters
-    '("const-GdkColor*" "color")
+    '("const-GdkRGBA*" "color")
   )
-)
-
-(define-method get_cell_renderers
-  (of-object "GtkCellView")
-  (c-name "gtk_cell_view_get_cell_renderers")
-  (caller-owns-return #l)
-  (return-type "GList-GtkCellRenderer*")
-  (deprecated)
 )
 

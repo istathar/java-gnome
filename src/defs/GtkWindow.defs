@@ -3,42 +3,6 @@
   (parent "GtkBin")
   (c-name "GtkWindow")
   (gtype-id "GTK_TYPE_WINDOW")
-  (fields
-    '("gchar*" "title")
-    '("gchar*" "wmclass_name")
-    '("gchar*" "wmclass_class")
-    '("gchar*" "wm_role")
-    '("GtkWidget*" "focus_widget")
-    '("GtkWidget*" "default_widget")
-    '("GtkWindow*" "transient_parent")
-    '("GdkWindow*" "frame")
-    '("GtkWindowGroup*" "group")
-    '("guint16" "configure_request_count")
-    '("guint" "allow_shrink")
-    '("guint" "allow_grow")
-    '("guint" "configure_notify_received")
-    '("guint" "need_default_position")
-    '("guint" "need_default_size")
-    '("guint" "position")
-    '("guint" "type")
-    '("guint" "has_user_ref_count")
-    '("guint" "has_focus")
-    '("guint" "modal")
-    '("guint" "destroy_with_parent")
-    '("guint" "has_frame")
-    '("guint" "iconify_initially")
-    '("guint" "stick_initially")
-    '("guint" "maximize_initially")
-    '("guint" "decorated")
-    '("guint" "type_hint")
-    '("guint" "gravity")
-    '("guint" "frame_left")
-    '("guint" "frame_top")
-    '("guint" "frame_right")
-    '("guint" "frame_bottom")
-    '("guint" "keys_changed_handler")
-    '("GdkModifierType" "mnemonic_modifier")
-  )
 )
 
 (define-method tooltips_get_info_from_tip_window
@@ -73,6 +37,21 @@
   (of-object "GtkWindow")
   (c-name "gtk_window_get_title")
   (return-type "const-gchar*")
+)
+
+(define-method set_has_resize_grip
+  (of-object "GtkWindow")
+  (c-name "gtk_window_set_has_resize_grip")
+  (return-type "none")
+  (parameters
+    '("gboolean" "value")
+  )
+)
+
+(define-method get_has_resize_grip
+  (of-object "GtkWindow")
+  (c-name "gtk_window_get_has_resize_grip")
+  (return-type "gboolean")
 )
 
 (define-method set_wmclass
@@ -336,45 +315,6 @@
   (return-type "gboolean")
 )
 
-(define-method set_has_frame
-  (of-object "GtkWindow")
-  (c-name "gtk_window_set_has_frame")
-  (return-type "none")
-  (parameters
-    '("gboolean" "setting")
-  )
-)
-
-(define-method get_has_frame
-  (of-object "GtkWindow")
-  (c-name "gtk_window_get_has_frame")
-  (return-type "gboolean")
-)
-
-(define-method set_frame_dimensions
-  (of-object "GtkWindow")
-  (c-name "gtk_window_set_frame_dimensions")
-  (return-type "none")
-  (parameters
-    '("gint" "left")
-    '("gint" "top")
-    '("gint" "right")
-    '("gint" "bottom")
-  )
-)
-
-(define-method get_frame_dimensions
-  (of-object "GtkWindow")
-  (c-name "gtk_window_get_frame_dimensions")
-  (return-type "none")
-  (parameters
-    '("gint*" "left")
-    '("gint*" "top")
-    '("gint*" "right")
-    '("gint*" "bottom")
-  )
-)
-
 (define-method set_decorated
   (of-object "GtkWindow")
   (c-name "gtk_window_set_decorated")
@@ -615,18 +555,6 @@
   )
 )
 
-(define-method set_policy
-  (of-object "GtkWindow")
-  (c-name "gtk_window_set_policy")
-  (return-type "none")
-  (deprecated "use GtkWindow.set_resizable")
-  (parameters
-    '("gint" "allow_shrink")
-    '("gint" "allow_grow")
-    '("gint" "auto_shrink")
-  )
-)
-
 (define-method set_default_size
   (of-object "GtkWindow")
   (c-name "gtk_window_set_default_size")
@@ -700,24 +628,6 @@
   (of-object "GtkWindow")
   (c-name "gtk_window_reshow_with_initial_size")
   (return-type "none")
-)
-
-(define-method remove_embedded_xid
-  (of-object "GtkWindow")
-  (c-name "gtk_window_remove_embedded_xid")
-  (return-type "none")
-  (parameters
-    '("guint" "xid")
-  )
-)
-
-(define-method add_embedded_xid
-  (of-object "GtkWindow")
-  (c-name "gtk_window_add_embedded_xid")
-  (return-type "none")
-  (parameters
-    '("guint" "xid")
-  )
 )
 
 (define-method set_focus_on_map

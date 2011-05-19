@@ -15,13 +15,6 @@
   )
 )
 
-(define-method accelerator_width
-  (of-object "GtkAccelLabel")
-  (c-name "gtk_accel_label_accelerator_width")
-  (return-type "guint")
-  (deprecated "use GtkAccelLabel.get_accel_width")
-)
-
 (define-method get_accel_widget
   (of-object "GtkAccelLabel")
   (c-name "gtk_accel_label_get_accel_widget")

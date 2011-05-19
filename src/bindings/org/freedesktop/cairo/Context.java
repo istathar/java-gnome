@@ -1,7 +1,7 @@
 /*
  * java-gnome, a UI library for writing GTK and GNOME programs from Java!
  *
- * Copyright © 2007-2010 Operational Dynamics Consulting, Pty Ltd and Others
+ * Copyright © 2007-2011 Operational Dynamics Consulting, Pty Ltd and Others
  *
  * The code in this file, and the program it is a part of, is made available
  * to you by its authors as open source software: you can redistribute it
@@ -32,10 +32,9 @@
  */
 package org.freedesktop.cairo;
 
-import org.gnome.gdk.Color;
-import org.gnome.gdk.Drawable;
-import org.gnome.gdk.EventExpose;
 import org.gnome.gdk.Pixbuf;
+import org.gnome.gdk.RGBA;
+import org.gnome.gdk.Window;
 import org.gnome.pango.Layout;
 import org.gnome.pango.LayoutLine;
 import org.gnome.rsvg.Handle;
@@ -53,9 +52,9 @@ import org.gnome.rsvg.Handle;
  * <li>If creating an image to be written to a file, start with an
  * {@link ImageSurface}, do your drawing, and then use Surface's writeToPNG()
  * to output your image.
- * <li>If drawing to the screen in a user interface application, construct a
- * Context in your Widget's {@link org.gnome.gtk.Widget.ExposeEvent
- * Widget.ExposeEvent}, and do your drawing there.
+ * <li>If drawing to the screen in a user interface application, you get a
+ * Context in your Widget's {@link org.gnome.gtk.Widget.Draw Widget.Draw}
+ * signal, and do your drawing there.
  * </ul>
  * 
  * See the links above for examples of each use case.
@@ -149,57 +148,23 @@ public class Context extends Entity
     }
 
     /**
-     * Construct a new "Cairo Context" related to a Drawable. This is the
-     * magic glue which allows you to link between GTK's Widgets and Cairo's
-     * drawing operations.
+     * Construct a new "Cairo Context" related to a Window. This is the magic
+     * glue which allows you to link between GTK's Widgets and Cairo's drawing
+     * operations.
      * 
      * <p>
      * You may find yourself needing to get at the Surface that is being drawn
      * on. Use {@link #getTarget() getTarget()}.
      * 
      * <p>
-     * If you're drawing in an <code>Widget.ExposeEvent</code> then you're
-     * better off using the {@link Context#Context(EventExpose)
-     * Context(EventExpose)} constructor.
-     * 
-     * <p>
      * <i>Strictly speaking, this method is a part of GDK. We expose it here
      * as we are, from the Java bindings' perspective, constructing a Cairo
      * Context. So a constructor it is.</i>
      * 
-     * @since 4.0.7
+     * @since 4.1.1
      */
-    /*
-     * The function in GdkDrawable is tempting, but since it is not marked as
-     * a constructor, it wants to return an object, not a long. It's also in
-     * the wrong package. We'll leave that be.
-     */
-    public Context(Drawable drawable) {
-        super(GdkCairoSupport.createContextFromDrawable(drawable));
-        checkStatus();
-    }
-
-    /**
-     * Construct a new "Cairo Context" during an ExposeEvent. This is the
-     * magic glue which allows you to link between GTK's Widgets and Cairo's
-     * drawing operations.
-     * 
-     * <p>
-     * This constructor takes the [org.gnome.gdk] EventExpose structure and
-     * passes is directly to some native code which constructs the Context,
-     * then <code>clip()</code>s it to the Region contained in the
-     * ExposeEvent. This isn't enough to save you running your drawing code,
-     * but it is enough to tell Cairo very early on to only actually render
-     * the part that has been damaged or exposed. This can save a lot of
-     * cycles deep down.
-     * 
-     * @since 4.0.17
-     */
-    /*
-     * Amazingly, GdkEventExpose has enough in it to construct a cairo_t.
-     */
-    public Context(EventExpose event) {
-        super(GdkCairoSupport.createContextFromExposeEvent(event));
+    public Context(Window window) {
+        super(GdkCairoSupport.createContext(window));
         checkStatus();
     }
 
@@ -324,13 +289,12 @@ public class Context extends Entity
     }
 
     /**
-     * Set the source pattern within this Context to an opaque color.
+     * Set the source pattern within this Context to the given RGBA colour.
      * 
-     * @since 4.0.12
+     * @since 4.1.1
      */
-    public void setSource(Color color) {
-        CairoContext.setSourceRgb(this, color.getRed() / 65535.0, color.getGreen() / 65535.0,
-                color.getBlue() / 65535.0);
+    public void setSource(RGBA color) {
+        GdkCairoSupport.setSourceRgba(this, color);
         checkStatus();
     }
 
@@ -345,13 +309,6 @@ public class Context extends Entity
         checkStatus();
     }
 
-    /** @deprecated */
-    public void setSourceRGB(double red, double green, double blue) {
-        assert false : "use setSource() instead";
-        CairoContext.setSourceRgb(this, red, green, blue);
-        checkStatus();
-    }
-
     /**
      * Set the source pattern within this Context to a translucent colour. The
      * parameters each take the range <code>0.0</code> to <code>1.0</code>.
@@ -362,13 +319,6 @@ public class Context extends Entity
      * @since 4.0.10
      */
     public void setSource(double red, double green, double blue, double alpha) {
-        CairoContext.setSourceRgba(this, red, green, blue, alpha);
-        checkStatus();
-    }
-
-    /** @deprecated */
-    public void setSourceRGBA(double red, double green, double blue, double alpha) {
-        assert false : "use setSource() instead";
         CairoContext.setSourceRgba(this, red, green, blue, alpha);
         checkStatus();
     }
@@ -555,13 +505,6 @@ public class Context extends Entity
      * @since 4.0.10
      */
     public void setSource(Surface surface, double x, double y) {
-        CairoContext.setSourceSurface(this, surface, x, y);
-        checkStatus();
-    }
-
-    /** @deprecated */
-    public void setSourceSurface(Surface surface, double x, double y) {
-        assert false : "use setSource() instead";
         CairoContext.setSourceSurface(this, surface, x, y);
         checkStatus();
     }

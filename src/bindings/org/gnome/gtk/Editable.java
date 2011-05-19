@@ -78,11 +78,6 @@ public interface Editable
         void onChanged(Editable source);
     }
 
-    /** @deprecated */
-    public interface CHANGED extends GtkEditable.ChangedSignal
-    {
-    }
-
     /**
      * Hook up a handler for <code>Editable.Changed</code> signals.
      * 

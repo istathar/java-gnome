@@ -2,7 +2,6 @@
   (in-module "Pango")
   (parent "GObject")
   (c-name "PangoLayout")
-  (gtype-id "PANGO_TYPE_LAYOUT")
 )
 
 (define-function pango_layout_new

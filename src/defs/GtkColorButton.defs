@@ -12,22 +12,22 @@
   (return-type "GtkWidget*")
 )
 
-(define-function color_button_new_with_color
+(define-function color_button_new_with_rgba
   (is-constructor-of "GtkColorButton")
-  (c-name "gtk_color_button_new_with_color")
+  (c-name "gtk_color_button_new_with_rgba")
   (caller-owns-return #t)
   (return-type "GtkWidget*")
   (parameters
-    '("const-GdkColor*" "color")
+    '("const-GdkRGBA*" "color")
   )
 )
 
-(define-method set_color
+(define-method set_rgba
   (of-object "GtkColorButton")
-  (c-name "gtk_color_button_set_color")
+  (c-name "gtk_color_button_set_rgba")
   (return-type "none")
   (parameters
-    '("const-GdkColor*" "color")
+    '("const-GdkRGBA*" "color")
   )
 )
 
@@ -40,12 +40,12 @@
   )
 )
 
-(define-method get_color
+(define-method get_rgba
   (of-object "GtkColorButton")
-  (c-name "gtk_color_button_get_color")
+  (c-name "gtk_color_button_get_rgba")
   (return-type "none")
   (parameters
-    '("GdkColor*" "color")
+    '("GdkRGBA*" "color")
   )
 )
 

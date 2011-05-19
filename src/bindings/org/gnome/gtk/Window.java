@@ -290,21 +290,6 @@ public class Window extends Bin
     }
 
     /**
-     * @deprecated
-     */
-    public interface DELETE_EVENT extends GtkWidget.DeleteEventSignal
-    {
-    }
-
-    /**
-     * @deprecated
-     */
-    public void connect(DELETE_EVENT handler) {
-        assert false : "use Window.DeleteEvent instead";
-        GtkWidget.connect(this, handler, false);
-    }
-
-    /**
      * Request that the Window be moved to the specified co-ordinates. As with
      * other Window operations, the window manager running on the display may
      * or may not service the request; in particular you sometimes find that
@@ -759,6 +744,19 @@ public class Window extends Bin
      */
     public void setResizable(boolean setting) {
         GtkWindow.setResizable(this, setting);
+    }
+
+    /**
+     * Toggle whether or not this Window is showing a resize grip at the
+     * bottom right of the drawn Window. While ordinarily you'd want to leave
+     * this alone, a resize grip will displace a right-hand Scrollbar and may
+     * need to be removed for visual consistency. Note that when maximized,
+     * windows will not have resize grips.
+     * 
+     * @since 4.1.1
+     */
+    public void setHasResizeGrip(boolean setting) {
+        GtkWindow.setHasResizeGrip(this, setting);
     }
 
     /**

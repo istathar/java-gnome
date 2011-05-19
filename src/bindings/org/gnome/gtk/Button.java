@@ -353,28 +353,6 @@ public class Button extends Bin implements Activatable
     }
 
     /**
-     * @deprecated
-     */
-    public interface CLICKED extends GtkButton.ClickedSignal
-    {
-    }
-
-    /**
-     * @deprecated
-     */
-    public void connect(CLICKED handler) {
-        assert false : "use Button.Clicked instead";
-        GtkButton.connect(this, handler, false);
-    }
-
-    /*
-     * Button.Activate: "Applications should never connect to this signal, but
-     * use the 'clicked' signal."
-     * 
-     * Button.Entered, Button.Pressed, etc: deprecated.
-     */
-
-    /**
      * Cause a <code>Button.Clicked</code> signal to be emitted.
      * 
      * @since 4.0.6

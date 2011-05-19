@@ -1,7 +1,7 @@
 /*
  * java-gnome, a UI library for writing GTK and GNOME programs from Java!
  *
- * Copyright © 2007-2010 Operational Dynamics Consulting, Pty Ltd and Others
+ * Copyright © 2007-2011 Operational Dynamics Consulting, Pty Ltd and Others
  *
  * The code in this file, and the program it is a part of, is made available
  * to you by its authors as open source software: you can redistribute it
@@ -56,27 +56,20 @@ package org.gnome.gtk;
  * @author Andrew Cowie
  * @since 4.0.1
  */
-public abstract class Box extends Container
+public class Box extends Container implements Orientable
 {
     protected Box(long pointer) {
         super(pointer);
     }
 
     /**
-     * Add a Widget to the beginning of the Box, with default padding values.
-     * With only the <code>child</code> Widget to specify, this is easy to use
-     * and suffices for most cases.
+     * Construct a new Box of the given orientation and specifying a default
+     * spacing. See also the original Widgets {@link HBox} and {@link VBox}.
      * 
-     * <p>
-     * <i>This is the same as calling
-     * <code>packStart(child, true, true, 0)</code>; see the full
-     * {@link #packStart(Widget, boolean, boolean, int) packStart()} for
-     * details.</i>
-     * 
-     * @deprecated Use packStart(Widget, boolean, boolean, int) instead.
+     * @since 4.1.1
      */
-    public void packStart(Widget child) {
-        GtkBox.packStart(this, child, true, true, 0);
+    public Box(Orientation orientation, int spacing) {
+        super(GtkBox.createBox(orientation, spacing));
     }
 
     /**
@@ -109,22 +102,6 @@ public abstract class Box extends Container
      */
     public void packStart(Widget child, boolean expand, boolean fill, int padding) {
         GtkBox.packStart(this, child, expand, fill, padding);
-    }
-
-    /**
-     * Add a Widget to the end of the Box, with default padding values.
-     * 
-     * <p>
-     * <i>This is the same as calling
-     * <code>packEnd(child, true, true, 0)</code>; see the full
-     * {@link #packEnd(Widget, boolean, boolean, int) packEnd()} method for
-     * details.</i>
-     * 
-     * @deprecated Use packEnd(Widget, boolean, boolean, int) instead.
-     * @since 4.0.6
-     */
-    public void packEnd(Widget child) {
-        GtkBox.packEnd(this, child, true, true, 0);
     }
 
     /**
@@ -180,5 +157,13 @@ public abstract class Box extends Container
      */
     public int getSpacing() {
         return GtkBox.getSpacing(this);
+    }
+
+    public void setOrientation(Orientation orientation) {
+        GtkOrientable.setOrientation(this, orientation);
+    }
+
+    public Orientation getOrientation() {
+        return GtkOrientable.getOrientation(this);
     }
 }

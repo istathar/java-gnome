@@ -288,32 +288,6 @@
   )
 )
 
-(define-method query_tab_label_packing
-  (of-object "GtkNotebook")
-  (c-name "gtk_notebook_query_tab_label_packing")
-  (return-type "none")
-  (parameters
-    '("GtkWidget*" "child")
-    '("gboolean*" "expand")
-    '("gboolean*" "fill")
-    '("GtkPackType*" "pack_type")
-  )
-  (deprecated "2.90")
-)
-
-(define-method set_tab_label_packing
-  (of-object "GtkNotebook")
-  (c-name "gtk_notebook_set_tab_label_packing")
-  (return-type "none")
-  (parameters
-    '("GtkWidget*" "child")
-    '("gboolean" "expand")
-    '("gboolean" "fill")
-    '("GtkPackType" "pack_type")
-  )
-  (deprecated "2.90")
-)
-
 (define-method reorder_child
   (of-object "GtkNotebook")
   (c-name "gtk_notebook_reorder_child")
@@ -321,23 +295,6 @@
   (parameters
     '("GtkWidget*" "child")
     '("gint" "position")
-  )
-)
-
-(define-method current_page
-  (of-object "GtkNotebook")
-  (c-name "gtk_notebook_current_page")
-  (return-type "gint")
-  (deprecated "use GtkNotebook.get_current_page")
-)
-
-(define-method set_page
-  (of-object "GtkNotebook")
-  (c-name "gtk_notebook_set_page")
-  (return-type "none")
-  (deprecated "use GtkNotebook.set_current_page")
-  (parameters
-    '("gint" "page_num")
   )
 )
 

@@ -6,21 +6,6 @@
   (release-func "gdk_event_free")
 )
 
-(define-method send_client_message
-  (of-object "GdkEvent")
-  (c-name "gdk_event_send_client_message")
-  (return-type "gboolean")
-  (parameters
-    '("GdkNativeWindow" "winid")
-  )
-)
-
-(define-method send_clientmessage_toall
-  (of-object "GdkEvent")
-  (c-name "gdk_event_send_clientmessage_toall")
-  (return-type "none")
-)
-
 (define-method put
   (of-object "GdkEvent")
   (c-name "gdk_event_put")

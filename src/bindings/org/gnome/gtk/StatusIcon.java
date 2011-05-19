@@ -1,7 +1,7 @@
 /*
  * java-gnome, a UI library for writing GTK and GNOME programs from Java!
  *
- * Copyright © 2007-2010 Operational Dynamics Consulting, Pty Ltd and Others
+ * Copyright © 2007-2011 Operational Dynamics Consulting, Pty Ltd and Others
  *
  * The code in this file, and the program it is a part of, is made available
  * to you by its authors as open source software: you can redistribute it
@@ -216,14 +216,6 @@ public class StatusIcon extends org.gnome.glib.Object
     }
 
     /**
-     * @deprecated
-     */
-    public void setTooltip(String text) {
-        assert false : "Use setTooltipText() instead";
-        GtkStatusIcon.setTooltipText(this, text);
-    }
-
-    /**
      * Reports if the StatusIcon is visible. Note that being visible does not
      * guarantee that the user can actually see the Status, there must also be
      * a Notification Area applet running to display it; see
@@ -250,31 +242,6 @@ public class StatusIcon extends org.gnome.glib.Object
      */
     public void setVisible(boolean visible) {
         GtkStatusIcon.setVisible(this, visible);
-    }
-
-    /**
-     * Reports if the StatusIcon is blinking.
-     */
-    public boolean getBlinking() {
-        return GtkStatusIcon.getBlinking(this);
-    }
-
-    /**
-     * Make the StatusIcon start [or stop] blinking.
-     * 
-     * <p>
-     * Note that blinking user interface elements may be problematic for some
-     * users and may be turned off on a desktop wide level, in which case this
-     * setting would have no effect. Even ignoring the accessibility question,
-     * many people find blinking StatusIcons annoying in general. Use
-     * sparingly, if at all.
-     * 
-     * @param setting
-     *            <code>true</code> to start the StatusIcon blinking,
-     *            <code>false</code> to stop it blinking.
-     */
-    public void setBlinking(boolean setting) {
-        GtkStatusIcon.setBlinking(this, setting);
     }
 
     /**
@@ -330,17 +297,6 @@ public class StatusIcon extends org.gnome.glib.Object
         GtkStatusIcon.connect(this, handler, false);
     }
 
-    /** @deprecated */
-    public interface ACTIVATE extends GtkStatusIcon.ActivateSignal
-    {
-    }
-
-    /** @deprecated */
-    public void connect(ACTIVATE handler) {
-        assert false : "use StatusIcon.Activate instead";
-        GtkStatusIcon.connect(this, handler, false);
-    }
-
     /**
      * The signal emitted when the user brings up the context menu of the
      * StatusIcon.
@@ -376,17 +332,6 @@ public class StatusIcon extends org.gnome.glib.Object
         GtkStatusIcon.connect(this, handler, false);
     }
 
-    /** @deprecated */
-    public interface POPUP_MENU extends GtkStatusIcon.PopupMenuSignal
-    {
-    }
-
-    /** @deprecated */
-    public void connect(POPUP_MENU handler) {
-        assert false : "use StatusIcon.PopupMenu instead";
-        GtkStatusIcon.connect(this, handler, false);
-    }
-
     /**
      * Signal emitted when the size available for the StatusIcon's image
      * changes. This happens if the panel the Notification Area applet is
@@ -406,17 +351,6 @@ public class StatusIcon extends org.gnome.glib.Object
     }
 
     public void connect(StatusIcon.SizeChanged handler) {
-        GtkStatusIcon.connect(this, handler, false);
-    }
-
-    /** @deprecated */
-    public interface SIZE_CHANGED extends GtkStatusIcon.SizeChangedSignal
-    {
-    }
-
-    /** @deprecated */
-    public void connect(SIZE_CHANGED handler) {
-        assert false : "use StatusIcon.SizeChanged instead";
         GtkStatusIcon.connect(this, handler, false);
     }
 }

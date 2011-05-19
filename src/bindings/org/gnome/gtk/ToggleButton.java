@@ -107,15 +107,4 @@ public class ToggleButton extends Button
     public void connect(ToggleButton.Toggled handler) {
         GtkToggleButton.connect(this, handler, false);
     }
-
-    /** @deprecated */
-    public interface TOGGLED extends GtkToggleButton.ToggledSignal
-    {
-    }
-
-    /** @deprecated */
-    public void connect(TOGGLED handler) {
-        assert false : "use ToggleButton.Toggled instead";
-        GtkToggleButton.connect(this, handler, false);
-    }
 }

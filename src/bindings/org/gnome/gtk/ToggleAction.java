@@ -153,14 +153,6 @@ public class ToggleAction extends Action
     }
 
     /**
-     * @deprecated
-     */
-    public void toggled() {
-        assert false : "Use emitToggled() instead";
-        GtkToggleAction.toggled(this);
-    }
-
-    /**
      * Emit the <code>ToggleAction.Toggled</code> signal.
      * 
      * @since 4.0.19

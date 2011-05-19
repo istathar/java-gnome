@@ -110,32 +110,4 @@ public final class Test
             throw new IllegalStateException();
         }
     }
-
-    /**
-     * Cause the GTK main loop to cycle sufficiently to consume and action any
-     * pending events.
-     * 
-     * <p>
-     * Sometimes when writing procedural test code you call GTK methods whose
-     * logic will not be executed until their idle handlers have a chance to
-     * run, which will be sometime after the main loop finishes propegating
-     * the current round of event signals. This allows you to stimulate the
-     * main loop to iterate over pending events and run its idle handlers as
-     * well.
-     * 
-     * <p>
-     * <b>WARNING</b><br>
-     * This is a utility function for use in a test harness only. Don't even
-     * think about using this in a normal GUI program. This function is
-     * <i>not</i> a way to workaround the imperatives of event-driven
-     * programming.
-     * 
-     * @since <span style="color: red">unstable</span>
-     * @deprecated Use Gtk.mainIterationDo() directly.
-     */
-    public static void cycleMainLoop() {
-        while (GtkMain.eventsPending()) {
-            GtkMain.mainIterationDo(false);
-        }
-    }
 }

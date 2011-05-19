@@ -1,7 +1,7 @@
 /*
  * java-gnome, a UI library for writing GTK and GNOME programs from Java!
  *
- * Copyright © 2007-2010 Operational Dynamics Consulting, Pty Ltd
+ * Copyright © 2007-2011 Operational Dynamics Consulting, Pty Ltd
  * Copyright © 2008      Vreixo Formoso
  *
  * The code in this file, and the program it is a part of, is made available
@@ -21,7 +21,6 @@ package cairo;
 
 import org.freedesktop.cairo.Context;
 import org.gnome.gdk.Event;
-import org.gnome.gdk.EventExpose;
 import org.gnome.gtk.Gtk;
 import org.gnome.gtk.Image;
 import org.gnome.gtk.Widget;
@@ -51,16 +50,10 @@ public class ExampleDrawingText
         w.add(i);
         w.showAll();
 
-        i.connect(new Widget.ExposeEvent() {
-            public boolean onExposeEvent(Widget source, EventExpose event) {
-                final Context cr;
+        i.connect(new Widget.Draw() {
+            public boolean onDraw(Widget source, Context cr) {
                 final Layout layout;
                 final FontDescription desc;
-
-                /*
-                 * We need a Cairo context...
-                 */
-                cr = new Context(source.getWindow());
 
                 /*
                  * ...that we use to create a Pango Layout. The Context

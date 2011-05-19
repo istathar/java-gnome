@@ -2,7 +2,17 @@
   (in-module "Gtk")
   (parent "GtkRange")
   (c-name "GtkScale")
-  (gtype-id "GTK_TYPE_SCALE")
+)
+
+(define-function gtk_scale_new
+  (is-constructor-of "GtkScale")
+  (c-name "gtk_scale_new")
+  (caller-owns-return #t)
+  (return-type "GtkWidget*")
+  (parameters
+    '("GtkOrientation" "orientation")
+    '("GtkAdjustment*" "adjustment")
+  )
 )
 
 (define-method set_digits

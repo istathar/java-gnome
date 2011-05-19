@@ -1,7 +1,7 @@
 /*
  * java-gnome, a UI library for writing GTK and GNOME programs from Java!
  *
- * Copyright © 2008-2010 Operational Dynamics Consulting, Pty Ltd and Others
+ * Copyright © 2008-2011 Operational Dynamics Consulting, Pty Ltd and Others
  *
  * The code in this file, and the program it is a part of, is made available
  * to you by its authors as open source software: you can redistribute it
@@ -39,15 +39,12 @@ package org.freedesktop.cairo;
  * <p>
  * Ordinarily you don't think about creating an XlibSurface; one is implicitly
  * created for you when you create a Cairo context in order to draw in an
- * Widget.ExposeEvent handler:
+ * <code>Widget.Draw</code> signal handler:
  * 
  * <pre>
- * gizmo.connect(new Widget.ExposeEvent() {
- *     public boolean onExposeEvent(Widget source, EventExpose event) {
- *         Context cr;
+ * gizmo.connect(new Widget.Draw() {
+ *     public boolean onDraw(Widget source, Context cr) {
  *         Surface surface;
- *         
- *         cr = new Context(source.getWindow());
  *         
  *         // start drawing
  *         
@@ -75,16 +72,14 @@ package org.freedesktop.cairo;
  * allows you to create an X resource as a cache:
  * 
  * <pre>
- * gizmo.connect(new Widget.ExposeEvent() {
+ * gizmo.connect(new Widget.Draw() {
  *     private Surface cache;
  * 
- *     public boolean onExposeEvent(Widget source, EventExpose event) {
- *         final Context cr, cr2;
+ *     public boolean onDraw(Widget source, Context cr) {
+ *         final Context cr2;
  *         final Surface target;
  *         final Pixbuf pixbuf;
  *         final double x, y;
- *         
- *         cr = new Context(source.getWindow());
  *         
  *         // start drawing
  *         ...

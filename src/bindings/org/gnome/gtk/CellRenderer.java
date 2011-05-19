@@ -1,7 +1,7 @@
 /*
  * java-gnome, a UI library for writing GTK and GNOME programs from Java!
  *
- * Copyright © 2007-2010 Operational Dynamics Consulting, Pty Ltd and Others
+ * Copyright © 2007-2011 Operational Dynamics Consulting, Pty Ltd and Others
  *
  * The code in this file, and the program it is a part of, is made available
  * to you by its authors as open source software: you can redistribute it
@@ -31,6 +31,8 @@
  * wish to do so, delete this exception statement from your version.
  */
 package org.gnome.gtk;
+
+import org.gnome.glib.Object;
 
 /**
  * Present data in CellLayouts (ie, the TreeViewColumns of TreeView, and
@@ -168,4 +170,12 @@ public abstract class CellRenderer extends Object
         GtkCellLayout.addAttribute(vertical, this, "visible", column.getOrdinal());
     }
 
+    /**
+     * Fix the width of this CellRenderer, specified in pixels.
+     * 
+     * @since 4.0.20
+     */
+    public void setWidth(int width) {
+        setPropertyInteger("width", width);
+    }
 }

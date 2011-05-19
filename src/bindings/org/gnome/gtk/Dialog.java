@@ -338,37 +338,6 @@ public class Dialog extends Window
         }
     }
 
-    /** @deprecated */
-    public interface RESPONSE
-    {
-        void onResponse(Dialog source, ResponseType response);
-    }
-
-    /** @deprecated */
-    public void connect(RESPONSE handler) {
-        assert false : "use Dialog.Response instead";
-        GtkDialog.connect(this, new ResponseHandler0(handler), false);
-    }
-
-    /** @deprecated */
-    private static class ResponseHandler0 implements GtkDialog.ResponseSignal
-    {
-        private RESPONSE handler;
-
-        /** @deprecated */
-        private ResponseHandler0(RESPONSE handler) {
-            this.handler = handler;
-        }
-
-        public void onResponse(Dialog source, int responseId) {
-            final ResponseType response;
-
-            response = ResponseType.constantFor(responseId);
-
-            handler.onResponse(source, response);
-        }
-    }
-
     /**
      * Cause a <code>Dialog.Response</code> signal with the specified
      * ResponseType to be emitted by this Dialog.

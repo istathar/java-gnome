@@ -1,7 +1,7 @@
 /*
  * java-gnome, a UI library for writing GTK and GNOME programs from Java!
  *
- * Copyright © 2007-2010 Operational Dynamics Consulting, Pty Ltd and Others
+ * Copyright © 2007-2011 Operational Dynamics Consulting, Pty Ltd and Others
  *
  * The code in this file, and the program it is a part of, is made available
  * to you by its authors as open source software: you can redistribute it
@@ -102,28 +102,5 @@ public class Screen extends Object
      */
     static Screen getDefault() {
         return GdkScreen.getDefault();
-    }
-
-    /**
-     * Get the default Colormap associated with this Screen.
-     * 
-     * @since 4.0.10
-     */
-    /*
-     * Method signature adjusted to avoid collision with getDefault() and to
-     * provide completion space for both getColormap...() methods.
-     */
-    public Colormap getColormapDefault() {
-        return GdkScreen.getDefaultColormap(this);
-    }
-
-    /**
-     * Get the RGBA Colormap associated with this Screen. This is necessary
-     * for per-pixel translucency in top level Windows.
-     * 
-     * @since 4.0.10
-     */
-    public Colormap getColormapRGBA() {
-        return GdkScreen.getRgbaColormap(this);
     }
 }

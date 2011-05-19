@@ -1,17 +1,7 @@
 (define-object Widget
   (in-module "Gtk")
-  (parent "GtkObject")
+  (parent "GObject")
   (c-name "GtkWidget")
-  (gtype-id "GTK_TYPE_WIDGET")
-  (fields
-    '("guint8" "state")
-    '("guint8" "saved_state")
-    '("gchar*" "name")
-    '("GtkStyle*" "style")
-    '("GdkRectangle" "allocation")
-    '("GdkWindow*" "window")
-    '("GtkWidget*" "parent")
-  )
 )
 
 (define-method get_allocation
@@ -125,17 +115,6 @@
   (of-object "GtkWidget")
   (c-name "gtk_drag_source_unset")
   (return-type "none")
-)
-
-(define-method drag_source_set_icon
-  (of-object "GtkWidget")
-  (c-name "gtk_drag_source_set_icon")
-  (return-type "none")
-  (parameters
-    '("GdkColormap*" "colormap")
-    '("GdkPixmap*" "pixmap")
-    '("GdkBitmap*" "mask" (default "NULL") (null-ok))
-  )
 )
 
 (define-method drag_source_set_icon_pixbuf
@@ -253,12 +232,6 @@
   (of-object "GtkWidget")
   (c-name "gtk_menu_get_for_attach_widget")
   (return-type "GList-GtkMenu*")
-)
-
-(define-method rc_get_style
-  (of-object "GtkWidget")
-  (c-name "gtk_rc_get_style")
-  (return-type "GtkStyle*")
 )
 
 (define-method selection_owner_set
@@ -385,12 +358,6 @@
   (return-type "none")
 )
 
-(define-method hide_all
-  (of-object "GtkWidget")
-  (c-name "gtk_widget_hide_all")
-  (return-type "none")
-)
-
 (define-method set_no_show_all
   (of-object "GtkWidget")
   (c-name "gtk_widget_set_no_show_all")
@@ -448,23 +415,12 @@
   )
 )
 
-(define-method queue_clear
+(define-method queue_draw_region
   (of-object "GtkWidget")
-  (c-name "gtk_widget_queue_clear")
+  (c-name "gtk_widget_queue_draw_region")
   (return-type "none")
-  (deprecated "use GtkWidget.queue_draw")
-)
-
-(define-method queue_clear_area
-  (of-object "GtkWidget")
-  (c-name "gtk_widget_queue_clear_area")
-  (return-type "none")
-  (deprecated "use GtkWidget.queue_draw_area")
   (parameters
-    '("gint" "x")
-    '("gint" "y")
-    '("gint" "width")
-    '("gint" "height")
+    '("cairo_region_t*" "region")
   )
 )
 
@@ -480,16 +436,6 @@
   (return-type "none")
 )
 
-(define-method draw
-  (of-object "GtkWidget")
-  (c-name "gtk_widget_draw")
-  (return-type "none")
-  (deprecated "use GtkWidget.queue_draw_area")
-  (parameters
-    '("GdkRectangle*" "area")
-  )
-)
-
 (define-method size_request
   (of-object "GtkWidget")
   (c-name "gtk_widget_size_request")
@@ -497,6 +443,12 @@
   (parameters
     '("GtkRequisition*" "requisition")
   )
+)
+
+(define-method get_request_mode
+  (of-object "GtkWidget")
+  (c-name "gtk_widget_get_request_mode")
+  (return-type "GtkSizeRequestMode")
 )
 
 (define-method size_allocate
@@ -599,16 +551,6 @@
   (return-type "gboolean")
 )
 
-(define-method set_scroll_adjustments
-  (of-object "GtkWidget")
-  (c-name "gtk_widget_set_scroll_adjustments")
-  (return-type "gboolean")
-  (parameters
-    '("GtkAdjustment*" "hadjustment" (null-ok))
-    '("GtkAdjustment*" "vadjustment" (null-ok))
-  )
-)
-
 (define-method reparent
   (of-object "GtkWidget")
   (c-name "gtk_widget_reparent")
@@ -625,16 +567,6 @@
   (parameters
     '("GdkRectangle*" "area")
     '("GdkRectangle*" "intersection")
-  )
-)
-
-(define-method region_intersect
-  (of-object "GtkWidget")
-  (c-name "gtk_widget_region_intersect")
-  (caller-owns-return #t)
-  (return-type "GdkRegion*")
-  (parameters
-    '("GdkRegion*" "region")
   )
 )
 
@@ -835,21 +767,6 @@
   )
 )
 
-(define-method set_extension_events
-  (of-object "GtkWidget")
-  (c-name "gtk_widget_set_extension_events")
-  (return-type "none")
-  (parameters
-    '("GdkExtensionMode" "mode")
-  )
-)
-
-(define-method get_extension_events
-  (of-object "GtkWidget")
-  (c-name "gtk_widget_get_extension_events")
-  (return-type "GdkExtensionMode")
-)
-
 (define-method get_toplevel
   (of-object "GtkWidget")
   (c-name "gtk_widget_get_toplevel")
@@ -863,12 +780,6 @@
   (parameters
     '("GType" "widget_type")
   )
-)
-
-(define-method get_colormap
-  (of-object "GtkWidget")
-  (c-name "gtk_widget_get_colormap")
-  (return-type "GdkColormap*")
 )
 
 (define-method get_visual
@@ -922,15 +833,6 @@
   (return-type "AtkObject*")
 )
 
-(define-method set_colormap
-  (of-object "GtkWidget")
-  (c-name "gtk_widget_set_colormap")
-  (return-type "none")
-  (parameters
-    '("GdkColormap*" "colormap")
-  )
-)
-
 (define-method get_events
   (of-object "GtkWidget")
   (c-name "gtk_widget_get_events")
@@ -973,90 +875,35 @@
   (of-object "GtkWidget")
   (c-name "gtk_widget_hide_on_delete")
   (return-type "gboolean")
+  (unnecessary)
 )
 
-(define-method set_style
+(define-method override_color
   (of-object "GtkWidget")
-  (c-name "gtk_widget_set_style")
+  (c-name "gtk_widget_override_color")
   (return-type "none")
   (parameters
-    '("GtkStyle*" "style" (null-ok))
+    '("GtkStateFlags" "state")
+    '("GdkRGBA*" "color" (null-ok))
   )
 )
 
-(define-method ensure_style
+(define-method override_background_color
   (of-object "GtkWidget")
-  (c-name "gtk_widget_ensure_style")
-  (return-type "none")
-)
-
-(define-method get_style
-  (of-object "GtkWidget")
-  (c-name "gtk_widget_get_style")
-  (return-type "GtkStyle*")
-)
-
-(define-method modify_style
-  (of-object "GtkWidget")
-  (c-name "gtk_widget_modify_style")
+  (c-name "gtk_widget_override_background_color")
   (return-type "none")
   (parameters
-    '("GtkRcStyle*" "style")
+    '("GtkStateFlags" "state")
+    '("const-GdkRGBA*" "color" (null-ok))
   )
 )
 
-(define-method get_modifier_style
+(define-method override_font
   (of-object "GtkWidget")
-  (c-name "gtk_widget_get_modifier_style")
-  (return-type "GtkRcStyle*")
-)
-
-(define-method modify_fg
-  (of-object "GtkWidget")
-  (c-name "gtk_widget_modify_fg")
+  (c-name "gtk_widget_override_font")
   (return-type "none")
   (parameters
-    '("GtkStateType" "state")
-    '("GdkColor*" "color" (null-ok))
-  )
-)
-
-(define-method modify_bg
-  (of-object "GtkWidget")
-  (c-name "gtk_widget_modify_bg")
-  (return-type "none")
-  (parameters
-    '("GtkStateType" "state")
-    '("GdkColor*" "color" (null-ok))
-  )
-)
-
-(define-method modify_text
-  (of-object "GtkWidget")
-  (c-name "gtk_widget_modify_text")
-  (return-type "none")
-  (parameters
-    '("GtkStateType" "state")
-    '("GdkColor*" "color" (null-ok))
-  )
-)
-
-(define-method modify_base
-  (of-object "GtkWidget")
-  (c-name "gtk_widget_modify_base")
-  (return-type "none")
-  (parameters
-    '("GtkStateType" "state")
-    '("GdkColor*" "color" (null-ok))
-  )
-)
-
-(define-method modify_font
-  (of-object "GtkWidget")
-  (c-name "gtk_widget_modify_font")
-  (return-type "none")
-  (parameters
-    '("PangoFontDescription*" "font_desc" (null-ok))
+    '("const-PangoFontDescription*" "font_desc" (null-ok))
   )
 )
 
@@ -1111,12 +958,6 @@
   (return-type "gchar*")
 )
 
-(define-method reset_rc_styles
-  (of-object "GtkWidget")
-  (c-name "gtk_widget_reset_rc_styles")
-  (return-type "none")
-)
-
 (define-method style_get_property
   (of-object "GtkWidget")
   (c-name "gtk_widget_style_get_property")
@@ -1125,28 +966,6 @@
     '("const-gchar*" "property_name")
     '("GValue*" "value")
   )
-)
-
-(define-method style_get_valist
-  (of-object "GtkWidget")
-  (c-name "gtk_widget_style_get_valist")
-  (return-type "none")
-  (parameters
-    '("const-gchar*" "first_property_name")
-    '("va_list" "var_args")
-  )
-  (unnecessary)
-)
-
-(define-method style_get
-  (of-object "GtkWidget")
-  (c-name "gtk_widget_style_get")
-  (return-type "none")
-  (parameters
-    '("const-gchar*" "first_property_name")
-  )
-  (varargs #t)
-  (unnecessary)
 )
 
 (define-method set_direction
@@ -1164,42 +983,12 @@
   (return-type "GtkTextDirection")
 )
 
-(define-method shape_combine_mask
+(define-method shape_combine_region
   (of-object "GtkWidget")
-  (c-name "gtk_widget_shape_combine_mask")
+  (c-name "gtk_widget_shape_combine_region")
   (return-type "none")
   (parameters
-    '("GdkBitmap*" "shape_mask")
-    '("gint" "offset_x")
-    '("gint" "offset_y")
-  )
-)
-
-(define-method reset_shapes
-  (of-object "GtkWidget")
-  (c-name "gtk_widget_reset_shapes")
-  (return-type "none")
-)
-
-(define-method path
-  (of-object "GtkWidget")
-  (c-name "gtk_widget_path")
-  (return-type "none")
-  (parameters
-    '("guint*" "path_length")
-    '("gchar**" "path")
-    '("gchar**" "path_reversed")
-  )
-)
-
-(define-method class_path
-  (of-object "GtkWidget")
-  (c-name "gtk_widget_class_path")
-  (return-type "none")
-  (parameters
-    '("guint*" "path_length")
-    '("gchar**" "path")
-    '("gchar**" "path_reversed")
+    '("cairo_region_t*" "region")
   )
 )
 
@@ -1428,18 +1217,6 @@
   )
 )
 
-(define-method style_attach
-  (of-object "GtkWidget")
-  (c-name "gtk_widget_style_attach")
-  (return-type "none")
-)
-
-(define-method has_rc_style
-  (of-object "GtkWidget")
-  (c-name "gtk_widget_has_rc_style")
-  (return-type "gboolean")
-)
-
 (define-virtual dispatch_child_properties_changed
   (of-object "GtkWidget")
   (return-type "none")
@@ -1501,7 +1278,7 @@
   (of-object "GtkWidget")
   (return-type "none")
   (parameters
-    '("GtkAllocation*" "allocation")
+    '("GdkRectangle*" "allocation")
   )
 )
 
@@ -1526,14 +1303,6 @@
   (return-type "none")
   (parameters
     '("GtkWidget*" "previous_toplevel")
-  )
-)
-
-(define-virtual style_set
-  (of-object "GtkWidget")
-  (return-type "none")
-  (parameters
-    '("GtkStyle*" "previous_style" (null-ok))
   )
 )
 
@@ -1630,6 +1399,11 @@
   )
 )
 
+(define-virtual destroy
+  (of-object "GtkWidget")
+  (return-type "none")
+)
+
 (define-virtual destroy_event
   (of-object "GtkWidget")
   (return-type "gboolean")
@@ -1638,11 +1412,11 @@
   )
 )
 
-(define-virtual expose_event
+(define-virtual draw
   (of-object "GtkWidget")
   (return-type "gboolean")
   (parameters
-    '("GdkEventExpose*" "event")
+    '("cairo_t*" "cr")
   )
 )
 
@@ -1938,13 +1712,6 @@
   )
 )
 
-(define-method get_action
-  (of-object "GtkWidget")
-  (c-name "gtk_widget_get_action")
-  (return-type "GtkAction*")
-  (deprecated)
-)
-
 (define-method drag_dest_set_track_motion
   (of-object "GtkWidget")
   (c-name "gtk_drag_dest_set_track_motion")
@@ -2084,5 +1851,95 @@
 (define-virtual composited_changed
   (of-object "GtkWidget")
   (return-type "none")
+)
+
+(define-method get_allocated_width
+  (of-object "GtkWidget")
+  (c-name "gtk_widget_get_allocated_width")
+  (return-type "int")
+)
+
+(define-method get_allocated_height
+  (of-object "GtkWidget")
+  (c-name "gtk_widget_get_allocated_height")
+  (return-type "int")
+)
+
+(define-method get_preferred_width
+  (of-object "GtkWidget")
+  (c-name "gtk_widget_get_preferred_width")
+  (return-type "none")
+  (parameters
+    '("gint*" "minimum_width" (null-ok))
+    '("gint*" "natural_width" (null-ok))
+  )
+)
+
+(define-method get_preferred_height
+  (of-object "GtkWidget")
+  (c-name "gtk_widget_get_preferred_height")
+  (return-type "none")
+  (parameters
+    '("gint*" "minimum_height" (null-ok))
+    '("gint*" "natural_height" (null-ok))
+  )
+)
+
+(define-method get_preferred_height_for_width
+  (of-object "GtkWidget")
+  (c-name "gtk_widget_get_preferred_height_for_width")
+  (return-type "none")
+  (parameters
+    '("gint" "width")
+    '("gint*" "minimum_height" (null-ok))
+    '("gint*" "natural_height" (null-ok))
+  )
+)
+
+(define-method get_preferred_width_for_height
+  (of-object "GtkWidget")
+  (c-name "gtk_widget_get_preferred_width_for_height")
+  (return-type "none")
+  (parameters
+    '("gint" "height")
+    '("gint*" "minimum_width" (null-ok))
+    '("gint*" "natural_width" (null-ok))
+  )
+)
+
+(define-method set_hexpand
+  (of-object "GtkWidget")
+  (c-name "gtk_widget_set_hexpand")
+  (return-type "none")
+  (parameters
+    '("gboolean" "expand"))
+  )
+)
+
+(define-method set_vexpand
+  (of-object "GtkWidget")
+  (c-name "gtk_widget_set_vexpand")
+  (return-type "none")
+  (parameters
+    '("gboolean" "expand"))
+  )
+)
+
+(define-method set_halign
+  (of-object "GtkWidget")
+  (c-name "gtk_widget_set_halign")
+  (return-type "none")
+  (parameters
+    '("GtkAlign" "align"))
+  )
+)
+
+(define-method set_valign
+  (of-object "GtkWidget")
+  (c-name "gtk_widget_set_valign")
+  (return-type "none")
+  (parameters
+    '("GtkAlign" "align"))
+  )
 )
 

@@ -3,7 +3,7 @@
 #
 # java-gnome, a UI library for writing GTK and GNOME programs from Java!
 #
-# Copyright © 2007-2010 Operational Dynamics Consulting, Pty Ltd
+# Copyright © 2007-2011 Operational Dynamics Consulting, Pty Ltd
 # 
 # The code in this file, and the program it is a part of, is made available
 # to you by its authors as open source software: you can redistribute it
@@ -63,7 +63,7 @@ versionFile = "src/bindings/org/freedesktop/bindings/Version.java"
 hashFile = "tmp/.hashes"
 lockFile = "tmp/.build"
 
-GNOME_MODULES = "gthread-2.0 glib-2.0 gtk+-2.0 gtk+-unix-print-2.0 libglade-2.0 gtksourceview-2.0 libnotify gtkspell-2.0 unique-1.0 enchant librsvg-2.0"
+GNOME_MODULES = "gthread-2.0 glib-2.0 gtk+-3.0 gtk+-unix-print-3.0 gtksourceview-3.0 libnotify gtkspell-2.0 unique-1.0 enchant librsvg-2.0"
 
 #
 # Armour against multiple simultaneous invocations.
@@ -425,7 +425,7 @@ def copyMappingFile():
 
 
 def makeJarFile():
-	jar = "tmp/gtk-4.0.jar"
+	jar = "tmp/gtk-4.1.jar"
 
 	list = findFiles("tmp/bindings/", ".class")
 	list += findFiles("tmp/bindings/", ".properties")
@@ -680,7 +680,7 @@ def compileDocumentation():
 
 
 def takeSnapshots():
-	runJavaClass("Harness", "tmp/gtk-4.0.jar:tmp/tests/")
+	runJavaClass("Harness", "tmp/gtk-4.1.jar:tmp/tests/")
 
 
 def generateDocumentation():
@@ -693,10 +693,10 @@ def generateDocumentation():
 #
 
 def runTests():
-	runJavaClass("UnitTests", "tmp/gtk-4.0.jar:tmp/generator/:tmp/tests/:"+config['JUNIT_JARS'])
+	runJavaClass("UnitTests", "tmp/gtk-4.1.jar:tmp/generator/:tmp/tests/:"+config['JUNIT_JARS'])
 
 def runDemo():
-	runJavaClass("button.ExamplePressMe", "tmp/gtk-4.0.jar:tmp/tests/")
+	runJavaClass("button.ExamplePressMe", "tmp/gtk-4.1.jar:tmp/tests/")
 
 
 #

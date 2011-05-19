@@ -1,7 +1,7 @@
 /*
  * java-gnome, a UI library for writing GTK and GNOME programs from Java!
  *
- * Copyright © 2007-2010 Operational Dynamics Consulting, Pty Ltd and Others
+ * Copyright © 2007-2011 Operational Dynamics Consulting, Pty Ltd and Others
  *
  * The code in this file, and the program it is a part of, is made available
  * to you by its authors as open source software: you can redistribute it
@@ -52,7 +52,7 @@ package org.gnome.gtk;
  * @author Bruno Dusausoy
  * @since 4.0.3
  */
-public class ProgressBar extends Widget
+public class ProgressBar extends Widget implements Orientable
 {
 
     protected ProgressBar(long pointer) {
@@ -137,22 +137,12 @@ public class ProgressBar extends Widget
         GtkProgressBar.pulse(this);
     }
 
-    /**
-     * Set orientation of this ProgressBar
-     * 
-     * @since 4.0.10
-     */
-    public void setOrientation(ProgressBarOrientation orientation) {
-        GtkProgressBar.setOrientation(this, orientation);
+    public void setOrientation(Orientation orientation) {
+        GtkOrientable.setOrientation(this, orientation);
     }
 
-    /**
-     * Get orientation currently in effect in this ProgressBar
-     * 
-     * @since 4.0.10
-     */
-    public ProgressBarOrientation getOrientation() {
-        return GtkProgressBar.getOrientation(this);
+    public Orientation getOrientation() {
+        return GtkOrientable.getOrientation(this);
     }
 
     /**

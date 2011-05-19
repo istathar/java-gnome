@@ -81,7 +81,7 @@ public class ValidateUniqueApplications extends GraphicalTestCase
      * tests should pass in such. But it's this or we'd have to fire off
      * another process. This will do nicely for now.
      */
-    public final void testIsNautilusRunning() {
+    public final void failsIsNautilusRunning() {
         final Application app;
 
         app = new Application("org.gnome.Nautilus", null);
@@ -95,7 +95,7 @@ public class ValidateUniqueApplications extends GraphicalTestCase
      * results in it restarting (!). ACTIVATE seems harmless, and in testing
      * this I got an OK back.
      */
-    public final void testSendToNautilus() {
+    public final void failsSendToNautilus() {
         final Application app;
         final Response result;
 

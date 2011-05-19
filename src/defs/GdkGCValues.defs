@@ -1,5 +1,0 @@
-(define-boxed GCValues
-  (in-module "Gdk")
-  (c-name "GdkGCValues")
-)
-

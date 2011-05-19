@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<interface>
+  <requires lib="gtk+" version="2.16"/>
+  <!-- interface-naming-policy toplevel-contextual -->
+  <object class="GtkWindow" id="simple">
+    <property name="visible">True</property>
+    <property name="title" translatable="yes">A Simple Window, brought to you by GtkBuilder!</property>
+    <property name="default_width">200</property>
+    <property name="default_height">150</property>
+    <child>
+      <object class="GtkLabel" id="label1">
+        <property name="width_request">150</property>
+        <property name="visible">True</property>
+        <property name="label" translatable="yes">This is a test of the Emergency Broadcast System</property>
+        <property name="wrap">True</property>
+      </object>
+    </child>
+  </object>
+</interface>

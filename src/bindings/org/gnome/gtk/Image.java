@@ -1,7 +1,7 @@
 /*
  * java-gnome, a UI library for writing GTK and GNOME programs from Java!
  *
- * Copyright © 2007-2010 Operational Dynamics Consulting, Pty Ltd and Others
+ * Copyright © 2007-2011 Operational Dynamics Consulting, Pty Ltd and Others
  *
  * The code in this file, and the program it is a part of, is made available
  * to you by its authors as open source software: you can redistribute it
@@ -34,9 +34,7 @@ package org.gnome.gtk;
 
 import org.freedesktop.icons.Helper;
 import org.freedesktop.icons.Icon;
-import org.gnome.gdk.Bitmap;
 import org.gnome.gdk.Pixbuf;
-import org.gnome.gdk.Pixmap;
 
 /**
  * A Widget that displays an image.
@@ -72,7 +70,7 @@ public class Image extends Misc
      * 
      * <p>
      * Although this can be used as a blank slate upon which you can do
-     * arbitrary Cairo drawing in an <code>Widget.ExposeEvent</code> handler,
+     * arbitrary Cairo drawing in an <code>Widget.Draw</code> signal handler,
      * you are better off using {@link DrawingArea} for that purpose.
      * 
      * @since 4.0.7
@@ -107,17 +105,6 @@ public class Image extends Misc
      */
     public Image(Stock stock, IconSize size) {
         super(GtkImage.createImageFromStock(stock.getStockId(), size));
-    }
-
-    /**
-     * Construct a new Image based on an existing Pixmap. Though passing a
-     * mask is supported via the <code>mask</code> parameter, you generally
-     * just want to mass <code>null</code>.
-     * 
-     * @since 4.0.7
-     */
-    public Image(Pixmap pixmap, Bitmap mask) {
-        super(GtkImage.createImageFromPixmap(pixmap, mask));
     }
 
     /**

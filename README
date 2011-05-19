@@ -24,8 +24,8 @@ Building java-gnome
 
 For the impatient:
 
-    $ tar xjf java-gnome-4.0.19.tar.bz2
-    $ cd java-gnome-4.0.19
+    $ tar xjf java-gnome-4.1.1.tar.bz2
+    $ cd java-gnome-4.1.1
     $ ./configure
     $ make
 
@@ -38,12 +38,12 @@ But there's a bunch of stuff you probably want to know, so read on!
 ### From a release tarball ###
 
 You can download the latest java-gnome release from the GNOME FTP server at:  
-[`http://ftp.gnome.org/pub/gnome/sources/java-gnome/4.0/`][mirror]
+[`http://ftp.gnome.org/pub/gnome/sources/java-gnome/4.1/`][mirror]
 
 Once you've downloaded the latest source tarball:
 
-    $ tar xjf java-gnome-4.0.19.tzr.bz2
-    $ cd java-gnome-4.0.19
+    $ tar xjf java-gnome-4.1.1.tzr.bz2
+    $ cd java-gnome-4.1.1
 
 And go on to step 2 for details about options you can pass to the
 configuration command.
@@ -156,19 +156,17 @@ The java-gnome library depends on the GNOME desktop and is intended for people
 wishing to do tight integration with it. In particular, this version of
 java-gnome depends on:
 
-* GLib `>= 2.22.0`
+* GLib `>= 2.28.0`
 
-* GTK `>= 2.22.0`
+* GTK `>= 3.0.4`
 
 * Cairo `>= 1.10.0`
 
 * Pango `>= 1.28.0`
 
-* libglade `>= 2.6.4`
+* gtksourceview `>= 2.91.9`
 
-* gtksourceview `>= 2.6.2`
-
-* libnotify `>= 0.4.5`
+* libnotify `>= 0.7.0`
 
 * gtkspell `>= 2.0.15`  
 _WARNING: GtkSpell has
@@ -205,8 +203,8 @@ variables come from.
 
 The build products end up in `tmp/`:
 
-`tmp/gtk-4.0.jar`  
-`tmp/libgtkjni-4.0.19.so`
+`tmp/gtk-4.1.jar`  
+`tmp/libgtkjni-4.1.1.so`
 
 That's actually enough to go on -- if you're using an IDE like Eclipse you can
 just tell it about the `.jar` and then jump right to "Using the Bindings". Or
@@ -229,9 +227,9 @@ Someone installing it locally (to your home directory, say) might do:
 
 and you would end up with:
 
-`~/share/java/gtk-4.0.jar`  
+`~/share/java/gtk-4.1.jar`  
 `~/share/java/gtk.jar`  
-`~/lib/libgtkjni-4.0.19.so`
+`~/lib/libgtkjni-4.1.1.so`
 
 The default is to send it off to `/usr/local` as you'd expect. 
 
@@ -253,15 +251,15 @@ example:
 	
 	...
 	
-	make DESTDIR=/var/tmp/portage/java-gnome-4.0.19-r2/image install
+	make DESTDIR=/var/tmp/portage/java-gnome-4.1.1-r2/image install
 	
 	...
 
 With a prefix of `/usr` you will end up with:
 
-`/usr/share/java/gtk-4.0.jar`  
+`/usr/share/java/gtk-4.1.jar`  
 `/usr/share/java/gtk.jar`  
-`/usr/lib/libgtkjni-4.0.19.so`
+`/usr/lib/libgtkjni-4.1.1.so`
 
 If you have distro policy issues to deal with, then pass `jardir` and/or
 `libdir` overrides to `configure`.
@@ -277,8 +275,8 @@ There are a few _tiny_ and _trivial_ example programs in the `doc/examples/`
 directory of the bindings. If you would like to see one, you could compile and
 run it by hand, doing something like:
 
-    $ javac -classpath tmp/gtk-4.0.jar -d tmp/tests doc/examples/button/ExamplePressMe.java
-    $ java -classpath tmp/gtk-4.0.jar:tmp/tests button.ExamplePressMe
+    $ javac -classpath tmp/gtk-4.1.jar -d tmp/tests doc/examples/button/ExamplePressMe.java
+    $ java -classpath tmp/gtk-4.1.jar:tmp/tests button.ExamplePressMe
 
 This shows you how you can reference and use the library after it is built by
 `make` into `tmp/`.
@@ -297,7 +295,7 @@ look alike pathetic attempt of a widget toolkit), but we take care of locating
 it and loading it for you. So all you need to do to run an application is:
 
     $ java -client -ea                                   \
-        -classpath /home/bloggins/share/java/gtk-4.0.jar \
+        -classpath /home/bloggins/share/java/gtk-4.1.jar \
         com.example.ComeOnBabyLightMyFire
 
 Oh, the joys of running Java programs by hand. 
@@ -306,7 +304,7 @@ Oh, the joys of running Java programs by hand.
 Status
 ======
 
-java-gnome 4.0 is now a solid foundation that has been used to develop
+java-gnome 4.1 is now a solid foundation that has been used to develop
 non-trivial applications. The architecture and internal design has been well
 proved, and the coverage level (relative to the full breadth of the underlying
 libraries) is reaching maturity.
@@ -344,9 +342,9 @@ Maintainer,
 [java-gnome](http://java-gnome.sourceforge.net/),  
 opening GTK and GNOME to Java programmers!
 
-_Last modified 14 Feb 11_
+_Last modified 22 Mar 11_
 
-[mirror]: http://ftp.gnome.org/pub/gnome/sources/java-gnome/4.0/
+[mirror]: http://ftp.gnome.org/pub/gnome/sources/java-gnome/4.1/
 
 <!--
  

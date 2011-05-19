@@ -15,7 +15,7 @@
 (define-method select_month
   (of-object "GtkCalendar")
   (c-name "gtk_calendar_select_month")
-  (return-type "gboolean")
+  (return-type "none")
   (parameters
     '("guint" "month")
     '("guint" "year")
@@ -34,7 +34,7 @@
 (define-method mark_day
   (of-object "GtkCalendar")
   (c-name "gtk_calendar_mark_day")
-  (return-type "gboolean")
+  (return-type "none")
   (parameters
     '("guint" "day")
   )
@@ -43,7 +43,7 @@
 (define-method unmark_day
   (of-object "GtkCalendar")
   (c-name "gtk_calendar_unmark_day")
-  (return-type "gboolean")
+  (return-type "none")
   (parameters
     '("guint" "day")
   )

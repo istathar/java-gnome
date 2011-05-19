@@ -23,18 +23,6 @@
   )
 )
 
-(define-function image_new_from_image
-  (is-constructor-of "GtkImage")
-  (c-name "gtk_image_new_from_image")
-  (caller-owns-return #t)
-  (return-type "GtkWidget*")
-  (deprecated "GdkImage superceded by GdkRGB")
-  (parameters
-    '("GdkImage*" "image" (null-ok))
-    '("GdkBitmap*" "mask" (null-ok))
-  )
-)
-
 (define-function image_new_from_file
   (is-constructor-of "GtkImage")
   (c-name "gtk_image_new_from_file")
@@ -114,17 +102,6 @@
   )
 )
 
-(define-method set_from_image
-  (of-object "GtkImage")
-  (c-name "gtk_image_set_from_image")
-  (return-type "none")
-  (deprecated "GdkImage superceded by GdkRGB")
-  (parameters
-    '("GdkImage*" "gdk_image" (null-ok))
-    '("GdkBitmap*" "mask" (null-ok))
-  )
-)
-
 (define-method set_from_file
   (of-object "GtkImage")
   (c-name "gtk_image_set_from_file")
@@ -188,17 +165,6 @@
   )
 )
 
-(define-method get_image
-  (of-object "GtkImage")
-  (c-name "gtk_image_get_image")
-  (return-type "none")
-  (deprecated "GdkImage superceded by GdkRGB")
-  (parameters
-    '("GdkImage**" "gdk_image")
-    '("GdkBitmap**" "mask")
-  )
-)
-
 (define-method get_pixbuf
   (of-object "GtkImage")
   (c-name "gtk_image_get_pixbuf")
@@ -229,28 +195,6 @@
   (of-object "GtkImage")
   (c-name "gtk_image_get_animation")
   (return-type "GdkPixbufAnimation*")
-)
-
-(define-method set
-  (of-object "GtkImage")
-  (c-name "gtk_image_set")
-  (return-type "none")
-  (deprecated "GdkImage superceded by GdkRGB")
-  (parameters
-    '("GdkImage*" "val")
-    '("GdkBitmap*" "mask")
-  )
-)
-
-(define-method get
-  (of-object "GtkImage")
-  (c-name "gtk_image_get")
-  (return-type "none")
-  (deprecated "GdkImage superceded by GdkRGB")
-  (parameters
-    '("GdkImage**" "val")
-    '("GdkBitmap**" "mask")
-  )
 )
 
 (define-method set_from_icon_name

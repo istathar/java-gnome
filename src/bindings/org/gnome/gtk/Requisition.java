@@ -1,7 +1,7 @@
 /*
  * java-gnome, a UI library for writing GTK and GNOME programs from Java!
  *
- * Copyright © 2007-2010 Operational Dynamics Consulting, Pty Ltd
+ * Copyright © 2007-2011 Operational Dynamics Consulting, Pty Ltd
  *
  * The code in this file, and the program it is a part of, is made available
  * to you by its authors as open source software: you can redistribute it
@@ -76,25 +76,21 @@ import org.gnome.glib.Boxed;
  * with any size down to <code>1x1</code>. Ideally it will degrade gracefully,
  * although that's not always easy.
  * 
- * <p>
- * <i>This object is a live reference to the <code>requisition</code> field in
- * the <code>GtkWidget</code> struct and so calling the getter methods will
- * yield correct current values once you've got the Requisition object for the
- * Widget you are interested in.</i>
- * 
  * @author Andrew Cowie
  * @since 4.0.6
  */
 public final class Requisition extends Boxed
 {
-    Widget widget;
-
     protected Requisition(long pointer) {
         super(pointer);
     }
 
+    Requisition() {
+        super(GtkRequisitionOverride.createRequisition());
+    }
+
     protected void release() {
-        widget = null;
+        GtkRequisitionOverride.free(this);
     }
 
     /**

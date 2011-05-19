@@ -1,7 +1,7 @@
 /*
  * java-gnome, a UI library for writing GTK and GNOME programs from Java!
  *
- * Copyright © 2008-2010 Operational Dynamics Consulting, Pty Ltd
+ * Copyright © 2008-2011 Operational Dynamics Consulting, Pty Ltd
  *
  * The code in this file, and the program it is a part of, is made available
  * to you by its authors as open source software: you can redistribute it
@@ -18,7 +18,6 @@
  */
 package org.freedesktop.cairo;
 
-import org.gnome.gdk.EventExpose;
 import org.gnome.gtk.Image;
 import org.gnome.gtk.Snapshot;
 import org.gnome.gtk.Widget;
@@ -41,13 +40,9 @@ public abstract class SnapshotCairo extends Snapshot
         window.add(image);
         window.showAll();
 
-        image.connect(new Widget.ExposeEvent() {
-            public boolean onExposeEvent(Widget source, EventExpose event) {
-                final Context cr;
-
-                cr = new Context(source.getWindow());
+        image.connect(new Widget.Draw() {
+            public boolean onDraw(Widget source, Context cr) {
                 draw(cr);
-
                 return false;
             }
         });

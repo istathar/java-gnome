@@ -86,24 +86,6 @@ public class MouseButton extends Constant
     public static final MouseButton RIGHT = new MouseButton(3, "RIGHT");
 
     /**
-     * Mouse button <code>4</code>.
-     * 
-     * @deprecated Do not use this, connect to
-     *             {@link org.gnome.gtk.Widget.ScrollEvent Widget.ScrollEvent}
-     *             instead.
-     */
-    public static final MouseButton FOURTH = new MouseButton(4, "FOURTH");
-
-    /**
-     * Mouse button <code>5</code>.
-     * 
-     * @deprecated Do not use this, connect to
-     *             {@link org.gnome.gtk.Widget.ScrollEvent Widget.ScrollEvent}
-     *             instead.
-     */
-    public static final MouseButton FIFTH = new MouseButton(5, "FIFTH");
-
-    /**
      * Mouse button <code>8</code>. It corresponds to the button typically
      * mapped to the "back" action, for example on web browsers. Note that
      * many mice do not have a BACK button, so if you plan to add an

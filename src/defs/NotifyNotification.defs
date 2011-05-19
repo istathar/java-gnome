@@ -15,19 +15,6 @@
     '("const-gchar*" "summary")
     '("const-gchar*" "body" (null-ok))
     '("const-gchar*" "icon" (null-ok))
-    '("GtkWidget*" "attach" (null-ok))
-  )
-)
-
-(define-function notify_notification_new_with_status_icon
-  (is-constructor-of "NotifyNotification")
-  (c-name "notify_notification_new_with_status_icon")
-  (return-type "NotifyNotification*")
-  (parameters
-    '("const-gchar*" "summary")
-    '("const-gchar*" "body" (null-ok))
-    '("const-gchar*" "icon" (null-ok))
-    '("GtkStatusIcon*" "status_icon")
   )
 )
 
@@ -39,35 +26,6 @@
     '("const-gchar*" "summary")
     '("const-gchar*" "body" (null-ok))
     '("const-gchar*" "icon" (null-ok))
-  )
-)
-
-(define-method attach_to_widget
-  (of-object "NotifyNotification")
-  (c-name "notify_notification_attach_to_widget")
-  (return-type "none")
-  (parameters
-    '("GtkWidget*" "attach")
-  )
-)
-
-(define-method attach_to_status_icon
-  (of-object "NotifyNotification")
-  (c-name "notify_notification_attach_to_status_icon")
-  (return-type "none")
-  (parameters
-    '("GtkStatusIcon*" "status_icon")
-  )
-)
-
-(define-method set_geometry_hints
-  (of-object "NotifyNotification")
-  (c-name "notify_notification_set_geometry_hints")
-  (return-type "none")
-  (parameters
-    '("GdkScreen*" "screen")
-    '("gint" "x")
-    '("gint" "y")
   )
 )
 

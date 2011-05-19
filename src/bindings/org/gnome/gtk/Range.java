@@ -1,7 +1,7 @@
 /*
  * java-gnome, a UI library for writing GTK and GNOME programs from Java!
  *
- * Copyright © 2007-2010 Operational Dynamics Consulting, Pty Ltd and Others
+ * Copyright © 2007-2011 Operational Dynamics Consulting, Pty Ltd and Others
  *
  * The code in this file, and the program it is a part of, is made available
  * to you by its authors as open source software: you can redistribute it
@@ -47,7 +47,7 @@ package org.gnome.gtk;
  * recall, the interactions of these with Adjustment are more than complex, so
  * please test carefully and document your experiences well.
  */
-public abstract class Range extends Widget
+public abstract class Range extends Widget implements Orientable
 {
     protected Range(long pointer) {
         super(pointer);
@@ -118,16 +118,11 @@ public abstract class Range extends Widget
         GtkRange.connect(this, handler, false);
     }
 
-    /** @deprecated */
-    public interface VALUE_CHANGED extends GtkRange.ValueChangedSignal
-    {
-        public void onValueChanged(Range source);
+    public void setOrientation(Orientation orientation) {
+        GtkOrientable.setOrientation(this, orientation);
     }
 
-    /** @deprecated */
-    public void connect(Range.VALUE_CHANGED handler) {
-        assert false : "use Range.ValueChanged instead";
-        GtkRange.connect(this, handler, false);
+    public Orientation getOrientation() {
+        return GtkOrientable.getOrientation(this);
     }
-
 }

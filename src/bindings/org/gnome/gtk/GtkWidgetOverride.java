@@ -1,7 +1,7 @@
 /*
  * java-gnome, a UI library for writing GTK and GNOME programs from Java!
  *
- * Copyright © 2007-2010 Operational Dynamics Consulting, Pty Ltd
+ * Copyright © 2007-2011 Operational Dynamics Consulting, Pty Ltd and Others
  *
  * The code in this file, and the program it is a part of, is made available
  * to you by its authors as open source software: you can redistribute it
@@ -43,33 +43,21 @@ final class GtkWidgetOverride extends Plumbing
 {
     private GtkWidgetOverride() {}
 
-    /**
-     * Allocation is yet another accessible GObject field. We really need to
-     * deal with this into the code generator.
-     */
-    static final Allocation getAllocation(Widget self) {
-        long result;
-
+    static final void getAllocation(Widget self, Allocation allocation) {
         synchronized (lock) {
-            result = gtk_widget_get_allocation(pointerOf(self));
-
-            return (Allocation) boxedFor(Allocation.class, result);
+            gtk_widget_get_allocation(pointerOf(self), pointerOf(allocation));
         }
     }
 
-    private static native final long gtk_widget_get_allocation(long self);
+    private static native final void gtk_widget_get_allocation(long self, long allocation);
 
-    static final Requisition getRequisition(Widget self) {
-        long result;
-
+    static final void getRequisition(Widget self, Requisition requisition) {
         synchronized (lock) {
-            result = gtk_widget_get_requisition(pointerOf(self));
-
-            return (Requisition) boxedFor(Requisition.class, result);
+            gtk_widget_get_requisition(pointerOf(self), pointerOf(requisition));
         }
     }
 
-    private static native final long gtk_widget_get_requisition(long self);
+    private static native final void gtk_widget_get_requisition(long self, long requisition);
 
     /**
      * Set the events that the underlying GdkWindow will receive. As a

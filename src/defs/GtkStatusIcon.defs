@@ -127,16 +127,6 @@
   )
 )
 
-(define-method set_tooltip
-  (of-object "GtkStatusIcon")
-  (c-name "gtk_status_icon_set_tooltip")
-  (return-type "none")
-  (parameters
-    '("const-gchar*" "tooltip_text" (null-ok))
-  )
-  (deprecated)
-)
-
 (define-method set_tooltip_text
   (of-object "GtkStatusIcon")
   (c-name "gtk_status_icon_set_tooltip_text")
@@ -158,21 +148,6 @@
 (define-method get_visible
   (of-object "GtkStatusIcon")
   (c-name "gtk_status_icon_get_visible")
-  (return-type "gboolean")
-)
-
-(define-method set_blinking
-  (of-object "GtkStatusIcon")
-  (c-name "gtk_status_icon_set_blinking")
-  (return-type "none")
-  (parameters
-    '("gboolean" "blinking")
-  )
-)
-
-(define-method get_blinking
-  (of-object "GtkStatusIcon")
-  (c-name "gtk_status_icon_get_blinking")
   (return-type "gboolean")
 )
 

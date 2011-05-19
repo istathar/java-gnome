@@ -1,7 +1,7 @@
 /*
  * java-gnome, a UI library for writing GTK and GNOME programs from Java!
  *
- * Copyright © 2008-2010 Operational Dynamics Consulting, Pty Ltd
+ * Copyright © 2008-2011 Operational Dynamics Consulting, Pty Ltd
  *
  * The code in this file, and the program it is a part of, is made available
  * to you by its authors as open source software: you can redistribute it
@@ -32,9 +32,9 @@
  */
 package org.freedesktop.cairo;
 
-import org.gnome.gdk.Drawable;
-import org.gnome.gdk.EventExpose;
 import org.gnome.gdk.Pixbuf;
+import org.gnome.gdk.RGBA;
+import org.gnome.gdk.Window;
 
 /**
  * Hack to allow us to get at various gdk_cairo_*() functions.
@@ -50,31 +50,23 @@ final class GdkCairoSupport extends Plumbing
 {
     private GdkCairoSupport() {}
 
-    static final long createContextFromDrawable(Drawable drawable) {
-        if (drawable == null) {
+    static final long createContext(Window window) {
+        if (window == null) {
             /*
              * This check is, unfortunately, particularly important. If you've
-             * gotten this far with a null Drawable, that means that the state
+             * gotten this far with a null Window, that means that the state
              * you think you're in isn't what it should be - in otherwords,
-             * you don't _really_ have a Drawable yet.
+             * you don't _really_ have a Window yet.
              */
-            throw new IllegalArgumentException("drawable can't be null");
+            throw new IllegalArgumentException("window can't be null");
         }
 
         synchronized (lock) {
-            return gdk_cairo_create(pointerOf(drawable));
+            return gdk_cairo_create(pointerOf(window));
         }
     }
 
-    private static native final long gdk_cairo_create(long drawable);
-
-    static final long createContextFromExposeEvent(EventExpose event) {
-        synchronized (lock) {
-            return gdk_cairo_create_and_clip(pointerOf(event));
-        }
-    }
-
-    private static native final long gdk_cairo_create_and_clip(long event);
+    private static native final long gdk_cairo_create(long window);
 
     static final void setSourcePixbuf(Context self, Pixbuf pixbuf, double x, double y) {
         if (pixbuf == null) {
@@ -88,4 +80,17 @@ final class GdkCairoSupport extends Plumbing
 
     private static native final void gdk_cairo_set_source_pixbuf(long context, long pixbuf, double x,
             double y);
+
+    static final void setSourceRgba(Context self, RGBA color) {
+        if (color == null) {
+            throw new IllegalArgumentException("color can't be null");
+        }
+
+        synchronized (lock) {
+            gdk_cairo_set_source_rgba(pointerOf(self), pointerOf(color));
+        }
+    }
+
+    private static native final void gdk_cairo_set_source_rgba(long context, long color);
+
 }

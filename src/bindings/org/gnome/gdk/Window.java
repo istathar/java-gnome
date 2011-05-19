@@ -1,7 +1,7 @@
 /*
  * java-gnome, a UI library for writing GTK and GNOME programs from Java!
  *
- * Copyright © 2007-2010 Operational Dynamics Consulting, Pty Ltd
+ * Copyright © 2007-2011 Operational Dynamics Consulting, Pty Ltd
  *
  * The code in this file, and the program it is a part of, is made available
  * to you by its authors as open source software: you can redistribute it
@@ -31,6 +31,8 @@
  * wish to do so, delete this exception statement from your version.
  */
 package org.gnome.gdk;
+
+import org.gnome.glib.Object;
 
 /**
  * The underlying native resource driving a rectangular region on a screen.
@@ -66,7 +68,7 @@ package org.gnome.gdk;
  * @author Andrew Cowie
  * @since 4.0.4
  */
-public class Window extends Drawable
+public class Window extends Object
 {
     protected Window(long pointer) {
         super(pointer);
@@ -86,7 +88,7 @@ public class Window extends Drawable
 
     /**
      * Set the Cursor that will be shown when the pointer hovers over this
-     * Drawable Window.
+     * Window.
      * 
      * @param cursor
      *            Passing <code>null</code> will cause this Window to [revert
@@ -170,7 +172,7 @@ public class Window extends Drawable
 
     /**
      * Mark the given area as damaged and needing redrawing. Calling this
-     * method will ultimately result in <code>Widget.ExposeEvent</code> being
+     * method will ultimately result in <code>Widget.Draw</code> being
      * emitted on Widgets that are present in the area being invalidated.
      * 
      * @param recursive
@@ -208,30 +210,6 @@ public class Window extends Drawable
     }
 
     /**
-     * Change the background of the Window.
-     * 
-     * <p>
-     * TODO describe relative parameter.
-     * 
-     * <p>
-     * This really is only necessary if trying to do irregularly shaped user
-     * interfaces (ie, not standard rectangular applications) and need a
-     * transparent background. You get that via:
-     * 
-     * <pre>
-     * underlying.setBackingPixmap(null, false);
-     * </pre>
-     * 
-     * but transparency is a complex topic and requres other measures as well.
-     * TODO describe or link!
-     * 
-     * @since <span style="color:red">unstable</span>
-     */
-    public void setBackingPixmap(Pixmap pixmap, boolean relative) {
-        GdkWindow.setBackPixmap(this, pixmap, relative);
-    }
-
-    /**
      * Force GDK to use the old X Window allocation behaviour for this Window.
      * This reverts the GDK Window backing a GTK Widget to the pre-2.18
      * behaviour, analogous to setting the <code>GDK_NATIVE_WINDOW</code>
@@ -252,5 +230,27 @@ public class Window extends Drawable
      */
     public boolean ensureNative() {
         return GdkWindow.ensureNative(this);
+    }
+
+    /**
+     * Get the width of this Window.
+     * 
+     * @since 4.1.1
+     */
+    /*
+     * TODO document the impact of this reporting the most recent
+     * CONFIGURE_EVENT, not necesarily live X server information.
+     */
+    public int getWidth() {
+        return GdkWindow.getWidth(this);
+    }
+
+    /**
+     * Get the height of this Window.
+     * 
+     * @since 4.1.1
+     */
+    public int getHeight() {
+        return GdkWindow.getHeight(this);
     }
 }

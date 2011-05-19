@@ -42,33 +42,9 @@
   )
 )
 
-(define-method pressed
-  (of-object "GtkButton")
-  (c-name "gtk_button_pressed")
-  (return-type "none")
-)
-
-(define-method released
-  (of-object "GtkButton")
-  (c-name "gtk_button_released")
-  (return-type "none")
-)
-
 (define-method clicked
   (of-object "GtkButton")
   (c-name "gtk_button_clicked")
-  (return-type "none")
-)
-
-(define-method enter
-  (of-object "GtkButton")
-  (c-name "gtk_button_enter")
-  (return-type "none")
-)
-
-(define-method leave
-  (of-object "GtkButton")
-  (c-name "gtk_button_leave")
   (return-type "none")
 )
 
@@ -182,39 +158,9 @@
   (return-type "GtkWidget*")
 )
 
-(define-virtual pressed
-  (of-object "GtkButton")
-  (return-type "none")
-  (deprecated)
-)
-
-(define-virtual released
-  (of-object "GtkButton")
-  (return-type "none")
-  (deprecated)
-)
-
 (define-virtual clicked
   (of-object "GtkButton")
   (return-type "none")
-)
-
-(define-virtual enter
-  (of-object "GtkButton")
-  (return-type "none")
-  (deprecated)
-)
-
-(define-virtual leave
-  (of-object "GtkButton")
-  (return-type "none")
-  (deprecated)
-)
-
-(define-virtual activate
-  (of-object "GtkButton")
-  (return-type "none")
-  (deprecated)
 )
 
 (define-method set_image_position

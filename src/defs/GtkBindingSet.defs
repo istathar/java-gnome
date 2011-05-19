@@ -18,14 +18,14 @@
   )
 )
 
-(define-method activate
+(define-method set_activate
   (of-object "GtkBindingSet")
   (c-name "gtk_binding_set_activate")
   (return-type "gboolean")
   (parameters
     '("guint" "keyval")
     '("GdkModifierType" "modifiers")
-    '("GtkObject*" "object")
+    '("GObject*" "object")
   )
 )
 

@@ -1,7 +1,7 @@
 /*
  * java-gnome, a UI library for writing GTK and GNOME programs from Java!
  *
- * Copyright © 2007-2010 Operational Dynamics Consulting, Pty Ltd
+ * Copyright © 2007-2011 Operational Dynamics Consulting, Pty Ltd
  * Copyright © 2008      Vreixo Formoso
  *
  * The code in this file, and the program it is a part of, is made available
@@ -24,7 +24,6 @@ import org.freedesktop.cairo.Format;
 import org.freedesktop.cairo.ImageSurface;
 import org.freedesktop.cairo.Surface;
 import org.gnome.gdk.Event;
-import org.gnome.gdk.EventExpose;
 import org.gnome.gdk.EventFocus;
 import org.gnome.gtk.Gtk;
 import org.gnome.gtk.Image;
@@ -138,17 +137,9 @@ public class ValidatePangoAttributeUsage extends GraphicalTestCase
         w.add(i);
         w.showAll();
 
-        i.connect(new Widget.ExposeEvent() {
-            public boolean onExposeEvent(Widget source, EventExpose event) {
-                final Context cr;
-
-                /*
-                 * We need a Cairo context...
-                 */
-                cr = new Context(source.getWindow());
-
+        i.connect(new Widget.Draw() {
+            public boolean onDraw(Widget source, Context cr) {
                 draw(cr);
-
                 return false;
             }
         });

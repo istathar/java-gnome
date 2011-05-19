@@ -1,7 +1,7 @@
 /*
  * java-gnome, a UI library for writing GTK and GNOME programs from Java!
  *
- * Copyright © 2006-2010 Operational Dynamics Consulting, Pty Ltd and Others
+ * Copyright © 2006-2011 Operational Dynamics Consulting, Pty Ltd and Others
  *
  * The code in this file, and the program it is a part of, is made available
  * to you by its authors as open source software: you can redistribute it
@@ -32,18 +32,18 @@
  */
 package org.gnome.gtk;
 
-import org.gnome.gdk.Color;
-import org.gnome.gdk.Colormap;
+import org.freedesktop.cairo.Context;
 import org.gnome.gdk.Event;
 import org.gnome.gdk.EventButton;
 import org.gnome.gdk.EventCrossing;
-import org.gnome.gdk.EventExpose;
 import org.gnome.gdk.EventFocus;
 import org.gnome.gdk.EventKey;
 import org.gnome.gdk.EventMask;
 import org.gnome.gdk.EventMotion;
 import org.gnome.gdk.EventScroll;
 import org.gnome.gdk.EventVisibility;
+import org.gnome.gdk.RGBA;
+import org.gnome.gdk.Rectangle;
 import org.gnome.gdk.VisibilityState;
 import org.gnome.pango.FontDescription;
 
@@ -58,7 +58,7 @@ import org.gnome.pango.FontDescription;
  * @author Vreixo Formoso
  * @since 4.0.0
  */
-public abstract class Widget extends org.gnome.gtk.Object
+public abstract class Widget extends org.gnome.glib.Object
 {
     protected Widget(long pointer) {
         super(pointer);
@@ -200,7 +200,7 @@ public abstract class Widget extends org.gnome.gtk.Object
 
     /**
      * Request that an area of the Widget to be redrawn. This will eventually
-     * result in an <code>Widget.ExposeEvent</code> being sent to the Widget
+     * result in an <code>Widget.Draw</code> signal being sent to the Widget
      * asking it to [re]render the area given by the passed in co-ordinates.
      * 
      * <p>
@@ -210,7 +210,7 @@ public abstract class Widget extends org.gnome.gtk.Object
      * <p>
      * The redraw will not happen immediately, but rather during the next
      * iteration of the main loop. Also, note that several such requests may
-     * be combined into a single <code>Widget.ExposeEvent</code> by the X
+     * be combined into a single <code>Widget.Draw</code> signal by the X
      * server and GDK.
      * 
      * <p>
@@ -262,17 +262,6 @@ public abstract class Widget extends org.gnome.gtk.Object
         GtkWidget.connect(this, handler, false);
     }
 
-    /** @deprecated */
-    public interface ENTER_NOTIFY_EVENT extends GtkWidget.EnterNotifyEventSignal
-    {
-    }
-
-    /** @deprecated */
-    public void connect(ENTER_NOTIFY_EVENT handler) {
-        assert false : "use Widget.EnterNotifyEvent instead";
-        GtkWidget.connect(this, handler, false);
-    }
-
     /**
      * Signal emitted when the mouse pointer leaves the Widget.
      * 
@@ -291,17 +280,6 @@ public abstract class Widget extends org.gnome.gtk.Object
      * @since 4.0.7
      */
     public void connect(Widget.LeaveNotifyEvent handler) {
-        GtkWidget.connect(this, handler, false);
-    }
-
-    /** @deprecated */
-    public interface LEAVE_NOTIFY_EVENT extends GtkWidget.LeaveNotifyEventSignal
-    {
-    }
-
-    /** @deprecated */
-    public void connect(LEAVE_NOTIFY_EVENT handler) {
-        assert false : "use Widget.LeaveNotifyEvent instead";
         GtkWidget.connect(this, handler, false);
     }
 
@@ -329,17 +307,6 @@ public abstract class Widget extends org.gnome.gtk.Object
         GtkWidget.connect(this, handler, false);
     }
 
-    /** @deprecated */
-    public interface FOCUS_OUT_EVENT extends GtkWidget.FocusOutEventSignal
-    {
-    }
-
-    /** @deprecated */
-    public void connect(FOCUS_OUT_EVENT handler) {
-        assert false : "use Widget.FocusOutEvent instead";
-        GtkWidget.connect(this, handler, false);
-    }
-
     /**
      * Signal emitted when focus enters this Widget. See
      * {@link Widget.FocusOutEvent}.
@@ -361,17 +328,6 @@ public abstract class Widget extends org.gnome.gtk.Object
         GtkWidget.connect(this, handler, false);
     }
 
-    /** @deprecated */
-    public interface FOCUS_IN_EVENT extends GtkWidget.FocusInEventSignal
-    {
-    }
-
-    /** @deprecated */
-    public void connect(FOCUS_IN_EVENT handler) {
-        assert false : "use Widget.FocusInEvent instead";
-        GtkWidget.connect(this, handler, false);
-    }
-
     /**
      * The signal emitted when a portion or all of the Widget has been exposed
      * and needs [re]drawing. This can happen when a Widget is first realized
@@ -379,35 +335,9 @@ public abstract class Widget extends org.gnome.gtk.Object
      * another Window or because it was offscreen).
      * 
      * <p>
-     * The <code>event</code> parameter to the callback contains information
-     * about the size of the region that was damaged or otherwise needs
-     * redrawing. For instance, if you just wanted to know what area was
-     * exposed, you could do:
-     * 
-     * <pre>
-     * foo.connect(new Widget.ExposeEvent() {
-     *     public boolean onExposeEvent(Widget source, EventExpose event) {
-     *         Rectangle rect;
-     *         int width, height, x, y;
-     *         
-     *         rect = event.getArea();
-     *         
-     *         width = rect.getWidth();
-     *         height = rect.getHeight();
-     *         x = rect.getX();
-     *         y = rect.getY();
-     *         
-     *         System.out.println(width + &quot;x&quot; + height + &quot; at &quot; + x + &quot;,&quot; + y);
-     *     }
-     * }
-     * </pre>
-     * 
-     * <p>
-     * The real purpose of <code>Widget.ExposeEvent</code>, however, is to be
-     * the the gateway to drawing. GNOME uses the excellent <a
-     * href="http://www.cairographics.org/">Cairo 2D graphics library</a> to
-     * draw its user interfaces, which we make available in java-gnome in
-     * package <code>org.freedesktop.cairo</code>.
+     * GNOME uses the excellent <a href="http://www.cairographics.org/">Cairo
+     * 2D graphics library</a> to draw its user interfaces, which we make
+     * available in java-gnome in package <code>org.freedesktop.cairo</code>.
      * 
      * <p>
      * Code that does drawing needs to be written a little differently than
@@ -418,66 +348,40 @@ public abstract class Widget extends org.gnome.gtk.Object
      * for drawing operations, Cairo needs the details of the [org.gnome.gdk]
      * Display, Screen and Window it will be drawing to, and these are not
      * available until the Widget has been realized and mapped. The
-     * <code>Widget.ExposeEvent</code> signal is emitted exactly at this
-     * point, and so that's when we have the environment we need to do our
-     * drawing.
+     * <code>Widget.Draw</code> signal is emitted exactly at this point, and
+     * so that's when we have the environment we need to do our drawing.
      * 
      * <p>
-     * To do drawing with Cairo you need a Context. You can instantiate one by
-     * passing the EventExpose object to the Context constructor:
+     * To do drawing with Cairo you need a Context, and GTK 3 conveniently
+     * provides you with one all ready to go:
      * 
      * <pre>
-     * foo.connect(new Widget.ExposeEvent() {
-     *     public boolean onExposeEvent(Widget source, EventExpose event) {
-     *         Context cr;
-     *         
-     *         cr = new Context(event);
-     *         
-     *         // start drawing
+     * foo.connect(new Widget.Draw() {
+     *     public boolean onDraw(Widget source, Context cr) {
+     *        // start drawing
      *     }
      * }
      * </pre>
      * 
-     * Obviously from here you can carry on using the Cairo Graphics library
-     * to do your custom drawing. See {@link org.freedesktop.cairo.Context
-     * Context} for further details.
+     * GTK makes calls to Context's <code>save()</code> and
+     * <code>restore()</code> around the <code>Widget.Draw</code> signal so
+     * you don't worry about having to reset the Context to its initial state.
      * 
      * @author Andrew Cowie
-     * @since 4.0.7
+     * @since 4.0.20
      */
-    /*
-     * FIXME when we figure out offscreen drawing, then we can change "cannot
-     * easily do".
-     */
-    public interface ExposeEvent extends GtkWidget.ExposeEventSignal
+    public interface Draw extends GtkWidget.DrawSignal
     {
-        /**
-         * As with other event signals, the boolean return value indicates
-         * whether or not you wish to block further emission of the signal. In
-         * general you want to leave the default handlers alone; let them run
-         * as well. Return <code>false</code>.
-         */
-        public boolean onExposeEvent(Widget source, EventExpose event);
+        public boolean onDraw(Widget source, Context cr);
     }
 
     /**
-     * Hook up a handler to receive <code>Widget.ExposeEvent</code> signals on
-     * this Widget.
+     * Hook up a handler to receive <code>Widget.Draw</code> signals on this
+     * Widget.
      * 
-     * @since 4.0.7
+     * @since 4.0.20
      */
-    public void connect(Widget.ExposeEvent handler) {
-        GtkWidget.connect(this, handler, false);
-    }
-
-    /** @deprecated */
-    public interface EXPOSE_EVENT extends GtkWidget.ExposeEventSignal
-    {
-    }
-
-    /** @deprecated */
-    public void connect(EXPOSE_EVENT handler) {
-        assert false : "use Widget.ExposeEvent instead";
+    public void connect(Widget.Draw handler) {
         GtkWidget.connect(this, handler, false);
     }
 
@@ -550,17 +454,6 @@ public abstract class Widget extends org.gnome.gtk.Object
         GtkWidget.connect(this, handler, false);
     }
 
-    /** @deprecated */
-    public interface KEY_PRESS_EVENT extends GtkWidget.KeyPressEventSignal
-    {
-    }
-
-    /** @deprecated */
-    public void connect(KEY_PRESS_EVENT handler) {
-        assert false : "use Widget.KeyPressEvent instead";
-        GtkWidget.connect(this, handler, false);
-    }
-
     /**
      * Handler interface for key release events. Calling
      * {@link EventKey#getKeyval() getKeyval()} on the <code>event</code>
@@ -586,16 +479,6 @@ public abstract class Widget extends org.gnome.gtk.Object
      * @since 4.0.3
      */
     public void connect(Widget.KeyReleaseEvent handler) {
-        GtkWidget.connect(this, handler, false);
-    }
-
-    /** @deprecated */
-    public interface KEY_RELEASE_EVENT extends GtkWidget.KeyReleaseEventSignal
-    {
-    }
-
-    /** @deprecated */
-    public void connect(KEY_RELEASE_EVENT handler) {
         GtkWidget.connect(this, handler, false);
     }
 
@@ -872,82 +755,33 @@ public abstract class Widget extends org.gnome.gtk.Object
     }
 
     /**
-     * Sets the Colormap of this widget.
-     * 
-     * <p>
-     * The only useful application of this is to enable per-pixel translucency
-     * on top level Widgets. This involves getting the RGBA colormap from the
-     * associated screen, and also requires (if using cairo) using the clear
-     * operator to remove the standard background.
-     * 
-     * @since 4.0.10
-     */
-    public void setColormap(Colormap colormap) {
-        GtkWidget.setColormap(this, colormap);
-    }
-
-    /**
      * Adjust the background colour being used when drawing this Widget. This
      * leaves all other style properties unchanged.
      * 
-     * <p>
-     * If you need to change the background colour behind the text in an Entry
-     * or TextView, see {@link #modifyBase(Widget, StateType Color)
-     * modifyBase()}.
-     * 
-     * <p>
-     * This is one of a family of "<code>modify</code>" methods; see
-     * {@link #modifyStyle(Widget, RcStyle) modifyStyle()} for further details
-     * about the interaction of the various theming and style mechanisms.
-     * 
-     * @since 4.0.5
+     * @since 4.0.20
      */
-    public void modifyBackground(StateType state, Color color) {
-        GtkWidget.modifyBg(this, state, color);
-    }
-
-    /**
-     * Set the colour used for text background on this Widget. To change the
-     * foreground colour of the text, use
-     * {@link #modifyText(StateType, Color) modifyText()}.
-     * 
-     * <p>
-     * This is one of a family of "<code>modify</code>" methods; see
-     * {@link #modifyStyle(Widget, RcStyle) modifyStyle()} for further details
-     * about the interaction of the various theming and style mechanisms.
-     * 
-     * @since 4.0.8
-     */
-    public void modifyBase(StateType state, Color color) {
-        GtkWidget.modifyBase(this, state, color);
+    public void overrideBackground(StateFlags state, RGBA color) {
+        GtkWidget.overrideBackgroundColor(this, state, color);
     }
 
     /**
      * Set the colour used for text rendered by this Widget. This is the
      * foreground colour; to change the background colour behind text use
-     * {@link #modifyBase(StateType, Color) modifyBase()}.
+     * {@link #overrideBackground(StateFlags, RGBA) overrideBackground()}.
      * 
-     * <p>
-     * This is one of a family of "<code>modify</code>" methods; see
-     * {@link #modifyStyle(Widget, RcStyle) modifyStyle()} for further details
-     * about the interaction of the various theming and style mechanisms.
-     * 
-     * @since 4.0.6
+     * @since 4.0.20
      */
-    public void modifyText(StateType state, Color color) {
-        GtkWidget.modifyText(this, state, color);
+    public void overrideColor(StateFlags state, RGBA color) {
+        GtkWidget.overrideColor(this, state, color);
     }
 
     /**
      * Set the font used for text rendered by this Widget.
      * 
-     * <p>
-     * This is one of a family of "<code>modify</code>" methods.
-     * 
-     * @since 4.0.10
+     * @since 4.0.20
      */
-    public void modifyFont(FontDescription desc) {
-        GtkWidget.modifyFont(this, desc);
+    public void overrideFont(FontDescription desc) {
+        GtkWidget.overrideFont(this, desc);
     }
 
     /**
@@ -999,18 +833,6 @@ public abstract class Widget extends org.gnome.gtk.Object
      * VISIBILITY_NOTIFY is automatically set to receive this event.
      */
     public void connect(Widget.VisibilityNotifyEvent handler) {
-        GtkWidget.addEvents(this, EventMask.VISIBILITY_NOTIFY);
-        GtkWidget.connect(this, handler, false);
-    }
-
-    /** @deprecated */
-    public interface VISIBILITY_NOTIFY_EVENT extends GtkWidget.VisibilityNotifyEventSignal
-    {
-    }
-
-    /** @deprecated */
-    public void connect(VISIBILITY_NOTIFY_EVENT handler) {
-        assert false : "use Widget.VisibilityNotifyEvent instead";
         GtkWidget.addEvents(this, EventMask.VISIBILITY_NOTIFY);
         GtkWidget.connect(this, handler, false);
     }
@@ -1097,17 +919,6 @@ public abstract class Widget extends org.gnome.gtk.Object
         GtkWidget.connect(this, handler, false);
     }
 
-    /** @deprecated */
-    public interface UNMAP_EVENT extends GtkWidget.UnmapEventSignal
-    {
-    }
-
-    /** @deprecated */
-    public void connect(UNMAP_EVENT handler) {
-        assert false : "use Widget.UnmapEvent instead";
-        GtkWidget.connect(this, handler, false);
-    }
-
     /**
      * Does this Widget currently have the keyboard focus?
      * 
@@ -1175,17 +986,6 @@ public abstract class Widget extends org.gnome.gtk.Object
      * @since 4.0.6
      */
     public void connect(Widget.Hide handler) {
-        GtkWidget.connect(this, handler, false);
-    }
-
-    /** @deprecated */
-    public interface HIDE extends GtkWidget.HideSignal
-    {
-    }
-
-    /** @deprecated */
-    public void connect(HIDE handler) {
-        assert false : "use Widget.Hide instead";
         GtkWidget.connect(this, handler, false);
     }
 
@@ -1265,10 +1065,12 @@ public abstract class Widget extends org.gnome.gtk.Object
      * so that we get the same Pointer object back if multiple calls are made
      * to getRequisition() and getAllocation(), thus creating a Proxy like
      * behaviour even though these are Boxeds. This avoids allocating
-     * duplicates but the real point is that these objects are "live" and so
-     * we want to refer to the real structs in GtkWidget.
+     * duplicates.
      */
 
+    /*
+     * This requisition will need to be removed when GTK3 arrives
+     */
     private Requisition requisition;
 
     private Allocation allocation;
@@ -1286,16 +1088,11 @@ public abstract class Widget extends org.gnome.gtk.Object
      */
     public Allocation getAllocation() {
         if (allocation == null) {
-            allocation = GtkWidgetOverride.getAllocation(this);
-
-            /*
-             * We are making a live reference to the GtkAllocation struct
-             * member in the GtkWidget class, so we need to make sure that our
-             * Allocation Proxy does not survive longer than the Widget. We
-             * use this back reference for this purpose.
-             */
-            allocation.widget = this;
+            allocation = new Allocation();
         }
+
+        GtkWidgetOverride.getAllocation(this, allocation);
+
         return allocation;
     }
 
@@ -1310,27 +1107,141 @@ public abstract class Widget extends org.gnome.gtk.Object
      * implies that the request calculation won't have any effect if the
      * Widget is not yet been FIXME to a Screen).
      * 
-     * <p>
-     * <i>Implementation note: calling this method will invoke
-     * <code>gtk_widget_size_request()</code>. The returned Requisition object
-     * is "live" however, so once you've got it you can use its getter methods
-     * freely without needing to keep calling this method.</i>
-     * 
      * @since 4.0.6
      */
     public Requisition getRequisition() {
         if (requisition == null) {
-            requisition = GtkWidgetOverride.getRequisition(this);
-
-            /*
-             * We are making a live reference to the GtkRequisition struct
-             * member in the GtkWidget class, so we need to make sure that our
-             * Requisition Proxy does not survive longer than the Widget. We
-             * use this back reference for this purpose.
-             */
-            requisition.widget = this;
+            requisition = new Requisition();
         }
+
+        GtkWidgetOverride.getRequisition(this, requisition);
+
         return requisition;
+    }
+
+    /**
+     * Retreive the width that has been allocated to this Widget, in pixels.
+     * This is meant to be used by <code>Widget.Draw</code> handlers when they
+     * need to know their canvas size.
+     * 
+     * @since 4.1.1
+     */
+    public int getAllocatedWidth() {
+        return GtkWidget.getAllocatedWidth(this);
+    }
+
+    /**
+     * Retreive the height that has been allocated to this Widget. See also
+     * {@link #getAllocatedWidth() getAllocatedWidth()}.
+     * 
+     * @since 4.1.1
+     */
+    public int getAllocatedHeight() {
+        return GtkWidget.getAllocatedHeight(this);
+    }
+
+    /**
+     * @since 4.1.1
+     */
+    public int getPreferredWidthNatural() {
+        final int[] natural;
+
+        natural = new int[1];
+
+        GtkWidget.getPreferredWidth(this, null, natural);
+
+        return natural[0];
+    }
+
+    /**
+     * @since 4.1.1
+     */
+    public int getPreferredWidthMinimum() {
+        final int[] minimum;
+
+        minimum = new int[1];
+
+        GtkWidget.getPreferredWidth(this, minimum, null);
+
+        return minimum[0];
+    }
+
+    /**
+     * @since 4.1.1
+     */
+    public int getPreferredHeightMinimum() {
+        final int[] minimum;
+
+        minimum = new int[1];
+
+        GtkWidget.getPreferredHeight(this, minimum, null);
+
+        return minimum[0];
+    }
+
+    /**
+     * @since 4.1.1
+     */
+    public int getPreferredHeightNatural() {
+        final int[] natural;
+
+        natural = new int[1];
+
+        GtkWidget.getPreferredHeight(this, null, natural);
+
+        return natural[0];
+    }
+
+    /**
+     * @since 4.1.1
+     */
+    public int getPreferredHeightForWidthMinimum(int width) {
+        final int[] minimum;
+
+        minimum = new int[1];
+
+        GtkWidget.getPreferredHeightForWidth(this, width, minimum, null);
+
+        return minimum[0];
+    }
+
+    /**
+     * @since 4.1.1
+     */
+    public int getPreferredHeightForWidthNatural(int width) {
+        final int[] natural;
+
+        natural = new int[1];
+
+        GtkWidget.getPreferredHeightForWidth(this, width, null, natural);
+
+        return natural[0];
+    }
+
+    /**
+     * @since 4.1.1
+     */
+    public int getPreferredWidthForHeightMinimum(int height) {
+        final int[] minimum;
+
+        minimum = new int[1];
+
+        GtkWidget.getPreferredWidthForHeight(this, height, minimum, null);
+
+        return minimum[0];
+    }
+
+    /**
+     * @since 4.1.1
+     */
+    public int getPreferredWidthForHeightNatural(int height) {
+        final int[] natural;
+
+        natural = new int[1];
+
+        GtkWidget.getPreferredWidthForHeight(this, height, null, natural);
+
+        return natural[0];
     }
 
     /**
@@ -1388,17 +1299,6 @@ public abstract class Widget extends org.gnome.gtk.Object
         GtkWidget.connect(this, handler, false);
     }
 
-    /** @deprecated */
-    public interface BUTTON_PRESS_EVENT extends GtkWidget.ButtonPressEventSignal
-    {
-    }
-
-    /** @deprecated */
-    public void connect(Widget.BUTTON_PRESS_EVENT handler) {
-        assert false : "use Widget.ButtonPressEvent instead";
-        GtkWidget.connect(this, handler, false);
-    }
-
     /**
      * The signal emitted when the user releases a pressed mouse button. See
      * {@link Widget.ButtonPressEvent} for discussion of this set of event
@@ -1418,18 +1318,6 @@ public abstract class Widget extends org.gnome.gtk.Object
      * @since 4.0.6
      */
     public void connect(Widget.ButtonReleaseEvent handler) {
-        GtkWidget.connect(this, handler, false);
-    }
-
-    /** @deprecated */
-    public interface BUTTON_RELEASE_EVENT extends GtkWidget.ButtonReleaseEventSignal
-    {
-        public boolean onButtonReleaseEvent(Widget source, EventButton event);
-    }
-
-    /** @deprecated */
-    public void connect(Widget.BUTTON_RELEASE_EVENT handler) {
-        assert false : "use Widget.ButtonReleaseEvent instead";
         GtkWidget.connect(this, handler, false);
     }
 
@@ -1545,12 +1433,12 @@ public abstract class Widget extends org.gnome.gtk.Object
      * 
      * <p>
      * This can be used as an indication that your Window is no longer
-     * minimized. Connecting to {@link Widget.ExposeEvent} would probably tell
-     * you what you need to know, but if all you want to do is find out your
-     * app is [back] onscreen then <code>Widget.ExposeEvent</code> would be a
-     * bit heavy handed. Of course, if you are drawing anyway, then it's fine.
-     * See {@link Widget.UnmapEvent} for examples of other variations on the
-     * theme of tracking the state of your application.
+     * minimized. Connecting to {@link Widget.Draw} would probably tell you
+     * what you need to know, but if all you want to do is find out your app
+     * is [back] onscreen then <code>Widget.Draw</code> would be a bit heavy
+     * handed. Of course, if you are drawing anyway, then it's fine. See
+     * {@link Widget.UnmapEvent} for examples of other variations on the theme
+     * of tracking the state of your application.
      * 
      * <p>
      * <i>The interaction between the GTK library we use, its underlying GDK
@@ -1653,9 +1541,9 @@ public abstract class Widget extends org.gnome.gtk.Object
      * 
      * <p>
      * Almost anything that you would do that would invole you needing an
-     * [org.gnome.gdk] Window is best done in a
-     * <code>Widget.ExposeEvent</code> handler, at which point the Widget is
-     * already realized, mapped, and showing.
+     * [org.gnome.gdk] Window is best done in a <code>Widget.Draw</code>
+     * handler, at which point the Widget is already realized, mapped, and
+     * showing.
      * 
      * @since 4.0.16
      */
@@ -1758,5 +1646,150 @@ public abstract class Widget extends org.gnome.gtk.Object
         GtkWidget.styleGetProperty(this, name, value);
 
         return value.getLong();
+    }
+
+    /**
+     * Ask everything connected to this object to release its references. Use
+     * this in preference to Container's {@link Container#remove(Widget)
+     * remove()} if you don't need the Widget any more.
+     * 
+     * <p>
+     * <i>We didn't expose this for a long time in java-gnome; after all,
+     * memory management of both Java references and GObject Ref counts is
+     * handled automatically by the diabolical cunning of this most excellent
+     * library. It turns out, however, that this does not <code>free()</code>
+     * the GtkWidget's memory; it really only does what it says: ask other
+     * GtkWidget to drop whatever Refs they may be holding to this object.
+     * Thus if this GtkWidget is in a GtkContainer and you call</i>
+     * <code>destroy()</code> <i>the GtkContainer will drop its Refs to this
+     * GtkWidget thereby breaking its parent-child relationship.</i>
+     * 
+     * <p>
+     * <i>Note that Java's references remain, so the object will <b>not</b>,
+     * in fact, be eligable for finalizing until you drop all your references;
+     * ie, the Java side Proxy Object goes out of scope. Nevertheless calling
+     * this will speed up release of resources associated with a Widget, so
+     * it's a good idea. Once you've done so,</i> <code>finalize()</code>
+     * <i>will be traversed a short time later and the GObject will be
+     * released.</i>
+     * 
+     * @since 4.0.20
+     */
+    public void destroy() {
+        GtkWidget.destroy(this);
+    }
+
+    /**
+     * Signal handler for when a Widget requests that all other code holding
+     * references to it release those references. In Java-speak, that means if
+     * you have this object in a variable or structure of some kind,
+     * <code>null</code> it out to to release the strong reference to the
+     * object.
+     * 
+     * @author Andrew Cowie
+     * @since 4.0.20
+     */
+    public interface Destroy extends GtkWidget.DestroySignal
+    {
+        /**
+         * Release any references you hold to the given <code>source</code>
+         * Widget.
+         */
+        public void onDestroy(Widget source);
+    }
+
+    /**
+     * Hook up a <code>Widget.Destroy</code> handler.
+     * 
+     * @since 4.0.20
+     */
+    public void connect(Widget.Destroy handler) {
+        GtkWidget.connect(this, handler, false);
+    }
+
+    /**
+     * Signal fired when a Widget is given its size allocation.
+     * 
+     * @author Andrew Cowie
+     * @since 4.1.1
+     */
+    public interface SizeAllocate extends GtkWidget.SizeAllocateSignal
+    {
+        void onSizeAllocate(Widget source, Rectangle allocation);
+    }
+
+    /**
+     * Hook up a <code>Widget.SizeAllocate</code> handler.
+     * 
+     * @since 4.1.1
+     */
+    public void connect(Widget.SizeAllocate handler) {
+        GtkWidget.connect(this, handler, false);
+    }
+
+    /**
+     * Does the Widget prefer that it be given height for a given width, or
+     * vice versa?
+     * 
+     * <p>
+     * Part of GTK 3's height-for-width geometry management system.
+     * 
+     * @return
+     */
+    public SizeRequestMode getRequestMode() {
+        return GtkWidget.getRequestMode(this);
+    }
+
+    /**
+     * Will this Widget be given any additional space that it's parent
+     * Container has? The default is <code>false</code> which means that as a
+     * child this Widget will be allocated its natural size reqeust, but not
+     * more.
+     * 
+     * <p>
+     * This is the <var>hexpand</var> property.
+     * 
+     * @since 4.1.1
+     */
+    public void setExpandHorizontal(boolean setting) {
+        GtkWidget.setHexpand(this, setting);
+    }
+
+    /**
+     * <p>
+     * This is the <var>vexpand</var> property.
+     * 
+     * @since 4.1.1
+     */
+    public void setExpandVertical(boolean setting) {
+        GtkWidget.setVexpand(this, setting);
+    }
+
+    /**
+     * Set the horizontal positioning of a Widget in its parent Container.
+     * 
+     * <p>
+     * This is the <var>halign</var> property.
+     * 
+     * <p>
+     * <i>This is part of how the GTK 2.x Alignment Widget has been
+     * replaced.</i>
+     * 
+     * @since 4.1.1
+     */
+    public void setAlignHorizontal(Align align) {
+        GtkWidget.setHalign(this, align);
+    }
+
+    /**
+     * Set the vertical positioning of a Widget in its parent Container.
+     * 
+     * <p>
+     * This is the <var>valign</var> property.
+     * 
+     * @since 4.1.1
+     */
+    public void setAlignVertical(Align align) {
+        GtkWidget.setValign(this, align);
     }
 }

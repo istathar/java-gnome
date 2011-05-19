@@ -1,7 +1,7 @@
 /*
  * java-gnome, a UI library for writing GTK and GNOME programs from Java!
  *
- * Copyright © 2009-2010 Operational Dynamics Consulting, Pty Ltd and Others
+ * Copyright © 2009-2011 Operational Dynamics Consulting, Pty Ltd and Others
  *
  * The code in this file, and the program it is a part of, is made available
  * to you by its authors as open source software: you can redistribute it
@@ -22,7 +22,6 @@ import org.gnome.gdk.Event;
 import org.gnome.gtk.CellRendererText;
 import org.gnome.gtk.DataColumn;
 import org.gnome.gtk.DataColumnString;
-import org.gnome.gtk.Editable;
 import org.gnome.gtk.Entry;
 import org.gnome.gtk.EntryIconPosition;
 import org.gnome.gtk.Gtk;
@@ -174,7 +173,7 @@ public class ExampleSearchSomeone
          */
 
         entry.connect(new Entry.Changed() {
-            public void onChanged(Editable source) {
+            public void onChanged(Entry source) {
                 /*
                  * Refilter the view
                  */

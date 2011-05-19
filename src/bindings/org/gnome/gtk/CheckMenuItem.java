@@ -113,12 +113,6 @@ public class CheckMenuItem extends MenuItem
         connect(handler);
     }
 
-    /** @deprecated */
-    public CheckMenuItem(String mnemonicLabel, TOGGLED handler) {
-        super(GtkCheckMenuItem.createCheckMenuItemWithMnemonic(mnemonicLabel));
-        connect(handler);
-    }
-
     /**
      * Set the active state of the Item. This is switched automatically when
      * the user activates (clicks) the menu item, but in some situations you
@@ -195,17 +189,6 @@ public class CheckMenuItem extends MenuItem
      * @since 4.0.4
      */
     public void connect(CheckMenuItem.Toggled handler) {
-        GtkCheckMenuItem.connect(this, handler, false);
-    }
-
-    /** @deprecated */
-    public interface TOGGLED extends GtkCheckMenuItem.ToggledSignal
-    {
-    }
-
-    /** @deprecated */
-    public void connect(TOGGLED handler) {
-        assert false : "use CheckMenuItem.Toggled instead";
         GtkCheckMenuItem.connect(this, handler, false);
     }
 }

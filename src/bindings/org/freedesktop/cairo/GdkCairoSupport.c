@@ -1,7 +1,7 @@
 /*
  * java-gnome, a UI library for writing GTK and GNOME programs from Java!
  *
- * Copyright © 2008-2010 Operational Dynamics Consulting, Pty Ltd
+ * Copyright © 2008-2011 Operational Dynamics Consulting, Pty Ltd
  *
  * The code in this file, and the program it is a part of, is made available
  * to you by its authors as open source software: you can redistribute it
@@ -39,7 +39,7 @@
 
 /**
  * This accesses gdk_cairo_create(), a utility function in GDK allowing you to
- * get the Cairo cairo_t for a given GdkDrawable. We have exposed this in our
+ * get the Cairo cairo_t for a given GdkWindow. We have exposed this in our
  * bindings as a constructor to Context.
  */
 JNIEXPORT jlong JNICALL
@@ -47,62 +47,23 @@ Java_org_freedesktop_cairo_GdkCairoSupport_gdk_1cairo_1create
 (
 	JNIEnv* env,
 	jclass cls,
-	jlong _drawable
+	jlong _window
 )
 {
-	GdkDrawable* drawable;
+	GdkWindow* window;
 	cairo_t* result;
 
-	// convert drawable
-	drawable = (GdkDrawable*) _drawable;
+	// convert window
+	window = (GdkWindow*) _window;
 
 	// call function
-	result = gdk_cairo_create(drawable);
+	result = gdk_cairo_create(window);
 
-	// cleanup parameter drawable
+	// cleanup parameter window
 
 	// and finally
 	return (jlong) result;
 }
-
-/**
- * This accesses gdk_cairo_create(), then gdk_cairo_region(), and then
- * cairo_clip it() before returning the constructed Context, all driven by
- * the passed in GdkEventExpose. Thanks to Benjamin Otte for advice about
- * doing this properly. 
- */
-JNIEXPORT jlong JNICALL
-Java_org_freedesktop_cairo_GdkCairoSupport_gdk_1cairo_1create_1and_1clip
-(
-        JNIEnv* env,
-        jclass cls,
-        jlong _event
-)
-{
-        GdkEventExpose* event;
-        cairo_t* result;
-        
-        // convert event
-        event = (GdkEventExpose*) _event;
-        
-        // call constructor function
-        result = gdk_cairo_create(event->window);
-        
-        // get region
-        gdk_cairo_region(result, event->region);
-        
-        // and constrain
-        cairo_clip(result);
-
-        // cleanup parameter source
-        
-        // cleanup parameter event
-
-        // and finally
-        return (jlong) result;
-}
-
-
 
 
 JNIEXPORT void JNICALL
@@ -143,4 +104,30 @@ Java_org_freedesktop_cairo_GdkCairoSupport_gdk_1cairo_1set_1source_1pixbuf
         // cleanup parameter x
 
         // cleanup parameter y
+}
+
+JNIEXPORT void JNICALL
+Java_org_freedesktop_cairo_GdkCairoSupport_gdk_1cairo_1set_1source_1rgba
+(
+        JNIEnv* env,
+        jclass cls,
+        jlong _context,
+        jlong _rgba
+)
+{
+        cairo_t* context;
+        GdkRGBA* rgba;
+        
+        // convert context
+        context = (cairo_t*) _context;
+        
+        // convert rgba
+        rgba = (GdkRGBA*) _rgba;
+
+        // call function
+        gdk_cairo_set_source_rgba(context, rgba);
+
+        // cleanup parameter context
+
+        // cleanup parameter pixbuf
 }

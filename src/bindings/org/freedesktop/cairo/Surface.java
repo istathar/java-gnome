@@ -1,7 +1,7 @@
 /*
  * java-gnome, a UI library for writing GTK and GNOME programs from Java!
  *
- * Copyright © 2007-2010 Operational Dynamics Consulting, Pty Ltd
+ * Copyright © 2007-2011 Operational Dynamics Consulting, Pty Ltd
  *
  * The code in this file, and the program it is a part of, is made available
  * to you by its authors as open source software: you can redistribute it
@@ -86,7 +86,7 @@ public abstract class Surface extends Entity
      * <p>
      * In other words, if you are the only one drawing on the Surface, then
      * you don't need this. And that is indeed the case if you are drawing on
-     * your own custom Widget in its <code>Widget.ExposeEvent</code> handler.
+     * your own custom Widget in its <code>Widget.Draw</code> signal handler.
      * 
      * <p>
      * See also {@link #finish() finish()} if you're just trying to say "I'm

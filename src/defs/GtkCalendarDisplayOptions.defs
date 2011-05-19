@@ -7,7 +7,7 @@
     '("show-day-names" "GTK_CALENDAR_SHOW_DAY_NAMES")
     '("no-month-change" "GTK_CALENDAR_NO_MONTH_CHANGE")
     '("show-week-numbers" "GTK_CALENDAR_SHOW_WEEK_NUMBERS")
-    '("week-start-monday" "GTK_CALENDAR_WEEK_START_MONDAY")
+    '("show-details" "GTK_CALENDAR_SHOW_DETAILS")
   )
 )
 

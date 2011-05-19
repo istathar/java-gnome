@@ -140,14 +140,6 @@ public class Entry extends Widget implements Editable, CellEditable
     }
 
     /**
-     * @deprecated
-     */
-    public void setVisibleChars(boolean setting) {
-        assert false : "use setVisibility() instead";
-        GtkEntry.setVisibility(this, setting);
-    }
-
-    /**
      * Is text in the Entry are visible, or hidden by an obscuring character?
      * Returns <code>true</code> if characters entered are visible,
      * <code>false</code> if obscured.
@@ -155,14 +147,6 @@ public class Entry extends Widget implements Editable, CellEditable
      * @since 4.0.12
      */
     public boolean getVisibility() {
-        return GtkEntry.getVisibility(this);
-    }
-
-    /**
-     * @deprecated
-     */
-    public boolean isVisibleChars() {
-        assert false : "use getVisibility() instead";
         return GtkEntry.getVisibility(this);
     }
 
@@ -233,17 +217,6 @@ public class Entry extends Widget implements Editable, CellEditable
         GtkEntry.connect(this, handler, false);
     }
 
-    /** @deprecated */
-    public interface ACTIVATE extends GtkEntry.ActivateSignal
-    {
-    }
-
-    /** @deprecated */
-    public void connect(ACTIVATE handler) {
-        assert false : "use Entry.Activate instead";
-        GtkEntry.connect(this, handler, false);
-    }
-
     public void setPosition(int position) {
         if (position < -1) {
             throw new IllegalArgumentException(
@@ -283,30 +256,37 @@ public class Entry extends Widget implements Editable, CellEditable
      * The signal emitted when the text in the Entry has changed.
      * 
      * @author Andrew Cowie
-     * @since 4.0.8
+     * @since 4.1.1
      */
     /*
-     * This signal is inherited from Editable which is implemented by Entry,
-     * but some IDEs did not show Entry.Changed it as an option beside
-     * Editable.Activate when doing code completion. We have therefore exposed
-     * it (again) here to force the issue.
+     * This signal is a mashup so that we can have Entry in the signature.
      */
-    public interface Changed extends Editable.Changed
+    public interface Changed
     {
+        public void onChanged(Entry source);
+    }
+
+    private static class EntryChangedHandler implements Editable.Changed
+    {
+        private final Entry.Changed handler;
+
+        private EntryChangedHandler(Entry.Changed handler) {
+            this.handler = handler;
+        }
+
+        public void onChanged(Editable source) {
+            final Entry entry;
+
+            entry = (Entry) source;
+            handler.onChanged(entry);
+        }
     }
 
     /**
-     * Connect a <code>Editable.Changed</code> handler. Note that you can say:
-     * 
-     * <pre>
-     * e.connect(new Entry.Changed() {
-     *     public void onChanged(Editable source) {
-     *         doStuff();
-     *     }
-     * });
-     * </pre>
-     * 
-     * as the Editable.Changed interface is [re]exposed here.
+     * Connect a <code>Editable.Changed</code> handler. Use
+     * {@link #connect(org.gnome.gtk.Entry.Changed) connect(Entry.Changed)}
+     * instead, as it saves you having to cast the <code>source</code>
+     * parameter.
      * 
      * @since 4.0.6
      */
@@ -314,10 +294,13 @@ public class Entry extends Widget implements Editable, CellEditable
         GtkEditable.connect(this, handler, false);
     }
 
-    /** @deprecated */
-    public void connect(CHANGED handler) {
-        assert false : "use Editable.Changed instead";
-        GtkEditable.connect(this, handler, false);
+    /**
+     * Connect a <code>Entry.Changed</code> handler.
+     * 
+     * @since 4.1.1
+     */
+    public void connect(Entry.Changed handler) {
+        GtkEditable.connect(this, new EntryChangedHandler(handler), false);
     }
 
     public void selectRegion(int start, int end) {
@@ -506,20 +489,6 @@ public class Entry extends Widget implements Editable, CellEditable
     }
 
     /**
-     * Set the icon to a given <code>position</code> using an icon name from
-     * the current icon theme. If <code>name</code> is <code>null</code>, no
-     * icon will be shown. If the icon doesn't exist, a &quot;broken
-     * image&quot; icon will be used instead.
-     * 
-     * @since 4.0.13
-     * @deprecated
-     */
-    public void setIconFromIconName(EntryIconPosition position, String name) {
-        assert false : "Use setIconFromIcon() instead";
-        GtkEntry.setIconFromIconName(this, position, name);
-    }
-
-    /**
      * Cause the Entry to have an icon at the given <code>position</code>
      * using an Icon from the current icon theme. If <code>name</code> is
      * <code>null</code>, no icon will be shown. If for whatever reason the
@@ -565,22 +534,6 @@ public class Entry extends Widget implements Editable, CellEditable
      */
     public Stock getIconStock(EntryIconPosition position) {
         return Stock.instanceFor(GtkEntry.getIconStock(this, position));
-    }
-
-    /**
-     * Retrieves the image used for the icon as an icon name of the current
-     * theme.
-     * 
-     * <p>
-     * A <code>null</code> value will be returned if the icon was not set from
-     * an icon name.
-     * 
-     * @since 4.0.13
-     * @deprecated
-     */
-    public String getIconName(EntryIconPosition position) {
-        assert false : "use getIconFor() instead";
-        return GtkEntry.getIconName(this, position);
     }
 
     /**

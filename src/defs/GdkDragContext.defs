@@ -16,13 +16,6 @@
   )
 )
 
-(define-function drag_context_new
-  (is-constructor-of "GdkDragContext")
-  (c-name "gdk_drag_context_new")
-  (caller-owns-return #t)
-  (return-type "GdkDragContext*")
-)
-
 (define-method drag_status
   (of-object "GdkDragContext")
   (c-name "gdk_drag_status")
@@ -57,19 +50,6 @@
   (of-object "GdkDragContext")
   (c-name "gdk_drag_get_selection")
   (return-type "GdkAtom")
-)
-
-(define-method drag_find_window
-  (of-object "GdkDragContext")
-  (c-name "gdk_drag_find_window")
-  (return-type "none")
-  (parameters
-    '("GdkWindow*" "drag_window")
-    '("gint" "x_root")
-    '("gint" "y_root")
-    '("GdkWindow**" "dest_window")
-    '("GdkDragProtocol*" "protocol")
-  )
 )
 
 (define-method drag_find_window_for_screen
@@ -148,19 +128,6 @@
   (return-type "none")
   (parameters
     '("GtkWidget*" "widget")
-    '("gint" "hot_x")
-    '("gint" "hot_y")
-  )
-)
-
-(define-method set_icon_pixmap
-  (of-object "GdkDragContext")
-  (c-name "gtk_drag_set_icon_pixmap")
-  (return-type "none")
-  (parameters
-    '("GdkColormap*" "colormap")
-    '("GdkPixmap*" "pixmap")
-    '("GdkBitmap*" "mask")
     '("gint" "hot_x")
     '("gint" "hot_y")
   )

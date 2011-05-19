@@ -1,6 +1,6 @@
 (define-object Window
   (in-module "Gdk")
-  (parent "GdkDrawable")
+  (parent "GObject")
   (c-name "GdkWindow")
   (gtype-id "GDK_TYPE_WINDOW")
 )
@@ -11,16 +11,6 @@
   (return-type "GdkDragContext*")
   (parameters
     '("GList*" "targets")
-  )
-)
-
-(define-method input_set_extension_events
-  (of-object "GdkWindow")
-  (c-name "gdk_input_set_extension_events")
-  (return-type "none")
-  (parameters
-    '("gint" "mask")
-    '("GdkExtensionMode" "mode")
   )
 )
 
@@ -189,36 +179,6 @@
   )
 )
 
-(define-method clear
-  (of-object "GdkWindow")
-  (c-name "gdk_window_clear")
-  (return-type "none")
-)
-
-(define-method clear_area
-  (of-object "GdkWindow")
-  (c-name "gdk_window_clear_area")
-  (return-type "none")
-  (parameters
-    '("gint" "x")
-    '("gint" "y")
-    '("gint" "width")
-    '("gint" "height")
-  )
-)
-
-(define-method clear_area_e
-  (of-object "GdkWindow")
-  (c-name "gdk_window_clear_area_e")
-  (return-type "none")
-  (parameters
-    '("gint" "x")
-    '("gint" "y")
-    '("gint" "width")
-    '("gint" "height")
-  )
-)
-
 (define-method raise
   (of-object "GdkWindow")
   (c-name "gdk_window_raise")
@@ -294,17 +254,6 @@
   (parameters
     '("gint" "dx")
     '("gint" "dy")
-  )
-)
-
-(define-method shape_combine_mask
-  (of-object "GdkWindow")
-  (c-name "gdk_window_shape_combine_mask")
-  (return-type "none")
-  (parameters
-    '("GdkBitmap*" "shape_mask" (null-ok))
-    '("gint" "offset_x")
-    '("gint" "offset_y")
   )
 )
 
@@ -407,7 +356,7 @@
   (c-name "gdk_window_begin_paint_region")
   (return-type "none")
   (parameters
-    '("GdkRegion*" "region")
+    '("cairo_region_t*" "region")
   )
 )
 
@@ -453,16 +402,6 @@
   )
 )
 
-(define-method set_back_pixmap
-  (of-object "GdkWindow")
-  (c-name "gdk_window_set_back_pixmap")
-  (return-type "none")
-  (parameters
-    '("GdkPixmap*" "pixmap" (null-ok))
-    '("gboolean" "parent_relative")
-  )
-)
-
 (define-method set_cursor
   (of-object "GdkWindow")
   (c-name "gdk_window_set_cursor")
@@ -481,7 +420,6 @@
     '("gint*" "y")
     '("gint*" "width")
     '("gint*" "height")
-    '("gint*" "depth")
   )
 )
 
@@ -581,17 +519,6 @@
   (return-type "none")
   (parameters
     '("GList-GdkPixbuf*" "pixbufs")
-  )
-)
-
-(define-method set_icon
-  (of-object "GdkWindow")
-  (c-name "gdk_window_set_icon")
-  (return-type "none")
-  (parameters
-    '("GdkWindow*" "icon_window")
-    '("GdkPixmap*" "pixmap")
-    '("GdkBitmap*" "mask")
   )
 )
 
@@ -743,27 +670,16 @@
   (c-name "gdk_window_invalidate_region")
   (return-type "none")
   (parameters
-    '("GdkRegion*" "region")
+    '("cairo_region_t*" "region")
     '("gboolean" "invalidate_children")
   )
 )
-
-;;FIXME
-;;(define-method invalidate_maybe_recurse
-;;  (of-object "GdkWindow")
-;;  (c-name "gdk_window_invalidate_maybe_recurse")
-;;  (return-type "none")
-;;  (parameters
-;;    '("GdkRegion*" "region")
-;;    '("gboolean (*child_func)(GdkWindow *, gpointer)" "child_func")
-;;  )
-;;)
 
 (define-method get_update_area
   (of-object "GdkWindow")
   (c-name "gdk_window_get_update_area")
   (caller-owns-return #t)
-  (return-type "GdkRegion*")
+  (return-type "cairo_region_t*")
 )
 
 (define-method freeze_updates
@@ -784,17 +700,6 @@
   (return-type "none")
   (parameters
     '("gboolean" "update_children")
-  )
-)
-
-(define-method get_internal_paint_info
-  (of-object "GdkWindow")
-  (c-name "gdk_window_get_internal_paint_info")
-  (return-type "none")
-  (parameters
-    '("GdkDrawable**" "real_drawable")
-    '("gint*" "x_offset")
-    '("gint*" "y_offset")
   )
 )
 
@@ -848,7 +753,7 @@
   (c-name "gdk_window_move_region")
   (return-type "none")
   (parameters
-    '("GdkRegion*" "region")
+    '("cairo_region_t*" "region")
     '("gint" "dx")
     '("gint" "dy")
   )
@@ -859,20 +764,9 @@
   (c-name "gdk_window_shape_combine_region")
   (return-type "none")
   (parameters
-    '("GdkRegion*" "shape_region" (null-ok))
+    '("cairo_region_t*" "shape_region" (null-ok))
     '("gint" "offset_x")
     '("gint" "offset_y")
-  )
-)
-
-(define-method input_shape_combine_mask
-  (of-object "GdkWindow")
-  (c-name "gdk_window_input_shape_combine_mask")
-  (return-type "none")
-  (parameters
-    '("GdkBitmap*" "mask")
-    '("gint" "x")
-    '("gint" "y")
   )
 )
 
@@ -881,7 +775,7 @@
   (c-name "gdk_window_input_shape_combine_region")
   (return-type "none")
   (parameters
-    '("GdkRegion*" "shape_region")
+    '("cairo_region_t*" "shape_region")
     '("gint" "offset_x")
     '("gint" "offset_y")
   )
@@ -915,5 +809,17 @@
   (of-object "GdkWindow")
   (c-name "gdk_window_ensure_native")
   (return-type "gboolean")
+)
+
+(define-method get_width
+  (of-object "GdkWindow")
+  (c-name "gdk_window_get_width")
+  (return-type "int")
+)
+
+(define-method get_height
+  (of-object "GdkWindow")
+  (c-name "gdk_window_get_height")
+  (return-type "int")
 )
 

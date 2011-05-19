@@ -83,12 +83,6 @@ public class ImageMenuItem extends MenuItem
         connect(handler);
     }
 
-    /** @deprecated */
-    public ImageMenuItem(Stock stock, MenuItem.ACTIVATE handler) {
-        this(stock);
-        connect(handler);
-    }
-
     /**
      * Create a MenuItem displaying an image next to text. When you have a
      * custom visual that is appropriate to show beside the label of a given
@@ -119,13 +113,6 @@ public class ImageMenuItem extends MenuItem
      * @since 4.0.6
      */
     public ImageMenuItem(Image image, String label, MenuItem.Activate handler) {
-        super(GtkImageMenuItem.createImageMenuItemWithMnemonic(label));
-        GtkImageMenuItem.setImage(this, image);
-        connect(handler);
-    }
-
-    /** @deprecated */
-    public ImageMenuItem(Image image, String label, MenuItem.ACTIVATE handler) {
         super(GtkImageMenuItem.createImageMenuItemWithMnemonic(label));
         GtkImageMenuItem.setImage(this, image);
         connect(handler);

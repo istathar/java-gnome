@@ -204,17 +204,6 @@ public class Calendar extends Widget
         GtkCalendar.connect(this, handler, false);
     }
 
-    /** @deprecated */
-    public interface DAY_SELECTED_DOUBLE_CLICK extends GtkCalendar.DaySelectedDoubleClickSignal
-    {
-    }
-
-    /** @deprecated */
-    public void connect(DAY_SELECTED_DOUBLE_CLICK handler) {
-        assert false : "use Calendar.DaySelectedDoubleClick instead";
-        GtkCalendar.connect(this, handler, false);
-    }
-
     /**
      * Signal emitted when the user selects on one of the days showing in the
      * Calendar.
@@ -237,17 +226,6 @@ public class Calendar extends Widget
      * @since 4.0.6
      */
     public void connect(Calendar.DaySelected handler) {
-        GtkCalendar.connect(this, handler, false);
-    }
-
-    /** @deprecated */
-    public interface DAY_SELECTED extends GtkCalendar.DaySelectedSignal
-    {
-    }
-
-    /** @deprecated */
-    public void connect(DAY_SELECTED handler) {
-        assert false : "use Calendar.DaySelected instead";
         GtkCalendar.connect(this, handler, false);
     }
 }

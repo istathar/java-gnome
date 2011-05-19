@@ -1,7 +1,7 @@
 /*
  * java-gnome, a UI library for writing GTK and GNOME programs from Java!
  *
- * Copyright © 2007-2010 Operational Dynamics Consulting, Pty Ltd
+ * Copyright © 2007-2011 Operational Dynamics Consulting, Pty Ltd
  * Copyright © 2009      Vreixo Formoso
  *
  * The code in this file, and the program it is a part of, is made available
@@ -32,6 +32,8 @@
  * wish to do so, delete this exception statement from your version.
  */
 package org.gnome.gtk;
+
+import org.gnome.glib.Object;
 
 /**
  * FileFilters objects are used to restrict the files being shown on a

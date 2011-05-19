@@ -147,12 +147,6 @@ public class Action extends Object
         connect(handler);
     }
 
-    /** @deprecated */
-    public Action(String name, String label, String tooltip, Stock stock, ACTIVATE handler) {
-        super(GtkAction.createAction(name, label, tooltip, stock.getStockId()));
-        connect(handler);
-    }
-
     /**
      * Create a new Action.
      * 
@@ -230,12 +224,6 @@ public class Action extends Object
      * @since 4.0.4
      */
     public Action(String name, String label, Action.Activate handler) {
-        super(GtkAction.createAction(name, label, null, null));
-        connect(handler);
-    }
-
-    /** @deprecated */
-    public Action(String name, String label, ACTIVATE handler) {
         super(GtkAction.createAction(name, label, null, null));
         connect(handler);
     }
@@ -416,12 +404,6 @@ public class Action extends Object
         GtkAction.activate(this);
     }
 
-    /** @deprecated */
-    public void activate() {
-        assert false : "use emitActivate() instead";
-        GtkAction.activate(this);
-    }
-
     /**
      * Set a tooltip (little help message appearing in a hover) for the
      * Action.
@@ -463,73 +445,6 @@ public class Action extends Object
      */
     public void connect(Action.Activate handler) {
         GtkAction.connect(this, handler, false);
-    }
-
-    /** @deprecated */
-    public interface ACTIVATE extends GtkAction.ActivateSignal
-    {
-    }
-
-    /** @deprecated */
-    public void connect(ACTIVATE handler) {
-        assert false : "use Action.Activate instead";
-        GtkAction.connect(this, handler, false);
-    }
-
-    /**
-     * Specify a Widget that will be (another) actor hooked up to this Action.
-     * When the proxy Widget is activated (ie if a Button, when it is pressed
-     * or clicked , etc) then this Action will be activated and its
-     * <code>Action.Activate</code> signal will be fired.
-     * 
-     * <p>
-     * You use this when you want to use an Action to centralize activity
-     * being launched by various different UI controls, but for which the
-     * existing <code>create*</code> proxies are not sufficient. So you create
-     * your Widget separately, then tie it to this Action with this method.
-     * 
-     * <p>
-     * GTK will attempt to "synchronize" the tooltips, labels, and icons in
-     * use between the Action and the proxy. Thus you can do:
-     * 
-     * <pre>
-     * Action nifty;
-     * ImageMenuItem item;
-     * 
-     * nifty = new Action(&quot;nifty&quot;, &quot;Do nifty things!&quot;);
-     * nifty.setTooltip(&quot;This will result in amazingly nifty things happening&quot;);
-     * nifty.connect(new Action.Activate() {
-     *     public void onActivate(Action source) {
-     *         // do something cool
-     *     }
-     * });
-     * 
-     * item = new ImageMenuItem(picture, &quot;&quot;);
-     * menu.append(item);
-     * </pre>
-     * 
-     * Under ordinary circumstances the text of the MenuItem would be blank
-     * (bad), but doing:
-     * 
-     * <pre>
-     * nifty.connectProxy(item);
-     * </pre>
-     * 
-     * will cause the MenuItem's text label to become
-     * <code>&quot;Do nifty things!&quot;</code>, and for selecting that
-     * MenuItem from the menu to result in the handler you hooked up to
-     * <code>nifty</code>'s <code>Action.Activate</code> signal being called.
-     * 
-     * @since 4.0.6
-     * @deprecated
-     */
-    public void connectProxy(Widget proxy) {
-        Activatable activatable;
-
-        assert false : "Use the Activatable's setRelatedAction() instead";
-
-        activatable = (Activatable) proxy;
-        activatable.setRelatedAction(this);
     }
 
     /**

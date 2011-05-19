@@ -1017,14 +1017,6 @@ public class TextView extends Container
     }
 
     /**
-     * @deprecated
-     */
-    public void setLeftMargin(int pixels) {
-        assert false : "use setMarginLeft() instead";
-        GtkTextView.setLeftMargin(this, pixels);
-    }
-
-    /**
      * Create and attach a {@link Spell} object to the view to add
      * spellchecking capability.
      * 

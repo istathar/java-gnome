@@ -1,7 +1,7 @@
 /*
  * java-gnome, a UI library for writing GTK and GNOME programs from Java!
  *
- * Copyright © 2007-2010 Operational Dynamics Consulting, Pty Ltd
+ * Copyright © 2007-2011 Operational Dynamics Consulting, Pty Ltd
  * Copyright © 2008      Vreixo Formoso
  *
  * The code in this file, and the program it is a part of, is made available
@@ -42,16 +42,14 @@ import org.gnome.gtk.Widget;
  * <p>
  * Drawing is done with Cairo; you get a Layout by passing the Cairo drawing
  * Context you're currently working in to the constructor. If you're drawing a
- * Widget, you'll be doing so in a <code>Widget.ExposeEvent</code> handler
+ * Widget, you'll be doing so in a <code>Widget.Draw</code> signal handler
  * where you'll typically see:
  * 
  * <pre>
- * w.connect(new Widget.ExposeEvent() {
- *     public boolean onExposeEvent(Widget source, EventExpose event) {
- *         final Context cr;
+ * w.connect(new Widget.Draw() {
+ *     public boolean onDraw(Widget source, Context cr) {
  *         final Layout layout;
  * 
- *         cr = new Context(source.getWindow());
  *         layout = new Layout(cr);
  * 
  *         // use layout to lay out the text you wish to draw

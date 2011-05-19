@@ -1,7 +1,7 @@
 /*
  * java-gnome, a UI library for writing GTK and GNOME programs from Java!
  *
- * Copyright © 2007-2010 Operational Dynamics Consulting, Pty Ltd and Others
+ * Copyright © 2007-2011 Operational Dynamics Consulting, Pty Ltd and Others
  *
  * The code in this file, and the program it is a part of, is made available
  * to you by its authors as open source software: you can redistribute it
@@ -41,17 +41,6 @@ package org.gnome.gtk;
  */
 public class CellRendererProgress extends CellRenderer
 {
-    /**
-     * Construct a new CellRendererPixbuf.
-     * 
-     * @since 4.0.12
-     * @deprecated Use
-     *             {@link CellRendererProgress#CellRendererProgress(CellLayout)}
-     */
-    public CellRendererProgress(TreeViewColumn vertical) {
-        super(GtkCellRendererProgress.createCellRendererProgress(), vertical, true);
-    }
-
     /**
      * Construct a new CellRendererPixbuf.
      * 

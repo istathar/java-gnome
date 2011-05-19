@@ -1,7 +1,7 @@
 /*
  * java-gnome, a UI library for writing GTK and GNOME programs from Java!
  *
- * Copyright © 2007-2010 Operational Dynamics Consulting, Pty Ltd and Others
+ * Copyright © 2007-2011 Operational Dynamics Consulting, Pty Ltd and Others
  *
  * The code in this file, and the program it is a part of, is made available
  * to you by its authors as open source software: you can redistribute it
@@ -49,22 +49,6 @@ public final class ImageType extends Constant
     public static final ImageType EMPTY = new ImageType(GtkImageType.EMPTY, "EMPTY");
 
     /**
-     * The Widget contains a {@link org.gnome.gdk.Pixmap}.
-     */
-    public static final ImageType PIXMAP = new ImageType(GtkImageType.PIXMAP, "PIXMAP");
-
-    /**
-     * The Widget contains an org.gnome.gdk.Image.
-     * 
-     * @deprecated
-     */
-    /*
-     * We only keep this here for debugging purposes; GdkImage has been
-     * removed from java-gnome.
-     */
-    static final ImageType IMAGE = new ImageType(GtkImageType.IMAGE, "IMAGE");
-
-    /**
      * The Widget contains a {@link org.gnome.gdk.Pixbuf}.
      */
     public static final ImageType PIXBUF = new ImageType(GtkImageType.PIXBUF, "PIXBUF");
@@ -84,6 +68,14 @@ public final class ImageType extends Constant
      * The Widget contains a {@link PixbufAnimation}.
      */
     public static final ImageType ANIMATION = new ImageType(GtkImageType.ANIMATION, "ANIMATION");
+
+    /**
+     * The Widget contains a named icon. See
+     * {@link org.freedesktop.icons.Icon Icon}.
+     *
+     * @since 4.1.1
+     */
+    public static final ImageType ICON_NAME = new ImageType(GtkImageType.ICON_NAME, "ICON_NAME");
 
     private ImageType(int ordinal, String nickname) {
         super(ordinal, nickname);

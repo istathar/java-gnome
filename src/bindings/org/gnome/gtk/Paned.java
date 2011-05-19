@@ -2,7 +2,7 @@
  * java-gnome, a UI library for writing GTK and GNOME programs from Java!
  *
  * Copyright © 2007-2008 Vreixo Formoso
- * Copyright © 2007-2010 Operational Dynamics Consulting, Pty Ltd
+ * Copyright © 2007-2011 Operational Dynamics Consulting, Pty Ltd
  *
  * The code in this file, and the program it is a part of, is made available
  * to you by its authors as open source software: you can redistribute it
@@ -61,10 +61,20 @@ package org.gnome.gtk;
  * @author Vreixo Formoso
  * @since 4.0.7
  */
-public abstract class Paned extends Container
+public class Paned extends Container implements Orientable
 {
     protected Paned(long pointer) {
         super(pointer);
+    }
+
+    /**
+     * Construct a new Paned of the given orientation. See also the original
+     * Widgets {@link HPaned} and {@link VPaned}.
+     * 
+     * @since 4.1.1
+     */
+    public Paned(Orientation orientation) {
+        super(GtkPaned.createPaned(orientation));
     }
 
     /**
@@ -172,5 +182,13 @@ public abstract class Paned extends Container
      */
     public int getPosition() {
         return GtkPaned.getPosition(this);
+    }
+
+    public void setOrientation(Orientation orientation) {
+        GtkOrientable.setOrientation(this, orientation);
+    }
+
+    public Orientation getOrientation() {
+        return GtkOrientable.getOrientation(this);
     }
 }

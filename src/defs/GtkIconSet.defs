@@ -33,20 +33,6 @@
   (return-type "GtkIconSet*")
 )
 
-(define-method render_icon
-  (of-object "GtkIconSet")
-  (c-name "gtk_icon_set_render_icon")
-  (return-type "GdkPixbuf*")
-  (parameters
-    '("GtkStyle*" "style")
-    '("GtkTextDirection" "direction")
-    '("GtkStateType" "state")
-    '("GtkIconSize" "size")
-    '("GtkWidget*" "widget" (default "NULL") (null-ok))
-    '("const-char*" "detail" (default "NULL") (null-ok))
-  )
-)
-
 (define-method add_source
   (of-object "GtkIconSet")
   (c-name "gtk_icon_set_add_source")

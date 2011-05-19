@@ -302,17 +302,6 @@ public class TreeView extends Container
         GtkTreeView.rowActivated(this, path, vertical);
     }
 
-    /** @deprecated */
-    public interface ROW_ACTIVATED extends GtkTreeView.RowActivatedSignal
-    {
-    }
-
-    /** @deprecated */
-    public void connect(ROW_ACTIVATED handler) {
-        assert false : "use TreeView.RowActivated instead";
-        GtkTreeView.connect(this, handler, false);
-    }
-
     /**
      * Emitted when a row in the TreeView has been expanded, i.e. when its
      * child nodes are shown. A row is expanded either by clicking in the
@@ -366,34 +355,6 @@ public class TreeView extends Container
         private final TreeView.RowExpanded handler;
 
         private RowExpandedHandler(TreeView.RowExpanded handler) {
-            super();
-            this.handler = handler;
-        }
-
-        public void onRowExpanded(TreeView source, TreeIter iter, TreePath path) {
-            iter.setModel(source.getModel());
-            handler.onRowExpanded(source, iter, path);
-        }
-    }
-
-    /** @deprecated */
-    public interface ROW_EXPANDED extends GtkTreeView.RowExpandedSignal
-    {
-    }
-
-    /** @deprecated */
-    public void connect(ROW_EXPANDED handler) {
-        assert false : "use TreeView.RowExpanded instead";
-        GtkTreeView.connect(this, new RowExpandedHandler0(handler), false);
-    }
-
-    /** @deprecated */
-    private static class RowExpandedHandler0 implements GtkTreeView.RowExpandedSignal
-    {
-        private final ROW_EXPANDED handler;
-
-        /** @deprecated */
-        private RowExpandedHandler0(ROW_EXPANDED handler) {
             super();
             this.handler = handler;
         }
@@ -659,17 +620,6 @@ public class TreeView extends Container
      * Hook up a <code>TreeView.SelectAll</code> signal handler.
      */
     public void connect(TreeView.SelectAll handler) {
-        GtkTreeView.connect(this, handler, false);
-    }
-
-    /** @deprecated */
-    public interface SELECT_ALL extends GtkTreeView.SelectAllSignal
-    {
-    }
-
-    /** @deprecated */
-    public void connect(SELECT_ALL handler) {
-        assert false : "use TreeView.SelectAll instead";
         GtkTreeView.connect(this, handler, false);
     }
 

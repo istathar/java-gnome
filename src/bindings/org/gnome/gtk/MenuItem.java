@@ -1,7 +1,7 @@
 /*
  * java-gnome, a UI library for writing GTK and GNOME programs from Java!
  *
- * Copyright © 2007-2010 Operational Dynamics Consulting, Pty Ltd and Others
+ * Copyright © 2007-2011 Operational Dynamics Consulting, Pty Ltd and Others
  *
  * The code in this file, and the program it is a part of, is made available
  * to you by its authors as open source software: you can redistribute it
@@ -58,7 +58,7 @@ import org.gnome.gdk.ModifierType;
  * @author Vreixo Formoso
  * @since 4.0.3
  */
-public class MenuItem extends Item implements Activatable
+public class MenuItem extends Bin implements Activatable
 {
     protected MenuItem(long pointer) {
         super(pointer);
@@ -158,23 +158,6 @@ public class MenuItem extends Item implements Activatable
      */
     public void connect(MenuItem.Activate handler) {
         GtkMenuItem.connect(this, handler, false);
-    }
-
-    /** @deprecated */
-    public interface ACTIVATE extends GtkMenuItem.ActivateSignal
-    {
-    }
-
-    /** @deprecated */
-    public void connect(ACTIVATE handler) {
-        assert false : "use MenuItem.Activate instead";
-        GtkMenuItem.connect(this, handler, false);
-    }
-
-    /** @deprecated */
-    public MenuItem(String mnemonicLabel, ACTIVATE handler) {
-        super(GtkMenuItem.createMenuItemWithMnemonic(mnemonicLabel));
-        connect(handler);
     }
 
     public void setRelatedAction(Action action) {

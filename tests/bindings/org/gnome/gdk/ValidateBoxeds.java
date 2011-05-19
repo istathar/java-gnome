@@ -30,37 +30,38 @@ public class ValidateBoxeds extends GraphicalTestCase
      * the allocator breaks things will crash before we get to this test.
      */
     public final void testColorInstantiation() {
-        final Color blue;
+        final RGBA blue;
 
-        blue = new Color(0, 0, 65535);
+        blue = new RGBA(0.0, 0.0, 1.0, 1.0);
 
         assertEquals(0, blue.getRed());
         assertEquals(0, blue.getGreen());
-        assertEquals(65535, blue.getBlue());
+        assertEquals(1.0, blue.getBlue());
+        assertEquals(1.0, blue.getAlpha());
     }
 
     public final void testColorConstants() {
-        final Color black, white;
+        final RGBA black, white;
 
-        black = Color.BLACK;
+        black = RGBA.BLACK;
 
         assertEquals(0, black.getRed());
         assertEquals(0, black.getGreen());
         assertEquals(0, black.getBlue());
 
-        white = new Color(65535, 65535, 65535);
+        white = new RGBA(1.0, 1.0, 1.0, 1.0);
         assertEquals(65535, white.getRed());
         assertEquals(65535, white.getGreen());
         assertEquals(65535, white.getBlue());
 
         // Boxeds aren't unique
-        assertNotSame(white, Color.WHITE);
+        assertNotSame(white, RGBA.WHITE);
 
         /*
          * Test the equals override
          */
-        assertFalse(white.equals(Color.BLACK));
-        assertTrue(white.equals(Color.WHITE));
+        assertFalse(white.equals(RGBA.BLACK));
+        assertTrue(white.equals(RGBA.WHITE));
     }
 
     public final void testRectangle() {
