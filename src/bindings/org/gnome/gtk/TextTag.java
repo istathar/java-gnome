@@ -1,7 +1,7 @@
 /*
  * java-gnome, a UI library for writing GTK and GNOME programs from Java!
  *
- * Copyright © 2007-2010 Operational Dynamics Consulting, Pty Ltd
+ * Copyright © 2007-2011 Operational Dynamics Consulting, Pty Ltd
  *
  * The code in this file, and the program it is a part of, is made available
  * to you by its authors as open source software: you can redistribute it
@@ -469,7 +469,6 @@ public class TextTag extends Object
      * document. This can often be an unwanted (but hard to trivially avoid)
      * side-effect.
      * 
-     * 
      * <p>
      * See also {@link org.gnome.pango.RiseAttribute RiseAttribute} which is
      * the underlying mechanism which powers this in Pango.
@@ -478,5 +477,48 @@ public class TextTag extends Object
      */
     public void setRise(double rise) {
         setPropertyDouble("rise", (int) (rise * SCALE));
+    }
+
+    /**
+     * Set the padding that will be put below each paragraph of text. See
+     * TextView's {@link TextView#setPaddingBelowParagraph(int)
+     * setPaddingBelowParagraph()}.
+     * 
+     * @since 4.1.1
+     */
+    public void setPaddingBelowParagraph(int pixels) {
+        setPropertyInteger("pixels-below-lines", pixels);
+    }
+
+    /**
+     * Set the padding that will be put above each paragraph of text. See
+     * TextView's {@link TextView#setPaddingAboveParagraph(int)
+     * setPaddingAboveParagraph()}.
+     * 
+     * @since 4.1.1
+     */
+    public void setPaddingAboveParagraph(int pixels) {
+        setPropertyInteger("pixels-above-lines", pixels);
+    }
+
+    /**
+     * Set the padding that will be put between each line in a paragraph if
+     * wrapping is turned on. See TextView's
+     * {@link TextView#setPaddingInsideParagraph(int)
+     * setPaddingInsideParagraph()}.
+     * 
+     * @since 4.1.1
+     */
+    public void setPaddingInsideParagraph(int pixels) {
+        setPropertyInteger("pixels-inside-wrap", pixels);
+    }
+
+    /**
+     * Set the wrapping to be applied within this section of text.
+     * 
+     * @since 4.1.1
+     */
+    public void setWrapMode(WrapMode mode) {
+        setPropertyEnum("wrap-mode", mode);
     }
 }
