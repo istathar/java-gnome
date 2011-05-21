@@ -1077,7 +1077,8 @@ public class TextView extends Container
     }
 
     /**
-     * Tell this TextView to adopt the given justification.
+     * Tell this TextView to adopt the given justification. This is probably
+     * what you think of as "alignment".
      * 
      * @since 4.0.14
      */

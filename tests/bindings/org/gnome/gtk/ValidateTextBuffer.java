@@ -113,7 +113,7 @@ public class ValidateTextBuffer extends GraphicalTestCase
 
         tag = new LocalTextTag();
 
-        tag.setLeftMargin(42);
+        tag.setMarginLeft(42);
         assertEquals(42, tag.getLeftMargin());
 
         tag.setUnderline(Underline.SINGLE);

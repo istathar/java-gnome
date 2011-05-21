@@ -266,8 +266,20 @@ public class TextTag extends Object
      * 
      * @since 4.0.9
      */
-    public void setBackground(String colour) {
-        setPropertyString("background", colour);
+    public void setBackground(String color) {
+        setPropertyString("background", color);
+    }
+
+    /**
+     * Specify the background colour to be used by the [rectangular] space
+     * behind the current paragraph as a whole? Contrast to
+     * {@link #setBackground(String) setBackground()} which sets the
+     * background colour of of just the text itself.
+     * 
+     * @since 4.1.1
+     */
+    public void setParagraphBackground(String color) {
+        setPropertyString("paragraph-background", color);
     }
 
     /**
@@ -520,5 +532,28 @@ public class TextTag extends Object
      */
     public void setWrapMode(WrapMode mode) {
         setPropertyEnum("wrap-mode", mode);
+    }
+
+    /**
+     * Does the background colouring specified by
+     * {@link #setBackground(String) setBackground()} fills the entire line
+     * height or only the height of the tagged characters.
+     * 
+     * @since 4.1.1
+     */
+    public void setBackgroundFullHeight(boolean setting) {
+        super.setPropertyBoolean("background-full-height", setting);
+    }
+
+    /**
+     * Adopt the given justification for a given passage of text.
+     * 
+     * @since 4.1.1
+     */
+    /*
+     * As with TextView, match Label's setJustify() name.
+     */
+    public void setJustify(Justification setting) {
+        super.setPropertyEnum("justification", setting);
     }
 }

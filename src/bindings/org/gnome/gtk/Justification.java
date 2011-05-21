@@ -38,6 +38,7 @@ import org.freedesktop.bindings.Constant;
  * Constants that represent the justification of text. Most notably, this is
  * used by Label; see its {@link Label#setJustify(Justification) setJustify()}
  * as well as TextView's {@link TextView#setJustify(Justification)
+ * setJustify()} and TextTag's {@link TextTag#setJustify(Justification)
  * setJustify()}.
  * 
  * @author Nat Pryce
@@ -65,11 +66,6 @@ public final class Justification extends Constant
     /**
      * Indicate text should be distributed evenly across the width of Label.
      * This is sometimes known as "proper" or "even" justification.
-     */
-    /*
-     * TODO couldn't duplicate this behaviour, even with setLineWrap(true).
-     * That would seem to indicate we're missing some aspect or prerequisite
-     * necessary for this justification mode.
      */
     public static final Justification FILL = new Justification(GtkJustification.FILL, "FILL");
 
