@@ -202,9 +202,9 @@ public class TextTag extends Object
     /**
      * Specify the left margin, in pixels. The default is <code>0</code>.
      * 
-     * @since 4.0.9
+     * @since 4.1.1
      */
-    public void setLeftMargin(int pixels) {
+    public void setMarginLeft(int pixels) {
         if (pixels < 0) {
             throw new IllegalArgumentException("Margin property must be positive");
         }
@@ -214,9 +214,9 @@ public class TextTag extends Object
     /**
      * Specify the right margin, in pixels. The default is <code>0</code>.
      * 
-     * @since 4.0.9
+     * @since 4.1.1
      */
-    public void setRightMargin(int pixels) {
+    public void setMarginRight(int pixels) {
         if (pixels < 0) {
             throw new IllegalArgumentException("Margin property must be positive");
         }
