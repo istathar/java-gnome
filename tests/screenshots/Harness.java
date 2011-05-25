@@ -251,6 +251,8 @@ public final class Harness
                 f = demo.getFilename();
 
                 System.out.println("SNAP\t" + f);
+
+                w.setHasResizeGrip(false);
                 w.showAll();
                 w.present();
                 Snapshot.cycleMainLoop();
