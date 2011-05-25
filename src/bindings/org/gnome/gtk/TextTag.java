@@ -190,8 +190,8 @@ public class TextTag extends Object
 
     /**
      * Specify the amount by which this paragraph is to be indented, in
-     * pixels. Interestingly, this <i>can</i> be negative. The default is
-     * <code>0</code>.
+     * pixels. Interestingly, this <i>can</i> be negative, in which case you
+     * get a hanging indent. The default is <code>0</code>.
      * 
      * @since 4.0.9
      */
