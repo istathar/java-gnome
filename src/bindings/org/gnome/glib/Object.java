@@ -156,10 +156,6 @@ public abstract class Object extends Proxy
      * 
      * @since 4.0.0
      */
-    /*
-     * Obviously a convenience method, but the developer doesn't need to know
-     * that.
-     */
     protected void setPropertyBoolean(String name, boolean value) {
         GObject.setProperty(this, name, new Value(value));
     }

@@ -908,7 +908,7 @@ if ($os eq "gentoo") {
 	check_system_library(@gnomedev_libs,
 			"libnotify >= 0.7.0",
 			"LibNotify",
-			"libnotify4-dev");
+			"libnotify-dev");
 
 	check_system_library(@gnomedev_libs,
 			"enchant",

@@ -32,6 +32,8 @@
  */
 package org.gnome.gtk;
 
+import org.freedesktop.icons.Helper;
+import org.freedesktop.icons.Icon;
 import org.gnome.gdk.Event;
 import org.gnome.gdk.EventConfigure;
 import org.gnome.gdk.Gravity;
@@ -591,6 +593,16 @@ public class Window extends Bin
      */
     public void setIcon(Pixbuf icon) {
         GtkWindow.setIcon(this, icon);
+    }
+
+    /**
+     * Set the icon image to be used for this Window. The icon will appear in
+     * the window switcher (what appears when you press <code>Alt+Tab</code>).
+     * 
+     * @since 4.1.1
+     */
+    public void setIcon(Icon icon) {
+        GtkWindow.setIconName(this, Helper.getName(icon));
     }
 
     /**

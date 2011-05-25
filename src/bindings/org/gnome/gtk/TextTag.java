@@ -1,7 +1,7 @@
 /*
  * java-gnome, a UI library for writing GTK and GNOME programs from Java!
  *
- * Copyright © 2007-2010 Operational Dynamics Consulting, Pty Ltd
+ * Copyright © 2007-2011 Operational Dynamics Consulting, Pty Ltd
  *
  * The code in this file, and the program it is a part of, is made available
  * to you by its authors as open source software: you can redistribute it
@@ -190,8 +190,8 @@ public class TextTag extends Object
 
     /**
      * Specify the amount by which this paragraph is to be indented, in
-     * pixels. Interestingly, this <i>can</i> be negative. The default is
-     * <code>0</code>.
+     * pixels. Interestingly, this <i>can</i> be negative, in which case you
+     * get a hanging indent. The default is <code>0</code>.
      * 
      * @since 4.0.9
      */
@@ -202,9 +202,9 @@ public class TextTag extends Object
     /**
      * Specify the left margin, in pixels. The default is <code>0</code>.
      * 
-     * @since 4.0.9
+     * @since 4.1.1
      */
-    public void setLeftMargin(int pixels) {
+    public void setMarginLeft(int pixels) {
         if (pixels < 0) {
             throw new IllegalArgumentException("Margin property must be positive");
         }
@@ -214,9 +214,9 @@ public class TextTag extends Object
     /**
      * Specify the right margin, in pixels. The default is <code>0</code>.
      * 
-     * @since 4.0.9
+     * @since 4.1.1
      */
-    public void setRightMargin(int pixels) {
+    public void setMarginRight(int pixels) {
         if (pixels < 0) {
             throw new IllegalArgumentException("Margin property must be positive");
         }
@@ -266,8 +266,20 @@ public class TextTag extends Object
      * 
      * @since 4.0.9
      */
-    public void setBackground(String colour) {
-        setPropertyString("background", colour);
+    public void setBackground(String color) {
+        setPropertyString("background", color);
+    }
+
+    /**
+     * Specify the background colour to be used by the [rectangular] space
+     * behind the current paragraph as a whole? Contrast to
+     * {@link #setBackground(String) setBackground()} which sets the
+     * background colour of of just the text itself.
+     * 
+     * @since 4.1.1
+     */
+    public void setParagraphBackground(String color) {
+        setPropertyString("paragraph-background", color);
     }
 
     /**
@@ -469,7 +481,6 @@ public class TextTag extends Object
      * document. This can often be an unwanted (but hard to trivially avoid)
      * side-effect.
      * 
-     * 
      * <p>
      * See also {@link org.gnome.pango.RiseAttribute RiseAttribute} which is
      * the underlying mechanism which powers this in Pango.
@@ -478,5 +489,71 @@ public class TextTag extends Object
      */
     public void setRise(double rise) {
         setPropertyDouble("rise", (int) (rise * SCALE));
+    }
+
+    /**
+     * Set the padding that will be put below each paragraph of text. See
+     * TextView's {@link TextView#setPaddingBelowParagraph(int)
+     * setPaddingBelowParagraph()}.
+     * 
+     * @since 4.1.1
+     */
+    public void setPaddingBelowParagraph(int pixels) {
+        setPropertyInteger("pixels-below-lines", pixels);
+    }
+
+    /**
+     * Set the padding that will be put above each paragraph of text. See
+     * TextView's {@link TextView#setPaddingAboveParagraph(int)
+     * setPaddingAboveParagraph()}.
+     * 
+     * @since 4.1.1
+     */
+    public void setPaddingAboveParagraph(int pixels) {
+        setPropertyInteger("pixels-above-lines", pixels);
+    }
+
+    /**
+     * Set the padding that will be put between each line in a paragraph if
+     * wrapping is turned on. See TextView's
+     * {@link TextView#setPaddingInsideParagraph(int)
+     * setPaddingInsideParagraph()}.
+     * 
+     * @since 4.1.1
+     */
+    public void setPaddingInsideParagraph(int pixels) {
+        setPropertyInteger("pixels-inside-wrap", pixels);
+    }
+
+    /**
+     * Set the wrapping to be applied within this section of text.
+     * 
+     * @since 4.1.1
+     */
+    public void setWrapMode(WrapMode mode) {
+        setPropertyEnum("wrap-mode", mode);
+    }
+
+    /**
+     * Does the background colouring specified by
+     * {@link #setBackground(String) setBackground()} fills the entire line
+     * height or only the height of the tagged characters.
+     * 
+     * @since 4.1.1
+     */
+    public void setBackgroundFullHeight(boolean setting) {
+        super.setPropertyBoolean("background-full-height", setting);
+    }
+
+    /**
+     * Adopt the given justification for a given passage of text.
+     * 
+     * @since 4.1.1
+     */
+    /*
+     * As with TextView, match Label's setJustify() name.
+     */
+    public void setJustify(Justification setting) {
+        super.setPropertyEnum("justification", setting);
     }
 }
