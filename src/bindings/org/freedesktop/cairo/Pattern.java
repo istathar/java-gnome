@@ -120,6 +120,8 @@ public abstract class Pattern extends Entity
 
     /**
      * Sets the filter that resizing operations should use with this pattern.
+     * 
+     * @since 4.0.20
      */
     public void setFilter(Filter filter) {
         CairoPattern.setFilter(this, filter);

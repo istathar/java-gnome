@@ -40,6 +40,7 @@ import org.freedesktop.bindings.Constant;
  * the desired filter to be used with a particular pattern.
  * 
  * @author Will Temperley
+ * @since 4.0.20
  */
 public class Filter extends Constant
 {
