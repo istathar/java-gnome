@@ -1,0 +1,12 @@
+(define-enum Filter
+  (in-module "Cairo")
+  (c-name "cairo_filter_t")
+  (values
+    '("FAST" "CAIRO_FILTER_FAST")
+    '("GOOD" "CAIRO_FILTER_GOOD")
+    '("BEST" "CAIRO_FILTER_BEST")
+    '("NEAREST" "CAIRO_FILTER_NEAREST")
+    '("BILINEAR" "CAIRO_FILTER_BILINEAR")
+    '("GAUSSIAN" "CAIRO_FILTER_GAUSSIAN")
+  )
+)

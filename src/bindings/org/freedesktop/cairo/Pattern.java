@@ -117,4 +117,12 @@ public abstract class Pattern extends Entity
     public Surface getSurface() {
         return CairoPatternOverride.getSurface(this);
     }
+
+    /**
+     * Sets the filter that resizing operations should use with this pattern.
+     */
+    public void setFilter(Filter filter) {
+        CairoPattern.setFilter(this, filter);
+        checkStatus();
+    }
 }

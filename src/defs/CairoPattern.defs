@@ -113,3 +113,12 @@
     '("cairo_extend_t" "extend")
   )
 )
+
+(define-method set_filter
+  (of-object "cairo_pattern_t")
+  (c-name "cairo_pattern_set_filter")
+  (return-type "none")
+  (parameters
+    '("cairo_filter_t" "filter")
+  )
+)
