@@ -1,7 +1,7 @@
 /*
  * java-gnome, a UI library for writing GTK and GNOME programs from Java!
  *
- * Copyright © 2007-2010 Operational Dynamics Consulting, Pty Ltd
+ * Copyright © 2007-2011 Operational Dynamics Consulting, Pty Ltd
  * Copyright © 2008      Vreixo Formoso
  *
  * The code in this file, and the program it is a part of, is made available
@@ -43,7 +43,7 @@ import java.io.IOException;
  * surface = new SvgSurface(filename, 100, 100);
  * cr = new Context(surface);
  * 
- * // do drawing 
+ * // do drawing
  * 
  * // and write to the file
  * surface.finish();

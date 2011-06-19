@@ -35,8 +35,8 @@ package org.gnome.gdk;
 final class GdkRGBAOverride extends Plumbing
 {
     /*
-     * Create a GdkRGBA via gdk_rgba_copy() to support subsequent release
-     * via gdk_rgba_free().
+     * Create a GdkRGBA via gdk_rgba_copy() to support subsequent release via
+     * gdk_rgba_free().
      */
     static final long createRGBA(double red, double green, double blue, double alpha) {
         synchronized (lock) {

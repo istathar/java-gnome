@@ -72,7 +72,7 @@ public final class ImageType extends Constant
     /**
      * The Widget contains a named icon. See
      * {@link org.freedesktop.icons.Icon Icon}.
-     *
+     * 
      * @since 4.1.1
      */
     public static final ImageType ICON_NAME = new ImageType(GtkImageType.ICON_NAME, "ICON_NAME");

@@ -2,7 +2,7 @@
  * java-gnome, a UI library for writing GTK and GNOME programs from Java!
  *
  * Copyright © 2008      Vreixo Formoso
- * Copyright © 2008-2010 Operational Dynamics Consulting, Pty Ltd and Others
+ * Copyright © 2008-2011 Operational Dynamics Consulting, Pty Ltd and Others
  *
  * The code in this file, and the program it is a part of, is made available
  * to you by its authors as open source software: you can redistribute it
@@ -46,8 +46,9 @@ import java.text.MessageFormat;
  * formatting as used in a given country are collectively referred to as a
  * <i>locale</i>.
  * <dt>Internationalization</dt>
- * <dd><i>Internationalization</i> is the process of preparing applications
- * to support multiple languages. You will frequently see this abbreviated as "<code>i18n</code>".</dd>
+ * <dd><i>Internationalization</i> is the process of preparing applications to
+ * support multiple languages. You will frequently see this abbreviated as "
+ * <code>i18n</code>".</dd>
  * <dt>Localization</dt>
  * <dd>Whereby other people convert your software into their own locale.
  * <i>Localization</i>, as this is process is referred to, involves more than
@@ -146,24 +147,24 @@ import java.text.MessageFormat;
  * </pre>
  * 
  * The added complexity comes from the need to cater for the "positional
- * parameters" (here <code>filename</code> and <code>date</code>) which
- * may have a different order when rendered in someone else's language. Again,
- * you don't need to know the specifics for every possible target locale, you
- * just need to supply the information in a form that can be localized.
+ * parameters" (here <code>filename</code> and <code>date</code>) which may
+ * have a different order when rendered in someone else's language. Again, you
+ * don't need to know the specifics for every possible target locale, you just
+ * need to supply the information in a form that can be localized.
  * 
  * <p>
  * To format these parameters, you use the {@link MessageFormat} syntax. Put
  * briefly, you will:
  * 
  * <ul>
- * <li>Refer to any parameter with a <code>{n}</code> in your message,
- * where <code>n</code> is the <code>0</code>-based index of the
- * parameter as you submitted to the <code>_()</code> function.</li>
+ * <li>Refer to any parameter with a <code>{n}</code> in your message, where
+ * <code>n</code> is the <code>0</code>-based index of the parameter as you
+ * submitted to the <code>_()</code> function.</li>
  * <li>If the parameter needs to be formatted (numbers, dates, currency, etc)
- * you pass a format type parameter ("<code>number</code>", "<code>date</code>", "<code>time</code>")
- * and optionally a format style qualifier (in the above example, "<code>long</code>",
- * indicating a longer form). See the MessageFormat documentation for further
- * details.</li>
+ * you pass a format type parameter ("<code>number</code>", "<code>date</code>
+ * ", "<code>time</code>") and optionally a format style qualifier (in the
+ * above example, "<code>long</code>", indicating a longer form). See the
+ * MessageFormat documentation for further details.</li>
  * </ul>
  * 
  * <p>
@@ -202,8 +203,8 @@ import java.text.MessageFormat;
  * <dt><code>fr</code>
  * <dd>French (generic)
  * </dl>
- * etc. You'll note the addition of qualifiers like <code>.UTF-8</code>
- * which are how a locale indicates support for specific character sets.
+ * etc. You'll note the addition of qualifiers like <code>.UTF-8</code> which
+ * are how a locale indicates support for specific character sets.
  * 
  * <p>
  * There is also one other locale you will see:
@@ -236,8 +237,8 @@ import java.text.MessageFormat;
  * predictable order. They try to find a translation that is appropriate for
  * your locale, starting with the fully qualified <code>LANG</code> variable
  * and then steadily degrading. For example, if your
- * <code>LANG=fr_CA.UTF-8</code>, you could expect the following sequence
- * of locales to be searched:
+ * <code>LANG=fr_CA.UTF-8</code>, you could expect the following sequence of
+ * locales to be searched:
  * 
  * <ul>
  * <li>fr_CA.UTF-8
@@ -251,10 +252,10 @@ import java.text.MessageFormat;
  * 
  * <p>
  * java-gnome uses the GNU <a
- * href="http://www.gnu.org/software/gettext/">gettext</a> suite, which is
- * the same translation infrastructure that GNOME and most other Linux
- * applications use. The process used by <code>gettext</code> to generate
- * the message catalogues is as follows:
+ * href="http://www.gnu.org/software/gettext/">gettext</a> suite, which is the
+ * same translation infrastructure that GNOME and most other Linux
+ * applications use. The process used by <code>gettext</code> to generate the
+ * message catalogues is as follows:
  * 
  * <p>
  * First of all, the messages used in your code need to be extracted. This is
@@ -294,19 +295,19 @@ import java.text.MessageFormat;
  * MO files are installed together with other application artifacts, usually
  * under
  * <code>/usr/share/locale/${locale}/LC_MESSAGES/${packageName}.mo</code>,
- * where <code>${locale}</code> is the locale and
- * <code>${packageName}</code> is a unique identifier for the program,
- * usually your application name. This name is needed because when installed
- * to the system, MO files are stored under a directory common to all
- * installed apps. For example, localized messages for the <code>pt_BR</code>
- * locale of the <code>myapp</code> application will be packaged as
+ * where <code>${locale}</code> is the locale and <code>${packageName}</code>
+ * is a unique identifier for the program, usually your application name. This
+ * name is needed because when installed to the system, MO files are stored
+ * under a directory common to all installed apps. For example, localized
+ * messages for the <code>pt_BR</code> locale of the <code>myapp</code>
+ * application will be packaged as
  * <code>/usr/share/locale/pt_BR/LC_MESSAGES/myapp.mo</code>.
  * 
  * <p>
  * As you can imagine, you will need to tell gettext where those files are
- * physically located. This is done with the
- * {@link #init(String, String) init()} method. This <b>must</b> be called
- * before any usage of java-gnome internationalization infrastructure.
+ * physically located. This is done with the {@link #init(String, String)
+ * init()} method. This <b>must</b> be called before any usage of java-gnome
+ * internationalization infrastructure.
  * 
  * <pre>
  * public void main(String[] args) {

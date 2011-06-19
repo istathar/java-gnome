@@ -1,7 +1,7 @@
 /*
  * java-gnome, a UI library for writing GTK and GNOME programs from Java!
  *
- * Copyright © 2006-2010 Operational Dynamics Consulting, Pty Ltd and Others
+ * Copyright © 2006-2011 Operational Dynamics Consulting, Pty Ltd and Others
  *
  * The code in this file, and the program it is a part of, is made available
  * to you by its authors as open source software: you can redistribute it
@@ -358,7 +358,7 @@ public abstract class Plumbing extends org.freedesktop.bindings.Plumbing
      * visibility issue. Entities are the various Cairo types.
      */
     protected static Proxy entityFor(Class<?> type, long pointer) {
-	return org.freedesktop.cairo.Plumbing.entityFor(type, pointer);
+        return org.freedesktop.cairo.Plumbing.entityFor(type, pointer);
     }
 
     /**

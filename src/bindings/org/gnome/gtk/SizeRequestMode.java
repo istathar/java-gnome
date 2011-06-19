@@ -45,7 +45,9 @@ public final class SizeRequestMode extends Constant
         super(ordinal, nickname);
     }
 
-    public static final SizeRequestMode WIDTH_FOR_HEIGHT = new SizeRequestMode(GtkSizeRequestMode.WIDTH_FOR_HEIGHT, "WIDTH_FOR_HEIGHT");
+    public static final SizeRequestMode WIDTH_FOR_HEIGHT = new SizeRequestMode(
+            GtkSizeRequestMode.WIDTH_FOR_HEIGHT, "WIDTH_FOR_HEIGHT");
 
-    public static final SizeRequestMode HEIGHT_FOR_WIDTH = new SizeRequestMode(GtkSizeRequestMode.HEIGHT_FOR_WIDTH, "HEIGHT_FOR_WIDTH");
+    public static final SizeRequestMode HEIGHT_FOR_WIDTH = new SizeRequestMode(
+            GtkSizeRequestMode.HEIGHT_FOR_WIDTH, "HEIGHT_FOR_WIDTH");
 }

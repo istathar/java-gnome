@@ -513,7 +513,7 @@ public abstract class Widget extends org.gnome.glib.Object
      *                 // decrement zoom
      *             }
      *             // prevent the default scrolling if the Widget is added
-     *             // to a ScrolledWindow 
+     *             // to a ScrolledWindow
      *             return true;
      *         }
      *         return false;
