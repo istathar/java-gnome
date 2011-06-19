@@ -109,7 +109,7 @@ public class Toolbar extends Container
      * @deprecated This has been replaced in GTK 2.16
      */
     public void setOrientation(Orientation orientation) {
-    // no-op until GTK 2.16 available.
+        // no-op until GTK 2.16 available.
     }
 
     /**

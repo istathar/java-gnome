@@ -135,7 +135,8 @@ import org.freedesktop.bindings.Flag;
  * 
  * <p>
  * <i>As with Keyval there are many other modifier constants that we haven't
- * bothered to expose. If you need one, feel free to subclass this and add it.</i>
+ * bothered to expose. If you need one, feel free to subclass this and add
+ * it.</i>
  * 
  * @author Andrew Cowie
  * @since 4.0.6

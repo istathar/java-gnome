@@ -41,7 +41,7 @@ package org.freedesktop.cairo;
  * surface = new ImageSurface(Format.ARGB32, 100, 100);
  * cr = new Context(surface);
  * 
- * // do drawing 
+ * // do drawing
  * 
  * surface.writeToPNG(filename);
  * </pre>

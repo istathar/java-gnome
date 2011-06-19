@@ -52,7 +52,8 @@ import org.gnome.glib.Boxed;
  * comparison):
  * 
  * <p>
- * <a href="http://en.wikipedia.org/wiki/Paper_size"><img src="http://upload.wikimedia.org/wikipedia/commons/thumb/f/f6/A_size_illustration2_with_letter_and_legal.svg/439px-A_size_illustration2_with_letter_and_legal.svg.png"
+ * <a href="http://en.wikipedia.org/wiki/Paper_size"><img src=
+ * "http://upload.wikimedia.org/wikipedia/commons/thumb/f/f6/A_size_illustration2_with_letter_and_legal.svg/439px-A_size_illustration2_with_letter_and_legal.svg.png"
  * border="0" width="439" height="599"></a><br>
  * 
  * <p>

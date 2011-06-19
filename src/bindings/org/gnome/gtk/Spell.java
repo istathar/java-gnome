@@ -87,7 +87,7 @@ public final class Spell extends Boxed
      * results in a segmentation fault.
      */
     protected void release() {
-    // GtkSpell.detach(this);
+        // GtkSpell.detach(this);
     }
 
     /**

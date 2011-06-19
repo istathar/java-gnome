@@ -43,7 +43,7 @@ import java.io.IOException;
  * surface = new SvgSurface(filename, 100, 100);
  * cr = new Context(surface);
  * 
- * // do drawing 
+ * // do drawing
  * 
  * // and write to the file
  * surface.finish();

@@ -224,7 +224,7 @@ public abstract class GraphicalTestCase extends TestCase
                 Thread.yield();
                 Thread.sleep(25);
             } catch (InterruptedException e) {
-                // 
+                //
             }
         } while (GtkMain.eventsPending());
     }

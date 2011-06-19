@@ -34,8 +34,8 @@ import com.operationaldynamics.driver.ImproperDefsFileException;
 public final class ValidateUtilityMethods extends ValidateDefsParsing
 {
     public final void testEncodeJavaNamesToJni() {
-        assertEquals("org_gnome_gtk_GtkButton", Generator.encodeJavaClassName("org.gnome.gtk",
-                "GtkButton"));
+        assertEquals("org_gnome_gtk_GtkButton",
+                Generator.encodeJavaClassName("org.gnome.gtk", "GtkButton"));
         assertEquals("gtk_1button_1set_1label", Generator.encodeJavaMethodName("gtk_button_set_label"));
         assertEquals("setLabelTheRightWay", Generator.toCamel("set_label_the_right_way"));
     }
