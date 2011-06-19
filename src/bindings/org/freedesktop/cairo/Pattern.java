@@ -1,7 +1,7 @@
 /*
  * java-gnome, a UI library for writing GTK and GNOME programs from Java!
  *
- * Copyright © 2007-2010 Operational Dynamics Consulting, Pty Ltd
+ * Copyright © 2007-2011 Operational Dynamics Consulting, Pty Ltd and Others
  *
  * The code in this file, and the program it is a part of, is made available
  * to you by its authors as open source software: you can redistribute it
@@ -116,5 +116,15 @@ public abstract class Pattern extends Entity
      */
     public Surface getSurface() {
         return CairoPatternOverride.getSurface(this);
+    }
+
+    /**
+     * Sets the filter that resizing operations should use with this pattern.
+     * 
+     * @since 4.0.20
+     */
+    public void setFilter(Filter filter) {
+        CairoPattern.setFilter(this, filter);
+        checkStatus();
     }
 }
