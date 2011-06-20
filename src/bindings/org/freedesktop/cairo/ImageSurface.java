@@ -1,7 +1,7 @@
 /*
  * java-gnome, a UI library for writing GTK and GNOME programs from Java!
  *
- * Copyright © 2007-2010 Operational Dynamics Consulting, Pty Ltd
+ * Copyright © 2007-2011 Operational Dynamics Consulting, Pty Ltd
  *
  * The code in this file, and the program it is a part of, is made available
  * to you by its authors as open source software: you can redistribute it
@@ -41,7 +41,7 @@ package org.freedesktop.cairo;
  * surface = new ImageSurface(Format.ARGB32, 100, 100);
  * cr = new Context(surface);
  * 
- * // do drawing 
+ * // do drawing
  * 
  * surface.writeToPNG(filename);
  * </pre>

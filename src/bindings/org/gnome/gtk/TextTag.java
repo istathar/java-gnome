@@ -158,6 +158,20 @@ public class TextTag extends Object
     }
 
     /**
+     * Create a new TextTag and place it in the default TextTagTable. The
+     * supplied <code>name</code> has no particular effect but can be helpful
+     * for debugging. Otherwise just use TextTag {@link TextTag#TextTag()
+     * &lt;init&gt;()}.
+     * 
+     * @since 4.1.1
+     */
+    public TextTag(String name) {
+        super(GtkTextTag.createTextTag(name));
+        this.table = getDefaultTable();
+        GtkTextTagTable.add(table, this);
+    }
+
+    /**
      * Create a new TextTag. You pass the TextTagTable that will enclose this
      * TextTag as the argument to the constructor.
      * 
@@ -169,6 +183,15 @@ public class TextTag extends Object
      */
     public TextTag(TextTagTable table) {
         super(GtkTextTag.createTextTag(null));
+        this.table = table;
+        GtkTextTagTable.add(table, this);
+    }
+
+    /**
+     * @since 4.1.1
+     */
+    public TextTag(TextTagTable table, String name) {
+        super(GtkTextTag.createTextTag(name));
         this.table = table;
         GtkTextTagTable.add(table, this);
     }
@@ -381,13 +404,26 @@ public class TextTag extends Object
     }
 
     public String toString() {
+        final String name;
         final StringBuilder str;
+        final Style style;
         final Weight weight;
 
         str = new StringBuilder(super.toString());
 
+        name = getPropertyString("name");
+        if ((name != null) && (name.length() > 0)) {
+            str.append(' ');
+            str.append('\"');
+            str.append(name);
+            str.append('\"');
+        }
+
         if (getPropertyBoolean("style-set")) {
-            str.append("\n\tstyle: " + getPropertyEnum("style"));
+            style = (Style) getPropertyEnum("style");
+            if (style != Style.NORMAL) {
+                str.append("\n\tstyle: " + style);
+            }
         }
         if (getPropertyBoolean("underline-set")) {
             str.append("\n\tunderline: " + getPropertyEnum("underline"));
@@ -400,6 +436,19 @@ public class TextTag extends Object
             if (weight != Weight.NORMAL) {
                 str.append("\n\tweight: " + weight);
             }
+        }
+
+        if (getPropertyBoolean("pixels-above-lines-set")) {
+            str.append("\n\tpadding above paragraph: " + getPropertyInteger("pixels-above-lines"));
+        }
+        if (getPropertyBoolean("pixels-below-lines-set")) {
+            str.append("\n\tpadding below paragraph: " + getPropertyInteger("pixels-below-lines"));
+        }
+        if (getPropertyBoolean("left-margin-set")) {
+            str.append("\n\tmargin left:  " + getPropertyInteger("left-margin"));
+        }
+        if (getPropertyBoolean("right-margin-set")) {
+            str.append("\n\tmargin right: " + getPropertyInteger("right-margin"));
         }
 
         return str.toString();

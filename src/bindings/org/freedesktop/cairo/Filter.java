@@ -1,7 +1,7 @@
 /*
  * java-gnome, a UI library for writing GTK and GNOME programs from Java!
  *
- * Copyright © 2007-2011 Operational Dynamics Consulting, Pty Ltd
+ * Copyright © 2011 Operational Dynamics Consulting, Pty Ltd and Others
  *
  * The code in this file, and the program it is a part of, is made available
  * to you by its authors as open source software: you can redistribute it
@@ -30,19 +30,57 @@
  * version of the library, but you are not obligated to do so. If you do not
  * wish to do so, delete this exception statement from your version.
  */
-package org.gnome.gdk;
+package org.freedesktop.cairo;
 
-final class GdkRGBAOverride extends Plumbing
+import org.freedesktop.bindings.Constant;
+
+/**
+ * Used to specify the filtering that should be applied when reading pixel
+ * values from patterns. See Pattern's {@link Pattern#setFilter(Filter)
+ * setFilter()} for specifying the desired filter to be used with a particular
+ * pattern.
+ * 
+ * @author Will Temperley
+ * @since 4.0.20
+ */
+public class Filter extends Constant
 {
-    /*
-     * Create a GdkRGBA via gdk_rgba_copy() to support subsequent release via
-     * gdk_rgba_free().
-     */
-    static final long createRGBA(double red, double green, double blue, double alpha) {
-        synchronized (lock) {
-            return gdk_rgba_new(red, green, blue, alpha);
-        }
+    private Filter(int ordinal, String nickname) {
+        super(ordinal, nickname);
     }
 
-    private static native final long gdk_rgba_new(double red, double green, double blue, double alpha);
+    /**
+     * A high-performance filter, with quality similar to
+     * {@link Filter#NEAREST}
+     */
+    public static final Filter FAST = new Filter(CairoFilter.FAST, "FAST");
+
+    /**
+     * A reasonable-performance filter, with quality similar to
+     * {@link Filter#BILINEAR}
+     */
+    public static final Filter GOOD = new Filter(CairoFilter.GOOD, "GOOD");
+
+    /**
+     * The highest-quality available, performance may not be suitable for
+     * interactive use
+     */
+    public static final Filter BEST = new Filter(CairoFilter.BEST, "BEST");
+
+    /**
+     * Nearest-neighbour filtering
+     */
+    public static final Filter NEAREST = new Filter(CairoFilter.NEAREST, "NEAREST");
+
+    /**
+     * Linear interpolation in two dimensions
+     */
+    public static final Filter BILINEAR = new Filter(CairoFilter.BILINEAR, "BILINEAR");
+
+    /**
+     * This filter value is currently unimplemented, and should not be used in
+     * current code.
+     */
+    public static final Filter GAUSSIAN = new Filter(CairoFilter.GAUSSIAN, "GAUSSIAN");
+
 }

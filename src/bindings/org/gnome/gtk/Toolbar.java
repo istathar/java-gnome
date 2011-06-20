@@ -1,7 +1,7 @@
 /*
  * java-gnome, a UI library for writing GTK and GNOME programs from Java!
  *
- * Copyright © 2007-2010 Operational Dynamics Consulting, Pty Ltd
+ * Copyright © 2007-2011 Operational Dynamics Consulting, Pty Ltd
  * Copyright © 2007-2009 Vreixo Formoso
  *
  * The code in this file, and the program it is a part of, is made available
@@ -61,7 +61,7 @@ package org.gnome.gtk;
  * @author Andrew Cowie
  * @since 4.0.4
  */
-public class Toolbar extends Container
+public class Toolbar extends Container implements Orientable
 {
     protected Toolbar(long pointer) {
         super(pointer);
@@ -95,6 +95,27 @@ public class Toolbar extends Container
     public void insert(ToolItem item, int pos) {
         GtkToolbar.insert(this, item, pos);
     }
+
+    /**
+     * Sets the orientation of the Toolbar on screen.
+     * 
+     * <p>
+     * Horizontal Toolbars are commonly used. Usually you shouldn't use a
+     * vertical Toolbar it is more difficult to search for the user to find a
+     * specific control. When your application has several Toolbars, however,
+     * a vertical orientation can become useful as a technique to make a
+     * better usage of the available screen real estate.
+     * 
+     * @since 4.1.1
+     */
+    public void setOrientation(Orientation orientation) {
+        GtkOrientable.setOrientation(this, orientation);
+    }
+    
+    public Orientation getOrientation() {
+        return GtkOrientable.getOrientation(this);
+    }
+
 
     /**
      * Set the appearance of a Toolbar.

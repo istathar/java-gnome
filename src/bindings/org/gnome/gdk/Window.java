@@ -172,8 +172,8 @@ public class Window extends Object
 
     /**
      * Mark the given area as damaged and needing redrawing. Calling this
-     * method will ultimately result in <code>Widget.Draw</code> being
-     * emitted on Widgets that are present in the area being invalidated.
+     * method will ultimately result in <code>Widget.Draw</code> being emitted
+     * on Widgets that are present in the area being invalidated.
      * 
      * @param recursive
      *            If <code>true</code>, calling this method will invalidate

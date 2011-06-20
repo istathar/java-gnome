@@ -1,7 +1,7 @@
 /*
  * java-gnome, a UI library for writing GTK and GNOME programs from Java!
  *
- * Copyright © 2007-2010 Operational Dynamics Consulting, Pty Ltd
+ * Copyright © 2007-2011 Operational Dynamics Consulting, Pty Ltd
  *
  * The code in this file, and the program it is a part of, is made available
  * to you by its authors as open source software: you can redistribute it
@@ -34,8 +34,8 @@ import com.operationaldynamics.driver.ImproperDefsFileException;
 public final class ValidateUtilityMethods extends ValidateDefsParsing
 {
     public final void testEncodeJavaNamesToJni() {
-        assertEquals("org_gnome_gtk_GtkButton", Generator.encodeJavaClassName("org.gnome.gtk",
-                "GtkButton"));
+        assertEquals("org_gnome_gtk_GtkButton",
+                Generator.encodeJavaClassName("org.gnome.gtk", "GtkButton"));
         assertEquals("gtk_1button_1set_1label", Generator.encodeJavaMethodName("gtk_button_set_label"));
         assertEquals("setLabelTheRightWay", Generator.toCamel("set_label_the_right_way"));
     }
