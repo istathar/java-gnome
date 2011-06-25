@@ -171,7 +171,7 @@ java-gnome depends on:
 * gtkspell `>= 3.0`  
 _This isn't available yet, and GtkSpell support is currently disabled._
 
-* libunique `>= 1.0.8`
+* libunique `>= 3.0`
 
 * Enchant `>= 1.4.2`
 
