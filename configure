@@ -809,7 +809,7 @@ if ($os eq "gentoo") {
 			"libnotify");
 
 	check_system_library(@gnomedev_libs,
-			"unique-1.0 >= 1.0.8",
+			"unique-3.0",
 			"LibUnique",
 			"libunique");
 
@@ -857,7 +857,7 @@ if ($os eq "gentoo") {
 #			"FIXME");
 
 	check_system_library(@gnomedev_libs,
-			"unique-1.0 >= 1.0.8",
+			"unique-3.0",
 			"LibUnique",
 			"FIXME");
 
@@ -921,9 +921,9 @@ if ($os eq "gentoo") {
 #			"libgtkspell-dev");
 
 	check_system_library(@gnomedev_libs,
-			"unique-1.0 >= 1.0.8",
+			"unique-3.0",
 			"LibUnique",
-			"libunique-dev");
+			"libunique-3.0-dev");
 
 } elsif ($os eq "suse") {
 	check_system_library(@gnomedev_libs,
@@ -962,7 +962,7 @@ if ($os eq "gentoo") {
 #			"FIXME");
 
 	check_system_library(@gnomedev_libs,
-			"unique-1.0 >= 1.0.8",
+			"unique-3.0",
 			"LibUnique",
 			"FIXME");
 
@@ -1009,7 +1009,7 @@ if ($os eq "gentoo") {
 #			"lib${cpu_arch}gtkspell-devel");
 
 	check_system_library(@gnomedev_libs,
-			"unique-1.0 >= 1.0.8",
+			"unique-3.0",
 			"LibUnique",
 			"lib${cpu_arch}unique-devel");
 
@@ -1072,7 +1072,7 @@ if ($os eq "gentoo") {
 #			"FIXME");
 
 	check_system_library(@gnomedev_libs,
-			"unique-1.0 >= 1.0.8",
+			"unique-3.0",
 			"LibUnique",
 			"FIXME");
 
