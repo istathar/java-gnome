@@ -798,10 +798,10 @@ if ($os eq "gentoo") {
 			"Enchant",
 			"app-text/enchant");
 
-	check_system_library(@gnomedev_libs,
-			"gtkspell-2.0 >= 2.0.15",
-			"GtkSpell",
-			"gtkspell");
+#	check_system_library(@gnomedev_libs,
+#			"gtkspell-3.0",
+#			"GtkSpell",
+#			"gtkspell");
 
 	check_system_library(@gnomedev_libs,
 			"libnotify >= 0.7.0",
@@ -851,10 +851,10 @@ if ($os eq "gentoo") {
 			"LibNotify",
 			"FIXME");
 
-	check_system_library(@gnomedev_libs,
-			"gtkspell-2.0 >= 2.0.15",
-			"GtkSpell",
-			"FIXME");
+#	check_system_library(@gnomedev_libs,
+#			"gtkspell-3.0",
+#			"GtkSpell",
+#			"FIXME");
 
 	check_system_library(@gnomedev_libs,
 			"unique-1.0 >= 1.0.8",
@@ -915,10 +915,10 @@ if ($os eq "gentoo") {
 			"Enchant",
 			"libenchant-dev");
 
-	check_system_library(@gnomedev_libs,
-			"gtkspell-2.0 >= 2.0.15",
-			"GtkSpell",
-			"libgtkspell-dev");
+#	check_system_library(@gnomedev_libs,
+#			"gtkspell-3.0",
+#			"GtkSpell",
+#			"libgtkspell-dev");
 
 	check_system_library(@gnomedev_libs,
 			"unique-1.0 >= 1.0.8",
@@ -956,10 +956,10 @@ if ($os eq "gentoo") {
 			"LibNotify",
 			"FIXME");
 
-	check_system_library(@gnomedev_libs,
-			"gtkspell-2.0 >= 2.0.15",
-			"GtkSpell",
-			"FIXME");
+#	check_system_library(@gnomedev_libs,
+#			"gtkspell-3.0",
+#			"GtkSpell",
+#			"FIXME");
 
 	check_system_library(@gnomedev_libs,
 			"unique-1.0 >= 1.0.8",
@@ -1003,10 +1003,10 @@ if ($os eq "gentoo") {
 			"LibNotify",
 			"lib${cpu_arch}notify-devel");
 
-	check_system_library(@gnomedev_libs,
-			"gtkspell-2.0 >= 2.0.15",
-			"GtkSpell",
-			"lib${cpu_arch}gtkspell-devel");
+#	check_system_library(@gnomedev_libs,
+#			"gtkspell-3.0",
+#			"GtkSpell",
+#			"lib${cpu_arch}gtkspell-devel");
 
 	check_system_library(@gnomedev_libs,
 			"unique-1.0 >= 1.0.8",
@@ -1066,10 +1066,10 @@ if ($os eq "gentoo") {
 			"Enchant",
 			"FIXME");
 
-	check_system_library(@gnomedev_libs,
-			"gtkspell-2.0 >= 2.0.15",
-			"GtkSpell",
-			"FIXME");
+#	check_system_library(@gnomedev_libs,
+#			"gtkspell-3.0",
+#			"GtkSpell",
+#			"FIXME");
 
 	check_system_library(@gnomedev_libs,
 			"unique-1.0 >= 1.0.8",
