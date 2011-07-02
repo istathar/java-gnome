@@ -35,7 +35,7 @@ div.box {
 
 <div class="bluepanel">
 	<a class="nav-white" href="objectives.php">Project Objectives</a>;
-	<a class="nav-white" href="NEWS.html">Release notes (in
+	<a class="nav-white" href="/NEWS.html">Release notes (in
 	<code>NEWS</code> file)</a>
 </div>
 
