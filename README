@@ -168,16 +168,10 @@ java-gnome depends on:
 
 * libnotify `>= 0.7.0`
 
-* gtkspell `>= 2.0.15`  
-_WARNING: GtkSpell has
-[bug](https://sourceforge.net/tracker/?func=detail&aid=2793202&group_id=7896&atid=107896)
-which causes a_ `CRITICAL` _to be thrown when there are no suggestions for a
-misspelt word. This crasher is known to be fixed in the Gentoo Linux package
-of GtkSpell; users of other distros will likewise need to patch their GtkSpell
-packages until this is fixed upstream. If you're not attempting to use spell
-checking this bug will not affect you._
+* gtkspell `>= 3.0`  
+_This isn't available yet, and GtkSpell support is currently disabled._
 
-* libunique `>= 1.0.8`
+* libunique `>= 3.0`
 
 * Enchant `>= 1.4.2`
 

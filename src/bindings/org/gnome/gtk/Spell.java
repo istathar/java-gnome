@@ -56,6 +56,8 @@ import org.gnome.glib.GlibException;
  * @author Andrew Cowie
  * @author Serkan Kaba
  * @since 4.0.12
+ * @deprecated This is temporarily disabled pending the release of a GTK 3
+ * compatible version of GtkSpell
  */
 public final class Spell extends Boxed
 {
@@ -71,11 +73,7 @@ public final class Spell extends Boxed
     }
 
     private static long createSpell(TextView view, String lang) {
-        try {
-            return GtkSpell.createSpellAttach(view, lang);
-        } catch (GlibException ge) {
-            throw new RuntimeException("The GtkSpell backend reported an error:\n" + ge.getMessage());
-        }
+        throw new UnsupportedOperationException("GtkSpell support not yet available"); 
     }
 
     /*
@@ -113,11 +111,7 @@ public final class Spell extends Boxed
      * @since 4.0.12
      */
     public void setLanguage(String lang) {
-        try {
-            GtkSpell.setLanguage(this, lang);
-        } catch (GlibException ge) {
-            throw new RuntimeException("The GtkSpell backend reported an error:\n" + ge.getMessage());
-        }
+        throw new UnsupportedOperationException("GtkSpell support not yet available"); 
     }
 
     /**
@@ -126,6 +120,6 @@ public final class Spell extends Boxed
      * @since 4.0.12
      */
     public void recheckAll() {
-        GtkSpell.recheckAll(this);
+        throw new UnsupportedOperationException("GtkSpell support not yet available"); 
     }
 }

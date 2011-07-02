@@ -1,6 +1,7 @@
 ;; This is custom written for our wrapper around the GtkSpell library.
 
 (define-boxed Spell
+  (unnecessary)
   (in-module "Gtk")
   (c-name "GtkSpell")
   (import-header "gtkspell/gtkspell.h")
