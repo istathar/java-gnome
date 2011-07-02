@@ -34,6 +34,8 @@ package org.freedesktop.bindings;
 
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
 import java.lang.ref.WeakReference;
@@ -157,6 +159,7 @@ public abstract class Plumbing
      * what we want.
      */
     private static final void loadNativeCode() {
+        final InputStream in;
         final BufferedReader reader;
         String libdir;
         final ProtectionDomain domain;
@@ -171,7 +174,11 @@ public abstract class Plumbing
              * Attmept to load the .libdir file and use its contents as the
              * directory which we will load our shared library from.
              */
-            reader = new BufferedReader(new InputStreamReader(loader.getResourceAsStream(LIBDIR_FILE)));
+            in = loader.getResourceAsStream(LIBDIR_FILE);
+            if (in == null) {
+                throw new FileNotFoundException(); // ok
+            }
+            reader = new BufferedReader(new InputStreamReader(in));
             libdir = reader.readLine();
             reader.close();
         } catch (Exception e) {
