@@ -68,10 +68,10 @@ public class InfoBar extends HBox
      * @since 4.0.16
      */
     public void add(Widget widget) {
-        final HBox box;
+        final Container container;
 
-        box = (HBox) GtkInfoBar.getContentArea(this);
-        box.add(widget);
+        container = (Container) GtkInfoBar.getContentArea(this);
+        container.add(widget);
     }
 
     /**

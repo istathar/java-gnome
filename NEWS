@@ -1,5 +1,107 @@
 NEWS
 
+<a name="4.1.1" id="1310346568" title="GNOME 3"></a>
+
+java-gnome 4.1.1  (11 Jul 2011)
+===============================
+
+_To bump or not to bump; that is the question_
+
+This is the first release in the 4.1 series. This introduces coverage of the
+GNOME 3 series of libraries, notably GTK 3. There was a fairly significant API
+change from GTK 2.x to 3.x, and we've done our best to accommodate it.
+
+Drawing with Cairo, which you were already doing
+------------------------------------------------
+
+The biggest change has to do with drawing; if you have a custom widget (ie, a
+DrawingArea) then you have to put your Cairo drawing code in a handler for the
+[`Widget.Draw`][Widget.Draw] signal rather than what used to be
+`Widget.ExposeEvent`. Since java-gnome has ever only exposed drawing via
+Cairo, this change will be transparent to most developers using the library.
+
+Other significant changes include colours: instead of the former `Color` class
+there's now RGBA; you use this in calls in the `override...()` family instead
+of `modify...()` family; for example see Widget's
+[`overrideColor()`][Widget.overrideColor()].
+
+* **`org.gnome.gdk.RGBA`**
+* **`org.gnome.gtk.StateFlags`**
+* **`org.gnome.gtk.Widget`**
+* **`org.gnome.gtk.Widget.Draw`**
+
+Orientation is allowed now
+--------------------------
+
+Widgets that had abstract base classes and then concrete horizontal and
+vertical subclasses can now all be instantiated directly with an Orientable
+parameter. The most notable example is Box's [`<init>()`][Box.<init>()] (the
+idea is to replace [VBox][] and [HBox][], which upstream is going to do away
+with). Others are [Paned][], various `Range` subclasses such as
+[Scrollbar][]. [Separator][], [Toolbar][], and [ProgressBar][] now implement
+Orientable as well.
+
+* **`org.gnome.gtk.Scrollbar`**
+* **`org.gnome.gtk.Toolbar`**
+* **`org.gnome.gtk.Box`**
+* **`org.gnome.gtk.Paned`**
+* **`org.gnome.gtk.ProgressBar`**
+* **`org.gnome.gtk.Separator`**
+* **`org.gnome.gtk.Toolbar`**
+
+There's actually a new layout Container, however. Replacing Box and Table
+is [Grid][]. Grid is optimized for GTK's new height-for-width geometry
+management and should be used in preference to other Containers.
+
+* **`org.gnome.gtk.Grid`**
+
+The [ComboBox][] API was rearranged somewhat. The text-only type is now
+[ComboBoxText][]; the former ComboBoxEntry is gone and replaced by a ComboBox
+property. This is somewhat counter-intuitive since the behaviour of the Widget
+is so dramatically different when in this mode (ie, it looks like a
+ComboBoxEntry; funny, that).
+
+* **`org.gnome.gtk.ComboBox`**
+* **`org.gnome.gtk.ComboBoxText`**
+
+Other improvements
+------------------
+
+It's been some months since our last release, and although most of the work
+has focused on refactoring to present GTK 3, there have been numerous other
+improvements. Cairo in particular has seen some refinement in the area of
+Pattern and [Filter][] handling thanks to Will Temperley, and coverage of
+additional [TextView][] and [TextTag][] properties, notably relating to
+paragraph spacing and padding.
+
+* **`org.freedesktop.cairo.Filter`**
+* **`org.freedesktop.cairo.Pattern`**
+* **`org.gnome.gtk.TextTag`**
+* **`org.gnome.gtk.TextView`**
+
+Thanks to Kenneth Prugh, Serkan Kaba, and Guillaume Mazoyer for their help
+porting java-gnome to GNOME 3.
+
+AfC
+
+[HBox]: <http://java-gnome.sourceforge.net/doc/api/4.1/org/gnome/gtk/HBox.html>
+[VBox]: <http://java-gnome.sourceforge.net/doc/api/4.1/org/gnome/gtk/VBox.html>
+[Paned]: <http://java-gnome.sourceforge.net/doc/api/4.1/org/gnome/gtk/Paned.html>
+[Separator]: <http://java-gnome.sourceforge.net/doc/api/4.1/org/gnome/gtk/Separator.html>
+[Scrollbar]: <http://java-gnome.sourceforge.net/doc/api/4.1/org/gnome/gtk/Scrollbar.html>
+[ProgressBar]: <http://java-gnome.sourceforge.net/doc/api/4.1/org/gnome/gtk/ProgressBar.html>
+[ToolBar]: <http://java-gnome.sourceforge.net/doc/api/4.1/org/gnome/gtk/ToolBar.html>
+[Box.<init>()]: <http://java-gnome.sourceforge.net/doc/api/4.1/org/gnome/gtk/Box.html#Box(org.gnome.gtk.Orientation,%20int)>
+[Grid]: <http://java-gnome.sourceforge.net/doc/api/4.1/org/gnome/gtk/Grid.html>
+[ComboBox]: <http://java-gnome.sourceforge.net/doc/api/4.1/org/gnome/gtk/ComboBox.html>
+[ComboBoxText]: <http://java-gnome.sourceforge.net/doc/api/4.1/org/gnome/gtk/ComboBoxText.html>
+[Widget.Draw]: <http://java-gnome.sourceforge.net/doc/api/4.1/org/gnome/gtk/Widget.Draw.html>
+[Widget.overrideColor()]: <http://java-gnome.sourceforge.net/doc/api/4.1/org/gnome/gtk/Widget.html#overrideColor(org.gnome.gtk.StateFlags,%20org.gnome.gdk.RGBA)>
+[TextTag]: <http://java-gnome.sourceforge.net/doc/api/4.1/org/gnome/gtk/TextTag.html>
+[Filter]: <http://java-gnome.sourceforge.net/doc/api/4.1/org/freedesktop/cairo/Filter.html>
+
+<a name="4.0.20" id="1310346568" title="Port Me"></a>
+
 java-gnome 4.0.20 (11 Jul 2011)
 ===============================
 
