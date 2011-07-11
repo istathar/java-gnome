@@ -1,5 +1,34 @@
 NEWS
 
+java-gnome 4.0.20 (11 Jul 2011)
+===============================
+
+This will be the last release in the 4.0 series. It is meant only as an aide
+to porting over the API bump between 4.0 and 4.1; if your code builds against
+4.0.20 without reference to any deprecated classes or methods then you can be
+fairly certain it will build against 4.1.1; if we've missed something please
+let us know.
+
+* <strike>**`org.gnome.gdk.Color`**</strike>
+* <strike>**`org.gnome.gdk.Colormap`**</strike>
+* <strike>**`org.gnome.gdk.EventExpose`**</strike>
+* <strike>**`org.gnome.gdk.Drawable`**</strike>
+* <strike>**`org.gnome.gdk.Pixmap`**</strike>
+* <strike>**`org.gnome.gdk.Bitmap`**</strike>
+* <strike>**`org.gnome.gdk.Region`**</strike>
+* <strike>**`org.gnome.gtk.Widget.ExposeEvent`**</strike>
+* <strike>**`org.gnome.gtk.StateType`**</strike>
+* <strike>**`org.gnome.gtk.Ruler`**</strike>
+* <strike>**`org.gnome.gtk.Object`**</strike>
+* <strike>**`org.gnome.gtk.Item`**</strike>
+* <strike>**`org.gnome.gtk.ComboBoxEntry`**</strike>
+* <strike>**`org.gnome.gtk.TextComboBox`**</strike>
+* <strike>**`org.gnome.gtk.TextComboBoxEntry`**</strike>
+* <strike>**`org.gnome.glade.Glade`**</strike>
+* <strike>**`org.gnome.glade.XML`**</strike>
+
+AfC
+
 Website update
 ==============
 
