@@ -52,6 +52,8 @@ import org.gnome.gtk.SnapshotArrow;
 import org.gnome.gtk.SnapshotButton;
 import org.gnome.gtk.SnapshotCalendar;
 import org.gnome.gtk.SnapshotComboBox;
+import org.gnome.gtk.SnapshotComboBoxText;
+import org.gnome.gtk.SnapshotComboBoxTextEntry;
 import org.gnome.gtk.SnapshotEntryCompletion;
 import org.gnome.gtk.SnapshotEntryIcon;
 import org.gnome.gtk.SnapshotFileChooserDialog;
@@ -63,8 +65,6 @@ import org.gnome.gtk.SnapshotNotebook;
 import org.gnome.gtk.SnapshotQuestionMessageDialog;
 import org.gnome.gtk.SnapshotRadioButton;
 import org.gnome.gtk.SnapshotStatusbar;
-import org.gnome.gtk.SnapshotComboBoxText;
-import org.gnome.gtk.SnapshotComboBoxTextEntry;
 import org.gnome.gtk.SnapshotTextView;
 import org.gnome.gtk.SnapshotTextViewBorderWindows;
 import org.gnome.gtk.SnapshotTextViewSpelling;
@@ -243,6 +243,9 @@ public final class Harness
                     e.printStackTrace();
                     continue;
                 } catch (IllegalAccessException e) {
+                    e.printStackTrace();
+                    continue;
+                } catch (UnsupportedOperationException e) {
                     e.printStackTrace();
                     continue;
                 }

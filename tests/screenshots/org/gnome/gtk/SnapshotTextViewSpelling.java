@@ -34,7 +34,7 @@ import static org.gnome.gtk.WrapMode.WORD;
  */
 public class SnapshotTextViewSpelling extends Snapshot
 {
-    public SnapshotTextViewSpelling() {
+    public SnapshotTextViewSpelling() throws UnsupportedOperationException {
         super(TextView.class, "Spelling");
         final TextView view;
         final TextBuffer buffer;
