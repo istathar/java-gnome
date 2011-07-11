@@ -1,5 +1,7 @@
 NEWS
 
+<a name="4.1.1" id="1310346568" title="GNOME 3"></a>
+
 java-gnome 4.1.1  (11 Jul 2011)
 ===============================
 
@@ -98,6 +100,7 @@ AfC
 [TextTag]: <http://java-gnome.sourceforge.net/doc/api/4.1/org/gnome/gtk/TextTag.html>
 [Filter]: <http://java-gnome.sourceforge.net/doc/api/4.1/org/freedesktop/cairo/Filter.html>
 
+<a name="4.0.20" id="1310346568" title="Port Me"></a>
 
 java-gnome 4.0.20 (11 Jul 2011)
 ===============================
