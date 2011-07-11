@@ -55,7 +55,7 @@ public final class Version
 {
     private static final String APIVERSION = "4.1";
 
-    private static final String VERSION = "4.1.1";
+    private static final String VERSION = "4.1.2-dev";
 
     /**
      * The full (usually three digit) version of java-gnome. This is used in a
