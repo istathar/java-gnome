@@ -35,7 +35,6 @@
 #include <gtk/gtk.h>
 #include "bindings_java.h"
 #include "org_gnome_gtk_GtkAssistantOverride.h"
-#include <gtk/gtkmarshal.h>
 
 static guint signalID = 0;
 static GtkAssistant* source;
