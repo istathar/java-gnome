@@ -92,7 +92,7 @@ doc:
 # and re-./configure before being able to run this! On the other hand, we
 # don't have to distclean before calling this.
 #
-dist: all
+dist:
 	@/bin/echo -e "CHECK\tfully committed state"
 	bzr diff > /dev/null || ( /bin/echo -e "\nYou need to commit all changes before running make dist\n" ; exit 4 )
 	@/bin/echo -e "EXPORT\ttmp/java-gnome-$(VERSION)"
