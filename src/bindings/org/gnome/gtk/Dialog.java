@@ -150,9 +150,9 @@ public class Dialog extends Window
      * @since 4.0.5
      */
     public void add(Widget widget) {
-        final VBox box;
+        final Box box;
 
-        box = (VBox) this.getChild();
+        box = (Box) this.getChild();
         box.add(widget);
     }
 
