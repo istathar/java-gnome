@@ -305,7 +305,10 @@ public class Assistant extends Window
     }
 
     /**
-     * Force the ... FIXME
+     * Force the Assistant to recompute the buttons state. In most case, this
+     * method is not useful since GTK+ automatically takes care of this. But
+     * it might be necessary in some situations when changing a value on the
+     * current page.
      * 
      * @since 4.0.9
      */
