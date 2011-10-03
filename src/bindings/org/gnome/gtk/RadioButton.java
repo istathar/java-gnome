@@ -133,9 +133,8 @@ public class RadioButton extends CheckButton
      * @since 4.0.7
      */
     public RadioButton(RadioGroup group, String label) {
-        super(
-                GtkRadioButton.createRadioButtonWithLabelFromWidget((RadioButton) group.getMember(),
-                        label));
+        super(GtkRadioButton.createRadioButtonWithMnemonicFromWidget((RadioButton) group.getMember(),
+                label));
         group.setMember(this);
         enclosingGroup = group;
     }
