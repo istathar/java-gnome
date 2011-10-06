@@ -1,7 +1,7 @@
 /*
  * java-gnome, a UI library for writing GTK and GNOME programs from Java!
  *
- * Copyright © 2007-2011 Operational Dynamics Consulting, Pty Ltd
+ * Copyright © 2007-2011 Operational Dynamics Consulting, Pty Ltd and Others
  *
  * The code in this file, and the program it is a part of, is made available
  * to you by its authors as open source software: you can redistribute it
@@ -32,19 +32,127 @@
  */
 package org.gnome.gtk;
 
+import org.gnome.gdk.Screen;
 import org.gnome.glib.Object;
 
-/*
- * FIXME this is a placeholder stub for what will become the public API for
- * this type. Replace this comment with appropriate javadoc including author
- * and since tags. Note that the class may need to be made abstract, implement
- * interfaces, or even have its parent changed. No API stability guarantees
- * are made about this class until it has been reviewed by a hacker and this
- * comment has been replaced.
+/**
+ * Object that contains the styling information affecting a widget. The
+ * StyleContext associated to a widget can be retrieved by using the Widget
+ * {@link Widget#getStyleContext() getStyleContext()} method.
+ * 
+ * @author Guillaume Mazoyer
+ * @since 4.1.2
  */
 public class StyleContext extends Object
 {
     protected StyleContext(long pointer) {
         super(pointer);
+    }
+
+    /**
+     * Returns the {@link Screen} to which this StyleContext is attached.
+     * 
+     * @since 4.1.2
+     */
+    public Screen getScreen() {
+        return GtkStyleContext.getScreen(this);
+    }
+
+    /**
+     * Sets the {@link Screen} to which this StyleContext has to be attached.
+     * 
+     * @since 4.1.2
+     */
+    public void setScreen(Screen screen) {
+        GtkStyleContext.setScreen(this, screen);
+    }
+
+    /**
+     * Returns the {@link StateFlags} used when rendering.
+     * 
+     * @since 4.1.2
+     */
+    public StateFlags getState() {
+        return GtkStyleContext.getState(this);
+    }
+
+    /**
+     * Sets the {@link StateFlags} to be used when rendering.
+     * 
+     * @since 4.1.2
+     */
+    public void setState(StateFlags flags) {
+        GtkStyleContext.setState(this, flags);
+    }
+
+    /**
+     * Restores StyleContext state to a previous saved stage. The saved state
+     * is created when calling {@link #save()}.
+     * 
+     * @since 4.1.2
+     */
+    public void restore() {
+        GtkStyleContext.restore(this);
+    }
+
+    /**
+     * Saves the StyleContext state, so all modifications done through
+     * {@link #addClass(StyleClass)}, {@link #removeClass(StyleClass)},
+     * {@link #addRegion(StyleRegion, RegionFlags)}, or
+     * {@link #removeRegion(StyleRegion)} can be reverted in one go through
+     * {@link #restore()}.
+     * 
+     * @since 4.1.2
+     */
+    public void save() {
+        GtkStyleContext.save(this);
+    }
+
+    /**
+     * Adds a {@link StyleClass} to StyleContext so render functions will make
+     * use of this new class for styling.
+     * 
+     * @since 4.1.2
+     */
+    public void addClass(StyleClass value) {
+        GtkStyleContext.addClass(this, value.getStyleName());
+    }
+
+    /**
+     * Removes a {@link StyleClass} from the StyleContext.
+     * 
+     * @since 4.1.2
+     */
+    public void removeClass(StyleClass value) {
+        GtkStyleContext.removeClass(this, value.getStyleName());
+    }
+
+    /**
+     * Returns <code>true</code> if StyleContext currently has defined the
+     * given {@link StyleClass}.
+     * 
+     * @since 4.1.2
+     */
+    public boolean hasClass(StyleClass value) {
+        return GtkStyleContext.hasClass(this, value.getStyleName());
+    }
+
+    /**
+     * Adds a {@link StyleRegion} to StyleContext, so render functions will
+     * make use of this new region for styling.
+     * 
+     * @since 4.1.2
+     */
+    public void addRegion(StyleRegion region, RegionFlags flags) {
+        GtkStyleContext.addRegion(this, region.getStyleName(), flags);
+    }
+
+    /**
+     * Removes a {@link StyleRegion} from the StyleContext.
+     * 
+     * @since 4.1.2
+     */
+    public void removeRegion(StyleRegion region) {
+        GtkStyleContext.removeRegion(this, region.getStyleName());
     }
 }

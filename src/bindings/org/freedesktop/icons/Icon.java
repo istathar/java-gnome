@@ -33,7 +33,7 @@
 package org.freedesktop.icons;
 
 /**
- * Named icons. These constants represent icons that should be availalbe in
+ * Named icons. These constants represent icons that should be available in
  * the current icon theme.
  * 
  * <p>
