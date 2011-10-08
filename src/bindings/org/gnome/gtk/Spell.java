@@ -33,7 +33,6 @@
 package org.gnome.gtk;
 
 import org.gnome.glib.Boxed;
-import org.gnome.glib.GlibException;
 
 /**
  * Helper class which manages spell checking in TextViews. Convert a TextView
