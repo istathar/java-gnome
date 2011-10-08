@@ -137,11 +137,10 @@ public class ValidateAssistant extends GraphicalTestCase
         }
     }
 
-    private int next;
-
     public void testForwardPageSignal() {
         final Assistant druid;
         final Label page1, page2, page3, page4;
+        final int nextPage1, nextPage2;
 
         druid = new Assistant();
         page1 = new Label("Page1");
@@ -160,6 +159,8 @@ public class ValidateAssistant extends GraphicalTestCase
 
         druid.setForwardPageCallback(new Assistant.ForwardPage() {
             public int onForward(Assistant source, int currentPage) {
+                int next;
+
                 switch (currentPage) {
                 case 1:
                     next = 3;
@@ -171,14 +172,15 @@ public class ValidateAssistant extends GraphicalTestCase
                     next = (currentPage + 1);
                     break;
                 }
+
                 return next;
             }
         });
 
-        druid.setCurrentPage(1);
-        assertEquals(3, next);
+        nextPage1 = druid.emitForwardPage(1);
+        assertEquals(3, nextPage1);
 
-        druid.setCurrentPage(2);
-        assertEquals(1, next);
+        nextPage2 = druid.emitForwardPage(2);
+        assertEquals(1, nextPage2);
     }
 }
