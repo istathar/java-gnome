@@ -26,7 +26,7 @@ package org.gnome.gtk;
  */
 public class ValidateStyleContext extends GraphicalTestCase
 {
-    public final void testAddRemove() {
+    public final void testAddRemoveClass() {
         final Button button;
         final StyleContext context;
 
@@ -38,6 +38,21 @@ public class ValidateStyleContext extends GraphicalTestCase
 
         context.removeClass(StyleClass.RADIO);
         assertFalse(context.hasClass(StyleClass.RADIO));
+    }
+
+    public final void testAddRemoveRegion() {
+        final Button button;
+        final StyleContext context;
+
+        button = new Button();
+        context = button.getStyleContext();
+
+        context.addRegion(StyleRegion.TAB, RegionFlags.FIRST);
+        assertEquals(RegionFlags.NULL, context.hasRegion(StyleRegion.ROW));
+        assertEquals(RegionFlags.FIRST, context.hasRegion(StyleRegion.TAB));
+
+        context.removeRegion(StyleRegion.TAB);
+        assertEquals(RegionFlags.NULL, context.hasRegion(StyleRegion.TAB));
     }
 
     public final void testSaveRestore() {

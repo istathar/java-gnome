@@ -1,7 +1,7 @@
 /*
  * java-gnome, a UI library for writing GTK and GNOME programs from Java!
  *
- * Copyright © 2007-2011 Operational Dynamics Consulting, Pty Ltd and Others
+ * Copyright © 2011 Operational Dynamics Consulting, Pty Ltd and Others
  *
  * The code in this file, and the program it is a part of, is made available
  * to you by its authors as open source software: you can redistribute it
@@ -30,51 +30,38 @@
  * version of the library, but you are not obligated to do so. If you do not
  * wish to do so, delete this exception statement from your version.
  */
-package org.gnome.gtk;
 
-import org.freedesktop.bindings.Constant;
+#include <jni.h>
+#include <gtk/gtk.h>
+#include "bindings_java.h"
+#include "org_gnome_gtk_GtkStyleContextOverride.h"
 
-/**
- * Describe a region within a widget.
- * 
- * @author Guillaume Mazoyer
- * @since 4.1.2
- */
-public final class RegionFlags extends Constant
+JNIEXPORT jint JNICALL
+Java_org_gnome_gtk_GtkStyleContextOverride_gtk_1style_1context_1contains_1region
+(
+	JNIEnv* env,
+	jclass cls,
+	jlong _self,
+	jstring _region
+)
 {
-    protected RegionFlags(int ordinal, String nickname) {
-        super(ordinal, nickname);
-    }
+	const gchar* region;
+	gboolean result;
+	GtkStyleContext* self;
+	GtkRegionFlags flags;
 
-    /**
-     * This is a constant specific to the binding in order to make the return
-     * value of {@link StyleContext#hasRegion(StyleRegion)} consistent even if
-     * the context doesn't contain the given {@link StyleRegion}.
-     */
-    public static final RegionFlags NULL = new RegionFlags(-1, "NULL");
+	// convert string to gchar*
+	region = (const gchar*) bindings_java_getString(env, _region);
+	if (region == NULL) {
+		return -1;
+	}
 
-    /**
-     * Region has an even number within a set.
-     */
-    public static final RegionFlags EVEN = new RegionFlags(GtkRegionFlags.EVEN, "EVEN");
+	self = (GtkStyleContext*) _self;
 
-    /**
-     * Region has an odd number within a set.
-     */
-    public static final RegionFlags ODD = new RegionFlags(GtkRegionFlags.ODD, "ODD");
+	// call function
+	result = gtk_style_context_has_region(self, region, &flags);
+	bindings_java_releaseString(region);
 
-    /**
-     * Region is the first one within a set.
-     */
-    public static final RegionFlags FIRST = new RegionFlags(GtkRegionFlags.FIRST, "FIRST");
-
-    /**
-     * Region is the last one within a set.
-     */
-    public static final RegionFlags LAST = new RegionFlags(GtkRegionFlags.LAST, "LAST");
-
-    /**
-     * Region is part of a sorted area.
-     */
-    public static final RegionFlags SORTED = new RegionFlags(GtkRegionFlags.SORTED, "SORTED");
+	// return nothing equivalent to false
+	return result ? (jint) flags : -1;
 }

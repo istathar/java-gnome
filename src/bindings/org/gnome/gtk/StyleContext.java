@@ -155,4 +155,13 @@ public class StyleContext extends Object
     public void removeRegion(StyleRegion region) {
         GtkStyleContext.removeRegion(this, region.getStyleName());
     }
+
+    /**
+     * Returns a non-<code>null</code> value if StyleContext currently has
+     * defined the given {@link StyleRegion}. The returned value corresponds
+     * to the {@link RegionFlags}.
+     */
+    public RegionFlags hasRegion(StyleRegion region) {
+        return GtkStyleContextOverride.hasRegion(this, region.getStyleName());
+    }
 }
