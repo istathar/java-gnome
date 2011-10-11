@@ -56,4 +56,36 @@ final class GtkStyleContextOverride extends Plumbing
     }
 
     private static native final int gtk_style_context_contains_region(long self, String region);
+
+    static final String[] getClasses(StyleContext self) {
+        String[] result;
+
+        if (self == null) {
+            throw new IllegalArgumentException("self can't be null");
+        }
+
+        synchronized (lock) {
+            result = gtk_style_context_get_classes(pointerOf(self));
+
+            return result;
+        }
+    }
+
+    private static native final String[] gtk_style_context_get_classes(long self);
+
+    static final String[] getRegions(StyleContext self) {
+        String[] result;
+
+        if (self == null) {
+            throw new IllegalArgumentException("self can't be null");
+        }
+
+        synchronized (lock) {
+            result = gtk_style_context_get_regions(pointerOf(self));
+
+            return result;
+        }
+    }
+
+    private static native final String[] gtk_style_context_get_regions(long self);
 }

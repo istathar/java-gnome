@@ -65,3 +65,97 @@ Java_org_gnome_gtk_GtkStyleContextOverride_gtk_1style_1context_1contains_1region
 	// return nothing equivalent to false
 	return result ? (jint) flags : -1;
 }
+
+JNIEXPORT jobjectArray JNICALL
+Java_org_gnome_gtk_GtkStyleContextOverride_gtk_1style_1context_1get_1classes
+(
+	JNIEnv* env,
+	jclass cls,
+	jlong _self
+)
+{
+	GtkStyleContext* self;
+	jobjectArray _array;
+	int i, size;
+	jclass stringCls;
+	GList* classes;
+	GList* iter;
+	jstring class;
+
+	self = (GtkStyleContext*) _self;
+	classes = gtk_style_context_list_classes(self);
+
+	size = g_list_length(classes);
+
+	stringCls = (*env)->FindClass(env, "java/lang/String");
+	if ((*env)->ExceptionCheck(env)) {
+		(*env)->ExceptionDescribe(env);
+		g_printerr("No jclass?");
+	}
+
+	_array = (*env)->NewObjectArray(env, size, stringCls, NULL);
+
+	if ((*env)->ExceptionCheck(env)) {
+		(*env)->ExceptionDescribe(env);
+		g_printerr("Unable to create array?");
+	}
+
+	iter = classes;
+	for (i = 0; i < size; i++) {
+		class = bindings_java_newString(env, iter->data);
+		(*env)->SetObjectArrayElement(env, _array, i, class);
+		g_free(iter->data);
+		iter = iter->next;
+	}
+
+	g_list_free(classes);
+
+	return _array;
+}
+
+JNIEXPORT jobjectArray JNICALL
+Java_org_gnome_gtk_GtkStyleContextOverride_gtk_1style_1context_1get_1regions
+(
+	JNIEnv* env,
+	jclass cls,
+	jlong _self
+)
+{
+	GtkStyleContext* self;
+	jobjectArray _array;
+	int i, size;
+	jclass stringCls;
+	GList* regions;
+	GList* iter;
+	jstring region;
+
+	self = (GtkStyleContext*) _self;
+	regions = gtk_style_context_list_regions(self);
+
+	size = g_list_length(regions);
+
+	stringCls = (*env)->FindClass(env, "java/lang/String");
+	if ((*env)->ExceptionCheck(env)) {
+		(*env)->ExceptionDescribe(env);
+		g_printerr("No jclass?");
+	}
+
+	_array = (*env)->NewObjectArray(env, size, stringCls, NULL);
+
+	if ((*env)->ExceptionCheck(env)) {
+		(*env)->ExceptionDescribe(env);
+		g_printerr("Unable to create array?");
+	}
+
+	iter = regions;
+	for (i = 0; i < size; i++) {
+		region = bindings_java_newString(env, iter->data);
+		(*env)->SetObjectArrayElement(env, _array, i, region);
+		g_free(iter->data);
+		iter = iter->next;
+	}
+
+	g_list_free(regions);
+
+	return _array;
+}

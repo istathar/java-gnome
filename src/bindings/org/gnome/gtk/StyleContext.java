@@ -138,6 +138,15 @@ public class StyleContext extends Object
     }
 
     /**
+     * Returns a string array that list the classes used by this context.
+     * 
+     * @since 4.1.2
+     */
+    public String[] listClasses() {
+        return GtkStyleContextOverride.getClasses(this);
+    }
+
+    /**
      * Adds a {@link StyleRegion} to StyleContext, so render functions will
      * make use of this new region for styling.
      * 
@@ -160,8 +169,19 @@ public class StyleContext extends Object
      * Returns a non-<code>null</code> value if StyleContext currently has
      * defined the given {@link StyleRegion}. The returned value corresponds
      * to the {@link RegionFlags}.
+     * 
+     * @since 4.1.2
      */
     public RegionFlags hasRegion(StyleRegion region) {
         return GtkStyleContextOverride.hasRegion(this, region.getStyleName());
+    }
+
+    /**
+     * Returns a string array that list the regions used by this context.
+     * 
+     * @since 4.1.2
+     */
+    public String[] listRegions() {
+        return GtkStyleContextOverride.getRegions(this);
     }
 }
