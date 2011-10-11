@@ -104,7 +104,6 @@ Java_org_gnome_gtk_GtkStyleContextOverride_gtk_1style_1context_1get_1classes
 	for (i = 0; i < size; i++) {
 		class = bindings_java_newString(env, iter->data);
 		(*env)->SetObjectArrayElement(env, _array, i, class);
-		g_free(iter->data);
 		iter = iter->next;
 	}
 
@@ -151,7 +150,6 @@ Java_org_gnome_gtk_GtkStyleContextOverride_gtk_1style_1context_1get_1regions
 	for (i = 0; i < size; i++) {
 		region = bindings_java_newString(env, iter->data);
 		(*env)->SetObjectArrayElement(env, _array, i, region);
-		g_free(iter->data);
 		iter = iter->next;
 	}
 
