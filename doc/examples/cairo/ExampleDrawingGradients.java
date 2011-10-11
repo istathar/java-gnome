@@ -23,7 +23,6 @@ import org.freedesktop.cairo.LinearPattern;
 import org.freedesktop.cairo.Pattern;
 import org.freedesktop.cairo.RadialPattern;
 import org.gnome.gdk.Event;
-import org.gnome.gdk.Rectangle;
 import org.gnome.gtk.DrawingArea;
 import org.gnome.gtk.Gtk;
 import org.gnome.gtk.Widget;
@@ -58,7 +57,6 @@ public class ExampleDrawingGradients
 
         d.connect(new Widget.Draw() {
             public boolean onDraw(Widget source, Context cr) {
-                final Rectangle rect;
                 final Pattern linear, radial;
 
                 /*

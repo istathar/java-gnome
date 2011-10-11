@@ -33,9 +33,7 @@
 package org.gnome.notify;
 
 import org.gnome.gdk.Pixbuf;
-import org.gnome.gdk.Screen;
 import org.gnome.glib.GlibException;
-import org.gnome.gtk.StatusIcon;
 import org.gnome.gtk.Widget;
 
 /**
