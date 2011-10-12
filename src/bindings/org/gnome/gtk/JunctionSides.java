@@ -35,46 +35,64 @@ package org.gnome.gtk;
 import org.freedesktop.bindings.Constant;
 
 /**
- * Describe a region within a widget.
+ * Constants that describe how a rendered element connects to adjacent
+ * elements.
  * 
  * @author Guillaume Mazoyer
  * @since 4.1.2
  */
-public final class RegionFlags extends Constant
+public final class JunctionSides extends Constant
 {
-    protected RegionFlags(int ordinal, String nickname) {
+    public JunctionSides(int ordinal, String nickname) {
         super(ordinal, nickname);
     }
 
     /**
-     * This is a constant specific to the binding in order to make the return
-     * value of {@link StyleContext#hasRegion(StyleRegion)} consistent even if
-     * the context doesn't contain the given {@link StyleRegion}.
+     * No junctions.
      */
-    public static final RegionFlags NULL = new RegionFlags(-1, "NULL");
+    public static final JunctionSides NONE = new JunctionSides(GtkJunctionSides.NONE, "NONE");
 
     /**
-     * Region has an even number within a set.
+     * Element connects on the top-left corner.
      */
-    public static final RegionFlags EVEN = new RegionFlags(GtkRegionFlags.EVEN, "EVEN");
+    public static final JunctionSides CORNER_TOPLEFT = new JunctionSides(
+            GtkJunctionSides.CORNER_TOPLEFT, "CORNER_TOPLEFT");
 
     /**
-     * Region has an odd number within a set.
+     * Element connects on the top-right corner.
      */
-    public static final RegionFlags ODD = new RegionFlags(GtkRegionFlags.ODD, "ODD");
+    public static final JunctionSides CORNER_TOPRIGHT = new JunctionSides(
+            GtkJunctionSides.CORNER_TOPRIGHT, "CORNER_TOPRIGHT");
 
     /**
-     * Region is the first one within a set.
+     * Element connects on the bottom-left corner.
      */
-    public static final RegionFlags FIRST = new RegionFlags(GtkRegionFlags.FIRST, "FIRST");
+    public static final JunctionSides CORNER_BOTTOMLEFT = new JunctionSides(
+            GtkJunctionSides.CORNER_BOTTOMLEFT, "CORNER_BOTTOMLEFT");
 
     /**
-     * Region is the last one within a set.
+     * Element connects on the bottom-right corner.
      */
-    public static final RegionFlags LAST = new RegionFlags(GtkRegionFlags.LAST, "LAST");
+    public static final JunctionSides CORNER_BOTTOMRIGHT = new JunctionSides(
+            GtkJunctionSides.CORNER_BOTTOMRIGHT, "CORNER_BOTTOMRIGHT");
 
     /**
-     * Region is part of a sorted area.
+     * Element connects on the top side.
      */
-    public static final RegionFlags SORTED = new RegionFlags(GtkRegionFlags.SORTED, "SORTED");
+    public static final JunctionSides TOP = new JunctionSides(GtkJunctionSides.TOP, "TOP");
+
+    /**
+     * Element connects on the bottom side.
+     */
+    public static final JunctionSides BOTTOM = new JunctionSides(GtkJunctionSides.BOTTOM, "BOTTOM");
+
+    /**
+     * Element connects on the left side.
+     */
+    public static final JunctionSides LEFT = new JunctionSides(GtkJunctionSides.LEFT, "LEFT");
+
+    /**
+     * Element connects on the right side.
+     */
+    public static final JunctionSides RIGHT = new JunctionSides(GtkJunctionSides.RIGHT, "RIGHT");
 }

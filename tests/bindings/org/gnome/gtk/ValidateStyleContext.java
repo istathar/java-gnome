@@ -70,4 +70,44 @@ public class ValidateStyleContext extends GraphicalTestCase
         context.restore();
         assertFalse(context.hasClass(StyleClass.PRIMARY_TOOLBAR));
     }
+
+    public final void testListStyles() {
+        final Toolbar toolbar;
+        final StyleContext context;
+        final String[] classes, regions;
+
+        toolbar = new Toolbar();
+        context = toolbar.getStyleContext();
+
+        context.addClass(StyleClass.PRIMARY_TOOLBAR);
+        classes = context.listClasses();
+        assertEquals("primary-toolbar", classes[0]);
+
+        context.addRegion(StyleRegion.TAB, RegionFlags.LAST);
+        regions = context.listRegions();
+        assertEquals("tab", regions[0]);
+    }
+
+    public final void testJunctionSides() {
+        final Button button;
+        final StyleContext context;
+
+        button = new Button();
+        context = button.getStyleContext();
+
+        context.setJunctionSides(JunctionSides.TOP);
+        assertEquals(JunctionSides.TOP, context.getJunctionSides());
+    }
+
+    public final void testTextDirection() {
+        final Label label;
+        final StyleContext context;
+
+        label = new Label("This is a test case");
+        context = label.getStyleContext();
+
+        context.setDirection(TextDirection.RIGHT_TO_LEFT);
+        assertEquals(TextDirection.RIGHT_TO_LEFT, context.getDirection());
+
+    }
 }

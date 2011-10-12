@@ -184,4 +184,43 @@ public class StyleContext extends Object
     public String[] listRegions() {
         return GtkStyleContextOverride.getRegions(this);
     }
+
+    /**
+     * Return the sides where rendered elements connect visually with others.
+     * 
+     * @since 4.1.2
+     */
+    public JunctionSides getJunctionSides() {
+        return GtkStyleContext.getJunctionSides(this);
+    }
+
+    /**
+     * Sets the sides where rendered elements will visually connect with other
+     * visual elements. Container widgets are expected to do all this work by
+     * themselves so calling this method manually shouldn't be necessary.
+     * 
+     * @since 4.1.2
+     */
+    public void setJunctionSides(JunctionSides sides) {
+        GtkStyleContext.setJunctionSides(this, sides);
+    }
+
+    /**
+     * Returns the widget direction used for rendering.
+     * 
+     * @since 4.1.2
+     */
+    public TextDirection getDirection() {
+        return GtkStyleContext.getDirection(this);
+    }
+
+    /**
+     * Sets the reading direction of a rendered widget. You generally do not
+     * have to call this method but it can be useful for test purposes.
+     * 
+     * @since 4.1.2
+     */
+    public void setDirection(TextDirection direction) {
+        GtkStyleContext.setDirection(this, direction);
+    }
 }

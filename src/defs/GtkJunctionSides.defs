@@ -1,0 +1,16 @@
+(define-enum JunctionSides
+  (in-module "Gtk")
+  (c-name "GtkJunctionSides")
+  (gtype-id "GTK_TYPE_JUNCTION_SIDES")
+  (values
+    '("none" "GTK_JUNCTION_NONE")
+    '("corner-topleft" "GTK_JUNCTION_CORNER_TOPLEFT")
+    '("corner-topright" "GTK_JUNCTION_CORNER_TOPRIGHT")
+    '("corner-bottomleft" "GTK_JUNCTION_CORNER_BOTTOMLEFT")
+    '("corner-bottomright" "GTK_JUNCTION_CORNER_BOTTOMRIGHT")
+    '("top" "GTK_JUNCTION_TOP")
+    '("bottom" "GTK_JUNCTION_BOTTOM")
+    '("left" "GTK_JUNCTION_LEFT")
+    '("right" "GTK_JUNCTION_RIGHT")
+  )
+)

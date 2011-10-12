@@ -99,3 +99,33 @@
     '("const-gchar*" "region_name")
   )
 )
+
+(define-method get_junction_sides
+  (of-object "GtkStyleContext")
+  (c-name "gtk_style_context_get_junction_sides")
+  (return-type "GtkJunctionSides")
+)
+
+(define-method set_junction_sides
+  (of-object "GtkStyleContext")
+  (c-name "gtk_style_context_set_junction_sides")
+  (return-type "none")
+  (parameters
+    '("GtkJunctionSides" "sides")
+  )
+)
+
+(define-method get_direction
+  (of-object "GtkStyleContext")
+  (c-name "gtk_style_context_get_direction")
+  (return-type "GtkTextDirection")
+)
+
+(define-method set_direction
+  (of-object "GtkStyleContext")
+  (c-name "gtk_style_context_set_direction")
+  (return-type "none")
+  (parameters
+    '("GtkTextDirection" "direction")
+  )
+)
