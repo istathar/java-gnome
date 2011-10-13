@@ -65,6 +65,7 @@ import org.gnome.gtk.SnapshotNotebook;
 import org.gnome.gtk.SnapshotQuestionMessageDialog;
 import org.gnome.gtk.SnapshotRadioButton;
 import org.gnome.gtk.SnapshotStatusbar;
+import org.gnome.gtk.SnapshotSwitch;
 import org.gnome.gtk.SnapshotTextView;
 import org.gnome.gtk.SnapshotTextViewBorderWindows;
 import org.gnome.gtk.SnapshotTextViewSpelling;
@@ -198,7 +199,8 @@ public final class Harness
                 SnapshotEntryCompletion.class,
                 SnapshotEntryIcon.class,
                 SnapshotLinkButton.class,
-                SnapshotInfoBar.class
+                SnapshotInfoBar.class,
+                SnapshotSwitch.class
             };
 
             illustrationdemos = new Class[] {
