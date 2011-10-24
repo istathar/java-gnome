@@ -72,4 +72,45 @@ public class Switch extends Widget
     public void setActive(boolean value) {
         GtkSwitch.setActive(this, value);
     }
+
+    /**
+     * The callback invoked when the Switch is activated.
+     * 
+     * Generally, when you will receive the callback, you will probably want
+     * to check the <code>active</code> property with the Switch
+     * {@link Switch#isActive() isActive()} method:
+     * 
+     * <pre>
+     * final Switch switcher;
+     * 
+     * ...
+     * 
+     * switcher.connect(new Switch.Activated() {
+     *     public void onActivated(Switch source) {
+     *         if (source.isActive()) {
+     *             System.out.printl("WiFi is on.");
+     *         } else {
+     *             System.out.printl("WiFi is off.");
+     *         }
+     *     }
+     * });
+     * </pre>
+     * 
+     * @since 4.1.2
+     */
+    public interface Activated extends GtkSwitch.ActivatedSignal
+    {
+        public void onActivated(Switch source);
+    }
+
+    /**
+     * Hookup the <code>Switch.Activated</code> signal that will be emitted
+     * when the Switch will be activated.
+     * 
+     * @since 4.1.2
+     */
+    public void connect(Switch.Activated handler) {
+        GtkSwitchOverride.setActivatedSignal(this);
+        GtkSwitch.connect(this, handler, false);
+    }
 }
