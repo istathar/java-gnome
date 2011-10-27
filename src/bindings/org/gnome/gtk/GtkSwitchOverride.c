@@ -47,7 +47,7 @@ emit_activated
 	gpointer *data
 )
 {
-	g_signal_emit_by_name(source, "activated", NULL);
+	g_signal_emit_by_name(source, "notify-activated", NULL);
 }
 
 /**
@@ -66,7 +66,7 @@ Java_org_gnome_gtk_GtkSwitchOverride_gtk_1switch_1set_1activated_1signal
 	source = (GtkSwitch*) _self;
 
 	if (signalID == 0) {
-		signalID = g_signal_new("activated",
+		signalID = g_signal_new("notify-activated",
 					GTK_TYPE_SWITCH,
 					G_SIGNAL_ACTION,
 					0,

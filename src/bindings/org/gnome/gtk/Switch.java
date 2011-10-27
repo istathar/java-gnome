@@ -85,8 +85,8 @@ public class Switch extends Widget
      * 
      * ...
      * 
-     * switcher.connect(new Switch.Activated() {
-     *     public void onActivated(Switch source) {
+     * switcher.connect(new Switch.NotifyActivated() {
+     *     public void onNotifyActivated(Switch source) {
      *         if (source.isActive()) {
      *             System.out.printl("WiFi is on.");
      *         } else {
@@ -98,18 +98,18 @@ public class Switch extends Widget
      * 
      * @since 4.1.2
      */
-    public interface Activated extends GtkSwitch.ActivatedSignal
+    public interface NotifyActivated extends GtkSwitch.NotifyActivatedSignal
     {
-        public void onActivated(Switch source);
+        public void onNotifyActivated(Switch source);
     }
 
     /**
-     * Hookup the <code>Switch.Activated</code> signal that will be emitted
-     * when the Switch will be activated.
+     * Hookup the <code>Switch.NotifyActivated</code> signal that will be
+     * emitted when the Switch will be activated.
      * 
      * @since 4.1.2
      */
-    public void connect(Switch.Activated handler) {
+    public void connect(Switch.NotifyActivated handler) {
         GtkSwitchOverride.setActivatedSignal(this);
         GtkSwitch.connect(this, handler, false);
     }

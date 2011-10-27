@@ -27,7 +27,7 @@
   (return-type "gboolean")
 )
 
-(define-virtual activated
+(define-virtual notify_activated
   (of-object "GtkSwitch")
   (return-type "none")
 )
