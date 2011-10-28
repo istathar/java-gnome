@@ -1,7 +1,7 @@
 /*
  * java-gnome, a UI library for writing GTK and GNOME programs from Java!
  *
- * Copyright © 2007-2011 Operational Dynamics Consulting, Pty Ltd and Others
+ * Copyright © 2011 Operational Dynamics Consulting, Pty Ltd and Others
  *
  * The code in this file, and the program it is a part of, is made available
  * to you by its authors as open source software: you can redistribute it
@@ -32,32 +32,36 @@
  */
 package org.gnome.gtk;
 
-import org.freedesktop.bindings.Constant;
-
 /**
- * Constants used to describe the direction of the text inside a widget.
+ * Styles that help to manipulate the region value of the {@link StyleContext}
+ * of a widget inside GTK.
  * 
  * @author Guillaume Mazoyer
  * @since 4.1.2
  */
-public final class TextDirection extends Constant
+public final class StyleRegion extends Style
 {
-    private TextDirection(int ordinal, String nickname) {
-        super(ordinal, nickname);
+    protected StyleRegion(String name) {
+        super(name);
     }
 
     /**
-     * No direction specified.
+     * A widget region name to define a {@link TreeView} column.
      */
-    public static final TextDirection NONE = new TextDirection(GtkTextDirection.NONE, "NONE");
+    public static final StyleRegion COLUMN = new StyleRegion("column");
 
     /**
-     * The text is written from left to right.
+     * A widget region name to define a {@link TreeView} column header.
      */
-    public static final TextDirection LEFT_TO_RIGHT = new TextDirection(GtkTextDirection.LTR, "LTR");
+    public static final StyleRegion COLUMN_HEADER = new StyleRegion("column-header");
 
     /**
-     * The text is written from right to left.
+     * A widget region name to define a {@link TreeView} row.
      */
-    public static final TextDirection RIGHT_TO_LEFT = new TextDirection(GtkTextDirection.RTL, "RTL");
+    public static final StyleRegion ROW = new StyleRegion("row");
+
+    /**
+     * A widget region name to define a {@link Notebook} tab.
+     */
+    public static final StyleRegion TAB = new StyleRegion("tab");
 }

@@ -1,7 +1,7 @@
 /*
  * java-gnome, a UI library for writing GTK and GNOME programs from Java!
  *
- * Copyright © 2007-2011 Operational Dynamics Consulting, Pty Ltd and Others
+ * Copyright © 2011 Operational Dynamics Consulting, Pty Ltd and Others
  *
  * The code in this file, and the program it is a part of, is made available
  * to you by its authors as open source software: you can redistribute it
@@ -32,32 +32,44 @@
  */
 package org.gnome.gtk;
 
-import org.freedesktop.bindings.Constant;
-
 /**
- * Constants used to describe the direction of the text inside a widget.
+ * Styles. These constants represent styles values used by the various widgets
+ * of the GTK library.
  * 
  * @author Guillaume Mazoyer
  * @since 4.1.2
  */
-public final class TextDirection extends Constant
+public class Style
 {
-    private TextDirection(int ordinal, String nickname) {
-        super(ordinal, nickname);
+    /**
+     * The name used to identify the value of the property.
+     */
+    final String name;
+
+    /**
+     * Construct a new Style constant from a given string.
+     * 
+     * <p>
+     * This is provided so that if we missed a name that you desperately need
+     * a style that we have missed.
+     * 
+     * <p>
+     * <i>If you find yourself doing this, we'd appreciate it if you'd point
+     * out what it is about that name that you needed, and if appropriate
+     * submit a patch adding it to one of the Style subclasses instead.</i>
+     * 
+     * @since 4.1.2
+     */
+    protected Style(String name) {
+        this.name = name;
     }
 
     /**
-     * No direction specified.
+     * Returns the name associated to the Style constant.
+     * 
+     * @since 4.1.2
      */
-    public static final TextDirection NONE = new TextDirection(GtkTextDirection.NONE, "NONE");
-
-    /**
-     * The text is written from left to right.
-     */
-    public static final TextDirection LEFT_TO_RIGHT = new TextDirection(GtkTextDirection.LTR, "LTR");
-
-    /**
-     * The text is written from right to left.
-     */
-    public static final TextDirection RIGHT_TO_LEFT = new TextDirection(GtkTextDirection.RTL, "RTL");
+    String getStyleName() {
+        return name;
+    }
 }

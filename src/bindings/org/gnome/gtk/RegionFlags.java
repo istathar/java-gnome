@@ -1,7 +1,7 @@
 /*
  * java-gnome, a UI library for writing GTK and GNOME programs from Java!
  *
- * Copyright © 2007-2011 Operational Dynamics Consulting, Pty Ltd and Others
+ * Copyright © 2011 Operational Dynamics Consulting, Pty Ltd and Others
  *
  * The code in this file, and the program it is a part of, is made available
  * to you by its authors as open source software: you can redistribute it
@@ -35,29 +35,46 @@ package org.gnome.gtk;
 import org.freedesktop.bindings.Constant;
 
 /**
- * Constants used to describe the direction of the text inside a widget.
+ * Describe a region within a widget.
  * 
  * @author Guillaume Mazoyer
  * @since 4.1.2
  */
-public final class TextDirection extends Constant
+public final class RegionFlags extends Constant
 {
-    private TextDirection(int ordinal, String nickname) {
+    protected RegionFlags(int ordinal, String nickname) {
         super(ordinal, nickname);
     }
 
     /**
-     * No direction specified.
+     * This is a constant specific to the binding in order to make the return
+     * value of {@link StyleContext#hasRegion(StyleRegion)} consistent even if
+     * the context doesn't contain the given {@link StyleRegion}.
      */
-    public static final TextDirection NONE = new TextDirection(GtkTextDirection.NONE, "NONE");
+    public static final RegionFlags NULL = new RegionFlags(-1, "NULL");
 
     /**
-     * The text is written from left to right.
+     * Region has an even number within a set.
      */
-    public static final TextDirection LEFT_TO_RIGHT = new TextDirection(GtkTextDirection.LTR, "LTR");
+    public static final RegionFlags EVEN = new RegionFlags(GtkRegionFlags.EVEN, "EVEN");
 
     /**
-     * The text is written from right to left.
+     * Region has an odd number within a set.
      */
-    public static final TextDirection RIGHT_TO_LEFT = new TextDirection(GtkTextDirection.RTL, "RTL");
+    public static final RegionFlags ODD = new RegionFlags(GtkRegionFlags.ODD, "ODD");
+
+    /**
+     * Region is the first one within a set.
+     */
+    public static final RegionFlags FIRST = new RegionFlags(GtkRegionFlags.FIRST, "FIRST");
+
+    /**
+     * Region is the last one within a set.
+     */
+    public static final RegionFlags LAST = new RegionFlags(GtkRegionFlags.LAST, "LAST");
+
+    /**
+     * Region is part of a sorted area.
+     */
+    public static final RegionFlags SORTED = new RegionFlags(GtkRegionFlags.SORTED, "SORTED");
 }

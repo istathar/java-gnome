@@ -1,0 +1,131 @@
+(define-object StyleContext
+  (in-module "Gtk")
+  (parent "GObject")
+  (c-name "GtkStyleContext")
+  (gtype-id "GTK_TYPE_STYLE_CONTEXT")
+)
+
+(define-function gtk_style_context_new
+  (is-constructor-of "GtkStyleContext")
+  (c-name "gtk_style_context_new")
+  (caller-owns-return #t)
+  (return-type "GtkStyleContext*")
+)
+
+(define-method get_screen
+  (of-object "GtkStyleContext")
+  (c-name "gtk_style_context_get_screen")
+  (return-type "GdkScreen*")
+)
+
+(define-method set_screen
+  (of-object "GtkStyleContext")
+  (c-name "gtk_style_context_set_screen")
+  (return-type "none")
+  (parameters
+    '("GdkScreen*" "screen")
+  )
+)
+
+(define-method get_state
+  (of-object "GtkStyleContext")
+  (c-name "gtk_style_context_get_state")
+  (return-type "GtkStateFlags")
+)
+
+(define-method set_state
+  (of-object "GtkStyleContext")
+  (c-name "gtk_style_context_set_state")
+  (return-type "none")
+  (parameters
+    '("GtkStateFlags" "flags")
+  )
+)
+
+(define-method restore
+  (of-object "GtkStyleContext")
+  (c-name "gtk_style_context_restore")
+  (return-type "none")
+)
+
+(define-method save
+  (of-object "GtkStyleContext")
+  (c-name "gtk_style_context_save")
+  (return-type "none")
+)
+
+(define-method add_class
+  (of-object "GtkStyleContext")
+  (c-name "gtk_style_context_add_class")
+  (return-type "none")
+  (parameters
+    '("const-gchar*" "class_name")
+  )
+)
+
+(define-method remove_class
+  (of-object "GtkStyleContext")
+  (c-name "gtk_style_context_remove_class")
+  (return-type "none")
+  (parameters
+    '("const-gchar*" "class_name")
+  )
+)
+
+(define-method has_class
+  (of-object "GtkStyleContext")
+  (c-name "gtk_style_context_has_class")
+  (return-type "gboolean")
+  (parameters
+    '("const-gchar*" "class_name")
+  )
+)
+
+(define-method add_region
+  (of-object "GtkStyleContext")
+  (c-name "gtk_style_context_add_region")
+  (return-type "none")
+  (parameters
+    '("const-gchar*" "region_name")
+    '("GtkRegionFlags" "flags")
+  )
+)
+
+(define-method remove_region
+  (of-object "GtkStyleContext")
+  (c-name "gtk_style_context_remove_region")
+  (return-type "none")
+  (parameters
+    '("const-gchar*" "region_name")
+  )
+)
+
+(define-method get_junction_sides
+  (of-object "GtkStyleContext")
+  (c-name "gtk_style_context_get_junction_sides")
+  (return-type "GtkJunctionSides")
+)
+
+(define-method set_junction_sides
+  (of-object "GtkStyleContext")
+  (c-name "gtk_style_context_set_junction_sides")
+  (return-type "none")
+  (parameters
+    '("GtkJunctionSides" "sides")
+  )
+)
+
+(define-method get_direction
+  (of-object "GtkStyleContext")
+  (c-name "gtk_style_context_get_direction")
+  (return-type "GtkTextDirection")
+)
+
+(define-method set_direction
+  (of-object "GtkStyleContext")
+  (c-name "gtk_style_context_set_direction")
+  (return-type "none")
+  (parameters
+    '("GtkTextDirection" "direction")
+  )
+)

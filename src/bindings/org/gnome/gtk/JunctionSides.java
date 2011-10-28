@@ -1,7 +1,7 @@
 /*
  * java-gnome, a UI library for writing GTK and GNOME programs from Java!
  *
- * Copyright © 2007-2011 Operational Dynamics Consulting, Pty Ltd and Others
+ * Copyright © 2011 Operational Dynamics Consulting, Pty Ltd and Others
  *
  * The code in this file, and the program it is a part of, is made available
  * to you by its authors as open source software: you can redistribute it
@@ -35,29 +35,64 @@ package org.gnome.gtk;
 import org.freedesktop.bindings.Constant;
 
 /**
- * Constants used to describe the direction of the text inside a widget.
+ * Constants that describe how a rendered element connects to adjacent
+ * elements.
  * 
  * @author Guillaume Mazoyer
  * @since 4.1.2
  */
-public final class TextDirection extends Constant
+public final class JunctionSides extends Constant
 {
-    private TextDirection(int ordinal, String nickname) {
+    public JunctionSides(int ordinal, String nickname) {
         super(ordinal, nickname);
     }
 
     /**
-     * No direction specified.
+     * No junctions.
      */
-    public static final TextDirection NONE = new TextDirection(GtkTextDirection.NONE, "NONE");
+    public static final JunctionSides NONE = new JunctionSides(GtkJunctionSides.NONE, "NONE");
 
     /**
-     * The text is written from left to right.
+     * Element connects on the top-left corner.
      */
-    public static final TextDirection LEFT_TO_RIGHT = new TextDirection(GtkTextDirection.LTR, "LTR");
+    public static final JunctionSides CORNER_TOPLEFT = new JunctionSides(
+            GtkJunctionSides.CORNER_TOPLEFT, "CORNER_TOPLEFT");
 
     /**
-     * The text is written from right to left.
+     * Element connects on the top-right corner.
      */
-    public static final TextDirection RIGHT_TO_LEFT = new TextDirection(GtkTextDirection.RTL, "RTL");
+    public static final JunctionSides CORNER_TOPRIGHT = new JunctionSides(
+            GtkJunctionSides.CORNER_TOPRIGHT, "CORNER_TOPRIGHT");
+
+    /**
+     * Element connects on the bottom-left corner.
+     */
+    public static final JunctionSides CORNER_BOTTOMLEFT = new JunctionSides(
+            GtkJunctionSides.CORNER_BOTTOMLEFT, "CORNER_BOTTOMLEFT");
+
+    /**
+     * Element connects on the bottom-right corner.
+     */
+    public static final JunctionSides CORNER_BOTTOMRIGHT = new JunctionSides(
+            GtkJunctionSides.CORNER_BOTTOMRIGHT, "CORNER_BOTTOMRIGHT");
+
+    /**
+     * Element connects on the top side.
+     */
+    public static final JunctionSides TOP = new JunctionSides(GtkJunctionSides.TOP, "TOP");
+
+    /**
+     * Element connects on the bottom side.
+     */
+    public static final JunctionSides BOTTOM = new JunctionSides(GtkJunctionSides.BOTTOM, "BOTTOM");
+
+    /**
+     * Element connects on the left side.
+     */
+    public static final JunctionSides LEFT = new JunctionSides(GtkJunctionSides.LEFT, "LEFT");
+
+    /**
+     * Element connects on the right side.
+     */
+    public static final JunctionSides RIGHT = new JunctionSides(GtkJunctionSides.RIGHT, "RIGHT");
 }

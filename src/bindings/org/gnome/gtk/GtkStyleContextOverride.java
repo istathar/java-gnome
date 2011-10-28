@@ -1,7 +1,7 @@
 /*
  * java-gnome, a UI library for writing GTK and GNOME programs from Java!
  *
- * Copyright © 2007-2011 Operational Dynamics Consulting, Pty Ltd and Others
+ * Copyright © 2011 Operational Dynamics Consulting, Pty Ltd and Others
  *
  * The code in this file, and the program it is a part of, is made available
  * to you by its authors as open source software: you can redistribute it
@@ -30,34 +30,62 @@
  * version of the library, but you are not obligated to do so. If you do not
  * wish to do so, delete this exception statement from your version.
  */
+
 package org.gnome.gtk;
 
-import org.freedesktop.bindings.Constant;
-
 /**
- * Constants used to describe the direction of the text inside a widget.
+ * Manual code allowing us to handle some data returned by GtkStyleContext
+ * methods.
  * 
  * @author Guillaume Mazoyer
- * @since 4.1.2
  */
-public final class TextDirection extends Constant
+final class GtkStyleContextOverride extends Plumbing
 {
-    private TextDirection(int ordinal, String nickname) {
-        super(ordinal, nickname);
+    static final RegionFlags hasRegion(StyleContext self, String region) {
+        int result;
+
+        if (self == null) {
+            throw new IllegalArgumentException("self can't be null");
+        }
+
+        synchronized (lock) {
+            result = gtk_style_context_contains_region(pointerOf(self), region);
+
+            return (RegionFlags) enumFor(RegionFlags.class, result);
+        }
     }
 
-    /**
-     * No direction specified.
-     */
-    public static final TextDirection NONE = new TextDirection(GtkTextDirection.NONE, "NONE");
+    private static native final int gtk_style_context_contains_region(long self, String region);
 
-    /**
-     * The text is written from left to right.
-     */
-    public static final TextDirection LEFT_TO_RIGHT = new TextDirection(GtkTextDirection.LTR, "LTR");
+    static final String[] getClasses(StyleContext self) {
+        String[] result;
 
-    /**
-     * The text is written from right to left.
-     */
-    public static final TextDirection RIGHT_TO_LEFT = new TextDirection(GtkTextDirection.RTL, "RTL");
+        if (self == null) {
+            throw new IllegalArgumentException("self can't be null");
+        }
+
+        synchronized (lock) {
+            result = gtk_style_context_get_classes(pointerOf(self));
+
+            return result;
+        }
+    }
+
+    private static native final String[] gtk_style_context_get_classes(long self);
+
+    static final String[] getRegions(StyleContext self) {
+        String[] result;
+
+        if (self == null) {
+            throw new IllegalArgumentException("self can't be null");
+        }
+
+        synchronized (lock) {
+            result = gtk_style_context_get_regions(pointerOf(self));
+
+            return result;
+        }
+    }
+
+    private static native final String[] gtk_style_context_get_regions(long self);
 }

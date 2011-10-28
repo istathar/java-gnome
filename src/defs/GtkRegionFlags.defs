@@ -1,0 +1,12 @@
+(define-enum RegionFlags
+  (in-module "Gtk")
+  (c-name "GtkRegionFlags")
+  (gtype-id "GTK_TYPE_REGION_FLAGS")
+  (values
+    '("even" "GTK_REGION_EVEN")
+    '("odd" "GTK_REGION_ODD")
+    '("first" "GTK_REGION_FIRST")
+    '("last" "GTK_REGION_LAST")
+    '("sorted" "GTK_REGION_SORTED")
+  )
+)

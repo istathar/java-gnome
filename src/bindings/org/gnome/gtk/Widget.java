@@ -1792,4 +1792,14 @@ public abstract class Widget extends org.gnome.glib.Object
     public void setAlignVertical(Align align) {
         GtkWidget.setValign(this, align);
     }
+
+    /**
+     * Get the {@link StyleContext} of a Widget. You will be able to change
+     * the values of the style after getting this object.
+     * 
+     * @since 4.1.2
+     */
+    public StyleContext getStyleContext() {
+        return GtkWidget.getStyleContext(this);
+    }
 }
