@@ -75,9 +75,9 @@ Java_org_gnome_gtk_GtkStyleContextOverride_gtk_1style_1context_1get_1classes
 )
 {
 	GtkStyleContext* self;
-	jobjectArray _array;
+	jobjectArray array;
 	int i, size;
-	jclass stringCls;
+	jclass String;
 	GList* classes;
 	GList* iter;
 	jstring class;
@@ -87,29 +87,28 @@ Java_org_gnome_gtk_GtkStyleContextOverride_gtk_1style_1context_1get_1classes
 
 	size = g_list_length(classes);
 
-	stringCls = (*env)->FindClass(env, "java/lang/String");
-	if ((*env)->ExceptionCheck(env)) {
-		(*env)->ExceptionDescribe(env);
-		g_printerr("No jclass?");
+	String = (*env)->FindClass(env, "java/lang/String");
+	if (String == NULL) {
+		// exception already thrown
+		return NULL;
 	}
 
-	_array = (*env)->NewObjectArray(env, size, stringCls, NULL);
-
-	if ((*env)->ExceptionCheck(env)) {
-		(*env)->ExceptionDescribe(env);
-		g_printerr("Unable to create array?");
+	array = (*env)->NewObjectArray(env, size, String, NULL);
+	if (array == NULL) {
+		// exception already thrown
+		return NULL;
 	}
 
 	iter = classes;
 	for (i = 0; i < size; i++) {
 		class = bindings_java_newString(env, iter->data);
-		(*env)->SetObjectArrayElement(env, _array, i, class);
+		(*env)->SetObjectArrayElement(env, array, i, class);
 		iter = iter->next;
 	}
 
 	g_list_free(classes);
 
-	return _array;
+	return array;
 }
 
 JNIEXPORT jobjectArray JNICALL
@@ -121,9 +120,9 @@ Java_org_gnome_gtk_GtkStyleContextOverride_gtk_1style_1context_1get_1regions
 )
 {
 	GtkStyleContext* self;
-	jobjectArray _array;
+	jobjectArray array;
 	int i, size;
-	jclass stringCls;
+	jclass String;
 	GList* regions;
 	GList* iter;
 	jstring region;
@@ -133,27 +132,26 @@ Java_org_gnome_gtk_GtkStyleContextOverride_gtk_1style_1context_1get_1regions
 
 	size = g_list_length(regions);
 
-	stringCls = (*env)->FindClass(env, "java/lang/String");
-	if ((*env)->ExceptionCheck(env)) {
-		(*env)->ExceptionDescribe(env);
-		g_printerr("No jclass?");
+	String = (*env)->FindClass(env, "java/lang/String");
+	if (String == NULL) {
+		// exception already thown
+		return NULL;
 	}
 
-	_array = (*env)->NewObjectArray(env, size, stringCls, NULL);
-
-	if ((*env)->ExceptionCheck(env)) {
-		(*env)->ExceptionDescribe(env);
-		g_printerr("Unable to create array?");
+	array = (*env)->NewObjectArray(env, size, String, NULL);
+	if (array == NULL) {
+		// exception already thrown
+		return NULL;
 	}
 
 	iter = regions;
 	for (i = 0; i < size; i++) {
 		region = bindings_java_newString(env, iter->data);
-		(*env)->SetObjectArrayElement(env, _array, i, region);
+		(*env)->SetObjectArrayElement(env, array, i, region);
 		iter = iter->next;
 	}
 
 	g_list_free(regions);
 
-	return _array;
+	return array;
 }
