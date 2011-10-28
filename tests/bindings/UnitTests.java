@@ -58,6 +58,7 @@ import org.gnome.gtk.ValidateScrolling;
 import org.gnome.gtk.ValidateSignalEmission;
 import org.gnome.gtk.ValidateSnapshotUtilities;
 import org.gnome.gtk.ValidateStockItems;
+import org.gnome.gtk.ValidateSwitch;
 import org.gnome.gtk.ValidateTextBuffer;
 import org.gnome.gtk.ValidateTextViewBorderWindows;
 import org.gnome.gtk.ValidateTextViewProperties;
@@ -182,6 +183,8 @@ public class UnitTests
         suite.addTestSuite(ValidateTextViewProperties.class);
         suite.addTestSuite(ValidateTextViewBorderWindows.class);
         suite.addTestSuite(ValidateArrow.class);
+        suite.addTestSuite(ValidateRadioThing.class);
+        suite.addTestSuite(ValidateSwitch.class);
         suite.addTestSuite(ValidatePangoTextRendering.class);
         suite.addTestSuite(ValidatePangoAttributeUsage.class);
         suite.addTestSuite(ValidatePangoWrapBehaviour.class);
@@ -190,7 +193,6 @@ public class UnitTests
         suite.addTestSuite(ValidateSourceView.class);
         suite.addTestSuite(ValidateUniqueApplications.class);
         suite.addTestSuite(ValidateVectorIllustrations.class);
-        suite.addTestSuite(ValidateRadioThing.class);
 
         return suite;
     }

@@ -1,0 +1,33 @@
+(define-object Switch
+  (in-module "Gtk")
+  (parent "GtkWidget")
+  (c-name "GtkSwitch")
+  (gtype-id "GTK_TYPE_SWITCH")
+)
+
+(define-function gtk_switch_new
+  (is-constructor-of "GtkSwitch")
+  (c-name "gtk_switch_new")
+  (caller-owns-return #t)
+  (return-type "GtkWidget*")
+)
+
+(define-method set_active
+  (of-object "GtkSwitch")
+  (c-name "gtk_switch_set_active")
+  (return-type "none")
+  (parameters
+    '("gboolean" "is_active")
+  )
+)
+
+(define-method get_active
+  (of-object "GtkSwitch")
+  (c-name "gtk_switch_get_active")
+  (return-type "gboolean")
+)
+
+(define-virtual notify_activated
+  (of-object "GtkSwitch")
+  (return-type "none")
+)
