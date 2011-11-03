@@ -34,29 +34,55 @@ package org.gnome.glib;
 
 import org.freedesktop.bindings.Constant;
 
+/**
+ * Constants used to define the behaviour of an {@link Application}.
+ * 
+ * @author Guillaume Mazoyer
+ * @since 4.1.2
+ */
 public class ApplicationFlags extends Constant
 {
     protected ApplicationFlags(int ordinal, String nickname) {
         super(ordinal, nickname);
     }
 
+    /**
+     * Default constant.
+     */
     public static final ApplicationFlags NONE = new ApplicationFlags(GlibApplicationFlags.NONE, "NONE");
 
+    /**
+     * The application run as a service. If the service is already running the
+     * registration fails.
+     */
     public static final ApplicationFlags IS_SERVICE = new ApplicationFlags(
             GlibApplicationFlags.IS_SERVICE, "IS_SERVICE");
 
+    /**
+     * The application will not try to become the primary instance.
+     */
     public static final ApplicationFlags IS_LAUNCHER = new ApplicationFlags(
             GlibApplicationFlags.IS_LAUNCHER, "IS_LAUNCHER");
 
-    public static final ApplicationFlags HANDLES_OPEN = new ApplicationFlags(
-            GlibApplicationFlags.HANDLES_OPEN, "HANDLES_OPEN");
-
+    /**
+     * The application handles command line arguments (in the primary
+     * instance).
+     */
     public static final ApplicationFlags HANDLES_COMMAND_LINE = new ApplicationFlags(
             GlibApplicationFlags.HANDLES_COMMAND_LINE, "HANDLES_COMMAND_LINE");
 
+    /**
+     * The primary instance will receive the environment of the launching
+     * process. This constant is useful if the application should behave
+     * differently depending on certain environment variables.
+     */
     public static final ApplicationFlags SEND_ENVIRONMENT = new ApplicationFlags(
             GlibApplicationFlags.SEND_ENVIRONMENT, "SEND_ENVIRONMENT");
 
+    /**
+     * The application does not try to become and does not check for a single
+     * instance.
+     */
     public static final ApplicationFlags NON_UNIQUE = new ApplicationFlags(
             GlibApplicationFlags.NON_UNIQUE, "NON_UNIQUE");
 }

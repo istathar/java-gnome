@@ -34,24 +34,52 @@ package org.gnome.gtk;
 
 import org.gnome.glib.ApplicationFlags;
 
+/**
+ * This class handles some important aspects of a GTK+ application. It
+ * currently ensures that the application is unique and manages a list of
+ * top-level windows whose life-cycle is automatically tied to the life-cycle
+ * of the application.
+ * 
+ * @author Guillaume Mazoyer
+ * @since 4.1.2
+ */
 public class Application extends org.gnome.glib.Application
 {
     public Application(long pointer) {
         super(pointer);
     }
 
+    /**
+     * Creates a new Application instance. The <code>id</code> should be
+     * valid, this can be checked with
+     * {@link org.gnome.glib.Application#isValidID(String) isValidID()}.
+     */
     public Application(String id, ApplicationFlags flags) {
         super(GtkApplication.createApplication(id, flags));
     }
 
+    /**
+     * Adds a window from the Application. GTK+ will keep the Application
+     * running as long as it has any windows. The connection between the
+     * Application and the window will remain until the window is destroyed or
+     * {@link #removeWindow(Window) removeWindow()} is called.
+     */
     public void addWindow(Window window) {
         GtkApplication.addWindow(this, window);
     }
 
+    /**
+     * Removes a window from the Application. The Application will stop
+     * running if the last window is removed.
+     */
     public void removeWindow(Window window) {
         GtkApplication.removeWindow(this, window);
     }
 
+    /**
+     * Returns an array of the {@link Window windows} associated with
+     * Application. This array should not be modified!
+     */
     public Window[] getWindows() {
         return GtkApplication.getWindows(this);
     }
