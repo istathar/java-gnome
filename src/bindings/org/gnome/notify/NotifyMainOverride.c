@@ -51,7 +51,7 @@ Java_org_gnome_notify_NotifyMainOverride_notify_1get_1server_1caps
 {
 	jobjectArray _array;
 	int i, size;
-	jclass stringCls;
+	jclass String;
 	GList* caps;
 	GList* iter;
 	jstring cap;
@@ -64,23 +64,22 @@ Java_org_gnome_notify_NotifyMainOverride_notify_1get_1server_1caps
 		size = g_list_length(caps);
 	}
 
-	stringCls = (*env)->FindClass(env, "java/lang/String");
-	if ((*env)->ExceptionCheck(env)) {
-		(*env)->ExceptionDescribe(env);
-		g_printerr("No jclass?");
+	String = (*env)->FindClass(env, "java/lang/String");
+	if (String == NULL) {
+		// exception already thrown
+		return NULL;
 	}
 
-	_array = (*env)->NewObjectArray(env, size, stringCls, NULL);
-
-	if ((*env)->ExceptionCheck(env)) {
-		(*env)->ExceptionDescribe(env);
-		g_printerr("Unable to create array?");
+	_array = (*env)->NewObjectArray(env, size, String, NULL);
+	if (_array == NULL) {
+		// exception already thrown
+		return NULL;
 	}
 
 	iter = caps;
 
 	for (i = 0; i < size; ++i) {
-		//Hopefully capability strings are ASCII only.
+		// Hopefully capability strings are ASCII only.
 		cap = bindings_java_newString(env, iter->data);
 		(*env)->SetObjectArrayElement(env, _array, i, cap);
 		g_free(iter->data);

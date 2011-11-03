@@ -1,0 +1,15 @@
+(define-enum ApplicationFlags
+  (in-module "Glib")
+  (c-name "GApplicationFlags")
+  (gtype-id "G_TYPE_APPLICATION_FLAGS")
+  (values
+    '("none" "G_APPLICATION_FLAGS_NONE")
+    '("is-service" "G_APPLICATION_IS_SERVICE")
+    '("is-launcher" "G_APPLICATION_IS_LAUNCHER")
+    '("handles-open" "G_APPLICATION_HANDLES_OPEN")
+    '("handles-command-line" "G_APPLICATION_HANDLES_COMMAND_LINE")
+    '("send-environment" "G_APPLICATION_SEND_ENVIRONMENT")
+    '("non-unique" "G_APPLICATION_NON_UNIQUE")
+  )
+)
+

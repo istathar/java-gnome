@@ -108,6 +108,5 @@ public class ValidateStyleContext extends GraphicalTestCase
 
         context.setDirection(TextDirection.RIGHT_TO_LEFT);
         assertEquals(TextDirection.RIGHT_TO_LEFT, context.getDirection());
-
     }
 }

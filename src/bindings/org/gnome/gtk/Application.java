@@ -1,7 +1,7 @@
 /*
  * java-gnome, a UI library for writing GTK and GNOME programs from Java!
  *
- * Copyright © 2009-2010 Operational Dynamics Consulting, Pty Ltd and Others
+ * Copyright © 2011 Operational Dynamics Consulting, Pty Ltd and Others
  *
  * The code in this file, and the program it is a part of, is made available
  * to you by its authors as open source software: you can redistribute it
@@ -30,21 +30,29 @@
  * version of the library, but you are not obligated to do so. If you do not
  * wish to do so, delete this exception statement from your version.
  */
-package org.gnome.notify;
+package org.gnome.gtk;
 
-final class NotifyMainOverride extends Plumbing
+import org.gnome.glib.ApplicationFlags;
+
+public class Application extends org.gnome.glib.Application
 {
-    private NotifyMainOverride() {}
-
-    static final String[] getServerCapabilities() {
-        String[] result;
-
-        synchronized (lock) {
-            result = notify_get_server_caps();
-
-            return result;
-        }
+    public Application(long pointer) {
+        super(pointer);
     }
 
-    private static native final String[] notify_get_server_caps();
+    public Application(String id, ApplicationFlags flags) {
+        super(GtkApplication.createApplication(id, flags));
+    }
+
+    public void addWindow(Window window) {
+        GtkApplication.addWindow(this, window);
+    }
+
+    public void removeWindow(Window window) {
+        GtkApplication.removeWindow(this, window);
+    }
+
+    public Window[] getWindows() {
+        return GtkApplication.getWindows(this);
+    }
 }

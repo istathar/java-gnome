@@ -95,5 +95,4 @@ public class UserDirectory extends Constant
      */
     public static final UserDirectory VIDEOS = new UserDirectory(GlibUserDirectory.DIRECTORY_VIDEOS,
             "VIDEOS");
-
 }

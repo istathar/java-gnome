@@ -1,7 +1,7 @@
 /*
  * java-gnome, a UI library for writing GTK and GNOME programs from Java!
  *
- * Copyright © 2009-2010 Operational Dynamics Consulting, Pty Ltd and Others
+ * Copyright © 2011 Operational Dynamics Consulting, Pty Ltd and Others
  *
  * The code in this file, and the program it is a part of, is made available
  * to you by its authors as open source software: you can redistribute it
@@ -30,21 +30,33 @@
  * version of the library, but you are not obligated to do so. If you do not
  * wish to do so, delete this exception statement from your version.
  */
-package org.gnome.notify;
+package org.gnome.glib;
 
-final class NotifyMainOverride extends Plumbing
+import org.freedesktop.bindings.Constant;
+
+public class ApplicationFlags extends Constant
 {
-    private NotifyMainOverride() {}
-
-    static final String[] getServerCapabilities() {
-        String[] result;
-
-        synchronized (lock) {
-            result = notify_get_server_caps();
-
-            return result;
-        }
+    protected ApplicationFlags(int ordinal, String nickname) {
+        super(ordinal, nickname);
     }
 
-    private static native final String[] notify_get_server_caps();
+    public static final ApplicationFlags NONE = new ApplicationFlags(GlibApplicationFlags.NONE, "NONE");
+
+    public static final ApplicationFlags IS_SERVICE = new ApplicationFlags(
+            GlibApplicationFlags.IS_SERVICE, "IS_SERVICE");
+
+    public static final ApplicationFlags IS_LAUNCHER = new ApplicationFlags(
+            GlibApplicationFlags.IS_LAUNCHER, "IS_LAUNCHER");
+
+    public static final ApplicationFlags HANDLES_OPEN = new ApplicationFlags(
+            GlibApplicationFlags.HANDLES_OPEN, "HANDLES_OPEN");
+
+    public static final ApplicationFlags HANDLES_COMMAND_LINE = new ApplicationFlags(
+            GlibApplicationFlags.HANDLES_COMMAND_LINE, "HANDLES_COMMAND_LINE");
+
+    public static final ApplicationFlags SEND_ENVIRONMENT = new ApplicationFlags(
+            GlibApplicationFlags.SEND_ENVIRONMENT, "SEND_ENVIRONMENT");
+
+    public static final ApplicationFlags NON_UNIQUE = new ApplicationFlags(
+            GlibApplicationFlags.NON_UNIQUE, "NON_UNIQUE");
 }
