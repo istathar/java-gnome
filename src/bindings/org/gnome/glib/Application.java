@@ -32,6 +32,12 @@
  */
 package org.gnome.glib;
 
+/**
+ * 
+ * 
+ * @author Guillaume Mazoyer
+ * @since 4.1.2
+ */
 public class Application extends Object
 {
     protected Application(long pointer) {
@@ -42,30 +48,73 @@ public class Application extends Object
         return GApplication.isValidId(id);
     }
 
+    /**
+     * Creates a new Application instance. The application ID must be valid.
+     * See {@link #isValidID(String) isValidID()}.
+     * 
+     * <p>
+     * You should probably not have to call this constructor by yourself.
+     * 
+     * @since 4.1.2
+     */
     public Application(String id, ApplicationFlags flags) {
         super(GApplication.createApplication(id, flags));
     }
 
+    /**
+     * Gets the unique identifier of the Application.
+     * 
+     * @since 4.1.2
+     */
     public String getID() {
         return GApplication.getApplicationId(this);
     }
 
+    /**
+     * Sets the unique identifier of the Application. The application ID must
+     * be valid. See {@link #isValidID(String) isValidID()}.
+     * 
+     * @since 4.1.2
+     */
     public void setID(String id) {
         GApplication.setApplicationId(this, id);
     }
 
+    /**
+     * Returns the current inactivity timeout for the Application. This is the
+     * amount of time (in milliseconds) after the last call to
+     * {@link #unhold()} before the Application stops running.
+     * 
+     * @since 4.1.2
+     */
     public int getInactivityTimeout() {
         return GApplication.getInactivityTimeout(this);
     }
 
+    /**
+     * Sets the current inactivity timeout (in milliseconds) for the
+     * Application.
+     * 
+     * @since 4.1.2
+     */
     public void setInactivityTimeout(int timeout) {
         GApplication.setInactivityTimeout(this, timeout);
     }
 
+    /**
+     * Returns the {@link GlibApplicationFlags flags} of the Application.
+     * 
+     * @since 4.1.2
+     */
     public ApplicationFlags getFlags() {
         return GApplication.getFlags(this);
     }
 
+    /**
+     * Sets the flags of the Application.
+     * 
+     * @since 4.1.2
+     */
     public void setFlags(ApplicationFlags flags) {
         GApplication.setFlags(this, flags);
     }
@@ -89,7 +138,6 @@ public class Application extends Object
     public int run(String[] args) {
         final String[] argv;
 
-        // argv[0] is the app name in C
         argv = new String[args.length + 1];
         argv[0] = this.getID();
 
@@ -98,6 +146,8 @@ public class Application extends Object
         }
 
         return GApplication.run(this, argv.length, argv);
+        // FIXME: this (sadly) generates a crasher.
+        // return GApplicationOverride.run(this, args);
     }
 
     public interface Activate extends GApplication.ActivateSignal
