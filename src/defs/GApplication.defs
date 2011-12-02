@@ -43,7 +43,7 @@
 
 (define-method get_inactivity_timeout
   (of-object "GApplication")
-  (c-name "g_application_get_inactivity_timeout)
+  (c-name "g_application_get_inactivity_timeout")
   (return-type "guint")
 )
 
@@ -58,7 +58,7 @@
 
 (define-method get_flags
   (of-object "GApplication")
-  (c-name "g_application_get_flags)
+  (c-name "g_application_get_flags")
   (return-type "GApplicationFlags")
 )
 
@@ -73,31 +73,31 @@
 
 (define-method is_remote
   (of-object "GApplication")
-  (c-name "g_application_get_is_remote)
+  (c-name "g_application_get_is_remote")
   (return-type "gboolean")
 )
 
 (define-method hold
   (of-object "GApplication")
-  (c-name "g_application_hold)
+  (c-name "g_application_hold")
   (return-type "none")
 )
 
 (define-method release
   (of-object "GApplication")
-  (c-name "g_application_release)
+  (c-name "g_application_release")
   (return-type "none")
 )
 
 (define-method activate
   (of-object "GApplication")
-  (c-name "g_application_activate)
+  (c-name "g_application_activate")
   (return-type "none")
 )
 
 (define-method run
   (of-object "GApplication")
-  (c-name "g_application_run)
+  (c-name "g_application_run")
   (return-type "int")
   (parameters
     '("int" "argc")

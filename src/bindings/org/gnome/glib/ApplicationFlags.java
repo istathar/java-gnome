@@ -35,7 +35,7 @@ package org.gnome.glib;
 import org.freedesktop.bindings.Constant;
 
 /**
- * Constants used to define the behaviour of an {@link Application}.
+ * Constants used to define the behavior of an {@link Application}.
  * 
  * @author Guillaume Mazoyer
  * @since 4.1.2
@@ -63,13 +63,6 @@ public class ApplicationFlags extends Constant
      */
     public static final ApplicationFlags IS_LAUNCHER = new ApplicationFlags(
             GlibApplicationFlags.IS_LAUNCHER, "IS_LAUNCHER");
-
-    /**
-     * The application handles command line arguments (in the primary
-     * instance).
-     */
-    public static final ApplicationFlags HANDLES_COMMAND_LINE = new ApplicationFlags(
-            GlibApplicationFlags.HANDLES_COMMAND_LINE, "HANDLES_COMMAND_LINE");
 
     /**
      * The primary instance will receive the environment of the launching
