@@ -71,7 +71,7 @@ Java_org_gnome_glib_GApplicationOverride_g_1application_1main_1run
 
 	for (i = 0; i < argc; i++) {
 		_arg = (jstring) (*env)->GetObjectArrayElement(env, _args, i);
-		arg = (gchar*) bindings_java_getString(env, _arg);
+		arg = (char*) bindings_java_getString(env, _arg);
 		argv[i + 1] = arg;
 	}
 
@@ -80,7 +80,7 @@ Java_org_gnome_glib_GApplicationOverride_g_1application_1main_1run
 	 * command line. Java skips this, so we need to re-introduce a dummy
 	 * value here.
 	 */
-	argv[0] = "";
+	argv[0] = "java-gnome-app";
 	argc++;
 
 	// call function

@@ -33,7 +33,10 @@
 package org.gnome.glib;
 
 /**
- * 
+ * This class represents the foundation of an application. This Application
+ * class is the base for the high-level {@link org.gnome.gtk.Application GTK
+ * Application} class. In general, you should not use this class outside of a
+ * higher level framework.
  * 
  * @author Guillaume Mazoyer
  * @since 4.1.2
@@ -44,13 +47,13 @@ public class Application extends Object
         super(pointer);
     }
 
-    public static boolean isValidID(String id) {
+    public static boolean isValidId(String id) {
         return GApplication.isValidId(id);
     }
 
     /**
      * Creates a new Application instance. The application ID must be valid.
-     * See {@link #isValidID(String) isValidID()}.
+     * See {@link #isValidId(String) isValidId()}.
      * 
      * <p>
      * You should probably not have to call this constructor by yourself.
@@ -66,17 +69,17 @@ public class Application extends Object
      * 
      * @since 4.1.2
      */
-    public String getID() {
+    public String getId() {
         return GApplication.getApplicationId(this);
     }
 
     /**
      * Sets the unique identifier of the Application. The application ID must
-     * be valid. See {@link #isValidID(String) isValidID()}.
+     * be valid. See {@link #isValidId(String) isValidId()}.
      * 
      * @since 4.1.2
      */
-    public void setID(String id) {
+    public void setId(String id) {
         GApplication.setApplicationId(this, id);
     }
 
@@ -138,8 +141,12 @@ public class Application extends Object
     public int run(String[] args) {
         final String[] argv;
 
+        /*
+         * FIXME: When passing arguments a crasher will be generated because
+         * glib will tell us that the application cannot open files.
+         */
         argv = new String[args.length + 1];
-        argv[0] = this.getID();
+        argv[0] = this.getId();
 
         for (int i = 1; i < argv.length; i++) {
             argv[i] = args[i - 1];
