@@ -209,7 +209,7 @@ you can install java-gnome somewhere. Doesn't matter, really.
 4. Install
 ----------
 
-java-gnome 4.0 has the standard `make install` behaviour, and the equally
+java-gnome 4.1 has the standard `make install` behaviour, and the equally
 standard `prefix` option to `./configure`.
 
 ### Installing locally
@@ -298,17 +298,17 @@ Oh, the joys of running Java programs by hand.
 Status
 ======
 
-java-gnome 4.1 is now a solid foundation that has been used to develop
-non-trivial applications. The architecture and internal design has been well
-proved, and the coverage level (relative to the full breadth of the underlying
-libraries) is reaching maturity.
+java-gnome is now a solid foundation that has been used to develop non-trivial
+applications. The architecture and internal design has been well proved, and
+the coverage level (relative to the full breadth of the underlying libraries)
+is reaching maturity.
 
 Get Involved
 ------------
 
-If you would like to get involved in 4.0 yourself as an individual, we would
-welcome your contribution. See [`HACKING`](HACKING.html). If you are working
-on an application, want to learn more, or are just curious, join us online in
+If you would like to get involved yourself as an individual, we would welcome
+your contribution. See [`HACKING`](HACKING.html). If you are working on an
+application, want to learn more, or are just curious, join us online in
 `#java-gnome` on `irc.gimp.net`.
 
 Funding

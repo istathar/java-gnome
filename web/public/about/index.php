@@ -31,7 +31,7 @@ div.box {
 <?
 	template_begin();
 ?>
-<h1 class="title">java-gnome 4.0</h1>
+<h1 class="title">java-gnome 4.1</h1>
 
 <div class="bluepanel">
 	<a class="nav-white" href="objectives.php">Project Objectives</a>;
@@ -73,10 +73,10 @@ on the latest changes.
 <p>
 Other top-level meta files include
 
-<code><a href="README.html">README</a></code>,
-<code><a href="HACKING.html">HACKING</a></code>,
-<code><a href="AUTHORS.html">AUTHORS</a></code>, and
-<code><a href="LICENCE.html">LICENCE</a></code>.
+<code><a href="/README.html">README</a></code>,
+<code><a href="/HACKING.html">HACKING</a></code>,
+<code><a href="/AUTHORS.html">AUTHORS</a></code>, and
+<code><a href="/LICENCE.html">LICENCE</a></code>.
 </p>
 
 <p>
