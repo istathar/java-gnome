@@ -18,6 +18,7 @@
 )
 
 (define-function file_chooser_button_new_with_dialog
+  (is-constructor-of "GtkFileChooserButton")
   (c-name "gtk_file_chooser_button_new_with_dialog")
   (caller-owns-return #t)
   (return-type "GtkWidget*")
