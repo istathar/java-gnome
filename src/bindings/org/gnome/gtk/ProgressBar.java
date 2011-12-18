@@ -90,6 +90,27 @@ public class ProgressBar extends Widget implements Orientable
     }
 
     /**
+     * Sets whether the progressbar will show text superimposed over the bar.
+     * To make a progress bar that is styled and sized suitably for containing
+     * text you should call the {@link setText(String)} method with an empty
+     * String.
+     * 
+     * @since 4.1.2
+     */
+    public void setShowText(boolean value) {
+        GtkProgressBar.setShowText(this, value);
+    }
+
+    /**
+     * Tells whether or not the progress bar is able to show text.
+     * 
+     * @since 4.1.2
+     */
+    public boolean showsText() {
+        return GtkProgressBar.getShowText(this);
+    }
+
+    /**
      * Set the fraction of the ProgressBar that shows as completed or
      * "filled-in".
      * 
