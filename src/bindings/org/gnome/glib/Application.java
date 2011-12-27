@@ -175,6 +175,16 @@ public class Application extends Object
     }
 
     public void connect(Application.OpenFiles handler) {
+        GApplicationOverride.setOpenFilesCallback(this);
+        GApplication.connect(this, handler, false);
+    }
+
+    public interface CommandArguments extends GApplication.CommandArgumentsSignal
+    {
+        public int onCommandArguments(Application source, String arguments);
+    }
+
+    public void connect(Application.CommandArguments handler) {
         GApplicationOverride.setCommandArgumentsCallback(this);
         GApplication.connect(this, handler, false);
     }

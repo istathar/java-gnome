@@ -67,6 +67,9 @@ public class ApplicationFlags extends Flag
     public static final ApplicationFlags HANDLES_OPEN = new ApplicationFlags(
             GlibApplicationFlags.HANDLES_OPEN, "HANDLES_OPEN");
 
+    public static final ApplicationFlags HANDLES_COMMAND_LINE = new ApplicationFlags(
+            GlibApplicationFlags.HANDLES_COMMAND_LINE, "HANDLES_COMMAND_LINE");
+
     /**
      * The primary instance will receive the environment of the launching
      * process. This constant is useful if the application should behave

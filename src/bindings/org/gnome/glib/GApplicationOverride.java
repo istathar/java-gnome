@@ -42,6 +42,12 @@ final class GApplicationOverride extends Plumbing
 
     private static native final int g_application_main_run(long self, String[] args);
 
+    static final void setOpenFilesCallback(Application self) {
+        g_application_set_open_files_callback(pointerOf(self));
+    }
+
+    private static native final void g_application_set_open_files_callback(long self);
+
     static final void setCommandArgumentsCallback(Application self) {
         g_application_set_command_arguments_callback(pointerOf(self));
     }

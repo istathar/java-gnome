@@ -128,3 +128,11 @@
     '("gchar*" "hint")
   )
 )
+
+(define-virtual command_arguments
+  (of-object "GApplication")
+  (return-type "int")
+  (parameters
+    '("gchar*" "arguments")
+  )
+)
