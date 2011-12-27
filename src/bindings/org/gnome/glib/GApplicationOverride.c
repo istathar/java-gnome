@@ -52,7 +52,6 @@ Java_org_gnome_glib_GApplicationOverride_g_1application_1main_1run
 	JNIEnv *env,
 	jclass cls,
 	jlong _self,
-	jstring _name,
 	jobjectArray _args
 )
 {
@@ -84,7 +83,7 @@ Java_org_gnome_glib_GApplicationOverride_g_1application_1main_1run
 	 * command line. Java skips this, so we need to re-introduce a dummy
 	 * value here.
 	 */
-	argv[0] = (char*) bindings_java_getString(env, _name);
+	argv[0] = "";
 	argc++;
 
 	// call function
@@ -110,15 +109,13 @@ open
 	gchar* group;
 	gchar** filenames;
 
-	printf("Signal triggered...\n");
-
-	filenames = NULL;
+	filenames = g_malloc(sizeof(gchar*) * (n_files + 1));
 	for (i = 0; i < n_files; i++) {
 		filenames[i] = g_file_get_uri(files[i]);
 	}
 	filenames[n_files] = NULL;
 
-	group = g_strjoinv("|", filenames);
+	group = g_strjoinv("&&", filenames);
 	g_free(filenames);
 
 	g_signal_emit_by_name(source, "open-files", group, hint);

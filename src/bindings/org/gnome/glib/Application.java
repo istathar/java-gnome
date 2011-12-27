@@ -138,8 +138,8 @@ public class Application extends Object
         GApplication.activate(this);
     }
 
-    public int run(String name, String[] args) {
-        return GApplicationOverride.run(this, name, args);
+    public int run(String[] args) {
+        return GApplicationOverride.run(this, args);
     }
 
     public interface Activate extends GApplication.ActivateSignal

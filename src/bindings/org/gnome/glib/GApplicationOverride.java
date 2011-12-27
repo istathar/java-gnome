@@ -34,13 +34,13 @@ package org.gnome.glib;
 
 final class GApplicationOverride extends Plumbing
 {
-    static final int run(Application self, String name, String[] args) {
+    static final int run(Application self, String[] args) {
         synchronized (lock) {
-            return g_application_main_run(pointerOf(self), name, args);
+            return g_application_main_run(pointerOf(self), args);
         }
     }
 
-    private static native final int g_application_main_run(long self, String name, String[] args);
+    private static native final int g_application_main_run(long self, String[] args);
 
     static final void setCommandArgumentsCallback(Application self) {
         g_application_set_command_arguments_callback(pointerOf(self));
