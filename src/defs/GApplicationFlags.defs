@@ -1,4 +1,4 @@
-(define-enum ApplicationFlags
+(define-flags ApplicationFlags
   (in-module "Glib")
   (c-name "GApplicationFlags")
   (gtype-id "G_TYPE_APPLICATION_FLAGS")

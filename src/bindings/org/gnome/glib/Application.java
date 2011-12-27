@@ -138,23 +138,8 @@ public class Application extends Object
         GApplication.activate(this);
     }
 
-    public int run(String[] args) {
-        final String[] argv;
-
-        /*
-         * FIXME: When passing arguments a crasher will be generated because
-         * glib will tell us that the application cannot open files.
-         */
-        argv = new String[args.length + 1];
-        argv[0] = this.getId();
-
-        for (int i = 1; i < argv.length; i++) {
-            argv[i] = args[i - 1];
-        }
-
-        return GApplication.run(this, argv.length, argv);
-        // FIXME: this (sadly) generates a crasher.
-        // return GApplicationOverride.run(this, args);
+    public int run(String name, String[] args) {
+        return GApplicationOverride.run(this, name, args);
     }
 
     public interface Activate extends GApplication.ActivateSignal
@@ -181,6 +166,16 @@ public class Application extends Object
     }
 
     public void connect(Application.Shutdown handler) {
+        GApplication.connect(this, handler, false);
+    }
+
+    public interface OpenFiles extends GApplication.OpenFilesSignal
+    {
+        public void onOpenFiles(Application source, String files, String hint);
+    }
+
+    public void connect(Application.OpenFiles handler) {
+        GApplicationOverride.setCommandArgumentsCallback(this);
         GApplication.connect(this, handler, false);
     }
 }

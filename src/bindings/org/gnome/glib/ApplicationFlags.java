@@ -32,7 +32,7 @@
  */
 package org.gnome.glib;
 
-import org.freedesktop.bindings.Constant;
+import org.freedesktop.bindings.Flag;
 
 /**
  * Constants used to define the behavior of an {@link Application}.
@@ -40,7 +40,7 @@ import org.freedesktop.bindings.Constant;
  * @author Guillaume Mazoyer
  * @since 4.1.2
  */
-public class ApplicationFlags extends Constant
+public class ApplicationFlags extends Flag
 {
     protected ApplicationFlags(int ordinal, String nickname) {
         super(ordinal, nickname);
@@ -63,6 +63,9 @@ public class ApplicationFlags extends Constant
      */
     public static final ApplicationFlags IS_LAUNCHER = new ApplicationFlags(
             GlibApplicationFlags.IS_LAUNCHER, "IS_LAUNCHER");
+
+    public static final ApplicationFlags HANDLES_OPEN = new ApplicationFlags(
+            GlibApplicationFlags.HANDLES_OPEN, "HANDLES_OPEN");
 
     /**
      * The primary instance will receive the environment of the launching

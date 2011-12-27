@@ -119,3 +119,12 @@
   (of-object "GApplication")
   (return-type "none")
 )
+
+(define-virtual open_files
+  (of-object "GApplication")
+  (return-type "none")
+  (parameters
+    '("gchar*" "files")
+    '("gchar*" "hint")
+  )
+)
