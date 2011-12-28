@@ -122,68 +122,184 @@ public class Application extends Object
         GApplication.setFlags(this, flags);
     }
 
+    /**
+     * Checks if the Application is remote. If it is then it means that
+     * another instance of the Application exists, the &quot;primary&quot;
+     * instance.
+     * 
+     * @since 4.1.2
+     */
     public boolean isRemote() {
         return GApplication.isRemote(this);
     }
 
+    /**
+     * Increases the use count of the Application.
+     * 
+     * <p>
+     * Use this function to indicate that the Application has a reason to
+     * continue to run.This method is called by GTK+ when a top-level
+     * {@link org.gnome.gtk.Window} is on the screen.
+     * 
+     * <p>
+     * To cancel the hold, call {@link #unhold()}.
+     * 
+     * @since 4.1.2
+     */
     public void hold() {
         GApplication.hold(this);
     }
 
+    /**
+     * Decrease the use count of the Application.
+     * 
+     * <p>
+     * When the use count reaches zero, the Application will stop running.
+     * 
+     * <p>
+     * You should never call this function except to cancel the effect of a
+     * previous call to {@link #hold()}.
+     * 
+     * @since 4.1.2
+     */
     public void unhold() {
         GApplication.release(this);
     }
 
+    /**
+     * Emits the {@link Application.Activate} signal.
+     * 
+     * @since 4.1.2
+     */
     public void activate() {
         GApplication.activate(this);
     }
 
+    /**
+     * Runs the Application.
+     * 
+     * <p>
+     * This function is intended to be run from <code>main()</code> and its
+     * return value is intended to be returned be used as the exit value of
+     * the program. Although you are expected to pass the <code>args</code>
+     * parameters.
+     * 
+     * <p>
+     * You should use the {@link GlibApplicationFlags#HANDLES_COMMAND_LINE} or
+     * {@link GlibApplicationFlags#HANDLES_OPEN} flags to handle command line
+     * arguments.
+     * 
+     * @since 4.1.2
+     */
     public int run(String[] args) {
         return GApplicationOverride.run(this, args);
     }
 
+    /**
+     * This signal is emitted on the primary instance when an activation
+     * occurs (at startup or by calling the Application
+     * {@link Application#activate() activate()} method.
+     * 
+     * @author Guillaume Mazoyer
+     * @since 4.1.2
+     */
     public interface Activate extends GApplication.ActivateSignal
     {
         public void onActivate(Application source);
     }
 
+    /**
+     * Hook up the <code>Application.Activate</code> handler.
+     * 
+     * @since 4.1.2
+     */
     public void connect(Application.Activate handler) {
         GApplication.connect(this, handler, false);
     }
 
+    /**
+     * This signal is emitted on the primary instance immediately after
+     * registration.
+     * 
+     * @author Guillaume Mazoyer
+     * @since 4.1.2
+     */
     public interface Startup extends GApplication.StartupSignal
     {
         public void onStartup(Application source);
     }
 
+    /**
+     * Hook up the <code>Application.Startup</code> handler.
+     * 
+     * @since 4.1.2
+     */
     public void connect(Application.Startup handler) {
         GApplication.connect(this, handler, false);
     }
 
+    /**
+     * This signal is emitted only on the registered primary instance
+     * immediately after the main loop terminates.
+     * 
+     * @author Guillaume Mazoyer
+     * @since 4.1.2
+     */
     public interface Shutdown extends GApplication.ShutdownSignal
     {
         public void onShutdown(Application source);
     }
 
+    /**
+     * Hook up the <code>Application.Shutdown</code> handler.
+     * 
+     * @since 4.1.2
+     */
     public void connect(Application.Shutdown handler) {
         GApplication.connect(this, handler, false);
     }
 
+    /**
+     * This signal is emitted on the primary instance when there are files to
+     * open. The Application must use the
+     * {@link ApplicationFlags#HANDLES_OPEN} flag.
+     * 
+     * @author Guillaume Mazoyer
+     * @since 4.1.2
+     */
     public interface OpenFiles extends GApplication.OpenFilesSignal
     {
         public void onOpenFiles(Application source, String files, String hint);
     }
 
+    /**
+     * Hook up the <code>Application.OpenFiles</code> handler.
+     * 
+     * @since 4.1.2
+     */
     public void connect(Application.OpenFiles handler) {
         GApplicationOverride.setOpenFilesCallback(this);
         GApplication.connect(this, handler, false);
     }
 
+    /**
+     * This signal is emitted on the primary instance when a command line
+     * should be handled. The Application must use the
+     * {@link ApplicationFlags#HANDLES_COMMAND_LINE} flag.
+     * 
+     * @author Guillaume Mazoyer
+     * @since 4.1.2
+     */
     public interface CommandArguments extends GApplication.CommandArgumentsSignal
     {
         public int onCommandArguments(Application source, String arguments);
     }
 
+    /**
+     * Hook up the <code>Application.CommandArguments</code> handler.
+     * 
+     * @since 4.1.2
+     */
     public void connect(Application.CommandArguments handler) {
         GApplicationOverride.setCommandArgumentsCallback(this);
         GApplication.connect(this, handler, false);
