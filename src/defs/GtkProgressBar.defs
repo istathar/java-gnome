@@ -27,6 +27,15 @@
   )
 )
 
+(define-method set_show_text
+  (of-object "GtkProgressBar")
+  (c-name "gtk_progress_bar_set_show_text")
+  (return-type "none")
+  (parameters
+    '("gboolean" "show_text")
+  )
+)
+
 (define-method set_fraction
   (of-object "GtkProgressBar")
   (c-name "gtk_progress_bar_set_fraction")
@@ -49,6 +58,12 @@
   (of-object "GtkProgressBar")
   (c-name "gtk_progress_bar_get_text")
   (return-type "const-gchar*")
+)
+
+(define-method get_show_text
+  (of-object "GtkProgressBar")
+  (c-name "gtk_progress_bar_get_show_text")
+  (return-type "gboolean")
 )
 
 (define-method get_fraction
