@@ -32,18 +32,33 @@
  */
 package org.gnome.glib;
 
+/**
+ * A simple coverage of GFile for our internal bindings needs.
+ * 
+ * @author Guillaume Mazoyer
+ * @since 4.1.2
+ */
 public class File extends Object
 {
     protected File(long pointer) {
         super(pointer);
     }
 
+    /**
+     * Creates a File object using a path on the file system.
+     * 
+     * @since 4.1.2
+     */
     protected File(String path) {
         this(GFile.createFileForPath(path));
     }
 
+    /**
+     * Returns the path of the File.
+     * 
+     * @since 4.1.2
+     */
     protected String getPath() {
         return GFile.getPath(this);
     }
 }
-

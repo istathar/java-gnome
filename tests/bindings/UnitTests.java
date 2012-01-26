@@ -33,6 +33,7 @@ import org.gnome.gdk.ValidateImageHandling;
 import org.gnome.gdk.ValidateKeyboardHandling;
 import org.gnome.gdk.ValidateScreensAndDisplays;
 import org.gnome.glib.ValidateConstants;
+import org.gnome.glib.ValidateGFileMethods;
 import org.gnome.glib.ValidateGListMethods;
 import org.gnome.glib.ValidateMemoryManagement;
 import org.gnome.glib.ValidateReferenceCounting;
@@ -147,6 +148,7 @@ public class UnitTests
         suite.addTestSuite(ValidateInternationalization.class);
         suite.addTestSuite(ValidateReferenceCounting.class);
         suite.addTestSuite(ValidateMemoryManagement.class);
+        suite.addTestSuite(ValidateGFileMethods.class);
         suite.addTestSuite(ValidateGListMethods.class);
         suite.addTestSuite(ValidateConstants.class);
         suite.addTestSuite(ValidateProperties.class);
