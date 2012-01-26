@@ -32,19 +32,18 @@
  */
 package org.gnome.glib;
 
-final class GApplicationOverride extends Plumbing
+public class File extends Object
 {
-    static final int run(Application self, String[] args) {
-        synchronized (lock) {
-            return g_application_main_run(pointerOf(self), args);
-        }
+    protected File(long pointer) {
+        super(pointer);
     }
 
-    private static native final int g_application_main_run(long self, String[] args);
-
-    static final void setCommandArgumentsCallback(Application self) {
-        g_application_set_command_arguments_callback(pointerOf(self));
+    protected File(String path) {
+        this(GFile.createFileForPath(path));
     }
 
-    private static native final void g_application_set_command_arguments_callback(long self);
+    protected String getPath() {
+        return GFile.getPath(this);
+    }
 }
+

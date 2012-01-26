@@ -36,7 +36,6 @@
 #include "bindings_java.h"
 #include "org_gnome_glib_GApplicationOverride.h"
 
-static guint signalFileID = 0;
 static guint signalCommandID = 0;
 static GApplication* source;
 
@@ -97,31 +96,6 @@ Java_org_gnome_glib_GApplicationOverride_g_1application_1main_1run
 	return _result;
 }
 
-static void
-open
-(
-	GApplication* application,
-	GFile** files,
-	gint n_files,
-	const gchar* hint
-)
-{
-	gint i;
-	gchar* group;
-	gchar** filenames;
-
-	filenames = g_malloc(sizeof(gchar*) * (n_files + 1));
-	for (i = 0; i < n_files; i++) {
-		filenames[i] = g_file_get_uri(files[i]);
-	}
-	filenames[n_files] = NULL;
-
-	group = g_strjoinv("&&", filenames);
-	g_free(filenames);
-
-	g_signal_emit_by_name(source, "open-files", group, hint);
-}
-
 static int
 command
 (
@@ -131,49 +105,12 @@ command
 {
 	int argc, result;
 	gchar** arguments;
-	gchar* group;
 
 	arguments = g_application_command_line_get_arguments(command_line, &argc);
-	group = g_strjoinv("&&", arguments);
 
-	g_strfreev(arguments);
-
-	g_signal_emit_by_name(source, "command-arguments", group, &result);
+	g_signal_emit_by_name(source, "command-arguments", arguments, &result);
 
 	return result;
-}
-
-/**
- * called from
- *   org.gnome.glib.GApplicationOverride.setOpenFilesCallback()
- */
-JNIEXPORT void JNICALL
-Java_org_gnome_glib_GApplicationOverride_g_1application_1set_1open_1files_1callback
-(
-	JNIEnv* env,
-	jclass cls,
-	jlong _self
-)
-{
-	// convert parameter self
-	source = (GApplication*) _self;
-
-	if (signalFileID == 0) {
-		signalFileID = g_signal_new("open-files",
-					G_TYPE_APPLICATION,
-					G_SIGNAL_ACTION,
-					0,
-					NULL,
-					NULL, 
-					NULL,
-					G_TYPE_NONE,
-					2,
-					G_TYPE_STRING,
-					G_TYPE_STRING);
-	}
-
-	// call function
-	g_signal_connect(source, "open", G_CALLBACK(open), NULL);
 }
 
 /**
@@ -201,7 +138,7 @@ Java_org_gnome_glib_GApplicationOverride_g_1application_1set_1command_1arguments
 					NULL,
 					G_TYPE_INT,
 					1,
-					G_TYPE_STRING);
+					G_TYPE_STRV);
 	}
 
 	// call function

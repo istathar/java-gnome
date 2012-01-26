@@ -120,11 +120,12 @@
   (return-type "none")
 )
 
-(define-virtual open_files
+(define-virtual open
   (of-object "GApplication")
   (return-type "none")
   (parameters
-    '("gchar*" "files")
+    '("GFile**" "files")
+    '("gint" "n_files")
     '("gchar*" "hint")
   )
 )
@@ -133,6 +134,6 @@
   (of-object "GApplication")
   (return-type "int")
   (parameters
-    '("gchar*" "arguments")
+    '("gchar**" "arguments")
   )
 )

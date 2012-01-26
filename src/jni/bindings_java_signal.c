@@ -58,14 +58,14 @@ typedef struct  {
 	/**
 	 * We use Java's single letter codes to choose which kind of
 	 * invocation we will use
-	 */	 
+	 */
 	jchar		returnType;
- 	
+
  	/*
  	 * The Class upon which we invoke the [static] "receiveBlah" method.
  	 */
  	jclass		receiver;
- 
+
  	/*
  	 * The actual Signal subinterface that is being connected. This will
  	 * be passed to the handler on the Java side so it can call the
@@ -73,16 +73,16 @@ typedef struct  {
  	 * standpoint) the callback being invoked.
  	 */
  	jobject 	handler;
- 	
+
  	/*
  	 * ID of the method on handlerInstance that will be invoked upon
  	 * callback
  	 */
  	jmethodID	method;
- 	
+
 } BindingsJavaClosure;
 
- 
+
 /**
  * This method actually receives all callbacks in the system. It receives a
  * GClosure struct as its data, which turns out to be our BindingsJavaClosure.
@@ -139,13 +139,13 @@ bindings_java_marshaller
 	/*
 	 * Build the parameters for the callback. The signature of the
 	 * handlers on the Java side for a signal "name" would be:
-	 * 
+	 *
 	 * 	receiveName(Signal handler, type arg0, type arg1, ...)
 	 *
 	 * Note that arg0 is universally the source object (in otherwords, a
 	 * method function where the first argument is always a reference to
 	 * self).
-	 *  
+	 *
 	 * In case you didn't know, JNI's jvalue us a rather complex union
 	 * which holds any of the possible things you can send across the
 	 * boundary. So we allocate an array of them, then for each parameter
@@ -235,7 +235,7 @@ bindings_java_marshaller
 			/*
 			 * We're ignoring GParamSpec at the moment. They
 			 * normally only show up in 'notify' signals, and we
-			 * don't need them. 
+			 * don't need them.
 			 */
 		case G_TYPE_POINTER:
 			/*
@@ -328,7 +328,7 @@ bindings_java_marshaller
 		g_value_set_string(return_value, str);
 		
 		// ... so we can release str
-		bindings_java_releaseString(str);	 
+		bindings_java_releaseString(str);
 		break;
 
 	default:
@@ -400,9 +400,9 @@ bindings_java_closure_destroy
 {
 	BindingsJavaClosure* bjc;
 	JNIEnv* env;	
-  
+
  	bjc = (BindingsJavaClosure*) closure;
-  
+
 	if (bjc->handler) {
 		env = bindings_java_getEnv();
 		(*env)->DeleteWeakGlobalRef(env, bjc->handler);
@@ -430,7 +430,7 @@ bindings_java_closure_new
 
 	GString* buf;
 	guint i;
-	
+
 	gchar* methodName;
 	gchar* methodSignature;
 	
@@ -443,7 +443,7 @@ bindings_java_closure_new
 	g_closure_add_finalize_notifier(closure, NULL, bindings_java_closure_destroy);
 	g_closure_set_marshal(closure, bindings_java_marshaller);
 
-	bjc = (BindingsJavaClosure*) closure; 
+	bjc = (BindingsJavaClosure*) closure;
 
 	/*
 	 * And now we begin the legwork of figuring out what the methodID of
@@ -466,7 +466,7 @@ bindings_java_closure_new
 	case G_TYPE_ENUM:
 		bjc->returnType = 'E';
       		break;
-      		
+
 	case G_TYPE_STRING:
 		/*
 		 * Strings are encoded as java.lang.String objects in signatures,
@@ -474,7 +474,7 @@ bindings_java_closure_new
 		 */
 		bjc->returnType = 'L';
       		break;
-      		
+
 	case G_TYPE_NONE:
 		bjc->returnType = 'V';
 		break;
