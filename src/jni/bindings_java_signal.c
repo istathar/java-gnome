@@ -438,7 +438,7 @@ bindings_java_closure_new
 	 * First we allocate the closure and do the footwork to tell it what
 	 * its marshaller is
 	 */
-	 
+
 	closure = g_closure_new_simple(sizeof(BindingsJavaClosure), NULL);
 	g_closure_add_finalize_notifier(closure, NULL, bindings_java_closure_destroy);
 	g_closure_set_marshal(closure, bindings_java_marshaller);
