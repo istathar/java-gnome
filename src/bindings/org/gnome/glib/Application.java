@@ -259,6 +259,27 @@ public class Application extends Object
         GApplication.connect(this, handler, false);
     }
 
+    private static class OpenFilesHandler implements GApplication.OpenSignal
+    {
+        private final Application.OpenFiles handler;
+
+        private OpenFilesHandler(Application.OpenFiles handler) {
+            super();
+            this.handler = handler;
+        }
+
+        public void onOpen(Application source, File[] files, int size, String hint) {
+            final String[] strings;
+
+            strings = new String[size];
+            for (int i = 0; i < size; i++) {
+                strings[i] = files[i].getPath();
+            }
+
+            handler.onOpenFiles(source, strings, hint);
+        }
+    }
+
     /**
      * This signal is emitted on the primary instance when there are files to
      * open. The Application must use the
@@ -267,9 +288,9 @@ public class Application extends Object
      * @author Guillaume Mazoyer
      * @since 4.1.2
      */
-    public interface OpenFiles extends GApplication.OpenFilesSignal
+    public interface OpenFiles extends GApplication.OpenSignal
     {
-        public void onOpenFiles(Application source, String files, String hint);
+        public void onOpenFiles(Application source, String[] files, String hint);
     }
 
     /**
@@ -278,8 +299,7 @@ public class Application extends Object
      * @since 4.1.2
      */
     public void connect(Application.OpenFiles handler) {
-        GApplicationOverride.setOpenFilesCallback(this);
-        GApplication.connect(this, handler, false);
+        GApplication.connect(this, new OpenFilesHandler(handler), false);
     }
 
     /**
@@ -292,7 +312,7 @@ public class Application extends Object
      */
     public interface CommandArguments extends GApplication.CommandArgumentsSignal
     {
-        public int onCommandArguments(Application source, String arguments);
+        public int onCommandArguments(Application source, String[] arguments);
     }
 
     /**

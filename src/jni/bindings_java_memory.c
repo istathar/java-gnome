@@ -127,14 +127,13 @@ bindings_java_memory_deref
         GObject* object;
 
         object = (GObject*) data;
-        
-                
+
 	if (DEBUG_MEMORY_MANAGEMENT) {
 		g_printerr("mem: drop GObject ref\t\t%s\n", bindings_java_memory_pointerToString(object));
 	}
         g_object_unref(object);
         return FALSE;
-}       
+}
 
 /**
  * Called from
@@ -164,7 +163,7 @@ bindings_java_memory_ref
 	 * Take out a strong Java reference "from the GObject to the Proxy"
 	 * and stash it in the GObject. 
 	 */
- 
+
  	if (DEBUG_MEMORY_MANAGEMENT) {
  		g_printerr("mem: add STRONG Java ref\t%s\n", bindings_java_memory_pointerToString(object));
  	}
@@ -235,7 +234,7 @@ bindings_java_memory_cleanup
 )
 {
     if (g_object_get_data(object, REFERENCE) == NULL) {
-        
+
         /* 
          * We don't have a proxy for the given object. If we own the object,
          * we don't need to do anything, as Object constructor will take care

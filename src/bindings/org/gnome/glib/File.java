@@ -32,19 +32,33 @@
  */
 package org.gnome.glib;
 
-final class GApplicationOverride extends Plumbing
+/**
+ * A simple coverage of GFile for our internal bindings needs.
+ * 
+ * @author Guillaume Mazoyer
+ * @since 4.1.2
+ */
+public class File extends Object
 {
-    static final int run(Application self, String[] args) {
-        synchronized (lock) {
-            return g_application_main_run(pointerOf(self), args);
-        }
+    protected File(long pointer) {
+        super(pointer);
     }
 
-    private static native final int g_application_main_run(long self, String[] args);
-
-    static final void setCommandArgumentsCallback(Application self) {
-        g_application_set_command_arguments_callback(pointerOf(self));
+    /**
+     * Creates a File object using a path on the file system.
+     * 
+     * @since 4.1.2
+     */
+    protected File(String path) {
+        this(GFile.createFileForPath(path));
     }
 
-    private static native final void g_application_set_command_arguments_callback(long self);
+    /**
+     * Returns the path of the File.
+     * 
+     * @since 4.1.2
+     */
+    protected String getPath() {
+        return GFile.getPath(this);
+    }
 }
