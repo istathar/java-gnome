@@ -20,7 +20,7 @@ package unique;
 
 import org.gnome.gdk.Event;
 import org.gnome.glib.ApplicationFlags;
-import org.gnome.glib.File;
+import org.gnome.glib.CommandLine;
 import org.gnome.gtk.Application;
 import org.gnome.gtk.Button;
 import org.gnome.gtk.Gtk;
@@ -60,18 +60,16 @@ public final class ExampleBasicApplication
         });
 
         a.connect(new Application.OpenFiles() {
-            public void onOpen(org.gnome.glib.Application source, File[] files, int nFiles, String hint) {}
-
             public void onOpenFiles(org.gnome.glib.Application source, String[] files, String hint) {
-                for (String s : files) {
-                    System.out.println(s);
+                for (String file : files) {
+                    System.out.println(file);
                 }
             }
         });
 
-        a.connect(new Application.CommandArguments() {
-            public int onCommandArguments(org.gnome.glib.Application source, String[] arguments) {
-                for (String s : arguments) {
+        a.connect(new Application.CommandLine() {
+            public int onCommandLine(org.gnome.glib.Application source, CommandLine command) {
+                for (String s : command.getArguments()) {
                     System.out.println(s);
                 }
 
@@ -102,7 +100,7 @@ public final class ExampleBasicApplication
 
         w.connect(new Window.DeleteEvent() {
             public boolean onDeleteEvent(Widget source, Event event) {
-                Gtk.mainQuit();
+                a.removeWindow(w);
                 return false;
             }
         });

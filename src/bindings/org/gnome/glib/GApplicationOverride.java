@@ -32,6 +32,12 @@
  */
 package org.gnome.glib;
 
+/**
+ * Custom class to handle methods of GApplication in our way.
+ * 
+ * @author Guillaume Mazoyer
+ * @since 4.1.2
+ */
 final class GApplicationOverride extends Plumbing
 {
     static final int run(Application self, String[] args) {
@@ -41,10 +47,4 @@ final class GApplicationOverride extends Plumbing
     }
 
     private static native final int g_application_main_run(long self, String[] args);
-
-    static final void setCommandArgumentsCallback(Application self) {
-        g_application_set_command_arguments_callback(pointerOf(self));
-    }
-
-    private static native final void g_application_set_command_arguments_callback(long self);
 }

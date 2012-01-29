@@ -43,10 +43,10 @@
  * Allocates and initializes a GList with the contents of a java long array.
  * The returned list must be freed with g_list_free () when no longer needed.
  */
-GList* 
+GList*
 bindings_java_convert_jarray_to_glist
 (
-	JNIEnv* env, 
+	JNIEnv* env,
 	jlongArray _array
 )
 {
@@ -79,10 +79,10 @@ bindings_java_convert_jarray_to_glist
  * Allocates and initializes a GSList with the contents of a java long array.
  * The returned list must be freed with g_slist_free() when no longer needed.
  */
-GSList* 
+GSList*
 bindings_java_convert_jarray_to_gslist
 (
-	JNIEnv* env, 
+	JNIEnv* env,
 	jlongArray _array
 )
 {
@@ -111,10 +111,10 @@ bindings_java_convert_jarray_to_gslist
 	return list;
 }
 
-jlongArray 
+jlongArray
 bindings_java_convert_glist_to_jarray
 (
-	JNIEnv* env, 
+	JNIEnv* env,
 	GList* list
 )
 {
@@ -149,10 +149,10 @@ bindings_java_convert_glist_to_jarray
 	return _array;
 }
 
-jlongArray 
+jlongArray
 bindings_java_convert_gslist_to_jarray
 (
-	JNIEnv* env, 
+	JNIEnv* env,
 	GSList* list
 )
 {
@@ -187,10 +187,10 @@ bindings_java_convert_gslist_to_jarray
 	return _array;
 }
 
-gpointer* 
+gpointer*
 bindings_java_convert_jarray_to_gpointer
 (
-	JNIEnv* env, 
+	JNIEnv* env,
 	jlongArray _array
 )
 {
@@ -223,11 +223,11 @@ bindings_java_convert_jarray_to_gpointer
 	return ptrs;
 }
 
-void 
+void
 bindings_java_convert_gpointer_to_jarray
 (
-	JNIEnv* env, 
-	gpointer* ptrs, 
+	JNIEnv* env,
+	gpointer* ptrs,
 	jlongArray _array
 )
 {
@@ -254,10 +254,10 @@ bindings_java_convert_gpointer_to_jarray
 	g_free(ptrs);
 }
 
-jobjectArray 
+jobjectArray
 bindings_java_convert_gchararray_to_jarray
 (
-	JNIEnv* env, 
+	JNIEnv* env,
 	const gchar** array
 )
 {
@@ -300,11 +300,11 @@ bindings_java_convert_gchararray_to_jarray
 	return _array;
 }
 
-gchar** 
+gchar**
 bindings_java_convert_strarray_to_gchararray
 (
-	JNIEnv* env, 
-	jobjectArray _array 
+	JNIEnv* env,
+	jobjectArray _array
 )
 {
 	gchar** array;
@@ -338,11 +338,11 @@ bindings_java_convert_strarray_to_gchararray
 	return array;
 }
 
-void 
+void
 bindings_java_convert_gchararray_to_strarray
 (
-	JNIEnv* env, 
-	gchar** array, 
+	JNIEnv* env,
+	gchar** array,
 	jobjectArray _array
 )
 {

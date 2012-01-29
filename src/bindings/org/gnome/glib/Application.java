@@ -238,27 +238,6 @@ public class Application extends Object
         GApplication.connect(this, handler, false);
     }
 
-    /**
-     * This signal is emitted only on the registered primary instance
-     * immediately after the main loop terminates.
-     * 
-     * @author Guillaume Mazoyer
-     * @since 4.1.2
-     */
-    public interface Shutdown extends GApplication.ShutdownSignal
-    {
-        public void onShutdown(Application source);
-    }
-
-    /**
-     * Hook up the <code>Application.Shutdown</code> handler.
-     * 
-     * @since 4.1.2
-     */
-    public void connect(Application.Shutdown handler) {
-        GApplication.connect(this, handler, false);
-    }
-
     private static class OpenFilesHandler implements GApplication.OpenSignal
     {
         private final Application.OpenFiles handler;
@@ -288,7 +267,7 @@ public class Application extends Object
      * @author Guillaume Mazoyer
      * @since 4.1.2
      */
-    public interface OpenFiles extends GApplication.OpenSignal
+    public interface OpenFiles
     {
         public void onOpenFiles(Application source, String[] files, String hint);
     }
@@ -310,9 +289,9 @@ public class Application extends Object
      * @author Guillaume Mazoyer
      * @since 4.1.2
      */
-    public interface CommandArguments extends GApplication.CommandArgumentsSignal
+    public interface CommandLine extends GApplication.CommandLineSignal
     {
-        public int onCommandArguments(Application source, String[] arguments);
+        public int onCommandLine(Application source, org.gnome.glib.CommandLine command);
     }
 
     /**
@@ -320,8 +299,7 @@ public class Application extends Object
      * 
      * @since 4.1.2
      */
-    public void connect(Application.CommandArguments handler) {
-        GApplicationOverride.setCommandArgumentsCallback(this);
+    public void connect(Application.CommandLine handler) {
         GApplication.connect(this, handler, false);
     }
 }
