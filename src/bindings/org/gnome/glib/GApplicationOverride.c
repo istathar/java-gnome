@@ -36,15 +36,11 @@
 #include "bindings_java.h"
 #include "org_gnome_glib_GApplicationOverride.h"
 
-static guint signalCommandID = 0;
-static GApplication* source;
-
 /*
  * Implements
  *   org.gnome.glib.GApplicationOverride.run(String[] args)
  * called from
  *   org.gnome.glib.GApplication.run(String[] args)
- * FIXME
  */
 JNIEXPORT jint JNICALL
 Java_org_gnome_glib_GApplicationOverride_g_1application_1main_1run
@@ -94,53 +90,4 @@ Java_org_gnome_glib_GApplicationOverride_g_1application_1main_1run
 
 	// and finally
 	return _result;
-}
-
-static int
-command
-(
-	GApplication* application,
-	GApplicationCommandLine* command_line
-)
-{
-	int argc, result;
-	gchar** arguments;
-
-	arguments = g_application_command_line_get_arguments(command_line, &argc);
-
-	g_signal_emit_by_name(source, "command-arguments", arguments, &result);
-
-	return result;
-}
-
-/**
- * called from
- *   org.gnome.glib.GApplicationOverride.setCommandArgumentsCallback()
- */
-JNIEXPORT void JNICALL
-Java_org_gnome_glib_GApplicationOverride_g_1application_1set_1command_1arguments_1callback
-(
-	JNIEnv* env,
-	jclass cls,
-	jlong _self
-)
-{
-	// convert parameter self
-	source = (GApplication*) _self;
-
-	if (signalCommandID == 0) {
-		signalCommandID = g_signal_new("command-arguments",
-					G_TYPE_APPLICATION,
-					G_SIGNAL_ACTION,
-					0,
-					NULL,
-					NULL, 
-					NULL,
-					G_TYPE_INT,
-					1,
-					G_TYPE_STRV);
-	}
-
-	// call function
-	g_signal_connect(source, "command-line", G_CALLBACK(command), NULL);
 }

@@ -110,11 +110,6 @@
   (return-type "none")
 )
 
-(define-virtual shutdown
-  (of-object "GApplication")
-  (return-type "none")
-)
-
 (define-virtual startup
   (of-object "GApplication")
   (return-type "none")
@@ -130,10 +125,10 @@
   )
 )
 
-(define-virtual command_arguments
+(define-virtual command_line
   (of-object "GApplication")
   (return-type "int")
   (parameters
-    '("gchar**" "arguments")
+    '("GApplicationCommandLine*" "command")
   )
 )

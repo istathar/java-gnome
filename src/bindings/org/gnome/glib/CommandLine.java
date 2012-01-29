@@ -33,32 +33,32 @@
 package org.gnome.glib;
 
 /**
- * A simple coverage of GFile for our internal bindings needs.
+ * Basic coverage to handle command line arguments that can be given by using
+ * the {@link org.gnome.glib.Application.CommandLine CommandLine} signal of
+ * {@link Application}.
  * 
  * @author Guillaume Mazoyer
  * @since 4.1.2
  */
-final class File extends Object
+public class CommandLine extends Object
 {
-    private File(long pointer) {
+    private CommandLine(long pointer) {
         super(pointer);
     }
 
-    /**
-     * Creates a File object using a path on the file system.
-     * 
-     * @since 4.1.2
+    /*
+     * No instanciation.
      */
-    File(String path) {
-        this(GFile.createFileForPath(path));
+    private CommandLine() {
+        this(0);
     }
 
     /**
-     * Returns the path of the File.
+     * Returns the arguments of the command line.
      * 
      * @since 4.1.2
      */
-    final String getPath() {
-        return GFile.getPath(this);
+    public String[] getArguments() {
+        return GApplicationCommandLineOverride.getArguments(this);
     }
 }

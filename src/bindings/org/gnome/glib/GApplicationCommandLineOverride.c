@@ -1,7 +1,7 @@
 /*
  * java-gnome, a UI library for writing GTK and GNOME programs from Java!
  *
- * Copyright © 2012 Operational Dynamics Consulting, Pty Ltd and Others
+ * Copyright © 2011 Operational Dynamics Consulting, Pty Ltd and Others
  *
  * The code in this file, and the program it is a part of, is made available
  * to you by its authors as open source software: you can redistribute it
@@ -30,35 +30,40 @@
  * version of the library, but you are not obligated to do so. If you do not
  * wish to do so, delete this exception statement from your version.
  */
-package org.gnome.glib;
 
-/**
- * A simple coverage of GFile for our internal bindings needs.
- * 
- * @author Guillaume Mazoyer
- * @since 4.1.2
+#include <jni.h>
+#include <gtk/gtk.h>
+#include "bindings_java.h"
+#include "org_gnome_glib_GApplicationCommandLineOverride.h"
+
+/*
+ * Implements
+ *   org.gnome.glib.GApplicationCommandLineOverride.getArguments()
+ * called from
+ *   org.gnome.glib.CommandLine.getArguments()
  */
-final class File extends Object
+JNIEXPORT jobjectArray JNICALL
+Java_org_gnome_glib_GApplicationCommandLineOverride_g_1application_1command_1line_1get_1arguments
+(
+	JNIEnv *env,
+	jclass cls,
+	jlong _self
+)
 {
-    private File(long pointer) {
-        super(pointer);
-    }
+	GApplicationCommandLine* self;
+	gchar** arguments;
+	int size;
+	jobjectArray result;
 
-    /**
-     * Creates a File object using a path on the file system.
-     * 
-     * @since 4.1.2
-     */
-    File(String path) {
-        this(GFile.createFileForPath(path));
-    }
+	// parameter self
+	self = (GApplicationCommandLine*) _self;
 
-    /**
-     * Returns the path of the File.
-     * 
-     * @since 4.1.2
-     */
-    final String getPath() {
-        return GFile.getPath(this);
-    }
+	// call the method
+	arguments = g_application_command_line_get_arguments(self, &size);
+
+	// convert arguments
+	result = bindings_java_convert_gchararray_to_jarray(env, (const gchar**) arguments);
+
+	// and finally
+	return result;
 }

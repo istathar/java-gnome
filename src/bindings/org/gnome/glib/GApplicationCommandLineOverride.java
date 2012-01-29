@@ -33,32 +33,16 @@
 package org.gnome.glib;
 
 /**
- * A simple coverage of GFile for our internal bindings needs.
+ * Custom class to handle methods of GApplicationCommandLine in our way.
  * 
  * @author Guillaume Mazoyer
  * @since 4.1.2
  */
-final class File extends Object
+final class GApplicationCommandLineOverride extends Plumbing
 {
-    private File(long pointer) {
-        super(pointer);
+    static final String[] getArguments(CommandLine self) {
+        return g_application_command_line_get_arguments(pointerOf(self));
     }
 
-    /**
-     * Creates a File object using a path on the file system.
-     * 
-     * @since 4.1.2
-     */
-    File(String path) {
-        this(GFile.createFileForPath(path));
-    }
-
-    /**
-     * Returns the path of the File.
-     * 
-     * @since 4.1.2
-     */
-    final String getPath() {
-        return GFile.getPath(this);
-    }
+    private static native String[] g_application_command_line_get_arguments(long self);
 }
