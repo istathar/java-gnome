@@ -13,6 +13,12 @@
   (return-type "GtkSourceStyleSchemeManager*")
 )
 
+
+(define-function get_default
+  (c-name "gtk_source_style_scheme_manager_get_default")
+  (return-type "GtkSourceStyleSchemeManager*")
+)
+
 (define-method set_search_path
   (of-object "GtkSourceStyleSchemeManager")
   (c-name "gtk_source_style_scheme_manager_set_search_path")

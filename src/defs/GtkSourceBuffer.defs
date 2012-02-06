@@ -133,7 +133,7 @@
   (c-name "gtk_source_buffer_set_style_scheme")
   (return-type "none")
   (parameters
-    '("GtkSourceStyleScheme*" "scheme")
+    '("GtkSourceStyleScheme*" "scheme" (null-ok))
   )
 )
 
