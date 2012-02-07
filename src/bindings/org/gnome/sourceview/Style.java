@@ -1,7 +1,7 @@
 /*
  * java-gnome, a UI library for writing GTK and GNOME programs from Java!
  *
- * Copyright © 2009-2010 Operational Dynamics Consulting, Pty Ltd and Others
+ * Copyright © 2012 Operational Dynamics Consulting, Pty Ltd and Others
  *
  * The code in this file, and the program it is a part of, is made available
  * to you by its authors as open source software: you can redistribute it
@@ -35,26 +35,24 @@ package org.gnome.sourceview;
 import org.gnome.glib.Object;
 
 /**
- * Style is used to describe text attributes which are set when given
- * style is used.
+ * Style is used to describe text attributes which are set when given style is
+ * used.
  * 
  * @author Georgios Migdos
  * @since 4.1.2
  */
 public class Style extends Object
 {
-    
     private Style(long pointer) {
         super(pointer);
     }
-    
+
     /**
-     * Create a copy of this Style, that  has the same attributes set.
-     *
+     * Create a copy of this Style, that has the same attributes set.
+     * 
      * @since 4.1.2
      */
-    public Style copy(){
+    public Style copy() {
         return GtkSourceStyle.copy(this);
     }
-    
 }

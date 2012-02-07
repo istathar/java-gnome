@@ -1,7 +1,7 @@
 /*
  * java-gnome, a UI library for writing GTK and GNOME programs from Java!
  *
- * Copyright © 2009-2010 Operational Dynamics Consulting, Pty Ltd and Others
+ * Copyright © 2012 Operational Dynamics Consulting, Pty Ltd and Others
  *
  * The code in this file, and the program it is a part of, is made available
  * to you by its authors as open source software: you can redistribute it
@@ -45,7 +45,7 @@ public class StyleSchemeManager extends Object
     private StyleSchemeManager(long pointer) {
         super(pointer);
     }
-    
+
     /**
      * Return the default StyleSchemeManager instance.
      * 
@@ -54,19 +54,19 @@ public class StyleSchemeManager extends Object
     public static StyleSchemeManager getDefault() {
         return GtkSourceStyleSchemeManager.getDefault();
     }
-    
+
     /**
-     * Return a scheme specified by its ID or <code>null</code> if
-     * the ID is not known.
+     * Return a scheme specified by its ID or <code>null</code> if the ID is
+     * not known.
      * 
      * @since 4.1.2
      */
     public StyleScheme getScheme(String schemeID) {
         return GtkSourceStyleSchemeManager.getScheme(this, schemeID);
     }
-    
+
     /**
-     * Return a <code>String</code> array containing the  the ids of the
+     * Return a <code>String</code> array containing the the ids of the
      * available style schemes or <code>null</code> if no style scheme is
      * available.
      * 
