@@ -131,6 +131,24 @@ public class SourceBuffer extends TextBuffer
     public Language getLanguage() {
         return GtkSourceBuffer.getLanguage(this);
     }
+    
+    /**
+     * Set the {@link StyleScheme} that is used.
+     *
+     * @since 4.1.2
+     */
+    public void setStyleScheme(StyleScheme scheme) {
+        GtkSourceBuffer.setStyleScheme(this, scheme);
+    }
+    
+    /**
+     * Get the {@link StyleScheme} that is used.
+     *
+     * @since 4.1.2
+     */
+    public StyleScheme getStyleScheme() {
+        return GtkSourceBuffer.getStyleScheme(this);
+    }
 
     /**
      * Enable or disable highlighting of matching brackets. Enabled by

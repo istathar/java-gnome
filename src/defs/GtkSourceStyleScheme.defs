@@ -41,7 +41,7 @@
   (c-name "gtk_source_style_scheme_get_style")
   (return-type "GtkSourceStyle*")
   (parameters
-    '("const-gchar*" "style_name")
+    '("const-gchar*" "style_id")
   )
 )
 

@@ -34,17 +34,77 @@ package org.gnome.sourceview;
 
 import org.gnome.glib.Object;
 
-/*
- * FIXME this is a placeholder stub for what will become the public API for
- * this type. Replace this comment with appropriate javadoc including author
- * and since tags. Note that the class may need to be made abstract, implement
- * interfaces, or even have its parent changed. No API stability guarantees
- * are made about this class until it has been reviewed by a hacker and this
- * comment has been replaced.
+/**
+ * StyleScheme contains all the text styles to be used in {@link SourceView}
+ * and {@link SourceBuffer}. For instance, it contains text styles for syntax 
+ * highlighting, it may contain foreground and background color for 
+ * non-highlighted text, color for the line numbers, etc. used.
+ * 
+ * @author Georgios Migdos
+ * @since 4.1.2
  */
-class StyleScheme extends Object
+public class StyleScheme extends Object
 {
-    protected StyleScheme(long pointer) {
+    private StyleScheme(long pointer) {
         super(pointer);
+    }
+    
+    /**
+     * Return this StyleScheme's unique identifier.
+     *
+     * @since 4.1.2
+     */
+    public String getID(){
+        return GtkSourceStyleScheme.getId(this);
+    }
+    
+    /**
+     * Return this StyleScheme's name (e.g. what would be presented in a 
+     * preferences dialog).
+     *
+     * @since 4.1.2
+     */
+    public String getName(){
+        return GtkSourceStyleScheme.getName(this);
+    }
+    
+    /**
+     * Return this StyleScheme's description.
+     *
+     * @since 4.1.2
+     */
+    public String getDescription(){
+        return GtkSourceStyleScheme.getDescription(this);
+    }
+    
+    /**
+     * Return a String array containing information about this scheme's
+     * authors or <code>null</code> if no author is specified by the style
+     * scheme.
+     *
+     * @since 4.1.2
+     */
+    public String[] getAuthors(){
+        return GtkSourceStyleScheme.getAuthors(this);
+    }
+    
+    /**
+     * Return a file name if the scheme was created parsing a style scheme 
+     * file or <code>null</code>.
+     *
+     * @since 4.1.2
+     */
+    public String getFilename(){
+        return GtkSourceStyleScheme.getFilename(this);
+    }
+    
+    /**
+     * Return the {@link Style} which corresponds to styleID in the scheme, 
+     * or <code>null</code> when no style with this name exists.
+     *
+     * @since 4.1.2
+     */
+    public Style getStyle(String styleID){
+        return GtkSourceStyleScheme.getStyle(this, styleID);
     }
 }
