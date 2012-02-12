@@ -81,19 +81,19 @@ Java_org_freedesktop_cairo_GdkCairoSupport_gdk_1cairo_1set_1source_1pixbuf
         GdkPixbuf* pixbuf;
         double x;
         double y;
-        
+
         // convert context
         context = (cairo_t*) _context;
-        
+
         // convert pixbuf
         pixbuf = (GdkPixbuf*) _pixbuf;
 
         // convert x
         x = (double) _x;
-        
+
         // convert x
         y = (double) _y;
-        
+
         // call function
         gdk_cairo_set_source_pixbuf(context, pixbuf, x, y);
 
@@ -117,10 +117,10 @@ Java_org_freedesktop_cairo_GdkCairoSupport_gdk_1cairo_1set_1source_1rgba
 {
         cairo_t* context;
         GdkRGBA* rgba;
-        
+
         // convert context
         context = (cairo_t*) _context;
-        
+
         // convert rgba
         rgba = (GdkRGBA*) _rgba;
 

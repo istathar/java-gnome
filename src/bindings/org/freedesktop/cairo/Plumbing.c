@@ -181,7 +181,7 @@ Java_org_freedesktop_cairo_Plumbing_createSurface
 		}
 		type = SvgSurface;
 		break;
- 
+
         case CAIRO_SURFACE_TYPE_RECORDING:
 		if (RecordingSurface == NULL) {
 			found = (*env)->FindClass(env, "org/freedesktop/cairo/RecordingSurface");
@@ -189,7 +189,7 @@ Java_org_freedesktop_cairo_Plumbing_createSurface
 		}
 		type = RecordingSurface;
 		break;
- 
+
 	default:
 		/*
 		 * This is an unusual scenario. Normally in java-gnome if we

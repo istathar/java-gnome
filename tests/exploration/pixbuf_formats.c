@@ -19,7 +19,7 @@
 
 /*
  * Code cut from the GdkPixbuf documentation to determine the file types
- * available 
+ * available
  *
  *    gcc `pkg-config --cflags --libs gtk+-2.0` -o enums enums.c
  *

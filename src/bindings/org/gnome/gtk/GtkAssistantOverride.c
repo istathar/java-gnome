@@ -41,7 +41,7 @@ static GtkAssistant* source;
 
 /*
  * Meets the signature requirement of (*GtkAssistantPageFunc) in
- * order to be the second parameter to the call to 
+ * order to be the second parameter to the call to
  * gtk_assistant_set_forward_page_func() below.
  */
 static gint
@@ -115,7 +115,7 @@ Java_org_gnome_gtk_GtkAssistantOverride_gtk_1assistant_1set_1forward_1page_1func
 					G_SIGNAL_ACTION,
 					0,
 					NULL,
-					NULL, 
+					NULL,
 					NULL,
 					G_TYPE_INT,
 					1,

@@ -71,7 +71,7 @@ Java_org_freedesktop_bindings_Plumbing_createFlag
 	JNIEnv *env,
 	jclass cls,
 	jclass type,
-	jint ordinal, 
+	jint ordinal,
 	jstring nickname
 )
 {

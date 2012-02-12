@@ -63,12 +63,12 @@ Java_org_freedesktop_bindings_Internationalization_gettext
 
 	// call function
 	result = gettext(msg);
-        
+
 	/*
 	 * If there was no translation, so just return the input String, This
 	 * avoids corrupting the statically allocated char* returned by
 	 * gettext().
-	 * 
+	 *
 	 * If there is a translation, allocate a new String for it, and
 	 * return it.
 	 */
@@ -118,7 +118,7 @@ Java_org_freedesktop_bindings_Internationalization_dgettext
 
 	// call function
 	result = dgettext(domain, name);
-        
+
 	/*
 	 * See comment in gettext() above
 	 */
@@ -133,7 +133,7 @@ Java_org_freedesktop_bindings_Internationalization_dgettext
 	}
 }
 
-JNIEXPORT void JNICALL 
+JNIEXPORT void JNICALL
 Java_org_freedesktop_bindings_Internationalization_bindtextdomain
 (
 	JNIEnv *env,
@@ -160,7 +160,7 @@ Java_org_freedesktop_bindings_Internationalization_bindtextdomain
 	/*
 	 * Initialize internationalization and localization libraries. The
 	 * second argument to setlocale() being "" means to pull settings
-	 * from the environment. 
+	 * from the environment.
 	 */
 
 	if (setlocale(LC_ALL, "") == NULL) {

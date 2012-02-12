@@ -38,7 +38,7 @@
  * very idiomatic, however, and the sequence of calls employed here was drawn
  * directly from the example set by the java-gnome 2.x project in their
  * glib-java/src/jni/org_gnu_glib_GObject.c. We are certainly indebted to the
- * previous hackers for having worked out these techniques.      
+ * previous hackers for having worked out these techniques.
  */
 
 #include <jni.h>
@@ -214,9 +214,9 @@ bindings_java_marshaller
 			 * GObjects are just pointers, and so we pass up the
 			 * address across the boundary to be looked up and
 			 * either an existing Proxy returned or a new Proxy
-			 * created. 
+			 * created.
 			 */
-			obj = g_value_get_object(&param_values[i]); 
+			obj = g_value_get_object(&param_values[i]);
 			bindings_java_memory_cleanup(obj, FALSE);
 			jargs[i+1].j = (jlong) obj;
 			break;
@@ -257,7 +257,7 @@ bindings_java_marshaller
 	}
 	
 	/*
-	 * And now we invoke the callback on the Java side Signal handler; we have to 
+	 * And now we invoke the callback on the Java side Signal handler; we have to
 	 * select the correct function based on what return type is necessary.
 	 */
 
@@ -307,9 +307,9 @@ bindings_java_marshaller
 	case 'L':
 		/*
 		 * String return signals
-		 * 
-		 * L is actually Object, of course, but the only type we need to 
-		 * worry about is java.lang.String encode it for now, and so make the 
+		 *
+		 * L is actually Object, of course, but the only type we need to
+		 * worry about is java.lang.String encode it for now, and so make the
 		 * enormous assumption that a string is what we get back.
 		 */
 		_str = (*env)->CallStaticObjectMethodA(env, bjc->receiver, bjc->method, jargs);
@@ -366,14 +366,14 @@ bindings_java_marshaller
 	 * native call. So we call the function which causes the main loop to
 	 * terminate, with the result that the exception will propegate out
 	 * and, yes, probably halt the program.
-	 * 
+	 *
 	 * This is abrupt, but it is deliberate: we need to force developers
 	 * to deal with criticals emitted by the underlying libraries.
 	 * Otherwise, the next thing that is likely to happen is a
 	 * segmentation fault, and not only does that crash the "program" but
 	 * it takes out the Java Virtual Machine running it. People don't
 	 * like VM crashes.
-	 * 
+	 *
 	 * Uncaught exceptions of any kind leaving a signal handler are to be
 	 * considered programmer error and will be fatal.
 	 */
@@ -416,7 +416,7 @@ bindings_java_closure_destroy
 GClosure*
 bindings_java_closure_new
 (
-	JNIEnv* env, 
+	JNIEnv* env,
 	jobject handler,
 	jclass receiver,
 	const gchar* name,
@@ -506,7 +506,7 @@ bindings_java_closure_new
 		gchar first = g_unichar_toupper(token[0]);
 		g_string_append_c(buf, first);
 
-		token++; 
+		token++;
 		g_string_append(buf, token);
 	}
 
@@ -518,11 +518,11 @@ bindings_java_closure_new
 	/*
 	 * And here is the tricky bit: formulate the method signature that goes
 	 * along with this signal. A method of the signature
-	 * 
+	 *
 	 * 	boolean method(int, long, String)
-	 * 
+	 *
 	 * has a JNI encoding of
-	 * 
+	 *
 	 * 	(IJLjava/util/String;)Z
 	 */
 

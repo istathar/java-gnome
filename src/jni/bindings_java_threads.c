@@ -79,7 +79,7 @@ bindings_java_threads_init
  */
 void
 bindings_java_threads_lock
-( 
+(
 )
 {
 	JNIEnv* env;
@@ -103,7 +103,7 @@ bindings_java_threads_lock
  */
 void
 bindings_java_threads_unlock
-( 
+(
 )
 {
 	JNIEnv* env;

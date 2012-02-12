@@ -60,7 +60,7 @@ Java_org_gnome_gtk_GtkMenuOverride_gtk_1menu_1popup
 }
 
 /*
- * Call gtk_menu_popup(), but hardwired to use 
+ * Call gtk_menu_popup(), but hardwired to use
  * gtk_status_icon_position_menu() as the (*GtkMenuPositionFunc).
  */
 JNIEXPORT void JNICALL
@@ -121,7 +121,7 @@ fixed_position
 }
 
 /**
- * A special case of popup() where we specifiy x,y [ie, in response to a Menu 
+ * A special case of popup() where we specifiy x,y [ie, in response to a Menu
  * key press.
  */
 /*

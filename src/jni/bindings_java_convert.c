@@ -274,7 +274,7 @@ bindings_java_convert_gchararray_to_jarray
 	/*
 	 * In Gtk+, all returning gchar* arrays are NULL-terminated
 	 */
-	while (array[size] != NULL) ++size; 
+	while (array[size] != NULL) ++size;
 	if ( size == 0 ) {
 		// FIXME, maybe a 0 length array is better
 		return NULL;
@@ -346,11 +346,11 @@ bindings_java_convert_gchararray_to_strarray
 	jobjectArray _array
 )
 {
-	/* 
+	/*
 	 * FIXME
 	 * For now, we don't support string arrays that are filled by Gtk+,
 	 * other than return parameters (managed in above function
-	 * bindings_java_convert_gchararray_to_jarray). 
+	 * bindings_java_convert_gchararray_to_jarray).
 	 * Thus, this just free the C array. It's supposed that this is an array
 	 * previously allocated in bindings_java_convert_strarray_to_gchararray.
 	 * Take care that this can lead to failures in methods like

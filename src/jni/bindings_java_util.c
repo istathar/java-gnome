@@ -73,7 +73,7 @@ bindings_java_getEnv()
 	JNIEnv* env = NULL;
 	void* ptr = NULL;
 	JavaVMAttachArgs args = { 0, };
-	static int i = 0; 
+	static int i = 0;
 	jint result;
 
 	result = (*cachedJavaVM)->GetEnv(cachedJavaVM, &ptr, JNI_VERSION_1_4);
@@ -117,7 +117,7 @@ bindings_java_getEnv()
  * Inspired by code from "The Java Native Interface", section 6.1.2.
  * Modified in java-gnome 2.x by Andrew Cowie to fix a potential crasher.
  * And then improved for use here.
- * 
+ *
  * It turns out different Java implementations are finicky about the syntax
  * of the string used to lookup a class. "Ljava/lang/Blah;" makes GCJ
  * unhappy; "java.lang.Blah" makes Sun Java barf. The JNI standard actually
@@ -149,7 +149,7 @@ bindings_java_throwByName
 	 * Somewhat ugly hack: Sun's JVM segfaults (!) if you try to throw
 	 * another Exception without having first handled, propegated or
 	 * otherwise cleared an existing one. The sooner we get back to Java,
-	 * the better. 
+	 * the better.
 	 */
 
 	if ((*env)->ExceptionOccurred(env)) {
@@ -203,10 +203,10 @@ bindings_java_throw
 	g_free(msg);
 }
 
-void 
+void
 bindings_java_throwGlibException
 (
-	JNIEnv* env, 
+	JNIEnv* env,
 	GError* error
 )
 {
@@ -280,7 +280,7 @@ bindings_java_typeToSignature
 
 	/*
 	 * This is a special case; we don't (and indeed cannot) actually
-	 * handle a raw "pointer" as a type, but by marshalling it as a 
+	 * handle a raw "pointer" as a type, but by marshalling it as a
 	 * meaningless long we can at least wrap and ignore it on the Java
 	 * side.
 	 */
@@ -368,7 +368,7 @@ bindings_java_logging_handler
 	 * Although the "--g-fatal-warnings" GTK option allows people to tell
 	 * GLib to make warnings fatal, their idea of fatal is to print the
 	 * WARNING and then to abort!
-	 * 
+	 *
 	 * So the alternatives open to us are to leave it to flow on to the
 	 * default log handler, or to throw our FatalError.
 	 *

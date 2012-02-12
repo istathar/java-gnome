@@ -53,7 +53,7 @@ get_utf8_property (GdkWindow *window,
   int actual_format, actual_length;
   guchar *data;
   char *retval;
-  
+
   utf8_string = gdk_x11_xatom_to_atom (gdk_x11_get_xatom_by_name ("UTF8_STRING"));
   res = gdk_property_get (window, atom, utf8_string,
                           0, G_MAXLONG, FALSE,
@@ -84,11 +84,11 @@ get_utf8_property (GdkWindow *window,
 
       return NULL;
     }
-  
+
   retval = g_strndup ((gchar *) data, actual_length);
 
   g_free (data);
-  
+
   return retval;
 }
 
@@ -167,7 +167,7 @@ screenshot_window_is_desktop (GdkWindow *window)
     return TRUE;
 
   return FALSE;
-      
+
 }
 
 #define MAXIMUM_WM_REPARENTING_DEPTH 4
@@ -181,7 +181,7 @@ look_for_hint_helper (GdkWindow *window,
   GdkAtom actual_type;
   int actual_format, actual_length;
   guchar *data;
-  
+
   res = gdk_property_get (window, property, GDK_NONE,
                           0, 1, FALSE,
                           &actual_type,
@@ -239,7 +239,7 @@ screenshot_find_current_window ()
   GdkWindow *current_window;
 
   current_window = screenshot_find_active_window ();
-  
+
   /* If there's no active window, we fall back to returning the
    * window that the cursor is in.
    */
@@ -315,7 +315,7 @@ screenshot_get_pixbuf (GdkWindow *window,
 
   root = gdk_get_default_root_window ();
 
-  gdk_window_get_geometry (window, NULL, NULL, &real_width, &real_height);      
+  gdk_window_get_geometry (window, NULL, NULL, &real_width, &real_height);
   gdk_window_get_origin (window, &x_real_orig, &y_real_orig);
 
   x_orig = x_real_orig;
@@ -340,9 +340,9 @@ screenshot_get_pixbuf (GdkWindow *window,
 
   if (y_orig + height > gdk_screen_height ())
     height = gdk_screen_height () - y_orig;
-  
-  screenshot = gdk_pixbuf_get_from_window (root, 
-                                             x_orig, y_orig, 
+
+  screenshot = gdk_pixbuf_get_from_window (root,
+                                             x_orig, y_orig,
                                              width, height);
 
 #ifdef HAVE_X11_EXTENSIONS_SHAPE_H
@@ -364,10 +364,10 @@ screenshot_get_pixbuf (GdkWindow *window,
       if (rectangles && rectangle_count > 0)
         {
           gboolean has_alpha = gdk_pixbuf_get_has_alpha (screenshot);
-          
+
           tmp = gdk_pixbuf_new (GDK_COLORSPACE_RGB, TRUE, 8, width, height);
           gdk_pixbuf_fill (tmp, 0);
-          
+
           for (i = 0; i < rectangle_count; i++)
             {
               gint rec_x, rec_y;
@@ -431,7 +431,7 @@ screenshot_get_pixbuf (GdkWindow *window,
     }
 #endif /* HAVE_X11_EXTENSIONS_SHAPE_H */
 
-  if (include_pointer) 
+  if (include_pointer)
     {
       GdkCursor *cursor;
       GdkPixbuf *cursor_pixbuf;
@@ -439,7 +439,7 @@ screenshot_get_pixbuf (GdkWindow *window,
       cursor = gdk_cursor_new_for_display (gdk_display_get_default (), GDK_LEFT_PTR);
       cursor_pixbuf = gdk_cursor_get_image (cursor);
 
-      if (cursor_pixbuf != NULL) 
+      if (cursor_pixbuf != NULL)
         {
           GdkRectangle r1, r2;
           gint cx, cy, xhot, yhot;
@@ -461,13 +461,13 @@ screenshot_get_pixbuf (GdkWindow *window,
           r2.height = gdk_pixbuf_get_height (cursor_pixbuf);
 
           /* see if the pointer is inside the window */
-          if (gdk_rectangle_intersect (&r1, &r2, &r2)) 
+          if (gdk_rectangle_intersect (&r1, &r2, &r2))
             {
               gdk_pixbuf_composite (cursor_pixbuf, screenshot,
                                     cx - xhot, cy - yhot,
                                     r2.width, r2.height,
                                     cx - xhot, cy - yhot,
-                                    1.0, 1.0, 
+                                    1.0, 1.0,
                                     GDK_INTERP_BILINEAR,
                                     255);
             }

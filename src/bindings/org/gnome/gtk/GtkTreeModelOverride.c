@@ -279,10 +279,10 @@ Java_org_gnome_gtk_GtkTreeModelOverride_gtk_1tree_1model_1get_1reference
 	 * While dropping the reference is, of course, the whole point, the
 	 * result is that the value of result is no longer usable. jobjects
 	 * really _do_ behave like pointers.
-	 * 
+	 *
 	 * The solution is to create a new local reference right here before
 	 * calling g_value_unset() method; this jobject will remain safe for
-	 * the duration of this native method and can be returned to Java. 
+	 * the duration of this native method and can be returned to Java.
 	 */
 	safe = (*env)->NewLocalRef(env, (jobject) result);
 	g_value_unset(&value);
