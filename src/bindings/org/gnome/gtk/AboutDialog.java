@@ -156,6 +156,30 @@ public class AboutDialog extends Dialog
     }
 
     /**
+     * Set the license of the application from the currently known
+     * {@link License licenses}.
+     * 
+     * <p>
+     * This method overrides the license set using {@link #setLicense(String)
+     * setLicense()}.
+     * 
+     * @since 4.1.2
+     */
+    public void setLicenseType(License license) {
+        GtkAboutDialog.setLicenseType(this, license);
+    }
+
+    /**
+     * Return the license that was set using {@link #setLicenseType(License)
+     * setLicenseType()}.
+     * 
+     * @since 4.1.2
+     */
+    public License getLicenseType() {
+        return GtkAboutDialog.getLicenseType(this);
+    }
+
+    /**
      * Set a label to modify the website link previously set by something more
      * friendly.
      * 

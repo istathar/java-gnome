@@ -86,6 +86,21 @@
   )
 )
 
+(define-method set_license_type
+  (of-object "GtkAboutDialog")
+  (c-name "gtk_about_dialog_set_license_type")
+  (return-type "none")
+  (parameters
+    '("GtkLicense" "license")
+  )
+)
+
+(define-method get_license_type
+  (of-object "GtkAboutDialog")
+  (c-name "gtk_about_dialog_get_license_type")
+  (return-type "GtkLicense")
+)
+
 (define-method get_website
   (of-object "GtkAboutDialog")
   (c-name "gtk_about_dialog_get_website")
