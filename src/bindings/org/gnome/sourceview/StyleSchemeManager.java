@@ -1,7 +1,7 @@
 /*
  * java-gnome, a UI library for writing GTK and GNOME programs from Java!
  *
- * Copyright © 2009-2010 Operational Dynamics Consulting, Pty Ltd and Others
+ * Copyright © 2009-2012 Operational Dynamics Consulting, Pty Ltd and Others
  *
  * The code in this file, and the program it is a part of, is made available
  * to you by its authors as open source software: you can redistribute it
@@ -34,17 +34,45 @@ package org.gnome.sourceview;
 
 import org.gnome.glib.Object;
 
-/*
- * FIXME this is a placeholder stub for what will become the public API for
- * this type. Replace this comment with appropriate javadoc including author
- * and since tags. Note that the class may need to be made abstract, implement
- * interfaces, or even have its parent changed. No API stability guarantees
- * are made about this class until it has been reviewed by a hacker and this
- * comment has been replaced.
+/**
+ * StyleSchemeManager provides access to {@link StyleScheme}s.
+ * 
+ * @author Georgios Migdos
+ * @since 4.1.2
  */
-class StyleSchemeManager extends Object
+public class StyleSchemeManager extends Object
 {
-    protected StyleSchemeManager(long pointer) {
+    private StyleSchemeManager(long pointer) {
         super(pointer);
+    }
+
+    /**
+     * Return the default StyleSchemeManager instance.
+     * 
+     * @since 4.1.2
+     */
+    public static StyleSchemeManager getDefault() {
+        return GtkSourceStyleSchemeManager.getDefault();
+    }
+
+    /**
+     * Return a scheme specified by its ID or <code>null</code> if the ID is
+     * not known.
+     * 
+     * @since 4.1.2
+     */
+    public StyleScheme getScheme(String schemeID) {
+        return GtkSourceStyleSchemeManager.getScheme(this, schemeID);
+    }
+
+    /**
+     * Return a <code>String</code> array containing the the ids of the
+     * available style schemes or <code>null</code> if no style scheme is
+     * available.
+     * 
+     * @since 4.1.2
+     */
+    public final String[] getSchemeIDs() {
+        return GtkSourceStyleSchemeManager.getSchemeIds(this);
     }
 }

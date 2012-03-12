@@ -1,7 +1,7 @@
 /*
  * java-gnome, a UI library for writing GTK and GNOME programs from Java!
  *
- * Copyright © 2009-2012 Operational Dynamics Consulting, Pty Ltd and Others
+ * Copyright © 2012 Operational Dynamics Consulting, Pty Ltd and Others
  *
  * The code in this file, and the program it is a part of, is made available
  * to you by its authors as open source software: you can redistribute it
@@ -30,81 +30,64 @@
  * version of the library, but you are not obligated to do so. If you do not
  * wish to do so, delete this exception statement from your version.
  */
-package org.gnome.sourceview;
+package org.gnome.gtk;
 
-import org.gnome.glib.Object;
+import org.freedesktop.bindings.Flag;
 
 /**
- * StyleScheme contains all the text styles to be used in {@link SourceView}
- * and {@link SourceBuffer}. For instance, it contains text styles for syntax
- * highlighting, it may contain foreground and background color for
- * non-highlighted text, color for the line numbers, etc. used.
+ * Constants used to specify the type of license for an application.
  * 
- * @author Georgios Migdos
+ * @author Guillaume Mazoyer
  * @since 4.1.2
  */
-public class StyleScheme extends Object
+public class License extends Flag
 {
-    private StyleScheme(long pointer) {
-        super(pointer);
+    protected License(int ordinal, String nickname) {
+        super(ordinal, nickname);
     }
 
     /**
-     * Return this StyleScheme's unique identifier.
-     * 
-     * @since 4.1.2
+     * No license specified.
      */
-    public String getID() {
-        return GtkSourceStyleScheme.getId(this);
-    }
+    public static final License UNKNOWN = new License(GtkLicense.UNKNOWN, "UNKNOWN");
 
     /**
-     * Return this StyleScheme's name (e.g. what would be presented in a
-     * preferences dialog).
-     * 
-     * @since 4.1.2
+     * A license text is to be specified by the developer.
      */
-    public String getName() {
-        return GtkSourceStyleScheme.getName(this);
-    }
+    public static final License CUSTOM = new License(GtkLicense.CUSTOM, "CUSTOM");
 
     /**
-     * Return this StyleScheme's description.
-     * 
-     * @since 4.1.2
+     * The GNU General Public License, version 2.0.
      */
-    public String getDescription() {
-        return GtkSourceStyleScheme.getDescription(this);
-    }
+    public static final License GPL_2_0 = new License(GtkLicense.GPL_2_0, "GPL_2_0");
 
     /**
-     * Return a String array containing information about this scheme's
-     * authors or <code>null</code> if no author is specified by the style
-     * scheme.
-     * 
-     * @since 4.1.2
+     * The GNU General Public License, version 3.0.
      */
-    public String[] getAuthors() {
-        return GtkSourceStyleScheme.getAuthors(this);
-    }
+    public static final License GPL_3_0 = new License(GtkLicense.GPL_3_0, "GPL_3_0");
 
     /**
-     * Return a file name if the scheme was created parsing a style scheme
-     * file or <code>null</code>.
-     * 
-     * @since 4.1.2
+     * The GNU Lesser General Public License, version 2.1.
      */
-    public String getFilename() {
-        return GtkSourceStyleScheme.getFilename(this);
-    }
+    public static final License LGPL_2_1 = new License(GtkLicense.LGPL_2_1, "LGPL_2_1");
 
     /**
-     * Return the {@link Style} which corresponds to styleID in the scheme, or
-     * <code>null</code> when no style with this name exists.
-     * 
-     * @since 4.1.2
+     * The GNU Lesser General Public License, version 3.0.
      */
-    public Style getStyle(String styleID) {
-        return GtkSourceStyleScheme.getStyle(this, styleID);
-    }
+    public static final License LGPL_3_0 = new License(GtkLicense.LGPL_3_0, "LGPL_3_0");
+
+    /**
+     * The BSD standard license.
+     */
+    public static final License BSD = new License(GtkLicense.BSD, "BSD");
+
+    /**
+     * The MIT/X11 standard license.
+     */
+    public static final License MIT_X11 = new License(GtkLicense.MIT_X11, "MIT_X11");
+
+    /**
+     * The Artistic License, version 2.0.
+     */
+    public static final License ARTISTIC = new License(GtkLicense.ARTISTIC, "ARTISTIC");
 }

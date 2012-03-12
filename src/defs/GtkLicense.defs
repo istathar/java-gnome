@@ -1,0 +1,16 @@
+(define-flags License
+  (in-module "Gtk")
+  (c-name "GtkLicense")
+  (gtype-id "GTK_TYPE_LICENSE")
+  (values
+    '("unknown" "GTK_LICENSE_UNKNOWN")
+    '("custom" "GTK_LICENSE_CUSTOM")
+    '("gpl-2-0" "GTK_LICENSE_GPL_2_0")
+    '("gpl-3-0" "GTK_LICENSE_GPL_3_0")
+    '("lgpl-2-1" "GTK_LICENSE_LGPL_2_1")
+    '("lgpl-3-0" "GTK_LICENSE_LGPL_3_0")
+    '("bsd" "GTK_LICENSE_BSD")
+    '("mit_x11" "GTK_LICENSE_MIT_X11")
+    '("artistic" "GTK_LICENSE_ARTISTIC")
+  )
+)
