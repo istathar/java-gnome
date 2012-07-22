@@ -46,10 +46,6 @@ public final class ExampleBasicApplication
 
         Gtk.init(args);
 
-        if (!Application.isValidId("org.gnome.TestGtkApp")) {
-            throw new IllegalArgumentException();
-        }
-
         a = new Application("org.gnome.TestGtkApp", ApplicationFlags.NONE);
 
         a.connect(new Application.Activate() {

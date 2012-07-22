@@ -58,8 +58,29 @@ public class Application extends Object
      * 
      * @since 4.1.2
      */
-    public static boolean isValidId(String id) {
-        return GApplication.isValidId(id);
+    private static String isValidId(final String id) {
+        if (id.isEmpty()) {
+            throw new IllegalArgumentException("identifier cannot be emtpy.");
+        }
+        if (Character.isAlphabetic(id.charAt(0)) || id.matches("\\A\\p{ASCII}*\\z")) {
+            throw new IllegalArgumentException(
+                    "identifier must contain only the ASCII characters \"[A-Z][a-z][0-9]_-.\" and must not begin with a digit.");
+        }
+        if (id.indexOf('.') == -1) {
+            throw new IllegalArgumentException(
+                    "identifier must contain at least one '.' (period) character (and thus at least three elements).");
+        }
+        if (id.indexOf('$') != -1) {
+            throw new IllegalArgumentException("identifier cannot contain '$'.");
+        }
+        if (id.startsWith(".") || id.endsWith(".")) {
+            throw new IllegalArgumentException(
+                    "identifier must not begin or end with a '.' (period) character.");
+        }
+        if (id.length() > 255) {
+            throw new IllegalArgumentException("identifier must not exceed 255 characters.");
+        }
+        return id;
     }
 
     /**
@@ -72,7 +93,7 @@ public class Application extends Object
      * @since 4.1.2
      */
     public Application(String id, ApplicationFlags flags) {
-        super(GApplication.createApplication(id, flags));
+        super(GApplication.createApplication(isValidId(id), flags));
     }
 
     /**
