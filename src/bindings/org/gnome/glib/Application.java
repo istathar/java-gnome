@@ -38,6 +38,12 @@ package org.gnome.glib;
  * Application} class. In general, you should not use this class outside of a
  * higher level framework.
  * 
+ * <p>
+ * We do not handle (yet?) passing parameters to the {@link #run()} method
+ * because we don't have any way to handle them properly. If you have any
+ * parameters for the entry point to use take care of them in the mandatory
+ * main method.
+ * 
  * @author Guillaume Mazoyer
  * @since 4.1.2
  */
@@ -47,6 +53,11 @@ public class Application extends Object
         super(pointer);
     }
 
+    /**
+     * Check if the given ID is valid to be used as an Application ID.
+     * 
+     * @since 4.1.2
+     */
     public static boolean isValidId(String id) {
         return GApplication.isValidId(id);
     }
@@ -167,6 +178,15 @@ public class Application extends Object
     }
 
     /**
+     * Immediately quits the Application.
+     * 
+     * @since 4.1.2
+     */
+    public void quit() {
+        GApplication.quit(this);
+    }
+
+    /**
      * Emits the {@link Application.Activate} signal.
      * 
      * @since 4.1.2
@@ -181,18 +201,12 @@ public class Application extends Object
      * <p>
      * This function is intended to be run from <code>main()</code> and its
      * return value is intended to be returned be used as the exit value of
-     * the program. Although you are expected to pass the <code>args</code>
-     * parameters.
-     * 
-     * <p>
-     * You should use the {@link GlibApplicationFlags#HANDLES_COMMAND_LINE} or
-     * {@link GlibApplicationFlags#HANDLES_OPEN} flags to handle command line
-     * arguments.
+     * the program.
      * 
      * @since 4.1.2
      */
-    public int run(String[] args) {
-        return GApplicationOverride.run(this, args);
+    public int run() {
+        return GApplicationOverride.run(this, null);
     }
 
     /**
@@ -235,71 +249,6 @@ public class Application extends Object
      * @since 4.1.2
      */
     public void connect(Application.Startup handler) {
-        GApplication.connect(this, handler, false);
-    }
-
-    private static class OpenFilesHandler implements GApplication.OpenSignal
-    {
-        private final Application.OpenFiles handler;
-
-        private OpenFilesHandler(Application.OpenFiles handler) {
-            super();
-            this.handler = handler;
-        }
-
-        public void onOpen(Application source, File[] files, int size, String hint) {
-            final String[] strings;
-
-            strings = new String[size];
-            for (int i = 0; i < size; i++) {
-                strings[i] = files[i].getPath();
-            }
-
-            handler.onOpenFiles(source, strings, hint);
-        }
-    }
-
-    /**
-     * This signal is emitted on the primary instance when there are files to
-     * open. The Application must use the
-     * {@link ApplicationFlags#HANDLES_OPEN} flag.
-     * 
-     * @author Guillaume Mazoyer
-     * @since 4.1.2
-     */
-    public interface OpenFiles
-    {
-        public void onOpenFiles(Application source, String[] files, String hint);
-    }
-
-    /**
-     * Hook up the <code>Application.OpenFiles</code> handler.
-     * 
-     * @since 4.1.2
-     */
-    public void connect(Application.OpenFiles handler) {
-        GApplication.connect(this, new OpenFilesHandler(handler), false);
-    }
-
-    /**
-     * This signal is emitted on the primary instance when a command line
-     * should be handled. The Application must use the
-     * {@link ApplicationFlags#HANDLES_COMMAND_LINE} flag.
-     * 
-     * @author Guillaume Mazoyer
-     * @since 4.1.2
-     */
-    public interface CommandLine extends GApplication.CommandLineSignal
-    {
-        public int onCommandLine(Application source, org.gnome.glib.CommandLine command);
-    }
-
-    /**
-     * Hook up the <code>Application.CommandArguments</code> handler.
-     * 
-     * @since 4.1.2
-     */
-    public void connect(Application.CommandLine handler) {
         GApplication.connect(this, handler, false);
     }
 }

@@ -65,20 +65,6 @@ public class ApplicationFlags extends Flag
             GlibApplicationFlags.IS_LAUNCHER, "IS_LAUNCHER");
 
     /**
-     * This application handles opening files (in the primary instance). This
-     * flag has no effect if HANDLES_COMMAND_LINE is given.
-     */
-    public static final ApplicationFlags HANDLES_OPEN = new ApplicationFlags(
-            GlibApplicationFlags.HANDLES_OPEN, "HANDLES_OPEN");
-
-    /**
-     * This application handles command line arguments (in the primary
-     * instance).
-     */
-    public static final ApplicationFlags HANDLES_COMMAND_LINE = new ApplicationFlags(
-            GlibApplicationFlags.HANDLES_COMMAND_LINE, "HANDLES_COMMAND_LINE");
-
-    /**
      * The primary instance will receive the environment of the launching
      * process. This constant is useful if the application should behave
      * differently depending on certain environment variables.

@@ -89,6 +89,12 @@
   (return-type "none")
 )
 
+(define-method quit
+  (of-object "GApplication")
+  (c-name "g_application_quit")
+  (return-type "none")
+)
+
 (define-method activate
   (of-object "GApplication")
   (c-name "g_application_activate")
