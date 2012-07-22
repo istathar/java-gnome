@@ -20,7 +20,6 @@ package unique;
 
 import org.gnome.gdk.Event;
 import org.gnome.glib.ApplicationFlags;
-import org.gnome.glib.CommandLine;
 import org.gnome.gtk.Application;
 import org.gnome.gtk.Button;
 import org.gnome.gtk.Gtk;
@@ -51,29 +50,11 @@ public final class ExampleBasicApplication
             throw new IllegalArgumentException();
         }
 
-        a = new Application("org.gnome.TestGtkApp", ApplicationFlags.HANDLES_OPEN);
+        a = new Application("org.gnome.TestGtkApp", ApplicationFlags.NONE);
 
         a.connect(new Application.Activate() {
             public void onActivate(org.gnome.glib.Application source) {
                 System.out.println("Activated");
-            }
-        });
-
-        a.connect(new Application.OpenFiles() {
-            public void onOpenFiles(org.gnome.glib.Application source, String[] files, String hint) {
-                for (String file : files) {
-                    System.out.println(file);
-                }
-            }
-        });
-
-        a.connect(new Application.CommandLine() {
-            public int onCommandLine(org.gnome.glib.Application source, CommandLine command) {
-                for (String s : command.getArguments()) {
-                    System.out.println(s);
-                }
-
-                return 0;
             }
         });
 
@@ -105,7 +86,7 @@ public final class ExampleBasicApplication
             }
         });
 
-        s = a.run(args);
+        s = a.run();
 
         System.out.println("Status = " + s);
         System.exit(s);
