@@ -31,9 +31,11 @@ import org.gnome.gtk.GraphicalTestCase;
  */
 public class ValidateEnchantInternals extends GraphicalTestCase
 {
-    public final void testLibraryInitialization() {
+    public final void setUp() {
         Enchant.init();
+    }
 
+    public final void testLibraryInitialization() {
         assertNotNull(Enchant.getDefault());
     }
 

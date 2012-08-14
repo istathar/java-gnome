@@ -71,6 +71,9 @@ public class ValidateInternationalization extends GraphicalTestCase
             // good
         }
 
+    }
+
+    public final void setUp() {
         /*
          * The choice here of en_US is simply because _everyone_ is going to
          * have that installed, somewhere. We are not testing changing locales

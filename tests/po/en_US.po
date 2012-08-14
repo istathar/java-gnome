@@ -1,7 +1,25 @@
-#: tests/bindings/org/freedesktop/bindings/ValidateInternationalization.java:63
+# java-gnome Unit Tests
+# Copyright (C) 2008-2012 Operational Dynamics Consulting, Pty Ltd and Others
+# This file is distributed under the same license as the java-gnome package.
+# Andrew Cowie <andrew@operationaldynamics.com>, 2012.
+#
+#: tests/bindings/org/freedesktop/bindings/ValidateInternationalization.java:107
+#: tests/bindings/org/freedesktop/bindings/ValidateInternationalization.java:108
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: java-gnome 4.1.2\n"
+"POT-Creation-Date: 2012-08-13 09:13+1000\n"
+"PO-Revision-Date: 2012-08-13 09:14+1000\n"
+"Last-Translator: Andrew Cowie <andrew@operationaldynamics.com>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: tests/bindings/org/freedesktop/bindings/ValidateInternationalization.java:87
 msgid "login"
 msgstr "Hello"
 
-#: tests/bindings/org/freedesktop/bindings/ValidateInternationalization.java:66
+#: tests/bindings/org/freedesktop/bindings/ValidateInternationalization.java:90
 msgid "logoff"
 msgstr "Goodbye"
