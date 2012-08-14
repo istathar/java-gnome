@@ -153,7 +153,8 @@ public abstract class Plumbing extends org.freedesktop.bindings.Plumbing
      * Retrieve an array of appropriate Java Boxeds for the given array of
      * pointers.
      */
-    protected static Boxed[] boxedArrayFor(final Class<? extends Boxed> type, final long[] pointers, Boxed[] boxeds) {
+    protected static Boxed[] boxedArrayFor(final Class<? extends Boxed> type, final long[] pointers,
+            Boxed[] boxeds) {
         if (pointers == null) {
             return null;
         }
