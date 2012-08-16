@@ -35,12 +35,13 @@ package org.gnome.gtk;
 import org.gnome.glib.ApplicationFlags;
 
 /**
- * This class handles some important aspects of a GTK+ application. It
- * currently ensures that the application is unique and manages a list of
- * top-level windows whose life-cycle is automatically tied to the life-cycle
- * of the application.
+ * This class handles the lifecycle of a GTK application. It currently ensures
+ * that the application is unique and manages a list of top-level windows
+ * whose life-cycle is automatically tied to the life-cycle of the
+ * application.
  * 
  * @author Guillaume Mazoyer
+ * @author Andrew Cowie
  * @since 4.1.2
  */
 public class Application extends org.gnome.glib.Application
@@ -50,12 +51,36 @@ public class Application extends org.gnome.glib.Application
     }
 
     /**
-     * Creates a new Application instance. The <code>id</code> should be
-     * valid, this can be checked with
-     * {@link org.gnome.glib.Application#isValidID(String) isValidID()}.
+     * Creates a new Application instance. The <code>id</code> needs to be a
+     * valid identifier, see
+     * {@link org.gnome.glib.Application#isValidID(String) isValidID()} for
+     * details. The <code>flags</code> argument allows you to specify
+     * different behaviour, marking this program as a
+     * {@link org.gnome.glib.ApplicationFlags#IS_LAUNCHER launcher} or
+     * {@link org.gnome.glib.ApplicationFlags#IS_SERVICE service}, for
+     * example.
+     * 
+     * @since 4.1.2
      */
     public Application(String id, ApplicationFlags flags) {
-        super(GtkApplication.createApplication(id, flags));
+        super(GtkApplication.createApplication(isValidId(id), flags));
+    }
+
+    /**
+     * Creates a new Application instance. The <code>id</code> must be a valid
+     * identifier; see {@link org.gnome.glib.Application#isValidID(String)
+     * isValidID()}. This id needs to be common between all instances of the
+     * application; it is what enables the uniqueness mechanism.
+     * 
+     * <p>
+     * This constructor implies a normal application with default uniqueness
+     * behaviour: first instance will become primary, subsequent instances
+     * will communicate activation to the primary then terminate.
+     * 
+     * @since 4.1.2
+     */
+    public Application(String id) {
+        super(GtkApplication.createApplication(isValidId(id), ApplicationFlags.NONE));
     }
 
     /**
@@ -63,6 +88,8 @@ public class Application extends org.gnome.glib.Application
      * running as long as it has any windows. The connection between the
      * Application and the window will remain until the window is destroyed or
      * {@link #removeWindow(Window) removeWindow()} is called.
+     * 
+     * @since 4.1.2
      */
     public void addWindow(Window window) {
         GtkApplication.addWindow(this, window);
@@ -71,16 +98,90 @@ public class Application extends org.gnome.glib.Application
     /**
      * Removes a window from the Application. The Application will stop
      * running if the last window is removed.
+     * 
+     * @since 4.1.2
      */
     public void removeWindow(Window window) {
         GtkApplication.removeWindow(this, window);
     }
 
     /**
-     * Returns an array of the {@link Window windows} associated with
-     * Application. This array should not be modified!
+     * Returns an array of the {@link Window windows} currently associated
+     * with Application.
+     * 
+     * @since 4.1.2
      */
     public Window[] getWindows() {
         return GtkApplication.getWindows(this);
+    }
+
+    /**
+     * This signal is emitted on the primary instance when an activation
+     * occurs (after startup of any instance, or by calling the Application
+     * {@link Application#activate() activate()} method.
+     * 
+     * @author Guillaume Mazoyer
+     * @since 4.1.2
+     */
+    public interface Activate
+    {
+        public void onActivate(Application source);
+    }
+
+    private class ActivateHandler implements org.gnome.glib.Application.Activate
+    {
+        private final Activate handler;
+
+        private ActivateHandler(Activate handler) {
+            this.handler = handler;
+        }
+
+        public void onActivate(org.gnome.glib.Application source) {
+            handler.onActivate((org.gnome.gtk.Application) source);
+        }
+    }
+
+    /**
+     * Hook up the <code>Application.Activate</code> handler.
+     * 
+     * @since 4.1.2
+     */
+    public void connect(Application.Activate handler) {
+        super.connect(new ActivateHandler(handler));
+    }
+
+    /**
+     * This signal is emitted on the primary instance when any of the
+     * conditions starting the program are raised. This is a good place to put
+     * your UI intitialization logic.
+     * 
+     * @author Andrew Cowie
+     * @since 4.1.2
+     */
+    public interface Startup
+    {
+        public void onStartup(Application source);
+    }
+
+    private class StartupHandler implements org.gnome.glib.Application.Startup
+    {
+        private final Startup handler;
+
+        private StartupHandler(Startup handler) {
+            this.handler = handler;
+        }
+
+        public void onStartup(org.gnome.glib.Application source) {
+            handler.onStartup((org.gnome.gtk.Application) source);
+        }
+    }
+
+    /**
+     * Hook up the <code>Application.Startup</code> handler.
+     * 
+     * @since 4.1.2
+     */
+    public void connect(Application.Startup handler) {
+        super.connect(new StartupHandler(handler));
     }
 }

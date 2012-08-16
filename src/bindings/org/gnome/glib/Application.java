@@ -33,16 +33,15 @@
 package org.gnome.glib;
 
 /**
- * This class represents the foundation of an application. This Application
- * class is the base for the high-level {@link org.gnome.gtk.Application GTK
- * Application} class. In general, you should not use this class outside of a
- * higher level framework.
+ * The foundation of an application. This class is the basis for higher-level
+ * functionality appropriate to a GUI framework; it is accessed through
+ * {@link org.gnome.gtk.Application GTK Application}.
  * 
  * <p>
  * We do not handle (yet?) passing parameters to the {@link #run()} method
  * because we don't have any way to handle them properly. If you have any
- * parameters for the entry point to use take care of them in the mandatory
- * main method.
+ * parameters for the entry point to use take care of them in your main
+ * method.
  * 
  * @author Guillaume Mazoyer
  * @since 4.1.2
@@ -54,11 +53,16 @@ public class Application extends Object
     }
 
     /**
-     * Check if the given ID is valid to be used as an Application ID.
+     * Check if the given string is valid to be used as an Application
+     * identifier.
      * 
      * @since 4.1.2
      */
-    private static String isValidId(final String id) {
+    /*
+     * This re-implements the native call, but at the benefit of good error
+     * messages. We call g_application_is_valid_id() at the end to be sure.
+     */
+    protected static String isValidId(final String id) {
         if (id.isEmpty()) {
             throw new IllegalArgumentException("identifier cannot be emtpy.");
         }
@@ -80,6 +84,15 @@ public class Application extends Object
         if (id.length() > 255) {
             throw new IllegalArgumentException("identifier must not exceed 255 characters.");
         }
+
+        if (!GApplication.isValidId(id)) {
+            /*
+             * Note: if you've found yourself here, they've changed the rules
+             * for valid application IDs.
+             */
+            throw new IllegalArgumentException("Invalid Application ID");
+        }
+
         return id;
     }
 
@@ -88,11 +101,14 @@ public class Application extends Object
      * See {@link #isValidId(String) isValidId()}.
      * 
      * <p>
-     * You should probably not have to call this constructor by yourself.
+     * <i> You should probably not have to call this constructor by yourself;
+     * <code>GApplication</code> is infrastructure over which a framework like
+     * GTK can build integrated application management appropriate to their
+     * environment.</i>
      * 
      * @since 4.1.2
      */
-    public Application(String id, ApplicationFlags flags) {
+    protected Application(String id, ApplicationFlags flags) {
         super(GApplication.createApplication(isValidId(id), flags));
     }
 
@@ -101,7 +117,7 @@ public class Application extends Object
      * 
      * @since 4.1.2
      */
-    public String getId() {
+    public String getApplicationId() {
         return GApplication.getApplicationId(this);
     }
 
@@ -111,7 +127,8 @@ public class Application extends Object
      * 
      * @since 4.1.2
      */
-    public void setId(String id) {
+    public void setApplicationId(String id) {
+        isValidId(id);
         GApplication.setApplicationId(this, id);
     }
 
@@ -170,7 +187,7 @@ public class Application extends Object
      * 
      * <p>
      * Use this function to indicate that the Application has a reason to
-     * continue to run.This method is called by GTK+ when a top-level
+     * continue to run. This method is called by GTK+ when a top-level
      * {@link org.gnome.gtk.Window} is on the screen.
      * 
      * <p>
@@ -220,14 +237,39 @@ public class Application extends Object
      * Runs the Application.
      * 
      * <p>
-     * This function is intended to be run from <code>main()</code> and its
-     * return value is intended to be returned be used as the exit value of
-     * the program.
+     * This is intended to be called from <code>main()</code>. Its return
+     * value is should be used as the exit value of the program.
+     * 
+     * <p>
+     * You can pass <code>null</code> if you don't have any command line
+     * arguments.
      * 
      * @since 4.1.2
      */
-    public int run() {
-        return GApplicationOverride.run(this, null);
+    public int run(final String[] args) {
+        final int result;
+        final int argc;
+        final String[] argv;
+
+        if (args == null) {
+            argc = 0;
+            argv = null;
+        } else {
+            /*
+             * In C, the first element in the argv is the program name from
+             * the command line. Java skips this, so we need to re-introduce a
+             * dummy value here.
+             */
+
+            argc = args.length + 1;
+            argv = new String[argc];
+            argv[0] = "";
+            System.arraycopy(args, 0, argv, 1, args.length);
+        }
+
+        result = GApplication.run(this, argc, argv);
+
+        return result;
     }
 
     /**
@@ -248,7 +290,7 @@ public class Application extends Object
      * 
      * @since 4.1.2
      */
-    public void connect(Application.Activate handler) {
+    protected void connect(Application.Activate handler) {
         GApplication.connect(this, handler, false);
     }
 
@@ -269,7 +311,7 @@ public class Application extends Object
      * 
      * @since 4.1.2
      */
-    public void connect(Application.Startup handler) {
+    protected void connect(Application.Startup handler) {
         GApplication.connect(this, handler, false);
     }
 }
