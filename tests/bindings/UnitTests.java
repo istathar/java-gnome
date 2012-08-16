@@ -69,12 +69,12 @@ import org.gnome.gtk.ValidateTreeModelFilter;
 import org.gnome.gtk.ValidateTreeStore;
 import org.gnome.gtk.ValidateTreeView;
 import org.gnome.gtk.ValidateUnicode;
+import org.gnome.gtk.ValidateUniqueApplications;
 import org.gnome.pango.ValidatePangoAttributeUsage;
 import org.gnome.pango.ValidatePangoTextRendering;
 import org.gnome.pango.ValidatePangoWrapBehaviour;
 import org.gnome.rsvg.ValidateVectorIllustrations;
 import org.gnome.sourceview.ValidateSourceView;
-import org.gnome.unique.ValidateUniqueApplications;
 
 import com.operationaldynamics.codegen.ValidateThingUsage;
 import com.operationaldynamics.codegen.ValidateUtilityMethods;

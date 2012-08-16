@@ -49,7 +49,7 @@ public final class ExampleBasicApplication
         a = new Application("org.gnome.TestGtkApp", ApplicationFlags.NONE);
 
         a.connect(new Application.Activate() {
-            public void onActivate(org.gnome.glib.Application source) {
+            public void onActivate(Application source) {
                 System.out.println("Activated");
             }
         });
@@ -82,7 +82,7 @@ public final class ExampleBasicApplication
             }
         });
 
-        s = a.run();
+        s = a.run(args);
 
         System.out.println("Status = " + s);
         System.exit(s);

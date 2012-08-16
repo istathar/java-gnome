@@ -107,7 +107,7 @@
   (return-type "int")
   (parameters
     '("int" "argc")
-    '("char**" "argv")
+    '("char**" "argv" (null-ok))
   )
 )
 

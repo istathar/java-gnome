@@ -66,7 +66,7 @@ public class Application extends Object
         if (id.isEmpty()) {
             throw new IllegalArgumentException("identifier cannot be emtpy.");
         }
-        if (Character.isAlphabetic(id.charAt(0)) || id.matches("\\A\\p{ASCII}*\\z")) {
+        if (!(Character.isAlphabetic(id.charAt(0)) || id.matches("^[A-Z][a-z][0-9][_\\-.]*$"))) {
             throw new IllegalArgumentException(
                     "identifier must contain only the ASCII characters \"[A-Z][a-z][0-9]_-.\" and must not begin with a digit.");
         }
