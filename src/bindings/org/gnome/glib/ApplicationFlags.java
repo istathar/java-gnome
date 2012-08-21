@@ -65,6 +65,16 @@ public class ApplicationFlags extends Flag
             GlibApplicationFlags.IS_LAUNCHER, "IS_LAUNCHER");
 
     /**
+     * The primary instance of this application handles command line arguments
+     * (which will be sent from the invoking process to the primary).
+     */
+    public static final ApplicationFlags HANDLES_COMMAND_LINE = new ApplicationFlags(
+            GlibApplicationFlags.HANDLES_COMMAND_LINE, "HANDLES_COMMAND_LINE");
+
+    public static final ApplicationFlags HANDLES_OPEN = new ApplicationFlags(
+            GlibApplicationFlags.HANDLES_OPEN, "HANDLES_OPEN");
+
+    /**
      * The primary instance will receive the environment of the launching
      * process. This constant is useful if the application should behave
      * differently depending on certain environment variables.
@@ -78,4 +88,8 @@ public class ApplicationFlags extends Flag
      */
     public static final ApplicationFlags NON_UNIQUE = new ApplicationFlags(
             GlibApplicationFlags.NON_UNIQUE, "NON_UNIQUE");
+
+    public static ApplicationFlags or(ApplicationFlags one, ApplicationFlags two) {
+        return (ApplicationFlags) Flag.orTwoFlags(one, two);
+    }
 }

@@ -32,6 +32,7 @@
  */
 package org.gnome.gtk;
 
+import org.gnome.glib.ApplicationCommandLine;
 import org.gnome.glib.ApplicationFlags;
 
 /**
@@ -183,5 +184,41 @@ public class Application extends org.gnome.glib.Application
      */
     public void connect(Application.Startup handler) {
         super.connect(new StartupHandler(handler));
+    }
+
+    /**
+     * This signal is emitted on the primary instance when command line
+     * arguments are to be processed. When you handle this signal you need to
+     * specify the exit code that the invoking process should in turn return
+     * to the shell.
+     * 
+     * @author Andrew Cowie
+     * @since 4.1.2
+     */
+    public interface CommandLine
+    {
+        public int onCommandLine(Application source, ApplicationCommandLine cmdline);
+    }
+
+    private class CommandLineHandler implements org.gnome.glib.Application.CommandLine
+    {
+        private final CommandLine handler;
+
+        private CommandLineHandler(CommandLine handler) {
+            this.handler = handler;
+        }
+
+        public int onCommandLine(org.gnome.glib.Application source, ApplicationCommandLine cmdline) {
+            return handler.onCommandLine((org.gnome.gtk.Application) source, cmdline);
+        }
+    }
+
+    /**
+     * Hook up the <code>Application.CommandLine</code> handler.
+     * 
+     * @since 4.1.2
+     */
+    public void connect(Application.CommandLine handler) {
+        super.connect(new CommandLineHandler(handler));
     }
 }

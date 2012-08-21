@@ -133,7 +133,7 @@
 
 (define-virtual command_line
   (of-object "GApplication")
-  (return-type "int")
+  (return-type "gint")
   (parameters
     '("GApplicationCommandLine*" "command")
   )

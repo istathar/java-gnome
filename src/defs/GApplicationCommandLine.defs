@@ -1,0 +1,23 @@
+(define-object ApplicationCommandLine
+  (in-module "Glib")
+  (parent "GObject")
+  (c-name "GApplicationCommandLine")
+)
+
+(define-method get_arguments
+  (of-object "GApplicationCommandLine")
+  (c-name "g_application_command_line_get_arguments")
+  (return-type "gchar**")
+  (parameters
+    '("int*" "argc")
+  )
+)
+
+;; terrible terrible hack, attempting to create the effect of _exit() 
+;; as a placeholder until the real function shows up in Glib.
+(define-method broken
+  (of-object "GApplicationCommandLine")
+  (c-name "g_object_unref")
+  (return-type "none")
+)
+

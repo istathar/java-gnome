@@ -48,6 +48,14 @@ package org.gnome.glib;
  */
 public class Application extends Object
 {
+    /*
+     * Force a type registration in a static block that's able to see
+     * Plumbing.
+     */
+    static {
+        GApplicationOverride.init();
+    }
+
     protected Application(long pointer) {
         super(pointer);
     }
@@ -66,7 +74,7 @@ public class Application extends Object
         if (id.isEmpty()) {
             throw new IllegalArgumentException("identifier cannot be emtpy.");
         }
-        if (!(Character.isAlphabetic(id.charAt(0)) || id.matches("^[A-Z][a-z][0-9][_\\-.]*$"))) {
+        if (!(Character.isLetter(id.charAt(0)) || id.matches("^[A-Z][a-z][0-9][_\\-.]*$"))) {
             throw new IllegalArgumentException(
                     "identifier must contain only the ASCII characters \"[A-Z][a-z][0-9]_-.\" and must not begin with a digit.");
         }
@@ -263,7 +271,7 @@ public class Application extends Object
 
             argc = args.length + 1;
             argv = new String[argc];
-            argv[0] = "";
+            argv[0] = Glib.getProgramName();
             System.arraycopy(args, 0, argv, 1, args.length);
         }
 
@@ -312,6 +320,20 @@ public class Application extends Object
      * @since 4.1.2
      */
     protected void connect(Application.Startup handler) {
+        GApplication.connect(this, handler, false);
+    }
+
+    public interface CommandLine extends GApplication.CommandLineSignal
+    {
+        public int onCommandLine(Application source, ApplicationCommandLine cmdline);
+    }
+
+    /**
+     * Hook up the <code>Application.CommandLine</code> handler.
+     * 
+     * @since 4.1.2
+     */
+    protected void connect(Application.CommandLine handler) {
         GApplication.connect(this, handler, false);
     }
 }
