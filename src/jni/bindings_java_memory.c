@@ -55,7 +55,7 @@
  * strong Java reference which means that if that was the last such strong
  * reference, the Java object can be finalized (with the result that the
  * ToggleRef will in turn be dropped, allowing the GObject to destroy).
- * 
+ *
  * We switch to a weak Java reference instead of just removing it so that we
  * can find our way back to the Java object should the ToggleRef be activated
  * with a "you're not the last ref anymore".
@@ -95,7 +95,7 @@ bindings_java_toggle
 		/*
 		 * Create strong Java reference, overwrite association in
 		 * GObject, and remove weak Java reference now that we've
-		 * replaced it with a strong one. 
+		 * replaced it with a strong one.
 		 */
 		if (DEBUG_MEMORY_MANAGEMENT) {
 			g_printerr("mem: toggle Java ref to STRONG\t%s\n", bindings_java_memory_pointerToString(object));
@@ -112,7 +112,7 @@ bindings_java_toggle
  * call to avoid the ping pong effect which results if the ToggleRef is the
  * only ref count to a GtkWidget while setters are called prior to the
  * GtkWidget being added to a GtkContainer. By delaying the ref count
- * reduction, the initial strong Java reference is left alone.  
+ * reduction, the initial strong Java reference is left alone.
  */
 /*
  * Signature the prototype of a (*GSourceFunc) callback, meeting the
@@ -127,14 +127,13 @@ bindings_java_memory_deref
         GObject* object;
 
         object = (GObject*) data;
-        
-                
+
 	if (DEBUG_MEMORY_MANAGEMENT) {
 		g_printerr("mem: drop GObject ref\t\t%s\n", bindings_java_memory_pointerToString(object));
 	}
         g_object_unref(object);
         return FALSE;
-}       
+}
 
 /**
  * Called from
@@ -155,16 +154,16 @@ bindings_java_memory_ref
 (
 	JNIEnv* env,
 	GObject* object,
-	jobject target 
+	jobject target
 )
 {
 	jobject strong;
 
 	/*
 	 * Take out a strong Java reference "from the GObject to the Proxy"
-	 * and stash it in the GObject. 
+	 * and stash it in the GObject.
 	 */
- 
+
  	if (DEBUG_MEMORY_MANAGEMENT) {
  		g_printerr("mem: add STRONG Java ref\t%s\n", bindings_java_memory_pointerToString(object));
  	}
@@ -197,11 +196,11 @@ bindings_java_memory_ref
  * called when
  *   org.gnome.glib.Object.release()
  * is invoked by a finalizer.
- * 
+ *
  * Remove the ToggleRef. Since this is called by the Java finalizer, and
  * since the Java object should only become only-weakly-reachable when there
  * are no more GObject refs, this should drop the last ref count to the
- * GObject, resulting it in it being eligible for destruction.  
+ * GObject, resulting it in it being eligible for destruction.
  */
 void
 bindings_java_memory_unref
@@ -235,14 +234,14 @@ bindings_java_memory_cleanup
 )
 {
     if (g_object_get_data(object, REFERENCE) == NULL) {
-        
-        /* 
+
+        /*
          * We don't have a proxy for the given object. If we own the object,
          * we don't need to do anything, as Object constructor will take care
          * of adding the toggle ref and removing the ref we own. There is an
          * exception, however, as for GInitiallyUnowned we need to sink the
          * reference if we have one.
-         * 
+         *
          * If we don't own the object, we need to add a new ref, that will be
          * later removed by the Proxy constructor.
          */
@@ -265,9 +264,9 @@ bindings_java_memory_cleanup
         }
     } else {
         /*
-         * We already have a proxy for the object. So we already have our 
+         * We already have a proxy for the object. So we already have our
          * toggle ref. Thus, if a methods adds an extra ref, we need to drop
-         * it. 
+         * it.
          * TODO does such behavior exist in Gtk+?
          */
         if (owner) {
@@ -290,8 +289,8 @@ bindings_java_memory_cleanup
 /*
  * A utility function to format a pointer address as an appropriate width
  * string. This is necessary because of the inadequecies of printf's %p.
- * The return value is statically allocated and must not be free'd. 
- * 
+ * The return value is statically allocated and must not be free'd.
+ *
  * This is called when debugging, both from C and from Java via
  * Plumbing.toHexString()
  */

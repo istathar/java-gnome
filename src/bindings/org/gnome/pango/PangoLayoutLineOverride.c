@@ -83,7 +83,7 @@ Java_org_gnome_pango_PangoLayoutLineOverride_pango_1layout_1line_1get_1start_1in
 }
 
 /*
- * This ends up being exactly the same logic as the start_index case above 
+ * This ends up being exactly the same logic as the start_index case above
  * because we need to work in characters and so need the underlying Layout's
  * underlying string to do the character count.
  */

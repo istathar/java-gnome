@@ -71,7 +71,7 @@ Java_org_gnome_gtk_GtkSwitchOverride_gtk_1switch_1set_1activated_1signal
 					G_SIGNAL_ACTION,
 					0,
 					NULL,
-					NULL, 
+					NULL,
 					NULL,
 					G_TYPE_NONE,
 					0,

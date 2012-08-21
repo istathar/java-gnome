@@ -111,11 +111,10 @@ public class Toolbar extends Container implements Orientable
     public void setOrientation(Orientation orientation) {
         GtkOrientable.setOrientation(this, orientation);
     }
-    
+
     public Orientation getOrientation() {
         return GtkOrientable.getOrientation(this);
     }
-
 
     /**
      * Set the appearance of a Toolbar.

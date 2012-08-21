@@ -60,7 +60,7 @@ Java_org_freedesktop_bindings_Environment_getenv
 	}
 
 	// call function
-	result = (gchar*) g_getenv(name); 
+	result = (gchar*) g_getenv(name);
 
 	// clean up name
 	bindings_java_releaseString(name);

@@ -69,7 +69,7 @@ Java_org_gnome_gtk_GtkWidgetOverride_gtk_1widget_1get_1allocation
  *
  * This implementation also [is forced to] get on with calling
  * gtk_widget_size_request() on the assumption that the Requisition isn't
- * much use without data in it. 
+ * much use without data in it.
  */
 JNIEXPORT void JNICALL
 Java_org_gnome_gtk_GtkWidgetOverride_gtk_1widget_1get_1requisition
@@ -95,7 +95,7 @@ Java_org_gnome_gtk_GtkWidgetOverride_gtk_1widget_1get_1requisition
 	 * struct as a complete object Java side (along with attendant
 	 * GtkRequisitionOverride code to allocate them), we take a fairly
 	 * sharp shortcut here: we will programatically get on with it and
-	 * call size_request() here.  
+	 * call size_request() here.
 	 */
 
 	gtk_widget_size_request(self, &temp);

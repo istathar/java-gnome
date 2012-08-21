@@ -44,7 +44,7 @@
  *   org.gnome.glib.Plumbing.initializeNative(Object lock)
  * called from
  *   org.gnome.glib.Plumbing.static()
- */ 
+ */
 JNIEXPORT void JNICALL
 Java_org_gnome_glib_Plumbing_initializeNative
 (

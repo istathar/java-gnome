@@ -56,7 +56,7 @@ import org.gnome.glib.Boxed;
  * @author Serkan Kaba
  * @since 4.0.12
  * @deprecated This is temporarily disabled pending the release of a GTK 3
- * compatible version of GtkSpell
+ *             compatible version of GtkSpell
  */
 public final class Spell extends Boxed
 {
@@ -72,7 +72,7 @@ public final class Spell extends Boxed
     }
 
     private static long createSpell(TextView view, String lang) {
-        throw new UnsupportedOperationException("GtkSpell support not yet available"); 
+        throw new UnsupportedOperationException("GtkSpell support not yet available");
     }
 
     /*
@@ -110,7 +110,7 @@ public final class Spell extends Boxed
      * @since 4.0.12
      */
     public void setLanguage(String lang) {
-        throw new UnsupportedOperationException("GtkSpell support not yet available"); 
+        throw new UnsupportedOperationException("GtkSpell support not yet available");
     }
 
     /**
@@ -119,6 +119,6 @@ public final class Spell extends Boxed
      * @since 4.0.12
      */
     public void recheckAll() {
-        throw new UnsupportedOperationException("GtkSpell support not yet available"); 
+        throw new UnsupportedOperationException("GtkSpell support not yet available");
     }
 }

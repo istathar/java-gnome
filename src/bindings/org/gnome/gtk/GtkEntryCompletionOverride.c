@@ -76,7 +76,7 @@ Java_org_gnome_gtk_GtkEntryCompletionOverride_gtk_1entry_1completion_1emit_1matc
 
 /*
  * Meets the signature requirement of (*GtkEntryCompletionMatchFunc) in
- * order to be the second parameter to the call to 
+ * order to be the second parameter to the call to
  * gtk_entry_completion_set_match_func() below.
  */
 static gboolean
@@ -120,7 +120,7 @@ Java_org_gnome_gtk_GtkEntryCompletionOverride_gtk_1entry_1completion_1set_1match
 					G_SIGNAL_ACTION,
 					0,
 					NULL,
-					NULL, 
+					NULL,
 					NULL,
 					G_TYPE_BOOLEAN,
 					2,

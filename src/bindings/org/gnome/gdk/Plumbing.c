@@ -39,12 +39,12 @@
 /*
  * Implements
  *   org.gnome.gdk.Plumbing.getEventTypeOrdinal(long pointer)
- * 
+ *
  * Assuming that the supplied pointer is a GdkEvent, then regardless of which
  * element of the union the actual structure is, the first field is always of
  * GdkEventType.
- * 
- * See http://developer.gnome.org/doc/API/2.0/gdk/gdk-Event-Structures.html#GdkEvent 
+ *
+ * See http://developer.gnome.org/doc/API/2.0/gdk/gdk-Event-Structures.html#GdkEvent
  */
 JNIEXPORT jint JNICALL
 Java_org_gnome_gdk_Plumbing_getEventTypeOrdinal

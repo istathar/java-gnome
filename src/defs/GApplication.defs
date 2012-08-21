@@ -1,0 +1,140 @@
+(define-object Application
+  (in-module "Glib")
+  (parent "GObject")
+  (c-name "GApplication")
+  (gtype-id "G_TYPE_APPLICATION")
+)
+
+(define-function is_valid_id
+  (of-object "GApplication")
+  (c-name "g_application_id_is_valid")
+  (caller-owns-return #t)
+  (return-type "gboolean")
+  (parameters
+    '("const-gchar*" "application_id")
+  )
+)
+
+(define-function g_application_new
+  (is-constructor-of "GApplication")
+  (c-name "g_application_new")
+  (caller-owns-return #t)
+  (return-type "GApplication*")
+  (parameters
+    '("const-gchar*" "application_id")
+    '("GApplicationFlags" "flags")
+  )
+)
+
+(define-method get_application_id
+  (of-object "GApplication")
+  (c-name "g_application_get_application_id")
+  (return-type "const-gchar*")
+)
+
+(define-method set_application_id
+  (of-object "GApplication")
+  (c-name "g_application_set_application_id")
+  (return-type "none")
+  (parameters
+    '("const-gchar*" "application_id")
+  )
+)
+
+(define-method get_inactivity_timeout
+  (of-object "GApplication")
+  (c-name "g_application_get_inactivity_timeout")
+  (return-type "guint")
+)
+
+(define-method set_inactivity_timeout
+  (of-object "GApplication")
+  (c-name "g_application_set_inactivity_timeout")
+  (return-type "none")
+  (parameters
+    '("guint" "inactivity_timeout")
+  )
+)
+
+(define-method get_flags
+  (of-object "GApplication")
+  (c-name "g_application_get_flags")
+  (return-type "GApplicationFlags")
+)
+
+(define-method set_flags
+  (of-object "GApplication")
+  (c-name "g_application_set_flags")
+  (return-type "none")
+  (parameters
+    '("GApplicationFlags" "flags")
+  )
+)
+
+(define-method is_remote
+  (of-object "GApplication")
+  (c-name "g_application_get_is_remote")
+  (return-type "gboolean")
+)
+
+(define-method hold
+  (of-object "GApplication")
+  (c-name "g_application_hold")
+  (return-type "none")
+)
+
+(define-method release
+  (of-object "GApplication")
+  (c-name "g_application_release")
+  (return-type "none")
+)
+
+(define-method quit
+  (of-object "GApplication")
+  (c-name "g_application_quit")
+  (return-type "none")
+)
+
+(define-method activate
+  (of-object "GApplication")
+  (c-name "g_application_activate")
+  (return-type "none")
+)
+
+(define-method run
+  (of-object "GApplication")
+  (c-name "g_application_run")
+  (return-type "int")
+  (parameters
+    '("int" "argc")
+    '("char**" "argv" (null-ok))
+  )
+)
+
+(define-virtual activate
+  (of-object "GApplication")
+  (return-type "none")
+)
+
+(define-virtual startup
+  (of-object "GApplication")
+  (return-type "none")
+)
+
+(define-virtual open
+  (of-object "GApplication")
+  (return-type "none")
+  (parameters
+    '("GFile**" "files")
+    '("gint" "n_files")
+    '("gchar*" "hint")
+  )
+)
+
+(define-virtual command_line
+  (of-object "GApplication")
+  (return-type "gint")
+  (parameters
+    '("GApplicationCommandLine*" "command")
+  )
+)

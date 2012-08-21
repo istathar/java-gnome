@@ -41,7 +41,7 @@
  * we are just allocating a blank, so 0 are passed knowing full well the
  * struct will be populated by the next function call. We've saved ourself
  * some trouble by having one function for both that case and the case where
- * the developer needs to create one themselves. 
+ * the developer needs to create one themselves.
  */
 
 JNIEXPORT jlong JNICALL

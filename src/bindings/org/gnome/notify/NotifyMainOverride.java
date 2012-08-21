@@ -30,7 +30,6 @@
  * version of the library, but you are not obligated to do so. If you do not
  * wish to do so, delete this exception statement from your version.
  */
-
 package org.gnome.notify;
 
 final class NotifyMainOverride extends Plumbing
@@ -48,5 +47,4 @@ final class NotifyMainOverride extends Plumbing
     }
 
     private static native final String[] notify_get_server_caps();
-
 }
