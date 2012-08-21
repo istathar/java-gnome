@@ -92,6 +92,16 @@ public class Glib
     }
 
     /**
+     * Get the internal program name set with {@link #setProgramName(String)
+     * setProgramName()}, if any.
+     * 
+     * @since 4.1.2
+     */
+    public static String getProgramName() {
+        return GlibMisc.getPrgname();
+    }
+
+    /**
      * Get the XDG user specific configuration directory. In all likelihood
      * this will be <code>~/.config</code>.
      * 
