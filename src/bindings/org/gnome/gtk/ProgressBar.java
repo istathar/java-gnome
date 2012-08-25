@@ -19,7 +19,7 @@
  * Linking this library statically or dynamically with other modules is making
  * a combined work based on this library. Thus, the terms and conditions of
  * the GPL cover the whole combination. As a special exception (the
- * "Claspath Exception"), the copyright holders of this library give you
+ * "Classpath Exception"), the copyright holders of this library give you
  * permission to link this library with independent modules to produce an
  * executable, regardless of the license terms of these independent modules,
  * and to copy and distribute the resulting executable under terms of your
@@ -87,6 +87,27 @@ public class ProgressBar extends Widget implements Orientable
      */
     public String getText() {
         return GtkProgressBar.getText(this);
+    }
+
+    /**
+     * Sets whether the progressbar will show text superimposed over the bar.
+     * To make a progress bar that is styled and sized suitably for containing
+     * text you should call the {@link setText(String)} method with an empty
+     * String.
+     * 
+     * @since 4.1.2
+     */
+    public void setShowText(boolean value) {
+        GtkProgressBar.setShowText(this, value);
+    }
+
+    /**
+     * Tells whether or not the progress bar is able to show text.
+     * 
+     * @since 4.1.2
+     */
+    public boolean showsText() {
+        return GtkProgressBar.getShowText(this);
     }
 
     /**

@@ -27,6 +27,16 @@ import junit.framework.TestCase;
  */
 public class ValidateIconItems extends TestCase
 {
+    /*
+     * Force classloader to [re-run (sic)] static initializers by referencing
+     * the constants we're going to check against. I'm not really convinced
+     * that this is intuitive; these tests used to work without this.
+     */
+    public final void setUp() {
+        assertNotNull(PlaceIcon.USER_TRASH);
+        assertNotNull(ActionIcon.DOCUMENT_SAVE);
+    }
+
     public final void testIconNames() {
         String name;
 

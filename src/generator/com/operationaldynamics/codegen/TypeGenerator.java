@@ -87,7 +87,7 @@ abstract class TypeGenerator extends Generator
         out.print("/*\n");
         out.print(" * java-gnome, a UI library for writing GTK and GNOME programs from Java!\n");
         out.print(" *\n");
-        out.print(" * Copyright © 2006-2011 Operational Dynamics Consulting, Pty Ltd and Others\n");
+        out.print(" * Copyright © 2006-2012 Operational Dynamics Consulting, Pty Ltd and Others\n");
         out.print(" *\n");
         out.print(" * The code in this file, and the program it is a part of, is made available\n");
         out.print(" * to you by its authors as open source software: you can redistribute it\n");
@@ -105,7 +105,7 @@ abstract class TypeGenerator extends Generator
         out.print(" * Linking this library statically or dynamically with other modules is making\n");
         out.print(" * a combined work based on this library. Thus, the terms and conditions of\n");
         out.print(" * the GPL cover the whole combination. As a special exception (the\n");
-        out.print(" * \"Claspath Exception\"), the copyright holders of this library give you\n");
+        out.print(" * \"Classpath Exception\"), the copyright holders of this library give you\n");
         out.print(" * permission to link this library with independent modules to produce an\n");
         out.print(" * executable, regardless of the license terms of these independent modules,\n");
         out.print(" * and to copy and distribute the resulting executable under terms of your\n");

@@ -19,7 +19,7 @@
  * Linking this library statically or dynamically with other modules is making
  * a combined work based on this library. Thus, the terms and conditions of
  * the GPL cover the whole combination. As a special exception (the
- * "Claspath Exception"), the copyright holders of this library give you
+ * "Classpath Exception"), the copyright holders of this library give you
  * permission to link this library with independent modules to produce an
  * executable, regardless of the license terms of these independent modules,
  * and to copy and distribute the resulting executable under terms of your
@@ -41,7 +41,7 @@ static GtkAssistant* source;
 
 /*
  * Meets the signature requirement of (*GtkAssistantPageFunc) in
- * order to be the second parameter to the call to 
+ * order to be the second parameter to the call to
  * gtk_assistant_set_forward_page_func() below.
  */
 static gint
@@ -115,7 +115,7 @@ Java_org_gnome_gtk_GtkAssistantOverride_gtk_1assistant_1set_1forward_1page_1func
 					G_SIGNAL_ACTION,
 					0,
 					NULL,
-					NULL, 
+					NULL,
 					NULL,
 					G_TYPE_INT,
 					1,

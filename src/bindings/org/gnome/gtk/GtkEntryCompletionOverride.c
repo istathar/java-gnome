@@ -19,7 +19,7 @@
  * Linking this library statically or dynamically with other modules is making
  * a combined work based on this library. Thus, the terms and conditions of
  * the GPL cover the whole combination. As a special exception (the
- * "Claspath Exception"), the copyright holders of this library give you
+ * "Classpath Exception"), the copyright holders of this library give you
  * permission to link this library with independent modules to produce an
  * executable, regardless of the license terms of these independent modules,
  * and to copy and distribute the resulting executable under terms of your
@@ -76,7 +76,7 @@ Java_org_gnome_gtk_GtkEntryCompletionOverride_gtk_1entry_1completion_1emit_1matc
 
 /*
  * Meets the signature requirement of (*GtkEntryCompletionMatchFunc) in
- * order to be the second parameter to the call to 
+ * order to be the second parameter to the call to
  * gtk_entry_completion_set_match_func() below.
  */
 static gboolean
@@ -120,7 +120,7 @@ Java_org_gnome_gtk_GtkEntryCompletionOverride_gtk_1entry_1completion_1set_1match
 					G_SIGNAL_ACTION,
 					0,
 					NULL,
-					NULL, 
+					NULL,
 					NULL,
 					G_TYPE_BOOLEAN,
 					2,

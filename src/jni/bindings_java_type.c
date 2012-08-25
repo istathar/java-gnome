@@ -19,7 +19,7 @@
  * Linking this library statically or dynamically with other modules is making
  * a combined work based on this library. Thus, the terms and conditions of
  * the GPL cover the whole combination. As a special exception (the
- * "Claspath Exception"), the copyright holders of this library give you
+ * "Classpath Exception"), the copyright holders of this library give you
  * permission to link this library with independent modules to produce an
  * executable, regardless of the license terms of these independent modules,
  * and to copy and distribute the resulting executable under terms of your
@@ -36,7 +36,7 @@
  * and to Manish Singh for suggesting the technique of using a GBoxed to
  * manage the reference count to a Java side object being stored in a
  * TreeModel, and for locating the code to implement this in pygobject's
- * gobject/gobjectmodule.c and gobject/pygtype.c   
+ * gobject/gobjectmodule.c and gobject/pygtype.c
  */
 
 #include <jni.h>
@@ -47,7 +47,7 @@
  * Create a GBoxed type to hold Java references. The actual "structure" being
  * boxed is just a gpointer. When the GBoxed is free'd, the reference will be
  * dropped, all neat and tidy.
- * 
+ *
  * Using a pointer as a GBoxed is somewhat of a sharp shortcut, but it is
  * viable: GBoxeds are treated as pointers by the g_value_*() functions, and
  * since we control the meaning of the _copy() and _free() functions it's all
@@ -66,7 +66,7 @@ GType BINDINGS_JAVA_TYPE_REFERENCE = 0;
  * storing in a TreeModel. We go to the trouble of doing this because JNI
  * global references are pinned and not arbitrarily moved by the garbage
  * collector (else the stored pointer might become invalid if moved between
- * generations). 
+ * generations).
  */
 /*
  * Meets the signature of (*GBoxedCopyFunc).
@@ -84,7 +84,7 @@ bindings_java_reference_copy
 	reference = (jobject) _boxed;
 
 	result = (*env)->NewGlobalRef(env, reference);
- 
+
 	return (gpointer) result;
 }
 
@@ -115,11 +115,11 @@ bindings_java_reference_free
  *
  * Map from a fully qualified class name string to a GType. Also initialize
  * our custom GBoxed if called upon to store a DataColumnReference
- * 
+ *
  * So long as this is a short list, do it in an if/else ladder. Switch to a
  * GHashTable if it
  * becomes a performance bottleneck.
- */ 
+ */
 GType
 bindings_java_type_lookup
 (
@@ -153,9 +153,9 @@ bindings_java_type_lookup
                                 bindings_java_reference_free
 			);
 		}
- 
+
 		return BINDINGS_JAVA_TYPE_REFERENCE;
 	} else {
 		return G_TYPE_INVALID;
-	} 
+	}
 }

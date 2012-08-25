@@ -1,0 +1,41 @@
+(define-object Application
+  (in-module "Gtk")
+  (parent "GApplication")
+  (c-name "GtkApplication")
+  (gtype-id "GTK_TYPE_APPLICATION")
+)
+
+(define-function gtk_application_new
+  (is-constructor-of "GtkApplication")
+  (c-name "gtk_application_new")
+  (caller-owns-return #t)
+  (return-type "GtkApplication*")
+  (parameters
+    '("const-gchar*" "application_id")
+    '("GApplicationFlags" "flags")
+  )
+)
+
+(define-method add_window
+  (of-object "GtkApplication")
+  (c-name "gtk_application_add_window")
+  (return-type "none")
+  (parameters
+    '("GtkWindow*" "window")
+  )
+)
+
+(define-method remove_window
+  (of-object "GtkApplication")
+  (c-name "gtk_application_remove_window")
+  (return-type "none")
+  (parameters
+    '("GtkWindow*" "window")
+  )
+)
+
+(define-method get_windows
+  (of-object "GtkApplication")
+  (c-name "gtk_application_get_windows")
+  (return-type "GList-GtkWindow*")
+)

@@ -19,7 +19,7 @@
  * Linking this library statically or dynamically with other modules is making
  * a combined work based on this library. Thus, the terms and conditions of
  * the GPL cover the whole combination. As a special exception (the
- * "Claspath Exception"), the copyright holders of this library give you
+ * "Classpath Exception"), the copyright holders of this library give you
  * permission to link this library with independent modules to produce an
  * executable, regardless of the license terms of these independent modules,
  * and to copy and distribute the resulting executable under terms of your
@@ -40,16 +40,16 @@ static guint signalID = 0;
 
 /**
  * Find out whether a given row is to be visible by emitting our custom
- * "visible" signal, to which the we have connected a Java side signal handler 
+ * "visible" signal, to which the we have connected a Java side signal handler
  * returning boolean.
- * 
+ *
  * Note that the reference to self is prepended by the g_signal_emit() code
  * automatically. You need it in the callback signature, but not in the .defs
  * or in the parameters here.
  */
 /*
  * Meets the signature requirement of (*GtkTreeModelFilterVisibleFunc) in
- * order to be the second parameter to the call to 
+ * order to be the second parameter to the call to
  * gtk_tree_model_filter_set_visible_func() below.
  */
 static gboolean
@@ -93,7 +93,7 @@ Java_org_gnome_gtk_GtkTreeModelFilterOverride_gtk_1tree_1model_1filter_1set_1vis
 					G_SIGNAL_ACTION,
 					0,
 					NULL,
-					NULL, 
+					NULL,
 					NULL, // note 1
 					G_TYPE_BOOLEAN,
 					2,    // note 2
@@ -104,14 +104,14 @@ Java_org_gnome_gtk_GtkTreeModelFilterOverride_gtk_1tree_1model_1filter_1set_1vis
 		 *
 		 * 1. Don't need to register a marshall function; the
 		 * subsequent g_signal_connect() as invoked by our
-		 * TreeModelFilter's setVisibleHandler() will register a 
+		 * TreeModelFilter's setVisibleHandler() will register a
 		 * dynamic bindings_java_marshaller().
 		 *
 		 * 2. As ever, there is an implicit reference to self
 		 * automatically added as the first parameter for the signal.
-		 * Good of them, but confusing, because in this case, the 
+		 * Good of them, but confusing, because in this case, the
 		 * model parameter is the _child_, not the reference to self.
-		 */ 
+		 */
 	}
 
 	// call function

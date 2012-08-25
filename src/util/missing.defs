@@ -2542,15 +2542,6 @@
   )
 )
 
-(define-function file_chooser_button_new_with_dialog
-  (c-name "gtk_file_chooser_button_new_with_dialog")
-  (caller-owns-return #t)
-  (return-type "GtkWidget*")
-  (parameters
-    '("GtkWidget*" "dialog")
-  )
-)
-
 (define-function gtk_file_chooser_dialog_get_type
   (c-name "gtk_file_chooser_dialog_get_type")
   (return-type "GType")

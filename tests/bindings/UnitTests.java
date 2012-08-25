@@ -33,6 +33,7 @@ import org.gnome.gdk.ValidateImageHandling;
 import org.gnome.gdk.ValidateKeyboardHandling;
 import org.gnome.gdk.ValidateScreensAndDisplays;
 import org.gnome.glib.ValidateConstants;
+import org.gnome.glib.ValidateGFileMethods;
 import org.gnome.glib.ValidateGListMethods;
 import org.gnome.glib.ValidateMemoryManagement;
 import org.gnome.glib.ValidateReferenceCounting;
@@ -58,6 +59,8 @@ import org.gnome.gtk.ValidateScrolling;
 import org.gnome.gtk.ValidateSignalEmission;
 import org.gnome.gtk.ValidateSnapshotUtilities;
 import org.gnome.gtk.ValidateStockItems;
+import org.gnome.gtk.ValidateStyleContext;
+import org.gnome.gtk.ValidateSwitch;
 import org.gnome.gtk.ValidateTextBuffer;
 import org.gnome.gtk.ValidateTextViewBorderWindows;
 import org.gnome.gtk.ValidateTextViewProperties;
@@ -66,12 +69,12 @@ import org.gnome.gtk.ValidateTreeModelFilter;
 import org.gnome.gtk.ValidateTreeStore;
 import org.gnome.gtk.ValidateTreeView;
 import org.gnome.gtk.ValidateUnicode;
+import org.gnome.gtk.ValidateUniqueApplications;
 import org.gnome.pango.ValidatePangoAttributeUsage;
 import org.gnome.pango.ValidatePangoTextRendering;
 import org.gnome.pango.ValidatePangoWrapBehaviour;
 import org.gnome.rsvg.ValidateVectorIllustrations;
 import org.gnome.sourceview.ValidateSourceView;
-import org.gnome.unique.ValidateUniqueApplications;
 
 import com.operationaldynamics.codegen.ValidateThingUsage;
 import com.operationaldynamics.codegen.ValidateUtilityMethods;
@@ -145,6 +148,7 @@ public class UnitTests
         suite.addTestSuite(ValidateInternationalization.class);
         suite.addTestSuite(ValidateReferenceCounting.class);
         suite.addTestSuite(ValidateMemoryManagement.class);
+        suite.addTestSuite(ValidateGFileMethods.class);
         suite.addTestSuite(ValidateGListMethods.class);
         suite.addTestSuite(ValidateConstants.class);
         suite.addTestSuite(ValidateProperties.class);
@@ -182,6 +186,9 @@ public class UnitTests
         suite.addTestSuite(ValidateTextViewProperties.class);
         suite.addTestSuite(ValidateTextViewBorderWindows.class);
         suite.addTestSuite(ValidateArrow.class);
+        suite.addTestSuite(ValidateRadioThing.class);
+        suite.addTestSuite(ValidateSwitch.class);
+        suite.addTestSuite(ValidateStyleContext.class);
         suite.addTestSuite(ValidatePangoTextRendering.class);
         suite.addTestSuite(ValidatePangoAttributeUsage.class);
         suite.addTestSuite(ValidatePangoWrapBehaviour.class);
@@ -190,7 +197,6 @@ public class UnitTests
         suite.addTestSuite(ValidateSourceView.class);
         suite.addTestSuite(ValidateUniqueApplications.class);
         suite.addTestSuite(ValidateVectorIllustrations.class);
-        suite.addTestSuite(ValidateRadioThing.class);
 
         return suite;
     }

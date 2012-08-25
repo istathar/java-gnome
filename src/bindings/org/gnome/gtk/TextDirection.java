@@ -1,7 +1,7 @@
 /*
  * java-gnome, a UI library for writing GTK and GNOME programs from Java!
  *
- * Copyright © 2007-2010 Operational Dynamics Consulting, Pty Ltd
+ * Copyright © 2007-2011 Operational Dynamics Consulting, Pty Ltd and Others
  *
  * The code in this file, and the program it is a part of, is made available
  * to you by its authors as open source software: you can redistribute it
@@ -19,7 +19,7 @@
  * Linking this library statically or dynamically with other modules is making
  * a combined work based on this library. Thus, the terms and conditions of
  * the GPL cover the whole combination. As a special exception (the
- * "Claspath Exception"), the copyright holders of this library give you
+ * "Classpath Exception"), the copyright holders of this library give you
  * permission to link this library with independent modules to produce an
  * executable, regardless of the license terms of these independent modules,
  * and to copy and distribute the resulting executable under terms of your
@@ -34,17 +34,30 @@ package org.gnome.gtk;
 
 import org.freedesktop.bindings.Constant;
 
-/*
- * FIXME this is a placeholder stub for what will become the public API for
- * this type. Replace this comment with appropriate javadoc including author
- * and since tags. Note that the class may need to be made abstract, implement
- * interfaces, or even have its parent changed. No API stability guarantees
- * are made about this class until it has been reviewed by a hacker and this
- * comment has been replaced.
+/**
+ * Constants used to describe the direction of the text inside a widget.
+ * 
+ * @author Guillaume Mazoyer
+ * @since 4.1.2
  */
 public final class TextDirection extends Constant
 {
     private TextDirection(int ordinal, String nickname) {
         super(ordinal, nickname);
     }
+
+    /**
+     * No direction specified.
+     */
+    public static final TextDirection NONE = new TextDirection(GtkTextDirection.NONE, "NONE");
+
+    /**
+     * The text is written from left to right.
+     */
+    public static final TextDirection LEFT_TO_RIGHT = new TextDirection(GtkTextDirection.LTR, "LTR");
+
+    /**
+     * The text is written from right to left.
+     */
+    public static final TextDirection RIGHT_TO_LEFT = new TextDirection(GtkTextDirection.RTL, "RTL");
 }

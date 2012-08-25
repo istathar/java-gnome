@@ -16,12 +16,10 @@
  * see http://www.gnu.org/licenses/. The authors of this program may be
  * contacted through http://java-gnome.sourceforge.net/.
  */
-package org.gnome.unique;
-
-import org.gnome.gtk.GraphicalTestCase;
+package org.gnome.gtk;
 
 /**
- * Evaluate the behaviour of LibUnique
+ * Evaluate the uniquness behaviour of GtkApplication
  */
 public class ValidateUniqueApplications extends GraphicalTestCase
 {
@@ -30,7 +28,7 @@ public class ValidateUniqueApplications extends GraphicalTestCase
         Application app;
 
         try {
-            app = new Application("", null);
+            app = new Application("");
             fail("Should have thrown exception");
             return;
         } catch (IllegalArgumentException iae) {
@@ -38,7 +36,7 @@ public class ValidateUniqueApplications extends GraphicalTestCase
         }
 
         try {
-            app = new Application("MyApplication", null);
+            app = new Application("MyApplication");
             fail("Should have thrown exception");
             return;
         } catch (IllegalArgumentException iae) {
@@ -46,7 +44,7 @@ public class ValidateUniqueApplications extends GraphicalTestCase
         }
 
         try {
-            app = new Application("org.gnome.Invalid$Application", null);
+            app = new Application("org.gnome.Invalid$Application");
             fail("Should have thrown exception");
             return;
         } catch (IllegalArgumentException iae) {
@@ -60,49 +58,34 @@ public class ValidateUniqueApplications extends GraphicalTestCase
      * would fail. So we do some minimal effort to come up with a more-or-less
      * likely-to-be-unique name.
      */
+
+    private boolean hit;
+
     public final void testInstantiateApplicationObject() {
         final Application app;
         final String name;
 
         name = "test.java-gnome.InstantiateApplicationObject" + this.hashCode();
-        app = new Application(name, null);
+        app = new Application(name);
 
-        assertEquals(name, app.getName());
-        assertFalse(app.isRunning());
-    }
+        assertEquals(name, app.getApplicationId());
 
-    /*
-     * Here's an interesting one. Since we've long said that GNOME is a
-     * prerequisite for java-gnome, and in any event we encourage people
-     * developing GNOME applications to be actually using GNOME, we "know"
-     * Nautilus is running. :)
-     * 
-     * FUTURE This won't work in headless build environment, and really our
-     * tests should pass in such. But it's this or we'd have to fire off
-     * another process. This will do nicely for now.
-     */
-    public final void failsIsNautilusRunning() {
-        final Application app;
+        hit = false;
 
-        app = new Application("org.gnome.Nautilus", null);
-        assertTrue(app.isRunning());
-    }
+        app.connect(new Application.Startup() {
+            public void onStartup(Application source) {
+                assertFalse(app.isRemote());
+                hit = true;
+            }
+        });
 
-    /*
-     * We, of course, know nothing of Nautilus's responses to internally
-     * designated commands. They're "internal". But sending it Command.OPEN
-     * results in your home directory coming up (so awesome), and CLOSE
-     * results in it restarting (!). ACTIVATE seems harmless, and in testing
-     * this I got an OK back.
-     */
-    public final void failsSendToNautilus() {
-        final Application app;
-        final Response result;
+        app.connect(new Application.Activate() {
+            public void onActivate(Application source) {
+                source.quit();
+            }
+        });
 
-        app = new Application("org.gnome.Nautilus", null);
-        assertTrue(app.isRunning());
-
-        result = app.sendMessage(Command.ACTIVATE, null);
-        assertSame(Response.OK, result);
+        app.run(null);
+        assertTrue(hit);
     }
 }

@@ -1,7 +1,7 @@
 /*
  * java-gnome, a UI library for writing GTK and GNOME programs from Java!
  *
- * Copyright © 2009-2010 Operational Dynamics Consulting, Pty Ltd and Others
+ * Copyright © 2009-2012 Operational Dynamics Consulting, Pty Ltd and Others
  *
  * The code in this file, and the program it is a part of, is made available
  * to you by its authors as open source software: you can redistribute it
@@ -19,7 +19,7 @@
  * Linking this library statically or dynamically with other modules is making
  * a combined work based on this library. Thus, the terms and conditions of
  * the GPL cover the whole combination. As a special exception (the
- * "Claspath Exception"), the copyright holders of this library give you
+ * "Classpath Exception"), the copyright holders of this library give you
  * permission to link this library with independent modules to produce an
  * executable, regardless of the license terms of these independent modules,
  * and to copy and distribute the resulting executable under terms of your
@@ -130,6 +130,24 @@ public class SourceBuffer extends TextBuffer
      */
     public Language getLanguage() {
         return GtkSourceBuffer.getLanguage(this);
+    }
+
+    /**
+     * Set the {@link StyleScheme} that is used.
+     * 
+     * @since 4.1.2
+     */
+    public void setStyleScheme(StyleScheme scheme) {
+        GtkSourceBuffer.setStyleScheme(this, scheme);
+    }
+
+    /**
+     * Get the {@link StyleScheme} that is used.
+     * 
+     * @since 4.1.2
+     */
+    public StyleScheme getStyleScheme() {
+        return GtkSourceBuffer.getStyleScheme(this);
     }
 
     /**

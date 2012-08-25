@@ -1,7 +1,7 @@
 /*
  * java-gnome, a UI library for writing GTK and GNOME programs from Java!
  *
- * Copyright © 2009-2010 Operational Dynamics Consulting, Pty Ltd and Others
+ * Copyright © 2009-2012 Operational Dynamics Consulting, Pty Ltd and Others
  *
  * The code in this file, and the program it is a part of, is made available
  * to you by its authors as open source software: you can redistribute it
@@ -19,7 +19,7 @@
  * Linking this library statically or dynamically with other modules is making
  * a combined work based on this library. Thus, the terms and conditions of
  * the GPL cover the whole combination. As a special exception (the
- * "Claspath Exception"), the copyright holders of this library give you
+ * "Classpath Exception"), the copyright holders of this library give you
  * permission to link this library with independent modules to produce an
  * executable, regardless of the license terms of these independent modules,
  * and to copy and distribute the resulting executable under terms of your
@@ -34,17 +34,25 @@ package org.gnome.sourceview;
 
 import org.gnome.glib.Object;
 
-/*
- * FIXME this is a placeholder stub for what will become the public API for
- * this type. Replace this comment with appropriate javadoc including author
- * and since tags. Note that the class may need to be made abstract, implement
- * interfaces, or even have its parent changed. No API stability guarantees
- * are made about this class until it has been reviewed by a hacker and this
- * comment has been replaced.
+/**
+ * Style is used to describe text attributes which are set when given style is
+ * used.
+ * 
+ * @author Georgios Migdos
+ * @since 4.1.2
  */
-class Style extends Object
+public class Style extends Object
 {
-    protected Style(long pointer) {
+    private Style(long pointer) {
         super(pointer);
+    }
+
+    /**
+     * Create a copy of this Style, that has the same attributes set.
+     * 
+     * @since 4.1.2
+     */
+    public Style copy() {
+        return GtkSourceStyle.copy(this);
     }
 }

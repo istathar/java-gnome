@@ -1,0 +1,21 @@
+(define-object File
+  (in-module "Glib")
+  (parent "GObject")
+  (c-name "GFile")
+)
+
+(define-function g_file_new_for_path
+  (is-constructor-of "GFile")
+  (c-name "g_file_new_for_path")
+  (caller-owns-return #t)
+  (return-type "GFile*")
+  (parameters
+    '("const-char*" "path")
+  )
+)
+
+(define-method get_path
+  (of-object "GFile")
+  (c-name "g_file_get_path")
+  (return-type "char*")
+)

@@ -19,7 +19,7 @@
  * Linking this library statically or dynamically with other modules is making
  * a combined work based on this library. Thus, the terms and conditions of
  * the GPL cover the whole combination. As a special exception (the
- * "Claspath Exception"), the copyright holders of this library give you
+ * "Classpath Exception"), the copyright holders of this library give you
  * permission to link this library with independent modules to produce an
  * executable, regardless of the license terms of these independent modules,
  * and to copy and distribute the resulting executable under terms of your
@@ -150,9 +150,9 @@ public class Dialog extends Window
      * @since 4.0.5
      */
     public void add(Widget widget) {
-        final VBox box;
+        final Box box;
 
-        box = (VBox) this.getChild();
+        box = (Box) this.getChild();
         box.add(widget);
     }
 

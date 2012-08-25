@@ -19,7 +19,7 @@
  * Linking this library statically or dynamically with other modules is making
  * a combined work based on this library. Thus, the terms and conditions of
  * the GPL cover the whole combination. As a special exception (the
- * "Claspath Exception"), the copyright holders of this library give you
+ * "Classpath Exception"), the copyright holders of this library give you
  * permission to link this library with independent modules to produce an
  * executable, regardless of the license terms of these independent modules,
  * and to copy and distribute the resulting executable under terms of your
@@ -1791,5 +1791,15 @@ public abstract class Widget extends org.gnome.glib.Object
      */
     public void setAlignVertical(Align align) {
         GtkWidget.setValign(this, align);
+    }
+
+    /**
+     * Get the {@link StyleContext} of a Widget. You will be able to change
+     * the values of the style after getting this object.
+     * 
+     * @since 4.1.2
+     */
+    public StyleContext getStyleContext() {
+        return GtkWidget.getStyleContext(this);
     }
 }

@@ -26,7 +26,7 @@ package org.gnome.gtk;
  */
 public class ValidateEntry extends GraphicalTestCase
 {
-    public final void testEntryIcon() {
+    public final void skipEntryIcon() {
         final Entry entry;
 
         entry = new Entry();

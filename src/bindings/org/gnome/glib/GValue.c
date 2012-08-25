@@ -19,7 +19,7 @@
  * Linking this library statically or dynamically with other modules is making
  * a combined work based on this library. Thus, the terms and conditions of
  * the GPL cover the whole combination. As a special exception (the
- * "Claspath Exception"), the copyright holders of this library give you
+ * "Classpath Exception"), the copyright holders of this library give you
  * permission to link this library with independent modules to produce an
  * executable, regardless of the license terms of these independent modules,
  * and to copy and distribute the resulting executable under terms of your
@@ -397,10 +397,10 @@ Java_org_gnome_glib_GValue_g_1value_1init_1font_1description
 {
     PangoFontDescription* desc;
     GValue* value;
-    
+
     // translate desc
     desc = (PangoFontDescription*) _desc;
-    
+
     // allocate and set to zeros, per what g_value_init requires
     value = g_slice_new0(GValue);
     g_value_init(value, PANGO_TYPE_FONT_DESCRIPTION);
@@ -434,15 +434,15 @@ Java_org_gnome_glib_GValue_g_1value_1init_1pixbuf
 {
     GdkPixbuf* pixbuf;
     GValue* value;
-    
+
     // translate obj
     pixbuf = (GdkPixbuf*) _pixbuf;
-    
+
     // allocate and set to zeros, per what g_value_init requires
     value = g_slice_new0(GValue);
     g_value_init(value, GDK_TYPE_PIXBUF);
 
-    // set the value    
+    // set the value
     g_value_set_object(value, pixbuf);
 
     // clean up obj
@@ -534,7 +534,7 @@ Java_org_gnome_glib_GValue_g_1value_1get_1float
 	result = g_value_get_float(value);
 
 	// and return
-	return (jfloat) result; 
+	return (jfloat) result;
 }
 
 /**
@@ -570,7 +570,7 @@ Java_org_gnome_glib_GValue_g_1value_1get_1double
 	result = g_value_get_double(value);
 	
 	// and return
-	return (jdouble) result; 
+	return (jdouble) result;
 }
 
 JNIEXPORT jint JNICALL
@@ -646,7 +646,7 @@ Java_org_gnome_glib_GValue_g_1value_1get_1boolean
 	result = g_value_get_boolean(value);
 
 	// and return
-	return (jboolean) result; 
+	return (jboolean) result;
 }
 
 /**
@@ -669,7 +669,7 @@ Java_org_gnome_glib_GValue_g_1value_1get_1string
 )
 {
 	GValue* value;
-	const gchar* str; 
+	const gchar* str;
 
 	// translate value
 	value =	(GValue*) _value;
@@ -704,7 +704,7 @@ Java_org_gnome_glib_GValue_g_1value_1get_1enum
 )
 {
 	GValue* value;
-	gint num; 
+	gint num;
 
 	// translate value
 	value =	(GValue*) _value;
@@ -739,7 +739,7 @@ Java_org_gnome_glib_GValue_g_1value_1get_1flags
 )
 {
 	GValue* value;
-	guint num; 
+	guint num;
 
 	// translate value
 	value =	(GValue*) _value;
@@ -749,7 +749,7 @@ Java_org_gnome_glib_GValue_g_1value_1get_1flags
 	}
 
 	// call function
-	num = g_value_get_flags(value); 
+	num = g_value_get_flags(value);
 
 	// and return	
 	return (jint) num;
@@ -764,7 +764,7 @@ Java_org_gnome_glib_GValue_g_1value_1get_1object
 )
 {
 	GValue* value;
-	GObject* object; 
+	GObject* object;
 
 	// translate value
 	value =	(GValue*) _value;
@@ -774,7 +774,7 @@ Java_org_gnome_glib_GValue_g_1value_1get_1object
 	}
 
 	// call function
-	object = g_value_get_object(value); 
+	object = g_value_get_object(value);
 
 	// and return	
 	return (jlong) object;
@@ -789,7 +789,7 @@ Java_org_gnome_glib_GValue_g_1value_1get_1pixbuf
 )
 {
     GValue* value;
-    GdkPixbuf* pixbuf; 
+    GdkPixbuf* pixbuf;
 
     // translate value
     value = (GValue*) _value;
@@ -799,8 +799,8 @@ Java_org_gnome_glib_GValue_g_1value_1get_1pixbuf
     }
 
     // call function
-    pixbuf = g_value_get_object(value); 
+    pixbuf = g_value_get_object(value);
 
-    // and return   
+    // and return
     return (jlong) pixbuf;
 }

@@ -19,7 +19,7 @@
  * Linking this library statically or dynamically with other modules is making
  * a combined work based on this library. Thus, the terms and conditions of
  * the GPL cover the whole combination. As a special exception (the
- * "Claspath Exception"), the copyright holders of this library give you
+ * "Classpath Exception"), the copyright holders of this library give you
  * permission to link this library with independent modules to produce an
  * executable, regardless of the license terms of these independent modules,
  * and to copy and distribute the resulting executable under terms of your
@@ -39,12 +39,12 @@
 /*
  * Implements
  *   org.gnome.gdk.Plumbing.getEventTypeOrdinal(long pointer)
- * 
+ *
  * Assuming that the supplied pointer is a GdkEvent, then regardless of which
  * element of the union the actual structure is, the first field is always of
  * GdkEventType.
- * 
- * See http://developer.gnome.org/doc/API/2.0/gdk/gdk-Event-Structures.html#GdkEvent 
+ *
+ * See http://developer.gnome.org/doc/API/2.0/gdk/gdk-Event-Structures.html#GdkEvent
  */
 JNIEXPORT jint JNICALL
 Java_org_gnome_gdk_Plumbing_getEventTypeOrdinal

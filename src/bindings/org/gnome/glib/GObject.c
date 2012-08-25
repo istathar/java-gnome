@@ -19,7 +19,7 @@
  * Linking this library statically or dynamically with other modules is making
  * a combined work based on this library. Thus, the terms and conditions of
  * the GPL cover the whole combination. As a special exception (the
- * "Claspath Exception"), the copyright holders of this library give you
+ * "Classpath Exception"), the copyright holders of this library give you
  * permission to link this library with independent modules to produce an
  * executable, regardless of the license terms of these independent modules,
  * and to copy and distribute the resulting executable under terms of your
@@ -124,10 +124,10 @@ Java_org_gnome_glib_GObject_g_1object_1set_1property
  *   org.gnome.glib.GObject.g_object_get_property(long instance, String name)
  * called from
  *   org.gnome.glib.GObject.getProperty(Object instance, String name)
- * 
+ *
  * The idea of using g_object_class_find_property() to get at an appropriate
  * GType for the empty GValue we need to pass as an out parameter to
- * g_object_get_property() is borrowed from java-gnome 2.x's implementation.  
+ * g_object_get_property() is borrowed from java-gnome 2.x's implementation.
  */
 JNIEXPORT jlong JNICALL Java_org_gnome_glib_GObject_g_1object_1get_1property
 (
@@ -251,12 +251,12 @@ Java_org_gnome_glib_GObject_g_1signal_1connect
  *   org.gnome.glib.GObject.addToggleRef(Object reference)
  * called from
  *   org.gnome.glib.Object.<init>(long pointer)
- * 
+ *
  * When we make a Proxy to a GObject, we need to tell the
  * reference system about it.
  */
- 
-JNIEXPORT void JNICALL 
+
+JNIEXPORT void JNICALL
 Java_org_gnome_glib_GObject_g_1object_1add_1toggle_1ref
 (
 	JNIEnv* env,
@@ -284,7 +284,7 @@ Java_org_gnome_glib_GObject_g_1object_1add_1toggle_1ref
  *   org.gnome.glib.Object.release()
  * is invoked by a finalizer.
  */
-JNIEXPORT void JNICALL 
+JNIEXPORT void JNICALL
 Java_org_gnome_glib_GObject_g_1object_1remove_1toggle_1ref
 (
 	JNIEnv* env,
@@ -303,6 +303,6 @@ Java_org_gnome_glib_GObject_g_1object_1remove_1toggle_1ref
 	/*
 	 * Which should, incidentally, dispose of this GObject if we're the
 	 * only one still holding a reference count to it. See discussion at
-	 * the JavaDoc for org.gnome.glib.Object's release() method. 
+	 * the JavaDoc for org.gnome.glib.Object's release() method.
 	 */
 }

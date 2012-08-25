@@ -20,7 +20,7 @@
  * Linking this library statically or dynamically with other modules is making
  * a combined work based on this library. Thus, the terms and conditions of
  * the GPL cover the whole combination. As a special exception (the
- * "Claspath Exception"), the copyright holders of this library give you
+ * "Classpath Exception"), the copyright holders of this library give you
  * permission to link this library with independent modules to produce an
  * executable, regardless of the license terms of these independent modules,
  * and to copy and distribute the resulting executable under terms of your
@@ -38,7 +38,7 @@
  * very idiomatic, however, and the sequence of calls employed here was drawn
  * directly from the example set by the java-gnome 2.x project in their
  * glib-java/src/jni/org_gnu_glib_GObject.c. We are certainly indebted to the
- * previous hackers for having worked out these techniques.      
+ * previous hackers for having worked out these techniques.
  */
 
 #include <jni.h>
@@ -58,14 +58,14 @@ typedef struct  {
 	/**
 	 * We use Java's single letter codes to choose which kind of
 	 * invocation we will use
-	 */	 
+	 */
 	jchar		returnType;
- 	
+
  	/*
  	 * The Class upon which we invoke the [static] "receiveBlah" method.
  	 */
  	jclass		receiver;
- 
+
  	/*
  	 * The actual Signal subinterface that is being connected. This will
  	 * be passed to the handler on the Java side so it can call the
@@ -73,16 +73,16 @@ typedef struct  {
  	 * standpoint) the callback being invoked.
  	 */
  	jobject 	handler;
- 	
+
  	/*
  	 * ID of the method on handlerInstance that will be invoked upon
  	 * callback
  	 */
  	jmethodID	method;
- 	
+
 } BindingsJavaClosure;
 
- 
+
 /**
  * This method actually receives all callbacks in the system. It receives a
  * GClosure struct as its data, which turns out to be our BindingsJavaClosure.
@@ -139,13 +139,13 @@ bindings_java_marshaller
 	/*
 	 * Build the parameters for the callback. The signature of the
 	 * handlers on the Java side for a signal "name" would be:
-	 * 
+	 *
 	 * 	receiveName(Signal handler, type arg0, type arg1, ...)
 	 *
 	 * Note that arg0 is universally the source object (in otherwords, a
 	 * method function where the first argument is always a reference to
 	 * self).
-	 *  
+	 *
 	 * In case you didn't know, JNI's jvalue us a rather complex union
 	 * which holds any of the possible things you can send across the
 	 * boundary. So we allocate an array of them, then for each parameter
@@ -214,9 +214,9 @@ bindings_java_marshaller
 			 * GObjects are just pointers, and so we pass up the
 			 * address across the boundary to be looked up and
 			 * either an existing Proxy returned or a new Proxy
-			 * created. 
+			 * created.
 			 */
-			obj = g_value_get_object(&param_values[i]); 
+			obj = g_value_get_object(&param_values[i]);
 			bindings_java_memory_cleanup(obj, FALSE);
 			jargs[i+1].j = (jlong) obj;
 			break;
@@ -235,7 +235,7 @@ bindings_java_marshaller
 			/*
 			 * We're ignoring GParamSpec at the moment. They
 			 * normally only show up in 'notify' signals, and we
-			 * don't need them. 
+			 * don't need them.
 			 */
 		case G_TYPE_POINTER:
 			/*
@@ -257,7 +257,7 @@ bindings_java_marshaller
 	}
 	
 	/*
-	 * And now we invoke the callback on the Java side Signal handler; we have to 
+	 * And now we invoke the callback on the Java side Signal handler; we have to
 	 * select the correct function based on what return type is necessary.
 	 */
 
@@ -307,9 +307,9 @@ bindings_java_marshaller
 	case 'L':
 		/*
 		 * String return signals
-		 * 
-		 * L is actually Object, of course, but the only type we need to 
-		 * worry about is java.lang.String encode it for now, and so make the 
+		 *
+		 * L is actually Object, of course, but the only type we need to
+		 * worry about is java.lang.String encode it for now, and so make the
 		 * enormous assumption that a string is what we get back.
 		 */
 		_str = (*env)->CallStaticObjectMethodA(env, bjc->receiver, bjc->method, jargs);
@@ -328,7 +328,7 @@ bindings_java_marshaller
 		g_value_set_string(return_value, str);
 		
 		// ... so we can release str
-		bindings_java_releaseString(str);	 
+		bindings_java_releaseString(str);
 		break;
 
 	default:
@@ -366,14 +366,14 @@ bindings_java_marshaller
 	 * native call. So we call the function which causes the main loop to
 	 * terminate, with the result that the exception will propegate out
 	 * and, yes, probably halt the program.
-	 * 
+	 *
 	 * This is abrupt, but it is deliberate: we need to force developers
 	 * to deal with criticals emitted by the underlying libraries.
 	 * Otherwise, the next thing that is likely to happen is a
 	 * segmentation fault, and not only does that crash the "program" but
 	 * it takes out the Java Virtual Machine running it. People don't
 	 * like VM crashes.
-	 * 
+	 *
 	 * Uncaught exceptions of any kind leaving a signal handler are to be
 	 * considered programmer error and will be fatal.
 	 */
@@ -400,9 +400,9 @@ bindings_java_closure_destroy
 {
 	BindingsJavaClosure* bjc;
 	JNIEnv* env;	
-  
+
  	bjc = (BindingsJavaClosure*) closure;
-  
+
 	if (bjc->handler) {
 		env = bindings_java_getEnv();
 		(*env)->DeleteWeakGlobalRef(env, bjc->handler);
@@ -416,7 +416,7 @@ bindings_java_closure_destroy
 GClosure*
 bindings_java_closure_new
 (
-	JNIEnv* env, 
+	JNIEnv* env,
 	jobject handler,
 	jclass receiver,
 	const gchar* name,
@@ -430,7 +430,7 @@ bindings_java_closure_new
 
 	GString* buf;
 	guint i;
-	
+
 	gchar* methodName;
 	gchar* methodSignature;
 	
@@ -438,12 +438,12 @@ bindings_java_closure_new
 	 * First we allocate the closure and do the footwork to tell it what
 	 * its marshaller is
 	 */
-	 
+
 	closure = g_closure_new_simple(sizeof(BindingsJavaClosure), NULL);
 	g_closure_add_finalize_notifier(closure, NULL, bindings_java_closure_destroy);
 	g_closure_set_marshal(closure, bindings_java_marshaller);
 
-	bjc = (BindingsJavaClosure*) closure; 
+	bjc = (BindingsJavaClosure*) closure;
 
 	/*
 	 * And now we begin the legwork of figuring out what the methodID of
@@ -466,7 +466,7 @@ bindings_java_closure_new
 	case G_TYPE_ENUM:
 		bjc->returnType = 'E';
       		break;
-      		
+
 	case G_TYPE_STRING:
 		/*
 		 * Strings are encoded as java.lang.String objects in signatures,
@@ -474,7 +474,7 @@ bindings_java_closure_new
 		 */
 		bjc->returnType = 'L';
       		break;
-      		
+
 	case G_TYPE_NONE:
 		bjc->returnType = 'V';
 		break;
@@ -506,7 +506,7 @@ bindings_java_closure_new
 		gchar first = g_unichar_toupper(token[0]);
 		g_string_append_c(buf, first);
 
-		token++; 
+		token++;
 		g_string_append(buf, token);
 	}
 
@@ -518,11 +518,11 @@ bindings_java_closure_new
 	/*
 	 * And here is the tricky bit: formulate the method signature that goes
 	 * along with this signal. A method of the signature
-	 * 
+	 *
 	 * 	boolean method(int, long, String)
-	 * 
+	 *
 	 * has a JNI encoding of
-	 * 
+	 *
 	 * 	(IJLjava/util/String;)Z
 	 */
 

@@ -19,7 +19,7 @@
  * Linking this library statically or dynamically with other modules is making
  * a combined work based on this library. Thus, the terms and conditions of
  * the GPL cover the whole combination. As a special exception (the
- * "Claspath Exception"), the copyright holders of this library give you
+ * "Classpath Exception"), the copyright holders of this library give you
  * permission to link this library with independent modules to produce an
  * executable, regardless of the license terms of these independent modules,
  * and to copy and distribute the resulting executable under terms of your
@@ -39,7 +39,7 @@
  * a valid ToggleRef to it if we still have a reference on the Java side to
  * the Java side Proxy; show()ing the Window again is possible, but if you do
  * its contents will be gone.
- * 
+ *
  * To work around this we use a bit of GTK hackery. First we block
  * 'delete-event' from propegating into dispose, and instead just hide() the
  * window. Then we take advantage of there is an internal property
@@ -48,12 +48,12 @@
  * screen, and we can safely drop GTK's Ref to the GtkWindow. Finally, in
  * operation, we restore this Ref count on windows that are show()n and
  * re-remove it on hide(). Thus a hidden GtkWindow that is also not strongly
- * referenced from any Java code will be eligigble for cleanup. 
- * 
+ * referenced from any Java code will be eligigble for cleanup.
+ *
  * Thanks to Owen Taylor for having researched these scenarios and in
  * particular for having verified that the 'hide' signal is indeed emitted by
  * gtk_widget_dispose(). The original suggestion to leverage the 'show' and
- * 'hide' signals was from Vreixo Formoso. 
+ * 'hide' signals was from Vreixo Formoso.
  */
 
 #include <jni.h>
@@ -158,7 +158,7 @@ window_show_handler
  * called from all
  *   org.gnome.gtk.Window.<init>()
  * constructors after instantiation in order to change memory management
- * behaviour by changing has_user_ref_count field and dropping a Ref count.  
+ * behaviour by changing has_user_ref_count field and dropping a Ref count.
  */
 JNIEXPORT void JNICALL
 Java_org_gnome_gtk_GtkWindowOverride_gtk_1window_1drop_1user_1ref
@@ -175,11 +175,11 @@ Java_org_gnome_gtk_GtkWindowOverride_gtk_1window_1drop_1user_1ref
 
 	/*
 	 * Hook up our custom overrides to unref on 'hide' and ref on 'show',
-	 * and to block 'delete-event' from propegating and to instead hide() 
-	 * only. 
+	 * and to block 'delete-event' from propegating and to instead hide()
+	 * only.
 	 */
 
-	g_signal_connect_after(self, "delete-event", G_CALLBACK(window_delete_handler), NULL); 
+	g_signal_connect_after(self, "delete-event", G_CALLBACK(window_delete_handler), NULL);
 	g_signal_connect(self, "hide", G_CALLBACK(window_hide_handler), NULL);
 	g_signal_connect(self, "show", G_CALLBACK(window_show_handler), NULL);
 

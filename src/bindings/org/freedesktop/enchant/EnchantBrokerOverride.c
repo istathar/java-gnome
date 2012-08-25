@@ -19,7 +19,7 @@
  * Linking this library statically or dynamically with other modules is making
  * a combined work based on this library. Thus, the terms and conditions of
  * the GPL cover the whole combination. As a special exception (the
- * "Claspath Exception"), the copyright holders of this library give you
+ * "Classpath Exception"), the copyright holders of this library give you
  * permission to link this library with independent modules to produce an
  * executable, regardless of the license terms of these independent modules,
  * and to copy and distribute the resulting executable under terms of your
@@ -34,7 +34,7 @@
 #include <jni.h>
 #include <gtk/gtk.h>
 #include <enchant.h>
-#include <libintl.h>  
+#include <libintl.h>
 #include "bindings_java.h"
 #include "org_freedesktop_enchant_EnchantBrokerOverride.h"
 
@@ -124,7 +124,7 @@ Java_org_freedesktop_enchant_EnchantBrokerOverride_enchant_1broker_1list_1dicts
 		result[i] = (gchar*) iter->data;
 		iter = g_slist_next(iter);
 	}
-   
+
 
 	// translate return value to JNI type
 	_result = (jobjectArray) bindings_java_convert_gchararray_to_jarray(env, (const gchar**)result);

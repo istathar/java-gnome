@@ -19,7 +19,7 @@
  * Linking this library statically or dynamically with other modules is making
  * a combined work based on this library. Thus, the terms and conditions of
  * the GPL cover the whole combination. As a special exception (the
- * "Claspath Exception"), the copyright holders of this library give you
+ * "Classpath Exception"), the copyright holders of this library give you
  * permission to link this library with independent modules to produce an
  * executable, regardless of the license terms of these independent modules,
  * and to copy and distribute the resulting executable under terms of your
@@ -83,7 +83,7 @@ Java_org_gnome_pango_PangoLayoutLineOverride_pango_1layout_1line_1get_1start_1in
 }
 
 /*
- * This ends up being exactly the same logic as the start_index case above 
+ * This ends up being exactly the same logic as the start_index case above
  * because we need to work in characters and so need the underlying Layout's
  * underlying string to do the character count.
  */

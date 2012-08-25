@@ -19,7 +19,7 @@
  * Linking this library statically or dynamically with other modules is making
  * a combined work based on this library. Thus, the terms and conditions of
  * the GPL cover the whole combination. As a special exception (the
- * "Claspath Exception"), the copyright holders of this library give you
+ * "Classpath Exception"), the copyright holders of this library give you
  * permission to link this library with independent modules to produce an
  * executable, regardless of the license terms of these independent modules,
  * and to copy and distribute the resulting executable under terms of your
@@ -153,7 +153,8 @@ public abstract class Plumbing extends org.freedesktop.bindings.Plumbing
      * Retrieve an array of appropriate Java Boxeds for the given array of
      * pointers.
      */
-    protected static Boxed[] boxedArrayFor(final Class<?> type, final long[] pointers, Boxed[] boxeds) {
+    protected static Boxed[] boxedArrayFor(final Class<? extends Boxed> type, final long[] pointers,
+            Boxed[] boxeds) {
         if (pointers == null) {
             return null;
         }
@@ -170,7 +171,7 @@ public abstract class Plumbing extends org.freedesktop.bindings.Plumbing
      * @throw ClassCastException if the GType pointed by given pointer is not
      *        a GBoxed.
      */
-    protected static Boxed boxedFor(Class<?> type, final long pointer) {
+    protected static Boxed boxedFor(Class<? extends Boxed> type, final long pointer) {
         Boxed proxy;
 
         if (pointer == 0L) {
@@ -202,7 +203,7 @@ public abstract class Plumbing extends org.freedesktop.bindings.Plumbing
      * 
      * @see #boxedFor(Class, long)
      */
-    protected static void fillBoxedArray(Class<?> type, Boxed[] boxeds, long[] pointers) {
+    protected static void fillBoxedArray(Class<? extends Boxed> type, Boxed[] boxeds, long[] pointers) {
         if (pointers == null) {
             return;
         }

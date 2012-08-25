@@ -16,6 +16,12 @@
   )
 )
 
+(define-function get_prgname
+  (of-object "GlibMisc")
+  (c-name "g_get_prgname")
+  (return-type "gchar*")
+)
+
 (define-function get_user_config_dir
   (of-object "GlibMisc")
   (c-name "g_get_user_config_dir")

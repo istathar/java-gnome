@@ -1943,3 +1943,9 @@
   )
 )
 
+(define-method get_style_context
+  (of-object "GtkWidget")
+  (c-name "gtk_widget_get_style_context")
+  (return-type "GtkStyleContext*")
+)
+

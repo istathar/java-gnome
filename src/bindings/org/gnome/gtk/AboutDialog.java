@@ -19,7 +19,7 @@
  * Linking this library statically or dynamically with other modules is making
  * a combined work based on this library. Thus, the terms and conditions of
  * the GPL cover the whole combination. As a special exception (the
- * "Claspath Exception"), the copyright holders of this library give you
+ * "Classpath Exception"), the copyright holders of this library give you
  * permission to link this library with independent modules to produce an
  * executable, regardless of the license terms of these independent modules,
  * and to copy and distribute the resulting executable under terms of your
@@ -153,6 +153,30 @@ public class AboutDialog extends Dialog
      */
     public void setWebsite(String website) {
         GtkAboutDialog.setWebsite(this, website);
+    }
+
+    /**
+     * Set the license of the application from the currently known
+     * {@link License licenses}.
+     * 
+     * <p>
+     * This method overrides the license set using {@link #setLicense(String)
+     * setLicense()}.
+     * 
+     * @since 4.1.2
+     */
+    public void setLicenseType(License license) {
+        GtkAboutDialog.setLicenseType(this, license);
+    }
+
+    /**
+     * Return the license that was set using {@link #setLicenseType(License)
+     * setLicenseType()}.
+     * 
+     * @since 4.1.2
+     */
+    public License getLicenseType() {
+        return GtkAboutDialog.getLicenseType(this);
     }
 
     /**

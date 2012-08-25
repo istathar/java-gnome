@@ -19,7 +19,7 @@
  * Linking this library statically or dynamically with other modules is making
  * a combined work based on this library. Thus, the terms and conditions of
  * the GPL cover the whole combination. As a special exception (the
- * "Claspath Exception"), the copyright holders of this library give you
+ * "Classpath Exception"), the copyright holders of this library give you
  * permission to link this library with independent modules to produce an
  * executable, regardless of the license terms of these independent modules,
  * and to copy and distribute the resulting executable under terms of your
@@ -69,7 +69,7 @@ Java_org_gnome_gtk_GtkWidgetOverride_gtk_1widget_1get_1allocation
  *
  * This implementation also [is forced to] get on with calling
  * gtk_widget_size_request() on the assumption that the Requisition isn't
- * much use without data in it. 
+ * much use without data in it.
  */
 JNIEXPORT void JNICALL
 Java_org_gnome_gtk_GtkWidgetOverride_gtk_1widget_1get_1requisition
@@ -95,7 +95,7 @@ Java_org_gnome_gtk_GtkWidgetOverride_gtk_1widget_1get_1requisition
 	 * struct as a complete object Java side (along with attendant
 	 * GtkRequisitionOverride code to allocate them), we take a fairly
 	 * sharp shortcut here: we will programatically get on with it and
-	 * call size_request() here.  
+	 * call size_request() here.
 	 */
 
 	gtk_widget_size_request(self, &temp);
