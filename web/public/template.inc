@@ -145,7 +145,8 @@ function template_end() {
 </div>
 
 <!-- bottom spacer -->
-<div class="bluepanel" style="background: url(http://www.operationaldynamics.com/images/logo/twirl-bottom.jpg); height: 12px; margin-top: 5px;">
+<div class="bluepanel" style="background:
+url(http://www.operationaldynamics.com/images/logo/twirl-background.jpg); height: 12px; margin-top: 5px;">
 </div>
 
 <!-- copyright text -->
@@ -173,7 +174,7 @@ full details<?
 <br>
 <div style="padding-bottom:10px;">
 <a href="http://www.operationaldynamics.com/" style="padding-right:12px;
-vertical-align: middle;"><img src="http://www.operationaldynamics.com/images/logo/logo-22x28.jpg" width="22" height="28" border="0"></a>
+vertical-align: middle;"><img src="http://www.operationaldynamics.com/images/logo/logo-60x77.png" width="22" height="28" border="0"></a>
 <a href="http://www.gnome.org/" style="padding-right:5px; vertical-align: bottom;"><img src="/images/gnome_FootLogo.png" width="27" height="33" border="0"></a>
 <a href="http://sourceforge.net/"><img src="/images/sourceforge_Logo.png" width="86" heigh="29" border="0"></a>
 </div>
