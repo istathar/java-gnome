@@ -1,7 +1,7 @@
 /*
  * java-gnome, a UI library for writing GTK and GNOME programs from Java!
  *
- * Copyright © 2007-2010 Operational Dynamics Consulting, Pty Ltd
+ * Copyright © 2012 Operational Dynamics Consulting, Pty Ltd
  *
  * The code in this file, and the program it is a part of, is made available
  * to you by its authors as open source software: you can redistribute it
@@ -30,25 +30,96 @@
  * version of the library, but you are not obligated to do so. If you do not
  * wish to do so, delete this exception statement from your version.
  */
-package org.gnome.unique;
+
+#include <glib.h>
+#include <glib-object.h>
+#include <jni.h>
+#include "bindings_java.h"
+#include "org_gnome_glib_GMain.h"
+
+/*
+ * Conforms to the signature requirement of (*GSourceFunc) as required by
+ * the first parameter of g_idle_add().
+ */
+static gboolean
+dispatch_callback
+(
+	gpointer user_data
+)
+{
+	JNIEnv* env;
+	jclass found;
+	static jclass Handler = NULL;	
+	static jmethodID method = NULL;
+	jobject obj;
+	jboolean result;
+
+	env = bindings_java_getEnv();
+
+	obj = (jobject) user_data;
+
+	/*
+	 * Lookup the class, cache it, and then add the closure function.
+	 */
+	
+	if (Handler == NULL) {
+		found = (*env)->FindClass(env, "org/gnome/glib/Handler");
+		if (found == NULL) {
+			return FALSE;
+		}
+		Handler = (*env)->NewGlobalRef(env, found);
+	}
+
+	if (method == NULL) {
+		method = (*env)->GetMethodID(env, Handler, "run", "()Z");
+		if (method == NULL) {
+			return FALSE;
+		}
+	}
+
+	result = (*env)->CallBooleanMethod(env, obj, method);
+
+	return (gboolean) result;
+}
+
+/*
+ * Meets signature requirement of a (*GDestroyNotify) function as passed 
+ * to g_idle_add_full()'s last argument.
+ */
+static void
+dispatch_release
+(
+	gpointer data
+)
+{
+	JNIEnv* env;
+	jobject obj;
+
+	env = bindings_java_getEnv();
+
+	obj = (jobject) data;
+
+	(*env)->DeleteGlobalRef(env, obj);
+}
 
 /**
- * This gives us package visible access to the utility methods which are of of
- * course visible to the translation layer hierarchy but needed to permit
- * subclassing of Command and its use by Application and MessageData.
- * 
- * @author Andrew Cowie
- * @deprecated
+ * Implements
+ *   org.gnome.glib.GMain.g_idle_add()
+ * called from
+ *   org.gnome.glib.GMain.idleAdd()
  */
-final class UniqueCommandOverride extends Plumbing
+JNIEXPORT void JNICALL
+Java_org_gnome_glib_GMain_g_1idle_1add
+(
+	JNIEnv* env,
+	jclass cls,
+	jobject _handler
+)
 {
-    private UniqueCommandOverride() {}
+	jobject handler;
 
-    static Command enumFor(int ordinal) {
-        return (Command) Plumbing.enumFor(Command.class, ordinal);
-    }
+	handler = (*env)->NewGlobalRef(env, _handler);
 
-    static int numOf(Command reference) {
-        return Plumbing.numOf(reference);
-    }
+	g_idle_add_full(G_PRIORITY_DEFAULT_IDLE, dispatch_callback, (gpointer) handler, dispatch_release);
 }
+

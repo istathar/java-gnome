@@ -19,7 +19,7 @@
  * Linking this library statically or dynamically with other modules is making
  * a combined work based on this library. Thus, the terms and conditions of
  * the GPL cover the whole combination. As a special exception (the
- * "Claspath Exception"), the copyright holders of this library give you
+ * "Classpath Exception"), the copyright holders of this library give you
  * permission to link this library with independent modules to produce an
  * executable, regardless of the license terms of these independent modules,
  * and to copy and distribute the resulting executable under terms of your
@@ -36,10 +36,85 @@ import org.gnome.glib.ApplicationCommandLine;
 import org.gnome.glib.ApplicationFlags;
 
 /**
- * This class handles the lifecycle of a GTK application. It currently ensures
+ * This class handles the lifecycle of a java-gnome application. It ensures
  * that the application is unique and manages a list of top-level windows
  * whose life-cycle is automatically tied to the life-cycle of the
  * application.
+ * 
+ * <p>
+ * Applications are unique in your desktop session; once the program is
+ * running subsequent invocations of the binary will result in a signal being
+ * sent to the original, known as the "<var>primary</var>" instance.
+ * 
+ * <p>
+ * You can model several different program styles this way. A straight forward
+ * and common use is for subsequent invocations merely to "wake" the primary,
+ * perhaps bringing it to front. In this example, you start by constructing an
+ * Application object:
+ * 
+ * <pre>
+ * app = new Application(&quot;com.example.MasterControlProgram&quot;);
+ * </pre>
+ * 
+ * in this case "registering" the DBus name
+ * <code>com.example.MasterControlProgram</code> as the unique identifier for
+ * this application. As with a plain GTK program, you then enter the main
+ * loop, but instead of <code>Gtk.main()</code> you use Application's
+ * {@link #run(String[]) run()} to do so:
+ * 
+ * <pre>
+ * app.run(args);
+ * </pre>
+ * 
+ * <p>
+ * the original process blocks in this call (and runs a GTK main loop and your
+ * widgets start receiving event signals). Subsequent programs attempting to
+ * register that name (ie, this same code being run through a second time but
+ * by a different invocation of your program) will implicitly discover that
+ * they are <i>not</i> the <var>primary</var> instance; the <var>remote</var>
+ * will return from the call to <code>run()</code> although how fast this
+ * occurs depends on actions the <var>primary</var> takes.
+ * 
+ * <h2>Signals</h2>
+ * <p>
+ * The <code>Application.Startup</code> will be fired once for an instance
+ * when it becomes <var>primary</var>. So, that's the place to put your UI
+ * setup code.
+ * 
+ * <p>
+ * <code>Application.Activate</code> will occurs when when Application's
+ * {@link #activate() activate()} is called. It is also raised when the
+ * primary begins running the first time if no flags were passed to the
+ * Application constructor.
+ * 
+ * <p>
+ * If the application has been configured as passing command line arguments
+ * from <var>remote</var> instances to the <var>primary</var>, then instead of
+ * <code>Application.Activate</code> <code>Application.CommandLine</code> will
+ * be raised on the <var>primary</var> [instead]. In this situation it is
+ * therefore a good idea to call <code>activate()</code> from this handler;
+ * you can concentrate the code to deal with raising the UI there.
+ * 
+ * <h2>Life cycle</h2>
+ * 
+ * <p>
+ * For each principle GTK Window you create, call Application's
+ * {@link #addWindow(Window) addWindow()} and be sure to put a call to
+ * Application's {@link Application#removeWindow(Window) removeWindow()} in
+ * that Window's <code>Window.DeleteEvent</code> handler. The runtime system
+ * will keep track of these registered Windows; your application will
+ * terminate when the last one is destroyed.
+ * 
+ * <p>
+ * You can also call Application's {@link Application#quit() quit()} to exit
+ * the program.
+ * 
+ * <h2>Initialization</h2>
+ * 
+ * <p>
+ * The call to <code>Gtk.init()</code> or creating a
+ * <code>new Application()</code> <b>must</b> be the first thing done in your
+ * program.
  * 
  * @author Guillaume Mazoyer
  * @author Andrew Cowie
@@ -117,11 +192,18 @@ public class Application extends org.gnome.glib.Application
     }
 
     /**
-     * This signal is emitted on the primary instance when an activation
-     * occurs (after startup of any instance, or by calling the Application
-     * {@link Application#activate() activate()} method.
+     * This signal is emitted on the <var>primary</var> instance when an
+     * activation occurs. This is triggered by calling Application's
+     * {@link Application#activate() activate()} method, or, if the
+     * Application is in the {@link ApplicationFlags#NONE default} mode, when
+     * an instance starts.
      * 
-     * @author Guillaume Mazoyer
+     * <p>
+     * In the {@link ApplicationFlags#HANDLES_COMMAND_LINE command line} mode,
+     * see the {@link Application.CommandLine Application.CommandLine} signal
+     * is rasied instead.
+     * 
+     * @author Andrew Cowie
      * @since 4.1.2
      */
     public interface Activate
@@ -152,9 +234,9 @@ public class Application extends org.gnome.glib.Application
     }
 
     /**
-     * This signal is emitted on the primary instance when any of the
-     * conditions starting the program are raised. This is a good place to put
-     * your UI intitialization logic.
+     * This signal is emitted on the <var>primary</var> instance when any of
+     * the conditions starting the program are raised. This is a good place to
+     * put your UI intitialization logic.
      * 
      * @author Andrew Cowie
      * @since 4.1.2
@@ -187,10 +269,31 @@ public class Application extends org.gnome.glib.Application
     }
 
     /**
-     * This signal is emitted on the primary instance when command line
-     * arguments are to be processed. When you handle this signal you need to
-     * specify the exit code that the invoking process should in turn return
-     * to the shell.
+     * This signal is emitted on the <var>primary</var> instance when command
+     * line arguments are to be processed:
+     * 
+     * <pre>
+     * app.connect(new Application.CommandLine() {
+     *     public int onCommandLine(Application source, ApplicationCommandLine remote) {
+     *         final String[] args;
+     *         
+     *         args = remote.getArguments();
+     *         
+     *         // do stuff here in primary with the passed arguments
+     *         
+     *         remote.exit();
+     *         return 0;
+     *     }
+     * }
+     * </pre>
+     * 
+     * When you handle this signal you need to specify the exit code that the
+     * invoking process should in turn return to the shell, ie:
+     * 
+     * <pre>
+     * s = app.run(args);
+     * System.exit(s);
+     * </pre>
      * 
      * @author Andrew Cowie
      * @since 4.1.2
@@ -214,7 +317,10 @@ public class Application extends org.gnome.glib.Application
     }
 
     /**
-     * Hook up the <code>Application.CommandLine</code> handler.
+     * Hook up the <code>Application.CommandLine</code> handler. This signal
+     * will only be raised if the Application was constructed with the
+     * {@link ApplicationFlags#HANDLES_COMMAND_LINE HANDLES_COMMAND_LINE}
+     * flag.
      * 
      * @since 4.1.2
      */

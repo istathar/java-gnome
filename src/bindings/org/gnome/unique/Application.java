@@ -75,6 +75,7 @@ import org.gnome.glib.Object;
  * 
  * @author Andrew Cowie
  * @since 4.0.12
+ * @deprecated
  */
 public class Application extends Object
 {

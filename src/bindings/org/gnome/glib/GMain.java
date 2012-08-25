@@ -1,7 +1,7 @@
 /*
  * java-gnome, a UI library for writing GTK and GNOME programs from Java!
  *
- * Copyright © 2007-2010 Operational Dynamics Consulting, Pty Ltd
+ * Copyright © 2006-2012 Operational Dynamics Consulting, Pty Ltd and Others
  *
  * The code in this file, and the program it is a part of, is made available
  * to you by its authors as open source software: you can redistribute it
@@ -30,25 +30,18 @@
  * version of the library, but you are not obligated to do so. If you do not
  * wish to do so, delete this exception statement from your version.
  */
-package org.gnome.unique;
+package org.gnome.glib;
 
-/**
- * This gives us package visible access to the utility methods which are of of
- * course visible to the translation layer hierarchy but needed to permit
- * subclassing of Command and its use by Application and MessageData.
- * 
- * @author Andrew Cowie
- * @deprecated
+/*
+ * crafted to engineer manual callback for idle functions
  */
-final class UniqueCommandOverride extends Plumbing
+final class GMain extends Plumbing
 {
-    private UniqueCommandOverride() {}
+    private GMain() {}
 
-    static Command enumFor(int ordinal) {
-        return (Command) Plumbing.enumFor(Command.class, ordinal);
+    static final void idleAdd(Handler handler) {
+        g_idle_add(handler);
     }
 
-    static int numOf(Command reference) {
-        return Plumbing.numOf(reference);
-    }
+    private static native final void g_idle_add(Handler handler);
 }

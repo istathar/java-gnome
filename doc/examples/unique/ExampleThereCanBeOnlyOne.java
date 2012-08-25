@@ -32,6 +32,7 @@ import static org.freedesktop.bindings.Time.formatTime;
  * 
  * @author Andrew Cowie
  * @since 4.0.12
+ * @deprecated
  */
 /*
  * TODO This example works, but is trivial and not very interesting.

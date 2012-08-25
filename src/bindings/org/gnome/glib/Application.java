@@ -34,14 +34,9 @@ package org.gnome.glib;
 
 /**
  * The foundation of an application. This class is the basis for higher-level
- * functionality appropriate to a GUI framework; it is accessed through
- * {@link org.gnome.gtk.Application GTK Application}.
- * 
- * <p>
- * We do not handle (yet?) passing parameters to the {@link #run()} method
- * because we don't have any way to handle them properly. If you have any
- * parameters for the entry point to use take care of them in your main
- * method.
+ * functionality appropriate to a GUI framework; it is accessed through the [
+ * <code>org.gnome.gtk</code>] {@link org.gnome.gtk.Application Application}
+ * class; see there for a full discussion.
  * 
  * @author Guillaume Mazoyer
  * @since 4.1.2
@@ -180,9 +175,14 @@ public class Application extends Object
     }
 
     /**
-     * Checks if the Application is remote. If it is then it means that
-     * another instance of the Application exists, the &quot;primary&quot;
-     * instance.
+     * Checks if the Application is <var>remote</var>. If it is then it means
+     * that another instance of the Application exists and is running, the
+     * <var>primary</var>; instance.
+     * 
+     * <p>
+     * <i>Not sure what the point of this is; this method is not available
+     * until after <code>run()</code> has been called, and the signals raised
+     * on this class all happen in the <var>primary</var> instance.
      * 
      * @since 4.1.2
      */
@@ -281,8 +281,8 @@ public class Application extends Object
     }
 
     /**
-     * This signal is emitted on the primary instance when an activation
-     * occurs (at startup or by calling the Application
+     * This signal is emitted on the <var>primary</var> instance when an
+     * activation occurs (at startup or by calling the Application
      * {@link Application#activate() activate()} method.
      * 
      * @author Guillaume Mazoyer
@@ -303,8 +303,9 @@ public class Application extends Object
     }
 
     /**
-     * This signal is emitted on the primary instance immediately after
-     * registration.
+     * This signal is emitted on the <var>primary</var> instance immediately
+     * after registration. This is the place to put (or call) your user
+     * interface initialization code.
      * 
      * @author Guillaume Mazoyer
      * @since 4.1.2
@@ -323,9 +324,19 @@ public class Application extends Object
         GApplication.connect(this, handler, false);
     }
 
+    /**
+     * Connect to this signal to receive command line arguments from a
+     * <var>remote</var> instance. Note that you must call
+     * ApplciationCommandLine's {@link ApplicationCommandLine#exit() exit()}
+     * to release the <var>remote</var> from its call to Application's
+     * <code>run()</code>.
+     * 
+     * 
+     * @author Andrew Cowie
+     */
     public interface CommandLine extends GApplication.CommandLineSignal
     {
-        public int onCommandLine(Application source, ApplicationCommandLine cmdline);
+        public int onCommandLine(Application source, ApplicationCommandLine remote);
     }
 
     /**

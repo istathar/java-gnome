@@ -1,7 +1,7 @@
 /*
  * java-gnome, a UI library for writing GTK and GNOME programs from Java!
  *
- * Copyright © 2007-2010 Operational Dynamics Consulting, Pty Ltd
+ * Copyright © 2012 Operational Dynamics Consulting, Pty Ltd
  *
  * The code in this file, and the program it is a part of, is made available
  * to you by its authors as open source software: you can redistribute it
@@ -30,25 +30,21 @@
  * version of the library, but you are not obligated to do so. If you do not
  * wish to do so, delete this exception statement from your version.
  */
-package org.gnome.unique;
+package org.gnome.glib;
 
 /**
- * This gives us package visible access to the utility methods which are of of
- * course visible to the translation layer hierarchy but needed to permit
- * subclassing of Command and its use by Application and MessageData.
+ * Code to be run when the main loop is idle.
  * 
  * @author Andrew Cowie
- * @deprecated
+ * @since 4.1.2
  */
-final class UniqueCommandOverride extends Plumbing
+public abstract interface Handler
 {
-    private UniqueCommandOverride() {}
-
-    static Command enumFor(int ordinal) {
-        return (Command) Plumbing.enumFor(Command.class, ordinal);
-    }
-
-    static int numOf(Command reference) {
-        return Plumbing.numOf(reference);
-    }
+    /**
+     * Return <code>false</code> to indicate this handler is done. Return
+     * <code>true</code> if you want the handler to be re-invoked. Be aware
+     * that as with normal signal handlers, your code is running in the main
+     * thread, and is blocking the main loop from cycling.
+     */
+    public boolean run();
 }

@@ -250,4 +250,46 @@ public class Glib
     public static String markupEscapeText(String str) {
         return GlibMisc.markupEscapeText(str, -1);
     }
+
+    /**
+     * Queue an idle handler to be run during the next iteration of the main
+     * loop.
+     * 
+     * <p>
+     * Like all graphical user interfaces, GTK is not thread safe; GUI code
+     * <b>must</b> be run from the main thread, that is, the thread that
+     * Application's {@link org.gnome.gtk.Application#run(String[]) run()}
+     * [which calls {@link org.gnome.gtk.Gtk#main() Gtk.main()}] was invoked
+     * from.
+     * 
+     * <p>
+     * In order to make a change to a widget from a worker thread, you must
+     * embed the call(s) in an idle handler, as follows:
+     * 
+     * <pre>
+     * Glib.idleAdd(new Handler() {
+     *     public boolean run() {
+     *         b.setLabel(&quot;Press Me&quot;);
+     *         return false;
+     *     }
+     * });
+     * </pre>
+     * 
+     * where <code>b</code> is a Button you'd previously initialzed and added
+     * to your UI. More generally, you'd just call some <code>doStuff()</code>
+     * method and do your updates there.
+     * 
+     * <p>
+     * The return value in the handler indicates whether or not the idle
+     * function has done it's work; return <code>true</code> to indicate you
+     * want the handler to be re-invoked. Note that you are blocking the main
+     * loop when your idle handler is running, so if you're doing serious
+     * computation you're best doing that in a worker thread and not in the
+     * idle handler callback.
+     * 
+     * @since 4.1.2
+     */
+    public static void idleAdd(Handler handler) {
+        GMain.idleAdd(handler);
+    }
 }
