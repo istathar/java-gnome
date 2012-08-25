@@ -182,7 +182,7 @@ public class Application extends Object
      * <p>
      * <i>Not sure what the point of this is; this method is not available
      * until after <code>run()</code> has been called, and the signals raised
-     * on this class all happen in the <var>primary</var> instance.
+     * on this class all happen in the <var>primary</var> instance.</i>
      * 
      * @since 4.1.2
      */
