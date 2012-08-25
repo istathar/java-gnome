@@ -19,7 +19,7 @@
  * Linking this library statically or dynamically with other modules is making
  * a combined work based on this library. Thus, the terms and conditions of
  * the GPL cover the whole combination. As a special exception (the
- * "Claspath Exception"), the copyright holders of this library give you
+ * "Classpath Exception"), the copyright holders of this library give you
  * permission to link this library with independent modules to produce an
  * executable, regardless of the license terms of these independent modules,
  * and to copy and distribute the resulting executable under terms of your
@@ -38,6 +38,7 @@ import org.freedesktop.bindings.Flag;
  * Constants used to define the behavior of an {@link Application}.
  * 
  * @author Guillaume Mazoyer
+ * @author Andrew Cowie
  * @since 4.1.2
  */
 public class ApplicationFlags extends Flag
@@ -47,26 +48,49 @@ public class ApplicationFlags extends Flag
     }
 
     /**
-     * Default constant.
+     * Default operation mode. You don't need to specify this; you can call
+     * Application's {@link org.gnome.gtk.Application#Application(String)
+     * singe arg} constructor.
+     * 
+     * @since 4.1.2
      */
     public static final ApplicationFlags NONE = new ApplicationFlags(GlibApplicationFlags.NONE, "NONE");
 
     /**
      * The application run as a service. If the service is already running the
-     * registration fails.
+     * registration fails. You use this, along with {@link #IS_LAUNCHER
+     * IS_LAUNCHER}, in a pair of binaries, one being server only and the
+     * other being launcher only. When a single code base is performing the
+     * role of becoming <var>primary</var> when necessary and otherwise being
+     * <var>remote</var> then you want the [default] {@link #NONE NONE}
+     * setting.
+     * 
+     * @since 4.1.2
      */
     public static final ApplicationFlags IS_SERVICE = new ApplicationFlags(
             GlibApplicationFlags.IS_SERVICE, "IS_SERVICE");
 
     /**
      * The application will not try to become the primary instance.
+     * 
+     * @since 4.1.2
      */
     public static final ApplicationFlags IS_LAUNCHER = new ApplicationFlags(
             GlibApplicationFlags.IS_LAUNCHER, "IS_LAUNCHER");
 
     /**
-     * The primary instance of this application handles command line arguments
-     * (which will be sent from the invoking process to the primary).
+     * Indicate that this application handles command line arguments from
+     * <var>remote</var> instances. These wil be sent from the invoking
+     * process to the <var>primary</var>.
+     * 
+     * <p>
+     * Note that if you choose this mode, the
+     * <code>Application.CommandLine</code> signal will be raised on the
+     * <var>primary</var> rather than <code>Application.Activate</code> so
+     * it's a good idea to call <code>activate()</code> manually from your
+     * <code>Application.CommandLine</code> handler.
+     * 
+     * @since 4.1.2
      */
     public static final ApplicationFlags HANDLES_COMMAND_LINE = new ApplicationFlags(
             GlibApplicationFlags.HANDLES_COMMAND_LINE, "HANDLES_COMMAND_LINE");
@@ -83,8 +107,8 @@ public class ApplicationFlags extends Flag
             GlibApplicationFlags.SEND_ENVIRONMENT, "SEND_ENVIRONMENT");
 
     /**
-     * The application does not try to become and does not check for a single
-     * instance.
+     * The application does not wish to model unique behaviour and does not
+     * check for an already existing single instance.
      */
     public static final ApplicationFlags NON_UNIQUE = new ApplicationFlags(
             GlibApplicationFlags.NON_UNIQUE, "NON_UNIQUE");
