@@ -45,6 +45,7 @@ import org.freedesktop.bindings.Constant;
  * 
  * @author Andrew Cowie
  * @since 4.0.12
+ * @deprecated
  */
 public class Response extends Constant
 {

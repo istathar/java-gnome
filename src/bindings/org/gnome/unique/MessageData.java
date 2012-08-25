@@ -39,6 +39,7 @@ import org.gnome.glib.Boxed;
  * 
  * @author Andrew Cowie
  * @since 4.0.12
+ * @deprecated
  */
 public final class MessageData extends Boxed
 {

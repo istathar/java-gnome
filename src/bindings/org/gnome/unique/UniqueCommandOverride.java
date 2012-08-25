@@ -38,6 +38,7 @@ package org.gnome.unique;
  * subclassing of Command and its use by Application and MessageData.
  * 
  * @author Andrew Cowie
+ * @deprecated
  */
 final class UniqueCommandOverride extends Plumbing
 {
