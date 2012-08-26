@@ -76,6 +76,7 @@ import org.gnome.glib.ApplicationFlags;
  * occurs depends on actions the <var>primary</var> takes.
  * 
  * <h2>Signals</h2>
+ * 
  * <p>
  * The <code>Application.Startup</code> will be fired once for an instance
  * when it becomes <var>primary</var>. So, that's the place to put your UI
@@ -90,10 +91,10 @@ import org.gnome.glib.ApplicationFlags;
  * <p>
  * If the application has been configured as passing command line arguments
  * from <var>remote</var> instances to the <var>primary</var>, then instead of
- * <code>Application.Activate</code> <code>Application.CommandLine</code> will
- * be raised on the <var>primary</var> [instead]. In this situation it is
- * therefore a good idea to call <code>activate()</code> from this handler;
- * you can concentrate the code to deal with raising the UI there.
+ * <code>Application.Activate</code>, the <code>Application.CommandLine</code>
+ * signal will be raised on the <var>primary</var>. You can always call
+ * <code>activate()</code> from this handler thereby concentrating the code to
+ * deal with raising the UI there.
  * 
  * <h2>Life cycle</h2>
  * 
@@ -270,7 +271,7 @@ public class Application extends org.gnome.glib.Application
 
     /**
      * This signal is emitted on the <var>primary</var> instance when command
-     * line arguments are to be processed:
+     * line arguments are to be processed. Typical usage would be:
      * 
      * <pre>
      * app.connect(new Application.CommandLine() {
@@ -287,6 +288,12 @@ public class Application extends org.gnome.glib.Application
      * }
      * </pre>
      * 
+     * as ever, the name of a parameter in a method implenting an interface is
+     * arbitrary, but naming the ApplicationCommmandLine object
+     * <code>remote</code> makes the point that it represents the command line
+     * arguments being sent over the wire.
+     * 
+     * <p>
      * When you handle this signal you need to specify the exit code that the
      * invoking process should in turn return to the shell, ie:
      * 
