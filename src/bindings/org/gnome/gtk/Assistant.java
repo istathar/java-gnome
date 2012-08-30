@@ -449,7 +449,8 @@ public class Assistant extends Window
 
     /**
      * Hookup the <code>Assistant.ForwardPage</code> callback that will be
-     * used to determine what page should be displayed.
+     * used to determine what page should be displayed when
+     * <code>[Forward]</code> is pressed.
      * 
      * @since 4.0.17
      */

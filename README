@@ -24,8 +24,8 @@ Building java-gnome
 
 For the impatient:
 
-    $ tar xjf java-gnome-4.1.1.tar.bz2
-    $ cd java-gnome-4.1.1
+    $ tar xjf java-gnome-4.1.2.tar.bz2
+    $ cd java-gnome-4.1.2
     $ ./configure
     $ make
 
@@ -42,8 +42,8 @@ You can download the latest java-gnome release from the GNOME FTP server at:
 
 Once you've downloaded the latest source tarball:
 
-    $ tar xjf java-gnome-4.1.1.tzr.bz2
-    $ cd java-gnome-4.1.1
+    $ tar xjf java-gnome-4.1.2.tzr.bz2
+    $ cd java-gnome-4.1.2
 
 And go on to step 2 for details about options you can pass to the
 configuration command.
@@ -198,7 +198,7 @@ variables come from.
 The build products end up in `tmp/`:
 
 `tmp/gtk-4.1.jar`  
-`tmp/libgtkjni-4.1.1.so`
+`tmp/libgtkjni-4.1.2.so`
 
 That's actually enough to go on -- if you're using an IDE like Eclipse you can
 just tell it about the `.jar` and then jump right to "Using the Bindings". Or
@@ -209,7 +209,7 @@ you can install java-gnome somewhere. Doesn't matter, really.
 4. Install
 ----------
 
-java-gnome 4.0 has the standard `make install` behaviour, and the equally
+java-gnome 4.1 has the standard `make install` behaviour, and the equally
 standard `prefix` option to `./configure`.
 
 ### Installing locally
@@ -223,7 +223,7 @@ and you would end up with:
 
 `~/share/java/gtk-4.1.jar`  
 `~/share/java/gtk.jar`  
-`~/lib/libgtkjni-4.1.1.so`
+`~/lib/libgtkjni-4.1.2.so`
 
 The default is to send it off to `/usr/local` as you'd expect. 
 
@@ -245,7 +245,7 @@ example:
 	
 	...
 	
-	make DESTDIR=/var/tmp/portage/java-gnome-4.1.1-r2/image install
+	make DESTDIR=/var/tmp/portage/java-gnome-4.1.2-r2/image install
 	
 	...
 
@@ -253,7 +253,7 @@ With a prefix of `/usr` you will end up with:
 
 `/usr/share/java/gtk-4.1.jar`  
 `/usr/share/java/gtk.jar`  
-`/usr/lib/libgtkjni-4.1.1.so`
+`/usr/lib/libgtkjni-4.1.2.so`
 
 If you have distro policy issues to deal with, then pass `jardir` and/or
 `libdir` overrides to `configure`.
@@ -298,17 +298,17 @@ Oh, the joys of running Java programs by hand.
 Status
 ======
 
-java-gnome 4.1 is now a solid foundation that has been used to develop
-non-trivial applications. The architecture and internal design has been well
-proved, and the coverage level (relative to the full breadth of the underlying
-libraries) is reaching maturity.
+java-gnome is now a solid foundation that has been used to develop non-trivial
+applications. The architecture and internal design has been well proved, and
+the coverage level (relative to the full breadth of the underlying libraries)
+is reaching maturity.
 
 Get Involved
 ------------
 
-If you would like to get involved in 4.0 yourself as an individual, we would
-welcome your contribution. See [`HACKING`](HACKING.html). If you are working
-on an application, want to learn more, or are just curious, join us online in
+If you would like to get involved yourself as an individual, we would welcome
+your contribution. See [`HACKING`](HACKING.html). If you are working on an
+application, want to learn more, or are just curious, join us online in
 `#java-gnome` on `irc.gimp.net`.
 
 Funding

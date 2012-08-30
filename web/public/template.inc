@@ -77,8 +77,8 @@ function template_begin() {
 	<a href="/"><img id="logo" src="/images/java-gnome_HeaderLogo.png" width="85" height="92" border="0" alt=""></a>
 	<div align="right" style="padding:10px; padding-top:12px">
 	<a class="nav-black"
-	href="http://ftp.gnome.org/pub/gnome/sources/java-gnome/4.0/java-gnome-4.0.19.tar.bz2">java-gnome 4.0.19</a>,
-	<a class="nav-black" href="/NEWS.html#4.0.19">released 14 Feb 2011</a>
+	href="http://ftp.gnome.org/pub/gnome/sources/java-gnome/4.1/java-gnome-4.1.2.tar.bz2">java-gnome 4.1.2</a>,
+	<a class="nav-black" href="/NEWS.html#4.1.2">released 30 Aug 2012</a>
 	</div>
 </div>
 
@@ -145,7 +145,8 @@ function template_end() {
 </div>
 
 <!-- bottom spacer -->
-<div class="bluepanel" style="background: url(http://www.operationaldynamics.com/images/logo/twirl-bottom.jpg); height: 12px; margin-top: 5px;">
+<div class="bluepanel" style="background:
+url(http://www.operationaldynamics.com/images/logo/twirl-background.jpg); height: 12px; margin-top: 5px;">
 </div>
 
 <!-- copyright text -->
@@ -173,7 +174,7 @@ full details<?
 <br>
 <div style="padding-bottom:10px;">
 <a href="http://www.operationaldynamics.com/" style="padding-right:12px;
-vertical-align: middle;"><img src="http://www.operationaldynamics.com/images/logo/logo-22x28.jpg" width="22" height="28" border="0"></a>
+vertical-align: middle;"><img src="http://www.operationaldynamics.com/images/logo/logo-60x77.png" width="22" height="28" border="0"></a>
 <a href="http://www.gnome.org/" style="padding-right:5px; vertical-align: bottom;"><img src="/images/gnome_FootLogo.png" width="27" height="33" border="0"></a>
 <a href="http://sourceforge.net/"><img src="/images/sourceforge_Logo.png" width="86" heigh="29" border="0"></a>
 </div>
