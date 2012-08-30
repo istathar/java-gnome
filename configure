@@ -808,11 +808,6 @@ if ($os eq "gentoo") {
 			"LibNotify",
 			"libnotify");
 
-	check_system_library(@gnomedev_libs,
-			"unique-3.0",
-			"LibUnique",
-			"libunique");
-
 } elsif ($os eq "slackware") {
 	# on slackware gdk-2.0 and gtk+-unix-print-2.0 are part of gtk+-2.0
 	# use http://packages.slackware.it/ for more details. 
@@ -855,11 +850,6 @@ if ($os eq "gentoo") {
 #			"gtkspell-3.0",
 #			"GtkSpell",
 #			"FIXME");
-
-	check_system_library(@gnomedev_libs,
-			"unique-3.0",
-			"LibUnique",
-			"FIXME");
 
 	check_system_library(@gnomedev_libs,
 			"enchant",
@@ -920,10 +910,6 @@ if ($os eq "gentoo") {
 #			"GtkSpell",
 #			"libgtkspell-dev");
 
-	check_system_library(@gnomedev_libs,
-			"unique-3.0",
-			"LibUnique",
-			"libunique-3.0-dev");
 
 } elsif ($os eq "suse") {
 	check_system_library(@gnomedev_libs,
@@ -960,11 +946,6 @@ if ($os eq "gentoo") {
 #			"gtkspell-3.0",
 #			"GtkSpell",
 #			"FIXME");
-
-	check_system_library(@gnomedev_libs,
-			"unique-3.0",
-			"LibUnique",
-			"FIXME");
 
 	check_system_library(@gnomedev_libs,
 			"enchant",
@@ -1007,11 +988,6 @@ if ($os eq "gentoo") {
 #			"gtkspell-3.0",
 #			"GtkSpell",
 #			"lib${cpu_arch}gtkspell-devel");
-
-	check_system_library(@gnomedev_libs,
-			"unique-3.0",
-			"LibUnique",
-			"lib${cpu_arch}unique-devel");
 
 	check_system_library(@gnomedev_libs,
 			"enchant",
@@ -1071,11 +1047,6 @@ if ($os eq "gentoo") {
 #			"GtkSpell",
 #			"FIXME");
 
-	check_system_library(@gnomedev_libs,
-			"unique-3.0",
-			"LibUnique",
-			"FIXME");
-
 }
 
 
@@ -1127,8 +1098,8 @@ if ($os eq "gentoo") {
 	}
 
 	# check ecj, the standalone Eclipse compiler.
-	check_compiler($ecj, "Eclipse ecj", "/usr/bin/ecj-3.4", "-g -preserveAllLocals -nowarn -source 1.5 -target 1.5");
-	check_compiler($ecj, "Eclipse ecj", "/usr/bin/ecj-3.3", "-g -preserveAllLocals -nowarn -source 1.5 -target 1.5") unless $ecj;
+	check_compiler($ecj, "Eclipse ecj", "/usr/bin/ecj-3.4", "-g -preserveAllLocals -nowarn -source 1.6 -target 1.6");
+	check_compiler($ecj, "Eclipse ecj", "/usr/bin/ecj-3.3", "-g -preserveAllLocals -nowarn -source 1.6 -target 1.6") unless $ecj;
 	
 	# check javac (the one specified by Gentoo's java-config tool)
 	# The $vendor business is just some precision prettiness for the
@@ -1166,7 +1137,7 @@ if ($os eq "gentoo") {
 	} elsif ($javac_candidate =~ /ibm/i) {
 		$vendor = "IBM";
 	}
-	check_compiler($javac, "$vendor javac", $javac_candidate, "-g -source 1.5 -target 1.5");
+	check_compiler($javac, "$vendor javac", $javac_candidate, "-g -source 1.6 -target 1.6");
 
 	# check gcj. -C means generate .class files, not .o files (which are
 	# for linking into native executables.
@@ -1191,7 +1162,7 @@ if ($os eq "gentoo") {
 	# paths, or...? `which` is lame
 
 	# check ecj, the standalone Eclipse compiler.
-	check_compiler($ecj, "Eclipse ecj", which("ecj"), "-g -preserveAllLocals -nowarn -source 1.5 -target 1.5");
+	check_compiler($ecj, "Eclipse ecj", which("ecj"), "-g -preserveAllLocals -nowarn -source 1.6 -target 1.6");
 
 	# check for a proper "real" JDK's javac as installed (and maybe
 	# selected in the alternatives system) by the user. In other words,
@@ -1222,7 +1193,7 @@ if ($os eq "gentoo") {
 	} elsif ($javac_candidate =~ /ibm/i) {
 		$vendor = "IBM";
 	}
-	check_compiler($javac, "$vendor javac", $javac_candidate, "-g -source 1.5 -target 1.5");
+	check_compiler($javac, "$vendor javac", $javac_candidate, "-g -source 1.6 -target 1.6");
 
 	# check gcj. The moniker $gcjC refers to `gcj -C`. See HACKING.
 	my $gcj_candidate;
@@ -1254,7 +1225,7 @@ if ($os eq "gentoo") {
 	# Should we just go with known paths, or...? `which` is so lame
 
 	# check ecj, the standalone Eclipse compiler.
-	check_compiler($ecj, "Eclipse ecj", which("ecj"), "-g -preserveAllLocals -nowarn -source 1.5 -target 1.5");
+	check_compiler($ecj, "Eclipse ecj", which("ecj"), "-g -preserveAllLocals -nowarn -source 1.6 -target 1.6");
 
 	my $javac_candidate;
 	my $javah_candidate;
@@ -1274,7 +1245,7 @@ if ($os eq "gentoo") {
 		$javadoc_candidate = "/usr/bin/javadoc";
 		$vendor = "System Default";
 	}
-	check_compiler($javac, "$vendor javac", $javac_candidate, "-g -source 1.5 -target 1.5");
+	check_compiler($javac, "$vendor javac", $javac_candidate, "-g -source 1.6 -target 1.6");
 
 	# check for gcj
 	my $gcj_candidate;
@@ -1294,7 +1265,7 @@ if ($os eq "gentoo") {
 
 } elsif ($os eq "suse") {
 	# check ecj, the standalone Eclipse compiler.
-	check_compiler($ecj, "Eclipse ecj", which("ecj"), "-g -preserveAllLocals -nowarn -source 1.5 -target 1.5");
+	check_compiler($ecj, "Eclipse ecj", which("ecj"), "-g -preserveAllLocals -nowarn -source 1.6 -target 1.6");
 
 	my $javac_candidate;
 	my $javah_candidate;
@@ -1314,7 +1285,7 @@ if ($os eq "gentoo") {
 		$javadoc_candidate = "/usr/lib/jvm/java/bin/javadoc";
 		$vendor = "Sun";
 	}
-	check_compiler($javac, "$vendor javac", $javac_candidate, "-g -source 1.5 -target 1.5");
+	check_compiler($javac, "$vendor javac", $javac_candidate, "-g -source 1.6 -target 1.6");
 
 	# check for gcj
 	my $gcj_candidate;
@@ -1338,7 +1309,7 @@ if ($os eq "gentoo") {
 	# Should we just go with known paths, or...? `which` is so lame
 
 	# check ecj, the standalone Eclipse compiler.
-	check_compiler($ecj, "Eclipse ecj", which("ecj"), "-g -preserveAllLocals -nowarn -source 1.5 -target 1.5");
+	check_compiler($ecj, "Eclipse ecj", which("ecj"), "-g -preserveAllLocals -nowarn -source 1.6 -target 1.6");
 
 	my $javac_candidate;
 	my $javah_candidate;
@@ -1358,7 +1329,7 @@ if ($os eq "gentoo") {
 		$javadoc_candidate = "/opt/java/bin/javadoc";
 		$vendor = "Sun";
 	}
-	check_compiler($javac, "$vendor javac", $javac_candidate, "-g -source 1.5 -target 1.5");
+	check_compiler($javac, "$vendor javac", $javac_candidate, "-g -source 1.6 -target 1.6");
 
 	# check for gcj
 	my $gcj_candidate;
@@ -1378,7 +1349,7 @@ if ($os eq "gentoo") {
 
 } elsif ($os eq "mandriva") {
 	# check ecj, the standalone Eclipse compiler.
-	check_compiler($ecj, "Eclipse ecj", which("ecj"), "-g -preserveAllLocals -nowarn -source 1.5 -target 1.5");
+	check_compiler($ecj, "Eclipse ecj", which("ecj"), "-g -preserveAllLocals -nowarn -source 1.6 -target 1.6");
 
 	my $javac_candidate;
 	my $javah_candidate;
@@ -1400,14 +1371,14 @@ if ($os eq "gentoo") {
 		$vendor = "System";
 	}
 
-	check_compiler($javac, "$vendor javac", $javac_candidate, "-g -source 1.5 -target 1.5");
+	check_compiler($javac, "$vendor javac", $javac_candidate, "-g -source 1.6 -target 1.6");
 
 	check_jni_header_generator($javah, "$vendor javah", $javah_candidate, "-jni");
 	check_jar($jar, "$vendor jar", $jar_candidate, "");
 	check_javadoc($javadoc, "$vendor javadoc", $javadoc_candidate, "");
 
 } elsif ($os eq "solaris") {
-	check_compiler($ecj, "Eclipse ecj", which("ecj"), "-g -preserveAllLocals -nowarn -source 1.5 -target 1.5");
+	check_compiler($ecj, "Eclipse ecj", which("ecj"), "-g -preserveAllLocals -nowarn -source 1.6 -target 1.6");
 
 	my $javac_candidate;
 	my $javah_candidate;
@@ -1427,7 +1398,7 @@ if ($os eq "gentoo") {
 		$javadoc_candidate = "/usr/java/bin/javadoc";
 		$vendor = "Sun";
 	}
-	check_compiler($javac, "$vendor javac", $javac_candidate, "-g -source 1.5 -target 1.5");
+	check_compiler($javac, "$vendor javac", $javac_candidate, "-g -source 1.6 -target 1.6");
 
 	# check for gcj
 	my $gcj_candidate;
@@ -1450,7 +1421,7 @@ if ($os eq "gentoo") {
 	# Should we just go with known paths, or...? `which` is so lame
 
 	# check ecj, the standalone Eclipse compiler.
-	check_compiler($ecj, "Eclipse ecj", which("ecj"), "-g -preserveAllLocals -nowarn -source 1.5 -target 1.5");
+	check_compiler($ecj, "Eclipse ecj", which("ecj"), "-g -preserveAllLocals -nowarn -source 1.6 -target 1.6");
 
 	my $javac_candidate;
 	my $javah_candidate;
@@ -1470,7 +1441,7 @@ if ($os eq "gentoo") {
 		$javadoc_candidate = "/usr/lib/java/bin/javadoc";
 		$vendor = "Sun";
 	}
-	check_compiler($javac, "$vendor javac", $javac_candidate, "-g -source 1.5 -target 1.5");
+	check_compiler($javac, "$vendor javac", $javac_candidate, "-g -source 1.6 -target 1.6");
 
 	# check for gcj
 	my $gcj_candidate;
@@ -1490,7 +1461,7 @@ if ($os eq "gentoo") {
 
 } elsif ($os eq "cygwin") {
 	# check ecj, the standalone Eclipse compiler.
-	check_compiler($ecj, "Eclipse ecj", which("ecj"), "-g -preserveAllLocals -nowarn -source 1.5 -target 1.5");
+	check_compiler($ecj, "Eclipse ecj", which("ecj"), "-g -preserveAllLocals -nowarn -source 1.6 -target 1.6");
 
 	my $javac_candidate;
 	my $javah_candidate;
@@ -1510,7 +1481,7 @@ if ($os eq "gentoo") {
 		$javadoc_candidate = "/usr/bin/javadoc";
 		$vendor = "GNU Classpath";
 	}
-	check_compiler($javac, "$vendor javac", $javac_candidate, "-g -source 1.5 -target 1.5");
+	check_compiler($javac, "$vendor javac", $javac_candidate, "-g -source 1.6 -target 1.6");
 
 	# check for gcj
 	my $gcj_candidate;
