@@ -2,7 +2,7 @@
 /*
  * template.inc
  *
- * Copyright (c) 2006-2011 Operational Dynamics Consulting Pty Ltd
+ * Copyright (c) 2006-2012 Operational Dynamics Consulting Pty Ltd
  * 
  * This file comprises part of the infrastructure and content of the
  * java-gnome project website. As such, it is conveyed alongside the source
@@ -77,7 +77,7 @@ function template_begin() {
 	<a href="/"><img id="logo" src="/images/java-gnome_HeaderLogo.png" width="85" height="92" border="0" alt=""></a>
 	<div align="right" style="padding:10px; padding-top:12px">
 	<a class="nav-black"
-	href="http://ftp.gnome.org/pub/gnome/sources/java-gnome/4.1/java-gnome-4.1.2.tar.bz2">java-gnome 4.1.2</a>,
+	href="http://ftp.gnome.org/pub/gnome/sources/java-gnome/4.1/java-gnome-4.1.2.tar.xz">java-gnome 4.1.2</a>,
 	<a class="nav-black" href="/NEWS.html#4.1.2">released 30 Aug 2012</a>
 	</div>
 </div>

@@ -102,8 +102,8 @@ dist: all
 	rm -r tmp/java-gnome-$(VERSION)/lib
 	rm -r tmp/java-gnome-$(VERSION)/web
 	rm    tmp/java-gnome-$(VERSION)/.aspell.en.pws
-	@/bin/echo -e "TAR\tjava-gnome-$(VERSION).tar.bz2"
-	tar cjf java-gnome-$(VERSION).tar.bz2 -C tmp java-gnome-$(VERSION)
+	@/bin/echo -e "TAR\tjava-gnome-$(VERSION).tar.xz"
+	tar cJf java-gnome-$(VERSION).tar.xz -C tmp java-gnome-$(VERSION)
 	rm -r tmp/java-gnome-$(VERSION)
 
 clean:
