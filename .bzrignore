@@ -5,6 +5,7 @@ build
 tests/exploration
 doc/api/*
 java-gnome-*.tar.bz2
+java-gnome-*.tar.xz
 profile
 generated
 tmp/.hashes
