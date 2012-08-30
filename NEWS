@@ -1,5 +1,79 @@
 NEWS
 
+<a name="4.1.2" id="1346294738" title="GtkApplication"></a>
+
+java-gnome 4.1.2  (30 Aug 2012)
+===============================
+
+_Applications don't standing idly by._
+
+After a bit of a break, we're back with a second release in the 4.1 series
+covering GNOME 3 and its libraries. 
+
+Application for Unique
+----------------------
+
+The significant change in this release is the introduction of GtkApplication,
+the new mechanism providing for unique instances of applications. This
+replaces the use of libunique for this purpose, which GNOME has deprecated and
+asked us to remove.
+
+* **`org.gnome.gtk.Application`**
+* **`org.gnome.glib.Application`**
+* **`org.gnome.glib.ApplicationFlags`**
+* **`org.gnome.glib.ApplicationCommandLine`**
+* <strike>`org.gnome.unique.Application`</strike>
+* <strike>`org.gnome.unique.Message`</strike>
+* <strike>`org.gnome.unique.Response`</strike>
+
+Thanks to Guillaume Mazoyer for having done the grunt work figuring out how
+the underlying GApplication mechanism worked.
+
+Idle time
+---------
+
+The new Application coverage doesn't work with java-gnome's multi-thread
+safety because GTK itself is not going to be thread safe anymore. This is a
+huge step backward, but has been coming for a while, and despite our intense
+disappointment about it all, java-gnome will now be like every other GUI
+toolkit out there: not thread safe.
+
+If you're working from another thread and need to update your GTK widgets, you
+must do so from within the main loop. To get there, you add an idle handler
+which will get a callback from the main thread at some future point. We've
+exposed that as `Glib.idleAdd()`; you put your call back in an instance of the
+Handler interface.
+
+* **`org.gnome.glib.Glib`**
+* **`org.gnome.glib.Handler`**
+
+As with signal handlers, you have to be careful to get back from your callback
+as soon as possible; you're blocking the main loop while that code is running.
+
+Miscellaneous improvements
+--------------------------
+
+Other than this, we've accumulated a number of fixes and improvements over the
+past months. Improvements to radio buttons, coverage of GtkSwitch, fixes to
+Assistant, preliminary treatment of StyleContext, and improvements to
+SourceView, FileChooser, and more. Compliments to Guillaume Mazoyer, Georgios
+Migdos, and Alexander Boström for their contributions.
+
+* **`org.gnome.gtk.Switch`**
+* **`org.gnome.gtk.FileChooserButton`**
+* **`org.gnome.gtk.ProgressBar`**
+* **`org.gnome.gtk.Style`**
+* **`org.gnome.gtk.StyleContext`**
+* **`org.gnome.gtk.StyleProperty`**
+* **`org.gnome.gtk.StyleRegion`**
+* **`org.gnome.gtk.JunctionSides`**
+* **`org.gnome.gtk.RegionFlags`**
+
+java-gnome builds correctly when using Java 7. The minimum supported version
+of the runtime is Java 6. This release depends on GTK 3.4.
+
+AfC
+
 <a name="4.1.1" id="1310346568" title="GNOME 3"></a>
 
 java-gnome 4.1.1  (11 Jul 2011)
