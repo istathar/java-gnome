@@ -8,10 +8,6 @@ GETTING STARTED
 1. Checkout the source code
 ---------------------------
 
-We are using Bazaar to manage our source code. More commonly known as `bzr`,
-it is an advanced third-generation Distributed Version [or Revision] Control
-System. It's a good idea to have a recent version (ie `bzr >= 2.3`).
-
 If you're going to hack seriously with, or on, java-gnome, we recommend the
 following sequence to checkout the source code:
 
@@ -19,34 +15,24 @@ following sequence to checkout the source code:
 href="bzr://research.operationaldynamics.com/bzr/java-gnome/mainline/">
 
     $ cd ~/src/
-    $ bzr init-repository java-gnome/
-    $ cd java-gnome/
-    $ bzr checkout bzr://research.operationaldynamics.com/bzr/java-gnome/mainline/ mainline/
-    $ bzr branch mainline/ working/
+    $ mkdir java-gnome/
+    $ git clone git://github.com/afcowie/java-gnome.git working
     $ cd working/
-    $ less README
+    $ less README.markdown
 
 </a> 
 
-This will result in a local copy of '`mainline`' which you can use to track
-upstream and to diff against, and '`working`' as new branch for you to play
-with. `:)` The branch will be at (in this example)
-`~/src/java-gnome/working/`. All branches under `~/src/java-gnome/` will share
-storage of revisions, so you won't pay any penalty for creating as many
-branches as you like.
-
-If you are using Eclipse, we recommend creating a branch in your Workspace and
-using that to work on. This will allow you to relatively easily change
-branches while not screwing up all your launchers.
+If you are using Eclipse, you may instead want to do this such that the
+checkout is under `~/workspace`.
 
     $ cd ~/workspace/
-    $ bzr checkout ~/src/java-gnome/working java-gnome
+    $ git clone git://github.com/afcowie/java-gnome.git java-gnome
     $ cd ~/workspace/java-gnome/
-    $ less README
+    $ less README.markdown
 
 Doing it this way allows you to later do 
 
-    $ bzr switch some-other-branch
+    $ git checkout some-other-branch
 
 to change between branches you have created with different lines of
 development. This works well, but is an advanced layout, so do experiement
@@ -58,101 +44,6 @@ practises.
 If you haven't already read them, see the instructions in the top level
 [`README`](README.html) for how to install from a source tarball and what
 options you can supply to the `./configure` script.
-
-### Why `bzr`?
-
-We chose Bazaar (Bazaar-NG, as it was briefly known) as the VCS for the Java
-bindings for GNOME because of its relative straight-forwardness and because of
-our faith in the ethos and extreme competence of its developers.  Anyone
-experienced with the old world 1st generation centralized VCS tools like CVS
-or Subversion will be able to make sense of it and you can learn from there.
-Bazaar is constantly improving in performance terms, has a vibrant developer
-community, is widely portable. Most of all, the fact that the people hacking
-on `bzr` itself actually follow test-driven-development practises (their unit
-test suite has over 15,000 tests!) keeps them honest and conclusively biases
-in their favour.
-
-In production use for the last three years, we have found Bazaar to be reliable,
-amazingly easy for newcomers to the Open Source world to learn, and a
-significant element in our effort to reduce barriers to entry.
-
-We reiterate that you must use a recent version of Bazaar. There is nothing
-intrinsically better about older software; bug fixes and performance
-improvements are not back-ported by the people who write the code; they
-release a new version instead. If your operating system does not provide `>=
-2.0` then you would do well to install `bzr` manually.
-
-2. Do your own thing!
----------------------
-
-The amazing thing about the decentralized VCS tools is that you do not need to
-be online to make commits. But it's more than that -- you don't need to be me
-to make commits! You can work away on your own branch(es) and then send your
-patches _in already committed form_ to me for consideration and merging.
-
-Make sure to identify yourself first:
-
-    $ bzr whoami 'George Jones <grjones@example.com>'
-
-_before_ committing the first time -- see [setting your user ID](doc/style/CommitMessages.html#id).
-
-
-### A day in the life of a java-gnome hacker
-
-As you are working, you can see what you have done with:
-
-    $ bzr status
-    $ bzr diff
-
-then, when you are happy with a piece of work, commit:
-
-    $ bzr commit
-
-You can do this one or more times.
-
-There is a vitally important point, however: no one can tell you you can't
-work on something. And of you want to share it, go right ahead. That said, if you'd like to see your work merged into the mainline and available publicly in the official releases, then we'd encourage you to follow the stylistic guidelines discussed out below.
-
-### Staying up to date
-
-Meanwhile, you'll want to catch-up with what's been going on upstream. So
-update the checkout you have of mainline with the following:
-
-    $ cd ../mainline
-    $ bzr update
-
-Then you need to merge in the upstream changes into your branch:
-
-    $ cd ../working
-    $ bzr merge
-
-Merging only brings the changes to your working directory; it doesn't _commit_
-them to your working branch. So, assuming you want to accept them, you need to
-do a commit of those changes. So, Look at the changes that were pulled in
-with:
-
-    $ bzr status
-    $ bzr diff
-
-then commit:
-
-    $ bzr commit
-
-but make sure you only commit the stuff you've merged in, not unfinished
-changes you've might have locally! In other words, best to do the merge after
-you've finished anything you might happen to be doing in that branch. 
-
-### To send a patch
-
-If you've done some work on your local branch and you'd like to contribute it,
-go ahead and commit it locally in your working branch, then try the following:
-
-    $ bzr bundle ../mainline > /tmp/name-that-tune.patch
-
-This will output a human readable diff along with the actual revisions in a
-safely encoded form into the file you specify. Just attach that file to an
-email and send it along. `.patch` is a good suffix because most mail clients
-know to set the MIME type of such an attachment properly.
 
 
 TECHNICAL DETAILS
@@ -246,11 +137,11 @@ Maintainer,
 [java-gnome](http://java-gnome.sourceforge.net/),  
 opening GTK and GNOME to Java programmers!
 
-_Last modified 22 Mar 11_
+_Last modified 22 Feb 13_
 
 <!--
  
-  Copyright © 2006-2011 Operational Dynamics Consulting, Pty Ltd and Others
+  Copyright © 2006-2013 Operational Dynamics Consulting, Pty Ltd and Others
 
   As project documentation, this file forms an integral part of the source
   code of the library it accompanies, and thus is made available to you by its

@@ -1,4 +1,5 @@
 README
+======
 
 This is the java-gnome language bindings project. We endeavour to provide a
 high quality library you can use to write GTK and GNOME programs. The
@@ -311,17 +312,6 @@ your contribution. See [`HACKING`](HACKING.html). If you are working on an
 application, want to learn more, or are just curious, join us online in
 `#java-gnome` on `irc.gimp.net`.
 
-Funding
--------
-
-Most of all, financial support is necessary to fund the continued development
-of the bindings infrastructure and the programmers needed to quickly achieve
-the coverage level everyone wishes. If you feel that you would like to be a
-part of seeing the Java bindings for GNOME be a success, your timely choice to
-contribute to funding the project would be a significant contribution to
-bringing the wider Java community to the world of Open Source and Software
-Freedom.
-
 Happy coding!
 
 AfC
@@ -336,13 +326,13 @@ Maintainer,
 [java-gnome](http://java-gnome.sourceforge.net/),  
 opening GTK and GNOME to Java programmers!
 
-_Last modified 22 Mar 11_
+_Last modified 22 Feb 13_
 
 [mirror]: http://ftp.gnome.org/pub/gnome/sources/java-gnome/4.1/
 
 <!--
  
-  Copyright © 2006-2011 Operational Dynamics Consulting, Pty Ltd and Others
+  Copyright © 2006-2013 Operational Dynamics Consulting, Pty Ltd and Others
 
   As project documentation, this file forms an integral part of the source
   code of the library it accompanies, and thus is made available to you by its
