@@ -94,17 +94,9 @@ doc:
 #
 dist: all
 	@/bin/echo -e "CHECK\tfully committed state"
-	bzr diff > /dev/null || ( /bin/echo -e "\nYou need to commit all changes before running make dist\n" ; exit 4 )
-	@/bin/echo -e "EXPORT\ttmp/java-gnome-$(VERSION)"
-	-rm -rf tmp/java-gnome-$(VERSION)
-	bzr export --format=dir tmp/java-gnome-$(VERSION)
-	@/bin/echo -e "RM\tnon essential files"
-	rm -r tmp/java-gnome-$(VERSION)/lib
-	rm -r tmp/java-gnome-$(VERSION)/web
-	rm    tmp/java-gnome-$(VERSION)/.aspell.en.pws
-	@/bin/echo -e "TAR\tjava-gnome-$(VERSION).tar.xz"
-	tar cJf java-gnome-$(VERSION).tar.xz -C tmp java-gnome-$(VERSION)
-	rm -r tmp/java-gnome-$(VERSION)
+	[ -z "`git status --short`" ] || ( /bin/echo -e "\nYou need to commit all changes before running make dist\n" ; exit 4 )
+	@/bin/echo -e "EXPORT\tjava-gnome-$(VERSION).tar.xz"
+	git archive --format tar master --prefix java-gnome-$(VERSION)/ | xz -z - > java-gnome-$(VERSION).tar.xz
 
 clean:
 	@/bin/echo -e "RM\tgenerated code"

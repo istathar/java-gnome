@@ -1,2 +1,5 @@
 lib		export-ignore
+web		export-ignore
+.aspell.en.pws	export-ignore
 .gitignore	export-ignore
+.gitattributes	export-ignore
