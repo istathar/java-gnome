@@ -803,10 +803,6 @@ if ($os eq "gentoo") {
 #			"GtkSpell",
 #			"gtkspell");
 
-	check_system_library(@gnomedev_libs,
-			"libnotify >= 0.7.0",
-			"LibNotify",
-			"libnotify");
 
 } elsif ($os eq "slackware") {
 	# on slackware gdk-2.0 and gtk+-unix-print-2.0 are part of gtk+-2.0
@@ -841,10 +837,6 @@ if ($os eq "gentoo") {
 			"GtkSourceView",
 			"FIXME");
 
-	check_system_library(@gnomedev_libs,
-			"libnotify >= 0.7.0",
-			"LibNotify",
-			"FIXME");
 
 #	check_system_library(@gnomedev_libs,
 #			"gtkspell-3.0",
@@ -896,11 +888,6 @@ if ($os eq "gentoo") {
 			"libgtksourceview-3.0-dev");
 
 	check_system_library(@gnomedev_libs,
-			"libnotify >= 0.7.0",
-			"LibNotify",
-			"libnotify-dev");
-
-	check_system_library(@gnomedev_libs,
 			"enchant",
 			"Enchant",
 			"libenchant-dev");
@@ -937,10 +924,6 @@ if ($os eq "gentoo") {
 			"GtkSourceView",
 			"FIXME");
 
-	check_system_library(@gnomedev_libs,
-			"libnotify >= 0.7.0",
-			"LibNotify",
-			"FIXME");
 
 #	check_system_library(@gnomedev_libs,
 #			"gtkspell-3.0",
@@ -979,10 +962,6 @@ if ($os eq "gentoo") {
 			"GtkSourceView",
 			"lib${cpu_arch}gtksourceview-3.0-devel");
 
-	check_system_library(@gnomedev_libs,
-			"libnotify >= 0.7.0",
-			"LibNotify",
-			"lib${cpu_arch}notify-devel");
 
 #	check_system_library(@gnomedev_libs,
 #			"gtkspell-3.0",
@@ -1032,10 +1011,6 @@ if ($os eq "gentoo") {
 			"GtkSourceView",
 			"FIXME");
 
-	check_system_library(@gnomedev_libs,
-			"libnotify >= 0.7.0",
-			"LibNotify",
-			"FIXME");
 
 	check_system_library(@gnomedev_libs,
 			"enchant",
