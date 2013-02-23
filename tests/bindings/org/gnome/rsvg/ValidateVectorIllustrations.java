@@ -54,7 +54,7 @@ public class ValidateVectorIllustrations extends GraphicalTestCase
         }
 
         try {
-            new Handle("README");
+            new Handle("README.markdown");
             fail("Specified file not an image, should have thrown");
         } catch (RuntimeException re) {
             // good

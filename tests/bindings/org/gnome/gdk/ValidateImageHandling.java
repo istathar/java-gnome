@@ -42,7 +42,7 @@ public class ValidateImageHandling extends GraphicalTestCase
         }
 
         try {
-            new Pixbuf("README");
+            new Pixbuf("README.markdown");
             fail("Specified file not an image, should have thrown");
         } catch (RuntimeException re) {
             // good
