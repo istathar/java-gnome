@@ -77,8 +77,8 @@ function template_begin() {
 	<a href="/"><img id="logo" src="/images/java-gnome_HeaderLogo.png" width="85" height="92" border="0" alt=""></a>
 	<div align="right" style="padding:10px; padding-top:12px">
 	<a class="nav-black"
-	href="http://ftp.gnome.org/pub/gnome/sources/java-gnome/4.1/java-gnome-4.1.2.tar.xz">java-gnome 4.1.2</a>,
-	<a class="nav-black" href="/NEWS.html#4.1.2">released 30 Aug 2012</a>
+	href="http://ftp.gnome.org/pub/gnome/sources/java-gnome/4.1/java-gnome-4.1.3.tar.xz">java-gnome 4.1.3</a>,
+	<a class="nav-black" href="/NEWS.html#4.1.3">released 25 Feb 2013</a>
 	</div>
 </div>
 

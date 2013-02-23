@@ -25,8 +25,8 @@ Building java-gnome
 
 For the impatient:
 
-    $ tar xjf java-gnome-4.1.2.tar.bz2
-    $ cd java-gnome-4.1.2
+    $ tar xJf java-gnome-4.1.3.tar.xz
+    $ cd java-gnome-4.1.3
     $ ./configure
     $ make
 
@@ -43,8 +43,8 @@ You can download the latest java-gnome release from the GNOME FTP server at:
 
 Once you've downloaded the latest source tarball:
 
-    $ tar xjf java-gnome-4.1.2.tzr.bz2
-    $ cd java-gnome-4.1.2
+    $ tar xjf java-gnome-4.1.3.tzr.xz
+    $ cd java-gnome-4.1.3
 
 And go on to step 2 for details about options you can pass to the
 configuration command.
@@ -199,7 +199,7 @@ variables come from.
 The build products end up in `tmp/`:
 
 `tmp/gtk-4.1.jar`  
-`tmp/libgtkjni-4.1.2.so`
+`tmp/libgtkjni-4.1.3.so`
 
 That's actually enough to go on -- if you're using an IDE like Eclipse you can
 just tell it about the `.jar` and then jump right to "Using the Bindings". Or
@@ -224,7 +224,7 @@ and you would end up with:
 
 `~/share/java/gtk-4.1.jar`  
 `~/share/java/gtk.jar`  
-`~/lib/libgtkjni-4.1.2.so`
+`~/lib/libgtkjni-4.1.3.so`
 
 The default is to send it off to `/usr/local` as you'd expect. 
 
@@ -246,7 +246,7 @@ example:
 	
 	...
 	
-	make DESTDIR=/var/tmp/portage/java-gnome-4.1.2-r2/image install
+	make DESTDIR=/var/tmp/portage/java-gnome-4.1.3-r2/image install
 	
 	...
 
@@ -254,7 +254,7 @@ With a prefix of `/usr` you will end up with:
 
 `/usr/share/java/gtk-4.1.jar`  
 `/usr/share/java/gtk.jar`  
-`/usr/lib/libgtkjni-4.1.2.so`
+`/usr/lib/libgtkjni-4.1.3.so`
 
 If you have distro policy issues to deal with, then pass `jardir` and/or
 `libdir` overrides to `configure`.
