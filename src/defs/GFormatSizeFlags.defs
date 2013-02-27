@@ -1,0 +1,10 @@
+(define-flags FormatSizeFlags
+  (in-module "Glib")
+  (c-name "GFormatSizeFlags")
+  (gtype-id "G_TYPE_FORMAT_SIZE_FLAGS")
+  (values
+    '("default" "G_FORMAT_SIZE_DEFAULT")
+    '("long-format" "G_FORMAT_SIZE_LONG_FORMAT")
+    '("iec-units" "G_FORMAT_SIZE_IEC_UNITS")
+  )
+)

@@ -1,7 +1,7 @@
 /*
  * java-gnome, a UI library for writing GTK and GNOME programs from Java!
  *
- * Copyright © 2012 Operational Dynamics Consulting, Pty Ltd and Others
+ * Copyright © 2012-2013 Operational Dynamics Consulting, Pty Ltd and Others
  *
  * The code in this file, and the program it is a part of, is made available
  * to you by its authors as open source software: you can redistribute it
@@ -48,14 +48,7 @@ public final class ExampleBasicApplication
 
         a = new Application("org.gnome.TestGtkApp", ApplicationFlags.NONE);
 
-        a.connect(new Application.Activate() {
-            public void onActivate(Application source) {
-                System.out.println("Activated");
-            }
-        });
-
         w = new Window();
-        a.addWindow(w);
 
         x = new VBox(false, 3);
 
@@ -73,18 +66,44 @@ public final class ExampleBasicApplication
 
         w.add(x);
         w.setTitle("Hello World");
-        w.showAll();
 
         w.connect(new Window.DeleteEvent() {
             public boolean onDeleteEvent(Widget source, Event event) {
-                a.removeWindow(w);
+                /*
+                 * Calling quit() will end the application. This can also be
+                 * done by removing the windows attached to an application
+                 * with removeWindow().
+                 */
+
+                a.quit();
                 return false;
+            }
+        });
+
+        a.connect(new Application.Startup() {
+            public void onStartup(Application source) {
+                /*
+                 * It is very important to link the window to the application
+                 * or the application will stop immediately after begin
+                 * started.
+                 */
+
+                a.addWindow(w);
+            }
+        });
+
+        a.connect(new Application.Activate() {
+            public void onActivate(Application source) {
+                /*
+                 * Present the window to the user.
+                 */
+
+                w.showAll();
             }
         });
 
         s = a.run(args);
 
-        System.out.println("Status = " + s);
         System.exit(s);
     }
 }
