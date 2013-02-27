@@ -193,6 +193,58 @@ public class Application extends org.gnome.glib.Application
     }
 
     /**
+     * Inform the session manager that certain types of actions should be
+     * inhibited. This is not guaranteed to work on all platforms and for all
+     * types of actions.
+     * 
+     * <p>
+     * Applications should invoke this method when they begin an operation
+     * that should not be interrupted, such as creating a CD or DVD. The types
+     * of actions that may be blocked are specified by the <code>flags</code>
+     * parameter. When the application completes the operation it should call
+     * {@link #uninhibit(int) uninhibit()} to remove the inhibitor. Note that
+     * an application can have multiple inhibitors, and all of them must be
+     * individually removed. Inhibitors are also cleared when the application
+     * exits.
+     * 
+     * <p>
+     * Applications should not expect that they will always be able to block
+     * the action. In most cases, users will be given the option to force the
+     * action to take place.
+     * 
+     * <p>
+     * Reasons should be short and to the point. If <code>window</code> is not
+     * null, the session manager may point the user to this window to find out
+     * more about why the action is inhibited.
+     * 
+     * @since 4.1.3
+     */
+    public int inhibit(Window window, ApplicationInhibitFlags flags, String reason) {
+        return GtkApplication.inhibit(this, window, flags, reason);
+    }
+
+    /**
+     * Removes an inhibitor that has been established with
+     * {@link #inhibit(Window, ApplicationInhibitFlags, String) inhibit()}.
+     * Inhibitors are also cleared when the application exits.
+     * 
+     * @since 4.1.4
+     */
+    public void uninhibit(int cookie) {
+        GtkApplication.uninhibit(this, cookie);
+    }
+
+    /**
+     * Determines if any of the actions specified in <code>flags</code> are
+     * currently inhibited (possibly by another application).
+     * 
+     * @since 4.1.3
+     */
+    public boolean isInhibited(ApplicationInhibitFlags flags) {
+        return GtkApplication.isInhibited(this, flags);
+    }
+
+    /**
      * This signal is emitted on the <var>primary</var> instance when an
      * activation occurs. This is triggered by calling Application's
      * {@link Application#activate() activate()} method, or, if the

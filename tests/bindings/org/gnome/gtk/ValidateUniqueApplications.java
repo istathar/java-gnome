@@ -88,4 +88,35 @@ public class ValidateUniqueApplications extends GraphicalTestCase
         app.run(null);
         assertTrue(hit);
     }
+
+    private int cookie;
+
+    public final void testApplicationInhibition() {
+        final Application app;
+        final String name;
+
+        name = "test.java-gnome.ApplicationInhibition" + this.hashCode();
+        app = new Application(name);
+
+        app.connect(new Application.Startup() {
+            public void onStartup(Application source) {
+                cookie = app.inhibit(null, ApplicationInhibitFlags.LOGOUT, "Inhibition test");
+
+                assertFalse(app.isInhibited(ApplicationInhibitFlags.SWITCH));
+                assertTrue(app.isInhibited(ApplicationInhibitFlags.LOGOUT));
+
+                app.uninhibit(cookie);
+
+                assertFalse(app.isInhibited(ApplicationInhibitFlags.LOGOUT));
+            }
+        });
+
+        app.connect(new Application.Activate() {
+            public void onActivate(Application source) {
+                source.quit();
+            }
+        });
+
+        app.run(null);
+    }
 }

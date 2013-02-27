@@ -39,3 +39,32 @@
   (c-name "gtk_application_get_windows")
   (return-type "GList-GtkWindow*")
 )
+
+(define-method inhibit
+  (of-object "GtkApplication")
+  (c-name "gtk_application_inhibit")
+  (return-type "guint")
+  (parameters
+    '("GtkWindow*" "window" (null-ok))
+    '("GtkApplicationInhibitFlags" "flags")
+    '("const-gchar*" "reason")
+  )
+)
+
+(define-method uninhibit
+  (of-object "GtkApplication")
+  (c-name "gtk_application_uninhibit")
+  (return-type "none")
+  (parameters
+    '("guint" "cookie")
+  )
+)
+
+(define-method is_inhibited
+  (of-object "GtkApplication")
+  (c-name "gtk_application_is_inhibited")
+  (return-type "gboolean")
+  (parameters
+    '("GtkApplicationInhibitFlags" "flags")
+  )
+)

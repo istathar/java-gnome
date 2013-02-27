@@ -81,7 +81,7 @@ public class ValidateStyleContext extends GraphicalTestCase
 
         context.addClass(StyleClass.PRIMARY_TOOLBAR);
         classes = context.listClasses();
-        assertEquals("primary-toolbar", classes[0]);
+        assertEquals("primary-toolbar", classes[1]);
 
         context.addRegion(StyleRegion.TAB, RegionFlags.LAST);
         regions = context.listRegions();
