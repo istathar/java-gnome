@@ -1,6 +1,3 @@
-README
-======
-
 This is the java-gnome language bindings project. We endeavour to provide a
 high quality library you can use to write GTK and GNOME programs. The
 underlying APIs are elegantly transformed into Java and carefully documented so
@@ -59,11 +56,11 @@ our source code.
 
 Getting a checkout is easy:
 
-    $ bzr init-repo java-gnome/
-    $ cd java-gnome/
-    $ bzr checkout bzr://research.operationaldynamics.com/bzr/java-gnome/mainline
+    $ cd ~/src/
+    $ mkdir java-gnome/
+    $ git clone git://github.com/afcowie/java-gnome.git mainline
     $ cd mainline/
-
+    $ less README.markdown
 
 2. Run `./configure`
 --------------------

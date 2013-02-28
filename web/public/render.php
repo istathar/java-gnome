@@ -21,6 +21,7 @@
 	$filepath = substr($_SERVER["SCRIPT_FILENAME"], 0, -11);
 	$filepath .= $_SERVER["REQUEST_URI"];
 
+
 	if (substr($filepath, -5) == ".html") {
 		$filepath = substr_replace($filepath, ".txt" ,-5);
 
@@ -33,6 +34,10 @@
 				exit;
 			}
 		}
+
+		$title = substr_replace($_SERVER["REQUEST_URI"], "" ,-5);
+		$title = substr($title, 1);
+
 	} else {
 		header("HTTP/1.1 404 Not Found");
 		echo "<h1>404 for real</h1>";
@@ -54,10 +59,6 @@
 #
 
 	$text = file_get_contents($filepath);
-
-	$first_line_end = strpos($text, "\n");
-	$title = substr($text, 0, $first_line_end);
-	$text = substr($text, $first_line_end);
 
 #
 # and with that done, proceed with the site template
