@@ -1,7 +1,7 @@
 /*
  * java-gnome, a UI library for writing GTK and GNOME programs from Java!
  *
- * Copyright © 2010-2011 Operational Dynamics Consulting, Pty Ltd and Others
+ * Copyright © 2010-2013 Operational Dynamics Consulting, Pty Ltd and Others
  *
  * The code in this file, and the program it is a part of, is made available
  * to you by its authors as open source software: you can redistribute it
@@ -70,14 +70,23 @@ public class ValidateUtilityFunctions extends GraphicalTestCase
     public final void testFormatSizeForDisplay() {
         String result;
 
-        result = Glib.formatSizeForDisplay(1024);
-        assertEquals("1.0 KB", result);
+        result = Glib.formatSize(1000);
+        assertEquals("1.0 kB", result);
 
-        result = Glib.formatSizeForDisplay(1024 * 1024);
+        result = Glib.formatSize(1000 * 1000);
         assertEquals("1.0 MB", result);
 
-        result = Glib.formatSizeForDisplay(1024 * 1024 * 1024);
+        result = Glib.formatSize(1000 * 1000 * 1000);
         assertEquals("1.0 GB", result);
+
+        result = Glib.formatSize(1024, FormatSizeFlags.IEC_UNITS);
+        assertEquals("1.0 KiB", result);
+
+        result = Glib.formatSize(1024 * 1024, FormatSizeFlags.IEC_UNITS);
+        assertEquals("1.0 MiB", result);
+
+        result = Glib.formatSize(1024 * 1024 * 1024, FormatSizeFlags.IEC_UNITS);
+        assertEquals("1.0 GiB", result);
     }
 
     public final void testMarkupEscapeText() {

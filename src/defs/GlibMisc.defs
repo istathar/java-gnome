@@ -79,6 +79,27 @@
   (return-type "const-gchar**")
 )
 
+(define-function format_size
+  (of-object "GlibMisc")
+  (c-name "g_format_size")
+  (caller-owns-return #t)
+  (return-type "gchar*")
+  (parameters
+    '("guint64" "size")
+  )
+)
+
+(define-function format_size
+  (of-object "GlibMisc")
+  (c-name "g_format_size_full")
+  (caller-owns-return #t)
+  (return-type "gchar*")
+  (parameters
+    '("guint64" "size")
+    '("GFormatSizeFlags" "flags")
+  )
+)
+
 (define-function format_size_for_display
   (of-object "GlibMisc")
   (c-name "g_format_size_for_display")

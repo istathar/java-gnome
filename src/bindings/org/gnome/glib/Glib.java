@@ -1,7 +1,7 @@
 /*
  * java-gnome, a UI library for writing GTK and GNOME programs from Java!
  *
- * Copyright © 2006-2010 Operational Dynamics Consulting, Pty Ltd and Others
+ * Copyright © 2006-2013 Operational Dynamics Consulting, Pty Ltd and Others
  *
  * The code in this file, and the program it is a part of, is made available
  * to you by its authors as open source software: you can redistribute it
@@ -226,9 +226,39 @@ public class Glib
      * size prefix.
      * 
      * @since 4.0.16
+     * @deprecated Use {@link #formatSize(long) formatSize()} instead.
      */
     public static String formatSizeForDisplay(long size) {
         return GlibMisc.formatSizeForDisplay(size);
+    }
+
+    /**
+     * Format a size into a human readable String. This is useful when
+     * representing file sizes and data transfer rates.
+     * 
+     * <p>
+     * Sizes use the nearest prefix (kB, MB, GB). The prefix units base is
+     * 1000 (i.e. 1 kB is 1000 bytes).
+     * 
+     * <p>
+     * Note that the returned String depends on the localization. E.g. if the
+     * system is configured to use French, the formatted size will use French
+     * size prefix.
+     * 
+     * @since 4.1.3
+     */
+    public static String formatSize(long size) {
+        return GlibMisc.formatSize(size);
+    }
+
+    /**
+     * This function is similar to {@link #formatSize(long) formatSize()} but
+     * allows for flags that modify the output. See {@link FormatSizeFlags}.
+     * 
+     * @since 4.1.3
+     */
+    public static String formatSize(long size, FormatSizeFlags format) {
+        return GlibMisc.formatSize(size, format);
     }
 
     /**

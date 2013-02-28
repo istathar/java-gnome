@@ -1,0 +1,11 @@
+(define-flags ApplicationInhibitFlags
+  (in-module "Gtk")
+  (c-name "GtkApplicationInhibitFlags")
+  (gtype-id "GTK_TYPE_APPLICATION_INHIBIT_FLAGS")
+  (values
+    '("logout" "GTK_APPLICATION_INHIBIT_LOGOUT")
+    '("switch" "GTK_APPLICATION_INHIBIT_SWITCH")
+    '("SUSPEND" "GTK_APPLICATION_INHIBIT_SUSPEND")
+    '("IDLE" "GTK_APPLICATION_INHIBIT_IDLE")
+  )
+)

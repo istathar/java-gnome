@@ -1,7 +1,7 @@
 /*
  * java-gnome, a UI library for writing GTK and GNOME programs from Java!
  *
- * Copyright © 2009-2010 Operational Dynamics Consulting, Pty Ltd
+ * Copyright © 2009-2013 Operational Dynamics Consulting, Pty Ltd
  *
  * The code in this file, and the program it is a part of, is made available
  * to you by its authors as open source software: you can redistribute it
@@ -87,5 +87,36 @@ public class ValidateUniqueApplications extends GraphicalTestCase
 
         app.run(null);
         assertTrue(hit);
+    }
+
+    private int cookie;
+
+    public final void testApplicationInhibition() {
+        final Application app;
+        final String name;
+
+        name = "test.java-gnome.ApplicationInhibition" + this.hashCode();
+        app = new Application(name);
+
+        app.connect(new Application.Startup() {
+            public void onStartup(Application source) {
+                cookie = app.inhibit(null, ApplicationInhibitFlags.LOGOUT, "Inhibition test");
+
+                assertFalse(app.isInhibited(ApplicationInhibitFlags.SWITCH));
+                assertTrue(app.isInhibited(ApplicationInhibitFlags.LOGOUT));
+
+                app.uninhibit(cookie);
+
+                assertFalse(app.isInhibited(ApplicationInhibitFlags.LOGOUT));
+            }
+        });
+
+        app.connect(new Application.Activate() {
+            public void onActivate(Application source) {
+                source.quit();
+            }
+        });
+
+        app.run(null);
     }
 }

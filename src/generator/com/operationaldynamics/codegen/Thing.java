@@ -1,7 +1,7 @@
 /*
  * java-gnome, a UI library for writing GTK and GNOME programs from Java!
  *
- * Copyright © 2007-2010 Operational Dynamics Consulting, Pty Ltd
+ * Copyright © 2007-2013 Operational Dynamics Consulting, Pty Ltd
  *
  * The code in this file, and the program it is a part of, is made available
  * to you by its authors as open source software: you can redistribute it
@@ -135,6 +135,7 @@ public abstract class Thing
         register(new FundamentalThing("gssize", "int", "int", "jint"));
         register(new FundamentalThing("gsize", "long", "long", "jlong"));
         register(new FundamentalThing("gint64", "long", "long", "jlong"));
+        register(new FundamentalThing("guint64", "long", "long", "jlong"));
         register(new FundamentalThing("glong", "long", "long", "jlong"));
         register(new FundamentalThing("gulong", "long", "long", "jlong"));
         register(new FundamentalThing("gboolean", "boolean", "boolean", "jboolean"));
