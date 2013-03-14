@@ -97,3 +97,12 @@
   (return-type "gboolean")
 )
 
+(define-method get_child_at
+  (of-object "GtkGrid")
+  (c-name "gtk_grid_get_child_at")
+  (return-type "GtkWidget*")
+  (parameters
+    '("gint" "left")
+    '("gint" "top")
+  )
+)
