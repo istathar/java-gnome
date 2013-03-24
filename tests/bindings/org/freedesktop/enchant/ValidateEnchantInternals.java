@@ -52,7 +52,7 @@ public class ValidateEnchantInternals extends GraphicalTestCase
         assertTrue(list.length > 0);
 
         for (String tag : list) {
-            if (tag.equals("en")) {
+            if (tag.equals("en") || tag.startsWith("en_")) {
                 return;
             }
         }
@@ -62,7 +62,7 @@ public class ValidateEnchantInternals extends GraphicalTestCase
     public final void testDictionaryKnownToExist() {
         final boolean result;
 
-        result = Enchant.existsDictionary("en");
+        result = Enchant.existsDictionary("en") || Enchant.existsDictionary("en_GB") || Enchant.existsDictionary("en_US");
         assertTrue(result);
     }
 
