@@ -36,11 +36,9 @@ import org.gnome.gtk.Widget;
 import org.gnome.gtk.Window;
 
 /**
- * A tutorial example of using a TreeView backed by a ListStore. In this little
- * demonstration, we list a number of famous hiking trails and how to get to
- * them.
+ * A tutorial example of using a TreeView with a tooltip per row.
  *
- * @author Andrew Cowie
+ * @author Sarah Leibbrand
  */
 public class ExampleTreeViewTooltips {
 
@@ -154,16 +152,13 @@ public class ExampleTreeViewTooltips {
         vertical.setTitle("Index");
         CellRendererText renderer = new CellRendererText(vertical);
         renderer.setText(index);
-        vertical.setExpand(true);
         
         vertical = view.appendColumn();
         vertical.setTitle("Name");
         renderer = new CellRendererText(vertical);
         renderer.setMarkup(name);
 
-        
         vertical.setSortColumn(index);
-        vertical.emitClicked();
 
         TreeIter row = model.appendRow();
         model.setValue(row, name, "The first row of the table\n<small>(with an edit icon)</small>");
