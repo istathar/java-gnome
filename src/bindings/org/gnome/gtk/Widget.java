@@ -1822,7 +1822,7 @@ public abstract class Widget extends org.gnome.glib.Object
     /*
      * As stated in the Tooltip documentation, this is _only_ way to receive the tooltip object.
      */
-    public interface queryTooltip extends GtkWidget.QueryTooltipSignal
+    public interface QueryTooltip extends GtkWidget.QueryTooltipSignal
     {
         boolean onQueryTooltip(Widget source, int x, int y, boolean keyboardMode, Tooltip tooltip);
     }
@@ -1840,7 +1840,7 @@ public abstract class Widget extends org.gnome.glib.Object
      * cannot be turned off. This is true even if you change the hasTooltip property to false. It
      * changes something in the GdkWindow masks and simply cannot be undone at all.
      */
-    public void connect(Widget.queryTooltip handler) {
+    public void connect(Widget.QueryTooltip handler) {
         // needs to be set to true or tooltips won't be shown. Note that this cannot be turned off.
         GtkWidget.setHasTooltip(this, true);
         // and now connect the handler.
