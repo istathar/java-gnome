@@ -36,56 +36,57 @@ import org.gnome.gdk.Pixbuf;
 import org.gnome.glib.Object;
 
 /**
- * Displaying a tooltip when a user hovers the mouse over the widget or when the
- * widget receives notification the cursor is at it when in keyboard mode.
- *
+ * Displaying a tooltip when a user hovers the mouse over the widget or when
+ * the widget receives notification the cursor is at it when in keyboard mode.
+ * 
  * <p>
- * By default you can set text to show as a tooltip by using 
- * {@link Widget#setTooltipText(java.lang.String) }
- * and {@link Widget#setTooltipMarkup(java.lang.String) } . However that is for
- * basic text and only text. If you want more then that you can hookup your own 
- * tooltip query handler which in turn will provide an object of this class for 
- * you to use.
- *
+ * By default you can set text to show as a tooltip by using
+ * {@link Widget#setTooltipText(java.lang.String) } and
+ * {@link Widget#setTooltipMarkup(java.lang.String) } . However that is for
+ * basic text and only text. If you want more then that you can hookup your
+ * own tooltip query handler which in turn will provide an object of this
+ * class for you to use.
+ * 
  * <p>
  * In order to get an object of this class you first have to connect a
  * queryTooltip Handler.
- *
+ * 
  * <pre>
  * // any widget will do
  * Button widget = new Button();
  * widget.connect(new Widget.queryTooltip() {
- *     @Override
+ *     &#064;Override
  *     public boolean onQueryTooltip(Widget source, int x, int y, boolean keyboardMode, Tooltip tooltip) {
  *         // setup your tooltip.
  *     }
  * });
  * </pre>
- *
+ * 
  * <p>
  * Inside the method you can create your tooltip. You also receive the X and Y
  * values at which you can determine whether to show the tooltip or not. Which
- * is needed for example a TreeView which has a method to help you with. See 
- * {@link TreeView#hasTooltipContext(int, int, boolean) } for more information 
+ * is needed for example a TreeView which has a method to help you with. See
+ * {@link TreeView#hasTooltipContext(int, int, boolean) } for more information
  * on how a TreeView handles tooltips.
  * 
  * <p>
- * KeyboardMode indicates that the application is run by only the keyboard and 
+ * KeyboardMode indicates that the application is run by only the keyboard and
  * no mouse.
- *
+ * 
  * <p>
  * When you want to show your tooltip return true, otherwise false.
- *
+ * 
  * <p>
- * There are two modes of displaying your tooltip contents. The first is the basic
- * Icon and String. You can set this up in anyway you want. Please do note that
- * both are on the same line and that the icon will always be on the left.
- *
+ * There are two modes of displaying your tooltip contents. The first is the
+ * basic Icon and String. You can set this up in anyway you want. Please do
+ * note that both are on the same line and that the icon will always be on the
+ * left.
+ * 
  * <p>
  * If you want something more fancy or display more information you set any
- * widget to show. Suggested is a container of course. Where you have full 
+ * widget to show. Suggested is a container of course. Where you have full
  * freedom to place all your tooltip contents.
- *
+ * 
  * @author Sarah Leibbrand
  * @since 4.1.3
  */
@@ -124,9 +125,9 @@ public class Tooltip extends Object
     }
 
     /**
-     * The widget to display in the tooltip. 
+     * The widget to display in the tooltip.
      * 
-     * This can be any widget but containers such as {@link Grid} are 
+     * This can be any widget but containers such as {@link Grid} are
      * recommended.
      */
     public void setCustomWidget(Widget widget) {

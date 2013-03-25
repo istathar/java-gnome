@@ -916,68 +916,78 @@ public class TreeView extends Container
 
         return rectangle;
     }
-    
+
     /**
-     * Check whether the area where the mouse is curently over is part of the 
+     * Check whether the area where the mouse is curently over is part of the
      * TreeView and is valid for a possible tooltip.
      * 
-     * This methods takes the x, y and keyboardMode values that are supplied 
+     * This methods takes the x, y and keyboardMode values that are supplied
      * from the {@link QueryTooltip#onQueryTooltip } method.
      * 
      * When this method returns false it is recommended to also return false
      * in the QueryTooltip handler to not show the tooltip.
      * 
-     * When this returns true you can use either or both  
+     * When this returns true you can use either or both
      * {@link #getTreeIterFromTooltipContext(int, int, boolean, org.gnome.gtk.TreeModel) }
-     * and 
-     * {@link #getTreePathFromTooltipContext(int, int, boolean) } to retrieve
-     * content from your model and bind the tooltip to either the row or the 
-     * cell with either of 
+     * and {@link #getTreePathFromTooltipContext(int, int, boolean) } to
+     * retrieve content from your model and bind the tooltip to either the row
+     * or the cell with either of
      * {@link #setTooltipRow(org.gnome.gtk.Tooltip, org.gnome.gtk.TreePath) }
-     * and 
+     * and
      * {@link #setTooltipCell(org.gnome.gtk.Tooltip, org.gnome.gtk.TreePath, org.gnome.gtk.TreeViewColumn, org.gnome.gtk.CellRenderer) }
      * .
      * 
      * @since 4.1.3
      */
     /*
-     * This methods calls the gtk_tree_view_get_tooltip_context method which 
+     * This methods calls the gtk_tree_view_get_tooltip_context method which
      * has three out-parameters. However none of those are relevant for here
      * when we just want to know whether a tooltip is possible.
      * 
      * This method has been split up for better control.
      */
     public boolean hasTooltipContext(int x, int y, boolean keyboardMode) {
-        int[] x1 = {x};
-        int[] y1 = {y};
-        
+        int[] x1 = {
+            x
+        };
+        int[] y1 = {
+            y
+        };
+
         return GtkTreeView.getTooltipContext(this, x1, y1, keyboardMode, null, null, null);
     }
-    
+
     /**
-     * Retrieve the TreeIter from the row where the mouse is currently over for
-     * a possible tooltip or null if there isn't any row under the mouse.
+     * Retrieve the TreeIter from the row where the mouse is currently over
+     * for a possible tooltip or null if there isn't any row under the mouse.
      * 
      * The values for x, y and keyboardMode should all come straight from the
      * supplied values from {@link QueryTooltip#onQueryTooltip } method.
      * 
-     * @since 4.1.3 
+     * @since 4.1.3
      */
     /*
-     * This method clls the gtk_tree_view_get_tooltip_context method which has 
-     * three out-parameters. However of those model is the most useless since 
+     * This method clls the gtk_tree_view_get_tooltip_context method which has
+     * three out-parameters. However of those model is the most useless since
      * we already need it for the TreeIter. TreeIter and TreePath are the most
-     * interesting since we need those for getting values from the model (iter)
-     * and setting the tooltip to the rows and/or cells (path).
+     * interesting since we need those for getting values from the model
+     * (iter) and setting the tooltip to the rows and/or cells (path).
      * 
-     * This one will however return the iter. And thus has been named for that.
+     * This one will however return the iter. And thus has been named for
+     * that.
      */
     public TreeIter getTreeIterFromTooltipContext(int x, int y, boolean keyboardMode, TreeModel model) {
         final TreeIter iter;
         final boolean result;
-        final TreeModel[] _model = new TreeModel[]{model};
-        final int[] _x = {x};
-        final int[] _y = {y};
+        final TreeModel[] _model = new TreeModel[] {
+            model
+        };
+        final int[] _x = {
+            x
+        };
+        final int[] _y = {
+            y
+        };
 
         iter = new TreeIter(model);
 
@@ -989,15 +999,15 @@ public class TreeView extends Container
             return null;
         }
     }
-    
+
     /**
-     * Retrieve the TreePath from the row where the mouse is currently over for
-     * a possible tooltip or null if there isn't any row under the mouse.
+     * Retrieve the TreePath from the row where the mouse is currently over
+     * for a possible tooltip or null if there isn't any row under the mouse.
      * 
      * The values for x, y and keyboardMode should all come straight from the
      * supplied values from {@link QueryTooltip#onQueryTooltip } method.
      * 
-     * @since 4.1.3 
+     * @since 4.1.3
      */
     /*
      * Similar to the method above but instead of retrieving the TreeIter we
@@ -1005,9 +1015,15 @@ public class TreeView extends Container
      */
     public TreePath getTreePathFromTooltipContext(int x, int y, boolean keyboardMode) {
         final boolean result;
-        final TreePath[] _path = new TreePath[]{ new TreePath() };
-        final int[] _x = {x};
-        final int[] _y = {y};
+        final TreePath[] _path = new TreePath[] {
+            new TreePath()
+        };
+        final int[] _x = {
+            x
+        };
+        final int[] _y = {
+            y
+        };
 
         result = GtkTreeView.getTooltipContext(this, _x, _y, keyboardMode, null, _path, null);
 
@@ -1017,9 +1033,9 @@ public class TreeView extends Container
             return null;
         }
     }
-    
+
     /**
-     * Set the tooltip for the entire row. 
+     * Set the tooltip for the entire row.
      * 
      * This will force that the tooltip will remain shown on the screen while
      * the mouse remains over the row.
@@ -1029,9 +1045,9 @@ public class TreeView extends Container
     public void setTooltipRow(Tooltip tooltip, TreePath path) {
         GtkTreeView.setTooltipRow(this, tooltip, path);
     }
-    
+
     /**
-     * Set the tooltip for the current cell. 
+     * Set the tooltip for the current cell.
      * 
      * This will force that the tooltip will remain shown on the screen while
      * the mouse remains over the current cell.
@@ -1041,8 +1057,8 @@ public class TreeView extends Container
     public void setTooltipCell(Tooltip tooltip, TreePath path, TreeViewColumn column, CellRenderer cell) {
         GtkTreeView.setTooltipCell(this, tooltip, path, column, cell);
     }
-    
-    /**
+
+/**
      * Set a column with full pango markup text to be used for the tooltips for
      * each row.
      * 
@@ -1061,9 +1077,9 @@ public class TreeView extends Container
         List<TreeViewColumn> columns = Arrays.asList(GtkTreeView.getColumns(this));
         GtkTreeView.setTooltipColumn(this, columns.indexOf(column));
     }
-    
+
     /**
-     * Get the TreeViewColumn that is being used to retrieve text for the 
+     * Get the TreeViewColumn that is being used to retrieve text for the
      * toolrips for each row.
      * 
      * @since 4.1.3

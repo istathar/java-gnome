@@ -37,15 +37,20 @@ import org.gnome.gtk.Window;
 
 /**
  * A tutorial example of using a TreeView with a tooltip per row.
- *
+ * 
  * @author Sarah Leibbrand
  */
-public class ExampleTreeViewTooltips {
+public class ExampleTreeViewTooltips
+{
 
     private TreeView view;
+
     private ListStore model;
+
     private DataColumnString name;
+
     private TreeViewColumn vertical;
+
     private DataColumnStock icon;
 
     public ExampleTreeViewTooltips() {
@@ -64,30 +69,31 @@ public class ExampleTreeViewTooltips {
          */
         view.connect(new Widget.QueryTooltip() {
             @Override
-            public boolean onQueryTooltip(Widget source, int x, int y, boolean keyboardMode, Tooltip tooltip) {
-                /* 
-                 * first we check whether there is anything to show a tooltip 
+            public boolean onQueryTooltip(Widget source, int x, int y, boolean keyboardMode,
+                    Tooltip tooltip) {
+                /*
+                 * first we check whether there is anything to show a tooltip
                  * for, if not we return false so that there won't be any
                  * tooltip shown.
                  */
-                if(!view.hasTooltipContext(x, y, keyboardMode))
+                if (!view.hasTooltipContext(x, y, keyboardMode))
                     return false;
-                
+
                 /*
                  * Now that we know that there can be a tooltip we retrieve
                  * the TreeIter so we can work with that to get the data:
                  */
                 TreeIter iter = view.getTreeIterFromTooltipContext(x, y, keyboardMode, model);
-                
+
                 /*
-                 * Now we can work with the tooltip and place any content we 
+                 * Now we can work with the tooltip and place any content we
                  * would want in it.
                  * 
                  * In this example a simple icon and text.
                  */
                 tooltip.setMarkup(model.getValue(iter, name));
                 tooltip.setStockIcon(model.getValue(iter, icon), IconSize.MENU);
-                
+
                 /*
                  * Now that we have setup the tooltip we need to set it the
                  * row or the cell. so it knows it is for that area. This will
@@ -95,11 +101,12 @@ public class ExampleTreeViewTooltips {
                  * 
                  * In this example we will bind it the row.
                  * 
-                 * But for this we need the TreePath which we can also retrieve.
+                 * But for this we need the TreePath which we can also
+                 * retrieve.
                  */
                 TreePath path = view.getTreePathFromTooltipContext(x, y, keyboardMode);
                 view.setTooltipRow(tooltip, path);
-                
+
                 /*
                  * Now it is time to show the tooltip by returning true;
                  */
@@ -140,19 +147,19 @@ public class ExampleTreeViewTooltips {
     private void createTreeView() {
         DataColumnString index;
 
-        model = new ListStore(new DataColumn[]{
+        model = new ListStore(new DataColumn[] {
             name = new DataColumnString(),
             index = new DataColumnString(),
             icon = new DataColumnStock()
         });
 
         view = new TreeView(model);
-        
+
         vertical = view.appendColumn();
         vertical.setTitle("Index");
         CellRendererText renderer = new CellRendererText(vertical);
         renderer.setText(index);
-        
+
         vertical = view.appendColumn();
         vertical.setTitle("Name");
         renderer = new CellRendererText(vertical);
@@ -171,7 +178,8 @@ public class ExampleTreeViewTooltips {
         model.setValue(row, icon, Stock.APPLY);
 
         row = model.appendRow();
-        model.setValue(row, name, "Last but not least, the final row\n<small>(And the last one to convert)</small>");
+        model.setValue(row, name,
+                "Last but not least, the final row\n<small>(And the last one to convert)</small>");
         model.setValue(row, index, "3.");
         model.setValue(row, icon, Stock.CONVERT);
     }

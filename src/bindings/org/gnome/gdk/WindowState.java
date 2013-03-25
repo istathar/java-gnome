@@ -63,7 +63,7 @@ public final class WindowState extends Flag
     public static final WindowState ABOVE = new WindowState(GdkWindowState.ABOVE, "ABOVE");
 
     public static final WindowState BELOW = new WindowState(GdkWindowState.BELOW, "BELOW");
-    
+
     public static final WindowState FOCUSED = new WindowState(GdkWindowState.FOCUSED, "FOCUSED");
 
     /**

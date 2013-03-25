@@ -62,7 +62,8 @@ public class ValidateEnchantInternals extends GraphicalTestCase
     public final void testDictionaryKnownToExist() {
         final boolean result;
 
-        result = Enchant.existsDictionary("en") || Enchant.existsDictionary("en_GB") || Enchant.existsDictionary("en_US");
+        result = Enchant.existsDictionary("en") || Enchant.existsDictionary("en_GB")
+                || Enchant.existsDictionary("en_US");
         assertTrue(result);
     }
 

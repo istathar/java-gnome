@@ -33,9 +33,8 @@ import org.gnome.gtk.Widget;
 import org.gnome.gtk.Window;
 
 /**
- * An example showing the usage of Tooltips. Tooltips are little help
- * messages that are displayed when the use moves the mouse pointer over a
- * Widget.
+ * An example showing the usage of Tooltips. Tooltips are little help messages
+ * that are displayed when the use moves the mouse pointer over a Widget.
  * 
  * They can also be extended with custom content or have an icon added to the
  * text.
@@ -69,11 +68,12 @@ public class ExampleCustomTooltip
         b1 = new Button("Exit");
         b1.connect(new Widget.QueryTooltip() {
             @Override
-            public boolean onQueryTooltip(Widget source, int x, int y, boolean keyboardMode, Tooltip tooltip) {
+            public boolean onQueryTooltip(Widget source, int x, int y, boolean keyboardMode,
+                    Tooltip tooltip) {
                 // set the tooltip text and icon
                 tooltip.setStockIcon(Stock.ABOUT, IconSize.MENU);
                 tooltip.setMarkup("<b>Exit !</b>");
-                
+
                 // show the tooltip
                 return true;
             }
@@ -83,20 +83,21 @@ public class ExampleCustomTooltip
         b2 = new Button("No-op");
         b2.connect(new Widget.QueryTooltip() {
             @Override
-            public boolean onQueryTooltip(Widget source, int x, int y, boolean keyboardMode, Tooltip tooltip) {
+            public boolean onQueryTooltip(Widget source, int x, int y, boolean keyboardMode,
+                    Tooltip tooltip) {
                 // create the content for the tooltip, in this case a grid
                 Grid g = new Grid();
                 g.attach(new Label("This button will not exit the example"), 0, 0, 2, 1);
                 g.attach(new Label("This is a custom tooltip"), 0, 1, 2, 1);
                 g.attach(new Label("That you can extend in any kind of way!"), 0, 2, 1, 1);
                 g.attach(new Image(Stock.EXECUTE, IconSize.MENU), 1, 2, 1, 1);
-                
+
                 // show all of the contents or the tooltip will appear empty!
                 g.showAll();
-                
+
                 // set the content
                 tooltip.setCustomWidget(g);
-                
+
                 // show the tooltip.
                 return true;
             }
