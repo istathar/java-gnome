@@ -94,4 +94,13 @@ public class Grid extends Container implements Orientable
     public void setOrientation(Orientation orientation) {
         GtkOrientable.setOrientation(this, orientation);
     }
+
+    /**
+     * Retrieve a widget at a specific cell or null if there isn't any.
+     * 
+     * @since 4.1.3
+     */
+    public Widget getChildAt(int left, int top) {
+        return GtkGrid.getChildAt(this, left, top);
+    }
 }
