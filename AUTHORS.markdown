@@ -14,6 +14,7 @@ Significant authors
 	Stefan Prelle <stefan@prelle.org>
 	Serkan Kaba <serkan@gentoo.org>
 	Guillaume Mazoyer <respawneral@gmail.com>
+	Sarah Leibbrand <xavalia@gmail.com>
 
 Casual contributors
 -------------------
@@ -28,7 +29,6 @@ Casual contributors
 	Zak Fenton <zak.fenton@gmail.com>
 	Stefan Schweizer <steve.schweizer@gmail.com>
 	Kenneth Prugh <ken69267@gmail.com>
-	Thijs Leibbrand <xavalia@gmail.com>
 
 Mentoring and design review
 ---------------------------
