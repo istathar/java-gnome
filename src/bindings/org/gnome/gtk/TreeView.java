@@ -922,20 +922,21 @@ public class TreeView extends Container
      * TreeView and is valid for a possible tooltip.
      * 
      * This methods takes the x, y and keyboardMode values that are supplied
-     * from the {@link QueryTooltip#onQueryTooltip } method.
+     * from the {@link QueryTooltip#onQueryTooltip} method.
      * 
      * When this method returns false it is recommended to also return false
      * in the QueryTooltip handler to not show the tooltip.
      * 
      * When this returns true you can use either or both
-     * {@link #getTreeIterFromTooltipContext(int, int, boolean, org.gnome.gtk.TreeModel) }
-     * and {@link #getTreePathFromTooltipContext(int, int, boolean) } to
-     * retrieve content from your model and bind the tooltip to either the row
-     * or the cell with either of
-     * {@link #setTooltipRow(org.gnome.gtk.Tooltip, org.gnome.gtk.TreePath) }
-     * and
-     * {@link #setTooltipCell(org.gnome.gtk.Tooltip, org.gnome.gtk.TreePath, org.gnome.gtk.TreeViewColumn, org.gnome.gtk.CellRenderer) }
-     * .
+     * {@link #getTreeIterFromTooltipContext(int, int, boolean, org.gnome.gtk.TreeModel)
+     * getTreeIterFromTooltipContext()} and
+     * {@link #getTreePathFromTooltipContext(int, int, boolean)
+     * getTreePathFromTooltipContext()} to retrieve content from your model
+     * and bind the tooltip to either the row or the cell with either of
+     * {@link #setTooltipRow(org.gnome.gtk.Tooltip, org.gnome.gtk.TreePath)
+     * setTooltipRow()} and
+     * {@link #setTooltipCell(org.gnome.gtk.Tooltip, org.gnome.gtk.TreePath, org.gnome.gtk.TreeViewColumn, org.gnome.gtk.CellRenderer)
+     * setTooltipCell()}.
      * 
      * @since 4.1.3
      */
@@ -962,7 +963,8 @@ public class TreeView extends Container
      * for a possible tooltip or null if there isn't any row under the mouse.
      * 
      * The values for x, y and keyboardMode should all come straight from the
-     * supplied values from {@link QueryTooltip#onQueryTooltip } method.
+     * supplied values from {@link QueryTooltip#onQueryTooltip
+     * onQueryTooltip()} method.
      * 
      * @since 4.1.3
      */
@@ -1015,9 +1017,11 @@ public class TreeView extends Container
      */
     public TreePath getTreePathFromTooltipContext(int x, int y, boolean keyboardMode) {
         final boolean result;
-        final TreePath[] _path = new TreePath[] {
-            new TreePath()
-        };
+        final TreePath[] _path;
+
+        _path = new TreePath[1];
+        _path[0] = new TreePath();
+
         final int[] _x = {
             x
         };

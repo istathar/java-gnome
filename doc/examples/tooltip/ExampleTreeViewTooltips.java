@@ -1,7 +1,7 @@
 /*
  * java-gnome, a UI library for writing GTK and GNOME programs from Java!
  *
- * Copyright © 2007-2010 Operational Dynamics Consulting, Pty Ltd and Others
+ * Copyright © 2007-2013 Operational Dynamics Consulting, Pty Ltd and Others
  *
  * The code in this file, and the program it is a part of, is made available
  * to you by its authors as open source software: you can redistribute it
@@ -68,9 +68,11 @@ public class ExampleTreeViewTooltips
          * can display tooltips.
          */
         view.connect(new Widget.QueryTooltip() {
-            @Override
             public boolean onQueryTooltip(Widget source, int x, int y, boolean keyboardMode,
                     Tooltip tooltip) {
+                TreeIter iter;
+                TreePath path;
+
                 /*
                  * first we check whether there is anything to show a tooltip
                  * for, if not we return false so that there won't be any
@@ -83,7 +85,7 @@ public class ExampleTreeViewTooltips
                  * Now that we know that there can be a tooltip we retrieve
                  * the TreeIter so we can work with that to get the data:
                  */
-                TreeIter iter = view.getTreeIterFromTooltipContext(x, y, keyboardMode, model);
+                iter = view.getTreeIterFromTooltipContext(x, y, keyboardMode, model);
 
                 /*
                  * Now we can work with the tooltip and place any content we
@@ -104,7 +106,7 @@ public class ExampleTreeViewTooltips
                  * But for this we need the TreePath which we can also
                  * retrieve.
                  */
-                TreePath path = view.getTreePathFromTooltipContext(x, y, keyboardMode);
+                path = view.getTreePathFromTooltipContext(x, y, keyboardMode);
                 view.setTooltipRow(tooltip, path);
 
                 /*
@@ -146,6 +148,8 @@ public class ExampleTreeViewTooltips
      */
     private void createTreeView() {
         DataColumnString index;
+        CellRendererText renderer;
+        TreeIter row;
 
         model = new ListStore(new DataColumn[] {
             name = new DataColumnString(),
@@ -157,7 +161,7 @@ public class ExampleTreeViewTooltips
 
         vertical = view.appendColumn();
         vertical.setTitle("Index");
-        CellRendererText renderer = new CellRendererText(vertical);
+        renderer = new CellRendererText(vertical);
         renderer.setText(index);
 
         vertical = view.appendColumn();
@@ -167,7 +171,7 @@ public class ExampleTreeViewTooltips
 
         vertical.setSortColumn(index);
 
-        TreeIter row = model.appendRow();
+        row = model.appendRow();
         model.setValue(row, name, "The first row of the table\n<small>(with an edit icon)</small>");
         model.setValue(row, index, "1.");
         model.setValue(row, icon, Stock.EDIT);

@@ -2,7 +2,7 @@
  * java-gnome, a UI library for writing GTK and GNOME programs from Java!
  *
  * Copyright © 2008      Vreixo Formoso
- * Copyright © 2008-2010 Operational Dynamics Consulting, Pty Ltd
+ * Copyright © 2008-2013 Operational Dynamics Consulting, Pty Ltd and Others
  *
  * The code in this file, and the program it is a part of, is made available
  * to you by its authors as open source software: you can redistribute it
@@ -67,7 +67,6 @@ public class ExampleCustomTooltip
 
         b1 = new Button("Exit");
         b1.connect(new Widget.QueryTooltip() {
-            @Override
             public boolean onQueryTooltip(Widget source, int x, int y, boolean keyboardMode,
                     Tooltip tooltip) {
                 // set the tooltip text and icon
@@ -82,7 +81,6 @@ public class ExampleCustomTooltip
 
         b2 = new Button("No-op");
         b2.connect(new Widget.QueryTooltip() {
-            @Override
             public boolean onQueryTooltip(Widget source, int x, int y, boolean keyboardMode,
                     Tooltip tooltip) {
                 // create the content for the tooltip, in this case a grid

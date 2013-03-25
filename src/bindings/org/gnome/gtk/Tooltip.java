@@ -1,7 +1,7 @@
 /*
  * java-gnome, a UI library for writing GTK and GNOME programs from Java!
  *
- * Copyright © 2008-2011 Operational Dynamics Consulting, Pty Ltd and Others
+ * Copyright © 2008-2013 Operational Dynamics Consulting, Pty Ltd and Others
  *
  * The code in this file, and the program it is a part of, is made available
  * to you by its authors as open source software: you can redistribute it
@@ -53,7 +53,7 @@ import org.gnome.glib.Object;
  * 
  * <pre>
  * // any widget will do
- * Button widget = new Button();
+ * widget = new Button();
  * widget.connect(new Widget.queryTooltip() {
  *     &#064;Override
  *     public boolean onQueryTooltip(Widget source, int x, int y, boolean keyboardMode, Tooltip tooltip) {
@@ -98,6 +98,8 @@ public class Tooltip extends Object
 
     /**
      * The text to display in the tooltip.
+     * 
+     * @since 4.1.3
      */
     public void setText(String text) {
         GtkTooltip.setText(this, text);
@@ -105,6 +107,8 @@ public class Tooltip extends Object
 
     /**
      * The text in pango markup to display in the tooltip.
+     * 
+     * @since 4.1.3
      */
     public void setMarkup(String markup) {
         GtkTooltip.setMarkup(this, markup);
@@ -112,6 +116,8 @@ public class Tooltip extends Object
 
     /**
      * The icon to display in your tooltip.
+     * 
+     * @since 4.1.3
      */
     public void setIcon(Pixbuf icon) {
         GtkTooltip.setIcon(this, icon);
@@ -119,6 +125,8 @@ public class Tooltip extends Object
 
     /**
      * The stock icon with the requested size to display in the tooltip.
+     * 
+     * @since 4.1.3
      */
     public void setStockIcon(Stock stock, IconSize size) {
         GtkTooltip.setIcon(this, stock.getStockId(), size);
@@ -129,6 +137,8 @@ public class Tooltip extends Object
      * 
      * This can be any widget but containers such as {@link Grid} are
      * recommended.
+     * 
+     * @since 4.1.3
      */
     public void setCustomWidget(Widget widget) {
         GtkTooltip.setCustom(this, widget);
