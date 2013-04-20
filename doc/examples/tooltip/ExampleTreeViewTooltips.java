@@ -78,8 +78,9 @@ public class ExampleTreeViewTooltips
                  * for, if not we return false so that there won't be any
                  * tooltip shown.
                  */
-                if (!view.hasTooltipContext(x, y, keyboardMode))
+                if (!view.hasTooltipContext(x, y, keyboardMode)) {
                     return false;
+                }
 
                 /*
                  * Now that we know that there can be a tooltip we retrieve
@@ -127,7 +128,6 @@ public class ExampleTreeViewTooltips
         window.showAll();
 
         window.connect(new Window.DeleteEvent() {
-            @Override
             public boolean onDeleteEvent(Widget source, Event event) {
                 Gtk.mainQuit();
                 return false;
