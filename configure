@@ -1349,7 +1349,7 @@ if ($os eq "gentoo") {
 	$jar_candidate = "$jdk_home/bin/jar";
 	$javadoc_candidate = "$jdk_home/bin/javadoc";
 
-	check_compiler($javac, "$vendor javac", $javac_candidate, "-g -source 1.6 -target 1.6");
+	check_compiler($javac, "$vendor javac", $javac_candidate, "-g");
 
 	check_jni_header_generator($javah, "$vendor javah", $javah_candidate, "-jni");
 	check_jar($jar, "$vendor jar", $jar_candidate, "");
