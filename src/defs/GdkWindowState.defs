@@ -10,6 +10,7 @@
     '("fullscreen" "GDK_WINDOW_STATE_FULLSCREEN")
     '("above" "GDK_WINDOW_STATE_ABOVE")
     '("below" "GDK_WINDOW_STATE_BELOW")
+    '("focused" "GDK_WINDOW_STATE_FOCUSED")
   )
 )
 

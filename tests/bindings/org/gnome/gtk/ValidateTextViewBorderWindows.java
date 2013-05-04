@@ -100,7 +100,7 @@ public class ValidateTextViewBorderWindows extends GraphicalTestCase
         y = view.convertBufferToWindowCoordsY(LEFT, Y);
 
         assertTrue(Y > 0);
-        assertTrue(y < Y);
+        assertTrue(y <= Y);
 
         assertEquals(Y, view.convertWindowToBufferCoordsY(LEFT, y));
 
@@ -114,7 +114,7 @@ public class ValidateTextViewBorderWindows extends GraphicalTestCase
         y = view.convertBufferToWindowCoordsY(LEFT, Y);
 
         assertEquals(0, Y);
-        assertTrue(y < 0);
+        assertTrue(y <= 0);
         assertEquals(Y, view.convertWindowToBufferCoordsY(LEFT, y));
     }
 }

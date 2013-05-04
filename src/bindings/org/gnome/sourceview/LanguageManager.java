@@ -70,4 +70,16 @@ public class LanguageManager extends Object
     public Language getLanguage(String id) {
         return GtkSourceLanguageManager.getLanguage(this, id);
     }
+
+    /**
+     * Get a language based on the filename and content type.
+     * 
+     * This is only a guess and could be wrong. When it is unable to guess the
+     * language it will return null.
+     * 
+     * @since 4.1.3
+     */
+    public Language getLanguageGuess(String fileName, String contentType) {
+        return GtkSourceLanguageManager.guessLanguage(this, fileName, contentType);
+    }
 }

@@ -64,6 +64,8 @@ public final class WindowState extends Flag
 
     public static final WindowState BELOW = new WindowState(GdkWindowState.BELOW, "BELOW");
 
+    public static final WindowState FOCUSED = new WindowState(GdkWindowState.FOCUSED, "FOCUSED");
+
     /**
      * Creates a new WindowState flag as the OR'ing or combination of two
      * WindowState flags.

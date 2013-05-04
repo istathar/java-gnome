@@ -80,7 +80,7 @@ import org.gnome.glib.Object;
  * In order to set multiple Modifier Types you can use the static method
  * {@link ModifierType#or(ModifierType, ModifierType) or()}
  * 
- * @author Thijs Leibbrand
+ * @author Sarah Leibbrand
  * @since 4.0.16
  */
 public class AcceleratorGroup extends Object

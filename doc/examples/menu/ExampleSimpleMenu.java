@@ -41,7 +41,7 @@ import org.gnome.gtk.Window;
  * 
  * @author Vreixo Formoso
  * @author Andrew Cowie
- * @author Thijs Leibbrand
+ * @author Sarah Leibbrand
  */
 public class ExampleSimpleMenu
 {

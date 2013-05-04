@@ -1802,4 +1802,53 @@ public abstract class Widget extends org.gnome.glib.Object
     public StyleContext getStyleContext() {
         return GtkWidget.getStyleContext(this);
     }
+
+    /**
+     * Signal fired when requesting a tooltip.
+     * 
+     * When using the method you should return true to either display the
+     * tooltip or false when not to display the tooltip. You can decide
+     * whether to show it or not based on the x and y values that you receive
+     * from the method.
+     * 
+     * Note however that if keyboardMode is true x and y will be undefined.
+     * 
+     * You will also receive the {@link Tooltip} object where you can place
+     * the contents to show in the tooltip. This is the only way to receive a
+     * tooltip object to work with.
+     * 
+     * See {@link Tooltip} for more informtation.
+     * 
+     * @since 4.1.3
+     */
+    /*
+     * As stated in the Tooltip documentation, this is _only_ way to receive
+     * the tooltip object.
+     */
+    public interface QueryTooltip extends GtkWidget.QueryTooltipSignal
+    {
+        boolean onQueryTooltip(Widget source, int x, int y, boolean keyboardMode, Tooltip tooltip);
+    }
+
+    /**
+     * Connect a tooltip query to the widget.
+     * 
+     * This will cause the widget to be be monitored for motion and leave
+     * notifications. Also note that this cannot be turned off.
+     * 
+     * @since 4.1.3
+     */
+    /*
+     * Note that notion in the javadoc entry that mentions that the leave and
+     * motion notifications cannot be turned off. This is true even if you
+     * change the hasTooltip property to false. It changes something in the
+     * GdkWindow masks and simply cannot be undone at all.
+     */
+    public void connect(Widget.QueryTooltip handler) {
+        // needs to be set to true or tooltips won't be shown. Note that this
+        // cannot be turned off.
+        GtkWidget.setHasTooltip(this, true);
+        // and now connect the handler.
+        GtkWidget.connect(this, handler, false);
+    }
 }

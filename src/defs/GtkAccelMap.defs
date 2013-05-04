@@ -20,7 +20,7 @@
   (return-type "gboolean")
   (parameters
     '("const-gchar*" "accel_path")
-    '("GtkAccelKey*" "key")
+    '("GtkAccelKey*" "key" (null-ok))
   )
 )
 
