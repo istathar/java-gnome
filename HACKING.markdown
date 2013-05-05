@@ -1,5 +1,3 @@
-Contributing to java-gnome
-
 We'd love to have you contribute by hacking on the bindings themselves!
 
 GETTING STARTED
@@ -11,16 +9,11 @@ GETTING STARTED
 If you're going to hack seriously with, or on, java-gnome, we recommend the
 following sequence to checkout the source code:
 
-<a class="nav-white"
-href="bzr://research.operationaldynamics.com/bzr/java-gnome/mainline/">
-
     $ cd ~/src/
     $ mkdir java-gnome/
     $ git clone git://github.com/afcowie/java-gnome.git working
     $ cd working/
     $ less README.markdown
-
-</a> 
 
 If you are using Eclipse, you may instead want to do this such that the
 checkout is under `~/workspace`.
