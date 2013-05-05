@@ -1,4 +1,14 @@
 /* Javadoc style sheet */
+
+img.snapshot {
+       padding-top: 10px;
+       padding-left: 20px;
+       padding-right: 5px;
+       float: right;
+       vertical-align: top;
+}
+
+
 /*
 Overall document style
 */
