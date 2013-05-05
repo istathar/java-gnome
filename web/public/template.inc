@@ -78,7 +78,7 @@ function template_begin() {
 	<div align="right" style="padding:10px; padding-top:12px">
 	<a class="nav-black"
 	href="http://ftp.gnome.org/pub/gnome/sources/java-gnome/4.1/java-gnome-4.1.3.tar.xz">java-gnome 4.1.3</a>,
-	<a class="nav-black" href="/NEWS.html#4.1.3">released 25 Feb 2013</a>
+	<a class="nav-black" href="/NEWS.html#4.1.3">released 4 May 2013</a>
 	</div>
 </div>
 

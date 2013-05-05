@@ -1,4 +1,17 @@
-NEWS
+<a name="4.1.3" id="1367686931" title="Tooltips"></a>
+
+java-gnome 4.1.3  (4 May 2013)
+==============================
+
+_Adventures in Tooltips ._
+
+A third release in the 4.1 series, with improved coverage of GTK's tooltips
+and styling functionality. Also includes numerous build fixes and maintenance
+of the build infrastructure.
+
+Thanks to Guillaume Mazoyer and Sarah Leibbrand for their contributions!
+
+AfC
 
 <a name="4.1.2" id="1346294738" title="GtkApplication"></a>
 
