@@ -48,8 +48,8 @@ do so.</p>
 are hosted on the <code>ftp.gnome.org</code> servers. You can download the
 latest release from
 <a class="nav-black"
-href="http://ftp.gnome.org/pub/gnome/sources/java-gnome/4.0/">
-<pre style="margin-left: 0px;">http://ftp.gnome.org/pub/gnome/sources/java-gnome/4.0/</pre></a>
+href="http://ftp.gnome.org/pub/gnome/sources/java-gnome/4.1/">
+<pre style="margin-left: 0px;">http://ftp.gnome.org/pub/gnome/sources/java-gnome/4.1/</pre></a>
 </p>
 
 <h2>Or check out the sources from the repository...</h2>
