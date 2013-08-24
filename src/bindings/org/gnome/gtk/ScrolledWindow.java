@@ -98,7 +98,7 @@ public class ScrolledWindow extends Bin
     }
 
     public void add(Widget child) {
-        if (!((child instanceof TextView) || (child instanceof TreeView) || (child instanceof Layout) || (child instanceof Viewport))) {
+        if (!((child instanceof TextView) || (child instanceof TreeView) || (child instanceof IconView) || (child instanceof Layout) || (child instanceof Viewport))) {
             throw new IllegalArgumentException(
                     "You can't directly add() a Widget that doesn't have scrolling support built in.\n"
                             + "Use ScrolledWindow's addWithViewport() instead, or create your own Viewport.");
@@ -125,7 +125,7 @@ public class ScrolledWindow extends Bin
     public void addWithViewport(Widget child) {
         final Viewport port;
 
-        if ((child instanceof TextView) || (child instanceof TreeView) || (child instanceof Layout)) {
+        if ((child instanceof TextView) || (child instanceof TreeView) || (child instanceof IconView) || (child instanceof Layout)) {
             // any others?
             throw new IllegalArgumentException(
                     "You must not addWithViewport() a Widget that already has scrolling support built in. Use Container's add() instead.");
