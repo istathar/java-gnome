@@ -125,7 +125,8 @@ public class ScrolledWindow extends Bin
     public void addWithViewport(Widget child) {
         final Viewport port;
 
-        if ((child instanceof TextView) || (child instanceof TreeView) || (child instanceof IconView) || (child instanceof Layout)) {
+        if ((child instanceof TextView) || (child instanceof TreeView) || (child instanceof Layout)) {
+            // in future, IconView; for now we allow IconView in both add() and addWithViewport()
             // any others?
             throw new IllegalArgumentException(
                     "You must not addWithViewport() a Widget that already has scrolling support built in. Use Container's add() instead.");
