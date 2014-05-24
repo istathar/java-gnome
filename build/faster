@@ -679,6 +679,7 @@ def compileDocumentation():
 
 
 def takeSnapshots():
+	os.environ['NO_AT_BRIDGE'] = '1'
 	runJavaClass("Harness", "tmp/gtk-4.1.jar:tmp/tests/")
 
 
