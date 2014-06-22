@@ -1,7 +1,7 @@
 /*
  * java-gnome, a UI library for writing GTK and GNOME programs from Java!
  *
- * Copyright © 2008-2010 Operational Dynamics Consulting, Pty Ltd and Others
+ * Copyright © 2008-2014 Operational Dynamics Consulting, Pty Ltd and Others
  *
  * The code in this file, and the program it is a part of, is made available
  * to you by its authors as open source software: you can redistribute it
@@ -44,8 +44,22 @@ Java_org_gnome_gtk_GtkClipboardOverride_gtk_1clipboard_1get
 )
 {
 	GtkClipboard* result;
-	
+
 	result = gtk_clipboard_get(GDK_SELECTION_CLIPBOARD);
-	
+
+	return (jlong) result;
+}
+
+JNIEXPORT jlong JNICALL
+Java_org_gnome_gtk_GtkClipboardOverride_gtk_1clipboard_1get_1primary
+(
+	JNIEnv* env,
+	jclass cls
+)
+{
+	GtkClipboard* result;
+
+	result = gtk_clipboard_get(GDK_SELECTION_PRIMARY);
+
 	return (jlong) result;
 }

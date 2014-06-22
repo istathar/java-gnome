@@ -1,7 +1,7 @@
 /*
  * java-gnome, a UI library for writing GTK and GNOME programs from Java!
  *
- * Copyright © 2007-2010 Operational Dynamics Consulting, Pty Ltd and Others
+ * Copyright © 2007-2014 Operational Dynamics Consulting, Pty Ltd and Others
  *
  * The code in this file, and the program it is a part of, is made available
  * to you by its authors as open source software: you can redistribute it
@@ -55,6 +55,7 @@ import org.gnome.glib.Object;
  * 
  * @author Serkan Kaba
  * @author Andrew Cowie
+ * @author Guillaume Mazoyer
  * @since 4.0.10
  * @see <a
  *      href="http://www.freedesktop.org/wiki/Specifications/clipboards-spec">The
@@ -88,12 +89,17 @@ public class Clipboard extends Object
      * 
      * @since 4.0.10
      */
-    /*
-     * FUTURE, so, obviously, if someone desperately needs access to PRIMARY,
-     * they can expose it as getPrimary().
-     */
     public static Clipboard getDefault() {
         return GtkClipboardOverride.get();
+    }
+
+    /**
+     * Get the primary Clipboard.
+     *
+     * @since 4.1.4
+     */
+    public static Clipboard getPrimary() {
+        return GtkClipboardOverride.getPrimary();
     }
 
     /**

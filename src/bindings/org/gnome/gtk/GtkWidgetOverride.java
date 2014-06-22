@@ -1,7 +1,7 @@
 /*
  * java-gnome, a UI library for writing GTK and GNOME programs from Java!
  *
- * Copyright © 2007-2011 Operational Dynamics Consulting, Pty Ltd and Others
+ * Copyright © 2007-2014 Operational Dynamics Consulting, Pty Ltd and Others
  *
  * The code in this file, and the program it is a part of, is made available
  * to you by its authors as open source software: you can redistribute it
@@ -38,6 +38,7 @@ import org.gnome.gdk.EventMask;
  * Hand crafted to get at the fields of Widget.
  * 
  * @author Andrew Cowie
+ * @author Guillaume Mazoyer
  */
 final class GtkWidgetOverride extends Plumbing
 {
@@ -94,4 +95,16 @@ final class GtkWidgetOverride extends Plumbing
     }
 
     private static native final int gtk_widget_get_events(long self);
+
+    static final Clipboard getPrimaryClipboard(Widget self) {
+        long result;
+
+        synchronized (lock) {
+            result = gtk_widget_get_primary_clipboard(pointerOf(self));
+
+            return (Clipboard) objectFor(result);
+        }
+    }
+
+    private static native final long gtk_widget_get_primary_clipboard(long self);
 }

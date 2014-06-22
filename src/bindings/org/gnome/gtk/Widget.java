@@ -1,7 +1,7 @@
 /*
  * java-gnome, a UI library for writing GTK and GNOME programs from Java!
  *
- * Copyright © 2006-2011 Operational Dynamics Consulting, Pty Ltd and Others
+ * Copyright © 2006-2014 Operational Dynamics Consulting, Pty Ltd and Others
  *
  * The code in this file, and the program it is a part of, is made available
  * to you by its authors as open source software: you can redistribute it
@@ -56,6 +56,7 @@ import org.gnome.pango.FontDescription;
  * 
  * @author Andrew Cowie
  * @author Vreixo Formoso
+ * @author Guillaume Mazoyer
  * @since 4.0.0
  */
 public abstract class Widget extends org.gnome.glib.Object
@@ -1801,6 +1802,15 @@ public abstract class Widget extends org.gnome.glib.Object
      */
     public StyleContext getStyleContext() {
         return GtkWidget.getStyleContext(this);
+    }
+
+    /**
+     * Get the primary {@link Clipboard} of a Widget.
+     *
+     * @since 4.1.3
+     */
+    public Clipboard getPrimaryClipboard() {
+        return GtkWidgetOverride.getPrimaryClipboard(this);
     }
 
     /**

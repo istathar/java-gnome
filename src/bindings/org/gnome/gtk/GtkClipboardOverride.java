@@ -1,7 +1,7 @@
 /*
  * java-gnome, a UI library for writing GTK and GNOME programs from Java!
  *
- * Copyright © 2008-2010 Operational Dynamics Consulting, Pty Ltd
+ * Copyright © 2008-2014 Operational Dynamics Consulting, Pty Ltd
  *
  * The code in this file, and the program it is a part of, is made available
  * to you by its authors as open source software: you can redistribute it
@@ -50,4 +50,16 @@ final class GtkClipboardOverride extends Plumbing
     }
 
     private static native final long gtk_clipboard_get();
+
+    static final Clipboard getPrimary() {
+        long result;
+
+        synchronized (lock) {
+            result = gtk_clipboard_get_primary();
+
+            return (Clipboard) objectFor(result);
+        }
+    }
+
+    private static native final long gtk_clipboard_get_primary();
 }
