@@ -1,7 +1,7 @@
 /*
  * java-gnome, a UI library for writing GTK and GNOME programs from Java!
  *
- * Copyright © 2006-2013 Operational Dynamics Consulting, Pty Ltd
+ * Copyright © 2006-2014 Operational Dynamics Consulting, Pty Ltd
  *
  * The code in this file, and the program it is a part of, is made available
  * to you by its authors as open source software: you can redistribute it
@@ -55,7 +55,7 @@ public final class Version
 {
     private static final String APIVERSION = "4.1";
 
-    private static final String VERSION = "4.1.3";
+    private static final String VERSION = "4.1.4-dev";
 
     /**
      * The full (usually three digit) version of java-gnome. This is used in a
