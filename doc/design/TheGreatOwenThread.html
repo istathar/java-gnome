@@ -8,31 +8,31 @@
 
         <table border="0" width="100%">
 	<tbody><tr>
-	<td bgcolor="#dddddd" nowrap="nowrap">From: Owen Taylor &lt;otaylor@re...&gt; 
-		<a href="http://sourceforge.net/mailarchive/message.php?msg_id=11579420"><img src="owen.html_content/msg.gif" alt="" height="12" width="10"> Some notes on Java-GNOME</a>   
+	<td bgcolor="#dddddd" nowrap="nowrap">From: Owen Taylor &lt;otaylor@re...&gt;
+		<a href="http://sourceforge.net/mailarchive/message.php?msg_id=11579420"><img src="owen.html_content/msg.gif" alt="" height="12" width="10"> Some notes on Java-GNOME</a>
 		2005-04-25 12:30
 	</td>
 </tr>
 	<tr>
 		<td>
-			<pre><pre> 
- 
- 
+			<pre><pre>
+
+
  I spent some time looking at the Java-GNOME implementation this
  weekend, and had some concerns that I was pressed to write up.
- 
- I"d divide my concerns into three main areas:
- 
+
+ I'd divide my concerns into three main areas:
+
   - Events
   - Memory management
   - Completeness and consistency of the mapping
- 
+
  Events
  ======
- 
+
  There are two problems with signal handling ... one problem is that it
  is just clumsy:
- 
+
    button.addListener (new ButtonListener () {
       public void buttonEvent (ButtonEvent event) {
           if (event.isOfType(ButtonEvent.Type.CLICK) {
@@ -40,130 +40,130 @@
           }
       }
    });
- 
+
  In Python, say, this is:
- 
+
   def onClick (button):
      print "Button was clicked";
-  
+
   button.connect ("clicked", onClick);
- 
- Obviously, there is a syntax barrier for Java, but there is no real 
- reason it couldn"t be:
- 
+
+ Obviously, there is a syntax barrier for Java, but there is no real
+ reason it couldn't be:
+
   button.connectClicked (new ButtonClickedListener () {
      public void run(Button button) {
        System.out.println("Button was clicked");
-     }  
+     }
   }
- 
+
  Creating one helper class for each signal might be a bit
  expensive... there are other cheaper mechanisms with less type
  safety. For example:
- 
+
   button.connectClicked (new SignalListener () {
      public Object run(Object[] args) {
        System.out.println("Button was clicked");
        return null;
-     }  
+     }
   }
- 
+
  You could have convenience implementations predefined for common
  cases:
- 
+
   button.connectDestroyEvent (new EventListener () {
      public boolean run(Widget widget, Event event) {
-        // show a "save changes dialog
+        // show a save changes dialog
         return true;
      }
   }
- 
+
   button.connectClicked (new SimpleListener () {
      public void run(Object object) {
         System.out.println("Button was clicked");
      }
   }
- 
+
  Another approach would be to take the addEventHandler() approach
  that currently exists and extend it to use the closure data
  about argument types, so you could do something like:
- 
+
   button.connectDestroyEvent (new Object () {
      public boolean destroyEvent(Widget widget, Event event) {
-        // show a "save changes dialog
+        // show a save changes dialog
         return true;
      }
   }
- 
+
  What *all* of these share is that there is an algorithmic mapping to
  the underlying signals. That is the second problem with the current
  approach; there is no way that someone familiar with the C or Python
  interface on an object can guess the way the Java events are set up on
  that object.
- 
+
  Not only does this make things hard on people who already know a
  GTK+ from a different language or are reading documentation that uses
  a different language, it also makes it impossible to do automatic
  generation of language bindings.
- 
+
  Memory Management
  =================
- 
+
  One problem with memory management in gtk-java can be
  expressed with a simple grep command:
- 
+
   libgtk-java$ find -name "*.c" | xargs grep g_object_unref
   libgtk-java$
- 
+
  If I create a PangoLayout object through the java-gnome APIs,
  there is no way it will ever be freed.
- 
- But this isn"t the only problem with memory management of 
- GObject ... 
- 
+
+ But this isn't the only problem with memory management of
+ GObject ...
+
   Window window = new Window (WindowType.TOPLEVEL);
   Button button = new Button ("Hello");
   window.add (button);
   window.remove (button);
   window.add (button);
- 
+
  Will segfault or at least produce warnings as the underlying
  GtkObject is freed when the button is removed from the window
  and the Java object is left holding an invalid pointer.
- 
+
  Fixing this, within the constraints of the JNI is admittedly not
- easy. In fact, I don"t know an entirely satisfactory way of doing so
- without extending GObject. (I"m going to propose such an addition to
+ easy. In fact, I don't know an entirely satisfactory way of doing so
+ without extending GObject. (I'm going to propose such an addition to
  GObject for 2.8.) But you can do somewhat better. For example,
  the approach that gtk# takes is to use strong reference from
- the CLR object to the GObject and a weak reference in the 
- opposite direction. 
- 
+ the CLR object to the GObject and a weak reference in the
+ opposite direction.
+
  (The main problem of this is "denaturation"...  if you drop the last
- reference to a language object that is a subclass of Button, then 
+ reference to a language object that is a subclass of Button, then
  if you get the object back from GTK+ what you get is a normal
  Button, not your subclass.)
- 
- 
+
+
  Completeness and Consistency of the Mapping
  ===========================================
- 
+
  The Java-GNOME bindings seem largely done by hand. This approach
  is going to cause problems with both completeness and with
  consistency. A few examples:
- 
+
   pango_layout_set_wrap()
   pango_layout_get_wrap()
   pango_layout_set_justify()
   pango_layout_get_justify()
-  
+
  Are wrapped as:
- 
+
   Layout.setWrapStyle()
   Layout.getWrapMode()
   Layout.setJustification()
   Layout.GetJustified()
- 
+
  void pango_layout_set_markup            (PangoLayout    *layout,
                                           const char     *markup,
                                           int             length);
@@ -173,57 +173,57 @@
  		        	         gunichar        accel_marker,
                                           gunichar       *accel_char);
  are wrapped as:
- 
- 
+
+
    public void setMarkup(String markup);
    public void setMarkup(String markup,
    	                char   accelMarker); (*)
- 
+
  While using overloading might make sense here, where did the accel_char
  return from set_markup_with_accel() go?
- 
+
  These examples are from PangoLayout, which is probably newer and rawer
- then much of Java-GNOME (after all, you can"t free one), but there are
- problems elsewhere as well. (gdk.Window.getWindowAt, 
+ then much of Java-GNOME (after all, you can't free one), but there are
+ problems elsewhere as well. (gdk.Window.getWindowAt,
  gdk.Window.setTransientOf, for examples.)
- 
+
  Any language binding is a compromise between sticking close to the
- library being bound and being truly natural in the language. 
+ library being bound and being truly natural in the language.
  Conceptually, GTK+ is composed of two pieces:
-  
+
   A) Pieces that are language bindable
   B) Pieces that are C specific convenience glue
- 
+
  The goal of the GTK+ design is that everything *can* be done using
  only A). I think a good goal for any language binding is that piece
  A) is transformed into the language in a way that is completely
  algorithmic and predictable and then, as necessary, language specific
  glue is added to make up for piece B).
- 
+
  The introspection facilities in Glib/GTK+-2.8 will provide a canonical
  description of the GTK+ interfaces. I think it would be good
  if Java-GNOME could be switched at that point to be primarily
  autogenerated from the introspection information.
- 
- (*) Side note: char isn"t the right mapping for gunichar. It should
+
+ (*) Side note: char isn't the right mapping for gunichar. It should
      be int instead. See:
- 
+
  <a href="http://java.sun.com/developer/technicalArticles/Intl/Supplementary/" target="_NEW">http://java.sun.com/developer/technicalArticles/Intl/Supplementary/</a>
- 
- [ Note: I"m not subscribed, so please Cc: me on any replies ]
+
+ [ Note: I'm not subscribed, so please Cc: me on any replies ]
 </pre>
 			</pre>
 		</td>
 	</tr>
 </tbody></table>
-        
-        
+
+
 
 <p>
 </p><table border="0" width="100%">
 	<tbody><tr>
-	<td bgcolor="#dddddd" nowrap="nowrap">From: Jeff Morgan &lt;kuzman@gm...&gt; 
-		<a href="http://sourceforge.net/mailarchive/message.php?msg_id=11579838"><img src="owen.html_content/msg.gif" alt="" height="12" width="10"> Re: Some notes on Java-GNOME</a>   
+	<td bgcolor="#dddddd" nowrap="nowrap">From: Jeff Morgan &lt;kuzman@gm...&gt;
+		<a href="http://sourceforge.net/mailarchive/message.php?msg_id=11579838"><img src="owen.html_content/msg.gif" alt="" height="12" width="10"> Re: Some notes on Java-GNOME</a>
 		2005-04-25 18:42
 	</td>
 </tr>
@@ -232,24 +232,24 @@
 			<pre><pre> On 4/25/05, Owen Taylor &lt;otaylor@re...&gt; wrote:
  &gt; I spent some time looking at the Java-GNOME implementation this
  &gt; weekend, and had some concerns that I was pressed to write up.
- 
+
  First of all I would like to thank you very much for taking the time
  to look at Java-GNOME and express your concerns.   There are numerous
  areas where these bindings need improvement (perhaps significant
- rewrite).  Over the life of this project it has been a constant struggle 
+ rewrite).  Over the life of this project it has been a constant struggle
  trying to balance our need to improve the bindings, support our current
  users, and trying to stay somewhat current with the upstream libraries
  with our extremely limited developer resources.  Those who have been
  users of this project over that time will say that we have made constant
- steady (although slow) progress on all of those fronts.   Below I am 
+ steady (although slow) progress on all of those fronts.   Below I am
  going to try to comment on several of the items you listed.
- 
+
  &gt; Events
  &gt; ======
- &gt; 
+ &gt;
  &gt; There are two problems with signal handling ... one problem is that it
  &gt; is just clumsy:
- &gt; 
+ &gt;
  &gt;   button.addListener (new ButtonListener () {
  &gt;      public void buttonEvent (ButtonEvent event) {
  &gt;          if (event.isOfType(ButtonEvent.Type.CLICK) {
@@ -257,181 +257,181 @@
  &gt;          }
  &gt;      }
  &gt;   });
- 
- 
- The history of event handling in Java-GNOME is important here.  
- My initial attempt at signal handling was quite similar to the C 
+
+
+ The history of event handling in Java-GNOME is important here.
+ My initial attempt at signal handling was quite similar to the C
  implementation.  There was a collection of methods similar to:
- 
+
  public native int addEventHandler(String name, String func, Object cbrecv)
- 
+
  so the implementation for a button would be:
- 
+
  public void onClick() {
    System.out.println("Button was clicked");
  }
- 
+
  button.addEventHandler("clicked", "onClick", this);
- 
- As Java developers started to use the bindings I received many 
- comments stating that the event handling was not very "javalike" 
+
+ As Java developers started to use the bindings I received many
+ comments stating that the event handling was not very "javalike"
  meaning it was not like awt or swing.  After taking a poll of the users
- it was obvious that the majority of Java developers liked the listener 
- approach to events.  I proceeded to add this new approach but have 
- never deprecated the old style of event handling. 
- 
+ it was obvious that the majority of Java developers liked the listener
+ approach to events.  I proceeded to add this new approach but have
+ never deprecated the old style of event handling.
+
  &gt; Obviously, there is a syntax barrier for Java, but there is no real
- &gt; reason it couldn"t be:
- &gt; 
+ &gt; reason it couldn't be:
+ &gt;
  &gt;  button.connectClicked (new ButtonClickedListener () {
  &gt;     public void run(Button button) {
  &gt;       System.out.println("Button was clicked");
  &gt;     }
  &gt;  }
- &gt; 
+ &gt;
  &gt; Creating one helper class for each signal might be a bit
  &gt; expensive... there are other cheaper mechanisms with less type
  &gt; safety. For example:
- &gt; 
+ &gt;
  &gt;  button.connectClicked (new SignalListener () {
  &gt;     public Object run(Object[] args) {
  &gt;       System.out.println("Button was clicked");
  &gt;       return null;
  &gt;     }
  &gt;  }
- &gt; 
+ &gt;
  &gt; You could have convenience implementations predefined for common
  &gt; cases:
- &gt; 
+ &gt;
  &gt;  button.connectDestroyEvent (new EventListener () {
  &gt;     public boolean run(Widget widget, Event event) {
- &gt;        // show a "save changes dialog
+ &gt;        // show a save changes dialog
  &gt;        return true;
  &gt;     }
  &gt;  }
- &gt; 
+ &gt;
  &gt;  button.connectClicked (new SimpleListener () {
  &gt;     public void run(Object object) {
  &gt;        System.out.println("Button was clicked");
  &gt;     }
  &gt;  }
- &gt; 
+ &gt;
  &gt; Another approach would be to take the addEventHandler() approach
  &gt; that currently exists and extend it to use the closure data
  &gt; about argument types, so you could do something like:
- &gt; 
+ &gt;
  &gt;  button.connectDestroyEvent (new Object () {
  &gt;     public boolean destroyEvent(Widget widget, Event event) {
- &gt;        // show a "save changes dialog
+ &gt;        // show a save changes dialog
  &gt;        return true;
  &gt;     }
  &gt;  }
- 
+
  These are all interesting ideas.
- 
+
  &gt; What *all* of these share is that there is an algorithmic mapping to
  &gt; the underlying signals. That is the second problem with the current
  &gt; approach; there is no way that someone familiar with the C or Python
  &gt; interface on an object can guess the way the Java events are set up on
  &gt; that object.
- &gt; 
+ &gt;
  &gt; Not only does this make things hard on people who already know a
  &gt; GTK+ from a different language or are reading documentation that uses
  &gt; a different language, it also makes it impossible to do automatic
  &gt; generation of language bindings.
- 
+
  The automatic generation of language bindings is an interesting topic.
- Java-GNOME started out five years ago by generating all code (Java and 
+ Java-GNOME started out five years ago by generating all code (Java and
  JNI).  At that time there were many inconsistencies in gtk, etc (and my
- understand of those libraries was even less than it is today).  Over time 
+ understand of those libraries was even less than it is today).  Over time
  the code generation became so complex (to handle all of the exceptions)
- that it was not maintainable.  Eventually I made the change over to 
- manually writing the code.  Since that time the upstream libraries have 
- matured and I am quite interested in the introspection work being done.  
+ that it was not maintainable.  Eventually I made the change over to
+ manually writing the code.  Since that time the upstream libraries have
+ matured and I am quite interested in the introspection work being done.
  I must admit that I do not have enough time to be directly involved or
- contribute ideas.  I would like to be more involved but I guess it is not to 
+ contribute ideas.  I would like to be more involved but I guess it is not to
  be.  At some point I will find the time to learn the new API and try to see
  how it fits with Java-GNOME.
- 
- 
+
+
  &gt; Memory Management
  &gt; =================
- &gt; 
+ &gt;
  &gt; One problem with memory management in gtk-java can be
  &gt; expressed with a simple grep command:
- &gt; 
+ &gt;
  &gt;  libgtk-java$ find -name "*.c" | xargs grep g_object_unref
  &gt;  libgtk-java$
- &gt; 
+ &gt;
  &gt; If I create a PangoLayout object through the java-gnome APIs,
  &gt; there is no way it will ever be freed.
- 
+
  The original idea here (quite naive perhaps) was to have a running
  Java-GNOME application behave like a GTK C application with a thin
  Java veneer.  For GObjects we should construct them via their
- _new method and allow GTK to reclaim their memory when their 
+ _new method and allow GTK to reclaim their memory when their
  container destroyed them.  For objects that did not inherit from GObject
  we tried to research to determine who managed the memory
  (was this a struct returned from a Widget where the Widget
  was responsible for managing the memory or was the caller
  responsible for managing the memory).   I know we got some of
  this wrong.
- 
- &gt; But this isn"t the only problem with memory management of
+
+ &gt; But this isn't the only problem with memory management of
  &gt; GObject ...
- &gt; 
+ &gt;
  &gt;  Window window = new Window (WindowType.TOPLEVEL);
  &gt;  Button button = new Button ("Hello");
  &gt;  window.add (button);
  &gt;  window.remove (button);
  &gt;  window.add (button);
- &gt; 
+ &gt;
  &gt; Will segfault or at least produce warnings as the underlying
  &gt; GtkObject is freed when the button is removed from the window
  &gt; and the Java object is left holding an invalid pointer.
- 
+
  This is a problem we have discussed on several occasions.  Two
  issues have caused us to not address this problem; (1) we have
  not come up with a design that we feel is clean (robust?) and
  (2) we have not had the manpower to undertake such a massive
  change (the vast majority of the time this project has had 1-2
  part-time developers).
- 
+
  &gt; Fixing this, within the constraints of the JNI is admittedly not
- &gt; easy. In fact, I don"t know an entirely satisfactory way of doing so
- &gt; without extending GObject. (I"m going to propose such an addition to
+ &gt; easy. In fact, I don't know an entirely satisfactory way of doing so
+ &gt; without extending GObject. (I'm going to propose such an addition to
  &gt; GObject for 2.8.) But you can do somewhat better. For example,
  &gt; the approach that gtk# takes is to use strong reference from
  &gt; the CLR object to the GObject and a weak reference in the
  &gt; opposite direction.
- &gt; 
+ &gt;
  &gt; (The main problem of this is "denaturation"...  if you drop the last
  &gt; reference to a language object that is a subclass of Button, then
  &gt; if you get the object back from GTK+ what you get is a normal
  &gt; Button, not your subclass.)
- 
+
  Please - lets discuss this idea further.
- 
- 
+
+
  &gt; Completeness and Consistency of the Mapping
  &gt; ===========================================
- &gt; 
+ &gt;
  &gt; The Java-GNOME bindings seem largely done by hand. This approach
  &gt; is going to cause problems with both completeness and with
  &gt; consistency. A few examples:
- &gt; 
+ &gt;
  &gt;  pango_layout_set_wrap()
  &gt;  pango_layout_get_wrap()
  &gt;  pango_layout_set_justify()
  &gt;  pango_layout_get_justify()
- &gt; 
+ &gt;
  &gt; Are wrapped as:
- &gt; 
+ &gt;
  &gt;  Layout.setWrapStyle()
  &gt;  Layout.getWrapMode()
  &gt;  Layout.setJustification()
  &gt;  Layout.GetJustified()
- &gt; 
+ &gt;
  &gt; void pango_layout_set_markup            (PangoLayout    *layout,
  &gt;                                          const char     *markup,
  &gt;                                          int             length);
@@ -441,58 +441,58 @@
  &gt;                                          gunichar        accel_marker,
  &gt;                                          gunichar       *accel_char);
  &gt; are wrapped as:
- &gt; 
+ &gt;
  &gt;   public void setMarkup(String markup);
  &gt;   public void setMarkup(String markup,
  &gt;                         char   accelMarker); (*)
- 
+
  I am sad to see this (at the same time I must admit that I
  laughed when I saw the example you provided - it is sooo
  bad).  There has been a lot of work over the past couple
  of years trying to cleanup the bindings.  One of the first
- areas you would look at (pango) is one of the last areas 
+ areas you would look at (pango) is one of the last areas
  to be addressed (largely due to my shallow understanding
  of how pango works).  atk and pango are mentioned as
  two areas of focus during our current development cycle.
  We know there is still more work to do but I feel we are
  making good progress on this issue.
- 
- &gt; 
+
+ &gt;
  &gt; While using overloading might make sense here, where did the accel_char
  &gt; return from set_markup_with_accel() go?
- &gt; 
+ &gt;
  &gt; These examples are from PangoLayout, which is probably newer and rawer
- &gt; then much of Java-GNOME (after all, you can"t free one), but there are
+ &gt; then much of Java-GNOME (after all, you can't free one), but there are
  &gt; problems elsewhere as well. (gdk.Window.getWindowAt,
  &gt; gdk.Window.setTransientOf, for examples.)
- &gt; 
+ &gt;
  &gt; Any language binding is a compromise between sticking close to the
  &gt; library being bound and being truly natural in the language.
  &gt; Conceptually, GTK+ is composed of two pieces:
- &gt; 
+ &gt;
  &gt;  A) Pieces that are language bindable
  &gt;  B) Pieces that are C specific convenience glue
- &gt; 
+ &gt;
  &gt; The goal of the GTK+ design is that everything *can* be done using
  &gt; only A). I think a good goal for any language binding is that piece
  &gt; A) is transformed into the language in a way that is completely
  &gt; algorithmic and predictable and then, as necessary, language specific
  &gt; glue is added to make up for piece B).
- &gt; 
+ &gt;
  &gt; The introspection facilities in Glib/GTK+-2.8 will provide a canonical
  &gt; description of the GTK+ interfaces. I think it would be good
  &gt; if Java-GNOME could be switched at that point to be primarily
  &gt; autogenerated from the introspection information.
- &gt; 
- &gt; (*) Side note: char isn"t the right mapping for gunichar. It should
+ &gt;
+ &gt; (*) Side note: char isn't the right mapping for gunichar. It should
  &gt;     be int instead. See:
- &gt; 
+ &gt;
  &gt; <a href="http://java.sun.com/developer/technicalArticles/Intl/Supplementary/" target="_NEW">http://java.sun.com/developer/technicalArticles/Intl/Supplementary/</a>
- &gt; 
- &gt; [ Note: I"m not subscribed, so please Cc: me on any replies ]
- &gt; 
- &gt; 
- -- 
+ &gt;
+ &gt; [ Note: I'm not subscribed, so please Cc: me on any replies ]
+ &gt;
+ &gt;
+ --
  Jeffrey Morgan
 </pre></pre>
 		</td>
@@ -501,24 +501,24 @@
 <p>
 </p><table border="0" width="100%">
 	<tbody><tr>
-	<td bgcolor="#dddddd" nowrap="nowrap">From: Owen Taylor &lt;otaylor@re...&gt; 
-		<a href="http://sourceforge.net/mailarchive/message.php?msg_id=11585031"><img src="owen.html_content/msg.gif" alt="" height="12" width="10"> Re: Some notes on Java-GNOME</a>   
+	<td bgcolor="#dddddd" nowrap="nowrap">From: Owen Taylor &lt;otaylor@re...&gt;
+		<a href="http://sourceforge.net/mailarchive/message.php?msg_id=11585031"><img src="owen.html_content/msg.gif" alt="" height="12" width="10"> Re: Some notes on Java-GNOME</a>  
 		2005-04-26 07:32
 	</td>
 </tr>
 	<tr>
 		<td>
-			<pre><pre> 
- 
- 
+			<pre><pre>
+
+
  On Mon, 2005-04-25 at 21:42 -0400, Jeff Morgan wrote:
- 
+
  &gt; &gt; Events
  &gt; &gt; ======
- &gt; &gt; 
+ &gt; &gt;
  &gt; &gt; There are two problems with signal handling ... one problem is that it
  &gt; &gt; is just clumsy:
- &gt; &gt; 
+ &gt; &gt;
  &gt; &gt;   button.addListener (new ButtonListener () {
  &gt; &gt;      public void buttonEvent (ButtonEvent event) {
  &gt; &gt;          if (event.isOfType(ButtonEvent.Type.CLICK) {
@@ -526,146 +526,146 @@
  &gt; &gt;          }
  &gt; &gt;      }
  &gt; &gt;   });
- &gt; 
- &gt; 
- &gt; The history of event handling in Java-GNOME is important here.  
- &gt; My initial attempt at signal handling was quite similar to the C 
+ &gt;
+ &gt;
+ &gt; The history of event handling in Java-GNOME is important here.
+ &gt; My initial attempt at signal handling was quite similar to the C
  &gt; implementation.  There was a collection of methods similar to:
- &gt; 
+ &gt;
  &gt; public native int addEventHandler(String name, String func, Object cbrecv)
- &gt; 
+ &gt;
  &gt; so the implementation for a button would be:
- &gt; 
+ &gt;
  &gt; public void onClick() {
  &gt;   System.out.println("Button was clicked");
  &gt; }
- &gt; 
+ &gt;
  &gt; button.addEventHandler("clicked", "onClick", this);
- &gt; 
- &gt; As Java developers started to use the bindings I received many 
- &gt; comments stating that the event handling was not very "javalike" 
+ &gt;
+ &gt; As Java developers started to use the bindings I received many
+ &gt; comments stating that the event handling was not very "javalike"
  &gt; meaning it was not like awt or swing.  After taking a poll of the users
- &gt; it was obvious that the majority of Java developers liked the listener 
- &gt; approach to events.  I proceeded to add this new approach but have 
- &gt; never deprecated the old style of event handling. 
- 
+ &gt; it was obvious that the majority of Java developers liked the listener
+ &gt; approach to events.  I proceeded to add this new approach but have
+ &gt; never deprecated the old style of event handling.
+
  Not that I really know much about what is "javalike", but it does
  make sense to me that a typesafe approach using listener interfaces
  and delegate objects fits in better with Java expectations.
- 
+
  However, starting from that point, there seems to be a fair bit
  of wriggle room to do create something that is both convenient and
  can be mapped consistently onto the GTK+ signal system.
- 
- I don"t think signal handlers in GTK+ can work exactly like event
+
+ I don't think signal handlers in GTK+ can work exactly like event
  handlers in Swing ... even to the point of the name ... "Event"
  means something very specific in GDK and reusing it for something
  else is going to confuse things. But neither does widget layout
  in GTK+ work exactly like widget layout in Swing.
- 
+
  &gt; &gt; Not only does this make things hard on people who already know a
  &gt; &gt; GTK+ from a different language or are reading documentation that uses
  &gt; &gt; a different language, it also makes it impossible to do automatic
  &gt; &gt; generation of language bindings.
- &gt; 
+ &gt;
  &gt; The automatic generation of language bindings is an interesting topic.
- &gt; Java-GNOME started out five years ago by generating all code (Java and 
+ &gt; Java-GNOME started out five years ago by generating all code (Java and
  &gt; JNI).  At that time there were many inconsistencies in gtk, etc (and my
- &gt; understand of those libraries was even less than it is today).  Over time 
+ &gt; understand of those libraries was even less than it is today).  Over time
  &gt; the code generation became so complex (to handle all of the exceptions)
- &gt; that it was not maintainable.  Eventually I made the change over to 
- &gt; manually writing the code.  Since that time the upstream libraries have 
- &gt; matured and I am quite interested in the introspection work being done.  
+ &gt; that it was not maintainable.  Eventually I made the change over to
+ &gt; manually writing the code.  Since that time the upstream libraries have
+ &gt; matured and I am quite interested in the introspection work being done.
  &gt; I must admit that I do not have enough time to be directly involved or
- &gt; contribute ideas.  I would like to be more involved but I guess it is not to 
+ &gt; contribute ideas.  I would like to be more involved but I guess it is not to
  &gt; be.  At some point I will find the time to learn the new API and try to see
  &gt; how it fits with Java-GNOME.
- 
+
  What I hope we can do with the introspection work is turn the work
  of writing a language binding from one of writing a large amount of
  tedious code into one of writing a small amount of difficult code :-)
- 
+
  While the initial work may be harder, hopefully the job of continued
  maintenance will be much less.
- 
+
  &gt; &gt; Memory Management
  &gt; &gt; =================
- &gt; &gt; 
+ &gt; &gt;
  &gt; &gt; One problem with memory management in gtk-java can be
  &gt; &gt; expressed with a simple grep command:
- &gt; &gt; 
+ &gt; &gt;
  &gt; &gt;  libgtk-java$ find -name "*.c" | xargs grep g_object_unref
  &gt; &gt;  libgtk-java$
- &gt; &gt; 
+ &gt; &gt;
  &gt; &gt; If I create a PangoLayout object through the java-gnome APIs,
  &gt; &gt; there is no way it will ever be freed.
- &gt; 
+ &gt;
  &gt; The original idea here (quite naive perhaps) was to have a running
  &gt; Java-GNOME application behave like a GTK C application with a thin
  &gt; Java veneer.  For GObjects we should construct them via their
- &gt; _new method and allow GTK to reclaim their memory when their 
+ &gt; _new method and allow GTK to reclaim their memory when their
  &gt; container destroyed them.  For objects that did not inherit from GObject
  &gt; we tried to research to determine who managed the memory
  &gt; (was this a struct returned from a Widget where the Widget
  &gt; was responsible for managing the memory or was the caller
  &gt; responsible for managing the memory).   I know we got some of
  &gt; this wrong.
- 
- Hmm, as long as the C program doesn"t require g_object_ref/unref
- this works. But for something like PangoLayout, or GdkGC, or 
+
+ Hmm, as long as the C program doesn't require g_object_ref/unref
+ this works. But for something like PangoLayout, or GdkGC, or
  many other non-widget GObjects, a C program needs to call
- ref() and unref() itself to manage the memory. 
- 
- Now, you could bind g_object_unref() and expose it to Java 
- programs, but all the other language bindings I"m familiar with 
+ ref() and unref() itself to manage the memory.
+
+ Now, you could bind g_object_unref() and expose it to Java
+ programs, but all the other language bindings I'm familiar with
  have tried to make things more automatic (and thus more robust)
  than that.
- 
- &gt; 
- &gt; &gt; But this isn"t the only problem with memory management of
+
+ &gt;
+ &gt; &gt; But this isn't the only problem with memory management of
  &gt; &gt; GObject ...
- &gt; &gt; 
+ &gt; &gt;
  &gt; &gt;  Window window = new Window (WindowType.TOPLEVEL);
  &gt; &gt;  Button button = new Button ("Hello");
  &gt; &gt;  window.add (button);
  &gt; &gt;  window.remove (button);
  &gt; &gt;  window.add (button);
- &gt; &gt; 
+ &gt; &gt;
  &gt; &gt; Will segfault or at least produce warnings as the underlying
  &gt; &gt; GtkObject is freed when the button is removed from the window
  &gt; &gt; and the Java object is left holding an invalid pointer.
- &gt; 
+ &gt;
  &gt; This is a problem we have discussed on several occasions.  Two.
  &gt; issues have caused us to not address this problem; (1) we have
  &gt; not come up with a design that we feel is clean (robust?) and
  &gt; (2) we have not had the manpower to undertake such a massive
  &gt; change (the vast majority of the time this project has had 1-2
  &gt; part-time developers).
- 
+
  I think you could do some basic fixes for memory management of
  GObject without affecting most of your code.
- 
+
  [...]
- 
+
  &gt; cy of the Mapping
  &gt; &gt; ===========================================
- &gt; &gt; 
+ &gt; &gt;
  &gt; &gt; The Java-GNOME bindings seem largely done by hand. This approach
  &gt; &gt; is going to cause problems with both completeness and with
  &gt; &gt; consistency. A few examples:
- &gt; &gt; 
+ &gt; &gt;
  &gt; &gt;  pango_layout_set_wrap()
  &gt; &gt;  pango_layout_get_wrap()
  &gt; &gt;  pango_layout_set_justify()
  &gt; &gt;  pango_layout_get_justify()
- &gt; &gt; 
+ &gt; &gt;
  &gt; &gt; Are wrapped as:
- &gt; &gt; 
+ &gt; &gt;
  &gt; &gt;  Layout.setWrapStyle()
  &gt; &gt;  Layout.getWrapMode()
  &gt; &gt;  Layout.setJustification()
  &gt; &gt;  Layout.GetJustified()
- &gt; &gt; 
+ &gt; &gt;
  &gt; &gt; void pango_layout_set_markup            (PangoLayout    *layout,
  &gt; &gt;                                          const char     *markup,
  &gt; &gt;                                          int             length);
@@ -675,31 +675,31 @@
  &gt; &gt;                                          gunichar        accel_marker,
  &gt; &gt;                                          gunichar       *accel_char);
  &gt; &gt; are wrapped as:
- &gt; &gt; 
+ &gt; &gt;
  &gt; &gt;   public void setMarkup(String markup);
  &gt; &gt;   public void setMarkup(String markup,
  &gt; &gt;                         char   accelMarker); (*)
- &gt; 
+ &gt;
  &gt; I am sad to see this (at the same time I must admit that I
  &gt; laughed when I saw the example you provided - it is sooo
  &gt; bad).  There has been a lot of work over the past couple
  &gt; of years trying to cleanup the bindings.  One of the first
- &gt; areas you would look at (pango) is one of the last areas 
+ &gt; areas you would look at (pango) is one of the last areas
  &gt; to be addressed (largely due to my shallow understanding
  &gt; of how pango works).  atk and pango are mentioned as
  &gt; two areas of focus during our current development cycle.
  &gt; We know there is still more work to do but I feel we are
  &gt; making good progress on this issue.
- 
- I don"t mean to pick on PangoLayout in particular, it just happened
+
+ I don't mean to pick on PangoLayout in particular, it just happened
  to be the class I picked to review, since I have it more memorized
  than much of the rest of GTK.
- 
+
  My point was mostly that with a manually maintained binding, you
- have to become an expert in everybody"s favorite widget ... with
+ have to become an expert in everybody's favorite widget ... with
  more automation, hopefully the PangoLayout binding can be right
  with almost no specific work.
- 
+
  Regards,
  						Owen
 </pre>
@@ -710,8 +710,8 @@
 <p>
 </p><table border="0" width="100%">
 	<tbody><tr>
-	<td bgcolor="#dddddd" nowrap="nowrap">From: Jeff Morgan &lt;kuzman@gm...&gt; 
-		<a href="http://sourceforge.net/mailarchive/message.php?msg_id=11589040"><img src="owen.html_content/msg.gif" alt="" height="12" width="10"> Re: Some notes on Java-GNOME</a>   
+	<td bgcolor="#dddddd" nowrap="nowrap">From: Jeff Morgan &lt;kuzman@gm...&gt;
+		<a href="http://sourceforge.net/mailarchive/message.php?msg_id=11589040"><img src="owen.html_content/msg.gif" alt="" height="12" width="10"> Re: Some notes on Java-GNOME</a>  
 		2005-04-26 13:30
 	</td>
 </tr>
@@ -731,64 +731,64 @@
  &gt; &gt; contribute ideas.  I would like to be more involved but I guess it is not to
  &gt; &gt; be.  At some point I will find the time to learn the new API and try to see
  &gt; &gt; how it fits with Java-GNOME.
- &gt; 
+ &gt;
  &gt; What I hope we can do with the introspection work is turn the work
  &gt; of writing a language binding from one of writing a large amount of
  &gt; tedious code into one of writing a small amount of difficult code :-)
- &gt; 
+ &gt;
  &gt; While the initial work may be harder, hopefully the job of continued
  &gt; maintenance will be much less.
- 
- Owen, I could not agree more with this goal.  
- 
- &gt; I don"t mean to pick on PangoLayout in particular, it just happened
+
+ Owen, I could not agree more with this goal.
+
+ &gt; I don't mean to pick on PangoLayout in particular, it just happened
  &gt; to be the class I picked to review, since I have it more memorized
  &gt; than much of the rest of GTK.
- &gt; 
+ &gt;
  &gt; My point was mostly that with a manually maintained binding, you
- &gt; have to become an expert in everybody"s favorite widget ... with
+ &gt; have to become an expert in everybody's favorite widget ... with
  &gt; more automation, hopefully the PangoLayout binding can be right
  &gt; with almost no specific work.
- 
- The key to a successful bindings implementation based upon code 
- generation is to, as you stated above,  generate as much of the code 
+
+ The key to a successful bindings implementation based upon code
+ generation is to, as you stated above,  generate as much of the code
  as possible (remove most if not all of the tedious work).  At the same
  time it is critical that the development team has the flexibility to shape
- the final public API.  For Java-GNOME this means that you would 
- definitely generate the JNI binding code and the Java native method 
+ the final public API.  For Java-GNOME this means that you would
+ definitely generate the JNI binding code and the Java native method
  declarations (this is not that difficult).  Generation of the public API is
  a harder nut to crack.
- 
+
  There are several approaches to consider for the public API generation:
- 
+
  The peanut version - Do not generate any of the public API.  This allows
  the most flexibility for the API design but still has the developer performing
  a lot of tedious work and we are subject to inconsistencies (human error).
  For Java-GNOME the structure would look something like:
- 
+
  Button.c   --&gt; generated JNI layer
  GtkButton.java  --&gt; generated native declarations for JNI layer
  Button.java  --&gt; Hand coded public API that delegates all native calls to
      GtkButton.
- 
- 
+
+
  The cashew version - Generate all of the public API.  This provides less
  flexibility for the API design.  It does eliminate the need for all of the
  tedious work.  If done right developers could then take the resulting
  code and add additional methods to the classes to enhance the
  overall usability of the bindings.  For Java-GNOME the structure
  would look like:
- 
+
  Button.c  --&gt; generated JNI layer
  GtkButton.java  --&gt; generated native declarations for JNI and generated
      public API.  This class would maintain the GObject hierarchy.
  Button.java  --&gt; Class that inherits from GtkButton (thus exposing all of
      the generated public API) which can be used to add additional capabilities.
- 
+
  It would also be possible to merge GtkButton and Button into a single class
  by having the generator merge generated and non-generated code.
- 
- 
+
+
  The walnut version - Generate the JNI code and Java native declarations.
  Also generate the public API using a style sheet concept for the code.
  The style sheet would include information such as whether a specific native
@@ -804,24 +804,24 @@
  create the initial style sheet for you.  The generator could also perform a
  merge when the API for a widget changes.  In Java-GNOME the structure
  would be similar to the cashew version.
- 
- 
+
+
  There is another problem that exists.  Since we are part of the platform
  bindings we have to adhere to API stability rules.  It is likely that the
  generated code (if we generate to public API) will not exactly match
  our current API (we can only hope).  How can this be handled?
- 
- 
+
+
  Of course all of this depends upon the introspection work and our decision
  to move in this direction.  I know introspection is going to be included
- in gtk 2.8 but code generation is currently not even on our radar. I am 
+ in gtk 2.8 but code generation is currently not even on our radar. I am
  putting these ideas forward for discussion purposes only at this time.
- 
+
  -Jeff
 </pre>
 			</pre>
-			
-			
+
+
 		</td>
 	</tr>
 </tbody></table>
@@ -829,214 +829,214 @@
 <p>
 </p><table border="0" width="100%">
 	<tbody><tr>
-	<td bgcolor="#dddddd" nowrap="nowrap">From: Joao Victor &lt;jvital@gm...&gt; 
-		<a href="http://sourceforge.net/mailarchive/message.php?msg_id=11583770"><img src="owen.html_content/msg.gif" alt="" height="12" width="10"> Re: Some notes on Java-GNOME</a>   
+	<td bgcolor="#dddddd" nowrap="nowrap">From: Joao Victor &lt;jvital@gm...&gt;
+		<a href="http://sourceforge.net/mailarchive/message.php?msg_id=11583770"><img src="owen.html_content/msg.gif" alt="" height="12" width="10"> Re: Some notes on Java-GNOME</a>  
 		2005-04-26 05:40
 	</td>
 </tr>
 	<tr>
 		<td>
 			<pre><pre> Hey, thanks for the suggestions/problems pointed out.... now some comments:
- 
+
  &gt; Events
  &gt; ======
  &gt; [...]
- 
- I"m glad you brought this up; a couple of months ago we actually had a
+
+ I'm glad you brought this up; a couple of months ago we actually had a
  quick discussion over this, and i think everybody kinda agreed that
  the best way would be to make Adapter classes
  (<a href="http://sourceforge.net/mailarchive/message.php?msg_id=10900057" target="_NEW">http://sourceforge.net/mailarchive/message.php?msg_id=10900057</a>).
- 
- We just haven"t had the time yet to sit and really *decide* what we"re
+
+ We just haven't had the time yet to sit and really *decide* what we're
  going to do about it; maybe this is time now we should decide...
- 
+
  &gt; Memory Management
  &gt; =================
  &gt; [...]
  &gt; One problem with memory management in gtk-java can be
  &gt; expressed with a simple grep command:
  &gt; Fixing this, within the constraints of the JNI is admittedly not
- &gt; easy. In fact, I don"t know an entirely satisfactory way of doing so
- &gt; without extending GObject. (I"m going to propose such an addition to
+ &gt; easy. In fact, I don't know an entirely satisfactory way of doing so
+ &gt; without extending GObject. (I'm going to propose such an addition to
  &gt; GObject for 2.8.) But you can do somewhat better. For example,
  &gt; the approach that gtk# takes is to use strong reference from
  &gt; the CLR object to the GObject and a weak reference in the
  &gt; opposite direction.
- 
+
  Hmmm... we should think of some way to address this issue. I think i
- didn"t understand very well what you said about what gtk# does; that
- is, what"s the weak reference in the opposite direction? I need to
+ didn't understand very well what you said about what gtk# does; that
+ is, what's the weak reference in the opposite direction? I need to
  investigate this....
- 
+
  &gt; Completeness and Consistency of the Mapping
  &gt; ===========================================
- &gt; 
+ &gt;
  &gt; The Java-GNOME bindings seem largely done by hand. This approach
  &gt; is going to cause problems with both completeness and with
  &gt; consistency. A few examples:
  &gt; [...]
- 
+
  Awwww some "horrible" examples you picked there :P Ok, what you
- pointed out are definitely bugs which need to be fixed... i"m going to
+ pointed out are definitely bugs which need to be fixed... i'm going to
  file a bug report on that.
- 
+
  Jeff, i think we should write some guidelines/recommendations in the
  wiki about doing the bindings; you know, what method names to choose,
  etc.
- 
+
  Cheers,
  J.V.
 </pre>
 			</pre>
-			
-			
+
+
 		</td>
 	</tr>
 </tbody></table>
 <p>
 </p><table border="0" width="100%">
 	<tbody><tr>
-	<td bgcolor="#dddddd" nowrap="nowrap">From: Owen Taylor &lt;otaylor@re...&gt; 
-		<a href="http://sourceforge.net/mailarchive/message.php?msg_id=11586388"><img src="owen.html_content/msg.gif" alt="" height="12" width="10"> Re: Some notes on Java-GNOME</a>   
+	<td bgcolor="#dddddd" nowrap="nowrap">From: Owen Taylor &lt;otaylor@re...&gt;
+		<a href="http://sourceforge.net/mailarchive/message.php?msg_id=11586388"><img src="owen.html_content/msg.gif" alt="" height="12" width="10"> Re: Some notes on Java-GNOME</a>  
 		2005-04-26 06:44
 	</td>
 </tr>
 	<tr>
 		<td>
-			<pre><pre> 
- 
- 
+			<pre><pre>
+
+
  On Tue, 2005-04-26 at 12:40 +0000, Joao Victor wrote:
  &gt; Hey, thanks for the suggestions/problems pointed out.... now some comments:
- &gt; 
+ &gt;
  &gt; &gt; Events
  &gt; &gt; ======
  &gt; &gt; [...]
- &gt; 
- &gt; I"m glad you brought this up; a couple of months ago we actually had a
+ &gt;
+ &gt; I'm glad you brought this up; a couple of months ago we actually had a
  &gt; quick discussion over this, and i think everybody kinda agreed that
  &gt; the best way would be to make Adapter classes
  &gt; (<a href="http://sourceforge.net/mailarchive/message.php?msg_id=10900057" target="_NEW">http://sourceforge.net/mailarchive/message.php?msg_id=10900057</a>).
- 
- Something along those lines occurred to me, and having a 
+
+ Something along those lines occurred to me, and having a
  WidgetListener interface with all the different callbacks for
- Widget has a certain elegance, but there are some sticky 
+ Widget has a certain elegance, but there are some sticky
  points as well:
- 
+
  One problem I see is that you lose a lot of compile time
- safety ... 
- 
+ safety ...
+
   widget.addListener (new WidgetAdapter() {
     boolean destroy (Widget widget, event e) {
         return false;
      }
-  } 
- 
+  }
+
  Will compile correctly, but do nothing or throw an exception
- at runtime (should be destroyEvent). You haven"t gained very
+ at runtime (should be destroyEvent). You haven't gained very
  much over the addEventHandler() approach in terms of type safety.
  WidgetAdapter() above might as well be Object(). (*)
- 
+
  On the GTK+ side, the problem with the code above is that Java-GNOME
  will have to connect to all 60+ signals on Widget to get one signal.
  This is horribly inefficient, and also can in some cases cause semantic
  changes (look at the input/output signals on GtkSpinButton.) Java-GNOME
  has this problem currently to some extent with things like
  ButtonListener.
- 
+
  Maybe you could use introspection to figure out what methods
  of WidgetAdapter have been overridden and just connect those signals.
- Failing that, you"d need to do something like:
- 
+ Failing that, you'd need to do something like:
+
   widget.addDestroyEventListener (new WidgetAdapter() {
      boolean destroyEvent (Widget widget, event e) {
         return false;
      }
-  } 
- 
- Which isn"t too bad though it creates further problems not caught
+  }
+
+ Which isn't too bad though it creates further problems not caught
  at compile-time.
- 
+
  &gt; &gt; Memory Management
  &gt; &gt; =================
  &gt; &gt; [...]
  &gt; &gt; One problem with memory management in gtk-java can be
  &gt; &gt; expressed with a simple grep command:
  &gt; &gt; Fixing this, within the constraints of the JNI is admittedly not
- &gt; &gt; easy. In fact, I don"t know an entirely satisfactory way of doing so
- &gt; &gt; without extending GObject. (I"m going to propose such an addition to
+ &gt; &gt; easy. In fact, I don't know an entirely satisfactory way of doing so
+ &gt; &gt; without extending GObject. (I'm going to propose such an addition to
  &gt; &gt; GObject for 2.8.) But you can do somewhat better. For example,
  &gt; &gt; the approach that gtk# takes is to use strong reference from
  &gt; &gt; the CLR object to the GObject and a weak reference in the
  &gt; &gt; opposite direction.
- &gt; 
+ &gt;
  &gt; Hmmm... we should think of some way to address this issue. I think i
- &gt; didn"t understand very well what you said about what gtk# does; that
- &gt; is, what"s the weak reference in the opposite direction? I need to
+ &gt; didn't understand very well what you said about what gtk# does; that
+ &gt; is, what's the weak reference in the opposite direction? I need to
  &gt; investigate this....
- 
+
  Currently, what Java-GNOME does is have a strong reference from GObject
  to Java object. Graphically:
- 
+
               |
      Proxy  &lt;---  GObject
               |
- 
+
  As long as the GObject stays alive, the proxy stays alive. But the
  reverse is generally more important. If you only had the link in the
  opposite direction
- 
+
               |
      Proxy   ---&gt;  GObject
               |
- 
+
  It would work OK for things like PangoLayout, but other things become
  strange ... say you have a subclass of Window, MyWindow.
- 
+
   mywindow.add(button);
   window2 = button.getParent();
- 
+
  Then window2 is a Window not a  MyWindow. Creating both references
  strong causes memory leaks (see my toggle references mail). An
  almost-as-good approach is to use a weak reference in from the GObject
  to the Proxy object.
- 
+
              |
-    Proxy  &lt;---  GObject 
+    Proxy  &lt;---  GObject
             ...&gt;
              |
- 
+
  The "..." represents a weak reference. You could implement the weak
  reference with a JNI global weak reference (it would clear a pointer
  stored in the GObjects object data)  or out of the finalizer
  of the Proxy object. (it would clear an object data key)... either
  way the idea is that we can go back from GObject to Proxy object as
  long as the Proxy object is still kept alive from Java.
- 
+
  The main problem with this is that if all Java references to the Proxy
  go away, then the Proxy is freed, and if recreated from the GObject , it
  will be a Window not a MyWindow and will have lost any data fields
  in the object.
- 
+
  Regards,
  						Owen
- 
+
  (*) You do gain a little bit ...I originally was going to mess up the
      return value instead of the function name, but it occurred to
-     me that that would be caught since you can"t overload on return
+     me that that would be caught since you can't overload on return
      type.
 </pre>
 			</pre>
-			
-			
+
+
 		</td>
 	</tr>
 </tbody></table>
 <p>
 </p><table border="0" width="100%">
 	<tbody><tr>
-	<td bgcolor="#dddddd" nowrap="nowrap">From: Joao Victor &lt;jvital@gm...&gt; 
-		<a href="http://sourceforge.net/mailarchive/message.php?msg_id=11583771"><img src="owen.html_content/msg.gif" alt="" height="12" width="10"> Re: Some notes on Java-GNOME</a>   
+	<td bgcolor="#dddddd" nowrap="nowrap">From: Joao Victor &lt;jvital@gm...&gt;
+		<a href="http://sourceforge.net/mailarchive/message.php?msg_id=11583771"><img src="owen.html_content/msg.gif" alt="" height="12" width="10"> Re: Some notes on Java-GNOME</a>  
 		2005-04-26 06:33
 	</td>
 </tr>
@@ -1048,28 +1048,28 @@
  &gt;  window.add (button);
  &gt;  window.remove (button);
  &gt;  window.add (button);
- &gt; 
+ &gt;
  &gt; Will segfault or at least produce warnings as the underlying
  &gt; GtkObject is freed when the button is removed from the window
  &gt; and the Java object is left holding an invalid pointer.
- 
+
  If we "float" the object in the gtk.Button constructor, and unref it
  in the gtk.Button.finalize() method, would it solve this problem?
- 
+
  Cheers,
  J.V.
 </pre>
 			</pre>
-			
-			
+
+
 		</td>
 	</tr>
 </tbody></table>
 <p>
 </p><table border="0" width="100%">
 	<tbody><tr>
-	<td bgcolor="#dddddd" nowrap="nowrap">From: Mark Howard &lt;mh@ti...&gt; 
-		<a href="http://sourceforge.net/mailarchive/message.php?msg_id=11586389"><img src="owen.html_content/msg.gif" alt="" height="12" width="10"> Re: Some notes on Java-GNOME</a>   
+	<td bgcolor="#dddddd" nowrap="nowrap">From: Mark Howard &lt;mh@ti...&gt;
+		<a href="http://sourceforge.net/mailarchive/message.php?msg_id=11586389"><img src="owen.html_content/msg.gif" alt="" height="12" width="10"> Re: Some notes on Java-GNOME</a>  
 		2005-04-26 06:57
 	</td>
 </tr>
@@ -1078,13 +1078,13 @@
 			<pre><pre> Quoting Joao Victor &lt;jvital@gm...&gt;:
  &gt; If we "float" the object in the gtk.Button constructor, and unref it
  &gt; in the gtk.Button.finalize() method, would it solve this problem?
- 
+
  If by "float" you mean g_object_ref, then no. We would have a java reference
  from the gobject to the java object for the signal handler, so neither object
  would be freed.
  We must have a standard reference from gobject to java object to allow for
  anonymous classes as callbacks.
- 
+
  --
     .""`. Mark Howard
    : :" :
@@ -1092,23 +1092,23 @@
      `-   mh@de... | mh@ti...
 </pre>
 			</pre>
-			
-			
+
+
 		</td>
 	</tr>
 </tbody></table><p>
 </p><table border="0" width="100%">
 	<tbody><tr>
-	<td bgcolor="#dddddd" nowrap="nowrap">From: Owen Taylor &lt;otaylor@re...&gt; 
-		<a href="http://sourceforge.net/mailarchive/message.php?msg_id=11586390"><img src="owen.html_content/msg.gif" alt="" height="12" width="10"> Re: Some notes on Java-GNOME</a>   
+	<td bgcolor="#dddddd" nowrap="nowrap">From: Owen Taylor &lt;otaylor@re...&gt;
+		<a href="http://sourceforge.net/mailarchive/message.php?msg_id=11586390"><img src="owen.html_content/msg.gif" alt="" height="12" width="10"> Re: Some notes on Java-GNOME</a>  
 		2005-04-26 07:00
 	</td>
 </tr>
 	<tr>
 		<td>
-			<pre><pre> 
- 
- 
+			<pre><pre>
+
+
  On Tue, 2005-04-26 at 13:33 +0000, Joao Victor wrote:
  &gt; 2005/4/25, Owen Taylor &lt;otaylor@re...&gt;:
  &gt; &gt;  Window window = new Window (WindowType.TOPLEVEL);
@@ -1116,57 +1116,57 @@
  &gt; &gt;  window.add (button);
  &gt; &gt;  window.remove (button);
  &gt; &gt;  window.add (button);
- &gt; &gt; 
+ &gt; &gt;
  &gt; &gt; Will segfault or at least produce warnings as the underlying
  &gt; &gt; GtkObject is freed when the button is removed from the window
  &gt; &gt; and the Java object is left holding an invalid pointer.
- &gt; 
+ &gt;
  &gt; If we "float" the object in the gtk.Button constructor, and unref it
  &gt; in the gtk.Button.finalize() method, would it solve this problem?
- 
+
  I think you mean "sink". If you do that and leave the current JNI
- global reference, you"ll create a memory leak, because the GObject
+ global reference, you'll create a memory leak, because the GObject
  will reference the Java object and vice versa.
- 
+
  So you need to *also* do something like make the reference from GObject
  to the Java object weak (see my last mail)
- 
+
  Regards,
  					Owen
 </pre>
 			</pre>
-			
-			
+
+
 		</td>
 	</tr>
 </tbody></table>
 <p>
 </p><table border="0" width="100%">
 	<tbody><tr>
-	<td bgcolor="#dddddd" nowrap="nowrap">From: Owen Taylor &lt;otaylor@re...&gt; 
-		<a href="http://sourceforge.net/mailarchive/message.php?msg_id=12873373"><img src="owen.html_content/msg.gif" alt="" height="12" width="10"> Signals redux [was Re: Some notes on Java-GNOME]</a>   
+	<td bgcolor="#dddddd" nowrap="nowrap">From: Owen Taylor &lt;otaylor@re...&gt;
+		<a href="http://sourceforge.net/mailarchive/message.php?msg_id=12873373"><img src="owen.html_content/msg.gif" alt="" height="12" width="10"> Signals redux [was Re: Some notes on Java-GNOME]</a>  
 		2005-09-07 06:46
 	</td>
 </tr>
 	<tr>
 		<td>
-			<pre><pre> 
- 
- 
+			<pre><pre>
+
+
  [ This was held for moderation since I wasn't subscribed. Reposting,
    hopefully people won't get duplicate copies later ]
- 
+
  I did some more fooling around today, and wanted to revisit an old
  discussion:
- 
+
  On Mon, 2005-04-25 at 15:36 -0400, Owen Taylor wrote:
- 
+
  &gt; Events
  &gt; ======
- &gt; 
+ &gt;
  &gt; There are two problems with signal handling ... one problem is that it
  &gt; is just clumsy:
- &gt; 
+ &gt;
  &gt;   button.addListener (new ButtonListener () {
  &gt;      public void buttonEvent (ButtonEvent event) {
  &gt;          if (event.isOfType(ButtonEvent.Type.CLICK) {
@@ -1174,125 +1174,125 @@
  &gt;          }
  &gt;      }
  &gt;   });
- &gt; 
+ &gt;
  &gt; In Python, say, this is:
- &gt; 
+ &gt;
  &gt;  def onClick (button):
  &gt;     print "Button was clicked";
- &gt;  
+ &gt;
  &gt;  button.connect ("clicked", onClick);
- &gt; 
- &gt; Obviously, there is a syntax barrier for Java, but there is no real 
+ &gt;
+ &gt; Obviously, there is a syntax barrier for Java, but there is no real
  &gt; reason it couldn't be:
- &gt; 
+ &gt;
  &gt;  button.connectClicked (new ButtonClickedListener () {
  &gt;     public void run(Button button) {
  &gt;       System.out.println("Button was clicked");
- &gt;     }  
+ &gt;     }
  &gt;  }
- &gt; 
+ &gt;
  &gt; Creating one helper class for each signal might be a bit
  &gt; expensive... there are other cheaper mechanisms with less type
  &gt; safety. [...]
- 
+
  With some more thought I think it can be even nicer than the above:
- 
+
   button.connect(new Button.Clicked() {
       public void clicked(Button button) {
           System.out.println("Button was clicked");
       }
   });
- 
+
  Using a nested interface removes much of the clutter when browsing the
  class hierarchy and in import statements. Method overloading also helps.
  The signal name is reused for the callback method to for greater
  flexibility; a delegate can be used for multiple signals. (Maybe use
  'onClicked' rather than 'clicked' as the method name?)
- 
+
  Is this approach expensive? Some quick testing indicates that the
  overhead for doing signals this way is about 350 bytes per signal
  definition (in the compressed jar file). Since there are &lt; 250 public
  signals in GTK+, that's about 90k overall. I doubt other approaches are
  significantly cheaper.
- 
+
  (I'm assuming an implementation done with GObject and Java
- introspection; if per-signal native marshalers are used, then the 
+ introspection; if per-signal native marshalers are used, then the
  code-size overhead is, of course, more.)
- 
+
  So, to review:
- 
+
   - Consistent and predictable mapping from GTK+ signals. (Noticed today
     that the basic ::destroy signal wasn't bound in libgtk-java,
     LifeCycleEvent.Type.DESTROY is actually ::destroy-event...)
- 
+
   - Reasonably compact syntax
- 
+
   - Allows more efficient implementation than the current system or
-    adapter classes since we never have to connect to unnecessary 
+    adapter classes since we never have to connect to unnecessary
     signals.
- 
+
   - While the approach isn't AWT-like, or Swing-like, it seems OK on
     being Java-like. And will remove the announce of Eclipse quick-fix
     wanting to import java.awt.event.MouseListener rather than
     org.gnu.gtk.MouseListener :-)
- 
+
  Regards,
  						Owen
 </pre>
 			</pre>
-			
-			
+
+
 		</td>
 	</tr>
 </tbody></table>
 <p>
 </p><table border="0" width="100%">
 	<tbody><tr>
-	<td bgcolor="#dddddd" nowrap="nowrap">From: Ben Konrath &lt;ben@ba...&gt; 
+	<td bgcolor="#dddddd" nowrap="nowrap">From: Ben Konrath &lt;ben@ba...&gt;
 		<a href="http://sourceforge.net/mailarchive/message.php?msg_id=13091009"><img src="owen.html_content/msg.gif" alt="" height="12" width="10"> Re: Signals redux [was Re: Some notes on
-    Java-GNOME]</a>   
+    Java-GNOME]</a>  
 		2005-09-26 18:06
 	</td>
 </tr>
 	<tr>
 		<td>
-			<pre><pre> 
- 
- 
- Hi, 
- 
+			<pre><pre>
+
+
+ Hi,
+
  On Wed, 2005-07-09 at 09:46 -0400, Owen Taylor wrote:
  &lt;snip&gt;
  &gt;  - While the approach isn't AWT-like, or Swing-like, it seems OK on
  &gt;    being Java-like. And will remove the announce of Eclipse quick-fix
  &gt;    wanting to import java.awt.event.MouseListener rather than
  &gt;    org.gnu.gtk.MouseListener :-)
- 
+
  You can stop this from happening by adding an access rule to your
  project settings that forbids access to awt classes - this is what I did
  in the Java-GNOME plugin. You can do this as follows:
- 
+
  Right click on the JRE System Library in your project -&gt; Build Path -&gt;
  Configure Build path ... -&gt; Libraries tab -&gt; expand the JRE System
  Library -&gt; "Access rules" -&gt; "Edit ..." -&gt; "Add ..." -&gt; select Forbidden
  in the "Resolution" combo and then add **/awt/** to the "Rule Pattern"
- 
+
  I realize this isn't your main point, I just thought I'd let you know
  how to make your life a little easier with eclipse :)
- 
+
  Cheers, Ben
 </pre>
 			</pre>
-			
-			
+
+
 		</td>
 	</tr>
 </tbody></table>
 <p>
 </p><table border="0" width="100%">
 	<tbody><tr>
-	<td bgcolor="#dddddd" nowrap="nowrap">From: Andrew Cowie &lt;andrew@op...&gt; 
-		<a href="http://sourceforge.net/mailarchive/message.php?msg_id=13725566"><img src="owen.html_content/msg.gif" alt="" height="12" width="10"> Re: Signals redux</a>   
+	<td bgcolor="#dddddd" nowrap="nowrap">From: Andrew Cowie &lt;andrew@op...&gt;
+		<a href="http://sourceforge.net/mailarchive/message.php?msg_id=13725566"><img src="owen.html_content/msg.gif" alt="" height="12" width="10"> Re: Signals redux</a>  
 		2005-11-01 22:11
 	</td>
 </tr>
@@ -1301,87 +1301,87 @@
 			<pre><pre> A long time ago, on Mon, 2005-05-09 at 14:44 -0400, Owen Taylor wrote:
  &gt; I did some more fooling around today, and wanted to revisit an old
  &gt; discussion: [signal handling]
- 
+
  I've been saving this message for a long time, hoping I'd have a chance
  to address it. So it's been almost 6 months. Oh well. First I'll write
  my views on the subject, then inline reply to some of his comments.
- 
+
  Owen's basic concern seems to be the verbosity and clumsiness of the
  Listener/Event pattern. When I first saw this pattern in java-gnome, I
  freaked, something along the lines of "Oh my lord, what the hell is
  this?" :)
- 
+
  But my GUI programming in Java predates Java 1.1. When I learned AWT, it
  used a very basic event handling pattern. One of the reasons I never did
  port that code from Java 1.0.2 (we're talking 1998 here) was that I was
  completely mystified by the Listener/Event thing that the AWT in Java
  1.1 introduced.
- 
+
  ... time ... passes ...
- 
+
  As I understand it from Mark Howard and Jeff Morgan, they added the
  Listener/Event pattern for signal handling to Java because they felt it
  was the more familiar idiom for experienced Java programmer, especially
- those coming from Swing or AWT. 
- 
+ those coming from Swing or AWT.
+
  I believe that this was absolutely the correct decision to make. In
  fact, as I've looked around a bit (and over enterprise code that I've
  run (though didn't write - I'm an operations guy) I've realized just how
  prevalent this pattern is in the Java world. It's everywhere - EJB, JMS,
  all over the J2EE stack.
- 
+
  And so, even though it's somewhat (ok, very) cumbersome **especially
  from the viewpoint of someone coming from the GTK C world**, it is
  natural indeed for someone coming from the Java world, and that
  (unscientifically) is the bulk of our userbase.
- 
+
  ++
- 
+
  Ok. So I've said that it's ok. But that doesn't mean it can't be
  improved - or ditched. To be honest, I'd like to see a better model.
- 
+
  But switching will be tricky indeed. We already have 2 1/2 APIs for
  signal handling. [the Listener/Event pattern which most of us use, then
  the raw Event handling which happens to be exposed, and also method name
  hookups if you care to use Glade for that]
- 
+
  When I was in Toronto last week I met with some of the guys (and Hiro,
  who came up from Waterloo!) and discussed this issue among others. The
  biggest problem I see is that we already are close to the boundary of
  having unmaintained/unsupported APIs, and if we don't do a clean break
  (not just deprecating but hard and fast REMOVING the old APIs in favour
  of the new one) then we will end up with an even worse situation.
- 
+
  The only possible place for us to make such a break is at a major
  version number jump (ie libgtk-java moves from 2.x.y to 3.w.z) ... which
  is hard to do unilaterally as we are now somewhat historically tied to
  following the underlying GTK release numbers. [Note to self - moving
  from java-gnome 0.8.3 to java-gnome 2.4.x was probably a bad idea - we
- lost the freedom to make a major API change on our own schedule]. 
- 
+ lost the freedom to make a major API change on our own schedule].
+
  To be honest, I don't much care about this - in the modern software
  world, 1.2 to 1.4 IS a major release. So if we need to change the signal
  handling we can probably do so whenever, but we should do so with lots
  of warning and RIP OUT whatever old models we're no longer going to
  support.
- 
+
  ++
- 
+
  Now on to specifics. If we do change (and incur all this administrative
  burden I've just been talking about, not to mention forcing a port of
  any and all applications), then we should make it a good one. There are
  all sorts of areas of the API that could do with improvement &amp; redesign.
- 
+
  In the case of signal handling, there seem to be two broad option paths,
  revolving around typing.
- 
+
  The present system is strongly typed. We have KeyListeners and KeyEvents
  and TreeViewListeners and TreeViewEvents and also interfaces with
  similar APIs, eg   TreeModelFilterVisibleMethod. The advantage of this
  is that we allow ourselves to take advantage of the strengths of the
  Java language, getting appropriate methods for appropriate events, and
  having being able at compile time to catch wrong API mistakes.
- 
+
  The other branch of options involve not using the type safety system at
  all, and doing all the lookups by strings. This is more "traditional"
  GTK, but also is less ideal programming practice because it means that
@@ -1393,56 +1393,56 @@
  mess). The upside is that the API is really simple, although not quite
  as simple as in C or Perl as one has to fight through a class / object
  somewhere to get to the method name you're trying to call.
- 
+
  For me the promise of absolute simplicity is not worth the cost of not
  leveraging the strongly typed character of the language we're working
  in. But in the end, I'd make my vote on the basis of how elegant our
- proposed new system would be in use. 
- 
+ proposed new system would be in use.
+
  ++
- 
+
  To close, some replies to Owen's comments: his first suggestion
- 
+
  &gt; &gt;  button.connectClicked (new ButtonClickedListener () {
  &gt; &gt;     public void run(Button button) {
  &gt; &gt;       System.out.println("Button was clicked");
- &gt; &gt;     }  
+ &gt; &gt;     }
  &gt; &gt;  }
- 
+
  Isn't too bad. Strongly typed.
- 
+
  &gt; &gt; Creating one helper class for each signal might be a bit
- &gt; &gt; expensive... 
- 
+ &gt; &gt; expensive...
+
  Expensive in authoring and a little less so in maintenance to be sure.
  But in runtime terms Java is already stacked full of objects. 20-300 for
  signals isn't going to hurt anything.
- 
+
  Owen's second message notes that this is nicer:
- 
+
  &gt;  button.connect(new Button.Clicked() {
  &gt;      public void clicked(Button button) {
  &gt;          System.out.println("Button was clicked");
  &gt;      }
  &gt;  });
- 
+
  and I agree, although in general I would note that even something as
  simple as Button has a plethora of signals that need implementing: from
  Button.Type I see ACTIVATE, CLICK, ENTER, LEAVE, PRESS, and RELEASE. For
  all I know there are more down in GTK that we haven't yet properly
  wrapped.
- 
+
  &gt; (Maybe use
  &gt; 'onClicked' rather than 'clicked' as the method name?)
- 
+
  [is click or clicked the underlying event-signal name?]
- 
+
  Not sure. Java's APIs (and java-gnome's) are schitzo in this regard.
  You've got stuff like next() and item() and present() and activate()
  floating around, but then set*, get*, and is* prevails for all the
  property accessors and mutators. Perhaps on* as a family name isn't a
  bad idea.
- 
+
  I have some thoughts on the API design sweepstakes, but this email is
  already too long as it is. I'll follow up if there is indeed interest in
  radically changing things. Otherwise, if we're just going to leave
@@ -1450,21 +1450,21 @@
  fixing, if nothing else, the JavaDoc for all the bloody nested Type
  statics. I remember how hard it was to learn our event handling API,
  even with some examples to follow.
- 
+
  AfC
  Bangalore
 </pre>
 			</pre>
-			
-			
+
+
 		</td>
 	</tr>
 </tbody></table>
 <p>
 </p><table border="0" width="100%">
 	<tbody><tr>
-	<td bgcolor="#dddddd" nowrap="nowrap">From: Ismael Juma &lt;ismael@ju...&gt; 
-		<a href="http://sourceforge.net/mailarchive/message.php?msg_id=13727268"><img src="owen.html_content/msg.gif" alt="" height="12" width="10"> Re: Signals redux</a>   
+	<td bgcolor="#dddddd" nowrap="nowrap">From: Ismael Juma &lt;ismael@ju...&gt;
+		<a href="http://sourceforge.net/mailarchive/message.php?msg_id=13727268"><img src="owen.html_content/msg.gif" alt="" height="12" width="10"> Re: Signals redux</a>  
 		2005-11-02 00:57
 	</td>
 </tr>
@@ -1475,9 +1475,9 @@
  &gt; As I understand it from Mark Howard and Jeff Morgan, they added the
  &gt; Listener/Event pattern for signal handling to Java because they felt it
  &gt; was the more familiar idiom for experienced Java programmer, especially
- &gt; those coming from Swing or AWT. 
+ &gt; those coming from Swing or AWT.
  [...]
- 
+
  I would like to mention that the Listener/Event pattern used in
  Java-Gnome isn't the same as the one used in Swing/AWT. It's more
  verbose and less safe. More verbose because it includes having to check
@@ -1488,21 +1488,21 @@
  is the same and the objects can potentially be cast into each other is
  not recommended practice according to Joshua Bloch's Effective Java, for
  reasons that he explains in detail there.
- 
+
  Regards,
  Ismael
 </pre>
 			</pre>
-			
-			
+
+
 		</td>
 	</tr>
 </tbody></table>
 <p>
 </p><table border="0" width="100%">
 	<tbody><tr>
-	<td bgcolor="#dddddd" nowrap="nowrap">From: Joao Victor &lt;jvital@gm...&gt; 
-		<a href="http://sourceforge.net/mailarchive/message.php?msg_id=13729329"><img src="owen.html_content/msg.gif" alt="" height="12" width="10"> Re: Signals redux</a>   
+	<td bgcolor="#dddddd" nowrap="nowrap">From: Joao Victor &lt;jvital@gm...&gt;
+		<a href="http://sourceforge.net/mailarchive/message.php?msg_id=13729329"><img src="owen.html_content/msg.gif" alt="" height="12" width="10"> Re: Signals redux</a>  
 		2005-11-02 06:26
 	</td>
 </tr>
@@ -1517,11 +1517,11 @@
  &gt; It is less safe because overloading is used for the addListener methods.
  &gt; In Java/Swing, those methods are called addActionListener,
  &gt; addWindowListener, etc.
- 
+
  Yeah, that's what i was just going to write. I think we should try and
  change JG to do it the Java-way, or to some "similar" solution. An
  example of "similar" solution was given by Owen:
- 
+
  --------
   button.connectClicked (new ButtonClickedListener () {
      public void run(Button button) {
@@ -1529,35 +1529,35 @@
      }
  }
  --------
- 
+
  In that example you have the safety, and it's not verbose. The downside is that:
- 
+
  a) It's not 100% Java-like (which may look weird to newcomers)
  b) You'll tend to have many more (listener) objects instantiated,
  since you've got an object for every event.
- 
+
  The upside is:
  a) If you like implementing listeners with annon classes, your code
  will probably be cleaner
  b) Sometimes different (from the Java-way) can be good/better =)
- 
+
  BTW, maybe someone should CC/notify to Owen so he see the replies to
  his thread..
- 
+
  Cheers,
  J.V.
 </pre>
 			</pre>
-			
-			
+
+
 		</td>
 	</tr>
 </tbody></table>
 <p>
 </p><table border="0" width="100%">
 	<tbody><tr>
-	<td bgcolor="#dddddd" nowrap="nowrap">From: Andrew Cowie &lt;andrew@op...&gt; 
-		<a href="http://sourceforge.net/mailarchive/message.php?msg_id=13730468"><img src="owen.html_content/msg.gif" alt="" height="12" width="10"> Re: Signals redux</a>   
+	<td bgcolor="#dddddd" nowrap="nowrap">From: Andrew Cowie &lt;andrew@op...&gt;
+		<a href="http://sourceforge.net/mailarchive/message.php?msg_id=13730468"><img src="owen.html_content/msg.gif" alt="" height="12" width="10"> Re: Signals redux</a>  
 		2005-11-02 08:19
 	</td>
 </tr>
@@ -1566,49 +1566,49 @@
 			<pre><pre> On Wed, 2005-02-11 at 12:25 -0200, Joao Victor wrote:
  &gt; I think we should try and
  &gt; change JG to ....
- 
+
  [aside]
- 
+
  Just keep in mind if we're going to change this at all, it's a MASSIVE
  change. I don't think that should stop us, but likewise I don't think we
  should be trying to maintain **or even expose** two different APIs so
  this will end up requiring any and every application (and example) to be
  ported to the new design.
- 
+
  In Gentoo, I've got java-gnome slotted, so (for example) java-gnome
  series 2.12 and a hypothetical 3.0 can be installed simultaneously -
  thus apps written against libgtk-java 2.8 would still work after
  java-gnome 3.0 comes out. But the apps themselves will still have to be
  forward ported if the event handling model changes in a non API
  compatible way
- 
+
  To re-iterate: I think we *should* redesign this API. In fact, let's
  figure out what else needs redesign and wedge it in at the same time.
- 
+
  Incidentally, now is the time to plan something like this. And, I'd go
  so far as to suggest that if it takes 1.5 or 2 six month cycles, so be
  it. As I've mentioned before, if we need to skip an official gnome
  release date, no biggie. The question is whether we have the time and
  energy to do something of this magnitude in the next 4-10 months?
- 
+
  Otherwise, even if the answer is "no, not right now", a worthy
  conversation. We can design the API and plan the changes, and then
  reconsider our window of opportunity as each 6 months passes.
- 
+
  AfC
  Bangalore
 </pre>
 			</pre>
-			
-			
+
+
 		</td>
 	</tr>
 </tbody></table>
 <p>
 </p><table border="0" width="100%">
 	<tbody><tr>
-	<td bgcolor="#dddddd" nowrap="nowrap">From: Ismael Juma &lt;ismael@ju...&gt; 
-		<a href="http://sourceforge.net/mailarchive/message.php?msg_id=13732632"><img src="owen.html_content/msg.gif" alt="" height="12" width="10"> Re: Signals redux</a>   
+	<td bgcolor="#dddddd" nowrap="nowrap">From: Ismael Juma &lt;ismael@ju...&gt;
+		<a href="http://sourceforge.net/mailarchive/message.php?msg_id=13732632"><img src="owen.html_content/msg.gif" alt="" height="12" width="10"> Re: Signals redux</a>  
 		2005-11-02 08:48
 	</td>
 </tr>
@@ -1616,29 +1616,29 @@
 		<td>
 			<pre><pre> On Wed, 2005-11-02 at 21:49 +0530, Andrew Cowie wrote:
  [...]
- &gt; Incidentally, now is the time to plan something like this. 
+ &gt; Incidentally, now is the time to plan something like this.
  [...]
  &gt; The question is whether we have the time and
  &gt; energy to do something of this magnitude in the next 4-10 months?
  [...]
- 
+
  I think this is the key point. We must agree on a plan for the next
  releases. An IRC meeting would be helpful in this regard I think.
- 
+
  Regards,
  Ismael
 </pre>
 			</pre>
-			
-			
+
+
 		</td>
 	</tr>
 </tbody></table>
 <p>
 </p><table border="0" width="100%">
 	<tbody><tr>
-	<td bgcolor="#dddddd" nowrap="nowrap">From: Joao Victor &lt;jvital@gm...&gt; 
-		<a href="http://sourceforge.net/mailarchive/message.php?msg_id=13761357"><img src="owen.html_content/msg.gif" alt="" height="12" width="10"> Re: Signals redux</a>   
+	<td bgcolor="#dddddd" nowrap="nowrap">From: Joao Victor &lt;jvital@gm...&gt;
+		<a href="http://sourceforge.net/mailarchive/message.php?msg_id=13761357"><img src="owen.html_content/msg.gif" alt="" height="12" width="10"> Re: Signals redux</a>  
 		2005-11-05 03:55
 	</td>
 </tr>
@@ -1647,14 +1647,14 @@
 			<pre><pre> 2005/11/2, Ismael Juma &lt;ismael@ju...&gt;:
  &gt; I think this is the key point. We must agree on a plan for the next
  &gt; releases. An IRC meeting would be helpful in this regard I think.
- 
+
  Yes, i agree with you both.
- 
+
  But, i think, signals shouldn't be the focus of the next release,
  IMHO. I think the focus should be: getting things done more
  automatically. However, like you said, that doesn't mean we can't
  starting _planning_ it now.
- 
+
  Cheers,
  J.V.
 </pre>
@@ -1665,126 +1665,126 @@
 <p>
 </p><table border="0" width="100%">
 	<tbody><tr>
-	<td bgcolor="#dddddd" nowrap="nowrap">From: Owen Taylor &lt;otaylor@re...&gt; 
-		<a href="http://sourceforge.net/mailarchive/message.php?msg_id=13762066"><img src="owen.html_content/msg.gif" alt="" height="12" width="10"> Re: Signals redux</a>   
+	<td bgcolor="#dddddd" nowrap="nowrap">From: Owen Taylor &lt;otaylor@re...&gt;
+		<a href="http://sourceforge.net/mailarchive/message.php?msg_id=13762066"><img src="owen.html_content/msg.gif" alt="" height="12" width="10"> Re: Signals redux</a>  
 		2005-11-05 07:27
 	</td>
 </tr>
 	<tr>
 		<td>
-			<pre><pre> 
- 
- 
+			<pre><pre>
+
+
  On Wed, 2005-11-02 at 10:12 +0530, Andrew Cowie wrote:
  &gt; A long time ago, on Mon, 2005-05-09 at 14:44 -0400, Owen Taylor wrote:
  &gt; &gt; I did some more fooling around today, and wanted to revisit an old
  &gt; &gt; discussion: [signal handling]
- &gt; 
+ &gt;
  &gt; I've been saving this message for a long time, hoping I'd have a chance
  &gt; to address it. So it's been almost 6 months. Oh well. First I'll write
  &gt; my views on the subject, then inline reply to some of his comments.
- 
+
  Thanks for the reply; my hope was mostly to get some ideas out in
  the air rather than looking for instant feedback.
- 
+
  &gt; Owen's basic concern seems to be the verbosity and clumsiness of the
  &gt; Listener/Event pattern. When I first saw this pattern in java-gnome, I
  &gt; freaked, something along the lines of "Oh my lord, what the hell is
  &gt; this?" :)
- 
+
  Well, I wouldn't characterize that as my core objection ... my core
  objection is really the lack of a consistent and predictable mapping
  between the GObject signature of an object and the Java signature.
- 
+
  [...]
- 
+
  &gt; I believe that this was absolutely the correct decision to make. In
  &gt; fact, as I've looked around a bit (and over enterprise code that I've
  &gt; run (though didn't write - I'm an operations guy) I've realized just how
  &gt; prevalent this pattern is in the Java world. It's everywhere - EJB, JMS,
  &gt; all over the J2EE stack.
- &gt; 
+ &gt;
  &gt; And so, even though it's somewhat (ok, very) cumbersome **especially
  &gt; from the viewpoint of someone coming from the GTK C world**, it is
  &gt; natural indeed for someone coming from the Java world, and that
  &gt; (unscientifically) is the bulk of our userbase.
- 
+
  The better the Java/GNOME bindings are,the more likely they
  are to attract people from the C world :-) Eclipse as a Java IDE
  far surpasses any other development environment out there for Linux
  for any language; that is (or should be) a pretty powerful attractive
  force.
- 
+
  &gt; To be honest, I don't much care about this - in the modern software
  &gt; world, 1.2 to 1.4 IS a major release. So if we need to change the signal
  &gt; handling we can probably do so whenever, but we should do so with lots
  &gt; of warning and RIP OUT whatever old models we're no longer going to
  &gt; support.
- 
- I'd think incompatible changes are more constrained by messaging and 
+
+ I'd think incompatible changes are more constrained by messaging and
  setting up to allow parallel installs of old and new versions (should
- be pretty easy for Java) than by version numbers. GTK+ 1.0 to 1.2 
+ be pretty easy for Java) than by version numbers. GTK+ 1.0 to 1.2
  was an incompatible change, GTK+-2.x to 3.0, when/if that happens, may
  well *not* be an incompatible change.
- 
+
  [...]
- 
+
  &gt; Owen's second message notes that this is nicer:
- &gt; 
+ &gt;
  &gt; &gt;  button.connect(new Button.Clicked() {
  &gt; &gt;      public void clicked(Button button) {
  &gt; &gt;          System.out.println("Button was clicked");
  &gt; &gt;      }
  &gt; &gt;  });
- &gt; 
+ &gt;
  &gt; and I agree, although in general I would note that even something as
  &gt; simple as Button has a plethora of signals that need implementing: from
  &gt; Button.Type I see ACTIVATE, CLICK, ENTER, LEAVE, PRESS, and RELEASE. For
  &gt; all I know there are more down in GTK that we haven't yet properly
  &gt; wrapped.
- 
+
  That's partly my concern about the non-automatable mapping :-), it's
  easy to miss stuff. From the stats in my last mail, there are about
  250 signals total in GTK+. That certainly encourages not doing them
  one-by-one by hand, and the use of nested interfaces to group them,
  but I don't think it's unmanageable.
- 
+
  &gt; &gt; (Maybe use
  &gt; &gt; 'onClicked' rather than 'clicked' as the method name?)
- &gt; 
+ &gt;
  &gt; [is click or clicked the underlying event-signal name?]
- 
+
  It's 'clicked'; the general, though far from universal naming convention
  in GTK+ is that signals that are pure notification are in the past tense
  ('clicked', 'state-changed', while signals that expect an action from
  the handler are present tense 'popup-menu', 'show-help')
- 
+
  &gt; Not sure. Java's APIs (and java-gnome's) are schitzo in this regard.
  &gt; You've got stuff like next() and item() and present() and activate()
  &gt; floating around, but then set*, get*, and is* prevails for all the
  &gt; property accessors and mutators. Perhaps on* as a family name isn't a
  &gt; bad idea.
- 
+
  I think the main reason to add the 'on' would be to support
  self-delegation:
- 
+
   class MyButton extends Button implements Button.Clicked {
       MyButton() {
  	super("Hello World!");
  	connectClicked(this);
       }
- 
+
       void onClicked() {
- 	// do something 
+ 	// do something
       }
   }
-   
+
  This doesn't work without the 'on' because Button has a clicked()
- method already. But you could achieve much the same thing with 
- one inner class. I think there are quite a few workable variants - 
- the main thing I'd push is "one listener interface per GObject 
+ method already. But you could achieve much the same thing with
+ one inner class. I think there are quite a few workable variants -
+ the main thing I'd push is "one listener interface per GObject
  signal".
- 
+
  Regards,
  						Owen
 </pre>
