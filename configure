@@ -971,7 +971,7 @@ if ($os eq "gentoo") {
 	check_system_library(@gnomedev_libs,
 			"gtksourceview-3.0",
 			"GtkSourceView",
-			"FIXME");
+			"gtksourceview-devel");
 
 
 #	check_system_library(@gnomedev_libs,
@@ -982,7 +982,7 @@ if ($os eq "gentoo") {
 	check_system_library(@gnomedev_libs,
 			"enchant",
 			"Enchant",
-			"FIXME");
+			"enchant-devel");
 
 } elsif ($os eq "mandriva") {
 	check_system_library(@gnomedev_libs,
