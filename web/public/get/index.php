@@ -55,12 +55,12 @@ href="http://ftp.gnome.org/pub/gnome/sources/java-gnome/4.1/">
 <h2>Or check out the sources from the repository...</h2>
 
 <p>For those who like to live on the bleeding edge, you can checkout the
-code from our version control repository (branch URL below). You'll need to install Bazaar,
-available in most Linux and Unix distributions.
+code from our version control repository (branch URL below). You'll need to install Git,
+available in most Linux and Unix distributions or from <a href="http://www.git-scm.com">www.git-scm.com</a>.
 
 <a class="nav-black"
-href="http://research.operationaldynamics.com/bzr/java-gnome/mainline/">
-<pre style="margin-left: 0px;">$ bzr checkout URL</pre></a>
+href="https://github.com/afcowie/java-gnome.git">
+<pre style="margin-left: 0px;">$ Git checkout URL</pre></a>
 </p>
 
 <a name="source" title="Source will always be better than binary"></a>
@@ -135,7 +135,7 @@ operating system!</i></p>
 
 <h1>Browse source</h1>
 
-<p>One of the interesting things about Bazaar (and many of the other modern
+<p>One of the interesting things about Git (and many of the other modern
 Distributed Version Control Systems) is that when a repository is put online,
 you can usually have the source code directly available via <code>HTTP</code>.
 This means that if you want to quickly point someone at a particular file,
@@ -146,8 +146,8 @@ path to the file.</p>
 '<code>mainline</code>' branch (perhaps known as <code>HEAD</code> or <code>trunk</code> in 
 other version control systems you might have used):
 
-<a class="download" href="http://research.operationaldynamics.com/bzr/java-gnome/mainline/">
-<code>http://research.operationaldynamics.com/bzr/java-gnome/mainline/</code>
+<a class="download" href="https://github.com/afcowie/java-gnome.git">
+<code>https://github.com/afcowie/java-gnome.git</code>
 </a>
 </p>
 
