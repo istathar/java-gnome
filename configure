@@ -951,7 +951,7 @@ if ($os eq "gentoo") {
 	check_system_library(@gnomedev_libs,
 			"cairo-svg >= 1.10",
 			"Cairo",
-			"libcairo2-dev");
+			"cairo-devel");
 
 	check_system_library(@gnomedev_libs,
 			"glib-2.0 >= 2.28 
@@ -972,6 +972,11 @@ if ($os eq "gentoo") {
 			"gtksourceview-3.0",
 			"GtkSourceView",
 			"gtksourceview-devel");
+	
+	check_system_library(@gnomedev_libs,
+			"libnotify",
+			"LibNotify",
+			"libnotify-devel");
 
 
 #	check_system_library(@gnomedev_libs,
