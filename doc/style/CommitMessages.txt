@@ -14,20 +14,19 @@ support for a new distro to the top level configure script, commit it as one
 complete patch rather than 5 small ones.
 
 Of course at slightly larger levels of aggregation, series of patches chain
-together, and that's what branches are for. It's tempting to try and ensure
-that the eventual `bzr viz` graph looks pretty, but don't worry about it.
+together, and that's what branches are for.
 Branches are ultimately just a mechanism for shipping code around between
 developers and we end up doing merges several times a day. I'm not really that
 concerned about what the eventual branch tree ends up looking like, so just
-concentrate on doing your work and we'll let Bazaar take care of things
+concentrate on doing your work and we'll let Git take care of things
 from there.
 
 Summary line and revision text
 ------------------------------
 
-Bazaar, like all other modern VCS tools, uses the first line of the commit
-message as the summary which appears in email Subject: lines, the `--line`
-output to `bzr log`, etc. So a descriptive yet concise first line is
+Git, like all other modern VCS tools, uses the first line of the commit
+message as the summary which appears in email Subject: lines, the `--pretty=oneline`
+output to `git log`, etc. So a descriptive yet concise first line is
 important.
 
 For really trivial fixes, that single line as patch name is sufficient; but
@@ -37,7 +36,7 @@ _plus_ some prose describing what you're up to. It doesn't have to be perfect.
 Put a single blank line between your summary line and the paragraphs you write
 as the main descriptive text of the revision comment.
 
-Remember that years from now someone will do `bzr log filename` and all the
+Remember that years from now someone will do `git log filename` and all the
 revisions which affected that one file will show. So if you can, try to keep
 commits on-topic; you don't have to mention every last little change but try
 your best to summarize the impact on major files if they're somewhat
@@ -122,7 +121,7 @@ example.com, I **will** hit you with a large mallet. `:)`
 
 AfC
 
-_Originally written by Andrew Cowie 2 Dec 06. Last modified 23 Apr 08._
+_Originally written by Andrew Cowie 2 Dec 06. Last modified 8 Oct 14._
 
 <!--
  
