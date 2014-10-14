@@ -93,9 +93,6 @@ likely evolve over time as new design decisions are taken. If you care to see
 the history behind certain decisions, check the mailing list archives and the
 version history of the files in this directory.
 
-If there is a change you would like to make, check out a copy of the source
-code and send a patch using `bzr bundle`.
-
 Remember, if you want to hack on java-gnome itself, extend it or use it for
 new and miraculous things, you're best off doing so alongside the community.
 Certainly join our mailing lists, but most of all hang with us online, at

@@ -83,7 +83,7 @@ href="http://java-gnome.sourceforge.net/doc/api/4.1/overview-summary.html"><code
 </p></li>
 
 <li><p>Source code<br>
-<a href="http://research.operationaldynamics.com/bzr/java-gnome/mainline/"><code>http://research.operationaldynamics.com/bzr/java-gnome/mainline/</code></a>
+<a href="https://github.com/afcowie/java-gnome"><code>https://github.com/afcowie/java-gnome</code></a>
 </p></li>
 
 <li><p>Download tarballs<br>

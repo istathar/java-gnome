@@ -63,11 +63,11 @@ for links to those that have been formatted for web viewing, but remember all
 the source code is always viewable online if you don't have a checkout handy.
 Just pull up the
 
-'<a href="http://research.operationaldynamics.com/bzr/java-gnome/mainline/" style="text-decoration: none;"><code>mainline</code></a>'
+'<a href="https://github.com/afcowie/java-gnome" style="text-decoration: none;"><code>mainline</code></a>'
 
-branch and navigate to 
+branch and navigate to
 
-<a href="http://research.operationaldynamics.com/bzr/java-gnome/mainline/doc/examples/" style="text-decoration: none;"><code>doc/examples/</code></a>. The same goes for the rest
+<a href="https://github.com/afcowie/java-gnome/tree/master/doc/examples" style="text-decoration: none;"><code>doc/examples/</code></a>. The same goes for the rest
 of the java-gnome code base; it's all there, including the sources for this website.
 </p>
 
