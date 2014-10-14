@@ -57,9 +57,8 @@ our source code.
 Getting a checkout is easy:
 
     $ cd ~/src/
-    $ mkdir java-gnome/
-    $ git clone git://github.com/afcowie/java-gnome.git mainline
-    $ cd mainline/
+    $ git clone git://github.com/afcowie/java-gnome.git
+    $ cd java-gnome/
     $ less README.markdown
 
 2. Run `./configure`
