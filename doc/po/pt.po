@@ -44,5 +44,3 @@ msgid ""
 msgstr ""
 "{0,choice,0#Não existem ficheiros|1#Existe um ficheiro|1<são "
 "{0,number,integer} ficheiros}."
-
-
