@@ -334,6 +334,28 @@ public class Context extends Entity
         checkStatus();
     }
 
+
+    /**
+    * Adds a cubic Bézier spline to the path from the current point to position (x3, y3)
+    * in user-space coordinates, using (x1, y1) and (x2, y2) as the control points.
+    * After this call the current point will be (x3, y3). If there is no current point
+    * before the call to this function, it will behave as if preceded by a call
+    * to {@link #moveTo(double, double)}.
+    *
+    * @param x1 the X coordinate of the first control point
+    * @param y1 the Y coordinate of the first control point
+    * @param x2 the X coordinate of the second control point
+    * @param y2 the Y coordinate of the second control point
+    * @param x3 the X coordinate of the end of the curve
+    * @param y3 the Y coordinate of the end of the curve
+    *
+    * @since 4.1.3
+    */
+    public void curveTo(double x1, double y1, double x2, double y2, double x3, double y3) {
+        CairoContext.curveTo(this, x1, y1, x2, y2, x3, y3);
+        checkStatus();
+    }
+
     /**
      * Set the line width for this Context. This will have effect in next call
      * to {@link #stroke()}. Default value is <code>2.0</code>.
