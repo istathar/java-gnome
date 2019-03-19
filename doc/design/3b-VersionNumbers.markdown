@@ -1,4 +1,5 @@
 Re-engineering (3): Version numbers
+===================================
 
 I've stated my [views about
 versioning](http://sourceforge.net/mailarchive/message.php?msg_id=3D15113906)

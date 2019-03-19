@@ -1,4 +1,5 @@
 Re-engineering (4): TreeView and TreeModel API design
+=====================================================
 
 A few weeks ago I wrote:
 

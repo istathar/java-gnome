@@ -1,4 +1,5 @@
 Re-engineering (1): The Java Native Interface 
+=============================================
 
 There's one other vitally important area of background information necessary
 to grok; I should have included this in the Homework email. It's hard to
