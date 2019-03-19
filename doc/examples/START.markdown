@@ -1,4 +1,5 @@
 EXAMPLES
+========
 
 These files are examples of specific parts of the java-gnome API worked up as
 complete Java programs.
