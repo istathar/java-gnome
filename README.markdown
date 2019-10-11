@@ -1,3 +1,6 @@
+[![No Maintenance Intended](https://img.shields.io/maintenance/no/2013)](http://unmaintained.tech/)
+[![License](https://img.shields.io/badge/license-GPL--2.0%20%2B%20Linking%20Exception-blue)](/LICENCE.markdown)
+
 This is the java-gnome language bindings project. We endeavour to provide a
 high quality library you can use to write GTK and GNOME programs. The
 underlying APIs are elegantly transformed into Java and carefully documented so
@@ -300,13 +303,9 @@ applications. The architecture and internal design has been well proved, and
 the coverage level (relative to the full breadth of the underlying libraries)
 is reaching maturity.
 
-Get Involved
-------------
-
-If you would like to get involved yourself as an individual, we would welcome
-your contribution. See [`HACKING`](HACKING.html). If you are working on an
-application, want to learn more, or are just curious, join us online in
-`#java-gnome` on `irc.gimp.net`.
+The library has been unmaintained for some years, however. If anyone in the
+GNOME community wishes to adopt the project we will happily transfer the
+repository to you.
 
 Happy coding!
 
@@ -314,13 +313,6 @@ AfC
 
 `--`  
 Andrew Frederick Cowie  
-Managing Director,  
-[Operational Dynamics](http://www.operationaldynamics.com/),  
-a Change Management consultancy...
-
-Maintainer,  
-[java-gnome](http://java-gnome.sourceforge.net/),  
-opening GTK and GNOME to Java programmers!
 
 _Last modified 22 Feb 13_
 
