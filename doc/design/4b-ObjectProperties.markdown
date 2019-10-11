@@ -1,4 +1,5 @@
 Re-engineering (4): GObject property handling API
+=================================================
 
 I was chatting with Davyd last night about how I'd achieved a generalized
 setProperty() capability for GObjects in the new bindings. I wrote him an

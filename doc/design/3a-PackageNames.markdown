@@ -1,4 +1,5 @@
 Re-engineering (3): Package names
+=================================
 
 This is a minor matter, but while we're breaking everything anyway, several
 people have commented that the old java-gnome 2.x package names were _really_

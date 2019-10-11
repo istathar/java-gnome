@@ -1,4 +1,5 @@
 Re-engineering (2): Design constraints
+======================================
 
 The issue of audience described in my last message has a significant impact on
 our design. You've probably already guessed:

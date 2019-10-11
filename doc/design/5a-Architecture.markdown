@@ -1,4 +1,5 @@
 Re-engineering (5): Internal Architecture
+=========================================
 
 I have alluded several times to having worked out an architecture that I think
 will do nicely for us given the constraints that I have articulated.

@@ -1,4 +1,5 @@
 Style guide: Commit Messages
+============================
 
 It might seem a bit anal to ask people to follow certain conventions when
 writing their commit messages, but reading code history is a big part of

@@ -1,6 +1,7 @@
 Re-engineering (2): Objective and Audience
+==========================================
 
-Now that you've done your homework, we can talk about where we're going and
+Now that you've done some homework, we can talk about where we're going and
 why.
 
 As I've said elsewhere on many occasions, I have the utmost respect for the
