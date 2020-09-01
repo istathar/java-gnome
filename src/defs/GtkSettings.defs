@@ -1,6 +1,7 @@
 (define-object Settings
   (in-module "Gtk")
   (parent "GObject")
+  (implements "GtkStyleProvider")
   (c-name "GtkSettings")
   (gtype-id "GTK_TYPE_SETTINGS")
 )

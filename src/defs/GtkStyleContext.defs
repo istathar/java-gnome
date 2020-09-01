@@ -27,6 +27,27 @@
   )
 )
 
+(define-method add_provider
+  (of-object "GtkStyleContext")
+  (c-name "gtk_style_context_add_provider")
+  (return-type "none")
+  (parameters
+    '("GtkStyleProvider*" "provider")
+    '("guint" "priority")
+  )
+)
+
+(define-function add_provider_for_screen
+  (of-object "GtkStyleContext")
+  (c-name "gtk_style_context_add_provider_for_screen")
+  (return-type "none")
+  (parameters
+    '("GdkScreen*" "screen")
+    '("GtkStyleProvider*" "provider")
+    '("guint" "priority")
+  )
+)
+
 (define-method get_state
   (of-object "GtkStyleContext")
   (c-name "gtk_style_context_get_state")

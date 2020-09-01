@@ -1,0 +1,63 @@
+(define-object CssProvider
+  (in-module "Gtk")
+  (parent "GObject")
+  (implements "GtkStyleProvider")
+  (c-name "GtkCssProvider")
+  (gtype-id "GTK_TYPE_CSS_PROVIDER")
+)
+
+(define-function new
+  (is-constructor-of "GtkCssProvider")
+  (c-name "gtk_css_provider_new")
+  (caller-owns-return #t)
+  (return-type "GtkCssProvider*")
+)
+
+(define-function get_named
+  (of-object "GtkCssProvider")
+  (c-name "gtk_css_provider_get_named")
+  (caller-owns-return #f)
+  (return-type "GtkCssProvider*")
+  (parameters
+    '("const-gchar*" "name")
+    '("const-gchar*" "variant")
+  )
+)
+
+(define-method load_from_data
+  (of-object "GtkCssProvider")
+  (c-name "gtk_css_provider_load_from_data")
+  (return-type "gboolean")
+  (parameters
+    '("const-gchar*" "data")
+    '("gsize" "length")
+    '("GError**" "error")
+  )
+)
+
+(define-method load_from_resource
+  (of-object "GtkCssProvider")
+  (c-name "gtk_css_provider_load_from_resource")
+  (return-type "none")
+  (parameters
+    '("const-gchar*" "resource_path")
+  )
+)
+
+(define-method load_from_path
+  (of-object "GtkCssProvider")
+  (c-name "gtk_css_provider_load_from_path")
+  (return-type "gboolean")
+  (parameters
+    '("const-gchar*" "path")
+    '("GError**" "error")
+  )
+)
+
+(define-method to_string
+  (of-object "GtkCssProvider")
+  (c-name "gtk_css_provider_to_string")
+  (return-type "char*")
+)
+
+

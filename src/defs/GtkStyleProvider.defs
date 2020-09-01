@@ -1,0 +1,7 @@
+(define-interface StyleProvider
+  (in-module "Gtk")
+  (c-name "GtkStyleProvider")
+  (gtype-id "GTK_TYPE_STYLE_PROVIDER")
+)
+
+; get_style_property requires WidgetPath

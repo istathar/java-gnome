@@ -2,6 +2,7 @@
  * java-gnome, a UI library for writing GTK and GNOME programs from Java!
  *
  * Copyright © 2007-2010 Operational Dynamics Consulting, Pty Ltd
+ * Copyright © 2020 java-gnome contributors
  *
  * The code in this file, and the program it is a part of, is made available
  * to you by its authors as open source software: you can redistribute it
@@ -53,7 +54,7 @@ import org.gnome.glib.Object;
  * reason is completion space; there are property getters on this class, and
  * getDefault() just doesn't make sense alongside them.
  */
-public class Settings extends Object
+public class Settings extends Object implements StyleProvider
 {
     protected Settings(long pointer) {
         super(pointer);
