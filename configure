@@ -892,6 +892,11 @@ if ($os eq "gentoo") {
 			"Enchant",
 			"libenchant-dev");
 
+	check_system_library(@gnomedev_libs,
+			"libnotify",
+			"LibNotify",
+			"libnotify-dev");
+
 #	check_system_library(@gnomedev_libs,
 #			"gtkspell-3.0",
 #			"GtkSpell",
