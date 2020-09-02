@@ -2,6 +2,7 @@
  * java-gnome, a UI library for writing GTK and GNOME programs from Java!
  *
  * Copyright © 2007-2011 Operational Dynamics Consulting, Pty Ltd and Others
+ * Copyright © 2020 java-gnome contributors
  *
  * The code in this file, and the program it is a part of, is made available
  * to you by its authors as open source software: you can redistribute it
@@ -154,6 +155,46 @@ public class StyleContext extends Object
      */
     public void addRegion(StyleRegion region, RegionFlags flags) {
         GtkStyleContext.addRegion(this, region.getStyleName(), flags);
+    }
+
+    /**
+     * Adds a global style provider to <code>screen</code>, which will be used in style
+     * construction for all StyleContexts under screen.
+     * <br/><br/>
+     * GTK+ uses this to make styling information from {@link Settings} available.
+     * <br/><br/>
+     * Note: If both priorities are the same, A {@link StyleProvider} added through 
+     * {@link #addProvider(StyleProvider, int)} takes precedence over another added 
+     * through this function.
+     * 
+     * @param priority the priority of the style provider. The lower it is, the earlier it 
+     * will be used in the style construction. Typically this will be in the range between 
+     * {@link StyleProvider#PRIORITY_FALLBACK} and {@link StyleProvider#PRIORITY_USER}
+     * 
+     * @since 4.1.4
+     */
+    public static void addProviderForScreen(Screen screen, StyleProvider provider, int priority) {
+        GtkStyleContext.addProviderForScreen(screen, provider, priority);
+    }
+    
+    /**
+     * Adds a style provider to StyleContext, to be used in style construction.
+     * Note that a style provider added by this function only affects the style of 
+     * the widget to which context belongs. If you want to affect the style of 
+     * all widgets, use {@link #addProviderForScreen(Screen, StyleProvider, int)}
+     * <br/><br/>
+     * Note: If both priorities are the same, a {@link StyleProvider} added through
+     * this function takes precedence over another added through 
+     * {@link #addProviderForScreen(Screen, StyleProvider, int)}
+     * 
+     * @param priority the priority of the style provider. The lower it is, the earlier it 
+     * will be used in the style construction. Typically this will be in the range between 
+     * {@link StyleProvider#PRIORITY_FALLBACK} and {@link StyleProvider#PRIORITY_USER}
+     * 
+     * @since 4.1.4
+     */
+    public void addProvider(StyleProvider provider, int priority) {
+        GtkStyleContext.addProvider(this, provider, priority);
     }
 
     /**
