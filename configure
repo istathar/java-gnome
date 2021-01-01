@@ -888,9 +888,9 @@ if ($os eq "gentoo") {
 			"libgtksourceview-3.0-dev");
 
 	check_system_library(@gnomedev_libs,
-			"enchant",
+			"enchant-2",
 			"Enchant",
-			"libenchant-dev");
+			"libenchant-2-dev");
 
 	check_system_library(@gnomedev_libs,
 			"libnotify",
