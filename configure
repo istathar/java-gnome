@@ -1098,7 +1098,6 @@ output "Check Java compilers:\n";
 # compilers we will check for:
 my $javac;
 my $ecj;
-my $kaffec;
 
 # tools we check at same time (not switchable)
 my $javah;
@@ -1176,7 +1175,7 @@ if ($os eq "gentoo") {
 
 	# check for a proper "real" JDK's javac as installed (and maybe
 	# selected in the alternatives system) by the user. In other words,
-	# javac -> /opt/sun-jdk-1.4.2.02/bin/javac, not javac -> kaffec.
+	# javac -> /opt/sun-jdk-1.4.2.02/bin/javac
 	my $javac_candidate;
 	my $javah_candidate;
 	my $jar_candidate;
@@ -1204,9 +1203,6 @@ if ($os eq "gentoo") {
 		$vendor = "IBM";
 	}
 	check_compiler($javac, "$vendor javac", $javac_candidate, "-g -source 1.6 -target 1.6");
-
-	# check for kaffe's compiler
-	check_compiler($kaffec, "Kaffe javac", "/usr/lib/kaffe/bin/javac", "");
 
 	# check for JDK tools. To suit Debian prejudices, use GNU tools if found.
 	check_jni_header_generator($javah, "$vendor javah", $javah_candidate, "-jni");
@@ -1247,9 +1243,6 @@ if ($os eq "gentoo") {
 	}
 	check_compiler($javac, "$vendor javac", $javac_candidate, "-g -source 1.6 -target 1.6");
 
-	# check for kaffe's compiler
-	check_compiler($kaffec, "Kaffe javac", which("kaffec"), "");
-
 	check_jni_header_generator($javah, "$vendor javah", $javah_candidate, "-jni");
 	check_jar($jar, "$vendor jar", $jar_candidate, "");
 	check_javadoc($javadoc, "$vendor javadoc", $javadoc_candidate, "");
@@ -1277,9 +1270,6 @@ if ($os eq "gentoo") {
 		$vendor = "Sun";
 	}
 	check_compiler($javac, "$vendor javac", $javac_candidate, "-g -source 1.6 -target 1.6");
-
-	# check for kaffe's compiler
-	check_compiler($kaffec, "Kaffe javac", which("kaffec"), "");
 
 	check_jni_header_generator($javah, "$vendor javah", $javah_candidate, "-jni");
 	check_jar($jar, "$vendor jar", $jar_candidate, "");
@@ -1366,9 +1356,6 @@ if ($os eq "gentoo") {
 	}
 	check_compiler($javac, "$vendor javac", $javac_candidate, "-g -source 1.6 -target 1.6");
 
-	# check for kaffe's compiler
-	check_compiler($kaffec, "Kaffe javac", which("kaffec"), "");
-
 	check_jni_header_generator($javah, "$vendor javah", $javah_candidate, "-jni");
 	check_jar($jar, "$vendor jar", $jar_candidate, "");
 	check_javadoc($javadoc, "$vendor javadoc", $javadoc_candidate, "");
@@ -1400,9 +1387,6 @@ if ($os eq "gentoo") {
 	}
 	check_compiler($javac, "$vendor javac", $javac_candidate, "-g -source 1.6 -target 1.6");
 
-	# check for kaffe's compiler
-	check_compiler($kaffec, "Kaffe javac", which("kaffec"), "");
-
 	check_jni_header_generator($javah, "$vendor javah", $javah_candidate, "-jni");
 	check_jar($jar, "$vendor jar", $jar_candidate, "");
 	check_javadoc($javadoc, "$vendor javadoc", $javadoc_candidate, "");
@@ -1431,9 +1415,6 @@ if ($os eq "gentoo") {
 	}
 	check_compiler($javac, "$vendor javac", $javac_candidate, "-g -source 1.6 -target 1.6");
 
-	# check for kaffe's compiler
-	check_compiler($kaffec, "Kaffe javac", which("kaffec"), "");
-
 	check_jni_header_generator($javah, "$vendor javah", $javah_candidate, "-jni");
 	check_jar($jar, "$vendor jar", $jar_candidate, "");
 	check_javadoc($javadoc, "$vendor javadoc", $javadoc_candidate, "");
@@ -1452,7 +1433,6 @@ output "Check Java virtual machines:\n";
 
 # runtimes we will check for:
 my $java;
-my $kaffe;
 my $cacao;
 my $jamvm;
 
@@ -1481,9 +1461,6 @@ if ($os eq "gentoo") {
 	}
 	check_runtime($java, "$vendor java VM", $java_candidate, "-client -ea");
 
-	# check kaffe
-	check_runtime($kaffe, "kaffe VM", which("kaffe"), "");
-
 	# check jamvm (an elegant bytecode interpreter used by many in the
 	# CLASSPATH project to test new releases)
 	my $jamvm_candidate;
@@ -1505,11 +1482,10 @@ if ($os eq "gentoo") {
 } elsif ($os eq "debian") {
 	# check for a proper JDK/JRE java Virtual Machine (presumably either
 	# blackdown, or the real thing from Sun or IBM, as installed by the
-	# user).  NOTE that this does *NOT* mean Sable VM or kaffe (so, if the
+	# user).  NOTE that this does *NOT* mean Sable VM (so, if the
 	# Debian alternatives system can say that's what's providing
 	# java-runtime, then we need to take advantage of that. This is for a
-	# real JRE only, ie java -> /opt/sun-jdk-1.4.2.02/bin/java, not for
-	# java -> kaffe.
+	# real JRE only, ie java -> /opt/sun-jdk-1.4.2.02/bin/java
 	my $java_candidate;
 	my $vendor;
 
@@ -1521,13 +1497,6 @@ if ($os eq "gentoo") {
 		$vendor = "System";
 	}
 	check_runtime($java, "$vendor java VM", $java_candidate, "-client -ea");
-
-	# check kaffe. Don't take it personally, but kaffe is not meant as a
-	# robust production ready VM.  It's a research tool (so described on
-	# their home page) but given the progress in GNU classpath lately it
-	# *may* work, so we do check for it  - we just don't pick it by
-	# preference.
-	check_runtime($kaffe, "Kaffe VM", "/usr/lib/kaffe/bin/java", "");
 
 	# check jamvm (an elegant bytecode interpreter used by many in the
 	# CLASSPATH project to test new releases)
@@ -1563,9 +1532,6 @@ if ($os eq "gentoo") {
 	}
 	check_runtime($java, "$vendor java VM", $java_candidate, "-client -ea");
 
-	# check kaffe. See the comment about Kaffe above in the Debian block.
-	check_runtime($kaffe, "Kaffe VM", which("kaffe"), "");
-
 	# check jamvm (an elegant bytecode interpreter used by many in the
 	# CLASSPATH project to test new releases)
 	my $jamvm_candidate;
@@ -1596,9 +1562,6 @@ if ($os eq "gentoo") {
 		$vendor = "Sun";
 	}
 	check_runtime($java, "$vendor java VM", $java_candidate, "-client -ea");
-
-	# check kaffe. See the comment about Kaffe above in the Debian block.
-	check_runtime($kaffe, "Kaffe VM", which("kaffe"), "");
 
 	# check jamvm (an elegant bytecode interpreter used by many in the
 	# CLASSPATH project to test new releases)
@@ -1633,9 +1596,6 @@ if ($os eq "gentoo") {
 		$vendor = "IBM";
 	}
 	check_runtime($java, "$vendor java VM", $java_candidate, "-client -ea");
-
-	# check kaffe. See the comment about Kaffe above in the Debian block.
-	check_runtime($kaffe, "Kaffe VM", which("kaffe"), "");
 
 	# check jamvm (an elegant bytecode interpreter used by many in the
 	# CLASSPATH project to test new releases)
@@ -1700,9 +1660,6 @@ if ($os eq "gentoo") {
 
 	check_runtime($java, "Sun java VM", $java_candidate, "-client -ea");
 
-	# check kaffe
-	check_runtime($kaffe, "kaffe VM", which("kaffe"), "");
-
 	# check jamvm (an elegant bytecode interpreter used by many in the
 	# CLASSPATH project to test new releases)
 	my $jamvm_candidate;
@@ -1734,8 +1691,6 @@ if ($os eq "gentoo") {
 	}
 	check_runtime($java, "$vendor java VM", $java_candidate, "-client -ea");
 
-	# check kaffe. See the comment about Kaffe above in the Debian block.
-	check_runtime($kaffe, "Kaffe VM", which("kaffe"), "");
 	# check jamvm (an elegant bytecode interpreter used by many in the
 	# CLASSPATH project to test new releases)
 	my $jamvm_candidate;
@@ -1766,9 +1721,6 @@ if ($os eq "gentoo") {
 		$vendor = "Sun";
 	}
 	check_runtime($java, "$vendor java VM", $java_candidate, "-client -ea");
-
-	# check kaffe. See the comment about Kaffe above in the Debian block.
-	check_runtime($kaffe, "Kaffe VM", which("kaffe"), "");
 
 	# check jamvm (an elegant bytecode interpreter used by many in the
 	# CLASSPATH project to test new releases)
@@ -1921,8 +1873,6 @@ if ($runtime) {
 	# if overridden, check override...
 	if ($runtime eq "java")  {
 		bail "bad override", "java specified but not detected." unless $java;
-	} elsif ($runtime eq "kaffe") {
-		bail "bad override", "kaffe specified but not detected." unless $kaffe;
 	} elsif ($runtime eq "cacao") {
 		bail "bad override", "cacao specified but not detected." unless $cacao;
 	} elsif ($runtime eq "jamvm") {
@@ -1930,8 +1880,8 @@ if ($runtime) {
 	} else {
 		bail "bad override", <<HERE ;
 You specified runtime=$runtime on the command line, but that's not an option.
-Valid choices are java or kaffe - but of course that virtual machine
-must be installed (and detected!) before you can specify it.
+Valid choices are java - but of course that virtual machine must be installed
+(and detected!) before you can specify it.
 HERE
 	}
 
@@ -1942,8 +1892,6 @@ HERE
 		$runtime = "cacao";
 	} elsif ($jamvm) {
 		$runtime = "jamvm";
-	} elsif ($kaffe) {
-		$runtime = "kaffe";
 	} else {
 		bail "failed", "No usable Java runtime environment was detected.";
 	}
@@ -1954,9 +1902,6 @@ $java="$java -Djava.awt.headless=true";
 if ($runtime eq "java") {
 	print CONFIG "JAVA=$java\n";
 	print CONFIG "JAVA_CMD=JAVA     \n";
-} elsif ($runtime eq "kaffe") {
-	print CONFIG "JAVA=$kaffe\n";
-	print CONFIG "JAVA_CMD=KAFFE    \n";
 } elsif ($runtime eq "cacao") {
 	print CONFIG "JAVA=$cacao\n";
 	print CONFIG "JAVA_CMD=CACAO    \n";
