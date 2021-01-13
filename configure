@@ -520,7 +520,6 @@ my $jardir;
 my $compiler;
 my $runtime;
 my $jdk_home;
-my $gcj_home;
 my $jamvm_bin;
 my $cacao_bin;
 my $strict = "";
@@ -562,8 +561,6 @@ HERE
 		$compiler="$value";
 	} elsif ($key =~ /^jdk/) {
 		$jdk_home="$value";
-	} elsif ($key =~ /^gcj/) {
-		$gcj_home="$value";
 	} elsif ($key =~ /^cacao/) {
 		$cacao_bin="$value";
 	} elsif ($key =~ /^jamvm/) {
@@ -574,7 +571,7 @@ HERE
 }
 
 
-# check jdk_home and gcj_home overrides. compiler and runtime are checked 
+# check jdk_home override. compiler and runtime are checked 
 # later (at the end) against choices that have been validated.
 
 if ($jdk_home) {
@@ -583,14 +580,6 @@ if ($jdk_home) {
 		bail "bad override", "jdk_home specified doesn't seem to be a Java Development Kit home directory!";
 	}
 }
-
-if ($gcj_home) {
-	$gcj_home =~ s/\/$//;
-	if (! -x "$gcj_home/bin/gcj") {
-		bail "bad override", "gcj_home specified doesn't seem to be a GCJ install!";
-	}
-}
-
 
 # --------------------------------------------------------------------
 # Determine Operating System
@@ -1109,7 +1098,6 @@ output "Check Java compilers:\n";
 # compilers we will check for:
 my $javac;
 my $ecj;
-my $gcjC;	# The moniker $gcjC refers to `gcj -C`
 my $kaffec;
 
 # tools we check at same time (not switchable)
@@ -1173,18 +1161,6 @@ if ($os eq "gentoo") {
 	}
 	check_compiler($javac, "$vendor javac", $javac_candidate, "-g -source 1.6 -target 1.6");
 
-	# check gcj. -C means generate .class files, not .o files (which are
-	# for linking into native executables.
-
-	my $gcj_candidate;
-
-	if ($gcj_home) {
-		$gcj_candidate = "$gcj_home/bin/gcj";
-	} else {
-		$gcj_candidate = which("gcj");
-	}
-	check_compiler($gcjC, "GNU gcj -C (bytecode mode)", $gcj_candidate, "-C");
-
 	# check tools
 	check_jni_header_generator($javah, "$vendor javah", $javah_candidate, "-jni");
 	check_jar($jar, "$vendor jar", $jar_candidate, "");
@@ -1229,21 +1205,11 @@ if ($os eq "gentoo") {
 	}
 	check_compiler($javac, "$vendor javac", $javac_candidate, "-g -source 1.6 -target 1.6");
 
-	# check gcj. The moniker $gcjC refers to `gcj -C`. See HACKING.
-	my $gcj_candidate;
-	if ($gcj_home) {
-		$gcj_candidate = "$gcj_home/bin/gcj";
-	} else {
-		$gcj_candidate = which("gcj");
-	}
-	check_compiler($gcjC, "GNU gcj -C (bytecode mode)", $gcj_candidate, "-C -g");
-
 	# check for kaffe's compiler
 	check_compiler($kaffec, "Kaffe javac", "/usr/lib/kaffe/bin/javac", "");
 
 	# check for JDK tools. To suit Debian prejudices, use GNU tools if found.
 	check_jni_header_generator($javah, "$vendor javah", $javah_candidate, "-jni");
-	check_jni_header_generator($javah, "GNU gcjh", which("gcjh"), "-jni") unless $javah;
 	check_jni_header_generator($javah, "System javah", which("javah"), "-jni") unless $javah;
 
 	check_jar($jar, "$vendor jar", $jar_candidate, "");
@@ -1281,15 +1247,6 @@ if ($os eq "gentoo") {
 	}
 	check_compiler($javac, "$vendor javac", $javac_candidate, "-g -source 1.6 -target 1.6");
 
-	# check for gcj
-	my $gcj_candidate;
-	if ($gcj_home) {
-		$gcj_candidate = "$gcj_home/bin/gcj";
-	} else {
-		$gcj_candidate = which("gcj");
-	}
-	check_compiler($gcjC, "GNU gcj -C (bytecode mode)", $gcj_candidate, "-C");
-
 	# check for kaffe's compiler
 	check_compiler($kaffec, "Kaffe javac", which("kaffec"), "");
 
@@ -1320,15 +1277,6 @@ if ($os eq "gentoo") {
 		$vendor = "Sun";
 	}
 	check_compiler($javac, "$vendor javac", $javac_candidate, "-g -source 1.6 -target 1.6");
-
-	# check for gcj
-	my $gcj_candidate;
-	if ($gcj_home) {
-		$gcj_candidate = "$gcj_home/bin/gcj";
-	} else {
-		$gcj_candidate = which("gcj");
-	}
-	check_compiler($gcjC, "GNU gcj -C (bytecode mode)", $gcj_candidate, "-C");
 
 	# check for kaffe's compiler
 	check_compiler($kaffec, "Kaffe javac", which("kaffec"), "");
@@ -1418,15 +1366,6 @@ if ($os eq "gentoo") {
 	}
 	check_compiler($javac, "$vendor javac", $javac_candidate, "-g -source 1.6 -target 1.6");
 
-	# check for gcj
-	my $gcj_candidate;
-	if ($gcj_home) {
-		$gcj_candidate = "$gcj_home/bin/gcj";
-	} else {
-		$gcj_candidate = which("gcj");
-	}
-	check_compiler($gcjC, "GNU gcj -C (bytecode mode)", $gcj_candidate, "-C -g");
-
 	# check for kaffe's compiler
 	check_compiler($kaffec, "Kaffe javac", which("kaffec"), "");
 
@@ -1461,15 +1400,6 @@ if ($os eq "gentoo") {
 	}
 	check_compiler($javac, "$vendor javac", $javac_candidate, "-g -source 1.6 -target 1.6");
 
-	# check for gcj
-	my $gcj_candidate;
-	if ($gcj_home) {
-		$gcj_candidate = "$gcj_home/bin/gcj";
-	} else {
-		$gcj_candidate = which("gcj");
-	}
-	check_compiler($gcjC, "GNU gcj -C (bytecode mode)", $gcj_candidate, "-C");
-
 	# check for kaffe's compiler
 	check_compiler($kaffec, "Kaffe javac", which("kaffec"), "");
 
@@ -1501,15 +1431,6 @@ if ($os eq "gentoo") {
 	}
 	check_compiler($javac, "$vendor javac", $javac_candidate, "-g -source 1.6 -target 1.6");
 
-	# check for gcj
-	my $gcj_candidate;
-	if ($gcj_home) {
-		$gcj_candidate = "$gcj_home/bin/gcj";
-	} else {
-		$gcj_candidate = which("gcj");
-	}
-	check_compiler($gcjC, "GNU gcj -C (bytecode mode)", $gcj_candidate, "-C");
-
 	# check for kaffe's compiler
 	check_compiler($kaffec, "Kaffe javac", which("kaffec"), "");
 
@@ -1531,7 +1452,6 @@ output "Check Java virtual machines:\n";
 
 # runtimes we will check for:
 my $java;
-my $gij;
 my $kaffe;
 my $cacao;
 my $jamvm;
@@ -1560,16 +1480,6 @@ if ($os eq "gentoo") {
 		$vendor = "System";
 	}
 	check_runtime($java, "$vendor java VM", $java_candidate, "-client -ea");
-
-	# check gij (the bytecode interpreter from the GCJ project)
-	my $gij_candidate;
-
-	if ($gcj_home) {
-		$gij_candidate = "$gcj_home/bin/gij";
-	} else {
-		$gij_candidate = which("gij");
-	}
-	check_runtime($gij, "GNU gij", $gij_candidate, "");
 
 	# check kaffe
 	check_runtime($kaffe, "kaffe VM", which("kaffe"), "");
@@ -1612,16 +1522,6 @@ if ($os eq "gentoo") {
 	}
 	check_runtime($java, "$vendor java VM", $java_candidate, "-client -ea");
 
-	# check gij (the bytecode interpreter from the GCJ project). In Debian
-	# and Ubuntu the default version is provided by package gij.
-	my $gij_candidate;
-	if ($gcj_home) {
-		$gij_candidate = "$gcj_home/bin/gij";
-	} else {
-		$gij_candidate = which("gij");
-	}
-	check_runtime($gij, "GNU gij", $gij_candidate, "");
-
 	# check kaffe. Don't take it personally, but kaffe is not meant as a
 	# robust production ready VM.  It's a research tool (so described on
 	# their home page) but given the progress in GNU classpath lately it
@@ -1663,15 +1563,6 @@ if ($os eq "gentoo") {
 	}
 	check_runtime($java, "$vendor java VM", $java_candidate, "-client -ea");
 
-	# check gij (the bytecode interpreter from the GCJ project)
-	my $gij_candidate;
-	if ($gcj_home) {
-		$gij_candidate = "$gcj_home/bin/gij";
-	} else {
-		$gij_candidate = which("gij");
-	}
-	check_runtime($gij, "GNU gij", $gij_candidate, "");
-
 	# check kaffe. See the comment about Kaffe above in the Debian block.
 	check_runtime($kaffe, "Kaffe VM", which("kaffe"), "");
 
@@ -1705,15 +1596,6 @@ if ($os eq "gentoo") {
 		$vendor = "Sun";
 	}
 	check_runtime($java, "$vendor java VM", $java_candidate, "-client -ea");
-
-	# check gij (the bytecode interpreter from the GCJ project)
-	my $gij_candidate;
-	if ($gcj_home) {
-		$gij_candidate = "$gcj_home/bin/gij";
-	} else {
-		$gij_candidate = which("gij");
-	}
-	check_runtime($gij, "GNU gij", $gij_candidate, "");
 
 	# check kaffe. See the comment about Kaffe above in the Debian block.
 	check_runtime($kaffe, "Kaffe VM", which("kaffe"), "");
@@ -1751,15 +1633,6 @@ if ($os eq "gentoo") {
 		$vendor = "IBM";
 	}
 	check_runtime($java, "$vendor java VM", $java_candidate, "-client -ea");
-
-	# check gij (the bytecode interpreter from the GCJ project)
-	my $gij_candidate;
-	if ($gcj_home) {
-		$gij_candidate = "$gcj_home/bin/gij";
-	} else {
-		$gij_candidate = which("gij");
-	}
-	check_runtime($gij, "GNU gij", $gij_candidate, "");
 
 	# check kaffe. See the comment about Kaffe above in the Debian block.
 	check_runtime($kaffe, "Kaffe VM", which("kaffe"), "");
@@ -1827,16 +1700,6 @@ if ($os eq "gentoo") {
 
 	check_runtime($java, "Sun java VM", $java_candidate, "-client -ea");
 
-	# check gij (the bytecode interpreter from the GCJ project)
-	my $gij_candidate;
-
-	if ($gcj_home) {
-		$gij_candidate = "$gcj_home/bin/gij";
-	} else {
-		$gij_candidate = which("gij");
-	}
-	check_runtime($gij, "GNU gij", $gij_candidate, "");
-
 	# check kaffe
 	check_runtime($kaffe, "kaffe VM", which("kaffe"), "");
 
@@ -1871,18 +1734,8 @@ if ($os eq "gentoo") {
 	}
 	check_runtime($java, "$vendor java VM", $java_candidate, "-client -ea");
 
-	# check gij (the bytecode interpreter from the GCJ project)
-	my $gij_candidate;
-	if ($gcj_home) {
-		$gij_candidate = "$gcj_home/bin/gij";
-	} else {
-		$gij_candidate = which("gij");
-	}
-	check_runtime($gij, "GNU gij", $gij_candidate, "");
-
 	# check kaffe. See the comment about Kaffe above in the Debian block.
 	check_runtime($kaffe, "Kaffe VM", which("kaffe"), "");
-
 	# check jamvm (an elegant bytecode interpreter used by many in the
 	# CLASSPATH project to test new releases)
 	my $jamvm_candidate;
@@ -1914,15 +1767,6 @@ if ($os eq "gentoo") {
 	}
 	check_runtime($java, "$vendor java VM", $java_candidate, "-client -ea");
 
-	# check gij (the bytecode interpreter from the GCJ project)
-	my $gij_candidate;
-	if ($gcj_home) {
-		$gij_candidate = "$gcj_home/bin/gij";
-	} else {
-		$gij_candidate = which("gij");
-	}
-	check_runtime($gij, "GNU gij", $gij_candidate, "");
-
 	# check kaffe. See the comment about Kaffe above in the Debian block.
 	check_runtime($kaffe, "Kaffe VM", which("kaffe"), "");
 
@@ -1952,13 +1796,12 @@ output "\n";
 
 
 # --------------------------------------------------------------------
-# Check for GCJ native Java compiler and for a C compiler
+# Check for a C compiler
 # --------------------------------------------------------------------
 
 output "Check native compiler:\n";
 
-# these are initialized as, unlike javac which is populated with *something*,
-# even if gcj is not found we still need a variable for it.
+# these are initialized as, unlike javac which is populated with *something*
 my $gcc;
 my $cc;
 
@@ -1975,16 +1818,12 @@ if ($os eq "solaris") {
 } elsif ($os) {
 	my $gcc_candidate;
 
-	if (($gcj_home) && ($gcjC)) {
-		$gcc_candidate = "$gcj_home/bin/gcc";
-	} else {
-		$gcc_candidate = which("gcc");
+	$gcc_candidate = which("gcc");
 
-		# Workaround ccache needing to be symlinked as gcc 
-		# to perform _as_ gcc. Gentoo bug #180353
-		if (basename($gcc_candidate) eq "ccache") {
-			$gcc_candidate = `which gcc`;
-		}
+	# Workaround ccache needing to be symlinked as gcc 
+	# to perform _as_ gcc. Gentoo bug #180353
+	if (basename($gcc_candidate) eq "ccache") {
+		$gcc_candidate = `which gcc`;
 	}
 
 	check_CC($gcc, "GNU gcc", $gcc_candidate, "");
@@ -1995,15 +1834,6 @@ output "\n";
 # --------------------------------------------------------------------
 # Choose between java compilers and VMs, reviewing overrides
 # --------------------------------------------------------------------
-
-# if gij isn't sufficient version, then knock out gcj
-if (!$gij) {
-	if ($gcjC) {
-		output "Can't use GCJ, insufficiently recent version\n\n";
-	}
-	undef $gcjC;
-	undef $gij;
-}
 
 print CONFIG <<HERE ;
 
@@ -2022,12 +1852,10 @@ if ($compiler) {
 		bail "bad override", "javac specified but not detected as a workable compiler." unless $javac;
 	} elsif ($compiler eq "ecj") {
 		bail "bad override", "ecj specified but not detected as a workable compiler." unless $ecj;
-	} elsif ($compiler eq "gcj") {
-		bail "bad override", "gcj (-C) specified but gcj not detected as a workable compiler." unless $gcjC;
 	} else {
 		bail "bad override", <<HERE ;
 You specified compiler=$compiler on the command line, but that's not an option.
-Valid choices are ecj, javac, or gcj - but of course that compiler must be
+Valid choices are ecj or javac, - but of course that compiler must be
 installed (and detected!) in order to be able to specify it.
 HERE
 	}
@@ -2038,8 +1866,6 @@ HERE
 		$compiler = "ecj";
 	} elsif ($javac) {
 		$compiler = "javac";
-	} elsif ($gcjC) {
-		$compiler = "gcj";
 	} else {
 		bail "failed", "No java compiler was detected.";
 	}
@@ -2051,9 +1877,6 @@ if ($compiler eq "javac") {
 } elsif ($compiler eq "ecj") {
 	print CONFIG "JAVAC=$ecj\n";
 	print CONFIG "JAVAC_CMD=ECJ      \n";
-} elsif ($compiler eq "gcj") {
-	print CONFIG "JAVAC=$gcjC\n";
-	print CONFIG "JAVAC_CMD=GCJ [-C] \n";
 } else {
 	bail "failed", "INTERNAL ERROR no compiler selected.";
 }
@@ -2094,16 +1917,10 @@ output "$compiler\n";
 
 output "Select runtime:";
 
-# Note that java is favoured over gij only because the error messages
-# are better! (Ok, and, frankly, the compliance is obviously better
-# if its a real Java VM). The Free ones are getting there...
-
 if ($runtime) {
 	# if overridden, check override...
 	if ($runtime eq "java")  {
 		bail "bad override", "java specified but not detected." unless $java;
-	} elsif ($runtime eq "gij") {
-		bail "bad override", "gij specified but not detected." unless $gij;
 	} elsif ($runtime eq "kaffe") {
 		bail "bad override", "kaffe specified but not detected." unless $kaffe;
 	} elsif ($runtime eq "cacao") {
@@ -2113,7 +1930,7 @@ if ($runtime) {
 	} else {
 		bail "bad override", <<HERE ;
 You specified runtime=$runtime on the command line, but that's not an option.
-Valid choices are java, gij, or kaffe - but of course that virtual machine
+Valid choices are java or kaffe - but of course that virtual machine
 must be installed (and detected!) before you can specify it.
 HERE
 	}
@@ -2125,8 +1942,6 @@ HERE
 		$runtime = "cacao";
 	} elsif ($jamvm) {
 		$runtime = "jamvm";
-	} elsif ($gij) {
-		$runtime = "gij";
 	} elsif ($kaffe) {
 		$runtime = "kaffe";
 	} else {
@@ -2139,9 +1954,6 @@ $java="$java -Djava.awt.headless=true";
 if ($runtime eq "java") {
 	print CONFIG "JAVA=$java\n";
 	print CONFIG "JAVA_CMD=JAVA     \n";
-} elsif ($runtime eq "gij") {
-	print CONFIG "JAVA=$gij\n";
-	print CONFIG "JAVA_CMD=GIJ      \n";
 } elsif ($runtime eq "kaffe") {
 	print CONFIG "JAVA=$kaffe\n";
 	print CONFIG "JAVA_CMD=KAFFE    \n";
